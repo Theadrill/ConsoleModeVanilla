@@ -47,6 +47,11 @@ function Logger:LogEvent(msg)  Logger:Log(msg, "event")  end
 function Logger:LogInput(msg)  Logger:Log(msg, "input")  end
 function Logger:LogMode(msg)   Logger:Log(msg, "mode")   end
 
+-- Log sempre visível no chat (independente do toggle, para debug crítico)
+function Logger:Alert(msg)
+    DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM Alert]|r " .. tostring(msg))
+end
+
 -- ============================================================
 -- Toggle do Logger
 -- ============================================================

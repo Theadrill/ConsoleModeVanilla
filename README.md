@@ -1,5 +1,11 @@
 # ConsoleMode - Vanilla
 
+> ⚠️ **Aviso Legal**: Todo o código deste projeto foi desenvolvido tendo como base de referência e inspiração dois projetos open source:
+> - **[ConsoleExperienceClassic](https://github.com/pepordev/ConsoleExperienceClassic)** — addon para WoW 1.12 / Turtle WoW que serviu como referência técnica principal para a lógica de cursor de navegação, hooks de UI e compatibilidade com a API Vanilla.
+> - **[ConsolePort](https://github.com/seblindfors/ConsolePort)** — addon para WoW Retail (licença [The Artistic License 2.0](https://github.com/seblindfors/ConsolePort/blob/master/LICENSE.md)) que serviu como referência de UX, design de experiência com controle e visão de produto.
+>
+> O ConsoleMode - Vanilla é um projeto derivado e independente, não afiliado a nenhum dos projetos acima.
+
 **ConsoleMode - Vanilla** é um addon de experiência com controle/gamepad construído para World of Warcraft 1.12 (Vanilla / Turtle WoW), especialmente desenvolvido para dispositivos portáteis como o Steam Deck e para jogadores que preferem usar controles no PC.
 
 ---

@@ -9,3 +9,5 @@ Bindings.xml
 Core.lua
 Logger.lua
 Keybindings.lua
+Cursor.lua
+Hooks.lua

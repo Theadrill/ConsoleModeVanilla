@@ -3,105 +3,125 @@
     Core.lua
 
     Inicialização principal do addon.
-    Cria o namespace global, registra eventos e comandos slash.
+    Cria o frame global ConsoleMode que todos os módulos usam.
 ]]
 
--- Namespace global do Addon
-ConsoleMode = {
-    version = "0.1.0",
-    name    = "ConsoleMode - Vanilla"
-}
+_G = getfenv(0)
+
+-- Frame principal global do Addon (funciona como namespace e frame de eventos)
+ConsoleMode = CreateFrame("Frame", "ConsoleModeMainFrame", UIParent)
+ConsoleMode.version = "0.1.0"
+ConsoleMode.name    = "ConsoleMode - Vanilla"
+ConsoleMode.debug   = true  -- ✅ Flag para logs verbosos (iniciando ON por padrão para debug)
 
 local CM = ConsoleMode
 
--- Frame principal de eventos
-local eventFrame = CreateFrame("Frame", "ConsoleModeEventFrame", UIParent)
-eventFrame:RegisterEvent("ADDON_LOADED")
-eventFrame:RegisterEvent("VARIABLES_LOADED")
-eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-eventFrame:RegisterEvent("PLAYER_LOGOUT")
-eventFrame:RegisterEvent("CHAT_MSG_SAY")         -- detectar chat ativo (futuro: EditBox hooks)
+-- Registra eventos principais
+CM:RegisterEvent("ADDON_LOADED")
+CM:RegisterEvent("VARIABLES_LOADED")
+CM:RegisterEvent("PLAYER_ENTERING_WORLD")
+CM:RegisterEvent("PLAYER_LOGOUT")
 
-eventFrame:SetScript("OnEvent", function()
-    -- Addon carregado
+CM:SetScript("OnEvent", function()
     if event == "ADDON_LOADED" and arg1 == "ConsoleModeVanilla" then
         DEFAULT_CHAT_FRAME:AddMessage(
-            "|cff00ff00[ConsoleMode]|r v" .. CM.version .. " carregado. " ..
-            "Logger: |cff00ff00ATIVO|r | Digite |cffffd100/cm|r para ajuda."
+            "|cff00ff00[ConsoleMode]|r v" .. CM.version .. " carregado."
         )
 
-    -- Variáveis salvas carregadas: hora de inicializar módulos
     elseif event == "VARIABLES_LOADED" then
-        -- Garante que o banco de dados existe
         ConsoleModeDB = ConsoleModeDB or {}
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r VARIABLES_LOADED disparou.")
+        
+        -- ✅ CRÍTICO: Verificar se módulos foram carregados
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Core]|r Verificando módulos...")
+        DEFAULT_CHAT_FRAME:AddMessage("  CM.cursor: " .. (CM.cursor and "|cff00ff00OK|r" or "|cffff4444NIL|r"))
+        DEFAULT_CHAT_FRAME:AddMessage("  CM.hooks:  " .. (CM.hooks and "|cff00ff00OK|r" or "|cffff4444NIL|r"))
+        
+        if not CM.cursor then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Core]|r ❌ ERRO: Cursor module não carregou! Abortando inicialização.")
+            return
+        end
+        
+        if not CM.hooks then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Core]|r ❌ ERRO: Hooks module não carregou! Abortando inicialização.")
+            return
+        end
 
-        -- NOTA: ApplyDefaults() desativado durante desenvolvimento.
-        -- Ative manualmente com /cm controller quando quiser testar o perfil de controle.
-        -- if CM.keybindings then
-        --     if not ConsoleModeDB.defaultsApplied then
-        --         CM.keybindings:ApplyDefaults()
-        --         ConsoleModeDB.defaultsApplied = true
-        --     end
-        -- end
+        -- Inicializa hooks somente se módulos existem
+        if CM.hooks and CM.hooks.Initialize then
+            CM.hooks:Initialize()
+        end
 
-        CM.logger:LogEvent("VARIABLES_LOADED - Módulos inicializados. Use /cm controller para ativar perfil de controle.")
-
-    -- Entrando no mundo
     elseif event == "PLAYER_ENTERING_WORLD" then
-        CM.logger:LogEvent("PLAYER_ENTERING_WORLD - Bem vindo, " .. (UnitName("player") or "Aventureiro") .. "!")
+        -- O evento PLAYER_ENTERING_WORLD é tratado pelo sistema de hooks em Hooks.lua
+        -- Não precisa fazer nada aqui, o eventFrame de hooks já cuida disso
 
-    -- Logout: salva bindings
     elseif event == "PLAYER_LOGOUT" then
         SaveBindings(GetCurrentBindingSet())
-        CM.logger:LogEvent("PLAYER_LOGOUT - Bindings salvos.")
     end
 end)
 
--- ============================================================
 -- Comandos Slash
--- ============================================================
 SLASH_CONSOLEMODE1 = "/consolemode"
 SLASH_CONSOLEMODE2 = "/cm"
 
 SlashCmdList["CONSOLEMODE"] = function(msg)
     local cmd = string.lower(msg or "")
 
-    if cmd == "debug" or cmd == "logger" then
-        -- Toggle do logger
-        CM.logger:Toggle()
+    if cmd == "status" then
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00====== ConsoleMode Status ======|r")
+        DEFAULT_CHAT_FRAME:AddMessage("  Versao:    " .. CM.version)
+        DEFAULT_CHAT_FRAME:AddMessage("  Hooks:     " .. (CM.hooks and (CM.hooks.initialized and "|cff00ff00Inicializado|r" or "|cffffcc00Carregado mas nao init|r") or "|cffff4444NIL|r"))
+        DEFAULT_CHAT_FRAME:AddMessage("  Cursor:    " .. (CM.cursor and (CM.cursor.state.enabled and "|cff00ff00ATIVO|r" or "|cffaaaaaaInativo|r") or "|cffff4444NIL|r"))
+        DEFAULT_CHAT_FRAME:AddMessage("  Debug:     " .. (CM.debug and "|cffffcc00ON|r" or "|cff888888OFF|r"))
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00================================|r")
 
-    elseif cmd == "status" then
-        -- Status geral
-        CM.logger:PrintStatus()
+    elseif cmd == "debug" then
+        CM.debug = not CM.debug
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Modo debug: " .. (CM.debug and "|cffffcc00LIGADO|r" or "|cff888888DESLIGADO|r"))
+        DEFAULT_CHAT_FRAME:AddMessage("|cffaaaaaa[CM]|r Logs verbosos estao " .. (CM.debug and "habilitados" or "desabilitados"))
 
-    elseif cmd == "controller" then
-        -- Ativa perfil de controle (salva backup antes)
-        CM.keybindings:BackupProfile()
-        CM.keybindings:ApplyDefaults()
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Perfil de |cff00ccffcontrole|r ativado!")
+    elseif cmd == "init" then
+        if CM.hooks then
+            CM.hooks.initialized = false
+            CM.hooks:Initialize()
+        end
 
-    elseif cmd == "keyboard" then
-        -- Restaura perfil original de teclado
-        CM.keybindings:RestoreProfile()
+    elseif cmd == "test" then
+        local f = getglobal("CharacterFrame")
+        if f and CM.hooks then
+            CM.hooks:OnFrameShow(f)
+        end
 
-    elseif cmd == "backup" then
-        -- Cria backup manualmente
-        CM.keybindings:BackupProfile()
-
-    elseif cmd == "mouse" then
-        -- Toggle Mouse Mode manualmente via chat
-        CM.keybindings:ToggleMouseMode()
+    elseif cmd == "frame" then
+        -- ✅ NOVO: Identifica o frame sob o mouse
+        local frame = GetMouseFocus()
+        if frame then
+            local name = frame:GetName() or "(unnamed)"
+            local ftype = frame:GetObjectType() or "unknown"
+            local parent = frame:GetParent()
+            local parentName = parent and (parent:GetName() or "(unnamed parent)") or "none"
+            
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Frame Debug]|r")
+            DEFAULT_CHAT_FRAME:AddMessage("  Nome:      |cffffcc00" .. name .. "|r")
+            DEFAULT_CHAT_FRAME:AddMessage("  Tipo:      |cff88ccff" .. ftype .. "|r")
+            DEFAULT_CHAT_FRAME:AddMessage("  Parent:    |cffcccccc" .. parentName .. "|r")
+            DEFAULT_CHAT_FRAME:AddMessage("  Visivel:   " .. (frame:IsVisible() and "|cff00ff00SIM|r" or "|cffff4444NAO|r"))
+            
+            if CM.cursor and CM.cursor.IsInteractive then
+                local interactive = CM.cursor:IsInteractive(frame)
+                DEFAULT_CHAT_FRAME:AddMessage("  Interativo: " .. (interactive and "|cff00ff00SIM|r" or "|cffff4444NAO|r"))
+            end
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Nenhum frame sob o mouse")
+        end
 
     else
-        -- Ajuda
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00====== ConsoleMode - Vanilla ======|r")
-
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm status|r     - Status geral do addon")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm debug|r      - Toggle do logger de debug")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm controller|r - Ativa perfil de controle (faz backup antes)")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm keyboard|r   - Restaura perfil original de teclado")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm backup|r     - Cria backup manual dos bindings atuais")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm mouse|r      - Toggle Mouse Mode")
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00==================================|r")
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ConsoleMode:|r Comandos disponiveis:")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm status|r  - Mostra status do addon")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm debug|r   - Liga/desliga logs verbosos")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm frame|r   - Identifica frame sob o mouse")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm init|r    - Re-inicializa hooks")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm test|r    - Testa CharacterFrame")
     end
 end

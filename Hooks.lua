@@ -42,7 +42,7 @@ Hooks.frames = {
     { frame = "StaticPopup3",        name = "Dialogo 3" },
     { frame = "StaticPopup4",        name = "Dialogo 4" },
     
-    -- Inventário
+    -- Inventário Padrão Blizzard
     { frame = "ContainerFrame1",     name = "Bolsa 1" },
     { frame = "ContainerFrame2",     name = "Bolsa 2" },
     { frame = "ContainerFrame3",     name = "Bolsa 3" },
@@ -55,6 +55,16 @@ Hooks.frames = {
     { frame = "ContainerFrame10",    name = "Bolsa Banco 5" },
     { frame = "ContainerFrame11",    name = "Bolsa Banco 6" },
     { frame = "ContainerFrame12",    name = "Bolsa Banco 7" },
+    
+    -- Addons de Bolsas Populares
+    { frame = "SUCC_bag",            name = "Turtle-Dragonflight Bolsa" },
+    { frame = "SUCC_bagBank",        name = "Turtle-Dragonflight Banco" },
+    { frame = "pfBag",               name = "pfUI Bolsa" },
+    { frame = "pfBank",              name = "pfUI Banco" },
+    { frame = "BagshuiBagsFrame",    name = "Bagshui Bolsa" },
+    { frame = "BagshuiBankFrame",    name = "Bagshui Banco" },
+    { frame = "Bagnon",              name = "Bagnon Bolsa" },
+    { frame = "BagnonBank",          name = "Bagnon Banco" },
     
     -- NPCs e Interações (Load-on-Demand)
     { frame = "MerchantFrame",       name = "Vendedor" },
@@ -363,22 +373,37 @@ function Hooks:Initialize()
             end
         end)
         
-        -- ✅ NOVO: OnUpdate para detectar frames visíveis mas não inicializados
-        -- Checa a cada 0.5 segundos se há frames visíveis que deveriam ter cursor
+        -- ✅ Monitoramento em tempo real (a cada 0.1s) de abertura e fechamento de janelas
         self.eventFrame:SetScript("OnUpdate", function()
             this.elapsed = (this.elapsed or 0) + arg1
-            if this.elapsed > 0.5 then
+            if this.elapsed > 0.1 then
                 this.elapsed = 0
                 
-                -- Lista de frames problemáticos que podem não disparar OnShow
-                local problematicFrames = { "TalentFrame", "WorldMapFrame" }
                 local Cursor = ConsoleMode.cursor
-                
                 if Cursor then
+                    -- 1. Verifica se os frames atualmente ativos ainda estão visíveis
+                    local anyFrameVisible = false
+                    for frame, _ in pairs(Cursor.state.activeFrames) do
+                        if frame and frame:IsVisible() then
+                            anyFrameVisible = true
+                        else
+                            Cursor.state.activeFrames[frame] = nil
+                        end
+                    end
+                    
+                    -- Se nenhuma janela estiver aberta mas o modo navegação ainda estiver ligado, desativa na hora!
+                    if not anyFrameVisible and Cursor.state.enabled then
+                        Cursor:Disable()
+                        if ConsoleMode.keybindings and ConsoleMode.keybindings.ExitNavigationMode then
+                            ConsoleMode.keybindings:ExitNavigationMode()
+                        end
+                    end
+                    
+                    -- 2. Detecta frames que abriram sem disparar OnShow padrao
+                    local problematicFrames = { "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon" }
                     for _, frameName in ipairs(problematicFrames) do
                         local frame = getglobal(frameName)
                         if frame and frame:IsVisible() and not Cursor.state.activeFrames[frame] then
-                            DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM OnUpdate]|r Detectado " .. frameName .. " visível mas sem cursor, inicializando...")
                             Hooks:OnFrameShow(frame)
                         end
                     end

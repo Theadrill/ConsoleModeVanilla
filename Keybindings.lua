@@ -334,6 +334,11 @@ end
 function CM_Action(button, page)
     if CM.keybindings.chatActive then return end
     CM.logger:Log("Ação: Página " .. page .. " | Botão " .. button)
+    
+    -- Botao A na pagina 1 (Base/Sem modificador) = Pulo padrão do WoW
+    if page == 1 and button == "A" then
+        JumpOrAscendStart()
+    end
 end
 
 function CM_Fixed(button)

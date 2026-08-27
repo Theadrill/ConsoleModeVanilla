@@ -290,6 +290,24 @@ function Cursor:FindFirstVisibleButton(frame)
         return nil
     end
     
+    local fname = frame:GetName() or ""
+    
+    -- Para SUCC_bag / SUCC_bagBank (Turtle-Dragonflight): preferir primeiro slot de item
+    if fname == "SUCC_bag" or fname == "SUCC_bagBank" then
+        local firstItem = getglobal(fname .. "Item1")
+        if firstItem and firstItem:IsVisible() then
+            return firstItem
+        end
+    end
+    
+    -- Para bolsas normais da Blizzard: preferir primeiro item
+    if string.find(fname, "ContainerFrame%d+") then
+        local firstItem = getglobal(fname .. "Item1")
+        if firstItem and firstItem:IsVisible() then
+            return firstItem
+        end
+    end
+    
     if self:IsInteractive(frame) and not self:ShouldIgnore(frame) then
         return frame
     end
@@ -306,6 +324,29 @@ end
 function Cursor:CollectButtons(frame, result)
     result = result or {}
     if not frame or not frame:IsVisible() then return result end
+    
+    local fname = frame:GetName() or ""
+    
+    -- Para SUCC_bag / SUCC_bagBank (Turtle-Dragonflight): coletar slots e botoes especiais
+    if fname == "SUCC_bag" or fname == "SUCC_bagBank" then
+        local size = frame.size or 140
+        for i = 1, size do
+            local item = getglobal(fname .. "Item" .. i)
+            if item and item:IsVisible() then
+                table.insert(result, item)
+            end
+        end
+        if frame.closeButton and frame.closeButton:IsVisible() then
+            table.insert(result, frame.closeButton)
+        end
+        if frame.toggleButton and frame.toggleButton:IsVisible() then
+            table.insert(result, frame.toggleButton)
+        end
+        if frame.keyringButton and frame.keyringButton:IsVisible() then
+            table.insert(result, frame.keyringButton)
+        end
+        return result
+    end
     
     if self:IsInteractive(frame) and not self:ShouldIgnore(frame) then
         table.insert(result, frame)
@@ -496,25 +537,50 @@ function Cursor:Click(mouseButton)
         return
     end
     
-    -- Bolsas e Inventario (Blizzard, pfUI, Bagshui, Bagnon)
+    -- Bolsas e Inventario (Blizzard, pfUI, Bagshui, Bagnon, Turtle-Dragonflight SUCC_bag)
+    local isSUCCBag = string.find(bname, "SUCC_bagItem%d+") or string.find(bname, "SUCC_bagBankItem%d+")
     local isBagItem = string.find(bname, "ContainerFrame%d+Item%d+") or 
                       string.find(bname, "pfBag%-?%d+item%d+") or 
                       string.find(bname, "BagshuiBagsItem%d+") or 
                       string.find(bname, "BagshuiBankItem%d+") or 
-                      string.find(bname, "BagnonItem%d+")
+                      string.find(bname, "BagnonItem%d+") or
+                      isSUCCBag
                       
     if isBagItem then
         local bagID, slotID = nil, nil
-        local _, _, cFrameNum = string.find(bname, "ContainerFrame(%d+)")
-        if cFrameNum then
-            bagID = tonumber(cFrameNum) - 1
-            slotID = button:GetID()
+        
+        if isSUCCBag then
+            local parent = button:GetParent()
+            if parent and parent.GetID then
+                bagID = parent:GetID()
+                slotID = button:GetID()
+            end
+        else
+            local _, _, cFrameNum = string.find(bname, "ContainerFrame(%d+)")
+            if cFrameNum then
+                bagID = tonumber(cFrameNum) - 1
+                slotID = button:GetID()
+            end
         end
         
-        if mouseButton == "RightButton" and bagID and slotID then
-            UseContainerItem(bagID, slotID)
-            self:UpdateState()
-            return
+        if bagID and slotID then
+            if mouseButton == "RightButton" then
+                -- Usar item diretamente
+                UseContainerItem(bagID, slotID)
+                self:UpdateState()
+                return
+            elseif mouseButton == "LeftButton" then
+                -- Se ja tem item na mão, colocar/trocar
+                if CursorHasItem() or CursorHasSpell() then
+                    PickupContainerItem(bagID, slotID)
+                elseif button.Click then
+                    button:Click(mouseButton)
+                else
+                    PickupContainerItem(bagID, slotID)
+                end
+                self:UpdateState()
+                return
+            end
         end
     end
     

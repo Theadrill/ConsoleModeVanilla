@@ -63,13 +63,21 @@
     <Binding name="CM_ACTION_DRIGHT_5">CM_Action("DRIGHT", 5)</Binding>
 
     <!-- ============================================================ -->
-    <!-- Botões Fixos (independente de página)                        -->
+    <!-- Botões Fixos e Atalhos de Interface                          -->
     <!-- ============================================================ -->
     <Binding name="CM_FIXED_L1" header="CONSOLEMODEFIXED">CM_Fixed("L1")</Binding>      <!-- TAB -->
     <Binding name="CM_FIXED_SELECT">CM_Fixed("SELECT")</Binding>                         <!-- Mapa (base) -->
     <Binding name="CM_FIXED_START">CM_Fixed("START")</Binding>                           <!-- Menu (base) -->
     <Binding name="CM_TOGGLE_MOUSEMODE">CM_ToggleMouseMode()</Binding>                   <!-- L3 -->
     <Binding name="CM_MOUSERIGHT">CM_MouseRight()</Binding>                              <!-- R3 -->
+
+    <!-- ============================================================ -->
+    <!-- Atalhos de Interface Rápidos com Combos                      -->
+    <!-- ============================================================ -->
+    <Binding name="CM_UI_CHARACTER" header="CONSOLEMODEUI">CM_ToggleUI("Character")</Binding> <!-- C = L2 + Select -->
+    <Binding name="CM_UI_BAGS">CM_ToggleUI("Bags")</Binding>                                   <!-- B = L2 + Start -->
+    <Binding name="CM_UI_TALENTS">CM_ToggleUI("Talents")</Binding>                             <!-- N = R2 + Select -->
+    <Binding name="CM_UI_SPELLBOOK">CM_ToggleUI("SpellBook")</Binding>                         <!-- P = R2 + Start -->
 
     <!-- ============================================================ -->
     <!-- Menu Ring (L2 + R2 + A)                                     -->

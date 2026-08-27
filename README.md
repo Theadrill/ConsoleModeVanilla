@@ -59,11 +59,20 @@ Configure seu app de remapeamento da seguinte forma:
 
 #### Botões Fixos (sempre iguais, independente de página)
 
-| Botão Físico | Tecla | Função |
+| Botão Físico | Tecla Remapeada | Função |
 |:---|:---|:---|
 | **L1** | `TAB` | Selecionar alvo mais próximo |
-| **Select / Back / −** | `M` | Abrir mapa do mundo |
-| **Start / Menu / +** | `ESCAPE` | Abrir menu do jogo |
+| **Select / Back / −** | `M` | Abrir / Fechar mapa do mundo |
+| **Start / Menu / +** | `F11` *(ou Escape)* | Abrir menu do jogo / Fechar janelas |
+
+#### Atalhos Rápidos de Menus / Interface (Combos)
+
+| Botão Físico | Teclas Combinadas | Função / Janela Aberta |
+|:---|:---|:---|
+| **L2 + Select** | `SHIFT + M` | Abrir / Fechar Janela de Personagem (C) |
+| **L2 + Start** | `SHIFT + F11` | Abrir / Fechar Bolsas (B) |
+| **R2 + Select** | `ALT + M` | Abrir / Fechar Talentos (N) |
+| **R2 + Start** | `ALT + F11` | Abrir / Fechar Livro de Magias (P) |
 
 #### Modificadores de Página (segurar para ativar a página)
 

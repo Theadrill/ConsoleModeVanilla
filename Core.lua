@@ -47,14 +47,20 @@ CM:SetScript("OnEvent", function()
             return
         end
 
+        -- Inicializa keybindings
+        if CM.keybindings and CM.keybindings.Initialize then
+            CM.keybindings:Initialize()
+        end
+
         -- Inicializa hooks somente se módulos existem
         if CM.hooks and CM.hooks.Initialize then
             CM.hooks:Initialize()
         end
 
     elseif event == "PLAYER_ENTERING_WORLD" then
-        -- O evento PLAYER_ENTERING_WORLD é tratado pelo sistema de hooks em Hooks.lua
-        -- Não precisa fazer nada aqui, o eventFrame de hooks já cuida disso
+        if CM.keybindings and CM.keybindings.Initialize then
+            CM.keybindings:Initialize()
+        end
 
     elseif event == "PLAYER_LOGOUT" then
         SaveBindings(GetCurrentBindingSet())
@@ -81,7 +87,21 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Modo debug: " .. (CM.debug and "|cffffcc00LIGADO|r" or "|cff888888DESLIGADO|r"))
         DEFAULT_CHAT_FRAME:AddMessage("|cffaaaaaa[CM]|r Logs verbosos estao " .. (CM.debug and "habilitados" or "desabilitados"))
 
+    elseif cmd == "controller" then
+        if CM.keybindings and CM.keybindings.ApplyDefaults then
+            CM.keybindings:ApplyDefaults()
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Perfil de controle aplicado com sucesso!")
+        end
+
+    elseif cmd == "keyboard" then
+        if CM.keybindings and CM.keybindings.RestoreProfile then
+            CM.keybindings:RestoreProfile()
+        end
+
     elseif cmd == "init" then
+        if CM.keybindings and CM.keybindings.Initialize then
+            CM.keybindings:Initialize()
+        end
         if CM.hooks then
             CM.hooks.initialized = false
             CM.hooks:Initialize()
@@ -94,7 +114,6 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         end
 
     elseif cmd == "frame" then
-        -- ✅ NOVO: Identifica o frame sob o mouse
         local frame = GetMouseFocus()
         if frame then
             local name = frame:GetName() or "(unnamed)"
@@ -118,10 +137,11 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
 
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ConsoleMode:|r Comandos disponiveis:")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm status|r  - Mostra status do addon")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm debug|r   - Liga/desliga logs verbosos")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm frame|r   - Identifica frame sob o mouse")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm init|r    - Re-inicializa hooks")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm test|r    - Testa CharacterFrame")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm controller|r - Aplica perfil de controle completo")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm keyboard|r   - Restaura perfil de teclado/mouse")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm status|r     - Mostra status do addon")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm debug|r      - Liga/desliga logs verbosos")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm frame|r      - Identifica frame sob o mouse")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm init|r       - Re-inicializa hooks e bindings")
     end
 end

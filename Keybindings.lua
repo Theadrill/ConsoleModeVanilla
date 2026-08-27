@@ -63,6 +63,13 @@ _G["BINDING_NAME_CM_FIXED_START"]       = "Start (Menu do Jogo)"
 _G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)"
 _G["BINDING_NAME_CM_MOUSERIGHT"]        = "R3 (Clique Direito)"
 
+-- Atalhos de Interface
+_G["BINDING_HEADER_CONSOLEMODEUI"]      = "ConsoleMode - Atalhos de Interface"
+_G["BINDING_NAME_CM_UI_CHARACTER"]      = "L2 + Select (Personagem - C)"
+_G["BINDING_NAME_CM_UI_BAGS"]           = "L2 + Start (Bolsas - B)"
+_G["BINDING_NAME_CM_UI_TALENTS"]        = "R2 + Select (Talentos - N)"
+_G["BINDING_NAME_CM_UI_SPELLBOOK"]      = "R2 + Start (Livro de Magias - P)"
+
 -- Nomes dos bindings de cursor
 _G["BINDING_NAME_CM_CURSOR_UP"]      = "Cursor: Cima"
 _G["BINDING_NAME_CM_CURSOR_DOWN"]    = "Cursor: Baixo"
@@ -134,11 +141,17 @@ local defaults = {
     },
 }
 
--- Defaults fixos
+-- Defaults fixos e atalhos de interface
+-- L2 = SHIFT | R2 = ALT | R1 = CTRL
+-- SELECT = M | START = F11 (com ESCAPE mantido no teclado como padrão)
 local fixedDefaults = {
     CM_FIXED_L1     = "TAB",
     CM_FIXED_SELECT = "M",
-    CM_FIXED_START  = "ESCAPE",
+    CM_FIXED_START  = "F11",
+    CM_UI_CHARACTER = "SHIFT-M",      -- L2 + Select (C)
+    CM_UI_BAGS      = "SHIFT-F11",    -- L2 + Start (B)
+    CM_UI_TALENTS   = "ALT-M",        -- R2 + Select (N)
+    CM_UI_SPELLBOOK = "ALT-F11",      -- R2 + Start (P)
 }
 
 -- ============================================================
@@ -151,6 +164,21 @@ KB.mouseModeActive  = false
 KB.chatActive       = false
 KB.navigationMode   = false  -- true quando uma janela de UI está aberta
 KB.savedNavBindings = {}     -- bindings salvas antes de entrar no modo navegação
+
+-- Inicialização e garantia de bindings de interface
+function KB:Initialize()
+    -- Mantém ESCAPE como tecla primária do menu e define F11 para o Start do controle
+    SetBinding("ESCAPE", "TOGGLEGAMEMENU")
+    SetBinding("F11", "CM_FIXED_START")
+    
+    -- Atalhos de controle com modificadores (L2/R2 + Select/Start)
+    SetBinding("SHIFT-M", "CM_UI_CHARACTER")     -- L2 + Select (Personagem)
+    SetBinding("SHIFT-F11", "CM_UI_BAGS")        -- L2 + Start (Bolsas)
+    SetBinding("ALT-M", "CM_UI_TALENTS")         -- R2 + Select (Talentos)
+    SetBinding("ALT-F11", "CM_UI_SPELLBOOK")     -- R2 + Start (Livro de Magias)
+    
+    CM.logger:Log("Atalhos de Interface (F11 / M) inicializados.")
+end
 
 -- ============================================================
 -- Aplicar Defaults
@@ -381,6 +409,38 @@ end
 function CM_Fixed(button)
     if CM.keybindings.chatActive and button ~= "L1" then return end
     CM.logger:Log("Fixo: " .. button)
+    
+    if button == "START" then
+        -- Se o GameMenuFrame ja estiver aberto, fecha
+        if GameMenuFrame and GameMenuFrame:IsVisible() then
+            HideUIPanel(GameMenuFrame)
+            return
+        end
+        
+        -- Tenta fechar qualquer janela de UI aberta pelo cursor primeiro
+        local closedAny = false
+        local Cursor = CM.cursor
+        if Cursor and Cursor.state.activeFrames then
+            for frame, _ in pairs(Cursor.state.activeFrames) do
+                if frame and frame:IsVisible() then
+                    if frame.Hide then
+                        frame:Hide()
+                        closedAny = true
+                    end
+                end
+            end
+        end
+        
+        -- Se nenhuma janela estava aberta, abre o Menu do Jogo
+        if not closedAny then
+            ShowUIPanel(GameMenuFrame)
+        end
+        
+    elseif button == "SELECT" then
+        ToggleWorldMap()
+    elseif button == "L1" then
+        TargetNearestEnemy()
+    end
 end
 
 function CM_ToggleMouseMode()
@@ -389,6 +449,41 @@ end
 
 function CM_MouseRight()
     CM.logger:Log("R3: Clique Direito do Mouse")
+end
+
+function CM_ToggleUI(uiType)
+    if CM.keybindings.chatActive then return end
+    CM.logger:Log("UI Toggle: " .. tostring(uiType))
+    
+    if uiType == "Character" then
+        ToggleCharacter("PaperDollFrame")
+    elseif uiType == "Bags" then
+        if OpenAllBags then
+            local allOpen = false
+            for i = 0, 4 do
+                if IsBagOpen(i) then
+                    allOpen = true
+                    break
+                end
+            end
+            if allOpen then
+                CloseAllBags()
+            else
+                OpenAllBags()
+            end
+        else
+            ToggleBackpack()
+        end
+    elseif uiType == "Talents" then
+        if ToggleTalentFrame then
+            ToggleTalentFrame()
+        elseif TalentFrame_LoadUI then
+            TalentFrame_LoadUI()
+            ShowUIPanel(TalentFrame)
+        end
+    elseif uiType == "SpellBook" then
+        ToggleSpellBook(BOOKTYPE_SPELL)
+    end
 end
 
 function CM_CursorMove(direction)

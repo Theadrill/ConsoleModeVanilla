@@ -101,14 +101,19 @@ Estes botões mudam de função dependendo do modificador segurado:
 | **D-Pad ←** | `9` | `SHIFT+9` | `CTRL+9` | `ALT+9` | `SHIFT+ALT+9` |
 | **D-Pad →** | `0` | `SHIFT+0` | `CTRL+0` | `ALT+0` | `SHIFT+ALT+0` |
 
-> 💡 **Modo Navegação**: Quando qualquer janela do jogo (missões, NPC, bolsas, etc.) estiver aberta, o D-Pad automaticamente passa a navegar entre os botões da janela. **A** confirma e **B** cancela/fecha.
+#### 🧭 Modo Navegação (quando qualquer janela de interface está aberta)
 
-#### Mouse Mode (quando L3 está ativo)
+Quando qualquer janela do jogo (missões, NPC, bolsas, menus, etc.) estiver aberta, os controles assumem automaticamente o modo de navegação de interface:
 
-| Botão Físico | Tecla | Função |
+| Botão Físico | Tecla / Ação | Função no Modo Navegação |
 |:---|:---|:---|
-| **L2** | Botão Esquerdo do Mouse | Clicar |
-| **R2** | Botão Direito do Mouse | Clicar direito |
+| **D-Pad ↑ ↓ ← →** | `7`, `8`, `9`, `0` | Mover cursor entre os botões, abas e itens da janela |
+| **A** | `SPACE` | Confirmar / Interagir com o elemento selecionado |
+| **B** | `3` | Cancelar / Fechar janela atual (ou soltar item do cursor) |
+| **L1** | `TAB` | **Clique Esquerdo** (`Left Click`) no elemento sob o cursor |
+| **R1** | `CTRL` | **Clique Direito** (`Right Click`) no elemento sob o cursor |
+| **L2** | `SHIFT` | **Comparar Equipamento** (segurar exibe o tooltip comparativo) |
+| **R2** | `ALT` | *(Livre / Sem ação por enquanto)* |
 
 ---
 

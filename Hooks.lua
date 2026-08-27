@@ -422,6 +422,38 @@ function Hooks:Initialize()
                             Hooks:OnFrameShow(frame)
                         end
                     end
+                    
+                    -- 3. Detecção de movimento do mouse físico para reativar o cursor do mouse
+                    local curX, curY = GetCursorPosition()
+                    if Hooks.lastMouseX and Hooks.lastMouseY then
+                        local dx = math.abs(curX - Hooks.lastMouseX)
+                        local dy = math.abs(curY - Hooks.lastMouseY)
+                        if dx > 10 or dy > 10 then
+                            -- O jogador mexeu no mouse físico!
+                            local mouseFocus = GetMouseFocus()
+                            if mouseFocus and Cursor.state.enabled and Cursor:IsInteractive(mouseFocus) then
+                                Cursor:MoveTo(mouseFocus)
+                            end
+                        end
+                    end
+                    Hooks.lastMouseX = curX
+                    Hooks.lastMouseY = curY
+                    
+                    -- 4. Detecção de Shift (L2) para comparação de equipamentos em tempo real
+                    local isShift = (IsShiftKeyDown and IsShiftKeyDown()) and true or false
+                    if isShift ~= Hooks.lastShiftState then
+                        Hooks.lastShiftState = isShift
+                        if Cursor.state.enabled and Cursor.state.currentButton then
+                            local btn = Cursor.state.currentButton
+                            local onEnter = btn.GetScript and btn:GetScript("OnEnter")
+                            if onEnter then
+                                pcall(function()
+                                    this = btn
+                                    onEnter()
+                                end)
+                            end
+                        end
+                    end
                 end
             end
         end)
@@ -441,4 +473,34 @@ function Hooks:Initialize()
 
     self.initialized = true
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Hooks inicializados: " .. count .. " frames hookados.")
+end
+
+function Hooks:CloseTopFrame()
+    local Cursor = ConsoleMode.cursor
+    if Cursor and Cursor.state.activeFrames then
+        for frame, _ in pairs(Cursor.state.activeFrames) do
+            if frame and frame:IsVisible() then
+                local frameName = frame:GetName() or ""
+                if frameName == "WorldMapFrame" then
+                    ToggleWorldMap()
+                elseif frameName == "CharacterFrame" then
+                    ToggleCharacter("PaperDollFrame")
+                elseif frameName == "SpellBookFrame" then
+                    ToggleSpellBook(BOOKTYPE_SPELL)
+                elseif frameName == "TalentFrame" then
+                    if ToggleTalentFrame then ToggleTalentFrame() else HideUIPanel(frame) end
+                elseif frameName == "QuestLogFrame" then
+                    ToggleQuestLog()
+                elseif frameName == "FriendsFrame" then
+                    ToggleFriendsFrame()
+                elseif HideUIPanel and (frame:GetParent() == UIParent or UIPanelWindows[frameName]) then
+                    HideUIPanel(frame)
+                elseif frame.Hide then
+                    frame:Hide()
+                end
+                return true
+            end
+        end
+    end
+    return false
 end

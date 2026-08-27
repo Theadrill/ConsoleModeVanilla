@@ -328,33 +328,37 @@ function KB:EnterNavigationMode()
         defaults[1].DRIGHT,
         defaults[1].A,
         defaults[1].B,
+        "TAB",
     }
 
     -- Salva a ação real que cada tecla executava antes
     KB.savedNavBindings = {}
     for _, key in ipairs(keysToOverride) do
         local action = GetBindingAction(key)
-        if action and action ~= "" and action ~= "CM_CURSOR_UP" and action ~= "CM_CURSOR_DOWN" and action ~= "CM_CURSOR_LEFT" and action ~= "CM_CURSOR_RIGHT" and action ~= "CM_CURSOR_CONFIRM" and action ~= "CM_CURSOR_CANCEL" then
+        if action and action ~= "" and not string.find(action, "^CM_CURSOR_") then
             KB.savedNavBindings[key] = action
         else
             if key == defaults[1].A then
                 KB.savedNavBindings[key] = "JUMP"
             elseif key == defaults[1].B then
                 KB.savedNavBindings[key] = "ACTIONBUTTON3"
+            elseif key == "TAB" then
+                KB.savedNavBindings[key] = "TARGETNEARESTEMY"
             end
         end
     end
 
-    -- Aplica bindings de navegação no D-Pad e botões A e B
+    -- Aplica bindings de navegação no D-Pad, botões A, B e L1/R1
     SetBinding(defaults[1].DUP,    "CM_CURSOR_UP")
     SetBinding(defaults[1].DDOWN,  "CM_CURSOR_DOWN")
     SetBinding(defaults[1].DLEFT,  "CM_CURSOR_LEFT")
     SetBinding(defaults[1].DRIGHT, "CM_CURSOR_RIGHT")
     SetBinding(defaults[1].A,      "CM_CURSOR_CONFIRM")
     SetBinding(defaults[1].B,      "CM_CURSOR_CANCEL")
+    SetBinding("TAB",              "CM_CURSOR_CLICK_LEFT")
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (7,8,9,0 = D-Pad | Space = A | 3 = B)")
-    CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, B = Cancelar")
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (D-Pad = Navegar | A = Confirmar | B = Cancelar | L1 = Left Click)")
+    CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, B = Cancelar, L1 = Clique Esquerdo")
 end
 
 function KB:ExitNavigationMode()
@@ -368,6 +372,7 @@ function KB:ExitNavigationMode()
         defaults[1].DRIGHT,
         defaults[1].A,
         defaults[1].B,
+        "TAB",
     }
 
     -- Restaura bindings originais de cada tecla
@@ -381,6 +386,8 @@ function KB:ExitNavigationMode()
                 SetBinding(key, "JUMP")
             elseif key == defaults[1].B then
                 SetBinding(key, "ACTIONBUTTON3")
+            elseif key == "TAB" then
+                SetBinding(key, "TARGETNEARESTEMY")
             elseif key == defaults[1].DUP then
                 SetBinding(key, "CM_ACTION_DUP_1")
             elseif key == defaults[1].DDOWN then
@@ -416,30 +423,31 @@ function CM_Fixed(button)
     CM.logger:Log("Fixo: " .. button)
     
     if button == "START" then
-        -- Se o GameMenuFrame ja estiver aberto, fecha
+        -- 1. Se o GameMenuFrame ja estiver aberto, fecha
         if GameMenuFrame and GameMenuFrame:IsVisible() then
             HideUIPanel(GameMenuFrame)
             return
         end
         
-        -- Tenta fechar qualquer janela de UI aberta pelo cursor primeiro
-        local closedAny = false
-        local Cursor = CM.cursor
-        if Cursor and Cursor.state.activeFrames then
-            for frame, _ in pairs(Cursor.state.activeFrames) do
-                if frame and frame:IsVisible() then
-                    if frame.Hide then
-                        frame:Hide()
-                        closedAny = true
-                    end
-                end
-            end
+        -- 2. Se houver item ou feitiço preso no cursor, limpa a mão
+        if CursorHasItem() or CursorHasSpell() then
+            ClearCursor()
+            return
         end
         
-        -- Se nenhuma janela estava aberta, abre o Menu do Jogo
-        if not closedAny then
-            ShowUIPanel(GameMenuFrame)
+        -- 3. Tenta fechar qualquer janela de UI aberta
+        if CM.hooks and CM.hooks.CloseTopFrame and CM.hooks:CloseTopFrame() then
+            return
         end
+        
+        -- 4. Se houver um alvo selecionado, deseleciona (Clear Target igual ao ESC)
+        if UnitExists("target") then
+            ClearTarget()
+            return
+        end
+        
+        -- 5. Se nenhuma janela estava aberta e sem alvo, abre o Menu do Jogo
+        ShowUIPanel(GameMenuFrame)
         
     elseif button == "SELECT" then
         ToggleWorldMap()
@@ -543,14 +551,40 @@ end
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
     
-    -- Proteção: se o cursor não estiver ativo em nenhuma janela, força saída
-    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
-        CM.keybindings:ExitNavigationMode()
+    -- 1. Se estiver com item ou magia no cursor do mouse, limpa a mão
+    if CursorHasItem() or CursorHasSpell() then
+        ClearCursor()
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Item no cursor limpo)")
         return
     end
     
-    DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Cancelar/Fechar)")
-    CM.logger:Log("Cursor: Cancelar (B)")
+    -- 2. Fecha a janela de UI ativa usando método oficial do WoW
+    if CM.hooks and CM.hooks.CloseTopFrame and CM.hooks:CloseTopFrame() then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Janela fechada)")
+        return
+    end
+    
+    -- 3. Fallback: Se nenhuma janela fechou, desativa modo de navegação
+    if CM.keybindings and CM.keybindings.ExitNavigationMode then
+        CM.keybindings:ExitNavigationMode()
+    end
+end
+
+function CM_CursorClickLeft()
+    if CM.keybindings.chatActive then return end
+    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
+        return
+    end
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r L1: Clique Esquerdo")
+    CM.cursor:Click("LeftButton")
+end
+
+function CM_CursorClickRight()
+    if CM.keybindings.chatActive then return end
+    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
+        return
+    end
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r R1: Clique Direito")
     CM.cursor:Click("RightButton")
 end
 

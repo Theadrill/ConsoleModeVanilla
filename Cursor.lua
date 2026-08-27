@@ -96,11 +96,17 @@ function Cursor:UpdatePosition(button)
 
     local w = button:GetWidth() or 32
     local h = button:GetHeight() or 32
-    highlightFrame:ClearAllPoints()
-    highlightFrame:SetPoint("CENTER", button, "CENTER", 0, 0)
-    highlightFrame:SetWidth(w + 10)
-    highlightFrame:SetHeight(h + 10)
-    highlightFrame:Show()
+    
+    -- Ignora highlight retangular se o frame for gigante (ex: WorldMapButton, backgrounds)
+    if w > 300 or h > 200 then
+        highlightFrame:Hide()
+    else
+        highlightFrame:ClearAllPoints()
+        highlightFrame:SetPoint("CENTER", button, "CENTER", 0, 0)
+        highlightFrame:SetWidth(w + 10)
+        highlightFrame:SetHeight(h + 10)
+        highlightFrame:Show()
+    end
 end
 
 function Cursor:FindParentScrollFrame(button)
@@ -221,9 +227,21 @@ function Cursor:IsInteractive(frame)
     if not frame then return false end
     if not frame:IsVisible() then return false end
     
+    local fname = frame:GetName() or ""
+    if fname == "WorldMapButton" or fname == "WorldMapFrame" then
+        return false
+    end
+    
     local ftype = frame:GetObjectType()
     
     if ftype == "Button" then
+        -- Ignora botões que são planos de fundo gigantes (canvas de mapa, etc.)
+        local w = frame:GetWidth() or 0
+        local h = frame:GetHeight() or 0
+        if w > 350 and h > 250 then
+            return false
+        end
+        
         if frame.IsEnabled then
             return frame:IsEnabled()
         end

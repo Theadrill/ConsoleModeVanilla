@@ -149,7 +149,7 @@ function KBList:Show(parent)
         
         for i, btnKey in ipairs(BUTTON_ORDER) do
             local row = math.floor((i - 1) / 2)
-            local col = (i - 1) % 2
+            local col = math.mod(i - 1, 2)
             
             local rowBtn = CreateFrame("Button", "ConsoleModeKeyRow" .. i, gridFrame)
             rowBtn:SetWidth(202)

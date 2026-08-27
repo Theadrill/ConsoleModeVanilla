@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bindings>
+    <!-- ============================================================ -->
+    <!-- ConsoleMode - Vanilla                                        -->
+    <!-- Bindings de Ação: 5 páginas x 8 botões = 40 slots           -->
+    <!-- Página 1: Sem Modificador (Base)                             -->
+    <!-- Página 2: L2  = SHIFT                                        -->
+    <!-- Página 3: R1  = CTRL                                         -->
+    <!-- Página 4: R2  = ALT                                          -->
+    <!-- Página 5: R1+R2 = CTRL+ALT                                   -->
+    <!-- ============================================================ -->
+
+    <!-- PAGE 1: Base (sem modificador) -->
+    <!-- Faciais -->
+    <Binding name="CM_ACTION_A_1" header="CONSOLEMODEBASE">CM_Action("A", 1)</Binding>
+    <Binding name="CM_ACTION_X_1">CM_Action("X", 1)</Binding>
+    <Binding name="CM_ACTION_Y_1">CM_Action("Y", 1)</Binding>
+    <Binding name="CM_ACTION_B_1">CM_Action("B", 1)</Binding>
+    <!-- D-Pad Hotkey -->
+    <Binding name="CM_ACTION_DUP_1">CM_Action("DUP", 1)</Binding>
+    <Binding name="CM_ACTION_DDOWN_1">CM_Action("DDOWN", 1)</Binding>
+    <Binding name="CM_ACTION_DLEFT_1">CM_Action("DLEFT", 1)</Binding>
+    <Binding name="CM_ACTION_DRIGHT_1">CM_Action("DRIGHT", 1)</Binding>
+
+    <!-- PAGE 2: L2 = SHIFT -->
+    <Binding name="CM_ACTION_A_2" header="CONSOLEMMODEL2">CM_Action("A", 2)</Binding>
+    <Binding name="CM_ACTION_X_2">CM_Action("X", 2)</Binding>
+    <Binding name="CM_ACTION_Y_2">CM_Action("Y", 2)</Binding>
+    <Binding name="CM_ACTION_B_2">CM_Action("B", 2)</Binding>
+    <Binding name="CM_ACTION_DUP_2">CM_Action("DUP", 2)</Binding>
+    <Binding name="CM_ACTION_DDOWN_2">CM_Action("DDOWN", 2)</Binding>
+    <Binding name="CM_ACTION_DLEFT_2">CM_Action("DLEFT", 2)</Binding>
+    <Binding name="CM_ACTION_DRIGHT_2">CM_Action("DRIGHT", 2)</Binding>
+
+    <!-- PAGE 3: R1 = CTRL -->
+    <Binding name="CM_ACTION_A_3" header="CONSOLEMODER1">CM_Action("A", 3)</Binding>
+    <Binding name="CM_ACTION_X_3">CM_Action("X", 3)</Binding>
+    <Binding name="CM_ACTION_Y_3">CM_Action("Y", 3)</Binding>
+    <Binding name="CM_ACTION_B_3">CM_Action("B", 3)</Binding>
+    <Binding name="CM_ACTION_DUP_3">CM_Action("DUP", 3)</Binding>
+    <Binding name="CM_ACTION_DDOWN_3">CM_Action("DDOWN", 3)</Binding>
+    <Binding name="CM_ACTION_DLEFT_3">CM_Action("DLEFT", 3)</Binding>
+    <Binding name="CM_ACTION_DRIGHT_3">CM_Action("DRIGHT", 3)</Binding>
+
+    <!-- PAGE 4: R2 = ALT -->
+    <Binding name="CM_ACTION_A_4" header="CONSOLEMODER2">CM_Action("A", 4)</Binding>
+    <Binding name="CM_ACTION_X_4">CM_Action("X", 4)</Binding>
+    <Binding name="CM_ACTION_Y_4">CM_Action("Y", 4)</Binding>
+    <Binding name="CM_ACTION_B_4">CM_Action("B", 4)</Binding>
+    <Binding name="CM_ACTION_DUP_4">CM_Action("DUP", 4)</Binding>
+    <Binding name="CM_ACTION_DDOWN_4">CM_Action("DDOWN", 4)</Binding>
+    <Binding name="CM_ACTION_DLEFT_4">CM_Action("DLEFT", 4)</Binding>
+    <Binding name="CM_ACTION_DRIGHT_4">CM_Action("DRIGHT", 4)</Binding>
+
+    <!-- PAGE 5: R1+R2 = CTRL+ALT -->
+    <Binding name="CM_ACTION_A_5" header="CONSOLEMODER1R2">CM_Action("A", 5)</Binding>
+    <Binding name="CM_ACTION_X_5">CM_Action("X", 5)</Binding>
+    <Binding name="CM_ACTION_Y_5">CM_Action("Y", 5)</Binding>
+    <Binding name="CM_ACTION_B_5">CM_Action("B", 5)</Binding>
+    <Binding name="CM_ACTION_DUP_5">CM_Action("DUP", 5)</Binding>
+    <Binding name="CM_ACTION_DDOWN_5">CM_Action("DDOWN", 5)</Binding>
+    <Binding name="CM_ACTION_DLEFT_5">CM_Action("DLEFT", 5)</Binding>
+    <Binding name="CM_ACTION_DRIGHT_5">CM_Action("DRIGHT", 5)</Binding>
+
+    <!-- ============================================================ -->
+    <!-- Botões Fixos (independente de página)                        -->
+    <!-- ============================================================ -->
+    <Binding name="CM_FIXED_L1" header="CONSOLEMODEFIXED">CM_Fixed("L1")</Binding>      <!-- TAB -->
+    <Binding name="CM_FIXED_SELECT">CM_Fixed("SELECT")</Binding>                         <!-- Mapa (base) -->
+    <Binding name="CM_FIXED_START">CM_Fixed("START")</Binding>                           <!-- Menu (base) -->
+    <Binding name="CM_TOGGLE_MOUSEMODE">CM_ToggleMouseMode()</Binding>                   <!-- L3 -->
+    <Binding name="CM_MOUSERIGHT">CM_MouseRight()</Binding>                              <!-- R3 -->
+
+    <!-- ============================================================ -->
+    <!-- Navegação de Cursor UI (D-Pad modo navegação)                -->
+    <!-- ============================================================ -->
+    <Binding name="CM_CURSOR_UP" header="CONSOLEMODECURSOR">CM_CursorMove("UP")</Binding>
+    <Binding name="CM_CURSOR_DOWN">CM_CursorMove("DOWN")</Binding>
+    <Binding name="CM_CURSOR_LEFT">CM_CursorMove("LEFT")</Binding>
+    <Binding name="CM_CURSOR_RIGHT">CM_CursorMove("RIGHT")</Binding>
+    <Binding name="CM_CURSOR_CONFIRM">CM_CursorConfirm()</Binding>                       <!-- A no modo nav -->
+    <Binding name="CM_CURSOR_CANCEL">CM_CursorCancel()</Binding>                         <!-- B no modo nav -->
+</Bindings>

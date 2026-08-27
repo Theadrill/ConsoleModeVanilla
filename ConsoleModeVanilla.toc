@@ -5,4 +5,7 @@
 ## Version: 0.1.0
 ## SavedVariables: ConsoleModeDB
 
+Bindings.xml
 Core.lua
+Logger.lua
+Keybindings.lua

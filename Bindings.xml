@@ -7,7 +7,7 @@
     <!-- Página 2: L2  = SHIFT                                        -->
     <!-- Página 3: R1  = CTRL                                         -->
     <!-- Página 4: R2  = ALT                                          -->
-    <!-- Página 5: R1+R2 = CTRL+ALT                                   -->
+    <!-- Página 5: L2+R2 = SHIFT+ALT                                  -->
     <!-- ============================================================ -->
 
     <!-- PAGE 1: Base (sem modificador) -->
@@ -52,8 +52,8 @@
     <Binding name="CM_ACTION_DLEFT_4">CM_Action("DLEFT", 4)</Binding>
     <Binding name="CM_ACTION_DRIGHT_4">CM_Action("DRIGHT", 4)</Binding>
 
-    <!-- PAGE 5: R1+R2 = CTRL+ALT -->
-    <Binding name="CM_ACTION_A_5" header="CONSOLEMODER1R2">CM_Action("A", 5)</Binding>
+    <!-- PAGE 5: L2+R2 = SHIFT+ALT -->
+    <Binding name="CM_ACTION_A_5" header="CONSOLEMODEL2R2">CM_Action("A", 5)</Binding>
     <Binding name="CM_ACTION_X_5">CM_Action("X", 5)</Binding>
     <Binding name="CM_ACTION_Y_5">CM_Action("Y", 5)</Binding>
     <Binding name="CM_ACTION_B_5">CM_Action("B", 5)</Binding>

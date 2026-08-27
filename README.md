@@ -27,7 +27,7 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 
 - **Cursor Navigation**: Navegação fluida de UI com D-Pad e controle em janelas, menus, diálogos e bolsas.
 - **Auto-Snap**: Foco automático em opções de diálogo, botões de aceitar/completar missões e interações com NPCs.
-- **5 Páginas de Ação**: 40 slots de habilidades mapeados em 5 páginas via modificadores (L2, R1, R2, R1+R2 e Base).
+- **5 Páginas de Ação**: 40 slots de habilidades mapeados em 5 páginas via modificadores (L2, R1, R2, L2+R2 e Base).
 - **Mouse Mode**: Alternância entre modo câmera e modo cursor de mouse via L3.
 - **Backup & Restore**: Salva e restaura seu layout original de teclado/mouse com um comando.
 - **Interface amigável para controles**: Otimizado para dispositivos portáteis (Steam Deck, ROG Ally, etc.).
@@ -73,22 +73,22 @@ Configure seu app de remapeamento da seguinte forma:
 | **L2** | `SHIFT` (held) | **Página 2: L2** |
 | **R1** | `CTRL` (held) | **Página 3: R1** |
 | **R2** | `ALT` (held) | **Página 4: R2** |
-| **R1 + R2** | `CTRL + ALT` (held) | **Página 5: R1+R2** |
+| **L2 + R2** | `SHIFT + ALT` (held) | **Página 5: L2+R2** |
 
 #### Botões de Ação (D-Pad e Faciais)
 
 Estes botões mudam de função dependendo do modificador segurado:
 
-| Botão Físico | Sem Mod | L2 (Shift) | R1 (Ctrl) | R2 (Alt) | R1+R2 (Ctrl+Alt) |
+| Botão Físico | Sem Mod | L2 (Shift) | R1 (Ctrl) | R2 (Alt) | L2+R2 (Shift+Alt) |
 |:---|:---|:---|:---|:---|:---|
-| **A** | `SPACE` | `SHIFT+SPACE` | `CTRL+SPACE` | `ALT+SPACE` | `CTRL+ALT+SPACE` |
-| **X** | `1` | `SHIFT+1` | `CTRL+1` | `ALT+1` | `CTRL+ALT+1` |
-| **Y** | `2` | `SHIFT+2` | `CTRL+2` | `ALT+2` | `CTRL+ALT+2` |
-| **B** | `3` | `SHIFT+3` | `CTRL+3` | `ALT+3` | `CTRL+ALT+3` |
-| **D-Pad ↑** | `7` | `SHIFT+7` | `CTRL+7` | `ALT+7` | `CTRL+ALT+7` |
-| **D-Pad ↓** | `8` | `SHIFT+8` | `CTRL+8` | `ALT+8` | `CTRL+ALT+8` |
-| **D-Pad ←** | `9` | `SHIFT+9` | `CTRL+9` | `ALT+9` | `CTRL+ALT+9` |
-| **D-Pad →** | `0` | `SHIFT+0` | `CTRL+0` | `ALT+0` | `CTRL+ALT+0` |
+| **A** | `SPACE` | `SHIFT+SPACE` | `CTRL+SPACE` | `ALT+SPACE` | `SHIFT+ALT+SPACE` |
+| **X** | `1` | `SHIFT+1` | `CTRL+1` | `ALT+1` | `SHIFT+ALT+1` |
+| **Y** | `2` | `SHIFT+2` | `CTRL+2` | `ALT+2` | `SHIFT+ALT+2` |
+| **B** | `3` | `SHIFT+3` | `CTRL+3` | `ALT+3` | `SHIFT+ALT+3` |
+| **D-Pad ↑** | `7` | `SHIFT+7` | `CTRL+7` | `ALT+7` | `SHIFT+ALT+7` |
+| **D-Pad ↓** | `8` | `SHIFT+8` | `CTRL+8` | `ALT+8` | `SHIFT+ALT+8` |
+| **D-Pad ←** | `9` | `SHIFT+9` | `CTRL+9` | `ALT+9` | `SHIFT+ALT+9` |
+| **D-Pad →** | `0` | `SHIFT+0` | `CTRL+0` | `ALT+0` | `SHIFT+ALT+0` |
 
 > 💡 **Modo Navegação**: Quando qualquer janela do jogo (missões, NPC, bolsas, etc.) estiver aberta, o D-Pad automaticamente passa a navegar entre os botões da janela. **A** confirma e **B** cancela/fecha.
 

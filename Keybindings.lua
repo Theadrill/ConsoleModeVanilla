@@ -32,7 +32,7 @@ local pageLabels = {
     [2] = "L2 + ",
     [3] = "R1 + ",
     [4] = "R2 + ",
-    [5] = "R1+R2 + ",
+    [5] = "L2+R2 + ",
 }
 
 -- Registra os headers das páginas
@@ -40,7 +40,7 @@ _G["BINDING_HEADER_CONSOLEMODEBASE"]   = "ConsoleMode - Base (Sem Modificador)"
 _G["BINDING_HEADER_CONSOLEMMODEL2"]    = "ConsoleMode - L2 (Shift)"
 _G["BINDING_HEADER_CONSOLEMODER1"]     = "ConsoleMode - R1 (Ctrl)"
 _G["BINDING_HEADER_CONSOLEMODER2"]     = "ConsoleMode - R2 (Alt)"
-_G["BINDING_HEADER_CONSOLEMODER1R2"]   = "ConsoleMode - R1+R2 (Ctrl+Alt)"
+_G["BINDING_HEADER_CONSOLEMODEL2R2"]   = "ConsoleMode - L2+R2 (Shift+Alt)"
 _G["BINDING_HEADER_CONSOLEMODEFIXED"]  = "ConsoleMode - Botões Fixos"
 _G["BINDING_HEADER_CONSOLEMODECURSOR"] = "ConsoleMode - Navegação de Cursor"
 
@@ -74,7 +74,7 @@ _G["BINDING_NAME_CM_CURSOR_CANCEL"]  = "Cursor: Cancelar (B)"
 -- ============================================================
 -- Defaults de Teclado por Botão e Página
 -- Formato: [página][botão] = "TECLA"
--- Modificadores: SHIFT (L2), CTRL (R1), ALT (R2), CTRL-ALT (R1+R2)
+-- Modificadores: SHIFT (L2), CTRL (R1), ALT (R2), SHIFT-ALT (L2+R2)
 -- ============================================================
 local defaults = {
     -- Page 1: Base
@@ -121,16 +121,16 @@ local defaults = {
         DLEFT  = "ALT-9",
         DRIGHT = "ALT-0",
     },
-    -- Page 5: R1+R2 = CTRL+ALT
+    -- Page 5: L2+R2 = SHIFT+ALT
     [5] = {
-        A      = "CTRL-ALT-SPACE",
-        X      = "CTRL-ALT-1",
-        Y      = "CTRL-ALT-2",
-        B      = "CTRL-ALT-3",
-        DUP    = "CTRL-ALT-7",
-        DDOWN  = "CTRL-ALT-8",
-        DLEFT  = "CTRL-ALT-9",
-        DRIGHT = "CTRL-ALT-0",
+        A      = "SHIFT-ALT-SPACE",
+        X      = "SHIFT-ALT-1",
+        Y      = "SHIFT-ALT-2",
+        B      = "SHIFT-ALT-3",
+        DUP    = "SHIFT-ALT-7",
+        DDOWN  = "SHIFT-ALT-8",
+        DLEFT  = "SHIFT-ALT-9",
+        DRIGHT = "SHIFT-ALT-0",
     },
 }
 

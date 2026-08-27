@@ -1,0 +1,8 @@
+## Interface: 11200
+## Title: ConsoleMode - Vanilla
+## Notes: Controller and handheld UI navigation experience for Turtle WoW / Vanilla 1.12.
+## Author: Rodrigo Vernaschi
+## Version: 0.1.0
+## SavedVariables: ConsoleModeDB
+
+Core.lua

@@ -308,6 +308,7 @@ function KB:EnterNavigationMode()
     SetBinding(defaults[1].A,      "CM_CURSOR_CONFIRM")
     SetBinding(defaults[1].B,      "CM_CURSOR_CANCEL")
 
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (7,8,9,0 = D-Pad | Space = A | 3 = B)")
     CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, B = Cancelar")
 end
 
@@ -323,6 +324,7 @@ function KB:ExitNavigationMode()
     end
     KB.savedNavBindings = {}
 
+    DEFAULT_CHAT_FRAME:AddMessage("|cffff8800[CM Keybindings]|r Modo Navegacao DESATIVADO (Combate restaurado)")
     CM.logger:Log("Modo HOTKEY restaurado - D-Pad = ações de combate")
 end
 
@@ -332,9 +334,6 @@ end
 function CM_Action(button, page)
     if CM.keybindings.chatActive then return end
     CM.logger:Log("Ação: Página " .. page .. " | Botão " .. button)
-    -- A execução da ação real (usar habilidade, item, etc.) é tratada
-    -- via teclas nativas do WoW mapeadas pelo remapper.
-    -- Esta função existe para o logger e futuras extensões.
 end
 
 function CM_Fixed(button)
@@ -352,20 +351,29 @@ end
 
 function CM_CursorMove(direction)
     if CM.keybindings.chatActive then return end
-    CM.logger:Log("Cursor: Mover " .. direction)
-    -- Delegado ao módulo de cursor (futuro)
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Key]|r D-Pad: " .. tostring(direction))
+    CM.logger:Log("Cursor: Mover " .. tostring(direction))
+    if CM.cursor and CM.cursor.MoveDirection then
+        CM.cursor:MoveDirection(direction)
+    end
 end
 
 function CM_CursorConfirm()
     if CM.keybindings.chatActive then return end
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao A (Confirmar/Clicar)")
     CM.logger:Log("Cursor: Confirmar (A)")
-    -- Delegado ao módulo de cursor (futuro)
+    if CM.cursor and CM.cursor.Click then
+        CM.cursor:Click("LeftButton")
+    end
 end
 
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
+    DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Cancelar/Fechar)")
     CM.logger:Log("Cursor: Cancelar (B)")
-    -- Delegado ao módulo de cursor (futuro)
+    if CM.cursor and CM.cursor.Click then
+        CM.cursor:Click("RightButton")
+    end
 end
 
 -- ============================================================

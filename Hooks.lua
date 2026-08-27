@@ -131,8 +131,18 @@ function Hooks:OnFrameShow(frame)
     Cursor.state.activeFrames[frame] = true
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM OnFrameShow]|r Frame " .. name .. " adicionado a activeFrames")
 
-    -- ✅ CRÍTICO: Detectar se é frame de addon de bolsa (pfUI, Bagshui, Bagnon, Turtle-Dragonflight)
-    -- Esses addons criam botões dinamicamente DEPOIS do OnShow
+    -- Garante que o cursor fique na camada visual correta
+    if Cursor.EnsureOnTop then
+        Cursor:EnsureOnTop(frame)
+    end
+
+    -- Ativa modo de navegacao no controle (D-Pad move cursor, A confirma, B cancela)
+    if ConsoleMode.keybindings and ConsoleMode.keybindings.EnterNavigationMode then
+        ConsoleMode.keybindings:EnterNavigationMode()
+    end
+
+    -- ✅ CRITICO: Detectar se e frame de addon de bolsa (pfUI, Bagshui, Bagnon, Turtle-Dragonflight)
+    -- Esses addons criam botoes dinamicamente DEPOIS do OnShow
     local isPfUIBag = (name == "pfBag" or name == "pfBank")
     local isBagshuiBag = (name == "BagshuiBagsFrame" or name == "BagshuiBankFrame")
     local isBagnonBag = (name == "Bagnon" or name == "BagnonBank")
@@ -142,7 +152,7 @@ function Hooks:OnFrameShow(frame)
         local addonName = isPfUIBag and "pfUI" or (isBagshuiBag and "Bagshui" or (isBagnonBag and "Bagnon" or "Turtle-Dragonflight"))
         DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Frame de " .. addonName .. " detectado, aguardando botoes...")
         
-        -- Retry até 10x (1 segundo total) esperando os botões aparecerem
+        -- Retry ate 10x (1 segundo total) esperando os botoes aparecerem
         local delayFrame = CreateFrame("Frame")
         local attempts = 0
         delayFrame:SetScript("OnUpdate", function()
@@ -191,6 +201,10 @@ function Hooks:InitCursorOnFrame(frame)
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM InitCursor]|r Inicializando cursor em: " .. frameName)
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM InitCursor]|r Buscando primeiro botao...")
     
+    if Cursor.EnsureOnTop then
+        Cursor:EnsureOnTop(frame)
+    end
+
     local firstButton = Cursor:FindFirstVisibleButton(frame)
     
     if firstButton then
@@ -238,6 +252,9 @@ function Hooks:ProcessFrameHide(frame)
         Hooks:InitCursorOnFrame(nextFrame)
     else
         Cursor:Disable()
+        if ConsoleMode.keybindings and ConsoleMode.keybindings.ExitNavigationMode then
+            ConsoleMode.keybindings:ExitNavigationMode()
+        end
     end
 end
 

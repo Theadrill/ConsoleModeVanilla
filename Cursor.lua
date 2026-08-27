@@ -1,16 +1,15 @@
 --[[
     ConsoleMode - Vanilla
     Cursor.lua
+    
+    Implementação de cursor virtual para navegação de interface via controle.
+    Compatível com Lua 5.0 (WoW 1.12 / Turtle WoW).
 ]]
 
 _G = getfenv(0)
 
-DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Cursor.lua]|r Iniciando carregamento...")
-
 ConsoleMode.cursor = ConsoleMode.cursor or {}
 local Cursor = ConsoleMode.cursor
-
-DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Cursor.lua]|r Namespace criado!")
 
 Cursor.state = {
     enabled = false,
@@ -19,6 +18,7 @@ Cursor.state = {
     activeFrames = {},
     allButtons = {},
     closest = { up = nil, down = nil, left = nil, right = nil },
+    distances = { up = 999999, down = 999999, left = 999999, right = 999999 },
 }
 
 -- Frame do Ponteiro
@@ -47,12 +47,43 @@ highlightTexture:SetAllPoints(highlightFrame)
 highlightTexture:SetVertexColor(1, 1, 0, 0.7)
 Cursor.highlight = highlightFrame
 
+-- ============================================================================
+-- POSICIONAMENTO E VISIBILIDADE
+-- ============================================================================
+
+function Cursor:EnsureOnTop(frame)
+    if frame then
+        local frameName = frame:GetName()
+        if frameName == "WorldMapFrame" then
+            cursorFrame:SetParent(frame)
+            highlightFrame:SetParent(frame)
+            cursorFrame:SetFrameStrata("TOOLTIP")
+            cursorFrame:SetFrameLevel(1001)
+            highlightFrame:SetFrameStrata("TOOLTIP")
+            highlightFrame:SetFrameLevel(1000)
+            return
+        end
+    end
+
+    cursorFrame:SetParent(UIParent)
+    highlightFrame:SetParent(UIParent)
+    cursorFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+    cursorFrame:SetFrameLevel(1001)
+    highlightFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+    highlightFrame:SetFrameLevel(1000)
+end
+
 function Cursor:UpdatePosition(button)
     if not button then 
         self:Hide()
         return 
     end
     
+    if not button.GetCenter then
+        self:Hide()
+        return
+    end
+
     local x, y = button:GetCenter()
     if not x or not y then 
         self:Hide()
@@ -63,8 +94,8 @@ function Cursor:UpdatePosition(button)
     cursorFrame:SetPoint("CENTER", button, "BOTTOM", 8, 0)
     cursorFrame:Show()
 
-    local w = button:GetWidth()
-    local h = button:GetHeight()
+    local w = button:GetWidth() or 32
+    local h = button:GetHeight() or 32
     highlightFrame:ClearAllPoints()
     highlightFrame:SetPoint("CENTER", button, "CENTER", 0, 0)
     highlightFrame:SetWidth(w + 10)
@@ -72,11 +103,88 @@ function Cursor:UpdatePosition(button)
     highlightFrame:Show()
 end
 
+function Cursor:FindParentScrollFrame(button)
+    if not button then return nil end
+    local parent = button:GetParent()
+    local depth = 0
+    while parent and depth < 20 do
+        local parentName = parent:GetName() or ""
+        if string.find(parentName, "ScrollChild") then
+            local sName = string.gsub(parentName, "ScrollChild", "ScrollFrame")
+            local sf = getglobal(sName)
+            if sf then return sf end
+        end
+        if string.find(parentName, "ScrollFrame") and parent.GetVerticalScroll then
+            return parent
+        end
+        parent = parent:GetParent()
+        depth = depth + 1
+    end
+    return nil
+end
+
+function Cursor:ScrollToShowButton(button)
+    if not button then return end
+    local scrollFrame = self:FindParentScrollFrame(button)
+    if not scrollFrame then return end
+    
+    local scrollBarName = scrollFrame:GetName() and (scrollFrame:GetName() .. "ScrollBar")
+    local scrollBar = scrollBarName and getglobal(scrollBarName)
+    if not scrollBar or not scrollBar.GetValue or not scrollBar.SetValue then return end
+    
+    local sfBottom = scrollFrame:GetBottom()
+    local sfTop = scrollFrame:GetTop()
+    local btnBottom = button:GetBottom()
+    local btnTop = button:GetTop()
+    
+    if not sfBottom or not sfTop or not btnBottom or not btnTop then return end
+    
+    local currentScroll = scrollBar:GetValue()
+    local minScroll, maxScroll = scrollBar:GetMinMaxValues()
+    
+    if btnBottom < sfBottom then
+        local needed = sfBottom - btnBottom + 10
+        local newScroll = currentScroll + needed
+        if newScroll > maxScroll then newScroll = maxScroll end
+        scrollBar:SetValue(newScroll)
+    elseif btnTop > sfTop then
+        local needed = btnTop - sfTop + 10
+        local newScroll = currentScroll - needed
+        if newScroll < minScroll then newScroll = minScroll end
+        scrollBar:SetValue(newScroll)
+    end
+end
+
 function Cursor:MoveTo(button)
     if not button then return end
-    if button == self.state.currentButton then return end
+    
+    local prevButton = self.state.currentButton
+    if prevButton and prevButton ~= button then
+        local onLeave = prevButton.GetScript and prevButton:GetScript("OnLeave")
+        if onLeave then
+            pcall(function()
+                this = prevButton
+                onLeave()
+            end)
+        end
+        if GameTooltip then GameTooltip:Hide() end
+    end
+    
     self.state.currentButton = button
+    self.state.currentFrame = button.GetParent and button:GetParent() or nil
+    
+    self:ScrollToShowButton(button)
     self:UpdatePosition(button)
+    
+    local onEnter = button.GetScript and button:GetScript("OnEnter")
+    if onEnter then
+        pcall(function()
+            this = button
+            onEnter()
+        end)
+    end
+    
+    self:UpdateState()
 end
 
 function Cursor:Show()
@@ -88,6 +196,7 @@ end
 function Cursor:Hide()
     cursorFrame:Hide()
     highlightFrame:Hide()
+    if GameTooltip then GameTooltip:Hide() end
 end
 
 function Cursor:Enable()
@@ -100,8 +209,13 @@ function Cursor:Disable()
     self.state.currentFrame = nil
     self.state.allButtons = {}
     self.state.closest = { up = nil, down = nil, left = nil, right = nil }
+    self.state.distances = { up = 999999, down = 999999, left = 999999, right = 999999 }
     self:Hide()
 end
+
+-- ============================================================================
+-- DETECÇÃO DE ELEMENTOS INTERATIVOS
+-- ============================================================================
 
 function Cursor:IsInteractive(frame)
     if not frame then return false end
@@ -131,7 +245,6 @@ function Cursor:IsInteractive(frame)
         return true
     end
     
-    -- ✅ CRÍTICO: Usar pcall para evitar erro se frame não suporta scripts
     local hasOnClick = false
     local hasOnMouseDown = false
     
@@ -206,65 +319,230 @@ function Cursor:CollectButtons(frame, result)
     return result
 end
 
-function Cursor:FindClosest(current, allButtons)
-    local closest = { up = nil, down = nil, left = nil, right = nil }
-    local dist = { up = math.huge, down = math.huge, left = math.huge, right = math.huge }
-    
-    if not current then return closest end
-    
-    local cx, cy = current:GetCenter()
-    if not cx or not cy then return closest end
+-- ============================================================================
+-- NAVEGAÇÃO E DIREÇÃO (LUA 5.0 COMPATÍVEL - SEM MATH.HUGE)
+-- ============================================================================
 
+function Cursor:FindBestInDirection(current, direction, allButtons)
+    if not current or not current.GetCenter then return nil end
+    
+    local currentX, currentY = current:GetCenter()
+    if not currentX or not currentY then return nil end
+    
+    local bestButton = nil
+    local bestScore = 999999
+    direction = string.upper(direction or "")
+    
     for _, btn in ipairs(allButtons) do
-        if btn ~= current and btn:IsVisible() then
+        if btn ~= current and btn:IsVisible() and btn.GetCenter then
             local bx, by = btn:GetCenter()
             if bx and by then
-                local dx = bx - cx
-                local dy = by - cy
-                local d = math.sqrt(dx * dx + dy * dy)
+                local dx = bx - currentX
+                local dy = by - currentY
+                local dist = math.sqrt(dx * dx + dy * dy)
                 
-                if d > 0 then
-                    local adx = math.abs(dx)
-                    local ady = math.abs(dy)
+                if dist > 0 then
+                    local isValid = false
+                    local score = 999999
                     
-                    if dy > 0 and ady >= adx and d < dist.up then
-                        dist.up = d
-                        closest.up = btn
+                    if direction == "UP" and dy > 2 then
+                        isValid = true
+                        -- Penaliza desvios horizontais
+                        score = dist + (math.abs(dx) * 2.0)
+                    elseif direction == "DOWN" and dy < -2 then
+                        isValid = true
+                        -- Penaliza desvios horizontais
+                        score = dist + (math.abs(dx) * 2.0)
+                    elseif direction == "LEFT" and dx < -2 then
+                        isValid = true
+                        -- Penaliza desvios verticais
+                        score = dist + (math.abs(dy) * 2.0)
+                    elseif direction == "RIGHT" and dx > 2 then
+                        isValid = true
+                        -- Penaliza desvios verticais
+                        score = dist + (math.abs(dy) * 2.0)
                     end
                     
-                    if dy < 0 and ady >= adx and d < dist.down then
-                        dist.down = d
-                        closest.down = btn
-                    end
-                    
-                    if dx > 0 and adx >= ady and d < dist.right then
-                        dist.right = d
-                        closest.right = btn
-                    end
-                    
-                    if dx < 0 and adx >= ady and d < dist.left then
-                        dist.left = d
-                        closest.left = btn
+                    if isValid and score < bestScore then
+                        bestScore = score
+                        bestButton = btn
                     end
                 end
             end
         end
     end
     
-    return closest
+    return bestButton
+end
+
+function Cursor:FindClosest(current, allButtons)
+    local closest = {
+        up = self:FindBestInDirection(current, "UP", allButtons),
+        down = self:FindBestInDirection(current, "DOWN", allButtons),
+        left = self:FindBestInDirection(current, "LEFT", allButtons),
+        right = self:FindBestInDirection(current, "RIGHT", allButtons),
+    }
+    local minDistances = { up = 0, down = 0, left = 0, right = 0 }
+    return closest, minDistances
 end
 
 function Cursor:UpdateState()
     local allButtons = {}
     
     for frame, _ in pairs(self.state.activeFrames) do
-        if frame:IsVisible() then 
+        if frame and frame:IsVisible() then 
             self:CollectButtons(frame, allButtons) 
         end
     end
     
     self.state.allButtons = allButtons
-    self.state.closest = self:FindClosest(self.state.currentButton, allButtons)
+    self.state.closest, self.state.distances = self:FindClosest(self.state.currentButton, allButtons)
 end
 
-DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Cursor.lua]|r Carregado completamente!")
+function Cursor:MoveDirection(direction)
+    if not self.state.enabled then 
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Navegacao inativa (nenhuma janela ativa no cursor)")
+        return 
+    end
+    
+    local currentButton = self.state.currentButton
+    if not currentButton then 
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Nenhum botao selecionado atualmente")
+        return 
+    end
+    
+    self:UpdateState()
+    
+    direction = string.upper(direction or "")
+    local targetButton = self:FindBestInDirection(currentButton, direction, self.state.allButtons)
+    
+    -- Fallback: Se nao encontrou botao direto na direcao, tenta wrapping para o lado oposto
+    if not targetButton then
+        local opposite = (direction == "UP" and "DOWN") or 
+                         (direction == "DOWN" and "UP") or 
+                         (direction == "LEFT" and "RIGHT") or 
+                         (direction == "RIGHT" and "LEFT")
+                         
+        local currentX, currentY = currentButton:GetCenter()
+        if currentX and currentY and self.state.allButtons then
+            local maxDist = 0
+            for _, btn in ipairs(self.state.allButtons) do
+                if btn ~= currentButton and btn:IsVisible() and btn.GetCenter then
+                    local bx, by = btn:GetCenter()
+                    if bx and by then
+                        local dx = bx - currentX
+                        local dy = by - currentY
+                        
+                        if (direction == "LEFT" or direction == "RIGHT") and math.abs(dy) < 50 then
+                            if direction == "LEFT" and dx > maxDist then
+                                maxDist = dx
+                                targetButton = btn
+                            elseif direction == "RIGHT" and (-dx) > maxDist then
+                                maxDist = -dx
+                                targetButton = btn
+                            end
+                        elseif (direction == "UP" or direction == "DOWN") and math.abs(dx) < 50 then
+                            if direction == "UP" and (-dy) > maxDist then
+                                maxDist = -dy
+                                targetButton = btn
+                            elseif direction == "DOWN" and dy > maxDist then
+                                maxDist = dy
+                                targetButton = btn
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    
+    if targetButton then
+        local fromName = currentButton:GetName() or "unnamed"
+        local toName = targetButton:GetName() or "unnamed"
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Move]|r " .. direction .. ": " .. fromName .. " -> " .. toName)
+        self:MoveTo(targetButton)
+    else
+        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM Move]|r Nenhum botao para: " .. direction .. " (total na tela: " .. table.getn(self.state.allButtons) .. ")")
+    end
+end
+
+-- ============================================================================
+-- INTERAÇÃO E CLIQUES
+-- ============================================================================
+
+function Cursor:Click(mouseButton)
+    mouseButton = mouseButton or "LeftButton"
+    local button = self.state.currentButton
+    if not button or not button:IsVisible() then return end
+    
+    local bname = button:GetName() or ""
+    
+    -- EditBox: foca para escrita
+    if button:IsObjectType("EditBox") then
+        button:SetFocus()
+        return
+    end
+    
+    -- Slider: altera valor
+    if button:IsObjectType("Slider") then
+        local minVal, maxVal = button:GetMinMaxValues()
+        local cur = button:GetValue()
+        local step = button:GetValueStep() or ((maxVal - minVal) / 10)
+        if mouseButton == "LeftButton" then
+            button:SetValue(cur + step)
+        else
+            button:SetValue(cur - step)
+        end
+        return
+    end
+    
+    -- Bolsas e Inventario (Blizzard, pfUI, Bagshui, Bagnon)
+    local isBagItem = string.find(bname, "ContainerFrame%d+Item%d+") or 
+                      string.find(bname, "pfBag%-?%d+item%d+") or 
+                      string.find(bname, "BagshuiBagsItem%d+") or 
+                      string.find(bname, "BagshuiBankItem%d+") or 
+                      string.find(bname, "BagnonItem%d+")
+                      
+    if isBagItem then
+        local bagID, slotID = nil, nil
+        local _, _, cFrameNum = string.find(bname, "ContainerFrame(%d+)")
+        if cFrameNum then
+            bagID = tonumber(cFrameNum) - 1
+            slotID = button:GetID()
+        end
+        
+        if mouseButton == "RightButton" and bagID and slotID then
+            UseContainerItem(bagID, slotID)
+            self:UpdateState()
+            return
+        end
+    end
+    
+    -- Equipamento do personagem: botao direito desequipa para a bolsa
+    if mouseButton == "RightButton" and string.find(bname, "Character[A-Za-z0-9]+Slot") then
+        local slotId = button:GetID()
+        if slotId then
+            PickupInventoryItem(slotId)
+            PutItemInBackpack()
+            if CursorHasItem() then ClearCursor() end
+            self:UpdateState()
+            return
+        end
+    end
+    
+    -- Clique normal
+    if button.Click then
+        button:Click(mouseButton)
+    elseif button.GetScript then
+        local script = button:GetScript("OnClick") or button:GetScript("OnMouseDown")
+        if script then
+            pcall(function()
+                this = button
+                arg1 = mouseButton
+                script()
+            end)
+        end
+    end
+    
+    self:UpdateState()
+end

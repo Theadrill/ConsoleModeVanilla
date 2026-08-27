@@ -98,6 +98,11 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
             CM.keybindings:RestoreProfile()
         end
 
+    elseif cmd == "mouse" then
+        if CM.keybindings and CM.keybindings.ToggleMouseMode then
+            CM.keybindings:ToggleMouseMode()
+        end
+
     elseif cmd == "init" then
         if CM.keybindings and CM.keybindings.Initialize then
             CM.keybindings:Initialize()
@@ -139,6 +144,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ConsoleMode:|r Comandos disponiveis:")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm controller|r - Aplica perfil de controle completo")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm keyboard|r   - Restaura perfil de teclado/mouse")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm mouse|r      - Alterna Mouse Mode (Cursor Livre)")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm status|r     - Mostra status do addon")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm debug|r      - Liga/desliga logs verbosos")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm frame|r      - Identifica frame sob o mouse")

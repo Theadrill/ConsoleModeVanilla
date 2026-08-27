@@ -1,7 +1,8 @@
 # ConsoleMode - Vanilla
 
-> ⚠️ **Aviso Legal**: Todo o código deste projeto foi desenvolvido tendo como base de referência e inspiração dois projetos open source:
+> ⚠️ **Aviso Legal**: Todo o código deste projeto foi desenvolvido tendo como base de referência e inspiração projetos open source da comunidade:
 > - **[ConsoleExperienceClassic](https://github.com/pepordev/ConsoleExperienceClassic)** — addon para WoW 1.12 / Turtle WoW que serviu como referência técnica principal para a lógica de cursor de navegação, hooks de UI e compatibilidade com a API Vanilla.
+> - **[ConsoleUI](https://github.com/racha/ConsoleUI)** — addon para WoW 1.12 / Turtle WoW que serviu como referência técnica para a solução de Smart Mouse Look (travamento de câmera persistente via companion binding no Steam Input).
 > - **[ConsolePort](https://github.com/seblindfors/ConsolePort)** — addon para WoW Retail (licença [The Artistic License 2.0](https://github.com/seblindfors/ConsolePort/blob/master/LICENSE.md)) que serviu como referência de UX, design de experiência com controle e visão de produto.
 >
 > O ConsoleMode - Vanilla é um projeto derivado e independente, não afiliado a nenhum dos projetos acima.
@@ -19,6 +20,7 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 ## 📜 Créditos
 
 - **ConsoleExperienceClassic**: Agradecimentos e créditos aos criadores e contribuidores do `ConsoleExperienceClassic` pela lógica de navegação via cursor e implementações de referência que inspiraram o sistema de navegação deste projeto.
+- **ConsoleUI**: Agradecimentos e créditos a [racha/ConsoleUI](https://github.com/racha/ConsoleUI) pela solução técnica de Mouse Look persistente com companion binding (F9 + WASD).
 - **ConsolePort**: Crédito e inspiração à equipe original do ConsolePort por definir o padrão de ouro da experiência com controle no World of Warcraft.
 
 ---
@@ -129,11 +131,11 @@ Se você usa o **Steam Deck** ou joga com o Steam aberto no PC, o Steam Input é
 |:---|:---|
 | `/cm` | Exibe a ajuda com todos os comandos |
 | `/cm status` | Mostra o status atual do addon |
-| `/cm debug` | Ativa/desativa o logger de debug no chat |
+| `/cm camera` | Ativa/desativa o Smart Mouselook (Câmera no Analógico) |
+| `/cm mouse` | Ativa/desativa o Mouse Mode manualmente (L3) |
 | `/cm controller` | Aplica o perfil de controle (faz backup antes) |
 | `/cm keyboard` | Restaura seu perfil original de teclado/mouse |
-| `/cm backup` | Cria um backup manual dos bindings atuais |
-| `/cm mouse` | Ativa/desativa o Mouse Mode manualmente |
+| `/cm debug` | Ativa/desativa o logger de debug no chat |
 
 ---
 

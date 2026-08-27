@@ -177,7 +177,10 @@ function KB:Initialize()
     SetBinding("ALT-M", "CM_UI_TALENTS")         -- R2 + Select (Talentos)
     SetBinding("ALT-F11", "CM_UI_SPELLBOOK")     -- R2 + Start (Livro de Magias)
     
-    CM.logger:Log("Atalhos de Interface (F11 / M) inicializados.")
+    -- Smart Mouse Look Companion (acionado pelo Steam Input ao mover WASD)
+    SetBinding("F9", "CM_MOUSELOOK_START")
+    
+    CM.logger:Log("Atalhos de Interface e MouseLook F9 inicializados.")
 end
 
 -- ============================================================
@@ -282,17 +285,16 @@ end
 -- Toggle Mouse Mode (L3)
 -- ============================================================
 function KB:ToggleMouseMode()
-    KB.mouseModeActive = not KB.mouseModeActive
-
-    if KB.mouseModeActive then
-        -- No mouse mode: L2 = clique esquerdo, R2 = clique direito
-        -- (gerenciado pelo remapper externo / Steam Input)
-        -- O addon apenas registra o estado e notifica
-        CM.logger:Log("Mouse Mode: ATIVADO - Analógico direito move cursor")
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode |cff00ff00ATIVADO|r")
+    if CM.camera and CM.camera.ToggleMouseMode then
+        CM.camera:ToggleMouseMode()
+        KB.mouseModeActive = CM.camera.disabledByMouseMode
     else
-        CM.logger:Log("Mouse Mode: DESATIVADO - Analógico direito controla câmera")
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode |cffff4444DESATIVADO|r")
+        KB.mouseModeActive = not KB.mouseModeActive
+        if KB.mouseModeActive then
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode |cff00ff00ATIVADO|r")
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode |cffff4444DESATIVADO|r")
+        end
     end
 end
 
@@ -315,6 +317,9 @@ end
 function KB:EnterNavigationMode()
     if KB.navigationMode then return end
     KB.navigationMode = true
+
+    -- Destrava o mouselook ao abrir interfaces
+    if CM_MouseLookStop then CM_MouseLookStop() end
 
     local keysToOverride = {
         defaults[1].DUP,
@@ -443,12 +448,32 @@ function CM_Fixed(button)
     end
 end
 
+function CM_MouseLookStart()
+    if CM.keybindings.chatActive or CM.keybindings.navigationMode then return end
+    if MouselookStart and (not IsMouselooking or not IsMouselooking()) then
+        pcall(MouselookStart)
+    end
+end
+
+function CM_MouseLookStop()
+    if MouselookStop and IsMouselooking() then
+        pcall(MouselookStop)
+    end
+end
+
 function CM_ToggleMouseMode()
-    CM.keybindings:ToggleMouseMode()
+    if IsMouselooking() then
+        CM_MouseLookStop()
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode: |cff00ff00ATIVADO|r (Cursor Livre)")
+    else
+        CM_MouseLookStart()
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode: |cffff4444DESATIVADO|r (Câmera no Analógico)")
+    end
 end
 
 function CM_MouseRight()
-    CM.logger:Log("R3: Clique Direito do Mouse")
+    CM_MouseLookStop()
+    CM.logger:Log("R3: Clique Direito do Mouse (Mouselook Destravado)")
 end
 
 function CM_ToggleUI(uiType)

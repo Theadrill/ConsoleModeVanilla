@@ -95,4 +95,10 @@
     <Binding name="CM_CURSOR_RIGHT">CM_CursorMove("RIGHT")</Binding>
     <Binding name="CM_CURSOR_CONFIRM">CM_CursorConfirm()</Binding>                       <!-- A no modo nav -->
     <Binding name="CM_CURSOR_CANCEL">CM_CursorCancel()</Binding>                         <!-- B no modo nav -->
+
+    <!-- ============================================================ -->
+    <!-- Smart Mouse Look Companion (F9 via Steam Input)              -->
+    <!-- ============================================================ -->
+    <Binding name="CM_MOUSELOOK_START" hidden="true">CM_MouseLookStart()</Binding>
+    <Binding name="CM_MOUSELOOK_STOP" hidden="true">CM_MouseLookStop()</Binding>
 </Bindings>

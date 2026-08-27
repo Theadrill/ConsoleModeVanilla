@@ -17,19 +17,31 @@ Hooks.eventFrame = nil
 -- Lista completa de frames para hookar
 Hooks.frames = {
     -- Menu e Sistema
-    { frame = "GameMenuFrame",       name = "Menu Principal" },
-    { frame = "VideoOptionsFrame",   name = "Opcoes de Video" },
-    { frame = "SoundOptionsFrame",   name = "Opcoes de Audio" },
-    { frame = "UIOptionsFrame",      name = "Opcoes de Interface" },
-    { frame = "KeyBindingFrame",     name = "Atalhos" },
+    { frame = "GameMenuFrame",               name = "Menu Principal" },
+    { frame = "OptionsFrame",                name = "Opcoes do Jogo" },
+    { frame = "VideoOptionsFrame",           name = "Opcoes de Video" },
+    { frame = "SoundOptionsFrame",           name = "Opcoes de Audio" },
+    { frame = "UIOptionsFrame",              name = "Opcoes de Interface" },
+    { frame = "KeyBindingFrame",             name = "Atalhos" },
+    { frame = "HelpFrame",                   name = "Ajuda" },
+    { frame = "CinematicFrame",              name = "Cinematics" },
     
-    -- Personagem
-    { frame = "CharacterFrame",      name = "Personagem" },
-    { frame = "SpellBookFrame",      name = "Livro de Feiticos" },
-    { frame = "TalentFrame",         name = "Talentos" },
+    -- Configurações de Addons e Turtle WoW
+    { frame = "AdvancedSettingsGUI",         name = "Turtle Configuracoes Avancadas" },
+    { frame = "TDF_AdvancedSettingsGUI",     name = "Turtle-Dragonflight Configuracoes" },
+    { frame = "myAddOnsFrame",               name = "myAddOns" },
+    { frame = "MacroFrame",                  name = "Macros" },
+    { frame = "SuperMacroFrame",             name = "SuperMacro" },
+    { frame = "MAOptions",                   name = "MoveAnything" },
     
-    -- Social
-    { frame = "FriendsFrame",        name = "Amigos" },
+    -- Personagem e Social
+    { frame = "CharacterFrame",              name = "Personagem" },
+    { frame = "SpellBookFrame",              name = "Livro de Feiticos" },
+    { frame = "TalentFrame",                 name = "Talentos" },
+    { frame = "FriendsFrame",                name = "Amigos" },
+    { frame = "DressUpFrame",                name = "Provador" },
+    { frame = "InspectFrame",                name = "Inspecionar" },
+    { frame = "ReadyCheckFrame",             name = "Ready Check" },
     
     -- Missões
     { frame = "QuestLogFrame",       name = "Diario de Missoes" },
@@ -400,7 +412,10 @@ function Hooks:Initialize()
                     end
                     
                     -- 2. Detecta frames que abriram sem disparar OnShow padrao
-                    local problematicFrames = { "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon" }
+                    local problematicFrames = { 
+                        "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
+                        "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MacroFrame", "SuperMacroFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "MailFrame", "InspectFrame", "DressUpFrame"
+                    }
                     for _, frameName in ipairs(problematicFrames) do
                         local frame = getglobal(frameName)
                         if frame and frame:IsVisible() and not Cursor.state.activeFrames[frame] then
@@ -410,6 +425,18 @@ function Hooks:Initialize()
                 end
             end
         end)
+    end
+
+    -- Hook no WorldFrame para destravar mouselook no clique direito
+    if WorldFrame and not Hooks.worldFrameHooked then
+        local oldDown = WorldFrame:GetScript("OnMouseDown")
+        WorldFrame:SetScript("OnMouseDown", function()
+            if arg1 == "RightButton" and CM_MouseLookStop then
+                CM_MouseLookStop()
+            end
+            if oldDown then oldDown() end
+        end)
+        Hooks.worldFrameHooked = true
     end
 
     self.initialized = true

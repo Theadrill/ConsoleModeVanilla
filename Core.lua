@@ -30,20 +30,21 @@ eventFrame:SetScript("OnEvent", function()
             "Logger: |cff00ff00ATIVO|r | Digite |cffffd100/cm|r para ajuda."
         )
 
-    -- Variáveis salvas carregadas: hora de aplicar defaults e inicializar módulos
+    -- Variáveis salvas carregadas: hora de inicializar módulos
     elseif event == "VARIABLES_LOADED" then
         -- Garante que o banco de dados existe
         ConsoleModeDB = ConsoleModeDB or {}
 
-        -- Inicializa keybindings e aplica defaults se for a primeira vez
-        if CM.keybindings then
-            if not ConsoleModeDB.defaultsApplied then
-                CM.keybindings:ApplyDefaults()
-                ConsoleModeDB.defaultsApplied = true
-            end
-        end
+        -- NOTA: ApplyDefaults() desativado durante desenvolvimento.
+        -- Ative manualmente com /cm controller quando quiser testar o perfil de controle.
+        -- if CM.keybindings then
+        --     if not ConsoleModeDB.defaultsApplied then
+        --         CM.keybindings:ApplyDefaults()
+        --         ConsoleModeDB.defaultsApplied = true
+        --     end
+        -- end
 
-        CM.logger:LogEvent("VARIABLES_LOADED - Módulos inicializados.")
+        CM.logger:LogEvent("VARIABLES_LOADED - Módulos inicializados. Use /cm controller para ativar perfil de controle.")
 
     -- Entrando no mundo
     elseif event == "PLAYER_ENTERING_WORLD" then
@@ -94,6 +95,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
     else
         -- Ajuda
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00====== ConsoleMode - Vanilla ======|r")
+
         DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm status|r     - Status geral do addon")
         DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm debug|r      - Toggle do logger de debug")
         DEFAULT_CHAT_FRAME:AddMessage("|cffffd100/cm controller|r - Ativa perfil de controle (faz backup antes)")

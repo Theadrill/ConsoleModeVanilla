@@ -52,6 +52,10 @@ for page = 1, 5 do
     end
 end
 
+-- Menu Ring
+_G["BINDING_HEADER_CONSOLEMODERING"]    = "ConsoleMode - Menu Ring"
+_G["BINDING_NAME_CM_RING_MENU"]         = "L2+R2+A (Abrir Menu Ring)"
+
 -- Nomes dos botões fixos
 _G["BINDING_NAME_CM_FIXED_L1"]          = "L1 (Selecionar Alvo)"
 _G["BINDING_NAME_CM_FIXED_SELECT"]      = "Select (Mapa)"
@@ -362,4 +366,13 @@ function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
     CM.logger:Log("Cursor: Cancelar (B)")
     -- Delegado ao módulo de cursor (futuro)
+end
+
+-- ============================================================
+-- Menu Ring (L2 + R2 + A) — IMPLEMENTAÇÃO FUTURA
+-- ============================================================
+function CM_OpenRingMenu()
+    if CM.keybindings.chatActive then return end
+    CM.logger:Log("Menu Ring: Abrir (L2+R2+A) — Em desenvolvimento!")
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Menu Ring |cffffcc00em breve!|r")
 end

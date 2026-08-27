@@ -72,6 +72,13 @@
     <Binding name="CM_MOUSERIGHT">CM_MouseRight()</Binding>                              <!-- R3 -->
 
     <!-- ============================================================ -->
+    <!-- Menu Ring (L2 + R2 + A)                                     -->
+    <!-- Abre o menu radial de ações rápidas                         -->
+    <!-- Implementação: FUTURA                                        -->
+    <!-- ============================================================ -->
+    <Binding name="CM_RING_MENU" header="CONSOLEMODERING">CM_OpenRingMenu()</Binding>
+
+    <!-- ============================================================ -->
     <!-- Navegação de Cursor UI (D-Pad modo navegação)                -->
     <!-- ============================================================ -->
     <Binding name="CM_CURSOR_UP" header="CONSOLEMODECURSOR">CM_CursorMove("UP")</Binding>

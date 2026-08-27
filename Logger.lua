@@ -75,49 +75,52 @@ function Logger:PrintStatus()
 end
 
 -- ============================================================
--- Interceptor de Teclas (OnKeyDown via frame)
--- Loga qualquer tecla pressionada para debug
+-- Interceptor de Teclas via OnUpdate
+-- Usa polling de modificadores sem bloquear input do jogo
+-- (EnableKeyboard bloquearia as teclas no WoW 1.12)
 -- ============================================================
 local keyLogger = CreateFrame("Frame", "ConsoleModeKeyLogger", UIParent)
-keyLogger:EnableKeyboard(true)
-keyLogger:SetScript("OnKeyDown", function()
+local lastMods = ""
+
+keyLogger:SetScript("OnUpdate", function()
     if not Logger.enabled then return end
 
-    local key = arg1
-    if not key or key == "" then return end
-
-    -- Detecta modificadores ativos
+    -- Detecta modificadores ativos via polling
     local mods = ""
     if IsShiftKeyDown()   then mods = mods .. "SHIFT+" end
     if IsControlKeyDown() then mods = mods .. "CTRL+" end
     if IsAltKeyDown()     then mods = mods .. "ALT+" end
 
-    -- Identifica a página ativa com base nos modificadores
-    local page = 1
-    local pageName = "Base"
-    if IsControlKeyDown() and IsAltKeyDown() then
-        page = 5; pageName = "R1+R2"
-    elseif IsAltKeyDown() then
-        page = 4; pageName = "R2"
-    elseif IsControlKeyDown() then
-        page = 3; pageName = "R1"
-    elseif IsShiftKeyDown() then
-        page = 2; pageName = "L2"
-    end
+    -- Loga apenas quando o estado de modificadores muda
+    if mods ~= lastMods then
+        lastMods = mods
 
-    -- Identifica o modo atual
-    local KB = CM.keybindings
-    local modeStr = "Hotkey"
-    if KB then
-        if KB.navigationMode then modeStr = "|cff00ccffNavegação|r"
-        elseif KB.mouseModeActive then modeStr = "|cff88ff88Mouse|r"
-        elseif KB.chatActive then modeStr = "|cffffcc00Chat|r"
+        local pageName = "Base"
+        if IsControlKeyDown() and IsAltKeyDown() then
+            pageName = "R1+R2"
+        elseif IsAltKeyDown() then
+            pageName = "R2"
+        elseif IsControlKeyDown() then
+            pageName = "R1"
+        elseif IsShiftKeyDown() then
+            pageName = "L2"
+        end
+
+        local KB = CM.keybindings
+        local modeStr = "Hotkey"
+        if KB then
+            if KB.navigationMode then modeStr = "|cff00ccffNavegação|r"
+            elseif KB.mouseModeActive then modeStr = "|cff88ff88Mouse|r"
+            elseif KB.chatActive then modeStr = "|cffffcc00Chat|r"
+            end
+        end
+
+        if mods ~= "" then
+            Logger:LogInput(
+                "Modificador: |cffffd100" .. mods .. "|r" ..
+                " | Página: |cff00ccff" .. pageName .. "|r" ..
+                " | Modo: " .. modeStr
+            )
         end
     end
-
-    Logger:LogInput(
-        "Tecla: |cffffd100" .. mods .. key .. "|r" ..
-        " | Página: |cff00ccff" .. pageName .. "|r" ..
-        " | Modo: " .. modeStr
-    )
 end)

@@ -1,11 +1,13 @@
 --[[
     ConsoleMode - Vanilla
-    UI/ConfigFrame.lua - Painel Principal de Configurações
+    UI/ConfigFrame.lua - Painel Principal de Configuracoes
 ]]
 
 local CM = ConsoleMode
 CM.config = CM.config or {}
 local Config = CM.config
+
+DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM UI]|r Modulo ConfigFrame carregado com sucesso.")
 
 Config.frame = nil
 Config.currentTab = "KEYBINDINGS"
@@ -13,7 +15,7 @@ Config.currentTab = "KEYBINDINGS"
 function Config:Initialize()
     if self.frame then return end
     
-    -- Criação da janela principal
+    -- Criacao da janela principal
     local f = CreateFrame("Frame", "ConsoleModeSettingsFrame", UIParent)
     f:SetWidth(640)
     f:SetHeight(480)
@@ -25,7 +27,7 @@ function Config:Initialize()
     f:SetScript("OnDragStart", function() this:StartMoving() end)
     f:SetScript("OnDragStop", function() this:StopMovingOrSizing() end)
     
-    -- Backdrop estilo clássico Blizzard
+    -- Backdrop estilo classico Blizzard
     f:SetBackdrop({
         bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
         edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
@@ -35,7 +37,7 @@ function Config:Initialize()
         insets = { left = 8, right = 8, top = 8, bottom = 8 }
     })
     
-    -- Header / Título no topo
+    -- Header / Titulo no topo
     local headerTexture = f:CreateTexture(nil, "ARTWORK")
     headerTexture:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Header")
     headerTexture:SetWidth(300)
@@ -46,7 +48,7 @@ function Config:Initialize()
     title:SetPoint("TOP", headerTexture, "TOP", 0, -14)
     title:SetText("ConsoleMode - Settings")
     
-    -- Botão de Fechar no canto superior direito
+    -- Botao de Fechar no canto superior direito
     local closeBtn = CreateFrame("Button", "ConsoleModeSettingsCloseButton", f, "UIPanelCloseButton")
     closeBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -8, -8)
     closeBtn:SetScript("OnClick", function()
@@ -67,7 +69,7 @@ function Config:Initialize()
     leftNav:SetBackdropColor(0.05, 0.05, 0.05, 0.8)
     leftNav:SetBackdropBorderColor(0.4, 0.4, 0.4, 0.8)
     
-    -- Botão de Categoria: Keybindings
+    -- Botao de Categoria: Keybindings
     local tabKeybindings = CreateFrame("Button", "ConsoleModeTabKeybindings", leftNav, "UIPanelButtonTemplate")
     tabKeybindings:SetWidth(134)
     tabKeybindings:SetHeight(32)
@@ -77,7 +79,7 @@ function Config:Initialize()
         Config:SelectTab("KEYBINDINGS")
     end)
     
-    -- Painel Central Direito (Conteúdo da Categoria)
+    -- Painel Central Direito (Conteudo da Categoria)
     local contentFrame = CreateFrame("Frame", "ConsoleModeSettingsContent", f)
     contentFrame:SetWidth(446)
     contentFrame:SetHeight(400)
@@ -91,7 +93,7 @@ function Config:Initialize()
     contentFrame:SetBackdropColor(0.05, 0.05, 0.05, 0.8)
     contentFrame:SetBackdropBorderColor(0.4, 0.4, 0.4, 0.8)
     
-    -- Rodapé informativo com prompts de controle
+    -- Rodape informativo com prompts de controle
     local footerText = f:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
     footerText:SetPoint("BOTTOM", f, "BOTTOM", 0, 16)
     footerText:SetText("|cff00ff00[A]|r Selecionar / Mapear   |   |cffff4444[B]|r Voltar / Fechar")
@@ -100,21 +102,28 @@ function Config:Initialize()
     self.frame = f
     self.contentFrame = contentFrame
     
-    -- Registra suporte ao UIPanel do WoW
     tinsert(UISpecialFrames, "ConsoleModeSettingsFrame")
 end
 
 function Config:SelectTab(tabName)
     self.currentTab = tabName
-    if tabName == "KEYBINDINGS" and self.keybindingsList and self.keybindingsList.Show then
-        self.keybindingsList:Show(self.contentFrame)
+    if tabName == "KEYBINDINGS" then
+        local kbList = CM.config.keybindingsList
+        if kbList and kbList.Show then
+            kbList:Show(self.contentFrame)
+        end
     end
 end
 
 function Config:Show()
-    if not self.frame then self:Initialize() end
-    self.frame:Show()
-    self:SelectTab(self.currentTab or "KEYBINDINGS")
+    if not self.frame then 
+        self:Initialize() 
+    end
+    if self.frame then
+        self.frame:Show()
+        self:SelectTab(self.currentTab or "KEYBINDINGS")
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Painel de Configuracoes aberto.")
+    end
 end
 
 function Config:Hide()

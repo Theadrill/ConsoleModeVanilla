@@ -126,6 +126,7 @@ function KBList:Show(parent)
         pageBar:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -8)
         
         for p = 1, 5 do
+            local pageNum = p  -- captura o valor atual, evita o closure bug do Lua 5.0
             local pBtn = CreateFrame("Button", "ConsoleModePageBtn" .. p, pageBar, "UIPanelButtonTemplate")
             pBtn:SetWidth(78)
             pBtn:SetHeight(24)
@@ -135,8 +136,8 @@ function KBList:Show(parent)
             pBtn:SetText(shortName)
             
             pBtn:SetScript("OnClick", function()
-                DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG PageBtn]|r Aba clicada: " .. tostring(p))
-                KBList:SelectPage(p)
+                DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG PageBtn]|r Aba clicada: " .. tostring(pageNum))
+                KBList:SelectPage(pageNum)
             end)
             self.pageButtons[p] = pBtn
         end

@@ -7,8 +7,6 @@ local CM = ConsoleMode
 CM.config = CM.config or {}
 local Config = CM.config
 
-DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM UI]|r Modulo ConfigFrame carregado com sucesso.")
-
 Config.frame = nil
 Config.currentTab = "KEYBINDINGS"
 
@@ -76,6 +74,7 @@ function Config:Initialize()
     tabKeybindings:SetPoint("TOP", leftNav, "TOP", 0, -8)
     tabKeybindings:SetText("Atalhos / Binds")
     tabKeybindings:SetScript("OnClick", function()
+        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 1]|r Botao lateral Atalhos/Binds clicado!")
         Config:SelectTab("KEYBINDINGS")
     end)
     
@@ -107,10 +106,16 @@ end
 
 function Config:SelectTab(tabName)
     self.currentTab = tabName
-    if tabName == "KEYBINDINGS" then
-        local kbList = CM.config.keybindingsList
-        if kbList and kbList.Show then
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 2]|r Config:SelectTab chamado: " .. tostring(tabName))
+    
+    local kbList = CM.config and CM.config.keybindingsList
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 2.1]|r kbList existe? " .. tostring(kbList ~= nil) .. " | tipo: " .. type(kbList))
+    
+    if kbList then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 2.2]|r kbList.Show existe? " .. tostring(kbList.Show ~= nil) .. " | tipo: " .. type(kbList.Show))
+        if kbList.Show then
             kbList:Show(self.contentFrame)
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[LOG 2.3]|r kbList:Show executado com sucesso!")
         end
     end
 end
@@ -122,7 +127,6 @@ function Config:Show()
     if self.frame then
         self.frame:Show()
         self:SelectTab(self.currentTab or "KEYBINDINGS")
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Painel de Configuracoes aberto.")
     end
 end
 

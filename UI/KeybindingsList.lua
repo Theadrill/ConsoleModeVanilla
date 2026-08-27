@@ -104,7 +104,9 @@ function KBList:GetActionInfoForSlot(slot)
 end
 
 function KBList:Show(parent)
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 3]|r KBList:Show chamado. Parent: " .. tostring(parent and parent:GetName()))
     if not self.frame then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 3.1]|r Criando ConsoleModeKeybindingsListFrame...")
         local f = CreateFrame("Frame", "ConsoleModeKeybindingsListFrame", parent)
         f:SetAllPoints(parent)
         
@@ -133,6 +135,7 @@ function KBList:Show(parent)
             pBtn:SetText(shortName)
             
             pBtn:SetScript("OnClick", function()
+                DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG PageBtn]|r Aba clicada: " .. tostring(p))
                 KBList:SelectPage(p)
             end)
             self.pageButtons[p] = pBtn
@@ -192,6 +195,9 @@ function KBList:Show(parent)
             rowBtn.comboText = comboText
             rowBtn.actionText = actionText
             
+            rowBtn:EnableMouse(true)
+            rowBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+            
             rowBtn:SetScript("OnClick", function()
                 KBList:OnKeySelected(this.btnKey)
             end)
@@ -199,6 +205,8 @@ function KBList:Show(parent)
             self.buttons[i] = rowBtn
         end
         
+        pageBar:Show()
+        gridFrame:Show()
         self.frame = f
     end
     
@@ -208,6 +216,7 @@ end
 
 function KBList:SelectPage(pageNum)
     self.currentPage = pageNum
+    DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 4]|r KBList:SelectPage selecionando pagina: " .. tostring(pageNum))
     
     -- Atualiza estado visual das abas de pagina
     for p, btn in ipairs(self.pageButtons) do

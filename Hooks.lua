@@ -570,6 +570,14 @@ function Hooks:CloseTopFrame()
                     ToggleQuestLog()
                 elseif frameName == "FriendsFrame" then
                     ToggleFriendsFrame()
+                elseif frameName == "ConsoleModeActionBarPickerFrame" or frameName == "ConsoleModePickerBanner" then
+                    -- Cancela o picker ao apertar B e volta para a lista de atalhos
+                    local picker = ConsoleMode.config and ConsoleMode.config.picker
+                    if picker and picker.Cancel then
+                        picker:Cancel()
+                    else
+                        frame:Hide()
+                    end
                 elseif HideUIPanel and (frame:GetParent() == UIParent or UIPanelWindows[frameName]) then
                     HideUIPanel(frame)
                 elseif frame.Hide then

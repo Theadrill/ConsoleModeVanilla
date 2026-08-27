@@ -10,4 +10,7 @@ Core.lua
 Logger.lua
 Keybindings.lua
 Cursor.lua
+UI\ConfigFrame.lua
+UI\KeybindingsList.lua
+UI\ActionBarPicker.lua
 Hooks.lua

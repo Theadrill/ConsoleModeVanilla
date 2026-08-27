@@ -18,6 +18,7 @@ Hooks.eventFrame = nil
 Hooks.frames = {
     -- Menu e Sistema
     { frame = "GameMenuFrame",               name = "Menu Principal" },
+    { frame = "ConsoleModeSettingsFrame",    name = "ConsoleMode Configuracoes" },
     { frame = "OptionsFrame",                name = "Opcoes do Jogo" },
     { frame = "VideoOptionsFrame",           name = "Opcoes de Video" },
     { frame = "SoundOptionsFrame",           name = "Opcoes de Audio" },
@@ -152,6 +153,11 @@ function Hooks:OnFrameShow(frame)
     
     Cursor.state.activeFrames[frame] = true
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM OnFrameShow]|r Frame " .. name .. " adicionado a activeFrames")
+
+    -- Se for o GameMenuFrame, garante a injeção e alinhamento do botão
+    if name == "GameMenuFrame" and Hooks.InjectGameMenuButton then
+        Hooks:InjectGameMenuButton()
+    end
 
     -- Garante que o cursor fique na camada visual correta
     if Cursor.EnsureOnTop then
@@ -414,7 +420,7 @@ function Hooks:Initialize()
                     -- 2. Detecta frames que abriram sem disparar OnShow padrao
                     local problematicFrames = { 
                         "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
-                        "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MacroFrame", "SuperMacroFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "MailFrame", "InspectFrame", "DressUpFrame"
+                        "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MacroFrame", "SuperMacroFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "MailFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame"
                     }
                     for _, frameName in ipairs(problematicFrames) do
                         local frame = getglobal(frameName)
@@ -459,6 +465,9 @@ function Hooks:Initialize()
         end)
     end
 
+    -- Injeta botão do ConsoleMode no topo do Menu Principal
+    Hooks:InjectGameMenuButton()
+
     -- Hook no WorldFrame para destravar mouselook no clique direito
     if WorldFrame and not Hooks.worldFrameHooked then
         local oldDown = WorldFrame:GetScript("OnMouseDown")
@@ -473,6 +482,74 @@ function Hooks:Initialize()
 
     self.initialized = true
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Hooks inicializados: " .. count .. " frames hookados.")
+end
+
+function Hooks:InjectGameMenuButton()
+    if not GameMenuFrame then return end
+    
+    if not GameMenuButtonConsoleMode then
+        local btn = CreateFrame("Button", "GameMenuButtonConsoleMode", GameMenuFrame, "GameMenuButtonTemplate")
+        btn:SetText("|cff00ff00ConsoleMode - Settings|r")
+        btn:SetWidth(144)
+        btn:SetHeight(21)
+        
+        btn:SetScript("OnClick", function()
+            HideUIPanel(GameMenuFrame)
+            if ConsoleMode.config and ConsoleMode.config.Show then
+                ConsoleMode.config:Show()
+            end
+        end)
+    end
+    
+    local cmBtn = GameMenuButtonConsoleMode
+    
+    -- Coleta todos os botões padrão do GameMenuFrame (largura > 100px)
+    local buttons = {}
+    local sideTabs = {}
+    local children = { GameMenuFrame:GetChildren() }
+    for _, child in ipairs(children) do
+        if child and child:IsObjectType("Button") and child ~= cmBtn and child:IsVisible() then
+            local w = child:GetWidth() or 0
+            local h = child:GetHeight() or 0
+            -- Botões normais do menu têm largura aproximada de 130-160px
+            if w >= 100 and h <= 35 then
+                table.insert(buttons, child)
+            else
+                -- Abas laterais (como SuperMacro ou outros addons)
+                table.insert(sideTabs, child)
+            end
+        end
+    end
+    
+    -- Ordena os botões normais por GetTop() decrescente (do mais alto para o mais baixo)
+    table.sort(buttons, function(a, b)
+        local topA = a:GetTop() or 0
+        local topB = b:GetTop() or 0
+        return topA > topB
+    end)
+    
+    -- Posiciona o botão do ConsoleMode no topo
+    cmBtn:ClearAllPoints()
+    cmBtn:SetPoint("TOP", GameMenuFrame, "TOP", 0, -16)
+    
+    -- Encadeia todos os demais botões um abaixo do outro com espaçamento uniforme de -2px
+    local prevButton = cmBtn
+    for _, btn in ipairs(buttons) do
+        btn:ClearAllPoints()
+        btn:SetPoint("TOP", prevButton, "BOTTOM", 0, -2)
+        prevButton = btn
+    end
+    
+    -- Mantém as abas laterais ancoradas na borda lateral direita do GameMenu
+    for _, tab in ipairs(sideTabs) do
+        tab:ClearAllPoints()
+        tab:SetPoint("LEFT", GameMenuFrame, "RIGHT", -4, 0)
+    end
+    
+    -- Ajusta a altura exata do GameMenuFrame
+    local totalButtons = table.getn(buttons) + 1
+    local totalHeight = 16 + (totalButtons * 23) + 12
+    GameMenuFrame:SetHeight(totalHeight)
 end
 
 function Hooks:CloseTopFrame()

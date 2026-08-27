@@ -52,6 +52,11 @@ CM:SetScript("OnEvent", function()
             CM.keybindings:Initialize()
         end
 
+        -- Inicializa painel de configurações
+        if CM.config and CM.config.Initialize then
+            CM.config:Initialize()
+        end
+
         -- Inicializa hooks somente se módulos existem
         if CM.hooks and CM.hooks.Initialize then
             CM.hooks:Initialize()
@@ -60,6 +65,9 @@ CM:SetScript("OnEvent", function()
     elseif event == "PLAYER_ENTERING_WORLD" then
         if CM.keybindings and CM.keybindings.Initialize then
             CM.keybindings:Initialize()
+        end
+        if CM.config and CM.config.Initialize then
+            CM.config:Initialize()
         end
 
     elseif event == "PLAYER_LOGOUT" then
@@ -74,7 +82,12 @@ SLASH_CONSOLEMODE2 = "/cm"
 SlashCmdList["CONSOLEMODE"] = function(msg)
     local cmd = string.lower(msg or "")
 
-    if cmd == "status" then
+    if cmd == "config" or cmd == "settings" or cmd == "binds" or cmd == "menu" then
+        if CM.config and CM.config.Toggle then
+            CM.config:Toggle()
+        end
+
+    elseif cmd == "status" then
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00====== ConsoleMode Status ======|r")
         DEFAULT_CHAT_FRAME:AddMessage("  Versao:    " .. CM.version)
         DEFAULT_CHAT_FRAME:AddMessage("  Hooks:     " .. (CM.hooks and (CM.hooks.initialized and "|cff00ff00Inicializado|r" or "|cffffcc00Carregado mas nao init|r") or "|cffff4444NIL|r"))
@@ -142,6 +155,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
 
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ConsoleMode:|r Comandos disponiveis:")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm config|r     - Abre o Painel de Configuracoes")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm controller|r - Aplica perfil de controle completo")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm keyboard|r   - Restaura perfil de teclado/mouse")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm mouse|r      - Alterna Mouse Mode (Cursor Livre)")

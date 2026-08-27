@@ -49,7 +49,7 @@ local KEY_DEFAULTS = {
     [2] = { A="SHIFT-SPACE",     X="SHIFT-1",     Y="SHIFT-2",     B="SHIFT-3",     DUP="SHIFT-7",     DDOWN="SHIFT-8",     DLEFT="SHIFT-9",     DRIGHT="SHIFT-0" },
     [3] = { A="CTRL-SPACE",      X="CTRL-1",      Y="CTRL-2",      B="CTRL-3",      DUP="CTRL-7",      DDOWN="CTRL-8",      DLEFT="CTRL-9",      DRIGHT="CTRL-0" },
     [4] = { A="ALT-SPACE",       X="ALT-1",       Y="ALT-2",       B="ALT-3",       DUP="ALT-7",       DDOWN="ALT-8",       DLEFT="ALT-9",       DRIGHT="ALT-0" },
-    [5] = { A="SHIFT-ALT-SPACE", X="SHIFT-ALT-1", Y="SHIFT-ALT-2", B="SHIFT-ALT-3", DUP="SHIFT-ALT-7", DDOWN="SHIFT-ALT-8", DLEFT="SHIFT-ALT-9", DRIGHT="SHIFT-ALT-0" },
+    [5] = { A="ALT-SHIFT-SPACE", X="ALT-SHIFT-1", Y="ALT-SHIFT-2", B="ALT-SHIFT-3", DUP="ALT-SHIFT-7", DDOWN="ALT-SHIFT-8", DLEFT="ALT-SHIFT-9", DRIGHT="ALT-SHIFT-0" },
 }
 
 -- Tooltip Scanner para pegar o nome real das skills

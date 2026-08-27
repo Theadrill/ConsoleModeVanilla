@@ -13,7 +13,7 @@
 
 ## 🎯 Objetivo
 
-Trazer uma experiência moderna de controle inspirada no renomado addon **ConsolePort** (disponível para o WoW Retail) para o cliente 1.12 Vanilla / Turtle WoW, com foco em performance, modularidade e navegação fluida de interface.
+Trazer uma experiência moderna de controle inspirada no renomado addon **ConsolePort** (disponível para o WoW Retail) para o cliente 1.12 Vanilla / Turtle WoW, com foco em performance, modularidade, painel de configurações integrado e navegação fluida de interface.
 
 ---
 
@@ -25,14 +25,25 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 
 ---
 
-## 🎮 Funcionalidades (Em Desenvolvimento)
+## 🎮 Funcionalidades
 
-- **Cursor Navigation**: Navegação fluida de UI com D-Pad e controle em janelas, menus, diálogos e bolsas.
-- **Auto-Snap**: Foco automático em opções de diálogo, botões de aceitar/completar missões e interações com NPCs.
-- **5 Páginas de Ação**: 40 slots de habilidades mapeados em 5 páginas via modificadores (L2, R1, R2, L2+R2 e Base).
-- **Mouse Mode**: Alternância entre modo câmera e modo cursor de mouse via L3.
-- **Backup & Restore**: Salva e restaura seu layout original de teclado/mouse com um comando.
-- **Interface amigável para controles**: Otimizado para dispositivos portáteis (Steam Deck, ROG Ally, etc.).
+- **Painel de Configurações In-Game (`ConsoleMode - Settings`)**:
+  - Acessível direto pelo GameMenu principal do WoW (ESC) ou via comando `/cm config`.
+  - Grade visual com os 8 botões de cada uma das 5 páginas de ação.
+  - Exibição em tempo real do **ícone e nome exato de cada habilidade/item/macro** vinculado a cada combinação (usando Tooltip Scanner nativo do WoW 1.12).
+- **Seletor de Action Bars Integrado (`ActionBarPicker`)**:
+  - Interface visual interna para vincular qualquer botão do controle diretamente a slots das barras de ação (Barra Principal, Inferior Esquerda, Inferior Direita, Lateral Direita 1 e 2).
+  - Suporte completo a navegação direcional por D-Pad e confirmação com botão A.
+  - Salvamento persistente de bindings sem conflito com o modo de navegação.
+- **Cursor Navigation & Auto-Snap**: Navegação direcional de UI com D-Pad entre botões, abas e itens em janelas de missões, diálogos de NPCs, bolsas e menus.
+- **5 Páginas de Ação (40 Slots)**: Mapeamento em 5 páginas via modificadores físicos:
+  - **Página 1 (Base)**: Sem modificador
+  - **Página 2 (L2)**: `SHIFT`
+  - **Página 3 (R1)**: `CTRL`
+  - **Página 4 (R2)**: `ALT`
+  - **Página 5 (L2+R2)**: `ALT + SHIFT` (ordem canônica da Blizzard)
+- **Smart Mouse Look & Mouse Mode**: Alternância inteligente entre controle de câmera e modo cursor de mouse via L3 / analógico.
+- **Backup & Restore de Perfil**: Salve e restaure todo o seu layout original de teclado/mouse a qualquer momento (`/cm controller` e `/cm keyboard`).
 
 ---
 
@@ -84,26 +95,26 @@ Configure seu app de remapeamento da seguinte forma:
 | **L2** | `SHIFT` (held) | **Página 2: L2** |
 | **R1** | `CTRL` (held) | **Página 3: R1** |
 | **R2** | `ALT` (held) | **Página 4: R2** |
-| **L2 + R2** | `SHIFT + ALT` (held) | **Página 5: L2+R2** |
+| **L2 + R2** | `ALT + SHIFT` (held) | **Página 5: L2+R2** |
 
 #### Botões de Ação (D-Pad e Faciais)
 
 Estes botões mudam de função dependendo do modificador segurado:
 
-| Botão Físico | Sem Mod | L2 (Shift) | R1 (Ctrl) | R2 (Alt) | L2+R2 (Shift+Alt) |
+| Botão Físico | Sem Mod | L2 (Shift) | R1 (Ctrl) | R2 (Alt) | L2+R2 (Alt+Shift) |
 |:---|:---|:---|:---|:---|:---|
-| **A** | `SPACE` | `SHIFT+SPACE` | `CTRL+SPACE` | `ALT+SPACE` | `SHIFT+ALT+SPACE` |
-| **X** | `1` | `SHIFT+1` | `CTRL+1` | `ALT+1` | `SHIFT+ALT+1` |
-| **Y** | `2` | `SHIFT+2` | `CTRL+2` | `ALT+2` | `SHIFT+ALT+2` |
-| **B** | `3` | `SHIFT+3` | `CTRL+3` | `ALT+3` | `SHIFT+ALT+3` |
-| **D-Pad ↑** | `7` | `SHIFT+7` | `CTRL+7` | `ALT+7` | `SHIFT+ALT+7` |
-| **D-Pad ↓** | `8` | `SHIFT+8` | `CTRL+8` | `ALT+8` | `SHIFT+ALT+8` |
-| **D-Pad ←** | `9` | `SHIFT+9` | `CTRL+9` | `ALT+9` | `SHIFT+ALT+9` |
-| **D-Pad →** | `0` | `SHIFT+0` | `CTRL+0` | `ALT+0` | `SHIFT+ALT+0` |
+| **A** | `SPACE` | `SHIFT+SPACE` | `CTRL+SPACE` | `ALT+SPACE` | `ALT+SHIFT+SPACE` |
+| **X** | `1` | `SHIFT+1` | `CTRL+1` | `ALT+1` | `ALT+SHIFT+1` |
+| **Y** | `2` | `SHIFT+2` | `CTRL+2` | `ALT+2` | `ALT+SHIFT+2` |
+| **B** | `3` | `SHIFT+3` | `CTRL+3` | `ALT+3` | `ALT+SHIFT+3` |
+| **D-Pad ↑** | `7` | `SHIFT+7` | `CTRL+7` | `ALT+7` | `ALT+SHIFT+7` |
+| **D-Pad ↓** | `8` | `SHIFT+8` | `CTRL+8` | `ALT+8` | `ALT+SHIFT+8` |
+| **D-Pad ←** | `9` | `SHIFT+9` | `CTRL+9` | `ALT+9` | `ALT+SHIFT+9` |
+| **D-Pad →** | `0` | `SHIFT+0` | `CTRL+0` | `ALT+0` | `ALT+SHIFT+0` |
 
 #### 🧭 Modo Navegação (quando qualquer janela de interface está aberta)
 
-Quando qualquer janela do jogo (missões, NPC, bolsas, menus, etc.) estiver aberta, os controles assumem automaticamente o modo de navegação de interface:
+Quando qualquer janela do jogo (missões, NPC, bolsas, menus, configurações, etc.) estiver aberta, os controles assumem automaticamente o modo de navegação de interface:
 
 | Botão Físico | Tecla / Ação | Função no Modo Navegação |
 |:---|:---|:---|
@@ -117,24 +128,13 @@ Quando qualquer janela do jogo (missões, NPC, bolsas, menus, etc.) estiver aber
 
 ---
 
-### 🎮 Steam Input (Steam Deck / PC com Steam)
-
-Se você usa o **Steam Deck** ou joga com o Steam aberto no PC, o Steam Input é a forma mais simples de configurar o controle:
-
-1. Abra o Steam e adicione o executável do Turtle WoW como **"Jogo não-Steam"**.
-2. Com o jogo na biblioteca, vá em **⚙️ Gerenciar → Configurar Layout do Controle**.
-3. Crie uma nova configuração e mapeie cada botão conforme a tabela acima.
-4. Salve e exporte como arquivo local (`.vdf`).
-
-> 📁 Em breve disponibilizaremos um arquivo `.vdf` pronto para importar diretamente no Steam. Fique de olho nas releases do repositório!
-
----
-
 ## ⌨️ Comandos do Addon
 
 | Comando | Função |
 |:---|:---|
 | `/cm` | Exibe a ajuda com todos os comandos |
+| `/cm config` ou `/cm settings` | Abre o **Painel de Configurações e Keybindings** |
+| `/cm binds` | Abre diretamente a tela de mapeamento de atalhos |
 | `/cm status` | Mostra o status atual do addon |
 | `/cm camera` | Ativa/desativa o Smart Mouselook (Câmera no Analógico) |
 | `/cm mouse` | Ativa/desativa o Mouse Mode manualmente (L3) |
@@ -146,29 +146,21 @@ Se você usa o **Steam Deck** ou joga com o Steam aberto no PC, o Steam Input é
 
 ## 🗺️ Roadmap
 
-O que está planejado para as próximas versões do ConsoleMode - Vanilla:
+O que foi feito e o que está planejado para as próximas versões do ConsoleMode - Vanilla:
 
 ### 🔧 Addon (Lua)
-- [ ] Cursor de navegação visual na tela (ponteiro + highlight)
-- [ ] Auto-Snap: foco automático ao abrir janelas (Quest, NPC, Bolsas, etc.)
-- [ ] Navegação direcional completa entre elementos de UI (D-Pad)
-- [ ] Execução de cliques e interações via controle
-- [ ] Tooltips contextuais com dicas de botões do controle
-- [ ] UI de configuração in-game para personalizar bindings e páginas
-- [ ] Suporte a addons populares (pfUI, SuperWoW, etc.)
+- [x] Cursor de navegação direcional e Auto-Snap em janelas de UI (D-Pad)
+- [x] Injeção no GameMenu principal (`ConsoleMode - Settings`)
+- [x] Painel de configurações in-game com 5 páginas de botões
+- [x] Seletor visual de Action Bars integrado com Tooltip Scanner de magias reais
+- [x] Suporte completo às combinações de modificadores (L2, R1, R2, L2+R2)
+- [ ] UI visual própria de Action Bars e HUD no estilo ConsolePort
+- [ ] Suporte a Ring Menu / Radial Menu (L2 + R2 + A)
+- [ ] Suporte a addons populares (pfUI, SuperMacro, SuperWoW, etc.)
 
 ### 🖥️ App Companion Próprio
-- [ ] **ConsoleModeInput** — aplicativo standalone (sem necessidade de Steam ou qualquer app de terceiro) que captura o controle diretamente via XInput/DirectInput e traduz os botões para o WoW, similar ao que o WoWMapper fazia para o ConsolePort antigamente. O objetivo é que o jogador instale apenas o addon + o app companion e tenha tudo funcionando sem depender de nenhuma plataforma externa.
+- [ ] **ConsoleModeInput** — aplicativo standalone (sem necessidade de Steam ou apps de terceiros) que captura o controle diretamente via XInput/DirectInput e traduz os botões para o WoW.
 
 ### 🎮 Perfis de Controle
 - [ ] Perfil `.vdf` oficial para Steam Input (Steam Deck + PC)
-- [ ] Suporte ao WoWMapper para PC sem Steam
-- [ ] Perfis por tipo de controle (Xbox, PlayStation, 8BitDo, Steam Deck)
-
----
-
-## 📜 Créditos
-
-- **ConsoleExperienceClassic**: Lógica de navegação via cursor de referência.
-- **ConsolePort**: Inspiração e padrão de UX para controles no WoW.
-- **WoWMapper** (Topher Sheridan): Referência e inspiração para o futuro app companion.
+- [ ] Perfis por tipo de controle (Xbox, PlayStation, 8BitDo, Nintendo Switch Layout)

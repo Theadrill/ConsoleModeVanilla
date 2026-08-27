@@ -128,16 +128,16 @@ local defaults = {
         DLEFT  = "ALT-9",
         DRIGHT = "ALT-0",
     },
-    -- Page 5: L2+R2 = SHIFT+ALT
+    -- Page 5: L2+R2 = ALT+SHIFT (ordem canônica da Blizzard)
     [5] = {
-        A      = "SHIFT-ALT-SPACE",
-        X      = "SHIFT-ALT-1",
-        Y      = "SHIFT-ALT-2",
-        B      = "SHIFT-ALT-3",
-        DUP    = "SHIFT-ALT-7",
-        DDOWN  = "SHIFT-ALT-8",
-        DLEFT  = "SHIFT-ALT-9",
-        DRIGHT = "SHIFT-ALT-0",
+        A      = "ALT-SHIFT-SPACE",
+        X      = "ALT-SHIFT-1",
+        Y      = "ALT-SHIFT-2",
+        B      = "ALT-SHIFT-3",
+        DUP    = "ALT-SHIFT-7",
+        DDOWN  = "ALT-SHIFT-8",
+        DLEFT  = "ALT-SHIFT-9",
+        DRIGHT = "ALT-SHIFT-0",
     },
 }
 

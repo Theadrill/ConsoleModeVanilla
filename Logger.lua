@@ -101,7 +101,9 @@ keyLogger:SetScript("OnUpdate", function()
         lastMods = mods
 
         local pageName = "Base"
-        if IsControlKeyDown() and IsAltKeyDown() then
+        if IsShiftKeyDown() and IsAltKeyDown() then
+            pageName = "L2+R2"
+        elseif IsControlKeyDown() and IsAltKeyDown() then
             pageName = "R1+R2"
         elseif IsAltKeyDown() then
             pageName = "R2"

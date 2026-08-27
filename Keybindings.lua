@@ -288,19 +288,31 @@ function KB:EnterNavigationMode()
     if KB.navigationMode then return end
     KB.navigationMode = true
 
-    -- Salva bindings atuais do D-Pad das 5 páginas
+    local keysToOverride = {
+        defaults[1].DUP,
+        defaults[1].DDOWN,
+        defaults[1].DLEFT,
+        defaults[1].DRIGHT,
+        defaults[1].A,
+        defaults[1].B,
+    }
+
+    -- Salva a ação real que cada tecla executava antes
     KB.savedNavBindings = {}
-    for page = 1, 5 do
-        for _, btn in ipairs({"DUP","DDOWN","DLEFT","DRIGHT"}) do
-            local bindName = "CM_ACTION_" .. btn .. "_" .. page
-            KB.savedNavBindings[bindName] = GetBindingKey(bindName)
+    for _, key in ipairs(keysToOverride) do
+        local action = GetBindingAction(key)
+        if action and action ~= "" and action ~= "CM_CURSOR_UP" and action ~= "CM_CURSOR_DOWN" and action ~= "CM_CURSOR_LEFT" and action ~= "CM_CURSOR_RIGHT" and action ~= "CM_CURSOR_CONFIRM" and action ~= "CM_CURSOR_CANCEL" then
+            KB.savedNavBindings[key] = action
+        else
+            if key == defaults[1].A then
+                KB.savedNavBindings[key] = "JUMP"
+            elseif key == defaults[1].B then
+                KB.savedNavBindings[key] = "ACTIONBUTTON3"
+            end
         end
-        -- Salva também A e B para confirmar/cancelar
-        KB.savedNavBindings["CM_ACTION_A_" .. page] = GetBindingKey("CM_ACTION_A_" .. page)
-        KB.savedNavBindings["CM_ACTION_B_" .. page] = GetBindingKey("CM_ACTION_B_" .. page)
     end
 
-    -- Aplica bindings de navegação no D-Pad (sem modificador por enquanto)
+    -- Aplica bindings de navegação no D-Pad e botões A e B
     SetBinding(defaults[1].DUP,    "CM_CURSOR_UP")
     SetBinding(defaults[1].DDOWN,  "CM_CURSOR_DOWN")
     SetBinding(defaults[1].DLEFT,  "CM_CURSOR_LEFT")
@@ -316,10 +328,35 @@ function KB:ExitNavigationMode()
     if not KB.navigationMode then return end
     KB.navigationMode = false
 
-    -- Restaura bindings originais do D-Pad
-    for bindName, key in pairs(KB.savedNavBindings) do
-        if key then
-            SetBinding(key, bindName)
+    local keysToRestore = {
+        defaults[1].DUP,
+        defaults[1].DDOWN,
+        defaults[1].DLEFT,
+        defaults[1].DRIGHT,
+        defaults[1].A,
+        defaults[1].B,
+    }
+
+    -- Restaura bindings originais de cada tecla
+    for _, key in ipairs(keysToRestore) do
+        local originalAction = KB.savedNavBindings[key]
+        if originalAction and originalAction ~= "" then
+            SetBinding(key, originalAction)
+        else
+            -- Fallbacks seguros caso não estivesse salvo
+            if key == defaults[1].A then
+                SetBinding(key, "JUMP")
+            elseif key == defaults[1].B then
+                SetBinding(key, "ACTIONBUTTON3")
+            elseif key == defaults[1].DUP then
+                SetBinding(key, "CM_ACTION_DUP_1")
+            elseif key == defaults[1].DDOWN then
+                SetBinding(key, "CM_ACTION_DDOWN_1")
+            elseif key == defaults[1].DLEFT then
+                SetBinding(key, "CM_ACTION_DLEFT_1")
+            elseif key == defaults[1].DRIGHT then
+                SetBinding(key, "CM_ACTION_DRIGHT_1")
+            end
         end
     end
     KB.savedNavBindings = {}
@@ -356,29 +393,45 @@ end
 
 function CM_CursorMove(direction)
     if CM.keybindings.chatActive then return end
+    
+    -- Proteção: se o cursor não estiver ativo em nenhuma janela, desativa modo navegação
+    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
+        CM.keybindings:ExitNavigationMode()
+        return
+    end
+    
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Key]|r D-Pad: " .. tostring(direction))
     CM.logger:Log("Cursor: Mover " .. tostring(direction))
-    if CM.cursor and CM.cursor.MoveDirection then
-        CM.cursor:MoveDirection(direction)
-    end
+    CM.cursor:MoveDirection(direction)
 end
 
 function CM_CursorConfirm()
     if CM.keybindings.chatActive then return end
+    
+    -- Proteção: se o cursor não estiver ativo em nenhuma janela, força saída e pula
+    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
+        CM.keybindings:ExitNavigationMode()
+        JumpOrAscendStart()
+        return
+    end
+    
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao A (Confirmar/Clicar)")
     CM.logger:Log("Cursor: Confirmar (A)")
-    if CM.cursor and CM.cursor.Click then
-        CM.cursor:Click("LeftButton")
-    end
+    CM.cursor:Click("LeftButton")
 end
 
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
+    
+    -- Proteção: se o cursor não estiver ativo em nenhuma janela, força saída
+    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
+        CM.keybindings:ExitNavigationMode()
+        return
+    end
+    
     DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Cancelar/Fechar)")
     CM.logger:Log("Cursor: Cancelar (B)")
-    if CM.cursor and CM.cursor.Click then
-        CM.cursor:Click("RightButton")
-    end
+    CM.cursor:Click("RightButton")
 end
 
 -- ============================================================

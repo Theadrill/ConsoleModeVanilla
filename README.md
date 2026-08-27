@@ -122,7 +122,31 @@ Se você usa o **Steam Deck** ou joga com o Steam aberto no PC, o Steam Input é
 
 ---
 
+## 🗺️ Roadmap
+
+O que está planejado para as próximas versões do ConsoleMode - Vanilla:
+
+### 🔧 Addon (Lua)
+- [ ] Cursor de navegação visual na tela (ponteiro + highlight)
+- [ ] Auto-Snap: foco automático ao abrir janelas (Quest, NPC, Bolsas, etc.)
+- [ ] Navegação direcional completa entre elementos de UI (D-Pad)
+- [ ] Execução de cliques e interações via controle
+- [ ] Tooltips contextuais com dicas de botões do controle
+- [ ] UI de configuração in-game para personalizar bindings e páginas
+- [ ] Suporte a addons populares (pfUI, SuperWoW, etc.)
+
+### 🖥️ App Companion Próprio
+- [ ] **ConsoleModeInput** — aplicativo standalone (sem necessidade de Steam ou qualquer app de terceiro) que captura o controle diretamente via XInput/DirectInput e traduz os botões para o WoW, similar ao que o WoWMapper fazia para o ConsolePort antigamente. O objetivo é que o jogador instale apenas o addon + o app companion e tenha tudo funcionando sem depender de nenhuma plataforma externa.
+
+### 🎮 Perfis de Controle
+- [ ] Perfil `.vdf` oficial para Steam Input (Steam Deck + PC)
+- [ ] Suporte ao WoWMapper para PC sem Steam
+- [ ] Perfis por tipo de controle (Xbox, PlayStation, 8BitDo, Steam Deck)
+
+---
+
 ## 📜 Créditos
 
 - **ConsoleExperienceClassic**: Lógica de navegação via cursor de referência.
 - **ConsolePort**: Inspiração e padrão de UX para controles no WoW.
+- **WoWMapper** (Topher Sheridan): Referência e inspiração para o futuro app companion.

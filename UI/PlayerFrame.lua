@@ -96,8 +96,8 @@ function PF:Initialize()
     -- Textura 2D/3D do rosto do personagem (visivel pelo corte diamond central)
     local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
     portraitTex:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitTex:SetWidth(42)
-    portraitTex:SetHeight(44)
+    portraitTex:SetWidth(50)
+    portraitTex:SetHeight(50)
     portraitTex:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portraitTex
     f.portraitFrame = portraitFrame

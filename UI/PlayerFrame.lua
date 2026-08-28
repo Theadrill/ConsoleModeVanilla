@@ -579,12 +579,14 @@ function PF:Update()
     self.frame.nameText:SetText(name)
     self.frame.levelText:SetText(tostring(UnitLevel("player") or 1))
 
-    -- 2. Retrato e Placa de Classe Integral
+    -- 2. Retrato, Placa e Brasão da Classe
     SetPortraitTexture(self.frame.portrait, "player")
     local _, playerClass = UnitClass("player")
     playerClass = playerClass or "DEFAULT"
     local classFrameTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Frames\\" .. playerClass .. ".tga"
     self.frame.panelBg:SetTexture(classFrameTex)
+    local classCrestTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Crests\\" .. playerClass .. ".tga"
+    self.frame.nameBg:SetTexture(classCrestTex)
 
     -- 3. Vida
     local curHP = UnitHealth("player") or 0

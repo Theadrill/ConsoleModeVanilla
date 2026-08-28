@@ -285,6 +285,11 @@ function Picker:ConfirmSlotByIndex(slotIndex)
         local _, actionName = self:GetSlotInfo(realSlot)
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r |cffffcc00" .. self.targetCombo .. "|r vinculado a |cff88ccff" .. (actionName or ("Slot " .. slotIndex)) .. "|r (" .. barDef.name .. ")!")
         PlaySound("igMainMenuOptionCheckBoxOn")
+        
+        -- Atualiza imediatamente os icones do ActionHUD
+        if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.Update then
+            CM.ui.actionHUD:Update()
+        end
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro ao vincular tecla!")
     end

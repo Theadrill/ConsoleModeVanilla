@@ -401,6 +401,11 @@ function KB:ExitNavigationMode()
     end
     KB.savedNavBindings = {}
 
+    -- Atualiza ActionHUD imediatamente
+    if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.Update then
+        CM.ui.actionHUD:Update()
+    end
+
     DEFAULT_CHAT_FRAME:AddMessage("|cffff8800[CM Keybindings]|r Modo Navegacao DESATIVADO (Combate restaurado)")
     CM.logger:Log("Modo HOTKEY restaurado - D-Pad = ações de combate")
 end

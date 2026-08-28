@@ -134,6 +134,9 @@ function Config:Hide()
     if self.frame then
         self.frame:Hide()
     end
+    if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.Update then
+        CM.ui.actionHUD:Update()
+    end
 end
 
 function Config:Toggle()

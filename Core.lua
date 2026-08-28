@@ -16,6 +16,102 @@ ConsoleMode.debug   = true  -- ✅ Flag para logs verbosos (iniciando ON por pad
 
 local CM = ConsoleMode
 
+-- ============================================================
+-- Sistema Centralizado de Posicionamento e Movimentacao de UI
+-- Permite que qualquer elemento (XPBar, ActionBars, Frames) seja
+-- arrastavel com Shift+Left e resetavel com Shift+Right
+-- ============================================================
+CM.ui = CM.ui or {}
+CM.ui.registeredFrames = {}
+
+function CM.ui:MakeMovable(frame, key, defaultPoint, defaultRelPoint, defaultX, defaultY, friendlyName)
+    if not frame or not key then return end
+    
+    friendlyName = friendlyName or key
+    defaultPoint = defaultPoint or "CENTER"
+    defaultRelPoint = defaultRelPoint or defaultPoint
+    defaultX = defaultX or 0
+    defaultY = defaultY or 0
+    
+    -- Registra nos frames gerenciados
+    CM.ui.registeredFrames[key] = {
+        frame = frame,
+        key = key,
+        defaultPoint = defaultPoint,
+        defaultRelPoint = defaultRelPoint,
+        defaultX = defaultX,
+        defaultY = defaultY,
+        friendlyName = friendlyName
+    }
+    
+    -- Carrega posicao salva ou aplica default
+    local saved = ConsoleModeDB and ConsoleModeDB.positions and ConsoleModeDB.positions[key]
+    if saved and saved.point then
+        frame:ClearAllPoints()
+        frame:SetPoint(saved.point, UIParent, saved.relPoint or saved.point, saved.x or 0, saved.y or 0)
+    else
+        frame:ClearAllPoints()
+        frame:SetPoint(defaultPoint, UIParent, defaultRelPoint, defaultX, defaultY)
+    end
+    
+    frame:SetMovable(true)
+    frame:EnableMouse(true)
+    frame:RegisterForDrag("LeftButton")
+    
+    frame:SetScript("OnDragStart", function()
+        if IsShiftKeyDown() then
+            this:StartMoving()
+            this.isMoving = true
+        end
+    end)
+    
+    frame:SetScript("OnDragStop", function()
+        if this.isMoving then
+            this:StopMovingOrSizing()
+            this.isMoving = false
+            
+            if not ConsoleModeDB then ConsoleModeDB = {} end
+            if not ConsoleModeDB.positions then ConsoleModeDB.positions = {} end
+            
+            local point, _, relPoint, x, y = this:GetPoint()
+            ConsoleModeDB.positions[key] = {
+                point = point,
+                relPoint = relPoint,
+                x = x,
+                y = y
+            }
+        end
+    end)
+    
+    frame:SetScript("OnMouseUp", function()
+        if arg1 == "RightButton" and IsShiftKeyDown() then
+            CM.ui:ResetPosition(key)
+        end
+    end)
+end
+
+function CM.ui:ResetPosition(key)
+    local info = CM.ui.registeredFrames[key]
+    if not info or not info.frame then return end
+    
+    info.frame:ClearAllPoints()
+    info.frame:SetPoint(info.defaultPoint, UIParent, info.defaultRelPoint, info.defaultX, info.defaultY)
+    
+    if ConsoleModeDB and ConsoleModeDB.positions then
+        ConsoleModeDB.positions[key] = nil
+    end
+    
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. info.friendlyName .. " restaurado para a posicao padrao!")
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function CM.ui:ResetAllPositions()
+    for key, _ in pairs(CM.ui.registeredFrames) do
+        CM.ui:ResetPosition(key)
+    end
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Todas as posicoes da interface foram restauradas!")
+end
+
 -- Registra eventos principais
 CM:RegisterEvent("ADDON_LOADED")
 CM:RegisterEvent("VARIABLES_LOADED")
@@ -176,9 +272,15 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
             DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Nenhum frame sob o mouse")
         end
 
+    elseif cmd == "resetui" then
+        if CM.ui and CM.ui.ResetAllPositions then
+            CM.ui:ResetAllPositions()
+        end
+
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ConsoleMode:|r Comandos disponiveis:")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm config|r     - Abre o Painel de Configuracoes")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm resetui|r    - Restaura todas as posicoes de UI para o padrao")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm controller|r - Aplica perfil de controle completo")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm keyboard|r   - Restaura perfil de teclado/mouse")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm mouse|r      - Alterna Mouse Mode (Cursor Livre)")

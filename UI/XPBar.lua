@@ -28,44 +28,14 @@ function XPBar:Initialize()
     local f = CreateFrame("Frame", "ConsoleModeXPBarFrame", UIParent)
     f:SetWidth(500)
     f:SetHeight(22)
-    
-    -- Carrega posicao salva ou define posicao padrao (parte inferior da tela)
-    local savedPos = ConsoleModeDB and ConsoleModeDB.xpBarPosition
-    if savedPos and savedPos.point then
-        f:SetPoint(savedPos.point, UIParent, savedPos.relPoint, savedPos.x, savedPos.y)
+    -- Torna o frame movivel, persistente e resetavel globalmente
+    if CM.ui and CM.ui.MakeMovable then
+        CM.ui:MakeMovable(f, "XPBar", "BOTTOM", "BOTTOM", 0, 10, "Barra de Experiencia")
     else
-        f:SetPoint("CENTER", UIParent, "CENTER", 0, -200)
+        f:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 10)
     end
     
     f:SetFrameStrata("MEDIUM")
-    f:SetMovable(true)
-    f:EnableMouse(true)
-    f:RegisterForDrag("LeftButton")
-    
-    -- Movimentacao com Shift + Clique Esquerdo
-    f:SetScript("OnDragStart", function()
-        if IsShiftKeyDown() then
-            this:StartMoving()
-            this.isMoving = true
-        end
-    end)
-    
-    f:SetScript("OnDragStop", function()
-        if this.isMoving then
-            this:StopMovingOrSizing()
-            this.isMoving = false
-            
-            -- Salva a nova posicao
-            if not ConsoleModeDB then ConsoleModeDB = {} end
-            local point, _, relPoint, x, y = this:GetPoint()
-            ConsoleModeDB.xpBarPosition = {
-                point = point,
-                relPoint = relPoint,
-                x = x,
-                y = y
-            }
-        end
-    end)
     
     -- Badge de Level (quadradinho escuro na esquerda)
     local levelBadge = CreateFrame("Frame", "ConsoleModeXPLevelBadge", f)
@@ -129,7 +99,8 @@ function XPBar:Initialize()
             local restPct = math.floor((restXP / maxXP) * 100)
             GameTooltip:AddLine(string.format("Descansado: +%d (%d%%)", restXP, restPct), 0.2, 0.6, 1.0)
         end
-        GameTooltip:AddLine("|cff888888(Segure Shift + Clique Esquerdo para arrastar)|r", 0.5, 0.5, 0.5)
+        GameTooltip:AddLine("|cff888888Shift + Clique Esquerdo: Arrastar|r", 0.5, 0.5, 0.5)
+        GameTooltip:AddLine("|cff888888Shift + Clique Direito: Resetar posicao|r", 0.5, 0.5, 0.5)
         GameTooltip:Show()
     end)
     
@@ -144,12 +115,44 @@ function XPBar:Initialize()
     f:RegisterEvent("PLAYER_ENTERING_WORLD")
     
     f:SetScript("OnEvent", function()
+        XPBar:HideDefaultBars()
         XPBar:Update()
     end)
     
     self.frame = f
+    self:HideDefaultBars()
     self:Update()
     f:Show()
+end
+
+function XPBar:HideDefaultBars()
+    -- 1. Oculta a barra padrao da Blizzard (Vanilla 1.12)
+    if MainMenuExpBar then
+        MainMenuExpBar:Hide()
+        MainMenuExpBar:UnregisterAllEvents()
+        MainMenuExpBar:SetAlpha(0)
+        MainMenuExpBar.Show = function() end
+    end
+    if MainMenuBarExpText then
+        MainMenuBarExpText:Hide()
+    end
+    
+    -- 2. Oculta a barra do Turtle-Dragonflight (tDFxpbar)
+    local tdfBar = getglobal("tDFxpbar") or (xpbar and xpbar.GetName and xpbar:GetName() == "tDFxpbar" and xpbar)
+    if tdfBar then
+        tdfBar:Hide()
+        tdfBar:UnregisterAllEvents()
+        tdfBar:SetAlpha(0)
+        tdfBar.Show = function() end
+    end
+    if xpbar_watcher then
+        xpbar_watcher:UnregisterAllEvents()
+        xpbar_watcher:SetScript("OnEvent", nil)
+    end
+    if xpbar_watcher_rest then
+        xpbar_watcher_rest:UnregisterAllEvents()
+        xpbar_watcher_rest:SetScript("OnEvent", nil)
+    end
 end
 
 function XPBar:Update()

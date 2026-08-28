@@ -89,10 +89,10 @@
     <!-- ============================================================ -->
     <!-- Navegação de Cursor UI (D-Pad modo navegação)                -->
     <!-- ============================================================ -->
-    <Binding name="CM_CURSOR_UP" header="CONSOLEMODECURSOR">CM_CursorMove("UP")</Binding>
-    <Binding name="CM_CURSOR_DOWN">CM_CursorMove("DOWN")</Binding>
-    <Binding name="CM_CURSOR_LEFT">CM_CursorMove("LEFT")</Binding>
-    <Binding name="CM_CURSOR_RIGHT">CM_CursorMove("RIGHT")</Binding>
+    <Binding name="CM_CURSOR_UP" header="CONSOLEMODECURSOR" runOnUp="true">CM_CursorMove("UP", keystate)</Binding>
+    <Binding name="CM_CURSOR_DOWN" runOnUp="true">CM_CursorMove("DOWN", keystate)</Binding>
+    <Binding name="CM_CURSOR_LEFT" runOnUp="true">CM_CursorMove("LEFT", keystate)</Binding>
+    <Binding name="CM_CURSOR_RIGHT" runOnUp="true">CM_CursorMove("RIGHT", keystate)</Binding>
     <Binding name="CM_CURSOR_CONFIRM">CM_CursorConfirm()</Binding>                       <!-- A no modo nav -->
     <Binding name="CM_CURSOR_CANCEL">CM_CursorCancel()</Binding>                         <!-- B no modo nav -->
     <Binding name="CM_CURSOR_CLICK_LEFT">CM_CursorClickLeft()</Binding>                 <!-- L1 no modo nav -->

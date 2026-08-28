@@ -508,7 +508,7 @@ function CM_ToggleUI(uiType)
     end
 end
 
-function CM_CursorMove(direction)
+function CM_CursorMove(direction, keystate)
     if CM.keybindings.chatActive then return end
     
     -- Proteção: se o cursor não estiver ativo em nenhuma janela, desativa modo navegação
@@ -517,9 +517,19 @@ function CM_CursorMove(direction)
         return
     end
     
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Key]|r D-Pad: " .. tostring(direction))
-    CM.logger:Log("Cursor: Mover " .. tostring(direction))
-    CM.cursor:MoveDirection(direction)
+    if keystate == "up" then
+        if CM.cursor.StopRepeat then
+            CM.cursor:StopRepeat(direction)
+        end
+    else
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Key]|r D-Pad: " .. tostring(direction))
+        CM.logger:Log("Cursor: Mover " .. tostring(direction))
+        if CM.cursor.StartRepeat then
+            CM.cursor:StartRepeat(direction)
+        else
+            CM.cursor:MoveDirection(direction)
+        end
+    end
 end
 
 function CM_CursorConfirm()

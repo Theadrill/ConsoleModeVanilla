@@ -21,6 +21,13 @@ Cursor.state = {
     distances = { up = 999999, down = 999999, left = 999999, right = 999999 },
 }
 
+Cursor.repeatState = {
+    direction = nil,
+    timer = 0,
+    initialDelay = 0.35,  -- 350ms de espera antes de rolar rápido
+    interval = 0.12,      -- 120ms por passo contínuo
+}
+
 -- Frame do Ponteiro
 local cursorFrame = CreateFrame("Frame", "ConsoleModeCursorFrame", UIParent)
 cursorFrame:SetWidth(32)
@@ -28,6 +35,25 @@ cursorFrame:SetHeight(32)
 cursorFrame:SetFrameStrata("FULLSCREEN_DIALOG")
 cursorFrame:SetFrameLevel(1001)
 cursorFrame:Hide()
+
+-- Autorepeat contínuo ao segurar o D-Pad
+local repeatTicker = CreateFrame("Frame", "ConsoleModeCursorRepeatTicker", UIParent)
+repeatTicker:SetScript("OnUpdate", function()
+    if not Cursor.state.enabled then
+        Cursor.repeatState.direction = nil
+        return
+    end
+    
+    local dir = Cursor.repeatState.direction
+    if dir then
+        local elapsed = arg1 or 0.016
+        Cursor.repeatState.timer = Cursor.repeatState.timer - elapsed
+        if Cursor.repeatState.timer <= 0 then
+            Cursor:MoveDirection(dir)
+            Cursor.repeatState.timer = Cursor.repeatState.interval
+        end
+    end
+end)
 
 local cursorTexture = cursorFrame:CreateTexture(nil, "OVERLAY")
 cursorTexture:SetTexture("Interface\\CURSOR\\Point")
@@ -193,6 +219,19 @@ function Cursor:MoveTo(button)
     self:UpdateState()
 end
 
+function Cursor:StartRepeat(direction)
+    self:MoveDirection(direction)
+    self.repeatState.direction = direction
+    self.repeatState.timer = self.repeatState.initialDelay
+end
+
+function Cursor:StopRepeat(direction)
+    if not direction or self.repeatState.direction == direction then
+        self.repeatState.direction = nil
+        self.repeatState.timer = 0
+    end
+end
+
 function Cursor:Show()
     if self.state.currentButton then 
         self:UpdatePosition(self.state.currentButton) 
@@ -200,6 +239,8 @@ function Cursor:Show()
 end
 
 function Cursor:Hide()
+    self.repeatState.direction = nil
+    self.repeatState.timer = 0
     cursorFrame:Hide()
     highlightFrame:Hide()
     if GameTooltip then GameTooltip:Hide() end
@@ -210,6 +251,8 @@ function Cursor:Enable()
 end
 
 function Cursor:Disable()
+    self.repeatState.direction = nil
+    self.repeatState.timer = 0
     self.state.enabled = false
     self.state.currentButton = nil
     self.state.currentFrame = nil

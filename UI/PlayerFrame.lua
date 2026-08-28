@@ -43,18 +43,43 @@ function PF:Initialize()
     f:EnableMouse(true)
     f:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     
-    -- Clique direito = Menu do Jogador (Loot, Reset Instances, etc.)
-    f:SetScript("OnClick", function()
-        if arg1 == "RightButton" and PlayerFrameDropDown then
+    -- Função unificada de clique do PlayerFrame
+    local function OnPlayerFrameClick()
+        if arg1 == "LeftButton" then
+            TargetUnit("player")
+        elseif arg1 == "RightButton" and PlayerFrameDropDown then
             HideDropDownMenu(1)
             PlayerFrameDropDown.point = "TOPLEFT"
             PlayerFrameDropDown.relativePoint = "BOTTOMLEFT"
             ToggleDropDownMenu(1, nil, PlayerFrameDropDown, f:GetName(), 0, 0)
         end
-    end)
+    end
 
-    -- 1. Medalhão Nórdico do Jogador (Retrato à Esquerda)
-    local portraitFrame = CreateFrame("Frame", "ConsoleModePlayerPortrait", f)
+    f:SetScript("OnClick", OnPlayerFrameClick)
+
+    local function MakeSubClickable(sub)
+        sub:EnableMouse(true)
+        sub:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        sub:SetScript("OnClick", OnPlayerFrameClick)
+        sub:SetScript("OnMouseDown", function()
+            if IsShiftKeyDown() and arg1 == "LeftButton" then
+                f:StartMoving()
+                f.isMoving = true
+            end
+        end)
+        sub:SetScript("OnMouseUp", function()
+            if f.isMoving then
+                f:StopMovingOrSizing()
+                f.isMoving = false
+                if CM.ui and CM.ui.SaveFramePosition then
+                    CM.ui:SaveFramePosition("PlayerFrame", f)
+                end
+            end
+        end)
+    end
+
+    -- 1. Medalhão do Jogador (Retrato à Esquerda)
+    local portraitFrame = CreateFrame("Button", "ConsoleModePlayerPortrait", f)
     portraitFrame:SetWidth(54)
     portraitFrame:SetHeight(54)
     portraitFrame:SetPoint("LEFT", f, "LEFT", 0, 0)
@@ -65,7 +90,8 @@ function PF:Initialize()
         insets = { left = 3, right = 3, top = 3, bottom = 3 }
     })
     portraitFrame:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
-    portraitFrame:SetBackdropBorderColor(0.55, 0.55, 0.55, 1.0) -- Prata / Metal Nórdico
+    portraitFrame:SetBackdropBorderColor(0.55, 0.55, 0.55, 1.0)
+    MakeSubClickable(portraitFrame)
 
     local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
     portraitTex:SetPoint("TOPLEFT", portraitFrame, "TOPLEFT", 4, -4)
@@ -100,7 +126,7 @@ function PF:Initialize()
     f.nameText = nameText
 
     -- 2. Fundo da Barra de Vida (Empurrado para baixo para dar folga a Cast Bar e Nome)
-    local hpBg = CreateFrame("Frame", "ConsoleModePlayerHPBg", f)
+    local hpBg = CreateFrame("Button", "ConsoleModePlayerHPBg", f)
     hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 4, -8)
     hpBg:SetWidth(140)
     hpBg:SetHeight(16)
@@ -112,6 +138,7 @@ function PF:Initialize()
     })
     hpBg:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
     hpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.9)
+    MakeSubClickable(hpBg)
     f.hpBg = hpBg
 
     -- Damage Trail Amarelo (Decaimento suave)
@@ -142,7 +169,7 @@ function PF:Initialize()
     f.hpText = hpText
 
     -- 3. Fundo da Barra de Recursos (Furia / Mana / Energia)
-    local mpBg = CreateFrame("Frame", "ConsoleModePlayerMPBg", f)
+    local mpBg = CreateFrame("Button", "ConsoleModePlayerMPBg", f)
     mpBg:SetPoint("TOPLEFT", hpBg, "BOTTOMLEFT", 0, -2)
     mpBg:SetWidth(100) -- ⬅️ LARGURA PROPRIA DA BARRA DE RECURSOS (atualmente 180px)
     mpBg:SetHeight(9)  -- ⬅️ Altura da barra de recursos
@@ -154,6 +181,7 @@ function PF:Initialize()
     })
     mpBg:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
     mpBg:SetBackdropBorderColor(0.3, 0.3, 0.3, 0.8)
+    MakeSubClickable(mpBg)
     f.mpBg = mpBg
 
     -- Barra de Recursos
@@ -358,11 +386,25 @@ function PF:HideDefaultBars()
         PlayerFrame:SetAlpha(0)
         PlayerFrame.Show = function() end
     end
-    if CastingBarFrame then
-        CastingBarFrame:Hide()
-        CastingBarFrame:UnregisterAllEvents()
-        CastingBarFrame:SetAlpha(0)
-        CastingBarFrame.Show = function() end
+
+    local defaultCastBars = {
+        "CastingBarFrame",
+        "tDFImprovedCastbar",
+        "tDFImprovedCastbarFrame",
+        "tDFCastbar",
+        "tDF_Castbar",
+        "tDFTargetCastbar",
+        "tDF_TargetCastbar",
+    }
+
+    for _, barName in ipairs(defaultCastBars) do
+        local bar = getglobal(barName)
+        if bar then
+            bar:Hide()
+            bar:UnregisterAllEvents()
+            bar:SetAlpha(0)
+            bar.Show = function() end
+        end
     end
 end
 

@@ -57,6 +57,11 @@ CM:SetScript("OnEvent", function()
             CM.config:Initialize()
         end
 
+        -- Inicializa barra de experiência customizada
+        if CM.ui and CM.ui.xpBar and CM.ui.xpBar.Initialize then
+            CM.ui.xpBar:Initialize()
+        end
+
         -- Inicializa hooks somente se módulos existem
         if CM.hooks and CM.hooks.Initialize then
             CM.hooks:Initialize()
@@ -68,6 +73,9 @@ CM:SetScript("OnEvent", function()
         end
         if CM.config and CM.config.Initialize then
             CM.config:Initialize()
+        end
+        if CM.ui and CM.ui.xpBar and CM.ui.xpBar.Initialize then
+            CM.ui.xpBar:Initialize()
         end
 
     elseif event == "PLAYER_LOGOUT" then
@@ -85,6 +93,21 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
     if cmd == "config" or cmd == "settings" or cmd == "binds" or cmd == "menu" then
         if CM.config and CM.config.Toggle then
             CM.config:Toggle()
+        end
+
+    elseif cmd == "xp" then
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Comando /cm xp executado!")
+        if CM.ui and CM.ui.xpBar then
+            CM.ui.xpBar:Initialize()
+            if CM.ui.xpBar.frame then
+                CM.ui.xpBar.frame:Show()
+                CM.ui.xpBar:Update()
+                DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r XPBar: frame exibido e atualizado!")
+            else
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r XPBar: frame é nil!")
+            end
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r XPBar module não carregado no CM.ui!")
         end
 
     elseif cmd == "status" then

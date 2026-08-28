@@ -69,32 +69,41 @@ function TF:Initialize()
     nameText:SetText("")
     f.nameText = nameText
 
-    -- 3. Retrato a Direita (Medalhao estilizado)
+    -- 3. Retrato a Direita com Moldura Tematica Diamond (Inimigos/Monstros)
     local portraitFrame = CreateFrame("Frame", "ConsoleModeTargetPortrait", f)
-    portraitFrame:SetWidth(52)
-    portraitFrame:SetHeight(52)
-    portraitFrame:SetPoint("RIGHT", f, "RIGHT", 0, -6)
-    portraitFrame:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = true, tileSize = 16, edgeSize = 12,
-        insets = { left = 3, right = 3, top = 3, bottom = 3 }
-    })
-    portraitFrame:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
-    portraitFrame:SetBackdropBorderColor(0.6, 0.5, 0.2, 1.0) -- Borda Dourada / Bronze
+    portraitFrame:SetWidth(72)
+    portraitFrame:SetHeight(72)
+    portraitFrame:SetPoint("RIGHT", f, "RIGHT", 4, -6)
 
+    -- Fundo escuro atras do rosto do alvo
+    local portraitBg = portraitFrame:CreateTexture(nil, "BACKGROUND")
+    portraitBg:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Empty.tga")
+    portraitBg:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
+    portraitBg:SetWidth(28)
+    portraitBg:SetHeight(28)
+    portraitBg:SetVertexColor(0.08, 0.08, 0.08, 1.0)
+
+    -- Rosto 2D do alvo (reduzido pela metade para teste radical: 22x22)
     local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
-    portraitTex:SetPoint("TOPLEFT", portraitFrame, "TOPLEFT", 4, -4)
-    portraitTex:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", -4, 4)
-    portraitTex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    portraitTex:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
+    portraitTex:SetWidth(42)
+    portraitTex:SetHeight(44)
+    portraitTex:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portraitTex
     f.portraitFrame = portraitFrame
 
+    -- Moldura Tematica de Inimigo / Classe (Sobreposta em OVERLAY)
+    local portraitRing = portraitFrame:CreateTexture(nil, "OVERLAY")
+    portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\ENEMY.tga")
+    portraitRing:SetAllPoints(portraitFrame)
+    portraitRing:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+    f.portraitRing = portraitRing
+
     -- Icone de Caveira / Elite no retrato
     local eliteIcon = portraitFrame:CreateTexture(nil, "OVERLAY")
-    eliteIcon:SetWidth(20)
-    eliteIcon:SetHeight(20)
-    eliteIcon:SetPoint("TOPLEFT", portraitFrame, "TOPLEFT", -6, 6)
+    eliteIcon:SetWidth(22)
+    eliteIcon:SetHeight(22)
+    eliteIcon:SetPoint("TOPRIGHT", portraitFrame, "TOPRIGHT", 2, 2)
     eliteIcon:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Skull")
     eliteIcon:Hide()
     f.eliteIcon = eliteIcon
@@ -496,8 +505,21 @@ function TF:Update()
         self.frame.levelText:SetText("Nível ?? " .. classText) -- Boss / Caveira
     end
 
-    -- 3. Retrato
+    -- 3. Retrato e Moldura Dinamica do Alvo
     SetPortraitTexture(self.frame.portrait, "target")
+    if UnitIsPlayer("target") then
+        -- Alvo é um Jogador: usa a moldura da classe do jogador
+        local _, tClass = UnitClass("target")
+        tClass = tClass or "DEFAULT"
+        local classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. tClass .. ".tga"
+        self.frame.portraitRing:SetTexture(classPortraitTex)
+    elseif UnitIsEnemy("player", "target") or UnitCanAttack("player", "target") then
+        -- Inimigo Hostil / Monstro / Boss: usa a moldura sinistra de Inimigos
+        self.frame.portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\ENEMY.tga")
+    else
+        -- NPC Amigável / Neutro / Comerciante / Cidadão: usa a moldura temática de NPC
+        self.frame.portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\NPC.tga")
+    end
 
     -- 4. Vida
     local curHP = UnitHealth("target") or 0

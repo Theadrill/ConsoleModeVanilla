@@ -360,7 +360,7 @@ function Hooks:Initialize()
     if not self.eventFrame then
         self.eventFrame = CreateFrame("Frame")
         
-        -- Eventos de frames que são criados sob demanda
+        -- Eventos de frames que são criados sob demanda e diálogos de missões
         self.eventFrame:RegisterEvent("MERCHANT_SHOW")
         self.eventFrame:RegisterEvent("BANKFRAME_OPENED")
         self.eventFrame:RegisterEvent("TRADE_SKILL_SHOW")
@@ -369,24 +369,46 @@ function Hooks:Initialize()
         self.eventFrame:RegisterEvent("MAIL_SHOW")
         self.eventFrame:RegisterEvent("TAXIMAP_OPENED")
         self.eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-        self.eventFrame:RegisterEvent("SPELLS_CHANGED")  -- TalentFrame pode aparecer quando talentos mudam
-        self.eventFrame:RegisterEvent("WORLD_MAP_UPDATE") -- WorldMapFrame quando mapa abre
+        self.eventFrame:RegisterEvent("SPELLS_CHANGED")
+        self.eventFrame:RegisterEvent("WORLD_MAP_UPDATE")
+        
+        -- Eventos de Transição de Missões / Diálogos de NPCs
+        self.eventFrame:RegisterEvent("QUEST_GREETING")
+        self.eventFrame:RegisterEvent("QUEST_DETAIL")
+        self.eventFrame:RegisterEvent("QUEST_PROGRESS")
+        self.eventFrame:RegisterEvent("QUEST_COMPLETE")
+        self.eventFrame:RegisterEvent("QUEST_FINISHED")
+        self.eventFrame:RegisterEvent("GOSSIP_SHOW")
+        self.eventFrame:RegisterEvent("GOSSIP_CLOSED")
         
         self.eventFrame:SetScript("OnEvent", function()
             if event == "PLAYER_ENTERING_WORLD" then
-                -- Espera 1 segundo após entrar no mundo para garantir que frames existam
                 local delayFrame = CreateFrame("Frame")
                 delayFrame:SetScript("OnUpdate", function()
                     this.elapsed = (this.elapsed or 0) + arg1
                     if this.elapsed > 1.0 then
                         this:SetScript("OnUpdate", nil)
-                        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Re-checando frames pendentes...")
                         Hooks:TryHookPendingFrames()
                     end
                 end)
+            elseif event == "QUEST_PROGRESS" or event == "QUEST_COMPLETE" or event == "QUEST_DETAIL" or event == "QUEST_GREETING" or event == "GOSSIP_SHOW" then
+                -- Diálogo ou etapa de missão mudou: re-sincroniza o cursor no novo botão
+                local qf = (QuestFrame and QuestFrame:IsVisible() and QuestFrame) or (GossipFrame and GossipFrame:IsVisible() and GossipFrame)
+                if qf then
+                    local Cursor = ConsoleMode.cursor
+                    if Cursor then
+                        Cursor.state.activeFrames[qf] = true
+                        local delayQ = CreateFrame("Frame")
+                        delayQ:SetScript("OnUpdate", function()
+                            this.elapsed = (this.elapsed or 0) + arg1
+                            if this.elapsed > 0.04 then
+                                this:SetScript("OnUpdate", nil)
+                                Hooks:InitCursorOnFrame(qf)
+                            end
+                        end)
+                    end
+                end
             else
-                -- Qualquer outro evento: tenta hookar frames pendentes imediatamente
-                DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Evento " .. event .. " disparado, checando frames...")
                 Hooks:TryHookPendingFrames()
             end
         end)
@@ -399,7 +421,12 @@ function Hooks:Initialize()
                 
                 local Cursor = ConsoleMode.cursor
                 if Cursor then
-                    -- 1. Verifica se os frames atualmente ativos ainda estão visíveis
+                    -- 1. Se o botão atual sumiu ou virou a página, auto-resync no novo botão!
+                    if Cursor.state.enabled and Cursor.state.currentButton and not Cursor.state.currentButton:IsVisible() then
+                        Cursor:Resync()
+                    end
+
+                    -- 2. Verifica se os frames atualmente ativos ainda estão visíveis
                     local anyFrameVisible = false
                     for frame, _ in pairs(Cursor.state.activeFrames) do
                         if frame and frame:IsVisible() then
@@ -417,7 +444,7 @@ function Hooks:Initialize()
                         end
                     end
                     
-                    -- 2. Detecta frames que abriram sem disparar OnShow padrao
+                    -- 3. Detecta frames que abriram sem disparar OnShow padrao
                     local problematicFrames = { 
                         "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
                         "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MacroFrame", "SuperMacroFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "MailFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame"

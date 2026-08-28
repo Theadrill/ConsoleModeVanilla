@@ -30,8 +30,8 @@ function PF:Initialize()
 
     -- Container Principal
     local f = CreateFrame("Button", "ConsoleModePlayerFrame", UIParent)
-    f:SetWidth(320)
-    f:SetHeight(64)
+    f:SetWidth(360)
+    f:SetHeight(96)
     
     if CM.ui and CM.ui.MakeMovable then
         CM.ui:MakeMovable(f, "PlayerFrame", "TOPLEFT", "TOPLEFT", 20, -20, "Player Frame")
@@ -78,42 +78,41 @@ function PF:Initialize()
         end)
     end
 
-    -- 1. Retrato do Jogador em Formato Diamond (Losango de Metal)
+    -- 1. Retrato do Jogador com Moldura Tematica por Classe (+50% maior: 84x84)
     local portraitFrame = CreateFrame("Button", "ConsoleModePlayerPortraitFrame", f)
-    portraitFrame:SetWidth(48)
-    portraitFrame:SetHeight(48)
+    portraitFrame:SetWidth(84)
+    portraitFrame:SetHeight(84)
     portraitFrame:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 4, 4)
     MakeSubClickable(portraitFrame)
 
-    -- Fundo escuro do retrato
+    -- Fundo escuro do retrato atras do rosto
     local portraitBg = portraitFrame:CreateTexture(nil, "BACKGROUND")
     portraitBg:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Empty.tga")
     portraitBg:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitBg:SetWidth(46)
-    portraitBg:SetHeight(46)
-    portraitBg:SetVertexColor(0.12, 0.12, 0.12, 1.0)
+    portraitBg:SetWidth(50)
+    portraitBg:SetHeight(50)
+    portraitBg:SetVertexColor(0.08, 0.08, 0.08, 1.0)
 
-    -- Textura 2D/3D do rosto do personagem
+    -- Textura 2D/3D do rosto do personagem (visivel pelo corte diamond central)
     local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
     portraitTex:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitTex:SetWidth(34)
-    portraitTex:SetHeight(34)
+    portraitTex:SetWidth(42)
+    portraitTex:SetHeight(44)
     portraitTex:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portraitTex
     f.portraitFrame = portraitFrame
 
-    -- Moldura Externa de Metal em Losango (Sobreposta ao rosto)
+    -- Moldura Tematica de Classe em Losango (Sobreposta em OVERLAY)
     local portraitRing = portraitFrame:CreateTexture(nil, "OVERLAY")
-    portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portrait_Diamond_Ring.tga")
     portraitRing:SetAllPoints(portraitFrame)
     portraitRing:SetVertexColor(1.0, 1.0, 1.0, 1.0)
     f.portraitRing = portraitRing
 
-    -- Badge de Nível colado no medalhão (canto inferior direito)
+    -- Badge de Nível no canto inferior direito
     local levelBadge = CreateFrame("Frame", "ConsoleModePlayerLevelBadge", portraitFrame)
-    levelBadge:SetWidth(18)
-    levelBadge:SetHeight(18)
-    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", 2, -2)
+    levelBadge:SetWidth(22)
+    levelBadge:SetHeight(22)
+    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", -2, -2)
     levelBadge:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -130,13 +129,13 @@ function PF:Initialize()
 
     -- Nome do Jogador acima da barra
     local nameText = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    nameText:SetPoint("BOTTOMLEFT", portraitFrame, "RIGHT", 6, 14)
+    nameText:SetPoint("BOTTOMLEFT", portraitFrame, "RIGHT", 8, 20)
     nameText:SetText(UnitName("player") or "")
     f.nameText = nameText
 
     -- 2. Fundo da Barra de Vida (Alinhamento Perfeito)
     local hpBg = CreateFrame("Button", "ConsoleModePlayerHPBg", f)
-    hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 1, -8)
+    hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 6, -10)
     hpBg:SetWidth(140)
     hpBg:SetHeight(16)
     hpBg:SetBackdrop({
@@ -332,6 +331,8 @@ function PF:Initialize()
     f:RegisterEvent("UNIT_MAXENERGY")
     f:RegisterEvent("UNIT_FOCUS")
     f:RegisterEvent("UNIT_MAXFOCUS")
+    f:RegisterEvent("UNIT_PORTRAIT_UPDATE")
+    f:RegisterEvent("UNIT_MODEL_CHANGED")
     f:RegisterEvent("PLAYER_LEVEL_UP")
     f:RegisterEvent("PLAYER_ENTERING_WORLD")
     f:RegisterEvent("PLAYER_COMBO_POINTS")
@@ -349,6 +350,20 @@ function PF:Initialize()
         if event == "PLAYER_ENTERING_WORLD" then
             PF:HideDefaultBars()
             PF:Update()
+            -- Delay de garantia para o modelo 3D do personagem carregar ao logar
+            local delay = CreateFrame("Frame")
+            delay.elapsed = 0
+            delay:SetScript("OnUpdate", function()
+                this.elapsed = this.elapsed + arg1
+                if this.elapsed > 0.3 then
+                    this:SetScript("OnUpdate", nil)
+                    PF:Update()
+                end
+            end)
+        elseif event == "UNIT_PORTRAIT_UPDATE" or event == "UNIT_MODEL_CHANGED" then
+            if arg1 == "player" then
+                SetPortraitTexture(f.portrait, "player")
+            end
         elseif event == "PLAYER_COMBO_POINTS" or event == "PLAYER_TARGET_CHANGED" then
             PF:Update()
         elseif event == "SPELLCAST_START" then
@@ -467,8 +482,12 @@ function PF:Update()
     self.frame.nameText:SetText(name)
     self.frame.levelText:SetText(tostring(UnitLevel("player") or 1))
 
-    -- 2. Retrato
+    -- 2. Retrato e Moldura de Classe
     SetPortraitTexture(self.frame.portrait, "player")
+    local _, playerClass = UnitClass("player")
+    playerClass = playerClass or "DEFAULT"
+    local classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. playerClass .. ".tga"
+    self.frame.portraitRing:SetTexture(classPortraitTex)
 
     -- 3. Vida
     local curHP = UnitHealth("player") or 0

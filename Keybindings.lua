@@ -183,6 +183,19 @@ function KB:Initialize()
     -- Vincula TAB ao Smart Tab inteligente (L1: Aba Anterior em menus / Target em combate)
     SetBinding("TAB", "CM_SMART_TAB")
     
+    -- AutoRun: = (padrão WoW), ALT-7 (R2 + D-Pad Up do profile) e ALT-UP
+    SetBinding("=", "TOGGLEAUTORUN")
+    SetBinding("ALT-7", "TOGGLEAUTORUN")
+    SetBinding("ALT-UP", "TOGGLEAUTORUN")
+    SetBinding("NUMPADMULTIPLY", "TOGGLEAUTORUN")
+    
+    -- Roteamento Automático de Interação com a DLL Interact.dll (R2 + A = ALT-SPACE)
+    if type(InteractNearest) == "function" then
+        SetBinding("ALT-SPACE", "CM_INTERACT")
+        CM.logger:Log("Interact.dll detectada! R2 + A configurado automaticamente para Interagir.")
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Interact DLL detectada! |cffffcc00R2 + A|r vinculado para Interagir.")
+    end
+    
     CM.logger:Log("Atalhos de Interface e Smart TAB inicializados.")
 end
 
@@ -350,6 +363,8 @@ function KB:EnterNavigationMode()
         defaults[1].DRIGHT,
         defaults[1].A,
         defaults[1].B,
+        defaults[1].X,
+        defaults[1].Y,
     }
 
     -- Salva a ação real que cada tecla executava antes
@@ -363,20 +378,26 @@ function KB:EnterNavigationMode()
                 KB.savedNavBindings[key] = "JUMP"
             elseif key == defaults[1].B then
                 KB.savedNavBindings[key] = "ACTIONBUTTON3"
+            elseif key == defaults[1].X then
+                KB.savedNavBindings[key] = "ACTIONBUTTON1"
+            elseif key == defaults[1].Y then
+                KB.savedNavBindings[key] = "ACTIONBUTTON2"
             end
         end
     end
 
-    -- Aplica bindings de navegação no D-Pad e botões A e B
+    -- Aplica bindings de navegação no D-Pad e botões A, B, X, Y
     SetBinding(defaults[1].DUP,    "CM_CURSOR_UP")
     SetBinding(defaults[1].DDOWN,  "CM_CURSOR_DOWN")
     SetBinding(defaults[1].DLEFT,  "CM_CURSOR_LEFT")
     SetBinding(defaults[1].DRIGHT, "CM_CURSOR_RIGHT")
-    SetBinding(defaults[1].A,      "CM_CURSOR_CONFIRM")
-    SetBinding(defaults[1].B,      "CM_CURSOR_CANCEL")
+    SetBinding(defaults[1].A,      "CM_CURSOR_CONFIRM")   -- A: Clicar / Pegar Item
+    SetBinding(defaults[1].B,      "CM_CURSOR_CANCEL")    -- B: Fechar / Cancelar
+    SetBinding(defaults[1].Y,      "CM_CURSOR_USE")       -- Y: Usar Item / Botao Direito
+    SetBinding(defaults[1].X,      "CM_CURSOR_SECONDARY") -- X: Acao Secundaria / Dividir
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (D-Pad = Navegar | A = Confirmar | B = Cancelar)")
-    CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, B = Cancelar")
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (D-Pad = Navegar | A = Clicar | Y = Usar Item | B = Cancelar)")
+    CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, Y = Usar Item, B = Cancelar")
 end
 
 function KB:ExitNavigationMode()
@@ -390,6 +411,8 @@ function KB:ExitNavigationMode()
         defaults[1].DRIGHT,
         defaults[1].A,
         defaults[1].B,
+        defaults[1].X,
+        defaults[1].Y,
     }
 
     -- Restaura bindings originais de cada tecla
@@ -402,6 +425,10 @@ function KB:ExitNavigationMode()
                 SetBinding(key, "JUMP")
             elseif key == defaults[1].B then
                 SetBinding(key, "ACTIONBUTTON3")
+            elseif key == defaults[1].X then
+                SetBinding(key, "ACTIONBUTTON1")
+            elseif key == defaults[1].Y then
+                SetBinding(key, "ACTIONBUTTON2")
             end
         end
     end
@@ -569,6 +596,35 @@ function CM_CursorConfirm()
     CM.cursor:Click("LeftButton")
 end
 
+function CM_CursorUse()
+    if CM.keybindings.chatActive then return end
+    
+    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
+        return
+    end
+    
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao Y (Usar Item / Botao Direito)")
+    CM.logger:Log("Cursor: Usar Item / Botao Direito (Y)")
+    CM.cursor:Click("RightButton")
+end
+
+function CM_CursorSecondary()
+    if CM.keybindings.chatActive then return end
+    
+    if CursorHasItem() or CursorHasSpell() then
+        ClearCursor()
+        return
+    end
+    
+    if CM.cursor and CM.cursor.state and CM.cursor.state.currentButton then
+        local btn = CM.cursor.state.currentButton
+        if btn and btn.Click then
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao X (Acao Secundaria)")
+            btn:Click("LeftButton")
+        end
+    end
+end
+
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
     
@@ -618,6 +674,17 @@ function CM_SmartTab()
     
     -- 2. Modo Combate / Mundo Aberto: Target Nearest Enemy nativo
     TargetNearestEnemy()
+end
+
+-- ============================================================
+-- Interação Automática via Interact.dll (R2 + A)
+-- ============================================================
+function CM_Interact(autoLoot)
+    if CM.keybindings and CM.keybindings.chatActive then return end
+    if type(InteractNearest) == "function" then
+        local mode = autoLoot or 0
+        InteractNearest(mode)
+    end
 end
 
 -- ============================================================

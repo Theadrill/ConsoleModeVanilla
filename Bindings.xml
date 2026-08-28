@@ -78,6 +78,8 @@
     <Binding name="CM_UI_BAGS">CM_ToggleUI("Bags")</Binding>                                   <!-- B = L2 + Start -->
     <Binding name="CM_UI_TALENTS">CM_ToggleUI("Talents")</Binding>                             <!-- N = R2 + Select -->
     <Binding name="CM_UI_SPELLBOOK">CM_ToggleUI("SpellBook")</Binding>                         <!-- P = R2 + Start -->
+    <Binding name="CM_INTERACT" header="CONSOLEMODEINTERACT">CM_Interact(0)</Binding>           <!-- R2 + A: Interagir (Interact.dll) -->
+    <Binding name="CM_INTERACT_AUTOLOOT">CM_Interact(1)</Binding>                               <!-- Interagir com Auto-Loot -->
 
     <!-- ============================================================ -->
     <!-- Menu Ring (L2 + R2 + A)                                     -->
@@ -95,6 +97,8 @@
     <Binding name="CM_CURSOR_RIGHT" runOnUp="true">CM_CursorMove("RIGHT", keystate)</Binding>
     <Binding name="CM_CURSOR_CONFIRM">CM_CursorConfirm()</Binding>                       <!-- A no modo nav (Selecionar/Clicar) -->
     <Binding name="CM_CURSOR_CANCEL">CM_CursorCancel()</Binding>                         <!-- B no modo nav (Fechar/Cancelar) -->
+    <Binding name="CM_CURSOR_USE">CM_CursorUse()</Binding>                               <!-- Y no modo nav (Usar Item / Botao Direito) -->
+    <Binding name="CM_CURSOR_SECONDARY">CM_CursorSecondary()</Binding>                   <!-- X no modo nav (Acao Secundaria / Dividir) -->
     <Binding name="CM_NAV_PREV_TAB">CM_NavPrevTab()</Binding>                           <!-- L1/LB: Aba Anterior -->
     <Binding name="CM_NAV_NEXT_TAB">CM_NavNextTab()</Binding>                           <!-- R1/RB: Proxima Aba -->
 

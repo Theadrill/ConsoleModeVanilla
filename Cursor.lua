@@ -610,24 +610,34 @@ function Cursor:Click(mouseButton)
     if isBagItem then
         local bagID, slotID = nil, nil
         
-        if isSUCCBag then
-            local parent = button:GetParent()
-            if parent and parent.GetID then
-                bagID = parent:GetID()
-                slotID = button:GetID()
-            end
+        local parent = button:GetParent()
+        if parent and parent.GetID and parent:GetID() >= 0 then
+            bagID = parent:GetID()
+            slotID = button:GetID()
         else
             local _, _, cFrameNum = string.find(bname, "ContainerFrame(%d+)")
             if cFrameNum then
-                bagID = tonumber(cFrameNum) - 1
+                local cFrame = getglobal("ContainerFrame" .. cFrameNum)
+                if cFrame and cFrame.GetID then
+                    bagID = cFrame:GetID()
+                else
+                    bagID = tonumber(cFrameNum) - 1
+                end
                 slotID = button:GetID()
             end
         end
         
-        if bagID and slotID then
+        if not bagID and button.GetID then
+            slotID = button:GetID()
+        end
+        
+        if bagID and slotID and bagID >= 0 and slotID >= 1 then
             if mouseButton == "RightButton" then
-                -- Usar item diretamente
+                -- Usar item diretamente (se for item de missao direcionado, aplica no alvo)
                 UseContainerItem(bagID, slotID)
+                if SpellIsTargeting and SpellIsTargeting() and UnitExists("target") then
+                    SpellTargetUnit("target")
+                end
                 self:UpdateState()
                 return
             elseif mouseButton == "LeftButton" then
@@ -639,6 +649,13 @@ function Cursor:Click(mouseButton)
                 else
                     PickupContainerItem(bagID, slotID)
                 end
+                self:UpdateState()
+                return
+            end
+        else
+            -- Fallback para qualquer outro botão de addon
+            if button.Click then
+                button:Click(mouseButton)
                 self:UpdateState()
                 return
             end
@@ -671,7 +688,45 @@ function Cursor:Click(mouseButton)
         end
     end
     
-    self:UpdateState()
+    -- Re-sincroniza imediatamente se o botão clicado foi ocultado ou substituído
+    if not button:IsVisible() then
+        self:Resync()
+    else
+        self:UpdateState()
+    end
+
+    -- Delay de 50ms para transição de diálogos e telas de missões
+    local resyncFrame = CreateFrame("Frame")
+    resyncFrame:SetScript("OnUpdate", function()
+        this.elapsed = (this.elapsed or 0) + arg1
+        if this.elapsed > 0.05 then
+            this:SetScript("OnUpdate", nil)
+            Cursor:Resync()
+        end
+    end)
+end
+
+Cursor.Confirm = Cursor.Click
+
+function Cursor:Resync()
+    if not self.state.enabled then return false end
+    
+    local curBtn = self.state.currentButton
+    if not curBtn or not curBtn:IsVisible() then
+        for frame, _ in pairs(self.state.activeFrames) do
+            if frame and frame:IsVisible() then
+                local nextBtn = self:FindFirstVisibleButton(frame)
+                if nextBtn then
+                    self:MoveTo(nextBtn)
+                    self:UpdateState()
+                    return true
+                end
+            end
+        end
+    else
+        self:UpdateState()
+    end
+    return false
 end
 
 -- ============================================================

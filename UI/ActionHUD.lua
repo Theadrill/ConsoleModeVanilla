@@ -217,15 +217,56 @@ function HUD:Initialize()
     f:RegisterEvent("BAG_UPDATE")
     f:RegisterEvent("BAG_UPDATE_COOLDOWN")
     f:RegisterEvent("PLAYER_AURAS_CHANGED")
-    f:RegisterEvent("PLAYER_ENTERING_WORLD")
-    
-    f:SetScript("OnEvent", function()
-        HUD:Update()
-    end)
-    
     self.frame = f
+    self:HideDefaultBars()
     self:Update()
     f:Show()
+end
+
+function HUD:HideDefaultBars()
+    -- 1. Oculta a barra de acoes principal da Blizzard (Vanilla 1.12)
+    if MainMenuBar then
+        MainMenuBar:Hide()
+        MainMenuBar:SetAlpha(0)
+        MainMenuBar:EnableMouse(false)
+        MainMenuBar.Show = function() end
+    end
+    
+    if MainMenuBarArtFrame then
+        MainMenuBarArtFrame:Hide()
+        MainMenuBarArtFrame:SetAlpha(0)
+        MainMenuBarArtFrame.Show = function() end
+    end
+    
+    if MainMenuBarLeftEndCap then MainMenuBarLeftEndCap:Hide() end
+    if MainMenuBarRightEndCap then MainMenuBarRightEndCap:Hide() end
+    if MainMenuBarPageNumber then MainMenuBarPageNumber:Hide() end
+    if ActionBarUpButton then ActionBarUpButton:Hide() end
+    if ActionBarDownButton then ActionBarDownButton:Hide() end
+    if MainMenuBarPerformanceBarFrame then MainMenuBarPerformanceBarFrame:Hide() end
+
+    for i = 0, 3 do
+        local tex = getglobal("MainMenuBarTexture" .. i)
+        if tex then tex:Hide() end
+    end
+
+    -- 2. Oculta as MultiBars extras
+    local multiBars = {
+        "MultiBarBottomLeft",
+        "MultiBarBottomRight",
+        "MultiBarRight",
+        "MultiBarLeft",
+        "BonusActionBarFrame",
+    }
+    for _, barName in ipairs(multiBars) do
+        local bar = getglobal(barName)
+        if bar then
+            bar:Hide()
+            bar:SetAlpha(0)
+            bar:EnableMouse(false)
+            bar.Show = function() end
+        end
+    end
 end
 
 function HUD:Update()

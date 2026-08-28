@@ -178,8 +178,9 @@ CM:SetScript("OnEvent", function()
         if CM.ui and CM.ui.xpBar and CM.ui.xpBar.Initialize then
             CM.ui.xpBar:Initialize()
         end
-        if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.Initialize then
-            CM.ui.actionHUD:Initialize()
+        if CM.ui and CM.ui.actionHUD then
+            if CM.ui.actionHUD.Initialize then CM.ui.actionHUD:Initialize() end
+            if CM.ui.actionHUD.HideDefaultBars then CM.ui.actionHUD:HideDefaultBars() end
         end
 
     end

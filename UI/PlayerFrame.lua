@@ -200,6 +200,36 @@ function PF:Initialize()
     mpText:SetText("")
     f.mpText = mpText
 
+    -- 5. Combo Points (5 Losangos / Diamantes Geométricos abaixo da barra de recursos)
+    local comboContainer = CreateFrame("Frame", "ConsoleModePlayerComboPoints", f)
+    comboContainer:SetPoint("TOPLEFT", mpBg, "BOTTOMLEFT", 0, -4)
+    comboContainer:SetWidth(100)
+    comboContainer:SetHeight(16)
+    f.comboContainer = comboContainer
+    f.comboPoints = {}
+
+    for i = 1, 5 do
+        local cp = CreateFrame("Frame", "ConsoleModePlayerCP" .. i, comboContainer)
+        cp:SetWidth(13)
+        cp:SetHeight(13)
+        cp:SetPoint("LEFT", comboContainer, "LEFT", (i - 1) * 15, 0)
+
+        -- Losango de Fundo / Slot Inativo
+        local empty = cp:CreateTexture(nil, "BACKGROUND")
+        empty:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Empty.tga")
+        empty:SetAllPoints(cp)
+        cp.empty = empty
+
+        -- Losango Ativo (Preenchido e Colorido)
+        local fill = cp:CreateTexture(nil, "ARTWORK")
+        fill:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Fill.tga")
+        fill:SetAllPoints(cp)
+        fill:Hide()
+        cp.fill = fill
+
+        f.comboPoints[i] = cp
+    end
+
     -- 4. Barra de Conjuração / Cast Bar (Amarela Ouro, logo acima do HP)
     local castBg = CreateFrame("Frame", "ConsoleModePlayerCastBg", f)
     castBg:SetPoint("BOTTOMLEFT", hpBg, "TOPLEFT", 0, 2)
@@ -295,6 +325,8 @@ function PF:Initialize()
     f:RegisterEvent("UNIT_MAXFOCUS")
     f:RegisterEvent("PLAYER_LEVEL_UP")
     f:RegisterEvent("PLAYER_ENTERING_WORLD")
+    f:RegisterEvent("PLAYER_COMBO_POINTS")
+    f:RegisterEvent("PLAYER_TARGET_CHANGED")
     f:RegisterEvent("SPELLCAST_START")
     f:RegisterEvent("SPELLCAST_STOP")
     f:RegisterEvent("SPELLCAST_FAILED")
@@ -307,6 +339,8 @@ function PF:Initialize()
     f:SetScript("OnEvent", function()
         if event == "PLAYER_ENTERING_WORLD" then
             PF:HideDefaultBars()
+            PF:Update()
+        elseif event == "PLAYER_COMBO_POINTS" or event == "PLAYER_TARGET_CHANGED" then
             PF:Update()
         elseif event == "SPELLCAST_START" then
             -- arg1 = spell name, arg2 = duration in ms
@@ -387,6 +421,13 @@ function PF:HideDefaultBars()
         PlayerFrame.Show = function() end
     end
 
+    if ComboFrame then
+        ComboFrame:Hide()
+        ComboFrame:UnregisterAllEvents()
+        ComboFrame:SetAlpha(0)
+        ComboFrame.Show = function() end
+    end
+
     local defaultCastBars = {
         "CastingBarFrame",
         "tDFImprovedCastbar",
@@ -459,7 +500,6 @@ function PF:Update()
             self.frame.mpBar:SetStatusBarColor(0.0, 0.55, 1.0, 1.0)
         end
 
-        local mpPct = maxPower > 0 and math.floor((curPower / maxPower) * 100) or 0
         if pType == 1 then
             self.frame.mpText:SetText(curPower .. " Rage")
         elseif pType == 3 then
@@ -469,5 +509,33 @@ function PF:Update()
         end
     else
         self.frame.mpBg:Hide()
+    end
+
+    -- 5. Combo Points (5 Losangos / Diamantes)
+    local cpCount = GetComboPoints("target") or GetComboPoints() or 0
+    local _, playerClass = UnitClass("player")
+    local isComboClass = (playerClass == "ROGUE" or playerClass == "DRUID")
+    
+    if isComboClass and self.frame.comboContainer then
+        self.frame.comboContainer:Show()
+        for i = 1, 5 do
+            local cp = self.frame.comboPoints[i]
+            if cp and cp.fill and cp.empty then
+                if i <= cpCount then
+                    cp.fill:Show()
+                    if i == 5 then
+                        -- 5º Ponto: Vermelho / Laranja Finalizador
+                        cp.fill:SetVertexColor(1.0, 0.22, 0.05, 1.0)
+                    else
+                        -- 1 a 4 Pontos: Amarelo Dourado Brilhante
+                        cp.fill:SetVertexColor(1.0, 0.85, 0.0, 1.0)
+                    end
+                else
+                    cp.fill:Hide()
+                end
+            end
+        end
+    elseif self.frame.comboContainer then
+        self.frame.comboContainer:Hide()
     end
 end

@@ -270,19 +270,41 @@ function Picker:ConfirmSlotByIndex(slotIndex)
     local physKey = KEY_MAPPINGS[self.targetPage] and KEY_MAPPINGS[self.targetPage][self.targetBtnKey]
     
     if physKey and bindingAction then
-        -- 1. Aplica o binding no WoW
+        local KB = CM.keybindings
+        
+        -- 1. Se estivermos no Modo Navegação, restaura temporariamente todos os bindings de combate reais
+        if KB and KB.navigationMode and KB.savedNavBindings then
+            for k, act in pairs(KB.savedNavBindings) do
+                if act and act ~= "" then
+                    SetBinding(k, act)
+                end
+            end
+        end
+        
+        -- 2. Aplica o novo binding desejado
         SetBinding(physKey, bindingAction)
         
-        -- 2. Atualiza o snapshot de navegacao para nao sobrescrever ao fechar a janela
-        local KB = CM.keybindings
+        -- 3. Atualiza o snapshot no savedNavBindings com o novo binding
         if KB and KB.savedNavBindings then
             KB.savedNavBindings[physKey] = bindingAction
         end
         
-        -- 3. Persiste no arquivo de bindings do WoW de forma segura
+        -- 4. Persiste no arquivo de bindings da conta (set 1) com TODAS as teclas de combate reais no buffer!
         local set = GetCurrentBindingSet()
         if not set or set == 0 then set = 1 end
         pcall(function() SaveBindings(set) end)
+        
+        -- 5. Se o modo de navegação ainda estiver ativo, reaplica os bindings do cursor na memória para a UI
+        if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
+            local d1 = KB.defaults[1]
+            SetBinding(d1.DUP,    "CM_CURSOR_UP")
+            SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
+            SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
+            SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
+            SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
+            SetBinding(d1.B,      "CM_CURSOR_CANCEL")
+            SetBinding("TAB",     "CM_CURSOR_CLICK_LEFT")
+        end
         
         local _, actionName = self:GetSlotInfo(realSlot)
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r |cffffcc00" .. self.targetCombo .. "|r vinculado a |cff88ccff" .. (actionName or ("Slot " .. slotIndex)) .. "|r (" .. barDef.name .. ")!")

@@ -164,6 +164,7 @@ KB.mouseModeActive  = false
 KB.chatActive       = false
 KB.navigationMode   = false  -- true quando uma janela de UI está aberta
 KB.savedNavBindings = {}     -- bindings salvas antes de entrar no modo navegação
+KB.defaults         = defaults
 
 -- Inicialização e garantia de bindings de interface
 function KB:Initialize()

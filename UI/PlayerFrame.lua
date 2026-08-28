@@ -28,10 +28,10 @@ function PF:Initialize()
         return
     end
 
-    -- Container Principal
+    -- Container Principal da Placa de Pedra (Aspect Ratio 2.6:1 -> 310x116)
     local f = CreateFrame("Button", "ConsoleModePlayerFrame", UIParent)
-    f:SetWidth(360)
-    f:SetHeight(96)
+    f:SetWidth(310)
+    f:SetHeight(116)
     
     if CM.ui and CM.ui.MakeMovable then
         CM.ui:MakeMovable(f, "PlayerFrame", "TOPLEFT", "TOPLEFT", 20, -20, "Player Frame")
@@ -78,41 +78,39 @@ function PF:Initialize()
         end)
     end
 
-    -- 1. Retrato do Jogador com Moldura Tematica por Classe (+50% maior: 84x84)
+    -- 1. Textura da Placa de Pedra Integral (Full Frame Background)
+    local panelBg = f:CreateTexture(nil, "BACKGROUND")
+    panelBg:SetAllPoints(f)
+    panelBg:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Frames\\DEFAULT.tga")
+    f.panelBg = panelBg
+
+    -- 2. Retrato do Jogador (Encaixado no nicho esquerdo de pedra)
     local portraitFrame = CreateFrame("Button", "ConsoleModePlayerPortraitFrame", f)
-    portraitFrame:SetWidth(84)
-    portraitFrame:SetHeight(84)
-    portraitFrame:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 4, 4)
+    portraitFrame:SetWidth(64)
+    portraitFrame:SetHeight(64)
+    portraitFrame:SetPoint("LEFT", f, "LEFT", 16, 2)
     MakeSubClickable(portraitFrame)
 
     -- Fundo escuro do retrato atras do rosto
     local portraitBg = portraitFrame:CreateTexture(nil, "BACKGROUND")
-    portraitBg:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Empty.tga")
-    portraitBg:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitBg:SetWidth(50)
-    portraitBg:SetHeight(50)
-    portraitBg:SetVertexColor(0.08, 0.08, 0.08, 1.0)
+    portraitBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    portraitBg:SetAllPoints(portraitFrame)
+    portraitBg:SetVertexColor(0.04, 0.04, 0.04, 0.95)
 
-    -- Textura 2D/3D do rosto do personagem (visivel pelo corte diamond central)
+    -- Rosto 2D/3D do personagem
     local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
     portraitTex:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitTex:SetWidth(50)
-    portraitTex:SetHeight(50)
+    portraitTex:SetWidth(60)
+    portraitTex:SetHeight(60)
     portraitTex:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portraitTex
     f.portraitFrame = portraitFrame
 
-    -- Moldura Tematica de Classe em Losango (Sobreposta em OVERLAY)
-    local portraitRing = portraitFrame:CreateTexture(nil, "OVERLAY")
-    portraitRing:SetAllPoints(portraitFrame)
-    portraitRing:SetVertexColor(1.0, 1.0, 1.0, 1.0)
-    f.portraitRing = portraitRing
-
-    -- Badge de Nível no canto inferior direito
+    -- Badge de Nível no canto inferior direito do retrato
     local levelBadge = CreateFrame("Frame", "ConsoleModePlayerLevelBadge", portraitFrame)
-    levelBadge:SetWidth(22)
-    levelBadge:SetHeight(22)
-    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", -2, -2)
+    levelBadge:SetWidth(20)
+    levelBadge:SetHeight(20)
+    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", 2, -2)
     levelBadge:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -127,24 +125,24 @@ function PF:Initialize()
     levelText:SetText(tostring(UnitLevel("player") or 1))
     f.levelText = levelText
 
-    -- Nome do Jogador acima da barra
+    -- 3. Nome do Jogador acima das barras
     local nameText = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    nameText:SetPoint("BOTTOMLEFT", portraitFrame, "RIGHT", 8, 20)
+    nameText:SetPoint("TOPLEFT", f, "TOPLEFT", 90, -18)
     nameText:SetText(UnitName("player") or "")
     f.nameText = nameText
 
-    -- 2. Fundo da Barra de Vida (Alinhamento Perfeito)
+    -- 4. Fundo da Barra de Vida (Encaixado no painel direito de pedra)
     local hpBg = CreateFrame("Button", "ConsoleModePlayerHPBg", f)
-    hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 6, -10)
-    hpBg:SetWidth(140)
-    hpBg:SetHeight(16)
+    hpBg:SetPoint("TOPLEFT", f, "TOPLEFT", 90, -38)
+    hpBg:SetWidth(200)
+    hpBg:SetHeight(18)
     hpBg:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile = true, tileSize = 16, edgeSize = 10,
         insets = { left = 2, right = 2, top = 2, bottom = 2 }
     })
-    hpBg:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
+    hpBg:SetBackdropColor(0.06, 0.06, 0.06, 0.95)
     hpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.9)
     MakeSubClickable(hpBg)
     f.hpBg = hpBg
@@ -159,12 +157,12 @@ function PF:Initialize()
     trailBar:SetValue(0)
     f.trailBar = trailBar
 
-    -- Barra de Vida Verde Vibrante
+    -- Barra de Vida Principal (Verde Esmeralda)
     local hpBar = CreateFrame("StatusBar", "ConsoleModePlayerHPBar", hpBg)
     hpBar:SetPoint("TOPLEFT", hpBg, "TOPLEFT", 2, -2)
     hpBar:SetPoint("BOTTOMRIGHT", hpBg, "BOTTOMRIGHT", -2, 2)
     hpBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-    hpBar:SetStatusBarColor(0.18, 0.85, 0.28, 1.0) -- Verde
+    hpBar:SetStatusBarColor(0.12, 0.85, 0.2, 1.0) -- Verde Esmeralda
     hpBar:SetMinMaxValues(0, 1)
     hpBar:SetValue(1)
     hpBar:SetFrameLevel(trailBar:GetFrameLevel() + 1)
@@ -173,36 +171,35 @@ function PF:Initialize()
     -- Texto de Vida
     local hpText = hpBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     hpText:SetPoint("CENTER", hpBar, "CENTER", 0, 0)
-    hpText:SetText("")
     f.hpText = hpText
 
-    -- 3. Fundo da Barra de Recursos (Alinhamento 100% igual ao HP)
+    -- 5. Fundo da Barra de Mana / Poder
     local mpBg = CreateFrame("Button", "ConsoleModePlayerMPBg", f)
-    mpBg:SetPoint("TOPLEFT", hpBg, "BOTTOMLEFT", 0, -2)
-    mpBg:SetWidth(100) -- Largura propria da barra de recursos
-    mpBg:SetHeight(10) -- Altura da barra de recursos
+    mpBg:SetPoint("TOPLEFT", hpBg, "BOTTOMLEFT", 0, -4)
+    mpBg:SetWidth(200)
+    mpBg:SetHeight(14)
     mpBg:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile = true, tileSize = 16, edgeSize = 10,
         insets = { left = 2, right = 2, top = 2, bottom = 2 }
     })
-    mpBg:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
+    mpBg:SetBackdropColor(0.06, 0.06, 0.06, 0.95)
     mpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.9)
     MakeSubClickable(mpBg)
     f.mpBg = mpBg
 
-    -- Barra de Recursos
+    -- Barra de Recursos Principal (Azul / Amarelo / Vermelho)
     local mpBar = CreateFrame("StatusBar", "ConsoleModePlayerMPBar", mpBg)
     mpBar:SetPoint("TOPLEFT", mpBg, "TOPLEFT", 2, -2)
     mpBar:SetPoint("BOTTOMRIGHT", mpBg, "BOTTOMRIGHT", -2, 2)
     mpBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-    mpBar:SetStatusBarColor(0.0, 0.55, 1.0, 1.0) -- Azul Mana
+    mpBar:SetStatusBarColor(0.0, 0.55, 1.0, 1.0)
     mpBar:SetMinMaxValues(0, 1)
     mpBar:SetValue(1)
     f.mpBar = mpBar
 
-    -- Texto de Recursos
+    -- Texto de Mana
     local mpText = mpBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     mpText:SetPoint("CENTER", mpBar, "CENTER", 0, 0)
     mpText:SetText("")
@@ -482,12 +479,12 @@ function PF:Update()
     self.frame.nameText:SetText(name)
     self.frame.levelText:SetText(tostring(UnitLevel("player") or 1))
 
-    -- 2. Retrato e Moldura de Classe
+    -- 2. Retrato e Placa de Classe Integral
     SetPortraitTexture(self.frame.portrait, "player")
     local _, playerClass = UnitClass("player")
     playerClass = playerClass or "DEFAULT"
-    local classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. playerClass .. ".tga"
-    self.frame.portraitRing:SetTexture(classPortraitTex)
+    local classFrameTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Frames\\" .. playerClass .. ".tga"
+    self.frame.panelBg:SetTexture(classFrameTex)
 
     -- 3. Vida
     local curHP = UnitHealth("player") or 0

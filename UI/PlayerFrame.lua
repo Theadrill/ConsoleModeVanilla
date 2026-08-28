@@ -95,13 +95,13 @@ function PF:Initialize()
 
     -- Nome do Jogador acima da barra
     local nameText = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    nameText:SetPoint("BOTTOMLEFT", portraitFrame, "TOPRIGHT", 6, -2)
+    nameText:SetPoint("BOTTOMLEFT", portraitFrame, "RIGHT", 6, 14)
     nameText:SetText(UnitName("player") or "")
     f.nameText = nameText
 
-    -- 2. Fundo da Barra de Vida
+    -- 2. Fundo da Barra de Vida (Empurrado para baixo para dar folga a Cast Bar e Nome)
     local hpBg = CreateFrame("Frame", "ConsoleModePlayerHPBg", f)
-    hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 4, 4)
+    hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 4, -8)
     hpBg:SetWidth(140)
     hpBg:SetHeight(16)
     hpBg:SetBackdrop({
@@ -172,9 +172,46 @@ function PF:Initialize()
     mpText:SetText("")
     f.mpText = mpText
 
-    -- Damage Trail no OnUpdate
+    -- 4. Barra de Conjuração / Cast Bar (Amarela Ouro, logo acima do HP)
+    local castBg = CreateFrame("Frame", "ConsoleModePlayerCastBg", f)
+    castBg:SetPoint("BOTTOMLEFT", hpBg, "TOPLEFT", 0, 2)
+    castBg:SetPoint("BOTTOMRIGHT", hpBg, "TOPRIGHT", 0, 2)
+    castBg:SetHeight(12)
+    castBg:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 8,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    castBg:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
+    castBg:SetBackdropBorderColor(0.4, 0.4, 0.4, 0.8)
+    castBg:Hide()
+    f.castBg = castBg
+
+    local castBar = CreateFrame("StatusBar", "ConsoleModePlayerCastBar", castBg)
+    castBar:SetPoint("TOPLEFT", castBg, "TOPLEFT", 1, -1)
+    castBar:SetPoint("BOTTOMRIGHT", castBg, "BOTTOMRIGHT", -1, 1)
+    castBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+    castBar:SetStatusBarColor(1.0, 0.75, 0.0, 1.0) -- Amarelo Dourado
+    castBar:SetMinMaxValues(0, 1)
+    castBar:SetValue(0)
+    f.castBar = castBar
+
+    local castSpellText = castBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    castSpellText:SetPoint("LEFT", castBar, "LEFT", 4, 0)
+    castSpellText:SetText("")
+    f.castSpellText = castSpellText
+
+    local castTimeText = castBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    castTimeText:SetPoint("RIGHT", castBar, "RIGHT", -4, 0)
+    castTimeText:SetText("")
+    f.castTimeText = castTimeText
+
+    -- Damage Trail e Cast Bar no OnUpdate
     f:SetScript("OnUpdate", function()
         local elapsed = arg1 or 0.016
+
+        -- 1. Damage Trail
         if PF.curHP and PF.damageTrailVal > PF.curHP then
             PF.damageTrailTimer = PF.damageTrailTimer + elapsed
             if PF.damageTrailTimer > 0.35 then
@@ -190,9 +227,34 @@ function PF:Initialize()
             PF.frame.trailBar:SetValue(PF.curHP)
             PF.damageTrailTimer = 0
         end
+
+        -- 2. Cast Bar (Conjurando)
+        if PF.isCasting and PF.castDuration and PF.castDuration > 0 then
+            PF.castValue = PF.castValue + elapsed
+            if PF.castValue >= PF.castDuration then
+                PF.castValue = PF.castDuration
+                PF.isCasting = false
+                f.castBg:Hide()
+            else
+                f.castBar:SetValue(PF.castValue)
+                local rem = PF.castDuration - PF.castValue
+                f.castTimeText:SetText(string.format("%.1fs", rem))
+            end
+        -- 3. Cast Bar (Canalizando)
+        elseif PF.isChanneling and PF.channelDuration and PF.channelDuration > 0 then
+            PF.channelValue = PF.channelValue - elapsed
+            if PF.channelValue <= 0 then
+                PF.channelValue = 0
+                PF.isChanneling = false
+                f.castBg:Hide()
+            else
+                f.castBar:SetValue(PF.channelValue)
+                f.castTimeText:SetText(string.format("%.1fs", PF.channelValue))
+            end
+        end
     end)
 
-    -- Eventos
+    -- Eventos de Status e Spellcast
     f:RegisterEvent("UNIT_HEALTH")
     f:RegisterEvent("UNIT_MAXHEALTH")
     f:RegisterEvent("UNIT_MANA")
@@ -205,11 +267,78 @@ function PF:Initialize()
     f:RegisterEvent("UNIT_MAXFOCUS")
     f:RegisterEvent("PLAYER_LEVEL_UP")
     f:RegisterEvent("PLAYER_ENTERING_WORLD")
+    f:RegisterEvent("SPELLCAST_START")
+    f:RegisterEvent("SPELLCAST_STOP")
+    f:RegisterEvent("SPELLCAST_FAILED")
+    f:RegisterEvent("SPELLCAST_INTERRUPTED")
+    f:RegisterEvent("SPELLCAST_DELAYED")
+    f:RegisterEvent("SPELLCAST_CHANNEL_START")
+    f:RegisterEvent("SPELLCAST_CHANNEL_UPDATE")
+    f:RegisterEvent("SPELLCAST_CHANNEL_STOP")
 
     f:SetScript("OnEvent", function()
         if event == "PLAYER_ENTERING_WORLD" then
             PF:HideDefaultBars()
             PF:Update()
+        elseif event == "SPELLCAST_START" then
+            -- arg1 = spell name, arg2 = duration in ms
+            local spellName = arg1 or ""
+            local durationSec = (arg2 or 0) / 1000
+            if durationSec > 0 then
+                PF.isCasting = true
+                PF.isChanneling = false
+                PF.castValue = 0
+                PF.castDuration = durationSec
+                f.castBar:SetMinMaxValues(0, durationSec)
+                f.castBar:SetValue(0)
+                f.castBar:SetStatusBarColor(1.0, 0.75, 0.0, 1.0) -- Amarelo Dourado
+                f.castSpellText:SetText(spellName)
+                f.castTimeText:SetText(string.format("%.1fs", durationSec))
+                f.castBg:Show()
+            end
+        elseif event == "SPELLCAST_STOP" then
+            if PF.isCasting then
+                PF.isCasting = false
+                f.castBg:Hide()
+            end
+        elseif event == "SPELLCAST_FAILED" or event == "SPELLCAST_INTERRUPTED" then
+            PF.isCasting = false
+            PF.isChanneling = false
+            f.castBg:Hide()
+        elseif event == "SPELLCAST_DELAYED" then
+            -- arg1 = delay in ms
+            if PF.isCasting and PF.castDuration then
+                local delaySec = (arg1 or 0) / 1000
+                PF.castDuration = PF.castDuration + delaySec
+                f.castBar:SetMinMaxValues(0, PF.castDuration)
+            end
+        elseif event == "SPELLCAST_CHANNEL_START" then
+            -- arg1 = duration in ms, arg2 = spell name
+            local durationSec = (arg1 or 0) / 1000
+            local spellName = arg2 or ""
+            if durationSec > 0 then
+                PF.isChanneling = true
+                PF.isCasting = false
+                PF.channelValue = durationSec
+                PF.channelDuration = durationSec
+                f.castBar:SetMinMaxValues(0, durationSec)
+                f.castBar:SetValue(durationSec)
+                f.castBar:SetStatusBarColor(0.2, 0.8, 1.0, 1.0) -- Azul Claro Canalizado
+                f.castSpellText:SetText(spellName)
+                f.castTimeText:SetText(string.format("%.1fs", durationSec))
+                f.castBg:Show()
+            end
+        elseif event == "SPELLCAST_CHANNEL_UPDATE" then
+            -- arg1 = remaining duration in ms
+            if PF.isChanneling then
+                local remSec = (arg1 or 0) / 1000
+                PF.channelValue = remSec
+            end
+        elseif event == "SPELLCAST_CHANNEL_STOP" then
+            if PF.isChanneling then
+                PF.isChanneling = false
+                f.castBg:Hide()
+            end
         elseif arg1 == "player" then
             PF:Update()
         end
@@ -228,6 +357,12 @@ function PF:HideDefaultBars()
         PlayerFrame:UnregisterAllEvents()
         PlayerFrame:SetAlpha(0)
         PlayerFrame.Show = function() end
+    end
+    if CastingBarFrame then
+        CastingBarFrame:Hide()
+        CastingBarFrame:UnregisterAllEvents()
+        CastingBarFrame:SetAlpha(0)
+        CastingBarFrame.Show = function() end
     end
 end
 

@@ -78,41 +78,50 @@ function PF:Initialize()
         end)
     end
 
-    -- 1. Medalhão do Jogador (Retrato à Esquerda)
-    local portraitFrame = CreateFrame("Button", "ConsoleModePlayerPortrait", f)
-    portraitFrame:SetWidth(54)
-    portraitFrame:SetHeight(54)
-    portraitFrame:SetPoint("LEFT", f, "LEFT", 0, 0)
-    portraitFrame:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = true, tileSize = 16, edgeSize = 12,
-        insets = { left = 3, right = 3, top = 3, bottom = 3 }
-    })
-    portraitFrame:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
-    portraitFrame:SetBackdropBorderColor(0.55, 0.55, 0.55, 1.0)
+    -- 1. Retrato do Jogador em Formato Diamond (Losango de Metal)
+    local portraitFrame = CreateFrame("Button", "ConsoleModePlayerPortraitFrame", f)
+    portraitFrame:SetWidth(48)
+    portraitFrame:SetHeight(48)
+    portraitFrame:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 4, 4)
     MakeSubClickable(portraitFrame)
 
+    -- Fundo escuro do retrato
+    local portraitBg = portraitFrame:CreateTexture(nil, "BACKGROUND")
+    portraitBg:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Empty.tga")
+    portraitBg:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
+    portraitBg:SetWidth(46)
+    portraitBg:SetHeight(46)
+    portraitBg:SetVertexColor(0.12, 0.12, 0.12, 1.0)
+
+    -- Textura 2D/3D do rosto do personagem
     local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
-    portraitTex:SetPoint("TOPLEFT", portraitFrame, "TOPLEFT", 4, -4)
-    portraitTex:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", -4, 4)
-    portraitTex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    portraitTex:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
+    portraitTex:SetWidth(34)
+    portraitTex:SetHeight(34)
+    portraitTex:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portraitTex
     f.portraitFrame = portraitFrame
 
+    -- Moldura Externa de Metal em Losango (Sobreposta ao rosto)
+    local portraitRing = portraitFrame:CreateTexture(nil, "OVERLAY")
+    portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portrait_Diamond_Ring.tga")
+    portraitRing:SetAllPoints(portraitFrame)
+    portraitRing:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+    f.portraitRing = portraitRing
+
     -- Badge de Nível colado no medalhão (canto inferior direito)
     local levelBadge = CreateFrame("Frame", "ConsoleModePlayerLevelBadge", portraitFrame)
-    levelBadge:SetWidth(20)
-    levelBadge:SetHeight(20)
-    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", 4, -4)
+    levelBadge:SetWidth(18)
+    levelBadge:SetHeight(18)
+    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", 2, -2)
     levelBadge:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile = true, tileSize = 16, edgeSize = 8,
         insets = { left = 1, right = 1, top = 1, bottom = 1 }
     })
-    levelBadge:SetBackdropColor(0.08, 0.08, 0.08, 1.0)
-    levelBadge:SetBackdropBorderColor(0.55, 0.55, 0.55, 1.0)
+    levelBadge:SetBackdropColor(0.06, 0.06, 0.06, 1.0)
+    levelBadge:SetBackdropBorderColor(0.65, 0.65, 0.65, 1.0)
 
     local levelText = levelBadge:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     levelText:SetPoint("CENTER", levelBadge, "CENTER", 0, 0)
@@ -125,9 +134,9 @@ function PF:Initialize()
     nameText:SetText(UnitName("player") or "")
     f.nameText = nameText
 
-    -- 2. Fundo da Barra de Vida (Empurrado para baixo para dar folga a Cast Bar e Nome)
+    -- 2. Fundo da Barra de Vida (Alinhamento Perfeito)
     local hpBg = CreateFrame("Button", "ConsoleModePlayerHPBg", f)
-    hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 4, -8)
+    hpBg:SetPoint("LEFT", portraitFrame, "RIGHT", 1, -8)
     hpBg:SetWidth(140)
     hpBg:SetHeight(16)
     hpBg:SetBackdrop({
@@ -168,26 +177,26 @@ function PF:Initialize()
     hpText:SetText("")
     f.hpText = hpText
 
-    -- 3. Fundo da Barra de Recursos (Furia / Mana / Energia)
+    -- 3. Fundo da Barra de Recursos (Alinhamento 100% igual ao HP)
     local mpBg = CreateFrame("Button", "ConsoleModePlayerMPBg", f)
     mpBg:SetPoint("TOPLEFT", hpBg, "BOTTOMLEFT", 0, -2)
-    mpBg:SetWidth(100) -- ⬅️ LARGURA PROPRIA DA BARRA DE RECURSOS (atualmente 180px)
-    mpBg:SetHeight(9)  -- ⬅️ Altura da barra de recursos
+    mpBg:SetWidth(100) -- Largura propria da barra de recursos
+    mpBg:SetHeight(10) -- Altura da barra de recursos
     mpBg:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = true, tileSize = 16, edgeSize = 8,
-        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+        tile = true, tileSize = 16, edgeSize = 10,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
     })
     mpBg:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
-    mpBg:SetBackdropBorderColor(0.3, 0.3, 0.3, 0.8)
+    mpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.9)
     MakeSubClickable(mpBg)
     f.mpBg = mpBg
 
     -- Barra de Recursos
     local mpBar = CreateFrame("StatusBar", "ConsoleModePlayerMPBar", mpBg)
-    mpBar:SetPoint("TOPLEFT", mpBg, "TOPLEFT", 1, -1)
-    mpBar:SetPoint("BOTTOMRIGHT", mpBg, "BOTTOMRIGHT", -1, 1)
+    mpBar:SetPoint("TOPLEFT", mpBg, "TOPLEFT", 2, -2)
+    mpBar:SetPoint("BOTTOMRIGHT", mpBg, "BOTTOMRIGHT", -2, 2)
     mpBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
     mpBar:SetStatusBarColor(0.0, 0.55, 1.0, 1.0) -- Azul Mana
     mpBar:SetMinMaxValues(0, 1)
@@ -200,7 +209,7 @@ function PF:Initialize()
     mpText:SetText("")
     f.mpText = mpText
 
-    -- 5. Combo Points (5 Losangos / Diamantes Geométricos abaixo da barra de recursos)
+    -- 5. Combo Points (5 Losangos / Diamantes perfeitamente alinhados na borda esquerda)
     local comboContainer = CreateFrame("Frame", "ConsoleModePlayerComboPoints", f)
     comboContainer:SetPoint("TOPLEFT", mpBg, "BOTTOMLEFT", 0, -4)
     comboContainer:SetWidth(100)

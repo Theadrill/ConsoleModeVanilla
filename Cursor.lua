@@ -726,15 +726,33 @@ function Cursor:CycleTabs(direction)
                 if count > 1 then numTabs = count end
             end
             
-            if numTabs and numTabs > 1 then
+            -- Coleta apenas as abas que estao realmente visiveis/mostradas
+            local visibleTabs = {}
+            local totalToCheck = math.max(numTabs or 0, 10)
+            for t = 1, totalToCheck do
+                local tabBtn = getglobal(fname .. "Tab" .. t) or getglobal(fname .. "TabButton" .. t)
+                if tabBtn and (tabBtn:IsShown() or tabBtn:IsVisible()) then
+                    table.insert(visibleTabs, { index = t, button = tabBtn })
+                end
+            end
+            
+            if table.getn(visibleTabs) > 1 then
                 local currentTab = (PanelTemplates_GetSelectedTab and PanelTemplates_GetSelectedTab(frame)) or frame.selectedTab or 1
-                local newTab = currentTab + dir
-                if newTab > numTabs then newTab = 1 end
-                if newTab < 1 then newTab = numTabs end
+                local curIdx = 1
+                for i, tInfo in ipairs(visibleTabs) do
+                    if tInfo.index == currentTab then
+                        curIdx = i
+                        break
+                    end
+                end
                 
-                local tabBtn = getglobal(fname .. "Tab" .. newTab) or getglobal(fname .. "TabButton" .. newTab)
-                if tabBtn and tabBtn.Click then
-                    tabBtn:Click()
+                local nextIdx = curIdx + dir
+                if nextIdx > table.getn(visibleTabs) then nextIdx = 1 end
+                if nextIdx < 1 then nextIdx = table.getn(visibleTabs) end
+                
+                local targetTab = visibleTabs[nextIdx]
+                if targetTab and targetTab.button and targetTab.button.Click then
+                    targetTab.button:Click()
                     PlaySound("igCharacterInfoTab")
                     local firstBtn = self:FindFirstVisibleButton(frame)
                     if firstBtn then

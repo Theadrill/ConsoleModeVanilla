@@ -163,7 +163,12 @@ CM:SetScript("OnEvent", function()
             CM.ui.actionHUD:Initialize()
         end
 
-        -- Inicializa Target Frame estilo Dark Souls
+        -- Inicializa Player Frame
+        if CM.ui and CM.ui.playerFrame and CM.ui.playerFrame.Initialize then
+            CM.ui.playerFrame:Initialize()
+        end
+
+        -- Inicializa Target Frame
         if CM.ui and CM.ui.targetFrame and CM.ui.targetFrame.Initialize then
             CM.ui.targetFrame:Initialize()
         end
@@ -186,6 +191,10 @@ CM:SetScript("OnEvent", function()
         if CM.ui and CM.ui.actionHUD then
             if CM.ui.actionHUD.Initialize then CM.ui.actionHUD:Initialize() end
             if CM.ui.actionHUD.HideDefaultBars then CM.ui.actionHUD:HideDefaultBars() end
+        end
+        if CM.ui and CM.ui.playerFrame then
+            if CM.ui.playerFrame.Initialize then CM.ui.playerFrame:Initialize() end
+            if CM.ui.playerFrame.HideDefaultBars then CM.ui.playerFrame:HideDefaultBars() end
         end
         if CM.ui and CM.ui.targetFrame then
             if CM.ui.targetFrame.Initialize then CM.ui.targetFrame:Initialize() end

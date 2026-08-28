@@ -1,10 +1,10 @@
 --[[
     ConsoleMode - Vanilla
-    UI/TargetFrame.lua - Target Frame Estilo Dark Souls / Boss Bar
+    UI/TargetFrame.lua - Target Frame Console HUD
     
     Recursos:
     - Barra de Vida Larga e Imponente no Topo Central da Tela
-    - Barra de Dano Residual (Damage Trail amarela com decaimento suave estilo Souls)
+    - Barra de Dano Residual (Damage Trail amarela com decaimento suave)
     - Barra de Mana / Energia / Furia fina abaixo da vida
     - Retrato em Medalhao a Direita com suporte nativo a textura de retrato
     - Nivel, Nome e Indicador de Elite / Boss em tipografia dourada
@@ -36,7 +36,7 @@ function TF:Initialize()
     f:SetHeight(70)
     
     if CM.ui and CM.ui.MakeMovable then
-        CM.ui:MakeMovable(f, "TargetFrame", "TOP", "TOP", 0, -25, "Target Frame (Dark Souls)")
+        CM.ui:MakeMovable(f, "TargetFrame", "TOP", "TOP", 0, -25, "Target Frame")
     else
         f:SetPoint("TOP", UIParent, "TOP", 0, -25)
     end
@@ -114,7 +114,7 @@ function TF:Initialize()
     hpBg:SetBackdropBorderColor(0.4, 0.4, 0.4, 0.9)
     f.hpBg = hpBg
 
-    -- 5. Barra de Dano Residual (Damage Trail Amarela estilo Dark Souls)
+    -- 5. Barra de Dano Residual (Damage Trail Amarela com decaimento suave)
     local trailBar = CreateFrame("StatusBar", "ConsoleModeTargetDamageTrail", hpBg)
     trailBar:SetPoint("TOPLEFT", hpBg, "TOPLEFT", 2, -2)
     trailBar:SetPoint("BOTTOMRIGHT", hpBg, "BOTTOMRIGHT", -2, 2)

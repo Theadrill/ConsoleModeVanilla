@@ -145,7 +145,6 @@ local defaults = {
 -- L2 = SHIFT | R2 = ALT | R1 = CTRL
 -- SELECT = M | START = F11 (com ESCAPE mantido no teclado como padrão)
 local fixedDefaults = {
-    CM_FIXED_L1     = "TAB",
     CM_FIXED_SELECT = "M",
     CM_FIXED_START  = "F11",
     CM_UI_CHARACTER = "SHIFT-M",      -- L2 + Select (C)
@@ -180,6 +179,12 @@ function KB:Initialize()
     
     -- Smart Mouse Look Companion (acionado pelo Steam Input ao mover WASD)
     SetBinding("F9", "CM_MOUSELOOK_START")
+    
+    -- Garante que TAB não fique preso no clique de cursor virtual
+    local tabAction = GetBindingAction("TAB")
+    if not tabAction or tabAction == "" or string.find(tabAction, "^CM_CURSOR_") then
+        SetBinding("TAB", "TARGETNEARESTEMY")
+    end
     
     CM.logger:Log("Atalhos de Interface e MouseLook F9 inicializados.")
 end
@@ -329,7 +334,6 @@ function KB:EnterNavigationMode()
         defaults[1].DRIGHT,
         defaults[1].A,
         defaults[1].B,
-        "TAB",
     }
 
     -- Salva a ação real que cada tecla executava antes
@@ -343,23 +347,20 @@ function KB:EnterNavigationMode()
                 KB.savedNavBindings[key] = "JUMP"
             elseif key == defaults[1].B then
                 KB.savedNavBindings[key] = "ACTIONBUTTON3"
-            elseif key == "TAB" then
-                KB.savedNavBindings[key] = "TARGETNEARESTEMY"
             end
         end
     end
 
-    -- Aplica bindings de navegação no D-Pad, botões A, B e L1/R1
+    -- Aplica bindings de navegação no D-Pad e botões A e B
     SetBinding(defaults[1].DUP,    "CM_CURSOR_UP")
     SetBinding(defaults[1].DDOWN,  "CM_CURSOR_DOWN")
     SetBinding(defaults[1].DLEFT,  "CM_CURSOR_LEFT")
     SetBinding(defaults[1].DRIGHT, "CM_CURSOR_RIGHT")
     SetBinding(defaults[1].A,      "CM_CURSOR_CONFIRM")
     SetBinding(defaults[1].B,      "CM_CURSOR_CANCEL")
-    SetBinding("TAB",              "CM_CURSOR_CLICK_LEFT")
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (D-Pad = Navegar | A = Confirmar | B = Cancelar | L1 = Left Click)")
-    CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, B = Cancelar, L1 = Clique Esquerdo")
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (D-Pad = Navegar | A = Confirmar | B = Cancelar)")
+    CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, B = Cancelar")
 end
 
 function KB:ExitNavigationMode()
@@ -373,14 +374,19 @@ function KB:ExitNavigationMode()
         defaults[1].DRIGHT,
         defaults[1].A,
         defaults[1].B,
-        "TAB",
     }
 
     -- Restaura bindings originais de cada tecla
     for _, key in ipairs(keysToRestore) do
         local originalAction = KB.savedNavBindings[key]
-        if originalAction and originalAction ~= "" then
+        if originalAction and originalAction ~= "" and not string.find(originalAction, "^CM_CURSOR_") then
             SetBinding(key, originalAction)
+        else
+            if key == defaults[1].A then
+                SetBinding(key, "JUMP")
+            elseif key == defaults[1].B then
+                SetBinding(key, "ACTIONBUTTON3")
+            end
         end
     end
     KB.savedNavBindings = {}

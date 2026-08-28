@@ -275,8 +275,10 @@ function Picker:ConfirmSlotByIndex(slotIndex)
         -- 1. Se estivermos no Modo Navegação, restaura temporariamente todos os bindings de combate reais
         if KB and KB.navigationMode and KB.savedNavBindings then
             for k, act in pairs(KB.savedNavBindings) do
-                if act and act ~= "" then
+                if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
                     SetBinding(k, act)
+                elseif k == "TAB" then
+                    SetBinding("TAB", "TARGETNEARESTEMY")
                 end
             end
         end
@@ -303,7 +305,6 @@ function Picker:ConfirmSlotByIndex(slotIndex)
             SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
             SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
             SetBinding(d1.B,      "CM_CURSOR_CANCEL")
-            SetBinding("TAB",     "CM_CURSOR_CLICK_LEFT")
         end
         
         local _, actionName = self:GetSlotInfo(realSlot)

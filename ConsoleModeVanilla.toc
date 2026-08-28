@@ -14,4 +14,5 @@ UI\ConfigFrame.lua
 UI\KeybindingsList.lua
 UI\ActionBarPicker.lua
 UI\XPBar.lua
+UI\ActionHUD.lua
 Hooks.lua

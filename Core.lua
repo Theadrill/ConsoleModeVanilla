@@ -158,6 +158,11 @@ CM:SetScript("OnEvent", function()
             CM.ui.xpBar:Initialize()
         end
 
+        -- Inicializa Action HUD de controle
+        if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.Initialize then
+            CM.ui.actionHUD:Initialize()
+        end
+
         -- Inicializa hooks somente se módulos existem
         if CM.hooks and CM.hooks.Initialize then
             CM.hooks:Initialize()
@@ -172,6 +177,9 @@ CM:SetScript("OnEvent", function()
         end
         if CM.ui and CM.ui.xpBar and CM.ui.xpBar.Initialize then
             CM.ui.xpBar:Initialize()
+        end
+        if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.Initialize then
+            CM.ui.actionHUD:Initialize()
         end
 
     elseif event == "PLAYER_LOGOUT" then

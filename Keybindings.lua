@@ -180,7 +180,26 @@ function KB:Initialize()
     -- Smart Mouse Look Companion (acionado pelo Steam Input ao mover WASD)
     SetBinding("F9", "CM_MOUSELOOK_START")
     
+    -- Aplica bindings customizados salvos no ConsoleModeDB
+    self:ApplyCustomBindings()
+    
     CM.logger:Log("Atalhos de Interface e MouseLook F9 inicializados.")
+end
+
+-- ============================================================
+-- Aplica os bindings customizados salvos pelo jogador
+-- ============================================================
+function KB:ApplyCustomBindings()
+    if not ConsoleModeDB or not ConsoleModeDB.customBindings then return end
+    for key, action in pairs(ConsoleModeDB.customBindings) do
+        if key and action and action ~= "" then
+            SetBinding(key, action)
+            if self.savedNavBindings then
+                self.savedNavBindings[key] = action
+            end
+        end
+    end
+    SaveBindings(GetCurrentBindingSet())
 end
 
 -- ============================================================
@@ -378,6 +397,10 @@ function KB:ExitNavigationMode()
     -- Restaura bindings originais de cada tecla
     for _, key in ipairs(keysToRestore) do
         local originalAction = KB.savedNavBindings[key]
+        if not originalAction or originalAction == "" then
+            originalAction = ConsoleModeDB and ConsoleModeDB.customBindings and ConsoleModeDB.customBindings[key]
+        end
+        
         if originalAction and originalAction ~= "" then
             SetBinding(key, originalAction)
         else

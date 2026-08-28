@@ -279,7 +279,12 @@ function Picker:ConfirmSlotByIndex(slotIndex)
             KB.savedNavBindings[physKey] = bindingAction
         end
         
-        -- 3. Persiste no perfil de bindings do WoW
+        -- 3. Salva no banco de dados persistente do ConsoleMode (SavedVariables)
+        if not ConsoleModeDB then ConsoleModeDB = {} end
+        if not ConsoleModeDB.customBindings then ConsoleModeDB.customBindings = {} end
+        ConsoleModeDB.customBindings[physKey] = bindingAction
+        
+        -- 4. Persiste no arquivo de bindings do WoW
         SaveBindings(GetCurrentBindingSet())
         
         local _, actionName = self:GetSlotInfo(realSlot)

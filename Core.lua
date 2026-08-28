@@ -163,6 +163,11 @@ CM:SetScript("OnEvent", function()
             CM.ui.actionHUD:Initialize()
         end
 
+        -- Inicializa Target Frame estilo Dark Souls
+        if CM.ui and CM.ui.targetFrame and CM.ui.targetFrame.Initialize then
+            CM.ui.targetFrame:Initialize()
+        end
+
         -- Inicializa hooks somente se módulos existem
         if CM.hooks and CM.hooks.Initialize then
             CM.hooks:Initialize()
@@ -181,6 +186,10 @@ CM:SetScript("OnEvent", function()
         if CM.ui and CM.ui.actionHUD then
             if CM.ui.actionHUD.Initialize then CM.ui.actionHUD:Initialize() end
             if CM.ui.actionHUD.HideDefaultBars then CM.ui.actionHUD:HideDefaultBars() end
+        end
+        if CM.ui and CM.ui.targetFrame then
+            if CM.ui.targetFrame.Initialize then CM.ui.targetFrame:Initialize() end
+            if CM.ui.targetFrame.HideDefaultBars then CM.ui.targetFrame:HideDefaultBars() end
         end
 
     end

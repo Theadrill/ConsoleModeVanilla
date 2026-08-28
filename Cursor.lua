@@ -673,3 +673,125 @@ function Cursor:Click(mouseButton)
     
     self:UpdateState()
 end
+
+-- ============================================================
+-- Troca Inteligente de Abas / Páginas de Janelas (L1 / R1)
+-- ============================================================
+function Cursor:CycleTabs(direction)
+    local dir = direction or 1
+    
+    -- 1. Se o ConfigFrame do ConsoleMode estiver aberto
+    if ConsoleModeConfigFrame and ConsoleModeConfigFrame:IsVisible() then
+        local tabs = { "KEYBINDINGS", "SETTINGS", "ABOUT" }
+        local cur = (ConsoleMode.config and ConsoleMode.config.currentTab) or "KEYBINDINGS"
+        local idx = 1
+        for i, t in ipairs(tabs) do
+            if t == cur then idx = i break end
+        end
+        local newIdx = idx + dir
+        if newIdx > table.getn(tabs) then newIdx = 1 end
+        if newIdx < 1 then newIdx = table.getn(tabs) end
+        if ConsoleMode.config and ConsoleMode.config.SelectTab then
+            ConsoleMode.config:SelectTab(tabs[newIdx])
+            PlaySound("igCharacterInfoTab")
+            self:FocusFirstInteractive()
+            return true
+        end
+    end
+    
+    -- 2. Lista de janelas padrão da Blizzard com abas nativas
+    local tabbedFrames = {
+        CharacterFrame,
+        SpellBookFrame,
+        FriendsFrame,
+        QuestLogFrame,
+        TradeSkillFrame,
+        CraftFrame,
+        TalentFrame,
+        PlayerTalentFrame,
+        InspectFrame,
+    }
+    
+    for _, frame in ipairs(tabbedFrames) do
+        if frame and frame:IsVisible() then
+            local fname = frame:GetName()
+            local numTabs = frame.numTabs or (PanelTemplates_GetNumTabs and PanelTemplates_GetNumTabs(frame))
+            
+            if not numTabs or numTabs <= 1 then
+                local count = 0
+                for t = 1, 10 do
+                    local b = getglobal(fname .. "Tab" .. t) or getglobal(fname .. "TabButton" .. t)
+                    if b and b:IsVisible() then count = count + 1 else break end
+                end
+                if count > 1 then numTabs = count end
+            end
+            
+            if numTabs and numTabs > 1 then
+                local currentTab = (PanelTemplates_GetSelectedTab and PanelTemplates_GetSelectedTab(frame)) or frame.selectedTab or 1
+                local newTab = currentTab + dir
+                if newTab > numTabs then newTab = 1 end
+                if newTab < 1 then newTab = numTabs end
+                
+                local tabBtn = getglobal(fname .. "Tab" .. newTab) or getglobal(fname .. "TabButton" .. newTab)
+                if tabBtn and tabBtn.Click then
+                    tabBtn:Click()
+                    PlaySound("igCharacterInfoTab")
+                    local firstBtn = self:FindFirstVisibleButton(frame)
+                    if firstBtn then
+                        self:MoveTo(firstBtn)
+                        self:UpdateState()
+                    end
+                    return true
+                end
+            end
+            
+            -- Páginas do Livro de Feitiços
+            if frame == SpellBookFrame then
+                if dir > 0 and SpellBookNextPageButton and SpellBookNextPageButton:IsVisible() and SpellBookNextPageButton:IsEnabled() then
+                    SpellBookNextPageButton:Click()
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+                    local firstBtn = self:FindFirstVisibleButton(frame)
+                    if firstBtn then
+                        self:MoveTo(firstBtn)
+                        self:UpdateState()
+                    end
+                    return true
+                elseif dir < 0 and SpellBookPrevPageButton and SpellBookPrevPageButton:IsVisible() and SpellBookPrevPageButton:IsEnabled() then
+                    SpellBookPrevPageButton:Click()
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+                    local firstBtn = self:FindFirstVisibleButton(frame)
+                    if firstBtn then
+                        self:MoveTo(firstBtn)
+                        self:UpdateState()
+                    end
+                    return true
+                end
+            end
+        end
+    end
+    
+    -- 3. MerchantFrame (Páginas do Vendedor)
+    if MerchantFrame and MerchantFrame:IsVisible() then
+        if dir > 0 and MerchantNextPageButton and MerchantNextPageButton:IsVisible() and MerchantNextPageButton:IsEnabled() then
+            MerchantNextPageButton:Click()
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            local firstBtn = self:FindFirstVisibleButton(MerchantFrame)
+            if firstBtn then
+                self:MoveTo(firstBtn)
+                self:UpdateState()
+            end
+            return true
+        elseif dir < 0 and MerchantPrevPageButton and MerchantPrevPageButton:IsVisible() and MerchantPrevPageButton:IsEnabled() then
+            MerchantPrevPageButton:Click()
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            local firstBtn = self:FindFirstVisibleButton(MerchantFrame)
+            if firstBtn then
+                self:MoveTo(firstBtn)
+                self:UpdateState()
+            end
+            return true
+        end
+    end
+    
+    return false
+end

@@ -180,14 +180,30 @@ function KB:Initialize()
     -- Smart Mouse Look Companion (acionado pelo Steam Input ao mover WASD)
     SetBinding("F9", "CM_MOUSELOOK_START")
     
-    -- Garante que TAB não fique preso no clique de cursor virtual
-    local tabAction = GetBindingAction("TAB")
-    if not tabAction or tabAction == "" or string.find(tabAction, "^CM_CURSOR_") then
-        SetBinding("TAB", "TARGETNEARESTEMY")
-    end
+    -- Vincula TAB ao Smart Tab inteligente (L1: Aba Anterior em menus / Target em combate)
+    SetBinding("TAB", "CM_SMART_TAB")
     
-    CM.logger:Log("Atalhos de Interface e MouseLook F9 inicializados.")
+    CM.logger:Log("Atalhos de Interface e Smart TAB inicializados.")
 end
+
+-- ============================================================
+-- Frame de Escuta de Modificadores (R1 / CTRL para troca de abas)
+-- ============================================================
+local modFrame = CreateFrame("Frame", "ConsoleModeModFrame", UIParent)
+local wasCtrlDown = false
+
+modFrame:SetScript("OnUpdate", function()
+    local ctrlNow = IsControlKeyDown()
+    if ctrlNow and not wasCtrlDown then
+        -- Borda de subida: o jogador acabou de pressionar R1 (CTRL)
+        if KB.navigationMode and not KB.chatActive then
+            if CM.cursor and CM.cursor.CycleTabs then
+                CM.cursor:CycleTabs(1) -- R1 (CTRL) = Próxima Aba
+            end
+        end
+    end
+    wasCtrlDown = ctrlNow
+end)
 
 -- ============================================================
 -- Aplicar Defaults
@@ -575,22 +591,33 @@ function CM_CursorCancel()
     end
 end
 
-function CM_CursorClickLeft()
+function CM_NavNextTab()
     if CM.keybindings.chatActive then return end
-    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
-        return
+    if CM.cursor and CM.cursor.CycleTabs then
+        CM.cursor:CycleTabs(1)
     end
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r L1: Clique Esquerdo")
-    CM.cursor:Click("LeftButton")
 end
 
-function CM_CursorClickRight()
+function CM_NavPrevTab()
     if CM.keybindings.chatActive then return end
-    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
-        return
+    if CM.cursor and CM.cursor.CycleTabs then
+        CM.cursor:CycleTabs(-1)
     end
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r R1: Clique Direito")
-    CM.cursor:Click("RightButton")
+end
+
+function CM_SmartTab()
+    if CM.keybindings and CM.keybindings.chatActive then return end
+    
+    -- 1. Se estiver no modo de navegação com janelas abertas: Aba Anterior (L1)
+    if CM.keybindings and CM.keybindings.navigationMode then
+        if CM.cursor and CM.cursor.CycleTabs then
+            local cycled = CM.cursor:CycleTabs(-1)
+            if cycled then return end
+        end
+    end
+    
+    -- 2. Modo Combate / Mundo Aberto: Target Nearest Enemy nativo
+    TargetNearestEnemy()
 end
 
 -- ============================================================

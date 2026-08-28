@@ -65,7 +65,7 @@
     <!-- ============================================================ -->
     <!-- Botões Fixos e Atalhos de Interface                          -->
     <!-- ============================================================ -->
-    <Binding name="CM_FIXED_L1" header="CONSOLEMODEFIXED">CM_Fixed("L1")</Binding>      <!-- TAB -->
+    <Binding name="CM_SMART_TAB" header="CONSOLEMODEFIXED">CM_SmartTab()</Binding>      <!-- TAB / L1: Target em combate / Aba anterior em menus -->
     <Binding name="CM_FIXED_SELECT">CM_Fixed("SELECT")</Binding>                         <!-- Mapa (base) -->
     <Binding name="CM_FIXED_START">CM_Fixed("START")</Binding>                           <!-- Menu (base) -->
     <Binding name="CM_TOGGLE_MOUSEMODE">CM_ToggleMouseMode()</Binding>                   <!-- L3 -->
@@ -93,10 +93,10 @@
     <Binding name="CM_CURSOR_DOWN" runOnUp="true">CM_CursorMove("DOWN", keystate)</Binding>
     <Binding name="CM_CURSOR_LEFT" runOnUp="true">CM_CursorMove("LEFT", keystate)</Binding>
     <Binding name="CM_CURSOR_RIGHT" runOnUp="true">CM_CursorMove("RIGHT", keystate)</Binding>
-    <Binding name="CM_CURSOR_CONFIRM">CM_CursorConfirm()</Binding>                       <!-- A no modo nav -->
-    <Binding name="CM_CURSOR_CANCEL">CM_CursorCancel()</Binding>                         <!-- B no modo nav -->
-    <Binding name="CM_CURSOR_CLICK_LEFT">CM_CursorClickLeft()</Binding>                 <!-- L1 no modo nav -->
-    <Binding name="CM_CURSOR_CLICK_RIGHT">CM_CursorClickRight()</Binding>               <!-- R1 no modo nav -->
+    <Binding name="CM_CURSOR_CONFIRM">CM_CursorConfirm()</Binding>                       <!-- A no modo nav (Selecionar/Clicar) -->
+    <Binding name="CM_CURSOR_CANCEL">CM_CursorCancel()</Binding>                         <!-- B no modo nav (Fechar/Cancelar) -->
+    <Binding name="CM_NAV_PREV_TAB">CM_NavPrevTab()</Binding>                           <!-- L1/LB: Aba Anterior -->
+    <Binding name="CM_NAV_NEXT_TAB">CM_NavNextTab()</Binding>                           <!-- R1/RB: Proxima Aba -->
 
     <!-- ============================================================ -->
     <!-- Smart Mouse Look Companion (F9 via Steam Input)              -->

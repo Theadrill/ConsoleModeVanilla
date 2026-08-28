@@ -21,6 +21,78 @@ PF.frame = nil
 PF.damageTrailVal = 0
 PF.damageTrailTimer = 0
 
+-- ============================================================================
+-- ⚙️ CONFIGURAÇÃO DE LAYOUT DO PLAYER FRAME (Ajuste suas posições e tamanhos aqui!)
+-- ============================================================================
+PF.Layout = {
+    -- 1. Placa de Pedra Integral (Full Frame Background)
+    Panel = {
+        width = 250,            -- Largura total do painel de pedra
+        height = 116,           -- Altura total do painel de pedra
+        initialX = 20,          -- Posição X inicial na tela
+        initialY = -20,         -- Posição Y inicial na tela
+    },
+
+    -- 2. Retrato do Jogador (Nicho Esquerdo de Pedra)
+    Portrait = {
+        width = 64,             -- Largura do nicho do retrato
+        height = 64,            -- Altura do nicho do retrato
+        offsetX = 16,           -- Posição X em relação ao lado esquerdo do painel
+        offsetY = 2,            -- Posição Y em relação ao centro vertical
+        faceWidth = 60,         -- Largura do rosto 2D/3D
+        faceHeight = 60,        -- Altura do rosto 2D/3D
+    },
+
+    -- 3. Badge de Nível (Canto inferior direito do retrato)
+    LevelBadge = {
+        width = 20,             -- Largura do badge de nível
+        height = 20,            -- Altura do badge de nível
+        offsetX = 2,            -- Posição X em relação ao canto do retrato
+        offsetY = -2,           -- Posição Y em relação ao canto do retrato
+    },
+
+    -- 4. Container e Brasão do Nome do Jogador
+    Name = {
+        width = 130,            -- Largura do brasão do nome
+        height = 80,            -- Altura do brasão do nome
+        offsetX = 70,           -- Posição X em relação ao topo esquerdo do painel
+        offsetY = 25,           -- Posição Y em relação ao topo esquerdo do painel
+        textOffsetY = 8,        -- Offset Y do texto dentro do brasão
+    },
+
+    -- 5. Barra de Conjuramento (Cast Bar) - Fica ACIMA da barra de vida
+    CastBar = {
+        width = 140,            -- Largura da barra de cast
+        height = 18,            -- Altura da barra de cast
+        offsetX = 90,           -- Posição X em relação ao topo esquerdo do painel
+        offsetY = -28,          -- Posição Y em relação ao topo esquerdo do painel
+        alwaysShow = true,      -- ⬅️ Deixa a moldura da barra de cast SEMPRE visível
+    },
+
+    -- 6. Barra de Vida (HP)
+    HP = {
+        width = 140,            -- Largura da barra de vida
+        height = 18,            -- Altura da barra de vida
+        offsetX = 90,           -- Posição X em relação ao topo esquerdo do painel
+        offsetY = -48,          -- Posição Y em relação ao topo esquerdo do painel
+    },
+
+    -- 7. Barra de Recursos (Mana / Fúria / Energia)
+    Power = {
+        width = 120,            -- Largura da barra de poder
+        height = 14,            -- Altura da barra de poder
+        offsetY = -4,           -- Espaçamento Y abaixo da barra de vida
+    },
+
+    -- 8. Combo Points (5 Losangos de Ladino / Druida)
+    ComboPoints = {
+        size = 13,              -- Tamanho de cada losango
+        spacing = 15,           -- Espaçamento horizontal entre os losangos
+        offsetX = 0,            -- Deslocamento Horizontal (X) em relação à barra de recursos
+        offsetY = 2,            -- Deslocamento Vertical (Y) -> Números maiores SOBEM!
+    },
+}
+
 function PF:Initialize()
     if self.frame then
         self:HideDefaultBars()
@@ -28,15 +100,17 @@ function PF:Initialize()
         return
     end
 
-    -- Container Principal da Placa de Pedra (Aspect Ratio 2.6:1 -> 310x116)
+    local cfg = PF.Layout
+
+    -- Container Principal da Placa de Pedra
     local f = CreateFrame("Button", "ConsoleModePlayerFrame", UIParent)
-    f:SetWidth(310)
-    f:SetHeight(116)
+    f:SetWidth(cfg.Panel.width)
+    f:SetHeight(cfg.Panel.height)
     
     if CM.ui and CM.ui.MakeMovable then
-        CM.ui:MakeMovable(f, "PlayerFrame", "TOPLEFT", "TOPLEFT", 20, -20, "Player Frame")
+        CM.ui:MakeMovable(f, "PlayerFrame", "TOPLEFT", "TOPLEFT", cfg.Panel.initialX, cfg.Panel.initialY, "Player Frame")
     else
-        f:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 20, -20)
+        f:SetPoint("TOPLEFT", UIParent, "TOPLEFT", cfg.Panel.initialX, cfg.Panel.initialY)
     end
     
     f:SetFrameStrata("MEDIUM")
@@ -86,9 +160,9 @@ function PF:Initialize()
 
     -- 2. Retrato do Jogador (Encaixado no nicho esquerdo de pedra)
     local portraitFrame = CreateFrame("Button", "ConsoleModePlayerPortraitFrame", f)
-    portraitFrame:SetWidth(64)
-    portraitFrame:SetHeight(64)
-    portraitFrame:SetPoint("LEFT", f, "LEFT", 16, 2)
+    portraitFrame:SetWidth(cfg.Portrait.width)
+    portraitFrame:SetHeight(cfg.Portrait.height)
+    portraitFrame:SetPoint("LEFT", f, "LEFT", cfg.Portrait.offsetX, cfg.Portrait.offsetY)
     MakeSubClickable(portraitFrame)
 
     -- Fundo escuro do retrato atras do rosto
@@ -100,17 +174,17 @@ function PF:Initialize()
     -- Rosto 2D/3D do personagem
     local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
     portraitTex:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitTex:SetWidth(60)
-    portraitTex:SetHeight(60)
+    portraitTex:SetWidth(cfg.Portrait.faceWidth)
+    portraitTex:SetHeight(cfg.Portrait.faceHeight)
     portraitTex:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portraitTex
     f.portraitFrame = portraitFrame
 
     -- Badge de Nível no canto inferior direito do retrato
     local levelBadge = CreateFrame("Frame", "ConsoleModePlayerLevelBadge", portraitFrame)
-    levelBadge:SetWidth(20)
-    levelBadge:SetHeight(20)
-    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", 2, -2)
+    levelBadge:SetWidth(cfg.LevelBadge.width)
+    levelBadge:SetHeight(cfg.LevelBadge.height)
+    levelBadge:SetPoint("BOTTOMRIGHT", portraitFrame, "BOTTOMRIGHT", cfg.LevelBadge.offsetX, cfg.LevelBadge.offsetY)
     levelBadge:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -125,25 +199,92 @@ function PF:Initialize()
     levelText:SetText(tostring(UnitLevel("player") or 1))
     f.levelText = levelText
 
-    -- 3. Nome do Jogador acima das barras
-    local nameText = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    nameText:SetPoint("TOPLEFT", f, "TOPLEFT", 90, -18)
+    -- 3. Container e Brasão do Nome do Jogador
+    local nameFrame = CreateFrame("Frame", "ConsoleModePlayerNameFrame", f)
+    nameFrame:SetWidth(cfg.Name.width)
+    nameFrame:SetHeight(cfg.Name.height)
+    nameFrame:SetPoint("TOPLEFT", f, "TOPLEFT", cfg.Name.offsetX, cfg.Name.offsetY)
+    nameFrame:SetFrameLevel(f:GetFrameLevel() + 1)
+    f.nameFrame = nameFrame
+
+    -- Textura de Fundo do Brasão
+    local nameBg = nameFrame:CreateTexture(nil, "BACKGROUND")
+    nameBg:SetAllPoints(nameFrame)
+    nameBg:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\NamePlate_Crest.tga")
+    f.nameBg = nameBg
+
+    -- Texto do Nome do Jogador
+    local nameText = nameFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    nameText:SetPoint("CENTER", nameFrame, "CENTER", 0, cfg.Name.textOffsetY)
     nameText:SetText(UnitName("player") or "")
     f.nameText = nameText
 
-    -- 4. Fundo da Barra de Vida (Encaixado no painel direito de pedra)
+    -- 4. Barra de Conjuramento / Cast Bar (Fica ACIMA da Barra de Vida)
+    local castBg = CreateFrame("Frame", "ConsoleModePlayerCastBg", f)
+    castBg:SetPoint("TOPLEFT", f, "TOPLEFT", cfg.CastBar.offsetX, cfg.CastBar.offsetY)
+    castBg:SetWidth(cfg.CastBar.width)
+    castBg:SetHeight(cfg.CastBar.height)
+    castBg:SetFrameLevel(f:GetFrameLevel() + 3)
+    castBg:SetBackdrop({
+        bgFile = "Interface\\Buttons\\WHITE8X8",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 8,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    castBg:SetBackdropColor(0.08, 0.08, 0.08, 1.0)
+    castBg:SetBackdropBorderColor(0.4, 0.4, 0.4, 1.0)
+    if cfg.CastBar.alwaysShow then
+        castBg:Show()
+    else
+        castBg:Hide()
+    end
+    f.castBg = castBg
+
+    local castBar = CreateFrame("StatusBar", "ConsoleModePlayerCastBar", castBg)
+    castBar:SetPoint("TOPLEFT", castBg, "TOPLEFT", 1, -1)
+    castBar:SetPoint("BOTTOMRIGHT", castBg, "BOTTOMRIGHT", -1, 1)
+    castBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+    castBar:SetStatusBarColor(1.0, 0.75, 0.0, 1.0) -- Amarelo Dourado
+    castBar:SetMinMaxValues(0, 1)
+    castBar:SetValue(0)
+    f.castBar = castBar
+
+    local castSpellText = castBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    castSpellText:SetPoint("LEFT", castBar, "LEFT", 4, 0)
+    castSpellText:SetText("")
+    f.castSpellText = castSpellText
+
+    local castTimeText = castBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    castTimeText:SetPoint("RIGHT", castBar, "RIGHT", -4, 0)
+    castTimeText:SetText("")
+    f.castTimeText = castTimeText
+
+    local function ResetCastBar()
+        PF.isCasting = false
+        PF.isChanneling = false
+        if cfg.CastBar.alwaysShow then
+            f.castBar:SetValue(0)
+            f.castSpellText:SetText("")
+            f.castTimeText:SetText("")
+            f.castBg:Show()
+        else
+            f.castBg:Hide()
+        end
+    end
+
+    -- 5. Fundo da Barra de Vida (Encaixado no painel direito de pedra)
     local hpBg = CreateFrame("Button", "ConsoleModePlayerHPBg", f)
-    hpBg:SetPoint("TOPLEFT", f, "TOPLEFT", 90, -38)
-    hpBg:SetWidth(200)
-    hpBg:SetHeight(18)
+    hpBg:SetPoint("TOPLEFT", f, "TOPLEFT", cfg.HP.offsetX, cfg.HP.offsetY)
+    hpBg:SetWidth(cfg.HP.width)
+    hpBg:SetHeight(cfg.HP.height)
     hpBg:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        bgFile = "Interface\\Buttons\\WHITE8X8",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile = true, tileSize = 16, edgeSize = 10,
         insets = { left = 2, right = 2, top = 2, bottom = 2 }
     })
-    hpBg:SetBackdropColor(0.06, 0.06, 0.06, 0.95)
-    hpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.9)
+    hpBg:SetBackdropColor(0.06, 0.06, 0.06, 1.0)
+    hpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 1.0)
     MakeSubClickable(hpBg)
     f.hpBg = hpBg
 
@@ -173,19 +314,19 @@ function PF:Initialize()
     hpText:SetPoint("CENTER", hpBar, "CENTER", 0, 0)
     f.hpText = hpText
 
-    -- 5. Fundo da Barra de Mana / Poder
+    -- 6. Fundo da Barra de Mana / Poder
     local mpBg = CreateFrame("Button", "ConsoleModePlayerMPBg", f)
-    mpBg:SetPoint("TOPLEFT", hpBg, "BOTTOMLEFT", 0, -4)
-    mpBg:SetWidth(200)
-    mpBg:SetHeight(14)
+    mpBg:SetPoint("TOPLEFT", hpBg, "BOTTOMLEFT", 0, cfg.Power.offsetY)
+    mpBg:SetWidth(cfg.Power.width)
+    mpBg:SetHeight(cfg.Power.height)
     mpBg:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        bgFile = "Interface\\Buttons\\WHITE8X8",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile = true, tileSize = 16, edgeSize = 10,
         insets = { left = 2, right = 2, top = 2, bottom = 2 }
     })
-    mpBg:SetBackdropColor(0.06, 0.06, 0.06, 0.95)
-    mpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.9)
+    mpBg:SetBackdropColor(0.06, 0.06, 0.06, 1.0)
+    mpBg:SetBackdropBorderColor(0.35, 0.35, 0.35, 1.0)
     MakeSubClickable(mpBg)
     f.mpBg = mpBg
 
@@ -205,19 +346,19 @@ function PF:Initialize()
     mpText:SetText("")
     f.mpText = mpText
 
-    -- 5. Combo Points (5 Losangos / Diamantes perfeitamente alinhados na borda esquerda)
+    -- 7. Combo Points (5 Losangos / Diamantes perfeitamente alinhados na borda esquerda)
     local comboContainer = CreateFrame("Frame", "ConsoleModePlayerComboPoints", f)
-    comboContainer:SetPoint("TOPLEFT", mpBg, "BOTTOMLEFT", 0, -4)
-    comboContainer:SetWidth(100)
+    comboContainer:SetPoint("TOPLEFT", mpBg, "BOTTOMLEFT", cfg.ComboPoints.offsetX, cfg.ComboPoints.offsetY)
+    comboContainer:SetWidth(cfg.ComboPoints.spacing * 5)
     comboContainer:SetHeight(16)
     f.comboContainer = comboContainer
     f.comboPoints = {}
 
     for i = 1, 5 do
         local cp = CreateFrame("Frame", "ConsoleModePlayerCP" .. i, comboContainer)
-        cp:SetWidth(13)
-        cp:SetHeight(13)
-        cp:SetPoint("LEFT", comboContainer, "LEFT", (i - 1) * 15, 0)
+        cp:SetWidth(cfg.ComboPoints.size)
+        cp:SetHeight(cfg.ComboPoints.size)
+        cp:SetPoint("LEFT", comboContainer, "LEFT", (i - 1) * cfg.ComboPoints.spacing, 0)
 
         -- Losango de Fundo / Slot Inativo
         local empty = cp:CreateTexture(nil, "BACKGROUND")
@@ -234,41 +375,6 @@ function PF:Initialize()
 
         f.comboPoints[i] = cp
     end
-
-    -- 4. Barra de Conjuração / Cast Bar (Amarela Ouro, logo acima do HP)
-    local castBg = CreateFrame("Frame", "ConsoleModePlayerCastBg", f)
-    castBg:SetPoint("BOTTOMLEFT", hpBg, "TOPLEFT", 0, 2)
-    castBg:SetPoint("BOTTOMRIGHT", hpBg, "TOPRIGHT", 0, 2)
-    castBg:SetHeight(12)
-    castBg:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = true, tileSize = 16, edgeSize = 8,
-        insets = { left = 1, right = 1, top = 1, bottom = 1 }
-    })
-    castBg:SetBackdropColor(0.08, 0.08, 0.08, 0.95)
-    castBg:SetBackdropBorderColor(0.4, 0.4, 0.4, 0.8)
-    castBg:Hide()
-    f.castBg = castBg
-
-    local castBar = CreateFrame("StatusBar", "ConsoleModePlayerCastBar", castBg)
-    castBar:SetPoint("TOPLEFT", castBg, "TOPLEFT", 1, -1)
-    castBar:SetPoint("BOTTOMRIGHT", castBg, "BOTTOMRIGHT", -1, 1)
-    castBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-    castBar:SetStatusBarColor(1.0, 0.75, 0.0, 1.0) -- Amarelo Dourado
-    castBar:SetMinMaxValues(0, 1)
-    castBar:SetValue(0)
-    f.castBar = castBar
-
-    local castSpellText = castBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    castSpellText:SetPoint("LEFT", castBar, "LEFT", 4, 0)
-    castSpellText:SetText("")
-    f.castSpellText = castSpellText
-
-    local castTimeText = castBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    castTimeText:SetPoint("RIGHT", castBar, "RIGHT", -4, 0)
-    castTimeText:SetText("")
-    f.castTimeText = castTimeText
 
     -- Damage Trail e Cast Bar no OnUpdate
     f:SetScript("OnUpdate", function()
@@ -296,8 +402,7 @@ function PF:Initialize()
             PF.castValue = PF.castValue + elapsed
             if PF.castValue >= PF.castDuration then
                 PF.castValue = PF.castDuration
-                PF.isCasting = false
-                f.castBg:Hide()
+                ResetCastBar()
             else
                 f.castBar:SetValue(PF.castValue)
                 local rem = PF.castDuration - PF.castValue
@@ -308,8 +413,7 @@ function PF:Initialize()
             PF.channelValue = PF.channelValue - elapsed
             if PF.channelValue <= 0 then
                 PF.channelValue = 0
-                PF.isChanneling = false
-                f.castBg:Hide()
+                ResetCastBar()
             else
                 f.castBar:SetValue(PF.channelValue)
                 f.castTimeText:SetText(string.format("%.1fs", PF.channelValue))
@@ -381,13 +485,10 @@ function PF:Initialize()
             end
         elseif event == "SPELLCAST_STOP" then
             if PF.isCasting then
-                PF.isCasting = false
-                f.castBg:Hide()
+                ResetCastBar()
             end
         elseif event == "SPELLCAST_FAILED" or event == "SPELLCAST_INTERRUPTED" then
-            PF.isCasting = false
-            PF.isChanneling = false
-            f.castBg:Hide()
+            ResetCastBar()
         elseif event == "SPELLCAST_DELAYED" then
             -- arg1 = delay in ms
             if PF.isCasting and PF.castDuration then
@@ -419,8 +520,7 @@ function PF:Initialize()
             end
         elseif event == "SPELLCAST_CHANNEL_STOP" then
             if PF.isChanneling then
-                PF.isChanneling = false
-                f.castBg:Hide()
+                ResetCastBar()
             end
         elseif arg1 == "player" then
             PF:Update()

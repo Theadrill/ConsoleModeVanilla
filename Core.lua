@@ -182,8 +182,6 @@ CM:SetScript("OnEvent", function()
             CM.ui.actionHUD:Initialize()
         end
 
-    elseif event == "PLAYER_LOGOUT" then
-        SaveBindings(GetCurrentBindingSet())
     end
 end)
 

@@ -180,26 +180,7 @@ function KB:Initialize()
     -- Smart Mouse Look Companion (acionado pelo Steam Input ao mover WASD)
     SetBinding("F9", "CM_MOUSELOOK_START")
     
-    -- Aplica bindings customizados salvos no ConsoleModeDB
-    self:ApplyCustomBindings()
-    
     CM.logger:Log("Atalhos de Interface e MouseLook F9 inicializados.")
-end
-
--- ============================================================
--- Aplica os bindings customizados salvos pelo jogador
--- ============================================================
-function KB:ApplyCustomBindings()
-    if not ConsoleModeDB or not ConsoleModeDB.customBindings then return end
-    for key, action in pairs(ConsoleModeDB.customBindings) do
-        if key and action and action ~= "" then
-            SetBinding(key, action)
-            if self.savedNavBindings then
-                self.savedNavBindings[key] = action
-            end
-        end
-    end
-    SaveBindings(GetCurrentBindingSet())
 end
 
 -- ============================================================
@@ -397,29 +378,8 @@ function KB:ExitNavigationMode()
     -- Restaura bindings originais de cada tecla
     for _, key in ipairs(keysToRestore) do
         local originalAction = KB.savedNavBindings[key]
-        if not originalAction or originalAction == "" then
-            originalAction = ConsoleModeDB and ConsoleModeDB.customBindings and ConsoleModeDB.customBindings[key]
-        end
-        
         if originalAction and originalAction ~= "" then
             SetBinding(key, originalAction)
-        else
-            -- Fallbacks seguros caso não estivesse salvo
-            if key == defaults[1].A then
-                SetBinding(key, "JUMP")
-            elseif key == defaults[1].B then
-                SetBinding(key, "ACTIONBUTTON3")
-            elseif key == "TAB" then
-                SetBinding(key, "TARGETNEARESTEMY")
-            elseif key == defaults[1].DUP then
-                SetBinding(key, "CM_ACTION_DUP_1")
-            elseif key == defaults[1].DDOWN then
-                SetBinding(key, "CM_ACTION_DDOWN_1")
-            elseif key == defaults[1].DLEFT then
-                SetBinding(key, "CM_ACTION_DLEFT_1")
-            elseif key == defaults[1].DRIGHT then
-                SetBinding(key, "CM_ACTION_DRIGHT_1")
-            end
         end
     end
     KB.savedNavBindings = {}
@@ -442,7 +402,7 @@ function CM_Action(button, page)
     
     -- Botao A na pagina 1 (Base/Sem modificador) = Pulo padrão do WoW
     if page == 1 and button == "A" then
-        JumpOrAscendStart()
+        if Jump then Jump() end
     end
 end
 
@@ -567,7 +527,7 @@ function CM_CursorConfirm()
     -- Proteção: se o cursor não estiver ativo em nenhuma janela, força saída e pula
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         CM.keybindings:ExitNavigationMode()
-        JumpOrAscendStart()
+        if Jump then Jump() end
         return
     end
     

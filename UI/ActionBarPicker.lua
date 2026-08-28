@@ -279,13 +279,10 @@ function Picker:ConfirmSlotByIndex(slotIndex)
             KB.savedNavBindings[physKey] = bindingAction
         end
         
-        -- 3. Salva no banco de dados persistente do ConsoleMode (SavedVariables)
-        if not ConsoleModeDB then ConsoleModeDB = {} end
-        if not ConsoleModeDB.customBindings then ConsoleModeDB.customBindings = {} end
-        ConsoleModeDB.customBindings[physKey] = bindingAction
-        
-        -- 4. Persiste no arquivo de bindings do WoW
-        SaveBindings(GetCurrentBindingSet())
+        -- 3. Persiste no arquivo de bindings do WoW de forma segura
+        local set = GetCurrentBindingSet()
+        if not set or set == 0 then set = 1 end
+        pcall(function() SaveBindings(set) end)
         
         local _, actionName = self:GetSlotInfo(realSlot)
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r |cffffcc00" .. self.targetCombo .. "|r vinculado a |cff88ccff" .. (actionName or ("Slot " .. slotIndex)) .. "|r (" .. barDef.name .. ")!")

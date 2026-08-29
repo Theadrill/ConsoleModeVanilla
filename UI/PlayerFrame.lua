@@ -67,8 +67,16 @@ CFG.Anchor = {
 -- Ancorado no LEFT do frame raiz.
 -- ----------------------------------------------------------------------------
 CFG.Portrait = {
-    size  = 58,   -- largura e altura do quadrado (px)
+    size  = 58,   -- largura e altura do quadrado do rosto (px)
     gapX  = 8,    -- espaço horizontal entre portrait e container de barras (px)
+
+    -- Moldura da classe (Media/Frames/CLASSE.tga) sobreposta ao portrait
+    -- A moldura é renderizada em OVERLAY sobre o rosto, mesma âncora CENTER.
+    frameShow    = true,   -- true = exibe a moldura, false = oculta
+    frameWidth   = 64,     -- largura da moldura (px) — pode ser maior que o portrait
+    frameHeight  = 64,     -- altura da moldura (px)
+    frameOffsetX = 0,      -- deslocamento horizontal em relação ao centro do portrait (px)
+    frameOffsetY = 0,      -- deslocamento vertical em relação ao centro do portrait (px)
 }
 
 -- ----------------------------------------------------------------------------
@@ -79,7 +87,7 @@ CFG.Portrait = {
 CFG.Crest = {
     width   = 96,    -- largura da textura (px) — pode ser maior que o portrait
     height  = 64,    -- altura da textura (px)
-    offsetY = 20,     -- espaço vertical entre portrait e crest (negativo = desce)
+    offsetY = 18,     -- espaço vertical entre portrait e crest (negativo = desce)
 
     -- Fonte e estilo do nome
     nameFont      = "GameFontHighlightSmall",  -- herda família e flags da fonte base
@@ -194,10 +202,10 @@ CFG.Resource = {
 -- ----------------------------------------------------------------------------
 CFG.ComboPoints = {
     count   = 5,    -- total de pontos (fixo: 5 para Rogue)
-    size    = 12,   -- largura e altura de cada losango (px)
-    spacing = 14,   -- distância entre centros dos losangos (px)
-    offsetY = -3,   -- deslocamento vertical abaixo da barra de recurso (negativo = desce)
-    offsetX = 0,    -- deslocamento horizontal em relação à borda esquerda da barra
+    size    = 20,   -- largura E altura de cada losango (px) — aumente para losangos maiores
+    spacing = nil,  -- distância entre centros (px) — nil = distribui automaticamente pela largura da castbar
+    offsetY = -3,   -- deslocamento vertical abaixo da castbar (negativo = desce)
+    offsetX = 0,    -- deslocamento horizontal em relação à borda esquerda da castbar
 
     -- 1 a 4 pontos: dourado
     colorNormal = { r = 1.0, g = 0.85, b = 0.0,  a = 1.0 },
@@ -319,6 +327,17 @@ function PF:Initialize()
     portrait:SetPoint("LEFT", f, "LEFT", 0, 0)
     portrait:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portrait
+
+    -- Moldura da classe sobreposta ao portrait (Media/Frames/CLASSE.tga)
+    -- A textura real é definida em PF:Update() após detectar a classe.
+    local portraitFrame = f:CreateTexture("ConsoleModePlayerPortraitFrame", "OVERLAY")
+    portraitFrame:SetWidth(CFG.Portrait.frameWidth)
+    portraitFrame:SetHeight(CFG.Portrait.frameHeight)
+    portraitFrame:SetPoint("CENTER", portrait, "CENTER", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
+    if not CFG.Portrait.frameShow then
+        portraitFrame:Hide()
+    end
+    f.portraitFrame = portraitFrame
 
     -- -----------------------------------------------------------------------
     -- CREST DA CLASSE
@@ -476,15 +495,20 @@ function PF:Initialize()
     f.resText = resText
 
     -- -----------------------------------------------------------------------
-    -- COMBO POINTS (linha 2, coluna 3 — somente Rogue)
-    -- Ancorados abaixo da resource bar com offsetX absoluto igual ao col3X.
+    -- COMBO POINTS (linha 2, coluna 2 — somente Rogue)
+    -- Ancorados abaixo da castbar com offsetX absoluto igual ao col2X.
+    -- spacing automático: distribui os losangos uniformemente pela largura da castbar.
     -- -----------------------------------------------------------------------
+    -- Calcula spacing: divide a largura da castbar em (count) fatias iguais.
+    -- Se CFG.ComboPoints.spacing for definido manualmente, usa ele.
+    local cpSpacing = CFG.ComboPoints.spacing or (CFG.Bars.col2Width / CFG.ComboPoints.count)
+
     local comboContainer = CreateFrame("Frame", "ConsoleModePlayerComboPoints", barsContainer)
-    comboContainer:SetWidth(CFG.ComboPoints.spacing * CFG.ComboPoints.count)
+    comboContainer:SetWidth(CFG.Bars.col2Width)
     comboContainer:SetHeight(CFG.ComboPoints.size)
     comboContainer:SetPoint(
         "TOPLEFT", barsContainer, "BOTTOMLEFT",
-        col3X + CFG.ComboPoints.offsetX, CFG.ComboPoints.offsetY
+        col2X + CFG.ComboPoints.offsetX, CFG.ComboPoints.offsetY
     )
     comboContainer:Hide()
     f.comboContainer = comboContainer
@@ -494,7 +518,9 @@ function PF:Initialize()
         local cp = CreateFrame("Frame", "ConsoleModePlayerCP" .. i, comboContainer)
         cp:SetWidth(CFG.ComboPoints.size)
         cp:SetHeight(CFG.ComboPoints.size)
-        cp:SetPoint("LEFT", comboContainer, "LEFT", (i - 1) * CFG.ComboPoints.spacing, 0)
+        -- Centraliza cada losango na sua fatia: offset = (i-0.5) * spacing - size/2
+        local cpX = (i - 0.5) * cpSpacing - (CFG.ComboPoints.size / 2)
+        cp:SetPoint("LEFT", comboContainer, "LEFT", cpX, 0)
 
         local emptyTex = cp:CreateTexture(nil, "BACKGROUND")
         emptyTex:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Empty.tga")
@@ -813,9 +839,21 @@ function PF:Update()
     -- Portrait
     SetPortraitTexture(self.frame.portrait, "player")
 
-    -- Crest da classe e nome
+    -- Moldura da classe sobre o portrait
     local _, playerClass = UnitClass("player")
     playerClass = playerClass or "DEFAULT"
+    if self.frame.portraitFrame then
+        self.frame.portraitFrame:SetTexture(
+            "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. playerClass .. ".tga"
+        )
+        if CFG.Portrait.frameShow then
+            self.frame.portraitFrame:Show()
+        else
+            self.frame.portraitFrame:Hide()
+        end
+    end
+
+    -- Crest da classe e nome
     self.frame.crestTex:SetTexture(
         "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Crests\\" .. playerClass .. ".tga"
     )

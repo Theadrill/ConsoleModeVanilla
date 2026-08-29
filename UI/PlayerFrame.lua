@@ -70,13 +70,31 @@ CFG.Portrait = {
     size  = 58,   -- largura e altura do quadrado do rosto (px)
     gapX  = 8,    -- espaço horizontal entre portrait e container de barras (px)
 
-    -- Moldura da classe (Media/Frames/CLASSE.tga) sobreposta ao portrait
-    -- A moldura é renderizada em OVERLAY sobre o rosto, mesma âncora CENTER.
-    frameShow    = true,   -- true = exibe a moldura, false = oculta
-    frameWidth   = 64,     -- largura da moldura (px) — pode ser maior que o portrait
-    frameHeight  = 64,     -- altura da moldura (px)
-    frameOffsetX = 0,      -- deslocamento horizontal em relação ao centro do portrait (px)
-    frameOffsetY = 0,      -- deslocamento vertical em relação ao centro do portrait (px)
+    -- Moldura padrão — usada para classes sem entrada em CFG.PortraitFrames abaixo
+    frameShow    = true,   -- true = exibe a moldura, false = oculta globalmente
+    frameWidth   = 64,     -- largura padrão da moldura (px)
+    frameHeight  = 64,     -- altura padrão da moldura (px)
+    frameOffsetX = 0,      -- deslocamento X padrão em relação ao LEFT do frame raiz (px)
+    frameOffsetY = 0,      -- deslocamento Y padrão (px, positivo = sobe)
+}
+
+-- ----------------------------------------------------------------------------
+-- MOLDURA POR CLASSE (portrait overlay)
+-- Cada entrada sobrescreve os valores padrão de CFG.Portrait para aquela classe.
+-- A âncora é sempre "LEFT" do frame raiz — use offsetX/offsetY para ajustar.
+-- Deixe uma entrada como {} para usar os defaults sem alteração.
+-- ----------------------------------------------------------------------------
+CFG.PortraitFrames = {
+    DRUID      = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    HUNTER     = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    MAGE       = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    PALADIN    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    PRIEST     = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    ROGUE      = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    SHAMAN     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },  -- totem extrapola à esquerda
+    WARLOCK    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    WARRIOR    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    DEFAULT    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
 }
 
 -- ----------------------------------------------------------------------------
@@ -843,6 +861,18 @@ function PF:Update()
     local _, playerClass = UnitClass("player")
     playerClass = playerClass or "DEFAULT"
     if self.frame.portraitFrame then
+        -- Pega config específica da classe ou cai no default
+        local fc = CFG.PortraitFrames and CFG.PortraitFrames[playerClass]
+        if not fc then fc = CFG.PortraitFrames and CFG.PortraitFrames["DEFAULT"] end
+        local fw = (fc and fc.width)   or CFG.Portrait.frameWidth
+        local fh = (fc and fc.height)  or CFG.Portrait.frameHeight
+        local fx = (fc and fc.offsetX) or CFG.Portrait.frameOffsetX
+        local fy = (fc and fc.offsetY) or CFG.Portrait.frameOffsetY
+
+        self.frame.portraitFrame:SetWidth(fw)
+        self.frame.portraitFrame:SetHeight(fh)
+        self.frame.portraitFrame:ClearAllPoints()
+        self.frame.portraitFrame:SetPoint("LEFT", self.frame, "LEFT", fx, fy)
         self.frame.portraitFrame:SetTexture(
             "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. playerClass .. ".tga"
         )

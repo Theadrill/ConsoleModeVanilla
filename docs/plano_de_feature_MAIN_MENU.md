@@ -157,8 +157,38 @@ O modelo 3D reage dinamicamente através da API nativa `model:SetSequence(animID
 
 ---
 
-## 6. Estilo Visual e Tematização
+## 6. Estilo Visual, Textura e Sistema 9-Slice
 
-* **Fundo:** Cor sólida escurecida translúcida ou textura de pergaminho/dark fantasy estilizada compartilhada por todo o Hub.
-* **Bordas e Seleção:** Molduras elegantes com destaques luminosos no elemento em foco (cursor dourado/brilhante estilo Zelda).
+### 6.1. Textura de Fundo Selecionada (`Carved_9Slides`)
+* **Arquivo Base:** `Carved_9Slides.png` (Pacote *Tiny Swords*).
+* **Dimensões Originais:** 192x192 pixels, composto por uma grade 3x3 perfeita de fatias de **64x64 pixels**.
+* **Padrão:** Pergaminho/madeira talhada com bordas recortadas estilizadas.
+
+### 6.2. Implementação do Sistema 9-Slice no WoW 1.12.1 (Padrão Unity)
+Para evitar que a textura fique esticada, borrada ou deformada em telas maiores (Steam Deck, 1080p, 4K), o menu utiliza um renderizador customizado de **9-Slice (9 Fatias)** via sub-texturas e coordenadas UV (`SetTexCoord`):
+
+```
++----------------+----------------+----------------+
+|  Canto Sup.Esq |   Borda Topo   | Canto Sup.Dir  |  (Cantos: Tamanho fixo)
+|    (Fixo)      | (Estica Horiz) |    (Fixo)      |
++----------------+----------------+----------------+
+|   Borda Esq.   |     Centro     |   Borda Dir.   |  (Bordas: Esticam em 1 eixo)
+| (Estica Vert)  |  (Preenche 2D) | (Estica Vert)  |
++----------------+----------------+----------------+
+| Canto Inf.Esq  |  Borda Fundo   | Canto Inf.Dir  |  (Centro: Preenchimento total)
+|    (Fixo)      | (Estica Horiz) |    (Fixo)      |
++----------------+----------------+----------------+
+```
+
+1. **4 Cantos (Tamanho Fixo):** Mantêm a escala fixa e nítida sem esticar.
+2. **4 Bordas (Eixo Único):** As bordas superior/inferior esticam apenas na horizontal; as laterais esticam apenas na vertical.
+3. **Centro (Preenchimento):** Preenche o interior do menu.
+4. **Mapeamento UV (`SetTexCoord`):** Recorte preciso de cada quadrante da matriz.
+
+### 6.3. Requisitos Técnicos do Motor do WoW Vanilla
+* **Conversão POT (Power of Two):** O WoW 1.12 requer dimensões de textura em potências de 2. A matriz de 192x192 é embutida em um canvas de **256x256** `.tga`.
+* **Canal Alpha:** Formato **Targa 32-bit (TGA com Alpha de transparência)** para recortar perfeitamente as partes externas do pergaminho.
+
+### 6.4. Bordas e Destaques
+* **Seleção:** Molduras elegantes com destaques luminosos no elemento em foco (cursor dourado/brilhante estilo Zelda).
 * **Feedback Sonoro:** Execução de sons nativos do cliente da Blizzard para confirmação, cancelamento e transição de abas.

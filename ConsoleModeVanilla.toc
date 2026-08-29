@@ -15,6 +15,7 @@ UI\KeybindingsList.lua
 UI\SpellbookPicker.lua
 UI\BagPicker.lua
 UI\ContextMenu.lua
+UI\MacroPicker.lua
 UI\ActionBarPicker.lua
 UI\XPBar.lua
 UI\ActionHUD.lua

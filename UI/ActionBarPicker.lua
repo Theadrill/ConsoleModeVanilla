@@ -148,7 +148,7 @@ function Picker:CreateUI(parent)
     modeBar:SetPoint("TOPLEFT", subStr, "BOTTOMLEFT", 0, -8)
 
     local modeSpell = CreateFrame("Button", "ConsoleModePickerModeSpell", modeBar, "UIPanelButtonTemplate")
-    modeSpell:SetWidth(120)
+    modeSpell:SetWidth(100)
     modeSpell:SetHeight(22)
     modeSpell:SetPoint("LEFT", modeBar, "LEFT", 0, 0)
     modeSpell:SetText("Spellbook")
@@ -156,20 +156,28 @@ function Picker:CreateUI(parent)
     f.modeSpell = modeSpell
 
     local modeBar2 = CreateFrame("Button", "ConsoleModePickerModeBar2", modeBar, "UIPanelButtonTemplate")
-    modeBar2:SetWidth(120)
+    modeBar2:SetWidth(110)
     modeBar2:SetHeight(22)
-    modeBar2:SetPoint("LEFT", modeSpell, "RIGHT", 6, 0)
+    modeBar2:SetPoint("LEFT", modeSpell, "RIGHT", 5, 0)
     modeBar2:SetText("Barras de Acao")
     modeBar2:SetScript("OnClick", function() Picker:SetMode("BARS") end)
     f.modeBar2 = modeBar2
 
     local modeBag = CreateFrame("Button", "ConsoleModePickerModeBag", modeBar, "UIPanelButtonTemplate")
-    modeBag:SetWidth(80)
+    modeBag:SetWidth(65)
     modeBag:SetHeight(22)
-    modeBag:SetPoint("LEFT", modeBar2, "RIGHT", 6, 0)
+    modeBag:SetPoint("LEFT", modeBar2, "RIGHT", 5, 0)
     modeBag:SetText("Bag")
     modeBag:SetScript("OnClick", function() Picker:SetMode("BAG") end)
     f.modeBag = modeBag
+
+    local modeMacro = CreateFrame("Button", "ConsoleModePickerModeMacro", modeBar, "UIPanelButtonTemplate")
+    modeMacro:SetWidth(75)
+    modeMacro:SetHeight(22)
+    modeMacro:SetPoint("LEFT", modeBag, "RIGHT", 5, 0)
+    modeMacro:SetText("Macros")
+    modeMacro:SetScript("OnClick", function() Picker:SetMode("MACROS") end)
+    f.modeMacro = modeMacro
 
     -- ── Linha 2 de abas: sub-abas (dinamicamente preenchidas) ────────────────
     local subTabBar = CreateFrame("Frame", "ConsoleModePickerSubTabBar", f)
@@ -244,6 +252,17 @@ function Picker:CreateUI(parent)
                     GameTooltip:SetBagItem(this.tooltipItem.bagID, this.tooltipItem.slotID)
                 end)
                 GameTooltip:Show()
+            elseif this.tooltipMacro then
+                GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
+                GameTooltip:AddLine(this.tooltipMacro.name, 1.0, 0.85, 0.2)
+                if this.tooltipMacro.body and this.tooltipMacro.body ~= "" then
+                    local preview = this.tooltipMacro.body
+                    if string.len(preview) > 120 then
+                        preview = string.sub(preview, 1, 117) .. "..."
+                    end
+                    GameTooltip:AddLine(preview, 0.8, 0.8, 0.8, 1)
+                end
+                GameTooltip:Show()
             end
         end)
         btn:SetScript("OnLeave", function()
@@ -254,7 +273,7 @@ function Picker:CreateUI(parent)
         self.gridButtons[i] = btn
     end
 
-    -- ── Paginação (visível apenas no modo Spellbook) ──────────────────────────
+    -- ── Paginação (visível nos modos Spellbook, Bag e Macros) ─────────────────
     local prevBtn = CreateFrame("Button", "ConsoleModePickerPrevBtn", f, "UIPanelButtonTemplate")
     prevBtn:SetWidth(70)
     prevBtn:SetHeight(22)
@@ -265,6 +284,8 @@ function Picker:CreateUI(parent)
             Picker.gridPage = Picker.gridPage - 1
             if Picker.mode == "BAG" then
                 Picker:RefreshBagGrid()
+            elseif Picker.mode == "MACROS" then
+                Picker:RefreshMacroGrid()
             else
                 Picker:RefreshSpellGrid()
             end
@@ -286,6 +307,8 @@ function Picker:CreateUI(parent)
         local cacheSize = 0
         if Picker.mode == "BAG" then
             cacheSize = table.getn(Picker.itemsCache)
+        elseif Picker.mode == "MACROS" then
+            cacheSize = table.getn(Picker.macrosCache or {})
         else
             cacheSize = table.getn(Picker.spellsCache)
         end
@@ -295,6 +318,8 @@ function Picker:CreateUI(parent)
             Picker.gridPage = Picker.gridPage + 1
             if Picker.mode == "BAG" then
                 Picker:RefreshBagGrid()
+            elseif Picker.mode == "MACROS" then
+                Picker:RefreshMacroGrid()
             else
                 Picker:RefreshSpellGrid()
             end
@@ -319,21 +344,29 @@ function Picker:SetMode(mode)
             self.frame.modeSpell:LockHighlight()
             self.frame.modeBar2:UnlockHighlight()
             self.frame.modeBag:UnlockHighlight()
+            self.frame.modeMacro:UnlockHighlight()
         elseif mode == "BARS" then
             self.frame.modeSpell:UnlockHighlight()
             self.frame.modeBar2:LockHighlight()
             self.frame.modeBag:UnlockHighlight()
-        else  -- BAG
+            self.frame.modeMacro:UnlockHighlight()
+        elseif mode == "BAG" then
             self.frame.modeSpell:UnlockHighlight()
             self.frame.modeBar2:UnlockHighlight()
             self.frame.modeBag:LockHighlight()
+            self.frame.modeMacro:UnlockHighlight()
+        else  -- MACROS
+            self.frame.modeSpell:UnlockHighlight()
+            self.frame.modeBar2:UnlockHighlight()
+            self.frame.modeBag:UnlockHighlight()
+            self.frame.modeMacro:LockHighlight()
         end
     end
 
     -- Reconstrói sub-abas
     self:BuildSubTabs()
 
-    -- Paginação: visível no Spellbook e no Bag, oculta nas Barras
+    -- Paginação: visível no Spellbook, Bag e Macros, oculta nas Barras
     if self.frame then
         if mode == "BARS" then
             self.frame.prevBtn:Hide()
@@ -427,6 +460,29 @@ function Picker:BuildSubTabs()
         -- Seleciona barra ativa
         self:HighlightSubTab(self.currentBar)
         self:RefreshBarGrid()
+
+    elseif self.mode == "MACROS" then
+        -- Sub-abas de Macros: [Gerais] e [Personagem]
+        local macroTabs = { "Gerais", "Personagem" }
+        for t = 1, 2 do
+            local tabNum = t
+            local btn = CreateFrame("Button", "ConsoleModePickerMacroTab" .. t, subTabBar, "UIPanelButtonTemplate")
+            btn:SetWidth(100)
+            btn:SetHeight(22)
+            btn:SetPoint("LEFT", subTabBar, "LEFT", (t - 1) * (100 + TAB_GAP), 0)
+            btn:SetText(macroTabs[t])
+            btn:SetScript("OnClick", function()
+                Picker.macroTabIdx = tabNum
+                Picker.gridPage = 1
+                Picker:HighlightSubTab(tabNum)
+                Picker:LoadMacroTab(tabNum)
+            end)
+            tinsert(self.subTabButtons, btn)
+        end
+
+        self.macroTabIdx = self.macroTabIdx or 1
+        self:HighlightSubTab(self.macroTabIdx)
+        self:LoadMacroTab(self.macroTabIdx)
 
     else
         -- Modo BAG: sem sub-abas, carrega itens usáveis das bags
@@ -596,6 +652,66 @@ function Picker:RefreshBagGrid()
 end
 
 -- ============================================================================
+-- GRADE — MACROS (Gerais da Conta e do Personagem)
+-- ============================================================================
+
+function Picker:LoadMacroTab(tabIdx)
+    self.macroTabIdx = tabIdx
+    local MP = CM.config and CM.config.macroPicker
+    if not MP then
+        self.macrosCache = {}
+    elseif tabIdx == 1 then
+        self.macrosCache = MP:GetAccountMacros()
+    else
+        self.macrosCache = MP:GetCharacterMacros()
+    end
+    self:RefreshMacroGrid()
+end
+
+function Picker:RefreshMacroGrid()
+    self.macrosCache = self.macrosCache or {}
+    local total      = table.getn(self.macrosCache)
+    local totalPages = math.ceil(total / GRID_COUNT)
+    if totalPages < 1 then totalPages = 1 end
+    if self.gridPage > totalPages then self.gridPage = totalPages end
+
+    self.frame.pageLabel:SetText(self.gridPage .. " / " .. totalPages)
+
+    local offset = (self.gridPage - 1) * GRID_COUNT
+
+    for i = 1, GRID_COUNT do
+        local btn   = self.gridButtons[i]
+        local macro = self.macrosCache[offset + i]
+
+        btn.spell        = nil
+        btn.tooltipSlot  = nil
+        btn.tooltipSpell = nil
+        btn.tooltipItem  = nil
+        btn.tooltipMacro = nil
+        btn.bagItem      = nil
+        btn.macro        = nil
+
+        if macro then
+            btn.macro = macro
+            btn.icon:SetTexture(macro.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+            local displayName = WrapName(macro.name)
+            btn.label:SetText(displayName)
+            btn.rankLabel:SetText("")
+            btn:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
+            btn:EnableMouse(true)
+            btn.tooltipMacro = macro
+        else
+            btn.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+            btn.label:SetText("")
+            btn.rankLabel:SetText("")
+            btn:SetBackdropColor(0.05, 0.05, 0.05, 0.4)
+            btn:EnableMouse(false)
+        end
+        btn:Show()
+    end
+end
+
+-- ============================================================================
 -- CLIQUE NA GRADE
 -- ============================================================================
 
@@ -622,6 +738,17 @@ function Picker:OnGridClick(idx)
         local BP = CM.config and CM.config.bagPicker
         if BP then
             BP:ApplyItemBinding(self.targetPage, self.targetBtnKey, self.targetCombo, item)
+        end
+        self:Cancel()
+
+    elseif self.mode == "MACROS" then
+        local btn   = self.gridButtons[idx]
+        local macro = btn and btn.macro
+        if not macro then return end
+
+        local MP = CM.config and CM.config.macroPicker
+        if MP then
+            MP:ApplyMacroBinding(self.targetPage, self.targetBtnKey, self.targetCombo, macro)
         end
         self:Cancel()
 

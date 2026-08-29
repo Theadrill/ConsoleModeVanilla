@@ -110,6 +110,11 @@ O modelo 3D reage dinamicamente através da API nativa `model:SetSequence(animID
 * Ao navegar para itens de **Elmo, Colar ou Ombros**, a câmera aproxima suavemente (*Zoom In*) no rosto/busto do personagem.
 * Ao navegar para **Calças ou Botas**, a câmera se afasta (*Zoom Out*) para exibir o corpo inteiro.
 
+#### C. Provador Dinâmico ao Vivo ("Live TryOn" na Bolsa)
+* **Alta Performance com Ícones 2D no Grid:** O grid de itens permanece 100% leve e fluido utilizando ícones 2D nativos com molduras de qualidade e brilho (garantindo 0 impacto em FPS).
+* **Experimentação em Tempo Real:** Ao navegar com o D-Pad sobre qualquer arma, escudo ou peça de armadura na bolsa, o modelo 3D do personagem à esquerda **experimenta a peça instantaneamente** via `model:TryOn(itemLink)` e assume a postura/animação correspondente.
+* **Restauração Automática:** Ao mover o cursor para consumíveis, reagentes ou slots vazios, o modelo 3D restaura automaticamente o conjunto de equipamentos original que o jogador está vestindo (`model:SetUnit("player")`).
+
 ---
 
 ### 5.3. Painel Direito: Container de Conteúdo e Abas

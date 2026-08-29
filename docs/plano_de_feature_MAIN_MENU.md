@@ -1,5 +1,15 @@
 # Plano de Feature: MAIN MENU (Menu Principal Console Hub)
 
+> [!IMPORTANT]
+> **REGRAS MANDATÓRIAS DE DESENVOLVIMENTO:**
+> 1. **Versão do Jogo:** World of Warcraft Vanilla 1.12.1 (Turtle WoW).
+> 2. **Versão do Lua:** Lua 5.0 (FrameXML clássico). Proibido usar operadores de Lua 5.1+ (como `#table`, usar `table.getn(t)` ou `getn(t)`).
+> 3. **Validação de Sintaxe:** Todo arquivo `.lua` criado ou alterado deve ser validado via compilador de sintaxe (`luac -p`) antes de qualquer teste.
+> 4. **Regra Crítica de Commit:** NUNCA fazer commit ou push sem o comando e autorização explícita do usuário.
+> 5. **Regra de Parada Crítica de Fases:** NUNCA avançar para a fase seguinte sem fazer uma parada crítica, solicitar a validação do usuário no jogo via `/reload` e aguardar seu feedback/aprovação.
+
+---
+
 ## 1. Visão Geral
 
 O **MAIN MENU** é um Hub centralizado de interface em tela cheia projetado especificamente para o **ConsoleMode - Vanilla** (WoW 1.12.1 / Turtle WoW / Lua 5.0), inspirado na consagrada interface de inventário e menu de *The Legend of Zelda: Breath of the Wild / Tears of the Kingdom*.
@@ -197,3 +207,63 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 ### 6.4. Bordas e Destaques
 * **Seleção:** Molduras elegantes com destaques luminosos no elemento em foco (cursor dourado/brilhante estilo Zelda).
 * **Feedback Sonoro:** Execução de sons nativos do cliente da Blizzard para confirmação, cancelamento e transição de abas.
+
+---
+
+## 7. Plano de Implementação em 8 Fases Incrementais
+
+### **FASE 1: A "Casca" e a Textura 9-Slice (O Canvas do Menu)**
+* **Tarefas:**
+  1. Criação do arquivo `MainMenu.lua` no addon e registro no `.toc`.
+  2. Conversão da textura `Carved_9Slides` para `.tga` 256x256 e criação da função auxiliar de 9-Slice em Lua.
+  3. Criação da janela principal em tela cheia (com fundo de pergaminho 9-slice) e comando `/cm menu` (ou tecla) para abrir e fechar com o botão **(B)**.
+  4. Divisão estrutural básica das duas grandes metades (Esquerda: Palco do Personagem / Direita: Container de Conteúdo).
+* **Validação:** Digitar `/cm menu` no jogo e confirmar abertura limpa da janela com pergaminho 9-slice nítido e fechamento via **(B)** ou Escape.
+
+### **FASE 2: O Palco do Personagem 3D & Giro no Analógico**
+* **Tarefas:**
+  1. Criação do frame `PlayerModel` transparente centralizado na metade esquerda.
+  2. Chamada de `model:SetUnit("player")` para renderizar o personagem com as roupas atuais e animação de idle.
+  3. Mapeamento do analógico direito (*R-Stick*) para girar o personagem em 360°.
+* **Validação:** Abrir o menu e ver o personagem 3D ao vivo respirando dentro do pergaminho, com rotação suave via analógico.
+
+### **FASE 3: Status Base, Buffs e Lista de Equipamentos (Lado Esquerdo)**
+* **Tarefas:**
+  1. Lista vertical de equipamentos à esquerda do boneco (ícones dos 19 slots + nomes dos itens por extenso com cor de qualidade).
+  2. Coluna de Atributos e Buffs à direita do boneco (Nível, Classe, HP, Recurso, Ouro, Força/Agi/Vigor e lista de buffs com tempo restante).
+* **Validação:** Abrir o menu e verificar os atributos, lista de equipamentos reais e buffs ativos exibidos de forma alinhada e atualizada.
+
+### **FASE 4: Container de Abas e Alternância com `[L1]` / `[R1]`**
+* **Tarefas:**
+  1. Criação do cabeçalho de abas no topo do container direito (`[L1] Bolsas | Spellbook [R1]`).
+  2. Alternância de abas via L1/R1 no controle (ou Q/E no teclado) com som nativo da Blizzard.
+  3. Alternância suave dos sub-frames da direita sem recarregar o lado esquerdo.
+* **Validação:** Pressionar L1/R1 no controle e verificar a troca instantânea de abas com efeito sonoro e atualização visual do título.
+
+### **FASE 5: Grid de Bolsas Categorizado & Painel Fixo de Tooltip (Aba 1)**
+* **Tarefas:**
+  1. Leitura de itens das bolsas e agrupamento em blocos visuais (*Equipamentos*, *Consumíveis*, *Materiais*, *Outros*).
+  2. Grid 2D leve com molduras de qualidade.
+  3. Criação do Painel Fixo de Detalhes (Tooltip estilo Zelda) no canto inferior direito.
+* **Validação:** Visualizar todos os itens da mochila categorizados na Aba 1 e ler os dados completos do item focado no painel inferior.
+
+### **FASE 6: Navegação D-Pad no Grid, Menu de Contexto (Y) e Live TryOn**
+* **Tarefas:**
+  1. Navegação espacial em grade via D-Pad com cursor dourado 9-slice.
+  2. Live TryOn: Ao parar sobre armas/armaduras na bolsa, o modelo 3D veste a peça ao vivo e faz pose; ao sair, restaura o set.
+  3. Botão (A) para usar/equipar e (Y) para abrir o menu de contexto de ações existente.
+* **Validação:** Navegar pelos itens via D-Pad, testar o provador 3D ao vivo e executar ações com (A) e (Y).
+
+### **FASE 7: Aba de Spellbook & Poses de Conjuração no Modelo 3D (Aba 2)**
+* **Tarefas:**
+  1. Grid/Lista de magias e habilidades do jogador divididas por abas de classe.
+  2. Animações dinâmicas no modelo 3D conforme o tipo de magia selecionada (*SpellPrecast*, ataque melee, grito).
+  3. Painel fixo de detalhes exibindo custo de mana, alcance, cast time e descrição da magia.
+* **Validação:** Navegar pelas magias no Spellbook e observar as poses de conjuração correspondentes sendo disparadas no personagem 3D.
+
+### **FASE 8: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final**
+* **Tarefas:**
+  1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
+  2. Animações de comer/beber no modelo 3D ao usar consumíveis.
+  3. Mapeamento de abertura pelo botão Start e ajustes finos de responsividade.
+* **Validação:** Menu completo, fluido, polido e 100% funcional no gameplay com controle.

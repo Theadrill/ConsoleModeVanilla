@@ -50,6 +50,8 @@ Hooks.frames = {
     { frame = "GossipFrame",         name = "Dialogo NPC" },
     
     -- Popups e Diálogos
+    { frame = "ConsoleModeContextMenu", name = "Menu de Contexto Bolsa" },
+    { frame = "StackSplitFrame",        name = "Dividir Pilha" },
     { frame = "StaticPopup1",        name = "Dialogo 1" },
     { frame = "StaticPopup2",        name = "Dialogo 2" },
     { frame = "StaticPopup3",        name = "Dialogo 3" },

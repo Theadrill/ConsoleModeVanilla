@@ -599,6 +599,12 @@ end
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
     
+    -- Se o menu de contexto já estiver aberto, apertar Y fecha ele
+    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.frame and CM.ui.contextMenu.frame:IsVisible() then
+        CM.ui.contextMenu:Close()
+        return
+    end
+
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         return
     end
@@ -628,6 +634,23 @@ end
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
     
+    -- 0. Se o Menu de Contexto estiver aberto, fecha ele e retorna o foco para o item
+    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.frame and CM.ui.contextMenu.frame:IsVisible() then
+        CM.ui.contextMenu:Close()
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Menu de Contexto fechado)")
+        return
+    end
+
+    -- Se a janela de Dividir Pilha (StackSplitFrame) estiver aberta, fecha ela
+    if StackSplitFrame and StackSplitFrame:IsVisible() then
+        if StackSplitCancelButton and StackSplitCancelButton.Click then
+            StackSplitCancelButton:Click()
+        else
+            StackSplitFrame:Hide()
+        end
+        return
+    end
+
     -- 1. Se estiver com item ou magia no cursor do mouse, limpa a mão
     if CursorHasItem() or CursorHasSpell() then
         ClearCursor()

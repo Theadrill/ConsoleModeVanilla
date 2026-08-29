@@ -8,8 +8,9 @@
 
 _G = getfenv(0)
 
-ConsoleMode.cursor = ConsoleMode.cursor or {}
-local Cursor = ConsoleMode.cursor
+local CM = ConsoleMode
+CM.cursor = CM.cursor or {}
+local Cursor = CM.cursor
 
 Cursor.state = {
     enabled = false,
@@ -353,6 +354,20 @@ function Cursor:FindFirstVisibleButton(frame)
     
     local fname = frame:GetName() or ""
     
+    -- Para Menu de Contexto da Bolsa: preferir primeiro botão (Usar)
+    if fname == "ConsoleModeContextMenu" then
+        if ConsoleModeContextMenuBtn1 and ConsoleModeContextMenuBtn1:IsVisible() then
+            return ConsoleModeContextMenuBtn1
+        end
+    end
+
+    -- Para StackSplitFrame (Dividir Pilha): preferir botão OK
+    if fname == "StackSplitFrame" then
+        if StackSplitOkayButton and StackSplitOkayButton:IsVisible() then
+            return StackSplitOkayButton
+        end
+    end
+
     -- Para SUCC_bag / SUCC_bagBank (Turtle-Dragonflight): preferir primeiro slot de item
     if fname == "SUCC_bag" or fname == "SUCC_bagBank" then
         local firstItem = getglobal(fname .. "Item1")
@@ -512,6 +527,18 @@ function Cursor:MoveDirection(direction)
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Nenhum botao selecionado atualmente")
         return 
     end
+
+    -- Se o StackSplitFrame estiver aberto e o jogador apertar LEFT ou RIGHT, altera a quantidade
+    if StackSplitFrame and StackSplitFrame:IsVisible() then
+        direction = string.upper(direction or "")
+        if direction == "LEFT" and StackSplitLeftButton and StackSplitLeftButton:IsVisible() then
+            StackSplitLeftButton:Click()
+            return
+        elseif direction == "RIGHT" and StackSplitRightButton and StackSplitRightButton:IsVisible() then
+            StackSplitRightButton:Click()
+            return
+        end
+    end
     
     self:UpdateState()
     
@@ -633,7 +660,14 @@ function Cursor:Click(mouseButton)
         
         if bagID and slotID and bagID >= 0 and slotID >= 1 then
             if mouseButton == "RightButton" then
-                -- Usar item diretamente (se for item de missao direcionado, aplica no alvo)
+                -- Abre menu de contexto se o slot contiver item
+                local texture = GetContainerItemInfo(bagID, slotID)
+                if texture and CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForBagItem then
+                    local opened = CM.ui.contextMenu:OpenForBagItem(bagID, slotID, button)
+                    if opened then return end
+                end
+
+                -- Fallback se slot vazio ou sem contextMenu
                 UseContainerItem(bagID, slotID)
                 if SpellIsTargeting and SpellIsTargeting() and UnitExists("target") then
                     SpellTargetUnit("target")

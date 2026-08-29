@@ -90,7 +90,7 @@ CFG.PortraitFrames = {
     MAGE       = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
     PALADIN    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
     PRIEST     = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
-    ROGUE      = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    ROGUE      = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
     SHAMAN     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },  -- totem extrapola à esquerda
     WARLOCK    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
     WARRIOR    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },

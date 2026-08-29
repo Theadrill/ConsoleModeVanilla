@@ -86,12 +86,19 @@ CFG.Portrait = {
 CFG.Crest = {
     width   = 96,    -- largura da textura (px) — pode ser maior que o portrait
     height  = 64,    -- altura da textura (px)
-    offsetY = 18,     -- espaço vertical entre portrait e crest (negativo = desce)
+    offsetY = 18,    -- espaço vertical entre portrait e crest (negativo = desce)
 
     -- Fonte e estilo do nome
-    nameFont      = "GameFontHighlightSmall",  -- herda família e flags da fonte base
+    nameFont      = "GameFontHighlightSmall",  -- herda família da fonte base
     nameSize      = 12,   -- tamanho em pt — nil = usa o tamanho padrão da nameFont
+    nameFlags     = "OUTLINE",  -- contorno: "" (nenhum), "OUTLINE" (fino 1px), "THICKOUTLINE" (espesso 2px)
     nameColor     = { r = 1.0, g = 0.9, b = 0.6 },  -- cor do texto (RGB 0-1)
+
+    -- Sombra projetada do texto
+    shadowEnable  = true,            -- true = ativa sombra projetada, false = desativa
+    shadowOffsetX = 1,               -- deslocamento X da sombra (px, positivo = direita)
+    shadowOffsetY = -1,              -- deslocamento Y da sombra (px, negativo = baixo)
+    shadowColor   = { r = 0, g = 0, b = 0, a = 1.0 },  -- cor e opacidade da sombra (RGBA 0-1)
 
     -- Posicionamento do texto dentro da crest
     -- anchor/relAnchor: ponto do texto e ponto da crest a que ele se ancora
@@ -364,11 +371,24 @@ function PF:Initialize()
         CFG.Crest.nameAnchor, crestFrame, CFG.Crest.nameRelAnchor,
         CFG.Crest.nameOffsetX, CFG.Crest.nameOffsetY
     )
-    if CFG.Crest.nameSize then
-        local fontPath = nameText:GetFont()
-        nameText:SetFont(fontPath, CFG.Crest.nameSize)
+    local fontPath, fontSize, fontFlags = nameText:GetFont()
+    local finalSize = CFG.Crest.nameSize or fontSize or 12
+    local finalFlags = CFG.Crest.nameFlags or fontFlags or ""
+    if fontPath then
+        nameText:SetFont(fontPath, finalSize, finalFlags)
     end
     nameText:SetTextColor(CFG.Crest.nameColor.r, CFG.Crest.nameColor.g, CFG.Crest.nameColor.b)
+
+    -- Sombra projetada
+    if CFG.Crest.shadowEnable then
+        nameText:SetShadowOffset(CFG.Crest.shadowOffsetX or 1, CFG.Crest.shadowOffsetY or -1)
+        if CFG.Crest.shadowColor then
+            local sc = CFG.Crest.shadowColor
+            nameText:SetShadowColor(sc.r or 0, sc.g or 0, sc.b or 0, sc.a or 1.0)
+        end
+    else
+        nameText:SetShadowOffset(0, 0)
+    end
     f.nameText = nameText
 
     -- -----------------------------------------------------------------------

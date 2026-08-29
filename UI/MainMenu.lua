@@ -10,8 +10,8 @@
       |  - Atributos e Buffs (Dir) |  - Tooltip Fixo (Inf. Direita)|
       [=================== [D-Pad] (A) (Y) (B) ====================]
 
-    - Canvas 100% Responsivo por Porcentagem com limites Min/Max (Steam Deck a 4K)
-    - Renderização 9-Slice sem distorção em qualquer resolução
+    - FASE 1: Canvas 100% Responsivo por Porcentagem com renderização 9-Slice
+    - FASE 2: Palco do Personagem 3D transparente (SetUnit('player')) com giro livre 360°
     - Suporte a navegação por Gamepad e teclado
     - Compatível com Lua 5.0 / WoW 1.12.1
 ]]
@@ -27,7 +27,7 @@ local MainMenu = CM.mainMenu
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
 --
 -- Todas as variáveis visuais de posição, tamanho, proporção, texturas, cores,
--- fontes e efeitos estão centralizadas aqui.
+-- fontes, modelo 3D e efeitos estão centralizadas aqui.
 -- Edite este bloco para ajustar a aparência sem mexer na lógica do código.
 -- ============================================================================
 
@@ -107,7 +107,7 @@ CFG.Title = {
 }
 
 -- ----------------------------------------------------------------------------
--- 5. PAINEL ESQUERDO: PALCO DO PERSONAGEM, EQUIPAMENTOS, STATUS E BUFFS
+-- 5. PAINEL ESQUERDO: PALCO DO PERSONAGEM (ESTRUTURA GERAL)
 -- Ocupa a metade esquerda do menu. O modelo 3D é desenhado aqui sem fundo.
 -- ----------------------------------------------------------------------------
 CFG.LeftPanel = {
@@ -115,6 +115,23 @@ CFG.LeftPanel = {
     paddingTop      = -50,                  -- Margem em relação ao topo do menu (px)
     paddingBottom   = 50,                   -- Margem em relação ao fundo do menu (px)
     widthRatio      = 0.46,                 -- 46% da largura útil interna da janela
+}
+
+-- ----------------------------------------------------------------------------
+-- 5.1. MODELO 3D DO PERSONAGEM (PLAYER MODEL - FASE 2)
+-- Viewport 3D transparente integrado diretamente ao fundo de pergaminho.
+-- ----------------------------------------------------------------------------
+CFG.PlayerModel = {
+    width           = 320,                  -- Largura da viewport 3D (px)
+    height          = 440,                  -- Altura da viewport 3D (px)
+    offsetX         = 0,                    -- Deslocamento X no centro do palco esquerdo (px)
+    offsetY         = -15,                  -- Deslocamento Y no centro do palco esquerdo (px)
+    defaultFacing   = 0.0,                  -- Rotação inicial em radianos (0 = de frente)
+    rotateSpeed     = 0.03,                 -- Velocidade de rotação ao arrastar o mouse / analógico
+    enableMouseDrag = true,                 -- true = clicar e arrastar com o mouse gira o personagem
+    showPlayerName  = true,                 -- true = exibe o nome e classe/raça/guilda na base do boneco
+    nameFont        = "GameFontHighlightLarge", -- Fonte do nome do personagem
+    guildFont       = "GameFontNormalSmall",    -- Fonte da guilda / raça / classe
 }
 
 -- ----------------------------------------------------------------------------
@@ -151,7 +168,7 @@ CFG.Footer = {
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
     font            = "GameFontNormalSmall",
-    text            = "|cffffffff[D-Pad/L-Stick]|r Navegar   |   |cffffffff(A)|r Selecionar   |   |cffffffff(Y)|r Menu de Contexto   |   |cffffffff(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
+    text            = "|cffffffff[D-Pad/L-Stick]|r Navegar   |   |cffffffff(A)|r Selecionar   |   |cffffffff(Y)|r Menu de Contexto   |   |cffffffff(B)|r Fechar   |   |cffffffff[R-Stick / Mouse]|r Girar 3D",
 }
 
 -- ----------------------------------------------------------------------------
@@ -285,6 +302,111 @@ function MainMenu:UpdateLayout()
 end
 
 -- ============================================================================
+-- MODELO 3D DO PERSONAGEM (FASE 2)
+-- ============================================================================
+
+function MainMenu:CreatePlayerModel(leftPanel)
+    if self.playerModel then return self.playerModel end
+
+    -- 1. Frame PlayerModel sem fundo (transparência nativa do motor 3D)
+    local model = CreateFrame("PlayerModel", "ConsoleModeMM_PlayerModel", leftPanel)
+    model:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
+    model:SetWidth(CFG.PlayerModel.width)
+    model:SetHeight(CFG.PlayerModel.height)
+    model:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
+    model.rotation = CFG.PlayerModel.defaultFacing or 0
+
+    -- 2. Interação de Rotação 360° via Mouse Drag
+    if CFG.PlayerModel.enableMouseDrag then
+        model:EnableMouse(true)
+        model:SetScript("OnMouseDown", function()
+            if arg1 == "LeftButton" or arg1 == "RightButton" then
+                this.isDragging = true
+                local curX, curY = GetCursorPosition()
+                this.prevMouseX = curX
+            end
+        end)
+
+        model:SetScript("OnMouseUp", function()
+            this.isDragging = false
+        end)
+
+        model:SetScript("OnUpdate", function()
+            if this.isDragging then
+                local curX, curY = GetCursorPosition()
+                if this.prevMouseX then
+                    local diffX = curX - this.prevMouseX
+                    if diffX ~= 0 then
+                        this.rotation = (this.rotation or 0) + (diffX * CFG.PlayerModel.rotateSpeed)
+                        this:SetFacing(this.rotation)
+                        this.prevMouseX = curX
+                    end
+                end
+            end
+        end)
+    end
+
+    -- 3. Nome e Informações do Jogador na Base do Modelo
+    if CFG.PlayerModel.showPlayerName then
+        local infoBox = CreateFrame("Frame", "ConsoleModeMM_PlayerInfo", leftPanel)
+        infoBox:SetHeight(48)
+        infoBox:SetPoint("BOTTOM", leftPanel, "BOTTOM", 0, 8)
+        infoBox:SetPoint("LEFT", leftPanel, "LEFT", 12, 0)
+        infoBox:SetPoint("RIGHT", leftPanel, "RIGHT", -12, 0)
+
+        local nameText = infoBox:CreateFontString(nil, "OVERLAY", CFG.PlayerModel.nameFont)
+        nameText:SetPoint("TOP", infoBox, "TOP", 0, 0)
+        nameText:SetText(UnitName("player") or "Jogador")
+
+        local subText = infoBox:CreateFontString(nil, "OVERLAY", CFG.PlayerModel.guildFont)
+        subText:SetPoint("TOP", nameText, "BOTTOM", 0, -2)
+
+        model.infoBox  = infoBox
+        model.nameText = nameText
+        model.subText  = subText
+    end
+
+    self.playerModel = model
+    return model
+end
+
+function MainMenu:UpdatePlayerModel()
+    if not self.playerModel then return end
+
+    -- Carrega o personagem atual com todas as armaduras e armas
+    self.playerModel:ClearModel()
+    self.playerModel:SetUnit("player")
+    self.playerModel:SetFacing(self.playerModel.rotation or CFG.PlayerModel.defaultFacing or 0)
+    self.playerModel:SetSequence(0) -- Stand / Idle animation
+
+    -- Atualiza textos de Nome, Guilda, Raça e Classe
+    if self.playerModel.nameText then
+        local pName = UnitName("player") or "Jogador"
+        self.playerModel.nameText:SetText("|cffffd200" .. pName .. "|r")
+    end
+
+    if self.playerModel.subText then
+        local guildName = GetGuildInfo("player")
+        local race = UnitRace("player") or ""
+        local class = UnitClass("player") or ""
+        local level = UnitLevel("player") or 1
+
+        if guildName then
+            self.playerModel.subText:SetText("|cffffcc00<" .. guildName .. ">|r  |cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
+        else
+            self.playerModel.subText:SetText("|cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
+        end
+    end
+end
+
+function MainMenu:RotatePlayerModel(delta)
+    if not self.playerModel then return end
+    delta = delta or 0.1
+    self.playerModel.rotation = (self.playerModel.rotation or 0) + delta
+    self.playerModel:SetFacing(self.playerModel.rotation)
+end
+
+-- ============================================================================
 -- CRIAÇÃO DA JANELA PRINCIPAL (MAIN MENU FRAME)
 -- ============================================================================
 
@@ -338,10 +460,8 @@ function MainMenu:CreateUI()
     leftPanel:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", CFG.LeftPanel.paddingLeft, CFG.LeftPanel.paddingBottom)
     frame.leftPanel = leftPanel
 
-    -- Marcador visual temporário para validação da Fase 1
-    local leftHeader = leftPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    leftHeader:SetPoint("TOP", leftPanel, "TOP", 0, -10)
-    leftHeader:SetText("|cff88ccff[ Palco do Personagem 3D & Status ]|r")
+    -- 5.1. Cria o Modelo 3D no Palco Esquerdo (FASE 2)
+    self:CreatePlayerModel(leftPanel)
 
     -- 6. Painel Direito: Container de Conteúdo e Abas (Direita)
     local rightPanel = CreateFrame("Frame", "ConsoleModeMM_RightPanel", frame)
@@ -350,7 +470,7 @@ function MainMenu:CreateUI()
     rightPanel:SetPoint("LEFT", leftPanel, "RIGHT", CFG.RightPanel.gapX, 0)
     frame.rightPanel = rightPanel
 
-    -- Marcador visual temporário para validação da Fase 1
+    -- Marcador visual temporário para validação da Fase 1/2
     local rightHeader = rightPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     rightHeader:SetPoint("TOP", rightPanel, "TOP", 0, -10)
     rightHeader:SetText("|cffffcc00[ Container de Conteúdo da Aba ]|r")
@@ -382,6 +502,8 @@ function MainMenu:CreateUI()
     -- 10. Eventos OnShow / OnHide integrados aos Hooks do ConsoleMode
     frame:SetScript("OnShow", function()
         MainMenu:UpdateLayout()
+        MainMenu:UpdatePlayerModel()
+
         if dimmer then dimmer:Show() end
         if CFG.Audio.soundOpen then PlaySound(CFG.Audio.soundOpen) end
         if ConsoleMode.hooks and ConsoleMode.hooks.OnFrameShow then
@@ -430,16 +552,22 @@ function MainMenu:Toggle()
     end
 end
 
--- Inicializa a casca visual no carregamento para os hooks registrarem imediatamente
+-- Inicializa a casca visual no carregamento e escuta eventos de atualização
 local initFrame = CreateFrame("Frame")
 initFrame:RegisterEvent("VARIABLES_LOADED")
 initFrame:RegisterEvent("DISPLAY_SIZE_CHANGED")
+initFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
+initFrame:RegisterEvent("UNIT_MODEL_CHANGED")
 initFrame:SetScript("OnEvent", function()
     if event == "VARIABLES_LOADED" then
         MainMenu:CreateUI()
     elseif event == "DISPLAY_SIZE_CHANGED" then
         if MainMenu.UpdateLayout then
             MainMenu:UpdateLayout()
+        end
+    elseif event == "UNIT_INVENTORY_CHANGED" or event == "UNIT_MODEL_CHANGED" then
+        if arg1 == "player" and MainMenu.frame and MainMenu.frame:IsVisible() then
+            MainMenu:UpdatePlayerModel()
         end
     end
 end)

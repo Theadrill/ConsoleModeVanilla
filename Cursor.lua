@@ -784,6 +784,14 @@ end
 function Cursor:CycleTabs(direction)
     local dir = direction or 1
     
+    -- 0. Se o MainMenu do ConsoleMode estiver aberto
+    if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+        if ConsoleMode.mainMenu and ConsoleMode.mainMenu.CycleTabs then
+            local cycled = ConsoleMode.mainMenu:CycleTabs(dir)
+            if cycled then return true end
+        end
+    end
+
     -- 1. Se o ConfigFrame do ConsoleMode estiver aberto
     if ConsoleModeConfigFrame and ConsoleModeConfigFrame:IsVisible() then
         local tabs = { "KEYBINDINGS", "SETTINGS", "ABOUT" }

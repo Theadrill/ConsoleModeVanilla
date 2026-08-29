@@ -4,15 +4,16 @@
 
     Estrutura Visual:
       [====================== MENU PRINCIPAL ======================]
-      |  [ PALCO DO PERSONAGEM (ESQUERDA) ]    |  [ CONTAINER DE ABAS & GRID ] |
-      |  - Equipamentos (Esq)                  |  - Abas: [L1] Bolsas | Spells [R1]
-      |  - Modelo 3D Jogador (Centro)          |  - Grid de Itens / Magias     |
-      |  - Atributos & Buffs Ativos (Dir)      |  - Tooltip Fixo (Inf. Direita)|
-      [=================== [D-Pad] (A) (Y) (B) ====================]
+      |  [ PALCO DO PERSONAGEM (ESQUERDA) ]    |  [ CONTAINER DE ABAS (DIREITA) ]
+      |  - Equipamentos (Esq)                  |  - [L1] Bolsas | Spells | Quests [R1]
+      |  - Modelo 3D Jogador (Centro)          |  - Container de Conteúdo da Aba
+      |  - Atributos & Buffs Ativos (Dir)      |  - Tooltip Fixo / Grids
+      [================ [D-Pad] (A) (Y) (B) [L1]/[R1] ===============]
 
     - FASE 1: Canvas 100% Responsivo por Porcentagem com renderização 9-Slice
     - FASE 2: Palco do Personagem 3D transparente (SetUnit('player')) com giro livre 360°
     - FASE 3: Lista de Equipamentos, Atributos Base e Lista Vertical de Buffs Ativos
+    - FASE 4: Container de Abas Superiores com Alternância [L1] e [R1] (Gamepad)
     - Suporte a navegação por Gamepad e teclado
     - Compatível com Lua 5.0 / WoW 1.12.1
 ]]
@@ -28,7 +29,7 @@ local MainMenu = CM.mainMenu
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
 --
 -- Todas as variáveis visuais de posição, tamanho, proporção, texturas, cores,
--- fontes, modelo 3D, equipamentos, status e buffs estão centralizadas aqui.
+-- fontes, modelo 3D, equipamentos, status, buffs e abas estão centralizadas aqui.
 -- Edite este bloco para ajustar a aparência sem mexer na lógica do código.
 -- ============================================================================
 
@@ -192,6 +193,26 @@ CFG.RightPanel = {
 }
 
 -- ----------------------------------------------------------------------------
+-- 6.1. BARRA DE ABAS SUPERIORES E CONTAINERS (FASE 4 - NAVEGAÇÃO [L1] / [R1])
+-- ----------------------------------------------------------------------------
+CFG.Tabs = {
+    barHeight       = 36,                   -- Altura da barra superior de abas (px)
+    buttonHeight    = 28,                   -- Altura de cada botão de aba (px)
+    gapX            = 6,                    -- Espaçamento horizontal entre os botões (px)
+    font            = "GameFontNormal",     -- Fonte da aba
+    activeColor     = { r = 1.0, g = 0.85, b = 0.2 }, -- Cor dourada de aba ativa
+    inactiveColor   = { r = 0.6, g = 0.6, b = 0.6 },  -- Cor cinza de aba inativa
+    indicatorFont   = "GameFontHighlightLarge", -- Fonte dos indicadores [L1] e [R1]
+    indicatorColor  = "|cffffd200",         -- Cor dos colchetes do controle
+    list = {
+        { id = "BAGS",   name = "Bolsas & Itens",  shortName = "Bolsas" },
+        { id = "SPELLS", name = "Livro de Magias", shortName = "Magias" },
+        { id = "QUESTS", name = "Missões",         shortName = "Missões" },
+        { id = "SYSTEM", name = "Configurações",   shortName = "Opções" },
+    }
+}
+
+-- ----------------------------------------------------------------------------
 -- 7. DIVISÓRIA CENTRAL
 -- ----------------------------------------------------------------------------
 CFG.Divider = {
@@ -212,7 +233,7 @@ CFG.Footer = {
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
     font            = "GameFontNormalSmall",
-    text            = "|cffffffff[D-Pad/L-Stick]|r Navegar   |   |cffffffff(A)|r Selecionar   |   |cffffffff(Y)|r Menu de Contexto   |   |cffffffff(B)|r Fechar   |   |cffffffff[R-Stick / Mouse]|r Girar 3D",
+    text            = "|cffffffff[L1] / [R1]|r Trocar Aba   |   |cffffffff[D-Pad/L-Stick]|r Navegar   |   |cffffffff(A)|r Interagir   |   |cffffffff(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
 }
 
 -- ----------------------------------------------------------------------------
@@ -352,6 +373,19 @@ function MainMenu:UpdateLayout()
         local divGap = math.floor(CFG.RightPanel.gapX / 2)
         self.frame.divider:SetPoint("TOP", self.frame.leftPanel, "TOPRIGHT", divGap, CFG.Divider.paddingTop)
         self.frame.divider:SetPoint("BOTTOM", self.frame.leftPanel, "BOTTOMRIGHT", divGap, CFG.Divider.paddingBottom)
+    end
+
+    -- Ajusta a largura proporcional dos botões de aba no painel direito
+    if self.tabContainer and self.tabContainer.tabBar and self.tabContainer.tabBar.buttons then
+        local rightW = targetW - (leftW + CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
+        local usableTabW = rightW - 64 -- Espaço para [L1] e [R1]
+        local numTabs = table.getn(CFG.Tabs.list)
+        local btnW = math.floor((usableTabW - ((numTabs - 1) * CFG.Tabs.gapX)) / numTabs)
+        if btnW < 60 then btnW = 60 end
+
+        for _, btn in ipairs(self.tabContainer.tabBar.buttons) do
+            btn:SetWidth(btnW)
+        end
     end
 end
 
@@ -620,7 +654,7 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
 
     -- 2. Linha Divisória Horizontal Sutil
     local statDiv = container:CreateTexture(nil, "ARTWORK")
-    statDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border")
+    statDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     statDiv:SetHeight(1)
     statDiv:SetPoint("TOPLEFT", prevStat, "BOTTOMLEFT", 0, -6)
     statDiv:SetPoint("RIGHT", container, "RIGHT", 0, 0)
@@ -758,6 +792,202 @@ function MainMenu:UpdateStatsAndBuffs()
 end
 
 -- ============================================================================
+-- 4. CONTAINER DE ABAS E NAVEGAÇÃO [L1] / [R1] (FASE 4 - PAINEL DIREITO)
+-- ============================================================================
+
+function MainMenu:CreateTabContainer(rightPanel)
+    if self.tabContainer then return self.tabContainer end
+
+    -- 1. Barra Superior de Abas (com indicadores de gatilho [L1] e [R1])
+    local tabBar = CreateFrame("Frame", "ConsoleModeMM_TabBar", rightPanel)
+    tabBar:SetHeight(CFG.Tabs.barHeight)
+    tabBar:SetPoint("TOPLEFT", rightPanel, "TOPLEFT", 0, 0)
+    tabBar:SetPoint("TOPRIGHT", rightPanel, "TOPRIGHT", 0, 0)
+
+    -- Indicador [L1] à esquerda
+    local l1Hint = tabBar:CreateFontString(nil, "OVERLAY", CFG.Tabs.indicatorFont)
+    l1Hint:SetPoint("LEFT", tabBar, "LEFT", 2, 0)
+    l1Hint:SetText(CFG.Tabs.indicatorColor .. "[L1]|r")
+
+    -- Indicador [R1] à direita
+    local r1Hint = tabBar:CreateFontString(nil, "OVERLAY", CFG.Tabs.indicatorFont)
+    r1Hint:SetPoint("RIGHT", tabBar, "RIGHT", -2, 0)
+    r1Hint:SetText(CFG.Tabs.indicatorColor .. "[R1]|r")
+
+    -- Container Central dos Botões de Aba
+    local tabsCenter = CreateFrame("Frame", "ConsoleModeMM_TabsCenter", tabBar)
+    tabsCenter:SetPoint("LEFT", l1Hint, "RIGHT", 6, 0)
+    tabsCenter:SetPoint("RIGHT", r1Hint, "LEFT", -6, 0)
+    tabsCenter:SetHeight(CFG.Tabs.buttonHeight)
+
+    local tabButtons = {}
+    local prevTab = nil
+
+    for i, tabData in ipairs(CFG.Tabs.list) do
+        local tabBtn = CreateFrame("Button", "ConsoleModeMM_TabBtn" .. tabData.id, tabsCenter)
+        tabBtn:SetHeight(CFG.Tabs.buttonHeight)
+        tabBtn:SetWidth(100) -- Largura base, recalculada em UpdateLayout()
+
+        if not prevTab then
+            tabBtn:SetPoint("LEFT", tabsCenter, "LEFT", 0, 0)
+        else
+            tabBtn:SetPoint("LEFT", prevTab, "RIGHT", CFG.Tabs.gapX, 0)
+        end
+
+        local title = tabBtn:CreateFontString(nil, "OVERLAY", CFG.Tabs.font)
+        title:SetPoint("CENTER", tabBtn, "CENTER", 0, 0)
+        title:SetText(tabData.name)
+        tabBtn.title = title
+
+        -- Linha dourada de destaque da aba ativa (Estilo Zelda)
+        local highlight = tabBtn:CreateTexture(nil, "OVERLAY")
+        highlight:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        highlight:SetHeight(2)
+        highlight:SetPoint("BOTTOMLEFT", tabBtn, "BOTTOMLEFT", 2, 0)
+        highlight:SetPoint("BOTTOMRIGHT", tabBtn, "BOTTOMRIGHT", -2, 0)
+        highlight:SetVertexColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b, 0.95)
+        highlight:Hide()
+        tabBtn.highlight = highlight
+
+        tabBtn.tabData = tabData
+        tabBtn:SetScript("OnClick", function()
+            MainMenu:SelectTab(this.tabData.id)
+        end)
+
+        table.insert(tabButtons, tabBtn)
+        prevTab = tabBtn
+    end
+    tabBar.buttons = tabButtons
+
+    -- 2. Linha divisória horizontal abaixo da barra de abas
+    local barDivider = tabBar:CreateTexture(nil, "ARTWORK")
+    barDivider:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    barDivider:SetHeight(1)
+    barDivider:SetPoint("BOTTOMLEFT", tabBar, "BOTTOMLEFT", 0, 0)
+    barDivider:SetPoint("BOTTOMRIGHT", tabBar, "BOTTOMRIGHT", 0, 0)
+    barDivider:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+
+    -- 3. Container de Conteúdo das Páginas
+    local contentFrame = CreateFrame("Frame", "ConsoleModeMM_TabContent", rightPanel)
+    contentFrame:SetPoint("TOPLEFT", tabBar, "BOTTOMLEFT", 0, -6)
+    contentFrame:SetPoint("BOTTOMRIGHT", rightPanel, "BOTTOMRIGHT", 0, 0)
+
+    -- Criação dos Painéis de Conteúdo para cada Aba
+    local pages = {}
+
+    -- Página 1: Bolsas & Inventário (Fase 5/6)
+    local pageBags = CreateFrame("Frame", "ConsoleModeMM_Page_BAGS", contentFrame)
+    pageBags:SetAllPoints(contentFrame)
+    local bagsPlaceholder = pageBags:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    bagsPlaceholder:SetPoint("CENTER", pageBags, "CENTER", 0, 30)
+    bagsPlaceholder:SetText("|cffffd200[ ABA 1: BOLSAS & INVENTÁRIO ]|r\n\n|cffaaaaaaPronto para receber o Grid Categorizado na Fase 5|r")
+    pages["BAGS"] = pageBags
+
+    -- Página 2: Livro de Magias & Habilidades (Fase 7)
+    local pageSpells = CreateFrame("Frame", "ConsoleModeMM_Page_SPELLS", contentFrame)
+    pageSpells:SetAllPoints(contentFrame)
+    local spellsPlaceholder = pageSpells:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    spellsPlaceholder:SetPoint("CENTER", pageSpells, "CENTER", 0, 30)
+    spellsPlaceholder:SetText("|cff00ffcc[ ABA 2: LIVRO DE MAGIAS & GRIMÓRIO ]|r\n\n|cffaaaaaaPronto para receber as magias na Fase 7|r")
+    pages["SPELLS"] = pageSpells
+
+    -- Página 3: Diário de Missões
+    local pageQuests = CreateFrame("Frame", "ConsoleModeMM_Page_QUESTS", contentFrame)
+    pageQuests:SetAllPoints(contentFrame)
+    local questsPlaceholder = pageQuests:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    questsPlaceholder:SetPoint("CENTER", pageQuests, "CENTER", 0, 30)
+    questsPlaceholder:SetText("|cffffcc00[ ABA 3: DIÁRIO DE MISSÕES ]|r\n\n|cffaaaaaaRegistro de aventuras e objetivos ativos|r")
+    pages["QUESTS"] = pageQuests
+
+    -- Página 4: Sistema e Configurações
+    local pageSystem = CreateFrame("Frame", "ConsoleModeMM_Page_SYSTEM", contentFrame)
+    pageSystem:SetAllPoints(contentFrame)
+    local sysPlaceholder = pageSystem:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    sysPlaceholder:SetPoint("CENTER", pageSystem, "CENTER", 0, 30)
+    sysPlaceholder:SetText("|cffffffff[ ABA 4: CONFIGURAÇÕES DO CONSOLEMODE ]|r\n\n|cff888888Clique no botão abaixo para abrir os ajustes do addon|r")
+    
+    local sysBtn = CreateFrame("Button", "ConsoleModeMM_OpenConfigBtn", pageSystem, "UIPanelButtonTemplate")
+    sysBtn:SetWidth(180)
+    sysBtn:SetHeight(28)
+    sysBtn:SetPoint("TOP", sysPlaceholder, "BOTTOM", 0, -16)
+    sysBtn:SetText("Abrir Ajustes de Binds")
+    sysBtn:SetScript("OnClick", function()
+        if ConsoleMode.config and ConsoleMode.config.Show then
+            ConsoleMode.config:Show()
+        end
+    end)
+    pages["SYSTEM"] = pageSystem
+
+    self.tabContainer = {
+        tabBar = tabBar,
+        content = contentFrame,
+        pages = pages,
+        currentTab = "BAGS"
+    }
+
+    return self.tabContainer
+end
+
+function MainMenu:SelectTab(tabID, playSoundEffect)
+    if not self.tabContainer then return end
+
+    local container = self.tabContainer
+    tabID = tabID or "BAGS"
+
+    -- 1. Alterna a visibilidade dos containers de conteúdo
+    for id, pageFrame in pairs(container.pages) do
+        if id == tabID then
+            pageFrame:Show()
+        else
+            pageFrame:Hide()
+        end
+    end
+
+    -- 2. Atualiza estilos dos botões de aba
+    if container.tabBar and container.tabBar.buttons then
+        for _, tabBtn in ipairs(container.tabBar.buttons) do
+            if tabBtn.tabData.id == tabID then
+                tabBtn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+                tabBtn.highlight:Show()
+            else
+                tabBtn.title:SetTextColor(CFG.Tabs.inactiveColor.r, CFG.Tabs.inactiveColor.g, CFG.Tabs.inactiveColor.b)
+                tabBtn.highlight:Hide()
+            end
+        end
+    end
+
+    container.currentTab = tabID
+
+    if playSoundEffect ~= false and CFG.Audio.soundTabChange then
+        PlaySound(CFG.Audio.soundTabChange)
+    end
+end
+
+function MainMenu:CycleTabs(direction)
+    if not self.tabContainer then return false end
+
+    direction = direction or 1
+    local curTab = self.tabContainer.currentTab or "BAGS"
+    local list = CFG.Tabs.list
+    local total = table.getn(list)
+    local curIdx = 1
+
+    for i, t in ipairs(list) do
+        if t.id == curTab then
+            curIdx = i
+            break
+        end
+    end
+
+    local nextIdx = curIdx + direction
+    if nextIdx > total then nextIdx = 1 end
+    if nextIdx < 1 then nextIdx = total end
+
+    self:SelectTab(list[nextIdx].id, true)
+    return true
+end
+
+-- ============================================================================
 -- CRIAÇÃO DA JANELA PRINCIPAL (MAIN MENU FRAME)
 -- ============================================================================
 
@@ -820,17 +1050,15 @@ function MainMenu:CreateUI()
     -- 5.3. Coluna de Atributos e Buffs (FASE 3 - À Direita do Modelo)
     self:CreateStatsAndBuffsColumn(leftPanel)
 
-    -- 6. Painel Direito: Container de Conteúdo e Abas (Direita)
+    -- 6. Painel Direito: Container de Conteúdo e Abas (FASE 4 - Direita)
     local rightPanel = CreateFrame("Frame", "ConsoleModeMM_RightPanel", frame)
     rightPanel:SetPoint("TOPRIGHT", frame, "TOPRIGHT", CFG.RightPanel.paddingRight, CFG.RightPanel.paddingTop)
     rightPanel:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", CFG.RightPanel.paddingRight, CFG.RightPanel.paddingBottom)
     rightPanel:SetPoint("LEFT", leftPanel, "RIGHT", CFG.RightPanel.gapX, 0)
     frame.rightPanel = rightPanel
 
-    -- Marcador visual temporário para validação das Fases iniciais
-    local rightHeader = rightPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    rightHeader:SetPoint("TOP", rightPanel, "TOP", 0, -10)
-    rightHeader:SetText("|cffffcc00[ Container de Conteúdo da Aba ]|r")
+    -- 6.1. Cria a Barra de Abas e Containers de Páginas (FASE 4)
+    self:CreateTabContainer(rightPanel)
 
     -- 7. Divisória Central Sutil
     if CFG.Divider.show then
@@ -862,6 +1090,9 @@ function MainMenu:CreateUI()
         MainMenu:UpdatePlayerModel()
         MainMenu:UpdateEquipmentColumn()
         MainMenu:UpdateStatsAndBuffs()
+
+        local cur = (MainMenu.tabContainer and MainMenu.tabContainer.currentTab) or "BAGS"
+        MainMenu:SelectTab(cur, false)
 
         if dimmer then dimmer:Show() end
         if CFG.Audio.soundOpen then PlaySound(CFG.Audio.soundOpen) end

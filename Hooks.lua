@@ -17,6 +17,7 @@ Hooks.eventFrame = nil
 -- Lista completa de frames para hookar
 Hooks.frames = {
     -- Menu e Sistema
+    { frame = "ConsoleModeMainMenuFrame",    name = "Menu Principal (Console Hub)" },
     { frame = "GameMenuFrame",               name = "Menu Principal" },
     { frame = "ConsoleModeSettingsFrame",    name = "ConsoleMode Configuracoes" },
     { frame = "OptionsFrame",                name = "Opcoes do Jogo" },
@@ -508,6 +509,37 @@ function Hooks:Initialize()
         Hooks.worldFrameHooked = true
     end
 
+    -- Hook ToggleGameMenu para abrir o Console Main Menu via ESC / Start no mundo
+    if not Hooks.toggleGameMenuHooked and ToggleGameMenu then
+        local orig_ToggleGameMenu = ToggleGameMenu
+        ToggleGameMenu = function(clicked)
+            -- Se o nosso Main Menu já estiver aberto, fecha ele
+            if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+                if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
+                    ConsoleMode.mainMenu:Hide()
+                else
+                    ConsoleModeMainMenuFrame:Hide()
+                end
+                return
+            end
+
+            -- Se o GameMenuFrame da Blizzard estiver aberto, deixa o original fechar
+            if GameMenuFrame and GameMenuFrame:IsVisible() then
+                orig_ToggleGameMenu(clicked)
+                return
+            end
+
+            -- Se não houver nada aberto, abre o nosso Main Menu
+            if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
+                ConsoleMode.mainMenu:Show()
+                return
+            end
+
+            orig_ToggleGameMenu(clicked)
+        end
+        Hooks.toggleGameMenuHooked = true
+    end
+
     self.initialized = true
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Hooks inicializados: " .. count .. " frames hookados.")
 end
@@ -586,7 +618,13 @@ function Hooks:CloseTopFrame()
         for frame, _ in pairs(Cursor.state.activeFrames) do
             if frame and frame:IsVisible() then
                 local frameName = frame:GetName() or ""
-                if frameName == "WorldMapFrame" then
+                if frameName == "ConsoleModeMainMenuFrame" then
+                    if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
+                        ConsoleMode.mainMenu:Hide()
+                    else
+                        frame:Hide()
+                    end
+                elseif frameName == "WorldMapFrame" then
                     ToggleWorldMap()
                 elseif frameName == "CharacterFrame" then
                     ToggleCharacter("PaperDollFrame")

@@ -19,6 +19,7 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 
 ## 📜 Créditos
 
+- **Pixel Frog (Tiny Swords)**: Créditos e agradecimentos ao criador **Pixel Frog** pelos assets visuais e texturas de interface do pacote [Tiny Swords](https://pixelfrog-assets.itch.io/tiny-swords) utilizados no Main Menu (Console Hub).
 - **ConsoleExperienceClassic**: Agradecimentos e créditos aos criadores e contribuidores do `ConsoleExperienceClassic` pela lógica de navegação via cursor e implementações de referência que inspiraram o sistema de navegação deste projeto.
 - **ConsoleUI**: Agradecimentos e créditos a [racha/ConsoleUI](https://github.com/racha/ConsoleUI) pela solução técnica de Mouse Look persistente com companion binding (F9 + WASD).
 - **ConsolePort**: Crédito e inspiração à equipe original do ConsolePort por definir o padrão de ouro da experiência com controle no World of Warcraft.

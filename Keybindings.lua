@@ -461,6 +461,16 @@ function CM_Fixed(button)
     CM.logger:Log("Fixo: " .. button)
     
     if button == "START" then
+        -- 0. Se o Console Main Menu ja estiver aberto, fecha ele
+        if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+            if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
+                ConsoleMode.mainMenu:Hide()
+            else
+                ConsoleModeMainMenuFrame:Hide()
+            end
+            return
+        end
+
         -- 1. Se o GameMenuFrame ja estiver aberto, fecha
         if GameMenuFrame and GameMenuFrame:IsVisible() then
             HideUIPanel(GameMenuFrame)
@@ -484,8 +494,12 @@ function CM_Fixed(button)
             return
         end
         
-        -- 5. Se nenhuma janela estava aberta e sem alvo, abre o Menu do Jogo
-        ShowUIPanel(GameMenuFrame)
+        -- 5. Se nenhuma janela estava aberta e sem alvo, abre o Console Main Menu!
+        if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
+            ConsoleMode.mainMenu:Show()
+        else
+            ShowUIPanel(GameMenuFrame)
+        end
         
     elseif button == "SELECT" then
         ToggleWorldMap()

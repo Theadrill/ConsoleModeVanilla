@@ -211,7 +211,7 @@ SLASH_CONSOLEMODE2 = "/cm"
 SlashCmdList["CONSOLEMODE"] = function(msg)
     local cmd = string.lower(msg or "")
 
-    if cmd == "config" or cmd == "settings" or cmd == "binds" or cmd == "menu" then
+    if cmd == "config" or cmd == "settings" or cmd == "binds" then
         if CM.config and CM.config.Toggle then
             CM.config:Toggle()
         end
@@ -297,6 +297,11 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
             DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Nenhum frame sob o mouse")
         end
 
+    elseif cmd == "menu" then
+        if CM.mainMenu and CM.mainMenu.Toggle then
+            CM.mainMenu:Toggle()
+        end
+
     elseif cmd == "resetui" then
         if CM.ui and CM.ui.ResetAllPositions then
             CM.ui:ResetAllPositions()
@@ -304,6 +309,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
 
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ConsoleMode:|r Comandos disponiveis:")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm menu|r       - Abre/Fecha o Menu Principal (Console Hub)")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm config|r     - Abre o Painel de Configuracoes")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm resetui|r    - Restaura todas as posicoes de UI para o padrao")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm controller|r - Aplica perfil de controle completo")

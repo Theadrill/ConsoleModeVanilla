@@ -23,6 +23,59 @@ TF.debuffFrames = {}
 TF.damageTrailVal = 0
 TF.damageTrailTimer = 0
 
+-- ============================================================================
+-- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
+--
+-- Todas as variáveis de posição, tamanho, cor e comportamento do Target Frame.
+-- ============================================================================
+
+local CFG = {}
+
+-- ----------------------------------------------------------------------------
+-- ÂNCORA E TAMANHO DO CONTAINER PRINCIPAL
+-- ----------------------------------------------------------------------------
+CFG.Anchor = {
+    point    = "TOP",
+    relPoint = "TOP",
+    defaultX = 0,
+    defaultY = -25,
+}
+
+CFG.Size = {
+    width  = 480,
+    height = 70,
+}
+
+-- ----------------------------------------------------------------------------
+-- PORTRAIT DO ALVO
+-- Quadrado do rosto 2D do alvo e moldura sobreposta (Media/Portraits/CLASSE.tga).
+-- ----------------------------------------------------------------------------
+CFG.Portrait = {
+    size         = 58,    -- tamanho do quadrado do rosto 2D do alvo (px)
+    offsetX      = 4,     -- deslocamento X em relação à borda RIGHT do frame (px)
+    offsetY      = -6,    -- deslocamento Y em relação à borda RIGHT do frame (px)
+    gapX         = 8,     -- espaço horizontal entre barra de vida e portrait (px)
+
+    -- Moldura da classe / Inimigo / NPC
+    frameShow    = true,  -- true = exibe a moldura, false = oculta globalmente
+    frameWidth   = 128,   -- largura da moldura (px)
+    frameHeight  = 128,   -- altura da moldura (px)
+    frameOffsetX = -34,   -- deslocamento X em relação ao LEFT do portrait (px)
+    frameOffsetY = 0,     -- deslocamento Y em relação ao LEFT do portrait (px, positivo = sobe)
+}
+
+-- ----------------------------------------------------------------------------
+-- BARRA DE VIDA
+-- ----------------------------------------------------------------------------
+CFG.HealthBar = {
+    height  = 18,
+    offsetY = -32,
+}
+
+-- ============================================================================
+-- FIM DO BLOCO DE CONFIGURAÇÃO
+-- ============================================================================
+
 function TF:Initialize()
     if self.frame then
         self:HideDefaultBars()
@@ -32,13 +85,13 @@ function TF:Initialize()
 
     -- Container Principal
     local f = CreateFrame("Button", "ConsoleModeTargetFrame", UIParent)
-    f:SetWidth(480)
-    f:SetHeight(70)
+    f:SetWidth(CFG.Size.width)
+    f:SetHeight(CFG.Size.height)
     
     if CM.ui and CM.ui.MakeMovable then
-        CM.ui:MakeMovable(f, "TargetFrame", "TOP", "TOP", 0, -25, "Target Frame")
+        CM.ui:MakeMovable(f, "TargetFrame", CFG.Anchor.point, CFG.Anchor.relPoint, CFG.Anchor.defaultX, CFG.Anchor.defaultY, "Target Frame")
     else
-        f:SetPoint("TOP", UIParent, "TOP", 0, -25)
+        f:SetPoint(CFG.Anchor.point, UIParent, CFG.Anchor.relPoint, CFG.Anchor.defaultX, CFG.Anchor.defaultY)
     end
     
     f:SetFrameStrata("MEDIUM")
@@ -69,50 +122,39 @@ function TF:Initialize()
     nameText:SetText("")
     f.nameText = nameText
 
-    -- 3. Retrato a Direita com Moldura Tematica Diamond (Inimigos/Monstros)
-    local portraitFrame = CreateFrame("Frame", "ConsoleModeTargetPortrait", f)
-    portraitFrame:SetWidth(72)
-    portraitFrame:SetHeight(72)
-    portraitFrame:SetPoint("RIGHT", f, "RIGHT", 4, -6)
+    -- 3. Retrato a Direita com Moldura Tematica
+    local portrait = f:CreateTexture("ConsoleModeTargetPortrait", "ARTWORK")
+    portrait:SetWidth(CFG.Portrait.size)
+    portrait:SetHeight(CFG.Portrait.size)
+    portrait:SetPoint("RIGHT", f, "RIGHT", CFG.Portrait.offsetX, CFG.Portrait.offsetY)
+    portrait:SetTexCoord(0.12, 0.88, 0.12, 0.88)
+    f.portrait = portrait
 
-    -- Fundo escuro atras do rosto do alvo
-    local portraitBg = portraitFrame:CreateTexture(nil, "BACKGROUND")
-    portraitBg:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\CP_Diamond_Empty.tga")
-    portraitBg:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitBg:SetWidth(28)
-    portraitBg:SetHeight(28)
-    portraitBg:SetVertexColor(0.08, 0.08, 0.08, 1.0)
-
-    -- Rosto 2D do alvo (reduzido pela metade para teste radical: 22x22)
-    local portraitTex = portraitFrame:CreateTexture(nil, "ARTWORK")
-    portraitTex:SetPoint("CENTER", portraitFrame, "CENTER", 0, 0)
-    portraitTex:SetWidth(50)
-    portraitTex:SetHeight(50)
-    portraitTex:SetTexCoord(0.12, 0.88, 0.12, 0.88)
-    f.portrait = portraitTex
+    -- Moldura Tematica da Classe / Inimigo (Sobreposta em OVERLAY)
+    local portraitFrame = f:CreateTexture("ConsoleModeTargetPortraitFrame", "OVERLAY")
+    portraitFrame:SetWidth(CFG.Portrait.frameWidth)
+    portraitFrame:SetHeight(CFG.Portrait.frameHeight)
+    portraitFrame:SetPoint("LEFT", portrait, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
+    if not CFG.Portrait.frameShow then
+        portraitFrame:Hide()
+    end
     f.portraitFrame = portraitFrame
-
-    -- Moldura Tematica de Inimigo / Classe (Sobreposta em OVERLAY)
-    local portraitRing = portraitFrame:CreateTexture(nil, "OVERLAY")
-    portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\ENEMY.tga")
-    portraitRing:SetAllPoints(portraitFrame)
-    portraitRing:SetVertexColor(1.0, 1.0, 1.0, 1.0)
-    f.portraitRing = portraitRing
+    f.portraitRing  = portraitFrame -- compatibilidade
 
     -- Icone de Caveira / Elite no retrato
-    local eliteIcon = portraitFrame:CreateTexture(nil, "OVERLAY")
+    local eliteIcon = f:CreateTexture(nil, "OVERLAY")
     eliteIcon:SetWidth(22)
     eliteIcon:SetHeight(22)
-    eliteIcon:SetPoint("TOPRIGHT", portraitFrame, "TOPRIGHT", 2, 2)
+    eliteIcon:SetPoint("TOPRIGHT", portrait, "TOPRIGHT", 2, 2)
     eliteIcon:SetTexture("Interface\\TargetingFrame\\UI-TargetingFrame-Skull")
     eliteIcon:Hide()
     f.eliteIcon = eliteIcon
 
     -- 4. Fundo Escuro da Barra de Vida
     local hpBg = CreateFrame("Frame", "ConsoleModeTargetHPBg", f)
-    hpBg:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -32)
-    hpBg:SetPoint("RIGHT", portraitFrame, "LEFT", -6, 0)
-    hpBg:SetHeight(18)
+    hpBg:SetPoint("TOPLEFT", f, "TOPLEFT", 0, CFG.HealthBar.offsetY)
+    hpBg:SetPoint("RIGHT", portrait, "LEFT", -CFG.Portrait.gapX, 0)
+    hpBg:SetHeight(CFG.HealthBar.height)
     hpBg:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -507,18 +549,41 @@ function TF:Update()
 
     -- 3. Retrato e Moldura Dinamica do Alvo
     SetPortraitTexture(self.frame.portrait, "target")
-    if UnitIsPlayer("target") then
-        -- Alvo é um Jogador: usa a moldura da classe do jogador
-        local _, tClass = UnitClass("target")
-        tClass = tClass or "DEFAULT"
-        local classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. tClass .. ".tga"
-        self.frame.portraitRing:SetTexture(classPortraitTex)
-    elseif UnitIsEnemy("player", "target") or UnitCanAttack("player", "target") then
-        -- Inimigo Hostil / Monstro / Boss: usa a moldura sinistra de Inimigos
-        self.frame.portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\ENEMY.tga")
-    else
-        -- NPC Amigável / Neutro / Comerciante / Cidadão: usa a moldura temática de NPC
-        self.frame.portraitRing:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\NPC.tga")
+    if self.frame.portraitFrame then
+        if UnitIsPlayer("target") then
+            -- Alvo é um Jogador: usa a moldura da classe do jogador
+            local _, tClass = UnitClass("target")
+            tClass = tClass or "DEFAULT"
+            classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. tClass .. ".tga"
+        elseif UnitIsEnemy("player", "target") or UnitCanAttack("player", "target") then
+            -- Inimigo: seleciona a moldura de acordo com a classificação do monstro
+            if classification == "worldboss" then
+                classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\WORLDBOSS.tga"
+            elseif classification == "rareelite" then
+                classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\RARE_ELITE.tga"
+            elseif classification == "elite" then
+                classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\ELITE.tga"
+            elseif classification == "rare" then
+                classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\RARE.tga"
+            else
+                classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\ENEMY.tga"
+            end
+        else
+            -- NPC Amigável / Neutro / Comerciante / Cidadão: usa a moldura temática de NPC
+            classPortraitTex = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\NPC.tga"
+        end
+
+        self.frame.portraitFrame:SetWidth(CFG.Portrait.frameWidth)
+        self.frame.portraitFrame:SetHeight(CFG.Portrait.frameHeight)
+        self.frame.portraitFrame:ClearAllPoints()
+        self.frame.portraitFrame:SetPoint("LEFT", self.frame.portrait, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
+        self.frame.portraitFrame:SetTexture(classPortraitTex)
+
+        if CFG.Portrait.frameShow then
+            self.frame.portraitFrame:Show()
+        else
+            self.frame.portraitFrame:Hide()
+        end
     end
 
     -- 4. Vida

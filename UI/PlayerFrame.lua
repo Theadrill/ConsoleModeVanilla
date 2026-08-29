@@ -86,7 +86,7 @@ CFG.Portrait = {
 -- ----------------------------------------------------------------------------
 CFG.PortraitFrames = {
     DRUID      = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    HUNTER     = { width = 140, height = 128, offsetX = -44, offsetY = 0 },
+    HUNTER     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
     MAGE       = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
     PALADIN    = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
     PRIEST     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },

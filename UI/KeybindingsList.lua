@@ -146,6 +146,13 @@ function KBList:Show(parent)
     if parent then self.parent = parent end
     local p = self.parent
     if not p then return end
+
+    -- Esconde o picker se estiver aberto no mesmo painel
+    local picker = CM.config and CM.config.picker
+    if picker and picker.frame then
+        picker.frame:Hide()
+        picker.active = false
+    end
     
     if not self.frame then
         local f = CreateFrame("Frame", "ConsoleModeKeybindingsListFrame", p)

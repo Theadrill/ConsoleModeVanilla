@@ -106,16 +106,23 @@ end
 
 function Config:SelectTab(tabName)
     self.currentTab = tabName
-    DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 2]|r Config:SelectTab chamado: " .. tostring(tabName))
-    
+
+    -- Esconde qualquer sub-painel ativo antes de trocar de aba
+    local picker = CM.config and CM.config.picker
+    if picker and picker.frame then
+        picker.frame:Hide()
+        picker.active = false
+    end
+    local sbp = CM.config and CM.config.spellbookPicker
+    if sbp and sbp.frame then
+        sbp.frame:Hide()
+        sbp.active = false
+    end
+
     local kbList = CM.config and CM.config.keybindingsList
-    DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 2.1]|r kbList existe? " .. tostring(kbList ~= nil) .. " | tipo: " .. type(kbList))
-    
     if kbList then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 2.2]|r kbList.Show existe? " .. tostring(kbList.Show ~= nil) .. " | tipo: " .. type(kbList.Show))
         if kbList.Show then
             kbList:Show(self.contentFrame)
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[LOG 2.3]|r kbList:Show executado com sucesso!")
         end
     end
 end

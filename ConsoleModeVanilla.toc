@@ -13,6 +13,7 @@ Cursor.lua
 UI\ConfigFrame.lua
 UI\KeybindingsList.lua
 UI\SpellbookPicker.lua
+UI\BagPicker.lua
 UI\ActionBarPicker.lua
 UI\XPBar.lua
 UI\ActionHUD.lua

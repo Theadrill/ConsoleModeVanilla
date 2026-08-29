@@ -31,12 +31,13 @@ Picker.targetBtnKey = nil
 Picker.targetCombo  = nil
 Picker.parentFrame  = nil
 
--- "SPELLBOOK" ou número 1-5 (barra de ação)
+-- "SPELLBOOK", "BAG" ou "BARS"
 Picker.mode         = "SPELLBOOK"
 Picker.spellTabIdx  = 1   -- aba do spellbook selecionada
-Picker.currentBar   = 1   -- barra de ação selecionada (usado só quando mode ~= SPELLBOOK)
+Picker.currentBar   = 1   -- barra de ação selecionada (usado só quando mode == BARS)
 Picker.gridPage     = 1
 Picker.spellsCache  = {}
+Picker.itemsCache   = {}  -- itens usáveis das bags
 
 -- Dimensões da grade (compartilhadas pelos dois modos)
 local GRID_COLS  = 4
@@ -147,7 +148,7 @@ function Picker:CreateUI(parent)
     modeBar:SetPoint("TOPLEFT", subStr, "BOTTOMLEFT", 0, -8)
 
     local modeSpell = CreateFrame("Button", "ConsoleModePickerModeSpell", modeBar, "UIPanelButtonTemplate")
-    modeSpell:SetWidth(130)
+    modeSpell:SetWidth(120)
     modeSpell:SetHeight(22)
     modeSpell:SetPoint("LEFT", modeBar, "LEFT", 0, 0)
     modeSpell:SetText("Spellbook")
@@ -155,12 +156,20 @@ function Picker:CreateUI(parent)
     f.modeSpell = modeSpell
 
     local modeBar2 = CreateFrame("Button", "ConsoleModePickerModeBar2", modeBar, "UIPanelButtonTemplate")
-    modeBar2:SetWidth(130)
+    modeBar2:SetWidth(120)
     modeBar2:SetHeight(22)
     modeBar2:SetPoint("LEFT", modeSpell, "RIGHT", 6, 0)
     modeBar2:SetText("Barras de Acao")
     modeBar2:SetScript("OnClick", function() Picker:SetMode("BARS") end)
     f.modeBar2 = modeBar2
+
+    local modeBag = CreateFrame("Button", "ConsoleModePickerModeBag", modeBar, "UIPanelButtonTemplate")
+    modeBag:SetWidth(80)
+    modeBag:SetHeight(22)
+    modeBag:SetPoint("LEFT", modeBar2, "RIGHT", 6, 0)
+    modeBag:SetText("Bag")
+    modeBag:SetScript("OnClick", function() Picker:SetMode("BAG") end)
+    f.modeBag = modeBag
 
     -- ── Linha 2 de abas: sub-abas (dinamicamente preenchidas) ────────────────
     local subTabBar = CreateFrame("Frame", "ConsoleModePickerSubTabBar", f)
@@ -229,6 +238,12 @@ function Picker:CreateUI(parent)
                 GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
                 GameTooltip:SetSpell(this.tooltipSpell, "spell")
                 GameTooltip:Show()
+            elseif this.tooltipItem then
+                GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
+                pcall(function()
+                    GameTooltip:SetBagItem(this.tooltipItem.bagID, this.tooltipItem.slotID)
+                end)
+                GameTooltip:Show()
             end
         end)
         btn:SetScript("OnLeave", function()
@@ -248,7 +263,11 @@ function Picker:CreateUI(parent)
     prevBtn:SetScript("OnClick", function()
         if Picker.gridPage > 1 then
             Picker.gridPage = Picker.gridPage - 1
-            Picker:RefreshSpellGrid()
+            if Picker.mode == "BAG" then
+                Picker:RefreshBagGrid()
+            else
+                Picker:RefreshSpellGrid()
+            end
         end
     end)
     f.prevBtn = prevBtn
@@ -264,11 +283,21 @@ function Picker:CreateUI(parent)
     nextBtn:SetPoint("LEFT", pageLabel, "RIGHT", 8, 0)
     nextBtn:SetText("Next >")
     nextBtn:SetScript("OnClick", function()
-        local total = math.ceil(table.getn(Picker.spellsCache) / GRID_COUNT)
+        local cacheSize = 0
+        if Picker.mode == "BAG" then
+            cacheSize = table.getn(Picker.itemsCache)
+        else
+            cacheSize = table.getn(Picker.spellsCache)
+        end
+        local total = math.ceil(cacheSize / GRID_COUNT)
         if total < 1 then total = 1 end
         if Picker.gridPage < total then
             Picker.gridPage = Picker.gridPage + 1
-            Picker:RefreshSpellGrid()
+            if Picker.mode == "BAG" then
+                Picker:RefreshBagGrid()
+            else
+                Picker:RefreshSpellGrid()
+            end
         end
     end)
     f.nextBtn = nextBtn
@@ -289,25 +318,31 @@ function Picker:SetMode(mode)
         if mode == "SPELLBOOK" then
             self.frame.modeSpell:LockHighlight()
             self.frame.modeBar2:UnlockHighlight()
-        else
+            self.frame.modeBag:UnlockHighlight()
+        elseif mode == "BARS" then
             self.frame.modeSpell:UnlockHighlight()
             self.frame.modeBar2:LockHighlight()
+            self.frame.modeBag:UnlockHighlight()
+        else  -- BAG
+            self.frame.modeSpell:UnlockHighlight()
+            self.frame.modeBar2:UnlockHighlight()
+            self.frame.modeBag:LockHighlight()
         end
     end
 
     -- Reconstrói sub-abas
     self:BuildSubTabs()
 
-    -- Mostra/esconde paginação
+    -- Paginação: visível no Spellbook e no Bag, oculta nas Barras
     if self.frame then
-        if mode == "SPELLBOOK" then
-            self.frame.prevBtn:Show()
-            self.frame.pageLabel:Show()
-            self.frame.nextBtn:Show()
-        else
+        if mode == "BARS" then
             self.frame.prevBtn:Hide()
             self.frame.pageLabel:Hide()
             self.frame.nextBtn:Hide()
+        else
+            self.frame.prevBtn:Show()
+            self.frame.pageLabel:Show()
+            self.frame.nextBtn:Show()
         end
     end
 end
@@ -372,7 +407,7 @@ function Picker:BuildSubTabs()
         self:HighlightSubTab(self.spellTabIdx)
         self:LoadSpellTab(self.spellTabIdx)
 
-    else
+    elseif self.mode == "BARS" then
         -- Sub-abas = 5 barras de ação
         for b = 1, 5 do
             local barNum = b
@@ -392,6 +427,10 @@ function Picker:BuildSubTabs()
         -- Seleciona barra ativa
         self:HighlightSubTab(self.currentBar)
         self:RefreshBarGrid()
+
+    else
+        -- Modo BAG: sem sub-abas, carrega itens usáveis das bags
+        self:RefreshBagGrid()
     end
 end
 
@@ -500,6 +539,63 @@ function Picker:RefreshBarGrid()
 end
 
 -- ============================================================================
+-- GRADE — BAG (itens usáveis das bags 0-4, paginado)
+-- ============================================================================
+
+function Picker:RefreshBagGrid()
+    local BP = CM.config and CM.config.bagPicker
+    if not BP then
+        self.itemsCache = {}
+    else
+        self.itemsCache = BP:GetUsableItems()
+    end
+
+    local total      = table.getn(self.itemsCache)
+    local totalPages = math.ceil(total / GRID_COUNT)
+    if totalPages < 1 then totalPages = 1 end
+    if self.gridPage > totalPages then self.gridPage = totalPages end
+
+    self.frame.pageLabel:SetText(self.gridPage .. " / " .. totalPages)
+
+    local offset = (self.gridPage - 1) * GRID_COUNT
+
+    for i = 1, GRID_COUNT do
+        local btn  = self.gridButtons[i]
+        local item = self.itemsCache[offset + i]
+
+        btn.spell        = nil
+        btn.tooltipSlot  = nil
+        btn.tooltipSpell = nil
+        btn.tooltipItem  = nil
+        btn.bagItem      = nil
+
+        if item then
+            btn.bagItem = item
+            btn.icon:SetTexture(item.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+            -- Mostra quantidade se > 1
+            local displayName = WrapName(item.name)
+            btn.label:SetText(displayName)
+            -- rankLabel mostra quantidade do stack
+            if item.count and item.count > 1 then
+                btn.rankLabel:SetText("x" .. item.count)
+            else
+                btn.rankLabel:SetText("")
+            end
+            btn:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
+            btn:EnableMouse(true)
+            btn.tooltipItem = { bagID = item.bagID, slotID = item.slotID }
+        else
+            btn.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+            btn.label:SetText("")
+            btn.rankLabel:SetText("")
+            btn:SetBackdropColor(0.05, 0.05, 0.05, 0.4)
+            btn:EnableMouse(false)
+        end
+        btn:Show()
+    end
+end
+
+-- ============================================================================
 -- CLIQUE NA GRADE
 -- ============================================================================
 
@@ -515,6 +611,17 @@ function Picker:OnGridClick(idx)
         local SBP = CM.config and CM.config.spellbookPicker
         if SBP then
             SBP:ApplySpellBinding(self.targetPage, self.targetBtnKey, self.targetCombo, spell)
+        end
+        self:Cancel()
+
+    elseif self.mode == "BAG" then
+        local btn  = self.gridButtons[idx]
+        local item = btn and btn.bagItem
+        if not item then return end
+
+        local BP = CM.config and CM.config.bagPicker
+        if BP then
+            BP:ApplyItemBinding(self.targetPage, self.targetBtnKey, self.targetCombo, item)
         end
         self:Cancel()
 

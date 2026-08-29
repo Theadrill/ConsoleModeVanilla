@@ -85,15 +85,15 @@ CFG.Portrait = {
 -- Deixe uma entrada como {} para usar os defaults sem alteração.
 -- ----------------------------------------------------------------------------
 CFG.PortraitFrames = {
-    DRUID      = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
-    HUNTER     = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
-    MAGE       = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
-    PALADIN    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
-    PRIEST     = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    DRUID      = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
+    HUNTER     = { width = 140, height = 128, offsetX = -44, offsetY = 0 },
+    MAGE       = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
+    PALADIN    = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
+    PRIEST     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
     ROGUE      = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    SHAMAN     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },  -- totem extrapola à esquerda
-    WARLOCK    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
-    WARRIOR    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    SHAMAN     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
+    WARLOCK    = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
+    WARRIOR    = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
     DEFAULT    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
 }
 

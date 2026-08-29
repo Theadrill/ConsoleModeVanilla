@@ -14,6 +14,7 @@
     - FASE 2: Palco do Personagem 3D transparente (SetUnit('player')) com giro livre 360°
     - FASE 3: Lista de Equipamentos, Atributos Base e Lista Vertical de Buffs Ativos
     - FASE 4: Container de Abas Superiores com Alternância [L1] e [R1] (Gamepad)
+    - FONTES: Tipografia customizada de alta legibilidade (Marcellus + Alegreya Sans) com suporte completo a UTF-8/PT-BR
     - Suporte a navegação por Gamepad e teclado
     - Compatível com Lua 5.0 / WoW 1.12.1
 ]]
@@ -34,6 +35,33 @@ local MainMenu = CM.mainMenu
 -- ============================================================================
 
 local CFG = {}
+
+-- ----------------------------------------------------------------------------
+-- 0. TIPOGRAFIA CUSTOMIZADA (MARCELLUS + ALEGREYA SANS - 100% PT-BR / UTF-8)
+-- Fontes gratuitas de código aberto (SIL Open Font License) embutidas no addon.
+-- ----------------------------------------------------------------------------
+CFG.Fonts = {
+    titleFontFile       = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\Marcellus-Regular.ttf",
+    headerFontFile      = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\Marcellus-Regular.ttf",
+    bodyFontFile        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf",
+    subFontFile         = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Medium.ttf",
+
+    -- Estilo global de contorno ("" = sem outline / texto limpo, "OUTLINE" = contorno fino)
+    outline             = "",
+    shadowOffset        = { 1, -1 },            -- Deslocamento X e Y da sombra projetada (px)
+    shadowColor         = { 0.0, 0.0, 0.0, 0.75 }, -- Cor e opacidade da sombra (RGBA)
+
+    titleSize           = 18,
+    tabSize             = 14,
+    headerSize          = 13,
+    playerNameSize      = 16,
+    playerSubSize       = 11,
+    itemNameSize        = 14,                   -- Aumentado em ~20% (original: 12)
+    slotLabelSize       = 11,                   -- Aumentado em ~10% (original: 10)
+    statSize            = 14,                   -- Aumentado em ~20% (original: 12)
+    buffSize            = 12,                   -- Aumentado em ~10% (original: 11)
+    footerSize          = 12,
+}
 
 -- ----------------------------------------------------------------------------
 -- 1. JANELA PRINCIPAL (CANVAS ROOT RESPONSIVO)
@@ -97,8 +125,7 @@ CFG.NineSlice = {
 -- ----------------------------------------------------------------------------
 CFG.Title = {
     show            = true,                 -- true = exibe o título, false = oculta
-    text            = "|cffffd200MENU PRINCIPAL|r",
-    font            = "GameFontNormalLarge",-- Fonte base da Blizzard
+    text            = "|cffe09a15MENU PRINCIPAL|r",
     offsetY         = -22,                  -- Posição Y a partir do topo da janela (px)
 }
 
@@ -124,8 +151,6 @@ CFG.PlayerModel = {
     rotateSpeed     = 0.03,                 -- Velocidade de giro com mouse/analógico
     enableMouseDrag = true,                 -- true = arrastar com mouse gira o boneco
     showPlayerName  = true,                 -- true = exibe nome e guilda na base
-    nameFont        = "GameFontHighlightLarge",
-    guildFont       = "GameFontNormalSmall",
 }
 
 -- ----------------------------------------------------------------------------
@@ -133,12 +158,10 @@ CFG.PlayerModel = {
 -- Lista vertical com os slots e nomes dos itens equipados.
 -- ----------------------------------------------------------------------------
 CFG.Equipment = {
-    width           = 140,                  -- Largura da coluna de equipamentos (px)
-    iconSize        = 22,                   -- Tamanho do ícone do slot (px)
-    itemHeight      = 24,                   -- Altura de cada linha de equipamento (px)
-    gapY            = 4,                    -- Espaçamento vertical entre os itens (px)
-    slotFont        = "GameFontNormalSmall",-- Fonte do tipo de slot (menor)
-    nameFont        = "GameFontHighlightSmall", -- Fonte do nome do item
+    width           = 168,                  -- Largura da coluna de equipamentos (px) - +20% do original (140)
+    iconSize        = 26,                   -- Tamanho do ícone do slot (px) - +20% do original (22)
+    itemHeight      = 28,                   -- Altura de cada linha de equipamento (px) - +16% do original (24)
+    gapY            = 3,                    -- Espaçamento vertical entre os itens (px)
     slotColor       = "|cff888888",         -- Cor do tipo de slot (ex: CABEÇA, PEITORAL)
     emptyColor      = "|cff555555",         -- Cor para slots vazios
     showEmptySlots  = true,                 -- true = exibe o nome do slot mesmo se vazio
@@ -172,11 +195,9 @@ CFG.Equipment = {
 -- Exibição de atributos base e lista de buffs no estilo Zelda TotK/BotW.
 -- ----------------------------------------------------------------------------
 CFG.StatsAndBuffs = {
-    width           = 135,                  -- Largura da coluna de status e buffs (px)
-    headerFont      = "GameFontNormal",     -- Fonte dos cabeçalhos de seção
-    statFont        = "GameFontHighlightSmall",
-    buffIconSize    = 18,                   -- Tamanho do ícone de buff (px)
-    buffGapY        = 4,                    -- Espaçamento vertical entre buffs (px)
+    width           = 150,                  -- Largura da coluna de status e buffs (px)
+    buffIconSize    = 20,                   -- Tamanho do ícone de buff (px) - Aumentado em +10% (original: 18)
+    buffGapY        = 5,                    -- Espaçamento vertical entre buffs (px)
     maxBuffs        = 6,                    -- Quantidade máxima de buffs visíveis na lista
     durationColor   = "|cff88ccff",         -- Cor do tempo restante do buff
     barColor        = { r = 0.2, g = 0.7, b = 1.0 }, -- Cor da barrinha de duração estilo Zelda
@@ -199,11 +220,9 @@ CFG.Tabs = {
     barHeight       = 36,                   -- Altura da barra superior de abas (px)
     buttonHeight    = 28,                   -- Altura de cada botão de aba (px)
     gapX            = 6,                    -- Espaçamento horizontal entre os botões (px)
-    font            = "GameFontNormal",     -- Fonte da aba
-    activeColor     = { r = 1.0, g = 0.85, b = 0.2 }, -- Cor dourada de aba ativa
-    inactiveColor   = { r = 0.6, g = 0.6, b = 0.6 },  -- Cor cinza de aba inativa
-    indicatorFont   = "GameFontHighlightLarge", -- Fonte dos indicadores [L1] e [R1]
-    indicatorColor  = "|cffffd200",         -- Cor dos colchetes do controle
+    activeColor     = { r = 0.88, g = 0.60, b = 0.08 }, -- Dourado âmbar mais escuro e nobre
+    inactiveColor   = { r = 0.65, g = 0.65, b = 0.65 }, -- Cor cinza de aba inativa
+    indicatorColor  = "|cffe09a15",         -- Cor dos colchetes do controle
     list = {
         { id = "BAGS",   name = "Bolsas & Itens",  shortName = "Bolsas" },
         { id = "SPELLS", name = "Livro de Magias", shortName = "Magias" },
@@ -232,7 +251,6 @@ CFG.Footer = {
     paddingLeft     = 28,                   -- Margem esquerda (px)
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
-    font            = "GameFontNormalSmall",
     text            = "|cffffffff[L1] / [R1]|r Trocar Aba   |   |cffffffff[D-Pad/L-Stick]|r Navegar   |   |cffffffff(A)|r Interagir   |   |cffffffff(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
 }
 
@@ -244,6 +262,28 @@ CFG.Audio = {
     soundClose      = "igMainMenuClose",
     soundTabChange  = "igCharacterInfoTab",
 }
+
+-- ============================================================================
+-- HELPER DE APLICAÇÃO DE FONTES (COM SUPORTE UTF-8 / PT-BR E FALLBACK SEGURO)
+-- ============================================================================
+
+function MainMenu:ApplyFont(fontString, fontPath, size, outline)
+    if not fontString then return end
+    fontPath = fontPath or CFG.Fonts.bodyFontFile
+    size = size or 12
+    outline = outline or ""
+    
+    -- Tenta aplicar a fonte customizada (Marcellus / Alegreya Sans)
+    fontString:SetFont(fontPath, size, outline)
+    
+    -- Fallback de segurança para o WoW Vanilla (caso o jogo não tenha sido reiniciado ainda)
+    if not fontString:GetFont() then
+        fontString:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
+    end
+    
+    fontString:SetShadowOffset(1, -1)
+    fontString:SetShadowColor(0, 0, 0, 0.8)
+end
 
 -- ============================================================================
 -- TOOLTIP SCANNER PARA BUFFS E ITENS
@@ -378,7 +418,7 @@ function MainMenu:UpdateLayout()
     -- Ajusta a largura proporcional dos botões de aba no painel direito
     if self.tabContainer and self.tabContainer.tabBar and self.tabContainer.tabBar.buttons then
         local rightW = targetW - (leftW + CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
-        local usableTabW = rightW - 64 -- Espaço para [L1] e [R1]
+        local usableTabW = rightW - 64
         local numTabs = table.getn(CFG.Tabs.list)
         local btnW = math.floor((usableTabW - ((numTabs - 1) * CFG.Tabs.gapX)) / numTabs)
         if btnW < 60 then btnW = 60 end
@@ -439,12 +479,14 @@ function MainMenu:CreatePlayerModel(leftPanel)
         infoBox:SetPoint("LEFT", leftPanel, "LEFT", 12, 0)
         infoBox:SetPoint("RIGHT", leftPanel, "RIGHT", -12, 0)
 
-        local nameText = infoBox:CreateFontString(nil, "OVERLAY", CFG.PlayerModel.nameFont)
+        local nameText = infoBox:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
         nameText:SetPoint("TOP", infoBox, "TOP", 0, 0)
+        MainMenu:ApplyFont(nameText, CFG.Fonts.titleFontFile, CFG.Fonts.playerNameSize)
         nameText:SetText(UnitName("player") or "Jogador")
 
-        local subText = infoBox:CreateFontString(nil, "OVERLAY", CFG.PlayerModel.guildFont)
+        local subText = infoBox:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         subText:SetPoint("TOP", nameText, "BOTTOM", 0, -2)
+        MainMenu:ApplyFont(subText, CFG.Fonts.subFontFile, CFG.Fonts.playerSubSize)
 
         model.infoBox  = infoBox
         model.nameText = nameText
@@ -465,7 +507,7 @@ function MainMenu:UpdatePlayerModel()
 
     if self.playerModel.nameText then
         local pName = UnitName("player") or "Jogador"
-        self.playerModel.nameText:SetText("|cffffd200" .. pName .. "|r")
+        self.playerModel.nameText:SetText("|cffe09a15" .. pName .. "|r")
     end
 
     if self.playerModel.subText then
@@ -475,7 +517,7 @@ function MainMenu:UpdatePlayerModel()
         local level = UnitLevel("player") or 1
 
         if guildName then
-            self.playerModel.subText:SetText("|cffffcc00<" .. guildName .. ">|r  |cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
+            self.playerModel.subText:SetText("|cffd48c08<" .. guildName .. ">|r  |cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
         else
             self.playerModel.subText:SetText("|cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
         end
@@ -525,17 +567,19 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
         btn.border = border
 
         -- 1. Linha Superior: Nome do Slot (CABEÇA, PEITORAL, etc.)
-        local slotText = btn:CreateFontString(nil, "OVERLAY", CFG.Equipment.slotFont)
-        slotText:SetPoint("LEFT", icon, "RIGHT", 5, 5)
+        local slotText = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        slotText:SetPoint("LEFT", icon, "RIGHT", 7, 7)
         slotText:SetPoint("RIGHT", btn, "RIGHT", -2, 0)
         slotText:SetJustifyH("LEFT")
+        MainMenu:ApplyFont(slotText, CFG.Fonts.subFontFile, CFG.Fonts.slotLabelSize)
         btn.slotText = slotText
 
         -- 2. Linha Inferior: Nome do Item agrupado logo abaixo do slot
-        local nameText = btn:CreateFontString(nil, "OVERLAY", CFG.Equipment.nameFont)
+        local nameText = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         nameText:SetPoint("TOPLEFT", slotText, "BOTTOMLEFT", 0, -1)
         nameText:SetPoint("RIGHT", btn, "RIGHT", -2, 0)
         nameText:SetJustifyH("LEFT")
+        MainMenu:ApplyFont(nameText, CFG.Fonts.bodyFontFile, CFG.Fonts.itemNameSize)
         btn.nameText = nameText
 
         -- 3. Linha divisória horizontal sólida e sutil abaixo de cada slot
@@ -574,7 +618,6 @@ function MainMenu:UpdateEquipmentColumn()
             if itemTexture and itemLink then
                 btn.icon:SetTexture(itemTexture)
 
-                -- Extrai nome, itemID e cor diretamente da estrutura do itemLink no Vanilla 1.12
                 local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:%d+:%d+:%d+:%d+)|h%[(.-)%]|h|r")
                 
                 local itemName = nameFromLink
@@ -588,7 +631,6 @@ function MainMenu:UpdateEquipmentColumn()
                     end
                 end
 
-                -- Fallback via Scanner Tooltip caso GetItemInfo falhe
                 if not itemName then
                     scanTip:ClearLines()
                     scanTip:SetInventoryItem("player", slotID)
@@ -634,19 +676,21 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     container:SetPoint("BOTTOMRIGHT", leftPanel, "BOTTOMRIGHT", -4, 52)
 
     -- 1. Seção de Atributos Base
-    local statsHeader = container:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.headerFont)
+    local statsHeader = container:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     statsHeader:SetPoint("TOPLEFT", container, "TOPLEFT", 0, 0)
-    statsHeader:SetText("|cffffd200STATUS|r")
+    MainMenu:ApplyFont(statsHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
+    statsHeader:SetText("|cffe09a15STATUS|r")
 
     local statLines = {}
-    local statKeys = { "HP", "Recurso", "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura", "Ouro" }
+    local statKeys = { "HP", "Recurso", "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura" }
     local prevStat = statsHeader
 
     for i, key in ipairs(statKeys) do
-        local line = container:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.statFont)
+        local line = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         line:SetPoint("TOPLEFT", prevStat, "BOTTOMLEFT", 0, -2)
         line:SetPoint("RIGHT", container, "RIGHT", 0, 0)
         line:SetJustifyH("LEFT")
+        MainMenu:ApplyFont(line, CFG.Fonts.bodyFontFile, CFG.Fonts.statSize)
         statLines[key] = line
         prevStat = line
     end
@@ -661,8 +705,9 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     statDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
 
     -- 3. Seção de Buffs Ativos (Estilo Zelda)
-    local buffHeader = container:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.headerFont)
+    local buffHeader = container:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     buffHeader:SetPoint("TOPLEFT", statDiv, "BOTTOMLEFT", 0, -6)
+    MainMenu:ApplyFont(buffHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
     buffHeader:SetText("|cff00ffccBUFFS ATIVOS|r")
 
     local buffRows = {}
@@ -690,10 +735,11 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
         bBorder:SetVertexColor(0.2, 0.8, 1.0, 0.7)
 
         -- Nome do Buff
-        local bName = row:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.statFont)
+        local bName = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         bName:SetPoint("LEFT", bIcon, "RIGHT", 4, 0)
         bName:SetPoint("RIGHT", row, "RIGHT", -2, 0)
         bName:SetJustifyH("LEFT")
+        MainMenu:ApplyFont(bName, CFG.Fonts.bodyFontFile, CFG.Fonts.buffSize, "")
         row.name = bName
 
         -- Barrinha decorativa de duração estilo Zelda abaixo do nome
@@ -733,21 +779,14 @@ function MainMenu:UpdateStatsAndBuffs()
         local powerColor = (pType == 1 and "|cffff3333") or (pType == 3 and "|cffffff00") or "|cff00ccff"
         lines["Recurso"]:SetText("|cffffffff" .. powerName .. ":|r " .. powerColor .. mana .. "|r / " .. maxMana)
 
-        lines["Força"]:SetText("|cffaaaaaaForça:|r |cffffffff" .. (UnitStat("player", 1) or 0) .. "|r")
-        lines["Agilidade"]:SetText("|cffaaaaaaAgilidade:|r |cffffffff" .. (UnitStat("player", 2) or 0) .. "|r")
-        lines["Vigor"]:SetText("|cffaaaaaaVigor:|r |cffffffff" .. (UnitStat("player", 3) or 0) .. "|r")
-        lines["Intelecto"]:SetText("|cffaaaaaaIntelecto:|r |cffffffff" .. (UnitStat("player", 4) or 0) .. "|r")
-        lines["Espírito"]:SetText("|cffaaaaaaEspírito:|r |cffffffff" .. (UnitStat("player", 5) or 0) .. "|r")
+        lines["Força"]:SetText("|cffffffffForça:|r " .. (UnitStat("player", 1) or 0))
+        lines["Agilidade"]:SetText("|cffffffffAgilidade:|r " .. (UnitStat("player", 2) or 0))
+        lines["Vigor"]:SetText("|cffffffffVigor:|r " .. (UnitStat("player", 3) or 0))
+        lines["Intelecto"]:SetText("|cffffffffIntelecto:|r " .. (UnitStat("player", 4) or 0))
+        lines["Espírito"]:SetText("|cffffffffEspírito:|r " .. (UnitStat("player", 5) or 0))
 
         local baseArmor, armorEff = UnitArmor("player")
-        lines["Armadura"]:SetText("|cffaaaaaaArmadura:|r |cffffffff" .. (armorEff or 0) .. "|r")
-
-        -- Dinheiro
-        local money = GetMoney() or 0
-        local gold = math.floor(money / 10000)
-        local silver = math.floor(math.mod(money, 10000) / 100)
-        local copper = math.mod(money, 100)
-        lines["Ouro"]:SetText(string.format("|cffffd200%dg|r |cffc0c0c0%ds|r |cffcc8833%dc|r", gold, silver, copper))
+        lines["Armadura"]:SetText("|cffffffffArmadura:|r " .. (armorEff or 0))
     end
 
     -- 2. Atualiza Buffs Ativos (Estilo Zelda)
@@ -805,13 +844,15 @@ function MainMenu:CreateTabContainer(rightPanel)
     tabBar:SetPoint("TOPRIGHT", rightPanel, "TOPRIGHT", 0, 0)
 
     -- Indicador [L1] à esquerda
-    local l1Hint = tabBar:CreateFontString(nil, "OVERLAY", CFG.Tabs.indicatorFont)
+    local l1Hint = tabBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
     l1Hint:SetPoint("LEFT", tabBar, "LEFT", 2, 0)
+    MainMenu:ApplyFont(l1Hint, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize)
     l1Hint:SetText(CFG.Tabs.indicatorColor .. "[L1]|r")
 
     -- Indicador [R1] à direita
-    local r1Hint = tabBar:CreateFontString(nil, "OVERLAY", CFG.Tabs.indicatorFont)
+    local r1Hint = tabBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
     r1Hint:SetPoint("RIGHT", tabBar, "RIGHT", -2, 0)
+    MainMenu:ApplyFont(r1Hint, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize)
     r1Hint:SetText(CFG.Tabs.indicatorColor .. "[R1]|r")
 
     -- Container Central dos Botões de Aba
@@ -826,7 +867,7 @@ function MainMenu:CreateTabContainer(rightPanel)
     for i, tabData in ipairs(CFG.Tabs.list) do
         local tabBtn = CreateFrame("Button", "ConsoleModeMM_TabBtn" .. tabData.id, tabsCenter)
         tabBtn:SetHeight(CFG.Tabs.buttonHeight)
-        tabBtn:SetWidth(100) -- Largura base, recalculada em UpdateLayout()
+        tabBtn:SetWidth(100)
 
         if not prevTab then
             tabBtn:SetPoint("LEFT", tabsCenter, "LEFT", 0, 0)
@@ -834,8 +875,9 @@ function MainMenu:CreateTabContainer(rightPanel)
             tabBtn:SetPoint("LEFT", prevTab, "RIGHT", CFG.Tabs.gapX, 0)
         end
 
-        local title = tabBtn:CreateFontString(nil, "OVERLAY", CFG.Tabs.font)
+        local title = tabBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("CENTER", tabBtn, "CENTER", 0, 0)
+        MainMenu:ApplyFont(title, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize, "")
         title:SetText(tabData.name)
         tabBtn.title = title
 
@@ -880,7 +922,8 @@ function MainMenu:CreateTabContainer(rightPanel)
     pageBags:SetAllPoints(contentFrame)
     local bagsPlaceholder = pageBags:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
     bagsPlaceholder:SetPoint("CENTER", pageBags, "CENTER", 0, 30)
-    bagsPlaceholder:SetText("|cffffd200[ ABA 1: BOLSAS & INVENTÁRIO ]|r\n\n|cffaaaaaaPronto para receber o Grid Categorizado na Fase 5|r")
+    MainMenu:ApplyFont(bagsPlaceholder, CFG.Fonts.titleFontFile, 15, "")
+    bagsPlaceholder:SetText("|cffe09a15[ ABA 1: BOLSAS & INVENTÁRIO ]|r\n\n|cffaaaaaaPronto para receber o Grid Categorizado na Fase 5|r")
     pages["BAGS"] = pageBags
 
     -- Página 2: Livro de Magias & Habilidades (Fase 7)
@@ -888,6 +931,7 @@ function MainMenu:CreateTabContainer(rightPanel)
     pageSpells:SetAllPoints(contentFrame)
     local spellsPlaceholder = pageSpells:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
     spellsPlaceholder:SetPoint("CENTER", pageSpells, "CENTER", 0, 30)
+    MainMenu:ApplyFont(spellsPlaceholder, CFG.Fonts.titleFontFile, 15, "")
     spellsPlaceholder:SetText("|cff00ffcc[ ABA 2: LIVRO DE MAGIAS & GRIMÓRIO ]|r\n\n|cffaaaaaaPronto para receber as magias na Fase 7|r")
     pages["SPELLS"] = pageSpells
 
@@ -896,6 +940,7 @@ function MainMenu:CreateTabContainer(rightPanel)
     pageQuests:SetAllPoints(contentFrame)
     local questsPlaceholder = pageQuests:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
     questsPlaceholder:SetPoint("CENTER", pageQuests, "CENTER", 0, 30)
+    MainMenu:ApplyFont(questsPlaceholder, CFG.Fonts.titleFontFile, 15, "")
     questsPlaceholder:SetText("|cffffcc00[ ABA 3: DIÁRIO DE MISSÕES ]|r\n\n|cffaaaaaaRegistro de aventuras e objetivos ativos|r")
     pages["QUESTS"] = pageQuests
 
@@ -904,6 +949,7 @@ function MainMenu:CreateTabContainer(rightPanel)
     pageSystem:SetAllPoints(contentFrame)
     local sysPlaceholder = pageSystem:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
     sysPlaceholder:SetPoint("CENTER", pageSystem, "CENTER", 0, 30)
+    MainMenu:ApplyFont(sysPlaceholder, CFG.Fonts.titleFontFile, 15, "")
     sysPlaceholder:SetText("|cffffffff[ ABA 4: CONFIGURAÇÕES DO CONSOLEMODE ]|r\n\n|cff888888Clique no botão abaixo para abrir os ajustes do addon|r")
     
     local sysBtn = CreateFrame("Button", "ConsoleModeMM_OpenConfigBtn", pageSystem, "UIPanelButtonTemplate")
@@ -1029,8 +1075,9 @@ function MainMenu:CreateUI()
 
     -- 4. Título Superior Central
     if CFG.Title.show then
-        local titleText = frame:CreateFontString(nil, "OVERLAY", CFG.Title.font)
+        local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
         titleText:SetPoint("TOP", frame, "TOP", 0, CFG.Title.offsetY)
+        MainMenu:ApplyFont(titleText, CFG.Fonts.titleFontFile, CFG.Fonts.titleSize)
         titleText:SetText(CFG.Title.text)
         frame.title = titleText
     end
@@ -1077,8 +1124,9 @@ function MainMenu:CreateUI()
     footer:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", CFG.Footer.paddingRight, CFG.Footer.offsetY)
     frame.footer = footer
 
-    local footerText = footer:CreateFontString(nil, "OVERLAY", CFG.Footer.font)
+    local footerText = footer:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     footerText:SetPoint("CENTER", footer, "CENTER", 0, 0)
+    MainMenu:ApplyFont(footerText, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize, "")
     footerText:SetText(CFG.Footer.text)
 
     -- 9. Fechamento com tecla Escape

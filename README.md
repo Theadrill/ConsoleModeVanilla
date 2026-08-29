@@ -20,6 +20,8 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 ## 📜 Créditos
 
 - **Pixel Frog (Tiny Swords)**: Créditos e agradecimentos ao criador **Pixel Frog** pelos assets visuais e texturas de interface do pacote [Tiny Swords](https://pixelfrog-assets.itch.io/tiny-swords) utilizados no Main Menu (Console Hub).
+- **Alegreya Sans**: Criada por Juan Pablo del Peral ([Huerta Tipográfica](https://huertatipografica.com/)) sob a licença [SIL Open Font License, Version 1.1](https://fonts.google.com/specimen/Alegreya+Sans/license), utilizada para tipografia e legibilidade da interface.
+- **Marcellus**: Criada por Astigmatic ([Brian J. Bonislawsky](https://www.astigmatic.com/)) sob a licença [SIL Open Font License, Version 1.1](https://fonts.google.com/specimen/Marcellus/license), utilizada para títulos e cabeçalhos da interface.
 - **ConsoleExperienceClassic**: Agradecimentos e créditos aos criadores e contribuidores do `ConsoleExperienceClassic` pela lógica de navegação via cursor e implementações de referência que inspiraram o sistema de navegação deste projeto.
 - **ConsoleUI**: Agradecimentos e créditos a [racha/ConsoleUI](https://github.com/racha/ConsoleUI) pela solução técnica de Mouse Look persistente com companion binding (F9 + WASD).
 - **ConsolePort**: Crédito e inspiração à equipe original do ConsolePort por definir o padrão de ouro da experiência com controle no World of Warcraft.

@@ -70,31 +70,12 @@ CFG.Portrait = {
     size  = 58,   -- largura e altura do quadrado do rosto (px)
     gapX  = 8,    -- espaço horizontal entre portrait e container de barras (px)
 
-    -- Moldura padrão — usada para classes sem entrada em CFG.PortraitFrames abaixo
+    -- Moldura da classe (configuração única padronizada para todas as classes)
     frameShow    = true,   -- true = exibe a moldura, false = oculta globalmente
-    frameWidth   = 64,     -- largura padrão da moldura (px)
-    frameHeight  = 64,     -- altura padrão da moldura (px)
-    frameOffsetX = 0,      -- deslocamento X padrão em relação ao LEFT do frame raiz (px)
-    frameOffsetY = 0,      -- deslocamento Y padrão (px, positivo = sobe)
-}
-
--- ----------------------------------------------------------------------------
--- MOLDURA POR CLASSE (portrait overlay)
--- Cada entrada sobrescreve os valores padrão de CFG.Portrait para aquela classe.
--- A âncora é sempre "LEFT" do frame raiz — use offsetX/offsetY para ajustar.
--- Deixe uma entrada como {} para usar os defaults sem alteração.
--- ----------------------------------------------------------------------------
-CFG.PortraitFrames = {
-    DRUID      = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    HUNTER     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    MAGE       = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    PALADIN    = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    PRIEST     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    ROGUE      = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    SHAMAN     = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    WARLOCK    = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    WARRIOR    = { width = 128, height = 128, offsetX = -34, offsetY = 0 },
-    DEFAULT    = { width = 64, height = 64, offsetX = 0, offsetY = 0 },
+    frameWidth   = 128,    -- largura da moldura (px)
+    frameHeight  = 128,    -- altura da moldura (px)
+    frameOffsetX = -34,    -- deslocamento X em relação ao LEFT do frame raiz (px)
+    frameOffsetY = 0,      -- deslocamento Y em relação ao LEFT do frame raiz (px, positivo = sobe)
 }
 
 -- ----------------------------------------------------------------------------
@@ -316,6 +297,13 @@ function PF:Initialize()
         end
     end)
 
+    -- Clique esquerdo simples (sem Shift) = se targetar
+    f:SetScript("OnClick", function()
+        if arg1 == "LeftButton" and not IsShiftKeyDown() then
+            TargetUnit("player")
+        end
+    end)
+
     -- Shift + botão direito = resetar para posição padrão
     f:SetScript("OnMouseUp", function()
         if arg1 == "RightButton" and IsShiftKeyDown() then
@@ -346,12 +334,12 @@ function PF:Initialize()
     portrait:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portrait
 
-    -- Moldura da classe sobreposta ao portrait (Media/Frames/CLASSE.tga)
+    -- Moldura da classe sobreposta ao portrait (Media/Portraits/CLASSE.tga)
     -- A textura real é definida em PF:Update() após detectar a classe.
     local portraitFrame = f:CreateTexture("ConsoleModePlayerPortraitFrame", "OVERLAY")
     portraitFrame:SetWidth(CFG.Portrait.frameWidth)
     portraitFrame:SetHeight(CFG.Portrait.frameHeight)
-    portraitFrame:SetPoint("CENTER", portrait, "CENTER", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
+    portraitFrame:SetPoint("LEFT", f, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
     if not CFG.Portrait.frameShow then
         portraitFrame:Hide()
     end
@@ -861,18 +849,10 @@ function PF:Update()
     local _, playerClass = UnitClass("player")
     playerClass = playerClass or "DEFAULT"
     if self.frame.portraitFrame then
-        -- Pega config específica da classe ou cai no default
-        local fc = CFG.PortraitFrames and CFG.PortraitFrames[playerClass]
-        if not fc then fc = CFG.PortraitFrames and CFG.PortraitFrames["DEFAULT"] end
-        local fw = (fc and fc.width)   or CFG.Portrait.frameWidth
-        local fh = (fc and fc.height)  or CFG.Portrait.frameHeight
-        local fx = (fc and fc.offsetX) or CFG.Portrait.frameOffsetX
-        local fy = (fc and fc.offsetY) or CFG.Portrait.frameOffsetY
-
-        self.frame.portraitFrame:SetWidth(fw)
-        self.frame.portraitFrame:SetHeight(fh)
+        self.frame.portraitFrame:SetWidth(CFG.Portrait.frameWidth)
+        self.frame.portraitFrame:SetHeight(CFG.Portrait.frameHeight)
         self.frame.portraitFrame:ClearAllPoints()
-        self.frame.portraitFrame:SetPoint("LEFT", self.frame, "LEFT", fx, fy)
+        self.frame.portraitFrame:SetPoint("LEFT", self.frame, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
         self.frame.portraitFrame:SetTexture(
             "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. playerClass .. ".tga"
         )

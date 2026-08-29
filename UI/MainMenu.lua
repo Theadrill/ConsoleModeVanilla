@@ -4,14 +4,15 @@
 
     Estrutura Visual:
       [====================== MENU PRINCIPAL ======================]
-      |  [ PALCO DO PERSONAGEM ]   |  [ CONTAINER DE ABAS & GRID ] |
-      |  - Equipamentos (Esq)      |  - Abas: [L1] Bolsas | Spells [R1]
-      |  - Modelo 3D Jogador       |  - Grid de Itens / Magias     |
-      |  - Atributos e Buffs (Dir) |  - Tooltip Fixo (Inf. Direita)|
+      |  [ PALCO DO PERSONAGEM (ESQUERDA) ]    |  [ CONTAINER DE ABAS & GRID ] |
+      |  - Equipamentos (Esq)                  |  - Abas: [L1] Bolsas | Spells [R1]
+      |  - Modelo 3D Jogador (Centro)          |  - Grid de Itens / Magias     |
+      |  - Atributos & Buffs Ativos (Dir)      |  - Tooltip Fixo (Inf. Direita)|
       [=================== [D-Pad] (A) (Y) (B) ====================]
 
     - FASE 1: Canvas 100% Responsivo por Porcentagem com renderização 9-Slice
     - FASE 2: Palco do Personagem 3D transparente (SetUnit('player')) com giro livre 360°
+    - FASE 3: Lista de Equipamentos, Atributos Base e Lista Vertical de Buffs Ativos
     - Suporte a navegação por Gamepad e teclado
     - Compatível com Lua 5.0 / WoW 1.12.1
 ]]
@@ -27,7 +28,7 @@ local MainMenu = CM.mainMenu
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
 --
 -- Todas as variáveis visuais de posição, tamanho, proporção, texturas, cores,
--- fontes, modelo 3D e efeitos estão centralizadas aqui.
+-- fontes, modelo 3D, equipamentos, status e buffs estão centralizadas aqui.
 -- Edite este bloco para ajustar a aparência sem mexer na lógica do código.
 -- ============================================================================
 
@@ -36,10 +37,9 @@ local CFG = {}
 -- ----------------------------------------------------------------------------
 -- 1. JANELA PRINCIPAL (CANVAS ROOT RESPONSIVO)
 -- Dimensionamento dinâmico baseado no tamanho da tela do jogador (UIParent).
--- Em telas pequenas (Steam Deck) ou TVs 4K, o menu se adapta proporcionalmente!
 -- ----------------------------------------------------------------------------
 CFG.Window = {
-    usePercentage   = true,                 -- true = calcula por porcentagem da tela, false = usa staticWidth/Height
+    usePercentage   = true,                 -- true = calcula por porcentagem da tela, false = estático
     widthPercent    = 0.88,                 -- Fração da largura útil da tela (88%)
     heightPercent   = 0.84,                 -- Fração da altura útil da tela (84%)
     
@@ -48,39 +48,35 @@ CFG.Window = {
     maxWidth        = 1440,                 -- Largura máxima para telas Ultrawide/4K (px)
     maxHeight       = 920,                  -- Altura máxima (px)
 
-    staticWidth     = 980,                  -- Largura estática de fallback se usePercentage = false
-    staticHeight    = 620,                  -- Altura estática de fallback se usePercentage = false
+    staticWidth     = 980,                  -- Largura estática de fallback
+    staticHeight    = 620,                  -- Altura estática de fallback
 
     point           = "CENTER",             -- Ponto de ancoragem na tela
     relPoint        = "CENTER",             -- Ponto relativo no UIParent
     offsetX         = 0,                    -- Deslocamento horizontal (0 = centralizado)
     offsetY         = 0,                    -- Deslocamento vertical (0 = centralizado)
-    frameStrata     = "FULLSCREEN_DIALOG",  -- Camada de renderização (acima da UI comum)
+    frameStrata     = "FULLSCREEN_DIALOG",  -- Camada de renderização
     frameLevel      = 100,                  -- Nível de sobreposição dentro da strata
 }
 
 -- ----------------------------------------------------------------------------
 -- 2. DIMMER DE FUNDO (EFEITO ESCURECIDO DE IMERSÃO)
--- Escurece o mundo 3D do jogo por trás do menu ao abrir (estilo console).
 -- ----------------------------------------------------------------------------
 CFG.Dimmer = {
     enabled         = true,                 -- true = ativa o fundo escurecido, false = desativa
-    frameStrata     = "FULLSCREEN",         -- Camada de renderização (atrás da janela principal)
+    frameStrata     = "FULLSCREEN",         -- Camada de renderização
     frameLevel      = 50,                   -- Nível de sobreposição
     color           = { r = 0.0, g = 0.0, b = 0.0, a = 0.65 }, -- Cor e opacidade (RGBA 0-1)
 }
 
 -- ----------------------------------------------------------------------------
 -- 3. TEXTURA 9-SLICE DE PERGAMINHO / BANNER
--- Configuração do renderizador de 9 fatias (Padrão Unity / Sliced Image).
--- Mantém cantos em escala 1:1 nítida e estica apenas as bordas e centro.
 -- ----------------------------------------------------------------------------
 CFG.NineSlice = {
     texture         = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Carved_9Slides.tga",
     cornerSize      = 48,                   -- Tamanho dos 4 cantos fixos (px)
     drawLayer       = "BACKGROUND",         -- Camada de desenho das fatias
 
-    -- Mapeamento das coordenadas UV da textura (Canvas POT 256x256 / Imagem 192x192)
     uv = {
         col = {
             { 0.0000, 0.2500 },             -- Esquerda (0 a 64px de 256px)
@@ -97,7 +93,6 @@ CFG.NineSlice = {
 
 -- ----------------------------------------------------------------------------
 -- 4. TÍTULO SUPERIOR
--- Texto de cabeçalho no topo central do menu.
 -- ----------------------------------------------------------------------------
 CFG.Title = {
     show            = true,                 -- true = exibe o título, false = oculta
@@ -108,7 +103,6 @@ CFG.Title = {
 
 -- ----------------------------------------------------------------------------
 -- 5. PAINEL ESQUERDO: PALCO DO PERSONAGEM (ESTRUTURA GERAL)
--- Ocupa a metade esquerda do menu. O modelo 3D é desenhado aqui sem fundo.
 -- ----------------------------------------------------------------------------
 CFG.LeftPanel = {
     paddingLeft     = 28,                   -- Margem em relação à borda esquerda do menu (px)
@@ -118,25 +112,77 @@ CFG.LeftPanel = {
 }
 
 -- ----------------------------------------------------------------------------
--- 5.1. MODELO 3D DO PERSONAGEM (PLAYER MODEL - FASE 2)
--- Viewport 3D transparente integrado diretamente ao fundo de pergaminho.
+-- 5.1. MODELO 3D DO PERSONAGEM (FASE 2)
 -- ----------------------------------------------------------------------------
 CFG.PlayerModel = {
-    width           = 320,                  -- Largura da viewport 3D (px)
-    height          = 440,                  -- Altura da viewport 3D (px)
-    offsetX         = 0,                    -- Deslocamento X no centro do palco esquerdo (px)
-    offsetY         = -15,                  -- Deslocamento Y no centro do palco esquerdo (px)
-    defaultFacing   = 0.0,                  -- Rotação inicial em radianos (0 = de frente)
-    rotateSpeed     = 0.03,                 -- Velocidade de rotação ao arrastar o mouse / analógico
-    enableMouseDrag = true,                 -- true = clicar e arrastar com o mouse gira o personagem
-    showPlayerName  = true,                 -- true = exibe o nome e classe/raça/guilda na base do boneco
-    nameFont        = "GameFontHighlightLarge", -- Fonte do nome do personagem
-    guildFont       = "GameFontNormalSmall",    -- Fonte da guilda / raça / classe
+    width           = 220,                  -- Largura da viewport 3D (px)
+    height          = 420,                  -- Altura da viewport 3D (px)
+    offsetX         = 0,                    -- Deslocamento horizontal central (px)
+    offsetY         = -10,                  -- Deslocamento vertical central (px)
+    defaultFacing   = 0.0,                  -- Rotação inicial (radianos)
+    rotateSpeed     = 0.03,                 -- Velocidade de giro com mouse/analógico
+    enableMouseDrag = true,                 -- true = arrastar com mouse gira o boneco
+    showPlayerName  = true,                 -- true = exibe nome e guilda na base
+    nameFont        = "GameFontHighlightLarge",
+    guildFont       = "GameFontNormalSmall",
+}
+
+-- ----------------------------------------------------------------------------
+-- 5.2. COLUNA DE EQUIPAMENTOS (FASE 3 - À ESQUERDA DO PERSONAGEM 3D)
+-- Lista vertical com os slots e nomes dos itens equipados.
+-- ----------------------------------------------------------------------------
+CFG.Equipment = {
+    width           = 140,                  -- Largura da coluna de equipamentos (px)
+    iconSize        = 22,                   -- Tamanho do ícone do slot (px)
+    itemHeight      = 24,                   -- Altura de cada linha de equipamento (px)
+    gapY            = 4,                    -- Espaçamento vertical entre os itens (px)
+    slotFont        = "GameFontNormalSmall",-- Fonte do tipo de slot (menor)
+    nameFont        = "GameFontHighlightSmall", -- Fonte do nome do item
+    slotColor       = "|cff888888",         -- Cor do tipo de slot (ex: CABEÇA, PEITORAL)
+    emptyColor      = "|cff555555",         -- Cor para slots vazios
+    showEmptySlots  = true,                 -- true = exibe o nome do slot mesmo se vazio
+    showDivider     = true,                 -- true = exibe linha divisória abaixo de cada slot
+    dividerHeight   = 1,                    -- Espessura da linha divisória (px)
+    dividerColor    = { r = 0.5, g = 0.4, b = 0.3, a = 0.35 }, -- Cor e opacidade da linha divisória
+    dividerTexture  = "Interface\\Tooltips\\UI-Tooltip-Background",
+    slots = {
+        { name = "HeadSlot",          label = "CABEÇA" },
+        { name = "NeckSlot",          label = "COLAR" },
+        { name = "ShoulderSlot",      label = "OMBROS" },
+        { name = "BackSlot",          label = "CAPA" },
+        { name = "ChestSlot",         label = "PEITORAL" },
+        { name = "WristSlot",         label = "PUNHOS" },
+        { name = "HandsSlot",         label = "LUVAS" },
+        { name = "WaistSlot",         label = "CINTO" },
+        { name = "LegsSlot",          label = "PERNAS" },
+        { name = "FeetSlot",          label = "BOTAS" },
+        { name = "Finger0Slot",       label = "ANEL 1" },
+        { name = "Finger1Slot",       label = "ANEL 2" },
+        { name = "Trinket0Slot",      label = "BERLOQUE 1" },
+        { name = "Trinket1Slot",      label = "BERLOQUE 2" },
+        { name = "MainHandSlot",      label = "MÃO DIR." },
+        { name = "SecondaryHandSlot", label = "MÃO ESQ." },
+        { name = "RangedSlot",        label = "ALCANCE" },
+    }
+}
+
+-- ----------------------------------------------------------------------------
+-- 5.3. COLUNA DE ATRIBUTOS E BUFFS ATIVOS (FASE 3 - À DIREITA DO PERSONAGEM)
+-- Exibição de atributos base e lista de buffs no estilo Zelda TotK/BotW.
+-- ----------------------------------------------------------------------------
+CFG.StatsAndBuffs = {
+    width           = 135,                  -- Largura da coluna de status e buffs (px)
+    headerFont      = "GameFontNormal",     -- Fonte dos cabeçalhos de seção
+    statFont        = "GameFontHighlightSmall",
+    buffIconSize    = 18,                   -- Tamanho do ícone de buff (px)
+    buffGapY        = 4,                    -- Espaçamento vertical entre buffs (px)
+    maxBuffs        = 6,                    -- Quantidade máxima de buffs visíveis na lista
+    durationColor   = "|cff88ccff",         -- Cor do tempo restante do buff
+    barColor        = { r = 0.2, g = 0.7, b = 1.0 }, -- Cor da barrinha de duração estilo Zelda
 }
 
 -- ----------------------------------------------------------------------------
 -- 6. PAINEL DIREITO: CONTAINER DE CONTEÚDO DAS ABAS (BOLSAS / SPELLBOOK)
--- Ocupa a metade direita do menu. As abas e o grid de itens ficam aqui.
 -- ----------------------------------------------------------------------------
 CFG.RightPanel = {
     paddingRight    = -28,                  -- Margem em relação à borda direita do menu (px)
@@ -147,20 +193,18 @@ CFG.RightPanel = {
 
 -- ----------------------------------------------------------------------------
 -- 7. DIVISÓRIA CENTRAL
--- Linha visual que separa elegantemente o lado do personagem e o das abas.
 -- ----------------------------------------------------------------------------
 CFG.Divider = {
     show            = true,                 -- true = exibe a divisória, false = oculta
     texture         = "Interface\\Tooltips\\UI-Tooltip-Border",
     width           = 2,                    -- Espessura da divisória (px)
-    paddingTop      = 0,                    -- Alinhamento vertical topo
-    paddingBottom   = 0,                    -- Alinhamento vertical base
-    color           = { r = 0.6, g = 0.5, b = 0.3, a = 0.4 }, -- Cor e opacidade (RGBA)
+    paddingTop      = 0,
+    paddingBottom   = 0,
+    color           = { r = 0.6, g = 0.5, b = 0.3, a = 0.4 },
 }
 
 -- ----------------------------------------------------------------------------
 -- 8. RODAPÉ DE ATALHOS (CONSOLE HINTS)
--- Barra inferior com as legendas dos botões do controle.
 -- ----------------------------------------------------------------------------
 CFG.Footer = {
     height          = 36,                   -- Altura da barra de rodapé (px)
@@ -173,13 +217,26 @@ CFG.Footer = {
 
 -- ----------------------------------------------------------------------------
 -- 9. EFEITOS SONOROS NATIVOS
--- Sons reproduzidos ao abrir, fechar ou alternar abas no menu.
 -- ----------------------------------------------------------------------------
 CFG.Audio = {
     soundOpen       = "igMainMenuOpen",
     soundClose      = "igMainMenuClose",
     soundTabChange  = "igCharacterInfoTab",
 }
+
+-- ============================================================================
+-- TOOLTIP SCANNER PARA BUFFS E ITENS
+-- ============================================================================
+
+local scanTip = CreateFrame("GameTooltip", "ConsoleModeMMScanTooltip", nil, "GameTooltipTemplate")
+scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+
+function MainMenu:GetBuffName(buffIndexID)
+    scanTip:ClearLines()
+    scanTip:SetPlayerBuff(buffIndexID)
+    local text = ConsoleModeMMScanTooltipTextLeft1:GetText()
+    return text or "Efeito Ativo"
+end
 
 -- ============================================================================
 -- RENDERIZADOR 9-SLICE (Padrão Unity / Sliced Image no WoW 1.12)
@@ -271,7 +328,6 @@ function MainMenu:UpdateLayout()
         targetW = math.floor(screenW * CFG.Window.widthPercent)
         targetH = math.floor(screenH * CFG.Window.heightPercent)
 
-        -- Aplica os limites mínimos e máximos (Clamping)
         if CFG.Window.minWidth and targetW < CFG.Window.minWidth then targetW = CFG.Window.minWidth end
         if CFG.Window.maxWidth and targetW > CFG.Window.maxWidth then targetW = CFG.Window.maxWidth end
         if CFG.Window.minHeight and targetH < CFG.Window.minHeight then targetH = CFG.Window.minHeight end
@@ -284,7 +340,6 @@ function MainMenu:UpdateLayout()
     self.frame:SetWidth(targetW)
     self.frame:SetHeight(targetH)
 
-    -- Calcula a largura proporcional do painel esquerdo
     local availableW = targetW - (CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
     local leftW = math.floor(availableW * CFG.LeftPanel.widthRatio)
 
@@ -292,7 +347,6 @@ function MainMenu:UpdateLayout()
         self.frame.leftPanel:SetWidth(leftW)
     end
 
-    -- Alinha a divisória central exatamente no meio do espaçamento entre os dois painéis
     if self.frame.divider and self.frame.leftPanel then
         self.frame.divider:ClearAllPoints()
         local divGap = math.floor(CFG.RightPanel.gapX / 2)
@@ -302,13 +356,12 @@ function MainMenu:UpdateLayout()
 end
 
 -- ============================================================================
--- MODELO 3D DO PERSONAGEM (FASE 2)
+-- 1. MODELO 3D DO PERSONAGEM (FASE 2)
 -- ============================================================================
 
 function MainMenu:CreatePlayerModel(leftPanel)
     if self.playerModel then return self.playerModel end
 
-    -- 1. Frame PlayerModel sem fundo (transparência nativa do motor 3D)
     local model = CreateFrame("PlayerModel", "ConsoleModeMM_PlayerModel", leftPanel)
     model:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
     model:SetWidth(CFG.PlayerModel.width)
@@ -316,7 +369,6 @@ function MainMenu:CreatePlayerModel(leftPanel)
     model:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
     model.rotation = CFG.PlayerModel.defaultFacing or 0
 
-    -- 2. Interação de Rotação 360° via Mouse Drag
     if CFG.PlayerModel.enableMouseDrag then
         model:EnableMouse(true)
         model:SetScript("OnMouseDown", function()
@@ -346,7 +398,6 @@ function MainMenu:CreatePlayerModel(leftPanel)
         end)
     end
 
-    -- 3. Nome e Informações do Jogador na Base do Modelo
     if CFG.PlayerModel.showPlayerName then
         local infoBox = CreateFrame("Frame", "ConsoleModeMM_PlayerInfo", leftPanel)
         infoBox:SetHeight(48)
@@ -373,13 +424,11 @@ end
 function MainMenu:UpdatePlayerModel()
     if not self.playerModel then return end
 
-    -- Carrega o personagem atual com todas as armaduras e armas
     self.playerModel:ClearModel()
     self.playerModel:SetUnit("player")
     self.playerModel:SetFacing(self.playerModel.rotation or CFG.PlayerModel.defaultFacing or 0)
-    self.playerModel:SetSequence(0) -- Stand / Idle animation
+    self.playerModel:SetSequence(0)
 
-    -- Atualiza textos de Nome, Guilda, Raça e Classe
     if self.playerModel.nameText then
         local pName = UnitName("player") or "Jogador"
         self.playerModel.nameText:SetText("|cffffd200" .. pName .. "|r")
@@ -399,11 +448,313 @@ function MainMenu:UpdatePlayerModel()
     end
 end
 
-function MainMenu:RotatePlayerModel(delta)
-    if not self.playerModel then return end
-    delta = delta or 0.1
-    self.playerModel.rotation = (self.playerModel.rotation or 0) + delta
-    self.playerModel:SetFacing(self.playerModel.rotation)
+-- ============================================================================
+-- 2. COLUNA DE EQUIPAMENTOS (FASE 3 - ESQUERDA DO PERSONAGEM)
+-- ============================================================================
+
+function MainMenu:CreateEquipmentColumn(leftPanel)
+    if self.equipColumn then return self.equipColumn end
+
+    local container = CreateFrame("Frame", "ConsoleModeMM_EquipColumn", leftPanel)
+    container:SetWidth(CFG.Equipment.width)
+    container:SetPoint("TOPLEFT", leftPanel, "TOPLEFT", 4, -8)
+    container:SetPoint("BOTTOMLEFT", leftPanel, "BOTTOMLEFT", 4, 52)
+
+    container.buttons = {}
+    local prev = nil
+
+    for i, slotData in ipairs(CFG.Equipment.slots) do
+        local btn = CreateFrame("Button", "ConsoleModeMM_EquipSlot" .. i, container)
+        btn:SetHeight(CFG.Equipment.itemHeight or 24)
+        btn:SetPoint("LEFT", container, "LEFT", 0, 0)
+        btn:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+
+        if not prev then
+            btn:SetPoint("TOP", container, "TOP", 0, 0)
+        else
+            btn:SetPoint("TOP", prev, "BOTTOM", 0, -CFG.Equipment.gapY)
+        end
+
+        -- Ícone do Slot
+        local icon = btn:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(CFG.Equipment.iconSize)
+        icon:SetHeight(CFG.Equipment.iconSize)
+        icon:SetPoint("LEFT", btn, "LEFT", 0, 0)
+        btn.icon = icon
+
+        -- Moldura sutil ao redor do ícone
+        local border = btn:CreateTexture(nil, "OVERLAY")
+        border:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border")
+        border:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 2)
+        border:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2, -2)
+        border:SetVertexColor(0.7, 0.7, 0.7, 0.6)
+        btn.border = border
+
+        -- 1. Linha Superior: Nome do Slot (CABEÇA, PEITORAL, etc.)
+        local slotText = btn:CreateFontString(nil, "OVERLAY", CFG.Equipment.slotFont)
+        slotText:SetPoint("LEFT", icon, "RIGHT", 5, 5)
+        slotText:SetPoint("RIGHT", btn, "RIGHT", -2, 0)
+        slotText:SetJustifyH("LEFT")
+        btn.slotText = slotText
+
+        -- 2. Linha Inferior: Nome do Item agrupado logo abaixo do slot
+        local nameText = btn:CreateFontString(nil, "OVERLAY", CFG.Equipment.nameFont)
+        nameText:SetPoint("TOPLEFT", slotText, "BOTTOMLEFT", 0, -1)
+        nameText:SetPoint("RIGHT", btn, "RIGHT", -2, 0)
+        nameText:SetJustifyH("LEFT")
+        btn.nameText = nameText
+
+        -- 3. Linha divisória horizontal sólida e sutil abaixo de cada slot
+        if CFG.Equipment.showDivider then
+            local div = btn:CreateTexture(nil, "BACKGROUND")
+            div:SetTexture(CFG.Equipment.dividerTexture)
+            div:SetHeight(CFG.Equipment.dividerHeight or 1)
+            div:SetPoint("BOTTOMLEFT", btn, "BOTTOMLEFT", 0, 0)
+            div:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -2, 0)
+            local dCol = CFG.Equipment.dividerColor
+            div:SetVertexColor(dCol.r, dCol.g, dCol.b, dCol.a)
+            btn.div = div
+        end
+
+        btn.slotData = slotData
+        table.insert(container.buttons, btn)
+        prev = btn
+    end
+
+    self.equipColumn = container
+    return container
+end
+
+function MainMenu:UpdateEquipmentColumn()
+    if not self.equipColumn or not self.equipColumn.buttons then return end
+
+    for _, btn in ipairs(self.equipColumn.buttons) do
+        local slotName = btn.slotData.name
+        local slotLabel = btn.slotData.label
+        local slotID, emptyTex = GetInventorySlotInfo(slotName)
+
+        if slotID then
+            local itemTexture = GetInventoryItemTexture("player", slotID)
+            local itemLink = GetInventoryItemLink("player", slotID)
+
+            if itemTexture and itemLink then
+                btn.icon:SetTexture(itemTexture)
+
+                -- Extrai nome, itemID e cor diretamente da estrutura do itemLink no Vanilla 1.12
+                local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:%d+:%d+:%d+:%d+)|h%[(.-)%]|h|r")
+                
+                local itemName = nameFromLink
+                local itemQuality = nil
+
+                if rawLink then
+                    local nameFromInfo, _, qualityFromInfo = GetItemInfo(rawLink)
+                    if nameFromInfo then
+                        itemName = nameFromInfo
+                        itemQuality = qualityFromInfo
+                    end
+                end
+
+                -- Fallback via Scanner Tooltip caso GetItemInfo falhe
+                if not itemName then
+                    scanTip:ClearLines()
+                    scanTip:SetInventoryItem("player", slotID)
+                    itemName = ConsoleModeMMScanTooltipTextLeft1:GetText()
+                end
+
+                itemName = itemName or slotLabel
+
+                -- 1. Exibe o nome do slot em cima (menor)
+                btn.slotText:SetText(CFG.Equipment.slotColor .. slotLabel .. "|r")
+
+                -- 2. Exibe o nome do item embaixo com a cor de qualidade
+                if colorHex then
+                    btn.nameText:SetText("|c" .. colorHex .. itemName .. "|r")
+                elseif itemQuality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemQuality] then
+                    local color = ITEM_QUALITY_COLORS[itemQuality]
+                    btn.nameText:SetText(color.hex .. itemName .. "|r")
+                    btn.border:SetVertexColor(color.r, color.g, color.b, 0.9)
+                else
+                    btn.nameText:SetText("|cffffffff" .. itemName .. "|r")
+                    btn.border:SetVertexColor(0.8, 0.8, 0.8, 0.6)
+                end
+            else
+                btn.icon:SetTexture(emptyTex or "Interface\\Icons\\INV_Misc_QuestionMark")
+                btn.slotText:SetText(CFG.Equipment.emptyColor .. slotLabel .. "|r")
+                btn.nameText:SetText(CFG.Equipment.emptyColor .. "(Vazio)|r")
+                btn.border:SetVertexColor(0.4, 0.4, 0.4, 0.4)
+            end
+        end
+    end
+end
+
+-- ============================================================================
+-- 3. COLUNA DE ATRIBUTOS E BUFFS (FASE 3 - DIREITA DO PERSONAGEM)
+-- ============================================================================
+
+function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
+    if self.statsAndBuffs then return self.statsAndBuffs end
+
+    local container = CreateFrame("Frame", "ConsoleModeMM_StatsColumn", leftPanel)
+    container:SetWidth(CFG.StatsAndBuffs.width)
+    container:SetPoint("TOPRIGHT", leftPanel, "TOPRIGHT", -4, -8)
+    container:SetPoint("BOTTOMRIGHT", leftPanel, "BOTTOMRIGHT", -4, 52)
+
+    -- 1. Seção de Atributos Base
+    local statsHeader = container:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.headerFont)
+    statsHeader:SetPoint("TOPLEFT", container, "TOPLEFT", 0, 0)
+    statsHeader:SetText("|cffffd200STATUS|r")
+
+    local statLines = {}
+    local statKeys = { "HP", "Recurso", "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura", "Ouro" }
+    local prevStat = statsHeader
+
+    for i, key in ipairs(statKeys) do
+        local line = container:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.statFont)
+        line:SetPoint("TOPLEFT", prevStat, "BOTTOMLEFT", 0, -2)
+        line:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+        line:SetJustifyH("LEFT")
+        statLines[key] = line
+        prevStat = line
+    end
+    container.statLines = statLines
+
+    -- 2. Linha Divisória Horizontal Sutil
+    local statDiv = container:CreateTexture(nil, "ARTWORK")
+    statDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border")
+    statDiv:SetHeight(1)
+    statDiv:SetPoint("TOPLEFT", prevStat, "BOTTOMLEFT", 0, -6)
+    statDiv:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+    statDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+
+    -- 3. Seção de Buffs Ativos (Estilo Zelda)
+    local buffHeader = container:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.headerFont)
+    buffHeader:SetPoint("TOPLEFT", statDiv, "BOTTOMLEFT", 0, -6)
+    buffHeader:SetText("|cff00ffccBUFFS ATIVOS|r")
+
+    local buffRows = {}
+    local prevBuff = buffHeader
+
+    for b = 1, CFG.StatsAndBuffs.maxBuffs do
+        local row = CreateFrame("Frame", "ConsoleModeMM_BuffRow" .. b, container)
+        row:SetHeight(CFG.StatsAndBuffs.buffIconSize)
+        row:SetPoint("LEFT", container, "LEFT", 0, 0)
+        row:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+        row:SetPoint("TOP", prevBuff, "BOTTOM", 0, -CFG.StatsAndBuffs.buffGapY)
+
+        -- Ícone do Buff
+        local bIcon = row:CreateTexture(nil, "ARTWORK")
+        bIcon:SetWidth(CFG.StatsAndBuffs.buffIconSize)
+        bIcon:SetHeight(CFG.StatsAndBuffs.buffIconSize)
+        bIcon:SetPoint("LEFT", row, "LEFT", 0, 0)
+        row.icon = bIcon
+
+        -- Moldura do ícone de buff
+        local bBorder = row:CreateTexture(nil, "OVERLAY")
+        bBorder:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border")
+        bBorder:SetPoint("TOPLEFT", bIcon, "TOPLEFT", -1, 1)
+        bBorder:SetPoint("BOTTOMRIGHT", bIcon, "BOTTOMRIGHT", 1, -1)
+        bBorder:SetVertexColor(0.2, 0.8, 1.0, 0.7)
+
+        -- Nome do Buff
+        local bName = row:CreateFontString(nil, "OVERLAY", CFG.StatsAndBuffs.statFont)
+        bName:SetPoint("LEFT", bIcon, "RIGHT", 4, 0)
+        bName:SetPoint("RIGHT", row, "RIGHT", -2, 0)
+        bName:SetJustifyH("LEFT")
+        row.name = bName
+
+        -- Barrinha decorativa de duração estilo Zelda abaixo do nome
+        local bBar = row:CreateTexture(nil, "BACKGROUND")
+        bBar:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        bBar:SetHeight(2)
+        bBar:SetPoint("TOPLEFT", bName, "BOTTOMLEFT", 0, -1)
+        bBar:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+        local barC = CFG.StatsAndBuffs.barColor
+        bBar:SetVertexColor(barC.r, barC.g, barC.b, 0.8)
+        row.bar = bBar
+
+        row:Hide()
+        table.insert(buffRows, row)
+        prevBuff = row
+    end
+    container.buffRows = buffRows
+
+    self.statsAndBuffs = container
+    return container
+end
+
+function MainMenu:UpdateStatsAndBuffs()
+    if not self.statsAndBuffs then return end
+
+    -- 1. Atualiza Atributos Base
+    local lines = self.statsAndBuffs.statLines
+    if lines then
+        local hp = UnitHealth("player") or 0
+        local maxHP = UnitHealthMax("player") or 1
+        lines["HP"]:SetText("|cffffffffHP:|r |cff00ff00" .. hp .. "|r / " .. maxHP)
+
+        local pType = UnitPowerType("player") -- 0 = Mana, 1 = Rage, 2 = Focus, 3 = Energy
+        local mana = UnitMana("player") or 0
+        local maxMana = UnitManaMax("player") or 1
+        local powerName = (pType == 1 and "Rage") or (pType == 3 and "Energia") or "Mana"
+        local powerColor = (pType == 1 and "|cffff3333") or (pType == 3 and "|cffffff00") or "|cff00ccff"
+        lines["Recurso"]:SetText("|cffffffff" .. powerName .. ":|r " .. powerColor .. mana .. "|r / " .. maxMana)
+
+        lines["Força"]:SetText("|cffaaaaaaForça:|r |cffffffff" .. (UnitStat("player", 1) or 0) .. "|r")
+        lines["Agilidade"]:SetText("|cffaaaaaaAgilidade:|r |cffffffff" .. (UnitStat("player", 2) or 0) .. "|r")
+        lines["Vigor"]:SetText("|cffaaaaaaVigor:|r |cffffffff" .. (UnitStat("player", 3) or 0) .. "|r")
+        lines["Intelecto"]:SetText("|cffaaaaaaIntelecto:|r |cffffffff" .. (UnitStat("player", 4) or 0) .. "|r")
+        lines["Espírito"]:SetText("|cffaaaaaaEspírito:|r |cffffffff" .. (UnitStat("player", 5) or 0) .. "|r")
+
+        local baseArmor, armorEff = UnitArmor("player")
+        lines["Armadura"]:SetText("|cffaaaaaaArmadura:|r |cffffffff" .. (armorEff or 0) .. "|r")
+
+        -- Dinheiro
+        local money = GetMoney() or 0
+        local gold = math.floor(money / 10000)
+        local silver = math.floor(math.mod(money, 10000) / 100)
+        local copper = math.mod(money, 100)
+        lines["Ouro"]:SetText(string.format("|cffffd200%dg|r |cffc0c0c0%ds|r |cffcc8833%dc|r", gold, silver, copper))
+    end
+
+    -- 2. Atualiza Buffs Ativos (Estilo Zelda)
+    local rows = self.statsAndBuffs.buffRows
+    if rows then
+        local buffCount = 0
+        for i = 0, 31 do
+            local buffIndex = GetPlayerBuff(i, "HELPFUL")
+            if buffIndex < 0 or buffCount >= CFG.StatsAndBuffs.maxBuffs then
+                break
+            end
+
+            buffCount = buffCount + 1
+            local row = rows[buffCount]
+            local tex = GetPlayerBuffTexture(buffIndex)
+            local timeLeft = GetPlayerBuffTimeLeft(buffIndex)
+            local buffName = self:GetBuffName(buffIndex)
+
+            row.icon:SetTexture(tex or "Interface\\Icons\\Spell_Holy_WordFortitude")
+
+            -- Formata a duração (ex: 35m, 12s, 1h)
+            local durStr = ""
+            if timeLeft and timeLeft > 0 then
+                if timeLeft >= 3600 then
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft / 3600) .. "h)|r"
+                elseif timeLeft >= 60 then
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft / 60) .. "m)|r"
+                else
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft) .. "s)|r"
+                end
+            end
+
+            row.name:SetText("|cffffffff" .. buffName .. "|r" .. durStr)
+            row:Show()
+        end
+
+        -- Esconde as linhas sobressalentes
+        for b = buffCount + 1, CFG.StatsAndBuffs.maxBuffs do
+            rows[b]:Hide()
+        end
+    end
 end
 
 -- ============================================================================
@@ -413,7 +764,7 @@ end
 function MainMenu:CreateUI()
     if self.frame then return end
 
-    -- 1. Dimmer de Fundo (Escurece o mundo do jogo para imersão console)
+    -- 1. Dimmer de Fundo
     local dimmer = CreateFrame("Frame", "ConsoleModeMainMenuDimmer", UIParent)
     dimmer:SetAllPoints(UIParent)
     dimmer:SetFrameStrata(CFG.Dimmer.frameStrata)
@@ -437,7 +788,7 @@ function MainMenu:CreateUI()
     frame:EnableMouse(true)
     frame:Hide()
 
-    -- 3. Aplica a Textura 9-Slice de Pergaminho/Madeira Talhada
+    -- 3. Aplica a Textura 9-Slice de Pergaminho
     self.slices = self:Create9Slice(
         frame, 
         CFG.NineSlice.texture, 
@@ -460,8 +811,14 @@ function MainMenu:CreateUI()
     leftPanel:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", CFG.LeftPanel.paddingLeft, CFG.LeftPanel.paddingBottom)
     frame.leftPanel = leftPanel
 
-    -- 5.1. Cria o Modelo 3D no Palco Esquerdo (FASE 2)
+    -- 5.1. Coluna de Equipamentos (FASE 3 - À Esquerda do Modelo)
+    self:CreateEquipmentColumn(leftPanel)
+
+    -- 5.2. Modelo 3D do Personagem (FASE 2 - Centro do Palco)
     self:CreatePlayerModel(leftPanel)
+
+    -- 5.3. Coluna de Atributos e Buffs (FASE 3 - À Direita do Modelo)
+    self:CreateStatsAndBuffsColumn(leftPanel)
 
     -- 6. Painel Direito: Container de Conteúdo e Abas (Direita)
     local rightPanel = CreateFrame("Frame", "ConsoleModeMM_RightPanel", frame)
@@ -470,7 +827,7 @@ function MainMenu:CreateUI()
     rightPanel:SetPoint("LEFT", leftPanel, "RIGHT", CFG.RightPanel.gapX, 0)
     frame.rightPanel = rightPanel
 
-    -- Marcador visual temporário para validação da Fase 1/2
+    -- Marcador visual temporário para validação das Fases iniciais
     local rightHeader = rightPanel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     rightHeader:SetPoint("TOP", rightPanel, "TOP", 0, -10)
     rightHeader:SetText("|cffffcc00[ Container de Conteúdo da Aba ]|r")
@@ -503,6 +860,8 @@ function MainMenu:CreateUI()
     frame:SetScript("OnShow", function()
         MainMenu:UpdateLayout()
         MainMenu:UpdatePlayerModel()
+        MainMenu:UpdateEquipmentColumn()
+        MainMenu:UpdateStatsAndBuffs()
 
         if dimmer then dimmer:Show() end
         if CFG.Audio.soundOpen then PlaySound(CFG.Audio.soundOpen) end
@@ -558,6 +917,12 @@ initFrame:RegisterEvent("VARIABLES_LOADED")
 initFrame:RegisterEvent("DISPLAY_SIZE_CHANGED")
 initFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 initFrame:RegisterEvent("UNIT_MODEL_CHANGED")
+initFrame:RegisterEvent("PLAYER_AURAS_CHANGED")
+initFrame:RegisterEvent("UNIT_HEALTH")
+initFrame:RegisterEvent("UNIT_MANA")
+initFrame:RegisterEvent("UNIT_RAGE")
+initFrame:RegisterEvent("UNIT_ENERGY")
+initFrame:RegisterEvent("PLAYER_MONEY")
 initFrame:SetScript("OnEvent", function()
     if event == "VARIABLES_LOADED" then
         MainMenu:CreateUI()
@@ -565,9 +930,14 @@ initFrame:SetScript("OnEvent", function()
         if MainMenu.UpdateLayout then
             MainMenu:UpdateLayout()
         end
-    elseif event == "UNIT_INVENTORY_CHANGED" or event == "UNIT_MODEL_CHANGED" then
-        if arg1 == "player" and MainMenu.frame and MainMenu.frame:IsVisible() then
-            MainMenu:UpdatePlayerModel()
+    elseif MainMenu.frame and MainMenu.frame:IsVisible() then
+        if event == "UNIT_INVENTORY_CHANGED" or event == "UNIT_MODEL_CHANGED" then
+            if arg1 == "player" then
+                MainMenu:UpdatePlayerModel()
+                MainMenu:UpdateEquipmentColumn()
+            end
+        elseif event == "PLAYER_AURAS_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MANA" or event == "UNIT_RAGE" or event == "UNIT_ENERGY" or event == "PLAYER_MONEY" then
+            MainMenu:UpdateStatsAndBuffs()
         end
     end
 end)

@@ -61,17 +61,27 @@ cursorTexture:SetTexture("Interface\\CURSOR\\Point")
 cursorTexture:SetAllPoints(cursorFrame)
 Cursor.frame = cursorFrame
 
--- Frame do Highlight
+-- Frame do Highlight com 9-Slice Nativo (Bordas nítidas sem distorção em qualquer proporção)
 local highlightFrame = CreateFrame("Frame", "ConsoleModeCursorHighlight", UIParent)
 highlightFrame:SetFrameStrata("FULLSCREEN_DIALOG")
 highlightFrame:SetFrameLevel(1000)
 highlightFrame:Hide()
 
-local highlightTexture = highlightFrame:CreateTexture(nil, "OVERLAY")
-highlightTexture:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
-highlightTexture:SetBlendMode("ADD")
-highlightTexture:SetAllPoints(highlightFrame)
-highlightTexture:SetVertexColor(1, 1, 0, 0.7)
+highlightFrame:SetBackdrop({
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    edgeSize = 14,
+    insets = { left = 3, right = 3, top = 3, bottom = 3 }
+})
+highlightFrame:SetBackdropBorderColor(1, 0.85, 0, 0.9) -- Dourado / Ouro Brilhante
+
+-- Glow interno suave com blend ADD
+local highlightGlow = highlightFrame:CreateTexture(nil, "BACKGROUND")
+highlightGlow:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+highlightGlow:SetPoint("TOPLEFT", highlightFrame, "TOPLEFT", 3, -3)
+highlightGlow:SetPoint("BOTTOMRIGHT", highlightFrame, "BOTTOMRIGHT", -3, 3)
+highlightGlow:SetVertexColor(1, 0.8, 0, 0.15)
+highlightGlow:SetBlendMode("ADD")
+
 Cursor.highlight = highlightFrame
 
 -- ============================================================================
@@ -130,8 +140,8 @@ function Cursor:UpdatePosition(button)
     else
         highlightFrame:ClearAllPoints()
         highlightFrame:SetPoint("CENTER", button, "CENTER", 0, 0)
-        highlightFrame:SetWidth(w + 10)
-        highlightFrame:SetHeight(h + 10)
+        highlightFrame:SetWidth(w + 8)
+        highlightFrame:SetHeight(h + 8)
         highlightFrame:Show()
     end
 end

@@ -584,10 +584,15 @@ end
 function CM_CursorConfirm()
     if CM.keybindings.chatActive then return end
     
-    -- Proteção: se o cursor não estiver ativo em nenhuma janela, força saída e pula
-    if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
-        CM.keybindings:ExitNavigationMode()
+    if not CM.cursor or not CM.cursor.state.enabled then
         if Jump then Jump() end
+        return
+    end
+
+    -- Se o Menu de Contexto estiver no modo SPLIT, [A] confirma o split
+    local ctxMenu = CM.ui and CM.ui.contextMenu
+    if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() and ctxMenu.currentMode == "SPLIT" then
+        ctxMenu:ConfirmSplit()
         return
     end
     
@@ -634,10 +639,15 @@ end
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
     
-    -- 0. Se o Menu de Contexto estiver aberto, fecha ele e retorna o foco para o item
-    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.frame and CM.ui.contextMenu.frame:IsVisible() then
-        CM.ui.contextMenu:Close()
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Menu de Contexto fechado)")
+    -- 0. Se o Menu de Contexto estiver aberto
+    local ctxMenu = CM.ui and CM.ui.contextMenu
+    if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then
+        if ctxMenu.currentMode == "SPLIT" then
+            ctxMenu:SwitchToMenuView()
+        else
+            ctxMenu:Close()
+        end
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Menu de Contexto)")
         return
     end
 

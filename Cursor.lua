@@ -354,17 +354,15 @@ function Cursor:FindFirstVisibleButton(frame)
     
     local fname = frame:GetName() or ""
     
-    -- Para Menu de Contexto da Bolsa: preferir primeiro botão (Usar)
+    -- Para Menu de Contexto da Bolsa: preferir botão conforme o modo ativo
     if fname == "ConsoleModeContextMenu" then
-        if ConsoleModeContextMenuBtn1 and ConsoleModeContextMenuBtn1:IsVisible() then
+        local ctxMenu = CM.ui and CM.ui.contextMenu
+        if ctxMenu and ctxMenu.currentMode == "SPLIT" then
+            if ConsoleModeContextSplitConfirmBtn and ConsoleModeContextSplitConfirmBtn:IsVisible() then
+                return ConsoleModeContextSplitConfirmBtn
+            end
+        elseif ConsoleModeContextMenuBtn1 and ConsoleModeContextMenuBtn1:IsVisible() then
             return ConsoleModeContextMenuBtn1
-        end
-    end
-
-    -- Para StackSplitFrame (Dividir Pilha): preferir botão OK
-    if fname == "StackSplitFrame" then
-        if StackSplitOkayButton and StackSplitOkayButton:IsVisible() then
-            return StackSplitOkayButton
         end
     end
 
@@ -528,14 +526,21 @@ function Cursor:MoveDirection(direction)
         return 
     end
 
-    -- Se o StackSplitFrame estiver aberto e o jogador apertar LEFT ou RIGHT, altera a quantidade
-    if StackSplitFrame and StackSplitFrame:IsVisible() then
+    -- Se o Menu de Contexto estiver no modo SPLIT, direcionais ajustam a quantidade
+    local ctxMenu = CM.ui and CM.ui.contextMenu
+    if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() and ctxMenu.currentMode == "SPLIT" then
         direction = string.upper(direction or "")
-        if direction == "LEFT" and StackSplitLeftButton and StackSplitLeftButton:IsVisible() then
-            StackSplitLeftButton:Click()
+        if direction == "LEFT" then
+            ctxMenu:AdjustSplit(-1)
             return
-        elseif direction == "RIGHT" and StackSplitRightButton and StackSplitRightButton:IsVisible() then
-            StackSplitRightButton:Click()
+        elseif direction == "RIGHT" then
+            ctxMenu:AdjustSplit(1)
+            return
+        elseif direction == "DOWN" then
+            ctxMenu:AdjustSplit(-5)
+            return
+        elseif direction == "UP" then
+            ctxMenu:AdjustSplit(5)
             return
         end
     end

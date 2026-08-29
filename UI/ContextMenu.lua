@@ -3,22 +3,24 @@
     UI/ContextMenu.lua
 
     Menu de Contexto Flutuante Estilo Console para a Bolsa (Bag):
-    - Usar / Equipar
-    - Dividir (Split)
-    - Largar / Mover
+    - Modo Menu: Usar / Equipar, Dividir (Split), Excluir / Destruir
+    - Modo Split: Seletor nativo de divisão de pilhas com suporte total a D-Pad (◄ / ◅, Cima/Baixo)
 
     Compatível com Lua 5.0 / WoW 1.12
 ]]
 
 local CM = ConsoleMode
 CM.ui = CM.ui or {}
-CM.ui.contextMenu = CM.ui.contextMenu or {}
-local Menu = CM.ui.contextMenu
+local Menu = CM.ui.contextMenu or {}
+CM.ui.contextMenu = Menu
 
 Menu.frame = nil
 Menu.buttons = {}
 Menu.currentBag = nil
 Menu.currentSlot = nil
+Menu.currentMax = 1
+Menu.currentSplit = 1
+Menu.currentMode = "MENU" -- "MENU" ou "SPLIT"
 Menu.returnButton = nil
 
 function Menu:Initialize()
@@ -26,8 +28,8 @@ function Menu:Initialize()
 
     -- Frame Principal Flutuante
     local f = CreateFrame("Frame", "ConsoleModeContextMenu", UIParent)
-    f:SetWidth(150)
-    f:SetHeight(115)
+    f:SetWidth(156)
+    f:SetHeight(125)
     f:SetFrameStrata("FULLSCREEN_DIALOG")
     f:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -40,10 +42,9 @@ function Menu:Initialize()
     f:EnableMouse(true)
     f:Hide()
 
-
     local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     title:SetPoint("TOP", f, "TOP", 0, -6)
-    title:SetWidth(135)
+    title:SetWidth(140)
     title:SetJustifyH("CENTER")
     title:SetTextColor(1.0, 0.85, 0.2)
     f.title = title
@@ -53,19 +54,25 @@ function Menu:Initialize()
     line:SetPoint("BOTTOMRIGHT", f, "TOPRIGHT", -6, -21)
     line:SetTexture(0.5, 0.5, 0.5, 0.5)
 
+    -- ====================================================================
+    -- VIEW 1: MENU PRINCIPAL
+    -- ====================================================================
+    local menuView = CreateFrame("Frame", "ConsoleModeContextMenuMenuView", f)
+    menuView:SetAllPoints(f)
+    f.menuView = menuView
+
     local btnDefs = {
-        { id = 1, label = "Usar / Equipar", color = { r=0.2, g=0.9, b=0.3 }, action = "USE" },
-        { id = 2, label = "Dividir (Split)", color = { r=0.3, g=0.7, b=1.0 }, action = "SPLIT" },
+        { id = 1, label = "Usar / Equipar",     color = { r=0.2, g=0.9, b=0.3 }, action = "USE" },
+        { id = 2, label = "Dividir (Split)",    color = { r=0.3, g=0.7, b=1.0 }, action = "SPLIT" },
         { id = 3, label = "Excluir / Destruir", color = { r=0.95, g=0.3, b=0.3 }, action = "DROP" },
     }
 
-
     self.buttons = {}
     for i, def in ipairs(btnDefs) do
-        local btn = CreateFrame("Button", "ConsoleModeContextMenuBtn" .. i, f)
-        btn:SetWidth(136)
+        local btn = CreateFrame("Button", "ConsoleModeContextMenuBtn" .. i, menuView)
+        btn:SetWidth(142)
         btn:SetHeight(24)
-        btn:SetPoint("TOP", f, "TOP", 0, -24 - ((i - 1) * 27))
+        btn:SetPoint("TOP", menuView, "TOP", 0, -24 - ((i - 1) * 27))
 
         btn:SetBackdrop({
             bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -101,6 +108,66 @@ function Menu:Initialize()
         self.buttons[i] = btn
     end
 
+    -- ====================================================================
+    -- VIEW 2: SELETOR DE SPLIT (Dividir Pilha)
+    -- ====================================================================
+    local splitView = CreateFrame("Frame", "ConsoleModeContextMenuSplitView", f)
+    splitView:SetAllPoints(f)
+    splitView:Hide()
+    f.splitView = splitView
+
+
+    local countBox = CreateFrame("Frame", "ConsoleModeContextSplitCountBox", splitView)
+    countBox:SetWidth(142)
+    countBox:SetHeight(32)
+    countBox:SetPoint("TOP", splitView, "TOP", 0, -26)
+    countBox:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 12, edgeSize = 8,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    countBox:SetBackdropColor(0.04, 0.04, 0.06, 0.9)
+    countBox:SetBackdropBorderColor(0.4, 0.4, 0.5, 0.8)
+
+    local btnLeft = CreateFrame("Button", "ConsoleModeContextSplitLeftBtn", countBox, "UIPanelButtonTemplate")
+    btnLeft:SetWidth(24)
+    btnLeft:SetHeight(24)
+    btnLeft:SetPoint("LEFT", countBox, "LEFT", 4, 0)
+    btnLeft:SetText("<")
+    btnLeft:SetScript("OnClick", function() Menu:AdjustSplit(-1) end)
+
+
+    local btnRight = CreateFrame("Button", "ConsoleModeContextSplitRightBtn", countBox, "UIPanelButtonTemplate")
+    btnRight:SetWidth(24)
+    btnRight:SetHeight(24)
+    btnRight:SetPoint("RIGHT", countBox, "RIGHT", -4, 0)
+    btnRight:SetText(">")
+    btnRight:SetScript("OnClick", function() Menu:AdjustSplit(1) end)
+
+
+    local splitCountText = countBox:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    splitCountText:SetPoint("CENTER", countBox, "CENTER", 0, 0)
+    splitCountText:SetTextColor(1.0, 1.0, 1.0)
+    splitCountText:SetText("1 / 1")
+    f.splitCountText = splitCountText
+
+
+    local btnConfirm = CreateFrame("Button", "ConsoleModeContextSplitConfirmBtn", splitView, "UIPanelButtonTemplate")
+    btnConfirm:SetWidth(142)
+    btnConfirm:SetHeight(24)
+    btnConfirm:SetPoint("TOP", countBox, "BOTTOM", 0, -6)
+    btnConfirm:SetText("[A] Confirmar")
+    btnConfirm:SetScript("OnClick", function() Menu:ConfirmSplit() end)
+    f.btnConfirm = btnConfirm
+
+
+    local splitHint = splitView:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    splitHint:SetPoint("BOTTOM", splitView, "BOTTOM", 0, 6)
+    splitHint:SetTextColor(0.65, 0.65, 0.65)
+    splitHint:SetText("[Pad] Quantidade  [B] Voltar")
+    f.splitHint = splitHint
+
     self.frame = f
 end
 
@@ -112,6 +179,8 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     local texture, count = GetContainerItemInfo(bagID, slotID)
     if not texture then return false end -- slot vazio
 
+    count = count or 1
+
     local itemLink = GetContainerItemLink(bagID, slotID)
     local itemName = "Item"
     if itemLink then
@@ -119,14 +188,19 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         if ok and n then
             itemName = n
         else
-            local _, _, extracted = string.find(itemLink, "%[(.-)%]")
+            local _, _, extracted = string.find(itemLink, "%[(.-)%%]")
             if extracted then itemName = extracted end
         end
     end
 
     self.currentBag = bagID
     self.currentSlot = slotID
+    self.currentMax = count
+    self.currentSplit = math.floor(count / 2)
+    if self.currentSplit < 1 then self.currentSplit = 1 end
+    self.currentMode = "MENU"
     self.returnButton = anchorFrame
+    self.itemName = itemName
 
     -- Título encurtado se for muito longo
     if string.len(itemName) > 18 then
@@ -135,7 +209,11 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         self.frame.title:SetText(itemName)
     end
 
-    -- Verifica se o item é usável
+    -- Configura View Inicial (Menu)
+    self.frame.menuView:Show()
+    self.frame.splitView:Hide()
+
+
     local isUsable = false
     local BP = CM.config and CM.config.bagPicker
     if BP and BP.IsUsableItem then
@@ -145,7 +223,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         isUsable = true
     end
 
-    -- Habilita / Desabilita opção de Usar
+
     local useBtn = self.buttons[1]
     if useBtn then
         if isUsable then
@@ -157,7 +235,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         end
     end
 
-    -- Habilita / Desabilita opção de Split
+
     local splitBtn = self.buttons[2]
     if splitBtn then
         if count and count > 1 then
@@ -169,16 +247,14 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         end
     end
 
-    -- Posiciona ao lado do botão da bolsa
+
     self.frame:ClearAllPoints()
     if anchorFrame then
         local left = anchorFrame:GetLeft() or 0
         local screenW = GetScreenWidth() or 1024
         if left > (screenW / 2) then
-            -- Está na metade direita: abre à esquerda
             self.frame:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -6, 10)
         else
-            -- Está na metade esquerda: abre à direita
             self.frame:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 6, 10)
         end
     else
@@ -188,12 +264,12 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     self.frame:Show()
     PlaySound("igMainMenuOptionCheckBoxOn")
 
-    -- Ativa a janela no Cursor e joga o foco para a primeira opção habilitada
+
     if CM.cursor then
         CM.cursor.state.activeFrames[self.frame] = true
         local targetBtn = self.buttons[1]
         if not isUsable then
-            if count and count > 1 and self.buttons[2] and (self.buttons[2]:IsEnabled() == 1 or self.buttons[2]:IsEnabled() == true) then
+            if count and count > 1 and self.buttons[2] and (self.buttons[2]:Enabled() == 1 or self.buttons[2]:IsEnabled() == true) then
                 targetBtn = self.buttons[2]
             elseif self.buttons[3] then
                 targetBtn = self.buttons[3]
@@ -206,6 +282,71 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     end
 
     return true
+end
+
+function Menu:SwitchToSplitView()
+    self.currentMode = "SPLIT"
+    self.frame.title:SetText("Dividir Pilha")
+    self.frame.menuView:Hide()
+    self.frame.splitView:Show()
+    self:UpdateSplitDisplay()
+
+    if CM.cursor and self.frame.btnConfirm then
+        CM.cursor:MoveTo(self.frame.btnConfirm)
+        CM.cursor:UpdateState()
+    end
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function Menu:SwitchToMenuView()
+    self.currentMode = "MENU"
+    if self.itemName then
+        if string.len(self.itemName) > 18 then
+            self.frame.title:SetText(string.sub(self.itemName, 1, 16) .. "..")
+        else
+            self.frame.title:SetText(self.itemName)
+        end
+    end
+    self.frame.splitView:Hide()
+    self.frame.menuView:Show()
+
+    if CM.cursor and self.buttons[2] then
+        CM.cursor:MoveTo(self.buttons[2])
+        CM.cursor:UpdateState()
+    end
+    PlaySound("igMainMenuOptionCheckBoxOff")
+end
+
+function Menu:UpdateSplitDisplay()
+    if not self.frame or not self.frame.splitCountText then return end
+    self.frame.splitCountText:SetText(
+        "|cffffd200" .. self.currentSplit .. "|r / " .. self.currentMax
+    )
+end
+
+function Menu:AdjustSplit(delta)
+    if self.currentMode ~= "SPLIT" then return end
+    local maxCount = self.currentMax or 1
+    local newSplit = self.currentSplit + delta
+    if newSplit < 1 then newSplit = 1 end
+    if newSplit >= maxCount then newSplit = maxCount - 1 end
+    if newSplit < 1 then newSplit = 1 end
+
+    self.currentSplit = newSplit
+    self:UpdateSplitDisplay()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function Menu:ConfirmSplit()
+    local bagID = self.currentBag
+    local slotID = self.currentSlot
+    local count = self.currentSplit
+    self:Close()
+
+    if bagID and slotID and count and count >= 1 then
+        SplitContainerItem(bagID, slotID, count)
+    end
+    PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
 function Menu:Close()
@@ -225,6 +366,7 @@ function Menu:Close()
 
     self.currentBag = nil
     self.currentSlot = nil
+    self.currentMode = "MENU"
     self.returnButton = nil
 end
 
@@ -249,19 +391,8 @@ function Menu:ExecuteAction(action)
         end
 
     elseif action == "SPLIT" then
-        local texture, count = GetContainerItemInfo(bagID, slotID)
-        self:Close()
-        if count and count > 1 then
-            -- Se o StackSplitFrame do WoW existir, abre ele
-            if OpenStackSplitFrame and returnBtn then
-                OpenStackSplitFrame(count, returnBtn, "BOTTOMLEFT", "TOPLEFT")
-            else
-                -- Fallback: divide metade na mão
-                local half = math.floor(count / 2)
-                if half < 1 then half = 1 end
-                SplitContainerItem(bagID, slotID, half)
-            end
-        end
+        -- Abre o seletor nativo do ConsoleMode
+        self:SwitchToSplitView()
 
     elseif action == "DROP" or action == "DELETE" then
         self:Close()

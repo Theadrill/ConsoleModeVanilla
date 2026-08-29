@@ -125,8 +125,26 @@ function SBP:GetSpellsForTab(tabInfo)
     for i = tabInfo.offset + 1, tabInfo.offset + tabInfo.numSpells do
         local name, rank = GetSpellName(i, "spell")
         if name and name ~= "" then
-            local icon = GetSpellTexture(i, "spell")
-            tinsert(spells, { name = name, rank = rank or "", icon = icon, spellIndex = i })
+            -- Filtra passivas: no 1.12 o rank/subname contém "Passive"
+            -- (ex: "Passive", "Racial Passive", "Passive (Combat)")
+            local rankStr = rank or ""
+            local isPassive = false
+
+            -- Tenta IsPassiveSpell se existir (Turtle WoW pode ter)
+            if IsPassiveSpell then
+                local ok, result = pcall(IsPassiveSpell, i, "spell")
+                if ok and result then isPassive = true end
+            end
+
+            -- Fallback: checa se o rank contém "Passive"
+            if not isPassive and string.find(string.lower(rankStr), "passive") then
+                isPassive = true
+            end
+
+            if not isPassive then
+                local icon = GetSpellTexture(i, "spell")
+                tinsert(spells, { name = name, rank = rankStr, icon = icon, spellIndex = i })
+            end
         end
     end
     return spells

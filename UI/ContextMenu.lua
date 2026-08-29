@@ -135,6 +135,28 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         self.frame.title:SetText(itemName)
     end
 
+    -- Verifica se o item é usável
+    local isUsable = false
+    local BP = CM.config and CM.config.bagPicker
+    if BP and BP.IsUsableItem then
+        local _, _, _, _, readable = GetContainerItemInfo(bagID, slotID)
+        isUsable = BP:IsUsableItem(itemLink, bagID, slotID, readable)
+    else
+        isUsable = true
+    end
+
+    -- Habilita / Desabilita opção de Usar
+    local useBtn = self.buttons[1]
+    if useBtn then
+        if isUsable then
+            useBtn:Enable()
+            useBtn.text:SetTextColor(0.2, 0.9, 0.3)
+        else
+            useBtn:Disable()
+            useBtn.text:SetTextColor(0.45, 0.45, 0.45)
+        end
+    end
+
     -- Habilita / Desabilita opção de Split
     local splitBtn = self.buttons[2]
     if splitBtn then
@@ -166,11 +188,19 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     self.frame:Show()
     PlaySound("igMainMenuOptionCheckBoxOn")
 
-    -- Ativa a janela no Cursor e joga o foco DIRETO para a primeira opção (Usar)
+    -- Ativa a janela no Cursor e joga o foco para a primeira opção habilitada
     if CM.cursor then
         CM.cursor.state.activeFrames[self.frame] = true
-        if self.buttons[1] then
-            CM.cursor:MoveTo(self.buttons[1])
+        local targetBtn = self.buttons[1]
+        if not isUsable then
+            if count and count > 1 and self.buttons[2] and (self.buttons[2]:IsEnabled() == 1 or self.buttons[2]:IsEnabled() == true) then
+                targetBtn = self.buttons[2]
+            elseif self.buttons[3] then
+                targetBtn = self.buttons[3]
+            end
+        end
+        if targetBtn then
+            CM.cursor:MoveTo(targetBtn)
             CM.cursor:UpdateState()
         end
     end
@@ -209,6 +239,9 @@ function Menu:ExecuteAction(action)
     end
 
     if action == "USE" then
+        if self.buttons[1] and (self.buttons[1]:IsEnabled() == 0 or self.buttons[1]:IsEnabled() == false) then
+            return
+        end
         self:Close()
         UseContainerItem(bagID, slotID)
         if SpellIsTargeting and SpellIsTargeting() and UnitExists("target") then

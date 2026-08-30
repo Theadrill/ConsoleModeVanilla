@@ -49,8 +49,8 @@ CFG.Fonts = {
 
     -- Estilo global de contorno ("" = sem outline / texto limpo, "OUTLINE" = contorno fino)
     outline             = "",
-    shadowOffset        = { 2, -2 },            -- Deslocamento X e Y da sombra projetada (px)
-    shadowColor         = { 0.0, 0.0, 0.0, 0.85 }, -- Cor e opacidade da sombra (RGBA)
+    shadowOffset        = { 1, -1 },            -- Deslocamento X e Y da sombra projetada (px) - Justo e suave
+    shadowColor         = { 0.0, 0.0, 0.0, 0.90 }, -- Cor e opacidade da sombra (RGBA) - 90% de opacidade
 
     titleSize           = 18,
     tabSize             = 14,
@@ -322,8 +322,8 @@ function MainMenu:ApplyFont(fontString, fontPath, size, outline)
         fontString:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
     end
     
-    local so = CFG.Fonts.shadowOffset or { 2, -2 }
-    local sc = CFG.Fonts.shadowColor or { 0, 0, 0, 0.85 }
+    local so = CFG.Fonts.shadowOffset or { 1, -1 }
+    local sc = CFG.Fonts.shadowColor or { 0, 0, 0, 0.90 }
     fontString:SetShadowOffset(so[1], so[2])
     fontString:SetShadowColor(sc[1], sc[2], sc[3], sc[4])
 end

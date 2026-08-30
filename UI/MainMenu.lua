@@ -1294,7 +1294,17 @@ function MainMenu:CreateDetailCard(parent, config)
             local gold = math.floor(sPrice / 10000)
             local silver = math.floor(math.mod(sPrice, 10000) / 100)
             local copper = math.mod(sPrice, 100)
-            self.sellText:SetText(string.format("|cffaaaaaaVenda:|r |cffffd200%dg|r |cffc0c0c0%ds|r |cffcc8833%dc|r", gold, silver, copper))
+
+            local parts = {}
+            if gold > 0 then
+                table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t", gold))
+            end
+            if silver > 0 or gold > 0 then
+                table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t", silver))
+            end
+            table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", copper))
+
+            self.sellText:SetText("|cffaaaaaaVenda:|r " .. table.concat(parts, "  "))
         else
             self.sellText:SetText("")
         end
@@ -1371,7 +1381,17 @@ function MainMenu:CreateDetailCard(parent, config)
         local gold = math.floor(money / 10000)
         local silver = math.floor(math.mod(money, 10000) / 100)
         local copper = math.mod(money, 100)
-        self.moneyText:SetText(string.format("|cffe09a15Ouro:|r |cffffd200%dg|r |cffc0c0c0%ds|r |cffcc8833%dc|r", gold, silver, copper))
+
+        local parts = {}
+        if gold > 0 then
+            table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t", gold))
+        end
+        if silver > 0 or gold > 0 then
+            table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t", silver))
+        end
+        table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", copper))
+
+        self.moneyText:SetText("|cffe09a15Moedas:|r " .. table.concat(parts, "  "))
     end
 
     card:Clear()

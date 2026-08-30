@@ -551,15 +551,16 @@ function MainMenu:CreatePlayerModel(leftPanel)
                 end
             end
 
-            -- 3. Reprodução fluida e completa da animação da magia (FASE 7)
+            -- 3. Reprodução contínua da animação sem flickering (FASE 7)
             if this.activeSeq and this.activeSeq > 0 and this.animStartTime then
-                local elapsedMs = (GetTime() - this.animStartTime) * 1000
-                if elapsedMs < 2200 then
+                local elapsedSec = GetTime() - this.animStartTime
+                if elapsedSec < 1.6 then
                     if this.SetSequenceTime then
-                        this:SetSequenceTime(this.activeSeq, elapsedMs)
+                        this:SetSequenceTime(this.activeSeq, elapsedSec * 1000)
                     end
                 else
                     this.activeSeq = 0
+                    this.animStartTime = nil
                     if this.SetSequence then
                         this:SetSequence(0)
                     end
@@ -1631,9 +1632,9 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
 
     if string.find(lowerName, "shield") or string.find(lowerName, "escudo") or string.find(lowerName, "block") or string.find(lowerName, "bloqueio")
        or string.find(lowerName, "armor") or string.find(lowerName, "armadura") or string.find(lowerName, "defens") then
-        pose = 24 -- ShieldBlock (Postura de bloqueio com as duas mãos juntas)
+        pose = 24 -- ShieldBlock (Postura de bloqueio com escudo)
     elseif string.find(lowerName, "totem") or string.find(lowerName, "summon") or string.find(lowerName, "conjurar") then
-        pose = 35 -- SpellCastWork (Abaixar e colocar o totem no chão)
+        pose = 16 -- SpellCastOmni (Conjuração mágica no chão)
     elseif string.find(lowerName, "heal") or string.find(lowerName, "cura") or string.find(lowerName, "wave") or string.find(lowerName, "onda")
        or string.find(lowerName, "renew") or string.find(lowerName, "rejuvenescer") or string.find(lowerName, "regrowth") or string.find(lowerName, "menor") or string.find(lowerName, "lesser") then
         pose = 31 -- SpellPrecast (Canalização de cura com mãos erguidas)
@@ -1641,18 +1642,18 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
        or string.find(lowerName, "raio") or string.find(lowerName, "fire") or string.find(lowerName, "fogo") or string.find(lowerName, "frost")
        or string.find(lowerName, "gelo") or string.find(lowerName, "lava") or string.find(lowerName, "earth") or string.find(lowerName, "terra")
        or string.find(lowerName, "blast") or string.find(lowerName, "chama") or string.find(lowerName, "flame") or string.find(lowerName, "shoot") or string.find(lowerName, "tiro") then
-        pose = 32 -- SpellCast (Arremesso frontal de raio / choque elemental)
+        pose = 15 -- SpellCastDirected (Arremesso frontal com a mão aberta - combate real)
     elseif string.find(lowerName, "weapon") or string.find(lowerName, "arma") or string.find(lowerName, "rockbiter") or string.find(lowerName, "windfury")
        or string.find(lowerName, "flametongue") or string.find(lowerName, "frostbrand") or string.find(lowerName, "strike") or string.find(lowerName, "golpe")
        or string.find(lowerName, "attack") or string.find(lowerName, "ataque") or string.find(lowerName, "rend") or string.find(lowerName, "charge") then
-        pose = 73 -- Flex (Pose de força energizando a arma / ataque físico)
+        pose = 17 -- Attack1H (Golpe físico com arma)
     elseif string.find(lowerName, "shout") or string.find(lowerName, "grito") or string.find(lowerName, "rage") or string.find(lowerName, "fúria")
        or string.find(lowerName, "roar") or string.find(lowerName, "rugido") or string.find(lowerName, "taunt") or string.find(lowerName, "provocar")
        or string.find(lowerName, "bloodlust") or string.find(lowerName, "heroism") then
         pose = 60 -- Roar (Rugido de guerra com a cabeça para trás)
     elseif string.find(lowerName, "buff") or string.find(lowerName, "blessing") or string.find(lowerName, "bênção")
        or string.find(lowerName, "mark") or string.find(lowerName, "marca") or string.find(lowerName, "fortitude") then
-        pose = 69 -- Cheer (Celebração aos céus)
+        pose = 16 -- SpellCastOmni (Conjuração de buff com ambas as mãos)
     else
         pose = 31 -- SpellPrecast / Canalização mágica
     end
@@ -2046,20 +2047,14 @@ end
 function MainMenu:TriggerSpellPose(poseSeq)
     if not self.animModel or not self.animModel:IsVisible() then return end
     poseSeq = poseSeq or 0
+    self.currentSpellPose = poseSeq
+    self.animModel.activeSeq = poseSeq
+    self.animModel.animStartTime = GetTime()
 
-    if poseSeq > 0 then
-        self.animModel.activeSeq = poseSeq
-        self.animModel.animStartTime = GetTime()
-        if self.animModel.SetSequenceTime then
-            pcall(function() self.animModel:SetSequenceTime(poseSeq, 0) end)
-        elseif self.animModel.SetSequence then
-            pcall(function() self.animModel:SetSequence(poseSeq) end)
-        end
-    else
-        self.animModel.activeSeq = 0
-        if self.animModel.SetSequence then
-            pcall(function() self.animModel:SetSequence(0) end)
-        end
+    if self.animModel.SetSequenceTime then
+        pcall(function() self.animModel:SetSequenceTime(poseSeq, 0) end)
+    elseif self.animModel.SetSequence then
+        pcall(function() self.animModel:SetSequence(poseSeq) end)
     end
 end
 
@@ -2153,7 +2148,16 @@ function MainMenu:SetupSpellsPage(pageSpells)
     grid.onSlotFocused = function(slotIndex, spellData)
         if spellData and spellData.name then
             detailCard:ShowSpell(spellData)
-            MainMenu:TriggerSpellPose(spellData.pose)
+
+            -- Sequenciador de Teste Interativo: avança +1 a cada slot
+            MainMenu.animTestSequence = (MainMenu.animTestSequence or -1) + 1
+            local curSeq = MainMenu.animTestSequence
+
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Seq ID: |cffffffff" .. curSeq .. "|r  (Habilidade: |cff00ff00" .. spellData.name .. "|r)")
+            end
+
+            MainMenu:TriggerSpellPose(curSeq)
         else
             detailCard:Clear("Grimório")
             MainMenu:TriggerSpellPose(0)
@@ -2890,3 +2894,22 @@ initFrame:SetScript("OnEvent", function()
         end
     end
 end)
+
+-- Slash Command para Teste Rápido de Sequências de Animação
+SLASH_CMANIM1 = "/anim"
+SlashCmdList["CMANIM"] = function(msg)
+    local id = tonumber(msg)
+    if id then
+        MainMenu.animTestSequence = id - 1
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Próximo ID definido para: |cffffffff" .. id .. "|r (navegue no grid ou use /anim <num>)")
+        end
+        MainMenu:TriggerSpellPose(id)
+    else
+        MainMenu.animTestSequence = -1
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Sequenciador resetado para ID 0. Navegue pelos slots do Grimório para avançar +1 a cada slot.")
+        end
+        MainMenu:TriggerSpellPose(0)
+    end
+end

@@ -20,6 +20,7 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 ## 📜 Créditos
 
 - **Pixel Frog (Tiny Swords)**: Créditos e agradecimentos ao criador **Pixel Frog** pelos assets visuais e texturas de interface do pacote [Tiny Swords](https://pixelfrog-assets.itch.io/tiny-swords) utilizados no Main Menu (Console Hub).
+- **Shagu (Eric)**: Créditos e agradecimentos ao desenvolvedor [Shagu](https://shagu.org/) ([ShaguTweaks](https://github.com/shagu/ShaguTweaks) / [ShaguValue](https://github.com/shagu/ShaguValue)) pela base de dados de preços de venda de itens do World of Warcraft Vanilla 1.12.1 utilizada no sistema embutido de economia e tooltips.
 - **Alegreya Sans**: Criada por Juan Pablo del Peral ([Huerta Tipográfica](https://huertatipografica.com/)) sob a licença [SIL Open Font License, Version 1.1](https://fonts.google.com/specimen/Alegreya+Sans/license), utilizada para tipografia e legibilidade da interface.
 - **Marcellus**: Criada por Astigmatic ([Brian J. Bonislawsky](https://www.astigmatic.com/)) sob a licença [SIL Open Font License, Version 1.1](https://fonts.google.com/specimen/Marcellus/license), utilizada para títulos e cabeçalhos da interface.
 - **ConsoleExperienceClassic**: Agradecimentos e créditos aos criadores e contribuidores do `ConsoleExperienceClassic` pela lógica de navegação via cursor e implementações de referência que inspiraram o sistema de navegação deste projeto.

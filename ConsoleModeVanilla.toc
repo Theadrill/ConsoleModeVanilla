@@ -21,6 +21,7 @@ UI\XPBar.lua
 UI\ActionHUD.lua
 UI\PlayerFrame.lua
 UI\TargetFrame.lua
+Data\SellValues.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 Hooks.lua

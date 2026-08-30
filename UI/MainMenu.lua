@@ -335,6 +335,10 @@ end
 
 local scanTip = CreateFrame("GameTooltip", "ConsoleModeMMScanTooltip", nil, "GameTooltipTemplate")
 scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+scanTip.money = 0
+scanTip:SetScript("OnTooltipAddMoney", function()
+    scanTip.money = arg1
+end)
 
 function MainMenu:GetBuffName(buffIndexID)
     if not scanTip then return "Efeito Ativo" end
@@ -1109,9 +1113,159 @@ function MainMenu:UpdateStatsAndBuffs()
 
         -- Esconde as linhas sobressalentes
         for b = buffCount + 1, CFG.StatsAndBuffs.maxBuffs do
-            rows[b]:Hide()
+        rows[b]:Hide()
         end
     end
+end
+
+function MainMenu:CreateMoneyWidget(parent, prefix, alignRight)
+    local frame = CreateFrame("Frame", nil, parent)
+    frame:SetHeight(16)
+    frame:SetWidth(180)
+    frame:SetFrameLevel(parent:GetFrameLevel() + 5)
+    frame.alignRight = alignRight
+
+    local copperIcon = frame:CreateTexture(nil, "OVERLAY")
+    copperIcon:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_copper.tga")
+    copperIcon:SetWidth(13)
+    copperIcon:SetHeight(13)
+    frame.copperIcon = copperIcon
+
+    local copperText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    MainMenu:ApplyFont(copperText, CFG.Fonts.bodyFontFile, 12)
+    frame.copperText = copperText
+
+    local silverIcon = frame:CreateTexture(nil, "OVERLAY")
+    silverIcon:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_silver.tga")
+    silverIcon:SetWidth(13)
+    silverIcon:SetHeight(13)
+    frame.silverIcon = silverIcon
+
+    local silverText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    MainMenu:ApplyFont(silverText, CFG.Fonts.bodyFontFile, 12)
+    frame.silverText = silverText
+
+    local goldIcon = frame:CreateTexture(nil, "OVERLAY")
+    goldIcon:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_gold.tga")
+    goldIcon:SetWidth(13)
+    goldIcon:SetHeight(13)
+    frame.goldIcon = goldIcon
+
+    local goldText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    MainMenu:ApplyFont(goldText, CFG.Fonts.bodyFontFile, 12)
+    frame.goldText = goldText
+
+    local prefixText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    MainMenu:ApplyFont(prefixText, CFG.Fonts.subFontFile, 12)
+    prefixText:SetText(prefix or "|cffe09a15Moedas:|r")
+    frame.prefixText = prefixText
+
+    function frame:SetAmount(amount)
+        amount = tonumber(amount) or 0
+        local gold = math.floor(amount / 10000)
+        local silver = math.floor(math.mod(amount, 10000) / 100)
+        local copper = math.mod(amount, 100)
+
+        if alignRight then
+            copperIcon:ClearAllPoints()
+            copperIcon:SetPoint("RIGHT", frame, "RIGHT", 0, 0)
+            copperIcon:Show()
+
+            copperText:ClearAllPoints()
+            copperText:SetPoint("RIGHT", copperIcon, "LEFT", -2, 0)
+            copperText:SetText(tostring(copper))
+            copperText:Show()
+
+            local leftmost = copperText
+
+            if silver > 0 or gold > 0 then
+                silverIcon:ClearAllPoints()
+                silverIcon:SetPoint("RIGHT", leftmost, "LEFT", -4, 0)
+                silverIcon:Show()
+
+                silverText:ClearAllPoints()
+                silverText:SetPoint("RIGHT", silverIcon, "LEFT", -2, 0)
+                silverText:SetText(tostring(silver))
+                silverText:Show()
+
+                leftmost = silverText
+            else
+                silverIcon:Hide()
+                silverText:Hide()
+            end
+
+            if gold > 0 then
+                goldIcon:ClearAllPoints()
+                goldIcon:SetPoint("RIGHT", leftmost, "LEFT", -4, 0)
+                goldIcon:Show()
+
+                goldText:ClearAllPoints()
+                goldText:SetPoint("RIGHT", goldIcon, "LEFT", -2, 0)
+                goldText:SetText(tostring(gold))
+                goldText:Show()
+
+                leftmost = goldText
+            else
+                goldIcon:Hide()
+                goldText:Hide()
+            end
+
+            prefixText:ClearAllPoints()
+            prefixText:SetPoint("RIGHT", leftmost, "LEFT", -6, 0)
+            prefixText:Show()
+        else
+            prefixText:ClearAllPoints()
+            prefixText:SetPoint("LEFT", frame, "LEFT", 0, 0)
+            prefixText:Show()
+
+            local prev = prefixText
+
+            if gold > 0 then
+                goldText:ClearAllPoints()
+                goldText:SetPoint("LEFT", prev, "RIGHT", 4, 0)
+                goldText:SetText(tostring(gold))
+                goldText:Show()
+
+                goldIcon:ClearAllPoints()
+                goldIcon:SetPoint("LEFT", goldText, "RIGHT", 2, 0)
+                goldIcon:Show()
+
+                prev = goldIcon
+            else
+                goldText:Hide()
+                goldIcon:Hide()
+            end
+
+            if silver > 0 or gold > 0 then
+                silverText:ClearAllPoints()
+                silverText:SetPoint("LEFT", prev, "RIGHT", 4, 0)
+                silverText:SetText(tostring(silver))
+                silverText:Show()
+
+                silverIcon:ClearAllPoints()
+                silverIcon:SetPoint("LEFT", silverText, "RIGHT", 2, 0)
+                silverIcon:Show()
+
+                prev = silverIcon
+            else
+                silverText:Hide()
+                silverIcon:Hide()
+            end
+
+            copperText:ClearAllPoints()
+            copperText:SetPoint("LEFT", prev, "RIGHT", 4, 0)
+            copperText:SetText(tostring(copper))
+            copperText:Show()
+
+            copperIcon:ClearAllPoints()
+            copperIcon:SetPoint("LEFT", copperText, "RIGHT", 2, 0)
+            copperIcon:Show()
+        end
+
+        frame:Show()
+    end
+
+    return frame
 end
 
 -- ============================================================================
@@ -1158,15 +1312,15 @@ function MainMenu:CreateDetailCard(parent, config)
     card.iconBorder = iconBorder
 
     -- 2. Título (Nome do Item com cor da Raridade)
-    local titleText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    titleText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 8, 2)
+    local titleText = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    titleText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 10, 0)
     titleText:SetPoint("RIGHT", card, "RIGHT", -10, 0)
     titleText:SetJustifyH("LEFT")
     MainMenu:ApplyFont(titleText, CFG.Fonts.titleFontFile, CFG.Fonts.detailTitleSize)
     card.titleText = titleText
 
-    -- 3. Subtítulo (Tipo de Item, Local do Slot, Nível Requerido)
-    local typeText = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    -- 3. Subtítulo (Tipo / Subtipo / Nível Requerido)
+    local typeText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     typeText:SetPoint("TOPLEFT", titleText, "BOTTOMLEFT", 0, -2)
     typeText:SetPoint("RIGHT", card, "RIGHT", -10, 0)
     typeText:SetJustifyH("LEFT")
@@ -1182,11 +1336,11 @@ function MainMenu:CreateDetailCard(parent, config)
     MainMenu:ApplyFont(descText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize)
     card.descText = descText
 
-    -- 5. Preço de Venda do Item (Acima da seção do rodapé separador)
-    local sellText = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    sellText:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 28)
-    MainMenu:ApplyFont(sellText, CFG.Fonts.subFontFile, 11)
-    card.sellText = sellText
+    -- 5. Preço de Venda do Item (Widget gráfico nativo com ícones de moedas)
+    local sellWidget = MainMenu:CreateMoneyWidget(card, "|cffaaaaaaVenda:|r", false)
+    sellWidget:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 26)
+    sellWidget:Hide()
+    card.sellWidget = sellWidget
 
     -- 6. Rodapé: Espaço Livre (Esquerda) e Moedas do Jogador (Direita) com linha divisória superior
     local footerBar = CreateFrame("Frame", nil, card)
@@ -1210,10 +1364,9 @@ function MainMenu:CreateDetailCard(parent, config)
     slotsFreeText:SetText("|cffaaaaaaEspaço Livre:|r |cffffffff0 / 0|r")
     card.slotsFreeText = slotsFreeText
 
-    local moneyText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    moneyText:SetPoint("RIGHT", footerBar, "RIGHT", 0, 0)
-    MainMenu:ApplyFont(moneyText, CFG.Fonts.bodyFontFile, 12)
-    card.moneyText = moneyText
+    local moneyWidget = MainMenu:CreateMoneyWidget(footerBar, "|cffe09a15Moedas:|r", true)
+    moneyWidget:SetPoint("RIGHT", footerBar, "RIGHT", 0, 0)
+    card.moneyWidget = moneyWidget
 
     -- Método para exibir dados de um item
     function card:ShowItem(itemData)
@@ -1288,25 +1441,13 @@ function MainMenu:CreateDetailCard(parent, config)
             self.descText:SetText("|cff888888Sem informações adicionais.|r")
         end
 
-        -- Preço de venda (exibe se disponível via base de dados/merchant/addons)
+        -- Preço de venda com ícones gráficos oficiais
         local sPrice = tonumber(itemData.sellPrice) or 0
-        if sPrice > 0 then
-            local gold = math.floor(sPrice / 10000)
-            local silver = math.floor(math.mod(sPrice, 10000) / 100)
-            local copper = math.mod(sPrice, 100)
-
-            local parts = {}
-            if gold > 0 then
-                table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t", gold))
-            end
-            if silver > 0 or gold > 0 then
-                table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t", silver))
-            end
-            table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", copper))
-
-            self.sellText:SetText("|cffaaaaaaVenda:|r " .. table.concat(parts, "  "))
-        else
-            self.sellText:SetText("")
+        if sPrice > 0 and self.sellWidget then
+            self.sellWidget:SetAmount(sPrice)
+            self.sellWidget:Show()
+        elseif self.sellWidget then
+            self.sellWidget:Hide()
         end
 
         self:UpdateMoney()
@@ -1356,7 +1497,7 @@ function MainMenu:CreateDetailCard(parent, config)
             self.descText:SetText("|cff888888Sem descrição adicional.|r")
         end
 
-        if self.sellText then self.sellText:SetText("") end
+        if self.sellWidget then self.sellWidget:Hide() end
         if self.slotsFreeText then
             self.slotsFreeText:SetText("|cffe09a15Grimório:|r |cffffffff" .. (spellData.tabName or "Geral") .. "|r")
         end
@@ -1371,27 +1512,15 @@ function MainMenu:CreateDetailCard(parent, config)
         self.titleText:SetText("|cff888888" .. (msg or "Nenhum item em foco") .. "|r")
         self.typeText:SetText("")
         self.descText:SetText("|cff555555Navegue com o D-Pad para inspecionar itens.|r")
-        self.sellText:SetText("")
+        if self.sellWidget then self.sellWidget:Hide() end
         self:UpdateMoney()
     end
 
     -- Atualiza o saldo de dinheiro do jogador no rodapé
     function card:UpdateMoney()
-        local money = GetMoney() or 0
-        local gold = math.floor(money / 10000)
-        local silver = math.floor(math.mod(money, 10000) / 100)
-        local copper = math.mod(money, 100)
-
-        local parts = {}
-        if gold > 0 then
-            table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t", gold))
+        if self.moneyWidget then
+            self.moneyWidget:SetAmount(GetMoney() or 0)
         end
-        if silver > 0 or gold > 0 then
-            table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t", silver))
-        end
-        table.insert(parts, string.format("|cffffffff%d|r |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", copper))
-
-        self.moneyText:SetText("|cffe09a15Moedas:|r " .. table.concat(parts, "  "))
     end
 
     card:Clear()
@@ -1626,8 +1755,17 @@ function MainMenu:ParseItemData(bagID, slotID)
             itemEquipLoc = eqL
         end
 
-        -- Integração com addons de preço de venda (ShaguValue, Informant, VendorPrice, etc.)
-        if GetSellValue then
+        local _, _, idStr = string.find(rawLink, "item:(%d+)")
+        local itemID = tonumber(idStr)
+
+        -- Base de dados própria embutida + compatibilidade com addons de economia
+        if itemID and ConsoleMode_SellValues and ConsoleMode_SellValues[itemID] then
+            sellPrice = ConsoleMode_SellValues[itemID]
+        elseif itemID and ShaguTweaks and ShaguTweaks.SellValueDB and ShaguTweaks.SellValueDB[itemID] then
+            sellPrice = ShaguTweaks.SellValueDB[itemID]
+        elseif itemID and ShaguValueDB and ShaguValueDB[itemID] then
+            sellPrice = ShaguValueDB[itemID]
+        elseif GetSellValue then
             sellPrice = GetSellValue(rawLink) or 0
         elseif ShaguValue then
             sellPrice = ShaguValue(rawLink) or 0
@@ -1637,18 +1775,34 @@ function MainMenu:ParseItemData(bagID, slotID)
     end
 
     -- Varre as linhas do Tooltip para atributos e preço de venda
+    scanTip.money = 0
     scanTip:ClearLines()
     scanTip:SetBagItem(bagID, slotID)
 
+    if scanTip.money and scanTip.money > 0 then
+        sellPrice = scanTip.money
+    end
+
     local statsLines = {}
     local desc = ""
-    local numLines = scanTip:NumLines()
+    local numLines = scanTip:NumLines() or 0
 
     for l = 2, numLines do
         local leftTextObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+        local rightTextObj = _G["ConsoleModeMMScanTooltipTextRight" .. l]
         local leftText = (leftTextObj and leftTextObj:GetText()) or ""
+        local rightText = (rightTextObj and rightTextObj:GetText()) or ""
+
         if leftText ~= "" then
-            if string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
+            if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
+                local full = leftText .. " " .. rightText
+                local g = tonumber(string.match(full, "(%d+)%s*g")) or 0
+                local s = tonumber(string.match(full, "(%d+)%s*s")) or 0
+                local c = tonumber(string.match(full, "(%d+)%s*c")) or 0
+                if (g + s + c) > 0 then
+                    sellPrice = (g * 10000) + (s * 100) + c
+                end
+            elseif string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
                 desc = leftText
             elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
                 table.insert(statsLines, "|cffffffff" .. leftText .. "|r")

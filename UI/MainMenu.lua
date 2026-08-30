@@ -76,8 +76,8 @@ CFG.Fonts = {
 -- ----------------------------------------------------------------------------
 CFG.Window = {
     usePercentage   = true,                 -- true = calcula por porcentagem da tela, false = estático
-    widthPercent    = 0.88,                 -- Fração da largura útil da tela (88%)
-    heightPercent   = 0.84,                 -- Fração da altura útil da tela (84%)
+    widthPercent    = 0.90,                 -- Fração da largura útil da tela (88%)
+    heightPercent   = 0.85,                 -- Fração da altura útil da tela (84%)
     
     minWidth        = 840,                  -- Largura mínima para telas muito compactas (px)
     minHeight       = 520,                  -- Altura mínima (px)
@@ -1628,34 +1628,67 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
 
     -- Classificação de Poses de Conjuração / Animação 3D (FASE 7)
     local lowerName = string.lower(name)
-    local pose = 31 -- Padrão: SpellPrecast (Canalização de magia com mãos erguidas)
+    local lowerRank = string.lower(rankStr)
+    local isPassive = false
 
-    if string.find(lowerName, "shield") or string.find(lowerName, "escudo") or string.find(lowerName, "block") or string.find(lowerName, "bloqueio")
+    if string.find(lowerRank, "passiv") or string.find(lowerName, "passive") or string.find(lowerName, "passiva") then
+        isPassive = true
+    end
+    if IsPassiveSpell and IsPassiveSpell(spellIndex, bookType) then
+        isPassive = true
+    end
+    if not isPassive then
+        for _, d in ipairs(descLines) do
+            if string.find(string.lower(d), "passive") or string.find(string.lower(d), "passiva") then
+                isPassive = true
+                break
+            end
+        end
+    end
+
+    local pose = 53 -- Padrão: SpellCastDirected (Arremesso frontal com a mão aberta)
+
+    if isPassive then
+        pose = 82 -- EmoteFlex (Pose de força/vigor para habilidades passivas)
+    elseif string.find(lowerName, "shield bash") or string.find(lowerName, "shield slam") or string.find(lowerName, "pancada com escudo") then
+        pose = 59 -- ShieldBash (Pancada frontal com escudo)
+    elseif string.find(lowerName, "shield") or string.find(lowerName, "escudo") or string.find(lowerName, "block") or string.find(lowerName, "bloqueio")
        or string.find(lowerName, "armor") or string.find(lowerName, "armadura") or string.find(lowerName, "defens") then
         pose = 24 -- ShieldBlock (Postura de bloqueio com escudo)
     elseif string.find(lowerName, "totem") or string.find(lowerName, "summon") or string.find(lowerName, "conjurar") then
-        pose = 16 -- SpellCastOmni (Conjuração mágica no chão)
+        pose = 54 -- SpellCastOmni (Conjuração mágica no chão)
     elseif string.find(lowerName, "heal") or string.find(lowerName, "cura") or string.find(lowerName, "wave") or string.find(lowerName, "onda")
        or string.find(lowerName, "renew") or string.find(lowerName, "rejuvenescer") or string.find(lowerName, "regrowth") or string.find(lowerName, "menor") or string.find(lowerName, "lesser") then
-        pose = 31 -- SpellPrecast (Canalização de cura com mãos erguidas)
+        pose = 125 -- ChannelCastOmni (Canalização de cura com mãos erguidas)
+    elseif string.find(lowerName, "drain") or string.find(lowerName, "mind flay") or string.find(lowerName, "canaliz") then
+        pose = 124 -- ChannelCastDirected (Canalização frontal direta)
     elseif string.find(lowerName, "shock") or string.find(lowerName, "choque") or string.find(lowerName, "bolt") or string.find(lowerName, "seta")
        or string.find(lowerName, "raio") or string.find(lowerName, "fire") or string.find(lowerName, "fogo") or string.find(lowerName, "frost")
        or string.find(lowerName, "gelo") or string.find(lowerName, "lava") or string.find(lowerName, "earth") or string.find(lowerName, "terra")
-       or string.find(lowerName, "blast") or string.find(lowerName, "chama") or string.find(lowerName, "flame") or string.find(lowerName, "shoot") or string.find(lowerName, "tiro") then
-        pose = 15 -- SpellCastDirected (Arremesso frontal com a mão aberta - combate real)
+       or string.find(lowerName, "blast") or string.find(lowerName, "chama") or string.find(lowerName, "flame") or string.find(lowerName, "smite") then
+        pose = 53 -- SpellCastDirected (Arremesso frontal com a mão aberta)
+    elseif string.find(lowerName, "slam") or string.find(lowerName, "mortal") or string.find(lowerName, "cleave") or string.find(lowerName, "2h") then
+        pose = 58 -- Special2H (Golpe pesado de duas mãos)
     elseif string.find(lowerName, "weapon") or string.find(lowerName, "arma") or string.find(lowerName, "rockbiter") or string.find(lowerName, "windfury")
        or string.find(lowerName, "flametongue") or string.find(lowerName, "frostbrand") or string.find(lowerName, "strike") or string.find(lowerName, "golpe")
-       or string.find(lowerName, "attack") or string.find(lowerName, "ataque") or string.find(lowerName, "rend") or string.find(lowerName, "charge") then
-        pose = 17 -- Attack1H (Golpe físico com arma)
+       or string.find(lowerName, "attack") or string.find(lowerName, "ataque") or string.find(lowerName, "rend") or string.find(lowerName, "sinister") then
+        pose = 57 -- Special1H (Golpe de uma mão sem flickering)
+    elseif string.find(lowerName, "kick") or string.find(lowerName, "chute") or string.find(lowerName, "pummel") then
+        pose = 95 -- Kick (Chute frontal)
+    elseif string.find(lowerName, "whirlwind") or string.find(lowerName, "redemoinho") then
+        pose = 126 -- Whirlwind (Giro 360° com a arma)
+    elseif string.find(lowerName, "shoot") or string.find(lowerName, "tiro") or string.find(lowerName, "bow") or string.find(lowerName, "arco")
+       or string.find(lowerName, "gun") or string.find(lowerName, "arma de fogo") or string.find(lowerName, "disparo") then
+        pose = 46 -- AttackBow / Longo alcance
     elseif string.find(lowerName, "shout") or string.find(lowerName, "grito") or string.find(lowerName, "rage") or string.find(lowerName, "fúria")
        or string.find(lowerName, "roar") or string.find(lowerName, "rugido") or string.find(lowerName, "taunt") or string.find(lowerName, "provocar")
        or string.find(lowerName, "bloodlust") or string.find(lowerName, "heroism") then
-        pose = 60 -- Roar (Rugido de guerra com a cabeça para trás)
+        pose = 55 -- BattleRoar (Rugido de guerra com a cabeça para trás)
     elseif string.find(lowerName, "buff") or string.find(lowerName, "blessing") or string.find(lowerName, "bênção")
        or string.find(lowerName, "mark") or string.find(lowerName, "marca") or string.find(lowerName, "fortitude") then
-        pose = 16 -- SpellCastOmni (Conjuração de buff com ambas as mãos)
+        pose = 54 -- SpellCastOmni (Conjuração de buff com ambas as mãos)
     else
-        pose = 31 -- SpellPrecast / Canalização mágica
+        pose = 53 -- SpellCastDirected / Arremesso de magia
     end
 
     return {
@@ -2148,16 +2181,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
     grid.onSlotFocused = function(slotIndex, spellData)
         if spellData and spellData.name then
             detailCard:ShowSpell(spellData)
-
-            -- Sequenciador de Teste Interativo: avança +1 a cada slot
-            MainMenu.animTestSequence = (MainMenu.animTestSequence or -1) + 1
-            local curSeq = MainMenu.animTestSequence
-
-            if DEFAULT_CHAT_FRAME then
-                DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Seq ID: |cffffffff" .. curSeq .. "|r  (Habilidade: |cff00ff00" .. spellData.name .. "|r)")
-            end
-
-            MainMenu:TriggerSpellPose(curSeq)
+            MainMenu:TriggerSpellPose(spellData.pose)
         else
             detailCard:Clear("Grimório")
             MainMenu:TriggerSpellPose(0)

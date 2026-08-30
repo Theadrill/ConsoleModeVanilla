@@ -91,8 +91,8 @@ CFG.Window = {
     relPoint        = "CENTER",             -- Ponto relativo no UIParent
     offsetX         = 0,                    -- Deslocamento horizontal (0 = centralizado)
     offsetY         = 0,                    -- Deslocamento vertical (0 = centralizado)
-    frameStrata     = "FULLSCREEN_DIALOG",  -- Camada de renderização
-    frameLevel      = 100,                  -- Nível de sobreposição dentro da strata
+    frameStrata     = "HIGH",               -- Camada de renderização (abaixo de FULLSCREEN_DIALOG / TOOLTIP)
+    frameLevel      = 10,                   -- Nível de sobreposição dentro da strata
 }
 
 -- ----------------------------------------------------------------------------
@@ -100,8 +100,8 @@ CFG.Window = {
 -- ----------------------------------------------------------------------------
 CFG.Dimmer = {
     enabled         = true,                 -- true = ativa o fundo escurecido, false = desativa
-    frameStrata     = "FULLSCREEN",         -- Camada de renderização
-    frameLevel      = 50,                   -- Nível de sobreposição
+    frameStrata     = "MEDIUM",             -- Camada de renderização abaixo do menu principal
+    frameLevel      = 5,                    -- Nível de sobreposição
     color           = { r = 0.0, g = 0.0, b = 0.0, a = 0.65 }, -- Cor e opacidade (RGBA 0-1)
 }
 
@@ -294,7 +294,7 @@ CFG.Footer = {
     paddingLeft     = 28,                   -- Margem esquerda (px)
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
-    text            = "|cffe09a15[L1] / [R1]|r Abas   |   |cffe09a15[L2] / [R2]|r Filtros   |   |cffffffff[D-Pad]|r Navegar   |   |cff38b000(A)|r Usar   |   |cffdd3333(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
+    text            = "|cffe09a15[L1] / [R1]|r Abas   |   |cffe09a15[L2] / [R2]|r Filtros   |   |cffffffff[D-Pad]|r Navegar   |   |cff38b000(A)|r Usar/Equipar   |   |cff3399ff(Y)|r Ações   |   |cffdd3333(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
 }
 
 -- ----------------------------------------------------------------------------
@@ -337,10 +337,12 @@ local scanTip = CreateFrame("GameTooltip", "ConsoleModeMMScanTooltip", nil, "Gam
 scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
 
 function MainMenu:GetBuffName(buffIndexID)
+    if not scanTip then return "Efeito Ativo" end
     scanTip:ClearLines()
     scanTip:SetPlayerBuff(buffIndexID)
-    local text = ConsoleModeMMScanTooltipTextLeft1:GetText()
-    return text or "Efeito Ativo"
+    local textObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
+    local text = (textObj and textObj:GetText()) or "Efeito Ativo"
+    return text
 end
 
 -- ============================================================================
@@ -486,6 +488,7 @@ function MainMenu:CreatePlayerModel(leftPanel)
     model:SetHeight(CFG.PlayerModel.height)
     model:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
     model.rotation = CFG.PlayerModel.defaultFacing or 0
+    model.isWearingTryOn = false
 
     if CFG.PlayerModel.enableMouseDrag then
         model:EnableMouse(true)
@@ -548,6 +551,7 @@ function MainMenu:UpdatePlayerModel()
     self.playerModel:SetUnit("player")
     self.playerModel:SetFacing(self.playerModel.rotation or CFG.PlayerModel.defaultFacing or 0)
     self.playerModel:SetSequence(0)
+    self.playerModel.isWearingTryOn = false
 
     if self.playerModel.nameText then
         local pName = UnitName("player") or "Jogador"
@@ -566,6 +570,44 @@ function MainMenu:UpdatePlayerModel()
             self.playerModel.subText:SetText("|cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
         end
     end
+end
+
+function MainMenu:TryOnItem(itemLink, itemType)
+    if not self.playerModel or not itemLink then return end
+    if not self.playerModel.TryOn then return end
+
+    local currentFacing = self.playerModel.rotation or (self.playerModel.GetFacing and self.playerModel:GetFacing()) or 0
+
+    local ok = pcall(function()
+        self.playerModel:TryOn(itemLink)
+    end)
+
+    if ok then
+        self.playerModel.isWearingTryOn = true
+        if self.playerModel.SetFacing then
+            self.playerModel:SetFacing(currentFacing)
+        end
+
+        if itemType == "Weapon" or itemType == "Arma" then
+            pcall(function() self.playerModel:SetSequence(26) end)
+        elseif itemType == "Armor" or itemType == "Armadura" then
+            pcall(function() self.playerModel:SetSequence(0) end)
+        end
+    end
+end
+
+function MainMenu:RestorePlayerModel()
+    if not self.playerModel or not self.playerModel.isWearingTryOn then return end
+    local currentFacing = self.playerModel.rotation or (self.playerModel.GetFacing and self.playerModel:GetFacing()) or 0
+    if self.playerModel.ClearModel and self.playerModel.SetUnit then
+        self.playerModel:ClearModel()
+        self.playerModel:SetUnit("player")
+        if self.playerModel.SetFacing then
+            self.playerModel:SetFacing(currentFacing)
+        end
+        pcall(function() self.playerModel:SetSequence(0) end)
+    end
+    self.playerModel.isWearingTryOn = false
 end
 
 -- ============================================================================
@@ -679,10 +721,11 @@ function MainMenu:UpdateEquipmentColumn()
                     end
                 end
 
-                if not itemName then
+                if not itemName and scanTip then
                     scanTip:ClearLines()
                     scanTip:SetInventoryItem("player", slotID)
-                    itemName = ConsoleModeMMScanTooltipTextLeft1:GetText()
+                    local textObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
+                    itemName = (textObj and textObj:GetText()) or slotLabel
                 end
 
                 itemName = itemName or slotLabel
@@ -1094,7 +1137,11 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
     local slots = {}
 
     for i = 1, maxSlots do
-        local slot = CreateFrame("Button", nil, gridFrame)
+        local slotName = "ConsoleModeMM_BagSlot" .. i
+        local slot = CreateFrame("Button", slotName, gridFrame)
+        slot.isMMBagSlot = true
+        slot.slotIndex = i
+        slot:RegisterForClicks("LeftButtonUp", "RightButtonUp")
         slot:SetWidth(slotSize)
         slot:SetHeight(slotSize)
         -- Fundo escurecido translúcido para o slot (estilo Zelda TotK)
@@ -1141,12 +1188,12 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
         highlight:Hide()
         slot.highlight = highlight
 
-        -- Eventos de Mouse / Hover
+        -- Eventos de Mouse / Hover / Foco
         slot:SetScript("OnEnter", function()
-            if this.data and gridFrame.onSlotFocused then
+            gridFrame:SelectSlot(this.slotIndex)
+            if gridFrame.onSlotFocused then
                 gridFrame.onSlotFocused(this.slotIndex, this.data)
             end
-            this.highlight:Show()
         end)
 
         slot:SetScript("OnLeave", function()
@@ -1157,8 +1204,16 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
 
         slot:SetScript("OnClick", function()
             gridFrame:SelectSlot(this.slotIndex)
-            if gridFrame.onSlotClicked and this.data then
-                gridFrame.onSlotClicked(this.slotIndex, this.data)
+            if arg1 == "RightButton" then
+                if this.data and this.data.bagID and this.data.slotID then
+                    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForBagItem then
+                        CM.ui.contextMenu:OpenForBagItem(this.data.bagID, this.data.slotID, this)
+                    end
+                end
+            else
+                if gridFrame.onSlotClicked then
+                    gridFrame.onSlotClicked(this.slotIndex, this.data)
+                end
             end
         end)
 
@@ -1360,6 +1415,13 @@ function MainMenu:ScanInventory(categoryFilter)
                     end
                 else
                     freeSlots = freeSlots + 1
+                    if categoryFilter == "ALL" then
+                        table.insert(items, {
+                            bagID   = bag,
+                            slotID  = slot,
+                            isEmpty = true,
+                        })
+                    end
                 end
             end
         end
@@ -1532,17 +1594,33 @@ function MainMenu:SetupBagsPage(pageBags)
 
     -- Callbacks do Grid
     grid.onSlotFocused = function(slotIndex, itemData)
-        if itemData then
+        if itemData and not itemData.isEmpty then
             detailCard:ShowItem(itemData)
+            -- Live TryOn no Modelo 3D (FASE 6)
+            local isEquippable = itemData.itemEquipLoc and itemData.itemEquipLoc ~= ""
+            if isEquippable and (itemData.rawLink or itemData.link) then
+                MainMenu:TryOnItem(itemData.rawLink or itemData.link, itemData.itemType)
+            else
+                MainMenu:RestorePlayerModel()
+            end
         else
             detailCard:Clear("Slot Vazio")
+            MainMenu:RestorePlayerModel()
         end
     end
 
     grid.onSlotClicked = function(slotIndex, itemData)
-        if itemData and itemData.bagID and itemData.slotID then
-            -- Suporte nativo a usar item com o botão (A)
+        if CursorHasItem() or CursorHasSpell() then
+            if itemData and itemData.bagID and itemData.slotID then
+                PickupContainerItem(itemData.bagID, itemData.slotID)
+            else
+                PutItemInBackpack()
+            end
+            PlaySound("igMainMenuOptionCheckBoxOn")
+        elseif itemData and itemData.bagID and itemData.slotID and not itemData.isEmpty then
+            -- Suporte nativo a usar/equipar item com o botão (A)
             UseContainerItem(itemData.bagID, itemData.slotID)
+            PlaySound("igMainMenuOptionCheckBoxOn")
         end
     end
 
@@ -1626,7 +1704,7 @@ function MainMenu:UpdateBagsPage(keepPage)
         if slot then
             local itemData = items[globalIdx]
 
-            if itemData then
+            if itemData and not itemData.isEmpty then
                 slot.icon:SetTexture(itemData.texture)
                 slot.icon:Show()
                 slot.icon:SetAlpha(1.0)
@@ -1652,7 +1730,7 @@ function MainMenu:UpdateBagsPage(keepPage)
                 slot.icon:Hide()
                 slot.countText:SetText("")
                 slot.border:SetBackdropBorderColor(0.45, 0.40, 0.35, 0.30)
-                slot.data = nil
+                slot.data = itemData
             end
         end
     end
@@ -1856,6 +1934,8 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
     -- Se abriu a aba de Bolsas, atualiza o inventário
     if tabID == "BAGS" then
         self:UpdateBagsPage()
+    else
+        self:RestorePlayerModel()
     end
 
     if playSoundEffect ~= false and CFG.Audio.soundTabChange then
@@ -2035,6 +2115,7 @@ function MainMenu:CreateUI()
     end)
 
     frame:SetScript("OnHide", function()
+        MainMenu:RestorePlayerModel()
         if dimmer then dimmer:Hide() end
         if CFG.Audio.soundClose then PlaySound(CFG.Audio.soundClose) end
         if ConsoleMode.hooks and ConsoleMode.hooks.OnFrameHide then
@@ -2063,6 +2144,7 @@ end
 
 function MainMenu:Hide()
     if self.frame and self.frame:IsVisible() then
+        self:RestorePlayerModel()
         self.frame:Hide()
     end
 end

@@ -30,7 +30,8 @@ function Menu:Initialize()
     local f = CreateFrame("Frame", "ConsoleModeContextMenu", UIParent)
     f:SetWidth(156)
     f:SetHeight(125)
-    f:SetFrameStrata("FULLSCREEN_DIALOG")
+    f:SetFrameStrata("TOOLTIP")
+    f:SetFrameLevel(500)
     f:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -267,14 +268,17 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
     if CM.cursor then
         CM.cursor.state.activeFrames[self.frame] = true
-        local targetBtn = self.buttons[1]
-        if not isUsable then
-            if count and count > 1 and self.buttons[2] and (self.buttons[2]:Enabled() == 1 or self.buttons[2]:IsEnabled() == true) then
-                targetBtn = self.buttons[2]
-            elseif self.buttons[3] then
-                targetBtn = self.buttons[3]
+        local targetBtn = nil
+        if self.buttons then
+            for i = 1, table.getn(self.buttons) do
+                local b = self.buttons[i]
+                if b and b:IsVisible() and (b:IsEnabled() == 1 or b:IsEnabled() == true) then
+                    targetBtn = b
+                    break
+                end
             end
         end
+        if not targetBtn then targetBtn = self.buttons and self.buttons[1] end
         if targetBtn then
             CM.cursor:MoveTo(targetBtn)
             CM.cursor:UpdateState()

@@ -33,7 +33,7 @@ Cursor.repeatState = {
 local cursorFrame = CreateFrame("Frame", "ConsoleModeCursorFrame", UIParent)
 cursorFrame:SetWidth(32)
 cursorFrame:SetHeight(32)
-cursorFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+cursorFrame:SetFrameStrata("TOOLTIP")
 cursorFrame:SetFrameLevel(1001)
 cursorFrame:Hide()
 
@@ -63,7 +63,7 @@ Cursor.frame = cursorFrame
 
 -- Frame do Highlight com 9-Slice Nativo (Bordas nítidas sem distorção em qualquer proporção)
 local highlightFrame = CreateFrame("Frame", "ConsoleModeCursorHighlight", UIParent)
-highlightFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+highlightFrame:SetFrameStrata("TOOLTIP")
 highlightFrame:SetFrameLevel(1000)
 highlightFrame:Hide()
 
@@ -104,9 +104,9 @@ function Cursor:EnsureOnTop(frame)
 
     cursorFrame:SetParent(UIParent)
     highlightFrame:SetParent(UIParent)
-    cursorFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+    cursorFrame:SetFrameStrata("TOOLTIP")
     cursorFrame:SetFrameLevel(1001)
-    highlightFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+    highlightFrame:SetFrameStrata("TOOLTIP")
     highlightFrame:SetFrameLevel(1000)
 end
 
@@ -364,15 +364,37 @@ function Cursor:FindFirstVisibleButton(frame)
     
     local fname = frame:GetName() or ""
     
-    -- Para Menu de Contexto da Bolsa: preferir botão conforme o modo ativo
+    -- Para Main Menu (Console Hub): preferir primeiro slot da bolsa
+    if fname == "ConsoleModeMainMenuFrame" then
+        if ConsoleModeMM_BagSlot1 and ConsoleModeMM_BagSlot1:IsVisible() then
+            return ConsoleModeMM_BagSlot1
+        end
+        local mm = CM.mainMenu
+        if mm and mm.tabContainer and mm.tabContainer.pages and mm.tabContainer.pages["BAGS"] then
+            local bagsPage = mm.tabContainer.pages["BAGS"]
+            if bagsPage.grid and bagsPage.grid.slots and bagsPage.grid.slots[1] and bagsPage.grid.slots[1]:IsVisible() then
+                return bagsPage.grid.slots[1]
+            end
+        end
+    end
+
+    -- Para Menu de Contexto da Bolsa: preferir botão habilitado conforme o modo ativo
     if fname == "ConsoleModeContextMenu" then
         local ctxMenu = CM.ui and CM.ui.contextMenu
         if ctxMenu and ctxMenu.currentMode == "SPLIT" then
             if ConsoleModeContextSplitConfirmBtn and ConsoleModeContextSplitConfirmBtn:IsVisible() then
                 return ConsoleModeContextSplitConfirmBtn
             end
-        elseif ConsoleModeContextMenuBtn1 and ConsoleModeContextMenuBtn1:IsVisible() then
-            return ConsoleModeContextMenuBtn1
+        else
+            for i = 1, 3 do
+                local btn = getglobal("ConsoleModeContextMenuBtn" .. i)
+                if btn and btn:IsVisible() and (btn:IsEnabled() == 1 or btn:IsEnabled() == true) then
+                    return btn
+                end
+            end
+            if ConsoleModeContextMenuBtn1 and ConsoleModeContextMenuBtn1:IsVisible() then
+                return ConsoleModeContextMenuBtn1
+            end
         end
     end
 
@@ -640,32 +662,41 @@ function Cursor:Click(mouseButton)
         return
     end
     
-    -- Bolsas e Inventario (Blizzard, pfUI, Bagshui, Bagnon, Turtle-Dragonflight SUCC_bag)
+    -- Bolsas e Inventario (Blizzard, pfUI, Bagshui, Bagnon, Turtle-Dragonflight SUCC_bag, ConsoleMode MainMenu)
     local isSUCCBag = string.find(bname, "SUCC_bagItem%d+") or string.find(bname, "SUCC_bagBankItem%d+")
+    local isMMBagSlot = string.find(bname, "ConsoleModeMM_BagSlot%d+") or (button.isMMBagSlot == true)
     local isBagItem = string.find(bname, "ContainerFrame%d+Item%d+") or 
                       string.find(bname, "pfBag%-?%d+item%d+") or 
                       string.find(bname, "BagshuiBagsItem%d+") or 
                       string.find(bname, "BagshuiBankItem%d+") or 
                       string.find(bname, "BagnonItem%d+") or
-                      isSUCCBag
+                      isSUCCBag or
+                      isMMBagSlot
                       
     if isBagItem then
         local bagID, slotID = nil, nil
         
-        local parent = button:GetParent()
-        if parent and parent.GetID and parent:GetID() >= 0 then
-            bagID = parent:GetID()
-            slotID = button:GetID()
-        else
-            local _, _, cFrameNum = string.find(bname, "ContainerFrame(%d+)")
-            if cFrameNum then
-                local cFrame = getglobal("ContainerFrame" .. cFrameNum)
-                if cFrame and cFrame.GetID then
-                    bagID = cFrame:GetID()
-                else
-                    bagID = tonumber(cFrameNum) - 1
-                end
+        if isMMBagSlot and button.data then
+            bagID = button.data.bagID
+            slotID = button.data.slotID
+        end
+
+        if not bagID then
+            local parent = button:GetParent()
+            if parent and parent.GetID and parent:GetID() >= 0 then
+                bagID = parent:GetID()
                 slotID = button:GetID()
+            else
+                local _, _, cFrameNum = string.find(bname, "ContainerFrame(%d+)")
+                if cFrameNum then
+                    local cFrame = getglobal("ContainerFrame" .. cFrameNum)
+                    if cFrame and cFrame.GetID then
+                        bagID = cFrame:GetID()
+                    else
+                        bagID = tonumber(cFrameNum) - 1
+                    end
+                    slotID = button:GetID()
+                end
             end
         end
         
@@ -693,6 +724,10 @@ function Cursor:Click(mouseButton)
                 -- Se ja tem item na mão, colocar/trocar
                 if CursorHasItem() or CursorHasSpell() then
                     PickupContainerItem(bagID, slotID)
+                elseif isMMBagSlot then
+                    if button.data and not button.data.isEmpty then
+                        UseContainerItem(bagID, slotID)
+                    end
                 elseif button.Click then
                     button:Click(mouseButton)
                 else
@@ -702,8 +737,12 @@ function Cursor:Click(mouseButton)
                 return
             end
         else
-            -- Fallback para qualquer outro botão de addon
-            if button.Click then
+            -- Fallback para qualquer outro botão de addon ou slot vazio
+            if isMMBagSlot and mouseButton == "LeftButton" and (CursorHasItem() or CursorHasSpell()) then
+                PutItemInBackpack()
+                self:UpdateState()
+                return
+            elseif button.Click then
                 button:Click(mouseButton)
                 self:UpdateState()
                 return

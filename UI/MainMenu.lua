@@ -1145,6 +1145,57 @@ function MainMenu:CreateDetailCard(parent, config)
         self:Show()
     end
 
+    -- Método para exibir dados de uma magia/habilidade
+    function card:ShowSpell(spellData)
+        if not spellData or not spellData.name then
+            self:Clear("Nenhuma magia selecionada")
+            return
+        end
+
+        self.icon:SetTexture(spellData.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+        self.icon:Show()
+        self.iconBorder:Show()
+        self.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
+
+        self.titleText:SetText("|cffffd200" .. spellData.name .. "|r")
+        
+        local subInfo = {}
+        if spellData.rank and spellData.rank ~= "" then
+            table.insert(subInfo, "|cffffffff" .. spellData.rank .. "|r")
+        end
+        if spellData.castTime and spellData.castTime ~= "" then
+            table.insert(subInfo, "|cffaaaaaa" .. spellData.castTime .. "|r")
+        end
+        if spellData.range and spellData.range ~= "" then
+            table.insert(subInfo, "|cffaaaaaa" .. spellData.range .. "|r")
+        end
+        self.typeText:SetText(table.concat(subInfo, "  |  "))
+
+        local bodyLines = {}
+        if spellData.cost and spellData.cost ~= "" then
+            table.insert(bodyLines, "|cff3399ff" .. spellData.cost .. "|r")
+        end
+        if spellData.cooldown and spellData.cooldown ~= "" then
+            table.insert(bodyLines, "|cffff5555" .. spellData.cooldown .. "|r")
+        end
+        if spellData.desc and spellData.desc ~= "" then
+            table.insert(bodyLines, "|cffffffff" .. spellData.desc .. "|r")
+        end
+
+        if table.getn(bodyLines) > 0 then
+            self.descText:SetText(table.concat(bodyLines, "\n"))
+        else
+            self.descText:SetText("|cff888888Sem descrição adicional.|r")
+        end
+
+        if self.sellText then self.sellText:SetText("") end
+        if self.slotsFreeText then
+            self.slotsFreeText:SetText("|cffe09a15Grimório:|r |cffffffff" .. (spellData.tabName or "Geral") .. "|r")
+        end
+        self:UpdateMoney()
+        self:Show()
+    end
+
     -- Método para limpar / estado vazio
     function card:Clear(msg)
         self.icon:Hide()
@@ -1487,6 +1538,116 @@ function MainMenu:ScanInventory(categoryFilter)
     }
 end
 
+function MainMenu:ParseSpellData(spellIndex, bookType)
+    bookType = bookType or "spell"
+    local name, rank = GetSpellName(spellIndex, bookType)
+    if not name or name == "" then return nil end
+
+    local icon = GetSpellTexture(spellIndex, bookType) or "Interface\\Icons\\INV_Misc_QuestionMark"
+    local rankStr = rank or ""
+
+    scanTip:ClearLines()
+    scanTip:SetSpell(spellIndex, bookType)
+
+    local cost = ""
+    local range = ""
+    local castTime = ""
+    local cooldown = ""
+    local descLines = {}
+
+    local numLines = scanTip:NumLines()
+    for l = 2, numLines do
+        local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+        local rightObj = _G["ConsoleModeMMScanTooltipTextRight" .. l]
+        local left = (leftObj and leftObj:GetText()) or ""
+        local right = (rightObj and rightObj:GetText()) or ""
+
+        if string.find(left, "Mana") or string.find(left, "Rage") or string.find(left, "Energy") or string.find(left, "Fúria") or string.find(left, "Energia") then
+            cost = left
+        elseif string.find(left, "cast") or string.find(left, "Instant") or string.find(left, "lançamento") or string.find(left, "Instantâneo") or string.find(left, "Canalizada") then
+            castTime = left
+        elseif left ~= "" and not string.find(left, "Rank") and not string.find(left, "Grau") then
+            table.insert(descLines, left)
+        end
+
+        if string.find(right, "yd range") or string.find(right, "m de alcance") or string.find(right, "Melee Range") or string.find(right, "Corpo a corpo") then
+            range = right
+        elseif string.find(right, "cooldown") or string.find(right, "recarga") or string.find(right, "espera") then
+            cooldown = right
+        end
+    end
+
+    -- Classificação de Poses de Conjuração / Animação 3D (FASE 7)
+    local lowerName = string.lower(name)
+    local pose = 15 -- Padrão: Spell Precast (mãos erguidas canalizando energia)
+
+    if string.find(lowerName, "strike") or string.find(lowerName, "golpe") or string.find(lowerName, "rend") or string.find(lowerName, "slash")
+       or string.find(lowerName, "slam") or string.find(lowerName, "cleave") or string.find(lowerName, "backstab") or string.find(lowerName, "sinister")
+       or string.find(lowerName, "mortal") or string.find(lowerName, "overpower") or string.find(lowerName, "shield") or string.find(lowerName, "escudo")
+       or string.find(lowerName, "attack") or string.find(lowerName, "ataque") or string.find(lowerName, "shoot") or string.find(lowerName, "tiro") then
+        pose = 26 -- Melee / Combate corpo a corpo
+    elseif string.find(lowerName, "shout") or string.find(lowerName, "grito") or string.find(lowerName, "rage") or string.find(lowerName, "fúria")
+       or string.find(lowerName, "roar") or string.find(lowerName, "rugido") or string.find(lowerName, "taunt") or string.find(lowerName, "provocar") then
+        pose = 29 -- Rugido / Grito de guerra
+    else
+        pose = 15 -- Conjuração mágica
+    end
+
+    return {
+        spellIndex = spellIndex,
+        bookType   = bookType,
+        name       = name,
+        rank       = rankStr,
+        icon       = icon,
+        cost       = cost,
+        range      = range,
+        castTime   = castTime,
+        cooldown   = cooldown,
+        desc       = table.concat(descLines, "\n"),
+        pose       = pose,
+    }
+end
+
+function MainMenu:ScanSpellbook(tabIndex)
+    local spells = {}
+    local numTabs = GetNumSpellTabs() or 0
+    if numTabs == 0 then return { spells = {}, tabs = {} } end
+
+    local tabs = {}
+    for t = 1, numTabs do
+        local name, icon, offset, numSpells = GetSpellTabInfo(t)
+        if name and numSpells then
+            table.insert(tabs, {
+                id = t,
+                name = name,
+                icon = icon,
+                offset = offset,
+                numSpells = numSpells,
+            })
+        end
+    end
+
+    tabIndex = tabIndex or 1
+    if tabIndex > table.getn(tabs) then tabIndex = 1 end
+    local selectedTab = tabs[tabIndex]
+
+    if selectedTab and selectedTab.numSpells > 0 then
+        for s = selectedTab.offset + 1, selectedTab.offset + selectedTab.numSpells do
+            local spellData = self:ParseSpellData(s, "spell")
+            if spellData then
+                spellData.tabName = selectedTab.name
+                table.insert(spells, spellData)
+            end
+        end
+    end
+
+    return {
+        spells = spells,
+        tabs = tabs,
+        currentTab = selectedTab,
+    }
+end
+
 -- ============================================================================
 -- 7. CONFIGURAÇÃO DA ABA 1: BOLSAS & INVENTÁRIO (FASE 5)
 -- ============================================================================
@@ -1815,6 +1976,296 @@ function MainMenu:PrevBagPage()
 end
 
 -- ============================================================================
+-- 7.5. CONFIGURAÇÃO DA ABA 2: LIVRO DE MAGIAS & HABILIDADES (FASE 7)
+-- ============================================================================
+
+function MainMenu:TriggerSpellPose(poseSeq)
+    if not self.playerModel then return end
+    if self.playerModel.SetSequence then
+        pcall(function()
+            self.playerModel:SetSequence(poseSeq or 0)
+        end)
+    end
+end
+
+function MainMenu:SetupSpellsPage(pageSpells)
+    if pageSpells.isInitialized then return end
+
+    -- 1. Barra de Cabeçalho / Abas do Grimório com [L2] e [R2]
+    local headerBar = CreateFrame("Frame", "ConsoleModeMM_SpellsHeader", pageSpells)
+    headerBar:SetHeight(32)
+    headerBar:SetPoint("TOPLEFT", pageSpells, "TOPLEFT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", pageSpells, "TOPRIGHT", 0, 0)
+
+    -- Indicador [R2] à direita
+    local r2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
+    MainMenu:ApplyFont(r2Hint, CFG.Fonts.headerFontFile, 12)
+    r2Hint:SetText("|cffe09a15[R2]|r")
+    pageSpells.r2Hint = r2Hint
+    pageSpells.headerBar = headerBar
+    pageSpells.currentTabIdx = 1
+
+    -- 2. Painel Fixo de Detalhes da Magia (base)
+    local detailCard = self:CreateDetailCard(pageSpells)
+    pageSpells.detailCard = detailCard
+
+    -- 3. Navegação de Páginas do Grimório
+    local pageNav = CreateFrame("Frame", "ConsoleModeMM_SpellsPageNav", pageSpells)
+    pageNav:SetHeight(26)
+    pageNav:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 4)
+    pageNav:SetPoint("LEFT", detailCard, "RIGHT", -120, 0)
+
+    local btnBackdrop = {
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+    }
+
+    local prevPageBtn = CreateFrame("Button", nil, pageNav)
+    prevPageBtn:SetWidth(24)
+    prevPageBtn:SetHeight(22)
+    prevPageBtn:SetPoint("LEFT", pageNav, "LEFT", 0, 0)
+    prevPageBtn:SetBackdrop(btnBackdrop)
+    prevPageBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    prevPageBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local prevTxt = prevPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    prevTxt:SetPoint("CENTER", prevPageBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(prevTxt, CFG.Fonts.headerFontFile, 14)
+    prevTxt:SetText("|cffe09a15<|r")
+
+    prevPageBtn:SetScript("OnClick", function()
+        MainMenu:PrevSpellPage()
+    end)
+    pageSpells.prevPageBtn = prevPageBtn
+
+    local pageText = pageNav:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    pageText:SetPoint("CENTER", pageNav, "CENTER", 0, 0)
+    MainMenu:ApplyFont(pageText, CFG.Fonts.subFontFile, 13)
+    pageText:SetText("|cffaaaaaaPág.|r |cffffffff1 / 1|r")
+    pageSpells.pageText = pageText
+
+    local nextPageBtn = CreateFrame("Button", nil, pageNav)
+    nextPageBtn:SetWidth(24)
+    nextPageBtn:SetHeight(22)
+    nextPageBtn:SetPoint("RIGHT", pageNav, "RIGHT", 0, 0)
+    nextPageBtn:SetBackdrop(btnBackdrop)
+    nextPageBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    nextPageBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local nextTxt = nextPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    nextTxt:SetPoint("CENTER", nextPageBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(nextTxt, CFG.Fonts.headerFontFile, 14)
+    nextTxt:SetText("|cffe09a15>|r")
+
+    nextPageBtn:SetScript("OnClick", function()
+        MainMenu:NextSpellPage()
+    end)
+    pageSpells.nextPageBtn = nextPageBtn
+    pageSpells.pageNav = pageNav
+
+    -- 4. Container e Grid 2D de Slots de Magias
+    local gridContainer = CreateFrame("Frame", "ConsoleModeMM_SpellsGridContainer", pageSpells)
+    gridContainer:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -8)
+    gridContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 30)
+
+    local grid = self:CreateGrid(gridContainer, 80, CFG.Grid)
+    pageSpells.grid = grid
+
+    -- Callbacks do Grid de Magias
+    grid.onSlotFocused = function(slotIndex, spellData)
+        if spellData and spellData.name then
+            detailCard:ShowSpell(spellData)
+            MainMenu:TriggerSpellPose(spellData.pose)
+        else
+            detailCard:Clear("Grimório")
+            MainMenu:TriggerSpellPose(0)
+        end
+    end
+
+    grid.onSlotClicked = function(slotIndex, spellData)
+        if CursorHasItem() or CursorHasSpell() then
+            -- Se já tiver algo no cursor, solta
+            ClearCursor()
+        elseif spellData and spellData.spellIndex then
+            CastSpell(spellData.spellIndex, spellData.bookType or "spell")
+            PlaySound("igSpellBookOpen")
+        end
+    end
+
+    pageSpells.isInitialized = true
+end
+
+function MainMenu:UpdateSpellsPage(keepPage)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells then return end
+
+    self:SetupSpellsPage(pageSpells)
+
+    local curTabIdx = pageSpells.currentTabIdx or 1
+    local scanResult = self:ScanSpellbook(curTabIdx)
+    local spells = scanResult.spells
+    local tabs = scanResult.tabs
+
+    -- 1. Cria/Atualiza os botões das abas do grimório (Geral, Fogo, etc.)
+    if not pageSpells.tabButtons then pageSpells.tabButtons = {} end
+    for _, b in ipairs(pageSpells.tabButtons) do b:Hide() end
+
+    local prevBtn = pageSpells.r2Hint
+    local numTabs = table.getn(tabs)
+    for i = numTabs, 1, -1 do
+        local tabData = tabs[i]
+        local btn = pageSpells.tabButtons[i]
+        if not btn then
+            btn = CreateFrame("Button", "ConsoleModeMM_SpellTab" .. i, pageSpells.headerBar)
+            btn:SetHeight(24)
+            local t = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+            t:SetPoint("CENTER", btn, "CENTER", 0, 0)
+            MainMenu:ApplyFont(t, CFG.Fonts.bodyFontFile, 14)
+            btn.title = t
+            pageSpells.tabButtons[i] = btn
+        end
+
+        btn.title:SetText(tabData.name)
+        local txtW = math.floor(btn.title:GetStringWidth() or 60)
+        if txtW < 40 then txtW = 40 end
+        btn:SetWidth(txtW + 12)
+
+        btn:ClearAllPoints()
+        btn:SetPoint("RIGHT", prevBtn, "LEFT", -6, 0)
+        btn:Show()
+
+        btn.tabIdx = tabData.id
+        btn:SetScript("OnClick", function()
+            MainMenu:SelectSpellTab(this.tabIdx)
+        end)
+
+        if tabData.id == curTabIdx then
+            btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+        else
+            btn.title:SetTextColor(0.6, 0.6, 0.6)
+        end
+
+        prevBtn = btn
+    end
+
+    -- Cria o hint [L2] à esquerda da primeira sub-aba
+    if not pageSpells.l2Hint then
+        local l2Hint = pageSpells.headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        MainMenu:ApplyFont(l2Hint, CFG.Fonts.headerFontFile, 12)
+        l2Hint:SetText("|cffe09a15[L2]|r")
+        pageSpells.l2Hint = l2Hint
+    end
+    pageSpells.l2Hint:ClearAllPoints()
+    pageSpells.l2Hint:SetPoint("RIGHT", prevBtn, "LEFT", -6, 0)
+    pageSpells.l2Hint:Show()
+
+    -- 2. Paginação
+    local grid = pageSpells.grid
+    local totalElements = table.getn(spells)
+    local pageSize = grid.maxFitSlots or 40
+    if pageSize < 1 then pageSize = 40 end
+
+    local totalPages = math.ceil(totalElements / pageSize)
+    if totalPages < 1 then totalPages = 1 end
+
+    if not keepPage then
+        pageSpells.currentPage = 1
+    end
+    local curPage = pageSpells.currentPage or 1
+    if curPage > totalPages then curPage = totalPages end
+    if curPage < 1 then curPage = 1 end
+    pageSpells.currentPage = curPage
+
+    if pageSpells.pageText then
+        pageSpells.pageText:SetText(string.format("|cffaaaaaaPág.|r |cffffffff%d / %d|r", curPage, totalPages))
+    end
+    if pageSpells.pageNav then
+        if totalPages > 1 then
+            pageSpells.pageNav:Show()
+        else
+            pageSpells.pageNav:Hide()
+        end
+    end
+
+    -- 3. Preenche os slots de magias
+    grid:Clear()
+    local startIndex = (curPage - 1) * pageSize + 1
+    local endIndex = math.min(startIndex + pageSize - 1, totalElements)
+    local pageCount = endIndex - startIndex + 1
+    if pageCount < 0 then pageCount = 0 end
+
+    grid:LayoutSlots(pageCount)
+
+    for slotIdx = 1, pageCount do
+        local globalIdx = startIndex + slotIdx - 1
+        local slot = grid.slots[slotIdx]
+        if slot then
+            local spellData = spells[globalIdx]
+            if spellData and spellData.name then
+                slot.icon:SetTexture(spellData.icon)
+                slot.icon:Show()
+                slot.icon:SetAlpha(1.0)
+                slot.data = spellData
+
+                -- Extrai apenas o número do rank (ex: "Rank 4" -> "4") para ficar limpo no slot
+                local _, _, rNum = string.find(spellData.rank, "(%d+)")
+                if rNum then
+                    slot.countText:SetText(rNum)
+                else
+                    slot.countText:SetText("")
+                end
+                slot.border:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
+            else
+                slot.icon:SetTexture(nil)
+                slot.icon:Hide()
+                slot.countText:SetText("")
+                slot.border:SetBackdropBorderColor(0.45, 0.40, 0.35, 0.30)
+                slot.data = nil
+            end
+        end
+    end
+
+    if pageCount > 0 and spells[startIndex] then
+        grid:SelectSlot(1)
+    else
+        pageSpells.detailCard:Clear("Grimório Vazio")
+        MainMenu:TriggerSpellPose(0)
+    end
+end
+
+function MainMenu:SelectSpellTab(tabIdx)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells then return end
+    pageSpells.currentTabIdx = tabIdx
+    pageSpells.currentPage = 1
+    self:UpdateSpellsPage(false)
+    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+end
+
+function MainMenu:NextSpellPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells then return end
+    pageSpells.currentPage = (pageSpells.currentPage or 1) + 1
+    self:UpdateSpellsPage(true)
+    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+end
+
+function MainMenu:PrevSpellPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells then return end
+    pageSpells.currentPage = (pageSpells.currentPage or 1) - 1
+    self:UpdateSpellsPage(true)
+    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+end
+
+-- ============================================================================
 -- 8. CONTAINER DE ABAS E NAVEGAÇÃO [L1] / [R1] (FASE 4 - PAINEL DIREITO)
 -- ============================================================================
 
@@ -1909,10 +2360,6 @@ function MainMenu:CreateTabContainer(rightPanel)
     -- Página 2: Livro de Magias & Habilidades (Fase 7)
     local pageSpells = CreateFrame("Frame", "ConsoleModeMM_Page_SPELLS", contentFrame)
     pageSpells:SetAllPoints(contentFrame)
-    local spellsPlaceholder = pageSpells:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    spellsPlaceholder:SetPoint("CENTER", pageSpells, "CENTER", 0, 30)
-    MainMenu:ApplyFont(spellsPlaceholder, CFG.Fonts.titleFontFile, 15, "")
-    spellsPlaceholder:SetText("|cff00ffcc[ ABA 2: LIVRO DE MAGIAS & GRIMÓRIO ]|r\n\n|cffaaaaaaPronto para receber as magias na Fase 7|r")
     pages["SPELLS"] = pageSpells
 
     -- Página 3: Diário de Missões
@@ -1984,11 +2431,18 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
 
     container.currentTab = tabID
 
-    -- Se abriu a aba de Bolsas, atualiza o inventário
+    -- Se abriu a aba de Bolsas ou Magias, atualiza o grid correspondente
     if tabID == "BAGS" then
         self:UpdateBagsPage()
+    elseif tabID == "SPELLS" then
+        self:UpdateSpellsPage()
     else
         self:RestorePlayerModel()
+    end
+
+    -- Resincroniza o cursor do D-Pad na nova aba
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
+        ConsoleMode.cursor:Resync()
     end
 
     if playSoundEffect ~= false and CFG.Audio.soundTabChange then
@@ -2022,33 +2476,53 @@ end
 
 function MainMenu:CycleCategories(direction)
     if not self.tabContainer or not self.tabContainer.pages then return false end
-    local pageBags = self.tabContainer.pages["BAGS"]
-    if not pageBags or not pageBags:IsVisible() then return false end
+    local curTab = self.tabContainer.currentTab or "BAGS"
 
-    direction = direction or 1
-    local cats = CFG.Bags.categories
-    local total = table.getn(cats)
-    local curCat = pageBags.currentCategory or "ALL"
-    local curIdx = 1
+    if curTab == "BAGS" then
+        local pageBags = self.tabContainer.pages["BAGS"]
+        if not pageBags or not pageBags:IsVisible() then return false end
 
-    for i, c in ipairs(cats) do
-        if c.id == curCat then
-            curIdx = i
-            break
+        direction = direction or 1
+        local cats = CFG.Bags.categories
+        local total = table.getn(cats)
+        local curCat = pageBags.currentCategory or "ALL"
+        local curIdx = 1
+
+        for i, c in ipairs(cats) do
+            if c.id == curCat then
+                curIdx = i
+                break
+            end
         end
+
+        local nextIdx = curIdx + direction
+        if nextIdx > total then nextIdx = 1 end
+        if nextIdx < 1 then nextIdx = total end
+
+        pageBags.currentCategory = cats[nextIdx].id
+        self:UpdateBagsPage()
+
+        if CFG.Audio.soundItemSelect then
+            PlaySound(CFG.Audio.soundItemSelect)
+        end
+        return true
+
+    elseif curTab == "SPELLS" then
+        local pageSpells = self.tabContainer.pages["SPELLS"]
+        if not pageSpells or not pageSpells:IsVisible() then return false end
+
+        direction = direction or 1
+        local numTabs = GetNumSpellTabs() or 1
+        local curIdx = pageSpells.currentTabIdx or 1
+        local nextIdx = curIdx + direction
+        if nextIdx > numTabs then nextIdx = 1 end
+        if nextIdx < 1 then nextIdx = numTabs end
+
+        self:SelectSpellTab(nextIdx)
+        return true
     end
 
-    local nextIdx = curIdx + direction
-    if nextIdx > total then nextIdx = 1 end
-    if nextIdx < 1 then nextIdx = total end
-
-    pageBags.currentCategory = cats[nextIdx].id
-    self:UpdateBagsPage()
-
-    if CFG.Audio.soundItemSelect then
-        PlaySound(CFG.Audio.soundItemSelect)
-    end
-    return true
+    return false
 end
 
 -- ============================================================================

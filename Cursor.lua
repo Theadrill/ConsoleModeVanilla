@@ -364,17 +364,18 @@ function Cursor:FindFirstVisibleButton(frame)
     
     local fname = frame:GetName() or ""
     
-    -- Para Main Menu (Console Hub): preferir primeiro slot da bolsa
+    -- Para Main Menu (Console Hub): preferir primeiro slot da aba ativa (Bolsas, Magias, etc.)
     if fname == "ConsoleModeMainMenuFrame" then
+        local mm = CM.mainMenu
+        if mm and mm.tabContainer then
+            local curTab = mm.tabContainer.currentTab or "BAGS"
+            local activePage = mm.tabContainer.pages and mm.tabContainer.pages[curTab]
+            if activePage and activePage.grid and activePage.grid.slots and activePage.grid.slots[1] and activePage.grid.slots[1]:IsVisible() then
+                return activePage.grid.slots[1]
+            end
+        end
         if ConsoleModeMM_BagSlot1 and ConsoleModeMM_BagSlot1:IsVisible() then
             return ConsoleModeMM_BagSlot1
-        end
-        local mm = CM.mainMenu
-        if mm and mm.tabContainer and mm.tabContainer.pages and mm.tabContainer.pages["BAGS"] then
-            local bagsPage = mm.tabContainer.pages["BAGS"]
-            if bagsPage.grid and bagsPage.grid.slots and bagsPage.grid.slots[1] and bagsPage.grid.slots[1]:IsVisible() then
-                return bagsPage.grid.slots[1]
-            end
         end
     end
 

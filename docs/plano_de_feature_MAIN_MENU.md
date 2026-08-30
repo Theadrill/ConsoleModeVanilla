@@ -275,13 +275,13 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
   3. Navegação contínua e sem atritos entre os equipamentos da esquerda e as abas da direita via D-Pad para uma experiência 100% unificada de console.
 * **Validação:** Focar em elmos, armas equipadas e buffs na lateral esquerda e ver seus dados completos carregando instantaneamente no painel fixo da direita.
 
-### **FASE 10: Sistema de Comparação de Equipamentos no Painel de Tooltip (Item Stat Diff - Verde/Vermelho)**
+### **FASE 10: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)**
 * **Tarefas:**
-  1. Detecção automática do slot correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Anel, Arma, etc.).
-  2. Verificação e leitura dos atributos do item atualmente equipado no respectivo slot de inventário (`GetInventoryItemLink`).
-  3. Comparador numérico de atributos (Armadura, Força, Agilidade, Vigor, Intelecto, Espírito, Dano por Segundo - DPS, Ataque/Poder Mágico).
-  4. Exibição de deltas de comparação no painel fixo de detalhes (`DetailCard` / Tooltip):
-     - Valores superiores destacados em **Verde** (`+X Atributo`).
-     - Valores inferiores destacados em **Vermelho** (`-Y Atributo`).
-     - Indicação do nome do item atualmente equipado que está sendo comparado.
-* **Validação:** Focar em armaduras ou armas na mochila e visualizar instantaneamente no painel de tooltip se o item melhora (verde) ou piora (vermelho) os atributos do personagem em relação à peça equipada.
+  1. Detecção automática do slot de equipamento correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Arma, etc.).
+  2. Leitura e cálculo diferencial entre os atributos do item da bolsa e o item atualmente equipado naquele slot (`GetInventoryItemLink`).
+  3. Atualização dinâmica e em tempo real da **Coluna de Atributos do Personagem** (à direita do modelo 3D):
+     - **Ganhos de Atributos:** Se a peça da bolsa for superior, o atributo correspondente (Força, Agilidade, Vigor, Intelecto, Espírito, Armadura) fica destacado em **Verde** exibindo o ganho entre parênteses: `142 (+12)`.
+     - **Perdas de Atributos:** Se a peça equipada for superior à da bolsa (ou seja, equipar a nova peça reduziria seus status), o atributo correspondente fica destacado em **Vermelho** exibindo a perda entre parênteses: `130 (-12)`.
+     - **Sem Alteração:** Atributos não afetados permanecem na cor padrão branca/dourada.
+  4. Restauração instantânea dos valores e cores padrão da coluna de atributos ao retirar o foco de itens equipáveis ou focar em slots vazios/consumíveis.
+* **Validação:** Focar em elmos, armas e armaduras na mochila e observar a coluna de atributos ao lado do personagem 3D colorir instantaneamente em verde `(+X)` ou vermelho `(-X)` mostrando o impacto real de equipar aquele item.

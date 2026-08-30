@@ -536,9 +536,29 @@ end
 function Cursor:UpdateState()
     local allButtons = {}
     
-    for frame, _ in pairs(self.state.activeFrames) do
-        if frame and frame:IsVisible() then 
-            self:CollectButtons(frame, allButtons) 
+    -- 1. Verifica se há diálogo modal ativo (StaticPopup ou ContextMenu)
+    local modalFrame = nil
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then
+            modalFrame = sp
+            break
+        end
+    end
+    if not modalFrame then
+        local ctx = CM.ui and CM.ui.contextMenu
+        if ctx and ctx.frame and ctx.frame:IsVisible() then
+            modalFrame = ctx.frame
+        end
+    end
+
+    if modalFrame then
+        self:CollectButtons(modalFrame, allButtons)
+    else
+        for frame, _ in pairs(self.state.activeFrames) do
+            if frame and frame:IsVisible() then 
+                self:CollectButtons(frame, allButtons) 
+            end
         end
     end
     

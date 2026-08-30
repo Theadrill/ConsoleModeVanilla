@@ -61,7 +61,7 @@ CFG.Fonts = {
     slotLabelSize       = 11,                   -- Aumentado em ~10% (original: 10)
     statSize            = 14,                   -- Aumentado em ~20% (original: 12)
     buffSize            = 12,                   -- Aumentado em ~10% (original: 11)
-    footerSize          = 12,
+    footerSize          = 16,                   -- Aumentado em +33% (original: 12)
     detailTitleSize     = 15,
     detailTypeSize      = 11,
     detailDescSize      = 12,
@@ -205,7 +205,7 @@ CFG.StatsAndBuffs = {
     width           = 150,                  -- Largura da coluna de status e buffs (px)
     buffIconSize    = 20,                   -- Tamanho do ícone de buff (px) - Aumentado em +10% (original: 18)
     buffGapY        = 5,                    -- Espaçamento vertical entre buffs (px)
-    maxBuffs        = 6,                    -- Quantidade máxima de buffs visíveis na lista
+    maxBuffs        = 8,                    -- Quantidade máxima de buffs visíveis na lista (inclui armas)
     durationColor   = "|cff88ccff",         -- Cor do tempo restante do buff
     barColor        = { r = 0.2, g = 0.7, b = 1.0 }, -- Cor da barrinha de duração estilo Zelda
 }
@@ -343,6 +343,34 @@ function MainMenu:GetBuffName(buffIndexID)
     local textObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
     local text = (textObj and textObj:GetText()) or "Efeito Ativo"
     return text
+end
+
+function MainMenu:GetWeaponEnchantDetails(slotID)
+    local icon = GetInventoryItemTexture("player", slotID) or "Interface\\Icons\\INV_Sword_04"
+    local enchantName = (slotID == 16 and "Arma Principal") or "Arma Secundária"
+
+    if not scanTip then return enchantName, icon end
+    scanTip:ClearLines()
+    scanTip:SetInventoryItem("player", slotID)
+
+    local numLines = scanTip:NumLines() or 0
+    for l = 1, numLines do
+        local lineObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+        if lineObj then
+            local text = lineObj:GetText() or ""
+            local r, g, b = lineObj:GetTextColor()
+            -- Linhas de encantamento temporário de arma no WoW Vanilla são verdes (g > 0.8 e r < 0.3) ou contêm (X min/sec)
+            if (g and g > 0.8 and r and r < 0.35) or string.find(text, "%(%d+ min%)") or string.find(text, "%(%d+ sec%)") or string.find(text, "%(%d+ hr%)") or string.find(text, "%(%d+ cargas%)") or string.find(text, "%(%d+ charges%)") then
+                local cleanName = string.gsub(text, "%s*%b()", "")
+                if cleanName ~= "" then
+                    enchantName = cleanName
+                    break
+                end
+            end
+        end
+    end
+
+    return enchantName, icon
 end
 
 -- ============================================================================
@@ -994,10 +1022,61 @@ function MainMenu:UpdateStatsAndBuffs()
         lines["Armadura"]:SetText("|cffffffffArmadura:|r " .. (armorEff or 0))
     end
 
-    -- 2. Atualiza Buffs Ativos (Estilo Zelda)
+    -- 2. Atualiza Buffs Ativos e Encantamentos de Arma (Estilo Zelda)
     local rows = self.statsAndBuffs.buffRows
     if rows then
         local buffCount = 0
+
+        -- 2.1. Encantamentos Temporários de Arma (Rockbiter, Flametongue, Windfury, Venenos, Óleos)
+        local hasMH, mhExp, mhCharges, hasOH, ohExp, ohCharges = GetWeaponEnchantInfo()
+
+        if hasMH and buffCount < CFG.StatsAndBuffs.maxBuffs then
+            buffCount = buffCount + 1
+            local row = rows[buffCount]
+            local mhName, mhIcon = self:GetWeaponEnchantDetails(16)
+            local timeLeft = (mhExp or 0) / 1000
+
+            row.icon:SetTexture(mhIcon or "Interface\\Icons\\INV_Sword_04")
+
+            local durStr = ""
+            if timeLeft and timeLeft > 0 then
+                if timeLeft >= 3600 then
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft / 3600) .. "h)|r"
+                elseif timeLeft >= 60 then
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft / 60) .. "m)|r"
+                else
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft) .. "s)|r"
+                end
+            end
+
+            row.name:SetText("|cffffffff" .. mhName .. "|r" .. durStr)
+            row:Show()
+        end
+
+        if hasOH and buffCount < CFG.StatsAndBuffs.maxBuffs then
+            buffCount = buffCount + 1
+            local row = rows[buffCount]
+            local ohName, ohIcon = self:GetWeaponEnchantDetails(17)
+            local timeLeft = (ohExp or 0) / 1000
+
+            row.icon:SetTexture(ohIcon or "Interface\\Icons\\INV_Sword_04")
+
+            local durStr = ""
+            if timeLeft and timeLeft > 0 then
+                if timeLeft >= 3600 then
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft / 3600) .. "h)|r"
+                elseif timeLeft >= 60 then
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft / 60) .. "m)|r"
+                else
+                    durStr = " " .. CFG.StatsAndBuffs.durationColor .. "(" .. math.floor(timeLeft) .. "s)|r"
+                end
+            end
+
+            row.name:SetText("|cffffffff" .. ohName .. "|r" .. durStr)
+            row:Show()
+        end
+
+        -- 2.2. Buffs Padrão do Jogador (HELPFUL)
         for i = 0, 31 do
             local buffIndex = GetPlayerBuff(i, "HELPFUL")
             if buffIndex < 0 or buffCount >= CFG.StatsAndBuffs.maxBuffs then
@@ -1157,12 +1236,39 @@ function MainMenu:CreateDetailCard(parent, config)
         self.iconBorder:SetBackdropBorderColor(r, g, b, 0.95)
         self.iconBorder:Show()
 
-        -- Formata subtítulo (ex: Cabeça - Armadura de Pano | Requer Nível 12)
+        -- Formata subtítulo (ex: Peitoral • Armadura de Malha • Req. Nv 12)
         local sub = {}
-        if itemData.equipLoc and itemData.equipLoc ~= "" then table.insert(sub, itemData.equipLoc) end
-        if itemData.subType and itemData.subType ~= "" then table.insert(sub, itemData.subType) end
+        local locName = nil
+        if itemData.equipLoc and itemData.equipLoc ~= "" then
+            locName = getglobal(itemData.equipLoc) or itemData.equipLoc
+            if string.find(locName, "^INVTYPE_") then
+                locName = nil
+            end
+        end
+
+        local stName = itemData.subType
+        if locName and locName ~= "" then
+            table.insert(sub, locName)
+        end
+        if stName and stName ~= "" then
+            -- Evita duplicidade se o slot e o subtipo forem idênticos (ex: Escudo / Shields)
+            local isDuplicate = false
+            if locName then
+                local lLoc = string.lower(locName)
+                local lSt = string.lower(stName)
+                if lLoc == lSt or lSt == lLoc .. "s" or lLoc == lSt .. "s" then
+                    isDuplicate = true
+                end
+            end
+            if not isDuplicate then
+                table.insert(sub, stName)
+            end
+        end
+
         local rLevel = tonumber(itemData.reqLevel) or 0
-        if rLevel > 1 then table.insert(sub, "Req. Nv " .. rLevel) end
+        if rLevel > 1 then
+            table.insert(sub, "Req. Nv " .. rLevel)
+        end
         self.typeText:SetText("|cffaaaaaa" .. table.concat(sub, "  •  ") .. "|r")
 
         -- Formata atributos e efeito

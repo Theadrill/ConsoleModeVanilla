@@ -6,14 +6,15 @@
       [====================== MENU PRINCIPAL ======================]
       |  [ PALCO DO PERSONAGEM (ESQUERDA) ]    |  [ CONTAINER DE ABAS (DIREITA) ]
       |  - Equipamentos (Esq)                  |  - [L1] Bolsas | Spells | Quests [R1]
-      |  - Modelo 3D Jogador (Centro)          |  - Container de Conteúdo da Aba
-      |  - Atributos & Buffs Ativos (Dir)      |  - Tooltip Fixo / Grids
+      |  - Modelo 3D Jogador (Centro)          |  - Grid Categorizado de Slots (2D)
+      |  - Atributos & Buffs Ativos (Dir)      |  - Painel Fixo de Detalhes / Tooltip (Zelda)
       [================ [D-Pad] (A) (Y) (B) [L1]/[R1] ===============]
 
     - FASE 1: Canvas 100% Responsivo por Porcentagem com renderização 9-Slice
     - FASE 2: Palco do Personagem 3D transparente (SetUnit('player')) com giro livre 360°
     - FASE 3: Lista de Equipamentos, Atributos Base e Lista Vertical de Buffs Ativos
     - FASE 4: Container de Abas Superiores com Alternância [L1] e [R1] (Gamepad)
+    - FASE 5: Componentes Reutilizáveis (Grid & DetailCard), Scanner de Bolsas Categorizado
     - FONTES: Tipografia customizada de alta legibilidade (Marcellus + Alegreya Sans) com suporte completo a UTF-8/PT-BR
     - Suporte a navegação por Gamepad e teclado
     - Compatível com Lua 5.0 / WoW 1.12.1
@@ -30,8 +31,8 @@ local MainMenu = CM.mainMenu
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
 --
 -- Todas as variáveis visuais de posição, tamanho, proporção, texturas, cores,
--- fontes, modelo 3D, equipamentos, status, buffs e abas estão centralizadas aqui.
--- Edite este bloco para ajustar a aparência sem mexer na lógica do código.
+-- fontes, modelo 3D, equipamentos, status, buffs, abas, grids e detalhes
+-- estão centralizadas aqui. Edite este bloco para ajustar a aparência.
 -- ============================================================================
 
 local CFG = {}
@@ -48,7 +49,7 @@ CFG.Fonts = {
 
     -- Estilo global de contorno ("" = sem outline / texto limpo, "OUTLINE" = contorno fino)
     outline             = "",
-    shadowOffset        = { 2, -2 },            -- Deslocamento X e Y da sombra projetada (px) - Aumentado em 1px
+    shadowOffset        = { 2, -2 },            -- Deslocamento X e Y da sombra projetada (px)
     shadowColor         = { 0.0, 0.0, 0.0, 0.85 }, -- Cor e opacidade da sombra (RGBA)
 
     titleSize           = 18,
@@ -61,6 +62,12 @@ CFG.Fonts = {
     statSize            = 14,                   -- Aumentado em ~20% (original: 12)
     buffSize            = 12,                   -- Aumentado em ~10% (original: 11)
     footerSize          = 12,
+    detailTitleSize     = 15,
+    detailTypeSize      = 11,
+    detailDescSize      = 12,
+    gridCountSize       = 11,
+    bagHeaderSize       = 15,                   -- Aumentado em +30% (original: 12)
+    bagCatSize          = 14,                   -- Aumentado em +30% (original: 11)
 }
 
 -- ----------------------------------------------------------------------------
@@ -232,6 +239,41 @@ CFG.Tabs = {
 }
 
 -- ----------------------------------------------------------------------------
+-- 6.2. COMPONENTE DE GRID REUTILIZÁVEL (FASE 5 - BOLSAS, MAGIAS, MISSÕES)
+-- ----------------------------------------------------------------------------
+CFG.Grid = {
+    slotSize        = 40,                   -- Tamanho do slot quadrado (px)
+    gapX            = 6,                    -- Espaçamento horizontal mínimo (px)
+    gapY            = 6,                    -- Espaçamento vertical (px)
+    maxSlots        = 80,                   -- Capacidade máxima de slots instanciados no pool
+    emptySlotAlpha  = 0.22,                 -- Opacidade dos slots vazios
+    highlightColor  = { r = 1.0, g = 0.85, b = 0.2, a = 0.95 }, -- Destaque dourado de foco
+}
+
+-- ----------------------------------------------------------------------------
+-- 6.3. PAINEL FIXO DE DETALHES / TOOLTIP (FASE 5 - ESTILO ZELDA / CONSOLE)
+-- ----------------------------------------------------------------------------
+CFG.DetailCard = {
+    height          = 135,                  -- Altura do painel fixo de detalhes na base (px)
+    iconSize        = 34,                   -- Tamanho do ícone grande de detalhes (px)
+    bgColor         = { r = 0.0, g = 0.0, b = 0.0, a = 0.50 },
+    borderColor     = { r = 0.5, g = 0.4, b = 0.3, a = 0.6 },
+}
+
+-- ----------------------------------------------------------------------------
+-- 6.4. CATEGORIAS DE BOLSAS E INVENTÁRIO (FASE 5)
+-- ----------------------------------------------------------------------------
+CFG.Bags = {
+    categories = {
+        { id = "ALL",    name = "Todos" },
+        { id = "EQUIP",  name = "Equipamentos" },
+        { id = "USABLE", name = "Consumíveis" },
+        { id = "TRADE",  name = "Materiais" },
+        { id = "MISC",   name = "Diversos" },
+    }
+}
+
+-- ----------------------------------------------------------------------------
 -- 7. DIVISÓRIA CENTRAL
 -- ----------------------------------------------------------------------------
 CFG.Divider = {
@@ -261,6 +303,7 @@ CFG.Audio = {
     soundOpen       = "igMainMenuOpen",
     soundClose      = "igMainMenuClose",
     soundTabChange  = "igCharacterInfoTab",
+    soundItemSelect = "igMiniMapZoomIn",
 }
 
 -- ============================================================================
@@ -271,18 +314,18 @@ function MainMenu:ApplyFont(fontString, fontPath, size, outline)
     if not fontString then return end
     fontPath = fontPath or CFG.Fonts.bodyFontFile
     size = size or 12
-    outline = outline or ""
+    outline = outline or CFG.Fonts.outline or ""
     
-    -- Tenta aplicar a fonte customizada (Marcellus / Alegreya Sans)
     fontString:SetFont(fontPath, size, outline)
     
-    -- Fallback de segurança para o WoW Vanilla (caso o jogo não tenha sido reiniciado ainda)
     if not fontString:GetFont() then
         fontString:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
     end
     
-    fontString:SetShadowOffset(1, -1)
-    fontString:SetShadowColor(0, 0, 0, 0.8)
+    local so = CFG.Fonts.shadowOffset or { 2, -2 }
+    local sc = CFG.Fonts.shadowColor or { 0, 0, 0, 0.85 }
+    fontString:SetShadowOffset(so[1], so[2])
+    fontString:SetShadowColor(sc[1], sc[2], sc[3], sc[4])
 end
 
 -- ============================================================================
@@ -541,7 +584,7 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
 
     for i, slotData in ipairs(CFG.Equipment.slots) do
         local btn = CreateFrame("Button", "ConsoleModeMM_EquipSlot" .. i, container)
-        btn:SetHeight(CFG.Equipment.itemHeight or 24)
+        btn:SetHeight(CFG.Equipment.itemHeight or 28)
         btn:SetPoint("LEFT", container, "LEFT", 0, 0)
         btn:SetPoint("RIGHT", container, "RIGHT", 0, 0)
 
@@ -754,7 +797,7 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
         bName:SetPoint("LEFT", bIcon, "RIGHT", 4, 0)
         bName:SetPoint("RIGHT", row, "RIGHT", -2, 0)
         bName:SetJustifyH("LEFT")
-        MainMenu:ApplyFont(bName, CFG.Fonts.bodyFontFile, CFG.Fonts.buffSize, "")
+        MainMenu:ApplyFont(bName, CFG.Fonts.bodyFontFile, CFG.Fonts.buffSize)
         row.name = bName
 
         -- Barrinha decorativa de duração estilo Zelda abaixo do nome
@@ -846,7 +889,650 @@ function MainMenu:UpdateStatsAndBuffs()
 end
 
 -- ============================================================================
--- 4. CONTAINER DE ABAS E NAVEGAÇÃO [L1] / [R1] (FASE 4 - PAINEL DIREITO)
+-- 4. COMPONENTE REUTILIZÁVEL: PAINEL FIXO DE DETALHES / TOOLTIP (FASE 5)
+-- Pode exibir detalhes de Itens, Magias, Habilidades ou Missões.
+-- ============================================================================
+
+function MainMenu:CreateDetailCard(parent, config)
+    config = config or CFG.DetailCard
+
+    local card = CreateFrame("Frame", nil, parent)
+    card:SetHeight(config.height or 145)
+    card:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 0, 0)
+    card:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", 0, 0)
+
+    -- Fundo escurecido translúcido com borda suave
+    card:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 12,
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 }
+    })
+    local bgC = config.bgColor or { r = 0, g = 0, b = 0, a = 0.45 }
+    local bdC = config.borderColor or { r = 0.5, g = 0.4, b = 0.3, a = 0.6 }
+    card:SetBackdropColor(bgC.r, bgC.g, bgC.b, bgC.a)
+    card:SetBackdropBorderColor(bdC.r, bdC.g, bdC.b, bdC.a)
+
+    -- 1. Ícone Grande do Item / Magia
+    local icon = card:CreateTexture(nil, "ARTWORK")
+    icon:SetWidth(config.iconSize or 34)
+    icon:SetHeight(config.iconSize or 34)
+    icon:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -10)
+    card.icon = icon
+
+    local iconBorder = CreateFrame("Frame", nil, card)
+    iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 2)
+    iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2, -2)
+    iconBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 8,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    iconBorder:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.8)
+    card.iconBorder = iconBorder
+
+    -- 2. Título (Nome do Item com cor da Raridade)
+    local titleText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    titleText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 8, 2)
+    titleText:SetPoint("RIGHT", card, "RIGHT", -10, 0)
+    titleText:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(titleText, CFG.Fonts.titleFontFile, CFG.Fonts.detailTitleSize)
+    card.titleText = titleText
+
+    -- 3. Subtítulo (Tipo de Item, Local do Slot, Nível Requerido)
+    local typeText = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    typeText:SetPoint("TOPLEFT", titleText, "BOTTOMLEFT", 0, -2)
+    typeText:SetPoint("RIGHT", card, "RIGHT", -10, 0)
+    typeText:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(typeText, CFG.Fonts.subFontFile, CFG.Fonts.detailTypeSize)
+    card.typeText = typeText
+
+    -- 4. Descrição / Atributos do Item
+    local descText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    descText:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -6)
+    descText:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 26)
+    descText:SetJustifyH("LEFT")
+    descText:SetJustifyV("TOP")
+    MainMenu:ApplyFont(descText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize)
+    card.descText = descText
+
+    -- 5. Rodapé: Preço de Venda (Esquerda) e Moedas do Jogador (Direita)
+    local footerBar = CreateFrame("Frame", nil, card)
+    footerBar:SetHeight(22)
+    footerBar:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 8, 4)
+    footerBar:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -8, 4)
+    card.footerBar = footerBar
+
+    local sellText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    sellText:SetPoint("LEFT", footerBar, "LEFT", 0, 0)
+    MainMenu:ApplyFont(sellText, CFG.Fonts.subFontFile, 11)
+    card.sellText = sellText
+
+    local moneyText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    moneyText:SetPoint("RIGHT", footerBar, "RIGHT", 0, 0)
+    MainMenu:ApplyFont(moneyText, CFG.Fonts.bodyFontFile, 12)
+    card.moneyText = moneyText
+
+    -- Método para exibir dados de um item
+    function card:ShowItem(itemData)
+        if not itemData or not itemData.link then
+            self:Clear("Nenhum item selecionado")
+            return
+        end
+
+        self.icon:SetTexture(itemData.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+        self.icon:Show()
+
+        local r, g, b = 0.8, 0.8, 0.8
+        if itemData.quality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemData.quality] then
+            local qCol = ITEM_QUALITY_COLORS[itemData.quality]
+            r, g, b = qCol.r, qCol.g, qCol.b
+            self.titleText:SetText(qCol.hex .. (itemData.name or "Item") .. "|r")
+        else
+            self.titleText:SetText("|cffffffff" .. (itemData.name or "Item") .. "|r")
+        end
+        self.iconBorder:SetBackdropBorderColor(r, g, b, 0.95)
+        self.iconBorder:Show()
+
+        -- Formata subtítulo (ex: Cabeça - Armadura de Pano | Requer Nível 12)
+        local sub = {}
+        if itemData.equipLoc and itemData.equipLoc ~= "" then table.insert(sub, itemData.equipLoc) end
+        if itemData.subType and itemData.subType ~= "" then table.insert(sub, itemData.subType) end
+        local rLevel = tonumber(itemData.reqLevel) or 0
+        if rLevel > 1 then table.insert(sub, "Req. Nv " .. rLevel) end
+        self.typeText:SetText("|cffaaaaaa" .. table.concat(sub, "  •  ") .. "|r")
+
+        -- Formata atributos e efeito
+        local bodyLines = {}
+        if itemData.statsLines and table.getn(itemData.statsLines) > 0 then
+            for _, sLine in ipairs(itemData.statsLines) do
+                table.insert(bodyLines, sLine)
+            end
+        end
+        if itemData.desc and itemData.desc ~= "" then
+            table.insert(bodyLines, "|cff00ff00" .. itemData.desc .. "|r")
+        end
+
+        if table.getn(bodyLines) > 0 then
+            self.descText:SetText(table.concat(bodyLines, "\n"))
+        else
+            self.descText:SetText("|cff888888Sem informações adicionais.|r")
+        end
+
+        -- Preço de venda
+        local sPrice = tonumber(itemData.sellPrice) or 0
+        if sPrice > 0 then
+            local gold = math.floor(sPrice / 10000)
+            local silver = math.floor(math.mod(sPrice, 10000) / 100)
+            local copper = math.mod(sPrice, 100)
+            self.sellText:SetText(string.format("|cffaaaaaaVenda:|r |cffffd200%dg|r |cffc0c0c0%ds|r |cffcc8833%dc|r", gold, silver, copper))
+        else
+            self.sellText:SetText("|cff666666Sem valor de venda|r")
+        end
+
+        self:UpdateMoney()
+        self:Show()
+    end
+
+    -- Método para limpar / estado vazio
+    function card:Clear(msg)
+        self.icon:Hide()
+        self.iconBorder:Hide()
+        self.titleText:SetText("|cff888888" .. (msg or "Nenhum item em foco") .. "|r")
+        self.typeText:SetText("")
+        self.descText:SetText("|cff555555Navegue com o D-Pad para inspecionar itens.|r")
+        self.sellText:SetText("")
+        self:UpdateMoney()
+    end
+
+    -- Atualiza o saldo de dinheiro do jogador no rodapé
+    function card:UpdateMoney()
+        local money = GetMoney() or 0
+        local gold = math.floor(money / 10000)
+        local silver = math.floor(math.mod(money, 10000) / 100)
+        local copper = math.mod(money, 100)
+        self.moneyText:SetText(string.format("|cffe09a15Ouro:|r |cffffd200%dg|r |cffc0c0c0%ds|r |cffcc8833%dc|r", gold, silver, copper))
+    end
+
+    card:Clear()
+    return card
+end
+
+-- ============================================================================
+-- 5. COMPONENTE REUTILIZÁVEL: GRID GENÉRICO DE SLOTS (FASE 5)
+-- ============================================================================
+
+function MainMenu:CreateGrid(parent, maxSlots, config)
+    config = config or CFG.Grid
+    maxSlots = maxSlots or config.maxSlots or 64
+
+    local gridFrame = CreateFrame("Frame", nil, parent)
+    gridFrame:SetAllPoints(parent)
+
+    local slotSize = config.slotSize or 38
+    local gapX = config.gapX or 6
+    local gapY = config.gapY or 6
+    local cols = config.cols or 8
+
+    local slots = {}
+
+    for i = 1, maxSlots do
+        local slot = CreateFrame("Button", nil, gridFrame)
+        slot:SetWidth(slotSize)
+        slot:SetHeight(slotSize)
+        slot.slotIndex = i
+
+        -- Ícone
+        local icon = slot:CreateTexture(nil, "ARTWORK")
+        icon:SetAllPoints(slot)
+        slot.icon = icon
+
+        -- Moldura de Raridade (8 fatias nativo, sem glitch)
+        local border = CreateFrame("Frame", nil, slot)
+        border:SetPoint("TOPLEFT", slot, "TOPLEFT", -2, 2)
+        border:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 2, -2)
+        border:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.4)
+        slot.border = border
+
+        -- Texto de Stack (Quantidade)
+        local countText = slot:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        countText:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", -2, 2)
+        MainMenu:ApplyFont(countText, CFG.Fonts.bodyFontFile, CFG.Fonts.gridCountSize, "OUTLINE")
+        slot.countText = countText
+
+        -- Destaque Dourado de Seleção Ativa (Estilo Zelda)
+        local highlight = CreateFrame("Frame", nil, slot)
+        highlight:SetPoint("TOPLEFT", slot, "TOPLEFT", -4, 4)
+        highlight:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 4, -4)
+        highlight:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 10,
+            insets = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        local hCol = config.highlightColor or { r = 1.0, g = 0.85, b = 0.2, a = 0.95 }
+        highlight:SetBackdropBorderColor(hCol.r, hCol.g, hCol.b, hCol.a)
+        highlight:Hide()
+        slot.highlight = highlight
+
+        -- Eventos de Mouse / Hover
+        slot:SetScript("OnEnter", function()
+            if this.data and gridFrame.onSlotFocused then
+                gridFrame.onSlotFocused(this.slotIndex, this.data)
+            end
+            this.highlight:Show()
+        end)
+
+        slot:SetScript("OnLeave", function()
+            if gridFrame.selectedSlotIndex ~= this.slotIndex then
+                this.highlight:Hide()
+            end
+        end)
+
+        slot:SetScript("OnClick", function()
+            gridFrame:SelectSlot(this.slotIndex)
+            if gridFrame.onSlotClicked and this.data then
+                gridFrame.onSlotClicked(this.slotIndex, this.data)
+            end
+        end)
+
+        table.insert(slots, slot)
+    end
+
+    gridFrame.slots = slots
+    gridFrame.slotSize = slotSize
+    gridFrame.gapX = gapX
+    gridFrame.gapY = gapY
+    gridFrame.cols = cols
+    gridFrame.selectedSlotIndex = 1
+
+    -- Organiza os slots no layout de grade 2D responsivo que preenche 100% da largura e respeita a altura
+    function gridFrame:LayoutSlots(visibleCount)
+        local w = self:GetWidth()
+        local h = self:GetHeight()
+
+        -- Se a geometria ainda não resolveu no primeiro frame (w <= 100), calcula via targetW e targetH reais
+        if not w or w < 100 then
+            local totalW = (MainMenu.frame and MainMenu.frame:GetWidth()) or 980
+            if totalW < 100 then totalW = 980 end
+            local availableW = totalW - (CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
+            local leftW = math.floor(availableW * CFG.LeftPanel.widthRatio)
+            w = availableW - leftW
+        end
+
+        if not h or h < 100 then
+            local totalH = (MainMenu.frame and MainMenu.frame:GetHeight()) or 620
+            if totalH < 100 then totalH = 620 end
+            h = totalH - (math.abs(CFG.RightPanel.paddingTop) + CFG.RightPanel.paddingBottom + CFG.Tabs.barHeight + CFG.DetailCard.height + 40)
+        end
+
+        local s = self.slotSize or 40
+        local minGapX = self.gapX or 6
+        local gy = self.gapY or 6
+
+        -- 1. Calcula quantas colunas cabem perfeitamente na largura total
+        local c = math.floor((w + minGapX) / (s + minGapX))
+        if c < 4 then c = 4 end
+
+        -- 2. Distribui o gap horizontal de ponta a ponta para preencher 100% da largura
+        local gx = minGapX
+        if c > 1 then
+            gx = math.floor((w - (c * s)) / (c - 1))
+            if gx < 2 then gx = 2 end
+        end
+
+        -- 3. Calcula quantas linhas cabem estritamente sem invadir a área de tooltip abaixo
+        local maxRows = math.floor((h + gy) / (s + gy))
+        if maxRows < 1 then maxRows = 1 end
+        local maxFit = c * maxRows
+
+        self.cols = c
+        self.maxFitSlots = maxFit
+
+        local limit = visibleCount or table.getn(self.slots)
+        if limit > maxFit then limit = maxFit end
+
+        for i, slot in ipairs(self.slots) do
+            if i <= limit then
+                local colIdx = math.mod(i - 1, c)
+                local rowIdx = math.floor((i - 1) / c)
+                local posX = colIdx * (s + gx)
+                local posY = -(rowIdx * (s + gy))
+
+                slot:ClearAllPoints()
+                slot:SetPoint("TOPLEFT", self, "TOPLEFT", posX, posY)
+                slot:Show()
+            else
+                slot:Hide()
+            end
+        end
+    end
+
+    -- Seleciona um slot no grid e dispara os callbacks
+    function gridFrame:SelectSlot(index)
+        self.selectedSlotIndex = index
+        for i, slot in ipairs(self.slots) do
+            if i == index then
+                slot.highlight:Show()
+                if slot.data and self.onSlotFocused then
+                    self.onSlotFocused(index, slot.data)
+                end
+            else
+                slot.highlight:Hide()
+            end
+        end
+    end
+
+    -- Limpa todos os slots
+    function gridFrame:Clear()
+        for _, slot in ipairs(self.slots) do
+            slot.icon:SetTexture(nil)
+            slot.countText:SetText("")
+            slot.border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.3)
+            slot.data = nil
+            slot.highlight:Hide()
+        end
+    end
+
+    return gridFrame
+end
+
+-- ============================================================================
+-- 6. SCANNER E PARSER DE INVENTÁRIO (FASE 5)
+-- ============================================================================
+
+function MainMenu:ParseItemData(bagID, slotID)
+    local texture, count, locked, quality, readable = GetContainerItemInfo(bagID, slotID)
+    if not texture then return nil end
+
+    local link = GetContainerItemLink(bagID, slotID)
+    local itemName, rawLink, itemQuality, itemReqLevel, itemType, itemSubType, itemEquipLoc
+    local sellPrice = 0
+
+    if link then
+        local _, _, _, rawL, nameFromL = string.find(link, "|c(%x+)|H(item:%d+:%d+:%d+:%d+)|h%[(.-)%]|h|r")
+        itemName = nameFromL
+        rawLink = rawL
+    end
+
+    if rawLink then
+        local n, _, q, _, reqL, t, st, _, eqL, _ = GetItemInfo(rawLink)
+        if n then
+            itemName = n
+            itemQuality = tonumber(q) or 1
+            itemReqLevel = tonumber(reqL) or 0
+            itemType = t
+            itemSubType = st
+            itemEquipLoc = eqL
+        end
+    end
+
+    -- Varre as linhas do Tooltip para atributos e preço de venda
+    scanTip:ClearLines()
+    scanTip:SetBagItem(bagID, slotID)
+
+    local statsLines = {}
+    local desc = ""
+    local numLines = scanTip:NumLines()
+
+    for l = 2, numLines do
+        local leftTextObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+        local leftText = (leftTextObj and leftTextObj:GetText()) or ""
+        if leftText ~= "" then
+            if string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
+                desc = leftText
+            elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
+                table.insert(statsLines, "|cffffffff" .. leftText .. "|r")
+            end
+        end
+    end
+
+    -- Classifica em Categoria
+    local cat = "MISC"
+    if itemType == "Armadura" or itemType == "Armor" or itemType == "Arma" or itemType == "Weapon" then
+        cat = "EQUIP"
+    elseif itemType == "Consumível" or itemType == "Consumable" then
+        cat = "USABLE"
+    elseif itemType == "Mercadoria" or itemType == "Trade Goods" or itemType == "Reagente" or itemType == "Reagent" then
+        cat = "TRADE"
+    end
+
+    return {
+        bagID      = bagID,
+        slotID     = slotID,
+        name       = itemName or "Item",
+        texture    = texture,
+        count      = count or 1,
+        quality    = quality or itemQuality or 1,
+        link       = link,
+        reqLevel   = itemReqLevel or 0,
+        itemType   = itemType or "",
+        subType    = itemSubType or "",
+        equipLoc   = itemEquipLoc or "",
+        category   = cat,
+        statsLines = statsLines,
+        desc       = desc,
+        sellPrice  = sellPrice,
+    }
+end
+
+function MainMenu:ScanInventory(categoryFilter)
+    categoryFilter = categoryFilter or "ALL"
+    local items = {}
+    local totalSlots = 0
+    local freeSlots = 0
+
+    for bag = 0, 4 do
+        local numSlots = GetContainerNumSlots(bag)
+        if numSlots and numSlots > 0 then
+            totalSlots = totalSlots + numSlots
+            for slot = 1, numSlots do
+                local itemData = self:ParseItemData(bag, slot)
+                if itemData then
+                    if categoryFilter == "ALL" or itemData.category == categoryFilter then
+                        table.insert(items, itemData)
+                    end
+                else
+                    freeSlots = freeSlots + 1
+                end
+            end
+        end
+    end
+
+    return {
+        items       = items,
+        totalSlots  = totalSlots,
+        freeSlots   = freeSlots,
+        playerMoney = GetMoney() or 0,
+    }
+end
+
+-- ============================================================================
+-- 7. CONFIGURAÇÃO DA ABA 1: BOLSAS & INVENTÁRIO (FASE 5)
+-- ============================================================================
+
+function MainMenu:SetupBagsPage(pageBags)
+    if pageBags.isInitialized then return end
+
+    -- 1. Barra de Cabeçalho / Filtros de Categoria
+    local headerBar = CreateFrame("Frame", "ConsoleModeMM_BagsHeader", pageBags)
+    headerBar:SetHeight(32)
+    headerBar:SetPoint("TOPLEFT", pageBags, "TOPLEFT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", pageBags, "TOPRIGHT", 0, 0)
+
+    local slotsFreeText = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    slotsFreeText:SetPoint("LEFT", headerBar, "LEFT", 2, 0)
+    MainMenu:ApplyFont(slotsFreeText, CFG.Fonts.subFontFile, CFG.Fonts.bagHeaderSize or 15)
+    slotsFreeText:SetText("|cffaaaaaaEspaço:|r |cffffffff0 / 0|r")
+    pageBags.slotsFreeText = slotsFreeText
+
+    -- Botões de Filtro de Categoria
+    local catButtons = {}
+    local prevCat = nil
+    pageBags.currentCategory = "ALL"
+
+    for i, catData in ipairs(CFG.Bags.categories) do
+        local catBtn = CreateFrame("Button", "ConsoleModeMM_BagCat" .. catData.id, headerBar)
+        catBtn:SetHeight(24)
+
+        local catTitle = catBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        catTitle:SetPoint("CENTER", catBtn, "CENTER", 0, 0)
+        MainMenu:ApplyFont(catTitle, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
+        catTitle:SetText(catData.name)
+        catBtn.title = catTitle
+        catBtn.catData = catData
+
+        -- Auto-dimensiona a largura do botão pelo tamanho do texto + 8px de respiro
+        local txtW = math.floor(catTitle:GetStringWidth() or 60)
+        if txtW < 40 then txtW = 40 end
+        catBtn:SetWidth(txtW + 8)
+
+        if not prevCat then
+            catBtn:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
+        else
+            catBtn:SetPoint("RIGHT", prevCat, "LEFT", -6, 0)
+        end
+
+        catBtn:SetScript("OnClick", function()
+            pageBags.currentCategory = this.catData.id
+            MainMenu:UpdateBagsPage()
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end)
+
+        table.insert(catButtons, catBtn)
+        prevCat = catBtn
+    end
+    pageBags.catButtons = catButtons
+
+    -- Linha Divisória abaixo do cabeçalho de filtros
+    local hDiv = headerBar:CreateTexture(nil, "ARTWORK")
+    hDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    hDiv:SetHeight(1)
+    hDiv:SetPoint("BOTTOMLEFT", headerBar, "BOTTOMLEFT", 0, -2)
+    hDiv:SetPoint("BOTTOMRIGHT", headerBar, "BOTTOMRIGHT", 0, -2)
+    hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+
+    -- 2. Painel Fixo de Detalhes / Tooltip (Estilo Zelda) na base
+    local detailCard = self:CreateDetailCard(pageBags, CFG.DetailCard)
+    pageBags.detailCard = detailCard
+
+    -- 3. Container e Grid 2D de Slots de Itens
+    local gridContainer = CreateFrame("Frame", "ConsoleModeMM_BagsGridContainer", pageBags)
+    gridContainer:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -8)
+    gridContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 8)
+
+    local grid = self:CreateGrid(gridContainer, 80, CFG.Grid)
+    pageBags.grid = grid
+
+    -- Callbacks do Grid
+    grid.onSlotFocused = function(slotIndex, itemData)
+        if itemData then
+            detailCard:ShowItem(itemData)
+        else
+            detailCard:Clear("Slot Vazio")
+        end
+    end
+
+    grid.onSlotClicked = function(slotIndex, itemData)
+        if itemData and itemData.bagID and itemData.slotID then
+            -- Suporte nativo a usar item com o botão (A)
+            UseContainerItem(itemData.bagID, itemData.slotID)
+        end
+    end
+
+    pageBags.isInitialized = true
+end
+
+function MainMenu:UpdateBagsPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageBags = self.tabContainer.pages["BAGS"]
+    if not pageBags then return end
+
+    self:SetupBagsPage(pageBags)
+
+    local curCat = pageBags.currentCategory or "ALL"
+    local scanResult = self:ScanInventory(curCat)
+    local items = scanResult.items
+
+    -- 1. Atualiza botões de categoria
+    if pageBags.catButtons then
+        for _, btn in ipairs(pageBags.catButtons) do
+            if btn.catData.id == curCat then
+                btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+            else
+                btn.title:SetTextColor(0.6, 0.6, 0.6)
+            end
+        end
+    end
+
+    -- 2. Atualiza contador de espaço livre
+    if pageBags.slotsFreeText then
+        pageBags.slotsFreeText:SetText(string.format("|cffaaaaaaEspaço Livre:|r |cffffffff%d / %d|r", scanResult.freeSlots, scanResult.totalSlots))
+    end
+
+    -- 3. Preenche os slots do grid respeitando a área disponível
+    local grid = pageBags.grid
+    grid:Clear()
+
+    local numItems = table.getn(items)
+    local totalVisible = numItems
+    if curCat == "ALL" then
+        totalVisible = scanResult.totalSlots
+    end
+
+    grid:LayoutSlots(totalVisible)
+    local maxDisplay = grid.maxFitSlots or 40
+    if totalVisible > maxDisplay then totalVisible = maxDisplay end
+
+    for i = 1, totalVisible do
+        local slot = grid.slots[i]
+        if slot then
+            local itemData = items[i]
+
+            if itemData then
+                slot.icon:SetTexture(itemData.texture)
+                slot.icon:SetAlpha(1.0)
+                slot.data = itemData
+
+                -- Quantidade no stack
+                if itemData.count and itemData.count > 1 then
+                    slot.countText:SetText(tostring(itemData.count))
+                else
+                    slot.countText:SetText("")
+                end
+
+                -- Borda com cor de qualidade
+                local r, g, b = 0.8, 0.8, 0.8
+                if itemData.quality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemData.quality] then
+                    local col = ITEM_QUALITY_COLORS[itemData.quality]
+                    r, g, b = col.r, col.g, col.b
+                end
+                slot.border:SetBackdropBorderColor(r, g, b, 0.95)
+            else
+                -- Slot vazio
+                slot.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+                slot.icon:SetAlpha(CFG.Grid.emptySlotAlpha or 0.22)
+                slot.countText:SetText("")
+                slot.border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.25)
+                slot.data = nil
+            end
+        end
+    end
+
+    -- 4. Exibe o primeiro item no painel de detalhes por padrão
+    if numItems > 0 then
+        grid:SelectSlot(1)
+    else
+        pageBags.detailCard:Clear("Inventário Vazio")
+    end
+end
+
+-- ============================================================================
+-- 8. CONTAINER DE ABAS E NAVEGAÇÃO [L1] / [R1] (FASE 4 - PAINEL DIREITO)
 -- ============================================================================
 
 function MainMenu:CreateTabContainer(rightPanel)
@@ -892,7 +1578,7 @@ function MainMenu:CreateTabContainer(rightPanel)
 
         local title = tabBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("CENTER", tabBtn, "CENTER", 0, 0)
-        MainMenu:ApplyFont(title, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize, "")
+        MainMenu:ApplyFont(title, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize)
         title:SetText(tabData.name)
         tabBtn.title = title
 
@@ -935,10 +1621,6 @@ function MainMenu:CreateTabContainer(rightPanel)
     -- Página 1: Bolsas & Inventário (Fase 5/6)
     local pageBags = CreateFrame("Frame", "ConsoleModeMM_Page_BAGS", contentFrame)
     pageBags:SetAllPoints(contentFrame)
-    local bagsPlaceholder = pageBags:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    bagsPlaceholder:SetPoint("CENTER", pageBags, "CENTER", 0, 30)
-    MainMenu:ApplyFont(bagsPlaceholder, CFG.Fonts.titleFontFile, 15, "")
-    bagsPlaceholder:SetText("|cffe09a15[ ABA 1: BOLSAS & INVENTÁRIO ]|r\n\n|cffaaaaaaPronto para receber o Grid Categorizado na Fase 5|r")
     pages["BAGS"] = pageBags
 
     -- Página 2: Livro de Magias & Habilidades (Fase 7)
@@ -1018,6 +1700,11 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
     end
 
     container.currentTab = tabID
+
+    -- Se abriu a aba de Bolsas, atualiza o inventário
+    if tabID == "BAGS" then
+        self:UpdateBagsPage()
+    end
 
     if playSoundEffect ~= false and CFG.Audio.soundTabChange then
         PlaySound(CFG.Audio.soundTabChange)
@@ -1141,7 +1828,7 @@ function MainMenu:CreateUI()
 
     local footerText = footer:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     footerText:SetPoint("CENTER", footer, "CENTER", 0, 0)
-    MainMenu:ApplyFont(footerText, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize, "")
+    MainMenu:ApplyFont(footerText, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize)
     footerText:SetText(CFG.Footer.text)
 
     -- 9. Fechamento com tecla Escape
@@ -1217,6 +1904,9 @@ initFrame:RegisterEvent("UNIT_MANA")
 initFrame:RegisterEvent("UNIT_RAGE")
 initFrame:RegisterEvent("UNIT_ENERGY")
 initFrame:RegisterEvent("PLAYER_MONEY")
+initFrame:RegisterEvent("BAG_UPDATE")
+initFrame:RegisterEvent("ITEM_LOCK_CHANGED")
+
 initFrame:SetScript("OnEvent", function()
     if event == "VARIABLES_LOADED" then
         MainMenu:CreateUI()
@@ -1230,8 +1920,16 @@ initFrame:SetScript("OnEvent", function()
                 MainMenu:UpdatePlayerModel()
                 MainMenu:UpdateEquipmentColumn()
             end
-        elseif event == "PLAYER_AURAS_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MANA" or event == "UNIT_RAGE" or event == "UNIT_ENERGY" or event == "PLAYER_MONEY" then
+        elseif event == "PLAYER_AURAS_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MANA" or event == "UNIT_RAGE" or event == "UNIT_ENERGY" then
             MainMenu:UpdateStatsAndBuffs()
+        elseif event == "PLAYER_MONEY" then
+            if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "BAGS" then
+                MainMenu:UpdateBagsPage()
+            end
+        elseif event == "BAG_UPDATE" or event == "ITEM_LOCK_CHANGED" then
+            if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "BAGS" then
+                MainMenu:UpdateBagsPage()
+            end
         end
     end
 end)

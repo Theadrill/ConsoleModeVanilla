@@ -92,9 +92,8 @@ function Menu:Initialize()
         btn.text = text
         btn.action = def.action
 
-        local thisAction = def.action
         btn:SetScript("OnClick", function()
-            Menu:ExecuteAction(thisAction)
+            Menu:ExecuteAction(this.action)
         end)
 
         btn:SetScript("OnEnter", function()
@@ -204,6 +203,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
     self.currentBag = bagID
     self.currentSlot = slotID
+    self.currentInvSlot = nil
     self.currentMax = count
     self.currentSplit = math.floor(count / 2)
     if self.currentSplit < 1 then self.currentSplit = 1 end
@@ -218,10 +218,10 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         self.frame.title:SetText(itemName)
     end
 
-    -- Configura View Inicial (Menu)
+    -- Configura View Inicial (Menu da Bolsa)
     self.frame.menuView:Show()
     self.frame.splitView:Hide()
-
+    self.frame:SetHeight(152)
 
     local isUsable = false
     local BP = CM.config and CM.config.bagPicker
@@ -235,6 +235,9 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
     local useBtn = self.buttons[1]
     if useBtn then
+        useBtn:Show()
+        useBtn.text:SetText("Usar / Equipar")
+        useBtn.action = "USE"
         if isUsable then
             useBtn:Enable()
             useBtn.text:SetTextColor(0.2, 0.9, 0.3)
@@ -247,6 +250,8 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
     local splitBtn = self.buttons[2]
     if splitBtn then
+        splitBtn:Show()
+        splitBtn.action = "SPLIT"
         if count and count > 1 then
             splitBtn:Enable()
             splitBtn.text:SetTextColor(0.3, 0.7, 1.0)
@@ -258,6 +263,8 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
     local restackBtn = self.buttons[3]
     if restackBtn then
+        restackBtn:Show()
+        restackBtn.action = "RESTACK"
         -- Se a quantidade for maior que 1 ou o maxStack > 1, o item é comprovadamente empilhável
         if count > 1 or maxStack > 1 then
             restackBtn:Enable()
@@ -266,6 +273,15 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
             restackBtn:Disable()
             restackBtn.text:SetTextColor(0.45, 0.45, 0.45)
         end
+    end
+
+    local dropBtn = self.buttons[4]
+    if dropBtn then
+        dropBtn:Show()
+        dropBtn:Enable()
+        dropBtn.text:SetText("Excluir / Destruir")
+        dropBtn.text:SetTextColor(0.95, 0.3, 0.3)
+        dropBtn.action = "DROP"
     end
 
 
@@ -301,6 +317,94 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         if not targetBtn then targetBtn = self.buttons and self.buttons[1] end
         if targetBtn then
             CM.cursor:MoveTo(targetBtn)
+            CM.cursor:UpdateState()
+        end
+    end
+
+    return true
+end
+
+function Menu:OpenForEquipItem(invSlotID, anchorFrame)
+    if not invSlotID then return false end
+
+    self:Initialize()
+
+    local itemTexture = GetInventoryItemTexture("player", invSlotID)
+    local itemLink = GetInventoryItemLink("player", invSlotID)
+    if not itemTexture or not itemLink then
+        -- Slot vazio, nada a desequipar
+        return false
+    end
+
+    local itemName = "Item"
+    local itemID = nil
+    if itemLink then
+        local _, _, extractedID = string.find(itemLink, "item:(%d+)")
+        if extractedID then
+            itemID = tonumber(extractedID)
+            local n = GetItemInfo(itemID)
+            if n then itemName = n end
+        end
+        if itemName == "Item" then
+            local _, _, extractedName = string.find(itemLink, "%[(.-)%]")
+            if extractedName then itemName = extractedName end
+        end
+    end
+
+    self.currentMode = "EQUIP_MENU"
+    self.currentInvSlot = invSlotID
+    self.currentBag = nil
+    self.currentSlot = nil
+    self.returnButton = anchorFrame
+    self.itemName = itemName
+
+    -- Título encurtado se for muito longo
+    if string.len(itemName) > 18 then
+        self.frame.title:SetText(string.sub(itemName, 1, 16) .. "..")
+    else
+        self.frame.title:SetText(itemName)
+    end
+
+    -- Configura botões para o modo de Equipamento
+    self.frame.menuView:Show()
+    self.frame.splitView:Hide()
+    self.frame:SetHeight(68)
+
+    -- Botão 1: Desequipar
+    local unequipBtn = self.buttons[1]
+    if unequipBtn then
+        unequipBtn:Show()
+        unequipBtn:Enable()
+        unequipBtn.text:SetText("Desequipar (Unequip)")
+        unequipBtn.text:SetTextColor(0.3, 0.8, 1.0)
+        unequipBtn.action = "UNEQUIP"
+    end
+
+    -- Esconde botões 2, 3 e 4 no modo Equip
+    if self.buttons[2] then self.buttons[2]:Hide(); self.buttons[2]:Disable() end
+    if self.buttons[3] then self.buttons[3]:Hide(); self.buttons[3]:Disable() end
+    if self.buttons[4] then self.buttons[4]:Hide(); self.buttons[4]:Disable() end
+
+    self.frame:ClearAllPoints()
+    if anchorFrame then
+        local left = anchorFrame:GetLeft() or 0
+        local screenW = GetScreenWidth() or 1024
+        if left > (screenW / 2) then
+            self.frame:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -6, 10)
+        else
+            self.frame:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 6, 10)
+        end
+    else
+        self.frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    end
+
+    self.frame:Show()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+
+    if CM.cursor then
+        CM.cursor.state.activeFrames[self.frame] = true
+        if unequipBtn then
+            CM.cursor:MoveTo(unequipBtn)
             CM.cursor:UpdateState()
         end
     end
@@ -390,6 +494,7 @@ function Menu:Close()
 
     self.currentBag = nil
     self.currentSlot = nil
+    self.currentInvSlot = nil
     self.currentMode = "MENU"
     self.returnButton = nil
 end
@@ -397,7 +502,23 @@ end
 function Menu:ExecuteAction(action)
     local bagID  = self.currentBag
     local slotID = self.currentSlot
+    local invSlot = self.currentInvSlot
     local returnBtn = self.returnButton
+
+    if action == "UNEQUIP" then
+        self:Close()
+        if invSlot then
+            PickupInventoryItem(invSlot)
+            PutItemInBackpack()
+            if CursorHasItem() then ClearCursor() end
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            if CM.mainMenu and CM.mainMenu.UpdateEquipmentColumn then
+                CM.mainMenu:UpdateEquipmentColumn()
+                CM.mainMenu:UpdatePlayerModel()
+            end
+        end
+        return
+    end
 
     if not bagID or not slotID then
         self:Close()

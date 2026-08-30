@@ -210,7 +210,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-## 7. Plano de Implementação em 8 Fases Incrementais
+## 7. Plano de Implementação em 10 Fases Incrementais
 
 ### **FASE 1: A "Casca" e a Textura 9-Slice (O Canvas do Menu)**
 * **Tarefas:**
@@ -268,9 +268,20 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
   3. Mapeamento de abertura pelo botão Start e ajustes finos de responsividade.
 * **Validação:** Menu completo, fluido, polido e 100% funcional no gameplay com controle.
 
-### **FASE 9: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip (Fase Final)**
+### **FASE 9: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip**
 * **Tarefas:**
   1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
   2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
   3. Navegação contínua e sem atritos entre os equipamentos da esquerda e as abas da direita via D-Pad para uma experiência 100% unificada de console.
 * **Validação:** Focar em elmos, armas equipadas e buffs na lateral esquerda e ver seus dados completos carregando instantaneamente no painel fixo da direita.
+
+### **FASE 10: Sistema de Comparação de Equipamentos no Painel de Tooltip (Item Stat Diff - Verde/Vermelho)**
+* **Tarefas:**
+  1. Detecção automática do slot correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Anel, Arma, etc.).
+  2. Verificação e leitura dos atributos do item atualmente equipado no respectivo slot de inventário (`GetInventoryItemLink`).
+  3. Comparador numérico de atributos (Armadura, Força, Agilidade, Vigor, Intelecto, Espírito, Dano por Segundo - DPS, Ataque/Poder Mágico).
+  4. Exibição de deltas de comparação no painel fixo de detalhes (`DetailCard` / Tooltip):
+     - Valores superiores destacados em **Verde** (`+X Atributo`).
+     - Valores inferiores destacados em **Vermelho** (`-Y Atributo`).
+     - Indicação do nome do item atualmente equipado que está sendo comparado.
+* **Validação:** Focar em armaduras ou armas na mochila e visualizar instantaneamente no painel de tooltip se o item melhora (verde) ou piora (vermelho) os atributos do personagem em relação à peça equipada.

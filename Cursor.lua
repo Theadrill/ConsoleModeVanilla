@@ -750,15 +750,32 @@ function Cursor:Click(mouseButton)
         end
     end
     
-    -- Equipamento do personagem: botao direito desequipa para a bolsa
-    if mouseButton == "RightButton" and string.find(bname, "Character[A-Za-z0-9]+Slot") then
-        local slotId = button:GetID()
-        if slotId then
-            PickupInventoryItem(slotId)
-            PutItemInBackpack()
-            if CursorHasItem() then ClearCursor() end
-            self:UpdateState()
-            return
+    -- Equipamento do personagem (Blizzard e ConsoleMode MainMenu)
+    local isMMEquipSlot = string.find(bname, "ConsoleModeMM_EquipSlot%d+") or (button.isMMEquipSlot == true)
+    if isMMEquipSlot or (mouseButton == "RightButton" and string.find(bname, "Character[A-Za-z0-9]+Slot")) then
+        local invSlot = button.invSlotID or (button.GetID and button:GetID())
+        if invSlot and invSlot > 0 then
+            if mouseButton == "RightButton" then
+                if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForEquipItem then
+                    local opened = CM.ui.contextMenu:OpenForEquipItem(invSlot, button)
+                    if opened then return end
+                end
+                PickupInventoryItem(invSlot)
+                PutItemInBackpack()
+                if CursorHasItem() then ClearCursor() end
+                self:UpdateState()
+                return
+            elseif mouseButton == "LeftButton" then
+                if CursorHasItem() or CursorHasSpell() then
+                    PickupInventoryItem(invSlot)
+                    self:UpdateState()
+                    return
+                elseif button.Click then
+                    button:Click(mouseButton)
+                    self:UpdateState()
+                    return
+                end
+            end
         end
     end
     

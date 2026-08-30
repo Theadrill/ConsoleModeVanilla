@@ -482,7 +482,11 @@ end
 function MainMenu:CreatePlayerModel(leftPanel)
     if self.playerModel then return self.playerModel end
 
-    local model = CreateFrame("PlayerModel", "ConsoleModeMM_PlayerModel", leftPanel)
+    local model = CreateFrame("DressUpModel", "ConsoleModeMM_PlayerModel", leftPanel)
+    if not model then
+        model = CreateFrame("PlayerModel", "ConsoleModeMM_PlayerModel", leftPanel)
+    end
+
     model:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
     model:SetWidth(CFG.PlayerModel.width)
     model:SetHeight(CFG.PlayerModel.height)
@@ -547,10 +551,19 @@ end
 function MainMenu:UpdatePlayerModel()
     if not self.playerModel then return end
 
-    self.playerModel:ClearModel()
-    self.playerModel:SetUnit("player")
-    self.playerModel:SetFacing(self.playerModel.rotation or CFG.PlayerModel.defaultFacing or 0)
-    self.playerModel:SetSequence(0)
+    if self.playerModel.ClearModel and self.playerModel.SetUnit then
+        self.playerModel:ClearModel()
+        self.playerModel:SetUnit("player")
+    end
+    if self.playerModel.Dress then
+        self.playerModel:Dress()
+    end
+    if self.playerModel.SetFacing then
+        self.playerModel:SetFacing(self.playerModel.rotation or CFG.PlayerModel.defaultFacing or 0)
+    end
+    if self.playerModel.SetSequence then
+        pcall(function() self.playerModel:SetSequence(0) end)
+    end
     self.playerModel.isWearingTryOn = false
 
     if self.playerModel.nameText then
@@ -599,7 +612,14 @@ end
 function MainMenu:RestorePlayerModel()
     if not self.playerModel or not self.playerModel.isWearingTryOn then return end
     local currentFacing = self.playerModel.rotation or (self.playerModel.GetFacing and self.playerModel:GetFacing()) or 0
-    if self.playerModel.ClearModel and self.playerModel.SetUnit then
+    if self.playerModel.Undress and self.playerModel.Dress then
+        self.playerModel:Undress()
+        self.playerModel:Dress()
+        if self.playerModel.SetFacing then
+            self.playerModel:SetFacing(currentFacing)
+        end
+        pcall(function() self.playerModel:SetSequence(0) end)
+    elseif self.playerModel.ClearModel and self.playerModel.SetUnit then
         self.playerModel:ClearModel()
         self.playerModel:SetUnit("player")
         if self.playerModel.SetFacing then
@@ -685,6 +705,23 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
         end
 
         btn.slotData = slotData
+        local slotID = GetInventorySlotInfo(slotData.name)
+        btn.invSlotID = slotID
+        btn.isMMEquipSlot = true
+        btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+
+        btn:SetScript("OnClick", function()
+            if arg1 == "RightButton" or (arg1 == "LeftButton" and not CursorHasItem() and not CursorHasSpell()) then
+                if this.invSlotID and CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForEquipItem then
+                    CM.ui.contextMenu:OpenForEquipItem(this.invSlotID, this)
+                end
+            elseif arg1 == "LeftButton" and (CursorHasItem() or CursorHasSpell()) then
+                if this.invSlotID then
+                    PickupInventoryItem(this.invSlotID)
+                end
+            end
+        end)
+
         table.insert(container.buttons, btn)
         prev = btn
     end
@@ -1337,7 +1374,7 @@ function MainMenu:ParseItemData(bagID, slotID)
     end
 
     if rawLink then
-        local n, _, q, _, reqL, t, st, _, eqL, _ = GetItemInfo(rawLink)
+        local n, _, q, reqL, t, st, _, eqL = GetItemInfo(rawLink)
         if n then
             itemName = n
             itemQuality = tonumber(q) or 1
@@ -1379,21 +1416,23 @@ function MainMenu:ParseItemData(bagID, slotID)
     end
 
     return {
-        bagID      = bagID,
-        slotID     = slotID,
-        name       = itemName or "Item",
-        texture    = texture,
-        count      = count or 1,
-        quality    = quality or itemQuality or 1,
-        link       = link,
-        reqLevel   = itemReqLevel or 0,
-        itemType   = itemType or "",
-        subType    = itemSubType or "",
-        equipLoc   = itemEquipLoc or "",
-        category   = cat,
-        statsLines = statsLines,
-        desc       = desc,
-        sellPrice  = sellPrice,
+        bagID        = bagID,
+        slotID       = slotID,
+        name         = itemName or "Item",
+        texture      = texture,
+        count        = count or 1,
+        quality      = quality or itemQuality or 1,
+        link         = link,
+        rawLink      = rawLink or link,
+        reqLevel     = itemReqLevel or 0,
+        itemType     = itemType or "",
+        subType      = itemSubType or "",
+        equipLoc     = itemEquipLoc or "",
+        itemEquipLoc = itemEquipLoc or "",
+        category     = cat,
+        statsLines   = statsLines,
+        desc         = desc,
+        sellPrice    = sellPrice,
     }
 end
 
@@ -1597,9 +1636,10 @@ function MainMenu:SetupBagsPage(pageBags)
         if itemData and not itemData.isEmpty then
             detailCard:ShowItem(itemData)
             -- Live TryOn no Modelo 3D (FASE 6)
-            local isEquippable = itemData.itemEquipLoc and itemData.itemEquipLoc ~= ""
-            if isEquippable and (itemData.rawLink or itemData.link) then
-                MainMenu:TryOnItem(itemData.rawLink or itemData.link, itemData.itemType)
+            local isEquippable = (itemData.equipLoc and itemData.equipLoc ~= "") or (itemData.itemEquipLoc and itemData.itemEquipLoc ~= "") or (itemData.category == "EQUIP")
+            local tryLink = itemData.rawLink or itemData.link
+            if isEquippable and tryLink then
+                MainMenu:TryOnItem(tryLink, itemData.itemType)
             else
                 MainMenu:RestorePlayerModel()
             end

@@ -482,8 +482,11 @@ end
 function MainMenu:CreatePlayerModel(leftPanel)
     if self.playerModel then return self.playerModel end
 
-    local model = CreateFrame("DressUpModel", "ConsoleModeMM_PlayerModel", leftPanel)
-    if not model then
+    local model = getglobal("ConsoleModeMM_DressUpModel")
+    if model then
+        model:SetParent(leftPanel)
+        model:Show()
+    else
         model = CreateFrame("PlayerModel", "ConsoleModeMM_PlayerModel", leftPanel)
     end
 
@@ -551,8 +554,7 @@ end
 function MainMenu:UpdatePlayerModel()
     if not self.playerModel then return end
 
-    if self.playerModel.ClearModel and self.playerModel.SetUnit then
-        self.playerModel:ClearModel()
+    if self.playerModel.SetUnit then
         self.playerModel:SetUnit("player")
     end
     if self.playerModel.Dress then
@@ -560,9 +562,6 @@ function MainMenu:UpdatePlayerModel()
     end
     if self.playerModel.SetFacing then
         self.playerModel:SetFacing(self.playerModel.rotation or CFG.PlayerModel.defaultFacing or 0)
-    end
-    if self.playerModel.SetSequence then
-        pcall(function() self.playerModel:SetSequence(0) end)
     end
     self.playerModel.isWearingTryOn = false
 
@@ -585,26 +584,36 @@ function MainMenu:UpdatePlayerModel()
     end
 end
 
-function MainMenu:TryOnItem(itemLink, itemType)
+function MainMenu:TryOnItem(itemLink, itemType, equipLoc)
     if not self.playerModel or not itemLink then return end
     if not self.playerModel.TryOn then return end
 
+    if self.lastTryOnLink == itemLink and self.playerModel.isWearingTryOn then
+        return
+    end
+
     local currentFacing = self.playerModel.rotation or (self.playerModel.GetFacing and self.playerModel:GetFacing()) or 0
 
-    local ok = pcall(function()
-        self.playerModel:TryOn(itemLink)
-    end)
+    local _, _, extractedID = string.find(itemLink, "item:(%d+)")
+    local numID = extractedID and tonumber(extractedID)
+
+    local ok = false
+
+    -- 1. Tenta por ID numérico direto (método nativo mais rápido do WoW 1.12)
+    if numID then
+        ok = pcall(function() self.playerModel:TryOn(numID) end)
+    end
+
+    -- 2. Tenta por hiperlink ou item string
+    if not ok then
+        ok = pcall(function() self.playerModel:TryOn(itemLink) end)
+    end
 
     if ok then
+        self.lastTryOnLink = itemLink
         self.playerModel.isWearingTryOn = true
         if self.playerModel.SetFacing then
             self.playerModel:SetFacing(currentFacing)
-        end
-
-        if itemType == "Weapon" or itemType == "Arma" then
-            pcall(function() self.playerModel:SetSequence(26) end)
-        elseif itemType == "Armor" or itemType == "Armadura" then
-            pcall(function() self.playerModel:SetSequence(0) end)
         end
     end
 end
@@ -612,22 +621,16 @@ end
 function MainMenu:RestorePlayerModel()
     if not self.playerModel or not self.playerModel.isWearingTryOn then return end
     local currentFacing = self.playerModel.rotation or (self.playerModel.GetFacing and self.playerModel:GetFacing()) or 0
-    if self.playerModel.Undress and self.playerModel.Dress then
-        self.playerModel:Undress()
+    if self.playerModel.Dress then
         self.playerModel:Dress()
-        if self.playerModel.SetFacing then
-            self.playerModel:SetFacing(currentFacing)
-        end
-        pcall(function() self.playerModel:SetSequence(0) end)
-    elseif self.playerModel.ClearModel and self.playerModel.SetUnit then
-        self.playerModel:ClearModel()
+    elseif self.playerModel.SetUnit then
         self.playerModel:SetUnit("player")
-        if self.playerModel.SetFacing then
-            self.playerModel:SetFacing(currentFacing)
-        end
-        pcall(function() self.playerModel:SetSequence(0) end)
+    end
+    if self.playerModel.SetFacing then
+        self.playerModel:SetFacing(currentFacing)
     end
     self.playerModel.isWearingTryOn = false
+    self.lastTryOnLink = nil
 end
 
 -- ============================================================================
@@ -1228,9 +1231,6 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
         -- Eventos de Mouse / Hover / Foco
         slot:SetScript("OnEnter", function()
             gridFrame:SelectSlot(this.slotIndex)
-            if gridFrame.onSlotFocused then
-                gridFrame.onSlotFocused(this.slotIndex, this.data)
-            end
         end)
 
         slot:SetScript("OnLeave", function()
@@ -1328,11 +1328,13 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
 
     -- Seleciona um slot no grid e dispara os callbacks
     function gridFrame:SelectSlot(index)
+        local changed = (self.selectedSlotIndex ~= index)
         self.selectedSlotIndex = index
         for i, slot in ipairs(self.slots) do
             if i == index then
                 slot.highlight:Show()
-                if slot.data and self.onSlotFocused then
+                if (changed or not self.lastDispatchedSlot) and self.onSlotFocused then
+                    self.lastDispatchedSlot = index
                     self.onSlotFocused(index, slot.data)
                 end
             else
@@ -1639,7 +1641,7 @@ function MainMenu:SetupBagsPage(pageBags)
             local isEquippable = (itemData.equipLoc and itemData.equipLoc ~= "") or (itemData.itemEquipLoc and itemData.itemEquipLoc ~= "") or (itemData.category == "EQUIP")
             local tryLink = itemData.rawLink or itemData.link
             if isEquippable and tryLink then
-                MainMenu:TryOnItem(tryLink, itemData.itemType)
+                MainMenu:TryOnItem(tryLink, itemData.itemType, itemData.equipLoc or itemData.itemEquipLoc)
             else
                 MainMenu:RestorePlayerModel()
             end

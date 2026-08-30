@@ -21,5 +21,6 @@ UI\XPBar.lua
 UI\ActionHUD.lua
 UI\PlayerFrame.lua
 UI\TargetFrame.lua
+UI\MainMenu.xml
 UI\MainMenu.lua
 Hooks.lua

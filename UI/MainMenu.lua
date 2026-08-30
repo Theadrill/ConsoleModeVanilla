@@ -48,14 +48,14 @@ CFG.Fonts = {
 
     -- Estilo global de contorno ("" = sem outline / texto limpo, "OUTLINE" = contorno fino)
     outline             = "",
-    shadowOffset        = { 1, -1 },            -- Deslocamento X e Y da sombra projetada (px)
-    shadowColor         = { 0.0, 0.0, 0.0, 0.75 }, -- Cor e opacidade da sombra (RGBA)
+    shadowOffset        = { 2, -2 },            -- Deslocamento X e Y da sombra projetada (px) - Aumentado em 1px
+    shadowColor         = { 0.0, 0.0, 0.0, 0.85 }, -- Cor e opacidade da sombra (RGBA)
 
     titleSize           = 18,
     tabSize             = 14,
     headerSize          = 13,
-    playerNameSize      = 16,
-    playerSubSize       = 11,
+    playerNameSize      = 17,
+    playerSubSize       = 13,                   -- Aumentado em ~25% (original: 11)
     itemNameSize        = 14,                   -- Aumentado em ~20% (original: 12)
     slotLabelSize       = 11,                   -- Aumentado em ~10% (original: 10)
     statSize            = 14,                   -- Aumentado em ~20% (original: 12)
@@ -222,7 +222,7 @@ CFG.Tabs = {
     gapX            = 6,                    -- Espaçamento horizontal entre os botões (px)
     activeColor     = { r = 0.88, g = 0.60, b = 0.08 }, -- Dourado âmbar mais escuro e nobre
     inactiveColor   = { r = 0.65, g = 0.65, b = 0.65 }, -- Cor cinza de aba inativa
-    indicatorColor  = "|cffe09a15",         -- Cor dos colchetes do controle
+    indicatorColor  = "|cffe09a15",         -- Dourado âmbar de alto contraste
     list = {
         { id = "BAGS",   name = "Bolsas & Itens",  shortName = "Bolsas" },
         { id = "SPELLS", name = "Livro de Magias", shortName = "Magias" },
@@ -244,14 +244,14 @@ CFG.Divider = {
 }
 
 -- ----------------------------------------------------------------------------
--- 8. RODAPÉ DE ATALHOS (CONSOLE HINTS)
+-- 8. RODAPÉ DE ATALHOS (CONSOLE HINTS - PADRÃO DE CORES XBOX COM ALTO CONTRASTE)
 -- ----------------------------------------------------------------------------
 CFG.Footer = {
     height          = 36,                   -- Altura da barra de rodapé (px)
     paddingLeft     = 28,                   -- Margem esquerda (px)
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
-    text            = "|cffffffff[L1] / [R1]|r Trocar Aba   |   |cffffffff[D-Pad/L-Stick]|r Navegar   |   |cffffffff(A)|r Interagir   |   |cffffffff(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
+    text            = "|cffe09a15[L1] / [R1]|r Trocar Aba   |   |cffffffff[D-Pad/L-Stick]|r Navegar   |   |cff38b000(A)|r Interagir   |   |cffdd3333(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
 }
 
 -- ----------------------------------------------------------------------------
@@ -558,12 +558,16 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
         icon:SetPoint("LEFT", btn, "LEFT", 0, 0)
         btn.icon = icon
 
-        -- Moldura sutil ao redor do ícone
-        local border = btn:CreateTexture(nil, "OVERLAY")
-        border:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border")
+        -- Moldura ao redor do ícone (Backdrop com 8 fatias nativo, sem glitch)
+        local border = CreateFrame("Frame", nil, btn)
         border:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 2)
         border:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2, -2)
-        border:SetVertexColor(0.7, 0.7, 0.7, 0.6)
+        border:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        border:SetBackdropBorderColor(0.7, 0.7, 0.7, 0.6)
         btn.border = border
 
         -- 1. Linha Superior: Nome do Slot (CABEÇA, PEITORAL, etc.)
@@ -642,22 +646,28 @@ function MainMenu:UpdateEquipmentColumn()
                 -- 1. Exibe o nome do slot em cima (menor)
                 btn.slotText:SetText(CFG.Equipment.slotColor .. slotLabel .. "|r")
 
-                -- 2. Exibe o nome do item embaixo com a cor de qualidade
-                if colorHex then
-                    btn.nameText:SetText("|c" .. colorHex .. itemName .. "|r")
-                elseif itemQuality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemQuality] then
+                -- 2. Exibe o nome do item embaixo sempre em branco
+                btn.nameText:SetText("|cffffffff" .. itemName .. "|r")
+
+                -- 3. A cor de raridade é expressa exclusivamente através da borda do ícone
+                local r, g, b = 0.8, 0.8, 0.8
+                if itemQuality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemQuality] then
                     local color = ITEM_QUALITY_COLORS[itemQuality]
-                    btn.nameText:SetText(color.hex .. itemName .. "|r")
-                    btn.border:SetVertexColor(color.r, color.g, color.b, 0.9)
-                else
-                    btn.nameText:SetText("|cffffffff" .. itemName .. "|r")
-                    btn.border:SetVertexColor(0.8, 0.8, 0.8, 0.6)
+                    r, g, b = color.r, color.g, color.b
+                elseif colorHex then
+                    local hexR = tonumber(string.sub(colorHex, 1, 2), 16)
+                    local hexG = tonumber(string.sub(colorHex, 3, 4), 16)
+                    local hexB = tonumber(string.sub(colorHex, 5, 6), 16)
+                    if hexR and hexG and hexB then
+                        r, g, b = hexR / 255, hexG / 255, hexB / 255
+                    end
                 end
+                btn.border:SetBackdropBorderColor(r, g, b, 0.95)
             else
                 btn.icon:SetTexture(emptyTex or "Interface\\Icons\\INV_Misc_QuestionMark")
                 btn.slotText:SetText(CFG.Equipment.emptyColor .. slotLabel .. "|r")
                 btn.nameText:SetText(CFG.Equipment.emptyColor .. "(Vazio)|r")
-                btn.border:SetVertexColor(0.4, 0.4, 0.4, 0.4)
+                btn.border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.4)
             end
         end
     end
@@ -727,12 +737,17 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
         bIcon:SetPoint("LEFT", row, "LEFT", 0, 0)
         row.icon = bIcon
 
-        -- Moldura do ícone de buff
-        local bBorder = row:CreateTexture(nil, "OVERLAY")
-        bBorder:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border")
-        bBorder:SetPoint("TOPLEFT", bIcon, "TOPLEFT", -1, 1)
-        bBorder:SetPoint("BOTTOMRIGHT", bIcon, "BOTTOMRIGHT", 1, -1)
-        bBorder:SetVertexColor(0.2, 0.8, 1.0, 0.7)
+        -- Moldura do ícone de buff (Backdrop com 8 fatias nativo, sem glitch)
+        local bBorder = CreateFrame("Frame", nil, row)
+        bBorder:SetPoint("TOPLEFT", bIcon, "TOPLEFT", -2, 2)
+        bBorder:SetPoint("BOTTOMRIGHT", bIcon, "BOTTOMRIGHT", 2, -2)
+        bBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        bBorder:SetBackdropBorderColor(0.2, 0.8, 1.0, 0.7)
+        row.border = bBorder
 
         -- Nome do Buff
         local bName = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")

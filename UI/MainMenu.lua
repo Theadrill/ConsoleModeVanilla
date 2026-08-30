@@ -480,62 +480,96 @@ end
 -- ============================================================================
 
 function MainMenu:CreatePlayerModel(leftPanel)
-    if self.playerModel then return self.playerModel end
+    if self.dressUpModel and self.animModel then return self.playerModel end
 
-    local model = getglobal("ConsoleModeMM_DressUpModel")
-    if model then
-        model:SetParent(leftPanel)
-        model:Show()
+    -- 1. Modelo de Provador (DressUpModel para TryOn na Aba de Bolsas)
+    local dressUpModel = getglobal("ConsoleModeMM_DressUpModel")
+    if dressUpModel then
+        dressUpModel:SetParent(leftPanel)
+        dressUpModel:Show()
     else
-        model = CreateFrame("PlayerModel", "ConsoleModeMM_PlayerModel", leftPanel)
+        dressUpModel = CreateFrame("PlayerModel", "ConsoleModeMM_DressUpModel", leftPanel)
     end
 
-    model:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
-    model:SetWidth(CFG.PlayerModel.width)
-    model:SetHeight(CFG.PlayerModel.height)
-    model:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
-    model.rotation = CFG.PlayerModel.defaultFacing or 0
-    model.rotateDir = 0
-    model.isWearingTryOn = false
+    dressUpModel:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
+    dressUpModel:SetWidth(CFG.PlayerModel.width)
+    dressUpModel:SetHeight(CFG.PlayerModel.height)
+    dressUpModel:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
+    dressUpModel.rotation = CFG.PlayerModel.defaultFacing or 0
+    dressUpModel.rotateDir = 0
+    dressUpModel.isWearingTryOn = false
 
-    model:EnableMouse(true)
-    model:SetScript("OnMouseDown", function()
-        if arg1 == "LeftButton" or arg1 == "RightButton" then
-            this.isDragging = true
-            local curX, curY = GetCursorPosition()
-            this.prevMouseX = curX
-        end
-    end)
+    -- 2. Modelo de Animação (PlayerModel puro para SetSequence no Livro de Magias)
+    local animModel = CreateFrame("PlayerModel", "ConsoleModeMM_AnimModel", leftPanel)
+    animModel:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
+    animModel:SetWidth(CFG.PlayerModel.width)
+    animModel:SetHeight(CFG.PlayerModel.height)
+    animModel:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
+    animModel.rotation = CFG.PlayerModel.defaultFacing or 0
+    animModel.rotateDir = 0
+    animModel:Hide()
 
-    model:SetScript("OnMouseUp", function()
-        this.isDragging = false
-    end)
-
-    model:SetScript("OnUpdate", function()
-        -- 1. Rotação suave contínua via Analógico Esquerdo / Teclas A e D (WASD)
-        if this.rotateDir and this.rotateDir ~= 0 then
-            local delta = (arg1 or 0.016) * 3.5 * this.rotateDir
-            this.rotation = (this.rotation or 0) + delta
-            if this.SetFacing then
-                this:SetFacing(this.rotation)
+    -- Configuração de Rotação e Drag para ambos os modelos
+    local function setupModelInteractions(m)
+        m:EnableMouse(true)
+        m:SetScript("OnMouseDown", function()
+            if arg1 == "LeftButton" or arg1 == "RightButton" then
+                this.isDragging = true
+                local curX, curY = GetCursorPosition()
+                this.prevMouseX = curX
             end
-        end
+        end)
 
-        -- 2. Rotação via arrasto de Mouse / Right Stick
-        if this.isDragging then
-            local curX, curY = GetCursorPosition()
-            if this.prevMouseX then
-                local diffX = curX - this.prevMouseX
-                if diffX ~= 0 then
-                    this.rotation = (this.rotation or 0) + (diffX * CFG.PlayerModel.rotateSpeed)
-                    if this.SetFacing then
-                        this:SetFacing(this.rotation)
-                    end
-                    this.prevMouseX = curX
+        m:SetScript("OnMouseUp", function()
+            this.isDragging = false
+        end)
+
+        m:SetScript("OnUpdate", function()
+            -- 1. Rotação suave contínua via Analógico Esquerdo / Teclas A e D (WASD)
+            if this.rotateDir and this.rotateDir ~= 0 then
+                local delta = (arg1 or 0.016) * 3.5 * this.rotateDir
+                this.rotation = (this.rotation or 0) + delta
+                MainMenu.currentFacing = this.rotation
+                if this.SetFacing then
+                    this:SetFacing(this.rotation)
                 end
             end
-        end
-    end)
+
+            -- 2. Rotação via arrasto de Mouse / Right Stick
+            if this.isDragging then
+                local curX, curY = GetCursorPosition()
+                if this.prevMouseX then
+                    local diffX = curX - this.prevMouseX
+                    if diffX ~= 0 then
+                        this.rotation = (this.rotation or 0) + (diffX * CFG.PlayerModel.rotateSpeed)
+                        MainMenu.currentFacing = this.rotation
+                        if this.SetFacing then
+                            this:SetFacing(this.rotation)
+                        end
+                        this.prevMouseX = curX
+                    end
+                end
+            end
+
+            -- 3. Reprodução fluida e completa da animação da magia (FASE 7)
+            if this.activeSeq and this.activeSeq > 0 and this.animStartTime then
+                local elapsedMs = (GetTime() - this.animStartTime) * 1000
+                if elapsedMs < 2200 then
+                    if this.SetSequenceTime then
+                        this:SetSequenceTime(this.activeSeq, elapsedMs)
+                    end
+                else
+                    this.activeSeq = 0
+                    if this.SetSequence then
+                        this:SetSequence(0)
+                    end
+                end
+            end
+        end)
+    end
+
+    setupModelInteractions(dressUpModel)
+    setupModelInteractions(animModel)
 
     if CFG.PlayerModel.showPlayerName then
         local infoBox = CreateFrame("Frame", "ConsoleModeMM_PlayerInfo", leftPanel)
@@ -553,20 +587,28 @@ function MainMenu:CreatePlayerModel(leftPanel)
         subText:SetPoint("TOP", nameText, "BOTTOM", 0, -2)
         MainMenu:ApplyFont(subText, CFG.Fonts.subFontFile, CFG.Fonts.playerSubSize)
 
-        model.infoBox  = infoBox
-        model.nameText = nameText
-        model.subText  = subText
+        dressUpModel.infoBox  = infoBox
+        dressUpModel.nameText = nameText
+        dressUpModel.subText  = subText
+        animModel.infoBox     = infoBox
+        animModel.nameText    = nameText
+        animModel.subText     = subText
     end
 
-    self.playerModel = model
-    return model
+    self.dressUpModel = dressUpModel
+    self.animModel = animModel
+    self.playerModel = dressUpModel
+    self.currentFacing = CFG.PlayerModel.defaultFacing or 0
+
+    return dressUpModel
 end
 
 function MainMenu:UpdatePlayerModel()
-    if not self.playerModel then return end
-
-    if self.playerModel.SetUnit then
-        self.playerModel:SetUnit("player")
+    if self.dressUpModel and self.dressUpModel.SetUnit then
+        self.dressUpModel:SetUnit("player")
+    end
+    if self.animModel and self.animModel.SetUnit then
+        self.animModel:SetUnit("player")
     end
     if self.playerModel.Dress then
         self.playerModel:Dress()
@@ -630,18 +672,24 @@ function MainMenu:TryOnItem(itemLink, itemType, equipLoc)
 end
 
 function MainMenu:RestorePlayerModel()
-    if not self.playerModel or not self.playerModel.isWearingTryOn then return end
+    if not self.playerModel then return end
+    self.currentSpellPose = nil
     local currentFacing = self.playerModel.rotation or (self.playerModel.GetFacing and self.playerModel:GetFacing()) or 0
-    if self.playerModel.Dress then
-        self.playerModel:Dress()
-    elseif self.playerModel.SetUnit then
-        self.playerModel:SetUnit("player")
+    if self.playerModel.isWearingTryOn then
+        if self.playerModel.Dress then
+            self.playerModel:Dress()
+        elseif self.playerModel.SetUnit then
+            self.playerModel:SetUnit("player")
+        end
+        self.playerModel.isWearingTryOn = false
+        self.lastTryOnLink = nil
+    end
+    if self.playerModel.SetSequence then
+        pcall(function() self.playerModel:SetSequence(0) end)
     end
     if self.playerModel.SetFacing then
         self.playerModel:SetFacing(currentFacing)
     end
-    self.playerModel.isWearingTryOn = false
-    self.lastTryOnLink = nil
 end
 
 -- ============================================================================
@@ -1579,18 +1627,34 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
 
     -- Classificação de Poses de Conjuração / Animação 3D (FASE 7)
     local lowerName = string.lower(name)
-    local pose = 15 -- Padrão: Spell Precast (mãos erguidas canalizando energia)
+    local pose = 31 -- Padrão: SpellPrecast (Canalização de magia com mãos erguidas)
 
-    if string.find(lowerName, "strike") or string.find(lowerName, "golpe") or string.find(lowerName, "rend") or string.find(lowerName, "slash")
-       or string.find(lowerName, "slam") or string.find(lowerName, "cleave") or string.find(lowerName, "backstab") or string.find(lowerName, "sinister")
-       or string.find(lowerName, "mortal") or string.find(lowerName, "overpower") or string.find(lowerName, "shield") or string.find(lowerName, "escudo")
-       or string.find(lowerName, "attack") or string.find(lowerName, "ataque") or string.find(lowerName, "shoot") or string.find(lowerName, "tiro") then
-        pose = 26 -- Melee / Combate corpo a corpo
+    if string.find(lowerName, "shield") or string.find(lowerName, "escudo") or string.find(lowerName, "block") or string.find(lowerName, "bloqueio")
+       or string.find(lowerName, "armor") or string.find(lowerName, "armadura") or string.find(lowerName, "defens") then
+        pose = 24 -- ShieldBlock (Postura de bloqueio com as duas mãos juntas)
+    elseif string.find(lowerName, "totem") or string.find(lowerName, "summon") or string.find(lowerName, "conjurar") then
+        pose = 35 -- SpellCastWork (Abaixar e colocar o totem no chão)
+    elseif string.find(lowerName, "heal") or string.find(lowerName, "cura") or string.find(lowerName, "wave") or string.find(lowerName, "onda")
+       or string.find(lowerName, "renew") or string.find(lowerName, "rejuvenescer") or string.find(lowerName, "regrowth") or string.find(lowerName, "menor") or string.find(lowerName, "lesser") then
+        pose = 31 -- SpellPrecast (Canalização de cura com mãos erguidas)
+    elseif string.find(lowerName, "shock") or string.find(lowerName, "choque") or string.find(lowerName, "bolt") or string.find(lowerName, "seta")
+       or string.find(lowerName, "raio") or string.find(lowerName, "fire") or string.find(lowerName, "fogo") or string.find(lowerName, "frost")
+       or string.find(lowerName, "gelo") or string.find(lowerName, "lava") or string.find(lowerName, "earth") or string.find(lowerName, "terra")
+       or string.find(lowerName, "blast") or string.find(lowerName, "chama") or string.find(lowerName, "flame") or string.find(lowerName, "shoot") or string.find(lowerName, "tiro") then
+        pose = 32 -- SpellCast (Arremesso frontal de raio / choque elemental)
+    elseif string.find(lowerName, "weapon") or string.find(lowerName, "arma") or string.find(lowerName, "rockbiter") or string.find(lowerName, "windfury")
+       or string.find(lowerName, "flametongue") or string.find(lowerName, "frostbrand") or string.find(lowerName, "strike") or string.find(lowerName, "golpe")
+       or string.find(lowerName, "attack") or string.find(lowerName, "ataque") or string.find(lowerName, "rend") or string.find(lowerName, "charge") then
+        pose = 73 -- Flex (Pose de força energizando a arma / ataque físico)
     elseif string.find(lowerName, "shout") or string.find(lowerName, "grito") or string.find(lowerName, "rage") or string.find(lowerName, "fúria")
-       or string.find(lowerName, "roar") or string.find(lowerName, "rugido") or string.find(lowerName, "taunt") or string.find(lowerName, "provocar") then
-        pose = 29 -- Rugido / Grito de guerra
+       or string.find(lowerName, "roar") or string.find(lowerName, "rugido") or string.find(lowerName, "taunt") or string.find(lowerName, "provocar")
+       or string.find(lowerName, "bloodlust") or string.find(lowerName, "heroism") then
+        pose = 60 -- Roar (Rugido de guerra com a cabeça para trás)
+    elseif string.find(lowerName, "buff") or string.find(lowerName, "blessing") or string.find(lowerName, "bênção")
+       or string.find(lowerName, "mark") or string.find(lowerName, "marca") or string.find(lowerName, "fortitude") then
+        pose = 69 -- Cheer (Celebração aos céus)
     else
-        pose = 15 -- Conjuração mágica
+        pose = 31 -- SpellPrecast / Canalização mágica
     end
 
     return {
@@ -1980,11 +2044,22 @@ end
 -- ============================================================================
 
 function MainMenu:TriggerSpellPose(poseSeq)
-    if not self.playerModel then return end
-    if self.playerModel.SetSequence then
-        pcall(function()
-            self.playerModel:SetSequence(poseSeq or 0)
-        end)
+    if not self.animModel or not self.animModel:IsVisible() then return end
+    poseSeq = poseSeq or 0
+
+    if poseSeq > 0 then
+        self.animModel.activeSeq = poseSeq
+        self.animModel.animStartTime = GetTime()
+        if self.animModel.SetSequenceTime then
+            pcall(function() self.animModel:SetSequenceTime(poseSeq, 0) end)
+        elseif self.animModel.SetSequence then
+            pcall(function() self.animModel:SetSequence(poseSeq) end)
+        end
+    else
+        self.animModel.activeSeq = 0
+        if self.animModel.SetSequence then
+            pcall(function() self.animModel:SetSequence(0) end)
+        end
     end
 end
 
@@ -2431,10 +2506,26 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
 
     container.currentTab = tabID
 
-    -- Se abriu a aba de Bolsas ou Magias, atualiza o grid correspondente
+    -- Se abriu a aba de Bolsas ou Magias, alterna o modelo 3D correspondente e atualiza o grid
+    local facing = self.currentFacing or 0
     if tabID == "BAGS" then
+        if self.animModel then self.animModel:Hide() end
+        if self.dressUpModel then
+            self.dressUpModel:Show()
+            if self.dressUpModel.SetFacing then self.dressUpModel:SetFacing(facing) end
+        end
+        self.playerModel = self.dressUpModel
         self:UpdateBagsPage()
     elseif tabID == "SPELLS" then
+        if self.dressUpModel then self.dressUpModel:Hide() end
+        if self.animModel then
+            self.animModel:Show()
+            self.animModel:SetUnit("player")
+            if self.animModel.SetFacing then self.animModel:SetFacing(facing) end
+            if self.animModel.SetSequence then self.animModel:SetSequence(0) end
+        end
+        self.playerModel = self.animModel
+        self.currentSpellPose = 0
         self:UpdateSpellsPage()
     else
         self:RestorePlayerModel()

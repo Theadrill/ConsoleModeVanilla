@@ -150,8 +150,8 @@ CFG.LeftPanel = {
 -- 5.1. MODELO 3D DO PERSONAGEM (FASE 2)
 -- ----------------------------------------------------------------------------
 CFG.PlayerModel = {
-    width           = 220,                  -- Largura da viewport 3D (px)
-    height          = 420,                  -- Altura da viewport 3D (px)
+    width           = 380,                  -- Largura expandida para preencher o palco esquerdo (px)
+    height          = 460,                  -- Altura expandida para visualização completa (px)
     offsetX         = 0,                    -- Deslocamento horizontal central (px)
     offsetY         = -10,                  -- Deslocamento vertical central (px)
     defaultFacing   = 0.0,                  -- Rotação inicial (radianos)
@@ -494,7 +494,7 @@ function MainMenu:CreatePlayerModel(leftPanel)
     dressUpModel:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
     dressUpModel:SetWidth(CFG.PlayerModel.width)
     dressUpModel:SetHeight(CFG.PlayerModel.height)
-    dressUpModel:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
+    dressUpModel:SetFrameLevel(leftPanel:GetFrameLevel() + 3)
     dressUpModel.rotation = CFG.PlayerModel.defaultFacing or 0
     dressUpModel.rotateDir = 0
     dressUpModel.isWearingTryOn = false
@@ -504,7 +504,7 @@ function MainMenu:CreatePlayerModel(leftPanel)
     animModel:SetPoint("CENTER", leftPanel, "CENTER", CFG.PlayerModel.offsetX, CFG.PlayerModel.offsetY)
     animModel:SetWidth(CFG.PlayerModel.width)
     animModel:SetHeight(CFG.PlayerModel.height)
-    animModel:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
+    animModel:SetFrameLevel(leftPanel:GetFrameLevel() + 3)
     animModel.rotation = CFG.PlayerModel.defaultFacing or 0
     animModel.rotateDir = 0
     animModel:Hide()
@@ -578,6 +578,7 @@ function MainMenu:CreatePlayerModel(leftPanel)
         infoBox:SetPoint("BOTTOM", leftPanel, "BOTTOM", 0, 8)
         infoBox:SetPoint("LEFT", leftPanel, "LEFT", 12, 0)
         infoBox:SetPoint("RIGHT", leftPanel, "RIGHT", -12, 0)
+        infoBox:SetFrameLevel(leftPanel:GetFrameLevel() + 15)
 
         local nameText = infoBox:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
         nameText:SetPoint("TOP", infoBox, "TOP", 0, 0)
@@ -704,6 +705,7 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
     container:SetWidth(CFG.Equipment.width)
     container:SetPoint("TOPLEFT", leftPanel, "TOPLEFT", 4, -8)
     container:SetPoint("BOTTOMLEFT", leftPanel, "BOTTOMLEFT", 4, 52)
+    container:SetFrameLevel(leftPanel:GetFrameLevel() + 10)
 
     container.buttons = {}
     local prev = nil
@@ -871,6 +873,7 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     container:SetWidth(CFG.StatsAndBuffs.width)
     container:SetPoint("TOPRIGHT", leftPanel, "TOPRIGHT", -4, -8)
     container:SetPoint("BOTTOMRIGHT", leftPanel, "BOTTOMRIGHT", -4, 52)
+    container:SetFrameLevel(leftPanel:GetFrameLevel() + 10)
 
     -- 1. Seção de Atributos Base
     local statsHeader = container:CreateFontString(nil, "OVERLAY", "GameFontNormal")

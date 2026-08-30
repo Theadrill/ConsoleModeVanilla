@@ -1288,7 +1288,7 @@ function MainMenu:CreateDetailCard(parent, config)
             self.descText:SetText("|cff888888Sem informações adicionais.|r")
         end
 
-        -- Preço de venda
+        -- Preço de venda (exibe se disponível via base de dados/merchant/addons)
         local sPrice = tonumber(itemData.sellPrice) or 0
         if sPrice > 0 then
             local gold = math.floor(sPrice / 10000)
@@ -1296,7 +1296,7 @@ function MainMenu:CreateDetailCard(parent, config)
             local copper = math.mod(sPrice, 100)
             self.sellText:SetText(string.format("|cffaaaaaaVenda:|r |cffffd200%dg|r |cffc0c0c0%ds|r |cffcc8833%dc|r", gold, silver, copper))
         else
-            self.sellText:SetText("|cff666666Sem valor de venda|r")
+            self.sellText:SetText("")
         end
 
         self:UpdateMoney()
@@ -1604,6 +1604,15 @@ function MainMenu:ParseItemData(bagID, slotID)
             itemType = t
             itemSubType = st
             itemEquipLoc = eqL
+        end
+
+        -- Integração com addons de preço de venda (ShaguValue, Informant, VendorPrice, etc.)
+        if GetSellValue then
+            sellPrice = GetSellValue(rawLink) or 0
+        elseif ShaguValue then
+            sellPrice = ShaguValue(rawLink) or 0
+        elseif GetItemSellValue then
+            sellPrice = GetItemSellValue(rawLink) or 0
         end
     end
 

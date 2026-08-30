@@ -294,7 +294,7 @@ CFG.Footer = {
     paddingLeft     = 28,                   -- Margem esquerda (px)
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
-    text            = "|cffe09a15[L1] / [R1]|r Abas   |   |cffe09a15[L2] / [R2]|r Filtros   |   |cffffffff[D-Pad]|r Navegar   |   |cff38b000(A)|r Usar/Equipar   |   |cff3399ff(Y)|r Ações   |   |cffdd3333(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
+    text            = "|cffe09a15[L1] / [R1]|r Abas   |   |cffe09a15[L2] / [R2]|r Filtros   |   |cffffffff[D-Pad]|r Navegar   |   |cff38b000(A)|r Usar/Equipar   |   |cff3399ff(Y)|r Ações   |   |cffdd3333(B)|r Fechar   |   |cffe09a15[L-Stick]|r Girar 3D",
 }
 
 -- ----------------------------------------------------------------------------
@@ -495,36 +495,47 @@ function MainMenu:CreatePlayerModel(leftPanel)
     model:SetHeight(CFG.PlayerModel.height)
     model:SetFrameLevel(leftPanel:GetFrameLevel() + 5)
     model.rotation = CFG.PlayerModel.defaultFacing or 0
+    model.rotateDir = 0
     model.isWearingTryOn = false
 
-    if CFG.PlayerModel.enableMouseDrag then
-        model:EnableMouse(true)
-        model:SetScript("OnMouseDown", function()
-            if arg1 == "LeftButton" or arg1 == "RightButton" then
-                this.isDragging = true
-                local curX, curY = GetCursorPosition()
-                this.prevMouseX = curX
+    model:EnableMouse(true)
+    model:SetScript("OnMouseDown", function()
+        if arg1 == "LeftButton" or arg1 == "RightButton" then
+            this.isDragging = true
+            local curX, curY = GetCursorPosition()
+            this.prevMouseX = curX
+        end
+    end)
+
+    model:SetScript("OnMouseUp", function()
+        this.isDragging = false
+    end)
+
+    model:SetScript("OnUpdate", function()
+        -- 1. Rotação suave contínua via Analógico Esquerdo / Teclas A e D (WASD)
+        if this.rotateDir and this.rotateDir ~= 0 then
+            local delta = (arg1 or 0.016) * 3.5 * this.rotateDir
+            this.rotation = (this.rotation or 0) + delta
+            if this.SetFacing then
+                this:SetFacing(this.rotation)
             end
-        end)
+        end
 
-        model:SetScript("OnMouseUp", function()
-            this.isDragging = false
-        end)
-
-        model:SetScript("OnUpdate", function()
-            if this.isDragging then
-                local curX, curY = GetCursorPosition()
-                if this.prevMouseX then
-                    local diffX = curX - this.prevMouseX
-                    if diffX ~= 0 then
-                        this.rotation = (this.rotation or 0) + (diffX * CFG.PlayerModel.rotateSpeed)
+        -- 2. Rotação via arrasto de Mouse / Right Stick
+        if this.isDragging then
+            local curX, curY = GetCursorPosition()
+            if this.prevMouseX then
+                local diffX = curX - this.prevMouseX
+                if diffX ~= 0 then
+                    this.rotation = (this.rotation or 0) + (diffX * CFG.PlayerModel.rotateSpeed)
+                    if this.SetFacing then
                         this:SetFacing(this.rotation)
-                        this.prevMouseX = curX
                     end
+                    this.prevMouseX = curX
                 end
             end
-        end)
-    end
+        end
+    end)
 
     if CFG.PlayerModel.showPlayerName then
         local infoBox = CreateFrame("Frame", "ConsoleModeMM_PlayerInfo", leftPanel)
@@ -2136,11 +2147,80 @@ function MainMenu:CreateUI()
     MainMenu:ApplyFont(footerText, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize)
     footerText:SetText(CFG.Footer.text)
 
+-- Funções globais de rotação de modelo para os bindings nativos
+function CM_ModelRotateLeft(keystate)
+    if not MainMenu or not MainMenu.playerModel then return end
+    if keystate == "up" then
+        MainMenu.playerModel.rotateDir = 0
+    else
+        MainMenu.playerModel.rotateDir = -1
+    end
+end
+
+function CM_ModelRotateRight(keystate)
+    if not MainMenu or not MainMenu.playerModel then return end
+    if keystate == "up" then
+        MainMenu.playerModel.rotateDir = 0
+    else
+        MainMenu.playerModel.rotateDir = 1
+    end
+end
+
+function MainMenu:ApplyModelRotationBindings()
+    self.savedMoveBindings = {}
+    local keysToSwap = { "A", "D", "Q", "E", "LEFT", "RIGHT", "a", "d", "q", "e" }
+    
+    local kTL1, kTL2 = GetBindingKey("TURNLEFT")
+    local kTR1, kTR2 = GetBindingKey("TURNRIGHT")
+    local kSL1, kSL2 = GetBindingKey("STRAFELEFT")
+    local kSR1, kSR2 = GetBindingKey("STRAFERIGHT")
+
+    if kTL1 then table.insert(keysToSwap, kTL1) end
+    if kTL2 then table.insert(keysToSwap, kTL2) end
+    if kTR1 then table.insert(keysToSwap, kTR1) end
+    if kTR2 then table.insert(keysToSwap, kTR2) end
+    if kSL1 then table.insert(keysToSwap, kSL1) end
+    if kSL2 then table.insert(keysToSwap, kSL2) end
+    if kSR1 then table.insert(keysToSwap, kSR1) end
+    if kSR2 then table.insert(keysToSwap, kSR2) end
+
+    for _, key in ipairs(keysToSwap) do
+        local action = GetBindingAction(key)
+        if action and action ~= "" and action ~= "CM_MODEL_ROTATE_LEFT" and action ~= "CM_MODEL_ROTATE_RIGHT" then
+            self.savedMoveBindings[key] = action
+        end
+    end
+
+    SetBinding("A", "CM_MODEL_ROTATE_LEFT")
+    SetBinding("Q", "CM_MODEL_ROTATE_LEFT")
+    SetBinding("a", "CM_MODEL_ROTATE_LEFT")
+    SetBinding("q", "CM_MODEL_ROTATE_LEFT")
+    if kTL1 then SetBinding(kTL1, "CM_MODEL_ROTATE_LEFT") end
+    if kSL1 then SetBinding(kSL1, "CM_MODEL_ROTATE_LEFT") end
+
+    SetBinding("D", "CM_MODEL_ROTATE_RIGHT")
+    SetBinding("E", "CM_MODEL_ROTATE_RIGHT")
+    SetBinding("d", "CM_MODEL_ROTATE_RIGHT")
+    SetBinding("e", "CM_MODEL_ROTATE_RIGHT")
+    if kTR1 then SetBinding(kTR1, "CM_MODEL_ROTATE_RIGHT") end
+    if kSR1 then SetBinding(kSR1, "CM_MODEL_ROTATE_RIGHT") end
+end
+
+function MainMenu:RestoreModelRotationBindings()
+    if not self.savedMoveBindings then return end
+    for key, action in pairs(self.savedMoveBindings) do
+        SetBinding(key, action)
+    end
+    self.savedMoveBindings = nil
+end
+
     -- 9. Fechamento com tecla Escape
     table.insert(UISpecialFrames, "ConsoleModeMainMenuFrame")
 
     -- 10. Eventos OnShow / OnHide integrados aos Hooks do ConsoleMode
     frame:SetScript("OnShow", function()
+        MainMenu:ApplyModelRotationBindings()
+
         MainMenu:UpdateLayout()
         MainMenu:UpdatePlayerModel()
         MainMenu:UpdateEquipmentColumn()
@@ -2157,6 +2237,11 @@ function MainMenu:CreateUI()
     end)
 
     frame:SetScript("OnHide", function()
+        MainMenu:RestoreModelRotationBindings()
+        if MainMenu.playerModel then
+            MainMenu.playerModel.rotateDir = 0
+        end
+
         MainMenu:RestorePlayerModel()
         if dimmer then dimmer:Hide() end
         if CFG.Audio.soundClose then PlaySound(CFG.Audio.soundClose) end

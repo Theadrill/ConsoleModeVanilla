@@ -101,6 +101,8 @@
     <Binding name="CM_CURSOR_SECONDARY">CM_CursorSecondary()</Binding>                   <!-- X no modo nav (Acao Secundaria / Dividir) -->
     <Binding name="CM_NAV_PREV_TAB">CM_NavPrevTab()</Binding>                           <!-- L1/LB: Aba Anterior -->
     <Binding name="CM_NAV_NEXT_TAB">CM_NavNextTab()</Binding>                           <!-- R1/RB: Proxima Aba -->
+    <Binding name="CM_MODEL_ROTATE_LEFT" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_ModelRotateLeft(keystate)</Binding>
+    <Binding name="CM_MODEL_ROTATE_RIGHT" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_ModelRotateRight(keystate)</Binding>
 
     <!-- ============================================================ -->
     <!-- Smart Mouse Look Companion (F9 via Steam Input)              -->

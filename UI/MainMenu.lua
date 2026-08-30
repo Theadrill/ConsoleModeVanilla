@@ -246,6 +246,7 @@ CFG.Grid = {
     gapX            = 6,                    -- Espaçamento horizontal mínimo (px)
     gapY            = 6,                    -- Espaçamento vertical (px)
     maxSlots        = 80,                   -- Capacidade máxima de slots instanciados no pool
+    pageSize        = "auto",               -- 'auto' preenche todos os slots que cabem na tela (pagina apenas se exceder)
     emptySlotAlpha  = 0.22,                 -- Opacidade dos slots vazios
     highlightColor  = { r = 1.0, g = 0.85, b = 0.2, a = 0.95 }, -- Destaque dourado de foco
 }
@@ -950,23 +951,39 @@ function MainMenu:CreateDetailCard(parent, config)
     -- 4. Descrição / Atributos do Item
     local descText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     descText:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -6)
-    descText:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 26)
+    descText:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 44)
     descText:SetJustifyH("LEFT")
     descText:SetJustifyV("TOP")
     MainMenu:ApplyFont(descText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize)
     card.descText = descText
 
-    -- 5. Rodapé: Preço de Venda (Esquerda) e Moedas do Jogador (Direita)
-    local footerBar = CreateFrame("Frame", nil, card)
-    footerBar:SetHeight(22)
-    footerBar:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 8, 4)
-    footerBar:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -8, 4)
-    card.footerBar = footerBar
-
-    local sellText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    sellText:SetPoint("LEFT", footerBar, "LEFT", 0, 0)
+    -- 5. Preço de Venda do Item (Acima da seção do rodapé separador)
+    local sellText = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    sellText:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 28)
     MainMenu:ApplyFont(sellText, CFG.Fonts.subFontFile, 11)
     card.sellText = sellText
+
+    -- 6. Rodapé: Espaço Livre (Esquerda) e Moedas do Jogador (Direita) com linha divisória superior
+    local footerBar = CreateFrame("Frame", nil, card)
+    footerBar:SetHeight(22)
+    footerBar:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 4)
+    footerBar:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 4)
+    card.footerBar = footerBar
+
+    -- Linha Divisória sutil ACIMA da barra de rodapé (separador)
+    local fDiv = footerBar:CreateTexture(nil, "ARTWORK")
+    fDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    fDiv:SetHeight(1)
+    fDiv:SetPoint("BOTTOMLEFT", footerBar, "TOPLEFT", 0, 2)
+    fDiv:SetPoint("BOTTOMRIGHT", footerBar, "TOPRIGHT", 0, 2)
+    fDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+    card.fDiv = fDiv
+
+    local slotsFreeText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    slotsFreeText:SetPoint("LEFT", footerBar, "LEFT", 0, 0)
+    MainMenu:ApplyFont(slotsFreeText, CFG.Fonts.subFontFile, 12)
+    slotsFreeText:SetText("|cffaaaaaaEspaço Livre:|r |cffffffff0 / 0|r")
+    card.slotsFreeText = slotsFreeText
 
     local moneyText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     moneyText:SetPoint("RIGHT", footerBar, "RIGHT", 0, 0)
@@ -1363,17 +1380,11 @@ end
 function MainMenu:SetupBagsPage(pageBags)
     if pageBags.isInitialized then return end
 
-    -- 1. Barra de Cabeçalho / Filtros de Categoria
+    -- 1. Barra de Cabeçalho / Filtros de Categoria (APENAS as abas com [L2] / [R2])
     local headerBar = CreateFrame("Frame", "ConsoleModeMM_BagsHeader", pageBags)
     headerBar:SetHeight(32)
     headerBar:SetPoint("TOPLEFT", pageBags, "TOPLEFT", 0, 0)
     headerBar:SetPoint("TOPRIGHT", pageBags, "TOPRIGHT", 0, 0)
-
-    local slotsFreeText = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    slotsFreeText:SetPoint("LEFT", headerBar, "LEFT", 2, 0)
-    MainMenu:ApplyFont(slotsFreeText, CFG.Fonts.subFontFile, CFG.Fonts.bagHeaderSize or 15)
-    slotsFreeText:SetText("|cffaaaaaaEspaço:|r |cffffffff0 / 0|r")
-    pageBags.slotsFreeText = slotsFreeText
 
     -- Indicador [R2] à direita
     local r2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -1405,7 +1416,7 @@ function MainMenu:SetupBagsPage(pageBags)
         if txtW < 40 then txtW = 40 end
         catBtn:SetWidth(txtW + 8)
 
-        catBtn:SetPoint("RIGHT", prevCat, "LEFT", -4, 0)
+        catBtn:SetPoint("RIGHT", prevCat, "LEFT", -6, 0)
 
         catBtn:SetScript("OnClick", function()
             pageBags.currentCategory = this.catData.id
@@ -1420,7 +1431,7 @@ function MainMenu:SetupBagsPage(pageBags)
 
     -- Indicador [L2] à esquerda da primeira categoria (Todos)
     local l2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    l2Hint:SetPoint("RIGHT", prevCat, "LEFT", -4, 0)
+    l2Hint:SetPoint("RIGHT", prevCat, "LEFT", -6, 0)
     MainMenu:ApplyFont(l2Hint, CFG.Fonts.headerFontFile, 12)
     l2Hint:SetText("|cffe09a15[L2]|r")
     pageBags.l2Hint = l2Hint
@@ -1437,10 +1448,84 @@ function MainMenu:SetupBagsPage(pageBags)
     local detailCard = self:CreateDetailCard(pageBags, CFG.DetailCard)
     pageBags.detailCard = detailCard
 
-    -- 3. Container e Grid 2D de Slots de Itens
+    -- 3. Barra Centralizada de Paginação ACIMA do Painel de Tooltip [ < ] Pág. 1 / 8 [ > ]
+    local pageNav = CreateFrame("Frame", "ConsoleModeMM_BagsPageNav", pageBags)
+    pageNav:SetHeight(22)
+    pageNav:SetWidth(150)
+    pageNav:SetPoint("BOTTOM", detailCard, "TOP", 0, 4)
+
+    local btnBackdrop = {
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true,
+        tileSize = 8,
+        edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 },
+    }
+
+    local prevPageBtn = CreateFrame("Button", nil, pageNav)
+    prevPageBtn:SetWidth(24)
+    prevPageBtn:SetHeight(22)
+    prevPageBtn:SetPoint("LEFT", pageNav, "LEFT", 0, 0)
+    prevPageBtn:SetBackdrop(btnBackdrop)
+    prevPageBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    prevPageBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local prevTxt = prevPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    prevTxt:SetPoint("CENTER", prevPageBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(prevTxt, CFG.Fonts.headerFontFile, 14)
+    prevTxt:SetText("|cffe09a15<|r")
+
+    prevPageBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    prevPageBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    end)
+    prevPageBtn:SetScript("OnClick", function()
+        MainMenu:PrevBagPage()
+    end)
+    pageBags.prevPageBtn = prevPageBtn
+
+    local pageText = pageNav:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    pageText:SetPoint("CENTER", pageNav, "CENTER", 0, 0)
+    MainMenu:ApplyFont(pageText, CFG.Fonts.subFontFile, 13)
+    pageText:SetText("|cffaaaaaaPág.|r |cffffffff1 / 1|r")
+    pageBags.pageText = pageText
+
+    local nextPageBtn = CreateFrame("Button", nil, pageNav)
+    nextPageBtn:SetWidth(24)
+    nextPageBtn:SetHeight(22)
+    nextPageBtn:SetPoint("RIGHT", pageNav, "RIGHT", 0, 0)
+    nextPageBtn:SetBackdrop(btnBackdrop)
+    nextPageBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    nextPageBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local nextTxt = nextPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    nextTxt:SetPoint("CENTER", nextPageBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(nextTxt, CFG.Fonts.headerFontFile, 14)
+    nextTxt:SetText("|cffe09a15>|r")
+
+    nextPageBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    nextPageBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    end)
+    nextPageBtn:SetScript("OnClick", function()
+        MainMenu:NextBagPage()
+    end)
+    pageBags.nextPageBtn = nextPageBtn
+    pageBags.pageNav = pageNav
+
+    -- 4. Container e Grid 2D de Slots de Itens (fica acima da paginação e tooltip)
     local gridContainer = CreateFrame("Frame", "ConsoleModeMM_BagsGridContainer", pageBags)
     gridContainer:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -8)
-    gridContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 8)
+    gridContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 30)
 
     local grid = self:CreateGrid(gridContainer, 80, CFG.Grid)
     pageBags.grid = grid
@@ -1464,7 +1549,7 @@ function MainMenu:SetupBagsPage(pageBags)
     pageBags.isInitialized = true
 end
 
-function MainMenu:UpdateBagsPage()
+function MainMenu:UpdateBagsPage(keepPage)
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageBags = self.tabContainer.pages["BAGS"]
     if not pageBags then return end
@@ -1486,29 +1571,60 @@ function MainMenu:UpdateBagsPage()
         end
     end
 
-    -- 2. Atualiza contador de espaço livre
-    if pageBags.slotsFreeText then
-        pageBags.slotsFreeText:SetText(string.format("|cffaaaaaaEspaço Livre:|r |cffffffff%d / %d|r", scanResult.freeSlots, scanResult.totalSlots))
+    -- 2. Atualiza contador de espaço livre na barra inferior do DetailCard
+    if pageBags.detailCard and pageBags.detailCard.slotsFreeText then
+        pageBags.detailCard.slotsFreeText:SetText(string.format("|cffaaaaaaEspaço Livre:|r |cffffffff%d / %d|r", scanResult.freeSlots, scanResult.totalSlots))
     end
 
-    -- 3. Preenche os slots do grid respeitando a área disponível
+    -- 3. Cálculo de Paginação
+    local numItems = table.getn(items)
+    local totalElements = numItems
+    if curCat == "ALL" then
+        totalElements = scanResult.totalSlots
+    end
+
     local grid = pageBags.grid
+    local pageSize = CFG.Grid.pageSize
+    if not pageSize or pageSize == "auto" then
+        pageSize = grid.maxFitSlots or 40
+    end
+    if pageSize < 1 then pageSize = 10 end
+
+    local totalPages = math.ceil(totalElements / pageSize)
+    if totalPages < 1 then totalPages = 1 end
+
+    if not keepPage or not pageBags.currentPage then
+        pageBags.currentPage = 1
+    end
+    if pageBags.currentPage > totalPages then pageBags.currentPage = totalPages end
+    if pageBags.currentPage < 1 then pageBags.currentPage = 1 end
+    local curPage = pageBags.currentPage
+
+    -- Atualiza texto e controles de página acima do DetailCard
+    if pageBags.pageText and pageBags.pageNav then
+        if totalPages > 1 then
+            pageBags.pageText:SetText(string.format("|cffaaaaaaPág.|r |cffffffff%d / %d|r", curPage, totalPages))
+            pageBags.pageNav:Show()
+        else
+            pageBags.pageNav:Hide()
+        end
+    end
+
+    -- 4. Preenche os slots da página atual
     grid:Clear()
 
-    local numItems = table.getn(items)
-    local totalVisible = numItems
-    if curCat == "ALL" then
-        totalVisible = scanResult.totalSlots
-    end
+    local startIndex = (curPage - 1) * pageSize + 1
+    local endIndex = math.min(startIndex + pageSize - 1, totalElements)
+    local pageCount = endIndex - startIndex + 1
+    if pageCount < 0 then pageCount = 0 end
 
-    grid:LayoutSlots(totalVisible)
-    local maxDisplay = grid.maxFitSlots or 40
-    if totalVisible > maxDisplay then totalVisible = maxDisplay end
+    grid:LayoutSlots(pageCount)
 
-    for i = 1, totalVisible do
-        local slot = grid.slots[i]
+    for slotIdx = 1, pageCount do
+        local globalIdx = startIndex + slotIdx - 1
+        local slot = grid.slots[slotIdx]
         if slot then
-            local itemData = items[i]
+            local itemData = items[globalIdx]
 
             if itemData then
                 slot.icon:SetTexture(itemData.texture)
@@ -1541,12 +1657,30 @@ function MainMenu:UpdateBagsPage()
         end
     end
 
-    -- 4. Exibe o primeiro item no painel de detalhes por padrão
-    if numItems > 0 then
+    -- 5. Exibe o primeiro item da página no painel de detalhes por padrão
+    if pageCount > 0 and items[startIndex] then
         grid:SelectSlot(1)
     else
         pageBags.detailCard:Clear("Inventário Vazio")
     end
+end
+
+function MainMenu:NextBagPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageBags = self.tabContainer.pages["BAGS"]
+    if not pageBags then return end
+    pageBags.currentPage = (pageBags.currentPage or 1) + 1
+    self:UpdateBagsPage(true)
+    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+end
+
+function MainMenu:PrevBagPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageBags = self.tabContainer.pages["BAGS"]
+    if not pageBags then return end
+    pageBags.currentPage = (pageBags.currentPage or 1) - 1
+    self:UpdateBagsPage(true)
+    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
 end
 
 -- ============================================================================

@@ -29,7 +29,7 @@ function Menu:Initialize()
     -- Frame Principal Flutuante
     local f = CreateFrame("Frame", "ConsoleModeContextMenu", UIParent)
     f:SetWidth(156)
-    f:SetHeight(125)
+    f:SetHeight(152)
     f:SetFrameStrata("TOOLTIP")
     f:SetFrameLevel(500)
     f:SetBackdrop({
@@ -65,7 +65,8 @@ function Menu:Initialize()
     local btnDefs = {
         { id = 1, label = "Usar / Equipar",     color = { r=0.2, g=0.9, b=0.3 }, action = "USE" },
         { id = 2, label = "Dividir (Split)",    color = { r=0.3, g=0.7, b=1.0 }, action = "SPLIT" },
-        { id = 3, label = "Excluir / Destruir", color = { r=0.95, g=0.3, b=0.3 }, action = "DROP" },
+        { id = 3, label = "Re-Stack (Agrupar)", color = { r=1.0, g=0.85, b=0.2 }, action = "RESTACK" },
+        { id = 4, label = "Excluir / Destruir", color = { r=0.95, g=0.3, b=0.3 }, action = "DROP" },
     }
 
     self.buttons = {}
@@ -184,13 +185,20 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
     local itemLink = GetContainerItemLink(bagID, slotID)
     local itemName = "Item"
+    local itemID = nil
+    local maxStack = 1
+
     if itemLink then
-        local ok, n = pcall(function() return GetItemInfo(itemLink) end)
-        if ok and n then
-            itemName = n
-        else
-            local _, _, extracted = string.find(itemLink, "%[(.-)%%]")
-            if extracted then itemName = extracted end
+        local _, _, extractedID = string.find(itemLink, "item:(%d+)")
+        if extractedID then
+            itemID = tonumber(extractedID)
+            local n, _, _, _, _, _, mStack = GetItemInfo(itemID)
+            if n then itemName = n end
+            if mStack then maxStack = tonumber(mStack) or 1 end
+        end
+        if itemName == "Item" then
+            local _, _, extractedName = string.find(itemLink, "%[(.-)%]")
+            if extractedName then itemName = extractedName end
         end
     end
 
@@ -245,6 +253,18 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
         else
             splitBtn:Disable()
             splitBtn.text:SetTextColor(0.45, 0.45, 0.45)
+        end
+    end
+
+    local restackBtn = self.buttons[3]
+    if restackBtn then
+        -- Se a quantidade for maior que 1 ou o maxStack > 1, o item é comprovadamente empilhável
+        if count > 1 or maxStack > 1 then
+            restackBtn:Enable()
+            restackBtn.text:SetTextColor(1.0, 0.85, 0.2)
+        else
+            restackBtn:Disable()
+            restackBtn.text:SetTextColor(0.45, 0.45, 0.45)
         end
     end
 
@@ -398,6 +418,13 @@ function Menu:ExecuteAction(action)
         -- Abre o seletor nativo do ConsoleMode
         self:SwitchToSplitView()
 
+    elseif action == "RESTACK" then
+        if self.buttons[3] and (self.buttons[3]:IsEnabled() == 0 or self.buttons[3]:IsEnabled() == false) then
+            return
+        end
+        self:Close()
+        self:RestackItem(bagID, slotID)
+
     elseif action == "DROP" or action == "DELETE" then
         self:Close()
         PickupContainerItem(bagID, slotID)
@@ -405,4 +432,123 @@ function Menu:ExecuteAction(action)
             DeleteCursorItem()
         end
     end
+end
+
+-- ============================================================================
+-- MOTOR DE RE-STACK (CONSOLIDAÇÃO MULTI-PASS ASSÍNCRONA)
+-- ============================================================================
+
+local restackTicker = CreateFrame("Frame", "ConsoleModeRestackTicker", UIParent)
+restackTicker:Hide()
+
+restackTicker:SetScript("OnUpdate", function()
+    local elapsed = arg1 or 0.016
+    this.timer = (this.timer or 0) - elapsed
+    if this.timer > 0 then return end
+    this.timer = this.stepDelay or 0.05
+
+    -- Se o jogador tiver algo preso no cursor, devolve
+    if CursorHasItem() then
+        if this.lastSrcBag and this.lastSrcSlot then
+            PickupContainerItem(this.lastSrcBag, this.lastSrcSlot)
+        else
+            ClearCursor()
+        end
+        return
+    end
+
+    this.maxSteps = (this.maxSteps or 30) - 1
+    if this.maxSteps <= 0 then
+        this:Hide()
+        return
+    end
+
+    local matchPattern = this.matchPattern
+    local maxStack = this.maxStack or 1
+
+    -- Varre os slots atuais em tempo real
+    local partialSlots = {}
+    local fullSlots = {}
+
+    for b = 0, 4 do
+        local numSlots = GetContainerNumSlots(b)
+        if numSlots and numSlots > 0 then
+            for s = 1, numSlots do
+                local slotLink = GetContainerItemLink(b, s)
+                if slotLink and string.find(slotLink, matchPattern, 1, true) then
+                    local _, count, locked = GetContainerItemInfo(b, s)
+                    if locked then
+                        -- Slot ainda travado pelo tick anterior, aguarda próximo tick
+                        return
+                    end
+                    if count and count > 0 then
+                        if count < maxStack then
+                            table.insert(partialSlots, { bag = b, slot = s, count = count })
+                        else
+                            table.insert(fullSlots, { bag = b, slot = s, count = count })
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local numPartial = table.getn(partialSlots)
+    if numPartial <= 1 then
+        -- Todas as pilhas parciais foram unificadas!
+        this:Hide()
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Todas as pilhas de " .. (this.itemName or "Item") .. " foram consolidadas!")
+        return
+    end
+
+    -- Pega o primeiro slot incompleto (destino) e o último slot incompleto (origem)
+    local dest = partialSlots[1]
+    local src = partialSlots[numPartial]
+
+    if dest and src and (dest.bag ~= src.bag or dest.slot ~= src.slot) then
+        this.lastSrcBag = src.bag
+        this.lastSrcSlot = src.slot
+        PickupContainerItem(src.bag, src.slot)
+        PickupContainerItem(dest.bag, dest.slot)
+        if CursorHasItem() then
+            PickupContainerItem(src.bag, src.slot)
+        end
+    else
+        this:Hide()
+    end
+end)
+
+function Menu:RestackItem(bagID, slotID)
+    if not bagID or not slotID then return end
+
+    local link = GetContainerItemLink(bagID, slotID)
+    if not link then return end
+
+    local _, _, extractedID = string.find(link, "item:(%d+)")
+    if not extractedID then return end
+
+    local itemID = tonumber(extractedID)
+    local itemName, _, _, _, _, _, mStack = GetItemInfo(itemID)
+    local maxStack = tonumber(mStack) or 1
+    if maxStack <= 1 then
+        local _, curCount = GetContainerItemInfo(bagID, slotID)
+        if curCount and curCount > 1 then
+            maxStack = curCount
+        else
+            return
+        end
+    end
+
+    -- Configura e inicia o motor de consolidação contínua
+    restackTicker.targetID = itemID
+    restackTicker.matchPattern = "item:" .. extractedID .. ":"
+    restackTicker.maxStack = maxStack
+    restackTicker.itemName = itemName or "Item"
+    restackTicker.timer = 0
+    restackTicker.stepDelay = 0.05
+    restackTicker.maxSteps = 30
+    restackTicker.lastSrcBag = nil
+    restackTicker.lastSrcSlot = nil
+    restackTicker:Show()
 end

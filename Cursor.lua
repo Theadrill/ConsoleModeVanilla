@@ -386,7 +386,7 @@ function Cursor:FindFirstVisibleButton(frame)
                 return ConsoleModeContextSplitConfirmBtn
             end
         else
-            for i = 1, 3 do
+            for i = 1, 4 do
                 local btn = getglobal("ConsoleModeContextMenuBtn" .. i)
                 if btn and btn:IsVisible() and (btn:IsEnabled() == 1 or btn:IsEnabled() == true) then
                     return btn

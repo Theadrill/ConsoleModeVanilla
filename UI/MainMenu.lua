@@ -1633,8 +1633,7 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
     gridFrame.cols = cols
     gridFrame.selectedSlotIndex = 1
 
-    -- Organiza os slots no layout de grade 2D responsivo que preenche 100% da largura e respeita a altura
-    function gridFrame:LayoutSlots(visibleCount)
+    function gridFrame:GetCapacity()
         local w = self:GetWidth()
         local h = self:GetHeight()
 
@@ -1661,23 +1660,45 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
         local c = math.floor((w + minGapX) / (s + minGapX))
         if c < 4 then c = 4 end
 
-        -- 2. Distribui o gap horizontal de ponta a ponta para preencher 100% da largura
+        -- 2. Calcula quantas linhas cabem estritamente sem invadir a área de tooltip abaixo
+        local maxRows = math.floor((h + gy) / (s + gy))
+        if maxRows < 1 then maxRows = 1 end
+        local maxFit = c * maxRows
+
+        self.cols = c
+        self.maxRows = maxRows
+        self.maxFitSlots = maxFit
+
+        return maxFit, c, maxRows
+    end
+
+    -- Organiza os slots no layout de grade 2D responsivo que preenche 100% da largura e respeita a altura
+    function gridFrame:LayoutSlots(visibleCount)
+        local maxFit, c, maxRows = self:GetCapacity()
+
+        local w = self:GetWidth()
+        if not w or w < 100 then
+            local totalW = (MainMenu.frame and MainMenu.frame:GetWidth()) or 980
+            if totalW < 100 then totalW = 980 end
+            local availableW = totalW - (CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
+            local leftW = math.floor(availableW * CFG.LeftPanel.widthRatio)
+            w = availableW - leftW
+        end
+
+        local s = self.slotSize or 40
+        local minGapX = self.gapX or 6
+        local gy = self.gapY or 6
+
+        -- Distribui o gap horizontal de ponta a ponta para preencher 100% da largura
         local gx = minGapX
         if c > 1 then
             gx = math.floor((w - (c * s)) / (c - 1))
             if gx < 2 then gx = 2 end
         end
 
-        -- 3. Calcula quantas linhas cabem estritamente sem invadir a área de tooltip abaixo
-        local maxRows = math.floor((h + gy) / (s + gy))
-        if maxRows < 1 then maxRows = 1 end
-        local maxFit = c * maxRows
-
-        self.cols = c
-        self.maxFitSlots = maxFit
-
-        local limit = visibleCount or table.getn(self.slots)
+        local limit = visibleCount or maxFit
         if limit > maxFit then limit = maxFit end
+        if limit > table.getn(self.slots) then limit = table.getn(self.slots) end
 
         for i, slot in ipairs(self.slots) do
             if i <= limit then
@@ -2259,18 +2280,19 @@ function MainMenu:UpdateBagsPage(keepPage)
     end
 
     -- 3. Cálculo de Paginação
+    local grid = pageBags.grid
+    local maxFit = grid:GetCapacity()
+    local pageSize = CFG.Grid.pageSize
+    if not pageSize or pageSize == "auto" then
+        pageSize = maxFit
+    end
+    if pageSize < 1 then pageSize = 40 end
+
     local numItems = table.getn(items)
     local totalElements = numItems
     if curCat == "ALL" then
         totalElements = scanResult.totalSlots
     end
-
-    local grid = pageBags.grid
-    local pageSize = CFG.Grid.pageSize
-    if not pageSize or pageSize == "auto" then
-        pageSize = grid.maxFitSlots or 40
-    end
-    if pageSize < 1 then pageSize = 10 end
 
     local totalPages = math.ceil(totalElements / pageSize)
     if totalPages < 1 then totalPages = 1 end
@@ -2296,17 +2318,16 @@ function MainMenu:UpdateBagsPage(keepPage)
     grid:Clear()
 
     local startIndex = (curPage - 1) * pageSize + 1
-    local endIndex = math.min(startIndex + pageSize - 1, totalElements)
-    local pageCount = endIndex - startIndex + 1
-    if pageCount < 0 then pageCount = 0 end
+    local displaySlots = pageSize
+    if displaySlots > maxFit then displaySlots = maxFit end
 
-    grid:LayoutSlots(pageCount)
+    grid:LayoutSlots(displaySlots)
 
-    for slotIdx = 1, pageCount do
+    for slotIdx = 1, displaySlots do
         local globalIdx = startIndex + slotIdx - 1
         local slot = grid.slots[slotIdx]
         if slot then
-            local itemData = items[globalIdx]
+            local itemData = (globalIdx <= totalElements) and items[globalIdx] or nil
 
             if itemData and not itemData.isEmpty then
                 slot.icon:SetTexture(itemData.texture)
@@ -2340,7 +2361,9 @@ function MainMenu:UpdateBagsPage(keepPage)
     end
 
     -- 5. Exibe o primeiro item da página no painel de detalhes por padrão
-    if pageCount > 0 and items[startIndex] then
+    if totalElements > 0 and items[startIndex] and not items[startIndex].isEmpty then
+        grid:SelectSlot(1)
+    elseif totalElements > 0 and items[startIndex] then
         grid:SelectSlot(1)
     else
         pageBags.detailCard:Clear("Inventário Vazio")
@@ -2560,8 +2583,12 @@ function MainMenu:UpdateSpellsPage(keepPage)
 
     -- 2. Paginação
     local grid = pageSpells.grid
+    local maxFit = grid:GetCapacity()
     local totalElements = table.getn(spells)
-    local pageSize = grid.maxFitSlots or 40
+    local pageSize = CFG.Grid.pageSize
+    if not pageSize or pageSize == "auto" then
+        pageSize = maxFit
+    end
     if pageSize < 1 then pageSize = 40 end
 
     local totalPages = math.ceil(totalElements / pageSize)
@@ -2589,17 +2616,16 @@ function MainMenu:UpdateSpellsPage(keepPage)
     -- 3. Preenche os slots de magias
     grid:Clear()
     local startIndex = (curPage - 1) * pageSize + 1
-    local endIndex = math.min(startIndex + pageSize - 1, totalElements)
-    local pageCount = endIndex - startIndex + 1
-    if pageCount < 0 then pageCount = 0 end
+    local displaySlots = pageSize
+    if displaySlots > maxFit then displaySlots = maxFit end
 
-    grid:LayoutSlots(pageCount)
+    grid:LayoutSlots(displaySlots)
 
-    for slotIdx = 1, pageCount do
+    for slotIdx = 1, displaySlots do
         local globalIdx = startIndex + slotIdx - 1
         local slot = grid.slots[slotIdx]
         if slot then
-            local spellData = spells[globalIdx]
+            local spellData = (globalIdx <= totalElements) and spells[globalIdx] or nil
             if spellData and spellData.name then
                 slot.icon:SetTexture(spellData.icon)
                 slot.icon:Show()
@@ -2624,7 +2650,7 @@ function MainMenu:UpdateSpellsPage(keepPage)
         end
     end
 
-    if pageCount > 0 and spells[startIndex] then
+    if totalElements > 0 and spells[startIndex] then
         grid:SelectSlot(1)
     else
         pageSpells.detailCard:Clear("Grimório Vazio")

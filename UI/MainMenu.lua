@@ -293,7 +293,7 @@ CFG.Footer = {
     paddingLeft     = 28,                   -- Margem esquerda (px)
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
-    text            = "|cffe09a15[L1] / [R1]|r Trocar Aba   |   |cffffffff[D-Pad/L-Stick]|r Navegar   |   |cff38b000(A)|r Interagir   |   |cffdd3333(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
+    text            = "|cffe09a15[L1] / [R1]|r Abas   |   |cffe09a15[L2] / [R2]|r Filtros   |   |cffffffff[D-Pad]|r Navegar   |   |cff38b000(A)|r Usar   |   |cffdd3333(B)|r Fechar   |   |cffffffff[R-Stick]|r Girar 3D",
 }
 
 -- ----------------------------------------------------------------------------
@@ -1080,7 +1080,12 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
         local slot = CreateFrame("Button", nil, gridFrame)
         slot:SetWidth(slotSize)
         slot:SetHeight(slotSize)
-        slot.slotIndex = i
+        -- Fundo escurecido translúcido para o slot (estilo Zelda TotK)
+        local bg = slot:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints(slot)
+        bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        bg:SetVertexColor(0.0, 0.0, 0.0, 0.40)
+        slot.bg = bg
 
         -- Ícone
         local icon = slot:CreateTexture(nil, "ARTWORK")
@@ -1370,12 +1375,21 @@ function MainMenu:SetupBagsPage(pageBags)
     slotsFreeText:SetText("|cffaaaaaaEspaço:|r |cffffffff0 / 0|r")
     pageBags.slotsFreeText = slotsFreeText
 
-    -- Botões de Filtro de Categoria
+    -- Indicador [R2] à direita
+    local r2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
+    MainMenu:ApplyFont(r2Hint, CFG.Fonts.headerFontFile, 12)
+    r2Hint:SetText("|cffe09a15[R2]|r")
+    pageBags.r2Hint = r2Hint
+
+    -- Botões de Filtro de Categoria (Ancorados da direita para esquerda para ordenar: [L2] Todos ... Diversos [R2])
     local catButtons = {}
-    local prevCat = nil
+    local prevCat = r2Hint
     pageBags.currentCategory = "ALL"
 
-    for i, catData in ipairs(CFG.Bags.categories) do
+    local numCats = table.getn(CFG.Bags.categories)
+    for i = numCats, 1, -1 do
+        local catData = CFG.Bags.categories[i]
         local catBtn = CreateFrame("Button", "ConsoleModeMM_BagCat" .. catData.id, headerBar)
         catBtn:SetHeight(24)
 
@@ -1391,11 +1405,7 @@ function MainMenu:SetupBagsPage(pageBags)
         if txtW < 40 then txtW = 40 end
         catBtn:SetWidth(txtW + 8)
 
-        if not prevCat then
-            catBtn:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
-        else
-            catBtn:SetPoint("RIGHT", prevCat, "LEFT", -6, 0)
-        end
+        catBtn:SetPoint("RIGHT", prevCat, "LEFT", -4, 0)
 
         catBtn:SetScript("OnClick", function()
             pageBags.currentCategory = this.catData.id
@@ -1407,6 +1417,13 @@ function MainMenu:SetupBagsPage(pageBags)
         prevCat = catBtn
     end
     pageBags.catButtons = catButtons
+
+    -- Indicador [L2] à esquerda da primeira categoria (Todos)
+    local l2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    l2Hint:SetPoint("RIGHT", prevCat, "LEFT", -4, 0)
+    MainMenu:ApplyFont(l2Hint, CFG.Fonts.headerFontFile, 12)
+    l2Hint:SetText("|cffe09a15[L2]|r")
+    pageBags.l2Hint = l2Hint
 
     -- Linha Divisória abaixo do cabeçalho de filtros
     local hDiv = headerBar:CreateTexture(nil, "ARTWORK")
@@ -1495,6 +1512,7 @@ function MainMenu:UpdateBagsPage()
 
             if itemData then
                 slot.icon:SetTexture(itemData.texture)
+                slot.icon:Show()
                 slot.icon:SetAlpha(1.0)
                 slot.data = itemData
 
@@ -1513,11 +1531,11 @@ function MainMenu:UpdateBagsPage()
                 end
                 slot.border:SetBackdropBorderColor(r, g, b, 0.95)
             else
-                -- Slot vazio
-                slot.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-                slot.icon:SetAlpha(CFG.Grid.emptySlotAlpha or 0.22)
+                -- Slot vazio estilo Zelda: sem ícone, fundo escuro suave e borda sutil vazada
+                slot.icon:SetTexture(nil)
+                slot.icon:Hide()
                 slot.countText:SetText("")
-                slot.border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.25)
+                slot.border:SetBackdropBorderColor(0.45, 0.40, 0.35, 0.30)
                 slot.data = nil
             end
         end
@@ -1732,6 +1750,37 @@ function MainMenu:CycleTabs(direction)
     if nextIdx < 1 then nextIdx = total end
 
     self:SelectTab(list[nextIdx].id, true)
+    return true
+end
+
+function MainMenu:CycleCategories(direction)
+    if not self.tabContainer or not self.tabContainer.pages then return false end
+    local pageBags = self.tabContainer.pages["BAGS"]
+    if not pageBags or not pageBags:IsVisible() then return false end
+
+    direction = direction or 1
+    local cats = CFG.Bags.categories
+    local total = table.getn(cats)
+    local curCat = pageBags.currentCategory or "ALL"
+    local curIdx = 1
+
+    for i, c in ipairs(cats) do
+        if c.id == curCat then
+            curIdx = i
+            break
+        end
+    end
+
+    local nextIdx = curIdx + direction
+    if nextIdx > total then nextIdx = 1 end
+    if nextIdx < 1 then nextIdx = total end
+
+    pageBags.currentCategory = cats[nextIdx].id
+    self:UpdateBagsPage()
+
+    if CFG.Audio.soundItemSelect then
+        PlaySound(CFG.Audio.soundItemSelect)
+    end
     return true
 end
 

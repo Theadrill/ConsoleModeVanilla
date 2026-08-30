@@ -925,3 +925,20 @@ function Cursor:CycleTabs(direction)
     
     return false
 end
+
+-- ============================================================
+-- Troca de Sub-Abas / Filtros Internos de Janelas (L2 / R2)
+-- ============================================================
+function Cursor:CycleSubTabs(direction)
+    local dir = direction or 1
+
+    -- 0. Se o MainMenu do ConsoleMode estiver aberto
+    if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+        if ConsoleMode.mainMenu and ConsoleMode.mainMenu.CycleCategories then
+            local cycled = ConsoleMode.mainMenu:CycleCategories(dir)
+            if cycled then return true end
+        end
+    end
+
+    return false
+end

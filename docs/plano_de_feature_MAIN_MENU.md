@@ -267,3 +267,10 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
   2. Animações de comer/beber no modelo 3D ao usar consumíveis.
   3. Mapeamento de abertura pelo botão Start e ajustes finos de responsividade.
 * **Validação:** Menu completo, fluido, polido e 100% funcional no gameplay com controle.
+
+### **FASE 9: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip (Fase Final)**
+* **Tarefas:**
+  1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
+  2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
+  3. Navegação contínua e sem atritos entre os equipamentos da esquerda e as abas da direita via D-Pad para uma experiência 100% unificada de console.
+* **Validação:** Focar em elmos, armas equipadas e buffs na lateral esquerda e ver seus dados completos carregando instantaneamente no painel fixo da direita.

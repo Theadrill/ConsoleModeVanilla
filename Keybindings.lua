@@ -200,22 +200,44 @@ function KB:Initialize()
 end
 
 -- ============================================================
--- Frame de Escuta de Modificadores (R1 / CTRL para troca de abas)
+-- Frame de Escuta de Modificadores (R1 / CTRL = Abas, L2 / SHIFT e R2 / ALT = Filtros)
 -- ============================================================
 local modFrame = CreateFrame("Frame", "ConsoleModeModFrame", UIParent)
 local wasCtrlDown = false
+local wasShiftDown = false
+local wasAltDown = false
 
 modFrame:SetScript("OnUpdate", function()
     local ctrlNow = IsControlKeyDown()
-    if ctrlNow and not wasCtrlDown then
-        -- Borda de subida: o jogador acabou de pressionar R1 (CTRL)
-        if KB.navigationMode and not KB.chatActive then
+    local shiftNow = IsShiftKeyDown()
+    local altNow = IsAltKeyDown()
+
+    if KB.navigationMode and not KB.chatActive then
+        -- 1. R1 (CTRL) = Próxima Aba Principal
+        if ctrlNow and not wasCtrlDown then
             if CM.cursor and CM.cursor.CycleTabs then
-                CM.cursor:CycleTabs(1) -- R1 (CTRL) = Próxima Aba
+                CM.cursor:CycleTabs(1)
+            end
+        end
+
+        -- 2. L2 (SHIFT) = Filtro/Sub-Aba Anterior
+        if shiftNow and not wasShiftDown then
+            if CM.cursor and CM.cursor.CycleSubTabs then
+                CM.cursor:CycleSubTabs(-1)
+            end
+        end
+
+        -- 3. R2 (ALT) = Próximo Filtro/Sub-Aba
+        if altNow and not wasAltDown then
+            if CM.cursor and CM.cursor.CycleSubTabs then
+                CM.cursor:CycleSubTabs(1)
             end
         end
     end
+
     wasCtrlDown = ctrlNow
+    wasShiftDown = shiftNow
+    wasAltDown = altNow
 end)
 
 -- ============================================================
@@ -705,6 +727,20 @@ function CM_NavPrevTab()
     if CM.keybindings.chatActive then return end
     if CM.cursor and CM.cursor.CycleTabs then
         CM.cursor:CycleTabs(-1)
+    end
+end
+
+function CM_NavNextSubTab()
+    if CM.keybindings and CM.keybindings.chatActive then return end
+    if CM.cursor and CM.cursor.CycleSubTabs then
+        CM.cursor:CycleSubTabs(1)
+    end
+end
+
+function CM_NavPrevSubTab()
+    if CM.keybindings and CM.keybindings.chatActive then return end
+    if CM.cursor and CM.cursor.CycleSubTabs then
+        CM.cursor:CycleSubTabs(-1)
     end
 end
 

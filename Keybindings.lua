@@ -219,6 +219,9 @@ modFrame:SetScript("OnUpdate", function()
     local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible())
 
     if isNav and not (KB and KB.chatActive) then
+        local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+        local isQuestsTab = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and (mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS")
+
         -- 1. R1 (CTRL) = Próxima Aba Principal
         if ctrlNow and not wasCtrlDown then
             if CM.cursor and CM.cursor.CycleTabs then
@@ -226,16 +229,20 @@ modFrame:SetScript("OnUpdate", function()
             end
         end
 
-        -- 2. L2 (SHIFT / LT) = Filtro/Sub-Aba Anterior / Zoom Out
+        -- 2. L2 (SHIFT / LT) = Zoom Out no mapa ou Sub-Aba Anterior
         if shiftNow and not wasShiftDown then
-            if CM.cursor and CM.cursor.CycleSubTabs then
+            if isQuestsTab and mm and mm.MapZoomStep then
+                mm:MapZoomStep(-1)
+            elseif CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(-1)
             end
         end
 
-        -- 3. R2 (ALT / RT) = Próximo Filtro/Sub-Aba / Zoom In
+        -- 3. R2 (ALT / RT) = Zoom In no mapa ou Próxima Sub-Aba
         if altNow and not wasAltDown then
-            if CM.cursor and CM.cursor.CycleSubTabs then
+            if isQuestsTab and mm and mm.MapZoomStep then
+                mm:MapZoomStep(1)
+            elseif CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(1)
             end
         end
@@ -569,6 +576,60 @@ function CM_MouseRight()
     CM.logger:Log("R3: Clique Direito do Mouse (Mouselook Destravado)")
 end
 
+-- ============================================================
+-- Modo de Controle Livre do Mapa (L-Stick / WASD / D-Pad)
+-- ============================================================
+function KB:EnterMapMode()
+    if self.mapModeActive then return end
+    self.mapModeActive = true
+    self.savedMapBindings = {
+        W = GetBindingAction("W"),
+        w = GetBindingAction("w"),
+        A = GetBindingAction("A"),
+        a = GetBindingAction("a"),
+        S = GetBindingAction("S"),
+        s = GetBindingAction("s"),
+        D = GetBindingAction("D"),
+        d = GetBindingAction("d"),
+        UP = GetBindingAction("UP"),
+        DOWN = GetBindingAction("DOWN"),
+        LEFT = GetBindingAction("LEFT"),
+        RIGHT = GetBindingAction("RIGHT"),
+    }
+    SetBinding("W", "CM_MAP_UP")
+    SetBinding("w", "CM_MAP_UP")
+    SetBinding("S", "CM_MAP_DOWN")
+    SetBinding("s", "CM_MAP_DOWN")
+    SetBinding("A", "CM_MAP_LEFT")
+    SetBinding("a", "CM_MAP_LEFT")
+    SetBinding("D", "CM_MAP_RIGHT")
+    SetBinding("d", "CM_MAP_RIGHT")
+    SetBinding("UP", "CM_MAP_UP")
+    SetBinding("DOWN", "CM_MAP_DOWN")
+    SetBinding("LEFT", "CM_MAP_LEFT")
+    SetBinding("RIGHT", "CM_MAP_RIGHT")
+end
+
+function KB:ExitMapMode()
+    if not self.mapModeActive then return end
+    self.mapModeActive = false
+    if self.savedMapBindings then
+        for key, action in pairs(self.savedMapBindings) do
+            if action and action ~= "" then
+                SetBinding(key, action)
+            else
+                SetBinding(key, nil)
+            end
+        end
+        self.savedMapBindings = nil
+    end
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mm then
+        mm.stickPanX = 0
+        mm.stickPanY = 0
+    end
+end
+
 function CM_ToggleUI(uiType)
     if CM.keybindings.chatActive then return end
     CM.logger:Log("UI Toggle: " .. tostring(uiType))
@@ -604,8 +665,25 @@ function CM_ToggleUI(uiType)
     end
 end
 
+function CM_MapPanStick(direction, keystate)
+    if CM.keybindings and CM.keybindings.chatActive then return end
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mm and mm.OnStickPan then
+        mm:OnStickPan(direction, keystate)
+    end
+end
+
 function CM_CursorMove(direction, keystate)
-    if CM.keybindings.chatActive then return end
+    if CM.keybindings and CM.keybindings.chatActive then return end
+
+    -- Se o MainMenu estiver na aba QUESTS, D-Pad/Stick move o mapa
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+        if mm.OnStickPan then
+            mm:OnStickPan(direction, keystate)
+            return
+        end
+    end
     
     -- Proteção: se o cursor não estiver ativo em nenhuma janela, desativa modo navegação
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
@@ -743,6 +821,11 @@ end
 
 function CM_NavNextSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+        if mm.MapZoomStep then mm:MapZoomStep(1) end
+        return
+    end
     if CM.cursor and CM.cursor.CycleSubTabs then
         CM.cursor:CycleSubTabs(1)
     end
@@ -750,6 +833,11 @@ end
 
 function CM_NavPrevSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+        if mm.MapZoomStep then mm:MapZoomStep(-1) end
+        return
+    end
     if CM.cursor and CM.cursor.CycleSubTabs then
         CM.cursor:CycleSubTabs(-1)
     end

@@ -2871,9 +2871,9 @@ function MainMenu:SetupQuestsPage(pageQuests)
     end
     mapCanvas.tiles = tiles
 
-    -- 2. Pool de Texturas de Overlay para Áreas Exploradas (Fog of War / Descobertas)
+    -- 2. Pool de Texturas de Overlay para Áreas Exploradas / Revelação Total (Sem Fog of War)
     local overlays = {}
-    for oIdx = 1, 100 do
+    for oIdx = 1, 180 do
         local oTex = mapTilesContainer:CreateTexture("ConsoleModeMM_MapOverlay" .. oIdx, "ARTWORK")
         oTex:Hide()
         overlays[oIdx] = oTex
@@ -2976,7 +2976,19 @@ function MainMenu:SetupQuestsPage(pageQuests)
             end
         end
 
-        -- 2. Atualização suave da posição e rotação do jogador (30 FPS)
+        -- 2. Movimentação suave contínua por Alavanca Analógica / D-Pad / WASD (L-Stick)
+        local stickX = MainMenu.stickPanX or 0
+        local stickY = MainMenu.stickPanY or 0
+        if stickX ~= 0 or stickY ~= 0 then
+            local speed = 480 -- pixels por segundo
+            local dt = arg1 or 0.016
+            if dt > 0.1 then dt = 0.016 end
+            local dx = stickX * speed * dt
+            local dy = stickY * speed * dt
+            MainMenu:MapPan(dx, dy)
+        end
+
+        -- 3. Atualização suave da posição e rotação do jogador (30 FPS)
         this.elapsed = (this.elapsed or 0) + (arg1 or 0.016)
         if this.elapsed >= 0.033 then
             this.elapsed = 0
@@ -3174,6 +3186,19 @@ function MainMenu:UpdateMapTextures(mapCanvas)
     end
 end
 
+local function GetNextPowerOfTwo(val)
+    local p = 16
+    while p < val do
+        p = p * 2
+    end
+    return p
+end
+
+local mapOverlayErrata = {
+    ["Interface\\WorldMap\\Tirisfal\\BRIGHTWATERLAKE"] = { offsetX = 584 },
+    ["Interface\\WorldMap\\Silverpine\\BERENSPERIL"] = { offsetY = 415 },
+}
+
 function MainMenu:UpdateMapOverlays(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.overlays then return end
 
@@ -3181,42 +3206,135 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
     local scale = mapCanvas.currentScale or 0.5
     if scale <= 0 then scale = 0.5 end
 
-    local numOverlays = (GetNumMapOverlays and GetNumMapOverlays()) or 0
-    local overlayPoolIdx = 1
+    local mapFileName = (GetMapInfo and GetMapInfo())
     local overlays = mapCanvas.overlays
     local totalPool = table.getn(overlays)
+    local overlayPoolIdx = 1
 
-    for i = 1, numOverlays do
-        local textureName, textureWidth, textureHeight, offsetX, offsetY, mapPointX, mapPointY = GetMapOverlayInfo(i)
-        if textureName and textureName ~= "" and textureWidth and textureHeight and textureWidth > 0 and textureHeight > 0 then
-            local numWide = math.ceil(textureWidth / 256)
-            local numHigh = math.ceil(textureHeight / 256)
-            local textureIndex = 1
+    local overlayData = nil
+    if mapFileName and mapFileName ~= "" then
+        overlayData = (ConsoleMode and ConsoleMode.MapOverlayData and ConsoleMode.MapOverlayData[mapFileName])
+            or (ShaguTweaks and ShaguTweaks.MapOverlayData and ShaguTweaks.MapOverlayData[mapFileName])
+    end
 
-            for j = 1, numHigh do
-                for k = 1, numWide do
-                    local tex = overlays[overlayPoolIdx]
-                    if tex then
-                        local w = (k < numWide) and 256 or (textureWidth - (256 * (k - 1)))
-                        local h = (j < numHigh) and 256 or (textureHeight - (256 * (j - 1)))
-                        local texCoordX = (k < numWide) and 1.0 or ((textureWidth - (256 * (k - 1))) / 256)
-                        local texCoordY = (j < numHigh) and 1.0 or ((textureHeight - (256 * (j - 1))) / 256)
+    if overlayData and table.getn(overlayData) > 0 then
+        -- Modo 1: Revelação Total de Mapa sem Fog of War (todas as fatias da zona com precisão sub-pixel)
+        local prefix = "Interface\\WorldMap\\" .. mapFileName .. "\\"
+        for _, hash in ipairs(overlayData) do
+            local _, _, name, wStr, hStr, xStr, yStr = string.find(hash, "^([^:]+):([^:]+):([^:]+):([^:]+):([^:]+)")
+            if name and wStr and hStr and xStr and yStr then
+                local textureWidth = tonumber(wStr) or 0
+                local textureHeight = tonumber(hStr) or 0
+                local offsetX = tonumber(xStr) or 0
+                local offsetY = tonumber(yStr) or 0
+                local baseTexPath = prefix .. name
 
-                        local posX = math.floor((offsetX + (256 * (k - 1))) * scale)
-                        local posY = math.floor((offsetY + (256 * (j - 1))) * scale)
+                if mapOverlayErrata[baseTexPath] then
+                    if mapOverlayErrata[baseTexPath].offsetX then offsetX = mapOverlayErrata[baseTexPath].offsetX end
+                    if mapOverlayErrata[baseTexPath].offsetY then offsetY = mapOverlayErrata[baseTexPath].offsetY end
+                end
 
-                        tex:ClearAllPoints()
-                        tex:SetPoint("TOPLEFT", container, "TOPLEFT", posX, -posY)
-                        tex:SetWidth(math.floor(w * scale))
-                        tex:SetHeight(math.floor(h * scale))
-                        tex:SetTexCoord(0, texCoordX, 0, texCoordY)
-                        tex:SetTexture(textureName .. textureIndex)
-                        tex:SetVertexColor(1, 1, 1, 1)
-                        tex:Show()
+                if textureWidth > 0 and textureHeight > 0 then
+                    local numWide = math.ceil(textureWidth / 256)
+                    local numHigh = math.ceil(textureHeight / 256)
+                    local textureIndex = 1
 
-                        overlayPoolIdx = overlayPoolIdx + 1
+                    for j = 1, numHigh do
+                        local texturePixelHeight, textureFileHeight
+                        if j < numHigh then
+                            texturePixelHeight, textureFileHeight = 256, 256
+                        else
+                            texturePixelHeight = math.mod(textureHeight, 256)
+                            if texturePixelHeight == 0 then texturePixelHeight = 256 end
+                            textureFileHeight = GetNextPowerOfTwo(texturePixelHeight)
+                        end
+
+                        for k = 1, numWide do
+                            local texturePixelWidth, textureFileWidth
+                            if k < numWide then
+                                texturePixelWidth, textureFileWidth = 256, 256
+                            else
+                                texturePixelWidth = math.mod(textureWidth, 256)
+                                if texturePixelWidth == 0 then texturePixelWidth = 256 end
+                                textureFileWidth = GetNextPowerOfTwo(texturePixelWidth)
+                            end
+
+                            local tex = overlays[overlayPoolIdx]
+                            if tex then
+                                local texCoordX = texturePixelWidth / textureFileWidth
+                                local texCoordY = texturePixelHeight / textureFileHeight
+
+                                local posX = math.floor((offsetX + (256 * (k - 1))) * scale)
+                                local posY = math.floor((offsetY + (256 * (j - 1))) * scale)
+
+                                tex:ClearAllPoints()
+                                tex:SetPoint("TOPLEFT", container, "TOPLEFT", posX, -posY)
+                                tex:SetWidth(math.floor(texturePixelWidth * scale))
+                                tex:SetHeight(math.floor(texturePixelHeight * scale))
+                                tex:SetTexCoord(0, texCoordX, 0, texCoordY)
+                                tex:SetTexture(baseTexPath .. textureIndex)
+                                tex:SetVertexColor(1, 1, 1, 1)
+                                tex:Show()
+
+                                overlayPoolIdx = overlayPoolIdx + 1
+                            end
+                            textureIndex = textureIndex + 1
+                        end
                     end
-                    textureIndex = textureIndex + 1
+                end
+            end
+        end
+    else
+        -- Modo 2: Fallback Dinâmico Nativo da Blizzard
+        local numOverlays = (GetNumMapOverlays and GetNumMapOverlays()) or 0
+        for i = 1, numOverlays do
+            local textureName, textureWidth, textureHeight, offsetX, offsetY, mapPointX, mapPointY = GetMapOverlayInfo(i)
+            if textureName and textureName ~= "" and textureWidth and textureHeight and textureWidth > 0 and textureHeight > 0 then
+                local numWide = math.ceil(textureWidth / 256)
+                local numHigh = math.ceil(textureHeight / 256)
+                local textureIndex = 1
+
+                for j = 1, numHigh do
+                    local texturePixelHeight, textureFileHeight
+                    if j < numHigh then
+                        texturePixelHeight, textureFileHeight = 256, 256
+                    else
+                        texturePixelHeight = math.mod(textureHeight, 256)
+                        if texturePixelHeight == 0 then texturePixelHeight = 256 end
+                        textureFileHeight = GetNextPowerOfTwo(texturePixelHeight)
+                    end
+
+                    for k = 1, numWide do
+                        local texturePixelWidth, textureFileWidth
+                        if k < numWide then
+                            texturePixelWidth, textureFileWidth = 256, 256
+                        else
+                            texturePixelWidth = math.mod(textureWidth, 256)
+                            if texturePixelWidth == 0 then texturePixelWidth = 256 end
+                            textureFileWidth = GetNextPowerOfTwo(texturePixelWidth)
+                        end
+
+                        local tex = overlays[overlayPoolIdx]
+                        if tex then
+                            local texCoordX = texturePixelWidth / textureFileWidth
+                            local texCoordY = texturePixelHeight / textureFileHeight
+
+                            local posX = math.floor((offsetX + (256 * (k - 1))) * scale)
+                            local posY = math.floor((offsetY + (256 * (j - 1))) * scale)
+
+                            tex:ClearAllPoints()
+                            tex:SetPoint("TOPLEFT", container, "TOPLEFT", posX, -posY)
+                            tex:SetWidth(math.floor(texturePixelWidth * scale))
+                            tex:SetHeight(math.floor(texturePixelHeight * scale))
+                            tex:SetTexCoord(0, texCoordX, 0, texCoordY)
+                            tex:SetTexture(textureName .. textureIndex)
+                            tex:SetVertexColor(1, 1, 1, 1)
+                            tex:Show()
+
+                            overlayPoolIdx = overlayPoolIdx + 1
+                        end
+                        textureIndex = textureIndex + 1
+                    end
                 end
             end
         end
@@ -3373,14 +3491,29 @@ function MainMenu:MapZoomStep(delta)
     PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
+MainMenu.stickPanX = 0
+MainMenu.stickPanY = 0
+
+function MainMenu:OnStickPan(direction, keystate)
+    local isDown = (keystate ~= "up")
+
+    if direction == "UP" then
+        self.stickPanY = isDown and -1 or 0
+    elseif direction == "DOWN" then
+        self.stickPanY = isDown and 1 or 0
+    elseif direction == "LEFT" then
+        self.stickPanX = isDown and 1 or 0
+    elseif direction == "RIGHT" then
+        self.stickPanX = isDown and -1 or 0
+    end
+end
+
 function MainMenu:MapPan(dx, dy)
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.canvas then return end
 
     local mapCanvas = pageQuests.mapPanel.canvas
-    if (mapCanvas.zoomFactor or 1.0) <= 1.0 then return end
-
     local canvasW = mapCanvas:GetWidth() or 500
     local canvasH = mapCanvas:GetHeight() or 340
     local container = mapCanvas.tilesContainer
@@ -3389,6 +3522,8 @@ function MainMenu:MapPan(dx, dy)
 
     local maxPanX = math.max(0, (totalW - canvasW) / 2 + (canvasW * 0.45))
     local maxPanY = math.max(0, (totalH - canvasH) / 2 + (canvasH * 0.45))
+
+    if maxPanX <= 0 and maxPanY <= 0 then return end
 
     mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, (mapCanvas.panX or 0) + dx))
     mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, (mapCanvas.panY or 0) + dy))
@@ -4166,6 +4301,10 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
     -- Se abriu a aba de Bolsas ou Magias, alterna o modelo 3D correspondente e atualiza o grid
     local facing = self.currentFacing or 0
     if tabID == "QUESTS" then
+        if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.EnterMapMode then
+            ConsoleMode.keybindings:EnterMapMode()
+        end
+
         -- Na aba de Missões & Mapa, recolhe o palco do personagem 3D e expande o painel de conteúdo
         if self.frame and self.frame.leftPanel then self.frame.leftPanel:Hide() end
         if self.frame and self.frame.divider then self.frame.divider:Hide() end
@@ -4177,6 +4316,10 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
         self:RestorePlayerModel()
         self:UpdateQuestsPage()
     else
+        if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.ExitMapMode then
+            ConsoleMode.keybindings:ExitMapMode()
+        end
+
         -- Nas demais abas, restaura o painel do personagem à esquerda e a divisão central
         if self.frame and self.frame.leftPanel then self.frame.leftPanel:Show() end
         if self.frame and self.frame.divider then self.frame.divider:Show() end
@@ -4596,6 +4739,10 @@ function MainMenu:CreateUI()
     end)
 
     frame:SetScript("OnHide", function()
+        if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.ExitMapMode then
+            ConsoleMode.keybindings:ExitMapMode()
+        end
+
         MainMenu:RestoreModelRotationBindings()
         if MainMenu.playerModel then
             MainMenu.playerModel.rotateDir = 0

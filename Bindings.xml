@@ -103,6 +103,10 @@
     <Binding name="CM_NAV_NEXT_TAB">CM_NavNextTab()</Binding>                           <!-- R1/RB: Proxima Aba -->
     <Binding name="CM_MODEL_ROTATE_LEFT" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_ModelRotateLeft(keystate)</Binding>
     <Binding name="CM_MODEL_ROTATE_RIGHT" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_ModelRotateRight(keystate)</Binding>
+    <Binding name="CM_MAP_UP" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_MapPanStick("UP", keystate)</Binding>
+    <Binding name="CM_MAP_DOWN" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_MapPanStick("DOWN", keystate)</Binding>
+    <Binding name="CM_MAP_LEFT" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_MapPanStick("LEFT", keystate)</Binding>
+    <Binding name="CM_MAP_RIGHT" header="CONSOLEMODECURSOR" hidden="true" runOnUp="true">CM_MapPanStick("RIGHT", keystate)</Binding>
 
     <!-- ============================================================ -->
     <!-- Smart Mouse Look Companion (F9 via Steam Input)              -->

@@ -3874,9 +3874,34 @@ function MainMenu:BuildInstancesListForZone(zoneName)
             local det = instData and instData.details and instData.details[name]
             if det and det.zone and det.zone ~= zoneName then btn.parentZone = det.zone end
             btn:SetScript("OnClick", function()
-                if this and this.parentZone then
-                    MainMenu:SwitchMapToZone(this.parentZone)
-                    if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+                if this and this.zoneName then
+                    local ok = MainMenu:SwitchMapToZone(this.zoneName)
+                    if not ok and this.parentZone then ok = MainMenu:SwitchMapToZone(this.parentZone) end
+                    if not ok then
+                        local instData2 = ConsoleMode and ConsoleMode.Instances
+                        local det2 = instData2 and instData2.details and instData2.details[this.zoneName]
+                        local file = det2 and det2.file
+                        if not file or file == "" then
+                            file = string.gsub(this.zoneName, "^The ", "")
+                            file = string.gsub(file, "[%s%']", "")
+                        end
+                        if file and file ~= "" then
+                            MainMenu.mapViewMode = "ZONE"
+                            MainMenu.mapContinentView = nil
+                            MainMenu.mapShowingQuestZone = true
+                            MainMenu.mapFileName = file
+                            MainMenu.mapZoneName = this.zoneName
+                            MainMenu.mapContinent = nil
+                            MainMenu.mapZoneIdx = nil
+                            ok = true
+                        end
+                    end
+                    if ok and MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+                    if not ok and this.parentZone then
+                        if SetMapToCurrentZone then SetMapToCurrentZone() end
+                        MainMenu:EnsureMapZone()
+                        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+                    end
                 end
             end)
             btn:SetScript("OnEnter", function()
@@ -3996,11 +4021,20 @@ function MainMenu:BuildInstancesList(cont)
                 btn.parentZone = nil
             end
             btn:SetScript("OnClick", function()
-                if this and this.parentZone then
-                    MainMenu:SwitchMapToZone(this.parentZone)
-                    if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
-                elseif this and this.zoneName then
-                    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Instancias]|r " .. this.zoneName .. " (sem mapa outdoor — indo para zona parente)") end
+                if this and this.zoneName then
+                    local inst = this.zoneName
+                    local parent = this.parentZone
+                    local ok = MainMenu:SwitchMapToZone(inst)
+                    if not ok and parent then ok = MainMenu:SwitchMapToZone(parent) end
+                    if ok then
+                        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+                    else
+                        if DEFAULT_CHAT_FRAME then
+                            local d = instData and instData.details and instData.details[inst]
+                            local lv = d and d.levels or "?"
+                            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Instancias]|r " .. inst .. " | Nvl " .. lv .. " | Zona " .. (parent or "?") .. " (mapa da masmorra sem textura de mundo — mostrando zona parente)")
+                        end
+                    end
                 end
             end)
             btn:SetScript("OnEnter", function()
@@ -4065,6 +4099,22 @@ function MainMenu:BuildContinentZoneList(cont)
     local zones = {GetMapZones(cont)}
     local count = table.getn(zones)
     if count == 0 then return end
+    local filtered = {}
+    for i = 1, table.getn(zones) do
+        local n = zones[i]
+        if n and n ~= "" then
+            if not (instData and instData.IsDungeon and instData:IsDungeon(n)) then
+                table.insert(filtered, n)
+            end
+        end
+    end
+    zones = filtered
+    count = table.getn(zones)
+    if count == 0 then
+        content:SetHeight(30)
+        if frame.scrollFrame then frame.scrollFrame:SetVerticalScroll(0); frame.scrollFrame:UpdateScrollChildRect() end
+        return
+    end
     local btnH = 28
     local gap = 3
     for idx = 1, count do

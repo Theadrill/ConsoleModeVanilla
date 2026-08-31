@@ -807,11 +807,20 @@ function Cursor:Click(mouseButton)
         end
     end
     
-    -- Clique normal
-    if button.Click then
-        button:Click(mouseButton)
-    elseif button.GetScript then
-        local script = button:GetScript("OnClick") or button:GetScript("OnMouseDown")
+    -- Clique normal: verifica se o frame tem OnClick antes de chamar Click()
+    if button.GetScript and (button:GetScript("OnClick") or button:GetScript("OnMouseDown")) then
+        if button.Click then
+            button:Click(mouseButton)
+        else
+            local script = button:GetScript("OnClick") or button:GetScript("OnMouseDown")
+            if script then
+                pcall(function()
+                    this = button
+                    arg1 = mouseButton
+                    script()
+                end)
+            end
+        end
         if script then
             pcall(function()
                 this = button

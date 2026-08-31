@@ -483,11 +483,43 @@ end
 -- ============================================================
 function CM_Action(button, page)
     if CM.keybindings.chatActive then return end
-    CM.logger:Log("Ação: Página " .. page .. " | Botão " .. button)
-    
-    -- Botao A na pagina 1 (Base/Sem modificador) = Pulo padrão do WoW
+    CM.logger:Log("Acao: Pagina " .. page .. " | Botao " .. button)
+
+    -- Botao A na pagina 1 (Base/Sem modificador) = Pulo padrao do WoW
     if page == 1 and button == "A" then
         if Jump then Jump() end
+        return
+    end
+
+    -- Botao A na pagina 2 (L2) no QUESTS = Confirmar selecao no mapa
+    if page == 2 and button == "A" then
+        local mm = (ConsoleMode and ConsoleMode.mainMenu) or nil
+        if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+            if mm.OnMapPinClick then mm:OnMapPinClick() end
+            return
+        end
+    end
+
+    -- Botao X na pagina 1 (Base) no QUESTS = Rastrear/Parar Rastrear missao selecionada
+    if page == 1 and button == "X" then
+        local mm = (ConsoleMode and ConsoleMode.mainMenu) or nil
+        if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+            if mm.selectedQuestIndex and mm.ToggleQuestWatch then
+                mm:ToggleQuestWatch(mm.selectedQuestIndex)
+            end
+            return
+        end
+    end
+
+    -- Botao Y na pagina 1 (Base) no QUESTS = Menu de contexto da missao
+    if page == 1 and button == "Y" then
+        local mm = (ConsoleMode and ConsoleMode.mainMenu) or nil
+        if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+            if mm.selectedQuestIndex and mm.OpenQuestContextMenu then
+                mm:OpenQuestContextMenu(mm.selectedQuestIndex)
+            end
+            return
+        end
     end
 end
 
@@ -676,20 +708,6 @@ end
 function CM_CursorMove(direction, keystate)
     if CM.keybindings and CM.keybindings.chatActive then return end
 
-    -- Se o MainMenu estiver na aba QUESTS, D-Pad UP/DOWN navega nas missões
-    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
-    if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
-        if direction == "UP" or direction == "DOWN" then
-            if keystate ~= "up" and mm.NavigateQuest then
-                mm:NavigateQuest(direction == "UP" and -1 or 1)
-            end
-            return
-        elseif mm.OnStickPan then
-            mm:OnStickPan(direction, keystate)
-            return
-        end
-    end
-    
     -- Proteção: se o cursor não estiver ativo em nenhuma janela, desativa modo navegação
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         CM.keybindings:ExitNavigationMode()

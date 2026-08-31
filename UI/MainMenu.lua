@@ -3440,6 +3440,159 @@ function MainMenu:UpdateQuestsPage()
     end
 end
 
+-- ============================================================================
+-- 7.6. ETAPA 9.6: SINERGIA DE MISSÕES - ZONA, RASTREAMENTO E AÇÕES
+-- ============================================================================
+
+function MainMenu:GetQuestZone(questLogIndex)
+    if not questLogIndex or questLogIndex <= 0 then return nil end
+    local numEntries = (GetNumQuestLogEntries and GetNumQuestLogEntries()) or 0
+    local zoneName = nil
+    for i = 1, numEntries do
+        local title, level, questTag, isHeader = GetQuestLogTitle(i)
+        if isHeader then
+            zoneName = title
+        end
+        if i == questLogIndex then
+            break
+        end
+    end
+    return zoneName
+end
+
+function MainMenu:SwitchMapToZone(zoneName)
+    if not zoneName or zoneName == "" then return false end
+    for cont = 1, 4 do
+        local zones = {GetMapZones(cont)}
+        for zoneIdx, name in ipairs(zones) do
+            if name == zoneName then
+                SetMapZoom(cont, zoneIdx)
+                return true
+            end
+        end
+    end
+    return false
+end
+
+function MainMenu:FocusMapOnQuest(questLogIndex)
+    local zoneName = self:GetQuestZone(questLogIndex)
+    if zoneName then
+        self:SwitchMapToZone(zoneName)
+    end
+end
+
+function MainMenu:ToggleQuestWatch(questLogIndex)
+    if not questLogIndex or questLogIndex <= 0 then return end
+    local numEntries = (GetNumQuestLogEntries and GetNumQuestLogEntries()) or 0
+    if questLogIndex > numEntries then return end
+
+    local title, level, questTag, isHeader = GetQuestLogTitle(questLogIndex)
+    if isHeader then return end
+
+    if IsQuestWatched and IsQuestWatched(questLogIndex) then
+        if RemoveQuestWatch then
+            RemoveQuestWatch(questLogIndex)
+        end
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Missões]|r Rastreamento removido: |cffffffff" .. (title or "?") .. "|r")
+        end
+    else
+        local numWatches = (GetNumQuestWatches and GetNumQuestWatches()) or 0
+        if numWatches >= 5 then
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[Missões]|r Limite de 5 missões rastreadas atingido.")
+            end
+            return
+        end
+        if AddQuestWatch then
+            AddQuestWatch(questLogIndex)
+        end
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Missões]|r Rastreamento ativado: |cffffffff" .. (title or "?") .. "|r")
+        end
+    end
+
+    if QuestWatch_Update then
+        QuestWatch_Update()
+    end
+
+    self:UpdateQuestsPage()
+end
+
+function MainMenu:AbandonSelectedQuest()
+    local questIndex = self.selectedQuestIndex
+    if not questIndex or questIndex <= 0 then return end
+
+    local title, level, questTag, isHeader = GetQuestLogTitle(questIndex)
+    if isHeader then return end
+
+    if SelectQuestLogEntry then
+        SelectQuestLogEntry(questIndex)
+    end
+
+    if SetAbandonQuest then
+        SetAbandonQuest()
+    end
+
+    local questName = (GetAbandonQuestName and GetAbandonQuestName()) or title or "_MISSÃO_"
+    local items = (GetAbandonQuestItems and GetAbandonQuestItems()) or nil
+
+    if items then
+        StaticPopup_Hide("ABANDON_QUEST")
+        StaticPopup_Show("ABANDON_QUEST_WITH_ITEMS", questName, items)
+    else
+        StaticPopup_Hide("ABANDON_QUEST_WITH_ITEMS")
+        StaticPopup_Show("ABANDON_QUEST", questName)
+    end
+end
+
+function MainMenu:ShareSelectedQuest()
+    local questIndex = self.selectedQuestIndex
+    if not questIndex or questIndex <= 0 then return end
+
+    local title, level, questTag, isHeader = GetQuestLogTitle(questIndex)
+    if isHeader then return end
+
+    local numParty = (GetNumPartyMembers and GetNumPartyMembers()) or 0
+    if numParty <= 0 then
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[Missões]|r É necessário estar em um grupo para compartilhar missões.")
+        end
+        return
+    end
+
+    if SelectQuestLogEntry then
+        SelectQuestLogEntry(questIndex)
+    end
+
+    local canShare = (GetQuestLogPushable and GetQuestLogPushable()) or false
+    if not canShare then
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[Missões]|r Esta missão não pode ser compartilhada.")
+        end
+        return
+    end
+
+    if QuestLogPushQuest then
+        QuestLogPushQuest()
+    end
+
+    if DEFAULT_CHAT_FRAME then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Missões]|r Missão compartilhada: |cffffffff" .. (title or "?") .. "|r")
+    end
+end
+
+function MainMenu:OpenQuestContextMenu(questLogIndex)
+    if not questLogIndex or questLogIndex <= 0 then return end
+
+    local title, level, questTag, isHeader = GetQuestLogTitle(questLogIndex)
+    if isHeader then return end
+
+    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForQuest then
+        CM.ui.contextMenu:OpenForQuest(questLogIndex, title)
+    end
+end
+
 function MainMenu:SelectQuest(questLogIndex)
     if not questLogIndex or questLogIndex <= 0 then return end
     if not self.tabContainer or not self.tabContainer.pages then return end
@@ -3465,6 +3618,9 @@ function MainMenu:SelectQuest(questLogIndex)
     if SelectQuestLogEntry then
         SelectQuestLogEntry(questLogIndex)
     end
+
+    -- Etapa 9.6: Troca automática do mapa para a zona da missão selecionada
+    self:FocusMapOnQuest(questLogIndex)
 
     local questTitle, level, questTag, isHeader, isCollapsed, isComplete = GetQuestLogTitle(questLogIndex)
     local questDescription, questObjectives = GetQuestLogQuestText()

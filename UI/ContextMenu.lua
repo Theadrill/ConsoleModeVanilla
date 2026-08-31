@@ -20,7 +20,8 @@ Menu.currentBag = nil
 Menu.currentSlot = nil
 Menu.currentMax = 1
 Menu.currentSplit = 1
-Menu.currentMode = "MENU" -- "MENU" ou "SPLIT"
+Menu.currentMode = "MENU" -- "MENU", "SPLIT", ou "QUEST_MENU"
+Menu.currentQuestIndex = nil
 Menu.returnButton = nil
 
 function Menu:Initialize()
@@ -505,6 +506,31 @@ function Menu:ExecuteAction(action)
     local invSlot = self.currentInvSlot
     local returnBtn = self.returnButton
 
+    if action == "QUEST_WATCH" then
+        local qIdx = self.currentQuestIndex
+        self:Close()
+        if qIdx and CM.mainMenu and CM.mainMenu.ToggleQuestWatch then
+            CM.mainMenu:ToggleQuestWatch(qIdx)
+        end
+        return
+    elseif action == "QUEST_SHARE" then
+        local qIdx = self.currentQuestIndex
+        self:Close()
+        if qIdx and CM.mainMenu and CM.mainMenu.ShareSelectedQuest then
+            CM.mainMenu.selectedQuestIndex = qIdx
+            CM.mainMenu:ShareSelectedQuest()
+        end
+        return
+    elseif action == "QUEST_ABANDON" then
+        local qIdx = self.currentQuestIndex
+        self:Close()
+        if qIdx and CM.mainMenu and CM.mainMenu.AbandonSelectedQuest then
+            CM.mainMenu.selectedQuestIndex = qIdx
+            CM.mainMenu:AbandonSelectedQuest()
+        end
+        return
+    end
+
     if action == "UNEQUIP" then
         self:Close()
         if invSlot then
@@ -672,4 +698,93 @@ function Menu:RestackItem(bagID, slotID)
     restackTicker.lastSrcBag = nil
     restackTicker.lastSrcSlot = nil
     restackTicker:Show()
+end
+
+-- ============================================================================
+-- CONTEXTO DE MISSÕES (Etapa 9.6 - Botão Y)
+-- ============================================================================
+
+function Menu:OpenForQuest(questLogIndex, questTitle)
+    if not questLogIndex or questLogIndex <= 0 then return false end
+
+    self:Initialize()
+
+    self.currentMode = "QUEST_MENU"
+    self.currentQuestIndex = questLogIndex
+    self.currentBag = nil
+    self.currentSlot = nil
+    self.currentInvSlot = nil
+    self.returnButton = nil
+
+    local displayName = questTitle or "Missao"
+    if string.len(displayName) > 18 then
+        displayName = string.sub(displayName, 1, 16) .. ".."
+    end
+    self.frame.title:SetText(displayName)
+
+    self.frame.menuView:Show()
+    self.frame.splitView:Hide()
+    self.frame:SetHeight(124)
+
+    local isWatched = (IsQuestWatched and IsQuestWatched(questLogIndex)) or false
+    local canShare = false
+    if SelectQuestLogEntry then SelectQuestLogEntry(questLogIndex) end
+    if GetQuestLogPushable then canShare = GetQuestLogPushable() end
+    local numParty = (GetNumPartyMembers and GetNumPartyMembers()) or 0
+
+    local btn1 = self.buttons[1]
+    if btn1 then
+        btn1:Show()
+        btn1:Enable()
+        if isWatched then
+            btn1.text:SetText("Parar de Rastrear")
+            btn1.text:SetTextColor(0.95, 0.6, 0.2)
+        else
+            btn1.text:SetText("Rastrear no HUD")
+            btn1.text:SetTextColor(0.2, 0.9, 0.3)
+        end
+        btn1.action = "QUEST_WATCH"
+    end
+
+    local btn2 = self.buttons[2]
+    if btn2 then
+        btn2:Show()
+        if canShare and numParty > 0 then
+            btn2:Enable()
+            btn2.text:SetText("Compartilhar")
+            btn2.text:SetTextColor(0.3, 0.7, 1.0)
+        else
+            btn2:Disable()
+            btn2.text:SetText("Compartilhar")
+            btn2.text:SetTextColor(0.45, 0.45, 0.45)
+        end
+        btn2.action = "QUEST_SHARE"
+    end
+
+    local btn3 = self.buttons[3]
+    if btn3 then
+        btn3:Show()
+        btn3:Enable()
+        btn3.text:SetText("Abandonar")
+        btn3.text:SetTextColor(0.95, 0.3, 0.3)
+        btn3.action = "QUEST_ABANDON"
+    end
+
+    local btn4 = self.buttons[4]
+    if btn4 then btn4:Hide(); btn4:Disable() end
+
+    self.frame:ClearAllPoints()
+    self.frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    self.frame:Show()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+
+    if CM.cursor then
+        CM.cursor.state.activeFrames[self.frame] = true
+        if btn1 then
+            CM.cursor:MoveTo(btn1)
+            CM.cursor:UpdateState()
+        end
+    end
+
+    return true
 end

@@ -2847,11 +2847,51 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapCanvasBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     mapCanvasBg:SetVertexColor(0.0, 0.0, 0.0, 0.5)
 
-    -- Placeholder visual do Mapa para a Etapa 9.1
+    -- Container Interno dos 12 Tiles de Textura do Mapa (4 Colunas x 3 Linhas)
+    local mapTilesContainer = CreateFrame("Frame", "ConsoleModeMM_MapTilesContainer", mapCanvas)
+    mapTilesContainer:SetPoint("CENTER", mapCanvas, "CENTER", 0, 0)
+    mapCanvas.tilesContainer = mapTilesContainer
+
+    -- 1. Criação dos 12 Tiles Base de Pergaminho
+    local tiles = {}
+    for i = 1, 12 do
+        local tile = mapTilesContainer:CreateTexture("ConsoleModeMM_MapTile" .. i, "BACKGROUND")
+        tiles[i] = tile
+    end
+    mapCanvas.tiles = tiles
+
+    -- 2. Pool de Texturas de Overlay para Áreas Exploradas (Fog of War / Descobertas)
+    local overlays = {}
+    for oIdx = 1, 100 do
+        local oTex = mapTilesContainer:CreateTexture("ConsoleModeMM_MapOverlay" .. oIdx, "ARTWORK")
+        oTex:Hide()
+        overlays[oIdx] = oTex
+    end
+    mapCanvas.overlays = overlays
+
+    -- Script para recalcular escala e carregar mapa assim que a janela é exibida ou redimensionada
+    mapCanvas:SetScript("OnSizeChanged", function()
+        if MainMenu and MainMenu.UpdateMapLayout then
+            MainMenu:UpdateMapLayout(this)
+            MainMenu:UpdateMapTextures(this)
+            MainMenu:UpdateMapOverlays(this)
+        end
+    end)
+
+    mapCanvas:SetScript("OnShow", function()
+        if MainMenu and MainMenu.UpdateMapLayout then
+            MainMenu:UpdateMapLayout(this)
+            MainMenu:UpdateMapTextures(this)
+            MainMenu:UpdateMapOverlays(this)
+        end
+    end)
+
+    -- Placeholder visual do Mapa (fallback se mapa não carregar)
     local mapPlaceholder = mapCanvas:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     mapPlaceholder:SetPoint("CENTER", mapCanvas, "CENTER", 0, 10)
     MainMenu:ApplyFont(mapPlaceholder, CFG.Fonts.titleFontFile, 14)
-    mapPlaceholder:SetText("|cffe09a15[ CANVAS DO MAPA DA REGIÃO ]|r\n\n|cffaaaaaaRenderização dinâmica de 12 tiles (Etapa 9.2)|r\n|cff888888Suporte a Kalimdor, Reinos do Leste e Áreas Turtle WoW|r")
+    mapPlaceholder:SetText("|cffe09a15[ MAPA MUNDI & REGIÃO ]|r\n\n|cffaaaaaaCarregando texturas da zona...|r")
+    mapPlaceholder:Hide()
     mapPanel.placeholder = mapPlaceholder
 
     -- Rodapé do Mapa com Dicas de Navegação
@@ -2927,12 +2967,207 @@ function MainMenu:SetupQuestsPage(pageQuests)
     pageQuests.isInitialized = true
 end
 
+function MainMenu:UpdateMapLayout(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.tiles then return end
+
+    local container = mapCanvas.tilesContainer
+    local canvasW = mapCanvas:GetWidth() or 0
+    local canvasH = mapCanvas:GetHeight() or 0
+
+    -- Fallback inteligente de tamanho caso a janela tenha acabado de ser criada
+    if canvasW <= 0 then
+        local p = mapCanvas:GetParent()
+        local parentW = (p and p:GetWidth()) or (MainMenu.frame and MainMenu.frame:GetWidth()) or 900
+        canvasW = math.max(400, parentW - 20)
+    end
+    if canvasH <= 0 then
+        local p = mapCanvas:GetParent()
+        local parentH = (p and p:GetHeight()) or (MainMenu.frame and MainMenu.frame:GetHeight()) or 600
+        canvasH = math.max(300, parentH - 60)
+    end
+
+    -- Dimensões nativas do WorldMap da Blizzard no Vanilla (1002 x 668 px)
+    local origW = 1002
+    local origH = 668
+
+    -- Calcula escala proporcional perfeita (sem distorcer)
+    local scale = math.min(canvasW / origW, canvasH / origH)
+    local finalW = math.floor(origW * scale)
+    local finalH = math.floor(origH * scale)
+
+    container:SetWidth(finalW)
+    container:SetHeight(finalH)
+    container:ClearAllPoints()
+    container:SetPoint("CENTER", mapCanvas, "CENTER", 0, 0)
+    mapCanvas.currentScale = scale
+
+    -- Larguras das 4 colunas (256, 256, 256, 234 px escaladas)
+    local colW = {
+        math.floor(256 * scale),
+        math.floor(256 * scale),
+        math.floor(256 * scale),
+        finalW - (math.floor(256 * scale) * 3)
+    }
+
+    -- Alturas das 3 linhas (256, 256, 156 px escaladas)
+    local rowH = {
+        math.floor(256 * scale),
+        math.floor(256 * scale),
+        finalH - (math.floor(256 * scale) * 2)
+    }
+
+    -- Posiciona cada um dos 12 tiles dentro da matriz
+    local tiles = mapCanvas.tiles
+    local curY = 0
+
+    for row = 1, 3 do
+        local curX = 0
+        local h = rowH[row]
+        for col = 1, 4 do
+            local idx = (row - 1) * 4 + col
+            local w = colW[col]
+            local tile = tiles[idx]
+            if tile then
+                tile:ClearAllPoints()
+                tile:SetPoint("TOPLEFT", container, "TOPLEFT", curX, -curY)
+                tile:SetWidth(w)
+                tile:SetHeight(h)
+            end
+            curX = curX + w
+        end
+        curY = curY + h
+    end
+end
+
+function MainMenu:UpdateMapTextures(mapCanvas)
+    if not mapCanvas or not mapCanvas.tiles then return end
+
+    -- Assegura sincronização com a zona atual do jogador
+    if SetMapToCurrentZone then
+        SetMapToCurrentZone()
+    end
+
+    local mapFileName = (GetMapInfo and GetMapInfo())
+    
+    -- Fallback inteligente caso a zona não retorne nome direto (ex: instâncias ou continentes)
+    if not mapFileName or mapFileName == "" then
+        local cont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+        if cont == 1 then
+            mapFileName = "Kalimdor"
+        elseif cont == 2 then
+            mapFileName = "EasternKingdoms"
+        else
+            mapFileName = "Cosmic"
+        end
+    end
+
+    local tiles = mapCanvas.tiles
+    for i = 1, 12 do
+        local tile = tiles[i]
+        if tile then
+            local texPath = "Interface\\WorldMap\\" .. mapFileName .. "\\" .. mapFileName .. i
+            tile:SetTexture(texPath)
+            tile:Show()
+        end
+    end
+
+    if mapCanvas:GetParent() and mapCanvas:GetParent().placeholder then
+        mapCanvas:GetParent().placeholder:Hide()
+    end
+end
+
+function MainMenu:UpdateMapOverlays(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.overlays then return end
+
+    local container = mapCanvas.tilesContainer
+    local canvasW = mapCanvas:GetWidth() or 0
+    local canvasH = mapCanvas:GetHeight() or 0
+
+    if canvasW <= 0 or canvasH <= 0 then
+        local p = mapCanvas:GetParent()
+        local parentW = (p and p:GetWidth()) or 800
+        local parentH = (p and p:GetHeight()) or 500
+        canvasW = math.max(400, parentW - 20)
+        canvasH = math.max(300, parentH - 60)
+    end
+
+    local origW = 1002
+    local origH = 668
+    local scale = math.min(canvasW / origW, canvasH / origH)
+    if scale <= 0 then scale = 0.5 end
+
+    -- Força sincronização do buffer de mapa e overlays do WoW 1.12
+    if SetMapToCurrentZone then
+        SetMapToCurrentZone()
+    end
+    local c = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+    local z = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+    if c > 0 and z > 0 and SetMapZoom then
+        SetMapZoom(c, z)
+    end
+
+    local numOverlays = (GetNumMapOverlays and GetNumMapOverlays()) or 0
+    local overlayPoolIdx = 1
+    local overlays = mapCanvas.overlays
+    local totalPool = table.getn(overlays)
+
+    for i = 1, numOverlays do
+        local textureName, textureWidth, textureHeight, offsetX, offsetY, mapPointX, mapPointY = GetMapOverlayInfo(i)
+        if textureName and textureName ~= "" and textureWidth and textureHeight and textureWidth > 0 and textureHeight > 0 then
+            local numWide = math.ceil(textureWidth / 256)
+            local numHigh = math.ceil(textureHeight / 256)
+            local textureIndex = 1
+
+            for j = 1, numHigh do
+                for k = 1, numWide do
+                    local tex = overlays[overlayPoolIdx]
+                    if tex then
+                        local w = (k < numWide) and 256 or (textureWidth - (256 * (k - 1)))
+                        local h = (j < numHigh) and 256 or (textureHeight - (256 * (j - 1)))
+                        local texCoordX = (k < numWide) and 1.0 or ((textureWidth - (256 * (k - 1))) / 256)
+                        local texCoordY = (j < numHigh) and 1.0 or ((textureHeight - (256 * (j - 1))) / 256)
+
+                        local posX = math.floor((offsetX + (256 * (k - 1))) * scale)
+                        local posY = math.floor((offsetY + (256 * (j - 1))) * scale)
+
+                        tex:ClearAllPoints()
+                        tex:SetPoint("TOPLEFT", container, "TOPLEFT", posX, -posY)
+                        tex:SetWidth(math.floor(w * scale))
+                        tex:SetHeight(math.floor(h * scale))
+                        tex:SetTexCoord(0, texCoordX, 0, texCoordY)
+                        tex:SetTexture(textureName .. textureIndex)
+                        tex:SetVertexColor(1, 1, 1, 1)
+                        tex:Show()
+
+                        overlayPoolIdx = overlayPoolIdx + 1
+                    end
+                    textureIndex = textureIndex + 1
+                end
+            end
+        end
+    end
+
+    -- Esconde texturas de overlay excedentes do pool
+    for j = overlayPoolIdx, totalPool do
+        if overlays[j] then
+            overlays[j]:Hide()
+        end
+    end
+end
+
 function MainMenu:UpdateQuestsPage()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests then return end
 
     self:SetupQuestsPage(pageQuests)
+
+    -- Renderiza e atualiza os 12 tiles dinâmicos e os overlays de exploração (Etapa 9.2)
+    if pageQuests.mapPanel and pageQuests.mapPanel.canvas then
+        self:UpdateMapLayout(pageQuests.mapPanel.canvas)
+        self:UpdateMapTextures(pageQuests.mapPanel.canvas)
+        self:UpdateMapOverlays(pageQuests.mapPanel.canvas)
+    end
 
     -- Atualiza contador de missões ativas
     local numEntries, numQuests = 0, 0

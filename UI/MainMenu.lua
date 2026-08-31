@@ -3018,6 +3018,35 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
     mapPanel.hintText = mapHintText
 
+    -- Botão VOLTAR (canto inferior direito do mapa, visível quando zona diferente da atual)
+    local backButton = CreateFrame("Button", "ConsoleModeMM_MapBackButton", mapPanel, "UIPanelButtonTemplate")
+    backButton:SetWidth(70)
+    backButton:SetHeight(22)
+    backButton:SetPoint("BOTTOMRIGHT", mapPanel, "BOTTOMRIGHT", -12, 30)
+    if backButton.SetBackdrop then
+        backButton:SetBackdrop({
+            bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile = true, tileSize = 8, edgeSize = 8,
+            insets = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        backButton:SetBackdropColor(0.08, 0.08, 0.12, 0.9)
+        backButton:SetBackdropBorderColor(0.8, 0.65, 0.15, 0.8)
+    end
+    local btFont = backButton:GetFontString()
+    if btFont and CFG.Fonts and CFG.Fonts.subFontFile then
+        btFont:SetFont(CFG.Fonts.subFontFile, 11)
+    end
+    if backButton.SetText then backButton:SetText("|cffe09a15VOLTAR|r") end
+    if backButton.SetHighlightTextColor then backButton:SetHighlightTextColor(1.0, 0.82, 0.0, 1.0) end
+    if backButton.SetTextColor then backButton:SetTextColor(0.95, 0.75, 0.12, 1.0) end
+    backButton:SetScript("OnClick", function()
+        MainMenu:ResetMapToPlayer()
+        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+    end)
+    backButton:Hide()
+    mapPanel.backButton = backButton
+
     -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior - 150px)
     local detailCard = CreateFrame("Frame", "ConsoleModeMM_QuestDetailCard", questPanel)
     detailCard:SetHeight(150)
@@ -3275,24 +3304,29 @@ function MainMenu:UpdateQuestsPage()
 
     -- Atualiza informações do Título da Zona / Nível do Mapa
     if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
-        local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
-        local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
         local titleText = "Azeroth"
 
-        if currentCont == 0 then
-            titleText = "Azeroth (Mundo)"
-        elseif currentZone == 0 then
-            if currentCont == 1 then
-                titleText = "Kalimdor (Continente)"
-            elseif currentCont == 2 then
-                titleText = "Reinos do Leste (Continente)"
-            else
-                titleText = "Continente"
-            end
+        if self.mapShowingQuestZone and self.mapZoneName then
+            titleText = self.mapZoneName
         else
-            local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
-            if zoneName == "" then zoneName = "Azeroth" end
-            titleText = zoneName
+            local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+            local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+
+            if currentCont == 0 then
+                titleText = "Azeroth (Mundo)"
+            elseif currentZone == 0 then
+                if currentCont == 1 then
+                    titleText = "Kalimdor (Continente)"
+                elseif currentCont == 2 then
+                    titleText = "Reinos do Leste (Continente)"
+                else
+                    titleText = "Continente"
+                end
+            else
+                local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
+                if zoneName == "" then zoneName = "Azeroth" end
+                titleText = zoneName
+            end
         end
 
         pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", titleText))
@@ -3467,6 +3501,13 @@ function MainMenu:SwitchMapToZone(zoneName)
         for zoneIdx, name in ipairs(zones) do
             if name == zoneName then
                 SetMapZoom(cont, zoneIdx)
+                local fileName = (GetMapInfo and GetMapInfo()) or zoneName
+                self.mapContinent = cont
+                self.mapZoneIdx = zoneIdx
+                self.mapZoneName = zoneName
+                self.mapFileName = fileName
+                self.mapShowingQuestZone = true
+                self:UpdateBackButton()
                 return true
             end
         end
@@ -3474,10 +3515,52 @@ function MainMenu:SwitchMapToZone(zoneName)
     return false
 end
 
+function MainMenu:EnsureMapZone()
+    if self.mapContinent and self.mapZoneIdx then
+        SetMapZoom(self.mapContinent, self.mapZoneIdx)
+    end
+end
+
+function MainMenu:GetCurrentMapFileName()
+    if self.mapShowingQuestZone and self.mapFileName then
+        return self.mapFileName
+    end
+    return (GetMapInfo and GetMapInfo()) or ""
+end
+
+function MainMenu:ResetMapToPlayer()
+    if SetMapToCurrentZone then SetMapToCurrentZone() end
+    self.mapShowingQuestZone = false
+    self.mapContinent = nil
+    self.mapZoneIdx = nil
+    self.mapZoneName = nil
+    self.mapFileName = nil
+    self:UpdateBackButton()
+end
+
+function MainMenu:UpdateBackButton()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.backButton then return end
+    local btn = pageQuests.mapPanel.backButton
+    if self.mapShowingQuestZone then
+        btn:Show()
+    else
+        btn:Hide()
+    end
+end
+
 function MainMenu:FocusMapOnQuest(questLogIndex)
     local zoneName = self:GetQuestZone(questLogIndex)
     if zoneName then
+        local playerZone = (GetZoneText and GetZoneText()) or ""
+        if zoneName ~= playerZone then
+            self.mapShowingQuestZone = true
+        else
+            self.mapShowingQuestZone = false
+        end
         self:SwitchMapToZone(zoneName)
+        self:UpdateBackButton()
     end
 end
 
@@ -3849,7 +3932,7 @@ end
 function MainMenu:UpdateMapTextures(mapCanvas)
     if not mapCanvas or not mapCanvas.tiles then return end
 
-    local mapFileName = (GetMapInfo and GetMapInfo())
+    local mapFileName = self:GetCurrentMapFileName()
     
     -- Fallback inteligente caso a zona não retorne nome direto (ex: instâncias ou continentes)
     if not mapFileName or mapFileName == "" then
@@ -3863,6 +3946,7 @@ function MainMenu:UpdateMapTextures(mapCanvas)
         end
     end
 
+    mapCanvas.currentMapFile = mapFileName
     local tiles = mapCanvas.tiles
     for i = 1, 12 do
         local tile = tiles[i]
@@ -3899,11 +3983,12 @@ local mapOverlayErrata = {
 function MainMenu:UpdateMapOverlays(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.overlays then return end
 
+    self:EnsureMapZone()
     local container = mapCanvas.tilesContainer
     local scale = mapCanvas.currentScale or 0.5
     if scale <= 0 then scale = 0.5 end
 
-    local mapFileName = (GetMapInfo and GetMapInfo())
+    local mapFileName = mapCanvas.currentMapFile or self:GetCurrentMapFileName()
     local overlays = mapCanvas.overlays
     local totalPool = table.getn(overlays)
     local overlayPoolIdx = 1
@@ -4111,7 +4196,10 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
 
     if containerW <= 0 or containerH <= 0 then return end
 
-    -- Posição do jogador no mapa
+    -- Para obter a posição do jogador, o mapa DEVE estar na zona do jogador.
+    -- Não usar EnsureMapZone aqui — isso forçaria a zona da missão e daria coordenadas erradas.
+    if SetMapToCurrentZone then SetMapToCurrentZone() end
+
     local px, py = 0, 0
     if GetPlayerMapPosition then
         px, py = GetPlayerMapPosition("player")
@@ -4207,6 +4295,7 @@ function MainMenu:MapZoomStep(delta)
         -- Primeiro Zoom In: Centraliza automaticamente na posição do jogador
         local px, py = 0, 0
         if GetPlayerMapPosition then
+            if SetMapToCurrentZone then SetMapToCurrentZone() end
             px, py = GetPlayerMapPosition("player")
         end
         if px and py and (px > 0 or py > 0) then
@@ -4223,6 +4312,7 @@ function MainMenu:MapZoomStep(delta)
         mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, mapCanvas.panY or 0))
     end
 
+    self:EnsureMapZone()
     self:UpdateMapLayout(mapCanvas)
     self:UpdateMapOverlays(mapCanvas)
     self:UpdateMapPlayerPosition(mapCanvas)
@@ -5009,6 +5099,9 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             ConsoleMode.keybindings:ExitMapMode()
         end
 
+        -- Ao sair da aba QUESTS, reseta o mapa para a zona do jogador
+        self:ResetMapToPlayer()
+
         -- Nas demais abas, restaura o painel do personagem à esquerda e a divisão central
         if self.frame and self.frame.leftPanel then self.frame.leftPanel:Show() end
         if self.frame and self.frame.divider then self.frame.divider:Show() end
@@ -5474,6 +5567,7 @@ end
 function MainMenu:Hide()
     if self.frame and self.frame:IsVisible() then
         self:RestorePlayerModel()
+        self:ResetMapToPlayer()
         self.frame:Hide()
     end
 end
@@ -5505,6 +5599,8 @@ initFrame:RegisterEvent("PLAYER_MONEY")
 initFrame:RegisterEvent("BAG_UPDATE")
 initFrame:RegisterEvent("ITEM_LOCK_CHANGED")
 initFrame:RegisterEvent("QUEST_LOG_UPDATE")
+initFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+initFrame:RegisterEvent("ZONE_CHANGED")
 
 initFrame:SetScript("OnEvent", function()
     if event == "VARIABLES_LOADED" then
@@ -5512,6 +5608,18 @@ initFrame:SetScript("OnEvent", function()
     elseif event == "DISPLAY_SIZE_CHANGED" then
         if MainMenu.UpdateLayout then
             MainMenu:UpdateLayout()
+        end
+    elseif event == "ZONE_CHANGED_NEW_AREA" or event == "ZONE_CHANGED" then
+        if MainMenu.frame and MainMenu.frame:IsVisible() then
+            if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "QUESTS" then
+                if MainMenu.mapShowingQuestZone then return end
+                local newZone = (GetZoneText and GetZoneText()) or ""
+                if newZone ~= MainMenu.lastZoneText then
+                    MainMenu.lastZoneText = newZone
+                    if SetMapToCurrentZone then SetMapToCurrentZone() end
+                    MainMenu:UpdateQuestsPage()
+                end
+            end
         end
     elseif MainMenu.frame and MainMenu.frame:IsVisible() then
         if event == "UNIT_INVENTORY_CHANGED" or event == "UNIT_MODEL_CHANGED" then

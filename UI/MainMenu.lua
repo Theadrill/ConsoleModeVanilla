@@ -2830,23 +2830,6 @@ function MainMenu:SetupSystemPage(pageSystem)
     subPageAddonCfg:SetAllPoints(subContent)
     pageSystem.subPageAddonCfg = subPageAddonCfg
 
-    local addonPlaceholder = subPageAddonCfg:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    addonPlaceholder:SetPoint("CENTER", subPageAddonCfg, "CENTER", 0, 40)
-    MainMenu:ApplyFont(addonPlaceholder, CFG.Fonts.titleFontFile, 15, "")
-    addonPlaceholder:SetText("|cffffffff[ CONFIGURAÇÕES DO CONSOLEMODE ]|r\n\n|cff888888Ajustes de binds, sensibilidade de mira, deadzones e HUD|r")
-
-    local openAddonBtn = CreateFrame("Button", "ConsoleModeMM_OpenConfigBtn", subPageAddonCfg, "UIPanelButtonTemplate")
-    openAddonBtn:SetWidth(180)
-    openAddonBtn:SetHeight(28)
-    openAddonBtn:SetPoint("TOP", addonPlaceholder, "BOTTOM", 0, -16)
-    openAddonBtn:SetText("Abrir Ajustes de Binds")
-    openAddonBtn:SetScript("OnClick", function()
-        if ConsoleMode.config and ConsoleMode.config.Show then
-            ConsoleMode.config:Show()
-        end
-    end)
-    subPageAddonCfg.openAddonBtn = openAddonBtn
-
     pageSystem.isInitialized = true
 end
 
@@ -2982,18 +2965,13 @@ function MainMenu:UpdateGameMenuSubPage()
             highlightBar:Hide()
             row.highlightBar = highlightBar
 
-            local badge = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-            badge:SetPoint("LEFT", row, "LEFT", 8, 0)
-            MainMenu:ApplyFont(badge, CFG.Fonts.headerFontFile, 13)
-            row.badge = badge
-
             local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            title:SetPoint("LEFT", badge, "RIGHT", 8, 0)
+            title:SetPoint("LEFT", row, "LEFT", 12, 0)
             MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
             row.title = title
 
             local frameName = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-            frameName:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+            frameName:SetPoint("RIGHT", row, "RIGHT", -12, 0)
             MainMenu:ApplyFont(frameName, CFG.Fonts.subFontFile, 11)
             row.frameName = frameName
 
@@ -3082,7 +3060,6 @@ function MainMenu:UpdateGameMenuSubPage()
         row:SetPoint("TOPLEFT", subPage.listContainer, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
         row:SetPoint("TOPRIGHT", subPage.listContainer, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
 
-        row.badge:SetText(string.format("%s[%02d]|r", bColor, i))
         row.title:SetText(string.format("%s%s|r", tColor, btnData.text))
         row.frameName:SetText(string.format("%s%s|r", fColor, btnData.name))
         row.btnData = btnData
@@ -3096,6 +3073,144 @@ function MainMenu:UpdateGameMenuSubPage()
             subPage.rows[j]:Hide()
         end
     end
+end
+
+function MainMenu:UpdateAddonConfigSubPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.subPageAddonCfg then return end
+
+    local subPage = pageSystem.subPageAddonCfg
+    if subPage.isPopulated then return end
+
+    -- Header
+    local header = subPage:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    header:SetPoint("TOPLEFT", subPage, "TOPLEFT", 12, -8)
+    MainMenu:ApplyFont(header, CFG.Fonts.titleFontFile, 15, "")
+    header:SetText("|cffe09a15[ CONSOLEMODE - PAINEL DE CONTROLE ]|r")
+    subPage.header = header
+
+    local subText = subPage:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    subText:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -4)
+    MainMenu:ApplyFont(subText, CFG.Fonts.subFontFile, 12, "")
+    subText:SetText("|cffaaaaaaGerencie atalhos do controle, sensibilidade e elementos visuais|r")
+    subPage.subText = subText
+
+    local listContainer = CreateFrame("Frame", "ConsoleModeMM_AddonCfgListContainer", subPage)
+    listContainer:SetPoint("TOPLEFT", subText, "BOTTOMLEFT", 0, -10)
+    listContainer:SetPoint("BOTTOMRIGHT", subPage, "BOTTOMRIGHT", -12, 10)
+    subPage.listContainer = listContainer
+
+    local options = {
+        {
+            title = "Mapeador de Atalhos / Binds",
+            desc = "Configurar habilidades, itens e macros dos botões do controle (Páginas 1 a 5)",
+            onClick = function()
+                MainMenu:Hide()
+                if ConsoleMode.config and ConsoleMode.config.Show then
+                    ConsoleMode.config:Show()
+                end
+            end,
+        },
+        {
+            title = "Resetar Posições dos Elementos de UI",
+            desc = "Restaura o posicionamento original de fábrica de todos os frames arrastáveis",
+            onClick = function()
+                if ConsoleModeDB then
+                    ConsoleModeDB.positions = {}
+                end
+                if ConsoleMode.ui and ConsoleMode.ui.registeredFrames then
+                    for key, data in pairs(ConsoleMode.ui.registeredFrames) do
+                        if data.frame then
+                            data.frame:ClearAllPoints()
+                            data.frame:SetPoint(data.defaultPoint or "CENTER", UIParent, data.defaultRelPoint or data.defaultPoint or "CENTER", data.defaultX or 0, data.defaultY or 0)
+                        end
+                    end
+                end
+                if DEFAULT_CHAT_FRAME then
+                    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Posições dos elementos de interface restauradas com sucesso!")
+                end
+            end,
+        },
+        {
+            title = "Recarregar Interface (/reload)",
+            desc = "Reinicia a interface do World of Warcraft para aplicar configurações",
+            onClick = function()
+                ReloadUI()
+            end,
+        },
+    }
+
+    subPage.rows = {}
+    local rowHeight = 38
+    local rowGap = 6
+    local startY = -4
+
+    local bColor = CFG.System.badgeColor or "|cffe09a15"
+    local tColor = CFG.System.itemTextColor or "|cffffffff"
+    local numOptions = table.getn(options)
+
+    for i = 1, numOptions do
+        local opt = options[i]
+        local row = CreateFrame("Button", "ConsoleModeMM_AddonCfgBtn_" .. i, listContainer)
+        row:SetHeight(rowHeight)
+        row:SetPoint("LEFT", listContainer, "LEFT", 0, 0)
+        row:SetPoint("RIGHT", listContainer, "RIGHT", 0, 0)
+        row:SetPoint("TOPLEFT", listContainer, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
+        row:SetPoint("TOPRIGHT", listContainer, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
+
+        -- Fundo translúcido
+        local bg = row:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints(row)
+        bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        bg:SetVertexColor(0.0, 0.0, 0.0, 0.30)
+        row.bg = bg
+
+        -- Barra de destaque dourada
+        local highlightBar = row:CreateTexture(nil, "OVERLAY")
+        highlightBar:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        highlightBar:SetWidth(3)
+        highlightBar:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
+        highlightBar:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 0, 0)
+        highlightBar:SetVertexColor(1.0, 0.85, 0.2, 0.95)
+        highlightBar:Hide()
+        row.highlightBar = highlightBar
+
+        local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        title:SetPoint("TOPLEFT", row, "TOPLEFT", 12, -6)
+        MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
+        title:SetText(string.format("%s%s|r", tColor, opt.title))
+        row.title = title
+
+        local desc = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+        desc:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 12, 5)
+        MainMenu:ApplyFont(desc, CFG.Fonts.subFontFile, 11)
+        desc:SetText(string.format("|cff888888%s|r", opt.desc))
+        row.desc = desc
+
+        row:SetScript("OnEnter", function()
+            this.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18)
+            if this.highlightBar then this.highlightBar:Show() end
+        end)
+
+        row:SetScript("OnLeave", function()
+            this.bg:SetVertexColor(0.0, 0.0, 0.0, 0.30)
+            if this.highlightBar then this.highlightBar:Hide() end
+        end)
+
+        row.optData = opt
+        row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        row:SetScript("OnClick", function()
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            if this.optData and this.optData.onClick then
+                this.optData.onClick()
+            end
+        end)
+
+        table.insert(subPage.rows, row)
+    end
+
+    subPage.isPopulated = true
 end
 
 function MainMenu:SelectSystemSubTab(subTabID)
@@ -3121,6 +3236,7 @@ function MainMenu:SelectSystemSubTab(subTabID)
     if pageSystem.subPageAddonCfg then
         if subTabID == "ADDON_CFG" then
             pageSystem.subPageAddonCfg:Show()
+            self:UpdateAddonConfigSubPage()
         else
             pageSystem.subPageAddonCfg:Hide()
         end
@@ -3533,6 +3649,73 @@ function MainMenu:CreateFooterHints(footer)
     footer.hintContainer = container
 end
 
+-- Funções globais de rotação de modelo para os bindings nativos
+function CM_ModelRotateLeft(keystate)
+    if not MainMenu or not MainMenu.playerModel then return end
+    if keystate == "up" then
+        MainMenu.playerModel.rotateDir = 0
+    else
+        MainMenu.playerModel.rotateDir = -1
+    end
+end
+
+function CM_ModelRotateRight(keystate)
+    if not MainMenu or not MainMenu.playerModel then return end
+    if keystate == "up" then
+        MainMenu.playerModel.rotateDir = 0
+    else
+        MainMenu.playerModel.rotateDir = 1
+    end
+end
+
+function MainMenu:ApplyModelRotationBindings()
+    self.savedMoveBindings = {}
+    local keysToSwap = { "A", "D", "Q", "E", "LEFT", "RIGHT", "a", "d", "q", "e" }
+    
+    local kTL1, kTL2 = GetBindingKey("TURNLEFT")
+    local kTR1, kTR2 = GetBindingKey("TURNRIGHT")
+    local kSL1, kSL2 = GetBindingKey("STRAFELEFT")
+    local kSR1, kSR2 = GetBindingKey("STRAFERIGHT")
+
+    if kTL1 then table.insert(keysToSwap, kTL1) end
+    if kTL2 then table.insert(keysToSwap, kTL2) end
+    if kTR1 then table.insert(keysToSwap, kTR1) end
+    if kTR2 then table.insert(keysToSwap, kTR2) end
+    if kSL1 then table.insert(keysToSwap, kSL1) end
+    if kSL2 then table.insert(keysToSwap, kSL2) end
+    if kSR1 then table.insert(keysToSwap, kSR1) end
+    if kSR2 then table.insert(keysToSwap, kSR2) end
+
+    for _, key in ipairs(keysToSwap) do
+        local action = GetBindingAction(key)
+        if action and action ~= "" and action ~= "CM_MODEL_ROTATE_LEFT" and action ~= "CM_MODEL_ROTATE_RIGHT" then
+            self.savedMoveBindings[key] = action
+        end
+    end
+
+    SetBinding("A", "CM_MODEL_ROTATE_LEFT")
+    SetBinding("Q", "CM_MODEL_ROTATE_LEFT")
+    SetBinding("a", "CM_MODEL_ROTATE_LEFT")
+    SetBinding("q", "CM_MODEL_ROTATE_LEFT")
+    if kTL1 then SetBinding(kTL1, "CM_MODEL_ROTATE_LEFT") end
+    if kSL1 then SetBinding(kSL1, "CM_MODEL_ROTATE_LEFT") end
+
+    SetBinding("D", "CM_MODEL_ROTATE_RIGHT")
+    SetBinding("E", "CM_MODEL_ROTATE_RIGHT")
+    SetBinding("d", "CM_MODEL_ROTATE_RIGHT")
+    SetBinding("e", "CM_MODEL_ROTATE_RIGHT")
+    if kTR1 then SetBinding(kTR1, "CM_MODEL_ROTATE_RIGHT") end
+    if kSR1 then SetBinding(kSR1, "CM_MODEL_ROTATE_RIGHT") end
+end
+
+function MainMenu:RestoreModelRotationBindings()
+    if not self.savedMoveBindings then return end
+    for key, action in pairs(self.savedMoveBindings) do
+        SetBinding(key, action)
+    end
+    self.savedMoveBindings = nil
+end
+
 -- ============================================================================
 -- CRIAÇÃO DA JANELA PRINCIPAL (MAIN MENU FRAME)
 -- ============================================================================
@@ -3625,73 +3808,6 @@ function MainMenu:CreateUI()
     frame.footer = footer
 
     self:CreateFooterHints(footer)
-
--- Funções globais de rotação de modelo para os bindings nativos
-function CM_ModelRotateLeft(keystate)
-    if not MainMenu or not MainMenu.playerModel then return end
-    if keystate == "up" then
-        MainMenu.playerModel.rotateDir = 0
-    else
-        MainMenu.playerModel.rotateDir = -1
-    end
-end
-
-function CM_ModelRotateRight(keystate)
-    if not MainMenu or not MainMenu.playerModel then return end
-    if keystate == "up" then
-        MainMenu.playerModel.rotateDir = 0
-    else
-        MainMenu.playerModel.rotateDir = 1
-    end
-end
-
-function MainMenu:ApplyModelRotationBindings()
-    self.savedMoveBindings = {}
-    local keysToSwap = { "A", "D", "Q", "E", "LEFT", "RIGHT", "a", "d", "q", "e" }
-    
-    local kTL1, kTL2 = GetBindingKey("TURNLEFT")
-    local kTR1, kTR2 = GetBindingKey("TURNRIGHT")
-    local kSL1, kSL2 = GetBindingKey("STRAFELEFT")
-    local kSR1, kSR2 = GetBindingKey("STRAFERIGHT")
-
-    if kTL1 then table.insert(keysToSwap, kTL1) end
-    if kTL2 then table.insert(keysToSwap, kTL2) end
-    if kTR1 then table.insert(keysToSwap, kTR1) end
-    if kTR2 then table.insert(keysToSwap, kTR2) end
-    if kSL1 then table.insert(keysToSwap, kSL1) end
-    if kSL2 then table.insert(keysToSwap, kSL2) end
-    if kSR1 then table.insert(keysToSwap, kSR1) end
-    if kSR2 then table.insert(keysToSwap, kSR2) end
-
-    for _, key in ipairs(keysToSwap) do
-        local action = GetBindingAction(key)
-        if action and action ~= "" and action ~= "CM_MODEL_ROTATE_LEFT" and action ~= "CM_MODEL_ROTATE_RIGHT" then
-            self.savedMoveBindings[key] = action
-        end
-    end
-
-    SetBinding("A", "CM_MODEL_ROTATE_LEFT")
-    SetBinding("Q", "CM_MODEL_ROTATE_LEFT")
-    SetBinding("a", "CM_MODEL_ROTATE_LEFT")
-    SetBinding("q", "CM_MODEL_ROTATE_LEFT")
-    if kTL1 then SetBinding(kTL1, "CM_MODEL_ROTATE_LEFT") end
-    if kSL1 then SetBinding(kSL1, "CM_MODEL_ROTATE_LEFT") end
-
-    SetBinding("D", "CM_MODEL_ROTATE_RIGHT")
-    SetBinding("E", "CM_MODEL_ROTATE_RIGHT")
-    SetBinding("d", "CM_MODEL_ROTATE_RIGHT")
-    SetBinding("e", "CM_MODEL_ROTATE_RIGHT")
-    if kTR1 then SetBinding(kTR1, "CM_MODEL_ROTATE_RIGHT") end
-    if kSR1 then SetBinding(kSR1, "CM_MODEL_ROTATE_RIGHT") end
-end
-
-function MainMenu:RestoreModelRotationBindings()
-    if not self.savedMoveBindings then return end
-    for key, action in pairs(self.savedMoveBindings) do
-        SetBinding(key, action)
-    end
-    self.savedMoveBindings = nil
-end
 
     -- 9. Fechamento com tecla Escape
     table.insert(UISpecialFrames, "ConsoleModeMainMenuFrame")

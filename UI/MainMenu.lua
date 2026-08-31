@@ -3109,7 +3109,13 @@ function MainMenu:SetupQuestsPage(pageQuests)
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
-    local navBtnVoltar = CreateMapNavButton("ConsoleModeMM_MapBackButton", "|cffe09a15VOLTAR|r", "TOPRIGHT", "TOPRIGHT", -10, -112)
+    local navBtnInst = CreateMapNavButton("ConsoleModeMM_MapNavInst", "|cffe09a15INSTANCIAS|r", "TOPRIGHT", "TOPRIGHT", -10, -112)
+    navBtnInst:SetScript("OnClick", function()
+        MainMenu:ShowInstancesForCurrentView()
+        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+    end)
+
+    local navBtnVoltar = CreateMapNavButton("ConsoleModeMM_MapBackButton", "|cffe09a15VOLTAR|r", "TOPRIGHT", "TOPRIGHT", -10, -136)
     navBtnVoltar:SetScript("OnClick", function()
         if this.isDisabled then return end
         MainMenu:ResetMapToPlayer()
@@ -3120,11 +3126,12 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapPanel.navBtnAtual = navBtnAtual
     mapPanel.navBtnKalimdor = navBtnKalimdor
     mapPanel.navBtnEK = navBtnEK
-    mapPanel.navButtons = { navBtnAtual, navBtnKalimdor, navBtnEK, navBtnVoltar }
+    mapPanel.navBtnInst = navBtnInst
+    mapPanel.navButtons = { navBtnAtual, navBtnKalimdor, navBtnEK, navBtnInst, navBtnVoltar }
 
     local zoneListFrame = CreateFrame("Frame", "ConsoleModeMM_ContinentZoneList", mapPanel)
     zoneListFrame:SetWidth(230)
-    zoneListFrame:SetPoint("TOPRIGHT", mapPanel, "TOPRIGHT", -10, -140)
+    zoneListFrame:SetPoint("TOPRIGHT", mapPanel, "TOPRIGHT", -10, -164)
     zoneListFrame:SetPoint("BOTTOMRIGHT", mapPanel, "BOTTOMRIGHT", -10, 30)
     zoneListFrame:SetFrameStrata("DIALOG")
     zoneListFrame:SetFrameLevel((mapPanel:GetFrameLevel() or 5) + 25)
@@ -3674,6 +3681,7 @@ function MainMenu:ResetMapToPlayer()
     self.mapShowingQuestZone = false
     self.mapViewMode = "ZONE"
     self.mapContinentView = nil
+    self.zoneListMode = nil
     self.mapContinent = nil
     self.mapZoneIdx = nil
     self.mapZoneName = nil
@@ -3683,6 +3691,7 @@ function MainMenu:ResetMapToPlayer()
 end
 
 function MainMenu:NavToCurrent()
+    self.zoneListMode = nil
     self:ResetMapToPlayer()
 end
 
@@ -3715,18 +3724,30 @@ function MainMenu:UpdateNavButtonHighlight()
     if mp.navBtnAtual and mp.navBtnAtual.UpdateNavVisual then mp.navBtnAtual:UpdateNavVisual() end
     if mp.navBtnKalimdor and mp.navBtnKalimdor.UpdateNavVisual then mp.navBtnKalimdor:UpdateNavVisual() end
     if mp.navBtnEK and mp.navBtnEK.UpdateNavVisual then mp.navBtnEK:UpdateNavVisual() end
+    if mp.navBtnInst and mp.navBtnInst.UpdateNavVisual then mp.navBtnInst:UpdateNavVisual() end
     if mp.zoneListFrame then
         if (self.mapViewMode or "ZONE") == "CONTINENT" then
             mp.zoneListFrame:Show()
             if mp.zoneListFrame.scrollFrame and mp.zoneListFrame.scrollFrame.UpdateScrollChildRect then
                 mp.zoneListFrame.scrollFrame:UpdateScrollChildRect()
             end
+            if self.zoneListMode == "INSTANCES" then
+                if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText("|cffe09a15INSTANCIAS|r") end
+            else
+                if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText("|cffe09a15REGIOES|r") end
+            end
+        elseif self.zoneListMode == "INSTANCES" then
+            mp.zoneListFrame:Show()
+            if mp.zoneListFrame.scrollFrame and mp.zoneListFrame.scrollFrame.UpdateScrollChildRect then
+                mp.zoneListFrame.scrollFrame:UpdateScrollChildRect()
+            end
+            if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText("|cffe09a15INSTANCIAS|r") end
         else
             mp.zoneListFrame:Hide()
         end
     end
     if mp.hintText then
-        if (self.mapViewMode or "ZONE") == "CONTINENT" then
+        if (self.mapViewMode or "ZONE") == "CONTINENT" or self.zoneListMode == "INSTANCES" then
             mp.hintText:SetText("|cffe09a15[D-Pad] Navegar  •  [A] Entrar  •  [B] Voltar|r")
         else
             mp.hintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
@@ -3734,7 +3755,30 @@ function MainMenu:UpdateNavButtonHighlight()
     end
 end
 
-function MainMenu:BuildContinentZoneList(cont)
+function MainMenu:ShowInstancesForCurrentView()
+    local cont = nil
+    if self.mapViewMode == "CONTINENT" and self.mapContinentView then
+        cont = self.mapContinentView
+    else
+        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        cont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+        if cont == 0 then cont = 1 end
+    end
+    if not cont or cont == 0 then cont = 1 end
+    self.zoneListMode = "INSTANCES"
+    self:BuildInstancesList(cont)
+    self:UpdateNavButtonHighlight()
+end
+
+function MainMenu:HideInstancesList()
+    self.zoneListMode = nil
+    if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.zoneListFrame then
+        self.tabContainer.pages["QUESTS"].mapPanel.zoneListFrame:Hide()
+    end
+    self:UpdateNavButtonHighlight()
+end
+
+function MainMenu:BuildInstancesList(cont)
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.zoneListFrame then return end
@@ -3747,6 +3791,124 @@ function MainMenu:BuildContinentZoneList(cont)
         end
     end
     frame.buttons = {}
+    local instData = ConsoleMode and ConsoleMode.Instances
+    local list = {}
+    if instData and instData.GetForContinent then
+        list = instData:GetForContinent(cont) or {}
+    end
+    local count = table.getn(list)
+    if count == 0 then
+        frame:Show()
+        if frame.title then frame.title:SetText("|cffe09a15INSTANCIAS|r") end
+        content:SetHeight(30)
+        if frame.scrollFrame then frame.scrollFrame:SetVerticalScroll(0); frame.scrollFrame:UpdateScrollChildRect() end
+        return
+    end
+    local btnH = 28
+    local gap = 3
+    for idx = 1, count do
+        local name = list[idx]
+        if name and name ~= "" then
+            local btn = CreateFrame("Button", nil, content)
+            btn:SetHeight(btnH)
+            btn:SetPoint("TOPLEFT", content, "TOPLEFT", 2, - (idx - 1) * (btnH + gap) - 2)
+            btn:SetPoint("TOPRIGHT", content, "TOPRIGHT", -2, - (idx - 1) * (btnH + gap) - 2)
+            btn:EnableMouse(true)
+            btn:EnableMouseWheel(true)
+            btn:SetFrameLevel(content:GetFrameLevel() + 2)
+            local bg = btn:CreateTexture(nil, "BACKGROUND")
+            bg:SetAllPoints(btn)
+            bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            bg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
+            btn.bg = bg
+            local hl = btn:CreateTexture(nil, "HIGHLIGHT")
+            hl:SetAllPoints(btn)
+            hl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            hl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
+            hl:SetBlendMode("ADD")
+            local fs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+            fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
+            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 14)
+            fs:SetText(name)
+            fs:SetTextColor(0.96, 0.88, 0.68, 1.0)
+            btn.label = fs
+            btn.zoneName = name
+            btn.isInstance = true
+            btn.zoneCont = cont
+            btn.zoneIdx = idx
+            local det = instData and instData.details and instData.details[name]
+            if det and det.zone then
+                btn.parentZone = det.zone
+            else
+                btn.parentZone = nil
+            end
+            btn:SetScript("OnClick", function()
+                if this and this.parentZone then
+                    MainMenu:SwitchMapToZone(this.parentZone)
+                    if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+                elseif this and this.zoneName then
+                    if DEFAULT_CHAT_FRAME then DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Instancias]|r " .. this.zoneName .. " (sem mapa outdoor — indo para zona parente)") end
+                end
+            end)
+            btn:SetScript("OnEnter", function()
+                if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
+                if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+                if GameTooltip then
+                    GameTooltip:SetOwner(this, "ANCHOR_LEFT", -8, 0)
+                    local d = instData and instData.details and instData.details[this.zoneName]
+                    if d then
+                        GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
+                        GameTooltip:AddLine("Zona: " .. (d.zone or "?") .. " | Nvl: " .. (d.levels or "?") .. " | " .. (d.players or "?") .. " jogadores", 0.8, 0.8, 0.8)
+                        GameTooltip:AddLine(d.type or "", 0.6, 0.6, 0.6)
+                    else
+                        GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
+                    end
+                    GameTooltip:Show()
+                end
+            end)
+            btn:SetScript("OnLeave", function()
+                if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+                if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+                if GameTooltip then GameTooltip:Hide() end
+            end)
+            btn:SetScript("OnMouseWheel", function()
+                local sf = frame.scrollFrame
+                if sf and sf.GetVerticalScroll then
+                    local cur = sf:GetVerticalScroll() or 0
+                    local mx = sf:GetVerticalScrollRange() or 0
+                    local step = 52
+                    if arg1 > 0 then cur = cur - step else cur = cur + step end
+                    if cur < 0 then cur = 0 end
+                    if cur > mx then cur = mx end
+                    sf:SetVerticalScroll(cur)
+                end
+            end)
+            table.insert(frame.buttons, btn)
+        end
+    end
+    local totalH = count * (btnH + gap) + 4
+    content:SetHeight(totalH)
+    if frame.scrollFrame then
+        frame.scrollFrame:SetVerticalScroll(0)
+        frame.scrollFrame:UpdateScrollChildRect()
+    end
+end
+
+function MainMenu:BuildContinentZoneList(cont)
+    self.zoneListMode = nil
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.zoneListFrame then return end
+    local frame = pageQuests.mapPanel.zoneListFrame
+    local content = frame.scrollChild
+    if not content then return end
+    if frame.buttons then
+        for i = 1, table.getn(frame.buttons) do
+            if frame.buttons[i] then frame.buttons[i]:Hide() end
+        end
+    end
+    frame.buttons = {}
+    local instData = ConsoleMode and ConsoleMode.Instances
     local zones = {GetMapZones(cont)}
     local count = table.getn(zones)
     if count == 0 then return end

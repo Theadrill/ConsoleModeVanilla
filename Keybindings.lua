@@ -528,8 +528,9 @@ function CM_Fixed(button)
     CM.logger:Log("Fixo: " .. button)
     
     if button == "START" then
-        -- 0. Se o Console Main Menu ja estiver aberto, fecha ele
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+            local mm2 = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+            if mm2 and mm2.HandleMapBack and mm2:HandleMapBack() then return end
             if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
                 ConsoleMode.mainMenu:Hide()
             else
@@ -816,7 +817,13 @@ function CM_CursorCancel()
         return
     end
     
-    -- 2. Fecha a janela de UI ativa usando método oficial do WoW
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mm and mm.HandleMapBack and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+        if mm:HandleMapBack() then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mapa: voltar)")
+            return
+        end
+    end
     if CM.hooks and CM.hooks.CloseTopFrame and CM.hooks:CloseTopFrame() then
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Janela fechada)")
         return

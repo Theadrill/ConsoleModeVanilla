@@ -3828,6 +3828,57 @@ function MainMenu:NavToContinent(cont)
     self:UpdateNavButtonHighlight()
 end
 
+function MainMenu:HandleMapBack()
+    if not self.frame or not self.frame:IsVisible() then return false end
+    if not self.tabContainer or self.tabContainer.currentTab ~= "QUESTS" then return false end
+    local isInstances = (self.zoneListMode == "INSTANCES")
+    if isInstances then
+        if (self.mapViewMode or "ZONE") == "CONTINENT" and self.mapContinentView then
+            local cont = self.mapContinentView
+            self:HideInstancesList()
+            self:BuildContinentZoneList(cont)
+            self:UpdateNavButtonHighlight()
+            self:UpdateBackButton()
+            if self.UpdateQuestsPage then self:UpdateQuestsPage() end
+            self:UpdateNavButtonHighlight()
+            if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
+                local f = self.tabContainer.pages["QUESTS"].mapPanel.zoneListFrame
+                if f and f.buttons and table.getn(f.buttons) > 0 and f.buttons[1] and f.buttons[1].IsVisible and f.buttons[1]:IsVisible() then
+                    ConsoleMode.cursor:MoveTo(f.buttons[1])
+                else
+                    ConsoleMode.cursor:Resync()
+                end
+            end
+            return true
+        else
+            self:HideInstancesList()
+            self:UpdateNavButtonHighlight()
+            self:UpdateBackButton()
+            if self.UpdateQuestsPage then self:UpdateQuestsPage() end
+            self:UpdateNavButtonHighlight()
+            if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then ConsoleMode.cursor:Resync() end
+            return true
+        end
+    end
+    if (self.mapViewMode or "ZONE") == "CONTINENT" then
+        self:NavToCurrent()
+        if self.UpdateQuestsPage then self:UpdateQuestsPage() end
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then ConsoleMode.cursor:Resync() end
+        return true
+    end
+    local atCurrent = not self.mapShowingQuestZone and not self.mapDungeonPreview and (self.mapViewMode or "ZONE") == "ZONE"
+    local backBtn = self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.backButton
+    local shouldDisable = backBtn and backBtn.isDisabled
+    if atCurrent and shouldDisable then return false end
+    if not atCurrent or self.mapContinent or self.mapZoneName or self.mapFileName or self.mapDungeonPreview then
+        self:NavToCurrent()
+        if self.UpdateQuestsPage then self:UpdateQuestsPage() end
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then ConsoleMode.cursor:Resync() end
+        return true
+    end
+    return false
+end
+
 function MainMenu:UpdateNavButtonHighlight()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]

@@ -633,6 +633,7 @@ function Hooks:CloseTopFrame()
             if frame and frame:IsVisible() then
                 local frameName = frame:GetName() or ""
                 if frameName == "ConsoleModeMainMenuFrame" then
+                    if ConsoleMode.mainMenu and ConsoleMode.mainMenu.HandleMapBack and ConsoleMode.mainMenu:HandleMapBack() then return true end
                     if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
                         ConsoleMode.mainMenu:Hide()
                     else

@@ -3132,19 +3132,19 @@ function MainMenu:SetupQuestsPage(pageQuests)
         return b
     end
 
-    local navBtnAtual = CreateMapNavButton("ConsoleModeMM_MapNavAtual", "|cffe09a15ATUAL|r", "BOTTOMRIGHT", "BOTTOMRIGHT", -12, 108)
+    local navBtnAtual = CreateMapNavButton("ConsoleModeMM_MapNavAtual", "|cffe09a15ATUAL|r", "TOPRIGHT", "TOPRIGHT", -10, -10)
     navBtnAtual:SetScript("OnClick", function()
         MainMenu:NavToCurrent()
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
-    local navBtnKalimdor = CreateMapNavButton("ConsoleModeMM_MapNavKalimdor", "|cffe09a15KALIMDOR|r", "BOTTOMRIGHT", "BOTTOMRIGHT", -12, 82)
+    local navBtnKalimdor = CreateMapNavButton("ConsoleModeMM_MapNavKalimdor", "|cffe09a15KALIMDOR|r", "TOPRIGHT", "TOPRIGHT", -10, -34)
     navBtnKalimdor:SetScript("OnClick", function()
         MainMenu:NavToContinent(1)
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
-    local navBtnEK = CreateMapNavButton("ConsoleModeMM_MapNavEK", "|cffe09a15EASTERN KINGDOM|r", "BOTTOMRIGHT", "BOTTOMRIGHT", -12, 56)
+    local navBtnEK = CreateMapNavButton("ConsoleModeMM_MapNavEK", "|cffe09a15EASTERN KINGDOM|r", "TOPRIGHT", "TOPRIGHT", -10, -58)
     navBtnEK:SetScript("OnClick", function()
         MainMenu:NavToContinent(2)
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end

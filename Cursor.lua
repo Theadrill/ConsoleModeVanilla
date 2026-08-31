@@ -170,31 +170,45 @@ function Cursor:ScrollToShowButton(button)
     if not button then return end
     local scrollFrame = self:FindParentScrollFrame(button)
     if not scrollFrame then return end
-    
-    local scrollBarName = scrollFrame:GetName() and (scrollFrame:GetName() .. "ScrollBar")
-    local scrollBar = scrollBarName and getglobal(scrollBarName)
-    if not scrollBar or not scrollBar.GetValue or not scrollBar.SetValue then return end
-    
     local sfBottom = scrollFrame:GetBottom()
     local sfTop = scrollFrame:GetTop()
     local btnBottom = button:GetBottom()
     local btnTop = button:GetTop()
-    
     if not sfBottom or not sfTop or not btnBottom or not btnTop then return end
-    
-    local currentScroll = scrollBar:GetValue()
-    local minScroll, maxScroll = scrollBar:GetMinMaxValues()
-    
-    if btnBottom < sfBottom then
-        local needed = sfBottom - btnBottom + 10
-        local newScroll = currentScroll + needed
-        if newScroll > maxScroll then newScroll = maxScroll end
-        scrollBar:SetValue(newScroll)
-    elseif btnTop > sfTop then
-        local needed = btnTop - sfTop + 10
-        local newScroll = currentScroll - needed
-        if newScroll < minScroll then newScroll = minScroll end
-        scrollBar:SetValue(newScroll)
+    local scrollBarName = scrollFrame:GetName() and (scrollFrame:GetName() .. "ScrollBar")
+    local scrollBar = scrollBarName and getglobal(scrollBarName)
+    if scrollBar and scrollBar.GetValue and scrollBar.SetValue then
+        local currentScroll = scrollBar:GetValue()
+        local minScroll, maxScroll = scrollBar:GetMinMaxValues()
+        if btnBottom < sfBottom then
+            local needed = sfBottom - btnBottom + 10
+            local newScroll = currentScroll + needed
+            if newScroll > maxScroll then newScroll = maxScroll end
+            scrollBar:SetValue(newScroll)
+        elseif btnTop > sfTop then
+            local needed = btnTop - sfTop + 10
+            local newScroll = currentScroll - needed
+            if newScroll < minScroll then newScroll = minScroll end
+            scrollBar:SetValue(newScroll)
+        end
+        return
+    end
+    if scrollFrame.GetVerticalScroll and scrollFrame.SetVerticalScroll and scrollFrame.GetVerticalScrollRange then
+        local cur = scrollFrame:GetVerticalScroll() or 0
+        local maxR = scrollFrame:GetVerticalScrollRange() or 0
+        if btnBottom < sfBottom then
+            local needed = sfBottom - btnBottom + 10
+            local newScroll = cur + needed
+            if newScroll > maxR then newScroll = maxR end
+            if newScroll < 0 then newScroll = 0 end
+            scrollFrame:SetVerticalScroll(newScroll)
+        elseif btnTop > sfTop then
+            local needed = btnTop - sfTop + 10
+            local newScroll = cur - needed
+            if newScroll < 0 then newScroll = 0 end
+            if newScroll > maxR then newScroll = maxR end
+            scrollFrame:SetVerticalScroll(newScroll)
+        end
     end
 end
 

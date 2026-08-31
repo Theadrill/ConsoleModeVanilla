@@ -404,3 +404,45 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
   4. Não alterar API de pin — só valores `x/y`; manter hide fora de `CONTINENT`, em `INSTANCIAS` e ao `SwitchMapToZone/Reset`.
 * **Validação:** Em `CONTINENT`, hover/D-Pad em cada item de `REGIOES` mostra pin amarelo + label exatamente sobre a área da zona no mapa; sem pin fantasma ao trocar continente/zona.
 * **Commit:** Não fazer commit/push até autorização; marcar no histórico que foi WIP de posicionamento.
+
+---
+
+### **FASE 15: Menu de Contexto da Missão (Y) — Detalhes / Abandonar** `[STATUS: ⏳ PRÓXIMA FASE — aguardando instruções, sem code]`
+
+* **Objetivo:** Ao pressionar `Y` (Gamepad) / tecla de contexto com foco em qualquer missão não-header da lista `MISSÕES & MAPA` (`ConsoleModeMM_Page_QUESTS` → `questPanel.listContainer`), abrir menu de contexto flutuante com duas ações: `Detalhes da Missão` e `Abandonar Missão`. `Detalhes` abre painel flutuante central com texto completo da missão; `B` fecha painel flutuante com prioridade sobre `HandleMapBack`/`CloseTopFrame`. `Abandonar` dispara fluxo nativo de abandono com confirmação (`StaticPopup ABANDON_QUEST`).
+
+* **Estado atual para reaproveitar:**
+  * Lista/painel já existe em `UI/MainMenu.lua`: `CreateQuestListButton` / `UpdateQuestsPage` / `SelectQuest` / `NavigateQuest` / `selectedQuestIndex` / `questOffset`; detalhamento atual em `detailCard` (objetivos/resumo) mas não o texto longo completo.
+  * Ações já existentes: `AbandonSelectedQuest()` (usa `SelectQuestLogEntry`+`SetAbandonQuest`+`StaticPopup_Show`) e `ShareSelectedQuest`/`ToggleQuestWatch`; `OpenQuestContextMenu(questLogIndex)` já delega para `CM.ui.contextMenu:OpenForQuest` (hoje genérico).
+  * Fluxo `B` já hierarquizado em `Keybindings.lua` (`CM_CursorCancel`/`CM_Fixed`) + `Hooks.lua:CloseTopFrame` e `HandleMapBack` do mapa.
+
+* **Como pretende fazer (sem codar nesta etapa):**
+  1. **Gatilho `Y`:**
+     * Hook em `Keybindings.lua` / `MainMenu` (`OnUpdate` / bind `CM_QuestContext` em `Y`): só dispara quando `tabContainer.currentTab=="QUESTS"` e `pageQuests:IsVisible()` e `questPanel.selectedQuestIndex>0` e quest não é header (`GetQuestLogTitle(isHeader)==nil`) e nenhum overlay (`questDetailOverlay`, `contextMenu`) já aberto. Ignorar quando `mapViewMode=="CONTINENT"` com cursor em `continentZoneButtons` para não conflitar com navegação de zonas.
+     * `Y` chama `MainMenu:OpenQuestContextMenu(selectedQuestIndex)` — adaptar para modo `questDetail/abandon` em vez de `Abandon/Share` genérico.
+  2. **Menu de contexto (2 itens):**
+     * Reaproveitar `CM.ui.contextMenu` ou criar `ConsoleModeMM_QuestContextMenu` dedicado (Frame `DIALOG`, backdrop `UI-Tooltip-Border`, 2 `Button`s 180×22, gap 4px, fonte `CFG.Fonts.subFontFile 11`): `Detalhes da Missão` (índice 1), `Abandonar Missão` (índice 2, cor `cffff4444`).
+     * Posicionar ancorado ao `questButton` selecionado (`TOPLEFT` → `TOPRIGHT` + offset) com clamp na tela; navegação `D-Pad Cima/Baixo` + `L-Stick` vertical dentro do menu; `A` confirma, `B`/`Y` fecha. Cursor virtual (`Cursor.lua:CollectButtons`) inclui botões do menu quando visível (`FindFirstVisibleButton` prioriza contextMenu).
+     * `FooterHints` em `QUESTS` passa a exibir `[Y] Opções` quando houver seleção válida.
+  3. **Painel flutuante `Detalhes da Missão`:**
+     * Novo `ConsoleModeMM_QuestDetailOverlay` (`Frame` fullscreen semi-transparente `bg 0,0,0 0.6` + `centerPanel` ~560×420, 9-slice `Carved_9Slides`/backdrop atual, `STRATA DIALOG`, `Toplevel true`).
+     * Conteúdo ao abrir: `SelectQuestLogEntry(questLogIndex)` + `GetQuestLogQuestText()` → `title` (com `GetQuestLevelColor`), `description` (texto longo), `objectives` (`questObjectives` fallback), lista `GetNumQuestLeaderBoards`/`GetQuestLogLeaderBoard`, recompensas (`GetNumQuestLogRewards`/`GetQuestLogRewardInfo`, money `GetQuestLogRewardMoney`, choices). `ScrollFrame`+`ScrollChild` para texto longo; `rewardSlots` reaproveita padrão do `detailCard`.
+     * Abrir via item 1 do menu: `contextMenu:Hide()` → `ShowQuestDetailOverlay(questLogIndex)` + `PlaySound(CFG.Audio.soundItemSelect)`. Fechar via `B` (e também `A`/`ESC` se desejado): `HideQuestDetailOverlay()` com prioridade máxima no handler de `B` — `Hook CloseTopFrame`/`CM_CursorCancel` verifica `if questDetailOverlay:IsVisible() then hide; return true end` antes de `HandleMapBack`.
+     * Teclado/mouse: `OnClick` fora do `centerPanel` também fecha; não altera `mapViewMode`/`mapShowingQuestZone`.
+  4. **Abandonar Missão:**
+     * Item 2 do menu: `contextMenu:Hide()` → `MainMenu:AbandonSelectedQuest()` (já faz `SelectQuestLogEntry`+`SetAbandonQuest`+`StaticPopup_Show("ABANDON_QUEST"/"_WITH_ITEMS")`). Sem popup custom; confirmação nativa `StaticPopup` permanece (botões `Sim/Não` navegáveis via D-Pad/A/B). Após confirmar/cancelar, `QUEST_LOG_UPDATE` → `UpdateQuestsPage` refresca lista.
+  5. **Hierarquia de `B` / `CloseTopFrame`:**
+     * `questDetailOverlay visível → B fecha overlay`
+     * `questContextMenu visível → B fecha contextMenu`
+     * `senão → HandleMapBack()` (CONTINENT→ATUAL / ZONA→ATUAL) ou `CloseTopFrame()` (ATUAL).
+  6. **Compatibilidade:** 1.12.1 / Lua 5.0 (`table.getn`, sem `#`, `GetQuestLogTitle/GetQuestLogQuestText` nativos), `luac -p` obrigatório; Turtle custom zones não afetam (missões já indexadas por `GetQuestLogTitle` header zone).
+
+* **Tarefas quando autorizado a codar:**
+  1. Criar `questContextMenu` + `questDetailOverlay` em `MainMenu.lua` (ou `UI/QuestContext.lua` se preferir separar) e registrar no `ConsoleModeMM_Page_QUESTS`.
+  2. Adaptar `OpenQuestContextMenu` para 2 opções + highlight; implementar `ShowQuestDetailOverlay/HideQuestDetailOverlay`.
+  3. Bind `Y` em `Keybindings.lua` + integração `Cursor`/`FooterHints` + guard `B` em `Hooks.lua`.
+  4. `luac -p` + `/reload` + validação Turtle.
+
+* **Validação (quando liberado):** Em `QUESTS`, navegar D-Pad até missão → `Y` abre menu (2 opções) → `A` em `Detalhes` abre overlay central com texto completo/scroll → `B` fecha overlay (sem fechar MainMenu) → `Y`→`Abandonar` abre `StaticPopup` → confirmar abandona e lista atualiza; sem regressão em `CONTINENT`/`HandleMapBack`/pins.
+
+* **Commit:** Não codar/commitar até autorização explícita desta fase.

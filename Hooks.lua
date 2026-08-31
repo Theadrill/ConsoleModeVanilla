@@ -627,12 +627,19 @@ function Hooks:InjectGameMenuButton()
 end
 
 function Hooks:CloseTopFrame()
+    if ConsoleMode and ConsoleMode.mainMenu and ConsoleMode.mainMenu.IsQuestDetailVisible and ConsoleMode.mainMenu:IsQuestDetailVisible() then
+        ConsoleMode.mainMenu:HideQuestDetail()
+        return true
+    end
     local Cursor = ConsoleMode.cursor
     if Cursor and Cursor.state.activeFrames then
         for frame, _ in pairs(Cursor.state.activeFrames) do
             if frame and frame:IsVisible() then
                 local frameName = frame:GetName() or ""
-                if frameName == "ConsoleModeMainMenuFrame" then
+                if frameName == "ConsoleModeMM_QuestDetailOverlay" then
+                    if ConsoleMode.mainMenu and ConsoleMode.mainMenu.HideQuestDetail then ConsoleMode.mainMenu:HideQuestDetail() end
+                    return true
+                elseif frameName == "ConsoleModeMainMenuFrame" then
                     if ConsoleMode.mainMenu and ConsoleMode.mainMenu.HandleMapBack and ConsoleMode.mainMenu:HandleMapBack() then return true end
                     if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
                         ConsoleMode.mainMenu:Hide()

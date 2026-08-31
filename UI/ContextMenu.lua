@@ -29,7 +29,7 @@ function Menu:Initialize()
 
     -- Frame Principal Flutuante
     local f = CreateFrame("Frame", "ConsoleModeContextMenu", UIParent)
-    f:SetWidth(156)
+    f:SetWidth(188)
     f:SetHeight(152)
     f:SetFrameStrata("TOOLTIP")
     f:SetFrameLevel(500)
@@ -46,7 +46,7 @@ function Menu:Initialize()
 
     local title = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     title:SetPoint("TOP", f, "TOP", 0, -6)
-    title:SetWidth(140)
+    title:SetWidth(168)
     title:SetJustifyH("CENTER")
     title:SetTextColor(1.0, 0.85, 0.2)
     f.title = title
@@ -73,7 +73,7 @@ function Menu:Initialize()
     self.buttons = {}
     for i, def in ipairs(btnDefs) do
         local btn = CreateFrame("Button", "ConsoleModeContextMenuBtn" .. i, menuView)
-        btn:SetWidth(142)
+        btn:SetWidth(172)
         btn:SetHeight(24)
         btn:SetPoint("TOP", menuView, "TOP", 0, -24 - ((i - 1) * 27))
 
@@ -90,6 +90,10 @@ function Menu:Initialize()
         text:SetPoint("CENTER", btn, "CENTER", 0, 0)
         text:SetText(def.label)
         text:SetTextColor(def.color.r, def.color.g, def.color.b)
+        do
+            local f, s, o = text:GetFont()
+            if f and s then text:SetFont(f, math.floor(s * 1.3 + 0.5), o) end
+        end
         btn.text = text
         btn.action = def.action
 
@@ -120,7 +124,7 @@ function Menu:Initialize()
 
 
     local countBox = CreateFrame("Frame", "ConsoleModeContextSplitCountBox", splitView)
-    countBox:SetWidth(142)
+    countBox:SetWidth(172)
     countBox:SetHeight(32)
     countBox:SetPoint("TOP", splitView, "TOP", 0, -26)
     countBox:SetBackdrop({
@@ -156,7 +160,7 @@ function Menu:Initialize()
 
 
     local btnConfirm = CreateFrame("Button", "ConsoleModeContextSplitConfirmBtn", splitView, "UIPanelButtonTemplate")
-    btnConfirm:SetWidth(142)
+    btnConfirm:SetWidth(172)
     btnConfirm:SetHeight(24)
     btnConfirm:SetPoint("TOP", countBox, "BOTTOM", 0, -6)
     btnConfirm:SetText("[A] Confirmar")
@@ -252,6 +256,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     local splitBtn = self.buttons[2]
     if splitBtn then
         splitBtn:Show()
+        splitBtn.text:SetText("Dividir (Split)")
         splitBtn.action = "SPLIT"
         if count and count > 1 then
             splitBtn:Enable()
@@ -265,8 +270,8 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     local restackBtn = self.buttons[3]
     if restackBtn then
         restackBtn:Show()
+        restackBtn.text:SetText("Re-Stack (Agrupar)")
         restackBtn.action = "RESTACK"
-        -- Se a quantidade for maior que 1 ou o maxStack > 1, o item é comprovadamente empilhável
         if count > 1 or maxStack > 1 then
             restackBtn:Enable()
             restackBtn.text:SetTextColor(1.0, 0.85, 0.2)
@@ -506,19 +511,12 @@ function Menu:ExecuteAction(action)
     local invSlot = self.currentInvSlot
     local returnBtn = self.returnButton
 
-    if action == "QUEST_WATCH" then
+    if action == "QUEST_DETAIL" then
         local qIdx = self.currentQuestIndex
         self:Close()
-        if qIdx and CM.mainMenu and CM.mainMenu.ToggleQuestWatch then
-            CM.mainMenu:ToggleQuestWatch(qIdx)
-        end
-        return
-    elseif action == "QUEST_SHARE" then
-        local qIdx = self.currentQuestIndex
-        self:Close()
-        if qIdx and CM.mainMenu and CM.mainMenu.ShareSelectedQuest then
+        if qIdx and CM.mainMenu and CM.mainMenu.ShowQuestDetail then
             CM.mainMenu.selectedQuestIndex = qIdx
-            CM.mainMenu:ShareSelectedQuest()
+            CM.mainMenu:ShowQuestDetail(qIdx)
         end
         return
     elseif action == "QUEST_ABANDON" then
@@ -704,7 +702,7 @@ end
 -- CONTEXTO DE MISSÕES (Etapa 9.6 - Botão Y)
 -- ============================================================================
 
-function Menu:OpenForQuest(questLogIndex, questTitle)
+function Menu:OpenForQuest(questLogIndex, questTitle, anchorFrame)
     if not questLogIndex or questLogIndex <= 0 then return false end
 
     self:Initialize()
@@ -714,7 +712,7 @@ function Menu:OpenForQuest(questLogIndex, questTitle)
     self.currentBag = nil
     self.currentSlot = nil
     self.currentInvSlot = nil
-    self.returnButton = nil
+    self.returnButton = anchorFrame
 
     local displayName = questTitle or "Missao"
     if string.len(displayName) > 18 then
@@ -724,57 +722,56 @@ function Menu:OpenForQuest(questLogIndex, questTitle)
 
     self.frame.menuView:Show()
     self.frame.splitView:Hide()
-    self.frame:SetHeight(124)
-
-    local isWatched = (IsQuestWatched and IsQuestWatched(questLogIndex)) or false
-    local canShare = false
-    if SelectQuestLogEntry then SelectQuestLogEntry(questLogIndex) end
-    if GetQuestLogPushable then canShare = GetQuestLogPushable() end
-    local numParty = (GetNumPartyMembers and GetNumPartyMembers()) or 0
+    self.frame:SetHeight(96)
 
     local btn1 = self.buttons[1]
     if btn1 then
         btn1:Show()
         btn1:Enable()
-        if isWatched then
-            btn1.text:SetText("Parar de Rastrear")
-            btn1.text:SetTextColor(0.95, 0.6, 0.2)
-        else
-            btn1.text:SetText("Rastrear no HUD")
-            btn1.text:SetTextColor(0.2, 0.9, 0.3)
-        end
-        btn1.action = "QUEST_WATCH"
+        btn1.text:SetText("Detalhes da Missao")
+        btn1.text:SetTextColor(0.3, 0.7, 1.0)
+        btn1.action = "QUEST_DETAIL"
     end
 
     local btn2 = self.buttons[2]
     if btn2 then
         btn2:Show()
-        if canShare and numParty > 0 then
-            btn2:Enable()
-            btn2.text:SetText("Compartilhar")
-            btn2.text:SetTextColor(0.3, 0.7, 1.0)
-        else
-            btn2:Disable()
-            btn2.text:SetText("Compartilhar")
-            btn2.text:SetTextColor(0.45, 0.45, 0.45)
-        end
-        btn2.action = "QUEST_SHARE"
+        btn2:Enable()
+        btn2.text:SetText("Abandonar Missao")
+        btn2.text:SetTextColor(0.95, 0.3, 0.3)
+        btn2.action = "QUEST_ABANDON"
     end
 
     local btn3 = self.buttons[3]
-    if btn3 then
-        btn3:Show()
-        btn3:Enable()
-        btn3.text:SetText("Abandonar")
-        btn3.text:SetTextColor(0.95, 0.3, 0.3)
-        btn3.action = "QUEST_ABANDON"
-    end
+    if btn3 then btn3:Hide(); btn3:Disable() end
 
     local btn4 = self.buttons[4]
     if btn4 then btn4:Hide(); btn4:Disable() end
 
     self.frame:ClearAllPoints()
-    self.frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    if anchorFrame and anchorFrame.GetLeft then
+        local left = anchorFrame:GetLeft() or 0
+        local screenW = GetScreenWidth() or 1024
+        if left > (screenW / 2) then
+            self.frame:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -6, 10)
+        else
+            self.frame:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 6, 10)
+        end
+    else
+        local qp = CM.mainMenu and CM.mainMenu.tabContainer and CM.mainMenu.tabContainer.pages and CM.mainMenu.tabContainer.pages["QUESTS"] and CM.mainMenu.tabContainer.pages["QUESTS"].questPanel
+        local listAnchor = qp and qp.listContainer or nil
+        if listAnchor and listAnchor.GetLeft then
+            local left = listAnchor:GetLeft() or 0
+            local screenW = GetScreenWidth() or 1024
+            if left > (screenW / 2) then
+                self.frame:SetPoint("TOPRIGHT", listAnchor, "TOPLEFT", -6, 0)
+            else
+                self.frame:SetPoint("TOPLEFT", listAnchor, "TOPLEFT", -6, 20)
+            end
+        else
+            self.frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+        end
+    end
     self.frame:Show()
     PlaySound("igMainMenuOptionCheckBoxOn")
 

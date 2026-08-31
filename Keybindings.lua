@@ -515,6 +515,7 @@ function CM_Action(button, page)
     if page == 1 and button == "Y" then
         local mm = (ConsoleMode and ConsoleMode.mainMenu) or nil
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+            if mm.IsQuestDetailVisible and mm:IsQuestDetailVisible() then return end
             if mm.selectedQuestIndex and mm.OpenQuestContextMenu then
                 mm:OpenQuestContextMenu(mm.selectedQuestIndex)
             end
@@ -530,6 +531,7 @@ function CM_Fixed(button)
     if button == "START" then
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
             local mm2 = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+            if mm2 and mm2.IsQuestDetailVisible and mm2:IsQuestDetailVisible() then mm2:HideQuestDetail(); return end
             if mm2 and mm2.HandleMapBack and mm2:HandleMapBack() then return end
             if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
                 ConsoleMode.mainMenu:Hide()
@@ -752,17 +754,25 @@ end
 
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
-    
-    -- Se o menu de contexto já estiver aberto, apertar Y fecha ele
     if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.frame and CM.ui.contextMenu.frame:IsVisible() then
         CM.ui.contextMenu:Close()
         return
     end
-
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
+        if mm.IsQuestDetailVisible and mm:IsQuestDetailVisible() then return end
+        local sel = mm.selectedQuestIndex
+        if sel and sel > 0 then
+            local t, _, _, isHeader = GetQuestLogTitle(sel)
+            if t and not isHeader then
+                mm:OpenQuestContextMenu(sel)
+                return
+            end
+        end
+    end
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         return
     end
-    
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao Y (Usar Item / Botao Direito)")
     CM.logger:Log("Cursor: Usar Item / Botao Direito (Y)")
     CM.cursor:Click("RightButton")
@@ -787,7 +797,12 @@ end
 
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
-    
+    local mmQ = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mmQ and mmQ.IsQuestDetailVisible and mmQ:IsQuestDetailVisible() then
+        mmQ:HideQuestDetail()
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Detalhes da Missao)")
+        return
+    end
     -- 0. Se o Menu de Contexto estiver aberto
     local ctxMenu = CM.ui and CM.ui.contextMenu
     if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then

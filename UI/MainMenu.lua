@@ -2844,7 +2844,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     local mapCoordsText = mapHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     mapCoordsText:SetPoint("RIGHT", mapHeader, "RIGHT", -4, 0)
-    MainMenu:ApplyFont(mapCoordsText, CFG.Fonts.subFontFile, 9)
+    MainMenu:ApplyFont(mapCoordsText, CFG.Fonts.subFontFile, 13)
     mapCoordsText:SetText("|cffaaaaaaPlayer: --  Cursor: --|r")
     mapPanel.coordsText = mapCoordsText
 
@@ -3439,12 +3439,18 @@ function MainMenu:CreateQuestListButton(parent, idx)
         end
     end)
 
+    btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     btn:SetScript("OnClick", function()
-        if not this.isHeader and this.questLogIndex then
-            MainMenu:SelectQuest(this.questLogIndex, false)
+        if this.isHeader or not this.questLogIndex then return end
+        if arg1 == "RightButton" then
+            MainMenu:SelectQuest(this.questLogIndex, true)
             MainMenu:UpdateQuestsPage()
-            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+            MainMenu:OpenQuestContextMenu(this.questLogIndex, this)
+            return
         end
+        MainMenu:SelectQuest(this.questLogIndex, false)
+        MainMenu:UpdateQuestsPage()
+        if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
     end)
 
     return btn
@@ -4524,15 +4530,254 @@ function MainMenu:ShareSelectedQuest()
     end
 end
 
-function MainMenu:OpenQuestContextMenu(questLogIndex)
+function MainMenu:OpenQuestContextMenu(questLogIndex, anchorFrame)
     if not questLogIndex or questLogIndex <= 0 then return end
-
+    if self.questDetailOverlay and self.questDetailOverlay:IsVisible() then return end
     local title, level, questTag, isHeader = GetQuestLogTitle(questLogIndex)
     if isHeader then return end
-
-    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForQuest then
-        CM.ui.contextMenu:OpenForQuest(questLogIndex, title)
+    if not anchorFrame and self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].questPanel then
+        local qp = self.tabContainer.pages["QUESTS"].questPanel
+        if qp.questButtons then
+            for i = 1, table.getn(qp.questButtons) do
+                local b = qp.questButtons[i]
+                if b and b.questLogIndex == questLogIndex and b:IsVisible() then anchorFrame = b; break end
+            end
+        end
+        if not anchorFrame then anchorFrame = qp.listContainer end
     end
+    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForQuest then
+        CM.ui.contextMenu:OpenForQuest(questLogIndex, title, anchorFrame)
+    end
+end
+
+function MainMenu:IsQuestDetailVisible()
+    return self.questDetailOverlay and self.questDetailOverlay:IsVisible()
+end
+
+function MainMenu:HideQuestDetail()
+    if not self.questDetailOverlay or not self.questDetailOverlay:IsVisible() then return end
+    self.questDetailOverlay:Hide()
+    if CM.cursor then
+        CM.cursor.state.activeFrames[self.questDetailOverlay] = nil
+        if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].questPanel then
+            local qp = self.tabContainer.pages["QUESTS"].questPanel
+            local sel = qp.selectedQuestIndex or self.selectedQuestIndex
+            if sel and qp.questButtons then
+                for i = 1, table.getn(qp.questButtons) do
+                    local b = qp.questButtons[i]
+                    if b and b.questLogIndex == sel and b:IsVisible() then
+                        CM.cursor:MoveTo(b)
+                        break
+                    end
+                end
+            end
+            CM.cursor:UpdateState()
+        end
+    end
+    PlaySound("igMainMenuOptionCheckBoxOff")
+end
+
+function MainMenu:CreateQuestDetailOverlay()
+    if self.questDetailOverlay then return end
+    local f = CreateFrame("Frame", "ConsoleModeMM_QuestDetailOverlay", UIParent)
+    f:SetAllPoints(UIParent)
+    f:SetFrameStrata("DIALOG")
+    f:SetFrameLevel(600)
+    f:EnableMouse(true)
+    f:SetBackdrop({ bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 16, insets = { left = 0, right = 0, top = 0, bottom = 0 } })
+    f:SetBackdropColor(0, 0, 0, 0.65)
+    f:Hide()
+    f:SetScript("OnMouseDown", function()
+        MainMenu:HideQuestDetail()
+    end)
+    local panel = CreateFrame("Frame", nil, f)
+    panel:SetWidth(560)
+    panel:SetHeight(420)
+    panel:SetPoint("CENTER", f, "CENTER", 0, 0)
+    panel:SetBackdrop({ bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", tile = true, tileSize = 16, edgeSize = 12, insets = { left = 4, right = 4, top = 4, bottom = 4 } })
+    panel:SetBackdropColor(0.06, 0.06, 0.08, 0.96)
+    panel:SetBackdropBorderColor(0.8, 0.65, 0.15, 0.9)
+    panel:EnableMouse(true)
+    f.panel = panel
+    local title = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", panel, "TOP", 0, -12)
+    title:SetWidth(520)
+    title:SetJustifyH("CENTER")
+    title:SetTextColor(1, 0.82, 0)
+    f.titleText = title
+    local line = panel:CreateTexture(nil, "ARTWORK")
+    line:SetTexture(0.5, 0.5, 0.5, 0.5)
+    line:SetHeight(1)
+    line:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -32)
+    line:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -32)
+    local scroll = CreateFrame("ScrollFrame", "ConsoleModeMM_QuestDetailScroll", panel)
+    scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -36)
+    scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, 28)
+    scroll:EnableMouse(true)
+    scroll:EnableMouseWheel(true)
+    local child = CreateFrame("Frame", nil, scroll)
+    child:SetWidth(536)
+    child:SetHeight(10)
+    scroll:SetScrollChild(child)
+    scroll.child = child
+    scroll:SetScript("OnMouseWheel", function()
+        local delta = arg1 or 0
+        local cur = this:GetVerticalScroll() or 0
+        local max = (this:GetVerticalScrollRange() or 0)
+        cur = cur - delta * 40
+        if cur < 0 then cur = 0 end
+        if cur > max then cur = max end
+        this:SetVerticalScroll(cur)
+    end)
+    f.scroll = scroll
+    local desc = child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    desc:SetPoint("TOPLEFT", child, "TOPLEFT", 4, -4)
+    desc:SetWidth(528)
+    desc:SetJustifyH("LEFT")
+    desc:SetJustifyV("TOP")
+    desc:SetTextColor(1, 1, 1)
+    f.descText = desc
+    local objTitle = child:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    objTitle:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -12)
+    objTitle:SetWidth(528)
+    objTitle:SetJustifyH("LEFT")
+    objTitle:SetTextColor(1, 0.82, 0)
+    objTitle:SetText("Objetivos:")
+    f.objTitle = objTitle
+    local objText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    objText:SetPoint("TOPLEFT", objTitle, "BOTTOMLEFT", 0, -4)
+    objText:SetWidth(528)
+    objText:SetJustifyH("LEFT")
+    objText:SetJustifyV("TOP")
+    f.objText = objText
+    local rewardText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    rewardText:SetPoint("TOPLEFT", objText, "BOTTOMLEFT", 0, -12)
+    rewardText:SetWidth(528)
+    rewardText:SetJustifyH("LEFT")
+    rewardText:SetJustifyV("TOP")
+    f.rewardText = rewardText
+    local closeBtn = CreateFrame("Button", nil, panel)
+    closeBtn:SetWidth(110)
+    closeBtn:SetHeight(22)
+    closeBtn:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, 10)
+    closeBtn:EnableMouse(true)
+    local cbg = closeBtn:CreateTexture(nil, "BACKGROUND")
+    cbg:SetAllPoints(closeBtn)
+    cbg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    cbg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
+    closeBtn.bg = cbg
+    local cbd = closeBtn:CreateTexture(nil, "BORDER")
+    cbd:SetPoint("TOPLEFT", closeBtn, "TOPLEFT", -1, 1)
+    cbd:SetPoint("BOTTOMRIGHT", closeBtn, "BOTTOMRIGHT", 1, -1)
+    cbd:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    cbd:SetVertexColor(0.45, 0.38, 0.22, 0.5)
+    closeBtn.borderTex = cbd
+    local chl = closeBtn:CreateTexture(nil, "HIGHLIGHT")
+    chl:SetAllPoints(closeBtn)
+    chl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    chl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
+    chl:SetBlendMode("ADD")
+    local iconPath = (CFG and CFG.Icons and CFG.Icons["B"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\B.tga"
+    local icon = closeBtn:CreateTexture(nil, "OVERLAY")
+    icon:SetWidth(20)
+    icon:SetHeight(20)
+    icon:SetTexture(iconPath)
+    icon:SetPoint("LEFT", closeBtn, "LEFT", 8, 0)
+    local clabel = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    clabel:SetPoint("LEFT", icon, "RIGHT", 6, 0)
+    MainMenu:ApplyFont(clabel, CFG.Fonts.subFontFile, 10)
+    clabel:SetText("FECHAR")
+    clabel:SetTextColor(0.96, 0.88, 0.68, 1.0)
+    closeBtn.label = clabel
+    closeBtn:SetScript("OnEnter", function()
+        if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
+        if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+        if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 0.9) end
+    end)
+    closeBtn:SetScript("OnLeave", function()
+        if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+        if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+        if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+    end)
+    closeBtn:SetScript("OnClick", function() MainMenu:HideQuestDetail() end)
+    f.closeBtn = closeBtn
+    self.questDetailOverlay = f
+end
+
+function MainMenu:ShowQuestDetail(questLogIndex)
+    if not questLogIndex or questLogIndex <= 0 then return end
+    local title, level, questTag, isHeader = GetQuestLogTitle(questLogIndex)
+    if isHeader then return end
+    if not self.questDetailOverlay then self:CreateQuestDetailOverlay() end
+    local f = self.questDetailOverlay
+    if not f then return end
+    if SelectQuestLogEntry then SelectQuestLogEntry(questLogIndex) end
+    local qTitle, lvl, qTag, qHeader, qCollapsed, qComplete = GetQuestLogTitle(questLogIndex)
+    local qDesc, qObjectives = GetQuestLogQuestText()
+    local r, g, b = nil, nil, nil
+    if GetQuestDifficultyColor then r, g, b = GetQuestDifficultyColor(lvl or 1) end
+    if not r and GetQuestLevelColor then r, g, b = GetQuestLevelColor(lvl or 1) end
+    local lvlStr = ""
+    if lvl and lvl > 0 then lvlStr = string.format("|cff%02x%02x%02x[%d]|r ", r*255, g*255, b*255, lvl) end
+    f.titleText:SetText(lvlStr .. "|cffffffff" .. (qTitle or title or "Missao") .. "|r")
+    local descStr = qDesc or ""
+    if descStr == "" then descStr = "|cff888888Sem descricao.|r" end
+    f.descText:SetText(descStr)
+    local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(questLogIndex)) or 0
+    local objStr = ""
+    for i = 1, numObj do
+        local t, _, done = GetQuestLogLeaderBoard(i, questLogIndex)
+        if t and t ~= "" then
+            local bullet = done and "|cff00ff00[x] |r" or "|cffffcc00[ ] |r"
+            local col = done and "|cff88cc88" or "|cffffffff"
+            objStr = objStr .. bullet .. col .. t .. "|r\n"
+        end
+    end
+    if objStr == "" then
+        if qObjectives and qObjectives ~= "" then objStr = "|cffcccccc" .. qObjectives .. "|r"
+        else objStr = "|cff888888Sem objetivos.|r" end
+    end
+    f.objText:SetText(objStr)
+    local money = (GetQuestLogRewardMoney and GetQuestLogRewardMoney()) or 0
+    local rewStr = ""
+    if money > 0 then
+        local gold = math.floor(money / 10000)
+        local silver = math.floor(math.mod(money, 10000) / 100)
+        local copper = math.mod(money, 100)
+        rewStr = "|cffaaaaaaRecompensa:|r "
+        if gold > 0 then rewStr = rewStr .. string.format("|cffffd700%dg |r", gold) end
+        if silver > 0 or gold > 0 then rewStr = rewStr .. string.format("|cffc7c7cf%ds |r", silver) end
+        rewStr = rewStr .. string.format("|cffeda55f%dc|r", copper)
+    end
+    local numRewards = (GetNumQuestLogRewards and GetNumQuestLogRewards()) or 0
+    if numRewards > 0 then
+        if rewStr ~= "" then rewStr = rewStr .. "\n" end
+        for i = 1, numRewards do
+            local name = GetQuestLogRewardInfo(i)
+            if name then rewStr = rewStr .. "|cffffd700- " .. name .. "|r\n" end
+        end
+    end
+    if rewStr == "" then f.rewardText:Hide() else f.rewardText:SetText(rewStr); f.rewardText:Show() end
+    f.descText:ClearAllPoints()
+    f.descText:SetPoint("TOPLEFT", f.scroll.child, "TOPLEFT", 4, -4)
+    f.scroll:SetVerticalScroll(0)
+    f:Show()
+    if f.scroll.child then
+        local h1 = f.descText:GetHeight() or 20
+        local h2 = f.objTitle:GetHeight() or 14
+        local h3 = f.objText:GetHeight() or 20
+        local h4 = 0
+        if f.rewardText:IsVisible() then h4 = (f.rewardText:GetHeight() or 14) + 12 end
+        local total = h1 + 12 + h2 + 4 + h3 + 12 + h4 + 16
+        f.scroll.child:SetHeight(math.max(total, 10))
+        f.scroll:UpdateScrollChildRect()
+    end
+    if CM.cursor then
+        CM.cursor.state.activeFrames[f] = true
+        if f.closeBtn then CM.cursor:MoveTo(f.closeBtn) end
+        CM.cursor:UpdateState()
+    end
+    PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
 function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
@@ -6811,6 +7056,7 @@ function MainMenu:Show(initialTab)
 end
 
 function MainMenu:Hide()
+    if self.questDetailOverlay and self.questDetailOverlay:IsVisible() then self.questDetailOverlay:Hide() end
     if self.frame and self.frame:IsVisible() then
         self:RestorePlayerModel()
         self:ResetMapToPlayer()

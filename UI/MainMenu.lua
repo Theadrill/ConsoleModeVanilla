@@ -3073,28 +3073,62 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapPanel.backButton = backButton
 
     local function CreateMapNavButton(name, label, point, relPoint, x, y)
-        local b = CreateFrame("Button", name, mapPanel, "UIPanelButtonTemplate")
+        local b = CreateFrame("Button", name, mapPanel)
         b:SetWidth(110)
-        b:SetHeight(22)
+        b:SetHeight(20)
         b:SetPoint(point, mapPanel, relPoint, x, y)
         b:EnableMouse(true)
         b:SetFrameStrata("DIALOG")
         b:SetFrameLevel((mapPanel:GetFrameLevel() or 5) + 20)
-        if b.SetBackdrop then
-            b:SetBackdrop({
-                bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-                tile = true, tileSize = 8, edgeSize = 8,
-                insets = { left = 2, right = 2, top = 2, bottom = 2 }
-            })
-            b:SetBackdropColor(0.08, 0.08, 0.12, 0.9)
-            b:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7)
+        local bg = b:CreateTexture(nil, "BACKGROUND")
+        bg:SetAllPoints(b)
+        bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        bg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
+        b.bg = bg
+        local bd = b:CreateTexture(nil, "BORDER")
+        bd:SetPoint("TOPLEFT", b, "TOPLEFT", -1, 1)
+        bd:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 1, -1)
+        bd:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        bd:SetVertexColor(0.45, 0.38, 0.22, 0.5)
+        b.borderTex = bd
+        local hl = b:CreateTexture(nil, "HIGHLIGHT")
+        hl:SetAllPoints(b)
+        hl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        hl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
+        hl:SetBlendMode("ADD")
+        local fs = b:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        fs:SetPoint("CENTER", b, "CENTER", 0, 0)
+        MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 10)
+        local cleanLabel = string.gsub(label, "|c%x%x%x%x%x%x%x%x", "")
+        cleanLabel = string.gsub(cleanLabel, "|r", "")
+        fs:SetText(cleanLabel)
+        fs:SetTextColor(0.96, 0.88, 0.68, 1.0)
+        b.label = fs
+        b:SetScript("OnEnter", function()
+            if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
+            if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+            if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 0.9) end
+        end)
+        b:SetScript("OnLeave", function()
+            this:UpdateNavVisual()
+        end)
+        function b:UpdateNavVisual()
+            local mode = MainMenu.mapViewMode or "ZONE"
+            local cview = MainMenu.mapContinentView
+            local isActive = false
+            if this == mapPanel.navBtnAtual then isActive = (mode == "ZONE" and not MainMenu.mapShowingQuestZone)
+            elseif this == mapPanel.navBtnKalimdor then isActive = (mode == "CONTINENT" and cview == 1)
+            elseif this == mapPanel.navBtnEK then isActive = (mode == "CONTINENT" and cview == 2) end
+            if isActive then
+                if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
+                if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 1.0) end
+                if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+            else
+                if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+                if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+                if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+            end
         end
-        local f = b:GetFontString()
-        if f and CFG.Fonts and CFG.Fonts.subFontFile then f:SetFont(CFG.Fonts.subFontFile, 10) end
-        if b.SetText then b:SetText(label) end
-        if b.SetHighlightTextColor then b:SetHighlightTextColor(1.0, 0.85, 0.0, 1.0) end
-        if b.SetTextColor then b:SetTextColor(0.92, 0.82, 0.55, 1.0) end
         return b
     end
 
@@ -3120,6 +3154,55 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapPanel.navBtnKalimdor = navBtnKalimdor
     mapPanel.navBtnEK = navBtnEK
     mapPanel.navButtons = { navBtnAtual, navBtnKalimdor, navBtnEK }
+
+    local zoneListFrame = CreateFrame("Frame", "ConsoleModeMM_ContinentZoneList", mapPanel)
+    zoneListFrame:SetWidth(230)
+    zoneListFrame:SetPoint("TOPLEFT", mapPanel, "TOPLEFT", 8, -36)
+    zoneListFrame:SetPoint("BOTTOMLEFT", mapPanel, "BOTTOMLEFT", 8, 30)
+    zoneListFrame:SetFrameStrata("DIALOG")
+    zoneListFrame:SetFrameLevel((mapPanel:GetFrameLevel() or 5) + 25)
+    zoneListFrame:Hide()
+    zoneListFrame:EnableMouse(true)
+    zoneListFrame:EnableMouseWheel(true)
+    zoneListFrame:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 8, edgeSize = 8,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    zoneListFrame:SetBackdropColor(0.06, 0.05, 0.04, 0.94)
+    zoneListFrame:SetBackdropBorderColor(0.55, 0.45, 0.28, 0.7)
+    local zlTitle = zoneListFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    zlTitle:SetPoint("TOPLEFT", zoneListFrame, "TOPLEFT", 8, -8)
+    zlTitle:SetPoint("TOPRIGHT", zoneListFrame, "TOPRIGHT", -8, -8)
+    zlTitle:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(zlTitle, CFG.Fonts.titleFontFile, 12)
+    zlTitle:SetText("|cffe09a15REGIOES|r")
+    zoneListFrame.title = zlTitle
+    local zlScroll = CreateFrame("ScrollFrame", "ConsoleModeMM_ZoneListScroll", zoneListFrame)
+    zlScroll:SetPoint("TOPLEFT", zoneListFrame, "TOPLEFT", 4, -24)
+    zlScroll:SetPoint("BOTTOMRIGHT", zoneListFrame, "BOTTOMRIGHT", -4, 4)
+    zlScroll:EnableMouse(true)
+    zlScroll:EnableMouseWheel(true)
+    local zlContent = CreateFrame("Frame", "ConsoleModeMM_ZoneListScrollChild", zlScroll)
+    zlContent:SetWidth(222)
+    zlContent:SetHeight(1)
+    zlScroll:SetScrollChild(zlContent)
+    zoneListFrame.scrollFrame = zlScroll
+    zoneListFrame.scrollChild = zlContent
+    zoneListFrame.buttons = {}
+    local function ZoneListScroll(delta)
+        local cur = zlScroll:GetVerticalScroll() or 0
+        local mx = zlScroll:GetVerticalScrollRange() or 0
+        local step = 52
+        if delta > 0 then cur = cur - step else cur = cur + step end
+        if cur < 0 then cur = 0 end
+        if cur > mx then cur = mx end
+        zlScroll:SetVerticalScroll(cur)
+    end
+    zlScroll:SetScript("OnMouseWheel", function() ZoneListScroll(arg1) end)
+    zoneListFrame:SetScript("OnMouseWheel", function() ZoneListScroll(arg1) end)
+    mapPanel.zoneListFrame = zoneListFrame
 
     -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior - 150px)
     local detailCard = CreateFrame("Frame", "ConsoleModeMM_QuestDetailCard", questPanel)
@@ -3652,6 +3735,7 @@ function MainMenu:NavToContinent(cont)
         c.panX = 0
         c.panY = 0
     end
+    self:BuildContinentZoneList(cont)
     self:UpdateBackButton()
     self:UpdateNavButtonHighlight()
 end
@@ -3661,23 +3745,102 @@ function MainMenu:UpdateNavButtonHighlight()
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel then return end
     local mp = pageQuests.mapPanel
-    if not mp.navBtnAtual or not mp.navBtnKalimdor or not mp.navBtnEK then return end
-    local mode = self.mapViewMode or "ZONE"
-    local cview = self.mapContinentView
-    local isAtual = (mode == "ZONE" and not self.mapShowingQuestZone)
-    local isKal = (mode == "CONTINENT" and cview == 1)
-    local isEK = (mode == "CONTINENT" and cview == 2)
-    if mp.navBtnAtual.SetBackdropBorderColor then
-        if isAtual then mp.navBtnAtual:SetBackdropBorderColor(0.85, 0.68, 0.12, 1.0)
-        else mp.navBtnAtual:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7) end
+    if mp.navBtnAtual and mp.navBtnAtual.UpdateNavVisual then mp.navBtnAtual:UpdateNavVisual() end
+    if mp.navBtnKalimdor and mp.navBtnKalimdor.UpdateNavVisual then mp.navBtnKalimdor:UpdateNavVisual() end
+    if mp.navBtnEK and mp.navBtnEK.UpdateNavVisual then mp.navBtnEK:UpdateNavVisual() end
+    if mp.zoneListFrame then
+        if (self.mapViewMode or "ZONE") == "CONTINENT" then mp.zoneListFrame:Show() else mp.zoneListFrame:Hide() end
     end
-    if mp.navBtnKalimdor.SetBackdropBorderColor then
-        if isKal then mp.navBtnKalimdor:SetBackdropBorderColor(0.85, 0.68, 0.12, 1.0)
-        else mp.navBtnKalimdor:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7) end
+    if mp.hintText then
+        if (self.mapViewMode or "ZONE") == "CONTINENT" then
+            mp.hintText:SetText("|cffe09a15[D-Pad] Navegar  •  [A] Entrar  •  [B] Voltar|r")
+        else
+            mp.hintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
+        end
     end
-    if mp.navBtnEK.SetBackdropBorderColor then
-        if isEK then mp.navBtnEK:SetBackdropBorderColor(0.85, 0.68, 0.12, 1.0)
-        else mp.navBtnEK:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7) end
+end
+
+function MainMenu:BuildContinentZoneList(cont)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.zoneListFrame then return end
+    local frame = pageQuests.mapPanel.zoneListFrame
+    local content = frame.scrollChild
+    if not content then return end
+    if frame.buttons then
+        for i = 1, table.getn(frame.buttons) do
+            if frame.buttons[i] then frame.buttons[i]:Hide() end
+        end
+    end
+    frame.buttons = {}
+    local zones = {GetMapZones(cont)}
+    local count = table.getn(zones)
+    if count == 0 then return end
+    local btnH = 28
+    local gap = 3
+    for idx = 1, count do
+        local name = zones[idx]
+        if name and name ~= "" then
+            local btn = CreateFrame("Button", nil, content)
+            btn:SetHeight(btnH)
+            btn:SetPoint("TOPLEFT", content, "TOPLEFT", 2, - (idx - 1) * (btnH + gap) - 2)
+            btn:SetPoint("TOPRIGHT", content, "TOPRIGHT", -2, - (idx - 1) * (btnH + gap) - 2)
+            btn:EnableMouse(true)
+            btn:EnableMouseWheel(true)
+            btn:SetFrameLevel(content:GetFrameLevel() + 2)
+            local bg = btn:CreateTexture(nil, "BACKGROUND")
+            bg:SetAllPoints(btn)
+            bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            bg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
+            btn.bg = bg
+            local hl = btn:CreateTexture(nil, "HIGHLIGHT")
+            hl:SetAllPoints(btn)
+            hl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            hl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
+            hl:SetBlendMode("ADD")
+            local fs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+            fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
+            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 15)
+            fs:SetText(name)
+            fs:SetTextColor(0.96, 0.88, 0.68, 1.0)
+            btn.label = fs
+            btn.zoneName = name
+            btn.zoneCont = cont
+            btn.zoneIdx = idx
+            btn:SetScript("OnClick", function()
+                if this and this.zoneName then
+                    MainMenu:SwitchMapToZone(this.zoneName)
+                    if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+                end
+            end)
+            btn:SetScript("OnEnter", function()
+                if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
+                if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+            end)
+            btn:SetScript("OnLeave", function()
+                if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+                if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+            end)
+            btn:SetScript("OnMouseWheel", function()
+                local sf = frame.scrollFrame
+                if sf and sf.GetVerticalScroll then
+                    local cur = sf:GetVerticalScroll() or 0
+                    local mx = sf:GetVerticalScrollRange() or 0
+                    local step = 52
+                    if arg1 > 0 then cur = cur - step else cur = cur + step end
+                    if cur < 0 then cur = 0 end
+                    if cur > mx then cur = mx end
+                    sf:SetVerticalScroll(cur)
+                end
+            end)
+            table.insert(frame.buttons, btn)
+        end
+    end
+    local totalH = count * (btnH + gap) + 4
+    content:SetHeight(totalH)
+    if frame.scrollFrame then
+        frame.scrollFrame:SetVerticalScroll(0)
+        frame.scrollFrame:UpdateScrollChildRect()
     end
 end
 

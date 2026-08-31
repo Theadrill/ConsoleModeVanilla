@@ -2995,6 +2995,15 @@ function MainMenu:SetupQuestsPage(pageQuests)
             if MainMenu and MainMenu.UpdateMapPlayerPosition then
                 MainMenu:UpdateMapPlayerPosition(this)
             end
+            if MainMenu and not MainMenu.mapShowingQuestZone then
+                local curZone = (GetZoneText and GetZoneText()) or ""
+                if curZone ~= "" and curZone ~= MainMenu.lastZoneText then
+                    MainMenu.lastZoneText = curZone
+                    if SetMapToCurrentZone then SetMapToCurrentZone() end
+                    MainMenu:UpdateMapTextures(this)
+                    MainMenu:UpdateMapOverlays(this)
+                end
+            end
         end
     end)
 
@@ -3525,6 +3534,11 @@ function MainMenu:GetCurrentMapFileName()
     if self.mapShowingQuestZone and self.mapFileName then
         return self.mapFileName
     end
+    local zoneText = (GetZoneText and GetZoneText()) or ""
+    if zoneText ~= "" then
+        return string.gsub(zoneText, " ", "")
+    end
+    if SetMapToCurrentZone then SetMapToCurrentZone() end
     return (GetMapInfo and GetMapInfo()) or ""
 end
 

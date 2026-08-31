@@ -3273,7 +3273,7 @@ function MainMenu:CreateQuestListButton(parent, idx)
 
     btn:SetScript("OnClick", function()
         if not this.isHeader and this.questLogIndex then
-            MainMenu:SelectQuest(this.questLogIndex)
+            MainMenu:SelectQuest(this.questLogIndex, false)
             MainMenu:UpdateQuestsPage()
             if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
         end
@@ -3478,7 +3478,7 @@ function MainMenu:UpdateQuestsPage()
 
         local toSelect = (selectedFound and currentSelected) or firstSelectableIndex
         if toSelect then
-            self:SelectQuest(toSelect)
+            self:SelectQuest(toSelect, true)
         end
     end
 end
@@ -3534,12 +3534,16 @@ function MainMenu:GetCurrentMapFileName()
     if self.mapShowingQuestZone and self.mapFileName then
         return self.mapFileName
     end
-    local zoneText = (GetZoneText and GetZoneText()) or ""
-    if zoneText ~= "" then
-        return string.gsub(zoneText, " ", "")
-    end
     if SetMapToCurrentZone then SetMapToCurrentZone() end
-    return (GetMapInfo and GetMapInfo()) or ""
+    local file = (GetMapInfo and GetMapInfo()) or ""
+    if file and file ~= "" and file ~= "Cosmic" and file ~= "Azeroth" then
+        return file
+    end
+    local zt = (GetZoneText and GetZoneText()) or ""
+    if zt ~= "" then
+        return string.gsub(zt, " ", "")
+    end
+    return file or ""
 end
 
 function MainMenu:ResetMapToPlayer()
@@ -3690,7 +3694,7 @@ function MainMenu:OpenQuestContextMenu(questLogIndex)
     end
 end
 
-function MainMenu:SelectQuest(questLogIndex)
+function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
     if not questLogIndex or questLogIndex <= 0 then return end
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
@@ -3700,7 +3704,6 @@ function MainMenu:SelectQuest(questLogIndex)
     questPanel.selectedQuestIndex = questLogIndex
     self.selectedQuestIndex = questLogIndex
 
-    -- Atualiza destaques da lista
     if questPanel.questButtons then
         for _, btn in ipairs(questPanel.questButtons) do
             if btn.questLogIndex == questLogIndex and not btn.isHeader then
@@ -3716,8 +3719,9 @@ function MainMenu:SelectQuest(questLogIndex)
         SelectQuestLogEntry(questLogIndex)
     end
 
-    -- Etapa 9.6: Troca automática do mapa para a zona da missão selecionada
-    self:FocusMapOnQuest(questLogIndex)
+    if not suppressMapSwitch then
+        self:FocusMapOnQuest(questLogIndex)
+    end
 
     local questTitle, level, questTag, isHeader, isCollapsed, isComplete = GetQuestLogTitle(questLogIndex)
     local questDescription, questObjectives = GetQuestLogQuestText()
@@ -3857,7 +3861,7 @@ function MainMenu:NavigateQuest(delta)
             questPanel.questOffset = nextPos - maxVisible
         end
 
-        self:SelectQuest(targetIndex)
+        self:SelectQuest(targetIndex, false)
         self:UpdateQuestsPage()
         if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
     end
@@ -4210,13 +4214,36 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
 
     if containerW <= 0 or containerH <= 0 then return end
 
-    -- Para obter a posição do jogador, o mapa DEVE estar na zona do jogador.
-    -- Não usar EnsureMapZone aqui — isso forçaria a zona da missão e daria coordenadas erradas.
-    if SetMapToCurrentZone then SetMapToCurrentZone() end
+    local isQuestView = self.mapShowingQuestZone and self.mapFileName
 
     local px, py = 0, 0
-    if GetPlayerMapPosition then
-        px, py = GetPlayerMapPosition("player")
+    if isQuestView then
+        local curCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+        local curZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+        local playerZoneText = (GetZoneText and GetZoneText()) or ""
+        if self.mapZoneName and playerZoneText ~= "" and self.mapZoneName == playerZoneText then
+            if SetMapToCurrentZone then SetMapToCurrentZone() end
+            if GetPlayerMapPosition then
+                px, py = GetPlayerMapPosition("player")
+            end
+            self:EnsureMapZone()
+        else
+            if GetPlayerMapPosition then
+                local tx, ty = GetPlayerMapPosition("player")
+                if tx and ty and (tx > 0 or ty > 0) then
+                    px, py = 0, 0
+                else
+                    px, py = 0, 0
+                end
+            end
+            self:EnsureMapZone()
+            px, py = 0, 0
+        end
+    else
+        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        if GetPlayerMapPosition then
+            px, py = GetPlayerMapPosition("player")
+        end
     end
 
     local playerPin = mapCanvas.playerPin
@@ -4227,32 +4254,38 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
         playerPin:ClearAllPoints()
         playerPin:SetPoint("CENTER", container, "TOPLEFT", posX, posY)
 
-        -- Rotação em tempo real baseada na direção do personagem
         local facing = GetPlayerFacingAngle()
         if playerPin.texture then
             RotateMapTexture(playerPin.texture, facing)
         end
         playerPin:Show()
 
-        -- Atualiza texto de GPS no cabeçalho
         if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
             mapCanvas:GetParent().coordsText:SetText(string.format("|cffe09a15GPS: |cffffffff%.1f, %.1f|r", px * 100, py * 100))
         end
     else
         playerPin:Hide()
         if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
-            mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: Indisponível|r")
+            if isQuestView then
+                mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: fora da zona visualizada|r")
+            else
+                mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: Indisponível|r")
+            end
         end
     end
 
-    -- Membros do Grupo (Party 1 a 4)
     if mapCanvas.partyPins then
         local numParty = (GetNumPartyMembers and GetNumPartyMembers()) or 0
         for p = 1, 4 do
             local pin = mapCanvas.partyPins[p]
             if pin then
                 if p <= numParty and GetPlayerMapPosition then
-                    local pX, pY = GetPlayerMapPosition("party" .. p)
+                    local pX, pY
+                    if isQuestView then
+                        pX, pY = 0, 0
+                    else
+                        pX, pY = GetPlayerMapPosition("party" .. p)
+                    end
                     if pX and pY and (pX > 0 or pY > 0) then
                         pin:ClearAllPoints()
                         pin:SetPoint("CENTER", container, "TOPLEFT", pX * containerW, -pY * containerH)
@@ -5524,6 +5557,11 @@ function MainMenu:CreateUI()
         MainMenu:UpdateEquipmentColumn()
         MainMenu:UpdateStatsAndBuffs()
 
+        if not MainMenu.mapShowingQuestZone then
+            if SetMapToCurrentZone then SetMapToCurrentZone() end
+            MainMenu.lastZoneText = (GetZoneText and GetZoneText()) or ""
+        end
+
         local cur = (MainMenu.tabContainer and MainMenu.tabContainer.currentTab) or "BAGS"
         MainMenu:SelectTab(cur, false)
 
@@ -5619,20 +5657,20 @@ initFrame:RegisterEvent("ZONE_CHANGED")
 initFrame:SetScript("OnEvent", function()
     if event == "VARIABLES_LOADED" then
         MainMenu:CreateUI()
+        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        MainMenu.lastZoneText = (GetZoneText and GetZoneText()) or ""
     elseif event == "DISPLAY_SIZE_CHANGED" then
         if MainMenu.UpdateLayout then
             MainMenu:UpdateLayout()
         end
     elseif event == "ZONE_CHANGED_NEW_AREA" or event == "ZONE_CHANGED" then
+        local newZone = (GetZoneText and GetZoneText()) or ""
+        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        MainMenu.lastZoneText = newZone
         if MainMenu.frame and MainMenu.frame:IsVisible() then
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "QUESTS" then
                 if MainMenu.mapShowingQuestZone then return end
-                local newZone = (GetZoneText and GetZoneText()) or ""
-                if newZone ~= MainMenu.lastZoneText then
-                    MainMenu.lastZoneText = newZone
-                    if SetMapToCurrentZone then SetMapToCurrentZone() end
-                    MainMenu:UpdateQuestsPage()
-                end
+                MainMenu:UpdateQuestsPage()
             end
         end
     elseif MainMenu.frame and MainMenu.frame:IsVisible() then

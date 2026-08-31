@@ -24,6 +24,7 @@ UI\TargetFrame.lua
 Data\SellValues.lua
 Data\MapOverlayData.lua
 Data\Instances.lua
+Data\ZoneLevels.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 Hooks.lua

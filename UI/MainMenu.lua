@@ -3447,14 +3447,17 @@ function MainMenu:UpdateQuestsPage()
 
     if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
         local titleText = "Azeroth"
+        local titleZoneRef = nil
         if self.mapDungeonPreview and self.mapDungeonPreviewParent then
             titleText = self.mapDungeonPreview .. " |cff888888(entrada: " .. self.mapDungeonPreviewParent .. ")|r"
+            titleZoneRef = self.mapDungeonPreview
         elseif self.mapViewMode == "CONTINENT" and self.mapContinentView then
             if self.mapContinentView == 1 then titleText = "Kalimdor (Continente)"
             elseif self.mapContinentView == 2 then titleText = "Reinos do Leste (Continente)"
             else titleText = "Continente" end
         elseif self.mapShowingQuestZone and self.mapZoneName then
             titleText = self.mapZoneName
+            titleZoneRef = self.mapZoneName
         else
             local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
             local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
@@ -3468,7 +3471,18 @@ function MainMenu:UpdateQuestsPage()
                 local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
                 if zoneName == "" then zoneName = "Azeroth" end
                 titleText = zoneName
+                titleZoneRef = zoneName
             end
+        end
+        if titleZoneRef and not string.find(titleText, "%(%d") then
+            local lvlSuffix = nil
+            local det = ConsoleMode and ConsoleMode.Instances and ConsoleMode.Instances.details and ConsoleMode.Instances.details[titleZoneRef]
+            if det and det.levels then lvlSuffix = " |cffaaaaaa(" .. det.levels .. ")|r"
+            else
+                local zl = ConsoleMode and ConsoleMode.ZoneLevels and ConsoleMode.ZoneLevels[titleZoneRef]
+                if zl and zl[1] and zl[2] then lvlSuffix = " |cffaaaaaa(" .. zl[1] .. "-" .. zl[2] .. ")|r" end
+            end
+            if lvlSuffix then titleText = titleText .. lvlSuffix end
         end
         pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", titleText))
     end
@@ -4025,8 +4039,10 @@ function MainMenu:BuildInstancesListForZone(zoneName)
             hl:SetBlendMode("ADD")
             local fs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
             fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
-            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 14)
-            fs:SetText(name)
+            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 13)
+            local det2 = instData and instData.details and instData.details[name]
+            local lvl2 = det2 and det2.levels and " |cffaaaaaa(" .. det2.levels .. ")|r" or ""
+            fs:SetText(name .. lvl2)
             fs:SetTextColor(0.96, 0.88, 0.68, 1.0)
             btn.label = fs
             btn.zoneName = name
@@ -4149,8 +4165,10 @@ function MainMenu:BuildInstancesList(cont)
             hl:SetBlendMode("ADD")
             local fs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
             fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
-            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 14)
-            fs:SetText(name)
+            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 13)
+            local det2 = instData and instData.details and instData.details[name]
+            local lvl2 = det2 and det2.levels and " |cffaaaaaa(" .. det2.levels .. ")|r" or ""
+            fs:SetText(name .. lvl2)
             fs:SetTextColor(0.96, 0.88, 0.68, 1.0)
             btn.label = fs
             btn.zoneName = name
@@ -4276,8 +4294,11 @@ function MainMenu:BuildContinentZoneList(cont)
             hl:SetBlendMode("ADD")
             local fs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
             fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
-            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 15)
-            fs:SetText(name)
+            MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 13)
+            local zl = ConsoleMode and ConsoleMode.ZoneLevels and ConsoleMode.ZoneLevels[name]
+            local lvlTxt = ""
+            if zl and zl[1] and zl[2] then lvlTxt = " |cffaaaaaa(" .. zl[1] .. "-" .. zl[2] .. ")|r" end
+            fs:SetText(name .. lvlTxt)
             fs:SetTextColor(0.96, 0.88, 0.68, 1.0)
             btn.label = fs
             btn.zoneName = name

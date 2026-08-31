@@ -4246,10 +4246,14 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
         end
     end
 
+    local scale = mapCanvas.currentScale or ((containerW > 0 and containerW / 1002) or 0.5)
+    local effW = 1002 * scale
+    local effH = 668 * scale
+
     local playerPin = mapCanvas.playerPin
     if px and py and (px > 0 or py > 0) then
-        local posX = px * containerW
-        local posY = -py * containerH
+        local posX = px * effW
+        local posY = -py * effH
 
         playerPin:ClearAllPoints()
         playerPin:SetPoint("CENTER", container, "TOPLEFT", posX, posY)
@@ -4288,7 +4292,7 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
                     end
                     if pX and pY and (pX > 0 or pY > 0) then
                         pin:ClearAllPoints()
-                        pin:SetPoint("CENTER", container, "TOPLEFT", pX * containerW, -pY * containerH)
+                        pin:SetPoint("CENTER", container, "TOPLEFT", pX * effW, -pY * effH)
                         pin:Show()
                     else
                         pin:Hide()

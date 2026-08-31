@@ -30,6 +30,11 @@ local MainMenu = CM.mainMenu
 _G["ConsoleModeMainMenu"] = MainMenu
 MainMenu.mapViewMode = MainMenu.mapViewMode or "ZONE"
 MainMenu.mapContinentView = MainMenu.mapContinentView or nil
+MainMenu.mapDungeonPreview = MainMenu.mapDungeonPreview or nil
+MainMenu.mapDungeonPreviewParent = MainMenu.mapDungeonPreviewParent or nil
+MainMenu.mapDungeonParentCont = MainMenu.mapDungeonParentCont or nil
+MainMenu.mapDungeonParentIdx = MainMenu.mapDungeonParentIdx or nil
+MainMenu.mapDungeonHardcoded = MainMenu.mapDungeonHardcoded or nil
 
 -- ============================================================================
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
@@ -3436,7 +3441,9 @@ function MainMenu:UpdateQuestsPage()
 
     if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
         local titleText = "Azeroth"
-        if self.mapViewMode == "CONTINENT" and self.mapContinentView then
+        if self.mapDungeonPreview and self.mapDungeonPreviewParent then
+            titleText = self.mapDungeonPreview .. " |cff888888(entrada: " .. self.mapDungeonPreviewParent .. ")|r"
+        elseif self.mapViewMode == "CONTINENT" and self.mapContinentView then
             if self.mapContinentView == 1 then titleText = "Kalimdor (Continente)"
             elseif self.mapContinentView == 2 then titleText = "Reinos do Leste (Continente)"
             else titleText = "Continente" end
@@ -3623,6 +3630,94 @@ function MainMenu:GetQuestZone(questLogIndex)
     return zoneName
 end
 
+function MainMenu:FindZoneLocation(zoneName)
+    if not zoneName or zoneName == "" then return nil, nil end
+    for cont = 1, 4 do
+        local zones = {GetMapZones(cont)}
+        for idx, name in ipairs(zones) do
+            if name == zoneName then return cont, idx end
+        end
+    end
+    return nil, nil
+end
+
+function MainMenu:ClearDungeonPreview()
+    self.mapDungeonPreview = nil
+    self.mapDungeonPreviewParent = nil
+    self.mapDungeonParentCont = nil
+    self.mapDungeonParentIdx = nil
+    self.mapDungeonHardcoded = nil
+end
+
+function MainMenu:SwitchMapToDungeon(instanceName)
+    if not instanceName or instanceName == "" then return false end
+    local c, idx = self:FindZoneLocation(instanceName)
+    if c and idx then
+        self:ClearDungeonPreview()
+        return self:SwitchMapToZone(instanceName)
+    end
+    local instData = ConsoleMode and ConsoleMode.Instances
+    local det = instData and instData.details and instData.details[instanceName]
+    local parentZone = det and det.zone or nil
+    local dungeonFile = det and det.file or nil
+    if not dungeonFile or dungeonFile == "" then
+        dungeonFile = string.gsub(instanceName, "^The ", "")
+        dungeonFile = string.gsub(dungeonFile, "[%s%']", "")
+    end
+    if not parentZone or parentZone == "" then
+        for z, list in pairs(instData and instData.byZone or {}) do
+            for i = 1, table.getn(list) do if list[i] == instanceName then parentZone = z; break end end
+            if parentZone then break end
+        end
+    end
+    if dungeonFile and dungeonFile ~= "" then
+        local pc, pidx = nil, nil
+        if parentZone and parentZone ~= "" then pc, pidx = self:FindZoneLocation(parentZone) end
+        if not pc and det and det.cont then
+            if det.zone then pc, pidx = self:FindZoneLocation(det.zone) end
+            if not pc then pc = det.cont; pidx = 0 end
+        end
+        self.mapViewMode = "ZONE"
+        self.mapContinentView = nil
+        self.mapContinent = pc
+        self.mapZoneIdx = pidx
+        self.mapZoneName = instanceName
+        self.mapFileName = dungeonFile
+        self.mapShowingQuestZone = true
+        self.mapDungeonPreview = instanceName
+        self.mapDungeonPreviewParent = parentZone
+        self.mapDungeonParentCont = pc
+        self.mapDungeonParentIdx = pidx
+        self.mapDungeonHardcoded = true
+        self:UpdateBackButton()
+        self:UpdateNavButtonHighlight()
+        return true
+    end
+    if parentZone and parentZone ~= "" then
+        local pc, pidx = self:FindZoneLocation(parentZone)
+        if pc and pidx then
+            SetMapZoom(pc, pidx)
+            local fileName = (GetMapInfo and GetMapInfo()) or parentZone
+            self.mapViewMode = "ZONE"
+            self.mapContinentView = nil
+            self.mapContinent = pc
+            self.mapZoneIdx = pidx
+            self.mapZoneName = parentZone
+            self.mapFileName = fileName
+            self.mapShowingQuestZone = true
+            self.mapDungeonPreview = instanceName
+            self.mapDungeonPreviewParent = parentZone
+            self.mapDungeonParentCont = pc
+            self.mapDungeonParentIdx = pidx
+            self.mapDungeonHardcoded = nil
+            self:UpdateBackButton()
+            self:UpdateNavButtonHighlight()
+            return true
+        end
+    end
+    return false
+end
+
 function MainMenu:SwitchMapToZone(zoneName)
     if not zoneName or zoneName == "" then return false end
     for cont = 1, 4 do
@@ -3638,6 +3733,7 @@ function MainMenu:SwitchMapToZone(zoneName)
                 self.mapZoneName = zoneName
                 self.mapFileName = fileName
                 self.mapShowingQuestZone = true
+                self:ClearDungeonPreview()
                 self:UpdateBackButton()
                 self:UpdateNavButtonHighlight()
                 return true
@@ -3652,12 +3748,20 @@ function MainMenu:EnsureMapZone()
         SetMapZoom(self.mapContinentView, 0)
         return
     end
+    if self.mapDungeonHardcoded then return end
+    if self.mapDungeonPreview and self.mapDungeonParentCont and self.mapDungeonParentIdx then
+        SetMapZoom(self.mapDungeonParentCont, self.mapDungeonParentIdx)
+        return
+    end
     if self.mapContinent and self.mapZoneIdx then
         SetMapZoom(self.mapContinent, self.mapZoneIdx)
     end
 end
 
 function MainMenu:GetCurrentMapFileName()
+    if self.mapDungeonPreview and self.mapFileName and self.mapFileName ~= "" then
+        return self.mapFileName
+    end
     if self.mapViewMode == "CONTINENT" and self.mapFileName then
         return self.mapFileName
     end
@@ -3686,6 +3790,7 @@ function MainMenu:ResetMapToPlayer()
     self.mapZoneIdx = nil
     self.mapZoneName = nil
     self.mapFileName = nil
+    self:ClearDungeonPreview()
     self:UpdateBackButton()
     self:UpdateNavButtonHighlight()
 end
@@ -3705,6 +3810,7 @@ function MainMenu:NavToContinent(cont)
     self.mapZoneIdx = 0
     self.mapZoneName = nil
     self.mapFileName = (GetMapInfo and GetMapInfo()) or nil
+    self:ClearDungeonPreview()
     if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
         local c = self.tabContainer.pages["QUESTS"].mapPanel.canvas
         c.zoomFactor = 1.0
@@ -3875,33 +3981,10 @@ function MainMenu:BuildInstancesListForZone(zoneName)
             if det and det.zone and det.zone ~= zoneName then btn.parentZone = det.zone end
             btn:SetScript("OnClick", function()
                 if this and this.zoneName then
-                    local ok = MainMenu:SwitchMapToZone(this.zoneName)
+                    local ok = MainMenu:SwitchMapToDungeon(this.zoneName)
+                    if not ok then ok = MainMenu:SwitchMapToZone(this.zoneName) end
                     if not ok and this.parentZone then ok = MainMenu:SwitchMapToZone(this.parentZone) end
-                    if not ok then
-                        local instData2 = ConsoleMode and ConsoleMode.Instances
-                        local det2 = instData2 and instData2.details and instData2.details[this.zoneName]
-                        local file = det2 and det2.file
-                        if not file or file == "" then
-                            file = string.gsub(this.zoneName, "^The ", "")
-                            file = string.gsub(file, "[%s%']", "")
-                        end
-                        if file and file ~= "" then
-                            MainMenu.mapViewMode = "ZONE"
-                            MainMenu.mapContinentView = nil
-                            MainMenu.mapShowingQuestZone = true
-                            MainMenu.mapFileName = file
-                            MainMenu.mapZoneName = this.zoneName
-                            MainMenu.mapContinent = nil
-                            MainMenu.mapZoneIdx = nil
-                            ok = true
-                        end
-                    end
                     if ok and MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
-                    if not ok and this.parentZone then
-                        if SetMapToCurrentZone then SetMapToCurrentZone() end
-                        MainMenu:EnsureMapZone()
-                        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
-                    end
                 end
             end)
             btn:SetScript("OnEnter", function()
@@ -3914,6 +3997,9 @@ function MainMenu:BuildInstancesListForZone(zoneName)
                         GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
                         GameTooltip:AddLine("Zona: " .. (d.zone or "?") .. " | Nvl: " .. (d.levels or "?") .. " | " .. (d.players or "?") .. " jogadores", 0.8, 0.8, 0.8)
                         GameTooltip:AddLine(d.type or "", 0.6, 0.6, 0.6)
+                        if not MainMenu:FindZoneLocation(this.zoneName) then
+                            GameTooltip:AddLine("Mapa interior só dentro da instância — mostra zona de entrada", 0.9, 0.7, 0.2)
+                        end
                     else
                         GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
                     end
@@ -4022,19 +4108,10 @@ function MainMenu:BuildInstancesList(cont)
             end
             btn:SetScript("OnClick", function()
                 if this and this.zoneName then
-                    local inst = this.zoneName
-                    local parent = this.parentZone
-                    local ok = MainMenu:SwitchMapToZone(inst)
-                    if not ok and parent then ok = MainMenu:SwitchMapToZone(parent) end
-                    if ok then
-                        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
-                    else
-                        if DEFAULT_CHAT_FRAME then
-                            local d = instData and instData.details and instData.details[inst]
-                            local lv = d and d.levels or "?"
-                            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Instancias]|r " .. inst .. " | Nvl " .. lv .. " | Zona " .. (parent or "?") .. " (mapa da masmorra sem textura de mundo — mostrando zona parente)")
-                        end
-                    end
+                    local ok = MainMenu:SwitchMapToDungeon(this.zoneName)
+                    if not ok then ok = MainMenu:SwitchMapToZone(this.zoneName) end
+                    if not ok and this.parentZone then ok = MainMenu:SwitchMapToZone(this.parentZone) end
+                    if ok and MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
                 end
             end)
             btn:SetScript("OnEnter", function()
@@ -4047,6 +4124,9 @@ function MainMenu:BuildInstancesList(cont)
                         GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
                         GameTooltip:AddLine("Zona: " .. (d.zone or "?") .. " | Nvl: " .. (d.levels or "?") .. " | " .. (d.players or "?") .. " jogadores", 0.8, 0.8, 0.8)
                         GameTooltip:AddLine(d.type or "", 0.6, 0.6, 0.6)
+                        if not MainMenu:FindZoneLocation(this.zoneName) then
+                            GameTooltip:AddLine("Mapa interior só dentro da instância — mostra zona de entrada", 0.9, 0.7, 0.2)
+                        end
                     else
                         GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
                     end
@@ -4648,7 +4728,12 @@ local mapOverlayErrata = {
 
 function MainMenu:UpdateMapOverlays(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.overlays then return end
-
+    if self.mapDungeonHardcoded then
+        local overlays = mapCanvas.overlays
+        for i = 1, table.getn(overlays) do if overlays[i] then overlays[i]:Hide() end end
+        self:UpdateDungeonPreviewOverlay(mapCanvas)
+        return
+    end
     self:EnsureMapZone()
     local container = mapCanvas.tilesContainer
     local scale = mapCanvas.currentScale or 0.5
@@ -4733,8 +4818,9 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
                                 local textureIndex = ((j - 1) * numWide) + k
                                 tex:SetTexture(baseTexPath .. textureIndex)
 
-                                -- Áreas já exploradas = 100% de brilho; Áreas inexploradas = sombra nítida (0.50)
-                                if isExplored then
+                                if self.mapDungeonPreview then
+                                    tex:SetVertexColor(1, 1, 1, 1)
+                                elseif isExplored then
                                     tex:SetVertexColor(1, 1, 1, 1)
                                 else
                                     tex:SetVertexColor(0.50, 0.50, 0.50, 0.90)
@@ -4808,6 +4894,88 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
             overlays[j]:Hide()
         end
     end
+    self:UpdateDungeonPreviewOverlay(mapCanvas)
+end
+
+function MainMenu:UpdateDungeonPreviewOverlay(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer then return end
+    local container = mapCanvas.tilesContainer
+    if not mapCanvas.dungeonPreviewFrame then
+        local f = CreateFrame("Frame", nil, mapCanvas)
+        f:SetAllPoints(mapCanvas)
+        f:SetFrameLevel(container:GetFrameLevel() + 20)
+        f:EnableMouse(false)
+        local bg = f:CreateTexture(nil, "BACKGROUND")
+        bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        bg:SetVertexColor(0, 0, 0, 0)
+        bg:SetAllPoints(f)
+        f.bg = bg
+        local banner = f:CreateTexture(nil, "OVERLAY")
+        banner:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        banner:SetVertexColor(0.08, 0.06, 0.04, 0.88)
+        banner:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+        banner:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+        banner:SetHeight(22)
+        f.banner = banner
+        local bBorder = f:CreateTexture(nil, "OVERLAY")
+        bBorder:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        bBorder:SetVertexColor(0.85, 0.68, 0.12, 0.6)
+        bBorder:SetHeight(1)
+        bBorder:SetPoint("BOTTOMLEFT", banner, "BOTTOMLEFT", 0, 0)
+        bBorder:SetPoint("BOTTOMRIGHT", banner, "BOTTOMRIGHT", 0, 0)
+        f.bBorder = bBorder
+        local txt = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        txt:SetPoint("CENTER", banner, "CENTER", 0, 0)
+        MainMenu:ApplyFont(txt, CFG.Fonts.subFontFile, 11)
+        f.text = txt
+        local pin = f:CreateTexture(nil, "OVERLAY")
+        pin:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_8")
+        pin:SetWidth(22)
+        pin:SetHeight(22)
+        pin:SetPoint("CENTER", container, "CENTER", 0, 0)
+        pin:Hide()
+        f.pin = pin
+        local pinLabel = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        pinLabel:SetPoint("TOP", pin, "BOTTOM", 0, -2)
+        MainMenu:ApplyFont(pinLabel, CFG.Fonts.subFontFile, 10, "OUTLINE")
+        pinLabel:SetTextColor(1, 0.82, 0.2, 1)
+        pinLabel:Hide()
+        f.pinLabel = pinLabel
+        mapCanvas.dungeonPreviewFrame = f
+    end
+    local f = mapCanvas.dungeonPreviewFrame
+    if self.mapDungeonPreview then
+        local instData = ConsoleMode and ConsoleMode.Instances
+        local det = instData and instData.details and instData.details[self.mapDungeonPreview]
+        local lv = det and det.levels or "?"
+        local tp = det and det.type or "Dungeon"
+        local parentTxt = self.mapDungeonPreviewParent or (det and det.zone) or "?"
+        if self.mapDungeonHardcoded then
+            f.text:SetText("|cff00ff88[MAPA HARDCODED]|r |cffe09a15" .. self.mapDungeonPreview .. "|r |cffaaaaaa(" .. tp .. " " .. lv .. ")|r  |cff888888entrada: " .. parentTxt .. "|r")
+            f.banner:Show(); f.bBorder:Show(); f.text:Show()
+            f:Show()
+            if f.pin then f.pin:Hide() end
+            if f.pinLabel then f.pinLabel:Hide() end
+        else
+            f.text:SetText("|cffe09a15" .. self.mapDungeonPreview .. "|r |cffaaaaaa(" .. tp .. " " .. lv .. ")|r  |cffffcc00Entrada em: " .. parentTxt .. "|r  |cff888888— interior só dentro da instância|r")
+            f.banner:Show(); f.bBorder:Show(); f.text:Show()
+            f.bg:SetVertexColor(0, 0, 0, 0.0)
+            f:Show()
+            f.pin:Show()
+            f.pinLabel:SetText("|cffffd200Entrada|r")
+            f.pinLabel:Show()
+            if f.pin then
+                f.pin:ClearAllPoints()
+                f.pin:SetPoint("CENTER", container, "CENTER", 0, 20)
+                f.pinLabel:ClearAllPoints()
+                f.pinLabel:SetPoint("TOP", f.pin, "BOTTOM", 0, -2)
+            end
+        end
+    else
+        f:Hide()
+        if f.pin then f.pin:Hide() end
+        if f.pinLabel then f.pinLabel:Hide() end
+    end
 end
 
 -- Rotação trigonométrica de textura em 2D (WoW Vanilla 1.12)
@@ -4855,7 +5023,14 @@ end
 
 function MainMenu:UpdateMapPlayerPosition(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.playerPin then return end
-
+    if self.mapDungeonHardcoded then
+        mapCanvas.playerPin:Hide()
+        if mapCanvas.partyPins then for p = 1, 4 do if mapCanvas.partyPins[p] then mapCanvas.partyPins[p]:Hide() end end end
+        if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
+            mapCanvas:GetParent().coordsText:SetText("|cff00ff88Mapa da masmorra (hardcoded) — sem GPS|r")
+        end
+        return
+    end
     local container = mapCanvas.tilesContainer
     local containerW = container:GetWidth() or 0
     local containerH = container:GetHeight() or 0

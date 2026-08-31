@@ -3119,7 +3119,8 @@ function MainMenu:SetupQuestsPage(pageQuests)
     -- Container da Lista de Missões (Parte Superior)
     local listContainer = CreateFrame("Frame", "ConsoleModeMM_QuestListContainer", questPanel)
     listContainer:SetPoint("TOPLEFT", questPanel, "TOPLEFT", 0, 0)
-    listContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, -6)
+    listContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 6)
+    listContainer:EnableMouseWheel(true)
     questPanel.listContainer = listContainer
 
     local listBg = listContainer:CreateTexture(nil, "BACKGROUND")
@@ -3127,29 +3128,11 @@ function MainMenu:SetupQuestsPage(pageQuests)
     listBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     listBg:SetVertexColor(0.02, 0.02, 0.02, 0.50)
 
-    -- ScrollFrame da Lista de Missões
-    local listScrollFrame = CreateFrame("ScrollFrame", "ConsoleModeMM_QuestListScrollFrame", listContainer)
-    listScrollFrame:SetPoint("TOPLEFT", listContainer, "TOPLEFT", 2, -2)
-    listScrollFrame:SetPoint("BOTTOMRIGHT", listContainer, "BOTTOMRIGHT", -2, 2)
-    listScrollFrame:EnableMouse(true)
-    listScrollFrame:EnableMouseWheel(true)
-    questPanel.scrollFrame = listScrollFrame
-
-    local listScrollChild = CreateFrame("Frame", "ConsoleModeMM_QuestListScrollChild", listScrollFrame)
-    listScrollChild:SetPoint("TOPLEFT", listScrollFrame, "TOPLEFT", 0, 0)
-    listScrollChild:SetWidth(290)
-    listScrollChild:SetHeight(300)
-    listScrollFrame:SetScrollChild(listScrollChild)
-    questPanel.scrollChild = listScrollChild
-
-    listScrollFrame:SetScript("OnMouseWheel", function()
-        local cur = listScrollFrame:GetVerticalScroll() or 0
-        local maxScroll = math.max(0, (listScrollChild:GetHeight() or 300) - (listScrollFrame:GetHeight() or 200))
-        local step = 26
+    listContainer:SetScript("OnMouseWheel", function()
         if arg1 > 0 then
-            listScrollFrame:SetVerticalScroll(math.max(0, cur - step))
+            MainMenu:NavigateQuest(-1)
         else
-            listScrollFrame:SetVerticalScroll(math.min(maxScroll, cur + step))
+            MainMenu:NavigateQuest(1)
         end
     end)
 
@@ -3184,7 +3167,8 @@ end
 function MainMenu:CreateQuestListButton(parent, idx)
     local btn = CreateFrame("Button", "ConsoleModeMM_QuestBtn" .. idx, parent)
     btn:SetHeight(24)
-    btn:SetWidth(286)
+    btn:SetWidth(272)
+    btn:SetFrameLevel(parent:GetFrameLevel() + 2)
 
     local highlight = btn:CreateTexture(nil, "BACKGROUND")
     highlight:SetAllPoints(btn)
@@ -3252,6 +3236,7 @@ function MainMenu:CreateQuestListButton(parent, idx)
     btn:SetScript("OnClick", function()
         if not this.isHeader and this.questLogIndex then
             MainMenu:SelectQuest(this.questLogIndex)
+            MainMenu:UpdateQuestsPage()
             if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
         end
     end)
@@ -3266,48 +3251,110 @@ function MainMenu:UpdateQuestsPage()
 
     self:SetupQuestsPage(pageQuests)
 
-    local numEntries, numQuests = (GetNumQuestLogEntries and GetNumQuestLogEntries()) or 0, 0
-    numQuests = numQuests or 0
+    local numEntries, numQuests = 0, 0
+    if GetNumQuestLogEntries then
+        numEntries, numQuests = GetNumQuestLogEntries()
+    end
     numEntries = numEntries or 0
+    numQuests = numQuests or 0
+    if numQuests == 0 and numEntries > 0 then
+        numQuests = numEntries
+    end
 
     if pageQuests.questCountText then
         pageQuests.questCountText:SetText(string.format("|cffaaaaaaMissões: |cffffffff%d / 20|r", numQuests))
     end
 
+    -- Renderiza e atualiza os 12 tiles dinâmicos, overlays e pin do jogador (Etapas 9.2, 9.3, 9.4)
+    if pageQuests.mapPanel and pageQuests.mapPanel.canvas then
+        self:UpdateMapLayout(pageQuests.mapPanel.canvas)
+        self:UpdateMapTextures(pageQuests.mapPanel.canvas)
+        self:UpdateMapOverlays(pageQuests.mapPanel.canvas)
+        self:UpdateMapPlayerPosition(pageQuests.mapPanel.canvas)
+    end
+
+    -- Atualiza informações do Título da Zona / Nível do Mapa
+    if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
+        local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+        local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+        local titleText = "Azeroth"
+
+        if currentCont == 0 then
+            titleText = "Azeroth (Mundo)"
+        elseif currentZone == 0 then
+            if currentCont == 1 then
+                titleText = "Kalimdor (Continente)"
+            elseif currentCont == 2 then
+                titleText = "Reinos do Leste (Continente)"
+            else
+                titleText = "Continente"
+            end
+        else
+            local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
+            if zoneName == "" then zoneName = "Azeroth" end
+            titleText = zoneName
+        end
+
+        pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", titleText))
+    end
+
     local questPanel = pageQuests.questPanel
-    if not questPanel then return end
+    if not questPanel or not questPanel.listContainer then return end
+
+    -- Coleta todas as entradas válidas do QuestLog
+    local entries = {}
+    for i = 1, numEntries do
+        local questTitle, level, questTag, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i)
+        if questTitle and questTitle ~= "" then
+            table.insert(entries, {
+                index = i,
+                title = questTitle,
+                level = level,
+                tag = questTag,
+                isHeader = isHeader,
+                isComplete = isComplete,
+            })
+        end
+    end
+
+    local totalItems = table.getn(entries)
+    local maxVisible = 10
+    local offset = questPanel.questOffset or 0
+    if offset > math.max(0, totalItems - maxVisible) then
+        offset = math.max(0, totalItems - maxVisible)
+        questPanel.questOffset = offset
+    end
 
     local questButtons = questPanel.questButtons
-    local curY = 0
+    local curY = 4
     local buttonHeight = 24
     local gapY = 2
     local firstSelectableIndex = nil
     local selectedFound = false
     local currentSelected = questPanel.selectedQuestIndex
 
-    local btnIdx = 1
-    for i = 1, numEntries do
-        local questTitle, level, questTag, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i)
-        if questTitle and questTitle ~= "" then
-            local btn = questButtons[btnIdx]
-            if not btn then
-                btn = MainMenu:CreateQuestListButton(questPanel.scrollChild, btnIdx)
-                questButtons[btnIdx] = btn
-            end
+    for slot = 1, maxVisible do
+        local itemData = entries[slot + offset]
+        local btn = questButtons[slot]
+        if not btn then
+            btn = MainMenu:CreateQuestListButton(questPanel.listContainer, slot)
+            questButtons[slot] = btn
+        end
 
+        if itemData then
             btn:ClearAllPoints()
-            btn:SetPoint("TOPLEFT", questPanel.scrollChild, "TOPLEFT", 2, -curY)
-            btn:SetWidth(286)
-            btn:SetHeight(24)
-            btn.questLogIndex = i
-            btn.isHeader = isHeader
+            btn:SetPoint("TOPLEFT", questPanel.listContainer, "TOPLEFT", 4, -curY)
+            btn:SetWidth(questPanel.listContainer:GetWidth() > 0 and (questPanel.listContainer:GetWidth() - 8) or 272)
+            btn:SetHeight(buttonHeight)
+            btn.questLogIndex = itemData.index
+            btn.isHeader = itemData.isHeader
 
-            if isHeader then
+            if itemData.isHeader then
                 btn:Disable()
                 btn.headerBg:Show()
                 btn.highlight:Hide()
                 btn.tagText:SetText("")
-                btn.titleText:SetText("|cffe09a15[ " .. questTitle .. " ]|r")
+                btn.titleText:SetText("|cffe09a15[ " .. itemData.title .. " ]|r")
                 btn.titleText:ClearAllPoints()
                 btn.titleText:SetPoint("LEFT", btn, "LEFT", 8, 0)
                 btn.titleText:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
@@ -3316,39 +3363,38 @@ function MainMenu:UpdateQuestsPage()
             else
                 btn:Enable()
                 btn.headerBg:Hide()
-                if not firstSelectableIndex then firstSelectableIndex = i end
-                if currentSelected == i then selectedFound = true end
+                if not firstSelectableIndex then firstSelectableIndex = itemData.index end
+                if currentSelected == itemData.index then selectedFound = true end
 
                 -- Tag de Nível e Dificuldade
-                local r, g, b = GetQuestLevelColor(level)
+                local r, g, b = GetQuestLevelColor(itemData.level)
                 local tagStr = ""
-                if questTag == "ELITE" then
-                    tagStr = string.format("|cff%02x%02x%02x[%d+]|r", r*255, g*255, b*255, level or 0)
-                elseif questTag == "DUNGEON" then
-                    tagStr = string.format("|cff%02x%02x%02x[%dD]|r", r*255, g*255, b*255, level or 0)
-                elseif questTag == "RAID" then
-                    tagStr = string.format("|cff%02x%02x%02x[%dR]|r", r*255, g*255, b*255, level or 0)
-                elseif level and level > 0 then
-                    tagStr = string.format("|cff%02x%02x%02x[%d]|r", r*255, g*255, b*255, level)
+                if itemData.tag == "ELITE" then
+                    tagStr = string.format("|cff%02x%02x%02x[%d+]|r", r*255, g*255, b*255, itemData.level or 0)
+                elseif itemData.tag == "DUNGEON" then
+                    tagStr = string.format("|cff%02x%02x%02x[%dD]|r", r*255, g*255, b*255, itemData.level or 0)
+                elseif itemData.tag == "RAID" then
+                    tagStr = string.format("|cff%02x%02x%02x[%dR]|r", r*255, g*255, b*255, itemData.level or 0)
+                elseif itemData.level and itemData.level > 0 then
+                    tagStr = string.format("|cff%02x%02x%02x[%d]|r", r*255, g*255, b*255, itemData.level)
                 end
                 btn.tagText:SetText(tagStr)
 
                 btn.titleText:ClearAllPoints()
                 btn.titleText:SetPoint("LEFT", btn.tagText, "RIGHT", 2, 0)
                 btn.titleText:SetPoint("RIGHT", btn.trackIcon, "LEFT", -2, 0)
-                btn.titleText:SetText(questTitle)
+                btn.titleText:SetText(itemData.title)
 
                 -- Status de Conclusão / Progresso
-                if isComplete and isComplete > 0 then
+                if itemData.isComplete and itemData.isComplete > 0 then
                     btn.statusText:SetText("|cff00ff00(Completa)|r")
-                elseif isComplete and isComplete < 0 then
+                elseif itemData.isComplete and itemData.isComplete < 0 then
                     btn.statusText:SetText("|cffff2020(Falhou)|r")
                 else
-                    -- Contadores de objetivos
-                    local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(i)) or 0
+                    local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(itemData.index)) or 0
                     local doneCount = 0
                     for obj = 1, numObj do
-                        local _, _, isDone = GetQuestLogLeaderBoard(obj, i)
+                        local _, _, isDone = GetQuestLogLeaderBoard(obj, itemData.index)
                         if isDone then doneCount = doneCount + 1 end
                     end
                     if numObj > 0 then
@@ -3359,13 +3405,13 @@ function MainMenu:UpdateQuestsPage()
                 end
 
                 -- Ícone de rastreamento no HUD
-                if IsQuestWatched and IsQuestWatched(i) then
+                if IsQuestWatched and IsQuestWatched(itemData.index) then
                     btn.trackIcon:Show()
                 else
                     btn.trackIcon:Hide()
                 end
 
-                if currentSelected == i then
+                if currentSelected == itemData.index then
                     btn.highlight:Show()
                     btn.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
                 else
@@ -3375,18 +3421,12 @@ function MainMenu:UpdateQuestsPage()
 
             btn:Show()
             curY = curY + buttonHeight + gapY
-            btnIdx = btnIdx + 1
+        else
+            btn:Hide()
         end
     end
 
-    -- Esconde botões excedentes do pool
-    for k = btnIdx, table.getn(questButtons) do
-        if questButtons[k] then questButtons[k]:Hide() end
-    end
-
-    questPanel.scrollChild:SetHeight(math.max(curY, 10))
-
-    if numQuests == 0 then
+    if totalItems == 0 then
         if questPanel.emptyText then questPanel.emptyText:Show() end
         if questPanel.detailCard then questPanel.detailCard:Hide() end
     else
@@ -3533,15 +3573,16 @@ function MainMenu:NavigateQuest(delta)
     if not pageQuests or not pageQuests.questPanel then return end
 
     local questPanel = pageQuests.questPanel
-    local questButtons = questPanel.questButtons
-    if not questButtons or table.getn(questButtons) == 0 then return end
+    local numEntries = (GetNumQuestLogEntries and GetNumQuestLogEntries()) or 0
+    if numEntries == 0 then return end
 
     local selectable = {}
     local currentPos = 1
-    for idx, btn in ipairs(questButtons) do
-        if btn:IsShown() and not btn.isHeader and btn.questLogIndex then
-            table.insert(selectable, btn.questLogIndex)
-            if btn.questLogIndex == questPanel.selectedQuestIndex then
+    for i = 1, numEntries do
+        local questTitle, level, questTag, isHeader = GetQuestLogTitle(i)
+        if questTitle and questTitle ~= "" and not isHeader then
+            table.insert(selectable, i)
+            if i == questPanel.selectedQuestIndex then
                 currentPos = table.getn(selectable)
             end
         end
@@ -3555,7 +3596,16 @@ function MainMenu:NavigateQuest(delta)
 
     local targetIndex = selectable[nextPos]
     if targetIndex then
+        local maxVisible = 10
+        local curOffset = questPanel.questOffset or 0
+        if nextPos <= curOffset then
+            questPanel.questOffset = math.max(0, nextPos - 1)
+        elseif nextPos > curOffset + maxVisible then
+            questPanel.questOffset = nextPos - maxVisible
+        end
+
         self:SelectQuest(targetIndex)
+        self:UpdateQuestsPage()
         if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
     end
 end
@@ -4082,56 +4132,7 @@ function MainMenu:CycleCategories(direction)
     return false
 end
 
-function MainMenu:UpdateQuestsPage()
-    if not self.tabContainer or not self.tabContainer.pages then return end
-    local pageQuests = self.tabContainer.pages["QUESTS"]
-    if not pageQuests then return end
-
-    self:SetupQuestsPage(pageQuests)
-
-    -- Renderiza e atualiza os 12 tiles dinâmicos, overlays e pin do jogador (Etapas 9.2, 9.3, 9.4)
-    if pageQuests.mapPanel and pageQuests.mapPanel.canvas then
-        self:UpdateMapLayout(pageQuests.mapPanel.canvas)
-        self:UpdateMapTextures(pageQuests.mapPanel.canvas)
-        self:UpdateMapOverlays(pageQuests.mapPanel.canvas)
-        self:UpdateMapPlayerPosition(pageQuests.mapPanel.canvas)
-    end
-
-    -- Atualiza contador de missões ativas
-    local numEntries, numQuests = 0, 0
-    if GetNumQuestLogEntries then
-        numEntries, numQuests = GetNumQuestLogEntries()
-    end
-
-    if pageQuests.questCountText then
-        pageQuests.questCountText:SetText(string.format("|cffaaaaaaMissões: |cffffffff%d / 20|r", numQuests or numEntries or 0))
-    end
-
-    -- Atualiza informações do Título da Zona / Nível do Mapa
-    if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
-        local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
-        local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
-        local titleText = "Azeroth"
-
-        if currentCont == 0 then
-            titleText = "Azeroth (Mundo)"
-        elseif currentZone == 0 then
-            if currentCont == 1 then
-                titleText = "Kalimdor (Continente)"
-            elseif currentCont == 2 then
-                titleText = "Reinos do Leste (Continente)"
-            else
-                titleText = "Continente"
-            end
-        else
-            local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
-            if zoneName == "" then zoneName = "Azeroth" end
-            titleText = zoneName
-        end
-
-        pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", titleText))
-    end
-end
+-- (UpdateQuestsPage definido acima, na seção 7.4)
 
 -- ============================================================================
 -- 7.3. CONFIGURAÇÃO DA ABA DE SISTEMA E CONFIGURAÇÕES (FASE 8 - ETAPA 8.1)

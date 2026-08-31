@@ -281,7 +281,11 @@ CFG.System = {
     subTabs = {
         { id = "GAME_MENU", name = "Opções do Jogo", shortName = "Opções" },
         { id = "ADDON_CFG", name = "Configurações do Addon", shortName = "Addon" },
-    }
+    },
+    -- Cores centralizadas e padronizadas para as opções do sistema
+    itemTextColor   = "|cffffffff",         -- Cor branca uniforme para todos os títulos de botões
+    badgeColor      = "|cffe09a15",         -- Cor âmbar/dourada para os números de índice [01], [02]...
+    frameNameColor  = "|cff777777",         -- Cor cinza discreta para o nome técnico do frame
 }
 
 -- ----------------------------------------------------------------------------
@@ -2803,10 +2807,23 @@ function MainMenu:SetupSystemPage(pageSystem)
     subPageGameMenu:SetAllPoints(subContent)
     pageSystem.subPageGameMenu = subPageGameMenu
 
-    local gmPlaceholder = subPageGameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    gmPlaceholder:SetPoint("CENTER", subPageGameMenu, "CENTER", 0, 40)
-    MainMenu:ApplyFont(gmPlaceholder, CFG.Fonts.titleFontFile, 15, "")
-    gmPlaceholder:SetText("|cffffcc00[ OPÇÕES DO JOGO & MENUS DE SISTEMA ]|r\n\n|cffaaaaaa(Estrutura pronta para a varredura dinâmica do GameMenuFrame na Etapa 8.2)|r")
+    local gmHeader = subPageGameMenu:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    gmHeader:SetPoint("TOPLEFT", subPageGameMenu, "TOPLEFT", 12, -8)
+    MainMenu:ApplyFont(gmHeader, CFG.Fonts.titleFontFile, 15, "")
+    gmHeader:SetText("|cffe09a15[ MENUS DO SISTEMA & ADDONS DETECTADOS ]|r")
+    subPageGameMenu.header = gmHeader
+
+    local gmSubText = subPageGameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    gmSubText:SetPoint("TOPLEFT", gmHeader, "BOTTOMLEFT", 0, -4)
+    MainMenu:ApplyFont(gmSubText, CFG.Fonts.subFontFile, 12, "")
+    gmSubText:SetText("|cffaaaaaaVarredura dinâmica de botões nativos e de addons|r")
+    subPageGameMenu.subText = gmSubText
+
+    local gmListContainer = CreateFrame("Frame", "ConsoleModeMM_GMListContainer", subPageGameMenu)
+    gmListContainer:SetPoint("TOPLEFT", gmSubText, "BOTTOMLEFT", 0, -10)
+    gmListContainer:SetPoint("BOTTOMRIGHT", subPageGameMenu, "BOTTOMRIGHT", -12, 10)
+    subPageGameMenu.listContainer = gmListContainer
+    subPageGameMenu.rows = {}
 
     -- Sub-Página 2: Configurações do ConsoleMode (Etapa 8.4)
     local subPageAddonCfg = CreateFrame("Frame", "ConsoleModeMM_SubPage_ADDON_CFG", subContent)
@@ -2833,6 +2850,157 @@ function MainMenu:SetupSystemPage(pageSystem)
     pageSystem.isInitialized = true
 end
 
+function MainMenu:CleanButtonText(text, buttonName)
+    if not text then return "" end
+
+    local clean = string.gsub(text, "\r", "")
+
+    -- Remove códigos de cor pré-existentes da Blizzard ou Addons (ex: |cff00ff00...|r)
+    clean = string.gsub(clean, "|c%x%x%x%x%x%x%x%x", "")
+    clean = string.gsub(clean, "|r", "")
+
+    -- Tratamento especial para addons como SuperMacro que empilham letras verticalmente
+    if buttonName and string.find(string.lower(buttonName), "supermacro") then
+        return "SuperMacro"
+    end
+
+    if string.find(clean, "\n") then
+        -- Se todas as linhas individuais tiverem até 2 caracteres (ex: M\nA\nC\nR\nO\nS), junta direto
+        local isSingleCharVertical = true
+        for line in string.gfind(clean, "[^\n]+") do
+            if string.len(line) > 2 then
+                isSingleCharVertical = false
+            end
+        end
+
+        if isSingleCharVertical then
+            clean = string.gsub(clean, "\n", "")
+        else
+            clean = string.gsub(clean, "\n", " ")
+        end
+    end
+
+    -- Remove espaços extras nas extremidades
+    clean = string.gsub(clean, "^%s+", "")
+    clean = string.gsub(clean, "%s+$", "")
+
+    return clean
+end
+
+function MainMenu:ScanGameMenuButtons()
+    local buttons = {}
+    if not GameMenuFrame then return buttons end
+
+    local children = { GameMenuFrame:GetChildren() }
+    local n = table.getn(children)
+    for i = 1, n do
+        local child = children[i]
+        if child and child.GetObjectType and child:GetObjectType() == "Button" then
+            local text = child:GetText()
+            local name = child:GetName() or ""
+            if text and text ~= "" and name ~= "GameMenuFrameHeader" then
+                local cleanText = MainMenu:CleanButtonText(text, name)
+                if cleanText and cleanText ~= "" then
+                    table.insert(buttons, {
+                        frame = child,
+                        name = name ~= "" and name or ("GameMenuChild" .. i),
+                        text = cleanText,
+                        rawText = text,
+                        top = (child.GetTop and child:GetTop()) or (1000 - i),
+                    })
+                end
+            end
+        end
+    end
+
+    -- Ordena por posição vertical (de cima para baixo no GameMenu original)
+    table.sort(buttons, function(a, b)
+        if a.top and b.top and a.top ~= b.top then
+            return a.top > b.top
+        end
+        return false
+    end)
+
+    return buttons
+end
+
+function MainMenu:UpdateGameMenuSubPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.subPageGameMenu then return end
+
+    local subPage = pageSystem.subPageGameMenu
+    local buttons = self:ScanGameMenuButtons()
+    local count = table.getn(buttons)
+
+    if subPage.subText then
+        subPage.subText:SetText(string.format("|cffaaaaaaTotal de botões detectados: |cffffffff%d|r |cffaaaaaa(Blizzard + Addons)|r", count))
+    end
+
+    if not subPage.rows then subPage.rows = {} end
+
+    local rowHeight = 24
+    local rowGap = 3
+    local startY = -4
+
+    local bColor = CFG.System.badgeColor or "|cffe09a15"
+    local tColor = CFG.System.itemTextColor or "|cffffffff"
+    local fColor = CFG.System.frameNameColor or "|cff777777"
+
+    for i = 1, count do
+        local btnData = buttons[i]
+        local row = subPage.rows[i]
+        if not row then
+            row = CreateFrame("Frame", "ConsoleModeMM_GMRow_" .. i, subPage.listContainer)
+            row:SetHeight(rowHeight)
+            row:SetPoint("LEFT", subPage.listContainer, "LEFT", 0, 0)
+            row:SetPoint("RIGHT", subPage.listContainer, "RIGHT", 0, 0)
+
+            -- Fundo translúcido sutil para leitura em lista
+            local bg = row:CreateTexture(nil, "BACKGROUND")
+            bg:SetAllPoints(row)
+            bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            bg:SetVertexColor(0.0, 0.0, 0.0, 0.25)
+            row.bg = bg
+
+            local badge = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            badge:SetPoint("LEFT", row, "LEFT", 8, 0)
+            MainMenu:ApplyFont(badge, CFG.Fonts.headerFontFile, 13)
+            row.badge = badge
+
+            local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            title:SetPoint("LEFT", badge, "RIGHT", 8, 0)
+            MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
+            row.title = title
+
+            local frameName = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            frameName:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+            MainMenu:ApplyFont(frameName, CFG.Fonts.subFontFile, 11)
+            row.frameName = frameName
+
+            subPage.rows[i] = row
+        end
+
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", subPage.listContainer, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
+        row:SetPoint("TOPRIGHT", subPage.listContainer, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
+
+        row.badge:SetText(string.format("%s[%02d]|r", bColor, i))
+        row.title:SetText(string.format("%s%s|r", tColor, btnData.text))
+        row.frameName:SetText(string.format("%s%s|r", fColor, btnData.name))
+        row.btnData = btnData
+        row:Show()
+    end
+
+    -- Oculta linhas excedentes
+    local totalRows = table.getn(subPage.rows)
+    if totalRows > count then
+        for j = count + 1, totalRows do
+            subPage.rows[j]:Hide()
+        end
+    end
+end
+
 function MainMenu:SelectSystemSubTab(subTabID)
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageSystem = self.tabContainer.pages["SYSTEM"]
@@ -2847,6 +3015,7 @@ function MainMenu:SelectSystemSubTab(subTabID)
     if pageSystem.subPageGameMenu then
         if subTabID == "GAME_MENU" then
             pageSystem.subPageGameMenu:Show()
+            self:UpdateGameMenuSubPage()
         else
             pageSystem.subPageGameMenu:Hide()
         end

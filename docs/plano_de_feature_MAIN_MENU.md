@@ -331,7 +331,40 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 10: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
+### **FASE 10: Navegação de Mapa por Continentes (Gamepad-First — Lista Vertical)** `[STATUS: ⏳ PRÓXIMA FASE]`
+* **Objetivo:** Permitir navegação livre entre mapas sem mouse, com foco total em gamepad/console (Steam Deck). Inspirado no WorldMap clássico (clique em região → entra, `B` volta) mas adaptado para controle: 3 botões fixos em lista vertical no canto inferior direito do painel do mapa.
+* **Layout:**
+  * Pilha vertical `ATUAL` (topo) → `KALIMDOR` → `EASTERN KINGDOMS` (base), ancorada `BOTTOMRIGHT` do `mapPanel` acima do `mapFooter` (`-6,4`) sem invadir `mapCanvas` (`-6,26`). Cada botão ~100×22, gap 4px, fonte `CFG.Fonts.subFontFile 11`, backdrop `UI-Tooltip-Border` igual ao `VOLTAR` (remover/realocar `VOLTAR` — `ATUAL` assume o papel).
+  * Sempre visíveis; highlight/borda dourada no ativo (`mapViewMode` + `mapContinentView`).
+* **Estados:**
+  * `mapViewMode = "ZONE" | "CONTINENT"` + `mapContinentView = 1|2` em `MainMenu` (`UI/MainMenu.lua`). Reaproveita `mapContinent/mapZoneIdx/mapZoneName/mapFileName/mapShowingQuestZone`.
+  * `ZONE`: `cont 1..2, zoneIdx>0` (zona detalhada); `CONTINENT`: `cont 1..2, zoneIdx=0` (visão do continente); `ATUAL`: `nil/nil + SetMapToCurrentZone() + mapShowingQuestZone=false`.
+* **Handlers (`UI/MainMenu.lua`):**
+  * `NavToCurrent()` — `ResetMapToPlayer() + ZONE + UpdateEverything + ResetCursorZoneMode()`.
+  * `NavToContinent(cont)` — `SetMapZoom(cont,0) + CONTINENT + mapContinentView=cont + zoom 1.0/pan 0 + desativa drag livre + BuildContinentZoneButtons(cont) + ativa cursor`.
+  * `NavToZone(zoneName)` — `SwitchMapToZone(zoneName) + ZONE` (usado por quests e pelo cursor do continente).
+  * `UpdateNavButtonHighlight()` + `BuildContinentZoneButtons(cont)` + `UpdateMapLayout/Textures/Overlays` após `SetMapZoom`.
+* **Cursor de zona (só em `CONTINENT`):**
+  * Pool `mapCanvas.continentZoneButtons` (~25 por continente via `GetMapZones(cont)`), `CreateFrame("Button",nil,mapTilesContainer)` com hitbox ~42×16 escalada por `currentScale` (`effW=1002*scale`, `effH=668*scale`, ponto `x*effW, -y*effH` igual ao `playerPin`).
+  * Posicionamento por `ConsoleMode.ContinentZoneCoords[cont][zoneName]={x,y}` (0..1 relativo ao tilesContainer) com fallback em grid; preferir bbox de `MapOverlayData`/pfQuest `zones.loc` quando disponível.
+  * Integração com `Cursor.lua`: `CollectButtons` passa a incluir `continentZoneButtons`/`navButtons`, `FindFirstVisibleButton` prioriza navButtons em `CONTINENT`, `FindBestInDirection` já cobre navegação vertical; `IsInteractive` ok (botões pequenos não disparam filtro `w>350&&h>250`).
+  * `A` (`CM_CursorConfirm → Click("LeftButton")`) entra na zona; `B` volta um nível (`CONTINENT→ATUAL` ou `ZONE via continente→CONTINENT`) antes de `CloseTopFrame`; `D-Pad/L-Stick` navega entre zoneButtons; `L-Stick` pan bloqueado em `CONTINENT` (`if mapViewMode=="CONTINENT" then return end` em `OnStickPan/MapPan`).
+* **Compatibilidade:**
+  * `GetMapZones(cont)`/`SetMapZoom(cont,zoneIdx)`/`GetCurrentMapContinent/Zone`/`GetMapInfo()` — Lua 5.0, sem `#`, via `table.getn`/`getn`.
+  * Turtle WoW custom (`cont>2`): ignorado na v1; `ATUAL` já cobre. Fallback `cont==1→Kalimdor, 2→EasternKingdoms, else Cosmic` em `UpdateMapTextures`.
+  * `ZONE_CHANGED` não sobrescreve visão `CONTINENT` (guard no `OnUpdate` linha ~3002).
+  * `UpdateMapPlayerPosition` em `CONTINENT`: ocultar `playerPin/partyPins` na v1; `UpdatePfQuestPins` sem pins em continente na v1.
+* **Ordem de implementação:**
+  1. Estado + 3 botões verticais + `NavTo*` + `UpdateNavButtonHighlight`.
+  2. Tabela `ContinentZoneCoords` + `BuildContinentZoneButtons`.
+  3. Modo cursor (`CollectButtons`/`FindFirstVisibleButton`/bloqueio de pan/`B` volta).
+  4. Polimento hint (`[D-Pad] Zonas • [A] Entrar • [B] Voltar` em `CONTINENT`), esconder pins, guard `ZONE_CHANGED`.
+* **Validação:** `luac -p` (Lua 5.0) + `/reload` Turtle: abrir `QUESTS`, navegar `ATUAL/KALIMDOR/EASTERN KINGDOMS` (mouse+gamepad), D-Pad entre zonas, `A` entra, `B` volta, `ZONE_CHANGED` preserva `CONTINENT`.
+* **Compatibilidade:** WoW 1.12.1 / Lua 5.0 — sem `#table`, sem `...` variádico 5.1, validar com `luac -p` a cada edição.
+
+---
+
+### **FASE 11: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
   2. Animações de comer/beber no modelo 3D ao usar consumíveis.
@@ -340,7 +373,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 11: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
+### **FASE 12: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
   2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
@@ -349,7 +382,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 12: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
+### **FASE 13: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Detecção automática do slot de equipamento correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Arma, etc.).
   2. Leitura e cálculo diferencial entre os atributos do item da bolsa e o item atualmente equipado naquele slot (`GetInventoryItemLink`).

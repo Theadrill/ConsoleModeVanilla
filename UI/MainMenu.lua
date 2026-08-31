@@ -2847,9 +2847,20 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapCanvasBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     mapCanvasBg:SetVertexColor(0.0, 0.0, 0.0, 0.5)
 
-    -- Container Interno dos 12 Tiles de Textura do Mapa (4 Colunas x 3 Linhas)
-    local mapTilesContainer = CreateFrame("Frame", "ConsoleModeMM_MapTilesContainer", mapCanvas)
-    mapTilesContainer:SetPoint("CENTER", mapCanvas, "CENTER", 0, 0)
+    -- ScrollFrame que atua como Viewport com Clipping Automático do Mapa (Estilo Carbonite)
+    local mapScrollFrame = CreateFrame("ScrollFrame", "ConsoleModeMM_MapScrollFrame", mapCanvas)
+    mapScrollFrame:SetAllPoints(mapCanvas)
+    mapScrollFrame:EnableMouse(true)
+    mapScrollFrame:EnableMouseWheel(true)
+    mapCanvas.scrollFrame = mapScrollFrame
+    mapCanvas.zoomFactor = 1.0
+    mapCanvas.panX = 0
+    mapCanvas.panY = 0
+
+    -- Container Interno dos 12 Tiles de Textura do Mapa
+    local mapTilesContainer = CreateFrame("Frame", "ConsoleModeMM_MapTilesContainer", mapScrollFrame)
+    mapTilesContainer:SetPoint("CENTER", mapScrollFrame, "CENTER", 0, 0)
+    mapScrollFrame:SetScrollChild(mapTilesContainer)
     mapCanvas.tilesContainer = mapTilesContainer
 
     -- 1. Criação dos 12 Tiles Base de Pergaminho
@@ -2896,14 +2907,28 @@ function MainMenu:SetupQuestsPage(pageQuests)
     playerPin.texture = pTex
     mapCanvas.playerPin = playerPin
 
-    -- Interação de Clique no Mapa (Clique Esquerdo: Zoom In / Clique Direito: Zoom Out)
-    mapCanvas:EnableMouse(true)
-    mapCanvas:SetScript("OnMouseUp", function()
-        if arg1 == "RightButton" then
-            MainMenu:MapZoomOut()
+    -- Interações de Zoom por Roda do Mouse e Pan por Clique e Arraste (Estilo Carbonite)
+    mapScrollFrame:SetScript("OnMouseWheel", function()
+        if arg1 > 0 then
+            MainMenu:MapZoomStep(1)
         else
-            MainMenu:MapZoomIn()
+            MainMenu:MapZoomStep(-1)
         end
+    end)
+
+    mapScrollFrame:SetScript("OnMouseDown", function()
+        if arg1 == "LeftButton" or arg1 == "RightButton" then
+            mapCanvas.isDragging = true
+            local curX, curY = GetCursorPosition()
+            mapCanvas.dragStartX = curX
+            mapCanvas.dragStartY = curY
+            mapCanvas.dragStartPanX = mapCanvas.panX or 0
+            mapCanvas.dragStartPanY = mapCanvas.panY or 0
+        end
+    end)
+
+    mapScrollFrame:SetScript("OnMouseUp", function()
+        mapCanvas.isDragging = false
     end)
 
     -- Script para recalcular escala e carregar mapa assim que a janela é exibida ou redimensionada
@@ -2925,11 +2950,35 @@ function MainMenu:SetupQuestsPage(pageQuests)
         end
     end)
 
-    -- Loop de Atualização Contínua em Tempo Real do GPS e Rotação do Jogador
+    -- Loop de Atualização Contínua em Tempo Real do GPS, Rotação e Arraste do Mapa
     mapCanvas.elapsed = 0
     mapCanvas:SetScript("OnUpdate", function()
+        -- 1. Movimentação por Arraste do Mouse com direção 1:1 natural e margem ampla
+        if this.isDragging then
+            local curX, curY = GetCursorPosition()
+            local uiscale = UIParent:GetEffectiveScale() or 1.0
+            local deltaX = (curX - (this.dragStartX or curX)) / uiscale
+            local deltaY = (curY - (this.dragStartY or curY)) / uiscale
+            local container = this.tilesContainer
+            local canvasW = this:GetWidth() or 500
+            local canvasH = this:GetHeight() or 340
+            local totalW = (container and container:GetWidth()) or canvasW
+            local totalH = (container and container:GetHeight()) or canvasH
+            local maxPanX = math.max(0, (totalW - canvasW) / 2 + (canvasW * 0.45))
+            local maxPanY = math.max(0, (totalH - canvasH) / 2 + (canvasH * 0.45))
+
+            this.panX = math.max(-maxPanX, math.min(maxPanX, (this.dragStartPanX or 0) + deltaX))
+            this.panY = math.max(-maxPanY, math.min(maxPanY, (this.dragStartPanY or 0) + deltaY))
+
+            if container then
+                container:ClearAllPoints()
+                container:SetPoint("CENTER", this, "CENTER", this.panX, this.panY)
+            end
+        end
+
+        -- 2. Atualização suave da posição e rotação do jogador (30 FPS)
         this.elapsed = (this.elapsed or 0) + (arg1 or 0.016)
-        if this.elapsed >= 0.033 then -- ~30 FPS para movimento ultra fluido do pin
+        if this.elapsed >= 0.033 then
             this.elapsed = 0
             if MainMenu and MainMenu.UpdateMapPlayerPosition then
                 MainMenu:UpdateMapPlayerPosition(this)
@@ -2954,7 +3003,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local mapHintText = mapFooter:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     mapHintText:SetPoint("CENTER", mapFooter, "CENTER", 0, 0)
     MainMenu:ApplyFont(mapHintText, CFG.Fonts.subFontFile, 11)
-    mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In / Zona Atual  •  [L-Stick] Mover|r")
+    mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
     mapPanel.hintText = mapHintText
 
     -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior)
@@ -3022,49 +3071,37 @@ function MainMenu:UpdateMapLayout(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.tiles then return end
 
     local container = mapCanvas.tilesContainer
-    local canvasW = mapCanvas:GetWidth() or 0
-    local canvasH = mapCanvas:GetHeight() or 0
-
-    -- Fallback inteligente de tamanho caso a janela tenha acabado de ser criada
-    if canvasW <= 0 then
-        local p = mapCanvas:GetParent()
-        local parentW = (p and p:GetWidth()) or (MainMenu.frame and MainMenu.frame:GetWidth()) or 900
-        canvasW = math.max(400, parentW - 20)
-    end
-    if canvasH <= 0 then
-        local p = mapCanvas:GetParent()
-        local parentH = (p and p:GetHeight()) or (MainMenu.frame and MainMenu.frame:GetHeight()) or 600
-        canvasH = math.max(300, parentH - 60)
-    end
+    local canvasW = mapCanvas:GetWidth() or 500
+    local canvasH = mapCanvas:GetHeight() or 340
 
     -- Dimensões nativas do WorldMap da Blizzard no Vanilla (1002 x 668 px)
     local origW = 1002
     local origH = 668
 
-    -- Calcula escala proporcional perfeita (sem distorcer)
-    local scale = math.min(canvasW / origW, canvasH / origH)
-    local finalW = math.floor(origW * scale)
-    local finalH = math.floor(origH * scale)
+    local baseScale = math.min(canvasW / origW, canvasH / origH)
+    local zoom = mapCanvas.zoomFactor or 1.0
+    local effectiveScale = baseScale * zoom
+
+    local finalW = math.floor(origW * effectiveScale)
+    local finalH = math.floor(origH * effectiveScale)
 
     container:SetWidth(finalW)
     container:SetHeight(finalH)
-    container:ClearAllPoints()
-    container:SetPoint("CENTER", mapCanvas, "CENTER", 0, 0)
-    mapCanvas.currentScale = scale
+    mapCanvas.currentScale = effectiveScale
 
-    -- Larguras das 4 colunas (256, 256, 256, 234 px escaladas)
+    -- Larguras das 4 colunas (256, 256, 256, 234 px escaladas com zoom)
     local colW = {
-        math.floor(256 * scale),
-        math.floor(256 * scale),
-        math.floor(256 * scale),
-        finalW - (math.floor(256 * scale) * 3)
+        math.floor(256 * effectiveScale),
+        math.floor(256 * effectiveScale),
+        math.floor(256 * effectiveScale),
+        finalW - (math.floor(256 * effectiveScale) * 3)
     }
 
-    -- Alturas das 3 linhas (256, 256, 156 px escaladas)
+    -- Alturas das 3 linhas (256, 256, 156 px escaladas com zoom)
     local rowH = {
-        math.floor(256 * scale),
-        math.floor(256 * scale),
-        finalH - (math.floor(256 * scale) * 2)
+        math.floor(256 * effectiveScale),
+        math.floor(256 * effectiveScale),
+        finalH - (math.floor(256 * effectiveScale) * 2)
     }
 
     -- Posiciona cada um dos 12 tiles dentro da matriz
@@ -3088,6 +3125,21 @@ function MainMenu:UpdateMapLayout(mapCanvas)
         end
         curY = curY + h
     end
+
+    -- Limites amplos de pan com margens confortáveis (permite centralizar qualquer ponto da borda)
+    local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
+    local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
+
+    if zoom <= 1.0 then
+        mapCanvas.panX = 0
+        mapCanvas.panY = 0
+    else
+        mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, mapCanvas.panX or 0))
+        mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, mapCanvas.panY or 0))
+    end
+
+    container:ClearAllPoints()
+    container:SetPoint("CENTER", mapCanvas, "CENTER", mapCanvas.panX or 0, mapCanvas.panY or 0)
 end
 
 function MainMenu:UpdateMapTextures(mapCanvas)
@@ -3126,20 +3178,7 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.overlays then return end
 
     local container = mapCanvas.tilesContainer
-    local canvasW = mapCanvas:GetWidth() or 0
-    local canvasH = mapCanvas:GetHeight() or 0
-
-    if canvasW <= 0 or canvasH <= 0 then
-        local p = mapCanvas:GetParent()
-        local parentW = (p and p:GetWidth()) or 800
-        local parentH = (p and p:GetHeight()) or 500
-        canvasW = math.max(400, parentW - 20)
-        canvasH = math.max(300, parentH - 60)
-    end
-
-    local origW = 1002
-    local origH = 668
-    local scale = math.min(canvasW / origW, canvasH / origH)
+    local scale = mapCanvas.currentScale or 0.5
     if scale <= 0 then scale = 0.5 end
 
     local numOverlays = (GetNumMapOverlays and GetNumMapOverlays()) or 0
@@ -3272,54 +3311,104 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
 end
 
 -- ============================================================================
--- NAVEGAÇÃO DE ZOOM DO MAPA ([LT] / [RT] / Cliques)
+-- NAVEGAÇÃO DE ZOOM SUAVE E PAN (ESTILO CARBONITE)
 -- ============================================================================
 
-function MainMenu:MapZoomOut()
-    local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
-    local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+function MainMenu:MapZoomStep(delta)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.canvas then return end
 
-    if currentZone > 0 then
-        -- Da Zona para o Continente
-        if SetMapZoom then SetMapZoom(currentCont, 0) end
-    elseif currentCont > 0 then
-        -- Do Continente para o Mapa Cósmico (Mundo)
-        if SetMapZoom then SetMapZoom(0) end
+    local mapCanvas = pageQuests.mapPanel.canvas
+    local curZoom = mapCanvas.zoomFactor or 1.0
+    local step = (delta > 0) and 0.30 or -0.30
+    local newZoom = curZoom + step
+
+    if newZoom < 1.0 then
+        newZoom = 1.0
+    elseif newZoom > 3.5 then
+        newZoom = 3.5
     end
 
-    self:UpdateQuestsPage()
+    mapCanvas.zoomFactor = newZoom
+
+    local canvasW = mapCanvas:GetWidth() or 500
+    local canvasH = mapCanvas:GetHeight() or 340
+    local origW = 1002
+    local origH = 668
+    local baseScale = math.min(canvasW / origW, canvasH / origH)
+    local effectiveScale = baseScale * newZoom
+    local finalW = math.floor(origW * effectiveScale)
+    local finalH = math.floor(origH * effectiveScale)
+
+    local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
+    local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
+
+    if newZoom <= 1.0 then
+        mapCanvas.panX = 0
+        mapCanvas.panY = 0
+    elseif newZoom > curZoom and curZoom <= 1.05 then
+        -- Primeiro Zoom In: Centraliza automaticamente na posição do jogador
+        local px, py = 0, 0
+        if GetPlayerMapPosition then
+            px, py = GetPlayerMapPosition("player")
+        end
+        if px and py and (px > 0 or py > 0) then
+            local targetPanX = (0.5 - px) * finalW
+            local targetPanY = (py - 0.5) * finalH
+            mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, targetPanX))
+            mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, targetPanY))
+        else
+            mapCanvas.panX = 0
+            mapCanvas.panY = 0
+        end
+    else
+        mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, mapCanvas.panX or 0))
+        mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, mapCanvas.panY or 0))
+    end
+
+    self:UpdateMapLayout(mapCanvas)
+    self:UpdateMapOverlays(mapCanvas)
+    self:UpdateMapPlayerPosition(mapCanvas)
     PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
-function MainMenu:MapZoomIn()
-    local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
-    local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+function MainMenu:MapPan(dx, dy)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.canvas then return end
 
-    if currentCont == 0 then
-        -- Do Mapa Cósmico para o Continente atual do jogador
-        if SetMapToCurrentZone then SetMapToCurrentZone() end
-        local c = (GetCurrentMapContinent and GetCurrentMapContinent()) or 1
-        if SetMapZoom then SetMapZoom(c, 0) end
-    elseif currentZone == 0 then
-        -- Do Continente para a Zona atual do jogador
-        if SetMapToCurrentZone then SetMapToCurrentZone() end
-    else
-        -- Já está na zona, recentraliza na posição do jogador
-        if SetMapToCurrentZone then SetMapToCurrentZone() end
+    local mapCanvas = pageQuests.mapPanel.canvas
+    if (mapCanvas.zoomFactor or 1.0) <= 1.0 then return end
+
+    local canvasW = mapCanvas:GetWidth() or 500
+    local canvasH = mapCanvas:GetHeight() or 340
+    local container = mapCanvas.tilesContainer
+    local totalW = (container and container:GetWidth()) or canvasW
+    local totalH = (container and container:GetHeight()) or canvasH
+
+    local maxPanX = math.max(0, (totalW - canvasW) / 2 + (canvasW * 0.45))
+    local maxPanY = math.max(0, (totalH - canvasH) / 2 + (canvasH * 0.45))
+
+    mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, (mapCanvas.panX or 0) + dx))
+    mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, (mapCanvas.panY or 0) + dy))
+
+    if container then
+        container:ClearAllPoints()
+        container:SetPoint("CENTER", mapCanvas, "CENTER", mapCanvas.panX, mapCanvas.panY)
     end
-
-    self:UpdateQuestsPage()
-    PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
 function MainMenu:CycleCategories(direction)
     local curTab = self.tabContainer and self.tabContainer.currentTab
     if curTab == "QUESTS" then
         if direction and direction < 0 then
-            self:MapZoomOut()
+            -- Zoom Out (LT)
+            self:MapZoomStep(-1)
             return true
         else
-            self:MapZoomIn()
+            -- Zoom In (RT)
+            self:MapZoomStep(1)
             return true
         end
     end

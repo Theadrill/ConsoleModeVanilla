@@ -4679,8 +4679,8 @@ function MainMenu:CreateQuestDetailOverlay()
     chl:SetBlendMode("ADD")
     local iconPath = (CFG and CFG.Icons and CFG.Icons["B"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\B.tga"
     local icon = closeBtn:CreateTexture(nil, "OVERLAY")
-    icon:SetWidth(20)
-    icon:SetHeight(20)
+    icon:SetWidth(25)
+    icon:SetHeight(25)
     icon:SetTexture(iconPath)
     icon:SetPoint("LEFT", closeBtn, "LEFT", 8, 0)
     local clabel = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
@@ -6779,8 +6779,8 @@ function MainMenu:CreateFooterHints(footer)
                 curIconW = 25
                 curIconH = 25
             elseif iconKey == "A" or iconKey == "B" or iconKey == "X" or iconKey == "Y" then
-                curIconW = 20  -- +10% de tamanho para botões frontais (18px -> 20px)
-                curIconH = 20
+                curIconW = 25  -- +25% sobre 20px (compensar TGA 48/64)
+                curIconH = 25
             end
 
             iconTex:SetWidth(curIconW)

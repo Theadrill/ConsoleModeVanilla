@@ -125,8 +125,10 @@ function HUD:CreateButton(parent, def, id)
     
     -- Badge com o icone do botao de controle (A, B, X, Y, D-Pad)
     local prompt = btn:CreateTexture(nil, "OVERLAY")
-    prompt:SetWidth(20)
-    prompt:SetHeight(20)
+    local isFront = (def.key == "A" or def.key == "B" or def.key == "X" or def.key == "Y")
+    local pSize = isFront and 25 or 20
+    prompt:SetWidth(pSize)
+    prompt:SetHeight(pSize)
     prompt:SetPoint("CENTER", btn, def.promptAlign, def.promptX, def.promptY)
     prompt:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\" .. def.icon)
     btn.prompt = prompt

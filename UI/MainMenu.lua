@@ -3123,15 +3123,20 @@ function MainMenu:UpdateMapLayout(mapCanvas)
     for row = 1, 3 do
         local curX = 0
         local h = rowH[row]
+        local bottomCoord = (row == 3) and (156 / 256) or 1.0
+
         for col = 1, 4 do
             local idx = (row - 1) * 4 + col
             local w = colW[col]
+            local rightCoord = (col == 4) and (234 / 256) or 1.0
+
             local tile = tiles[idx]
             if tile then
                 tile:ClearAllPoints()
                 tile:SetPoint("TOPLEFT", container, "TOPLEFT", curX, -curY)
                 tile:SetWidth(w)
                 tile:SetHeight(h)
+                tile:SetTexCoord(0, rightCoord, 0, bottomCoord)
             end
             curX = curX + w
         end
@@ -3177,6 +3182,11 @@ function MainMenu:UpdateMapTextures(mapCanvas)
         if tile then
             local texPath = "Interface\\WorldMap\\" .. mapFileName .. "\\" .. mapFileName .. i
             tile:SetTexture(texPath)
+            local row = math.floor((i - 1) / 4) + 1
+            local col = math.mod((i - 1), 4) + 1
+            local rightCoord = (col == 4) and (234 / 256) or 1.0
+            local bottomCoord = (row == 3) and (156 / 256) or 1.0
+            tile:SetTexCoord(0, rightCoord, 0, bottomCoord)
             tile:Show()
         end
     end
@@ -3211,6 +3221,16 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
     local totalPool = table.getn(overlays)
     local overlayPoolIdx = 1
 
+    -- Identifica as áreas que o personagem já explorou fisicamente
+    local alreadyknown = {}
+    local numExplored = (GetNumMapOverlays and GetNumMapOverlays()) or 0
+    for i = 1, numExplored do
+        local textureName = GetMapOverlayInfo(i)
+        if textureName and textureName ~= "" then
+            alreadyknown[textureName] = true
+        end
+    end
+
     local overlayData = nil
     if mapFileName and mapFileName ~= "" then
         overlayData = (ConsoleMode and ConsoleMode.MapOverlayData and ConsoleMode.MapOverlayData[mapFileName])
@@ -3218,7 +3238,7 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
     end
 
     if overlayData and table.getn(overlayData) > 0 then
-        -- Modo 1: Revelação Total de Mapa sem Fog of War (todas as fatias da zona com precisão sub-pixel)
+        -- Revelação Total do Mapa: Revela estradas, vilas e relevo sem Fog of War
         local prefix = "Interface\\WorldMap\\" .. mapFileName .. "\\"
         for _, hash in ipairs(overlayData) do
             local _, _, name, wStr, hStr, xStr, yStr = string.find(hash, "^([^:]+):([^:]+):([^:]+):([^:]+):([^:]+)")
@@ -3237,7 +3257,7 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
                 if textureWidth > 0 and textureHeight > 0 then
                     local numWide = math.ceil(textureWidth / 256)
                     local numHigh = math.ceil(textureHeight / 256)
-                    local textureIndex = 1
+                    local isExplored = alreadyknown[baseTexPath] or false
 
                     for j = 1, numHigh do
                         local texturePixelHeight, textureFileHeight
@@ -3272,27 +3292,31 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
                                 tex:SetWidth(math.floor(texturePixelWidth * scale))
                                 tex:SetHeight(math.floor(texturePixelHeight * scale))
                                 tex:SetTexCoord(0, texCoordX, 0, texCoordY)
+                                local textureIndex = ((j - 1) * numWide) + k
                                 tex:SetTexture(baseTexPath .. textureIndex)
-                                tex:SetVertexColor(1, 1, 1, 1)
+
+                                -- Áreas já exploradas = 100% de brilho; Áreas inexploradas = sombra nítida (0.50)
+                                if isExplored then
+                                    tex:SetVertexColor(1, 1, 1, 1)
+                                else
+                                    tex:SetVertexColor(0.50, 0.50, 0.50, 0.90)
+                                end
                                 tex:Show()
 
                                 overlayPoolIdx = overlayPoolIdx + 1
                             end
-                            textureIndex = textureIndex + 1
                         end
                     end
                 end
             end
         end
     else
-        -- Modo 2: Fallback Dinâmico Nativo da Blizzard
-        local numOverlays = (GetNumMapOverlays and GetNumMapOverlays()) or 0
-        for i = 1, numOverlays do
-            local textureName, textureWidth, textureHeight, offsetX, offsetY, mapPointX, mapPointY = GetMapOverlayInfo(i)
+        -- Fallback nativo
+        for i = 1, numExplored do
+            local textureName, textureWidth, textureHeight, offsetX, offsetY = GetMapOverlayInfo(i)
             if textureName and textureName ~= "" and textureWidth and textureHeight and textureWidth > 0 and textureHeight > 0 then
                 local numWide = math.ceil(textureWidth / 256)
                 local numHigh = math.ceil(textureHeight / 256)
-                local textureIndex = 1
 
                 for j = 1, numHigh do
                     local texturePixelHeight, textureFileHeight
@@ -3327,13 +3351,13 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
                             tex:SetWidth(math.floor(texturePixelWidth * scale))
                             tex:SetHeight(math.floor(texturePixelHeight * scale))
                             tex:SetTexCoord(0, texCoordX, 0, texCoordY)
+                            local textureIndex = ((j - 1) * numWide) + k
                             tex:SetTexture(textureName .. textureIndex)
                             tex:SetVertexColor(1, 1, 1, 1)
                             tex:Show()
 
                             overlayPoolIdx = overlayPoolIdx + 1
                         end
-                        textureIndex = textureIndex + 1
                     end
                 end
             end

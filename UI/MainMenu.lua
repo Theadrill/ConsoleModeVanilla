@@ -28,6 +28,8 @@ CM.mainMenu = CM.mainMenu or {}
 
 local MainMenu = CM.mainMenu
 _G["ConsoleModeMainMenu"] = MainMenu
+MainMenu.mapViewMode = MainMenu.mapViewMode or "ZONE"
+MainMenu.mapContinentView = MainMenu.mapContinentView or nil
 
 -- ============================================================================
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
@@ -2999,7 +3001,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
             if MainMenu and MainMenu.UpdateMapPlayerPosition then
                 MainMenu:UpdateMapPlayerPosition(this)
             end
-            if MainMenu and not MainMenu.mapShowingQuestZone then
+            if MainMenu and not MainMenu.mapShowingQuestZone and MainMenu.mapViewMode ~= "CONTINENT" then
                 local curZone = (GetZoneText and GetZoneText()) or ""
                 if curZone ~= "" and curZone ~= MainMenu.lastZoneText then
                     MainMenu.lastZoneText = curZone
@@ -3039,11 +3041,13 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
     mapPanel.hintText = mapHintText
 
-    -- Botão VOLTAR (canto inferior direito do mapa, visível quando zona diferente da atual)
     local backButton = CreateFrame("Button", "ConsoleModeMM_MapBackButton", mapPanel, "UIPanelButtonTemplate")
     backButton:SetWidth(70)
     backButton:SetHeight(22)
     backButton:SetPoint("BOTTOMRIGHT", mapPanel, "BOTTOMRIGHT", -12, 30)
+    backButton:EnableMouse(true)
+    backButton:SetFrameStrata("DIALOG")
+    backButton:SetFrameLevel((mapPanel:GetFrameLevel() or 5) + 20)
     if backButton.SetBackdrop then
         backButton:SetBackdrop({
             bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -3067,6 +3071,55 @@ function MainMenu:SetupQuestsPage(pageQuests)
     end)
     backButton:Hide()
     mapPanel.backButton = backButton
+
+    local function CreateMapNavButton(name, label, point, relPoint, x, y)
+        local b = CreateFrame("Button", name, mapPanel, "UIPanelButtonTemplate")
+        b:SetWidth(110)
+        b:SetHeight(22)
+        b:SetPoint(point, mapPanel, relPoint, x, y)
+        b:EnableMouse(true)
+        b:SetFrameStrata("DIALOG")
+        b:SetFrameLevel((mapPanel:GetFrameLevel() or 5) + 20)
+        if b.SetBackdrop then
+            b:SetBackdrop({
+                bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile = true, tileSize = 8, edgeSize = 8,
+                insets = { left = 2, right = 2, top = 2, bottom = 2 }
+            })
+            b:SetBackdropColor(0.08, 0.08, 0.12, 0.9)
+            b:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7)
+        end
+        local f = b:GetFontString()
+        if f and CFG.Fonts and CFG.Fonts.subFontFile then f:SetFont(CFG.Fonts.subFontFile, 10) end
+        if b.SetText then b:SetText(label) end
+        if b.SetHighlightTextColor then b:SetHighlightTextColor(1.0, 0.85, 0.0, 1.0) end
+        if b.SetTextColor then b:SetTextColor(0.92, 0.82, 0.55, 1.0) end
+        return b
+    end
+
+    local navBtnAtual = CreateMapNavButton("ConsoleModeMM_MapNavAtual", "|cffe09a15ATUAL|r", "BOTTOMRIGHT", "BOTTOMRIGHT", -12, 108)
+    navBtnAtual:SetScript("OnClick", function()
+        MainMenu:NavToCurrent()
+        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+    end)
+
+    local navBtnKalimdor = CreateMapNavButton("ConsoleModeMM_MapNavKalimdor", "|cffe09a15KALIMDOR|r", "BOTTOMRIGHT", "BOTTOMRIGHT", -12, 82)
+    navBtnKalimdor:SetScript("OnClick", function()
+        MainMenu:NavToContinent(1)
+        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+    end)
+
+    local navBtnEK = CreateMapNavButton("ConsoleModeMM_MapNavEK", "|cffe09a15EASTERN KINGDOM|r", "BOTTOMRIGHT", "BOTTOMRIGHT", -12, 56)
+    navBtnEK:SetScript("OnClick", function()
+        MainMenu:NavToContinent(2)
+        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+    end)
+
+    mapPanel.navBtnAtual = navBtnAtual
+    mapPanel.navBtnKalimdor = navBtnKalimdor
+    mapPanel.navBtnEK = navBtnEK
+    mapPanel.navButtons = { navBtnAtual, navBtnKalimdor, navBtnEK }
 
     -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior - 150px)
     local detailCard = CreateFrame("Frame", "ConsoleModeMM_QuestDetailCard", questPanel)
@@ -3324,35 +3377,32 @@ function MainMenu:UpdateQuestsPage()
         self:UpdatePfQuestPins(pageQuests.mapPanel.canvas)
     end
 
-    -- Atualiza informações do Título da Zona / Nível do Mapa
     if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
         local titleText = "Azeroth"
-
-        if self.mapShowingQuestZone and self.mapZoneName then
+        if self.mapViewMode == "CONTINENT" and self.mapContinentView then
+            if self.mapContinentView == 1 then titleText = "Kalimdor (Continente)"
+            elseif self.mapContinentView == 2 then titleText = "Reinos do Leste (Continente)"
+            else titleText = "Continente" end
+        elseif self.mapShowingQuestZone and self.mapZoneName then
             titleText = self.mapZoneName
         else
             local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
             local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
-
             if currentCont == 0 then
                 titleText = "Azeroth (Mundo)"
             elseif currentZone == 0 then
-                if currentCont == 1 then
-                    titleText = "Kalimdor (Continente)"
-                elseif currentCont == 2 then
-                    titleText = "Reinos do Leste (Continente)"
-                else
-                    titleText = "Continente"
-                end
+                if currentCont == 1 then titleText = "Kalimdor (Continente)"
+                elseif currentCont == 2 then titleText = "Reinos do Leste (Continente)"
+                else titleText = "Continente" end
             else
                 local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
                 if zoneName == "" then zoneName = "Azeroth" end
                 titleText = zoneName
             end
         end
-
         pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", titleText))
     end
+    self:UpdateNavButtonHighlight()
 
     local questPanel = pageQuests.questPanel
     if not questPanel or not questPanel.listContainer then return end
@@ -3524,12 +3574,15 @@ function MainMenu:SwitchMapToZone(zoneName)
             if name == zoneName then
                 SetMapZoom(cont, zoneIdx)
                 local fileName = (GetMapInfo and GetMapInfo()) or zoneName
+                self.mapViewMode = "ZONE"
+                self.mapContinentView = nil
                 self.mapContinent = cont
                 self.mapZoneIdx = zoneIdx
                 self.mapZoneName = zoneName
                 self.mapFileName = fileName
                 self.mapShowingQuestZone = true
                 self:UpdateBackButton()
+                self:UpdateNavButtonHighlight()
                 return true
             end
         end
@@ -3538,12 +3591,19 @@ function MainMenu:SwitchMapToZone(zoneName)
 end
 
 function MainMenu:EnsureMapZone()
+    if self.mapViewMode == "CONTINENT" and self.mapContinentView then
+        SetMapZoom(self.mapContinentView, 0)
+        return
+    end
     if self.mapContinent and self.mapZoneIdx then
         SetMapZoom(self.mapContinent, self.mapZoneIdx)
     end
 end
 
 function MainMenu:GetCurrentMapFileName()
+    if self.mapViewMode == "CONTINENT" and self.mapFileName then
+        return self.mapFileName
+    end
     if self.mapShowingQuestZone and self.mapFileName then
         return self.mapFileName
     end
@@ -3562,11 +3622,63 @@ end
 function MainMenu:ResetMapToPlayer()
     if SetMapToCurrentZone then SetMapToCurrentZone() end
     self.mapShowingQuestZone = false
+    self.mapViewMode = "ZONE"
+    self.mapContinentView = nil
     self.mapContinent = nil
     self.mapZoneIdx = nil
     self.mapZoneName = nil
     self.mapFileName = nil
     self:UpdateBackButton()
+    self:UpdateNavButtonHighlight()
+end
+
+function MainMenu:NavToCurrent()
+    self:ResetMapToPlayer()
+end
+
+function MainMenu:NavToContinent(cont)
+    if not cont or (cont ~= 1 and cont ~= 2) then return end
+    if SetMapZoom then SetMapZoom(cont, 0) end
+    self.mapViewMode = "CONTINENT"
+    self.mapContinentView = cont
+    self.mapShowingQuestZone = false
+    self.mapContinent = cont
+    self.mapZoneIdx = 0
+    self.mapZoneName = nil
+    self.mapFileName = (GetMapInfo and GetMapInfo()) or nil
+    if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
+        local c = self.tabContainer.pages["QUESTS"].mapPanel.canvas
+        c.zoomFactor = 1.0
+        c.panX = 0
+        c.panY = 0
+    end
+    self:UpdateBackButton()
+    self:UpdateNavButtonHighlight()
+end
+
+function MainMenu:UpdateNavButtonHighlight()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.mapPanel then return end
+    local mp = pageQuests.mapPanel
+    if not mp.navBtnAtual or not mp.navBtnKalimdor or not mp.navBtnEK then return end
+    local mode = self.mapViewMode or "ZONE"
+    local cview = self.mapContinentView
+    local isAtual = (mode == "ZONE" and not self.mapShowingQuestZone)
+    local isKal = (mode == "CONTINENT" and cview == 1)
+    local isEK = (mode == "CONTINENT" and cview == 2)
+    if mp.navBtnAtual.SetBackdropBorderColor then
+        if isAtual then mp.navBtnAtual:SetBackdropBorderColor(0.85, 0.68, 0.12, 1.0)
+        else mp.navBtnAtual:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7) end
+    end
+    if mp.navBtnKalimdor.SetBackdropBorderColor then
+        if isKal then mp.navBtnKalimdor:SetBackdropBorderColor(0.85, 0.68, 0.12, 1.0)
+        else mp.navBtnKalimdor:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7) end
+    end
+    if mp.navBtnEK.SetBackdropBorderColor then
+        if isEK then mp.navBtnEK:SetBackdropBorderColor(0.85, 0.68, 0.12, 1.0)
+        else mp.navBtnEK:SetBackdropBorderColor(0.5, 0.4, 0.25, 0.7) end
+    end
 end
 
 function MainMenu:UpdateBackButton()
@@ -5682,7 +5794,7 @@ function MainMenu:CreateUI()
         MainMenu:UpdateEquipmentColumn()
         MainMenu:UpdateStatsAndBuffs()
 
-        if not MainMenu.mapShowingQuestZone then
+        if not MainMenu.mapShowingQuestZone and MainMenu.mapViewMode ~= "CONTINENT" then
             if SetMapToCurrentZone then SetMapToCurrentZone() end
             MainMenu.lastZoneText = (GetZoneText and GetZoneText()) or ""
         end
@@ -5803,7 +5915,7 @@ initFrame:SetScript("OnEvent", function()
         MainMenu.lastZoneText = newZone
         if MainMenu.frame and MainMenu.frame:IsVisible() then
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "QUESTS" then
-                if MainMenu.mapShowingQuestZone then return end
+                if MainMenu.mapShowingQuestZone or MainMenu.mapViewMode == "CONTINENT" then return end
                 MainMenu:UpdateQuestsPage()
             end
         end

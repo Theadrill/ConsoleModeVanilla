@@ -4945,31 +4945,29 @@ function MainMenu:UpdateDungeonPreviewOverlay(mapCanvas)
     end
     local f = mapCanvas.dungeonPreviewFrame
     if self.mapDungeonPreview then
+        if self.mapDungeonHardcoded then
+            f:Hide()
+            if f.pin then f.pin:Hide() end
+            if f.pinLabel then f.pinLabel:Hide() end
+            return
+        end
         local instData = ConsoleMode and ConsoleMode.Instances
         local det = instData and instData.details and instData.details[self.mapDungeonPreview]
         local lv = det and det.levels or "?"
         local tp = det and det.type or "Dungeon"
         local parentTxt = self.mapDungeonPreviewParent or (det and det.zone) or "?"
-        if self.mapDungeonHardcoded then
-            f.text:SetText("|cff00ff88[MAPA HARDCODED]|r |cffe09a15" .. self.mapDungeonPreview .. "|r |cffaaaaaa(" .. tp .. " " .. lv .. ")|r  |cff888888entrada: " .. parentTxt .. "|r")
-            f.banner:Show(); f.bBorder:Show(); f.text:Show()
-            f:Show()
-            if f.pin then f.pin:Hide() end
-            if f.pinLabel then f.pinLabel:Hide() end
-        else
-            f.text:SetText("|cffe09a15" .. self.mapDungeonPreview .. "|r |cffaaaaaa(" .. tp .. " " .. lv .. ")|r  |cffffcc00Entrada em: " .. parentTxt .. "|r  |cff888888— interior só dentro da instância|r")
-            f.banner:Show(); f.bBorder:Show(); f.text:Show()
-            f.bg:SetVertexColor(0, 0, 0, 0.0)
-            f:Show()
-            f.pin:Show()
-            f.pinLabel:SetText("|cffffd200Entrada|r")
-            f.pinLabel:Show()
-            if f.pin then
-                f.pin:ClearAllPoints()
-                f.pin:SetPoint("CENTER", container, "CENTER", 0, 20)
-                f.pinLabel:ClearAllPoints()
-                f.pinLabel:SetPoint("TOP", f.pin, "BOTTOM", 0, -2)
-            end
+        f.text:SetText("|cffe09a15" .. self.mapDungeonPreview .. "|r |cffaaaaaa(" .. tp .. " " .. lv .. ")|r  |cffffcc00Entrada em: " .. parentTxt .. "|r  |cff888888— interior só dentro da instância|r")
+        f.banner:Show(); f.bBorder:Show(); f.text:Show()
+        f.bg:SetVertexColor(0, 0, 0, 0.0)
+        f:Show()
+        f.pin:Show()
+        f.pinLabel:SetText("|cffffd200Entrada|r")
+        f.pinLabel:Show()
+        if f.pin then
+            f.pin:ClearAllPoints()
+            f.pin:SetPoint("CENTER", container, "CENTER", 0, 20)
+            f.pinLabel:ClearAllPoints()
+            f.pinLabel:SetPoint("TOP", f.pin, "BOTTOM", 0, -2)
         end
     else
         f:Hide()
@@ -5027,7 +5025,7 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
         mapCanvas.playerPin:Hide()
         if mapCanvas.partyPins then for p = 1, 4 do if mapCanvas.partyPins[p] then mapCanvas.partyPins[p]:Hide() end end end
         if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
-            mapCanvas:GetParent().coordsText:SetText("|cff00ff88Mapa da masmorra (hardcoded) — sem GPS|r")
+            mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: Indisponível|r")
         end
         return
     end

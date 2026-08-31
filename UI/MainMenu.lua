@@ -3041,37 +3041,6 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
     mapPanel.hintText = mapHintText
 
-    local backButton = CreateFrame("Button", "ConsoleModeMM_MapBackButton", mapPanel, "UIPanelButtonTemplate")
-    backButton:SetWidth(70)
-    backButton:SetHeight(22)
-    backButton:SetPoint("BOTTOMRIGHT", mapPanel, "BOTTOMRIGHT", -12, 30)
-    backButton:EnableMouse(true)
-    backButton:SetFrameStrata("DIALOG")
-    backButton:SetFrameLevel((mapPanel:GetFrameLevel() or 5) + 20)
-    if backButton.SetBackdrop then
-        backButton:SetBackdrop({
-            bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            tile = true, tileSize = 8, edgeSize = 8,
-            insets = { left = 2, right = 2, top = 2, bottom = 2 }
-        })
-        backButton:SetBackdropColor(0.08, 0.08, 0.12, 0.9)
-        backButton:SetBackdropBorderColor(0.8, 0.65, 0.15, 0.8)
-    end
-    local btFont = backButton:GetFontString()
-    if btFont and CFG.Fonts and CFG.Fonts.subFontFile then
-        btFont:SetFont(CFG.Fonts.subFontFile, 11)
-    end
-    if backButton.SetText then backButton:SetText("|cffe09a15VOLTAR|r") end
-    if backButton.SetHighlightTextColor then backButton:SetHighlightTextColor(1.0, 0.82, 0.0, 1.0) end
-    if backButton.SetTextColor then backButton:SetTextColor(0.95, 0.75, 0.12, 1.0) end
-    backButton:SetScript("OnClick", function()
-        MainMenu:ResetMapToPlayer()
-        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
-    end)
-    backButton:Hide()
-    mapPanel.backButton = backButton
-
     local function CreateMapNavButton(name, label, point, relPoint, x, y)
         local b = CreateFrame("Button", name, mapPanel)
         b:SetWidth(110)
@@ -3110,50 +3079,48 @@ function MainMenu:SetupQuestsPage(pageQuests)
             if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 0.9) end
         end)
         b:SetScript("OnLeave", function()
-            this:UpdateNavVisual()
+            if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+            if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+            if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
         end)
         function b:UpdateNavVisual()
-            local mode = MainMenu.mapViewMode or "ZONE"
-            local cview = MainMenu.mapContinentView
-            local isActive = false
-            if this == mapPanel.navBtnAtual then isActive = (mode == "ZONE" and not MainMenu.mapShowingQuestZone)
-            elseif this == mapPanel.navBtnKalimdor then isActive = (mode == "CONTINENT" and cview == 1)
-            elseif this == mapPanel.navBtnEK then isActive = (mode == "CONTINENT" and cview == 2) end
-            if isActive then
-                if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
-                if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 1.0) end
-                if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
-            else
-                if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
-                if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
-                if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
-            end
+            if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+            if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+            if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
         end
         return b
     end
 
-    local navBtnAtual = CreateMapNavButton("ConsoleModeMM_MapNavAtual", "|cffe09a15ATUAL|r", "TOPRIGHT", "TOPRIGHT", -10, -10)
+    local navBtnAtual = CreateMapNavButton("ConsoleModeMM_MapNavAtual", "|cffe09a15ATUAL|r", "TOPRIGHT", "TOPRIGHT", -10, -40)
     navBtnAtual:SetScript("OnClick", function()
         MainMenu:NavToCurrent()
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
-    local navBtnKalimdor = CreateMapNavButton("ConsoleModeMM_MapNavKalimdor", "|cffe09a15KALIMDOR|r", "TOPRIGHT", "TOPRIGHT", -10, -34)
+    local navBtnKalimdor = CreateMapNavButton("ConsoleModeMM_MapNavKalimdor", "|cffe09a15KALIMDOR|r", "TOPRIGHT", "TOPRIGHT", -10, -64)
     navBtnKalimdor:SetScript("OnClick", function()
         MainMenu:NavToContinent(1)
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
-    local navBtnEK = CreateMapNavButton("ConsoleModeMM_MapNavEK", "|cffe09a15EASTERN KINGDOM|r", "TOPRIGHT", "TOPRIGHT", -10, -58)
+    local navBtnEK = CreateMapNavButton("ConsoleModeMM_MapNavEK", "|cffe09a15EASTERN KINGDOM|r", "TOPRIGHT", "TOPRIGHT", -10, -88)
     navBtnEK:SetScript("OnClick", function()
         MainMenu:NavToContinent(2)
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
+    local navBtnVoltar = CreateMapNavButton("ConsoleModeMM_MapBackButton", "|cffe09a15VOLTAR|r", "TOPRIGHT", "TOPRIGHT", -10, -112)
+    navBtnVoltar:SetScript("OnClick", function()
+        if this.isDisabled then return end
+        MainMenu:ResetMapToPlayer()
+        if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
+    end)
+    navBtnVoltar:Show()
+    mapPanel.backButton = navBtnVoltar
     mapPanel.navBtnAtual = navBtnAtual
     mapPanel.navBtnKalimdor = navBtnKalimdor
     mapPanel.navBtnEK = navBtnEK
-    mapPanel.navButtons = { navBtnAtual, navBtnKalimdor, navBtnEK }
+    mapPanel.navButtons = { navBtnAtual, navBtnKalimdor, navBtnEK, navBtnVoltar }
 
     local zoneListFrame = CreateFrame("Frame", "ConsoleModeMM_ContinentZoneList", mapPanel)
     zoneListFrame:SetWidth(230)
@@ -3749,7 +3716,14 @@ function MainMenu:UpdateNavButtonHighlight()
     if mp.navBtnKalimdor and mp.navBtnKalimdor.UpdateNavVisual then mp.navBtnKalimdor:UpdateNavVisual() end
     if mp.navBtnEK and mp.navBtnEK.UpdateNavVisual then mp.navBtnEK:UpdateNavVisual() end
     if mp.zoneListFrame then
-        if (self.mapViewMode or "ZONE") == "CONTINENT" then mp.zoneListFrame:Show() else mp.zoneListFrame:Hide() end
+        if (self.mapViewMode or "ZONE") == "CONTINENT" then
+            mp.zoneListFrame:Show()
+            if mp.zoneListFrame.scrollFrame and mp.zoneListFrame.scrollFrame.UpdateScrollChildRect then
+                mp.zoneListFrame.scrollFrame:UpdateScrollChildRect()
+            end
+        else
+            mp.zoneListFrame:Hide()
+        end
     end
     if mp.hintText then
         if (self.mapViewMode or "ZONE") == "CONTINENT" then
@@ -3849,10 +3823,24 @@ function MainMenu:UpdateBackButton()
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.backButton then return end
     local btn = pageQuests.mapPanel.backButton
-    if self.mapShowingQuestZone then
-        btn:Show()
+    btn:Show()
+    local isAtCurrent = not self.mapShowingQuestZone and (self.mapViewMode or "ZONE") == "ZONE"
+    local shouldDisable = isAtCurrent
+    btn.isDisabled = shouldDisable
+    if shouldDisable then
+        if btn.Disable then btn:Disable() end
+        btn:EnableMouse(false)
+        if btn.bg then btn.bg:SetVertexColor(0.08, 0.08, 0.08, 0.45) end
+        if btn.borderTex then btn.borderTex:SetVertexColor(0.30, 0.28, 0.20, 0.25) end
+        if btn.label then btn.label:SetTextColor(0.45, 0.42, 0.38, 1.0) end
+        btn:SetAlpha(0.55)
     else
-        btn:Hide()
+        if btn.Enable then btn:Enable() end
+        btn:EnableMouse(true)
+        if btn.bg then btn.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+        if btn.borderTex then btn.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+        if btn.label then btn.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+        btn:SetAlpha(1.0)
     end
 end
 

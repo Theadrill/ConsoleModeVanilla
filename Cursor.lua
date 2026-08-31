@@ -194,6 +194,29 @@ function Cursor:ScrollToShowButton(button)
         return
     end
     if scrollFrame.GetVerticalScroll and scrollFrame.SetVerticalScroll and scrollFrame.GetVerticalScrollRange then
+        local sfName = scrollFrame:GetName() or ""
+        if sfName == "ConsoleModeMM_ZoneListScroll" and button.zoneIdx then
+            local btnH = 28
+            local gap = 3
+            local idx = button.zoneIdx or 1
+            local topOff = (idx - 1) * (btnH + gap) + 2
+            local botOff = topOff + btnH
+            local cur = scrollFrame:GetVerticalScroll() or 0
+            local maxR = scrollFrame:GetVerticalScrollRange() or 0
+            local vpH = scrollFrame:GetHeight() or 200
+            if botOff > cur + vpH then
+                local newScroll = botOff - vpH + 6
+                if newScroll > maxR then newScroll = maxR end
+                if newScroll < 0 then newScroll = 0 end
+                scrollFrame:SetVerticalScroll(newScroll)
+            elseif topOff < cur then
+                local newScroll = topOff - 4
+                if newScroll < 0 then newScroll = 0 end
+                if newScroll > maxR then newScroll = maxR end
+                scrollFrame:SetVerticalScroll(newScroll)
+            end
+            return
+        end
         local cur = scrollFrame:GetVerticalScroll() or 0
         local maxR = scrollFrame:GetVerticalScrollRange() or 0
         if btnBottom < sfBottom then
@@ -619,6 +642,47 @@ function Cursor:MoveDirection(direction)
         end
     end
     
+    if currentButton.zoneIdx and currentButton:GetParent() then
+        local p = currentButton:GetParent()
+        local pn = p and p:GetName() or ""
+        if string.find(pn, "ZoneListScrollChild") then
+            direction = string.upper(direction or "")
+            if direction == "UP" or direction == "DOWN" then
+                local delta = (direction == "DOWN") and 1 or -1
+                local targetIdx = (currentButton.zoneIdx or 1) + delta
+                local listFrame = getglobal("ConsoleModeMM_ContinentZoneList")
+                local btns = listFrame and listFrame.buttons
+                if btns and targetIdx >= 1 and targetIdx <= table.getn(btns) then
+                    local tgt = btns[targetIdx]
+                    if tgt and tgt:IsVisible() then
+                        local sf = getglobal("ConsoleModeMM_ZoneListScroll")
+                        if sf and sf.GetVerticalScroll then
+                            local btnH = 28
+                            local gap = 3
+                            local topOff = (targetIdx - 1) * (btnH + gap)
+                            local cur = sf:GetVerticalScroll() or 0
+                            local vpH = sf:GetHeight() or 220
+                            if vpH <= 0 then vpH = 220 end
+                            local visRows = math.floor(vpH / (btnH + gap))
+                            if visRows < 1 then visRows = 6 end
+                            local firstVis = math.floor(cur / (btnH + gap)) + 1
+                            local lastVis = firstVis + visRows - 1
+                            if targetIdx > lastVis then
+                                sf:SetVerticalScroll((targetIdx - visRows) * (btnH + gap))
+                            elseif targetIdx < firstVis then
+                                sf:SetVerticalScroll((targetIdx - 1) * (btnH + gap))
+                            end
+                        end
+                        self:MoveTo(tgt)
+                        return
+                    end
+                else
+                    return
+                end
+            end
+        end
+    end
+
     self:UpdateState()
     
     direction = string.upper(direction or "")

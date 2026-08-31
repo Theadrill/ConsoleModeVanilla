@@ -2844,8 +2844,8 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     local mapCoordsText = mapHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     mapCoordsText:SetPoint("RIGHT", mapHeader, "RIGHT", -4, 0)
-    MainMenu:ApplyFont(mapCoordsText, CFG.Fonts.subFontFile, 11)
-    mapCoordsText:SetText("|cffaaaaaaGPS: --, --|r")
+    MainMenu:ApplyFont(mapCoordsText, CFG.Fonts.subFontFile, 9)
+    mapCoordsText:SetText("|cffaaaaaaPlayer: --  Cursor: --|r")
     mapPanel.coordsText = mapCoordsText
 
     -- Viewport / Container do Canvas de Texturas do Mapa
@@ -3033,7 +3033,14 @@ function MainMenu:SetupQuestsPage(pageQuests)
             MainMenu:MapPan(dx, dy)
         end
 
-        -- 3. Atualização suave da posição e rotação do jogador (30 FPS)
+        -- 3. Atualização suave da posição e rotação do jogador (30 FPS) + GPS Cursor do Mouse
+        this.cursorElapsed = (this.cursorElapsed or 0) + (arg1 or 0.016)
+        if this.cursorElapsed >= 0.05 then
+            this.cursorElapsed = 0
+            if MainMenu and MainMenu.UpdateMapCursorCoords then
+                MainMenu:UpdateMapCursorCoords(this)
+            end
+        end
         this.elapsed = (this.elapsed or 0) + (arg1 or 0.016)
         if this.elapsed >= 0.033 then
             this.elapsed = 0
@@ -3123,9 +3130,9 @@ function MainMenu:SetupQuestsPage(pageQuests)
             if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
         end)
         function b:UpdateNavVisual()
-            if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
-            if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
-            if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+            if self.bg then self.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+            if self.borderTex then self.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+            if self.label then self.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
         end
         return b
     end
@@ -5209,9 +5216,12 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
     if self.mapDungeonHardcoded then
         mapCanvas.playerPin:Hide()
         if mapCanvas.partyPins then for p = 1, 4 do if mapCanvas.partyPins[p] then mapCanvas.partyPins[p]:Hide() end end end
-        if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
-            mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: Indisponível|r")
-        end
+        mapCanvas.playerCX = nil
+        mapCanvas.playerCY = nil
+        mapCanvas.playerOutside = true
+        mapCanvas.cursorCX = nil
+        mapCanvas.cursorCY = nil
+        self:RefreshCoordsHeader(mapCanvas)
         return
     end
     local container = mapCanvas.tilesContainer
@@ -5263,30 +5273,22 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
     if px and py and (px > 0 or py > 0) then
         local posX = px * effW
         local posY = -py * effH
-
         playerPin:ClearAllPoints()
         playerPin:SetPoint("CENTER", container, "TOPLEFT", posX, posY)
-
         local facing = GetPlayerFacingAngle()
-        if playerPin.texture then
-            RotateMapTexture(playerPin.texture, facing)
-        end
+        if playerPin.texture then RotateMapTexture(playerPin.texture, facing) end
         playerPin:Show()
-
-        if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
-            mapCanvas:GetParent().coordsText:SetText(string.format("|cffe09a15GPS: |cffffffff%.1f, %.1f|r", px * 100, py * 100))
-        end
+        mapCanvas.playerCX = px
+        mapCanvas.playerCY = py
+        mapCanvas.playerOutside = nil
     else
         playerPin:Hide()
-        if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
-            local isViewingOtherZone = self.mapShowingQuestZone and self.mapFileName and not isContinentView
-            if isViewingOtherZone then
-                mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: fora da zona visualizada|r")
-            else
-                mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: Indisponível|r")
-            end
-        end
+        mapCanvas.playerCX = nil
+        mapCanvas.playerCY = nil
+        local isViewingOtherZone = self.mapShowingQuestZone and self.mapFileName and not isContinentView
+        mapCanvas.playerOutside = isViewingOtherZone or true
     end
+    self:RefreshCoordsHeader(mapCanvas)
 
     if mapCanvas.partyPins then
         local numParty = (GetNumPartyMembers and GetNumPartyMembers()) or 0
@@ -5317,6 +5319,79 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
             end
         end
     end
+end
+
+function MainMenu:RefreshCoordsHeader(mapCanvas)
+    if not mapCanvas then
+        if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
+            mapCanvas = self.tabContainer.pages["QUESTS"].mapPanel.canvas
+        end
+    end
+    if not mapCanvas or not mapCanvas:GetParent() or not mapCanvas:GetParent().coordsText then return end
+    local ct = mapCanvas:GetParent().coordsText
+    local ptxt = "--, --"
+    if mapCanvas.playerCX and mapCanvas.playerCY and (mapCanvas.playerCX > 0 or mapCanvas.playerCY > 0) then
+        ptxt = string.format("%.1f, %.1f", mapCanvas.playerCX * 100, mapCanvas.playerCY * 100)
+    elseif mapCanvas.playerOutside then
+        ptxt = "fora da zona"
+    end
+    local ctxt = "--, --"
+    if mapCanvas.cursorCX and mapCanvas.cursorCY then
+        ctxt = string.format("%.1f, %.1f", mapCanvas.cursorCX * 100, mapCanvas.cursorCY * 100)
+    end
+    if self.mapDungeonHardcoded then
+        ct:SetText("|cff888888Player: --  Cursor: --|r")
+    else
+        ct:SetText(string.format("|cffaaaaaaPlayer: |cffffffff%s|r  |cffaaaaaaCursor: |cffffffff%s|r", ptxt, ctxt))
+    end
+end
+
+function MainMenu:UpdateMapCursorCoords(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer then return end
+    if self.mapDungeonHardcoded then
+        mapCanvas.cursorCX = nil
+        mapCanvas.cursorCY = nil
+        self:RefreshCoordsHeader(mapCanvas)
+        return
+    end
+    local isOver = false
+    if MouseIsOver then
+        isOver = MouseIsOver(mapCanvas) or MouseIsOver(mapCanvas.scrollFrame)
+    end
+    if not isOver then
+        if mapCanvas.cursorCX then
+            mapCanvas.cursorCX = nil
+            mapCanvas.cursorCY = nil
+            self:RefreshCoordsHeader(mapCanvas)
+        end
+        return
+    end
+    local curX, curY = GetCursorPosition()
+    if not curX or not curY then return end
+    local uiScale = UIParent and UIParent:GetEffectiveScale() or 1
+    curX = curX / uiScale
+    curY = curY / uiScale
+    local container = mapCanvas.tilesContainer
+    local left = container:GetLeft()
+    local top = container:GetTop()
+    local w = container:GetWidth() or 0
+    local h = container:GetHeight() or 0
+    if not left or not top or w <= 0 or h <= 0 then return end
+    local dx = curX - left
+    local dy = top - curY
+    local cx = dx / w
+    local cy = dy / h
+    if cx < 0 or cx > 1 or cy < 0 or cy > 1 then
+        if mapCanvas.cursorCX then
+            mapCanvas.cursorCX = nil
+            mapCanvas.cursorCY = nil
+            self:RefreshCoordsHeader(mapCanvas)
+        end
+        return
+    end
+    mapCanvas.cursorCX = cx
+    mapCanvas.cursorCY = cy
+    self:RefreshCoordsHeader(mapCanvas)
 end
 
 function MainMenu:UpdatePfQuestPins(mapCanvas)

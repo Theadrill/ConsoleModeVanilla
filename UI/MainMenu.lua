@@ -2884,6 +2884,15 @@ function MainMenu:CleanButtonText(text, buttonName)
     clean = string.gsub(clean, "^%s+", "")
     clean = string.gsub(clean, "%s+$", "")
 
+    -- Desambiguação de botões nativos que compartilham o mesmo texto genérico "Options"
+    if buttonName == "GameMenuButtonOptions" and (clean == "Options" or clean == "OPTIONS") then
+        clean = "Video Options"
+    elseif buttonName == "GameMenuButtonUIOptions" and (clean == "Options" or clean == "OPTIONS") then
+        clean = "Interface Options"
+    elseif buttonName == "GameMenuButtonSoundOptions" and (clean == "Options" or clean == "OPTIONS") then
+        clean = "Sound Options"
+    end
+
     return clean
 end
 
@@ -2951,17 +2960,27 @@ function MainMenu:UpdateGameMenuSubPage()
         local btnData = buttons[i]
         local row = subPage.rows[i]
         if not row then
-            row = CreateFrame("Frame", "ConsoleModeMM_GMRow_" .. i, subPage.listContainer)
+            row = CreateFrame("Button", "ConsoleModeMM_GMBtn_" .. i, subPage.listContainer)
             row:SetHeight(rowHeight)
             row:SetPoint("LEFT", subPage.listContainer, "LEFT", 0, 0)
             row:SetPoint("RIGHT", subPage.listContainer, "RIGHT", 0, 0)
 
-            -- Fundo translúcido sutil para leitura em lista
+            -- Fundo translúcido com destaque visual
             local bg = row:CreateTexture(nil, "BACKGROUND")
             bg:SetAllPoints(row)
             bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
             bg:SetVertexColor(0.0, 0.0, 0.0, 0.25)
             row.bg = bg
+
+            -- Linha de destaque dourada à esquerda ao focar
+            local highlightBar = row:CreateTexture(nil, "OVERLAY")
+            highlightBar:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            highlightBar:SetWidth(3)
+            highlightBar:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
+            highlightBar:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 0, 0)
+            highlightBar:SetVertexColor(1.0, 0.85, 0.2, 0.95)
+            highlightBar:Hide()
+            row.highlightBar = highlightBar
 
             local badge = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
             badge:SetPoint("LEFT", row, "LEFT", 8, 0)
@@ -2977,6 +2996,84 @@ function MainMenu:UpdateGameMenuSubPage()
             frameName:SetPoint("RIGHT", row, "RIGHT", -8, 0)
             MainMenu:ApplyFont(frameName, CFG.Fonts.subFontFile, 11)
             row.frameName = frameName
+
+            -- Eventos de foco / mouse hover
+            row:SetScript("OnEnter", function()
+                this.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18)
+                if this.highlightBar then this.highlightBar:Show() end
+            end)
+
+            row:SetScript("OnLeave", function()
+                this.bg:SetVertexColor(0.0, 0.0, 0.0, 0.25)
+                if this.highlightBar then this.highlightBar:Hide() end
+            end)
+
+            -- Ação OnClick (Etapa 8.3)
+            row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+            row:SetScript("OnClick", function()
+                if this.btnData and this.btnData.frame then
+                    local targetBtn = this.btnData.frame
+                    local targetName = this.btnData.name or ""
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+
+                    MainMenu:Hide()
+
+                    if targetName == "ConsoleModeMM_OpenConfigBtn" or targetName == "GameMenuButtonConsoleMode" then
+                        if ConsoleMode.config and ConsoleMode.config.Show then
+                            ConsoleMode.config:Show()
+                        end
+                    elseif targetName == "GameMenuButtonOptions" then
+                        if OptionsFrame_Toggle then
+                            OptionsFrame_Toggle()
+                        elseif OptionsFrame then
+                            ShowUIPanel(OptionsFrame)
+                            if not OptionsFrame:IsVisible() then OptionsFrame:Show() end
+                        elseif targetBtn.Click then
+                            targetBtn:Click()
+                        end
+                    elseif targetName == "GameMenuButtonSoundOptions" then
+                        if SoundOptionsFrame_Toggle then
+                            SoundOptionsFrame_Toggle()
+                        elseif SoundOptionsFrame then
+                            ShowUIPanel(SoundOptionsFrame)
+                            if not SoundOptionsFrame:IsVisible() then SoundOptionsFrame:Show() end
+                        elseif targetBtn.Click then
+                            targetBtn:Click()
+                        end
+                    elseif targetName == "GameMenuButtonUIOptions" then
+                        if UIOptionsFrame_Toggle then
+                            UIOptionsFrame_Toggle()
+                        elseif UIOptionsFrame then
+                            ShowUIPanel(UIOptionsFrame)
+                            if not UIOptionsFrame:IsVisible() then UIOptionsFrame:Show() end
+                        elseif targetBtn.Click then
+                            targetBtn:Click()
+                        end
+                    elseif targetName == "GameMenuButtonKeybindings" then
+                        if KeyBindingFrame_Toggle then
+                            KeyBindingFrame_Toggle()
+                        elseif KeyBindingFrame then
+                            ShowUIPanel(KeyBindingFrame)
+                            if not KeyBindingFrame:IsVisible() then KeyBindingFrame:Show() end
+                        elseif targetBtn.Click then
+                            targetBtn:Click()
+                        end
+                    elseif targetName == "GameMenuButtonMacros" then
+                        if ShowMacroFrame then
+                            ShowMacroFrame()
+                        elseif targetBtn.Click then
+                            targetBtn:Click()
+                        end
+                    else
+                        if targetBtn.Click then
+                            targetBtn:Click()
+                        elseif targetBtn:GetScript("OnClick") then
+                            local fn = targetBtn:GetScript("OnClick")
+                            fn()
+                        end
+                    end
+                end
+            end)
 
             subPage.rows[i] = row
         end

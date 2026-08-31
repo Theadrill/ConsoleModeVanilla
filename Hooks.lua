@@ -32,8 +32,6 @@ Hooks.frames = {
     { frame = "AdvancedSettingsGUI",         name = "Turtle Configuracoes Avancadas" },
     { frame = "TDF_AdvancedSettingsGUI",     name = "Turtle-Dragonflight Configuracoes" },
     { frame = "myAddOnsFrame",               name = "myAddOns" },
-    { frame = "MacroFrame",                  name = "Macros" },
-    { frame = "SuperMacroFrame",             name = "SuperMacro" },
     { frame = "MAOptions",                   name = "MoveAnything" },
     
     -- Personagem e Social
@@ -102,9 +100,38 @@ Hooks.frames = {
 -- FUNÇÕES DE HOOK DE FRAMES
 -- ============================================================================
 
+function Hooks:IsAnyMacroOpen()
+    local mf = getglobal("MacroFrame")
+    if mf and mf:IsVisible() then return true end
+    local mpf = getglobal("MacroPopupFrame")
+    if mpf and mpf:IsVisible() then return true end
+    local smf = getglobal("SuperMacroFrame")
+    if smf and smf:IsVisible() then return true end
+    local smof = getglobal("SuperMacroOptionsFrame") or getglobal("SuperMacroOptionFrame")
+    if smof and smof:IsVisible() then return true end
+    local smpf = getglobal("SuperMacroPopupFrame")
+    if smpf and smpf:IsVisible() then return true end
+    return false
+end
+
+function Hooks:IsMacroFrame(frame)
+    if not frame then return false end
+    local current = frame
+    while current do
+        local name = current:GetName() or ""
+        local lowerName = string.lower(name)
+        if (string.find(lowerName, "macro") or string.find(name, "^SM_")) and not string.find(name, "^ConsoleMode") then
+            return true
+        end
+        current = current.GetParent and current:GetParent()
+    end
+    return false
+end
+
 function Hooks:HookFrame(frame, name)
     if not frame then return false end
     if frame.cmHooked then return false end
+    if self:IsMacroFrame(frame) then return false end
     if not frame.GetScript or not frame.SetScript then return false end
 
     local frameName = frame:GetName() or "Unknown"
@@ -140,9 +167,24 @@ function Hooks:OnFrameShow(frame)
     end
 
     local name = frame:GetName() or "?"
+    local Cursor = ConsoleMode.cursor
+
+    -- Se for tela de Macros ou SuperMacro, desativa o cursor de navegação para não atrapalhar digitação
+    if self:IsAnyMacroOpen() or self:IsMacroFrame(frame) or (Cursor and Cursor.IsAnyMacroOpen and Cursor:IsAnyMacroOpen()) or (Cursor and Cursor.IsMacroFrame and Cursor:IsMacroFrame(frame)) then
+        if Cursor then
+            Cursor.state.activeFrames[frame] = nil
+            if Cursor.state.enabled then
+                Cursor:Disable()
+            end
+        end
+        if ConsoleMode.keybindings and ConsoleMode.keybindings.navigationMode then
+            ConsoleMode.keybindings:ExitNavigationMode()
+        end
+        return
+    end
+
     DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r JANELA ABRIU: " .. name)
 
-    local Cursor = ConsoleMode.cursor
     if not Cursor then 
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM OnFrameShow]|r ConsoleMode.cursor is NIL!")
         return 
@@ -225,6 +267,15 @@ function Hooks:InitCursorOnFrame(frame)
     
     local Cursor = ConsoleMode.cursor
     if not Cursor then return end
+
+    if self:IsAnyMacroOpen() or self:IsMacroFrame(frame) or (Cursor.IsAnyMacroOpen and Cursor:IsAnyMacroOpen()) or (Cursor.IsMacroFrame and Cursor:IsMacroFrame(frame)) then
+        Cursor:Disable()
+        if ConsoleMode.keybindings and ConsoleMode.keybindings.navigationMode then
+            ConsoleMode.keybindings:ExitNavigationMode()
+        end
+        return
+    end
+
     if not frame:IsVisible() then return end
 
     local frameName = frame:GetName() or "?"
@@ -423,38 +474,49 @@ function Hooks:Initialize()
                 
                 local Cursor = ConsoleMode.cursor
                 if Cursor then
-                    -- 1. Se o botão atual sumiu ou virou a página, auto-resync no novo botão!
-                    if Cursor.state.enabled and Cursor.state.currentButton and not Cursor.state.currentButton:IsVisible() then
-                        Cursor:Resync()
-                    end
-
-                    -- 2. Verifica se os frames atualmente ativos ainda estão visíveis
-                    local anyFrameVisible = false
-                    for frame, _ in pairs(Cursor.state.activeFrames) do
-                        if frame and frame:IsVisible() then
-                            anyFrameVisible = true
-                        else
-                            Cursor.state.activeFrames[frame] = nil
+                    -- Se janela de Macros ou SuperMacro estiver aberta, desativa navegação por controle imediatamente
+                    local isMacroOpen = Hooks:IsAnyMacroOpen() or (Cursor.IsAnyMacroOpen and Cursor:IsAnyMacroOpen())
+                    if isMacroOpen then
+                        if Cursor.state.enabled then
+                            Cursor:Disable()
                         end
-                    end
-                    
-                    -- Se nenhuma janela estiver aberta mas o modo navegação ainda estiver ligado, desativa na hora!
-                    if not anyFrameVisible and Cursor.state.enabled then
-                        Cursor:Disable()
-                        if ConsoleMode.keybindings and ConsoleMode.keybindings.ExitNavigationMode then
+                        if ConsoleMode.keybindings and ConsoleMode.keybindings.navigationMode then
                             ConsoleMode.keybindings:ExitNavigationMode()
                         end
-                    end
-                    
-                    -- 3. Detecta frames que abriram sem disparar OnShow padrao
-                    local problematicFrames = { 
-                        "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
-                        "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MacroFrame", "SuperMacroFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "MailFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame"
-                    }
-                    for _, frameName in ipairs(problematicFrames) do
-                        local frame = getglobal(frameName)
-                        if frame and frame:IsVisible() and not Cursor.state.activeFrames[frame] then
-                            Hooks:OnFrameShow(frame)
+                    else
+                        -- 1. Se o botão atual sumiu ou virou a página, auto-resync no novo botão!
+                        if Cursor.state.enabled and Cursor.state.currentButton and not Cursor.state.currentButton:IsVisible() then
+                            Cursor:Resync()
+                        end
+
+                        -- 2. Verifica se os frames atualmente ativos ainda estão visíveis
+                        local anyFrameVisible = false
+                        for frame, _ in pairs(Cursor.state.activeFrames) do
+                            if frame and frame:IsVisible() then
+                                anyFrameVisible = true
+                            else
+                                Cursor.state.activeFrames[frame] = nil
+                            end
+                        end
+                        
+                        -- Se nenhuma janela estiver aberta mas o modo navegação ainda estiver ligado, desativa na hora!
+                        if not anyFrameVisible and Cursor.state.enabled then
+                            Cursor:Disable()
+                            if ConsoleMode.keybindings and ConsoleMode.keybindings.ExitNavigationMode then
+                                ConsoleMode.keybindings:ExitNavigationMode()
+                            end
+                        end
+                        
+                        -- 3. Detecta frames que abriram sem disparar OnShow padrao
+                        local problematicFrames = { 
+                            "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
+                            "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "MailFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame"
+                        }
+                        for _, frameName in ipairs(problematicFrames) do
+                            local frame = getglobal(frameName)
+                            if frame and frame:IsVisible() and not Cursor.state.activeFrames[frame] then
+                                Hooks:OnFrameShow(frame)
+                            end
                         end
                     end
                     

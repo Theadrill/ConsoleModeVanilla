@@ -237,6 +237,10 @@ end
 
 function Cursor:MoveTo(button)
     if not button then return end
+    if self:IsAnyMacroOpen() or self:IsMacroFrame(button) then
+        self:Disable()
+        return
+    end
     
     local prevButton = self.state.currentButton
     if prevButton and prevButton ~= button then
@@ -294,7 +298,39 @@ function Cursor:Hide()
     if GameTooltip then GameTooltip:Hide() end
 end
 
+function Cursor:IsAnyMacroOpen()
+    local mf = getglobal("MacroFrame")
+    if mf and mf:IsVisible() then return true end
+    local mpf = getglobal("MacroPopupFrame")
+    if mpf and mpf:IsVisible() then return true end
+    local smf = getglobal("SuperMacroFrame")
+    if smf and smf:IsVisible() then return true end
+    local smof = getglobal("SuperMacroOptionsFrame") or getglobal("SuperMacroOptionFrame")
+    if smof and smof:IsVisible() then return true end
+    local smpf = getglobal("SuperMacroPopupFrame")
+    if smpf and smpf:IsVisible() then return true end
+    return false
+end
+
+function Cursor:IsMacroFrame(frame)
+    if not frame then return false end
+    local current = frame
+    while current do
+        local name = current:GetName() or ""
+        local lowerName = string.lower(name)
+        if (string.find(lowerName, "macro") or string.find(name, "^SM_")) and not string.find(name, "^ConsoleMode") then
+            return true
+        end
+        current = current.GetParent and current:GetParent()
+    end
+    return false
+end
+
 function Cursor:Enable()
+    if self:IsAnyMacroOpen() then
+        self:Disable()
+        return
+    end
     self.state.enabled = true
 end
 
@@ -310,13 +346,10 @@ function Cursor:Disable()
     self:Hide()
 end
 
--- ============================================================================
--- DETECÇÃO DE ELEMENTOS INTERATIVOS
--- ============================================================================
-
 function Cursor:IsInteractive(frame)
     if not frame then return false end
     if not frame:IsVisible() then return false end
+    if self:IsMacroFrame(frame) then return false end
     
     local fname = frame:GetName() or ""
     if fname == "WorldMapButton" or fname == "WorldMapFrame" then
@@ -379,9 +412,17 @@ local ignorePatterns = {
     "MoneyFrameSilverButton",
     "MoneyFrameCopperButton",
     "DropDownList%d+Button",
+    "^MacroFrame",
+    "^MacroButton",
+    "^MacroPopup",
+    "^SuperMacro",
+    "^SM_",
 }
 
 function Cursor:ShouldIgnore(frame)
+    if not frame then return false end
+    if self:IsMacroFrame(frame) then return true end
+
     local name = frame:GetName()
     if not name then return false end
     
@@ -396,6 +437,9 @@ end
 
 function Cursor:FindFirstVisibleButton(frame)
     if not frame or not frame:IsVisible() then
+        return nil
+    end
+    if self:IsAnyMacroOpen() or self:IsMacroFrame(frame) then
         return nil
     end
     
@@ -475,6 +519,7 @@ end
 function Cursor:CollectButtons(frame, result)
     result = result or {}
     if not frame or not frame:IsVisible() then return result end
+    if self:IsAnyMacroOpen() or self:IsMacroFrame(frame) then return result end
     
     local fname = frame:GetName() or ""
     
@@ -579,6 +624,10 @@ function Cursor:FindClosest(current, allButtons)
 end
 
 function Cursor:UpdateState()
+    if self:IsAnyMacroOpen() then
+        self:Disable()
+        return
+    end
     local allButtons = {}
     
     -- 1. Verifica se há diálogo modal ativo (StaticPopup ou ContextMenu)

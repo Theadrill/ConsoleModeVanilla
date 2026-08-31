@@ -504,6 +504,35 @@ end
 -- CÁLCULO E ATUALIZAÇÃO RESPONSIVA DE LAYOUT
 -- ============================================================================
 
+function MainMenu:GetRightPanelDimensions()
+    local frameW = (self.frame and self.frame:GetWidth()) or 0
+    local frameH = (self.frame and self.frame:GetHeight()) or 0
+    if frameW < 100 or frameH < 100 then
+        local screenW = (UIParent and UIParent:GetWidth()) or 1024
+        local screenH = (UIParent and UIParent:GetHeight()) or 768
+        if CFG.Window.usePercentage then
+            frameW = math.floor(screenW * CFG.Window.widthPercent)
+            frameH = math.floor(screenH * CFG.Window.heightPercent)
+            if CFG.Window.minWidth and frameW < CFG.Window.minWidth then frameW = CFG.Window.minWidth end
+            if CFG.Window.maxWidth and frameW > CFG.Window.maxWidth then frameW = CFG.Window.maxWidth end
+            if CFG.Window.minHeight and frameH < CFG.Window.minHeight then frameH = CFG.Window.minHeight end
+            if CFG.Window.maxHeight and frameH > CFG.Window.maxHeight then frameH = CFG.Window.maxHeight end
+        else
+            frameW = CFG.Window.staticWidth
+            frameH = CFG.Window.staticHeight
+        end
+    end
+
+    local availableW = frameW - (CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
+    local leftW = math.floor(availableW * CFG.LeftPanel.widthRatio)
+    local rightW = availableW - leftW
+    local rightH = frameH - (math.abs(CFG.RightPanel.paddingTop) + CFG.RightPanel.paddingBottom)
+    local gridW = rightW
+    local gridH = rightH - (CFG.Tabs.barHeight + 6 + 32 + 8 + CFG.DetailCard.height + 30)
+
+    return gridW, gridH, rightW, rightH
+end
+
 function MainMenu:UpdateLayout()
     if not self.frame then return end
 
@@ -535,6 +564,12 @@ function MainMenu:UpdateLayout()
         self.frame.leftPanel:SetWidth(leftW)
     end
 
+    local gridW, gridH, rightW, rightH = self:GetRightPanelDimensions()
+    if self.frame.rightPanel then
+        self.frame.rightPanel:SetWidth(rightW)
+        self.frame.rightPanel:SetHeight(rightH)
+    end
+
     if self.frame.divider and self.frame.leftPanel then
         self.frame.divider:ClearAllPoints()
         local divGap = math.floor(CFG.RightPanel.gapX / 2)
@@ -544,7 +579,6 @@ function MainMenu:UpdateLayout()
 
     -- Ajusta a largura proporcional dos botões de aba no painel direito
     if self.tabContainer and self.tabContainer.tabBar and self.tabContainer.tabBar.buttons then
-        local rightW = targetW - (leftW + CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
         local usableTabW = rightW - 64
         local numTabs = table.getn(CFG.Tabs.list)
         local btnW = math.floor((usableTabW - ((numTabs - 1) * CFG.Tabs.gapX)) / numTabs)
@@ -1686,19 +1720,12 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
         local w = self:GetWidth()
         local h = self:GetHeight()
 
-        -- Se a geometria ainda não resolveu no primeiro frame (w <= 100), calcula via targetW e targetH reais
-        if not w or w < 100 then
-            local totalW = (MainMenu.frame and MainMenu.frame:GetWidth()) or 980
-            if totalW < 100 then totalW = 980 end
-            local availableW = totalW - (CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
-            local leftW = math.floor(availableW * CFG.LeftPanel.widthRatio)
-            w = availableW - leftW
-        end
-
-        if not h or h < 100 then
-            local totalH = (MainMenu.frame and MainMenu.frame:GetHeight()) or 620
-            if totalH < 100 then totalH = 620 end
-            h = totalH - (math.abs(CFG.RightPanel.paddingTop) + CFG.RightPanel.paddingBottom + CFG.Tabs.barHeight + CFG.DetailCard.height + 40)
+        if not w or w < 100 or not h or h < 100 then
+            local gw, gh = MainMenu:GetRightPanelDimensions()
+            w = w or 0
+            h = h or 0
+            if w < 100 then w = gw end
+            if h < 100 then h = gh end
         end
 
         local s = self.slotSize or 40
@@ -1707,6 +1734,9 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
 
         -- 1. Calcula quantas colunas cabem perfeitamente na largura total
         local c = math.floor((w + minGapX) / (s + minGapX))
+        while c > 1 and ((c * s) + ((c - 1) * minGapX)) > w do
+            c = c - 1
+        end
         if c < 4 then c = 4 end
 
         -- 2. Calcula quantas linhas cabem estritamente sem invadir a área de tooltip abaixo
@@ -1721,27 +1751,38 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
         return maxFit, c, maxRows
     end
 
-    -- Organiza os slots no layout de grade 2D responsivo que preenche 100% da largura e respeita a altura
+    -- Organiza os slots no layout de grade 2D responsivo que preenche a largura e respeita a altura
     function gridFrame:LayoutSlots(visibleCount)
         local maxFit, c, maxRows = self:GetCapacity()
 
         local w = self:GetWidth()
-        if not w or w < 100 then
-            local totalW = (MainMenu.frame and MainMenu.frame:GetWidth()) or 980
-            if totalW < 100 then totalW = 980 end
-            local availableW = totalW - (CFG.LeftPanel.paddingLeft + math.abs(CFG.RightPanel.paddingRight) + CFG.RightPanel.gapX)
-            local leftW = math.floor(availableW * CFG.LeftPanel.widthRatio)
-            w = availableW - leftW
+        local h = self:GetHeight()
+        if not w or w < 100 or not h or h < 100 then
+            local gw, gh = MainMenu:GetRightPanelDimensions()
+            w = w or 0
+            h = h or 0
+            if w < 100 then w = gw end
+            if h < 100 then h = gh end
         end
 
         local s = self.slotSize or 40
         local minGapX = self.gapX or 6
         local gy = self.gapY or 6
 
-        -- Distribui o gap horizontal de ponta a ponta para preencher 100% da largura
+        -- Garante que o número de colunas não estoure a largura
+        while c > 1 and ((c * s) + ((c - 1) * minGapX)) > w do
+            c = c - 1
+        end
+        if c < 1 then c = 1 end
+
+        -- Distribui o gap horizontal de ponta a ponta sem estourar a borda direita
         local gx = minGapX
         if c > 1 then
             gx = math.floor((w - (c * s)) / (c - 1))
+            if gx < minGapX then gx = minGapX end
+            if ((c - 1) * (s + gx) + s) > w then
+                gx = math.floor((w - (c * s)) / (c - 1))
+            end
             if gx < 2 then gx = 2 end
         end
 
@@ -2369,7 +2410,10 @@ function MainMenu:UpdateBagsPage(keepPage)
     grid:Clear()
 
     local startIndex = (curPage - 1) * pageSize + 1
-    local displaySlots = pageSize
+    local remainingElements = totalElements - startIndex + 1
+    if remainingElements < 0 then remainingElements = 0 end
+    local displaySlots = remainingElements
+    if displaySlots > pageSize then displaySlots = pageSize end
     if displaySlots > maxFit then displaySlots = maxFit end
 
     grid:LayoutSlots(displaySlots)
@@ -2412,9 +2456,9 @@ function MainMenu:UpdateBagsPage(keepPage)
     end
 
     -- 5. Exibe o primeiro item da página no painel de detalhes por padrão
-    if totalElements > 0 and items[startIndex] and not items[startIndex].isEmpty then
+    if displaySlots > 0 and items[startIndex] and not items[startIndex].isEmpty then
         grid:SelectSlot(1)
-    elseif totalElements > 0 and items[startIndex] then
+    elseif displaySlots > 0 and items[startIndex] then
         grid:SelectSlot(1)
     else
         pageBags.detailCard:Clear("Inventário Vazio")
@@ -2669,7 +2713,10 @@ function MainMenu:UpdateSpellsPage(keepPage)
     -- 3. Preenche os slots de magias
     grid:Clear()
     local startIndex = (curPage - 1) * pageSize + 1
-    local displaySlots = pageSize
+    local remainingElements = totalElements - startIndex + 1
+    if remainingElements < 0 then remainingElements = 0 end
+    local displaySlots = remainingElements
+    if displaySlots > pageSize then displaySlots = pageSize end
     if displaySlots > maxFit then displaySlots = maxFit end
 
     grid:LayoutSlots(displaySlots)
@@ -2703,7 +2750,7 @@ function MainMenu:UpdateSpellsPage(keepPage)
         end
     end
 
-    if totalElements > 0 and spells[startIndex] then
+    if displaySlots > 0 and spells[startIndex] then
         grid:SelectSlot(1)
     else
         pageSpells.detailCard:Clear("Grimório Vazio")

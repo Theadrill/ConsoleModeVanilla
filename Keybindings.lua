@@ -386,6 +386,14 @@ end
 -- ============================================================
 function KB:EnterNavigationMode()
     if KB.navigationMode then return end
+
+    local Cursor = CM.cursor or (ConsoleMode and ConsoleMode.cursor)
+    local Hooks = ConsoleMode and ConsoleMode.hooks
+    if (Cursor and Cursor.IsAnyMacroOpen and Cursor:IsAnyMacroOpen()) or
+       (Hooks and Hooks.IsAnyMacroOpen and Hooks:IsAnyMacroOpen()) then
+        return
+    end
+
     KB.navigationMode = true
 
     -- Destrava o mouselook ao abrir interfaces

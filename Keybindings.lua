@@ -216,7 +216,9 @@ modFrame:SetScript("OnUpdate", function()
     local shiftNow = IsShiftKeyDown()
     local altNow = IsAltKeyDown()
 
-    if KB.navigationMode and not KB.chatActive then
+    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible())
+
+    if isNav and not (KB and KB.chatActive) then
         -- 1. R1 (CTRL) = Próxima Aba Principal
         if ctrlNow and not wasCtrlDown then
             if CM.cursor and CM.cursor.CycleTabs then
@@ -224,14 +226,14 @@ modFrame:SetScript("OnUpdate", function()
             end
         end
 
-        -- 2. L2 (SHIFT) = Filtro/Sub-Aba Anterior
+        -- 2. L2 (SHIFT / LT) = Filtro/Sub-Aba Anterior / Zoom Out
         if shiftNow and not wasShiftDown then
             if CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(-1)
             end
         end
 
-        -- 3. R2 (ALT) = Próximo Filtro/Sub-Aba
+        -- 3. R2 (ALT / RT) = Próximo Filtro/Sub-Aba / Zoom In
         if altNow and not wasAltDown then
             if CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(1)

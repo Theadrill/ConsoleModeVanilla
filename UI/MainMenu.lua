@@ -2869,12 +2869,50 @@ function MainMenu:SetupQuestsPage(pageQuests)
     end
     mapCanvas.overlays = overlays
 
+    -- 3. Marcadores de Membros do Grupo (Party 1 a 4)
+    local partyPins = {}
+    for p = 1, 4 do
+        local pin = CreateFrame("Frame", "ConsoleModeMM_MapPartyPin" .. p, mapTilesContainer)
+        pin:SetWidth(18)
+        pin:SetHeight(18)
+        pin:SetFrameLevel(mapTilesContainer:GetFrameLevel() + 4)
+        local ptTex = pin:CreateTexture(nil, "OVERLAY")
+        ptTex:SetAllPoints(pin)
+        ptTex:SetTexture("Interface\\WorldMap\\WorldMapPartyIcon")
+        pin.texture = ptTex
+        pin:Hide()
+        partyPins[p] = pin
+    end
+    mapCanvas.partyPins = partyPins
+
+    -- 4. Marcador do Jogador com Seta Direcional em Tempo Real (Player GPS Pin)
+    local playerPin = CreateFrame("Frame", "ConsoleModeMM_MapPlayerPin", mapTilesContainer)
+    playerPin:SetWidth(26)
+    playerPin:SetHeight(26)
+    playerPin:SetFrameLevel(mapTilesContainer:GetFrameLevel() + 5)
+    local pTex = playerPin:CreateTexture(nil, "OVERLAY")
+    pTex:SetAllPoints(playerPin)
+    pTex:SetTexture("Interface\\Minimap\\MinimapArrow")
+    playerPin.texture = pTex
+    mapCanvas.playerPin = playerPin
+
+    -- Interação de Clique no Mapa (Clique Esquerdo: Zoom In / Clique Direito: Zoom Out)
+    mapCanvas:EnableMouse(true)
+    mapCanvas:SetScript("OnMouseUp", function()
+        if arg1 == "RightButton" then
+            MainMenu:MapZoomOut()
+        else
+            MainMenu:MapZoomIn()
+        end
+    end)
+
     -- Script para recalcular escala e carregar mapa assim que a janela é exibida ou redimensionada
     mapCanvas:SetScript("OnSizeChanged", function()
         if MainMenu and MainMenu.UpdateMapLayout then
             MainMenu:UpdateMapLayout(this)
             MainMenu:UpdateMapTextures(this)
             MainMenu:UpdateMapOverlays(this)
+            MainMenu:UpdateMapPlayerPosition(this)
         end
     end)
 
@@ -2883,6 +2921,19 @@ function MainMenu:SetupQuestsPage(pageQuests)
             MainMenu:UpdateMapLayout(this)
             MainMenu:UpdateMapTextures(this)
             MainMenu:UpdateMapOverlays(this)
+            MainMenu:UpdateMapPlayerPosition(this)
+        end
+    end)
+
+    -- Loop de Atualização Contínua em Tempo Real do GPS e Rotação do Jogador
+    mapCanvas.elapsed = 0
+    mapCanvas:SetScript("OnUpdate", function()
+        this.elapsed = (this.elapsed or 0) + (arg1 or 0.016)
+        if this.elapsed >= 0.033 then -- ~30 FPS para movimento ultra fluido do pin
+            this.elapsed = 0
+            if MainMenu and MainMenu.UpdateMapPlayerPosition then
+                MainMenu:UpdateMapPlayerPosition(this)
+            end
         end
     end)
 
@@ -2903,7 +2954,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local mapHintText = mapFooter:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     mapHintText:SetPoint("CENTER", mapFooter, "CENTER", 0, 0)
     MainMenu:ApplyFont(mapHintText, CFG.Fonts.subFontFile, 11)
-    mapHintText:SetText("|cff888888[L-Stick] Mover Mapa  •  [LT] / [RT] Zoom Mundo/Zona|r")
+    mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In / Zona Atual  •  [L-Stick] Mover|r")
     mapPanel.hintText = mapHintText
 
     -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior)
@@ -3042,11 +3093,6 @@ end
 function MainMenu:UpdateMapTextures(mapCanvas)
     if not mapCanvas or not mapCanvas.tiles then return end
 
-    -- Assegura sincronização com a zona atual do jogador
-    if SetMapToCurrentZone then
-        SetMapToCurrentZone()
-    end
-
     local mapFileName = (GetMapInfo and GetMapInfo())
     
     -- Fallback inteligente caso a zona não retorne nome direto (ex: instâncias ou continentes)
@@ -3095,16 +3141,6 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
     local origH = 668
     local scale = math.min(canvasW / origW, canvasH / origH)
     if scale <= 0 then scale = 0.5 end
-
-    -- Força sincronização do buffer de mapa e overlays do WoW 1.12
-    if SetMapToCurrentZone then
-        SetMapToCurrentZone()
-    end
-    local c = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
-    local z = (GetCurrentMapZone and GetCurrentMapZone()) or 0
-    if c > 0 and z > 0 and SetMapZoom then
-        SetMapZoom(c, z)
-    end
 
     local numOverlays = (GetNumMapOverlays and GetNumMapOverlays()) or 0
     local overlayPoolIdx = 1
@@ -3155,6 +3191,141 @@ function MainMenu:UpdateMapOverlays(mapCanvas)
     end
 end
 
+-- Rotação trigonométrica de textura em 2D (WoW Vanilla 1.12)
+local function RotateMapTexture(texture, angle)
+    if not texture or not texture.SetTexCoord then return end
+    local c = math.cos(angle)
+    local s = math.sin(angle)
+    local ulx = 0.5 + (-0.5) * c - (-0.5) * s
+    local uly = 0.5 + (-0.5) * s + (-0.5) * c
+    local llx = 0.5 + (-0.5) * c - ( 0.5) * s
+    local lly = 0.5 + (-0.5) * s + ( 0.5) * c
+    local urx = 0.5 + ( 0.5) * c - (-0.5) * s
+    local ury = 0.5 + ( 0.5) * s + (-0.5) * c
+    local lrx = 0.5 + ( 0.5) * c - ( 0.5) * s
+    local lry = 0.5 + ( 0.5) * s + ( 0.5) * c
+    texture:SetTexCoord(ulx, uly, llx, lly, urx, ury, lrx, lry)
+end
+
+function MainMenu:UpdateMapPlayerPosition(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.playerPin then return end
+
+    local container = mapCanvas.tilesContainer
+    local containerW = container:GetWidth() or 0
+    local containerH = container:GetHeight() or 0
+
+    if containerW <= 0 or containerH <= 0 then return end
+
+    -- Posição do jogador no mapa
+    local px, py = 0, 0
+    if GetPlayerMapPosition then
+        px, py = GetPlayerMapPosition("player")
+    end
+
+    local playerPin = mapCanvas.playerPin
+    if px and py and (px > 0 or py > 0) then
+        local posX = px * containerW
+        local posY = -py * containerH
+
+        playerPin:ClearAllPoints()
+        playerPin:SetPoint("CENTER", container, "TOPLEFT", posX, posY)
+
+        -- Rotação baseada na direção do jogador (facing)
+        local facing = (GetPlayerFacing and GetPlayerFacing()) or 0
+        if playerPin.texture then
+            RotateMapTexture(playerPin.texture, -facing)
+        end
+        playerPin:Show()
+
+        -- Atualiza texto de GPS no cabeçalho
+        if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
+            mapCanvas:GetParent().coordsText:SetText(string.format("|cffe09a15GPS: |cffffffff%.1f, %.1f|r", px * 100, py * 100))
+        end
+    else
+        playerPin:Hide()
+        if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
+            mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: Indisponível|r")
+        end
+    end
+
+    -- Membros do Grupo (Party 1 a 4)
+    if mapCanvas.partyPins then
+        local numParty = (GetNumPartyMembers and GetNumPartyMembers()) or 0
+        for p = 1, 4 do
+            local pin = mapCanvas.partyPins[p]
+            if pin then
+                if p <= numParty and GetPlayerMapPosition then
+                    local pX, pY = GetPlayerMapPosition("party" .. p)
+                    if pX and pY and (pX > 0 or pY > 0) then
+                        pin:ClearAllPoints()
+                        pin:SetPoint("CENTER", container, "TOPLEFT", pX * containerW, -pY * containerH)
+                        pin:Show()
+                    else
+                        pin:Hide()
+                    end
+                else
+                    pin:Hide()
+                end
+            end
+        end
+    end
+end
+
+-- ============================================================================
+-- NAVEGAÇÃO DE ZOOM DO MAPA ([LT] / [RT] / Cliques)
+-- ============================================================================
+
+function MainMenu:MapZoomOut()
+    local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+    local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+
+    if currentZone > 0 then
+        -- Da Zona para o Continente
+        if SetMapZoom then SetMapZoom(currentCont, 0) end
+    elseif currentCont > 0 then
+        -- Do Continente para o Mapa Cósmico (Mundo)
+        if SetMapZoom then SetMapZoom(0) end
+    end
+
+    self:UpdateQuestsPage()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function MainMenu:MapZoomIn()
+    local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+    local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+
+    if currentCont == 0 then
+        -- Do Mapa Cósmico para o Continente atual do jogador
+        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        local c = (GetCurrentMapContinent and GetCurrentMapContinent()) or 1
+        if SetMapZoom then SetMapZoom(c, 0) end
+    elseif currentZone == 0 then
+        -- Do Continente para a Zona atual do jogador
+        if SetMapToCurrentZone then SetMapToCurrentZone() end
+    else
+        -- Já está na zona, recentraliza na posição do jogador
+        if SetMapToCurrentZone then SetMapToCurrentZone() end
+    end
+
+    self:UpdateQuestsPage()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function MainMenu:CycleCategories(direction)
+    local curTab = self.tabContainer and self.tabContainer.currentTab
+    if curTab == "QUESTS" then
+        if direction and direction < 0 then
+            self:MapZoomOut()
+            return true
+        else
+            self:MapZoomIn()
+            return true
+        end
+    end
+    return false
+end
+
 function MainMenu:UpdateQuestsPage()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
@@ -3162,11 +3333,12 @@ function MainMenu:UpdateQuestsPage()
 
     self:SetupQuestsPage(pageQuests)
 
-    -- Renderiza e atualiza os 12 tiles dinâmicos e os overlays de exploração (Etapa 9.2)
+    -- Renderiza e atualiza os 12 tiles dinâmicos, overlays e pin do jogador (Etapas 9.2, 9.3, 9.4)
     if pageQuests.mapPanel and pageQuests.mapPanel.canvas then
         self:UpdateMapLayout(pageQuests.mapPanel.canvas)
         self:UpdateMapTextures(pageQuests.mapPanel.canvas)
         self:UpdateMapOverlays(pageQuests.mapPanel.canvas)
+        self:UpdateMapPlayerPosition(pageQuests.mapPanel.canvas)
     end
 
     -- Atualiza contador de missões ativas
@@ -3179,21 +3351,29 @@ function MainMenu:UpdateQuestsPage()
         pageQuests.questCountText:SetText(string.format("|cffaaaaaaMissões: |cffffffff%d / 20|r", numQuests or numEntries or 0))
     end
 
-    -- Atualiza informações da Zona Atual no painel do mapa
+    -- Atualiza informações do Título da Zona / Nível do Mapa
     if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
-        local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
-        if zoneName == "" then zoneName = "Azeroth" end
-        pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", zoneName))
-    end
+        local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+        local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+        local titleText = "Azeroth"
 
-    -- Atualiza coordenadas GPS
-    if pageQuests.mapPanel and pageQuests.mapPanel.coordsText and GetPlayerMapPosition then
-        local px, py = GetPlayerMapPosition("player")
-        if px and py and (px > 0 or py > 0) then
-            pageQuests.mapPanel.coordsText:SetText(string.format("|cffe09a15GPS: |cffffffff%.1f, %.1f|r", px * 100, py * 100))
+        if currentCont == 0 then
+            titleText = "Azeroth (Mundo)"
+        elseif currentZone == 0 then
+            if currentCont == 1 then
+                titleText = "Kalimdor (Continente)"
+            elseif currentCont == 2 then
+                titleText = "Reinos do Leste (Continente)"
+            else
+                titleText = "Continente"
+            end
         else
-            pageQuests.mapPanel.coordsText:SetText("|cff888888GPS: Indisponível|r")
+            local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
+            if zoneName == "" then zoneName = "Azeroth" end
+            titleText = zoneName
         end
+
+        pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", titleText))
     end
 end
 

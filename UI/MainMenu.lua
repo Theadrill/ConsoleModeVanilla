@@ -2970,11 +2970,6 @@ function MainMenu:UpdateGameMenuSubPage()
             MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
             row.title = title
 
-            local frameName = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-            frameName:SetPoint("RIGHT", row, "RIGHT", -12, 0)
-            MainMenu:ApplyFont(frameName, CFG.Fonts.subFontFile, 11)
-            row.frameName = frameName
-
             -- Eventos de foco / mouse hover
             row:SetScript("OnEnter", function()
                 this.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18)
@@ -3061,7 +3056,7 @@ function MainMenu:UpdateGameMenuSubPage()
         row:SetPoint("TOPRIGHT", subPage.listContainer, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
 
         row.title:SetText(string.format("%s%s|r", tColor, btnData.text))
-        row.frameName:SetText(string.format("%s%s|r", fColor, btnData.name))
+        if row.frameName then row.frameName:SetText("") end
         row.btnData = btnData
         row:Show()
     end

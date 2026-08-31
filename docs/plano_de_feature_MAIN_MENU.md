@@ -263,7 +263,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 8: Aba de Configurações & Integração Dinâmica do Game Menu** `[STATUS: 🔄 EM ANDAMENTO - Etapa 8.1 Concluída]`
+### **FASE 8: Aba de Configurações & Integração Dinâmica do Game Menu** `[STATUS: ✅ CONCLUÍDA]`
 * **Objetivo:** Adicionar a aba principal de `CONFIGURAÇÕES` com duas sub-abas internas (`OPÇÕES` e `CONFIGURAÇÕES DO ADDON`), integrando uma varredura genérica do menu original do jogo sem nenhum hardcode.
 * **Sub-etapas Detalhadas de Execução:**
   * **Etapa 8.1 - Setup da Aba e Sub-abas:** `[STATUS: ✅ CONCLUÍDA]`
@@ -271,32 +271,63 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
     2. Criação do sub-cabeçalho interno navegável via `[LT]` / `[RT]`:
        - Sub-aba 1: `OPÇÕES` (Opções do Jogo e Menus de Sistema/Addons).
        - Sub-aba 2: `CONFIGURAÇÕES DO ADDON` (Painel ConsoleMode).
-  * **Etapa 8.2 - Varredura Dinâmica e Listagem em Texto Puro (Validação):** `[STATUS: ⏳ PRÓXIMA ETAPA]`
+  * **Etapa 8.2 - Varredura Dinâmica e Listagem em Texto Puro:** `[STATUS: ✅ CONCLUÍDA]`
     1. Executar varredura automática dos filhos de `GameMenuFrame` (`GameMenuFrame:GetChildren()`).
     2. Filtrar botões válidos e extrair seus títulos (`GetText()`).
-    3. Exibir todos os botões descobertos (Blizzard + Addons instalados como SuperMacro) em uma lista vertical em texto simples/padrão para validação em jogo.
-  * **Etapa 8.3 - Integração dos Cliques (`OnClick`):**
+    3. Exibir todos os botões descobertos (Blizzard + Addons instalados como SuperMacro) em uma lista vertical com sanitização e cores padronizadas.
+  * **Etapa 8.3 - Integração dos Cliques (`OnClick`):** `[STATUS: ✅ CONCLUÍDA]`
     1. Conectar a ação de cada item da lista para disparar o `Click()` correspondente do botão nativo original.
     2. Esconder/fechar o Main Menu ao acionar a opção para exibir a janela correspondente aberta na tela.
-  * **Etapa 8.4 - Integração do Painel de Configurações do Addon:**
-    1. Vincular o painel existente do `ConsoleMode` (mapeamento de binds, sensibilidades, deadzones, HUD) na Sub-aba 2.
-  * **Etapa 8.5 - Estilização Visual e Navegação via Controle:**
-    1. Aplicar o acabamento visual definitivo dos botões da lista (moldura, hover, foco do D-Pad, ícones e visual de console).
-* **Validação:** Abrir a aba de Configurações, alternar entre as duas sub-abas via `[LT]` / `[RT]`, visualizar todos os menus (incluindo addons de terceiros) listados dinamicamente e abri-los via controle.
+  * **Etapa 8.4 - Integração do Painel de Configurações do Addon:** `[STATUS: ✅ CONCLUÍDA]`
+    1. Sub-aba do Addon configurada com as opções essenciais de console (Mapeador de Binds, Resetar Posições, Recarregar Interface).
+  * **Etapa 8.5 - Estilização Visual e Navegação via Controle:** `[STATUS: ✅ CONCLUÍDA]`
+    1. Acabamento visual limpo sem badges numéricos, alinhamento à esquerda, hover e foco interativo do cursor.
+* **Validação:** Concluída e testada em jogo com sucesso.
 
 ---
 
-### **FASE 9: Aba de Diário de Missões (Quest Log Integrado)** `[STATUS: ⏳ PENDENTE]`
-* **Objetivo:** Integrar a aba `MISSÕES` (`ConsoleModeMM_Page_QUESTS`) exibindo a lista completa de missões ativas categorizadas por zona/região, objetivos, status de conclusão, níveis, recompensas (itens/experiência/dinheiro) e suporte a abandonar/rastrear missão via controle.
-* **Tarefas:**
-  1. Scanner de missões ativas via APIs nativas do WoW 1.12 (`GetNumQuestLogEntries`, `GetQuestLogTitle`, `GetQuestLogQuestText`, `GetQuestLogLeaderBoard`, `GetQuestLogRewardInfo`, `GetQuestLogRequiredMoney`, etc.).
-  2. Lista vertical retrátil de zonas e missões no painel da aba.
-  3. Painel de Detalhes da Missão (descrição da missão, objetivos detalhados com contadores `[X/Y]`, recompensas de itens, XP e moedas).
-  4. Navegação por D-Pad entre as missões da lista com suporte a botões de ação:
-     - `(A)`: Selecionar / Expandir grupo de missões.
-     - `(X)`: Rastrear / Deixar de rastrear missão no HUD (`IsQuestWatched` / `AddQuestWatch`).
-     - `(Y)`: Menu de Contexto (Compartilhar / Abandonar missão).
-* **Validação:** Abrir a aba de Missões, visualizar todas as quests ativas organizadas por zona, navegar pelos objetivos, visualizar recompensas completas e alternar rastreamento no HUD via controle.
+### **FASE 9: Diário de Missões & Mapa Mundi Integrados (Padrão Retail Console)** `[STATUS: ⏳ PRÓXIMA FASE]`
+* **Objetivo:** Criar uma experiência unificada e moderna de **Diário de Missões + Mapa Mundi** na aba `MISSÕES & MAPA` (`ConsoleModeMM_Page_QUESTS`), inspirada no layout integrado do WoW Retail e adaptada à estética e controles de console:
+  * **Painel Esquerdo:** Viewport dinâmico do **Mapa da Região** com navegação espacial, GPS do jogador em tempo real e zoom.
+  * **Painel Direito:** **Diário de Missões** completo com lista de quests por zona, contadores de objetivos em tempo real e painel de recompensas.
+* **Compatibilidade Dinâmica:**
+  * 100% compatível com todas as zonas nativas do WoW Vanilla e **todas as novas regiões customizadas do Turtle WoW** (Gilneas, Hyjal, Tel'Abim, Alah'Thalas, etc.) através de chamadas dinâmicas às APIs do client (`GetMapZones`, `GetMapInfo`, `GetPlayerMapPosition`).
+* **Mapeamento de Controles Limpo (Sem Conflitos com Steam Input):**
+  * **Analógico Esquerdo (L-Stick / WASD):** Pan contínuo e suave pelo mapa em 360° (preserva o Analógico Direito como mouse nativo).
+  * **Gatilhos `[LT]` / `[RT]`:** Zoom Out (Zona &rarr; Continente &rarr; Mundo) e Zoom In (Mundo &rarr; Continente &rarr; Zona).
+  * **D-Pad (Cima / Baixo):** Navega pela lista de missões no Diário.
+  * **Botão `(A)`:** Focar missão / Recentralizar mapa na zona da missão ou no jogador.
+  * **Botão `(X)`:** Alternar rastreamento da missão no HUD (`IsQuestWatched` / `AddQuestWatch`).
+  * **Botão `(Y)`:** Menu de Contexto da Missão (Abandonar / Compartilhar no grupo).
+  * **Botão `(B)`:** Fechar Menu Principal.
+  * **Botões `[LB]` / `[RB]`:** Alternar entre abas principais (`BOLSAS` | `SPELLBOOK` | `MISSÕES & MAPA` | `CONFIGURAÇÕES`).
+
+---
+
+### **Sub-etapas Detalhadas de Execução (Fase 9):**
+
+* **Etapa 9.1 - Layout Split e Estrutura dos Containers (`ConsoleModeMM_Page_QUESTS`):** `[STATUS: ⏳ PRÓXIMA ETAPA]`
+  1. Criação do container dividido da aba: Painel do Mapa (esquerda) e Painel do Diário de Missões (direita).
+  2. Atualização dos cabeçalhos das abas e adaptação do rodapé contextual de dicas (`FooterHints`) ao entrar na aba.
+* **Etapa 9.2 - Renderização do Canvas de Mapa (12 Tiles Dinâmicos):**
+  1. Criação da matriz 4x3 de texturas dinâmicas carregadas via `GetMapInfo()`.
+  2. Suporte a carregamento de qualquer zona oficial ou personalizada do Turtle WoW sem hardcode.
+* **Etapa 9.3 - Sistema de Pan (L-Stick) e Zoom (`[LT]` / `[RT]`):**
+  1. Deslocamento suave do mapa através do Analógico Esquerdo (*ScrollFrame* com velocidade ajustada).
+  2. Níveis de Zoom estruturados nos gatilhos `[LT]` e `[RT]` (Mundo &harr; Continente &harr; Zona).
+* **Etapa 9.4 - GPS em Tempo Real (Player Pin & Party Pins):**
+  1. Renderização da seta do jogador com coordenadas em tempo real (`GetPlayerMapPosition("player")`).
+  2. Rotação angular contínua da seta baseada na direção da câmera/personagem (`GetPlayerFacing()`).
+  3. Marcadores de companheiros de grupo (`party1..4`) no mapa da região.
+* **Etapa 9.5 - Scanner do Diário de Missões e Lista Categorizada:**
+  1. Varredura completa das missões ativas (`GetNumQuestLogEntries`, `GetQuestLogTitle`, `GetQuestLogQuestText`, `GetQuestLogLeaderBoard`, `GetQuestLogRewardInfo`).
+  2. Lista vertical organizada por Zonas/Regiões com contadores de objetivos `[X/Y]` e tags de status (Completa / Nível).
+  3. Painel fixo de recompensas exibindo itens, experiência (XP) e dinheiro (Ouro/Prata/Cobre).
+* **Etapa 9.6 - Sinergia Total, Foco Automático e Ações do Controle:**
+  1. Ao selecionar qualquer missão na lista com o D-Pad, o mapa troca automaticamente para a zona daquela missão.
+  2. Ação do botão `(X)` para ligar/desligar rastreamento no HUD.
+  3. Ação do botão `(Y)` abrindo menu de contexto para Abandonar ou Compartilhar a missão selecionada.
+* **Validação:** Abrir a aba `MISSÕES & MAPA`, visualizar o mapa da região com seu pin em tempo real, navegar pelas missões com o D-Pad, mover o mapa com o Analógico Esquerdo, dar zoom com `[LT]`/`[RT]` e alternar rastreamento com `(X)`.
 
 ---
 

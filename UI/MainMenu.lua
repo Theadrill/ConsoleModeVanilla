@@ -287,14 +287,34 @@ CFG.Divider = {
 }
 
 -- ----------------------------------------------------------------------------
--- 8. RODAPÉ DE ATALHOS (CONSOLE HINTS - PADRÃO DE CORES XBOX COM ALTO CONTRASTE)
+-- 8. ÍCONES GRÁFICOS DO CONTROLE (XBOX)
+-- ----------------------------------------------------------------------------
+CFG.Icons = {
+    basePath = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\",
+    A        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\A.tga",
+    B        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\B.tga",
+    X        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\X.tga",
+    Y        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\Y.tga",
+    LB       = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\LB.tga",
+    RB       = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\RB.tga",
+    LT       = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\LT.tga",
+    RT       = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\RT.tga",
+    DUP      = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DUP.tga",
+    DDOWN    = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DDOWN.tga",
+    DLEFT    = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DLEFT.tga",
+    DRIGHT   = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DRIGHT.tga",
+    DALL     = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\navigate_all_directions.tga",
+}
+
+-- ----------------------------------------------------------------------------
+-- 9. RODAPÉ DE ATALHOS (CONSOLE HINTS)
 -- ----------------------------------------------------------------------------
 CFG.Footer = {
     height          = 36,                   -- Altura da barra de rodapé (px)
     paddingLeft     = 28,                   -- Margem esquerda (px)
     paddingRight    = -28,                  -- Margem direita (px)
     offsetY         = 12,                   -- Distância da base da janela (px)
-    text            = "|cffe09a15[L1] / [R1]|r Abas   |   |cffe09a15[L2] / [R2]|r Filtros   |   |cffffffff[D-Pad]|r Navegar   |   |cff38b000(A)|r Usar/Equipar   |   |cff3399ff(Y)|r Ações   |   |cffdd3333(B)|r Fechar   |   |cffe09a15[L-Stick]|r Girar 3D",
+    iconSize        = 18,                   -- Tamanho dos ícones gráficos no rodapé (px)
 }
 
 -- ----------------------------------------------------------------------------
@@ -2072,14 +2092,15 @@ function MainMenu:SetupBagsPage(pageBags)
     headerBar:SetPoint("TOPLEFT", pageBags, "TOPLEFT", 0, 0)
     headerBar:SetPoint("TOPRIGHT", pageBags, "TOPRIGHT", 0, 0)
 
-    -- Indicador [R2] à direita
-    local r2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    -- Indicador RT à direita
+    local r2Hint = headerBar:CreateTexture(nil, "OVERLAY")
+    r2Hint:SetWidth(20)
+    r2Hint:SetHeight(20)
     r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
-    MainMenu:ApplyFont(r2Hint, CFG.Fonts.headerFontFile, 12)
-    r2Hint:SetText("|cffe09a15[R2]|r")
+    r2Hint:SetTexture(CFG.Icons.RT)
     pageBags.r2Hint = r2Hint
 
-    -- Botões de Filtro de Categoria (Ancorados da direita para esquerda para ordenar: [L2] Todos ... Diversos [R2])
+    -- Botões de Filtro de Categoria (Ancorados da direita para esquerda para ordenar: [LT] Todos ... Diversos [RT])
     local catButtons = {}
     local prevCat = r2Hint
     pageBags.currentCategory = "ALL"
@@ -2115,11 +2136,12 @@ function MainMenu:SetupBagsPage(pageBags)
     end
     pageBags.catButtons = catButtons
 
-    -- Indicador [L2] à esquerda da primeira categoria (Todos)
-    local l2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    -- Indicador LT à esquerda da primeira categoria (Todos)
+    local l2Hint = headerBar:CreateTexture(nil, "OVERLAY")
+    l2Hint:SetWidth(20)
+    l2Hint:SetHeight(20)
     l2Hint:SetPoint("RIGHT", prevCat, "LEFT", -6, 0)
-    MainMenu:ApplyFont(l2Hint, CFG.Fonts.headerFontFile, 12)
-    l2Hint:SetText("|cffe09a15[L2]|r")
+    l2Hint:SetTexture(CFG.Icons.LT)
     pageBags.l2Hint = l2Hint
 
     -- Linha Divisória abaixo do cabeçalho de filtros
@@ -2415,11 +2437,12 @@ function MainMenu:SetupSpellsPage(pageSpells)
     headerBar:SetPoint("TOPLEFT", pageSpells, "TOPLEFT", 0, 0)
     headerBar:SetPoint("TOPRIGHT", pageSpells, "TOPRIGHT", 0, 0)
 
-    -- Indicador [R2] à direita
-    local r2Hint = headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    -- Indicador RT à direita
+    local r2Hint = headerBar:CreateTexture(nil, "OVERLAY")
+    r2Hint:SetWidth(20)
+    r2Hint:SetHeight(20)
     r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
-    MainMenu:ApplyFont(r2Hint, CFG.Fonts.headerFontFile, 12)
-    r2Hint:SetText("|cffe09a15[R2]|r")
+    r2Hint:SetTexture(CFG.Icons.RT)
     pageSpells.r2Hint = r2Hint
     pageSpells.headerBar = headerBar
     pageSpells.currentTabIdx = 1
@@ -2570,11 +2593,12 @@ function MainMenu:UpdateSpellsPage(keepPage)
         prevBtn = btn
     end
 
-    -- Cria o hint [L2] à esquerda da primeira sub-aba
+    -- Cria o hint LT à esquerda da primeira sub-aba
     if not pageSpells.l2Hint then
-        local l2Hint = pageSpells.headerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        MainMenu:ApplyFont(l2Hint, CFG.Fonts.headerFontFile, 12)
-        l2Hint:SetText("|cffe09a15[L2]|r")
+        local l2Hint = pageSpells.headerBar:CreateTexture(nil, "OVERLAY")
+        l2Hint:SetWidth(20)
+        l2Hint:SetHeight(20)
+        l2Hint:SetTexture(CFG.Icons.LT)
         pageSpells.l2Hint = l2Hint
     end
     pageSpells.l2Hint:ClearAllPoints()
@@ -2699,17 +2723,21 @@ function MainMenu:CreateTabContainer(rightPanel)
     tabBar:SetPoint("TOPLEFT", rightPanel, "TOPLEFT", 0, 0)
     tabBar:SetPoint("TOPRIGHT", rightPanel, "TOPRIGHT", 0, 0)
 
-    -- Indicador [L1] à esquerda
-    local l1Hint = tabBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    -- Indicador LB à esquerda
+    local l1Hint = tabBar:CreateTexture(nil, "OVERLAY")
+    l1Hint:SetWidth(22)
+    l1Hint:SetHeight(22)
     l1Hint:SetPoint("LEFT", tabBar, "LEFT", 2, 0)
-    MainMenu:ApplyFont(l1Hint, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize)
-    l1Hint:SetText(CFG.Tabs.indicatorColor .. "[L1]|r")
+    l1Hint:SetTexture(CFG.Icons.LB)
+    tabBar.l1Hint = l1Hint
 
-    -- Indicador [R1] à direita
-    local r1Hint = tabBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    -- Indicador RB à direita
+    local r1Hint = tabBar:CreateTexture(nil, "OVERLAY")
+    r1Hint:SetWidth(22)
+    r1Hint:SetHeight(22)
     r1Hint:SetPoint("RIGHT", tabBar, "RIGHT", -2, 0)
-    MainMenu:ApplyFont(r1Hint, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize)
-    r1Hint:SetText(CFG.Tabs.indicatorColor .. "[R1]|r")
+    r1Hint:SetTexture(CFG.Icons.RB)
+    tabBar.r1Hint = r1Hint
 
     -- Container Central dos Botões de Aba
     local tabsCenter = CreateFrame("Frame", "ConsoleModeMM_TabsCenter", tabBar)
@@ -2963,6 +2991,93 @@ function MainMenu:CycleCategories(direction)
 end
 
 -- ============================================================================
+-- HELPER DE RODAPÉ COM ÍCONES GRÁFICOS DO CONTROLE
+-- ============================================================================
+
+function MainMenu:CreateFooterHints(footer)
+    local hints = {
+        { icons = { "LB", "RB" }, label = "Abas" },
+        { icons = { "LT", "RT" }, label = "Filtros" },
+        { icons = { "DALL" },     label = "Navegar" },
+        { icons = { "A" },        label = "Usar / Equipar" },
+        { icons = { "Y" },        label = "Ações" },
+        { icons = { "B" },        label = "Fechar" },
+    }
+
+    local iconSize = CFG.Footer.iconSize or 18
+    local iconGap = 2
+    local labelGap = 5
+    local groupGap = 16
+
+    local container = CreateFrame("Frame", "ConsoleModeMM_FooterContainer", footer)
+    container:SetHeight(26)
+    container:SetPoint("CENTER", footer, "CENTER", 0, 0)
+
+    local totalWidth = 0
+    local widgets = {}
+
+    for i, hint in ipairs(hints) do
+        local groupFrame = CreateFrame("Frame", nil, container)
+        groupFrame:SetHeight(26)
+
+        local currentX = 0
+        for _, iconKey in ipairs(hint.icons) do
+            local texPath = CFG.Icons[iconKey] or (CFG.Icons.basePath .. iconKey .. ".tga")
+            local iconTex = groupFrame:CreateTexture(nil, "OVERLAY")
+            
+            -- Tamanho customizado por tipo de botão no rodapé
+            local curIconW = iconSize
+            local curIconH = iconSize
+            if iconKey == "LB" or iconKey == "RB" then
+                curIconW = 25
+                curIconH = 25
+            elseif iconKey == "A" or iconKey == "B" or iconKey == "X" or iconKey == "Y" then
+                curIconW = 20  -- +10% de tamanho para botões frontais (18px -> 20px)
+                curIconH = 20
+            end
+
+            iconTex:SetWidth(curIconW)
+            iconTex:SetHeight(curIconH)
+            iconTex:SetTexture(texPath)
+            iconTex:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
+            currentX = currentX + curIconW + iconGap
+        end
+
+        currentX = currentX - iconGap + labelGap
+
+        local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
+        MainMenu:ApplyFont(label, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize or 12)
+        label:SetText(hint.label)
+        label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+
+        local textW = math.floor(label:GetStringWidth() or 40)
+        currentX = currentX + textW
+
+        if i < table.getn(hints) then
+            local sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            sep:SetPoint("LEFT", groupFrame, "LEFT", currentX + 8, 0)
+            MainMenu:ApplyFont(sep, CFG.Fonts.subFontFile, 12)
+            sep:SetText("|cff666666•|r")
+            currentX = currentX + 8 + 12
+        end
+
+        groupFrame:SetWidth(currentX)
+        table.insert(widgets, groupFrame)
+        totalWidth = totalWidth + currentX + (i < table.getn(hints) and groupGap or 0)
+    end
+
+    container:SetWidth(totalWidth)
+    local curOffset = 0
+    for _, w in ipairs(widgets) do
+        w:SetPoint("LEFT", container, "LEFT", curOffset, 0)
+        curOffset = curOffset + w:GetWidth() + groupGap
+    end
+
+    footer.hintContainer = container
+end
+
+-- ============================================================================
 -- CRIAÇÃO DA JANELA PRINCIPAL (MAIN MENU FRAME)
 -- ============================================================================
 
@@ -3046,17 +3161,14 @@ function MainMenu:CreateUI()
         frame.divider = divider
     end
 
-    -- 8. Rodapé com Dicas do Controle (Console Hints)
+    -- 8. Rodapé com Dicas do Controle (Console Hints com Ícones Gráficos Xbox)
     local footer = CreateFrame("Frame", "ConsoleModeMM_Footer", frame)
     footer:SetHeight(CFG.Footer.height)
     footer:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", CFG.Footer.paddingLeft, CFG.Footer.offsetY)
     footer:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", CFG.Footer.paddingRight, CFG.Footer.offsetY)
     frame.footer = footer
 
-    local footerText = footer:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    footerText:SetPoint("CENTER", footer, "CENTER", 0, 0)
-    MainMenu:ApplyFont(footerText, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize)
-    footerText:SetText(CFG.Footer.text)
+    self:CreateFooterHints(footer)
 
 -- Funções globais de rotação de modelo para os bindings nativos
 function CM_ModelRotateLeft(keystate)

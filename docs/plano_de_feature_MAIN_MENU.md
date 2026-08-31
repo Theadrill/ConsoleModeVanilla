@@ -210,72 +210,97 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-## 7. Plano de Implementação em 10 Fases Incrementais
+## 7. Plano de Implementação em 11 Fases Incrementais
 
-### **FASE 1: A "Casca" e a Textura 9-Slice (O Canvas do Menu)**
+### **FASE 1: A "Casca" e a Textura 9-Slice (O Canvas do Menu)** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
   1. Criação do arquivo `MainMenu.lua` no addon e registro no `.toc`.
   2. Conversão da textura `Carved_9Slides` para `.tga` 256x256 e criação da função auxiliar de 9-Slice em Lua.
   3. Criação da janela principal em tela cheia (com fundo de pergaminho 9-slice) e comando `/cm menu` (ou tecla) para abrir e fechar com o botão **(B)**.
   4. Divisão estrutural básica das duas grandes metades (Esquerda: Palco do Personagem / Direita: Container de Conteúdo).
-* **Validação:** Digitar `/cm menu` no jogo e confirmar abertura limpa da janela com pergaminho 9-slice nítido e fechamento via **(B)** ou Escape.
+* **Validação:** Concluída e testada em jogo via `/cm menu`.
 
-### **FASE 2: O Palco do Personagem 3D & Giro no Analógico**
+### **FASE 2: O Palco do Personagem 3D & Giro no Analógico** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
-  1. Criação do frame `PlayerModel` transparente centralizado na metade esquerda.
+  1. Criação do frame `DressUpModel` transparente centralizado na metade esquerda.
   2. Chamada de `model:SetUnit("player")` para renderizar o personagem com as roupas atuais e animação de idle.
   3. Mapeamento do analógico direito (*R-Stick*) para girar o personagem em 360°.
-* **Validação:** Abrir o menu e ver o personagem 3D ao vivo respirando dentro do pergaminho, com rotação suave via analógico.
+* **Validação:** Concluída e validada com rotação contínua e suporte a TryOn.
 
-### **FASE 3: Status Base, Buffs e Lista de Equipamentos (Lado Esquerdo)**
+### **FASE 3: Status Base, Buffs e Lista de Equipamentos (Lado Esquerdo)** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
   1. Lista vertical de equipamentos à esquerda do boneco (ícones dos 19 slots + nomes dos itens por extenso com cor de qualidade).
   2. Coluna de Atributos e Buffs à direita do boneco (Nível, Classe, HP, Recurso, Ouro, Força/Agi/Vigor e lista de buffs com tempo restante).
-* **Validação:** Abrir o menu e verificar os atributos, lista de equipamentos reais e buffs ativos exibidos de forma alinhada e atualizada.
+* **Validação:** Concluída com renderização de slots de equipamentos reais, atributos dinâmicos e buffs ativos.
 
-### **FASE 4: Container de Abas e Alternância com `[L1]` / `[R1]`**
+### **FASE 4: Container de Abas e Alternância com `[LB]` / `[RB]`** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
-  1. Criação do cabeçalho de abas no topo do container direito (`[L1] Bolsas | Spellbook [R1]`).
-  2. Alternância de abas via L1/R1 no controle (ou Q/E no teclado) com som nativo da Blizzard.
+  1. Criação do cabeçalho de abas no topo do container direito (`[LB] Bolsas | Spellbook [RB]`).
+  2. Alternância de abas via LB/RB no controle com som nativo da Blizzard.
   3. Alternância suave dos sub-frames da direita sem recarregar o lado esquerdo.
-* **Validação:** Pressionar L1/R1 no controle e verificar a troca instantânea de abas com efeito sonoro e atualização visual do título.
+* **Validação:** Concluída com troca instantânea e ícones gráficos dedicados.
 
-### **FASE 5: Grid de Bolsas Categorizado & Painel Fixo de Tooltip (Aba 1)**
+### **FASE 5: Grid de Bolsas Categorizado & Painel Fixo de Tooltip (Aba 1)** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
-  1. Leitura de itens das bolsas e agrupamento em blocos visuais (*Equipamentos*, *Consumíveis*, *Materiais*, *Outros*).
+  1. Leitura de itens das bolsas e agrupamento em blocos visuais (*Equipamentos*, *Consumíveis*, *Materiais*, *Outros*) com filtros `[LT]` / `[RT]`.
   2. Grid 2D leve com molduras de qualidade.
   3. Criação do Painel Fixo de Detalhes (Tooltip estilo Zelda) no canto inferior direito.
-* **Validação:** Visualizar todos os itens da mochila categorizados na Aba 1 e ler os dados completos do item focado no painel inferior.
+* **Validação:** Concluída com categorização completa e card de detalhes fixo.
 
-### **FASE 6: Navegação D-Pad no Grid, Menu de Contexto (Y) e Live TryOn**
+### **FASE 6: Navegação D-Pad no Grid, Menu de Contexto (Y) e Live TryOn** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
-  1. Navegação espacial em grade via D-Pad com cursor dourado 9-slice.
-  2. Live TryOn: Ao parar sobre armas/armaduras na bolsa, o modelo 3D veste a peça ao vivo e faz pose; ao sair, restaura o set.
-  3. Botão (A) para usar/equipar e (Y) para abrir o menu de contexto de ações existente.
-* **Validação:** Navegar pelos itens via D-Pad, testar o provador 3D ao vivo e executar ações com (A) e (Y).
+  1. Navegação espacial em grade via D-Pad com cursor de foco inteligente.
+  2. Live TryOn: Ao parar sobre armas/armaduras na bolsa, o modelo 3D veste a peça ao vivo (`model:TryOn`) e faz pose; ao sair, restaura o set.
+  3. Botão (A) para usar/equipar e (Y) para abrir o menu de contexto de ações flutuante com z-index de tooltip.
+* **Validação:** Concluída e aprovada em jogo.
 
-### **FASE 7: Aba de Spellbook & Poses de Conjuração no Modelo 3D (Aba 2)**
+### **FASE 7: Aba de Spellbook & Poses de Conjuração no Modelo 3D (Aba 2)** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
-  1. Grid/Lista de magias e habilidades do jogador divididas por abas de classe.
-  2. Animações dinâmicas no modelo 3D conforme o tipo de magia selecionada (*SpellPrecast*, ataque melee, grito).
+  1. Grid/Lista de magias e habilidades do jogador divididas por abas de classe/escola (`[LT]` / `[RT]`).
+  2. Animações dinâmicas no modelo 3D conforme o tipo de magia selecionada (`model:SetSequenceTime` / poses de cast, ataque e buff).
   3. Painel fixo de detalhes exibindo custo de mana, alcance, cast time e descrição da magia.
-* **Validação:** Navegar pelas magias no Spellbook e observar as poses de conjuração correspondentes sendo disparadas no personagem 3D.
+* **Validação:** Concluída e integrada ao `MainMenu.lua`.
 
-### **FASE 8: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final**
+---
+
+### **FASE 8: Aba 3 (Configurações) & Integração Dinâmica do Game Menu** `[STATUS: ⏳ PENDENTE / PRÓXIMA FASE]`
+* **Objetivo:** Adicionar a 3ª aba principal (`CONFIGURAÇÕES`) com duas sub-abas internas (`OPÇÕES` e `CONFIGURAÇÕES DO ADDON`), integrando uma varredura genérica do menu original do jogo sem nenhum hardcode.
+* **Sub-etapas Detalhadas de Execução:**
+  * **Etapa 8.1 - Setup da Aba e Sub-abas:**
+    1. Criação do botão da 3ª aba no cabeçalho superior (`[LB] Bolsas | Spellbook | Configurações [RB]`).
+    2. Criação do sub-cabeçalho interno navegável via `[LT]` / `[RT]`:
+       - Sub-aba 1: `OPÇÕES` (Opções do Jogo e Menus de Sistema/Addons).
+       - Sub-aba 2: `CONFIGURAÇÕES DO ADDON` (Painel ConsoleMode).
+  * **Etapa 8.2 - Varredura Dinâmica e Listagem em Texto Puro (Validação):**
+    1. Executar varredura automática dos filhos de `GameMenuFrame` (`GameMenuFrame:GetChildren()`).
+    2. Filtrar botões válidos e extrair seus títulos (`GetText()`).
+    3. Exibir todos os botões descobertos (Blizzard + Addons instalados como SuperMacro) em uma lista vertical em texto simples/padrão para validação em jogo.
+  * **Etapa 8.3 - Integração dos Cliques (`OnClick`):**
+    1. Conectar a ação de cada item da lista para disparar o `Click()` correspondente do botão nativo original.
+    2. Esconder/fechar o Main Menu ao acionar a opção para exibir a janela correspondente aberta na tela.
+  * **Etapa 8.4 - Integração do Painel de Configurações do Addon:**
+    1. Vincular o painel existente do `ConsoleMode` (mapeamento de binds, sensibilidades, deadzones, HUD) na Sub-aba 2.
+  * **Etapa 8.5 - Estilização Visual e Navegação via Controle:**
+    1. Aplicar o acabamento visual definitivo dos botões da lista (moldura, hover, foco do D-Pad, ícones e visual de console).
+* **Validação:** Abrir a aba de Configurações, alternar entre as duas sub-abas via `[LT]` / `[RT]`, visualizar todos os menus (incluindo addons de terceiros) listados dinamicamente e abri-los via controle.
+
+---
+
+### **FASE 9: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
   2. Animações de comer/beber no modelo 3D ao usar consumíveis.
   3. Mapeamento de abertura pelo botão Start e ajustes finos de responsividade.
 * **Validação:** Menu completo, fluido, polido e 100% funcional no gameplay com controle.
 
-### **FASE 9: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip**
+### **FASE 10: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
   2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
   3. Navegação contínua e sem atritos entre os equipamentos da esquerda e as abas da direita via D-Pad para uma experiência 100% unificada de console.
 * **Validação:** Focar em elmos, armas equipadas e buffs na lateral esquerda e ver seus dados completos carregando instantaneamente no painel fixo da direita.
 
-### **FASE 10: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)**
+### **FASE 11: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Detecção automática do slot de equipamento correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Arma, etc.).
   2. Leitura e cálculo diferencial entre os atributos do item da bolsa e o item atualmente equipado naquele slot (`GetInventoryItemLink`).

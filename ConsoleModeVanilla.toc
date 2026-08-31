@@ -23,6 +23,7 @@ UI\PlayerFrame.lua
 UI\TargetFrame.lua
 Data\SellValues.lua
 Data\MapOverlayData.lua
+Data\Instances.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 Hooks.lua

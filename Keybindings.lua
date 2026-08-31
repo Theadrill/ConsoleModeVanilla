@@ -676,10 +676,15 @@ end
 function CM_CursorMove(direction, keystate)
     if CM.keybindings and CM.keybindings.chatActive then return end
 
-    -- Se o MainMenu estiver na aba QUESTS, D-Pad/Stick move o mapa
+    -- Se o MainMenu estiver na aba QUESTS, D-Pad UP/DOWN navega nas missões
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
-        if mm.OnStickPan then
+        if direction == "UP" or direction == "DOWN" then
+            if keystate ~= "up" and mm.NavigateQuest then
+                mm:NavigateQuest(direction == "UP" and -1 or 1)
+            end
+            return
+        elseif mm.OnStickPan then
             mm:OnStickPan(direction, keystate)
             return
         end

@@ -3018,9 +3018,9 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
     mapPanel.hintText = mapHintText
 
-    -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior)
+    -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior - 150px)
     local detailCard = CreateFrame("Frame", "ConsoleModeMM_QuestDetailCard", questPanel)
-    detailCard:SetHeight(135)
+    detailCard:SetHeight(150)
     detailCard:SetPoint("BOTTOMLEFT", questPanel, "BOTTOMLEFT", 0, 0)
     detailCard:SetPoint("BOTTOMRIGHT", questPanel, "BOTTOMRIGHT", 0, 0)
     questPanel.detailCard = detailCard
@@ -3028,7 +3028,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local detailBg = detailCard:CreateTexture(nil, "BACKGROUND")
     detailBg:SetAllPoints(detailCard)
     detailBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-    detailBg:SetVertexColor(0.03, 0.03, 0.03, 0.75)
+    detailBg:SetVertexColor(0.03, 0.03, 0.03, 0.85)
 
     local detailBorder = CreateFrame("Frame", nil, detailCard)
     detailBorder:SetAllPoints(detailCard)
@@ -3041,23 +3041,80 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     local detailTitle = detailCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     detailTitle:SetPoint("TOPLEFT", detailCard, "TOPLEFT", 10, -8)
+    detailTitle:SetPoint("RIGHT", detailCard, "RIGHT", -10, 0)
+    detailTitle:SetJustifyH("LEFT")
     MainMenu:ApplyFont(detailTitle, CFG.Fonts.titleFontFile, 13)
     detailTitle:SetText("|cffe09a15Detalhes da Missão|r")
     detailCard.title = detailTitle
 
-    local detailDesc = detailCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    detailDesc:SetPoint("TOPLEFT", detailTitle, "BOTTOMLEFT", 0, -4)
-    detailDesc:SetPoint("RIGHT", detailCard, "RIGHT", -10, 0)
-    detailDesc:SetJustifyH("LEFT")
-    MainMenu:ApplyFont(detailDesc, CFG.Fonts.bodyFontFile, 11)
-    detailDesc:SetText("|cffaaaaaaSelecione uma missão na lista acima para visualizar objetivos e recompensas.|r")
-    detailCard.desc = detailDesc
+    local detailObjectives = detailCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    detailObjectives:SetPoint("TOPLEFT", detailTitle, "BOTTOMLEFT", 0, -4)
+    detailObjectives:SetPoint("RIGHT", detailCard, "RIGHT", -10, 0)
+    detailObjectives:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(detailObjectives, CFG.Fonts.bodyFontFile, 11)
+    detailObjectives:SetText("|cffaaaaaaSelecione uma missão na lista acima.|r")
+    detailCard.objectives = detailObjectives
 
-    local detailRewards = detailCard:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-    detailRewards:SetPoint("BOTTOMLEFT", detailCard, "BOTTOMLEFT", 10, 8)
-    MainMenu:ApplyFont(detailRewards, CFG.Fonts.subFontFile, 11)
-    detailRewards:SetText("|cff888888(A) Ver no Mapa  •  (X) Rastrear no HUD  •  (Y) Ações|r")
-    detailCard.rewards = detailRewards
+    -- Recompensas: Moedas, XP e Itens
+    local rewardsFrame = CreateFrame("Frame", nil, detailCard)
+    rewardsFrame:SetHeight(26)
+    rewardsFrame:SetPoint("BOTTOMLEFT", detailCard, "BOTTOMLEFT", 10, 22)
+    rewardsFrame:SetPoint("BOTTOMRIGHT", detailCard, "BOTTOMRIGHT", -10, 22)
+    detailCard.rewardsFrame = rewardsFrame
+
+    local moneyText = rewardsFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    moneyText:SetPoint("LEFT", rewardsFrame, "LEFT", 0, 0)
+    MainMenu:ApplyFont(moneyText, CFG.Fonts.subFontFile, 11)
+    detailCard.money = moneyText
+
+    local rewardSlots = {}
+    for s = 1, 4 do
+        local slot = CreateFrame("Button", "ConsoleModeMM_QuestRewardSlot" .. s, rewardsFrame)
+        slot:SetWidth(22)
+        slot:SetHeight(22)
+        slot:SetPoint("RIGHT", rewardsFrame, "RIGHT", -((4 - s) * 26), 0)
+
+        local sIcon = slot:CreateTexture(nil, "ARTWORK")
+        sIcon:SetAllPoints(slot)
+        slot.icon = sIcon
+
+        local sBorder = slot:CreateTexture(nil, "OVERLAY")
+        sBorder:SetAllPoints(slot)
+        sBorder:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+        sBorder:SetBlendMode("ADD")
+        slot.border = sBorder
+
+        local sCount = slot:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        sCount:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 2, 2)
+        MainMenu:ApplyFont(sCount, CFG.Fonts.subFontFile, 9)
+        slot.count = sCount
+
+        slot:SetScript("OnEnter", function()
+            if this.rewardType and this.rewardIndex then
+                GameTooltip:SetOwner(this, "ANCHOR_RIGHT")
+                if this.rewardType == "choice" then
+                    GameTooltip:SetQuestLogItem("choice", this.rewardIndex)
+                else
+                    GameTooltip:SetQuestLogItem("reward", this.rewardIndex)
+                end
+                GameTooltip:Show()
+            end
+        end)
+
+        slot:SetScript("OnLeave", function()
+            GameTooltip:Hide()
+        end)
+
+        slot:Hide()
+        rewardSlots[s] = slot
+    end
+    detailCard.rewardSlots = rewardSlots
+
+    local detailFooter = detailCard:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    detailFooter:SetPoint("BOTTOMLEFT", detailCard, "BOTTOMLEFT", 10, 5)
+    MainMenu:ApplyFont(detailFooter, CFG.Fonts.subFontFile, 10)
+    detailFooter:SetText("|cff888888(A) Ver no Mapa  •  (X) Rastrear no HUD  •  (Y) Ações|r")
+    detailCard.footer = detailFooter
 
     -- Container da Lista de Missões (Parte Superior)
     local listContainer = CreateFrame("Frame", "ConsoleModeMM_QuestListContainer", questPanel)
@@ -3070,13 +3127,437 @@ function MainMenu:SetupQuestsPage(pageQuests)
     listBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     listBg:SetVertexColor(0.02, 0.02, 0.02, 0.50)
 
-    local listPlaceholder = listContainer:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    listPlaceholder:SetPoint("CENTER", listContainer, "CENTER", 0, 0)
-    MainMenu:ApplyFont(listPlaceholder, CFG.Fonts.titleFontFile, 13)
-    listPlaceholder:SetText("|cffffcc00[ LISTA DE MISSÕES ATIVAS ]|r\n\n|cffaaaaaaScanner do Diário de Missões (Etapa 9.5)|r")
-    questPanel.listPlaceholder = listPlaceholder
+    -- ScrollFrame da Lista de Missões
+    local listScrollFrame = CreateFrame("ScrollFrame", "ConsoleModeMM_QuestListScrollFrame", listContainer)
+    listScrollFrame:SetPoint("TOPLEFT", listContainer, "TOPLEFT", 2, -2)
+    listScrollFrame:SetPoint("BOTTOMRIGHT", listContainer, "BOTTOMRIGHT", -2, 2)
+    listScrollFrame:EnableMouse(true)
+    listScrollFrame:EnableMouseWheel(true)
+    questPanel.scrollFrame = listScrollFrame
 
+    local listScrollChild = CreateFrame("Frame", "ConsoleModeMM_QuestListScrollChild", listScrollFrame)
+    listScrollChild:SetPoint("TOPLEFT", listScrollFrame, "TOPLEFT", 0, 0)
+    listScrollChild:SetWidth(290)
+    listScrollChild:SetHeight(300)
+    listScrollFrame:SetScrollChild(listScrollChild)
+    questPanel.scrollChild = listScrollChild
+
+    listScrollFrame:SetScript("OnMouseWheel", function()
+        local cur = listScrollFrame:GetVerticalScroll() or 0
+        local maxScroll = math.max(0, (listScrollChild:GetHeight() or 300) - (listScrollFrame:GetHeight() or 200))
+        local step = 26
+        if arg1 > 0 then
+            listScrollFrame:SetVerticalScroll(math.max(0, cur - step))
+        else
+            listScrollFrame:SetVerticalScroll(math.min(maxScroll, cur + step))
+        end
+    end)
+
+    local emptyText = listContainer:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    emptyText:SetPoint("CENTER", listContainer, "CENTER", 0, 0)
+    MainMenu:ApplyFont(emptyText, CFG.Fonts.titleFontFile, 13)
+    emptyText:SetText("|cffaaaaaaNenhuma missão ativa no diário.|r")
+    emptyText:Hide()
+    questPanel.emptyText = emptyText
+
+    questPanel.questButtons = {}
     pageQuests.isInitialized = true
+end
+
+local function GetQuestLevelColor(level)
+    if not level or level <= 0 then return 0.8, 0.8, 0.8 end
+    local playerLevel = UnitLevel("player") or 1
+    local diff = level - playerLevel
+    if diff >= 5 then
+        return 1.0, 0.1, 0.1 -- Vermelho (Muito difícil)
+    elseif diff >= 3 then
+        return 1.0, 0.5, 0.1 -- Laranja (Difícil)
+    elseif diff >= -2 then
+        return 1.0, 0.85, 0.1 -- Amarelo (Nível atual)
+    elseif diff >= -4 then
+        return 0.2, 0.9, 0.2 -- Verde (Fácil)
+    else
+        return 0.5, 0.5, 0.5 -- Cinza (Trivial)
+    end
+end
+
+function MainMenu:CreateQuestListButton(parent, idx)
+    local btn = CreateFrame("Button", "ConsoleModeMM_QuestBtn" .. idx, parent)
+    btn:SetHeight(24)
+    btn:SetWidth(286)
+
+    local highlight = btn:CreateTexture(nil, "BACKGROUND")
+    highlight:SetAllPoints(btn)
+    highlight:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+    highlight:Hide()
+    btn.highlight = highlight
+
+    local headerBg = btn:CreateTexture(nil, "BACKGROUND")
+    headerBg:SetAllPoints(btn)
+    headerBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    headerBg:SetVertexColor(0.20, 0.15, 0.08, 0.65)
+    headerBg:Hide()
+    btn.headerBg = headerBg
+
+    local tagText = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    tagText:SetPoint("LEFT", btn, "LEFT", 4, 0)
+    tagText:SetWidth(38)
+    tagText:SetHeight(18)
+    tagText:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(tagText, CFG.Fonts.subFontFile, 11)
+    btn.tagText = tagText
+
+    local statusText = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    statusText:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
+    statusText:SetWidth(60)
+    statusText:SetHeight(18)
+    statusText:SetJustifyH("RIGHT")
+    MainMenu:ApplyFont(statusText, CFG.Fonts.subFontFile, 10)
+    btn.statusText = statusText
+
+    local trackIcon = btn:CreateTexture(nil, "OVERLAY")
+    trackIcon:SetWidth(12)
+    trackIcon:SetHeight(12)
+    trackIcon:SetPoint("RIGHT", statusText, "LEFT", -2, 0)
+    trackIcon:SetTexture("Interface\\GossipFrame\\ActiveQuestIcon")
+    trackIcon:Hide()
+    btn.trackIcon = trackIcon
+
+    local titleText = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    titleText:SetPoint("LEFT", tagText, "RIGHT", 2, 0)
+    titleText:SetPoint("RIGHT", trackIcon, "LEFT", -2, 0)
+    titleText:SetHeight(18)
+    titleText:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(titleText, CFG.Fonts.bodyFontFile, 11)
+    btn.titleText = titleText
+
+    btn:SetScript("OnEnter", function()
+        if not this.isHeader then
+            this.highlight:Show()
+            this.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.20)
+        end
+    end)
+
+    btn:SetScript("OnLeave", function()
+        local curSelected = (ConsoleMode and ConsoleMode.mainMenu and ConsoleMode.mainMenu.selectedQuestIndex) or 0
+        if this.questLogIndex ~= curSelected or this.isHeader then
+            this.highlight:Hide()
+        else
+            this.highlight:Show()
+            this.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.40)
+        end
+    end)
+
+    btn:SetScript("OnClick", function()
+        if not this.isHeader and this.questLogIndex then
+            MainMenu:SelectQuest(this.questLogIndex)
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end
+    end)
+
+    return btn
+end
+
+function MainMenu:UpdateQuestsPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests then return end
+
+    self:SetupQuestsPage(pageQuests)
+
+    local numEntries, numQuests = (GetNumQuestLogEntries and GetNumQuestLogEntries()) or 0, 0
+    numQuests = numQuests or 0
+    numEntries = numEntries or 0
+
+    if pageQuests.questCountText then
+        pageQuests.questCountText:SetText(string.format("|cffaaaaaaMissões: |cffffffff%d / 20|r", numQuests))
+    end
+
+    local questPanel = pageQuests.questPanel
+    if not questPanel then return end
+
+    local questButtons = questPanel.questButtons
+    local curY = 0
+    local buttonHeight = 24
+    local gapY = 2
+    local firstSelectableIndex = nil
+    local selectedFound = false
+    local currentSelected = questPanel.selectedQuestIndex
+
+    local btnIdx = 1
+    for i = 1, numEntries do
+        local questTitle, level, questTag, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i)
+        if questTitle and questTitle ~= "" then
+            local btn = questButtons[btnIdx]
+            if not btn then
+                btn = MainMenu:CreateQuestListButton(questPanel.scrollChild, btnIdx)
+                questButtons[btnIdx] = btn
+            end
+
+            btn:ClearAllPoints()
+            btn:SetPoint("TOPLEFT", questPanel.scrollChild, "TOPLEFT", 2, -curY)
+            btn:SetWidth(286)
+            btn:SetHeight(24)
+            btn.questLogIndex = i
+            btn.isHeader = isHeader
+
+            if isHeader then
+                btn:Disable()
+                btn.headerBg:Show()
+                btn.highlight:Hide()
+                btn.tagText:SetText("")
+                btn.titleText:SetText("|cffe09a15[ " .. questTitle .. " ]|r")
+                btn.titleText:ClearAllPoints()
+                btn.titleText:SetPoint("LEFT", btn, "LEFT", 8, 0)
+                btn.titleText:SetPoint("RIGHT", btn, "RIGHT", -8, 0)
+                btn.statusText:SetText("")
+                btn.trackIcon:Hide()
+            else
+                btn:Enable()
+                btn.headerBg:Hide()
+                if not firstSelectableIndex then firstSelectableIndex = i end
+                if currentSelected == i then selectedFound = true end
+
+                -- Tag de Nível e Dificuldade
+                local r, g, b = GetQuestLevelColor(level)
+                local tagStr = ""
+                if questTag == "ELITE" then
+                    tagStr = string.format("|cff%02x%02x%02x[%d+]|r", r*255, g*255, b*255, level or 0)
+                elseif questTag == "DUNGEON" then
+                    tagStr = string.format("|cff%02x%02x%02x[%dD]|r", r*255, g*255, b*255, level or 0)
+                elseif questTag == "RAID" then
+                    tagStr = string.format("|cff%02x%02x%02x[%dR]|r", r*255, g*255, b*255, level or 0)
+                elseif level and level > 0 then
+                    tagStr = string.format("|cff%02x%02x%02x[%d]|r", r*255, g*255, b*255, level)
+                end
+                btn.tagText:SetText(tagStr)
+
+                btn.titleText:ClearAllPoints()
+                btn.titleText:SetPoint("LEFT", btn.tagText, "RIGHT", 2, 0)
+                btn.titleText:SetPoint("RIGHT", btn.trackIcon, "LEFT", -2, 0)
+                btn.titleText:SetText(questTitle)
+
+                -- Status de Conclusão / Progresso
+                if isComplete and isComplete > 0 then
+                    btn.statusText:SetText("|cff00ff00(Completa)|r")
+                elseif isComplete and isComplete < 0 then
+                    btn.statusText:SetText("|cffff2020(Falhou)|r")
+                else
+                    -- Contadores de objetivos
+                    local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(i)) or 0
+                    local doneCount = 0
+                    for obj = 1, numObj do
+                        local _, _, isDone = GetQuestLogLeaderBoard(obj, i)
+                        if isDone then doneCount = doneCount + 1 end
+                    end
+                    if numObj > 0 then
+                        btn.statusText:SetText(string.format("|cffffcc00[%d/%d]|r", doneCount, numObj))
+                    else
+                        btn.statusText:SetText("")
+                    end
+                end
+
+                -- Ícone de rastreamento no HUD
+                if IsQuestWatched and IsQuestWatched(i) then
+                    btn.trackIcon:Show()
+                else
+                    btn.trackIcon:Hide()
+                end
+
+                if currentSelected == i then
+                    btn.highlight:Show()
+                    btn.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+                else
+                    btn.highlight:Hide()
+                end
+            end
+
+            btn:Show()
+            curY = curY + buttonHeight + gapY
+            btnIdx = btnIdx + 1
+        end
+    end
+
+    -- Esconde botões excedentes do pool
+    for k = btnIdx, table.getn(questButtons) do
+        if questButtons[k] then questButtons[k]:Hide() end
+    end
+
+    questPanel.scrollChild:SetHeight(math.max(curY, 10))
+
+    if numQuests == 0 then
+        if questPanel.emptyText then questPanel.emptyText:Show() end
+        if questPanel.detailCard then questPanel.detailCard:Hide() end
+    else
+        if questPanel.emptyText then questPanel.emptyText:Hide() end
+        if questPanel.detailCard then questPanel.detailCard:Show() end
+
+        local toSelect = (selectedFound and currentSelected) or firstSelectableIndex
+        if toSelect then
+            self:SelectQuest(toSelect)
+        end
+    end
+end
+
+function MainMenu:SelectQuest(questLogIndex)
+    if not questLogIndex or questLogIndex <= 0 then return end
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.questPanel then return end
+
+    local questPanel = pageQuests.questPanel
+    questPanel.selectedQuestIndex = questLogIndex
+    self.selectedQuestIndex = questLogIndex
+
+    -- Atualiza destaques da lista
+    if questPanel.questButtons then
+        for _, btn in ipairs(questPanel.questButtons) do
+            if btn.questLogIndex == questLogIndex and not btn.isHeader then
+                btn.highlight:Show()
+                btn.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+            else
+                btn.highlight:Hide()
+            end
+        end
+    end
+
+    if SelectQuestLogEntry then
+        SelectQuestLogEntry(questLogIndex)
+    end
+
+    local questTitle, level, questTag, isHeader, isCollapsed, isComplete = GetQuestLogTitle(questLogIndex)
+    local questDescription, questObjectives = GetQuestLogQuestText()
+    local detailCard = questPanel.detailCard
+    if not detailCard then return end
+
+    local r, g, b = GetQuestLevelColor(level)
+    local levelStr = (level and level > 0) and string.format("|cff%02x%02x%02x[%d]|r ", r*255, g*255, b*255, level) or ""
+    detailCard.title:SetText(levelStr .. "|cffffffff" .. (questTitle or "Missão") .. "|r")
+
+    -- Formata lista de objetivos
+    local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(questLogIndex)) or 0
+    local objStr = ""
+    for j = 1, numObj do
+        local text, itemType, isDone = GetQuestLogLeaderBoard(j, questLogIndex)
+        if text and text ~= "" then
+            local bullet = isDone and "|cff00ff00✔ |r" or "|cffffcc00- |r"
+            local col = isDone and "|cff88cc88" or "|cffffffff"
+            objStr = objStr .. bullet .. col .. text .. "|r\n"
+        end
+    end
+
+    if objStr ~= "" then
+        detailCard.objectives:SetText(objStr)
+    elseif questObjectives and questObjectives ~= "" then
+        detailCard.objectives:SetText("|cffcccccc" .. questObjectives .. "|r")
+    elseif questDescription and questDescription ~= "" then
+        detailCard.objectives:SetText("|cffaaaaaa" .. questDescription .. "|r")
+    else
+        detailCard.objectives:SetText("|cff888888Sem objetivos específicos.|r")
+    end
+
+    -- Recompensas em Dinheiro
+    local money = (GetQuestLogRewardMoney and GetQuestLogRewardMoney()) or 0
+    if money > 0 then
+        local gold = math.floor(money / 10000)
+        local silver = math.floor(math.mod(money, 10000) / 100)
+        local copper = math.mod(money, 100)
+        local moneyStr = "|cffaaaaaaRecompensa: |r"
+        if gold > 0 then moneyStr = moneyStr .. string.format("|cffffd700%dg |r", gold) end
+        if silver > 0 or gold > 0 then moneyStr = moneyStr .. string.format("|cffc7c7cf%ds |r", silver) end
+        moneyStr = moneyStr .. string.format("|cffeda55f%dc|r", copper)
+        detailCard.money:SetText(moneyStr)
+        detailCard.money:Show()
+    else
+        detailCard.money:Hide()
+    end
+
+    -- Recompensas em Itens
+    local numRewards = (GetNumQuestLogRewards and GetNumQuestLogRewards()) or 0
+    local numChoices = (GetNumQuestLogChoices and GetNumQuestLogChoices()) or 0
+    local rewardSlots = detailCard.rewardSlots
+
+    local slotIdx = 1
+    -- Itens fixos
+    for r = 1, numRewards do
+        if slotIdx <= 4 then
+            local name, texture, numItems, quality, isUsable = GetQuestLogRewardInfo(r)
+            local slot = rewardSlots[slotIdx]
+            if slot and texture then
+                slot.icon:SetTexture(texture)
+                slot.count:SetText((numItems and numItems > 1) and tostring(numItems) or "")
+                local qr, qg, qb = 1, 1, 1
+                if quality and GetItemQualityColor then
+                    qr, qg, qb = GetItemQualityColor(quality)
+                end
+                slot.border:SetVertexColor(qr, qg, qb, 0.9)
+                slot.rewardType = "reward"
+                slot.rewardIndex = r
+                slot:Show()
+                slotIdx = slotIdx + 1
+            end
+        end
+    end
+
+    -- Itens de escolha
+    for c = 1, numChoices do
+        if slotIdx <= 4 then
+            local name, texture, numItems, quality, isUsable = GetQuestLogChoiceInfo(c)
+            local slot = rewardSlots[slotIdx]
+            if slot and texture then
+                slot.icon:SetTexture(texture)
+                slot.count:SetText((numItems and numItems > 1) and tostring(numItems) or "")
+                local qr, qg, qb = 1, 1, 1
+                if quality and GetItemQualityColor then
+                    qr, qg, qb = GetItemQualityColor(quality)
+                end
+                slot.border:SetVertexColor(qr, qg, qb, 0.9)
+                slot.rewardType = "choice"
+                slot.rewardIndex = c
+                slot:Show()
+                slotIdx = slotIdx + 1
+            end
+        end
+    end
+
+    -- Esconde slots restantes
+    for s = slotIdx, 4 do
+        if rewardSlots[s] then rewardSlots[s]:Hide() end
+    end
+end
+
+function MainMenu:NavigateQuest(delta)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.questPanel then return end
+
+    local questPanel = pageQuests.questPanel
+    local questButtons = questPanel.questButtons
+    if not questButtons or table.getn(questButtons) == 0 then return end
+
+    local selectable = {}
+    local currentPos = 1
+    for idx, btn in ipairs(questButtons) do
+        if btn:IsShown() and not btn.isHeader and btn.questLogIndex then
+            table.insert(selectable, btn.questLogIndex)
+            if btn.questLogIndex == questPanel.selectedQuestIndex then
+                currentPos = table.getn(selectable)
+            end
+        end
+    end
+
+    if table.getn(selectable) == 0 then return end
+
+    local nextPos = currentPos + delta
+    if nextPos < 1 then nextPos = table.getn(selectable)
+    elseif nextPos > table.getn(selectable) then nextPos = 1 end
+
+    local targetIndex = selectable[nextPos]
+    if targetIndex then
+        self:SelectQuest(targetIndex)
+        if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+    end
 end
 
 function MainMenu:UpdateMapLayout(mapCanvas)
@@ -3388,6 +3869,33 @@ local function RotateMapTexture(texture, angle)
     texture:SetTexCoord(ulx, uly, llx, lly, urx, ury, lrx, lry)
 end
 
+local minimapArrowModel = nil
+local function GetPlayerFacingAngle()
+    if GetPlayerFacing then
+        local f = GetPlayerFacing()
+        if f and f ~= 0 then return f end
+    end
+    if pfQuestCompat and pfQuestCompat.GetPlayerFacing then
+        local f = pfQuestCompat.GetPlayerFacing()
+        if f and f ~= 0 then return f end
+    end
+    if not minimapArrowModel and Minimap and Minimap.GetChildren then
+        for _, child in ipairs({Minimap:GetChildren()}) do
+            if child:IsObjectType("Model") and not child:GetName() then
+                local m = child:GetModel()
+                if m and string.find(string.lower(m), "interface\\minimap\\minimaparrow") then
+                    minimapArrowModel = child
+                    break
+                end
+            end
+        end
+    end
+    if minimapArrowModel and minimapArrowModel.GetFacing then
+        return minimapArrowModel:GetFacing() or 0
+    end
+    return 0
+end
+
 function MainMenu:UpdateMapPlayerPosition(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.playerPin then return end
 
@@ -3411,10 +3919,10 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
         playerPin:ClearAllPoints()
         playerPin:SetPoint("CENTER", container, "TOPLEFT", posX, posY)
 
-        -- Rotação baseada na direção do jogador (facing)
-        local facing = (GetPlayerFacing and GetPlayerFacing()) or 0
+        -- Rotação em tempo real baseada na direção do personagem
+        local facing = GetPlayerFacingAngle()
         if playerPin.texture then
-            RotateMapTexture(playerPin.texture, -facing)
+            RotateMapTexture(playerPin.texture, facing)
         end
         playerPin:Show()
 
@@ -4839,6 +5347,7 @@ initFrame:RegisterEvent("UNIT_ENERGY")
 initFrame:RegisterEvent("PLAYER_MONEY")
 initFrame:RegisterEvent("BAG_UPDATE")
 initFrame:RegisterEvent("ITEM_LOCK_CHANGED")
+initFrame:RegisterEvent("QUEST_LOG_UPDATE")
 
 initFrame:SetScript("OnEvent", function()
     if event == "VARIABLES_LOADED" then
@@ -4862,6 +5371,10 @@ initFrame:SetScript("OnEvent", function()
         elseif event == "BAG_UPDATE" or event == "ITEM_LOCK_CHANGED" then
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "BAGS" then
                 MainMenu:UpdateBagsPage()
+            end
+        elseif event == "QUEST_LOG_UPDATE" then
+            if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "QUESTS" then
+                MainMenu:UpdateQuestsPage()
             end
         end
     end

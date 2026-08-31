@@ -35,6 +35,12 @@ MainMenu.mapDungeonPreviewParent = MainMenu.mapDungeonPreviewParent or nil
 MainMenu.mapDungeonParentCont = MainMenu.mapDungeonParentCont or nil
 MainMenu.mapDungeonParentIdx = MainMenu.mapDungeonParentIdx or nil
 MainMenu.mapDungeonHardcoded = MainMenu.mapDungeonHardcoded or nil
+MainMenu.customDungeonMaps = {
+    ["Blackfathom Deeps"] = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\DungeonMaps\\BlackfathomDeeps.tga",
+    ["Shadowfang Keep"] = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\DungeonMaps\\ShadowfangKeep.tga",
+    ["Temple of Ahn'Qiraj"] = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\DungeonMaps\\AhnQirajTemple.tga",
+    ["The Temple of Atal'Hakkar"] = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\DungeonMaps\\AtalHakkar.tga",
+}
 
 -- ============================================================================
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
@@ -4694,17 +4700,35 @@ function MainMenu:UpdateMapTextures(mapCanvas)
 
     mapCanvas.currentMapFile = mapFileName
     local tiles = mapCanvas.tiles
-    for i = 1, 12 do
-        local tile = tiles[i]
-        if tile then
-            local texPath = "Interface\\WorldMap\\" .. mapFileName .. "\\" .. mapFileName .. i
-            tile:SetTexture(texPath)
-            local row = math.floor((i - 1) / 4) + 1
-            local col = math.mod((i - 1), 4) + 1
-            local rightCoord = (col == 4) and (234 / 256) or 1.0
-            local bottomCoord = (row == 3) and (156 / 256) or 1.0
-            tile:SetTexCoord(0, rightCoord, 0, bottomCoord)
-            tile:Show()
+    local customMap = nil
+    if self.mapDungeonHardcoded and self.mapZoneName then
+        local cmap = self.customDungeonMaps and self.customDungeonMaps[self.mapZoneName]
+        if cmap then customMap = cmap end
+    end
+    if customMap then
+        for i = 1, 12 do if tiles[i] then tiles[i]:Hide() end end
+        if not mapCanvas.customDungeonTex then
+            local t = mapCanvas.tilesContainer:CreateTexture(nil, "ARTWORK")
+            t:SetAllPoints(mapCanvas.tilesContainer)
+            t:SetTexCoord(0,1,0,1)
+            mapCanvas.customDungeonTex = t
+        end
+        mapCanvas.customDungeonTex:SetTexture(customMap)
+        mapCanvas.customDungeonTex:Show()
+    else
+        if mapCanvas.customDungeonTex then mapCanvas.customDungeonTex:Hide() end
+        for i = 1, 12 do
+            local tile = tiles[i]
+            if tile then
+                local texPath = "Interface\\WorldMap\\" .. mapFileName .. "\\" .. mapFileName .. i
+                tile:SetTexture(texPath)
+                local row = math.floor((i - 1) / 4) + 1
+                local col = math.mod((i - 1), 4) + 1
+                local rightCoord = (col == 4) and (234 / 256) or 1.0
+                local bottomCoord = (row == 3) and (156 / 256) or 1.0
+                tile:SetTexCoord(0, rightCoord, 0, bottomCoord)
+                tile:Show()
+            end
         end
     end
 

@@ -210,7 +210,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-## 7. Plano de Implementação em 11 Fases Incrementais
+## 7. Plano de Implementação em 12 Fases Incrementais
 
 ### **FASE 1: A "Casca" e a Textura 9-Slice (O Canvas do Menu)** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
@@ -235,7 +235,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ### **FASE 4: Container de Abas e Alternância com `[LB]` / `[RB]`** `[STATUS: ✅ CONCLUÍDA]`
 * **Tarefas:**
-  1. Criação do cabeçalho de abas no topo do container direito (`[LB] Bolsas | Spellbook [RB]`).
+  1. Criação do cabeçalho de abas no topo do container direito (`[LB] Bolsas | Spellbook | Missões | Configurações [RB]`).
   2. Alternância de abas via LB/RB no controle com som nativo da Blizzard.
   3. Alternância suave dos sub-frames da direita sem recarregar o lado esquerdo.
 * **Validação:** Concluída com troca instantânea e ícones gráficos dedicados.
@@ -263,15 +263,15 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 8: Aba 3 (Configurações) & Integração Dinâmica do Game Menu** `[STATUS: ⏳ PENDENTE / PRÓXIMA FASE]`
-* **Objetivo:** Adicionar a 3ª aba principal (`CONFIGURAÇÕES`) com duas sub-abas internas (`OPÇÕES` e `CONFIGURAÇÕES DO ADDON`), integrando uma varredura genérica do menu original do jogo sem nenhum hardcode.
+### **FASE 8: Aba de Configurações & Integração Dinâmica do Game Menu** `[STATUS: 🔄 EM ANDAMENTO - Etapa 8.1 Concluída]`
+* **Objetivo:** Adicionar a aba principal de `CONFIGURAÇÕES` com duas sub-abas internas (`OPÇÕES` e `CONFIGURAÇÕES DO ADDON`), integrando uma varredura genérica do menu original do jogo sem nenhum hardcode.
 * **Sub-etapas Detalhadas de Execução:**
-  * **Etapa 8.1 - Setup da Aba e Sub-abas:**
-    1. Criação do botão da 3ª aba no cabeçalho superior (`[LB] Bolsas | Spellbook | Configurações [RB]`).
+  * **Etapa 8.1 - Setup da Aba e Sub-abas:** `[STATUS: ✅ CONCLUÍDA]`
+    1. Criação do botão da aba no cabeçalho superior (`[LB] Bolsas | Spellbook | Missões | Configurações [RB]`).
     2. Criação do sub-cabeçalho interno navegável via `[LT]` / `[RT]`:
        - Sub-aba 1: `OPÇÕES` (Opções do Jogo e Menus de Sistema/Addons).
        - Sub-aba 2: `CONFIGURAÇÕES DO ADDON` (Painel ConsoleMode).
-  * **Etapa 8.2 - Varredura Dinâmica e Listagem em Texto Puro (Validação):**
+  * **Etapa 8.2 - Varredura Dinâmica e Listagem em Texto Puro (Validação):** `[STATUS: ⏳ PRÓXIMA ETAPA]`
     1. Executar varredura automática dos filhos de `GameMenuFrame` (`GameMenuFrame:GetChildren()`).
     2. Filtrar botões válidos e extrair seus títulos (`GetText()`).
     3. Exibir todos os botões descobertos (Blizzard + Addons instalados como SuperMacro) em uma lista vertical em texto simples/padrão para validação em jogo.
@@ -286,21 +286,39 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 9: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
+### **FASE 9: Aba de Diário de Missões (Quest Log Integrado)** `[STATUS: ⏳ PENDENTE]`
+* **Objetivo:** Integrar a aba `MISSÕES` (`ConsoleModeMM_Page_QUESTS`) exibindo a lista completa de missões ativas categorizadas por zona/região, objetivos, status de conclusão, níveis, recompensas (itens/experiência/dinheiro) e suporte a abandonar/rastrear missão via controle.
+* **Tarefas:**
+  1. Scanner de missões ativas via APIs nativas do WoW 1.12 (`GetNumQuestLogEntries`, `GetQuestLogTitle`, `GetQuestLogQuestText`, `GetQuestLogLeaderBoard`, `GetQuestLogRewardInfo`, `GetQuestLogRequiredMoney`, etc.).
+  2. Lista vertical retrátil de zonas e missões no painel da aba.
+  3. Painel de Detalhes da Missão (descrição da missão, objetivos detalhados com contadores `[X/Y]`, recompensas de itens, XP e moedas).
+  4. Navegação por D-Pad entre as missões da lista com suporte a botões de ação:
+     - `(A)`: Selecionar / Expandir grupo de missões.
+     - `(X)`: Rastrear / Deixar de rastrear missão no HUD (`IsQuestWatched` / `AddQuestWatch`).
+     - `(Y)`: Menu de Contexto (Compartilhar / Abandonar missão).
+* **Validação:** Abrir a aba de Missões, visualizar todas as quests ativas organizadas por zona, navegar pelos objetivos, visualizar recompensas completas e alternar rastreamento no HUD via controle.
+
+---
+
+### **FASE 10: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
   2. Animações de comer/beber no modelo 3D ao usar consumíveis.
   3. Mapeamento de abertura pelo botão Start e ajustes finos de responsividade.
 * **Validação:** Menu completo, fluido, polido e 100% funcional no gameplay com controle.
 
-### **FASE 10: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
+---
+
+### **FASE 11: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
   2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
   3. Navegação contínua e sem atritos entre os equipamentos da esquerda e as abas da direita via D-Pad para uma experiência 100% unificada de console.
 * **Validação:** Focar em elmos, armas equipadas e buffs na lateral esquerda e ver seus dados completos carregando instantaneamente no painel fixo da direita.
 
-### **FASE 11: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
+---
+
+### **FASE 12: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Detecção automática do slot de equipamento correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Arma, etc.).
   2. Leitura e cálculo diferencial entre os atributos do item da bolsa e o item atualmente equipado naquele slot (`GetInventoryItemLink`).

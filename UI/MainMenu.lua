@@ -275,6 +275,16 @@ CFG.Bags = {
 }
 
 -- ----------------------------------------------------------------------------
+-- 6.5. SUB-ABAS DE SISTEMA E CONFIGURAÇÕES (FASE 8)
+-- ----------------------------------------------------------------------------
+CFG.System = {
+    subTabs = {
+        { id = "GAME_MENU", name = "Opções do Jogo", shortName = "Opções" },
+        { id = "ADDON_CFG", name = "Configurações do Addon", shortName = "Addon" },
+    }
+}
+
+-- ----------------------------------------------------------------------------
 -- 7. DIVISÓRIA CENTRAL
 -- ----------------------------------------------------------------------------
 CFG.Divider = {
@@ -2711,6 +2721,171 @@ function MainMenu:PrevSpellPage()
 end
 
 -- ============================================================================
+-- 7.3. CONFIGURAÇÃO DA ABA DE SISTEMA E CONFIGURAÇÕES (FASE 8 - ETAPA 8.1)
+-- ============================================================================
+
+function MainMenu:SetupSystemPage(pageSystem)
+    if pageSystem.isInitialized then return end
+
+    -- 1. Barra de Cabeçalho / Sub-Abas com [LT] e [RT]
+    local headerBar = CreateFrame("Frame", "ConsoleModeMM_SystemHeader", pageSystem)
+    headerBar:SetHeight(32)
+    headerBar:SetPoint("TOPLEFT", pageSystem, "TOPLEFT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", pageSystem, "TOPRIGHT", 0, 0)
+    pageSystem.headerBar = headerBar
+
+    -- Indicador RT à direita
+    local r2Hint = headerBar:CreateTexture(nil, "OVERLAY")
+    r2Hint:SetWidth(20)
+    r2Hint:SetHeight(20)
+    r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
+    r2Hint:SetTexture(CFG.Icons.RT)
+    pageSystem.r2Hint = r2Hint
+
+    -- Botões das Sub-Abas: ancorados da direita para a esquerda
+    local subButtons = {}
+    local prevBtn = r2Hint
+    pageSystem.currentSubTab = "GAME_MENU"
+
+    local numSubTabs = table.getn(CFG.System.subTabs)
+    for i = numSubTabs, 1, -1 do
+        local tabData = CFG.System.subTabs[i]
+        local subBtn = CreateFrame("Button", "ConsoleModeMM_SysSubTab_" .. tabData.id, headerBar)
+        subBtn:SetHeight(24)
+
+        local title = subBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        title:SetPoint("CENTER", subBtn, "CENTER", 0, 0)
+        MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
+        title:SetText(tabData.name)
+        subBtn.title = title
+        subBtn.subTabData = tabData
+
+        local txtW = math.floor(title:GetStringWidth() or 80)
+        if txtW < 50 then txtW = 50 end
+        subBtn:SetWidth(txtW + 16)
+
+        subBtn:SetPoint("RIGHT", prevBtn, "LEFT", -6, 0)
+
+        subBtn:SetScript("OnClick", function()
+            MainMenu:SelectSystemSubTab(this.subTabData.id)
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end)
+
+        table.insert(subButtons, subBtn)
+        prevBtn = subBtn
+    end
+    pageSystem.subButtons = subButtons
+
+    -- Indicador LT à esquerda da primeira sub-aba
+    local l2Hint = headerBar:CreateTexture(nil, "OVERLAY")
+    l2Hint:SetWidth(20)
+    l2Hint:SetHeight(20)
+    l2Hint:SetPoint("RIGHT", prevBtn, "LEFT", -6, 0)
+    l2Hint:SetTexture(CFG.Icons.LT)
+    pageSystem.l2Hint = l2Hint
+
+    -- Linha Divisória abaixo do cabeçalho de sub-abas
+    local hDiv = headerBar:CreateTexture(nil, "ARTWORK")
+    hDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    hDiv:SetHeight(1)
+    hDiv:SetPoint("BOTTOMLEFT", headerBar, "BOTTOMLEFT", 0, -2)
+    hDiv:SetPoint("BOTTOMRIGHT", headerBar, "BOTTOMRIGHT", 0, -2)
+    hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+
+    -- 2. Container de Conteúdo das Sub-Abas
+    local subContent = CreateFrame("Frame", "ConsoleModeMM_SystemSubContent", pageSystem)
+    subContent:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -8)
+    subContent:SetPoint("BOTTOMRIGHT", pageSystem, "BOTTOMRIGHT", 0, 0)
+    pageSystem.subContent = subContent
+
+    -- Sub-Página 1: Opções do Jogo & Menus de Sistema (Etapa 8.2 / 8.3)
+    local subPageGameMenu = CreateFrame("Frame", "ConsoleModeMM_SubPage_GAME_MENU", subContent)
+    subPageGameMenu:SetAllPoints(subContent)
+    pageSystem.subPageGameMenu = subPageGameMenu
+
+    local gmPlaceholder = subPageGameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    gmPlaceholder:SetPoint("CENTER", subPageGameMenu, "CENTER", 0, 40)
+    MainMenu:ApplyFont(gmPlaceholder, CFG.Fonts.titleFontFile, 15, "")
+    gmPlaceholder:SetText("|cffffcc00[ OPÇÕES DO JOGO & MENUS DE SISTEMA ]|r\n\n|cffaaaaaa(Estrutura pronta para a varredura dinâmica do GameMenuFrame na Etapa 8.2)|r")
+
+    -- Sub-Página 2: Configurações do ConsoleMode (Etapa 8.4)
+    local subPageAddonCfg = CreateFrame("Frame", "ConsoleModeMM_SubPage_ADDON_CFG", subContent)
+    subPageAddonCfg:SetAllPoints(subContent)
+    pageSystem.subPageAddonCfg = subPageAddonCfg
+
+    local addonPlaceholder = subPageAddonCfg:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    addonPlaceholder:SetPoint("CENTER", subPageAddonCfg, "CENTER", 0, 40)
+    MainMenu:ApplyFont(addonPlaceholder, CFG.Fonts.titleFontFile, 15, "")
+    addonPlaceholder:SetText("|cffffffff[ CONFIGURAÇÕES DO CONSOLEMODE ]|r\n\n|cff888888Ajustes de binds, sensibilidade de mira, deadzones e HUD|r")
+
+    local openAddonBtn = CreateFrame("Button", "ConsoleModeMM_OpenConfigBtn", subPageAddonCfg, "UIPanelButtonTemplate")
+    openAddonBtn:SetWidth(180)
+    openAddonBtn:SetHeight(28)
+    openAddonBtn:SetPoint("TOP", addonPlaceholder, "BOTTOM", 0, -16)
+    openAddonBtn:SetText("Abrir Ajustes de Binds")
+    openAddonBtn:SetScript("OnClick", function()
+        if ConsoleMode.config and ConsoleMode.config.Show then
+            ConsoleMode.config:Show()
+        end
+    end)
+    subPageAddonCfg.openAddonBtn = openAddonBtn
+
+    pageSystem.isInitialized = true
+end
+
+function MainMenu:SelectSystemSubTab(subTabID)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return end
+
+    self:SetupSystemPage(pageSystem)
+
+    subTabID = subTabID or "GAME_MENU"
+    pageSystem.currentSubTab = subTabID
+
+    -- Alterna visibilidade das sub-páginas
+    if pageSystem.subPageGameMenu then
+        if subTabID == "GAME_MENU" then
+            pageSystem.subPageGameMenu:Show()
+        else
+            pageSystem.subPageGameMenu:Hide()
+        end
+    end
+
+    if pageSystem.subPageAddonCfg then
+        if subTabID == "ADDON_CFG" then
+            pageSystem.subPageAddonCfg:Show()
+        else
+            pageSystem.subPageAddonCfg:Hide()
+        end
+    end
+
+    -- Atualiza estilo dos botões da sub-aba
+    if pageSystem.subButtons then
+        for _, btn in ipairs(pageSystem.subButtons) do
+            if btn.subTabData and btn.subTabData.id == subTabID then
+                btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+            else
+                btn.title:SetTextColor(0.6, 0.6, 0.6)
+            end
+        end
+    end
+
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
+        ConsoleMode.cursor:Resync()
+    end
+end
+
+function MainMenu:UpdateSystemPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return end
+
+    self:SetupSystemPage(pageSystem)
+    self:SelectSystemSubTab(pageSystem.currentSubTab or "GAME_MENU")
+end
+
+-- ============================================================================
 -- 8. CONTAINER DE ABAS E NAVEGAÇÃO [L1] / [R1] (FASE 4 - PAINEL DIREITO)
 -- ============================================================================
 
@@ -2820,24 +2995,9 @@ function MainMenu:CreateTabContainer(rightPanel)
     questsPlaceholder:SetText("|cffffcc00[ ABA 3: DIÁRIO DE MISSÕES ]|r\n\n|cffaaaaaaRegistro de aventuras e objetivos ativos|r")
     pages["QUESTS"] = pageQuests
 
-    -- Página 4: Sistema e Configurações
+    -- Página 4: Sistema e Configurações (Fase 8)
     local pageSystem = CreateFrame("Frame", "ConsoleModeMM_Page_SYSTEM", contentFrame)
     pageSystem:SetAllPoints(contentFrame)
-    local sysPlaceholder = pageSystem:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    sysPlaceholder:SetPoint("CENTER", pageSystem, "CENTER", 0, 30)
-    MainMenu:ApplyFont(sysPlaceholder, CFG.Fonts.titleFontFile, 15, "")
-    sysPlaceholder:SetText("|cffffffff[ ABA 4: CONFIGURAÇÕES DO CONSOLEMODE ]|r\n\n|cff888888Clique no botão abaixo para abrir os ajustes do addon|r")
-    
-    local sysBtn = CreateFrame("Button", "ConsoleModeMM_OpenConfigBtn", pageSystem, "UIPanelButtonTemplate")
-    sysBtn:SetWidth(180)
-    sysBtn:SetHeight(28)
-    sysBtn:SetPoint("TOP", sysPlaceholder, "BOTTOM", 0, -16)
-    sysBtn:SetText("Abrir Ajustes de Binds")
-    sysBtn:SetScript("OnClick", function()
-        if ConsoleMode.config and ConsoleMode.config.Show then
-            ConsoleMode.config:Show()
-        end
-    end)
     pages["SYSTEM"] = pageSystem
 
     self.tabContainer = {
@@ -2901,6 +3061,9 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
         self.playerModel = self.animModel
         self.currentSpellPose = 0
         self:UpdateSpellsPage()
+    elseif tabID == "SYSTEM" then
+        self:RestorePlayerModel()
+        self:UpdateSystemPage()
     else
         self:RestorePlayerModel()
     end
@@ -2984,6 +3147,33 @@ function MainMenu:CycleCategories(direction)
         if nextIdx < 1 then nextIdx = numTabs end
 
         self:SelectSpellTab(nextIdx)
+        return true
+
+    elseif curTab == "SYSTEM" then
+        local pageSystem = self.tabContainer.pages["SYSTEM"]
+        if not pageSystem or not pageSystem:IsVisible() then return false end
+
+        direction = direction or 1
+        local subTabs = CFG.System.subTabs
+        local total = table.getn(subTabs)
+        local curSubTab = pageSystem.currentSubTab or "GAME_MENU"
+        local curIdx = 1
+
+        for i, st in ipairs(subTabs) do
+            if st.id == curSubTab then
+                curIdx = i
+                break
+            end
+        end
+
+        local nextIdx = curIdx + direction
+        if nextIdx > total then nextIdx = 1 end
+        if nextIdx < 1 then nextIdx = total end
+
+        self:SelectSystemSubTab(subTabs[nextIdx].id)
+        if CFG.Audio.soundItemSelect then
+            PlaySound(CFG.Audio.soundItemSelect)
+        end
         return true
     end
 

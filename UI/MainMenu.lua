@@ -2920,6 +2920,34 @@ function MainMenu:SetupQuestsPage(pageQuests)
     playerPin.texture = pTex
     mapCanvas.playerPin = playerPin
 
+    local zonePin = CreateFrame("Frame", "ConsoleModeMM_ZonePin", mapTilesContainer)
+    zonePin:SetWidth(22)
+    zonePin:SetHeight(22)
+    zonePin:SetFrameLevel(mapTilesContainer:GetFrameLevel() + 7)
+    local zpTex = zonePin:CreateTexture(nil, "OVERLAY")
+    zpTex:SetAllPoints(zonePin)
+    zpTex:SetTexture("Interface\\WorldMap\\WorldMapPartyIcon")
+    zpTex:SetVertexColor(1, 0.85, 0.15, 1)
+    zonePin.texture = zpTex
+    local zpPulse = zonePin:CreateTexture(nil, "BACKGROUND")
+    zpPulse:SetPoint("CENTER", zonePin, "CENTER", 0, 0)
+    zpPulse:SetWidth(30)
+    zpPulse:SetHeight(30)
+    zpPulse:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\pin.tga")
+    zpPulse:SetVertexColor(1, 0.85, 0.15, 0.35)
+    zpPulse:SetBlendMode("ADD")
+    if not zpPulse:GetTexture() then zpPulse:Hide() end
+    zonePin.pulse = zpPulse
+    zonePin:Hide()
+    local zpLabel = mapCanvas:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    MainMenu:ApplyFont(zpLabel, CFG.Fonts.subFontFile, 10, "OUTLINE")
+    zpLabel:SetTextColor(1, 0.90, 0.45, 1)
+    zpLabel:SetPoint("TOP", zonePin, "BOTTOM", 0, -2)
+    zpLabel:Hide()
+    zonePin.label = zpLabel
+    mapCanvas.zonePin = zonePin
+    mapCanvas.zonePinZone = nil
+
     -- 5. Pool de Pins do pfQuest (espelhado de pfMap)
     mapCanvas.pfPins = {}
     mapCanvas.pfPinCount = 0
@@ -3739,6 +3767,7 @@ function MainMenu:SwitchMapToDungeon(instanceName)
 end
 
 function MainMenu:SwitchMapToZone(zoneName)
+    self:HideZonePin()
     if not zoneName or zoneName == "" then return false end
     for cont = 1, 4 do
         local zones = {GetMapZones(cont)}
@@ -3801,6 +3830,7 @@ function MainMenu:GetCurrentMapFileName()
 end
 
 function MainMenu:ResetMapToPlayer()
+    self:HideZonePin()
     if SetMapToCurrentZone then SetMapToCurrentZone() end
     self.mapShowingQuestZone = false
     self.mapViewMode = "ZONE"
@@ -3964,6 +3994,7 @@ function MainMenu:ShowInstancesForCurrentView()
 end
 
 function MainMenu:BuildInstancesListForZone(zoneName)
+    self:HideZonePin()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.zoneListFrame then return end
@@ -4116,6 +4147,7 @@ function MainMenu:HideInstancesList()
 end
 
 function MainMenu:BuildInstancesList(cont)
+    self:HideZonePin()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.zoneListFrame then return end
@@ -4238,6 +4270,7 @@ end
 
 function MainMenu:BuildContinentZoneList(cont)
     self.zoneListMode = nil
+    self:HideZonePin()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.zoneListFrame then return end
@@ -4313,10 +4346,12 @@ function MainMenu:BuildContinentZoneList(cont)
             btn:SetScript("OnEnter", function()
                 if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
                 if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+                if this.zoneName then MainMenu:ShowZonePinForZone(this.zoneName, this.zoneCont) end
             end)
             btn:SetScript("OnLeave", function()
                 if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
                 if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+                MainMenu:HideZonePin()
             end)
             btn:SetScript("OnMouseWheel", function()
                 local sf = frame.scrollFrame
@@ -4751,6 +4786,60 @@ function MainMenu:UpdateMapLayout(mapCanvas)
 
     container:ClearAllPoints()
     container:SetPoint("CENTER", mapCanvas, "CENTER", mapCanvas.panX or 0, mapCanvas.panY or 0)
+    self:UpdateZonePinPosition(mapCanvas)
+end
+
+function MainMenu:UpdateZonePinPosition(mapCanvas)
+    if not mapCanvas then
+        if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
+            mapCanvas = self.tabContainer.pages["QUESTS"].mapPanel.canvas
+        end
+    end
+    if not mapCanvas or not mapCanvas.tilesContainer or not mapCanvas.zonePin then return end
+    local zone = mapCanvas.zonePinZone
+    if not zone or zone == "" then return end
+    if (self.mapViewMode or "ZONE") ~= "CONTINENT" or not self.mapContinentView then return end
+    local pos = ConsoleMode and ConsoleMode.ZonePositions and ConsoleMode.ZonePositions[zone]
+    if not pos or pos.cont ~= self.mapContinentView then return end
+    local scale = mapCanvas.currentScale or 0.5
+    if scale <= 0 then scale = 0.5 end
+    local effW = 1002 * scale
+    local effH = 668 * scale
+    local pin = mapCanvas.zonePin
+    pin:ClearAllPoints()
+    pin:SetPoint("CENTER", mapCanvas.tilesContainer, "TOPLEFT", pos.x * effW, -pos.y * effH)
+    if pin.label then
+        pin.label:ClearAllPoints()
+        pin.label:SetPoint("TOP", pin, "BOTTOM", 0, -2)
+    end
+end
+
+function MainMenu:ShowZonePinForZone(zoneName, cont)
+    if not zoneName or zoneName == "" then return end
+    if (self.mapViewMode or "ZONE") ~= "CONTINENT" then return end
+    if not self.mapContinentView then return end
+    if cont and cont ~= self.mapContinentView then return end
+    local pos = ConsoleMode and ConsoleMode.ZonePositions and ConsoleMode.ZonePositions[zoneName]
+    if not pos then return end
+    if pos.cont ~= self.mapContinentView then return end
+    local pageQuests = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"]
+    local mapCanvas = pageQuests and pageQuests.mapPanel and pageQuests.mapPanel.canvas
+    if not mapCanvas or not mapCanvas.zonePin then return end
+    mapCanvas.zonePinZone = zoneName
+    if mapCanvas.zonePin.label then
+        mapCanvas.zonePin.label:SetText("|cffffd200" .. zoneName .. "|r")
+        mapCanvas.zonePin.label:Show()
+    end
+    mapCanvas.zonePin:Show()
+    self:UpdateZonePinPosition(mapCanvas)
+end
+
+function MainMenu:HideZonePin()
+    local pageQuests = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"]
+    local mapCanvas = pageQuests and pageQuests.mapPanel and pageQuests.mapPanel.canvas
+    if not mapCanvas or not mapCanvas.zonePin then return end
+    mapCanvas.zonePin:Hide()
+    if mapCanvas.zonePin.label then mapCanvas.zonePin.label:Hide() end
 end
 
 function MainMenu:UpdateMapTextures(mapCanvas)

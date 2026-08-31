@@ -2907,6 +2907,10 @@ function MainMenu:SetupQuestsPage(pageQuests)
     playerPin.texture = pTex
     mapCanvas.playerPin = playerPin
 
+    -- 5. Pool de Pins do pfQuest (espelhado de pfMap)
+    mapCanvas.pfPins = {}
+    mapCanvas.pfPinCount = 0
+
     -- Interações de Zoom por Roda do Mouse e Pan por Clique e Arraste (Estilo Carbonite)
     mapScrollFrame:SetScript("OnMouseWheel", function()
         if arg1 > 0 then
@@ -3002,6 +3006,14 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     if SetMapToCurrentZone then SetMapToCurrentZone() end
                     MainMenu:UpdateMapTextures(this)
                     MainMenu:UpdateMapOverlays(this)
+                    MainMenu:UpdatePfQuestPins(this)
+                end
+            end
+            this.pfElapsed = (this.pfElapsed or 0) + 0.033
+            if this.pfElapsed >= 0.5 then
+                this.pfElapsed = 0
+                if MainMenu and MainMenu.UpdatePfQuestPins then
+                    MainMenu:UpdatePfQuestPins(this)
                 end
             end
         end
@@ -3309,6 +3321,7 @@ function MainMenu:UpdateQuestsPage()
         self:UpdateMapTextures(pageQuests.mapPanel.canvas)
         self:UpdateMapOverlays(pageQuests.mapPanel.canvas)
         self:UpdateMapPlayerPosition(pageQuests.mapPanel.canvas)
+        self:UpdatePfQuestPins(pageQuests.mapPanel.canvas)
     end
 
     -- Atualiza informações do Título da Zona / Nível do Mapa
@@ -3822,6 +3835,13 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
     for s = slotIdx, 4 do
         if rewardSlots[s] then rewardSlots[s]:Hide() end
     end
+    if pfMap and questTitle then
+        pfMap.highlight = questTitle
+        pfMap.queue_update = GetTime()
+    end
+    if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
+        self:UpdatePfQuestPins(self.tabContainer.pages["QUESTS"].mapPanel.canvas)
+    end
 end
 
 function MainMenu:NavigateQuest(delta)
@@ -4305,6 +4325,106 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
     end
 end
 
+function MainMenu:UpdatePfQuestPins(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer then return end
+    if not pfMap or not pfMap.nodes or not pfMap.GetMapID then return end
+    if not mapCanvas.pfPins then
+        mapCanvas.pfPins = {}
+    end
+    local file = mapCanvas.currentMapFile or self:GetCurrentMapFileName()
+    local mapID = nil
+    if pfMap.GetMapIDByName then
+        mapID = pfMap:GetMapIDByName(file)
+    end
+    if not mapID then
+        local cid = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+        local mid = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+        mapID = pfMap:GetMapID(cid, mid)
+    end
+    if not mapID then
+        for i = 1, table.getn(mapCanvas.pfPins) do
+            if mapCanvas.pfPins[i] then mapCanvas.pfPins[i]:Hide() end
+        end
+        return
+    end
+    local scale = mapCanvas.currentScale or 0.5
+    local effW = 1002 * scale
+    local effH = 668 * scale
+    local colorMode = (pfQuest_config and pfQuest_config["spawncolors"] == "1") and "spawn" or "title"
+    local selTitle = nil
+    if self.selectedQuestIndex then
+        selTitle = GetQuestLogTitle(self.selectedQuestIndex)
+    end
+    local pinIdx = 1
+    local maxPins = 120
+    for addon, _ in pairs(pfMap.nodes) do
+        if pfMap.nodes[addon][mapID] then
+            for coords, node in pairs(pfMap.nodes[addon][mapID]) do
+                if pinIdx > maxPins then break end
+                local pin = mapCanvas.pfPins[pinIdx]
+                if not pin and pfMap.BuildNode then
+                    pin = pfMap:BuildNode("ConsoleModePfPin" .. pinIdx, mapCanvas.tilesContainer)
+                    pin:SetParent(mapCanvas.tilesContainer)
+                    pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 6)
+                    mapCanvas.pfPins[pinIdx] = pin
+                end
+                if pin then
+                    if pfMap.UpdateNode then
+                        pfMap:UpdateNode(pin, node, colorMode)
+                    end
+                    local _, _, xStr, yStr = string.find(coords, "(.*)|(.*)")
+                    local x = tonumber(xStr) or 0
+                    local y = tonumber(yStr) or 0
+                    local hide = false
+                    if pfQuest_config then
+                        if pin.cluster and pfQuest_config["showcluster"] == "0" then hide = true end
+                        if not pin.texture and pfQuest_config["showspawn"] == "0" and addon == "PFQUEST" then hide = true end
+                    end
+                    if hide then
+                        pin:Hide()
+                    else
+                        local px = x / 100 * effW
+                        local py = y / 100 * effH
+                        pin:ClearAllPoints()
+                        pin:SetPoint("CENTER", mapCanvas.tilesContainer, "TOPLEFT", px, -py)
+                        if selTitle and pin.node and pin.node[selTitle] then
+                            pin:SetWidth(18)
+                            pin:SetHeight(18)
+                            pin:SetAlpha(1)
+                        else
+                            if pfMap.highlight and pin.node and not pin.node[pfMap.highlight] then
+                                pin:SetAlpha(tonumber(pfQuest_config and pfQuest_config["nodefade"] or 0.3) or 0.3)
+                            else
+                                pin:SetAlpha(pin.defalpha or 1)
+                            end
+                        end
+                        pin:Show()
+                    end
+                    pinIdx = pinIdx + 1
+                end
+            end
+        end
+        if pinIdx > maxPins then break end
+    end
+    for i = pinIdx, maxPins do
+        if mapCanvas.pfPins[i] then mapCanvas.pfPins[i]:Hide() end
+    end
+end
+
+function MainMenu:HookPfQuest()
+    if self.pfHooked then return end
+    if not pfMap or not pfMap.UpdateNodes then return end
+    self.pfHooked = true
+    local orig = pfMap.UpdateNodes
+    pfMap.UpdateNodes = function()
+        local res = orig()
+        if MainMenu and MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"] and MainMenu.tabContainer.pages["QUESTS"].mapPanel and MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas then
+            MainMenu:UpdatePfQuestPins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)
+        end
+        return res
+    end
+end
+
 -- ============================================================================
 -- NAVEGAÇÃO DE ZOOM SUAVE E PAN (ESTILO CARBONITE)
 -- ============================================================================
@@ -4367,6 +4487,7 @@ function MainMenu:MapZoomStep(delta)
     self:UpdateMapLayout(mapCanvas)
     self:UpdateMapOverlays(mapCanvas)
     self:UpdateMapPlayerPosition(mapCanvas)
+    self:UpdatePfQuestPins(mapCanvas)
     PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
@@ -5643,6 +5764,7 @@ end
 -- Inicializa a casca visual no carregamento e escuta eventos de atualização
 local initFrame = CreateFrame("Frame")
 initFrame:RegisterEvent("VARIABLES_LOADED")
+initFrame:RegisterEvent("ADDON_LOADED")
 initFrame:RegisterEvent("DISPLAY_SIZE_CHANGED")
 initFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 initFrame:RegisterEvent("UNIT_MODEL_CHANGED")
@@ -5663,6 +5785,14 @@ initFrame:SetScript("OnEvent", function()
         MainMenu:CreateUI()
         if SetMapToCurrentZone then SetMapToCurrentZone() end
         MainMenu.lastZoneText = (GetZoneText and GetZoneText()) or ""
+        if MainMenu.HookPfQuest then MainMenu:HookPfQuest() end
+    elseif event == "ADDON_LOADED" then
+        if arg1 == "pfQuest" or arg1 == "pfQuest-turtle" then
+            if MainMenu.HookPfQuest then MainMenu:HookPfQuest() end
+            if MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"] and MainMenu.tabContainer.pages["QUESTS"].mapPanel and MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas then
+                MainMenu:UpdatePfQuestPins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)
+            end
+        end
     elseif event == "DISPLAY_SIZE_CHANGED" then
         if MainMenu.UpdateLayout then
             MainMenu:UpdateLayout()

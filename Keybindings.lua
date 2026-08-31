@@ -171,6 +171,10 @@ function KB:Initialize()
     SetBinding("ESCAPE", "TOGGLEGAMEMENU")
     SetBinding("F11", "CM_FIXED_START")
     
+    -- Tecla M e Select vinculadas ao Menu Principal na aba Missões & Mapa
+    SetBinding("M", "CM_FIXED_SELECT")
+    SetBinding("m", "CM_FIXED_SELECT")
+    
     -- Atalhos de controle com modificadores (L2/R2 + Select/Start)
     SetBinding("SHIFT-M", "CM_UI_CHARACTER")     -- L2 + Select (Personagem)
     SetBinding("SHIFT-F11", "CM_UI_BAGS")        -- L2 + Start (Bolsas)
@@ -524,7 +528,12 @@ function CM_Fixed(button)
         end
         
     elseif button == "SELECT" then
-        ToggleWorldMap()
+        local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+        if mm and mm.Toggle then
+            mm:Toggle("QUESTS")
+        else
+            ToggleWorldMap()
+        end
     elseif button == "L1" then
         TargetNearestEnemy()
     end

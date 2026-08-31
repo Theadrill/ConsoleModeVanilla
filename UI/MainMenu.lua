@@ -22,10 +22,12 @@
 
 _G = getfenv(0)
 
-local CM = ConsoleMode or {}
+ConsoleMode = ConsoleMode or {}
+local CM = ConsoleMode
 CM.mainMenu = CM.mainMenu or {}
 
 local MainMenu = CM.mainMenu
+_G["ConsoleModeMainMenu"] = MainMenu
 
 -- ============================================================================
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
@@ -233,7 +235,7 @@ CFG.Tabs = {
     list = {
         { id = "BAGS",   name = "Bolsas & Itens",  shortName = "Bolsas" },
         { id = "SPELLS", name = "Livro de Magias", shortName = "Magias" },
-        { id = "QUESTS", name = "Missões",         shortName = "Missões" },
+        { id = "QUESTS", name = "Missões & Mapa",  shortName = "Missões" },
         { id = "SYSTEM", name = "Configurações",   shortName = "Opções" },
     }
 }
@@ -2725,6 +2727,242 @@ function MainMenu:PrevSpellPage()
 end
 
 -- ============================================================================
+-- 7.4. CONFIGURAÇÃO DA ABA DE MISSÕES & MAPA MUNDI (FASE 9 - ETAPA 9.1)
+-- ============================================================================
+
+function MainMenu:SetupQuestsPage(pageQuests)
+    if pageQuests.isInitialized then return end
+
+    -- 1. Barra Superior de Cabeçalho da Aba de Missões & Mapa
+    local headerBar = CreateFrame("Frame", "ConsoleModeMM_QuestsHeader", pageQuests)
+    headerBar:SetHeight(30)
+    headerBar:SetPoint("TOPLEFT", pageQuests, "TOPLEFT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", pageQuests, "TOPRIGHT", 0, 0)
+    pageQuests.headerBar = headerBar
+
+    local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    headerTitle:SetPoint("LEFT", headerBar, "LEFT", 4, 0)
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 14)
+    headerTitle:SetText("|cffe09a15DIÁRIO DE MISSÕES & MAPA MUNDI|r")
+    pageQuests.headerTitle = headerTitle
+
+    local questCountText = headerBar:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    questCountText:SetPoint("RIGHT", headerBar, "RIGHT", -4, 0)
+    MainMenu:ApplyFont(questCountText, CFG.Fonts.subFontFile, 12)
+    questCountText:SetText("|cffaaaaaaMissões: |cffffffff0 / 20|r")
+    pageQuests.questCountText = questCountText
+
+    local headerDivider = headerBar:CreateTexture(nil, "ARTWORK")
+    headerDivider:SetHeight(1)
+    headerDivider:SetPoint("BOTTOMLEFT", headerBar, "BOTTOMLEFT", 0, 0)
+    headerDivider:SetPoint("BOTTOMRIGHT", headerBar, "BOTTOMRIGHT", 0, 0)
+    headerDivider:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    headerDivider:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+
+    -- 2. Container da Área Dividida (Split Area: Mapa Amplo à Esquerda, Missões à Direita)
+    local splitArea = CreateFrame("Frame", "ConsoleModeMM_QuestsSplitArea", pageQuests)
+    splitArea:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -4)
+    splitArea:SetPoint("BOTTOMRIGHT", pageQuests, "BOTTOMRIGHT", 0, 0)
+    pageQuests.splitArea = splitArea
+
+    -- 2.1. Sub-Painel Direito: Lista de Missões e Card de Detalhes (Sidebar Compacto de 280px)
+    local questPanel = CreateFrame("Frame", "ConsoleModeMM_QuestsListPanel", splitArea)
+    questPanel:SetWidth(280)
+    questPanel:SetPoint("TOPRIGHT", splitArea, "TOPRIGHT", 0, 0)
+    questPanel:SetPoint("BOTTOMRIGHT", splitArea, "BOTTOMRIGHT", 0, 0)
+    pageQuests.questPanel = questPanel
+
+    -- 2.2. Sub-Painel Esquerdo: Canvas do Mapa da Região (Área Panorâmica Expandida)
+    local mapPanel = CreateFrame("Frame", "ConsoleModeMM_QuestsMapPanel", splitArea)
+    mapPanel:SetPoint("TOPLEFT", splitArea, "TOPLEFT", 0, 0)
+    mapPanel:SetPoint("BOTTOMLEFT", splitArea, "BOTTOMLEFT", 0, 0)
+    mapPanel:SetPoint("RIGHT", questPanel, "LEFT", -10, 0)
+    pageQuests.mapPanel = mapPanel
+
+    -- Fundo do Painel do Mapa
+    local mapBg = mapPanel:CreateTexture(nil, "BACKGROUND")
+    mapBg:SetAllPoints(mapPanel)
+    mapBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    mapBg:SetVertexColor(0.02, 0.02, 0.02, 0.70)
+    mapPanel.bg = mapBg
+
+    -- Borda sutil do Painel do Mapa
+    local mapBorder = CreateFrame("Frame", nil, mapPanel)
+    mapBorder:SetAllPoints(mapPanel)
+    local mbTop = mapBorder:CreateTexture(nil, "OVERLAY")
+    mbTop:SetHeight(1)
+    mbTop:SetPoint("TOPLEFT", mapBorder, "TOPLEFT", 0, 0)
+    mbTop:SetPoint("TOPRIGHT", mapBorder, "TOPRIGHT", 0, 0)
+    mbTop:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    mbTop:SetVertexColor(0.5, 0.4, 0.3, 0.6)
+
+    local mbBottom = mapBorder:CreateTexture(nil, "OVERLAY")
+    mbBottom:SetHeight(1)
+    mbBottom:SetPoint("BOTTOMLEFT", mapBorder, "BOTTOMLEFT", 0, 0)
+    mbBottom:SetPoint("BOTTOMRIGHT", mapBorder, "BOTTOMRIGHT", 0, 0)
+    mbBottom:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    mbBottom:SetVertexColor(0.5, 0.4, 0.3, 0.6)
+
+    local mbLeft = mapBorder:CreateTexture(nil, "OVERLAY")
+    mbLeft:SetWidth(1)
+    mbLeft:SetPoint("TOPLEFT", mapBorder, "TOPLEFT", 0, 0)
+    mbLeft:SetPoint("BOTTOMLEFT", mapBorder, "BOTTOMLEFT", 0, 0)
+    mbLeft:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    mbLeft:SetVertexColor(0.5, 0.4, 0.3, 0.6)
+
+    local mbRight = mapBorder:CreateTexture(nil, "OVERLAY")
+    mbRight:SetWidth(1)
+    mbRight:SetPoint("TOPRIGHT", mapBorder, "TOPRIGHT", 0, 0)
+    mbRight:SetPoint("BOTTOMRIGHT", mapBorder, "BOTTOMRIGHT", 0, 0)
+    mbRight:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    mbRight:SetVertexColor(0.5, 0.4, 0.3, 0.6)
+
+    -- Cabeçalho do Mapa (Nome da Zona / Região)
+    local mapHeader = CreateFrame("Frame", nil, mapPanel)
+    mapHeader:SetHeight(24)
+    mapHeader:SetPoint("TOPLEFT", mapPanel, "TOPLEFT", 6, -6)
+    mapHeader:SetPoint("TOPRIGHT", mapPanel, "TOPRIGHT", -6, -6)
+
+    local mapZoneTitle = mapHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    mapZoneTitle:SetPoint("LEFT", mapHeader, "LEFT", 4, 0)
+    MainMenu:ApplyFont(mapZoneTitle, CFG.Fonts.titleFontFile, 13)
+    mapZoneTitle:SetText("|cffffffffZona Atual|r")
+    mapPanel.zoneTitle = mapZoneTitle
+
+    local mapCoordsText = mapHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    mapCoordsText:SetPoint("RIGHT", mapHeader, "RIGHT", -4, 0)
+    MainMenu:ApplyFont(mapCoordsText, CFG.Fonts.subFontFile, 11)
+    mapCoordsText:SetText("|cffaaaaaaGPS: --, --|r")
+    mapPanel.coordsText = mapCoordsText
+
+    -- Viewport / Container do Canvas de Texturas do Mapa
+    local mapCanvas = CreateFrame("Frame", "ConsoleModeMM_MapCanvas", mapPanel)
+    mapCanvas:SetPoint("TOPLEFT", mapHeader, "BOTTOMLEFT", 0, -4)
+    mapCanvas:SetPoint("BOTTOMRIGHT", mapPanel, "BOTTOMRIGHT", -6, 26)
+    mapCanvas:EnableMouse(true)
+    mapPanel.canvas = mapCanvas
+
+    local mapCanvasBg = mapCanvas:CreateTexture(nil, "BACKGROUND")
+    mapCanvasBg:SetAllPoints(mapCanvas)
+    mapCanvasBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    mapCanvasBg:SetVertexColor(0.0, 0.0, 0.0, 0.5)
+
+    -- Placeholder visual do Mapa para a Etapa 9.1
+    local mapPlaceholder = mapCanvas:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    mapPlaceholder:SetPoint("CENTER", mapCanvas, "CENTER", 0, 10)
+    MainMenu:ApplyFont(mapPlaceholder, CFG.Fonts.titleFontFile, 14)
+    mapPlaceholder:SetText("|cffe09a15[ CANVAS DO MAPA DA REGIÃO ]|r\n\n|cffaaaaaaRenderização dinâmica de 12 tiles (Etapa 9.2)|r\n|cff888888Suporte a Kalimdor, Reinos do Leste e Áreas Turtle WoW|r")
+    mapPanel.placeholder = mapPlaceholder
+
+    -- Rodapé do Mapa com Dicas de Navegação
+    local mapFooter = CreateFrame("Frame", nil, mapPanel)
+    mapFooter:SetHeight(22)
+    mapFooter:SetPoint("BOTTOMLEFT", mapPanel, "BOTTOMLEFT", 6, 4)
+    mapFooter:SetPoint("BOTTOMRIGHT", mapPanel, "BOTTOMRIGHT", -6, 4)
+
+    local mapHintText = mapFooter:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    mapHintText:SetPoint("CENTER", mapFooter, "CENTER", 0, 0)
+    MainMenu:ApplyFont(mapHintText, CFG.Fonts.subFontFile, 11)
+    mapHintText:SetText("|cff888888[L-Stick] Mover Mapa  •  [LT] / [RT] Zoom Mundo/Zona|r")
+    mapPanel.hintText = mapHintText
+
+    -- Card Fixo de Detalhes da Missão Selecionada (Parte Inferior)
+    local detailCard = CreateFrame("Frame", "ConsoleModeMM_QuestDetailCard", questPanel)
+    detailCard:SetHeight(135)
+    detailCard:SetPoint("BOTTOMLEFT", questPanel, "BOTTOMLEFT", 0, 0)
+    detailCard:SetPoint("BOTTOMRIGHT", questPanel, "BOTTOMRIGHT", 0, 0)
+    questPanel.detailCard = detailCard
+
+    local detailBg = detailCard:CreateTexture(nil, "BACKGROUND")
+    detailBg:SetAllPoints(detailCard)
+    detailBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    detailBg:SetVertexColor(0.03, 0.03, 0.03, 0.75)
+
+    local detailBorder = CreateFrame("Frame", nil, detailCard)
+    detailBorder:SetAllPoints(detailCard)
+    local dbTop = detailBorder:CreateTexture(nil, "OVERLAY")
+    dbTop:SetHeight(1)
+    dbTop:SetPoint("TOPLEFT", detailBorder, "TOPLEFT", 0, 0)
+    dbTop:SetPoint("TOPRIGHT", detailBorder, "TOPRIGHT", 0, 0)
+    dbTop:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    dbTop:SetVertexColor(0.5, 0.4, 0.3, 0.6)
+
+    local detailTitle = detailCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    detailTitle:SetPoint("TOPLEFT", detailCard, "TOPLEFT", 10, -8)
+    MainMenu:ApplyFont(detailTitle, CFG.Fonts.titleFontFile, 13)
+    detailTitle:SetText("|cffe09a15Detalhes da Missão|r")
+    detailCard.title = detailTitle
+
+    local detailDesc = detailCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    detailDesc:SetPoint("TOPLEFT", detailTitle, "BOTTOMLEFT", 0, -4)
+    detailDesc:SetPoint("RIGHT", detailCard, "RIGHT", -10, 0)
+    detailDesc:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(detailDesc, CFG.Fonts.bodyFontFile, 11)
+    detailDesc:SetText("|cffaaaaaaSelecione uma missão na lista acima para visualizar objetivos e recompensas.|r")
+    detailCard.desc = detailDesc
+
+    local detailRewards = detailCard:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    detailRewards:SetPoint("BOTTOMLEFT", detailCard, "BOTTOMLEFT", 10, 8)
+    MainMenu:ApplyFont(detailRewards, CFG.Fonts.subFontFile, 11)
+    detailRewards:SetText("|cff888888(A) Ver no Mapa  •  (X) Rastrear no HUD  •  (Y) Ações|r")
+    detailCard.rewards = detailRewards
+
+    -- Container da Lista de Missões (Parte Superior)
+    local listContainer = CreateFrame("Frame", "ConsoleModeMM_QuestListContainer", questPanel)
+    listContainer:SetPoint("TOPLEFT", questPanel, "TOPLEFT", 0, 0)
+    listContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, -6)
+    questPanel.listContainer = listContainer
+
+    local listBg = listContainer:CreateTexture(nil, "BACKGROUND")
+    listBg:SetAllPoints(listContainer)
+    listBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    listBg:SetVertexColor(0.02, 0.02, 0.02, 0.50)
+
+    local listPlaceholder = listContainer:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    listPlaceholder:SetPoint("CENTER", listContainer, "CENTER", 0, 0)
+    MainMenu:ApplyFont(listPlaceholder, CFG.Fonts.titleFontFile, 13)
+    listPlaceholder:SetText("|cffffcc00[ LISTA DE MISSÕES ATIVAS ]|r\n\n|cffaaaaaaScanner do Diário de Missões (Etapa 9.5)|r")
+    questPanel.listPlaceholder = listPlaceholder
+
+    pageQuests.isInitialized = true
+end
+
+function MainMenu:UpdateQuestsPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests then return end
+
+    self:SetupQuestsPage(pageQuests)
+
+    -- Atualiza contador de missões ativas
+    local numEntries, numQuests = 0, 0
+    if GetNumQuestLogEntries then
+        numEntries, numQuests = GetNumQuestLogEntries()
+    end
+
+    if pageQuests.questCountText then
+        pageQuests.questCountText:SetText(string.format("|cffaaaaaaMissões: |cffffffff%d / 20|r", numQuests or numEntries or 0))
+    end
+
+    -- Atualiza informações da Zona Atual no painel do mapa
+    if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
+        local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
+        if zoneName == "" then zoneName = "Azeroth" end
+        pageQuests.mapPanel.zoneTitle:SetText(string.format("|cffffffff%s|r", zoneName))
+    end
+
+    -- Atualiza coordenadas GPS
+    if pageQuests.mapPanel and pageQuests.mapPanel.coordsText and GetPlayerMapPosition then
+        local px, py = GetPlayerMapPosition("player")
+        if px and py and (px > 0 or py > 0) then
+            pageQuests.mapPanel.coordsText:SetText(string.format("|cffe09a15GPS: |cffffffff%.1f, %.1f|r", px * 100, py * 100))
+        else
+            pageQuests.mapPanel.coordsText:SetText("|cff888888GPS: Indisponível|r")
+        end
+    end
+end
+
+-- ============================================================================
 -- 7.3. CONFIGURAÇÃO DA ABA DE SISTEMA E CONFIGURAÇÕES (FASE 8 - ETAPA 8.1)
 -- ============================================================================
 
@@ -3269,21 +3507,13 @@ end
 function MainMenu:CreateTabContainer(rightPanel)
     if self.tabContainer then return self.tabContainer end
 
-    -- 1. Barra Superior de Abas (com indicadores de gatilho [L1] e [R1])
+    -- 1. Barra Superior de Abas (com indicadores de gatilho [L1] e [R1] fixos e alinhados à direita)
     local tabBar = CreateFrame("Frame", "ConsoleModeMM_TabBar", rightPanel)
     tabBar:SetHeight(CFG.Tabs.barHeight)
     tabBar:SetPoint("TOPLEFT", rightPanel, "TOPLEFT", 0, 0)
     tabBar:SetPoint("TOPRIGHT", rightPanel, "TOPRIGHT", 0, 0)
 
-    -- Indicador LB à esquerda
-    local l1Hint = tabBar:CreateTexture(nil, "OVERLAY")
-    l1Hint:SetWidth(22)
-    l1Hint:SetHeight(22)
-    l1Hint:SetPoint("LEFT", tabBar, "LEFT", 2, 0)
-    l1Hint:SetTexture(CFG.Icons.LB)
-    tabBar.l1Hint = l1Hint
-
-    -- Indicador RB à direita
+    -- Indicador RB fixo na extremidade direita
     local r1Hint = tabBar:CreateTexture(nil, "OVERLAY")
     r1Hint:SetWidth(22)
     r1Hint:SetHeight(22)
@@ -3291,31 +3521,35 @@ function MainMenu:CreateTabContainer(rightPanel)
     r1Hint:SetTexture(CFG.Icons.RB)
     tabBar.r1Hint = r1Hint
 
-    -- Container Central dos Botões de Aba
+    -- Indicador LB à esquerda do bloco de abas
+    local l1Hint = tabBar:CreateTexture(nil, "OVERLAY")
+    l1Hint:SetWidth(22)
+    l1Hint:SetHeight(22)
+    l1Hint:SetTexture(CFG.Icons.LB)
+    tabBar.l1Hint = l1Hint
+
+    -- Container dos Botões de Aba (alinhado à direita, encostado no RB)
     local tabsCenter = CreateFrame("Frame", "ConsoleModeMM_TabsCenter", tabBar)
-    tabsCenter:SetPoint("LEFT", l1Hint, "RIGHT", 6, 0)
     tabsCenter:SetPoint("RIGHT", r1Hint, "LEFT", -6, 0)
     tabsCenter:SetHeight(CFG.Tabs.buttonHeight)
 
     local tabButtons = {}
-    local prevTab = nil
+    local tabBtnWidth = 104
+    local gapX = CFG.Tabs.gapX or 6
 
     for i, tabData in ipairs(CFG.Tabs.list) do
         local tabBtn = CreateFrame("Button", "ConsoleModeMM_TabBtn" .. tabData.id, tabsCenter)
         tabBtn:SetHeight(CFG.Tabs.buttonHeight)
-        tabBtn:SetWidth(100)
-
-        if not prevTab then
-            tabBtn:SetPoint("LEFT", tabsCenter, "LEFT", 0, 0)
-        else
-            tabBtn:SetPoint("LEFT", prevTab, "RIGHT", CFG.Tabs.gapX, 0)
-        end
 
         local title = tabBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("CENTER", tabBtn, "CENTER", 0, 0)
         MainMenu:ApplyFont(title, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize)
         title:SetText(tabData.name)
         tabBtn.title = title
+
+        local strWidth = math.floor(title:GetStringWidth() or 80)
+        local btnW = math.max(tabBtnWidth, strWidth + 14)
+        tabBtn:SetWidth(btnW)
 
         -- Linha dourada de destaque da aba ativa (Estilo Zelda)
         local highlight = tabBtn:CreateTexture(nil, "OVERLAY")
@@ -3333,8 +3567,20 @@ function MainMenu:CreateTabContainer(rightPanel)
         end)
 
         table.insert(tabButtons, tabBtn)
-        prevTab = tabBtn
     end
+
+    -- Posiciona os botões da esquerda para a direita dentro do container alinhado à direita
+    local curX = 0
+    local numButtons = table.getn(tabButtons)
+    for idx, btn in ipairs(tabButtons) do
+        btn:SetPoint("LEFT", tabsCenter, "LEFT", curX, 0)
+        curX = curX + btn:GetWidth() + (idx < numButtons and gapX or 0)
+    end
+    tabsCenter:SetWidth(curX)
+
+    -- Ancara o [LB] exatamente à esquerda do primeiro botão de aba
+    l1Hint:SetPoint("RIGHT", tabsCenter, "LEFT", -6, 0)
+
     tabBar.buttons = tabButtons
 
     -- 2. Linha divisória horizontal abaixo da barra de abas
@@ -3363,13 +3609,9 @@ function MainMenu:CreateTabContainer(rightPanel)
     pageSpells:SetAllPoints(contentFrame)
     pages["SPELLS"] = pageSpells
 
-    -- Página 3: Diário de Missões
+    -- Página 3: Diário de Missões & Mapa Mundi (Fase 9)
     local pageQuests = CreateFrame("Frame", "ConsoleModeMM_Page_QUESTS", contentFrame)
     pageQuests:SetAllPoints(contentFrame)
-    local questsPlaceholder = pageQuests:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    questsPlaceholder:SetPoint("CENTER", pageQuests, "CENTER", 0, 30)
-    MainMenu:ApplyFont(questsPlaceholder, CFG.Fonts.titleFontFile, 15, "")
-    questsPlaceholder:SetText("|cffffcc00[ ABA 3: DIÁRIO DE MISSÕES ]|r\n\n|cffaaaaaaRegistro de aventuras e objetivos ativos|r")
     pages["QUESTS"] = pageQuests
 
     -- Página 4: Sistema e Configurações (Fase 8)
@@ -3405,12 +3647,12 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
     -- 2. Atualiza estilos dos botões de aba
     if container.tabBar and container.tabBar.buttons then
         for _, tabBtn in ipairs(container.tabBar.buttons) do
-            if tabBtn.tabData.id == tabID then
+            if tabBtn.tabData and tabBtn.tabData.id == tabID then
                 tabBtn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
-                tabBtn.highlight:Show()
+                if tabBtn.highlight then tabBtn.highlight:Show() end
             else
                 tabBtn.title:SetTextColor(CFG.Tabs.inactiveColor.r, CFG.Tabs.inactiveColor.g, CFG.Tabs.inactiveColor.b)
-                tabBtn.highlight:Hide()
+                if tabBtn.highlight then tabBtn.highlight:Hide() end
             end
         end
     end
@@ -3419,30 +3661,53 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
 
     -- Se abriu a aba de Bolsas ou Magias, alterna o modelo 3D correspondente e atualiza o grid
     local facing = self.currentFacing or 0
-    if tabID == "BAGS" then
-        if self.animModel then self.animModel:Hide() end
-        if self.dressUpModel then
-            self.dressUpModel:Show()
-            if self.dressUpModel.SetFacing then self.dressUpModel:SetFacing(facing) end
+    if tabID == "QUESTS" then
+        -- Na aba de Missões & Mapa, recolhe o palco do personagem 3D e expande o painel de conteúdo
+        if self.frame and self.frame.leftPanel then self.frame.leftPanel:Hide() end
+        if self.frame and self.frame.divider then self.frame.divider:Hide() end
+        if self.frame and self.frame.rightPanel then
+            self.frame.rightPanel:ClearAllPoints()
+            self.frame.rightPanel:SetPoint("TOPLEFT", self.frame, "TOPLEFT", CFG.LeftPanel.paddingLeft, CFG.RightPanel.paddingTop)
+            self.frame.rightPanel:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", CFG.RightPanel.paddingRight, CFG.RightPanel.paddingBottom)
         end
-        self.playerModel = self.dressUpModel
-        self:UpdateBagsPage()
-    elseif tabID == "SPELLS" then
-        if self.dressUpModel then self.dressUpModel:Hide() end
-        if self.animModel then
-            self.animModel:Show()
-            self.animModel:SetUnit("player")
-            if self.animModel.SetFacing then self.animModel:SetFacing(facing) end
-            if self.animModel.SetSequence then self.animModel:SetSequence(0) end
-        end
-        self.playerModel = self.animModel
-        self.currentSpellPose = 0
-        self:UpdateSpellsPage()
-    elseif tabID == "SYSTEM" then
         self:RestorePlayerModel()
-        self:UpdateSystemPage()
+        self:UpdateQuestsPage()
     else
-        self:RestorePlayerModel()
+        -- Nas demais abas, restaura o painel do personagem à esquerda e a divisão central
+        if self.frame and self.frame.leftPanel then self.frame.leftPanel:Show() end
+        if self.frame and self.frame.divider then self.frame.divider:Show() end
+        if self.frame and self.frame.rightPanel and self.frame.leftPanel then
+            self.frame.rightPanel:ClearAllPoints()
+            self.frame.rightPanel:SetPoint("TOPRIGHT", self.frame, "TOPRIGHT", CFG.RightPanel.paddingRight, CFG.RightPanel.paddingTop)
+            self.frame.rightPanel:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", CFG.RightPanel.paddingRight, CFG.RightPanel.paddingBottom)
+            self.frame.rightPanel:SetPoint("LEFT", self.frame.leftPanel, "RIGHT", CFG.RightPanel.gapX, 0)
+        end
+
+        if tabID == "BAGS" then
+            if self.animModel then self.animModel:Hide() end
+            if self.dressUpModel then
+                self.dressUpModel:Show()
+                if self.dressUpModel.SetFacing then self.dressUpModel:SetFacing(facing) end
+            end
+            self.playerModel = self.dressUpModel
+            self:UpdateBagsPage()
+        elseif tabID == "SPELLS" then
+            if self.dressUpModel then self.dressUpModel:Hide() end
+            if self.animModel then
+                self.animModel:Show()
+                self.animModel:SetUnit("player")
+                if self.animModel.SetFacing then self.animModel:SetFacing(facing) end
+                if self.animModel.SetSequence then self.animModel:SetSequence(0) end
+            end
+            self.playerModel = self.animModel
+            self.currentSpellPose = 0
+            self:UpdateSpellsPage()
+        elseif tabID == "SYSTEM" then
+            self:RestorePlayerModel()
+            self:UpdateSystemPage()
+        else
+            self:RestorePlayerModel()
+        end
     end
 
     -- Resincroniza o cursor do D-Pad na nova aba
@@ -3850,12 +4115,19 @@ end
 -- CONTROLE DE EXIBIÇÃO / TOGGLE
 -- ============================================================================
 
-function MainMenu:Show()
+function MainMenu:Show(initialTab)
     if not self.frame then
         self:CreateUI()
     end
+    if initialTab and self.tabContainer then
+        self.tabContainer.currentTab = initialTab
+    end
     if self.frame then
-        self.frame:Show()
+        if self.frame:IsVisible() and initialTab then
+            self:SelectTab(initialTab, false)
+        else
+            self.frame:Show()
+        end
     end
 end
 
@@ -3866,11 +4138,15 @@ function MainMenu:Hide()
     end
 end
 
-function MainMenu:Toggle()
+function MainMenu:Toggle(initialTab)
     if self.frame and self.frame:IsVisible() then
-        self:Hide()
+        if initialTab and self.tabContainer and self.tabContainer.currentTab ~= initialTab then
+            self:SelectTab(initialTab, false)
+        else
+            self:Hide()
+        end
     else
-        self:Show()
+        self:Show(initialTab)
     end
 end
 

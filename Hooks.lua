@@ -540,6 +540,20 @@ function Hooks:Initialize()
         Hooks.toggleGameMenuHooked = true
     end
 
+    -- Hook ToggleWorldMap para abrir o Console Main Menu diretamente na aba de Missões & Mapa via tecla M / Select
+    if not Hooks.toggleWorldMapHooked and ToggleWorldMap then
+        local orig_ToggleWorldMap = ToggleWorldMap
+        ToggleWorldMap = function()
+            local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+            if mm and mm.Toggle then
+                mm:Toggle("QUESTS")
+                return
+            end
+            orig_ToggleWorldMap()
+        end
+        Hooks.toggleWorldMapHooked = true
+    end
+
     self.initialized = true
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Hooks inicializados: " .. count .. " frames hookados.")
 end

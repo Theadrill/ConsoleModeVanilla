@@ -392,3 +392,15 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
      - **Sem Alteração:** Atributos não afetados permanecem na cor padrão branca/dourada.
   4. Restauração instantânea dos valores e cores padrão da coluna de atributos ao retirar o foco de itens equipáveis ou focar em slots vazios/consumíveis.
 * **Validação:** Focar em elmos, armas e armaduras na mochila e observar a coluna de atributos ao lado do personagem 3D colorir instantaneamente em verde `(+X)` ou vermelho `(-X)` mostrando o impacto real de equipar aquele item.
+
+---
+
+### **FASE 14: Correção / Refinamento dos Pins de Zona no Mapa Continente** `[STATUS: ⏳ WIP — pins aproximados / requer ajuste manual]`
+* **Contexto:** `feat(map) pin de zona no CONTINENTE` (71a7193) implementou `Data/ZonePositions.lua` (`cont/x/y` 0-1 em 1002×668) + `zonePin` em `mapTilesContainer` com `ShowZonePinForZone/HideZonePin/UpdateZonePinPosition` e `OnEnter/OnLeave` na lista `REGIOES` (também dispara via `Cursor:MoveTo`). Muitos pins ficaram fora da zona correta; alguns corretos — posições ainda aproximadas.
+* **Tarefas:**
+  1. Refinar manualmente `Data/ZonePositions.lua` zona a zona em jogo `/reload` comparando `Kalimdor`/`EasternKingdoms` vanilla e Turtle custom (`Gilneas`, `Hyjal`, `Alah'Thalas`, `Tel'Abim` etc.) — ajustar `x/y` até pin cair dentro do contorno/label da zona no `tilesContainer` (considerar `currentScale`/`effW/effH` e `panX/panY`).
+  2. Validar todos os `GetMapZones(1)` e `GetMapZones(2)` — adicionar faltantes e remover obsoletos; cont `>2` ignorado na v1.
+  3. `luac -p Data/ZonePositions.lua` + `UI/MainMenu.lua` a cada lote de ajustes; sem `#`, Lua 5.0.
+  4. Não alterar API de pin — só valores `x/y`; manter hide fora de `CONTINENT`, em `INSTANCIAS` e ao `SwitchMapToZone/Reset`.
+* **Validação:** Em `CONTINENT`, hover/D-Pad em cada item de `REGIOES` mostra pin amarelo + label exatamente sobre a área da zona no mapa; sem pin fantasma ao trocar continente/zona.
+* **Commit:** Não fazer commit/push até autorização; marcar no histórico que foi WIP de posicionamento.

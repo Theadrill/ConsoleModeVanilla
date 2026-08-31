@@ -5220,10 +5220,13 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
 
     if containerW <= 0 or containerH <= 0 then return end
 
-    local isQuestView = self.mapShowingQuestZone and self.mapFileName
-
+    local isContinentView = (self.mapViewMode == "CONTINENT" and self.mapContinentView)
     local px, py = 0, 0
-    if isQuestView then
+    if isContinentView then
+        if SetMapZoom then SetMapZoom(self.mapContinentView, 0) end
+        if GetPlayerMapPosition then px, py = GetPlayerMapPosition("player") end
+        self:EnsureMapZone()
+    elseif self.mapShowingQuestZone and self.mapFileName then
         local curCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
         local curZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
         local playerZoneText = (GetZoneText and GetZoneText()) or ""
@@ -5276,7 +5279,8 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
     else
         playerPin:Hide()
         if mapCanvas:GetParent() and mapCanvas:GetParent().coordsText then
-            if isQuestView then
+            local isViewingOtherZone = self.mapShowingQuestZone and self.mapFileName and not isContinentView
+            if isViewingOtherZone then
                 mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: fora da zona visualizada|r")
             else
                 mapCanvas:GetParent().coordsText:SetText("|cff888888GPS: Indisponível|r")
@@ -5291,7 +5295,11 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
             if pin then
                 if p <= numParty and GetPlayerMapPosition then
                     local pX, pY
-                    if isQuestView then
+                    if isContinentView then
+                        if SetMapZoom then SetMapZoom(self.mapContinentView, 0) end
+                        pX, pY = GetPlayerMapPosition("party" .. p)
+                        self:EnsureMapZone()
+                    elseif self.mapShowingQuestZone and self.mapFileName then
                         pX, pY = 0, 0
                     else
                         pX, pY = GetPlayerMapPosition("party" .. p)

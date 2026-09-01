@@ -791,6 +791,11 @@ end
 -- INTERAÇÃO E CLIQUES
 -- ============================================================================
 
+function Cursor:IsMerchantOpen()
+    local mf = MerchantFrame or getglobal("MerchantFrame")
+    return (mf and (mf:IsVisible() or mf:IsShown())) or false
+end
+
 function Cursor:Click(mouseButton)
     mouseButton = mouseButton or "LeftButton"
     local button = self.state.currentButton
@@ -860,6 +865,29 @@ function Cursor:Click(mouseButton)
         end
         
         if bagID and slotID and bagID >= 0 and slotID >= 1 then
+            -- MODO MERCADOR ATIVO: Vende o item imediatamente ao mercador com [A] ou [Y]
+            if self:IsMerchantOpen() then
+                if CursorHasItem() or CursorHasSpell() then
+                    PickupContainerItem(bagID, slotID)
+                    self:UpdateState()
+                    return
+                end
+
+                local texture = GetContainerItemInfo(bagID, slotID)
+                if texture or (isMMBagSlot and button.data and not button.data.isEmpty) then
+                    UseContainerItem(bagID, slotID)
+                    if SpellIsTargeting and SpellIsTargeting() and UnitExists("target") then
+                        SpellTargetUnit("target")
+                    end
+                    self:UpdateState()
+                    return
+                elseif button.Click then
+                    button:Click(mouseButton)
+                    self:UpdateState()
+                    return
+                end
+            end
+
             if mouseButton == "RightButton" then
                 -- Abre menu de contexto se o slot contiver item
                 local texture = GetContainerItemInfo(bagID, slotID)
@@ -905,6 +933,39 @@ function Cursor:Click(mouseButton)
         end
     end
     
+    -- MODO MERCADOR ATIVO: Compra de itens no MerchantFrame com botão [A] (clique direito nativo)
+    if self:IsMerchantOpen() then
+        local isMerchantItemBtn = string.find(bname, "MerchantItem%d+ItemButton") or string.find(bname, "MerchantBuyBackItemItemButton")
+        if isMerchantItemBtn then
+            if mouseButton == "LeftButton" or mouseButton == "RightButton" then
+                if button.Click then
+                    button:Click("RightButton")
+                else
+                    local id = button:GetID()
+                    if id and id > 0 then
+                        BuyMerchantItem(id, 1)
+                    end
+                end
+                self:UpdateState()
+                return
+            end
+        elseif string.find(bname, "MerchantItem%d+$") then
+            local itemBtn = getglobal(bname .. "ItemButton") or button.itemButton
+            if itemBtn and itemBtn:IsVisible() then
+                if itemBtn.Click then
+                    itemBtn:Click("RightButton")
+                else
+                    local id = itemBtn:GetID()
+                    if id and id > 0 then
+                        BuyMerchantItem(id, 1)
+                    end
+                end
+                self:UpdateState()
+                return
+            end
+        end
+    end
+
     -- Equipamento do personagem (Blizzard e ConsoleMode MainMenu)
     local isMMEquipSlot = string.find(bname, "ConsoleModeMM_EquipSlot%d+") or (button.isMMEquipSlot == true)
     if isMMEquipSlot or (mouseButton == "RightButton" and string.find(bname, "Character[A-Za-z0-9]+Slot")) then
@@ -947,13 +1008,6 @@ function Cursor:Click(mouseButton)
                     script()
                 end)
             end
-        end
-        if script then
-            pcall(function()
-                this = button
-                arg1 = mouseButton
-                script()
-            end)
         end
     end
     

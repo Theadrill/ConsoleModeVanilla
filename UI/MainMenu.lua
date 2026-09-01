@@ -4050,17 +4050,32 @@ function MainMenu:NavToContinent(cont)
     self.mapContinent = cont
     self.mapZoneIdx = 0
     self.mapZoneName = nil
-    self.mapFileName = (GetMapInfo and GetMapInfo()) or nil
+    -- Fix: evita corrida GetMapInfo exigir duplo clique — define arquivo do continente explicitamente
+    -- Kalimdor cont=1 usa "Kalimdor", Reinos do Leste cont=2 usa "Azeroth" (vanilla) — GetMapInfo pode ainda retornar zona antiga no mesmo frame
+    local explicitFile = (cont == 1 and "Kalimdor" or "Azeroth")
+    self.mapFileName = explicitFile
     self:ClearDungeonPreview()
     if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
         local c = self.tabContainer.pages["QUESTS"].mapPanel.canvas
         c.zoomFactor = 1.0
         c.panX = 0
         c.panY = 0
+        c.currentMapFile = explicitFile
     end
     self:BuildContinentZoneList(cont)
     self:UpdateBackButton()
     self:UpdateNavButtonHighlight()
+    -- Força atualização imediata do mapa para não depender de segundo clique / UpdateQuestsPage
+    if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
+        local canvas = self.tabContainer.pages["QUESTS"].mapPanel.canvas
+        self:UpdateMapLayout(canvas)
+        self:UpdateMapTextures(canvas)
+        self:UpdateMapOverlays(canvas)
+        self:UpdateMapPlayerPosition(canvas)
+        self:UpdatePfQuestPins(canvas)
+        self:UpdateNPCServicePins(canvas)
+        self:UpdateZonePinPosition(canvas)
+    end
 end
 
 function MainMenu:HandleMapBack()
@@ -5232,13 +5247,14 @@ function MainMenu:UpdateZonePinPosition(mapCanvas)
     if (self.mapViewMode or "ZONE") ~= "CONTINENT" or not self.mapContinentView then return end
     local pos = ConsoleMode and ConsoleMode.ZonePositions and ConsoleMode.ZonePositions[zone]
     if not pos or pos.cont ~= self.mapContinentView then return end
-    local scale = mapCanvas.currentScale or 0.5
-    if scale <= 0 then scale = 0.5 end
-    local effW = 1002 * scale
-    local effH = 668 * scale
+    local container = mapCanvas.tilesContainer
+    local effW = (container.GetWidth and container:GetWidth()) or (1002 * (mapCanvas.currentScale or 0.5))
+    local effH = (container.GetHeight and container:GetHeight()) or (668 * (mapCanvas.currentScale or 0.5))
+    if not effW or effW <= 0 then effW = 1002 * (mapCanvas.currentScale or 0.5) end
+    if not effH or effH <= 0 then effH = 668 * (mapCanvas.currentScale or 0.5) end
     local pin = mapCanvas.zonePin
     pin:ClearAllPoints()
-    pin:SetPoint("CENTER", mapCanvas.tilesContainer, "TOPLEFT", pos.x * effW, -pos.y * effH)
+    pin:SetPoint("CENTER", container, "TOPLEFT", pos.x * effW, -pos.y * effH)
     if pin.label then
         pin.label:ClearAllPoints()
         pin.label:SetPoint("TOP", pin, "BOTTOM", 0, -2)
@@ -6104,9 +6120,11 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
         end
     end
 
-    local scale = mapCanvas.currentScale or 0.5
-    local effW = 1002 * scale
-    local effH = 668 * scale
+    local containerForPins = mapCanvas.tilesContainer
+    local effW = (containerForPins.GetWidth and containerForPins:GetWidth()) or (1002 * (mapCanvas.currentScale or 0.5))
+    local effH = (containerForPins.GetHeight and containerForPins:GetHeight()) or (668 * (mapCanvas.currentScale or 0.5))
+    if not effW or effW <= 0 then effW = 1002 * (mapCanvas.currentScale or 0.5) end
+    if not effH or effH <= 0 then effH = 668 * (mapCanvas.currentScale or 0.5) end
 
     local visiblePins = {}
 

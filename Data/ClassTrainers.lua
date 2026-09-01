@@ -34,7 +34,6 @@ CM_ClassTrainers = {
         { name = "Nartok Wildtusk",    zoneID = 17,   zone = "The Barrens",     x = 62.8, y = 39.8, fac = "H" },
         { name = "Kardris Dreamseeker", zoneID = 14, zone = "Durotar",         x = 51.5, y = 42.9, fac = "H" },
         { name = "Brawn",              zoneID = 215,  zone = "Mulgore",         x = 44.4, y = 76.4, fac = "H" },
-        { name = "Champion Bachi",     zoneID = 11,   zone = "Wetlands",        x = 11.4, y = 58.2, fac = "A" },
         { name = "Melor Stonehoof",    zoneID = 215,  zone = "Mulgore",         x = 44.6, y = 76.2, fac = "H" },
     },
     ["PALADIN"] = {
@@ -89,10 +88,8 @@ CM_ClassTrainers = {
         { name = "Jannok Breezesong",  zoneID = 141,  zone = "Teldrassil",      x = 33.2, y = 15.4, fac = "A" },
         { name = "Anishar",            zoneID = 12,   zone = "Elwynn Forest",   x = 43.2, y = 65.4, fac = "A" },
         { name = "Ker Ragetotem",      zoneID = 215,  zone = "Mulgore",         x = 44.8, y = 76.8, fac = "H" },
-        { name = "Duane",              zoneID = 40,   zone = "Westfall",        x = 57.2, y = 18.4, fac = "A" },
         { name = "David Trias",        zoneID = 1497, zone = "Undercity",       x = 83.6, y = 71.4, fac = "H" },
         { name = "Gordon",             zoneID = 1497, zone = "Undercity",       x = 84.2, y = 70.8, fac = "H" },
-        { name = "Miles Sidney",       zoneID = 1519, zone = "Stormwind City",  x = 75.8, y = 53.2, fac = "A" },
         { name = "Ormok the Rogue",    zoneID = 17,   zone = "The Barrens",     x = 62.4, y = 39.2, fac = "H" },
     },
     ["PRIEST"] = {
@@ -108,7 +105,6 @@ CM_ClassTrainers = {
         { name = "Ur\'kyo",            zoneID = 1637, zone = "Orgrimmar",       x = 36.8, y = 86.8, fac = "H" },
         { name = "Dark Cleric Beryl",  zoneID = 85,   zone = "Tirisfal Glades", x = 51.8, y = 6.8, fac = "H" },
         { name = "Dark Cleric Duesten", zoneID = 1497, zone = "Undercity",     x = 85.8, y = 28.4, fac = "H" },
-        { name = "Caedmos",            zoneID = 1638, zone = "Thunder Bluff",   x = 57.2, y = 85.6, fac = "H" },
         { name = "Miles Welsh",        zoneID = 1519, zone = "Stormwind City",  x = 37.8, y = 25.4, fac = "A" },
         { name = "Lauren",             zoneID = 215,  zone = "Mulgore",         x = 44.2, y = 76.0, fac = "H" },
         { name = "Tyrion",             zoneID = 148,  zone = "Darkshore",       x = 37.8, y = 44.2, fac = "A" },
@@ -123,7 +119,6 @@ CM_ClassTrainers = {
         { name = "Kardris Dreamseeker", zoneID = 1637, zone = "Orgrimmar",     x = 36.4, y = 35.2, fac = "H" },
         { name = "Beram Skychaser",    zoneID = 215,  zone = "Mulgore",         x = 42.4, y = 76.2, fac = "H" },
         { name = "Canaga Earthcaller", zoneID = 215,  zone = "Mulgore",         x = 44.6, y = 76.8, fac = "H" },
-        { name = "Harene Plainwalker", zoneID = 1638, zone = "Thunder Bluff",   x = 58.8, y = 88.6, fac = "H" },
         { name = "Sula Mistrunner",    zoneID = 1638, zone = "Thunder Bluff",   x = 57.6, y = 87.8, fac = "H" },
         { name = "Ornyx",              zoneID = 17,   zone = "The Barrens",     x = 62.4, y = 36.8, fac = "H" },
         { name = "Karg Threshline",    zoneID = 85,   zone = "Tirisfal Glades", x = 52.2, y = 36.4, fac = "H" }, -- turtle custom
@@ -136,7 +131,6 @@ CM_ClassTrainers = {
         { name = "Elsharin",           zoneID = 1519, zone = "Stormwind City",  x = 38.2, y = 79.8, fac = "A" },
         { name = "Magus Tirth",        zoneID = 1537, zone = "Ironforge",       x = 26.2, y = 08.4, fac = "A" },
         { name = "Bink",               zoneID = 1537, zone = "Ironforge",       x = 25.4, y = 07.6, fac = "A" },
-        { name = "Julia Sunstriker",   zoneID = 1657, zone = "Darnassus",       x = 52.4, y = 18.6, fac = "A" },
         { name = "Anastria",           zoneID = 141,  zone = "Teldrassil",      x = 33.4, y = 16.2, fac = "A" },
         { name = "Cain Firesong",      zoneID = 85,   zone = "Tirisfal Glades", x = 62.2, y = 58.8, fac = "H" },
         { name = "Isabella",           zoneID = 85,   zone = "Tirisfal Glades", x = 58.6, y = 52.4, fac = "H" },
@@ -185,7 +179,6 @@ CM_ClassTrainers = {
         { name = "Beram Skychaser",    zoneID = 1638, zone = "Thunder Bluff",   x = 58.0, y = 84.4, fac = "H" },
         { name = "Kym Wildmane",       zoneID = 215,  zone = "Mulgore",         x = 46.8, y = 50.4, fac = "H" },
         { name = "Gart Mistrunner",    zoneID = 215,  zone = "Mulgore",         x = 44.2, y = 76.6, fac = "H" },
-        { name = "Harene Plainwalker", zoneID = 17,   zone = "The Barrens",     x = 62.2, y = 35.4, fac = "H" },
         { name = "Kal",                zoneID = 12,   zone = "Elwynn Forest",   x = 43.6, y = 66.6, fac = "A" }, -- Turtle custom druid starter
         { name = "Caylais Moonfeather", zoneID = 148, zone = "Darkshore",       x = 37.8, y = 41.4, fac = "A" },
         { name = "Kar Stormsinger",    zoneID = 1,    zone = "Dun Morogh",      x = 50.8, y = 16.2, fac = "A" }, -- Turtle

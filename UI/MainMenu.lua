@@ -3213,54 +3213,55 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     -- ================================================================
     -- Painel Flutuante de Lista de NPCs/Serviços (canto superior esquerdo)
+    -- EXATO clone do ZoneList (Continente) para scroll/cursor perfeito
     -- ================================================================
     local npcListPanel = CreateFrame("Frame", "ConsoleModeMM_MapNPCListPanel", mapPanel)
-    npcListPanel:SetWidth(200)
+    npcListPanel:SetWidth(230)
     npcListPanel:SetHeight(220)
     npcListPanel:SetPoint("TOPLEFT", mapPanel, "TOPLEFT", 10, -32)
     npcListPanel:SetFrameStrata("DIALOG")
-    npcListPanel:SetFrameLevel(mapPanel:GetFrameLevel() + 25)
-    npcListPanel:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 10,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    npcListPanel:SetBackdropColor(0.05, 0.04, 0.03, 0.85)
-    npcListPanel:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    npcListPanel:SetFrameLevel((mapPanel:GetFrameLevel() or 5) + 25)
+    npcListPanel:Hide()
     npcListPanel:EnableMouse(true)
-
+    npcListPanel:EnableMouseWheel(true)
+    npcListPanel:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 8, edgeSize = 8,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    npcListPanel:SetBackdropColor(0.06, 0.05, 0.04, 0.94)
+    npcListPanel:SetBackdropBorderColor(0.55, 0.45, 0.28, 0.7)
     local nlTitle = npcListPanel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    nlTitle:SetPoint("TOPLEFT", npcListPanel, "TOPLEFT", 8, -6)
-    MainMenu:ApplyFont(nlTitle, CFG.Fonts.titleFontFile, 11)
+    nlTitle:SetPoint("TOPLEFT", npcListPanel, "TOPLEFT", 8, -8)
+    nlTitle:SetPoint("TOPRIGHT", npcListPanel, "TOPRIGHT", -8, -8)
+    nlTitle:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(nlTitle, CFG.Fonts.titleFontFile, 12)
     nlTitle:SetText("|cffe09a15SERVIÇOS & NPCs|r")
     npcListPanel.title = nlTitle
-
     local scrollFrame = CreateFrame("ScrollFrame", "ConsoleModeMM_MapNPCScrollFrame", npcListPanel)
-    scrollFrame:SetPoint("TOPLEFT", npcListPanel, "TOPLEFT", 4, -22)
+    scrollFrame:SetPoint("TOPLEFT", npcListPanel, "TOPLEFT", 4, -24)
     scrollFrame:SetPoint("BOTTOMRIGHT", npcListPanel, "BOTTOMRIGHT", -4, 4)
     scrollFrame:EnableMouse(true)
     scrollFrame:EnableMouseWheel(true)
-
     local scrollChild = CreateFrame("Frame", "ConsoleModeMM_MapNPCScrollChild", scrollFrame)
-    scrollChild:SetWidth(190)
+    scrollChild:SetWidth(222)
     scrollChild:SetHeight(1)
     scrollFrame:SetScrollChild(scrollChild)
-
-    scrollFrame:SetScript("OnMouseWheel", function()
-        local cur = this:GetVerticalScroll() or 0
-        local maxScroll = math.max(0, (scrollChild:GetHeight() or 0) - (this:GetHeight() or 0))
-        if arg1 > 0 then
-            this:SetVerticalScroll(math.max(0, cur - 20))
-        else
-            this:SetVerticalScroll(math.min(maxScroll, cur + 20))
-        end
-    end)
-
     npcListPanel.scrollFrame = scrollFrame
     npcListPanel.scrollChild = scrollChild
     npcListPanel.buttons = {}
-    npcListPanel:Hide()
+    local function NPCListScroll(delta)
+        local cur = scrollFrame:GetVerticalScroll() or 0
+        local mx = scrollFrame:GetVerticalScrollRange() or 0
+        local step = 52
+        if delta > 0 then cur = cur - step else cur = cur + step end
+        if cur < 0 then cur = 0 end
+        if cur > mx then cur = mx end
+        scrollFrame:SetVerticalScroll(cur)
+    end
+    scrollFrame:SetScript("OnMouseWheel", function() NPCListScroll(arg1) end)
+    npcListPanel:SetScript("OnMouseWheel", function() NPCListScroll(arg1) end)
     mapPanel.npcListPanel = npcListPanel
 
     local function CreateMapNavButton(name, label, point, relPoint, x, y)
@@ -6106,6 +6107,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
 
     -- ================================================================
     -- Painel flutuante de lista de NPCs: população e highlight 3X
+    -- CLONE EXATO de BuildContinentZoneList / BuildInstancesList
     -- ================================================================
     local mapPanelRef = mapCanvas:GetParent()
     if not mapPanelRef or not mapPanelRef.npcListPanel then
@@ -6116,155 +6118,170 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
     local npcListPanel = mapPanelRef and mapPanelRef.npcListPanel
     if npcListPanel then
         local totalPins = table.getn(visiblePins)
-        -- Esconde todos os botões antes de repopular
-        if npcListPanel.buttons then
-            for _, b in ipairs(npcListPanel.buttons) do b:Hide() end
-        else
-            npcListPanel.buttons = {}
+        local content = npcListPanel.scrollChild
+        local scrollFrame = npcListPanel.scrollFrame
+        -- Cache: evita rebuild a cada 0.5s (que destrói cursor/scroll) - só rebuilda se lista mudou
+        local sigParts = {}
+        for s = 1, table.getn(visiblePins) do
+            local v = visiblePins[s]
+            table.insert(sigParts, (v.id or 0) .. ":" .. (v.x or 0) .. "," .. (v.y or 0) .. ":" .. (v.cat or ""))
         end
-        if totalPins == 0 then
-            npcListPanel:Hide()
-            mapCanvas.hoveredNpcPin = nil
-            mapCanvas.hoveredNpcPinIdx = nil
+        local curSig = (currentZoneID or 0) .. "|" .. (playerFacCode or "") .. "|" .. table.getn(sigParts) .. "|" .. table.concat(sigParts, ";")
+        if npcListPanel._lastSig == curSig and table.getn(npcListPanel.buttons or {}) == totalPins and totalPins > 0 then
+            -- Lista idêntica: preserva botões, scroll e cursor; não reseta
+            -- Ainda garante visibilidade
+            if not npcListPanel:IsVisible() then npcListPanel:Show() end
         else
-            npcListPanel:Show()
-            if mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx > totalPins then
+            npcListPanel._lastSig = curSig
+            if npcListPanel.buttons then
+                for i = 1, table.getn(npcListPanel.buttons) do
+                    if npcListPanel.buttons[i] then npcListPanel.buttons[i]:Hide() end
+                end
+            end
+            npcListPanel.buttons = {}
+            if totalPins == 0 then
+                npcListPanel:Hide()
                 mapCanvas.hoveredNpcPin = nil
                 mapCanvas.hoveredNpcPinIdx = nil
-            end
-            local scrollChild = npcListPanel.scrollChild
-            local btnH = 18
-            local gap = 2
+                content:SetHeight(30)
+                if scrollFrame then scrollFrame:SetVerticalScroll(0); if scrollFrame.UpdateScrollChildRect then scrollFrame:UpdateScrollChildRect() end end
+            else
+                npcListPanel:Show()
+                if mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx > totalPins then
+                    mapCanvas.hoveredNpcPin = nil
+                    mapCanvas.hoveredNpcPinIdx = nil
+                end
+                local btnH = 28
+                local gap = 3
             for idx = 1, totalPins do
                 local data = visiblePins[idx]
-                local btn = npcListPanel.buttons[idx]
-                if not btn then
-                    btn = CreateFrame("Button", "ConsoleModeMM_MapNPCListBtn" .. idx, scrollChild)
-                    btn:SetHeight(btnH)
-                    btn:EnableMouse(true)
-                    btn:RegisterForClicks("LeftButtonUp")
-
-                    local bg = btn:CreateTexture(nil, "BACKGROUND")
-                    bg:SetAllPoints(btn)
-                    bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-                    bg:SetVertexColor(0.0, 0.0, 0.0, 0.25)
-                    btn.bg = bg
-
-                    local hl = btn:CreateTexture(nil, "HIGHLIGHT")
-                    hl:SetAllPoints(btn)
-                    hl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-                    hl:SetVertexColor(0.88, 0.60, 0.08, 0.18)
-                    hl:SetBlendMode("ADD")
-
-                    local icon = btn:CreateTexture(nil, "ARTWORK")
-                    icon:SetWidth(14)
-                    icon:SetHeight(14)
-                    icon:SetPoint("LEFT", btn, "LEFT", 4, 0)
-                    icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-                    btn.icon = icon
-
-                    local nameFS = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-                    nameFS:SetPoint("LEFT", icon, "RIGHT", 4, 0)
-                    nameFS:SetPoint("RIGHT", btn, "RIGHT", -2, 0)
-                    nameFS:SetJustifyH("LEFT")
-                    MainMenu:ApplyFont(nameFS, CFG.Fonts.bodyFontFile, 11)
-                    btn.nameFS = nameFS
-
-                    btn:SetScript("OnEnter", function()
-                        if this.pinIdx and mapCanvas and mapCanvas.npcPins then
-                            local targetPin = mapCanvas.npcPins[this.pinIdx]
-                            if targetPin then
-                                mapCanvas.hoveredNpcPin = targetPin
-                                mapCanvas.hoveredNpcPinIdx = this.pinIdx
-                                targetPin:SetWidth(27)
-                                targetPin:SetHeight(27)
-                                targetPin:SetFrameLevel(90)
-                                if targetPin.border then targetPin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
-                            end
-                        end
-                        if this.bg then this.bg:SetVertexColor(0.88, 0.60, 0.08, 0.30) end
-                        if this.tooltipName and GameTooltip then
-                            GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
-                            GameTooltip:AddLine(this.tooltipName, 1, 0.85, 0.2)
-                            GameTooltip:AddLine(this.tooltipRole or "", 1, 1, 1)
-                            GameTooltip:Show()
-                        end
-                    end)
-
-                    btn:SetScript("OnLeave", function()
-                        if this.pinIdx and mapCanvas and mapCanvas.npcPins then
-                            local targetPin = mapCanvas.npcPins[this.pinIdx]
-                            if targetPin then
-                                if mapCanvas.hoveredNpcPin == targetPin then
-                                    mapCanvas.hoveredNpcPin = nil
-                                end
-                                if mapCanvas.hoveredNpcPinIdx == this.pinIdx then
-                                    mapCanvas.hoveredNpcPinIdx = nil
-                                end
-                                targetPin:SetWidth(9)
-                                targetPin:SetHeight(9)
-                                local bl = targetPin.baseLevel or (mapCanvas.tilesContainer and mapCanvas.tilesContainer:GetFrameLevel() + 10) or 10
-                                targetPin:SetFrameLevel(bl)
-                                if targetPin.border then targetPin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9) end
-                            else
-                                mapCanvas.hoveredNpcPinIdx = nil
-                            end
-                        else
-                            if mapCanvas then
-                                mapCanvas.hoveredNpcPin = nil
-                                mapCanvas.hoveredNpcPinIdx = nil
-                            end
-                        end
-                        if this.bg then this.bg:SetVertexColor(0.0, 0.0, 0.0, 0.25) end
-                        if GameTooltip then GameTooltip:Hide() end
-                    end)
-
-                    btn:SetScript("OnClick", function()
-                        if this.pinData and mapCanvas then
-                            local px = (this.pinData.x / 100)
-                            local py = (this.pinData.y / 100)
-                            local canvasW = mapCanvas:GetWidth() or 500
-                            local canvasH = mapCanvas:GetHeight() or 340
-                            local c = mapCanvas.tilesContainer
-                            local scale = mapCanvas.currentScale or 0.5
-                            local finalW = 1002 * scale
-                            local finalH = 668 * scale
-                            local targetPanX = (0.5 - px) * finalW
-                            local targetPanY = (py - 0.5) * finalH
-                            local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
-                            local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
-                            mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, targetPanX))
-                            mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, targetPanY))
-                            if c then
-                                c:ClearAllPoints()
-                                c:SetPoint("CENTER", mapCanvas, "CENTER", mapCanvas.panX, mapCanvas.panY)
-                            end
-                        end
-                    end)
-
-                    npcListPanel.buttons[idx] = btn
+                local btn = CreateFrame("Button", nil, content)
+                btn:SetHeight(btnH)
+                btn:SetPoint("TOPLEFT", content, "TOPLEFT", 2, - (idx - 1) * (btnH + gap) - 2)
+                btn:SetPoint("TOPRIGHT", content, "TOPRIGHT", -2, - (idx - 1) * (btnH + gap) - 2)
+                btn:EnableMouse(true)
+                btn:EnableMouseWheel(true)
+                btn:SetFrameLevel(content:GetFrameLevel() + 2)
+                local bg = btn:CreateTexture(nil, "BACKGROUND")
+                bg:SetAllPoints(btn)
+                bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                bg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
+                btn.bg = bg
+                local hl = btn:CreateTexture(nil, "HIGHLIGHT")
+                hl:SetAllPoints(btn)
+                hl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                hl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
+                hl:SetBlendMode("ADD")
+                local icon = btn:CreateTexture(nil, "ARTWORK")
+                icon:SetWidth(14)
+                icon:SetHeight(14)
+                icon:SetPoint("LEFT", btn, "LEFT", 6, 0)
+                icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+                icon:SetTexture(data.icon)
+                if data.cat == "flight" and playerFacCode == "H" then
+                    icon:SetTexture("Interface\\Icons\\Ability_Mount_Wyvern_01")
                 end
-
+                btn.icon = icon
+                local fs = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+                fs:SetPoint("LEFT", icon, "RIGHT", 6, 0)
+                fs:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
+                fs:SetJustifyH("LEFT")
+                MainMenu:ApplyFont(fs, CFG.Fonts.subFontFile, 13)
+                fs:SetTextColor(0.96, 0.88, 0.68, 1.0)
+                btn.label = fs
+                btn.nameFS = fs
+                fs:SetText("|cffffffff" .. (data.name or "NPC") .. "|r  |cff888888" .. (data.role or "") .. "|r")
                 btn.pinIdx = idx
+                btn.npcListIdx = idx
+                btn.zoneIdx = idx
                 btn.pinData = data
                 btn.tooltipName = data.name
                 btn.tooltipRole = data.role
-                btn.icon:SetTexture(data.icon)
-                if data.cat == "flight" and playerFacCode == "H" then
-                    btn.icon:SetTexture("Interface\\Icons\\Ability_Mount_Wyvern_01")
-                end
-                btn.nameFS:SetText("|cffffffff" .. (data.name or "NPC") .. "|r  |cff888888" .. (data.role or "") .. "|r")
-                btn:ClearAllPoints()
-                btn:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 2, - (idx - 1) * (btnH + gap) - 2)
-                btn:SetPoint("TOPRIGHT", scrollChild, "TOPRIGHT", -2, - (idx - 1) * (btnH + gap) - 2)
-                btn:Show()
+                btn:SetScript("OnClick", function()
+                    if this.pinData and mapCanvas then
+                        local px = (this.pinData.x / 100)
+                        local py = (this.pinData.y / 100)
+                        local canvasW = mapCanvas:GetWidth() or 500
+                        local canvasH = mapCanvas:GetHeight() or 340
+                        local c = mapCanvas.tilesContainer
+                        local scale = mapCanvas.currentScale or 0.5
+                        local finalW = 1002 * scale
+                        local finalH = 668 * scale
+                        local targetPanX = (0.5 - px) * finalW
+                        local targetPanY = (py - 0.5) * finalH
+                        local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
+                        local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
+                        mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, targetPanX))
+                        mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, targetPanY))
+                        if c then
+                            c:ClearAllPoints()
+                            c:SetPoint("CENTER", mapCanvas, "CENTER", mapCanvas.panX, mapCanvas.panY)
+                        end
+                    end
+                end)
+                btn:SetScript("OnEnter", function()
+                    if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
+                    if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+                    if this.pinIdx and mapCanvas and mapCanvas.npcPins then
+                        local targetPin = mapCanvas.npcPins[this.pinIdx]
+                        if targetPin then
+                            mapCanvas.hoveredNpcPin = targetPin
+                            mapCanvas.hoveredNpcPinIdx = this.pinIdx
+                            targetPin:SetWidth(27)
+                            targetPin:SetHeight(27)
+                            targetPin:SetFrameLevel(90)
+                            if targetPin.border then targetPin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
+                        end
+                    end
+                    if this.tooltipName and GameTooltip then
+                        GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
+                        GameTooltip:AddLine(this.tooltipName, 1, 0.85, 0.2)
+                        GameTooltip:AddLine(this.tooltipRole or "", 1, 1, 1)
+                        GameTooltip:Show()
+                    end
+                end)
+                btn:SetScript("OnLeave", function()
+                    if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+                    if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+                    if this.pinIdx and mapCanvas and mapCanvas.npcPins then
+                        local targetPin = mapCanvas.npcPins[this.pinIdx]
+                        if targetPin then
+                            if mapCanvas.hoveredNpcPin == targetPin then mapCanvas.hoveredNpcPin = nil end
+                            if mapCanvas.hoveredNpcPinIdx == this.pinIdx then mapCanvas.hoveredNpcPinIdx = nil end
+                            targetPin:SetWidth(9)
+                            targetPin:SetHeight(9)
+                            local bl = targetPin.baseLevel or (mapCanvas.tilesContainer and mapCanvas.tilesContainer:GetFrameLevel() + 10) or 10
+                            targetPin:SetFrameLevel(bl)
+                            if targetPin.border then targetPin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9) end
+                        else
+                            mapCanvas.hoveredNpcPinIdx = nil
+                        end
+                    else
+                        if mapCanvas then mapCanvas.hoveredNpcPin = nil; mapCanvas.hoveredNpcPinIdx = nil end
+                    end
+                    if GameTooltip then GameTooltip:Hide() end
+                end)
+                btn:SetScript("OnMouseWheel", function()
+                    local sf = npcListPanel.scrollFrame
+                    if sf and sf.GetVerticalScroll then
+                        local cur = sf:GetVerticalScroll() or 0
+                        local mx = sf:GetVerticalScrollRange() or 0
+                        local step = 52
+                        if arg1 > 0 then cur = cur - step else cur = cur + step end
+                        if cur < 0 then cur = 0 end
+                        if cur > mx then cur = mx end
+                        sf:SetVerticalScroll(cur)
+                    end
+                end)
+                table.insert(npcListPanel.buttons, btn)
             end
             local totalH = totalPins * (btnH + gap) + 4
-            scrollChild:SetHeight(totalH)
-            if npcListPanel.scrollFrame and npcListPanel.scrollFrame.UpdateScrollChildRect then
-                npcListPanel.scrollFrame:UpdateScrollChildRect()
+            content:SetHeight(totalH)
+            if scrollFrame then
+                scrollFrame:SetVerticalScroll(0)
+                if scrollFrame.UpdateScrollChildRect then scrollFrame:UpdateScrollChildRect() end
             end
-            if npcListPanel.scrollFrame then npcListPanel.scrollFrame:SetVerticalScroll(0) end
+        end
         end
     end
 end

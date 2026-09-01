@@ -591,9 +591,9 @@ function Hooks:Initialize()
                 return
             end
 
-            -- Se não houver nada aberto, abre o nosso Main Menu
+            -- Se não houver nada aberto, abre o nosso Main Menu SEMPRE na aba de BOLSAS
             if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
-                ConsoleMode.mainMenu:Show()
+                ConsoleMode.mainMenu:Show("BAGS")
                 return
             end
 

@@ -572,9 +572,9 @@ function CM_Fixed(button)
             return
         end
         
-        -- 5. Se nenhuma janela estava aberta e sem alvo, abre o Console Main Menu!
+        -- 5. Se nenhuma janela estava aberta e sem alvo, abre o Console Main Menu SEMPRE na aba de BOLSAS!
         if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
-            ConsoleMode.mainMenu:Show()
+            ConsoleMode.mainMenu:Show("BAGS")
         else
             ShowUIPanel(GameMenuFrame)
         end

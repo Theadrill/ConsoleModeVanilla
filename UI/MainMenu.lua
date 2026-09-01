@@ -2336,8 +2336,26 @@ function MainMenu:SetupBagsPage(pageBags)
             PlaySound("igMainMenuOptionCheckBoxOn")
         elseif itemData and itemData.bagID and itemData.slotID and not itemData.isEmpty then
             -- Suporte nativo a usar/equipar item com o botão (A)
+
+            -- Detecta o uso da Hearthstone (itemID 6948 ou nome localizado) para fechar o menu
+            local isHearthstone = false
+            local itemName = itemData.name or ""
+            if itemName == "Hearthstone" or itemName == "Pedra de Regresso" or itemName == "Pedra de Regressão" then
+                isHearthstone = true
+            else
+                local _, _, hsID = string.find(itemData.rawLink or "", "^item:(%d+)")
+                if hsID and tonumber(hsID) == 6948 then
+                    isHearthstone = true
+                end
+            end
+
             UseContainerItem(itemData.bagID, itemData.slotID)
             PlaySound("igMainMenuOptionCheckBoxOn")
+
+            if isHearthstone and MainMenu.frame then
+                MainMenu.frame:Hide()
+                MainMenu:Hide()
+            end
         end
     end
 
@@ -7141,8 +7159,17 @@ initFrame:RegisterEvent("ITEM_LOCK_CHANGED")
 initFrame:RegisterEvent("QUEST_LOG_UPDATE")
 initFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 initFrame:RegisterEvent("ZONE_CHANGED")
+initFrame:RegisterEvent("SPELLCAST_START")
 
 initFrame:SetScript("OnEvent", function()
+    if event == "SPELLCAST_START" then
+        -- Qualquer spell com tempo de cast (não-instantâneo) fecha o Main Menu,
+        -- para o jogador ver a barra de cast e o mundo ao redor.
+        if MainMenu.frame and MainMenu.frame:IsVisible() then
+            MainMenu:Hide()
+        end
+        return
+    end
     if event == "VARIABLES_LOADED" then
         MainMenu:CreateUI()
         if SetMapToCurrentZone then SetMapToCurrentZone() end

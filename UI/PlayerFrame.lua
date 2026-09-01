@@ -219,6 +219,19 @@ CFG.ComboPoints = {
     colorFull   = { r = 1.0, g = 0.22, b = 0.05, a = 1.0 },
 }
 
+-- ----------------------------------------------------------------------------
+-- ÍCONE DE DESCANSO (ZZZ)
+-- Posição e tamanho do indicador de descanso sobre o portrait.
+-- ----------------------------------------------------------------------------
+CFG.RestIcon = {
+    show        = true,
+    size        = 24,                       -- Tamanho do ícone (px)
+    anchor      = "TOPLEFT",
+    relAnchor   = "TOPLEFT",
+    offsetX     = -4,                       -- Deslocamento X
+    offsetY     = 2,                        -- Deslocamento Y
+}
+
 -- ============================================================================
 -- FIM DO BLOCO DE CONFIGURAÇÃO
 -- ============================================================================
@@ -390,6 +403,93 @@ function PF:Initialize()
         nameText:SetShadowOffset(0, 0)
     end
     f.nameText = nameText
+
+    -- -----------------------------------------------------------------------
+    -- ÍCONE DE DESCANSO (ZZZ) COM FADE SUAVE
+    -- Aparece sobre o portrait quando o personagem está descansando.
+    -- FrameLevel maior que portraitFrame para ficar visível acima da moldura.
+    -- -----------------------------------------------------------------------
+
+    local function SuppressExternalRestIcons()
+        local names = {
+            "PlayerStatusIcon",
+            "PlayerRestGlow",
+            "PlayerRestIcon",
+            "overlay",
+            "DragonflightPlayerRestIcon",
+            "TurtlePlayerRestIcon",
+            "XPerl_Player_RestStatus",
+        }
+        for _, name in ipairs(names) do
+            local obj = getglobal(name)
+            if obj then
+                if obj.UnregisterAllEvents then
+                    obj:UnregisterAllEvents()
+                end
+                if obj.SetScript then
+                    obj:SetScript("OnUpdate", nil)
+                    obj:SetScript("OnEvent", nil)
+                end
+                if obj.Hide then
+                    obj:Hide()
+                end
+                if obj.SetAlpha then
+                    obj:SetAlpha(0)
+                end
+                if obj.SetTexture then
+                    obj:SetTexture("")
+                end
+                obj.Show = function() end
+            end
+        end
+
+        if PlayerFrame_UpdateStatus and not PlayerFrame_UpdateStatus_Hooked then
+            PlayerFrame_UpdateStatus_Hooked = true
+            local orig_UpdateStatus = PlayerFrame_UpdateStatus
+            PlayerFrame_UpdateStatus = function()
+                orig_UpdateStatus()
+                if PlayerStatusIcon then PlayerStatusIcon:Hide() end
+                if PlayerRestGlow then PlayerRestGlow:Hide() end
+                if PlayerRestIcon then PlayerRestIcon:Hide() end
+            end
+        end
+    end
+
+    local restIcon = CreateFrame("Frame", "ConsoleModePlayerRestIcon", f)
+    restIcon:SetWidth(CFG.RestIcon.size or 24)
+    restIcon:SetHeight(CFG.RestIcon.size or 24)
+    restIcon:SetPoint(
+        CFG.RestIcon.anchor or "TOPLEFT",
+        portrait,
+        CFG.RestIcon.relAnchor or "TOPLEFT",
+        CFG.RestIcon.offsetX or -4,
+        CFG.RestIcon.offsetY or 2
+    )
+    restIcon:SetFrameLevel(f:GetFrameLevel() + 3)
+
+    local restIconTex = restIcon:CreateTexture(nil, "OVERLAY")
+    restIconTex:SetAllPoints(restIcon)
+    restIconTex:SetTexture("Interface\\CharacterFrame\\UI-StateIcon")
+    restIconTex:SetTexCoord(0, 0.5, 0, 0.421875)
+
+    function restIcon:UpdateResting()
+        SuppressExternalRestIcons()
+        if CFG.RestIcon.show and IsResting() then
+            self:Show()
+        else
+            self:Hide()
+        end
+    end
+
+    restIcon:RegisterEvent("PLAYER_UPDATE_RESTING")
+    restIcon:RegisterEvent("PLAYER_ENTERING_WORLD")
+    restIcon:SetScript("OnEvent", function()
+        restIcon:UpdateResting()
+    end)
+
+    SuppressExternalRestIcons()
+    restIcon:UpdateResting()
+    f.restIcon = restIcon
 
     -- -----------------------------------------------------------------------
     -- CONTAINER DE BARRAS

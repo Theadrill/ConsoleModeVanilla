@@ -50,6 +50,36 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
   - **Página 5 (L2+R2)**: `ALT + SHIFT` (ordem canônica da Blizzard)
 - **Smart Mouse Look & Mouse Mode**: Alternância inteligente entre controle de câmera e modo cursor de mouse via L3 / analógico.
 - **Backup & Restore de Perfil**: Salve e restaure todo o seu layout original de teclado/mouse a qualquer momento (`/cm controller` e `/cm keyboard`).
+- **Cooldown no Action HUD (clusters)**: ícone escurece com animação `swipe` + contador regressivo no centro (esconde GCD ≤1.5s). Ancorado pixel-perfect no ícone (36×36) via `CooldownFrameTemplate` vanilla.
+- **Cooldown em macros `/run` (SuperMacro)**: anote a magia na macro com comentário silencioso `/run -- Nome` (ex: `/run -- Earth Shock`) e o HUD espelha o `GetSpellCooldown` da magia mesmo quando a macro faz `if buff then return end`.
+
+#### ⏳ Cooldown em Macros Complexas (SuperMacro / `/run`)
+
+Macros `/run` que chamam funções do painel **Extended Lua** do SuperMacro (`/run shock()`) não exibem cooldown nativamente. O Action HUD resolve isso lendo um comentário na macro.
+
+**1. Formato obrigatório (silencioso, não gera balão de fala):**
+```lua
+/run -- Earth Shock
+/run shock()
+```
+- Primeira linha **deve** começar com `/` (`/run -- ` ou `/script -- `) + nome exato da magia como no spellbook (`Earth Shock`, `Fireball`, `Lightning Shield`).
+- **NÃO use** `-- Earth Shock` ou `# Earth Shock` crus sem `/` — vanilla envia pro canal `SAY` (gera o balão `-- Earth Shock` visto no teste).
+- Alternativas também capturadas: `# Earth Shock` e `-- Earth Shock` (mantidas por compat, mas fazem SAY).
+
+**2. Exemplo real (`shock()` com buffs):**
+```lua
+/run -- Earth Shock
+/run shock()
+```
+`shock()` pode fazer `DoActiveWeaponBuff()->return`, `IsCurrentAction/Attack`, `UnitBuff` + `GetSpellName` p/ `Lightning Shield` e só em `Cenário 3` `CastSpellByName("Earth Shock")`. O HUD sempre mostra apenas o cooldown de `Earth Shock` (6s), ignorando arma/escudo, via `GetSpellCooldown(id, BOOKTYPE_SPELL)` com cache.
+
+**3. Fluxo:**
+`ABXY pressionado → GetActionText(slot) → GetMacroInfo → body → parse "-- Earth Shock" → GetSpellIdByName → GetSpellCooldown` a cada `0.10s` + `ACTIONBAR_UPDATE_COOLDOWN` → `CooldownFrame_SetTimer` + número central (esconde GCD ≤1.5s).
+
+**4. Dicas:**
+- Nome deve bater exato (`Earth Shock` ≠ `Earth shock` — case-insensitive ok, mas acentos/espaços devem bater).
+- Após editar a macro faça `/reload` (cache `macroSpellCache` limpa em `UPDATE_BINDINGS`/`SPELLS_CHANGED`).
+- Para magias sem cooldown longo use ainda assim — GCD ficará só com swipe sem número.
 
 ---
 

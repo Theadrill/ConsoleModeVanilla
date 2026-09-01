@@ -7126,6 +7126,9 @@ function MainMenu:Hide()
         self:RestorePlayerModel()
         self:ResetMapToPlayer()
         self.frame:Hide()
+        if CM_MouseLookStart and (not IsMouselooking or not IsMouselooking()) then
+            CM_MouseLookStart()
+        end
     end
 end
 

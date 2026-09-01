@@ -297,7 +297,7 @@ CFG.Bags = {
 local NPC_SERVICE_ICONS = {
     ["innkeeper"]   = "Interface\\Icons\\INV_Drink_05",
     ["banker"]      = "Interface\\Icons\\INV_Box_01",
-    ["auctioneer"]  = "Interface\\Icons\\INV_Hammer_05",
+    ["auctioneer"]  = "Interface\\Icons\\INV_Misc_Coin_01",
     ["flight"]      = "Interface\\Icons\\Ability_Mount_Gryphon_01",
     ["repair"]      = "Interface\\Icons\\INV_Hammer_20",
     ["trainer"]     = "Interface\\Icons\\Spell_Holy_BlessingOfProtection",
@@ -5910,7 +5910,7 @@ end
 local NPC_SERVICE_ICONS = {
     ["innkeeper"]   = "Interface\\Icons\\INV_Drink_05",
     ["banker"]      = "Interface\\Icons\\INV_Box_01",
-    ["auctioneer"]  = "Interface\\Icons\\INV_Hammer_05",
+    ["auctioneer"]  = "Interface\\Icons\\INV_Misc_Coin_01",
     ["flight"]      = "Interface\\Icons\\Ability_Mount_Gryphon_01",
     ["repair"]      = "Interface\\Icons\\INV_Hammer_20",
     ["trainer"]     = "Interface\\Icons\\Spell_Holy_BlessingOfProtection",

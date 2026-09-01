@@ -263,6 +263,8 @@ CFG.Grid = {
     maxSlots        = 80,                   -- Capacidade máxima de slots instanciados no pool
     pageSize        = "auto",               -- 'auto' preenche todos os slots que cabem na tela (pagina apenas se exceder)
     emptySlotAlpha  = 0.22,                 -- Opacidade dos slots vazios
+    marginsLeft     = 24,                   -- Margem esquerda do grid para dentro do pergaminho (px)
+    marginsRight    = 24,                   -- Margem direita do grid para dentro do pergaminho (px)
     highlightColor  = { r = 1.0, g = 0.85, b = 0.2, a = 0.95 }, -- Destaque dourado de foco
 }
 
@@ -1738,29 +1740,34 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
     gridFrame.gapY = gapY
     gridFrame.cols = cols
     gridFrame.selectedSlotIndex = 1
+    gridFrame.marginX = (parent and parent.marginX) or 24
+    gridFrame.marginRight = (parent and parent.marginRight) or 24
 
     function gridFrame:GetCapacity()
-        local w = self:GetWidth()
-        local h = self:GetHeight()
-
-        if not w or w < 100 or not h or h < 100 then
-            local gw, gh = MainMenu:GetRightPanelDimensions()
-            w = w or 0
-            h = h or 0
-            if w < 100 then w = gw end
-            if h < 100 then h = gh end
-        end
+        local gw, gh = MainMenu:GetRightPanelDimensions()
+        -- fonte autoritativa: nunca confiar em GetWidth() em cache após QUESTS→SPELLS (WoW 1.12)
+        local w = gw or 400
+        local h = gh or 300
+        if not w or w < 100 then w = gw or 400 end
+        if not h or h < 100 then h = gh or 300 end
 
         local s = self.slotSize or 40
         local minGapX = self.gapX or 6
         local gy = self.gapY or 6
 
-        -- 1. Calcula quantas colunas cabem perfeitamente na largura total
-        local c = math.floor((w + minGapX) / (s + minGapX))
-        while c > 1 and ((c * s) + ((c - 1) * minGapX)) > w do
+        local marginX = self.marginX or 24
+        local marginR = self.marginRight or 24
+        local totalMargin = marginX + marginR
+        local effectiveW = w - totalMargin
+        if effectiveW < 32 then effectiveW = w end
+
+        -- 1. Calcula quantas colunas cabem perfeitamente na largura efetiva
+        local c = math.floor((effectiveW + minGapX) / (s + minGapX))
+        while c > 1 and ((c * s) + ((c - 1) * minGapX)) > effectiveW do
             c = c - 1
         end
         if c < 4 then c = 4 end
+        if c > 11 then c = 11 end
 
         -- 2. Calcula quantas linhas cabem estritamente sem invadir a área de tooltip abaixo
         local maxRows = math.floor((h + gy) / (s + gy))
@@ -1776,37 +1783,48 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
 
     -- Organiza os slots no layout de grade 2D responsivo que preenche a largura e respeita a altura
     function gridFrame:LayoutSlots(visibleCount)
+        local gw0, gh0 = MainMenu:GetRightPanelDimensions()
         local maxFit, c, maxRows = self:GetCapacity()
-
-        local w = self:GetWidth()
-        local h = self:GetHeight()
-        if not w or w < 100 or not h or h < 100 then
-            local gw, gh = MainMenu:GetRightPanelDimensions()
-            w = w or 0
-            h = h or 0
-            if w < 100 then w = gw end
-            if h < 100 then h = gh end
-        end
+        -- re-clamp após GetCapacity (garante w efetivo pós-QUESTS)
+        local w = gw0 or self:GetWidth() or 400
+        local h = gh0 or self:GetHeight() or 300
+        gw0 = gw0 or 400; gh0 = gh0 or 300
+        if not w or w < 100 or w > gw0 + 4 then w = gw0 end
+        if not h or h < 100 or h > gh0 + 4 then h = gh0 end
+        if w > gw0 then w = gw0 end
+        if h > gh0 then h = gh0 end
 
         local s = self.slotSize or 40
         local minGapX = self.gapX or 6
         local gy = self.gapY or 6
 
-        -- Garante que o número de colunas não estoure a largura
-        while c > 1 and ((c * s) + ((c - 1) * minGapX)) > w do
+        local marginX = self.marginX or 24
+        local marginR = self.marginRight or 24
+        local totalMargin = marginX + marginR
+        local effectiveW = w - totalMargin
+        if effectiveW < 32 then effectiveW = w end
+
+        while c > 1 and (c * s + ((c - 1) * minGapX)) > effectiveW do
             c = c - 1
         end
         if c < 1 then c = 1 end
 
-        -- Distribui o gap horizontal de ponta a ponta sem estourar a borda direita
         local gx = minGapX
         if c > 1 then
-            gx = math.floor((w - (c * s)) / (c - 1))
+            gx = math.floor((effectiveW - (c * s)) / (c - 1))
             if gx < minGapX then gx = minGapX end
-            if ((c - 1) * (s + gx) + s) > w then
-                gx = math.floor((w - (c * s)) / (c - 1))
+            local totalWid = (c * s) + ((c - 1) * gx)
+            if totalWid > effectiveW then
+                gx = math.floor((effectiveW - (c * s)) / (c - 1))
             end
             if gx < 2 then gx = 2 end
+            -- trava final: nunca deixar última coluna encostar no 9-slice
+            if ((c * s) + ((c - 1) * gx) + totalMargin) > w then
+                while c > 1 and ((c * s) + ((c - 1) * minGapX) + totalMargin) > w do c = c - 1 end
+                gx = minGapX
+                if c > 1 then gx = math.floor((effectiveW - (c * s)) / (c - 1)) end
+                if gx < 2 then gx = 2 end
+            end
         end
 
         local limit = visibleCount or maxFit
@@ -1817,7 +1835,7 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
             if i <= limit then
                 local colIdx = math.mod(i - 1, c)
                 local rowIdx = math.floor((i - 1) / c)
-                local posX = colIdx * (s + gx)
+                local posX = (self.marginX or 24) + colIdx * (s + gx)
                 local posY = -(rowIdx * (s + gy))
 
                 slot:ClearAllPoints()
@@ -2179,17 +2197,18 @@ end
 function MainMenu:SetupBagsPage(pageBags)
     if pageBags.isInitialized then return end
 
-    -- 1. Barra de Cabeçalho / Filtros de Categoria (APENAS as abas com [L2] / [R2])
+-- 1. Barra de Cabeçalho / Filtros de Categoria (APENAS as abas com [L2] / [R2])
     local headerBar = CreateFrame("Frame", "ConsoleModeMM_BagsHeader", pageBags)
     headerBar:SetHeight(32)
+    local headerMarginX = 24
     headerBar:SetPoint("TOPLEFT", pageBags, "TOPLEFT", 0, 0)
-    headerBar:SetPoint("TOPRIGHT", pageBags, "TOPRIGHT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", pageBags, "TOPRIGHT", -headerMarginX, 0)
 
     -- Indicador RT à direita
     local r2Hint = headerBar:CreateTexture(nil, "OVERLAY")
     r2Hint:SetWidth(20)
     r2Hint:SetHeight(20)
-    r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
+    r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", -4, 0)
     r2Hint:SetTexture(CFG.Icons.RT)
     pageBags.r2Hint = r2Hint
 
@@ -2325,8 +2344,12 @@ function MainMenu:SetupBagsPage(pageBags)
 
     -- 4. Container e Grid 2D de Slots de Itens (fica acima da paginação e tooltip)
     local gridContainer = CreateFrame("Frame", "ConsoleModeMM_BagsGridContainer", pageBags)
+    local rightMargin = CFG.Grid.marginsRight or 24
+    local leftMargin = CFG.Grid.marginsLeft or 24
     gridContainer:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -8)
     gridContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 30)
+    gridContainer.marginX = leftMargin
+    gridContainer.marginRight = rightMargin
 
     local grid = self:CreateGrid(gridContainer, 80, CFG.Grid)
     pageBags.grid = grid
@@ -2548,14 +2571,15 @@ function MainMenu:SetupSpellsPage(pageSpells)
     -- 1. Barra de Cabeçalho / Abas do Grimório com [L2] e [R2]
     local headerBar = CreateFrame("Frame", "ConsoleModeMM_SpellsHeader", pageSpells)
     headerBar:SetHeight(32)
+    local headerMarginX = 24
     headerBar:SetPoint("TOPLEFT", pageSpells, "TOPLEFT", 0, 0)
-    headerBar:SetPoint("TOPRIGHT", pageSpells, "TOPRIGHT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", pageSpells, "TOPRIGHT", -headerMarginX, 0)
 
     -- Indicador RT à direita
     local r2Hint = headerBar:CreateTexture(nil, "OVERLAY")
     r2Hint:SetWidth(20)
     r2Hint:SetHeight(20)
-    r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", 0, 0)
+    r2Hint:SetPoint("RIGHT", headerBar, "RIGHT", -4, 0)
     r2Hint:SetTexture(CFG.Icons.RT)
     pageSpells.r2Hint = r2Hint
     pageSpells.headerBar = headerBar
@@ -2621,10 +2645,14 @@ function MainMenu:SetupSpellsPage(pageSpells)
     pageSpells.nextPageBtn = nextPageBtn
     pageSpells.pageNav = pageNav
 
-    -- 4. Container e Grid 2D de Slots de Magias
+-- 4. Container e Grid 2D de Slots de Magias
     local gridContainer = CreateFrame("Frame", "ConsoleModeMM_SpellsGridContainer", pageSpells)
+    local rightMargin = CFG.Grid.marginsRight or 24
+    local leftMargin = CFG.Grid.marginsLeft or 24
     gridContainer:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -8)
     gridContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 30)
+    gridContainer.marginX = leftMargin
+    gridContainer.marginRight = rightMargin
 
     local grid = self:CreateGrid(gridContainer, 80, CFG.Grid)
     pageSpells.grid = grid
@@ -6832,7 +6860,7 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
 
     container.currentTab = tabID
 
-    -- Se abriu a aba de Bolsas ou Magias, alterna o modelo 3D correspondente e atualiza o grid
+-- Se abriu a aba de Bolsas ou Magias, alterna o modelo 3D correspondente e atualiza o grid
     local facing = self.currentFacing or 0
     if tabID == "QUESTS" then
         if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.EnterMapMode then
@@ -6847,6 +6875,7 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             self.frame.rightPanel:SetPoint("TOPLEFT", self.frame, "TOPLEFT", CFG.LeftPanel.paddingLeft, CFG.RightPanel.paddingTop)
             self.frame.rightPanel:SetPoint("BOTTOMRIGHT", self.frame, "BOTTOMRIGHT", CFG.RightPanel.paddingRight, CFG.RightPanel.paddingBottom)
         end
+        self:UpdateLayout()
         self:RestorePlayerModel()
         self:UpdateQuestsPage()
     else
@@ -6867,6 +6896,9 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             self.frame.rightPanel:SetPoint("LEFT", self.frame.leftPanel, "RIGHT", CFG.RightPanel.gapX, 0)
         end
 
+        -- Sincroniza o layout antes de atualizar a página (WoW 1.12 precisa de UpdateLayout após SetPoint)
+        self:UpdateLayout()
+
         if tabID == "BAGS" then
             if self.animModel then self.animModel:Hide() end
             if self.dressUpModel then
@@ -6874,7 +6906,10 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
                 if self.dressUpModel.SetFacing then self.dressUpModel:SetFacing(facing) end
             end
             self.playerModel = self.dressUpModel
+            self.currentSpellPose = 0
             self:UpdateBagsPage()
+            -- re-layout no próximo frame para corrigir cache stale na 2ª troca QUESTS->BAGS (Vanilla 1.12)
+            do local f=CreateFrame("Frame",nil,self.frame); f.t=0; f:SetScript("OnUpdate", function() this.t=this.t+arg1; if this.t>0.05 then this:SetScript("OnUpdate",nil); if MainMenu.frame and MainMenu.frame:IsVisible() and MainMenu.tabContainer and MainMenu.tabContainer.currentTab=="BAGS" then MainMenu:UpdateLayout(); MainMenu:UpdateBagsPage(true); end end end) end
         elseif tabID == "SPELLS" then
             if self.dressUpModel then self.dressUpModel:Hide() end
             if self.animModel then
@@ -6886,8 +6921,11 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             self.playerModel = self.animModel
             self.currentSpellPose = 0
             self:UpdateSpellsPage()
+            -- re-layout no próximo frame para corrigir cache stale na 2ª troca QUESTS->SPELLS (Vanilla 1.12)
+            do local f=CreateFrame("Frame",nil,self.frame); f.t=0; f:SetScript("OnUpdate", function() this.t=this.t+arg1; if this.t>0.05 then this:SetScript("OnUpdate",nil); if MainMenu.frame and MainMenu.frame:IsVisible() and MainMenu.tabContainer and MainMenu.tabContainer.currentTab=="SPELLS" then MainMenu:UpdateLayout(); MainMenu:UpdateSpellsPage(true); end end end) end
         elseif tabID == "SYSTEM" then
             self:RestorePlayerModel()
+            self:UpdateLayout()
             self:UpdateSystemPage()
         else
             self:RestorePlayerModel()

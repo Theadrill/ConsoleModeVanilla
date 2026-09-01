@@ -289,6 +289,16 @@ CFG.Bags = {
     }
 }
 
+CFG.MapNPCIcons = {
+    INNKEEPER = "Interface\\Icons\\INV_Drink_05",
+    FLIGHT_MASTER = "Interface\\Icons\\Ability_Mount_Gryphon_01",
+    BANKER = "Interface\\Icons\\INV_Box_01",
+    AUCTIONEER = "Interface\\Icons\\INV_Hammer_05",
+    CLASS_TRAINER = "Interface\\Icons\\Spell_Holy_BlessingOfProtection",
+    PROFESSION_TRAINER = "Interface\\Icons\\Trade_Engineering",
+    REPAIR = "Interface\\Icons\\INV_Hammer_20",
+}
+
 -- ----------------------------------------------------------------------------
 -- 6.5. SUB-ABAS DE SISTEMA E CONFIGURAÇÕES (FASE 8)
 -- ----------------------------------------------------------------------------
@@ -3017,6 +3027,10 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapCanvas.pfPins = {}
     mapCanvas.pfPinCount = 0
 
+    -- 5.2. Pool de Pins de NPCs Essenciais (Innkeeper, Flight Master, Banker, etc.) de pfDB
+    mapCanvas.npcPins = {}
+    mapCanvas.npcPinCount = 0
+
     -- Interações de Zoom por Roda do Mouse e Pan por Clique e Arraste (Estilo Carbonite)
     mapScrollFrame:SetScript("OnMouseWheel", function()
         if arg1 > 0 then
@@ -3120,6 +3134,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     MainMenu:UpdateMapTextures(this)
                     MainMenu:UpdateMapOverlays(this)
                     MainMenu:UpdatePfQuestPins(this)
+                    MainMenu:UpdateNPCServicePins(this)
                 end
             end
             this.pfElapsed = (this.pfElapsed or 0) + 0.033
@@ -3127,6 +3142,9 @@ function MainMenu:SetupQuestsPage(pageQuests)
                 this.pfElapsed = 0
                 if MainMenu and MainMenu.UpdatePfQuestPins then
                     MainMenu:UpdatePfQuestPins(this)
+                end
+                if MainMenu and MainMenu.UpdateNPCServicePins then
+                    MainMenu:UpdateNPCServicePins(this)
                 end
             end
         end
@@ -3549,6 +3567,7 @@ function MainMenu:UpdateQuestsPage()
         self:UpdateMapOverlays(pageQuests.mapPanel.canvas)
         self:UpdateMapPlayerPosition(pageQuests.mapPanel.canvas)
         self:UpdatePfQuestPins(pageQuests.mapPanel.canvas)
+        self:UpdateNPCServicePins(pageQuests.mapPanel.canvas)
     end
 
     if pageQuests.mapPanel and pageQuests.mapPanel.zoneTitle then
@@ -4979,6 +4998,7 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
     end
     if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
         self:UpdatePfQuestPins(self.tabContainer.pages["QUESTS"].mapPanel.canvas)
+        self:UpdateNPCServicePins(self.tabContainer.pages["QUESTS"].mapPanel.canvas)
     end
 end
 
@@ -5788,6 +5808,145 @@ function MainMenu:UpdatePfQuestPins(mapCanvas)
     for i = pinIdx, maxPins do
         if mapCanvas.pfPins[i] then mapCanvas.pfPins[i]:Hide() end
     end
+    if self.UpdateNPCServicePins then
+        self:UpdateNPCServicePins(mapCanvas)
+    end
+end
+
+function MainMenu:UpdateNPCServicePins(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer then return end
+    if not pfDB or not pfDB.units or not pfDB.units.data then return end
+    if not mapCanvas.npcPins then
+        mapCanvas.npcPins = {}
+    end
+
+    local file = mapCanvas.currentMapFile or self:GetCurrentMapFileName()
+    local playerFaction = UnitFactionGroup("player")
+    if not playerFaction then
+        playerFaction = "Alliance"
+        if UnitLevel("player") > 10 then
+            local race = UnitRace("player")
+            if race == "Orc" or race == "Undead" or race == "Tauren" or race == "Troll" then
+                playerFaction = "Horde"
+            end
+        end
+    end
+
+    local factionMap = {
+        ["Alliance"] = "A",
+        ["Horde"] = "H",
+    }
+    local playerFacCode = factionMap[playerFaction] or "A"
+
+    local scale = mapCanvas.currentScale or 0.5
+    local effW = 1002 * scale
+    local effH = 668 * scale
+
+    local visibleNPCs = {}
+    for npcID, npcData in pairs(pfDB.units.data or {}) do
+        if npcData.coords then
+            local coords = npcData.coords
+            local npcFac = npcData.fac or "AH"
+            if npcFac == "AH" or npcFac == playerFacCode then
+                if type(coords) == "table" then
+                    for _, coordPair in ipairs(coords) do
+                        if coordPair and coordPair[1] and coordPair[2] then
+                            local zoneID = coordPair[3]
+                            local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+                            if not zoneID or zoneID == currentZone then
+                                local x = tonumber(coordPair[1]) or 0
+                                local y = tonumber(coordPair[2]) or 0
+                                if x > 0 and y > 0 then
+                                    local npcName = ""
+                                    if pfDB.units.ptBR and pfDB.units.ptBR[npcID] then
+                                        npcName = pfDB.units.ptBR[npcID]
+                                    elseif pfDB.units.enUS and pfDB.units.enUS[npcID] then
+                                        npcName = pfDB.units.enUS[npcID]
+                                    elseif pfDB.units and pfDB.units[npcID] then
+                                        npcName = pfDB.units[npcID]
+                                    end
+
+                                    if npcName and npcName ~= "" then
+                                        table.insert(visibleNPCs, {
+                                            id = npcID,
+                                            name = npcName,
+                                            x = x,
+                                            y = y,
+                                            fac = npcFac,
+                                        })
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local pinIdx = 1
+    local maxNPCPins = 50
+
+    for i = 1, table.getn(visibleNPCs) do
+        if pinIdx > maxNPCPins then break end
+        local npcInfo = visibleNPCs[i]
+        if not npcInfo then break end
+
+        local pin = mapCanvas.npcPins[pinIdx]
+        if not pin then
+            pin = CreateFrame("Frame", "ConsoleModeMM_NPCPin" .. pinIdx, mapCanvas.tilesContainer)
+            pin:SetWidth(18)
+            pin:SetHeight(18)
+            pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 6)
+
+            local icon = pin:CreateTexture(nil, "OVERLAY")
+            icon:SetAllPoints(pin)
+            pin.icon = icon
+
+            local border = CreateFrame("Frame", nil, pin)
+            border:SetPoint("TOPLEFT", pin, "TOPLEFT", -2, 2)
+            border:SetPoint("BOTTOMRIGHT", pin, "BOTTOMRIGHT", 2, -2)
+            border:SetBackdrop({
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                edgeSize = 8,
+                insets = { left = 1, right = 1, top = 1, bottom = 1 }
+            })
+            border:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.8)
+            pin.border = border
+
+            pin.tooltipAnchor = CreateFrame("Frame", nil, pin)
+            pin.tooltipAnchor:SetAllPoints(pin)
+            pin:SetScript("OnEnter", function()
+                if GameTooltip then
+                    GameTooltip:SetOwner(this.tooltipAnchor, "ANCHOR_RIGHT", 0, 0)
+                    GameTooltip:AddLine(npcInfo.name, 1, 0.85, 0.2)
+                    GameTooltip:AddLine(npcInfo.id, 0.8, 0.8, 0.8)
+                    GameTooltip:Show()
+                end
+            end)
+            pin:SetScript("OnLeave", function()
+                if GameTooltip then GameTooltip:Hide() end
+            end)
+
+            mapCanvas.npcPins[pinIdx] = pin
+        end
+
+        if pin then
+            local px = npcInfo.x / 100 * effW
+            local py = npcInfo.y / 100 * effH
+            pin:ClearAllPoints()
+            pin:SetPoint("CENTER", mapCanvas.tilesContainer, "TOPLEFT", px, -py)
+            pin.id = npcInfo.id
+            pin.name = npcInfo.name
+            pin.fac = npcInfo.fac
+            pin:Show()
+            pinIdx = pinIdx + 1
+        end
+    end
+
+    for i = pinIdx, maxNPCPins do
+        if mapCanvas.npcPins[i] then mapCanvas.npcPins[i]:Hide() end
+    end
 end
 
 function MainMenu:HookPfQuest()
@@ -5799,6 +5958,7 @@ function MainMenu:HookPfQuest()
         local res = orig()
         if MainMenu and MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"] and MainMenu.tabContainer.pages["QUESTS"].mapPanel and MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas then
             MainMenu:UpdatePfQuestPins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)
+            MainMenu:UpdateNPCServicePins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)
         end
         return res
     end
@@ -5867,6 +6027,7 @@ function MainMenu:MapZoomStep(delta)
     self:UpdateMapOverlays(mapCanvas)
     self:UpdateMapPlayerPosition(mapCanvas)
     self:UpdatePfQuestPins(mapCanvas)
+    self:UpdateNPCServicePins(mapCanvas)
     PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
@@ -7185,6 +7346,7 @@ initFrame:SetScript("OnEvent", function()
             if MainMenu.HookPfQuest then MainMenu:HookPfQuest() end
             if MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"] and MainMenu.tabContainer.pages["QUESTS"].mapPanel and MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas then
                 MainMenu:UpdatePfQuestPins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)
+                MainMenu:UpdateNPCServicePins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)
             end
         end
     elseif event == "DISPLAY_SIZE_CHANGED" then

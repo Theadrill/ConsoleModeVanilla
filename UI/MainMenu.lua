@@ -289,14 +289,27 @@ CFG.Bags = {
     }
 }
 
-CFG.MapNPCIcons = {
-    INNKEEPER = "Interface\\Icons\\INV_Drink_05",
-    FLIGHT_MASTER = "Interface\\Icons\\Ability_Mount_Gryphon_01",
-    BANKER = "Interface\\Icons\\INV_Box_01",
-    AUCTIONEER = "Interface\\Icons\\INV_Hammer_05",
-    CLASS_TRAINER = "Interface\\Icons\\Spell_Holy_BlessingOfProtection",
-    PROFESSION_TRAINER = "Interface\\Icons\\Trade_Engineering",
-    REPAIR = "Interface\\Icons\\INV_Hammer_20",
+-- ----------------------------------------------------------------------------
+-- 6.4.1. Ícones de NPCs Serviços para pfDB (Innkeeper, Flight, Bank, etc.)
+-- ----------------------------------------------------------------------------
+local NPC_SERVICE_ICONS = {
+    ["innkeeper"]   = "Interface\\Icons\\INV_Drink_05",
+    ["banker"]      = "Interface\\Icons\\INV_Box_01",
+    ["auctioneer"]  = "Interface\\Icons\\INV_Hammer_05",
+    ["flight"]      = "Interface\\Icons\\Ability_Mount_Gryphon_01",
+    ["repair"]      = "Interface\\Icons\\INV_Hammer_20",
+    ["trainer"]     = "Interface\\Icons\\Spell_Holy_BlessingOfProtection",
+    ["profession"]  = "Interface\\Icons\\Trade_Engineering",
+}
+
+local NPC_SERVICE_NAMES = {
+    ["innkeeper"]   = "Estalajadeiro",
+    ["banker"]      = "Banqueiro",
+    ["auctioneer"]  = "Leiloeiro",
+    ["flight"]      = "Mestre de Voo",
+    ["repair"]      = "Armeiro / Reparo",
+    ["trainer"]     = "Instrutor de Classe",
+    ["profession"]  = "Instrutor de Profissão",
 }
 
 -- ----------------------------------------------------------------------------
@@ -5813,70 +5826,85 @@ function MainMenu:UpdatePfQuestPins(mapCanvas)
     end
 end
 
+local NPC_SERVICE_ICONS = {
+    ["innkeeper"]   = "Interface\\Icons\\INV_Drink_05",
+    ["banker"]      = "Interface\\Icons\\INV_Box_01",
+    ["auctioneer"]  = "Interface\\Icons\\INV_Hammer_05",
+    ["flight"]      = "Interface\\Icons\\Ability_Mount_Gryphon_01",
+    ["repair"]      = "Interface\\Icons\\INV_Hammer_20",
+    ["trainer"]     = "Interface\\Icons\\Spell_Holy_BlessingOfProtection",
+    ["profession"]  = "Interface\\Icons\\Trade_Engineering",
+}
+
+local NPC_SERVICE_NAMES = {
+    ["innkeeper"]   = "Estalajadeiro",
+    ["banker"]      = "Banqueiro",
+    ["auctioneer"]  = "Leiloeiro",
+    ["flight"]      = "Mestre de Voo",
+    ["repair"]      = "Armeiro / Reparo",
+    ["trainer"]     = "Instrutor de Classe",
+    ["profession"]  = "Instrutor de Profissão",
+}
+
+function MainMenu:GetPfQuestCurrentZoneID()
+    if pfMap and pfMap.GetMapID then
+        local zid = pfMap:GetMapID(GetCurrentMapContinent(), GetCurrentMapZone())
+        if zid and zid > 0 then return zid end
+    end
+    if pfDB and pfDB.zones and pfDB.zones.loc then
+        local zoneText = (GetZoneText and GetZoneText()) or (GetRealZoneText and GetRealZoneText()) or ""
+        for id, name in pairs(pfDB.zones.loc) do
+            if name == zoneText then return id end
+        end
+    end
+    return nil
+end
+
 function MainMenu:UpdateNPCServicePins(mapCanvas)
     if not mapCanvas or not mapCanvas.tilesContainer then return end
-    if not pfDB or not pfDB.units or not pfDB.units.data then return end
+    if not pfDB or not pfDB.units or not pfDB.units.data or not pfDB.meta then return end
     if not mapCanvas.npcPins then
         mapCanvas.npcPins = {}
     end
 
-    local file = mapCanvas.currentMapFile or self:GetCurrentMapFileName()
-    local playerFaction = UnitFactionGroup("player")
-    if not playerFaction then
-        playerFaction = "Alliance"
-        if UnitLevel("player") > 10 then
-            local race = UnitRace("player")
-            if race == "Orc" or race == "Undead" or race == "Tauren" or race == "Troll" then
-                playerFaction = "Horde"
-            end
-        end
+    local currentZoneID = self:GetPfQuestCurrentZoneID()
+    if not currentZoneID then
+        for _, pin in ipairs(mapCanvas.npcPins) do pin:Hide() end
+        return
     end
 
-    local factionMap = {
-        ["Alliance"] = "A",
-        ["Horde"] = "H",
-    }
-    local playerFacCode = factionMap[playerFaction] or "A"
+    local playerFaction = UnitFactionGroup("player") or "Horde"
+    local playerFacCode = (playerFaction == "Alliance" and "A") or "H"
 
     local scale = mapCanvas.currentScale or 0.5
     local effW = 1002 * scale
     local effH = 668 * scale
 
-    local visibleNPCs = {}
-    for npcID, npcData in pairs(pfDB.units.data or {}) do
-        if npcData.coords then
-            local coords = npcData.coords
-            local npcFac = npcData.fac or "AH"
-            if npcFac == "AH" or npcFac == playerFacCode then
-                if type(coords) == "table" then
-                    for _, coordPair in ipairs(coords) do
-                        if coordPair and coordPair[1] and coordPair[2] then
-                            local zoneID = coordPair[3]
-                            local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
-                            if not zoneID or zoneID == currentZone then
-                                local x = tonumber(coordPair[1]) or 0
-                                local y = tonumber(coordPair[2]) or 0
-                                if x > 0 and y > 0 then
-                                    local npcName = ""
-                                    if pfDB.units.ptBR and pfDB.units.ptBR[npcID] then
-                                        npcName = pfDB.units.ptBR[npcID]
-                                    elseif pfDB.units.enUS and pfDB.units.enUS[npcID] then
-                                        npcName = pfDB.units.enUS[npcID]
-                                    elseif pfDB.units and pfDB.units[npcID] then
-                                        npcName = pfDB.units[npcID]
-                                    end
+    local visiblePins = {}
 
-                                    if npcName and npcName ~= "" then
-                                        table.insert(visibleNPCs, {
-                                            id = npcID,
-                                            name = npcName,
-                                            x = x,
-                                            y = y,
-                                            fac = npcFac,
-                                        })
-                                    end
-                                end
-                            end
+    local function ProcessCategory(catList, catType)
+        if not catList then return end
+        for npcID, fac in pairs(catList) do
+            if fac == "AH" or fac == playerFacCode or fac == 0 or fac == "0" then
+                local uData = pfDB.units.data[npcID]
+                if uData and uData.coords then
+                    for _, coord in ipairs(uData.coords) do
+                        if coord[3] == currentZoneID then
+                            local x, y = coord[1], coord[2]
+                            local npcName = (pfDB.units.ptBR and pfDB.units.ptBR[npcID]) or
+                                            (pfDB.units.enUS and pfDB.units.enUS[npcID]) or
+                                            (pfDB.units[GetLocale()] and pfDB.units[GetLocale()][npcID]) or
+                                            "NPC"
+
+                            table.insert(visiblePins, {
+                                id = npcID,
+                                name = npcName,
+                                x = x,
+                                y = y,
+                                cat = catType,
+                                icon = NPC_SERVICE_ICONS[catType] or "Interface\\Icons\\INV_Misc_QuestionMark",
+                                role = NPC_SERVICE_NAMES[catType] or "Serviço",
+                            })
                         end
                     end
                 end
@@ -5884,43 +5912,55 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
         end
     end
 
-    local pinIdx = 1
-    local maxNPCPins = 50
+    ProcessCategory(pfDB.meta["innkeeper"], "innkeeper")
+    ProcessCategory(pfDB.meta["banker"], "banker")
+    ProcessCategory(pfDB.meta["auctioneer"], "auctioneer")
+    ProcessCategory(pfDB.meta["flight"], "flight")
+    ProcessCategory(pfDB.meta["repair"], "repair")
+    ProcessCategory(pfDB.meta["trainer"], "trainer")
 
-    for i = 1, table.getn(visibleNPCs) do
-        if pinIdx > maxNPCPins then break end
-        local npcInfo = visibleNPCs[i]
-        if not npcInfo then break end
+    if pfDB.professions then
+        for profName, profList in pairs(pfDB.professions) do
+            ProcessCategory(profList, "profession")
+        end
+    end
+
+    local maxPins = 60
+    local pinIdx = 1
+
+    for i = 1, table.getn(visiblePins) do
+        if pinIdx > maxPins then break end
+        local pinData = visiblePins[i]
 
         local pin = mapCanvas.npcPins[pinIdx]
         if not pin then
-            pin = CreateFrame("Frame", "ConsoleModeMM_NPCPin" .. pinIdx, mapCanvas.tilesContainer)
+            pin = CreateFrame("Button", "ConsoleModeMM_NPCPin" .. pinIdx, mapCanvas.tilesContainer)
             pin:SetWidth(18)
             pin:SetHeight(18)
-            pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 6)
+            pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 10)
 
-            local icon = pin:CreateTexture(nil, "OVERLAY")
+            local icon = pin:CreateTexture(nil, "ARTWORK")
             icon:SetAllPoints(pin)
+            icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
             pin.icon = icon
 
             local border = CreateFrame("Frame", nil, pin)
-            border:SetPoint("TOPLEFT", pin, "TOPLEFT", -2, 2)
-            border:SetPoint("BOTTOMRIGHT", pin, "BOTTOMRIGHT", 2, -2)
+            border:SetPoint("TOPLEFT", pin, "TOPLEFT", -1, 1)
+            border:SetPoint("BOTTOMRIGHT", pin, "BOTTOMRIGHT", 1, -1)
             border:SetBackdrop({
                 edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
                 edgeSize = 8,
                 insets = { left = 1, right = 1, top = 1, bottom = 1 }
             })
-            border:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.8)
+            border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9)
             pin.border = border
 
-            pin.tooltipAnchor = CreateFrame("Frame", nil, pin)
-            pin.tooltipAnchor:SetAllPoints(pin)
             pin:SetScript("OnEnter", function()
-                if GameTooltip then
-                    GameTooltip:SetOwner(this.tooltipAnchor, "ANCHOR_RIGHT", 0, 0)
-                    GameTooltip:AddLine(npcInfo.name, 1, 0.85, 0.2)
-                    GameTooltip:AddLine(npcInfo.id, 0.8, 0.8, 0.8)
+                if this.pinData and GameTooltip then
+                    GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
+                    GameTooltip:AddLine(this.pinData.name, 1, 0.85, 0.2)
+                    GameTooltip:AddLine(this.pinData.role, 1, 1, 1)
+                    GameTooltip:AddLine(string.format("|cff888888Coordenadas: %.1f, %.1f|r", this.pinData.x, this.pinData.y))
                     GameTooltip:Show()
                 end
             end)
@@ -5931,20 +5971,23 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             mapCanvas.npcPins[pinIdx] = pin
         end
 
-        if pin then
-            local px = npcInfo.x / 100 * effW
-            local py = npcInfo.y / 100 * effH
-            pin:ClearAllPoints()
-            pin:SetPoint("CENTER", mapCanvas.tilesContainer, "TOPLEFT", px, -py)
-            pin.id = npcInfo.id
-            pin.name = npcInfo.name
-            pin.fac = npcInfo.fac
-            pin:Show()
-            pinIdx = pinIdx + 1
+        pin.pinData = pinData
+        pin.icon:SetTexture(pinData.icon)
+
+        if pinData.cat == "flight" and playerFacCode == "H" then
+            pin.icon:SetTexture("Interface\\Icons\\Ability_Mount_Wyvern_01")
         end
+
+        local px = (pinData.x / 100) * effW
+        local py = (pinData.y / 100) * effH
+        pin:ClearAllPoints()
+        pin:SetPoint("CENTER", mapCanvas.tilesContainer, "TOPLEFT", px, -py)
+        pin:Show()
+
+        pinIdx = pinIdx + 1
     end
 
-    for i = pinIdx, maxNPCPins do
+    for i = pinIdx, maxPins do
         if mapCanvas.npcPins[i] then mapCanvas.npcPins[i]:Hide() end
     end
 end

@@ -372,6 +372,20 @@ function Cursor:IsInteractive(frame)
     if not frame then return false end
     if not frame:IsVisible() then return false end
     if self:IsMacroFrame(frame) then return false end
+
+    -- Desativa navegação em pins/icons dentro do mapa
+    do
+        local pp = frame:GetParent()
+        local dd = 0
+        while pp and dd < 4 do
+            local ppn = pp:GetName() or ""
+            if ppn == "ConsoleModeMM_MapTilesContainer" or ppn == "ConsoleModeMM_MapCanvas" then
+                return false
+            end
+            pp = pp:GetParent()
+            dd = dd + 1
+        end
+    end
     
     local fname = frame:GetName() or ""
     if fname == "WorldMapButton" or fname == "WorldMapFrame" then
@@ -439,11 +453,30 @@ local ignorePatterns = {
     "^MacroPopup",
     "^SuperMacro",
     "^SM_",
+    -- Pins do mapa (não devem receber snap do cursor)
+    "^ConsoleModeMM_NPCPin",
+    "^ConsoleModeMM_MapPartyPin",
+    "^ConsoleModeMM_MapPlayerPin",
+    "^ConsoleModePfPin",
+    "^ConsoleModeMM_ZonePin",
+    "^ConsoleModeMM_MapTile",
 }
 
 function Cursor:ShouldIgnore(frame)
     if not frame then return false end
     if self:IsMacroFrame(frame) then return true end
+
+    -- Ignora qualquer pin dentro do canvas do mapa (mesmo sem nome)
+    local p = frame:GetParent()
+    local depth = 0
+    while p and depth < 4 do
+        local pn = p:GetName() or ""
+        if pn == "ConsoleModeMM_MapTilesContainer" or pn == "ConsoleModeMM_MapCanvas" then
+            return true
+        end
+        p = p:GetParent()
+        depth = depth + 1
+    end
 
     local name = frame:GetName()
     if not name then return false end

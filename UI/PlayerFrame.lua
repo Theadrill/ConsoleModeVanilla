@@ -2,9 +2,11 @@
     ConsoleMode - Vanilla
     UI/PlayerFrame.lua - Player Frame Console HUD
 
-    Layout:
-      [Portrait]  [  HP bar  ] [  Castbar  ] [ Resource  ]
-      [  Crest ]  [          ] [           ] [◆ ◆ ◇ ◇ ◇ ]
+    Layout (3 Linhas x 3 Colunas):
+      Linha 1 (Topo): [        ] [ BreathBar ] [          ]
+      Linha 2 (Meio): [ HP bar ] [  Castbar  ] [ Resource ]
+      Linha 3 (Base): [        ] [ Combo Pts ] [          ]
+      [Portrait] esquerda, [Crest] abaixo do portrait
 
     - Portrait quadrado à esquerda
     - Crest da classe ancorada abaixo do portrait com o nome sobre ela
@@ -119,10 +121,22 @@ CFG.Crest = {
 CFG.Bars = {
     height      = 16,    -- altura uniforme de todas as barras (px)
     colGap      = 6,     -- espaço entre colunas (px)
+    rowGap      = 6,     -- espaço vertical entre Linha 1 (Breath) e Linha 2 (HP/Cast/Recurso) (px)
 
     col1Width   = 140,   -- largura da barra de HP        (px)
     col2Width   = 140,   -- largura da castbar             (px)
     col3Width   = 140,   -- largura da barra de recurso    (px)
+}
+
+-- ----------------------------------------------------------------------------
+-- BARRA DE RESPIRACAO (Linha 1, Coluna 2 — so visivel submerso)
+-- Barra azul de agua que aparece quando MIRROR_TIMER BREATH inicia.
+-- ----------------------------------------------------------------------------
+CFG.Breath = {
+    color     = { r = 0.0, g = 0.55, b = 1.0, a = 1.0 },  -- azul agua
+    textFont  = "GameFontHighlightSmall",
+    textSize  = nil,
+    textColor = { r = 1.0, g = 1.0, b = 1.0 },
 }
 
 -- ----------------------------------------------------------------------------
@@ -503,6 +517,53 @@ function PF:Initialize()
     barsContainer:SetFrameLevel(f:GetFrameLevel() + 1)
     f.barsContainer = barsContainer
 
+    -- -----------------------------------------------------------------------
+    -- LINHA 1 — BARRA DE RESPIRACAO (BreathBar) — Coluna 2 Centro, acima da Linha 2
+    -- Largura = col2Width, altura = CFG.Bars.height, gap vertical = CFG.Bars.rowGap
+    -- Inicia oculta, aparece apenas ao nadar submerso (MIRROR_TIMER BREATH).
+    -- -----------------------------------------------------------------------
+    local breathBar = CreateFrame("StatusBar", "ConsoleModePlayerBreathBar", f)
+    breathBar:SetWidth(CFG.Bars.col2Width)
+    breathBar:SetHeight(CFG.Bars.height)
+    breathBar:SetPoint("BOTTOMLEFT", barsContainer, "TOPLEFT", col2X, CFG.Bars.rowGap)
+    breathBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+    breathBar:SetStatusBarColor(CFG.Breath.color.r, CFG.Breath.color.g, CFG.Breath.color.b, CFG.Breath.color.a)
+    breathBar:SetMinMaxValues(0, 1)
+    breathBar:SetValue(1)
+    breathBar:SetFrameLevel(barsContainer:GetFrameLevel() + 1)
+    breathBar:Hide()
+    breathBar.value = 0
+    breathBar.maxValue = 1
+    breathBar.scale = 1
+    breathBar.paused = 0
+
+    local breathText = breathBar:CreateFontString(nil, "OVERLAY", CFG.Breath.textFont)
+    breathText:SetPoint("CENTER", breathBar, "CENTER", 0, 0)
+    if CFG.Breath.textSize then
+        local fontPath = breathText:GetFont()
+        breathText:SetFont(fontPath, CFG.Breath.textSize)
+    end
+    breathText:SetTextColor(CFG.Breath.textColor.r, CFG.Breath.textColor.g, CFG.Breath.textColor.b)
+    breathText:SetText("")
+    breathBar.text = breathText
+    f.breathBar = breathBar
+
+    breathBar:SetScript("OnUpdate", function()
+        if not this:IsVisible() then return end
+        if this.paused and this.paused == 1 then return end
+        local elapsed = arg1 or 0.016
+        this.value = this.value - elapsed
+        if this.value <= 0 then
+            this.value = 0
+            this:SetValue(0)
+            this:Hide()
+            return
+        end
+        this:SetValue(this.value)
+        local secs = math.ceil(this.value)
+        this.text:SetText("Respiracao " .. secs .. "s")
+    end)
+
 
 
     -- -----------------------------------------------------------------------
@@ -737,6 +798,12 @@ function PF:Initialize()
     f:RegisterEvent("SPELLCAST_CHANNEL_START")
     f:RegisterEvent("SPELLCAST_CHANNEL_UPDATE")
     f:RegisterEvent("SPELLCAST_CHANNEL_STOP")
+    f:RegisterEvent("MIRROR_TIMER_START")
+    f:RegisterEvent("MIRROR_TIMER_PAUSE")
+    f:RegisterEvent("MIRROR_TIMER_STOP")
+    f:RegisterEvent("MIRRORTIMER_START")
+    f:RegisterEvent("MIRRORTIMER_PAUSE")
+    f:RegisterEvent("MIRRORTIMER_STOP")
 
     f:SetScript("OnEvent", function()
         if event == "PLAYER_ENTERING_WORLD" then
@@ -823,6 +890,36 @@ function PF:Initialize()
 
         elseif event == "SPELLCAST_CHANNEL_STOP" then
             if PF.isChanneling then PF:ResetCastBar() end
+
+        elseif event == "MIRROR_TIMER_START" or event == "MIRRORTIMER_START" then
+            if arg1 == "BREATH" then
+                local bb = PF.frame and PF.frame.breathBar
+                if bb then
+                    bb.value = (arg2 or 0) / 1000
+                    bb.maxValue = (arg3 or 0) / 1000
+                    bb.scale = arg4
+                    bb.paused = arg5
+                    bb:SetMinMaxValues(0, bb.maxValue)
+                    bb:SetValue(bb.value)
+                    local secs = math.ceil(bb.value)
+                    bb.text:SetText("Respiracao " .. secs .. "s")
+                    bb:Show()
+                end
+            end
+
+        elseif event == "MIRROR_TIMER_STOP" or event == "MIRRORTIMER_STOP" then
+            if arg1 == "BREATH" then
+                local bb = PF.frame and PF.frame.breathBar
+                if bb then bb:Hide() end
+            end
+
+        elseif event == "MIRROR_TIMER_PAUSE" or event == "MIRRORTIMER_PAUSE" then
+            if arg1 == "BREATH" then
+                local bb = PF.frame and PF.frame.breathBar
+                if bb then
+                    bb.paused = arg2 or arg5 or 0
+                end
+            end
 
         elseif arg1 == "player" then
             PF:UpdateBars()
@@ -1028,6 +1125,68 @@ function PF:HideDefaultBars()
             bar:Hide()
             bar:SetAlpha(0)
             bar.Show = function() end
+        end
+    end
+
+    -- Ocultar barra de respiracao padrao da Blizzard (MirrorTimer BREATH)
+    for i = 1, (MIRRORTIMER_NUMTIMERS or 3) do
+        local mt = getglobal("MirrorTimer" .. i)
+        if mt then
+            mt:UnregisterAllEvents()
+            mt:Hide()
+            if mt.SetAlpha then mt:SetAlpha(0) end
+            mt.Show = function() end
+        end
+    end
+    if MirrorTimer_Show then
+        if not PF._origMirrorTimerShow then
+            PF._origMirrorTimerShow = MirrorTimer_Show
+            MirrorTimer_Show = function(timer, val, maxv, scale, paused, label)
+                if timer == "BREATH" then return end
+                PF._origMirrorTimerShow(timer, val, maxv, scale, paused, label)
+            end
+        end
+    end
+
+    -- Suprimir frames de MirrorTimer de addons (turtle-dragonflight / DragonflightUI)
+    local addonMirrors = {
+        "DragonflightUIMirrorTimer1",
+        "DragonflightUIMirrorTimer2",
+        "DragonflightUIMirrorTimer3",
+        "TurtleDragonflightMirrorTimer1",
+        "TurtleDragonflightMirrorTimer2",
+        "TurtleDragonflightMirrorTimer3",
+        "DFMirrorTimer1",
+        "DFMirrorTimer2",
+        "DFMirrorTimer3",
+        "Turtle_UIMirrorTimer1",
+        "Turtle_UIMirrorTimer2",
+        "Turtle_UIMirrorTimer3",
+    }
+    for _, barName in ipairs(addonMirrors) do
+        local bar = getglobal(barName)
+        if bar then
+            if bar.UnregisterAllEvents then bar:UnregisterAllEvents() end
+            if bar.Hide then bar:Hide() end
+            if bar.SetAlpha then bar:SetAlpha(0) end
+            bar.Show = function() end
+        end
+    end
+    -- Varredura generica por qualquer global contendo MirrorTimer (turtle-dragonflight / DragonflightUI)
+    local envTable = nil
+    if _G then envTable = _G
+    elseif getfenv then envTable = getfenv(0) end
+    if envTable then
+        for k, v in pairs(envTable) do
+            if type(k) == "string" and string.find(k, "MirrorTimer") then
+                local obj = envTable[k]
+                if obj and type(obj) == "table" and obj.Hide then
+                    if obj.UnregisterAllEvents then pcall(function() obj:UnregisterAllEvents() end) end
+                    pcall(function() obj:Hide() end)
+                    if obj.SetAlpha then pcall(function() obj:SetAlpha(0) end) end
+                    obj.Show = function() end
+                end
+            end
         end
     end
 end

@@ -452,6 +452,62 @@ function MainMenu:GetWeaponEnchantDetails(slotID)
 end
 
 -- ============================================================================
+-- ENGINE UNIFICADA DE TRADUCAO DE QUESTS (ptBR) - Passo 12.2
+-- Cascata: pfDB['quests']['ptBR-turtle'] > pfDB['quests']['ptBR'] > ConsoleMode_QuestDB
+-- Autonomia: funciona sem pfQuest; se pfQuest ativo, prioriza pfDB em memoria.
+-- ============================================================================
+
+function MainMenu:GetQuestTranslation(questLogIndex, rawTitle, rawDesc, rawObj)
+    local questID = nil
+    if questLogIndex and pfDatabase and pfDatabase.GetQuestIDs then
+        local qids = pfDatabase:GetQuestIDs(questLogIndex)
+        if qids and type(qids) == "table" then
+            questID = qids[1]
+        end
+    end
+    local entry = nil
+    if questID then
+        if pfDB and pfDB["quests"] then
+            local turtleDB = pfDB["quests"]["ptBR-turtle"]
+            if turtleDB and turtleDB[questID] then
+                entry = turtleDB[questID]
+            else
+                local vanillaDB = pfDB["quests"]["ptBR"]
+                if vanillaDB and vanillaDB[questID] then
+                    entry = vanillaDB[questID]
+                end
+            end
+        end
+        if not entry and ConsoleMode_QuestDB then
+            local localEntry = ConsoleMode_QuestDB[questID]
+            if localEntry then
+                entry = localEntry
+            end
+        end
+    end
+    if entry then
+        return {
+            title = entry.T or rawTitle,
+            desc = entry.D or rawDesc,
+            obj = entry.O or rawObj,
+        }
+    else
+        return {
+            title = rawTitle,
+            desc = rawDesc,
+            obj = rawObj,
+        }
+    end
+end
+
+function MainMenu:ReleaseQuestDBIfNeeded()
+    if pfDB and pfDB["quests"] and pfDB["quests"]["ptBR"] and ConsoleMode_QuestDB then
+        ConsoleMode_QuestDB = nil
+        if collectgarbage then collectgarbage() end
+    end
+end
+
+-- ============================================================================
 -- RENDERIZADOR 9-SLICE (Padrão Unity / Sliced Image no WoW 1.12)
 -- ============================================================================
 
@@ -7930,6 +7986,7 @@ end
 -- Inicializa a casca visual no carregamento e escuta eventos de atualização
 local initFrame = CreateFrame("Frame")
 initFrame:RegisterEvent("VARIABLES_LOADED")
+initFrame:RegisterEvent("PLAYER_LOGIN")
 initFrame:RegisterEvent("ADDON_LOADED")
 initFrame:RegisterEvent("DISPLAY_SIZE_CHANGED")
 initFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
@@ -7961,9 +8018,13 @@ initFrame:SetScript("OnEvent", function()
         if SetMapToCurrentZone then SetMapToCurrentZone() end
         MainMenu.lastZoneText = (GetZoneText and GetZoneText()) or ""
         if MainMenu.HookPfQuest then MainMenu:HookPfQuest() end
+        if MainMenu.ReleaseQuestDBIfNeeded then MainMenu:ReleaseQuestDBIfNeeded() end
+    elseif event == "PLAYER_LOGIN" then
+        if MainMenu.ReleaseQuestDBIfNeeded then MainMenu:ReleaseQuestDBIfNeeded() end
     elseif event == "ADDON_LOADED" then
         if arg1 == "pfQuest" or arg1 == "pfQuest-turtle" then
             if MainMenu.HookPfQuest then MainMenu:HookPfQuest() end
+            if MainMenu.ReleaseQuestDBIfNeeded then MainMenu:ReleaseQuestDBIfNeeded() end
             if MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"] and MainMenu.tabContainer.pages["QUESTS"].mapPanel and MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas then
                 MainMenu:UpdatePfQuestPins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)
                 MainMenu:UpdateNPCServicePins(MainMenu.tabContainer.pages["QUESTS"].mapPanel.canvas)

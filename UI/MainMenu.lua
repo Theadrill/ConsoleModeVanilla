@@ -465,6 +465,9 @@ function MainMenu:GetQuestTranslation(questLogIndex, rawTitle, rawDesc, rawObj)
             questID = qids[1]
         end
     end
+    if not questID and rawTitle and ConsoleMode_QuestDB_ByTitle then
+        questID = ConsoleMode_QuestDB_ByTitle[rawTitle]
+    end
     local entry = nil
     if questID then
         if pfDB and pfDB["quests"] then
@@ -501,8 +504,9 @@ function MainMenu:GetQuestTranslation(questLogIndex, rawTitle, rawDesc, rawObj)
 end
 
 function MainMenu:ReleaseQuestDBIfNeeded()
-    if pfDB and pfDB["quests"] and pfDB["quests"]["ptBR"] and ConsoleMode_QuestDB then
+    if pfDB and pfDB["quests"] and pfDB["quests"]["ptBR"] and (ConsoleMode_QuestDB or ConsoleMode_QuestDB_ByTitle) then
         ConsoleMode_QuestDB = nil
+        ConsoleMode_QuestDB_ByTitle = nil
         if collectgarbage then collectgarbage() end
     end
 end

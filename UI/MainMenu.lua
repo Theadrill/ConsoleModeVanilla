@@ -2988,13 +2988,30 @@ function MainMenu:UpdateBagsPage(keepPage)
         end
     end
 
-    -- 5. Exibe o primeiro item da página no painel de detalhes por padrão
-    if displaySlots > 0 and items[startIndex] and not items[startIndex].isEmpty then
-        grid:SelectSlot(1)
-    elseif displaySlots > 0 and items[startIndex] then
-        grid:SelectSlot(1)
+    -- 5. Preservar selecao ativa ou selecionar slot 1 apenas se nada estiver focado
+    local isInspectingLeft = false
+    if self.equipColumn and self.equipColumn.buttons then
+        for _, b in ipairs(self.equipColumn.buttons) do
+            if MouseIsOver and MouseIsOver(b) then isInspectingLeft = true; break end
+        end
+    end
+    if not isInspectingLeft and self.statsAndBuffs and self.statsAndBuffs.buffRows then
+        for _, b in ipairs(self.statsAndBuffs.buffRows) do
+            if MouseIsOver and MouseIsOver(b) then isInspectingLeft = true; break end
+        end
+    end
+
+    if isInspectingLeft then
+        -- Nao interfere no DetailCard se o jogador estiver com foco nos equipamentos ou buffs da esquerda
     else
-        pageBags.detailCard:Clear("Inventário Vazio")
+        local curSlot = grid.selectedSlotIndex
+        if curSlot and curSlot > 0 and curSlot <= displaySlots then
+            grid:SelectSlot(curSlot)
+        elseif displaySlots > 0 and items[startIndex] then
+            grid:SelectSlot(1)
+        else
+            pageBags.detailCard:Clear("Inventário Vazio")
+        end
     end
 end
 
@@ -8528,11 +8545,11 @@ initFrame:SetScript("OnEvent", function()
             MainMenu:UpdateStatsAndBuffs()
         elseif event == "PLAYER_MONEY" then
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "BAGS" then
-                MainMenu:UpdateBagsPage()
+                MainMenu:UpdateBagsPage(true)
             end
         elseif event == "BAG_UPDATE" or event == "ITEM_LOCK_CHANGED" then
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "BAGS" then
-                MainMenu:UpdateBagsPage()
+                MainMenu:UpdateBagsPage(true)
             end
         elseif event == "QUEST_LOG_UPDATE" then
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "QUESTS" then

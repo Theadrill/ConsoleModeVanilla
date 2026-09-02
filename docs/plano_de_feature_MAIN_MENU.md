@@ -384,16 +384,21 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 13: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PRÓXIMA FASE]`
-* **Tarefas:**
-  1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
-  2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
-  3. Navegação contínua e sem atritos entre os equipamentos da esquerda e as abas da direita via D-Pad para uma experiência 100% unificada de console.
-* **Validação:** Focar em elmos, armas equipadas e buffs na lateral esquerda e ver seus dados completos carregando instantaneamente no painel fixo da direita.
+### **FASE 13: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ✅ CONCLUÍDO]`
+* **Tarefas Concluídas:**
+  1. **Inspeção de Equipamentos no `DetailCard`:** Conectada a coluna de Equipamentos da esquerda (`MainMenu.equipColumn`) ao Painel Fixo de Detalhes (`DetailCard`), exibindo ícone, nome na cor da raridade, atributos, durabilidade e efeitos mágicos sem tooltips soltos flutuando na tela.
+  2. **Tratamento de Slots Vazios:** Exibição elegante do ícone translúcido do compartimento, título `(Vazio)` em cinza e texto explicativo.
+  3. **Snapping Magnético do Cursor nos Buffs:** Linhas da coluna de buffs ativos transformadas em botões interativos (`Button` com `EnableMouse`), permitindo snapping instantâneo do D-Pad do controle e cancelamento com clique direito.
+  4. **Inspeção de Buffs Ativos & Armas:** Ao focar/fazer snap em qualquer buff ou encantamento temporário de arma, exibe no `DetailCard` o ícone grande, título em destaque, tempo restante e descrição completa do efeito.
+  5. **Layout em 2 Colunas e Zero Cortes:** Redesenho completo da área central do `DetailCard` em 2 colunas horizontais (Esquerda: Dano/Velocidade/DPS/Armadura; Direita: Atributos/Efeitos especiais/Durabilidade), aproveitando 100% da largura da tela sem reticências (`...`).
+  6. **Subtítulo Rico no Topo:** `SLOT • Subtipo • Dur. X/Y • Soulbound • Único • Req. Nv X` centralizados na linha superior, com remoção de duplicidades no corpo de texto.
+  7. **Colapso Inteligente da Coluna:** Caso o item não possua estatísticas de combate (Hearthstone, anéis, consumíveis), a coluna direita colapsa automaticamente para a esquerda com largura total de 380px.
+  8. **Preservação de Foco Ativo:** Sincronização em segundo plano de moedas e bolsas sem forçar o reset cego para o primeiro item da bag.
+* **Validação:** Testado, aprovado e validado in-game pelo usuário.
 
 ---
 
-### **FASE 14: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
+### **FASE 14: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PRÓXIMA FASE]`
 * **Tarefas:**
   1. Detecção automática do slot de equipamento correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Arma, etc.).
   2. Leitura e cálculo diferencial entre os atributos do item da bolsa e o item atualmente equipado naquele slot (`GetInventoryItemLink`).

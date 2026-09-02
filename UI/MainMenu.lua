@@ -1591,14 +1591,24 @@ function MainMenu:CreateDetailCard(parent, config)
     MainMenu:ApplyFont(typeText, CFG.Fonts.subFontFile, CFG.Fonts.detailTypeSize)
     card.typeText = typeText
 
-    -- 4. Descrição / Atributos do Item
-    local descText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    descText:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -6)
-    descText:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 44)
-    descText:SetJustifyH("LEFT")
-    descText:SetJustifyV("TOP")
-    MainMenu:ApplyFont(descText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize)
-    card.descText = descText
+    -- 4. Descrição / Atributos do Item (2 colunas para aproveitar 100% da largura)
+    local descColLeft = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    descColLeft:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -4)
+    descColLeft:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 26)
+    descColLeft:SetWidth(180)
+    descColLeft:SetJustifyH("LEFT")
+    descColLeft:SetJustifyV("TOP")
+    MainMenu:ApplyFont(descColLeft, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize or 11)
+    card.descColLeft = descColLeft
+    card.descText = descColLeft
+
+    local descColRight = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    descColRight:SetPoint("TOPLEFT", descColLeft, "TOPRIGHT", 12, 0)
+    descColRight:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 26)
+    descColRight:SetJustifyH("LEFT")
+    descColRight:SetJustifyV("TOP")
+    MainMenu:ApplyFont(descColRight, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize or 11)
+    card.descColRight = descColRight
 
     -- 5. Preço de Venda do Item (Widget gráfico nativo com ícones de moedas)
     local sellWidget = MainMenu:CreateMoneyWidget(card, "|cffaaaaaaVenda:|r", false)
@@ -1653,8 +1663,7 @@ function MainMenu:CreateDetailCard(parent, config)
         self.iconBorder:SetBackdropBorderColor(r, g, b, 0.95)
         self.iconBorder:Show()
 
-        -- Formata subtítulo (ex: Peitoral • Armadura de Malha • Req. Nv 12)
-        local sub = {}
+        -- Subtitulo rico + filtragem + colapso inteligente (ShowItem)
         local locName = nil
         if itemData.equipLoc and itemData.equipLoc ~= "" then
             locName = getglobal(itemData.equipLoc) or itemData.equipLoc
@@ -1662,47 +1671,96 @@ function MainMenu:CreateDetailCard(parent, config)
                 locName = nil
             end
         end
-
         local stName = itemData.subType
-        if locName and locName ~= "" then
-            table.insert(sub, locName)
-        end
-        if stName and stName ~= "" then
-            -- Evita duplicidade se o slot e o subtipo forem idênticos (ex: Escudo / Shields)
-            local isDuplicate = false
-            if locName then
-                local lLoc = string.lower(locName)
-                local lSt = string.lower(stName)
-                if lLoc == lSt or lSt == lLoc .. "s" or lLoc == lSt .. "s" then
-                    isDuplicate = true
-                end
-            end
-            if not isDuplicate then
-                table.insert(sub, stName)
-            end
-        end
-
         local rLevel = tonumber(itemData.reqLevel) or 0
-        if rLevel > 1 then
-            table.insert(sub, "Req. Nv " .. rLevel)
-        end
-        self.typeText:SetText("|cffaaaaaa" .. table.concat(sub, "  •  ") .. "|r")
-
-        -- Formata atributos e efeito
-        local bodyLines = {}
+        local leftLines = {}
+        local rightLines = {}
+        local isSoulbound = false
+        local isUnique = false
+        local durCur = nil
+        local durMax = nil
         if itemData.statsLines and table.getn(itemData.statsLines) > 0 then
             for _, sLine in ipairs(itemData.statsLines) do
-                table.insert(bodyLines, sLine)
+                local lower = string.lower(sLine)
+                local skip = false
+                if string.find(lower, "head") or string.find(lower, "neck") or string.find(lower, "shoulder") or string.find(lower, "shirt") or string.find(lower, "chest") or string.find(lower, "waist") or string.find(lower, "legs") or string.find(lower, "feet") or string.find(lower, "wrist") or string.find(lower, "hands") or string.find(lower, "finger") or string.find(lower, "trinket") or string.find(lower, "back") or string.find(lower, "main hand") or string.find(lower, "off hand") or string.find(lower, "ranged") or string.find(lower, "tabard") or string.find(lower, "held in off%-hand") or string.find(lower, "cabe") or string.find(lower, "pesco") or string.find(lower, "ombros") or string.find(lower, "camisa") or string.find(lower, "peitoral") or string.find(lower, "cintura") or string.find(lower, "pernas") or string.find(lower, "pés") or string.find(lower, "punhos") or string.find(lower, "mãos") or string.find(lower, "dedo") or string.find(lower, "berloque") or string.find(lower, "costas") then
+                    skip = true
+                elseif string.find(lower, "soulbound") or string.find(lower, "ligado") or string.find(lower, "vinculado") or string.find(lower, "binds when") then
+                    isSoulbound = true
+                    skip = true
+                elseif string.find(lower, "unique") or string.find(lower, "único") or string.find(lower, "unico") then
+                    isUnique = true
+                    skip = true
+                elseif string.find(lower, "requires level") or string.find(lower, "requer n") or string.find(lower, "req%. nv") then
+                    skip = true
+                elseif string.find(lower, "durability") or string.find(lower, "durabilidade") then
+                    local _, _, n1, n2 = string.find(sLine, "(%d+)%s*/%s*(%d+)")
+                    if n1 and n2 then durCur = tonumber(n1); durMax = tonumber(n2) end
+                    skip = true
+                end
+                if not skip then
+                    if string.find(sLine, "Uso:") or string.find(sLine, "Use:") or string.find(sLine, "Equipar:") or string.find(sLine, "Equip:") then
+                        table.insert(rightLines, sLine)
+                    else
+                        local isLeft = false
+                        if string.find(lower, "dano") or string.find(lower, "damage") or string.find(lower, "velocidade") or string.find(lower, "speed") or string.find(lower, "por segundo") or string.find(lower, "per second") or string.find(lower, "armadura") or string.find(lower, "armor") or string.find(lower, "bloqueio") or string.find(lower, "block") then
+                            isLeft = true
+                        end
+                        if isLeft then
+                            table.insert(leftLines, sLine)
+                        else
+                            local isRightAttr = false
+                            if string.find(sLine, "%+%d+") or string.find(lower, "força") or string.find(lower, "agilidade") or string.find(lower, "vigor") or string.find(lower, "intelecto") or string.find(lower, "espírito") or string.find(lower, "strength") or string.find(lower, "agility") or string.find(lower, "stamina") or string.find(lower, "intellect") or string.find(lower, "spirit") or string.find(sLine, "Uso:") or string.find(sLine, "Use:") or string.find(sLine, "Equipar:") or string.find(sLine, "Equip:") then
+                                isRightAttr = true
+                            end
+                            if isRightAttr then
+                                table.insert(rightLines, sLine)
+                            else
+                                table.insert(rightLines, sLine)
+                            end
+                        end
+                    end
+                end
             end
         end
         if itemData.desc and itemData.desc ~= "" then
-            table.insert(bodyLines, "|cff00ff00" .. itemData.desc .. "|r")
+            local dl = string.lower(itemData.desc)
+            if not (string.find(dl, "soulbound") or string.find(dl, "unique") or string.find(dl, "durability") or string.find(dl, "durabilidade")) then
+                table.insert(rightLines, "|cff00ff00" .. itemData.desc .. "|r")
+            end
         end
-
-        if table.getn(bodyLines) > 0 then
-            self.descText:SetText(table.concat(bodyLines, "\n"))
+        local subParts = {}
+        if locName and locName ~= "" then table.insert(subParts, locName) end
+        if stName and stName ~= "" then
+            local isDup = false
+            if locName then
+                local lLoc = string.lower(locName)
+                local lSt = string.lower(stName)
+                if lLoc == lSt or lSt == lLoc .. "s" or lLoc == lSt .. "s" then isDup = true end
+            end
+            if not isDup then table.insert(subParts, stName) end
+        end
+        if durCur and durMax then
+            table.insert(subParts, "Dur. " .. durCur .. "/" .. durMax)
+        end
+        if isSoulbound then table.insert(subParts, "|cffffd100Soulbound|r") end
+        if isUnique then table.insert(subParts, "|cffffd100Único|r") end
+        if rLevel > 1 then table.insert(subParts, "Req. Nv " .. rLevel) end
+        self.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
+        if table.getn(leftLines) == 0 and table.getn(rightLines) > 0 then
+            leftLines = rightLines
+            rightLines = {}
+            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(leftLines, "\n")) else self.descText:SetText(table.concat(leftLines, "\n")) end
+            if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
+        elseif table.getn(leftLines) > 0 and table.getn(rightLines) == 0 then
+            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(leftLines, "\n")) else self.descText:SetText(table.concat(leftLines, "\n")) end
+            if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
+        elseif table.getn(leftLines) > 0 and table.getn(rightLines) > 0 then
+            if self.descColLeft then self.descColLeft:SetWidth(180); self.descColLeft:SetText(table.concat(leftLines, "\n")) else self.descText:SetText(table.concat(leftLines, "\n")) end
+            if self.descColRight then self.descColRight:SetText(table.concat(rightLines, "\n")); self.descColRight:Show() end
         else
-            self.descText:SetText("|cff888888Sem informações adicionais.|r")
+            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff888888Sem informacoes adicionais.|r") else self.descText:SetText("|cff888888Sem informacoes adicionais.|r") end
+            if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
         end
 
         -- Preço de venda com ícones gráficos oficiais
@@ -1756,10 +1814,11 @@ function MainMenu:CreateDetailCard(parent, config)
         end
 
         if table.getn(bodyLines) > 0 then
-            self.descText:SetText(table.concat(bodyLines, "\n"))
+            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(bodyLines, "\n")) else self.descText:SetText(table.concat(bodyLines, "\n")) end
         else
-            self.descText:SetText("|cff888888Sem descrição adicional.|r")
+            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff888888Sem descrição adicional.|r") else self.descText:SetText("|cff888888Sem descrição adicional.|r") end
         end
+        if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
 
         if self.sellWidget then self.sellWidget:Hide() end
         if self.slotsFreeText then
@@ -1782,7 +1841,13 @@ function MainMenu:CreateDetailCard(parent, config)
             self.iconBorder:Show()
             self.titleText:SetText("|cff888888" .. (slotData and slotData.label or "Compartimento") .. " (Vazio)|r")
             self.typeText:SetText("|cff666666Nenhum item equipado|r")
-            self.descText:SetText("|cff777777Voce nao possui nenhum item equipado neste compartimento.|r")
+            if self.descColLeft then
+                self.descColLeft:SetWidth(380)
+                self.descColLeft:SetText("|cff777777Voce nao possui nenhum item equipado neste compartimento.|r")
+            else
+                self.descText:SetText("|cff777777Voce nao possui nenhum item equipado neste compartimento.|r")
+            end
+            if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
             if self.sellWidget then self.sellWidget:Hide() end
             self:UpdateMoney()
             self:Show()
@@ -1799,15 +1864,11 @@ function MainMenu:CreateDetailCard(parent, config)
         self.iconBorder:SetBackdropBorderColor(qCol.r, qCol.g, qCol.b, 0.95)
         self.iconBorder:Show()
 
-        local subParts = {}
-        if slotData and slotData.label then table.insert(subParts, slotData.label) end
-        if scanned and scanned.subType and scanned.subType ~= "" then table.insert(subParts, scanned.subType) end
-        if scanned and scanned.reqLevel and tonumber(scanned.reqLevel) > 1 then
-            table.insert(subParts, "Req. Nv " .. scanned.reqLevel)
-        end
-        self.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
+        local rawLines = {}
+        local isSoulbound = false
+        local isUnique = false
+        local durText = nil
 
-        local lines = {}
         if scanTip then
             scanTip:ClearLines()
             scanTip:SetInventoryItem("player", slotID)
@@ -1820,34 +1881,92 @@ function MainMenu:CreateDetailCard(parent, config)
                 local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
                 local leftText = (leftObj and leftObj:GetText()) or ""
                 if leftText ~= "" then
-                    if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Preco de Venda:") or string.find(leftText, "Sell Price:") then
-                    elseif string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
-                        table.insert(lines, "|cff00ff00" .. leftText .. "|r")
-                    elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
-                        table.insert(lines, "|cffffffff" .. leftText .. "|r")
+                    local lower = string.lower(leftText)
+                    if string.find(lower, "soulbound") or string.find(lower, "ligado") or string.find(lower, "vinculado") or string.find(lower, "binds when") then
+                        isSoulbound = true
+                    elseif string.find(lower, "unique") or string.find(lower, "único") or string.find(lower, "unico") then
+                        isUnique = true
+                    elseif string.find(lower, "durabilit") or string.find(lower, "durabilidade") then
+                        durText = leftText
+                    elseif string.find(leftText, "Preço de Venda:") or string.find(leftText, "Preco de Venda:") or string.find(leftText, "Sell Price:") or string.find(leftText, "Venda:") or string.find(leftText, "Sell:") then
+                        -- ignora
+                    else
+                        table.insert(rawLines, leftText)
                     end
                 end
             end
         end
 
-        if table.getn(lines) == 0 and scanned and scanned.statsLines and table.getn(scanned.statsLines) > 0 then
-            for _, sl in ipairs(scanned.statsLines) do table.insert(lines, sl) end
-            if scanned.desc and scanned.desc ~= "" then
-                table.insert(lines, "|cff00ff00" .. scanned.desc .. "|r")
+        -- Subtitulo rico no topo:
+        local subParts = {}
+        if slotData and slotData.label then table.insert(subParts, slotData.label) end
+        if scanned and scanned.subType and scanned.subType ~= "" then
+            local st = scanned.subType
+            local isDup = false
+            if slotData and slotData.label and (string.lower(st) == string.lower(slotData.label)) then isDup = true end
+            if not isDup then table.insert(subParts, st) end
+        end
+        if durText then table.insert(subParts, durText) end
+        if isSoulbound then table.insert(subParts, "|cffffd100Soulbound|r") end
+        if isUnique then table.insert(subParts, "|cffffd100Único|r") end
+        if scanned and scanned.reqLevel and tonumber(scanned.reqLevel) > 1 then
+            table.insert(subParts, "Req. Nv " .. scanned.reqLevel)
+        end
+        self.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
+
+        -- Filtragem e distribuicao em 2 colunas
+        local leftLines = {}
+        local rightLines = {}
+        local ignoredSlots = {
+            ["head"]=true, ["neck"]=true, ["shoulder"]=true, ["shirt"]=true, ["chest"]=true,
+            ["waist"]=true, ["legs"]=true, ["feet"]=true, ["wrist"]=true, ["hands"]=true,
+            ["finger"]=true, ["trinket"]=true, ["back"]=true, ["main hand"]=true, ["off hand"]=true,
+            ["ranged"]=true, ["tabard"]=true, ["held in off-hand"]=true, ["one-hand"]=true, ["two-hand"]=true,
+            ["cabeça"]=true, ["pescoço"]=true, ["ombros"]=true, ["camisa"]=true, ["peitoral"]=true,
+            ["cintura"]=true, ["pernas"]=true, ["pés"]=true, ["punhos"]=true, ["mãos"]=true,
+            ["dedo"]=true, ["berloque"]=true, ["costas"]=true, ["mão principal"]=true, ["mão secundária"]=true
+        }
+
+        for _, txt in ipairs(rawLines) do
+            local lower = string.lower(txt)
+            if ignoredSlots[lower] or string.find(lower, "requires level") or string.find(lower, "requer nível") or string.find(lower, "req. nv") then
+                -- ignora linha duplicada
+            elseif string.find(txt, "Uso:") or string.find(txt, "Use:") or string.find(txt, "Equipar:") or string.find(txt, "Equip:") then
+                table.insert(rightLines, "|cff00ff00" .. txt .. "|r")
+            else
+                local isCombat = false
+                if string.find(lower, "dano") or string.find(lower, "damage") or string.find(lower, "velocidade") or string.find(lower, "speed") or string.find(lower, "por segundo") or string.find(lower, "per second") or string.find(lower, "armadura") or string.find(lower, "armor") or string.find(lower, "bloqueio") or string.find(lower, "block") then
+                    isCombat = true
+                end
+                if isCombat then
+                    table.insert(leftLines, "|cffffffff" .. txt .. "|r")
+                else
+                    table.insert(rightLines, "|cffffffff" .. txt .. "|r")
+                end
             end
         end
 
-        if GetInventoryItemDurability then
-            local curDur, maxDur = GetInventoryItemDurability(slotID)
-            if curDur and maxDur and maxDur > 0 then
-                table.insert(lines, string.format("|cffccccccDurabilidade %d / %d|r", curDur, maxDur))
-            end
-        end
-
-        if table.getn(lines) > 0 then
-            self.descText:SetText(table.concat(lines, "\n"))
+        -- COLAPSO INTELIGENTE (COLLAPSE):
+        if table.getn(leftLines) == 0 and table.getn(rightLines) > 0 then
+            self.descColLeft:SetWidth(380)
+            self.descColLeft:SetText(table.concat(rightLines, "\n"))
+            self.descColRight:SetText("")
+            self.descColRight:Hide()
+        elseif table.getn(leftLines) > 0 and table.getn(rightLines) == 0 then
+            self.descColLeft:SetWidth(380)
+            self.descColLeft:SetText(table.concat(leftLines, "\n"))
+            self.descColRight:SetText("")
+            self.descColRight:Hide()
+        elseif table.getn(leftLines) > 0 and table.getn(rightLines) > 0 then
+            self.descColLeft:SetWidth(180)
+            self.descColLeft:SetText(table.concat(leftLines, "\n"))
+            self.descColRight:SetText(table.concat(rightLines, "\n"))
+            self.descColRight:Show()
         else
-            self.descText:SetText("|cff888888Sem informacoes adicionais.|r")
+            self.descColLeft:SetWidth(380)
+            self.descColLeft:SetText("|cff888888Sem informacoes adicionais.|r")
+            self.descColRight:SetText("")
+            self.descColRight:Hide()
         end
 
         if self.sellWidget then self.sellWidget:Hide() end
@@ -1882,10 +2001,11 @@ function MainMenu:CreateDetailCard(parent, config)
                 end
             end
             if table.getn(lines) > 0 then
-                self.descText:SetText(table.concat(lines, "\n"))
+                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(lines, "\n")) else self.descText:SetText(table.concat(lines, "\n")) end
             else
-                self.descText:SetText("|cff00ff00Aplica um efeito temporario de combate nesta arma.|r")
+                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff00ff00Aplica um efeito temporario de combate nesta arma.|r") else self.descText:SetText("|cff00ff00Aplica um efeito temporario de combate nesta arma.|r") end
             end
+            if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
             if self.sellWidget then self.sellWidget:Hide() end
             self:UpdateMoney()
             self:Show()
@@ -1927,10 +2047,11 @@ function MainMenu:CreateDetailCard(parent, config)
                 end
             end
             if table.getn(lines) > 0 then
-                self.descText:SetText(table.concat(lines, "\n"))
+                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(lines, "\n")) else self.descText:SetText(table.concat(lines, "\n")) end
             else
-                self.descText:SetText("|cff888888Efeito benefico ativo no personagem.|r")
+                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff888888Efeito benefico ativo no personagem.|r") else self.descText:SetText("|cff888888Efeito benefico ativo no personagem.|r") end
             end
+            if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
             if self.sellWidget then self.sellWidget:Hide() end
             self:UpdateMoney()
             self:Show()
@@ -1943,7 +2064,9 @@ function MainMenu:CreateDetailCard(parent, config)
         self.iconBorder:Hide()
         self.titleText:SetText("|cff888888" .. (msg or "Nenhum item em foco") .. "|r")
         self.typeText:SetText("")
-        self.descText:SetText("|cff555555Navegue com o D-Pad para inspecionar itens.|r")
+        if self.descColLeft then self.descColLeft:SetText("|cff888888" .. (msg or "") .. "|r"); self.descColLeft:SetWidth(380) end
+        if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
+        if self.descText and not self.descColLeft then self.descText:SetText("|cff555555Navegue com o D-Pad para inspecionar itens.|r") end
         if self.sellWidget then self.sellWidget:Hide() end
         self:UpdateMoney()
     end

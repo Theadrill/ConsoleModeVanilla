@@ -5067,30 +5067,45 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
     local detailCard = questPanel.detailCard
     if not detailCard then return end
 
+    local qTr = MainMenu:GetQuestTranslation(questLogIndex, questTitle, questDescription, questObjectives)
     local r, g, b = GetQuestLevelColor(level)
     local levelStr = (level and level > 0) and string.format("|cff%02x%02x%02x[%d]|r ", r*255, g*255, b*255, level) or ""
-    detailCard.title:SetText(levelStr .. "|cffffffff" .. (questTitle or "Missão") .. "|r")
+    detailCard.title:SetText(levelStr .. "|cffffffff" .. (qTr.title or questTitle or "Missão") .. "|r")
 
-    -- Formata lista de objetivos
+    -- Formata lista de objetivos - lista limpa (texto longo fica na tela de Detalhes)
     local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(questLogIndex)) or 0
     local objStr = ""
     for j = 1, numObj do
         local text, itemType, isDone = GetQuestLogLeaderBoard(j, questLogIndex)
         if text and text ~= "" then
+            text = string.gsub(text, " slain:", " abatido(s):")
+            text = string.gsub(text, " slain", " abatido(s)")
+            text = string.gsub(text, " killed:", " morto(s):")
+            text = string.gsub(text, " killed", " morto(s)")
             local bullet = isDone and "|cff00ff00✔ |r" or "|cffffcc00- |r"
             local col = isDone and "|cff88cc88" or "|cffffffff"
             objStr = objStr .. bullet .. col .. text .. "|r\n"
         end
     end
 
-    if objStr ~= "" then
+    if numObj > 0 and objStr ~= "" then
         detailCard.objectives:SetText(objStr)
-    elseif questObjectives and questObjectives ~= "" then
-        detailCard.objectives:SetText("|cffcccccc" .. questObjectives .. "|r")
-    elseif questDescription and questDescription ~= "" then
-        detailCard.objectives:SetText("|cffaaaaaa" .. questDescription .. "|r")
     else
-        detailCard.objectives:SetText("|cff888888Sem objetivos específicos.|r")
+        local rawObj = ""
+        if qTr.obj and qTr.obj ~= "" then
+            rawObj = qTr.obj
+        elseif questObjectives and questObjectives ~= "" then
+            rawObj = questObjectives
+        end
+        if rawObj ~= "" then
+            rawObj = string.gsub(rawObj, "%$[Bb]", "\n")
+            rawObj = string.gsub(rawObj, "%$[Nn]", "\n")
+            detailCard.objectives:SetText("|cffcccccc" .. rawObj .. "|r")
+        elseif questDescription and questDescription ~= "" then
+            detailCard.objectives:SetText("|cffaaaaaa" .. questDescription .. "|r")
+        else
+            detailCard.objectives:SetText("|cff888888Sem objetivos específicos.|r")
+        end
     end
 
     -- Recompensas em Dinheiro

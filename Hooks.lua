@@ -689,6 +689,19 @@ function Hooks:InjectGameMenuButton()
 end
 
 function Hooks:CloseTopFrame()
+    -- Prioridade maxima: se algum DropDownList estiver aberto, fecha ele primeiro
+    for i = 1, 10 do
+        local dd = getglobal("DropDownList" .. i)
+        if dd and dd:IsVisible() then
+            if CloseDropDownMenus then
+                CloseDropDownMenus()
+            else
+                dd:Hide()
+            end
+            return true
+        end
+    end
+
     if ConsoleMode and ConsoleMode.mainMenu and ConsoleMode.mainMenu.IsQuestDetailVisible and ConsoleMode.mainMenu:IsQuestDetailVisible() then
         ConsoleMode.mainMenu:HideQuestDetail()
         return true

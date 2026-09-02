@@ -447,7 +447,7 @@ local ignorePatterns = {
     "MoneyFrameGoldButton",
     "MoneyFrameSilverButton",
     "MoneyFrameCopperButton",
-    "DropDownList%d+Button",
+    "DropDownList%d+$",
     "^MacroFrame",
     "^MacroButton",
     "^MacroPopup",
@@ -540,6 +540,17 @@ function Cursor:FindFirstVisibleButton(frame)
                 return ConsoleModeContextMenuBtn1
             end
         end
+    end
+
+    -- Para DropDownList (UIDropDownMenu): retornar primeiro botao de opcao visivel
+    if string.find(fname, "^DropDownList%d+$") then
+        for ci = 1, 32 do
+            local btn = getglobal(fname .. "Button" .. ci)
+            if btn and btn:IsVisible() and self:IsInteractive(btn) and not self:ShouldIgnore(btn) then
+                return btn
+            end
+        end
+        return nil
     end
 
     -- Para SUCC_bag / SUCC_bagBank (Turtle-Dragonflight): preferir primeiro slot de item
@@ -698,6 +709,16 @@ function Cursor:UpdateState()
         local ctx = CM.ui and CM.ui.contextMenu
         if ctx and ctx.frame and ctx.frame:IsVisible() then
             modalFrame = ctx.frame
+        end
+    end
+    -- DropDownList aberto tem prioridade maxima (acima de ContextMenu; subníveis maiores têm precedência)
+    if not modalFrame then
+        for i = 10, 1, -1 do
+            local dd = getglobal("DropDownList" .. i)
+            if dd and dd:IsVisible() then
+                modalFrame = dd
+                break
+            end
         end
     end
 

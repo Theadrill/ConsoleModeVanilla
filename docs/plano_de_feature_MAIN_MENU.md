@@ -281,12 +281,12 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
   * **Etapa 8.4 - Integração do Painel de Configurações do Addon:** `[STATUS: ✅ CONCLUÍDA]`
     1. Sub-aba do Addon configurada com as opções essenciais de console (Mapeador de Binds, Resetar Posições, Recarregar Interface).
   * **Etapa 8.5 - Estilização Visual e Navegação via Controle:** `[STATUS: ✅ CONCLUÍDA]`
-    1. Acabamento visual limpo sem badges numéricos, alinhamento à esquerda, hover e foco interativo do cursor.
+1. Acabamento visual limpo sem badges numéricos, alinhamento à esquerda, hover e foco interativo do cursor.
 * **Validação:** Concluída e testada em jogo com sucesso.
 
 ---
 
-### **FASE 9: Diário de Missões & Mapa Mundi Integrados (Padrão Retail Console)** `[STATUS: ⏳ PRÓXIMA FASE]`
+#### **FASE 9: Diário de Missões & Mapa Mundi Integrados (Padrão Retail Console)** `[STATUS: ✅ CONCLUÍDO]`
 * **Objetivo:** Criar uma experiência unificada e moderna de **Diário de Missões + Mapa Mundi** na aba `MISSÕES & MAPA` (`ConsoleModeMM_Page_QUESTS`), inspirada no layout integrado do WoW Retail e adaptada à estética e controles de console:
   * **Painel Esquerdo:** Viewport dinâmico do **Mapa da Região** com navegação espacial, GPS do jogador em tempo real e zoom.
   * **Painel Direito:** **Diário de Missões** completo com lista de quests por zona, contadores de objetivos em tempo real e painel de recompensas.
@@ -306,56 +306,28 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ### **Sub-etapas Detalhadas de Execução (Fase 9):**
 
-* **Etapa 9.1 - Layout Split e Estrutura dos Containers (`ConsoleModeMM_Page_QUESTS`):** `[STATUS: ⏳ PRÓXIMA ETAPA]`
-  1. Criação do container dividido da aba: Painel do Mapa (esquerda) e Painel do Diário de Missões (direita).
-  2. Atualização dos cabeçalhos das abas e adaptação do rodapé contextual de dicas (`FooterHints`) ao entrar na aba.
-* **Etapa 9.2 - Renderização do Canvas de Mapa (12 Tiles Dinâmicos):**
-  1. Criação da matriz 4x3 de texturas dinâmicas carregadas via `GetMapInfo()`.
-  2. Suporte a carregamento de qualquer zona oficial ou personalizada do Turtle WoW sem hardcode.
-* **Etapa 9.3 - Sistema de Pan (L-Stick) e Zoom (`[LT]` / `[RT]`):**
-  1. Deslocamento suave do mapa através do Analógico Esquerdo (*ScrollFrame* com velocidade ajustada).
-  2. Níveis de Zoom estruturados nos gatilhos `[LT]` e `[RT]` (Mundo &harr; Continente &harr; Zona).
-* **Etapa 9.4 - GPS em Tempo Real (Player Pin & Party Pins):**
-  1. Renderização da seta do jogador com coordenadas em tempo real (`GetPlayerMapPosition("player")`).
-  2. Rotação angular contínua da seta baseada na direção da câmera/personagem (`GetPlayerFacing()`).
-  3. Marcadores de companheiros de grupo (`party1..4`) no mapa da região.
-* **Etapa 9.5 - Scanner do Diário de Missões e Lista Categorizada:**
-  1. Varredura completa das missões ativas (`GetNumQuestLogEntries`, `GetQuestLogTitle`, `GetQuestLogQuestText`, `GetQuestLogLeaderBoard`, `GetQuestLogRewardInfo`).
-  2. Lista vertical organizada por Zonas/Regiões com contadores de objetivos `[X/Y]` e tags de status (Completa / Nível).
-  3. Painel fixo de recompensas exibindo itens, experiência (XP) e dinheiro (Ouro/Prata/Cobre).
-* **Etapa 9.6 - Sinergia Total, Foco Automático e Ações do Controle:**
-  1. Ao selecionar qualquer missão na lista com o D-Pad, o mapa troca automaticamente para a zona daquela missão.
-  2. Ação do botão `(X)` para ligar/desligar rastreamento no HUD.
-  3. Ação do botão `(Y)` abrindo menu de contexto para Abandonar ou Compartilhar a missão selecionada.
-* **Validação:** Abrir a aba `MISSÕES & MAPA`, visualizar o mapa da região com seu pin em tempo real, navegar pelas missões com o D-Pad, mover o mapa com o Analógico Esquerdo, dar zoom com `[LT]`/`[RT]` e alternar rastreamento com `(X)`.
+* **Etapa 9.1 - Layout Split e Estrutura dos Containers (`ConsoleModeMM_Page_QUESTS`):** `[STATUS: ✅ CONCLUÍDA]`
+* **Etapa 9.2 - Renderização do Canvas de Mapa (12 Tiles Dinâmicos):** `[STATUS: ✅ CONCLUÍDA]`
+* **Etapa 9.3 - Sistema de Pan (L-Stick) e Zoom (`[LT]` / `[RT]`):** `[STATUS: ✅ CONCLUÍDA]`
+* **Etapa 9.4 - GPS em Tempo Real (Player Pin & Party Pins):** `[STATUS: ✅ CONCLUÍDA]`
+* **Etapa 9.5 - Scanner do Diário de Missões e Lista Categorizada:** `[STATUS: ✅ CONCLUÍDA]`
+* **Etapa 9.6 - Sinergia Total, Foco Automático e Ações do Controle:** `[STATUS: ✅ CONCLUÍDA]`
+* **Validação:** Concluída e testada com sucesso in-game.
 
 ---
 
-### **FASE 10: Navegação de Mapa por Continentes (Gamepad-First — Lista Vertical)** `[STATUS: ⏳ PRÓXIMA FASE]`
+#### **FASE 10: Navegação de Mapa por Continentes (Gamepad-First — Lista Vertical)** `[STATUS: ✅ CONCLUÍDO]`
 * **Objetivo:** Permitir navegação livre entre mapas sem mouse, com foco total em gamepad/console (Steam Deck). Inspirado no WorldMap clássico (clique em região → entra, `B` volta) mas adaptado para controle: 3 botões fixos em lista vertical no canto inferior direito do painel do mapa.
 * **Layout:**
-  * Pilha vertical `ATUAL` (topo) → `KALIMDOR` → `EASTERN KINGDOMS` (base), ancorada `BOTTOMRIGHT` do `mapPanel` acima do `mapFooter` (`-6,4`) sem invadir `mapCanvas` (`-6,26`). Cada botão ~100×22, gap 4px, fonte `CFG.Fonts.subFontFile 11`, backdrop `UI-Tooltip-Border` igual ao `VOLTAR` (remover/realocar `VOLTAR` — `ATUAL` assume o papel).
+  * Pilha vertical `ATUAL` (topo) → `KALIMDOR` → `EASTERN KINGDOMS` (base), ancorada `BOTTOMRIGHT` do `mapPanel` acima do `mapFooter` (`-6,4`) sem invadir `mapCanvas` (`-6,26`).
   * Sempre visíveis; highlight/borda dourada no ativo (`mapViewMode` + `mapContinentView`).
 * **Estados:**
-  * `mapViewMode = "ZONE" | "CONTINENT"` + `mapContinentView = 1|2` em `MainMenu` (`UI/MainMenu.lua`). Reaproveita `mapContinent/mapZoneIdx/mapZoneName/mapFileName/mapShowingQuestZone`.
-  * `ZONE`: `cont 1..2, zoneIdx>0` (zona detalhada); `CONTINENT`: `cont 1..2, zoneIdx=0` (visão do continente); `ATUAL`: `nil/nil + SetMapToCurrentZone() + mapShowingQuestZone=false`.
+  * `mapViewMode = "ZONE" | "CONTINENT"` + `mapContinentView = 1|2` em `MainMenu` (`UI/MainMenu.lua`).
 * **Handlers (`UI/MainMenu.lua`):**
   * `NavToCurrent()` — `ResetMapToPlayer() + ZONE + UpdateEverything + ResetCursorZoneMode()`.
   * `NavToContinent(cont)` — `SetMapZoom(cont,0) + CONTINENT + mapContinentView=cont + zoom 1.0/pan 0 + desativa drag livre + BuildContinentZoneButtons(cont) + ativa cursor`.
-  * `NavToZone(zoneName)` — `SwitchMapToZone(zoneName) + ZONE` (usado por quests e pelo cursor do continente).
-  * `UpdateNavButtonHighlight()` + `BuildContinentZoneButtons(cont)` + `UpdateMapLayout/Textures/Overlays` após `SetMapZoom`.
+  * `NavToZone(zoneName)` — `SwitchMapToZone(zoneName) + ZONE`.
 * **Cursor de zona (só em `CONTINENT`):**
-  * Pool `mapCanvas.continentZoneButtons` (~25 por continente via `GetMapZones(cont)`), `CreateFrame("Button",nil,mapTilesContainer)` com hitbox ~42×16 escalada por `currentScale` (`effW=1002*scale`, `effH=668*scale`, ponto `x*effW, -y*effH` igual ao `playerPin`).
-  * Posicionamento por `ConsoleMode.ContinentZoneCoords[cont][zoneName]={x,y}` (0..1 relativo ao tilesContainer) com fallback em grid; preferir bbox de `MapOverlayData`/pfQuest `zones.loc` quando disponível.
-  * Integração com `Cursor.lua`: `CollectButtons` passa a incluir `continentZoneButtons`/`navButtons`, `FindFirstVisibleButton` prioriza navButtons em `CONTINENT`, `FindBestInDirection` já cobre navegação vertical; `IsInteractive` ok (botões pequenos não disparam filtro `w>350&&h>250`).
-  * `A` (`CM_CursorConfirm → Click("LeftButton")`) entra na zona; `B` volta um nível (`CONTINENT→ATUAL` ou `ZONE via continente→CONTINENT`) antes de `CloseTopFrame`; `D-Pad/L-Stick` navega entre zoneButtons; `L-Stick` pan bloqueado em `CONTINENT` (`if mapViewMode=="CONTINENT" then return end` em `OnStickPan/MapPan`).
-* **Compatibilidade:**
-  * `GetMapZones(cont)`/`SetMapZoom(cont,zoneIdx)`/`GetCurrentMapContinent/Zone`/`GetMapInfo()` — Lua 5.0, sem `#`, via `table.getn`/`getn`.
-  * Turtle WoW custom (`cont>2`): ignorado na v1; `ATUAL` já cobre. Fallback `cont==1→Kalimdor, 2→EasternKingdoms, else Cosmic` em `UpdateMapTextures`.
-  * `ZONE_CHANGED` não sobrescreve visão `CONTINENT` (guard no `OnUpdate` linha ~3002).
-  * `UpdateMapPlayerPosition` em `CONTINENT`: ocultar `playerPin/partyPins` na v1; `UpdatePfQuestPins` sem pins em continente na v1.
-* **Ordem de implementação:**
-  1. Estado + 3 botões verticais + `NavTo*` + `UpdateNavButtonHighlight`.
   2. Tabela `ContinentZoneCoords` + `BuildContinentZoneButtons`.
   3. Modo cursor (`CollectButtons`/`FindFirstVisibleButton`/bloqueio de pan/`B` volta).
   4. Polimento hint (`[D-Pad] Zonas • [A] Entrar • [B] Voltar` em `CONTINENT`), esconder pins, guard `ZONE_CHANGED`.
@@ -364,7 +336,71 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 11: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
+### **FASE 11: Menu de Contexto da Missão (Y) — Detalhes / Abandonar** `[STATUS: ✅ CONCLUÍDO]`
+* **Objetivo:** Ao pressionar `Y` (Gamepad) / tecla de contexto com foco em qualquer missão não-header da lista `MISSÕES & MAPA` (`ConsoleModeMM_Page_QUESTS` → `questPanel.listContainer`), abrir menu de contexto flutuante com duas ações: `Detalhes da Missão` e `Abandonar Missão`. `Detalhes` abre painel flutuante central com texto completo da missão; `B` fecha painel flutuante com prioridade sobre `HandleMapBack`/`CloseTopFrame`. `Abandonar` dispara fluxo nativo de abandono com confirmação (`StaticPopup ABANDON_QUEST`).
+* **Implementado:** Overlay modal com scroll `questDetailOverlay` integrado em `ShowQuestDetail` e fluxo nativo de abandono em `AbandonSelectedQuest`.
+
+---
+
+### **FASE 12: Sistema de Tradução de Missões (Híbrido pfQuest + DB Local ptBR)** `[STATUS: ⏳ PRÓXIMA FASE]`
+* **Objetivo:** Integrar tradução completa em Português (pt-BR) para os textos de missões exibidos no `ConsoleModeVanilla` (tanto no **Card de Resumo Lateral** quanto no **Modal Flutuante de Detalhes com Scroll**).
+* **Arquitetura Híbrida Inteligente (Sem dependência obrigatória):**
+  1. **Nível 1 — `pfQuest` (Mais Atualizado):** Se o jogador tiver o `pfQuest` / `pfQuest-turtle` ativo, utilizamos diretamente as tabelas globais em memória (`pfDB["quests"]["ptBR-turtle"]` e `pfDB["quests"]["ptBR"]`), capturando o ID da quest via `pfDatabase:GetQuestIDs(questLogIndex)`.
+  2. **Nível 2 — DB Local Embutido (`Data/QuestDB_ptBR.lua`):** Caso o jogador não utilize o `pfQuest`, o `ConsoleModeVanilla` carrega seu próprio banco de dados de missões, construído a partir das bases do Vanilla 1.12 e do Turtle WoW, permitindo busca $O(1)$ por ID e por Título em inglês.
+  3. **Otimização Crítica de RAM (WoW 1.12):** No evento `PLAYER_LOGIN` / inicialização, se o addon detectar que o `pfDB["quests"]["ptBR"]` já existe na memória global, a tabela local embutida é liberada (`ConsoleMode_QuestDB = nil`), economizando ~6 MB de memória do cliente 1.12.
+  4. **Fallback Transparente:** Caso uma missão nova/não catalogada seja selecionada, os textos originais em inglês da Blizzard são mantidos sem quebrar a interface.
+
+* **Passos Detalhados de Execução (Isolados e com Validação Individual):**
+
+  * **Passo 12.1 - Construção e Registro do DB Local Embutido (`Data/QuestDB_ptBR.lua`):** `[STATUS: ⏳ PRÓXIMO PASSO]`
+    1. Criar script auxiliar temporário para compilar as bases `pfQuest` e `pfQuest-turtle` em `Data/QuestDB_ptBR.lua`, contendo `ConsoleMode_QuestDB` (indexado por ID e por Título em inglês para busca $O(1)$).
+    2. Registrar `Data\QuestDB_ptBR.lua` no `ConsoleModeVanilla.toc`.
+    3. *Isolamento:* Não altera nenhuma lógica existente do addon. O addon inicializa normalmente.
+    4. *Validação Isolada in-game:* Fazer `/reload` e testar via chat:
+       `/run DEFAULT_CHAT_FRAME:AddMessage("QuestDB Carregado: " .. tostring(ConsoleMode_QuestDB ~= nil))`
+    5. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.2.
+
+  * **Passo 12.2 - Engine Unificada de Resolução (`MainMenu:GetQuestTranslation`):** `[STATUS: ⏳ PENDENTE]`
+    1. Implementar o método helper em `UI/MainMenu.lua`:
+       `MainMenu:GetQuestTranslation(questLogIndex, rawTitle, rawDesc, rawObj)`
+       - Prioridade 1 (`pfQuest` ativo): busca ID via `pfDatabase:GetQuestIDs` e lê de `pfDB["quests"]["ptBR-turtle"]` ou `pfDB["quests"]["ptBR"]`.
+       - Prioridade 2 (`DB Local`): busca por ID ou título em `ConsoleMode_QuestDB`.
+       - Fallback seguro: retorna os textos originais caso não encontre tradução.
+       - Desalocação inteligente de RAM no `PLAYER_LOGIN`: se `pfDB` estiver ativo, faz `ConsoleMode_QuestDB = nil`.
+    2. *Isolamento:* Nenhuma tela/frame de UI é alterado ainda.
+    3. *Validação Isolada in-game:* Fazer `/reload` e testar no chat com uma missão qualquer:
+       `/run local t = MainMenu:GetQuestTranslation(1, "Garrick's Bounty"); message(t and (t.title or t.T) or "Erro")`
+    4. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.3.
+
+  * **Passo 12.3 - Tradução do Card de Resumo Lateral (`MainMenu:SelectQuest`):** `[STATUS: ⏳ PENDENTE]`
+    1. Conectar `GetQuestTranslation` exclusivamente dentro de `MainMenu:SelectQuest`:
+       - Título no `detailCard.title` atualizado com o título em português.
+       - Resumo de objetivos no `detailCard.objectives` atualizado com o texto traduzido.
+    2. *Isolamento:* Apenas o painel lateral de resumo é modificado; modal e listas continuam funcionando normalmente.
+    3. *Validação Isolada in-game:* Fazer `/reload`, abrir o Main Menu com o controle, navegar pelas missões no D-Pad e verificar os títulos e objetivos traduzidos no card lateral à direita.
+    4. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.4.
+
+  * **Passo 12.4 - Tradução do Modal Flutuante com Scroll (`MainMenu:ShowQuestDetail`):** `[STATUS: ⏳ PENDENTE]`
+    1. Conectar `GetQuestTranslation` dentro de `MainMenu:ShowQuestDetail`:
+       - `f.titleText` recebe o título traduzido.
+       - `f.descText` recebe a narrativa completa (`D`) traduzida em português.
+       - `f.objText` recebe os objetivos (`O`) traduzidos em português.
+       - Recálculo dinâmico da altura do `scrollChild` para ajuste perfeito da rolagem.
+    2. *Isolamento:* Modifica apenas a exibição interna do modal de detalhes com scroll.
+    3. *Validação Isolada in-game:* Fazer `/reload`, selecionar uma quest na lista, pressionar `(Y)` -> `Detalhes da Missão` e ler a narrativa longa e objetivos 100% em português com rolagem fluida no analógico/D-Pad.
+    4. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.5.
+
+  * **Passo 12.5 - Teste Cruzado de Resiliência (Com e Sem pfQuest) e Polimento:** `[STATUS: ⏳ PENDENTE]`
+    1. Validação estrita de sintaxe em todos os arquivos (`luac -p`).
+    2. *Validação Isolada in-game:*
+       - Teste A: Com `pfQuest` ativo na lista de AddOns -> confirma tradução via pfQuest e liberação de RAM do DB local.
+       - Teste B: Desmarcar `pfQuest` na tela de AddOns, entrar no jogo -> confirma que o addon funciona 100% traduzido usando o DB embutido de forma autônoma.
+    3. *🛑 PARADA CRÍTICA FINAL:* Validação completa da Fase 12 pelo usuário.
+
+
+---
+
+### **FASE 13: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
   2. Animações de comer/beber no modelo 3D ao usar consumíveis.
@@ -373,7 +409,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 12: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
+### **FASE 14: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
   2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
@@ -382,7 +418,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 13: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
+### **FASE 15: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Detecção automática do slot de equipamento correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Arma, etc.).
   2. Leitura e cálculo diferencial entre os atributos do item da bolsa e o item atualmente equipado naquele slot (`GetInventoryItemLink`).
@@ -395,7 +431,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 14: Correção / Refinamento dos Pins de Zona no Mapa Continente** `[STATUS: ⏳ WIP — pins aproximados / requer ajuste manual]`
+### **FASE 16: Correção / Refinamento dos Pins de Zona no Mapa Continente** `[STATUS: ⏳ WIP — pins aproximados / requer ajuste manual]`
 * **Contexto:** `feat(map) pin de zona no CONTINENTE` (71a7193) implementou `Data/ZonePositions.lua` (`cont/x/y` 0-1 em 1002×668) + `zonePin` em `mapTilesContainer` com `ShowZonePinForZone/HideZonePin/UpdateZonePinPosition` e `OnEnter/OnLeave` na lista `REGIOES` (também dispara via `Cursor:MoveTo`). Muitos pins ficaram fora da zona correta; alguns corretos — posições ainda aproximadas.
 * **Tarefas:**
   1. Refinar manualmente `Data/ZonePositions.lua` zona a zona em jogo `/reload` comparando `Kalimdor`/`EasternKingdoms` vanilla e Turtle custom (`Gilneas`, `Hyjal`, `Alah'Thalas`, `Tel'Abim` etc.) — ajustar `x/y` até pin cair dentro do contorno/label da zona no `tilesContainer` (considerar `currentScale`/`effW/effH` e `panX/panY`).
@@ -404,45 +440,3 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
   4. Não alterar API de pin — só valores `x/y`; manter hide fora de `CONTINENT`, em `INSTANCIAS` e ao `SwitchMapToZone/Reset`.
 * **Validação:** Em `CONTINENT`, hover/D-Pad em cada item de `REGIOES` mostra pin amarelo + label exatamente sobre a área da zona no mapa; sem pin fantasma ao trocar continente/zona.
 * **Commit:** Não fazer commit/push até autorização; marcar no histórico que foi WIP de posicionamento.
-
----
-
-### **FASE 15: Menu de Contexto da Missão (Y) — Detalhes / Abandonar** `[STATUS: ⏳ PRÓXIMA FASE — aguardando instruções, sem code]`
-
-* **Objetivo:** Ao pressionar `Y` (Gamepad) / tecla de contexto com foco em qualquer missão não-header da lista `MISSÕES & MAPA` (`ConsoleModeMM_Page_QUESTS` → `questPanel.listContainer`), abrir menu de contexto flutuante com duas ações: `Detalhes da Missão` e `Abandonar Missão`. `Detalhes` abre painel flutuante central com texto completo da missão; `B` fecha painel flutuante com prioridade sobre `HandleMapBack`/`CloseTopFrame`. `Abandonar` dispara fluxo nativo de abandono com confirmação (`StaticPopup ABANDON_QUEST`).
-
-* **Estado atual para reaproveitar:**
-  * Lista/painel já existe em `UI/MainMenu.lua`: `CreateQuestListButton` / `UpdateQuestsPage` / `SelectQuest` / `NavigateQuest` / `selectedQuestIndex` / `questOffset`; detalhamento atual em `detailCard` (objetivos/resumo) mas não o texto longo completo.
-  * Ações já existentes: `AbandonSelectedQuest()` (usa `SelectQuestLogEntry`+`SetAbandonQuest`+`StaticPopup_Show`) e `ShareSelectedQuest`/`ToggleQuestWatch`; `OpenQuestContextMenu(questLogIndex)` já delega para `CM.ui.contextMenu:OpenForQuest` (hoje genérico).
-  * Fluxo `B` já hierarquizado em `Keybindings.lua` (`CM_CursorCancel`/`CM_Fixed`) + `Hooks.lua:CloseTopFrame` e `HandleMapBack` do mapa.
-
-* **Como pretende fazer (sem codar nesta etapa):**
-  1. **Gatilho `Y`:**
-     * Hook em `Keybindings.lua` / `MainMenu` (`OnUpdate` / bind `CM_QuestContext` em `Y`): só dispara quando `tabContainer.currentTab=="QUESTS"` e `pageQuests:IsVisible()` e `questPanel.selectedQuestIndex>0` e quest não é header (`GetQuestLogTitle(isHeader)==nil`) e nenhum overlay (`questDetailOverlay`, `contextMenu`) já aberto. Ignorar quando `mapViewMode=="CONTINENT"` com cursor em `continentZoneButtons` para não conflitar com navegação de zonas.
-     * `Y` chama `MainMenu:OpenQuestContextMenu(selectedQuestIndex)` — adaptar para modo `questDetail/abandon` em vez de `Abandon/Share` genérico.
-  2. **Menu de contexto (2 itens):**
-     * Reaproveitar `CM.ui.contextMenu` ou criar `ConsoleModeMM_QuestContextMenu` dedicado (Frame `DIALOG`, backdrop `UI-Tooltip-Border`, 2 `Button`s 180×22, gap 4px, fonte `CFG.Fonts.subFontFile 11`): `Detalhes da Missão` (índice 1), `Abandonar Missão` (índice 2, cor `cffff4444`).
-     * Posicionar ancorado ao `questButton` selecionado (`TOPLEFT` → `TOPRIGHT` + offset) com clamp na tela; navegação `D-Pad Cima/Baixo` + `L-Stick` vertical dentro do menu; `A` confirma, `B`/`Y` fecha. Cursor virtual (`Cursor.lua:CollectButtons`) inclui botões do menu quando visível (`FindFirstVisibleButton` prioriza contextMenu).
-     * `FooterHints` em `QUESTS` passa a exibir `[Y] Opções` quando houver seleção válida.
-  3. **Painel flutuante `Detalhes da Missão`:**
-     * Novo `ConsoleModeMM_QuestDetailOverlay` (`Frame` fullscreen semi-transparente `bg 0,0,0 0.6` + `centerPanel` ~560×420, 9-slice `Carved_9Slides`/backdrop atual, `STRATA DIALOG`, `Toplevel true`).
-     * Conteúdo ao abrir: `SelectQuestLogEntry(questLogIndex)` + `GetQuestLogQuestText()` → `title` (com `GetQuestLevelColor`), `description` (texto longo), `objectives` (`questObjectives` fallback), lista `GetNumQuestLeaderBoards`/`GetQuestLogLeaderBoard`, recompensas (`GetNumQuestLogRewards`/`GetQuestLogRewardInfo`, money `GetQuestLogRewardMoney`, choices). `ScrollFrame`+`ScrollChild` para texto longo; `rewardSlots` reaproveita padrão do `detailCard`.
-     * Abrir via item 1 do menu: `contextMenu:Hide()` → `ShowQuestDetailOverlay(questLogIndex)` + `PlaySound(CFG.Audio.soundItemSelect)`. Fechar via `B` (e também `A`/`ESC` se desejado): `HideQuestDetailOverlay()` com prioridade máxima no handler de `B` — `Hook CloseTopFrame`/`CM_CursorCancel` verifica `if questDetailOverlay:IsVisible() then hide; return true end` antes de `HandleMapBack`.
-     * Teclado/mouse: `OnClick` fora do `centerPanel` também fecha; não altera `mapViewMode`/`mapShowingQuestZone`.
-  4. **Abandonar Missão:**
-     * Item 2 do menu: `contextMenu:Hide()` → `MainMenu:AbandonSelectedQuest()` (já faz `SelectQuestLogEntry`+`SetAbandonQuest`+`StaticPopup_Show("ABANDON_QUEST"/"_WITH_ITEMS")`). Sem popup custom; confirmação nativa `StaticPopup` permanece (botões `Sim/Não` navegáveis via D-Pad/A/B). Após confirmar/cancelar, `QUEST_LOG_UPDATE` → `UpdateQuestsPage` refresca lista.
-  5. **Hierarquia de `B` / `CloseTopFrame`:**
-     * `questDetailOverlay visível → B fecha overlay`
-     * `questContextMenu visível → B fecha contextMenu`
-     * `senão → HandleMapBack()` (CONTINENT→ATUAL / ZONA→ATUAL) ou `CloseTopFrame()` (ATUAL).
-  6. **Compatibilidade:** 1.12.1 / Lua 5.0 (`table.getn`, sem `#`, `GetQuestLogTitle/GetQuestLogQuestText` nativos), `luac -p` obrigatório; Turtle custom zones não afetam (missões já indexadas por `GetQuestLogTitle` header zone).
-
-* **Tarefas quando autorizado a codar:**
-  1. Criar `questContextMenu` + `questDetailOverlay` em `MainMenu.lua` (ou `UI/QuestContext.lua` se preferir separar) e registrar no `ConsoleModeMM_Page_QUESTS`.
-  2. Adaptar `OpenQuestContextMenu` para 2 opções + highlight; implementar `ShowQuestDetailOverlay/HideQuestDetailOverlay`.
-  3. Bind `Y` em `Keybindings.lua` + integração `Cursor`/`FooterHints` + guard `B` em `Hooks.lua`.
-  4. `luac -p` + `/reload` + validação Turtle.
-
-* **Validação (quando liberado):** Em `QUESTS`, navegar D-Pad até missão → `Y` abre menu (2 opções) → `A` em `Detalhes` abre overlay central com texto completo/scroll → `B` fecha overlay (sem fechar MainMenu) → `Y`→`Abandonar` abre `StaticPopup` → confirmar abandona e lista atualiza; sem regressão em `CONTINENT`/`HandleMapBack`/pins.
-
-* **Commit:** Não codar/commitar até autorização explícita desta fase.

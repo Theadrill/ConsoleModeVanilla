@@ -3664,6 +3664,9 @@ function MainMenu:CreateQuestListButton(parent, idx)
             this.highlight:Show()
             this.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.20)
         end
+        if not this.isHeader and this.questLogIndex then
+            MainMenu:SelectQuest(this.questLogIndex, true)
+        end
     end)
 
     btn:SetScript("OnLeave", function()

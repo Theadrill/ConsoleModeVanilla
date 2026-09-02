@@ -4857,14 +4857,21 @@ function MainMenu:CreateQuestDetailOverlay()
     title:SetWidth(520)
     title:SetJustifyH("CENTER")
     title:SetTextColor(1, 0.82, 0)
+    MainMenu:ApplyFont(title, CFG.Fonts.titleFontFile, 15)
     f.titleText = title
+    local subTitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    subTitle:SetPoint("TOP", title, "BOTTOM", 0, -2)
+    subTitle:SetWidth(520)
+    subTitle:SetJustifyH("CENTER")
+    MainMenu:ApplyFont(subTitle, CFG.Fonts.subFontFile, 11)
+    f.subTitleText = subTitle
     local line = panel:CreateTexture(nil, "ARTWORK")
     line:SetTexture(0.5, 0.5, 0.5, 0.5)
     line:SetHeight(1)
-    line:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -32)
-    line:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -32)
+    line:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -42)
+    line:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -12, -42)
     local scroll = CreateFrame("ScrollFrame", "ConsoleModeMM_QuestDetailScroll", panel)
-    scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -36)
+    scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -46)
     scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, 28)
     scroll:EnableMouse(true)
     scroll:EnableMouseWheel(true)
@@ -4889,6 +4896,7 @@ function MainMenu:CreateQuestDetailOverlay()
     desc:SetJustifyH("LEFT")
     desc:SetJustifyV("TOP")
     desc:SetTextColor(1, 1, 1)
+    MainMenu:ApplyFont(desc, CFG.Fonts.bodyFontFile, 13)
     f.descText = desc
     local objTitle = child:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     objTitle:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -12)
@@ -4896,18 +4904,21 @@ function MainMenu:CreateQuestDetailOverlay()
     objTitle:SetJustifyH("LEFT")
     objTitle:SetTextColor(1, 0.82, 0)
     objTitle:SetText("Objetivos:")
+    MainMenu:ApplyFont(objTitle, CFG.Fonts.titleFontFile, 13)
     f.objTitle = objTitle
     local objText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     objText:SetPoint("TOPLEFT", objTitle, "BOTTOMLEFT", 0, -4)
     objText:SetWidth(528)
     objText:SetJustifyH("LEFT")
     objText:SetJustifyV("TOP")
+    MainMenu:ApplyFont(objText, CFG.Fonts.bodyFontFile, 12)
     f.objText = objText
     local rewardText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     rewardText:SetPoint("TOPLEFT", objText, "BOTTOMLEFT", 0, -12)
     rewardText:SetWidth(528)
     rewardText:SetJustifyH("LEFT")
     rewardText:SetJustifyV("TOP")
+    MainMenu:ApplyFont(rewardText, CFG.Fonts.bodyFontFile, 12)
     f.rewardText = rewardText
     local closeBtn = CreateFrame("Button", nil, panel)
     closeBtn:SetWidth(110)
@@ -4967,28 +4978,73 @@ function MainMenu:ShowQuestDetail(questLogIndex)
     if SelectQuestLogEntry then SelectQuestLogEntry(questLogIndex) end
     local qTitle, lvl, qTag, qHeader, qCollapsed, qComplete = GetQuestLogTitle(questLogIndex)
     local qDesc, qObjectives = GetQuestLogQuestText()
+    local qTr = MainMenu:GetQuestTranslation(questLogIndex, qTitle or title, qDesc, qObjectives)
     local r, g, b = nil, nil, nil
     if GetQuestDifficultyColor then r, g, b = GetQuestDifficultyColor(lvl or 1) end
     if not r and GetQuestLevelColor then r, g, b = GetQuestLevelColor(lvl or 1) end
     local lvlStr = ""
     if lvl and lvl > 0 then lvlStr = string.format("|cff%02x%02x%02x[%d]|r ", r*255, g*255, b*255, lvl) end
-    f.titleText:SetText(lvlStr .. "|cffffffff" .. (qTitle or title or "Missao") .. "|r")
-    local descStr = qDesc or ""
-    if descStr == "" then descStr = "|cff888888Sem descricao.|r" end
-    f.descText:SetText(descStr)
+    f.titleText:SetText(lvlStr .. "|cffffffff" .. (qTr.title or qTitle or title or "Missao") .. "|r")
+    if f.subTitleText then
+        if qTr.title and qTr.title ~= "" and qTr.title ~= qTitle and qTitle and qTitle ~= "" then
+            f.subTitleText:SetText("|cff888888" .. qTitle .. "|r")
+            f.subTitleText:Show()
+        else
+            f.subTitleText:SetText("")
+            f.subTitleText:Hide()
+        end
+    end
+    local fullDesc = (qTr.desc and qTr.desc ~= "") and qTr.desc or qDesc
+    if not fullDesc or fullDesc == "" then
+        fullDesc = "|cff888888Sem descricao.|r"
+    else
+        fullDesc = string.gsub(fullDesc, "%$[Bb]", "\n\n")
+        local pName = UnitName("player") or "Heroi"
+        fullDesc = string.gsub(fullDesc, "%$[Nn]", pName)
+        local pClass = UnitClass("player") or ""
+        fullDesc = string.gsub(fullDesc, "%$[Cc]", pClass)
+        local pRace = UnitRace("player") or ""
+        fullDesc = string.gsub(fullDesc, "%$[Rr]", pRace)
+    end
+    f.descText:SetText(fullDesc)
     local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(questLogIndex)) or 0
+    local fullObj = (qTr.obj and qTr.obj ~= "") and qTr.obj or qObjectives
+    if fullObj and fullObj ~= "" then
+        fullObj = string.gsub(fullObj, "%$[Bb]", "\n")
+        fullObj = string.gsub(fullObj, "%$[Nn]", UnitName("player") or "Heroi")
+        fullObj = string.gsub(fullObj, "%$[Cc]", UnitClass("player") or "")
+        fullObj = string.gsub(fullObj, "%$[Rr]", UnitRace("player") or "")
+    else
+        fullObj = ""
+    end
     local objStr = ""
-    for i = 1, numObj do
-        local t, _, done = GetQuestLogLeaderBoard(i, questLogIndex)
-        if t and t ~= "" then
-            local bullet = done and "|cff00ff00[x] |r" or "|cffffcc00[ ] |r"
-            local col = done and "|cff88cc88" or "|cffffffff"
-            objStr = objStr .. bullet .. col .. t .. "|r\n"
+    if fullObj ~= "" then
+        objStr = "|cffcccccc" .. fullObj .. "|r"
+    end
+    if numObj > 0 then
+        local lbStr = ""
+        for i = 1, numObj do
+            local t, _, done = GetQuestLogLeaderBoard(i, questLogIndex)
+            if t and t ~= "" then
+                t = string.gsub(t, " slain:", " abatido(s):")
+                t = string.gsub(t, " slain", " abatido(s)")
+                t = string.gsub(t, " killed:", " morto(s):")
+                t = string.gsub(t, " killed", " morto(s)")
+                local bullet = done and "|cff00ff00[x] |r" or "|cffffcc00[ ] |r"
+                local col = done and "|cff88cc88" or "|cffffffff"
+                lbStr = lbStr .. bullet .. col .. t .. "|r\n"
+            end
+        end
+        if lbStr ~= "" then
+            if objStr ~= "" then
+                objStr = objStr .. "\n\n" .. lbStr
+            else
+                objStr = lbStr
+            end
         end
     end
     if objStr == "" then
-        if qObjectives and qObjectives ~= "" then objStr = "|cffcccccc" .. qObjectives .. "|r"
-        else objStr = "|cff888888Sem objetivos.|r" end
+        objStr = "|cff888888Sem objetivos.|r"
     end
     f.objText:SetText(objStr)
     local money = (GetQuestLogRewardMoney and GetQuestLogRewardMoney()) or 0

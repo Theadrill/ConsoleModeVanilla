@@ -451,6 +451,63 @@ function MainMenu:GetWeaponEnchantDetails(slotID)
     return enchantName, icon
 end
 
+function MainMenu:ScanTooltipForItemLink(itemLink)
+    if not itemLink or itemLink == "" then return nil end
+    local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:%d+:%d+:%d+:%d+)|h%[(.-)%]|h|r")
+    if not rawLink then return nil end
+    local itemName, itemQuality, itemReqLevel, itemType, itemSubType, itemEquipLoc
+    local n, _, q, reqL, t, st, _, eqL = GetItemInfo(rawLink)
+    if n then
+        itemName = n
+        itemQuality = tonumber(q) or 1
+        itemReqLevel = tonumber(reqL) or 0
+        itemType = t
+        itemSubType = st
+        itemEquipLoc = eqL
+    else
+        itemName = nameFromLink
+        itemQuality = 1
+    end
+    if not scanTip then
+        return {
+            name = itemName or "Item",
+            quality = itemQuality or 1,
+            subType = itemSubType or "",
+            reqLevel = itemReqLevel or 0,
+            statsLines = {},
+            desc = "",
+        }
+    end
+    scanTip:ClearLines()
+    local ok = pcall(function() scanTip:SetHyperlink(rawLink) end)
+    if not ok then
+        pcall(function() scanTip:SetHyperlink(itemLink) end)
+    end
+    local statsLines = {}
+    local desc = ""
+    local numLines = scanTip:NumLines() or 0
+    for l = 2, numLines do
+        local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+        local leftText = (leftObj and leftObj:GetText()) or ""
+        if leftText ~= "" then
+            if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
+            elseif string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
+                desc = leftText
+            elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
+                table.insert(statsLines, "|cffffffff" .. leftText .. "|r")
+            end
+        end
+    end
+    return {
+        name = itemName or "Item",
+        quality = itemQuality or 1,
+        subType = itemSubType or "",
+        reqLevel = itemReqLevel or 0,
+        statsLines = statsLines,
+        desc = desc,
+    }
+end
+
 -- ============================================================================
 -- ENGINE UNIFICADA DE TRADUCAO DE QUESTS (ptBR) - Passo 12.2
 -- Cascata: pfDB['quests']['ptBR-turtle'] > pfDB['quests']['ptBR'] > ConsoleMode_QuestDB
@@ -985,6 +1042,15 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
                     PickupInventoryItem(this.invSlotID)
                 end
             end
+        end)
+
+        btn:SetScript("OnEnter", function()
+            local card = MainMenu:GetActiveDetailCard()
+            if card and card.ShowEquipSlot and this.invSlotID then
+                card:ShowEquipSlot(this.invSlotID, this.slotData)
+            end
+        end)
+        btn:SetScript("OnLeave", function()
         end)
 
         table.insert(container.buttons, btn)
@@ -1673,6 +1739,92 @@ function MainMenu:CreateDetailCard(parent, config)
         self:Show()
     end
 
+    function card:ShowEquipSlot(slotID, slotData)
+        if not slotID then return end
+        local itemLink = GetInventoryItemLink("player", slotID)
+        local itemTexture = GetInventoryItemTexture("player", slotID)
+        local _, emptyTex = GetInventorySlotInfo(slotData and slotData.name or "")
+
+        if not itemLink then
+            self.icon:SetTexture(emptyTex or "Interface\\Icons\\INV_Misc_QuestionMark")
+            self.icon:Show()
+            self.iconBorder:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.5)
+            self.iconBorder:Show()
+            self.titleText:SetText("|cff888888" .. (slotData and slotData.label or "Compartimento") .. " (Vazio)|r")
+            self.typeText:SetText("|cff666666Nenhum item equipado|r")
+            self.descText:SetText("|cff777777Voce nao possui nenhum item equipado neste compartimento.|r")
+            if self.sellWidget then self.sellWidget:Hide() end
+            self:UpdateMoney()
+            self:Show()
+            return
+        end
+
+        local scanned = MainMenu:ScanTooltipForItemLink(itemLink)
+        self.icon:SetTexture(itemTexture or "Interface\\Icons\\INV_Misc_QuestionMark")
+        self.icon:Show()
+
+        local quality = (scanned and scanned.quality) or 1
+        local qCol = (ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]) or { r=1, g=1, b=1, hex="|cffffffff" }
+        self.titleText:SetText(qCol.hex .. ((scanned and scanned.name) or "Item") .. "|r")
+        self.iconBorder:SetBackdropBorderColor(qCol.r, qCol.g, qCol.b, 0.95)
+        self.iconBorder:Show()
+
+        local subParts = {}
+        if slotData and slotData.label then table.insert(subParts, slotData.label) end
+        if scanned and scanned.subType and scanned.subType ~= "" then table.insert(subParts, scanned.subType) end
+        if scanned and scanned.reqLevel and tonumber(scanned.reqLevel) > 1 then
+            table.insert(subParts, "Req. Nv " .. scanned.reqLevel)
+        end
+        self.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
+
+        local lines = {}
+        if scanTip then
+            scanTip:ClearLines()
+            scanTip:SetInventoryItem("player", slotID)
+            local numLines = 30
+            if scanTip.NumLines then
+                local nl = scanTip:NumLines()
+                if nl and nl > 0 then numLines = nl end
+            end
+            for l = 2, numLines do
+                local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+                local leftText = (leftObj and leftObj:GetText()) or ""
+                if leftText ~= "" then
+                    if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Preco de Venda:") or string.find(leftText, "Sell Price:") then
+                    elseif string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
+                        table.insert(lines, "|cff00ff00" .. leftText .. "|r")
+                    elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
+                        table.insert(lines, "|cffffffff" .. leftText .. "|r")
+                    end
+                end
+            end
+        end
+
+        if table.getn(lines) == 0 and scanned and scanned.statsLines and table.getn(scanned.statsLines) > 0 then
+            for _, sl in ipairs(scanned.statsLines) do table.insert(lines, sl) end
+            if scanned.desc and scanned.desc ~= "" then
+                table.insert(lines, "|cff00ff00" .. scanned.desc .. "|r")
+            end
+        end
+
+        if GetInventoryItemDurability then
+            local curDur, maxDur = GetInventoryItemDurability(slotID)
+            if curDur and maxDur and maxDur > 0 then
+                table.insert(lines, string.format("|cffccccccDurabilidade %d / %d|r", curDur, maxDur))
+            end
+        end
+
+        if table.getn(lines) > 0 then
+            self.descText:SetText(table.concat(lines, "\n"))
+        else
+            self.descText:SetText("|cff888888Sem informacoes adicionais.|r")
+        end
+
+        if self.sellWidget then self.sellWidget:Hide() end
+        self:UpdateMoney()
+        self:Show()
+    end
+
     -- Método para limpar / estado vazio
     function card:Clear(msg)
         self.icon:Hide()
@@ -1693,6 +1845,28 @@ function MainMenu:CreateDetailCard(parent, config)
 
     card:Clear()
     return card
+end
+
+function MainMenu:GetActiveDetailCard()
+    if self.tabContainer and self.tabContainer.pages then
+        local curTab = self.tabContainer.currentTab
+        if curTab and self.tabContainer.pages[curTab] and self.tabContainer.pages[curTab].detailCard then
+            return self.tabContainer.pages[curTab].detailCard
+        end
+        for _, pageKey in ipairs({ "BAGS", "SPELLS" }) do
+            local pg = self.tabContainer.pages[pageKey]
+            if pg and pg.detailCard and pg:IsVisible() then
+                return pg.detailCard
+            end
+        end
+        if self.tabContainer.pages["BAGS"] and self.tabContainer.pages["BAGS"].detailCard then
+            return self.tabContainer.pages["BAGS"].detailCard
+        end
+        if self.tabContainer.pages["SPELLS"] and self.tabContainer.pages["SPELLS"].detailCard then
+            return self.tabContainer.pages["SPELLS"].detailCard
+        end
+    end
+    return nil
 end
 
 -- ============================================================================

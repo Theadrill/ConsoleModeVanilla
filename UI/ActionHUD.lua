@@ -258,6 +258,37 @@ function HUD:CreateButton(parent, def, id)
     
     btn.def = def
     btn.btnKey = def.key
+
+    btn:RegisterForDrag("LeftButton")
+    btn:SetScript("OnDragStart", function()
+        if IsShiftKeyDown() then
+            local root = HUD.frame
+            if root and root.StartMoving then
+                root:StartMoving()
+                root.isMoving = true
+            end
+        end
+    end)
+    btn:SetScript("OnDragStop", function()
+        local root = HUD.frame
+        if root and root.isMoving then
+            root:StopMovingOrSizing()
+            root.isMoving = false
+            if not ConsoleModeDB then ConsoleModeDB = {} end
+            if not ConsoleModeDB.positions then ConsoleModeDB.positions = {} end
+            local point, _, relPoint, x, y = root:GetPoint()
+            ConsoleModeDB.positions["ActionHUD"] = {
+                point = point, relPoint = relPoint, x = x, y = y
+            }
+        end
+    end)
+    btn:SetScript("OnMouseUp", function()
+        if arg1 == "RightButton" and IsShiftKeyDown() then
+            if CM.ui and CM.ui.ResetPosition then
+                CM.ui:ResetPosition("ActionHUD")
+            end
+        end
+    end)
     
     return btn
 end
@@ -312,7 +343,7 @@ function HUD:Initialize()
         f:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 45)
     end
     
-    f:SetFrameStrata("LOW")
+    f:SetFrameStrata("MEDIUM")
     
     -- Cluster Esquerdo (D-Pad)
     local leftCluster = CreateFrame("Frame", "ConsoleModeHUDClusterLeft", f)

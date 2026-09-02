@@ -342,65 +342,49 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 12: Sistema de Tradução de Missões (Híbrido pfQuest + DB Local ptBR)** `[STATUS: ⏳ PRÓXIMA FASE]`
-* **Objetivo:** Integrar tradução completa em Português (pt-BR) para os textos de missões exibidos no `ConsoleModeVanilla` (tanto no **Card de Resumo Lateral** quanto no **Modal Flutuante de Detalhes com Scroll**).
+### **FASE 12: Sistema de Tradução de Missões (Híbrido pfQuest + DB Local ptBR)** `[STATUS: ✅ CONCLUÍDO]`
+* **Objetivo:** Integrar tradução completa em Português (pt-BR) para os textos de missões exibidos no `ConsoleModeVanilla` (tanto no **Card de Resumo Lateral**, no **Modal Flutuante de Detalhes com Scroll**, quanto na **Lista Vertical de Missões da Esquerda**).
 * **Arquitetura Híbrida Inteligente (Sem dependência obrigatória):**
   1. **Nível 1 — `pfQuest` (Mais Atualizado):** Se o jogador tiver o `pfQuest` / `pfQuest-turtle` ativo, utilizamos diretamente as tabelas globais em memória (`pfDB["quests"]["ptBR-turtle"]` e `pfDB["quests"]["ptBR"]`), capturando o ID da quest via `pfDatabase:GetQuestIDs(questLogIndex)`.
-  2. **Nível 2 — DB Local Embutido (`Data/QuestDB_ptBR.lua`):** Caso o jogador não utilize o `pfQuest`, o `ConsoleModeVanilla` carrega seu próprio banco de dados de missões, construído a partir das bases do Vanilla 1.12 e do Turtle WoW, permitindo busca $O(1)$ por ID e por Título em inglês.
-  3. **Otimização Crítica de RAM (WoW 1.12):** No evento `PLAYER_LOGIN` / inicialização, se o addon detectar que o `pfDB["quests"]["ptBR"]` já existe na memória global, a tabela local embutida é liberada (`ConsoleMode_QuestDB = nil`), economizando ~6 MB de memória do cliente 1.12.
+  2. **Nível 2 — DB Local Embutido (`Data/QuestDB_ptBR.lua`):** Caso o jogador não utilize o `pfQuest`, o `ConsoleModeVanilla` carrega seu próprio banco de dados de 6.685 missões (`ConsoleMode_QuestDB`), construído a partir das bases do Vanilla 1.12 e do Turtle WoW, permitindo busca $O(1)$ por ID e lookup reverso por Título em inglês (`ConsoleMode_QuestDB_ByTitle`).
+  3. **Otimização Crítica de RAM (WoW 1.12):** No evento `PLAYER_LOGIN` / `ADDON_LOADED`, se o addon detectar que o `pfDB["quests"]["ptBR"]` já existe na memória global, as tabelas locais embutidas são liberadas (`ConsoleMode_QuestDB = nil` e `ConsoleMode_QuestDB_ByTitle = nil`) e `collectgarbage()` é disparado, liberando ~4 MB de memória do cliente 1.12.
   4. **Fallback Transparente:** Caso uma missão nova/não catalogada seja selecionada, os textos originais em inglês da Blizzard são mantidos sem quebrar a interface.
 
 * **Passos Detalhados de Execução (Isolados e com Validação Individual):**
 
-  * **Passo 12.1 - Construção e Registro do DB Local Embutido (`Data/QuestDB_ptBR.lua`):** `[STATUS: ⏳ PRÓXIMO PASSO]`
-    1. Criar script auxiliar temporário para compilar as bases `pfQuest` e `pfQuest-turtle` em `Data/QuestDB_ptBR.lua`, contendo `ConsoleMode_QuestDB` (indexado por ID e por Título em inglês para busca $O(1)$).
-    2. Registrar `Data\QuestDB_ptBR.lua` no `ConsoleModeVanilla.toc`.
-    3. *Isolamento:* Não altera nenhuma lógica existente do addon. O addon inicializa normalmente.
-    4. *Validação Isolada in-game:* Fazer `/reload` e testar via chat:
-       `/run DEFAULT_CHAT_FRAME:AddMessage("QuestDB Carregado: " .. tostring(ConsoleMode_QuestDB ~= nil))`
-    5. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.2.
+  * **Passo 12.1 - Construção e Registro do DB Local Embutido (`Data/QuestDB_ptBR.lua`):** `[STATUS: ✅ CONCLUÍDO]`
+    1. Script `tools/build_questdb.py` criado e executado, unificando 4.433 quests Vanilla + 2.252 exclusivas do Turtle WoW (total 6.685 quests) com prioridade do Turtle WoW em colisões de ID.
+    2. Arquivo `Data/QuestDB_ptBR.lua` registrado no `ConsoleModeVanilla.toc`.
+    3. *Validação:* `QuestDB: true total real: 6685` validado in-game via chat.
 
-  * **Passo 12.2 - Engine Unificada de Resolução (`MainMenu:GetQuestTranslation`):** `[STATUS: ⏳ PENDENTE]`
-    1. Implementar o método helper em `UI/MainMenu.lua`:
-       `MainMenu:GetQuestTranslation(questLogIndex, rawTitle, rawDesc, rawObj)`
-       - Prioridade 1 (`pfQuest` ativo): busca ID via `pfDatabase:GetQuestIDs` e lê de `pfDB["quests"]["ptBR-turtle"]` ou `pfDB["quests"]["ptBR"]`.
-       - Prioridade 2 (`DB Local`): busca por ID ou título em `ConsoleMode_QuestDB`.
-       - Fallback seguro: retorna os textos originais caso não encontre tradução.
-       - Desalocação inteligente de RAM no `PLAYER_LOGIN`: se `pfDB` estiver ativo, faz `ConsoleMode_QuestDB = nil`.
-    2. *Isolamento:* Nenhuma tela/frame de UI é alterado ainda.
-    3. *Validação Isolada in-game:* Fazer `/reload` e testar no chat com uma missão qualquer:
-       `/run local t = MainMenu:GetQuestTranslation(1, "Garrick's Bounty"); message(t and (t.title or t.T) or "Erro")`
-    4. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.3.
+  * **Passo 12.2 - Engine Unificada de Resolução (`MainMenu:GetQuestTranslation`):** `[STATUS: ✅ CONCLUÍDO]`
+    1. Helper `MainMenu:GetQuestTranslation(questLogIndex, rawTitle, rawDesc, rawObj)` implementado em `UI/MainMenu.lua`.
+    2. Resolução autônoma por ID e por Título em inglês (`ConsoleMode_QuestDB_ByTitle`).
+    3. Desalocação automática de RAM em `PLAYER_LOGIN` e `ADDON_LOADED` quando `pfDB` presente.
+    4. *Validação:* Testado in-game com pfQuest ativo e desativado com 100% de sucesso.
 
-  * **Passo 12.3 - Tradução do Card de Resumo Lateral (`MainMenu:SelectQuest`):** `[STATUS: ⏳ PENDENTE]`
-    1. Conectar `GetQuestTranslation` exclusivamente dentro de `MainMenu:SelectQuest`:
-       - Título no `detailCard.title` atualizado com o título em português.
-       - Resumo de objetivos no `detailCard.objectives` atualizado com o texto traduzido.
-    2. *Isolamento:* Apenas o painel lateral de resumo é modificado; modal e listas continuam funcionando normalmente.
-    3. *Validação Isolada in-game:* Fazer `/reload`, abrir o Main Menu com o controle, navegar pelas missões no D-Pad e verificar os títulos e objetivos traduzidos no card lateral à direita.
-    4. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.4.
+  * **Passo 12.3 - Tradução do Card de Resumo Lateral (`MainMenu:SelectQuest`):** `[STATUS: ✅ CONCLUÍDO]`
+    1. Título traduzido com nível colorido preservado (`[Level] Nome em Português`).
+    2. Objetivos exibidos em formato limpo por linhas de bullets (`-` / `✔`), com verbos traduzidos (`slain` -> `abatido(s)`).
+    3. Quests sem contadores limpas de códigos brutos da Blizzard (`$B`, `$N`).
+    4. *Validação:* Testado e aprovado in-game.
 
-  * **Passo 12.4 - Tradução do Modal Flutuante com Scroll (`MainMenu:ShowQuestDetail`):** `[STATUS: ⏳ PENDENTE]`
-    1. Conectar `GetQuestTranslation` dentro de `MainMenu:ShowQuestDetail`:
-       - `f.titleText` recebe o título traduzido.
-       - `f.descText` recebe a narrativa completa (`D`) traduzida em português.
-       - `f.objText` recebe os objetivos (`O`) traduzidos em português.
-       - Recálculo dinâmico da altura do `scrollChild` para ajuste perfeito da rolagem.
-    2. *Isolamento:* Modifica apenas a exibição interna do modal de detalhes com scroll.
-    3. *Validação Isolada in-game:* Fazer `/reload`, selecionar uma quest na lista, pressionar `(Y)` -> `Detalhes da Missão` e ler a narrativa longa e objetivos 100% em português com rolagem fluida no analógico/D-Pad.
-    4. *🛑 PARADA CRÍTICA:* Pausa obrigatória para o usuário validar no jogo antes de iniciar o Passo 12.5.
+  * **Passo 12.4 - Tradução do Modal Flutuante com Scroll (`MainMenu:ShowQuestDetail`):** `[STATUS: ✅ CONCLUÍDO]`
+    1. Narrativa longa traduzida em português com substituição dinâmica de `$N` (nome do jogador), `$C` (classe) e `$R` (raça).
+    2. Subtítulo com o nome original em inglês em cinza suave (`|cff888888`) para consultas fáceis no Wowhead / Turtle DB.
+    3. Aplicação de fontes UTF-8 do ConsoleMode (`Marcellus` e `Alegreya Sans`), corrigindo renderização de acentos e o caractere `ç`.
+    4. Recálculo dinâmico da altura do `scrollChild` para rolagem suave.
+    5. *Validação:* Testado e aprovado in-game.
 
-  * **Passo 12.5 - Teste Cruzado de Resiliência (Com e Sem pfQuest) e Polimento:** `[STATUS: ⏳ PENDENTE]`
-    1. Validação estrita de sintaxe em todos os arquivos (`luac -p`).
-    2. *Validação Isolada in-game:*
-       - Teste A: Com `pfQuest` ativo na lista de AddOns -> confirma tradução via pfQuest e liberação de RAM do DB local.
-       - Teste B: Desmarcar `pfQuest` na tela de AddOns, entrar no jogo -> confirma que o addon funciona 100% traduzido usando o DB embutido de forma autônoma.
-    3. *🛑 PARADA CRÍTICA FINAL:* Validação completa da Fase 12 pelo usuário.
-
+  * **Passo 12.5 - Refinamentos de UX e Navegação Gamepad-First:** `[STATUS: ✅ CONCLUÍDO]`
+    1. **Auto-seleção no Foco (D-Pad):** Navegar na lista de missões atualiza o card lateral e o índice da missão selecionada em tempo real no `OnEnter` (`suppressMapSwitch = true`), permitindo apertar `(Y)` diretamente sem precisar apertar `(A)` antes.
+    2. **Tradução da Lista Vertical:** Botões da lista da esquerda atualizados em `MainMenu:UpdateQuestsPage` para exibir os títulos traduzidos em português.
+    3. Validação de sintaxe total com `luac -p` em todos os arquivos modificados.
+    4. *Validação:* Validado e aprovado in-game.
 
 ---
 
-### **FASE 13: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
+### **FASE 13: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PRÓXIMA FASE]`
 * **Tarefas:**
   1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
   2. Animações de comer/beber no modelo 3D ao usar consumíveis.

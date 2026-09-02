@@ -3852,10 +3852,13 @@ function MainMenu:UpdateQuestsPage()
                 end
                 btn.tagText:SetText(tagStr)
 
+                local qTr = MainMenu:GetQuestTranslation(itemData.index, itemData.title)
+                local displayTitle = (qTr and qTr.title) or itemData.title
+
                 btn.titleText:ClearAllPoints()
                 btn.titleText:SetPoint("LEFT", btn.tagText, "RIGHT", 2, 0)
                 btn.titleText:SetPoint("RIGHT", btn.trackIcon, "LEFT", -2, 0)
-                btn.titleText:SetText(itemData.title)
+                btn.titleText:SetText(displayTitle)
 
                 -- Status de Conclusão / Progresso
                 if itemData.isComplete and itemData.isComplete > 0 then

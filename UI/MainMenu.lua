@@ -1180,7 +1180,22 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     local prevBuff = buffHeader
 
     for b = 1, CFG.StatsAndBuffs.maxBuffs do
-        local row = CreateFrame("Frame", "ConsoleModeMM_BuffRow" .. b, container)
+        local row = CreateFrame("Button", "ConsoleModeMM_BuffRow" .. b, container)
+        row:EnableMouse(true)
+        row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        row:SetScript("OnClick", function()
+            if arg1 == "RightButton" and this.buffIndex then
+                CancelPlayerBuff(this.buffIndex)
+            end
+        end)
+        row:SetScript("OnEnter", function()
+            local card = MainMenu:GetActiveDetailCard()
+            if card and card.ShowBuffRow then
+                card:ShowBuffRow(this)
+            end
+        end)
+        row:SetScript("OnLeave", function()
+        end)
         row:SetHeight(CFG.StatsAndBuffs.buffIconSize)
         row:SetPoint("LEFT", container, "LEFT", 0, 0)
         row:SetPoint("RIGHT", container, "RIGHT", 0, 0)
@@ -1275,6 +1290,11 @@ function MainMenu:UpdateStatsAndBuffs()
             local timeLeft = (mhExp or 0) / 1000
 
             row.icon:SetTexture(mhIcon or "Interface\\Icons\\INV_Sword_04")
+            row.isWeaponEnchant = true
+            row.weaponSlot = 16
+            row.enchantName = mhName
+            row.enchantIcon = mhIcon
+            row.buffIndex = nil
 
             local durStr = ""
             if timeLeft and timeLeft > 0 then
@@ -1298,6 +1318,11 @@ function MainMenu:UpdateStatsAndBuffs()
             local timeLeft = (ohExp or 0) / 1000
 
             row.icon:SetTexture(ohIcon or "Interface\\Icons\\INV_Sword_04")
+            row.isWeaponEnchant = true
+            row.weaponSlot = 17
+            row.enchantName = ohName
+            row.enchantIcon = ohIcon
+            row.buffIndex = nil
 
             local durStr = ""
             if timeLeft and timeLeft > 0 then
@@ -1328,6 +1353,11 @@ function MainMenu:UpdateStatsAndBuffs()
             local buffName = self:GetBuffName(buffIndex)
 
             row.icon:SetTexture(tex or "Interface\\Icons\\Spell_Holy_WordFortitude")
+            row.isWeaponEnchant = false
+            row.weaponSlot = nil
+            row.buffIndex = buffIndex
+            row.buffName = buffName
+            row.buffIcon = tex
 
             -- Formata a duração (ex: 35m, 12s, 1h)
             local durStr = ""
@@ -1823,6 +1853,88 @@ function MainMenu:CreateDetailCard(parent, config)
         if self.sellWidget then self.sellWidget:Hide() end
         self:UpdateMoney()
         self:Show()
+    end
+
+    function card:ShowBuffRow(buffRow)
+        if not buffRow then return end
+        if buffRow.isWeaponEnchant then
+            self.icon:SetTexture(buffRow.enchantIcon or "Interface\\Icons\\INV_Sword_04")
+            self.icon:Show()
+            self.iconBorder:SetBackdropBorderColor(1.0, 0.82, 0.0, 0.95)
+            self.iconBorder:Show()
+            self.titleText:SetText("|cffffd100" .. (buffRow.enchantName or "Encantamento de Arma") .. "|r")
+            self.typeText:SetText("|cffaaaaaaENCANTAMENTO DE ARMA  •  Temporário|r")
+            local lines = {}
+            if scanTip and buffRow.weaponSlot then
+                scanTip:ClearLines()
+                scanTip:SetInventoryItem("player", buffRow.weaponSlot)
+                local numLines = 30
+                if scanTip.NumLines then
+                    local nl = scanTip:NumLines()
+                    if nl and nl > 0 then numLines = nl end
+                end
+                for l = 2, numLines do
+                    local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+                    local leftText = (leftObj and leftObj:GetText()) or ""
+                    if leftText ~= "" and (string.find(leftText, "%(%d+ min%)") or string.find(leftText, "%(%d+ sec%)") or string.find(leftText, "%(%d+ seg%)")) then
+                        table.insert(lines, "|cff00ff00" .. leftText .. "|r")
+                    end
+                end
+            end
+            if table.getn(lines) > 0 then
+                self.descText:SetText(table.concat(lines, "\n"))
+            else
+                self.descText:SetText("|cff00ff00Aplica um efeito temporario de combate nesta arma.|r")
+            end
+            if self.sellWidget then self.sellWidget:Hide() end
+            self:UpdateMoney()
+            self:Show()
+            return
+        end
+
+        if buffRow.buffIndex then
+            local bIdx = buffRow.buffIndex
+            local icon = GetPlayerBuffTexture(bIdx)
+            local name = MainMenu:GetBuffName(bIdx)
+            local timeLeft = GetPlayerBuffTimeLeft(bIdx)
+            self.icon:SetTexture(icon or "Interface\\Icons\\Spell_Holy_WordFortitude")
+            self.icon:Show()
+            self.iconBorder:SetBackdropBorderColor(0.2, 0.8, 1.0, 0.95)
+            self.iconBorder:Show()
+            self.titleText:SetText("|cff00e5ff" .. (name or "Efeito Ativo") .. "|r")
+            local durStr = "Duração Permanente"
+            if timeLeft and timeLeft > 0 then
+                if timeLeft >= 3600 then durStr = "Restam " .. math.floor(timeLeft / 3600) .. " hora(s)"
+                elseif timeLeft >= 60 then durStr = "Restam " .. math.floor(timeLeft / 60) .. " minuto(s)"
+                else durStr = "Restam " .. math.floor(timeLeft) .. " segundo(s)" end
+            end
+            self.typeText:SetText("|cffaaaaaa" .. durStr .. "  •  Efeito Benéfico|r")
+            local lines = {}
+            if scanTip then
+                scanTip:ClearLines()
+                scanTip:SetPlayerBuff(bIdx)
+                local numLines = 10
+                if scanTip.NumLines then
+                    local nl = scanTip:NumLines()
+                    if nl and nl > 0 then numLines = nl end
+                end
+                for l = 2, numLines do
+                    local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
+                    local leftText = (leftObj and leftObj:GetText()) or ""
+                    if leftText ~= "" then
+                        table.insert(lines, "|cffffffff" .. leftText .. "|r")
+                    end
+                end
+            end
+            if table.getn(lines) > 0 then
+                self.descText:SetText(table.concat(lines, "\n"))
+            else
+                self.descText:SetText("|cff888888Efeito benefico ativo no personagem.|r")
+            end
+            if self.sellWidget then self.sellWidget:Hide() end
+            self:UpdateMoney()
+            self:Show()
+        end
     end
 
     -- Método para limpar / estado vazio

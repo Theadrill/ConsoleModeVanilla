@@ -70,7 +70,7 @@ CFG.Anchor = {
 -- ----------------------------------------------------------------------------
 CFG.Portrait = {
     size  = 58,   -- largura e altura do quadrado do rosto (px)
-    gapX  = 8,    -- espaço horizontal entre portrait e container de barras (px)
+    gapX  = 26,   -- espaço horizontal entre portrait e container de barras (px)
 
     -- Moldura da classe (configuração única padronizada para todas as classes)
     frameShow    = true,   -- true = exibe a moldura, false = oculta globalmente
@@ -137,6 +137,19 @@ CFG.Breath = {
     textFont  = "GameFontHighlightSmall",
     textSize  = nil,
     textColor = { r = 1.0, g = 1.0, b = 1.0 },
+}
+
+-- ----------------------------------------------------------------------------
+-- AURAS - BUFFS E DEBUFFS (Coluna 1 - Grid Vertical)
+-- Buffs acima da barra de HP (max 21 = 7 cols x 3 rows) crescem para cima.
+-- Debuffs abaixo da barra de HP (max 14 = 7 cols x 2 rows) crescem para baixo.
+-- ----------------------------------------------------------------------------
+CFG.Auras = {
+    size          = 18,   -- tamanho do icone quadrado (px)
+    gap           = 2,    -- espaco entre icones adjacentes (px)
+    maxCols       = 7,    -- maximo por linha (7 * 20px = 140px, largura da coluna 1)
+    maxBuffRows   = 3,    -- maximo de linhas de buffs (cresce para cima)
+    maxDebuffRows = 2,    -- maximo de linhas de debuffs (cresce para baixo)
 }
 
 -- ----------------------------------------------------------------------------
@@ -307,6 +320,17 @@ function PF:Initialize()
             CFG.Anchor.point, UIParent, CFG.Anchor.relPoint,
             CFG.Anchor.defaultX, CFG.Anchor.defaultY
         )
+    end
+
+    -- Migracao: se posicao salva anterior era deslocada (x == -180), restaura para centro (0)
+    -- para que o usuario veja o ajuste imediatamente apos /reload sem reset manual
+    if ConsoleModeDB and ConsoleModeDB.positions and ConsoleModeDB.positions["PlayerFrame"] then
+        local saved = ConsoleModeDB.positions["PlayerFrame"]
+        if saved.x == -180 then
+            saved.x = CFG.Anchor.defaultX
+            f:ClearAllPoints()
+            f:SetPoint(saved.point or CFG.Anchor.point, UIParent, saved.relPoint or CFG.Anchor.relPoint, saved.x, saved.y)
+        end
     end
 
     -- Shift + arrastar esquerdo = mover
@@ -609,6 +633,125 @@ function PF:Initialize()
     f.hpText = hpText
 
     -- -----------------------------------------------------------------------
+    -- AURAS - BUFFS E DEBUFFS (Coluna 1 - Grid Vertical)
+    -- Buffs acima da HP (maxCols x maxBuffRows = 21), crescem para cima.
+    -- Debuffs abaixo da HP (maxCols x maxDebuffRows = 14), crescem para baixo.
+    -- Ancorados ao trailBar para respeitar rowGap especificado em CFG.Bars.rowGap.
+    -- -----------------------------------------------------------------------
+    local auraSize = CFG.Auras.size
+    local auraGap = CFG.Auras.gap
+    local auraMaxCols = CFG.Auras.maxCols
+    local auraBuffMax = auraMaxCols * CFG.Auras.maxBuffRows
+    local auraDebuffMax = auraMaxCols * CFG.Auras.maxDebuffRows
+
+    local buffContainer = CreateFrame("Frame", "ConsoleModePlayerBuffs", f)
+    buffContainer:SetWidth(CFG.Bars.col1Width)
+    buffContainer:SetHeight(CFG.Auras.maxBuffRows * (auraSize + auraGap))
+    buffContainer:SetPoint("BOTTOMLEFT", trailBar, "TOPLEFT", 0, CFG.Bars.rowGap)
+    buffContainer:SetFrameLevel(barsContainer:GetFrameLevel() + 2)
+    f.buffContainer = buffContainer
+
+    local debuffContainer = CreateFrame("Frame", "ConsoleModePlayerDebuffs", f)
+    debuffContainer:SetWidth(CFG.Bars.col1Width)
+    debuffContainer:SetHeight(CFG.Auras.maxDebuffRows * (auraSize + auraGap))
+    debuffContainer:SetPoint("TOPLEFT", trailBar, "BOTTOMLEFT", 0, -CFG.Bars.rowGap)
+    debuffContainer:SetFrameLevel(barsContainer:GetFrameLevel() + 2)
+    f.debuffContainer = debuffContainer
+
+    f.buffs = {}
+    f.debuffs = {}
+
+    -- Pool de buffs (sem borda, apenas icone + contador)
+    for i = 1, auraBuffMax do
+        local col = math.mod((i - 1), auraMaxCols)
+        local row = math.floor((i - 1) / auraMaxCols)
+        local btn = CreateFrame("Button", nil, buffContainer)
+        btn:SetWidth(auraSize)
+        btn:SetHeight(auraSize)
+        btn:SetPoint("BOTTOMLEFT", buffContainer, "BOTTOMLEFT", col * (auraSize + auraGap), row * (auraSize + auraGap))
+        btn:EnableMouse(true)
+        btn.auraIndex = i
+        btn.isDebuff = false
+
+        local icon = btn:CreateTexture(nil, "ARTWORK")
+        icon:SetAllPoints(btn)
+        icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        btn.iconTex = icon
+
+        local countText = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        countText:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -1, 1)
+        countText:SetTextColor(1, 1, 1, 1)
+        countText:SetText("")
+        local cPath, cSize = countText:GetFont()
+        if cPath then
+            countText:SetFont(cPath, 10, "OUTLINE")
+        end
+        btn.countText = countText
+
+        btn:SetScript("OnEnter", function()
+            if GameTooltip and this.buffIndex then
+                GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
+                GameTooltip:SetPlayerBuff(this.buffIndex)
+                GameTooltip:Show()
+            end
+        end)
+        btn:SetScript("OnLeave", function()
+            if GameTooltip then GameTooltip:Hide() end
+        end)
+
+        btn:Hide()
+        f.buffs[i] = btn
+    end
+
+    -- Pool de debuffs (com borda colorida por debuffType)
+    for i = 1, auraDebuffMax do
+        local col = math.mod((i - 1), auraMaxCols)
+        local row = math.floor((i - 1) / auraMaxCols)
+        local btn = CreateFrame("Button", nil, debuffContainer)
+        btn:SetWidth(auraSize)
+        btn:SetHeight(auraSize)
+        btn:SetPoint("TOPLEFT", debuffContainer, "TOPLEFT", col * (auraSize + auraGap), -(row * (auraSize + auraGap)))
+        btn:EnableMouse(true)
+        btn.auraIndex = i
+        btn.isDebuff = true
+
+        local icon = btn:CreateTexture(nil, "ARTWORK")
+        icon:SetAllPoints(btn)
+        icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        btn.iconTex = icon
+
+        local border = btn:CreateTexture(nil, "OVERLAY")
+        border:SetAllPoints(btn)
+        border:SetTexture("Interface\\Buttons\\UI-Debuff-Border")
+        border:SetBlendMode("ADD")
+        btn.borderTex = border
+
+        local countText = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        countText:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -1, 1)
+        countText:SetTextColor(1, 1, 1, 1)
+        countText:SetText("")
+        local cPath2, cSize2 = countText:GetFont()
+        if cPath2 then
+            countText:SetFont(cPath2, 10, "OUTLINE")
+        end
+        btn.countText = countText
+
+        btn:SetScript("OnEnter", function()
+            if GameTooltip and this.buffIndex then
+                GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
+                GameTooltip:SetPlayerBuff(this.buffIndex)
+                GameTooltip:Show()
+            end
+        end)
+        btn:SetScript("OnLeave", function()
+            if GameTooltip then GameTooltip:Hide() end
+        end)
+
+        btn:Hide()
+        f.debuffs[i] = btn
+    end
+
+    -- -----------------------------------------------------------------------
     -- COLUNA 2 — CASTBAR
     -- offsetX = col2X (fixo, não depende da largura da HP bar)
     -- Oculta por padrão; aparece ao iniciar conjuração.
@@ -804,10 +947,13 @@ function PF:Initialize()
     f:RegisterEvent("MIRRORTIMER_START")
     f:RegisterEvent("MIRRORTIMER_PAUSE")
     f:RegisterEvent("MIRRORTIMER_STOP")
+    f:RegisterEvent("PLAYER_AURAS_CHANGED")
+    f:RegisterEvent("UNIT_AURA")
 
     f:SetScript("OnEvent", function()
         if event == "PLAYER_ENTERING_WORLD" then
             PF:HideDefaultBars()
+            PF:UpdateAuras()
             -- Delay para o modelo do personagem terminar de carregar
             local delay = CreateFrame("Frame")
             delay.elapsed = 0
@@ -816,6 +962,7 @@ function PF:Initialize()
                 if this.elapsed > 0.3 then
                     this:SetScript("OnUpdate", nil)
                     PF:Update()
+                    PF:UpdateAuras()
                 end
             end)
 
@@ -921,6 +1068,12 @@ function PF:Initialize()
                 end
             end
 
+        elseif event == "PLAYER_AURAS_CHANGED" then
+            PF:UpdateAuras()
+
+        elseif event == "UNIT_AURA" then
+            if arg1 == "player" then PF:UpdateAuras() end
+
         elseif arg1 == "player" then
             PF:UpdateBars()
         end
@@ -929,6 +1082,7 @@ function PF:Initialize()
     self.frame = f
     self:HideDefaultBars()
     self:Update()
+    PF:UpdateAuras()
     f:Show()
 end
 
@@ -1002,6 +1156,93 @@ function PF:UpdateBars()
         end
     else
         self.frame.resBar:Hide()
+    end
+end
+
+-- ============================================================================
+-- LÓGICA: ATUALIZAÇÃO DAS AURAS (Buffs acima, Debuffs abaixo - Coluna 1)
+-- ============================================================================
+
+function PF:UpdateAuras()
+    if not self.frame then return end
+    if not self.frame.buffs or not self.frame.debuffs then return end
+
+    local auraMaxBuffs = CFG.Auras.maxCols * CFG.Auras.maxBuffRows
+    local auraMaxDebuffs = CFG.Auras.maxCols * CFG.Auras.maxDebuffRows
+
+    -- Buffs: GetPlayerBuff(i, "HELPFUL") de 0 ate 31
+    local buffCount = 0
+    for i = 0, 31 do
+        local bIdx = GetPlayerBuff(i, "HELPFUL")
+        if bIdx < 0 or buffCount >= auraMaxBuffs then break end
+        local icon = GetPlayerBuffTexture(bIdx)
+        if icon then
+            buffCount = buffCount + 1
+            local btn = self.frame.buffs[buffCount]
+            if btn then
+                local count = GetPlayerBuffApplications(bIdx)
+                btn.iconTex:SetTexture(icon)
+                btn.buffIndex = bIdx
+                if count and count > 1 then
+                    btn.countText:SetText(count)
+                    btn.countText:Show()
+                else
+                    btn.countText:SetText("")
+                    btn.countText:Hide()
+                end
+                btn:Show()
+            end
+        end
+    end
+    for j = buffCount + 1, auraMaxBuffs do
+        local btn = self.frame.buffs[j]
+        if btn then
+            btn:Hide()
+            btn.countText:SetText("")
+            btn.countText:Hide()
+        end
+    end
+
+    -- Debuffs: GetPlayerBuff(i, "HARMFUL") de 0 ate 15
+    local debuffColors = {
+        Magic   = { r = 0.2, g = 0.6, b = 1.0 },
+        Curse   = { r = 0.6, g = 0.0, b = 1.0 },
+        Poison  = { r = 0.0, g = 0.6, b = 0.0 },
+        Disease = { r = 0.6, g = 0.4, b = 0.0 },
+    }
+    local debuffCount = 0
+    for i = 0, 15 do
+        local dIdx = GetPlayerBuff(i, "HARMFUL")
+        if dIdx < 0 or debuffCount >= auraMaxDebuffs then break end
+        local icon = GetPlayerBuffTexture(dIdx)
+        if icon then
+            debuffCount = debuffCount + 1
+            local btn = self.frame.debuffs[debuffCount]
+            if btn then
+                local count = GetPlayerBuffApplications(dIdx)
+                local debuffType = GetPlayerBuffDispelType(dIdx)
+                btn.iconTex:SetTexture(icon)
+                btn.buffIndex = dIdx
+                if count and count > 1 then
+                    btn.countText:SetText(count)
+                    btn.countText:Show()
+                else
+                    btn.countText:SetText("")
+                    btn.countText:Hide()
+                end
+                local col = debuffColors[debuffType] or { r = 0.8, g = 0.0, b = 0.0 }
+                btn.borderTex:SetVertexColor(col.r, col.g, col.b, 1.0)
+                btn:Show()
+            end
+        end
+    end
+    for j = debuffCount + 1, auraMaxDebuffs do
+        local btn = self.frame.debuffs[j]
+        if btn then
+            btn:Hide()
+            btn.countText:SetText("")
+            btn.countText:Hide()
+        end
     end
 end
 
@@ -1088,6 +1329,7 @@ function PF:Update()
 
     self:UpdateBars()
     self:UpdateComboPoints()
+    self:UpdateAuras()
 end
 
 -- ============================================================================
@@ -1172,21 +1414,31 @@ function PF:HideDefaultBars()
             bar.Show = function() end
         end
     end
-    -- Varredura generica por qualquer global contendo MirrorTimer (turtle-dragonflight / DragonflightUI)
-    local envTable = nil
-    if _G then envTable = _G
-    elseif getfenv then envTable = getfenv(0) end
-    if envTable then
-        for k, v in pairs(envTable) do
-            if type(k) == "string" and string.find(k, "MirrorTimer") then
-                local obj = envTable[k]
-                if obj and type(obj) == "table" and obj.Hide then
-                    if obj.UnregisterAllEvents then pcall(function() obj:UnregisterAllEvents() end) end
-                    pcall(function() obj:Hide() end)
-                    if obj.SetAlpha then pcall(function() obj:SetAlpha(0) end) end
-                    obj.Show = function() end
-                end
-            end
+    -- Ocultar BuffFrame padrao da Blizzard e auras de addons
+    if BuffFrame then
+        BuffFrame:UnregisterAllEvents()
+        BuffFrame:Hide()
+        if BuffFrame.SetAlpha then BuffFrame:SetAlpha(0) end
+        BuffFrame.Show = function() end
+    end
+    local addonBuffFrames = {
+        "DragonflightUIBuffFrame",
+        "DragonflightUIDebuffFrame",
+        "DragonflightUIAuras",
+        "DFBuffFrame",
+        "DFDebuffFrame",
+        "TurtleDragonflightBuffFrame",
+        "TurtleDragonflightDebuffFrame",
+        "Turtle_UIBuffFrame",
+        "Turtle_UIDebuffFrame",
+    }
+    for _, bfName in ipairs(addonBuffFrames) do
+        local bf = getglobal(bfName)
+        if bf then
+            if bf.UnregisterAllEvents then bf:UnregisterAllEvents() end
+            if bf.Hide then bf:Hide() end
+            if bf.SetAlpha then bf:SetAlpha(0) end
+            bf.Show = function() end
         end
     end
 end

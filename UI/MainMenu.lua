@@ -3521,12 +3521,6 @@ function MainMenu:SetupQuestsPage(pageQuests)
         sIcon:SetAllPoints(slot)
         slot.icon = sIcon
 
-        local sBorder = slot:CreateTexture(nil, "OVERLAY")
-        sBorder:SetAllPoints(slot)
-        sBorder:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
-        sBorder:SetBlendMode("ADD")
-        slot.border = sBorder
-
         local sCount = slot:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         sCount:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 2, 2)
         MainMenu:ApplyFont(sCount, CFG.Fonts.subFontFile, 9)
@@ -5200,11 +5194,6 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
             if slot and texture then
                 slot.icon:SetTexture(texture)
                 slot.count:SetText((numItems and numItems > 1) and tostring(numItems) or "")
-                local qr, qg, qb = 1, 1, 1
-                if quality and GetItemQualityColor then
-                    qr, qg, qb = GetItemQualityColor(quality)
-                end
-                slot.border:SetVertexColor(qr, qg, qb, 0.9)
                 slot.rewardType = "reward"
                 slot.rewardIndex = r
                 slot:Show()
@@ -5221,11 +5210,6 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
             if slot and texture then
                 slot.icon:SetTexture(texture)
                 slot.count:SetText((numItems and numItems > 1) and tostring(numItems) or "")
-                local qr, qg, qb = 1, 1, 1
-                if quality and GetItemQualityColor then
-                    qr, qg, qb = GetItemQualityColor(quality)
-                end
-                slot.border:SetVertexColor(qr, qg, qb, 0.9)
                 slot.rewardType = "choice"
                 slot.rewardIndex = c
                 slot:Show()

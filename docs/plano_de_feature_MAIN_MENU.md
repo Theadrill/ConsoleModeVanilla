@@ -384,16 +384,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 13: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PRÓXIMA FASE]`
-* **Tarefas:**
-  1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
-  2. Animações de comer/beber no modelo 3D ao usar consumíveis.
-  3. Mapeamento de abertura pelo botão Start e ajustes finos de responsividade.
-* **Validação:** Menu completo, fluido, polido e 100% funcional no gameplay com controle.
-
----
-
-### **FASE 14: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PENDENTE]`
+### **FASE 13: Inspeção de Equipamentos Equipados & Buffs no Painel Fixo de Tooltip** `[STATUS: ⏳ PRÓXIMA FASE]`
 * **Tarefas:**
   1. Conectar a coluna de Equipamentos da esquerda ao Painel Fixo de Detalhes (`DetailCard`): ao passar o mouse ou focar via controle em qualquer slot de equipamento (Elmo, Peitoral, Arma, etc.), exibir todos os atributos, durabilidade e encantamentos no painel fixo à direita.
   2. Conectar a coluna de Buffs Ativos da esquerda ao `DetailCard`: ao focar em qualquer buff/debuff, exibir o nome com destaque, descrição completa do efeito mágico e tempo restante no painel fixo.
@@ -402,7 +393,7 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
 
 ---
 
-### **FASE 15: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
+### **FASE 14: Sistema de Comparação de Equipamentos na Coluna de Atributos do Personagem (Stat Diff - Verde/Vermelho)** `[STATUS: ⏳ PENDENTE]`
 * **Tarefas:**
   1. Detecção automática do slot de equipamento correspondente ao passar o cursor sobre qualquer item equipável na mochila (Elmo, Peitoral, Arma, etc.).
   2. Leitura e cálculo diferencial entre os atributos do item da bolsa e o item atualmente equipado naquele slot (`GetInventoryItemLink`).
@@ -412,6 +403,15 @@ Para evitar que a textura fique esticada, borrada ou deformada em telas maiores 
      - **Sem Alteração:** Atributos não afetados permanecem na cor padrão branca/dourada.
   4. Restauração instantânea dos valores e cores padrão da coluna de atributos ao retirar o foco de itens equipáveis ou focar em slots vazios/consumíveis.
 * **Validação:** Focar em elmos, armas e armaduras na mochila e observar a coluna de atributos ao lado do personagem 3D colorir instantaneamente em verde `(+X)` ou vermelho `(-X)` mostrando o impacto real de equipar aquele item.
+
+---
+
+### **FASE 15: Câmera Dinâmica (Zoom), Animações de Consumo e Polimento Final** `[STATUS: ⏳ PENDENTE]`
+* **Tarefas:**
+  1. Zoom inteligente da câmera 3D focado no elmo/ombros ou corpo inteiro.
+  2. Animações de comer/beber no modelo 3D ao usar consumíveis.
+  3. Mapeamento de abertura pelo botão Start e ajustes finos de responsividade.
+* **Validação:** Menu completo, fluido, polido e 100% funcional no gameplay com controle.
 
 ---
 

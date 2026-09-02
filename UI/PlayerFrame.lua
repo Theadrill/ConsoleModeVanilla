@@ -689,9 +689,13 @@ function PF:Initialize()
         btn.countText = countText
 
         btn:SetScript("OnEnter", function()
-            if GameTooltip and this.buffIndex then
+            if GameTooltip then
                 GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
-                GameTooltip:SetPlayerBuff(this.buffIndex)
+                if this.isItemBuff and this.itemSlot then
+                    GameTooltip:SetInventoryItem("player", this.itemSlot)
+                elseif this.buffIndex then
+                    GameTooltip:SetPlayerBuff(this.buffIndex)
+                end
                 GameTooltip:Show()
             end
         end)
@@ -949,6 +953,7 @@ function PF:Initialize()
     f:RegisterEvent("MIRRORTIMER_STOP")
     f:RegisterEvent("PLAYER_AURAS_CHANGED")
     f:RegisterEvent("UNIT_AURA")
+    f:RegisterEvent("UNIT_INVENTORY_CHANGED")
 
     f:SetScript("OnEvent", function()
         if event == "PLAYER_ENTERING_WORLD" then
@@ -1074,6 +1079,9 @@ function PF:Initialize()
         elseif event == "UNIT_AURA" then
             if arg1 == "player" then PF:UpdateAuras() end
 
+        elseif event == "UNIT_INVENTORY_CHANGED" then
+            if arg1 == "player" then PF:UpdateAuras() end
+
         elseif arg1 == "player" then
             PF:UpdateBars()
         end
@@ -1171,7 +1179,47 @@ function PF:UpdateAuras()
     local auraMaxDebuffs = CFG.Auras.maxCols * CFG.Auras.maxDebuffRows
 
     -- Buffs: GetPlayerBuff(i, "HELPFUL") de 0 ate 31
+    -- Primeiro: encantamentos temporarios de armas (GetWeaponEnchantInfo) integrados na grade de buffs
     local buffCount = 0
+    if GetWeaponEnchantInfo then
+        local hasMain, mainExp, mainCharges, hasOff, offExp, offCharges = GetWeaponEnchantInfo()
+        if hasMain and buffCount < auraMaxBuffs then
+            buffCount = buffCount + 1
+            local btn = self.frame.buffs[buffCount]
+            if btn then
+                btn.iconTex:SetTexture(GetInventoryItemTexture("player", 16))
+                btn.isItemBuff = true
+                btn.itemSlot = 16
+                btn.buffIndex = nil
+                if mainCharges and mainCharges > 1 then
+                    btn.countText:SetText(mainCharges)
+                    btn.countText:Show()
+                else
+                    btn.countText:SetText("")
+                    btn.countText:Hide()
+                end
+                btn:Show()
+            end
+        end
+        if hasOff and buffCount < auraMaxBuffs then
+            buffCount = buffCount + 1
+            local btn = self.frame.buffs[buffCount]
+            if btn then
+                btn.iconTex:SetTexture(GetInventoryItemTexture("player", 17))
+                btn.isItemBuff = true
+                btn.itemSlot = 17
+                btn.buffIndex = nil
+                if offCharges and offCharges > 1 then
+                    btn.countText:SetText(offCharges)
+                    btn.countText:Show()
+                else
+                    btn.countText:SetText("")
+                    btn.countText:Hide()
+                end
+                btn:Show()
+            end
+        end
+    end
     for i = 0, 31 do
         local bIdx = GetPlayerBuff(i, "HELPFUL")
         if bIdx < 0 or buffCount >= auraMaxBuffs then break end
@@ -1182,6 +1230,8 @@ function PF:UpdateAuras()
             if btn then
                 local count = GetPlayerBuffApplications(bIdx)
                 btn.iconTex:SetTexture(icon)
+                btn.isItemBuff = false
+                btn.itemSlot = nil
                 btn.buffIndex = bIdx
                 if count and count > 1 then
                     btn.countText:SetText(count)
@@ -1440,5 +1490,12 @@ function PF:HideDefaultBars()
             if bf.SetAlpha then bf:SetAlpha(0) end
             bf.Show = function() end
         end
+    end
+
+    if TemporaryEnchantFrame then
+        TemporaryEnchantFrame:UnregisterAllEvents()
+        TemporaryEnchantFrame:Hide()
+        if TemporaryEnchantFrame.SetAlpha then TemporaryEnchantFrame:SetAlpha(0) end
+        TemporaryEnchantFrame.Show = function() end
     end
 end

@@ -83,6 +83,20 @@ Macros `/run` que chamam funções do painel **Extended Lua** do SuperMacro (`/r
 
 ---
 
+## 🌐 Sistema de Tradução de Quests (ptBR)
+
+O ConsoleModeVanilla inclui um sistema integrado de tradução de quests para Português (Brasil), garantindo que títulos, descrições e objetivos de missões sejam exibidos no idioma do jogador direto no HUD e nos menus do ConsoleMode — sem addons externos obrigatórios.
+
+1. **Base de dados ptBR embutida (`Data/QuestDB_ptBR.lua`) com 6.685 quests traduzidas para Português (Brasil).** Tabela estática `ConsoleMode_QuestDB[id] = { T, D, O }` carregada no startup, cobrindo todo o conteúdo Vanilla 1.12 + Turtle WoW disponível em ptBR.
+
+2. **Origem dos dados: extraídos e unificados diretamente das bases abertas de tradução do pfQuest (Vanilla 1.12) e pfQuest-turtle (quests exclusivas do Turtle WoW).** Fontes: `pfQuest/db/ptBR/quests.lua` (`pfDB['quests']['ptBR']`) e `pfQuest-turtle/db/ptBR/quests-turtle.lua` (`pfDB['quests']['ptBR-turtle']`), mantendo fidelidade às traduções da comunidade Shagu/pfQuest.
+
+3. **Mecanismo de compilação: gerado via script `tools/build_questdb.py`, mesclando as duas bases e aplicando prioridade das quests customizadas do Turtle WoW sobre o Vanilla em caso de colisão de IDs.** Placeholders `"_"` são ignorados, conflitos são resolvidos com sobrescrita Turtle → Vanilla, saída determinística ordenada por ID com header `AUTO-GERADO. NAO EDITAR MANUALMENTE.` — re-gerável a qualquer momento para atualizar as traduções.
+
+4. **Autonomia e Performance: o ConsoleModeVanilla funciona de forma 100% autônoma sem depender obrigatoriamente do pfQuest instalado.** Porém, se o jogador tiver o pfQuest ativo, o addon prioriza a leitura dinâmica em memória (`pfDB`) e descarrega a base local para economizar memória RAM do cliente 1.12 — ideal para o footprint limitado do WoW Vanilla.
+
+---
+
 ## 🕹️ Configuração do Controle
 
 O WoW 1.12 (Vanilla / Turtle WoW) **não possui suporte nativo a gamepads**. Por isso, é necessário um aplicativo de remapeamento que traduza os botões do seu controle em teclas de teclado antes de chegarem ao jogo.

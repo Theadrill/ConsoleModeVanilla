@@ -27,6 +27,7 @@ Data\Instances.lua
 Data\ZoneLevels.lua
 Data\ZonePositions.lua
 Data\ClassTrainers.lua
+Data\QuestDB_ptBR.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 Hooks.lua

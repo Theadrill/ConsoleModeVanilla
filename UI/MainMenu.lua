@@ -1200,6 +1200,9 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
         cline:SetPoint("RIGHT", container, "RIGHT", 0, 0)
         cline:SetJustifyH("LEFT")
         MainMenu:ApplyFont(cline, CFG.Fonts.bodyFontFile, CFG.Fonts.statSize)
+        -- NOTA (Passo 7): SetWordWrap nao funciona no WoW 1.12 (texto era
+        -- cortado). Quebra feita via pool: dual usa 2 linhas por slot
+        -- (Opcao C) — sem APIs incertas.
         cline:Hide()
         table.insert(compareLines, cline)
         prevCompare = cline
@@ -1761,10 +1764,24 @@ local COMPARE_DEBUG_LABELS = {
     dps = "DPS", minDmg = "DanoMin", maxDmg = "DanoMax", speed = "Veloc.",
 }
 
+-- Resolve o nome do item equipado para o indicador "vs." (Passo 7).
+-- GetItemInfo pode retornar nil se o item saiu do cache: fallback extrai o
+-- nome embutido no proprio link ("|h[Nome]|h"). Slot vazio -> nil.
+function MainMenu:GetCompareEquippedName(equippedLink)
+    if not equippedLink or equippedLink == "" then return nil end
+    local name = GetItemInfo(equippedLink)
+    if name and name ~= "" then return name end
+    local _, _, fromLink = string.find(equippedLink, "%[(.-)%]")
+    if fromLink and fromLink ~= "" then return fromLink end
+    return nil
+end
+
 -- Resolve o slot de destino da comparacao a partir do itemData da bag.
--- Retorna { slotID, equippedLink } ou nil se nao-comparavel.
--- Dual (FINGER/TRINKET): parseia os dois equipados e retorna o de MENOR
--- ScoreStats (melhor upgrade possivel); slot vazio = equippedLink nil.
+-- Single: { slotID, equippedLink, isDual=false, vsName, vsSlotID }.
+-- Dual (FINGER/TRINKET, Passo 7 refatorado): { isDual=true, slots = {
+--   { slotID, equippedLink, vsName }, ... } } — AMBOS os slots, sem eleger
+-- "pior" (a comparacao compacta mostra os dois; ScoreStats segue disponivel).
+-- Retorna nil se nao-comparavel. Slot vazio = equippedLink nil.
 function MainMenu:GetCompareTarget(itemData)
     if not itemData then return nil end
 
@@ -1786,36 +1803,76 @@ function MainMenu:GetCompareTarget(itemData)
     local slots = self:GetCompareSlotForEquipLoc(equipLoc)
     if not slots then return nil end
 
-    -- 3. Slot dual: escolhe o pior dos dois (menor ScoreStats).
+    -- 3. Slot dual: retorna AMBOS os slots (Passo 7 refatorado, Opcao A).
+    -- Cada entrada leva link + vsName; o diff por slot sai no
+    -- ComputeCompareDiff (dualDiffs) e a secao mostra 2 linhas compactas.
     if type(slots) == "table" then
-        local link1 = GetInventoryItemLink("player", slots[1])
-        local link2 = GetInventoryItemLink("player", slots[2])
-        local score1 = self:ScoreStats(self:ParseItemStats(link1))
-        local score2 = self:ScoreStats(self:ParseItemStats(link2))
-        if score1 <= score2 then
-            return { slots[1], link1 } -- desempate: slot 1
-        else
-            return { slots[2], link2 }
+        local out = { isDual = true, slots = {} }
+        for _, slotID in ipairs(slots) do
+            local link = GetInventoryItemLink("player", slotID)
+            table.insert(out.slots, { slotID = slotID, equippedLink = link,
+                vsName = self:GetCompareEquippedName(link) })
         end
+        return out
     end
 
     -- 4. Slot unico (equippedLink pode ser nil = slot vazio).
-    return { slots, GetInventoryItemLink("player", slots) }
+    local soloLink = GetInventoryItemLink("player", slots)
+    return { slots, soloLink, isDual = false,
+        vsName = self:GetCompareEquippedName(soloLink), vsSlotID = slots }
+end
+
+-- Monta { [statKey] = new-old } so com chaves diferentes (helper local
+-- compartilhado pelos ramos single e dual do ComputeCompareDiff).
+local function Compare_BuildDiffs(newStats, oldStats)
+    local diffs = {}
+    for _, key in ipairs(COMPARE_STAT_KEYS) do
+        local nv = (newStats and newStats[key]) or 0
+        local ov = (oldStats and oldStats[key]) or 0
+        if nv ~= ov then
+            diffs[key] = nv - ov
+        end
+    end
+    return diffs
 end
 
 -- Calcula o diff numerico item-da-bag vs. equipado.
--- Retorna { diffs, newStats, oldStats, slotID } ou nil se nao-comparavel.
--- So entram em `diffs` as chaves com new ~= old (valor = new - old).
+-- Single: { diffs, newStats, oldStats, slotID, isDual=false, vsName, vsSlotID }.
+-- Dual (Passo 7 refatorado, Opcao A): { slotID, diffs={}, newStats, oldStats,
+--   isDual=true, dualDiffs = { { slotID, equippedLink, vsName, diffs,
+--   newStats, oldStats }, ... } } — um diff completo POR slot equipado.
+-- Nota: no dual, o diff de topo e vazio de proposito (coluna STATUS fica
+-- branca; a comparacao vive nas 2 linhas compactas da secao).
+-- Retorna nil se nao-comparavel.
 function MainMenu:ComputeCompareDiff(itemData)
     if not itemData then return nil end
     local target = self:GetCompareTarget(itemData)
     if not target then return nil end
 
-    local slotID = target[1]
-    local equippedLink = target[2]
-
     local newLink = itemData.link or itemData.rawLink
     local newStats = self:ParseItemStats(newLink, itemData.bagID, itemData.slotID)
+
+    -- Ramo dual: um diff por slot equipado.
+    if target.isDual and target.slots then
+        local dualDiffs = {}
+        for _, s in ipairs(target.slots) do
+            local oldStats = nil
+            if s.equippedLink then
+                oldStats = self:ParseItemStats(s.equippedLink)
+            else
+                oldStats = Compare_NewZeroStats() -- slot vazio
+            end
+            table.insert(dualDiffs, { slotID = s.slotID, equippedLink = s.equippedLink,
+                vsName = s.vsName, diffs = Compare_BuildDiffs(newStats, oldStats),
+                newStats = newStats, oldStats = oldStats })
+        end
+        local firstSlot = (target.slots[1] and target.slots[1].slotID) or nil
+        return { slotID = firstSlot, diffs = {}, newStats = newStats,
+            oldStats = Compare_NewZeroStats(), isDual = true, dualDiffs = dualDiffs }
+    end
+
+    local slotID = target[1]
+    local equippedLink = target[2]
 
     local oldStats = nil
     if equippedLink then
@@ -1824,16 +1881,10 @@ function MainMenu:ComputeCompareDiff(itemData)
         oldStats = Compare_NewZeroStats() -- slot vazio: tudo e ganho
     end
 
-    local diffs = {}
-    for _, key in ipairs(COMPARE_STAT_KEYS) do
-        local nv = newStats[key] or 0
-        local ov = oldStats[key] or 0
-        if nv ~= ov then
-            diffs[key] = nv - ov
-        end
-    end
+    local diffs = Compare_BuildDiffs(newStats, oldStats)
 
-    return { diffs = diffs, newStats = newStats, oldStats = oldStats, slotID = slotID }
+    return { diffs = diffs, newStats = newStats, oldStats = oldStats, slotID = slotID,
+        isDual = target.isDual or false, vsName = target.vsName, vsSlotID = target.vsSlotID or slotID }
 end
 
 -- Formata diffs para o log de debug no chat (ex: "Força +12, Vigor -5").
@@ -2003,6 +2054,25 @@ local COMPARE_SECONDARY_ORDER = {
     "armor", "spellDmg", "healing", "hp", "mana",
 }
 
+-- Trunca string em bytes SEM quebrar caractere UTF-8 multibyte (o corte
+-- nunca termina no meio de uma sequencia: bytes 128-191 finais sao removidos
+-- junto com o byte lider). Usado no indicador "vs." (coluna de 150px).
+local function Compare_Shorten(s, maxBytes)
+    if not s then return "" end
+    maxBytes = maxBytes or 22
+    if string.len(s) <= maxBytes then return s end
+    local cut = string.sub(s, 1, maxBytes)
+    while string.len(cut) > 0 do
+        local b = string.byte(cut, string.len(cut))
+        if b and b >= 128 then
+            cut = string.sub(cut, 1, string.len(cut) - 1)
+        else
+            break
+        end
+    end
+    return cut .. "..."
+end
+
 -- Inteiro sempre com sinal: "+12" / "-5".
 local function Compare_SignedInt(v)
     v = tonumber(v) or 0
@@ -2112,6 +2182,107 @@ local function Compare_FormatSecondary(key, diffs, newStats, oldStats)
     end
 end
 
+-- ============================================================================
+-- PASSO 7 (refatorado): formato compacto para slots duais — 1 linha por slot
+-- ("↳ Slot 1: +2 Vigor, +15 Armadura"), cores inline por stat. Opcao A: dual
+-- mostra SO as linhas compactas, sem detalhados abaixo.
+-- ============================================================================
+
+local COMPARE_COMPACT_ORDER = {
+    "str", "agi", "sta", "int", "spi", "armor",
+    "hp", "mana", "ap", "hit", "crit", "dodge", "block",
+    "spellDmg", "healing", "dps", "damage", "speed",
+}
+
+local COMPARE_COMPACT_ABBR = {
+    str = "For", agi = "Agi", sta = "Vigor", int = "Int", spi = "Esp",
+    armor = "Armadura", hp = "Vida", mana = "Mana",
+    ap = "AP", hit = "Hit%", crit = "Crit%", dodge = "Esquiva", block = "Bloq",
+    spellDmg = "Dano Mág", healing = "Cura", dps = "DPS", speed = "Vel",
+}
+
+-- Monta o corpo compacto ("+1 Int, -6 AP" com cores inline) ou nil se vazio.
+local function Compare_FormatCompactDiffs(diffs)
+    if not diffs then return nil end
+    local parts = {}
+    for _, key in ipairs(COMPARE_COMPACT_ORDER) do
+        local seg = nil
+        if key == "damage" then
+            local dm = diffs.minDmg or 0
+            local dx = diffs.maxDmg or 0
+            if dm ~= 0 or dx ~= 0 then
+                local s = Compare_SignedInt(dm) .. Compare_SignedInt(dx) .. " Dano"
+                if (dm + dx) > 0 then seg = "|cff33ff33" .. s .. "|r"
+                else seg = "|cffff4444" .. s .. "|r" end
+            end
+        elseif key == "dps" then
+            local d = diffs.dps
+            if d and d ~= 0 then
+                local s = Compare_SignedDec(d, 1) .. " DPS"
+                if d > 0 then seg = "|cff33ff33" .. s .. "|r"
+                else seg = "|cffff4444" .. s .. "|r" end
+            end
+        elseif key == "speed" then
+            local d = diffs.speed
+            if d and d ~= 0 then
+                local s = Compare_SignedDec(d, 2) .. " Vel"
+                if d > 0 then seg = "|cff33ff33" .. s .. "|r"
+                else seg = "|cffff4444" .. s .. "|r" end
+            end
+        else
+            local d = diffs[key]
+            if d and d ~= 0 then
+                local s = Compare_SignedInt(d) .. " " .. (COMPARE_COMPACT_ABBR[key] or key)
+                if d > 0 then seg = "|cff33ff33" .. s .. "|r"
+                else seg = "|cffff4444" .. s .. "|r" end
+            end
+        end
+        if seg then table.insert(parts, seg) end
+    end
+    if table.getn(parts) == 0 then return nil end
+    return table.concat(parts, ", ")
+end
+
+-- Quebra inteligente do corpo compacto com "\n" (funciona no 1.12 — o
+-- proprio addon ja usa "\n" em outros FontStrings). Divide nos separadores
+-- ", " (codigos de cor |c...|r nao contem virgula: split seguro) e quebra
+-- quando o comprimento VISIVEL (sem codigos) passa de maxVisible,
+-- mantendo indentacao de 2 espacos na continuacao.
+local function Compare_WrapBody(body, maxVisible)
+    if not body or body == "" then return body end
+    maxVisible = maxVisible or 22
+    local segs = {}
+    local tmp = body
+    while true do
+        local s, e = string.find(tmp, ", ", 1, true)
+        if not s then
+            table.insert(segs, tmp)
+            break
+        end
+        table.insert(segs, string.sub(tmp, 1, s - 1))
+        tmp = string.sub(tmp, e + 1)
+    end
+    if table.getn(segs) <= 1 then return body end
+    local function VisibleLen(t)
+        local plain = string.gsub(t, "|c%x%x%x%x%x%x%x%x", "")
+        plain = string.gsub(plain, "|r", "")
+        return string.len(plain)
+    end
+    local out = segs[1]
+    local curLen = VisibleLen(segs[1])
+    for i = 2, table.getn(segs) do
+        local slen = VisibleLen(segs[i])
+        if curLen + 2 + slen > maxVisible then
+            out = out .. ",\n  " .. segs[i]
+            curLen = slen
+        else
+            out = out .. ", " .. segs[i]
+            curLen = curLen + 2 + slen
+        end
+    end
+    return out
+end
+
 -- Mostra a seção entre os stats e os buffs e empurra os buffs para baixo
 -- (re-ancora buffHeader em compareDivBottom). Preenche com os secundarios
 -- que MUDARAM (diffResult = { diffs, newStats, oldStats }); se nenhum mudou,
@@ -2130,28 +2301,65 @@ function MainMenu:ShowCompareSection(diffResult)
 
     local shown = 0
     local lastLine = nil
-    if diffs and newStats and oldStats then
-        for _, key in ipairs(COMPARE_SECONDARY_ORDER) do
-            if shown >= 8 then break end
-            local txt = Compare_FormatSecondary(key, diffs, newStats, oldStats)
-            if txt then
-                shown = shown + 1
-                local line = sec.lines[shown]
-                if line then
-                    line:SetText(txt)
-                    line:Show()
-                    lastLine = line
+    local isDualCompact = diffResult and diffResult.isDual and diffResult.dualDiffs
+
+    if isDualCompact then
+        -- PASSO 7 (Opcao C): cada slot usa 2 linhas do pool — label + corpo
+        -- indentado. SetWordWrap nao funciona no 1.12, entao a "quebra" e
+        -- feita com o proprio pool (max 4 linhas p/ 2 slots; excedentes Hide).
+        -- Slot vazio -> "(slot vazio)" cinza; sem mudancas -> "(stats iguais)".
+        local idx = 0
+        for _, entry in ipairs(diffResult.dualDiffs) do
+            if shown >= 7 then break end -- garante o par label+corpo dentro de 8
+            idx = idx + 1
+            local labelLine = sec.lines[shown + 1]
+            local bodyLine = sec.lines[shown + 2]
+            if labelLine and bodyLine then
+                local body = nil
+                if not entry.equippedLink then
+                    body = "|cff888888(slot vazio)|r"
+                else
+                    local compact = Compare_FormatCompactDiffs(entry.diffs)
+                    if compact then
+                        -- Limite de quebra: 22 caracteres visiveis.
+                        body = Compare_WrapBody(compact, 22)
+                    else
+                        body = "|cff888888(stats iguais)|r"
+                    end
+                end
+                labelLine:SetText("|cffffffff↳ Slot " .. idx .. ":|r")
+                labelLine:Show()
+                bodyLine:SetText("  " .. body)
+                bodyLine:Show()
+                shown = shown + 2
+                lastLine = bodyLine
+            end
+        end
+    else
+        -- Slot unico: preenchimento detalhado normal (Passo 5).
+        if diffs and newStats and oldStats then
+            for _, key in ipairs(COMPARE_SECONDARY_ORDER) do
+                if shown >= 8 then break end
+                local txt = Compare_FormatSecondary(key, diffs, newStats, oldStats)
+                if txt then
+                    shown = shown + 1
+                    local line = sec.lines[shown]
+                    if line then
+                        line:SetText(txt)
+                        line:Show()
+                        lastLine = line
+                    end
                 end
             end
         end
-    end
 
-    if shown == 0 then
-        shown = 1
-        if sec.lines[1] then
-            sec.lines[1]:SetText("|cff888888(stats iguais)|r")
-            sec.lines[1]:Show()
-            lastLine = sec.lines[1]
+        if shown == 0 then
+            shown = 1
+            if sec.lines[1] then
+                sec.lines[1]:SetText("|cff888888(stats iguais)|r")
+                sec.lines[1]:Show()
+                lastLine = sec.lines[1]
+            end
         end
     end
     if sec.lines then

@@ -1990,12 +1990,13 @@ end
 -- ============================================================================
 
 -- Ordem fixa de exibicao dos secundarios. "damage" combina minDmg+maxDmg.
--- armor NAO entra aqui (ja tem diff na coluna principal); hp/mana entram
+-- armor ENTRA aqui (posicao apos "block"): se a armadura muda, aparece na
+-- coluna principal E na secao (correcao de bug do Passo 5). hp/mana entram
 -- (a coluna principal nao mostra diff de HP/Recurso, entao +Vida/+Mana de
 -- Equip: aparecem so nesta secao).
 local COMPARE_SECONDARY_ORDER = {
     "dps", "damage", "speed", "ap", "hit", "crit", "dodge", "block",
-    "spellDmg", "healing", "hp", "mana",
+    "armor", "spellDmg", "healing", "hp", "mana",
 }
 
 -- Inteiro sempre com sinal: "+12" / "-5".
@@ -2071,6 +2072,11 @@ local function Compare_FormatSecondary(key, diffs, newStats, oldStats)
         if not d or d == 0 then return nil end
         green = d > 0
         text = Compare_SignedInt(d) .. " Bloqueio"
+    elseif key == "armor" then
+        local d = diffs.armor
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = "Armadura: " .. Compare_SignedInt(d)
     elseif key == "spellDmg" then
         local d = diffs.spellDmg
         if not d or d == 0 then return nil end

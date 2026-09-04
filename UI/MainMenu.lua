@@ -3545,6 +3545,10 @@ function MainMenu:SetupBagsPage(pageBags)
 
         catBtn:SetScript("OnClick", function()
             pageBags.currentCategory = this.catData.id
+            -- FASE 14 (Passo 6): trocar de filtro invalida o foco/hover atual.
+            if MainMenu.HideCompare then
+                pcall(function() MainMenu:HideCompare() end)
+            end
             MainMenu:UpdateBagsPage()
             if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
         end)
@@ -9001,6 +9005,10 @@ function MainMenu:CycleCategories(direction)
         if nextIdx < 1 then nextIdx = total end
 
         pageBags.currentCategory = cats[nextIdx].id
+        -- FASE 14 (Passo 6): trocar de categoria (LT/RT) invalida o foco/hover.
+        if self.HideCompare then
+            pcall(function() self:HideCompare() end)
+        end
         self:UpdateBagsPage()
 
         if CFG.Audio.soundItemSelect then

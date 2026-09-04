@@ -670,6 +670,7 @@ function PF:Initialize()
         btn:SetHeight(auraSize)
         btn:SetPoint("BOTTOMLEFT", buffContainer, "BOTTOMLEFT", col * (auraSize + auraGap), row * (auraSize + auraGap))
         btn:EnableMouse(true)
+        btn:RegisterForClicks("RightButtonUp")
         btn.auraIndex = i
         btn.isDebuff = false
 
@@ -701,6 +702,11 @@ function PF:Initialize()
         end)
         btn:SetScript("OnLeave", function()
             if GameTooltip then GameTooltip:Hide() end
+        end)
+        btn:SetScript("OnClick", function()
+            if arg1 == "RightButton" and this.buffIndex and not this.isItemBuff then
+                CancelPlayerBuff(this.buffIndex)
+            end
         end)
 
         btn:Hide()

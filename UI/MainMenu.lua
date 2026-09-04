@@ -1874,19 +1874,24 @@ end
 -- Ativa a comparacao visual para o itemData sob foco. diffResult opcional
 -- (se nil, calcula via ComputeCompareDiff). Item nao-comparavel -> Hide.
 function MainMenu:ShowCompare(itemData, diffResult)
+    -- CORRECAO transicoes (Bugs 1 e 2): sempre limpa a comparacao anterior
+    -- ANTES de aplicar a nova. HideCompare restaura as 6 linhas ao branco
+    -- original, entao: (a) focar nao-equipavel nunca mantem diff antigo;
+    -- (b) A->B nunca mistura sufixos (ApplyCompareDiffs so reescreve as
+    -- linhas do diff novo; sem este reset, linhas do A sumiriam do B e o
+    -- sufixo velho ficava preso na tela).
+    self:HideCompare()
     if not itemData then
-        self:HideCompare()
         return nil
     end
     local cmp = diffResult or self:ComputeCompareDiff(itemData)
     if not cmp then
-        self:HideCompare()
         return nil
     end
 
     local st = self.compareState
-    -- Snapshot dos textos originais so na transicao inativo->ativo (ao mover
-    -- o foco de um item para outro direto, as linhas ja tem diff aplicado).
+    -- Apos o Hide acima as linhas estao limpas, entao o snapshot e sempre
+    -- do texto base (mantido o guard por seguranca).
     if not st.active then
         st.baseTexts = {}
         if self.statsAndBuffs and self.statsAndBuffs.statLines then
@@ -1936,13 +1941,16 @@ if not _G["ConsoleModeMM_CompareEvents"] then
     cmpEv:RegisterEvent("UNIT_INVENTORY_CHANGED")
     cmpEv:SetScript("OnEvent", function()
         MainMenu.statCompareCache = {}
-        if MainMenu.compareState then
+        -- CORRECAO transicoes: delega tudo ao HideCompare (ele limpa flags E
+        -- restaura as linhas). Nao limpar flags manualmente aqui: isso fazia
+        -- o HideCompare dar early-return (active=false) sem restaurar as
+        -- linhas, deixando diff preso na tela (acompanhante do Bug 1).
+        if MainMenu.HideCompare then
+            pcall(function() MainMenu:HideCompare() end)
+        elseif MainMenu.compareState then
             MainMenu.compareState.active = false
             MainMenu.compareState.hoveredLink = nil
             MainMenu.compareState.targetSlot = nil
-        end
-        if MainMenu.HideCompare then
-            pcall(function() MainMenu:HideCompare() end)
         end
     end)
     MainMenu.compareEvents = cmpEv
@@ -3441,9 +3449,13 @@ function MainMenu:SetupBagsPage(pageBags)
                 MainMenu:RestorePlayerModel()
             end
             -- FASE 14 (Passo 3): comparacao visual na coluna STATUS.
-            -- Protegido por pcall para nunca quebrar a navegacao do grid.
-            local cmpOk = pcall(function() MainMenu:ShowCompare(itemData) end)
-            if not cmpOk then
+            -- Logica explicita: calcula o diff primeiro; comparavel mostra,
+            -- nao-equipavel/erro esconde. Nenhum caminho deixa diff preso.
+            -- (pcall para nunca quebrar a navegacao do grid.)
+            local cmpOk, cmp = pcall(function() return MainMenu:ComputeCompareDiff(itemData) end)
+            if cmpOk and cmp and cmp.slotID then
+                pcall(function() MainMenu:ShowCompare(itemData, cmp) end)
+            else
                 pcall(function() MainMenu:HideCompare() end)
             end
         else

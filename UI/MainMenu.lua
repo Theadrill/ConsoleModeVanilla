@@ -1279,6 +1279,12 @@ function MainMenu:UpdateStatsAndBuffs()
 
         local baseArmor, armorEff = UnitArmor("player")
         lines["Armadura"]:SetText("|cffffffffArmadura:|r " .. (armorEff or 0))
+
+        -- FASE 14 (Passo 3): se comparacao ativa, reaplica os diffs por cima
+        -- para que o refresh periodico nao apague o verde/vermelho.
+        if MainMenu.compareState and MainMenu.compareState.active then
+            MainMenu:ApplyCompareDiffs()
+        end
     end
 
     -- 2. Atualiza Buffs Ativos e Encantamentos de Arma (Estilo Zelda)
@@ -1801,10 +1807,129 @@ function MainMenu:FormatCompareDiffDebug(diffs)
     return table.concat(parts, ", ")
 end
 
+-- ============================================================================
+-- PASSO 3: diff visual na coluna de stats principais (verde/vermelho)
+-- ============================================================================
+
+-- Chaves diff -> linhas da coluna STATUS. HP/Recurso NAO entram (derivados).
+local COMPARE_DIFF_TO_LINE = {
+    str = "Força", agi = "Agilidade", sta = "Vigor",
+    int = "Intelecto", spi = "Espírito", armor = "Armadura",
+}
+
+-- Linhas da coluna STATUS que o Passo 3 pode modificar/restaurar.
+local COMPARE_MAIN_LINE_KEYS = {
+    "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura",
+}
+
+-- Sufixo colorido do diff: " (+12)" verde, " (-5)" vermelho, "" se zero.
+local function Compare_FormatDiffSuffix(v)
+    v = tonumber(v) or 0
+    if v > 0 then
+        return " |cff33ff33(+" .. v .. ")|r"
+    elseif v < 0 then
+        return " |cffff4444(" .. v .. ")|r"
+    else
+        return ""
+    end
+end
+
+-- Re-renderiza as 6 linhas comparaveis com valores vivos (UnitStat/UnitArmor)
+-- + sufixos de st.diffs. Usado por ShowCompare e pelo refresh periodico.
+function MainMenu:ApplyCompareDiffs()
+    local st = self.compareState
+    if not st or not st.active or not st.diffs then return end
+    if not self.statsAndBuffs or not self.statsAndBuffs.statLines then return end
+    local lines = self.statsAndBuffs.statLines
+
+    local _, armorEff = UnitArmor("player")
+    local baseVals = {
+        str   = UnitStat("player", 1) or 0,
+        agi   = UnitStat("player", 2) or 0,
+        sta   = UnitStat("player", 3) or 0,
+        int   = UnitStat("player", 4) or 0,
+        spi   = UnitStat("player", 5) or 0,
+        armor = armorEff or 0,
+    }
+    local baseLabels = {
+        str = "Força", agi = "Agilidade", sta = "Vigor",
+        int = "Intelecto", spi = "Espírito", armor = "Armadura",
+    }
+
+    for diffKey, lineKey in pairs(COMPARE_DIFF_TO_LINE) do
+        local d = st.diffs[diffKey]
+        if d and d ~= 0 then
+            local line = lines[lineKey]
+            if line then
+                local label = baseLabels[diffKey] or lineKey
+                local base = baseVals[diffKey] or 0
+                pcall(function()
+                    line:SetText("|cffffffff" .. label .. ":|r " .. base .. Compare_FormatDiffSuffix(d))
+                end)
+            end
+        end
+    end
+end
+
+-- Ativa a comparacao visual para o itemData sob foco. diffResult opcional
+-- (se nil, calcula via ComputeCompareDiff). Item nao-comparavel -> Hide.
+function MainMenu:ShowCompare(itemData, diffResult)
+    if not itemData then
+        self:HideCompare()
+        return nil
+    end
+    local cmp = diffResult or self:ComputeCompareDiff(itemData)
+    if not cmp then
+        self:HideCompare()
+        return nil
+    end
+
+    local st = self.compareState
+    -- Snapshot dos textos originais so na transicao inativo->ativo (ao mover
+    -- o foco de um item para outro direto, as linhas ja tem diff aplicado).
+    if not st.active then
+        st.baseTexts = {}
+        if self.statsAndBuffs and self.statsAndBuffs.statLines then
+            for _, lineKey in ipairs(COMPARE_MAIN_LINE_KEYS) do
+                local line = self.statsAndBuffs.statLines[lineKey]
+                if line and line.GetText then
+                    local ok, txt = pcall(function() return line:GetText() end)
+                    if ok and txt then st.baseTexts[lineKey] = txt end
+                end
+            end
+        end
+    end
+
+    st.active = true
+    st.hoveredLink = itemData.link or itemData.rawLink
+    st.targetSlot = cmp.slotID
+    st.diffs = cmp.diffs
+    self:ApplyCompareDiffs()
+    return cmp
+end
+
+-- Desativa a comparacao e restaura os textos originais (idempotente).
+function MainMenu:HideCompare()
+    local st = self.compareState
+    if not st or not st.active then return end
+    st.active = false
+    st.hoveredLink = nil
+    st.targetSlot = nil
+    st.diffs = nil
+    if self.statsAndBuffs and self.statsAndBuffs.statLines and st.baseTexts then
+        for lineKey, txt in pairs(st.baseTexts) do
+            local line = self.statsAndBuffs.statLines[lineKey]
+            if line and txt then
+                pcall(function() line:SetText(txt) end)
+            end
+        end
+    end
+    st.baseTexts = {}
+end
+
 -- Invalidacao de cache: BAG_UPDATE / UNIT_INVENTORY_CHANGED limpam o cache.
 -- Frame dedicado (nao polui o handler principal do menu). Se a comparacao
--- estiver ativa, apenas desarma o estado; o HideCompare() real (UI) chega
--- no Passo 3 — aqui usamos guard para nao quebrar antes disso.
+-- estiver ativa, HideCompare() restaura a UI (com pcall por seguranca).
 if not _G["ConsoleModeMM_CompareEvents"] then
     local cmpEv = CreateFrame("Frame", "ConsoleModeMM_CompareEvents")
     cmpEv:RegisterEvent("BAG_UPDATE")
@@ -3315,20 +3440,17 @@ function MainMenu:SetupBagsPage(pageBags)
             else
                 MainMenu:RestorePlayerModel()
             end
-            -- DEBUG TEMPORARIO PASSO 2 (FASE 14): log fim-a-fim no chat. REMOVER no Passo 3.
-            if DEFAULT_CHAT_FRAME then
-                local dbgOk, cmp = pcall(function() return MainMenu:ComputeCompareDiff(itemData) end)
-                if dbgOk and cmp then
-                    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Compare]|r Slot " .. tostring(cmp.slotID) .. ": " .. MainMenu:FormatCompareDiffDebug(cmp.diffs))
-                elseif dbgOk then
-                    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Compare]|r item não comparável")
-                else
-                    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Compare]|r erro no diff: " .. tostring(cmp))
-                end
+            -- FASE 14 (Passo 3): comparacao visual na coluna STATUS.
+            -- Protegido por pcall para nunca quebrar a navegacao do grid.
+            local cmpOk = pcall(function() MainMenu:ShowCompare(itemData) end)
+            if not cmpOk then
+                pcall(function() MainMenu:HideCompare() end)
             end
         else
             detailCard:Clear("Slot Vazio")
             MainMenu:RestorePlayerModel()
+            -- FASE 14 (Passo 3): sem foco -> restaura coluna STATUS.
+            pcall(function() MainMenu:HideCompare() end)
         end
     end
 

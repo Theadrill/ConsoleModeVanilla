@@ -1197,12 +1197,12 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     for cl = 1, 8 do
         local cline = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         cline:SetPoint("TOPLEFT", prevCompare, "BOTTOMLEFT", 0, -2)
-        cline:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+        -- NOTA (Passo 7): wrap NATIVO da engine — largura fixa em vez de
+        -- ancora RIGHT (ancora dupla + texto longo = corte com "...").
+        -- Com SetWidth, o FontString quebra sozinho e a altura expande.
+        cline:SetWidth(CFG.StatsAndBuffs.width or 150)
         cline:SetJustifyH("LEFT")
         MainMenu:ApplyFont(cline, CFG.Fonts.bodyFontFile, CFG.Fonts.statSize)
-        -- NOTA (Passo 7): SetWordWrap nao funciona no WoW 1.12 (texto era
-        -- cortado). Quebra feita via pool: dual usa 2 linhas por slot
-        -- (Opcao C) — sem APIs incertas.
         cline:Hide()
         table.insert(compareLines, cline)
         prevCompare = cline
@@ -2243,46 +2243,6 @@ local function Compare_FormatCompactDiffs(diffs)
     return table.concat(parts, ", ")
 end
 
--- Quebra inteligente do corpo compacto com "\n" (funciona no 1.12 — o
--- proprio addon ja usa "\n" em outros FontStrings). Divide nos separadores
--- ", " (codigos de cor |c...|r nao contem virgula: split seguro) e quebra
--- quando o comprimento VISIVEL (sem codigos) passa de maxVisible,
--- mantendo indentacao de 2 espacos na continuacao.
-local function Compare_WrapBody(body, maxVisible)
-    if not body or body == "" then return body end
-    maxVisible = maxVisible or 22
-    local segs = {}
-    local tmp = body
-    while true do
-        local s, e = string.find(tmp, ", ", 1, true)
-        if not s then
-            table.insert(segs, tmp)
-            break
-        end
-        table.insert(segs, string.sub(tmp, 1, s - 1))
-        tmp = string.sub(tmp, e + 1)
-    end
-    if table.getn(segs) <= 1 then return body end
-    local function VisibleLen(t)
-        local plain = string.gsub(t, "|c%x%x%x%x%x%x%x%x", "")
-        plain = string.gsub(plain, "|r", "")
-        return string.len(plain)
-    end
-    local out = segs[1]
-    local curLen = VisibleLen(segs[1])
-    for i = 2, table.getn(segs) do
-        local slen = VisibleLen(segs[i])
-        if curLen + 2 + slen > maxVisible then
-            out = out .. ",\n  " .. segs[i]
-            curLen = slen
-        else
-            out = out .. ", " .. segs[i]
-            curLen = curLen + 2 + slen
-        end
-    end
-    return out
-end
-
 -- Mostra a seção entre os stats e os buffs e empurra os buffs para baixo
 -- (re-ancora buffHeader em compareDivBottom). Preenche com os secundarios
 -- que MUDARAM (diffResult = { diffs, newStats, oldStats }); se nenhum mudou,
@@ -2305,8 +2265,7 @@ function MainMenu:ShowCompareSection(diffResult)
 
     if isDualCompact then
         -- PASSO 7 (Opcao C): cada slot usa 2 linhas do pool — label + corpo
-        -- indentado. SetWordWrap nao funciona no 1.12, entao a "quebra" e
-        -- feita com o proprio pool (max 4 linhas p/ 2 slots; excedentes Hide).
+        -- indentado. Wrap nativo da engine via SetWidth no pool.
         -- Slot vazio -> "(slot vazio)" cinza; sem mudancas -> "(stats iguais)".
         local idx = 0
         for _, entry in ipairs(diffResult.dualDiffs) do
@@ -2319,13 +2278,10 @@ function MainMenu:ShowCompareSection(diffResult)
                 if not entry.equippedLink then
                     body = "|cff888888(slot vazio)|r"
                 else
-                    local compact = Compare_FormatCompactDiffs(entry.diffs)
-                    if compact then
-                        -- Limite de quebra: 22 caracteres visiveis.
-                        body = Compare_WrapBody(compact, 22)
-                    else
-                        body = "|cff888888(stats iguais)|r"
-                    end
+                    -- Wrap nativo da engine (largura fixa no pool): passa o
+                    -- texto direto, sem quebra manual.
+                    body = Compare_FormatCompactDiffs(entry.diffs)
+                        or "|cff888888(stats iguais)|r"
                 end
                 labelLine:SetText("|cffffffff↳ Slot " .. idx .. ":|r")
                 labelLine:Show()

@@ -2817,6 +2817,45 @@ function MainMenu:SetupBagsPage(pageBags)
     pageBags.nextPageBtn = nextPageBtn
     pageBags.pageNav = pageNav
 
+    -- 3.1. Botão ORGANIZAR (ação, à esquerda do headerBar — área livre antes do LT)
+    -- Estilo idêntico aos botões < / > da paginação; filho do headerBar para
+    -- herdar a visibilidade da página BAGS; SelectTab() reforça Show/Hide.
+    local sortBtn = CreateFrame("Button", "ConsoleModeMM_BagsSortBtn", headerBar)
+    sortBtn:SetHeight(22)
+    sortBtn:SetPoint("LEFT", headerBar, "LEFT", 8, 0)
+    sortBtn:SetBackdrop(btnBackdrop)
+    sortBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    sortBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local sortTxt = sortBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sortTxt:SetPoint("CENTER", sortBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(sortTxt, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
+    sortTxt:SetText("|cffe09a15Organizar|r")
+    sortBtn:SetWidth(math.floor(sortTxt:GetStringWidth() or 70) + 20)
+    sortBtn.title = sortTxt
+
+    sortBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    sortBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    end)
+    sortBtn:SetScript("OnClick", function()
+        if type(SortBags) == "function" then
+            SortBags()
+            MainMenu:UpdateBagsPage(true)
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        else
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Addon SortBag não encontrado — ORGANIZAR indisponível.")
+            end
+        end
+    end)
+    sortBtn:Show()
+    pageBags.sortBtn = sortBtn
+
     -- 4. Container e Grid 2D de Slots de Itens (fica acima da paginação e tooltip)
     local gridContainer = CreateFrame("Frame", "ConsoleModeMM_BagsGridContainer", pageBags)
     local rightMargin = CFG.Grid.marginsRight or 24
@@ -7963,6 +8002,15 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
     end
 
     container.currentTab = tabID
+
+    -- Visibilidade do botão ORGANIZAR (somente na aba BAGS; guards para
+    -- quando SetupBagsPage ainda não criou o botão)
+    do
+        local bagsPage = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["BAGS"]
+        if bagsPage and bagsPage.sortBtn then
+            if tabID == "BAGS" then bagsPage.sortBtn:Show() else bagsPage.sortBtn:Hide() end
+        end
+    end
 
 -- Se abriu a aba de Bolsas ou Magias, alterna o modelo 3D correspondente e atualiza o grid
     local facing = self.currentFacing or 0

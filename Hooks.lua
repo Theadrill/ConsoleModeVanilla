@@ -423,7 +423,6 @@ function Hooks:Initialize()
         self.eventFrame:RegisterEvent("TAXIMAP_OPENED")
         self.eventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
         self.eventFrame:RegisterEvent("SPELLS_CHANGED")
-        self.eventFrame:RegisterEvent("WORLD_MAP_UPDATE")
         
         -- Eventos de Transição de Missões / Diálogos de NPCs
         self.eventFrame:RegisterEvent("QUEST_GREETING")

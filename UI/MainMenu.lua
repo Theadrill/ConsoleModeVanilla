@@ -1966,6 +1966,8 @@ function MainMenu:ShowCompare(itemData, diffResult)
 end
 
 -- Desativa a comparacao e restaura os textos originais (idempotente).
+-- PASSO 6: guards em cada acesso (seguro chamar N vezes, com ou sem menu
+-- construido); sempre termina com active=false e secao escondida.
 function MainMenu:HideCompare()
     local st = self.compareState
     if not st or not st.active then return end
@@ -1982,7 +1984,9 @@ function MainMenu:HideCompare()
         end
     end
     st.baseTexts = {}
-    self:HideCompareSection()
+    if self.HideCompareSection then
+        pcall(function() self:HideCompareSection() end)
+    end
 end
 
 -- ============================================================================
@@ -3901,6 +3905,10 @@ end
 
 function MainMenu:NextBagPage()
     if not self.tabContainer or not self.tabContainer.pages then return end
+    -- FASE 14 (Passo 6): mudar de pagina invalida o foco/hover atual.
+    if self.HideCompare then
+        pcall(function() self:HideCompare() end)
+    end
     local pageBags = self.tabContainer.pages["BAGS"]
     if not pageBags then return end
     pageBags.currentPage = (pageBags.currentPage or 1) + 1
@@ -3910,6 +3918,10 @@ end
 
 function MainMenu:PrevBagPage()
     if not self.tabContainer or not self.tabContainer.pages then return end
+    -- FASE 14 (Passo 6): mudar de pagina invalida o foco/hover atual.
+    if self.HideCompare then
+        pcall(function() self:HideCompare() end)
+    end
     local pageBags = self.tabContainer.pages["BAGS"]
     if not pageBags then return end
     pageBags.currentPage = (pageBags.currentPage or 1) - 1
@@ -8815,6 +8827,12 @@ end
 function MainMenu:SelectTab(tabID, playSoundEffect)
     if not self.tabContainer then return end
 
+    -- FASE 14 (Passo 6): trocar de aba sempre limpa a comparacao (o grid e o
+    -- foco sao reconstruidos; idempotente, sem efeito se inativo).
+    if self.HideCompare then
+        pcall(function() self:HideCompare() end)
+    end
+
     local container = self.tabContainer
     tabID = tabID or "BAGS"
 
@@ -9320,6 +9338,11 @@ function MainMenu:CreateUI()
         end
 
         MainMenu:RestorePlayerModel()
+        -- FASE 14 (Passo 6): fechar o menu sempre limpa a comparacao
+        -- (cobre B, ESC via UISpecialFrames, Hide() e Toggle()).
+        if MainMenu.HideCompare then
+            pcall(function() MainMenu:HideCompare() end)
+        end
         if dimmer then dimmer:Hide() end
         if CFG.Audio.soundClose then PlaySound(CFG.Audio.soundClose) end
         if ConsoleMode.hooks and ConsoleMode.hooks.OnFrameHide then

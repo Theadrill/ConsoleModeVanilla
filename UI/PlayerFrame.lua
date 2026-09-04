@@ -259,6 +259,19 @@ CFG.RestIcon = {
     offsetY     = 2,                        -- Deslocamento Y
 }
 
+-- ----------------------------------------------------------------------------
+-- BRILHO DE COMBATE (borda vermelha ao redor da barra de HP)
+-- Frame de fundo com backdrop exibido somente enquanto o jogador está em
+-- combate (PLAYER_REGEN_DISABLED). Fora de combate fica oculto para manter
+-- o visual flutuante sem moldura. show = false desabilita completamente.
+-- ----------------------------------------------------------------------------
+CFG.CombatGlow = {
+    show      = true,   -- master switch: false = nunca exibe a borda
+    color     = { r = 0.9, g = 0.1, b = 0.1, a = 0.95 },  -- vermelho combate
+    edgeSize  = 6,      -- espessura da borda do backdrop (px)
+    outset    = 2,      -- px além da barra em cada lado
+}
+
 -- ============================================================================
 -- FIM DO BLOCO DE CONFIGURAÇÃO
 -- ============================================================================
@@ -589,6 +602,32 @@ function PF:Initialize()
     end)
 
 
+
+    -- -----------------------------------------------------------------------
+    -- BRILHO DE COMBATE — fundo com borda vermelha atrás da HP (Opção B)
+    -- Mesmo padrão do hpBg do TargetFrame (UI-Tooltip-Border). bgFile com
+    -- alpha 0: só a borda aparece. Oculto fora de combate para preservar
+    -- o visual flutuante sem moldura. FrameLevel abaixo da trailBar.
+    -- -----------------------------------------------------------------------
+    local hpCombatOutset = CFG.CombatGlow.outset or 3
+    local hpCombatBg = CreateFrame("Frame", "ConsoleModePlayerHPCombatBg", barsContainer)
+    hpCombatBg:SetWidth(CFG.Bars.col1Width + (hpCombatOutset * 2))
+    hpCombatBg:SetHeight(CFG.Bars.height + (hpCombatOutset * 2))
+    hpCombatBg:SetPoint("LEFT", barsContainer, "LEFT", col1X - hpCombatOutset, 0)
+    hpCombatBg:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = CFG.CombatGlow.edgeSize or 8,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 },
+    })
+    hpCombatBg:SetBackdropColor(0, 0, 0, 0)
+    hpCombatBg:SetBackdropBorderColor(
+        CFG.CombatGlow.color.r, CFG.CombatGlow.color.g,
+        CFG.CombatGlow.color.b, CFG.CombatGlow.color.a
+    )
+    hpCombatBg:SetFrameLevel(barsContainer:GetFrameLevel() - 1)
+    hpCombatBg:Hide()
+    f.hpCombatBg = hpCombatBg
 
     -- -----------------------------------------------------------------------
     -- COLUNA 1 — HP BAR
@@ -960,6 +999,8 @@ function PF:Initialize()
     f:RegisterEvent("PLAYER_AURAS_CHANGED")
     f:RegisterEvent("UNIT_AURA")
     f:RegisterEvent("UNIT_INVENTORY_CHANGED")
+    f:RegisterEvent("PLAYER_REGEN_DISABLED")
+    f:RegisterEvent("PLAYER_REGEN_ENABLED")
 
     f:SetScript("OnEvent", function()
         if event == "PLAYER_ENTERING_WORLD" then
@@ -1087,6 +1128,16 @@ function PF:Initialize()
 
         elseif event == "UNIT_INVENTORY_CHANGED" then
             if arg1 == "player" then PF:UpdateAuras() end
+
+        elseif event == "PLAYER_REGEN_DISABLED" then
+            if f.hpCombatBg and CFG.CombatGlow.show then
+                f.hpCombatBg:Show()
+            end
+
+        elseif event == "PLAYER_REGEN_ENABLED" then
+            if f.hpCombatBg then
+                f.hpCombatBg:Hide()
+            end
 
         elseif arg1 == "player" then
             PF:UpdateBars()
@@ -1386,6 +1437,15 @@ function PF:Update()
     self:UpdateBars()
     self:UpdateComboPoints()
     self:UpdateAuras()
+
+    -- Estado inicial da borda de combate (ex: /reload em pleno combate)
+    if self.frame.hpCombatBg then
+        if CFG.CombatGlow.show and UnitAffectingCombat and UnitAffectingCombat("player") then
+            self.frame.hpCombatBg:Show()
+        else
+            self.frame.hpCombatBg:Hide()
+        end
+    end
 end
 
 -- ============================================================================

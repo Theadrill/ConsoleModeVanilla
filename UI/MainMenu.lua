@@ -41,6 +41,22 @@ MainMenu.customDungeonMaps = {
     ["Temple of Ahn'Qiraj"] = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\DungeonMaps\\AhnQirajTemple.tga",
     ["The Temple of Atal'Hakkar"] = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\DungeonMaps\\AtalHakkar.tga",
 }
+local CMSafeSetMap_busy = false
+local function CMSafeSetMap(fn, a1, a2)
+    if CMSafeSetMap_busy then return end
+    CMSafeSetMap_busy = true
+    local wmf = WorldMapFrame
+    if wmf then wmf:UnregisterEvent("WORLD_MAP_UPDATE") end
+    if a1 ~= nil and a2 ~= nil then
+        fn(a1, a2)
+    elseif a1 ~= nil then
+        fn(a1)
+    else
+        fn()
+    end
+    if wmf then wmf:RegisterEvent("WORLD_MAP_UPDATE") end
+    CMSafeSetMap_busy = false
+end
 
 -- ============================================================================
 -- ██████████████████████   BLOCO DE CONFIGURAÇÃO   ███████████████████████████
@@ -4790,7 +4806,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
                 local curZone = (GetZoneText and GetZoneText()) or ""
                 if curZone ~= "" and curZone ~= MainMenu.lastZoneText then
                     MainMenu.lastZoneText = curZone
-                    if SetMapToCurrentZone then SetMapToCurrentZone() end
+                    if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
                     MainMenu:UpdateMapTextures(this)
                     MainMenu:UpdateMapOverlays(this)
                     MainMenu:UpdatePfQuestPins(this)
@@ -5554,7 +5570,7 @@ function MainMenu:SwitchMapToDungeon(instanceName)
     if parentZone and parentZone ~= "" then
         local pc, pidx = self:FindZoneLocation(parentZone)
         if pc and pidx then
-            SetMapZoom(pc, pidx)
+            CMSafeSetMap(SetMapZoom, pc, pidx)
             local fileName = (GetMapInfo and GetMapInfo()) or parentZone
             self.mapViewMode = "ZONE"
             self.mapContinentView = nil
@@ -5583,7 +5599,7 @@ function MainMenu:SwitchMapToZone(zoneName)
         local zones = {GetMapZones(cont)}
         for zoneIdx, name in ipairs(zones) do
             if name == zoneName then
-                SetMapZoom(cont, zoneIdx)
+                CMSafeSetMap(SetMapZoom, cont, zoneIdx)
                 local fileName = (GetMapInfo and GetMapInfo()) or zoneName
                 self.mapViewMode = "ZONE"
                 self.mapContinentView = nil
@@ -5604,16 +5620,16 @@ end
 
 function MainMenu:EnsureMapZone()
     if self.mapViewMode == "CONTINENT" and self.mapContinentView then
-        SetMapZoom(self.mapContinentView, 0)
+        CMSafeSetMap(SetMapZoom, self.mapContinentView, 0)
         return
     end
     if self.mapDungeonHardcoded then return end
     if self.mapDungeonPreview and self.mapDungeonParentCont and self.mapDungeonParentIdx then
-        SetMapZoom(self.mapDungeonParentCont, self.mapDungeonParentIdx)
+        CMSafeSetMap(SetMapZoom, self.mapDungeonParentCont, self.mapDungeonParentIdx)
         return
     end
     if self.mapContinent and self.mapZoneIdx then
-        SetMapZoom(self.mapContinent, self.mapZoneIdx)
+        CMSafeSetMap(SetMapZoom, self.mapContinent, self.mapZoneIdx)
     end
 end
 
@@ -5627,7 +5643,7 @@ function MainMenu:GetCurrentMapFileName()
     if self.mapShowingQuestZone and self.mapFileName then
         return self.mapFileName
     end
-    if SetMapToCurrentZone then SetMapToCurrentZone() end
+    if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
     local file = (GetMapInfo and GetMapInfo()) or ""
     if file and file ~= "" and file ~= "Cosmic" and file ~= "Azeroth" then
         return file
@@ -5641,7 +5657,7 @@ end
 
 function MainMenu:ResetMapToPlayer()
     self:HideZonePin()
-    if SetMapToCurrentZone then SetMapToCurrentZone() end
+    if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
     self.mapShowingQuestZone = false
     self.mapViewMode = "ZONE"
     self.mapContinentView = nil
@@ -5662,7 +5678,7 @@ end
 
 function MainMenu:NavToContinent(cont)
     if not cont or (cont ~= 1 and cont ~= 2) then return end
-    if SetMapZoom then SetMapZoom(cont, 0) end
+    if SetMapZoom then CMSafeSetMap(SetMapZoom, cont, 0) end
     self.mapViewMode = "CONTINENT"
     self.mapContinentView = cont
     self.mapShowingQuestZone = false
@@ -5798,12 +5814,12 @@ function MainMenu:ShowInstancesForCurrentView()
         else
             forZone = (GetZoneText and GetZoneText()) or ""
             if forZone == "" then
-                if SetMapToCurrentZone then SetMapToCurrentZone() end
+                if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
                 forZone = (GetZoneText and GetZoneText()) or ""
             end
         end
         if not forZone or forZone == "" then
-            if SetMapToCurrentZone then SetMapToCurrentZone() end
+            if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
             cont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 1
             forZone = nil
         end
@@ -5838,7 +5854,7 @@ function MainMenu:BuildInstancesListForZone(zoneName)
         list = instData:GetForZone(zoneName) or {}
     end
     if table.getn(list) == 0 then
-        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
         local c = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
         if c == 0 and self.mapContinentView then c = self.mapContinentView end
         if c and c ~= 0 and instData and instData.GetForContinent then
@@ -7365,7 +7381,7 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
     local isContinentView = (self.mapViewMode == "CONTINENT" and self.mapContinentView)
     local px, py = 0, 0
     if isContinentView then
-        if SetMapZoom then SetMapZoom(self.mapContinentView, 0) end
+        if SetMapZoom then CMSafeSetMap(SetMapZoom, self.mapContinentView, 0) end
         if GetPlayerMapPosition then px, py = GetPlayerMapPosition("player") end
         self:EnsureMapZone()
     elseif self.mapShowingQuestZone and self.mapFileName then
@@ -7373,7 +7389,7 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
         local curZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
         local playerZoneText = (GetZoneText and GetZoneText()) or ""
         if self.mapZoneName and playerZoneText ~= "" and self.mapZoneName == playerZoneText then
-            if SetMapToCurrentZone then SetMapToCurrentZone() end
+            if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
             if GetPlayerMapPosition then
                 px, py = GetPlayerMapPosition("player")
             end
@@ -7391,7 +7407,7 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
             px, py = 0, 0
         end
     else
-        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
         if GetPlayerMapPosition then
             px, py = GetPlayerMapPosition("player")
         end
@@ -7430,7 +7446,7 @@ function MainMenu:UpdateMapPlayerPosition(mapCanvas)
                 if p <= numParty and GetPlayerMapPosition then
                     local pX, pY
                     if isContinentView then
-                        if SetMapZoom then SetMapZoom(self.mapContinentView, 0) end
+                        if SetMapZoom then CMSafeSetMap(SetMapZoom, self.mapContinentView, 0) end
                         pX, pY = GetPlayerMapPosition("party" .. p)
                         self:EnsureMapZone()
                     elseif self.mapShowingQuestZone and self.mapFileName then
@@ -8307,7 +8323,7 @@ function MainMenu:MapZoomStep(delta)
         -- Primeiro Zoom In: Centraliza automaticamente na posição do jogador
         local px, py = 0, 0
         if GetPlayerMapPosition then
-            if SetMapToCurrentZone then SetMapToCurrentZone() end
+            if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
             px, py = GetPlayerMapPosition("player")
         end
         if px and py and (px > 0 or py > 0) then
@@ -9554,7 +9570,7 @@ function MainMenu:CreateUI()
         MainMenu:UpdateStatsAndBuffs()
 
         if not MainMenu.mapShowingQuestZone and MainMenu.mapViewMode ~= "CONTINENT" then
-            if SetMapToCurrentZone then SetMapToCurrentZone() end
+            if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
             MainMenu.lastZoneText = (GetZoneText and GetZoneText()) or ""
         end
 
@@ -9675,7 +9691,7 @@ initFrame:SetScript("OnEvent", function()
     end
     if event == "VARIABLES_LOADED" then
         MainMenu:CreateUI()
-        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
         MainMenu.lastZoneText = (GetZoneText and GetZoneText()) or ""
         if MainMenu.HookPfQuest then MainMenu:HookPfQuest() end
         if MainMenu.ReleaseQuestDBIfNeeded then MainMenu:ReleaseQuestDBIfNeeded() end
@@ -9696,7 +9712,7 @@ initFrame:SetScript("OnEvent", function()
         end
     elseif event == "ZONE_CHANGED_NEW_AREA" or event == "ZONE_CHANGED" then
         local newZone = (GetZoneText and GetZoneText()) or ""
-        if SetMapToCurrentZone then SetMapToCurrentZone() end
+        if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
         MainMenu.lastZoneText = newZone
         if MainMenu.frame and MainMenu.frame:IsVisible() then
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "QUESTS" then

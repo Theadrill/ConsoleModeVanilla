@@ -1184,8 +1184,14 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
         row:EnableMouse(true)
         row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
         row:SetScript("OnClick", function()
-            if arg1 == "RightButton" and this.buffIndex then
-                CancelPlayerBuff(this.buffIndex)
+            if arg1 == "RightButton" then
+                -- Encantamentos de arma (isWeaponEnchant / sem buffIndex) nao sao cancelaveis: ignora
+                if this.isWeaponEnchant or not this.buffIndex then return end
+                if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForBuff then
+                    CM.ui.contextMenu:OpenForBuff(this.buffIndex, this.buffName, this)
+                elseif CancelPlayerBuff then
+                    CancelPlayerBuff(this.buffIndex)
+                end
             end
         end)
         row:SetScript("OnEnter", function()
@@ -5206,6 +5212,18 @@ function MainMenu:ShareSelectedQuest()
 
     if DEFAULT_CHAT_FRAME then
         DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Missões]|r Missão compartilhada: |cffffffff" .. (title or "?") .. "|r")
+    end
+end
+
+function MainMenu:OpenBuffContextMenu(buffIndex, anchorFrame)
+    if not buffIndex or buffIndex < 0 then return end
+    if anchorFrame and anchorFrame.isWeaponEnchant then return end
+    local buffName = nil
+    if self.GetBuffName then
+        buffName = self:GetBuffName(buffIndex)
+    end
+    if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForBuff then
+        CM.ui.contextMenu:OpenForBuff(buffIndex, buffName, anchorFrame)
     end
 end
 

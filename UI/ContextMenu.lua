@@ -22,6 +22,7 @@ Menu.currentMax = 1
 Menu.currentSplit = 1
 Menu.currentMode = "MENU" -- "MENU", "SPLIT", ou "QUEST_MENU"
 Menu.currentQuestIndex = nil
+Menu.currentBuffIndex = nil
 Menu.returnButton = nil
 
 function Menu:Initialize()
@@ -418,6 +419,72 @@ function Menu:OpenForEquipItem(invSlotID, anchorFrame)
     return true
 end
 
+function Menu:OpenForBuff(buffIndex, buffName, anchorFrame)
+    if not buffIndex or buffIndex < 0 then return false end
+
+    self:Initialize()
+
+    local displayName = buffName or "Buff"
+    if string.len(displayName) > 18 then
+        displayName = string.sub(displayName, 1, 16) .. ".."
+    end
+
+    self.currentMode = "BUFF_MENU"
+    self.currentBuffIndex = buffIndex
+    self.currentBag = nil
+    self.currentSlot = nil
+    self.currentInvSlot = nil
+    self.currentQuestIndex = nil
+    self.returnButton = anchorFrame
+    self.itemName = nil
+
+    self.frame.title:SetText(displayName)
+
+    -- Menu de buff: SOMENTE a opcao "Cancelar Buff"
+    self.frame.menuView:Show()
+    self.frame.splitView:Hide()
+    self.frame:SetHeight(68)
+
+    local cancelBtn = self.buttons[1]
+    if cancelBtn then
+        cancelBtn:Show()
+        cancelBtn:Enable()
+        cancelBtn.text:SetText("Cancelar Buff")
+        cancelBtn.text:SetTextColor(0.95, 0.3, 0.3)
+        cancelBtn.action = "CANCEL_BUFF"
+    end
+
+    if self.buttons[2] then self.buttons[2]:Hide(); self.buttons[2]:Disable() end
+    if self.buttons[3] then self.buttons[3]:Hide(); self.buttons[3]:Disable() end
+    if self.buttons[4] then self.buttons[4]:Hide(); self.buttons[4]:Disable() end
+
+    self.frame:ClearAllPoints()
+    if anchorFrame and anchorFrame.GetLeft then
+        local left = anchorFrame:GetLeft() or 0
+        local screenW = GetScreenWidth() or 1024
+        if left > (screenW / 2) then
+            self.frame:SetPoint("TOPRIGHT", anchorFrame, "TOPLEFT", -6, 10)
+        else
+            self.frame:SetPoint("TOPLEFT", anchorFrame, "TOPRIGHT", 6, 10)
+        end
+    else
+        self.frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    end
+
+    self.frame:Show()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+
+    if CM.cursor then
+        CM.cursor.state.activeFrames[self.frame] = true
+        if cancelBtn then
+            CM.cursor:MoveTo(cancelBtn)
+            CM.cursor:UpdateState()
+        end
+    end
+
+    return true
+end
+
 function Menu:SwitchToSplitView()
     self.currentMode = "SPLIT"
     self.frame.title:SetText("Dividir Pilha")
@@ -501,6 +568,7 @@ function Menu:Close()
     self.currentBag = nil
     self.currentSlot = nil
     self.currentInvSlot = nil
+    self.currentBuffIndex = nil
     self.currentMode = "MENU"
     self.returnButton = nil
 end
@@ -510,6 +578,15 @@ function Menu:ExecuteAction(action)
     local slotID = self.currentSlot
     local invSlot = self.currentInvSlot
     local returnBtn = self.returnButton
+
+    if action == "CANCEL_BUFF" then
+        local bIdx = self.currentBuffIndex
+        self:Close()
+        if bIdx and bIdx >= 0 and CancelPlayerBuff then
+            CancelPlayerBuff(bIdx)
+        end
+        return
+    end
 
     if action == "QUEST_DETAIL" then
         local qIdx = self.currentQuestIndex

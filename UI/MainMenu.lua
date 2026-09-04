@@ -2368,6 +2368,24 @@ if not _G["ConsoleModeMM_CompareEvents"] then
     cmpEv:RegisterEvent("UNIT_INVENTORY_CHANGED")
     cmpEv:SetScript("OnEvent", function()
         MainMenu.statCompareCache = {}
+        -- CORRECAO 1o-item: BAG_UPDATE dispara na carga/abertura do menu e
+        -- apagava a comparacao do 1o item focado. Se o menu esta visivel COM
+        -- hover ativo, preserva (o proximo foco/refresh mantem tudo).
+        -- UNIT_INVENTORY_CHANGED sempre limpa (equipamento mudou de verdade).
+        if event == "UNIT_INVENTORY_CHANGED" then
+            if MainMenu.HideCompare then
+                pcall(function() MainMenu:HideCompare() end)
+            elseif MainMenu.compareState then
+                MainMenu.compareState.active = false
+                MainMenu.compareState.hoveredLink = nil
+                MainMenu.compareState.targetSlot = nil
+            end
+            return
+        end
+        local menuVisible = MainMenu.frame and MainMenu.frame:IsVisible()
+        if menuVisible and MainMenu.compareState and MainMenu.compareState.active then
+            return -- preserva comparacao do hover atual
+        end
         -- CORRECAO transicoes: delega tudo ao HideCompare (ele limpa flags E
         -- restaura as linhas). Nao limpar flags manualmente aqui: isso fazia
         -- o HideCompare dar early-return (active=false) sem restaurar as
@@ -2739,14 +2757,29 @@ function MainMenu:CreateDetailCard(parent, config)
                 local lSt = string.lower(stName)
                 if lLoc == lSt or lSt == lLoc .. "s" or lLoc == lSt .. "s" then isDup = true end
             end
-            if not isDup then table.insert(subParts, stName) end
+            -- FASE 14b: subtipo incompativel (vermelho no tooltip) -> vermelho aqui.
+            if not isDup then
+                if itemData.cannotEquipType then
+                    table.insert(subParts, "|cffff2020" .. stName .. "|r")
+                else
+                    table.insert(subParts, stName)
+                end
+            end
         end
         if durCur and durMax then
             table.insert(subParts, "Dur. " .. durCur .. "/" .. durMax)
         end
         if isSoulbound then table.insert(subParts, "|cffffd100Soulbound|r") end
         if isUnique then table.insert(subParts, "|cffffd100Único|r") end
-        if rLevel > 1 then table.insert(subParts, "Req. Nv " .. rLevel) end
+        if rLevel > 1 then
+            -- FASE 14b: requisito nao atendido -> nivel em vermelho.
+            local pLevel = UnitLevel("player") or 0
+            if itemData.reqLevelRed or rLevel > pLevel then
+                table.insert(subParts, "|cffff2020Req. Nv " .. rLevel .. "|r")
+            else
+                table.insert(subParts, "Req. Nv " .. rLevel)
+            end
+        end
         self.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
         if table.getn(leftLines) == 0 and table.getn(rightLines) > 0 then
             leftLines = rightLines
@@ -3409,11 +3442,41 @@ function MainMenu:ParseItemData(bagID, slotID)
     local desc = ""
     local numLines = scanTip:NumLines() or 0
 
+    -- FASE 14b: flags de "nao pode equipar" vindas da COR do tooltip.
+    -- Linha de subtipo (ex: "Mail"/"Malha") vermelha = tipo incompativel;
+    -- linha de requisito (Requer/Requires) vermelha = req nao atendido.
+    local cannotEquipType = false
+    local reqLineRed = false
+    local function IsRedObj(o)
+        if not o or not o.GetTextColor then return false end
+        local ok, r, g, b = pcall(function() return o:GetTextColor() end)
+        if not ok or not r then return false end
+        return (r > 0.8 and g < 0.3 and b < 0.3)
+    end
+    local lowerSubType = nil
+    if itemSubType and itemSubType ~= "" then
+        lowerSubType = string.lower(itemSubType)
+    end
+
     for l = 2, numLines do
         local leftTextObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
         local rightTextObj = _G["ConsoleModeMMScanTooltipTextRight" .. l]
         local leftText = (leftTextObj and leftTextObj:GetText()) or ""
         local rightText = (rightTextObj and rightTextObj:GetText()) or ""
+
+        -- Deteccao por cor (independe do ramo de classificacao abaixo).
+        if IsRedObj(leftTextObj) or IsRedObj(rightTextObj) then
+            if lowerSubType then
+                if string.find(string.lower(leftText), lowerSubType, 1, true)
+                    or string.find(string.lower(rightText), lowerSubType, 1, true) then
+                    cannotEquipType = true
+                end
+            end
+            local cl = string.lower(leftText .. " " .. rightText)
+            if string.find(cl, "requer", 1, true) or string.find(cl, "requires", 1, true) then
+                reqLineRed = true
+            end
+        end
 
         if leftText ~= "" then
             if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
@@ -3442,6 +3505,10 @@ function MainMenu:ParseItemData(bagID, slotID)
         cat = "TRADE"
     end
 
+    -- reqLevelRed: linha de requisito vermelha OU nivel acima do jogador.
+    local playerLevel = UnitLevel("player") or 0
+    local reqLevelRed = reqLineRed or ((itemReqLevel or 0) > playerLevel)
+
     return {
         bagID        = bagID,
         slotID       = slotID,
@@ -3460,6 +3527,8 @@ function MainMenu:ParseItemData(bagID, slotID)
         statsLines   = statsLines,
         desc         = desc,
         sellPrice    = sellPrice,
+        cannotEquipType = cannotEquipType,
+        reqLevelRed  = reqLevelRed,
     }
 end
 

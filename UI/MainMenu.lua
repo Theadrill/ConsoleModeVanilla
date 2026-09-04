@@ -1169,12 +1169,63 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     statDiv:SetPoint("TOPLEFT", prevStat, "BOTTOMLEFT", 0, -6)
     statDiv:SetPoint("RIGHT", container, "RIGHT", 0, 0)
     statDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+    container.statDiv = statDiv
+
+    -- 2.1. Seção Dinâmica "COMPARAÇÃO" (FASE 14, Passo 4 — estrutura vazia)
+    -- Criada uma única vez e reutilizada (pool fixo: sem CreateFrame por hover,
+    -- respeita o GC sensível do 1.12). Todos começam Hide(); o preenchimento
+    -- das linhas vem no Passo 5. Guarda tudo em container.compareSection.
+    local compareHeader = container:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    compareHeader:SetPoint("TOPLEFT", statDiv, "BOTTOMLEFT", 0, -6)
+    compareHeader:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+    compareHeader:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(compareHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
+    compareHeader:SetText("|cffffcc00⚔️ COMPARAÇÃO|r")
+    compareHeader:Hide()
+
+    local compareDivTop = container:CreateTexture(nil, "ARTWORK")
+    compareDivTop:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    compareDivTop:SetHeight(1)
+    compareDivTop:SetPoint("TOPLEFT", compareHeader, "BOTTOMLEFT", 0, -3)
+    compareDivTop:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+    compareDivTop:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+    compareDivTop:Hide()
+
+    -- Pool fixo de 8 FontStrings empilhadas (Passo 5 preenche/ancora o fim).
+    local compareLines = {}
+    local prevCompare = compareDivTop
+    for cl = 1, 8 do
+        local cline = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        cline:SetPoint("TOPLEFT", prevCompare, "BOTTOMLEFT", 0, -2)
+        cline:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+        cline:SetJustifyH("LEFT")
+        MainMenu:ApplyFont(cline, CFG.Fonts.bodyFontFile, CFG.Fonts.statSize)
+        cline:Hide()
+        table.insert(compareLines, cline)
+        prevCompare = cline
+    end
+
+    local compareDivBottom = container:CreateTexture(nil, "ARTWORK")
+    compareDivBottom:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    compareDivBottom:SetHeight(1)
+    compareDivBottom:SetPoint("TOPLEFT", prevCompare, "BOTTOMLEFT", 0, -3)
+    compareDivBottom:SetPoint("RIGHT", container, "RIGHT", 0, 0)
+    compareDivBottom:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+    compareDivBottom:Hide()
+
+    container.compareSection = {
+        header = compareHeader,
+        divTop = compareDivTop,
+        lines = compareLines,
+        divBottom = compareDivBottom,
+    }
 
     -- 3. Seção de Buffs Ativos (Estilo Zelda)
     local buffHeader = container:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     buffHeader:SetPoint("TOPLEFT", statDiv, "BOTTOMLEFT", 0, -6)
     MainMenu:ApplyFont(buffHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
     buffHeader:SetText("|cff00ffccBUFFS ATIVOS|r")
+    container.buffHeader = buffHeader
 
     local buffRows = {}
     local prevBuff = buffHeader
@@ -1910,6 +1961,7 @@ function MainMenu:ShowCompare(itemData, diffResult)
     st.targetSlot = cmp.slotID
     st.diffs = cmp.diffs
     self:ApplyCompareDiffs()
+    self:ShowCompareSection()
     return cmp
 end
 
@@ -1930,6 +1982,64 @@ function MainMenu:HideCompare()
         end
     end
     st.baseTexts = {}
+    self:HideCompareSection()
+end
+
+-- ============================================================================
+-- PASSO 4: secao dinamica "COMPARAÇÃO" (estrutura + show/hide, ainda vazia)
+-- ============================================================================
+
+-- Mostra a seção entre os stats e os buffs e empurra os buffs para baixo
+-- (re-ancora buffHeader em compareDivBottom). Passo 4: só placeholder
+-- "(analisando...)" — o preenchimento real vem no Passo 5.
+function MainMenu:ShowCompareSection()
+    local col = self.statsAndBuffs
+    if not col or not col.compareSection or not col.statDiv or not col.buffHeader then return end
+    local sec = col.compareSection
+
+    sec.header:Show()
+    sec.divTop:Show()
+
+    for i, line in ipairs(sec.lines) do
+        if i == 1 then
+            line:SetText("|cff888888(analisando...)|r")
+            line:Show()
+        else
+            line:Hide()
+        end
+    end
+
+    -- Fecha a seção após a última linha visível (Passo 5 tornará dinâmico).
+    sec.divBottom:ClearAllPoints()
+    sec.divBottom:SetPoint("TOPLEFT", sec.lines[1], "BOTTOMLEFT", 0, -3)
+    sec.divBottom:SetPoint("RIGHT", col, "RIGHT", 0, 0)
+    sec.divBottom:Show()
+
+    -- Empurra os buffs para baixo (as buffRows seguem o buffHeader).
+    col.buffHeader:ClearAllPoints()
+    col.buffHeader:SetPoint("TOPLEFT", sec.divBottom, "BOTTOMLEFT", 0, -6)
+end
+
+-- Esconde a seção e restaura o anchor original dos buffs (em statDiv).
+-- Idempotente e seguro com menu ainda não construído (guards).
+function MainMenu:HideCompareSection()
+    local col = self.statsAndBuffs
+    if not col or not col.compareSection then return end
+    local sec = col.compareSection
+
+    if sec.header then sec.header:Hide() end
+    if sec.divTop then sec.divTop:Hide() end
+    if sec.divBottom then sec.divBottom:Hide() end
+    if sec.lines then
+        for _, line in ipairs(sec.lines) do
+            if line then line:Hide() end
+        end
+    end
+
+    if col.buffHeader and col.statDiv then
+        col.buffHeader:ClearAllPoints()
+        col.buffHeader:SetPoint("TOPLEFT", col.statDiv, "BOTTOMLEFT", 0, -6)
+    end
 end
 
 -- Invalidacao de cache: BAG_UPDATE / UNIT_INVENTORY_CHANGED limpam o cache.

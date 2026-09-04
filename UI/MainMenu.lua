@@ -1961,7 +1961,7 @@ function MainMenu:ShowCompare(itemData, diffResult)
     st.targetSlot = cmp.slotID
     st.diffs = cmp.diffs
     self:ApplyCompareDiffs()
-    self:ShowCompareSection()
+    self:ShowCompareSection(cmp)
     return cmp
 end
 
@@ -1986,13 +1986,127 @@ function MainMenu:HideCompare()
 end
 
 -- ============================================================================
--- PASSO 4: secao dinamica "COMPARAÇÃO" (estrutura + show/hide, ainda vazia)
+-- PASSO 5: preenchimento da secao com stats secundarios (so os que mudam)
 -- ============================================================================
 
+-- Ordem fixa de exibicao dos secundarios. "damage" combina minDmg+maxDmg.
+-- armor NAO entra aqui (ja tem diff na coluna principal); hp/mana entram
+-- (a coluna principal nao mostra diff de HP/Recurso, entao +Vida/+Mana de
+-- Equip: aparecem so nesta secao).
+local COMPARE_SECONDARY_ORDER = {
+    "dps", "damage", "speed", "ap", "hit", "crit", "dodge", "block",
+    "spellDmg", "healing", "hp", "mana",
+}
+
+-- Inteiro sempre com sinal: "+12" / "-5".
+local function Compare_SignedInt(v)
+    v = tonumber(v) or 0
+    if v >= 0 then return "+" .. v else return tostring(v) end
+end
+
+-- Decimal sempre com sinal ("+8.1" / "-0.20"). Lua 5.0: sem %+.1f portatil
+-- em todos os builds, entao monta o sinal manualmente.
+local function Compare_SignedDec(v, dec)
+    v = tonumber(v) or 0
+    dec = dec or 1
+    local f = string.format("%." .. dec .. "f", math.abs(v))
+    if v >= 0 then return "+" .. f else return "-" .. f end
+end
+
+local function Compare_FormatDec(v, dec)
+    v = tonumber(v) or 0
+    dec = dec or 1
+    return string.format("%." .. dec .. "f", v)
+end
+
+-- Monta UMA linha secundaria colorida ou nil (se nao mudou).
+-- diffs tem (new-old); newStats/oldStats tem os valores absolutos novos.
+local function Compare_FormatSecondary(key, diffs, newStats, oldStats)
+    local text = nil
+    local green = true
+
+    if key == "dps" then
+        local d = diffs.dps
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = "DPS: " .. Compare_FormatDec(newStats.dps, 1)
+            .. " (" .. Compare_SignedDec(d, 1) .. ")"
+    elseif key == "damage" then
+        local dm = diffs.minDmg or 0
+        local dx = diffs.maxDmg or 0
+        if dm == 0 and dx == 0 then return nil end
+        green = (dm + dx) > 0
+        text = "Dano: " .. (newStats.minDmg or 0) .. "-" .. (newStats.maxDmg or 0)
+            .. " (" .. Compare_SignedInt(dm) .. Compare_SignedInt(dx) .. ")"
+    elseif key == "speed" then
+        local d = diffs.speed
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = "Velocidade: " .. Compare_FormatDec(newStats.speed, 2)
+            .. " (" .. Compare_SignedDec(d, 2) .. ")"
+    elseif key == "ap" then
+        local d = diffs.ap
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. " Poder de Ataque"
+    elseif key == "hit" then
+        local d = diffs.hit
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. "% Hit"
+    elseif key == "crit" then
+        local d = diffs.crit
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. "% Crítico"
+    elseif key == "dodge" then
+        local d = diffs.dodge
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. "% Esquiva"
+    elseif key == "block" then
+        -- NOTA: o parser unifica "% Bloqueio" e "+N Bloqueio" (valor), entao
+        -- a linha sai sem "%" para nao afirmar a unidade errada.
+        local d = diffs.block
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. " Bloqueio"
+    elseif key == "spellDmg" then
+        local d = diffs.spellDmg
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. " Dano Mágico"
+    elseif key == "healing" then
+        local d = diffs.healing
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. " Cura"
+    elseif key == "hp" then
+        local d = diffs.hp
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. " Vida"
+    elseif key == "mana" then
+        local d = diffs.mana
+        if not d or d == 0 then return nil end
+        green = d > 0
+        text = Compare_SignedInt(d) .. " Mana"
+    else
+        return nil
+    end
+
+    if green then
+        return "|cff33ff33" .. text .. "|r"
+    else
+        return "|cffff4444" .. text .. "|r"
+    end
+end
+
 -- Mostra a seção entre os stats e os buffs e empurra os buffs para baixo
--- (re-ancora buffHeader em compareDivBottom). Passo 4: só placeholder
--- "(analisando...)" — o preenchimento real vem no Passo 5.
-function MainMenu:ShowCompareSection()
+-- (re-ancora buffHeader em compareDivBottom). Preenche com os secundarios
+-- que MUDARAM (diffResult = { diffs, newStats, oldStats }); se nenhum mudou,
+-- mostra 1 linha cinza "(stats iguais)". Maximo 8 linhas (pool fixo).
+function MainMenu:ShowCompareSection(diffResult)
     local col = self.statsAndBuffs
     if not col or not col.compareSection or not col.statDiv or not col.buffHeader then return end
     local sec = col.compareSection
@@ -2000,19 +2114,48 @@ function MainMenu:ShowCompareSection()
     sec.header:Show()
     sec.divTop:Show()
 
-    for i, line in ipairs(sec.lines) do
-        if i == 1 then
-            line:SetText("|cff888888(analisando...)|r")
-            line:Show()
-        else
-            line:Hide()
+    local diffs = diffResult and diffResult.diffs
+    local newStats = diffResult and diffResult.newStats
+    local oldStats = diffResult and diffResult.oldStats
+
+    local shown = 0
+    local lastLine = nil
+    if diffs and newStats and oldStats then
+        for _, key in ipairs(COMPARE_SECONDARY_ORDER) do
+            if shown >= 8 then break end
+            local txt = Compare_FormatSecondary(key, diffs, newStats, oldStats)
+            if txt then
+                shown = shown + 1
+                local line = sec.lines[shown]
+                if line then
+                    line:SetText(txt)
+                    line:Show()
+                    lastLine = line
+                end
+            end
         end
     end
 
-    -- Fecha a seção após a última linha visível (Passo 5 tornará dinâmico).
-    sec.divBottom:ClearAllPoints()
-    sec.divBottom:SetPoint("TOPLEFT", sec.lines[1], "BOTTOMLEFT", 0, -3)
-    sec.divBottom:SetPoint("RIGHT", col, "RIGHT", 0, 0)
+    if shown == 0 then
+        shown = 1
+        if sec.lines[1] then
+            sec.lines[1]:SetText("|cff888888(stats iguais)|r")
+            sec.lines[1]:Show()
+            lastLine = sec.lines[1]
+        end
+    end
+    if sec.lines then
+        for i = shown + 1, 8 do
+            if sec.lines[i] then sec.lines[i]:Hide() end
+        end
+    end
+
+    -- Fecha a seção após a última linha visível.
+    if lastLine then
+        sec.divBottom:ClearAllPoints()
+        sec.divBottom:SetPoint("TOPLEFT", lastLine, "BOTTOMLEFT", 0, -3)
+        sec.divBottom:SetPoint("RIGHT", col, "RIGHT", 0, 0)
+    end
     sec.divBottom:Show()
 
     -- Empurra os buffs para baixo (as buffRows seguem o buffHeader).

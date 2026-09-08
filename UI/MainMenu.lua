@@ -4939,9 +4939,9 @@ function MainMenu:SetupTalentsPage(pageTalents)
             slot.tier = tier
             slot.column = col
 
-            -- Tier avança em X (colunas da esquerda pra direita 1 a 7); Col avança em Y (linhas de cima pra baixo 1 a 4)
+            -- Tier avança em X (colunas da esquerda pra direita 1 a 7); Col 1 no topo, Col 4 na base (invertido verticalmente)
             local posX = (tier - 1) * (hSlotW + hGapX)
-            local posY = -((col - 1) * (hSlotH + hGapY))
+            local posY = -((4 - col) * (hSlotH + hGapY))
             slot:SetPoint("TOPLEFT", horizCenter, "TOPLEFT", posX, posY)
 
             slot:SetBackdrop({
@@ -5015,12 +5015,24 @@ function MainMenu:SetupTalentsPage(pageTalents)
             end
             slot.dots = dots
 
+            -- Overlay de Flash Dourado ao aprender talento
+            local flash = slot:CreateTexture(nil, "OVERLAY")
+            flash:SetAllPoints(slot)
+            flash:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            flash:SetVertexColor(1.0, 0.90, 0.30, 0.80)
+            flash:Hide()
+            slot.flash = flash
+
             slot:SetScript("OnEnter", function()
                 MainMenu:FocusTalentSlot(this)
             end)
             slot:SetScript("OnClick", function()
                 MainMenu:FocusTalentSlot(this)
-                if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+                if this.talentData then
+                    MainMenu:SpendTalentPoint(this.talentData.tabIndex, this.talentData.talentIndex)
+                else
+                    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+                end
             end)
 
             slot:Hide()
@@ -5031,6 +5043,20 @@ function MainMenu:SetupTalentsPage(pageTalents)
     treeScreen.slotsByTierCol = slotsByTierCol
     treeScreen.allSlots = allSlots
 
+    -- Event listener para sincronização instantânea quando pontos de talentos mudam
+    treeScreen:RegisterEvent("CHARACTER_POINTS_CHANGED")
+    treeScreen:RegisterEvent("SPELLS_CHANGED")
+    treeScreen:SetScript("OnEvent", function()
+        if not MainMenu.tabContainer or not MainMenu.tabContainer.pages then return end
+        local pTalents = MainMenu.tabContainer.pages["TALENTS"]
+        if not pTalents or not pTalents:IsVisible() then return end
+
+        if pTalents.activeScreen == 2 and pTalents.focusedSpecIdx then
+            MainMenu:UpdateTalentsPage(true)
+        elseif pTalents.activeScreen == 1 then
+            MainMenu:UpdateTalentsPage(true)
+        end
+    end)
 
     -- 4.4. Rodapé com Botão Voltar [B] e resumo
     local backBtn = CreateFrame("Button", "ConsoleModeMM_TalentsBackBtn", treeScreen)
@@ -5150,6 +5176,81 @@ function MainMenu:FocusTalentSlot(slot)
     end
 end
 
+function MainMenu:PlayTalentFlash(slot)
+    if not slot or not slot.flash then return end
+    slot.flash:Show()
+    slot.flash:SetAlpha(1.0)
+    slot.flashTimer = 0.35
+    slot:SetScript("OnUpdate", function()
+        local dt = arg1 or 0.05
+        this.flashTimer = (this.flashTimer or 0.35) - dt
+        if this.flashTimer <= 0 then
+            this.flash:Hide()
+            this:SetScript("OnUpdate", nil)
+        else
+            this.flash:SetAlpha(this.flashTimer / 0.35)
+        end
+    end)
+end
+
+function MainMenu:SpendTalentPoint(tabIndex, talentIndex)
+    if not tabIndex or not talentIndex then return end
+
+    -- 1. Validação de pontos disponíveis do jogador
+    local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
+    if unspent < 1 then
+        UIErrorsFrame:AddMessage("Você não tem pontos de talento disponíveis.", 1.0, 0.2, 0.2, 1.0, UIERRORS_HOLD_TIME)
+        PlaySound("igMainMenuOptionCheckBoxOff")
+        return
+    end
+
+    -- 2. Obter informações atualizadas do talento
+    local name, icon, tier, column, currentRank, maxRank, isExceptional, meetsPrereq = GetTalentInfo(tabIndex, talentIndex)
+    if not name then return end
+
+    -- 3. Validação de rank máximo
+    if currentRank >= maxRank then
+        UIErrorsFrame:AddMessage(string.format("%s já está no rank máximo (%d/%d).", name, maxRank, maxRank), 1.0, 0.8, 0.2, 1.0, UIERRORS_HOLD_TIME)
+        PlaySound("igMainMenuOptionCheckBoxOff")
+        return
+    end
+
+    -- 4. Validação de pré-requisitos
+    if not meetsPrereq then
+        UIErrorsFrame:AddMessage(string.format("Você não cumpre os pré-requisitos para aprender %s.", name), 1.0, 0.2, 0.2, 1.0, UIERRORS_HOLD_TIME)
+        PlaySound("igMainMenuOptionCheckBoxOff")
+        return
+    end
+
+    -- 5. Executa o aprendizado do talento
+    if LearnTalent then
+        LearnTalent(tabIndex, talentIndex)
+    end
+
+    -- 6. Feedback sonoro: rank máximo toca igAbility, rank intermediário toca igSkillUp
+    if (currentRank + 1) >= maxRank then
+        PlaySound("igAbility")
+    else
+        PlaySound("igSkillUp")
+    end
+
+    -- 7. Feedback visual de flash dourado no slot correspondente
+    local pageTalents = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["TALENTS"]
+    if pageTalents and pageTalents.treeScreen and pageTalents.treeScreen.slotsByTierCol then
+        local slot = pageTalents.treeScreen.slotsByTierCol[tier] and pageTalents.treeScreen.slotsByTierCol[tier][column]
+        if slot then
+            self:PlayTalentFlash(slot)
+        end
+    end
+
+    -- 8. Atualiza a árvore e detalhes
+    self:UpdateTalentTreeGrid(tabIndex)
+    local curSlot = pageTalents and pageTalents.focusedTalentSlot
+    if curSlot then
+        self:FocusTalentSlot(curSlot)
+    end
+end
+
 function MainMenu:UpdateTalentTreeGrid(specIdx)
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageTalents = self.tabContainer.pages["TALENTS"]
@@ -5177,6 +5278,15 @@ function MainMenu:UpdateTalentTreeGrid(specIdx)
     if GetTalentTabInfo then
         local _, _, pts = GetTalentTabInfo(specIdx)
         specPointsSpent = pts or 0
+    end
+
+    -- Sincroniza indicador de pontos na spec e pontos livres no topo
+    if treeScreen.header and treeScreen.header.points then
+        treeScreen.header.points:SetText(string.format("|cffaaaaaa(%d pts investidos)|r", specPointsSpent))
+    end
+    local curUnspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
+    if pageTalents.talentPointsText then
+        pageTalents.talentPointsText:SetText(string.format("|cffaaaaaaPontos disponíveis: |cffffffff%d|r", curUnspent))
     end
 
     for tIdx = 1, numTalents do

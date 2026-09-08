@@ -4834,6 +4834,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
         end)
         btn:SetScript("OnClick", function()
             MainMenu:FocusTalentSpecButton(this.specIndex)
+            MainMenu:ShowTalentTreeScreen(this.specIndex)
             if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
         end)
 
@@ -4842,7 +4843,269 @@ function MainMenu:SetupTalentsPage(pageTalents)
     pageTalents.specButtons = specButtons
     pageTalents.focusedSpecIdx = 1
 
+    -- 4. Tela 2: Visualização da Árvore de Talentos / Placeholder da Árvore (Fase 3)
+    local treeScreen = CreateFrame("Frame", "ConsoleModeMM_TalentsTreeScreen", pageTalents)
+    treeScreen:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, 0)
+    treeScreen:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 0)
+    treeScreen:Hide()
+    pageTalents.treeScreen = treeScreen
+
+    -- 4.1. Sub-cabeçalho da Tela 2 com controles [LT] / [RT]
+    local treeHeader = CreateFrame("Frame", "ConsoleModeMM_TalentsTreeHeader", treeScreen)
+    treeHeader:SetHeight(32)
+    treeHeader:SetPoint("TOPLEFT", treeScreen, "TOPLEFT", 10, -6)
+    treeHeader:SetPoint("TOPRIGHT", treeScreen, "TOPRIGHT", -10, -6)
+    treeScreen.header = treeHeader
+
+    -- Ícone / Tag LT
+    local ltTag = treeHeader:CreateTexture(nil, "OVERLAY")
+    ltTag:SetWidth(20)
+    ltTag:SetHeight(20)
+    ltTag:SetPoint("LEFT", treeHeader, "LEFT", 0, 0)
+    ltTag:SetTexture(CFG.Icons.LT)
+    treeHeader.ltTag = ltTag
+
+    -- Ícone da spec atual no cabeçalho
+    local treeSpecIcon = treeHeader:CreateTexture(nil, "OVERLAY")
+    treeSpecIcon:SetWidth(22)
+    treeSpecIcon:SetHeight(22)
+    treeSpecIcon:SetPoint("LEFT", ltTag, "RIGHT", 6, 0)
+    treeHeader.specIcon = treeSpecIcon
+
+    -- Título da Spec
+    local treeTitle = treeHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    treeTitle:SetPoint("LEFT", treeSpecIcon, "RIGHT", 8, 0)
+    MainMenu:ApplyFont(treeTitle, CFG.Fonts.titleFontFile, 16)
+    treeTitle:SetText("|cffe09a15Especialização|r")
+    treeHeader.title = treeTitle
+
+    -- Pontos investidos na árvore
+    local treePoints = treeHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    treePoints:SetPoint("LEFT", treeTitle, "RIGHT", 12, -1)
+    MainMenu:ApplyFont(treePoints, CFG.Fonts.bodyFontFile, 12)
+    treePoints:SetText("|cffaaaaaa(0 pts)|r")
+    treeHeader.points = treePoints
+
+    -- Ícone / Tag RT
+    local rtTag = treeHeader:CreateTexture(nil, "OVERLAY")
+    rtTag:SetWidth(20)
+    rtTag:SetHeight(20)
+    rtTag:SetPoint("RIGHT", treeHeader, "RIGHT", 0, 0)
+    rtTag:SetTexture(CFG.Icons.RT)
+    treeHeader.rtTag = rtTag
+
+    local treeSubText = treeHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    treeSubText:SetPoint("RIGHT", rtTag, "LEFT", -6, 0)
+    MainMenu:ApplyFont(treeSubText, CFG.Fonts.subFontFile, 11)
+    treeSubText:SetText("|cff888888Trocar Especialização|r")
+    treeHeader.subText = treeSubText
+
+    -- Linha divisória fina abaixo do sub-cabeçalho
+    local treeDivider = treeHeader:CreateTexture(nil, "ARTWORK")
+    treeDivider:SetHeight(1)
+    treeDivider:SetPoint("BOTTOMLEFT", treeHeader, "BOTTOMLEFT", 0, -4)
+    treeDivider:SetPoint("BOTTOMRIGHT", treeHeader, "BOTTOMRIGHT", 0, -4)
+    treeDivider:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    treeDivider:SetVertexColor(0.5, 0.4, 0.3, 0.35)
+
+    -- 4.2. Card Central com Placeholder da Árvore de Talentos
+    local treeCard = CreateFrame("Frame", "ConsoleModeMM_TalentsTreeCard", treeScreen)
+    treeCard:SetPoint("TOPLEFT", treeHeader, "BOTTOMLEFT", 0, -12)
+    treeCard:SetPoint("BOTTOMRIGHT", treeScreen, "BOTTOMRIGHT", -10, 44)
+    treeCard:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 14,
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 }
+    })
+    treeCard:SetBackdropColor(CFG.Talents.cardBgColor.r, CFG.Talents.cardBgColor.g, CFG.Talents.cardBgColor.b, 0.85)
+    treeCard:SetBackdropBorderColor(colors.inactiveBorder.r, colors.inactiveBorder.g, colors.inactiveBorder.b, colors.inactiveBorder.a)
+    treeScreen.card = treeCard
+
+    -- Ícone grande de placeholder no centro
+    local bigIcon = treeCard:CreateTexture(nil, "ARTWORK")
+    bigIcon:SetWidth(56)
+    bigIcon:SetHeight(56)
+    bigIcon:SetPoint("CENTER", treeCard, "CENTER", 0, 45)
+    treeCard.bigIcon = bigIcon
+
+    local bigIconBorder = CreateFrame("Frame", nil, treeCard)
+    bigIconBorder:SetPoint("TOPLEFT", bigIcon, "TOPLEFT", -3, 3)
+    bigIconBorder:SetPoint("BOTTOMRIGHT", bigIcon, "BOTTOMRIGHT", 3, -3)
+    bigIconBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 10,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    bigIconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.85)
+    treeCard.bigIconBorder = bigIconBorder
+
+    -- Título de status do placeholder
+    local phTitle = treeCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    phTitle:SetPoint("TOP", bigIcon, "BOTTOM", 0, -14)
+    MainMenu:ApplyFont(phTitle, CFG.Fonts.titleFontFile, 17)
+    phTitle:SetText("|cffe09a15Árvore de Talentos|r")
+    treeCard.phTitle = phTitle
+
+    -- Mensagem informativa da próxima etapa
+    local phDesc = treeCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    phDesc:SetPoint("TOP", phTitle, "BOTTOM", 0, -8)
+    phDesc:SetPoint("LEFT", treeCard, "LEFT", 24, 0)
+    phDesc:SetPoint("RIGHT", treeCard, "RIGHT", -24, 0)
+    MainMenu:ApplyFont(phDesc, CFG.Fonts.bodyFontFile, 13)
+    phDesc:SetText("|cffccccccPlaceholder da Tela 2 ativado com sucesso!|r\n|cffaaaaaaNa próxima etapa, esta área exibirá a grade de talentos (7 linhas x 4 colunas) com suas setas de pré-requisito e pontos alocados.|r")
+    treeCard.phDesc = phDesc
+
+    -- Detalhe da Spec selecionada
+    local phSpecDetails = treeCard:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    phSpecDetails:SetPoint("TOP", phDesc, "BOTTOM", 0, -10)
+    phSpecDetails:SetPoint("LEFT", treeCard, "LEFT", 30, 0)
+    phSpecDetails:SetPoint("RIGHT", treeCard, "RIGHT", -30, 0)
+    MainMenu:ApplyFont(phSpecDetails, CFG.Fonts.subFontFile, 11)
+    phSpecDetails:SetText("")
+    treeCard.phSpecDetails = phSpecDetails
+
+    -- 4.3. Rodapé com Botão Voltar [B] e resumo
+    local backBtn = CreateFrame("Button", "ConsoleModeMM_TalentsBackBtn", treeScreen)
+    backBtn:SetHeight(28)
+    backBtn:SetWidth(140)
+    backBtn:SetPoint("BOTTOMLEFT", treeScreen, "BOTTOMLEFT", 10, 8)
+    backBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 12, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    backBtn:SetBackdropColor(0.12, 0.12, 0.12, 0.85)
+    backBtn:SetBackdropBorderColor(0.60, 0.50, 0.35, 0.70)
+
+    local backBtnText = backBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    backBtnText:SetPoint("CENTER", backBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(backBtnText, CFG.Fonts.bodyFontFile, 12)
+    backBtnText:SetText("|cffe09a15[B]|r |cffffffffVoltar|r")
+    backBtn.label = backBtnText
+
+    backBtn:SetScript("OnClick", function()
+        MainMenu:ShowTalentSpecScreen()
+        if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+    end)
+    backBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.90)
+    end)
+    backBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.50, 0.35, 0.70)
+    end)
+    treeScreen.backBtn = backBtn
+
+    local treeFooterHint = treeScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    treeFooterHint:SetPoint("LEFT", backBtn, "RIGHT", 14, 0)
+    MainMenu:ApplyFont(treeFooterHint, CFG.Fonts.subFontFile, 11)
+    treeFooterHint:SetText("|cff888888Pressione [B] para retornar às especializações|r")
+    treeScreen.footerHint = treeFooterHint
+
+    pageTalents.activeScreen = 1
     pageTalents.isInitialized = true
+end
+
+function MainMenu:ShowTalentTreeScreen(specIdx)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageTalents = self.tabContainer.pages["TALENTS"]
+    if not pageTalents then return end
+
+    self:SetupTalentsPage(pageTalents)
+
+    specIdx = specIdx or pageTalents.focusedSpecIdx or 1
+    if specIdx < 1 then specIdx = 1 end
+    if specIdx > 3 then specIdx = 3 end
+    pageTalents.focusedSpecIdx = specIdx
+    pageTalents.activeScreen = 2
+
+    local specData = self:GetTalentSpecData(specIdx)
+    local treeScreen = pageTalents.treeScreen
+
+    if treeScreen then
+        if treeScreen.header then
+            if treeScreen.header.specIcon then
+                treeScreen.header.specIcon:SetTexture(specData.icon)
+            end
+            if treeScreen.header.title then
+                treeScreen.header.title:SetText(string.format("|cffe09a15%s|r", specData.name))
+            end
+            if treeScreen.header.points then
+                treeScreen.header.points:SetText(string.format("|cffaaaaaa(%d pts investidos)|r", specData.pointsSpent))
+            end
+        end
+
+        if treeScreen.card then
+            if treeScreen.card.bigIcon then
+                treeScreen.card.bigIcon:SetTexture(specData.icon)
+            end
+            if treeScreen.card.phTitle then
+                treeScreen.card.phTitle:SetText(string.format("|cffe09a15Árvore de Talentos: %s|r", specData.name))
+            end
+            if treeScreen.card.phSpecDetails then
+                treeScreen.card.phSpecDetails:SetText(string.format("|cff888888%s|r", specData.desc or ""))
+            end
+        end
+
+        if pageTalents.specScreen then
+            pageTalents.specScreen:Hide()
+        end
+        treeScreen:Show()
+
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and treeScreen.backBtn then
+            ConsoleMode.cursor:MoveTo(treeScreen.backBtn)
+            ConsoleMode.cursor:UpdateState()
+        end
+    end
+
+    if pageTalents.detailCard then
+        local unspent = 0
+        if UnitCharacterPoints then unspent = UnitCharacterPoints("player") or 0 end
+        pageTalents.detailCard.icon:SetTexture(specData.icon)
+        pageTalents.detailCard.icon:Show()
+        pageTalents.detailCard.titleText:SetText(string.format("|cffe09a15Árvore: %s|r", specData.name))
+        pageTalents.detailCard.typeText:SetText(string.format("|cffaaaaaaÁrvore %d de 3 — ConsoleMode Vanilla|r", specIdx))
+        pageTalents.detailCard.descColLeft:SetText(specData.desc)
+        pageTalents.detailCard.descColRight:SetText(string.format("|cffaaaaaaPontos investidos: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n|cffe09a15[B] Retornar para Especializações|r", specData.pointsSpent, unspent))
+    end
+end
+
+function MainMenu:ShowTalentSpecScreen()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageTalents = self.tabContainer.pages["TALENTS"]
+    if not pageTalents then return end
+
+    self:SetupTalentsPage(pageTalents)
+    pageTalents.activeScreen = 1
+
+    if pageTalents.treeScreen then
+        pageTalents.treeScreen:Hide()
+    end
+    if pageTalents.specScreen then
+        pageTalents.specScreen:Show()
+    end
+
+    local curFocus = pageTalents.focusedSpecIdx or 1
+    self:FocusTalentSpecButton(curFocus)
+
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageTalents.specButtons and pageTalents.specButtons[curFocus] then
+        ConsoleMode.cursor:MoveTo(pageTalents.specButtons[curFocus])
+        ConsoleMode.cursor:UpdateState()
+    end
+end
+
+function MainMenu:HandleTalentsBack()
+    if not self.tabContainer or not self.tabContainer.pages then return false end
+    local pageTalents = self.tabContainer.pages["TALENTS"]
+    if not pageTalents or not pageTalents:IsVisible() then return false end
+
+    if pageTalents.activeScreen == 2 then
+        self:ShowTalentSpecScreen()
+        if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        return true
+    end
+    return false
 end
 
 function MainMenu:UpdateTalentsPage(keepPage)
@@ -4887,8 +5150,12 @@ function MainMenu:UpdateTalentsPage(keepPage)
         pageTalents.detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Talentos 1.12|r")
     end
 
-    local curFocus = (keepPage and pageTalents.focusedSpecIdx) or pageTalents.focusedSpecIdx or 1
-    self:FocusTalentSpecButton(curFocus)
+    if pageTalents.activeScreen == 2 then
+        self:ShowTalentTreeScreen(pageTalents.focusedSpecIdx or 1)
+    else
+        local curFocus = (keepPage and pageTalents.focusedSpecIdx) or pageTalents.focusedSpecIdx or 1
+        self:FocusTalentSpecButton(curFocus)
+    end
 end
 
 -- ============================================================================
@@ -9700,11 +9967,14 @@ function MainMenu:CycleCategories(direction)
         if nextIdx > 3 then nextIdx = 1 end
         if nextIdx < 1 then nextIdx = 3 end
 
-        self:FocusTalentSpecButton(nextIdx)
-
-        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageTalents.specButtons and pageTalents.specButtons[nextIdx] then
-            ConsoleMode.cursor:MoveTo(pageTalents.specButtons[nextIdx])
-            ConsoleMode.cursor:UpdateState()
+        if pageTalents.activeScreen == 2 then
+            self:ShowTalentTreeScreen(nextIdx)
+        else
+            self:FocusTalentSpecButton(nextIdx)
+            if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageTalents.specButtons and pageTalents.specButtons[nextIdx] then
+                ConsoleMode.cursor:MoveTo(pageTalents.specButtons[nextIdx])
+                ConsoleMode.cursor:UpdateState()
+            end
         end
 
         if CFG.Audio.soundItemSelect then

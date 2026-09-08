@@ -811,6 +811,12 @@ function CM_CursorCancel()
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Detalhes da Missao)")
         return
     end
+    if mmQ and mmQ.HandleTalentsBack and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+        if mmQ:HandleTalentsBack() then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Especializacoes)")
+            return
+        end
+    end
     -- 0. Se o Menu de Contexto estiver aberto
     local ctxMenu = CM.ui and CM.ui.contextMenu
     if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then

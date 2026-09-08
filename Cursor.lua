@@ -798,6 +798,234 @@ function Cursor:UpdateState()
     self.state.closest, self.state.distances = self:FindClosest(self.state.currentButton, allButtons)
 end
 
+function Cursor:HandlePickerNavigation(pScreen, currentButton, direction)
+    if not pScreen or not currentButton then return false end
+    direction = string.upper(direction or "")
+
+    local modeIdx = nil
+    if pScreen.modeButtons then
+        for i, btn in ipairs(pScreen.modeButtons) do
+            if btn == currentButton then
+                modeIdx = i
+                break
+            end
+        end
+    end
+
+    local subTabIdx = nil
+    if pScreen.subTabButtons then
+        for i, btn in ipairs(pScreen.subTabButtons) do
+            if btn == currentButton then
+                subTabIdx = i
+                break
+            end
+        end
+    end
+
+    local gridIdx = nil
+    if pScreen.gridButtons then
+        for i, btn in ipairs(pScreen.gridButtons) do
+            if btn == currentButton then
+                gridIdx = i
+                break
+            end
+        end
+    end
+
+    local isPrevBtn = (pScreen.pageBar and pScreen.pageBar.prevBtn == currentButton)
+    local isNextBtn = (pScreen.pageBar and pScreen.pageBar.nextBtn == currentButton)
+
+    -- CASO A: Botões de MODO (Grimório, Bolsas, Macros, Barras)
+    if modeIdx then
+        if direction == "LEFT" then
+            if modeIdx > 1 and pScreen.modeButtons[modeIdx - 1] then
+                self:MoveTo(pScreen.modeButtons[modeIdx - 1])
+                return true
+            end
+        elseif direction == "RIGHT" then
+            if modeIdx < table.getn(pScreen.modeButtons) and pScreen.modeButtons[modeIdx + 1] then
+                self:MoveTo(pScreen.modeButtons[modeIdx + 1])
+                return true
+            end
+        elseif direction == "DOWN" then
+            local curX = currentButton:GetCenter() or 0
+            local bestTab = nil
+            local minDx = 999999
+            if pScreen.subTabButtons then
+                for _, stab in ipairs(pScreen.subTabButtons) do
+                    if stab:IsVisible() and stab.GetCenter then
+                        local sx = stab:GetCenter() or 0
+                        local dx = math.abs(sx - curX)
+                        if dx < minDx then
+                            minDx = dx
+                            bestTab = stab
+                        end
+                    end
+                end
+            end
+            if bestTab then
+                self:MoveTo(bestTab)
+                return true
+            elseif pScreen.gridButtons and pScreen.gridButtons[1] and pScreen.gridButtons[1]:IsVisible() then
+                self:MoveTo(pScreen.gridButtons[1])
+                return true
+            end
+        end
+        return true
+
+    -- CASO B: Sub-Abas (Gerais, Personagem, Specs, etc.)
+    elseif subTabIdx then
+        if direction == "LEFT" then
+            if subTabIdx > 1 and pScreen.subTabButtons[subTabIdx - 1] and pScreen.subTabButtons[subTabIdx - 1]:IsVisible() then
+                self:MoveTo(pScreen.subTabButtons[subTabIdx - 1])
+                return true
+            end
+        elseif direction == "RIGHT" then
+            if subTabIdx < table.getn(pScreen.subTabButtons) and pScreen.subTabButtons[subTabIdx + 1] and pScreen.subTabButtons[subTabIdx + 1]:IsVisible() then
+                self:MoveTo(pScreen.subTabButtons[subTabIdx + 1])
+                return true
+            end
+        elseif direction == "UP" then
+            local curX = currentButton:GetCenter() or 0
+            local bestMode = nil
+            local minDx = 999999
+            if pScreen.modeButtons then
+                for _, mbtn in ipairs(pScreen.modeButtons) do
+                    if mbtn:IsVisible() and mbtn.GetCenter then
+                        local mx = mbtn:GetCenter() or 0
+                        local dx = math.abs(mx - curX)
+                        if dx < minDx then
+                            minDx = dx
+                            bestMode = mbtn
+                        end
+                    end
+                end
+            end
+            if bestMode then
+                self:MoveTo(bestMode)
+                return true
+            end
+        elseif direction == "DOWN" then
+            local curX = currentButton:GetCenter() or 0
+            local bestSlot = nil
+            local minDx = 999999
+            if pScreen.gridButtons then
+                for s = 1, 4 do
+                    local sbtn = pScreen.gridButtons[s]
+                    if sbtn and sbtn:IsVisible() and sbtn.GetCenter then
+                        local sx = sbtn:GetCenter() or 0
+                        local dx = math.abs(sx - curX)
+                        if dx < minDx then
+                            minDx = dx
+                            bestSlot = sbtn
+                        end
+                    end
+                end
+            end
+            if bestSlot then
+                self:MoveTo(bestSlot)
+                return true
+            end
+        end
+        return true
+
+    -- CASO C: Slots da Grade (1 a 16)
+    elseif gridIdx then
+        local row = math.floor((gridIdx - 1) / 4) + 1
+        local col = math.mod(gridIdx - 1, 4) + 1
+
+        if direction == "UP" then
+            if row > 1 then
+                local target = pScreen.gridButtons[gridIdx - 4]
+                if target and target:IsVisible() then
+                    self:MoveTo(target)
+                    return true
+                end
+            else
+                local curX = currentButton:GetCenter() or 0
+                local bestTab = nil
+                local minDx = 999999
+                if pScreen.subTabButtons then
+                    for _, stab in ipairs(pScreen.subTabButtons) do
+                        if stab:IsVisible() and stab.GetCenter then
+                            local sx = stab:GetCenter() or 0
+                            local dx = math.abs(sx - curX)
+                            if dx < minDx then
+                                minDx = dx
+                                bestTab = stab
+                            end
+                        end
+                    end
+                end
+                if bestTab then
+                    self:MoveTo(bestTab)
+                    return true
+                end
+            end
+        elseif direction == "DOWN" then
+            if row < 4 then
+                local target = pScreen.gridButtons[gridIdx + 4]
+                if target and target:IsVisible() then
+                    self:MoveTo(target)
+                    return true
+                end
+            else
+                if pScreen.pageBar and pScreen.pageBar:IsVisible() then
+                    if col <= 2 and pScreen.pageBar.prevBtn and pScreen.pageBar.prevBtn:IsVisible() then
+                        self:MoveTo(pScreen.pageBar.prevBtn)
+                        return true
+                    elseif pScreen.pageBar.nextBtn and pScreen.pageBar.nextBtn:IsVisible() then
+                        self:MoveTo(pScreen.pageBar.nextBtn)
+                        return true
+                    end
+                end
+            end
+        elseif direction == "LEFT" then
+            if col > 1 then
+                local target = pScreen.gridButtons[gridIdx - 1]
+                if target and target:IsVisible() then
+                    self:MoveTo(target)
+                    return true
+                end
+            end
+        elseif direction == "RIGHT" then
+            if col < 4 then
+                local target = pScreen.gridButtons[gridIdx + 1]
+                if target and target:IsVisible() then
+                    self:MoveTo(target)
+                    return true
+                end
+            end
+        end
+        return true
+
+    -- CASO D: Barra de Paginação (prevBtn ou nextBtn)
+    elseif isPrevBtn or isNextBtn then
+        if direction == "LEFT" then
+            if isNextBtn and pScreen.pageBar.prevBtn and pScreen.pageBar.prevBtn:IsVisible() then
+                self:MoveTo(pScreen.pageBar.prevBtn)
+                return true
+            end
+        elseif direction == "RIGHT" then
+            if isPrevBtn and pScreen.pageBar.nextBtn and pScreen.pageBar.nextBtn:IsVisible() then
+                self:MoveTo(pScreen.pageBar.nextBtn)
+                return true
+            end
+        elseif direction == "UP" then
+            if pScreen.gridButtons then
+                local target = isPrevBtn and pScreen.gridButtons[13] or pScreen.gridButtons[16]
+                if target and target:IsVisible() then
+                    self:MoveTo(target)
+                    return true
+                end
+            end
+        end
+        return true
+    end
+
+    return false
+end
+
 function Cursor:MoveDirection(direction)
     if not self.state.enabled then 
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Navegacao inativa (nenhuma janela ativa no cursor)")
@@ -825,6 +1053,16 @@ function Cursor:MoveDirection(direction)
             return
         elseif direction == "UP" then
             ctxMenu:AdjustSplit(5)
+            return
+        end
+    end
+
+    -- Se estiver dentro da tela PICKER do MainMenu (Mapeador de Combinações - Seletor de Conteúdo):
+    local mm = CM.mainMenu
+    local activePage = mm and mm.tabContainer and mm.tabContainer.pages and mm.tabContainer.pages["SYSTEM"]
+    local pScreen = (activePage and activePage.activeSubScreen == "PICKER") and activePage.pickerScreen
+    if pScreen and pScreen:IsVisible() then
+        if self:HandlePickerNavigation(pScreen, currentButton, direction) then
             return
         end
     end

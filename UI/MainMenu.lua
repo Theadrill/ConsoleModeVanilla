@@ -11472,6 +11472,16 @@ function MainMenu:SetPickerMode(mode)
 
     self:UpdatePickerSubTabs()
     self:RefreshPickerGrid()
+
+    -- Snap automático do cursor para a primeira sub-aba do modo selecionado
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.state and ConsoleMode.cursor.state.enabled then
+        local target = (pickerScreen.subTabButtons and pickerScreen.subTabButtons[1])
+            or (pickerScreen.gridButtons and pickerScreen.gridButtons[1])
+        if target and target:IsVisible() then
+            ConsoleMode.cursor:MoveTo(target)
+            ConsoleMode.cursor:UpdateState()
+        end
+    end
 end
 
 function MainMenu:UpdatePickerSubTabs()
@@ -11481,13 +11491,7 @@ function MainMenu:UpdatePickerSubTabs()
     local subTabBar = pickerScreen.subTabBar
     if not subTabBar then return end
 
-    -- Esconde sub-abas anteriores
-    if pickerScreen.subTabButtons then
-        for _, btn in ipairs(pickerScreen.subTabButtons) do
-            btn:Hide()
-        end
-    end
-    pickerScreen.subTabButtons = {}
+    pickerScreen.subTabButtons = pickerScreen.subTabButtons or {}
 
     local mode = pickerScreen.currentMode or "SPELLBOOK"
     local subTabsData = {}
@@ -11521,7 +11525,12 @@ function MainMenu:UpdatePickerSubTabs()
     end
 
     local numTabs = table.getn(subTabsData)
-    if numTabs == 0 then return end
+    if numTabs == 0 then
+        for _, btn in ipairs(pickerScreen.subTabButtons) do
+            btn:Hide()
+        end
+        return
+    end
 
     -- Largura dinâmica para caber todas as abas sem truncar pet/specs
     local totalW = 496
@@ -11530,56 +11539,70 @@ function MainMenu:UpdatePickerSubTabs()
     if tabW < 60 then tabW = 60 end
 
     for idx, tInfo in ipairs(subTabsData) do
-        local btn = CreateFrame("Button", "ConsoleModeMM_PickerSubTab" .. idx, subTabBar)
-        btn:SetHeight(22)
+        local btn = pickerScreen.subTabButtons[idx]
+        if not btn then
+            btn = CreateFrame("Button", "ConsoleModeMM_PickerSubTab" .. idx, subTabBar)
+            btn:SetHeight(22)
+            btn:SetBackdrop({
+                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile     = true, tileSize = 16, edgeSize = 8,
+                insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+            })
+            btn:SetBackdropColor(0, 0, 0, 0.40)
+            btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+
+            local tTitle = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            tTitle:SetPoint("CENTER", btn, "CENTER", 0, 0)
+            MainMenu:ApplyFont(tTitle, CFG.Fonts.bodyFontFile, 11, "")
+            btn.title = tTitle
+
+            btn:SetScript("OnEnter", function()
+                this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.90)
+                if this.fullName and string.len(this.fullName) > 10 then
+                    GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
+                    GameTooltip:SetText(this.fullName)
+                    GameTooltip:Show()
+                end
+            end)
+            btn:SetScript("OnLeave", function()
+                GameTooltip:Hide()
+                if pickerScreen.currentSubTab ~= this.tabIdx then
+                    this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+                end
+            end)
+            btn:SetScript("OnClick", function()
+                pickerScreen.currentSubTab = this.tabIdx
+                pickerScreen.gridPage = 1
+                MainMenu:HighlightPickerSubTab(this.tabIdx)
+                MainMenu:RefreshPickerGrid()
+                if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+            end)
+
+            pickerScreen.subTabButtons[idx] = btn
+        end
+
+        btn:ClearAllPoints()
         btn:SetWidth(tabW)
         btn:SetPoint("LEFT", subTabBar, "LEFT", (idx - 1) * (tabW + gap), 0)
-        btn:SetBackdrop({
-            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            tile     = true, tileSize = 16, edgeSize = 8,
-            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-        })
-        btn:SetBackdropColor(0, 0, 0, 0.40)
-        btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+        btn.tabIdx = idx
+        btn.fullName = tInfo.name
 
-        local tTitle = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        tTitle:SetPoint("CENTER", btn, "CENTER", 0, 0)
-        MainMenu:ApplyFont(tTitle, CFG.Fonts.bodyFontFile, 11, "")
-        
         -- Trunca se muito longo para o botão
         local displayName = tInfo.name or ""
         if string.len(displayName) > 12 and tabW < 90 then
             displayName = string.sub(displayName, 1, 10) .. ".."
         end
-        tTitle:SetText(displayName)
-        btn.title = tTitle
-        btn.tabIdx = idx
-        btn.fullName = tInfo.name
+        btn.title:SetText(displayName)
+        btn:Show()
+    end
 
-        btn:SetScript("OnEnter", function()
-            this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.90)
-            if this.fullName and string.len(this.fullName) > 10 then
-                GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
-                GameTooltip:SetText(this.fullName)
-                GameTooltip:Show()
-            end
-        end)
-        btn:SetScript("OnLeave", function()
-            GameTooltip:Hide()
-            if pickerScreen.currentSubTab ~= this.tabIdx then
-                this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
-            end
-        end)
-        btn:SetScript("OnClick", function()
-            pickerScreen.currentSubTab = this.tabIdx
-            pickerScreen.gridPage = 1
-            MainMenu:HighlightPickerSubTab(this.tabIdx)
-            MainMenu:RefreshPickerGrid()
-            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
-        end)
-
-        table.insert(pickerScreen.subTabButtons, btn)
+    -- Esconde abas excedentes que não são usadas neste modo
+    local totalButtons = table.getn(pickerScreen.subTabButtons)
+    if totalButtons > numTabs then
+        for i = numTabs + 1, totalButtons do
+            pickerScreen.subTabButtons[i]:Hide()
+        end
     end
 
     if not pickerScreen.currentSubTab or pickerScreen.currentSubTab > numTabs then
@@ -11787,6 +11810,24 @@ function MainMenu:RefreshPickerGrid()
     end
     if firstValid then
         self:FocusPickerSlot(firstValid)
+    else
+        pickerScreen.focusedSlot = nil
+        for _, btn in ipairs(gridButtons) do
+            if btn.focusBorder then btn.focusBorder:Hide() end
+            btn:SetBackdropColor(0, 0, 0, 0.20)
+            btn:SetBackdropBorderColor(0.3, 0.25, 0.2, 0.25)
+        end
+        local detailCard = pickerScreen.detailCard
+        if detailCard then
+            detailCard.titleText:SetText("|cff888888Nenhum item disponível|r")
+            detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+            detailCard.typeText:SetText("|cff666666Nenhuma ação encontrada nesta aba.|r")
+            detailCard.descColLeft:SetText("|cff666666Não há itens ou macros criados para esta categoria.|r")
+            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador.|r")
+            if detailCard.slotsFreeText then
+                detailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar ao Mapeador")
+            end
+        end
     end
 end
 
@@ -11842,6 +11883,15 @@ function MainMenu:FocusPickerSlot(slotBtn)
 
         if detailCard.slotsFreeText then
             detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Selecionar / Vincular   |   |cffe09a15[B]|r Voltar ao Mapeador")
+        end
+    elseif detailCard then
+        detailCard.titleText:SetText("|cff888888(Slot Vazio)|r")
+        detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+        detailCard.typeText:SetText("|cff666666Nenhuma ação neste slot|r")
+        detailCard.descColLeft:SetText("|cff666666Este slot não contém habilidade, item ou macro atribuída.|r")
+        detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+        if detailCard.slotsFreeText then
+            detailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar ao Mapeador")
         end
     end
 end

@@ -11065,42 +11065,77 @@ function MainMenu:ClearBinding(page, btnKey)
         return false
     end
 
-    local physKey = BINDS_KEY_DEFAULTS[page] and BINDS_KEY_DEFAULTS[page][btnKey]
-    if not physKey then return false end
+    -- 1. Descobre qual slot de barra de ação e tecla física estão associados
+    local slot, name, tex, physKey, physName, comboLabel = self:GetBindButtonData(page, btnKey)
 
-    -- Restaura snapshot se em navigation mode
-    local KB = ConsoleMode and ConsoleMode.keybindings
-    if KB and KB.navigationMode and KB.savedNavBindings then
-        for k, act in pairs(KB.savedNavBindings) do
-            if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
-                SetBinding(k, act)
-            elseif k == "TAB" then
-                SetBinding("TAB", "TARGETNEARESTENEMY")
+    -- 2. Limpa o slot real da barra de ações (Action Bar) se existir
+    if slot then
+        pcall(function()
+            if HasAction(slot) then
+                PickupAction(slot)
+                ClearCursor()
+            end
+        end)
+    end
+
+    -- 3. Gerenciamento de Bindings
+    if physKey then
+        local KB = ConsoleMode and ConsoleMode.keybindings
+        if page == 1 then
+            -- Na Página 1, restaura a bind para a ação canônica do slot (que agora está vazio)
+            local canonicalAction = nil
+            if btnKey == "X" then canonicalAction = "ACTIONBUTTON1"
+            elseif btnKey == "Y" then canonicalAction = "ACTIONBUTTON2"
+            elseif btnKey == "B" then canonicalAction = "ACTIONBUTTON3"
+            elseif btnKey == "DUP" then canonicalAction = "ACTIONBUTTON7"
+            elseif btnKey == "DDOWN" then canonicalAction = "ACTIONBUTTON8"
+            elseif btnKey == "DLEFT" then canonicalAction = "ACTIONBUTTON9"
+            elseif btnKey == "DRIGHT" then canonicalAction = "ACTIONBUTTON10"
+            end
+
+            if canonicalAction then
+                if KB and KB.navigationMode and KB.savedNavBindings then
+                    KB.savedNavBindings[physKey] = canonicalAction
+                else
+                    SetBinding(physKey, canonicalAction)
+                end
+            end
+        else
+            -- Nas Páginas 2 a 5 (L2, R1, R2, L2+R2):
+            if KB and KB.navigationMode and KB.savedNavBindings then
+                for k, act in pairs(KB.savedNavBindings) do
+                    if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
+                        SetBinding(k, act)
+                    elseif k == "TAB" then
+                        SetBinding("TAB", "TARGETNEARESTENEMY")
+                    end
+                end
+            end
+
+            SetBinding(physKey, nil)
+
+            if KB and KB.savedNavBindings then
+                KB.savedNavBindings[physKey] = nil
+            end
+
+            if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
+                local d1 = KB.defaults[1]
+                SetBinding(d1.DUP,    "CM_CURSOR_UP")
+                SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
+                SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
+                SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
+                SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
+                SetBinding(d1.B,      "CM_CURSOR_CANCEL")
             end
         end
+
+        local set = GetCurrentBindingSet()
+        if not set or set == 0 then set = 1 end
+        pcall(function() SaveBindings(set) end)
     end
 
-    SetBinding(physKey, nil)
-
-    if KB and KB.savedNavBindings then
-        KB.savedNavBindings[physKey] = nil
-    end
-
-    local set = GetCurrentBindingSet()
-    if not set or set == 0 then set = 1 end
-    pcall(function() SaveBindings(set) end)
-
-    if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
-        local d1 = KB.defaults[1]
-        SetBinding(d1.DUP,    "CM_CURSOR_UP")
-        SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
-        SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
-        SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
-        SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
-        SetBinding(d1.B,      "CM_CURSOR_CANCEL")
-    end
-
-    local ActionHUD = ConsoleMode and ConsoleMode.actionHUD
+    -- 4. Atualiza ActionHUD imediatamente
+    local ActionHUD = (ConsoleMode and ConsoleMode.ui and ConsoleMode.ui.actionHUD) or (ConsoleMode and ConsoleMode.actionHUD)
     if ActionHUD and ActionHUD.Update then
         ActionHUD:Update()
     end
@@ -11110,7 +11145,7 @@ function MainMenu:ClearBinding(page, btnKey)
     local pInfo = BINDS_PAGE_INFO[page] or { prefix = "" }
     local comboName = pInfo.prefix .. btnKey
     if DEFAULT_CHAT_FRAME then
-        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffe09a15[ConsoleMode]|r Atalho |cffffffff%s|r desvinculado com sucesso.", comboName))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffe09a15[ConsoleMode]|r Atalho |cffffffff%s|r limpo com sucesso da barra de ações.", comboName))
     end
 
     self:UpdateBindsPage()

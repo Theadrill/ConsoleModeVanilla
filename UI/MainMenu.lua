@@ -4785,7 +4785,13 @@ function MainMenu:SetupTalentsPage(pageTalents)
         })
         imgPlaceholder:SetBackdropColor(colors.placeholderBg.r, colors.placeholderBg.g, colors.placeholderBg.b, colors.placeholderBg.a)
         imgPlaceholder:SetBackdropBorderColor(0.40, 0.35, 0.28, 0.70)
-        btn.imgPlaceholder = imgPlaceholder
+        -- Textura de Fundo temática da Spec
+        local bgTexture = imgPlaceholder:CreateTexture(nil, "BACKGROUND")
+        bgTexture:SetPoint("TOPLEFT", imgPlaceholder, "TOPLEFT", 2, -2)
+        bgTexture:SetPoint("BOTTOMRIGHT", imgPlaceholder, "BOTTOMRIGHT", -2, 2)
+        bgTexture:SetVertexColor(0.85, 0.85, 0.85, 0.45)
+        bgTexture:Hide()
+        btn.bgTexture = bgTexture
 
         -- Ícone temático da spec
         local specIcon = imgPlaceholder:CreateTexture(nil, "ARTWORK")
@@ -4805,11 +4811,11 @@ function MainMenu:SetupTalentsPage(pageTalents)
         iconBorder:SetBackdropBorderColor(0.70, 0.55, 0.20, 0.85)
         btn.iconBorder = iconBorder
 
-        -- Rótulo de placeholder abaixo do ícone
+        -- Rótulo abaixo do ícone
         local placeholderText = imgPlaceholder:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
         placeholderText:SetPoint("BOTTOM", imgPlaceholder, "BOTTOM", 0, 6)
         MainMenu:ApplyFont(placeholderText, CFG.Fonts.subFontFile, 10)
-        placeholderText:SetText("|cff666666[ Textura de Fundo ]|r")
+        placeholderText:SetText("|cffaaaaaa[ Especialização ]|r")
         btn.placeholderText = placeholderText
 
         -- Nome da Especialização
@@ -5503,6 +5509,19 @@ function MainMenu:UpdateTalentsPage(keepPage)
                 end
                 if btn.specIcon then
                     btn.specIcon:SetTexture(specData.icon)
+                end
+                if btn.bgTexture then
+                    if specData.background and specData.background ~= "" then
+                        btn.bgTexture:SetTexture("Interface\\TalentFrame\\" .. specData.background .. "-TopLeft")
+                        btn.bgTexture:Show()
+                        if btn.placeholderText then btn.placeholderText:Hide() end
+                    else
+                        btn.bgTexture:Hide()
+                        if btn.placeholderText then
+                            btn.placeholderText:SetText(string.format("|cffaaaaaa[ %s ]|r", specData.name))
+                            btn.placeholderText:Show()
+                        end
+                    end
                 end
             end
         end

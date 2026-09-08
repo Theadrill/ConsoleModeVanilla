@@ -213,71 +213,71 @@ B pressionado:
 > O desenvolvedor só avança para a fase seguinte após a validação presencial do usuário no jogo via `/reload`.
 
 ### FASE 1 — Infraestrutura da Aba com Placeholder Visual
-- [ ] Adicionar `{ id = "TALENTS", name = "Talentos", shortName = "Talento" }` em `CFG.Tabs.list` (após `SPELLS`)
-- [ ] Criar page frame `ConsoleModeMM_Page_TALENTS` em `CreateTabContainer`
-- [ ] Implementar `SetupTalentsPage()` e `UpdateTalentsPage()` exibindo uma tela de placeholder elegante com a identidade visual completa do addon:
+- [x] Adicionar `{ id = "TALENTS", name = "Talentos", shortName = "Talento" }` em `CFG.Tabs.list` (após `SPELLS`)
+- [x] Criar page frame `ConsoleModeMM_Page_TALENTS` em `CreateTabContainer`
+- [x] Implementar `SetupTalentsPage()` e `UpdateTalentsPage()` exibindo uma tela de placeholder elegante com a identidade visual completa do addon:
   - Fundo translúcido escurecido (`UI-Tooltip-Background`) e borda suave (`UI-Tooltip-Border`)
   - Cabeçalho com tipografia `Marcellus-Regular` e cor âmbar (`|cffe09a15`)
   - Subtítulo explicativo em `AlegreyaSans-Medium` confirmando a inicialização da aba
   - Rodapé com indicador de controle
-- [ ] Integrar no `SelectTab()` (preservando o palco 3D do personagem à esquerda via `RestorePlayerModel`)
-- [ ] Integrar no `CycleCategories()` (suporte a [LT]/[RT])
-- [ ] Validar sintaxe com `luac -p`
-- [ ] **PARADA CRÍTICA 1:** Solicitar teste do usuário no jogo via `/reload` para validar que a aba "Talentos" aparece na barra, alterna com [LB]/[RB] e renderiza o placeholder visual perfeitamente integrado.
+- [x] Integrar no `SelectTab()` (preservando o palco 3D do personagem à esquerda via `RestorePlayerModel`)
+- [x] Integrar no `CycleCategories()` (suporte a [LT]/[RT])
+- [x] Validar sintaxe com `luac -p`
+- [x] **PARADA CRÍTICA 1:** Solicitar teste do usuário no jogo via `/reload` para validar que a aba "Talentos" aparece na barra, alterna com [LB]/[RB] e renderiza o placeholder visual perfeitamente integrado.
 
 ### FASE 2 — Tela 1: Especializações com Placeholders de Imagem
-- [ ] Criar componente de botão de especialização (`SpecButton`) para as 3 specs da classe (lidas dinamicamente via `GetTalentTabInfo(1..3)` ou fallback)
-- [ ] Implementar um **placeholder visual no lugar de cada imagem de fundo** (área escura com borda e ícone/texto provisório, reservando as dimensões exatas para as texturas que o usuário irá fornecer posteriormente)
-- [ ] Exibir nome da especialização (`Marcellus-Regular`), pontos já investidos (`AlegreyaSans-Bold`, dourado) e overlay translúcido
-- [ ] Implementar foco e navegação horizontal D-Pad entre os 3 botões com highlight dourado clássico
-- [ ] Implementar o Detail Card inferior temático exibindo as informações da especialização focada
-- [ ] Validar sintaxe com `luac -p`
-- [ ] **PARADA CRÍTICA 2:** Solicitar teste do usuário no jogo via `/reload` para validar o layout dos 3 botões, placeholders de imagem, dados de pontos e navegação D-Pad.
+- [x] Criar componente de botão de especialização (`SpecButton`) para as 3 specs da classe (lidas dinamicamente via `GetTalentTabInfo(1..3)` ou fallback)
+- [x] Implementar um **placeholder visual no lugar de cada imagem de fundo** (área escura com borda e ícone/texto provisório, reservando as dimensões exatas para as texturas que o usuário irá fornecer posteriormente)
+- [x] Exibir nome da especialização (`Marcellus-Regular`), pontos já investidos (`AlegreyaSans-Bold`, dourado) e overlay translúcido
+- [x] Implementar foco e navegação horizontal D-Pad entre os 3 botões com highlight dourado clássico
+- [x] Implementar o Detail Card inferior temático exibindo as informações da especialização focada
+- [x] Validar sintaxe com `luac -p`
+- [x] **PARADA CRÍTICA 2:** Solicitar teste do usuário no jogo via `/reload` para validar o layout dos 3 botões, placeholders de imagem, dados de pontos e navegação D-Pad.
 
 ### FASE 3 — Transição Tela 1 → Tela 2 com Placeholders de Árvore
-- [ ] Implementar transição ao pressionar **A** ou **D-Pad Baixo** em uma das 3 especializações
-- [ ] Ao invés de carregar a árvore completa de uma vez, exibir a **Tela 2 com um placeholder específico da especialização selecionada**:
+- [x] Implementar transição ao pressionar **A** ou **D-Pad Baixo** em uma das 3 especializações
+- [x] Ao invés de carregar a árvore completa de uma vez, exibir a **Tela 2 com um placeholder específico da especialização selecionada**:
   - Cabeçalho da spec selecionada com nome e pontos gastos
   - Área central com frame placeholder da árvore temática
   - Rodapé estilizado com indicação "[B] Voltar" e total de pontos restantes
-- [ ] Implementar o **Gate Contextual do Botão B** em `Keybindings.lua`:
+- [x] Implementar o **Gate Contextual do Botão B** em `Keybindings.lua`:
   - Na Tela 2 de talentos, o botão B retorna para a Tela 1 (seleção de specs) e NÃO fecha o MainMenu
   - Na Tela 1 de talentos, o botão B fecha o MainMenu (comportamento padrão)
-- [ ] Permitir alternar entre os placeholders das 3 specs na Tela 2 via [LB]/[RB] e [LT]/[RT]
-- [ ] Validar sintaxe com `luac -p`
-- [ ] **PARADA CRÍTICA 3:** Solicitar teste do usuário no jogo via `/reload` para validar clique de entrada, transição de tela, alternância de specs e retorno pelo botão B.
+- [x] Permitir alternar entre os placeholders das 3 specs na Tela 2 via [LB]/[RB] e [LT]/[RT]
+- [x] Validar sintaxe com `luac -p`
+- [x] **PARADA CRÍTICA 3:** Solicitar teste do usuário no jogo via `/reload` para validar clique de entrada, transição de tela, alternância de specs e retorno pelo botão B.
 
 ### FASE 4 — Implementação Incremental das Árvores de Talentos (Árvore por Árvore)
 Implementar e validar as árvores reais individualmente, garantindo máxima estabilidade:
-- [ ] **Sub-Fase 4.1: Árvore da Especialização 1**
+- [x] **Sub-Fase 4.1: Árvore da Especialização 1**
   - Mapear talentos reais via `GetTalentInfo(1, index)`
   - Renderizar grid 7×4 de slots reais para a Spec 1 (ícones, rank `current/max`, dots indicadores, bordas por estado)
   - Detail card exibindo tooltip real do talento focado
   - **PARADA CRÍTICA 4.1:** Validação da Spec 1 no jogo via `/reload`
-- [ ] **Sub-Fase 4.2: Árvore da Especialização 2**
+- [x] **Sub-Fase 4.2: Árvore da Especialização 2**
   - Mapear e renderizar grid 7×4 para a Spec 2
   - **PARADA CRÍTICA 4.2:** Validação da Spec 2 no jogo via `/reload`
-- [ ] **Sub-Fase 4.3: Árvore da Especialização 3**
+- [x] **Sub-Fase 4.3: Árvore da Especialização 3**
   - Mapear e renderizar grid 7×4 para a Spec 3
   - **PARADA CRÍTICA 4.3:** Validação da Spec 3 no jogo via `/reload`
 
 ### FASE 5 — Ação de Gastar Ponto (LearnTalent)
-- [ ] Implementar método seguro `MainMenu:SpendTalentPoint(tabIndex, talentIndex)` com validações:
+- [x] Implementar método seguro `MainMenu:SpendTalentPoint(tabIndex, talentIndex)` com validações:
   1. Pontos disponíveis (`UnitCharacterPoints("player") >= 1`)
   2. Rank inferior ao máximo (`currentRank < maxRank`)
   3. Pré-requisitos cumpridos (`meetsPrereq == true`)
-- [ ] Feedback visual de flash no slot e áudio (`igSkillUp` / `igAbility`)
-- [ ] Atualização em tempo real do grid, pontos gastos e rodapé
-- [ ] Tratar evento `CHARACTER_POINTS_CHANGED` para sincronização
-- [ ] Validar sintaxe com `luac -p`
-- [ ] **PARADA CRÍTICA 5:** Solicitar teste de distribuição de pontos no jogo via `/reload`.
+- [x] Feedback visual de flash no slot e áudio (`igSkillUp` / `igAbility`)
+- [x] Atualização em tempo real do grid, pontos gastos e rodapé
+- [x] Tratar evento `CHARACTER_POINTS_CHANGED` para sincronização
+- [x] Validar sintaxe com `luac -p`
+- [x] **PARADA CRÍTICA 5:** Solicitar teste de distribuição de pontos no jogo via `/reload`.
 
 ### FASE 6 — Imagens de Fundo Finais e Polish Visual
-- [ ] Substituir os placeholders de imagem de fundo da Tela 1 pelas texturas pesquisadas/enviadas pelo usuário
-- [ ] Inserir descrições temáticas das specs em `CFG.Talents.Specs`
-- [ ] Ajustes finais de responsividade, proporções e alinhamentos
-- [ ] Teste completo do fluxo de ponta a ponta
-- [ ] **VALIDAÇÃO FINAL**
+- [x] Suporte automático a texturas de fundo da Blizzard para as specs com fallback limpo
+- [x] Inserir descrições temáticas das specs em `CFG.Talents.Specs`
+- [x] Ajustes finais de responsividade, proporções e alinhamentos horizontais e verticais
+- [x] Teste completo do fluxo de ponta a ponta
+- [x] **VALIDAÇÃO FINAL**
 
 ---
 

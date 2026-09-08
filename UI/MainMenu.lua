@@ -10885,7 +10885,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     pDetailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
     pDetailCard.icon:Show()
 
-    -- 3. Área de Conteúdo Central da Tela 2 (Placeholder Fase 3)
+    -- 3. Área de Conteúdo Central da Tela 2: Picker de Ações
     local pContentArea = CreateFrame("Frame", "ConsoleModeMM_PickerContent", pickerScreen)
     pContentArea:SetPoint("TOPLEFT", pickerHeader, "BOTTOMLEFT", 0, -6)
     pContentArea:SetPoint("BOTTOMRIGHT", pDetailCard, "TOPRIGHT", 0, 6)
@@ -10899,11 +10899,263 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     pContentArea:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
     pickerScreen.contentArea = pContentArea
 
-    local pPlaceholder = pContentArea:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    pPlaceholder:SetPoint("CENTER", pContentArea, "CENTER", 0, 10)
-    MainMenu:ApplyFont(pPlaceholder, CFG.Fonts.bodyFontFile, 14, "")
-    pPlaceholder:SetText("|cffe09a15[ SELETOR DE CONTEÚDO (PICKER) ]|r\n\n|cffffffffGrade 4x4 e fontes de ação serão integradas na Fase 3.|r")
-    pContentArea.placeholder = pPlaceholder
+    -- 3.1. Linha 1 de Abas: Fontes de Ação (SPELLBOOK, BAG, MACROS, BARS)
+    local modeBar = CreateFrame("Frame", "ConsoleModeMM_PickerModeBar", pContentArea)
+    modeBar:SetHeight(26)
+    modeBar:SetPoint("TOPLEFT", pContentArea, "TOPLEFT", 10, -8)
+    modeBar:SetPoint("TOPRIGHT", pContentArea, "TOPRIGHT", -10, -8)
+    pickerScreen.modeBar = modeBar
+
+    local PICKER_MODES = {
+        { id = "SPELLBOOK", name = "Grimório" },
+        { id = "BAG",       name = "Bolsas" },
+        { id = "MACROS",    name = "Macros" },
+        { id = "BARS",      name = "Barras" },
+    }
+
+    local modeButtons = {}
+    local mGap = 6
+    local mBtnW = math.floor((500 - ((4 - 1) * mGap)) / 4)
+
+    for idx, mDef in ipairs(PICKER_MODES) do
+        local mBtn = CreateFrame("Button", "ConsoleModeMM_PickerModeBtn" .. mDef.id, modeBar)
+        mBtn:SetHeight(24)
+        mBtn:SetWidth(mBtnW)
+        mBtn:SetPoint("LEFT", modeBar, "LEFT", (idx - 1) * (mBtnW + mGap), 0)
+        mBtn:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 16, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        mBtn:SetBackdropColor(0, 0, 0, 0.45)
+        mBtn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+
+        local mTitle = mBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        mTitle:SetPoint("CENTER", mBtn, "CENTER", 0, 0)
+        MainMenu:ApplyFont(mTitle, CFG.Fonts.bodyFontFile, 12, "")
+        mTitle:SetText(mDef.name)
+        mBtn.title = mTitle
+        mBtn.modeId = mDef.id
+
+        mBtn:SetScript("OnEnter", function()
+            this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.90)
+        end)
+        mBtn:SetScript("OnLeave", function()
+            if pickerScreen.currentMode ~= this.modeId then
+                this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+            end
+        end)
+        mBtn:SetScript("OnClick", function()
+            MainMenu:SetPickerMode(this.modeId)
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end)
+
+        table.insert(modeButtons, mBtn)
+    end
+    pickerScreen.modeButtons = modeButtons
+
+    -- 3.2. Linha 2 de Sub-Abas Dinâmicas
+    local subTabBar = CreateFrame("Frame", "ConsoleModeMM_PickerSubTabBar", pContentArea)
+    subTabBar:SetHeight(24)
+    subTabBar:SetPoint("TOPLEFT", modeBar, "BOTTOMLEFT", 0, -4)
+    subTabBar:SetPoint("TOPRIGHT", modeBar, "BOTTOMRIGHT", 0, -4)
+    pickerScreen.subTabBar = subTabBar
+    pickerScreen.subTabButtons = {}
+
+    -- Divisória abaixo das sub-abas
+    local sDiv = pContentArea:CreateTexture(nil, "ARTWORK")
+    sDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    sDiv:SetHeight(1)
+    sDiv:SetPoint("TOPLEFT", subTabBar, "BOTTOMLEFT", 0, -3)
+    sDiv:SetPoint("TOPRIGHT", subTabBar, "BOTTOMRIGHT", 0, -3)
+    sDiv:SetVertexColor(0.5, 0.4, 0.3, 0.35)
+    pickerScreen.sDiv = sDiv
+
+    -- 3.3. Grade de Conteúdo (4 colunas x 4 linhas = 16 botões)
+    local gridFrame = CreateFrame("Frame", "ConsoleModeMM_PickerGrid", pContentArea)
+    gridFrame:SetPoint("TOPLEFT", subTabBar, "BOTTOMLEFT", 0, -8)
+    gridFrame:SetPoint("BOTTOMRIGHT", pContentArea, "BOTTOMRIGHT", -10, 34)
+    pickerScreen.gridFrame = gridFrame
+
+    local GRID_COLS = 4
+    local GRID_ROWS = 4
+    local GRID_COUNT = 16
+    local slotW = 120
+    local slotH = 48
+    local gapX = 6
+    local gapY = 5
+
+    local gridButtons = {}
+    for i = 1, GRID_COUNT do
+        local col = math.mod(i - 1, GRID_COLS)
+        local row = math.floor((i - 1) / GRID_COLS)
+
+        local btn = CreateFrame("Button", "ConsoleModeMM_PickerSlot" .. i, gridFrame)
+        btn:SetWidth(slotW)
+        btn:SetHeight(slotH)
+        btn:SetPoint("TOPLEFT", gridFrame, "TOPLEFT", col * (slotW + gapX), -(row * (slotH + gapY)))
+        btn:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 16, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        btn:SetBackdropColor(0, 0, 0, 0.40)
+        btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+
+        local fBorder = CreateFrame("Frame", nil, btn)
+        fBorder:SetAllPoints(btn)
+        fBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 10,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        fBorder:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+        fBorder:Hide()
+        btn.focusBorder = fBorder
+
+        local icon = btn:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(34)
+        icon:SetHeight(34)
+        icon:SetPoint("LEFT", btn, "LEFT", 6, 0)
+        icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+        btn.icon = icon
+
+        local iconBorder = CreateFrame("Frame", nil, btn)
+        iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+        iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+        iconBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        iconBorder:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.7)
+        btn.iconBorder = iconBorder
+
+        local label = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        label:SetPoint("TOPLEFT", icon, "TOPRIGHT", 6, -2)
+        label:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
+        label:SetJustifyH("LEFT")
+        label:SetJustifyV("TOP")
+        MainMenu:ApplyFont(label, CFG.Fonts.bodyFontFile, 11, "")
+        btn.label = label
+
+        local rankLabel = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        rankLabel:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 6, 4)
+        rankLabel:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
+        rankLabel:SetJustifyH("LEFT")
+        MainMenu:ApplyFont(rankLabel, CFG.Fonts.subFontFile, 10, "")
+        rankLabel:SetTextColor(0.65, 0.65, 0.65)
+        btn.rankLabel = rankLabel
+
+        btn.slotIndex = i
+        btn:RegisterForClicks("LeftButtonUp")
+
+        btn:SetScript("OnEnter", function()
+            MainMenu:FocusPickerSlot(this)
+        end)
+        btn:SetScript("OnLeave", function()
+            if pickerScreen.focusedSlot ~= this then
+                this.focusBorder:Hide()
+                this:SetBackdropColor(0, 0, 0, 0.40)
+                this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+            end
+        end)
+        btn:SetScript("OnClick", function()
+            MainMenu:OnPickerSlotClick(this)
+        end)
+
+        table.insert(gridButtons, btn)
+    end
+    pickerScreen.gridButtons = gridButtons
+
+    -- 3.4. Barra de Paginação Inferior
+    local pageBar = CreateFrame("Frame", "ConsoleModeMM_PickerPageBar", pContentArea)
+    pageBar:SetHeight(24)
+    pageBar:SetPoint("BOTTOMLEFT", pContentArea, "BOTTOMLEFT", 10, 6)
+    pageBar:SetPoint("BOTTOMRIGHT", pContentArea, "BOTTOMRIGHT", -10, 6)
+    pickerScreen.pageBar = pageBar
+
+    local prevBtn = CreateFrame("Button", "ConsoleModeMM_PickerPrevBtn", pageBar)
+    prevBtn:SetHeight(22)
+    prevBtn:SetWidth(95)
+    prevBtn:SetPoint("LEFT", pageBar, "LEFT", 0, 0)
+    prevBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    prevBtn:SetBackdropColor(0, 0, 0, 0.45)
+    prevBtn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+
+    local prevTxt = prevBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    prevTxt:SetPoint("CENTER", prevBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(prevTxt, CFG.Fonts.bodyFontFile, 11, "")
+    prevTxt:SetText("< Anterior")
+    prevBtn.text = prevTxt
+
+    prevBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.90)
+    end)
+    prevBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+    end)
+    prevBtn:SetScript("OnClick", function()
+        if pickerScreen.gridPage and pickerScreen.gridPage > 1 then
+            pickerScreen.gridPage = pickerScreen.gridPage - 1
+            MainMenu:RefreshPickerGrid()
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end
+    end)
+    pageBar.prevBtn = prevBtn
+
+    local pageLabel = pageBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    pageLabel:SetPoint("CENTER", pageBar, "CENTER", 0, 0)
+    MainMenu:ApplyFont(pageLabel, CFG.Fonts.bodyFontFile, 12, "")
+    pageLabel:SetText("Página 1 de 1")
+    pageBar.pageLabel = pageLabel
+
+    local nextBtn = CreateFrame("Button", "ConsoleModeMM_PickerNextBtn", pageBar)
+    nextBtn:SetHeight(22)
+    nextBtn:SetWidth(95)
+    nextBtn:SetPoint("RIGHT", pageBar, "RIGHT", 0, 0)
+    nextBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    nextBtn:SetBackdropColor(0, 0, 0, 0.45)
+    nextBtn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+
+    local nextTxt = nextBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    nextTxt:SetPoint("CENTER", nextBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(nextTxt, CFG.Fonts.bodyFontFile, 11, "")
+    nextTxt:SetText("Próxima >")
+    nextBtn.text = nextTxt
+
+    nextBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.90)
+    end)
+    nextBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+    end)
+    nextBtn:SetScript("OnClick", function()
+        local maxPages = pickerScreen.maxPages or 1
+        if pickerScreen.gridPage and pickerScreen.gridPage < maxPages then
+            pickerScreen.gridPage = pickerScreen.gridPage + 1
+            MainMenu:RefreshPickerGrid()
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end
+    end)
+    pageBar.nextBtn = nextBtn
+
+    pickerScreen.currentMode = "SPELLBOOK"
+    pickerScreen.currentSubTab = 1
+    pickerScreen.gridPage = 1
+    pickerScreen.itemsCache = {}
 end
 
 function MainMenu:FocusBindsSlot(card)
@@ -11189,6 +11441,483 @@ function MainMenu:ShowBindsScreen()
     end
 end
 
+function MainMenu:SetPickerMode(mode)
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.pickerScreen then return end
+    local pickerScreen = pageSystem.pickerScreen
+
+    pickerScreen.currentMode = mode or "SPELLBOOK"
+    pickerScreen.currentSubTab = 1
+    pickerScreen.gridPage = 1
+
+    -- Atualiza botões da linha de modos
+    if pickerScreen.modeButtons then
+        for _, btn in ipairs(pickerScreen.modeButtons) do
+            if btn.modeId == pickerScreen.currentMode then
+                btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+                btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+                btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70)
+            else
+                btn.title:SetTextColor(0.65, 0.65, 0.65)
+                btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+                btn:SetBackdropColor(0, 0, 0, 0.45)
+            end
+        end
+    end
+
+    self:UpdatePickerSubTabs()
+    self:RefreshPickerGrid()
+end
+
+function MainMenu:UpdatePickerSubTabs()
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.pickerScreen then return end
+    local pickerScreen = pageSystem.pickerScreen
+    local subTabBar = pickerScreen.subTabBar
+    if not subTabBar then return end
+
+    -- Esconde sub-abas anteriores
+    if pickerScreen.subTabButtons then
+        for _, btn in ipairs(pickerScreen.subTabButtons) do
+            btn:Hide()
+        end
+    end
+    pickerScreen.subTabButtons = {}
+
+    local mode = pickerScreen.currentMode or "SPELLBOOK"
+    local subTabsData = {}
+
+    if mode == "SPELLBOOK" then
+        local SBP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.spellbookPicker
+        local tabs = SBP and SBP:GetSpellTabs() or {}
+        for i, tab in ipairs(tabs) do
+            table.insert(subTabsData, { id = i, name = tab.name, raw = tab })
+        end
+    elseif mode == "BAG" then
+        subTabsData = {
+            { id = 1, name = "Todos Usáveis" },
+            { id = 2, name = "Consumíveis" },
+            { id = 3, name = "Equipáveis" },
+            { id = 4, name = "Diversos" },
+        }
+    elseif mode == "MACROS" then
+        subTabsData = {
+            { id = 1, name = "Gerais (Conta)" },
+            { id = 2, name = "Personagem" },
+        }
+    elseif mode == "BARS" then
+        subTabsData = {
+            { id = 1, name = "Principal" },
+            { id = 2, name = "Inf. Esq." },
+            { id = 3, name = "Inf. Dir." },
+            { id = 4, name = "Lat. Dir. 1" },
+            { id = 5, name = "Lat. Dir. 2" },
+        }
+    end
+
+    local numTabs = table.getn(subTabsData)
+    if numTabs == 0 then return end
+
+    -- Largura dinâmica para caber todas as abas sem truncar pet/specs
+    local totalW = 496
+    local gap = 4
+    local tabW = math.floor((totalW - ((numTabs - 1) * gap)) / numTabs)
+    if tabW < 60 then tabW = 60 end
+
+    for idx, tInfo in ipairs(subTabsData) do
+        local btn = CreateFrame("Button", "ConsoleModeMM_PickerSubTab" .. idx, subTabBar)
+        btn:SetHeight(22)
+        btn:SetWidth(tabW)
+        btn:SetPoint("LEFT", subTabBar, "LEFT", (idx - 1) * (tabW + gap), 0)
+        btn:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 16, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        btn:SetBackdropColor(0, 0, 0, 0.40)
+        btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+
+        local tTitle = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        tTitle:SetPoint("CENTER", btn, "CENTER", 0, 0)
+        MainMenu:ApplyFont(tTitle, CFG.Fonts.bodyFontFile, 11, "")
+        
+        -- Trunca se muito longo para o botão
+        local displayName = tInfo.name or ""
+        if string.len(displayName) > 12 and tabW < 90 then
+            displayName = string.sub(displayName, 1, 10) .. ".."
+        end
+        tTitle:SetText(displayName)
+        btn.title = tTitle
+        btn.tabIdx = idx
+        btn.fullName = tInfo.name
+
+        btn:SetScript("OnEnter", function()
+            this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.90)
+            if this.fullName and string.len(this.fullName) > 10 then
+                GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
+                GameTooltip:SetText(this.fullName)
+                GameTooltip:Show()
+            end
+        end)
+        btn:SetScript("OnLeave", function()
+            GameTooltip:Hide()
+            if pickerScreen.currentSubTab ~= this.tabIdx then
+                this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+            end
+        end)
+        btn:SetScript("OnClick", function()
+            pickerScreen.currentSubTab = this.tabIdx
+            pickerScreen.gridPage = 1
+            MainMenu:HighlightPickerSubTab(this.tabIdx)
+            MainMenu:RefreshPickerGrid()
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end)
+
+        table.insert(pickerScreen.subTabButtons, btn)
+    end
+
+    if not pickerScreen.currentSubTab or pickerScreen.currentSubTab > numTabs then
+        pickerScreen.currentSubTab = 1
+    end
+    self:HighlightPickerSubTab(pickerScreen.currentSubTab)
+end
+
+function MainMenu:HighlightPickerSubTab(activeIdx)
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.pickerScreen then return end
+    local pickerScreen = pageSystem.pickerScreen
+
+    if pickerScreen.subTabButtons then
+        for idx, btn in ipairs(pickerScreen.subTabButtons) do
+            if idx == activeIdx then
+                btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+                btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+                btn:SetBackdropColor(0.22, 0.16, 0.05, 0.65)
+            else
+                btn.title:SetTextColor(0.65, 0.65, 0.65)
+                btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+                btn:SetBackdropColor(0, 0, 0, 0.40)
+            end
+        end
+    end
+end
+
+local function MM_WrapName(s)
+    if not s or string.len(s) <= 12 then return s or "" end
+    local mid = math.floor(string.len(s) / 2)
+    local bp = nil
+    for p = mid, 1, -1 do
+        if string.sub(s, p, p) == " " then bp = p; break end
+    end
+    if not bp then
+        for p = mid + 1, string.len(s) do
+            if string.sub(s, p, p) == " " then bp = p; break end
+        end
+    end
+    if bp then
+        return string.sub(s, 1, bp - 1) .. "\n" .. string.sub(s, bp + 1)
+    end
+    return s
+end
+
+local PICKER_BAR_DEFINITIONS = {
+    [1] = { name = "Principal",    startSlot = 1,  bindingPrefix = "ACTIONBUTTON",         count = 12 },
+    [2] = { name = "Inf. Esq.",    startSlot = 61, bindingPrefix = "MULTIACTIONBAR1BUTTON", count = 12 },
+    [3] = { name = "Inf. Dir.",    startSlot = 49, bindingPrefix = "MULTIACTIONBAR2BUTTON", count = 12 },
+    [4] = { name = "Lat. Dir. 1",  startSlot = 25, bindingPrefix = "MULTIACTIONBAR3BUTTON", count = 12 },
+    [5] = { name = "Lat. Dir. 2",  startSlot = 37, bindingPrefix = "MULTIACTIONBAR4BUTTON", count = 12 },
+}
+
+function MainMenu:RefreshPickerGrid()
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.pickerScreen then return end
+    local pickerScreen = pageSystem.pickerScreen
+
+    local mode = pickerScreen.currentMode or "SPELLBOOK"
+    local subTab = pickerScreen.currentSubTab or 1
+    local gridButtons = pickerScreen.gridButtons
+    if not gridButtons then return end
+
+    local itemsCache = {}
+
+    if mode == "SPELLBOOK" then
+        local SBP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.spellbookPicker
+        if SBP then
+            local tabs = SBP:GetSpellTabs()
+            local tab = tabs[subTab]
+            if tab then
+                itemsCache = SBP:GetSpellsForTab(tab)
+            end
+        end
+    elseif mode == "BAG" then
+        local BP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.bagPicker
+        if BP then
+            local allItems = BP:GetUsableItems()
+            if subTab == 1 then
+                itemsCache = allItems
+            elseif subTab == 2 then
+                for _, it in ipairs(allItems) do
+                    local _, _, _, _, iType = GetItemInfo(it.itemLink)
+                    local tLower = string.lower(iType or "")
+                    if string.find(tLower, "consum") then table.insert(itemsCache, it) end
+                end
+            elseif subTab == 3 then
+                for _, it in ipairs(allItems) do
+                    local _, _, _, _, _, _, _, iEquip = GetItemInfo(it.itemLink)
+                    if iEquip and iEquip ~= "" and iEquip ~= "INVTYPE_NON_EQUIP" then
+                        table.insert(itemsCache, it)
+                    end
+                end
+            else
+                for _, it in ipairs(allItems) do
+                    local _, _, _, _, iType, _, _, iEquip = GetItemInfo(it.itemLink)
+                    local tLower = string.lower(iType or "")
+                    local isConsumable = string.find(tLower, "consum")
+                    local isEquip = (iEquip and iEquip ~= "" and iEquip ~= "INVTYPE_NON_EQUIP")
+                    if not isConsumable and not isEquip then
+                        table.insert(itemsCache, it)
+                    end
+                end
+            end
+        end
+    elseif mode == "MACROS" then
+        local MP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.macroPicker
+        if MP then
+            if subTab == 1 then
+                itemsCache = MP:GetAccountMacros()
+            else
+                itemsCache = MP:GetCharacterMacros()
+            end
+        end
+    elseif mode == "BARS" then
+        local barDef = PICKER_BAR_DEFINITIONS[subTab]
+        if barDef then
+            for i = 1, barDef.count do
+                local slot = barDef.startSlot + i - 1
+                local tex = GetActionTexture(slot)
+                local name = GetActionText(slot)
+                if not name or name == "" then
+                    if HasAction(slot) then name = "Ação " .. i else name = "(Vazio)" end
+                end
+                table.insert(itemsCache, {
+                    isBarSlot = true,
+                    slot = slot,
+                    slotNum = i,
+                    barDef = barDef,
+                    name = name,
+                    icon = tex or "Interface\\Icons\\INV_Misc_QuestionMark",
+                    hasAction = HasAction(slot),
+                })
+            end
+        end
+    end
+
+    pickerScreen.itemsCache = itemsCache
+
+    local total = table.getn(itemsCache)
+    local totalPages = math.ceil(total / 16)
+    if totalPages < 1 then totalPages = 1 end
+    if pickerScreen.gridPage > totalPages then pickerScreen.gridPage = totalPages end
+    pickerScreen.maxPages = totalPages
+
+    -- Atualiza controles de paginação
+    if pickerScreen.pageBar and pickerScreen.pageBar.pageLabel then
+        if mode == "BARS" then
+            pickerScreen.pageBar:Hide()
+        else
+            pickerScreen.pageBar:Show()
+            pickerScreen.pageBar.pageLabel:SetText(string.format("Página %d de %d", pickerScreen.gridPage, totalPages))
+        end
+    end
+
+    local offset = (pickerScreen.gridPage - 1) * 16
+
+    for i = 1, 16 do
+        local btn = gridButtons[i]
+        local item = itemsCache[offset + i]
+        btn.itemData = item
+
+        if item then
+            btn.icon:SetTexture(item.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+            btn.icon:SetVertexColor(1, 1, 1, 1)
+            btn.label:SetText(MM_WrapName(item.name or ""))
+            
+            if mode == "SPELLBOOK" then
+                btn.rankLabel:SetText(item.rank or "")
+            elseif mode == "BAG" then
+                if item.count and item.count > 1 then
+                    btn.rankLabel:SetText("x" .. item.count)
+                else
+                    btn.rankLabel:SetText("")
+                end
+            elseif mode == "BARS" then
+                btn.rankLabel:SetText("#" .. (item.slotNum or i))
+            else
+                btn.rankLabel:SetText("")
+            end
+
+            btn:SetBackdropColor(0, 0, 0, 0.40)
+            btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+            btn:EnableMouse(true)
+        else
+            btn.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+            btn.icon:SetVertexColor(0.3, 0.3, 0.3, 0.4)
+            btn.label:SetText("")
+            btn.rankLabel:SetText("")
+            btn:SetBackdropColor(0, 0, 0, 0.20)
+            btn:SetBackdropBorderColor(0.3, 0.25, 0.2, 0.25)
+            btn:EnableMouse(false)
+        end
+        btn:Show()
+    end
+
+    -- Foca o primeiro item disponível
+    local firstValid = nil
+    for i = 1, 16 do
+        if gridButtons[i].itemData then
+            firstValid = gridButtons[i]
+            break
+        end
+    end
+    if firstValid then
+        self:FocusPickerSlot(firstValid)
+    end
+end
+
+function MainMenu:FocusPickerSlot(slotBtn)
+    if not slotBtn then return end
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.pickerScreen then return end
+    local pickerScreen = pageSystem.pickerScreen
+
+    if pickerScreen.gridButtons then
+        for _, btn in ipairs(pickerScreen.gridButtons) do
+            if btn == slotBtn then
+                btn.focusBorder:Show()
+                btn:SetBackdropColor(0.20, 0.16, 0.06, 0.65)
+                btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+            else
+                btn.focusBorder:Hide()
+                btn:SetBackdropColor(0, 0, 0, 0.40)
+                btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+            end
+        end
+    end
+
+    pickerScreen.focusedSlot = slotBtn
+
+    local detailCard = pickerScreen.detailCard
+    local item = slotBtn.itemData
+    if detailCard and item then
+        detailCard.titleText:SetText(string.format("|cffe09a15%s|r", item.name or ""))
+        detailCard.icon:SetTexture(item.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+
+        local mode = pickerScreen.currentMode
+        if mode == "SPELLBOOK" then
+            detailCard.typeText:SetText(string.format("|cffaaaaaaLivro de Magias  •  |cffffffff%s|r", item.rank or "Rank 1"))
+            detailCard.descColLeft:SetText("|cffccccccPressione [A] para vincular esta habilidade ao botão selecionado.|r")
+            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+        elseif mode == "BAG" then
+            local countStr = (item.count and item.count > 1) and ("  •  Quantidade: x" .. item.count) or ""
+            detailCard.typeText:SetText(string.format("|cffaaaaaaItem do Inventário (Bolsas)%s|r", countStr))
+            detailCard.descColLeft:SetText("|cffccccccPressione [A] para vincular o uso deste item ao botão selecionado.|r")
+            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+        elseif mode == "MACROS" then
+            detailCard.typeText:SetText("|cffaaaaaaMacro Personalizada|r")
+            local bodyText = item.body or ""
+            if string.len(bodyText) > 100 then bodyText = string.sub(bodyText, 1, 97) .. "..." end
+            detailCard.descColLeft:SetText(string.format("|cffffffff%s|r", bodyText ~= "" and bodyText or "Sem comando definido"))
+            detailCard.descColRight:SetText("|cff888888Pressione [A] para vincular esta macro ao botão selecionado.|r")
+        elseif mode == "BARS" then
+            detailCard.typeText:SetText(string.format("|cffaaaaaa%s  •  Slot %d (Slot Real: %d)|r", item.barDef and item.barDef.name or "Barra", item.slotNum or 1, item.slot or 1))
+            detailCard.descColLeft:SetText("|cffccccccPressione [A] para vincular diretamente o acionamento deste slot da barra.|r")
+            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+        end
+
+        if detailCard.slotsFreeText then
+            detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Selecionar / Vincular   |   |cffe09a15[B]|r Voltar ao Mapeador")
+        end
+    end
+end
+
+function MainMenu:OnPickerSlotClick(slotBtn)
+    if not slotBtn or not slotBtn.itemData then return end
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.targetBindCard then return end
+
+    local targetCard = pageSystem.targetBindCard
+    local page = targetCard.page
+    local btnKey = targetCard.btnKey
+    local comboLabel = targetCard.comboLabel or btnKey
+    local item = slotBtn.itemData
+    local mode = pageSystem.pickerScreen and pageSystem.pickerScreen.currentMode
+
+    if mode == "SPELLBOOK" then
+        local SBP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.spellbookPicker
+        if SBP and SBP.ApplySpellBinding then
+            SBP:ApplySpellBinding(page, btnKey, comboLabel, item)
+        end
+    elseif mode == "BAG" then
+        local BP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.bagPicker
+        if BP and BP.ApplyItemBinding then
+            BP:ApplyItemBinding(page, btnKey, comboLabel, item)
+        end
+    elseif mode == "MACROS" then
+        local MP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.macroPicker
+        if MP and MP.ApplyMacroBinding then
+            MP:ApplyMacroBinding(page, btnKey, comboLabel, item)
+        end
+    elseif mode == "BARS" then
+        local SBP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.spellbookPicker
+        local physKey = SBP and SBP.KEY_MAPPINGS and SBP.KEY_MAPPINGS[page] and SBP.KEY_MAPPINGS[page][btnKey]
+        local barDef = item.barDef
+        if physKey and barDef and item.slotNum then
+            local bindingAction = barDef.bindingPrefix .. item.slotNum
+            local KB = ConsoleMode and ConsoleMode.keybindings
+            if KB and KB.navigationMode and KB.savedNavBindings then
+                for k, act in pairs(KB.savedNavBindings) do
+                    if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
+                        SetBinding(k, act)
+                    elseif k == "TAB" then
+                        SetBinding("TAB", "TARGETNEARESTENEMY")
+                    end
+                end
+            end
+
+            SetBinding(physKey, bindingAction)
+
+            if KB and KB.savedNavBindings then
+                KB.savedNavBindings[physKey] = bindingAction
+            end
+
+            local set = GetCurrentBindingSet()
+            if not set or set == 0 then set = 1 end
+            pcall(function() SaveBindings(set) end)
+
+            if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
+                local d1 = KB.defaults[1]
+                SetBinding(d1.DUP,    "CM_CURSOR_UP")
+                SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
+                SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
+                SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
+                SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
+                SetBinding(d1.B,      "CM_CURSOR_CANCEL")
+            end
+
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage(string.format("|cff00ff00[ConsoleMode]|r |cffffcc00%s|r vinculado a |cff88ccff%s|r (%s)!", comboLabel, item.name or ("Slot " .. item.slotNum), barDef.name))
+            end
+
+            local ActionHUD = (ConsoleMode and ConsoleMode.ui and ConsoleMode.ui.actionHUD) or (ConsoleMode and ConsoleMode.actionHUD)
+            if ActionHUD and ActionHUD.Update then ActionHUD:Update() end
+        end
+    end
+
+    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+    self:ShowBindsScreen()
+end
+
 function MainMenu:ShowPickerScreen()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageSystem = self.tabContainer.pages["SYSTEM"]
@@ -11203,6 +11932,7 @@ function MainMenu:ShowPickerScreen()
 
     if pageSystem.pickerScreen then
         pageSystem.pickerScreen:Show()
+        self:SetPickerMode(pageSystem.pickerScreen.currentMode or "SPELLBOOK")
     end
     pageSystem.activeSubScreen = "PICKER"
 

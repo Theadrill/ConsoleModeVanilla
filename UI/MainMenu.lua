@@ -10421,6 +10421,183 @@ end
 -- 8.5. MAPEADOR DE ATALHOS / BINDS NO MAIN MENU (FASES 1 A 5)
 -- ============================================================================
 
+local BINDS_PAGE_INFO = {
+    [1] = { name = "1: Base",  prefix = "Base: ",    desc = "Ações Principais (Sem Modificador)" },
+    [2] = { name = "2: L2",    prefix = "L2 + ",     desc = "Página de Combate L2 (Shift)" },
+    [3] = { name = "3: R1",    prefix = "R1 + ",     desc = "Página de Combate R1 (Ctrl)" },
+    [4] = { name = "4: R2",    prefix = "R2 + ",     desc = "Página de Combate R2 (Alt)" },
+    [5] = { name = "5: L2+R2", prefix = "L2+R2 + ",  desc = "Página de Combate L2+R2 (Shift+Alt)" },
+}
+
+local BINDS_KEY_DEFAULTS = {
+    [1] = { A="SPACE",           X="1",           Y="2",           B="3",           DUP="7",           DDOWN="8",           DLEFT="9",           DRIGHT="0" },
+    [2] = { A="SHIFT-SPACE",     X="SHIFT-1",     Y="SHIFT-2",     B="SHIFT-3",     DUP="SHIFT-7",     DDOWN="SHIFT-8",     DLEFT="SHIFT-9",     DRIGHT="SHIFT-0" },
+    [3] = { A="CTRL-SPACE",      X="CTRL-1",      Y="CTRL-2",      B="CTRL-3",      DUP="CTRL-7",      DDOWN="CTRL-8",      DLEFT="CTRL-9",      DRIGHT="CTRL-0" },
+    [4] = { A="ALT-SPACE",       X="ALT-1",       Y="ALT-2",       B="ALT-3",       DUP="ALT-7",       DDOWN="ALT-8",       DLEFT="ALT-9",       DRIGHT="ALT-0" },
+    [5] = { A="ALT-SHIFT-SPACE", X="ALT-SHIFT-1", Y="ALT-SHIFT-2", B="ALT-SHIFT-3", DUP="ALT-SHIFT-7", DDOWN="ALT-SHIFT-8", DLEFT="ALT-SHIFT-9", DRIGHT="ALT-SHIFT-0" },
+}
+
+local BINDS_PHYS_NAMES = {
+    ["SPACE"]           = "Espaço (Pulo)",
+    ["SHIFT-SPACE"]     = "Shift + Espaço",
+    ["CTRL-SPACE"]      = "Ctrl + Espaço",
+    ["ALT-SPACE"]       = "Alt + Espaço",
+    ["ALT-SHIFT-SPACE"] = "Shift + Alt + Espaço",
+    ["1"] = "Tecla 1", ["2"] = "Tecla 2", ["3"] = "Tecla 3",
+    ["7"] = "Tecla 7", ["8"] = "Tecla 8", ["9"] = "Tecla 9", ["0"] = "Tecla 0",
+    ["SHIFT-1"] = "Shift + 1", ["SHIFT-2"] = "Shift + 2", ["SHIFT-3"] = "Shift + 3",
+    ["SHIFT-7"] = "Shift + 7", ["SHIFT-8"] = "Shift + 8", ["SHIFT-9"] = "Shift + 9", ["SHIFT-0"] = "Shift + 0",
+    ["CTRL-1"] = "Ctrl + 1", ["CTRL-2"] = "Ctrl + 2", ["CTRL-3"] = "Ctrl + 3",
+    ["CTRL-7"] = "Ctrl + 7", ["CTRL-8"] = "Ctrl + 8", ["CTRL-9"] = "Ctrl + 9", ["CTRL-0"] = "Ctrl + 0",
+    ["ALT-1"] = "Alt + 1", ["ALT-2"] = "Alt + 2", ["ALT-3"] = "Alt + 3",
+    ["ALT-7"] = "Alt + 7", ["ALT-8"] = "Alt + 8", ["ALT-9"] = "Alt + 9", ["ALT-0"] = "Alt + 0",
+    ["ALT-SHIFT-1"] = "Shift+Alt+1", ["ALT-SHIFT-2"] = "Shift+Alt+2", ["ALT-SHIFT-3"] = "Shift+Alt+3",
+    ["ALT-SHIFT-7"] = "Shift+Alt+7", ["ALT-SHIFT-8"] = "Shift+Alt+8", ["ALT-SHIFT-9"] = "Shift+Alt+9", ["ALT-SHIFT-0"] = "Shift+Alt+0",
+}
+
+local BINDS_CLUSTER_DEFS = {
+    left = {
+        title = "DIRECIONAL (D-PAD)",
+        buttons = {
+            { key = "DUP",    glyph = "[^]", label = "D-Pad Cima",     icon = CFG.Icons.DUP },
+            { key = "DDOWN",  glyph = "[v]", label = "D-Pad Baixo",    icon = CFG.Icons.DDOWN },
+            { key = "DLEFT",  glyph = "[<]", label = "D-Pad Esquerda", icon = CFG.Icons.DLEFT },
+            { key = "DRIGHT", glyph = "[>]", label = "D-Pad Direita",  icon = CFG.Icons.DRIGHT },
+        }
+    },
+    right = {
+        title = "BOTÕES FACIAIS (ABXY)",
+        buttons = {
+            { key = "Y", glyph = "[Y]", label = "Botão Y", icon = CFG.Icons.Y },
+            { key = "X", glyph = "[X]", label = "Botão X", icon = CFG.Icons.X },
+            { key = "B", glyph = "[B]", label = "Botão B", icon = CFG.Icons.B },
+            { key = "A", glyph = "[A]", label = "Botão A", icon = CFG.Icons.A },
+        }
+    }
+}
+
+function MainMenu:GetBindButtonData(page, btnKey)
+    local KBList = ConsoleMode and ConsoleMode.config and ConsoleMode.config.keybindingsList
+    local slot, name, tex = nil, nil, nil
+    if KBList and KBList.GetDisplayForButton then
+        slot, name, tex = KBList:GetDisplayForButton(page, btnKey)
+    end
+
+    local physKey = BINDS_KEY_DEFAULTS[page] and BINDS_KEY_DEFAULTS[page][btnKey]
+    local physName = (physKey and BINDS_PHYS_NAMES[physKey]) or physKey or "?"
+
+    local pInfo = BINDS_PAGE_INFO[page] or { prefix = "" }
+    local comboLabel = pInfo.prefix .. btnKey
+    if btnKey == "DUP" then comboLabel = pInfo.prefix .. "D-Pad Cima"
+    elseif btnKey == "DDOWN" then comboLabel = pInfo.prefix .. "D-Pad Baixo"
+    elseif btnKey == "DLEFT" then comboLabel = pInfo.prefix .. "D-Pad Esq."
+    elseif btnKey == "DRIGHT" then comboLabel = pInfo.prefix .. "D-Pad Dir."
+    elseif btnKey == "A" and page == 1 then comboLabel = "A (Pulo)"
+    end
+
+    return slot, name, tex, physKey, physName, comboLabel
+end
+
+function MainMenu:CreateBindCard(parent, btnDef)
+    local card = CreateFrame("Button", nil, parent)
+    card:SetHeight(46)
+    card:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    card:SetBackdropColor(0, 0, 0, 0.40)
+    card:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+
+    -- Foco dourado
+    local focusBorder = CreateFrame("Frame", nil, card)
+    focusBorder:SetAllPoints(card)
+    focusBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 10,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    focusBorder:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+    focusBorder:Hide()
+    card.focusBorder = focusBorder
+
+    -- 1. Ícone da Ação
+    local icon = card:CreateTexture(nil, "ARTWORK")
+    icon:SetWidth(34)
+    icon:SetHeight(34)
+    icon:SetPoint("LEFT", card, "LEFT", 6, 0)
+    icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+    card.icon = icon
+
+    local iconBorder = CreateFrame("Frame", nil, card)
+    iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+    iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+    iconBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 8,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    iconBorder:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.7)
+    card.iconBorder = iconBorder
+
+    -- 2. Glifo do Controle Xbox
+    local glyphIcon = card:CreateTexture(nil, "OVERLAY")
+    glyphIcon:SetWidth(16)
+    glyphIcon:SetHeight(16)
+    glyphIcon:SetPoint("TOPLEFT", icon, "TOPRIGHT", 8, -2)
+    if btnDef.icon then
+        glyphIcon:SetTexture(btnDef.icon)
+    end
+    card.glyphIcon = glyphIcon
+
+    -- 3. Badge do Botão / Combinação
+    local badge = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    badge:SetPoint("LEFT", glyphIcon, "RIGHT", 4, 0)
+    MainMenu:ApplyFont(badge, CFG.Fonts.bodyFontFile, 12, "")
+    badge:SetText(btnDef.label)
+    badge:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+    card.badge = badge
+
+    -- 4. Nome da Ação Vinculada
+    local nameText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    nameText:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 8, 4)
+    nameText:SetPoint("RIGHT", card, "RIGHT", -6, 0)
+    nameText:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(nameText, CFG.Fonts.subFontFile, 11, "")
+    nameText:SetText("|cff888888(Vazio)|r")
+    card.nameText = nameText
+
+    card.btnKey = btnDef.key
+    card.btnDef = btnDef
+
+    card:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+
+    card:SetScript("OnEnter", function()
+        MainMenu:FocusBindsSlot(this)
+    end)
+
+    card:SetScript("OnLeave", function()
+        local pageSystem = MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["SYSTEM"]
+        if pageSystem and pageSystem.bindsScreen and pageSystem.bindsScreen.focusedCard ~= this then
+            this.focusBorder:Hide()
+            this:SetBackdropColor(0, 0, 0, 0.40)
+            this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+        end
+    end)
+
+    card:SetScript("OnClick", function()
+        MainMenu:FocusBindsSlot(this)
+        if arg1 == "RightButton" then
+            MainMenu:ClearBinding(this.page, this.btnKey)
+        else
+            MainMenu:OpenPickerForSlot(this)
+        end
+    end)
+
+    return card
+end
+
 function MainMenu:SetupKeybindingsPage(pageSystem)
     if not pageSystem or pageSystem.isBindsInitialized then return end
     pageSystem.isBindsInitialized = true
@@ -10487,11 +10664,76 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
     headerBar.hDiv = hDiv
 
-    -- 2. DetailCard na base (Estilo Zelda / Console)
+    -- 2. Barra de Navegação das 5 Páginas ([LT] e [RT])
+    local pageBar = CreateFrame("Frame", "ConsoleModeMM_BindsPageBar", bindsScreen)
+    pageBar:SetHeight(28)
+    pageBar:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -4)
+    pageBar:SetPoint("TOPRIGHT", headerBar, "BOTTOMRIGHT", 0, -4)
+    bindsScreen.pageBar = pageBar
+
+    local ltIcon = pageBar:CreateTexture(nil, "OVERLAY")
+    ltIcon:SetWidth(18)
+    ltIcon:SetHeight(18)
+    ltIcon:SetPoint("LEFT", pageBar, "LEFT", 10, 0)
+    ltIcon:SetTexture(CFG.Icons.LT)
+    pageBar.ltIcon = ltIcon
+
+    local rtIcon = pageBar:CreateTexture(nil, "OVERLAY")
+    rtIcon:SetWidth(18)
+    rtIcon:SetHeight(18)
+    rtIcon:SetPoint("RIGHT", pageBar, "RIGHT", -10, 0)
+    rtIcon:SetTexture(CFG.Icons.RT)
+    pageBar.rtIcon = rtIcon
+
+    local pageButtons = {}
+    local pBtnW = 86
+    local pGap = 6
+    local startX = 36
+
+    for p = 1, 5 do
+        local pInfo = BINDS_PAGE_INFO[p]
+        local btn = CreateFrame("Button", "ConsoleModeMM_BindsPageBtn" .. p, pageBar)
+        btn:SetHeight(24)
+        btn:SetWidth(pBtnW)
+        btn:SetPoint("LEFT", pageBar, "LEFT", startX + (p - 1) * (pBtnW + pGap), 0)
+        btn:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 16, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        btn:SetBackdropColor(0, 0, 0, 0.35)
+        btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+
+        local pTitle = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        pTitle:SetPoint("CENTER", btn, "CENTER", 0, 0)
+        MainMenu:ApplyFont(pTitle, CFG.Fonts.bodyFontFile, 12, "")
+        pTitle:SetText(pInfo.name)
+        btn.title = pTitle
+        btn.pageIndex = p
+
+        btn:SetScript("OnEnter", function()
+            this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.85)
+        end)
+        btn:SetScript("OnLeave", function()
+            if bindsScreen.currentPage ~= this.pageIndex then
+                this:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+            end
+        end)
+        btn:SetScript("OnClick", function()
+            MainMenu:SelectBindsPage(this.pageIndex)
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end)
+
+        table.insert(pageButtons, btn)
+    end
+    bindsScreen.pageButtons = pageButtons
+
+    -- 3. DetailCard na base (Estilo Zelda / Console)
     local detailCard = self:CreateDetailCard(bindsScreen)
     bindsScreen.detailCard = detailCard
     if detailCard.slotsFreeText then
-        detailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar às Configurações")
+        detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Mapear   |   |cffe09a15[X]|r Limpar   |   |cffe09a15[LT]/[RT]|r Páginas   |   |cffe09a15[B]|r Voltar")
     end
     if detailCard.sellWidget then detailCard.sellWidget:Hide() end
     if detailCard.moneyWidget then detailCard.moneyWidget:Hide() end
@@ -10502,9 +10744,9 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
     detailCard.icon:Show()
 
-    -- 3. Área de Conteúdo Central (Placeholder Fase 1)
+    -- 4. Área de Conteúdo Central (Grade dos 8 Cards em 2 Clusters)
     local contentArea = CreateFrame("Frame", "ConsoleModeMM_BindsContent", bindsScreen)
-    contentArea:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -6)
+    contentArea:SetPoint("TOPLEFT", pageBar, "BOTTOMLEFT", 0, -6)
     contentArea:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 6)
     contentArea:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -10516,11 +10758,56 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     contentArea:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
     bindsScreen.contentArea = contentArea
 
-    local placeholder = contentArea:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    placeholder:SetPoint("CENTER", contentArea, "CENTER", 0, 10)
-    MainMenu:ApplyFont(placeholder, CFG.Fonts.bodyFontFile, 14, "")
-    placeholder:SetText("|cffe09a15[ FASE 1: TRANSIÇÃO DE TELAS INTEGRADA ]|r\n\n|cffffffffEstrutura base dos containers criada com sucesso no Main Menu.|r\n|cffaaaaaa(Nenhum painel externo ou flutuante arcaico foi aberto)|r\n\n|cffccccccUse |r|cffe09a15[B]|r|cffcccccc no controle ou o botão Voltar para retornar às Opções.|r")
-    contentArea.placeholder = placeholder
+    local bindCards = {}
+
+    -- Cluster Esquerdo: D-Pad
+    local leftCluster = CreateFrame("Frame", "ConsoleModeMM_BindsClusterLeft", contentArea)
+    leftCluster:SetPoint("TOPLEFT", contentArea, "TOPLEFT", 10, -6)
+    leftCluster:SetPoint("BOTTOMLEFT", contentArea, "BOTTOMLEFT", 10, 6)
+    leftCluster:SetWidth(248)
+    contentArea.leftCluster = leftCluster
+
+    local lTitle = leftCluster:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    lTitle:SetPoint("TOPLEFT", leftCluster, "TOPLEFT", 4, 0)
+    MainMenu:ApplyFont(lTitle, CFG.Fonts.titleFontFile, 12, "")
+    lTitle:SetText("|cffe09a15DIRECIONAL (D-PAD)|r")
+    leftCluster.title = lTitle
+
+    local leftCards = {}
+    for idx, btnDef in ipairs(BINDS_CLUSTER_DEFS.left.buttons) do
+        local card = self:CreateBindCard(leftCluster, btnDef)
+        card:SetPoint("TOPLEFT", leftCluster, "TOPLEFT", 0, -20 - (idx - 1) * (46 + 6))
+        card:SetPoint("TOPRIGHT", leftCluster, "TOPRIGHT", 0, -20 - (idx - 1) * (46 + 6))
+        table.insert(leftCards, card)
+        table.insert(bindCards, card)
+    end
+    leftCluster.cards = leftCards
+
+    -- Cluster Direito: Botões Faciais (ABXY)
+    local rightCluster = CreateFrame("Frame", "ConsoleModeMM_BindsClusterRight", contentArea)
+    rightCluster:SetPoint("TOPRIGHT", contentArea, "TOPRIGHT", -10, -6)
+    rightCluster:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", -10, 6)
+    rightCluster:SetWidth(248)
+    contentArea.rightCluster = rightCluster
+
+    local rTitle = rightCluster:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    rTitle:SetPoint("TOPLEFT", rightCluster, "TOPLEFT", 4, 0)
+    MainMenu:ApplyFont(rTitle, CFG.Fonts.titleFontFile, 12, "")
+    rTitle:SetText("|cffe09a15BOTÕES FACIAIS (ABXY)|r")
+    rightCluster.title = rTitle
+
+    local rightCards = {}
+    for idx, btnDef in ipairs(BINDS_CLUSTER_DEFS.right.buttons) do
+        local card = self:CreateBindCard(rightCluster, btnDef)
+        card:SetPoint("TOPLEFT", rightCluster, "TOPLEFT", 0, -20 - (idx - 1) * (46 + 6))
+        card:SetPoint("TOPRIGHT", rightCluster, "TOPRIGHT", 0, -20 - (idx - 1) * (46 + 6))
+        table.insert(rightCards, card)
+        table.insert(bindCards, card)
+    end
+    rightCluster.cards = rightCards
+
+    bindsScreen.bindCards = bindCards
+    bindsScreen.currentPage = 1
 
     -- ------------------------------------------------------------------------
     -- TELA 2: SELETOR DE CONTEÚDO (O "PICKER")
@@ -10598,7 +10885,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     pDetailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
     pDetailCard.icon:Show()
 
-    -- 3. Área de Conteúdo Central da Tela 2 (Placeholder)
+    -- 3. Área de Conteúdo Central da Tela 2 (Placeholder Fase 3)
     local pContentArea = CreateFrame("Frame", "ConsoleModeMM_PickerContent", pickerScreen)
     pContentArea:SetPoint("TOPLEFT", pickerHeader, "BOTTOMLEFT", 0, -6)
     pContentArea:SetPoint("BOTTOMRIGHT", pDetailCard, "TOPRIGHT", 0, 6)
@@ -10619,6 +10906,229 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     pContentArea.placeholder = pPlaceholder
 end
 
+function MainMenu:FocusBindsSlot(card)
+    if not card then return end
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.bindsScreen then return end
+
+    local bindsScreen = pageSystem.bindsScreen
+    if bindsScreen.bindCards then
+        for _, c in ipairs(bindsScreen.bindCards) do
+            if c == card then
+                c.focusBorder:Show()
+                c:SetBackdropColor(0.20, 0.16, 0.06, 0.65)
+                c:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+            else
+                c.focusBorder:Hide()
+                c:SetBackdropColor(0, 0, 0, 0.40)
+                c:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5)
+            end
+        end
+    end
+
+    bindsScreen.focusedCard = card
+
+    local detailCard = bindsScreen.detailCard
+    if detailCard then
+        detailCard.titleText:SetText(string.format("|cffe09a15%s|r", card.comboLabel or card.btnKey))
+        detailCard.icon:SetTexture(card.actionTexture or "Interface\\Icons\\INV_Misc_QuestionMark")
+
+        if card.page == 1 and card.btnKey == "A" then
+            detailCard.typeText:SetText("|cffffff00Ação Nativa do Jogo (Fixo)|r")
+            detailCard.descColLeft:SetText("|cffccccccNa Página 1 (Base), o botão A é reservado para Pular / Interagir no mundo.|r")
+            detailCard.descColRight:SetText("|cff888888Não pode ser reatribuído na Página 1.|r")
+        elseif card.actionSlot then
+            detailCard.typeText:SetText(string.format("|cffaaaaaaTecla Física: |cffffffff%s|r  •  |cffaaaaaaBarra de Ação: |cffffffffSlot %d|r", card.physName or "?", card.actionSlot))
+            detailCard.descColLeft:SetText(string.format("|cffffffff%s|r\n|cffaaaaaaPressione [A] para alterar este atalho.|r", card.actionName or "Habilidade Vinculada"))
+            detailCard.descColRight:SetText("|cff888888Pressione [X] no controle para limpar slot.|r")
+        elseif card.actionName and card.actionName ~= "" and card.actionName ~= "|cff888888(vazio)|r" then
+            detailCard.typeText:SetText(string.format("|cffaaaaaaTecla Física: |cffffffff%s|r", card.physName or "?"))
+            detailCard.descColLeft:SetText(string.format("|cffffffff%s|r\n|cffaaaaaaPressione [A] para alterar este atalho.|r", card.actionName))
+            detailCard.descColRight:SetText("|cff888888Pressione [X] no controle para limpar slot.|r")
+        else
+            detailCard.typeText:SetText(string.format("|cff888888Slot Vazio — Nenhuma ação atribuída (Tecla: %s)|r", card.physName or "?"))
+            detailCard.descColLeft:SetText("|cffaaaaaaPressione [A] para mapear uma habilidade, item de bolsa ou macro a este botão.|r")
+            detailCard.descColRight:SetText("|cff666666Slot livre para personalização.|r")
+        end
+
+        if detailCard.slotsFreeText then
+            detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Mapear   |   |cffe09a15[X]|r Limpar   |   |cffe09a15[LT]/[RT]|r Páginas   |   |cffe09a15[B]|r Voltar")
+        end
+    end
+end
+
+function MainMenu:UpdateBindsPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.bindsScreen then return end
+
+    local bindsScreen = pageSystem.bindsScreen
+    local curPage = bindsScreen.currentPage or 1
+
+    -- Atualiza botões do cabeçalho de páginas
+    if bindsScreen.pageButtons then
+        for p, btn in ipairs(bindsScreen.pageButtons) do
+            if p == curPage then
+                btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
+                btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+                btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70)
+            else
+                btn.title:SetTextColor(0.65, 0.65, 0.65)
+                btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40)
+                btn:SetBackdropColor(0, 0, 0, 0.35)
+            end
+        end
+    end
+
+    -- Atualiza os 8 cards de botões
+    if bindsScreen.bindCards then
+        for _, card in ipairs(bindsScreen.bindCards) do
+            local slot, name, tex, physKey, physName, comboLabel = self:GetBindButtonData(curPage, card.btnKey)
+            card.page = curPage
+            card.actionSlot = slot
+            card.actionName = name
+            card.actionTexture = tex
+            card.physKey = physKey
+            card.physName = physName
+            card.comboLabel = comboLabel
+
+            if card.badge then
+                card.badge:SetText(comboLabel)
+            end
+
+            if tex then
+                card.icon:SetTexture(tex)
+                card.icon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+                card.iconBorder:SetBackdropBorderColor(0.8, 0.7, 0.3, 0.9)
+            else
+                card.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+                card.icon:SetVertexColor(0.5, 0.5, 0.5, 0.5)
+                card.iconBorder:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.4)
+            end
+
+            if not name or name == "" or name == "|cff888888(vazio)|r" then
+                card.nameText:SetText("|cff888888(Vazio)|r")
+            else
+                card.nameText:SetText(string.format("|cffffffff%s|r", name))
+            end
+        end
+    end
+
+    -- Atualiza foco atual ou primeiro card
+    local targetCard = bindsScreen.focusedCard or (bindsScreen.bindCards and bindsScreen.bindCards[1])
+    if targetCard then
+        self:FocusBindsSlot(targetCard)
+    end
+end
+
+function MainMenu:SelectBindsPage(pageIndex)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.bindsScreen then return end
+
+    pageIndex = pageIndex or 1
+    if pageIndex < 1 then pageIndex = 1 end
+    if pageIndex > 5 then pageIndex = 5 end
+
+    pageSystem.bindsScreen.currentPage = pageIndex
+    self:UpdateBindsPage()
+end
+
+function MainMenu:OpenPickerForSlot(card)
+    if not card then return end
+    if card.page == 1 and card.btnKey == "A" then
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[ConsoleMode]|r O botão A na Página 1 é reservado para Pulo / Interagir.")
+        end
+        PlaySound("igQuestFailed")
+        return
+    end
+
+    local pageSystem = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SYSTEM"]
+    if pageSystem and pageSystem.pickerScreen then
+        pageSystem.targetBindCard = card
+        if pageSystem.pickerScreen.headerBar and pageSystem.pickerScreen.headerBar.title then
+            pageSystem.pickerScreen.headerBar.title:SetText(string.format("|cffe09a15[ MAPEANDO: %s ]|r", card.comboLabel or card.btnKey))
+        end
+        self:ShowPickerScreen()
+    end
+end
+
+function MainMenu:ClearBinding(page, btnKey)
+    if not page or not btnKey then return false end
+
+    if page == 1 and btnKey == "A" then
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[ConsoleMode]|r O botão A na Página 1 é reservado para Pulo / Interagir.")
+        end
+        PlaySound("igQuestFailed")
+        return false
+    end
+
+    local physKey = BINDS_KEY_DEFAULTS[page] and BINDS_KEY_DEFAULTS[page][btnKey]
+    if not physKey then return false end
+
+    -- Restaura snapshot se em navigation mode
+    local KB = ConsoleMode and ConsoleMode.keybindings
+    if KB and KB.navigationMode and KB.savedNavBindings then
+        for k, act in pairs(KB.savedNavBindings) do
+            if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
+                SetBinding(k, act)
+            elseif k == "TAB" then
+                SetBinding("TAB", "TARGETNEARESTENEMY")
+            end
+        end
+    end
+
+    SetBinding(physKey, nil)
+
+    if KB and KB.savedNavBindings then
+        KB.savedNavBindings[physKey] = nil
+    end
+
+    local set = GetCurrentBindingSet()
+    if not set or set == 0 then set = 1 end
+    pcall(function() SaveBindings(set) end)
+
+    if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
+        local d1 = KB.defaults[1]
+        SetBinding(d1.DUP,    "CM_CURSOR_UP")
+        SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
+        SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
+        SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
+        SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
+        SetBinding(d1.B,      "CM_CURSOR_CANCEL")
+    end
+
+    local ActionHUD = ConsoleMode and ConsoleMode.actionHUD
+    if ActionHUD and ActionHUD.Update then
+        ActionHUD:Update()
+    end
+
+    PlaySound("igMainMenuOptionCheckBoxOff")
+
+    local pInfo = BINDS_PAGE_INFO[page] or { prefix = "" }
+    local comboName = pInfo.prefix .. btnKey
+    if DEFAULT_CHAT_FRAME then
+        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffe09a15[ConsoleMode]|r Atalho |cffffffff%s|r desvinculado com sucesso.", comboName))
+    end
+
+    self:UpdateBindsPage()
+    return true
+end
+
+function MainMenu:HandleBindsClear()
+    if not self.tabContainer or not self.tabContainer.pages then return false end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem:IsVisible() then return false end
+
+    if pageSystem.activeSubScreen == "BINDS" and pageSystem.bindsScreen and pageSystem.bindsScreen.focusedCard then
+        local card = pageSystem.bindsScreen.focusedCard
+        return self:ClearBinding(card.page, card.btnKey)
+    end
+    return false
+end
+
 function MainMenu:ShowBindsScreen()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageSystem = self.tabContainer.pages["SYSTEM"]
@@ -10633,6 +11143,7 @@ function MainMenu:ShowBindsScreen()
 
     if pageSystem.bindsScreen then
         pageSystem.bindsScreen:Show()
+        self:SelectBindsPage(pageSystem.bindsScreen.currentPage or 1)
     end
     pageSystem.activeSubScreen = "BINDS"
 
@@ -11092,6 +11603,19 @@ function MainMenu:CycleCategories(direction)
         if not pageSystem or not pageSystem:IsVisible() then return false end
 
         direction = direction or 1
+
+        if pageSystem.activeSubScreen == "BINDS" then
+            local curPage = (pageSystem.bindsScreen and pageSystem.bindsScreen.currentPage) or 1
+            local nextPage = curPage + direction
+            if nextPage > 5 then nextPage = 1 end
+            if nextPage < 1 then nextPage = 5 end
+            self:SelectBindsPage(nextPage)
+            if CFG.Audio.soundItemSelect then
+                PlaySound(CFG.Audio.soundItemSelect)
+            end
+            return true
+        end
+
         local subTabs = CFG.System.subTabs
         local total = table.getn(subTabs)
         local curSubTab = pageSystem.currentSubTab or "GAME_MENU"

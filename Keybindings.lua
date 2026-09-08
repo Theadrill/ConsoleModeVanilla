@@ -905,6 +905,14 @@ function CM_CursorSecondary()
         return
     end
     
+    local mmQ = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mmQ and mmQ.HandleBindsClear and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+        if mmQ:HandleBindsClear() then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao X (Limpar Atalho)")
+            return
+        end
+    end
+
     if CM.cursor and CM.cursor.state and CM.cursor.state.currentButton then
         local btn = CM.cursor.state.currentButton
         if btn and btn.Click then

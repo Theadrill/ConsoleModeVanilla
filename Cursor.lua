@@ -541,6 +541,24 @@ function Cursor:FindFirstVisibleButton(frame)
                     end
                 end
             end
+            if curTab == "SPELLS" and activePage then
+                if activePage.activeScreen == 1 then
+                    local idx = activePage.focusedCatIdx or 1
+                    if activePage.catButtons and activePage.catButtons[idx] and activePage.catButtons[idx]:IsVisible() then
+                        return activePage.catButtons[idx]
+                    elseif activePage.catButtons and activePage.catButtons[1] and activePage.catButtons[1]:IsVisible() then
+                        return activePage.catButtons[1]
+                    end
+                else
+                    if activePage.grid and activePage.grid.slots and activePage.grid.slots[1] and activePage.grid.slots[1]:IsVisible() then
+                        local sel = activePage.grid.selectedSlotIndex or 1
+                        if activePage.grid.slots[sel] and activePage.grid.slots[sel]:IsVisible() then
+                            return activePage.grid.slots[sel]
+                        end
+                        return activePage.grid.slots[1]
+                    end
+                end
+            end
             if activePage and activePage.grid and activePage.grid.slots and activePage.grid.slots[1] and activePage.grid.slots[1]:IsVisible() then
                 return activePage.grid.slots[1]
             end

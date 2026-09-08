@@ -817,6 +817,12 @@ function CM_CursorCancel()
             return
         end
     end
+    if mmQ and mmQ.HandleSpellsBack and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+        if mmQ:HandleSpellsBack() then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Categorias Grimorio)")
+            return
+        end
+    end
     -- 0. Se o Menu de Contexto estiver aberto
     local ctxMenu = CM.ui and CM.ui.contextMenu
     if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then

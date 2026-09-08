@@ -4295,14 +4295,79 @@ end
 function MainMenu:SetupSpellsPage(pageSpells)
     if pageSpells.isInitialized then return end
 
-    -- 1. Barra de Cabeçalho / Abas do Grimório com [L2] e [R2]
-    local headerBar = CreateFrame("Frame", "ConsoleModeMM_SpellsHeader", pageSpells)
+    -- 1. Painel Fixo de Detalhes da Magia / Categoria (base compartilhada)
+    local detailCard = self:CreateDetailCard(pageSpells)
+    pageSpells.detailCard = detailCard
+    if detailCard.slotsFreeText then
+        detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Grimório 1.12|r")
+    end
+    if detailCard.sellWidget then
+        detailCard.sellWidget:Hide()
+    end
+
+    -- 2. Tela 1: Seleção de Categoria / Especialização (Screen 1)
+    local catScreen = CreateFrame("Frame", "ConsoleModeMM_SpellsCatScreen", pageSpells)
+    catScreen:SetPoint("TOPLEFT", pageSpells, "TOPLEFT", 0, 0)
+    catScreen:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 0)
+    pageSpells.catScreen = catScreen
+
+    -- 2.1. Barra Superior de Cabeçalho Geral da Tela 1
+    local topHeader = CreateFrame("Frame", "ConsoleModeMM_SpellsTopHeader", catScreen)
+    topHeader:SetHeight(30)
+    topHeader:SetPoint("TOPLEFT", catScreen, "TOPLEFT", 0, 0)
+    topHeader:SetPoint("TOPRIGHT", catScreen, "TOPRIGHT", 0, 0)
+    catScreen.topHeader = topHeader
+
+    local headerTitle = topHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    headerTitle:SetPoint("LEFT", topHeader, "LEFT", 4, 0)
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 14)
+    headerTitle:SetText("|cffe09a15GRIMÓRIO & HABILIDADES|r")
+    catScreen.headerTitle = headerTitle
+
+    local totalSpellsText = topHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    totalSpellsText:SetPoint("RIGHT", topHeader, "RIGHT", -4, 0)
+    MainMenu:ApplyFont(totalSpellsText, CFG.Fonts.subFontFile, 12)
+    pageSpells.totalSpellsText = totalSpellsText
+
+    local headerDivider = topHeader:CreateTexture(nil, "ARTWORK")
+    headerDivider:SetHeight(1)
+    headerDivider:SetPoint("BOTTOMLEFT", topHeader, "BOTTOMLEFT", 0, 0)
+    headerDivider:SetPoint("BOTTOMRIGHT", topHeader, "BOTTOMRIGHT", 0, 0)
+    headerDivider:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    headerDivider:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+
+    -- 2.2. Título e subtítulo orientativo
+    local promptTitle = catScreen:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    promptTitle:SetPoint("TOP", topHeader, "BOTTOM", 0, -14)
+    MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 16)
+    promptTitle:SetText("|cffe09a15Escolha uma Especialização ou Categoria|r")
+    catScreen.promptTitle = promptTitle
+
+    local promptSub = catScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    promptSub:SetPoint("TOP", promptTitle, "BOTTOM", 0, -4)
+    MainMenu:ApplyFont(promptSub, CFG.Fonts.subFontFile, 12)
+    promptSub:SetText("|cffaaaaaaNavegue com [D-Pad] ou [LT]/[RT] e selecione uma categoria do grimório|r")
+    catScreen.promptSub = promptSub
+
+    -- 2.3. Container dos Cards de Categoria
+    local catContainer = CreateFrame("Frame", "ConsoleModeMM_SpellsCatContainer", catScreen)
+    catContainer:SetPoint("CENTER", catScreen, "CENTER", 0, -10)
+    catScreen.catContainer = catContainer
+
+    -- 3. Tela 2: Visualização da Grade de Magias da Categoria (Screen 2)
+    local gridScreen = CreateFrame("Frame", "ConsoleModeMM_SpellsGridScreen", pageSpells)
+    gridScreen:SetPoint("TOPLEFT", pageSpells, "TOPLEFT", 0, 0)
+    gridScreen:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 0)
+    gridScreen:Hide()
+    pageSpells.gridScreen = gridScreen
+
+    -- 3.1. Barra de Cabeçalho / Abas do Grimório com [LT] e [RT]
+    local headerBar = CreateFrame("Frame", "ConsoleModeMM_SpellsHeader", gridScreen)
     headerBar:SetHeight(32)
     local headerMarginX = 24
-    headerBar:SetPoint("TOPLEFT", pageSpells, "TOPLEFT", 0, 0)
-    headerBar:SetPoint("TOPRIGHT", pageSpells, "TOPRIGHT", -headerMarginX, 0)
+    headerBar:SetPoint("TOPLEFT", gridScreen, "TOPLEFT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", gridScreen, "TOPRIGHT", -headerMarginX, 0)
 
-    -- Indicador RT à direita
     local r2Hint = headerBar:CreateTexture(nil, "OVERLAY")
     r2Hint:SetWidth(20)
     r2Hint:SetHeight(20)
@@ -4312,22 +4377,41 @@ function MainMenu:SetupSpellsPage(pageSpells)
     pageSpells.headerBar = headerBar
     pageSpells.currentTabIdx = 1
 
-    -- 2. Painel Fixo de Detalhes da Magia (base)
-    local detailCard = self:CreateDetailCard(pageSpells)
-    pageSpells.detailCard = detailCard
-
-    -- 3. Navegação de Páginas do Grimório
-    local pageNav = CreateFrame("Frame", "ConsoleModeMM_SpellsPageNav", pageSpells)
-    pageNav:SetHeight(26)
-    pageNav:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 4)
-    pageNav:SetPoint("LEFT", detailCard, "RIGHT", -120, 0)
-
+    -- 3.2. Rodapé da Tela 2: Botão [B] Voltar e Dicas
+    local backBtn = CreateFrame("Button", "ConsoleModeMM_SpellsBackBtn", gridScreen)
+    backBtn:SetWidth(85)
+    backBtn:SetHeight(24)
+    backBtn:SetPoint("BOTTOMLEFT", gridScreen, "BOTTOMLEFT", 0, 4)
     local btnBackdrop = {
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile     = true, tileSize = 8, edgeSize = 8,
         insets   = { left = 1, right = 1, top = 1, bottom = 1 }
     }
+    backBtn:SetBackdrop(btnBackdrop)
+    backBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    backBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local backTxt = backBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    backTxt:SetPoint("CENTER", backBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(backTxt, CFG.Fonts.headerFontFile, 12)
+    backTxt:SetText("|cffe09a15[B] Voltar|r")
+    backBtn:SetScript("OnClick", function()
+        MainMenu:HandleSpellsBack()
+    end)
+    gridScreen.backBtn = backBtn
+
+    local gridFooterHint = gridScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    gridFooterHint:SetPoint("LEFT", backBtn, "RIGHT", 14, 0)
+    MainMenu:ApplyFont(gridFooterHint, CFG.Fonts.subFontFile, 11)
+    gridFooterHint:SetText("|cff888888[D-Pad] Navegar  •  [A] Lançar Magia  •  [B] Voltar|r")
+    gridScreen.footerHint = gridFooterHint
+
+    -- 3.3. Navegação de Páginas do Grimório
+    local pageNav = CreateFrame("Frame", "ConsoleModeMM_SpellsPageNav", gridScreen)
+    pageNav:SetHeight(26)
+    pageNav:SetPoint("BOTTOMRIGHT", gridScreen, "BOTTOMRIGHT", 0, 4)
+    pageNav:SetWidth(120)
 
     local prevPageBtn = CreateFrame("Button", nil, pageNav)
     prevPageBtn:SetWidth(24)
@@ -4372,12 +4456,12 @@ function MainMenu:SetupSpellsPage(pageSpells)
     pageSpells.nextPageBtn = nextPageBtn
     pageSpells.pageNav = pageNav
 
--- 4. Container e Grid 2D de Slots de Magias
-    local gridContainer = CreateFrame("Frame", "ConsoleModeMM_SpellsGridContainer", pageSpells)
+    -- 3.4. Container e Grid 2D de Slots de Magias
+    local gridContainer = CreateFrame("Frame", "ConsoleModeMM_SpellsGridContainer", gridScreen)
     local rightMargin = CFG.Grid.marginsRight or 24
     local leftMargin = CFG.Grid.marginsLeft or 24
     gridContainer:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -8)
-    gridContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 30)
+    gridContainer:SetPoint("BOTTOMRIGHT", gridScreen, "BOTTOMRIGHT", 0, 30)
     gridContainer.marginX = leftMargin
     gridContainer.marginRight = rightMargin
 
@@ -4397,7 +4481,6 @@ function MainMenu:SetupSpellsPage(pageSpells)
 
     grid.onSlotClicked = function(slotIndex, spellData)
         if CursorHasItem() or CursorHasSpell() then
-            -- Se já tiver algo no cursor, solta
             ClearCursor()
         elseif spellData and spellData.spellIndex then
             CastSpell(spellData.spellIndex, spellData.bookType or "spell")
@@ -4405,7 +4488,329 @@ function MainMenu:SetupSpellsPage(pageSpells)
         end
     end
 
+    pageSpells.activeScreen = 1
+    pageSpells.focusedCatIdx = 1
     pageSpells.isInitialized = true
+end
+
+function MainMenu:UpdateSpellCategories()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells or not pageSpells.catScreen then return end
+
+    local scanResult = self:ScanSpellbook(1)
+    local tabs = scanResult.tabs
+    local numTabs = table.getn(tabs)
+    if numTabs < 1 then numTabs = 1 end
+
+    local totalSpells = 0
+    for _, tabData in ipairs(tabs) do
+        totalSpells = totalSpells + (tabData.numSpells or 0)
+    end
+    if pageSpells.totalSpellsText then
+        pageSpells.totalSpellsText:SetText(string.format("|cffaaaaaaTotal de Magias: |cffffffff%d|r", totalSpells))
+    end
+
+    local catContainer = pageSpells.catScreen.catContainer
+    if not catContainer then return end
+
+    local gap = 12
+    if numTabs >= 5 then gap = 8 elseif numTabs <= 2 then gap = 20 end
+    local maxTotalW = 470
+    local cardW = math.floor((maxTotalW - ((numTabs - 1) * gap)) / numTabs)
+    if cardW > 140 then cardW = 140 end
+    if cardW < 88 then cardW = 88 end
+    local totalW = (numTabs * cardW) + ((numTabs - 1) * gap)
+    local cardH = 180
+    local imgH = 105
+
+    catContainer:SetWidth(totalW)
+    catContainer:SetHeight(cardH)
+
+    if not pageSpells.catButtons then pageSpells.catButtons = {} end
+
+    for i = 1, 5 do
+        local btn = pageSpells.catButtons[i]
+        if i <= numTabs then
+            local tabData = tabs[i]
+            if not btn then
+                btn = CreateFrame("Button", "ConsoleModeMM_SpellCatBtn" .. i, catContainer)
+                btn.catIndex = i
+
+                -- Backdrop do card
+                btn:SetBackdrop({
+                    bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                    tile     = true, tileSize = 16, edgeSize = 12,
+                    insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+                })
+                btn:SetBackdropColor(CFG.Talents.cardBgColor.r, CFG.Talents.cardBgColor.g, CFG.Talents.cardBgColor.b, CFG.Talents.cardBgColor.a)
+                btn:SetBackdropBorderColor(CFG.Talents.Colors.inactiveBorder.r, CFG.Talents.Colors.inactiveBorder.g, CFG.Talents.Colors.inactiveBorder.b, CFG.Talents.Colors.inactiveBorder.a)
+
+                -- Overlay de highlight translúcido
+                local highlight = btn:CreateTexture(nil, "BACKGROUND")
+                highlight:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                highlight:SetPoint("TOPLEFT", btn, "TOPLEFT", 2, -2)
+                highlight:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -2, 2)
+                highlight:SetVertexColor(CFG.Talents.Colors.hoverBorder.r, CFG.Talents.Colors.hoverBorder.g, CFG.Talents.Colors.hoverBorder.b, 0.12)
+                highlight:Hide()
+                btn.highlight = highlight
+
+                -- Borda de foco dourada brilhante
+                local focusBorder = CreateFrame("Frame", nil, btn)
+                focusBorder:SetPoint("TOPLEFT", btn, "TOPLEFT", -2, 2)
+                focusBorder:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", 2, -2)
+                focusBorder:SetBackdrop({
+                    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                    edgeSize = 14,
+                    insets = { left = 2, right = 2, top = 2, bottom = 2 }
+                })
+                focusBorder:SetBackdropBorderColor(CFG.Talents.Colors.activeBorder.r, CFG.Talents.Colors.activeBorder.g, CFG.Talents.Colors.activeBorder.b, CFG.Talents.Colors.activeBorder.a)
+                focusBorder:Hide()
+                btn.focusBorder = focusBorder
+
+                -- Placeholder da imagem / ícone superior
+                local imgPlaceholder = CreateFrame("Frame", nil, btn)
+                imgPlaceholder:SetPoint("TOPLEFT", btn, "TOPLEFT", 6, -6)
+                imgPlaceholder:SetPoint("TOPRIGHT", btn, "TOPRIGHT", -6, -6)
+                imgPlaceholder:SetBackdrop({
+                    bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                    tile     = true, tileSize = 8, edgeSize = 8,
+                    insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+                })
+                imgPlaceholder:SetBackdropColor(CFG.Talents.Colors.placeholderBg.r, CFG.Talents.Colors.placeholderBg.g, CFG.Talents.Colors.placeholderBg.b, CFG.Talents.Colors.placeholderBg.a)
+                imgPlaceholder:SetBackdropBorderColor(0.40, 0.35, 0.28, 0.70)
+                btn.imgPlaceholder = imgPlaceholder
+
+                -- Ícone temático da categoria
+                local catIcon = imgPlaceholder:CreateTexture(nil, "ARTWORK")
+                catIcon:SetWidth(42)
+                catIcon:SetHeight(42)
+                catIcon:SetPoint("CENTER", imgPlaceholder, "CENTER", 0, 8)
+                if catIcon.SetTexCoord then
+                    catIcon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+                end
+                btn.catIcon = catIcon
+
+                local iconBorder = CreateFrame("Frame", nil, imgPlaceholder)
+                iconBorder:SetPoint("TOPLEFT", catIcon, "TOPLEFT", -2, 2)
+                iconBorder:SetPoint("BOTTOMRIGHT", catIcon, "BOTTOMRIGHT", 2, -2)
+                iconBorder:SetBackdrop({
+                    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                    edgeSize = 8,
+                    insets = { left = 1, right = 1, top = 1, bottom = 1 }
+                })
+                iconBorder:SetBackdropBorderColor(0.70, 0.55, 0.20, 0.85)
+                btn.iconBorder = iconBorder
+
+                -- Rótulo abaixo do ícone
+                local placeholderText = imgPlaceholder:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+                placeholderText:SetPoint("BOTTOM", imgPlaceholder, "BOTTOM", 0, 6)
+                MainMenu:ApplyFont(placeholderText, CFG.Fonts.subFontFile, 10)
+                btn.placeholderText = placeholderText
+
+                -- Nome da Categoria
+                local catName = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                catName:SetPoint("TOP", imgPlaceholder, "BOTTOM", 0, -8)
+                catName:SetPoint("LEFT", btn, "LEFT", 4, 0)
+                catName:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
+                MainMenu:ApplyFont(catName, CFG.Fonts.titleFontFile, 14)
+                btn.catName = catName
+
+                -- Quantidade de magias
+                local spellsCount = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+                spellsCount:SetPoint("TOP", catName, "BOTTOM", 0, -3)
+                MainMenu:ApplyFont(spellsCount, CFG.Fonts.bodyFontFile, 12)
+                btn.spellsCount = spellsCount
+
+                btn:SetScript("OnEnter", function()
+                    MainMenu:FocusSpellCategoryButton(this.catIndex)
+                end)
+                btn:SetScript("OnClick", function()
+                    MainMenu:FocusSpellCategoryButton(this.catIndex)
+                    MainMenu:ShowSpellGridScreen(this.catIndex)
+                    if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+                end)
+
+                pageSpells.catButtons[i] = btn
+            end
+
+            btn:ClearAllPoints()
+            btn:SetWidth(cardW)
+            btn:SetHeight(cardH)
+            btn.imgPlaceholder:SetHeight(imgH)
+
+            if i == 1 then
+                btn:SetPoint("LEFT", catContainer, "LEFT", 0, 0)
+            else
+                btn:SetPoint("LEFT", pageSpells.catButtons[i - 1], "RIGHT", gap, 0)
+            end
+
+            btn.catIndex = i
+            btn.tabData = tabData
+            btn.catName:SetText(tabData.name or ("Aba " .. i))
+            btn.spellsCount:SetText(string.format("|cffe09a15%d magias|r", tabData.numSpells or 0))
+            if tabData.icon and tabData.icon ~= "" then
+                btn.catIcon:SetTexture(tabData.icon)
+            else
+                btn.catIcon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+            end
+
+            if i == 1 then
+                btn.placeholderText:SetText("|cffaaaaaa[ Geral ]|r")
+            elseif i <= 4 then
+                btn.placeholderText:SetText("|cffaaaaaa[ Especialização ]|r")
+            else
+                btn.placeholderText:SetText("|cffaaaaaa[ Ajudante ]|r")
+            end
+
+            btn:Show()
+        else
+            if btn then btn:Hide() end
+        end
+    end
+end
+
+function MainMenu:FocusSpellCategoryButton(idx)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells or not pageSpells.catButtons then return end
+
+    local numTabs = GetNumSpellTabs() or 1
+    idx = idx or 1
+    if idx < 1 then idx = 1 end
+    if idx > numTabs then idx = numTabs end
+    pageSpells.focusedCatIdx = idx
+
+    local colors = CFG.Talents.Colors
+    for i = 1, numTabs do
+        local btn = pageSpells.catButtons[i]
+        if btn then
+            if i == idx then
+                btn:SetBackdropBorderColor(colors.activeBorder.r, colors.activeBorder.g, colors.activeBorder.b, colors.activeBorder.a)
+                if btn.focusBorder then btn.focusBorder:Show() end
+                if btn.highlight then btn.highlight:Show() end
+                if btn.catName then btn.catName:SetTextColor(1.0, 0.85, 0.20) end
+            else
+                btn:SetBackdropBorderColor(colors.inactiveBorder.r, colors.inactiveBorder.g, colors.inactiveBorder.b, colors.inactiveBorder.a)
+                if btn.focusBorder then btn.focusBorder:Hide() end
+                if btn.highlight then btn.highlight:Hide() end
+                if btn.catName then btn.catName:SetTextColor(0.90, 0.90, 0.90) end
+            end
+        end
+    end
+
+    local name, icon, offset, numSpells = GetSpellTabInfo(idx)
+    name = name or ("Categoria " .. idx)
+    icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark"
+    numSpells = numSpells or 0
+
+    local locClass, engClass = UnitClass("player")
+    local desc = ""
+    if idx == 1 then
+        desc = "Habilidades gerais do personagem, ataques com armas, raciais e receitas de profissões aprendidas."
+    elseif idx <= 4 and engClass and CFG.Talents and CFG.Talents.Specs and CFG.Talents.Specs[engClass] and CFG.Talents.Specs[engClass][idx - 1] then
+        desc = CFG.Talents.Specs[engClass][idx - 1].desc
+    elseif idx == 5 then
+        desc = "Habilidades, comandos e magias específicas do seu ajudante ou lacaio."
+    else
+        desc = string.format("Grimório e habilidades da categoria %s para a classe %s.", name, locClass or "")
+    end
+
+    if pageSpells.detailCard then
+        pageSpells.detailCard.icon:SetTexture(icon)
+        pageSpells.detailCard.icon:Show()
+        pageSpells.detailCard.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
+        pageSpells.detailCard.iconBorder:Show()
+        pageSpells.detailCard.titleText:SetText(string.format("|cffe09a15Categoria: %s|r", name))
+        pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaEscola de Magia %d de %d — ConsoleMode Vanilla|r", idx, numTabs))
+        pageSpells.detailCard.descColLeft:SetWidth(380)
+        pageSpells.detailCard.descColLeft:SetText(desc)
+        pageSpells.detailCard.descColRight:SetText(string.format("|cffaaaaaaMagias aprendidas: |cffffffff%d magias|r\n\n|cffe09a15Pressione [A] para abrir grimório|r", numSpells))
+        pageSpells.detailCard.descColRight:Show()
+        if pageSpells.detailCard.slotsFreeText then
+            pageSpells.detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Grimório 1.12|r")
+        end
+        if pageSpells.detailCard.sellWidget then
+            pageSpells.detailCard.sellWidget:Hide()
+        end
+        pageSpells.detailCard:UpdateMoney()
+        pageSpells.detailCard:Show()
+    end
+
+    self:TriggerSpellPose(0)
+end
+
+function MainMenu:ShowSpellCategoryScreen()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells then return end
+
+    self:SetupSpellsPage(pageSpells)
+    pageSpells.activeScreen = 1
+
+    if pageSpells.gridScreen then
+        pageSpells.gridScreen:Hide()
+    end
+    if pageSpells.catScreen then
+        pageSpells.catScreen:Show()
+    end
+
+    self:UpdateSpellCategories()
+    local curFocus = pageSpells.focusedCatIdx or pageSpells.currentTabIdx or 1
+    self:FocusSpellCategoryButton(curFocus)
+
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageSpells.catButtons and pageSpells.catButtons[curFocus] then
+        ConsoleMode.cursor:MoveTo(pageSpells.catButtons[curFocus])
+        ConsoleMode.cursor:UpdateState()
+    end
+end
+
+function MainMenu:ShowSpellGridScreen(tabIdx)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells then return end
+
+    self:SetupSpellsPage(pageSpells)
+
+    tabIdx = tabIdx or pageSpells.focusedCatIdx or pageSpells.currentTabIdx or 1
+    local numTabs = GetNumSpellTabs() or 1
+    if tabIdx < 1 then tabIdx = 1 end
+    if tabIdx > numTabs then tabIdx = numTabs end
+    pageSpells.currentTabIdx = tabIdx
+    pageSpells.activeScreen = 2
+
+    if pageSpells.catScreen then
+        pageSpells.catScreen:Hide()
+    end
+    if pageSpells.gridScreen then
+        pageSpells.gridScreen:Show()
+    end
+
+    self:UpdateSpellsPage(false)
+
+    -- Move cursor para o primeiro slot visível da grade
+    if pageSpells.grid and pageSpells.grid.slots and pageSpells.grid.slots[1] then
+        pageSpells.grid:SelectSlot(1)
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo then
+            ConsoleMode.cursor:MoveTo(pageSpells.grid.slots[1])
+            ConsoleMode.cursor:UpdateState()
+        end
+    end
+end
+
+function MainMenu:HandleSpellsBack()
+    if not self.tabContainer or not self.tabContainer.pages then return false end
+    local pageSpells = self.tabContainer.pages["SPELLS"]
+    if not pageSpells or not pageSpells:IsVisible() then return false end
+
+    if pageSpells.activeScreen == 2 then
+        self:ShowSpellCategoryScreen()
+        if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        return true
+    end
+    return false
 end
 
 function MainMenu:UpdateSpellsPage(keepPage)
@@ -4414,6 +4819,13 @@ function MainMenu:UpdateSpellsPage(keepPage)
     if not pageSpells then return end
 
     self:SetupSpellsPage(pageSpells)
+
+    if pageSpells.activeScreen == 1 then
+        self:UpdateSpellCategories()
+        local curFocus = (keepPage and pageSpells.focusedCatIdx) or pageSpells.focusedCatIdx or 1
+        self:FocusSpellCategoryButton(curFocus)
+        return
+    end
 
     local curTabIdx = pageSpells.currentTabIdx or 1
     local scanResult = self:ScanSpellbook(curTabIdx)
@@ -4560,7 +4972,11 @@ function MainMenu:SelectSpellTab(tabIdx)
     if not pageSpells then return end
     pageSpells.currentTabIdx = tabIdx
     pageSpells.currentPage = 1
-    self:UpdateSpellsPage(false)
+    if pageSpells.activeScreen == 2 then
+        self:UpdateSpellsPage(false)
+    else
+        self:ShowSpellGridScreen(tabIdx)
+    end
     if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
 end
 
@@ -10330,12 +10746,27 @@ function MainMenu:CycleCategories(direction)
 
         direction = direction or 1
         local numTabs = GetNumSpellTabs() or 1
-        local curIdx = pageSpells.currentTabIdx or 1
-        local nextIdx = curIdx + direction
-        if nextIdx > numTabs then nextIdx = 1 end
-        if nextIdx < 1 then nextIdx = numTabs end
+        if pageSpells.activeScreen == 1 then
+            local curIdx = pageSpells.focusedCatIdx or 1
+            local nextIdx = curIdx + direction
+            if nextIdx > numTabs then nextIdx = 1 end
+            if nextIdx < 1 then nextIdx = numTabs end
+            self:FocusSpellCategoryButton(nextIdx)
+            if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageSpells.catButtons and pageSpells.catButtons[nextIdx] then
+                ConsoleMode.cursor:MoveTo(pageSpells.catButtons[nextIdx])
+                ConsoleMode.cursor:UpdateState()
+            end
+        else
+            local curIdx = pageSpells.currentTabIdx or 1
+            local nextIdx = curIdx + direction
+            if nextIdx > numTabs then nextIdx = 1 end
+            if nextIdx < 1 then nextIdx = numTabs end
+            self:SelectSpellTab(nextIdx)
+        end
 
-        self:SelectSpellTab(nextIdx)
+        if CFG.Audio.soundItemSelect then
+            PlaySound(CFG.Audio.soundItemSelect)
+        end
         return true
 
     elseif curTab == "TALENTS" then

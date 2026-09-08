@@ -2,10 +2,10 @@
     ConsoleMode - Vanilla
     UI/MacroPicker.lua
 
-    Módulo auxiliar: leitura de Macros (Gerais da Conta e do Personagem)
-    e aplicação do binding macro↓slot↓tecla.
+    MÃ³dulo auxiliar: leitura de Macros (Gerais da Conta e do Personagem)
+    e aplicaÃ§Ã£o do binding macroâslotâtecla.
 
-    Compat�vel com Lua 5.0 / WoW1 1.12
+    Compatè­vel com Lua 5.0 / WoW1 1.12
 ]]
 
 local CM = ConsoleMode
@@ -17,7 +17,7 @@ local MP = CM.config.macroPicker
 -- LEITURA DE MACROS
 -- ==========================================================================
 
--- Retorna a lista de macros gerais da conta índices 1 a 18 no WoW 1.12
+-- Retorna a lista de macros gerais da conta Ã­ndices 1 a 18 no WoW 1.12
 function MP:GetAccountMacros()
     local macros = {}
     for i = 1, 18 do
@@ -35,7 +35,7 @@ function MP:GetAccountMacros()
     return macros
 end
 
--- Retorna a lista de macros específicas do personagem índices 19 a 36 no WoW 1.12
+-- Retorna a lista de macros especÃ­ficas do personagem Ã­ndices 19 a 36 no WoW 1.12
 function MP:GetCharacterMacros()
     local macros = {}
     for i = 19, 36 do
@@ -106,9 +106,18 @@ function MP:ApplyMacroBinding(page, btnKey, comboName, macro)
         KB.savedNavBindings[physKey] = bindingAction
     end
 
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mm and mm.RestoreModelRotationBindings then
+        mm:RestoreModelRotationBindings()
+    end
+
     local set = GetCurrentBindingSet()
     if not set or set == 0 then set = 1 end
     pcall(function() SaveBindings(set) end)
+
+    if mm and mm.frame and mm.frame:IsVisible() and mm.ApplyModelRotationBindings then
+        mm:ApplyModelRotationBindings()
+    end
 
     if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
         local d1 = KB.defaults[1]

@@ -213,9 +213,18 @@ function SBP:ApplySpellBinding(page, btnKey, comboName, spell)
         KB.savedNavBindings[physKey] = bindingAction
     end
 
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mm and mm.RestoreModelRotationBindings then
+        mm:RestoreModelRotationBindings()
+    end
+
     local set = GetCurrentBindingSet()
     if not set or set == 0 then set = 1 end
     pcall(function() SaveBindings(set) end)
+
+    if mm and mm.frame and mm.frame:IsVisible() and mm.ApplyModelRotationBindings then
+        mm:ApplyModelRotationBindings()
+    end
 
     if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
         local d1 = KB.defaults[1]

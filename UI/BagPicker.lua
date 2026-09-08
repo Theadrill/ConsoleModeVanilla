@@ -2,13 +2,13 @@
     ConsoleMode - Vanilla
     UI/BagPicker.lua
 
-    Módulo auxiliar: leitura das bags do player, filtro de itens usáveis
-    e aplicação do binding item→slot→tecla.
+    MÃ³dulo auxiliar: leitura das bags do player, filtro de itens usÃ¡veis
+    e aplicaÃ§Ã£o do binding itemâslotâtecla.
 
-    A UI é gerida pelo ActionBarPicker (modo "BAG") para evitar sobreposição
-    de frames. Este arquivo só expõe lógica.
+    A UI Ã© gerida pelo ActionBarPicker (modo "BAG") para evitar sobreposiÃ§Ã£o
+    de frames. Este arquivo sÃ³ expÃµe lÃ³gica.
 
-    Compatível com Lua 5.0 / WoW 1.12
+    CompatÃ­vel com Lua 5.0 / WoW 1.12
 ]]
 
 local CM = ConsoleMode
@@ -19,7 +19,7 @@ local BP = CM.config.bagPicker
 -- IDs das bags: 0 = mochila principal, 1-4 = bags equipadas
 BP.BAG_IDS = { 0, 1, 2, 3, 4 }
 
--- Scanner tooltip invisível para ler texto de itens
+-- Scanner tooltip invisÃ­vel para ler texto de itens
 local scanTooltip = CreateFrame("GameTooltip", "ConsoleModeBagScanTooltip", nil, "GameTooltipTemplate")
 scanTooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
 
@@ -27,25 +27,25 @@ scanTooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
 BP.USABLE_TYPES = {
     ["consumable"]      = true,
     ["consumables"]     = true,
-    ["consumível"]      = true,
-    ["consumíveis"]     = true,
+    ["consumÃ­vel"]      = true,
+    ["consumÃ­veis"]     = true,
     ["quest"]           = true,
-    ["missão"]          = true,
+    ["missÃ£o"]          = true,
     ["key"]             = true,
     ["chave"]           = true,
     ["miscellaneous"]   = true,
     ["diversos"]        = true,
 }
 
--- Sub-tipos de Consumable ou Miscellaneous que são usáveis
+-- Sub-tipos de Consumable ou Miscellaneous que sÃ£o usÃ¡veis
 BP.USABLE_SUBTYPES = {
     ["food & drink"]      = true,
     ["food and drink"]    = true,
     ["comida e bebida"]   = true,
     ["potion"]            = true,
-    ["poção"]             = true,
+    ["poÃ§Ã£o"]             = true,
     ["potions"]           = true,
-    ["poções"]            = true,
+    ["poÃ§Ãµes"]            = true,
     ["elixir"]            = true,
     ["flask"]             = true,
     ["frasco"]            = true,
@@ -71,12 +71,12 @@ BP.USABLE_SUBTYPES = {
     ["holiday"]           = true,
 }
 
--- Itens excluídos de aparecer no bind
+-- Itens excluÃ­dos de aparecer no bind
 BP.EXCLUDED_SUBTYPES = {
     ["arrow"]             = true,
     ["flecha"]            = true,
     ["bullet"]            = true,
-    ["projétil"]          = true,
+    ["projÃ©til"]          = true,
     ["projectile"]        = true,
     ["soul shard"]        = true,
 }
@@ -106,7 +106,7 @@ function BP:HasUseEffectInTooltip(bagID, slotID)
             -- Efeitos de uso comuns
             if string.find(textLower, "^use:") or string.find(textLower, "^uso:")
                or string.find(textLower, "^equip:") or string.find(textLower, "^equipar:")
-               or string.find(textLower, "right click to") or string.find(textLower, "botão direito")
+               or string.find(textLower, "right click to") or string.find(textLower, "botÃ£o direito")
                or string.find(textLower, "cooldown") or string.find(textLower, "recarga")
                or string.find(textLower, "restores") or string.find(textLower, "restaura")
                or string.find(textLower, "increases") or string.find(textLower, "aumenta")
@@ -119,7 +119,7 @@ function BP:HasUseEffectInTooltip(bagID, slotID)
     return false
 end
 
--- Verifica se um item (pelo seu itemLink) é usável e deve aparecer na lista.
+-- Verifica se um item (pelo seu itemLink) Ã© usÃ¡vel e deve aparecer na lista.
 -- Retorna true/false.
 function BP:IsUsableItem(itemLink, bagID, slotID, readable)
     if not itemLink then return false end
@@ -128,10 +128,10 @@ function BP:IsUsableItem(itemLink, bagID, slotID, readable)
     local _, _, itemIDStr = string.find(itemLink, "item:(%d+)")
     local itemID = tonumber(itemIDStr)
 
-    -- Hearthstone (Pedra de Regresso) é sempre usável (itemID 6948)
+    -- Hearthstone (Pedra de Regresso) Ã© sempre usÃ¡vel (itemID 6948)
     if itemID == 6948 then return true end
 
-    -- Fragmento de Alma (Soul Shard) não deve ser bindado diretamente (itemID 6265)
+    -- Fragmento de Alma (Soul Shard) nÃ£o deve ser bindado diretamente (itemID 6265)
     if itemID == 6265 then return false end
 
     -- 2. Leitura via GetItemInfo
@@ -142,17 +142,17 @@ function BP:IsUsableItem(itemLink, bagID, slotID, readable)
     local typeLower = string.lower(itemType or "")
     local subLower  = string.lower(itemSubType or "")
 
-    -- Se for projétil/flecha/bala, ignora
+    -- Se for projÃ©til/flecha/bala, ignora
     if typeLower == "projectile" or self.EXCLUDED_SUBTYPES[subLower] then
         return false
     end
 
-    -- Se for consumível por tipo principal
-    if typeLower == "consumable" or typeLower == "consumables" or typeLower == "consumível" or typeLower == "consumíveis" then
+    -- Se for consumÃ­vel por tipo principal
+    if typeLower == "consumable" or typeLower == "consumables" or typeLower == "consumÃ­vel" or typeLower == "consumÃ­veis" then
         return true
     end
 
-    -- Se o subtipo for explicitamente de consumível/utilitário
+    -- Se o subtipo for explicitamente de consumÃ­vel/utilitÃ¡rio
     if self.USABLE_SUBTYPES[subLower] then
         -- Se for Junk ou Other, confirma se tem efeito de uso no tooltip
         if subLower == "junk" or subLower == "lixo" or subLower == "other" or subLower == "outro" or subLower == "outros" then
@@ -165,19 +165,19 @@ function BP:IsUsableItem(itemLink, bagID, slotID, readable)
         return true
     end
 
-    -- Se for equipável (armas, armaduras, berloques/trinkets, ferramentas)
+    -- Se for equipÃ¡vel (armas, armaduras, berloques/trinkets, ferramentas)
     if itemEquipLoc and itemEquipLoc ~= "" and itemEquipLoc ~= "INVTYPE_NON_EQUIP" then
         return true
     end
 
     -- Se for item de Quest ou Chave
-    if typeLower == "quest" or typeLower == "missão" or typeLower == "key" or typeLower == "chave" then
+    if typeLower == "quest" or typeLower == "missÃ£o" or typeLower == "key" or typeLower == "chave" then
         if self:HasUseEffectInTooltip(bagID, slotID) or readable then
             return true
         end
     end
 
-    -- 3. Verificação definitiva via Tooltip (para itens customizados de servidor privado, etc.)
+    -- 3. VerificaÃ§Ã£o definitiva via Tooltip (para itens customizados de servidor privado, etc.)
     if self:HasUseEffectInTooltip(bagID, slotID) then
         return true
     end
@@ -189,7 +189,7 @@ function BP:IsUsableItem(itemLink, bagID, slotID, readable)
     return false
 end
 
--- Varre todas as bags e retorna lista de itens usáveis:
+-- Varre todas as bags e retorna lista de itens usÃ¡veis:
 -- { name, icon, count, quality, bagID, slotID, itemLink }
 function BP:GetUsableItems()
     local items = {}
@@ -241,7 +241,7 @@ end
 -- ============================================================================
 
 function BP:ApplyItemBinding(page, btnKey, comboName, item)
-    -- Reutiliza o SBP para resolução de slot (mesma lógica)
+    -- Reutiliza o SBP para resoluÃ§Ã£o de slot (mesma lÃ³gica)
     local SBP = CM.config and CM.config.spellbookPicker
     if not SBP then
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro interno: SBP nao encontrado!")
@@ -290,9 +290,18 @@ function BP:ApplyItemBinding(page, btnKey, comboName, item)
         KB.savedNavBindings[physKey] = bindingAction
     end
 
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mm and mm.RestoreModelRotationBindings then
+        mm:RestoreModelRotationBindings()
+    end
+
     local set = GetCurrentBindingSet()
     if not set or set == 0 then set = 1 end
     pcall(function() SaveBindings(set) end)
+
+    if mm and mm.frame and mm.frame:IsVisible() and mm.ApplyModelRotationBindings then
+        mm:ApplyModelRotationBindings()
+    end
 
     if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
         local d1 = KB.defaults[1]

@@ -11381,9 +11381,17 @@ function MainMenu:ClearBinding(page, btnKey)
             end
         end
 
+        if self.RestoreModelRotationBindings then
+            self:RestoreModelRotationBindings()
+        end
+
         local set = GetCurrentBindingSet()
         if not set or set == 0 then set = 1 end
         pcall(function() SaveBindings(set) end)
+
+        if self.frame and self.frame:IsVisible() and self.ApplyModelRotationBindings then
+            self:ApplyModelRotationBindings()
+        end
     end
 
     -- 4. Atualiza ActionHUD imediatamente
@@ -11946,9 +11954,17 @@ function MainMenu:OnPickerSlotClick(slotBtn)
                 KB.savedNavBindings[physKey] = bindingAction
             end
 
+            if self.RestoreModelRotationBindings then
+                self:RestoreModelRotationBindings()
+            end
+
             local set = GetCurrentBindingSet()
             if not set or set == 0 then set = 1 end
             pcall(function() SaveBindings(set) end)
+
+            if self.frame and self.frame:IsVisible() and self.ApplyModelRotationBindings then
+                self:ApplyModelRotationBindings()
+            end
 
             if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
                 local d1 = KB.defaults[1]
@@ -12616,11 +12632,34 @@ function MainMenu:ApplyModelRotationBindings()
 end
 
 function MainMenu:RestoreModelRotationBindings()
-    if not self.savedMoveBindings then return end
-    for key, action in pairs(self.savedMoveBindings) do
-        SetBinding(key, action)
+    if self.savedMoveBindings then
+        for key, action in pairs(self.savedMoveBindings) do
+            if action and action ~= "" and not string.find(action, "^CM_MODEL_") then
+                SetBinding(key, action)
+            else
+                SetBinding(key, nil)
+            end
+        end
+        self.savedMoveBindings = nil
     end
-    self.savedMoveBindings = nil
+
+    -- Garante que A e D nunca fiquem corrompidos em CM_MODEL_ROTATE_*
+    local actA = GetBindingAction("A")
+    if not actA or actA == "" or string.find(actA, "^CM_MODEL_") then
+        SetBinding("A", "STRAFELEFT")
+    end
+    local actD = GetBindingAction("D")
+    if not actD or actD == "" or string.find(actD, "^CM_MODEL_") then
+        SetBinding("D", "STRAFERIGHT")
+    end
+    local actW = GetBindingAction("W")
+    if not actW or actW == "" then
+        SetBinding("W", "MOVEFORWARD")
+    end
+    local actS = GetBindingAction("S")
+    if not actS or actS == "" then
+        SetBinding("S", "MOVEBACKWARD")
+    end
 end
 
 -- ============================================================================

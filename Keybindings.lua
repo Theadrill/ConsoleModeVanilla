@@ -181,9 +181,34 @@ function KB:Initialize()
     SetBinding("ALT-M", "CM_UI_TALENTS")         -- R2 + Select (Talentos)
     SetBinding("ALT-F11", "CM_UI_SPELLBOOK")     -- R2 + Start (Livro de Magias)
     
-    -- Smart Mouse Look Companion (acionado pelo Steam Input ao mover WASD)
+    -- Smart Mouse Look Companion (acionado pelo Steam Input ao mover WASD) com e sem modificadores
     SetBinding("F9", "CM_MOUSELOOK_START")
+    SetBinding("SHIFT-F9", "CM_MOUSELOOK_START")
+    SetBinding("ALT-F9", "CM_MOUSELOOK_START")
+    SetBinding("CTRL-F9", "CM_MOUSELOOK_START")
+    SetBinding("ALT-SHIFT-F9", "CM_MOUSELOOK_START")
     
+    -- Garante movimento primário de controle (Analógico Esquerdo = WASD):
+    -- A e D configurados para STRAFELEFT e STRAFERIGHT para movimentação lateral fluida
+    SetBinding("W", "MOVEFORWARD")
+    SetBinding("S", "MOVEBACKWARD")
+    SetBinding("A", "STRAFELEFT")
+    SetBinding("D", "STRAFERIGHT")
+
+    -- Permite andar e strafar livremente mesmo segurando modificadores (L2=SHIFT, R2=ALT, R1=CTRL, L2+R2=ALT-SHIFT)
+    local moveKeys = {
+        { key = "W", action = "MOVEFORWARD" },
+        { key = "S", action = "MOVEBACKWARD" },
+        { key = "A", action = "STRAFELEFT" },
+        { key = "D", action = "STRAFERIGHT" },
+    }
+    local modifiers = { "SHIFT-", "ALT-", "CTRL-", "ALT-SHIFT-" }
+    for _, mk in ipairs(moveKeys) do
+        for _, mod in ipairs(modifiers) do
+            SetBinding(mod .. mk.key, mk.action)
+        end
+    end
+
     -- Vincula TAB ao Smart Tab inteligente (L1: Aba Anterior em menus / Target em combate)
     SetBinding("TAB", "CM_SMART_TAB")
     
@@ -199,16 +224,16 @@ function KB:Initialize()
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Interact DLL detectada! |cffffcc00R2 + A|r vinculado para Interagir.")
     end
 
-    -- Sanitização e cura automática de bindings corrompidos (ex: D-Pad preso em CM_CURSOR ou CM_ACTION)
+    -- Sanitização e cura automática de bindings corrompidos (ex: D-Pad preso em CM_CURSOR ou CM_ACTION, ou A/D presos em CM_MODEL_)
     KB:SanitizeBindings()
     
     CM.logger:Log("Atalhos de Interface e Smart TAB inicializados.")
 end
 
 -- ============================================================
--- Sanitização: Cura automática de bindings do D-Pad / Face Buttons
--- Se por qualquer motivo (crash, reload no menu) as teclas ficarem com CM_CURSOR_* ou CM_ACTION_*,
--- esta rotina restaura os slots de ação padrão sem perder nada.
+-- Sanitização: Cura automática de bindings do D-Pad / Face Buttons / Movimento
+-- Se por qualquer motivo (crash, reload no menu) as teclas ficarem corrompidas,
+-- esta rotina restaura os slots de ação e movimento padrão sem perder nada.
 -- ============================================================
 function KB:SanitizeBindings()
     local d1 = defaults[1]
@@ -235,11 +260,56 @@ function KB:SanitizeBindings()
         end
     end
 
+    -- Sanitização de teclas de movimento (WASD) - cura A/D se estiverem presas em CM_MODEL_ROTATE_* ou vazias
+    local moveFixMap = {
+        ["W"] = "MOVEFORWARD",
+        ["S"] = "MOVEBACKWARD",
+        ["A"] = "STRAFELEFT",
+        ["D"] = "STRAFERIGHT",
+    }
+    for key, expectedAction in pairs(moveFixMap) do
+        local currentAction = GetBindingAction(key)
+        if not currentAction or currentAction == "" or string.find(currentAction, "^CM_MODEL_") or string.find(currentAction, "^CM_MAP_") or currentAction == "TURNLEFT" or currentAction == "TURNRIGHT" then
+            SetBinding(key, expectedAction)
+            repaired = true
+            CM.logger:Log("SanitizeBindings: reparou movimento " .. key .. " -> " .. expectedAction)
+        end
+    end
+
+    -- Garante que movimento com modificadores (L2, R2, R1) esteja vinculado
+    local moveKeys = {
+        { key = "W", action = "MOVEFORWARD" },
+        { key = "S", action = "MOVEBACKWARD" },
+        { key = "A", action = "STRAFELEFT" },
+        { key = "D", action = "STRAFERIGHT" },
+    }
+    local modifiers = { "SHIFT-", "ALT-", "CTRL-", "ALT-SHIFT-" }
+    for _, mk in ipairs(moveKeys) do
+        for _, mod in ipairs(modifiers) do
+            local k = mod .. mk.key
+            local act = GetBindingAction(k)
+            if not act or act == "" then
+                SetBinding(k, mk.action)
+                repaired = true
+            end
+        end
+    end
+
+    -- Garante que F9 com modificadores esteja vinculado a CM_MOUSELOOK_START
+    local f9Mods = { "F9", "SHIFT-F9", "ALT-F9", "CTRL-F9", "ALT-SHIFT-F9" }
+    for _, k in ipairs(f9Mods) do
+        local act = GetBindingAction(k)
+        if not act or act == "" or act == "SHAPESHIFTBUTTON9" then
+            SetBinding(k, "CM_MOUSELOOK_START")
+            repaired = true
+        end
+    end
+
     if repaired then
         local set = GetCurrentBindingSet()
         if not set or set == 0 then set = 1 end
         pcall(function() SaveBindings(set) end)
-        CM.logger:Log("SanitizeBindings: bindings de combate restaurados e gravados com sucesso.")
+        CM.logger:Log("SanitizeBindings: bindings de combate e movimento restaurados e gravados com sucesso.")
     end
 end
 

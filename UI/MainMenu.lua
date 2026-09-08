@@ -3589,9 +3589,12 @@ function MainMenu:ParseItemData(bagID, slotID)
         if leftText ~= "" then
             if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
                 local full = leftText .. " " .. rightText
-                local g = tonumber(string.match(full, "(%d+)%s*g")) or 0
-                local s = tonumber(string.match(full, "(%d+)%s*s")) or 0
-                local c = tonumber(string.match(full, "(%d+)%s*c")) or 0
+                local _, _, gStr = string.find(full, "(%d+)%s*g")
+                local _, _, sStr = string.find(full, "(%d+)%s*s")
+                local _, _, cStr = string.find(full, "(%d+)%s*c")
+                local g = tonumber(gStr) or 0
+                local s = tonumber(sStr) or 0
+                local c = tonumber(cStr) or 0
                 if (g + s + c) > 0 then
                     sellPrice = (g * 10000) + (s * 100) + c
                 end
@@ -6643,6 +6646,8 @@ end
 
 function MainMenu:CreateQuestListButton(parent, idx)
     local btn = CreateFrame("Button", "ConsoleModeMM_QuestBtn" .. idx, parent)
+    btn.isQuestListBtn = true
+    btn.slotIdx = idx
     btn:SetHeight(24)
     btn:SetWidth(272)
     btn:SetFrameLevel(parent:GetFrameLevel() + 2)
@@ -6823,8 +6828,10 @@ function MainMenu:UpdateQuestsPage()
         end
     end
 
+    questPanel.entries = entries
     local totalItems = table.getn(entries)
     local maxVisible = 10
+    questPanel.maxVisible = maxVisible
     local offset = questPanel.questOffset or 0
     if offset > math.max(0, totalItems - maxVisible) then
         offset = math.max(0, totalItems - maxVisible)
@@ -6846,6 +6853,8 @@ function MainMenu:UpdateQuestsPage()
             btn = MainMenu:CreateQuestListButton(questPanel.listContainer, slot)
             questButtons[slot] = btn
         end
+        btn.isQuestListBtn = true
+        btn.slotIdx = slot
 
         if itemData then
             btn:ClearAllPoints()
@@ -8315,15 +8324,41 @@ function MainMenu:NavigateQuest(delta)
     if targetIndex then
         local maxVisible = 10
         local curOffset = questPanel.questOffset or 0
-        if nextPos <= curOffset then
-            questPanel.questOffset = math.max(0, nextPos - 1)
-        elseif nextPos > curOffset + maxVisible then
-            questPanel.questOffset = nextPos - maxVisible
+        local entryIdx = nil
+        if questPanel.entries then
+            for i, ent in ipairs(questPanel.entries) do
+                if ent.index == targetIndex then
+                    entryIdx = i
+                    break
+                end
+            end
+        end
+        if not entryIdx then entryIdx = nextPos end
+
+        if entryIdx <= curOffset then
+            questPanel.questOffset = math.max(0, entryIdx - 1)
+        elseif entryIdx > curOffset + maxVisible then
+            questPanel.questOffset = entryIdx - maxVisible
         end
 
         self:SelectQuest(targetIndex, false)
         self:UpdateQuestsPage()
         if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.state and ConsoleMode.cursor.state.enabled then
+            local curBtn = ConsoleMode.cursor.state.currentButton
+            if curBtn and (curBtn.isQuestListBtn or string.find(curBtn:GetName() or "", "^ConsoleModeMM_QuestBtn%d+$")) then
+                if questPanel.questButtons then
+                    for slot = 1, maxVisible do
+                        local btn = questPanel.questButtons[slot]
+                        if btn and btn:IsVisible() and btn.questLogIndex == targetIndex then
+                            ConsoleMode.cursor:MoveTo(btn)
+                            break
+                        end
+                    end
+                end
+            end
+        end
     end
 end
 

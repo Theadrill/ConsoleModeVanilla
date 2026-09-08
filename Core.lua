@@ -8,6 +8,18 @@
 
 _G = getfenv(0)
 
+-- Polyfill para string.match no Lua 5.0 (WoW 1.12 / Vanilla)
+if not string.match then
+    string.match = function(str, pattern, init)
+        if not str then return nil end
+        local _, _, c1, c2, c3, c4, c5 = string.find(str, pattern, init)
+        if c1 ~= nil then return c1, c2, c3, c4, c5 end
+        local s, e = string.find(str, pattern, init)
+        if s then return string.sub(str, s, e) end
+        return nil
+    end
+end
+
 -- Frame principal global do Addon (funciona como namespace e frame de eventos)
 ConsoleMode = CreateFrame("Frame", "ConsoleModeMainFrame", UIParent)
 ConsoleMode.version = "0.1.0"

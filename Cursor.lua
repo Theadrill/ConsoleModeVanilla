@@ -575,6 +575,29 @@ function Cursor:FindFirstVisibleButton(frame)
                     end
                 end
             end
+            if curTab == "QUESTS" and activePage then
+                local qp = activePage.questPanel
+                if qp and qp.questButtons then
+                    local sel = qp.selectedQuestIndex
+                    if sel then
+                        for slot = 1, 10 do
+                            local btn = qp.questButtons[slot]
+                            if btn and btn:IsVisible() and btn:IsEnabled() and btn.questLogIndex == sel then
+                                return btn
+                            end
+                        end
+                    end
+                    for slot = 1, 10 do
+                        local btn = qp.questButtons[slot]
+                        if btn and btn:IsVisible() and btn:IsEnabled() then
+                            return btn
+                        end
+                    end
+                end
+                if activePage.mapPanel and activePage.mapPanel.navButtons and activePage.mapPanel.navButtons[1] and activePage.mapPanel.navButtons[1]:IsVisible() then
+                    return activePage.mapPanel.navButtons[1]
+                end
+            end
             if activePage and activePage.grid and activePage.grid.slots and activePage.grid.slots[1] and activePage.grid.slots[1]:IsVisible() then
                 return activePage.grid.slots[1]
             end
@@ -1026,6 +1049,318 @@ function Cursor:HandlePickerNavigation(pScreen, currentButton, direction)
     return false
 end
 
+function Cursor:HandleQuestNavigation(currentButton, direction)
+    if not currentButton then return false end
+    local mm = CM.mainMenu
+    if not mm or not mm.tabContainer or mm.tabContainer.currentTab ~= "QUESTS" then
+        return false
+    end
+    local pageQuests = mm.tabContainer.pages and mm.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests:IsVisible() then return false end
+
+    local questPanel = pageQuests.questPanel
+    local mapPanel = pageQuests.mapPanel
+    direction = string.upper(direction or "")
+    local btnName = currentButton:GetName() or ""
+
+    -- 1. Botões da Lista de Missões (ConsoleModeMM_QuestBtn1..10)
+    if currentButton.isQuestListBtn or string.find(btnName, "^ConsoleModeMM_QuestBtn%d+$") then
+        local entries = questPanel and questPanel.entries
+        if not entries or table.getn(entries) == 0 then return false end
+
+        local curIndex = currentButton.questLogIndex
+        local curEntryIdx = nil
+        if curIndex then
+            for i, ent in ipairs(entries) do
+                if ent.index == curIndex then
+                    curEntryIdx = i
+                    break
+                end
+            end
+        end
+        if not curEntryIdx and currentButton.slotIdx then
+            local off = questPanel.questOffset or 0
+            curEntryIdx = currentButton.slotIdx + off
+        end
+        if not curEntryIdx then curEntryIdx = 1 end
+
+        local maxVisible = questPanel.maxVisible or 10
+        local curOffset = questPanel.questOffset or 0
+
+        if direction == "DOWN" then
+            local nextEntryIdx = nil
+            for i = curEntryIdx + 1, table.getn(entries) do
+                if not entries[i].isHeader then
+                    nextEntryIdx = i
+                    break
+                end
+            end
+
+            if nextEntryIdx then
+                if nextEntryIdx <= curOffset + maxVisible and nextEntryIdx >= curOffset + 1 then
+                    local targetSlot = nextEntryIdx - curOffset
+                    local targetBtn = questPanel.questButtons and questPanel.questButtons[targetSlot]
+                    if targetBtn and targetBtn:IsVisible() and targetBtn:IsEnabled() then
+                        mm:SelectQuest(entries[nextEntryIdx].index, true)
+                        self:MoveTo(targetBtn)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                else
+                    local newOffset = nextEntryIdx - maxVisible
+                    local maxOffset = math.max(0, table.getn(entries) - maxVisible)
+                    if newOffset > maxOffset then newOffset = maxOffset end
+                    if newOffset < 0 then newOffset = 0 end
+                    questPanel.questOffset = newOffset
+
+                    mm:SelectQuest(entries[nextEntryIdx].index, true)
+                    mm:UpdateQuestsPage()
+
+                    local targetSlot = nextEntryIdx - newOffset
+                    local targetBtn = questPanel.questButtons and questPanel.questButtons[targetSlot]
+                    if targetBtn and targetBtn:IsVisible() and targetBtn:IsEnabled() then
+                        self:MoveTo(targetBtn)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                end
+            else
+                -- Sem mais missões abaixo: vai para as recompensas se houver
+                if questPanel.detailCard and questPanel.detailCard.rewardSlots then
+                    for s = 1, 4 do
+                        local rSlot = questPanel.detailCard.rewardSlots[s]
+                        if rSlot and rSlot:IsVisible() then
+                            self:MoveTo(rSlot)
+                            PlaySound("igMainMenuOptionCheckBoxOn")
+                            return true
+                        end
+                    end
+                end
+                return true
+            end
+            return true
+
+        elseif direction == "UP" then
+            local prevEntryIdx = nil
+            for i = curEntryIdx - 1, 1, -1 do
+                if not entries[i].isHeader then
+                    prevEntryIdx = i
+                    break
+                end
+            end
+
+            if prevEntryIdx then
+                if prevEntryIdx >= curOffset + 1 and prevEntryIdx <= curOffset + maxVisible then
+                    local targetSlot = prevEntryIdx - curOffset
+                    local targetBtn = questPanel.questButtons and questPanel.questButtons[targetSlot]
+                    if targetBtn and targetBtn:IsVisible() and targetBtn:IsEnabled() then
+                        mm:SelectQuest(entries[prevEntryIdx].index, true)
+                        self:MoveTo(targetBtn)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                else
+                    local newOffset = prevEntryIdx - 1
+                    if prevEntryIdx > 1 and entries[prevEntryIdx - 1] and entries[prevEntryIdx - 1].isHeader then
+                        newOffset = prevEntryIdx - 2
+                    end
+                    if newOffset < 0 then newOffset = 0 end
+                    questPanel.questOffset = newOffset
+
+                    mm:SelectQuest(entries[prevEntryIdx].index, true)
+                    mm:UpdateQuestsPage()
+
+                    local targetSlot = prevEntryIdx - newOffset
+                    local targetBtn = questPanel.questButtons and questPanel.questButtons[targetSlot]
+                    if targetBtn and targetBtn:IsVisible() and targetBtn:IsEnabled() then
+                        self:MoveTo(targetBtn)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                end
+            else
+                return true
+            end
+            return true
+
+        elseif direction == "LEFT" then
+            -- Transição da lista de missões para os botões do Mapa
+            if mapPanel and mapPanel.zoneListFrame and mapPanel.zoneListFrame:IsVisible() then
+                local btns = mapPanel.zoneListFrame.buttons
+                if btns and btns[1] and btns[1]:IsVisible() then
+                    self:MoveTo(btns[1])
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+                    return true
+                end
+            end
+            if mapPanel and mapPanel.navButtons then
+                local bestBtn = nil
+                local bestDist = 999999
+                local _, curY = currentButton:GetCenter()
+                for _, nBtn in ipairs(mapPanel.navButtons) do
+                    if nBtn and nBtn:IsVisible() then
+                        local _, ny = nBtn:GetCenter()
+                        if curY and ny then
+                            local dist = math.abs(curY - ny)
+                            if dist < bestDist then
+                                bestDist = dist
+                                bestBtn = nBtn
+                            end
+                        elseif not bestBtn then
+                            bestBtn = nBtn
+                        end
+                    end
+                end
+                if bestBtn then
+                    self:MoveTo(bestBtn)
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+                    return true
+                end
+            end
+            return true
+
+        elseif direction == "RIGHT" then
+            return true
+        end
+
+    -- 2. Slots de Recompensas na Detalhes da Missão
+    elseif string.find(btnName, "^ConsoleModeMM_QuestRewardSlot%d+$") then
+        local _, _, sNumStr = string.find(btnName, "(%d+)")
+        local sNum = tonumber(sNumStr) or 1
+        local rSlots = questPanel and questPanel.detailCard and questPanel.detailCard.rewardSlots
+
+        if direction == "UP" then
+            local sel = questPanel.selectedQuestIndex
+            if sel and questPanel.questButtons then
+                for slot = 1, 10 do
+                    local btn = questPanel.questButtons[slot]
+                    if btn and btn:IsVisible() and btn:IsEnabled() and btn.questLogIndex == sel then
+                        self:MoveTo(btn)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                end
+            end
+            if questPanel and questPanel.questButtons then
+                for slot = 10, 1, -1 do
+                    local btn = questPanel.questButtons[slot]
+                    if btn and btn:IsVisible() and btn:IsEnabled() then
+                        self:MoveTo(btn)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                end
+            end
+            return true
+
+        elseif direction == "LEFT" then
+            if rSlots and sNum > 1 and rSlots[sNum - 1] and rSlots[sNum - 1]:IsVisible() then
+                self:MoveTo(rSlots[sNum - 1])
+                PlaySound("igMainMenuOptionCheckBoxOn")
+                return true
+            else
+                if mapPanel and mapPanel.navButtons and mapPanel.navButtons[1] and mapPanel.navButtons[1]:IsVisible() then
+                    self:MoveTo(mapPanel.navButtons[1])
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+                    return true
+                end
+            end
+            return true
+
+        elseif direction == "RIGHT" then
+            if rSlots and sNum < 4 and rSlots[sNum + 1] and rSlots[sNum + 1]:IsVisible() then
+                self:MoveTo(rSlots[sNum + 1])
+                PlaySound("igMainMenuOptionCheckBoxOn")
+                return true
+            end
+            return true
+
+        elseif direction == "DOWN" then
+            return true
+        end
+
+    -- 3. Botões de Navegação do Mapa (Atual, Kalimdor, Reinos do Leste, Instâncias, Voltar)
+    elseif mapPanel and mapPanel.navButtons then
+        local navIdx = nil
+        for i, nb in ipairs(mapPanel.navButtons) do
+            if nb == currentButton then
+                navIdx = i
+                break
+            end
+        end
+
+        if navIdx then
+            if direction == "RIGHT" then
+                -- Volta para a lista de missões
+                if questPanel and questPanel.questButtons then
+                    local sel = questPanel.selectedQuestIndex
+                    if sel then
+                        for slot = 1, 10 do
+                            local btn = questPanel.questButtons[slot]
+                            if btn and btn:IsVisible() and btn:IsEnabled() and btn.questLogIndex == sel then
+                                self:MoveTo(btn)
+                                PlaySound("igMainMenuOptionCheckBoxOn")
+                                return true
+                            end
+                        end
+                    end
+                    local bestBtn = nil
+                    local bestDist = 999999
+                    local _, curY = currentButton:GetCenter()
+                    for slot = 1, 10 do
+                        local btn = questPanel.questButtons[slot]
+                        if btn and btn:IsVisible() and btn:IsEnabled() then
+                            local _, by = btn:GetCenter()
+                            if curY and by then
+                                local dist = math.abs(curY - by)
+                                if dist < bestDist then
+                                    bestDist = dist
+                                    bestBtn = btn
+                                end
+                            elseif not bestBtn then
+                                bestBtn = btn
+                            end
+                        end
+                    end
+                    if bestBtn then
+                        self:MoveTo(bestBtn)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                end
+                return true
+
+            elseif direction == "DOWN" then
+                if navIdx < table.getn(mapPanel.navButtons) then
+                    local tgt = mapPanel.navButtons[navIdx + 1]
+                    if tgt and tgt:IsVisible() then
+                        self:MoveTo(tgt)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                end
+                return true
+
+            elseif direction == "UP" then
+                if navIdx > 1 then
+                    local tgt = mapPanel.navButtons[navIdx - 1]
+                    if tgt and tgt:IsVisible() then
+                        self:MoveTo(tgt)
+                        PlaySound("igMainMenuOptionCheckBoxOn")
+                        return true
+                    end
+                end
+                return true
+
+            elseif direction == "LEFT" then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
 function Cursor:MoveDirection(direction)
     if not self.state.enabled then 
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Navegacao inativa (nenhuma janela ativa no cursor)")
@@ -1065,6 +1400,11 @@ function Cursor:MoveDirection(direction)
         if self:HandlePickerNavigation(pScreen, currentButton, direction) then
             return
         end
+    end
+
+    -- Se estiver dentro da aba QUESTS do MainMenu (Missões e Mapa):
+    if self:HandleQuestNavigation(currentButton, direction) then
+        return
     end
     
     if currentButton.zoneIdx and currentButton:GetParent() then

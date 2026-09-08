@@ -187,9 +187,8 @@ function KB:Initialize()
     -- Vincula TAB ao Smart Tab inteligente (L1: Aba Anterior em menus / Target em combate)
     SetBinding("TAB", "CM_SMART_TAB")
     
-    -- AutoRun: = (padrão WoW), ALT-7 (R2 + D-Pad Up do profile) e ALT-UP
+    -- AutoRun: = (padrão WoW), ALT-UP e NUMPADMULTIPLY
     SetBinding("=", "TOGGLEAUTORUN")
-    SetBinding("ALT-7", "TOGGLEAUTORUN")
     SetBinding("ALT-UP", "TOGGLEAUTORUN")
     SetBinding("NUMPADMULTIPLY", "TOGGLEAUTORUN")
     
@@ -199,8 +198,49 @@ function KB:Initialize()
         CM.logger:Log("Interact.dll detectada! R2 + A configurado automaticamente para Interagir.")
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Interact DLL detectada! |cffffcc00R2 + A|r vinculado para Interagir.")
     end
+
+    -- Sanitização e cura automática de bindings corrompidos (ex: D-Pad preso em CM_CURSOR ou CM_ACTION)
+    KB:SanitizeBindings()
     
     CM.logger:Log("Atalhos de Interface e Smart TAB inicializados.")
+end
+
+-- ============================================================
+-- Sanitização: Cura automática de bindings do D-Pad / Face Buttons
+-- Se por qualquer motivo (crash, reload no menu) as teclas ficarem com CM_CURSOR_* ou CM_ACTION_*,
+-- esta rotina restaura os slots de ação padrão sem perder nada.
+-- ============================================================
+function KB:SanitizeBindings()
+    local d1 = defaults[1]
+    if not d1 then return end
+
+    local defaultSlotMap = {
+        [d1.A]      = "JUMP",
+        [d1.X]      = "ACTIONBUTTON1",
+        [d1.Y]      = "ACTIONBUTTON2",
+        [d1.B]      = "ACTIONBUTTON3",
+        [d1.DUP]    = "ACTIONBUTTON7",
+        [d1.DDOWN]  = "ACTIONBUTTON8",
+        [d1.DLEFT]  = "ACTIONBUTTON9",
+        [d1.DRIGHT] = "ACTIONBUTTON10",
+    }
+
+    local repaired = false
+    for key, expectedAction in pairs(defaultSlotMap) do
+        local currentAction = GetBindingAction(key)
+        if not currentAction or currentAction == "" or string.find(currentAction, "^CM_CURSOR_") or string.find(currentAction, "^CM_ACTION_") then
+            SetBinding(key, expectedAction)
+            repaired = true
+            CM.logger:Log("SanitizeBindings: reparou tecla " .. key .. " -> " .. expectedAction)
+        end
+    end
+
+    if repaired then
+        local set = GetCurrentBindingSet()
+        if not set or set == 0 then set = 1 end
+        pcall(function() SaveBindings(set) end)
+        CM.logger:Log("SanitizeBindings: bindings de combate restaurados e gravados com sucesso.")
+    end
 end
 
 -- ============================================================
@@ -253,16 +293,69 @@ modFrame:SetScript("OnUpdate", function()
     wasAltDown = altNow
 end)
 
--- ============================================================
--- Aplicar Defaults
--- ============================================================
+local defaultPageActions = {
+    [1] = {
+        A      = "JUMP",
+        X      = "ACTIONBUTTON1",
+        Y      = "ACTIONBUTTON2",
+        B      = "ACTIONBUTTON3",
+        DUP    = "ACTIONBUTTON7",
+        DDOWN  = "ACTIONBUTTON8",
+        DLEFT  = "ACTIONBUTTON9",
+        DRIGHT = "ACTIONBUTTON10",
+    },
+    [2] = {
+        X      = "MULTIACTIONBAR1BUTTON1",
+        Y      = "MULTIACTIONBAR1BUTTON2",
+        B      = "MULTIACTIONBAR1BUTTON3",
+        A      = "MULTIACTIONBAR1BUTTON4",
+        DUP    = "MULTIACTIONBAR1BUTTON5",
+        DDOWN  = "MULTIACTIONBAR1BUTTON6",
+        DLEFT  = "MULTIACTIONBAR1BUTTON7",
+        DRIGHT = "MULTIACTIONBAR1BUTTON8",
+    },
+    [3] = {
+        X      = "MULTIACTIONBAR2BUTTON1",
+        Y      = "MULTIACTIONBAR2BUTTON2",
+        B      = "MULTIACTIONBAR2BUTTON3",
+        A      = "MULTIACTIONBAR2BUTTON4",
+        DUP    = "MULTIACTIONBAR2BUTTON5",
+        DDOWN  = "MULTIACTIONBAR2BUTTON6",
+        DLEFT  = "MULTIACTIONBAR2BUTTON7",
+        DRIGHT = "MULTIACTIONBAR2BUTTON8",
+    },
+    [4] = {
+        X      = "MULTIACTIONBAR3BUTTON1",
+        Y      = "MULTIACTIONBAR3BUTTON2",
+        B      = "MULTIACTIONBAR3BUTTON3",
+        A      = "MULTIACTIONBAR3BUTTON4",
+        DUP    = "MULTIACTIONBAR3BUTTON5",
+        DDOWN  = "MULTIACTIONBAR3BUTTON6",
+        DLEFT  = "MULTIACTIONBAR3BUTTON7",
+        DRIGHT = "MULTIACTIONBAR3BUTTON8",
+    },
+    [5] = {
+        X      = "MULTIACTIONBAR4BUTTON1",
+        Y      = "MULTIACTIONBAR4BUTTON2",
+        B      = "MULTIACTIONBAR4BUTTON3",
+        A      = "MULTIACTIONBAR4BUTTON4",
+        DUP    = "MULTIACTIONBAR4BUTTON5",
+        DDOWN  = "MULTIACTIONBAR4BUTTON6",
+        DLEFT  = "MULTIACTIONBAR4BUTTON7",
+        DRIGHT = "MULTIACTIONBAR4BUTTON8",
+    },
+}
+
 function KB:ApplyDefaults()
-    -- Ações das 5 páginas
     for page = 1, 5 do
-        for btn, key in pairs(defaults[page]) do
-            local bindName = "CM_ACTION_" .. btn .. "_" .. page
-            SetBinding(key, bindName)
-            CM.logger:Log("Default: " .. key .. " -> " .. bindName)
+        if defaultPageActions[page] and defaults[page] then
+            for btn, bindAction in pairs(defaultPageActions[page]) do
+                local key = defaults[page][btn]
+                if key then
+                    SetBinding(key, bindAction)
+                    CM.logger:Log("Default: " .. key .. " -> " .. bindAction)
+                end
+            end
         end
     end
 
@@ -272,7 +365,9 @@ function KB:ApplyDefaults()
         CM.logger:Log("Fixed: " .. key .. " -> " .. bindName)
     end
 
-    SaveBindings(GetCurrentBindingSet())
+    local set = GetCurrentBindingSet()
+    if not set or set == 0 then set = 1 end
+    pcall(function() SaveBindings(set) end)
     CM.logger:Log("Defaults aplicados e salvos.")
 end
 
@@ -414,7 +509,7 @@ function KB:EnterNavigationMode()
     KB.savedNavBindings = {}
     for _, key in ipairs(keysToOverride) do
         local action = GetBindingAction(key)
-        if action and action ~= "" and not string.find(action, "^CM_CURSOR_") then
+        if action and action ~= "" and not string.find(action, "^CM_CURSOR_") and not string.find(action, "^CM_ACTION_") then
             KB.savedNavBindings[key] = action
         else
             if key == defaults[1].A then
@@ -425,6 +520,14 @@ function KB:EnterNavigationMode()
                 KB.savedNavBindings[key] = "ACTIONBUTTON1"
             elseif key == defaults[1].Y then
                 KB.savedNavBindings[key] = "ACTIONBUTTON2"
+            elseif key == defaults[1].DUP then
+                KB.savedNavBindings[key] = "ACTIONBUTTON7"
+            elseif key == defaults[1].DDOWN then
+                KB.savedNavBindings[key] = "ACTIONBUTTON8"
+            elseif key == defaults[1].DLEFT then
+                KB.savedNavBindings[key] = "ACTIONBUTTON9"
+            elseif key == defaults[1].DRIGHT then
+                KB.savedNavBindings[key] = "ACTIONBUTTON10"
             end
         end
     end
@@ -461,7 +564,7 @@ function KB:ExitNavigationMode()
     -- Restaura bindings originais de cada tecla
     for _, key in ipairs(keysToRestore) do
         local originalAction = KB.savedNavBindings[key]
-        if originalAction and originalAction ~= "" and not string.find(originalAction, "^CM_CURSOR_") then
+        if originalAction and originalAction ~= "" and not string.find(originalAction, "^CM_CURSOR_") and not string.find(originalAction, "^CM_ACTION_") then
             SetBinding(key, originalAction)
         else
             if key == defaults[1].A then
@@ -472,6 +575,14 @@ function KB:ExitNavigationMode()
                 SetBinding(key, "ACTIONBUTTON1")
             elseif key == defaults[1].Y then
                 SetBinding(key, "ACTIONBUTTON2")
+            elseif key == defaults[1].DUP then
+                SetBinding(key, "ACTIONBUTTON7")
+            elseif key == defaults[1].DDOWN then
+                SetBinding(key, "ACTIONBUTTON8")
+            elseif key == defaults[1].DLEFT then
+                SetBinding(key, "ACTIONBUTTON9")
+            elseif key == defaults[1].DRIGHT then
+                SetBinding(key, "ACTIONBUTTON10")
             end
         end
     end

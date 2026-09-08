@@ -201,6 +201,14 @@ CM:SetScript("OnEvent", function()
             if CM.ui.targetFrame.HideDefaultBars then CM.ui.targetFrame:HideDefaultBars() end
         end
 
+    elseif event == "PLAYER_LOGOUT" then
+        -- Garante que o modo de navegação seja encerrado antes do WoW salvar os bindings no disco
+        if CM.keybindings and CM.keybindings.navigationMode then
+            CM.keybindings:ExitNavigationMode()
+        end
+        local set = GetCurrentBindingSet()
+        if not set or set == 0 then set = 1 end
+        pcall(function() SaveBindings(set) end)
     end
 end)
 

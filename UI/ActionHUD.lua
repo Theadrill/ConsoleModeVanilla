@@ -62,6 +62,21 @@ function HUD:GetSlotForButton(page, btnKey)
         end
     end
 
+    -- Fallback resiliente: se a tecla estiver sem ação ou com binding de cursor/CM,
+    -- usa o slot canônico da página 1 para nunca ocultar os botões do D-Pad/ações.
+    if not boundAction or boundAction == "" or string.find(boundAction, "^CM_") then
+        if page == 1 then
+            if btnKey == "X" then boundAction = "ACTIONBUTTON1"
+            elseif btnKey == "Y" then boundAction = "ACTIONBUTTON2"
+            elseif btnKey == "B" then boundAction = "ACTIONBUTTON3"
+            elseif btnKey == "DUP" then boundAction = "ACTIONBUTTON7"
+            elseif btnKey == "DDOWN" then boundAction = "ACTIONBUTTON8"
+            elseif btnKey == "DLEFT" then boundAction = "ACTIONBUTTON9"
+            elseif btnKey == "DRIGHT" then boundAction = "ACTIONBUTTON10"
+            end
+        end
+    end
+
     if not boundAction or boundAction == "" then return nil, nil, nil end
 
     local slot = nil

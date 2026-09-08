@@ -83,6 +83,16 @@ function SBP:FindNextEmptySlot()
     return nil, nil
 end
 
+local PAGE1_CANONICAL_SLOTS = {
+    X      = { slot = 1,  action = "ACTIONBUTTON1" },
+    Y      = { slot = 2,  action = "ACTIONBUTTON2" },
+    B      = { slot = 3,  action = "ACTIONBUTTON3" },
+    DUP    = { slot = 7,  action = "ACTIONBUTTON7" },
+    DDOWN  = { slot = 8,  action = "ACTIONBUTTON8" },
+    DLEFT  = { slot = 9,  action = "ACTIONBUTTON9" },
+    DRIGHT = { slot = 10, action = "ACTIONBUTTON10" },
+}
+
 -- Resolve slot alvo para (page, btnKey).
 -- Retorna (slot, bindingAction).
 function SBP:ResolveTargetSlot(page, btnKey)
@@ -99,6 +109,12 @@ function SBP:ResolveTargetSlot(page, btnKey)
 
     local slot, bindingAction = self:ParseBindingAction(boundAction)
     if slot then return slot, bindingAction end
+
+    -- Se for página 1, garante o slot canônico do layout padrão (evita alocar slot aleatório)
+    if page == 1 and PAGE1_CANONICAL_SLOTS[btnKey] then
+        local canonical = PAGE1_CANONICAL_SLOTS[btnKey]
+        return canonical.slot, canonical.action
+    end
 
     return self:FindNextEmptySlot()
 end

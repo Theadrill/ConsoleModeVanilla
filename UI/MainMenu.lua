@@ -4908,7 +4908,130 @@ function MainMenu:SetupTalentsPage(pageTalents)
     treeDivider:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     treeDivider:SetVertexColor(0.5, 0.4, 0.3, 0.35)
 
-    -- 4.2. Card Central com Placeholder da Árvore de Talentos
+    -- 4.2. Grade Horizontal (7 Tiers em colunas horizontais da esquerda para direita x 4 Linhas verticais)
+    local horizGrid = CreateFrame("Frame", "ConsoleModeMM_TalentsHorizGrid", treeScreen)
+    horizGrid:SetPoint("TOPLEFT", treeHeader, "BOTTOMLEFT", 10, -6)
+    horizGrid:SetPoint("BOTTOMRIGHT", treeScreen, "BOTTOMRIGHT", -10, 42)
+    treeScreen.horizGrid = horizGrid
+
+    local hSlotW = 44
+    local hSlotH = 44
+    local hGapX = 26
+    local hGapY = 12
+    local hTotalW = (7 * hSlotW) + (6 * hGapX)
+    local hTotalH = (4 * hSlotH) + (3 * hGapY)
+
+    local horizCenter = CreateFrame("Frame", "ConsoleModeMM_TalentsHorizCenter", horizGrid)
+    horizCenter:SetWidth(hTotalW)
+    horizCenter:SetHeight(hTotalH)
+    horizCenter:SetPoint("CENTER", horizGrid, "CENTER", 0, 4)
+    horizGrid.centerFrame = horizCenter
+
+    local slotsByTierCol = {}
+    local allSlots = {}
+
+    for tier = 1, 7 do
+        slotsByTierCol[tier] = {}
+        for col = 1, 4 do
+            local slot = CreateFrame("Button", string.format("ConsoleModeMM_TalentSlot_T%dC%d", tier, col), horizCenter)
+            slot:SetWidth(hSlotW)
+            slot:SetHeight(hSlotH)
+            slot.tier = tier
+            slot.column = col
+
+            -- Tier avança em X (colunas da esquerda pra direita 1 a 7); Col avança em Y (linhas de cima pra baixo 1 a 4)
+            local posX = (tier - 1) * (hSlotW + hGapX)
+            local posY = -((col - 1) * (hSlotH + hGapY))
+            slot:SetPoint("TOPLEFT", horizCenter, "TOPLEFT", posX, posY)
+
+            slot:SetBackdrop({
+                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile     = true, tileSize = 12, edgeSize = 10,
+                insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+            })
+            slot:SetBackdropColor(0.05, 0.05, 0.05, 0.85)
+            slot:SetBackdropBorderColor(0.40, 0.35, 0.28, 0.70)
+
+            local icon = slot:CreateTexture(nil, "ARTWORK")
+            icon:SetPoint("TOPLEFT", slot, "TOPLEFT", 3, -3)
+            icon:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", -3, 3)
+            icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+            slot.icon = icon
+
+            local focusBorder = CreateFrame("Frame", nil, slot)
+            focusBorder:SetPoint("TOPLEFT", slot, "TOPLEFT", -3, 3)
+            focusBorder:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 3, -3)
+            focusBorder:SetBackdrop({
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                edgeSize = 12,
+                insets = { left = 1, right = 1, top = 1, bottom = 1 }
+            })
+            focusBorder:SetBackdropBorderColor(colors.activeBorder.r, colors.activeBorder.g, colors.activeBorder.b, colors.activeBorder.a)
+            focusBorder:Hide()
+            slot.focusBorder = focusBorder
+
+            local rankBg = slot:CreateTexture(nil, "OVERLAY")
+            rankBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            rankBg:SetVertexColor(0, 0, 0, 0.85)
+            rankBg:SetHeight(13)
+            rankBg:SetWidth(26)
+            rankBg:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", -2, 2)
+            slot.rankBg = rankBg
+
+            local rankText = slot:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            rankText:SetPoint("CENTER", rankBg, "CENTER", 0, 0)
+            MainMenu:ApplyFont(rankText, CFG.Fonts.bodyFontFile, 10)
+            rankText:SetText("0/5")
+            slot.rankText = rankText
+
+            -- Container dos dots com fundo escuro sutil para garantir contraste máximo
+            local dotsFrame = CreateFrame("Frame", nil, slot)
+            dotsFrame:SetHeight(7)
+            dotsFrame:SetPoint("TOPLEFT", slot, "BOTTOMLEFT", 0, -2)
+            dotsFrame:SetPoint("TOPRIGHT", slot, "BOTTOMRIGHT", 0, -2)
+            slot.dotsFrame = dotsFrame
+
+            local dots = {}
+            for d = 1, 5 do
+                -- Moldura/borda escura do dot
+                local dotBg = dotsFrame:CreateTexture(nil, "BACKGROUND")
+                dotBg:SetWidth(6)
+                dotBg:SetHeight(6)
+                dotBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                dotBg:SetVertexColor(0, 0, 0, 0.90)
+                dotBg:Hide()
+
+                -- Miolo colorido do dot
+                local dot = dotsFrame:CreateTexture(nil, "ARTWORK")
+                dot:SetWidth(4)
+                dot:SetHeight(4)
+                dot:SetPoint("CENTER", dotBg, "CENTER", 0, 0)
+                dot:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                dot:Hide()
+                dot.bg = dotBg
+
+                table.insert(dots, dot)
+            end
+            slot.dots = dots
+
+            slot:SetScript("OnEnter", function()
+                MainMenu:FocusTalentSlot(this)
+            end)
+            slot:SetScript("OnClick", function()
+                MainMenu:FocusTalentSlot(this)
+                if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+            end)
+
+            slot:Hide()
+            slotsByTierCol[tier][col] = slot
+            table.insert(allSlots, slot)
+        end
+    end
+    treeScreen.slotsByTierCol = slotsByTierCol
+    treeScreen.allSlots = allSlots
+
+    -- 4.3. Placeholder para árvore 3 enquanto não implementada
     local treeCard = CreateFrame("Frame", "ConsoleModeMM_TalentsTreeCard", treeScreen)
     treeCard:SetPoint("TOPLEFT", treeHeader, "BOTTOMLEFT", 0, -12)
     treeCard:SetPoint("BOTTOMRIGHT", treeScreen, "BOTTOMRIGHT", -10, 44)
@@ -4922,7 +5045,6 @@ function MainMenu:SetupTalentsPage(pageTalents)
     treeCard:SetBackdropBorderColor(colors.inactiveBorder.r, colors.inactiveBorder.g, colors.inactiveBorder.b, colors.inactiveBorder.a)
     treeScreen.card = treeCard
 
-    -- Ícone grande de placeholder no centro
     local bigIcon = treeCard:CreateTexture(nil, "ARTWORK")
     bigIcon:SetWidth(56)
     bigIcon:SetHeight(56)
@@ -4940,32 +5062,21 @@ function MainMenu:SetupTalentsPage(pageTalents)
     bigIconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.85)
     treeCard.bigIconBorder = bigIconBorder
 
-    -- Título de status do placeholder
     local phTitle = treeCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     phTitle:SetPoint("TOP", bigIcon, "BOTTOM", 0, -14)
     MainMenu:ApplyFont(phTitle, CFG.Fonts.titleFontFile, 17)
     phTitle:SetText("|cffe09a15Árvore de Talentos|r")
     treeCard.phTitle = phTitle
 
-    -- Mensagem informativa da próxima etapa
     local phDesc = treeCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     phDesc:SetPoint("TOP", phTitle, "BOTTOM", 0, -8)
     phDesc:SetPoint("LEFT", treeCard, "LEFT", 24, 0)
     phDesc:SetPoint("RIGHT", treeCard, "RIGHT", -24, 0)
     MainMenu:ApplyFont(phDesc, CFG.Fonts.bodyFontFile, 13)
-    phDesc:SetText("|cffccccccPlaceholder da Tela 2 ativado com sucesso!|r\n|cffaaaaaaNa próxima etapa, esta área exibirá a grade de talentos (7 linhas x 4 colunas) com suas setas de pré-requisito e pontos alocados.|r")
+    phDesc:SetText("|cffccccccEsta especialização será ativada na próxima sub-fase!|r\n|cffaaaaaaAs Especializações 1 e 2 já estão ativas na grade horizontal.|r")
     treeCard.phDesc = phDesc
 
-    -- Detalhe da Spec selecionada
-    local phSpecDetails = treeCard:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-    phSpecDetails:SetPoint("TOP", phDesc, "BOTTOM", 0, -10)
-    phSpecDetails:SetPoint("LEFT", treeCard, "LEFT", 30, 0)
-    phSpecDetails:SetPoint("RIGHT", treeCard, "RIGHT", -30, 0)
-    MainMenu:ApplyFont(phSpecDetails, CFG.Fonts.subFontFile, 11)
-    phSpecDetails:SetText("")
-    treeCard.phSpecDetails = phSpecDetails
-
-    -- 4.3. Rodapé com Botão Voltar [B] e resumo
+    -- 4.4. Rodapé com Botão Voltar [B] e resumo
     local backBtn = CreateFrame("Button", "ConsoleModeMM_TalentsBackBtn", treeScreen)
     backBtn:SetHeight(28)
     backBtn:SetWidth(140)
@@ -5000,11 +5111,234 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local treeFooterHint = treeScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     treeFooterHint:SetPoint("LEFT", backBtn, "RIGHT", 14, 0)
     MainMenu:ApplyFont(treeFooterHint, CFG.Fonts.subFontFile, 11)
-    treeFooterHint:SetText("|cff888888Pressione [B] para retornar às especializações|r")
+    treeFooterHint:SetText("|cff888888[D-Pad] Navegar  •  [A] Aprender Talento  •  [B] Voltar|r")
     treeScreen.footerHint = treeFooterHint
 
     pageTalents.activeScreen = 1
     pageTalents.isInitialized = true
+end
+
+function MainMenu:FocusTalentSlot(slot)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageTalents = self.tabContainer.pages["TALENTS"]
+    if not pageTalents or not pageTalents.treeScreen then return end
+
+    local treeScreen = pageTalents.treeScreen
+    local allSlots = treeScreen.allSlots
+
+    if allSlots then
+        for _, s in ipairs(allSlots) do
+            if s.focusBorder then
+                if s == slot then
+                    s.focusBorder:Show()
+                else
+                    s.focusBorder:Hide()
+                end
+            end
+        end
+    end
+
+    pageTalents.focusedTalentSlot = slot
+
+    -- Atualiza painel inferior de detalhes com informações reais do talento
+    if pageTalents.detailCard and slot and slot.talentData then
+        local data = slot.talentData
+        local card = pageTalents.detailCard
+
+        card.icon:SetTexture(data.icon)
+        card.icon:Show()
+
+        card.titleText:SetText(string.format("|cffe09a15%s|r", data.name))
+        card.typeText:SetText(string.format("|cffaaaaaaTier %d  •  Rank %d/%d|r", data.tier, data.currentRank, data.maxRank))
+
+        -- Descrição obtida via GameTooltip invisível
+        local desc = data.desc or ""
+        if not desc or desc == "" then
+            if GameTooltip and GameTooltip.SetTalent then
+                GameTooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+                GameTooltip:ClearLines()
+                GameTooltip:SetTalent(data.tabIndex, data.talentIndex)
+                local numLines = GameTooltip:NumLines()
+                local fullDesc = ""
+                for l = 2, numLines do
+                    local lineObj = getglobal("GameTooltipTextLeft" .. l)
+                    if lineObj and lineObj:GetText() then
+                        local t = lineObj:GetText()
+                        if string.find(t, "Rank") or string.find(t, "Next rank") or string.find(t, "Próximo") then
+                            fullDesc = fullDesc .. "\n|cffe09a15" .. t .. "|r\n"
+                        else
+                            fullDesc = fullDesc .. t .. "\n"
+                        end
+                    end
+                end
+                desc = fullDesc
+                GameTooltip:Hide()
+            end
+        end
+
+        card.descColLeft:SetText(desc ~= "" and desc or "|cff888888Sem descrição disponível.|r")
+
+        local statusText = ""
+        local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
+        if data.currentRank == data.maxRank then
+            statusText = "|cff55ff55Rank Máximo Aprendido|r"
+        elseif not data.meetsPrereq then
+            statusText = "|cffff4444Requisitos não atendidos|r"
+        elseif unspent < 1 then
+            statusText = "|cffffaa00Sem pontos disponíveis|r"
+        else
+            statusText = "|cffe09a15Pressione [A] para gastar 1 ponto|r"
+        end
+
+        card.descColRight:SetText(string.format("|cffaaaaaaPontos na spec: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n\n%s", data.tabPointsSpent or 0, unspent, statusText))
+    end
+end
+
+function MainMenu:UpdateTalentTreeGrid(specIdx)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageTalents = self.tabContainer.pages["TALENTS"]
+    if not pageTalents or not pageTalents.treeScreen then return end
+
+    local treeScreen = pageTalents.treeScreen
+    local horizGrid = treeScreen.horizGrid
+    local cardPlaceholder = treeScreen.card
+    local slotsByTierCol = treeScreen.slotsByTierCol
+    local allSlots = treeScreen.allSlots
+
+    if not horizGrid or not cardPlaceholder or not slotsByTierCol or not allSlots then return end
+
+    -- Spec 3: Placeholder enquanto não ativada
+    if specIdx == 3 then
+        horizGrid:Hide()
+        cardPlaceholder:Show()
+        if cardPlaceholder.phTitle then
+            local specData = self:GetTalentSpecData(specIdx)
+            cardPlaceholder.phTitle:SetText(string.format("|cffe09a15%s (Placeholder)|r", specData.name))
+        end
+        return
+    end
+
+    -- Specs 1 e 2: Exibe a Grade Horizontal
+    cardPlaceholder:Hide()
+    horizGrid:Show()
+
+    -- Oculta todos os slots da grade inicialmente
+    for _, slot in ipairs(allSlots) do
+        slot:Hide()
+        slot.talentData = nil
+    end
+
+    local numTalents = 0
+    if GetNumTalents then numTalents = GetNumTalents(specIdx) or 0 end
+    local firstVisibleSlot = nil
+    local specPointsSpent = 0
+    if GetTalentTabInfo then
+        local _, _, pts = GetTalentTabInfo(specIdx)
+        specPointsSpent = pts or 0
+    end
+
+    for tIdx = 1, numTalents do
+        local name, icon, tier, column, currentRank, maxRank, isExceptional, meetsPrereq = GetTalentInfo(specIdx, tIdx)
+        if name and tier and column and tier >= 1 and tier <= 7 and column >= 1 and column <= 4 then
+            local slot = slotsByTierCol[tier][column]
+            if slot then
+                slot.talentData = {
+                    tabIndex = specIdx,
+                    talentIndex = tIdx,
+                    name = name,
+                    icon = icon,
+                    tier = tier,
+                    column = column,
+                    currentRank = currentRank,
+                    maxRank = maxRank,
+                    isExceptional = isExceptional,
+                    meetsPrereq = meetsPrereq,
+                    tabPointsSpent = specPointsSpent,
+                }
+
+                if slot.icon then
+                    slot.icon:SetTexture(icon)
+                    if meetsPrereq or currentRank > 0 then
+                        slot.icon:SetVertexColor(1, 1, 1, 1)
+                    else
+                        slot.icon:SetVertexColor(0.40, 0.40, 0.40, 0.60) -- Desaturado/bloqueado
+                    end
+                end
+
+                -- Atualiza cor da borda do slot
+                if currentRank == maxRank then
+                    slot:SetBackdropBorderColor(1.0, 0.85, 0.20, 0.95) -- Dourado total
+                elseif currentRank > 0 then
+                    slot:SetBackdropBorderColor(0.20, 1.0, 0.20, 0.90) -- Verde brilhante (aprendido)
+                elseif meetsPrereq then
+                    slot:SetBackdropBorderColor(0.40, 0.70, 0.40, 0.80) -- Verde suave (disponível)
+                else
+                    slot:SetBackdropBorderColor(0.30, 0.25, 0.20, 0.50) -- Bloqueado
+                end
+
+                -- Badge de Rank
+                if slot.rankText then
+                    slot.rankText:SetText(string.format("%d/%d", currentRank, maxRank))
+                    if currentRank == maxRank then
+                        slot.rankText:SetTextColor(1.0, 0.85, 0.20) -- Ouro
+                    elseif currentRank > 0 then
+                        slot.rankText:SetTextColor(0.20, 1.0, 0.20) -- Verde
+                    else
+                        slot.rankText:SetTextColor(0.70, 0.70, 0.70)
+                    end
+                end
+
+                -- Dots de Rank (Bolinhas/Quadradinhos de progresso de rank)
+                if slot.dots then
+                    local dotCount = maxRank
+                    if dotCount > 5 then dotCount = 5 end
+                    local dotSpacing = 7
+                    local startX = (slot:GetWidth() - (dotCount * dotSpacing)) / 2
+                    for d = 1, 5 do
+                        local dot = slot.dots[d]
+                        if d <= dotCount then
+                            dot.bg:ClearAllPoints()
+                            dot.bg:SetPoint("LEFT", slot.dotsFrame, "LEFT", startX + ((d - 1) * dotSpacing), 0)
+                            dot.bg:Show()
+
+                            if d <= currentRank then
+                                if currentRank == maxRank then
+                                    -- Rank máximo: Dourado vivo brilhante
+                                    dot:SetVertexColor(1.0, 0.88, 0.15, 1.0)
+                                else
+                                    -- Parcialmente aprendido: Verde esmeralda vivo
+                                    dot:SetVertexColor(0.20, 1.0, 0.20, 1.0)
+                                end
+                            else
+                                -- Não aprendido: Cinza escuro sutil
+                                dot:SetVertexColor(0.25, 0.25, 0.25, 0.75)
+                            end
+                            dot:Show()
+                        else
+                            dot:Hide()
+                            if dot.bg then dot.bg:Hide() end
+                        end
+                    end
+                end
+
+                slot:Show()
+                if not firstVisibleSlot then firstVisibleSlot = slot end
+            end
+        end
+    end
+
+    local targetFocus = pageTalents.focusedTalentSlot
+    if not targetFocus or not targetFocus:IsVisible() then
+        targetFocus = firstVisibleSlot
+    end
+
+    if targetFocus then
+        self:FocusTalentSlot(targetFocus)
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo then
+            ConsoleMode.cursor:MoveTo(targetFocus)
+            ConsoleMode.cursor:UpdateState()
+        end
+    end
 end
 
 function MainMenu:ShowTalentTreeScreen(specIdx)
@@ -5036,40 +5370,16 @@ function MainMenu:ShowTalentTreeScreen(specIdx)
             end
         end
 
-        if treeScreen.card then
-            if treeScreen.card.bigIcon then
-                treeScreen.card.bigIcon:SetTexture(specData.icon)
-            end
-            if treeScreen.card.phTitle then
-                treeScreen.card.phTitle:SetText(string.format("|cffe09a15Árvore de Talentos: %s|r", specData.name))
-            end
-            if treeScreen.card.phSpecDetails then
-                treeScreen.card.phSpecDetails:SetText(string.format("|cff888888%s|r", specData.desc or ""))
-            end
-        end
-
         if pageTalents.specScreen then
             pageTalents.specScreen:Hide()
         end
         treeScreen:Show()
 
-        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and treeScreen.backBtn then
-            ConsoleMode.cursor:MoveTo(treeScreen.backBtn)
-            ConsoleMode.cursor:UpdateState()
-        end
-    end
-
-    if pageTalents.detailCard then
-        local unspent = 0
-        if UnitCharacterPoints then unspent = UnitCharacterPoints("player") or 0 end
-        pageTalents.detailCard.icon:SetTexture(specData.icon)
-        pageTalents.detailCard.icon:Show()
-        pageTalents.detailCard.titleText:SetText(string.format("|cffe09a15Árvore: %s|r", specData.name))
-        pageTalents.detailCard.typeText:SetText(string.format("|cffaaaaaaÁrvore %d de 3 — ConsoleMode Vanilla|r", specIdx))
-        pageTalents.detailCard.descColLeft:SetText(specData.desc)
-        pageTalents.detailCard.descColRight:SetText(string.format("|cffaaaaaaPontos investidos: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n|cffe09a15[B] Retornar para Especializações|r", specData.pointsSpent, unspent))
+        -- Atualiza a grade da spec selecionada
+        self:UpdateTalentTreeGrid(specIdx)
     end
 end
+
 
 function MainMenu:ShowTalentSpecScreen()
     if not self.tabContainer or not self.tabContainer.pages then return end

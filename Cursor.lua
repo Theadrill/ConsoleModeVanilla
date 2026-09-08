@@ -514,8 +514,24 @@ function Cursor:FindFirstVisibleButton(frame)
                 end
             end
             if curTab == "TALENTS" and activePage then
-                if activePage.activeScreen == 2 and activePage.treeScreen and activePage.treeScreen.backBtn and activePage.treeScreen.backBtn:IsVisible() then
-                    return activePage.treeScreen.backBtn
+                if activePage.activeScreen == 2 then
+                    if activePage.focusedTalentSlot and activePage.focusedTalentSlot:IsVisible() then
+                        return activePage.focusedTalentSlot
+                    end
+                    local tScreen = activePage.treeScreen
+                    if tScreen then
+                        local slots = tScreen.allSlots
+                        if slots then
+                            for _, slot in ipairs(slots) do
+                                if slot:IsVisible() then
+                                    return slot
+                                end
+                            end
+                        end
+                        if tScreen.backBtn and tScreen.backBtn:IsVisible() then
+                            return tScreen.backBtn
+                        end
+                    end
                 else
                     local idx = activePage.focusedSpecIdx or 1
                     if activePage.specButtons and activePage.specButtons[idx] and activePage.specButtons[idx]:IsVisible() then

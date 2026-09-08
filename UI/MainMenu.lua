@@ -11436,8 +11436,13 @@ function MainMenu:ShowBindsScreen()
 
     PlaySound("igMainMenuOptionCheckBoxOn")
 
-    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
-        ConsoleMode.cursor:Resync()
+    if ConsoleMode and ConsoleMode.cursor then
+        local target = (pageSystem.bindsScreen and pageSystem.bindsScreen.focusedCard)
+            or (pageSystem.bindsScreen and pageSystem.bindsScreen.bindCards and pageSystem.bindsScreen.bindCards[1])
+        if target and target:IsVisible() then
+            ConsoleMode.cursor:MoveTo(target)
+            ConsoleMode.cursor:UpdateState()
+        end
     end
 end
 
@@ -11938,8 +11943,15 @@ function MainMenu:ShowPickerScreen()
 
     PlaySound("igMainMenuOptionCheckBoxOn")
 
-    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
-        ConsoleMode.cursor:Resync()
+    if ConsoleMode and ConsoleMode.cursor then
+        local pScreen = pageSystem.pickerScreen
+        local target = (pScreen and pScreen.subTabButtons and pScreen.subTabButtons[1])
+            or (pScreen and pScreen.modeButtons and pScreen.modeButtons[1])
+            or (pScreen and pScreen.gridButtons and pScreen.gridButtons[1])
+        if target and target:IsVisible() then
+            ConsoleMode.cursor:MoveTo(target)
+            ConsoleMode.cursor:UpdateState()
+        end
     end
 end
 

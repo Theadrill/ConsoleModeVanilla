@@ -507,7 +507,23 @@ function Cursor:FindFirstVisibleButton(frame)
             local curTab = mm.tabContainer.currentTab or "BAGS"
             local activePage = mm.tabContainer.pages and mm.tabContainer.pages[curTab]
             if curTab == "SYSTEM" and activePage then
-                if activePage.currentSubTab == "GAME_MENU" and activePage.subPageGameMenu and activePage.subPageGameMenu.rows and activePage.subPageGameMenu.rows[1] and activePage.subPageGameMenu.rows[1]:IsVisible() then
+                if activePage.activeSubScreen == "PICKER" and activePage.pickerScreen then
+                    local pScreen = activePage.pickerScreen
+                    if pScreen.subTabButtons and pScreen.subTabButtons[1] and pScreen.subTabButtons[1]:IsVisible() then
+                        return pScreen.subTabButtons[1]
+                    elseif pScreen.modeButtons and pScreen.modeButtons[1] and pScreen.modeButtons[1]:IsVisible() then
+                        return pScreen.modeButtons[1]
+                    elseif pScreen.gridButtons and pScreen.gridButtons[1] and pScreen.gridButtons[1]:IsVisible() then
+                        return pScreen.gridButtons[1]
+                    end
+                elseif activePage.activeSubScreen == "BINDS" and activePage.bindsScreen then
+                    local bScreen = activePage.bindsScreen
+                    if bScreen.focusedCard and bScreen.focusedCard:IsVisible() then
+                        return bScreen.focusedCard
+                    elseif bScreen.bindCards and bScreen.bindCards[1] and bScreen.bindCards[1]:IsVisible() then
+                        return bScreen.bindCards[1]
+                    end
+                elseif activePage.currentSubTab == "GAME_MENU" and activePage.subPageGameMenu and activePage.subPageGameMenu.rows and activePage.subPageGameMenu.rows[1] and activePage.subPageGameMenu.rows[1]:IsVisible() then
                     return activePage.subPageGameMenu.rows[1]
                 elseif activePage.currentSubTab == "ADDON_CFG" and activePage.subPageAddonCfg and activePage.subPageAddonCfg.rows and activePage.subPageAddonCfg.rows[1] and activePage.subPageAddonCfg.rows[1]:IsVisible() then
                     return activePage.subPageAddonCfg.rows[1]

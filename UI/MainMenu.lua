@@ -10252,10 +10252,7 @@ function MainMenu:UpdateAddonConfigSubPage()
             title = "Mapeador de Atalhos / Binds",
             desc = "Configurar habilidades, itens e macros dos botões do controle (Páginas 1 a 5)",
             onClick = function()
-                MainMenu:Hide()
-                if ConsoleMode.config and ConsoleMode.config.Show then
-                    ConsoleMode.config:Show()
-                end
+                MainMenu:ShowBindsScreen()
             end,
         },
         {
@@ -10369,6 +10366,13 @@ function MainMenu:SelectSystemSubTab(subTabID)
     subTabID = subTabID or "GAME_MENU"
     pageSystem.currentSubTab = subTabID
 
+    -- Fecha telas filhas de Binds se estiverem abertas
+    if pageSystem.bindsScreen then pageSystem.bindsScreen:Hide() end
+    if pageSystem.pickerScreen then pageSystem.pickerScreen:Hide() end
+    pageSystem.activeSubScreen = nil
+    if pageSystem.headerBar then pageSystem.headerBar:Show() end
+    if pageSystem.subContent then pageSystem.subContent:Show() end
+
     -- Alterna visibilidade das sub-páginas
     if pageSystem.subPageGameMenu then
         if subTabID == "GAME_MENU" then
@@ -10411,6 +10415,295 @@ function MainMenu:UpdateSystemPage()
 
     self:SetupSystemPage(pageSystem)
     self:SelectSystemSubTab(pageSystem.currentSubTab or "GAME_MENU")
+end
+
+-- ============================================================================
+-- 8.5. MAPEADOR DE ATALHOS / BINDS NO MAIN MENU (FASES 1 A 5)
+-- ============================================================================
+
+function MainMenu:SetupKeybindingsPage(pageSystem)
+    if not pageSystem or pageSystem.isBindsInitialized then return end
+    pageSystem.isBindsInitialized = true
+
+    -- ------------------------------------------------------------------------
+    -- TELA 1: MAPEADOR DE COMBINAÇÕES (Páginas 1 a 5)
+    -- ------------------------------------------------------------------------
+    local bindsScreen = CreateFrame("Frame", "ConsoleModeMM_BindsScreen", pageSystem)
+    bindsScreen:SetAllPoints(pageSystem)
+    bindsScreen:Hide()
+    pageSystem.bindsScreen = bindsScreen
+
+    -- 1. Cabeçalho Superior da Tela 1
+    local headerBar = CreateFrame("Frame", "ConsoleModeMM_BindsHeader", bindsScreen)
+    headerBar:SetHeight(32)
+    headerBar:SetPoint("TOPLEFT", bindsScreen, "TOPLEFT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", bindsScreen, "TOPRIGHT", 0, 0)
+    bindsScreen.headerBar = headerBar
+
+    local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    headerTitle:SetPoint("LEFT", headerBar, "LEFT", 12, 0)
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15, "")
+    headerTitle:SetText("|cffe09a15[ MAPEADOR DE ATALHOS / BINDS ]|r")
+    headerBar.title = headerTitle
+
+    -- Botão Voltar [B] no cabeçalho
+    local backBtn = CreateFrame("Button", "ConsoleModeMM_BindsBackBtn", headerBar)
+    backBtn:SetHeight(24)
+    backBtn:SetWidth(95)
+    backBtn:SetPoint("RIGHT", headerBar, "RIGHT", -6, 0)
+    backBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    backBtn:SetBackdropColor(0, 0, 0, 0.45)
+    backBtn:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.6)
+
+    local backTxt = backBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    backTxt:SetPoint("CENTER", backBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(backTxt, CFG.Fonts.bodyFontFile, 12, "")
+    backTxt:SetText("|cffe09a15[B]|r Voltar")
+    backBtn.text = backTxt
+
+    backBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+        this:SetBackdropColor(0.2, 0.15, 0.05, 0.6)
+    end)
+    backBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.6)
+        this:SetBackdropColor(0, 0, 0, 0.45)
+    end)
+    backBtn:SetScript("OnClick", function()
+        MainMenu:HandleBindsBack()
+    end)
+    headerBar.backBtn = backBtn
+
+    local hDiv = headerBar:CreateTexture(nil, "ARTWORK")
+    hDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    hDiv:SetHeight(1)
+    hDiv:SetPoint("BOTTOMLEFT", headerBar, "BOTTOMLEFT", 0, -2)
+    hDiv:SetPoint("BOTTOMRIGHT", headerBar, "BOTTOMRIGHT", 0, -2)
+    hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+    headerBar.hDiv = hDiv
+
+    -- 2. DetailCard na base (Estilo Zelda / Console)
+    local detailCard = self:CreateDetailCard(bindsScreen)
+    bindsScreen.detailCard = detailCard
+    if detailCard.slotsFreeText then
+        detailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar às Configurações")
+    end
+    if detailCard.sellWidget then detailCard.sellWidget:Hide() end
+    if detailCard.moneyWidget then detailCard.moneyWidget:Hide() end
+    detailCard.titleText:SetText("|cffe09a15Mapeador de Atalhos / Binds|r")
+    detailCard.typeText:SetText("|cffaaaaaaModo Console — Atalhos do Controle (Páginas 1 a 5)|r")
+    detailCard.descColLeft:SetText("|cffccccccNavegue pelos botões do controle para vincular habilidades, itens do inventário ou macros.|r")
+    detailCard.descColRight:SetText("|cff888888Pressione [B] no controle ou clique no botão acima para voltar.|r")
+    detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+    detailCard.icon:Show()
+
+    -- 3. Área de Conteúdo Central (Placeholder Fase 1)
+    local contentArea = CreateFrame("Frame", "ConsoleModeMM_BindsContent", bindsScreen)
+    contentArea:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -6)
+    contentArea:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 6)
+    contentArea:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 12,
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 }
+    })
+    contentArea:SetBackdropColor(0, 0, 0, 0.35)
+    contentArea:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
+    bindsScreen.contentArea = contentArea
+
+    local placeholder = contentArea:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    placeholder:SetPoint("CENTER", contentArea, "CENTER", 0, 10)
+    MainMenu:ApplyFont(placeholder, CFG.Fonts.bodyFontFile, 14, "")
+    placeholder:SetText("|cffe09a15[ FASE 1: TRANSIÇÃO DE TELAS INTEGRADA ]|r\n\n|cffffffffEstrutura base dos containers criada com sucesso no Main Menu.|r\n|cffaaaaaa(Nenhum painel externo ou flutuante arcaico foi aberto)|r\n\n|cffccccccUse |r|cffe09a15[B]|r|cffcccccc no controle ou o botão Voltar para retornar às Opções.|r")
+    contentArea.placeholder = placeholder
+
+    -- ------------------------------------------------------------------------
+    -- TELA 2: SELETOR DE CONTEÚDO (O "PICKER")
+    -- ------------------------------------------------------------------------
+    local pickerScreen = CreateFrame("Frame", "ConsoleModeMM_PickerScreen", pageSystem)
+    pickerScreen:SetAllPoints(pageSystem)
+    pickerScreen:Hide()
+    pageSystem.pickerScreen = pickerScreen
+
+    -- 1. Cabeçalho da Tela 2
+    local pickerHeader = CreateFrame("Frame", "ConsoleModeMM_PickerHeader", pickerScreen)
+    pickerHeader:SetHeight(32)
+    pickerHeader:SetPoint("TOPLEFT", pickerScreen, "TOPLEFT", 0, 0)
+    pickerHeader:SetPoint("TOPRIGHT", pickerScreen, "TOPRIGHT", 0, 0)
+    pickerScreen.headerBar = pickerHeader
+
+    local pTitle = pickerHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    pTitle:SetPoint("LEFT", pickerHeader, "LEFT", 12, 0)
+    MainMenu:ApplyFont(pTitle, CFG.Fonts.titleFontFile, 15, "")
+    pTitle:SetText("|cffe09a15[ SELETOR DE CONTEÚDO ]|r")
+    pickerHeader.title = pTitle
+
+    local pBackBtn = CreateFrame("Button", "ConsoleModeMM_PickerBackBtn", pickerHeader)
+    pBackBtn:SetHeight(24)
+    pBackBtn:SetWidth(95)
+    pBackBtn:SetPoint("RIGHT", pickerHeader, "RIGHT", -6, 0)
+    pBackBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    pBackBtn:SetBackdropColor(0, 0, 0, 0.45)
+    pBackBtn:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.6)
+
+    local pBackTxt = pBackBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    pBackTxt:SetPoint("CENTER", pBackBtn, "CENTER", 0, 0)
+    MainMenu:ApplyFont(pBackTxt, CFG.Fonts.bodyFontFile, 12, "")
+    pBackTxt:SetText("|cffe09a15[B]|r Voltar")
+    pBackBtn.text = pBackTxt
+
+    pBackBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+        this:SetBackdropColor(0.2, 0.15, 0.05, 0.6)
+    end)
+    pBackBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.6)
+        this:SetBackdropColor(0, 0, 0, 0.45)
+    end)
+    pBackBtn:SetScript("OnClick", function()
+        MainMenu:HandleBindsBack()
+    end)
+    pickerHeader.backBtn = pBackBtn
+
+    local pHDiv = pickerHeader:CreateTexture(nil, "ARTWORK")
+    pHDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    pHDiv:SetHeight(1)
+    pHDiv:SetPoint("BOTTOMLEFT", pickerHeader, "BOTTOMLEFT", 0, -2)
+    pHDiv:SetPoint("BOTTOMRIGHT", pickerHeader, "BOTTOMRIGHT", 0, -2)
+    pHDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+    pickerHeader.hDiv = pHDiv
+
+    -- 2. DetailCard na base da Tela 2
+    local pDetailCard = self:CreateDetailCard(pickerScreen)
+    pickerScreen.detailCard = pDetailCard
+    if pDetailCard.slotsFreeText then
+        pDetailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar ao Mapeador")
+    end
+    if pDetailCard.sellWidget then pDetailCard.sellWidget:Hide() end
+    if pDetailCard.moneyWidget then pDetailCard.moneyWidget:Hide() end
+    pDetailCard.titleText:SetText("|cffe09a15Seletor de Conteúdo|r")
+    pDetailCard.typeText:SetText("|cffaaaaaaModo Console — Feitiços, Bolsas, Macros e Barras|r")
+    pDetailCard.descColLeft:SetText("|cffccccccSelecione uma habilidade ou item para vincular ao botão escolhido.|r")
+    pDetailCard.descColRight:SetText("|cff888888Pressione [B] para cancelar o mapeamento.|r")
+    pDetailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+    pDetailCard.icon:Show()
+
+    -- 3. Área de Conteúdo Central da Tela 2 (Placeholder)
+    local pContentArea = CreateFrame("Frame", "ConsoleModeMM_PickerContent", pickerScreen)
+    pContentArea:SetPoint("TOPLEFT", pickerHeader, "BOTTOMLEFT", 0, -6)
+    pContentArea:SetPoint("BOTTOMRIGHT", pDetailCard, "TOPRIGHT", 0, 6)
+    pContentArea:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 12,
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 }
+    })
+    pContentArea:SetBackdropColor(0, 0, 0, 0.35)
+    pContentArea:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
+    pickerScreen.contentArea = pContentArea
+
+    local pPlaceholder = pContentArea:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    pPlaceholder:SetPoint("CENTER", pContentArea, "CENTER", 0, 10)
+    MainMenu:ApplyFont(pPlaceholder, CFG.Fonts.bodyFontFile, 14, "")
+    pPlaceholder:SetText("|cffe09a15[ SELETOR DE CONTEÚDO (PICKER) ]|r\n\n|cffffffffGrade 4x4 e fontes de ação serão integradas na Fase 3.|r")
+    pContentArea.placeholder = pPlaceholder
+end
+
+function MainMenu:ShowBindsScreen()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return end
+
+    self:SetupSystemPage(pageSystem)
+    self:SetupKeybindingsPage(pageSystem)
+
+    if pageSystem.headerBar then pageSystem.headerBar:Hide() end
+    if pageSystem.subContent then pageSystem.subContent:Hide() end
+    if pageSystem.pickerScreen then pageSystem.pickerScreen:Hide() end
+
+    if pageSystem.bindsScreen then
+        pageSystem.bindsScreen:Show()
+    end
+    pageSystem.activeSubScreen = "BINDS"
+
+    PlaySound("igMainMenuOptionCheckBoxOn")
+
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
+        ConsoleMode.cursor:Resync()
+    end
+end
+
+function MainMenu:ShowPickerScreen()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return end
+
+    self:SetupSystemPage(pageSystem)
+    self:SetupKeybindingsPage(pageSystem)
+
+    if pageSystem.headerBar then pageSystem.headerBar:Hide() end
+    if pageSystem.subContent then pageSystem.subContent:Hide() end
+    if pageSystem.bindsScreen then pageSystem.bindsScreen:Hide() end
+
+    if pageSystem.pickerScreen then
+        pageSystem.pickerScreen:Show()
+    end
+    pageSystem.activeSubScreen = "PICKER"
+
+    PlaySound("igMainMenuOptionCheckBoxOn")
+
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
+        ConsoleMode.cursor:Resync()
+    end
+end
+
+function MainMenu:ShowAddonConfigSubPage()
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return end
+
+    if pageSystem.bindsScreen then pageSystem.bindsScreen:Hide() end
+    if pageSystem.pickerScreen then pageSystem.pickerScreen:Hide() end
+    pageSystem.activeSubScreen = nil
+
+    if pageSystem.headerBar then pageSystem.headerBar:Show() end
+    if pageSystem.subContent then pageSystem.subContent:Show() end
+
+    self:SelectSystemSubTab("ADDON_CFG")
+
+    PlaySound("igMainMenuOptionCheckBoxOn")
+
+    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.Resync then
+        ConsoleMode.cursor:Resync()
+    end
+end
+
+function MainMenu:HandleBindsBack()
+    if not self.tabContainer or not self.tabContainer.pages then return false end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem:IsVisible() then return false end
+
+    if pageSystem.activeSubScreen == "PICKER" then
+        self:ShowBindsScreen()
+        if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        return true
+    elseif pageSystem.activeSubScreen == "BINDS" then
+        self:ShowAddonConfigSubPage()
+        if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        return true
+    end
+
+    return false
 end
 
 -- ============================================================================

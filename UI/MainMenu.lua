@@ -5031,50 +5031,6 @@ function MainMenu:SetupTalentsPage(pageTalents)
     treeScreen.slotsByTierCol = slotsByTierCol
     treeScreen.allSlots = allSlots
 
-    -- 4.3. Placeholder para árvore 3 enquanto não implementada
-    local treeCard = CreateFrame("Frame", "ConsoleModeMM_TalentsTreeCard", treeScreen)
-    treeCard:SetPoint("TOPLEFT", treeHeader, "BOTTOMLEFT", 0, -12)
-    treeCard:SetPoint("BOTTOMRIGHT", treeScreen, "BOTTOMRIGHT", -10, 44)
-    treeCard:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 16, edgeSize = 14,
-        insets   = { left = 3, right = 3, top = 3, bottom = 3 }
-    })
-    treeCard:SetBackdropColor(CFG.Talents.cardBgColor.r, CFG.Talents.cardBgColor.g, CFG.Talents.cardBgColor.b, 0.85)
-    treeCard:SetBackdropBorderColor(colors.inactiveBorder.r, colors.inactiveBorder.g, colors.inactiveBorder.b, colors.inactiveBorder.a)
-    treeScreen.card = treeCard
-
-    local bigIcon = treeCard:CreateTexture(nil, "ARTWORK")
-    bigIcon:SetWidth(56)
-    bigIcon:SetHeight(56)
-    bigIcon:SetPoint("CENTER", treeCard, "CENTER", 0, 45)
-    treeCard.bigIcon = bigIcon
-
-    local bigIconBorder = CreateFrame("Frame", nil, treeCard)
-    bigIconBorder:SetPoint("TOPLEFT", bigIcon, "TOPLEFT", -3, 3)
-    bigIconBorder:SetPoint("BOTTOMRIGHT", bigIcon, "BOTTOMRIGHT", 3, -3)
-    bigIconBorder:SetBackdrop({
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        edgeSize = 10,
-        insets = { left = 1, right = 1, top = 1, bottom = 1 }
-    })
-    bigIconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.85)
-    treeCard.bigIconBorder = bigIconBorder
-
-    local phTitle = treeCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    phTitle:SetPoint("TOP", bigIcon, "BOTTOM", 0, -14)
-    MainMenu:ApplyFont(phTitle, CFG.Fonts.titleFontFile, 17)
-    phTitle:SetText("|cffe09a15Árvore de Talentos|r")
-    treeCard.phTitle = phTitle
-
-    local phDesc = treeCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    phDesc:SetPoint("TOP", phTitle, "BOTTOM", 0, -8)
-    phDesc:SetPoint("LEFT", treeCard, "LEFT", 24, 0)
-    phDesc:SetPoint("RIGHT", treeCard, "RIGHT", -24, 0)
-    MainMenu:ApplyFont(phDesc, CFG.Fonts.bodyFontFile, 13)
-    phDesc:SetText("|cffccccccEsta especialização será ativada na próxima sub-fase!|r\n|cffaaaaaaAs Especializações 1 e 2 já estão ativas na grade horizontal.|r")
-    treeCard.phDesc = phDesc
 
     -- 4.4. Rodapé com Botão Voltar [B] e resumo
     local backBtn = CreateFrame("Button", "ConsoleModeMM_TalentsBackBtn", treeScreen)
@@ -5201,25 +5157,11 @@ function MainMenu:UpdateTalentTreeGrid(specIdx)
 
     local treeScreen = pageTalents.treeScreen
     local horizGrid = treeScreen.horizGrid
-    local cardPlaceholder = treeScreen.card
     local slotsByTierCol = treeScreen.slotsByTierCol
     local allSlots = treeScreen.allSlots
 
-    if not horizGrid or not cardPlaceholder or not slotsByTierCol or not allSlots then return end
+    if not horizGrid or not slotsByTierCol or not allSlots then return end
 
-    -- Spec 3: Placeholder enquanto não ativada
-    if specIdx == 3 then
-        horizGrid:Hide()
-        cardPlaceholder:Show()
-        if cardPlaceholder.phTitle then
-            local specData = self:GetTalentSpecData(specIdx)
-            cardPlaceholder.phTitle:SetText(string.format("|cffe09a15%s (Placeholder)|r", specData.name))
-        end
-        return
-    end
-
-    -- Specs 1 e 2: Exibe a Grade Horizontal
-    cardPlaceholder:Hide()
     horizGrid:Show()
 
     -- Oculta todos os slots da grade inicialmente

@@ -262,10 +262,11 @@ CFG.Tabs = {
     inactiveColor   = { r = 0.65, g = 0.65, b = 0.65 }, -- Cor cinza de aba inativa
     indicatorColor  = "|cffe09a15",         -- Dourado âmbar de alto contraste
     list = {
-        { id = "BAGS",   name = "Bolsas & Itens",  shortName = "Bolsas" },
-        { id = "SPELLS", name = "Livro de Magias", shortName = "Magias" },
-        { id = "QUESTS", name = "Missões & Mapa",  shortName = "Missões" },
-        { id = "SYSTEM", name = "Configurações",   shortName = "Opções" },
+        { id = "BAGS",    name = "Bolsas & Itens",  shortName = "Bolsas" },
+        { id = "SPELLS",  name = "Livro de Magias", shortName = "Magias" },
+        { id = "TALENTS", name = "Talentos",        shortName = "Talentos" },
+        { id = "QUESTS",  name = "Missões & Mapa",  shortName = "Missões" },
+        { id = "SYSTEM",  name = "Configurações",   shortName = "Opções" },
     }
 }
 
@@ -342,6 +343,83 @@ CFG.System = {
     itemTextColor   = "|cffffffff",         -- Cor branca uniforme para todos os títulos de botões
     badgeColor      = "|cffe09a15",         -- Cor âmbar/dourada para os números de índice [01], [02]...
     frameNameColor  = "|cff777777",         -- Cor cinza discreta para o nome técnico do frame
+}
+
+-- ----------------------------------------------------------------------------
+-- 6.6. ABA DE TALENTOS E ESPECIALIZAÇÕES (FASE 1 - PLACEHOLDER E ESTRUTURA)
+-- ----------------------------------------------------------------------------
+CFG.Talents = {
+    headerColor     = "|cffe09a15",
+    subColor        = "|cffffffff",
+    descColor       = "|cffaaaaaa",
+    badgeColor      = "|cffe09a15",
+    cardBgColor     = { r = 0.0, g = 0.0, b = 0.0, a = 0.50 },
+    cardBorderColor = { r = 0.88, g = 0.60, b = 0.08, a = 0.70 },
+
+    -- Layout dos botões de spec (Tela 1)
+    SpecButton = {
+        width       = 140,    -- largura de cada botão
+        height      = 185,    -- altura total do botão
+        imageHeight = 110,    -- altura da área reservada para a imagem de fundo
+        gap         = 14,     -- espaçamento horizontal entre os 3 botões
+    },
+
+    -- Cores dos botões de spec
+    Colors = {
+        activeBorder   = { r = 0.88, g = 0.60, b = 0.08, a = 0.95 }, -- Dourado âmbar brilhante
+        inactiveBorder = { r = 0.50, g = 0.40, b = 0.30, a = 0.55 }, -- Bronze/dourado suave
+        hoverBorder    = { r = 1.00, g = 0.85, b = 0.20, a = 0.95 }, -- Realce de seleção
+        placeholderBg  = { r = 0.06, g = 0.06, b = 0.07, a = 0.90 }, -- Fundo escuro do placeholder de imagem
+    },
+
+    -- Descrições temáticas das especializações por classe (Vanilla 1.12)
+    Specs = {
+        ["WARRIOR"] = {
+            [1] = { name = "Armas", desc = "Mestre do combate corpo-a-corpo tático — foco em armas pesadas de duas mãos, controle de sangramento e golpes avassaladores." },
+            [2] = { name = "Fúria", desc = "Guerreiro berserker selvagem — foco em dano devastador, aceleração contínua de golpes e fúria incontrolável." },
+            [3] = { name = "Proteção", desc = "Bastião inabalável com escudo e armadura pesada — mitigação suprema de dano e controle absoluto de ameaça." },
+        },
+        ["PALADIN"] = {
+            [1] = { name = "Sagrado", desc = "Invocador da Luz Divina — curas purificadoras, bênçãos de proteção e suporte vital inabalável aos aliados." },
+            [2] = { name = "Proteção", desc = "Guardião sagrado da fé — auras de resistência, bloqueios eficientes e defesa inabalável com escudo." },
+            [3] = { name = "Retribuição", desc = "Cruzado zeloso da justiça — punição divina com armas de duas mãos, selos justiceiros e golpes sagrados." },
+        },
+        ["HUNTER"] = {
+            [1] = { name = "Domínio das Feras", desc = "Mestre da vida selvagem — ligação primordial com feras domesticadas, amplificando o poder do ajudante." },
+            [2] = { name = "Precisão", desc = "Atirador de elite letal — disparos cirúrgicos de longo alcance com arcos, bestas e armas de fogo." },
+            [3] = { name = "Sobrevivência", desc = "Especialista em sobrevivência no ermo — armadilhas traiçoeiras, mobilidade tática e venenos mortais." },
+        },
+        ["ROGUE"] = {
+            [1] = { name = "Assassinato", desc = "Mestre em venenos letais e golpes cirúrgicos — ataques furtivos concentrados que drenam rapidamente a vítima." },
+            [2] = { name = "Combate", desc = "Espadachim destemido e ágil — combate direto com espadas, maças e adagas com grande regeneração de energia." },
+            [3] = { name = "Subterfúgio", desc = "Mestre das sombras e do engano — mobilidade fantasmagórica, ataques surpresa e reposicionamento furtivo." },
+        },
+        ["PRIEST"] = {
+            [1] = { name = "Disciplina", desc = "Fortaleza mental e disciplina espiritual — escudos de absorção, proteção preventiva e fortalecimento interior." },
+            [2] = { name = "Sagrado", desc = "Canalizador puro da Luz Divina — curas profundas, renovações vitais e milagres que salvam o grupo da morte." },
+            [3] = { name = "Sombra", desc = "Manipulador do Vazio e da loucura — feitiços de dano mental contínuo, corrupção da alma e terror psicológico." },
+        },
+        ["SHAMAN"] = {
+            [1] = { name = "Elemental", desc = "Invocador da fúria da natureza — magias devastadoras de raio, terra e fogo com alto dano de impacto à distância." },
+            [2] = { name = "Aperfeiçoamento", desc = "Combatente corpo-a-corpo totemico — armas imbuídas pelos espíritos dos elementos com golpes furiosos." },
+            [3] = { name = "Restauração", desc = "Curador das águas sagradas e ancestrais — cura em cadeia profunda, purificação e sustentação de grupo." },
+        },
+        ["MAGE"] = {
+            [1] = { name = "Arcano", desc = "Mestre das energias puras do Cosmos — manipulação do fluxo de mana, aceleração temporal e dano arcano bruto." },
+            [2] = { name = "Fogo", desc = "Mago incendiário devastador — queimaduras contínuas, explosões incandescentes e altos picos de acerto crítico." },
+            [3] = { name = "Gélido", desc = "Comandante do gelo eterno — barreiras congelantes, desacelerações de campo e sobrevivência absoluta." },
+        },
+        ["WARLOCK"] = {
+            [1] = { name = "Aflição", desc = "Mestre das maldições e agonia lenta — feitiços de dano periódico corrosivo que drenam a vitalidade do alvo." },
+            [2] = { name = "Demonologia", desc = "Comandante da Legião — invocação e fortalecimento de servos demoníacos para esmagar seus oponentes." },
+            [3] = { name = "Destruição", desc = "Conjurador do fogo caótico vil — feitiços explosivos de impacto imediato e aniquilação incandescente." },
+        },
+        ["DRUID"] = {
+            [1] = { name = "Equilíbrio", desc = "Canalizador das forças astrais e da natureza — feitiços solares e lunares com a Forma de Luniscélio ancestral." },
+            [2] = { name = "Feral", desc = "Predador mutamorfo — combate feroz como Urso para defesa tenaz ou Felino para ataques furtivos." },
+            [3] = { name = "Restauração", desc = "Guardião da cura e da vida — regeneração contínua de saúde por feitiços sobre o tempo e bênçãos do Sonho." },
+        },
+    }
 }
 
 -- ----------------------------------------------------------------------------
@@ -742,8 +820,19 @@ function MainMenu:UpdateLayout()
         local btnW = math.floor((usableTabW - ((numTabs - 1) * CFG.Tabs.gapX)) / numTabs)
         if btnW < 60 then btnW = 60 end
 
-        for _, btn in ipairs(self.tabContainer.tabBar.buttons) do
+        local tabsCenter = self.tabContainer.tabBar.tabsCenter or getglobal("ConsoleModeMM_TabsCenter")
+        local curX = 0
+        local gapX = CFG.Tabs.gapX or 6
+        for idx, btn in ipairs(self.tabContainer.tabBar.buttons) do
             btn:SetWidth(btnW)
+            if tabsCenter then
+                btn:ClearAllPoints()
+                btn:SetPoint("LEFT", tabsCenter, "LEFT", curX, 0)
+                curX = curX + btnW + (idx < numTabs and gapX or 0)
+            end
+        end
+        if tabsCenter then
+            tabsCenter:SetWidth(curX)
         end
     end
 end
@@ -3138,7 +3227,7 @@ function MainMenu:GetActiveDetailCard()
         if curTab and self.tabContainer.pages[curTab] and self.tabContainer.pages[curTab].detailCard then
             return self.tabContainer.pages[curTab].detailCard
         end
-        for _, pageKey in ipairs({ "BAGS", "SPELLS" }) do
+        for _, pageKey in ipairs({ "BAGS", "SPELLS", "TALENTS" }) do
             local pg = self.tabContainer.pages[pageKey]
             if pg and pg.detailCard and pg:IsVisible() then
                 return pg.detailCard
@@ -3149,6 +3238,9 @@ function MainMenu:GetActiveDetailCard()
         end
         if self.tabContainer.pages["SPELLS"] and self.tabContainer.pages["SPELLS"].detailCard then
             return self.tabContainer.pages["SPELLS"].detailCard
+        end
+        if self.tabContainer.pages["TALENTS"] and self.tabContainer.pages["TALENTS"].detailCard then
+            return self.tabContainer.pages["TALENTS"].detailCard
         end
     end
     return nil
@@ -4488,6 +4580,315 @@ function MainMenu:PrevSpellPage()
     pageSpells.currentPage = (pageSpells.currentPage or 1) - 1
     self:UpdateSpellsPage(true)
     if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+end
+
+-- ============================================================================
+-- 7.3.5. CONFIGURAÇÃO DA ABA DE TALENTOS & ESPECIALIZAÇÕES (FASE 2 - TELA 1)
+-- ============================================================================
+
+function MainMenu:GetTalentSpecData(tabIndex)
+    local numTabs = 0
+    if GetNumTalentTabs then numTabs = GetNumTalentTabs() or 0 end
+    local name, icon, pointsSpent, background = nil, nil, 0, nil
+    if numTabs and numTabs >= tabIndex and GetTalentTabInfo then
+        name, icon, pointsSpent, background = GetTalentTabInfo(tabIndex)
+    end
+
+    local locClass, engClass = UnitClass("player")
+    local classSpecs = engClass and CFG.Talents and CFG.Talents.Specs and CFG.Talents.Specs[engClass]
+    local defaultSpec = classSpecs and classSpecs[tabIndex]
+
+    if not name or name == "" then
+        name = (defaultSpec and defaultSpec.name) or ("Especialização " .. tabIndex)
+    end
+    if not icon or icon == "" then
+        icon = "Interface\\Icons\\Spell_Nature_Lightning"
+    end
+    pointsSpent = pointsSpent or 0
+
+    local desc = (defaultSpec and defaultSpec.desc) or ("Especialização " .. tabIndex .. " da classe " .. (locClass or "") .. ". Distribua seus talentos nesta árvore para desbloquear habilidades exclusivas.")
+
+    return {
+        index = tabIndex,
+        name = name,
+        icon = icon,
+        pointsSpent = pointsSpent,
+        background = background,
+        desc = desc,
+    }
+end
+
+function MainMenu:FocusTalentSpecButton(idx)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageTalents = self.tabContainer.pages["TALENTS"]
+    if not pageTalents or not pageTalents.specButtons then return end
+
+    idx = idx or 1
+    if idx < 1 then idx = 1 end
+    if idx > 3 then idx = 3 end
+    pageTalents.focusedSpecIdx = idx
+
+    local colors = CFG.Talents.Colors
+    for i = 1, 3 do
+        local btn = pageTalents.specButtons[i]
+        if btn then
+            if i == idx then
+                btn:SetBackdropBorderColor(colors.activeBorder.r, colors.activeBorder.g, colors.activeBorder.b, colors.activeBorder.a)
+                if btn.focusBorder then btn.focusBorder:Show() end
+                if btn.highlight then btn.highlight:Show() end
+                if btn.specName then btn.specName:SetTextColor(1.0, 0.85, 0.20) end
+            else
+                btn:SetBackdropBorderColor(colors.inactiveBorder.r, colors.inactiveBorder.g, colors.inactiveBorder.b, colors.inactiveBorder.a)
+                if btn.focusBorder then btn.focusBorder:Hide() end
+                if btn.highlight then btn.highlight:Hide() end
+                if btn.specName then btn.specName:SetTextColor(0.90, 0.90, 0.90) end
+            end
+        end
+    end
+
+    local specData = self:GetTalentSpecData(idx)
+    local unspent = 0
+    if UnitCharacterPoints then unspent = UnitCharacterPoints("player") or 0 end
+
+    if pageTalents.detailCard then
+        pageTalents.detailCard.icon:SetTexture(specData.icon)
+        pageTalents.detailCard.icon:Show()
+        pageTalents.detailCard.titleText:SetText(string.format("|cffe09a15Especialização: %s|r", specData.name))
+        pageTalents.detailCard.typeText:SetText(string.format("|cffaaaaaaÁrvore %d de 3 — ConsoleMode Vanilla|r", idx))
+        pageTalents.detailCard.descColLeft:SetText(specData.desc)
+        pageTalents.detailCard.descColRight:SetText(string.format("|cffaaaaaaPontos investidos: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n|cffe09a15Pressione [A] para abrir árvore|r", specData.pointsSpent, unspent))
+    end
+end
+
+function MainMenu:SetupTalentsPage(pageTalents)
+    if pageTalents.isInitialized then return end
+
+    -- 1. Barra Superior de Cabeçalho da Aba de Talentos
+    local headerBar = CreateFrame("Frame", "ConsoleModeMM_TalentsHeader", pageTalents)
+    headerBar:SetHeight(30)
+    headerBar:SetPoint("TOPLEFT", pageTalents, "TOPLEFT", 0, 0)
+    headerBar:SetPoint("TOPRIGHT", pageTalents, "TOPRIGHT", 0, 0)
+    pageTalents.headerBar = headerBar
+
+    local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    headerTitle:SetPoint("LEFT", headerBar, "LEFT", 4, 0)
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 14)
+    headerTitle:SetText("|cffe09a15ESPECIALIZAÇÕES & TALENTOS|r")
+    pageTalents.headerTitle = headerTitle
+
+    local talentPointsText = headerBar:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    talentPointsText:SetPoint("RIGHT", headerBar, "RIGHT", -4, 0)
+    MainMenu:ApplyFont(talentPointsText, CFG.Fonts.subFontFile, 12)
+    pageTalents.talentPointsText = talentPointsText
+
+    local headerDivider = headerBar:CreateTexture(nil, "ARTWORK")
+    headerDivider:SetHeight(1)
+    headerDivider:SetPoint("BOTTOMLEFT", headerBar, "BOTTOMLEFT", 0, 0)
+    headerDivider:SetPoint("BOTTOMRIGHT", headerBar, "BOTTOMRIGHT", 0, 0)
+    headerDivider:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    headerDivider:SetVertexColor(0.5, 0.4, 0.3, 0.4)
+
+    -- 2. Painel Fixo de Detalhes na Base (Estilo Zelda / Console)
+    local detailCard = self:CreateDetailCard(pageTalents)
+    pageTalents.detailCard = detailCard
+    if detailCard.slotsFreeText then
+        detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Talentos 1.12|r")
+    end
+    if detailCard.sellWidget then
+        detailCard.sellWidget:Hide()
+    end
+
+    -- 3. Tela 1: Seleção de Especialização (Fase 2)
+    local specScreen = CreateFrame("Frame", "ConsoleModeMM_TalentsSpecScreen", pageTalents)
+    specScreen:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, 0)
+    specScreen:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", 0, 0)
+    pageTalents.specScreen = specScreen
+
+    -- Título e instrução de navegação
+    local promptTitle = specScreen:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    promptTitle:SetPoint("TOP", specScreen, "TOP", 0, -18)
+    MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 16)
+    promptTitle:SetText("|cffe09a15Escolha uma Especialização|r")
+    specScreen.promptTitle = promptTitle
+
+    local promptSub = specScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    promptSub:SetPoint("TOP", promptTitle, "BOTTOM", 0, -4)
+    MainMenu:ApplyFont(promptSub, CFG.Fonts.subFontFile, 12)
+    promptSub:SetText("|cffaaaaaaNavegue com [D-Pad] ou [LT]/[RT] e selecione uma das 3 árvores de talentos|r")
+    specScreen.promptSub = promptSub
+
+    -- Container horizontal centralizado para os 3 botões
+    local specCfg = CFG.Talents.SpecButton
+    local colors = CFG.Talents.Colors
+    local totalW = (3 * specCfg.width) + (2 * specCfg.gap)
+    local specContainer = CreateFrame("Frame", "ConsoleModeMM_TalentsSpecContainer", specScreen)
+    specContainer:SetWidth(totalW)
+    specContainer:SetHeight(specCfg.height)
+    specContainer:SetPoint("CENTER", specScreen, "CENTER", 0, -10)
+    specScreen.specContainer = specContainer
+
+    local specButtons = {}
+    for i = 1, 3 do
+        local btn = CreateFrame("Button", "ConsoleModeMM_TalentSpecBtn" .. i, specContainer)
+        btn:SetWidth(specCfg.width)
+        btn:SetHeight(specCfg.height)
+        btn.specIndex = i
+
+        if i == 1 then
+            btn:SetPoint("LEFT", specContainer, "LEFT", 0, 0)
+        else
+            btn:SetPoint("LEFT", specButtons[i - 1], "RIGHT", specCfg.gap, 0)
+        end
+
+        -- Backdrop do card
+        btn:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 16, edgeSize = 12,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        btn:SetBackdropColor(CFG.Talents.cardBgColor.r, CFG.Talents.cardBgColor.g, CFG.Talents.cardBgColor.b, CFG.Talents.cardBgColor.a)
+        btn:SetBackdropBorderColor(colors.inactiveBorder.r, colors.inactiveBorder.g, colors.inactiveBorder.b, colors.inactiveBorder.a)
+
+        -- Overlay de highlight translúcido
+        local highlight = btn:CreateTexture(nil, "BACKGROUND")
+        highlight:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        highlight:SetPoint("TOPLEFT", btn, "TOPLEFT", 2, -2)
+        highlight:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -2, 2)
+        highlight:SetVertexColor(colors.hoverBorder.r, colors.hoverBorder.g, colors.hoverBorder.b, 0.12)
+        highlight:Hide()
+        btn.highlight = highlight
+
+        -- Borda de foco dourada brilhante
+        local focusBorder = CreateFrame("Frame", nil, btn)
+        focusBorder:SetPoint("TOPLEFT", btn, "TOPLEFT", -2, 2)
+        focusBorder:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", 2, -2)
+        focusBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 14,
+            insets = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        focusBorder:SetBackdropBorderColor(colors.activeBorder.r, colors.activeBorder.g, colors.activeBorder.b, colors.activeBorder.a)
+        focusBorder:Hide()
+        btn.focusBorder = focusBorder
+
+        -- Placeholder da Imagem de Fundo (reserva o espaço exato para a textura final)
+        local imgPlaceholder = CreateFrame("Frame", nil, btn)
+        imgPlaceholder:SetPoint("TOPLEFT", btn, "TOPLEFT", 6, -6)
+        imgPlaceholder:SetPoint("TOPRIGHT", btn, "TOPRIGHT", -6, -6)
+        imgPlaceholder:SetHeight(specCfg.imageHeight)
+        imgPlaceholder:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        imgPlaceholder:SetBackdropColor(colors.placeholderBg.r, colors.placeholderBg.g, colors.placeholderBg.b, colors.placeholderBg.a)
+        imgPlaceholder:SetBackdropBorderColor(0.40, 0.35, 0.28, 0.70)
+        btn.imgPlaceholder = imgPlaceholder
+
+        -- Ícone temático da spec
+        local specIcon = imgPlaceholder:CreateTexture(nil, "ARTWORK")
+        specIcon:SetWidth(42)
+        specIcon:SetHeight(42)
+        specIcon:SetPoint("CENTER", imgPlaceholder, "CENTER", 0, 8)
+        btn.specIcon = specIcon
+
+        local iconBorder = CreateFrame("Frame", nil, imgPlaceholder)
+        iconBorder:SetPoint("TOPLEFT", specIcon, "TOPLEFT", -2, 2)
+        iconBorder:SetPoint("BOTTOMRIGHT", specIcon, "BOTTOMRIGHT", 2, -2)
+        iconBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        iconBorder:SetBackdropBorderColor(0.70, 0.55, 0.20, 0.85)
+        btn.iconBorder = iconBorder
+
+        -- Rótulo de placeholder abaixo do ícone
+        local placeholderText = imgPlaceholder:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+        placeholderText:SetPoint("BOTTOM", imgPlaceholder, "BOTTOM", 0, 6)
+        MainMenu:ApplyFont(placeholderText, CFG.Fonts.subFontFile, 10)
+        placeholderText:SetText("|cff666666[ Textura de Fundo ]|r")
+        btn.placeholderText = placeholderText
+
+        -- Nome da Especialização
+        local specName = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        specName:SetPoint("TOP", imgPlaceholder, "BOTTOM", 0, -8)
+        specName:SetPoint("LEFT", btn, "LEFT", 4, 0)
+        specName:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
+        MainMenu:ApplyFont(specName, CFG.Fonts.titleFontFile, 14)
+        specName:SetText("Especialização " .. i)
+        btn.specName = specName
+
+        -- Pontos investidos
+        local pointsText = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        pointsText:SetPoint("TOP", specName, "BOTTOM", 0, -3)
+        MainMenu:ApplyFont(pointsText, CFG.Fonts.bodyFontFile, 12)
+        pointsText:SetText("|cffe09a150 pts investidos|r")
+        btn.pointsText = pointsText
+
+        -- Eventos de mouse e foco
+        btn:SetScript("OnEnter", function()
+            MainMenu:FocusTalentSpecButton(this.specIndex)
+        end)
+        btn:SetScript("OnClick", function()
+            MainMenu:FocusTalentSpecButton(this.specIndex)
+            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
+        end)
+
+        table.insert(specButtons, btn)
+    end
+    pageTalents.specButtons = specButtons
+    pageTalents.focusedSpecIdx = 1
+
+    pageTalents.isInitialized = true
+end
+
+function MainMenu:UpdateTalentsPage(keepPage)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageTalents = self.tabContainer.pages["TALENTS"]
+    if not pageTalents then return end
+
+    self:SetupTalentsPage(pageTalents)
+
+    local unspent = 0
+    if UnitCharacterPoints then
+        unspent = UnitCharacterPoints("player") or 0
+    end
+    if pageTalents.talentPointsText then
+        pageTalents.talentPointsText:SetText(string.format("|cffaaaaaaPontos disponíveis: |cffffffff%d|r", unspent))
+    end
+
+    if pageTalents.specButtons then
+        for i = 1, 3 do
+            local btn = pageTalents.specButtons[i]
+            local specData = self:GetTalentSpecData(i)
+            if btn and specData then
+                btn.specData = specData
+                if btn.specName then
+                    btn.specName:SetText(specData.name)
+                end
+                if btn.pointsText then
+                    if specData.pointsSpent > 0 then
+                        btn.pointsText:SetText(string.format("|cffe09a15%d pts investidos|r", specData.pointsSpent))
+                    else
+                        btn.pointsText:SetText("|cff7777770 pts investidos|r")
+                    end
+                end
+                if btn.specIcon then
+                    btn.specIcon:SetTexture(specData.icon)
+                end
+            end
+        end
+    end
+
+    if pageTalents.detailCard and pageTalents.detailCard.slotsFreeText then
+        pageTalents.detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Talentos 1.12|r")
+    end
+
+    local curFocus = (keepPage and pageTalents.focusedSpecIdx) or pageTalents.focusedSpecIdx or 1
+    self:FocusTalentSpecButton(curFocus)
 end
 
 -- ============================================================================
@@ -8980,6 +9381,7 @@ function MainMenu:CreateTabContainer(rightPanel)
     local tabsCenter = CreateFrame("Frame", "ConsoleModeMM_TabsCenter", tabBar)
     tabsCenter:SetPoint("RIGHT", r1Hint, "LEFT", -6, 0)
     tabsCenter:SetHeight(CFG.Tabs.buttonHeight)
+    tabBar.tabsCenter = tabsCenter
 
     local tabButtons = {}
     local tabBtnWidth = 104
@@ -9057,7 +9459,12 @@ function MainMenu:CreateTabContainer(rightPanel)
     pageSpells:SetAllPoints(contentFrame)
     pages["SPELLS"] = pageSpells
 
-    -- Página 3: Diário de Missões & Mapa Mundi (Fase 9)
+    -- Página 3: Especializações & Talentos (Fase 1)
+    local pageTalents = CreateFrame("Frame", "ConsoleModeMM_Page_TALENTS", contentFrame)
+    pageTalents:SetAllPoints(contentFrame)
+    pages["TALENTS"] = pageTalents
+
+    -- Página 4: Diário de Missões & Mapa Mundi (Fase 9)
     local pageQuests = CreateFrame("Frame", "ConsoleModeMM_Page_QUESTS", contentFrame)
     pageQuests:SetAllPoints(contentFrame)
     pages["QUESTS"] = pageQuests
@@ -9185,6 +9592,10 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             self:UpdateSpellsPage()
             -- re-layout no próximo frame para corrigir cache stale na 2ª troca QUESTS->SPELLS (Vanilla 1.12)
             do local f=CreateFrame("Frame",nil,self.frame); f.t=0; f:SetScript("OnUpdate", function() this.t=this.t+arg1; if this.t>0.05 then this:SetScript("OnUpdate",nil); if MainMenu.frame and MainMenu.frame:IsVisible() and MainMenu.tabContainer and MainMenu.tabContainer.currentTab=="SPELLS" then MainMenu:UpdateLayout(); MainMenu:UpdateSpellsPage(true); end end end) end
+        elseif tabID == "TALENTS" then
+            self:RestorePlayerModel()
+            self:UpdateLayout()
+            self:UpdateTalentsPage()
         elseif tabID == "SYSTEM" then
             self:RestorePlayerModel()
             self:UpdateLayout()
@@ -9277,6 +9688,28 @@ function MainMenu:CycleCategories(direction)
         if nextIdx < 1 then nextIdx = numTabs end
 
         self:SelectSpellTab(nextIdx)
+        return true
+
+    elseif curTab == "TALENTS" then
+        local pageTalents = self.tabContainer.pages["TALENTS"]
+        if not pageTalents or not pageTalents:IsVisible() then return false end
+
+        direction = direction or 1
+        local curIdx = pageTalents.focusedSpecIdx or 1
+        local nextIdx = curIdx + direction
+        if nextIdx > 3 then nextIdx = 1 end
+        if nextIdx < 1 then nextIdx = 3 end
+
+        self:FocusTalentSpecButton(nextIdx)
+
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageTalents.specButtons and pageTalents.specButtons[nextIdx] then
+            ConsoleMode.cursor:MoveTo(pageTalents.specButtons[nextIdx])
+            ConsoleMode.cursor:UpdateState()
+        end
+
+        if CFG.Audio.soundItemSelect then
+            PlaySound(CFG.Audio.soundItemSelect)
+        end
         return true
 
     elseif curTab == "SYSTEM" then

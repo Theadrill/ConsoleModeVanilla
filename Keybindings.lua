@@ -603,17 +603,76 @@ function KB:EnterNavigationMode()
     end
 
     -- Aplica bindings de navegação no D-Pad e botões A, B, X, Y
-    SetBinding(defaults[1].DUP,    "CM_CURSOR_UP")
-    SetBinding(defaults[1].DDOWN,  "CM_CURSOR_DOWN")
-    SetBinding(defaults[1].DLEFT,  "CM_CURSOR_LEFT")
-    SetBinding(defaults[1].DRIGHT, "CM_CURSOR_RIGHT")
-    SetBinding(defaults[1].A,      "CM_CURSOR_CONFIRM")   -- A: Clicar / Pegar Item
-    SetBinding(defaults[1].B,      "CM_CURSOR_CANCEL")    -- B: Fechar / Cancelar
-    SetBinding(defaults[1].Y,      "CM_CURSOR_USE")       -- Y: Usar Item / Botao Direito
-    SetBinding(defaults[1].X,      "CM_CURSOR_SECONDARY") -- X: Acao Secundaria / Dividir
+    KB:ReapplyNavigationBindings()
 
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (D-Pad = Navegar | A = Clicar | Y = Usar Item | B = Cancelar)")
     CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, Y = Usar Item, B = Cancelar")
+end
+
+function KB:ReapplyNavigationBindings()
+    if not self.navigationMode then return end
+    local d1 = self.defaults and self.defaults[1]
+    if not d1 then return end
+
+    SetBinding(d1.DUP,    "CM_CURSOR_UP")
+    SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
+    SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
+    SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
+    SetBinding(d1.A,      "CM_CURSOR_CONFIRM")   -- A: Clicar / Pegar Item
+    SetBinding(d1.B,      "CM_CURSOR_CANCEL")    -- B: Fechar / Cancelar
+    SetBinding(d1.Y,      "CM_CURSOR_USE")       -- Y: Usar Item / Botao Direito
+    SetBinding(d1.X,      "CM_CURSOR_SECONDARY") -- X: Acao Secundaria / Limpar / Dividir
+end
+
+function KB:ApplySingleGameBinding(physKey, newAction)
+    if not physKey then return end
+
+    local wasNavMode = self.navigationMode
+
+    -- 1. Se estiver em Modo Navegação, restaura temporariamente os comandos reais de jogo
+    -- para que o SaveBindings() não persista bindings de cursor da UI (CM_CURSOR_*) no arquivo do jogo
+    if wasNavMode and self.savedNavBindings then
+        for k, act in pairs(self.savedNavBindings) do
+            if act and act ~= "" and not string.find(act, "^CM_CURSOR_") and not string.find(act, "^CM_ACTION_") then
+                SetBinding(k, act)
+            elseif k == "TAB" then
+                SetBinding("TAB", "TARGETNEARESTENEMY")
+            end
+        end
+    end
+
+    -- 2. Define a ação real da tecla (ou remove com nil se for limpeza)
+    if newAction and newAction ~= "" then
+        SetBinding(physKey, newAction)
+    else
+        SetBinding(physKey, nil)
+    end
+
+    -- 3. Atualiza o snapshot salvo na navegação para esta tecla física
+    if self.savedNavBindings then
+        self.savedNavBindings[physKey] = (newAction and newAction ~= "") and newAction or nil
+    end
+
+    -- 4. Suspende rotação 3D de personagem no menu principal se estiver ativo
+    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mm and mm.RestoreModelRotationBindings then
+        mm:RestoreModelRotationBindings()
+    end
+
+    -- 5. Grava permanentemente os bindings no disco
+    local set = GetCurrentBindingSet()
+    if not set or set == 0 then set = 1 end
+    pcall(function() SaveBindings(set) end)
+
+    -- 6. Restaura rotação 3D do personagem caso o menu esteja aberto
+    if mm and mm.frame and mm.frame:IsVisible() and mm.ApplyModelRotationBindings then
+        mm:ApplyModelRotationBindings()
+    end
+
+    -- 7. Se estava em Modo Navegação, re-aplica todos os atalhos de controle da UI (DUP, DDOWN, DLEFT, DRIGHT, A, B, X, Y)
+    if wasNavMode then
+        self:ReapplyNavigationBindings()
+    end
 end
 
 function KB:ExitNavigationMode()

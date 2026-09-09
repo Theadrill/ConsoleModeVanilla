@@ -3459,14 +3459,16 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
     end
 
     -- Seleciona um slot no grid e dispara os callbacks
-    function gridFrame:SelectSlot(index)
-        local changed = (self.selectedSlotIndex ~= index)
+    function gridFrame:SelectSlot(index, force)
+        local changed = (self.selectedSlotIndex ~= index) or force
         self.selectedSlotIndex = index
         for i, slot in ipairs(self.slots) do
             if i == index then
                 slot.highlight:Show()
-                if (changed or not self.lastDispatchedSlot) and self.onSlotFocused then
+                local dataChanged = (self.lastDispatchedData ~= slot.data)
+                if (changed or not self.lastDispatchedSlot or dataChanged) and self.onSlotFocused then
                     self.lastDispatchedSlot = index
+                    self.lastDispatchedData = slot.data
                     self.onSlotFocused(index, slot.data)
                 end
             else
@@ -3477,6 +3479,9 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
 
     -- Limpa todos os slots
     function gridFrame:Clear()
+        self.selectedSlotIndex = nil
+        self.lastDispatchedSlot = nil
+        self.lastDispatchedData = nil
         for _, slot in ipairs(self.slots) do
             slot.icon:SetTexture(nil)
             slot.countText:SetText("")
@@ -4496,6 +4501,149 @@ function MainMenu:SetupSpellsPage(pageSpells)
     pageSpells.isInitialized = true
 end
 
+function MainMenu:GetSpellTabTypeInfo(tabIndex, tabName)
+    local info = {
+        tabType = "OTHER",
+        typeLabel = "|cffaaaaaa[ Magias ]|r",
+        specIndex = nil,
+        desc = "",
+    }
+
+    local locClass, engClass = UnitClass("player")
+    local nameLower = string.lower(tabName or "")
+
+    -- 1. Aba Geral
+    if tabIndex == 1 or string.find(nameLower, "general") or string.find(nameLower, "geral") then
+        info.tabType = "GENERAL"
+        info.typeLabel = "|cffaaaaaa[ Geral ]|r"
+        info.desc = "Habilidades gerais do personagem, ataques com armas, raciais e receitas de profissões aprendidas."
+        return info
+    end
+
+    -- 2. Ajudante / Mascote / Companheiro / Montaria
+    local petKeywords = { "pet", "ajudante", "companion", "mascote", "mount", "montaria", "lacaio", "servidor" }
+    local isPet = false
+    for _, kw in ipairs(petKeywords) do
+        if string.find(nameLower, kw) then
+            isPet = true
+            break
+        end
+    end
+
+    if isPet then
+        info.tabType = "PET"
+        info.typeLabel = "|cffaaaaaa[ Ajudante ]|r"
+        if string.find(nameLower, "companion") or string.find(nameLower, "mascote") then
+            info.desc = "Mascotes e companheiros pacíficos que acompanham o personagem em suas jornadas."
+        elseif string.find(nameLower, "mount") or string.find(nameLower, "montaria") then
+            info.desc = "Montarias do personagem para locomoção e viagens rápidas pelo mundo."
+        else
+            info.desc = "Habilidades, comandos e magias específicas do seu ajudante ou lacaio de combate."
+        end
+        return info
+    end
+
+    -- 3. Especialização de Classe (Specs 1, 2, 3)
+    -- Tenta casar primeiro com o nome retornado pela API de Talentos (GetTalentTabInfo)
+    local matchedSpec = nil
+    if GetNumTalentTabs and GetTalentTabInfo then
+        local numTal = GetNumTalentTabs() or 0
+        for k = 1, numTal do
+            local tName = GetTalentTabInfo(k)
+            if tName and tName ~= "" then
+                local lowerT = string.lower(tName)
+                if nameLower == lowerT or string.find(nameLower, lowerT) or string.find(lowerT, nameLower) then
+                    matchedSpec = k
+                    break
+                end
+            end
+        end
+    end
+
+    -- Fallback: dicionário de palavras-chave das especializações por classe
+    local CLASS_SPEC_KEYWORDS = {
+        ["WARRIOR"] = {
+            [1] = { "arms", "armas" },
+            [2] = { "fury", "furia", "fúria" },
+            [3] = { "protection", "protecao", "proteção" },
+        },
+        ["PALADIN"] = {
+            [1] = { "holy", "sagrado" },
+            [2] = { "protection", "protecao", "proteção" },
+            [3] = { "retribution", "retribuicao", "retribuição" },
+        },
+        ["HUNTER"] = {
+            [1] = { "beast", "feras", "dominio", "domínio" },
+            [2] = { "marksman", "precisao", "precisão" },
+            [3] = { "survival", "sobrevivencia", "sobrevivência" },
+        },
+        ["ROGUE"] = {
+            [1] = { "assassin", "assassinato" },
+            [2] = { "combat", "combate" },
+            [3] = { "subtlety", "subterfugio", "subterfúgio" },
+        },
+        ["PRIEST"] = {
+            [1] = { "discipline", "disciplina" },
+            [2] = { "holy", "sagrado" },
+            [3] = { "shadow", "sombra" },
+        },
+        ["SHAMAN"] = {
+            [1] = { "elemental" },
+            [2] = { "enhancement", "aperfeicoamento", "aperfeiçoamento" },
+            [3] = { "restoration", "restauracao", "restauração" },
+        },
+        ["MAGE"] = {
+            [1] = { "arcane", "arcano" },
+            [2] = { "fire", "fogo" },
+            [3] = { "frost", "gelido", "gélido" },
+        },
+        ["WARLOCK"] = {
+            [1] = { "affliction", "aflicao", "aflição" },
+            [2] = { "demonology", "demonologia" },
+            [3] = { "destruction", "destruicao", "destruição" },
+        },
+        ["DRUID"] = {
+            [1] = { "balance", "equilibrio", "equilíbrio" },
+            [2] = { "feral" },
+            [3] = { "restoration", "restauracao", "restauração" },
+        },
+    }
+
+    if not matchedSpec and engClass and CLASS_SPEC_KEYWORDS[engClass] then
+        for k = 1, 3 do
+            local kws = CLASS_SPEC_KEYWORDS[engClass][k]
+            if kws then
+                for _, kw in ipairs(kws) do
+                    if string.find(nameLower, kw) then
+                        matchedSpec = k
+                        break
+                    end
+                end
+            end
+            if matchedSpec then break end
+        end
+    end
+
+    if matchedSpec then
+        info.tabType = "SPEC"
+        info.typeLabel = "|cffaaaaaa[ Especialização ]|r"
+        info.specIndex = matchedSpec
+        local specDef = CFG.Talents and CFG.Talents.Specs and CFG.Talents.Specs[engClass] and CFG.Talents.Specs[engClass][matchedSpec]
+        if specDef and specDef.desc then
+            info.desc = specDef.desc
+        else
+            info.desc = string.format("Grimório e habilidades de especialização %s para a classe %s.", tabName or "", locClass or "")
+        end
+        return info
+    end
+
+    -- 4. Fallback genérico para abas adicionais
+    info.tabType = "OTHER"
+    info.typeLabel = "|cffaaaaaa[ Magias ]|r"
+    info.desc = string.format("Grimório e habilidades da categoria %s para a classe %s.", tabName or ("Aba " .. tabIndex), locClass or "")
+    return info
+end
+
 function MainMenu:UpdateSpellCategories()
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageSpells = self.tabContainer.pages["SPELLS"]
@@ -4518,11 +4666,13 @@ function MainMenu:UpdateSpellCategories()
     if not catContainer then return end
 
     local gap = 12
-    if numTabs >= 5 then gap = 8 elseif numTabs <= 2 then gap = 20 end
-    local maxTotalW = 470
+    if numTabs >= 6 then gap = 6
+    elseif numTabs >= 5 then gap = 8
+    elseif numTabs <= 2 then gap = 20 end
+    local maxTotalW = 480
     local cardW = math.floor((maxTotalW - ((numTabs - 1) * gap)) / numTabs)
     if cardW > 140 then cardW = 140 end
-    if cardW < 88 then cardW = 88 end
+    if cardW < 70 then cardW = 70 end
     local totalW = (numTabs * cardW) + ((numTabs - 1) * gap)
     local cardH = 180
     local imgH = 105
@@ -4532,7 +4682,10 @@ function MainMenu:UpdateSpellCategories()
 
     if not pageSpells.catButtons then pageSpells.catButtons = {} end
 
-    for i = 1, 5 do
+    local maxBtns = math.max(numTabs, table.getn(pageSpells.catButtons))
+    if maxBtns < 5 then maxBtns = 5 end
+
+    for i = 1, maxBtns do
         local btn = pageSpells.catButtons[i]
         if i <= numTabs then
             local tabData = tabs[i]
@@ -4660,13 +4813,8 @@ function MainMenu:UpdateSpellCategories()
                 btn.catIcon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
             end
 
-            if i == 1 then
-                btn.placeholderText:SetText("|cffaaaaaa[ Geral ]|r")
-            elseif i <= 4 then
-                btn.placeholderText:SetText("|cffaaaaaa[ Especialização ]|r")
-            else
-                btn.placeholderText:SetText("|cffaaaaaa[ Ajudante ]|r")
-            end
+            local tabTypeInfo = self:GetSpellTabTypeInfo(i, tabData.name)
+            btn.placeholderText:SetText(tabTypeInfo.typeLabel)
 
             btn:Show()
         else
@@ -4687,8 +4835,7 @@ function MainMenu:FocusSpellCategoryButton(idx)
     pageSpells.focusedCatIdx = idx
 
     local colors = CFG.Talents.Colors
-    for i = 1, numTabs do
-        local btn = pageSpells.catButtons[i]
+    for i, btn in ipairs(pageSpells.catButtons) do
         if btn then
             if i == idx then
                 btn:SetBackdropBorderColor(colors.activeBorder.r, colors.activeBorder.g, colors.activeBorder.b, colors.activeBorder.a)
@@ -4709,17 +4856,8 @@ function MainMenu:FocusSpellCategoryButton(idx)
     icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark"
     numSpells = numSpells or 0
 
-    local locClass, engClass = UnitClass("player")
-    local desc = ""
-    if idx == 1 then
-        desc = "Habilidades gerais do personagem, ataques com armas, raciais e receitas de profissões aprendidas."
-    elseif idx <= 4 and engClass and CFG.Talents and CFG.Talents.Specs and CFG.Talents.Specs[engClass] and CFG.Talents.Specs[engClass][idx - 1] then
-        desc = CFG.Talents.Specs[engClass][idx - 1].desc
-    elseif idx == 5 then
-        desc = "Habilidades, comandos e magias específicas do seu ajudante ou lacaio."
-    else
-        desc = string.format("Grimório e habilidades da categoria %s para a classe %s.", name, locClass or "")
-    end
+    local tabTypeInfo = self:GetSpellTabTypeInfo(idx, name)
+    local desc = tabTypeInfo.desc
 
     if pageSpells.detailCard then
         pageSpells.detailCard.icon:SetTexture(icon)
@@ -4727,7 +4865,15 @@ function MainMenu:FocusSpellCategoryButton(idx)
         pageSpells.detailCard.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
         pageSpells.detailCard.iconBorder:Show()
         pageSpells.detailCard.titleText:SetText(string.format("|cffe09a15Categoria: %s|r", name))
-        pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaEscola de Magia %d de %d — ConsoleMode Vanilla|r", idx, numTabs))
+        if tabTypeInfo.tabType == "PET" then
+            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaAjudante / Mascote — ConsoleMode Vanilla|r"))
+        elseif tabTypeInfo.tabType == "GENERAL" then
+            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaHabilidades Gerais — ConsoleMode Vanilla|r"))
+        elseif tabTypeInfo.tabType == "SPEC" and tabTypeInfo.specIndex then
+            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaEspecialização %d de 3 — ConsoleMode Vanilla|r", tabTypeInfo.specIndex))
+        else
+            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaCategoria %d de %d — ConsoleMode Vanilla|r", idx, numTabs))
+        end
         pageSpells.detailCard.descColLeft:SetWidth(380)
         pageSpells.detailCard.descColLeft:SetText(desc)
         pageSpells.detailCard.descColRight:SetText(string.format("|cffaaaaaaMagias aprendidas: |cffffffff%d magias|r\n\n|cffe09a15Pressione [A] para abrir grimório|r", numSpells))
@@ -4795,7 +4941,7 @@ function MainMenu:ShowSpellGridScreen(tabIdx)
 
     -- Move cursor para o primeiro slot visível da grade
     if pageSpells.grid and pageSpells.grid.slots and pageSpells.grid.slots[1] then
-        pageSpells.grid:SelectSlot(1)
+        pageSpells.grid:SelectSlot(1, true)
         if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo then
             ConsoleMode.cursor:MoveTo(pageSpells.grid.slots[1])
             ConsoleMode.cursor:UpdateState()
@@ -4962,7 +5108,23 @@ function MainMenu:UpdateSpellsPage(keepPage)
     end
 
     if displaySlots > 0 and spells[startIndex] then
-        grid:SelectSlot(1)
+        grid:SelectSlot(1, true)
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and grid.slots and grid.slots[1] and grid.slots[1]:IsVisible() then
+            local curBtn = ConsoleMode.cursor.state and ConsoleMode.cursor.state.currentButton
+            local isCurrentValid = false
+            if curBtn and curBtn:IsVisible() then
+                for sIdx = 1, displaySlots do
+                    if grid.slots[sIdx] == curBtn then
+                        isCurrentValid = true
+                        break
+                    end
+                end
+            end
+            if not isCurrentValid then
+                ConsoleMode.cursor:MoveTo(grid.slots[1])
+                ConsoleMode.cursor:UpdateState()
+            end
+        end
     else
         pageSpells.detailCard:Clear("Grimório Vazio")
         MainMenu:TriggerSpellPose(0)
@@ -4977,6 +5139,13 @@ function MainMenu:SelectSpellTab(tabIdx)
     pageSpells.currentPage = 1
     if pageSpells.activeScreen == 2 then
         self:UpdateSpellsPage(false)
+        if pageSpells.grid and pageSpells.grid.slots and pageSpells.grid.slots[1] and pageSpells.grid.slots[1]:IsVisible() then
+            pageSpells.grid:SelectSlot(1, true)
+            if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo then
+                ConsoleMode.cursor:MoveTo(pageSpells.grid.slots[1])
+                ConsoleMode.cursor:UpdateState()
+            end
+        end
     else
         self:ShowSpellGridScreen(tabIdx)
     end
@@ -10262,7 +10431,17 @@ function MainMenu:UpdateAddonConfigSubPage()
     if not pageSystem or not pageSystem.subPageAddonCfg then return end
 
     local subPage = pageSystem.subPageAddonCfg
-    if subPage.isPopulated then return end
+    if subPage.isPopulated then
+        if subPage.rows then
+            for _, row in ipairs(subPage.rows) do
+                if row.optData and type(row.optData.title) == "function" and row.title then
+                    local tStr = row.optData.title()
+                    row.title:SetText(string.format("%s%s|r", CFG.System.itemTextColor or "|cffffffff", tStr))
+                end
+            end
+        end
+        return
+    end
 
     -- Header
     local header = subPage:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -10288,6 +10467,22 @@ function MainMenu:UpdateAddonConfigSubPage()
             desc = "Configurar habilidades, itens e macros dos botões do controle (Páginas 1 a 5)",
             onClick = function()
                 MainMenu:ShowBindsScreen()
+            end,
+        },
+        {
+            title = function()
+                local isShown = ConsoleModeDB and (ConsoleModeDB.showRightActionBars ~= false)
+                return "Barras de Ação da Direita (Blizzard): " .. (isShown and "|cff00ff00[ VISÍVEIS ]|r" or "|cff888888[ OCULTAS ]|r")
+            end,
+            desc = "Exibe ou oculta as duas barras de ação verticais padrão da Blizzard na borda direita da tela",
+            onClick = function(rowBtn)
+                if CM and CM.ToggleRightActionBars then
+                    local newVal = CM:ToggleRightActionBars()
+                    if rowBtn and rowBtn.title then
+                        local tColor = CFG.System.itemTextColor or "|cffffffff"
+                        rowBtn.title:SetText(string.format("%s%s|r", tColor, "Barras de Ação da Direita (Blizzard): " .. (newVal and "|cff00ff00[ VISÍVEIS ]|r" or "|cff888888[ OCULTAS ]|r")))
+                    end
+                end
             end,
         },
         {
@@ -10357,7 +10552,8 @@ function MainMenu:UpdateAddonConfigSubPage()
         local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("TOPLEFT", row, "TOPLEFT", 12, -6)
         MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
-        title:SetText(string.format("%s%s|r", tColor, opt.title))
+        local tStr = (type(opt.title) == "function") and opt.title() or opt.title
+        title:SetText(string.format("%s%s|r", tColor, tStr))
         row.title = title
 
         local desc = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -10381,7 +10577,7 @@ function MainMenu:UpdateAddonConfigSubPage()
         row:SetScript("OnClick", function()
             PlaySound("igMainMenuOptionCheckBoxOn")
             if this.optData and this.optData.onClick then
-                this.optData.onClick()
+                this.optData.onClick(this)
             end
         end)
 
@@ -11368,64 +11564,26 @@ function MainMenu:ClearBinding(page, btnKey)
     -- 3. Gerenciamento de Bindings
     if physKey then
         local KB = ConsoleMode and ConsoleMode.keybindings
+        local newAction = nil
         if page == 1 then
             -- Na Página 1, restaura a bind para a ação canônica do slot (que agora está vazio)
-            local canonicalAction = nil
-            if btnKey == "X" then canonicalAction = "ACTIONBUTTON1"
-            elseif btnKey == "Y" then canonicalAction = "ACTIONBUTTON2"
-            elseif btnKey == "B" then canonicalAction = "ACTIONBUTTON3"
-            elseif btnKey == "DUP" then canonicalAction = "ACTIONBUTTON7"
-            elseif btnKey == "DDOWN" then canonicalAction = "ACTIONBUTTON8"
-            elseif btnKey == "DLEFT" then canonicalAction = "ACTIONBUTTON9"
-            elseif btnKey == "DRIGHT" then canonicalAction = "ACTIONBUTTON10"
+            if btnKey == "X" then newAction = "ACTIONBUTTON1"
+            elseif btnKey == "Y" then newAction = "ACTIONBUTTON2"
+            elseif btnKey == "B" then newAction = "ACTIONBUTTON3"
+            elseif btnKey == "DUP" then newAction = "ACTIONBUTTON7"
+            elseif btnKey == "DDOWN" then newAction = "ACTIONBUTTON8"
+            elseif btnKey == "DLEFT" then newAction = "ACTIONBUTTON9"
+            elseif btnKey == "DRIGHT" then newAction = "ACTIONBUTTON10"
             end
+        end
 
-            if canonicalAction then
-                if KB and KB.navigationMode and KB.savedNavBindings then
-                    KB.savedNavBindings[physKey] = canonicalAction
-                else
-                    SetBinding(physKey, canonicalAction)
-                end
-            end
+        if KB and KB.ApplySingleGameBinding then
+            KB:ApplySingleGameBinding(physKey, newAction)
         else
-            -- Nas Páginas 2 a 5 (L2, R1, R2, L2+R2):
-            if KB and KB.navigationMode and KB.savedNavBindings then
-                for k, act in pairs(KB.savedNavBindings) do
-                    if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
-                        SetBinding(k, act)
-                    elseif k == "TAB" then
-                        SetBinding("TAB", "TARGETNEARESTENEMY")
-                    end
-                end
-            end
-
-            SetBinding(physKey, nil)
-
-            if KB and KB.savedNavBindings then
-                KB.savedNavBindings[physKey] = nil
-            end
-
-            if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
-                local d1 = KB.defaults[1]
-                SetBinding(d1.DUP,    "CM_CURSOR_UP")
-                SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
-                SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
-                SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
-                SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
-                SetBinding(d1.B,      "CM_CURSOR_CANCEL")
-            end
-        end
-
-        if self.RestoreModelRotationBindings then
-            self:RestoreModelRotationBindings()
-        end
-
-        local set = GetCurrentBindingSet()
-        if not set or set == 0 then set = 1 end
-        pcall(function() SaveBindings(set) end)
-
-        if self.frame and self.frame:IsVisible() and self.ApplyModelRotationBindings then
-            self:ApplyModelRotationBindings()
+            SetBinding(physKey, newAction)
+            local set = GetCurrentBindingSet()
+            if not set or set == 0 then set = 1 end
+            pcall(function() SaveBindings(set) end)
         end
     end
 
@@ -11452,9 +11610,21 @@ function MainMenu:HandleBindsClear()
     local pageSystem = self.tabContainer.pages["SYSTEM"]
     if not pageSystem or not pageSystem:IsVisible() then return false end
 
-    if pageSystem.activeSubScreen == "BINDS" and pageSystem.bindsScreen and pageSystem.bindsScreen.focusedCard then
+    if pageSystem.activeSubScreen == "BINDS" and pageSystem.bindsScreen then
         local card = pageSystem.bindsScreen.focusedCard
-        return self:ClearBinding(card.page, card.btnKey)
+        if not card and ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.state then
+            local curBtn = ConsoleMode.cursor.state.currentButton
+            if curBtn and curBtn.page and curBtn.btnKey then
+                card = curBtn
+            end
+        end
+        if not card and pageSystem.bindsScreen.bindCards then
+            card = pageSystem.bindsScreen.bindCards[1]
+        end
+
+        if card and card.page and card.btnKey then
+            return self:ClearBinding(card.page, card.btnKey)
+        end
     end
     return false
 end
@@ -11470,6 +11640,7 @@ function MainMenu:ShowBindsScreen()
     if pageSystem.headerBar then pageSystem.headerBar:Hide() end
     if pageSystem.subContent then pageSystem.subContent:Hide() end
     if pageSystem.pickerScreen then pageSystem.pickerScreen:Hide() end
+    pageSystem.targetBindCard = nil
 
     if pageSystem.bindsScreen then
         pageSystem.bindsScreen:Show()
@@ -11973,42 +12144,13 @@ function MainMenu:OnPickerSlotClick(slotBtn)
         if physKey and barDef and item.slotNum then
             local bindingAction = barDef.bindingPrefix .. item.slotNum
             local KB = ConsoleMode and ConsoleMode.keybindings
-            if KB and KB.navigationMode and KB.savedNavBindings then
-                for k, act in pairs(KB.savedNavBindings) do
-                    if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
-                        SetBinding(k, act)
-                    elseif k == "TAB" then
-                        SetBinding("TAB", "TARGETNEARESTENEMY")
-                    end
-                end
-            end
-
-            SetBinding(physKey, bindingAction)
-
-            if KB and KB.savedNavBindings then
-                KB.savedNavBindings[physKey] = bindingAction
-            end
-
-            if self.RestoreModelRotationBindings then
-                self:RestoreModelRotationBindings()
-            end
-
-            local set = GetCurrentBindingSet()
-            if not set or set == 0 then set = 1 end
-            pcall(function() SaveBindings(set) end)
-
-            if self.frame and self.frame:IsVisible() and self.ApplyModelRotationBindings then
-                self:ApplyModelRotationBindings()
-            end
-
-            if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
-                local d1 = KB.defaults[1]
-                SetBinding(d1.DUP,    "CM_CURSOR_UP")
-                SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
-                SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
-                SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
-                SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
-                SetBinding(d1.B,      "CM_CURSOR_CANCEL")
+            if KB and KB.ApplySingleGameBinding then
+                KB:ApplySingleGameBinding(physKey, bindingAction)
+            else
+                SetBinding(physKey, bindingAction)
+                local set = GetCurrentBindingSet()
+                if not set or set == 0 then set = 1 end
+                pcall(function() SaveBindings(set) end)
             end
 
             if DEFAULT_CHAT_FRAME then

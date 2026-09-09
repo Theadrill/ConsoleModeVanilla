@@ -470,12 +470,10 @@ function HUD:HideDefaultBars()
         if tex then tex:Hide() end
     end
 
-    -- 2. Oculta as MultiBars extras
+    -- 2. Oculta as MultiBars extras que permanecem desativadas (BottomLeft, BottomRight, Bonus)
     local multiBars = {
         "MultiBarBottomLeft",
         "MultiBarBottomRight",
-        "MultiBarRight",
-        "MultiBarLeft",
         "BonusActionBarFrame",
     }
     for _, barName in ipairs(multiBars) do
@@ -486,6 +484,65 @@ function HUD:HideDefaultBars()
             bar:EnableMouse(false)
             bar.Show = function() end
         end
+    end
+
+    -- 3. Gerencia as duas barras verticais da direita da Blizzard (MultiBarRight e MultiBarLeft)
+    self:UpdateRightBarsVisibility()
+end
+
+function HUD:ShouldShowRightBars()
+    if not ConsoleModeDB then return true end
+    if ConsoleModeDB.showRightActionBars == nil then
+        return true -- Default: visíveis
+    end
+    return ConsoleModeDB.showRightActionBars and true or false
+end
+
+function HUD:UpdateRightBarsVisibility()
+    local show = self:ShouldShowRightBars()
+    local rightBars = { "MultiBarRight", "MultiBarLeft" }
+
+    for _, barName in ipairs(rightBars) do
+        local bar = getglobal(barName)
+        if bar then
+            if show then
+                bar.Show = nil
+                bar:SetAlpha(1)
+                bar:EnableMouse(true)
+                bar:Show()
+
+                local prefix = barName .. "Button"
+                for bIdx = 1, 12 do
+                    local btn = getglobal(prefix .. bIdx)
+                    if btn then
+                        btn.Show = nil
+                        btn:EnableMouse(true)
+                        btn:SetAlpha(1)
+                        btn:Show()
+                    end
+                end
+            else
+                bar:Hide()
+                bar:SetAlpha(0)
+                bar:EnableMouse(false)
+                bar.Show = function() end
+            end
+        end
+    end
+
+    if show then
+        SHOW_MULTI_ACTIONBAR_3 = "1"
+        SHOW_MULTI_ACTIONBAR_4 = "1"
+        if MultiActionBar_Update then
+            pcall(MultiActionBar_Update)
+        end
+    else
+        SHOW_MULTI_ACTIONBAR_3 = nil
+        SHOW_MULTI_ACTIONBAR_4 = nil
+    end
+
+    if UIParent_ManageFramePositions then
+        pcall(UIParent_ManageFramePositions)
     end
 end
 

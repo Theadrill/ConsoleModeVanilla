@@ -392,26 +392,31 @@ function Picker:BuildSubTabs()
     self.subTabButtons = {}
 
     local subTabBar = self.frame.subTabBar
-    local TAB_W = 80
     local TAB_GAP = 4
+    local TAB_W = 80
 
     if self.mode == "SPELLBOOK" then
         -- Sub-abas = abas do spellbook (GetSpellTabInfo)
         local SBP = CM.config and CM.config.spellbookPicker
         local tabs = SBP and SBP:GetSpellTabs() or {}
+        local numTabs = table.getn(tabs)
+        if numTabs > 0 then
+            TAB_W = math.floor((GRID_W - ((numTabs - 1) * TAB_GAP)) / numTabs)
+            if TAB_W < 52 then TAB_W = 52 end
+        end
 
-        -- Trunca nome da aba para caber no botão (máx 8 chars + "…")
+        -- Trunca nome da aba para caber no botão
         local function TruncTab(s)
             if not s then return "" end
-            if string.len(s) <= 9 then return s end
-            return string.sub(s, 1, 8) .. "..."
+            local maxChars = math.floor(TAB_W / 8)
+            if maxChars < 6 then maxChars = 6 end
+            if string.len(s) <= maxChars then return s end
+            return string.sub(s, 1, maxChars - 1) .. "..."
         end
 
         for i, tab in ipairs(tabs) do
             local tabNum = i
-            -- Interrompe se não couber na largura total
             local xPos = (i - 1) * (TAB_W + TAB_GAP)
-            if xPos + TAB_W > GRID_W then break end
 
             local btn = CreateFrame("Button", "ConsoleModePickerSpellTab" .. i, subTabBar, "UIPanelButtonTemplate")
             btn:SetWidth(TAB_W)
@@ -771,44 +776,15 @@ function Picker:OnGridClick(idx)
             return
         end
 
-        local KB = CM.keybindings
-        if KB and KB.navigationMode and KB.savedNavBindings then
-            for k, act in pairs(KB.savedNavBindings) do
-                if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
-                    SetBinding(k, act)
-                elseif k == "TAB" then
-                    SetBinding("TAB", "TARGETNEARESTENEMY")
-                end
-            end
-        end
-
-        SetBinding(physKey, bindingAction)
-
-        if KB and KB.savedNavBindings then
-            KB.savedNavBindings[physKey] = bindingAction
-        end
-
-        local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
-        if mm and mm.RestoreModelRotationBindings then
-            mm:RestoreModelRotationBindings()
-        end
-
-        local set = GetCurrentBindingSet()
-        if not set or set == 0 then set = 1 end
-        pcall(function() SaveBindings(set) end)
-
-        if mm and mm.frame and mm.frame:IsVisible() and mm.ApplyModelRotationBindings then
-            mm:ApplyModelRotationBindings()
-        end
-
-        if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
-            local d1 = KB.defaults[1]
-            SetBinding(d1.DUP,    "CM_CURSOR_UP")
-            SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
-            SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
-            SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
-            SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
-            SetBinding(d1.B,      "CM_CURSOR_CANCEL")
+        -- Aplica binding de forma segura preservando os atalhos de navegação do controle
+        local KB = CM.keybindings or (ConsoleMode and ConsoleMode.keybindings)
+        if KB and KB.ApplySingleGameBinding then
+            KB:ApplySingleGameBinding(physKey, bindingAction)
+        else
+            SetBinding(physKey, bindingAction)
+            local set = GetCurrentBindingSet()
+            if not set or set == 0 then set = 1 end
+            pcall(function() SaveBindings(set) end)
         end
 
         local realSlot = barDef.startSlot + slotIndex - 1

@@ -272,45 +272,15 @@ function BP:ApplyItemBinding(page, btnKey, comboName, item)
         return false
     end
 
-    -- Aplica binding
-    local KB = CM.keybindings
-    if KB and KB.navigationMode and KB.savedNavBindings then
-        for k, act in pairs(KB.savedNavBindings) do
-            if act and act ~= "" and not string.find(act, "^CM_CURSOR_") then
-                SetBinding(k, act)
-            elseif k == "TAB" then
-                SetBinding("TAB", "TARGETNEARESTENEMY")
-            end
-        end
-    end
-
-    SetBinding(physKey, bindingAction)
-
-    if KB and KB.savedNavBindings then
-        KB.savedNavBindings[physKey] = bindingAction
-    end
-
-    local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
-    if mm and mm.RestoreModelRotationBindings then
-        mm:RestoreModelRotationBindings()
-    end
-
-    local set = GetCurrentBindingSet()
-    if not set or set == 0 then set = 1 end
-    pcall(function() SaveBindings(set) end)
-
-    if mm and mm.frame and mm.frame:IsVisible() and mm.ApplyModelRotationBindings then
-        mm:ApplyModelRotationBindings()
-    end
-
-    if KB and KB.navigationMode and KB.defaults and KB.defaults[1] then
-        local d1 = KB.defaults[1]
-        SetBinding(d1.DUP,    "CM_CURSOR_UP")
-        SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
-        SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
-        SetBinding(d1.DRIGHT, "CM_CURSOR_RIGHT")
-        SetBinding(d1.A,      "CM_CURSOR_CONFIRM")
-        SetBinding(d1.B,      "CM_CURSOR_CANCEL")
+    -- Aplica binding de forma segura preservando os atalhos de navegação do controle
+    local KB = CM.keybindings or (ConsoleMode and ConsoleMode.keybindings)
+    if KB and KB.ApplySingleGameBinding then
+        KB:ApplySingleGameBinding(physKey, bindingAction)
+    else
+        SetBinding(physKey, bindingAction)
+        local set = GetCurrentBindingSet()
+        if not set or set == 0 then set = 1 end
+        pcall(function() SaveBindings(set) end)
     end
 
     DEFAULT_CHAT_FRAME:AddMessage(

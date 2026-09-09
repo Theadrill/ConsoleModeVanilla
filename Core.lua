@@ -138,6 +138,9 @@ CM:SetScript("OnEvent", function()
 
     elseif event == "VARIABLES_LOADED" then
         ConsoleModeDB = ConsoleModeDB or {}
+        if ConsoleModeDB.showRightActionBars == nil then
+            ConsoleModeDB.showRightActionBars = true
+        end
         DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r VARIABLES_LOADED disparou.")
         
         -- ✅ CRÍTICO: Verificar se módulos foram carregados
@@ -224,6 +227,24 @@ CM:SetScript("OnEvent", function()
     end
 end)
 
+function CM:ToggleRightActionBars(forcedState)
+    if not ConsoleModeDB then ConsoleModeDB = {} end
+    local newVal
+    if forcedState ~= nil then
+        newVal = forcedState and true or false
+    else
+        local cur = (ConsoleModeDB.showRightActionBars ~= false)
+        newVal = not cur
+    end
+    ConsoleModeDB.showRightActionBars = newVal
+    if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.UpdateRightBarsVisibility then
+        CM.ui.actionHUD:UpdateRightBarsVisibility()
+    end
+    local statusStr = newVal and "|cff00ff00[ VISÍVEIS ]|r" or "|cffff4444[ OCULTAS ]|r"
+    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Barras de Ação da Direita (Blizzard): " .. statusStr)
+    return newVal
+end
+
 -- Comandos Slash
 SLASH_CONSOLEMODE1 = "/consolemode"
 SLASH_CONSOLEMODE2 = "/cm"
@@ -231,7 +252,10 @@ SLASH_CONSOLEMODE2 = "/cm"
 SlashCmdList["CONSOLEMODE"] = function(msg)
     local cmd = string.lower(msg or "")
 
-    if cmd == "config" or cmd == "settings" or cmd == "binds" then
+    if cmd == "rightbars" or cmd == "barras" or cmd == "barradireita" then
+        CM:ToggleRightActionBars()
+
+    elseif cmd == "config" or cmd == "settings" or cmd == "binds" then
         if CM.config and CM.config.Toggle then
             CM.config:Toggle()
         end

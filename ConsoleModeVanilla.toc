@@ -17,6 +17,7 @@ UI\BagPicker.lua
 UI\ContextMenu.lua
 UI\MacroPicker.lua
 UI\ActionBarPicker.lua
+UI\QuestItemDistributor.lua
 UI\XPBar.lua
 UI\ActionHUD.lua
 UI\PlayerFrame.lua
@@ -30,4 +31,5 @@ Data\ClassTrainers.lua
 Data\QuestDB_ptBR.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
+UI\QuestItemDistributor.lua
 Hooks.lua

@@ -200,6 +200,10 @@ CM:SetScript("OnEvent", function()
         if CM.config and CM.config.Initialize then
             CM.config:Initialize()
         end
+        -- Inicializa Quest Item Distributor
+        if CM.questItemDistributor and CM.questItemDistributor.Initialize then
+            CM.questItemDistributor:Initialize()
+        end
         if CM.ui and CM.ui.xpBar and CM.ui.xpBar.Initialize then
             CM.ui.xpBar:Initialize()
         end
@@ -214,6 +218,9 @@ CM:SetScript("OnEvent", function()
         if CM.ui and CM.ui.targetFrame then
             if CM.ui.targetFrame.Initialize then CM.ui.targetFrame:Initialize() end
             if CM.ui.targetFrame.HideDefaultBars then CM.ui.targetFrame:HideDefaultBars() end
+        end
+        if CM.questItemDistributor and CM.questItemDistributor.Initialize then
+            CM.questItemDistributor:Initialize()
         end
 
     elseif event == "PLAYER_LOGOUT" then

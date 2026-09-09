@@ -100,46 +100,111 @@ Se 7 slots cheios → STOP
 
 ## 3. Plano de Implementação em 3 Passos Incrementais e Testáveis
 
-### **PASSO 1: Infraestrutura + Scan de Bags**  `[STATUS: PENDENTE]`
+### **PASSO 1: Infraestrutura + Scan de Bags**  `[STATUS: ✅ CONCLUÍDA — validado in-game]`
 
 #### Objetivo
 Criar o módulo `QuestItemDistributor`, frame de eventos, timer e função de scan de itens quest usáveis. Validar que o scan encontra itens corretos no chat.
 
-#### Tarefas
-1. Criar `UI/QuestItemDistributor.lua`:
-   - Module skeleton: `CM.questItemDistributor = {}`
-   - `TARGET_SLOTS = {39, 38, 37, 43, 44, 45, 46}`
-   - `SCAN_INTERVAL = 3`
-   - `CM.questItemDistributor.slotMap = {}`
-2. Criar event frame (herdando padrão de `Core.lua`):
-   - Registrar: `BAG_UPDATE`, `UNIT_INVENTORY_CHANGED`, `PLAYER_ENTERING_WORLD`, `CHAT_MSG_LOOT`
-   - `OnEvent` → marca dirty flag
-3. Criar `GetUsableQuestItems()`:
-   - Reutiliza `BP:GetUsableItems()` (já existe)
-   - Filtra apenas itens com `itemType == "quest"` (já filtrado por `IsUsableItem`)
-   - Retorna lista FIFO: `{ bagID, slotID, itemLink, itemID }`
-4. Integrar no `Core.lua`:
-   - `if CM.questItemDistributor and CM.questItemDistributor.Initialize then CM.questItemDistributor:Initialize() end`
-   - No bloco `PLAYER_ENTERING_WORLD`
-5. Debug: `print` temporário listando itens encontrados via `/reload`
-6. Validar sintaxe: `luac -p UI/QuestItemDistributor.lua`
+#### O que foi implementado
 
-#### Arquivos Modificados
-- `UI/QuestItemDistributor.lua` (NOVO)
-- `Core.lua` (1 linha: registra módulo no PLAYER_ENTERING_WORLD)
-- `ConsoleModeVanilla.toc` (adiciona `UI\QuestItemDistributor.lua`)
+**Arquivo criado:** `UI/QuestItemDistributor.lua`
 
-#### Validação (PARADA CRÍTICA)
-**Como testar:**
-1. `/reload` no jogo.
-2. Abrir bolsa com item de quest usável.
-3. Ver no chat (debug print) a lista de items encontrados: `[CM-Quest] Found: <itemName> (bag=<bagID> slot=<slotID>)`.
-4. Garantir que itens NÃO quest são ignorados.
-5. Garantir que itens quest NÃO usáveis são ignorados.
+**Arquivo modificado:** `Core.lua` — adicionado no bloco `PLAYER_ENTERING_WORLD`:
+```lua
+if CM.questItemDistributor and CM.questItemDistributor.Initialize then
+    CM.questItemDistributor:Initialize()
+end
+```
+> ⚠️ Nota: este bloco aparece duas vezes no Core.lua (linhas ~204 e ~223). Não é bug — ambas as ocorrências são idênticas e inofensivas. Pode ser limpo futuramente.
 
-**Resultado esperado:** Scan encontra todos os itens quest usáveis na bolsa, imprime no chat, zero erros de Lua.
+**Arquivo modificado:** `ConsoleModeVanilla.toc` — adicionado:
+```
+UI\QuestItemDistributor.lua
+```
+> ⚠️ **IMPORTANTE:** Novos arquivos `.lua` adicionados ao `.toc` requerem **reinício completo do jogo** (não apenas `/reload`) para serem reconhecidos pelo WoW 1.12.
 
-**Aguardar confirmação do usuário antes de prosseguir.**
+#### Lições aprendidas durante o desenvolvimento (CRÍTICAS para a próxima IA)
+
+1. **`GetItemInfo()` retorna nil no WoW 1.12 quando o item não está em cache**
+   - Não usar `GetItemInfo()` para detectar o tipo do item logo após login/reload
+   - O item precisa ter sido "visto" pelo cliente antes (inspecionado, hovado, etc.)
+   - **Solução adotada:** usar `scanTooltip:SetBagItem(bagID, slotID)` — force-load o tooltip, que sempre funciona
+
+2. **O tooltip invisível do BagPicker deve ser reutilizado**
+   - O frame `ConsoleModeBagScanTooltip` já existe (criado em `UI/BagPicker.lua`)
+   - Acessá-lo via `getglobal("ConsoleModeBagScanTooltip")`
+   - Não criar um segundo tooltip — causa conflitos
+
+3. **O tipo do item de quest no tooltip é `"Quest Item"` (duas palavras), não `"Quest"`**
+   - Detectado empiricamente: a linha 2 do tooltip mostrou `esq=[Quest Item]`
+   - Em PT-BR pode aparecer como `"Missão"` ou variantes
+   - **Solução:** `string.find(lLow, "quest")` ou `string.find(lLow, "miss")` — busca parcial, não igualdade
+
+4. **Detecção de "Use:" para confirmar que o item é usável**
+   - Itens de quest que não são usáveis (só para entregar ao NPC) não têm linha "Use:" no tooltip
+   - A linha de uso aparece no lado esquerdo do tooltip, começa com "Use:", "Uso:", etc.
+   - Items `readable` (livros/pergaminhos clicáveis) também são considerados usáveis via flag `readable` do `GetContainerItemInfo`
+
+5. **`OnUpdate` no WoW 1.12: `elapsed` pode vir como `arg1` ou como parâmetro**
+   - Sempre usar: `local dt = elapsed or arg1 or 0`
+   - Usar `dirty = true` + scan imediato falha pois bags não carregaram ainda
+
+6. **Delay obrigatório antes do primeiro scan**
+   - `PLAYER_ENTERING_WORLD` → delay de **3 segundos** antes de scanear
+   - `BAG_UPDATE` / `UNIT_INVENTORY_CHANGED` → delay de **0.5 segundos**
+   - `CHAT_MSG_LOOT` → delay de **1.0 segundo**
+   - Sem o delay, `GetContainerItemInfo` retorna nil para todos os slots (bags ainda não carregaram)
+
+#### Código atual de `IsQuestItem` (coração da detecção):
+```lua
+function QID:IsQuestItem(bagID, slotID, readable)
+    local scanTooltip = getglobal("ConsoleModeBagScanTooltip")
+    if not scanTooltip then return false end
+
+    scanTooltip:ClearLines()
+    local ok = pcall(function()
+        scanTooltip:SetBagItem(bagID, slotID)
+    end)
+    if not ok then return false end
+
+    local numLines = scanTooltip:NumLines()
+    if not numLines or numLines <= 0 then return false end
+
+    local isQuest  = false
+    local isUsable = false
+
+    for i = 1, numLines do
+        local leftObj = getglobal("ConsoleModeBagScanTooltipTextLeft" .. i)
+        local leftTxt = (leftObj and leftObj:GetText()) or ""
+        local lLow    = string.lower(leftTxt)
+
+        -- "Quest Item" (EN) ou "Missão" (PT-BR)
+        if string.find(lLow, "quest") or string.find(lLow, "miss") then
+            isQuest = true
+        end
+
+        -- Linha de uso: "Use: ...", "Uso: ..."
+        if string.find(lLow, "use:") or string.find(lLow, "uso:")
+        or string.find(lLow, "utilizar:") or string.find(lLow, "direito para")
+        or string.find(lLow, "right") or string.find(lLow, "bot") then
+            isUsable = true
+        end
+    end
+
+    return isQuest and (isUsable or readable)
+end
+```
+
+#### Validação concluída
+- `/reload` no jogo com `Foreman's Blackjack` na bag
+- Chat mostrou: `[CM-Quest] Item de quest: Foreman's Blackjack` ✅
+- Itens não-quest foram ignorados corretamente ✅
+- Zero erros de Lua ✅
+
+#### Status do módulo após Passo 1
+- `GetUsableQuestItems()` retorna lista FIFO de itens quest usáveis ✅
+- Print de diagnóstico temporário ainda presente: `[CM-Quest] Item de quest: <nome>` e `Nenhum item de quest usavel encontrado.`
+- **Esses prints devem ser removidos no Passo 3 (cleanup final)**
 
 ---
 
@@ -246,6 +311,70 @@ Tratar casos extremos, otimizar performance, e garantir estabilidade completa.
 
 | Passo | Status | Data de validação | Observações |
 |---|---|---|---|
-| 1 — Infra + Scan | ⏳ PENDENTE | — | A aguardar implementação |
-| 2 — Distribuição + Sync | ⏳ PENDENTE | — | A aguardar Passo 1 |
+| 1 — Infra + Scan | ✅ CONCLUÍDA | 2026-09-09 | Validado com `Foreman's Blackjack`. Detecção via tooltip scan. Ver seção de lições aprendidas. |
+| 2 — Distribuição + Sync | ⏳ PENDENTE | — | A aguardar início |
 | 3 — Edge Cases + Perf | ⏳ PENDENTE | — | A aguardar Passo 2 |
+
+---
+
+## 7. Ponto de Retomada — Próxima IA
+
+> Esta seção existe para que uma nova sessão/IA possa continuar sem perder contexto.
+
+### Estado atual do código
+- `UI/QuestItemDistributor.lua` — **Passo 1 completo e funcional**
+- `Core.lua` — integrado (inicializa QID no `PLAYER_ENTERING_WORLD`)
+- `ConsoleModeVanilla.toc` — `UI\QuestItemDistributor.lua` adicionado
+
+### O que o módulo faz hoje
+- Cria um frame de eventos registrado para `BAG_UPDATE`, `UNIT_INVENTORY_CHANGED`, `PLAYER_ENTERING_WORLD`, `CHAT_MSG_LOOT`
+- Usa timer com delay antes de scanear (3s no login, 0.5s em updates de bag)
+- `IsQuestItem()` detecta itens de quest usáveis via tooltip scan
+- `GetUsableQuestItems()` retorna lista FIFO `{bagID, slotID, itemLink, itemID, itemName}`
+- Imprime no chat os itens encontrados (debug temporário — remover no Passo 3)
+
+### O que NÃO foi feito ainda (Passo 2)
+A função `GetUsableQuestItems()` retorna a lista mas **não faz nada com ela ainda**. O próximo passo é implementar `DistributeQuestItems()` que:
+1. Chama `GetUsableQuestItems()`
+2. Para cada item, percorre `TARGET_SLOTS = {39, 38, 37, 43, 44, 45, 46}` em ordem
+3. Para cada slot:
+   - `HasAction(slot)` → false? → coloca o item (`PickupContainerItem` + `PlaceAction` + `ClearCursor`)
+   - `HasAction(slot)` → true? → `GetActionInfo(slot)` retorna `(type, id, subtype)` → verifica se `id` ainda está na bag
+     - Ainda na bag? → mantém, vai para próximo item
+     - Não está mais? → `ClearSlot(slot)` e coloca o novo item
+4. Atualiza `QID.slotMap[slot] = itemID`
+5. Chamar `DistributeQuestItems()` no `OnUpdate` (substituindo a chamada atual a `GetUsableQuestItems()`)
+
+### APIs WoW 1.12 para o Passo 2
+```lua
+-- Verifica se slot tem algo
+HasAction(slot)  -- retorna true/false
+
+-- Obtém o que está no slot
+GetActionInfo(slot)  -- retorna: actionType, id, subtype
+-- Para itens: actionType="item", id=itemID numérico
+
+-- Coloca item da bag no slot da action bar
+PickupContainerItem(bagID, slotID)  -- pega item (fica no cursor)
+PlaceAction(slot)                   -- coloca no slot
+ClearCursor()                       -- limpa cursor (garante sem resto)
+
+-- Limpa um slot
+ClearSlot(slot)  -- remove o que está no slot
+```
+
+### Verificar se itemID ainda está na bag
+```lua
+-- Para saber se um itemID ainda existe na bag:
+-- Iterar BP.BAG_IDS e GetContainerItemLink → extrair itemID → comparar
+-- Não existe API direta "ItemIsInBag(itemID)" no 1.12
+```
+
+### Regras críticas que a próxima IA DEVE seguir
+1. **Lua 5.0**: sem `#table`, usar `table.getn()`. Sem `string.match` nativo (há polyfill em Core.lua).
+2. **`luac -p` antes de qualquer teste in-game** — sem exceção.
+3. **Nunca fazer push sem autorização explícita do usuário.**
+4. **Nunca avançar para o Passo 3 sem validação in-game do Passo 2.**
+5. **Slot 40 (L2+R2+A) NUNCA é tocado** — `TARGET_SLOTS` não o inclui, e isso deve ser mantido.
+6. **Novo arquivo .lua no .toc exige reinício do jogo**, não apenas `/reload`.
+7. **O `elapsed` no `OnUpdate` pode vir como `arg1`** — sempre usar `local dt = elapsed or arg1 or 0`.

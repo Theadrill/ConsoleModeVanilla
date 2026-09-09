@@ -344,6 +344,19 @@ function HUD:UpdateCooldownText(btn)
     btn.cooldownText:SetText(txt)
 end
 
+-- Spell de referência por classe para range check
+local CLASS_RANGE_SPELL = {
+    ["WARRIOR"]  = "Heroic Strike",
+    ["ROGUE"]    = "Sinister Strike",
+    ["PALADIN"]  = "Attack",
+    ["HUNTER"]   = "Auto Shot",
+    ["MAGE"]     = "Fireball",
+    ["PRIEST"]   = "Smite",
+    ["WARLOCK"]  = "Shadow Bolt",
+    ["DRUID"]    = "Wrath",
+    ["SHAMAN"]   = "Lightning Bolt",
+}
+
 function HUD:Initialize()
     if self.frame then return end
     
@@ -373,7 +386,40 @@ function HUD:Initialize()
     rightCluster:SetHeight(110)
     rightCluster:SetPoint("RIGHT", f, "RIGHT", -10, 0)
     f.rightCluster = rightCluster
-    
+
+    -- RANGE INDICATOR — indicador central de range entre clusters
+    -- Coloca a spell de referência da classe no slot 34 (barra direita) e usa IsActionInRange(34)
+    local RANGE_SLOT = 34
+    HUD.rangeUpdateTimer = 0
+    HUD.RANGE_UPDATE_INTERVAL = 0.25
+    HUD.rangeSlot = nil
+
+    local _, playerClass = UnitClass("player")
+    HUD.playerClass = playerClass
+    HUD.RANGE_SLOT = RANGE_SLOT
+
+    -- Colocar spell de range no slot 34
+    HUD:PlaceRangeSpell()
+
+    -- Criar ícone do indicador de range
+    do
+        local indicator = CreateFrame("Frame", "ConsoleModeRangeIndicator", UIParent)
+        indicator:SetFrameStrata("HIGH")
+        indicator:SetWidth(32)
+        indicator:SetHeight(32)
+        indicator:SetPoint("CENTER", f, "CENTER", 0, 0)
+        indicator:SetAlpha(1.0)
+
+        local tex = indicator:CreateTexture(nil, "ARTWORK")
+        tex:SetPoint("TOPLEFT", indicator, "TOPLEFT", 0, 0)
+        tex:SetPoint("BOTTOMRIGHT", indicator, "BOTTOMRIGHT", 0, 0)
+        tex:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\icon_inrange.tga")
+        indicator:Show()
+
+        HUD.rangeIndicator = indicator
+        HUD.rangeTexture = tex
+    end
+
     -- Criacao dos 8 Botoes
     self.buttons = {}
     for i, def in ipairs(BUTTON_LAYOUT) do
@@ -385,6 +431,13 @@ function HUD:Initialize()
     local lastPage = 1
     local cdTicker = 0
     f:SetScript("OnUpdate", function()
+        -- Atualização periódica do indicador de range (0.25s)
+        HUD.rangeUpdateTimer = (HUD.rangeUpdateTimer or 0) + arg1
+        if HUD.rangeUpdateTimer >= HUD.RANGE_UPDATE_INTERVAL then
+            HUD.rangeUpdateTimer = 0
+            HUD:UpdateRangeIndicator()
+        end
+
         -- Ticker do cooldown (0.10s) — atualiza numero no centro do icon
         cdTicker = cdTicker + arg1
         if cdTicker >= 0.10 then
@@ -545,6 +598,97 @@ function HUD:UpdateRightBarsVisibility()
         pcall(UIParent_ManageFramePositions)
     end
 end
+
+function HUD:PlaceRangeSpell()
+    if self.rangeSlot then return end -- já setado
+
+    local _, playerClass = UnitClass("player")
+    local refSpell = CLASS_RANGE_SPELL[playerClass]
+    local RANGE_SLOT = self.RANGE_SLOT
+    if not refSpell or not RANGE_SLOT then return end
+
+    -- Melee: Attack está no slot 1, copiar direto
+    if refSpell == "Attack" then
+        PickupAction(1)
+        PlaceAction(RANGE_SLOT)
+        ClearCursor()
+        self.rangeSlot = RANGE_SLOT
+    else
+        -- Ranged: procurar a spell no spellbook
+        local bookType = BOOKTYPE_SPELL or "spell"
+        local spellIndex = nil
+        for i = 1, 2000 do
+            local ok, name = pcall(function() return GetSpellName(i, bookType) end)
+            if ok and name then
+                if name == refSpell then
+                    spellIndex = i
+                    break
+                end
+            elseif not ok or not name then
+                break
+            end
+        end
+
+        if spellIndex then
+            PickupSpell(spellIndex, bookType)
+            PlaceAction(RANGE_SLOT)
+            ClearCursor()
+            self.rangeSlot = RANGE_SLOT
+        end
+    end
+
+    -- Esconder o botão do slot 34 pra não aparecer na UI
+    if self.rangeSlot then
+        local btn = getglobal("MultiBarRightButton" .. (RANGE_SLOT - 24))
+        if btn then
+            btn:Hide()
+            btn:SetAlpha(0)
+            btn:EnableMouse(false)
+            btn.Show = function() end
+        end
+    end
+end
+
+function HUD:UpdateRangeIndicator()
+    local indicator = self.rangeIndicator
+    local texture = self.rangeTexture
+    if not indicator or not texture then return end
+
+    if not UnitExists("target") or not self.rangeSlot then
+        indicator:Hide()
+        return
+    end
+
+    local ok, inRange = pcall(function() return IsActionInRange(self.rangeSlot) end)
+    if not ok then
+        indicator:Hide()
+        return
+    end
+
+    if inRange == 1 then
+        texture:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\icon_inrange.tga")
+    elseif inRange == 0 then
+        texture:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\icon_outrange.tga")
+    else
+        indicator:Hide()
+        return
+    end
+    indicator:SetAlpha(1)
+    indicator:Show()
+end
+
+local ConsoleModeRangeEvents = CreateFrame("Frame", "ConsoleModeRangeEvents", UIParent)
+ConsoleModeRangeEvents:RegisterEvent("PLAYER_TARGET_CHANGED")
+ConsoleModeRangeEvents:RegisterEvent("SPELLS_CHANGED")
+ConsoleModeRangeEvents:SetScript("OnEvent", function()
+    if event == "SPELLS_CHANGED" and not HUD.rangeSlot then
+        -- Spellbook pode não estar pronto no primeiro login, retry
+        HUD:PlaceRangeSpell()
+    end
+    if HUD.rangeIndicator then
+        HUD:UpdateRangeIndicator()
+    end
+end)
 
 function HUD:Update()
     if not self.frame then return end

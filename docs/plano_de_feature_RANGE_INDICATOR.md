@@ -134,7 +134,7 @@ OnUpdate (0.25s interval):
 
 ---
 
-### **PASSO 1: Detecção de Classe + Infraestrutura do Frame** `[STATUS: ⏳ PENDENTE]`
+### **PASSO 1: Detecção de Classe + Infraestrutura do Frame** `[STATUS: ✅ CONCLUÍDA]`
 
 #### Objetivo
 Criar o frame do ícone centralizado entre os dois clusters, detectar a classe do player, e preparar a estrutura lógica. O ícone fica fixo (sem lógica de range ainda) para validar o posicionamento visual.
@@ -174,7 +174,7 @@ Criar o frame do ícone centralizado entre os dois clusters, detectar a classe d
 
 ---
 
-### **PASSO 2: Lógica de Range + Polling** `[STATUS: ⏳ PENDENTE]`
+### **PASSO 2: Lógica de Range + Polling** `[STATUS: ✅ CONCLUÍDA]`
 
 #### Objetivo
 Implementar a detecção de range: esconder/mostrar o ícone baseado na presença de target e no range do spell. Adicionar polling para atualização em tempo real.
@@ -224,7 +224,7 @@ Implementar a detecção de range: esconder/mostrar o ícone baseado na presenç
 
 ---
 
-### **PASSO 3: Polimento e Edge Cases** `[STATUS: ⏳ PENDENTE]`
+### **PASSO 3: Polimento e Edge Cases** `[STATUS: ✅ CONCLUÍDA]`
 
 #### Objetivo
 Tratar casos extremos, ajustar performance, e garantir estabilidade completa.
@@ -289,6 +289,6 @@ Tratar casos extremos, ajustar performance, e garantir estabilidade completa.
 
 | Passo | Status | Data de validação | Observações |
 |---|---|---|---|
-| 1 — Detecção de Classe + Frame | ⏳ PENDENTE | — | |
-| 2 — Lógica de Range + Polling | ⏳ PENDENTE | — | |
-| 3 — Polimento e Edge Cases | ⏳ PENDENTE | — | |
+| 1 — Detecção de Classe + Frame | ✅ CONCLUÍDA | — | Implementado em UI/ActionHUD.lua |
+| 2 — Lógica de Range + Polling | ✅ CONCLUÍDA | — | Implementado em UI/ActionHUD.lua |
+| 3 — Polimento e Edge Cases | ✅ CONCLUÍDA | — | CheckInteractDistance não funcionou; usa slot 34 com PickupSpell/PickupAction + IsActionInRange |

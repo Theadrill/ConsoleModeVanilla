@@ -1061,6 +1061,14 @@ end
 
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
+
+    -- Prioridade de Mercador ConsoleMode
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:Close()
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mercador fechado)")
+        return
+    end
+
     local mmQ = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if mmQ and mmQ.IsQuestDetailVisible and mmQ:IsQuestDetailVisible() then
         mmQ:HideQuestDetail()

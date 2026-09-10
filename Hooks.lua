@@ -705,6 +705,22 @@ function Hooks:CloseTopFrame()
         ConsoleMode.mainMenu:HideQuestDetail()
         return true
     end
+
+    -- Prioridade de Mercador ConsoleMode
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:Close()
+        return true
+    end
+    local mFrame = getglobal("ConsoleMode_MerchantFrame")
+    if mFrame and mFrame:IsVisible() then
+        if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.Close then
+            ConsoleMode_MerchantMenu:Close()
+        else
+            mFrame:Hide()
+        end
+        return true
+    end
+
     local Cursor = ConsoleMode.cursor
     if Cursor and Cursor.state.activeFrames then
         for frame, _ in pairs(Cursor.state.activeFrames) do

@@ -330,22 +330,27 @@ modFrame:SetScript("OnUpdate", function()
     local shiftNow = IsShiftKeyDown()
     local altNow = IsAltKeyDown()
 
-    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible())
+    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen)
 
     if isNav and not (KB and KB.chatActive) then
         local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
         local isQuestsTab = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and (mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS")
+        local isMerchant = ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen
 
-        -- 1. R1 (CTRL) = Próxima Aba Principal
+        -- 1. R1 (CTRL) = Próxima Aba Principal / Alternar Colunas
         if ctrlNow and not wasCtrlDown then
-            if CM.cursor and CM.cursor.CycleTabs then
+            if isMerchant then
+                ConsoleMode_MerchantMenu:ToggleColumn(1)
+            elseif CM.cursor and CM.cursor.CycleTabs then
                 CM.cursor:CycleTabs(1)
             end
         end
 
         -- 2. L2 (SHIFT / LT) = Zoom Out no mapa ou Sub-Aba Anterior
         if shiftNow and not wasShiftDown then
-            if isQuestsTab and mm and mm.MapZoomStep then
+            if isMerchant then
+                ConsoleMode_MerchantMenu:CycleSubTab(-1)
+            elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(-1)
             elseif CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(-1)
@@ -354,7 +359,9 @@ modFrame:SetScript("OnUpdate", function()
 
         -- 3. R2 (ALT / RT) = Zoom In no mapa ou Próxima Sub-Aba
         if altNow and not wasAltDown then
-            if isQuestsTab and mm and mm.MapZoomStep then
+            if isMerchant then
+                ConsoleMode_MerchantMenu:CycleSubTab(1)
+            elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(1)
             elseif CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(1)
@@ -558,7 +565,12 @@ end
 -- Modo Navegação: swap D-Pad para cursor quando janela abre
 -- ============================================================
 function KB:EnterNavigationMode()
-    if KB.navigationMode then return end
+    -- ✅ Reentrada: se já está em navegação, não reseta os savedNavBindings,
+    -- mas garante que os bindings de cursor estejam ativos (recuperação de timing)
+    if KB.navigationMode then
+        KB:ReapplyNavigationBindings()
+        return
+    end
 
     local Cursor = CM.cursor or (ConsoleMode and ConsoleMode.cursor)
     local Hooks = ConsoleMode and ConsoleMode.hooks
@@ -618,10 +630,13 @@ function KB:EnterNavigationMode()
 end
 
 function KB:ReapplyNavigationBindings()
-    if not self.navigationMode then return end
     local d1 = self.defaults and self.defaults[1]
     if not d1 then return end
 
+    -- ✅ NO GUARD: Força a reaplicação dos bindings de navegação mesmo que
+    -- navigationMode tenha sido manipulado por outro frame ou por um timing
+    -- de evento. O MerchantMenu:Open() chama esta função explicitamente para
+    -- garantir que o D-Pad funcione após abrir o mercador.
     SetBinding(d1.DUP,    "CM_CURSOR_UP")
     SetBinding(d1.DDOWN,  "CM_CURSOR_DOWN")
     SetBinding(d1.DLEFT,  "CM_CURSOR_LEFT")
@@ -683,8 +698,19 @@ function KB:ApplySingleGameBinding(physKey, newAction)
     end
 end
 
-function KB:ExitNavigationMode()
+function KB:ExitNavigationMode(force)
     if not KB.navigationMode then return end
+
+    -- Não sai do modo de navegação se o Menu do Mercador ou Menu Principal estiverem abertos, a menos que seja forçado
+    if not force then
+        if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+            return
+        end
+        if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
+            return
+        end
+    end
+
     KB.navigationMode = false
 
     local keysToRestore = {
@@ -998,7 +1024,22 @@ end
 
 function CM_CursorConfirm()
     if CM.keybindings.chatActive then return end
-    
+
+    -- Prioridade de Mercador ConsoleMode (Botão A)
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if ConsoleMode_MerchantMenu.activeColumn == "BAGS" then
+            ConsoleMode_MerchantMenu:SellSelectedItem()
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão A (Vender item)")
+            return
+        elseif ConsoleMode_MerchantMenu.activeColumn == "VENDOR" then
+            if ConsoleMode_MerchantMenu.BuySelectedItem then
+                ConsoleMode_MerchantMenu:BuySelectedItem()
+            end
+            return
+        end
+        return
+    end
+
     if not CM.cursor or not CM.cursor.state.enabled then
         if Jump then Jump() end
         return
@@ -1018,6 +1059,17 @@ end
 
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
+
+    -- Prioridade de Mercador ConsoleMode (Botão Y: Reparar tudo se o NPC tiver função de reparo)
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if ConsoleMode_MerchantMenu.canRepair and ConsoleMode_MerchantMenu.RepairAll then
+            ConsoleMode_MerchantMenu:RepairAll()
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Este mercador não oferece serviço de reparos.")
+        end
+        return
+    end
+
     if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.frame and CM.ui.contextMenu.frame:IsVisible() then
         CM.ui.contextMenu:Close()
         return
@@ -1044,7 +1096,17 @@ end
 
 function CM_CursorSecondary()
     if CM.keybindings.chatActive then return end
-    
+
+    -- Prioridade de Mercador ConsoleMode (Botão X: Vender item das bolsas)
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if ConsoleMode_MerchantMenu.activeColumn == "BAGS" then
+            ConsoleMode_MerchantMenu:SellSelectedItem()
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão X (Vender item)")
+            return
+        end
+        return
+    end
+
     if CursorHasItem() or CursorHasSpell() then
         ClearCursor()
         return
@@ -1206,7 +1268,11 @@ function CM_SmartTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
     
     -- 1. Se estiver no modo de navegação com janelas abertas: Aba Anterior (L1)
-    if CM.keybindings and CM.keybindings.navigationMode then
+    if (CM.keybindings and CM.keybindings.navigationMode) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) then
+        if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+            ConsoleMode_MerchantMenu:ToggleColumn(-1)
+            return
+        end
         if CM.cursor and CM.cursor.CycleTabs then
             local cycled = CM.cursor:CycleTabs(-1)
             if cycled then return end

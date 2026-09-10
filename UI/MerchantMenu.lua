@@ -171,6 +171,7 @@ end
 
 function MerchantMenu:SuppressDefaultFrame()
     if MerchantFrame then
+        MerchantFrame.selectedTab = 1
         MerchantFrame:SetAlpha(0)
         MerchantFrame:EnableMouse(false)
         MerchantFrame:ClearAllPoints()
@@ -741,13 +742,20 @@ function MerchantMenu:CreateBagRows(parent)
         row.nameText = nameText
 
         row.slotIndex = i
+        row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
         row:SetScript("OnClick", function()
             local itemIdx = (MerchantMenu.bagScrollOffset or 0) + this.slotIndex
+            local wasSelected = (MerchantMenu.activeColumn == "BAGS" and MerchantMenu.selectedBagIndex == itemIdx)
             MerchantMenu.activeColumn = "BAGS"
             MerchantMenu.selectedBagIndex = itemIdx
             MerchantMenu:UpdateColumnVisuals()
             MerchantMenu:UpdateBagRows()
-            PlaySound("igMainMenuOptionCheckBoxOn")
+
+            if arg1 == "RightButton" or (arg1 == "LeftButton" and wasSelected) then
+                MerchantMenu:SellSelectedItem()
+            else
+                PlaySound("igMainMenuOptionCheckBoxOn")
+            end
         end)
 
         row:SetScript("OnEnter", function()
@@ -941,6 +949,13 @@ function MerchantMenu:CreateUI()
         ltHint:SetTexture(ICONS.LT)
         col.ltBtn = ltBtn
 
+        local dleftHint = subTabBar:CreateTexture(nil, "OVERLAY")
+        dleftHint:SetWidth(18)
+        dleftHint:SetHeight(18)
+        dleftHint:SetPoint("LEFT", ltBtn, "RIGHT", 2, 0)
+        dleftHint:SetTexture(ICONS.DLEFT)
+        dleftHint:SetAlpha(0.85)
+
         local rtBtn = CreateFrame("Button", nil, subTabBar)
         rtBtn:SetWidth(27)
         rtBtn:SetHeight(27)
@@ -949,6 +964,13 @@ function MerchantMenu:CreateUI()
         rtHint:SetAllPoints(rtBtn)
         rtHint:SetTexture(ICONS.RT)
         col.rtBtn = rtBtn
+
+        local drightHint = subTabBar:CreateTexture(nil, "OVERLAY")
+        drightHint:SetWidth(18)
+        drightHint:SetHeight(18)
+        drightHint:SetPoint("RIGHT", rtBtn, "LEFT", -2, 0)
+        drightHint:SetTexture(ICONS.DRIGHT)
+        drightHint:SetAlpha(0.85)
 
         local tabsLabel = subTabBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         tabsLabel:SetPoint("CENTER", subTabBar, "CENTER", 0, 0)
@@ -1354,17 +1376,34 @@ function MerchantMenu:MoveBagSelection(delta)
 end
 
 function MerchantMenu:ToggleColumn(delta)
-    if self.activeColumn == "BAGS" then
-        self.activeColumn = "VENDOR"
-        PlaySound("igCharacterInfoTab")
-        self:UpdateColumnVisuals()
-        self:UpdateBagRows()
-        self:ShowVendorPlaceholderDetail()
+    local targetCol = nil
+    if delta == -1 then
+        if self.activeColumn == "VENDOR" then
+            targetCol = "BAGS"
+        else
+            targetCol = "VENDOR"
+        end
+    elseif delta == 1 then
+        if self.activeColumn == "BAGS" then
+            targetCol = "VENDOR"
+        else
+            targetCol = "BAGS"
+        end
     else
-        self.activeColumn = "BAGS"
-        PlaySound("igCharacterInfoTab")
-        self:UpdateColumnVisuals()
-        self:UpdateBagRows()
+        if self.activeColumn == "BAGS" then
+            targetCol = "VENDOR"
+        else
+            targetCol = "BAGS"
+        end
+    end
+
+    self.activeColumn = targetCol
+    PlaySound("igCharacterInfoTab")
+    self:UpdateColumnVisuals()
+    self:UpdateBagRows()
+
+    if self.activeColumn == "VENDOR" then
+        self:ShowVendorPlaceholderDetail()
     end
 end
 
@@ -1391,13 +1430,9 @@ function MerchantMenu:OnDirection(direction)
     if not self.isOpen then return end
 
     if direction == "LEFT" then
-        if self.activeColumn == "BAGS" then
-            self:ToggleColumn(-1)
-        end
+        self:CycleSubTab(-1)
     elseif direction == "RIGHT" then
-        if self.activeColumn == "VENDOR" then
-            self:ToggleColumn(1)
-        end
+        self:CycleSubTab(1)
     elseif direction == "UP" then
         if self.activeColumn == "BAGS" then
             self:MoveBagSelection(-1)
@@ -1407,6 +1442,72 @@ function MerchantMenu:OnDirection(direction)
             self:MoveBagSelection(1)
         end
     end
+end
+
+-- ----------------------------------------------------------------------------
+-- 9. AÇÕES MERCANTIS: VENDA E REPARO (FASE 5)
+-- ----------------------------------------------------------------------------
+function MerchantMenu:SellSelectedItem()
+    if not self.isOpen then return end
+    if self.activeColumn ~= "BAGS" then return end
+
+    local item = self.filteredBagItems and self.filteredBagItems[self.selectedBagIndex]
+    if not item then return end
+
+    self:SellItem(item.bagID, item.slotID, item)
+end
+
+function MerchantMenu:SellItem(bagID, slotID, item)
+    if not self.isOpen or not bagID or not slotID then return end
+
+    if MerchantFrame and MerchantFrame:IsShown() then
+        MerchantFrame.selectedTab = 1
+    end
+
+    if item and (not item.sellPrice or item.sellPrice <= 0) then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Este item não pode ser vendido ao mercador.")
+        if UIErrorsFrame and UIERRORS_HOLD_TIME then
+            UIErrorsFrame:AddMessage("O mercador não deseja esse item.", 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
+        end
+        PlaySound("igQuestFailed")
+        return
+    end
+
+    local texture, count, locked = GetContainerItemInfo(bagID, slotID)
+    if not texture or locked then return end
+
+    ClearCursor()
+    UseContainerItem(bagID, slotID)
+    PlaySound("igMainMenuOptionCheckBoxOn")
+
+    local name = (item and item.name) or "Item"
+    local priceStr = (item and item.sellPrice and item.sellPrice > 0) and (" por " .. self:FormatMoneyText(item.sellPrice)) or ""
+    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Item vendido: " .. ((item and item.link) or name) .. priceStr)
+end
+
+function MerchantMenu:RepairAll()
+    if not self.isOpen or not self.canRepair then return end
+
+    local repairCost, canRepair = GetRepairAllCost()
+    if not canRepair or (repairCost or 0) <= 0 then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Seus equipamentos não precisam de reparos.")
+        return
+    end
+
+    local playerMoney = GetMoney() or 0
+    if playerMoney < repairCost then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Dinheiro insuficiente para reparar todos os itens (" .. self:FormatMoneyText(repairCost) .. ").")
+        if UIErrorsFrame and ERR_NOT_ENOUGH_MONEY and UIERRORS_HOLD_TIME then
+            UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
+        end
+        PlaySound("igQuestFailed")
+        return
+    end
+
+    RepairAllItems()
+    PlaySound("ITEM_REPAIR")
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Todos os itens foram reparados por " .. self:FormatMoneyText(repairCost) .. "!")
+    self:RefreshHeader()
 end
 
 -- ----------------------------------------------------------------------------
@@ -1440,9 +1541,19 @@ function MerchantMenu:Open()
     end
     self.frame:Show()
 
-    -- Ativa o Modo de Navegação no Gamepad
-    if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.EnterNavigationMode then
-        ConsoleMode.keybindings:EnterNavigationMode()
+    -- Ativa e reforça o Modo de Navegação no Gamepad
+    if ConsoleMode and ConsoleMode.keybindings then
+        -- Evita reentrada: só entra no modo navegação se ainda não estiver ativo
+        if not ConsoleMode.keybindings.navigationMode then
+            if ConsoleMode.keybindings.EnterNavigationMode then
+                ConsoleMode.keybindings:EnterNavigationMode()
+            end
+        else
+            -- Já está em navegação — apenas reaplica os bindings do D-Pad para garantir integridade
+            if ConsoleMode.keybindings.ReapplyNavigationBindings then
+                ConsoleMode.keybindings:ReapplyNavigationBindings()
+            end
+        end
     end
 
     PlaySound("igMainMenuOpen")
@@ -1470,9 +1581,9 @@ function MerchantMenu:Close()
         self.frame:Hide()
     end
 
-    -- Desativa o Modo de Navegação no Gamepad
+    -- Desativa o Modo de Navegação no Gamepad de forma forçada
     if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.ExitNavigationMode then
-        ConsoleMode.keybindings:ExitNavigationMode()
+        ConsoleMode.keybindings:ExitNavigationMode(true)
     end
 
     CloseMerchant()
@@ -1614,7 +1725,12 @@ function MerchantMenu:Initialize()
 
     -- Hook preventivo no OnShow do MerchantFrame
     if MerchantFrame then
+        local orig_MerchantFrame_OnShow = MerchantFrame:GetScript("OnShow")
         MerchantFrame:SetScript("OnShow", function()
+            if orig_MerchantFrame_OnShow then
+                orig_MerchantFrame_OnShow()
+            end
+            MerchantFrame.selectedTab = 1
             MerchantFrame:SetAlpha(0)
             MerchantFrame:EnableMouse(false)
             MerchantFrame:ClearAllPoints()

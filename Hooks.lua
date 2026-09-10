@@ -169,6 +169,12 @@ function Hooks:OnFrameShow(frame)
     local name = frame:GetName() or "?"
     local Cursor = ConsoleMode.cursor
 
+    -- Se o menu de mercador do ConsoleMode estiver aberto, ele gerencia sua própria navegação
+    -- Não faz EnterNavigationMode de novo (já foi chamado em MerchantMenu:Open)
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        return
+    end
+
     -- Se for tela de Macros ou SuperMacro, desativa o cursor de navegação para não atrapalhar digitação
     if self:IsAnyMacroOpen() or self:IsMacroFrame(frame) or (Cursor and Cursor.IsAnyMacroOpen and Cursor:IsAnyMacroOpen()) or (Cursor and Cursor.IsMacroFrame and Cursor:IsMacroFrame(frame)) then
         if Cursor then
@@ -323,6 +329,11 @@ function Hooks:ProcessFrameHide(frame)
     if not Cursor then return end
 
     Cursor.state.activeFrames[frame] = nil
+
+    -- Se o menu de mercador do ConsoleMode estiver aberto, não interfere nem encerra o modo navegação
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        return
+    end
 
     local nextFrame = nil
     for f, _ in pairs(Cursor.state.activeFrames) do

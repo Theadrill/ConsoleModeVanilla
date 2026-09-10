@@ -1809,7 +1809,13 @@ end
 function Cursor:CycleTabs(direction)
     local dir = direction or 1
     
-    -- 0. Se o MainMenu do ConsoleMode estiver aberto
+    -- 0. Se a janela de Mercador do ConsoleMode estiver aberta
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:ToggleColumn(dir)
+        return true
+    end
+
+    -- 0.1. Se o MainMenu do ConsoleMode estiver aberto
     if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
         if ConsoleMode.mainMenu and ConsoleMode.mainMenu.CycleTabs then
             local cycled = ConsoleMode.mainMenu:CycleTabs(dir)
@@ -1957,7 +1963,13 @@ end
 function Cursor:CycleSubTabs(direction)
     local dir = direction or 1
 
-    -- 0. Se o MainMenu do ConsoleMode estiver aberto
+    -- 0. Se a janela de Mercador do ConsoleMode estiver aberta
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:CycleSubTab(dir)
+        return true
+    end
+
+    -- 0.1. Se o MainMenu do ConsoleMode estiver aberto
     if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
         if ConsoleMode.mainMenu and ConsoleMode.mainMenu.CycleCategories then
             local cycled = ConsoleMode.mainMenu:CycleCategories(dir)

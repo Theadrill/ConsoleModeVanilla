@@ -994,9 +994,18 @@ function CM_CursorMove(direction, keystate)
     if CM.keybindings and CM.keybindings.chatActive then return end
 
     -- Interceptação de navegação direta da Janela de Mercador ConsoleMode
+    -- Com hold-to-scroll: key down inicia repeat, key up para a repeticao.
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
-        if keystate ~= "up" then
-            ConsoleMode_MerchantMenu:OnDirection(direction)
+        if keystate == "up" then
+            if ConsoleMode_MerchantMenu.StopRepeat then
+                ConsoleMode_MerchantMenu:StopRepeat(direction)
+            end
+        else
+            if ConsoleMode_MerchantMenu.StartRepeat then
+                ConsoleMode_MerchantMenu:StartRepeat(direction)
+            else
+                ConsoleMode_MerchantMenu:OnDirection(direction)
+            end
         end
         return
     end

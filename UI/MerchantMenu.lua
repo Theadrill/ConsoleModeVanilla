@@ -108,6 +108,15 @@ MerchantMenu.vendorScrollOffset  = 0
 MerchantMenu.vendorSubTabIdx     = 1
 MerchantMenu.buybackItems        = {}
 MerchantMenu.qtyModal            = { isOpen = false, vendorIndex = nil, qty = 1, maxQty = 1, unitPrice = 0, stock = 0, itemName = "" }
+
+-- Autorepeat ao segurar o D-Pad (hold-to-scroll). Espelha Cursor.repeatState.
+MerchantMenu.repeatState = {
+    direction = nil,
+    timer = 0,
+    initialDelay = 0.35, -- espera antes de comecar a repetir
+    interval = 0.12,     -- passo continuo (UP/DOWN)
+}
+MerchantMenu.repeatFrame = nil
 MerchantMenu.qtyModalFrame       = nil
 MerchantMenu.autoSell            = { running = false, queue = {}, pos = 1, gained = 0, acc = 0 }
 MerchantMenu.compareState        = { lastKey = nil, isUpgrade = nil }
@@ -2102,9 +2111,9 @@ end
 function MerchantMenu:CycleSubTab(delta)
     if not self.isOpen then return end
 
-    -- Salto entre colunas: trata as 8 sub-abas como uma faixa circular
+    -- Salto entre colunas: qualquer troca de coluna cai na aba TODOS (indice 1).
     -- VENDEDOR(Todos/Equip/Consum/Recompra) <-> BOLSAS(Todos/Equip/Consum/Lixo).
-    -- BOLSAS Todos + LEFT => VENDEDOR Recompra | VENDEDOR Recompra + RIGHT => BOLSAS Todos.
+    -- BOLSAS Todos + LEFT => VENDEDOR Todos | VENDEDOR Todos + LEFT => BOLSAS Todos.
     local function JumpToColumn(newColumn, newSubIdx)
         self.activeColumn = newColumn
         if newColumn == "VENDOR" then
@@ -2136,7 +2145,7 @@ function MerchantMenu:CycleSubTab(delta)
             return
         end
         if nextIdx < 1 then
-            JumpToColumn("VENDOR", table.getn(SUBTABS_VENDOR))
+            JumpToColumn("VENDOR", 1)
             return
         end
         self.bagSubTabIdx = nextIdx
@@ -2155,7 +2164,7 @@ function MerchantMenu:CycleSubTab(delta)
             return
         end
         if nextIdx < 1 then
-            JumpToColumn("BAGS", table.getn(SUBTABS_BAGS))
+            JumpToColumn("BAGS", 1)
             return
         end
         self.vendorSubTabIdx = nextIdx
@@ -2196,6 +2205,50 @@ function MerchantMenu:OnDirection(direction)
             self:MoveVendorSelection(1)
         end
     end
+end
+
+-- Hold-to-scroll: passo imediato + repeticao continua via OnUpdate (somente UP/DOWN).
+function MerchantMenu:StartRepeat(direction)
+    if not self.isOpen then return end
+    if direction == "UP" or direction == "DOWN" then
+        self:OnDirection(direction)
+        self.repeatState.direction = direction
+        self.repeatState.timer = self.repeatState.initialDelay
+        self:EnsureRepeatTicker()
+    else
+        -- LEFT/RIGHT: passo unico, sem repeat (evita spam de abas)
+        self.repeatState.direction = nil
+        self.repeatState.timer = 0
+        self:OnDirection(direction)
+    end
+end
+
+function MerchantMenu:StopRepeat(direction)
+    if not direction or self.repeatState.direction == direction then
+        self.repeatState.direction = nil
+        self.repeatState.timer = 0
+    end
+end
+
+function MerchantMenu:EnsureRepeatTicker()
+    if self.repeatFrame then return end
+    local f = CreateFrame("Frame", "ConsoleMode_MerchantRepeatTicker")
+    f:SetScript("OnUpdate", function()
+        if not MerchantMenu.isOpen then
+            MerchantMenu.repeatState.direction = nil
+            return
+        end
+        local dir = MerchantMenu.repeatState.direction
+        if dir then
+            local elapsed = arg1 or 0.016
+            MerchantMenu.repeatState.timer = MerchantMenu.repeatState.timer - elapsed
+            if MerchantMenu.repeatState.timer <= 0 then
+                MerchantMenu:OnDirection(dir)
+                MerchantMenu.repeatState.timer = MerchantMenu.repeatState.interval
+            end
+        end
+    end)
+    self.repeatFrame = f
 end
 
 -- ----------------------------------------------------------------------------
@@ -2711,6 +2764,8 @@ function MerchantMenu:Close()
     self.selectedVendorIndex = 1
     self.vendorScrollOffset  = 0
     self.vendorSubTabIdx     = 1
+    self.repeatState.direction = nil
+    self.repeatState.timer = 0
 
     if self.scanFrame then
         self.scanFrame:SetScript("OnUpdate", nil)

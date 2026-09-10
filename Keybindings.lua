@@ -834,7 +834,33 @@ function CM_Fixed(button)
             ClearCursor()
             return
         end
-        
+
+        -- 2b. Venda do mercador aberta: fecha a atual e abre o Main Menu
+        -- no mesmo aperto (sem sobrepor uma janela sobre a outra).
+        if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+            ConsoleMode_MerchantMenu:Close()
+            if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
+                ConsoleMode.mainMenu:Show("BAGS")
+            else
+                ShowUIPanel(GameMenuFrame)
+            end
+            return
+        end
+        local merchantFrame = getglobal("ConsoleMode_MerchantFrame")
+        if merchantFrame and merchantFrame:IsVisible() then
+            if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.Close then
+                ConsoleMode_MerchantMenu:Close()
+            else
+                merchantFrame:Hide()
+            end
+            if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
+                ConsoleMode.mainMenu:Show("BAGS")
+            else
+                ShowUIPanel(GameMenuFrame)
+            end
+            return
+        end
+
         -- 3. Tenta fechar qualquer janela de UI aberta
         if CM.hooks and CM.hooks.CloseTopFrame and CM.hooks:CloseTopFrame() then
             return

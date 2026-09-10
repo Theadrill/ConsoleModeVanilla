@@ -13154,6 +13154,11 @@ end
 -- ============================================================================
 
 function MainMenu:Show(initialTab)
+    -- Nunca sobrepor a janela de venda: fecha o mercador antes de exibir o menu.
+    -- Cobre todas as vias de abertura (START, ToggleGameMenu, SELECT).
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:Close()
+    end
     if not self.frame then
         self:CreateUI()
     end

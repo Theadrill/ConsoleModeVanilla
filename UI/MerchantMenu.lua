@@ -201,6 +201,41 @@ function MerchantMenu:SuppressDefaultFrame()
 end
 
 -- ----------------------------------------------------------------------------
+-- 5b. RESOLVE GetItemInfo ROBUSTO (Turtle 9-ret sem itemLevel vs 1.12 padrão 10-ret)
+-- 9-ret: nome, link, raridade, minLevel, tipo, subtipo, stack, equipLoc, textura
+-- 10-ret: nome, link, raridade, level, minLevel, tipo, subtipo, stack, equipLoc, textura
+-- Detecta pelo tipo do 5o retorno e sanitiza equipLoc (só INVTYPE_* passa).
+-- ----------------------------------------------------------------------------
+function MerchantMenu:ResolveItemInfo(itemIDorLink)
+    if not itemIDorLink or not GetItemInfo then return nil end
+    local a1, a2, a3, a4, a5, a6, a7, a8, a9, a10 = GetItemInfo(itemIDorLink)
+    if not a1 then return nil end
+    local quality = tonumber(a3) or 1
+    local reqLevel, itemType, subType, equipLoc = 0, "", "", ""
+    if type(a5) == "string" then
+        reqLevel = tonumber(a4) or 0
+        if type(a5) == "string" then itemType = a5 end
+        if type(a6) == "string" then subType = a6 end
+        if type(a8) == "string" then equipLoc = a8 end
+    else
+        reqLevel = tonumber(a5) or 0
+        if type(a6) == "string" then itemType = a6 end
+        if type(a7) == "string" then subType = a7 end
+        if type(a9) == "string" then equipLoc = a9 end
+    end
+    if type(equipLoc) ~= "string" then equipLoc = "" end
+    if string.find(equipLoc, "\\\\") or string.find(equipLoc, "Interface") or string.find(equipLoc, "INV_") then
+        equipLoc = ""
+    end
+    if string.find(equipLoc, "^INVTYPE_") == nil then
+        equipLoc = ""
+    end
+    if type(itemType) ~= "string" then itemType = "" end
+    if type(subType) ~= "string" then subType = "" end
+    return a1, quality, reqLevel, itemType, subType, equipLoc
+end
+
+-- ----------------------------------------------------------------------------
 -- 6. LEITURA, CLASSIFICAÇÃO E FILTROS DO INVENTÁRIO DO JOGADOR (FASE 3)
 -- ----------------------------------------------------------------------------
 function MerchantMenu:ParseBagItem(bagID, slotID)
@@ -224,7 +259,7 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
     end
 
     if itemID then
-        local n, _, q, reqL, t, st, _, eqL = GetItemInfo(itemID)
+        local n, q, reqL, t, st, eqL = self:ResolveItemInfo(itemID)
         if n then
             itemName = n
             itemQuality = tonumber(q) or itemQuality
@@ -234,7 +269,7 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
             itemEquipLoc = eqL or ""
         end
     elseif rawLink then
-        local n, _, q, reqL, t, st, _, eqL = GetItemInfo(rawLink)
+        local n, q, reqL, t, st, eqL = self:ResolveItemInfo(rawLink)
         if n then
             itemName = n
             itemQuality = tonumber(q) or itemQuality
@@ -384,7 +419,7 @@ function MerchantMenu:ParseVendorItem(mercIndex)
     local itemSubType = ""
     local itemEquipLoc = ""
     if itemID and GetItemInfo then
-        local n, _, q, _, reqL, t, st, _, eqL = GetItemInfo(itemID)
+        local n, q, reqL, t, st, eqL = self:ResolveItemInfo(itemID)
         if n then
             itemName = n
             itemQuality = tonumber(q) or 1
@@ -444,7 +479,7 @@ function MerchantMenu:ParseBuybackItem(bbIndex)
     end
     local itemQuality, itemType, itemSubType, itemEquipLoc, itemReqLevel = 1, "", "", "", 0
     if itemID and GetItemInfo then
-        local n, _, q, _, reqL, t, st, _, eqL = GetItemInfo(itemID)
+        local n, q, reqL, t, st, eqL = self:ResolveItemInfo(itemID)
         if n then
             name = n
             itemQuality = tonumber(q) or 1
@@ -1755,7 +1790,7 @@ function MerchantMenu:ResolveEquippedLink(item)
     if not item then return nil end
     local eq = item.equipLoc or ""
     if eq == "" and item.link and GetItemInfo then
-        local _, _, _, _, _, _, _, eqL = GetItemInfo(item.link)
+        local _, _, _, _, _, eqL = self:ResolveItemInfo(item.link)
         if eqL then eq = eqL end
     end
     if eq == "" or eq == "INVTYPE_NON_EQUIP" or eq == "INVTYPE_BAG" then return nil end
@@ -1780,6 +1815,9 @@ end
 function MerchantMenu:FormatCompareDiffs(item)
     if not item then return "", nil end
     local eqLoc = item.equipLoc or ""
+    if type(eqLoc) ~= "string" or string.find(eqLoc, "^INVTYPE_") == nil then
+        return "", nil
+    end
     if eqLoc == "" or eqLoc == "INVTYPE_NON_EQUIP" or eqLoc == "INVTYPE_BAG" then
         return "", nil
     end
@@ -1919,8 +1957,13 @@ function MerchantMenu:ShowItemDetail(item)
     if item.itemType and item.itemType ~= "" then table.insert(typeParts, item.itemType) end
     if item.subType and item.subType ~= "" then table.insert(typeParts, item.subType) end
     if item.equipLoc and item.equipLoc ~= "" then
-        local slotText = getglobal(item.equipLoc) or item.equipLoc
-        table.insert(typeParts, slotText)
+        local eq = item.equipLoc
+        if type(eq) == "string" and string.find(eq, "^INVTYPE_") then
+            local slotText = getglobal(eq)
+            if type(slotText) == "string" and slotText ~= "" then
+                table.insert(typeParts, slotText)
+            end
+        end
     end
     if item.reqLevel and item.reqLevel > 0 then
         local pLvl = UnitLevel("player") or 1
@@ -2059,11 +2102,44 @@ end
 function MerchantMenu:CycleSubTab(delta)
     if not self.isOpen then return end
 
+    -- Salto entre colunas: trata as 8 sub-abas como uma faixa circular
+    -- VENDEDOR(Todos/Equip/Consum/Recompra) <-> BOLSAS(Todos/Equip/Consum/Lixo).
+    -- BOLSAS Todos + LEFT => VENDEDOR Recompra | VENDEDOR Recompra + RIGHT => BOLSAS Todos.
+    local function JumpToColumn(newColumn, newSubIdx)
+        self.activeColumn = newColumn
+        if newColumn == "VENDOR" then
+            self.vendorSubTabIdx = newSubIdx
+            self.selectedVendorIndex = 1
+            self.vendorScrollOffset = 0
+        else
+            self.bagSubTabIdx = newSubIdx
+            self.selectedBagIndex = 1
+            self.bagScrollOffset = 0
+        end
+        PlaySound("igCharacterInfoTab")
+        self:UpdateBagsSubTabBar()
+        self:UpdateVendorSubTabBar()
+        self:UpdateColumnVisuals()
+        self:FilterBagItems()
+        self:FilterVendorItems()
+        self.selectedBagIndex = math.max(1, math.min(self.selectedBagIndex or 1, math.max(1, table.getn(self.filteredBagItems or {}))))
+        self.selectedVendorIndex = math.max(1, math.min(self.selectedVendorIndex or 1, math.max(1, table.getn(self.filteredVendorItems or {}))))
+        self:UpdateBagRows()
+        self:UpdateVendorRows()
+    end
+
     if self.activeColumn == "BAGS" then
         local count = table.getn(SUBTABS_BAGS)
-        self.bagSubTabIdx = self.bagSubTabIdx + delta
-        if self.bagSubTabIdx > count then self.bagSubTabIdx = 1 end
-        if self.bagSubTabIdx < 1 then self.bagSubTabIdx = count end
+        local nextIdx = self.bagSubTabIdx + delta
+        if nextIdx > count then
+            JumpToColumn("VENDOR", 1)
+            return
+        end
+        if nextIdx < 1 then
+            JumpToColumn("VENDOR", table.getn(SUBTABS_VENDOR))
+            return
+        end
+        self.bagSubTabIdx = nextIdx
         PlaySound("igMainMenuOptionCheckBoxOn")
         self:UpdateBagsSubTabBar()
         self:FilterBagItems()
@@ -2073,9 +2149,16 @@ function MerchantMenu:CycleSubTab(delta)
     else
         -- VENDOR: Todos / Equip / Consum / Recompra (Fase 5/6)
         local count = table.getn(SUBTABS_VENDOR)
-        self.vendorSubTabIdx = self.vendorSubTabIdx + delta
-        if self.vendorSubTabIdx > count then self.vendorSubTabIdx = 1 end
-        if self.vendorSubTabIdx < 1 then self.vendorSubTabIdx = count end
+        local nextIdx = self.vendorSubTabIdx + delta
+        if nextIdx > count then
+            JumpToColumn("BAGS", 1)
+            return
+        end
+        if nextIdx < 1 then
+            JumpToColumn("BAGS", table.getn(SUBTABS_BAGS))
+            return
+        end
+        self.vendorSubTabIdx = nextIdx
         PlaySound("igMainMenuOptionCheckBoxOn")
         self:UpdateVendorSubTabBar()
         self:FilterVendorItems()

@@ -70,11 +70,9 @@ local function QLog(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[QID]|r " .. tostring(msg))
 end
 
--- Helper de debug: somente visivel quando /cm debug estiver ativado
+-- Helper de debug: silenciado para evitar flood no chat durante o polling periodico de itens
 local function QDebug(msg)
-    if CM and CM.debug then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff888888[QID-Debug]|r " .. tostring(msg))
-    end
+    -- Silenciado intencionalmente para nao poluir o chat durante o polling periodico
 end
 
 -- ============================================================================

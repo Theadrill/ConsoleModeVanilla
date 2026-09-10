@@ -263,19 +263,23 @@ Implementar a lógica de distribuição nos 7 slots do cluster L2+R2 (`TARGET_SL
 
 ---
 
-### **PASSO 3: Edge Cases + Performance** `[STATUS: PENDENTE]`
+### **PASSO 3: Edge Cases, Performance & Refinamento de Logs** `[STATUS: 🔄 EM VALIDAÇÃO]`
 
 #### Objetivo
-Tratar casos extremos, otimizar performance, e garantir estabilidade completa.
+Tratar casos extremos, otimizar performance, e silenciar logs rotineiros mantendo alertas específicos essenciais.
 
-#### Tarefas
-1. **Re-scan inteligente:** Só faz scan completo se `BAG_UPDATE` ou `UNIT_INVENTORY_CHANGED` disparar (não só timer).
-2. **Throttle por evento:** Evita múltiplos scans em cascata (ex: loot múltiplo) — cooldown de 0.5s entre scans por evento.
-3. **pcall protection:** Wrapprove `PickupContainerItem`, `PlaceAction`, `ClearSlot` em `pcall`.
-4. **7 slots cheios:** Quando todos ocupados com items válidos → early-out (não varre items sobrando).
-5. **Performance:** Confirmar 3s timer não causa lag; eventos síncronos são rápidos (30-60 itens max).
-6. **Cleanup final:** Zero `print` debug; comentários em PT-BR; `luac -p` limpo.
-7. Atualizar este doc: `PASSO 3` → `[STATUS: ✅ CONCLUÍDA]`
+#### Tarefas Realizadas:
+1. **Re-scan inteligente:** Scan orientado a eventos (`BAG_UPDATE`, `UNIT_INVENTORY_CHANGED`, `PLAYER_ENTERING_WORLD`, `CHAT_MSG_LOOT`).
+2. **Throttle por evento:** Cooldown/delay de 0.5s para bolsas e 1.0s para loot.
+3. **pcall protection:** Chamadas de manipulação de cursor e barras encapsuladas com `pcall`.
+4. **Refinamento de Logs (Silenciamento seletivo):**
+   - **Logs ativos exibidos no chat:**
+     1. Quando achar um novo item de missão (`Novo item de missao encontrado: [Nome]`).
+     2. Quando posicionar um item no slot (`Posicionando [Nome] no slot X (Botao)`).
+     3. Quando limpar um slot porque o item sumiu da bolsa (`Item 'Nome' nao esta mais na bolsa. Limpando slot X (Botao)`).
+     4. Quando achar duplicatas (`Duplicata de 'Nome' encontrada no slot X`).
+     5. Quando remover duplicatas (`Duplicata do slot X removida com sucesso`).
+   - **Logs rotineiros/verbosos:** Movidos para `QDebug(...)`, visíveis apenas se `/cm debug` estiver ativo.
 
 #### Arquivos Modificados
 - `UI/QuestItemDistributor.lua` (edge cases + pcall + early-out)

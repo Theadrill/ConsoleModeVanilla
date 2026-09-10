@@ -49,9 +49,30 @@ QID.scanTimer = 0
 QID.initialDedupDone = false
 QID.initialized = false
 
+-- Mapeamento amigavel de slots alvo para nomes de botoes do cluster
+QID.SLOT_LABELS = {
+    [37] = "X",
+    [38] = "Y",
+    [39] = "B",
+    [41] = "D-UP",
+    [42] = "D-DOWN",
+    [43] = "D-LEFT",
+    [44] = "D-RIGHT",
+}
+
+-- Set de itemIDs conhecidos na bolsa (evita spam de anunciar o mesmo item repetidamente)
+QID.knownItemIDs = {}
+
 -- Helper de log: imprime no chat com prefixo colorido
 local function QLog(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[QID]|r " .. tostring(msg))
+end
+
+-- Helper de debug: somente visivel quando /cm debug estiver ativado
+local function QDebug(msg)
+    if CM and CM.debug then
+        DEFAULT_CHAT_FRAME:AddMessage("|cff888888[QID-Debug]|r " .. tostring(msg))
+    end
 end
 
 -- ============================================================================
@@ -306,7 +327,7 @@ end
 
 -- Varre todos os 120 slots de barras de acao do personagem, um por um.
 -- Remove quaisquer duplicatas dos itens de missao que estejam fora dos slots designados.
-function QID:RunDeduplicator(assignedItems)
+function QID:RunDeduplicator(assignedItems, isManual)
     if not assignedItems then
         assignedItems = {}
         local qItems = QID:GetUsableQuestItems()
@@ -329,11 +350,15 @@ function QID:RunDeduplicator(assignedItems)
 
     local numActive = table.getn(activeItems)
     if numActive == 0 then
-        QLog("[Deduplicador] Nenhum item de quest ativo no cluster para deduplicar.")
+        if isManual then
+            QLog("[Deduplicador] Nenhum item de quest ativo no cluster para deduplicar.")
+        else
+            QDebug("[Deduplicador] Nenhum item de quest ativo no cluster para deduplicar.")
+        end
         return
     end
 
-    QLog("[Deduplicador] Varrendo todas as barras (slots 1..120) em busca de duplicatas...")
+    QDebug("[Deduplicador] Varrendo todas as barras (slots 1..120) em busca de duplicatas...")
     local removedCount = 0
 
     for slot = 1, 120 do
@@ -344,8 +369,10 @@ function QID:RunDeduplicator(assignedItems)
                 -- Se for o slot designado para este item, mantem intacto
                 if slot ~= qInfo.keepSlot then
                     if QID:SlotMatchesQuestItem(slot, qInfo) then
-                        QLog("  -> [Deduplicador] Removendo duplicata de '" .. (qInfo.itemName or "Item") .. "' no slot " .. slot)
+                        local dupName = qInfo.itemName or "Item"
+                        QLog("[Deduplicador] Duplicata de '" .. dupName .. "' encontrada no slot " .. slot .. ".")
                         QID:ClearActionSlot(slot)
+                        QLog("[Deduplicador] Duplicata do slot " .. slot .. " removida com sucesso.")
                         if QID.slotMap[slot] then
                             QID.slotMap[slot] = nil
                         end
@@ -357,7 +384,11 @@ function QID:RunDeduplicator(assignedItems)
         end
     end
 
-    QLog("[Deduplicador] Varredura concluida. Total de duplicatas removidas: " .. removedCount)
+    if removedCount > 0 then
+        QLog("[Deduplicador] Concluido: " .. removedCount .. " duplicata(s) removida(s).")
+    elseif isManual then
+        QLog("[Deduplicador] Nenhuma duplicata encontrada nas barras.")
+    end
 end
 
 -- ============================================================================
@@ -368,9 +399,26 @@ function QID:DistributeQuestItems(forceDedup)
     local questItems = QID:GetUsableQuestItems()
     local numItems   = table.getn(questItems)
 
-    QLog("--- Distribuindo. Items encontrados: " .. numItems .. " ---")
+    QDebug("--- Distribuindo. Items encontrados: " .. numItems .. " ---")
     for i = 1, numItems do
-        QLog("  Item " .. i .. ": " .. (questItems[i].itemName or "?") .. " (ID=" .. tostring(questItems[i].itemID) .. " bag=" .. questItems[i].bagID .. " slot=" .. questItems[i].slotID .. ")")
+        QDebug("  Item " .. i .. ": " .. (questItems[i].itemName or "?") .. " (ID=" .. tostring(questItems[i].itemID) .. " bag=" .. questItems[i].bagID .. " slot=" .. questItems[i].slotID .. ")")
+    end
+
+    -- 1. Detectar e anunciar novos itens de missao encontrados na bolsa
+    local currentIDs = {}
+    for i = 1, numItems do
+        local item = questItems[i]
+        currentIDs[item.itemID] = true
+        if not QID.knownItemIDs[item.itemID] then
+            QID.knownItemIDs[item.itemID] = true
+            QLog("Novo item de missao encontrado: |cffffff00[" .. (item.itemName or "Item") .. "]|r")
+        end
+    end
+    -- Remove do set de conhecidos os itens que nao estao mais na bolsa
+    for oldID, _ in pairs(QID.knownItemIDs) do
+        if not currentIDs[oldID] then
+            QID.knownItemIDs[oldID] = nil
+        end
     end
 
     local itemsAdded = 0
@@ -384,13 +432,14 @@ function QID:DistributeQuestItems(forceDedup)
             allocatedItemIDs[matched.itemID] = actionSlot
             assignedItems[actionSlot] = matched
             QID.slotMap[actionSlot] = matched.itemID
-            QLog("Slot " .. actionSlot .. ": ja contem " .. matched.itemName .. " (mantido)")
+            QDebug("Slot " .. actionSlot .. ": ja contem " .. matched.itemName .. " (mantido)")
         end
     end
 
     -- PASSO 2: Preencher slots restantes ou limpar slots invalidos/sem item
     local nextItemIdx = 1
     for _, actionSlot in ipairs(QID.TARGET_SLOTS) do
+        local btnLabel = QID.SLOT_LABELS[actionSlot] or tostring(actionSlot)
         if not assignedItems[actionSlot] then
             -- Busca o proximo quest item ainda nao alocado
             local itemToPlace = nil
@@ -408,23 +457,28 @@ function QID:DistributeQuestItems(forceDedup)
                 local has = false
                 pcall(function() has = HasAction(actionSlot) end)
                 if has then
-                    QLog("Slot " .. actionSlot .. ": limpando acao anterior")
+                    local oldName = QID:GetSlotItemName(actionSlot)
+                    if oldName and oldName ~= "" then
+                        QLog("Item '" .. oldName .. "' nao esta mais na bolsa. Limpando slot " .. actionSlot .. " (" .. btnLabel .. ").")
+                    end
                     QID:ClearActionSlot(actionSlot)
                 end
-                QLog("Slot " .. actionSlot .. ": colocando " .. itemToPlace.itemName .. " (bag=" .. itemToPlace.bagID .. " slot=" .. itemToPlace.slotID .. ")")
+
                 local placed = QID:PlaceItemInSlot(itemToPlace.bagID, itemToPlace.slotID, actionSlot)
                 if placed then
                     allocatedItemIDs[itemToPlace.itemID] = actionSlot
                     assignedItems[actionSlot] = itemToPlace
                     QID.slotMap[actionSlot] = itemToPlace.itemID
                     itemsAdded = itemsAdded + 1
+                    QLog("Posicionando |cffffff00[" .. itemToPlace.itemName .. "]|r no slot " .. actionSlot .. " (" .. btnLabel .. ")")
                 end
             else
                 -- Sem mais itens de quest: limpa o slot alvo se estiver ocupado
                 local has = false
                 pcall(function() has = HasAction(actionSlot) end)
                 if has then
-                    QLog("Slot " .. actionSlot .. ": sem item de quest correspondente, limpando")
+                    local oldName = QID:GetSlotItemName(actionSlot) or "Item"
+                    QLog("Item '" .. oldName .. "' nao esta mais na bolsa. Limpando slot " .. actionSlot .. " (" .. btnLabel .. ").")
                     QID:ClearActionSlot(actionSlot)
                 end
                 QID.slotMap[actionSlot] = nil
@@ -432,7 +486,7 @@ function QID:DistributeQuestItems(forceDedup)
         end
     end
 
-    QLog("--- Distribuicao concluida. Novos itens adicionados: " .. itemsAdded .. " ---")
+    QDebug("--- Distribuicao concluida. Novos itens adicionados: " .. itemsAdded .. " ---")
 
     -- PASSO 3: Deduplicacao
     -- Dispara APOS ver/anexar os itens na barra:
@@ -444,7 +498,7 @@ function QID:DistributeQuestItems(forceDedup)
 
     if shouldDedup then
         QID.initialDedupDone = true
-        QID:RunDeduplicator(assignedItems)
+        QID:RunDeduplicator(assignedItems, forceDedup)
     end
 end
 

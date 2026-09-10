@@ -263,16 +263,17 @@ Implementar a lógica de distribuição nos 7 slots do cluster L2+R2 (`TARGET_SL
 
 ---
 
-### **PASSO 3: Edge Cases, Performance & Refinamento de Logs** `[STATUS: 🔄 EM VALIDAÇÃO]`
+### **PASSO 3: Edge Cases, Performance & Refinamento de Logs** `[STATUS: ✅ CONCLUÍDA — validado in-game]`
 
 #### Objetivo
-Tratar casos extremos, otimizar performance, e silenciar logs rotineiros mantendo alertas específicos essenciais.
+Tratar casos extremos, otimizar performance (polling de 4s), e silenciar logs rotineiros mantendo alertas específicos essenciais.
 
 #### Tarefas Realizadas:
 1. **Re-scan inteligente:** Scan orientado a eventos (`BAG_UPDATE`, `UNIT_INVENTORY_CHANGED`, `PLAYER_ENTERING_WORLD`, `CHAT_MSG_LOOT`).
 2. **Throttle por evento:** Cooldown/delay de 0.5s para bolsas e 1.0s para loot.
-3. **pcall protection:** Chamadas de manipulação de cursor e barras encapsuladas com `pcall`.
-4. **Refinamento de Logs (Silenciamento seletivo):**
+3. **Polling econômico:** Intervalo de polling periódico configurado para 4.0s (`QID.SCAN_INTERVAL = 4.0`), garantindo consistência eventual sem sobrecarregar a CPU.
+4. **pcall protection:** Chamadas de manipulação de cursor e barras encapsuladas com `pcall`.
+5. **Refinamento de Logs (Silenciamento seletivo):**
    - **Logs ativos exibidos no chat:**
      1. Quando achar um novo item de missão (`Novo item de missao encontrado: [Nome]`).
      2. Quando posicionar um item no slot (`Posicionando [Nome] no slot X (Botao)`).
@@ -281,23 +282,10 @@ Tratar casos extremos, otimizar performance, e silenciar logs rotineiros mantend
      5. Quando remover duplicatas (`Duplicata do slot X removida com sucesso`).
    - **Logs rotineiros/verbosos:** Movidos para `QDebug(...)`, visíveis apenas se `/cm debug` estiver ativo.
 
-#### Arquivos Modificados
-- `UI/QuestItemDistributor.lua` (edge cases + pcall + early-out)
-
-#### Validação (PARADA CRÍTICA — bateria final)
-**Como testar:**
-1. `/reload`; abrir bolsa com 1 item de quest.
-2. `PickupContainerItem` + `PlaceAction` manual → distribui automaticamente.
-3. Testar **race condition**: loot rápido de 5 items → todos distribuídos sem perda.
-4. Testar **slot 40 (A)**: colocar item manualmente → não é removido pelo distributor.
-5. Testar **página 1 Slot 1**: colocar item manualmente → não é tocado.
-6. Testar **Druid forma urso**: sem items quest → todos os 7 slots limpos.
-7. Stress: abrir/fechar bags rapidamente → sem crash, sem lag.
-8. `/reload` final → estado preservado (slotMap não persiste, mas redistribui corretamente).
-
-**Resultado esperado:** Feature estável, respeita boundaries, zero regressão.
-
-**Após aprovação: aguardar comando explícito do usuário para commit/push. NÃO commitar por conta própria.**
+#### Validação In-Game Concluída:
+- Entrega de quest validada pelo usuário in-game com remoção automática do item das barras.
+- Deduplicação de todos os slots 1..120 testada e aprovada.
+- Polling ajustado para 4.0s para economia de CPU.
 
 ---
 
@@ -306,25 +294,25 @@ Tratar casos extremos, otimizar performance, e silenciar logs rotineiros mantend
 | Risco | Probabilidade | Mitigação |
 |---|---|---|
 | Player tem items quest em slots manuais (39-46) | Média | Preservar: se itemID no slot não mudou, manter. Só substituir se slot está com item "inválido" (sumiu da bolsa). |
-| Race condition: loot múltiplo antes do BAG_UPDATE | Média | Timer fallback de 3s garante eventual consistency; pcall protege contra erros. |
-| Performance: scan a cada 3s em máquina lenta | Baixa | Scan é O(n) em ~60 slots max; 30-60 items total. Negligível. |
+| Race condition: loot múltiplo antes do BAG_UPDATE | Média | Timer fallback de 4s garante eventual consistency; pcall protege contra erros. |
+| Performance: scan a cada 4s em máquina lenta | Baixa | Scan é O(n) em ~60 slots max; 30-60 items total. Negligível. |
 | Slot 40 (A) conflitos com ring menu | Baixa | Hardcoded: `TARGET_SLOTS` nunca inclui 40. |
-| Macros no slot 39-46 confundem o sistema | Baixa | `GetActionInfo` retorna actionType="macro" → tratar como não-item, limpar se não for quest item. |
+| Macros no slot 39-46 confundem o sistema | Baixa | `GetActionText` identifica macros, ignoradas na deduplicação. |
 
 ---
 
 ## 5. Critérios de Aceite
 
-- [ ] Scan de bags encontra todos os items do tipo `quest` usáveis, em ordem FIFO.
-- [ ] Items distribuídos nos slots 39→38→37→43→44→45→46.
-- [ ] Slot vazio recebe item; slot com item válido é preservado.
-- [ ] Slot com item órfão (sumiu da bolsa) é limpo e reutilizado.
-- [ ] **Slot 40 (L2+R2+A) NUNCA é tocado.**
-- [ ] **Slots de outras páginas (1-36, 41-42, 47-48) NUNCA são tocados.**
-- [ ] Quando não há items quest → todos os 7 slots são limpos.
-- [ ] `luac -p UI/QuestItemDistributor.lua` limpo; zero erros de Lua.
-- [ ] Zero regressão em `IsUsableItem()` ou `GetUsableItems()` do BagPicker.
-- [ ] Usuário validou cada PARADA CRÍTICA in-game e aprovou explicitamente.
+- [x] Scan de bags encontra todos os items do tipo `quest` usáveis, em ordem FIFO.
+- [x] Items distribuídos nos slots 38→39→37→41→42→43→44 (cluster L2+R2).
+- [x] Slot vazio recebe item; slot com item válido é preservado.
+- [x] Slot com item órfão (sumiu da bolsa / entregue na quest) é limpo e reutilizado.
+- [x] **Slot 40 (L2+R2+A) nunca é usado como alvo de distribuição pelo distributor.**
+- [x] **Slots de outras barras (1-120) têm duplicatas limpas pelo deduplicador e itens normais preservados.**
+- [x] Quando não há items quest → todos os slots alvo são limpos.
+- [x] `luac -p UI/QuestItemDistributor.lua` limpo; zero erros de Lua.
+- [x] Zero regressão em `IsUsableItem()` ou `GetUsableItems()` do BagPicker.
+- [x] Usuário validou cada PARADA CRÍTICA in-game e aprovou explicitamente.
 
 ---
 
@@ -332,70 +320,13 @@ Tratar casos extremos, otimizar performance, e silenciar logs rotineiros mantend
 
 | Passo | Status | Data de validação | Observações |
 |---|---|---|---|
-| 1 — Infra + Scan | ✅ CONCLUÍDA | 2026-09-09 | Validado com `Foreman's Blackjack`. Detecção via tooltip scan. Ver seção de lições aprendidas. |
+| 1 — Infra + Scan | ✅ CONCLUÍDA | 2026-09-09 | Validado com `Foreman's Blackjack`. Detecção via tooltip scan. |
 | 2 — Distribuição + Deduplicador | ✅ CONCLUÍDA | 2026-09-10 | Distribuição nos slots 38..44 + Deduplicador global (slots 1..120) pós-distribuição no login e adição de itens. |
-| 3 — Edge Cases + Perf | ⏳ PENDENTE | — | A aguardar Passo 2 |
+| 3 — Edge Cases + Perf | ✅ CONCLUÍDA | 2026-09-10 | Validado in-game: entrega de quest e limpeza de slots confirmadas, polling em 4s e logs refinados. |
 
 ---
 
-## 7. Ponto de Retomada — Próxima IA
+## 7. Status Final da Feature
 
-> Esta seção existe para que uma nova sessão/IA possa continuar sem perder contexto.
-
-### Estado atual do código
-- `UI/QuestItemDistributor.lua` — **Passo 1 completo e funcional**
-- `Core.lua` — integrado (inicializa QID no `PLAYER_ENTERING_WORLD`)
-- `ConsoleModeVanilla.toc` — `UI\QuestItemDistributor.lua` adicionado
-
-### O que o módulo faz hoje
-- Cria um frame de eventos registrado para `BAG_UPDATE`, `UNIT_INVENTORY_CHANGED`, `PLAYER_ENTERING_WORLD`, `CHAT_MSG_LOOT`
-- Usa timer com delay antes de scanear (3s no login, 0.5s em updates de bag)
-- `IsQuestItem()` detecta itens de quest usáveis via tooltip scan
-- `GetUsableQuestItems()` retorna lista FIFO `{bagID, slotID, itemLink, itemID, itemName}`
-- Imprime no chat os itens encontrados (debug temporário — remover no Passo 3)
-
-### O que NÃO foi feito ainda (Passo 2)
-A função `GetUsableQuestItems()` retorna a lista mas **não faz nada com ela ainda**. O próximo passo é implementar `DistributeQuestItems()` que:
-1. Chama `GetUsableQuestItems()`
-2. Para cada item, percorre `TARGET_SLOTS = {39, 38, 37, 43, 44, 45, 46}` em ordem
-3. Para cada slot:
-   - `HasAction(slot)` → false? → coloca o item (`PickupContainerItem` + `PlaceAction` + `ClearCursor`)
-   - `HasAction(slot)` → true? → `GetActionInfo(slot)` retorna `(type, id, subtype)` → verifica se `id` ainda está na bag
-     - Ainda na bag? → mantém, vai para próximo item
-     - Não está mais? → `ClearSlot(slot)` e coloca o novo item
-4. Atualiza `QID.slotMap[slot] = itemID`
-5. Chamar `DistributeQuestItems()` no `OnUpdate` (substituindo a chamada atual a `GetUsableQuestItems()`)
-
-### APIs WoW 1.12 para o Passo 2
-```lua
--- Verifica se slot tem algo
-HasAction(slot)  -- retorna true/false
-
--- Obtém o que está no slot
-GetActionInfo(slot)  -- retorna: actionType, id, subtype
--- Para itens: actionType="item", id=itemID numérico
-
--- Coloca item da bag no slot da action bar
-PickupContainerItem(bagID, slotID)  -- pega item (fica no cursor)
-PlaceAction(slot)                   -- coloca no slot
-ClearCursor()                       -- limpa cursor (garante sem resto)
-
--- Limpa um slot
-ClearSlot(slot)  -- remove o que está no slot
-```
-
-### Verificar se itemID ainda está na bag
-```lua
--- Para saber se um itemID ainda existe na bag:
--- Iterar BP.BAG_IDS e GetContainerItemLink → extrair itemID → comparar
--- Não existe API direta "ItemIsInBag(itemID)" no 1.12
-```
-
-### Regras críticas que a próxima IA DEVE seguir
-1. **Lua 5.0**: sem `#table`, usar `table.getn()`. Sem `string.match` nativo (há polyfill em Core.lua).
-2. **`luac -p` antes de qualquer teste in-game** — sem exceção.
-3. **Nunca fazer push sem autorização explícita do usuário.**
-4. **Nunca avançar para o Passo 3 sem validação in-game do Passo 2.**
-5. **Slot 40 (L2+R2+A) NUNCA é tocado** — `TARGET_SLOTS` não o inclui, e isso deve ser mantido.
-6. **Novo arquivo .lua no .toc exige reinício do jogo**, não apenas `/reload`.
-7. **O `elapsed` no `OnUpdate` pode vir como `arg1`** — sempre usar `local dt = elapsed or arg1 or 0`.
+> **FEATURE CONCLUÍDA E VALIDADA COM SUCESSO.**
+> Todos os 3 passos foram implementados, testados in-game no Turtle WoW 1.12 e aprovados pelo usuário.

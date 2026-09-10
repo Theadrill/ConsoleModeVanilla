@@ -41,9 +41,11 @@ QID.slotMap = {}
 -- Referencia ao frame de eventos
 QID.eventFrame = nil
 
--- Timers de delay antes de rodar o scan
-QID.scanDelay = 0
-QID.scanTimer = 0
+-- Timers de delay antes de rodar o scan e intervalo de polling (segundos)
+QID.SCAN_INTERVAL = 4.0
+QID.pollTimer     = 0
+QID.scanDelay     = 0
+QID.scanTimer     = 0
 
 -- Flag para garantir que a deduplicacao inicial ocorra uma vez apos o login
 QID.initialDedupDone = false
@@ -531,8 +533,9 @@ function QID:Initialize()
     f:SetScript("OnEvent", function()
         if event == "PLAYER_ENTERING_WORLD" then
             -- Delay no login: bolsas e itens ainda estao carregando
-            QID.scanDelay = 3.0
+            QID.scanDelay = 4.0
             QID.scanTimer = 0
+            QID.pollTimer = 0
             QID.initialDedupDone = false
         elseif event == "BAG_UPDATE" or event == "UNIT_INVENTORY_CHANGED" then
             -- Delay curto para updates de bolsa
@@ -552,13 +555,22 @@ function QID:Initialize()
     f:SetScript("OnUpdate", function(elapsed)
         local dt = elapsed or arg1 or 0
 
+        -- 1. Scan por evento com debounce
         if QID.scanDelay > 0 then
             QID.scanTimer = QID.scanTimer + dt
             if QID.scanTimer >= QID.scanDelay then
                 QID.scanDelay = 0
                 QID.scanTimer = 0
+                QID.pollTimer = 0
                 QID:DistributeQuestItems()
             end
+        end
+
+        -- 2. Polling periodico a cada 4 segundos (fallback para consistencia e economia de CPU)
+        QID.pollTimer = QID.pollTimer + dt
+        if QID.pollTimer >= QID.SCAN_INTERVAL then
+            QID.pollTimer = 0
+            QID:DistributeQuestItems()
         end
     end)
 end

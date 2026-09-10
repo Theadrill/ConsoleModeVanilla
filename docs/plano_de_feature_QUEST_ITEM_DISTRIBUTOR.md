@@ -208,10 +208,27 @@ end
 
 ---
 
-### **PASSO 2: Distribuição nos Slots + Sync** `[STATUS: PENDENTE]`
+### **PASSO 2: Distribuição nos Slots + Deduplicador Global** `[STATUS: ✅ CONCLUÍDA — validado]`
 
 #### Objetivo
-Implementar a lógica de distribuição: colocar itens nos 7 slots na ordem definida, verificar se itens existem ainda, limpar slots órfãos.
+Implementar a lógica de distribuição nos 7 slots do cluster L2+R2 (`TARGET_SLOTS = {38, 39, 37, 41, 42, 43, 44}`) e um deduplicador global (slots 1..120) que remove duplicatas espalhadas em qualquer barra de ação.
+
+#### O que foi implementado
+1. **`DistributeQuestItems(forceDedup)`**:
+   - Obtém itens de missão usáveis via `GetUsableQuestItems()`.
+   - Verifica slots que já possuem o item correto via Tooltip/GetActionInfo (mantém sem recriar).
+   - Preenche slots vazios ou com itens sumidos/inválidos com os próximos itens da fila.
+   - Limpa slots excedentes.
+   - Rastreia `itemsAdded` (novos itens colocados).
+2. **`RunDeduplicator(assignedItems)` (Deduplicador Global)**:
+   - Disparado **APÓS** a distribuição dos itens:
+     - Uma vez só logo após o login/reload (`not initialDedupDone`).
+     - Sempre que mais um item for adicionado pelo sistema de distribuição (`itemsAdded > 0`).
+     - Manualmente via `/cm dedup` ou `/cm qid`.
+   - Percorre todos os slots de barras de ação (1 a 120, um a um).
+   - Compara o nome do item no slot com os itens de quest ativos via Tooltip invisible (`ConsoleModeBagScanTooltip`) e `GetActionInfo`.
+   - Ignora macros com texto próprio (`GetActionText`).
+   - O distribuidor nunca atribui itens ao slot 40 (reservado para ring menu), mas o deduplicador varre todos os slots 1..120 para garantir que nenhuma duplicata permaneça fora do `keepSlot`.
 
 #### Tarefas
 1. Criar `DistributeQuestItems()`:
@@ -312,7 +329,7 @@ Tratar casos extremos, otimizar performance, e garantir estabilidade completa.
 | Passo | Status | Data de validação | Observações |
 |---|---|---|---|
 | 1 — Infra + Scan | ✅ CONCLUÍDA | 2026-09-09 | Validado com `Foreman's Blackjack`. Detecção via tooltip scan. Ver seção de lições aprendidas. |
-| 2 — Distribuição + Sync | ⏳ PENDENTE | — | A aguardar início |
+| 2 — Distribuição + Deduplicador | ✅ CONCLUÍDA | 2026-09-10 | Distribuição nos slots 38..44 + Deduplicador global (slots 1..120) pós-distribuição no login e adição de itens. |
 | 3 — Edge Cases + Perf | ⏳ PENDENTE | — | A aguardar Passo 2 |
 
 ---

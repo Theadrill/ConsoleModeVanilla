@@ -13003,6 +13003,9 @@ function MainMenu:Show(initialTab)
         if self.frame:IsVisible() and initialTab then
             self:SelectTab(initialTab, false)
         else
+            -- Salva estado do mouselook ANTES de abrir o menu
+            self._wasMouselooking = IsMouselooking and IsMouselooking() or false
+            if CM_MouseLookStop then CM_MouseLookStop() end
             self.frame:Show()
         end
     end
@@ -13015,11 +13018,15 @@ function MainMenu:Hide()
         self:ResetMapToPlayer()
         self.frame:Hide()
     end
-    if not IsMouselooking() then
+    -- Restaura mouselook APENAS se estava ativo antes de abrir o menu.
+    -- Evita sequestrar o left click do mouse fisico quando o jogador nao
+    -- estava em mouselook antes de abrir o menu.
+    if self._wasMouselooking and not IsMouselooking() then
         if MouselookStart then
             pcall(MouselookStart)
         end
     end
+    self._wasMouselooking = false
 end
 
 function MainMenu:Toggle(initialTab)

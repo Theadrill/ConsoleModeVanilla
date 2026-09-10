@@ -224,6 +224,10 @@ function KB:Initialize()
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Interact DLL detectada! |cffffcc00R2 + A|r vinculado para Interagir.")
     end
 
+    -- Aplica todos os bindings das 5 paginas automaticamente no login
+    -- (sem modificador, L2, R1, R2, L2+R2) para todas as action bars
+    KB:ApplyDefaults()
+
     -- Sanitização e cura automática de bindings corrompidos (ex: D-Pad preso em CM_CURSOR ou CM_ACTION, ou A/D presos em CM_MODEL_)
     KB:SanitizeBindings()
     
@@ -422,14 +426,18 @@ function KB:ApplyDefaults()
             for btn, bindAction in pairs(defaultPageActions[page]) do
                 local key = defaults[page][btn]
                 if key then
-                    SetBinding(key, bindAction)
-                    CM.logger:Log("Default: " .. key .. " -> " .. bindAction)
+                    -- So sobrescreve se o binding estiver vazio
+                    local current = GetBindingAction(key)
+                    if not current or current == "" then
+                        SetBinding(key, bindAction)
+                        CM.logger:Log("Default: " .. key .. " -> " .. bindAction)
+                    end
                 end
             end
         end
     end
 
-    -- Botões fixos
+    -- Botões fixos (sempre aplicados — sao exclusivos do addon)
     for bindName, key in pairs(fixedDefaults) do
         SetBinding(key, bindName)
         CM.logger:Log("Fixed: " .. key .. " -> " .. bindName)

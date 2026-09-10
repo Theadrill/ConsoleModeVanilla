@@ -219,9 +219,6 @@ CM:SetScript("OnEvent", function()
             if CM.ui.targetFrame.Initialize then CM.ui.targetFrame:Initialize() end
             if CM.ui.targetFrame.HideDefaultBars then CM.ui.targetFrame:HideDefaultBars() end
         end
-        if CM.questItemDistributor and CM.questItemDistributor.Initialize then
-            CM.questItemDistributor:Initialize()
-        end
 
     elseif event == "PLAYER_LOGOUT" then
         -- Garante que o modo de navegação seja encerrado antes do WoW salvar os bindings no disco
@@ -294,6 +291,11 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         CM.debug = not CM.debug
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Modo debug: " .. (CM.debug and "|cffffcc00LIGADO|r" or "|cff888888DESLIGADO|r"))
         DEFAULT_CHAT_FRAME:AddMessage("|cffaaaaaa[CM]|r Logs verbosos estao " .. (CM.debug and "habilitados" or "desabilitados"))
+
+    elseif cmd == "dedup" or cmd == "qid" then
+        if CM.questItemDistributor and CM.questItemDistributor.ForceDeduplicate then
+            CM.questItemDistributor:ForceDeduplicate()
+        end
 
     elseif cmd == "controller" then
         if CM.keybindings and CM.keybindings.ApplyDefaults then

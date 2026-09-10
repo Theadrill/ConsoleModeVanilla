@@ -10081,6 +10081,56 @@ function MainMenu:OnStickPan(direction, keystate)
     end
 end
 
+function MainMenu:CenterMapOnPlayer(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer then return end
+    if self.mapDungeonHardcoded then return end
+
+    local canvasW = mapCanvas:GetWidth() or 0
+    local canvasH = mapCanvas:GetHeight() or 0
+    if canvasW <= 0 or canvasH <= 0 then return end
+
+    local zoom = mapCanvas.zoomFactor or 1.0
+    if zoom <= 1.0 then
+        mapCanvas.panX = 0
+        mapCanvas.panY = 0
+        local container = mapCanvas.tilesContainer
+        if container then
+            container:ClearAllPoints()
+            container:SetPoint("CENTER", mapCanvas, "CENTER", 0, 0)
+        end
+        return
+    end
+
+    local px, py = 0, 0
+    if GetPlayerMapPosition then
+        if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
+        px, py = GetPlayerMapPosition("player")
+    end
+    if not px or not py or (px == 0 and py == 0) then return end
+
+    local origW = 1002
+    local origH = 668
+    local baseScale = math.min(canvasW / origW, canvasH / origH)
+    local effectiveScale = baseScale * zoom
+    local finalW = math.floor(origW * effectiveScale)
+    local finalH = math.floor(origH * effectiveScale)
+
+    local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
+    local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
+
+    local targetPanX = (0.5 - px) * finalW
+    local targetPanY = (py - 0.5) * finalH
+
+    mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, targetPanX))
+    mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, targetPanY))
+
+    local container = mapCanvas.tilesContainer
+    if container then
+        container:ClearAllPoints()
+        container:SetPoint("CENTER", mapCanvas, "CENTER", mapCanvas.panX, mapCanvas.panY)
+    end
+end
+
 function MainMenu:MapPan(dx, dy)
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
@@ -12480,7 +12530,31 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
         end
         self:UpdateLayout()
         self:RestorePlayerModel()
+        self:ResetMapToPlayer()
         self:UpdateQuestsPage()
+        do
+            local pageQuests = container.pages and container.pages["QUESTS"]
+            local canvas = pageQuests and pageQuests.mapPanel and pageQuests.mapPanel.canvas
+            if canvas then
+                if (canvas:GetWidth() or 0) > 0 then
+                    self:CenterMapOnPlayer(canvas)
+                else
+                    local retryFrame = CreateFrame("Frame", nil, self.frame)
+                    retryFrame.elapsed = 0
+                    retryFrame:SetScript("OnUpdate", function()
+                        this.elapsed = this.elapsed + arg1
+                        if this.elapsed >= 0.05 then
+                            this:SetScript("OnUpdate", nil)
+                            if MainMenu.frame and MainMenu.frame:IsVisible() and MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "QUESTS" then
+                                local pq = MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"]
+                                local c = pq and pq.mapPanel and pq.mapPanel.canvas
+                                if c then MainMenu:CenterMapOnPlayer(c) end
+                            end
+                        end
+                    end)
+                end
+            end
+        end
     else
         if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.ExitMapMode then
             ConsoleMode.keybindings:ExitMapMode()

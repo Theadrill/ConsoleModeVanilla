@@ -73,8 +73,9 @@ local CFG = {}
 -- Fontes gratuitas de código aberto (SIL Open Font License) embutidas no addon.
 -- ----------------------------------------------------------------------------
 CFG.Fonts = {
-    titleFontFile       = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\Marcellus-Regular.ttf",
-    headerFontFile      = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\Marcellus-Regular.ttf",
+    titleFontFile       = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf", -- Alegreya Sans Bold (-9% kerning mod)
+    headerFontFile      = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf", -- Alegreya Sans Bold (-9% kerning mod)
+    subTabFontFile      = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf", -- Alegreya Sans Bold (-9% kerning mod)
     bodyFontFile        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf",
     subFontFile         = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Medium.ttf",
 
@@ -83,22 +84,23 @@ CFG.Fonts = {
     shadowOffset        = { 1, -1 },            -- Deslocamento X e Y da sombra projetada (px) - Justo e suave
     shadowColor         = { 0.0, 0.0, 0.0, 0.90 }, -- Cor e opacidade da sombra (RGBA) - 90% de opacidade
 
-    titleSize           = 18,
+    titleSize           = 19,
     tabSize             = 19,
-    headerSize          = 13,
-    playerNameSize      = 17,
+    subTabSize          = 16,                   -- Sub-abas (Bolsas, Grimório/Specs, Sistema) (+1px em relação a 15)
+    headerSize          = 14,
+    playerNameSize      = 18,
     playerSubSize       = 13,                   -- Aumentado em ~25% (original: 11)
     itemNameSize        = 14,                   -- Aumentado em ~20% (original: 12)
     slotLabelSize       = 11,                   -- Aumentado em ~10% (original: 10)
     statSize            = 14,                   -- Aumentado em ~20% (original: 12)
     buffSize            = 12,                   -- Aumentado em ~10% (original: 11)
     footerSize          = 16,                   -- Aumentado em +33% (original: 12)
-    detailTitleSize     = 15,
+    detailTitleSize     = 16,
     detailTypeSize      = 11,
     detailDescSize      = 12,
     gridCountSize       = 11,
-    bagHeaderSize       = 15,                   -- Aumentado em +30% (original: 12)
-    bagCatSize          = 14,                   -- Aumentado em +30% (original: 11)
+    bagHeaderSize       = 16,                   -- Aumentado em +30% (original: 12)
+    bagCatSize          = 16,                   -- Sub-abas de bolsas (16px)
 }
 
 -- ----------------------------------------------------------------------------
@@ -3922,15 +3924,15 @@ function MainMenu:SetupBagsPage(pageBags)
 
         local catTitle = catBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         catTitle:SetPoint("CENTER", catBtn, "CENTER", 0, 0)
-        MainMenu:ApplyFont(catTitle, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
+        MainMenu:ApplyFont(catTitle, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or CFG.Fonts.bagCatSize or 15)
         catTitle:SetText(catData.name)
         catBtn.title = catTitle
         catBtn.catData = catData
 
-        -- Auto-dimensiona a largura do botão pelo tamanho do texto + 8px de respiro
+        -- Auto-dimensiona a largura do botão pelo tamanho do texto + 10px de respiro
         local txtW = math.floor(catTitle:GetStringWidth() or 60)
         if txtW < 40 then txtW = 40 end
-        catBtn:SetWidth(txtW + 8)
+        catBtn:SetWidth(txtW + 10)
 
         catBtn:SetPoint("RIGHT", prevCat, "LEFT", -6, 0)
 
@@ -3994,7 +3996,7 @@ function MainMenu:SetupBagsPage(pageBags)
 
     local prevTxt = prevPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     prevTxt:SetPoint("CENTER", prevPageBtn, "CENTER", 0, 0)
-    MainMenu:ApplyFont(prevTxt, CFG.Fonts.headerFontFile, 14)
+    MainMenu:ApplyFont(prevTxt, CFG.Fonts.headerFontFile, 15)
     prevTxt:SetText("|cffe09a15<|r")
 
     prevPageBtn:SetScript("OnEnter", function()
@@ -4026,7 +4028,7 @@ function MainMenu:SetupBagsPage(pageBags)
 
     local nextTxt = nextPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     nextTxt:SetPoint("CENTER", nextPageBtn, "CENTER", 0, 0)
-    MainMenu:ApplyFont(nextTxt, CFG.Fonts.headerFontFile, 14)
+    MainMenu:ApplyFont(nextTxt, CFG.Fonts.headerFontFile, 15)
     nextTxt:SetText("|cffe09a15>|r")
 
     nextPageBtn:SetScript("OnEnter", function()
@@ -4370,7 +4372,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
 
     local headerTitle = topHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", topHeader, "LEFT", 4, 0)
-    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 14)
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15)
     headerTitle:SetText("|cffe09a15GRIMÓRIO & HABILIDADES|r")
     catScreen.headerTitle = headerTitle
 
@@ -4389,7 +4391,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
     -- 2.2. Título e subtítulo orientativo
     local promptTitle = catScreen:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     promptTitle:SetPoint("TOP", topHeader, "BOTTOM", 0, -14)
-    MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 16)
+    MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 17)
     promptTitle:SetText("|cffe09a15Escolha uma Especialização ou Categoria|r")
     catScreen.promptTitle = promptTitle
 
@@ -4444,7 +4446,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
 
     local backTxt = backBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     backTxt:SetPoint("CENTER", backBtn, "CENTER", 0, 0)
-    MainMenu:ApplyFont(backTxt, CFG.Fonts.headerFontFile, 12)
+    MainMenu:ApplyFont(backTxt, CFG.Fonts.headerFontFile, 13)
     backTxt:SetText("|cffe09a15[B] Voltar|r")
     backBtn:SetScript("OnClick", function()
         MainMenu:HandleSpellsBack()
@@ -4473,7 +4475,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
 
     local prevTxt = prevPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     prevTxt:SetPoint("CENTER", prevPageBtn, "CENTER", 0, 0)
-    MainMenu:ApplyFont(prevTxt, CFG.Fonts.headerFontFile, 14)
+    MainMenu:ApplyFont(prevTxt, CFG.Fonts.headerFontFile, 15)
     prevTxt:SetText("|cffe09a15<|r")
 
     prevPageBtn:SetScript("OnClick", function()
@@ -4497,7 +4499,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
 
     local nextTxt = nextPageBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     nextTxt:SetPoint("CENTER", nextPageBtn, "CENTER", 0, 0)
-    MainMenu:ApplyFont(nextTxt, CFG.Fonts.headerFontFile, 14)
+    MainMenu:ApplyFont(nextTxt, CFG.Fonts.headerFontFile, 15)
     nextTxt:SetText("|cffe09a15>|r")
 
     nextPageBtn:SetScript("OnClick", function()
@@ -4813,7 +4815,7 @@ function MainMenu:UpdateSpellCategories()
                 catName:SetPoint("TOP", imgPlaceholder, "BOTTOM", 0, -8)
                 catName:SetPoint("LEFT", btn, "LEFT", 4, 0)
                 catName:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
-                MainMenu:ApplyFont(catName, CFG.Fonts.titleFontFile, 14)
+                MainMenu:ApplyFont(catName, CFG.Fonts.titleFontFile, 15)
                 btn.catName = catName
 
                 -- Quantidade de magias
@@ -5037,15 +5039,17 @@ function MainMenu:UpdateSpellsPage(keepPage)
             btn:SetHeight(24)
             local t = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
             t:SetPoint("CENTER", btn, "CENTER", 0, 0)
-            MainMenu:ApplyFont(t, CFG.Fonts.bodyFontFile, 14)
+            MainMenu:ApplyFont(t, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or 15)
             btn.title = t
             pageSpells.tabButtons[i] = btn
+        else
+            MainMenu:ApplyFont(btn.title, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or 15)
         end
 
         btn.title:SetText(tabData.name)
         local txtW = math.floor(btn.title:GetStringWidth() or 60)
         if txtW < 40 then txtW = 40 end
-        btn:SetWidth(txtW + 12)
+        btn:SetWidth(txtW + 14)
 
         btn:ClearAllPoints()
         btn:SetPoint("RIGHT", prevBtn, "LEFT", -6, 0)
@@ -5302,7 +5306,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
 
     local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", headerBar, "LEFT", 4, 0)
-    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 14)
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15)
     headerTitle:SetText("|cffe09a15ESPECIALIZAÇÕES & TALENTOS|r")
     pageTalents.headerTitle = headerTitle
 
@@ -5337,7 +5341,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
     -- Título e instrução de navegação
     local promptTitle = specScreen:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     promptTitle:SetPoint("TOP", specScreen, "TOP", 0, -18)
-    MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 16)
+    MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 17)
     promptTitle:SetText("|cffe09a15Escolha uma Especialização|r")
     specScreen.promptTitle = promptTitle
 
@@ -5453,7 +5457,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
         specName:SetPoint("TOP", imgPlaceholder, "BOTTOM", 0, -8)
         specName:SetPoint("LEFT", btn, "LEFT", 4, 0)
         specName:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
-        MainMenu:ApplyFont(specName, CFG.Fonts.titleFontFile, 14)
+        MainMenu:ApplyFont(specName, CFG.Fonts.titleFontFile, 15)
         specName:SetText("Especialização " .. i)
         btn.specName = specName
 
@@ -5511,7 +5515,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
     -- Título da Spec
     local treeTitle = treeHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     treeTitle:SetPoint("LEFT", treeSpecIcon, "RIGHT", 8, 0)
-    MainMenu:ApplyFont(treeTitle, CFG.Fonts.titleFontFile, 16)
+    MainMenu:ApplyFont(treeTitle, CFG.Fonts.titleFontFile, 17)
     treeTitle:SetText("|cffe09a15Especialização|r")
     treeHeader.title = treeTitle
 
@@ -6185,7 +6189,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", headerBar, "LEFT", 4, 0)
-    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 14)
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15)
     headerTitle:SetText("|cffe09a15DIÁRIO DE MISSÕES & MAPA MUNDI|r")
     pageQuests.headerTitle = headerTitle
 
@@ -6268,7 +6272,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     local mapZoneTitle = mapHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     mapZoneTitle:SetPoint("LEFT", mapHeader, "LEFT", 4, 0)
-    MainMenu:ApplyFont(mapZoneTitle, CFG.Fonts.titleFontFile, 13)
+    MainMenu:ApplyFont(mapZoneTitle, CFG.Fonts.titleFontFile, 14)
     mapZoneTitle:SetText("|cffffffffZona Atual|r")
     mapPanel.zoneTitle = mapZoneTitle
 
@@ -6508,7 +6512,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     -- Placeholder visual do Mapa (fallback se mapa não carregar)
     local mapPlaceholder = mapCanvas:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     mapPlaceholder:SetPoint("CENTER", mapCanvas, "CENTER", 0, 10)
-    MainMenu:ApplyFont(mapPlaceholder, CFG.Fonts.titleFontFile, 14)
+    MainMenu:ApplyFont(mapPlaceholder, CFG.Fonts.titleFontFile, 15)
     mapPlaceholder:SetText("|cffe09a15[ MAPA MUNDI & REGIÃO ]|r\n\n|cffaaaaaaCarregando texturas da zona...|r")
     mapPlaceholder:Hide()
     mapPanel.placeholder = mapPlaceholder
@@ -6550,7 +6554,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     nlTitle:SetPoint("TOPLEFT", npcListPanel, "TOPLEFT", 8, -8)
     nlTitle:SetPoint("TOPRIGHT", npcListPanel, "TOPRIGHT", -8, -8)
     nlTitle:SetJustifyH("LEFT")
-    MainMenu:ApplyFont(nlTitle, CFG.Fonts.titleFontFile, 12)
+    MainMenu:ApplyFont(nlTitle, CFG.Fonts.titleFontFile, 13)
     nlTitle:SetText("|cffe09a15SERVIÇOS & NPCs|r")
     npcListPanel.title = nlTitle
     local scrollFrame = CreateFrame("ScrollFrame", "ConsoleModeMM_MapNPCScrollFrame", npcListPanel)
@@ -6687,7 +6691,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     zlTitle:SetPoint("TOPLEFT", zoneListFrame, "TOPLEFT", 8, -8)
     zlTitle:SetPoint("TOPRIGHT", zoneListFrame, "TOPRIGHT", -8, -8)
     zlTitle:SetJustifyH("LEFT")
-    MainMenu:ApplyFont(zlTitle, CFG.Fonts.titleFontFile, 12)
+    MainMenu:ApplyFont(zlTitle, CFG.Fonts.titleFontFile, 13)
     zlTitle:SetText("|cffe09a15REGIOES|r")
     zoneListFrame.title = zlTitle
     local zlScroll = CreateFrame("ScrollFrame", "ConsoleModeMM_ZoneListScroll", zoneListFrame)
@@ -6740,7 +6744,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     detailTitle:SetPoint("TOPLEFT", detailCard, "TOPLEFT", 10, -8)
     detailTitle:SetPoint("RIGHT", detailCard, "RIGHT", -10, 0)
     detailTitle:SetJustifyH("LEFT")
-    MainMenu:ApplyFont(detailTitle, CFG.Fonts.titleFontFile, 13)
+    MainMenu:ApplyFont(detailTitle, CFG.Fonts.titleFontFile, 14)
     detailTitle:SetText("|cffe09a15Detalhes da Missão|r")
     detailCard.title = detailTitle
 
@@ -6829,7 +6833,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     local emptyText = listContainer:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     emptyText:SetPoint("CENTER", listContainer, "CENTER", 0, 0)
-    MainMenu:ApplyFont(emptyText, CFG.Fonts.titleFontFile, 13)
+    MainMenu:ApplyFont(emptyText, CFG.Fonts.titleFontFile, 14)
     emptyText:SetText("|cffaaaaaaNenhuma missão ativa no diário.|r")
     emptyText:Hide()
     questPanel.emptyText = emptyText
@@ -8129,7 +8133,7 @@ function MainMenu:CreateQuestDetailOverlay()
     title:SetWidth(520)
     title:SetJustifyH("CENTER")
     title:SetTextColor(1, 0.82, 0)
-    MainMenu:ApplyFont(title, CFG.Fonts.titleFontFile, 15)
+    MainMenu:ApplyFont(title, CFG.Fonts.titleFontFile, 16)
     f.titleText = title
     local subTitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     subTitle:SetPoint("TOP", title, "BOTTOM", 0, -2)
@@ -8176,7 +8180,7 @@ function MainMenu:CreateQuestDetailOverlay()
     objTitle:SetJustifyH("LEFT")
     objTitle:SetTextColor(1, 0.82, 0)
     objTitle:SetText("Objetivos:")
-    MainMenu:ApplyFont(objTitle, CFG.Fonts.titleFontFile, 13)
+    MainMenu:ApplyFont(objTitle, CFG.Fonts.titleFontFile, 14)
     f.objTitle = objTitle
     local objText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     objText:SetPoint("TOPLEFT", objTitle, "BOTTOMLEFT", 0, -4)
@@ -10156,7 +10160,7 @@ function MainMenu:SetupSystemPage(pageSystem)
 
         local title = subBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         title:SetPoint("CENTER", subBtn, "CENTER", 0, 0)
-        MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
+        MainMenu:ApplyFont(title, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or 15)
         title:SetText(tabData.name)
         subBtn.title = title
         subBtn.subTabData = tabData
@@ -10206,7 +10210,7 @@ function MainMenu:SetupSystemPage(pageSystem)
 
     local gmHeader = subPageGameMenu:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     gmHeader:SetPoint("TOPLEFT", subPageGameMenu, "TOPLEFT", 12, -8)
-    MainMenu:ApplyFont(gmHeader, CFG.Fonts.titleFontFile, 15, "")
+    MainMenu:ApplyFont(gmHeader, CFG.Fonts.titleFontFile, 16, "")
     gmHeader:SetText("|cffe09a15[ MENUS DO SISTEMA & ADDONS DETECTADOS ]|r")
     subPageGameMenu.header = gmHeader
 
@@ -10488,7 +10492,7 @@ function MainMenu:UpdateAddonConfigSubPage()
     -- Header
     local header = subPage:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     header:SetPoint("TOPLEFT", subPage, "TOPLEFT", 12, -8)
-    MainMenu:ApplyFont(header, CFG.Fonts.titleFontFile, 15, "")
+    MainMenu:ApplyFont(header, CFG.Fonts.titleFontFile, 16, "")
     header:SetText("|cffe09a15[ CONSOLEMODE - PAINEL DE CONTROLE ]|r")
     subPage.header = header
 
@@ -10892,7 +10896,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
 
     local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", headerBar, "LEFT", 12, 0)
-    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15, "")
+    MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 16, "")
     headerTitle:SetText("|cffe09a15[ MAPEADOR DE ATALHOS / BINDS ]|r")
     headerBar.title = headerTitle
 
@@ -11042,7 +11046,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
 
     local lTitle = leftCluster:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     lTitle:SetPoint("TOPLEFT", leftCluster, "TOPLEFT", 4, 0)
-    MainMenu:ApplyFont(lTitle, CFG.Fonts.titleFontFile, 12, "")
+    MainMenu:ApplyFont(lTitle, CFG.Fonts.titleFontFile, 13, "")
     lTitle:SetText("|cffe09a15DIRECIONAL (D-PAD)|r")
     leftCluster.title = lTitle
 
@@ -11065,7 +11069,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
 
     local rTitle = rightCluster:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     rTitle:SetPoint("TOPLEFT", rightCluster, "TOPLEFT", 4, 0)
-    MainMenu:ApplyFont(rTitle, CFG.Fonts.titleFontFile, 12, "")
+    MainMenu:ApplyFont(rTitle, CFG.Fonts.titleFontFile, 13, "")
     rTitle:SetText("|cffe09a15BOTÕES FACIAIS (ABXY)|r")
     rightCluster.title = rTitle
 
@@ -11099,7 +11103,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
 
     local pTitle = pickerHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     pTitle:SetPoint("LEFT", pickerHeader, "LEFT", 12, 0)
-    MainMenu:ApplyFont(pTitle, CFG.Fonts.titleFontFile, 15, "")
+    MainMenu:ApplyFont(pTitle, CFG.Fonts.titleFontFile, 16, "")
     pTitle:SetText("|cffe09a15[ SELETOR DE CONTEÚDO ]|r")
     pickerHeader.title = pTitle
 
@@ -11810,7 +11814,7 @@ function MainMenu:UpdatePickerSubTabs()
 
             local tTitle = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
             tTitle:SetPoint("CENTER", btn, "CENTER", 0, 0)
-            MainMenu:ApplyFont(tTitle, CFG.Fonts.bodyFontFile, 11, "")
+            MainMenu:ApplyFont(tTitle, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, 12, "")
             btn.title = tTitle
 
             btn:SetScript("OnEnter", function()

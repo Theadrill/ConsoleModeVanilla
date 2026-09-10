@@ -1104,9 +1104,12 @@ function CM_CursorUse()
         if ConsoleMode_MerchantMenu.IsQtyModalOpen and ConsoleMode_MerchantMenu:IsQtyModalOpen() then
             return
         end
+        -- Y faz as duas coisas em sequência: repara (se houver reparo) e vende o lixo.
+        -- (Antes era elseif: num vendedor com reparo, o AutoSellJunk nunca era alcançado.)
         if ConsoleMode_MerchantMenu.canRepair and ConsoleMode_MerchantMenu.RepairAll then
             ConsoleMode_MerchantMenu:RepairAll()
-        elseif ConsoleMode_MerchantMenu.AutoSellJunk then
+        end
+        if ConsoleMode_MerchantMenu.AutoSellJunk then
             ConsoleMode_MerchantMenu:AutoSellJunk()
         else
             DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Este mercador não oferece serviço de reparos.")

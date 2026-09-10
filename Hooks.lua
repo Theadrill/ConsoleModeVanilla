@@ -80,7 +80,7 @@ Hooks.frames = {
     { frame = "BagnonBank",          name = "Bagnon Banco" },
     
     -- NPCs e Interações (Load-on-Demand)
-    { frame = "MerchantFrame",       name = "Vendedor" },
+    -- { frame = "MerchantFrame",       name = "Vendedor" }, -- Gerenciado exclusivamente pelo ConsoleMode_MerchantMenu
     { frame = "TradeSkillFrame",     name = "Profissao" },
     { frame = "BankFrame",           name = "Banco" },
     { frame = "TaxiFrame",           name = "Rotas de Voo" },

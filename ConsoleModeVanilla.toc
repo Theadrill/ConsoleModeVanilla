@@ -31,4 +31,5 @@ Data\ClassTrainers.lua
 Data\QuestDB_ptBR.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
+UI\MerchantMenu.lua
 Hooks.lua

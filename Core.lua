@@ -204,6 +204,10 @@ CM:SetScript("OnEvent", function()
         if CM.questItemDistributor and CM.questItemDistributor.Initialize then
             CM.questItemDistributor:Initialize()
         end
+        -- Inicializa Menu de Mercador (NPC Merchant)
+        if CM.merchantMenu and CM.merchantMenu.Initialize then
+            CM.merchantMenu:Initialize()
+        end
         if CM.ui and CM.ui.xpBar and CM.ui.xpBar.Initialize then
             CM.ui.xpBar:Initialize()
         end

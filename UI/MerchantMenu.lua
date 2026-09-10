@@ -294,6 +294,16 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
     scanTip.money = 0
     scanTip:ClearLines()
     pcall(function() scanTip:SetBagItem(bagID, slotID) end)
+    -- Fallback (mesmo padrão do MainMenu e do ParseSimpleStats): se o SetBagItem
+    -- não rendeu linhas (erro silenciado pelo pcall ou item fora de contexto),
+    -- tenta de novo via hyperlink direto do link da bag.
+    if (scanTip:NumLines() or 0) < 2 and rawLink then
+        scanTip:ClearLines()
+        local _, _, raw = string.find(rawLink, "(item:%d+:%d+:%d+:%d+)")
+        local okLink = false
+        if raw then okLink = pcall(function() scanTip:SetHyperlink(raw) end) end
+        if not okLink then pcall(function() scanTip:SetHyperlink(rawLink) end) end
+    end
 
     if scanTip.money and scanTip.money > 0 then
         sellPrice = scanTip.money
@@ -329,9 +339,11 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
         if leftText ~= "" then
             if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
                 -- já capturado via scanTip.money
-            elseif string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
+            elseif string.find(leftText, "Uso:", 1, 1) or string.find(leftText, "Use:", 1, 1) or string.find(leftText, "Equipar:", 1, 1) then
                 desc = leftText
                 if rightText ~= "" then desc = desc .. " " .. rightText end
+            elseif string.find(rightText, "Uso:", 1, 1) or string.find(rightText, "Use:", 1, 1) then
+                desc = rightText
             elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
                 local lineStr = leftText
                 if rightText ~= "" then
@@ -379,6 +391,37 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
         desc        = desc,
         sellPrice   = sellPrice,
     }
+end
+
+-- Re-scan fresco da linha de Uso/Efeito via hyperlink (defesa em profundidade:
+-- o scan em massa do ParseBagItem pode perder a linha se o tooltip ainda nao
+-- estava populado, e ParseVendorItem/ParseBuybackItem nunca varrem o tooltip).
+-- Retorna "" quando nao ha linha de Uso: ou quando o scan falha. Lua 5.0.
+function MerchantMenu:ScanUseLineFresh(itemLink)
+    if not itemLink or not scanTip then return "" end
+    scanTip:ClearLines()
+    local ok = false
+    local _, _, raw = string.find(itemLink, "(item:%d+:%d+:%d+:%d+)")
+    if raw then ok = pcall(function() scanTip:SetHyperlink(raw) end) end
+    if not ok then ok = pcall(function() scanTip:SetHyperlink(itemLink) end) end
+    if not ok then return "" end
+    local nl = scanTip:NumLines() or 0
+    for l = 2, nl do
+        local lo = getglobal("ConsoleMode_MerchantScanTipTextLeft" .. l)
+        local ro = getglobal("ConsoleMode_MerchantScanTipTextRight" .. l)
+        local lt = ""
+        local rt = ""
+        if lo then lt = lo:GetText() or "" end
+        if ro then rt = ro:GetText() or "" end
+        if string.find(lt, "Uso:", 1, 1) or string.find(lt, "Use:", 1, 1) or string.find(lt, "Equipar:", 1, 1) then
+            if rt ~= "" then lt = lt .. " " .. rt end
+            return lt
+        end
+        if string.find(rt, "Uso:", 1, 1) or string.find(rt, "Use:", 1, 1) then
+            return rt
+        end
+    end
+    return ""
 end
 
 function MerchantMenu:ScanPlayerBags()
@@ -869,9 +912,20 @@ function MerchantMenu:CreateDetailCard(parent)
     typeText:SetText("|cffaaaaaaNavegue pelas colunas para comprar ou vender itens|r")
     card.typeText = typeText
 
+    -- 4b. Linha dedicada de Uso/Efeito (item.desc), abaixo do subtipo.
+    -- Criada uma unica vez; ShowItemDetail atualiza, limpa ou esconde.
+    local useText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    useText:SetPoint("TOPLEFT", typeText, "BOTTOMLEFT", 0, -2)
+    useText:SetPoint("RIGHT", card, "RIGHT", -16, 0)
+    useText:SetJustifyH("LEFT")
+    self:ApplyFont(useText, FONTS.bodyBold, 13)
+    useText:SetText("")
+    useText:Hide()
+    card.useText = useText
+
     -- 5. Descrição / Atributos (2 Colunas) (+20%: 11 -> 13)
     local descColLeft = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    descColLeft:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -8)
+    descColLeft:SetPoint("TOPLEFT", useText, "BOTTOMLEFT", 0, -4)
     descColLeft:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 12, 10)
     descColLeft:SetWidth(340)
     descColLeft:SetJustifyH("LEFT")
@@ -1928,6 +1982,10 @@ function MerchantMenu:ShowItemDetail(item)
         card.typeText:SetText("|cff666666Navegue pelas bolsas usando o direcional [D-Pad]|r")
         card.descColLeft:SetText("|cff666666Suas bolsas estão vazias ou a categoria selecionada não possui itens.|r")
         card.descColRight:SetText("")
+        if card.useText then
+            card.useText:SetText("")
+            card.useText:Hide()
+        end
         return
     end
 
@@ -1984,6 +2042,22 @@ function MerchantMenu:ShowItemDetail(item)
     if subStr == "" then subStr = "Item do Inventário" end
     card.typeText:SetText("|cffb0b0b0" .. subStr .. "|r")
 
+    -- Linha dedicada de Uso (campo proprio abaixo do subtipo): usa item.desc;
+    -- se vazio, tenta um re-scan fresco via hyperlink antes de desistir.
+    if (not item.desc or item.desc == "") and item.link then
+        local fresh = self:ScanUseLineFresh(item.link)
+        if fresh and fresh ~= "" then item.desc = fresh end
+    end
+    if card.useText then
+        if item.desc and item.desc ~= "" then
+            card.useText:SetText("|cff00ff00" .. item.desc .. "|r")
+            card.useText:Show()
+        else
+            card.useText:SetText("")
+            card.useText:Hide()
+        end
+    end
+
     -- 2 Colunas de Descrição / Atributos
     local leftLines = {}
     local rightLines = {}
@@ -2000,9 +2074,7 @@ function MerchantMenu:ShowItemDetail(item)
         end
     end
 
-    if item.desc and item.desc ~= "" then
-        table.insert(rightLines, "|cff00ff00" .. item.desc .. "|r")
-    end
+    -- (A linha de Uso/Efeito agora mora no campo dedicado card.useText.)
 
     local leftText = table.concat(leftLines, "\n")
     local rightText = table.concat(rightLines, "\n")
@@ -2012,7 +2084,7 @@ function MerchantMenu:ShowItemDetail(item)
     end
     if rightText == "" then
         if item.sellPrice and item.sellPrice > 0 then
-            rightText = "|cff888888Pronto para venda no vendedor.|r\n|cffaaaaaaPressione [X] para vender (Fase 5).|r"
+            rightText = "|cff888888Pronto para venda no vendedor.|r\n|cffaaaaaaPressione [X] para vender.|r"
         elseif item.price and item.price > 0 then
             rightText = "|cff888888Pressione [A] para comprar 1x.|r\n|cffaaaaaaPressione [X] para quantidade.|r"
         else
@@ -2036,6 +2108,10 @@ function MerchantMenu:ShowVendorPlaceholderDetail()
     card.typeText:SetText("|cff888888Fase 4: Catálogo Completo do Vendedor|r")
     card.descColLeft:SetText("|cffccccccOs itens à venda pelo NPC serão listados aqui na próxima fase.|r\n|cffaaaaaaVocê poderá comprar itens usando o botão [A].|r")
     card.descColRight:SetText("|cff888888Pressione [RB] no controle ou clique na coluna da direita para voltar a inspecionar seu inventário.|r")
+    if card.useText then
+        card.useText:SetText("")
+        card.useText:Hide()
+    end
 end
 
 -- ----------------------------------------------------------------------------

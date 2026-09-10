@@ -62,6 +62,7 @@ _G["BINDING_NAME_CM_FIXED_SELECT"]      = "Select (Mapa)"
 _G["BINDING_NAME_CM_FIXED_START"]       = "Start (Menu do Jogo)"
 _G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)"
 _G["BINDING_NAME_CM_MOUSERIGHT"]        = "R3 (Clique Direito)"
+_G["BINDING_NAME_CM_RELOAD_UI"]         = "Recarregar Interface"
 
 -- Atalhos de Interface
 _G["BINDING_HEADER_CONSOLEMODEUI"]      = "ConsoleMode - Atalhos de Interface"
@@ -216,6 +217,18 @@ function KB:Initialize()
     SetBinding("=", "TOGGLEAUTORUN")
     SetBinding("ALT-UP", "TOGGLEAUTORUN")
     SetBinding("NUMPADMULTIPLY", "TOGGLEAUTORUN")
+
+    -- TRADEOFF: ALT-7 era o default da pagina 4 (R2) DUP (MULTIACTIONBAR3BUTTON5
+    -- via defaults[4].DUP). O autorun tem precedencia por ser SetBinding
+    -- incondicional no Initialize, aplicado ANTES do ApplyDefaults (que so
+    -- preenche tecla vazia via GetBindingAction), entao nao ha briga: o slot
+    -- R2+DUP apenas perde o default de teclado (o bind CM_ACTION_DUP_4
+    -- continua existindo no BindingUI). Tabelas defaults/KEY_DEFAULTS/
+    -- BINDS_KEY_DEFAULTS nao foram alteradas (sao espelhos usados pelo hub).
+    -- R2 + DPad Up (Steam emite ALT-7) = autorun, igual a tecla "="
+    SetBinding("ALT-7", "TOGGLEAUTORUN")
+    -- Reload da interface no teclado: Ctrl+Shift+R
+    SetBinding("CTRL-SHIFT-R", "CM_RELOAD_UI")
     
     -- Roteamento Automático de Interação com a DLL Interact.dll (R2 + A = ALT-SPACE)
     if type(InteractNearest) == "function" then

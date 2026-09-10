@@ -70,6 +70,7 @@
     <Binding name="CM_FIXED_START">CM_Fixed("START")</Binding>                           <!-- Menu (base) -->
     <Binding name="CM_TOGGLE_MOUSEMODE">CM_ToggleMouseMode()</Binding>                   <!-- L3 -->
     <Binding name="CM_MOUSERIGHT">CM_MouseRight()</Binding>                              <!-- R3 -->
+    <Binding name="CM_RELOAD_UI" header="CONSOLEMODEFIXED">ReloadUI()</Binding>          <!-- Teclado: Ctrl+Shift+R -->
 
     <!-- ============================================================ -->
     <!-- Atalhos de Interface Rápidos com Combos                      -->

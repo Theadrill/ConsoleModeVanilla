@@ -967,6 +967,14 @@ end
 function CM_CursorMove(direction, keystate)
     if CM.keybindings and CM.keybindings.chatActive then return end
 
+    -- Interceptação de navegação direta da Janela de Mercador ConsoleMode
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if keystate ~= "up" then
+            ConsoleMode_MerchantMenu:OnDirection(direction)
+        end
+        return
+    end
+
     -- Proteção: se o cursor não estiver ativo em nenhuma janela, desativa modo navegação
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         CM.keybindings:ExitNavigationMode()
@@ -1141,14 +1149,22 @@ function CM_CursorCancel()
 end
 
 function CM_NavNextTab()
-    if CM.keybindings.chatActive then return end
+    if CM.keybindings and CM.keybindings.chatActive then return end
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:ToggleColumn(1)
+        return
+    end
     if CM.cursor and CM.cursor.CycleTabs then
         CM.cursor:CycleTabs(1)
     end
 end
 
 function CM_NavPrevTab()
-    if CM.keybindings.chatActive then return end
+    if CM.keybindings and CM.keybindings.chatActive then return end
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:ToggleColumn(-1)
+        return
+    end
     if CM.cursor and CM.cursor.CycleTabs then
         CM.cursor:CycleTabs(-1)
     end
@@ -1156,6 +1172,10 @@ end
 
 function CM_NavNextSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:CycleSubTab(1)
+        return
+    end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
         if mm.MapZoomStep then mm:MapZoomStep(1) end
@@ -1168,6 +1188,10 @@ end
 
 function CM_NavPrevSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:CycleSubTab(-1)
+        return
+    end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
         if mm.MapZoomStep then mm:MapZoomStep(-1) end

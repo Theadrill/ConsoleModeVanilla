@@ -1027,6 +1027,10 @@ function CM_CursorConfirm()
 
     -- Prioridade de Mercador ConsoleMode (Botão A)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if ConsoleMode_MerchantMenu.IsQtyModalOpen and ConsoleMode_MerchantMenu:IsQtyModalOpen() then
+            ConsoleMode_MerchantMenu:QtyModalConfirm()
+            return
+        end
         if ConsoleMode_MerchantMenu.activeColumn == "BAGS" then
             ConsoleMode_MerchantMenu:SellSelectedItem()
             DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão A (Vender item)")
@@ -1060,10 +1064,15 @@ end
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
 
-    -- Prioridade de Mercador ConsoleMode (Botão Y: Reparar tudo se o NPC tiver função de reparo)
+    -- Prioridade de Mercador ConsoleMode (Botão Y: Reparar tudo / AutoSell lixo)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if ConsoleMode_MerchantMenu.IsQtyModalOpen and ConsoleMode_MerchantMenu:IsQtyModalOpen() then
+            return
+        end
         if ConsoleMode_MerchantMenu.canRepair and ConsoleMode_MerchantMenu.RepairAll then
             ConsoleMode_MerchantMenu:RepairAll()
+        elseif ConsoleMode_MerchantMenu.AutoSellJunk then
+            ConsoleMode_MerchantMenu:AutoSellJunk()
         else
             DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Este mercador não oferece serviço de reparos.")
         end
@@ -1097,11 +1106,20 @@ end
 function CM_CursorSecondary()
     if CM.keybindings.chatActive then return end
 
-    -- Prioridade de Mercador ConsoleMode (Botão X: Vender item das bolsas)
+    -- Prioridade de Mercador ConsoleMode (Botão X: Vender / Quantidade)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if ConsoleMode_MerchantMenu.IsQtyModalOpen and ConsoleMode_MerchantMenu:IsQtyModalOpen() then
+            ConsoleMode_MerchantMenu:QtyModalConfirm()
+            return
+        end
         if ConsoleMode_MerchantMenu.activeColumn == "BAGS" then
             ConsoleMode_MerchantMenu:SellSelectedItem()
             DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão X (Vender item)")
+            return
+        elseif ConsoleMode_MerchantMenu.activeColumn == "VENDOR" then
+            if ConsoleMode_MerchantMenu.VendorSecondaryAction then
+                ConsoleMode_MerchantMenu:VendorSecondaryAction()
+            end
             return
         end
         return
@@ -1129,11 +1147,22 @@ function CM_CursorSecondary()
     end
 end
 
+-- AutoSell de lixo cinza (Fase 6). Chamável via macro / R3: /script CM_MerchantAutoSell()
+function CM_MerchantAutoSell()
+    if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        ConsoleMode_MerchantMenu:AutoSellJunk()
+    end
+end
+
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
 
-    -- Prioridade de Mercador ConsoleMode
+    -- Prioridade de Mercador ConsoleMode ([B] fecha modal primeiro)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+        if ConsoleMode_MerchantMenu.IsQtyModalOpen and ConsoleMode_MerchantMenu:IsQtyModalOpen() then
+            ConsoleMode_MerchantMenu:CloseQtyModal()
+            return
+        end
         ConsoleMode_MerchantMenu:Close()
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mercador fechado)")
         return

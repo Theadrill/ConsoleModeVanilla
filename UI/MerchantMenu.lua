@@ -56,6 +56,14 @@ local SUBTABS_BAGS = {
     { id = "JUNK",       name = "Lixo" },
 }
 
+-- Sub-abas da coluna VENDEDOR (Fase 5/6). Recompra usa API de buyback 1.12.
+local SUBTABS_VENDOR = {
+    { id = "ALL",     name = "Todos" },
+    { id = "EQUIP",   name = "Equip" },
+    { id = "CONSUM",  name = "Consum" },
+    { id = "BUYBACK", name = "Recompra" },
+}
+
 local NINESLICE = {
     texture    = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Carved_9Slides.tga",
     cornerSize = 48,
@@ -91,6 +99,18 @@ MerchantMenu.selectedBagIndex = 1
 MerchantMenu.bagScrollOffset  = 0
 MerchantMenu.rawBagItems      = {}
 MerchantMenu.filteredBagItems = {}
+
+-- Estado da coluna VENDEDOR (Fase 5) + Fase 6 (modal/autosell/buyback/compare)
+MerchantMenu.merchantItems       = {}
+MerchantMenu.filteredVendorItems = {}
+MerchantMenu.selectedVendorIndex = 1
+MerchantMenu.vendorScrollOffset  = 0
+MerchantMenu.vendorSubTabIdx     = 1
+MerchantMenu.buybackItems        = {}
+MerchantMenu.qtyModal            = { isOpen = false, vendorIndex = nil, qty = 1, maxQty = 1, unitPrice = 0, stock = 0, itemName = "" }
+MerchantMenu.qtyModalFrame       = nil
+MerchantMenu.autoSell            = { running = false, queue = {}, pos = 1, gained = 0, acc = 0 }
+MerchantMenu.compareState        = { lastKey = nil, isUpgrade = nil }
 
 -- ----------------------------------------------------------------------------
 -- 3. TOOLTIP SCANNER PARA PREÇOS DE VENDA & ATRIBUTOS (WOW 1.12)
@@ -334,6 +354,173 @@ function MerchantMenu:ScanPlayerBags()
     self:FilterBagItems()
 end
 
+-- ----------------------------------------------------------------------------
+-- 6b. CATÁLOGO DO VENDEDOR (FASE 5 - WoW 1.12 / Lua 5.0)
+-- Parse guarda .index original para BuyMerchantItem. Sem #table/continue/goto.
+-- ----------------------------------------------------------------------------
+function MerchantMenu:ParseVendorItem(mercIndex)
+    if not mercIndex or mercIndex < 1 then return nil end
+    if not GetMerchantItemInfo then return nil end
+    local name, texture, price, quantity, numAvailable, isUsable = GetMerchantItemInfo(mercIndex)
+    if not name then return nil end
+    quantity = quantity or 1
+    price = price or 0
+    if type(numAvailable) ~= "number" then numAvailable = -1 end
+
+    local link = nil
+    if GetMerchantItemLink then
+        link = GetMerchantItemLink(mercIndex)
+    end
+    local itemID = nil
+    if link then
+        local _, _, idStr = string.find(link, "item:(%d+)")
+        itemID = tonumber(idStr)
+    end
+
+    local itemName = name
+    local itemQuality = 1
+    local itemReqLevel = 0
+    local itemType = ""
+    local itemSubType = ""
+    local itemEquipLoc = ""
+    if itemID and GetItemInfo then
+        local n, _, q, _, reqL, t, st, _, eqL = GetItemInfo(itemID)
+        if n then
+            itemName = n
+            itemQuality = tonumber(q) or 1
+            itemReqLevel = tonumber(reqL) or 0
+            itemType = t or ""
+            itemSubType = st or ""
+            itemEquipLoc = eqL or ""
+        end
+    end
+
+    local cat = "MISC"
+    if (itemEquipLoc and itemEquipLoc ~= "") or itemType == "Armor" or itemType == "Armadura" or itemType == "Weapon" or itemType == "Arma" then
+        cat = "EQUIP"
+    elseif itemType == "Consumable" or itemType == "Consumível" or itemType == "Potion" or itemType == "Food & Drink" then
+        cat = "CONSUMABLE"
+    end
+
+    return {
+        index = mercIndex,
+        name = itemName,
+        texture = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
+        price = price,
+        count = quantity,
+        numAvailable = numAvailable,
+        isUsable = isUsable,
+        itemID = itemID,
+        link = link,
+        quality = itemQuality,
+        reqLevel = itemReqLevel,
+        itemType = itemType,
+        subType = itemSubType,
+        equipLoc = itemEquipLoc,
+        category = cat,
+        isBuyback = false,
+        statsLines = {},
+        desc = "",
+        sellPrice = 0,
+    }
+end
+
+function MerchantMenu:ParseBuybackItem(bbIndex)
+    if not bbIndex or bbIndex < 1 then return nil end
+    if not GetBuybackItemInfo then return nil end
+    local name, texture, price, quantity = GetBuybackItemInfo(bbIndex)
+    if not name then return nil end
+    quantity = quantity or 1
+    price = price or 0
+    local link = nil
+    if GetBuybackItemLink then
+        local ok, l = pcall(function() return GetBuybackItemLink(bbIndex) end)
+        if ok then link = l end
+    end
+    local itemID = nil
+    if link then
+        local _, _, idStr = string.find(link, "item:(%d+)")
+        itemID = tonumber(idStr)
+    end
+    local itemQuality, itemType, itemSubType, itemEquipLoc, itemReqLevel = 1, "", "", "", 0
+    if itemID and GetItemInfo then
+        local n, _, q, _, reqL, t, st, _, eqL = GetItemInfo(itemID)
+        if n then
+            name = n
+            itemQuality = tonumber(q) or 1
+            itemReqLevel = tonumber(reqL) or 0
+            itemType = t or ""
+            itemSubType = st or ""
+            itemEquipLoc = eqL or ""
+        end
+    end
+    return {
+        index = nil,
+        buybackIndex = bbIndex,
+        name = name,
+        texture = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
+        price = price,
+        count = quantity,
+        numAvailable = 1,
+        itemID = itemID,
+        link = link,
+        quality = itemQuality,
+        reqLevel = itemReqLevel,
+        itemType = itemType,
+        subType = itemSubType,
+        equipLoc = itemEquipLoc,
+        category = "BUYBACK",
+        isBuyback = true,
+        statsLines = {},
+        desc = "",
+        sellPrice = 0,
+    }
+end
+
+function MerchantMenu:ScanMerchantItems()
+    local raw = {}
+    if GetMerchantNumItems then
+        local numItems = GetMerchantNumItems() or 0
+        for i = 1, numItems do
+            local data = self:ParseVendorItem(i)
+            if data then
+                table.insert(raw, data)
+            end
+        end
+    end
+    if GetNumBuybackItems then
+        local bbCount = GetNumBuybackItems() or 0
+        for b = 1, bbCount do
+            local bb = self:ParseBuybackItem(b)
+            if bb then
+                table.insert(raw, bb)
+            end
+        end
+    end
+    self.merchantItems = raw
+    self.itemCount = table.getn(raw)
+    self:FilterVendorItems()
+end
+
+function MerchantMenu:ScanBuybackItems()
+    local out = {}
+    if not GetNumBuybackItems then
+        self.buybackItems = out
+        return out
+    end
+    local count = GetNumBuybackItems() or 0
+    for i = 1, count do
+        if GetBuybackItemInfo then
+            local bb = self:ParseBuybackItem(i)
+            if bb then
+                table.insert(out, bb)
+            end
+        end
+    end
+    self.buybackItems = out
+    return out
+end
+
 function MerchantMenu:FilterBagItems()
     local currentSubTab = SUBTABS_BAGS[self.bagSubTabIdx] or SUBTABS_BAGS[1]
     local filterId = currentSubTab.id
@@ -384,6 +571,74 @@ function MerchantMenu:FilterBagItems()
     end
 end
 
+-- Filtra merchantItems pela sub-aba ativa (Fase 5/6). Espelha FilterBagItems.
+function MerchantMenu:FilterVendorItems()
+    local tab = SUBTABS_VENDOR[self.vendorSubTabIdx] or SUBTABS_VENDOR[1]
+    local filterId = tab.id
+    if filterId == "BUYBACK" then
+        local bb = self:ScanBuybackItems()
+        self.filteredVendorItems = bb or {}
+    else
+        local filtered = {}
+        local raw = self.merchantItems or {}
+        local numRaw = table.getn(raw)
+        for i = 1, numRaw do
+            local item = raw[i]
+            local match = false
+            if filterId == "ALL" then
+                if not item.isBuyback then match = true end
+            elseif filterId == "EQUIP" then
+                if not item.isBuyback and item.category == "EQUIP" then match = true end
+            elseif filterId == "CONSUM" then
+                if not item.isBuyback and item.category == "CONSUMABLE" then match = true end
+            end
+            if match then
+                table.insert(filtered, item)
+            end
+        end
+        self.filteredVendorItems = filtered
+    end
+
+    local numFiltered = table.getn(self.filteredVendorItems or {})
+    if self.selectedVendorIndex > numFiltered then
+        self.selectedVendorIndex = math.max(1, numFiltered)
+    end
+    if self.selectedVendorIndex < 1 then
+        self.selectedVendorIndex = 1
+    end
+    local visibleRows = 7
+    if self.selectedVendorIndex <= self.vendorScrollOffset then
+        self.vendorScrollOffset = self.selectedVendorIndex - 1
+    elseif self.selectedVendorIndex > (self.vendorScrollOffset + visibleRows) then
+        self.vendorScrollOffset = self.selectedVendorIndex - visibleRows
+    end
+    if self.vendorScrollOffset < 0 then self.vendorScrollOffset = 0 end
+    local maxOffset = math.max(0, numFiltered - visibleRows)
+    if self.vendorScrollOffset > maxOffset then self.vendorScrollOffset = maxOffset end
+end
+
+function MerchantMenu:MoveVendorSelection(delta)
+    local numItems = table.getn(self.filteredVendorItems or {})
+    if numItems == 0 then return end
+    local newIdx = (self.selectedVendorIndex or 1) + delta
+    if newIdx < 1 then newIdx = 1 end
+    if newIdx > numItems then newIdx = numItems end
+    if newIdx ~= self.selectedVendorIndex then
+        self.selectedVendorIndex = newIdx
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        local visibleRows = 7
+        if self.selectedVendorIndex <= self.vendorScrollOffset then
+            self.vendorScrollOffset = self.selectedVendorIndex - 1
+        elseif self.selectedVendorIndex > (self.vendorScrollOffset + visibleRows) then
+            self.vendorScrollOffset = self.selectedVendorIndex - visibleRows
+        end
+        if self.vendorScrollOffset < 0 then self.vendorScrollOffset = 0 end
+        local maxOffset = math.max(0, numItems - visibleRows)
+        if self.vendorScrollOffset > maxOffset then self.vendorScrollOffset = maxOffset end
+        self:UpdateVendorRows()
+    end
+end
+
 function MerchantMenu:UpdateBagsSubTabBar()
     local rightCol = self.frame and self.frame.rightCol
     if not rightCol or not rightCol.tabsLabel then return end
@@ -400,6 +655,23 @@ function MerchantMenu:UpdateBagsSubTabBar()
     end
 
     rightCol.tabsLabel:SetText(table.concat(parts, "   "))
+end
+
+-- Barra de sub-abas da LOJA (Fase 5). Espelha UpdateBagsSubTabBar.
+function MerchantMenu:UpdateVendorSubTabBar()
+    local leftCol = self.frame and self.frame.leftCol
+    if not leftCol or not leftCol.tabsLabel then return end
+    local parts = {}
+    local num = table.getn(SUBTABS_VENDOR)
+    for idx = 1, num do
+        local tab = SUBTABS_VENDOR[idx]
+        if idx == self.vendorSubTabIdx then
+            table.insert(parts, "|cffe09a15[ " .. tab.name .. " ]|r")
+        else
+            table.insert(parts, "|cff848484" .. tab.name .. "|r")
+        end
+    end
+    leftCol.tabsLabel:SetText(table.concat(parts, "   "))
 end
 
 -- ----------------------------------------------------------------------------
@@ -581,9 +853,9 @@ function MerchantMenu:CreateFooterHints(parent)
         { icons = { "LB", "RB" }, label = "Colunas" },
         { icons = { "LT", "RT" }, label = "Filtros" },
         { icons = { "DALL" },     label = "Navegar" },
-        { icons = { "A" },        label = "Comprar" },
-        { icons = { "X" },        label = "Vender" },
-        { icons = { "Y" },        label = "Reparar Tudo", key = "REPAIR" },
+        { icons = { "A" },        label = "Comprar 1x" },
+        { icons = { "X" },        label = "Qtd/Vender" },
+        { icons = { "Y" },        label = "Reparar / Lixo", key = "REPAIR" },
         { icons = { "B" },        label = "Fechar" },
     }
 
@@ -774,6 +1046,107 @@ function MerchantMenu:CreateBagRows(parent)
             end
         end)
 
+        row:Hide()
+        table.insert(rows, row)
+    end
+    parent.rows = rows
+    return rows
+end
+
+-- Espelho de CreateBagRows para a LOJA (Fase 5). Mesma identidade visual.
+function MerchantMenu:CreateVendorRows(parent)
+    local rows = {}
+    for i = 1, 7 do
+        local row = CreateFrame("Button", "ConsoleMode_MerchantVendorRow" .. i, parent)
+        row:SetHeight(42)
+        if i == 1 then
+            row:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -2)
+            row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -2)
+        else
+            row:SetPoint("TOPLEFT", rows[i - 1], "BOTTOMLEFT", 0, -2)
+            row:SetPoint("TOPRIGHT", rows[i - 1], "BOTTOMRIGHT", 0, -2)
+        end
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+        row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+        local hl = row:CreateTexture(nil, "BACKGROUND")
+        hl:SetTexture("Interface\\Buttons\\UI-Listbox-Highlight")
+        hl:SetBlendMode("ADD")
+        hl:SetAlpha(0.30)
+        hl:SetAllPoints(row)
+        hl:Hide()
+        row.highlight = hl
+        local cur = row:CreateTexture(nil, "OVERLAY")
+        cur:SetWidth(12)
+        cur:SetHeight(12)
+        cur:SetPoint("LEFT", row, "LEFT", 4, 0)
+        cur:SetTexture("Interface\\QuestFrame\\UI-Quest-BulletPoint")
+        cur:SetVertexColor(1.0, 0.85, 0.20)
+        cur:Hide()
+        row.cursor = cur
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(32)
+        icon:SetHeight(32)
+        icon:SetPoint("LEFT", row, "LEFT", 20, 0)
+        row.icon = icon
+        local iconBorder = CreateFrame("Frame", nil, row)
+        iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+        iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+        iconBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        row.iconBorder = iconBorder
+        local stackText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        stackText:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", -1, 1)
+        MerchantMenu:ApplyFont(stackText, FONTS.titleBold, 13, "OUTLINE")
+        row.stackText = stackText
+        local priceText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        priceText:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        priceText:SetJustifyH("RIGHT")
+        MerchantMenu:ApplyFont(priceText, FONTS.titleBold, 15)
+        row.priceText = priceText
+        local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        nameText:SetPoint("LEFT", icon, "RIGHT", 8, 0)
+        nameText:SetPoint("RIGHT", priceText, "LEFT", -8, 0)
+        nameText:SetJustifyH("LEFT")
+        MerchantMenu:ApplyFont(nameText, FONTS.bodyBold, 16)
+        row.nameText = nameText
+        row.slotIndex = i
+        row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        row:SetScript("OnClick", function()
+            local itemIdx = (MerchantMenu.vendorScrollOffset or 0) + this.slotIndex
+            local wasSelected = (MerchantMenu.activeColumn == "VENDOR" and MerchantMenu.selectedVendorIndex == itemIdx)
+            MerchantMenu.activeColumn = "VENDOR"
+            MerchantMenu.selectedVendorIndex = itemIdx
+            MerchantMenu:UpdateColumnVisuals()
+            MerchantMenu:UpdateVendorRows()
+            if wasSelected then
+                MerchantMenu:BuySelectedItem()
+            else
+                PlaySound("igMainMenuOptionCheckBoxOn")
+            end
+        end)
+        row:SetScript("OnEnter", function()
+            local itemIdx = (MerchantMenu.vendorScrollOffset or 0) + this.slotIndex
+            if MerchantMenu.activeColumn ~= "VENDOR" or (MerchantMenu.selectedVendorIndex ~= itemIdx) then
+                this:SetBackdropBorderColor(0.70, 0.60, 0.40, 0.80)
+            end
+        end)
+        row:SetScript("OnLeave", function()
+            local itemIdx = (MerchantMenu.vendorScrollOffset or 0) + this.slotIndex
+            if MerchantMenu.activeColumn == "VENDOR" and itemIdx == MerchantMenu.selectedVendorIndex then
+                this:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+            else
+                this:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+            end
+        end)
         row:Hide()
         table.insert(rows, row)
     end
@@ -1046,6 +1419,30 @@ function MerchantMenu:CreateUI()
     -- Cria as 7 linhas do inventário na coluna direita
     self:CreateBagRows(rightCol.listArea)
 
+    -- Cria as 7 linhas da LOJA na coluna esquerda (Fase 5)
+    self:CreateVendorRows(leftCol.listArea)
+    if leftCol.ltBtn then
+        leftCol.ltBtn:SetScript("OnClick", function()
+            if MerchantMenu.activeColumn ~= "VENDOR" then
+                MerchantMenu.activeColumn = "VENDOR"
+                MerchantMenu:UpdateColumnVisuals()
+            end
+            MerchantMenu:CycleSubTab(-1)
+        end)
+    end
+    if leftCol.rtBtn then
+        leftCol.rtBtn:SetScript("OnClick", function()
+            if MerchantMenu.activeColumn ~= "VENDOR" then
+                MerchantMenu.activeColumn = "VENDOR"
+                MerchantMenu:UpdateColumnVisuals()
+            end
+            MerchantMenu:CycleSubTab(1)
+        end)
+    end
+    leftCol.listArea:SetScript("OnMouseWheel", function()
+        if arg1 > 0 then MerchantMenu:MoveVendorSelection(-1) else MerchantMenu:MoveVendorSelection(1) end
+    end)
+
     -- Ações dos botões [LT] e [RT] da coluna direita
     if rightCol.ltBtn then
         rightCol.ltBtn:SetScript("OnClick", function()
@@ -1233,6 +1630,245 @@ function MerchantMenu:UpdateBagRows()
     end
 end
 
+-- Render da loja (Fase 5). Segue padrão de UpdateBagRows.
+function MerchantMenu:UpdateVendorRows()
+    local leftCol = self.frame and self.frame.leftCol
+    if not leftCol or not leftCol.listArea or not leftCol.listArea.rows then return end
+    local rows = leftCol.listArea.rows
+    local filtered = self.filteredVendorItems or {}
+    local numItems = table.getn(filtered)
+    if numItems == 0 then
+        for i = 1, 7 do rows[i]:Hide() end
+        leftCol.placeholder:SetText("|cffaaaaaaNenhum item à venda nesta categoria.|r")
+        leftCol.placeholder:Show()
+        leftCol.pageIndicator:SetText("|cff666666Loja vazia|r")
+        if self.activeColumn == "VENDOR" then self:ShowItemDetail(nil) end
+        return
+    end
+    leftCol.placeholder:Hide()
+    local selectedItem = nil
+    for slotIdx = 1, 7 do
+        local itemIdx = (self.vendorScrollOffset or 0) + slotIdx
+        local row = rows[slotIdx]
+        if itemIdx <= numItems then
+            local item = filtered[itemIdx]
+            local qColor = QUALITY_COLORS[item.quality or 1] or QUALITY_COLORS[1]
+            row.icon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+            row.iconBorder:SetBackdropBorderColor(qColor.r, qColor.g, qColor.b, 0.85)
+            if item.count and item.count > 1 then
+                row.stackText:SetText(item.count)
+                row.stackText:Show()
+            else
+                row.stackText:Hide()
+            end
+            local nameStr = qColor.hex .. (item.name or "Item") .. "|r"
+            if item.isBuyback then
+                nameStr = nameStr .. " |cff888888(Recompra)|r"
+            elseif item.numAvailable and item.numAvailable >= 0 then
+                nameStr = nameStr .. " |cffffd700(x" .. item.numAvailable .. ")|r"
+            end
+            row.nameText:SetText(nameStr)
+            if item.price and item.price > 0 then
+                local affordable = (GetMoney() or 0) >= item.price
+                if affordable then
+                    row.priceText:SetText(self:FormatMoneyText(item.price))
+                else
+                    row.priceText:SetText("|cffff2020" .. self:FormatMoneyText(item.price) .. "|r")
+                end
+            else
+                row.priceText:SetText("|cff666666Sem preço|r")
+            end
+            if self.activeColumn == "VENDOR" and itemIdx == self.selectedVendorIndex then
+                row:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+                row:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+                row.highlight:Show()
+                row.cursor:Show()
+                selectedItem = item
+            else
+                row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+                row.highlight:Hide()
+                row.cursor:Hide()
+            end
+            row:Show()
+        else
+            row:Hide()
+        end
+    end
+    local curPage = math.floor((self.selectedVendorIndex - 1) / 7) + 1
+    local totalPages = math.ceil(numItems / 7)
+    if totalPages < 1 then totalPages = 1 end
+    local arrowUp = (self.vendorScrollOffset > 0) and "▲ " or ""
+    local arrowDown = ((self.vendorScrollOffset + 7) < numItems) and " ▼" or ""
+    leftCol.pageIndicator:SetText(string.format("%s|cffaaaaaaItem %d de %d|r  |cff888888(Pág. %d/%d)|r%s", arrowUp, self.selectedVendorIndex, numItems, curPage, totalPages, arrowDown))
+    if self.activeColumn == "VENDOR" then
+        self:ShowItemDetail(selectedItem)
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- ITEM COMPARE (Fase 6 - reusa MainMenu quando disponível, fallback simples)
+-- ----------------------------------------------------------------------------
+function MerchantMenu:ParseSimpleStats(itemLink)
+    local acc = { str = 0, agi = 0, sta = 0, int = 0, spi = 0 }
+    if not itemLink or not scanTip then return acc end
+    scanTip:ClearLines()
+    local ok = false
+    local _, _, raw = string.find(itemLink, "(item:%d+:%d+:%d+:%d+)")
+    if raw then ok = pcall(function() scanTip:SetHyperlink(raw) end) end
+    if not ok then ok = pcall(function() scanTip:SetHyperlink(itemLink) end) end
+    if not ok then return acc end
+    local nl = scanTip:NumLines() or 0
+    for l = 2, nl do
+        local lo = getglobal("ConsoleMode_MerchantScanTipTextLeft" .. l)
+        local t = nil
+        if lo then t = lo:GetText() end
+        if t and t ~= "" then
+            local _, _, v = string.find(t, "^%+(%d+)%s+For")
+            if v then
+                acc.str = acc.str + (tonumber(v) or 0)
+            else
+                local _, _, v2 = string.find(t, "^%+(%d+)%s+Agilidade")
+                if v2 then
+                    acc.agi = acc.agi + (tonumber(v2) or 0)
+                else
+                    local _, _, v3 = string.find(t, "^%+(%d+)%s+Vigor")
+                    if v3 then
+                        acc.sta = acc.sta + (tonumber(v3) or 0)
+                    else
+                        local _, _, v4 = string.find(t, "^%+(%d+)%s+Intelecto")
+                        if v4 then
+                            acc.int = acc.int + (tonumber(v4) or 0)
+                        else
+                            local _, _, v5 = string.find(t, "^%+(%d+)%s+Esp")
+                            if v5 then acc.spi = acc.spi + (tonumber(v5) or 0) end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return acc
+end
+
+function MerchantMenu:ResolveEquippedLink(item)
+    if not item then return nil end
+    local eq = item.equipLoc or ""
+    if eq == "" and item.link and GetItemInfo then
+        local _, _, _, _, _, _, _, eqL = GetItemInfo(item.link)
+        if eqL then eq = eqL end
+    end
+    if eq == "" or eq == "INVTYPE_NON_EQUIP" or eq == "INVTYPE_BAG" then return nil end
+    local MM = nil
+    if ConsoleMode then MM = ConsoleMode.mainMenu end
+    if MM and MM.GetCompareSlotForEquipLoc then
+        local ok, slot = pcall(function() return MM:GetCompareSlotForEquipLoc(eq) end)
+        if ok and slot then
+            if type(slot) == "table" then
+                if table.getn(slot) > 0 then
+                    return GetInventoryItemLink("player", slot[1]), nil
+                end
+                return nil
+            else
+                return GetInventoryItemLink("player", slot), nil
+            end
+        end
+    end
+    return nil
+end
+
+function MerchantMenu:FormatCompareDiffs(item)
+    if not item then return "", nil end
+    local eqLoc = item.equipLoc or ""
+    if eqLoc == "" or eqLoc == "INVTYPE_NON_EQUIP" or eqLoc == "INVTYPE_BAG" then
+        return "", nil
+    end
+    local MM = nil
+    if ConsoleMode then MM = ConsoleMode.mainMenu end
+    if MM and MM.ComputeCompareDiff then
+        local ok, cmp = pcall(function() return MM:ComputeCompareDiff(item) end)
+        if ok and cmp and cmp.diffs then
+            local up, down = 0, 0
+            for k, v in pairs(cmp.diffs) do
+                v = tonumber(v) or 0
+                if v > 0 then up = up + 1 end
+                if v < 0 then down = down + 1 end
+            end
+            if up == 0 and down == 0 then return "", nil end
+            local txt = ""
+            if MM.FormatCompareDiffDebug then
+                local ok2, t2 = pcall(function() return MM:FormatCompareDiffDebug(cmp.diffs) end)
+                if ok2 and t2 then txt = t2 end
+            end
+            if txt == "" then
+                if up > 0 and down == 0 then txt = "|cff1eff00[Melhoria]|r" end
+                if down > 0 and up == 0 then txt = "|cffff2020[Pior]|r" end
+            end
+            local vs = ""
+            if cmp.vsName and cmp.vsName ~= "" then vs = "  |cff888888(vs. " .. cmp.vsName .. ")|r" end
+            local verdict = nil
+            if up > 0 and down == 0 then verdict = true end
+            if down > 0 and up == 0 then verdict = false end
+            return "|cffaaaaaaComparar:|r " .. txt .. vs, verdict
+        end
+    end
+    local eqLink = self:ResolveEquippedLink(item)
+    if not eqLink then
+        return "|cff1eff00[Melhoria]|r |cffaaaaaa(slot vazio)|r", true
+    end
+    local newS = self:ParseSimpleStats(item.link)
+    local oldS = self:ParseSimpleStats(eqLink)
+    local keys = { "str", "agi", "sta", "int", "spi" }
+    local labels = { "For", "Agi", "Vig", "Int", "Esp" }
+    local parts = {}
+    local up, down = 0, 0
+    local numKeys = table.getn(keys)
+    for i = 1, numKeys do
+        local k = keys[i]
+        local d = (tonumber(newS[k]) or 0) - (tonumber(oldS[k]) or 0)
+        if d ~= 0 then
+            if d > 0 then
+                up = up + 1
+                table.insert(parts, "|cff1eff00" .. labels[i] .. " +" .. d .. "|r")
+            else
+                down = down + 1
+                table.insert(parts, "|cffff2020" .. labels[i] .. " " .. d .. "|r")
+            end
+        end
+    end
+    if table.getn(parts) == 0 then return "", nil end
+    local eqName = GetItemInfo(eqLink) or "equipado"
+    local verdict = nil
+    if up > 0 and down == 0 then verdict = true end
+    if down > 0 and up == 0 then verdict = false end
+    return "|cffaaaaaaComparar:|r " .. table.concat(parts, " ") .. "  |cff888888(vs. " .. eqName .. ")|r", verdict
+end
+
+function MerchantMenu:ApplyCompareToCard(item)
+    local card = self.frame and self.frame.detailCard
+    if not card then return end
+    if not item then
+        card:SetBackdropBorderColor(0.50, 0.40, 0.28, 0.65)
+        return
+    end
+    local line, verdict = self:FormatCompareDiffs(item)
+    if line and line ~= "" then
+        local cur = ""
+        if card.descColRight and card.descColRight.GetText then
+            local ok, t = pcall(function() return card.descColRight:GetText() end)
+            if ok and t then cur = t end
+        end
+        card.descColRight:SetText(cur .. "\n" .. line)
+    end
+    if verdict == true then
+        card:SetBackdropBorderColor(0.12, 1.00, 0.00, 0.95)
+    elseif verdict == false then
+        card:SetBackdropBorderColor(1.00, 0.13, 0.13, 0.95)
+    end
+    self.compareState.lastKey = item.link or item.name
+    self.compareState.isUpgrade = verdict
+end
+
 function MerchantMenu:ShowItemDetail(item)
     local card = self.frame and self.frame.detailCard
     if not card then return end
@@ -1256,7 +1892,7 @@ function MerchantMenu:ShowItemDetail(item)
     local countStr = (item.count and item.count > 1) and (" |cffffffff(x" .. item.count .. ")|r") or ""
     card.titleText:SetText(qColor.hex .. item.name .. "|r" .. countStr)
 
-    -- Preço no DetailCard
+    -- Preço no DetailCard (venda da bolsa ou compra da loja)
     if item.sellPrice and item.sellPrice > 0 then
         local priceStr = "|cffaaaaaaPreço de Venda: |r" .. self:FormatMoneyText(item.sellPrice)
         if item.count and item.count > 1 then
@@ -1266,6 +1902,14 @@ function MerchantMenu:ShowItemDetail(item)
             end
         end
         card.priceText:SetText(priceStr)
+    elseif item.price and item.price > 0 then
+        local extra = ""
+        if item.isBuyback then
+            extra = " |cffffd700(Recompra)|r"
+        elseif item.numAvailable and item.numAvailable >= 0 then
+            extra = " |cffaaaaaa(estoque: " .. item.numAvailable .. ")|r"
+        end
+        card.priceText:SetText("|cffaaaaaaPreço de Compra: |r" .. self:FormatMoneyText(item.price) .. extra)
     else
         card.priceText:SetText("|cff888888Sem valor de venda comercial|r")
     end
@@ -1317,6 +1961,8 @@ function MerchantMenu:ShowItemDetail(item)
     if rightText == "" then
         if item.sellPrice and item.sellPrice > 0 then
             rightText = "|cff888888Pronto para venda no vendedor.|r\n|cffaaaaaaPressione [X] para vender (Fase 5).|r"
+        elseif item.price and item.price > 0 then
+            rightText = "|cff888888Pressione [A] para comprar 1x.|r\n|cffaaaaaaPressione [X] para quantidade.|r"
         else
             rightText = "|cff666666Item sem preço de compra em mercadores.|r"
         end
@@ -1324,6 +1970,7 @@ function MerchantMenu:ShowItemDetail(item)
 
     card.descColLeft:SetText(leftText)
     card.descColRight:SetText(rightText)
+    self:ApplyCompareToCard(item)
 end
 
 function MerchantMenu:ShowVendorPlaceholderDetail()
@@ -1401,9 +2048,11 @@ function MerchantMenu:ToggleColumn(delta)
     PlaySound("igCharacterInfoTab")
     self:UpdateColumnVisuals()
     self:UpdateBagRows()
+    self:UpdateVendorRows()
 
     if self.activeColumn == "VENDOR" then
-        self:ShowVendorPlaceholderDetail()
+        local sel = self.filteredVendorItems and self.filteredVendorItems[self.selectedVendorIndex]
+        self:ShowItemDetail(sel)
     end
 end
 
@@ -1422,12 +2071,30 @@ function MerchantMenu:CycleSubTab(delta)
         self.bagScrollOffset = 0
         self:UpdateBagRows()
     else
-        -- Fase 4: sub-abas de itens do vendedor
+        -- VENDOR: Todos / Equip / Consum / Recompra (Fase 5/6)
+        local count = table.getn(SUBTABS_VENDOR)
+        self.vendorSubTabIdx = self.vendorSubTabIdx + delta
+        if self.vendorSubTabIdx > count then self.vendorSubTabIdx = 1 end
+        if self.vendorSubTabIdx < 1 then self.vendorSubTabIdx = count end
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        self:UpdateVendorSubTabBar()
+        self:FilterVendorItems()
+        self.selectedVendorIndex = 1
+        self.vendorScrollOffset = 0
+        self:UpdateVendorRows()
     end
 end
 
 function MerchantMenu:OnDirection(direction)
     if not self.isOpen then return end
+
+    if self:IsQtyModalOpen() then
+        if direction == "LEFT" then self:QtyModalAdjust(-1) return end
+        if direction == "RIGHT" then self:QtyModalAdjust(1) return end
+        if direction == "UP" then self:QtyModalAdjust(5) return end
+        if direction == "DOWN" then self:QtyModalAdjust(-5) return end
+        return
+    end
 
     if direction == "LEFT" then
         self:CycleSubTab(-1)
@@ -1436,10 +2103,14 @@ function MerchantMenu:OnDirection(direction)
     elseif direction == "UP" then
         if self.activeColumn == "BAGS" then
             self:MoveBagSelection(-1)
+        else
+            self:MoveVendorSelection(-1)
         end
     elseif direction == "DOWN" then
         if self.activeColumn == "BAGS" then
             self:MoveBagSelection(1)
+        else
+            self:MoveVendorSelection(1)
         end
     end
 end
@@ -1511,6 +2182,381 @@ function MerchantMenu:RepairAll()
 end
 
 -- ----------------------------------------------------------------------------
+-- 9b. COMPRA / RECOMPRA (FASE 5 - corrige BuySelectedItem nil)
+-- ----------------------------------------------------------------------------
+function MerchantMenu:BuySelectedItem()
+    if not self.isOpen then return end
+    if self:IsQtyModalOpen() then self:QtyModalConfirm() return end
+    if self.activeColumn ~= "VENDOR" then return end
+    local item = self.filteredVendorItems and self.filteredVendorItems[self.selectedVendorIndex]
+    if not item then return end
+    if item.isBuyback then
+        self:BuybackSelectedItem()
+    else
+        self:BuyItem(item.index, 1, item)
+    end
+end
+
+function MerchantMenu:BuyItem(mercIndex, qty, item)
+    if not self.isOpen or not mercIndex then return end
+    qty = qty or 1
+    if MerchantFrame and MerchantFrame:IsShown() then
+        MerchantFrame.selectedTab = 1
+    end
+    local price = (item and item.price) or 0
+    if price <= 0 and GetMerchantItemInfo then
+        local _, _, p = GetMerchantItemInfo(mercIndex)
+        price = p or 0
+    end
+    local total = price
+    if qty > 1 and item and item.count and item.count > 0 then
+        total = math.floor(price / item.count) * qty
+        if total < price then total = price end
+    elseif qty > 1 then
+        total = price * qty
+    end
+    local money = GetMoney() or 0
+    if money < total then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Dinheiro insuficiente (" .. self:FormatMoneyText(total) .. ").")
+        if UIErrorsFrame and ERR_NOT_ENOUGH_MONEY and UIERRORS_HOLD_TIME then
+            UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
+        end
+        PlaySound("igQuestFailed")
+        return
+    end
+    if BuyMerchantItem then
+        pcall(function() BuyMerchantItem(mercIndex, qty) end)
+    end
+    PlaySound("igMainMenuOptionCheckBoxOn")
+    local label = (item and item.link) or ((item and item.name) or "Item")
+    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Item comprado: " .. label .. " por " .. self:FormatMoneyText(total))
+    self:RefreshHeader()
+    self:ScanMerchantItems()
+    self:UpdateVendorRows()
+end
+
+function MerchantMenu:BuybackSelectedItem()
+    if not self.isOpen then return end
+    local item = self.filteredVendorItems and self.filteredVendorItems[self.selectedVendorIndex]
+    if not item or not item.isBuyback then return end
+    local idx = tonumber(item.buybackIndex) or 0
+    if idx < 1 then return end
+    local price = tonumber(item.price) or 0
+    if (GetMoney() or 0) < price then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Dinheiro insuficiente para recomprar.")
+        PlaySound("igQuestFailed")
+        return
+    end
+    if BuybackItem then
+        pcall(function() BuybackItem(idx) end)
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Recomprado: " .. tostring(item.link or item.name))
+    end
+    self:ScanMerchantItems()
+    self:UpdateVendorRows()
+    self:RefreshHeader()
+end
+
+-- X no vendor abre modal Qtd; X nas bags vende. Roteado por Keybindings.
+function MerchantMenu:VendorSecondaryAction()
+    if not self.isOpen then return end
+    if self:IsQtyModalOpen() then self:QtyModalConfirm() return end
+    if self.activeColumn == "VENDOR" then
+        local tab = SUBTABS_VENDOR[self.vendorSubTabIdx] or SUBTABS_VENDOR[1]
+        if tab.id == "BUYBACK" then
+            self:BuybackSelectedItem()
+            return
+        end
+        local item = self.filteredVendorItems and self.filteredVendorItems[self.selectedVendorIndex]
+        if not item then return end
+        if item.isBuyback then
+            self:BuybackSelectedItem()
+        else
+            self:OpenQtyModal(item.index)
+        end
+    else
+        self:SellSelectedItem()
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 9c. MODAL DE QUANTIDADE (FASE 6)
+-- ----------------------------------------------------------------------------
+function MerchantMenu:CreateQtyModalUI()
+    if self.qtyModalFrame then return self.qtyModalFrame end
+    local m = CreateFrame("Frame", "ConsoleMode_MerchantQtyModal", UIParent)
+    m:SetWidth(420)
+    m:SetHeight(230)
+    m:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+    m:SetFrameStrata("FULLSCREEN_DIALOG")
+    m:SetFrameLevel(50)
+    m:EnableMouse(true)
+    m:SetMovable(false)
+    m:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 12,
+        insets = { left = 3, right = 3, top = 3, bottom = 3 },
+    })
+    m:SetBackdropColor(0.08, 0.06, 0.04, 0.85)
+    m:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+    m:Hide()
+    local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", m, "TOP", 0, -14)
+    self:ApplyFont(title, FONTS.titleBold, 19)
+    title:SetText("|cffe09a15Quantidade|r")
+    m.title = title
+    local name = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    name:SetPoint("TOP", title, "BOTTOM", 0, -6)
+    name:SetWidth(380)
+    name:SetJustifyH("CENTER")
+    self:ApplyFont(name, FONTS.titleBold, 16)
+    name:SetText("|cffffffffItem|r")
+    m.nameText = name
+    local qty = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    qty:SetPoint("CENTER", m, "CENTER", 0, 10)
+    self:ApplyFont(qty, FONTS.titleBold, 30)
+    qty:SetText("|cffe09a15x1|r")
+    m.qtyText = qty
+    local cost = m:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    cost:SetPoint("TOP", qty, "BOTTOM", 0, -8)
+    cost:SetWidth(380)
+    cost:SetJustifyH("CENTER")
+    self:ApplyFont(cost, FONTS.titleBold, 15)
+    cost:SetText("")
+    m.costText = cost
+    local rest = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    rest:SetPoint("TOP", cost, "BOTTOM", 0, -4)
+    rest:SetWidth(380)
+    rest:SetJustifyH("CENTER")
+    self:ApplyFont(rest, FONTS.titleBold, 13)
+    rest:SetText("")
+    m.restText = rest
+    local hints = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    hints:SetPoint("BOTTOM", m, "BOTTOM", 0, 14)
+    hints:SetWidth(390)
+    hints:SetJustifyH("CENTER")
+    self:ApplyFont(hints, FONTS.titleBold, 14)
+    hints:SetText("|cffffffff[A]|r |cff1eff00confirmar|r   |cffffffff[B]|r |cffff2020cancelar|r   |cffe09a15[D-Pad </>] +-1  [Up/Down] +-5|r")
+    m.hints = hints
+    self.qtyModalFrame = m
+    return m
+end
+
+function MerchantMenu:CalcQtyMax(unitPrice, stock)
+    unitPrice = tonumber(unitPrice) or 0
+    stock = tonumber(stock) or 0
+    if unitPrice <= 0 then return 1 end
+    local money = GetMoney() or 0
+    local byMoney = math.floor(money / unitPrice)
+    if byMoney < 1 then byMoney = 1 end
+    if stock == nil or stock < 0 then stock = byMoney end
+    if stock < 1 then stock = 1 end
+    local maxQty = byMoney
+    if stock < maxQty then maxQty = stock end
+    if maxQty < 1 then maxQty = 1 end
+    return maxQty
+end
+
+function MerchantMenu:OpenQtyModal(vendorIndex)
+    if not self.isOpen then return end
+    vendorIndex = tonumber(vendorIndex) or 0
+    if vendorIndex < 1 then return end
+    if not GetMerchantItemInfo then return end
+    local name, texture, price, quantity, numAvailable = GetMerchantItemInfo(vendorIndex)
+    if not name then return end
+    price = tonumber(price) or 0
+    if price <= 0 then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Este item não tem preço de compra.")
+        PlaySound("igQuestFailed")
+        return
+    end
+    local stock = tonumber(numAvailable) or -1
+    if stock < 0 then
+        local money = GetMoney() or 0
+        stock = math.floor(money / price)
+        if stock < 1 then stock = 1 end
+    end
+    self:CreateQtyModalUI()
+    self.qtyModal.isOpen = true
+    self.qtyModal.vendorIndex = vendorIndex
+    self.qtyModal.unitPrice = price
+    self.qtyModal.stock = stock
+    self.qtyModal.maxQty = self:CalcQtyMax(price, stock)
+    self.qtyModal.qty = 1
+    self.qtyModal.itemName = name
+    self.qtyModal.itemTex = texture
+    self:UpdateQtyModalVisuals()
+    self.qtyModalFrame:Show()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function MerchantMenu:CloseQtyModal()
+    self.qtyModal.isOpen = false
+    self.qtyModal.vendorIndex = nil
+    self.qtyModal.qty = 1
+    if self.qtyModalFrame and self.qtyModalFrame:IsVisible() then
+        self.qtyModalFrame:Hide()
+    end
+    PlaySound("igMainMenuClose")
+end
+
+function MerchantMenu:IsQtyModalOpen()
+    if self.qtyModal and self.qtyModal.isOpen then return true end
+    if self.qtyModalFrame and self.qtyModalFrame:IsVisible() then return true end
+    return false
+end
+
+function MerchantMenu:QtyModalAdjust(delta)
+    if not self:IsQtyModalOpen() then return end
+    delta = tonumber(delta) or 0
+    local q = (self.qtyModal.qty or 1) + delta
+    local mx = self.qtyModal.maxQty or 1
+    if q < 1 then q = 1 end
+    if q > mx then q = mx end
+    if q ~= self.qtyModal.qty then
+        self.qtyModal.qty = q
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        self:UpdateQtyModalVisuals()
+    end
+end
+
+function MerchantMenu:QtyModalConfirm()
+    if not self:IsQtyModalOpen() then return end
+    local idx = tonumber(self.qtyModal.vendorIndex) or 0
+    local qty = tonumber(self.qtyModal.qty) or 1
+    if idx < 1 then self:CloseQtyModal() return end
+    local item = self.filteredVendorItems and self.filteredVendorItems[self.selectedVendorIndex]
+    self:CloseQtyModal()
+    self:BuyItem(idx, qty, item)
+end
+
+function MerchantMenu:UpdateQtyModalVisuals()
+    local m = self.qtyModalFrame
+    if not m then return end
+    local qty = tonumber(self.qtyModal.qty) or 1
+    local mx = tonumber(self.qtyModal.maxQty) or 1
+    local unit = tonumber(self.qtyModal.unitPrice) or 0
+    local total = unit * qty
+    local money = GetMoney() or 0
+    local rest = money - total
+    if rest < 0 then rest = 0 end
+    m.title:SetText("|cffe09a15Quantidade|r")
+    m.nameText:SetText("|cffffffff" .. tostring(self.qtyModal.itemName or "Item") .. "|r")
+    m.qtyText:SetText("|cffe09a15x" .. qty .. "|r  |cff888888/ " .. mx .. "|r")
+    m.costText:SetText("|cffaaaaaaTotal:|r " .. self:FormatMoneyText(total) .. "  |cff888888(unit. " .. self:FormatMoneyText(unit) .. ")|r")
+    if total > money then
+        m.restText:SetText("|cffff2020Saldo insuficiente após compra.|r")
+    else
+        m.restText:SetText("|cffaaaaaaRestante:|r " .. self:FormatMoneyText(rest))
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 9d. AUTO-SELL JUNK (FASE 6 - [R3]/DUP, loop OnUpdate 0.15s)
+-- ----------------------------------------------------------------------------
+function MerchantMenu:BuildAutoSellQueue()
+    local q = {}
+    local raw = self.rawBagItems or {}
+    local n = table.getn(raw)
+    for i = 1, n do
+        local it = raw[i]
+        if it then
+            if (tonumber(it.quality) or 1) == 0 and (tonumber(it.sellPrice) or 0) > 0 then
+                local tex, cnt, locked = GetContainerItemInfo(it.bagID, it.slotID)
+                if tex and not locked then
+                    table.insert(q, { bagID = it.bagID, slotID = it.slotID, sellPrice = it.sellPrice })
+                end
+            end
+        end
+    end
+    return q
+end
+
+function MerchantMenu:AutoSellJunk()
+    if not self.isOpen then return end
+    if self.autoSell.running then return end
+    if self:IsQtyModalOpen() then return end
+    if MerchantFrame and MerchantFrame:IsShown() then MerchantFrame.selectedTab = 1 end
+    local queue = self:BuildAutoSellQueue()
+    if table.getn(queue) == 0 then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Nenhum lixo (cinza) para vender.")
+        PlaySound("igQuestFailed")
+        return
+    end
+    self.autoSell.running = true
+    self.autoSell.queue = queue
+    self.autoSell.pos = 1
+    self.autoSell.gained = 0
+    self.autoSell.acc = 0
+    if not self.autoSellFrame then
+        self.autoSellFrame = CreateFrame("Frame", "ConsoleMode_MerchantAutoSellFrame")
+    end
+    self.autoSellFrame:SetScript("OnUpdate", function()
+        MerchantMenu:AutoSell_OnUpdate(arg1)
+    end)
+    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Vendendo " .. table.getn(queue) .. " itens cinza...")
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function MerchantMenu:AutoSell_OnUpdate(dt)
+    local st = self.autoSell
+    if not st.running then return end
+    st.acc = (st.acc or 0) + (dt or 0)
+    if st.acc < 0.15 then return end
+    st.acc = 0
+    if not self.isOpen then
+        self:AutoSell_Stop(false)
+        return
+    end
+    local q = st.queue or {}
+    local total = table.getn(q)
+    local pos = tonumber(st.pos) or 1
+    if pos > total then
+        self:AutoSell_Stop(true)
+        return
+    end
+    local entry = q[pos]
+    st.pos = pos + 1
+    if entry then
+        local tex, cnt, locked = GetContainerItemInfo(entry.bagID, entry.slotID)
+        if tex and not locked then
+            ClearCursor()
+            pcall(function() UseContainerItem(entry.bagID, entry.slotID) end)
+            st.gained = (st.gained or 0) + (tonumber(entry.sellPrice) or 0)
+        end
+    end
+    if (st.pos or 1) > total then
+        self:AutoSell_Stop(true)
+    end
+end
+
+function MerchantMenu:AutoSell_Stop(announce)
+    local st = self.autoSell
+    st.running = false
+    st.pos = 1
+    if self.autoSellFrame then self.autoSellFrame:SetScript("OnUpdate", nil) end
+    if announce then
+        local g = tonumber(st.gained) or 0
+        if g > 0 then
+            DEFAULT_CHAT_FRAME:AddMessage("|cff1eff00[ConsoleMode]|r Lixo vendido: +" .. self:FormatMoneyText(g))
+            PlaySound("ITEM_REPAIR")
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Auto-sell concluído (sem ganho).")
+        end
+        st.gained = 0
+        st.queue = {}
+        self:OnBagUpdate()
+        self:RefreshHeader()
+    end
+end
+
+function MerchantMenu:IsAutoSelling()
+    if self.autoSell and self.autoSell.running then return true end
+    return false
+end
+
+-- ----------------------------------------------------------------------------
 -- 10. CONTROLE DE ABERTURA, ATUALIZAÇÃO E FECHAMENTO
 -- ----------------------------------------------------------------------------
 function MerchantMenu:OnBagUpdate()
@@ -1533,8 +2579,15 @@ function MerchantMenu:Open()
 
     self:UpdateBagsSubTabBar()
     self:ScanPlayerBags()
+    -- FASE 5: inicializa loja do vendedor
+    self.vendorSubTabIdx     = 1
+    self.selectedVendorIndex = 1
+    self.vendorScrollOffset  = 0
+    self:UpdateVendorSubTabBar()
+    self:ScanMerchantItems()
     self:UpdateColumnVisuals()
     self:UpdateBagRows()
+    self:UpdateVendorRows()
 
     if self.dimmer then
         self.dimmer:Show()
@@ -1561,6 +2614,8 @@ end
 
 function MerchantMenu:Close()
     if not self.isOpen then return end
+    if self:IsQtyModalOpen() then self:CloseQtyModal() end
+    if self:IsAutoSelling() then self:AutoSell_Stop(false) end
     self.isOpen           = false
     self.announced        = false
     self.currentNPC       = nil
@@ -1568,6 +2623,11 @@ function MerchantMenu:Close()
     self.itemCount        = 0
     self.rawBagItems      = {}
     self.filteredBagItems = {}
+    self.merchantItems       = {}
+    self.filteredVendorItems = {}
+    self.selectedVendorIndex = 1
+    self.vendorScrollOffset  = 0
+    self.vendorSubTabIdx     = 1
 
     if self.scanFrame then
         self.scanFrame:SetScript("OnUpdate", nil)
@@ -1681,7 +2741,8 @@ function MerchantMenu:OnMerchantShow()
 end
 
 function MerchantMenu:OnMerchantUpdate()
-    if self.isOpen and not self.announced then
+    if not self.isOpen then return end
+    if not self.announced then
         local count = (GetMerchantNumItems and GetMerchantNumItems()) or 0
         if count > 0 then
             if self.scanFrame then
@@ -1689,16 +2750,39 @@ function MerchantMenu:OnMerchantUpdate()
             end
             self:AnnounceMerchant(count)
         end
+    else
+        -- Loja aberta: compra/venda/recompra mudou estoque -> rescan
+        self:ScanMerchantItems()
+        self:UpdateVendorRows()
+        self:RefreshHeader()
+    end
+end
+
+function MerchantMenu:OnMoneyUpdate()
+    if not self.isOpen then return end
+    self:RefreshHeader()
+    if self.activeColumn == "VENDOR" then
+        self:UpdateVendorRows()
     end
 end
 
 function MerchantMenu:OnMerchantClosed()
+    if self:IsQtyModalOpen() then self:CloseQtyModal() end
+    if self:IsAutoSelling() then self:AutoSell_Stop(false) end
     if self.isOpen then
         self.isOpen     = false
         self.announced  = false
         self.currentNPC = nil
         self.canRepair  = false
         self.itemCount  = 0
+        self.merchantItems = {}
+        self.filteredVendorItems = {}
+        self.selectedVendorIndex = 1
+        self.vendorScrollOffset = 0
+        self.vendorSubTabIdx = 1
+        if self.autoSellFrame then
+            self.autoSellFrame:SetScript("OnUpdate", nil)
+        end
 
         if self.scanFrame then
             self.scanFrame:SetScript("OnUpdate", nil)
@@ -1755,6 +2839,7 @@ function MerchantMenu:Initialize()
     ef:RegisterEvent("MERCHANT_UPDATE")
     ef:RegisterEvent("MERCHANT_CLOSED")
     ef:RegisterEvent("BAG_UPDATE")
+    ef:RegisterEvent("PLAYER_MONEY")
 
     ef:SetScript("OnEvent", function()
         if event == "MERCHANT_SHOW" then
@@ -1765,6 +2850,8 @@ function MerchantMenu:Initialize()
             MerchantMenu:OnMerchantClosed()
         elseif event == "BAG_UPDATE" then
             MerchantMenu:OnBagUpdate()
+        elseif event == "PLAYER_MONEY" then
+            MerchantMenu:OnMoneyUpdate()
         end
     end)
 end

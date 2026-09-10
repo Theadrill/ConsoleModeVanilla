@@ -420,6 +420,33 @@ function HUD:Initialize()
         HUD.rangeTexture = tex
     end
 
+    -- Indicador de Titulo para a Pagina de Itens de Quests (L2+R2)
+    do
+        local questHeader = CreateFrame("Frame", "ConsoleModeHUDQuestHeader", f)
+        questHeader:SetFrameStrata("HIGH")
+        questHeader:SetWidth(240)
+        questHeader:SetHeight(20)
+        -- Posicionado no centro horizontal entre os clusters, logo acima do indicador de range
+        questHeader:SetPoint("BOTTOM", f, "CENTER", 0, 22)
+
+        local titleText = questHeader:CreateFontString(nil, "OVERLAY")
+        titleText:SetPoint("CENTER", questHeader, "CENTER", 0, 0)
+
+        -- Aplicar identidade visual nobre do MainMenu (Marcellus-Regular com fallback seguro)
+        local fontPath = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\Marcellus-Regular.ttf"
+        titleText:SetFont(fontPath, 13, "OUTLINE")
+        if not titleText:GetFont() then
+            titleText:SetFont("Fonts\\FRIZQT__.TTF", 13, "OUTLINE")
+        end
+        titleText:SetShadowOffset(1, -1)
+        titleText:SetShadowColor(0, 0, 0, 0.90)
+        titleText:SetTextColor(0.88, 0.60, 0.08)
+        titleText:SetText("PÁGINA DE ITENS DE QUESTS")
+
+        questHeader:Hide()
+        HUD.questPageTitle = questHeader
+    end
+
     -- Criacao dos 8 Botoes
     self.buttons = {}
     for i, def in ipairs(BUTTON_LAYOUT) do
@@ -694,6 +721,15 @@ function HUD:Update()
     if not self.frame then return end
     
     local page = self.currentPage or 1
+
+    -- Indicador visual da Pagina de Itens de Quests (L2+R2 / Pagina 5)
+    if self.questPageTitle then
+        if page == 5 then
+            self.questPageTitle:Show()
+        else
+            self.questPageTitle:Hide()
+        end
+    end
     
     for _, btn in ipairs(self.buttons) do
         local slot, tex, actionName = self:GetSlotForButton(page, btn.btnKey)

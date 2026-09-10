@@ -12,7 +12,7 @@ local MerchantMenu = ConsoleMode_MerchantMenu
 CM.merchantMenu = MerchantMenu
 
 -- ----------------------------------------------------------------------------
--- CONSTANTES DE DESIGN SYSTEM & RECURSOS
+-- 1. CONSTANTES DE DESIGN SYSTEM, RECURSOS & CORES
 -- ----------------------------------------------------------------------------
 local FONTS = {
     titleBold = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf",
@@ -40,21 +40,70 @@ local ICONS = {
     COPPER = "Interface\\MoneyFrame\\UI-CopperIcon",
 }
 
--- ----------------------------------------------------------------------------
--- ESTADO DO MÓDULO
--- ----------------------------------------------------------------------------
-MerchantMenu.isOpen       = false
-MerchantMenu.initialized  = false
-MerchantMenu.currentNPC   = nil
-MerchantMenu.canRepair    = false
-MerchantMenu.itemCount    = 0
-MerchantMenu.announced    = false
-MerchantMenu.scanFrame    = nil
-MerchantMenu.frame        = nil
-MerchantMenu.activeColumn = "VENDOR" -- "VENDOR" ou "BAGS"
+local QUALITY_COLORS = {
+    [0] = { r = 0.62, g = 0.62, b = 0.62, hex = "|cff9d9d9d" }, -- Pobre (Cinza)
+    [1] = { r = 1.00, g = 1.00, b = 1.00, hex = "|cffffffff" }, -- Comum (Branco)
+    [2] = { r = 0.12, g = 1.00, b = 0.00, hex = "|cff1eff00" }, -- Incomum (Verde)
+    [3] = { r = 0.00, g = 0.44, b = 0.87, hex = "|cff0070dd" }, -- Raro (Azul)
+    [4] = { r = 0.64, g = 0.21, b = 0.93, hex = "|cffa335ee" }, -- Épico (Roxo)
+    [5] = { r = 1.00, g = 0.50, b = 0.00, hex = "|cffff8000" }, -- Lendário (Laranja)
+}
+
+local SUBTABS_BAGS = {
+    { id = "ALL",        name = "Todos" },
+    { id = "EQUIP",      name = "Equipamentos" },
+    { id = "CONSUMABLE", name = "Consumíveis" },
+    { id = "JUNK",       name = "Lixo" },
+}
+
+local NINESLICE = {
+    texture    = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Carved_9Slides.tga",
+    cornerSize = 48,
+    drawLayer  = "BACKGROUND",
+    uv = {
+        col = {
+            { 0.0000, 0.2500 }, -- Esquerda (0 a 64px de 256px)
+            { 0.2500, 0.5000 }, -- Centro (64 a 128px de 256px)
+            { 0.5000, 0.7500 }, -- Direita (128 a 192px de 256px)
+        },
+        row = {
+            { 0.0000, 0.2500 }, -- Topo (0 a 64px de 256px)
+            { 0.2500, 0.5000 }, -- Centro (64 a 128px de 256px)
+            { 0.5000, 0.7500 }, -- Fundo (128 a 192px de 256px)
+        }
+    }
+}
 
 -- ----------------------------------------------------------------------------
--- 1. HELPERS TIPOGRÁFICOS E VISUAIS
+-- 2. ESTADO DO MÓDULO
+-- ----------------------------------------------------------------------------
+MerchantMenu.isOpen           = false
+MerchantMenu.initialized      = false
+MerchantMenu.currentNPC       = nil
+MerchantMenu.canRepair        = false
+MerchantMenu.itemCount        = 0
+MerchantMenu.announced        = false
+MerchantMenu.scanFrame        = nil
+MerchantMenu.frame            = nil
+MerchantMenu.activeColumn     = "BAGS" -- "VENDOR" ou "BAGS"
+MerchantMenu.bagSubTabIdx     = 1
+MerchantMenu.selectedBagIndex = 1
+MerchantMenu.bagScrollOffset  = 0
+MerchantMenu.rawBagItems      = {}
+MerchantMenu.filteredBagItems = {}
+
+-- ----------------------------------------------------------------------------
+-- 3. TOOLTIP SCANNER PARA PREÇOS DE VENDA & ATRIBUTOS (WOW 1.12)
+-- ----------------------------------------------------------------------------
+local scanTip = CreateFrame("GameTooltip", "ConsoleMode_MerchantScanTip", UIParent, "GameTooltipTemplate")
+scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+scanTip.money = 0
+scanTip:SetScript("OnTooltipAddMoney", function()
+    scanTip.money = arg1
+end)
+
+-- ----------------------------------------------------------------------------
+-- 4. HELPERS TIPOGRÁFICOS E FORMATAÇÃO DE MOEDAS
 -- ----------------------------------------------------------------------------
 function MerchantMenu:ApplyFont(fontString, fontPath, size, outline, shadowOffset, shadowColor)
     if not fontString then return end
@@ -94,7 +143,7 @@ function MerchantMenu:FormatMoneyText(totalCopper)
 end
 
 -- ----------------------------------------------------------------------------
--- 2. SUPRESSÃO SEGURA DE BOLSAS E DA JANELA NATIVA DA BLIZZARD (MerchantFrame)
+-- 5. SUPRESSÃO SEGURA DE BOLSAS E DA JANELA NATIVA DA BLIZZARD (MerchantFrame)
 -- ----------------------------------------------------------------------------
 function MerchantMenu:CloseAllOpenBags()
     for i = 1, 5 do
@@ -131,26 +180,230 @@ function MerchantMenu:SuppressDefaultFrame()
 end
 
 -- ----------------------------------------------------------------------------
--- 3. TEXTURA 9-SLICE & DIMMER (IDÊNTICO AO MAIN MENU)
+-- 6. LEITURA, CLASSIFICAÇÃO E FILTROS DO INVENTÁRIO DO JOGADOR (FASE 3)
 -- ----------------------------------------------------------------------------
-local NINESLICE = {
-    texture    = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Carved_9Slides.tga",
-    cornerSize = 48,
-    drawLayer  = "BACKGROUND",
-    uv = {
-        col = {
-            { 0.0000, 0.2500 }, -- Esquerda (0 a 64px de 256px)
-            { 0.2500, 0.5000 }, -- Centro (64 a 128px de 256px)
-            { 0.5000, 0.7500 }, -- Direita (128 a 192px de 256px)
-        },
-        row = {
-            { 0.0000, 0.2500 }, -- Topo (0 a 64px de 256px)
-            { 0.2500, 0.5000 }, -- Centro (64 a 128px de 256px)
-            { 0.5000, 0.7500 }, -- Fundo (128 a 192px de 256px)
-        }
-    }
-}
+function MerchantMenu:ParseBagItem(bagID, slotID)
+    local texture, itemCount, locked, quality, readable = GetContainerItemInfo(bagID, slotID)
+    if not texture then return nil end
 
+    itemCount = itemCount or 1
+    local rawLink = GetContainerItemLink(bagID, slotID)
+
+    local itemName = "Item Desconhecido"
+    local itemQuality = quality or 1
+    local itemReqLevel = 0
+    local itemType = ""
+    local itemSubType = ""
+    local itemEquipLoc = ""
+
+    local itemID = nil
+    if rawLink then
+        local _, _, idStr = string.find(rawLink, "item:(%d+)")
+        itemID = tonumber(idStr)
+    end
+
+    if itemID then
+        local n, _, q, reqL, t, st, _, eqL = GetItemInfo(itemID)
+        if n then
+            itemName = n
+            itemQuality = tonumber(q) or itemQuality
+            itemReqLevel = tonumber(reqL) or 0
+            itemType = t or ""
+            itemSubType = st or ""
+            itemEquipLoc = eqL or ""
+        end
+    elseif rawLink then
+        local n, _, q, reqL, t, st, _, eqL = GetItemInfo(rawLink)
+        if n then
+            itemName = n
+            itemQuality = tonumber(q) or itemQuality
+            itemReqLevel = tonumber(reqL) or 0
+            itemType = t or ""
+            itemSubType = st or ""
+            itemEquipLoc = eqL or ""
+        end
+    end
+
+    -- Preço de venda via Tooltip Scanner
+    local sellPrice = 0
+    scanTip.money = 0
+    scanTip:ClearLines()
+    pcall(function() scanTip:SetBagItem(bagID, slotID) end)
+
+    if scanTip.money and scanTip.money > 0 then
+        sellPrice = scanTip.money
+    elseif itemID then
+        -- Fallback na base de dados própria embutida de Vanilla ou addons de economia
+        local unitPrice = 0
+        if ConsoleMode_SellValues and ConsoleMode_SellValues[itemID] then
+            unitPrice = ConsoleMode_SellValues[itemID]
+        elseif ShaguTweaks and ShaguTweaks.SellValueDB and ShaguTweaks.SellValueDB[itemID] then
+            unitPrice = ShaguTweaks.SellValueDB[itemID]
+        elseif ShaguValueDB and ShaguValueDB[itemID] then
+            unitPrice = ShaguValueDB[itemID]
+        elseif GetSellValue and rawLink then
+            unitPrice = GetSellValue(rawLink) or 0
+        elseif GetItemSellValue and rawLink then
+            unitPrice = GetItemSellValue(rawLink) or 0
+        end
+        if unitPrice > 0 then
+            sellPrice = unitPrice * itemCount
+        end
+    end
+
+    -- Tooltip lines parsing (Atributos, Requisitos e Efeitos)
+    local statsLines = {}
+    local desc = ""
+    local numLines = scanTip:NumLines() or 0
+    for l = 2, numLines do
+        local leftTextObj = _G["ConsoleMode_MerchantScanTipTextLeft" .. l]
+        local rightTextObj = _G["ConsoleMode_MerchantScanTipTextRight" .. l]
+        local leftText = (leftTextObj and leftTextObj:GetText()) or ""
+        local rightText = (rightTextObj and rightTextObj:GetText()) or ""
+
+        if leftText ~= "" then
+            if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
+                -- já capturado via scanTip.money
+            elseif string.find(leftText, "Uso:") or string.find(leftText, "Use:") or string.find(leftText, "Equipar:") then
+                desc = leftText
+                if rightText ~= "" then desc = desc .. " " .. rightText end
+            elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
+                local lineStr = leftText
+                if rightText ~= "" then
+                    lineStr = lineStr .. "  " .. rightText
+                end
+                table.insert(statsLines, "|cffffffff" .. lineStr .. "|r")
+            end
+        end
+    end
+
+    -- Se GetItemInfo não retornou nome, recupera a linha 1 do Tooltip
+    if itemName == "Item Desconhecido" or itemName == "" then
+        local left1 = _G["ConsoleMode_MerchantScanTipTextLeft1"]
+        local text1 = left1 and left1:GetText()
+        if text1 and text1 ~= "" then
+            itemName = text1
+        end
+    end
+
+    -- Classificação de Categoria
+    local cat = "MISC"
+    if itemType == "Armadura" or itemType == "Armor" or itemType == "Arma" or itemType == "Weapon" or (itemEquipLoc and itemEquipLoc ~= "") then
+        cat = "EQUIP"
+    elseif itemType == "Consumível" or itemType == "Consumable" or itemType == "Potion" or itemType == "Food & Drink" then
+        cat = "CONSUMABLE"
+    elseif itemType == "Mercadoria" or itemType == "Trade Goods" or itemType == "Reagente" or itemType == "Reagent" then
+        cat = "TRADE"
+    end
+
+    return {
+        bagID       = bagID,
+        slotID      = slotID,
+        itemID      = itemID,
+        name        = itemName,
+        texture     = texture,
+        count       = itemCount,
+        quality     = itemQuality,
+        link        = rawLink,
+        reqLevel    = itemReqLevel,
+        itemType    = itemType,
+        subType     = itemSubType,
+        equipLoc    = itemEquipLoc,
+        category    = cat,
+        statsLines  = statsLines,
+        desc        = desc,
+        sellPrice   = sellPrice,
+    }
+end
+
+function MerchantMenu:ScanPlayerBags()
+    local rawItems = {}
+    for bag = 0, 4 do
+        local numSlots = GetContainerNumSlots(bag)
+        if numSlots and numSlots > 0 then
+            for slot = 1, numSlots do
+                local itemData = self:ParseBagItem(bag, slot)
+                if itemData then
+                    table.insert(rawItems, itemData)
+                end
+            end
+        end
+    end
+    self.rawBagItems = rawItems
+    self:FilterBagItems()
+end
+
+function MerchantMenu:FilterBagItems()
+    local currentSubTab = SUBTABS_BAGS[self.bagSubTabIdx] or SUBTABS_BAGS[1]
+    local filterId = currentSubTab.id
+    local filtered = {}
+
+    local raw = self.rawBagItems or {}
+    local numRaw = table.getn(raw)
+    for i = 1, numRaw do
+        local item = raw[i]
+        local match = false
+        if filterId == "ALL" then
+            match = true
+        elseif filterId == "EQUIP" then
+            match = (item.category == "EQUIP")
+        elseif filterId == "CONSUMABLE" then
+            match = (item.category == "CONSUMABLE")
+        elseif filterId == "JUNK" then
+            match = (item.quality == 0)
+        end
+        if match then
+            table.insert(filtered, item)
+        end
+    end
+
+    self.filteredBagItems = filtered
+
+    local numFiltered = table.getn(filtered)
+    if self.selectedBagIndex > numFiltered then
+        self.selectedBagIndex = math.max(1, numFiltered)
+    end
+    if self.selectedBagIndex < 1 then
+        self.selectedBagIndex = 1
+    end
+
+    -- Ajusta o offset de rolagem mantendo a seleção visível
+    local visibleRows = 7
+    if self.selectedBagIndex <= self.bagScrollOffset then
+        self.bagScrollOffset = self.selectedBagIndex - 1
+    elseif self.selectedBagIndex > (self.bagScrollOffset + visibleRows) then
+        self.bagScrollOffset = self.selectedBagIndex - visibleRows
+    end
+    if self.bagScrollOffset < 0 then
+        self.bagScrollOffset = 0
+    end
+    local maxOffset = math.max(0, numFiltered - visibleRows)
+    if self.bagScrollOffset > maxOffset then
+        self.bagScrollOffset = maxOffset
+    end
+end
+
+function MerchantMenu:UpdateBagsSubTabBar()
+    local rightCol = self.frame and self.frame.rightCol
+    if not rightCol or not rightCol.tabsLabel then return end
+
+    local parts = {}
+    local num = table.getn(SUBTABS_BAGS)
+    for idx = 1, num do
+        local tab = SUBTABS_BAGS[idx]
+        if idx == self.bagSubTabIdx then
+            table.insert(parts, "|cffe09a15[ " .. tab.name .. " ]|r")
+        else
+            table.insert(parts, "|cff848484" .. tab.name .. "|r")
+        end
+    end
+
+    rightCol.tabsLabel:SetText(table.concat(parts, "   "))
+end
+
+-- ----------------------------------------------------------------------------
+-- 7. CONSTRUÇÃO VISUAL (9-SLICE, DIMMER, DETAILCARD, FOOTER, COLUNAS)
+-- ----------------------------------------------------------------------------
 function MerchantMenu:Create9Slice(parent, texturePath, cornerSize, uvMap, drawLayer)
     if not parent or not texturePath then return nil end
 
@@ -239,9 +492,6 @@ function MerchantMenu:CreateDimmer()
     self.dimmer = dimmer
 end
 
--- ----------------------------------------------------------------------------
--- 4. DETAIL CARD (ESTILO ZELDA / CONSOLE RPG - IDÊNTICO AO MAIN MENU)
--- ----------------------------------------------------------------------------
 function MerchantMenu:CreateDetailCard(parent)
     local card = CreateFrame("Frame", "ConsoleMode_MerchantDetailCard", parent)
     card:SetHeight(154)
@@ -276,36 +526,37 @@ function MerchantMenu:CreateDetailCard(parent)
     iconBorder:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.8)
     card.iconBorder = iconBorder
 
-    -- 2. Título (+20%: 16 -> 19)
+    -- 2. Preço de Venda / Compra (+20%: 14 -> 17)
+    local priceText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    priceText:SetPoint("TOPRIGHT", card, "TOPRIGHT", -16, -10)
+    priceText:SetJustifyH("RIGHT")
+    self:ApplyFont(priceText, FONTS.titleBold, 17)
+    priceText:SetText("|cffaaaaaaPreço: |r--")
+    card.priceText = priceText
+
+    -- 3. Título (+20%: 16 -> 19)
     local titleText = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     titleText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 12, 0)
-    titleText:SetPoint("RIGHT", card, "RIGHT", -140, 0)
+    titleText:SetPoint("RIGHT", priceText, "LEFT", -12, 0)
     titleText:SetJustifyH("LEFT")
     self:ApplyFont(titleText, FONTS.titleBold, 19)
     titleText:SetText("|cffe09a15Selecione um item para inspecionar|r")
     card.titleText = titleText
 
-    -- Preço (+20%: 14 -> 17)
-    local priceText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    priceText:SetPoint("TOPRIGHT", card, "TOPRIGHT", -14, -10)
-    self:ApplyFont(priceText, FONTS.titleBold, 17)
-    priceText:SetText("|cffaaaaaaPreço: |r--")
-    card.priceText = priceText
-
-    -- 3. Subtítulo (Tipo / Subtipo) (+20%: 12 -> 15)
+    -- 4. Subtítulo (Tipo / Subtipo / Nível) (+20%: 12 -> 15)
     local typeText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     typeText:SetPoint("TOPLEFT", titleText, "BOTTOMLEFT", 0, -3)
-    typeText:SetPoint("RIGHT", card, "RIGHT", -140, 0)
+    typeText:SetPoint("RIGHT", card, "RIGHT", -16, 0)
     typeText:SetJustifyH("LEFT")
     self:ApplyFont(typeText, FONTS.medium, 15)
     typeText:SetText("|cffaaaaaaNavegue pelas colunas para comprar ou vender itens|r")
     card.typeText = typeText
 
-    -- 4. Descrição / Atributos (2 Colunas) (+20%: 11 -> 13)
+    -- 5. Descrição / Atributos (2 Colunas) (+20%: 11 -> 13)
     local descColLeft = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    descColLeft:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -6)
-    descColLeft:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 10)
-    descColLeft:SetWidth(320)
+    descColLeft:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -8)
+    descColLeft:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 12, 10)
+    descColLeft:SetWidth(340)
     descColLeft:SetJustifyH("LEFT")
     descColLeft:SetJustifyV("TOP")
     self:ApplyFont(descColLeft, FONTS.bodyBold, 13)
@@ -314,7 +565,7 @@ function MerchantMenu:CreateDetailCard(parent)
 
     local descColRight = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     descColRight:SetPoint("TOPLEFT", descColLeft, "TOPRIGHT", 16, 0)
-    descColRight:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 10)
+    descColRight:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -12, 10)
     descColRight:SetJustifyH("LEFT")
     descColRight:SetJustifyV("TOP")
     self:ApplyFont(descColRight, FONTS.bodyBold, 13)
@@ -324,9 +575,6 @@ function MerchantMenu:CreateDetailCard(parent)
     return card
 end
 
--- ----------------------------------------------------------------------------
--- 5. BARRA DE ATALHOS NO RODAPÉ (CONSOLE HINTS - ÍCONES +35%, TEXTO +20%)
--- ----------------------------------------------------------------------------
 function MerchantMenu:CreateFooterHints(parent)
     local hints = {
         { icons = { "LB", "RB" }, label = "Colunas" },
@@ -346,16 +594,19 @@ function MerchantMenu:CreateFooterHints(parent)
     local totalWidth = 0
     local widgets = {}
 
-    for i, hint in ipairs(hints) do
+    local numHints = table.getn(hints)
+    for i = 1, numHints do
+        local hint = hints[i]
         local groupFrame = CreateFrame("Frame", nil, container)
         groupFrame:SetHeight(34)
 
         local currentX = 0
-        for _, iconKey in ipairs(hint.icons) do
+        local numIcons = table.getn(hint.icons)
+        for k = 1, numIcons do
+            local iconKey = hint.icons[k]
             local texPath = ICONS[iconKey]
             local iconTex = groupFrame:CreateTexture(nil, "OVERLAY")
 
-            -- Ícones aumentados em +35%: 20 -> 27px, 24 -> 32px
             local curIconW = 27
             local curIconH = 27
             if iconKey == "LB" or iconKey == "RB" or iconKey == "A" or iconKey == "B" or iconKey == "X" or iconKey == "Y" then
@@ -372,7 +623,6 @@ function MerchantMenu:CreateFooterHints(parent)
 
         currentX = currentX + 5
 
-        -- Rótulos aumentados em +20%: 15 -> 18px
         local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
         self:ApplyFont(label, FONTS.bodyBold, 18)
@@ -382,7 +632,7 @@ function MerchantMenu:CreateFooterHints(parent)
         local textW = math.floor(label:GetStringWidth() or 40)
         currentX = currentX + textW
 
-        if i < table.getn(hints) then
+        if i < numHints then
             local sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
             sep:SetPoint("LEFT", groupFrame, "LEFT", currentX + 10, 0)
             self:ApplyFont(sep, FONTS.medium, 14)
@@ -401,23 +651,135 @@ function MerchantMenu:CreateFooterHints(parent)
 
     local startX = -math.floor(totalWidth / 2)
     local curX = startX
-    for _, widget in ipairs(widgets) do
+    local numWidgets = table.getn(widgets)
+    for w = 1, numWidgets do
+        local widget = widgets[w]
         widget:SetPoint("LEFT", container, "CENTER", curX, 0)
         curX = curX + widget:GetWidth()
     end
     container:SetWidth(totalWidth)
 end
 
--- ----------------------------------------------------------------------------
--- 6. CONSTRUÇÃO DO CANVAS E COLUNAS SPLIT-VIEW
--- ----------------------------------------------------------------------------
+function MerchantMenu:CreateBagRows(parent)
+    local rows = {}
+    for i = 1, 7 do
+        local row = CreateFrame("Button", "ConsoleMode_MerchantBagRow" .. i, parent)
+        row:SetHeight(42)
+        if i == 1 then
+            row:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -2)
+            row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -2)
+        else
+            row:SetPoint("TOPLEFT", rows[i - 1], "BOTTOMLEFT", 0, -2)
+            row:SetPoint("TOPRIGHT", rows[i - 1], "BOTTOMRIGHT", 0, -2)
+        end
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+        row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+
+        -- Highlight de fundo quando selecionado
+        local hl = row:CreateTexture(nil, "BACKGROUND")
+        hl:SetTexture("Interface\\Buttons\\UI-Listbox-Highlight")
+        hl:SetBlendMode("ADD")
+        hl:SetAlpha(0.30)
+        hl:SetAllPoints(row)
+        hl:Hide()
+        row.highlight = hl
+
+        -- Cursor indicador
+        local cur = row:CreateTexture(nil, "OVERLAY")
+        cur:SetWidth(12)
+        cur:SetHeight(12)
+        cur:SetPoint("LEFT", row, "LEFT", 4, 0)
+        cur:SetTexture("Interface\\QuestFrame\\UI-Quest-BulletPoint")
+        cur:SetVertexColor(1.0, 0.85, 0.20)
+        cur:Hide()
+        row.cursor = cur
+
+        -- Ícone do item
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(32)
+        icon:SetHeight(32)
+        icon:SetPoint("LEFT", row, "LEFT", 20, 0)
+        row.icon = icon
+
+        -- Borda de qualidade do ícone
+        local iconBorder = CreateFrame("Frame", nil, row)
+        iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+        iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+        iconBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        row.iconBorder = iconBorder
+
+        -- Texto de quantidade (Stack)
+        local stackText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        stackText:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", -1, 1)
+        MerchantMenu:ApplyFont(stackText, FONTS.titleBold, 13, "OUTLINE")
+        row.stackText = stackText
+
+        -- Preço de venda
+        local priceText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        priceText:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        priceText:SetJustifyH("RIGHT")
+        MerchantMenu:ApplyFont(priceText, FONTS.titleBold, 15)
+        row.priceText = priceText
+
+        -- Nome do item
+        local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        nameText:SetPoint("LEFT", icon, "RIGHT", 8, 0)
+        nameText:SetPoint("RIGHT", priceText, "LEFT", -8, 0)
+        nameText:SetJustifyH("LEFT")
+        MerchantMenu:ApplyFont(nameText, FONTS.bodyBold, 16)
+        row.nameText = nameText
+
+        row.slotIndex = i
+        row:SetScript("OnClick", function()
+            local itemIdx = (MerchantMenu.bagScrollOffset or 0) + this.slotIndex
+            MerchantMenu.activeColumn = "BAGS"
+            MerchantMenu.selectedBagIndex = itemIdx
+            MerchantMenu:UpdateColumnVisuals()
+            MerchantMenu:UpdateBagRows()
+            PlaySound("igMainMenuOptionCheckBoxOn")
+        end)
+
+        row:SetScript("OnEnter", function()
+            local itemIdx = (MerchantMenu.bagScrollOffset or 0) + this.slotIndex
+            if MerchantMenu.activeColumn ~= "BAGS" or (MerchantMenu.selectedBagIndex ~= itemIdx) then
+                this:SetBackdropBorderColor(0.70, 0.60, 0.40, 0.80)
+            end
+        end)
+
+        row:SetScript("OnLeave", function()
+            local itemIdx = (MerchantMenu.bagScrollOffset or 0) + this.slotIndex
+            if MerchantMenu.activeColumn == "BAGS" and itemIdx == MerchantMenu.selectedBagIndex then
+                this:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+            else
+                this:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+            end
+        end)
+
+        row:Hide()
+        table.insert(rows, row)
+    end
+    parent.rows = rows
+    return rows
+end
+
 function MerchantMenu:CreateUI()
     if self.frame then return end
 
-    -- 6.1. Dimmer de fundo (Imersão console)
+    -- Dimmer de fundo (Imersão console)
     self:CreateDimmer()
 
-    -- 6.2. Janela Principal (Sem transparência, 9-slice esculpido oficial)
+    -- Janela Principal (Sem transparência, 9-slice esculpido oficial)
     local frame = CreateFrame("Frame", "ConsoleMode_MerchantFrame", UIParent)
     frame:SetFrameStrata("HIGH")
     frame:SetFrameLevel(10)
@@ -425,7 +787,6 @@ function MerchantMenu:CreateUI()
     frame:EnableMouse(true)
     frame:Hide()
 
-    -- Aplica a textura 9-Slice idêntica ao MainMenu
     self.slices = self:Create9Slice(
         frame,
         NINESLICE.texture,
@@ -434,7 +795,6 @@ function MerchantMenu:CreateUI()
         NINESLICE.drawLayer
     )
 
-    -- Permite fechar com a tecla ESC
     table.insert(UISpecialFrames, "ConsoleMode_MerchantFrame")
     frame:SetScript("OnHide", function()
         if MerchantMenu.isOpen then
@@ -444,14 +804,14 @@ function MerchantMenu:CreateUI()
 
     self.frame = frame
 
-    -- 6.3. Título Superior Central (+20%: 19 -> 23)
+    -- Título Superior Central (+20%: 19 -> 23)
     local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     titleText:SetPoint("TOP", frame, "TOP", 0, -20)
     self:ApplyFont(titleText, FONTS.titleBold, 23)
     titleText:SetText("|cffe09a15COMÉRCIO & REPAROS|r")
     frame.titleText = titleText
 
-    -- 6.4. Barra de Cabeçalho (Nome do NPC, Saldo de Moedas e Botão Sair)
+    -- Barra de Cabeçalho (Nome do NPC, Saldo de Moedas e Botão Sair)
     local header = CreateFrame("Frame", "ConsoleMode_MerchantHeader", frame)
     header:SetHeight(32)
     header:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -18)
@@ -472,7 +832,7 @@ function MerchantMenu:CreateUI()
     playerMoneyText:SetText("0g 0s 0c")
     header.playerMoneyText = playerMoneyText
 
-    -- Botão Sair com estilo idêntico aos botões do MainMenu (Ícone +35%: 18 -> 25px, Texto +20%: 13 -> 16px)
+    -- Botão Sair com estilo do MainMenu
     local closeBtn = CreateFrame("Button", "ConsoleMode_MerchantCloseBtn", header)
     closeBtn:SetWidth(96)
     closeBtn:SetHeight(28)
@@ -510,14 +870,14 @@ function MerchantMenu:CreateUI()
     end)
     header.closeBtn = closeBtn
 
-    -- 6.5. DetailCard Inferior
+    -- DetailCard Inferior
     local detailCard = self:CreateDetailCard(frame)
     frame.detailCard = detailCard
 
-    -- 6.6. Barra de Rodapé com Atalhos do Controle
+    -- Barra de Rodapé com Atalhos do Controle
     self:CreateFooterHints(frame)
 
-    -- 6.7. Área Central de Conteúdo Split-View
+    -- Área Central de Conteúdo Split-View
     local contentArea = CreateFrame("Frame", "ConsoleMode_MerchantContentArea", frame)
     contentArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -54)
     contentArea:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, 210)
@@ -533,7 +893,7 @@ function MerchantMenu:CreateUI()
     divider:SetPoint("CENTER", contentArea, "CENTER", 0, 0)
     frame.divider = divider
 
-    -- Helper para construir coluna com acabamento amadeirado / pergaminho sólido
+    -- Helper para construir coluna
     local function CreateColumnPanel(name, titleText, iconTag)
         local col = CreateFrame("Frame", name, contentArea)
         col:SetBackdrop({
@@ -572,17 +932,23 @@ function MerchantMenu:CreateUI()
         subTabBar:SetPoint("TOPRIGHT", colHeader, "BOTTOMRIGHT", 0, -2)
         col.subTabBar = subTabBar
 
-        local ltHint = subTabBar:CreateTexture(nil, "OVERLAY")
-        ltHint:SetWidth(27)
-        ltHint:SetHeight(27)
-        ltHint:SetPoint("LEFT", subTabBar, "LEFT", 2, 0)
+        local ltBtn = CreateFrame("Button", nil, subTabBar)
+        ltBtn:SetWidth(27)
+        ltBtn:SetHeight(27)
+        ltBtn:SetPoint("LEFT", subTabBar, "LEFT", 2, 0)
+        local ltHint = ltBtn:CreateTexture(nil, "OVERLAY")
+        ltHint:SetAllPoints(ltBtn)
         ltHint:SetTexture(ICONS.LT)
+        col.ltBtn = ltBtn
 
-        local rtHint = subTabBar:CreateTexture(nil, "OVERLAY")
-        rtHint:SetWidth(27)
-        rtHint:SetHeight(27)
-        rtHint:SetPoint("RIGHT", subTabBar, "RIGHT", -2, 0)
+        local rtBtn = CreateFrame("Button", nil, subTabBar)
+        rtBtn:SetWidth(27)
+        rtBtn:SetHeight(27)
+        rtBtn:SetPoint("RIGHT", subTabBar, "RIGHT", -2, 0)
+        local rtHint = rtBtn:CreateTexture(nil, "OVERLAY")
+        rtHint:SetAllPoints(rtBtn)
         rtHint:SetTexture(ICONS.RT)
+        col.rtBtn = rtBtn
 
         local tabsLabel = subTabBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         tabsLabel:SetPoint("CENTER", subTabBar, "CENTER", 0, 0)
@@ -598,10 +964,23 @@ function MerchantMenu:CreateUI()
         cDiv:SetPoint("TOPRIGHT", subTabBar, "BOTTOMRIGHT", -2, -2)
         cDiv:SetVertexColor(0.5, 0.4, 0.3, 0.35)
 
+        -- Barra Inferior de Status / Paginação
+        local statusBar = CreateFrame("Frame", nil, col)
+        statusBar:SetHeight(24)
+        statusBar:SetPoint("BOTTOMLEFT", col, "BOTTOMLEFT", 8, 6)
+        statusBar:SetPoint("BOTTOMRIGHT", col, "BOTTOMRIGHT", -8, 6)
+        col.statusBar = statusBar
+
+        local pageIndicator = statusBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        pageIndicator:SetPoint("CENTER", statusBar, "CENTER", 0, 0)
+        MerchantMenu:ApplyFont(pageIndicator, FONTS.medium, 14)
+        col.pageIndicator = pageIndicator
+
         -- Área interna de Lista
         local listArea = CreateFrame("Frame", nil, col)
         listArea:SetPoint("TOPLEFT", cDiv, "BOTTOMLEFT", 0, -4)
-        listArea:SetPoint("BOTTOMRIGHT", col, "BOTTOMRIGHT", -6, 6)
+        listArea:SetPoint("BOTTOMRIGHT", statusBar, "TOPRIGHT", 0, 2)
+        listArea:EnableMouseWheel(true)
         col.listArea = listArea
 
         local placeholder = listArea:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -618,19 +997,58 @@ function MerchantMenu:CreateUI()
     leftCol:SetPoint("BOTTOMLEFT", contentArea, "BOTTOMLEFT", 0, 0)
     leftCol:SetPoint("RIGHT", divider, "LEFT", -6, 0)
     leftCol.placeholder:SetText("|cffe09a15[ Catálogo do Vendedor ]|r\n\n|cffaaaaaaSincronizando itens com o servidor...|r\n|cff666666(Fase 4: Exibição completa da loja)|r")
+    leftCol.pageIndicator:SetText("|cff888888Catálogo do Vendedor|r")
     frame.leftCol = leftCol
+
+    leftCol.header:EnableMouse(true)
+    leftCol.header:SetScript("OnMouseDown", function()
+        if MerchantMenu.activeColumn ~= "VENDOR" then
+            MerchantMenu:ToggleColumn(-1)
+        end
+    end)
 
     -- Coluna Direita: Inventário
     local rightCol = CreateColumnPanel("ConsoleMode_MerchantColRight", "SEU INVENTÁRIO", ICONS.RB)
     rightCol:SetPoint("TOPRIGHT", contentArea, "TOPRIGHT", 0, 0)
     rightCol:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
     rightCol:SetPoint("LEFT", divider, "RIGHT", 6, 0)
-    rightCol.placeholder:SetText("|cffe09a15[ Bolsas do Jogador ]|r\n\n|cffaaaaaaPronto para conexão com o inventário|r\n|cff666666(Fase 3: Leitura e venda de bolsas)|r")
     frame.rightCol = rightCol
+
+    rightCol.header:EnableMouse(true)
+    rightCol.header:SetScript("OnMouseDown", function()
+        if MerchantMenu.activeColumn ~= "BAGS" then
+            MerchantMenu:ToggleColumn(1)
+        end
+    end)
+
+    -- Cria as 7 linhas do inventário na coluna direita
+    self:CreateBagRows(rightCol.listArea)
+
+    -- Ações dos botões [LT] e [RT] da coluna direita
+    if rightCol.ltBtn then
+        rightCol.ltBtn:SetScript("OnClick", function()
+            MerchantMenu:CycleSubTab(-1)
+        end)
+    end
+    if rightCol.rtBtn then
+        rightCol.rtBtn:SetScript("OnClick", function()
+            MerchantMenu:CycleSubTab(1)
+        end)
+    end
+
+    -- Rolagem com a roda do mouse na lista de bolsas
+    rightCol.listArea:SetScript("OnMouseWheel", function()
+        local delta = arg1
+        if delta > 0 then
+            MerchantMenu:MoveBagSelection(-1)
+        else
+            MerchantMenu:MoveBagSelection(1)
+        end
+    end)
 end
 
 -- ----------------------------------------------------------------------------
--- 7. ATUALIZAÇÃO DE LAYOUT RESPONSIVO E DADOS
+-- 8. ATUALIZAÇÃO DE LAYOUT & ATUALIZAÇÃO DAS LINHAS DO INVENTÁRIO (FASE 3)
 -- ----------------------------------------------------------------------------
 function MerchantMenu:UpdateLayout()
     if not self.frame then return end
@@ -638,7 +1056,6 @@ function MerchantMenu:UpdateLayout()
     local screenW = (UIParent and UIParent:GetWidth()) or 1024
     local screenH = (UIParent and UIParent:GetHeight()) or 768
 
-    -- Proporções responsivas idênticas às do MainMenu (94% largura, 85% altura)
     local w = math.floor(screenW * 0.94)
     local h = math.floor(screenH * 0.85)
 
@@ -652,7 +1069,6 @@ function MerchantMenu:UpdateLayout()
     self.frame:ClearAllPoints()
     self.frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 
-    -- Reposiciona a barra de rodapé centralizada
     if self.frame.footerContainer then
         self.frame.footerContainer:ClearAllPoints()
         self.frame.footerContainer:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
@@ -667,13 +1083,11 @@ function MerchantMenu:RefreshHeader()
         self.frame.header.npcNameText:SetText("|cffffffff" .. npcName .. "|r")
     end
 
-    -- Saldo do Jogador
     local playerMoney = GetMoney() or 0
     if self.frame.header and self.frame.header.playerMoneyText then
         self.frame.header.playerMoneyText:SetText(self:FormatMoneyText(playerMoney))
     end
 
-    -- Atualiza visibilidade de reparo no rodapé
     if self.footerRepairWidget then
         if self.canRepair then
             self.footerRepairWidget:Show()
@@ -683,13 +1097,343 @@ function MerchantMenu:RefreshHeader()
     end
 end
 
+function MerchantMenu:UpdateColumnVisuals()
+    if not self.frame then return end
+
+    local leftCol  = self.frame.leftCol
+    local rightCol = self.frame.rightCol
+    if not leftCol or not rightCol then return end
+
+    if self.activeColumn == "BAGS" then
+        rightCol:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+        rightCol:SetBackdropColor(0.12, 0.09, 0.06, 0.90)
+        rightCol.title:SetTextColor(1.00, 0.85, 0.25, 1.0)
+        rightCol.tagIcon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+
+        leftCol:SetBackdropBorderColor(0.40, 0.32, 0.22, 0.45)
+        leftCol:SetBackdropColor(0.06, 0.05, 0.04, 0.75)
+        leftCol.title:SetTextColor(0.60, 0.55, 0.50, 0.80)
+        leftCol.tagIcon:SetVertexColor(0.6, 0.6, 0.6, 0.80)
+    else
+        leftCol:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+        leftCol:SetBackdropColor(0.12, 0.09, 0.06, 0.90)
+        leftCol.title:SetTextColor(1.00, 0.85, 0.25, 1.0)
+        leftCol.tagIcon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+
+        rightCol:SetBackdropBorderColor(0.40, 0.32, 0.22, 0.45)
+        rightCol:SetBackdropColor(0.06, 0.05, 0.04, 0.75)
+        rightCol.title:SetTextColor(0.60, 0.55, 0.50, 0.80)
+        rightCol.tagIcon:SetVertexColor(0.6, 0.6, 0.6, 0.80)
+    end
+end
+
+function MerchantMenu:UpdateBagRows()
+    local rightCol = self.frame and self.frame.rightCol
+    if not rightCol or not rightCol.listArea or not rightCol.listArea.rows then return end
+
+    local rows = rightCol.listArea.rows
+    local filtered = self.filteredBagItems or {}
+    local numItems = table.getn(filtered)
+
+    if numItems == 0 then
+        for i = 1, 7 do
+            rows[i]:Hide()
+        end
+        rightCol.placeholder:SetText("|cffaaaaaaNenhum item encontrado nesta categoria.|r")
+        rightCol.placeholder:Show()
+        rightCol.pageIndicator:SetText("|cff666666Nenhum item|r")
+        if self.activeColumn == "BAGS" then
+            self:ShowItemDetail(nil)
+        end
+        return
+    end
+
+    rightCol.placeholder:Hide()
+
+    local selectedItem = nil
+    for slotIdx = 1, 7 do
+        local itemIdx = (self.bagScrollOffset or 0) + slotIdx
+        local row = rows[slotIdx]
+
+        if itemIdx <= numItems then
+            local item = filtered[itemIdx]
+            local qColor = QUALITY_COLORS[item.quality or 1] or QUALITY_COLORS[1]
+
+            row.icon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+            row.iconBorder:SetBackdropBorderColor(qColor.r, qColor.g, qColor.b, 0.85)
+
+            if item.count and item.count > 1 then
+                row.stackText:SetText(item.count)
+                row.stackText:Show()
+            else
+                row.stackText:Hide()
+            end
+
+            row.nameText:SetText(qColor.hex .. (item.name or "Item") .. "|r")
+
+            if item.sellPrice and item.sellPrice > 0 then
+                row.priceText:SetText(self:FormatMoneyText(item.sellPrice))
+            else
+                row.priceText:SetText("|cff666666Sem valor|r")
+            end
+
+            -- Linha selecionada
+            if self.activeColumn == "BAGS" and itemIdx == self.selectedBagIndex then
+                row:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+                row:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+                row.highlight:Show()
+                row.cursor:Show()
+                selectedItem = item
+            else
+                row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+                row.highlight:Hide()
+                row.cursor:Hide()
+            end
+
+            row:Show()
+        else
+            row:Hide()
+        end
+    end
+
+    -- Atualiza o indicador de posição / página no rodapé da coluna
+    local curPage = math.floor((self.selectedBagIndex - 1) / 7) + 1
+    local totalPages = math.ceil(numItems / 7)
+    if totalPages < 1 then totalPages = 1 end
+
+    local arrowUp = (self.bagScrollOffset > 0) and "▲ " or ""
+    local arrowDown = ((self.bagScrollOffset + 7) < numItems) and " ▼" or ""
+    rightCol.pageIndicator:SetText(string.format("%s|cffaaaaaaItem %d de %d|r  |cff888888(Pág. %d/%d)|r%s", arrowUp, self.selectedBagIndex, numItems, curPage, totalPages, arrowDown))
+
+    if self.activeColumn == "BAGS" then
+        self:ShowItemDetail(selectedItem)
+    end
+end
+
+function MerchantMenu:ShowItemDetail(item)
+    local card = self.frame and self.frame.detailCard
+    if not card then return end
+
+    if not item then
+        card.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+        card.iconBorder:SetBackdropBorderColor(0.40, 0.35, 0.25, 0.60)
+        card.titleText:SetText("|cff888888Nenhum item selecionado|r")
+        card.priceText:SetText("")
+        card.typeText:SetText("|cff666666Navegue pelas bolsas usando o direcional [D-Pad]|r")
+        card.descColLeft:SetText("|cff666666Suas bolsas estão vazias ou a categoria selecionada não possui itens.|r")
+        card.descColRight:SetText("")
+        return
+    end
+
+    local qColor = QUALITY_COLORS[item.quality or 1] or QUALITY_COLORS[1]
+
+    card.icon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+    card.iconBorder:SetBackdropBorderColor(qColor.r, qColor.g, qColor.b, 0.90)
+
+    local countStr = (item.count and item.count > 1) and (" |cffffffff(x" .. item.count .. ")|r") or ""
+    card.titleText:SetText(qColor.hex .. item.name .. "|r" .. countStr)
+
+    -- Preço no DetailCard
+    if item.sellPrice and item.sellPrice > 0 then
+        local priceStr = "|cffaaaaaaPreço de Venda: |r" .. self:FormatMoneyText(item.sellPrice)
+        if item.count and item.count > 1 then
+            local unit = math.floor(item.sellPrice / item.count)
+            if unit > 0 then
+                priceStr = priceStr .. " |cff888888(" .. self:FormatMoneyText(unit) .. " cada)|r"
+            end
+        end
+        card.priceText:SetText(priceStr)
+    else
+        card.priceText:SetText("|cff888888Sem valor de venda comercial|r")
+    end
+
+    -- Subtítulo: Tipo • Subtipo • Slot • Requisito
+    local typeParts = {}
+    if item.itemType and item.itemType ~= "" then table.insert(typeParts, item.itemType) end
+    if item.subType and item.subType ~= "" then table.insert(typeParts, item.subType) end
+    if item.equipLoc and item.equipLoc ~= "" then
+        local slotText = getglobal(item.equipLoc) or item.equipLoc
+        table.insert(typeParts, slotText)
+    end
+    if item.reqLevel and item.reqLevel > 0 then
+        local pLvl = UnitLevel("player") or 1
+        local reqColor = (item.reqLevel > pLvl) and "|cffff2020" or "|cffffffff"
+        table.insert(typeParts, reqColor .. "Requer Nível " .. item.reqLevel .. "|r")
+    end
+
+    local subStr = table.concat(typeParts, "  •  ")
+    if subStr == "" then subStr = "Item do Inventário" end
+    card.typeText:SetText("|cffb0b0b0" .. subStr .. "|r")
+
+    -- 2 Colunas de Descrição / Atributos
+    local leftLines = {}
+    local rightLines = {}
+
+    local numStats = table.getn(item.statsLines or {})
+    local half = math.ceil(numStats / 2)
+    if half < 1 then half = 1 end
+
+    for i = 1, numStats do
+        if i <= half then
+            table.insert(leftLines, item.statsLines[i])
+        else
+            table.insert(rightLines, item.statsLines[i])
+        end
+    end
+
+    if item.desc and item.desc ~= "" then
+        table.insert(rightLines, "|cff00ff00" .. item.desc .. "|r")
+    end
+
+    local leftText = table.concat(leftLines, "\n")
+    local rightText = table.concat(rightLines, "\n")
+
+    if leftText == "" then
+        leftText = "|cff888888Nenhum atributo adicional.|r"
+    end
+    if rightText == "" then
+        if item.sellPrice and item.sellPrice > 0 then
+            rightText = "|cff888888Pronto para venda no vendedor.|r\n|cffaaaaaaPressione [X] para vender (Fase 5).|r"
+        else
+            rightText = "|cff666666Item sem preço de compra em mercadores.|r"
+        end
+    end
+
+    card.descColLeft:SetText(leftText)
+    card.descColRight:SetText(rightText)
+end
+
+function MerchantMenu:ShowVendorPlaceholderDetail()
+    local card = self.frame and self.frame.detailCard
+    if not card then return end
+
+    card.icon:SetTexture("Interface\\Icons\\INV_Misc_Bag_08")
+    card.iconBorder:SetBackdropBorderColor(0.50, 0.40, 0.30, 0.80)
+    card.titleText:SetText("|cffe09a15Loja do Vendedor (" .. (self.itemCount or 0) .. " itens)|r")
+    card.priceText:SetText("|cffaaaaaaPressione [RB] para o seu Inventário|r")
+    card.typeText:SetText("|cff888888Fase 4: Catálogo Completo do Vendedor|r")
+    card.descColLeft:SetText("|cffccccccOs itens à venda pelo NPC serão listados aqui na próxima fase.|r\n|cffaaaaaaVocê poderá comprar itens usando o botão [A].|r")
+    card.descColRight:SetText("|cff888888Pressione [RB] no controle ou clique na coluna da direita para voltar a inspecionar seu inventário.|r")
+end
+
 -- ----------------------------------------------------------------------------
--- 8. CONTROLE DE ABERTURA E FECHAMENTO
+-- 9. NAVEGAÇÃO POR GAMEPAD / DIRECIONAIS (FASE 3)
 -- ----------------------------------------------------------------------------
+function MerchantMenu:MoveBagSelection(delta)
+    local numItems = table.getn(self.filteredBagItems or {})
+    if numItems == 0 then return end
+
+    local newIdx = (self.selectedBagIndex or 1) + delta
+    if newIdx < 1 then
+        newIdx = 1
+    elseif newIdx > numItems then
+        newIdx = numItems
+    end
+
+    if newIdx ~= self.selectedBagIndex then
+        self.selectedBagIndex = newIdx
+        PlaySound("igMainMenuOptionCheckBoxOn")
+
+        local visibleRows = 7
+        if self.selectedBagIndex <= self.bagScrollOffset then
+            self.bagScrollOffset = self.selectedBagIndex - 1
+        elseif self.selectedBagIndex > (self.bagScrollOffset + visibleRows) then
+            self.bagScrollOffset = self.selectedBagIndex - visibleRows
+        end
+        if self.bagScrollOffset < 0 then
+            self.bagScrollOffset = 0
+        end
+        local maxOffset = math.max(0, numItems - visibleRows)
+        if self.bagScrollOffset > maxOffset then
+            self.bagScrollOffset = maxOffset
+        end
+
+        self:UpdateBagRows()
+    end
+end
+
+function MerchantMenu:ToggleColumn(delta)
+    if self.activeColumn == "BAGS" then
+        self.activeColumn = "VENDOR"
+        PlaySound("igCharacterInfoTab")
+        self:UpdateColumnVisuals()
+        self:UpdateBagRows()
+        self:ShowVendorPlaceholderDetail()
+    else
+        self.activeColumn = "BAGS"
+        PlaySound("igCharacterInfoTab")
+        self:UpdateColumnVisuals()
+        self:UpdateBagRows()
+    end
+end
+
+function MerchantMenu:CycleSubTab(delta)
+    if not self.isOpen then return end
+
+    if self.activeColumn == "BAGS" then
+        local count = table.getn(SUBTABS_BAGS)
+        self.bagSubTabIdx = self.bagSubTabIdx + delta
+        if self.bagSubTabIdx > count then self.bagSubTabIdx = 1 end
+        if self.bagSubTabIdx < 1 then self.bagSubTabIdx = count end
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        self:UpdateBagsSubTabBar()
+        self:FilterBagItems()
+        self.selectedBagIndex = 1
+        self.bagScrollOffset = 0
+        self:UpdateBagRows()
+    else
+        -- Fase 4: sub-abas de itens do vendedor
+    end
+end
+
+function MerchantMenu:OnDirection(direction)
+    if not self.isOpen then return end
+
+    if direction == "LEFT" then
+        if self.activeColumn == "BAGS" then
+            self:ToggleColumn(-1)
+        end
+    elseif direction == "RIGHT" then
+        if self.activeColumn == "VENDOR" then
+            self:ToggleColumn(1)
+        end
+    elseif direction == "UP" then
+        if self.activeColumn == "BAGS" then
+            self:MoveBagSelection(-1)
+        end
+    elseif direction == "DOWN" then
+        if self.activeColumn == "BAGS" then
+            self:MoveBagSelection(1)
+        end
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 10. CONTROLE DE ABERTURA, ATUALIZAÇÃO E FECHAMENTO
+-- ----------------------------------------------------------------------------
+function MerchantMenu:OnBagUpdate()
+    if not self.isOpen then return end
+    self:ScanPlayerBags()
+    self:UpdateBagRows()
+    self:RefreshHeader()
+end
+
 function MerchantMenu:Open()
     self:CreateUI()
     self:UpdateLayout()
     self:RefreshHeader()
+
+    -- FASE 3: Inicializa colunas e varredura do inventário
+    self.activeColumn     = "BAGS"
+    self.bagSubTabIdx     = 1
+    self.selectedBagIndex = 1
+    self.bagScrollOffset  = 0
+
+    self:UpdateBagsSubTabBar()
+    self:ScanPlayerBags()
+    self:UpdateColumnVisuals()
+    self:UpdateBagRows()
 
     if self.dimmer then
         self.dimmer:Show()
@@ -706,11 +1450,13 @@ end
 
 function MerchantMenu:Close()
     if not self.isOpen then return end
-    self.isOpen     = false
-    self.announced  = false
-    self.currentNPC = nil
-    self.canRepair  = false
-    self.itemCount  = 0
+    self.isOpen           = false
+    self.announced        = false
+    self.currentNPC       = nil
+    self.canRepair        = false
+    self.itemCount        = 0
+    self.rawBagItems      = {}
+    self.filteredBagItems = {}
 
     if self.scanFrame then
         self.scanFrame:SetScript("OnUpdate", nil)
@@ -735,7 +1481,7 @@ function MerchantMenu:Close()
 end
 
 -- ----------------------------------------------------------------------------
--- 6. SINCRONIZAÇÃO ASSÍNCRONA DO CATÁLOGO DO VENDEDOR (SMSG_MERCHANT_LIST)
+-- 11. SINCRONIZAÇÃO ASSÍNCRONA DO CATÁLOGO DO VENDEDOR (SMSG_MERCHANT_LIST)
 -- ----------------------------------------------------------------------------
 function MerchantMenu:StartItemScan()
     local attempts = 0
@@ -781,7 +1527,7 @@ function MerchantMenu:AnnounceMerchant(itemCount)
 end
 
 -- ----------------------------------------------------------------------------
--- 7. MANIPULADORES DE EVENTOS
+-- 12. MANIPULADORES DE EVENTOS
 -- ----------------------------------------------------------------------------
 function MerchantMenu:OnMerchantShow()
     -- 1. Torna MerchantFrame invisível off-screen (sem dar Hide para não fechar a sessão)
@@ -847,6 +1593,10 @@ function MerchantMenu:OnMerchantClosed()
             self.scanFrame:SetScript("OnUpdate", nil)
         end
 
+        if self.dimmer and self.dimmer:IsVisible() then
+            self.dimmer:Hide()
+        end
+
         if self.frame and self.frame:IsVisible() then
             self.frame:Hide()
         end
@@ -856,7 +1606,7 @@ function MerchantMenu:OnMerchantClosed()
 end
 
 -- ----------------------------------------------------------------------------
--- 8. INICIALIZAÇÃO DO MÓDULO & REGISTRO DE EVENTOS
+-- 13. INICIALIZAÇÃO DO MÓDULO & REGISTRO DE EVENTOS
 -- ----------------------------------------------------------------------------
 function MerchantMenu:Initialize()
     if self.initialized then return end
@@ -888,6 +1638,7 @@ function MerchantMenu:Initialize()
     ef:RegisterEvent("MERCHANT_SHOW")
     ef:RegisterEvent("MERCHANT_UPDATE")
     ef:RegisterEvent("MERCHANT_CLOSED")
+    ef:RegisterEvent("BAG_UPDATE")
 
     ef:SetScript("OnEvent", function()
         if event == "MERCHANT_SHOW" then
@@ -896,6 +1647,8 @@ function MerchantMenu:Initialize()
             MerchantMenu:OnMerchantUpdate()
         elseif event == "MERCHANT_CLOSED" then
             MerchantMenu:OnMerchantClosed()
+        elseif event == "BAG_UPDATE" then
+            MerchantMenu:OnBagUpdate()
         end
     end)
 end

@@ -84,7 +84,7 @@ CFG.Fonts = {
     shadowColor         = { 0.0, 0.0, 0.0, 0.90 }, -- Cor e opacidade da sombra (RGBA) - 90% de opacidade
 
     titleSize           = 18,
-    tabSize             = 14,
+    tabSize             = 19,
     headerSize          = 13,
     playerNameSize      = 17,
     playerSubSize       = 13,                   -- Aumentado em ~25% (original: 11)
@@ -107,7 +107,7 @@ CFG.Fonts = {
 -- ----------------------------------------------------------------------------
 CFG.Window = {
     usePercentage   = true,                 -- true = calcula por porcentagem da tela, false = estático
-    widthPercent    = 0.90,                 -- Fração da largura útil da tela (88%)
+    widthPercent    = 0.94,                 -- Fração da largura útil da tela (94% para conforto no Steam Deck)
     heightPercent   = 0.85,                 -- Fração da altura útil da tela (84%)
     
     minWidth        = 840,                  -- Largura mínima para telas muito compactas (px)
@@ -115,7 +115,7 @@ CFG.Window = {
     maxWidth        = 1440,                 -- Largura máxima para telas Ultrawide/4K (px)
     maxHeight       = 920,                  -- Altura máxima (px)
 
-    staticWidth     = 980,                  -- Largura estática de fallback
+    staticWidth     = 1040,                 -- Largura estática de fallback
     staticHeight    = 620,                  -- Altura estática de fallback
 
     point           = "CENTER",             -- Ponto de ancoragem na tela
@@ -174,7 +174,7 @@ CFG.LeftPanel = {
     paddingLeft     = 28,                   -- Margem em relação à borda esquerda do menu (px)
     paddingTop      = -50,                  -- Margem em relação ao topo do menu (px)
     paddingBottom   = 50,                   -- Margem em relação ao fundo do menu (px)
-    widthRatio      = 0.46,                 -- 46% da largura útil interna da janela
+    widthRatio      = 0.42,                 -- 42% da largura útil interna da janela (repassa espaço para o painel direito/abas)
 }
 
 -- ----------------------------------------------------------------------------
@@ -233,7 +233,7 @@ CFG.Equipment = {
 -- Exibição de atributos base e lista de buffs no estilo Zelda TotK/BotW.
 -- ----------------------------------------------------------------------------
 CFG.StatsAndBuffs = {
-    width           = 150,                  -- Largura da coluna de status e buffs (px)
+    width           = 135,                  -- Largura da coluna de status e buffs (px) - reduzido em 10% (original: 150)
     buffIconSize    = 20,                   -- Tamanho do ícone de buff (px) - Aumentado em +10% (original: 18)
     buffGapY        = 5,                    -- Espaçamento vertical entre buffs (px)
     maxBuffs        = 8,                    -- Quantidade máxima de buffs visíveis na lista (inclui armas)
@@ -255,12 +255,15 @@ CFG.RightPanel = {
 -- 6.1. BARRA DE ABAS SUPERIORES E CONTAINERS (FASE 4 - NAVEGAÇÃO [L1] / [R1])
 -- ----------------------------------------------------------------------------
 CFG.Tabs = {
-    barHeight       = 36,                   -- Altura da barra superior de abas (px)
-    buttonHeight    = 28,                   -- Altura de cada botão de aba (px)
+    barHeight       = 38,                   -- Altura da barra superior de abas (px)
+    buttonHeight    = 30,                   -- Altura de cada botão de aba (px)
     gapX            = 6,                    -- Espaçamento horizontal entre os botões (px)
+    fontFile        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf", -- Alegreya Sans Bold (-9% kerning, SIL OFL)
     activeColor     = { r = 0.88, g = 0.60, b = 0.08 }, -- Dourado âmbar mais escuro e nobre
-    inactiveColor   = { r = 0.65, g = 0.65, b = 0.65 }, -- Cor cinza de aba inativa
+    inactiveColor   = { r = 0.52, g = 0.52, b = 0.52 }, -- Cor cinza de aba inativa (20% mais escuro para maior contraste)
     indicatorColor  = "|cffe09a15",         -- Dourado âmbar de alto contraste
+    outline         = "",                   -- Sem outline (letras limpas sem contorno)
+    shadowOffset    = { 1, -1 },            -- Drop shadow original suave de 1px
     list = {
         { id = "BAGS",    name = "Bolsas & Itens",  shortName = "Bolsas" },
         { id = "SPELLS",  name = "Livro de Magias", shortName = "Magias" },
@@ -479,20 +482,27 @@ CFG.Audio = {
 -- HELPER DE APLICAÇÃO DE FONTES (COM SUPORTE UTF-8 / PT-BR E FALLBACK SEGURO)
 -- ============================================================================
 
-function MainMenu:ApplyFont(fontString, fontPath, size, outline)
+function MainMenu:ApplyFont(fontString, fontPath, size, outline, shadowOffset, shadowColor)
     if not fontString then return end
     fontPath = fontPath or CFG.Fonts.bodyFontFile
     size = size or 12
     outline = outline or CFG.Fonts.outline or ""
     
-    fontString:SetFont(fontPath, size, outline)
-    
-    if not fontString:GetFont() then
+    local ok = fontString:SetFont(fontPath, size, outline)
+    if not ok then
         fontString:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
     end
     
-    local so = CFG.Fonts.shadowOffset or { 1, -1 }
-    local sc = CFG.Fonts.shadowColor or { 0, 0, 0, 0.90 }
+    -- Quando outline esta ativo, desativa o drop shadow ({0, 0}) por padrao
+    -- para evitar o efeito de contorno engordado / borrado
+    local defaultSO
+    if outline and outline ~= "" then
+        defaultSO = { 0, 0 }
+    else
+        defaultSO = CFG.Fonts.shadowOffset or { 1, -1 }
+    end
+    local so = shadowOffset or defaultSO
+    local sc = shadowColor or CFG.Fonts.shadowColor or { 0, 0, 0, 0.90 }
     fontString:SetShadowOffset(so[1], so[2])
     fontString:SetShadowColor(sc[1], sc[2], sc[3], sc[4])
 end
@@ -813,17 +823,49 @@ function MainMenu:UpdateLayout()
         self.frame.divider:SetPoint("BOTTOM", self.frame.leftPanel, "BOTTOMRIGHT", divGap, CFG.Divider.paddingBottom)
     end
 
-    -- Ajusta a largura proporcional dos botões de aba no painel direito
+    -- Atualiza largura da coluna de status e buffs se já instanciada
+    local statsCol = getglobal("ConsoleModeMM_StatsColumn")
+    if statsCol then
+        statsCol:SetWidth(CFG.StatsAndBuffs.width)
+    end
+
+    -- Ajusta a largura proporcional dos botões de aba no painel direito (evita encavalar textos)
     if self.tabContainer and self.tabContainer.tabBar and self.tabContainer.tabBar.buttons then
         local usableTabW = rightW - 64
         local numTabs = table.getn(CFG.Tabs.list)
-        local btnW = math.floor((usableTabW - ((numTabs - 1) * CFG.Tabs.gapX)) / numTabs)
-        if btnW < 60 then btnW = 60 end
-
-        local tabsCenter = self.tabContainer.tabBar.tabsCenter or getglobal("ConsoleModeMM_TabsCenter")
-        local curX = 0
         local gapX = CFG.Tabs.gapX or 6
+        local tabsCenter = self.tabContainer.tabBar.tabsCenter or getglobal("ConsoleModeMM_TabsCenter")
+
+        -- Calcula a largura necessária para cada botão com base na largura real do seu texto
+        local minBtnW = 60
+        local totalNeeded = 0
+        local neededWidths = {}
         for idx, btn in ipairs(self.tabContainer.tabBar.buttons) do
+            local strW = 0
+            if btn.title and btn.title.GetStringWidth then
+                strW = math.floor(btn.title:GetStringWidth() or 0)
+            end
+            local w = math.max(minBtnW, strW + 16)
+            neededWidths[idx] = w
+            totalNeeded = totalNeeded + w
+        end
+
+        local totalGaps = (numTabs - 1) * gapX
+        local availForBtns = usableTabW - totalGaps
+        local curX = 0
+
+        for idx, btn in ipairs(self.tabContainer.tabBar.buttons) do
+            local btnW = neededWidths[idx] or minBtnW
+            if totalNeeded > 0 and availForBtns > 0 then
+                if totalNeeded <= availForBtns then
+                    -- Folga restante dividida igualmente
+                    local extra = math.floor((availForBtns - totalNeeded) / numTabs)
+                    btnW = btnW + extra
+                else
+                    -- Escala proporcional segura se muito apertado
+                    btnW = math.max(minBtnW, math.floor(btnW * (availForBtns / totalNeeded)))
+                end
+            end
             btn:SetWidth(btnW)
             if tabsCenter then
                 btn:ClearAllPoints()
@@ -12281,7 +12323,7 @@ function MainMenu:CreateTabContainer(rightPanel)
 
         local title = tabBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("CENTER", tabBtn, "CENTER", 0, 0)
-        MainMenu:ApplyFont(title, CFG.Fonts.headerFontFile, CFG.Fonts.tabSize)
+        MainMenu:ApplyFont(title, CFG.Tabs.fontFile or CFG.Fonts.bodyFontFile, CFG.Fonts.tabSize, CFG.Tabs.outline or "", CFG.Tabs.shadowOffset or { 1, -1 })
         title:SetText(tabData.name)
         tabBtn.title = title
 

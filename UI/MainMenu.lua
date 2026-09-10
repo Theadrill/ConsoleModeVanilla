@@ -291,6 +291,26 @@ CFG.Grid = {
 }
 
 -- ----------------------------------------------------------------------------
+-- 6.2.1. CORES DE BORDA POR TIPO DE BAG (FASE 2 - COR DE BORDA POR TIPO DE BAG)
+-- Tabela de cores da moldura externa `slot.bagBorder` (diagnóstico via chat;
+-- nenhuma mudança visual nesta fase). NORMAL não tem cor: o helper
+-- GetBagBorderColor trata nil/desconhecido com fallback bronze seguro.
+-- ----------------------------------------------------------------------------
+BAG_TYPE_COLORS = {
+    QUIVER   = { r = 0.85, g = 0.55, b = 0.10 }, -- Aljava (madeira/couro)
+    AMMO     = { r = 0.55, g = 0.55, b = 0.65 }, -- Bolsa de Munição (metal)
+    SOUL     = { r = 0.55, g = 0.20, b = 0.80 }, -- Bolsa de Almas (warlock)
+    LEATHER  = { r = 0.65, g = 0.40, b = 0.20 }, -- Couraria (couro curtido)
+    HERB     = { r = 0.20, g = 0.70, b = 0.20 }, -- Ervas (natureza)
+    ENCHANT  = { r = 0.20, g = 0.55, b = 0.90 }, -- Encantamento (azul arcano)
+    ENGINEER = { r = 0.75, g = 0.45, b = 0.15 }, -- Engenharia (cobre)
+    MINING   = { r = 0.60, g = 0.35, b = 0.10 }, -- Mineração (minério)
+    GEM      = { r = 0.20, g = 0.80, b = 0.80 }, -- Gemas (custom Turtle)
+    MEAT     = { r = 0.80, g = 0.25, b = 0.20 }, -- Carne (custom Turtle)
+    FISH     = { r = 0.20, g = 0.50, b = 0.75 }, -- Peixe (custom Turtle)
+}
+
+-- ----------------------------------------------------------------------------
 -- 6.3. PAINEL FIXO DE DETALHES / TOOLTIP (FASE 5 - ESTILO ZELDA / CONSOLE)
 -- ----------------------------------------------------------------------------
 CFG.DetailCard = {
@@ -2920,6 +2940,20 @@ function MainMenu:CreateDetailCard(parent, config)
         end
         if isSoulbound then table.insert(subParts, "|cffffd100Soulbound|r") end
         if isUnique then table.insert(subParts, "|cffffd100Único|r") end
+        -- FASE 4 (tag da bag): item de bag especial ganha tag colorida no subtipo.
+        -- Bag normal (nil/"NORMAL") não mostra nada: card pixel-idêntico.
+        if itemData.bagKind and itemData.bagKind ~= "NORMAL" then
+            local tagR, tagG, tagB = MainMenu:GetBagBorderColor(itemData.bagKind)
+            local tagName = itemData.bagKind
+            if itemData.bagName and itemData.bagName ~= "" then
+                tagName = itemData.bagName
+            end
+            local tagHex = string.format("|cff%02x%02x%02x",
+                math.floor((tagR or 0.65) * 255),
+                math.floor((tagG or 0.50) * 255),
+                math.floor((tagB or 0.30) * 255))
+            table.insert(subParts, tagHex .. "[" .. tagName .. "]|r")
+        end
         if rLevel > 1 then
             -- FASE 14b: requisito nao atendido -> nivel em vermelho.
             local pLevel = UnitLevel("player") or 0
@@ -3340,6 +3374,18 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
         border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.4)
         slot.border = border
 
+        -- Moldura de tipo de bag (FASE 3: cor por bag especial, alpha 0.75 ocupado / 0.45 vazio)
+        local bagBorder = CreateFrame("Frame", nil, slot)
+        bagBorder:SetPoint("TOPLEFT", slot, "TOPLEFT", -3, 3)
+        bagBorder:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 3, -3)
+        bagBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 6,
+            insets = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        bagBorder:Hide()
+        slot.bagBorder = bagBorder
+
         -- Texto de Stack (Quantidade)
         local countText = slot:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         countText:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", -2, 2)
@@ -3532,6 +3578,7 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
             slot.border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.3)
             slot.data = nil
             slot.highlight:Hide()
+            if slot.bagBorder then slot.bagBorder:Hide() end
         end
     end
 
@@ -3541,6 +3588,108 @@ end
 -- ============================================================================
 -- 6. SCANNER E PARSER DE INVENTÁRIO (FASE 5)
 -- ============================================================================
+
+-- ----------------------------------------------------------------------------
+-- 6.x. DETECÇÃO DE TIPO DE BAG (FASE 1 - COR DE BORDA POR TIPO DE BAG)
+-- Diagnóstico via chat, sem mudança visual. Lua 5.0: sem `#`, sem bitwise;
+-- teste de bit via math.mod/math.floor.
+-- ----------------------------------------------------------------------------
+local function BagTypeHasBit(bagType, bit)
+    if not bagType or not bit or bit <= 0 then return false end
+    return (math.mod(math.floor(bagType / bit), 2) == 1)
+end
+
+function MainMenu:ResolveBagKind(bagID, bagType, bagName)
+    local btype = tonumber(bagType) or 0
+
+    -- 1. Bitmask oficial (prioridade para bolsas de profissão sobre quiver/ammo).
+    if BagTypeHasBit(btype, 4) then return "SOUL" end
+    if BagTypeHasBit(btype, 32) then return "HERB" end
+    if BagTypeHasBit(btype, 64) then return "ENCHANT" end
+    if BagTypeHasBit(btype, 128) then return "ENGINEER" end
+    if BagTypeHasBit(btype, 512) then return "MINING" end
+    if BagTypeHasBit(btype, 8) then return "LEATHER" end
+    if BagTypeHasBit(btype, 1) then return "QUIVER" end
+    if BagTypeHasBit(btype, 2) then return "AMMO" end
+
+    -- 2. Fallback por substring (customs do Turtle WoW sem bitmask própria).
+    if bagName and bagName ~= "" then
+        local ln = string.lower(bagName)
+        if string.find(ln, "soul", 1, true) then return "SOUL" end
+        if string.find(ln, "herb", 1, true) then return "HERB" end
+        if string.find(ln, "enchant", 1, true) then return "ENCHANT" end
+        if string.find(ln, "engineer", 1, true) then return "ENGINEER" end
+        if string.find(ln, "mining", 1, true) then return "MINING" end
+        if string.find(ln, "leather", 1, true) then return "LEATHER" end
+        if string.find(ln, "quiver", 1, true) then return "QUIVER" end
+        if string.find(ln, "ammo", 1, true) then return "AMMO" end
+        if string.find(ln, "pouch", 1, true) then return "AMMO" end
+        if string.find(ln, "gem", 1, true) then return "GEM" end
+        if string.find(ln, "meat", 1, true) then return "MEAT" end
+        if string.find(ln, "fish", 1, true) then return "FISH" end
+    end
+
+    return "NORMAL"
+end
+
+function MainMenu:GetBagBorderColor(bagKind)
+    local entry = nil
+    if bagKind and BAG_TYPE_COLORS then
+        entry = BAG_TYPE_COLORS[bagKind]
+    end
+    if entry then
+        return entry.r, entry.g, entry.b
+    end
+    -- Fallback bronze seguro (nil/desconhecido/NORMAL sem cor própria).
+    return 0.65, 0.50, 0.30
+end
+
+function MainMenu:GetBagInfo(bagID)
+    self.bagInfoCache = self.bagInfoCache or {}
+    if self.bagInfoCache[bagID] then
+        return self.bagInfoCache[bagID]
+    end
+
+    -- GetContainerNumFreeSlots/GetBagName nunca foram usadas neste repo:
+    -- tudo com pcall de proteção, pois podem não existir no client Turtle.
+    local bagType = 0
+    if GetContainerNumFreeSlots then
+        local ok, freeCount, btype = pcall(GetContainerNumFreeSlots, bagID)
+        if ok and btype then
+            bagType = tonumber(btype) or 0
+        end
+    end
+
+    local bagName = nil
+    if GetBagName then
+        local ok, nm = pcall(GetBagName, bagID)
+        if ok and nm and nm ~= "" then
+            bagName = nm
+        end
+    end
+
+    local info = {
+        bagType = bagType,
+        bagName = bagName,
+    }
+    info.bagKind = self:ResolveBagKind(bagID, bagType, bagName)
+    self.bagInfoCache[bagID] = info
+    return info
+end
+
+function MainMenu:LogBagKinds()
+    if not DEFAULT_CHAT_FRAME or not DEFAULT_CHAT_FRAME.AddMessage then return end
+    for bag = 0, 4 do
+        local info = self:GetBagInfo(bag)
+        local bname = (info and info.bagName) or ("Bag " .. tostring(bag))
+        local kind = (info and info.bagKind) or "NORMAL"
+        local btype = (info and tonumber(info.bagType)) or 0
+        local r, g, bl = self:GetBagBorderColor(kind)
+        pcall(function()
+            DEFAULT_CHAT_FRAME:AddMessage(string.format("[ConsoleMode] Bag %d: \"%s\" -> %s (type=%d) (%.2f,%.2f,%.2f)", bag, bname, kind, btype, r, g, bl))
+        end)
+    end
+end
 
 function MainMenu:ParseItemData(bagID, slotID)
     local texture, count, locked, quality, readable = GetContainerItemInfo(bagID, slotID)
@@ -3669,9 +3818,17 @@ function MainMenu:ParseItemData(bagID, slotID)
     local playerLevel = UnitLevel("player") or 0
     local reqLevelRed = reqLineRed or ((itemReqLevel or 0) > playerLevel)
 
+    -- FASE 1 (COR DE BORDA POR TIPO DE BAG): tipo/nome da bag de origem
+    -- via cache do scan (assinatura de chamada intacta).
+    local bagInfo = self:GetBagInfo(bagID)
+    local bagKind = (bagInfo and bagInfo.bagKind) or "NORMAL"
+    local bagName = (bagInfo and bagInfo.bagName) or nil
+
     return {
         bagID        = bagID,
         slotID       = slotID,
+        bagKind      = bagKind,
+        bagName      = bagName,
         name         = itemName or "Item",
         texture      = texture,
         count        = count or 1,
@@ -3698,7 +3855,14 @@ function MainMenu:ScanInventory(categoryFilter)
     local totalSlots = 0
     local freeSlots = 0
 
+    -- FASE 1: renova o cache de tipo/nome por bagID (0-4) a cada scan,
+    -- para refletir trocas de bolsa sem /reload.
+    self.bagInfoCache = {}
+
     for bag = 0, 4 do
+        -- Preenche o cache ANTES do ParseItemData (pcall interno protege
+        -- APIs que podem não existir no client Turtle).
+        self:GetBagInfo(bag)
         local numSlots = GetContainerNumSlots(bag)
         if numSlots and numSlots > 0 then
             totalSlots = totalSlots + numSlots
@@ -3711,10 +3875,13 @@ function MainMenu:ScanInventory(categoryFilter)
                 else
                     freeSlots = freeSlots + 1
                     if categoryFilter == "ALL" then
+                        local binfo = self:GetBagInfo(bag)
                         table.insert(items, {
                             bagID   = bag,
                             slotID  = slot,
                             isEmpty = true,
+                            bagKind = (binfo and binfo.bagKind) or "NORMAL",
+                            bagName = (binfo and binfo.bagName) or nil,
                         })
                     end
                 end
@@ -4173,6 +4340,9 @@ function MainMenu:UpdateBagsPage(keepPage)
     local scanResult = self:ScanInventory(curCat)
     local items = scanResult.items
 
+    -- FASES 1-2 (diagnóstico via chat, sem mudança visual).
+    self:LogBagKinds()
+
     -- 1. Atualiza botões de categoria
     if pageBags.catButtons then
         for _, btn in ipairs(pageBags.catButtons) do
@@ -4262,12 +4432,32 @@ function MainMenu:UpdateBagsPage(keepPage)
                     r, g, b = col.r, col.g, col.b
                 end
                 slot.border:SetBackdropBorderColor(r, g, b, 0.95)
+                -- Moldura de tipo de bag (FASE 3): só mostra em bag especial
+                if slot.bagBorder then
+                    if itemData.bagKind and itemData.bagKind ~= "NORMAL" then
+                        local br, bg, bb = MainMenu:GetBagBorderColor(itemData.bagKind)
+                        slot.bagBorder:SetBackdropBorderColor(br, bg, bb, 0.75)
+                        slot.bagBorder:Show()
+                    else
+                        slot.bagBorder:Hide()
+                    end
+                end
             else
                 -- Slot vazio estilo Zelda: sem ícone, fundo escuro suave e borda sutil vazada
                 slot.icon:SetTexture(nil)
                 slot.icon:Hide()
                 slot.countText:SetText("")
                 slot.border:SetBackdropBorderColor(0.45, 0.40, 0.35, 0.30)
+                -- Moldura de tipo de bag em slot vazio (FASE 3): alpha reduzido, nil-safe
+                if slot.bagBorder then
+                    if itemData and itemData.bagKind and itemData.bagKind ~= "NORMAL" then
+                        local br, bg, bb = MainMenu:GetBagBorderColor(itemData.bagKind)
+                        slot.bagBorder:SetBackdropBorderColor(br, bg, bb, 0.45)
+                        slot.bagBorder:Show()
+                    else
+                        slot.bagBorder:Hide()
+                    end
+                end
                 slot.data = itemData
             end
         end

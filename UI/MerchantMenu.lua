@@ -393,18 +393,10 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
     }
 end
 
--- Re-scan fresco da linha de Uso/Efeito via hyperlink (defesa em profundidade:
--- o scan em massa do ParseBagItem pode perder a linha se o tooltip ainda nao
--- estava populado, e ParseVendorItem/ParseBuybackItem nunca varrem o tooltip).
--- Retorna "" quando nao ha linha de Uso: ou quando o scan falha. Lua 5.0.
-function MerchantMenu:ScanUseLineFresh(itemLink)
-    if not itemLink or not scanTip then return "" end
-    scanTip:ClearLines()
-    local ok = false
-    local _, _, raw = string.find(itemLink, "(item:%d+:%d+:%d+:%d+)")
-    if raw then ok = pcall(function() scanTip:SetHyperlink(raw) end) end
-    if not ok then ok = pcall(function() scanTip:SetHyperlink(itemLink) end) end
-    if not ok then return "" end
+-- Le a linha de Uso/Efeito das linhas ATUAIS do scanTip (sem popular).
+-- Retorna "" quando nao ha linha de Uso:. Lua 5.0.
+function MerchantMenu:GetUseLineFromScanTip()
+    if not scanTip then return "" end
     local nl = scanTip:NumLines() or 0
     for l = 2, nl do
         local lo = getglobal("ConsoleMode_MerchantScanTipTextLeft" .. l)
@@ -419,6 +411,61 @@ function MerchantMenu:ScanUseLineFresh(itemLink)
         end
         if string.find(rt, "Uso:", 1, 1) or string.find(rt, "Use:", 1, 1) then
             return rt
+        end
+    end
+    return ""
+end
+
+-- Re-scan fresco da linha de Uso/Efeito (defesa em profundidade:
+-- o scan em massa do ParseBagItem pode perder a linha se o tooltip ainda nao
+-- estava populado, e ParseVendorItem/ParseBuybackItem nunca varrem o tooltip).
+-- Cada tentativa e VALIDADA via NumLines (pcall sozinho nao detecta falha
+-- silenciosa do SetHyperlink); fallbacks usam as chamadas nativas da UI
+-- padrao 1.12 (SetBagItem/SetMerchantItem/SetBuybackItem), que sempre rendem
+-- o tooltip real com a linha de Uso:. Retorna "" quando nao ha linha de Uso:
+-- ou quando o scan falha. Lua 5.0.
+function MerchantMenu:ScanUseLineFresh(itemLink, item)
+    if not scanTip then return "" end
+    local link = itemLink
+    if (not link or link == "") and item and item.link then link = item.link end
+    if (not link or link == "") and not item then return "" end
+    -- Reafirma o dono antes de cada scan: sem owner o SetHyperlink/SetBagItem
+    -- pode falhar silenciosamente (NumLines 0) sem erro no pcall.
+    pcall(function() scanTip:SetOwner(WorldFrame, "ANCHOR_NONE") end)
+    if link and link ~= "" then
+        local raw = nil
+        local _, _, extracted = string.find(link, "(item:%d+:%d+:%d+:%d+)")
+        if extracted then raw = extracted end
+        if raw then
+            scanTip:ClearLines()
+            pcall(function() scanTip:SetHyperlink(raw) end)
+            local hit = self:GetUseLineFromScanTip()
+            if hit ~= "" then return hit end
+        end
+        scanTip:ClearLines()
+        pcall(function() scanTip:SetHyperlink(link) end)
+        local hitFull = self:GetUseLineFromScanTip()
+        if hitFull ~= "" then return hitFull end
+    end
+    if item then
+        if item.bagID and item.slotID and scanTip.SetBagItem then
+            scanTip:ClearLines()
+            pcall(function() scanTip:SetBagItem(item.bagID, item.slotID) end)
+            local hitBag = self:GetUseLineFromScanTip()
+            if hitBag ~= "" then return hitBag end
+        end
+        if item.isBuyback then
+            if item.buybackIndex and scanTip.SetBuybackItem then
+                scanTip:ClearLines()
+                pcall(function() scanTip:SetBuybackItem(item.buybackIndex) end)
+                local hitBB = self:GetUseLineFromScanTip()
+                if hitBB ~= "" then return hitBB end
+            end
+        elseif item.index and scanTip.SetMerchantItem then
+            scanTip:ClearLines()
+            pcall(function() scanTip:SetMerchantItem(item.index) end)
+            local hitVend = self:GetUseLineFromScanTip()
+            if hitVend ~= "" then return hitVend end
         end
     end
     return ""
@@ -2043,9 +2090,11 @@ function MerchantMenu:ShowItemDetail(item)
     card.typeText:SetText("|cffb0b0b0" .. subStr .. "|r")
 
     -- Linha dedicada de Uso (campo proprio abaixo do subtipo): usa item.desc;
-    -- se vazio, tenta um re-scan fresco via hyperlink antes de desistir.
-    if (not item.desc or item.desc == "") and item.link then
-        local fresh = self:ScanUseLineFresh(item.link)
+    -- se vazio, tenta um re-scan fresco (hyperlink + APIs nativas de slot)
+    -- antes de desistir. Nao exige item.link: vendedor/recompra sem link
+    -- ainda resolvem via SetMerchantItem/SetBuybackItem.
+    if (not item.desc or item.desc == "") and (item.link or item.bagID or item.index or item.buybackIndex) then
+        local fresh = self:ScanUseLineFresh(item.link, item)
         if fresh and fresh ~= "" then item.desc = fresh end
     end
     if card.useText then

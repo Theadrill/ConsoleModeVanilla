@@ -6401,6 +6401,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
 
     mapScrollFrame:SetScript("OnMouseDown", function()
         if arg1 == "LeftButton" or arg1 == "RightButton" then
+            if MainMenu then MainMenu.mapFollow = false end
             mapCanvas.isDragging = true
             local curX, curY = GetCursorPosition()
             mapCanvas.dragStartX = curX
@@ -6484,6 +6485,38 @@ function MainMenu:SetupQuestsPage(pageQuests)
             this.elapsed = 0
             if MainMenu and MainMenu.UpdateMapPlayerPosition then
                 MainMenu:UpdateMapPlayerPosition(this)
+            end
+            -- Follow suave do jogador quando centralizado e sem intervenção manual
+            if MainMenu and MainMenu.mapFollow and not this.isDragging
+                and (MainMenu.stickPanX or 0) == 0 and (MainMenu.stickPanY or 0) == 0
+                and not MainMenu.mapShowingQuestZone and (MainMenu.mapViewMode or "ZONE") ~= "CONTINENT"
+                and not MainMenu.mapDungeonHardcoded then
+                local zFactor = this.zoomFactor or 1.0
+                if zFactor > 1.0 and this.playerCX and this.playerCY and (this.playerCX > 0 or this.playerCY > 0) then
+                    local cW = this:GetWidth() or 500
+                    local cH = this:GetHeight() or 340
+                    local s = this.currentScale or ((cW / 1002) * zFactor)
+                    local fW = math.floor(1002 * s)
+                    local fH = math.floor(668 * s)
+                    local mPanX = math.max(0, (fW - cW) / 2 + (cW * 0.45))
+                    local mPanY = math.max(0, (fH - cH) / 2 + (cH * 0.45))
+                    local targetX = math.max(-mPanX, math.min(mPanX, (0.5 - this.playerCX) * fW))
+                    local targetY = math.max(-mPanY, math.min(mPanY, (this.playerCY - 0.5) * fH))
+                    local curPanX = this.panX or 0
+                    local curPanY = this.panY or 0
+                    -- Lerp suave a 30 FPS (~0.2 por frame)
+                    local diffX = targetX - curPanX
+                    local diffY = targetY - curPanY
+                    if math.abs(diffX) > 0.5 or math.abs(diffY) > 0.5 then
+                        this.panX = curPanX + (diffX * 0.2)
+                        this.panY = curPanY + (diffY * 0.2)
+                        local cont = this.tilesContainer
+                        if cont then
+                            cont:ClearAllPoints()
+                            cont:SetPoint("CENTER", this, "CENTER", this.panX, this.panY)
+                        end
+                    end
+                end
             end
             if MainMenu and not MainMenu.mapShowingQuestZone and MainMenu.mapViewMode ~= "CONTINENT" then
                 local curZone = (GetZoneText and GetZoneText()) or ""
@@ -7282,6 +7315,7 @@ function MainMenu:SwitchMapToDungeon(instanceName)
 end
 
 function MainMenu:SwitchMapToZone(zoneName)
+    self.mapFollow = false
     self:HideZonePin()
     if not zoneName or zoneName == "" then return false end
     for cont = 1, 4 do
@@ -7367,6 +7401,7 @@ end
 
 function MainMenu:NavToContinent(cont)
     if not cont or (cont ~= 1 and cont ~= 2) then return end
+    self.mapFollow = false
     if SetMapZoom then CMSafeSetMap(SetMapZoom, cont, 0) end
     self.mapViewMode = "CONTINENT"
     self.mapContinentView = cont
@@ -9895,6 +9930,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                 btn.tooltipRole = data.role
                 btn:SetScript("OnClick", function()
                     if this.pinData and mapCanvas then
+                        if MainMenu then MainMenu.mapFollow = false end
                         local px = (this.pinData.x / 100)
                         local py = (this.pinData.y / 100)
                         local canvasW = mapCanvas:GetWidth() or 500
@@ -10069,6 +10105,9 @@ MainMenu.stickPanY = 0
 
 function MainMenu:OnStickPan(direction, keystate)
     local isDown = (keystate ~= "up")
+    if isDown then
+        self.mapFollow = false
+    end
 
     if direction == "UP" then
         self.stickPanY = isDown and -1 or 0
@@ -10132,6 +10171,7 @@ function MainMenu:CenterMapOnPlayer(mapCanvas)
 end
 
 function MainMenu:MapPan(dx, dy)
+    self.mapFollow = false
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.canvas then return end
@@ -12531,6 +12571,7 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
         self:UpdateLayout()
         self:RestorePlayerModel()
         self:ResetMapToPlayer()
+        self.mapFollow = true
         self:UpdateQuestsPage()
         do
             local pageQuests = container.pages and container.pages["QUESTS"]

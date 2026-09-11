@@ -1153,6 +1153,13 @@ function VK:EnsureRepeatTicker()
             end
             if not chatOn then
                 VK:Accept()
+                -- R2 consumido aqui: esconde a borda do modFrame
+                -- (Keybindings) para a mesma pressao nao ciclar
+                -- filtro/sub-aba na tela de tras no mesmo frame.
+                local kb = ConsoleMode and ConsoleMode.keybindings
+                if kb and kb.SwallowAltEdge then
+                    pcall(function() kb:SwallowAltEdge() end)
+                end
             end
         end
         VK.altWasDown = altNow

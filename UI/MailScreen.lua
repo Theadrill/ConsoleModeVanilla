@@ -1979,6 +1979,22 @@ function MailScreen:CreateInventoryGrid(parent)
         count:SetText("")
         s.countText = count
 
+        -- Moldura extra dourada do foco (borda dupla): o backdrop do slot
+        -- mantem edgeSize 8; este anel sobreposto com edgeSize 16 e o mesmo
+        -- ouro (1.00, 0.82, 0.20) engrossa o destaque sem mudar a identidade.
+        local ring = CreateFrame("Frame", nil, s)
+        ring:SetPoint("TOPLEFT", s, "TOPLEFT", -3, 3)
+        ring:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", 3, -3)
+        ring:EnableMouse(false)
+        ring:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 16,
+            insets   = { left = 3, right = 3, top = 3, bottom = 3 }
+        })
+        ring:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+        ring:Hide()
+        s.focusRing = ring
+
         s.slotPos = i
         s:RegisterForClicks("LeftButtonUp")
         s:SetScript("OnClick", function()
@@ -2148,8 +2164,10 @@ function MailScreen:RefreshInventoryGrid()
             end
             -- M4.2: slot anexado = fundo/borda VERMELHOS + badge "NA CARTA"
             -- (foco ouro tem precedencia na borda; badge segue visivel).
+            -- Foco = borda dupla: cor ouro no backdrop + anel extra (edge 16).
             local attached = self:IsItemAttached(it.bag, it.slot)
-            if self.composeFocus == "INV" and itemIdx == (self.invIndex or 1) then
+            local isFocused = (self.composeFocus == "INV" and itemIdx == (self.invIndex or 1))
+            if isFocused then
                 s:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
                 s:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
             elseif attached then
@@ -2176,6 +2194,13 @@ function MailScreen:RefreshInventoryGrid()
                 s.badge:Show()
             else
                 s.badge:Hide()
+            end
+            if s.focusRing then
+                if isFocused then
+                    s.focusRing:Show()
+                else
+                    s.focusRing:Hide()
+                end
             end
             s:Show()
         else
@@ -2430,11 +2455,31 @@ function MailScreen:TrimText(s)
     return string.sub(s, i, j)
 end
 
-function MailScreen:GetMailHistory()
+-- Garante a SV ConsoleModeMailHistory SEM nunca substituir a referencia da
+-- tabela carregada (sustenta o /reload): cria so se ausente; se presente,
+-- sanitiza IN PLACE (fora nao-strings/vazios, teto 20 do fim). Chamada apos
+-- VARIABLES_LOADED (Initialize/autoInit) e em todo acesso.
+function MailScreen:EnsureMailHistory()
     if type(ConsoleModeMailHistory) ~= "table" then
         ConsoleModeMailHistory = {}
+        return ConsoleModeMailHistory
     end
-    return ConsoleModeMailHistory
+    local h = ConsoleModeMailHistory
+    local n = table.getn(h)
+    for i = n, 1, -1 do
+        local v = h[i]
+        if type(v) ~= "string" or self:TrimText(v) == "" then
+            table.remove(h, i)
+        end
+    end
+    while table.getn(h) > 20 do
+        table.remove(h)
+    end
+    return h
+end
+
+function MailScreen:GetMailHistory()
+    return self:EnsureMailHistory()
 end
 
 function MailScreen:PushMailHistory(name)
@@ -2452,6 +2497,9 @@ function MailScreen:PushMailHistory(name)
     while table.getn(h) > 20 do
         table.remove(h)
     end
+    -- Reancora a global na tabela mutada (garante que a SV serializada no
+    -- /reload/logout e exatamente este conteudo; politica intacta).
+    ConsoleModeMailHistory = h
 end
 
 -- Alts = nomes dos outros chars (fonte existente no addon: chaves de
@@ -3099,8 +3147,28 @@ end
 -- (GetSendMailPrice) com guarda+pcall. A EditBox do campo segue digitavel
 -- (fallback fisico); mouse clica no digito + roda do mouse gira + botoes.
 -- ----------------------------------------------------------------------------
+-- Dimmer escuro proprio do modal de dinheiro (FULLSCREEN_DIALOG/49, logo
+-- abaixo do modal/50): escurece a janela do correio atras sem tocar nos
+-- reels/conteudo. Molde do dimmer principal (CreateDimmer), so UI.
+function MailScreen:CreateMoneyModalDimmer()
+    if self.moneyModalDimmer then return self.moneyModalDimmer end
+    local d = CreateFrame("Frame", "ConsoleMode_MailMoneyDimmer", UIParent)
+    d:SetAllPoints(UIParent)
+    d:SetFrameStrata("FULLSCREEN_DIALOG")
+    d:SetFrameLevel(49)
+    d:EnableMouse(true)
+    d:Hide()
+    local dimTex = d:CreateTexture(nil, "BACKGROUND")
+    dimTex:SetAllPoints(d)
+    dimTex:SetTexture(0.0, 0.0, 0.0, 0.65)
+    d.texture = dimTex
+    self.moneyModalDimmer = d
+    return d
+end
+
 function MailScreen:CreateMoneyModalUI()
     if self.moneyModalFrame then return self.moneyModalFrame end
+    self:CreateMoneyModalDimmer()
     local m = CreateFrame("Frame", "ConsoleMode_MailMoneyModal", UIParent)
     m:SetWidth(480)
     m:SetHeight(330)
@@ -3116,7 +3184,8 @@ function MailScreen:CreateMoneyModalUI()
         tile     = true, tileSize = 16, edgeSize = 12,
         insets   = { left = 3, right = 3, top = 3, bottom = 3 },
     })
-    m:SetBackdropColor(0.08, 0.06, 0.04, 0.95)
+    -- Fundo da janela TODA solido (alfa 1.0): sem transparencia residual.
+    m:SetBackdropColor(0.08, 0.06, 0.04, 1.0)
     m:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
     m:Hide()
 
@@ -3283,6 +3352,9 @@ function MailScreen:CreateMoneyModalUI()
     end)
     m:SetScript("OnHide", function()
         MailScreen.moneyModal.isOpen = false
+        if MailScreen.moneyModalDimmer and MailScreen.moneyModalDimmer:IsVisible() then
+            MailScreen.moneyModalDimmer:Hide()
+        end
     end)
     table.insert(UISpecialFrames, "ConsoleMode_MailMoneyModal")
 
@@ -3360,12 +3432,18 @@ function MailScreen:OpenMoneyModal()
     self.moneyModal.isOpen = true
     self:CreateMoneyModalUI()
     self:UpdateMoneyModalVisuals()
+    if self.moneyModalDimmer then
+        self.moneyModalDimmer:Show()
+    end
     self.moneyModalFrame:Show()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
 end
 
 function MailScreen:CloseMoneyModal(silent)
     self.moneyModal.isOpen = false
+    if self.moneyModalDimmer and self.moneyModalDimmer:IsVisible() then
+        self.moneyModalDimmer:Hide()
+    end
     if self.moneyModalFrame and self.moneyModalFrame:IsVisible() then
         self.moneyModalFrame:Hide()
     end
@@ -3515,6 +3593,9 @@ function MailScreen:TrySendMail()
         if PlaySound then PlaySound("igQuestFailed") end
         return
     end
+    -- Caminho do teclado fisico/ENVIAR tambem persiste o destinatario na SV
+    -- (o VK ja persiste no OnVKConfirm; dedup move-para-frente evita dobra).
+    self:PushMailHistory(to)
     local subject = tostring(self.composeSubject or "")
     local body = tostring(self.composeBody or "")
     local money = math.floor(tonumber(self.composeMoney) or 0)
@@ -4575,4 +4656,6 @@ autoInit:RegisterEvent("VARIABLES_LOADED")
 autoInit:RegisterEvent("PLAYER_LOGIN")
 autoInit:SetScript("OnEvent", function()
     MailScreen:Initialize()
+    -- SVs ja carregadas neste ponto: garante o historico sem clobber.
+    MailScreen:EnsureMailHistory()
 end)

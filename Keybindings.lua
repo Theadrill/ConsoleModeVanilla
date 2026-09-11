@@ -427,6 +427,17 @@ modFrame:SetScript("OnUpdate", function()
     wasAltDown = altNow
 end)
 
+-- VK consome o R2 (borda ALT) para confirmar: esconde essa mesma borda do
+-- modFrame para ela nao ciclar filtro/sub-aba na tela de tras no mesmo
+-- frame (o ticker do VK pode rodar antes do modFrame e fechar o VK no
+-- meio, e ai o vkOpen acima ja seria false). Passo unico, sem repeat.
+-- So o R2 precisa disso: L1/R1 trocam pagina sem fechar o VK (vkOpen
+-- segue true e o bloco de navegacao segue suprimido) e A/B/X/Y/D-Pad/Start
+-- nao sao borda de modificador (nunca chegam nesse OnUpdate).
+function KB:SwallowAltEdge()
+    wasAltDown = true
+end
+
 local defaultPageActions = {
     [1] = {
         A      = "JUMP",
@@ -1536,6 +1547,14 @@ end
 
 function CM_NavNextSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    -- VK aberto: R2 confirma no teclado (borda ALT); nao cicla filtro /
+    -- sub-aba na tela de tras (mail, merchant, mapa, cursor).
+    do
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen and vk:IsOpen() then
+            return
+        end
+    end
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:CycleSubTab(1)
         return
@@ -1561,6 +1580,13 @@ end
 
 function CM_NavPrevSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    -- VK aberto: L2 nao cicla filtro / sub-aba na tela de tras.
+    do
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen and vk:IsOpen() then
+            return
+        end
+    end
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:CycleSubTab(-1)
         return

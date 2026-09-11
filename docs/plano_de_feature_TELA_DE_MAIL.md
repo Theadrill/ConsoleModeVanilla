@@ -18,7 +18,7 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
   - Atualização: `CheckInbox()` dispara `MAIL_INBOX_UPDATE`.
   - Dados: `GetInboxNumItems()` e `GetInboxHeaderInfo(index)` retornam remetente, assunto, dinheiro, COD, dias restantes, anexo e flags.
   - Ações: `TakeInboxMoney(index)`, `TakeInboxItem(index)`, `DeleteInboxItem(index)`, `ReturnInboxItem(index)`.
-  - **Serialização Obrigatória:** Operações em lote no Inbox devem aguardar eventos (`MAIL_SUCCESS`, `MAIL_INBOX_UPDATE`) e nunca rodar em loop síncrono `for` para evitar perdas ou desync com o servidor.
+  - **Serialização Obrigatória:** Operações em lote no Inbox devem aguardar eventos (`MAIL_SEND_SUCCESS`, `MAIL_INBOX_UPDATE`) e nunca rodar em loop síncrono `for` para evitar perdas ou desync com o servidor.
 - **Entrada de Texto / Teclado Virtual:** O addon pode injetar strings livremente em `EditBox` (`target:SetText()`, `target:Insert()`) ou passar os buffers diretamente para a chamada `SendMail()`.
 
 ---
@@ -59,7 +59,8 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
 - **Validação:** Exibe saldo disponível, taxa de postagem calculada em tempo real (`GetSendMailPrice()`) e impede envio de valores superiores ao dinheiro do jogador.
 
 ### 4.2 Teclado Virtual Desacoplado para Console (`UI/VirtualKeyboard.lua`)
-> NOTA: implementação a cargo de outro agente (`docs/plano_de_feature_VIRTUAL_KEYBOARD.md`). A MailScreen consome o contrato abaixo; se o teclado estiver ausente, o campo foca seu EditBox para digitação no teclado físico.
+> NOTA: implementação a cargo de outro agente (`docs/plano_de_feature_VIRTUAL_KEYBOARD.md`), validada até VK-4 (main `b62a58e`). A MailScreen consome o contrato congelado abaixo; se o teclado estiver ausente, o campo foca seu EditBox para digitação no teclado físico.
+> Contrato congelado do VK (não mexer sem motivo): `ConsoleMode.VirtualKeyboard:Open({title, initialText, maxLetters, multiLine, autoCompleteList, onConfirm*, onCancel, targetEditBox})`, `Close()` (fecha e dispara `onCancel`/descarta), `IsOpen()`. `onConfirm` é obrigatório. Mapa vigente: A insere, B fecha, X apaga (hold), Y shift, D-Pad navega (hold), L1/R1 páginas, Start OK. Autocomplete: fileira de até 4, prefixo case-insensitive, UP sobe / A preenche / DOWN volta. O VK **nunca lê/escreve SavedVariables** — histórico e política (move-para-frente, sem duplicata, teto 20) são do MailScreen, em SV separada `ConsoleModeMailHistory` (+1 nome na linha `SavedVariables` do `.toc`; `ConsoleModeDB` segue só com alts).
 - **Arquitetura Modular / Standalone:** O Teclado Virtual é projetado como um módulo de serviço independente (`ConsoleMode.VirtualKeyboard`), podendo ser invocado por qualquer tela ou componente do addon (Mail, Chat, Busca de Bags, Macros, Configurações, etc.).
 - **API Pública do Teclado:**
   - `VirtualKeyboard:Open(config)`:
@@ -155,9 +156,11 @@ Construção do mercador (referência): Fase 1 detecção+supressão → Fase 2 
 - A abrir/ler, X secundário, Y retirar tudo (fila serializada por `MAIL_INBOX_UPDATE`), excluir/devolver com modal `FULLSCREEN_DIALOG/50`, `CloseTopFrame` + guards `Keybindings`/`Cursor`.
 - Validação: char com cartas (dinheiro+item+lixo); logs por carta; sem perda.
 
-### Fase M4: Janela de enviar mensagem
+### Fase M4: Janela de enviar mensagem (inclui VK-5: MailScreen consome o VirtualKeyboard)
 - Aba Compor (`Para`/`Assunto`/`Mensagem`/`Dinheiro`/anexo), validação saldo+postagem, `SendMail` serializado.
-- Teclado via contrato `ConsoleMode.VirtualKeyboard:Open({title, initialText, maxLetters, onConfirm, onCancel})`; se ausente, **foca o EditBox do campo para digitação no teclado físico** (fallback aprovado), com guarda anti-conflito D-Pad×digitação.
+- Chamadas VK (contrato congelado §4.2): `Para` → `Open({title="Destinatário", maxLetters=64, autoCompleteList=alts+histórico})`, `onConfirm` salva `composeTo` + atualiza histórico; `Assunto` → `Open({title="Assunto", initialText=nomeAnexo ou "", maxLetters=64})`; `Mensagem` → `Open({title="Mensagem", maxLetters=2000, multiLine=true})` (preserva `\n` e ç/ã).
+- Se VK ausente, **foca o EditBox do campo para digitação no teclado físico** (fallback aprovado), com guarda anti-conflito D-Pad×digitação; Esc/`CloseTopFrame` fecha o VK sem confirmar; teclado físico continua funcionando.
+- Auditoria VK-5: Para com prefixo → sugere alt → confirma → campo mostra nome; multilinha com acentos preservada; confirmar Para 2x → reabrir mostra o último no topo; `/reload` preserva; abrir VK 3x seguidas alternando confirmar/cancelar sem erro Lua.
 
 ### Fase M5: Polimento
 - Sons, `CloseTopFrame`, hooks `chatActive`, revisões Lua 5.0 + anti-bloqueio finais.

@@ -2771,6 +2771,16 @@ function MailScreen:AttachSelectedItem()
         end
         return
     end
+    -- Pre-check molde Postal (ItemIsMailable): avisa na hora do A em vez de
+    -- falhar so no envio com "click nao fixou".
+    local okMail, bindType = self:ItemIsMailable(it.bag, it.slot)
+    if not okMail then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Item nao pode ir pelo correio (" .. tostring(bindType or "?") .. ").")
+        end
+        if PlaySound then PlaySound("igQuestFailed") end
+        return
+    end
     local qty = tonumber(it.count) or 1
     if qty < 1 then qty = 1 end
     local link = nil
@@ -3698,6 +3708,12 @@ end
 -- resolve coords frescas, Split SO p/ pilha parcial (qty < pilha), Pickup p/
 -- pilha cheia/unitaria, verifica cursor + GetSendMailItem antes do SendMail,
 -- e aborta SEM enviar nada quando o anexo falha (nunca carta parcial).
+-- Ref. Postal (Postal.lua:SendMail + ItemIsMailable): ClickSendMailItemButton
+-- previo p/ limpar anexo residual do slot; assunto nunca vazio (fallback nome
+-- do 1o anexo / "[No Subject]"); multi-item sufixa "(Parte X de Y)";
+-- pre-check de item nao-enviavel via tooltip (soulbound/quest/conjurado/BoP).
+-- Sem ClearCursor em falha (deletaria o item): item fica no cursor p/ o
+-- jogador recolocar.
 -- ----------------------------------------------------------------------------
 function MailScreen:CursorHoldsItem()
     if CursorHasItem then
@@ -3716,6 +3732,58 @@ function MailScreen:GetSendSlotItemName()
     local ok, nm = pcall(GetSendMailItem)
     if ok and type(nm) == "string" and nm ~= "" then return nm end
     return nil
+end
+
+-- Molde Postal (Postal.lua:ItemIsMailable): item vinculado a alma, de quest,
+-- conjurado ou Bind-on-Pickup NAO pode ir pelo correio (regra do jogo 1.12);
+-- o cliente recusa o ClickSendMailItemButton e o sintoma e exatamente
+-- "click nao fixou". Sem este pre-check, o usuario so via o erro generico.
+-- Varre o tooltip numa GameTooltip oculta propria (nunca a GameTooltip do
+-- mouse). Retorna true ou false + etiqueta do vinculo. Lua 5.0: getglobal.
+function MailScreen:ItemIsMailable(bag, slot)
+    if bag == nil or slot == nil then return false, "slot invalido" end
+    if not SetBagItem and not GameTooltip then return true, "" end
+    local tip = self.scanTooltip
+    if not tip then
+        if not GameTooltip then return true, "" end
+        local ok, t = pcall(CreateFrame, "GameTooltip", "ConsoleModeMailScanTooltip", UIParent, "GameTooltipTemplate")
+        if not ok or not t then return true, "" end
+        self.scanTooltip = t
+        tip = t
+    end
+    pcall(function() tip:SetOwner(UIParent, "ANCHOR_NONE") end)
+    -- Limpa linhas residuais (molde Postal) antes de escanear.
+    local i = 1
+    while true do
+        local f = getglobal(tip:GetName() .. "TextLeft" .. i)
+        if not f then break end
+        pcall(function() f:SetText("") end)
+        i = i + 1
+        if i > 30 then break end
+    end
+    local okSet = pcall(function() tip:SetBagItem(bag, slot) end)
+    if not okSet then return true, "" end
+    local okN, n = pcall(function() return tip:NumLines() end)
+    if not okN or not tonumber(n) then return true, "" end
+    for i = 1, n do
+        local f = getglobal(tip:GetName() .. "TextLeft" .. i)
+        local text = nil
+        if f then
+            local okT, tx = pcall(function() return f:GetText() end)
+            if okT then text = tx end
+        end
+        if text and text ~= "" then
+            if (ITEM_SOULBOUND and text == ITEM_SOULBOUND)
+                or (ITEM_BIND_QUEST and text == ITEM_BIND_QUEST)
+                or (ITEM_CONJURED and text == ITEM_CONJURED)
+                or (ITEM_BIND_ON_PICKUP and text == ITEM_BIND_ON_PICKUP) then
+                pcall(function() tip:Hide() end)
+                return false, text
+            end
+        end
+    end
+    pcall(function() tip:Hide() end)
+    return true, ""
 end
 
 -- A aba de ENVIO (SendMailFrame) precisa estar ativa p/ o click de anexo
@@ -3748,6 +3816,11 @@ end
 -- Anexa (bag,slot,qty) no slot de envio. Retorna true ou false + motivo.
 -- Nunca deleta nada: com falha, o item fica onde esta (bolsa ou cursor) e o
 -- chamador aborta a fila SEM SendMail.
+-- Molde Postal (Postal.lua:SendMail): ClickSendMailItemButton previo p/ limpar
+-- anexo residual da carta anterior + Pickup + ClickSendMailItemButton (anexa)
+-- + GetSendMailItem (verifica). Sem o click de limpeza previa, o slot de
+-- envio podia reter item da carta anterior e o anexo novo falhava com
+-- "item not attached" do cliente. Nunca ClearCursor (deletaria item).
 function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     if not self.isOpen then return false, "correio fechado" end
     if bag == nil or slot == nil then return false, "slot invalido" end
@@ -3756,12 +3829,38 @@ function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     stackCount = tonumber(stackCount) or qty
     if stackCount < 1 then stackCount = qty end
     if qty > stackCount then qty = stackCount end
-    -- Cursor precisa estar livre: algo ja no cursor invalida o click.
+    if PickupContainerItem == nil and SplitContainerItem == nil then
+        return false, "API de bolsas ausente"
+    end
+    if ClickSendMailItemButton == nil then
+        return false, "API de anexo ausente"
+    end
+    -- Cursor precisa estar livre (algo ja no cursor invalida o click de
+    -- anexo no 1.12): aborta SEM ClearCursor, que deletaria o item do
+    -- jogador. O dono do cursor recoloca manualmente.
     if self:CursorHoldsItem() then
         return false, "cursor ocupado"
     end
-    if PickupContainerItem == nil and SplitContainerItem == nil then
-        return false, "API de bolsas ausente"
+    -- Pre-check molde Postal (ItemIsMailable): vinculado/quest/conjurado nao
+    -- passa nem com a aba certa; barra aqui com mensagem clara em vez do
+    -- generico "click nao fixou".
+    local okMail, bindType = self:ItemIsMailable(bag, slot)
+    if not okMail then
+        return false, "item nao-enviavel (" .. tostring(bindType or "?") .. ")"
+    end
+    -- Limpa anexo residual da carta anterior (multi-item: apos cada SendMail
+    -- o slot deveria esvaziar sozinho, mas lag/erro pode reter; sem isso o
+    -- Pickup+Click seguinte falha no cliente com "item not attached").
+    -- So clica se houver residuo; se o click trouxer item p/ o cursor,
+    -- aborta sem deletar nada (jogador recoloca).
+    if self:GetSendSlotItemName() ~= nil then
+        pcall(ClickSendMailItemButton)
+        if self:CursorHoldsItem() then
+            return false, "slot de envio ocupado (recoloque o item)"
+        end
+        if self:GetSendSlotItemName() ~= nil then
+            return false, "slot de envio ocupado (carta anterior?)"
+        end
     end
     if qty < stackCount then
         if SplitContainerItem == nil then
@@ -3777,12 +3876,11 @@ function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     if not self:CursorHoldsItem() then
         return false, "item nao saiu da bolsa (travado?)"
     end
-    if ClickSendMailItemButton == nil then
-        return false, "API de anexo ausente"
-    end
     pcall(ClickSendMailItemButton)
     local attached = self:GetSendSlotItemName()
     if attached == nil then
+        -- Click falhou: NAO da ClearCursor (deletaria o item); o item fica
+        -- no cursor p/ o jogador recolocar, e a fila aborta sem SendMail.
         return false, "click nao fixou (aba de envio?)"
     end
     if self:CursorHoldsItem() then
@@ -3843,6 +3941,14 @@ function MailScreen:TrySendMail()
     -- Caminho do teclado fisico/ENVIAR tambem persiste o destinatario na SV
     -- (o VK ja persiste no OnVKConfirm; dedup move-para-frente evita dobra).
     self:PushMailHistory(to)
+    -- Postal hooka PickupContainerItem/ClickSendMailItemButton (AceHook); com
+    -- ele ativo junto, nosso anexo fisico e sabotado. Avisa 1x por envio.
+    if (Postal ~= nil or getglobal("PostalFrame") ~= nil) and not st.warnedPostal then
+        st.warnedPostal = true
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Aviso: Postal ativo junto pode conflitar no envio (desative p/ testar).")
+        end
+    end
     local subject = tostring(self.composeSubject or "")
     local body = tostring(self.composeBody or "")
     local money = math.floor(tonumber(self.composeMoney) or 0)
@@ -3855,6 +3961,22 @@ function MailScreen:TrySendMail()
         local eb2 = self:GetComposeEditBox(2)
         if eb2 then
             pcall(function() eb2:SetText("gold") end)
+        end
+    end
+    -- Molde Postal (Postal.lua:SendMail): assunto nunca vazio; com itens e
+    -- assunto em branco, usa o nome do 1o anexo (fallback "[No Subject]").
+    -- Carta de item com assunto vazio era recusada com "item not attached".
+    if numItems > 0 and self:TrimText(subject) == "" then
+        local nm = self:GetFirstAttachName()
+        if nm and self:TrimText(nm) ~= "" then
+            subject = nm
+        else
+            subject = "[No Subject]"
+        end
+        self.composeSubject = subject
+        local eb2b = self:GetComposeEditBox(2)
+        if eb2b then
+            pcall(function() eb2b:SetText(subject) end)
         end
     end
     if numItems == 0 and money == 0 and self:TrimText(subject) == "" and self:TrimText(body) == "" then
@@ -3962,10 +4084,15 @@ function MailScreen:ProcessSendStep()
     if SetSendMailMoney then
         pcall(SetSendMailMoney, tonumber(letter.money) or 0)
     end
-    -- 3. Envio (assunto+texto copiados em todas as cartas).
+    -- 3. Envio (assunto+texto copiados em todas as cartas; molde Postal:
+    -- multi-item sufixa "(Parte X de Y)" p/ distinguir as cartas).
+    local sendSubject = tostring(st.subject or "")
+    if (tonumber(st.total) or 1) > 1 then
+        sendSubject = sendSubject .. string.format(" (Parte %d de %d)", tonumber(pos) or 1, tonumber(st.total) or 1)
+    end
     local okSend = false
     if SendMail then
-        local ok = pcall(SendMail, st.to, st.subject, st.body)
+        local ok = pcall(SendMail, st.to, sendSubject, st.body)
         if ok then okSend = true end
     end
     if not okSend then

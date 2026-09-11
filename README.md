@@ -29,6 +29,7 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 - **ConsoleUI**: Agradecimentos e créditos a [racha/ConsoleUI](https://github.com/racha/ConsoleUI) pela solução técnica de Mouse Look persistente com companion binding (F9 + WASD).
 - **ConsolePort**: Crédito e inspiração à equipe original do ConsolePort por definir o padrão de ouro da experiência com controle no World of Warcraft.
 - **Mail (shirsig)**: Agradecimentos e créditos a [shirsig/Mail](https://github.com/shirsig/Mail) (addon de correio para WoW 1.12) como referência técnica de uso da API de correio (`Mail.lua`: fluxo `MAIL_SHOW`, `CheckInbox`/`MAIL_INBOX_UPDATE`, `TakeInboxMoney`/`TakeInboxItem`/`DeleteInboxItem`/`ReturnInboxItem` serializados por eventos) para a tela de correio (`UI/MailScreen.lua`).
+- **Postal**: Agradecimentos e créditos a [Postal](https://github.com/CosminPOP/Postal) (addon de correio multi-item para WoW) como referência técnica do fluxo de envio com anexo (`Postal.lua:SendMail`: `ClickSendMailItemButton` prévio p/ limpar resíduo do slot + `PickupContainerItem` + `ClickSendMailItemButton` + verificação `GetSendMailItem` antes do `SendMail`, assunto fallback `[No Subject]` + sufixo `(Part X of Y)`, fila serializada por `MAIL_SEND_SUCCESS`; `ItemIsMailable` via tooltip p/ barrar item vinculado/quest/conjurado) para o anexo físico verificado (`UI/MailScreen.lua:AttachBagItem`/`ProcessSendStep`/`ItemIsMailable`, adaptado sem `ClearCursor` destrutivo).
 
 ---
 

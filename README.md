@@ -28,6 +28,7 @@ Trazer uma experiência moderna de controle inspirada no renomado addon **Consol
 - **ConsoleExperienceClassic**: Agradecimentos e créditos aos criadores e contribuidores do `ConsoleExperienceClassic` pela lógica de navegação via cursor e implementações de referência que inspiraram o sistema de navegação deste projeto.
 - **ConsoleUI**: Agradecimentos e créditos a [racha/ConsoleUI](https://github.com/racha/ConsoleUI) pela solução técnica de Mouse Look persistente com companion binding (F9 + WASD).
 - **ConsolePort**: Crédito e inspiração à equipe original do ConsolePort por definir o padrão de ouro da experiência com controle no World of Warcraft.
+- **Mail (shirsig)**: Agradecimentos e créditos a [shirsig/Mail](https://github.com/shirsig/Mail) (addon de correio para WoW 1.12) como referência técnica de uso da API de correio (`Mail.lua`: fluxo `MAIL_SHOW`, `CheckInbox`/`MAIL_INBOX_UPDATE`, `TakeInboxMoney`/`TakeInboxItem`/`DeleteInboxItem`/`ReturnInboxItem` serializados por eventos) para a tela de correio (`UI/MailScreen.lua`).
 
 ---
 

@@ -3,8 +3,7 @@
     UI/ContextMenu.lua
 
     Menu de Contexto Flutuante Estilo Console para a Bolsa (Bag):
-    - Modo Menu: Usar / Equipar, Dividir (Split), Excluir / Destruir
-    - Modo Split: Seletor nativo de divisão de pilhas com suporte total a D-Pad (◄ / ◅, Cima/Baixo)
+    - Modo Menu: Usar / Equipar, Dividir (via QuantityPicker), Excluir / Destruir
 
     Compatível com Lua 5.0 / WoW 1.12
 ]]
@@ -18,9 +17,7 @@ Menu.frame = nil
 Menu.buttons = {}
 Menu.currentBag = nil
 Menu.currentSlot = nil
-Menu.currentMax = 1
-Menu.currentSplit = 1
-Menu.currentMode = "MENU" -- "MENU", "SPLIT", ou "QUEST_MENU"
+Menu.currentMode = "MENU" -- "MENU" ou "QUEST_MENU"
 Menu.currentQuestIndex = nil
 Menu.currentBuffIndex = nil
 Menu.returnButton = nil
@@ -115,65 +112,7 @@ function Menu:Initialize()
         self.buttons[i] = btn
     end
 
-    -- ====================================================================
-    -- VIEW 2: SELETOR DE SPLIT (Dividir Pilha)
-    -- ====================================================================
-    local splitView = CreateFrame("Frame", "ConsoleModeContextMenuSplitView", f)
-    splitView:SetAllPoints(f)
-    splitView:Hide()
-    f.splitView = splitView
-
-
-    local countBox = CreateFrame("Frame", "ConsoleModeContextSplitCountBox", splitView)
-    countBox:SetWidth(172)
-    countBox:SetHeight(32)
-    countBox:SetPoint("TOP", splitView, "TOP", 0, -26)
-    countBox:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = true, tileSize = 12, edgeSize = 8,
-        insets = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    countBox:SetBackdropColor(0.04, 0.04, 0.06, 0.9)
-    countBox:SetBackdropBorderColor(0.4, 0.4, 0.5, 0.8)
-
-    local btnLeft = CreateFrame("Button", "ConsoleModeContextSplitLeftBtn", countBox, "UIPanelButtonTemplate")
-    btnLeft:SetWidth(24)
-    btnLeft:SetHeight(24)
-    btnLeft:SetPoint("LEFT", countBox, "LEFT", 4, 0)
-    btnLeft:SetText("<")
-    btnLeft:SetScript("OnClick", function() Menu:AdjustSplit(-1) end)
-
-
-    local btnRight = CreateFrame("Button", "ConsoleModeContextSplitRightBtn", countBox, "UIPanelButtonTemplate")
-    btnRight:SetWidth(24)
-    btnRight:SetHeight(24)
-    btnRight:SetPoint("RIGHT", countBox, "RIGHT", -4, 0)
-    btnRight:SetText(">")
-    btnRight:SetScript("OnClick", function() Menu:AdjustSplit(1) end)
-
-
-    local splitCountText = countBox:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    splitCountText:SetPoint("CENTER", countBox, "CENTER", 0, 0)
-    splitCountText:SetTextColor(1.0, 1.0, 1.0)
-    splitCountText:SetText("1 / 1")
-    f.splitCountText = splitCountText
-
-
-    local btnConfirm = CreateFrame("Button", "ConsoleModeContextSplitConfirmBtn", splitView, "UIPanelButtonTemplate")
-    btnConfirm:SetWidth(172)
-    btnConfirm:SetHeight(24)
-    btnConfirm:SetPoint("TOP", countBox, "BOTTOM", 0, -6)
-    btnConfirm:SetText("[A] Confirmar")
-    btnConfirm:SetScript("OnClick", function() Menu:ConfirmSplit() end)
-    f.btnConfirm = btnConfirm
-
-
-    local splitHint = splitView:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    splitHint:SetPoint("BOTTOM", splitView, "BOTTOM", 0, 6)
-    splitHint:SetTextColor(0.65, 0.65, 0.65)
-    splitHint:SetText("[Pad] Quantidade  [B] Voltar")
-    f.splitHint = splitHint
+    -- (Divisao de pilha usa UI/QuantityPicker.lua; sem view propria.)
 
     self.frame = f
 end
@@ -210,9 +149,6 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     self.currentBag = bagID
     self.currentSlot = slotID
     self.currentInvSlot = nil
-    self.currentMax = count
-    self.currentSplit = math.floor(count / 2)
-    if self.currentSplit < 1 then self.currentSplit = 1 end
     self.currentMode = "MENU"
     self.returnButton = anchorFrame
     self.itemName = itemName
@@ -226,7 +162,6 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
     -- Configura View Inicial (Menu da Bolsa)
     self.frame.menuView:Show()
-    self.frame.splitView:Hide()
     self.frame:SetHeight(152)
 
     local isUsable = false
@@ -374,7 +309,6 @@ function Menu:OpenForEquipItem(invSlotID, anchorFrame)
 
     -- Configura botões para o modo de Equipamento
     self.frame.menuView:Show()
-    self.frame.splitView:Hide()
     self.frame:SetHeight(68)
 
     -- Botão 1: Desequipar
@@ -442,7 +376,6 @@ function Menu:OpenForBuff(buffIndex, buffName, anchorFrame)
 
     -- Menu de buff: SOMENTE a opcao "Cancelar Buff"
     self.frame.menuView:Show()
-    self.frame.splitView:Hide()
     self.frame:SetHeight(68)
 
     local cancelBtn = self.buttons[1]
@@ -485,70 +418,8 @@ function Menu:OpenForBuff(buffIndex, buffName, anchorFrame)
     return true
 end
 
-function Menu:SwitchToSplitView()
-    self.currentMode = "SPLIT"
-    self.frame.title:SetText("Dividir Pilha")
-    self.frame.menuView:Hide()
-    self.frame.splitView:Show()
-    self:UpdateSplitDisplay()
-
-    if CM.cursor and self.frame.btnConfirm then
-        CM.cursor:MoveTo(self.frame.btnConfirm)
-        CM.cursor:UpdateState()
-    end
-    PlaySound("igMainMenuOptionCheckBoxOn")
-end
-
-function Menu:SwitchToMenuView()
-    self.currentMode = "MENU"
-    if self.itemName then
-        if string.len(self.itemName) > 18 then
-            self.frame.title:SetText(string.sub(self.itemName, 1, 16) .. "..")
-        else
-            self.frame.title:SetText(self.itemName)
-        end
-    end
-    self.frame.splitView:Hide()
-    self.frame.menuView:Show()
-
-    if CM.cursor and self.buttons[2] then
-        CM.cursor:MoveTo(self.buttons[2])
-        CM.cursor:UpdateState()
-    end
-    PlaySound("igMainMenuOptionCheckBoxOff")
-end
-
-function Menu:UpdateSplitDisplay()
-    if not self.frame or not self.frame.splitCountText then return end
-    self.frame.splitCountText:SetText(
-        "|cffffd200" .. self.currentSplit .. "|r / " .. self.currentMax
-    )
-end
-
-function Menu:AdjustSplit(delta)
-    if self.currentMode ~= "SPLIT" then return end
-    local maxCount = self.currentMax or 1
-    local newSplit = self.currentSplit + delta
-    if newSplit < 1 then newSplit = 1 end
-    if newSplit >= maxCount then newSplit = maxCount - 1 end
-    if newSplit < 1 then newSplit = 1 end
-
-    self.currentSplit = newSplit
-    self:UpdateSplitDisplay()
-    PlaySound("igMainMenuOptionCheckBoxOn")
-end
-
-function Menu:ConfirmSplit()
-    local bagID = self.currentBag
-    local slotID = self.currentSlot
-    local count = self.currentSplit
-    self:Close()
-
-    if bagID and slotID and count and count >= 1 then
-        SplitContainerItem(bagID, slotID, count)
-    end
-    PlaySound("igMainMenuOptionCheckBoxOn")
-end
+-- Divisao de pilha: usa o componente compartilhado UI/QuantityPicker.lua
+-- (mesma janela do mail) + UI/BagSplit.lua. Sem view propria de split.
 
 function Menu:Close()
     if not self.frame or not self.frame:IsVisible() then return end
@@ -637,8 +508,47 @@ function Menu:ExecuteAction(action)
         end
 
     elseif action == "SPLIT" then
-        -- Abre o seletor nativo do ConsoleMode
-        self:SwitchToSplitView()
+        -- Mesma janela de quantidade do mail (UI/QuantityPicker.lua): divide
+        -- via BagSplit e deposita num slot vazio sozinho.
+        local anchor = self.returnButton
+        local nm = self.itemName or "Item"
+        self:Close()
+        local _, liveCount = GetContainerItemInfo(bagID, slotID)
+        liveCount = tonumber(liveCount) or 1
+        if liveCount < 2 then return end
+        local startQ = math.floor(liveCount / 2)
+        if startQ < 1 then startQ = 1 end
+        if startQ >= liveCount then startQ = liveCount - 1 end
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if not qp or not qp.Open then return end
+        qp:Open({
+            title = "Dividir Pilha",
+            itemName = nm,
+            qty = startQ,
+            maxQty = liveCount,
+            ctx = { bag = bagID, slot = slotID },
+            onConfirm = function(q, ctx)
+                local bs = CM.BagSplit or ConsoleMode_BagSplit
+                if bs and bs.Start then
+                    local okS, why = bs:Start(ctx.bag, ctx.slot, q, {
+                        onFail = function(reason, c)
+                            if DEFAULT_CHAT_FRAME then
+                                DEFAULT_CHAT_FRAME:AddMessage("Divisão falhou (" .. tostring(reason) .. "). Confira a bolsa.", 1, 0.25, 0.25)
+                            end
+                        end,
+                    })
+                    if not okS and DEFAULT_CHAT_FRAME then
+                        DEFAULT_CHAT_FRAME:AddMessage("Divisão falhou (" .. tostring(why) .. ").", 1, 0.25, 0.25)
+                    end
+                end
+            end,
+            onCancel = function(ctx)
+                local m = CM.ui and CM.ui.contextMenu
+                if m and m.OpenForBagItem and ctx and ctx.bag and ctx.slot then
+                    m:OpenForBagItem(ctx.bag, ctx.slot, anchor)
+                end
+            end,
+        })
 
     elseif action == "RESTACK" then
         if self.buttons[3] and (self.buttons[3]:IsEnabled() == 0 or self.buttons[3]:IsEnabled() == false) then
@@ -798,7 +708,6 @@ function Menu:OpenForQuest(questLogIndex, questTitle, anchorFrame)
     self.frame.title:SetText(displayName)
 
     self.frame.menuView:Show()
-    self.frame.splitView:Hide()
     self.frame:SetHeight(96)
 
     local btn1 = self.buttons[1]

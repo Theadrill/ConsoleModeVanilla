@@ -34,5 +34,6 @@ UI\MainMenu.lua
 UI\MerchantMenu.lua
 UI\VirtualKeyboard.lua
 UI\BagSplit.lua
+UI\QuantityPicker.lua
 UI\MailScreen.lua
 Hooks.lua

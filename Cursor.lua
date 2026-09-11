@@ -607,23 +607,17 @@ function Cursor:FindFirstVisibleButton(frame)
         end
     end
 
-    -- Para Menu de Contexto da Bolsa: preferir botão habilitado conforme o modo ativo
+    -- Para Menu de Contexto da Bolsa: primeiro botão habilitado visível
+    -- (divisão usa UI/QuantityPicker.lua; sem view propria de split).
     if fname == "ConsoleModeContextMenu" then
-        local ctxMenu = CM.ui and CM.ui.contextMenu
-        if ctxMenu and ctxMenu.currentMode == "SPLIT" then
-            if ConsoleModeContextSplitConfirmBtn and ConsoleModeContextSplitConfirmBtn:IsVisible() then
-                return ConsoleModeContextSplitConfirmBtn
+        for i = 1, 4 do
+            local btn = getglobal("ConsoleModeContextMenuBtn" .. i)
+            if btn and btn:IsVisible() and (btn:IsEnabled() == 1 or btn:IsEnabled() == true) then
+                return btn
             end
-        else
-            for i = 1, 4 do
-                local btn = getglobal("ConsoleModeContextMenuBtn" .. i)
-                if btn and btn:IsVisible() and (btn:IsEnabled() == 1 or btn:IsEnabled() == true) then
-                    return btn
-                end
-            end
-            if ConsoleModeContextMenuBtn1 and ConsoleModeContextMenuBtn1:IsVisible() then
-                return ConsoleModeContextMenuBtn1
-            end
+        end
+        if ConsoleModeContextMenuBtn1 and ConsoleModeContextMenuBtn1:IsVisible() then
+            return ConsoleModeContextMenuBtn1
         end
     end
 
@@ -1383,21 +1377,12 @@ function Cursor:MoveDirection(direction)
         return 
     end
 
-    -- Se o Menu de Contexto estiver no modo SPLIT, direcionais ajustam a quantidade
-    local ctxMenu = CM.ui and CM.ui.contextMenu
-    if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() and ctxMenu.currentMode == "SPLIT" then
-        direction = string.upper(direction or "")
-        if direction == "LEFT" then
-            ctxMenu:AdjustSplit(-1)
-            return
-        elseif direction == "RIGHT" then
-            ctxMenu:AdjustSplit(1)
-            return
-        elseif direction == "DOWN" then
-            ctxMenu:AdjustSplit(-5)
-            return
-        elseif direction == "UP" then
-            ctxMenu:AdjustSplit(5)
+    -- Seletor de quantidade compartilhado: direcionais ajustam (UP/DOWN +-1,
+    -- LEFT/RIGHT +-5).
+    do
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.IsOpen and qp:IsOpen() then
+            qp:Direction(string.upper(direction or ""))
             return
         end
     end

@@ -1214,11 +1214,13 @@ function CM_CursorConfirm()
         return
     end
 
-    -- Se o Menu de Contexto estiver no modo SPLIT, [A] confirma o split
-    local ctxMenu = CM.ui and CM.ui.contextMenu
-    if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() and ctxMenu.currentMode == "SPLIT" then
-        ctxMenu:ConfirmSplit()
-        return
+    -- Seletor de quantidade compartilhado: [A] confirma.
+    do
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.IsOpen and qp:IsOpen() then
+            qp:Confirm()
+            return
+        end
     end
     
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao A (Confirmar/Clicar)")
@@ -1445,14 +1447,19 @@ function CM_CursorCancel()
             return
         end
     end
-    -- 0. Se o Menu de Contexto estiver aberto
+    -- 0. Seletor de quantidade compartilhado: [B] cancela.
+    do
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.IsOpen and qp:IsOpen() then
+            qp:Cancel()
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Quantidade)")
+            return
+        end
+    end
+    -- 0b. Se o Menu de Contexto estiver aberto
     local ctxMenu = CM.ui and CM.ui.contextMenu
     if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then
-        if ctxMenu.currentMode == "SPLIT" then
-            ctxMenu:SwitchToMenuView()
-        else
-            ctxMenu:Close()
-        end
+        ctxMenu:Close()
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Menu de Contexto)")
         return
     end

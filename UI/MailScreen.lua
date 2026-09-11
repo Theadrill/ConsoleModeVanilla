@@ -102,15 +102,14 @@ MailScreen.tabIndicator       = nil
 -- (N itens); no envio sai 1 carta por item (limite 1.12), dinheiro so na 1a.
 -- moneyModal: reels Ouro 4 + Prata 2 + Cobre 2 (§4.1: digits[1..8], wrap 0-9,
 -- hold 0.35/0.12 via StartRepeat/OnDirection, <-/-> digito, A confirma, B
--- cancela). qtyModal: quantidade do item (teto = pilha, A confirma, B
--- cancela, mouse digita). sendQueue: fila serializada por MAIL_SEND_SUCCESS,
--- aborta em MAIL_CLOSED; pos-envio limpa tudo e permanece no compor.
+-- cancela). Quantidade via componente UI/QuantityPicker.lua (Y abre, teto =
+-- pilha, A confirma, B cancela, mouse digita). sendQueue: fila serializada
+-- por MAIL_SEND_SUCCESS, aborta em MAIL_CLOSED; pos-envio limpa tudo e
+-- permanece no compor.
 -- ----------------------------------------------------------------------------
 MailScreen.composeItems      = MailScreen.composeItems or {}
 MailScreen.moneyModal        = MailScreen.moneyModal or { isOpen = false, digits = { 0, 0, 0, 0, 0, 0, 0, 0 }, digitIndex = 1 }
 MailScreen.moneyModalFrame   = MailScreen.moneyModalFrame or nil
-MailScreen.qtyModal          = MailScreen.qtyModal or { isOpen = false, bag = nil, slot = nil, qty = 1, maxQty = 1, itemName = "" }
-MailScreen.qtyModalFrame     = MailScreen.qtyModalFrame or nil
 MailScreen.sendQueue         = MailScreen.sendQueue or { running = false, letters = {}, pos = 1, total = 0 }
 
 -- ----------------------------------------------------------------------------
@@ -3280,157 +3279,13 @@ function MailScreen:UpdateComposeItemsText()
 end
 
 -- ----------------------------------------------------------------------------
--- 2f-M4.2 (III). MODAL DE QUANTIDADE (§7 M4: Y no inventario do compor)
--- FULLSCREEN_DIALOG/50 (molde MerchantMenu qty modal): D-Pad UP/DOWN ajusta
--- (hold via StartRepeat/OnDirection), teto = tamanho da pilha, A confirma
--- (define a quantidade do item na lista), B cancela, mouse digita o numero
--- na EditBox + botoes clicaveis.
+-- 2f-M4.2 (III). MODAL DE QUANTIDADE: delega ao componente compartilhado
+-- UI/QuantityPicker.lua (mesma janela do main menu). Y no inventario do
+-- compor abre; A confirma (anexa/split), B cancela; mouse digita + botoes.
 -- ----------------------------------------------------------------------------
-function MailScreen:CreateQtyModalUI()
-    if self.qtyModalFrame then return self.qtyModalFrame end
-    local m = CreateFrame("Frame", "ConsoleMode_MailQtyModal", UIParent)
-    m:SetWidth(420)
-    m:SetHeight(260)
-    m:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
-    m:SetFrameStrata("FULLSCREEN_DIALOG")
-    m:SetFrameLevel(50)
-    m:EnableMouse(true)
-    m:SetMovable(false)
-    m:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 16, edgeSize = 12,
-        insets   = { left = 3, right = 3, top = 3, bottom = 3 },
-    })
-    m:SetBackdropColor(0.08, 0.06, 0.04, 0.85)
-    m:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
-    m:Hide()
-
-    local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    title:SetPoint("TOP", m, "TOP", 0, -14)
-    self:ApplyFont(title, FONTS.titleBold, 19)
-    title:SetText("|cffe09a15Quantidade|r")
-    m.title = title
-
-    local name = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    name:SetPoint("TOP", title, "BOTTOM", 0, -6)
-    name:SetWidth(380)
-    name:SetJustifyH("CENTER")
-    self:ApplyFont(name, FONTS.titleBold, 16)
-    name:SetText("|cffffffffItem|r")
-    m.nameText = name
-
-    local qty = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    qty:SetPoint("CENTER", m, "CENTER", 0, 18)
-    self:ApplyFont(qty, FONTS.titleBold, 30)
-    qty:SetText("|cffe09a15x1|r")
-    m.qtyText = qty
-
-    -- EditBox p/ o mouse digitar o numero (D-Pad ajusta o mesmo valor).
-    local eb = CreateFrame("EditBox", "ConsoleMode_MailQtyModalEB", m)
-    eb:SetWidth(110)
-    eb:SetHeight(28)
-    eb:SetPoint("CENTER", m, "CENTER", 0, -22)
-    eb:SetFont(FONTS.medium, 16)
-    eb:SetTextColor(1.0, 1.0, 1.0, 1.0)
-    eb:SetAutoFocus(false)
-    eb:EnableMouse(true)
-    eb:SetMaxLetters(5)
-    eb:SetJustifyH("CENTER")
-    pcall(function() eb:SetNumeric(true) end)
-    eb:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    eb:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
-    eb:SetBackdropBorderColor(0.30, 0.25, 0.18, 0.60)
-    eb:SetScript("OnEnterPressed", function()
-        MailScreen:QtyModalConfirm()
-    end)
-    eb:SetScript("OnEscapePressed", function()
-        this:ClearFocus()
-    end)
-    eb:SetScript("OnEditFocusLost", function()
-        MailScreen:QtyModalSyncFromEditBox()
-    end)
-    m.qtyEditBox = eb
-
-    -- Footer de hints com icones (ICONS), nao texto puro (Bug A).
-    local qtyHints = {
-        { icons = { "DDOWN", "DUP" }, label = "ajustar" },
-        { icons = { "A" },             label = "confirmar" },
-        { icons = { "B" },             label = "cancelar" },
-    }
-    m.hints = self:BuildIconHints(m, "ConsoleMode_MailQtyHints", qtyHints, 52)
-
-    local confirmBtn = CreateFrame("Button", "ConsoleMode_MailQtyConfirmYes", m)
-    confirmBtn:SetWidth(150)
-    confirmBtn:SetHeight(28)
-    confirmBtn:SetPoint("BOTTOMLEFT", m, "BOTTOM", -160, 10)
-    confirmBtn:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    confirmBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
-    confirmBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-    local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    confirmTxt:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
-    MailScreen:ApplyFont(confirmTxt, FONTS.titleBold, 15)
-    confirmTxt:SetText("Confirmar")
-    confirmBtn:SetScript("OnClick", function()
-        MailScreen:QtyModalConfirm()
-    end)
-    confirmBtn:SetScript("OnEnter", function()
-        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-    end)
-    confirmBtn:SetScript("OnLeave", function()
-        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-    end)
-    m.confirmBtn = confirmBtn
-
-    local cancelBtn = CreateFrame("Button", "ConsoleMode_MailQtyConfirmNo", m)
-    cancelBtn:SetWidth(150)
-    cancelBtn:SetHeight(28)
-    cancelBtn:SetPoint("BOTTOMRIGHT", m, "BOTTOM", 160, 10)
-    cancelBtn:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    cancelBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
-    cancelBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-    local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    cancelTxt:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
-    MailScreen:ApplyFont(cancelTxt, FONTS.titleBold, 15)
-    cancelTxt:SetText("Cancelar")
-    cancelBtn:SetScript("OnClick", function()
-        MailScreen:CloseQtyModal()
-    end)
-    cancelBtn:SetScript("OnEnter", function()
-        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-    end)
-    cancelBtn:SetScript("OnLeave", function()
-        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-    end)
-    m.cancelBtn = cancelBtn
-
-    m:SetScript("OnHide", function()
-        MailScreen.qtyModal.isOpen = false
-    end)
-    table.insert(UISpecialFrames, "ConsoleMode_MailQtyModal")
-
-    self.qtyModalFrame = m
-    return m
-end
-
 function MailScreen:IsQtyModalOpen()
-    if self.qtyModal and self.qtyModal.isOpen then return true end
-    if self.qtyModalFrame and self.qtyModalFrame:IsVisible() then return true end
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if qp and qp.IsOpen then return qp:IsOpen() end
     return false
 end
 
@@ -3456,84 +3311,81 @@ function MailScreen:OpenQtyModalForInvIndex()
         if startQ < 1 then startQ = 1 end
         if startQ > maxQ then startQ = maxQ end
     end
-    self.qtyModal.isOpen = true
-    self.qtyModal.bag = it.bag
-    self.qtyModal.slot = it.slot
-    self.qtyModal.qty = startQ
-    self.qtyModal.maxQty = maxQ
-    self.qtyModal.itemName = it.name or "Item"
-    self:CreateQtyModalUI()
-    self:UpdateQtyModalVisuals()
-    self.qtyModalFrame:Show()
+    -- Modal compartilhado UI/QuantityPicker.lua (mesma janela do main menu).
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if not qp or not qp.Open then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Seletor de quantidade indisponivel.")
+        end
+        return
+    end
+    qp:Open({
+        title = "Quantidade",
+        itemName = it.name or "Item",
+        qty = startQ,
+        maxQty = maxQ,
+        ctx = { bag = it.bag, slot = it.slot, nm = it.name or "Item" },
+        onConfirm = function(q, ctx)
+            MailScreen:OnQtyPicked(q, ctx)
+        end,
+        onCancel = function(ctx) end,
+    })
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
 end
 
 function MailScreen:CloseQtyModal(silent)
-    self.qtyModal.isOpen = false
-    self.qtyModal.bag = nil
-    self.qtyModal.slot = nil
-    self.qtyModal.qty = 1
-    if self.qtyModalFrame and self.qtyModalFrame:IsVisible() then
-        self.qtyModalFrame:Hide()
-    end
-    if not silent then
-        if PlaySound then PlaySound("igMainMenuClose") end
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if qp and qp.Close then
+        qp:Close(silent)
     end
 end
 
 function MailScreen:QtyModalAdjust(delta)
-    if not self:IsQtyModalOpen() then return end
-    delta = tonumber(delta) or 0
-    local q = (tonumber(self.qtyModal.qty) or 1) + delta
-    local mx = tonumber(self.qtyModal.maxQty) or 1
-    if q < 1 then q = 1 end
-    if q > mx then q = mx end
-    if q ~= self.qtyModal.qty then
-        self.qtyModal.qty = q
-        if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
-        self:UpdateQtyModalVisuals()
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if qp and qp.Adjust then
+        qp:Adjust(delta)
     end
 end
 
 function MailScreen:QtyModalSyncFromEditBox()
-    if not self:IsQtyModalOpen() then return end
-    local m = self.qtyModalFrame
-    if not m or not m.qtyEditBox then return end
-    local ok, txt = pcall(function() return m.qtyEditBox:GetText() end)
-    if not ok then return end
-    local q = math.floor(tonumber(txt) or (self.qtyModal.qty or 1))
-    local mx = tonumber(self.qtyModal.maxQty) or 1
-    if q < 1 then q = 1 end
-    if q > mx then q = mx end
-    self.qtyModal.qty = q
-    self:UpdateQtyModalVisuals()
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if qp and qp.SyncFromEditBox then
+        qp:SyncFromEditBox()
+    end
 end
 
 function MailScreen:QtyModalDirection(direction)
-    if direction == "UP" then
-        self:QtyModalAdjust(1)
-    elseif direction == "DOWN" then
-        self:QtyModalAdjust(-1)
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if qp and qp.Direction then
+        qp:Direction(direction)
     end
 end
 
--- A no modal: confirma a pilha CHEIA na lista (anexa se ainda nao estiver);
--- com qty parcial, divide a pilha num slot vazio da bolsa e anexa a pilha
--- nova (integral) — tudo sem sair do mail. B cancela sozinho (CloseQtyModal).
+-- A no modal (via QuantityPicker onConfirm): confirma a pilha CHEIA na lista
+-- (anexa se ainda nao estiver); com qty parcial, divide via BagSplit e anexa
+-- a pilha nova integral — tudo sem sair do mail.
 function MailScreen:QtyModalConfirm()
-    if not self:IsQtyModalOpen() then return end
-    if not self.isOpen then
-        self:CloseQtyModal(true)
-        return
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if qp and qp.Confirm then
+        qp:Confirm()
     end
-    self:QtyModalSyncFromEditBox()
-    local bag = self.qtyModal.bag
-    local slot = self.qtyModal.slot
-    local qty = tonumber(self.qtyModal.qty) or 1
-    local nm = self.qtyModal.itemName or "Item"
-    local mx = tonumber(self.qtyModal.maxQty) or qty
-    self:CloseQtyModal(true)
+end
+
+-- Destino do confirm do QuantityPicker no mail (qty ja sincronizada).
+function MailScreen:OnQtyPicked(qty, ctx)
+    if not self.isOpen then return end
+    ctx = ctx or {}
+    local bag = ctx.bag
+    local slot = ctx.slot
+    local nm = ctx.nm or "Item"
+    qty = tonumber(qty) or 1
     if bag == nil or slot == nil then return end
+    -- Teto vivo (a pilha pode ter mudado desde que o modal abriu).
+    local mx = qty
+    if GetContainerItemInfo then
+        local okC, _, c = pcall(GetContainerItemInfo, bag, slot)
+        if okC and tonumber(c) and tonumber(c) > mx then mx = tonumber(c) end
+    end
     if qty < mx then
         -- Pilha parcial: divide via BagSplit (modulo UI/BagSplit.lua) e anexa
         -- a pilha nova integral. Assincrono com verificacao; fim via callbacks.
@@ -3608,7 +3460,7 @@ function MailScreen:QtyModalConfirm()
     end
 end
 
--- Primeiro slot vazio das bolsas (0-4). Retorna bag, slot ou nil, nil.
+-- Log de falha de divisao (callback BagSplit onFail).
 function MailScreen:FailSplit(msg)
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] " .. tostring(msg))
@@ -3675,24 +3527,7 @@ function MailScreen:FinishSplitAttach(eb, es, qty, ctx)
     end
 end
 
-function MailScreen:UpdateQtyModalVisuals()
-    local m = self.qtyModalFrame
-    if not m then return end
-    local qty = tonumber(self.qtyModal.qty) or 1
-    local mx = tonumber(self.qtyModal.maxQty) or 1
-    if m.nameText then
-        m.nameText:SetText("|cffffffff" .. tostring(self.qtyModal.itemName or "Item") .. "|r")
-    end
-    if m.qtyText then
-        m.qtyText:SetText("|cffe09a15x" .. qty .. "|r  |cff888888/ " .. mx .. "|r")
-    end
-    if m.qtyEditBox then
-        local ok, cur = pcall(function() return m.qtyEditBox:GetText() end)
-        if ok and tostring(cur or "") ~= tostring(qty) then
-            pcall(function() m.qtyEditBox:SetText(tostring(qty)) end)
-        end
-    end
-end
+-- (Visual do modal de quantidade vive em UI/QuantityPicker.lua.)
 
 -- ----------------------------------------------------------------------------
 -- 2f-M4.2 (IV). MODAL DE DINHEIRO (§4.1: reels por digito, estilo alarme)

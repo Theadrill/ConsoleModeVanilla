@@ -92,7 +92,7 @@ Regras:
 1. `Keybindings.lua`: inserir branch `if VirtualKeyboard:IsOpen() then VK:OnDirection/Confirm/Cancel... return end` como **primeiro** branch após `if chatActive then return end` em `CM_CursorMove`, `CM_CursorConfirm`, `CM_CursorUse` (bloqueia), `CM_CursorSecondary`, `CM_CursorCancel` — espelho exato de `IsQtyModalOpen()` (`Keybindings.lua:1037,1078,1117,1162,1213`).
 2. `Cursor.lua:UpdateState (784-808)`: adicionar `VK.frame` como `modalFrame` de precedência máxima (`if VK:IsOpen() then modalFrame=VK.frame`), senão o D-Pad navega na tela de trás.
 3. `Hooks.lua:CloseTopFrame (701-713)`: topo `if VK:IsOpen() then VK:Close() return true end`, antes de `DropDownList`.
-4. `VK:OnDirection + StartRepeat/StopRepeat/EnsureRepeatTicker` com `initialDelay 0.35 / interval 0.12` (cópia de `MerchantMenu:2335-2377` + `Cursor.lua:25-30`); `B/backspace` usa repeat, resto passo único.
+4. `VK:OnDirection + StartRepeat/StopRepeat/EnsureRepeatTicker` com `initialDelay 0.35 / interval 0.12` (cópia de `MerchantMenu:2335-2377` + `Cursor.lua:25-30`); repeat em `X` (apagar) + D-Pad (navegar), resto (`A`/`Y`/`B`) passo único (mapa vigente §3.4).
 5. `chatActive`: quando VK edita buffer interno, manter `chatActive=false` (senão ele se auto-bloqueia). Só setar `true` se delegar foco físico (`targetEditBox:SetFocus()`). Fix órfão `OnChatActivated/Deactivated` entra na Fase 5.
 
 ### 3.4. Layouts de tecla e mapeamento
@@ -100,6 +100,13 @@ Regras:
 - Fixo: `D-Pad=navega matriz (COM hold-repeat)`, `A=insere (passo único)`, `B=fecha (sem repeat)`, `X=apaga (COM hold-repeat)`, `Y=shift abc/ABC (passo único)`, `L1/R1=página`, `Start=onConfirm`.
 - `maxLetters`: `Insert` recusa além do limite + som de erro; `multiLine=false` recusa `\n`.
 - UTF-8 ptBR: contar **bytes** com `strlen/strsub` (Lua 5.0 sem suporte a codepoint); nunca fatiar no meio de multibyte no backspace (remove último byte-sequence válido); fonte `FRIZQT__` sem glifo vira `?` — aceitar e documentar.
+
+### 3.5. Histórico de destinatários — autocomplete do `Para` (escopo VK-5, só documentar, NÃO implementar nesta fase)
+- SavedVariable SEPARADA `ConsoleModeMailHistory` (vira arquivo próprio em `WTF\...\SavedVariables\ConsoleModeMailHistory.lua`, não mistura com `ConsoleModeDB` — persistência hoje: só `ConsoleModeDB`, cf. `ConsoleModeVanilla.toc:6`).
+- Formato: lista de strings (nomes de personagens), teto de 20 recentes + alts do jogador (alts continuam em `ConsoleModeDB`; a lista final `autoCompleteList` = alts + histórico, montada pelo chamador).
+- Política (no `onConfirm` do `Para` em `UI/MailScreen.lua`): ao confirmar `Para`, move-para-frente / elimina duplicata / corta em 20.
+- VK segue genérico: só recebe `autoCompleteList` pronta no `Open`, nunca lê/escreve SavedVariables.
+- `.toc` (VK-5): ganhar `ConsoleModeMailHistory` na linha de `SavedVariables`. Consumidor: `UI/MailScreen.lua`.
 
 ---
 
@@ -119,23 +126,23 @@ Regras:
 
 ### FASE VK-2 — Grade ABC + navegação D-Pad + inserção/confirmação
 **Escopo:**
-- Grade página `abc` (26 letras + espaço + backspace + OK), botões reais com `OnClick`/`OnEnter`, `OnDirection` 2D (esquerda/direita/cima/baixo com wrap), `A` insere no buffer + `UpdatePreview`, `B` backspace 1 char, `Start`/botão OK confirma (`Close + onConfirm`).
+- Grade página `abc` (26 letras + espaço + backspace + OK), botões reais com `OnClick`/`OnEnter`, `OnDirection` 2D (esquerda/direita/cima/baixo com wrap), `A` insere no buffer + `UpdatePreview`, `X` backspace 1 char (passo único nesta fase; hold-repeat entra na VK-4 — mapa vigente §3.4), `Start`/botão OK confirma (`Close + onConfirm`).
 - Fiação mínima: branches em `CM_CursorMove/Confirm/Cancel` + `UpdateState` modal (itens 1-2 do §3.3). Sem autocomplete, sem páginas, sem repeat ainda.
 **Auditoria:**
 1. `/reload`, abrir VK via `/script`, navegar grade 100% por D-Pad (sem mouse), foco visível (highlight ouro).
-2. Digitar `thrall` com `A`, apagar 1 com `B`, confirmar com `Start` → chat/log mostra `OK:thrall`.
+2. Digitar `thrall` com `A`, apagar 1 com `X`, confirmar com `Start` → chat/log mostra `OK:thrall`.
 3. `B` com buffer vazio não quebra; D-Pad na tela de trás NÃO move enquanto VK aberto.
-4. Fechar com `B` longo? Não — `B` apaga; fechar via botão Fechar/Start. (Comportamento será refinado na VK-4.)
+4. `B` fecha (passo único, sem repeat); `X` apaga nesta fase. Fechar também via botão Fechar/Start. (Comportamento será refinado na VK-4.)
 **NÃO avançar se:** D-Pad vazar para a tela de trás ou `onConfirm` não receber o texto exato.
 
 ### FASE VK-3 — Páginas, shift, números, PT-BR, limites, multiLine
 **Escopo:**
-- Páginas `abc/ABC/123/PT`, `X` alterna shift, `L1/R1` cicla páginas, `Y` espaço (`\n` se `multiLine`), `maxLetters` clamp + som erro, backspace UTF-8 seguro.
+- Páginas `abc/ABC/123/PT`, `Y` alterna shift abc/ABC (passo único), `L1/R1` cicla páginas, botão ESPAÇO da grade (confirmado com `A`) insere espaço (`\n` se `multiLine`), `maxLetters` clamp + som erro, backspace (`X`) UTF-8 seguro. [mapa vigente §3.4 — `X`=apaga, `Y`=shift]
 **Auditoria:**
 1. Abrir com `maxLetters=5`, digitar 7 chars → para em 5 + erro sonoro.
-2. `multiLine=false`: tecla `Y` insere espaço, nunca `\n`. `multiLine=true`: `Y` insere `\n`, preview quebra linha.
+2. `multiLine=false`: botão ESPAÇO da grade insere espaço, nunca `\n`. `multiLine=true`: ESPAÇO insere `\n`, preview quebra linha.
 3. Página `PT`: inserir `ã`, `ç`, `é` sem erro Lua; backspace remove o caractere inteiro (não deixa byte órfão).
-4. `X` alterna `abc↔ABC`; `L1/R1` cicla `abc→ABC→123→PT→abc`.
+4. `Y` alterna `abc↔ABC` (passo único); `L1/R1` cicla `abc→ABC→123→PT→abc`.
 **NÃO avançar se:** acento quebrar buffer ou limite estourar.
 
 ### FASE VK-4 — Autocomplete genérico + hold-repeat + fechamento padrão
@@ -143,21 +150,23 @@ Regras:
 - `suggestRow` (até 4): filtra `autoCompleteList` por prefixo do buffer (case-insensitive, `strlower`), `D-Pad UP` da 1ª linha sobe para sugestões, `A` preenche buffer (sem fechar), `D-Pad DOWN` volta. `StartRepeat` com repeat em `X` (apagar contínuo, COM hold-repeat) e navegação direcional (D-Pad, COM hold-repeat); `A`/`Y`/`B` passo único. `CloseTopFrame` topo + `Y` bloqueado? Não — `Y` é shift abc/ABC (passo único). `B` com buffer vazio + sem sugestão = `Close` (cancel).
 **Auditoria:**
 1. `Open({autoCompleteList={"Thrall","Thrallbank","Jaina"}})`, digitar `t` → mostra 2 sugestões; `UP + A` na 1ª → buffer `Thrall`.
-2. Segurar `B` apaga contínuo (0.35s delay, 0.12s intervalo); soltar para.
+2. Segurar `X` apaga contínuo (0.35s delay, 0.12s intervalo); soltar para.
 3. `Esc/B` equivalente (`CloseTopFrame`) fecha VK sem confirmar e devolve foco ao `returnButton`.
 **NÃO avançar se:** sugestão não filtrar ou foco não voltar ao chamador.
 
 ### FASE VK-5 — Integração MailScreen (3 campos) + polish + chat
 **Escopo:**
-- `MailScreen Para`: `Open({title="Destinatário", maxLetters=64, autoCompleteList=alts+histórico})` → `onConfirm` salva `composeTo`.
+- `MailScreen Para`: `Open({title="Destinatário", maxLetters=64, autoCompleteList=alts+histórico})` → `onConfirm` salva `composeTo` + atualiza `ConsoleModeMailHistory` (move-para-frente/elimina duplicata/corta em 20). VK recebe só a lista pronta, nunca lê/escreve SavedVariables (ver §3.5).
 - `Assunto`: `Open({title="Assunto", initialText=nomeAnexo ou "", maxLetters=64})`.
 - `Mensagem`: `Open({title="Mensagem", maxLetters=2000, multiLine=true})`.
 - Fix `chatActive` (hooks `ChatFrameEditBox` + `SendMail*EditBox`), sons `CheckBoxOn/Off/Close`, hints finais, `targetEditBox` sync opcional.
+- `.toc` (VK-5): adicionar `ConsoleModeMailHistory` na linha de `SavedVariables` (arquivo próprio, separado de `ConsoleModeDB`).
 **Auditoria (fim-a-fim):**
 1. Na mailbox: abrir `Para` → digitar prefixo → autocomplete alt → confirmar → campo mostra nome.
 2. `Mensagem` multilinha com acentos → `onConfirm` preserva `\n` e `ç/ã`.
 3. Teclado físico ainda funciona (foco direto dá `chatActive=true`, D-Pad não rouba).
 4. Sessão completa sem erro Lua: abrir VK 3x seguidas, confirmar/cancelar alternados.
+5. Histórico `Para` (VK-5, cf. §3.5): confirmar `Para` 2x com nomes distintos → reabrir mostra o último no topo das sugestões; `/reload` preserva (lido de `ConsoleModeMailHistory`).
 **Aceite final:** as 4 auditorias VK-1..VK-4 + esta, todas com `/reload` limpo.
 
 ---
@@ -166,7 +175,7 @@ Regras:
 - **Novo:** `UI/VirtualKeyboard.lua` (único arquivo novo desta feature).
 - **Registro:** `ConsoleModeVanilla.toc` (+1 linha antes de `MailScreen.lua`).
 - **Fiação (VK-2/VK-4):** `Keybindings.lua` (5 branches), `Cursor.lua` (`UpdateState`), `Hooks.lua` (`CloseTopFrame`).
-- **Consumidor (VK-5):** `UI/MailScreen.lua` (3 chamadas `Open`), `Core.lua` (nada novo — VK sem init), `ConsoleModeDB` (alts + histórico, se ainda não existir).
+- **Consumidor (VK-5):** `UI/MailScreen.lua` (3 chamadas `Open`; dono do histórico: monta `autoCompleteList=alts(ConsoleModeDB)+histórico` e aplica move-para-frente/dedup/corta-20 no `onConfirm` do `Para`), `Core.lua` (nada novo — VK sem init; VK nunca lê/escreve SavedVariables), persistência: `ConsoleModeDB` (alts, já existente) + NOVA `ConsoleModeMailHistory` (lista de strings, teto 20, arquivo próprio; `.toc` ganha o nome na linha `SavedVariables` na VK-5).
 - **Intocados:** `MainMenu.lua`, `MerchantMenu.lua`, `MailFrame` nativo (só suprimido pelo MailScreen).
 
 ---

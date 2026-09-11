@@ -77,7 +77,8 @@ MailScreen.takeAllQueue       = MailScreen.takeAllQueue or { running = false, qu
 -- currentScreen: "INBOX" (default ao abrir) ou "COMPOSE".
 -- composeFocus: "FIELDS" (coluna esquerda) ou "INV" (grade da direita).
 -- composeFieldIndex: 1=Para, 2=Assunto, 3=Mensagem, 4=Dinheiro, 5=Itens,
--- 6=ENVIAR. invIndex/invScrollOffset: navegacao da grade (invCols fixo).
+-- 6=ENVIAR. invIndex/invScrollOffset: navegacao da grade (invCols dinamico
+-- por LayoutInventoryGrid).
 -- composeTo/Subject/Body/Money: buffers estruturais (espelhos do texto das
 -- EditBoxes; usados de verdade so em M4.2).
 -- ----------------------------------------------------------------------------
@@ -456,7 +457,7 @@ function MailScreen:FilterInbox()
     if self.selectedInboxIndex < 1 then
         self.selectedInboxIndex = 1
     end
-    local visibleRows = 7
+    local visibleRows = self:VisibleInboxRows()
     if self.selectedInboxIndex <= self.inboxScrollOffset then
         self.inboxScrollOffset = self.selectedInboxIndex - 1
     elseif self.selectedInboxIndex > (self.inboxScrollOffset + visibleRows) then
@@ -467,19 +468,88 @@ function MailScreen:FilterInbox()
     if self.inboxScrollOffset > maxOffset then self.inboxScrollOffset = maxOffset end
 end
 
--- Logica pura de paginacao (7 linhas por pagina), sem frames: pronta para
--- o visual futuro.
+-- Logica pura de paginacao (linhas por pagina = visiveis), sem frames.
 function MailScreen:GetInboxPage()
     local n = table.getn(self.filteredInbox or {})
-    local totalPages = math.ceil(n / 7)
+    local perPage = self:VisibleInboxRows()
+    local totalPages = math.ceil(n / perPage)
     if totalPages < 1 then totalPages = 1 end
     local idx = tonumber(self.selectedInboxIndex) or 1
     if idx < 1 then idx = 1 end
     if n > 0 and idx > n then idx = n end
-    local page = math.floor((idx - 1) / 7) + 1
+    local page = math.floor((idx - 1) / perPage) + 1
     if page < 1 then page = 1 end
     if page > totalPages then page = totalPages end
     return page, totalPages
+end
+
+-- ----------------------------------------------------------------------------
+-- 1e. LAYOUT DINAMICO (linhas do inbox + grade de bolsas preenchendo a area
+-- disponivel; sem numero fixo de linhas/colunas).
+-- Inbox: linha 42px + espacamento 2px (pitch 44), 1a linha a -2 do topo.
+-- Grade: slot 40px + gap 6px, margem 6px. Fallbacks = valores antigos
+-- (7 linhas, 5x6) quando o painel ainda nao tem tamanho medivel.
+-- ----------------------------------------------------------------------------
+MailScreen.inboxRowH = 42
+MailScreen.inboxRowGap = 2
+MailScreen.invSlotSize = 40
+MailScreen.invSlotGap = 6
+MailScreen.invGridPad = 6
+
+-- Quantas linhas do inbox cabem na altura atual da listArea esquerda.
+function MailScreen:VisibleInboxRows()
+    local fallback = 7
+    local leftCol = self.frame and self.frame.leftCol
+    local area = leftCol and leftCol.listArea
+    if not area then return fallback end
+    local ok, h = pcall(function() return area:GetHeight() end)
+    h = (ok and tonumber(h)) or 0
+    if h < 50 then return fallback end
+    local n = math.floor(h / (self.inboxRowH + self.inboxRowGap))
+    if n < 1 then n = 1 end
+    if n > 30 then n = 30 end
+    return n
+end
+
+-- Recalcula cols x linhas da grade pela area atual da direita (compore).
+-- Grava em self.invCols/self.invRowsVisible: todo o resto (navegacao, scroll,
+-- clicks) usa esses campos e se adapta sozinho.
+function MailScreen:LayoutInventoryGrid(grid)
+    if not grid then
+        local rightCol = self.frame and self.frame.rightCol
+        grid = rightCol and rightCol.invGrid
+    end
+    if not grid then return end
+    local okW, w = pcall(function() return grid:GetWidth() end)
+    local okH, h = pcall(function() return grid:GetHeight() end)
+    w = (okW and tonumber(w)) or 0
+    h = (okH and tonumber(h)) or 0
+    if w < 60 or h < 60 then return end
+    local size = self.invSlotSize or 40
+    local gap = self.invSlotGap or 6
+    local pad = self.invGridPad or 6
+    local cols = math.floor((w - pad * 2 + gap) / (size + gap))
+    local rowsVis = math.floor((h - pad * 2 + gap) / (size + gap))
+    if cols < 1 then cols = 1 end
+    if rowsVis < 1 then rowsVis = 1 end
+    if cols > 12 then cols = 12 end
+    if rowsVis > 20 then rowsVis = 20 end
+    if grid._cols == cols and grid._rows == rowsVis
+        and grid.slots and table.getn(grid.slots) >= cols * rowsVis then
+        self.invCols = cols
+        self.invRowsVisible = rowsVis
+        return
+    end
+    self.invCols = cols
+    self.invRowsVisible = rowsVis
+    grid._cols = cols
+    grid._rows = rowsVis
+    self:EnsureInvSlots(grid, cols * rowsVis)
+    local n = table.getn(grid.slots or {})
+    for i = 1, n do
+        self:PositionInvSlot(grid, grid.slots[i], i)
+    end
+    self:ClampInventoryScroll()
 end
 
 -- ----------------------------------------------------------------------------
@@ -1137,17 +1207,36 @@ function MailScreen:BuildMailBadges(item)
 end
 
 function MailScreen:CreateInboxRows(parent)
-    local rows = {}
-    for i = 1, 7 do
-        local row = CreateFrame("Button", "ConsoleMode_MailRow" .. i, parent)
-        row:SetHeight(42)
-        if i == 1 then
-            row:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -2)
-            row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -2)
-        else
-            row:SetPoint("TOPLEFT", rows[i - 1], "BOTTOMLEFT", 0, -2)
-            row:SetPoint("TOPRIGHT", rows[i - 1], "BOTTOMRIGHT", 0, -2)
-        end
+    parent.rows = parent.rows or {}
+    self:EnsureInboxRows(parent, 7)
+    return parent.rows
+end
+
+-- Garante N linhas no pool (cria as faltantes; nunca remove).
+function MailScreen:EnsureInboxRows(parent, n)
+    if not parent then return {} end
+    parent.rows = parent.rows or {}
+    n = tonumber(n) or 7
+    if n < 1 then n = 1 end
+    local have = table.getn(parent.rows)
+    for i = have + 1, n do
+        local row = self:CreateInboxRow(parent, i, parent.rows)
+        table.insert(parent.rows, row)
+    end
+    return parent.rows
+end
+
+function MailScreen:CreateInboxRow(parent, i, rows)
+    rows = rows or parent.rows or {}
+    local row = CreateFrame("Button", "ConsoleMode_MailRow" .. i, parent)
+    row:SetHeight(MailScreen.inboxRowH or 42)
+    if i == 1 then
+        row:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -2)
+        row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -2)
+    else
+        row:SetPoint("TOPLEFT", rows[i - 1], "BOTTOMLEFT", 0, -(MailScreen.inboxRowGap or 2))
+        row:SetPoint("TOPRIGHT", rows[i - 1], "BOTTOMRIGHT", 0, -(MailScreen.inboxRowGap or 2))
+    end
 
         row:SetBackdrop({
             bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -1252,10 +1341,7 @@ function MailScreen:CreateInboxRows(parent)
         end)
 
         row:Hide()
-        table.insert(rows, row)
-    end
-    parent.rows = rows
-    return rows
+        return row
 end
 
 -- DetailCard da carta (molde MerchantMenu:CreateDetailCard, adaptado a
@@ -1459,16 +1545,21 @@ function MailScreen:ShowMailDetail(item)
     end
 end
 
--- Atualiza SOMENTE as 7 linhas visiveis (pool criado em CreateUI) + detalhe
--- + paginacao. Sem tooltip nesta fase.
+-- Atualiza SOMENTE as linhas visiveis (pool dinamico por altura da area) +
+-- detalhe + paginacao. Sem tooltip nesta fase.
 function MailScreen:RefreshInboxList()
     -- M4.1: telas exclusivas; no compor a camada inbox fica oculta
     -- (ShowInboxScreen reexibe ao voltar).
     if self.currentScreen == "COMPOSE" then return end
     local leftCol = self.frame and self.frame.leftCol
-    if not leftCol or not leftCol.listArea or not leftCol.listArea.rows then return end
+    if not leftCol or not leftCol.listArea then return end
 
+    -- Pool acompanha a altura disponivel (dinamico, sem numero fixo).
+    local visible = self:VisibleInboxRows()
+    self:EnsureInboxRows(leftCol.listArea, visible)
     local rows = leftCol.listArea.rows
+    if not rows then return end
+    local poolN = table.getn(rows)
     local filtered = self.filteredInbox or {}
     local numItems = table.getn(filtered)
 
@@ -1482,7 +1573,7 @@ function MailScreen:RefreshInboxList()
     end
 
     if numItems == 0 then
-        for i = 1, 7 do rows[i]:Hide() end
+        for i = 1, poolN do rows[i]:Hide() end
         leftCol.placeholder:SetText("|cffaaaaaaCaixa de entrada vazia.|r")
         leftCol.placeholder:Show()
         leftCol.pageIndicator:SetText("|cff666666Nenhuma carta|r")
@@ -1501,9 +1592,10 @@ function MailScreen:RefreshInboxList()
     end
 
     local selectedItem = nil
-    for slotIdx = 1, 7 do
+    for slotIdx = 1, visible do
         local itemIdx = (self.inboxScrollOffset or 0) + slotIdx
         local row = rows[slotIdx]
+        if not row then break end
 
         if itemIdx <= numItems then
             local item = filtered[itemIdx]
@@ -1553,11 +1645,16 @@ function MailScreen:RefreshInboxList()
         end
     end
 
-    local curPage = math.floor((self.selectedInboxIndex - 1) / 7) + 1
-    local totalPages = math.ceil(numItems / 7)
+    -- Pool maior que o visivel (janela encolheu): esconde a sobra.
+    for i = visible + 1, poolN do
+        if rows[i] then rows[i]:Hide() end
+    end
+
+    local curPage = math.floor((self.selectedInboxIndex - 1) / visible) + 1
+    local totalPages = math.ceil(numItems / visible)
     if totalPages < 1 then totalPages = 1 end
     local arrowUp = (self.inboxScrollOffset > 0) and "▲ " or ""
-    local arrowDown = ((self.inboxScrollOffset + 7) < numItems) and " ▼" or ""
+    local arrowDown = ((self.inboxScrollOffset + visible) < numItems) and " ▼" or ""
     leftCol.pageIndicator:SetText(string.format("%s|cffaaaaaaItem %d de %d|r  |cff888888(Pág. %d/%d)|r%s", arrowUp, self.selectedInboxIndex, numItems, curPage, totalPages, arrowDown))
 
     self:ShowMailDetail(selectedItem)
@@ -1656,7 +1753,7 @@ function MailScreen:MoveInboxSelection(delta)
         self.selectedInboxIndex = newIdx
         if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
 
-        local visibleRows = 7
+        local visibleRows = self:VisibleInboxRows()
         if self.selectedInboxIndex <= self.inboxScrollOffset then
             self.inboxScrollOffset = self.selectedInboxIndex - 1
         elseif self.selectedInboxIndex > (self.inboxScrollOffset + visibleRows) then
@@ -1735,6 +1832,9 @@ function MailScreen:ShowInboxScreen()
     self:UpdateInboxFilterBar()
     self:UpdateColumnVisuals()
     self:RefreshInboxList()
+    -- Re-tenta o layout dinamico nos proximos frames (tamanhos so existem
+    -- apos renderizar).
+    self._needLayoutRetry = 0
     if PlaySound then PlaySound("igCharacterInfoTab") end
 end
 
@@ -1798,6 +1898,9 @@ function MailScreen:ShowComposeScreen()
     self:RefreshComposeVisuals()
     self:UpdateSendProgress()
     self:UpdateColumnVisuals()
+    -- Re-tenta o layout dinamico nos proximos frames (tamanhos so existem
+    -- apos renderizar; sem isso a grade nascia compacta ate o 1o refresh).
+    self._needLayoutRetry = 0
     if PlaySound then PlaySound("igCharacterInfoTab") end
 end
 
@@ -2086,7 +2189,8 @@ end
 -- ----------------------------------------------------------------------------
 -- 2f-M4.1 (cont.). GRADE DO INVENTARIO: leitura display-only das bolsas
 -- (GetContainerNumSlots/Link/Info com guarda isOpen + pcall; nunca move nada).
--- Pool persistente de slots (invCols x invRowsVisible) com icone, borda por
+-- Pool de slots com cols x linhas DINAMICOS (LayoutInventoryGrid pela area),
+-- icone, borda por
 -- qualidade (QUALITY_COLORS) e quantidade; navegacao por celulas + scroll.
 -- ----------------------------------------------------------------------------
 function MailScreen:CreateInventoryGrid(parent)
@@ -2096,16 +2200,70 @@ function MailScreen:CreateInventoryGrid(parent)
     grid:EnableMouseWheel(true)
     grid.slots = {}
 
-    local size = 40
-    local gap = 6
-    local total = self.invCols * self.invRowsVisible
-    for i = 1, total do
-        local s = CreateFrame("Button", "ConsoleMode_MailInvSlot" .. i, grid)
-        s:SetWidth(size)
-        s:SetHeight(size)
-        local col0 = math.mod(i - 1, self.invCols)
-        local row0 = math.floor((i - 1) / self.invCols)
-        s:SetPoint("TOPLEFT", grid, "TOPLEFT", 6 + col0 * (size + gap), -(6 + row0 * (size + gap)))
+    -- Primeira medicao + pool inicial (Layout recalcula em todo refresh).
+    -- Na criacao o painel ainda nao tem tamanho: garante ao menos o pool
+    -- padrao para a grade nunca nascer vazia.
+    grid._cols = nil
+    grid._rows = nil
+    self:LayoutInventoryGrid(grid)
+    if table.getn(grid.slots or {}) == 0 then
+        self.invCols = self.invCols or 5
+        self.invRowsVisible = self.invRowsVisible or 6
+        self:EnsureInvSlots(grid, self.invCols * self.invRowsVisible)
+        local n0 = table.getn(grid.slots or {})
+        for i = 1, n0 do
+            self:PositionInvSlot(grid, grid.slots[i], i)
+        end
+    end
+
+    grid:SetScript("OnMouseWheel", function()
+        if MailScreen.currentScreen ~= "COMPOSE" then return end
+        if arg1 > 0 then
+            MailScreen:ScrollInventory(-1)
+        else
+            MailScreen:ScrollInventory(1)
+        end
+    end)
+
+    grid:Hide()
+    return grid
+end
+
+-- Garante N slots no pool (cria os faltantes; nunca remove).
+function MailScreen:EnsureInvSlots(grid, n)
+    if not grid then return end
+    grid.slots = grid.slots or {}
+    n = tonumber(n) or 0
+    if n < 0 then n = 0 end
+    local have = table.getn(grid.slots)
+    for i = have + 1, n do
+        local s = self:CreateInvSlot(grid, i)
+        table.insert(grid.slots, s)
+    end
+end
+
+function MailScreen:PositionInvSlot(grid, s, i)
+    if not s then return end
+    local cols = tonumber(self.invCols) or 5
+    if cols < 1 then cols = 5 end
+    local size = self.invSlotSize or 40
+    local gap = self.invSlotGap or 6
+    local pad = self.invGridPad or 6
+    local col0 = math.mod(i - 1, cols)
+    local row0 = math.floor((i - 1) / cols)
+    s:SetWidth(size)
+    s:SetHeight(size)
+    s:ClearAllPoints()
+    s:SetPoint("TOPLEFT", grid, "TOPLEFT", pad + col0 * (size + gap), -(pad + row0 * (size + gap)))
+    s.slotPos = i
+end
+
+function MailScreen:CreateInvSlot(grid, i)
+    local size = self.invSlotSize or 40
+    local s = CreateFrame("Button", "ConsoleMode_MailInvSlot" .. i, grid)
+    s:SetWidth(size)
+    s:SetHeight(size)
+    self:PositionInvSlot(grid, s, i)
         s:SetBackdrop({
             bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -2144,7 +2302,6 @@ function MailScreen:CreateInventoryGrid(parent)
         ring:Hide()
         s.focusRing = ring
 
-        s.slotPos = i
         s:RegisterForClicks("LeftButtonUp")
         s:SetScript("OnClick", function()
             local idx = (MailScreen.invScrollOffset or 0) * MailScreen.invCols + this.slotPos
@@ -2175,20 +2332,7 @@ function MailScreen:CreateInventoryGrid(parent)
         end)
 
         s:Hide()
-        table.insert(grid.slots, s)
-    end
-
-    grid:SetScript("OnMouseWheel", function()
-        if MailScreen.currentScreen ~= "COMPOSE" then return end
-        if arg1 > 0 then
-            MailScreen:ScrollInventory(-1)
-        else
-            MailScreen:ScrollInventory(1)
-        end
-    end)
-
-    grid:Hide()
-    return grid
+        return s
 end
 
 function MailScreen:ScanComposeBags()
@@ -2285,10 +2429,15 @@ end
 function MailScreen:RefreshInventoryGrid()
     local grid = self.frame and self.frame.rightCol and self.frame.rightCol.invGrid
     if not grid or not grid.slots then return end
+    -- Recalcula cols x linhas pela area atual (resize) antes de desenhar.
+    self:LayoutInventoryGrid(grid)
+    if not grid.slots then return end
     local items = self.invItems or {}
     local n = table.getn(items)
     local cols = self.invCols or 5
     local numSlots = table.getn(grid.slots)
+    -- Pool pode ser maior que o visivel (janela encolheu): so mostra a pagina.
+    local perPage = cols * (self.invRowsVisible or 6)
 
     local rightCol = self.frame.rightCol
     if rightCol and rightCol.pageIndicator then
@@ -2302,7 +2451,7 @@ function MailScreen:RefreshInventoryGrid()
     for i = 1, numSlots do
         local s = grid.slots[i]
         local itemIdx = (self.invScrollOffset or 0) * cols + i
-        if itemIdx >= 1 and itemIdx <= n then
+        if i <= perPage and itemIdx >= 1 and itemIdx <= n then
             local it = items[itemIdx]
             s.icon:SetTexture(it.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
             local qc = QUALITY_COLORS[tonumber(it.quality) or 1] or QUALITY_COLORS[1]
@@ -4348,6 +4497,45 @@ function MailScreen:OnSendWatchdog()
     end
 end
 
+-- Re-tentativa do layout dinamico (OnUpdate do event frame): GetWidth/Height
+-- so retornam valores reais apos o frame renderizar; a 1a medicao (ainda no
+-- mesmo frame do Show) usa fallback compacto. Tenta por ~60 frames apos cada
+-- troca de tela e aplica asssim que medir (grade do compor + linhas do inbox).
+function MailScreen:OnLayoutRetry()
+    if not self.initialized then return end
+    if self._needLayoutRetry == nil then return end
+    if not self.isOpen or not self.frame then
+        self._needLayoutRetry = nil
+        return
+    end
+    local tries = (tonumber(self._needLayoutRetry) or 0) + 1
+    self._needLayoutRetry = tries
+    if tries > 60 then
+        self._needLayoutRetry = nil
+        return
+    end
+    if self.currentScreen == "COMPOSE" then
+        local grid = self.frame.rightCol and self.frame.rightCol.invGrid
+        if not grid or not grid.IsVisible or not grid:IsVisible() then return end
+        local okW, w = pcall(function() return grid:GetWidth() end)
+        local okH, h = pcall(function() return grid:GetHeight() end)
+        w = (okW and tonumber(w)) or 0
+        h = (okH and tonumber(h)) or 0
+        if w < 60 or h < 60 then return end
+        self._needLayoutRetry = nil
+        self:LayoutInventoryGrid(grid)
+        self:RefreshInventoryGrid()
+    else
+        local area = self.frame.leftCol and self.frame.leftCol.listArea
+        if not area or not area.IsVisible or not area:IsVisible() then return end
+        local okH, h = pcall(function() return area:GetHeight() end)
+        h = (okH and tonumber(h)) or 0
+        if h < 50 then return end
+        self._needLayoutRetry = nil
+        self:RefreshInboxList()
+    end
+end
+
 function MailScreen:FinishSendQueue()
     self:StopSendQueue(false)
     self:RestoreInboxTab()
@@ -5357,8 +5545,10 @@ function MailScreen:Initialize()
         end)
 
         -- Watchdog da fila de envio: aborta se o servidor nao responder.
+        -- + re-tentativa do layout dinamico (tamanhos pos-render).
         ef:SetScript("OnUpdate", function()
             MailScreen:OnSendWatchdog()
+            MailScreen:OnLayoutRetry()
         end)
 
         self.eventFrame = ef

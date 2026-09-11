@@ -4781,14 +4781,17 @@ end
 -- MAIL_SEND_SUCCESS); re-scan pelo evento, nunca presume estado. Aborta com
 -- seguranca se a mailbox fechar (MAIL_CLOSED limpa a fila).
 -- FIX (Bug C): a fila guarda indices do inbox (item.index) e avanca por
--- posicao (st.queue[st.pos]) a cada MAIL_INBOX_UPDATE. O re-scan em cada
--- UPDATE invalida indices antigos, mas a posicao avanca apenas 1 por evento,
--- garantindo que cada carta seja processada exatamente uma vez. A versao
--- intermediaria (55e541f) introduziu ResolveTakeAllTarget + attempts +
--- watchdog: o contador attempts[qi] era incrementado a cada tentativa (mesmo
--- em sucessos), e o watchdog OnUpdate competia com os eventos do servidor,
--- esgotando as tentativas antes da assinatura ser resolvida e parando a
--- retirada apos 1-2 cartas. Revertido para a abordagem por posicao do ef17c3a.
+-- posicao (st.queue[st.pos]). A versao intermediaria (55e541f) introduziu
+-- ResolveTakeAllTarget + attempts + watchdog: o contador attempts[qi] era
+-- incrementado a cada tentativa (mesmo em sucessos), e o watchdog OnUpdate
+-- competia com os eventos do servidor, esgotando as tentativas antes da
+-- assinatura ser resolvida e parando a retirada apos 1-2 cartas. Revertido
+-- para a abordagem por posicao do ef17c3a.
+-- FIX2 (metade das cartas): cada carta gera 2+ MAIL_INBOX_UPDATE (um do Take
+-- confirmado pelo servidor + um do nosso CheckInbox), e avancar 1 pos por
+-- evento pula metade das cartas. Molde Postal (open.lua): avanca por ESTADO,
+-- nao por evento — so anda quando o alvo atual esta vazio; se ainda tem
+-- conteudo, re-tenta o mesmo alvo (teto 3 p/ nao travar em bolsa cheia).
 -- ----------------------------------------------------------------------------
 function MailScreen:TakeAllInbox()
     if not self.isOpen then return end
@@ -4824,11 +4827,27 @@ function MailScreen:TakeAllInbox()
     st.running = true
     st.queue = q
     st.pos = 1
+    st.attempts = 0
+    st.round = 1
     st.total = table.getn(q)
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Retirando tudo: " .. st.total .. " carta(s)...")
     end
     self:ProcessTakeAllStep()
+end
+
+-- Leitura fresca: o indice ainda tem dinheiro ou anexo? (GetInboxHeaderInfo
+-- 1.12: 1=packageIcon, 2=stationeryIcon, 3=sender, 4=subject, 5=money,
+-- 6=cod, 7=daysLeft, 8=hasItem.)
+function MailScreen:TakeTargetHasContent(inboxIndex)
+    if not self.isOpen then return false end
+    if not GetInboxHeaderInfo then return false end
+    inboxIndex = tonumber(inboxIndex) or 0
+    if inboxIndex < 1 then return false end
+    local ok, _, _, sender, _, money, _, _, hasItem = pcall(GetInboxHeaderInfo, inboxIndex)
+    if not ok or not sender then return false end
+    if (tonumber(money) or 0) > 0 or hasItem then return true end
+    return false
 end
 
 function MailScreen:ProcessTakeAllStep()
@@ -4841,11 +4860,10 @@ function MailScreen:ProcessTakeAllStep()
     local total = table.getn(st.queue or {})
     local pos = tonumber(st.pos) or 1
     if pos > total then
-        self:StopTakeAll(true)
+        self:FinishTakeAllRound()
         return
     end
     local idx = st.queue[pos]
-    st.pos = pos + 1
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Retirando " .. pos .. " de " .. total .. "...")
     end
@@ -4861,6 +4879,69 @@ function MailScreen:AdvanceTakeAll()
         self:StopTakeAll(false)
         return
     end
+    local total = table.getn(st.queue or {})
+    local pos = tonumber(st.pos) or 1
+    if pos > total then
+        self:FinishTakeAllRound()
+        return
+    end
+    -- Por ESTADO (FIX2): evento duplicado nao avanca; so anda quando o alvo
+    -- atual esvaziou. Alvo ainda com conteudo = servidor nao confirmou ainda:
+    -- re-tenta (teto 5; depois pula p/ nao travar em bolsa cheia/COD).
+    local idx = st.queue[pos]
+    if self:TakeTargetHasContent(idx) then
+        st.attempts = (tonumber(st.attempts) or 0) + 1
+        if st.attempts <= 5 then
+            self:ProcessTakeAllStep()
+            return
+        end
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Carta " .. pos .. " ignorada (bolsa cheia ou COD?).")
+        end
+        if PlaySound then PlaySound("igQuestFailed") end
+    end
+    st.attempts = 0
+    st.pos = pos + 1
+    self:ProcessTakeAllStep()
+end
+
+-- Fim de rodada: varredura final anti-orfao. Com 10+ cartas, um skip por lag
+-- ou leitura transitoria deixava 1 orfao; em vez de parar, remonta a fila com
+-- o que restou (teto 3 rodadas, garante termino).
+function MailScreen:FinishTakeAllRound()
+    local st = self.takeAllQueue
+    if not st or not st.running then return end
+    local remaining = {}
+    local raw = self.inboxItems or {}
+    local n = table.getn(raw)
+    for i = 1, n do
+        local it = raw[i]
+        if it and ((tonumber(it.money) or 0) > 0 or it.hasItem) then
+            table.insert(remaining, it.index)
+        end
+    end
+    local round = tonumber(st.round) or 1
+    local left = table.getn(remaining)
+    if left == 0 then
+        self:StopTakeAll(true)
+        return
+    end
+    if round >= 3 then
+        self:StopTakeAll(false)
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Restam " .. left .. " carta(s) (bolsa cheia ou COD?).")
+        end
+        if PlaySound then PlaySound("igQuestFailed") end
+        return
+    end
+    st.round = round + 1
+    st.queue = remaining
+    st.pos = 1
+    st.attempts = 0
+    st.total = left
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Nova varredura (rodada " .. st.round .. "): " .. left .. " restante(s)...")
+    end
     self:ProcessTakeAllStep()
 end
 
@@ -4872,6 +4953,8 @@ function MailScreen:StopTakeAll(announce)
     st.queue = {}
     st.pos = 1
     st.total = 0
+    st.attempts = 0
+    st.round = 1
     if announce and was then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Retirada concluida.")

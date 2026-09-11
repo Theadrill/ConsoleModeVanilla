@@ -32,4 +32,5 @@ Data\QuestDB_ptBR.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 UI\MerchantMenu.lua
+UI\MailScreen.lua
 Hooks.lua

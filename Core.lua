@@ -208,6 +208,10 @@ CM:SetScript("OnEvent", function()
         if CM.merchantMenu and CM.merchantMenu.Initialize then
             CM.merchantMenu:Initialize()
         end
+        -- Inicializa Menu de Correio (Mailbox) — Passo 1: só esqueleto
+        if CM.mailScreen and CM.mailScreen.Initialize then
+            CM.mailScreen:Initialize()
+        end
         if CM.ui and CM.ui.xpBar and CM.ui.xpBar.Initialize then
             CM.ui.xpBar:Initialize()
         end

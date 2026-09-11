@@ -3535,10 +3535,29 @@ function MailScreen:QtyModalConfirm()
     self:CloseQtyModal(true)
     if bag == nil or slot == nil then return end
     if qty < mx then
-        -- Pilha parcial: divide na bolsa (Split poe qty no cursor, deposita
-        -- num slot vazio) e anexa a pilha nova integral. Cada micro-passo e
-        -- verificado; qualquer falha devolve tudo e aborta sem mexer.
-        self:SplitAndAttachPartial(bag, slot, qty, mx, nm)
+        -- Pilha parcial: divide via BagSplit (modulo UI/BagSplit.lua) e anexa
+        -- a pilha nova integral. Assincrono com verificacao; fim via callbacks.
+        local bs = CM.BagSplit or ConsoleMode_BagSplit
+        if not bs or not bs.Start then
+            self:FailSplit("Divisor indisponivel.")
+            return
+        end
+        local okS, why = bs:Start(bag, slot, qty, {
+            ctx = { nm = nm, obag = bag, oslot = slot },
+            onDone = function(nb, ns, q, ctx)
+                MailScreen:FinishSplitAttach(nb, ns, q, ctx)
+            end,
+            onFail = function(reason, ctx)
+                MailScreen:FailSplit("Divisao falhou (" .. tostring(reason) .. "). Nada anexado; confira a bolsa.")
+            end,
+        })
+        if okS then
+            if CM.logger and CM.logger.Log then
+                CM.logger:Log("[MailScreen] Dividindo x" .. qty .. " de x" .. mx .. "... aguarde.")
+            end
+        else
+            self:FailSplit("Divisao falhou (" .. tostring(why) .. "). Nada anexado.")
+        end
         return
     end
     local pos, e = self:FindAttached(bag, slot)
@@ -3590,25 +3609,6 @@ function MailScreen:QtyModalConfirm()
 end
 
 -- Primeiro slot vazio das bolsas (0-4). Retorna bag, slot ou nil, nil.
-function MailScreen:FindEmptyBagSlot()
-    if not GetContainerNumSlots or not GetContainerItemLink then
-        return nil, nil
-    end
-    for bag = 0, 4 do
-        local okS, numSlots = pcall(GetContainerNumSlots, bag)
-        numSlots = tonumber(numSlots) or 0
-        if okS and numSlots > 0 then
-            for slot = 1, numSlots do
-                local okL, link = pcall(GetContainerItemLink, bag, slot)
-                if okL and not link then
-                    return bag, slot
-                end
-            end
-        end
-    end
-    return nil, nil
-end
-
 function MailScreen:FailSplit(msg)
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] " .. tostring(msg))
@@ -3616,133 +3616,15 @@ function MailScreen:FailSplit(msg)
     if PlaySound then PlaySound("igQuestFailed") end
 end
 
--- Divide qty de (bag,slot,mx) num slot vazio e anexa a pilha nova integral.
--- ASSINCRONO (OnSplitRetry no OnUpdate): Split + verificacao 1s depois, pois
--- leituras de bolsa no mesmo frame da mutacao nao sao confiaveis aqui.
--- Troca a entrada antiga do slot original (se houver) pela nova.
-function MailScreen:SplitAndAttachPartial(bag, slot, qty, mx, nm)
+-- Divide qty de (bag,slot,mx): delega ao modulo UI/BagSplit.lua (assincrono,
+-- verificado); conclusao em FinishSplitAttach via onDone.
+
+-- Conclui o split (callback BagSplit onDone): re-escaneia, foca a pilha nova
+-- e anexa integral. ctx carrega { nm, obag, oslot } do modal.
+function MailScreen:FinishSplitAttach(eb, es, qty, ctx)
     if not self.isOpen then return end
-    if self.sendQueue and self.sendQueue.running then return end
-    qty = tonumber(qty) or 0
-    mx = tonumber(mx) or 0
-    if qty < 1 or qty >= mx then return end
-    if SplitContainerItem == nil or PickupContainerItem == nil then
-        self:FailSplit("Divisao indisponivel (API de bolsas ausente).")
-        return
-    end
-    if self:CursorHoldsItem() then
-        self:FailSplit("Cursor ocupado: esvazie o cursor para dividir.")
-        return
-    end
-    local eb, es = self:FindEmptyBagSlot()
-    if eb == nil then
-        self:FailSplit("Sem espaco na bolsa p/ dividir x" .. qty .. " de x" .. mx .. ".")
-        return
-    end
-    -- Split assincrono: qty vai ao cursor; a verificacao acontece 1s depois
-    -- no OnUpdate (leituras no mesmo frame da mutacao nao sao confiaveis).
-    pcall(SplitContainerItem, bag, slot, qty)
-    if not self:CursorHoldsItem() then
-        self:FailSplit("Divisao falhou (item nao saiu). Nada anexado.")
-        return
-    end
-    local t0 = nil
-    if GetTime then
-        local okT, now = pcall(GetTime)
-        if okT and type(now) == "number" then t0 = now end
-    end
-    self.splitOp = {
-        bag = bag, slot = slot, qty = qty, mx = mx, nm = nm,
-        eb = eb, es = es, phase = "verify", t0 = t0, at = t0 and (t0 + 1) or nil,
-    }
-    if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Dividindo x" .. qty .. " de x" .. mx .. "... aguarde.")
-    end
-end
-
-function MailScreen:ClearSplitOp()
-    self.splitOp = nil
-end
-
-function MailScreen:RecoverSplitCursor(op)
-    if not op then return end
-    if not self:CursorHoldsItem() then return end
-    -- Devolve ao original se vazio, senao ao slot reserva; nunca deleta.
-    local destBag, destSlot = op.eb, op.es
-    if GetContainerItemLink then
-        local okL, link = pcall(GetContainerItemLink, op.bag, op.slot)
-        if okL and not link then
-            destBag, destSlot = op.bag, op.slot
-        end
-    end
-    pcall(PickupContainerItem, destBag, destSlot)
-end
-
-function MailScreen:ReadBagCount(bag, slot)
-    if not GetContainerItemInfo then return nil end
-    local ok, _, c = pcall(GetContainerItemInfo, bag, slot)
-    if ok and tonumber(c) then return tonumber(c) end
-    return nil
-end
-
--- Bomba do split assincrono (OnUpdate): verifica com 1s de intervalo.
-function MailScreen:OnSplitRetry()
-    if not self.initialized then return end
-    local op = self.splitOp
-    if not op then return end
-    if not self.isOpen then
-        self.splitOp = nil
-        return
-    end
-    if not GetTime then
-        self.splitOp = nil
-        return
-    end
-    local okT, now = pcall(GetTime)
-    if not okT or type(now) ~= "number" then return end
-    if op.t0 and type(op.t0) == "number" and (now - op.t0) > 10 then
-        self:RecoverSplitCursor(op)
-        self.splitOp = nil
-        self:FailSplit("Divisao expirou (10s). Confira a bolsa.")
-        return
-    end
-    if op.at and type(op.at) == "number" and now < op.at then return end
-    if op.phase == "verify" then
-        -- Resto no original deve ser mx-qty (leitura fresca, 1s depois).
-        local rem = self:ReadBagCount(op.bag, op.slot)
-        if rem == (op.mx - op.qty) and self:CursorHoldsItem() then
-            pcall(PickupContainerItem, op.eb, op.es)
-            if self:CursorHoldsItem() then
-                self:RecoverSplitCursor(op)
-                self.splitOp = nil
-                self:FailSplit("Deposito falhou: recolque o item do cursor manualmente.")
-                return
-            end
-            op.phase = "verify2"
-            op.at = now + 1
-            return
-        end
-        self:RecoverSplitCursor(op)
-        self.splitOp = nil
-        self:FailSplit("Divisao falhou (resto x" .. tostring(rem) .. ", esperado x" .. (op.mx - op.qty) .. "). Nada anexado; confira a bolsa.")
-        return
-    end
-    if op.phase == "verify2" then
-        local got = self:ReadBagCount(op.eb, op.es)
-        self.splitOp = nil
-        if got == op.qty and not self:CursorHoldsItem() then
-            self:FinishSplitAttach(op)
-            return
-        end
-        self:FailSplit("Pilha nova com x" .. tostring(got) .. " (esperado x" .. op.qty .. "). Confira a bolsa.")
-        return
-    end
-    self.splitOp = nil
-end
-
--- Conclui o split: re-escaneia, foca a pilha nova e anexa integral.
-function MailScreen:FinishSplitAttach(op)
-    if not self.isOpen then return end
+    ctx = ctx or {}
+    local nm = ctx.nm or "Item"
     if self.sendQueue and self.sendQueue.running then
         self:FailSplit("Envio comecou no meio da divisao: pilha dividida na bolsa, anexe manualmente.")
         return
@@ -3752,7 +3634,7 @@ function MailScreen:FinishSplitAttach(op)
     local ni = table.getn(items)
     for i = 1, ni do
         local it2 = items[i]
-        if it2 and it2.bag == op.eb and it2.slot == op.es then
+        if it2 and it2.bag == eb and it2.slot == es then
             self.invIndex = i
             break
         end
@@ -3761,34 +3643,35 @@ function MailScreen:FinishSplitAttach(op)
     -- Troca a entrada antiga pela nova (sem duplicar): remove as que apontam
     -- p/ o slot original ou p/ o slot novo (o prune pode ter arrastado uma
     -- entrada obsoleta do mesmo link para a pilha nova no rescan).
+    local obag, oslot = ctx.obag, ctx.oslot
     local list = self.composeItems or {}
     local nl = table.getn(list)
     for i = nl, 1, -1 do
         local ce = list[i]
-        if ce and ((ce.bag == op.bag and ce.slot == op.slot) or (ce.bag == op.eb and ce.slot == op.es)) then
+        if ce and ((obag ~= nil and ce.bag == obag and ce.slot == oslot) or (ce.bag == eb and ce.slot == es)) then
             table.remove(list, i)
         end
     end
     local link = nil
     if GetContainerItemLink then
-        local okL, l = pcall(GetContainerItemLink, op.eb, op.es)
+        local okL, l = pcall(GetContainerItemLink, eb, es)
         if okL and type(l) == "string" and l ~= "" then link = l end
     end
     local tex = nil
     if GetContainerItemInfo then
-        local okT2, t = pcall(GetContainerItemInfo, op.eb, op.es)
+        local okT2, t = pcall(GetContainerItemInfo, eb, es)
         if okT2 then tex = t end
     end
     table.insert(list, {
-        bag = op.eb, slot = op.es, link = link, name = op.nm or "Item", texture = tex,
-        count = op.qty, qty = op.qty,
+        bag = eb, slot = es, link = link, name = nm, texture = tex,
+        count = qty, qty = qty,
     })
     self:AutoFillSubject()
     self:UpdateComposeItemsText()
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Dividido: '" .. tostring(op.nm or "Item") .. "' x" .. op.qty .. " (bolsa " .. op.eb .. " slot " .. op.es .. ") e anexado.")
+        CM.logger:Log("[MailScreen] Dividido: '" .. tostring(nm) .. "' x" .. qty .. " (bolsa " .. eb .. " slot " .. es .. ") e anexado.")
     end
 end
 
@@ -4485,7 +4368,7 @@ function MailScreen:TrySendMail()
         end
         return
     end
-    if self.splitOp then
+    if CM.BagSplit and CM.BagSplit:IsBusy() then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Aguarde a divisao terminar para enviar.")
         end
@@ -5280,7 +5163,7 @@ function MailScreen:TakeAllInbox()
         end
         return
     end
-    if self.splitOp then
+    if CM.BagSplit and CM.BagSplit:IsBusy() then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Aguarde a divisao terminar para retirar tudo.")
         end
@@ -5727,7 +5610,7 @@ function MailScreen:OnMailClosed()
     -- servidora fora de MAIL_SHOW -> MAIL_CLOSED).
     self:StopSendQueue(false)
     -- Divisao em andamento: pilhas ja estao seguras nas bolsas; so cancela.
-    self.splitOp = nil
+    if CM.BagSplit then CM.BagSplit:Cancel() end
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Mailbox fechada.")
     end
@@ -5841,11 +5724,9 @@ function MailScreen:Initialize()
 
         -- Watchdog da fila de envio: aborta se o servidor nao responder.
         -- + re-tentativa do layout dinamico (tamanhos pos-render).
-        -- + bomba do split assincrono.
         ef:SetScript("OnUpdate", function()
             MailScreen:OnSendWatchdog()
             MailScreen:OnLayoutRetry()
-            MailScreen:OnSplitRetry()
         end)
 
         self.eventFrame = ef

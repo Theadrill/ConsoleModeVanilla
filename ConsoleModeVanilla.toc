@@ -33,5 +33,6 @@ UI\MainMenu.xml
 UI\MainMenu.lua
 UI\MerchantMenu.lua
 UI\VirtualKeyboard.lua
+UI\BagSplit.lua
 UI\MailScreen.lua
 Hooks.lua

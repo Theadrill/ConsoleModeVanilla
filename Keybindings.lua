@@ -343,7 +343,7 @@ modFrame:SetScript("OnUpdate", function()
     local shiftNow = IsShiftKeyDown()
     local altNow = IsAltKeyDown()
 
-    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen)
+    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) or (ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen)
 
     -- VK-3: com o teclado aberto o R1/L2/R2 nao ciclam abas por tras.
     local vkOpen = false
@@ -361,11 +361,14 @@ modFrame:SetScript("OnUpdate", function()
         local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
         local isQuestsTab = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and (mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS")
         local isMerchant = ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen
+        local isMail = ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen
 
         -- 1. R1 (CTRL) = Próxima Aba Principal / Alternar Colunas
         if ctrlNow and not wasCtrlDown then
             if isMerchant then
                 ConsoleMode_MerchantMenu:ToggleColumn(1)
+            elseif isMail and ConsoleMode_MailScreen.ToggleColumn then
+                ConsoleMode_MailScreen:ToggleColumn(1)
             elseif CM.cursor and CM.cursor.CycleTabs then
                 CM.cursor:CycleTabs(1)
             end
@@ -375,6 +378,8 @@ modFrame:SetScript("OnUpdate", function()
         if shiftNow and not wasShiftDown then
             if isMerchant then
                 ConsoleMode_MerchantMenu:CycleSubTab(-1)
+            elseif isMail and ConsoleMode_MailScreen.CycleInboxFilter then
+                ConsoleMode_MailScreen:CycleInboxFilter(-1)
             elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(-1)
             elseif CM.cursor and CM.cursor.CycleSubTabs then
@@ -386,6 +391,8 @@ modFrame:SetScript("OnUpdate", function()
         if altNow and not wasAltDown then
             if isMerchant then
                 ConsoleMode_MerchantMenu:CycleSubTab(1)
+            elseif isMail and ConsoleMode_MailScreen.CycleInboxFilter then
+                ConsoleMode_MailScreen:CycleInboxFilter(1)
             elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(1)
             elseif CM.cursor and CM.cursor.CycleSubTabs then
@@ -1103,9 +1110,20 @@ function CM_CursorMove(direction, keystate)
         return
     end
 
-    -- M1 Mail (placeholder ate M2): consome o D-Pad sem mover nada para o
-    -- D-Pad nao quebrar a navegacao; SEM OnDirection ainda.
+    -- M2 Mail: roteia o D-Pad para a navegacao do inbox (hold-to-repeat em
+    -- UP/DOWN via StartRepeat/StopRepeat, molde do mercador acima).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        if keystate == "up" then
+            if ConsoleMode_MailScreen.StopRepeat then
+                ConsoleMode_MailScreen:StopRepeat(direction)
+            end
+        else
+            if ConsoleMode_MailScreen.StartRepeat then
+                ConsoleMode_MailScreen:StartRepeat(direction)
+            else
+                ConsoleMode_MailScreen:OnDirection(direction)
+            end
+        end
         return
     end
 
@@ -1157,6 +1175,14 @@ function CM_CursorConfirm()
                 ConsoleMode_MerchantMenu:BuySelectedItem()
             end
             return
+        end
+        return
+    end
+
+    -- M2 Mail: A so seleciona/atualiza o detalhe (sem acao servidora).
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        if ConsoleMode_MailScreen.OnConfirm then
+            ConsoleMode_MailScreen:OnConfirm()
         end
         return
     end
@@ -1419,6 +1445,11 @@ function CM_NavNextTab()
         ConsoleMode_MerchantMenu:ToggleColumn(1)
         return
     end
+    -- M2 Mail: LB/RB alternam as colunas (foco esquerda/direita).
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        ConsoleMode_MailScreen:ToggleColumn(1)
+        return
+    end
     if CM.cursor and CM.cursor.CycleTabs then
         CM.cursor:CycleTabs(1)
     end
@@ -1440,6 +1471,11 @@ function CM_NavPrevTab()
         ConsoleMode_MerchantMenu:ToggleColumn(-1)
         return
     end
+    -- M2 Mail: LB/RB alternam as colunas (foco esquerda/direita).
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        ConsoleMode_MailScreen:ToggleColumn(-1)
+        return
+    end
     if CM.cursor and CM.cursor.CycleTabs then
         CM.cursor:CycleTabs(-1)
     end
@@ -1449,6 +1485,11 @@ function CM_NavNextSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:CycleSubTab(1)
+        return
+    end
+    -- M2 Mail: LT/RT ciclam o filtro do inbox.
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        ConsoleMode_MailScreen:CycleInboxFilter(1)
         return
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
@@ -1465,6 +1506,11 @@ function CM_NavPrevSubTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:CycleSubTab(-1)
+        return
+    end
+    -- M2 Mail: LT/RT ciclam o filtro do inbox.
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        ConsoleMode_MailScreen:CycleInboxFilter(-1)
         return
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
@@ -1495,6 +1541,11 @@ function CM_SmartTab()
     if (CM.keybindings and CM.keybindings.navigationMode) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) then
         if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
             ConsoleMode_MerchantMenu:ToggleColumn(-1)
+            return
+        end
+        -- M2 Mail: L1 alterna para a coluna anterior (foco).
+        if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+            ConsoleMode_MailScreen:ToggleColumn(-1)
             return
         end
         if CM.cursor and CM.cursor.CycleTabs then

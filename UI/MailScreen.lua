@@ -70,10 +70,7 @@ MailScreen.detailButtonIndex  = 1
 MailScreen.actionBar          = nil
 MailScreen.deleteConfirm      = { isOpen = false, pendingIndex = nil }
 MailScreen.deleteConfirmFrame = nil
-MailScreen.takeAllQueue       = MailScreen.takeAllQueue or { running = false, queue = {}, attempts = {}, pos = 1, total = 0, skipped = 0, lastTick = 0 }
-if MailScreen.takeAllQueue.attempts == nil then MailScreen.takeAllQueue.attempts = {} end
-if MailScreen.takeAllQueue.skipped == nil then MailScreen.takeAllQueue.skipped = 0 end
-if MailScreen.takeAllQueue.lastTick == nil then MailScreen.takeAllQueue.lastTick = 0 end
+MailScreen.takeAllQueue       = MailScreen.takeAllQueue or { running = false, queue = {}, pos = 1, total = 0 }
 
 -- ----------------------------------------------------------------------------
 -- 1b3. ESTADO M4.1: telas INBOX<->COMPOR + compor estrutural (SEM envio)
@@ -544,6 +541,86 @@ function MailScreen:BuildFooterHintsSet(frameName, hints)
             self:ApplyFont(sep, FONTS.medium, 14)
             sep:SetText("|cff666666•|r")
             currentX = currentX + 10 + 14
+        end
+
+        groupFrame:SetWidth(currentX)
+        table.insert(widgets, groupFrame)
+        totalWidth = totalWidth + currentX
+    end
+
+    local startX = -math.floor(totalWidth / 2)
+    local curX = startX
+    local numWidgets = table.getn(widgets)
+    for w = 1, numWidgets do
+        local widget = widgets[w]
+        widget:SetPoint("LEFT", container, "CENTER", curX, 0)
+        curX = curX + widget:GetWidth()
+    end
+    container:SetWidth(totalWidth)
+    return container
+end
+
+-- Renders a centered row of icon+label hint groups attached to ARBITRARY
+-- parent frames (modals). Same visual contract as BuildFooterHintsSet but
+-- parent-agnostic so the money/qty/delete modals get the same ICONS-based
+-- gamepad button glyphs instead of raw text like "[A]".
+-- hint = { icons = {"A"}, label = "confirmar" }; glyphs resolved via ICONS.
+function MailScreen:BuildIconHints(parent, frameName, hints, bottomOffset)
+    bottomOffset = tonumber(bottomOffset) or 52
+    local container = CreateFrame("Frame", frameName, parent)
+    container:SetHeight(34)
+    container:SetPoint("CENTER", parent, "BOTTOM", 0, bottomOffset)
+
+    local totalWidth = 0
+    local widgets = {}
+
+    local numHints = table.getn(hints)
+    for i = 1, numHints do
+        local hint = hints[i]
+        local groupFrame = CreateFrame("Frame", nil, container)
+        groupFrame:SetHeight(34)
+
+        local currentX = 0
+        local numIcons = table.getn(hint.icons)
+        for k = 1, numIcons do
+            local iconKey = hint.icons[k]
+            local texPath = ICONS[iconKey]
+            if texPath then
+                local iconTex = groupFrame:CreateTexture(nil, "OVERLAY")
+
+                local curIconW = 27
+                local curIconH = 27
+                if iconKey == "LB" or iconKey == "RB" or iconKey == "A"
+                    or iconKey == "B" or iconKey == "X" or iconKey == "Y" then
+                    curIconW = 32
+                    curIconH = 32
+                end
+
+                iconTex:SetWidth(curIconW)
+                iconTex:SetHeight(curIconH)
+                iconTex:SetTexture(texPath)
+                iconTex:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
+                currentX = currentX + curIconW + 3
+            end
+        end
+
+        currentX = currentX + 5
+
+        local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
+        self:ApplyFont(label, FONTS.bodyBold, 18)
+        label:SetText(hint.label)
+        label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+
+        local textW = math.floor(label:GetStringWidth() or 40)
+        currentX = currentX + textW
+
+        if i < numHints then
+            local sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            sep:SetPoint("LEFT", groupFrame, "LEFT", currentX + 5, 0)
+            self:ApplyFont(sep, FONTS.medium, 14)
+            sep:SetText("|cff666666•|r")
+            currentX = currentX + 5 + 14
         end
 
         groupFrame:SetWidth(currentX)
@@ -3057,13 +3134,13 @@ function MailScreen:CreateQtyModalUI()
     end)
     m.qtyEditBox = eb
 
-    local hints = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    hints:SetPoint("BOTTOM", m, "BOTTOM", 0, 52)
-    hints:SetWidth(390)
-    hints:SetJustifyH("CENTER")
-    self:ApplyFont(hints, FONTS.titleBold, 14)
-    hints:SetText("|cffffffff[D-Pad Up/Down]|r ajustar   |cffffffff[A]|r confirmar   |cffffffff[B]|r cancelar")
-    m.hints = hints
+    -- Footer de hints com icones (ICONS), nao texto puro (Bug A).
+    local qtyHints = {
+        { icons = { "DDOWN", "DUP" }, label = "ajustar" },
+        { icons = { "A" },             label = "confirmar" },
+        { icons = { "B" },             label = "cancelar" },
+    }
+    m.hints = self:BuildIconHints(m, "ConsoleMode_MailQtyHints", qtyHints, 52)
 
     local confirmBtn = CreateFrame("Button", "ConsoleMode_MailQtyConfirmYes", m)
     confirmBtn:SetWidth(150)
@@ -3410,13 +3487,16 @@ function MailScreen:CreateMoneyModalUI()
     balance:SetText("")
     m.balanceText = balance
 
-    local hints = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    hints:SetPoint("BOTTOM", m, "BOTTOM", 0, 52)
-    hints:SetWidth(450)
-    hints:SetJustifyH("CENTER")
-    self:ApplyFont(hints, FONTS.titleBold, 14)
-    hints:SetText("|cffffffff[D-Pad Esq/Dir]|r digito   |cffffffff[Up/Down]|r girar   |cffffffff[A]|r confirmar   |cffffffff[B]|r cancelar")
-    m.hints = hints
+    -- Footer de hints com icones (ICONS), nao texto puro (Bug A: antes
+    -- renderizava "[D-Pad Esq/Dir] digito [Up/Down] girar [A] confirmar [B]
+    -- cancelar" como texto; agora usa texturas iguais ao footer do MainMenu).
+    local moneyHints = {
+        { icons = { "DLEFT", "DRIGHT" }, label = "digito" },
+        { icons = { "DUP", "DDOWN" },    label = "girar" },
+        { icons = { "A" },               label = "confirmar" },
+        { icons = { "B" },               label = "cancelar" },
+    }
+    m.hints = self:BuildIconHints(m, "ConsoleMode_MailMoneyHints", moneyHints, 52)
 
     local confirmBtn = CreateFrame("Button", "ConsoleMode_MailMoneyConfirmYes", m)
     confirmBtn:SetWidth(150)
@@ -3789,26 +3869,39 @@ end
 -- A aba de ENVIO (SendMailFrame) precisa estar ativa p/ o click de anexo
 -- funcionar no 1.12; o MailFrame segue suprimido (alpha 0 + off-screen), entao
 -- a troca e invisivel. Guarda+pcall em tudo; nunca CloseMail.
+--
+-- Bug B fix: chamar o handler nativo MailFrameTab_OnClick(nil, tabID) em vez de
+-- setar MailFrame.selectedTab + Show()/Hide() manualmente. O handler nativo
+-- dispara SetSendMailShowing(true), SendMailFrame_Update() e ajustes de layout
+-- que o C engine requer p/ ClickSendMailItemButton ter sucesso. Setar
+-- selectedTab como variavel Lua e chamar Show() sozinho deixa o frame em
+-- estado parcialmente inicializado — o C nunca registra o estado "sending" e
+-- o click de anexo falha silenciosamente. (Referencia shirsig/Mail.)
 function MailScreen:EnsureSendTab()
-    if MailFrame then
-        pcall(function() MailFrame.selectedTab = 2 end)
+    if MailFrame and MailFrame:IsVisible() then
+        pcall(function() MailFrameTab_OnClick(nil, 2) end)
     end
     if InboxFrame then
         pcall(function() InboxFrame:Hide() end)
     end
-    if SendMailFrame then
+    -- MailFrameTab_OnClick ja chama SendMailFrame:Show() + SetSendMailShowing(true)
+    -- + SendMailFrame_Update() + ajustes de layout. Mostrar de novo so se necessario.
+    if SendMailFrame and not SendMailFrame:IsVisible() then
         pcall(function() SendMailFrame:Show() end)
+        pcall(SetSendMailShowing, true)
     end
+    -- Garante que os botoes de anexo do SendMailFrame estejam atualizados.
+    pcall(function() if SendMailFrame_Update then SendMailFrame_Update() end end)
 end
 
 function MailScreen:RestoreInboxTab()
-    if MailFrame then
-        pcall(function() MailFrame.selectedTab = 1 end)
+    if MailFrame and MailFrame:IsVisible() then
+        pcall(function() MailFrameTab_OnClick(nil, 1) end)
     end
     if SendMailFrame then
         pcall(function() SendMailFrame:Hide() end)
     end
-    if InboxFrame then
+    if InboxFrame and not InboxFrame:IsVisible() then
         pcall(function() InboxFrame:Show() end)
     end
 end
@@ -4449,13 +4542,12 @@ function MailScreen:CreateDeleteConfirmUI()
     warn:SetText("|cffff2020A carta ainda tem dinheiro ou anexo nao retirado.|r")
     m.warnText = warn
 
-    local hints = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    hints:SetPoint("BOTTOM", m, "BOTTOM", 0, 44)
-    hints:SetWidth(400)
-    hints:SetJustifyH("CENTER")
-    self:ApplyFont(hints, FONTS.titleBold, 14)
-    hints:SetText("|cffffffff[A]|r |cff1eff00confirmar|r   |cffffffff[B]|r |cffff2020cancelar|r")
-    m.hints = hints
+    -- Footer de hints com icones (ICONS), nao texto puro (Bug A).
+    local deleteHints = {
+        { icons = { "A" }, label = "confirmar" },
+        { icons = { "B" }, label = "cancelar" },
+    }
+    m.hints = self:BuildIconHints(m, "ConsoleMode_MailDeleteHints", deleteHints, 44)
 
     local confirmBtn = CreateFrame("Button", "ConsoleMode_MailDeleteConfirmYes", m)
     confirmBtn:SetWidth(150)
@@ -4569,70 +4661,16 @@ end
 -- Processa UMA carta por vez, avancando a cada MAIL_INBOX_UPDATE (e
 -- MAIL_SEND_SUCCESS); re-scan pelo evento, nunca presume estado. Aborta com
 -- seguranca se a mailbox fechar (MAIL_CLOSED limpa a fila).
--- BUG 2: a fila guardava indices do inbox (item.index) e avancava cegamente
--- (pos+1 por UPDATE). Causa raiz: carta retirada some/muda de posicao no
--- re-scan (indices deslocam), e cada passo gera N UPDATEs (TakeInboxMoney +
--- TakeInboxItem + CheckInbox) — a fila pulava cartar ou parava apos o 1o
--- passo. Agora a fila guarda ASSINATURAS (remetente+assunto+valor) e cada
--- passo resolve o indice FRESCO no re-scan; tentativas por carta (teto 2 p/
--- bolsa cheia/COD sem saldo); watchdog de 2.5s garante progresso mesmo sem
--- evento do servidor. UM aperto de Y esvazia tudo.
+-- FIX (Bug C): a fila guarda indices do inbox (item.index) e avanca por
+-- posicao (st.queue[st.pos]) a cada MAIL_INBOX_UPDATE. O re-scan em cada
+-- UPDATE invalida indices antigos, mas a posicao avanca apenas 1 por evento,
+-- garantindo que cada carta seja processada exatamente uma vez. A versao
+-- intermediaria (55e541f) introduziu ResolveTakeAllTarget + attempts +
+-- watchdog: o contador attempts[qi] era incrementado a cada tentativa (mesmo
+-- em sucessos), e o watchdog OnUpdate competia com os eventos do servidor,
+-- esgotando as tentativas antes da assinatura ser resolvida e parando a
+-- retirada apos 1-2 cartas. Revertido para a abordagem por posicao do ef17c3a.
 -- ----------------------------------------------------------------------------
-function MailScreen:GetMailTime()
-    if GetTime then
-        local ok, t = pcall(GetTime)
-        if ok and tonumber(t) then return tonumber(t) end
-    end
-    return 0
-end
-
-function MailScreen:EnsureTakeAllWatchdog()
-    if self.takeAllWatchdog then return end
-    local f = CreateFrame("Frame", "ConsoleMode_MailTakeAllWatchdog")
-    f:SetScript("OnUpdate", function()
-        local st = MailScreen.takeAllQueue
-        if not st or not st.running then return end
-        if not MailScreen.isOpen then
-            MailScreen:StopTakeAll(false)
-            return
-        end
-        local now = MailScreen:GetMailTime()
-        local last = tonumber(st.lastTick) or 0
-        if (now - last) >= 2.5 then
-            st.lastTick = now
-            MailScreen:ProcessTakeAllStep()
-        end
-    end)
-    self.takeAllWatchdog = f
-end
-
--- Localiza na leitura FRESCA (self.inboxItems, refeita em OnInboxUpdate antes
--- de AdvanceTakeAll) a primeira assinatura da fila ainda com valor. Retorna
--- inboxIndex atual + posicao na fila, ou nil. Indices nunca sao reusados
--- entre passos: o re-scan de cada passo invalida os antigos.
-function MailScreen:ResolveTakeAllTarget()
-    local st = self.takeAllQueue
-    if not st or not st.queue then return nil, nil end
-    if not st.attempts then st.attempts = {} end
-    local raw = self.inboxItems or {}
-    local nq = table.getn(st.queue)
-    local nr = table.getn(raw)
-    for qi = 1, nq do
-        local sig = st.queue[qi]
-        if sig and (tonumber(st.attempts[qi]) or 0) < 2 then
-            for ri = 1, nr do
-                local m = raw[ri]
-                if m and m.sender == sig.sender
-                    and (m.subject or "") == (sig.subject or "")
-                    and ((tonumber(m.money) or 0) > 0 or m.hasItem) then
-                    return m.index, qi
-                end
-            end
-        end
-    end
-    return nil, nil
-end
-
 function MailScreen:TakeAllInbox()
     if not self.isOpen then return end
     if self.currentScreen ~= "INBOX" then return end
@@ -4655,13 +4693,7 @@ function MailScreen:TakeAllInbox()
     for i = 1, n do
         local it = raw[i]
         if it and ((tonumber(it.money) or 0) > 0 or it.hasItem) then
-            table.insert(q, {
-                sender = it.sender,
-                subject = it.subject,
-                money = tonumber(it.money) or 0,
-                hasItem = it.hasItem,
-                cod = tonumber(it.cod) or 0,
-            })
+            table.insert(q, it.index)
         end
     end
     if table.getn(q) == 0 then
@@ -4672,17 +4704,11 @@ function MailScreen:TakeAllInbox()
     end
     st.running = true
     st.queue = q
-    st.attempts = {}
-    local nq = table.getn(q)
-    for i = 1, nq do st.attempts[i] = 0 end
     st.pos = 1
-    st.total = nq
-    st.skipped = 0
-    st.lastTick = self:GetMailTime()
+    st.total = table.getn(q)
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Retirando tudo: " .. st.total .. " carta(s)...")
     end
-    self:EnsureTakeAllWatchdog()
     self:ProcessTakeAllStep()
 end
 
@@ -4693,36 +4719,17 @@ function MailScreen:ProcessTakeAllStep()
         self:StopTakeAll(false)
         return
     end
-    if not st.attempts then st.attempts = {} end
-    if table.getn(st.queue or {}) == 0 then
-        self:StopTakeAll(true)
-        return
-    end
-    -- Resolve o alvo no re-scan fresco; assinatura sem valor = ja consumida
-    -- (drop silencioso); sem alvo = fila esvaziada ou travada (conclui).
-    local idx, qi = self:ResolveTakeAllTarget()
-    if idx == nil then
-        local skipped = 0
-        local nq = table.getn(st.queue)
-        for i = 1, nq do
-            if (tonumber(st.attempts[i]) or 0) >= 2 then
-                skipped = skipped + 1
-            end
-        end
-        st.skipped = (tonumber(st.skipped) or 0) + skipped
-        st.queue = {}
-        st.attempts = {}
-        self:StopTakeAll(true)
-        return
-    end
+    local total = table.getn(st.queue or {})
     local pos = tonumber(st.pos) or 1
-    local total = tonumber(st.total) or pos
+    if pos > total then
+        self:StopTakeAll(true)
+        return
+    end
+    local idx = st.queue[pos]
+    st.pos = pos + 1
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Retirando " .. pos .. " de " .. total .. "...")
     end
-    st.pos = pos + 1
-    st.attempts[qi] = (tonumber(st.attempts[qi]) or 0) + 1
-    st.lastTick = self:GetMailTime()
     self:TakeFromIndex(idx, "Retirado")
     self:RequestInboxRefresh()
 end
@@ -4742,19 +4749,13 @@ function MailScreen:StopTakeAll(announce)
     local st = self.takeAllQueue
     if not st then return end
     local was = st.running
-    local skipped = tonumber(st.skipped) or 0
     st.running = false
     st.queue = {}
-    st.attempts = {}
     st.pos = 1
     st.total = 0
-    st.skipped = 0
     if announce and was then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Retirada concluida.")
-            if skipped > 0 then
-                CM.logger:Log("[MailScreen] " .. skipped .. " carta(s) ignoradas (bolsa cheia ou COD sem saldo?).")
-            end
         end
         if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     end

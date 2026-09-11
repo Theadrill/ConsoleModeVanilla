@@ -345,7 +345,19 @@ modFrame:SetScript("OnUpdate", function()
 
     local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen)
 
-    if isNav and not (KB and KB.chatActive) then
+    -- VK-3: com o teclado aberto o R1/L2/R2 nao ciclam abas por tras.
+    local vkOpen = false
+    do
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen then
+            local ok, open = pcall(function() return vk:IsOpen() end)
+            if ok and open then
+                vkOpen = true
+            end
+        end
+    end
+
+    if isNav and not (KB and KB.chatActive) and not vkOpen then
         local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
         local isQuestsTab = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and (mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS")
         local isMerchant = ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen
@@ -1149,9 +1161,12 @@ end
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
 
-    -- VK-2: Y bloqueado com o teclado aberto
+    -- VK-3: Y insere espaco (ou quebra de linha se multiLine)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
+        if vk.InsertSpace then
+            vk:InsertSpace()
+        end
         return
     end
 
@@ -1200,9 +1215,12 @@ end
 function CM_CursorSecondary()
     if CM.keybindings.chatActive then return end
 
-    -- VK-2: X bloqueado com o teclado aberto
+    -- VK-3: X alterna maiusculas (shift abc/ABC)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
+        if vk.ToggleShift then
+            vk:ToggleShift()
+        end
         return
     end
 
@@ -1357,6 +1375,16 @@ end
 
 function CM_NavNextTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    -- VK-3: R1 troca pagina do teclado (abc/ABC/123/PT)
+    do
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen and vk:IsOpen() then
+            if vk.NextPage then
+                vk:NextPage(1)
+            end
+            return
+        end
+    end
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:ToggleColumn(1)
         return
@@ -1368,6 +1396,16 @@ end
 
 function CM_NavPrevTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+    -- VK-3: L1 troca pagina do teclado (abc/ABC/123/PT)
+    do
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen and vk:IsOpen() then
+            if vk.NextPage then
+                vk:NextPage(-1)
+            end
+            return
+        end
+    end
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:ToggleColumn(-1)
         return

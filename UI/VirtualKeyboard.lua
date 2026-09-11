@@ -2,11 +2,9 @@
 -- ConsoleModeVanilla - UI/VirtualKeyboard.lua
 -- Teclado Virtual desacoplado (servico sob demanda, sem eventos)
 -- Compativel com WoW Vanilla 1.12.1 / Lua 5.0 (Turtle WoW)
--- FASE VK-2: grade pagina abc + navegacao D-Pad + insercao + confirmacao.
--- Fileiras: "qwertyuiop" / "asdfghjkl"+APAGAR / "zxcvbnm,.@"+OK / ESPACO.
--- Botoes reais (foco por indice selRow/selCol, borda ouro, som de passo).
--- A ativa a tecla em foco (insere). B apaga 1 char (passo unico).
--- Start / tecla OK confirma (Close + onConfirm). Sem paginas, sem repeat.
+-- FASE VK-3: paginas abc/ABC/123/PT + X=shift + Y=espaco/nova-linha +
+-- L1/R1 troca pagina + maxLetters + Backspace UTF-8 seguro.
+-- Navegacao D-Pad estilo MerchantMenu (sem cursor snap).
 -- ============================================================================
 
 local CM = ConsoleMode or {}
@@ -41,6 +39,11 @@ VK.keyCells = VK.keyCells or {}
 VK.selRow = VK.selRow or 1
 VK.selCol = VK.selCol or 1
 
+-- Pagina atual VK-3: 1=abc, 2=ABC, 3=123, 4=PT
+VK.pageIdx = VK.pageIdx or 1
+VK.pageText = VK.pageText or nil
+VK.gridButtons = VK.gridButtons or {}
+
 -- ----------------------------------------------------------------------------
 -- 2. CONSTANTES VISUAIS VK-2 (molde QtyModal 420 + grade 40x40 MainMenu)
 -- ----------------------------------------------------------------------------
@@ -50,15 +53,37 @@ local VK_GAP = 4
 local VK_GRID_W = 384
 local VK_GRID_H = 132
 
--- Cada fileira: letras (op insert) + opcional tecla larga de acao no fim
-local VK_ROWS = {
-    { keys = { "q", "w", "e", "r", "t", "y", "u", "i", "o", "p" } },
-    { keys = { "a", "s", "d", "f", "g", "h", "j", "k", "l" },
-      extra = { label = "APAGAR", op = "backspace", w = 52, textSize = 11, r = 1, g = 0.35, b = 0.3 } },
-    { keys = { "z", "x", "c", "v", "b", "n", "m", ",", ".", "@" },
-      extra = { label = "OK", op = "accept", w = 40, textSize = 12, r = 0.2, g = 1, b = 0.2 } },
-    { keys = { },
-      extra = { label = "ESPACO", op = "space", w = 220, textSize = 11, r = 0.66, g = 0.66, b = 0.66 } },
+-- Teclas largas de acao compartilhadas entre paginas (somente leitura)
+local VK_EXTRA_BACKSPACE = { label = "APAGAR", op = "backspace", w = 52, textSize = 11, r = 1, g = 0.35, b = 0.3 }
+local VK_EXTRA_OK = { label = "OK", op = "accept", w = 40, textSize = 12, r = 0.2, g = 1, b = 0.2 }
+local VK_EXTRA_SPACE = { label = "ESPACO", op = "space", w = 220, textSize = 11, r = 0.66, g = 0.66, b = 0.66 }
+
+-- Paginas VK-3 (cada fileira: teclas op insert + opcional extra de acao)
+local VK_PAGES = {
+    { name = "abc", rows = {
+        { keys = { "q", "w", "e", "r", "t", "y", "u", "i", "o", "p" } },
+        { keys = { "a", "s", "d", "f", "g", "h", "j", "k", "l" }, extra = VK_EXTRA_BACKSPACE },
+        { keys = { "z", "x", "c", "v", "b", "n", "m", ",", ".", "@" }, extra = VK_EXTRA_OK },
+        { keys = { }, extra = VK_EXTRA_SPACE },
+    } },
+    { name = "ABC", rows = {
+        { keys = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" } },
+        { keys = { "A", "S", "D", "F", "G", "H", "J", "K", "L" }, extra = VK_EXTRA_BACKSPACE },
+        { keys = { "Z", "X", "C", "V", "B", "N", "M", ",", ".", "@" }, extra = VK_EXTRA_OK },
+        { keys = { }, extra = VK_EXTRA_SPACE },
+    } },
+    { name = "123", rows = {
+        { keys = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" } },
+        { keys = { "-", "/", ":", ";", "(", ")", "+", "*", "?" }, extra = VK_EXTRA_BACKSPACE },
+        { keys = { "_", "|", "~", "<", ">", "=", "[", "]", "{", "}" }, extra = VK_EXTRA_OK },
+        { keys = { }, extra = VK_EXTRA_SPACE },
+    } },
+    { name = "PT", rows = {
+        { keys = { "ã", "õ", "ç", "á", "é", "í", "ó", "ú", "â", "ê" } },
+        { keys = { "à", "è", "ì", "ò", "ù", "î", "ô", "û" }, extra = VK_EXTRA_BACKSPACE },
+        { keys = { "ä", "ë", "ï", "ö", "ü", "ñ", "ý", "ÿ", "æ", "œ" }, extra = VK_EXTRA_OK },
+        { keys = { }, extra = VK_EXTRA_SPACE },
+    } },
 }
 
 -- ----------------------------------------------------------------------------
@@ -145,14 +170,21 @@ function VK:CreateUI()
     grid:SetPoint("TOP", preview, "BOTTOM", 0, -10)
     self.gridArea = grid
 
+    local page = f:CreateFontString(nil, "ARTWORK")
+    page:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -12)
+    VK_ApplyFont(page, 12)
+    page:SetTextColor(0.66, 0.66, 0.66)
+    page:SetText("[abc]")
+    self.pageText = page
+
     self:BuildGrid()
 
     local hints = f:CreateFontString(nil, "ARTWORK")
     hints:SetPoint("BOTTOM", f, "BOTTOM", 0, 12)
     hints:SetWidth(390)
     hints:SetJustifyH("CENTER")
-    VK_ApplyFont(hints, 14)
-    hints:SetText("|cffffffff[A]|r inserir   |cffffffff[B]|r apagar   |cffe09a15[D-Pad]|r navegar   |cffffffff[Start]|r confirmar")
+    VK_ApplyFont(hints, 12)
+    hints:SetText("[A] inserir  [B] apagar  [X] maiusc  [Y] espaço  [L1/R1] pág  [Start] OK")
     self.hintText = hints
 
     self.frame = f
@@ -196,11 +228,28 @@ function VK:BuildGrid()
     if not grid then
         return
     end
+    -- Frames 1.12 nao sao destruidos: esconde os botoes da pagina anterior.
+    if self.gridButtons then
+        local nb = table.getn(self.gridButtons)
+        for i = 1, nb do
+            local old = self.gridButtons[i]
+            if old then
+                pcall(function()
+                    old:Hide()
+                    old:SetScript("OnEnter", nil)
+                    old:SetScript("OnClick", nil)
+                end)
+            end
+        end
+    end
+    self.gridButtons = {}
     self.keyCells = {}
 
-    local numRows = table.getn(VK_ROWS)
+    local page = VK_PAGES[self.pageIdx or 1] or VK_PAGES[1]
+    local VK_PAGE_ROWS = page.rows
+    local numRows = table.getn(VK_PAGE_ROWS)
     for ri = 1, numRows do
-        local def = VK_ROWS[ri]
+        local def = VK_PAGE_ROWS[ri]
         local row = {}
         local cells = {}
         local n = table.getn(def.keys)
@@ -248,6 +297,7 @@ function VK:BuildGrid()
             end)
             x = x + bw + VK_GAP
             table.insert(row, btn)
+            table.insert(self.gridButtons, btn)
         end
         table.insert(self.keyCells, row)
     end
@@ -255,6 +305,57 @@ function VK:BuildGrid()
     self.selRow = 1
     self.selCol = 1
     self:FocusCell(1, 1)
+    self:UpdatePageText()
+end
+
+function VK:UpdatePageText()
+    if self.pageText then
+        local page = VK_PAGES[self.pageIdx or 1] or VK_PAGES[1]
+        pcall(function() self.pageText:SetText("[" .. page.name .. "]") end)
+    end
+end
+
+-- VK-3: troca de pagina com wrap circular (L1/R1).
+function VK:NextPage(delta)
+    local n = table.getn(VK_PAGES)
+    if n < 1 then
+        return
+    end
+    local idx = (tonumber(self.pageIdx) or 1) + (tonumber(delta) or 1)
+    while idx > n do
+        idx = idx - n
+    end
+    while idx < 1 do
+        idx = idx + n
+    end
+    self.pageIdx = idx
+    self:BuildGrid()
+    self:FocusCell(1, 1)
+    VK_Play("igMainMenuOptionCheckBoxOn")
+end
+
+-- VK-3: shift alterna abc/ABC; de 123/PT pula para ABC.
+function VK:ToggleShift()
+    local idx = tonumber(self.pageIdx) or 1
+    if idx == 1 then
+        self.pageIdx = 2
+    elseif idx == 2 then
+        self.pageIdx = 1
+    else
+        self.pageIdx = 2
+    end
+    self:BuildGrid()
+    self:FocusCell(1, 1)
+    VK_Play("igMainMenuOptionCheckBoxOn")
+end
+
+-- VK-3: Y insere espaco, ou quebra de linha se multiLine.
+function VK:InsertSpace()
+    if self.multiLine then
+        self:InsertChar("\n")
+    else
+        self:InsertChar(" ")
+    end
 end
 
 -- ----------------------------------------------------------------------------
@@ -388,7 +489,18 @@ function VK:Backspace()
     if len <= 0 then
         return
     end
-    self.buffer = strsub(buf, 1, len - 1)
+    -- UTF-8 seguro: remove a sequencia completa do ultimo caractere
+    -- (bytes de continuacao 0x80-0xBF grudados no byte lider).
+    local cut = len
+    while cut > 1 do
+        local b = string.byte(buf, cut)
+        if b and b >= 128 and b < 192 then
+            cut = cut - 1
+        else
+            break
+        end
+    end
+    self.buffer = strsub(buf, 1, cut - 1)
     self:UpdatePreview()
     VK_Play("igMainMenuOptionCheckBoxOn")
 end
@@ -418,7 +530,7 @@ function VK:ActivateFocused()
     elseif op == "backspace" then
         self:Backspace()
     elseif op == "space" then
-        self:InsertChar(" ")
+        self:InsertSpace()
     elseif btn.vkChar then
         self:InsertChar(btn.vkChar)
     end
@@ -474,6 +586,10 @@ function VK:Open(config)
     end
 
     self:CreateUI()
+
+    -- Sempre abre na pagina abc (previsivel para o auditor).
+    self.pageIdx = 1
+    self:BuildGrid()
 
     local initialText = config.initialText
     if initialText == nil then

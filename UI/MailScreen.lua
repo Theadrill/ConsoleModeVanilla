@@ -2,15 +2,20 @@
 -- ConsoleModeVanilla - UI/MailScreen.lua
 -- Sistema Modular de Correio (Mailbox) em Split-View para Console/Gamepad
 -- Compatível com WoW Vanilla 1.12.1 / Lua 5.0 (Turtle WoW)
--- NOTA (M2): supressao visual do MailFrame nativo (off-screen,
+-- NOTA (M3): supressao visual do MailFrame nativo (off-screen,
 -- sem Hide/CloseMail) + registro de eventos + flags + logs + CAMADA DE DADOS
 -- DE LEITURA do inbox (CheckInbox/GetInboxNumItems/GetInboxHeaderInfo com
 -- guarda isOpen, filtros 1..3, paginacao logica) + JANELA split-view
 -- (dimmer, 9-slice Carved_9Slides, header CORREIO+Sair, 2 colunas, footer)
 -- + VISUAL M2 (7 linhas do inbox reutilizaveis, DetailCard da carta,
--- filtros LT/RT, paginacao, colunas LB/RB, OnDirection). SEM escrita
--- (TakeInbox*/DeleteInboxItem/ReturnInboxItem/SendMail/CloseMail), SEM acoes
--- do inbox (M3), SEM compor/envio (M4), SEM modal, SEM CloseTopFrame (M3+).
+-- filtros LT/RT, paginacao, colunas LB/RB, OnDirection) + ACOES M3
+-- (fileira RETIRAR|DEVOLVER|APAGAR no detalhe, A entra / B volta p/ lista,
+-- Y retira tudo em fila serializada por MAIL_INBOX_UPDATE, modal de
+-- confirmacao de APAGAR, CloseTopFrame via Hooks). SEM compor/envio (M4),
+-- SEM VK, SEM fila multi-item de envio.
+-- M4.1: detalhe full-height na inbox + telas INBOX<->COMPOR (LB/RB) +
+-- compor estrutural (campos com EditBox reais, grade de inventario visual,
+-- navegacao espacial; SEM envio, SEM VK, SEM modais de M4.2).
 -- ============================================================================
 
 local CM = ConsoleMode or {}
@@ -49,6 +54,41 @@ MailScreen.selectedInboxIndex = 1
 MailScreen.inboxScrollOffset  = 0
 MailScreen.frame              = nil
 MailScreen.dimmer             = nil
+
+-- ----------------------------------------------------------------------------
+-- 1b2. ESTADO M3: botoes do detalhe + modal de confirmacao + fila Retirar-Tudo
+-- detailButtonIndex: 1=RETIRAR, 2=DEVOLVER, 3=APAGAR (foco com DETAIL ativo).
+-- deleteConfirm: modal FULLSCREEN_DIALOG/50 p/ APAGAR com valores a retirar.
+-- takeAllQueue: fila serializada (UMA carta por MAIL_INBOX_UPDATE).
+-- ----------------------------------------------------------------------------
+MailScreen.detailButtonIndex  = 1
+MailScreen.actionBar          = nil
+MailScreen.deleteConfirm      = { isOpen = false, pendingIndex = nil }
+MailScreen.deleteConfirmFrame = nil
+MailScreen.takeAllQueue       = { running = false, queue = {}, pos = 1, total = 0 }
+
+-- ----------------------------------------------------------------------------
+-- 1b3. ESTADO M4.1: telas INBOX<->COMPOR + compor estrutural (SEM envio)
+-- currentScreen: "INBOX" (default ao abrir) ou "COMPOSE".
+-- composeFocus: "FIELDS" (coluna esquerda) ou "INV" (grade da direita).
+-- composeFieldIndex: 1=Para, 2=Assunto, 3=Mensagem, 4=Dinheiro, 5=Itens,
+-- 6=ENVIAR. invIndex/invScrollOffset: navegacao da grade (invCols fixo).
+-- composeTo/Subject/Body/Money: buffers estruturais (espelhos do texto das
+-- EditBoxes; usados de verdade so em M4.2).
+-- ----------------------------------------------------------------------------
+MailScreen.currentScreen      = MailScreen.currentScreen or "INBOX"
+MailScreen.composeFocus       = MailScreen.composeFocus or "FIELDS"
+MailScreen.composeFieldIndex  = MailScreen.composeFieldIndex or 1
+MailScreen.invIndex           = MailScreen.invIndex or 1
+MailScreen.invScrollOffset    = MailScreen.invScrollOffset or 0
+MailScreen.invCols            = 5
+MailScreen.invRowsVisible     = 6
+MailScreen.invItems           = MailScreen.invItems or {}
+MailScreen.composeTo          = MailScreen.composeTo or ""
+MailScreen.composeSubject     = MailScreen.composeSubject or ""
+MailScreen.composeBody        = MailScreen.composeBody or ""
+MailScreen.composeMoney       = MailScreen.composeMoney or ""
+MailScreen.tabIndicator       = nil
 
 -- ----------------------------------------------------------------------------
 -- 1c. DESIGN SYSTEM (M1 — molde UI/MerchantMenu.lua:17-50, copia 1:1 com
@@ -422,20 +462,11 @@ end
 -- titulo -> header+Sair -> contentArea -> divisor -> 2 colunas vazias -> footer.
 -- SEM linhas do inbox, SEM detalhes, SEM filtros/paginacao visuais (M2+).
 -- ----------------------------------------------------------------------------
-function MailScreen:CreateFooterHints(parent)
-    -- Hints M1 (resto entra nas fases seguintes).
-    local hints = {
-        { icons = { "LB", "RB" }, label = "Colunas" },
-        { icons = { "LT", "RT" }, label = "Filtros" },
-        { icons = { "DALL" },     label = "Navegar" },
-        { icons = { "A" },        label = "Abrir" },
-        { icons = { "B" },        label = "Fechar" },
-    }
-
-    local container = CreateFrame("Frame", "ConsoleMode_MailFooterContainer", parent)
+function MailScreen:BuildFooterHintsSet(frameName, hints)
+    local parent = self.frame
+    local container = CreateFrame("Frame", frameName, parent)
     container:SetHeight(34)
     container:SetPoint("CENTER", parent, "BOTTOM", 0, 18)
-    parent.footerContainer = container
 
     local totalWidth = 0
     local widgets = {}
@@ -500,6 +531,106 @@ function MailScreen:CreateFooterHints(parent)
         curX = curX + widget:GetWidth()
     end
     container:SetWidth(totalWidth)
+    return container
+end
+
+-- M4.1: footers por tela (§3.1). Dois sets persistentes criados 1x;
+-- ShowInboxScreen/ShowComposeScreen alternam a visibilidade.
+function MailScreen:CreateFooterHints(parent)
+    local inboxHints = {
+        { icons = { "DALL" },     label = "Navegar" },
+        { icons = { "A" },        label = "Entrar no detalhe" },
+        { icons = { "Y" },        label = "Retirar tudo" },
+        { icons = { "LT", "RT" }, label = "Filtros" },
+        { icons = { "RB" },       label = "Nova mensagem" },
+        { icons = { "B" },        label = "Voltar/Fechar" },
+    }
+    local composeHints = {
+        { icons = { "DALL" },     label = "Navegar" },
+        { icons = { "A" },        label = "Selecionar" },
+        { icons = { "X" },        label = "Tirar item" },
+        { icons = { "Y" },        label = "Quantidade" },
+        { icons = { "LT", "RT" }, label = "Pular metade" },
+        { icons = { "LB" },       label = "Caixa" },
+        { icons = { "B" },        label = "Voltar/Fechar" },
+    }
+
+    parent.inboxFooter = self:BuildFooterHintsSet("ConsoleMode_MailFooterInbox", inboxHints)
+    parent.composeFooter = self:BuildFooterHintsSet("ConsoleMode_MailFooterCompose", composeHints)
+    parent.composeFooter:Hide()
+    -- Compat M1: UpdateLayout posiciona via footerContainer (aponta p/ inbox).
+    parent.footerContainer = parent.inboxFooter
+end
+
+function MailScreen:UpdateFooterVisibility()
+    if not self.frame then return end
+    if self.currentScreen == "COMPOSE" then
+        if self.frame.inboxFooter then self.frame.inboxFooter:Hide() end
+        if self.frame.composeFooter then self.frame.composeFooter:Show() end
+        self.frame.footerContainer = self.frame.composeFooter
+    else
+        if self.frame.composeFooter then self.frame.composeFooter:Hide() end
+        if self.frame.inboxFooter then self.frame.inboxFooter:Show() end
+        self.frame.footerContainer = self.frame.inboxFooter
+    end
+end
+
+-- M4.1: indicador de aba centralizado sob o titulo CORREIO (§3.1):
+-- "NOVA MENSAGEM [RB]" na inbox / "[LB] CAIXA DE MENSAGENS" no compor.
+function MailScreen:CreateTabIndicator(parent)
+    if self.tabIndicator then return self.tabIndicator end
+    local bar = CreateFrame("Frame", "ConsoleMode_MailTabIndicator", parent)
+    bar:SetHeight(22)
+    bar:SetWidth(420)
+    bar:SetPoint("TOP", parent, "TOP", 0, -40)
+
+    -- Grupo INBOX: texto a esquerda, icone RB a direita.
+    local gIn = CreateFrame("Frame", nil, bar)
+    gIn:SetHeight(22)
+    gIn:SetWidth(300)
+    gIn:SetPoint("CENTER", bar, "CENTER", 0, 0)
+    local inLabel = gIn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    inLabel:SetPoint("RIGHT", gIn, "CENTER", -4, 0)
+    self:ApplyFont(inLabel, FONTS.titleBold, 15)
+    inLabel:SetText("|cff848484NOVA MENSAGEM|r")
+    local inIcon = gIn:CreateTexture(nil, "OVERLAY")
+    inIcon:SetWidth(26)
+    inIcon:SetHeight(26)
+    inIcon:SetPoint("LEFT", gIn, "CENTER", 4, 0)
+    inIcon:SetTexture(ICONS.RB)
+    bar.groupInbox = gIn
+
+    -- Grupo COMPOSE: icone LB a esquerda, texto a direita.
+    local gCo = CreateFrame("Frame", nil, bar)
+    gCo:SetHeight(22)
+    gCo:SetWidth(300)
+    gCo:SetPoint("CENTER", bar, "CENTER", 0, 0)
+    local coIcon = gCo:CreateTexture(nil, "OVERLAY")
+    coIcon:SetWidth(26)
+    coIcon:SetHeight(26)
+    coIcon:SetPoint("RIGHT", gCo, "CENTER", -4, 0)
+    coIcon:SetTexture(ICONS.LB)
+    local coLabel = gCo:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    coLabel:SetPoint("LEFT", gCo, "CENTER", 4, 0)
+    self:ApplyFont(coLabel, FONTS.titleBold, 15)
+    coLabel:SetText("|cff848484CAIXA DE MENSAGENS|r")
+    bar.groupCompose = gCo
+    gCo:Hide()
+
+    self.tabIndicator = bar
+    return bar
+end
+
+function MailScreen:UpdateTabIndicator()
+    local bar = self.tabIndicator
+    if not bar then return end
+    if self.currentScreen == "COMPOSE" then
+        if bar.groupInbox then bar.groupInbox:Hide() end
+        if bar.groupCompose then bar.groupCompose:Show() end
+    else
+        if bar.groupCompose then bar.groupCompose:Hide() end
+        if bar.groupInbox then bar.groupInbox:Show() end
+    end
 end
 
 function MailScreen:CreateUI()
@@ -539,6 +670,9 @@ function MailScreen:CreateUI()
     self:ApplyFont(titleText, FONTS.titleBold, 23)
     titleText:SetText("|cffe09a15CORREIO|r")
     frame.titleText = titleText
+
+    -- M4.1: indicador de aba centralizado sob o titulo (§3.1).
+    self:CreateTabIndicator(frame)
 
     -- Barra de Cabecalho (Botao Sair)
     local header = CreateFrame("Frame", "ConsoleMode_MailHeader", frame)
@@ -741,9 +875,9 @@ function MailScreen:CreateUI()
         end
     end)
 
-    -- Coluna Direita: detalhe da carta (topo, M2) + composicao (base, M4).
-    -- Titulo/placeholder de compor MANTIDOS para M4 preencher depois.
-    local rightCol = CreateColumnPanel("ConsoleMode_MailColRight", "COMPOSIÇÃO (em breve)", ICONS.RB)
+    -- Coluna Direita: detalhe FULL da carta + botoes (tela inbox; o compor
+    -- virou tela propria em M4, nada de placeholder aqui).
+    local rightCol = CreateColumnPanel("ConsoleMode_MailColRight", "CARTA", ICONS.RB)
     rightCol:SetPoint("TOPRIGHT", contentArea, "TOPRIGHT", 0, 0)
     rightCol:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
     rightCol:SetPoint("LEFT", divider, "RIGHT", 6, 0)
@@ -774,43 +908,39 @@ function MailScreen:CreateUI()
     local detailCard = self:CreateMailDetailCard(rightCol.listArea)
     rightCol.detailCard = detailCard
 
-    -- Area de compor (M4): placeholder preservado, sem logica.
-    local composeBox = CreateFrame("Frame", "ConsoleMode_MailComposeBox", rightCol.listArea)
-    composeBox:SetPoint("TOPLEFT", detailCard, "BOTTOMLEFT", 0, -6)
-    composeBox:SetPoint("BOTTOMRIGHT", rightCol.listArea, "BOTTOMRIGHT", 0, 0)
-    composeBox:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 16, edgeSize = 12,
-        insets   = { left = 3, right = 3, top = 3, bottom = 3 }
-    })
-    composeBox:SetBackdropColor(0.08, 0.06, 0.04, 0.85)
-    composeBox:SetBackdropBorderColor(0.50, 0.40, 0.28, 0.65)
-    local composeLabel = composeBox:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    composeLabel:SetPoint("CENTER", composeBox, "CENTER", 0, 0)
-    MailScreen:ApplyFont(composeLabel, FONTS.medium, 16)
-    composeLabel:SetText("|cffaaaaaaNova mensagem|r\n|cff666666(em breve)|r")
-    composeBox.label = composeLabel
-    rightCol.composeBox = composeBox
+    -- M3: fileira de botoes-textura do detalhe (RETIRAR|DEVOLVER|APAGAR).
+    local actionBar = self:CreateMailActionBar(rightCol.listArea, detailCard)
+    rightCol.actionBar = actionBar
+    rightCol.composeBox = nil
 
-    -- LT/RT da esquerda ciclam o filtro do inbox (foco volta p/ esquerda).
+    -- LT/RT da esquerda: na inbox ciclam o filtro (foco volta p/ esquerda);
+    -- no compor saltam p/ a primeira metade vizinha (M4.1, §3.2).
     if leftCol.ltBtn then
         leftCol.ltBtn:SetScript("OnClick", function()
-            MailScreen.activeColumn = "INBOX"
-            MailScreen:UpdateColumnVisuals()
-            MailScreen:CycleInboxFilter(-1)
+            if MailScreen.currentScreen == "COMPOSE" then
+                MailScreen:ComposeHalfJump(-1)
+            else
+                MailScreen.activeColumn = "INBOX"
+                MailScreen:UpdateColumnVisuals()
+                MailScreen:CycleInboxFilter(-1)
+            end
         end)
     end
     if leftCol.rtBtn then
         leftCol.rtBtn:SetScript("OnClick", function()
-            MailScreen.activeColumn = "INBOX"
-            MailScreen:UpdateColumnVisuals()
-            MailScreen:CycleInboxFilter(1)
+            if MailScreen.currentScreen == "COMPOSE" then
+                MailScreen:ComposeHalfJump(1)
+            else
+                MailScreen.activeColumn = "INBOX"
+                MailScreen:UpdateColumnVisuals()
+                MailScreen:CycleInboxFilter(1)
+            end
         end)
     end
 
-    -- Roda do mouse pagina a selecao do inbox.
+    -- Roda do mouse pagina a selecao do inbox (só na tela INBOX).
     leftCol.listArea:SetScript("OnMouseWheel", function()
+        if MailScreen.currentScreen ~= "INBOX" then return end
         if arg1 > 0 then
             MailScreen:MoveInboxSelection(-1)
         else
@@ -818,9 +948,12 @@ function MailScreen:CreateUI()
         end
     end)
 
-    self:UpdateInboxFilterBar()
-    self:UpdateColumnVisuals()
-    self:RefreshInboxList()
+    -- M4.1: tela COMPOR estrutural (containers persistentes criados 1x).
+    self:CreateComposeUI()
+
+    self:UpdateFooterVisibility()
+    self:UpdateTabIndicator()
+    self:ShowInboxScreen()
 
     self:UpdateLayout()
 end
@@ -1021,11 +1154,15 @@ end
 
 -- DetailCard da carta (molde MerchantMenu:CreateDetailCard, adaptado a
 -- coluna estreita: descricoes empilhadas; mesma tipografia/cores).
+-- M4.1: card FULL-HEIGHT — preenche toda a vertical da coluna direita
+-- (topo E base da listArea, reservando só a faixa da action bar na base);
+-- a área de corpo (bodyText) expande e quebra o texto. Sem espaço vazio.
 function MailScreen:CreateMailDetailCard(parent)
     local card = CreateFrame("Frame", "ConsoleMode_MailDetailCard", parent)
-    card:SetHeight(190)
     card:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -2)
     card:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -2)
+    card:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 4, 40)
+    card:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -4, 40)
 
     card:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -1110,7 +1247,29 @@ function MailScreen:CreateMailDetailCard(parent)
     descBottom:SetText("")
     card.descBottom = descBottom
 
+    -- 6. Corpo da carta (M4.1: expande até a base do card, wrap/justify).
+    local bodyText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    bodyText:SetPoint("TOPLEFT", descBottom, "BOTTOMLEFT", 0, -6)
+    bodyText:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -12, -10)
+    bodyText:SetJustifyH("LEFT")
+    bodyText:SetJustifyV("TOP")
+    self:ApplyFont(bodyText, FONTS.medium, 14)
+    bodyText:SetText("")
+    card.bodyText = bodyText
+
     return card
+end
+
+-- Leitura display-only do corpo (guarda isOpen + pcall; nunca escreve).
+function MailScreen:GetMailBodyText(item)
+    if not item then return nil end
+    if not self.isOpen then return nil end
+    if not GetInboxText then return nil end
+    local ok, text = pcall(GetInboxText, item.index)
+    if ok and type(text) == "string" and text ~= "" then
+        return text
+    end
+    return nil
 end
 
 function MailScreen:ShowMailDetail(item)
@@ -1129,6 +1288,7 @@ function MailScreen:ShowMailDetail(item)
         end
         card.descTop:SetText("|cff666666Sem cartas para exibir.|r")
         card.descBottom:SetText("")
+        if card.bodyText then card.bodyText:SetText("") end
         return
     end
 
@@ -1181,11 +1341,24 @@ function MailScreen:ShowMailDetail(item)
     local replyStr = "|cff888888Nao|r"
     if item.canReply then replyStr = "|cffffffffSim|r" end
     card.descBottom:SetText("|cffaaaaaaResposta:|r " .. replyStr)
+
+    if card.bodyText then
+        local body = self:GetMailBodyText(item)
+        if not body or body == "" then
+            body = "|cff666666(sem texto para exibir)|r"
+        elseif string.len(body) > 600 then
+            body = string.sub(body, 1, 600) .. "..."
+        end
+        card.bodyText:SetText("|cffaaaaaaTexto:|r " .. body)
+    end
 end
 
 -- Atualiza SOMENTE as 7 linhas visiveis (pool criado em CreateUI) + detalhe
 -- + paginacao. Sem tooltip nesta fase.
 function MailScreen:RefreshInboxList()
+    -- M4.1: telas exclusivas; no compor a camada inbox fica oculta
+    -- (ShowInboxScreen reexibe ao voltar).
+    if self.currentScreen == "COMPOSE" then return end
     local leftCol = self.frame and self.frame.leftCol
     if not leftCol or not leftCol.listArea or not leftCol.listArea.rows then return end
 
@@ -1208,6 +1381,7 @@ function MailScreen:RefreshInboxList()
         leftCol.placeholder:Show()
         leftCol.pageIndicator:SetText("|cff666666Nenhuma carta|r")
         self:ShowMailDetail(nil)
+        self:UpdateActionButtonsVisuals()
         return
     end
 
@@ -1281,6 +1455,7 @@ function MailScreen:RefreshInboxList()
     leftCol.pageIndicator:SetText(string.format("%s|cffaaaaaaItem %d de %d|r  |cff888888(Pág. %d/%d)|r%s", arrowUp, self.selectedInboxIndex, numItems, curPage, totalPages, arrowDown))
 
     self:ShowMailDetail(selectedItem)
+    self:UpdateActionButtonsVisuals()
 end
 
 function MailScreen:UpdateInboxFilterBar()
@@ -1312,6 +1487,33 @@ function MailScreen:UpdateColumnVisuals()
     local rightCol = self.frame.rightCol
     if not leftCol or not rightCol then return end
 
+    -- M4.1: no compor, o destaque segue composeFocus (FIELDS=esquerda).
+    if self.currentScreen == "COMPOSE" then
+        if self.composeFocus == "INV" then
+            rightCol:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+            rightCol:SetBackdropColor(0.12, 0.09, 0.06, 0.90)
+            rightCol.title:SetTextColor(1.00, 0.85, 0.25, 1.0)
+            rightCol.tagIcon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+
+            leftCol:SetBackdropBorderColor(0.40, 0.32, 0.22, 0.45)
+            leftCol:SetBackdropColor(0.06, 0.05, 0.04, 0.75)
+            leftCol.title:SetTextColor(0.60, 0.55, 0.50, 0.80)
+            leftCol.tagIcon:SetVertexColor(0.6, 0.6, 0.6, 0.80)
+        else
+            leftCol:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+            leftCol:SetBackdropColor(0.12, 0.09, 0.06, 0.90)
+            leftCol.title:SetTextColor(1.00, 0.85, 0.25, 1.0)
+            leftCol.tagIcon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+
+            rightCol:SetBackdropBorderColor(0.40, 0.32, 0.22, 0.45)
+            rightCol:SetBackdropColor(0.06, 0.05, 0.04, 0.75)
+            rightCol.title:SetTextColor(0.60, 0.55, 0.50, 0.80)
+            rightCol.tagIcon:SetVertexColor(0.6, 0.6, 0.6, 0.80)
+        end
+        self:RefreshComposeVisuals()
+        return
+    end
+
     if self.activeColumn == "DETAIL" then
         rightCol:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
         rightCol:SetBackdropColor(0.12, 0.09, 0.06, 0.90)
@@ -1333,6 +1535,7 @@ function MailScreen:UpdateColumnVisuals()
         rightCol.title:SetTextColor(0.60, 0.55, 0.50, 0.80)
         rightCol.tagIcon:SetVertexColor(0.6, 0.6, 0.6, 0.80)
     end
+    self:UpdateActionButtonsVisuals()
 end
 
 function MailScreen:MoveInboxSelection(delta)
@@ -1362,9 +1565,11 @@ function MailScreen:MoveInboxSelection(delta)
 end
 
 -- LT/RT: cicla 1=Todos,2=Nao-lidos,3=Com anexo via SetInboxFilter existente;
--- reseta selecao/pagina ao trocar.
+-- reseta selecao/pagina ao trocar. M4.1: so na tela INBOX (no compor, LT/RT
+-- = ComposeHalfJump; telas sao exclusivas).
 function MailScreen:CycleInboxFilter(delta)
     if not self.isOpen then return end
+    if self.currentScreen ~= "INBOX" then return end
     local f = tonumber(self.inboxFilter) or 1
     f = f + (tonumber(delta) or 0)
     if f > 3 then f = 1 end
@@ -1378,6 +1583,8 @@ function MailScreen:CycleInboxFilter(delta)
 end
 
 -- LB/RB: alterna o foco entre as colunas (cursor visual).
+-- M4.1: LB/RB passam a trocar de TELA (ShowInbox/ShowCompose); esta funcao
+-- segue existindo por compatibilidade de guards, mas sem chamada ativa.
 function MailScreen:ToggleColumn(delta)
     if not self.isOpen then return end
     if self.activeColumn == "INBOX" then
@@ -1390,12 +1597,1238 @@ function MailScreen:ToggleColumn(delta)
     self:RefreshInboxList()
 end
 
+-- ----------------------------------------------------------------------------
+-- 2f-M4.1. TELAS INBOX<->COMPOR (§3.1): RB vai p/ compor, LB volta p/ caixa,
+-- nas duas telas. Containers persistentes criados 1x (CreateComposeUI);
+-- Show* alterna visibilidade + titulos + footer + indicador de aba.
+-- B NUNCA troca de tela (pilha em OnCancel/CloseTopFrame).
+-- ----------------------------------------------------------------------------
+function MailScreen:ShowInboxScreen()
+    if not self.isOpen then return end
+    if not self.frame then return end
+    self.currentScreen = "INBOX"
+    self.activeColumn = "INBOX"
+
+    local leftCol = self.frame.leftCol
+    local rightCol = self.frame.rightCol
+    if not leftCol or not rightCol then return end
+
+    if leftCol.composeBox then leftCol.composeBox:Hide() end
+    if rightCol.invGrid then rightCol.invGrid:Hide() end
+    if rightCol.detailCard then rightCol.detailCard:Show() end
+    if self.actionBar then self.actionBar:Show() end
+
+    if rightCol.title then rightCol.title:SetText("CARTA") end
+    if rightCol.tabsLabel then
+        rightCol.tabsLabel:SetText("|cff888888Detalhe da carta|r")
+    end
+
+    self:ClearComposeFocus()
+    self:UpdateTabIndicator()
+    self:UpdateFooterVisibility()
+    self:UpdateInboxFilterBar()
+    self:UpdateColumnVisuals()
+    self:RefreshInboxList()
+    if PlaySound then PlaySound("igCharacterInfoTab") end
+end
+
+function MailScreen:ShowComposeScreen()
+    if not self.isOpen then return end
+    if not self.frame then return end
+    self.currentScreen = "COMPOSE"
+    -- Neutro p/ a pilha de B: sem modal/detalhe, B fecha o MAIL (OnCancel).
+    self.activeColumn = "INBOX"
+    self.composeFocus = "FIELDS"
+    if not tonumber(self.composeFieldIndex) then self.composeFieldIndex = 1 end
+    if self.composeFieldIndex < 1 then self.composeFieldIndex = 1 end
+    if self.composeFieldIndex > 6 then self.composeFieldIndex = 6 end
+
+    local leftCol = self.frame.leftCol
+    local rightCol = self.frame.rightCol
+    if not leftCol or not rightCol then return end
+
+    -- Esconde a camada inbox (RefreshInboxList reexibe ao voltar).
+    if leftCol.listArea and leftCol.listArea.rows then
+        local rows = leftCol.listArea.rows
+        local n = table.getn(rows)
+        for i = 1, n do rows[i]:Hide() end
+    end
+    if leftCol.placeholder then leftCol.placeholder:Hide() end
+    if rightCol.detailCard then rightCol.detailCard:Hide() end
+    if self.actionBar then self.actionBar:Hide() end
+
+    if leftCol.composeBox then leftCol.composeBox:Show() end
+    if rightCol.invGrid then rightCol.invGrid:Show() end
+
+    -- Titulos e barras da tela compor.
+    if leftCol.title then leftCol.title:SetText("NOVA CARTA") end
+    if leftCol.tabsLabel then
+        leftCol.tabsLabel:SetText("|cff888888Campos da carta|r")
+    end
+    if leftCol.pageIndicator then
+        leftCol.pageIndicator:SetText("|cff8888885 campos + enviar|r")
+    end
+    if rightCol.title then rightCol.title:SetText("INVENTÁRIO") end
+    if rightCol.tabsLabel then
+        rightCol.tabsLabel:SetText("|cff888888Grade da bolsa (visual)|r")
+    end
+
+    -- Restaura o texto das EditBoxes a partir dos buffers estruturais.
+    if leftCol.composeBox and leftCol.composeBox.rows then
+        local rows = leftCol.composeBox.rows
+        local n = table.getn(rows)
+        for i = 1, n do
+            local r = rows[i]
+            if r and r.editBox and r.bufferKey then
+                r.editBox:SetText(MailScreen[r.bufferKey] or "")
+            end
+        end
+    end
+
+    self:UpdateTabIndicator()
+    self:UpdateFooterVisibility()
+    self:UpdateComposePostage()
+    self:ScanComposeBags()
+    self:RefreshComposeVisuals()
+    self:UpdateColumnVisuals()
+    if PlaySound then PlaySound("igCharacterInfoTab") end
+end
+
+function MailScreen:ClearComposeFocus()
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if not box or not box.rows then return end
+    local n = table.getn(box.rows)
+    for i = 1, n do
+        local r = box.rows[i]
+        if r and r.editBox then
+            local eb = r.editBox
+            pcall(function() eb:ClearFocus() end)
+        end
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.1 (cont.). TELA COMPOR ESTRUTURAL (SEM logica de envio — M4.2):
+-- esquerda NOVA CARTA com 5 areas focaveis + ENVIAR; direita INVENTARIO em
+-- grade estilo MainMenu (icone, borda por qualidade, quantidade; so VISUAL +
+-- navegacao, sem mover nada). EditBoxes reais: mouse clica e digita de
+-- verdade; A sobre campo so faz log (VK chega na M4.2; SEM VirtualKeyboard).
+-- ----------------------------------------------------------------------------
+local COMPOSE_FIELDS = {
+    { key = "composeTo",      label = "PARA",     h = 44,  kind = "edit",   max = 64 },
+    { key = "composeSubject", label = "ASSUNTO",  h = 44,  kind = "edit",   max = 64 },
+    { key = "composeBody",    label = "MENSAGEM", h = 122, kind = "editml", max = 2000 },
+    { key = "composeMoney",   label = "DINHEIRO", h = 44,  kind = "edit",   max = 32 },
+    { key = "itens",          label = "ITENS",    h = 60,  kind = "static", max = 0 },
+}
+
+function MailScreen:CreateComposeUI()
+    local leftCol = self.frame and self.frame.leftCol
+    local rightCol = self.frame and self.frame.rightCol
+    if not leftCol or not rightCol then return end
+    if leftCol.composeBox then return end
+
+    -- Esquerda: NOVA CARTA (cobre a listArea do inbox).
+    local box = CreateFrame("Frame", "ConsoleMode_MailComposeBox", leftCol.listArea)
+    box:SetAllPoints(leftCol.listArea)
+    box:EnableMouse(true)
+    box.rows = {}
+
+    local prev = nil
+    local numFields = table.getn(COMPOSE_FIELDS)
+    for i = 1, numFields do
+        local def = COMPOSE_FIELDS[i]
+        local row = CreateFrame("Button", "ConsoleMode_MailComposeField" .. i, box)
+        row:SetHeight(def.h)
+        if not prev then
+            row:SetPoint("TOPLEFT", box, "TOPLEFT", 4, -2)
+            row:SetPoint("TOPRIGHT", box, "TOPRIGHT", -4, -2)
+        else
+            row:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -6)
+            row:SetPoint("TOPRIGHT", prev, "BOTTOMRIGHT", 0, -6)
+        end
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+        row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+
+        local cap = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        cap:SetPoint("TOPLEFT", row, "TOPLEFT", 8, -4)
+        self:ApplyFont(cap, FONTS.titleBold, 13)
+        cap:SetText("|cff848484" .. def.label .. "|r")
+        row.caption = cap
+
+        row.fieldIndex = i
+        row.bufferKey = def.key
+        row.isStatic = (def.kind == "static")
+
+        if def.kind == "static" then
+            local st = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            st:SetPoint("TOPLEFT", cap, "BOTTOMLEFT", 0, -3)
+            st:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", -8, -4)
+            st:SetJustifyH("LEFT")
+            st:SetJustifyV("TOP")
+            self:ApplyFont(st, FONTS.medium, 14)
+            st:SetText("|cff666666Nenhum item anexado (M4.2)|r")
+            row.staticText = st
+        else
+            local eb = CreateFrame("EditBox", "ConsoleMode_MailComposeEB" .. i, row)
+            eb:SetPoint("TOPLEFT", row, "TOPLEFT", 6, -18)
+            eb:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", -6, 5)
+            eb:SetFont(FONTS.medium, 15)
+            eb:SetTextColor(1.0, 1.0, 1.0, 1.0)
+            eb:SetAutoFocus(false)
+            eb:EnableMouse(true)
+            eb:SetMaxLetters(def.max or 64)
+            eb:SetBackdrop({
+                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile     = true, tileSize = 8, edgeSize = 8,
+                insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+            })
+            eb:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
+            eb:SetBackdropBorderColor(0.30, 0.25, 0.18, 0.60)
+            eb:SetTextInsets(6, 6, 2, 2)
+            eb.fieldIndex = i
+            eb.bufferKey = def.key
+            if def.kind == "editml" then
+                pcall(function() eb:SetMultiLine(true) end)
+            end
+            eb:SetScript("OnEditFocusGained", function()
+                MailScreen.composeFocus = "FIELDS"
+                MailScreen.composeFieldIndex = this.fieldIndex
+                MailScreen:RefreshComposeVisuals()
+            end)
+            eb:SetScript("OnEditFocusLost", function()
+                if this.bufferKey then
+                    MailScreen[this.bufferKey] = this:GetText() or ""
+                end
+            end)
+            eb:SetScript("OnEscapePressed", function()
+                this:ClearFocus()
+            end)
+            eb:SetScript("OnEnterPressed", function()
+                if this.bufferKey then
+                    MailScreen[this.bufferKey] = this:GetText() or ""
+                end
+                this:ClearFocus()
+            end)
+            row.editBox = eb
+        end
+
+        row:SetScript("OnClick", function()
+            MailScreen.composeFocus = "FIELDS"
+            MailScreen.composeFieldIndex = this.fieldIndex
+            MailScreen:RefreshComposeVisuals()
+            if this.editBox then
+                this.editBox:SetFocus()
+            end
+            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+        end)
+        row:SetScript("OnEnter", function()
+            if MailScreen.composeFocus ~= "FIELDS" or MailScreen.composeFieldIndex ~= this.fieldIndex then
+                this:SetBackdropBorderColor(0.70, 0.60, 0.40, 0.80)
+            end
+        end)
+        row:SetScript("OnLeave", function()
+            MailScreen:RefreshComposeVisuals()
+        end)
+
+        table.insert(box.rows, row)
+        prev = row
+    end
+
+    -- Botao ENVIAR centralizado embaixo (indice 6; visual com postagem).
+    local sendBtn = CreateFrame("Button", "ConsoleMode_MailComposeSend", box)
+    sendBtn:SetWidth(250)
+    sendBtn:SetHeight(34)
+    sendBtn:SetPoint("TOP", prev, "BOTTOM", 0, -8)
+    sendBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    sendBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    sendBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local sendLabel = sendBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sendLabel:SetPoint("CENTER", sendBtn, "CENTER", 0, 0)
+    self:ApplyFont(sendLabel, FONTS.titleBold, 15)
+    sendLabel:SetText("ENVIAR (postagem 30c)")
+    box.sendBtn = sendBtn
+    box.sendLabel = sendLabel
+    sendBtn:RegisterForClicks("LeftButtonUp")
+    sendBtn:SetScript("OnClick", function()
+        MailScreen.composeFocus = "FIELDS"
+        MailScreen.composeFieldIndex = 6
+        MailScreen:RefreshComposeVisuals()
+        MailScreen:OnComposeConfirm()
+    end)
+    sendBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    sendBtn:SetScript("OnLeave", function()
+        MailScreen:RefreshComposeVisuals()
+    end)
+
+    leftCol.composeBox = box
+    box:Hide()
+
+    -- Direita: INVENTARIO em grade estilo MainMenu (so VISUAL + navegacao).
+    local grid = self:CreateInventoryGrid(rightCol.listArea)
+    rightCol.invGrid = grid
+end
+
+-- Texto da postagem p/ o botao ENVIAR (leitura display-only com guarda+pcall;
+-- fallback 30c do plano §3.1 quando o preco nao estiver disponivel).
+function MailScreen:GetComposePostageText()
+    if self.isOpen and GetSendMailPrice then
+        local ok, price = pcall(GetSendMailPrice)
+        if ok and tonumber(price) and tonumber(price) > 0 then
+            return self:FormatMoneyText(tonumber(price))
+        end
+    end
+    return "30c"
+end
+
+function MailScreen:UpdateComposePostage()
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if not box or not box.sendLabel then return end
+    box.sendLabel:SetText("ENVIAR (postagem " .. self:GetComposePostageText() .. ")")
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.1 (cont.). GRADE DO INVENTARIO: leitura display-only das bolsas
+-- (GetContainerNumSlots/Link/Info com guarda isOpen + pcall; nunca move nada).
+-- Pool persistente de slots (invCols x invRowsVisible) com icone, borda por
+-- qualidade (QUALITY_COLORS) e quantidade; navegacao por celulas + scroll.
+-- ----------------------------------------------------------------------------
+function MailScreen:CreateInventoryGrid(parent)
+    local grid = CreateFrame("Frame", "ConsoleMode_MailInvGrid", parent)
+    grid:SetAllPoints(parent)
+    grid:EnableMouse(true)
+    grid:EnableMouseWheel(true)
+    grid.slots = {}
+
+    local size = 40
+    local gap = 6
+    local total = self.invCols * self.invRowsVisible
+    for i = 1, total do
+        local s = CreateFrame("Button", "ConsoleMode_MailInvSlot" .. i, grid)
+        s:SetWidth(size)
+        s:SetHeight(size)
+        local col0 = math.mod(i - 1, self.invCols)
+        local row0 = math.floor((i - 1) / self.invCols)
+        s:SetPoint("TOPLEFT", grid, "TOPLEFT", 6 + col0 * (size + gap), -(6 + row0 * (size + gap)))
+        s:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        s:SetBackdropColor(0.10, 0.08, 0.06, 0.60)
+        s:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+
+        local icon = s:CreateTexture(nil, "ARTWORK")
+        icon:SetPoint("TOPLEFT", s, "TOPLEFT", 3, -3)
+        icon:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", -3, 3)
+        icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+        s.icon = icon
+
+        local count = s:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        count:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", -3, 2)
+        count:SetJustifyH("RIGHT")
+        self:ApplyFont(count, FONTS.titleBold, 13)
+        count:SetText("")
+        s.countText = count
+
+        s.slotPos = i
+        s:RegisterForClicks("LeftButtonUp")
+        s:SetScript("OnClick", function()
+            local idx = (MailScreen.invScrollOffset or 0) * MailScreen.invCols + this.slotPos
+            local n = table.getn(MailScreen.invItems or {})
+            if idx >= 1 and idx <= n then
+                MailScreen.composeFocus = "INV"
+                MailScreen.invIndex = idx
+                MailScreen:RefreshComposeVisuals()
+                if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+            end
+        end)
+        s:SetScript("OnEnter", function()
+            this:SetBackdropBorderColor(0.70, 0.60, 0.40, 0.80)
+        end)
+        s:SetScript("OnLeave", function()
+            MailScreen:RefreshComposeVisuals()
+        end)
+
+        s:Hide()
+        table.insert(grid.slots, s)
+    end
+
+    grid:SetScript("OnMouseWheel", function()
+        if MailScreen.currentScreen ~= "COMPOSE" then return end
+        if arg1 > 0 then
+            MailScreen:ScrollInventory(-1)
+        else
+            MailScreen:ScrollInventory(1)
+        end
+    end)
+
+    grid:Hide()
+    return grid
+end
+
+function MailScreen:ScanComposeBags()
+    self.invItems = {}
+    if not self.isOpen then return end
+    if not GetContainerNumSlots then return end
+    for bag = 0, 4 do
+        local okSlots, numSlots = pcall(GetContainerNumSlots, bag)
+        numSlots = tonumber(numSlots) or 0
+        if okSlots and numSlots > 0 then
+            for slot = 1, numSlots do
+                if GetContainerItemLink then
+                    local okLink, link = pcall(GetContainerItemLink, bag, slot)
+                    if okLink and link then
+                        local tex, count, quality, itemName = nil, 1, 1, nil
+                        if GetContainerItemInfo then
+                            local okInfo, t, c, locked, q = pcall(GetContainerItemInfo, bag, slot)
+                            if okInfo then
+                                tex = t
+                                if tonumber(c) then count = tonumber(c) end
+                                if tonumber(q) then quality = tonumber(q) end
+                            end
+                        end
+                        if GetItemInfo then
+                            local okI, nm, ln, qq, lv, cl, sub, stack, sl, tx = pcall(GetItemInfo, link)
+                            if okI then
+                                if nm then itemName = tostring(nm) end
+                                if tonumber(qq) then quality = tonumber(qq) end
+                                if not tex and tx then tex = tx end
+                            end
+                        end
+                        if not tex then
+                            tex = "Interface\\Icons\\INV_Misc_QuestionMark"
+                        end
+                        table.insert(self.invItems, {
+                            bag = bag,
+                            slot = slot,
+                            texture = tex,
+                            count = count,
+                            quality = quality,
+                            name = itemName,
+                        })
+                    end
+                end
+            end
+        end
+    end
+
+    local n = table.getn(self.invItems)
+    if (self.invIndex or 1) > n then
+        self.invIndex = math.max(1, n)
+    end
+    if (self.invIndex or 1) < 1 then self.invIndex = 1 end
+    self:ClampInventoryScroll()
+    self:RefreshInventoryGrid()
+end
+
+function MailScreen:ClampInventoryScroll()
+    local n = table.getn(self.invItems or {})
+    local cols = self.invCols or 5
+    local rowsVis = self.invRowsVisible or 6
+    local maxOffset = math.max(0, math.ceil(n / cols) - rowsVis)
+    if (self.invScrollOffset or 0) > maxOffset then self.invScrollOffset = maxOffset end
+    if (self.invScrollOffset or 0) < 0 then self.invScrollOffset = 0 end
+    -- Mantem o slot focado visivel.
+    local idx = self.invIndex or 1
+    local firstVisible = self.invScrollOffset * cols + 1
+    local lastVisible = (self.invScrollOffset + rowsVis) * cols
+    if idx < firstVisible then
+        self.invScrollOffset = math.floor((idx - 1) / cols)
+    elseif idx > lastVisible then
+        self.invScrollOffset = math.floor((idx - 1) / cols) - rowsVis + 1
+    end
+    if self.invScrollOffset < 0 then self.invScrollOffset = 0 end
+    if self.invScrollOffset > maxOffset then self.invScrollOffset = maxOffset end
+end
+
+function MailScreen:ScrollInventory(deltaRows)
+    if self.currentScreen ~= "COMPOSE" then return end
+    local cols = self.invCols or 5
+    local n = table.getn(self.invItems or {})
+    local maxOffset = math.max(0, math.ceil(n / cols) - (self.invRowsVisible or 6))
+    local off = (self.invScrollOffset or 0) + (tonumber(deltaRows) or 0)
+    if off < 0 then off = 0 end
+    if off > maxOffset then off = maxOffset end
+    if off ~= self.invScrollOffset then
+        self.invScrollOffset = off
+        self:RefreshInventoryGrid()
+    end
+end
+
+function MailScreen:RefreshInventoryGrid()
+    local grid = self.frame and self.frame.rightCol and self.frame.rightCol.invGrid
+    if not grid or not grid.slots then return end
+    local items = self.invItems or {}
+    local n = table.getn(items)
+    local cols = self.invCols or 5
+    local numSlots = table.getn(grid.slots)
+
+    local rightCol = self.frame.rightCol
+    if rightCol and rightCol.pageIndicator then
+        if n == 0 then
+            rightCol.pageIndicator:SetText("|cff666666Bolsas vazias|r")
+        else
+            rightCol.pageIndicator:SetText("|cff888888" .. n .. " item(s)|r")
+        end
+    end
+
+    for i = 1, numSlots do
+        local s = grid.slots[i]
+        local itemIdx = (self.invScrollOffset or 0) * cols + i
+        if itemIdx >= 1 and itemIdx <= n then
+            local it = items[itemIdx]
+            s.icon:SetTexture(it.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+            local qc = QUALITY_COLORS[tonumber(it.quality) or 1] or QUALITY_COLORS[1]
+            if (tonumber(it.count) or 1) > 1 then
+                s.countText:SetText(tostring(it.count))
+            else
+                s.countText:SetText("")
+            end
+            if self.composeFocus == "INV" and itemIdx == (self.invIndex or 1) then
+                s:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+                s:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+            else
+                s:SetBackdropBorderColor(qc.r, qc.g, qc.b, 0.85)
+                s:SetBackdropColor(0.10, 0.08, 0.06, 0.60)
+            end
+            s:Show()
+        else
+            s:Hide()
+        end
+    end
+end
+
+function MailScreen:RefreshComposeVisuals()
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if box and box.rows then
+        local n = table.getn(box.rows)
+        for i = 1, n do
+            local r = box.rows[i]
+            if self.composeFocus == "FIELDS" and (self.composeFieldIndex or 1) == r.fieldIndex then
+                r:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+                r:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+            else
+                r:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                r:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+            end
+        end
+        if box.sendBtn then
+            if self.composeFocus == "FIELDS" and (self.composeFieldIndex or 1) == 6 then
+                box.sendBtn:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+                box.sendBtn:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+            else
+                box.sendBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+                box.sendBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+            end
+        end
+    end
+    self:RefreshInventoryGrid()
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.1 (cont.). NAVEGACAO ESPACIAL DO COMPOR (§3.2): D-Pad move o foco na
+-- direcao; atravessa p/ a area vizinha (campos<->inventario); borda sem
+-- vizinho = parado; sem wrap. Telas sao exclusivas (sem travessia entre
+-- telas). LT/RT = salto p/ o primeiro elemento da proxima/anterior metade.
+-- ----------------------------------------------------------------------------
+function MailScreen:MoveComposeField(delta)
+    if not self.isOpen then return end
+    local idx = (self.composeFieldIndex or 1) + (tonumber(delta) or 0)
+    if idx < 1 then idx = 1 end
+    if idx > 6 then idx = 6 end
+    if idx ~= self.composeFieldIndex then
+        self.composeFocus = "FIELDS"
+        self.composeFieldIndex = idx
+        if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+        self:RefreshComposeVisuals()
+    elseif self.composeFocus ~= "FIELDS" then
+        self.composeFocus = "FIELDS"
+        self:RefreshComposeVisuals()
+    end
+end
+
+function MailScreen:ComposeFocusInv()
+    if not self.isOpen then return end
+    local n = table.getn(self.invItems or {})
+    self.composeFocus = "INV"
+    if (self.invIndex or 1) < 1 then self.invIndex = 1 end
+    if n > 0 and self.invIndex > n then self.invIndex = n end
+    self:ClampInventoryScroll()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    self:RefreshComposeVisuals()
+end
+
+function MailScreen:MoveInvSelection(direction)
+    if not self.isOpen then return end
+    local items = self.invItems or {}
+    local n = table.getn(items)
+    local cols = self.invCols or 5
+    local idx = self.invIndex or 1
+
+    if n == 0 then
+        if direction == "LEFT" then
+            self.composeFocus = "FIELDS"
+            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+            self:RefreshComposeVisuals()
+        end
+        return
+    end
+
+    local col = math.mod(idx - 1, cols) + 1
+    local newIdx = nil
+    if direction == "LEFT" then
+        if col == 1 then
+            -- Atravessa p/ a area vizinha (campos).
+            self.composeFocus = "FIELDS"
+            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+            self:RefreshComposeVisuals()
+            return
+        end
+        newIdx = idx - 1
+    elseif direction == "RIGHT" then
+        if idx >= n or col == cols then return end
+        newIdx = idx + 1
+    elseif direction == "UP" then
+        if idx - cols < 1 then return end
+        newIdx = idx - cols
+    elseif direction == "DOWN" then
+        if idx + cols > n then return end
+        newIdx = idx + cols
+    else
+        return
+    end
+
+    if newIdx and newIdx ~= idx then
+        self.invIndex = newIdx
+        self:ClampInventoryScroll()
+        if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+        self:RefreshComposeVisuals()
+    end
+end
+
+-- LT/RT no compor: salto p/ o primeiro elemento da proxima (RT) /
+-- anterior (LT) metade (topo dos campos / slot 1 do inventario).
+function MailScreen:ComposeHalfJump(delta)
+    if not self.isOpen then return end
+    if self.currentScreen ~= "COMPOSE" then return end
+    local half = 1
+    if self.composeFocus == "INV" then half = 2 end
+    half = half + (tonumber(delta) or 0)
+    if half < 1 then half = 1 end
+    if half > 2 then half = 2 end
+    if half == 1 then
+        self.composeFocus = "FIELDS"
+        self.composeFieldIndex = 1
+    else
+        self.composeFocus = "INV"
+        self.invIndex = 1
+        self.invScrollOffset = 0
+    end
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    self:RefreshComposeVisuals()
+end
+
+function MailScreen:OnComposeDirection(direction)
+    if not self.isOpen then return end
+    if self.composeFocus == "INV" then
+        self:MoveInvSelection(direction)
+        return
+    end
+    if direction == "UP" then
+        self:MoveComposeField(-1)
+    elseif direction == "DOWN" then
+        self:MoveComposeField(1)
+    elseif direction == "RIGHT" then
+        self:ComposeFocusInv()
+    elseif direction == "LEFT" then
+        -- Borda sem vizinho = parado.
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.1 (cont.). BOTOES DO COMPOR (estrutural): A/X/Y so logam nesta fase
+-- (M4.2 implementa VK, modais, envio e anexos; SEM VirtualKeyboard aqui).
+-- ----------------------------------------------------------------------------
+function MailScreen:OnComposeConfirm()
+    if not self.isOpen then return end
+    if self.currentScreen ~= "COMPOSE" then return end
+    if not CM.logger or not CM.logger.Log then return end
+    if self.composeFocus == "INV" then
+        CM.logger:Log("[MailScreen] Anexar itens chega na M4.2.")
+        return
+    end
+    local idx = tonumber(self.composeFieldIndex) or 1
+    if idx == 6 then
+        CM.logger:Log("[MailScreen] Envio chega na M4.2 (sem envio nesta fase).")
+    elseif idx == 5 then
+        CM.logger:Log("[MailScreen] Anexos chegam na M4.2.")
+    else
+        CM.logger:Log("[MailScreen] Teclado virtual chega na M4.2.")
+    end
+end
+
+function MailScreen:OnComposeSecondary()
+    if not self.isOpen then return end
+    if self.currentScreen ~= "COMPOSE" then return end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Tirar item chega na M4.2.")
+    end
+end
+
+function MailScreen:OnComposeUse()
+    if not self.isOpen then return end
+    if self.currentScreen ~= "COMPOSE" then return end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Quantidade chega na M4.2.")
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f. M3: FILEIRA DE BOTOES-TEXTURA DO DETALHE (molde botao Sair: backdrop
+-- + icone + hover ouro; nunca texto puro como botao). A entra no detalhe
+-- (foco em RETIRAR); D-Pad <-/-> percorre os 3 com clamp (para sem vizinho);
+-- B volta p/ lista (pilha em OnCancel/CloseTopFrame). Mouse clica direto.
+-- ----------------------------------------------------------------------------
+local MAIL_DETAIL_BUTTONS = {
+    { key = "RETIRAR",  label = "RETIRAR",  icon = "Interface\\MoneyFrame\\UI-GoldIcon", action = "take" },
+    { key = "DEVOLVER", label = "DEVOLVER", icon = "Interface\\Icons\\INV_Misc_Note_01", action = "return" },
+    { key = "APAGAR",   label = "APAGAR",   icon = nil, action = "delete" },
+}
+
+function MailScreen:CreateMailActionBar(parent, anchorTop)
+    if self.actionBar then return self.actionBar end
+
+    -- M4.1: action bar na faixa inferior da coluna (abaixo do card full-height,
+    -- que reserva 40px na base); mesma fileira RETIRAR|DEVOLVER|APAGAR da M3.
+    local bar = CreateFrame("Frame", "ConsoleMode_MailActionBar", parent)
+    bar:SetHeight(34)
+    bar:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 4, 2)
+    bar:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -4, 2)
+
+    bar.buttons = {}
+    local numDefs = table.getn(MAIL_DETAIL_BUTTONS)
+    for i = 1, numDefs do
+        local def = MAIL_DETAIL_BUTTONS[i]
+        local b = CreateFrame("Button", "ConsoleMode_MailActionBtn" .. def.key, bar)
+        b:SetWidth(118)
+        b:SetHeight(30)
+        b:SetPoint("CENTER", bar, "CENTER", (i - 2) * 122, 0)
+        b:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        b:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+        b:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+        local iconPath = def.icon or ICONS.X
+        local bIcon = b:CreateTexture(nil, "OVERLAY")
+        bIcon:SetWidth(22)
+        bIcon:SetHeight(22)
+        bIcon:SetPoint("LEFT", b, "LEFT", 6, 0)
+        bIcon:SetTexture(iconPath)
+
+        local bTxt = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        bTxt:SetPoint("LEFT", bIcon, "RIGHT", 5, 0)
+        MailScreen:ApplyFont(bTxt, FONTS.titleBold, 14)
+        bTxt:SetText(def.label)
+
+        b.actionIndex = i
+        b.actionKey = def.action
+        b:RegisterForClicks("LeftButtonUp")
+        b:SetScript("OnClick", function()
+            MailScreen.activeColumn = "DETAIL"
+            MailScreen.detailButtonIndex = this.actionIndex
+            MailScreen:UpdateColumnVisuals()
+            MailScreen:UpdateActionButtonsVisuals()
+            MailScreen:DoDetailAction(this.actionIndex)
+        end)
+        b:SetScript("OnEnter", function()
+            this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+            this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+        end)
+        b:SetScript("OnLeave", function()
+            MailScreen:UpdateActionButtonsVisuals()
+        end)
+
+        table.insert(bar.buttons, b)
+    end
+
+    self.actionBar = bar
+    self:UpdateActionButtonsVisuals()
+    return bar
+end
+
+function MailScreen:UpdateActionButtonsVisuals()
+    local bar = self.actionBar
+    if not bar or not bar.buttons then return end
+    local n = table.getn(bar.buttons)
+    for i = 1, n do
+        local b = bar.buttons[i]
+        if self.activeColumn == "DETAIL" and (self.detailButtonIndex or 1) == i then
+            b:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+            b:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+        else
+            b:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+            b:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+        end
+    end
+end
+
+function MailScreen:EnterDetail()
+    if not self.isOpen then return end
+    if self:IsConfirmOpen() then return end
+    local n = table.getn(self.filteredInbox or {})
+    if n == 0 then return end
+    self.activeColumn = "DETAIL"
+    self.detailButtonIndex = 1
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    self:UpdateColumnVisuals()
+    self:RefreshInboxList()
+end
+
+function MailScreen:BackToList()
+    if not self.isOpen then return end
+    self.activeColumn = "INBOX"
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    self:UpdateColumnVisuals()
+    self:RefreshInboxList()
+end
+
+function MailScreen:MoveDetailButton(delta)
+    if not self.isOpen then return end
+    local idx = (self.detailButtonIndex or 1) + (tonumber(delta) or 0)
+    if idx < 1 then idx = 1 end
+    if idx > 3 then idx = 3 end
+    if idx ~= self.detailButtonIndex then
+        self.detailButtonIndex = idx
+        if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+        self:UpdateActionButtonsVisuals()
+    end
+end
+
+function MailScreen:DoDetailAction(idx)
+    if not self.isOpen then return end
+    idx = tonumber(idx) or 1
+    if idx == 1 then
+        self:TakeSelectedMail()
+    elseif idx == 2 then
+        self:ReturnSelectedMail()
+    elseif idx == 3 then
+        self:DeleteSelectedMail()
+    end
+end
+
+function MailScreen:GetSelectedMail()
+    local filtered = self.filteredInbox or {}
+    local idx = tonumber(self.selectedInboxIndex) or 1
+    if idx < 1 then idx = 1 end
+    if idx > table.getn(filtered) then return nil end
+    return filtered[idx]
+end
+
+-- ----------------------------------------------------------------------------
+-- 2g. M3: ACOES SERVIDORAS DO INBOX (ANTI-BLOQUEIO: SOMENTE com isOpen true,
+-- entre MAIL_SHOW e MAIL_CLOSED; nunca CloseMail; nunca Hide no nativo).
+-- Apos cada acao, re-scan via MAIL_INBOX_UPDATE (RequestInboxRefresh dispara
+-- CheckInbox; o servidor confirma e OnInboxUpdate faz o ScanInbox real).
+-- ----------------------------------------------------------------------------
+function MailScreen:TakeFromIndex(inboxIndex, tag)
+    if not self.isOpen then return end
+    inboxIndex = tonumber(inboxIndex) or 0
+    if inboxIndex < 1 then return end
+    if not GetInboxHeaderInfo then return end
+    local ok, packageIcon, stationeryIcon, sender, subject, money,
+        codAmount, daysLeft, hasItem = pcall(GetInboxHeaderInfo, inboxIndex)
+    if not ok or not sender then return end
+    money = tonumber(money) or 0
+    local tookMoney = false
+    local tookItem = false
+    if money > 0 and TakeInboxMoney then
+        pcall(TakeInboxMoney, inboxIndex)
+        tookMoney = true
+    end
+    if hasItem and TakeInboxItem then
+        pcall(TakeInboxItem, inboxIndex)
+        tookItem = true
+    end
+    local parts = {}
+    if tookMoney then table.insert(parts, self:FormatMoneyText(money)) end
+    if tookItem then table.insert(parts, "anexo") end
+    local what = table.concat(parts, " + ")
+    if what == "" then what = "nada a retirar" end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] " .. tostring(tag or "Retirado") .. " de " .. tostring(sender) .. ": " .. what .. ".")
+    end
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+end
+
+function MailScreen:TakeSelectedMail()
+    if not self.isOpen then return end
+    if self:IsConfirmOpen() then return end
+    local item = self:GetSelectedMail()
+    if not item then return end
+    self:TakeFromIndex(item.index, "Retirado")
+    self:RequestInboxRefresh()
+end
+
+function MailScreen:ReturnSelectedMail()
+    if not self.isOpen then return end
+    if self:IsConfirmOpen() then return end
+    local item = self:GetSelectedMail()
+    if not item then return end
+    if ReturnInboxItem then
+        pcall(ReturnInboxItem, item.index)
+    end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Carta devolvida a " .. tostring(item.sender or "?") .. ".")
+    end
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    self:RequestInboxRefresh()
+end
+
+function MailScreen:DeleteSelectedMail()
+    if not self.isOpen then return end
+    if self:IsConfirmOpen() then return end
+    local item = self:GetSelectedMail()
+    if not item then return end
+    local money = tonumber(item.money) or 0
+    if money > 0 or item.hasItem then
+        self:OpenDeleteConfirm(item.index)
+        return
+    end
+    self:DeleteIndex(item.index)
+end
+
+function MailScreen:DeleteIndex(inboxIndex)
+    if not self.isOpen then return end
+    inboxIndex = tonumber(inboxIndex) or 0
+    if inboxIndex < 1 then return end
+    if DeleteInboxItem then
+        pcall(DeleteInboxItem, inboxIndex)
+    end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Carta apagada.")
+    end
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    self:RequestInboxRefresh()
+end
+
+-- ----------------------------------------------------------------------------
+-- 2h. M3: MODAL DE CONFIRMACAO DE APAGAR (molde MerchantMenu qty modal:
+-- FULLSCREEN_DIALOG/50, titulo + texto + A confirma / B cancela + botoes
+-- clicaveis p/ mouse). Abre quando a carta tem dinheiro/anexo nao retirado.
+-- ----------------------------------------------------------------------------
+function MailScreen:CreateDeleteConfirmUI()
+    if self.deleteConfirmFrame then return self.deleteConfirmFrame end
+    local m = CreateFrame("Frame", "ConsoleMode_MailDeleteConfirm", UIParent)
+    m:SetWidth(440)
+    m:SetHeight(240)
+    m:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+    m:SetFrameStrata("FULLSCREEN_DIALOG")
+    m:SetFrameLevel(50)
+    m:EnableMouse(true)
+    m:SetMovable(false)
+    m:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 12,
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 },
+    })
+    m:SetBackdropColor(0.08, 0.06, 0.04, 0.85)
+    m:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+    m:Hide()
+
+    local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", m, "TOP", 0, -14)
+    self:ApplyFont(title, FONTS.titleBold, 19)
+    title:SetText("|cffe09a15Apagar carta?|r")
+    m.title = title
+
+    local info = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    info:SetPoint("TOP", title, "BOTTOM", 0, -8)
+    info:SetWidth(400)
+    info:SetJustifyH("CENTER")
+    self:ApplyFont(info, FONTS.titleBold, 15)
+    info:SetText("")
+    m.infoText = info
+
+    local warn = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    warn:SetPoint("TOP", info, "BOTTOM", 0, -8)
+    warn:SetWidth(400)
+    warn:SetJustifyH("CENTER")
+    self:ApplyFont(warn, FONTS.bodyBold, 14)
+    warn:SetText("|cffff2020A carta ainda tem dinheiro ou anexo nao retirado.|r")
+    m.warnText = warn
+
+    local hints = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    hints:SetPoint("BOTTOM", m, "BOTTOM", 0, 44)
+    hints:SetWidth(400)
+    hints:SetJustifyH("CENTER")
+    self:ApplyFont(hints, FONTS.titleBold, 14)
+    hints:SetText("|cffffffff[A]|r |cff1eff00confirmar|r   |cffffffff[B]|r |cffff2020cancelar|r")
+    m.hints = hints
+
+    local confirmBtn = CreateFrame("Button", "ConsoleMode_MailDeleteConfirmYes", m)
+    confirmBtn:SetWidth(150)
+    confirmBtn:SetHeight(28)
+    confirmBtn:SetPoint("BOTTOMLEFT", m, "BOTTOM", -160, 10)
+    confirmBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    confirmBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    confirmBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    confirmTxt:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
+    MailScreen:ApplyFont(confirmTxt, FONTS.titleBold, 15)
+    confirmTxt:SetText("Apagar")
+    confirmBtn:SetScript("OnClick", function()
+        MailScreen:ConfirmDelete()
+    end)
+    confirmBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+    end)
+    confirmBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    end)
+    m.confirmBtn = confirmBtn
+
+    local cancelBtn = CreateFrame("Button", "ConsoleMode_MailDeleteConfirmNo", m)
+    cancelBtn:SetWidth(150)
+    cancelBtn:SetHeight(28)
+    cancelBtn:SetPoint("BOTTOMRIGHT", m, "BOTTOM", 160, 10)
+    cancelBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    cancelBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    cancelBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    cancelTxt:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
+    MailScreen:ApplyFont(cancelTxt, FONTS.titleBold, 15)
+    cancelTxt:SetText("Cancelar")
+    cancelBtn:SetScript("OnClick", function()
+        MailScreen:CloseDeleteConfirm()
+    end)
+    cancelBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+    end)
+    cancelBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    end)
+    m.cancelBtn = cancelBtn
+
+    self.deleteConfirmFrame = m
+    return m
+end
+
+function MailScreen:IsConfirmOpen()
+    if self.deleteConfirm and self.deleteConfirm.isOpen then return true end
+    if self.deleteConfirmFrame and self.deleteConfirmFrame:IsVisible() then return true end
+    return false
+end
+
+function MailScreen:OpenDeleteConfirm(inboxIndex)
+    if not self.isOpen then return end
+    inboxIndex = tonumber(inboxIndex) or 0
+    if inboxIndex < 1 then return end
+    local m = self:CreateDeleteConfirmUI()
+    local label = "Carta " .. inboxIndex
+    if GetInboxHeaderInfo then
+        local ok, packageIcon, stationeryIcon, sender, subject, money,
+            codAmount, daysLeft, hasItem = pcall(GetInboxHeaderInfo, inboxIndex)
+        if ok and sender then
+            local subj = subject
+            if not subj or subj == "" then subj = "(sem assunto)" end
+            label = "|cffffffff" .. self:TruncateText(subj, 30) .. "|r|cffaaaaaa de " .. self:TruncateText(tostring(sender), 22) .. "|r"
+        end
+    end
+    m.infoText:SetText(label)
+    self.deleteConfirm.isOpen = true
+    self.deleteConfirm.pendingIndex = inboxIndex
+    m:Show()
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Confirmar APAGAR: carta com valores nao retirados.")
+    end
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+end
+
+function MailScreen:CloseDeleteConfirm()
+    self.deleteConfirm.isOpen = false
+    self.deleteConfirm.pendingIndex = nil
+    if self.deleteConfirmFrame and self.deleteConfirmFrame:IsVisible() then
+        self.deleteConfirmFrame:Hide()
+    end
+    if PlaySound then PlaySound("igMainMenuClose") end
+end
+
+function MailScreen:ConfirmDelete()
+    if not self:IsConfirmOpen() then return end
+    local idx = tonumber(self.deleteConfirm.pendingIndex) or 0
+    self:CloseDeleteConfirm()
+    if idx >= 1 then
+        self:DeleteIndex(idx)
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2i. M3: FILA SERIALIZADA RETIRAR-TUDO (Y na inbox, sem modal/VK aberto).
+-- Processa UMA carta por vez, avancando a cada MAIL_INBOX_UPDATE (e
+-- MAIL_SEND_SUCCESS); re-scan pelo evento, nunca presume estado. Aborta com
+-- seguranca se a mailbox fechar (MAIL_CLOSED limpa a fila).
+-- ----------------------------------------------------------------------------
+function MailScreen:TakeAllInbox()
+    if not self.isOpen then return end
+    if self.currentScreen ~= "INBOX" then return end
+    if self:IsConfirmOpen() then return end
+    local st = self.takeAllQueue
+    if st.running then return end
+    local raw = self.inboxItems or {}
+    local q = {}
+    local n = table.getn(raw)
+    for i = 1, n do
+        local it = raw[i]
+        if it and ((tonumber(it.money) or 0) > 0 or it.hasItem) then
+            table.insert(q, it.index)
+        end
+    end
+    if table.getn(q) == 0 then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Nada a retirar: nenhuma carta com dinheiro ou anexo.")
+        end
+        return
+    end
+    st.running = true
+    st.queue = q
+    st.pos = 1
+    st.total = table.getn(q)
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Retirando tudo: " .. st.total .. " carta(s)...")
+    end
+    self:ProcessTakeAllStep()
+end
+
+function MailScreen:ProcessTakeAllStep()
+    local st = self.takeAllQueue
+    if not st.running then return end
+    if not self.isOpen then
+        self:StopTakeAll(false)
+        return
+    end
+    local total = table.getn(st.queue or {})
+    local pos = tonumber(st.pos) or 1
+    if pos > total then
+        self:StopTakeAll(true)
+        return
+    end
+    local idx = st.queue[pos]
+    st.pos = pos + 1
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Retirando " .. pos .. " de " .. total .. "...")
+    end
+    self:TakeFromIndex(idx, "Retirado")
+    self:RequestInboxRefresh()
+end
+
+function MailScreen:AdvanceTakeAll()
+    local st = self.takeAllQueue
+    if not st then return end
+    if not st.running then return end
+    if not self.isOpen then
+        self:StopTakeAll(false)
+        return
+    end
+    self:ProcessTakeAllStep()
+end
+
+function MailScreen:StopTakeAll(announce)
+    local st = self.takeAllQueue
+    if not st then return end
+    local was = st.running
+    st.running = false
+    st.queue = {}
+    st.pos = 1
+    st.total = 0
+    if announce and was then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Retirada concluida.")
+        end
+        if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2j. M3: PILHA DE B (§3.2: modal aberto -> B fecha so o modal; detalhe
+-- focado -> B volta p/ lista; senao -> fecha MAIL). Roteada por Keybindings
+-- (CM_CursorCancel) e Hooks:CloseTopFrame, com guards nil nos chamadores.
+-- ----------------------------------------------------------------------------
+function MailScreen:OnCancel()
+    if not self.isOpen then return end
+    if self:IsConfirmOpen() then
+        self:CloseDeleteConfirm()
+        return
+    end
+    -- M4.1: B nunca troca de tela; no compor sem modal/detalhe, B fecha o MAIL.
+    if self.currentScreen == "COMPOSE" then
+        self:Close()
+        return
+    end
+    if self.activeColumn == "DETAIL" then
+        self:BackToList()
+        return
+    end
+    self:Close()
+end
+
+-- M4.1: D-Pad espacial (§3.2). Inbox: move o foco na direcao; <-/-> atravessa
+-- lista<->detalhe (filtros seguem em LT/RT); borda sem vizinho = parado; sem
+-- wrap. Compor: roteado p/ OnComposeDirection (telas sao exclusivas).
 function MailScreen:OnDirection(direction)
     if not self.isOpen then return end
+    if self:IsConfirmOpen() then return end
+    if self.currentScreen == "COMPOSE" then
+        self:OnComposeDirection(direction)
+        return
+    end
+    if self.activeColumn == "DETAIL" then
+        if direction == "LEFT" then
+            if (self.detailButtonIndex or 1) > 1 then
+                self:MoveDetailButton(-1)
+            else
+                self:BackToList()
+            end
+        elseif direction == "RIGHT" then
+            self:MoveDetailButton(1)
+        end
+        return
+    end
     if direction == "LEFT" then
-        self:CycleInboxFilter(-1)
+        return
     elseif direction == "RIGHT" then
-        self:CycleInboxFilter(1)
+        self:EnterDetail()
     elseif direction == "UP" then
         self:MoveInboxSelection(-1)
     elseif direction == "DOWN" then
@@ -1403,13 +2836,23 @@ function MailScreen:OnDirection(direction)
     end
 end
 
--- A (M2): apenas reafirma a selecao e atualiza o detalhe. Sem acao servidora.
+-- A (M3 mantido + M4.1): modal aberto = confirma APAGAR; compor = acao
+-- estrutural (so log); detalhe focado = ativa o botao em foco; lista = entra.
 function MailScreen:OnConfirm()
     if not self.isOpen then return end
-    self.activeColumn = "INBOX"
-    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
-    self:UpdateColumnVisuals()
-    self:RefreshInboxList()
+    if self:IsConfirmOpen() then
+        self:ConfirmDelete()
+        return
+    end
+    if self.currentScreen == "COMPOSE" then
+        self:OnComposeConfirm()
+        return
+    end
+    if self.activeColumn == "DETAIL" then
+        self:DoDetailAction(self.detailButtonIndex or 1)
+        return
+    end
+    self:EnterDetail()
 end
 
 -- Hold-to-repeat do D-Pad (molde MerchantMenu: so UP/DOWN repete).
@@ -1481,6 +2924,16 @@ function MailScreen:UpdateLayout()
         self.frame.footerContainer:ClearAllPoints()
         self.frame.footerContainer:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
     end
+    -- M4.1: os dois sets de footer sao centralizados; o visivel e alternado
+    -- por ShowInboxScreen/ShowComposeScreen (UpdateFooterVisibility).
+    if self.frame.inboxFooter then
+        self.frame.inboxFooter:ClearAllPoints()
+        self.frame.inboxFooter:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
+    end
+    if self.frame.composeFooter then
+        self.frame.composeFooter:ClearAllPoints()
+        self.frame.composeFooter:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
+    end
 end
 
 -- ----------------------------------------------------------------------------
@@ -1501,11 +2954,9 @@ function MailScreen:Open()
     end
     self.isOpen = true
 
-    -- M2: sincroniza o visual com os dados em cache (o rescan assincrono
-    -- chega via OnInboxUpdate e atualiza de novo).
-    self:UpdateInboxFilterBar()
-    self:UpdateColumnVisuals()
-    self:RefreshInboxList()
+    -- M2/M4.1: sincroniza o visual com os dados em cache (o rescan assincrono
+    -- chega via OnInboxUpdate e atualiza de novo). Sempre abre na INBOX.
+    self:ShowInboxScreen()
 
     -- Ativa e reforca o Modo de Navegacao no Gamepad (guards nil).
     if CM and CM.keybindings then
@@ -1528,6 +2979,16 @@ end
 function MailScreen:Close()
     if not self.isOpen then return end
     self.isOpen = false
+
+    -- M3: aborta a fila Retirar-Tudo e fecha o modal sem confirmar.
+    self:StopTakeAll(false)
+    if self.deleteConfirm then
+        self.deleteConfirm.isOpen = false
+        self.deleteConfirm.pendingIndex = nil
+    end
+    if self.deleteConfirmFrame and self.deleteConfirmFrame:IsVisible() then
+        self.deleteConfirmFrame:Hide()
+    end
 
     if self.dimmer and self.dimmer:IsVisible() then
         self.dimmer:Hide()
@@ -1554,6 +3015,8 @@ end
 function MailScreen:OnMailShow()
     if not self.initialized then return end
     self.isOpen = true
+    -- M3: sessao nova, fila antiga nenhuma (defensivo; MAIL_CLOSED ja limpa).
+    self:StopTakeAll(false)
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Mailbox aberta.")
     end
@@ -1568,6 +3031,8 @@ end
 
 function MailScreen:OnMailClosed()
     if not self.initialized then return end
+    -- M3: mailbox fechou = fila Retirar-Tudo aborta com seguranca.
+    self:StopTakeAll(false)
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Mailbox fechada.")
     end
@@ -1585,11 +3050,14 @@ function MailScreen:OnInboxUpdate()
     -- Passo 4: rescan de leitura (molde MerchantMenu:OnMerchantUpdate);
     -- ScanInbox tem guarda isOpen interna (anti-bloqueio).
     self:ScanInbox()
-    -- M2: atualizacao reativa do visual apos o scan.
-    if self.isOpen and self.frame then
+    -- M2/M4.1: atualizacao reativa do visual apos o scan (so na INBOX; no
+    -- compor os dados atualizam em silencio sem tocar na grade/titulos).
+    if self.isOpen and self.frame and self.currentScreen == "INBOX" then
         self:UpdateInboxFilterBar()
         self:RefreshInboxList()
     end
+    -- M3: fila Retirar-Tudo avanca UMA carta por MAIL_INBOX_UPDATE.
+    self:AdvanceTakeAll()
 end
 
 function MailScreen:OnMailSendSuccess()
@@ -1597,17 +3065,25 @@ function MailScreen:OnMailSendSuccess()
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] MAIL_SEND_SUCCESS recebido.")
     end
+    -- M3: contrato de fila serializada (envios sao M4; so avanca a fila).
+    self:AdvanceTakeAll()
 end
 
 function MailScreen:OnBagUpdate()
     if not self.initialized then return end
-    -- Passo futuro (anexos): intencionalmente silencioso aqui para nao
-    -- poluir o chat, pois BAG_UPDATE dispara com muita frequencia.
+    -- M4.1: grade do compor acompanha as bolsas em silencio (BAG_UPDATE
+    -- dispara com frequencia; sem logs aqui). Fora do compor, nada a fazer.
+    if self.isOpen and self.currentScreen == "COMPOSE" then
+        self:ScanComposeBags()
+    end
 end
 
 function MailScreen:OnMoneyUpdate()
     if not self.initialized then return end
-    -- Passo futuro (seletor de dinheiro): silencioso pelo mesmo motivo.
+    -- M4.1: mantem o custo de postagem do ENVIAR atualizado em silencio.
+    if self.isOpen and self.currentScreen == "COMPOSE" then
+        self:UpdateComposePostage()
+    end
 end
 
 -- ----------------------------------------------------------------------------
@@ -1670,7 +3146,7 @@ function MailScreen:Initialize()
     end
 
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Modulo inicializado (M1: janela + leitura + filtros).")
+        CM.logger:Log("[MailScreen] Modulo inicializado (M3: janela + leitura + acoes do inbox).")
     end
 end
 

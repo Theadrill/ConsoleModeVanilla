@@ -739,6 +739,26 @@ function Hooks:CloseTopFrame()
         return true
     end
 
+    -- M3 Mail: pilha de B (modal -> detalhe -> janela), com guards nil.
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        if ConsoleMode_MailScreen.IsConfirmOpen and ConsoleMode_MailScreen:IsConfirmOpen() then
+            if ConsoleMode_MailScreen.CloseDeleteConfirm then
+                ConsoleMode_MailScreen:CloseDeleteConfirm()
+            end
+            return true
+        end
+        if ConsoleMode_MailScreen.activeColumn == "DETAIL" then
+            if ConsoleMode_MailScreen.BackToList then
+                ConsoleMode_MailScreen:BackToList()
+            end
+            return true
+        end
+        if ConsoleMode_MailScreen.Close then
+            ConsoleMode_MailScreen:Close()
+        end
+        return true
+    end
+
     local Cursor = ConsoleMode.cursor
     if Cursor and Cursor.state.activeFrames then
         for frame, _ in pairs(Cursor.state.activeFrames) do

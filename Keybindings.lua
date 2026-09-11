@@ -367,8 +367,9 @@ modFrame:SetScript("OnUpdate", function()
         if ctrlNow and not wasCtrlDown then
             if isMerchant then
                 ConsoleMode_MerchantMenu:ToggleColumn(1)
-            elseif isMail and ConsoleMode_MailScreen.ToggleColumn then
-                ConsoleMode_MailScreen:ToggleColumn(1)
+            elseif isMail and ConsoleMode_MailScreen.ShowComposeScreen then
+                -- M4.1: RB/R1 vai p/ a tela COMPOR (substitui ToggleColumn).
+                ConsoleMode_MailScreen:ShowComposeScreen()
             elseif CM.cursor and CM.cursor.CycleTabs then
                 CM.cursor:CycleTabs(1)
             end
@@ -379,7 +380,12 @@ modFrame:SetScript("OnUpdate", function()
             if isMerchant then
                 ConsoleMode_MerchantMenu:CycleSubTab(-1)
             elseif isMail and ConsoleMode_MailScreen.CycleInboxFilter then
-                ConsoleMode_MailScreen:CycleInboxFilter(-1)
+                -- M4.1: inbox = filtro anterior; compor = metade anterior.
+                if ConsoleMode_MailScreen.currentScreen == "COMPOSE" and ConsoleMode_MailScreen.ComposeHalfJump then
+                    ConsoleMode_MailScreen:ComposeHalfJump(-1)
+                else
+                    ConsoleMode_MailScreen:CycleInboxFilter(-1)
+                end
             elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(-1)
             elseif CM.cursor and CM.cursor.CycleSubTabs then
@@ -392,7 +398,12 @@ modFrame:SetScript("OnUpdate", function()
             if isMerchant then
                 ConsoleMode_MerchantMenu:CycleSubTab(1)
             elseif isMail and ConsoleMode_MailScreen.CycleInboxFilter then
-                ConsoleMode_MailScreen:CycleInboxFilter(1)
+                -- M4.1: inbox = proximo filtro; compor = proxima metade.
+                if ConsoleMode_MailScreen.currentScreen == "COMPOSE" and ConsoleMode_MailScreen.ComposeHalfJump then
+                    ConsoleMode_MailScreen:ComposeHalfJump(1)
+                else
+                    ConsoleMode_MailScreen:CycleInboxFilter(1)
+                end
             elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(1)
             elseif CM.cursor and CM.cursor.CycleSubTabs then
@@ -885,7 +896,18 @@ function CM_Fixed(button)
         end
         
         -- 2. Se houver item ou feitiço preso no cursor, limpa a mão
-        if CursorHasItem() or CursorHasSpell() then
+    -- M4.1 Mail: X no compor so faz log (tirar item chega na M4.2).
+    -- Na inbox segue o fluxo padrao abaixo (M3 preservada, sem branch).
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        if ConsoleMode_MailScreen.currentScreen == "COMPOSE" then
+            if ConsoleMode_MailScreen.OnComposeSecondary then
+                ConsoleMode_MailScreen:OnComposeSecondary()
+            end
+            return
+        end
+    end
+
+    if CursorHasItem() or CursorHasSpell() then
             ClearCursor()
             return
         end
@@ -1179,7 +1201,7 @@ function CM_CursorConfirm()
         return
     end
 
-    -- M2 Mail: A so seleciona/atualiza o detalhe (sem acao servidora).
+    -- M3 Mail: A entra no detalhe / ativa o botao focado / confirma o modal.
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
         if ConsoleMode_MailScreen.OnConfirm then
             ConsoleMode_MailScreen:OnConfirm()
@@ -1230,6 +1252,29 @@ function CM_CursorUse()
             ConsoleMode_MerchantMenu:AutoSellJunk()
         else
             DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Este mercador não oferece serviço de reparos.")
+        end
+        return
+    end
+
+    -- M3 Mail: Y retira tudo do inbox em fila serializada (so com mailbox
+    -- aberta, sem modal de confirmacao nem VK abertos).
+    -- M4.1: no compor, Y so faz log (quantidade chega na M4.2).
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen and vk:IsOpen() then
+            return
+        end
+        if ConsoleMode_MailScreen.IsConfirmOpen and ConsoleMode_MailScreen:IsConfirmOpen() then
+            return
+        end
+        if ConsoleMode_MailScreen.currentScreen == "COMPOSE" then
+            if ConsoleMode_MailScreen.OnComposeUse then
+                ConsoleMode_MailScreen:OnComposeUse()
+            end
+            return
+        end
+        if ConsoleMode_MailScreen.TakeAllInbox then
+            ConsoleMode_MailScreen:TakeAllInbox()
         end
         return
     end
@@ -1351,10 +1396,14 @@ function CM_CursorCancel()
         return
     end
 
-    -- M1 Mail: B fecha a janela do correio.
+    -- M3 Mail: pilha de B (modal -> detalhe -> janela) via MailScreen:OnCancel.
+    -- M4.1: no compor sem modal/detalhe, OnCancel fecha o MAIL (sem voltar).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
-        ConsoleMode_MailScreen:Close()
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Correio fechado)")
+        if ConsoleMode_MailScreen.OnCancel then
+            ConsoleMode_MailScreen:OnCancel()
+        else
+            ConsoleMode_MailScreen:Close()
+        end
         return
     end
 
@@ -1445,9 +1494,11 @@ function CM_NavNextTab()
         ConsoleMode_MerchantMenu:ToggleColumn(1)
         return
     end
-    -- M2 Mail: LB/RB alternam as colunas (foco esquerda/direita).
+    -- M4.1 Mail: RB/R1 vai p/ a tela COMPOR (LB volta p/ INBOX).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
-        ConsoleMode_MailScreen:ToggleColumn(1)
+        if ConsoleMode_MailScreen.ShowComposeScreen then
+            ConsoleMode_MailScreen:ShowComposeScreen()
+        end
         return
     end
     if CM.cursor and CM.cursor.CycleTabs then
@@ -1471,9 +1522,11 @@ function CM_NavPrevTab()
         ConsoleMode_MerchantMenu:ToggleColumn(-1)
         return
     end
-    -- M2 Mail: LB/RB alternam as colunas (foco esquerda/direita).
+    -- M4.1 Mail: LB/L1 volta p/ a tela INBOX (RB vai p/ COMPOR).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
-        ConsoleMode_MailScreen:ToggleColumn(-1)
+        if ConsoleMode_MailScreen.ShowInboxScreen then
+            ConsoleMode_MailScreen:ShowInboxScreen()
+        end
         return
     end
     if CM.cursor and CM.cursor.CycleTabs then
@@ -1487,9 +1540,13 @@ function CM_NavNextSubTab()
         ConsoleMode_MerchantMenu:CycleSubTab(1)
         return
     end
-    -- M2 Mail: LT/RT ciclam o filtro do inbox.
+    -- M4.1 Mail: inbox = cicla o filtro; compor = salto de metade (LT/RT).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
-        ConsoleMode_MailScreen:CycleInboxFilter(1)
+        if ConsoleMode_MailScreen.currentScreen == "COMPOSE" and ConsoleMode_MailScreen.ComposeHalfJump then
+            ConsoleMode_MailScreen:ComposeHalfJump(1)
+        else
+            ConsoleMode_MailScreen:CycleInboxFilter(1)
+        end
         return
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
@@ -1508,9 +1565,13 @@ function CM_NavPrevSubTab()
         ConsoleMode_MerchantMenu:CycleSubTab(-1)
         return
     end
-    -- M2 Mail: LT/RT ciclam o filtro do inbox.
+    -- M4.1 Mail: inbox = cicla o filtro; compor = salto de metade (LT/RT).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
-        ConsoleMode_MailScreen:CycleInboxFilter(-1)
+        if ConsoleMode_MailScreen.currentScreen == "COMPOSE" and ConsoleMode_MailScreen.ComposeHalfJump then
+            ConsoleMode_MailScreen:ComposeHalfJump(-1)
+        else
+            ConsoleMode_MailScreen:CycleInboxFilter(-1)
+        end
         return
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
@@ -1543,9 +1604,11 @@ function CM_SmartTab()
             ConsoleMode_MerchantMenu:ToggleColumn(-1)
             return
         end
-        -- M2 Mail: L1 alterna para a coluna anterior (foco).
+        -- M4.1 Mail: L1 volta p/ a tela INBOX (troca de telas, sem ToggleColumn).
         if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
-            ConsoleMode_MailScreen:ToggleColumn(-1)
+            if ConsoleMode_MailScreen.ShowInboxScreen then
+                ConsoleMode_MailScreen:ShowInboxScreen()
+            end
             return
         end
         if CM.cursor and CM.cursor.CycleTabs then

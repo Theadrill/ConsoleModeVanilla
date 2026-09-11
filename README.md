@@ -207,6 +207,8 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 - [x] Seletor visual de Action Bars integrado com Tooltip Scanner de magias reais
 - [x] Suporte completo às combinações de modificadores (L2, R1, R2, L2+R2)
 - [x] Menu Principal de Console integrado (Bolsas, Livro de Magias, Sistema, Provador 3D)
+- [x] Tela de Correio (caixa de entrada + compor/enviar com anexos, fila multi-item)
+- [ ] Correio com COD (pagamento contra entrega no envio e na retirada)
 - [ ] Diário de Missões & Mapa Mundi integrados (Estilo Retail Console)
 - [ ] Painel Quest Tracker no HUD (Rastreamento de missões na tela)
 - [ ] UI visual própria de Action Bars e HUD no estilo ConsolePort

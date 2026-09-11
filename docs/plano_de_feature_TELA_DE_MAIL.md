@@ -59,6 +59,7 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
 - **Validação:** Exibe saldo disponível, taxa de postagem calculada em tempo real (`GetSendMailPrice()`) e impede envio de valores superiores ao dinheiro do jogador.
 
 ### 4.2 Teclado Virtual Desacoplado para Console (`UI/VirtualKeyboard.lua`)
+> NOTA: implementação a cargo de outro agente (`docs/plano_de_feature_VIRTUAL_KEYBOARD.md`). A MailScreen consome o contrato abaixo; se o teclado estiver ausente, o campo foca seu EditBox para digitação no teclado físico.
 - **Arquitetura Modular / Standalone:** O Teclado Virtual é projetado como um módulo de serviço independente (`ConsoleMode.VirtualKeyboard`), podendo ser invocado por qualquer tela ou componente do addon (Mail, Chat, Busca de Bags, Macros, Configurações, etc.).
 - **API Pública do Teclado:**
   - `VirtualKeyboard:Open(config)`:
@@ -95,8 +96,8 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
 ## 5. Fases de Implementação
 
 ### Fase 1: Infraestrutura Básica e Leitura do Inbox
-- Criação de `UI/MailMenu.lua` e registro no `.toc` e `Core.lua`.
-- Tratamento dos eventos: `MAIL_SHOW`, `MAIL_CLOSED`, `MAIL_INBOX_UPDATE`, `MAIL_SUCCESS`.
+- Criação de `UI/MailScreen.lua` (componente desacoplado; era `UI/MailMenu.lua`, renomeado) e registro no `.toc` e `Core.lua`.
+- Tratamento dos eventos: `MAIL_SHOW`, `MAIL_CLOSED`, `MAIL_INBOX_UPDATE`, `MAIL_SEND_SUCCESS` (corrigido: o plano citava `MAIL_SUCCESS`, nome errado no 1.12).
 - Supressão do `MailFrame` nativo (`alpha 0`, off-screen).
 - Leitura de cabeçalhos (`GetInboxHeaderInfo`), paginação de 7 linhas, filtros (Todos, Não-lidos, Com Anexo).
 - Ações no Inbox: Retirar Dinheiro, Retirar Item, Excluir, Devolver e "Retirar Tudo" (em fila serializada).
@@ -126,11 +127,43 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
 
 ## 6. Arquivos Impactados
 - **Novos:**
-  - `UI/MailMenu.lua`
-  - `UI/VirtualKeyboard.lua`
+  - `UI/MailScreen.lua` (componente desacoplado da tela de correio; `ConsoleMode_MailScreen` / `CM.mailScreen`)
+  - `UI/VirtualKeyboard.lua` — DESENVOLVIDO POR OUTRO AGENTE (`docs/plano_de_feature_VIRTUAL_KEYBOARD.md`); a MailScreen consome via contrato, não implementa.
 - **Modificados:**
   - `ConsoleModeVanilla.toc` (inclusão dos novos arquivos)
   - `Core.lua` (inicialização do módulo de Mail)
-  - `Keybindings.lua` (redirecionamento de inputs do D-Pad/ações quando `MailMenu` estiver aberto)
+  - `Keybindings.lua` (redirecionamento de inputs do D-Pad/ações quando `MailScreen` estiver aberto)
   - `Hooks.lua` (interceptação de `MAIL_SHOW`, `MailFrame` e prioridade em `CloseTopFrame`)
   - `Cursor.lua` (registro de prioridade modal para o Teclado Virtual)
+
+---
+
+## 7. Plano de Execução Aprovado (Fases M1–M5, espelho do mercador)
+
+Construção do mercador (referência): Fase 1 detecção+supressão → Fase 2 janela visual → Fase 3 dados+DetailCard → Fases 5/6 ações+modais → fixes. Concluído no mail (Fase 1): esqueleto+registro (`75ba84c`), eventos (`4b5539a`), supressão segura (`8f7ff24`), leitura inbox+filtros sem visual (`5387081`).
+
+### Fase M1: Esqueleto da janela aparece
+- `CreateUI` no molde `MerchantMenu:1302`: dimmer (`0,0,0,0.65`), 9-slice `Carved_9Slides.tga`, janela responsiva 94%x85% (clamp 840–1440/520–920), header `|cffe09a15CORREIO|r` + botão Sair, `contentArea` + 2 colunas + footer, `UISpecialFrames`/ESC, `HIGH/10`.
+- Fiação mínima: `Open`/`Close` reais, `Enter/ExitNavigationMode`, B fecha, D-Pad move seleção (placeholder).
+- Validação: mailbox → janela aparece; B/ESC fecha; sem erro Lua.
+
+### Fase M2: Os mails aparecem
+- Linhas do inbox 7×42px (ícone 32, cursor dourado, highlight, remetente+assunto+dias+selos), painel de detalhes, filtros no LT/RT, paginação `Item X de Y (Pág. P/T)`, colunas LB/RB.
+- Validação: navegar só no gamepad, trocar filtro, paginar.
+
+### Fase M3: Lógica dos botões do inbox
+- A abrir/ler, X secundário, Y retirar tudo (fila serializada por `MAIL_INBOX_UPDATE`), excluir/devolver com modal `FULLSCREEN_DIALOG/50`, `CloseTopFrame` + guards `Keybindings`/`Cursor`.
+- Validação: char com cartas (dinheiro+item+lixo); logs por carta; sem perda.
+
+### Fase M4: Janela de enviar mensagem
+- Aba Compor (`Para`/`Assunto`/`Mensagem`/`Dinheiro`/anexo), validação saldo+postagem, `SendMail` serializado.
+- Teclado via contrato `ConsoleMode.VirtualKeyboard:Open({title, initialText, maxLetters, onConfirm, onCancel})`; se ausente, **foca o EditBox do campo para digitação no teclado físico** (fallback aprovado), com guarda anti-conflito D-Pad×digitação.
+
+### Fase M5: Polimento
+- Sons, `CloseTopFrame`, hooks `chatActive`, revisões Lua 5.0 + anti-bloqueio finais.
+
+### Regras vigentes em todas as fases
+- Identidade visual idêntica a MainMenu/MerchantMenu (fundo, cores, botões, tamanhos de texturas) — UX gamepad em primeiro lugar.
+- Referência técnica de API: [shirsig/Mail](https://github.com/shirsig/Mail) (creditado no README).
+- Parar para validação do usuário em cada fase; sem commit/push sem aprovação explícita.
+- Validar qualidade + sintaxe (Lua 5.0 / WoW 1.12) como duas etapas distintas; zero API servidora fora de contexto (anti-bloqueio Blizzard).

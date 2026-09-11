@@ -2304,6 +2304,13 @@ function MailScreen:CreateInvSlot(grid, i)
 
         s:RegisterForClicks("LeftButtonUp")
         s:SetScript("OnClick", function()
+            -- Mouse nao fura modal/VK nem fila rodando (evita mudar invIndex
+            -- ou anexar/devolver com o modal de quantidade aberto).
+            if MailScreen:IsVKOpen() or MailScreen:IsMoneyModalOpen()
+                or MailScreen:IsQtyModalOpen() or MailScreen:IsConfirmOpen() then
+                return
+            end
+            if MailScreen.sendQueue and MailScreen.sendQueue.running then return end
             local idx = (MailScreen.invScrollOffset or 0) * MailScreen.invCols + this.slotPos
             local n = table.getn(MailScreen.invItems or {})
             if idx >= 1 and idx <= n then
@@ -3126,12 +3133,14 @@ function MailScreen:DetachItemAtInvIndex()
     local e = list[pos]
     local nm = "Item"
     if e and e.name then nm = e.name end
+    local dq = 1
+    if e and tonumber(e.qty) then dq = tonumber(e.qty) end
     table.remove(list, pos)
     self:UpdateComposeItemsText()
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Devolvido a bolsa: " .. tostring(nm) .. ".")
+        CM.logger:Log("[MailScreen] Devolvido a bolsa: " .. tostring(nm) .. " x" .. dq .. " (qty descartada; re-anexar volta a pilha cheia).")
     end
 end
 
@@ -3508,8 +3517,9 @@ function MailScreen:QtyModalDirection(direction)
     end
 end
 
--- A no modal: define a quantidade do item na lista (anexa se ainda nao
--- estiver); B cancela sozinho (CloseQtyModal).
+-- A no modal: confirma a pilha CHEIA na lista (anexa se ainda nao estiver);
+-- com qty parcial, divide a pilha num slot vazio da bolsa e anexa a pilha
+-- nova (integral) — tudo sem sair do mail. B cancela sozinho (CloseQtyModal).
 function MailScreen:QtyModalConfirm()
     if not self:IsQtyModalOpen() then return end
     if not self.isOpen then
@@ -3521,11 +3531,37 @@ function MailScreen:QtyModalConfirm()
     local slot = self.qtyModal.slot
     local qty = tonumber(self.qtyModal.qty) or 1
     local nm = self.qtyModal.itemName or "Item"
+    local mx = tonumber(self.qtyModal.maxQty) or qty
     self:CloseQtyModal(true)
     if bag == nil or slot == nil then return end
+    if qty < mx then
+        -- Pilha parcial: divide na bolsa (Split poe qty no cursor, deposita
+        -- num slot vazio) e anexa a pilha nova integral. Cada micro-passo e
+        -- verificado; qualquer falha devolve tudo e aborta sem mexer.
+        self:SplitAndAttachPartial(bag, slot, qty, mx, nm)
+        return
+    end
     local pos, e = self:FindAttached(bag, slot)
+    if (not pos or not e) and GetContainerItemLink then
+        -- O slot pode ter mudado (BAG_UPDATE) entre anexar e confirmar:
+        -- tenta pelo link antes de criar entrada duplicada.
+        local okL, l = pcall(GetContainerItemLink, bag, slot)
+        if okL and type(l) == "string" and l ~= "" then
+            local list = self.composeItems or {}
+            local nl = table.getn(list)
+            for i = 1, nl do
+                local ce = list[i]
+                if ce and ce.link and ce.link == l then
+                    pos, e = i, ce
+                    break
+                end
+            end
+        end
+    end
     if pos and e then
         e.qty = qty
+        e.bag = bag
+        e.slot = slot
     else
         local it = self:GetInvItemAt(self.invIndex)
         local tex = nil
@@ -3550,6 +3586,209 @@ function MailScreen:QtyModalConfirm()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Quantidade: " .. tostring(nm) .. " x" .. qty .. ".")
+    end
+end
+
+-- Primeiro slot vazio das bolsas (0-4). Retorna bag, slot ou nil, nil.
+function MailScreen:FindEmptyBagSlot()
+    if not GetContainerNumSlots or not GetContainerItemLink then
+        return nil, nil
+    end
+    for bag = 0, 4 do
+        local okS, numSlots = pcall(GetContainerNumSlots, bag)
+        numSlots = tonumber(numSlots) or 0
+        if okS and numSlots > 0 then
+            for slot = 1, numSlots do
+                local okL, link = pcall(GetContainerItemLink, bag, slot)
+                if okL and not link then
+                    return bag, slot
+                end
+            end
+        end
+    end
+    return nil, nil
+end
+
+function MailScreen:FailSplit(msg)
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] " .. tostring(msg))
+    end
+    if PlaySound then PlaySound("igQuestFailed") end
+end
+
+-- Divide qty de (bag,slot,mx) num slot vazio e anexa a pilha nova integral.
+-- ASSINCRONO (OnSplitRetry no OnUpdate): Split + verificacao 1s depois, pois
+-- leituras de bolsa no mesmo frame da mutacao nao sao confiaveis aqui.
+-- Troca a entrada antiga do slot original (se houver) pela nova.
+function MailScreen:SplitAndAttachPartial(bag, slot, qty, mx, nm)
+    if not self.isOpen then return end
+    if self.sendQueue and self.sendQueue.running then return end
+    qty = tonumber(qty) or 0
+    mx = tonumber(mx) or 0
+    if qty < 1 or qty >= mx then return end
+    if SplitContainerItem == nil or PickupContainerItem == nil then
+        self:FailSplit("Divisao indisponivel (API de bolsas ausente).")
+        return
+    end
+    if self:CursorHoldsItem() then
+        self:FailSplit("Cursor ocupado: esvazie o cursor para dividir.")
+        return
+    end
+    local eb, es = self:FindEmptyBagSlot()
+    if eb == nil then
+        self:FailSplit("Sem espaco na bolsa p/ dividir x" .. qty .. " de x" .. mx .. ".")
+        return
+    end
+    -- Split assincrono: qty vai ao cursor; a verificacao acontece 1s depois
+    -- no OnUpdate (leituras no mesmo frame da mutacao nao sao confiaveis).
+    pcall(SplitContainerItem, bag, slot, qty)
+    if not self:CursorHoldsItem() then
+        self:FailSplit("Divisao falhou (item nao saiu). Nada anexado.")
+        return
+    end
+    local t0 = nil
+    if GetTime then
+        local okT, now = pcall(GetTime)
+        if okT and type(now) == "number" then t0 = now end
+    end
+    self.splitOp = {
+        bag = bag, slot = slot, qty = qty, mx = mx, nm = nm,
+        eb = eb, es = es, phase = "verify", t0 = t0, at = t0 and (t0 + 1) or nil,
+    }
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Dividindo x" .. qty .. " de x" .. mx .. "... aguarde.")
+    end
+end
+
+function MailScreen:ClearSplitOp()
+    self.splitOp = nil
+end
+
+function MailScreen:RecoverSplitCursor(op)
+    if not op then return end
+    if not self:CursorHoldsItem() then return end
+    -- Devolve ao original se vazio, senao ao slot reserva; nunca deleta.
+    local destBag, destSlot = op.eb, op.es
+    if GetContainerItemLink then
+        local okL, link = pcall(GetContainerItemLink, op.bag, op.slot)
+        if okL and not link then
+            destBag, destSlot = op.bag, op.slot
+        end
+    end
+    pcall(PickupContainerItem, destBag, destSlot)
+end
+
+function MailScreen:ReadBagCount(bag, slot)
+    if not GetContainerItemInfo then return nil end
+    local ok, _, c = pcall(GetContainerItemInfo, bag, slot)
+    if ok and tonumber(c) then return tonumber(c) end
+    return nil
+end
+
+-- Bomba do split assincrono (OnUpdate): verifica com 1s de intervalo.
+function MailScreen:OnSplitRetry()
+    if not self.initialized then return end
+    local op = self.splitOp
+    if not op then return end
+    if not self.isOpen then
+        self.splitOp = nil
+        return
+    end
+    if not GetTime then
+        self.splitOp = nil
+        return
+    end
+    local okT, now = pcall(GetTime)
+    if not okT or type(now) ~= "number" then return end
+    if op.t0 and type(op.t0) == "number" and (now - op.t0) > 10 then
+        self:RecoverSplitCursor(op)
+        self.splitOp = nil
+        self:FailSplit("Divisao expirou (10s). Confira a bolsa.")
+        return
+    end
+    if op.at and type(op.at) == "number" and now < op.at then return end
+    if op.phase == "verify" then
+        -- Resto no original deve ser mx-qty (leitura fresca, 1s depois).
+        local rem = self:ReadBagCount(op.bag, op.slot)
+        if rem == (op.mx - op.qty) and self:CursorHoldsItem() then
+            pcall(PickupContainerItem, op.eb, op.es)
+            if self:CursorHoldsItem() then
+                self:RecoverSplitCursor(op)
+                self.splitOp = nil
+                self:FailSplit("Deposito falhou: recolque o item do cursor manualmente.")
+                return
+            end
+            op.phase = "verify2"
+            op.at = now + 1
+            return
+        end
+        self:RecoverSplitCursor(op)
+        self.splitOp = nil
+        self:FailSplit("Divisao falhou (resto x" .. tostring(rem) .. ", esperado x" .. (op.mx - op.qty) .. "). Nada anexado; confira a bolsa.")
+        return
+    end
+    if op.phase == "verify2" then
+        local got = self:ReadBagCount(op.eb, op.es)
+        self.splitOp = nil
+        if got == op.qty and not self:CursorHoldsItem() then
+            self:FinishSplitAttach(op)
+            return
+        end
+        self:FailSplit("Pilha nova com x" .. tostring(got) .. " (esperado x" .. op.qty .. "). Confira a bolsa.")
+        return
+    end
+    self.splitOp = nil
+end
+
+-- Conclui o split: re-escaneia, foca a pilha nova e anexa integral.
+function MailScreen:FinishSplitAttach(op)
+    if not self.isOpen then return end
+    if self.sendQueue and self.sendQueue.running then
+        self:FailSplit("Envio comecou no meio da divisao: pilha dividida na bolsa, anexe manualmente.")
+        return
+    end
+    self:ScanComposeBags()
+    local items = self.invItems or {}
+    local ni = table.getn(items)
+    for i = 1, ni do
+        local it2 = items[i]
+        if it2 and it2.bag == op.eb and it2.slot == op.es then
+            self.invIndex = i
+            break
+        end
+    end
+    self:ClampInventoryScroll()
+    -- Troca a entrada antiga pela nova (sem duplicar): remove as que apontam
+    -- p/ o slot original ou p/ o slot novo (o prune pode ter arrastado uma
+    -- entrada obsoleta do mesmo link para a pilha nova no rescan).
+    local list = self.composeItems or {}
+    local nl = table.getn(list)
+    for i = nl, 1, -1 do
+        local ce = list[i]
+        if ce and ((ce.bag == op.bag and ce.slot == op.slot) or (ce.bag == op.eb and ce.slot == op.es)) then
+            table.remove(list, i)
+        end
+    end
+    local link = nil
+    if GetContainerItemLink then
+        local okL, l = pcall(GetContainerItemLink, op.eb, op.es)
+        if okL and type(l) == "string" and l ~= "" then link = l end
+    end
+    local tex = nil
+    if GetContainerItemInfo then
+        local okT2, t = pcall(GetContainerItemInfo, op.eb, op.es)
+        if okT2 then tex = t end
+    end
+    table.insert(list, {
+        bag = op.eb, slot = op.es, link = link, name = op.nm or "Item", texture = tex,
+        count = op.qty, qty = op.qty,
+    })
+    self:AutoFillSubject()
+    self:UpdateComposeItemsText()
+    self:RefreshComposeVisuals()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Dividido: '" .. tostring(op.nm or "Item") .. "' x" .. op.qty .. " (bolsa " .. op.eb .. " slot " .. op.es .. ") e anexado.")
     end
 end
 
@@ -3998,10 +4237,12 @@ end
 -- cheia (o default do anexo via A), o que e invalido no 1.12 (cursor vinha
 -- vazio); o ClickSendMailItemButton falhava sempre ("cannot attach item" do
 -- cliente) com a aba de ENVIO inativa (SuppressDefaultFrame forca tab 1);
--- e o SendMail saia assim mesmo, gerando carta so-com-dinheiro. Agora:
--- resolve coords frescas, Split SO p/ pilha parcial (qty < pilha), Pickup p/
--- pilha cheia/unitaria, verifica cursor + GetSendMailItem antes do SendMail,
--- e aborta SEM enviar nada quando o anexo falha (nunca carta parcial).
+-- e o SendMail saia assim mesmo, gerando carta so-com-dinheiro. Evolucao:
+-- SplitContainerItem e IGNORADO neste cliente (comprovado: "envia x10"
+-- anexou x20 e o destino recebeu 20): parcial nao existe mais — Pickup
+-- integral sempre (Postal nunca fraciona), qty parcial barrada com mensagem
+-- (TrySendMail + QtyModalConfirm), e GetSendMailItem verifica nome + count
+-- antes do SendMail, abortando SEM enviar quando diverge (nunca carta errada).
 -- Ref. Postal (Postal.lua:SendMail + ItemIsMailable): ClickSendMailItemButton
 -- previo p/ limpar anexo residual do slot; assunto nunca vazio (fallback nome
 -- do 1o anexo / "[No Subject]"); multi-item sufixa "(Parte X de Y)";
@@ -4025,6 +4266,16 @@ function MailScreen:GetSendSlotItemName()
     if not GetSendMailItem then return nil end
     local ok, nm = pcall(GetSendMailItem)
     if ok and type(nm) == "string" and nm ~= "" then return nm end
+    return nil
+end
+
+-- Quantidade anexada no slot (GetSendMailItem 1.12: nome, _, count — mesmo
+-- uso do Postal: `local name, _, count = GetSendMailItem()`). Nil se a API
+-- nao informar (ai a checagem de qty e pulada, so vale o nome).
+function MailScreen:GetSendSlotCount()
+    if not GetSendMailItem then return nil end
+    local ok, _, _, cnt = pcall(GetSendMailItem)
+    if ok and type(cnt) == "number" then return cnt end
     return nil
 end
 
@@ -4124,10 +4375,13 @@ end
 -- Nunca deleta nada: com falha, o item fica onde esta (bolsa ou cursor) e o
 -- chamador aborta a fila SEM SendMail.
 -- Molde Postal (Postal.lua:SendMail): ClickSendMailItemButton previo p/ limpar
--- anexo residual da carta anterior + Pickup + ClickSendMailItemButton (anexa)
--- + GetSendMailItem (verifica). Sem o click de limpeza previa, o slot de
--- envio podia reter item da carta anterior e o anexo novo falhava com
--- "item not attached" do cliente. Nunca ClearCursor (deletaria item).
+-- anexo residual da carta anterior + PickupContainerItem INTEGRAL +
+-- ClickSendMailItemButton (anexa) + GetSendMailItem (nome + count, verifica).
+-- Sem o click de limpeza previa, o slot de envio podia reter item da carta
+-- anterior e o anexo novo falhava com "item not attached" do cliente.
+-- SEM SplitContainerItem: o Postal nunca fraciona, e neste cliente o split e
+-- ignorado (comprovado: "envia x10" anexou x20 e o destino recebeu 20).
+-- Parcial e barrada antes (TrySendMail + QtyModalConfirm). Nunca ClearCursor.
 function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     if not self.isOpen then return false, "correio fechado" end
     if bag == nil or slot == nil then return false, "slot invalido" end
@@ -4136,7 +4390,7 @@ function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     stackCount = tonumber(stackCount) or qty
     if stackCount < 1 then stackCount = qty end
     if qty > stackCount then qty = stackCount end
-    if PickupContainerItem == nil and SplitContainerItem == nil then
+    if PickupContainerItem == nil then
         return false, "API de bolsas ausente"
     end
     if ClickSendMailItemButton == nil then
@@ -4169,17 +4423,9 @@ function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
             return false, "slot de envio ocupado (carta anterior?)"
         end
     end
-    if qty < stackCount then
-        if SplitContainerItem == nil then
-            return false, "fracionar indisponivel"
-        end
-        -- Pilha parcial: divide so a quantidade (resto fica na bolsa).
-        pcall(SplitContainerItem, bag, slot, qty)
-    else
-        -- Pilha cheia ou item unitario: pickup integral. Split da pilha
-        -- inteira e invalido no 1.12 (era o anexo que nunca funcionava).
-        pcall(PickupContainerItem, bag, slot)
-    end
+    -- Pickup integral da pilha (Postal: sem fracionamento; Split e ignorado
+    -- neste cliente e anexava a pilha cheia).
+    pcall(PickupContainerItem, bag, slot)
     if not self:CursorHoldsItem() then
         return false, "item nao saiu da bolsa (travado?)"
     end
@@ -4192,6 +4438,15 @@ function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     end
     if self:CursorHoldsItem() then
         return false, "sobra no cursor apos click"
+    end
+    -- BUG qty parcial: o Split pode ter posto a pilha cheia no cursor (foi
+    -- parar 20 no destino com "envia x10" no log). So envia se a quantidade
+    -- anexada bater com a pedida; senao puxa de volta e aborta SEM SendMail.
+    local need = tonumber(qty) or 0
+    local gotCount = self:GetSendSlotCount()
+    if gotCount ~= nil and need > 0 and gotCount ~= need then
+        pcall(ClickSendMailItemButton)
+        return false, "anexado x" .. gotCount .. ", esperado x" .. need .. " (recoloque o item)"
     end
     return true, ""
 end
@@ -4211,8 +4466,8 @@ end
 -- 2f-M4.2 (V). ENVIO + FILA MULTI-ITEM (§7 M4)
 -- ENVIAR valida (destinatario nao vazio; saldo >= N x postagem + dinheiro
 -- anexado) e envia 1 carta por item (limite 1.12), copiando assunto+texto; o
--- dinheiro vai so na 1a carta. Anexacao fisica (PickupContainerItem ou
--- SplitContainerItem p/ pilha parcial + ClickSendMailItemButton) e
+-- dinheiro vai so na 1a carta. Anexacao fisica (PickupContainerItem INTEGRAL
+-- + ClickSendMailItemButton; sem fracionamento, molde Postal) e
 -- SetSendMailMoney acontecem SO no momento do envio, com isOpen (regra de
 -- ouro). Fila serializada por MAIL_SEND_SUCCESS; aborta em MAIL_CLOSED.
 -- Pos-envio limpa TODOS os campos/itens e permanece no compor.
@@ -4227,6 +4482,12 @@ function MailScreen:TrySendMail()
     if self.takeAllQueue and self.takeAllQueue.running then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Aguarde a retirada terminar para enviar.")
+        end
+        return
+    end
+    if self.splitOp then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Aguarde a divisao terminar para enviar.")
         end
         return
     end
@@ -4328,6 +4589,16 @@ function MailScreen:TrySendMail()
                 return
             end
             if rc < need then need = rc end
+            -- Postal: sem fracionamento (Split ignorado no cliente anexa a
+            -- pilha cheia). Parcial aborta ANTES de qualquer carta sair:
+            -- divida a pilha na bolsa antes (Shift+clique padrao).
+            if need < rc then
+                if CM.logger and CM.logger.Log then
+                    CM.logger:Log("[MailScreen] Parcial indisponivel '" .. tostring(e.name or "Item") .. "' (x" .. need .. " de x" .. rc .. "): divida a pilha na bolsa antes (1.12/Postal: so pilha cheia). Envio cancelado.")
+                end
+                if PlaySound then PlaySound("igQuestFailed") end
+                return
+            end
             table.insert(letters, {
                 bag = rb, slot = rs,
                 qty = need,
@@ -4335,6 +4606,19 @@ function MailScreen:TrySendMail()
                 name = e.name or "Item",
                 money = lm,
             })
+        end
+    end
+    -- Resumo forense: quantas cartas e com que qty cada (diagnostico de
+    -- qty ignorada / entradas duplicadas).
+    if CM.logger and CM.logger.Log then
+        local nl = table.getn(letters)
+        for li = 1, nl do
+            local le = letters[li]
+            if le.bag ~= nil then
+                CM.logger:Log("[MailScreen] Fila carta " .. li .. "/" .. nl .. ": '" .. tostring(le.name or "Item") .. "' x" .. tostring(tonumber(le.qty) or 1) .. ".")
+            else
+                CM.logger:Log("[MailScreen] Fila carta " .. li .. "/" .. nl .. ": so dinheiro.")
+            end
         end
     end
     self:EnsureSendTab()
@@ -4391,7 +4675,10 @@ function MailScreen:ProcessSendStep()
             return
         end
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Anexado no slot: '" .. tostring(self:GetSendSlotItemName() or "?") .. "'.")
+            local sc = self:GetSendSlotCount()
+            local extra = ""
+            if sc ~= nil then extra = " x" .. sc end
+            CM.logger:Log("[MailScreen] Anexado no slot: '" .. tostring(self:GetSendSlotItemName() or "?") .. "'" .. extra .. ".")
         end
     end
     -- 2. Dinheiro (so na 1a carta; zera nas demais).
@@ -4993,6 +5280,12 @@ function MailScreen:TakeAllInbox()
         end
         return
     end
+    if self.splitOp then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Aguarde a divisao terminar para retirar tudo.")
+        end
+        return
+    end
     local st = self.takeAllQueue
     if st.running then return end
     -- Leitura fresca antes de montar a fila (Y logo apos abrir o correio).
@@ -5433,6 +5726,8 @@ function MailScreen:OnMailClosed()
     -- M4.2: mailbox fechou = fila de envio aborta (regra de ouro: sem API
     -- servidora fora de MAIL_SHOW -> MAIL_CLOSED).
     self:StopSendQueue(false)
+    -- Divisao em andamento: pilhas ja estao seguras nas bolsas; so cancela.
+    self.splitOp = nil
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Mailbox fechada.")
     end
@@ -5546,9 +5841,11 @@ function MailScreen:Initialize()
 
         -- Watchdog da fila de envio: aborta se o servidor nao responder.
         -- + re-tentativa do layout dinamico (tamanhos pos-render).
+        -- + bomba do split assincrono.
         ef:SetScript("OnUpdate", function()
             MailScreen:OnSendWatchdog()
             MailScreen:OnLayoutRetry()
+            MailScreen:OnSplitRetry()
         end)
 
         self.eventFrame = ef

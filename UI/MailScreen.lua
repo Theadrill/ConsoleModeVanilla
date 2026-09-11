@@ -1796,6 +1796,7 @@ function MailScreen:ShowComposeScreen()
     self:UpdateComposePostage()
     self:ScanComposeBags()
     self:RefreshComposeVisuals()
+    self:UpdateSendProgress()
     self:UpdateColumnVisuals()
     if PlaySound then PlaySound("igCharacterInfoTab") end
 end
@@ -1992,6 +1993,33 @@ function MailScreen:CreateComposeUI()
         MailScreen:RefreshComposeVisuals()
     end)
 
+    -- Barra de progresso do envio (1x; visivel so com fila rodando).
+    local prog = CreateFrame("Frame", "ConsoleMode_MailComposeProgress", box)
+    prog:SetWidth(250)
+    prog:SetHeight(16)
+    prog:SetPoint("TOP", sendBtn, "BOTTOM", 0, -6)
+    prog:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    prog:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
+    prog:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local fill = prog:CreateTexture(nil, "ARTWORK")
+    fill:SetTexture(1.0, 0.82, 0.20, 0.85)
+    fill:SetHeight(10)
+    fill:SetWidth(1)
+    fill:SetPoint("LEFT", prog, "LEFT", 3, 0)
+    prog.fill = fill
+    local ptxt = prog:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    ptxt:SetPoint("CENTER", prog, "CENTER", 0, 0)
+    self:ApplyFont(ptxt, FONTS.bodyBold, 11)
+    ptxt:SetText("")
+    prog.text = ptxt
+    prog:Hide()
+    box.sendProgress = prog
+
     leftCol.composeBox = box
     box:Hide()
 
@@ -2016,6 +2044,43 @@ function MailScreen:UpdateComposePostage()
     local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
     if not box or not box.sendLabel then return end
     box.sendLabel:SetText("ENVIAR (postagem " .. self:GetComposePostageText() .. ")")
+end
+
+-- Barra de progresso da fila de envio (texto "ENVIANDO X/Y" + fill ouro).
+-- Visivel so com sendQueue.running; fora disso esconde. Chamada no inicio de
+-- cada carta (TrySendMail/AdvanceSendStep via ProcessSendStep), no fim
+-- (StopSendQueue) e ao entrar no compor.
+function MailScreen:UpdateSendProgress()
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if not box or not box.sendProgress then return end
+    local prog = box.sendProgress
+    local st = self.sendQueue
+    if not st or not st.running then
+        prog:Hide()
+        return
+    end
+    local total = tonumber(st.total) or 0
+    local pos = tonumber(st.pos) or 1
+    if total < 1 then
+        prog:Hide()
+        return
+    end
+    if pos < 1 then pos = 1 end
+    if pos > total then pos = total end
+    local done = pos - 1
+    local frac = done / total
+    if frac < 0 then frac = 0 end
+    if frac > 1 then frac = 1 end
+    local innerW = 250 - 6
+    if prog.fill then
+        local w = math.floor(innerW * frac + 0.5)
+        if w < 1 then w = 1 end
+        prog.fill:SetWidth(w)
+    end
+    if prog.text then
+        prog.text:SetText("ENVIANDO " .. pos .. "/" .. total)
+    end
+    if not prog:IsVisible() then prog:Show() end
 end
 
 -- ----------------------------------------------------------------------------
@@ -4151,6 +4216,7 @@ function MailScreen:ProcessSendStep()
         self:FinishSendQueue()
         return
     end
+    self:UpdateSendProgress()
     -- 1. Anexo fisico (resolve coords frescas; o item so sai da bolsa agora).
     -- Verifica o anexo antes de seguir: click falho NAO gera SendMail.
     if letter.bag ~= nil and letter.slot ~= nil then
@@ -4250,6 +4316,7 @@ function MailScreen:StopSendQueue(announce)
     st.total = 0
     st.lastSendTime = nil
     st.pendingStepAt = nil
+    self:UpdateSendProgress()
     if announce and was then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Envio concluido.")

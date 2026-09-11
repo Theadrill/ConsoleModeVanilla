@@ -75,6 +75,12 @@ VK.repeatState = VK.repeatState or {
 }
 VK.repeatFrame = VK.repeatFrame or nil
 
+-- Borda de subida do R2 (Steam = modificador ALT): false = solto.
+-- Semeada no Open com o estado real do modificador (pre-segurar o R2
+-- nao confirma na abertura) e atualizada a cada OnUpdate mesmo com o
+-- VK fechado (sem disparar fora do VK).
+VK.altWasDown = VK.altWasDown or false
+
 -- ----------------------------------------------------------------------------
 -- 2. CONSTANTES VISUAIS VK-2 (molde QtyModal 420 + grade 40x40 MainMenu)
 -- ----------------------------------------------------------------------------
@@ -1089,10 +1095,22 @@ function VK:EnsureRepeatTicker()
     end
     local f = CreateFrame("Frame", "ConsoleMode_VirtualKeyboardRepeatTicker")
     f:SetScript("OnUpdate", function()
+        -- R2 (Steam) equivale ao modificador ALT: borda de subida com o
+        -- VK aberto confirma (mesmo efeito do Start/botao OK, via
+        -- VK:Accept, passo unico sem repeat). Fechado, so atualiza a
+        -- borda e nunca confirma (R2 em outras telas nao faz nada aqui).
+        local altNow = false
+        if IsAltKeyDown then
+            local okA, valA = pcall(IsAltKeyDown)
+            if okA and valA then
+                altNow = true
+            end
+        end
         if not VK:IsOpen() then
             VK.repeatState.kind = nil
             VK.repeatState.direction = nil
             VK.repeatState.timer = 0
+            VK.altWasDown = altNow
             return
         end
         local kind = VK.repeatState.kind
@@ -1124,6 +1142,20 @@ function VK:EnsureRepeatTicker()
                 end
             end
         end
+        -- R2 confirma: borda de subida do ALT com o VK aberto (passo
+        -- unico, fora do repeat acima). chatActive bloqueia igual aos
+        -- demais botoes do cursor.
+        if altNow and not VK.altWasDown then
+            local chatOn = false
+            local vkb = ConsoleMode and ConsoleMode.keybindings
+            if vkb and vkb.chatActive then
+                chatOn = true
+            end
+            if not chatOn then
+                VK:Accept()
+            end
+        end
+        VK.altWasDown = altNow
     end)
     self.repeatFrame = f
 end
@@ -1268,6 +1300,19 @@ function VK:Open(config)
 
     -- Estado de repeat sempre limpo ao abrir (sem heranca de sessao anterior).
     self:StopAllRepeat()
+
+    -- R2 (ALT) pre-segurado nao pode confirmar na abertura: garante o
+    -- ticker (criado sob demanda no StartRepeat) rodando desde ja e
+    -- semeia a borda com o estado real do modificador.
+    self:EnsureRepeatTicker()
+    local altHeld = false
+    if IsAltKeyDown then
+        local okA, valA = pcall(IsAltKeyDown)
+        if okA and valA then
+            altHeld = true
+        end
+    end
+    self.altWasDown = altHeld
 
     -- Sempre abre na pagina abc (previsivel para o auditor).
     self.pageIdx = 1

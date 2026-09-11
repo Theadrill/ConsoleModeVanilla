@@ -16,6 +16,11 @@
 -- M4.1: detalhe full-height na inbox + telas INBOX<->COMPOR (LB/RB) +
 -- compor estrutural (campos com EditBox reais, grade de inventario visual,
 -- navegacao espacial; SEM envio, SEM VK, SEM modais de M4.2).
+-- M4.2: VK nos 3 campos (contrato congelado §4.2, so consumo) + historico
+-- (SV separada ConsoleModeMailHistory, teto 20) + modal de dinheiro (reels
+-- Ouro 4 + Prata 2 + Cobre 2) + anexos (lista composeItems, 1 item por carta
+-- no envio) + modal de quantidade + fila multi-item serializada por
+-- MAIL_SEND_SUCCESS (aborta em MAIL_CLOSED). SEM M5, SEM COD.
 -- ============================================================================
 
 local CM = ConsoleMode or {}
@@ -89,6 +94,23 @@ MailScreen.composeSubject     = MailScreen.composeSubject or ""
 MailScreen.composeBody        = MailScreen.composeBody or ""
 MailScreen.composeMoney       = MailScreen.composeMoney or ""
 MailScreen.tabIndicator       = nil
+
+-- ----------------------------------------------------------------------------
+-- 1b4. ESTADO M4.2: anexos + modais + fila de envio (§7 M4)
+-- composeItems: lista de {bag, slot, name, texture, count, qty} aceita na UI
+-- (N itens); no envio sai 1 carta por item (limite 1.12), dinheiro so na 1a.
+-- moneyModal: reels Ouro 4 + Prata 2 + Cobre 2 (§4.1: digits[1..8], wrap 0-9,
+-- hold 0.35/0.12 via StartRepeat/OnDirection, <-/-> digito, A confirma, B
+-- cancela). qtyModal: quantidade do item (teto = pilha, A confirma, B
+-- cancela, mouse digita). sendQueue: fila serializada por MAIL_SEND_SUCCESS,
+-- aborta em MAIL_CLOSED; pos-envio limpa tudo e permanece no compor.
+-- ----------------------------------------------------------------------------
+MailScreen.composeItems      = MailScreen.composeItems or {}
+MailScreen.moneyModal        = MailScreen.moneyModal or { isOpen = false, digits = { 0, 0, 0, 0, 0, 0, 0, 0 }, digitIndex = 1 }
+MailScreen.moneyModalFrame   = MailScreen.moneyModalFrame or nil
+MailScreen.qtyModal          = MailScreen.qtyModal or { isOpen = false, bag = nil, slot = nil, qty = 1, maxQty = 1, itemName = "" }
+MailScreen.qtyModalFrame     = MailScreen.qtyModalFrame or nil
+MailScreen.sendQueue         = MailScreen.sendQueue or { running = false, letters = {}, pos = 1, total = 0 }
 
 -- ----------------------------------------------------------------------------
 -- 1c. DESIGN SYSTEM (M1 — molde UI/MerchantMenu.lua:17-50, copia 1:1 com
@@ -1773,7 +1795,7 @@ function MailScreen:CreateComposeUI()
             st:SetJustifyH("LEFT")
             st:SetJustifyV("TOP")
             self:ApplyFont(st, FONTS.medium, 14)
-            st:SetText("|cff666666Nenhum item anexado (M4.2)|r")
+            st:SetText("|cff666666Nenhum item na carta.|r")
             row.staticText = st
         else
             local eb = CreateFrame("EditBox", "ConsoleMode_MailComposeEB" .. i, row)
@@ -1807,6 +1829,11 @@ function MailScreen:CreateComposeUI()
                 if this.bufferKey then
                     MailScreen[this.bufferKey] = this:GetText() or ""
                 end
+                if this.bufferKey == "composeMoney" then
+                    if MailScreen:AutoFillSubjectForMoney() then
+                        MailScreen:RefreshComposeVisuals()
+                    end
+                end
             end)
             eb:SetScript("OnEscapePressed", function()
                 this:ClearFocus()
@@ -1814,6 +1841,11 @@ function MailScreen:CreateComposeUI()
             eb:SetScript("OnEnterPressed", function()
                 if this.bufferKey then
                     MailScreen[this.bufferKey] = this:GetText() or ""
+                end
+                if this.bufferKey == "composeMoney" then
+                    if MailScreen:AutoFillSubjectForMoney() then
+                        MailScreen:RefreshComposeVisuals()
+                    end
                 end
                 this:ClearFocus()
             end)
@@ -1953,10 +1985,21 @@ function MailScreen:CreateInventoryGrid(parent)
             local idx = (MailScreen.invScrollOffset or 0) * MailScreen.invCols + this.slotPos
             local n = table.getn(MailScreen.invItems or {})
             if idx >= 1 and idx <= n then
-                MailScreen.composeFocus = "INV"
-                MailScreen.invIndex = idx
-                MailScreen:RefreshComposeVisuals()
-                if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+                -- Mouse: 1o clique seleciona; clicar de novo no mesmo slot
+                -- anexa (se livre) ou devolve a bolsa (se anexado).
+                if MailScreen.composeFocus == "INV" and MailScreen.invIndex == idx then
+                    local it = MailScreen:GetInvItemAt(idx)
+                    if it and MailScreen:IsItemAttached(it.bag, it.slot) then
+                        MailScreen:DetachItemAtInvIndex()
+                    else
+                        MailScreen:AttachSelectedItem()
+                    end
+                else
+                    MailScreen.composeFocus = "INV"
+                    MailScreen.invIndex = idx
+                    MailScreen:RefreshComposeVisuals()
+                    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+                end
             end
         end)
         s:SetScript("OnEnter", function()
@@ -2035,6 +2078,8 @@ function MailScreen:ScanComposeBags()
     end
     if (self.invIndex or 1) < 1 then self.invIndex = 1 end
     self:ClampInventoryScroll()
+    -- M4.2: poda anexos cuja bag/slot esvaziou (pausado com envio rodando).
+    self:PruneComposeItems()
     self:RefreshInventoryGrid()
 end
 
@@ -2101,12 +2146,36 @@ function MailScreen:RefreshInventoryGrid()
             else
                 s.countText:SetText("")
             end
+            -- M4.2: slot anexado = fundo/borda VERMELHOS + badge "NA CARTA"
+            -- (foco ouro tem precedencia na borda; badge segue visivel).
+            local attached = self:IsItemAttached(it.bag, it.slot)
             if self.composeFocus == "INV" and itemIdx == (self.invIndex or 1) then
                 s:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
                 s:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+            elseif attached then
+                s:SetBackdropBorderColor(1.00, 0.15, 0.15, 1.00)
+                s:SetBackdropColor(0.30, 0.05, 0.05, 0.85)
             else
                 s:SetBackdropBorderColor(qc.r, qc.g, qc.b, 0.85)
                 s:SetBackdropColor(0.10, 0.08, 0.06, 0.60)
+            end
+            if attached then
+                s.icon:SetVertexColor(0.55, 0.55, 0.55)
+            else
+                s.icon:SetVertexColor(1.0, 1.0, 1.0)
+            end
+            if not s.badge then
+                local bdg = s:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+                bdg:SetPoint("TOP", s, "TOP", 0, -1)
+                self:ApplyFont(bdg, FONTS.titleBold, 9)
+                bdg:SetText("NA CARTA")
+                bdg:SetTextColor(1.0, 0.25, 0.25, 1.0)
+                s.badge = bdg
+            end
+            if attached then
+                s.badge:Show()
+            else
+                s.badge:Hide()
             end
             s:Show()
         else
@@ -2139,6 +2208,8 @@ function MailScreen:RefreshComposeVisuals()
             end
         end
     end
+    -- M4.2: texto da area ITENS acompanha a lista de anexos.
+    self:UpdateComposeItemsText()
     self:RefreshInventoryGrid()
 end
 
@@ -2263,41 +2334,1350 @@ function MailScreen:OnComposeDirection(direction)
 end
 
 -- ----------------------------------------------------------------------------
--- 2f-M4.1 (cont.). BOTOES DO COMPOR (estrutural): A/X/Y so logam nesta fase
--- (M4.2 implementa VK, modais, envio e anexos; SEM VirtualKeyboard aqui).
+-- 2f-M4.2. BOTOES DO COMPOR (reais): A abre VK / modal de dinheiro / anexa /
+-- ENVIAR; X devolve item anexado a bolsa (de qualquer foco); Y abre o modal
+-- de quantidade. Com VK/modal aberto, A/X/Y pertencem a eles (guardas).
 -- ----------------------------------------------------------------------------
 function MailScreen:OnComposeConfirm()
     if not self.isOpen then return end
     if self.currentScreen ~= "COMPOSE" then return end
-    if not CM.logger or not CM.logger.Log then return end
+    if self:IsVKOpen() then return end
+    if self:IsMoneyModalOpen() then
+        self:MoneyModalConfirm()
+        return
+    end
+    if self:IsQtyModalOpen() then
+        self:QtyModalConfirm()
+        return
+    end
+    if self:IsConfirmOpen() then return end
+    if self.sendQueue and self.sendQueue.running then return end
     if self.composeFocus == "INV" then
-        CM.logger:Log("[MailScreen] Anexar itens chega na M4.2.")
+        self:AttachSelectedItem()
         return
     end
     local idx = tonumber(self.composeFieldIndex) or 1
     if idx == 6 then
-        CM.logger:Log("[MailScreen] Envio chega na M4.2 (sem envio nesta fase).")
+        self:TrySendMail()
     elseif idx == 5 then
-        CM.logger:Log("[MailScreen] Anexos chegam na M4.2.")
+        -- A na area ITENS leva o foco p/ o inventario (escolha do anexo).
+        self:ComposeFocusInv()
+    elseif idx == 4 then
+        self:OpenMoneyModal()
     else
-        CM.logger:Log("[MailScreen] Teclado virtual chega na M4.2.")
+        self:OpenVKForField(idx)
     end
 end
 
 function MailScreen:OnComposeSecondary()
     if not self.isOpen then return end
     if self.currentScreen ~= "COMPOSE" then return end
-    if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Tirar item chega na M4.2.")
-    end
+    -- X com VK/modal aberto pertence a eles (no VK, X = backspace).
+    if self:IsVKOpen() then return end
+    if self:IsMoneyModalOpen() then return end
+    if self:IsQtyModalOpen() then return end
+    if self:IsConfirmOpen() then return end
+    if self.sendQueue and self.sendQueue.running then return end
+    -- X sobre item anexado o devolve a bolsa, de onde estiver o foco.
+    self:DetachItemAtInvIndex()
 end
 
 function MailScreen:OnComposeUse()
     if not self.isOpen then return end
     if self.currentScreen ~= "COMPOSE" then return end
-    if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Quantidade chega na M4.2.")
+    -- Y com VK/modal aberto pertence a eles (no VK, Y = shift). Y no compor
+    -- nunca e TakeAll (TakeAll so existe na inbox, M4.1 mantido).
+    if self:IsVKOpen() then return end
+    if self:IsMoneyModalOpen() then return end
+    if self:IsQtyModalOpen() then return end
+    if self:IsConfirmOpen() then return end
+    if self.sendQueue and self.sendQueue.running then return end
+    self:OpenQtyModalForInvIndex()
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.2 (I). HISTORICO + VK NOS 3 CAMPOS (§3.1/§4.2 + §7 M4)
+-- Contrato VK congelado (so consumo, nunca edicao): Open({title,
+-- initialText, maxLetters, multiLine, autoCompleteList, onConfirm*,
+-- onCancel, targetEditBox}), Close(), IsOpen(). O VK nunca le/escreve SV:
+-- o MailScreen monta autoCompleteList = alts + historico e aplica a politica
+-- (move-para-frente, sem duplicata, teto 20) no onConfirm, em SV separada
+-- ConsoleModeMailHistory (+1 nome na linha SavedVariables do .toc).
+-- Se o VK estiver ausente ou falhar, fallback = focar o EditBox (fisico).
+-- ----------------------------------------------------------------------------
+function MailScreen:TrimText(s)
+    s = tostring(s or "")
+    local n = string.len(s)
+    local i = 1
+    while i <= n do
+        local ch = string.sub(s, i, i)
+        if ch == " " or ch == "\t" or ch == "\n" or ch == "\r" then
+            i = i + 1
+        else
+            break
+        end
     end
+    local j = n
+    while j >= i do
+        local ch = string.sub(s, j, j)
+        if ch == " " or ch == "\t" or ch == "\n" or ch == "\r" then
+            j = j - 1
+        else
+            break
+        end
+    end
+    if j < i then return "" end
+    return string.sub(s, i, j)
+end
+
+function MailScreen:GetMailHistory()
+    if type(ConsoleModeMailHistory) ~= "table" then
+        ConsoleModeMailHistory = {}
+    end
+    return ConsoleModeMailHistory
+end
+
+function MailScreen:PushMailHistory(name)
+    name = self:TrimText(name or "")
+    if name == "" then return end
+    local h = self:GetMailHistory()
+    local lname = string.lower(name)
+    local n = table.getn(h)
+    for i = n, 1, -1 do
+        if string.lower(tostring(h[i] or "")) == lname then
+            table.remove(h, i)
+        end
+    end
+    table.insert(h, 1, name)
+    while table.getn(h) > 20 do
+        table.remove(h)
+    end
+end
+
+-- Alts = nomes dos outros chars (fonte existente no addon: chaves de
+-- ConsoleModeDB.backup, um backup de binds por personagem; se vazio, lista
+-- vazia + historico). Ordenada p/ UX estavel.
+function MailScreen:GetAltsList()
+    local alts = {}
+    if ConsoleModeDB and type(ConsoleModeDB.backup) == "table" then
+        for name in pairs(ConsoleModeDB.backup) do
+            if type(name) == "string" and name ~= "" then
+                table.insert(alts, name)
+            end
+        end
+        table.sort(alts)
+    end
+    return alts
+end
+
+function MailScreen:BuildAutoCompleteList()
+    local out = {}
+    local seen = {}
+    local alts = self:GetAltsList()
+    local na = table.getn(alts)
+    for i = 1, na do
+        local nm = self:TrimText(alts[i] or "")
+        if nm ~= "" and not seen[string.lower(nm)] then
+            seen[string.lower(nm)] = true
+            table.insert(out, nm)
+        end
+    end
+    local h = self:GetMailHistory()
+    local nh = table.getn(h)
+    for i = 1, nh do
+        local nm = self:TrimText(h[i] or "")
+        if nm ~= "" and not seen[string.lower(nm)] then
+            seen[string.lower(nm)] = true
+            table.insert(out, nm)
+        end
+    end
+    return out
+end
+
+function MailScreen:IsVKOpen()
+    local vk = CM and CM.VirtualKeyboard
+    if vk and vk.IsOpen then
+        local ok, open = pcall(function() return vk:IsOpen() end)
+        if ok and open then return true end
+    end
+    return false
+end
+
+function MailScreen:GetComposeEditBox(fieldIndex)
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if not box or not box.rows then return nil end
+    local n = table.getn(box.rows)
+    for i = 1, n do
+        local r = box.rows[i]
+        if r and r.fieldIndex == fieldIndex and r.editBox then
+            return r.editBox
+        end
+    end
+    return nil
+end
+
+-- Copia o texto atual das EditBoxes p/ os buffers (leitura display-only;
+-- garante que texto digitado sem perder o foco entre no envio/VK).
+function MailScreen:SyncComposeBuffersFromUI()
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if not box or not box.rows then return end
+    local n = table.getn(box.rows)
+    for i = 1, n do
+        local r = box.rows[i]
+        if r and r.editBox and r.bufferKey then
+            local ok, txt = pcall(function() return r.editBox:GetText() end)
+            if ok and type(txt) == "string" then
+                MailScreen[r.bufferKey] = txt
+            end
+        end
+    end
+    self:AutoFillSubjectForMoney()
+end
+
+function MailScreen:GetFirstAttachName()
+    local list = self.composeItems or {}
+    if table.getn(list) >= 1 and list[1] and list[1].name then
+        return tostring(list[1].name)
+    end
+    return nil
+end
+
+-- A sobre Para/Assunto/Mensagem: abre o VK com guards nil em tudo; fallback
+-- = focar o EditBox p/ digitacao fisica. Preserva \n e acentos (buffer
+-- opaco, sem parse). Assunto preenche com o nome do 1o anexo se vazio.
+function MailScreen:OpenVKForField(fieldIndex)
+    if not self.isOpen then return false end
+    fieldIndex = tonumber(fieldIndex) or 0
+    if fieldIndex < 1 or fieldIndex > 3 then return false end
+    self:SyncComposeBuffersFromUI()
+    local eb = self:GetComposeEditBox(fieldIndex)
+    local vk = CM and CM.VirtualKeyboard
+    if vk and vk.Open then
+        local title = "Texto"
+        local initial = ""
+        local maxL = 64
+        local multi = false
+        local acList = nil
+        if fieldIndex == 1 then
+            title = "Destinatário"
+            initial = self.composeTo or ""
+            maxL = 64
+            multi = false
+            acList = self:BuildAutoCompleteList()
+        elseif fieldIndex == 2 then
+            title = "Assunto"
+            maxL = 64
+            multi = false
+            initial = self.composeSubject or ""
+            if initial == "" then
+                initial = self:GetFirstAttachName() or ""
+            end
+        else
+            title = "Mensagem"
+            initial = self.composeBody or ""
+            maxL = 2000
+            multi = true
+        end
+        local cfg = {
+            title = title,
+            initialText = initial,
+            maxLetters = maxL,
+            multiLine = multi,
+            autoCompleteList = acList,
+            targetEditBox = eb,
+            onConfirm = function(text) MailScreen:OnVKConfirm(fieldIndex, text) end,
+            onCancel = function() end,
+        }
+        local ok, opened = pcall(function() return vk:Open(cfg) end)
+        if ok and opened then return true end
+    end
+    if eb then
+        pcall(function() eb:SetFocus() end)
+    end
+    return false
+end
+
+-- onConfirm do VK: salva o buffer + historico (Para) + refresh visual.
+function MailScreen:OnVKConfirm(fieldIndex, text)
+    text = tostring(text or "")
+    if fieldIndex == 1 then
+        self.composeTo = text
+        self:PushMailHistory(text)
+    elseif fieldIndex == 2 then
+        self.composeSubject = text
+    elseif fieldIndex == 3 then
+        self.composeBody = text
+    else
+        return
+    end
+    local eb = self:GetComposeEditBox(fieldIndex)
+    if eb then
+        pcall(function() eb:SetText(text) end)
+    end
+    self:RefreshComposeVisuals()
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Campo atualizado via teclado virtual.")
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.2 (II). ANEXOS (§3.1/§7 M4)
+-- A sobre slot com item anexa a carta (lista composeItems aceita N; no envio
+-- sai 1 item por carta). Slot anexado = fundo/borda VERMELHOS + badge
+-- "NA CARTA". X sobre item anexado (qualquer foco) o devolve a bolsa. O item
+-- so sai da bolsa no momento do envio (PickupContainerItem +
+-- ClickSendMailItemButton, com isOpen). Assunto auto-preenche com o nome do
+-- 1o item se vazio.
+-- ----------------------------------------------------------------------------
+function MailScreen:GetInvItemAt(idx)
+    local items = self.invItems or {}
+    idx = tonumber(idx) or 0
+    if idx < 1 or idx > table.getn(items) then return nil end
+    return items[idx]
+end
+
+function MailScreen:FindAttached(bag, slot)
+    local list = self.composeItems or {}
+    local n = table.getn(list)
+    for i = 1, n do
+        local e = list[i]
+        if e and e.bag == bag and e.slot == slot then
+            return i, e
+        end
+    end
+    return nil, nil
+end
+
+function MailScreen:IsItemAttached(bag, slot)
+    local pos, _ = self:FindAttached(bag, slot)
+    if pos then return true end
+    return false
+end
+
+function MailScreen:AutoFillSubject()
+    local subj = self:TrimText(self.composeSubject or "")
+    if subj ~= "" then return end
+    local nm = self:GetFirstAttachName()
+    if not nm or nm == "" then return end
+    self.composeSubject = nm
+    local eb = self:GetComposeEditBox(2)
+    if eb then
+        pcall(function() eb:SetText(nm) end)
+    end
+end
+
+-- Regra dinheiro-sem-itens (Turtle barra assunto curto no envio): se ha
+-- dinheiro (>0), sem itens anexados e assunto vazio, preenche "gold".
+-- Nunca sobrescreve assunto digitado; com itens, a regra do 1o item vale.
+function MailScreen:AutoFillSubjectForMoney()
+    if table.getn(self.composeItems or {}) > 0 then return false end
+    if self:TrimText(self.composeSubject or "") ~= "" then return false end
+    local money = math.floor(tonumber(self.composeMoney) or 0)
+    if money <= 0 then return false end
+    self.composeSubject = "gold"
+    local eb = self:GetComposeEditBox(2)
+    if eb then
+        pcall(function() eb:SetText("gold") end)
+    end
+    return true
+end
+
+function MailScreen:AttachSelectedItem()
+    if not self.isOpen then return end
+    if self.sendQueue and self.sendQueue.running then return end
+    local it = self:GetInvItemAt(self.invIndex)
+    if not it then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Nenhum item selecionado para anexar.")
+        end
+        return
+    end
+    if self:IsItemAttached(it.bag, it.slot) then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Item ja esta na carta.")
+        end
+        return
+    end
+    local qty = tonumber(it.count) or 1
+    if qty < 1 then qty = 1 end
+    table.insert(self.composeItems, {
+        bag = it.bag,
+        slot = it.slot,
+        name = it.name or "Item",
+        texture = it.texture,
+        count = qty,
+        qty = qty,
+    })
+    self:AutoFillSubject()
+    self:UpdateComposeItemsText()
+    self:RefreshComposeVisuals()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Anexado: " .. tostring(it.name or "Item") .. " x" .. qty .. ".")
+    end
+end
+
+function MailScreen:DetachItemAtInvIndex()
+    if not self.isOpen then return end
+    if self.sendQueue and self.sendQueue.running then return end
+    local it = self:GetInvItemAt(self.invIndex)
+    if not it then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Nenhum item sob o cursor para tirar.")
+        end
+        return
+    end
+    local pos, _ = self:FindAttached(it.bag, it.slot)
+    if not pos then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Item nao esta na carta.")
+        end
+        return
+    end
+    local e = self.composeItems[pos]
+    local nm = (e and e.name) or it.name or "Item"
+    table.remove(self.composeItems, pos)
+    self:UpdateComposeItemsText()
+    self:RefreshComposeVisuals()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Devolvido a bolsa: " .. tostring(nm) .. ".")
+    end
+end
+
+-- Remove da lista entradas cuja bag/slot nao tem mais item (leitura com
+-- guarda+pcall; nunca move nada). Pausado com fila de envio rodando.
+function MailScreen:PruneComposeItems()
+    if self.sendQueue and self.sendQueue.running then return end
+    if not GetContainerItemLink then return end
+    local list = self.composeItems or {}
+    local n = table.getn(list)
+    for i = n, 1, -1 do
+        local e = list[i]
+        local gone = true
+        if e and e.bag ~= nil and e.slot ~= nil then
+            local ok, link = pcall(GetContainerItemLink, e.bag, e.slot)
+            if ok and link then gone = false end
+        end
+        if gone then table.remove(list, i) end
+    end
+    self:UpdateComposeItemsText()
+end
+
+-- Texto da area ITENS (linha 5): 1o anexo + contador (max 2 linhas; row h=60).
+function MailScreen:UpdateComposeItemsText()
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if not box or not box.rows then return end
+    local stRow = nil
+    local n = table.getn(box.rows)
+    for i = 1, n do
+        local r = box.rows[i]
+        if r and r.fieldIndex == 5 and r.staticText then
+            stRow = r.staticText
+        end
+    end
+    if not stRow then return end
+    local list = self.composeItems or {}
+    local total = table.getn(list)
+    if total == 0 then
+        stRow:SetText("|cff666666Nenhum item na carta.|r")
+        return
+    end
+    local e = list[1]
+    local nm = (e and e.name) or "Item"
+    local q = (e and tonumber(e.qty)) or 1
+    if total == 1 then
+        stRow:SetText("|cffffffff• " .. self:TruncateText(nm, 24) .. "|r |cffaaaaaax" .. q .. "|r")
+    else
+        stRow:SetText("|cffffffff• " .. self:TruncateText(nm, 24) .. "|r |cffaaaaaax" .. q .. "|r  |cff888888(+" .. (total - 1) .. ")|r")
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.2 (III). MODAL DE QUANTIDADE (§7 M4: Y no inventario do compor)
+-- FULLSCREEN_DIALOG/50 (molde MerchantMenu qty modal): D-Pad UP/DOWN ajusta
+-- (hold via StartRepeat/OnDirection), teto = tamanho da pilha, A confirma
+-- (define a quantidade do item na lista), B cancela, mouse digita o numero
+-- na EditBox + botoes clicaveis.
+-- ----------------------------------------------------------------------------
+function MailScreen:CreateQtyModalUI()
+    if self.qtyModalFrame then return self.qtyModalFrame end
+    local m = CreateFrame("Frame", "ConsoleMode_MailQtyModal", UIParent)
+    m:SetWidth(420)
+    m:SetHeight(260)
+    m:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+    m:SetFrameStrata("FULLSCREEN_DIALOG")
+    m:SetFrameLevel(50)
+    m:EnableMouse(true)
+    m:SetMovable(false)
+    m:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 12,
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 },
+    })
+    m:SetBackdropColor(0.08, 0.06, 0.04, 0.85)
+    m:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+    m:Hide()
+
+    local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", m, "TOP", 0, -14)
+    self:ApplyFont(title, FONTS.titleBold, 19)
+    title:SetText("|cffe09a15Quantidade|r")
+    m.title = title
+
+    local name = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    name:SetPoint("TOP", title, "BOTTOM", 0, -6)
+    name:SetWidth(380)
+    name:SetJustifyH("CENTER")
+    self:ApplyFont(name, FONTS.titleBold, 16)
+    name:SetText("|cffffffffItem|r")
+    m.nameText = name
+
+    local qty = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    qty:SetPoint("CENTER", m, "CENTER", 0, 18)
+    self:ApplyFont(qty, FONTS.titleBold, 30)
+    qty:SetText("|cffe09a15x1|r")
+    m.qtyText = qty
+
+    -- EditBox p/ o mouse digitar o numero (D-Pad ajusta o mesmo valor).
+    local eb = CreateFrame("EditBox", "ConsoleMode_MailQtyModalEB", m)
+    eb:SetWidth(110)
+    eb:SetHeight(28)
+    eb:SetPoint("CENTER", m, "CENTER", 0, -22)
+    eb:SetFont(FONTS.medium, 16)
+    eb:SetTextColor(1.0, 1.0, 1.0, 1.0)
+    eb:SetAutoFocus(false)
+    eb:EnableMouse(true)
+    eb:SetMaxLetters(5)
+    eb:SetJustifyH("CENTER")
+    pcall(function() eb:SetNumeric(true) end)
+    eb:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    eb:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
+    eb:SetBackdropBorderColor(0.30, 0.25, 0.18, 0.60)
+    eb:SetScript("OnEnterPressed", function()
+        MailScreen:QtyModalConfirm()
+    end)
+    eb:SetScript("OnEscapePressed", function()
+        this:ClearFocus()
+    end)
+    eb:SetScript("OnEditFocusLost", function()
+        MailScreen:QtyModalSyncFromEditBox()
+    end)
+    m.qtyEditBox = eb
+
+    local hints = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    hints:SetPoint("BOTTOM", m, "BOTTOM", 0, 52)
+    hints:SetWidth(390)
+    hints:SetJustifyH("CENTER")
+    self:ApplyFont(hints, FONTS.titleBold, 14)
+    hints:SetText("|cffffffff[D-Pad Up/Down]|r ajustar   |cffffffff[A]|r confirmar   |cffffffff[B]|r cancelar")
+    m.hints = hints
+
+    local confirmBtn = CreateFrame("Button", "ConsoleMode_MailQtyConfirmYes", m)
+    confirmBtn:SetWidth(150)
+    confirmBtn:SetHeight(28)
+    confirmBtn:SetPoint("BOTTOMLEFT", m, "BOTTOM", -160, 10)
+    confirmBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    confirmBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    confirmBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    confirmTxt:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
+    MailScreen:ApplyFont(confirmTxt, FONTS.titleBold, 15)
+    confirmTxt:SetText("Confirmar")
+    confirmBtn:SetScript("OnClick", function()
+        MailScreen:QtyModalConfirm()
+    end)
+    confirmBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+    end)
+    confirmBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    end)
+    m.confirmBtn = confirmBtn
+
+    local cancelBtn = CreateFrame("Button", "ConsoleMode_MailQtyConfirmNo", m)
+    cancelBtn:SetWidth(150)
+    cancelBtn:SetHeight(28)
+    cancelBtn:SetPoint("BOTTOMRIGHT", m, "BOTTOM", 160, 10)
+    cancelBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    cancelBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    cancelBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    cancelTxt:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
+    MailScreen:ApplyFont(cancelTxt, FONTS.titleBold, 15)
+    cancelTxt:SetText("Cancelar")
+    cancelBtn:SetScript("OnClick", function()
+        MailScreen:CloseQtyModal()
+    end)
+    cancelBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+    end)
+    cancelBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    end)
+    m.cancelBtn = cancelBtn
+
+    m:SetScript("OnHide", function()
+        MailScreen.qtyModal.isOpen = false
+    end)
+    table.insert(UISpecialFrames, "ConsoleMode_MailQtyModal")
+
+    self.qtyModalFrame = m
+    return m
+end
+
+function MailScreen:IsQtyModalOpen()
+    if self.qtyModal and self.qtyModal.isOpen then return true end
+    if self.qtyModalFrame and self.qtyModalFrame:IsVisible() then return true end
+    return false
+end
+
+function MailScreen:OpenQtyModalForInvIndex()
+    if not self.isOpen then return end
+    if self.currentScreen ~= "COMPOSE" then return end
+    if self:IsVKOpen() then return end
+    if self:IsMoneyModalOpen() then return end
+    if self.sendQueue and self.sendQueue.running then return end
+    local it = self:GetInvItemAt(self.invIndex)
+    if not it then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Sem item para definir quantidade.")
+        end
+        return
+    end
+    local maxQ = tonumber(it.count) or 1
+    if maxQ < 1 then maxQ = 1 end
+    local _, e = self:FindAttached(it.bag, it.slot)
+    local startQ = maxQ
+    if e and tonumber(e.qty) then
+        startQ = tonumber(e.qty)
+        if startQ < 1 then startQ = 1 end
+        if startQ > maxQ then startQ = maxQ end
+    end
+    self.qtyModal.isOpen = true
+    self.qtyModal.bag = it.bag
+    self.qtyModal.slot = it.slot
+    self.qtyModal.qty = startQ
+    self.qtyModal.maxQty = maxQ
+    self.qtyModal.itemName = it.name or "Item"
+    self:CreateQtyModalUI()
+    self:UpdateQtyModalVisuals()
+    self.qtyModalFrame:Show()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+end
+
+function MailScreen:CloseQtyModal(silent)
+    self.qtyModal.isOpen = false
+    self.qtyModal.bag = nil
+    self.qtyModal.slot = nil
+    self.qtyModal.qty = 1
+    if self.qtyModalFrame and self.qtyModalFrame:IsVisible() then
+        self.qtyModalFrame:Hide()
+    end
+    if not silent then
+        if PlaySound then PlaySound("igMainMenuClose") end
+    end
+end
+
+function MailScreen:QtyModalAdjust(delta)
+    if not self:IsQtyModalOpen() then return end
+    delta = tonumber(delta) or 0
+    local q = (tonumber(self.qtyModal.qty) or 1) + delta
+    local mx = tonumber(self.qtyModal.maxQty) or 1
+    if q < 1 then q = 1 end
+    if q > mx then q = mx end
+    if q ~= self.qtyModal.qty then
+        self.qtyModal.qty = q
+        if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+        self:UpdateQtyModalVisuals()
+    end
+end
+
+function MailScreen:QtyModalSyncFromEditBox()
+    if not self:IsQtyModalOpen() then return end
+    local m = self.qtyModalFrame
+    if not m or not m.qtyEditBox then return end
+    local ok, txt = pcall(function() return m.qtyEditBox:GetText() end)
+    if not ok then return end
+    local q = math.floor(tonumber(txt) or (self.qtyModal.qty or 1))
+    local mx = tonumber(self.qtyModal.maxQty) or 1
+    if q < 1 then q = 1 end
+    if q > mx then q = mx end
+    self.qtyModal.qty = q
+    self:UpdateQtyModalVisuals()
+end
+
+function MailScreen:QtyModalDirection(direction)
+    if direction == "UP" then
+        self:QtyModalAdjust(1)
+    elseif direction == "DOWN" then
+        self:QtyModalAdjust(-1)
+    end
+end
+
+-- A no modal: define a quantidade do item na lista (anexa se ainda nao
+-- estiver); B cancela sozinho (CloseQtyModal).
+function MailScreen:QtyModalConfirm()
+    if not self:IsQtyModalOpen() then return end
+    if not self.isOpen then
+        self:CloseQtyModal(true)
+        return
+    end
+    self:QtyModalSyncFromEditBox()
+    local bag = self.qtyModal.bag
+    local slot = self.qtyModal.slot
+    local qty = tonumber(self.qtyModal.qty) or 1
+    local nm = self.qtyModal.itemName or "Item"
+    self:CloseQtyModal(true)
+    if bag == nil or slot == nil then return end
+    local pos, e = self:FindAttached(bag, slot)
+    if pos and e then
+        e.qty = qty
+    else
+        local it = self:GetInvItemAt(self.invIndex)
+        local tex = nil
+        local count = qty
+        if it and it.bag == bag and it.slot == slot then
+            tex = it.texture
+            count = tonumber(it.count) or qty
+        end
+        table.insert(self.composeItems, {
+            bag = bag, slot = slot, name = nm, texture = tex,
+            count = count, qty = qty,
+        })
+    end
+    self:AutoFillSubject()
+    self:UpdateComposeItemsText()
+    self:RefreshComposeVisuals()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Quantidade: " .. tostring(nm) .. " x" .. qty .. ".")
+    end
+end
+
+function MailScreen:UpdateQtyModalVisuals()
+    local m = self.qtyModalFrame
+    if not m then return end
+    local qty = tonumber(self.qtyModal.qty) or 1
+    local mx = tonumber(self.qtyModal.maxQty) or 1
+    if m.nameText then
+        m.nameText:SetText("|cffffffff" .. tostring(self.qtyModal.itemName or "Item") .. "|r")
+    end
+    if m.qtyText then
+        m.qtyText:SetText("|cffe09a15x" .. qty .. "|r  |cff888888/ " .. mx .. "|r")
+    end
+    if m.qtyEditBox then
+        local ok, cur = pcall(function() return m.qtyEditBox:GetText() end)
+        if ok and tostring(cur or "") ~= tostring(qty) then
+            pcall(function() m.qtyEditBox:SetText(tostring(qty)) end)
+        end
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.2 (IV). MODAL DE DINHEIRO (§4.1: reels por digito, estilo alarme)
+-- FULLSCREEN_DIALOG/50: Ouro = 4 digitos, Prata = 2, Cobre = 2 (wrap 0-9).
+-- D-Pad LEFT/RIGHT seleciona o digito; UP/DOWN gira (hold 0.35/0.12 via
+-- StartRepeat/OnDirection); A confirma (salva copper total em composeMoney +
+-- refresh), B cancela sozinho. Validacao saldo (GetMoney) + taxa
+-- (GetSendMailPrice) com guarda+pcall. A EditBox do campo segue digitavel
+-- (fallback fisico); mouse clica no digito + roda do mouse gira + botoes.
+-- ----------------------------------------------------------------------------
+function MailScreen:CreateMoneyModalUI()
+    if self.moneyModalFrame then return self.moneyModalFrame end
+    local m = CreateFrame("Frame", "ConsoleMode_MailMoneyModal", UIParent)
+    m:SetWidth(480)
+    m:SetHeight(330)
+    m:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+    m:SetFrameStrata("FULLSCREEN_DIALOG")
+    m:SetFrameLevel(50)
+    m:EnableMouse(true)
+    m:EnableMouseWheel(true)
+    m:SetMovable(false)
+    m:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 12,
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 },
+    })
+    m:SetBackdropColor(0.08, 0.06, 0.04, 0.95)
+    m:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+    m:Hide()
+
+    local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", m, "TOP", 0, -14)
+    self:ApplyFont(title, FONTS.titleBold, 19)
+    title:SetText("|cffe09a15Dinheiro|r")
+    m.title = title
+
+    -- Fileira de 8 reels: passo 50px (44 larg + 6 gap), +10 apos grupos.
+    local row = CreateFrame("Frame", nil, m)
+    row:SetWidth(414)
+    row:SetHeight(56)
+    row:SetPoint("TOP", m, "TOP", 0, -48)
+    m.digitRow = row
+    m.digitBtns = {}
+    m.digitTexts = {}
+
+    local x = 0
+    for i = 1, 8 do
+        if i == 5 or i == 7 then x = x + 10 end
+        local di = i
+        local b = CreateFrame("Button", "ConsoleMode_MailMoneyDigit" .. i, row)
+        b:SetWidth(44)
+        b:SetHeight(56)
+        b:SetPoint("LEFT", row, "LEFT", x, 0)
+        b:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        b:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
+        b:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.60)
+        local t = b:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+        t:SetPoint("CENTER", b, "CENTER", 0, 0)
+        MailScreen:ApplyFont(t, FONTS.titleBold, 26)
+        t:SetText("0")
+        b.digitPos = di
+        b:RegisterForClicks("LeftButtonUp")
+        b:SetScript("OnClick", function()
+            MailScreen.moneyModal.digitIndex = this.digitPos
+            MailScreen:UpdateMoneyModalVisuals()
+            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+        end)
+        m.digitBtns[di] = b
+        m.digitTexts[di] = t
+        x = x + 50
+    end
+
+    -- Rotulos dos grupos (centros relativos ao centro da fileira de 414px:
+    -- ouro 97-207=-110; prata 251-207=44; cobre 355-207=148).
+    local goldL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    goldL:SetPoint("TOP", row, "BOTTOM", -110, -2)
+    self:ApplyFont(goldL, FONTS.titleBold, 13)
+    goldL:SetText("|cffffd700OURO|r")
+    local silverL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    silverL:SetPoint("TOP", row, "BOTTOM", 44, -2)
+    self:ApplyFont(silverL, FONTS.titleBold, 13)
+    silverL:SetText("|cffc7c7cfPRATA|r")
+    local copperL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    copperL:SetPoint("TOP", row, "BOTTOM", 148, -2)
+    self:ApplyFont(copperL, FONTS.titleBold, 13)
+    copperL:SetText("|cffeda55fCOBRE|r")
+
+    local total = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    total:SetPoint("TOP", row, "BOTTOM", 0, -24)
+    total:SetWidth(440)
+    total:SetJustifyH("CENTER")
+    self:ApplyFont(total, FONTS.titleBold, 18)
+    total:SetText("")
+    m.totalText = total
+
+    local balance = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    balance:SetPoint("TOP", total, "BOTTOM", 0, -4)
+    balance:SetWidth(440)
+    balance:SetJustifyH("CENTER")
+    self:ApplyFont(balance, FONTS.bodyBold, 14)
+    balance:SetText("")
+    m.balanceText = balance
+
+    local hints = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    hints:SetPoint("BOTTOM", m, "BOTTOM", 0, 52)
+    hints:SetWidth(450)
+    hints:SetJustifyH("CENTER")
+    self:ApplyFont(hints, FONTS.titleBold, 14)
+    hints:SetText("|cffffffff[D-Pad Esq/Dir]|r digito   |cffffffff[Up/Down]|r girar   |cffffffff[A]|r confirmar   |cffffffff[B]|r cancelar")
+    m.hints = hints
+
+    local confirmBtn = CreateFrame("Button", "ConsoleMode_MailMoneyConfirmYes", m)
+    confirmBtn:SetWidth(150)
+    confirmBtn:SetHeight(28)
+    confirmBtn:SetPoint("BOTTOMLEFT", m, "BOTTOM", -160, 10)
+    confirmBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    confirmBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    confirmBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local confirmIcon = confirmBtn:CreateTexture(nil, "OVERLAY")
+    confirmIcon:SetWidth(22)
+    confirmIcon:SetHeight(22)
+    confirmIcon:SetPoint("LEFT", confirmBtn, "LEFT", 6, 0)
+    confirmIcon:SetTexture(ICONS.A)
+    local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    confirmTxt:SetPoint("LEFT", confirmIcon, "RIGHT", 5, 0)
+    MailScreen:ApplyFont(confirmTxt, FONTS.titleBold, 15)
+    confirmTxt:SetText("Confirmar")
+    confirmBtn:SetScript("OnClick", function()
+        MailScreen:MoneyModalConfirm()
+    end)
+    confirmBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    confirmBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    end)
+    m.confirmBtn = confirmBtn
+
+    local cancelBtn = CreateFrame("Button", "ConsoleMode_MailMoneyConfirmNo", m)
+    cancelBtn:SetWidth(150)
+    cancelBtn:SetHeight(28)
+    cancelBtn:SetPoint("BOTTOMRIGHT", m, "BOTTOM", 160, 10)
+    cancelBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    cancelBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    cancelBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    local cancelIcon = cancelBtn:CreateTexture(nil, "OVERLAY")
+    cancelIcon:SetWidth(22)
+    cancelIcon:SetHeight(22)
+    cancelIcon:SetPoint("LEFT", cancelBtn, "LEFT", 6, 0)
+    cancelIcon:SetTexture(ICONS.B)
+    local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    cancelTxt:SetPoint("LEFT", cancelIcon, "RIGHT", 5, 0)
+    MailScreen:ApplyFont(cancelTxt, FONTS.titleBold, 15)
+    cancelTxt:SetText("Cancelar")
+    cancelBtn:SetScript("OnClick", function()
+        MailScreen:CloseMoneyModal()
+    end)
+    cancelBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    cancelBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    end)
+    m.cancelBtn = cancelBtn
+
+    m:SetScript("OnMouseWheel", function()
+        if arg1 > 0 then
+            MailScreen:MoneyModalSpin(1)
+        else
+            MailScreen:MoneyModalSpin(-1)
+        end
+    end)
+    m:SetScript("OnHide", function()
+        MailScreen.moneyModal.isOpen = false
+    end)
+    table.insert(UISpecialFrames, "ConsoleMode_MailMoneyModal")
+
+    self.moneyModalFrame = m
+    return m
+end
+
+function MailScreen:IsMoneyModalOpen()
+    if self.moneyModal and self.moneyModal.isOpen then return true end
+    if self.moneyModalFrame and self.moneyModalFrame:IsVisible() then return true end
+    return false
+end
+
+function MailScreen:IsComposeModalOpen()
+    if self:IsVKOpen() then return true end
+    if self:IsMoneyModalOpen() then return true end
+    if self:IsQtyModalOpen() then return true end
+    return false
+end
+
+function MailScreen:MoneyModalCopper()
+    local d = self.moneyModal.digits or {}
+    local function dig(i)
+        return tonumber(d[i]) or 0
+    end
+    local gold = dig(1) * 1000 + dig(2) * 100 + dig(3) * 10 + dig(4)
+    local silver = dig(5) * 10 + dig(6)
+    local copper = dig(7) * 10 + dig(8)
+    return (gold * 100 + silver) * 100 + copper
+end
+
+function MailScreen:GetPlayerCopper()
+    if GetMoney then
+        local ok, v = pcall(GetMoney)
+        if ok and tonumber(v) then return tonumber(v) end
+    end
+    return 0
+end
+
+function MailScreen:GetPostageCopper()
+    if self.isOpen and GetSendMailPrice then
+        local ok, price = pcall(GetSendMailPrice)
+        if ok and tonumber(price) and tonumber(price) > 0 then
+            return tonumber(price)
+        end
+    end
+    return 30
+end
+
+function MailScreen:OpenMoneyModal()
+    if not self.isOpen then return end
+    if self.currentScreen ~= "COMPOSE" then return end
+    if self:IsVKOpen() then return end
+    if self:IsQtyModalOpen() then return end
+    if self.sendQueue and self.sendQueue.running then return end
+    self:SyncComposeBuffersFromUI()
+    local copper = math.floor(tonumber(self.composeMoney) or 0)
+    if copper < 0 then copper = 0 end
+    local gold = math.floor(copper / 10000)
+    local rem = copper - gold * 10000
+    local silver = math.floor(rem / 100)
+    local co = rem - silver * 100
+    if gold > 9999 then gold = 9999 end
+    self.moneyModal.digits = {
+        math.floor(gold / 1000),
+        math.floor(math.mod(gold, 1000) / 100),
+        math.floor(math.mod(gold, 100) / 10),
+        math.mod(gold, 10),
+        math.floor(silver / 10),
+        math.mod(silver, 10),
+        math.floor(co / 10),
+        math.mod(co, 10),
+    }
+    self.moneyModal.digitIndex = 1
+    self.moneyModal.isOpen = true
+    self:CreateMoneyModalUI()
+    self:UpdateMoneyModalVisuals()
+    self.moneyModalFrame:Show()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+end
+
+function MailScreen:CloseMoneyModal(silent)
+    self.moneyModal.isOpen = false
+    if self.moneyModalFrame and self.moneyModalFrame:IsVisible() then
+        self.moneyModalFrame:Hide()
+    end
+    if not silent then
+        if PlaySound then PlaySound("igMainMenuClose") end
+    end
+end
+
+-- Gira o digito ativo com wrap circular 0-9 (§4.1).
+function MailScreen:MoneyModalSpin(delta)
+    if not self:IsMoneyModalOpen() then return end
+    delta = tonumber(delta) or 0
+    local idx = tonumber(self.moneyModal.digitIndex) or 1
+    if idx < 1 then idx = 1 end
+    if idx > 8 then idx = 8 end
+    local d = self.moneyModal.digits or {}
+    local cur = tonumber(d[idx]) or 0
+    cur = math.mod(cur + delta, 10)
+    d[idx] = cur
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    self:UpdateMoneyModalVisuals()
+end
+
+function MailScreen:MoneyModalDirection(direction)
+    if direction == "LEFT" then
+        local idx = (tonumber(self.moneyModal.digitIndex) or 1) - 1
+        if idx < 1 then idx = 1 end
+        if idx ~= self.moneyModal.digitIndex then
+            self.moneyModal.digitIndex = idx
+            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+            self:UpdateMoneyModalVisuals()
+        end
+    elseif direction == "RIGHT" then
+        local idx = (tonumber(self.moneyModal.digitIndex) or 1) + 1
+        if idx > 8 then idx = 8 end
+        if idx ~= self.moneyModal.digitIndex then
+            self.moneyModal.digitIndex = idx
+            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+            self:UpdateMoneyModalVisuals()
+        end
+    elseif direction == "UP" then
+        self:MoneyModalSpin(1)
+    elseif direction == "DOWN" then
+        self:MoneyModalSpin(-1)
+    end
+end
+
+-- A no modal: valida saldo + taxa e salva o copper total em composeMoney.
+function MailScreen:MoneyModalConfirm()
+    if not self:IsMoneyModalOpen() then return end
+    if not self.isOpen then
+        self:CloseMoneyModal(true)
+        return
+    end
+    local total = self:MoneyModalCopper()
+    local balance = self:GetPlayerCopper()
+    if total > balance then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Dinheiro acima do saldo (" .. self:FormatMoneyText(balance) .. ").")
+        end
+        if PlaySound then PlaySound("igQuestFailed") end
+        return
+    end
+    self.composeMoney = tostring(total)
+    local eb = self:GetComposeEditBox(4)
+    if eb then
+        pcall(function() eb:SetText(tostring(total)) end)
+    end
+    self:AutoFillSubjectForMoney()
+    self:CloseMoneyModal(true)
+    self:RefreshComposeVisuals()
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Dinheiro anexado: " .. self:FormatMoneyText(total) .. ".")
+    end
+end
+
+function MailScreen:UpdateMoneyModalVisuals()
+    local m = self.moneyModalFrame
+    if not m then return end
+    local d = self.moneyModal.digits or {}
+    local active = tonumber(self.moneyModal.digitIndex) or 1
+    for i = 1, 8 do
+        local b = m.digitBtns and m.digitBtns[i]
+        local t = m.digitTexts and m.digitTexts[i]
+        if b and t then
+            t:SetText(tostring(tonumber(d[i]) or 0))
+            if i == active then
+                b:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+                b:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
+            else
+                b:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.60)
+                b:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
+            end
+        end
+    end
+    local total = self:MoneyModalCopper()
+    if m.totalText then
+        m.totalText:SetText("|cffaaaaaaTotal:|r " .. self:FormatMoneyText(total))
+    end
+    if m.balanceText then
+        local balance = self:GetPlayerCopper()
+        local postage = self:GetPostageCopper()
+        local line = "|cffaaaaaaSaldo:|r " .. self:FormatMoneyText(balance) .. "  |cffaaaaaaPostagem:|r " .. self:FormatMoneyText(postage)
+        if total > balance then
+            line = line .. "  |cffff2020(saldo insuficiente)|r"
+        end
+        m.balanceText:SetText(line)
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 2f-M4.2 (V). ENVIO + FILA MULTI-ITEM (§7 M4)
+-- ENVIAR valida (destinatario nao vazio; saldo >= N x postagem + dinheiro
+-- anexado) e envia 1 carta por item (limite 1.12), copiando assunto+texto; o
+-- dinheiro vai so na 1a carta. Anexacao fisica (PickupContainerItem ou
+-- SplitContainerItem p/ pilha parcial + ClickSendMailItemButton) e
+-- SetSendMailMoney acontecem SO no momento do envio, com isOpen (regra de
+-- ouro). Fila serializada por MAIL_SEND_SUCCESS; aborta em MAIL_CLOSED.
+-- Pos-envio limpa TODOS os campos/itens e permanece no compor.
+-- ----------------------------------------------------------------------------
+function MailScreen:TrySendMail()
+    if not self.isOpen then return end
+    if self.currentScreen ~= "COMPOSE" then return end
+    if self:IsComposeModalOpen() then return end
+    if self:IsConfirmOpen() then return end
+    local st = self.sendQueue
+    if st.running then return end
+    if self.takeAllQueue and self.takeAllQueue.running then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Aguarde a retirada terminar para enviar.")
+        end
+        return
+    end
+    if not SendMail then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Envio indisponivel (API SendMail ausente).")
+        end
+        return
+    end
+    self:SyncComposeBuffersFromUI()
+    local to = self:TrimText(self.composeTo or "")
+    if to == "" then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Informe o destinatario (campo Para).")
+        end
+        if PlaySound then PlaySound("igQuestFailed") end
+        return
+    end
+    local subject = tostring(self.composeSubject or "")
+    local body = tostring(self.composeBody or "")
+    local money = math.floor(tonumber(self.composeMoney) or 0)
+    if money < 0 then money = 0 end
+    local items = self.composeItems or {}
+    local numItems = table.getn(items)
+    if numItems == 0 and money > 0 and self:TrimText(subject) == "" then
+        subject = "gold"
+        self.composeSubject = "gold"
+        local eb2 = self:GetComposeEditBox(2)
+        if eb2 then
+            pcall(function() eb2:SetText("gold") end)
+        end
+    end
+    if numItems == 0 and money == 0 and self:TrimText(subject) == "" and self:TrimText(body) == "" then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Nada a enviar (carta vazia).")
+        end
+        if PlaySound then PlaySound("igQuestFailed") end
+        return
+    end
+    local postage = self:GetPostageCopper()
+    local total = numItems
+    if total < 1 then total = 1 end
+    local balance = self:GetPlayerCopper()
+    local needed = total * postage + money
+    if balance < needed then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Saldo insuficiente: precisa de " .. self:FormatMoneyText(needed) .. " (" .. total .. "x postagem + dinheiro).")
+        end
+        if PlaySound then PlaySound("igQuestFailed") end
+        return
+    end
+    local letters = {}
+    if numItems == 0 then
+        table.insert(letters, { money = money })
+    else
+        for i = 1, numItems do
+            local e = items[i]
+            local lm = 0
+            if i == 1 then lm = money end
+            table.insert(letters, {
+                bag = e.bag, slot = e.slot,
+                qty = tonumber(e.qty) or 1,
+                name = e.name or "Item",
+                money = lm,
+            })
+        end
+    end
+    st.running = true
+    st.letters = letters
+    st.pos = 1
+    st.total = table.getn(letters)
+    st.to = to
+    st.subject = subject
+    st.body = body
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Enviando 1 de " .. st.total .. "...")
+    end
+    self:ProcessSendStep()
+end
+
+-- Envia a carta da posicao atual (anexo fisico + dinheiro + SendMail).
+function MailScreen:ProcessSendStep()
+    local st = self.sendQueue
+    if not st.running then return end
+    if not self.isOpen then
+        self:StopSendQueue(false)
+        return
+    end
+    local pos = tonumber(st.pos) or 1
+    local letter = st.letters[pos]
+    if not letter then
+        self:FinishSendQueue()
+        return
+    end
+    -- 1. Anexo fisico (so agora o item sai da bolsa).
+    if letter.bag ~= nil and letter.slot ~= nil then
+        local qty = tonumber(letter.qty) or 1
+        if qty < 1 then qty = 1 end
+        if qty > 1 and SplitContainerItem then
+            pcall(SplitContainerItem, letter.bag, letter.slot, qty)
+        elseif PickupContainerItem then
+            pcall(PickupContainerItem, letter.bag, letter.slot)
+        end
+        if ClickSendMailItemButton then
+            pcall(ClickSendMailItemButton)
+        end
+    end
+    -- 2. Dinheiro (so na 1a carta; zera nas demais).
+    if SetSendMailMoney then
+        pcall(SetSendMailMoney, tonumber(letter.money) or 0)
+    end
+    -- 3. Envio (assunto+texto copiados em todas as cartas).
+    pcall(SendMail, st.to, st.subject, st.body)
+end
+
+-- Avanca UMA carta por MAIL_SEND_SUCCESS (nunca presume estado; re-age se a
+-- mailbox fechar via OnMailClosed -> StopSendQueue).
+function MailScreen:AdvanceSendQueue()
+    local st = self.sendQueue
+    if not st or not st.running then return end
+    if not self.isOpen then
+        self:StopSendQueue(false)
+        return
+    end
+    st.pos = (tonumber(st.pos) or 1) + 1
+    if st.pos > (tonumber(st.total) or 0) then
+        self:FinishSendQueue()
+        return
+    end
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Enviando " .. st.pos .. " de " .. st.total .. "...")
+    end
+    self:ProcessSendStep()
+end
+
+function MailScreen:StopSendQueue(announce)
+    local st = self.sendQueue
+    if not st then return end
+    local was = st.running
+    st.running = false
+    st.letters = {}
+    st.pos = 1
+    st.total = 0
+    if announce and was then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Envio concluido.")
+        end
+    end
+end
+
+function MailScreen:FinishSendQueue()
+    self:StopSendQueue(false)
+    self:ClearComposeAfterSend()
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Carta enviada.")
+    end
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+end
+
+-- Pos-envio: limpa TODOS os campos/itens e permanece no compor.
+function MailScreen:ClearComposeAfterSend()
+    self.composeTo = ""
+    self.composeSubject = ""
+    self.composeBody = ""
+    self.composeMoney = ""
+    self.composeItems = {}
+    local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
+    if box and box.rows then
+        local n = table.getn(box.rows)
+        for i = 1, n do
+            local r = box.rows[i]
+            if r and r.editBox then
+                pcall(function() r.editBox:SetText("") end)
+            end
+        end
+    end
+    self:ClearComposeFocus()
+    self:UpdateComposeItemsText()
+    self:UpdateComposePostage()
+    self:ScanComposeBags()
+    self:RefreshComposeVisuals()
 end
 
 -- ----------------------------------------------------------------------------
@@ -2704,6 +4084,14 @@ function MailScreen:TakeAllInbox()
     if not self.isOpen then return end
     if self.currentScreen ~= "INBOX" then return end
     if self:IsConfirmOpen() then return end
+    -- M4.2: Y no compor nunca e TakeAll (OnComposeUse abre quantidade); na
+    -- inbox, nao compete com fila de envio rodando.
+    if self.sendQueue and self.sendQueue.running then
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Aguarde o envio terminar para retirar tudo.")
+        end
+        return
+    end
     local st = self.takeAllQueue
     if st.running then return end
     local raw = self.inboxItems or {}
@@ -2787,6 +4175,17 @@ end
 -- ----------------------------------------------------------------------------
 function MailScreen:OnCancel()
     if not self.isOpen then return end
+    -- M4.2: B fecha so o topo da pilha (VK/modal -> detalhe -> fecha). O VK e
+    -- fechado pelo Keybindings/Hooks antes de chegar aqui; guardas por seguranca.
+    if self:IsVKOpen() then return end
+    if self:IsQtyModalOpen() then
+        self:CloseQtyModal()
+        return
+    end
+    if self:IsMoneyModalOpen() then
+        self:CloseMoneyModal()
+        return
+    end
     if self:IsConfirmOpen() then
         self:CloseDeleteConfirm()
         return
@@ -2808,6 +4207,17 @@ end
 -- wrap. Compor: roteado p/ OnComposeDirection (telas sao exclusivas).
 function MailScreen:OnDirection(direction)
     if not self.isOpen then return end
+    -- M4.2: com modal de dinheiro/quantidade aberto, o D-Pad pertence a ele
+    -- (UP/DOWN com hold via StartRepeat; no VK, o Keybindings desvia antes).
+    if self:IsMoneyModalOpen() then
+        self:MoneyModalDirection(direction)
+        return
+    end
+    if self:IsQtyModalOpen() then
+        self:QtyModalDirection(direction)
+        return
+    end
+    if self:IsVKOpen() then return end
     if self:IsConfirmOpen() then return end
     if self.currentScreen == "COMPOSE" then
         self:OnComposeDirection(direction)
@@ -2982,6 +4392,10 @@ function MailScreen:Close()
 
     -- M3: aborta a fila Retirar-Tudo e fecha o modal sem confirmar.
     self:StopTakeAll(false)
+    -- M4.2: aborta a fila de envio e fecha os modais do compor.
+    self:StopSendQueue(false)
+    self:CloseMoneyModal(true)
+    self:CloseQtyModal(true)
     if self.deleteConfirm then
         self.deleteConfirm.isOpen = false
         self.deleteConfirm.pendingIndex = nil
@@ -3033,6 +4447,9 @@ function MailScreen:OnMailClosed()
     if not self.initialized then return end
     -- M3: mailbox fechou = fila Retirar-Tudo aborta com seguranca.
     self:StopTakeAll(false)
+    -- M4.2: mailbox fechou = fila de envio aborta (regra de ouro: sem API
+    -- servidora fora de MAIL_SHOW -> MAIL_CLOSED).
+    self:StopSendQueue(false)
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Mailbox fechada.")
     end
@@ -3067,6 +4484,8 @@ function MailScreen:OnMailSendSuccess()
     end
     -- M3: contrato de fila serializada (envios sao M4; so avanca a fila).
     self:AdvanceTakeAll()
+    -- M4.2: fila de envio avanca UMA carta por MAIL_SEND_SUCCESS.
+    self:AdvanceSendQueue()
 end
 
 function MailScreen:OnBagUpdate()

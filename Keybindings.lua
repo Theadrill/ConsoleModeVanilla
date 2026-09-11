@@ -828,6 +828,15 @@ function CM_Fixed(button)
     CM.logger:Log("Fixo: " .. button)
     
     if button == "START" then
+        -- VK-2: Start com o teclado aberto confirma (entrega o buffer)
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen and vk:IsOpen() then
+            if vk.Accept then
+                vk:Accept()
+            end
+            return
+        end
+
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
             local mm2 = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
             if mm2 and mm2.IsQuestDetailVisible and mm2:IsQuestDetailVisible() then mm2:HideQuestDetail(); return end
@@ -1036,6 +1045,15 @@ end
 function CM_CursorMove(direction, keystate)
     if CM.keybindings and CM.keybindings.chatActive then return end
 
+    -- VK-2: teclado virtual captura o D-Pad (sem vazar para a tela de tras)
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen and vk:IsOpen() then
+        if keystate ~= "up" and vk.OnDirection then
+            vk:OnDirection(direction)
+        end
+        return
+    end
+
     -- Interceptação de navegação direta da Janela de Mercador ConsoleMode
     -- Com hold-to-scroll: key down inicia repeat, key up para a repeticao.
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
@@ -1083,6 +1101,15 @@ end
 function CM_CursorConfirm()
     if CM.keybindings.chatActive then return end
 
+    -- VK-2: A ativa a tecla em foco (OK em foco = confirma de verdade)
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen and vk:IsOpen() then
+        if vk.Confirm then
+            vk:Confirm()
+        end
+        return
+    end
+
     -- Prioridade de Mercador ConsoleMode (Botão A)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         if ConsoleMode_MerchantMenu.IsQtyModalOpen and ConsoleMode_MerchantMenu:IsQtyModalOpen() then
@@ -1121,6 +1148,12 @@ end
 
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
+
+    -- VK-2: Y bloqueado com o teclado aberto
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen and vk:IsOpen() then
+        return
+    end
 
     -- Prioridade de Mercador ConsoleMode (Botão Y: Reparar tudo / AutoSell lixo)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
@@ -1166,6 +1199,12 @@ end
 
 function CM_CursorSecondary()
     if CM.keybindings.chatActive then return end
+
+    -- VK-2: X bloqueado com o teclado aberto
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen and vk:IsOpen() then
+        return
+    end
 
     -- Prioridade de Mercador ConsoleMode (Botão X: Vender / Quantidade)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
@@ -1217,6 +1256,15 @@ end
 
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
+
+    -- VK-2: B apaga 1 char; com buffer vazio fecha (cancela)
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen and vk:IsOpen() then
+        if vk.OnCancel then
+            vk:OnCancel()
+        end
+        return
+    end
 
     -- Prioridade de Mercador ConsoleMode ([B] fecha modal primeiro)
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then

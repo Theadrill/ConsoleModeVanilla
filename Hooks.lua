@@ -699,6 +699,13 @@ function Hooks:InjectGameMenuButton()
 end
 
 function Hooks:CloseTopFrame()
+    -- VK-2: teclado virtual fecha primeiro (cancela, sem confirmar)
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen and vk:IsOpen() then
+        vk:Close()
+        return true
+    end
+
     -- Prioridade maxima: se algum DropDownList estiver aberto, fecha ele primeiro
     for i = 1, 10 do
         local dd = getglobal("DropDownList" .. i)

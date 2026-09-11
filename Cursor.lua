@@ -783,11 +783,21 @@ function Cursor:UpdateState()
     
     -- 1. Verifica se há diálogo modal ativo (StaticPopup ou ContextMenu)
     local modalFrame = nil
-    for i = 1, 4 do
-        local sp = getglobal("StaticPopup" .. i)
-        if sp and sp:IsVisible() then
-            modalFrame = sp
-            break
+    -- VK-2: teclado virtual tem precedencia maxima como modal
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen and vk.frame then
+        local okVK, openVK = pcall(function() return vk:IsOpen() end)
+        if okVK and openVK then
+            modalFrame = vk.frame
+        end
+    end
+    if not modalFrame then
+        for i = 1, 4 do
+            local sp = getglobal("StaticPopup" .. i)
+            if sp and sp:IsVisible() then
+                modalFrame = sp
+                break
+            end
         end
     end
     if not modalFrame then

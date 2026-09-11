@@ -2,10 +2,11 @@
 -- ConsoleModeVanilla - UI/MailScreen.lua
 -- Sistema Modular de Correio (Mailbox) em Split-View para Console/Gamepad
 -- Compatível com WoW Vanilla 1.12.1 / Lua 5.0 (Turtle WoW)
--- NOTA (Passo 2 / Fase 1): registro de eventos + flags + logs. Sem chamadas
+-- NOTA (Passo 3 / Fase 1): supressao visual do MailFrame nativo (off-screen,
+-- sem Hide/CloseMail) + registro de eventos + flags + logs. Sem chamadas
 -- de API servidora (SendMail, CheckInbox, GetInbox*, TakeInbox*, DeleteInboxItem,
 -- ReturnInboxItem, CloseMail, ClickSendMailItemButton, SetSendMailMoney),
--- sem supressao do MailFrame, sem leitura de inbox e sem composicao.
+-- sem leitura de inbox e sem composicao.
 -- ============================================================================
 
 local CM = ConsoleMode or {}
@@ -20,6 +21,51 @@ CM.mailScreen = MailScreen
 -- ----------------------------------------------------------------------------
 MailScreen.isOpen      = false
 MailScreen.initialized = false
+
+-- ----------------------------------------------------------------------------
+-- 2b. SUPRESSAO SEGURA DO MAILFRAME NATIVO (Passo 3 — molde MerchantMenu)
+-- NUNCA Hide() o nativo: mataria a sessao MAIL_SHOW -> MAIL_CLOSED.
+-- So manipulacao visual (alpha/mouse/off-screen) + fechar bolsas.
+-- ----------------------------------------------------------------------------
+function MailScreen:CloseAllOpenBags()
+    for i = 1, 5 do
+        local cf = getglobal("ContainerFrame" .. i)
+        if cf and cf:IsVisible() then
+            pcall(function() cf:Hide() end)
+        end
+    end
+
+    if CloseBackpack then pcall(CloseBackpack) end
+    if CloseBag then
+        for b = 1, 4 do
+            pcall(function() CloseBag(b) end)
+        end
+    end
+    if CloseAllBags then pcall(CloseAllBags) end
+
+    local bagnon = getglobal("Bagnon")
+    if bagnon and bagnon:IsVisible() then pcall(function() bagnon:Hide() end) end
+    local pfBag = getglobal("pfBag")
+    if pfBag and pfBag:IsVisible() then pcall(function() pfBag:Hide() end) end
+    local bagshui = getglobal("BagshuiBagsFrame")
+    if bagshui and bagshui:IsVisible() then pcall(function() bagshui:Hide() end) end
+end
+
+function MailScreen:SuppressDefaultFrame()
+    if not MailFrame then return end
+    pcall(function()
+        if MailFrame.selectedTab then
+            MailFrame.selectedTab = 1
+        end
+    end)
+    pcall(function() MailFrame:SetAlpha(0) end)
+    pcall(function() MailFrame:EnableMouse(false) end)
+    pcall(function()
+        MailFrame:ClearAllPoints()
+        MailFrame:SetPoint("BOTTOMLEFT", UIParent, "TOPLEFT", 0, 5000)
+    end)
+    self:CloseAllOpenBags()
+end
 
 -- ----------------------------------------------------------------------------
 -- 2. CRIAÇÃO DA UI (stub — frames reais entram em passo futuro)
@@ -51,8 +97,9 @@ function MailScreen:OnMailShow()
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Mailbox aberta.")
     end
-    -- Passo 2: NAO suprimir o MailFrame nativo (passo futuro).
-    -- Passo 2: NAO chamar CheckInbox (leitura entra em passo futuro).
+    -- Passo 3: suprime o MailFrame nativo (visual, off-screen, sem Hide).
+    self:SuppressDefaultFrame()
+    -- Passo futuro: NAO chamar CheckInbox (leitura entra em passo futuro).
 end
 
 function MailScreen:OnMailClosed()
@@ -97,6 +144,29 @@ function MailScreen:Initialize()
     if self.initialized then return end
     self.initialized = true
 
+    -- Hook preventivo no OnShow do MailFrame (molde MerchantMenu:3073-3096).
+    -- 1.12 nao tem HookScript: preserva o script original via GetScript/SetScript.
+    if MailFrame then
+        local orig_MailFrame_OnShow = MailFrame:GetScript("OnShow")
+        MailFrame:SetScript("OnShow", function()
+            if orig_MailFrame_OnShow then
+                orig_MailFrame_OnShow()
+            end
+            MailScreen:SuppressDefaultFrame()
+        end)
+
+        -- Protecao no OnHide: com sessao aberta, engole o OnHide original para
+        -- nao encerrar a sessao do NPC inadvertidamente. Sem sessao, repassa.
+        local orig_MailFrame_OnHide = MailFrame:GetScript("OnHide")
+        MailFrame:SetScript("OnHide", function()
+            if not MailScreen.isOpen then
+                if orig_MailFrame_OnHide then
+                    orig_MailFrame_OnHide()
+                end
+            end
+        end)
+    end
+
     -- Event frame dedicado (molde: MerchantMenu). Idempotente: cria 1x.
     if not self.eventFrame then
         local ef = CreateFrame("Frame", "ConsoleMode_MailScreenEventFrame")
@@ -127,7 +197,7 @@ function MailScreen:Initialize()
     end
 
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Modulo inicializado (Passo 2: eventos registrados).")
+        CM.logger:Log("[MailScreen] Modulo inicializado (Passo 3: supressao + eventos).")
     end
 end
 

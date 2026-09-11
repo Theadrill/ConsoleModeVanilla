@@ -88,8 +88,8 @@ Hooks.frames = {
     { frame = "AuctionFrame",        name = "Casa de Leiloes" },
     
     -- Correio e Loot
-    { frame = "MailFrame",           name = "Correio" },
-    { frame = "OpenMailFrame",       name = "Carta Aberta" },
+    -- { frame = "MailFrame",           name = "Correio" }, -- Gerenciado exclusivamente pelo ConsoleMode_MailScreen
+    -- { frame = "OpenMailFrame",       name = "Carta Aberta" }, -- Gerenciado exclusivamente pelo ConsoleMode_MailScreen
     { frame = "LootFrame",           name = "Loot" },
     
     -- Comércio
@@ -520,7 +520,7 @@ function Hooks:Initialize()
                         -- 3. Detecta frames que abriram sem disparar OnShow padrao
                         local problematicFrames = { 
                             "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
-                            "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "MailFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame"
+                            "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame"
                         }
                         for _, frameName in ipairs(problematicFrames) do
                             local frame = getglobal(frameName)

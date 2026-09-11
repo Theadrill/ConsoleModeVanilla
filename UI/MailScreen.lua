@@ -4167,10 +4167,16 @@ function MailScreen:ProcessSendStep()
         end
         letter.bag = b
         letter.slot = s
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Carta " .. (tonumber(pos) or 1) .. ": bolsa " .. tostring(b) .. " slot " .. tostring(s) .. " (x" .. tostring(cnt) .. ", envia x" .. tostring(need) .. ").")
+        end
         local okAttach, why = self:AttachBagItem(b, s, need, cnt)
         if not okAttach then
             self:AbortSendQueue("cannot attach item '" .. tostring(letter.name or "Item") .. "' (" .. tostring(why) .. ")")
             return
+        end
+        if CM.logger and CM.logger.Log then
+            CM.logger:Log("[MailScreen] Anexado no slot: '" .. tostring(self:GetSendSlotItemName() or "?") .. "'.")
         end
     end
     -- 2. Dinheiro (so na 1a carta; zera nas demais).
@@ -4192,10 +4198,22 @@ function MailScreen:ProcessSendStep()
         self:AbortSendQueue("falha ao enviar (SendMail)")
         return
     end
+    -- Watchdog: marca a hora do envio; se o servidor nao responder com
+    -- MAIL_SEND_SUCCESS em 15s, OnSendWatchdog aborta com mensagem clara
+    -- (sem isso, running ficava true p/ sempre e a UI congelava ate
+    -- fechar/abrir o mail).
+    st.lastSendTime = GetTime and GetTime() or nil
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Carta " .. (tonumber(pos) or 1) .. " enviada, aguardando servidor...")
+    end
 end
 
 -- Avanca UMA carta por MAIL_SEND_SUCCESS (nunca presume estado; re-age se a
--- mailbox fechar via OnMailClosed -> StopSendQueue).
+-- mailbox fechar via OnMailClosed -> StopSendQueue). A proxima carta sai com
+-- 1s de intervalo (agendada no OnUpdate): envios colados no evento parecem
+-- ser engolidos pelo servidor (carta 2+ sem MAIL_SEND_SUCCESS e item parado
+-- na bolsa). O intervalo e anti-throttle, nao serializacao (essa segue por
+-- evento).
 function MailScreen:AdvanceSendQueue()
     local st = self.sendQueue
     if not st or not st.running then return end
@@ -4211,6 +4229,14 @@ function MailScreen:AdvanceSendQueue()
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Enviando " .. st.pos .. " de " .. st.total .. "...")
     end
+    if GetTime then
+        local ok, now = pcall(GetTime)
+        if ok and type(now) == "number" then
+            st.pendingStepAt = now + 1
+            st.lastSendTime = nil
+            return
+        end
+    end
     self:ProcessSendStep()
 end
 
@@ -4222,10 +4248,36 @@ function MailScreen:StopSendQueue(announce)
     st.letters = {}
     st.pos = 1
     st.total = 0
+    st.lastSendTime = nil
+    st.pendingStepAt = nil
     if announce and was then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Envio concluido.")
         end
+    end
+end
+
+-- Watchdog da fila de envio (OnUpdate do event frame): dispara a carta
+-- agendada com intervalo e aborta se o servidor nao responder com
+-- MAIL_SEND_SUCCESS em 15s apos o SendMail (sem isso a UI congelava).
+function MailScreen:OnSendWatchdog()
+    if not self.initialized then return end
+    local st = self.sendQueue
+    if not st or not st.running then return end
+    if not GetTime then return end
+    local ok, now = pcall(GetTime)
+    if not ok or type(now) ~= "number" then return end
+    if st.pendingStepAt and type(st.pendingStepAt) == "number" then
+        if now >= st.pendingStepAt then
+            st.pendingStepAt = nil
+            self:ProcessSendStep()
+            return
+        end
+        return
+    end
+    if not st.lastSendTime or type(st.lastSendTime) ~= "number" then return end
+    if (now - st.lastSendTime) > 15 then
+        self:AbortSendQueue("sem resposta do servidor (MAIL_SEND_SUCCESS) apos 15s")
     end
 end
 
@@ -5152,6 +5204,11 @@ function MailScreen:Initialize()
             elseif event == "PLAYER_MONEY" then
                 MailScreen:OnMoneyUpdate()
             end
+        end)
+
+        -- Watchdog da fila de envio: aborta se o servidor nao responder.
+        ef:SetScript("OnUpdate", function()
+            MailScreen:OnSendWatchdog()
         end)
 
         self.eventFrame = ef

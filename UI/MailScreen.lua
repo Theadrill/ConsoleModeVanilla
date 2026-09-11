@@ -70,7 +70,10 @@ MailScreen.detailButtonIndex  = 1
 MailScreen.actionBar          = nil
 MailScreen.deleteConfirm      = { isOpen = false, pendingIndex = nil }
 MailScreen.deleteConfirmFrame = nil
-MailScreen.takeAllQueue       = { running = false, queue = {}, pos = 1, total = 0 }
+MailScreen.takeAllQueue       = MailScreen.takeAllQueue or { running = false, queue = {}, attempts = {}, pos = 1, total = 0, skipped = 0, lastTick = 0 }
+if MailScreen.takeAllQueue.attempts == nil then MailScreen.takeAllQueue.attempts = {} end
+if MailScreen.takeAllQueue.skipped == nil then MailScreen.takeAllQueue.skipped = 0 end
+if MailScreen.takeAllQueue.lastTick == nil then MailScreen.takeAllQueue.lastTick = 0 end
 
 -- ----------------------------------------------------------------------------
 -- 1b3. ESTADO M4.1: telas INBOX<->COMPOR + compor estrutural (SEM envio)
@@ -239,7 +242,11 @@ function MailScreen:SuppressDefaultFrame()
     if not MailFrame then return end
     pcall(function()
         if MailFrame.selectedTab then
-            MailFrame.selectedTab = 1
+            -- Com envio rodando, a aba 2 (SendMailFrame) e obrigatoria p/ o
+            -- click de anexo; fora do envio, forca a aba 1 (inbox).
+            if not (self.sendQueue and self.sendQueue.running) then
+                MailFrame.selectedTab = 1
+            end
         end
     end)
     pcall(function() MailFrame:SetAlpha(0) end)
@@ -2459,12 +2466,22 @@ end
 -- tabela carregada (sustenta o /reload): cria so se ausente; se presente,
 -- sanitiza IN PLACE (fora nao-strings/vazios, teto 20 do fim). Chamada apos
 -- VARIABLES_LOADED (Initialize/autoInit) e em todo acesso.
+-- Espelho em ConsoleModeDB.mailHistory (SV registrada desde sempre): se a
+-- dedicada veio vazia/ausente mas o espelho tem dados (ex.: imagem .toc
+-- antiga no cliente, que so e relida no restart total), adota o espelho.
+-- Todo acesso re-espelha a mesma referencia (o cliente serializa cada SV
+-- em separado; politica intacta, so strings curtas).
 function MailScreen:EnsureMailHistory()
     if type(ConsoleModeMailHistory) ~= "table" then
         ConsoleModeMailHistory = {}
-        return ConsoleModeMailHistory
     end
     local h = ConsoleModeMailHistory
+    if table.getn(h) == 0 and type(ConsoleModeDB) == "table"
+        and type(ConsoleModeDB.mailHistory) == "table"
+        and table.getn(ConsoleModeDB.mailHistory) > 0 then
+        h = ConsoleModeDB.mailHistory
+        ConsoleModeMailHistory = h
+    end
     local n = table.getn(h)
     for i = n, 1, -1 do
         local v = h[i]
@@ -2474,6 +2491,9 @@ function MailScreen:EnsureMailHistory()
     end
     while table.getn(h) > 20 do
         table.remove(h)
+    end
+    if type(ConsoleModeDB) == "table" then
+        ConsoleModeDB.mailHistory = h
     end
     return h
 end
@@ -2498,8 +2518,13 @@ function MailScreen:PushMailHistory(name)
         table.remove(h)
     end
     -- Reancora a global na tabela mutada (garante que a SV serializada no
-    -- /reload/logout e exatamente este conteudo; politica intacta).
+    -- /reload/logout e exatamente este conteudo; politica intacta) e
+    -- re-espelha em ConsoleModeDB.mailHistory (sobrevive mesmo com imagem
+    -- .toc antiga no cliente; mesma referencia, sem copia).
     ConsoleModeMailHistory = h
+    if type(ConsoleModeDB) == "table" then
+        ConsoleModeDB.mailHistory = h
+    end
 end
 
 -- Alts = nomes dos outros chars (fonte existente no addon: chaves de
@@ -2748,9 +2773,15 @@ function MailScreen:AttachSelectedItem()
     end
     local qty = tonumber(it.count) or 1
     if qty < 1 then qty = 1 end
+    local link = nil
+    if GetContainerItemLink then
+        local okL, l = pcall(GetContainerItemLink, it.bag, it.slot)
+        if okL and type(l) == "string" and l ~= "" then link = l end
+    end
     table.insert(self.composeItems, {
         bag = it.bag,
         slot = it.slot,
+        link = link,
         name = it.name or "Item",
         texture = it.texture,
         count = qty,
@@ -2768,23 +2799,33 @@ end
 function MailScreen:DetachItemAtInvIndex()
     if not self.isOpen then return end
     if self.sendQueue and self.sendQueue.running then return end
-    local it = self:GetInvItemAt(self.invIndex)
-    if not it then
+    local list = self.composeItems or {}
+    if table.getn(list) == 0 then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Nenhum item sob o cursor para tirar.")
+            CM.logger:Log("[MailScreen] Nenhum item na carta para tirar.")
         end
         return
     end
-    local pos, _ = self:FindAttached(it.bag, it.slot)
-    if not pos then
-        if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Item nao esta na carta.")
+    -- Foco nos campos (incl. a area ITENS) = sem slot de inventario sob o
+    -- cursor: devolve o ultimo anexado (semantica de desfazer). Foco no
+    -- inventario: devolve o item sob o cursor; se ele nao esta anexado,
+    -- cai para o ultimo anexado (invIndex pode defasar via BAG_UPDATE).
+    local pos = nil
+    if self.composeFocus == "INV" then
+        local it = self:GetInvItemAt(self.invIndex)
+        if it then
+            pos = self:FindAttached(it.bag, it.slot)
         end
-        return
+        if not pos then
+            pos = table.getn(list)
+        end
+    else
+        pos = table.getn(list)
     end
-    local e = self.composeItems[pos]
-    local nm = (e and e.name) or it.name or "Item"
-    table.remove(self.composeItems, pos)
+    local e = list[pos]
+    local nm = "Item"
+    if e and e.name then nm = e.name end
+    table.remove(list, pos)
     self:UpdateComposeItemsText()
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
@@ -2793,8 +2834,72 @@ function MailScreen:DetachItemAtInvIndex()
     end
 end
 
+-- Procura nas bolsas o link exato com pilha suficiente (realocacao apos
+-- BAG_UPDATE: mover/dividir o item entre anexar e enviar nao invalida mais
+-- a entrada). Retorna bag, slot, count ou nil, nil, 0. Leitura com
+-- guarda+pcall; nunca move nada.
+function MailScreen:FindItemSlot(link, needQty)
+    if not link or link == "" then return nil, nil, 0 end
+    if not GetContainerItemLink or not GetContainerNumSlots then
+        return nil, nil, 0
+    end
+    needQty = tonumber(needQty) or 1
+    if needQty < 1 then needQty = 1 end
+    for bag = 0, 4 do
+        local okSlots, numSlots = pcall(GetContainerNumSlots, bag)
+        numSlots = tonumber(numSlots) or 0
+        if okSlots and numSlots > 0 then
+            for slot = 1, numSlots do
+                local okL, l = pcall(GetContainerItemLink, bag, slot)
+                if okL and l and l == link then
+                    local cnt = 1
+                    if GetContainerItemInfo then
+                        local okI, t, c = pcall(GetContainerItemInfo, bag, slot)
+                        if okI and tonumber(c) then cnt = tonumber(c) end
+                    end
+                    if cnt >= needQty then
+                        return bag, slot, cnt
+                    end
+                end
+            end
+        end
+    end
+    return nil, nil, 0
+end
+
+-- Resolve coords frescas da carta na hora do envio (BUG 1): o bag/slot
+-- guardado no anexo defasa com BAG_UPDATE (mover, split, loot). Confere o
+-- link no slot guardado; se mudou/esvaziou, realoca pelo link.
+function MailScreen:ResolveLetterSlot(letter)
+    if not letter then return nil, nil, 0 end
+    local need = tonumber(letter.qty) or 1
+    if need < 1 then need = 1 end
+    if letter.bag ~= nil and letter.slot ~= nil and GetContainerItemLink then
+        local okL, l = pcall(GetContainerItemLink, letter.bag, letter.slot)
+        if okL and l then
+            if (letter.link == nil or letter.link == "") or l == letter.link then
+                local cnt = need
+                if GetContainerItemInfo then
+                    local okI, t, c = pcall(GetContainerItemInfo, letter.bag, letter.slot)
+                    if okI and tonumber(c) then cnt = tonumber(c) end
+                end
+                if cnt >= 1 then
+                    return letter.bag, letter.slot, cnt
+                end
+            end
+        end
+    end
+    if letter.link and letter.link ~= "" then
+        local b, s, c = self:FindItemSlot(letter.link, need)
+        if b ~= nil then return b, s, c end
+    end
+    return nil, nil, 0
+end
+
 -- Remove da lista entradas cuja bag/slot nao tem mais item (leitura com
 -- guarda+pcall; nunca move nada). Pausado com fila de envio rodando.
+-- BUG 1: antes removia a entrada quando o item mudava de slot; agora tenta
+-- realocar pelo link antes de remover.
 function MailScreen:PruneComposeItems()
     if self.sendQueue and self.sendQueue.running then return end
     if not GetContainerItemLink then return end
@@ -2805,7 +2910,30 @@ function MailScreen:PruneComposeItems()
         local gone = true
         if e and e.bag ~= nil and e.slot ~= nil then
             local ok, link = pcall(GetContainerItemLink, e.bag, e.slot)
-            if ok and link then gone = false end
+            if ok and link then
+                if e.link and e.link ~= "" and link ~= e.link then
+                    -- Slot agora tem OUTRO item: o original pode ter mudado
+                    -- de slot (BAG_UPDATE). Realoca pelo link.
+                    local rb, rs = self:FindItemSlot(e.link, tonumber(e.qty) or 1)
+                    if rb ~= nil then
+                        e.bag = rb
+                        e.slot = rs
+                        gone = false
+                    end
+                else
+                    gone = false
+                end
+            else
+                -- Slot esvaziou: item pode ter mudado de slot. Realoca.
+                if e.link and e.link ~= "" then
+                    local rb, rs = self:FindItemSlot(e.link, tonumber(e.qty) or 1)
+                    if rb ~= nil then
+                        e.bag = rb
+                        e.slot = rs
+                        gone = false
+                    end
+                end
+            end
         end
         if gone then table.remove(list, i) end
     end
@@ -3105,8 +3233,13 @@ function MailScreen:QtyModalConfirm()
             tex = it.texture
             count = tonumber(it.count) or qty
         end
+        local link = nil
+        if GetContainerItemLink then
+            local okL, l = pcall(GetContainerItemLink, bag, slot)
+            if okL and type(l) == "string" and l ~= "" then link = l end
+        end
         table.insert(self.composeItems, {
-            bag = bag, slot = slot, name = nm, texture = tex,
+            bag = bag, slot = slot, link = link, name = nm, texture = tex,
             count = count, qty = qty,
         })
     end
@@ -3556,6 +3689,120 @@ function MailScreen:UpdateMoneyModalVisuals()
 end
 
 -- ----------------------------------------------------------------------------
+-- 2f-M4.2 (V-a). ANEXO FISICO VERIFICADO (BUG 1)
+-- Causa raiz: ProcessSendStep fazia SplitContainerItem mesmo com qty == pilha
+-- cheia (o default do anexo via A), o que e invalido no 1.12 (cursor vinha
+-- vazio); o ClickSendMailItemButton falhava sempre ("cannot attach item" do
+-- cliente) com a aba de ENVIO inativa (SuppressDefaultFrame forca tab 1);
+-- e o SendMail saia assim mesmo, gerando carta so-com-dinheiro. Agora:
+-- resolve coords frescas, Split SO p/ pilha parcial (qty < pilha), Pickup p/
+-- pilha cheia/unitaria, verifica cursor + GetSendMailItem antes do SendMail,
+-- e aborta SEM enviar nada quando o anexo falha (nunca carta parcial).
+-- ----------------------------------------------------------------------------
+function MailScreen:CursorHoldsItem()
+    if CursorHasItem then
+        local ok, v = pcall(CursorHasItem)
+        if ok and v then return true end
+    end
+    if CursorHasMoney then
+        local ok2, v2 = pcall(CursorHasMoney)
+        if ok2 and v2 then return true end
+    end
+    return false
+end
+
+function MailScreen:GetSendSlotItemName()
+    if not GetSendMailItem then return nil end
+    local ok, nm = pcall(GetSendMailItem)
+    if ok and type(nm) == "string" and nm ~= "" then return nm end
+    return nil
+end
+
+-- A aba de ENVIO (SendMailFrame) precisa estar ativa p/ o click de anexo
+-- funcionar no 1.12; o MailFrame segue suprimido (alpha 0 + off-screen), entao
+-- a troca e invisivel. Guarda+pcall em tudo; nunca CloseMail.
+function MailScreen:EnsureSendTab()
+    if MailFrame then
+        pcall(function() MailFrame.selectedTab = 2 end)
+    end
+    if InboxFrame then
+        pcall(function() InboxFrame:Hide() end)
+    end
+    if SendMailFrame then
+        pcall(function() SendMailFrame:Show() end)
+    end
+end
+
+function MailScreen:RestoreInboxTab()
+    if MailFrame then
+        pcall(function() MailFrame.selectedTab = 1 end)
+    end
+    if SendMailFrame then
+        pcall(function() SendMailFrame:Hide() end)
+    end
+    if InboxFrame then
+        pcall(function() InboxFrame:Show() end)
+    end
+end
+
+-- Anexa (bag,slot,qty) no slot de envio. Retorna true ou false + motivo.
+-- Nunca deleta nada: com falha, o item fica onde esta (bolsa ou cursor) e o
+-- chamador aborta a fila SEM SendMail.
+function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
+    if not self.isOpen then return false, "correio fechado" end
+    if bag == nil or slot == nil then return false, "slot invalido" end
+    qty = tonumber(qty) or 1
+    if qty < 1 then qty = 1 end
+    stackCount = tonumber(stackCount) or qty
+    if stackCount < 1 then stackCount = qty end
+    if qty > stackCount then qty = stackCount end
+    -- Cursor precisa estar livre: algo ja no cursor invalida o click.
+    if self:CursorHoldsItem() then
+        return false, "cursor ocupado"
+    end
+    if PickupContainerItem == nil and SplitContainerItem == nil then
+        return false, "API de bolsas ausente"
+    end
+    if qty < stackCount then
+        if SplitContainerItem == nil then
+            return false, "fracionar indisponivel"
+        end
+        -- Pilha parcial: divide so a quantidade (resto fica na bolsa).
+        pcall(SplitContainerItem, bag, slot, qty)
+    else
+        -- Pilha cheia ou item unitario: pickup integral. Split da pilha
+        -- inteira e invalido no 1.12 (era o anexo que nunca funcionava).
+        pcall(PickupContainerItem, bag, slot)
+    end
+    if not self:CursorHoldsItem() then
+        return false, "item nao saiu da bolsa (travado?)"
+    end
+    if ClickSendMailItemButton == nil then
+        return false, "API de anexo ausente"
+    end
+    pcall(ClickSendMailItemButton)
+    local attached = self:GetSendSlotItemName()
+    if attached == nil then
+        return false, "click nao fixou (aba de envio?)"
+    end
+    if self:CursorHoldsItem() then
+        return false, "sobra no cursor apos click"
+    end
+    return true, ""
+end
+
+-- Aborta a fila SEM limpar o compor (usuario corrige e reenvia) e SEM enviar
+-- carta parcial: nunca sai carta so-com-dinheiro quando havia item.
+function MailScreen:AbortSendQueue(reason)
+    self:StopSendQueue(false)
+    self:RestoreInboxTab()
+    if CM.logger and CM.logger.Log then
+        CM.logger:Log("[MailScreen] Envio abortado: " .. tostring(reason or "?") .. ".")
+    end
+    if PlaySound then PlaySound("igQuestFailed") end
+end
+
+-- ----------------------------------------------------------------------------
 -- 2f-M4.2 (V). ENVIO + FILA MULTI-ITEM (§7 M4)
 -- ENVIAR valida (destinatario nao vazio; saldo >= N x postagem + dinheiro
 -- anexado) e envia 1 carta por item (limite 1.12), copiando assunto+texto; o
@@ -3637,14 +3884,31 @@ function MailScreen:TrySendMail()
             local e = items[i]
             local lm = 0
             if i == 1 then lm = money end
+            -- Resolve coords frescas ja na montagem (BAG_UPDATE entre anexar
+            -- e enviar); entrada sem item localizavel aborta ANTES de
+            -- qualquer carta sair (nunca envia parcial).
+            local need = tonumber(e.qty) or 1
+            if need < 1 then need = 1 end
+            local probe = { bag = e.bag, slot = e.slot, qty = need, link = e.link }
+            local rb, rs, rc = self:ResolveLetterSlot(probe)
+            if rb == nil then
+                if CM.logger and CM.logger.Log then
+                    CM.logger:Log("[MailScreen] Item '" .. tostring(e.name or "Item") .. "' sumiu da bolsa; envio cancelado.")
+                end
+                if PlaySound then PlaySound("igQuestFailed") end
+                return
+            end
+            if rc < need then need = rc end
             table.insert(letters, {
-                bag = e.bag, slot = e.slot,
-                qty = tonumber(e.qty) or 1,
+                bag = rb, slot = rs,
+                qty = need,
+                link = e.link,
                 name = e.name or "Item",
                 money = lm,
             })
         end
     end
+    self:EnsureSendTab()
     st.running = true
     st.letters = letters
     st.pos = 1
@@ -3672,17 +3936,26 @@ function MailScreen:ProcessSendStep()
         self:FinishSendQueue()
         return
     end
-    -- 1. Anexo fisico (so agora o item sai da bolsa).
+    -- 1. Anexo fisico (resolve coords frescas; o item so sai da bolsa agora).
+    -- Verifica o anexo antes de seguir: click falho NAO gera SendMail.
     if letter.bag ~= nil and letter.slot ~= nil then
-        local qty = tonumber(letter.qty) or 1
-        if qty < 1 then qty = 1 end
-        if qty > 1 and SplitContainerItem then
-            pcall(SplitContainerItem, letter.bag, letter.slot, qty)
-        elseif PickupContainerItem then
-            pcall(PickupContainerItem, letter.bag, letter.slot)
+        local b, s, cnt = self:ResolveLetterSlot(letter)
+        if b == nil then
+            self:AbortSendQueue("item '" .. tostring(letter.name or "Item") .. "' sumiu da bolsa")
+            return
         end
-        if ClickSendMailItemButton then
-            pcall(ClickSendMailItemButton)
+        local need = tonumber(letter.qty) or 1
+        if need < 1 then need = 1 end
+        if cnt < need then
+            need = cnt
+            letter.qty = cnt
+        end
+        letter.bag = b
+        letter.slot = s
+        local okAttach, why = self:AttachBagItem(b, s, need, cnt)
+        if not okAttach then
+            self:AbortSendQueue("cannot attach item '" .. tostring(letter.name or "Item") .. "' (" .. tostring(why) .. ")")
+            return
         end
     end
     -- 2. Dinheiro (so na 1a carta; zera nas demais).
@@ -3690,7 +3963,15 @@ function MailScreen:ProcessSendStep()
         pcall(SetSendMailMoney, tonumber(letter.money) or 0)
     end
     -- 3. Envio (assunto+texto copiados em todas as cartas).
-    pcall(SendMail, st.to, st.subject, st.body)
+    local okSend = false
+    if SendMail then
+        local ok = pcall(SendMail, st.to, st.subject, st.body)
+        if ok then okSend = true end
+    end
+    if not okSend then
+        self:AbortSendQueue("falha ao enviar (SendMail)")
+        return
+    end
 end
 
 -- Avanca UMA carta por MAIL_SEND_SUCCESS (nunca presume estado; re-age se a
@@ -3730,6 +4011,7 @@ end
 
 function MailScreen:FinishSendQueue()
     self:StopSendQueue(false)
+    self:RestoreInboxTab()
     self:ClearComposeAfterSend()
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Carta enviada.")
@@ -4160,7 +4442,70 @@ end
 -- Processa UMA carta por vez, avancando a cada MAIL_INBOX_UPDATE (e
 -- MAIL_SEND_SUCCESS); re-scan pelo evento, nunca presume estado. Aborta com
 -- seguranca se a mailbox fechar (MAIL_CLOSED limpa a fila).
+-- BUG 2: a fila guardava indices do inbox (item.index) e avancava cegamente
+-- (pos+1 por UPDATE). Causa raiz: carta retirada some/muda de posicao no
+-- re-scan (indices deslocam), e cada passo gera N UPDATEs (TakeInboxMoney +
+-- TakeInboxItem + CheckInbox) — a fila pulava cartar ou parava apos o 1o
+-- passo. Agora a fila guarda ASSINATURAS (remetente+assunto+valor) e cada
+-- passo resolve o indice FRESCO no re-scan; tentativas por carta (teto 2 p/
+-- bolsa cheia/COD sem saldo); watchdog de 2.5s garante progresso mesmo sem
+-- evento do servidor. UM aperto de Y esvazia tudo.
 -- ----------------------------------------------------------------------------
+function MailScreen:GetMailTime()
+    if GetTime then
+        local ok, t = pcall(GetTime)
+        if ok and tonumber(t) then return tonumber(t) end
+    end
+    return 0
+end
+
+function MailScreen:EnsureTakeAllWatchdog()
+    if self.takeAllWatchdog then return end
+    local f = CreateFrame("Frame", "ConsoleMode_MailTakeAllWatchdog")
+    f:SetScript("OnUpdate", function()
+        local st = MailScreen.takeAllQueue
+        if not st or not st.running then return end
+        if not MailScreen.isOpen then
+            MailScreen:StopTakeAll(false)
+            return
+        end
+        local now = MailScreen:GetMailTime()
+        local last = tonumber(st.lastTick) or 0
+        if (now - last) >= 2.5 then
+            st.lastTick = now
+            MailScreen:ProcessTakeAllStep()
+        end
+    end)
+    self.takeAllWatchdog = f
+end
+
+-- Localiza na leitura FRESCA (self.inboxItems, refeita em OnInboxUpdate antes
+-- de AdvanceTakeAll) a primeira assinatura da fila ainda com valor. Retorna
+-- inboxIndex atual + posicao na fila, ou nil. Indices nunca sao reusados
+-- entre passos: o re-scan de cada passo invalida os antigos.
+function MailScreen:ResolveTakeAllTarget()
+    local st = self.takeAllQueue
+    if not st or not st.queue then return nil, nil end
+    if not st.attempts then st.attempts = {} end
+    local raw = self.inboxItems or {}
+    local nq = table.getn(st.queue)
+    local nr = table.getn(raw)
+    for qi = 1, nq do
+        local sig = st.queue[qi]
+        if sig and (tonumber(st.attempts[qi]) or 0) < 2 then
+            for ri = 1, nr do
+                local m = raw[ri]
+                if m and m.sender == sig.sender
+                    and (m.subject or "") == (sig.subject or "")
+                    and ((tonumber(m.money) or 0) > 0 or m.hasItem) then
+                    return m.index, qi
+                end
+            end
+        end
+    end
+    return nil, nil
+end
+
 function MailScreen:TakeAllInbox()
     if not self.isOpen then return end
     if self.currentScreen ~= "INBOX" then return end
@@ -4175,13 +4520,21 @@ function MailScreen:TakeAllInbox()
     end
     local st = self.takeAllQueue
     if st.running then return end
+    -- Leitura fresca antes de montar a fila (Y logo apos abrir o correio).
+    self:ScanInbox()
     local raw = self.inboxItems or {}
     local q = {}
     local n = table.getn(raw)
     for i = 1, n do
         local it = raw[i]
         if it and ((tonumber(it.money) or 0) > 0 or it.hasItem) then
-            table.insert(q, it.index)
+            table.insert(q, {
+                sender = it.sender,
+                subject = it.subject,
+                money = tonumber(it.money) or 0,
+                hasItem = it.hasItem,
+                cod = tonumber(it.cod) or 0,
+            })
         end
     end
     if table.getn(q) == 0 then
@@ -4192,11 +4545,17 @@ function MailScreen:TakeAllInbox()
     end
     st.running = true
     st.queue = q
+    st.attempts = {}
+    local nq = table.getn(q)
+    for i = 1, nq do st.attempts[i] = 0 end
     st.pos = 1
-    st.total = table.getn(q)
+    st.total = nq
+    st.skipped = 0
+    st.lastTick = self:GetMailTime()
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Retirando tudo: " .. st.total .. " carta(s)...")
     end
+    self:EnsureTakeAllWatchdog()
     self:ProcessTakeAllStep()
 end
 
@@ -4207,17 +4566,36 @@ function MailScreen:ProcessTakeAllStep()
         self:StopTakeAll(false)
         return
     end
-    local total = table.getn(st.queue or {})
-    local pos = tonumber(st.pos) or 1
-    if pos > total then
+    if not st.attempts then st.attempts = {} end
+    if table.getn(st.queue or {}) == 0 then
         self:StopTakeAll(true)
         return
     end
-    local idx = st.queue[pos]
-    st.pos = pos + 1
+    -- Resolve o alvo no re-scan fresco; assinatura sem valor = ja consumida
+    -- (drop silencioso); sem alvo = fila esvaziada ou travada (conclui).
+    local idx, qi = self:ResolveTakeAllTarget()
+    if idx == nil then
+        local skipped = 0
+        local nq = table.getn(st.queue)
+        for i = 1, nq do
+            if (tonumber(st.attempts[i]) or 0) >= 2 then
+                skipped = skipped + 1
+            end
+        end
+        st.skipped = (tonumber(st.skipped) or 0) + skipped
+        st.queue = {}
+        st.attempts = {}
+        self:StopTakeAll(true)
+        return
+    end
+    local pos = tonumber(st.pos) or 1
+    local total = tonumber(st.total) or pos
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] Retirando " .. pos .. " de " .. total .. "...")
     end
+    st.pos = pos + 1
+    st.attempts[qi] = (tonumber(st.attempts[qi]) or 0) + 1
+    st.lastTick = self:GetMailTime()
     self:TakeFromIndex(idx, "Retirado")
     self:RequestInboxRefresh()
 end
@@ -4237,13 +4615,19 @@ function MailScreen:StopTakeAll(announce)
     local st = self.takeAllQueue
     if not st then return end
     local was = st.running
+    local skipped = tonumber(st.skipped) or 0
     st.running = false
     st.queue = {}
+    st.attempts = {}
     st.pos = 1
     st.total = 0
+    st.skipped = 0
     if announce and was then
         if CM.logger and CM.logger.Log then
             CM.logger:Log("[MailScreen] Retirada concluida.")
+            if skipped > 0 then
+                CM.logger:Log("[MailScreen] " .. skipped .. " carta(s) ignoradas (bolsa cheia ou COD sem saldo?).")
+            end
         end
         if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     end

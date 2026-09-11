@@ -907,18 +907,7 @@ function CM_Fixed(button)
         end
         
         -- 2. Se houver item ou feitiço preso no cursor, limpa a mão
-    -- M4.1 Mail: X no compor so faz log (tirar item chega na M4.2).
-    -- Na inbox segue o fluxo padrao abaixo (M3 preservada, sem branch).
-    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
-        if ConsoleMode_MailScreen.currentScreen == "COMPOSE" then
-            if ConsoleMode_MailScreen.OnComposeSecondary then
-                ConsoleMode_MailScreen:OnComposeSecondary()
-            end
-            return
-        end
-    end
-
-    if CursorHasItem() or CursorHasSpell() then
+        if CursorHasItem() or CursorHasSpell() then
             ClearCursor()
             return
         end
@@ -1351,6 +1340,20 @@ function CM_CursorSecondary(keystate)
                 ConsoleMode_MerchantMenu:VendorSecondaryAction()
             end
             return
+        end
+        return
+    end
+
+    -- M4.2 Mail: X no compor devolve o item anexado a bolsa (de qualquer
+    -- foco, via MailScreen:OnComposeSecondary, que guarda VK/modais). Acao
+    -- discreta: so no press (este binding tem runOnUp no Bindings.xml).
+    -- Fora do compor, o fluxo abaixo segue inalterado.
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen
+        and ConsoleMode_MailScreen.currentScreen == "COMPOSE" then
+        if keystate ~= "up" then
+            if ConsoleMode_MailScreen.OnComposeSecondary then
+                ConsoleMode_MailScreen:OnComposeSecondary()
+            end
         end
         return
     end

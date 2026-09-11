@@ -5,6 +5,9 @@
 -- FASE VK-3: paginas abc/ABC/123/PT + X=apagar + Y=shift +
 -- A=inserir + B=fechar + L1/R1 troca pagina + Start=OK +
 -- maxLetters + Backspace UTF-8 seguro.
+-- FASE VK-4: suggestRow generica (ate 4, prefixo case-insensitive via
+-- strlower, UP da 1a fileira sobe, A preenche sem fechar, DOWN volta).
+-- VK nunca le nem escreve SavedVariables: so consome a lista do Open.
 -- Navegacao D-Pad estilo MerchantMenu (sem cursor snap).
 -- ============================================================================
 
@@ -46,6 +49,19 @@ VK.pageIdx = VK.pageIdx or 1
 VK.pageText = VK.pageText or nil
 VK.gridButtons = VK.gridButtons or {}
 
+-- Autocomplete generico VK-4: fileira de ate VK_SUGGEST_MAX botoes entre o
+-- preview e a grade. focusZone vale "grid" ou "suggest". suggestList guarda
+-- os matches filtrados (vazia = fileira escondida). suggestIdx e o foco
+-- dentro da fileira (1-based). returnCol guarda a coluna da grade para o
+-- DOWN das sugestoes voltar ao ponto de origem. Invariante: suggestList
+-- nao vazia equivale a fileira visivel (HideSuggestions limpa a lista).
+VK.suggestRow = VK.suggestRow or nil
+VK.suggestButtons = VK.suggestButtons or {}
+VK.suggestList = VK.suggestList or {}
+VK.suggestIdx = VK.suggestIdx or 1
+VK.focusZone = VK.focusZone or "grid"
+VK.returnCol = VK.returnCol or 1
+
 -- Hold-to-repeat (molde MerchantMenu.repeatState + Cursor.repeatState):
 -- kind "DIR" repete OnDirection na direcao segurada (D-Pad);
 -- kind "BACKSPACE" repete Backspace (X). Passo imediato + delay 0.35s +
@@ -67,6 +83,18 @@ local VK_KEY_H = 30
 local VK_GAP = 4
 local VK_GRID_W = 384
 local VK_GRID_H = 132
+
+-- Fileira de sugestoes VK-4: ate 4 botoes lado a lado na largura da grade
+-- (4 vezes 93 mais 3 gaps de 4 = 384). Altura 30 igual as teclas (mesma
+-- identidade: VK_CreateKey, ApplyFont, destaque ouro). Fonte 12 para caber
+-- nome de personagem. Custo vertical: fileira 30 mais gaps 6 e 6 = 42 no
+-- lugar do gap antigo de 10, por isso o frame cresce de 260 para 292 sem
+-- apertar grade, preview nem hints.
+local VK_SUGGEST_MAX = 4
+local VK_SUGGEST_W = 93
+local VK_SUGGEST_H = 30
+local VK_SUGGEST_FONT = 12
+local VK_FRAME_H = 292
 
 -- Teclas largas de acao compartilhadas entre paginas (somente leitura).
 -- APAGAR exibe o glifo X (botao que a aciona); OK/ESPACO mantem texto:
@@ -189,7 +217,7 @@ function VK:CreateUI()
     f:SetFrameStrata("FULLSCREEN_DIALOG")
     f:SetFrameLevel(50)
     f:SetWidth(420)
-    f:SetHeight(260)
+    f:SetHeight(VK_FRAME_H)
     f:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
     f:EnableMouse(true)
     f:SetBackdrop({
@@ -220,10 +248,20 @@ function VK:CreateUI()
     preview:SetText("")
     self.previewText = preview
 
+    -- VK-4: fileira de sugestoes entre o preview e a grade (ancora
+    -- estavel: a grade ancora na fileira, entao esconder a fileira nao
+    -- move nada e nada se sobrepoe; o espaco extra vem do frame maior).
+    local suggest = CreateFrame("Frame", nil, f)
+    suggest:SetWidth(VK_GRID_W)
+    suggest:SetHeight(VK_SUGGEST_H)
+    suggest:SetPoint("TOP", preview, "BOTTOM", 0, -6)
+    suggest:Hide()
+    self.suggestRow = suggest
+
     local grid = CreateFrame("Frame", nil, f)
     grid:SetWidth(VK_GRID_W)
     grid:SetHeight(VK_GRID_H)
-    grid:SetPoint("TOP", preview, "BOTTOM", 0, -10)
+    grid:SetPoint("TOP", suggest, "BOTTOM", 0, -6)
     self.gridArea = grid
 
     local page = f:CreateFontString(nil, "ARTWORK")
@@ -234,6 +272,9 @@ function VK:CreateUI()
     self.pageText = page
 
     self:BuildGrid()
+
+    -- VK-4: botoes da fileira de sugestoes (comecam escondidos).
+    self:BuildSuggestRow()
 
     -- Rodape de hints com glifos reais (molde MerchantMenu:CreateFooterHints
     -- e MainMenu:CreateFooterHints): Texture via SetTexture + verbo em
@@ -347,7 +388,7 @@ local function VK_CreateKey(parent, label, size, r, g, b, iconPath)
         edgeSize = 8,
         insets = { left = 2, right = 2, top = 2, bottom = 2 },
     })
-    btn:SetBackdropColor(0.10, 0.08, 0.06, 0.35)
+    btn:SetBackdropColor(0.10, 0.08, 0.06, 0.80)
     btn:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
 
     local hl = btn:CreateTexture(nil, "BACKGROUND")
@@ -475,6 +516,139 @@ function VK:UpdatePageText()
     end
 end
 
+-- ----------------------------------------------------------------------------
+-- 5b. AUTOCOMPLETE GENERICO VK-4 (so consome a lista do Open)
+-- ----------------------------------------------------------------------------
+-- Constroi os botoes da fileira de sugestoes (mesma identidade das teclas:
+-- VK_CreateKey com backdrop tooltip, alpha 0.80 intacto, ApplyFont e
+-- destaque ouro via RefreshFocus). OnEnter foca, OnClick foca e preenche.
+function VK:BuildSuggestRow()
+    local row = self.suggestRow
+    if not row then
+        return
+    end
+    self.suggestButtons = {}
+    for i = 1, VK_SUGGEST_MAX do
+        local btn = VK_CreateKey(row, "", VK_SUGGEST_FONT, 1, 1, 1, nil)
+        btn:SetWidth(VK_SUGGEST_W)
+        btn:SetHeight(VK_SUGGEST_H)
+        btn:SetPoint("LEFT", row, "LEFT", (i - 1) * (VK_SUGGEST_W + VK_GAP), 0)
+        btn.suggestIdx = i
+        btn:SetScript("OnEnter", function()
+            VK:FocusSuggestion(this.suggestIdx)
+        end)
+        btn:SetScript("OnClick", function()
+            VK:FocusSuggestion(this.suggestIdx)
+            VK:AcceptSuggestion()
+        end)
+        pcall(function() btn:Hide() end)
+        table.insert(self.suggestButtons, btn)
+    end
+    pcall(function() row:Hide() end)
+end
+
+-- Filtra autoCompleteList por PREFIXO do buffer (case-insensitive via
+-- strlower), mostrando ate VK_SUGGEST_MAX. Lista nil ou vazia, buffer sem
+-- match: fileira escondida e comportamento atual intacto. Buffer vazio casa
+-- com tudo (prefixo vazio), entao mostra os primeiros da lista. Sem teto
+-- de lista nesta fase (o teto de 20 e politica do MailScreen na VK-5).
+function VK:UpdateSuggestions()
+    local list = self.autoCompleteList
+    if type(list) ~= "table" or table.getn(list) < 1 then
+        self:HideSuggestions()
+        return
+    end
+    local buf = self.buffer or ""
+    local prefix = strlower(buf)
+    local preLen = strlen(prefix)
+    local matches = {}
+    local n = table.getn(list)
+    for i = 1, n do
+        local cand = list[i]
+        if type(cand) == "string" and cand ~= "" then
+            if strsub(strlower(cand), 1, preLen) == prefix then
+                table.insert(matches, cand)
+                if table.getn(matches) >= VK_SUGGEST_MAX then
+                    break
+                end
+            end
+        end
+    end
+    local m = table.getn(matches)
+    if m < 1 then
+        self:HideSuggestions()
+        return
+    end
+    self.suggestList = matches
+    local sbtns = self.suggestButtons or {}
+    for i = 1, VK_SUGGEST_MAX do
+        local btn = sbtns[i]
+        if btn then
+            if i <= m then
+                local label = matches[i]
+                pcall(function()
+                    btn.labelText:SetText(label)
+                    btn:Show()
+                end)
+            else
+                pcall(function() btn:Hide() end)
+            end
+        end
+    end
+    if self.suggestRow then
+        pcall(function() self.suggestRow:Show() end)
+    end
+    if self.focusZone == "suggest" then
+        if (tonumber(self.suggestIdx) or 1) > m then
+            self.suggestIdx = m
+        end
+        self:RefreshFocus()
+    end
+end
+
+-- Esconde a fileira e limpa os matches. Se o foco estava nas sugestoes,
+-- devolve para a grade (coluna de origem) para nunca strandar o foco.
+function VK:HideSuggestions()
+    self.suggestList = {}
+    if self.suggestRow then
+        pcall(function() self.suggestRow:Hide() end)
+    end
+    local sbtns = self.suggestButtons or {}
+    local ns = table.getn(sbtns)
+    for i = 1, ns do
+        local btn = sbtns[i]
+        if btn then
+            pcall(function() btn:Hide() end)
+        end
+    end
+    if self.focusZone == "suggest" then
+        self.focusZone = "grid"
+        self:FocusCell(1, tonumber(self.returnCol) or tonumber(self.selCol) or 1)
+    end
+end
+
+-- A numa sugestao PREENCHE o buffer com ela (sem fechar) e refiltra em
+-- seguida (a fileira pode esconder se nao houver mais match). O foco volta
+-- para a 1a fileira da grade. Respeita maxLetters: se o nome nao couber,
+-- recusa com som de erro igual ao InsertChar (nunca trunca nome).
+function VK:AcceptSuggestion()
+    local list = self.suggestList or {}
+    local s = list[tonumber(self.suggestIdx) or 1]
+    if type(s) ~= "string" or s == "" then
+        return
+    end
+    if self.maxLetters and strlen(s) > self.maxLetters then
+        VK_Play("igQuestFailed")
+        return
+    end
+    self.buffer = s
+    self:UpdatePreview()
+    VK_Play("igMainMenuOptionCheckBoxOn")
+    self:UpdateSuggestions()
+    self.focusZone = "grid"
+    self:FocusCell(1, tonumber(self.returnCol) or 1)
+end
+
 -- VK-3: troca de pagina com wrap circular (L1/R1).
 function VK:NextPage(delta)
     local n = table.getn(VK_PAGES)
@@ -510,6 +684,8 @@ function VK:ToggleShift()
 end
 
 -- VK-3: Y insere espaco, ou quebra de linha se multiLine.
+-- (Passa por InsertChar, entao a fileira refiltra sozinha: prefixo com
+-- espaco ou quebra em geral nao casa e a fileira esconde.)
 function VK:InsertSpace()
     if self.multiLine then
         self:InsertChar("\n")
@@ -519,8 +695,59 @@ function VK:InsertSpace()
 end
 
 -- ----------------------------------------------------------------------------
--- 5. FOCO + NAVEGACAO (OnDirection 2D com wrap por fileira)
+-- 5. FOCO + NAVEGACAO (OnDirection 2D com wrap por fileira + suggestRow)
 -- ----------------------------------------------------------------------------
+-- Pinta o foco conforme focusZone: na grade, a celula (selRow, selCol);
+-- nas sugestoes, o botao suggestIdx (grade toda apagada). Mesma identidade:
+-- borda ouro mais highlight visivel no foco, resto apagado.
+function VK:RefreshFocus()
+    local inSuggest = (self.focusZone == "suggest")
+    local rows = self.keyCells
+    if rows then
+        local n = table.getn(rows)
+        for ri = 1, n do
+            local row = rows[ri]
+            local m = table.getn(row)
+            for ci = 1, m do
+                local btn = row[ci]
+                if btn then
+                    if (not inSuggest) and ri == self.selRow and ci == self.selCol then
+                        pcall(function()
+                            btn:SetBackdropBorderColor(1, 0.82, 0.2, 0.95)
+                            if btn.highlight then btn.highlight:Show() end
+                        end)
+                    else
+                        pcall(function()
+                            btn:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                            if btn.highlight then btn.highlight:Hide() end
+                        end)
+                    end
+                end
+            end
+        end
+    end
+    local sbtns = self.suggestButtons
+    if sbtns then
+        local ns = table.getn(sbtns)
+        for i = 1, ns do
+            local sbtn = sbtns[i]
+            if sbtn then
+                if inSuggest and i == self.suggestIdx then
+                    pcall(function()
+                        sbtn:SetBackdropBorderColor(1, 0.82, 0.2, 0.95)
+                        if sbtn.highlight then sbtn.highlight:Show() end
+                    end)
+                else
+                    pcall(function()
+                        sbtn:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                        if sbtn.highlight then sbtn.highlight:Hide() end
+                    end)
+                end
+            end
+        end
+    end
+end
+
 function VK:FocusCell(r, c)
     local rows = self.keyCells
     if not rows then
@@ -543,31 +770,55 @@ function VK:FocusCell(r, c)
 
     self.selRow = r
     self.selCol = c
-    for ri = 1, n do
-        local row = rows[ri]
-        local m = table.getn(row)
-        for ci = 1, m do
-            local btn = row[ci]
-            if btn then
-                if ri == r and ci == c then
-                    pcall(function()
-                        btn:SetBackdropBorderColor(1, 0.82, 0.2, 0.95)
-                        if btn.highlight then btn.highlight:Show() end
-                    end)
-                else
-                    pcall(function()
-                        btn:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
-                        if btn.highlight then btn.highlight:Hide() end
-                    end)
-                end
-            end
-        end
+    self.focusZone = "grid"
+    self:RefreshFocus()
+end
+
+-- VK-4: leva o foco para a sugestao i (1-based, com clamp). Sem matches,
+-- recusa (fileira escondida nao recebe foco).
+function VK:FocusSuggestion(i)
+    local m = table.getn(self.suggestList or {})
+    if m < 1 then
+        return
     end
+    i = tonumber(i) or 1
+    if i < 1 then i = 1 end
+    if i > m then i = m end
+    self.suggestIdx = i
+    self.focusZone = "suggest"
+    self:RefreshFocus()
 end
 
 function VK:OnDirection(dir)
     local d = string.upper(dir or "")
     if d ~= "UP" and d ~= "DOWN" and d ~= "LEFT" and d ~= "RIGHT" then
+        return
+    end
+    -- VK-4: dentro das sugestoes, LEFT e RIGHT navegam com wrap, DOWN
+    -- volta para a grade (coluna de origem) e UP fica parado (topo).
+    if self.focusZone == "suggest" then
+        local m = table.getn(self.suggestList or {})
+        if m < 1 then
+            self.focusZone = "grid"
+            self:FocusCell(1, tonumber(self.returnCol) or 1)
+            return
+        end
+        local idx = tonumber(self.suggestIdx) or 1
+        if d == "LEFT" then
+            idx = idx - 1
+            if idx < 1 then idx = m end
+            self:FocusSuggestion(idx)
+            VK_Play("igMainMenuOptionCheckBoxOn")
+        elseif d == "RIGHT" then
+            idx = idx + 1
+            if idx > m then idx = 1 end
+            self:FocusSuggestion(idx)
+            VK_Play("igMainMenuOptionCheckBoxOn")
+        elseif d == "DOWN" then
+            self.focusZone = "grid"
+            self:FocusCell(1, tonumber(self.returnCol) or 1)
+            VK_Play("igMainMenuOptionCheckBoxOn")
+        end
         return
     end
     local rows = self.keyCells
@@ -588,6 +839,21 @@ function VK:OnDirection(dir)
     end
     if c < 1 then c = 1 end
     if c > rowLen then c = rowLen end
+
+    -- VK-4: UP a partir da 1a fileira da grade sobe para as sugestoes
+    -- quando ha matches (guarda a coluna para o DOWN voltar). Sem matches,
+    -- cai no comportamento normal (wrap para a ultima fileira).
+    if d == "UP" and r == 1 then
+        local m = table.getn(self.suggestList or {})
+        if m > 0 then
+            self.returnCol = c
+            local idx = tonumber(self.suggestIdx) or 1
+            if idx < 1 or idx > m then idx = 1 end
+            self:FocusSuggestion(idx)
+            VK_Play("igMainMenuOptionCheckBoxOn")
+            return
+        end
+    end
 
     if d == "LEFT" then
         c = c - 1
@@ -736,6 +1002,7 @@ function VK:InsertChar(ch)
     end
     self.buffer = buf .. ch
     self:UpdatePreview()
+    self:UpdateSuggestions()
     VK_Play("igMainMenuOptionCheckBoxOn")
 end
 
@@ -758,6 +1025,7 @@ function VK:Backspace()
     end
     self.buffer = strsub(buf, 1, cut - 1)
     self:UpdatePreview()
+    self:UpdateSuggestions()
     VK_Play("igMainMenuOptionCheckBoxOn")
 end
 
@@ -792,8 +1060,13 @@ function VK:ActivateFocused()
     end
 end
 
--- A no controle: ativa a tecla em foco (OK em foco = confirma de verdade)
+-- A no controle: na grade ativa a tecla em foco (OK em foco = confirma de
+-- verdade); nas sugestoes preenche o buffer sem fechar (VK-4).
 function VK:Confirm()
+    if self.focusZone == "suggest" then
+        self:AcceptSuggestion()
+        return
+    end
     self:ActivateFocused()
 end
 
@@ -868,16 +1141,26 @@ function VK:Open(config)
     else
         self.multiLine = false
     end
-    self.autoCompleteList = config.autoCompleteList
+    self.autoCompleteList = nil
+    if type(config.autoCompleteList) == "table" then
+        self.autoCompleteList = config.autoCompleteList
+    end
     self.onConfirm = config.onConfirm
     self.onCancel = config.onCancel
     self.targetEditBox = config.targetEditBox
     self.isOpen = true
 
+    -- VK-4: foco sempre comeca na grade; a fileira filtra pelo buffer
+    -- inicial (lista nil ou vazia = escondida, comportamento intacto).
+    self.focusZone = "grid"
+    self.suggestIdx = 1
+    self.returnCol = 1
+
     if self.titleText then
         pcall(function() self.titleText:SetText(self.title) end)
     end
     self:UpdatePreview()
+    self:UpdateSuggestions()
 
     if self.frame then
         self.frame:Show()
@@ -925,6 +1208,7 @@ end
 -- ----------------------------------------------------------------------------
 function VK:Close()
     self:StopAllRepeat()
+    self.focusZone = "grid"
     if self.frame then
         pcall(function() self.frame:Hide() end)
     end

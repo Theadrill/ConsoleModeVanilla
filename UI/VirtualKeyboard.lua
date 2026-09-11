@@ -34,6 +34,7 @@ VK.titleText = VK.titleText or nil
 VK.previewText = VK.previewText or nil
 VK.gridArea = VK.gridArea or nil
 VK.hintText = VK.hintText or nil
+VK.hintContainer = VK.hintContainer or nil
 
 -- Foco VK-2: indice 1-based na matriz keyCells[linha][coluna] (botoes reais)
 VK.keyCells = VK.keyCells or {}
@@ -54,10 +55,51 @@ local VK_GAP = 4
 local VK_GRID_W = 384
 local VK_GRID_H = 132
 
--- Teclas largas de acao compartilhadas entre paginas (somente leitura)
-local VK_EXTRA_BACKSPACE = { label = "APAGAR", op = "backspace", w = 52, textSize = 11, r = 1, g = 0.35, b = 0.3 }
+-- Teclas largas de acao compartilhadas entre paginas (somente leitura).
+-- APAGAR exibe o glifo X (botao que a aciona); OK/ESPACO mantem texto:
+-- nao ha Start.tga nem icones de funcao (apagar/check/espaco) no addon,
+-- e ESPACO nao tem bind direto no gamepad. Larguras `w` inalteradas.
+local VK_EXTRA_BACKSPACE = { label = "APAGAR", op = "backspace", w = 52, textSize = 11, r = 1, g = 0.35, b = 0.3, icon = "X" }
 local VK_EXTRA_OK = { label = "OK", op = "accept", w = 40, textSize = 12, r = 0.2, g = 1, b = 0.2 }
 local VK_EXTRA_SPACE = { label = "ESPACO", op = "space", w = 220, textSize = 11, r = 0.66, g = 0.66, b = 0.66 }
+
+-- Glifos de gamepad disponiveis no addon (inventario real em
+-- Media/Icons/Xbox/: A, B, X, Y, LB, RB, LT, RT, DUP, DDOWN, DLEFT,
+-- DRIGHT, navigate_all_directions). INEXISTENTES: Start, Select e
+-- icones de funcao (seta-apagar, check, espaco).
+local VK_ICON_BASE = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\"
+local VK_ICONS = {
+    A  = VK_ICON_BASE .. "A.tga",
+    B  = VK_ICON_BASE .. "B.tga",
+    X  = VK_ICON_BASE .. "X.tga",
+    Y  = VK_ICON_BASE .. "Y.tga",
+    LB = VK_ICON_BASE .. "LB.tga",
+    RB = VK_ICON_BASE .. "RB.tga",
+}
+
+-- Linha de hints: glifo + verbo em texto. L1=LB e R1=RB (nomenclatura
+-- fisica L1/R1 x textura LB/RB). Start mantido em texto (sem .tga).
+-- Layout compacto: frame 420px, area util ~390px, teto de 380px para a
+-- linha completa (centralizada via container). Valores reduzidos apos
+-- overflow no Steam Deck (glifos face 16->14, LB/RB 22->19, fonte 12->11,
+-- gaps 10->4, pads 4/5/12->2/2/medido). Trava: gap encolhe ate 2 p/ caber.
+local VK_HINT_MAX_W = 380
+local VK_HINT_FONT = 11
+local VK_HINT_ICON = 14
+local VK_HINT_ICON_WIDE = 19
+local VK_HINT_ICON_PAD = 1
+local VK_HINT_TEXT_PAD = 2
+local VK_HINT_SEP_PAD = 2
+local VK_HINT_GAP = 4
+local VK_HINT_GAP_MIN = 2
+local VK_HINTS = {
+    { icons = { "A" },        label = "inserir" },
+    { icons = { "B" },        label = "fechar" },
+    { icons = { "X" },        label = "apagar" },
+    { icons = { "Y" },        label = "maiusc" },
+    { icons = { "LB", "RB" }, label = "pág" },
+    { icons = { },            label = "Start OK" },
+}
 
 -- Paginas VK-3 (cada fileira: teclas op insert + opcional extra de acao)
 local VK_PAGES = {
@@ -180,20 +222,109 @@ function VK:CreateUI()
 
     self:BuildGrid()
 
-    local hints = f:CreateFontString(nil, "ARTWORK")
-    hints:SetPoint("BOTTOM", f, "BOTTOM", 0, 12)
-    hints:SetWidth(390)
-    hints:SetJustifyH("CENTER")
-    VK_ApplyFont(hints, 12)
-    hints:SetText("[A] inserir  [B] fechar  [X] apagar  [Y] maiusc  [L1/R1] pág  [Start] OK")
-    self.hintText = hints
+    -- Rodape de hints com glifos reais (molde MerchantMenu:CreateFooterHints
+    -- e MainMenu:CreateFooterHints): Texture via SetTexture + verbo em
+    -- FontString. Sem escapes |T| inline (sem precedente no repo / 1.12).
+    self:BuildHints(f)
 
     self.frame = f
     return f
 end
 
--- Constroi uma tecla real da grade (molde slots 40x40 MainMenu + QtyModal)
-local function VK_CreateKey(parent, label, size, r, g, b)
+-- Linha de hints com icones do gamepad + verbos em texto (A=inserir,
+-- B=fechar, X=apagar, Y=maiusc, LB+RB=pag, Start=OK em texto).
+-- Titulo, preview e indicador de pagina nao sao tocados aqui.
+function VK:BuildHints(f)
+    local container = CreateFrame("Frame", nil, f)
+    container:SetHeight(18)
+    container:SetPoint("BOTTOM", f, "BOTTOM", 0, 10)
+    self.hintContainer = container
+
+    local totalWidth = 0
+    local contentW = 0
+    local widgets = {}
+
+    local numHints = table.getn(VK_HINTS)
+    for i = 1, numHints do
+        local hint = VK_HINTS[i]
+        local group = CreateFrame("Frame", nil, container)
+        group:SetHeight(18)
+
+        local currentX = 0
+        local numIcons = table.getn(hint.icons)
+        for k = 1, numIcons do
+            local texPath = VK_ICONS[hint.icons[k]]
+            if texPath then
+                local iconTex = group:CreateTexture(nil, "OVERLAY")
+                local iw = VK_HINT_ICON
+                if hint.icons[k] == "LB" or hint.icons[k] == "RB" then
+                    iw = VK_HINT_ICON_WIDE
+                end
+                iconTex:SetWidth(iw)
+                iconTex:SetHeight(VK_HINT_ICON)
+                iconTex:SetTexture(texPath)
+                iconTex:SetPoint("LEFT", group, "LEFT", currentX, 0)
+                currentX = currentX + iw + VK_HINT_ICON_PAD
+            end
+        end
+
+        currentX = currentX + VK_HINT_TEXT_PAD
+
+        local label = group:CreateFontString(nil, "OVERLAY")
+        label:SetPoint("LEFT", group, "LEFT", currentX, 0)
+        VK_ApplyFont(label, VK_HINT_FONT)
+        label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+        label:SetText(hint.label)
+        local textW = math.floor(label:GetStringWidth() or 40)
+        currentX = currentX + textW
+
+        if i < numHints then
+            local sep = group:CreateFontString(nil, "OVERLAY")
+            sep:SetPoint("LEFT", group, "LEFT", currentX + VK_HINT_SEP_PAD, 0)
+            VK_ApplyFont(sep, VK_HINT_FONT)
+            sep:SetText("|cff666666•|r")
+            local sepW = math.floor(sep:GetStringWidth() or 5)
+            currentX = currentX + VK_HINT_SEP_PAD + sepW
+        end
+
+        group:SetWidth(currentX)
+        table.insert(widgets, group)
+        contentW = contentW + currentX
+    end
+
+    -- Trava de seguranca: encolhe o gap entre grupos para caber em
+    -- VK_HINT_MAX_W; nunca deixa o container estourar (centralizado).
+    local gap = VK_HINT_GAP
+    local numGaps = numHints - 1
+    if numGaps > 0 and (contentW + gap * numGaps) > VK_HINT_MAX_W then
+        gap = math.floor((VK_HINT_MAX_W - contentW) / numGaps)
+        if gap < VK_HINT_GAP_MIN then
+            gap = VK_HINT_GAP_MIN
+        end
+    end
+    if numGaps > 0 then
+        totalWidth = contentW + gap * numGaps
+    else
+        totalWidth = contentW
+    end
+    if totalWidth > VK_HINT_MAX_W then
+        totalWidth = VK_HINT_MAX_W
+    end
+
+    container:SetWidth(totalWidth)
+    local curOffset = 0
+    local numWidgets = table.getn(widgets)
+    for w = 1, numWidgets do
+        local widget = widgets[w]
+        widget:SetPoint("LEFT", container, "LEFT", curOffset, 0)
+        curOffset = curOffset + widget:GetWidth() + gap
+    end
+end
+
+-- Constroi uma tecla real da grade (molde slots 40x40 MainMenu + QtyModal).
+-- iconPath opcional: glifo do gamepad que aciona a tecla de acao
+-- (ex.: X no APAGAR). Largura do botao inalterada; o rotulo desloca.
+local function VK_CreateKey(parent, label, size, r, g, b, iconPath)
     local btn = CreateFrame("Button", nil, parent)
     btn:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -215,11 +346,22 @@ local function VK_CreateKey(parent, label, size, r, g, b)
     btn.highlight = hl
 
     local fs = btn:CreateFontString(nil, "OVERLAY")
-    fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
+    local glyph = nil
+    if iconPath then
+        glyph = btn:CreateTexture(nil, "OVERLAY")
+        glyph:SetWidth(14)
+        glyph:SetHeight(14)
+        glyph:SetTexture(iconPath)
+        glyph:SetPoint("LEFT", btn, "LEFT", 3, 0)
+        fs:SetPoint("CENTER", btn, "CENTER", 8, 0)
+    else
+        fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
+    end
     VK_ApplyFont(fs, size)
     fs:SetTextColor(r, g, b)
     fs:SetText(label)
     btn.labelText = fs
+    btn.glyph = glyph
 
     return btn
 end
@@ -259,7 +401,7 @@ function VK:BuildGrid()
             table.insert(cells, { label = ch, op = "insert", char = ch, w = VK_KEY_W, textSize = 15, r = 1, g = 1, b = 1 })
         end
         if def.extra then
-            table.insert(cells, { label = def.extra.label, op = def.extra.op, char = nil,
+            table.insert(cells, { label = def.extra.label, op = def.extra.op, char = nil, icon = def.extra.icon,
                 w = def.extra.w, textSize = def.extra.textSize, r = def.extra.r, g = def.extra.g, b = def.extra.b })
         end
 
@@ -276,7 +418,11 @@ function VK:BuildGrid()
         local y = -((ri - 1) * (VK_KEY_H + VK_GAP))
         for ci = 1, numCells do
             local cd = cells[ci]
-            local btn = VK_CreateKey(grid, cd.label, cd.textSize, cd.r, cd.g, cd.b)
+            local iconPath = nil
+            if cd.icon then
+                iconPath = VK_ICONS[cd.icon]
+            end
+            local btn = VK_CreateKey(grid, cd.label, cd.textSize, cd.r, cd.g, cd.b, iconPath)
             local bw = cd.w
             local bh = VK_KEY_H
             if cd.op == "space" then
@@ -563,15 +709,9 @@ function VK:Accept()
     end
 end
 
--- B no controle: com texto apaga 1 char (passo unico); vazio cancela
-function VK:OnCancel()
-    local buf = self.buffer or ""
-    if strlen(buf) > 0 then
-        self:Backspace()
-        return
-    end
-    self:Close()
-end
+-- (VK:OnCancel removido: sem chamadores. B chama Close() direto via
+-- CM_CursorCancel em Keybindings.lua e Hooks:CloseTopFrame chama Close().
+-- O campo self.onCancel, callback de cancelamento do Open(), segue intacto.)
 
 -- ----------------------------------------------------------------------------
 -- 7. OPEN (valida onConfirm + guarda estado + clampa + Show + foco inicial)

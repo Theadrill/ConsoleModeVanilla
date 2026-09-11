@@ -51,6 +51,15 @@ function HUD:GetSlotForButton(page, btnKey)
         return nil, "Interface\\Icons\\Ability_Rogue_Sprint", "JUMP"
     end
 
+    -- R2 + DPad Up (ALT-7) = autorun: mesmo icone do Jump (Sprint).
+    -- Só quando a tecla física estiver mesmo ligada ao TOGGLEAUTORUN.
+    if page == 4 and btnKey == "DUP" then
+        local physKey = KEY_MAPPINGS[page] and KEY_MAPPINGS[page][btnKey]
+        if physKey and GetBindingAction(physKey) == "TOGGLEAUTORUN" then
+            return nil, "Interface\\Icons\\Ability_Rogue_Sprint", "TOGGLEAUTORUN"
+        end
+    end
+
     local physKey = KEY_MAPPINGS[page] and KEY_MAPPINGS[page][btnKey]
     if not physKey then return nil, nil, nil end
 

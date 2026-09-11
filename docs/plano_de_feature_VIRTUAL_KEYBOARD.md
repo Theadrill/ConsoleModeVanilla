@@ -49,7 +49,7 @@ Qualquer tela chama `Open({ title, initialText, maxLetters, multiLine, autoCompl
 │  [z] [x] [c] [v] [b] [n] [m] [,] [.] [@]                    │
 │  [SHIFT] [ESPAÇO] [APAGAR] [123] [PT-BR] [OK]                │
 ├──────────────────────────────────────────────────────────────┤
-│ [A] inserir • [B] apagar • [X] shift • [Y] espaço            │
+│ [A] inserir • [B] fechar • [X] apagar (hold) • [Y] shift      │
 │ [L1]/[R1] página • [D-Pad] navegar • [Start] confirmar       │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -97,7 +97,7 @@ Regras:
 
 ### 3.4. Layouts de tecla e mapeamento
 - Páginas: `abc` (minúsculas) → `ABC` (maiúsculas) → `123` (números+pontuação) → `PT` (`ã õ ç é ê á à â ó ô í ú`).
-- Fixo: `D-Pad=navega matriz`, `A=insere`, `B=backspace (hold repeat)`, `X=Shift (alterna abc/ABC)`, `Y=espaço (ou \n se multiLine)`, `L1/R1=página`, `Start=onConfirm`.
+- Fixo: `D-Pad=navega matriz (COM hold-repeat)`, `A=insere (passo único)`, `B=fecha (sem repeat)`, `X=apaga (COM hold-repeat)`, `Y=shift abc/ABC (passo único)`, `L1/R1=página`, `Start=onConfirm`.
 - `maxLetters`: `Insert` recusa além do limite + som de erro; `multiLine=false` recusa `\n`.
 - UTF-8 ptBR: contar **bytes** com `strlen/strsub` (Lua 5.0 sem suporte a codepoint); nunca fatiar no meio de multibyte no backspace (remove último byte-sequence válido); fonte `FRIZQT__` sem glifo vira `?` — aceitar e documentar.
 
@@ -140,7 +140,7 @@ Regras:
 
 ### FASE VK-4 — Autocomplete genérico + hold-repeat + fechamento padrão
 **Escopo:**
-- `suggestRow` (até 4): filtra `autoCompleteList` por prefixo do buffer (case-insensitive, `strlower`), `D-Pad UP` da 1ª linha sobe para sugestões, `A` preenche buffer (sem fechar), `D-Pad DOWN` volta. `StartRepeat` com repeat só em `B` (apagar contínuo) e navegação direcional; `CloseTopFrame` topo + `Y` bloqueado? Não — `Y` é espaço. `B` com buffer vazio + sem sugestão = `Close` (cancel).
+- `suggestRow` (até 4): filtra `autoCompleteList` por prefixo do buffer (case-insensitive, `strlower`), `D-Pad UP` da 1ª linha sobe para sugestões, `A` preenche buffer (sem fechar), `D-Pad DOWN` volta. `StartRepeat` com repeat em `X` (apagar contínuo, COM hold-repeat) e navegação direcional (D-Pad, COM hold-repeat); `A`/`Y`/`B` passo único. `CloseTopFrame` topo + `Y` bloqueado? Não — `Y` é shift abc/ABC (passo único). `B` com buffer vazio + sem sugestão = `Close` (cancel).
 **Auditoria:**
 1. `Open({autoCompleteList={"Thrall","Thrallbank","Jaina"}})`, digitar `t` → mostra 2 sugestões; `UP + A` na 1ª → buffer `Thrall`.
 2. Segurar `B` apaga contínuo (0.35s delay, 0.12s intervalo); soltar para.

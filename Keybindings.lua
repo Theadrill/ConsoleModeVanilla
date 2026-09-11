@@ -1067,11 +1067,21 @@ end
 function CM_CursorMove(direction, keystate)
     if CM.keybindings and CM.keybindings.chatActive then return end
 
-    -- VK-2: teclado virtual captura o D-Pad (sem vazar para a tela de tras)
+    -- VK-2: teclado virtual captura o D-Pad (sem vazar para a tela de tras).
+    -- Hold-to-repeat: key down inicia repeat na direcao, key up para
+    -- (molde MerchantMenu/Cursor via VK:StartRepeat/StopRepeat).
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
-        if keystate ~= "up" and vk.OnDirection then
-            vk:OnDirection(direction)
+        if keystate == "up" then
+            if vk.StopRepeat then
+                vk:StopRepeat(direction)
+            end
+        else
+            if vk.StartRepeat then
+                vk:StartRepeat(direction)
+            elseif vk.OnDirection then
+                vk:OnDirection(direction)
+            end
         end
         return
     end
@@ -1222,14 +1232,24 @@ function CM_CursorUse()
     CM.cursor:Click("RightButton")
 end
 
-function CM_CursorSecondary()
+function CM_CursorSecondary(keystate)
     if CM.keybindings.chatActive then return end
 
-    -- VK: X apaga 1 caractere do buffer
+    -- VK: X apaga com hold-to-repeat (down inicia, up para).
+    -- NOTA: o repeat no soltar exige runOnUp="true" + keystate no
+    -- Bindings.xml (CM_CURSOR_SECONDARY); sem isso chega so o down.
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
-        if vk.Backspace then
-            vk:Backspace()
+        if keystate == "up" then
+            if vk.StopRepeat then
+                vk:StopRepeat("BACKSPACE")
+            end
+        else
+            if vk.StartRepeat then
+                vk:StartRepeat("BACKSPACE")
+            elseif vk.Backspace then
+                vk:Backspace()
+            end
         end
         return
     end

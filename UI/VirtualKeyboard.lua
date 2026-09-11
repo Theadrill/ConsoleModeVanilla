@@ -46,6 +46,19 @@ VK.pageIdx = VK.pageIdx or 1
 VK.pageText = VK.pageText or nil
 VK.gridButtons = VK.gridButtons or {}
 
+-- Hold-to-repeat (molde MerchantMenu.repeatState + Cursor.repeatState):
+-- kind "DIR" repete OnDirection na direcao segurada (D-Pad);
+-- kind "BACKSPACE" repete Backspace (X). Passo imediato + delay 0.35s +
+-- intervalo 0.12s via EnsureRepeatTicker (OnUpdate, sem dependencias).
+VK.repeatState = VK.repeatState or {
+    kind = nil,
+    direction = nil,
+    timer = 0,
+    initialDelay = 0.35,
+    interval = 0.12,
+}
+VK.repeatFrame = VK.repeatFrame or nil
+
 -- ----------------------------------------------------------------------------
 -- 2. CONSTANTES VISUAIS VK-2 (molde QtyModal 420 + grade 40x40 MainMenu)
 -- ----------------------------------------------------------------------------
@@ -334,7 +347,7 @@ local function VK_CreateKey(parent, label, size, r, g, b, iconPath)
         edgeSize = 8,
         insets = { left = 2, right = 2, top = 2, bottom = 2 },
     })
-    btn:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+    btn:SetBackdropColor(0.10, 0.08, 0.06, 0.35)
     btn:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
 
     local hl = btn:CreateTexture(nil, "BACKGROUND")
@@ -598,6 +611,102 @@ function VK:OnDirection(dir)
     VK_Play("igMainMenuOptionCheckBoxOn")
 end
 
+-- Hold-to-repeat (molde MerchantMenu:StartRepeat/StopRepeat/
+-- EnsureRepeatTicker + Cursor.repeatState 0.35/0.12): D-Pad repete
+-- OnDirection na direcao segurada; "BACKSPACE" (X) repete Backspace.
+-- Passo imediato + ticker via OnUpdate. Acoes de passo unico
+-- (A/B/Y/L1/R1/Start) NAO passam por aqui: disparam 1x por pressao.
+function VK:StartRepeat(id)
+    if not self:IsOpen() then
+        return
+    end
+    local key = string.upper(id or "")
+    if key == "UP" or key == "DOWN" or key == "LEFT" or key == "RIGHT" then
+        self:OnDirection(key)
+        self.repeatState.kind = "DIR"
+        self.repeatState.direction = key
+        self.repeatState.timer = self.repeatState.initialDelay
+        self:EnsureRepeatTicker()
+    elseif key == "BACKSPACE" then
+        self:Backspace()
+        self.repeatState.kind = "BACKSPACE"
+        self.repeatState.direction = nil
+        self.repeatState.timer = self.repeatState.initialDelay
+        self:EnsureRepeatTicker()
+    end
+end
+
+function VK:StopRepeat(id)
+    if not id then
+        self.repeatState.kind = nil
+        self.repeatState.direction = nil
+        self.repeatState.timer = 0
+        return
+    end
+    local key = string.upper(id)
+    if key == "BACKSPACE" then
+        if self.repeatState.kind == "BACKSPACE" then
+            self.repeatState.kind = nil
+            self.repeatState.timer = 0
+        end
+    elseif self.repeatState.direction == key then
+        self.repeatState.kind = nil
+        self.repeatState.direction = nil
+        self.repeatState.timer = 0
+    end
+end
+
+function VK:StopAllRepeat()
+    self.repeatState.kind = nil
+    self.repeatState.direction = nil
+    self.repeatState.timer = 0
+end
+
+function VK:EnsureRepeatTicker()
+    if self.repeatFrame then
+        return
+    end
+    local f = CreateFrame("Frame", "ConsoleMode_VirtualKeyboardRepeatTicker")
+    f:SetScript("OnUpdate", function()
+        if not VK:IsOpen() then
+            VK.repeatState.kind = nil
+            VK.repeatState.direction = nil
+            VK.repeatState.timer = 0
+            return
+        end
+        local kind = VK.repeatState.kind
+        if kind then
+            local elapsed = arg1 or 0.016
+            VK.repeatState.timer = VK.repeatState.timer - elapsed
+            if VK.repeatState.timer <= 0 then
+                if kind == "DIR" then
+                    local dir = VK.repeatState.direction
+                    if dir then
+                        VK:OnDirection(dir)
+                        VK.repeatState.timer = VK.repeatState.interval
+                    else
+                        VK.repeatState.kind = nil
+                        VK.repeatState.timer = 0
+                    end
+                elseif kind == "BACKSPACE" then
+                    VK:Backspace()
+                    local buf = VK.buffer or ""
+                    if strlen(buf) <= 0 then
+                        VK.repeatState.kind = nil
+                        VK.repeatState.timer = 0
+                    else
+                        VK.repeatState.timer = VK.repeatState.interval
+                    end
+                else
+                    VK.repeatState.kind = nil
+                    VK.repeatState.timer = 0
+                end
+            end
+        end
+    end)
+    self.repeatFrame = f
+end
+
 -- ----------------------------------------------------------------------------
 -- 6. EDICAO (InsertChar com maxLetters + Backspace byte-safe simples)
 -- ----------------------------------------------------------------------------
@@ -693,6 +802,7 @@ function VK:Accept()
     if not self:IsOpen() then
         return
     end
+    self:StopAllRepeat()
     local text = self.buffer or ""
     local cb = self.onConfirm
     self.onCancel = nil
@@ -727,6 +837,9 @@ function VK:Open(config)
     end
 
     self:CreateUI()
+
+    -- Estado de repeat sempre limpo ao abrir (sem heranca de sessao anterior).
+    self:StopAllRepeat()
 
     -- Sempre abre na pagina abc (previsivel para o auditor).
     self.pageIdx = 1
@@ -779,7 +892,7 @@ end
 
 -- Estilo MerchantMenu: sequestra o D-Pad para a grade interna sem usar o
 -- cursor de navegacao (sem MoveTo, sem tocar no global `this`). O
--- CM_CursorMove ja desvia para VK:OnDirection quando IsOpen(); aqui so
+-- CM_CursorMove ja desvia para VK:StartRepeat/StopRepeat quando IsOpen(); aqui so
 -- garantimos que o modo navegacao esteja ativo. FocusCell cuida do
 -- destaque visual da tecla (borda ouro + highlight).
 function VK:SequesterDpad()
@@ -811,6 +924,7 @@ end
 -- 8. CLOSE (Hide + isOpen=false + onCancel pcall)
 -- ----------------------------------------------------------------------------
 function VK:Close()
+    self:StopAllRepeat()
     if self.frame then
         pcall(function() self.frame:Hide() end)
     end

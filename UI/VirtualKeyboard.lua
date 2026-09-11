@@ -97,12 +97,27 @@ local VK_SUGGEST_FONT = 12
 local VK_FRAME_H = 292
 
 -- Teclas largas de acao compartilhadas entre paginas (somente leitura).
--- APAGAR exibe o glifo X (botao que a aciona); OK/ESPACO mantem texto:
--- nao ha Start.tga nem icones de funcao (apagar/check/espaco) no addon,
--- e ESPACO nao tem bind direto no gamepad. Larguras `w` inalteradas.
+-- APAGAR exibe glifo X a esquerda + texto "APAGAR" (o glifo e o botao X
+-- que aciona a tecla). Largura dinamica em BuildGrid: w = 3 + 14 + 4 +
+-- texto + 6 (texto medido via GetStringWidth apos SetText + fonte
+-- aplicada), minimo `w` declarado. OK/ESPACO usam a mesma medicao com
+-- minimo `w` (na pratica seguem nos valores fixos). Orcamento da grade:
+-- 384px; se o APAGAR estourar a fileira 2, as letras dessa fileira
+-- encolhem o minimo necessario (sem tocar as outras fileiras).
 local VK_EXTRA_BACKSPACE = { label = "APAGAR", op = "backspace", w = 52, textSize = 11, r = 1, g = 0.35, b = 0.3, icon = "X" }
 local VK_EXTRA_OK = { label = "OK", op = "accept", w = 40, textSize = 12, r = 0.2, g = 1, b = 0.2 }
 local VK_EXTRA_SPACE = { label = "ESPACO", op = "space", w = 220, textSize = 11, r = 0.66, g = 0.66, b = 0.66 }
+
+-- Geometria do APAGAR dinamico (espelha VK_CreateKey: glifo 14px a 3px da
+-- borda esquerda, gap 4px ate o texto, pad direito 6px) + valvula de
+-- escape (fonte 10) + piso das letras na compensacao de fileira.
+local VK_BS_MARGIN_L = 3
+local VK_BS_GLYPH_W = 14
+local VK_BS_TEXT_GAP = 4
+local VK_BS_PAD_R = 6
+local VK_BS_FONT_FALLBACK = 10
+local VK_EXTRA_PAD_X = 12
+local VK_KEY_W_MIN = 26
 
 -- Glifos de gamepad disponiveis no addon (inventario real em
 -- Media/Icons/Xbox/: A, B, X, Y, LB, RB, LT, RT, DUP, DDOWN, DLEFT,
@@ -203,6 +218,35 @@ local function VK_ApplyFont(fs, size)
         fs:SetShadowOffset(1, -1)
         fs:SetShadowColor(0, 0, 0, 0.9)
     end)
+end
+
+-- Medicao real de texto para os extras largos (Lua 5.0 / 1.12).
+-- Aplica a fonte no tamanho pedido, faz SetText e le GetStringWidth.
+-- Usa um FontString oculto reutilizado (sem tocar em paginas, foco,
+-- hints, autocomplete, hold-repeat, mapa de botoes ou opacidade).
+local VK_measureFS = nil
+local function VK_MeasureTextWidth(label, size)
+    if label == nil or label == "" then
+        return 0
+    end
+    if not UIParent then
+        return 0
+    end
+    if not VK_measureFS then
+        VK_measureFS = UIParent:CreateFontString(nil, "OVERLAY")
+    end
+    local fs = VK_measureFS
+    if not fs then
+        return 0
+    end
+    VK_ApplyFont(fs, size)
+    pcall(function() fs:SetText(label) end)
+    local tw = 0
+    local ok, val = pcall(function() return fs:GetStringWidth() end)
+    if ok and type(val) == "number" then
+        tw = val
+    end
+    return tw
 end
 
 -- ----------------------------------------------------------------------------
@@ -376,8 +420,10 @@ function VK:BuildHints(f)
 end
 
 -- Constroi uma tecla real da grade (molde slots 40x40 MainMenu + QtyModal).
--- iconPath opcional: glifo do gamepad que aciona a tecla de acao
--- (ex.: X no APAGAR). Largura do botao inalterada; o rotulo desloca.
+-- iconPath opcional: glifo do gamepad que aciona a tecla de acao.
+-- APAGAR (icone X + texto) usa glifo a esquerda e rotulo deslocado;
+-- o ramo icone-sem-texto (glifo centralizado) fica para botoes futuros.
+-- Largura do botao vem de BuildGrid (dinamica para os extras).
 local function VK_CreateKey(parent, label, size, r, g, b, iconPath)
     local btn = CreateFrame("Button", nil, parent)
     btn:SetBackdrop({
@@ -406,8 +452,13 @@ local function VK_CreateKey(parent, label, size, r, g, b, iconPath)
         glyph:SetWidth(14)
         glyph:SetHeight(14)
         glyph:SetTexture(iconPath)
-        glyph:SetPoint("LEFT", btn, "LEFT", 3, 0)
-        fs:SetPoint("CENTER", btn, "CENTER", 8, 0)
+        if label == nil or label == "" then
+            glyph:SetPoint("CENTER", btn, "CENTER", 0, 0)
+            fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
+        else
+            glyph:SetPoint("LEFT", btn, "LEFT", 3, 0)
+            fs:SetPoint("CENTER", btn, "CENTER", 8, 0)
+        end
     else
         fs:SetPoint("CENTER", btn, "CENTER", 0, 0)
     end
@@ -459,6 +510,31 @@ function VK:BuildGrid()
                 w = def.extra.w, textSize = def.extra.textSize, r = def.extra.r, g = def.extra.g, b = def.extra.b })
         end
 
+        -- Largura dinamica dos extras: mede o texto real (SetText + fonte
+        -- aplicada via VK_MeasureTextWidth) e soma o cromo do botao.
+        -- APAGAR (com icone): 3 + 14 + 4 + texto + 6, minimo `w`.
+        -- OK/ESPACO (sem icone): texto + 12, minimo `w` (seguem fixos).
+        local numCellsPre = table.getn(cells)
+        for ci = 1, numCellsPre do
+            local cdpre = cells[ci]
+            if cdpre.op == "backspace" or cdpre.op == "accept" or cdpre.op == "space" then
+                local twpre = math.floor(VK_MeasureTextWidth(cdpre.label, cdpre.textSize) or 0)
+                if cdpre.op == "backspace" and cdpre.icon then
+                    local dynw = VK_BS_MARGIN_L + VK_BS_GLYPH_W + VK_BS_TEXT_GAP + twpre + VK_BS_PAD_R
+                    if dynw < cdpre.w then
+                        dynw = cdpre.w
+                    end
+                    cdpre.w = dynw
+                else
+                    local dynw2 = twpre + VK_EXTRA_PAD_X
+                    if dynw2 < cdpre.w then
+                        dynw2 = cdpre.w
+                    end
+                    cdpre.w = dynw2
+                end
+            end
+        end
+
         local rowW = 0
         local numCells = table.getn(cells)
         for ci = 1, numCells do
@@ -466,6 +542,85 @@ function VK:BuildGrid()
         end
         if numCells > 1 then
             rowW = rowW + ((numCells - 1) * VK_GAP)
+        end
+
+        -- Orcamento 384px: se a fileira com APAGAR estourar, encolhe SO as
+        -- letras dessa fileira (uniforme, piso VK_KEY_W_MIN, so o
+        -- necessario; outras fileiras e alinhamento intactos). Valvula de
+        -- escape: remede o APAGAR em 10px e repete o ajuste.
+        if rowW > VK_GRID_W then
+            local hasBS = false
+            local nLetters = 0
+            for ci = 1, numCells do
+                if cells[ci].op == "backspace" then
+                    hasBS = true
+                end
+                if cells[ci].op == "insert" then
+                    nLetters = nLetters + 1
+                end
+            end
+            if hasBS and nLetters > 0 then
+                local over = rowW - VK_GRID_W
+                local per = math.floor((over + nLetters - 1) / nLetters)
+                local newW = VK_KEY_W - per
+                if newW < VK_KEY_W_MIN then
+                    newW = VK_KEY_W_MIN
+                end
+                if newW < VK_KEY_W then
+                    for ci = 1, numCells do
+                        if cells[ci].op == "insert" then
+                            cells[ci].w = newW
+                        end
+                    end
+                    rowW = 0
+                    for ci = 1, numCells do
+                        rowW = rowW + cells[ci].w
+                    end
+                    if numCells > 1 then
+                        rowW = rowW + ((numCells - 1) * VK_GAP)
+                    end
+                end
+                if rowW > VK_GRID_W then
+                    for ci = 1, numCells do
+                        if cells[ci].op == "backspace" then
+                            cells[ci].textSize = VK_BS_FONT_FALLBACK
+                            local twfb = math.floor(VK_MeasureTextWidth(cells[ci].label, VK_BS_FONT_FALLBACK) or 0)
+                            local dynfb = VK_BS_MARGIN_L + VK_BS_GLYPH_W + VK_BS_TEXT_GAP + twfb + VK_BS_PAD_R
+                            if dynfb < VK_EXTRA_BACKSPACE.w then
+                                dynfb = VK_EXTRA_BACKSPACE.w
+                            end
+                            cells[ci].w = dynfb
+                        end
+                    end
+                    rowW = 0
+                    for ci = 1, numCells do
+                        rowW = rowW + cells[ci].w
+                    end
+                    if numCells > 1 then
+                        rowW = rowW + ((numCells - 1) * VK_GAP)
+                    end
+                    if rowW > VK_GRID_W then
+                        local over2 = rowW - VK_GRID_W
+                        local per2 = math.floor((over2 + nLetters - 1) / nLetters)
+                        local newW2 = VK_KEY_W - per2
+                        if newW2 < VK_KEY_W_MIN then
+                            newW2 = VK_KEY_W_MIN
+                        end
+                        for ci = 1, numCells do
+                            if cells[ci].op == "insert" then
+                                cells[ci].w = newW2
+                            end
+                        end
+                        rowW = 0
+                        for ci = 1, numCells do
+                            rowW = rowW + cells[ci].w
+                        end
+                        if numCells > 1 then
+                            rowW = rowW + ((numCells - 1) * VK_GAP)
+                        end
+                    end
+                end
+            end
         end
 
         local x = (VK_GRID_W - rowW) / 2

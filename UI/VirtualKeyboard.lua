@@ -2,8 +2,9 @@
 -- ConsoleModeVanilla - UI/VirtualKeyboard.lua
 -- Teclado Virtual desacoplado (servico sob demanda, sem eventos)
 -- Compativel com WoW Vanilla 1.12.1 / Lua 5.0 (Turtle WoW)
--- FASE VK-3: paginas abc/ABC/123/PT + X=shift + Y=espaco/nova-linha +
--- L1/R1 troca pagina + maxLetters + Backspace UTF-8 seguro.
+-- FASE VK-3: paginas abc/ABC/123/PT + X=apagar + Y=shift +
+-- A=inserir + B=fechar + L1/R1 troca pagina + Start=OK +
+-- maxLetters + Backspace UTF-8 seguro.
 -- Navegacao D-Pad estilo MerchantMenu (sem cursor snap).
 -- ============================================================================
 
@@ -184,7 +185,7 @@ function VK:CreateUI()
     hints:SetWidth(390)
     hints:SetJustifyH("CENTER")
     VK_ApplyFont(hints, 12)
-    hints:SetText("[A] inserir  [B] apagar  [X] maiusc  [Y] espaço  [L1/R1] pág  [Start] OK")
+    hints:SetText("[A] inserir  [B] fechar  [X] apagar  [Y] maiusc  [L1/R1] pág  [Start] OK")
     self.hintText = hints
 
     self.frame = f

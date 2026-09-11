@@ -394,6 +394,16 @@ modFrame:SetScript("OnUpdate", function()
         end
     end
 
+    -- VK: R1 (CTRL puro) = proxima pagina do teclado virtual
+    if vkOpen and not (KB and KB.chatActive) then
+        if ctrlNow and not wasCtrlDown then
+            local vk2 = ConsoleMode and ConsoleMode.VirtualKeyboard
+            if vk2 and vk2.NextPage then
+                pcall(function() vk2:NextPage(1) end)
+            end
+        end
+    end
+
     wasCtrlDown = ctrlNow
     wasShiftDown = shiftNow
     wasAltDown = altNow
@@ -1161,11 +1171,11 @@ end
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
 
-    -- VK-3: Y insere espaco (ou quebra de linha se multiLine)
+    -- VK: Y cicla maiusculas (shift abc/ABC)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
-        if vk.InsertSpace then
-            vk:InsertSpace()
+        if vk.ToggleShift then
+            vk:ToggleShift()
         end
         return
     end
@@ -1215,11 +1225,11 @@ end
 function CM_CursorSecondary()
     if CM.keybindings.chatActive then return end
 
-    -- VK-3: X alterna maiusculas (shift abc/ABC)
+    -- VK: X apaga 1 caractere do buffer
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
-        if vk.ToggleShift then
-            vk:ToggleShift()
+        if vk.Backspace then
+            vk:Backspace()
         end
         return
     end
@@ -1275,11 +1285,11 @@ end
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
 
-    -- VK-2: B apaga 1 char; com buffer vazio fecha (cancela)
+    -- VK: B so fecha (descarta via onCancel)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
-        if vk.OnCancel then
-            vk:OnCancel()
+        if vk.Close then
+            vk:Close()
         end
         return
     end
@@ -1449,6 +1459,17 @@ end
 
 function CM_SmartTab()
     if CM.keybindings and CM.keybindings.chatActive then return end
+
+    -- VK: L1 (TAB puro) = pagina anterior do teclado virtual
+    do
+        local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+        if vk and vk.IsOpen and vk:IsOpen() then
+            if vk.NextPage then
+                vk:NextPage(-1)
+            end
+            return
+        end
+    end
     
     -- 1. Se estiver no modo de navegação com janelas abertas: Aba Anterior (L1)
     if (CM.keybindings and CM.keybindings.navigationMode) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) then

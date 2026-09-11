@@ -442,7 +442,7 @@ function VK:Accept()
         pcall(function() self.frame:Hide() end)
     end
     self.isOpen = false
-    self:ReleaseNavigation()
+    self:RestoreDpad()
     VK_Play("igMainMenuOptionCheckBoxOn")
     VK_Log("[VirtualKeyboard] Confirmado: " .. text)
     if type(cb) == "function" then
@@ -513,72 +513,38 @@ function VK:Open(config)
         self.frame:Show()
     end
     self:FocusCell(1, 1)
-    self:CaptureNavigation()
+    self:SequesterDpad()
     VK_Play("igMainMenuOpen")
 
     VK_Log("[VirtualKeyboard] Aberto: " .. self.title)
     return true
 end
 
--- Garante que o D-Pad/A/B cheguem ao teclado: ativa o modo navegacao
--- (D-Pad = CM_CURSOR_*, A = confirm, B = cancel) e move o cursor para
--- a primeira tecla. Sem isso o D-Pad continua no jogo e nada navega.
-function VK:CaptureNavigation()
+-- Estilo MerchantMenu: sequestra o D-Pad para a grade interna sem usar o
+-- cursor de navegacao (sem MoveTo, sem tocar no global `this`). O
+-- CM_CursorMove ja desvia para VK:OnDirection quando IsOpen(); aqui so
+-- garantimos que o modo navegacao esteja ativo. FocusCell cuida do
+-- destaque visual da tecla (borda ouro + highlight).
+function VK:SequesterDpad()
     local kb = ConsoleMode and ConsoleMode.keybindings
-    if kb then
-        if not kb.navigationMode then
-            if kb.EnterNavigationMode then
-                pcall(function() kb:EnterNavigationMode() end)
-            end
-        else
-            if kb.ReapplyNavigationBindings then
-                pcall(function() kb:ReapplyNavigationBindings() end)
-            end
+    if not kb then
+        return
+    end
+    if not kb.navigationMode then
+        if kb.EnterNavigationMode then
+            pcall(function() kb:EnterNavigationMode() end)
+        end
+    else
+        if kb.ReapplyNavigationBindings then
+            pcall(function() kb:ReapplyNavigationBindings() end)
         end
     end
-    local cur = CM.cursor or (ConsoleMode and ConsoleMode.cursor)
-    if cur and cur.Enable then
-        pcall(function() cur:Enable() end)
-    end
-    local first = nil
-    if self.keyCells and self.keyCells[1] then
-        first = self.keyCells[1][1]
-    end
-    if first then
-        self:SafeMoveTo(first)
-    elseif cur and cur.UpdateState then
-        pcall(function() cur:UpdateState() end)
-    end
 end
 
--- Cursor:MoveTo suja o global `this` (1.12 nao tem handler implicito e o
--- MoveTo faz `this = button` sem restaurar). Se o VK foi aberto via chat
--- (/script), o `this` da ChatEdit e corrompido e o retorno ao
--- ChatEdit_OnEnterPressed quebra (ChatFrame.lua:2037). Salva/restaura.
-function VK:SafeMoveTo(btn)
-    if not btn then
-        return false, "no-button"
-    end
-    local cur = CM.cursor or (ConsoleMode and ConsoleMode.cursor)
-    if not (cur and cur.MoveTo) then
-        return false, "no-cursor"
-    end
-    local savedThis = this
-    local ok, err = pcall(function() cur:MoveTo(btn) end)
-    this = savedThis
-    return ok, err
-end
-
--- Ao fechar, devolve o cursor/navegacao: se outra UI Console segue aberta
--- (Mail/Merchant/MainMenu) so ressincroniza; senao sai do modo navegacao
--- (ExitNavigationMode sem force ja recusa sair nesses casos).
-function VK:ReleaseNavigation()
-    local cur = CM.cursor or (ConsoleMode and ConsoleMode.cursor)
-    if cur and cur.Resync then
-        local savedThis = this
-        pcall(function() cur:Resync() end)
-        this = savedThis
-    end
+-- Devolve o D-Pad ao normal: ExitNavigationMode sem force recusa sair
+-- sozinho se Mail/Merchant/MainMenu seguem abertos; senao restaura os
+-- binds do jogo. Sem tocar no cursor.
+function VK:RestoreDpad()
     if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.ExitNavigationMode then
         pcall(function() ConsoleMode.keybindings:ExitNavigationMode() end)
     end
@@ -601,7 +567,7 @@ function VK:Close()
         pcall(cb)
     end
 
-    self:ReleaseNavigation()
+    self:RestoreDpad()
     VK_Play("igMainMenuClose")
     VK_Log("[VirtualKeyboard] Fechado.")
 end

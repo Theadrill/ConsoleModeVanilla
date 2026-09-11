@@ -25,41 +25,45 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
 
 ## 3. Arquitetura de UI e UX para Console
 
-### 3.1 Layout Split-View (Baseado no MerchantMenu)
-- **Container Principal:** Janela 9-Slice (`Carved_9Slides.tga`) com Dimmer escurecido no fundo, dimensões responsivas (`94% x 85%`).
-- **Coluna Esquerda (INBOX):** Lista paginada com 7 linhas por página, exibindo ícone do anexo/carta, remetente, assunto, dias restantes e badges (não lida, dinheiro, COD).
-- **Coluna Direita (COMPOSIÇÃO / INVENTÁRIO):**
-  - Sub-aba **INVENTÁRIO:** Lista de itens das bolsas para escolha de anexo (reaproveitando `ParseBagItem` e categorias).
-  - Sub-aba **COMPOR:** Painel com campos selecionáveis:
-    1. `Para:` (Destinatário + Autocomplete de Alts/Histórico)
-    2. `Assunto:` (Auto-preenche com nome do anexo se vazio)
-    3. `Mensagem:` (Abre Teclado Virtual para corpo do texto)
-    4. `Dinheiro:` (Abre seletor numérico estilo alarme de celular)
-    5. `Botão Enviar:` (Com custo de postagem e validação de saldo)
-- **Painel de Detalhes Superior/Inferior:** Exibe conteúdo da carta selecionada ou tooltip rico do item anexado.
-- **Footer de Atalhos (Controle):**
-  - `[A]` Confirmar / Abrir / Enviar
-  - `[X]` Teclado / Digitar / Anexar Item
-  - `[Y]` Retirar Tudo / Excluir
-  - `[B]` Voltar / Fechar
-  - `[LB] / [RB]` Alternar Colunas
-  - `[LT] / [RT]` Alternar Filtros / Sub-abas
-  - `[D-Pad]` Navegar e Ajustar Valores
+### 3.1 Arquitetura de Telas (duas telas, troca por LB/RB)
+- **Duas telas em janela única:** INBOX (default ao abrir) ↔ COMPOR. Troca: **RB vai p/ nova mensagem, LB volta p/ caixa**, nas duas telas.
+- **Indicador de aba centralizado** abaixo do título `|cffe09a15CORREIO|r`: mostra o destino + o botão (`NOVA MENSAGEM [ícone RB]` na inbox; `[ícone LB] CAIXA DE MENSAGENS` no compor).
+- **Tela INBOX:**
+  - Esquerda = lista como está (7 linhas, filtros, paginação).
+  - Direita = detalhe FULL da carta selecionada (remetente, assunto, expiração, dinheiro/COD, anexo, corpo do texto) + **3 botões-textura em UMA linha**: `RETIRAR`, `DEVOLVER`, `APAGAR` (estilo do botão Sair do header: backdrop + ícone, sem texto puro representando botão).
+- **Tela COMPOR:**
+  - Esquerda = NOVA CARTA com 5 áreas + envio: `Para`, `Assunto`, `Mensagem`, `Dinheiro`, `Itens` (slots automáticos, navegáveis) e botão **ENVIAR centralizado embaixo** com custo de postagem (`ENVIAR (postagem 30c)`).
+  - Direita = INVENTÁRIO em grade estilo MainMenu (navegação por células com borda, igual ao VK; A adiciona o item à carta, Y abre janela de quantidade, X sobre item anexado o devolve à bolsa).
+  - Item anexado = slot com **fundo/borda vermelhos** no inventário (+ badge "NA CARTA"); **X remove da carta de onde quer que o foco esteja**, sem precisar navegar até a área de itens.
+- **Modais (FULLSCREEN_DIALOG/50):** Quantidade (Y no inventário do compor), Dinheiro (reels, §4.1), confirmação de APAGAR com anexo/valores, VK (§4.2).
+- **Mapas de footer por tela:**
+  - Inbox: `D-Pad Navegar • A Entrar no detalhe • Y Retirar tudo • LT/RT Filtros • RB Nova mensagem • B Voltar/Fechar`
+  - Compor: `D-Pad Navegar • A Adicionar/Confirmar • X Tirar item • Y Quantidade • LT/RT Pular metade • LB Caixa • B Voltar/Fechar`
+
+### 3.2 Regras de Navegação e Input (valem nas duas telas)
+- **D-Pad espacial:** move o foco na direção apertada; se houver área navegável vizinha, o foco **atravessa** (lista ↔ botões do detalhe; campos ↔ inventário); borda sem vizinho = **fica parado**. Sem wrap, sem tecla especial de travessia.
+- **A na linha do inbox** = foco entra no detalhe (vai p/ RETIRAR); D-Pad ←/→ percorre os 3 botões; **B com foco no detalhe = volta p/ lista** (não fecha a janela).
+- **B fecha só o topo da pilha:** VK/modal/detalhe primeiro; a janela do MAIL por último. ESC = B. (`CloseTopFrame` com o VK no topo da ordem.)
+- **Y contextual:** inbox sem modal/VK aberto = retirar tudo de todas as cartas (fila serializada, imprescindível); compor = janela de quantidade; com VK/modal aberto = Y pertence a eles (no VK, Y = shift).
+- **LT/RT:** inbox = ciclar filtros; compor = salto p/ o **primeiro elemento da próxima (RT) / anterior (LT) metade** (topo dos campos / slot 1 do inventário).
+- **Mouse + teclado físico:** clique direto em tudo; todo campo tem EditBox focável (Para/Assunto/Mensagem/Dinheiro, inclusive valor do dinheiro) — o modal/VK é só o caminho do gamepad.
 
 ---
 
 ## 4. Componentes Especiais
 
-### 4.1 Seletor de Dinheiro Estilo "Alarme de Celular" (Reels/Rolos)
-- **Conceito Visual:** Três colunas verticais independentes: `[ Ouro ] [ Prata ] [ Cobre ]`.
+### 4.1 Seletor de Dinheiro Estilo "Alarme de Celular" (Reels por Dígito)
+- **Conceito Visual:** cada moeda vira reels de 0–9 com wrap (9+1 volta a 0): **Ouro = 4 dígitos (até 9999g), Prata = 2, Cobre = 2**. Igual ao alarme do celular: gira-se cada caractere até construir o valor.
 - **Navegação:**
-  - `D-Pad LEFT / RIGHT:` Seleciona a casa/coluna ativa.
-  - `D-Pad UP / DOWN:` Gira o número para cima/baixo (com wrap circular `0-9` e carry opcional).
-  - `Hold-to-Repeat:` Rolagem contínua suave (`0.35s` delay inicial, `0.12s` intervalo).
-- **Validação:** Exibe saldo disponível, taxa de postagem calculada em tempo real (`GetSendMailPrice()`) e impede envio de valores superiores ao dinheiro do jogador.
+  - `D-Pad LEFT / RIGHT:` Seleciona o dígito ativo.
+  - `D-Pad UP / DOWN:` Gira o dígito (com wrap circular `0-9`).
+  - `Hold-to-Repeat:` Segurar gira contínuo (`0.35s` delay inicial, `0.12s` intervalo — mesmos números do VK).
+  - `A` Confirma, `B` cancela (fecha só o modal, §3.2).
+- **Digitação física:** o campo Dinheiro tem EditBox focável (mouse clica e digita o valor) — o modal de reels é só o caminho do gamepad.
+- **Validação:** Exibe saldo disponível, taxa de postagem calculada em tempo real (`GetSendMailPrice()`) e impede valores superiores ao dinheiro do jogador.
 
 ### 4.2 Teclado Virtual Desacoplado para Console (`UI/VirtualKeyboard.lua`)
-> NOTA: implementação a cargo de outro agente (`docs/plano_de_feature_VIRTUAL_KEYBOARD.md`), validada até VK-4 (main `b62a58e`). A MailScreen consome o contrato congelado abaixo; se o teclado estiver ausente, o campo foca seu EditBox para digitação no teclado físico.
+> NOTA: componente pronto e validado até VK-4 (main `b62a58e`; plano `docs/plano_de_feature_VIRTUAL_KEYBOARD.md`). A MailScreen consome o contrato congelado abaixo; se o teclado estiver ausente, o campo foca seu EditBox para digitação no teclado físico.
 > Contrato congelado do VK (não mexer sem motivo): `ConsoleMode.VirtualKeyboard:Open({title, initialText, maxLetters, multiLine, autoCompleteList, onConfirm*, onCancel, targetEditBox})`, `Close()` (fecha e dispara `onCancel`/descarta), `IsOpen()`. `onConfirm` é obrigatório. Mapa vigente: A insere, B fecha, X apaga (hold), Y shift, D-Pad navega (hold), L1/R1 páginas, Start OK. Autocomplete: fileira de até 4, prefixo case-insensitive, UP sobe / A preenche / DOWN volta. O VK **nunca lê/escreve SavedVariables** — histórico e política (move-para-frente, sem duplicata, teto 20) são do MailScreen, em SV separada `ConsoleModeMailHistory` (+1 nome na linha `SavedVariables` do `.toc`; `ConsoleModeDB` segue só com alts).
 - **Arquitetura Modular / Standalone:** O Teclado Virtual é projetado como um módulo de serviço independente (`ConsoleMode.VirtualKeyboard`), podendo ser invocado por qualquer tela ou componente do addon (Mail, Chat, Busca de Bags, Macros, Configurações, etc.).
 - **API Pública do Teclado:**
@@ -94,7 +98,8 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
 
 ---
 
-## 5. Fases de Implementação
+## 5. Fases de Implementação (plano original — SUPERSEDEDO pelo §7)
+> NOTA: as Fases 1–5 abaixo foram o plano original; o plano vigente é o §7 (M1–M5, espelho do mercador + nova arquitetura de telas do §3).
 
 ### Fase 1: Infraestrutura Básica e Leitura do Inbox
 - Criação de `UI/MailScreen.lua` (componente desacoplado; era `UI/MailMenu.lua`, renomeado) e registro no `.toc` e `Core.lua`.
@@ -129,9 +134,9 @@ Criar uma interface moderna, nativa para controle/gamepad, que substitua o `Mail
 ## 6. Arquivos Impactados
 - **Novos:**
   - `UI/MailScreen.lua` (componente desacoplado da tela de correio; `ConsoleMode_MailScreen` / `CM.mailScreen`)
-  - `UI/VirtualKeyboard.lua` — DESENVOLVIDO POR OUTRO AGENTE (`docs/plano_de_feature_VIRTUAL_KEYBOARD.md`); a MailScreen consome via contrato, não implementa.
+  - `UI/VirtualKeyboard.lua` — componente pronto, consumido via contrato congelado (plano `docs/plano_de_feature_VIRTUAL_KEYBOARD.md`); a MailScreen consome, não implementa.
 - **Modificados:**
-  - `ConsoleModeVanilla.toc` (inclusão dos novos arquivos)
+  - `ConsoleModeVanilla.toc` (inclusão dos novos arquivos + `ConsoleModeMailHistory` na linha `SavedVariables`)
   - `Core.lua` (inicialização do módulo de Mail)
   - `Keybindings.lua` (redirecionamento de inputs do D-Pad/ações quando `MailScreen` estiver aberto)
   - `Hooks.lua` (interceptação de `MAIL_SHOW`, `MailFrame` e prioridade em `CloseTopFrame`)
@@ -153,13 +158,20 @@ Construção do mercador (referência): Fase 1 detecção+supressão → Fase 2 
 - Validação: navegar só no gamepad, trocar filtro, paginar.
 
 ### Fase M3: Lógica dos botões do inbox
-- A abrir/ler, X secundário, Y retirar tudo (fila serializada por `MAIL_INBOX_UPDATE`), excluir/devolver com modal `FULLSCREEN_DIALOG/50`, `CloseTopFrame` + guards `Keybindings`/`Cursor`.
+- Detalhe FULL à direita (M2) + linha única de botões-textura `RETIRAR | DEVOLVER | APAGAR`.
+- A sobre a linha entra no detalhe (foco em RETIRAR); B volta o foco p/ lista; `CloseTopFrame` + pilha de B (§3.2) + guards `Keybindings`/`Cursor`.
+- RETIRAR pega tudo da carta (dinheiro + item), com log por carta; **Y na inbox = retirar tudo de todas as cartas em fila serializada por `MAIL_INBOX_UPDATE`**; DEVOLVER devolve ao remetente; APAGAR exclui (com modal de confirmação se houver anexo/valores não retirados).
 - Validação: char com cartas (dinheiro+item+lixo); logs por carta; sem perda.
 
-### Fase M4: Janela de enviar mensagem (inclui VK-5: MailScreen consome o VirtualKeyboard)
-- Aba Compor (`Para`/`Assunto`/`Mensagem`/`Dinheiro`/anexo), validação saldo+postagem, `SendMail` serializado.
+### Fase M4: Tela de enviar mensagem (inclui VK-5: MailScreen consome o VirtualKeyboard)
+- Tela COMPOR (§3.1): esquerda NOVA CARTA (`Para`/`Assunto`/`Mensagem`/`Dinheiro`/`Itens` + ENVIAR centralizado embaixo com postagem); direita INVENTÁRIO em grade estilo MainMenu; navegação espacial + LT/RT salto de metade (§3.2).
+- Inventário: A adiciona o item à carta; **Y abre modal de quantidade** (D-Pad ↑↓ ajusta, teto = tamanho da pilha, A confirma, B cancela, mouse digita); **X sobre item anexado o devolve à bolsa** de onde estiver o foco; slot anexado com fundo/borda vermelhos + badge.
+- **Fila multi-item (1.12 = 1 anexo por carta):** o usuário põe quantos itens quiser; o sistema envia cada item numa carta nova, copiando assunto+texto; o **dinheiro vai só na 1ª carta**; validação soma N× postagem antes de começar; log `Enviando X de N...`; fila serializada por eventos.
+- Assunto auto-preenche com o nome do 1º item adicionado (se vazio).
 - Chamadas VK (contrato congelado §4.2): `Para` → `Open({title="Destinatário", maxLetters=64, autoCompleteList=alts+histórico})`, `onConfirm` salva `composeTo` + atualiza histórico; `Assunto` → `Open({title="Assunto", initialText=nomeAnexo ou "", maxLetters=64})`; `Mensagem` → `Open({title="Mensagem", maxLetters=2000, multiLine=true})` (preserva `\n` e ç/ã).
-- Se VK ausente, **foca o EditBox do campo para digitação no teclado físico** (fallback aprovado), com guarda anti-conflito D-Pad×digitação; Esc/`CloseTopFrame` fecha o VK sem confirmar; teclado físico continua funcionando.
+- Dinheiro via modal de reels (§4.1); EditBox focável como fallback físico.
+- Pós-envio: limpa todos os campos, permanece na tela de nova carta, log `Carta enviada.`.
+- COD: **TODO futuro** (sem UI/código agora).
 - Auditoria VK-5: Para com prefixo → sugere alt → confirma → campo mostra nome; multilinha com acentos preservada; confirmar Para 2x → reabrir mostra o último no topo; `/reload` preserva; abrir VK 3x seguidas alternando confirmar/cancelar sem erro Lua.
 
 ### Fase M5: Polimento

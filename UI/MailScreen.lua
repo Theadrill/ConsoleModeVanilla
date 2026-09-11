@@ -37,7 +37,8 @@ MailScreen.isOpen      = false
 MailScreen.initialized = false
 
 -- M2: coluna com foco ("INBOX" esquerda / "DETAIL" direita) + hold-to-repeat
--- do D-Pad (molde MerchantMenu.repeatState; so UP/DOWN repete).
+-- do D-Pad (molde MerchantMenu.repeatState; UP/DOWN em tudo, LEFT/RIGHT so
+-- na grade do inventario).
 MailScreen.activeColumn = MailScreen.activeColumn or "INBOX"
 MailScreen.repeatState  = MailScreen.repeatState or {
     direction = nil,
@@ -751,7 +752,8 @@ function MailScreen:UpdateFooterVisibility()
 end
 
 -- M4.1: indicador de aba centralizado sob o titulo CORREIO (§3.1):
--- "NOVA MENSAGEM [RB]" na inbox / "[LB] CAIXA DE MENSAGENS" no compor.
+-- "[LB] CAIXA DE ENTRADA [RB]" na inbox / "[LB] NOVA CARTA [RB]" no compor
+-- (icones = textura).
 function MailScreen:CreateTabIndicator(parent)
     if self.tabIndicator then return self.tabIndicator end
     local bar = CreateFrame("Frame", "ConsoleMode_MailTabIndicator", parent)
@@ -759,38 +761,33 @@ function MailScreen:CreateTabIndicator(parent)
     bar:SetWidth(420)
     bar:SetPoint("TOP", parent, "TOP", 0, -40)
 
-    -- Grupo INBOX: texto a esquerda, icone RB a direita.
-    local gIn = CreateFrame("Frame", nil, bar)
-    gIn:SetHeight(22)
-    gIn:SetWidth(300)
-    gIn:SetPoint("CENTER", bar, "CENTER", 0, 0)
-    local inLabel = gIn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    inLabel:SetPoint("RIGHT", gIn, "CENTER", -4, 0)
-    self:ApplyFont(inLabel, FONTS.titleBold, 15)
-    inLabel:SetText("|cff848484NOVA MENSAGEM|r")
-    local inIcon = gIn:CreateTexture(nil, "OVERLAY")
-    inIcon:SetWidth(26)
-    inIcon:SetHeight(26)
-    inIcon:SetPoint("LEFT", gIn, "CENTER", 4, 0)
-    inIcon:SetTexture(ICONS.RB)
-    bar.groupInbox = gIn
+    -- Monta um trio centralizado: [LB] TEXTO [RB] (icones = textura).
+    local function BuildTabGroup(text)
+        local g = CreateFrame("Frame", nil, bar)
+        g:SetHeight(22)
+        g:SetWidth(420)
+        g:SetPoint("CENTER", bar, "CENTER", 0, 0)
+        local label = g:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        label:SetPoint("CENTER", g, "CENTER", 0, 0)
+        MailScreen:ApplyFont(label, FONTS.titleBold, 18)
+        label:SetText("|cffffffff" .. text .. "|r")
+        local lb = g:CreateTexture(nil, "OVERLAY")
+        lb:SetWidth(26)
+        lb:SetHeight(26)
+        lb:SetPoint("RIGHT", label, "LEFT", -6, 0)
+        lb:SetTexture(ICONS.LB)
+        local rb = g:CreateTexture(nil, "OVERLAY")
+        rb:SetWidth(26)
+        rb:SetHeight(26)
+        rb:SetPoint("LEFT", label, "RIGHT", 6, 0)
+        rb:SetTexture(ICONS.RB)
+        return g
+    end
 
-    -- Grupo COMPOSE: icone LB a esquerda, texto a direita.
-    local gCo = CreateFrame("Frame", nil, bar)
-    gCo:SetHeight(22)
-    gCo:SetWidth(300)
-    gCo:SetPoint("CENTER", bar, "CENTER", 0, 0)
-    local coIcon = gCo:CreateTexture(nil, "OVERLAY")
-    coIcon:SetWidth(26)
-    coIcon:SetHeight(26)
-    coIcon:SetPoint("RIGHT", gCo, "CENTER", -4, 0)
-    coIcon:SetTexture(ICONS.LB)
-    local coLabel = gCo:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    coLabel:SetPoint("LEFT", gCo, "CENTER", 4, 0)
-    self:ApplyFont(coLabel, FONTS.titleBold, 15)
-    coLabel:SetText("|cff848484CAIXA DE MENSAGENS|r")
-    bar.groupCompose = gCo
-    gCo:Hide()
+    -- INBOX: LB CAIXA DE ENTRADA RB. COMPOSE: LB NOVA CARTA RB.
+    bar.groupInbox = BuildTabGroup("CAIXA DE ENTRADA")
+    bar.groupCompose = BuildTabGroup("NOVA CARTA")
+    bar.groupCompose:Hide()
 
     self.tabIndicator = bar
     return bar
@@ -842,7 +839,7 @@ function MailScreen:CreateUI()
     -- Titulo Superior Central
     local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     titleText:SetPoint("TOP", frame, "TOP", 0, -20)
-    self:ApplyFont(titleText, FONTS.titleBold, 23)
+    self:ApplyFont(titleText, FONTS.titleBold, 28)
     titleText:SetText("|cffe09a15CORREIO|r")
     frame.titleText = titleText
 
@@ -902,7 +899,7 @@ function MailScreen:CreateUI()
     -- o card do mail ainda NAO existe (M2), entao usa-se -28,60 deixando
     -- espaco para detalhe+footer futuros.
     local contentArea = CreateFrame("Frame", "ConsoleMode_MailContentArea", frame)
-    contentArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -54)
+    contentArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -66)
     contentArea:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, 60)
     frame.contentArea = contentArea
 
@@ -1967,8 +1964,8 @@ function MailScreen:CreateComposeUI()
 
         local cap = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         cap:SetPoint("TOPLEFT", row, "TOPLEFT", 8, -4)
-        self:ApplyFont(cap, FONTS.titleBold, 13)
-        cap:SetText("|cff848484" .. def.label .. "|r")
+        self:ApplyFont(cap, FONTS.titleBold, 14)
+        cap:SetText("|cffffffff" .. def.label .. "|r")
         row.caption = cap
 
         row.fieldIndex = i
@@ -5259,10 +5256,23 @@ function MailScreen:OnConfirm()
     self:EnterDetail()
 end
 
--- Hold-to-repeat do D-Pad (molde MerchantMenu: so UP/DOWN repete).
+-- Hold-to-repeat do D-Pad (molde MerchantMenu: UP/DOWN repetem em tudo;
+-- LEFT/RIGHT repetem so com foco na grade do inventario do compor).
 function MailScreen:StartRepeat(direction)
     if not self.isOpen then return end
     if direction == "UP" or direction == "DOWN" then
+        self:OnDirection(direction)
+        self.repeatState.direction = direction
+        self.repeatState.timer = self.repeatState.initialDelay
+        self:EnsureRepeatTicker()
+    elseif (direction == "LEFT" or direction == "RIGHT")
+        and self.currentScreen == "COMPOSE"
+        and (self.composeFocus == "INV"
+            or (direction == "RIGHT" and self.composeFocus == "FIELDS")) then
+        -- Repeat horizontal anda na grade (na borda vira no-op; atravessar
+        -- p/ os campos pela esquerda e 1x por segurada, como no tap).
+        -- RIGHT a partir dos campos tambem arma: o 1o passo entra no INV e
+        -- os seguintes ja passeiam na grade sem precisar re-apertar.
         self:OnDirection(direction)
         self.repeatState.direction = direction
         self.repeatState.timer = self.repeatState.initialDelay

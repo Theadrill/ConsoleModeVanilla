@@ -719,6 +719,10 @@ function KB:ExitNavigationMode(force)
         if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
             return
         end
+        -- M1 Mail: janela do correio mantem o modo navegacao (B fecha via CM_CursorCancel).
+        if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+            return
+        end
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
             return
         end
@@ -1049,6 +1053,12 @@ function CM_CursorMove(direction, keystate)
         return
     end
 
+    -- M1 Mail (placeholder ate M2): consome o D-Pad sem mover nada para o
+    -- D-Pad nao quebrar a navegacao; SEM OnDirection ainda.
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        return
+    end
+
     -- Proteção: se o cursor não estiver ativo em nenhuma janela, desativa modo navegação
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         CM.keybindings:ExitNavigationMode()
@@ -1216,6 +1226,13 @@ function CM_CursorCancel()
         end
         ConsoleMode_MerchantMenu:Close()
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mercador fechado)")
+        return
+    end
+
+    -- M1 Mail: B fecha a janela do correio.
+    if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
+        ConsoleMode_MailScreen:Close()
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Correio fechado)")
         return
     end
 

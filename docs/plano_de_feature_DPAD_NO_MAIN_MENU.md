@@ -137,17 +137,19 @@ Cada fase é **100% testável no jogo imediatamente após a sua conclusão**. Ne
 
 ---
 
-### 🟢 FASE 5: QUESTS + MAPA (lista ⇄ detalhe ⇄ mapa + overlay)
-> **Objetivo de Teste:** O jogador navega as 10 quests, entra no detalhe (recompensas + ações), abre o mapa, troca de continente/zona e fecha o overlay só com o controle.
-> **Anti-retrabalho (ver §6):** valem os itens 2, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16.
-> Respeitar em especial: ordem visual antes de navegar fileiras, parada no nível intermediário sem pular para o topo,
-> vizinhos laterais versus verticais corretos e releitura de colunas dinâmicas a cada movimento.
+### 🟢 FASE 5: QUESTS + MAPA (NPCS ⇄ ZONAS ⇄ MISSÕES + overlay)
+> **Objetivo de Teste:** O jogador percorre as 3 zonas planas só no D-pad, abre a sub-lista de mapas de uma zona, inspeciona recompensa no detalhe quando houver, usa A/Y/X no lugar certo e fecha com B sem se perder.
+> **Anti-retrabalho (ver §6):** valem os itens 2, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16 + 20.
+> Respeitar em especial: foco único por zona, ordem visual antes de navegar fileiras, parada no nível intermediário sem pular para o topo,
+> vizinhos laterais versus verticais corretos, releitura de colunas dinâmicas a cada movimento e limpeza/pintura na mesma coleção.
 
-- [ ] Lista `questButtons[1..10]` vertical (`SelectQuest:8593`, `selectedQuestIndex:8600`); RIGHT/A → detalhe (`rewardSlots[1..4]:6994` + ações Ver-no-Mapa/X-Rastrear/Y-Ações `7031,8174,8287`); B → volta p/ lista.
-- [ ] Overlay `questDetailOverlay` (`8334,8472,8307`): quando visível, D-pad/A/B pertencem a ele até B fechar.
-- [ ] Mapa: fileira nav (Atual/Kalimdor/EK/Inst/Voltar `6894`) ⇄ listas zona/NPC; LT/RT = `MapZoomStep` (não filtro); A no pin = `OnMapPinClick` (exceção `Keybindings:844` preservada).
+- [ ] 3 zonas planas esq→dir sem aninhamento: NPCS (lista de NPCs do mapa atual) ⇄ ZONAS (seleção de zona; inclui ATUAL/KALIMDOR/EK/INST/VOLTAR) ⇄ MISSÕES (lista de quests); TABBAR compartilhada no topo; sem EQUIP/BUFFS nesta aba (painel esquerdo escondido no modo mapa).
+- [ ] NPCS: UP/DOWN com scroll e parada no fim; UP na primeira sobe p/ TABBAR; RIGHT vai p/ ZONAS; A no NPC só aumenta o ícone, sem mudar de zona.
+- [ ] ZONAS: UP/DOWN com scroll; LEFT volta p/ NPCS; RIGHT vai p/ MISSÕES; UP na primeira sobe p/ TABBAR; A na zona abre a sub-lista de mapas daquela zona (o hover vai direto p/ ela; lá dentro LEFT/RIGHT/UP nada fazem, só scroll; B fecha e volta p/ ZONAS).
+- [ ] MISSÕES: UP/DOWN com scroll e parada no fim; LEFT volta p/ ZONAS; RIGHT nada faz; UP na primeira sobe p/ TABBAR; DOWN na última desce p/ DETALHE somente se a quest tem recompensa (só inspeção, sem ações), senão fica parada; A vai p/ o mapa do objetivo; Y abre o menu de contexto com 2 opções (detalhes/abandonar; o cursor cuida, o Nav se afasta); X rastreia (mantido).
+- [ ] B plano: só tem cadeia em contexto (fecha o contexto) e na sub-lista de mapas (volta p/ ZONAS); no resto fecha o menu; overlay de detalhe fullscreen rouba tudo até B/FECHAR.
 - [ ] Validação de sintaxe via `luac -p`.
-- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 5):** `/reload` → QUESTS → lista → detalhe → mapa/continente → overlay abre/fecha, X rastreia, Y abre menu.
+- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 5):** `/reload` → QUESTS → NPCS ⇄ ZONAS ⇄ MISSÕES nos 4 sentidos, ouro acompanha; A amplia NPC / abre sub-lista / vai ao objetivo; DOWN última com recompensa inspeciona; Y/X/B conforme acima; overlay abre/fecha só com B/FECHAR.
 
 ---
 

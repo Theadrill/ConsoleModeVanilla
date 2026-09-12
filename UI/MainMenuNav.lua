@@ -25,7 +25,7 @@ Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
 -- FASE 3: + spellCat/spellSlot para aba SPELLS (zonas SPCAT/SPGRID).
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1 }
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, npcIdx = 1, zonaGrupo = "NAV", zonaIdx = 1, qMapaOrigem = nil, mapaIdx = 1 }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -614,10 +614,10 @@ local function Nav_EnsureFocus()
         if f.zone == "SPTABS" then f.zone = "SPGRID" end
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" then
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" then
         f.returnZone = "GRID"
     end
     -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS).
@@ -655,6 +655,37 @@ local function Nav_EnsureFocus()
         if f.zone == "BUFFS" and bc < 1 then
             f.zone = defTal
         end
+    elseif curTabEf == "QUESTS" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" then
+            f.zone = "QMISSOES"
+        end
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" then
+            f.returnZone = "QMISSOES"
+        end
+    else
+        if f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" then
+            if curTabEf == "BAGS" then f.zone = "GRID"
+            elseif curTabEf == "SPELLS" then f.zone = "SPCAT"
+            elseif curTabEf == "TALENTS" then f.zone = "TALENTS1"
+            else f.zone = "GRID" end
+        end
+        if f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" then
+            f.returnZone = "GRID"
+        end
+    end
+    if f.zone == "QMISSOES" or f.zone == "QDETALHE" then
+        if f.qDetail == nil then f.qDetail = (f.zone == "QDETALHE") end
+        if f.zone == "QDETALHE" then f.qDetail = true end
+        pcall(function() Nav_EnsureQuestIdx() end)
+    elseif f.zone == "ZONAS" then
+        if f.qDetail == nil then f.qDetail = false end
+    elseif f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" then
+        if f.qDetail == nil then f.qDetail = false end
+        if not f.npcIdx or f.npcIdx < 1 then f.npcIdx = 1 end
+        if not f.zonaGrupo then f.zonaGrupo = "NAV" end
+        if f.zonaGrupo ~= "NAV" and f.zonaGrupo ~= "LISTA" then f.zonaGrupo = "NAV" end
+        if not f.zonaIdx or f.zonaIdx < 1 then f.zonaIdx = 1 end
+        pcall(function() Nav_EnsureNpcZonaFocus() end)
     end
 end
 
@@ -944,6 +975,41 @@ local function Nav_ApplyFocus()
         end
     end
 
+    -- QUESTS visual (bug 2/12/20): mesma colecao hide/pintor, foco unico.
+    -- QMISSOES/QDETALHE: focada ouro, ativa ambar; fora das zonas, repinta todas (so ativa ambar).
+    do
+        local curQ = Nav_GetCurrentTab()
+        if curQ == "QUESTS" then
+            pcall(function() Nav_PaintQuests() end)
+            pcall(function() Nav_PaintNpcs() end)
+            pcall(function() Nav_PaintZonas() end)
+        else
+            pcall(function()
+                local qp = Nav_GetQuestPanel()
+                if not qp or not qp.questButtons then return end
+                local n = table.getn(qp.questButtons)
+                local activeIdx = qp.selectedQuestIndex
+                if not activeIdx then
+                    local MMq = Nav_GetMM()
+                    if MMq then activeIdx = MMq.selectedQuestIndex end
+                end
+                for i = 1, n do
+                    local b = qp.questButtons[i]
+                    if b and b.highlight then
+                        if b.questLogIndex and activeIdx and b.questLogIndex == activeIdx and not b.isHeader then
+                            b.highlight:Show()
+                            b.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+                        else
+                            b.highlight:Hide()
+                        end
+                    end
+                end
+            end)
+            pcall(function() Nav_PaintNpcs() end)
+            pcall(function() Nav_PaintZonas() end)
+        end
+    end
+
     -- PAGENAV: botao focado ouro; demais voltam ao default.
     local pbForPage = Nav_GetPageBags()
     if pbForPage and (pbForPage.prevPageBtn or pbForPage.nextPageBtn) then
@@ -1113,6 +1179,858 @@ local function Nav_ApplyFocus()
     end
 end
 
+-- TASK A: QUESTS (zonas QMISSOES lista vertical + QDETALHE inspecao).
+-- Tudo via raiz MM (Nav_GetMM); loga se metodo ausente (bug 4).
+-- QMISSOES: UP/DOWN via SelectQuest (foco unico + DetailCard, sem snap de mapa);
+-- QDETALHE: so inspecao. Lista vertical = UP/DOWN (bug 8).
+local function Nav_GetQuestPanel()
+    local MM = Nav_GetMM()
+    if not MM then return nil end
+    if not MM.tabContainer then return nil end
+    if not MM.tabContainer.pages then return nil end
+    local pq = MM.tabContainer.pages["QUESTS"]
+    if not pq then return nil end
+    return pq.questPanel
+end
+
+local function Nav_GetQuestButtons()
+    local qp = Nav_GetQuestPanel()
+    if not qp then return nil end
+    return qp.questButtons
+end
+
+local function Nav_GetQuestSelectable()
+    local out = {}
+    local okN, numEntries = pcall(function()
+        if type(getglobal("GetNumQuestLogEntries")) == "function" then
+            return getglobal("GetNumQuestLogEntries")()
+        end
+        return 0
+    end)
+    if not okN or type(numEntries) ~= "number" or numEntries < 1 then return out end
+    for i = 1, numEntries do
+        local okT, title, _, _, isHeader = pcall(function()
+            return getglobal("GetQuestLogTitle")(i)
+        end)
+        if okT and title and title ~= "" and not isHeader then
+            table.insert(out, i)
+        end
+    end
+    return out
+end
+
+local function Nav_EnsureQuestIdx()
+    local f = Nav.focus
+    if f.qDetail == nil then f.qDetail = false end
+    local sel = Nav_GetQuestSelectable()
+    local n = table.getn(sel)
+    if n < 1 then
+        if not f.questIdx or f.questIdx < 1 then f.questIdx = 1 end
+        return f.questIdx
+    end
+    local qp = Nav_GetQuestPanel()
+    local cur = f.questIdx
+    if not cur or cur < 1 then
+        local saved = nil
+        if qp and type(qp.selectedQuestIndex) == "number" then saved = qp.selectedQuestIndex end
+        if not saved then
+            local MM = Nav_GetMM()
+            if MM and type(MM.selectedQuestIndex) == "number" then saved = MM.selectedQuestIndex end
+        end
+        cur = saved or sel[1] or 1
+    end
+    local found = false
+    for i = 1, n do
+        if sel[i] == cur then found = true; break end
+    end
+    if not found then
+        local qpSel = qp and qp.selectedQuestIndex
+        local inList = false
+        if qpSel then
+            for i = 1, n do
+                if sel[i] == qpSel then inList = true; break end
+            end
+        end
+        if inList then cur = qpSel else cur = sel[1] end
+    end
+    f.questIdx = cur
+    return cur
+end
+
+local function Nav_QuestHasReward(questIdx)
+    local qp = Nav_GetQuestPanel()
+    if qp and qp.detailCard then
+        local dc = qp.detailCard
+        local okR, hasVis = pcall(function()
+            if dc.rewardSlots then
+                local rn = table.getn(dc.rewardSlots)
+                for s = 1, rn do
+                    local slot = dc.rewardSlots[s]
+                    if slot and type(slot.IsVisible) == "function" then
+                        local okV, vis = pcall(function() return slot:IsVisible() end)
+                        if okV and vis then return true end
+                    end
+                end
+            end
+            if dc.money and type(dc.money.IsVisible) == "function" then
+                local okM, mvis = pcall(function() return dc.money:IsVisible() end)
+                if okM and mvis then return true end
+            end
+            return false
+        end)
+        if okR and hasVis then return true end
+    end
+    local okQ, hasQ = pcall(function()
+        if type(getglobal("GetNumQuestLogRewards")) == "function" and type(getglobal("GetNumQuestLogChoices")) == "function" then
+            local nr = getglobal("GetNumQuestLogRewards")() or 0
+            local nc = getglobal("GetNumQuestLogChoices")() or 0
+            if nr > 0 or nc > 0 then return true end
+        end
+        if type(getglobal("GetQuestLogRewardMoney")) == "function" then
+            local m = getglobal("GetQuestLogRewardMoney")() or 0
+            if m > 0 then return true end
+        end
+        return false
+    end)
+    if okQ and hasQ then return true end
+    return false
+end
+
+local function Nav_SelectQuestByIdx(targetIdx)
+    local MM = Nav_GetMM()
+    if not MM then return false end
+    if type(MM.SelectQuest) ~= "function" then
+        MMNav_Log("|cffe09a15[MMNav]|r SelectQuest ausente")
+        return false
+    end
+    local qp = Nav_GetQuestPanel()
+    if qp then
+        local sel = Nav_GetQuestSelectable()
+        local n = table.getn(sel)
+        local pos = nil
+        for i = 1, n do
+            if sel[i] == targetIdx then pos = i; break end
+        end
+        if pos then
+            local maxVisible = 10
+            local curOffset = qp.questOffset or 0
+            local entryIdx = pos
+            if qp.entries then
+                local okE, found = pcall(function()
+                    for ei, ent in ipairs(qp.entries) do
+                        if ent.index == targetIdx then return ei end
+                    end
+                    return nil
+                end)
+                if okE and found then entryIdx = found end
+            end
+            if entryIdx <= curOffset then
+                qp.questOffset = math.max(0, entryIdx - 1)
+            elseif entryIdx > curOffset + maxVisible then
+                qp.questOffset = entryIdx - maxVisible
+            end
+        end
+    end
+    Nav.focus.questIdx = targetIdx
+    pcall(function() MM:SelectQuest(targetIdx, true) end)
+    return true
+end
+
+-- Pintor unico das quests (bug 20: mesma colecao hide/pintor; bug 2: foco unico + else).
+-- Focada ouro (1.0,0.82,0.20), ativa ambar (0.88,0.60,0.08) (bug 12).
+local function Nav_PaintQuests()
+    local f = Nav.focus
+    local qp = Nav_GetQuestPanel()
+    if not qp then return end
+    local btns = qp.questButtons
+    if not btns then return end
+    local okN, n = pcall(function() return table.getn(btns) end)
+    if not okN or type(n) ~= "number" or n < 1 then return end
+    local activeIdx = qp.selectedQuestIndex
+    if not activeIdx then
+        local MM = Nav_GetMM()
+        if MM then activeIdx = MM.selectedQuestIndex end
+    end
+    local inQuestZone = (f.zone == "QMISSOES" or f.zone == "QDETALHE")
+    for i = 1, n do
+        local b = btns[i]
+        if b and not b.isHeader and b.highlight then
+            local qli = b.questLogIndex
+            if inQuestZone and qli and qli == f.questIdx then
+                pcall(function() b.highlight:Show() end)
+                pcall(function() b.highlight:SetVertexColor(1.0, 0.82, 0.20, 0.35) end)
+            elseif qli and activeIdx and qli == activeIdx then
+                pcall(function() b.highlight:Show() end)
+                pcall(function() b.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35) end)
+            else
+                pcall(function() b.highlight:Hide() end)
+            end
+        elseif b and b.isHeader and b.highlight then
+            pcall(function() b.highlight:Hide() end)
+        end
+    end
+end
+
+-- TASK B: QNPCS + QZONAS (bugs 2,4,5,8,10,12,20).
+-- Estados: npcIdx=1, zonaGrupo="NAV", zonaIdx=1 (init no Nav.focus).
+-- Getters via raiz MM (Nav_GetMM); loga se metodo ausente (bug 4).
+-- Lista vertical = UP/DOWN (bug 8); mesma colecao hide/pintor, foco unico + else (bugs 2/20); ouro focada, ambar ativa quando houver (bug 12).
+local function Nav_GetMapPanel()
+    local MM = Nav_GetMM()
+    if not MM then return nil end
+    if MM.mapPanel then return MM.mapPanel end
+    if MM.questMapPanel then return MM.questMapPanel end
+    if MM.tabContainer and MM.tabContainer.pages then
+        local pq = MM.tabContainer.pages["QUESTS"]
+        if pq then
+            if pq.mapPanel then return pq.mapPanel end
+            if pq.map then return pq.map end
+            if pq.questPanel and pq.questPanel.mapPanel then return pq.questPanel.mapPanel end
+        end
+    end
+    return nil
+end
+
+local function Nav_GetNpcPanel()
+    local mp = Nav_GetMapPanel()
+    if not mp then return nil end
+    if mp.NPCListPanel then return mp.NPCListPanel end
+    if mp.npcListPanel then return mp.npcListPanel end
+    if mp.NPCPanel then return mp.NPCPanel end
+    if mp.npcPanel then return mp.npcPanel end
+    if mp.npcList then return mp.npcList end
+    return nil
+end
+
+local function Nav_GetVisibleNpcs()
+    local out = {}
+    local panel = Nav_GetNpcPanel()
+    if not panel or not panel.buttons then return out end
+    local okN, n = pcall(function() return table.getn(panel.buttons) end)
+    if not okN or type(n) ~= "number" or n < 1 then return out end
+    for i = 1, n do
+        local b = panel.buttons[i]
+        if b and SafeIsVisible(b) then table.insert(out, b) end
+    end
+    return out
+end
+
+local function Nav_GetRawNpcButtons()
+    local panel = Nav_GetNpcPanel()
+    if not panel or not panel.buttons then return nil end
+    return panel.buttons
+end
+
+-- Voltar desabilitado: isDisabled ou alpha .55 ou mouse-off/enable-off (bug 10).
+local function Nav_NavBtnDisabled(btn)
+    if not btn then return true end
+    if btn.isDisabled then return true end
+    if type(btn.GetAlpha) == "function" then
+        local ok, a = pcall(function() return btn:GetAlpha() end)
+        if ok and type(a) == "number" and a < 0.6 then return true end
+    end
+    if type(btn.IsEnabled) == "function" then
+        local ok, en = pcall(function() return btn:IsEnabled() end)
+        if ok and en == false then return true end
+    end
+    if type(btn.IsMouseEnabled) == "function" then
+        local ok, me = pcall(function() return btn:IsMouseEnabled() end)
+        if ok and me == false then return true end
+    end
+    return false
+end
+
+local function Nav_GetVisibleMapNav()
+    local out = {}
+    local mp = Nav_GetMapPanel()
+    if not mp or not mp.navButtons then return out end
+    local okN, n = pcall(function() return table.getn(mp.navButtons) end)
+    if not okN or type(n) ~= "number" or n < 1 then return out end
+    for i = 1, n do
+        local b = mp.navButtons[i]
+        if b and SafeIsVisible(b) and not Nav_NavBtnDisabled(b) then
+            table.insert(out, b)
+        end
+    end
+    return out
+end
+
+local function Nav_GetRawNavButtons()
+    local mp = Nav_GetMapPanel()
+    if not mp or not mp.navButtons then return nil end
+    return mp.navButtons
+end
+
+local function Nav_GetZoneListFrame()
+    local mp = Nav_GetMapPanel()
+    if mp then
+        if mp.ContinentZoneList then return mp.ContinentZoneList end
+        if mp.continentZoneList then return mp.continentZoneList end
+        if mp.zoneListFrame then return mp.zoneListFrame end
+        if mp.zoneList then return mp.zoneList end
+    end
+    local gf = getglobal("ConsoleModeMM_ContinentZoneList")
+    if gf then return gf end
+    return nil
+end
+
+local function Nav_GetVisibleZones()
+    local out = {}
+    local zf = Nav_GetZoneListFrame()
+    if not zf then return out end
+    if not SafeIsVisible(zf) then return out end
+    if not zf.buttons then return out end
+    local okN, n = pcall(function() return table.getn(zf.buttons) end)
+    if not okN or type(n) ~= "number" or n < 1 then return out end
+    for i = 1, n do
+        local b = zf.buttons[i]
+        if b and SafeIsVisible(b) then table.insert(out, b) end
+    end
+    return out
+end
+
+local function Nav_GetRawZoneButtons()
+    local zf = Nav_GetZoneListFrame()
+    if not zf or not zf.buttons then return nil end
+    return zf.buttons
+end
+
+-- QMAPAS: sub-lista de mapas de uma zona (INSTANCIAS).
+-- Mora no mesmo frame da lista de zonas (mapPanel.zoneListFrame.buttons,
+-- ver MainMenu:BuildInstancesListForZone / ShowInstancesForCurrentView,
+-- zoneListMode == "INSTANCES", itens com .zoneName/.parentZone).
+-- Getter so visiveis; vazio se frame oculto/ausente.
+local function Nav_GetVisibleMapas()
+    local out = {}
+    local zf = Nav_GetZoneListFrame()
+    if not zf then return out end
+    if not SafeIsVisible(zf) then return out end
+    if not zf.buttons then return out end
+    local okN, n = pcall(function() return table.getn(zf.buttons) end)
+    if not okN or type(n) ~= "number" or n < 1 then return out end
+    for i = 1, n do
+        local b = zf.buttons[i]
+        if b and SafeIsVisible(b) then table.insert(out, b) end
+    end
+    return out
+end
+
+local function Nav_GetRawMapaButtons()
+    local zf = Nav_GetZoneListFrame()
+    if not zf or not zf.buttons then return nil end
+    return zf.buttons
+end
+
+-- EnsureFocus valida: invisivel -> fallback (bug 5).
+function Nav_EnsureNpcZonaFocus()
+    local f = Nav.focus
+    if not f.npcIdx or f.npcIdx < 1 then f.npcIdx = 1 end
+    if not f.zonaGrupo then f.zonaGrupo = "NAV" end
+    if f.zonaGrupo ~= "NAV" and f.zonaGrupo ~= "LISTA" then f.zonaGrupo = "NAV" end
+    if not f.zonaIdx or f.zonaIdx < 1 then f.zonaIdx = 1 end
+    if f.zone == "QNPCS" then
+        local npcs = Nav_GetVisibleNpcs()
+        local n = table.getn(npcs)
+        if n < 1 then
+            f.npcIdx = 1
+        else
+            if f.npcIdx > n then f.npcIdx = n end
+            local b = npcs[f.npcIdx]
+            if not b or not SafeIsVisible(b) then f.npcIdx = 1 end
+        end
+    elseif f.zone == "QZONAS" then
+        local nav = Nav_GetVisibleMapNav()
+        local nn = table.getn(nav)
+        local zones = Nav_GetVisibleZones()
+        local nz = table.getn(zones)
+        if f.zonaGrupo == "NAV" then
+            if nn < 1 then
+                if nz > 0 then f.zonaGrupo = "LISTA"; f.zonaIdx = 1 else f.zonaIdx = 1 end
+            else
+                if f.zonaIdx > nn then f.zonaIdx = nn end
+                local b = nav[f.zonaIdx]
+                if not b or not SafeIsVisible(b) or Nav_NavBtnDisabled(b) then f.zonaIdx = 1 end
+            end
+        else
+            if nz < 1 then
+                f.zonaGrupo = "NAV"
+                if nn > 0 and f.zonaIdx > nn then f.zonaIdx = nn end
+                if f.zonaIdx < 1 then f.zonaIdx = 1 end
+            else
+                if f.zonaIdx > nz then f.zonaIdx = nz end
+                local zb = zones[f.zonaIdx]
+                if not zb or not SafeIsVisible(zb) then f.zonaIdx = 1 end
+            end
+        end
+    elseif f.zone == "QMAPAS" then
+        if not f.mapaIdx or f.mapaIdx < 1 then f.mapaIdx = 1 end
+        local mapas = Nav_GetVisibleMapas()
+        local nm = table.getn(mapas)
+        if nm < 1 then
+            f.zone = "QZONAS"
+            f.zonaGrupo = "LISTA"
+            if f.qMapaOrigem and f.qMapaOrigem >= 1 then
+                f.zonaIdx = f.qMapaOrigem
+            elseif not f.zonaIdx or f.zonaIdx < 1 then
+                f.zonaIdx = 1
+            end
+        else
+            if f.mapaIdx > nm then f.mapaIdx = nm end
+            local mb = mapas[f.mapaIdx]
+            if not mb or not SafeIsVisible(mb) then f.mapaIdx = 1 end
+        end
+    end
+end
+
+-- Pintor generico ouro + else (bug 2/12/20): focada ouro (1.0,0.82,0.20), demais default.
+local function Nav_PaintOneButton(btn, isFocus)
+    if not btn then return end
+    if isFocus then
+        if btn.highlight and type(btn.highlight.Show) == "function" then
+            pcall(function() btn.highlight:Show() end)
+            if type(btn.highlight.SetVertexColor) == "function" then
+                pcall(function() btn.highlight:SetVertexColor(1.0, 0.82, 0.20, 0.35) end)
+            end
+        end
+        if btn.fullHi and type(btn.fullHi.Show) == "function" then
+            pcall(function() btn.fullHi:Show() end)
+        end
+        if btn.label and type(btn.label.SetTextColor) == "function" then
+            pcall(function() btn.label:SetTextColor(1.0, 0.82, 0.20) end)
+        end
+        if btn.title and type(btn.title.SetTextColor) == "function" then
+            pcall(function() btn.title:SetTextColor(1.0, 0.82, 0.20) end)
+        end
+        if btn.catName and type(btn.catName.SetTextColor) == "function" then
+            pcall(function() btn.catName:SetTextColor(1.0, 0.82, 0.20) end)
+        end
+        if type(btn.SetBackdropBorderColor) == "function" then
+            pcall(function() btn:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+        end
+        if type(btn.LockHighlight) == "function" then
+            pcall(function() btn:LockHighlight() end)
+        end
+        if btn.bg and type(btn.bg.SetVertexColor) == "function" then
+            pcall(function() btn.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end)
+        end
+    else
+        if btn.highlight and type(btn.highlight.Hide) == "function" then
+            pcall(function() btn.highlight:Hide() end)
+        end
+        if btn.fullHi and type(btn.fullHi.Hide) == "function" then
+            pcall(function() btn.fullHi:Hide() end)
+        end
+        if type(btn.UnlockHighlight) == "function" then
+            pcall(function() btn:UnlockHighlight() end)
+        end
+        if type(btn.SetBackdropBorderColor) == "function" then
+            pcall(function() btn:SetBackdropBorderColor(0.5, 0.4, 0.28, 0.65) end)
+        end
+        if btn.label and type(btn.label.SetTextColor) == "function" then
+            pcall(function() btn.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end)
+        end
+        if btn.title and type(btn.title.SetTextColor) == "function" then
+            pcall(function() btn.title:SetTextColor(0.96, 0.88, 0.68, 1.0) end)
+        end
+        if btn.bg and type(btn.bg.SetVertexColor) == "function" then
+            pcall(function() btn.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end)
+        end
+    end
+end
+
+local function Nav_PaintNpcs()
+    local f = Nav.focus
+    local raw = Nav_GetRawNpcButtons()
+    if not raw then return end
+    local okN, n = pcall(function() return table.getn(raw) end)
+    if not okN or type(n) ~= "number" or n < 1 then return end
+    local vis = Nav_GetVisibleNpcs()
+    local inZone = (f.zone == "QNPCS")
+    local posByBtn = {}
+    local vc = table.getn(vis)
+    for vi = 1, vc do
+        local vb = vis[vi]
+        if vb then posByBtn[vb] = vi end
+    end
+    for i = 1, n do
+        local b = raw[i]
+        if b then
+            local vpos = posByBtn[b]
+            if vpos and inZone and vpos == f.npcIdx then
+                Nav_PaintOneButton(b, true)
+            else
+                Nav_PaintOneButton(b, false)
+            end
+        end
+    end
+end
+
+local function Nav_PaintZonas()
+    local f = Nav.focus
+    local inZone = (f.zone == "QZONAS")
+    local rawNav = Nav_GetRawNavButtons()
+    if rawNav then
+        local okN, n = pcall(function() return table.getn(rawNav) end)
+        if okN and type(n) == "number" and n >= 1 then
+            local visNav = Nav_GetVisibleMapNav()
+            local posByBtn = {}
+            local vc = table.getn(visNav)
+            for vi = 1, vc do
+                local vb = visNav[vi]
+                if vb then posByBtn[vb] = vi end
+            end
+            for i = 1, n do
+                local b = rawNav[i]
+                if b then
+                    local vpos = posByBtn[b]
+                    if vpos and inZone and f.zonaGrupo == "NAV" and vpos == f.zonaIdx then
+                        Nav_PaintOneButton(b, true)
+                    else
+                        Nav_PaintOneButton(b, false)
+                    end
+                end
+            end
+        end
+    end
+    local rawZ = Nav_GetRawZoneButtons()
+    if rawZ then
+        local okZ, nz = pcall(function() return table.getn(rawZ) end)
+        if okZ and type(nz) == "number" and nz >= 1 then
+            local visZ = Nav_GetVisibleZones()
+            local posByZ = {}
+            local vz = table.getn(visZ)
+            for vi = 1, vz do
+                local vb = visZ[vi]
+                if vb then posByZ[vb] = vi end
+            end
+            for i = 1, nz do
+                local b = rawZ[i]
+                if b then
+                    local vpos = posByZ[b]
+                    if vpos and inZone and f.zonaGrupo == "LISTA" and vpos == f.zonaIdx then
+                        Nav_PaintOneButton(b, true)
+                    else
+                        Nav_PaintOneButton(b, false)
+                    end
+                end
+            end
+        end
+    end
+    Nav_PaintMapas()
+end
+
+-- QMAPAS: ouro no item focado (mapaIdx), else nos demais (bug 2/12/20).
+-- Mesmo frame da lista de zonas (INSTANCIAS); so pinta quando zone == QMAPAS.
+function Nav_PaintMapas()
+    local f = Nav.focus
+    if f.zone ~= "QMAPAS" then
+        local rawM = Nav_GetRawMapaButtons()
+        if rawM then
+            local okN, n = pcall(function() return table.getn(rawM) end)
+            if okN and type(n) == "number" and n >= 1 then
+                for i = 1, n do
+                    local b = rawM[i]
+                    if b then Nav_PaintOneButton(b, false) end
+                end
+            end
+        end
+        return
+    end
+    local rawM = Nav_GetRawMapaButtons()
+    if not rawM then return end
+    local okN, n = pcall(function() return table.getn(rawM) end)
+    if not okN or type(n) ~= "number" or n < 1 then return end
+    local vis = Nav_GetVisibleMapas()
+    local posByBtn = {}
+    local vc = table.getn(vis)
+    for vi = 1, vc do
+        local vb = vis[vi]
+        if vb then posByBtn[vb] = vi end
+    end
+    if not f.mapaIdx or f.mapaIdx < 1 then f.mapaIdx = 1 end
+    for i = 1, n do
+        local b = rawM[i]
+        if b then
+            local vpos = posByBtn[b]
+            if vpos and vpos == f.mapaIdx then
+                Nav_PaintOneButton(b, true)
+            else
+                Nav_PaintOneButton(b, false)
+            end
+        end
+    end
+end
+
+-- QNPCS: UP/DOWN param no fim (bug 8: sem wrap); UP primeira -> TABBAR; RIGHT -> QZONAS; LEFT=false.
+function Nav_OnQnpcsDirection(direction)
+    local f = Nav.focus
+    local npcs = Nav_GetVisibleNpcs()
+    local n = table.getn(npcs)
+    if direction == "UP" then
+        if n < 1 then return false end
+        if not f.npcIdx or f.npcIdx < 1 then f.npcIdx = 1 end
+        if f.npcIdx > n then f.npcIdx = n end
+        if f.npcIdx <= 1 then
+            f.zone = "TABBAR"
+            Nav_EnsureFocus()
+            return true
+        end
+        f.npcIdx = f.npcIdx - 1
+        return true
+    end
+    if direction == "DOWN" then
+        if n < 1 then return false end
+        if not f.npcIdx or f.npcIdx < 1 then f.npcIdx = 1 end
+        if f.npcIdx > n then f.npcIdx = n end
+        if f.npcIdx >= n then return false end
+        f.npcIdx = f.npcIdx + 1
+        return true
+    end
+    if direction == "RIGHT" then
+        f.zone = "QZONAS"
+        f.zonaGrupo = "NAV"
+        f.zonaIdx = 1
+        Nav_EnsureFocus()
+        return true
+    end
+    if direction == "LEFT" then
+        return false
+    end
+    return false
+end
+
+-- QZONAS: dois grupos verticais (NAV em cima, LISTA embaixo).
+-- UP/DOWN dentro do grupo; DOWN ultimo NAV -> LISTA (se visivel, senao parado);
+-- UP primeira LISTA -> NAV; UP do NAV -> TABBAR; LEFT -> QNPCS; RIGHT -> QMISSOES.
+function Nav_OnQzonasDirection(direction)
+    local f = Nav.focus
+    if not f.zonaGrupo then f.zonaGrupo = "NAV" end
+    if f.zonaGrupo ~= "NAV" and f.zonaGrupo ~= "LISTA" then f.zonaGrupo = "NAV" end
+    if not f.zonaIdx or f.zonaIdx < 1 then f.zonaIdx = 1 end
+    local nav = Nav_GetVisibleMapNav()
+    local nn = table.getn(nav)
+    local zones = Nav_GetVisibleZones()
+    local nz = table.getn(zones)
+    if direction == "UP" then
+        if f.zonaGrupo == "LISTA" then
+            if nz < 1 then
+                f.zonaGrupo = "NAV"
+                Nav_EnsureFocus()
+                return true
+            end
+            if f.zonaIdx > nz then f.zonaIdx = nz end
+            if f.zonaIdx > 1 then
+                f.zonaIdx = f.zonaIdx - 1
+                return true
+            end
+            f.zonaGrupo = "NAV"
+            if nn > 0 then f.zonaIdx = nn else f.zonaIdx = 1 end
+            Nav_EnsureFocus()
+            return true
+        else
+            if nn < 1 then return false end
+            if f.zonaIdx > nn then f.zonaIdx = nn end
+            if f.zonaIdx > 1 then
+                f.zonaIdx = f.zonaIdx - 1
+                return true
+            end
+            f.zone = "TABBAR"
+            Nav_EnsureFocus()
+            return true
+        end
+    end
+    if direction == "DOWN" then
+        if f.zonaGrupo == "NAV" then
+            if nn < 1 then return false end
+            if f.zonaIdx > nn then f.zonaIdx = nn end
+            if f.zonaIdx < nn then
+                f.zonaIdx = f.zonaIdx + 1
+                return true
+            end
+            if nz > 0 then
+                f.zonaGrupo = "LISTA"
+                f.zonaIdx = 1
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        else
+            if nz < 1 then return false end
+            if f.zonaIdx > nz then f.zonaIdx = nz end
+            if f.zonaIdx < nz then
+                f.zonaIdx = f.zonaIdx + 1
+                return true
+            end
+            return false
+        end
+    end
+    if direction == "LEFT" then
+        f.zone = "QNPCS"
+        if not f.npcIdx or f.npcIdx < 1 then f.npcIdx = 1 end
+        Nav_EnsureFocus()
+        return true
+    end
+    if direction == "RIGHT" then
+        f.zone = "QMISSOES"
+        f.qDetail = false
+        Nav_EnsureFocus()
+        return true
+    end
+    return false
+end
+
+-- QMAPAS: sub-lista de mapas da zona (INSTANCIAS). UP/DOWN so scroll, param
+-- nos fins (sem wrap); LEFT/RIGHT/UP-na-primeira = false (nada).
+function Nav_OnQmapasDirection(direction)
+    local f = Nav.focus
+    if not f.mapaIdx or f.mapaIdx < 1 then f.mapaIdx = 1 end
+    local mapas = Nav_GetVisibleMapas()
+    local n = table.getn(mapas)
+    if n < 1 then return false end
+    if f.mapaIdx > n then f.mapaIdx = n end
+    if direction == "UP" then
+        if f.mapaIdx <= 1 then return false end
+        f.mapaIdx = f.mapaIdx - 1
+        return true
+    end
+    if direction == "DOWN" then
+        if f.mapaIdx >= n then return false end
+        f.mapaIdx = f.mapaIdx + 1
+        return true
+    end
+    if direction == "LEFT" then return false end
+    if direction == "RIGHT" then return false end
+    return false
+end
+
+function Nav_OnQuestsDirection(direction)
+    local f = Nav.focus
+    if Nav_GetCurrentTab() ~= "QUESTS" then return false end
+    Nav_EnsureQuestIdx()
+    if f.zone == "TABBAR" then
+        if direction == "DOWN" then
+            f.zone = "QMISSOES"
+            f.qDetail = false
+            Nav_EnsureFocus()
+            local qp = Nav_GetQuestPanel()
+            if qp and qp.selectedQuestIndex then f.questIdx = qp.selectedQuestIndex end
+            Nav_EnsureQuestIdx()
+            if qp then
+                local MM = Nav_GetMM()
+                if MM and type(MM.SelectQuest) == "function" then
+                    pcall(function() MM:SelectQuest(f.questIdx, true) end)
+                end
+            end
+            return true
+        end
+        return false
+    end
+    if f.zone == "ZONAS" then
+        f.zone = "QZONAS"
+        if not f.zonaGrupo then f.zonaGrupo = "NAV" end
+        if not f.zonaIdx or f.zonaIdx < 1 then f.zonaIdx = 1 end
+        Nav_EnsureFocus()
+        if direction == "RIGHT" then
+            f.zone = "QMISSOES"
+            f.qDetail = false
+            Nav_EnsureFocus()
+            return true
+        end
+        return Nav_OnQzonasDirection(direction)
+    end
+    if f.zone == "QNPCS" then
+        return Nav_OnQnpcsDirection(direction)
+    end
+    if f.zone == "QZONAS" then
+        return Nav_OnQzonasDirection(direction)
+    end
+    if f.zone == "QMAPAS" then
+        return Nav_OnQmapasDirection(direction)
+    end
+    if f.zone == "QDETALHE" then
+        if direction == "UP" then
+            f.zone = "QMISSOES"
+            f.qDetail = false
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
+    if f.zone ~= "QMISSOES" then return false end
+    if direction == "UP" then
+        local sel = Nav_GetQuestSelectable()
+        local n = table.getn(sel)
+        if n < 1 then return false end
+        local pos = nil
+        for i = 1, n do
+            if sel[i] == f.questIdx then pos = i; break end
+        end
+        if not pos then
+            Nav_EnsureQuestIdx()
+            for i = 1, n do
+                if sel[i] == f.questIdx then pos = i; break end
+            end
+        end
+        if not pos then return false end
+        if pos <= 1 then
+            f.zone = "TABBAR"
+            Nav_EnsureFocus()
+            return true
+        end
+        Nav_SelectQuestByIdx(sel[pos - 1])
+        return true
+    end
+    if direction == "DOWN" then
+        local sel = Nav_GetQuestSelectable()
+        local n = table.getn(sel)
+        if n < 1 then return false end
+        local pos = nil
+        for i = 1, n do
+            if sel[i] == f.questIdx then pos = i; break end
+        end
+        if not pos then
+            Nav_EnsureQuestIdx()
+            for i = 1, n do
+                if sel[i] == f.questIdx then pos = i; break end
+            end
+        end
+        if not pos then return false end
+        if pos >= n then
+            if Nav_QuestHasReward(f.questIdx) then
+                f.zone = "QDETALHE"
+                f.qDetail = true
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
+        Nav_SelectQuestByIdx(sel[pos + 1])
+        return true
+    end
+    if direction == "LEFT" then
+        f.zone = "QZONAS"
+        f.qDetail = false
+        if not Nav_GetQuestPanel() then
+            f.zone = "QMISSOES"
+            Nav_EnsureFocus()
+            return false
+        end
+        local zlist = Nav_GetVisibleZones()
+        if zlist and table.getn(zlist) > 0 then
+            f.zonaGrupo = "LISTA"
+        else
+            f.zonaGrupo = "NAV"
+        end
+        f.zonaIdx = 1
+        Nav_EnsureFocus()
+        return true
+    end
+    if direction == "RIGHT" then
+        return false
+    end
+    return false
+end
+
 -- Roteador OnDirection. FASE 2: BAGS real; FASE 3: SPELLS real; demais, log.
 function Nav:OnDirection(direction)
     if not self:IsActive() then return end
@@ -1129,6 +2047,13 @@ function Nav:OnDirection(direction)
         local movedSp = Nav_OnSpellsDirection(direction)
         Nav_ApplyFocus()
         if movedSp then MMNav_PlayMove() end
+        return
+    end
+    if curTab == "QUESTS" then
+        Nav_EnsureFocus()
+        local movedQ = Nav_OnQuestsDirection(direction)
+        Nav_ApplyFocus()
+        if movedQ then MMNav_PlayMove() end
         return
     end
     if curTab ~= "BAGS" then
@@ -2097,6 +3022,119 @@ end
 function Nav:OnConfirm()
     if not self:IsActive() then return false end
     local curTabCf = Nav_GetCurrentTab()
+    if curTabCf == "QUESTS" then
+        Nav_EnsureFocus()
+        local fq = self.focus
+        if fq.zone == "TABBAR" then
+            local tabs = Nav_GetTabButtons()
+            local MM = Nav_GetMM()
+            if tabs and tabs[fq.tabIdx] then
+                local btn = tabs[fq.tabIdx]
+                if btn then pcall(function() btn:Click() end) end
+                return true
+            end
+            if MM and type(MM.SelectTab) == "function" then return true end
+            return true
+        end
+        if fq.zone == "QMISSOES" or fq.zone == "QDETALHE" then
+            local idx = fq.questIdx
+            if not idx or idx < 1 then
+                pcall(function() Nav_EnsureQuestIdx() end)
+                idx = fq.questIdx
+            end
+            if not idx or idx < 1 then return false end
+            local MM = Nav_GetMM()
+            if MM and type(MM.FocusMapOnQuest) == "function" then
+                pcall(function() MM:FocusMapOnQuest(idx) end)
+                if type(MM.SelectQuest) == "function" then
+                    pcall(function() MM:SelectQuest(idx, true) end)
+                end
+                Nav_ApplyFocus()
+                return true
+            else
+                MMNav_Log("|cffe09a15[MMNav]|r FocusMapOnQuest ausente")
+                return false
+            end
+        end
+        if fq.zone == "QNPCS" then
+            local npcs = Nav_GetVisibleNpcs()
+            local b = npcs and npcs[fq.npcIdx]
+            if not b then return false end
+            pcall(function() b:Click() end)
+            Nav_ApplyFocus()
+            return true
+        end
+        if fq.zone == "QZONAS" or fq.zone == "ZONAS" then
+            local grupo = fq.zonaGrupo or "NAV"
+            if fq.zone == "ZONAS" then grupo = "NAV" end
+            if grupo == "NAV" then
+                local nav = Nav_GetVisibleMapNav()
+                local b = nav and nav[fq.zonaIdx]
+                if not b then return false end
+                pcall(function() b:Click() end)
+                Nav_ApplyFocus()
+                return true
+            else
+                local zones = Nav_GetVisibleZones()
+                local zb = zones and zones[fq.zonaIdx]
+                if not zb then return false end
+                local MM = Nav_GetMM()
+                if MM and type(MM.SwitchMapToZone) == "function" and zb.zoneName then
+                    local zn = zb.zoneName
+                    pcall(function() MM:SwitchMapToZone(zn) end)
+                    if type(MM.BuildInstancesListForZone) == "function" then
+                        pcall(function() MM:BuildInstancesListForZone(zn) end)
+                    elseif type(MM.ShowInstancesForCurrentView) == "function" then
+                        pcall(function() MM:ShowInstancesForCurrentView() end)
+                    end
+                    if type(MM.UpdateQuestsPage) == "function" then
+                        pcall(function() MM:UpdateQuestsPage() end)
+                    end
+                elseif zb then
+                    pcall(function() zb:Click() end)
+                else
+                    MMNav_Log("|cffe09a15[MMNav]|r SwitchMapToZone ausente")
+                    return false
+                end
+                fq.qMapaOrigem = fq.zonaIdx
+                fq.mapaIdx = 1
+                fq.zone = "QMAPAS"
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                return true
+            end
+        end
+        if fq.zone == "QMAPAS" then
+            if not fq.mapaIdx or fq.mapaIdx < 1 then fq.mapaIdx = 1 end
+            local mapas = Nav_GetVisibleMapas()
+            local mb = mapas and mapas[fq.mapaIdx]
+            if not mb then return false end
+            local MM = Nav_GetMM()
+            if mb.zoneName then
+                local zn = mb.zoneName
+                local entered = false
+                if MM and type(MM.SwitchMapToDungeon) == "function" then
+                    local ok, ret = pcall(function() return MM:SwitchMapToDungeon(zn) end)
+                    if ok and ret then entered = true end
+                end
+                if not entered and MM and type(MM.SwitchMapToZone) == "function" then
+                    pcall(function() MM:SwitchMapToZone(zn) end)
+                    entered = true
+                end
+                if not entered then
+                    pcall(function() mb:Click() end)
+                end
+                if MM and type(MM.UpdateQuestsPage) == "function" then
+                    pcall(function() MM:UpdateQuestsPage() end)
+                end
+            else
+                pcall(function() mb:Click() end)
+            end
+            Nav_ApplyFocus()
+            return true
+        end
+        return false
+    end
     if curTabCf == "SPELLS" then
         Nav_EnsureFocus()
         local fs = self.focus
@@ -2287,6 +3325,35 @@ end
 function Nav:OnCancel()
     if not self:IsActive() then return false end
     local curTabCx = Nav_GetCurrentTab()
+    if curTabCx == "QUESTS" then
+        Nav_EnsureFocus()
+        local fq = self.focus
+        -- IsActive() ja barra menu de contexto e overlay (questDetail):
+        -- retorna false la, entao B nao e consumido aqui (cursor fecha).
+        -- Sem duplicar checks de IsContextMenuOpen/IsQuestDetailOpen.
+        if fq.zone == "QMAPAS" then
+            fq.zone = "QZONAS"
+            fq.zonaGrupo = "LISTA"
+            if fq.qMapaOrigem and fq.qMapaOrigem >= 1 then
+                fq.zonaIdx = fq.qMapaOrigem
+            elseif not fq.zonaIdx or fq.zonaIdx < 1 then
+                fq.zonaIdx = 1
+            end
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        if fq.zone == "QDETALHE" then
+            fq.zone = "QMISSOES"
+            fq.qDetail = false
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        return false
+    end
     if curTabCx == "SPELLS" then
         local ps = Nav_GetPageSpells()
         local scr = nil
@@ -2410,6 +3477,27 @@ end
 function Nav:OnUse()
     if not self:IsActive() then return false end
     local curTabUs = Nav_GetCurrentTab()
+    if curTabUs == "QUESTS" then
+        Nav_EnsureFocus()
+        local fq = self.focus
+        if fq.zone == "QMISSOES" or fq.zone == "QDETALHE" then
+            local idx = fq.questIdx
+            if not idx or idx < 1 then
+                pcall(function() Nav_EnsureQuestIdx() end)
+                idx = fq.questIdx
+            end
+            if not idx or idx < 1 then return false end
+            local MM = Nav_GetMM()
+            if MM and type(MM.OpenQuestContextMenu) == "function" then
+                pcall(function() MM:OpenQuestContextMenu(idx) end)
+                return true
+            else
+                MMNav_Log("|cffe09a15[MMNav]|r OpenQuestContextMenu ausente")
+                return false
+            end
+        end
+        return false
+    end
     if curTabUs == "TALENTS" then
         return false
     end
@@ -2493,6 +3581,29 @@ end
 
 function Nav:OnSecondary()
     if not self:IsActive() then return false end
+    local curTabSec = Nav_GetCurrentTab()
+    if curTabSec == "QUESTS" then
+        Nav_EnsureFocus()
+        local fq = self.focus
+        if fq.zone == "QMISSOES" or fq.zone == "QDETALHE" then
+            local idx = fq.questIdx
+            if not idx or idx < 1 then
+                pcall(function() Nav_EnsureQuestIdx() end)
+                idx = fq.questIdx
+            end
+            if not idx or idx < 1 then return false end
+            local MM = Nav_GetMM()
+            if MM and type(MM.ToggleQuestWatch) == "function" then
+                pcall(function() MM:ToggleQuestWatch(idx) end)
+                Nav_ApplyFocus()
+                return true
+            else
+                MMNav_Log("|cffe09a15[MMNav]|r ToggleQuestWatch ausente")
+                return false
+            end
+        end
+        return false
+    end
     MMNav_Log("|cffe09a15[MMNav]|r X (fase2 BAGS: sem acao)")
     return false
 end
@@ -2546,7 +3657,9 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1 }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false }
+    if self.focus.questIdx ~= nil and self.focus.questIdx < 1 then self.focus.questIdx = nil end
+    if self.focus.qDetail == nil then self.focus.qDetail = false end
     if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
     if self.focus.pageBtn == nil or self.focus.pageBtn < 1 then self.focus.pageBtn = 1 end
     if self.focus.spellPageBtn == nil or self.focus.spellPageBtn < 1 then self.focus.spellPageBtn = 1 end

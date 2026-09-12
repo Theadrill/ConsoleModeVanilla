@@ -7542,8 +7542,36 @@ function MainMenu:UpdateQuestsPage()
         if questPanel.detailCard then questPanel.detailCard:Show() end
 
         local toSelect = (selectedFound and currentSelected) or firstSelectableIndex
+        -- FIX Nav (padrao bags/spells keepSel): preserva selecao do Nav quando ativo.
+        do
+            local okG, navObj = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and navObj and type(navObj.IsActive) == "function" then
+                local okA, isAct = pcall(navObj.IsActive, navObj)
+                if okA and isAct and navObj.focus and type(navObj.focus.questIdx) == "number" then
+                    local navIdx = navObj.focus.questIdx
+                    for _, ent in ipairs(entries) do
+                        if ent.index == navIdx and not ent.isHeader then toSelect = navIdx break end
+                    end
+                end
+            end
+        end
         if toSelect then
             self:SelectQuest(toSelect, true)
+        end
+        -- FIX hover lista (padrao bags/spells): QUEST_LOG_UPDATE/ZONE_CHANGED reacendem highlight mesmo com Nav fora de QMISSOES/QDETALHE.
+        do
+            local okG, navObj = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and navObj and type(navObj.IsActive) == "function" then
+                local okA, isAct = pcall(navObj.IsActive, navObj)
+                local z = navObj and navObj.focus and navObj.focus.zone
+                if okA and isAct and type(z) == "string" and z ~= "QMISSOES" and z ~= "QDETALHE" then
+                    if questPanel.questButtons then
+                        for _, btn in ipairs(questPanel.questButtons) do
+                            if btn and btn.highlight then pcall(function() btn.highlight:Hide() end) end
+                        end
+                    end
+                end
+            end
         end
     end
 end
@@ -8937,7 +8965,19 @@ function MainMenu:NavigateQuest(delta)
         self:UpdateQuestsPage()
         if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
 
-        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.state and ConsoleMode.cursor.state.enabled then
+        -- FIX Nav (padrao spells): guarda MoveTo quando Nav ativo fora de QMISSOES/QDETALHE.
+        local __questNavActive = false
+        local __questNavZone = nil
+        do
+            local okG, navObj = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and navObj and type(navObj.IsActive) == "function" then
+                local okA, isAct = pcall(navObj.IsActive, navObj)
+                if okA and isAct then __questNavActive = true end
+                local okZ, z = pcall(function() return navObj.focus and navObj.focus.zone end)
+                if okZ and type(z) == "string" then __questNavZone = z end
+            end
+        end
+        if (not __questNavActive or __questNavZone == "QMISSOES" or __questNavZone == "QDETALHE") and ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.state and ConsoleMode.cursor.state.enabled then
             local curBtn = ConsoleMode.cursor.state.currentButton
             if curBtn and (curBtn.isQuestListBtn or string.find(curBtn:GetName() or "", "^ConsoleModeMM_QuestBtn%d+$")) then
                 if questPanel.questButtons then

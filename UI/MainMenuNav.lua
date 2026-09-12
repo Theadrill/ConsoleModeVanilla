@@ -25,7 +25,7 @@ Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
 -- FASE 3: + spellCat/spellSlot para aba SPELLS (zonas SPCAT/SPGRID).
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil }
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1 }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -232,6 +232,72 @@ local function Nav_GetSpellActiveScreen()
     return nil
 end
 
+-- FASE 4: acesso a aba TALENTS (defensivo; tudo via raiz MM, nunca na pagina).
+-- pageTalents = tabContainer.pages["TALENTS"]; activeScreen 1=specs/2=arvore;
+-- arvore: treeScreen.slotsByTierCol[tier 1..7][col 1..4], col1=topo;
+-- slot visivel = IsVisible + talentData (skip escondidos, nada de indice linear).
+local function Nav_GetPageTalents()
+    local MM = Nav_GetMM()
+    if not MM then return nil end
+    if not MM.tabContainer then return nil end
+    if not MM.tabContainer.pages then return nil end
+    return MM.tabContainer.pages["TALENTS"]
+end
+
+local function Nav_GetTalentActiveScreen()
+    local pt = Nav_GetPageTalents()
+    if not pt then return nil end
+    if pt.activeScreen then return pt.activeScreen end
+    return nil
+end
+
+local function Nav_TalentSlotVisible(slot)
+    if not slot then return false end
+    if not slot.talentData then return false end
+    if type(slot.IsVisible) ~= "function" then return false end
+    local ok, vis = pcall(function() return slot:IsVisible() end)
+    if ok and vis then return true end
+    return false
+end
+
+local function Nav_GetTalentFirstVisible()
+    local MM = Nav_GetMM()
+    if not MM then return nil end
+    if not MM.tabContainer or not MM.tabContainer.pages then return nil end
+    local pt = MM.tabContainer.pages["TALENTS"]
+    if not pt or not pt.treeScreen or not pt.treeScreen.slotsByTierCol then return nil end
+    local grid = pt.treeScreen.slotsByTierCol
+    for tier = 1, 7 do
+        local row = grid[tier]
+        if row then
+            for col = 1, 4 do
+                local slot = row[col]
+                if Nav_TalentSlotVisible(slot) then return slot end
+            end
+        end
+    end
+    return nil
+end
+
+local function Nav_GetTalentSlotTierCol(slot)
+    if not slot then return nil, nil end
+    local tier = slot.tier
+    local col = slot.column
+    if type(tier) ~= "number" and slot.talentData and type(slot.talentData.tier) == "number" then tier = slot.talentData.tier end
+    if type(col) ~= "number" and slot.talentData and type(slot.talentData.column) == "number" then col = slot.talentData.column end
+    if type(tier) ~= "number" or type(col) ~= "number" then return nil, nil end
+    return tier, col
+end
+
+local function Nav_GetTalentDefaultZone()
+    local MM = Nav_GetMM()
+    if not MM then return "TALENTS1" end
+    if not MM.tabContainer or not MM.tabContainer.pages then return "TALENTS1" end
+    local pt = MM.tabContainer.pages["TALENTS"]
+    if pt and pt.activeScreen == 2 then return "TALENTS2" end
+    return "TALENTS1"
+end
+
 local function Nav_GetSpellFocusedIdx()
     local ps = Nav_GetPageSpells()
     if ps then
@@ -351,6 +417,40 @@ local function Nav_VisiblePageBtns()
     return out
 end
 
+-- SORT: sortBtn visivel (headerBar BAGS; MainMenu.lua:4280-4314).
+local function Nav_SortVisible()
+    local pb = Nav_GetPageBags()
+    if not pb then return false end
+    local sb = pb.sortBtn
+    if not sb then return false end
+    if type(sb.IsVisible) ~= "function" then return false end
+    local ok, vis = pcall(function() return sb:IsVisible() end)
+    if ok and vis then return true end
+    return false
+end
+
+-- SPPAGE (espelho PAGENAV): botoes [<] [>] de SPELLS visiveis na ordem (pageNav escondido = vazio).
+local function Nav_VisibleSpellPageBtns()
+    local out = {}
+    local ps = Nav_GetPageSpells()
+    if not ps then return out end
+    if ps.pageNav and type(ps.pageNav.IsVisible) == "function" then
+        local ok, vis = pcall(function() return ps.pageNav:IsVisible() end)
+        if not (ok and vis) then return out end
+    end
+    local prev = ps.prevPageBtn
+    if prev and type(prev.IsVisible) == "function" then
+        local ok, vis = pcall(function() return prev:IsVisible() end)
+        if ok and vis then table.insert(out, prev) end
+    end
+    local nxt = ps.nextPageBtn
+    if nxt and type(nxt.IsVisible) == "function" then
+        local ok, vis = pcall(function() return nxt:IsVisible() end)
+        if ok and vis then table.insert(out, nxt) end
+    end
+    return out
+end
+
 local function Nav_FindCatIndexForCurrent()
     local pb = Nav_GetPageBags()
     local cats = Nav_GetCatButtons()
@@ -413,6 +513,23 @@ local function Nav_EnsureFocus()
         end
     end
 
+    -- SORT: sem indice; invisivel volta p/ CATS.
+    if f.zone == "SORT" and not Nav_SortVisible() then
+        f.zone = "CATS"
+    end
+    -- SPPAGE (espelho PAGENAV): spellPageBtn 1..2; sem botao visivel volta p/ SPGRID.
+    if not f.spellPageBtn or f.spellPageBtn < 1 then f.spellPageBtn = 1 end
+    if f.zone == "SPPAGE" then
+        local spbtns = Nav_VisibleSpellPageBtns()
+        local nsp = 0
+        if spbtns then nsp = table.getn(spbtns) end
+        if nsp < 1 then
+            f.zone = "SPGRID"
+        elseif f.spellPageBtn > nsp then
+            f.spellPageBtn = nsp
+        end
+    end
+
     if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
     local bc = Nav_BuffCount()
     if f.zone == "BUFFS" then
@@ -454,6 +571,32 @@ local function Nav_EnsureFocus()
         -- fallback grade vazia: mantem slot 1 sem forcar troca de zona aqui.
         if not f.spellSlot or f.spellSlot < 1 then f.spellSlot = 1 end
     end
+    -- FASE 4: clamp TALENTS (talentSpec init focusedSpecIdx ou 1;
+    -- talentSlot = referencia ao slot focado, init focusedTalentSlot ou firstVisible).
+    do
+        local MM4 = Nav_GetMM()
+        local pt4 = nil
+        if MM4 and MM4.tabContainer and MM4.tabContainer.pages then
+            pt4 = MM4.tabContainer.pages["TALENTS"]
+        end
+        if not f.talentSpec or f.talentSpec < 1 then
+            if pt4 and type(pt4.focusedSpecIdx) == "number" and pt4.focusedSpecIdx >= 1 and pt4.focusedSpecIdx <= 3 then
+                f.talentSpec = pt4.focusedSpecIdx
+            else
+                f.talentSpec = 1
+            end
+        end
+        if f.talentSpec > 3 then f.talentSpec = 3 end
+        if not Nav_TalentSlotVisible(f.talentSlot) then
+            local keep = pt4 and pt4.focusedTalentSlot
+            if Nav_TalentSlotVisible(keep) then
+                f.talentSlot = keep
+            else
+                local fv = Nav_GetTalentFirstVisible()
+                if fv then f.talentSlot = fv end
+            end
+        end
+    end
     if f.zone == "SPCAT" and nsc < 1 then
         if svis > 0 then f.zone = "SPGRID" end
     end
@@ -471,33 +614,46 @@ local function Nav_EnsureFocus()
         if f.zone == "SPTABS" then f.zone = "SPGRID" end
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" then
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" then
         f.returnZone = "GRID"
     end
-    -- Conversao por aba: evita zona BAGS presa em SPELLS e vice-versa.
+    -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS).
     local curTabEf = Nav_GetCurrentTab()
     if curTabEf == "SPELLS" then
         local scr = Nav_GetSpellActiveScreen()
         local defSp = "SPCAT"
         if scr == 2 then defSp = "SPGRID" end
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "TALENTS1" or f.zone == "TALENTS2" then
             f.zone = defSp
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" then
             f.returnZone = defSp
         end
         if f.zone == "BUFFS" and bc < 1 then
             f.zone = defSp
         end
     elseif curTabEf == "BAGS" then
-        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" then
+        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" then
             f.zone = "GRID"
         end
-        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" then
+        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" then
             f.returnZone = "GRID"
+        end
+    elseif curTabEf == "TALENTS" then
+        local defTal = "TALENTS1"
+        local scrT = Nav_GetTalentActiveScreen()
+        if scrT == 2 then defTal = "TALENTS2" end
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" then
+            f.zone = defTal
+        end
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" then
+            f.returnZone = defTal
+        end
+        if f.zone == "BUFFS" and bc < 1 then
+            f.zone = defTal
         end
     end
 end
@@ -714,6 +870,70 @@ local function Nav_ApplyFocus()
         end
     end
 
+    -- FASE 4 TALENTS visual (via raiz MM, nunca na pagina):
+    -- specs via FocusTalentSpecButton; arvore via FocusTalentSlot (focusBorder + DetailCard).
+    -- FocusTalentSlot so em zone==TALENTS2 (foco unico interno); fora da zona nao chamar
+    -- (arvore escondida junto da tela). backBtn fica p/ mouse nesta fase.
+    do
+        local MM4v = Nav_GetMM()
+        if MM4v and MM4v.tabContainer and MM4v.tabContainer.currentTab == "TALENTS" then
+            if f.zone == "TALENTS1" then
+                if type(MM4v.FocusTalentSpecButton) == "function" then
+                    local idx = f.talentSpec or 1
+                    pcall(function() MM4v:FocusTalentSpecButton(idx) end)
+                end
+            else
+                -- Foco unico (espelho SPCAT): fora de TALENTS1 repinta os 3 specButtons;
+                -- ativa fica dim (ouro-apagado), demais inativas, sem highlight/focusBorder.
+                pcall(function()
+                    local page = MM4v and MM4v.tabContainer and MM4v.tabContainer.pages and MM4v.tabContainer.pages["TALENTS"]
+                    local sbs = page and page.specButtons
+                    if not sbs then return end
+                    local activeIdx = f.talentSpec or page.focusedSpecIdx or 1
+                    local n = table.getn(sbs)
+                    for i = 1, n do
+                        local b = sbs[i]
+                        if b then
+                            if b.focusBorder and type(b.focusBorder.Hide) == "function" then b.focusBorder:Hide() end
+                            if b.highlight and type(b.highlight.Hide) == "function" then b.highlight:Hide() end
+                            if i == activeIdx then
+                                if b.activeBorder and type(b.activeBorder.Show) == "function" then b.activeBorder:Show() end
+                                if b.inactiveBorder and type(b.inactiveBorder.Hide) == "function" then b.inactiveBorder:Hide() end
+                                if b.specName and type(b.specName.SetTextColor) == "function" then b.specName:SetTextColor(0.88, 0.60, 0.08) end
+                            else
+                                if b.activeBorder and type(b.activeBorder.Hide) == "function" then b.activeBorder:Hide() end
+                                if b.inactiveBorder and type(b.inactiveBorder.Show) == "function" then b.inactiveBorder:Show() end
+                                if b.specName and type(b.specName.SetTextColor) == "function" then b.specName:SetTextColor(0.90, 0.90, 0.90) end
+                            end
+                        end
+                    end
+                end)
+            end
+            if f.zone == "TALENTS2" then
+                if type(MM4v.FocusTalentSlot) == "function" and Nav_TalentSlotVisible(f.talentSlot) then
+                    local slot = f.talentSlot
+                    pcall(function() MM4v:FocusTalentSlot(slot) end)
+                end
+            else
+                -- Espelho SPCAT/GRID else-hide: ao sair de TALENTS2 esconde o focus
+                -- visuals de TODOS os allSlots sem zerar focusedTalentSlot/indices.
+                pcall(function()
+                    local page = MM4v and MM4v.tabContainer and MM4v.tabContainer.pages and MM4v.tabContainer.pages["TALENTS"]
+                    local allSlots = page and page.allSlots or MM4v.allTalentSlots or MM4v.allSlots
+                    if not allSlots then return end
+                    local n = table.getn(allSlots)
+                    for i = 1, n do
+                        local s = allSlots[i]
+                        if s then
+                            if s.focusBorder and type(s.focusBorder.Hide) == "function" then s.focusBorder:Hide() end
+                            if s.highlight and type(s.highlight.Hide) == "function" then s.highlight:Hide() end
+                        end
+                    end
+                end)
+            end
+        end
+    end
+
     -- PAGENAV: botao focado ouro; demais voltam ao default.
     local pbForPage = Nav_GetPageBags()
     if pbForPage and (pbForPage.prevPageBtn or pbForPage.nextPageBtn) then
@@ -751,6 +971,85 @@ local function Nav_ApplyFocus()
                     end
                     if b.highlight and type(b.highlight.Hide) == "function" then
                         pcall(function() b.highlight:Hide() end)
+                    end
+                end
+            end
+        end
+    end
+
+    -- SORT (BAGS): sortBtn focado ouro (backdrop; defensivo, espelho OnEnter/OnLeave MainMenu.lua:4294-4301).
+    do
+        local pbSort = Nav_GetPageBags()
+        local sb = pbSort and pbSort.sortBtn
+        if sb then
+            if f.zone == "SORT" then
+                if sb.fullHi and type(sb.fullHi.Show) == "function" then
+                    pcall(function() sb.fullHi:Show() end)
+                end
+                if type(sb.SetBackdropBorderColor) == "function" then
+                    pcall(function() sb:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+                end
+                if type(sb.SetBackdropColor) == "function" then
+                    pcall(function() sb:SetBackdropColor(0.20, 0.15, 0.10, 0.90) end)
+                elseif sb.highlight and type(sb.highlight.Show) == "function" then
+                    pcall(function() sb.highlight:Show() end)
+                end
+            else
+                if sb.fullHi and type(sb.fullHi.Hide) == "function" then
+                    pcall(function() sb.fullHi:Hide() end)
+                end
+                if type(sb.SetBackdropBorderColor) == "function" then
+                    pcall(function() sb:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85) end)
+                end
+                if type(sb.SetBackdropColor) == "function" then
+                    pcall(function() sb:SetBackdropColor(0.12, 0.09, 0.06, 0.75) end)
+                end
+                if sb.highlight and type(sb.highlight.Hide) == "function" then
+                    pcall(function() sb.highlight:Hide() end)
+                end
+            end
+        end
+    end
+
+    -- SPPAGE (espelho PAGENAV): botao focado ouro (fullHi se existir, senao backdrop).
+    do
+        local psForPage = Nav_GetPageSpells()
+        if psForPage and (psForPage.prevPageBtn or psForPage.nextPageBtn) then
+            local spbtns = Nav_VisibleSpellPageBtns()
+            local focusedSpBtn = nil
+            if f.zone == "SPPAGE" and spbtns then
+                local nspv = table.getn(spbtns)
+                if f.spellPageBtn and f.spellPageBtn >= 1 and f.spellPageBtn <= nspv then
+                    focusedSpBtn = spbtns[f.spellPageBtn]
+                end
+            end
+            local allSpBtns = { psForPage.prevPageBtn, psForPage.nextPageBtn }
+            for i = 1, 2 do
+                local b = allSpBtns[i]
+                if b then
+                    if focusedSpBtn and b == focusedSpBtn then
+                        if b.fullHi and type(b.fullHi.Show) == "function" then
+                            pcall(function() b.fullHi:Show() end)
+                        elseif type(b.SetBackdropBorderColor) == "function" then
+                            pcall(function() b:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+                        elseif type(b.LockHighlight) == "function" then
+                            pcall(function() b:LockHighlight() end)
+                        elseif b.highlight and type(b.highlight.Show) == "function" then
+                            pcall(function() b.highlight:Show() end)
+                        end
+                    else
+                        if b.fullHi and type(b.fullHi.Hide) == "function" then
+                            pcall(function() b.fullHi:Hide() end)
+                        end
+                        if type(b.SetBackdropBorderColor) == "function" then
+                            pcall(function() b:SetBackdropBorderColor(0.5, 0.4, 0.28, 0.65) end)
+                        end
+                        if type(b.UnlockHighlight) == "function" then
+                            pcall(function() b:UnlockHighlight() end)
+                        end
+                        if b.highlight and type(b.highlight.Hide) == "function" then
+                            pcall(function() b.highlight:Hide() end)
+                        end
                     end
                 end
             end
@@ -808,6 +1107,13 @@ end
 function Nav:OnDirection(direction)
     if not self:IsActive() then return end
     local curTab = Nav_GetCurrentTab()
+    if curTab == "TALENTS" then
+        Nav_EnsureFocus()
+        local movedT = Nav_OnTalentsDirection(direction)
+        Nav_ApplyFocus()
+        if movedT then MMNav_PlayMove() end
+        return
+    end
     if curTab == "SPELLS" then
         Nav_EnsureFocus()
         local movedSp = Nav_OnSpellsDirection(direction)
@@ -871,6 +1177,12 @@ function Nav_OnSpellsDirection(direction)
             f.zone = "TABBAR"
             return true
         end
+        if f.zone == "SPPAGE" then
+            f.returnZone = "SPPAGE"
+            f.zone = "SPGRID"
+            Nav_EnsureFocus()
+            return true
+        end
         if f.zone == "BUFFS" then
             local bc = Nav_BuffCount()
             if bc < 1 then
@@ -919,6 +1231,20 @@ function Nav_OnSpellsDirection(direction)
                 f.spellSlot = f.spellSlot + cols
                 return true
             end
+            -- SPGRID DOWN hoje vai p/ lugar nenhum (return false); SPPAGE entra depois:
+            -- ultima fileira sem fileira abaixo -> SPPAGE (se pageNav visivel).
+            local pgSpDown = Nav_VisibleSpellPageBtns()
+            local npSpDown = 0
+            if pgSpDown then npSpDown = table.getn(pgSpDown) end
+            if npSpDown > 0 then
+                f.zone = "SPPAGE"
+                if not f.spellPageBtn or f.spellPageBtn < 1 then f.spellPageBtn = 1 end
+                if f.spellPageBtn > npSpDown then f.spellPageBtn = npSpDown end
+                return true
+            end
+            return false
+        end
+        if f.zone == "SPPAGE" then
             return false
         end
         if f.zone == "BUFFS" then
@@ -1021,6 +1347,23 @@ function Nav_OnSpellsDirection(direction)
             Nav_EnsureFocus()
             return true
         end
+        if f.zone == "SPPAGE" then
+            local pgSL = Nav_VisibleSpellPageBtns()
+            local npSL = 0
+            if pgSL then npSL = table.getn(pgSL) end
+            if npSL < 1 then
+                f.zone = "SPGRID"
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.spellPageBtn or f.spellPageBtn < 1 then f.spellPageBtn = 1 end
+            if f.spellPageBtn > npSL then f.spellPageBtn = npSL end
+            if npSL > 1 then
+                f.spellPageBtn = f.spellPageBtn - 1
+                if f.spellPageBtn < 1 then f.spellPageBtn = npSL end
+            end
+            return true
+        end
         return false
     end
     if direction == "RIGHT" then
@@ -1047,6 +1390,10 @@ function Nav_OnSpellsDirection(direction)
                 f.zone = "GRID"
             elseif curE == "SPELLS" or curE == nil then
                 if scrE == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            elseif curE == "TALENTS" then
+                f.returnZone = "EQUIP"
+                local scrTE = Nav_GetTalentActiveScreen()
+                if scrTE == 2 then f.zone = "TALENTS2" else f.zone = "TALENTS1" end
             else
                 f.zone = "GRID"
             end
@@ -1094,6 +1441,9 @@ function Nav_OnSpellsDirection(direction)
             elseif curRB == "SPELLS" then
                 local scrRB = Nav_GetSpellActiveScreen()
                 if scrRB == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            elseif curRB == "TALENTS" then
+                local scrTRB = Nav_GetTalentActiveScreen()
+                if scrTRB == 2 then f.zone = "TALENTS2" else f.zone = "TALENTS1" end
             else
                 f.zone = "GRID"
             end
@@ -1108,6 +1458,296 @@ function Nav_OnSpellsDirection(direction)
                 return true
             end
             return false
+        end
+        if f.zone == "SPPAGE" then
+            local pgSR = Nav_VisibleSpellPageBtns()
+            local npSR = 0
+            if pgSR then npSR = table.getn(pgSR) end
+            if npSR < 1 then
+                f.zone = "SPGRID"
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.spellPageBtn or f.spellPageBtn < 1 then f.spellPageBtn = 1 end
+            if f.spellPageBtn > npSR then f.spellPageBtn = npSR end
+            if npSR > 1 then
+                f.spellPageBtn = f.spellPageBtn + 1
+                if f.spellPageBtn > npSR then f.spellPageBtn = 1 end
+            end
+            return true
+        end
+        return false
+    end
+    return false
+end
+
+-- FASE 4: navegacao TALENTS. page = tabContainer.pages["TALENTS"]; activeScreen 1=specs/2=arvore.
+-- TALENTS1: lista vertical 3 specs. TALENTS2: arvore posicional 7 tiers x 4 cols (col1=topo),
+-- sempre p/ vizinho VISIVEL mais proximo (skip escondidos, nada de indice linear).
+-- TABBAR/EQUIP/BUFFS compartilhadas funcionam igual a BAGS (reaproveite codigo BAGS);
+-- EQUIP/BUFFS RIGHT voltam via tab-aware (tela1->TALENTS1, tela2->TALENTS2).
+-- Tudo via raiz MM=Nav_GetMM(), nunca na pagina. Retorna true se moveu/tratou.
+function Nav_OnTalentsDirection(direction)
+    local f = Nav.focus
+    if direction == "UP" then
+        if f.zone == "TABBAR" then return false end
+        if f.zone == "EQUIP" then
+            if f.equipIndex > 1 then f.equipIndex = f.equipIndex - 1 return true end
+            f.returnZone = "EQUIP"
+            f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "TALENTS1" then
+            f.returnZone = "TALENTS1"
+            f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "TALENTS2" then
+            local MM = Nav_GetMM()
+            local tier, col = Nav_GetTalentSlotTierCol(f.talentSlot)
+            if MM and tier and col then
+                local grid = MM.tabContainer and MM.tabContainer.pages and MM.tabContainer.pages["TALENTS"] and MM.tabContainer.pages["TALENTS"].treeScreen and MM.tabContainer.pages["TALENTS"].treeScreen.slotsByTierCol
+                if grid then
+                    local c = col - 1
+                    while c >= 1 do
+                        local row = grid[tier]
+                        local cand = row and row[c]
+                        if Nav_TalentSlotVisible(cand) then
+                            f.talentSlot = cand
+                            if type(MM.FocusTalentSlot) == "function" then
+                                local s = cand
+                                pcall(function() MM:FocusTalentSlot(s) end)
+                            end
+                            return true
+                        end
+                        c = c - 1
+                    end
+                end
+            end
+            f.returnZone = "TALENTS2"
+            f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "BUFFS" then
+            local bc = Nav_BuffCount()
+            if bc < 1 then
+                f.zone = Nav_GetTalentDefaultZone()
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+            if f.buffPos > bc then f.buffPos = bc end
+            if f.buffPos > 1 then
+                f.buffPos = f.buffPos - 1
+                return true
+            end
+            f.returnZone = "BUFFS"
+            f.zone = "TABBAR"
+            return true
+        end
+        return false
+    end
+    if direction == "DOWN" then
+        if f.zone == "TABBAR" then
+            f.zone = f.returnZone or Nav_GetTalentDefaultZone()
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "EQUIP" then
+            local eq = Nav_GetEquipButtons()
+            local ne = 17
+            if eq then ne = table.getn(eq) end
+            if f.equipIndex < ne then f.equipIndex = f.equipIndex + 1 return true end
+            return false
+        end
+        if f.zone == "TALENTS1" then return false end
+        if f.zone == "TALENTS2" then
+            local MM = Nav_GetMM()
+            local tier, col = Nav_GetTalentSlotTierCol(f.talentSlot)
+            if MM and tier and col then
+                local grid = MM.tabContainer and MM.tabContainer.pages and MM.tabContainer.pages["TALENTS"] and MM.tabContainer.pages["TALENTS"].treeScreen and MM.tabContainer.pages["TALENTS"].treeScreen.slotsByTierCol
+                if grid then
+                    local c = col + 1
+                    while c <= 4 do
+                        local row = grid[tier]
+                        local cand = row and row[c]
+                        if Nav_TalentSlotVisible(cand) then
+                            f.talentSlot = cand
+                            if type(MM.FocusTalentSlot) == "function" then
+                                local s = cand
+                                pcall(function() MM:FocusTalentSlot(s) end)
+                            end
+                            return true
+                        end
+                        c = c + 1
+                    end
+                end
+            end
+            return false
+        end
+        if f.zone == "BUFFS" then
+            local bc = Nav_BuffCount()
+            if bc < 1 then
+                f.zone = Nav_GetTalentDefaultZone()
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.buffPos or f.buffPos < 1 then
+                f.buffPos = 1
+                Nav_EnsureFocus()
+                return true
+            end
+            if f.buffPos > bc then
+                f.buffPos = bc
+                return true
+            end
+            if f.buffPos < bc then
+                f.buffPos = f.buffPos + 1
+                return true
+            end
+            return false
+        end
+        return false
+    end
+    if direction == "LEFT" then
+        if f.zone == "TABBAR" then
+            if f.tabIdx > 1 then f.tabIdx = f.tabIdx - 1 return true end
+            return false
+        end
+        if f.zone == "EQUIP" then return false end
+        if f.zone == "TALENTS1" then
+            if not f.talentSpec or f.talentSpec < 1 then f.talentSpec = 1 end
+            if f.talentSpec > 3 then f.talentSpec = 3 end
+            if f.talentSpec <= 1 then
+                local bc = Nav_BuffCount()
+                if bc > 0 then
+                    f.returnZone = "TALENTS1"
+                    f.zone = "BUFFS"
+                    if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                    if f.buffPos > bc then f.buffPos = bc end
+                    Nav_EnsureFocus()
+                    return true
+                end
+            end
+            f.talentSpec = f.talentSpec - 1
+            if f.talentSpec < 1 then f.talentSpec = 3 end
+            local MM = Nav_GetMM()
+            if MM and type(MM.FocusTalentSpecButton) == "function" then
+                local idx = f.talentSpec
+                pcall(function() MM:FocusTalentSpecButton(idx, true) end)
+            end
+            return true
+        end
+        if f.zone == "TALENTS2" then
+            local MM = Nav_GetMM()
+            local tier, col = Nav_GetTalentSlotTierCol(f.talentSlot)
+            if tier and col and tier > 1 and MM then
+                local grid = MM.tabContainer and MM.tabContainer.pages and MM.tabContainer.pages["TALENTS"] and MM.tabContainer.pages["TALENTS"].treeScreen and MM.tabContainer.pages["TALENTS"].treeScreen.slotsByTierCol
+                if grid then
+                    local t = tier - 1
+                    while t >= 1 do
+                        local row = grid[t]
+                        local cand = row and row[col]
+                        if Nav_TalentSlotVisible(cand) then
+                            f.talentSlot = cand
+                            if type(MM.FocusTalentSlot) == "function" then
+                                local s = cand
+                                pcall(function() MM:FocusTalentSlot(s) end)
+                            end
+                            return true
+                        end
+                        t = t - 1
+                    end
+                    return false
+                end
+            end
+            if tier and tier <= 1 then
+                local bc = Nav_BuffCount()
+                if bc > 0 then
+                    f.returnZone = "TALENTS2"
+                    f.zone = "BUFFS"
+                    if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                    if f.buffPos > bc then f.buffPos = bc end
+                    Nav_EnsureFocus()
+                    return true
+                end
+                f.returnZone = "TALENTS2"
+                f.zone = "EQUIP"
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
+        if f.zone == "BUFFS" then
+            f.zone = "EQUIP"
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
+    if direction == "RIGHT" then
+        if f.zone == "TABBAR" then
+            local tabs = Nav_GetTabButtons()
+            local nt = 5
+            if tabs then nt = table.getn(tabs) end
+            if f.tabIdx < nt then f.tabIdx = f.tabIdx + 1 return true end
+            return false
+        end
+        if f.zone == "EQUIP" then
+            local bc = Nav_BuffCount()
+            if bc > 0 then
+                f.returnZone = "EQUIP"
+                f.zone = "BUFFS"
+                if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                if f.buffPos > bc then f.buffPos = bc end
+                Nav_EnsureFocus()
+                return true
+            end
+            f.zone = Nav_GetTalentDefaultZone()
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "TALENTS1" then
+            if not f.talentSpec or f.talentSpec < 1 then f.talentSpec = 1 end
+            if f.talentSpec > 3 then f.talentSpec = 3 end
+            f.talentSpec = f.talentSpec + 1
+            if f.talentSpec > 3 then f.talentSpec = 1 end
+            local MM = Nav_GetMM()
+            if MM and type(MM.FocusTalentSpecButton) == "function" then
+                local idx = f.talentSpec
+                pcall(function() MM:FocusTalentSpecButton(idx, true) end)
+            end
+            return true
+        end
+        if f.zone == "TALENTS2" then
+            local MM = Nav_GetMM()
+            local tier, col = Nav_GetTalentSlotTierCol(f.talentSlot)
+            if MM and tier and col then
+                local grid = MM.tabContainer and MM.tabContainer.pages and MM.tabContainer.pages["TALENTS"] and MM.tabContainer.pages["TALENTS"].treeScreen and MM.tabContainer.pages["TALENTS"].treeScreen.slotsByTierCol
+                if grid then
+                    local t = tier + 1
+                    while t <= 7 do
+                        local row = grid[t]
+                        local cand = row and row[col]
+                        if Nav_TalentSlotVisible(cand) then
+                            f.talentSlot = cand
+                            if type(MM.FocusTalentSlot) == "function" then
+                                local s = cand
+                                pcall(function() MM:FocusTalentSlot(s) end)
+                            end
+                            return true
+                        end
+                        t = t + 1
+                    end
+                end
+            end
+            return false
+        end
+        if f.zone == "BUFFS" then
+            f.returnZone = "BUFFS"
+            f.zone = Nav_GetTalentDefaultZone()
+            Nav_EnsureFocus()
+            return true
         end
         return false
     end
@@ -1128,6 +1768,12 @@ function Nav_OnBagsDirection(direction)
         if f.zone == "CATS" then
             f.returnZone = "CATS"
             f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "SORT" then
+            f.returnZone = "SORT"
+            f.zone = "CATS"
+            Nav_EnsureFocus()
             return true
         end
         if f.zone == "GRID" then
@@ -1182,6 +1828,16 @@ function Nav_OnBagsDirection(direction)
             return false
         end
         if f.zone == "CATS" then
+            if Nav_SortVisible() then
+                f.zone = "SORT"
+                Nav_EnsureFocus()
+                return true
+            end
+            f.zone = "GRID"
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "SORT" then
             f.zone = "GRID"
             Nav_EnsureFocus()
             return true
@@ -1317,6 +1973,10 @@ function Nav_OnBagsDirection(direction)
             if curEB == "SPELLS" then
                 local scrEB = Nav_GetSpellActiveScreen()
                 if scrEB == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            elseif curEB == "TALENTS" then
+                f.returnZone = "EQUIP"
+                local scrTEB = Nav_GetTalentActiveScreen()
+                if scrTEB == 2 then f.zone = "TALENTS2" else f.zone = "TALENTS1" end
             else
                 f.zone = "GRID"
             end
@@ -1343,6 +2003,9 @@ function Nav_OnBagsDirection(direction)
             elseif curBRB == "SPELLS" then
                 local scrBRB = Nav_GetSpellActiveScreen()
                 if scrBRB == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            elseif curBRB == "TALENTS" then
+                local scrTBRB = Nav_GetTalentActiveScreen()
+                if scrTBRB == 2 then f.zone = "TALENTS2" else f.zone = "TALENTS1" end
             else
                 f.zone = "GRID"
             end
@@ -1472,6 +2135,81 @@ function Nav:OnConfirm()
             end
             return true
         end
+        if fs.zone == "SPPAGE" then
+            local pgSC = Nav_VisibleSpellPageBtns()
+            local npSC = 0
+            if pgSC then npSC = table.getn(pgSC) end
+            local spbtn = nil
+            if fs.spellPageBtn and fs.spellPageBtn >= 1 and fs.spellPageBtn <= npSC then
+                spbtn = pgSC[fs.spellPageBtn]
+            end
+            if spbtn then pcall(function() spbtn:Click() end) end
+            return true
+        end
+        return false
+    end
+    if curTabCf == "TALENTS" then
+        Nav_EnsureFocus()
+        local ft = self.focus
+        if ft.zone == "TABBAR" then
+            local tabs = Nav_GetTabButtons()
+            local MM = Nav_GetMM()
+            if tabs and tabs[ft.tabIdx] then
+                local btn = tabs[ft.tabIdx]
+                if btn then pcall(function() btn:Click() end) end
+                return true
+            end
+            if MM and type(MM.SelectTab) == "function" then return true end
+            return true
+        end
+        if ft.zone == "EQUIP" then
+            local eq = Nav_GetEquipButtons()
+            if eq and eq[ft.equipIndex] then
+                pcall(function() eq[ft.equipIndex]:Click("LeftButton") end)
+            end
+            return true
+        end
+        if ft.zone == "BUFFS" then
+            return true
+        end
+        if ft.zone == "TALENTS1" then
+            local MM = Nav_GetMM()
+            if MM then
+                if type(MM.FocusTalentSpecButton) == "function" then
+                    local idx = ft.talentSpec or 1
+                    pcall(function() MM:FocusTalentSpecButton(idx) end)
+                end
+                if type(MM.ShowTalentTreeScreen) == "function" then
+                    local idx2 = ft.talentSpec or 1
+                    pcall(function() MM:ShowTalentTreeScreen(idx2) end)
+                end
+            end
+            ft.zone = "TALENTS2"
+            local MM2 = Nav_GetMM()
+            if MM2 and MM2.tabContainer and MM2.tabContainer.pages then
+                local pt2 = MM2.tabContainer.pages["TALENTS"]
+                if pt2 and Nav_TalentSlotVisible(pt2.focusedTalentSlot) then
+                    ft.talentSlot = pt2.focusedTalentSlot
+                else
+                    local fv = Nav_GetTalentFirstVisible()
+                    if fv then ft.talentSlot = fv end
+                end
+            end
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            return true
+        end
+        if ft.zone == "TALENTS2" then
+            local slot = ft.talentSlot
+            if slot and slot.talentData and slot.talentData.tabIndex and slot.talentData.talentIndex then
+                local MM = Nav_GetMM()
+                if MM and type(MM.SpendTalentPoint) == "function" then
+                    local ti, tj = slot.talentData.tabIndex, slot.talentData.talentIndex
+                    pcall(function() MM:SpendTalentPoint(ti, tj) end)
+                end
+            end
+            return true
+        end
         return false
     end
     if curTabCf ~= "BAGS" then
@@ -1505,6 +2243,11 @@ function Nav:OnConfirm()
             self.focus.catIndex = Nav_FindCatIndexForCurrent() or self.focus.catIndex
             Nav_ApplyFocus()
         end
+        return true
+    end
+    if f.zone == "SORT" then
+        local pbS = Nav_GetPageBags()
+        if pbS and pbS.sortBtn then pcall(function() pbS.sortBtn:Click() end) end
         return true
     end
     if f.zone == "GRID" then
@@ -1542,6 +2285,13 @@ function Nav:OnCancel()
         if scr == nil then
             isGridScreen = (self.focus and self.focus.zone == "SPGRID")
         end
+        if self.focus and self.focus.zone == "SPPAGE" then
+            self.focus.zone = "SPGRID"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
         if isGridScreen then
             local MM = Nav_GetMM()
             if MM and type(MM.ShowSpellCategoryScreen) == "function" then
@@ -1574,6 +2324,35 @@ function Nav:OnCancel()
         end
         return false
     end
+    if curTabCx == "TALENTS" then
+        local MM = Nav_GetMM()
+        local pt = nil
+        if MM and MM.tabContainer and MM.tabContainer.pages then
+            pt = MM.tabContainer.pages["TALENTS"]
+        end
+        local scr = pt and pt.activeScreen
+        if scr == 2 or (scr == nil and self.focus and self.focus.zone == "TALENTS2") then
+            if MM and type(MM.HandleTalentsBack) == "function" then
+                pcall(function() MM:HandleTalentsBack() end)
+            end
+            self.focus.zone = "TALENTS1"
+            if pt and type(pt.focusedSpecIdx) == "number" then self.focus.talentSpec = pt.focusedSpecIdx end
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        Nav_EnsureFocus()
+        local ftp = self.focus
+        if ftp and ftp.zone == "TALENTS1" then
+            ftp.zone = "EQUIP"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        return false
+    end
     if curTabCx ~= "BAGS" then
         MMNav_Log("|cffe09a15[MMNav]|r B (fase1: cursor ainda trata)")
         return false
@@ -1589,6 +2368,13 @@ function Nav:OnCancel()
     end
     if f.zone == "CATS" then
         f.zone = "EQUIP"
+        Nav_EnsureFocus()
+        Nav_ApplyFocus()
+        MMNav_PlayMove()
+        return true
+    end
+    if f.zone == "SORT" then
+        f.zone = "CATS"
         Nav_EnsureFocus()
         Nav_ApplyFocus()
         MMNav_PlayMove()
@@ -1614,6 +2400,9 @@ end
 function Nav:OnUse()
     if not self:IsActive() then return false end
     local curTabUs = Nav_GetCurrentTab()
+    if curTabUs == "TALENTS" then
+        return false
+    end
     if curTabUs == "SPELLS" then
         Nav_EnsureFocus()
         local fu = self.focus
@@ -1747,10 +2536,13 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1 }
     if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
     if self.focus.pageBtn == nil or self.focus.pageBtn < 1 then self.focus.pageBtn = 1 end
+    if self.focus.spellPageBtn == nil or self.focus.spellPageBtn < 1 then self.focus.spellPageBtn = 1 end
     if self.focus.spellCat ~= nil and self.focus.spellCat < 1 then self.focus.spellCat = 1 end
     if self.focus.spellSlot == nil or self.focus.spellSlot < 1 then self.focus.spellSlot = 1 end
     if self.focus.spellTab == nil or self.focus.spellTab < 1 then self.focus.spellTab = 1 end
+    if self.focus.talentSpec ~= nil and self.focus.talentSpec < 1 then self.focus.talentSpec = 1 end
+    if self.focus.talentSpec ~= nil and self.focus.talentSpec > 3 then self.focus.talentSpec = 3 end
 end

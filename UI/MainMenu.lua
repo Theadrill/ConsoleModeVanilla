@@ -5388,6 +5388,11 @@ function MainMenu:UpdateSpellsPage(keepPage)
     end
 
     -- 3. Preenche os slots de magias
+    local keepSel = nil
+    do
+        local okK, vK = pcall(function() return grid and grid.selectedSlotIndex end)
+        if okK and type(vK) == "number" then keepSel = vK end
+    end
     grid:Clear()
     local startIndex = (curPage - 1) * pageSize + 1
     local remainingElements = totalElements - startIndex + 1
@@ -5428,21 +5433,72 @@ function MainMenu:UpdateSpellsPage(keepPage)
     end
 
     if displaySlots > 0 and spells[startIndex] then
-        grid:SelectSlot(1, true)
-        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and grid.slots and grid.slots[1] and grid.slots[1]:IsVisible() then
-            local curBtn = ConsoleMode.cursor.state and ConsoleMode.cursor.state.currentButton
-            local isCurrentValid = false
-            if curBtn and curBtn:IsVisible() then
-                for sIdx = 1, displaySlots do
-                    if grid.slots[sIdx] == curBtn then
-                        isCurrentValid = true
-                        break
+        local navActive = false
+        local navZone = nil
+        local navSpellSlot = nil
+        do
+            local okG, navObj = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and navObj then
+                local okA, isAct = pcall(function() return navObj:IsActive() end)
+                if okA and isAct then navActive = true end
+                local okZ, z = pcall(function() return navObj.zone end)
+                if okZ and type(z) == "string" then navZone = z end
+                local okF, f = pcall(function() return navObj.focus and navObj.focus.spellSlot end)
+                if okF and type(f) == "number" then navSpellSlot = f end
+            end
+        end
+        local desiredSel = 1
+        if type(keepSel) == "number" and keepSel >= 1 and keepSel <= displaySlots then
+            desiredSel = keepSel
+        end
+        if navActive and type(navSpellSlot) == "number" then
+            local clamped = navSpellSlot
+            if clamped < 1 then clamped = 1 end
+            if clamped > displaySlots then clamped = displaySlots end
+            desiredSel = clamped
+        end
+        grid:SelectSlot(desiredSel, true)
+        if not navActive then
+            if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and grid.slots and grid.slots[1] and grid.slots[1]:IsVisible() then
+                local curBtn = ConsoleMode.cursor.state and ConsoleMode.cursor.state.currentButton
+                local isCurrentValid = false
+                if curBtn and curBtn:IsVisible() then
+                    for sIdx = 1, displaySlots do
+                        if grid.slots[sIdx] == curBtn then
+                            isCurrentValid = true
+                            break
+                        end
                     end
                 end
+                if not isCurrentValid then
+                    ConsoleMode.cursor:MoveTo(grid.slots[1])
+                    ConsoleMode.cursor:UpdateState()
+                end
             end
-            if not isCurrentValid then
-                ConsoleMode.cursor:MoveTo(grid.slots[1])
-                ConsoleMode.cursor:UpdateState()
+        end
+        if navActive and navZone ~= "SPGRID" then
+            if grid.slots then
+                for sIdx = 1, displaySlots do
+                    local slotH = grid.slots[sIdx]
+                    if slotH then
+                        pcall(function()
+                            if slotH.highlights then
+                                if type(slotH.highlights.Hide) == "function" then
+                                    slotH.highlights:Hide()
+                                elseif type(slotH.highlights) == "table" then
+                                    for _, h in pairs(slotH.highlights) do
+                                        if type(h) == "table" and type(h.Hide) == "function" and type(h.IsVisible) == "function" and h:IsVisible() then
+                                            h:Hide()
+                                        end
+                                    end
+                                end
+                            end
+                            if slotH.highlight and type(slotH.highlight.Hide) == "function" then
+                                slotH.highlight:Hide()
+                            end
+                        end)
+                    end
+                end
             end
         end
     else
@@ -6298,7 +6354,19 @@ function MainMenu:UpdateTalentTreeGrid(specIdx)
         targetFocus = firstVisibleSlot
     end
 
-    if targetFocus then
+    local navTalActive = false
+    local navTalZone = nil
+    do
+        local okG, navObj = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+        if okG and navObj then
+            local okA, isAct = pcall(function() return navObj:IsActive() end)
+            if okA and isAct then navTalActive = true end
+            local okZ, z = pcall(function() return navObj.zone end)
+            if okZ and type(z) == "string" then navTalZone = z end
+        end
+    end
+    local mayPaintTalent = (not navTalActive) or (navTalZone == "TALENTS2")
+    if targetFocus and mayPaintTalent then
         self:FocusTalentSlot(targetFocus)
         if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo then
             ConsoleMode.cursor:MoveTo(targetFocus)
@@ -12918,7 +12986,7 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
         elseif tabID == "TALENTS" then
             self:RestorePlayerModel()
             self:UpdateLayout()
-            self:UpdateTalentsPage()
+            if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["TALENTS"] and self.tabContainer.pages["TALENTS"].activeScreen == 2 and type(self.ShowTalentSpecScreen) == "function" then self:ShowTalentSpecScreen() else self:UpdateTalentsPage() end
         elseif tabID == "SYSTEM" then
             self:RestorePlayerModel()
             self:UpdateLayout()

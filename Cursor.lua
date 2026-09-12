@@ -1079,6 +1079,10 @@ function Cursor:HandlePickerNavigation(pScreen, currentButton, direction)
 end
 
 function Cursor:HandleQuestNavigation(currentButton, direction)
+    return false
+end
+
+function Cursor:LegacyHandleQuestNavigation(currentButton, direction)
     if not currentButton then return false end
     local mm = CM.mainMenu
     if not mm or not mm.tabContainer or mm.tabContainer.currentTab ~= "QUESTS" then

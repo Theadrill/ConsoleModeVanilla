@@ -774,6 +774,10 @@ function KB:ExitNavigationMode(force)
         if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
             return
         end
+        -- FASE 1 MainMenuNav: mantem o modo navegacao enquanto o nav do menu principal estiver ativo.
+        if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+            return
+        end
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
             return
         end
@@ -1149,6 +1153,16 @@ function CM_CursorMove(direction, keystate)
         return
     end
 
+    -- FASE 1 MainMenuNav: D-pad consumido via repeat; botoeira cai no fluxo antigo.
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        -- FASE 1: só D-pad é consumido; botoeira retorna false e cai no fluxo antigo
+        if ConsoleMode_MainMenuNav.StartRepeat and (direction ~= nil) then
+            if keystate == "up" then ConsoleMode_MainMenuNav:StopRepeat(direction)
+            else ConsoleMode_MainMenuNav:StartRepeat(direction) end
+            return
+        end
+    end
+
     -- Proteção: se o cursor não estiver ativo em nenhuma janela, desativa modo navegação
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         CM.keybindings:ExitNavigationMode()
@@ -1207,6 +1221,13 @@ function CM_CursorConfirm()
             ConsoleMode_MailScreen:OnConfirm()
         end
         return
+    end
+
+    -- FASE 1 MainMenuNav: log via OnConfirm, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnConfirm then
+            ConsoleMode_MainMenuNav:OnConfirm()
+        end
     end
 
     if not CM.cursor or not CM.cursor.state.enabled then
@@ -1279,6 +1300,13 @@ function CM_CursorUse()
             ConsoleMode_MailScreen:TakeAllInbox()
         end
         return
+    end
+
+    -- FASE 1 MainMenuNav: log via OnUse, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnUse then
+            ConsoleMode_MainMenuNav:OnUse()
+        end
     end
 
     if CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.frame and CM.ui.contextMenu.frame:IsVisible() then
@@ -1360,6 +1388,13 @@ function CM_CursorSecondary(keystate)
         return
     end
 
+    -- FASE 1 MainMenuNav: log via OnSecondary, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnSecondary then
+            ConsoleMode_MainMenuNav:OnSecondary()
+        end
+    end
+
     if CursorHasItem() or CursorHasSpell() then
         ClearCursor()
         return
@@ -1421,6 +1456,13 @@ function CM_CursorCancel()
             ConsoleMode_MailScreen:Close()
         end
         return
+    end
+
+    -- FASE 1 MainMenuNav: log via OnCancel, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnCancel then
+            ConsoleMode_MainMenuNav:OnCancel()
+        end
     end
 
     local mmQ = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
@@ -1522,6 +1564,12 @@ function CM_NavNextTab()
         end
         return
     end
+    -- FASE 1 MainMenuNav: log via OnNextTab, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnNextTab then
+            ConsoleMode_MainMenuNav:OnNextTab()
+        end
+    end
     if CM.cursor and CM.cursor.CycleTabs then
         CM.cursor:CycleTabs(1)
     end
@@ -1550,6 +1598,12 @@ function CM_NavPrevTab()
         end
         return
     end
+    -- FASE 1 MainMenuNav: log via OnPrevTab, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnPrevTab then
+            ConsoleMode_MainMenuNav:OnPrevTab()
+        end
+    end
     if CM.cursor and CM.cursor.CycleTabs then
         CM.cursor:CycleTabs(-1)
     end
@@ -1577,6 +1631,12 @@ function CM_NavNextSubTab()
             ConsoleMode_MailScreen:CycleInboxFilter(1)
         end
         return
+    end
+    -- FASE 1 MainMenuNav: log via OnNextSubTab, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnNextSubTab then
+            ConsoleMode_MainMenuNav:OnNextSubTab()
+        end
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
@@ -1609,6 +1669,12 @@ function CM_NavPrevSubTab()
             ConsoleMode_MailScreen:CycleInboxFilter(-1)
         end
         return
+    end
+    -- FASE 1 MainMenuNav: log via OnPrevSubTab, sem consumir (cai no cursor).
+    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+        if ConsoleMode_MainMenuNav.OnPrevSubTab then
+            ConsoleMode_MainMenuNav:OnPrevSubTab()
+        end
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
@@ -1646,6 +1712,12 @@ function CM_SmartTab()
                 ConsoleMode_MailScreen:ShowInboxScreen()
             end
             return
+        end
+        -- FASE 1 MainMenuNav: log via OnSmartTab, sem consumir (cai no cursor).
+        if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+            if ConsoleMode_MainMenuNav.OnSmartTab then
+                ConsoleMode_MainMenuNav:OnSmartTab()
+            end
         end
         if CM.cursor and CM.cursor.CycleTabs then
             local cycled = CM.cursor:CycleTabs(-1)

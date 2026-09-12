@@ -699,6 +699,17 @@ function Hooks:InjectGameMenuButton()
 end
 
 function Hooks:CloseTopFrame()
+    -- Prioridade overlay quest MainMenu (somente se visivel)
+    local qOverlay = getglobal("ConsoleModeMM_QuestDetailOverlay")
+    if qOverlay and qOverlay.IsVisible and qOverlay:IsVisible() then
+        if ConsoleMode and ConsoleMode.mainMenu and ConsoleMode.mainMenu.HideQuestDetail then
+            pcall(function() ConsoleMode.mainMenu:HideQuestDetail() end)
+        else
+            pcall(function() qOverlay:Hide() end)
+        end
+        return true
+    end
+
     -- VK-2: teclado virtual fecha primeiro (cancela, sem confirmar)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then

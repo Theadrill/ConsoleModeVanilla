@@ -865,13 +865,13 @@ function CM_Action(button, page)
         end
     end
 
-    -- Botao Y na pagina 1 (Base) no QUESTS = Menu de contexto da missao
+    -- Botao Y na pagina 1 (Base) no QUESTS = Abandonar Missao
     if page == 1 and button == "Y" then
         local mm = (ConsoleMode and ConsoleMode.mainMenu) or nil
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() and mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS" then
             if mm.IsQuestDetailVisible and mm:IsQuestDetailVisible() then return end
-            if mm.selectedQuestIndex and mm.OpenQuestContextMenu then
-                mm:OpenQuestContextMenu(mm.selectedQuestIndex)
+            if mm.selectedQuestIndex and mm.AbandonSelectedQuest then
+                mm:AbandonSelectedQuest(mm.selectedQuestIndex)
             end
             return
         end
@@ -1370,7 +1370,9 @@ function CM_CursorUse()
         if sel and sel > 0 then
             local t, _, _, isHeader = GetQuestLogTitle(sel)
             if t and not isHeader then
-                mm:OpenQuestContextMenu(sel)
+                if mm.AbandonSelectedQuest then
+                    mm:AbandonSelectedQuest(sel)
+                end
                 return
             end
         end

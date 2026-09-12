@@ -7183,7 +7183,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local detailFooter = detailCard:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     detailFooter:SetPoint("BOTTOMLEFT", detailCard, "BOTTOMLEFT", 10, 5)
     MainMenu:ApplyFont(detailFooter, CFG.Fonts.subFontFile, 10)
-    detailFooter:SetText("|cff888888(A) Ver no Mapa  •  (X) Rastrear no HUD  •  (Y) Ações|r")
+    detailFooter:SetText("|cff888888(A) Ler Missão  •  (X) Rastrear  •  (Y) Abandonar|r")
     detailCard.footer = detailFooter
 
     -- Container da Lista de Missões (Parte Superior)
@@ -7314,7 +7314,7 @@ function MainMenu:CreateQuestListButton(parent, idx)
         if arg1 == "RightButton" then
             MainMenu:SelectQuest(this.questLogIndex, true)
             MainMenu:UpdateQuestsPage()
-            MainMenu:OpenQuestContextMenu(this.questLogIndex, this)
+            MainMenu:ShowQuestDetail(this.questLogIndex)
             return
         end
         MainMenu:SelectQuest(this.questLogIndex, false)
@@ -8389,8 +8389,8 @@ function MainMenu:ToggleQuestWatch(questLogIndex)
     self:UpdateQuestsPage()
 end
 
-function MainMenu:AbandonSelectedQuest()
-    local questIndex = self.selectedQuestIndex
+function MainMenu:AbandonSelectedQuest(questLogIndex)
+    local questIndex = questLogIndex or self.selectedQuestIndex
     if not questIndex or questIndex <= 0 then return end
 
     local title, level, questTag, isHeader = GetQuestLogTitle(questIndex)
@@ -8491,25 +8491,22 @@ end
 function MainMenu:HideQuestDetail()
     if not self.questDetailOverlay or not self.questDetailOverlay:IsVisible() then return end
     self.questDetailOverlay:Hide()
-    if CM.cursor then
+    if CM.cursor and CM.cursor.state and CM.cursor.state.activeFrames then
         CM.cursor.state.activeFrames[self.questDetailOverlay] = nil
-        if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].questPanel then
-            local qp = self.tabContainer.pages["QUESTS"].questPanel
-            local sel = qp.selectedQuestIndex or self.selectedQuestIndex
-            if sel and qp.questButtons then
-                for i = 1, table.getn(qp.questButtons) do
-                    local b = qp.questButtons[i]
-                    if b and b.questLogIndex == sel and b:IsVisible() then
-                        CM.cursor:MoveTo(b)
-                        break
-                    end
-                end
-            end
-            CM.cursor:UpdateState()
+    end
+    local nav = ConsoleMode_MainMenuNav or (ConsoleMode and ConsoleMode.mainMenuNav)
+    if nav and nav.focus then
+        nav.focus.zone = "QMISSOES"
+        if nav.ApplyFocus then
+            pcall(function() nav:ApplyFocus() end)
         end
     end
     PlaySound("igMainMenuOptionCheckBoxOff")
 end
+
+MainMenu.ShowQuestReadingModal = MainMenu.ShowQuestDetail
+MainMenu.HideQuestReadingModal = MainMenu.HideQuestDetail
+MainMenu.IsQuestReadingModalOpen = MainMenu.IsQuestDetailVisible
 
 function MainMenu:CreateQuestDetailOverlay()
     if self.questDetailOverlay then return end
@@ -8601,7 +8598,64 @@ function MainMenu:CreateQuestDetailOverlay()
     rewardText:SetJustifyV("TOP")
     MainMenu:ApplyFont(rewardText, CFG.Fonts.bodyFontFile, 12)
     f.rewardText = rewardText
-    local closeBtn = CreateFrame("Button", nil, panel)
+    -- Botão RASTREAR [X] (reutilizável, suporta clique de mouse)
+    local trackBtn = CreateFrame("Button", "ConsoleModeMM_QuestReadingTrackBtn", panel)
+    trackBtn:SetWidth(130)
+    trackBtn:SetHeight(22)
+    trackBtn:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -128, 10)
+    trackBtn:EnableMouse(true)
+    local tbg = trackBtn:CreateTexture(nil, "BACKGROUND")
+    tbg:SetAllPoints(trackBtn)
+    tbg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    tbg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
+    trackBtn.bg = tbg
+    local tbd = trackBtn:CreateTexture(nil, "BORDER")
+    tbd:SetPoint("TOPLEFT", trackBtn, "TOPLEFT", -1, 1)
+    tbd:SetPoint("BOTTOMRIGHT", trackBtn, "BOTTOMRIGHT", 1, -1)
+    tbd:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    tbd:SetVertexColor(0.45, 0.38, 0.22, 0.5)
+    trackBtn.borderTex = tbd
+    local thl = trackBtn:CreateTexture(nil, "HIGHLIGHT")
+    thl:SetAllPoints(trackBtn)
+    thl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    thl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
+    thl:SetBlendMode("ADD")
+    local ticonPath = (CFG and CFG.Icons and CFG.Icons["X"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\X.tga"
+    local ticon = trackBtn:CreateTexture(nil, "OVERLAY")
+    ticon:SetWidth(25)
+    ticon:SetHeight(25)
+    ticon:SetTexture(ticonPath)
+    ticon:SetPoint("LEFT", trackBtn, "LEFT", 8, 0)
+    local tlabel = trackBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    tlabel:SetPoint("LEFT", ticon, "RIGHT", 6, 0)
+    MainMenu:ApplyFont(tlabel, CFG.Fonts.subFontFile, 10)
+    tlabel:SetText("RASTREAR")
+    tlabel:SetTextColor(0.96, 0.88, 0.68, 1.0)
+    trackBtn.label = tlabel
+    trackBtn:SetScript("OnEnter", function()
+        if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
+        if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
+        if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 0.9) end
+    end)
+    trackBtn:SetScript("OnLeave", function()
+        if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+        if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+        if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
+    end)
+    trackBtn:SetScript("OnClick", function()
+        if f.currentQuestIndex then
+            MainMenu:ToggleQuestWatch(f.currentQuestIndex)
+            if IsQuestWatched and IsQuestWatched(f.currentQuestIndex) then
+                this.label:SetText("DESACOMPANHAR")
+            else
+                this.label:SetText("RASTREAR")
+            end
+        end
+    end)
+    f.trackBtn = trackBtn
+
+    -- Botão SAIR [B] (reutilizável, suporta clique de mouse)
+    local closeBtn = CreateFrame("Button", "ConsoleModeMM_QuestReadingCloseBtn", panel)
     closeBtn:SetWidth(110)
     closeBtn:SetHeight(22)
     closeBtn:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -12, 10)
@@ -8622,7 +8676,7 @@ function MainMenu:CreateQuestDetailOverlay()
     chl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     chl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
     chl:SetBlendMode("ADD")
-    local iconPath = (CFG and CFG.Icons and CFG.Icons["B"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\B.tga"
+    local iconPath = (CFG and CFG.Icons and CFG.Icons["B"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\B.tga"
     local icon = closeBtn:CreateTexture(nil, "OVERLAY")
     icon:SetWidth(25)
     icon:SetHeight(25)
@@ -8631,7 +8685,7 @@ function MainMenu:CreateQuestDetailOverlay()
     local clabel = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     clabel:SetPoint("LEFT", icon, "RIGHT", 6, 0)
     MainMenu:ApplyFont(clabel, CFG.Fonts.subFontFile, 10)
-    clabel:SetText("FECHAR")
+    clabel:SetText("SAIR")
     clabel:SetTextColor(0.96, 0.88, 0.68, 1.0)
     closeBtn.label = clabel
     closeBtn:SetScript("OnEnter", function()
@@ -8762,10 +8816,13 @@ function MainMenu:ShowQuestDetail(questLogIndex)
         f.scroll.child:SetHeight(math.max(total, 10))
         f.scroll:UpdateScrollChildRect()
     end
-    if CM.cursor then
-        CM.cursor.state.activeFrames[f] = true
-        if f.closeBtn then CM.cursor:MoveTo(f.closeBtn) end
-        CM.cursor:UpdateState()
+    f.currentQuestIndex = questLogIndex
+    if f.trackBtn and f.trackBtn.label then
+        if IsQuestWatched and IsQuestWatched(questLogIndex) then
+            f.trackBtn.label:SetText("DESACOMPANHAR")
+        else
+            f.trackBtn.label:SetText("RASTREAR")
+        end
     end
     PlaySound("igMainMenuOptionCheckBoxOn")
 end

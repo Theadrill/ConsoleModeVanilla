@@ -128,7 +128,6 @@ function Nav:IsActive()
     if IsVKOpen() then return false end
     if IsQtyOpen() then return false end
     if IsContextMenuOpen() then return false end
-    if IsQuestDetailOpen() then return false end
     return true
 end
 
@@ -614,10 +613,10 @@ local function Nav_EnsureFocus()
         if f.zone == "SPTABS" then f.zone = "SPGRID" end
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" then
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" then
         f.returnZone = "GRID"
     end
     -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS).
@@ -663,13 +662,13 @@ local function Nav_EnsureFocus()
             f.returnZone = "QMISSOES"
         end
     else
-        if f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" then
+        if f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" then
             if curTabEf == "BAGS" then f.zone = "GRID"
             elseif curTabEf == "SPELLS" then f.zone = "SPCAT"
             elseif curTabEf == "TALENTS" then f.zone = "TALENTS1"
             else f.zone = "GRID" end
         end
-        if f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" then
+        if f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" then
             f.returnZone = "GRID"
         end
     end
@@ -1355,7 +1354,7 @@ local function Nav_PaintQuests()
         local MM = Nav_GetMM()
         if MM then activeIdx = MM.selectedQuestIndex end
     end
-    local inQuestZone = (f.zone == "QMISSOES" or f.zone == "QDETALHE")
+    local inQuestZone = (f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "QLEITURA")
     for i = 1, n do
         local b = btns[i]
         if b and not b.isHeader and b.highlight then
@@ -1910,6 +1909,29 @@ end
 function Nav_OnQuestsDirection(direction)
     local f = Nav.focus
     if Nav_GetCurrentTab() ~= "QUESTS" then return false end
+    if f.zone == "QLEITURA" or IsQuestDetailOpen() then
+        local MM = Nav_GetMM()
+        local overlay = MM and MM.questDetailOverlay
+        if overlay and overlay.scroll then
+            local cur = overlay.scroll:GetVerticalScroll() or 0
+            local maxScroll = 0
+            if overlay.scroll.GetVerticalScrollRange then
+                maxScroll = overlay.scroll:GetVerticalScrollRange() or 0
+            end
+            if direction == "UP" then
+                local nextScroll = cur - 40
+                if nextScroll < 0 then nextScroll = 0 end
+                overlay.scroll:SetVerticalScroll(nextScroll)
+                return true
+            elseif direction == "DOWN" then
+                local nextScroll = cur + 40
+                if maxScroll > 0 and nextScroll > maxScroll then nextScroll = maxScroll end
+                overlay.scroll:SetVerticalScroll(nextScroll)
+                return true
+            end
+        end
+        return false
+    end
     Nav_EnsureQuestIdx()
     if f.zone == "TABBAR" then
         if direction == "DOWN" then
@@ -3040,6 +3062,9 @@ function Nav:OnConfirm()
             if MM and type(MM.SelectTab) == "function" then return true end
             return true
         end
+        if fq.zone == "QLEITURA" or IsQuestDetailOpen() then
+            return true
+        end
         if fq.zone == "QMISSOES" or fq.zone == "QDETALHE" then
             local idx = fq.questIdx
             if not idx or idx < 1 then
@@ -3048,15 +3073,21 @@ function Nav:OnConfirm()
             end
             if not idx or idx < 1 then return false end
             local MM = Nav_GetMM()
-            if MM and type(MM.FocusMapOnQuest) == "function" then
-                pcall(function() MM:FocusMapOnQuest(idx) end)
+            if MM then
+                if type(MM.FocusMapOnQuest) == "function" then
+                    pcall(function() MM:FocusMapOnQuest(idx) end)
+                end
                 if type(MM.SelectQuest) == "function" then
                     pcall(function() MM:SelectQuest(idx, true) end)
+                end
+                if type(MM.ShowQuestDetail) == "function" then
+                    pcall(function() MM:ShowQuestDetail(idx) end)
+                    fq.zone = "QLEITURA"
                 end
                 Nav_ApplyFocus()
                 return true
             else
-                MMNav_Log("|cffe09a15[MMNav]|r FocusMapOnQuest ausente")
+                MMNav_Log("|cffe09a15[MMNav]|r MM ausente")
                 return false
             end
         end
@@ -3332,9 +3363,17 @@ function Nav:OnCancel()
     if curTabCx == "QUESTS" then
         Nav_EnsureFocus()
         local fq = self.focus
-        -- IsActive() ja barra menu de contexto e overlay (questDetail):
-        -- retorna false la, entao B nao e consumido aqui (cursor fecha).
-        -- Sem duplicar checks de IsContextMenuOpen/IsQuestDetailOpen.
+        if IsQuestDetailOpen() or fq.zone == "QLEITURA" then
+            local MM = Nav_GetMM()
+            if MM and type(MM.HideQuestDetail) == "function" then
+                MM:HideQuestDetail()
+            end
+            fq.zone = "QMISSOES"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
         if fq.zone == "QMAPAS" then
             fq.zone = "QZONAS"
             fq.zonaGrupo = "LISTA"
@@ -3492,11 +3531,11 @@ function Nav:OnUse()
             end
             if not idx or idx < 1 then return false end
             local MM = Nav_GetMM()
-            if MM and type(MM.OpenQuestContextMenu) == "function" then
-                pcall(function() MM:OpenQuestContextMenu(idx) end)
+            if MM and type(MM.AbandonSelectedQuest) == "function" then
+                pcall(function() MM:AbandonSelectedQuest(idx) end)
                 return true
             else
-                MMNav_Log("|cffe09a15[MMNav]|r OpenQuestContextMenu ausente")
+                MMNav_Log("|cffe09a15[MMNav]|r AbandonSelectedQuest ausente")
                 return false
             end
         end
@@ -3588,7 +3627,23 @@ function Nav:OnSecondary()
     local curTabSec = Nav_GetCurrentTab()
     if curTabSec == "QUESTS" then
         Nav_EnsureFocus()
-        local fq = self.focus
+        if IsQuestDetailOpen() or fq.zone == "QLEITURA" then
+            local MM = Nav_GetMM()
+            local overlay = MM and MM.questDetailOverlay
+            local idx = (overlay and overlay.currentQuestIndex) or fq.questIdx
+            if idx and idx >= 1 and MM and type(MM.ToggleQuestWatch) == "function" then
+                pcall(function() MM:ToggleQuestWatch(idx) end)
+                if overlay and overlay.trackBtn and overlay.trackBtn.label and type(IsQuestWatched) == "function" then
+                    if IsQuestWatched(idx) then
+                        overlay.trackBtn.label:SetText("DESACOMPANHAR")
+                    else
+                        overlay.trackBtn.label:SetText("RASTREAR")
+                    end
+                end
+                return true
+            end
+            return false
+        end
         if fq.zone == "QMISSOES" or fq.zone == "QDETALHE" then
             local idx = fq.questIdx
             if not idx or idx < 1 then

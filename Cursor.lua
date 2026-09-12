@@ -12,6 +12,23 @@ local CM = ConsoleMode
 CM.cursor = CM.cursor or {}
 local Cursor = CM.cursor
 
+-- Gate defensivo: true SOMENTE quando o MainMenuNav estiver ativo (MainMenu
+-- visivel, sem Merchant/Mail/modal). Quando ativo, o Nav gerencia a propria
+-- navegacao via D-pad e o cursor virtual deve ficar escondido: nenhum
+-- Show/MoveTo/Resync/UpdateState pode reacende-lo. Fora do MainMenu retorna
+-- false e o comportamento do cursor fica identico ao atual.
+local function MainMenuNavActive()
+    if type(getglobal) ~= "function" then return false end
+    local nav = nil
+    local okG = pcall(function() nav = getglobal("ConsoleMode_MainMenuNav") end)
+    if not okG or not nav then return false end
+    if type(nav.IsActive) ~= "function" then return false end
+    local ok, active = pcall(function() return nav:IsActive() end)
+    if not ok then return false end
+    if active then return true end
+    return false
+end
+
 Cursor.state = {
     enabled = false,
     currentButton = nil,
@@ -111,6 +128,8 @@ function Cursor:EnsureOnTop(frame)
 end
 
 function Cursor:UpdatePosition(button)
+    -- MainMenuNav ativo: sem Show (cursor fica escondido, D-pad manda).
+    if MainMenuNavActive() then return end
     if not button then 
         self:Hide()
         return 
@@ -258,6 +277,8 @@ function Cursor:ScrollToShowButton(button)
 end
 
 function Cursor:MoveTo(button)
+    -- MainMenuNav ativo: sem MoveTo (nao ressuscita no hover/chamadas).
+    if MainMenuNavActive() then return end
     if not button then return end
     if self:IsAnyMacroOpen() or self:IsMacroFrame(button) then
         self:Disable()
@@ -307,6 +328,8 @@ function Cursor:StopRepeat(direction)
 end
 
 function Cursor:Show()
+    -- MainMenuNav ativo: Show nao reacende o cursor.
+    if MainMenuNavActive() then return end
     if self.state.currentButton then 
         self:UpdatePosition(self.state.currentButton) 
     end
@@ -769,6 +792,8 @@ function Cursor:FindClosest(current, allButtons)
 end
 
 function Cursor:UpdateState()
+    -- MainMenuNav ativo: nao re-sincroniza nem reacende o cursor.
+    if MainMenuNavActive() then return end
     if self:IsAnyMacroOpen() then
         self:Disable()
         return
@@ -1778,6 +1803,8 @@ end
 Cursor.Confirm = Cursor.Click
 
 function Cursor:Resync()
+    -- MainMenuNav ativo: Hide do D-pad segura, Resync nao reacende.
+    if MainMenuNavActive() then return false end
     if not self.state.enabled then return false end
     
     local curBtn = self.state.currentButton

@@ -313,13 +313,19 @@ local function Nav_ApplyFocus()
     MMNav_HideCursor()
 
     -- TABBAR: highlight do botao focado (somente highlight; nunca title).
+    -- Preserva a aba ativa de SelectTab (tabData.id == currentTab).
     local tabs = Nav_GetTabButtons()
     if tabs then
+        local curTab = nil
+        local okMM, MMM = pcall(function() return Nav_GetMM() end)
+        if okMM and MMM and MMM.tabContainer then curTab = MMM.tabContainer.currentTab end
         local n = table.getn(tabs)
         for i = 1, n do
             local btn = tabs[i]
             if btn then
                 if f.zone == "TABBAR" and i == f.tabIdx then
+                    if btn.highlight then pcall(function() btn.highlight:Show() end) end
+                elseif curTab and btn.tabData and btn.tabData.id == curTab then
                     if btn.highlight then pcall(function() btn.highlight:Show() end) end
                 else
                     if btn.highlight then pcall(function() btn.highlight:Hide() end) end
@@ -329,16 +335,25 @@ local function Nav_ApplyFocus()
     end
 
     -- EQUIP: borda dourada + DetailCard do slot.
+    -- Frame 1.12 nao tem SetVertexColor em Frame: border e Frame com
+    -- backdrop (cf. MainMenu.lua:1289,1294), API correta e SetBackdropBorderColor.
     local eq = Nav_GetEquipButtons()
     if eq then
+        local MMEquip = Nav_GetMM()
+        local canRestore = MMEquip and type(MMEquip.UpdateEquipmentColumn) == "function"
+        if canRestore then
+            pcall(function() MMEquip:UpdateEquipmentColumn() end)
+        end
         local n = table.getn(eq)
         for i = 1, n do
             local btn = eq[i]
-            if btn and btn.border and type(btn.border.SetVertexColor) == "function" then
+            if btn and btn.border and type(btn.border.SetBackdropBorderColor) == "function" then
                 if f.zone == "EQUIP" and i == f.equipIndex then
-                    pcall(function() btn.border:SetVertexColor(1.0, 0.82, 0.20) end)
-                else
-                    pcall(function() btn.border:SetVertexColor(1.0, 1.0, 1.0) end)
+                    pcall(function() btn.border:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+                elseif btn and type(btn.ApplyFocus) == "function" then
+                    pcall(function() btn:ApplyFocus() end)
+                elseif not canRestore then
+                    pcall(function() btn.border:SetBackdropBorderColor(1, 1, 1, 0.6) end)
                 end
             end
         end
@@ -403,12 +418,12 @@ local function Nav_ApplyFocus()
         if npool > 8 then npool = 8 end
         for i = 1, npool do
             local row = buffRows[i]
-            if row and row.border and type(row.border.SetVertexColor) == "function" then
+            if row and row.border and type(row.border.SetBackdropBorderColor) == "function" then
                 local b = row.border
                 if focusedRow and row == focusedRow then
-                    pcall(function() b:SetVertexColor(1.0, 0.82, 0.20) end)
+                    pcall(function() b:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
                 else
-                    pcall(function() b:SetVertexColor(0.2, 0.8, 1.0, 0.7) end)
+                    pcall(function() b:SetBackdropBorderColor(0.2, 0.8, 1.0, 0.7) end)
                 end
             end
         end

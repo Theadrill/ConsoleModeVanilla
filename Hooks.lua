@@ -11,6 +11,23 @@ _G = getfenv(0)
 ConsoleMode.hooks = ConsoleMode.hooks or {}
 local Hooks = ConsoleMode.hooks
 
+-- Gate defensivo: true SOMENTE quando o MainMenuNav estiver ativo (MainMenu
+-- visivel, sem Merchant/Mail/modal). Quando ativo, o Nav gerencia a propria
+-- navegacao via D-pad: o poll do mouse nao faz MoveTo e o OnShow do
+-- ConsoleModeMainMenuFrame nao faz Enable/MoveTo inicial. Fora do MainMenu
+-- retorna false e o comportamento fica identico ao atual.
+local function MainMenuNavActive()
+    if type(getglobal) ~= "function" then return false end
+    local nav = nil
+    local okG = pcall(function() nav = getglobal("ConsoleMode_MainMenuNav") end)
+    if not okG or not nav then return false end
+    if type(nav.IsActive) ~= "function" then return false end
+    local ok, active = pcall(function() return nav:IsActive() end)
+    if not ok then return false end
+    if active then return true end
+    return false
+end
+
 Hooks.initialized = false
 Hooks.eventFrame = nil
 
@@ -219,6 +236,13 @@ function Hooks:OnFrameShow(frame)
         ConsoleMode.keybindings:EnterNavigationMode()
     end
 
+    -- MainMenuNav ativo: ele gerencia a navegacao do MainMenu (D-pad);
+    -- cursor virtual fica escondido, SEM Enable/MoveTo inicial.
+    if name == "ConsoleModeMainMenuFrame" and MainMenuNavActive() then
+        if Cursor.Hide then Cursor:Hide() end
+        return
+    end
+
     -- ✅ CRITICO: Detectar se e frame de addon de bolsa (pfUI, Bagshui, Bagnon, Turtle-Dragonflight)
     -- Esses addons criam botoes dinamicamente DEPOIS do OnShow
     local isPfUIBag = (name == "pfBag" or name == "pfBank")
@@ -279,6 +303,14 @@ function Hooks:InitCursorOnFrame(frame)
         if ConsoleMode.keybindings and ConsoleMode.keybindings.navigationMode then
             ConsoleMode.keybindings:ExitNavigationMode()
         end
+        return
+    end
+
+    -- MainMenuNav ativo: esconde o cursor, SEM Enable/MoveTo inicial
+    -- (cobre o delay de 50ms do OnShow e re-inits via ProcessFrameHide/eventos).
+    local initName = (frame.GetName and frame:GetName()) or "?"
+    if initName == "ConsoleModeMainMenuFrame" and MainMenuNavActive() then
+        if Cursor.Hide then Cursor:Hide() end
         return
     end
 
@@ -537,9 +569,12 @@ function Hooks:Initialize()
                         local dy = math.abs(curY - Hooks.lastMouseY)
                         if dx > 10 or dy > 10 then
                             -- O jogador mexeu no mouse físico!
-                            local mouseFocus = GetMouseFocus()
-                            if mouseFocus and Cursor.state.enabled and Cursor:IsInteractive(mouseFocus) then
-                                Cursor:MoveTo(mouseFocus)
+                            -- MainMenuNav ativo: D-pad escondeu o cursor; hover nao ressuscita.
+                            if not MainMenuNavActive() then
+                                local mouseFocus = GetMouseFocus()
+                                if mouseFocus and Cursor.state.enabled and Cursor:IsInteractive(mouseFocus) then
+                                    Cursor:MoveTo(mouseFocus)
+                                end
                             end
                         end
                     end

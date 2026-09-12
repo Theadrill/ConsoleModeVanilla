@@ -4212,8 +4212,8 @@ function MainMenu:SetupBagsPage(pageBags)
         MainMenu:PrevBagPage()
     end)
     local prevPageFullHi = CreateFrame("Frame", nil, prevPageBtn)
-    prevPageFullHi:SetPoint("TOPLEFT", prevPageBtn, "TOPLEFT", -6, 6)
-    prevPageFullHi:SetPoint("BOTTOMRIGHT", prevPageBtn, "BOTTOMRIGHT", 6, -6)
+    prevPageFullHi:SetPoint("TOPLEFT", prevPageBtn, "TOPLEFT", -9, 9)
+    prevPageFullHi:SetPoint("BOTTOMRIGHT", prevPageBtn, "BOTTOMRIGHT", 9, -9)
     prevPageFullHi:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -4258,8 +4258,8 @@ function MainMenu:SetupBagsPage(pageBags)
         MainMenu:NextBagPage()
     end)
     local nextPageFullHi = CreateFrame("Frame", nil, nextPageBtn)
-    nextPageFullHi:SetPoint("TOPLEFT", nextPageBtn, "TOPLEFT", -6, 6)
-    nextPageFullHi:SetPoint("BOTTOMRIGHT", nextPageBtn, "BOTTOMRIGHT", 6, -6)
+    nextPageFullHi:SetPoint("TOPLEFT", nextPageBtn, "TOPLEFT", -9, 9)
+    nextPageFullHi:SetPoint("BOTTOMRIGHT", nextPageBtn, "BOTTOMRIGHT", 9, -9)
     nextPageFullHi:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",

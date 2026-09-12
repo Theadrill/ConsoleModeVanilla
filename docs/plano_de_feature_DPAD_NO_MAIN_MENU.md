@@ -126,7 +126,7 @@ Cada fase é **100% testável no jogo imediatamente após a sua conclusão**. Ne
 
 ### 🟢 FASE 4: TALENTS (specs ⇄ árvore + voltar)
 > **Objetivo de Teste:** O jogador lista as 3 specs, entra na árvore com A, navega os talentos na grade e volta com B.
-> **Anti-retrabalho (ver §6):** valem os itens 1, 2, 3, 4, 8, 9, 10, 11, 12, 14, 17.
+> **Anti-retrabalho (ver §6):** valem os itens 1, 2, 3, 4, 8, 9, 10, 11, 12, 14, 17, 18, 19, 20.
 > Respeitar em especial: não perder seleção ao redesenhar, foco único por zona, receptor na raiz do menu e eixo real da grade.
 
 - [ ] Tela 1 = `specButtons[1..3]` (`FocusTalentSpecButton:5445`); tela 2 = `allSlots` da árvore (`FocusTalentSlot:5933`) + `backBtn:5892`.
@@ -206,3 +206,6 @@ Lições já pagas nas FASES 2–3. Cada item: o que impedir + o que fazer. Sem 
 15. Cursor reaparecendo durante a navegação: impedir disputa de cursor; suprimir o cursor com portão enquanto a navegação estiver ativa e manter os ganchos até a FASE 6.
 16. Colunas dinâmicas com leitura velha: impedir cálculo com largura obsoleta; reler a capacidade vigente a cada movimento antes de navegar.
 17. Confirmação em alvo desatualizado: impedir confirmar o que não está focado; nunca confirmar via cursor antigo, acionar sempre direto o item focado.
+18. Foco preso na árvore: impedir resíduo aceso ao sair da árvore; apagar tudo que o foco acende, não só borda e destaque, verificando brilho, posto e borda de estado, sem zerar os índices.
+19. Eixo vertical da árvore: impedir andar invertido na árvore; confirmar a orientação real de fileira e coluna no leiaute antes de mapear alto e baixo, pois o deslocamento da âncora pode inverter o esperado, com laterais andando de fileira.
+20. Limpeza e pintura em coleções divergentes com guarda de zona inexistente: impedir esconder numa coleção enquanto o foco pinta outra inalcançável e guarda lendo zona inexistente sempre vazia deixando o acerto por acidente; fazer ambos iterarem a mesma coleção e as guardas lerem a zona do foco vigente.

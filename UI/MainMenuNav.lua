@@ -919,7 +919,8 @@ local function Nav_ApplyFocus()
                 -- visuals de TODOS os allSlots sem zerar focusedTalentSlot/indices.
                 pcall(function()
                     local page = MM4v and MM4v.tabContainer and MM4v.tabContainer.pages and MM4v.tabContainer.pages["TALENTS"]
-                    local allSlots = page and page.allSlots or MM4v.allTalentSlots or MM4v.allSlots
+                    local treeScreen = page and page.treeScreen
+                    local allSlots = (treeScreen and treeScreen.allSlots) or (page and page.allSlots) or MM4v.allTalentSlots or MM4v.allSlots
                     if not allSlots then return end
                     local n = table.getn(allSlots)
                     for i = 1, n do
@@ -927,6 +928,15 @@ local function Nav_ApplyFocus()
                         if s then
                             if s.focusBorder and type(s.focusBorder.Hide) == "function" then s.focusBorder:Hide() end
                             if s.highlight and type(s.highlight.Hide) == "function" then s.highlight:Hide() end
+                            if s.FocusBorder and s.FocusBorder ~= s.focusBorder and type(s.FocusBorder.Hide) == "function" then s.FocusBorder:Hide() end
+                            if s.Highlight and s.Highlight ~= s.highlight and type(s.Highlight.Hide) == "function" then s.Highlight:Hide() end
+                            if s.focus and type(s.focus.Hide) == "function" then s.focus:Hide() end
+                            if s.hover and type(s.hover.Hide) == "function" then s.hover:Hide() end
+                            if s.glow and type(s.glow.Hide) == "function" then s.glow:Hide() end
+                            if s.focusGlow and type(s.focusGlow.Hide) == "function" then s.focusGlow:Hide() end
+                            if s.selection and type(s.selection.Hide) == "function" then s.selection:Hide() end
+                            if s.flash and type(s.flash.Hide) == "function" then s.flash:Hide() end
+                            if type(s.UnlockHighlight) == "function" then pcall(function() s:UnlockHighlight() end) end
                         end
                     end
                 end)
@@ -1508,8 +1518,8 @@ function Nav_OnTalentsDirection(direction)
             if MM and tier and col then
                 local grid = MM.tabContainer and MM.tabContainer.pages and MM.tabContainer.pages["TALENTS"] and MM.tabContainer.pages["TALENTS"].treeScreen and MM.tabContainer.pages["TALENTS"].treeScreen.slotsByTierCol
                 if grid then
-                    local c = col - 1
-                    while c >= 1 do
+                    local c = col + 1
+                    while c <= 4 do
                         local row = grid[tier]
                         local cand = row and row[c]
                         if Nav_TalentSlotVisible(cand) then
@@ -1520,7 +1530,7 @@ function Nav_OnTalentsDirection(direction)
                             end
                             return true
                         end
-                        c = c - 1
+                        c = c + 1
                     end
                 end
             end
@@ -1567,8 +1577,8 @@ function Nav_OnTalentsDirection(direction)
             if MM and tier and col then
                 local grid = MM.tabContainer and MM.tabContainer.pages and MM.tabContainer.pages["TALENTS"] and MM.tabContainer.pages["TALENTS"].treeScreen and MM.tabContainer.pages["TALENTS"].treeScreen.slotsByTierCol
                 if grid then
-                    local c = col + 1
-                    while c <= 4 do
+                    local c = col - 1
+                    while c >= 1 do
                         local row = grid[tier]
                         local cand = row and row[c]
                         if Nav_TalentSlotVisible(cand) then
@@ -1579,7 +1589,7 @@ function Nav_OnTalentsDirection(direction)
                             end
                             return true
                         end
-                        c = c + 1
+                        c = c - 1
                     end
                 end
             end

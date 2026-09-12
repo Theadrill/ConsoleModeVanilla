@@ -6361,7 +6361,7 @@ function MainMenu:UpdateTalentTreeGrid(specIdx)
         if okG and navObj then
             local okA, isAct = pcall(function() return navObj:IsActive() end)
             if okA and isAct then navTalActive = true end
-            local okZ, z = pcall(function() return navObj.zone end)
+            local okZ, z = pcall(function() if type(navObj.focus) == "table" then return navObj.focus.zone end end)
             if okZ and type(z) == "string" then navTalZone = z end
         end
     end

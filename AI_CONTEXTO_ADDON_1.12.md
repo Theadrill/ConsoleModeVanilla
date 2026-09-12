@@ -111,3 +111,56 @@ Outro.lua
 > 1. **NÃO FAZER PUSH ENQUANTO O USUÁRIO NÃO PEDIR.** Quando pedir, fazer push **UMA VEZ SÓ** e aguardar o próximo pedido explícito para fazer push de novo.
 > 2. **WoW VERSÃO 1.12.1 (Interface 11200) / Lua 5.0** — manter compatibilidade total.
 > 3. **AVISO DE SEGURANÇA DO WOW:** NÃO usar comandos que possam flagar a segurança do WoW. Comando / função que só é permitido pela UI do WoW deve continuar desabilitado para automação — NÃO reabilitar, NÃO bypassear proteção, NÃO automatizar cast / movimento / input.
+
+---
+
+## CONVERSA INICIAL PARA NÃO PRECISAR FICAR DIGITANDO TUDO DE NOVO
+
+> Cole este bloco no início de qualquer nova conversa para restaurar o contexto completo sem precisar redescobrir nada.
+
+**Prompt de abertura:**
+> "Estamos trabalhando no addon de WoW. Leia `AI_CONTEXTO_ADDON_1.12.md` para entender o addon e fixar as regras na memória. Depois leia `docs/plano_de_feature_TELA_DE_MAIL.md` para ter contexto sobre a feature de Mail que implementamos. Depois leia `docs/plano_de_refatoração_missoes_mapas.md` para entender a refatoração em andamento e onde paramos. Apresente o que entendeu e aguarde."
+
+---
+
+### O que a IA deve entender ao ler os docs acima
+
+#### O Addon
+**ConsoleModeVanilla** — interface de console/gamepad para WoW 1.12.1 (Turtle WoW). Lua 5.0 estrito, identidade visual do Main Menu Vanilla, sem API Retail.
+
+#### Feature de Mail (concluída)
+Tela de correio completa (`UI/MailScreen.lua`) com inbox + painel de detalhe, tela de composição com inventário lateral, VirtualKeyboard desacoplado (`UI/VirtualKeyboard.lua`) com autocomplete, seletor de dinheiro estilo "alarme" (reels por dígito), fila serializada por eventos.
+
+#### Refatoração Missões & Mapa — estado em 12/Set/2026
+**Fase 1 concluída** (commit `5fd22ec`):
+- Modal de leitura de missão (`questDetailOverlay`) criado em `UI/MainMenu.lua`
+- Nova zona `QLEITURA` no roteador `UI/MainMenuNav.lua`
+- `[A]` na lista → `MM:ShowQuestDetail(idx)` + `fq.zone = "QLEITURA"`
+- `[B]` fecha modal → `MM:HideQuestDetail()` + volta para `QMISSOES`
+- `[X]` no modal → `MM:ToggleQuestWatch(idx)`
+- `[Y]` na lista → `MM:AbandonSelectedQuest(idx)` → `StaticPopup_Show("ABANDON_QUEST")`
+- D-Pad UP/DOWN no modal rola o scrollframe
+- `IsQuestDetailOpen()` removido do `Nav:IsActive()` (eliminava taint)
+
+**Fases 2–5 pendentes:**
+- Fase 2: Pool fixo (32 zonas + 24 NPCs) — eliminar `buttons = {}` + `CreateFrame` destrutivo
+- Fase 3: Navegação espacial `QMISSOES ⇄ QNAV ⇄ QNPCS`
+- Fase 4: Ativação botões do mapa + sub-zona `QZONAS`
+- Fase 5: Preservação L-Stick pan, LT/RT zoom, regressão inter-abas
+
+#### O problema raiz (por que refatorar)
+As listas de Zonas/Mapas e NPCs destroem e recriam botões a cada navegação/polling (`buttons = {}` + `CreateFrame`), corrompendo o `Nav.focus`. O polling de NPCs roda a cada 0.5s concorrentemente com o D-pad. `SelectQuestLogEntry` no stack de input causava `ADDON_ACTION_BLOCKED`. A solução é espelhar o padrão do `MailScreen`/`MerchantMenu`: pool fixo pré-alocado no `CreateUI`, apenas `Show/Hide/SetText` em runtime.
+
+#### Regras inegociáveis (resumo executivo)
+1. **PUSH SOMENTE quando o usuário pedir, uma vez só. É a regra mais importante.**
+2. Lua 5.0 estrito — proibido `#t`, `continue`, `goto`, `table.unpack`, `gmatch`, bitwise.
+3. API WoW 1.12 puro — nada de `C_`, `Mixin`, `BackdropTemplate`.
+4. `luac -p` em todo arquivo alterado — zero erros antes de qualquer teste.
+5. Zero taint — nenhuma função protegida chamada de dentro de stack de input do gamepad.
+6. Pool fixo — frames criados uma vez no `CreateUI`, nunca destruídos.
+7. Identidade visual Vanilla intocável.
+8. Mecânicas do mapa intocáveis — L-Stick pan, LT/RT zoom, auto-scroll cancela ao mover analógico.
+9. Parada obrigatória ao fim de cada fase para `/reload` e validação no jogo antes de commit.
+
+#### Modo de operação
+A IA atua como **tech leader**: não coda diretamente, **orquestra agentes** (senior programmers). Ao fim de cada fase, valida o trabalho dos agentes e passa ao usuário o que é esperado acontecer no jogo para ele validar. Sem commit, sem push antes da aprovação.

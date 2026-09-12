@@ -1230,6 +1230,56 @@ function CM_CursorConfirm()
         end
     end
 
+    -- FIX TALENTS: Nav ativo + TALENTS + OnConfirm==false -> click direto no slot focado (evita Click stale).
+    do
+        local _tHandled = false
+        pcall(function()
+            local nav = ConsoleMode_MainMenuNav
+            if not (nav and nav.IsActive and nav:IsActive()) then return end
+            local MM = ConsoleMode and ConsoleMode.mainMenu
+            if not MM then return end
+            local cur = MM.currentTab
+            if cur == nil and MM.tabContainer then cur = MM.tabContainer.currentTab end
+            if cur == nil then cur = nav.currentTab end
+            if cur ~= "TALENTS" then return end
+            local pages = MM.tabContainer and MM.tabContainer.pages
+            local pt = pages and pages["TALENTS"]
+            if not pt then return end
+            local cur2 = CM.cursor
+            local tree = pt.treeScreen
+            local slot = pt.focusedTalentSlot
+            if slot == nil and tree then slot = tree.focusedTalentSlot end
+            local treeVis = false
+            if tree and tree.IsVisible then
+                local okV, v = pcall(function() return tree:IsVisible() end)
+                if okV then treeVis = v end
+            end
+            if treeVis and slot and slot.IsVisible then
+                local okV, v = pcall(function() return slot:IsVisible() end)
+                if okV and v then
+                    if type(slot.Click) == "function" then pcall(function() slot:Click("LeftButton") end) end
+                    _tHandled = true
+                    return
+                end
+            end
+            local specs = pt.specButtons
+            if not specs and tree then specs = tree.specButtons end
+            local sIdx = pt.focusedSpecIdx
+            if sIdx == nil and tree then sIdx = tree.focusedSpecIdx end
+            if specs and sIdx and specs[sIdx] then
+                local sb = specs[sIdx]
+                local okV, v = true, true
+                if sb.IsVisible then okV, v = pcall(function() return sb:IsVisible() end) end
+                if okV and v then
+                    if type(sb.Click) == "function" then pcall(function() sb:Click("LeftButton") end) end
+                    _tHandled = true
+                    return
+                end
+            end
+        end)
+        if _tHandled then return end
+    end
+
     if not CM.cursor or not CM.cursor.state.enabled then
         if Jump then Jump() end
         return

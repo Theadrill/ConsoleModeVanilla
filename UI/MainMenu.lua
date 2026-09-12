@@ -12912,7 +12912,7 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             end
             self.playerModel = self.animModel
             self.currentSpellPose = 0
-            self:UpdateSpellsPage()
+            if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["SPELLS"] and self.tabContainer.pages["SPELLS"].activeScreen == 2 and type(self.ShowSpellCategoryScreen) == "function" then self:ShowSpellCategoryScreen() else self:UpdateSpellsPage() end
             -- re-layout no próximo frame para corrigir cache stale na 2ª troca QUESTS->SPELLS (Vanilla 1.12)
             do local f=CreateFrame("Frame",nil,self.frame); f.t=0; f:SetScript("OnUpdate", function() this.t=this.t+arg1; if this.t>0.05 then this:SetScript("OnUpdate",nil); if MainMenu.frame and MainMenu.frame:IsVisible() and MainMenu.tabContainer and MainMenu.tabContainer.currentTab=="SPELLS" then MainMenu:UpdateLayout(); MainMenu:UpdateSpellsPage(true); end end end) end
         elseif tabID == "TALENTS" then

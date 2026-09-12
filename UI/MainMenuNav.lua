@@ -25,7 +25,7 @@ Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
 -- FASE 3: + spellCat/spellSlot para aba SPELLS (zonas SPCAT/SPGRID).
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil }
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -198,10 +198,24 @@ end
 local function Nav_GetSpellCats()
     local ps = Nav_GetPageSpells()
     if not ps then return nil end
+    if ps.catButtons then return ps.catButtons end
     if ps.catScreen and ps.catScreen.catContainer and ps.catScreen.catContainer.catButtons then
         return ps.catScreen.catContainer.catButtons
     end
-    if ps.catButtons then return ps.catButtons end
+    return nil
+end
+
+local function Nav_GetSpellTabs()
+    local ps = Nav_GetPageSpells()
+    if not ps then return nil end
+    if ps.tabButtons then return ps.tabButtons end
+    if ps.headerBar and ps.headerBar.tabButtons then return ps.headerBar.tabButtons end
+    return nil
+end
+
+local function Nav_GetSpellTabIdx()
+    local ps = Nav_GetPageSpells()
+    if ps and ps.currentTabIdx and type(ps.currentTabIdx) == "number" then return ps.currentTabIdx end
     return nil
 end
 
@@ -443,11 +457,24 @@ local function Nav_EnsureFocus()
     if f.zone == "SPCAT" and nsc < 1 then
         if svis > 0 then f.zone = "SPGRID" end
     end
+    local stabsEf = Nav_GetSpellTabs()
+    local ntEf = 0
+    if stabsEf then ntEf = table.getn(stabsEf) end
+    if ntEf > 0 then
+        if not f.spellTab then
+            f.spellTab = Nav_GetSpellTabIdx() or 1
+        end
+        if f.spellTab < 1 then f.spellTab = 1 end
+        if f.spellTab > ntEf then f.spellTab = ntEf end
+    else
+        if not f.spellTab or f.spellTab < 1 then f.spellTab = 1 end
+        if f.zone == "SPTABS" then f.zone = "SPGRID" end
+    end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" then
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" then
         f.returnZone = "GRID"
     end
     -- Conversao por aba: evita zona BAGS presa em SPELLS e vice-versa.
@@ -466,10 +493,10 @@ local function Nav_EnsureFocus()
             f.zone = defSp
         end
     elseif curTabEf == "BAGS" then
-        if f.zone == "SPCAT" or f.zone == "SPGRID" then
+        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" then
             f.zone = "GRID"
         end
-        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" then
+        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" then
             f.returnZone = "GRID"
         end
     end
@@ -596,11 +623,11 @@ local function Nav_ApplyFocus()
     -- FASE 3 SPELLS visual:
     -- SPCAT usa FocusSpellCategoryButton (pinta + DetailCard + pose);
     -- SPGRID usa grid:SelectSlot; fora de SPGRID esconde highlights sem zerar selectedSlotIndex.
-    local pageSpellsVis = Nav_GetPageSpells()
+    local MMVis = Nav_GetMM()
     if f.zone == "SPCAT" then
-        if pageSpellsVis and type(pageSpellsVis.FocusSpellCategoryButton) == "function" then
+        if MMVis and type(MMVis.FocusSpellCategoryButton) == "function" then
             local idx = f.spellCat or 1
-            pcall(function() pageSpellsVis:FocusSpellCategoryButton(idx) end)
+            pcall(function() MMVis:FocusSpellCategoryButton(idx) end)
         end
     end
     local spellGridForFocus = Nav_GetSpellGrid()
@@ -616,6 +643,45 @@ local function Nav_ApplyFocus()
                     local sslot = spellGridForFocus.slots[si]
                     if sslot and sslot.highlight and type(sslot.highlight.Hide) == "function" then
                         pcall(function() sslot.highlight:Hide() end)
+                    end
+                end
+            end
+        end
+    end
+
+    -- SPTABS: aba de escola focada ouro (defensivo: border ou highlight).
+    local spellTabsForFocus = Nav_GetSpellTabs()
+    if spellTabsForFocus then
+        local okT, totalT = pcall(function() return table.getn(spellTabsForFocus) end)
+        if okT and type(totalT) == "number" and totalT > 0 then
+            local curTi = Nav_GetSpellTabIdx() or f.spellTab or 1
+            for ti = 1, totalT do
+                local tbtn = spellTabsForFocus[ti]
+                if tbtn then
+                    local isFocusTab = (f.zone == "SPTABS" and ti == (f.spellTab or curTi))
+                    local isActiveTab = (ti == curTi)
+                    if isFocusTab then
+                        if type(tbtn.SetBackdropBorderColor) == "function" then
+                            pcall(function() tbtn:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+                        elseif tbtn.highlight and type(tbtn.highlight.Show) == "function" then
+                            pcall(function() tbtn.highlight:Show() end)
+                        elseif type(tbtn.LockHighlight) == "function" then
+                            pcall(function() tbtn:LockHighlight() end)
+                        end
+                    elseif isActiveTab then
+                        if tbtn.highlight and type(tbtn.highlight.Show) == "function" then
+                            pcall(function() tbtn.highlight:Show() end)
+                        end
+                    else
+                        if tbtn.highlight and type(tbtn.highlight.Hide) == "function" then
+                            pcall(function() tbtn.highlight:Hide() end)
+                        end
+                        if type(tbtn.UnlockHighlight) == "function" then
+                            pcall(function() tbtn:UnlockHighlight() end)
+                        end
+                        if type(tbtn.SetBackdropBorderColor) == "function" then
+                            pcall(function() tbtn:SetBackdropBorderColor(0.5, 0.4, 0.28, 0.65) end)
+                        end
                     end
                 end
             end
@@ -734,7 +800,8 @@ function Nav:OnDirection(direction)
     if moved then MMNav_PlayMove() end
 end
 
--- FASE 3: navegacao SPELLS. Zonas SPCAT (lista vertical tela1) e SPGRID (grade tela2);
+-- FASE 3: navegacao SPELLS. Zonas SPCAT (fileira horizontal tela1), SPTABS
+-- (fileira de abas de escola tela2) e SPGRID (grade tela2);
 -- TABBAR/EQUIP/BUFFS compartilhadas funcionam igual a BAGS.
 -- Retorna true se moveu/tratou.
 function Nav_OnSpellsDirection(direction)
@@ -748,20 +815,12 @@ function Nav_OnSpellsDirection(direction)
             return true
         end
         if f.zone == "SPCAT" then
-            local scats = Nav_GetSpellCats()
-            local nsc = 0
-            if scats then nsc = table.getn(scats) end
-            if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
-            if f.spellCat > 1 then
-                f.spellCat = f.spellCat - 1
-                local ps = Nav_GetPageSpells()
-                if ps and type(ps.FocusSpellCategoryButton) == "function" then
-                    local idx = f.spellCat
-                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
-                end
-                return true
-            end
             f.returnZone = "SPCAT"
+            f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "SPTABS" then
+            f.returnZone = "SPTABS"
             f.zone = "TABBAR"
             return true
         end
@@ -769,6 +828,17 @@ function Nav_OnSpellsDirection(direction)
             local cols = Nav_SpellCols()
             if (f.spellSlot - cols) >= 1 then
                 f.spellSlot = f.spellSlot - cols
+                return true
+            end
+            local upTabs = Nav_GetSpellTabs()
+            local upNt = 0
+            if upTabs then upNt = table.getn(upTabs) end
+            if upNt > 0 then
+                f.zone = "SPTABS"
+                if not f.spellTab then f.spellTab = Nav_GetSpellTabIdx() or 1 end
+                if f.spellTab < 1 then f.spellTab = 1 end
+                if f.spellTab > upNt then f.spellTab = upNt end
+                Nav_EnsureFocus()
                 return true
             end
             f.returnZone = "SPGRID"
@@ -809,20 +879,12 @@ function Nav_OnSpellsDirection(direction)
             return false
         end
         if f.zone == "SPCAT" then
-            local scats = Nav_GetSpellCats()
-            local nsc = 0
-            if scats then nsc = table.getn(scats) end
-            if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
-            if f.spellCat < nsc then
-                f.spellCat = f.spellCat + 1
-                local ps = Nav_GetPageSpells()
-                if ps and type(ps.FocusSpellCategoryButton) == "function" then
-                    local idx = f.spellCat
-                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
-                end
-                return true
-            end
             return false
+        end
+        if f.zone == "SPTABS" then
+            f.zone = "SPGRID"
+            Nav_EnsureFocus()
+            return true
         end
         if f.zone == "SPGRID" then
             local cols = Nav_SpellCols()
@@ -865,9 +927,36 @@ function Nav_OnSpellsDirection(direction)
         end
         if f.zone == "EQUIP" then return false end
         if f.zone == "SPCAT" then
-            f.returnZone = "SPCAT"
-            f.zone = "EQUIP"
-            Nav_EnsureFocus()
+            local scats = Nav_GetSpellCats()
+            local nsc = 0
+            if scats then nsc = table.getn(scats) end
+            if nsc < 1 then return false end
+            if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
+            if f.spellCat > nsc then f.spellCat = nsc end
+            f.spellCat = f.spellCat - 1
+            if f.spellCat < 1 then f.spellCat = nsc end
+            local MMLeft = Nav_GetMM()
+            if MMLeft and type(MMLeft.FocusSpellCategoryButton) == "function" then
+                local idxL = f.spellCat
+                pcall(function() MMLeft:FocusSpellCategoryButton(idxL) end)
+            end
+            return true
+        end
+        if f.zone == "SPTABS" then
+            local tabsL = Nav_GetSpellTabs()
+            local ntL = 0
+            if tabsL then ntL = table.getn(tabsL) end
+            if ntL < 1 then return false end
+            if not f.spellTab then f.spellTab = Nav_GetSpellTabIdx() or 1 end
+            if f.spellTab < 1 then f.spellTab = 1 end
+            if f.spellTab > ntL then f.spellTab = ntL end
+            f.spellTab = f.spellTab - 1
+            if f.spellTab < 1 then f.spellTab = ntL end
+            local MMSL = Nav_GetMM()
+            if MMSL and type(MMSL.SelectSpellTab) == "function" then
+                local idxSL = f.spellTab
+                pcall(function() MMSL:SelectSpellTab(idxSL) end)
+            end
             return true
         end
         if f.zone == "BUFFS" then
@@ -906,7 +995,7 @@ function Nav_OnSpellsDirection(direction)
             return false
         end
         if f.zone == "EQUIP" then
-            if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" then
+            if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" then
                 f.zone = f.returnZone
                 Nav_EnsureFocus()
                 return true
@@ -925,19 +1014,36 @@ function Nav_OnSpellsDirection(direction)
             return true
         end
         if f.zone == "SPCAT" then
-            local ps = Nav_GetPageSpells()
-            if ps then
-                if type(ps.FocusSpellCategoryButton) == "function" then
-                    local idx = f.spellCat or 1
-                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
-                end
-                if type(ps.ShowSpellGridScreen) == "function" then
-                    local idx2 = f.spellCat or 1
-                    pcall(function() ps:ShowSpellGridScreen(idx2) end)
-                end
+            local scatsR = Nav_GetSpellCats()
+            local nscR = 0
+            if scatsR then nscR = table.getn(scatsR) end
+            if nscR < 1 then return false end
+            if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
+            if f.spellCat > nscR then f.spellCat = nscR end
+            f.spellCat = f.spellCat + 1
+            if f.spellCat > nscR then f.spellCat = 1 end
+            local MMRight = Nav_GetMM()
+            if MMRight and type(MMRight.FocusSpellCategoryButton) == "function" then
+                local idxR = f.spellCat
+                pcall(function() MMRight:FocusSpellCategoryButton(idxR) end)
             end
-            f.zone = "SPGRID"
-            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "SPTABS" then
+            local tabsR = Nav_GetSpellTabs()
+            local ntR = 0
+            if tabsR then ntR = table.getn(tabsR) end
+            if ntR < 1 then return false end
+            if not f.spellTab then f.spellTab = Nav_GetSpellTabIdx() or 1 end
+            if f.spellTab < 1 then f.spellTab = 1 end
+            if f.spellTab > ntR then f.spellTab = ntR end
+            f.spellTab = f.spellTab + 1
+            if f.spellTab > ntR then f.spellTab = 1 end
+            local MMSR = Nav_GetMM()
+            if MMSR and type(MMSR.SelectSpellTab) == "function" then
+                local idxSR = f.spellTab
+                pcall(function() MMSR:SelectSpellTab(idxSR) end)
+            end
             return true
         end
         if f.zone == "BUFFS" then
@@ -1279,15 +1385,15 @@ function Nav:OnConfirm()
             return true
         end
         if fs.zone == "SPCAT" then
-            local ps = Nav_GetPageSpells()
-            if ps then
-                if type(ps.FocusSpellCategoryButton) == "function" then
+            local MM = Nav_GetMM()
+            if MM then
+                if type(MM.FocusSpellCategoryButton) == "function" then
                     local idx = fs.spellCat or 1
-                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
+                    pcall(function() MM:FocusSpellCategoryButton(idx) end)
                 end
-                if type(ps.ShowSpellGridScreen) == "function" then
+                if type(MM.ShowSpellGridScreen) == "function" then
                     local idx2 = fs.spellCat or 1
-                    pcall(function() ps:ShowSpellGridScreen(idx2) end)
+                    pcall(function() MM:ShowSpellGridScreen(idx2) end)
                 end
             end
             fs.zone = "SPGRID"
@@ -1373,14 +1479,30 @@ function Nav:OnCancel()
             isGridScreen = (self.focus and self.focus.zone == "SPGRID")
         end
         if isGridScreen then
-            if ps then
-                if type(ps.ShowSpellCategoryScreen) == "function" then
-                    pcall(function() ps:ShowSpellCategoryScreen() end)
-                elseif type(ps.HandleSpellsBack) == "function" then
-                    pcall(function() ps:HandleSpellsBack() end)
-                end
+            local MM = Nav_GetMM()
+            if MM and type(MM.ShowSpellCategoryScreen) == "function" then
+                pcall(function() MM:ShowSpellCategoryScreen() end)
+            elseif MM and type(MM.HandleSpellsBack) == "function" then
+                pcall(function() MM:HandleSpellsBack() end)
             end
             self.focus.zone = "SPCAT"
+            if ps and type(ps.focusedCatIdx) == "number" then self.focus.spellCat = ps.focusedCatIdx end
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        Nav_EnsureFocus()
+        local fsp = self.focus
+        if fsp and fsp.zone == "SPCAT" then
+            fsp.zone = "EQUIP"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        if fsp and fsp.zone == "SPTABS" then
+            fsp.zone = "SPGRID"
             Nav_EnsureFocus()
             Nav_ApplyFocus()
             MMNav_PlayMove()
@@ -1561,9 +1683,10 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil }
     if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
     if self.focus.pageBtn == nil or self.focus.pageBtn < 1 then self.focus.pageBtn = 1 end
     if self.focus.spellCat ~= nil and self.focus.spellCat < 1 then self.focus.spellCat = 1 end
     if self.focus.spellSlot == nil or self.focus.spellSlot < 1 then self.focus.spellSlot = 1 end
+    if self.focus.spellTab == nil or self.focus.spellTab < 1 then self.focus.spellTab = 1 end
 end

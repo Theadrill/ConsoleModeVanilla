@@ -562,7 +562,7 @@ function MailScreen:BuildFooterHintsSet(frameName, hints)
     local parent = self.frame
     local container = CreateFrame("Frame", frameName, parent)
     container:SetHeight(34)
-    container:SetPoint("CENTER", parent, "BOTTOM", 0, 18)
+    container:SetPoint("CENTER", parent, "BOTTOM", 0, 26)
 
     local totalWidth = 0
     local widgets = {}
@@ -759,7 +759,7 @@ function MailScreen:CreateTabIndicator(parent)
     local bar = CreateFrame("Frame", "ConsoleMode_MailTabIndicator", parent)
     bar:SetHeight(22)
     bar:SetWidth(420)
-    bar:SetPoint("TOP", parent, "TOP", 0, -40)
+    bar:SetPoint("TOP", parent, "TOP", 0, -52)
 
     -- Monta um trio centralizado: [LB] TEXTO [RB] (icones = textura).
     local function BuildTabGroup(text)
@@ -899,8 +899,8 @@ function MailScreen:CreateUI()
     -- o card do mail ainda NAO existe (M2), entao usa-se -28,60 deixando
     -- espaco para detalhe+footer futuros.
     local contentArea = CreateFrame("Frame", "ConsoleMode_MailContentArea", frame)
-    contentArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -66)
-    contentArea:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, 60)
+    contentArea:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -78)
+    contentArea:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, 52)
     frame.contentArea = contentArea
 
     -- Divisoria Central Vertical
@@ -5336,17 +5336,17 @@ function MailScreen:UpdateLayout()
 
     if self.frame.footerContainer then
         self.frame.footerContainer:ClearAllPoints()
-        self.frame.footerContainer:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
+        self.frame.footerContainer:SetPoint("CENTER", self.frame, "BOTTOM", 0, 26)
     end
     -- M4.1: os dois sets de footer sao centralizados; o visivel e alternado
     -- por ShowInboxScreen/ShowComposeScreen (UpdateFooterVisibility).
     if self.frame.inboxFooter then
         self.frame.inboxFooter:ClearAllPoints()
-        self.frame.inboxFooter:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
+        self.frame.inboxFooter:SetPoint("CENTER", self.frame, "BOTTOM", 0, 26)
     end
     if self.frame.composeFooter then
         self.frame.composeFooter:ClearAllPoints()
-        self.frame.composeFooter:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
+        self.frame.composeFooter:SetPoint("CENTER", self.frame, "BOTTOM", 0, 26)
     end
 end
 

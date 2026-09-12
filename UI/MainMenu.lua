@@ -1167,6 +1167,23 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
         border:SetBackdropBorderColor(0.7, 0.7, 0.7, 0.6)
         btn.border = border
 
+        -- Destaque full-row de foco (navegacao D-pad): cobre o BOTAO inteiro.
+        -- Molde: slot.highlight da grade; borda ouro, sem interceptar mouse.
+        local fullHi = CreateFrame("Frame", nil, btn)
+        fullHi:SetPoint("TOPLEFT", btn, "TOPLEFT", -6, 6)
+        fullHi:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", 6, -6)
+        fullHi:SetBackdrop({
+            bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile = true, tileSize = 16, edgeSize = 20,
+            insets = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        fullHi:SetBackdropColor(1.0, 0.82, 0.20, 0.08)
+        fullHi:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95)
+        fullHi:EnableMouse(false)
+        fullHi:Hide()
+        btn.fullHi = fullHi
+
         -- 1. Linha Superior: Nome do Slot (CABEÇA, PEITORAL, etc.)
         local slotText = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         slotText:SetPoint("LEFT", icon, "RIGHT", 7, 7)
@@ -1448,6 +1465,23 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
         })
         bBorder:SetBackdropBorderColor(0.2, 0.8, 1.0, 0.7)
         row.border = bBorder
+
+        -- Destaque full-row de foco (navegacao D-pad): cobre a ROW inteira.
+        -- Molde: slot.highlight da grade; borda ouro, sem interceptar mouse.
+        local fullHi = CreateFrame("Frame", nil, row)
+        fullHi:SetPoint("TOPLEFT", row, "TOPLEFT", -6, 6)
+        fullHi:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 6, -6)
+        fullHi:SetBackdrop({
+            bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile = true, tileSize = 16, edgeSize = 20,
+            insets = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        fullHi:SetBackdropColor(1.0, 0.82, 0.20, 0.08)
+        fullHi:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95)
+        fullHi:EnableMouse(false)
+        fullHi:Hide()
+        row.fullHi = fullHi
 
         -- Nome do Buff
         local bName = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -4500,6 +4534,14 @@ function MainMenu:UpdateBagsPage(keepPage)
             grid:SelectSlot(1)
         else
             pageBags.detailCard:Clear("Inventário Vazio")
+        end
+    end
+    -- FIX hover grade: BAG_UPDATE/MONEY/LOCK reacendem highlight mesmo com Nav fora do GRID.
+    local nav = getglobal("ConsoleMode_MainMenuNav")
+    if nav and type(nav.IsActive) == "function" then
+        local ok, active = pcall(nav.IsActive, nav)
+        if ok and active and nav.focus and nav.focus.zone and nav.focus.zone ~= "GRID" then
+            if grid and grid.slots then for _, slot in ipairs(grid.slots) do if slot and slot.highlight then pcall(function() slot.highlight:Hide() end) end end end
         end
     end
 end

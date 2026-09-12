@@ -347,13 +347,22 @@ local function Nav_ApplyFocus()
         local n = table.getn(eq)
         for i = 1, n do
             local btn = eq[i]
-            if btn and btn.border and type(btn.border.SetBackdropBorderColor) == "function" then
-                if f.zone == "EQUIP" and i == f.equipIndex then
-                    pcall(function() btn.border:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
-                elseif btn and type(btn.ApplyFocus) == "function" then
-                    pcall(function() btn:ApplyFocus() end)
-                elseif not canRestore then
-                    pcall(function() btn.border:SetBackdropBorderColor(1, 1, 1, 0.6) end)
+            if btn then
+                local hasFullHi = btn.fullHi and type(btn.fullHi.Show) == "function" and type(btn.fullHi.Hide) == "function"
+                if hasFullHi then
+                    if f.zone == "EQUIP" and i == f.equipIndex then
+                        pcall(function() btn.fullHi:Show() end)
+                    else
+                        pcall(function() btn.fullHi:Hide() end)
+                    end
+                elseif btn.border and type(btn.border.SetBackdropBorderColor) == "function" then
+                    if f.zone == "EQUIP" and i == f.equipIndex then
+                        pcall(function() btn.border:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+                    elseif btn and type(btn.ApplyFocus) == "function" then
+                        pcall(function() btn:ApplyFocus() end)
+                    elseif not canRestore then
+                        pcall(function() btn.border:SetBackdropBorderColor(1, 1, 1, 0.6) end)
+                    end
                 end
             end
         end
@@ -394,10 +403,24 @@ local function Nav_ApplyFocus()
     end
 
     -- GRID: usa SelectSlot (acende highlight + DetailCard + compare).
+    -- Foco unico: fora do GRID, esconde TODOS os slot.highlights sem tocar
+    -- em selectedSlotIndex (nunca grid:Clear()).
+    local gridForFocus = Nav_GetGrid()
     if f.zone == "GRID" then
-        local grid = Nav_GetGrid()
-        if grid and type(grid.SelectSlot) == "function" then
-            pcall(function() grid:SelectSlot(f.gridIndex) end)
+        if gridForFocus and type(gridForFocus.SelectSlot) == "function" then
+            pcall(function() gridForFocus:SelectSlot(f.gridIndex) end)
+        end
+    else
+        if gridForFocus and gridForFocus.slots then
+            local okG, totalG = pcall(function() return table.getn(gridForFocus.slots) end)
+            if okG and type(totalG) == "number" and totalG > 0 then
+                for gi = 1, totalG do
+                    local gslot = gridForFocus.slots[gi]
+                    if gslot and gslot.highlight and type(gslot.highlight.Hide) == "function" then
+                        pcall(function() gslot.highlight:Hide() end)
+                    end
+                end
+            end
         end
     end
 
@@ -418,12 +441,21 @@ local function Nav_ApplyFocus()
         if npool > 8 then npool = 8 end
         for i = 1, npool do
             local row = buffRows[i]
-            if row and row.border and type(row.border.SetBackdropBorderColor) == "function" then
-                local b = row.border
-                if focusedRow and row == focusedRow then
-                    pcall(function() b:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
-                else
-                    pcall(function() b:SetBackdropBorderColor(0.2, 0.8, 1.0, 0.7) end)
+            if row then
+                local hasFullHi = row.fullHi and type(row.fullHi.Show) == "function" and type(row.fullHi.Hide) == "function"
+                if hasFullHi then
+                    if focusedRow and row == focusedRow then
+                        pcall(function() row.fullHi:Show() end)
+                    else
+                        pcall(function() row.fullHi:Hide() end)
+                    end
+                elseif row.border and type(row.border.SetBackdropBorderColor) == "function" then
+                    local b = row.border
+                    if focusedRow and row == focusedRow then
+                        pcall(function() b:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+                    else
+                        pcall(function() b:SetBackdropBorderColor(0.2, 0.8, 1.0, 0.7) end)
+                    end
                 end
             end
         end

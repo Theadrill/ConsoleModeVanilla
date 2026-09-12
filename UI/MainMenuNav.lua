@@ -24,7 +24,7 @@ Nav.navState = Nav.navState or { direction = nil, timer = 0, initialDelay = 0.35
 Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, returnZone = "GRID" }
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, returnZone = "GRID" }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -183,6 +183,44 @@ local function Nav_GetGrid()
     return pb.grid
 end
 
+local function Nav_GetBuffRows()
+    local MM = nil
+    local okMM, mm = pcall(function() return Nav_GetMM() end)
+    if okMM then MM = mm end
+    if not MM then return nil end
+    local ok, rows = pcall(function()
+        if MM.statsAndBuffs then return MM.statsAndBuffs.buffRows end
+        return nil
+    end)
+    if ok then return rows end
+    return nil
+end
+
+-- BUFFS: rows visiveis topo->base (pool max 8, ordem crescente); ativa = IsVisible().
+local function Nav_VisibleBuffs()
+    local out = {}
+    local rows = Nav_GetBuffRows()
+    if not rows then return out end
+    local n = 0
+    local okN, nn = pcall(function() return table.getn(rows) end)
+    if okN and type(nn) == "number" then n = nn end
+    if n > 8 then n = 8 end
+    for i = 1, n do
+        local row = rows[i]
+        if row and type(row.IsVisible) == "function" then
+            local ok, vis = pcall(function() return row:IsVisible() end)
+            if ok and vis then table.insert(out, row) end
+        end
+    end
+    return out
+end
+
+local function Nav_BuffCount()
+    local vis = Nav_VisibleBuffs()
+    if not vis then return 0 end
+    return table.getn(vis)
+end
+
 local function Nav_VisibleGridCount()
     local grid = Nav_GetGrid()
     if not grid or not grid.slots then return 0 end
@@ -248,10 +286,22 @@ local function Nav_EnsureFocus()
         if not f.gridIndex or f.gridIndex < 1 then f.gridIndex = 1 end
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" then
+    if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+    local bc = Nav_BuffCount()
+    if f.zone == "BUFFS" then
+        if bc < 1 then
+            f.zone = "GRID"
+        elseif f.buffPos > bc then
+            f.buffPos = bc
+        end
+    elseif bc > 0 and f.buffPos > bc then
+        f.buffPos = bc
+    end
+
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" then
         f.returnZone = "GRID"
     end
 end
@@ -335,6 +385,43 @@ local function Nav_ApplyFocus()
             pcall(function() grid:SelectSlot(f.gridIndex) end)
         end
     end
+
+    -- BUFFS: row focada ouro + DetailCard ShowBuffRow; demais voltam ao default.
+    local buffRows = Nav_GetBuffRows()
+    if buffRows then
+        local vis = Nav_VisibleBuffs()
+        local focusedRow = nil
+        if f.zone == "BUFFS" then
+            local nvis = table.getn(vis)
+            if f.buffPos and f.buffPos >= 1 and f.buffPos <= nvis then
+                focusedRow = vis[f.buffPos]
+            end
+        end
+        local npool = 0
+        local okN, pn = pcall(function() return table.getn(buffRows) end)
+        if okN and type(pn) == "number" then npool = pn end
+        if npool > 8 then npool = 8 end
+        for i = 1, npool do
+            local row = buffRows[i]
+            if row and row.border and type(row.border.SetVertexColor) == "function" then
+                local b = row.border
+                if focusedRow and row == focusedRow then
+                    pcall(function() b:SetVertexColor(1.0, 0.82, 0.20) end)
+                else
+                    pcall(function() b:SetVertexColor(0.2, 0.8, 1.0, 0.7) end)
+                end
+            end
+        end
+        if focusedRow then
+            local MM = Nav_GetMM()
+            if MM and type(MM.GetActiveDetailCard) == "function" then
+                local ok, card = pcall(function() return MM:GetActiveDetailCard() end)
+                if ok and card and type(card.ShowBuffRow) == "function" then
+                    pcall(function() card:ShowBuffRow(focusedRow) end)
+                end
+            end
+        end
+    end
 end
 
 -- Roteador OnDirection. FASE 2: BAGS tem navegação real; demais abas, log.
@@ -380,6 +467,23 @@ function Nav_OnBagsDirection(direction)
             f.zone = "CATS"
             return true
         end
+        if f.zone == "BUFFS" then
+            local bc = Nav_BuffCount()
+            if bc < 1 then
+                f.zone = "GRID"
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+            if f.buffPos > bc then f.buffPos = bc end
+            if f.buffPos > 1 then
+                f.buffPos = f.buffPos - 1
+                return true
+            end
+            f.returnZone = "BUFFS"
+            f.zone = "TABBAR"
+            return true
+        end
         return false
     end
     if direction == "DOWN" then
@@ -412,6 +516,28 @@ function Nav_OnBagsDirection(direction)
             end
             return false
         end
+        if f.zone == "BUFFS" then
+            local bc = Nav_BuffCount()
+            if bc < 1 then
+                f.zone = "GRID"
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.buffPos or f.buffPos < 1 then
+                f.buffPos = 1
+                Nav_EnsureFocus()
+                return true
+            end
+            if f.buffPos > bc then
+                f.buffPos = bc
+                return true
+            end
+            if f.buffPos < bc then
+                f.buffPos = f.buffPos + 1
+                return true
+            end
+            return false
+        end
         return false
     end
     if direction == "LEFT" then
@@ -431,6 +557,11 @@ function Nav_OnBagsDirection(direction)
             f.zone = "EQUIP"
             return true
         end
+        if f.zone == "BUFFS" then
+            f.zone = "EQUIP"
+            Nav_EnsureFocus()
+            return true
+        end
         if f.zone == "GRID" then
             local grid = Nav_GetGrid()
             local cols = 8
@@ -438,6 +569,14 @@ function Nav_OnBagsDirection(direction)
             if grid and grid.GetCapacity then local ok, _, c = pcall(function() return grid:GetCapacity() end) if ok and type(c) == "number" and c >= 4 and c <= 11 then cols = c end end
             if math.mod(f.gridIndex - 1, cols) ~= 0 then
                 f.gridIndex = f.gridIndex - 1
+                return true
+            end
+            local bc = Nav_BuffCount()
+            if bc > 0 then
+                f.zone = "BUFFS"
+                if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                if f.buffPos > bc then f.buffPos = bc end
+                Nav_EnsureFocus()
                 return true
             end
             f.zone = "EQUIP"
@@ -455,6 +594,14 @@ function Nav_OnBagsDirection(direction)
             return false
         end
         if f.zone == "EQUIP" then
+            local bc = Nav_BuffCount()
+            if bc > 0 then
+                f.zone = "BUFFS"
+                if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                if f.buffPos > bc then f.buffPos = bc end
+                Nav_EnsureFocus()
+                return true
+            end
             f.zone = "GRID"
             Nav_EnsureFocus()
             return true
@@ -467,6 +614,11 @@ function Nav_OnBagsDirection(direction)
                 f.catIndex = f.catIndex - 1
                 return true
             end
+            f.zone = "GRID"
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "BUFFS" then
             f.zone = "GRID"
             Nav_EnsureFocus()
             return true
@@ -568,6 +720,9 @@ function Nav:OnConfirm()
         end
         return true
     end
+    if f.zone == "BUFFS" then
+        return true
+    end
     return false
 end
 
@@ -588,6 +743,13 @@ function Nav:OnCancel()
     end
     if f.zone == "CATS" then
         f.zone = "EQUIP"
+        Nav_EnsureFocus()
+        Nav_ApplyFocus()
+        MMNav_PlayMove()
+        return true
+    end
+    if f.zone == "BUFFS" then
+        f.zone = "GRID"
         Nav_EnsureFocus()
         Nav_ApplyFocus()
         MMNav_PlayMove()
@@ -617,6 +779,24 @@ function Nav:OnUse()
             pcall(function() grid.slots[f.gridIndex]:Click("RightButton") end)
         end
         return true
+    end
+    if f.zone == "BUFFS" then
+        local vis = Nav_VisibleBuffs()
+        local row = nil
+        if vis and f.buffPos then row = vis[f.buffPos] end
+        local isVis = false
+        if row and type(row.IsVisible) == "function" then
+            local ok, v = pcall(function() return row:IsVisible() end)
+            if ok and v then isVis = true end
+        end
+        if isVis and not row.isWeaponEnchant and row.buffIndex then
+            local MM = Nav_GetMM()
+            if MM and type(MM.OpenBuffContextMenu) == "function" then
+                pcall(function() MM:OpenBuffContextMenu(row.buffIndex, row) end)
+            end
+            return true
+        end
+        return false
     end
     return false
 end
@@ -676,5 +856,6 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, returnZone = "GRID" }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, returnZone = "GRID" }
+    if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
 end

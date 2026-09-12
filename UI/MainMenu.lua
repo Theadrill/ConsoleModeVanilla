@@ -287,7 +287,7 @@ CFG.Grid = {
     emptySlotAlpha  = 0.22,                 -- Opacidade dos slots vazios
     marginsLeft     = 24,                   -- Margem esquerda do grid para dentro do pergaminho (px)
     marginsRight    = 24,                   -- Margem direita do grid para dentro do pergaminho (px)
-    highlightColor  = { r = 1.0, g = 0.85, b = 0.2, a = 0.95 }, -- Destaque dourado de foco
+    highlightColor  = { r = 0.80, g = 0.66, b = 0.14, a = 0.95 }, -- Destaque dourado de foco
 }
 
 -- ----------------------------------------------------------------------------
@@ -3394,14 +3394,14 @@ function MainMenu:CreateGrid(parent, maxSlots, config)
 
         -- Destaque Dourado de Seleção Ativa (Estilo Zelda)
         local highlight = CreateFrame("Frame", nil, slot)
-        highlight:SetPoint("TOPLEFT", slot, "TOPLEFT", -4, 4)
-        highlight:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 4, -4)
+        highlight:SetPoint("TOPLEFT", slot, "TOPLEFT", -9, 9)
+        highlight:SetPoint("BOTTOMRIGHT", slot, "BOTTOMRIGHT", 9, -9)
         highlight:SetBackdrop({
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            edgeSize = 10,
+            edgeSize = 20,
             insets = { left = 2, right = 2, top = 2, bottom = 2 }
         })
-        local hCol = config.highlightColor or { r = 1.0, g = 0.85, b = 0.2, a = 0.95 }
+        local hCol = config.highlightColor or { r = 0.80, g = 0.66, b = 0.14, a = 0.95 }
         highlight:SetBackdropBorderColor(hCol.r, hCol.g, hCol.b, hCol.a)
         highlight:Hide()
         slot.highlight = highlight

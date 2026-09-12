@@ -306,7 +306,7 @@ local function Nav_ApplyFocus()
         end
     end
 
-    -- CATS: com foco (zone==CATS) foco ouro/ativo branco; sem foco ativa ouro.
+    -- CATS: foco ouro; ativa sempre ambar; demais cinza.
     local cats = Nav_GetCatButtons()
     local pb = Nav_GetPageBags()
     local curCat = nil
@@ -319,11 +319,8 @@ local function Nav_ApplyFocus()
                 if f.zone == "CATS" and i == f.catIndex then
                     pcall(function() btn.title:SetTextColor(1.0, 0.82, 0.20) end)
                 elseif btn.catData and btn.catData.id == curCat then
-                    if f.zone == "CATS" then
-                        pcall(function() btn.title:SetTextColor(1.0, 1.0, 1.0) end)
-                    else
-                        pcall(function() btn.title:SetTextColor(1.0, 0.82, 0.20) end)
-                    end
+                    -- igual CFG.Tabs.activeColor (MainMenu.lua:264; CFG é local)
+                    pcall(function() btn.title:SetTextColor(0.88, 0.60, 0.08) end)
                 else
                     pcall(function() btn.title:SetTextColor(0.6, 0.6, 0.6) end)
                 end

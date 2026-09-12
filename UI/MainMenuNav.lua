@@ -1,7 +1,7 @@
 -- ----------------------------------------------------------------------------
 -- ConsoleModeVanilla - UI/MainMenuNav.lua
--- FASE 1: esqueleto (log + hold-to-repeat). FASE 2: BAGS piloto
--- (docs/plano_de_feature_DPAD_NO_MAIN_MENU.md): zonas TABBAR/EQUIP/CATS/GRID,
+-- FASE 1: esqueleto (log + hold-to-repeat). FASE 2: BAGS piloto; FASE 3: SPELLS
+-- (docs/plano_de_feature_DPAD_NO_MAIN_MENU.md): zonas TABBAR/EQUIP/CATS/GRID/SPCAT/SPGRID,
 -- destaque ouro, A/B/Y consomem em BAGS; demais abas seguem em modo log.
 -- Molde: UI/MailScreen.lua OnDirection e StartRepeat/StopRepeat (0.35s/0.12s).
 -- Lua 5.0 / WoW 1.12 estrito: sem #t, sem goto/continue, sem table.unpack.
@@ -24,7 +24,8 @@ Nav.navState = Nav.navState or { direction = nil, timer = 0, initialDelay = 0.35
 Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID" }
+-- FASE 3: + spellCat/spellSlot para aba SPELLS (zonas SPCAT/SPGRID).
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -183,6 +184,84 @@ local function Nav_GetGrid()
     return pb.grid
 end
 
+-- FASE 3: acesso a aba SPELLS (defensivo; nil se aba ainda nao montada).
+-- pageSpells = tabContainer.pages["SPELLS"]; activeScreen 1=cats/2=grid;
+-- catButtons em pageSpells.catScreen.catContainer.catButtons; grade em pageSpells.grid.
+local function Nav_GetPageSpells()
+    local MM = Nav_GetMM()
+    if not MM then return nil end
+    if not MM.tabContainer then return nil end
+    if not MM.tabContainer.pages then return nil end
+    return MM.tabContainer.pages["SPELLS"]
+end
+
+local function Nav_GetSpellCats()
+    local ps = Nav_GetPageSpells()
+    if not ps then return nil end
+    if ps.catScreen and ps.catScreen.catContainer and ps.catScreen.catContainer.catButtons then
+        return ps.catScreen.catContainer.catButtons
+    end
+    if ps.catButtons then return ps.catButtons end
+    return nil
+end
+
+local function Nav_GetSpellGrid()
+    local ps = Nav_GetPageSpells()
+    if not ps then return nil end
+    return ps.grid
+end
+
+local function Nav_GetSpellActiveScreen()
+    local ps = Nav_GetPageSpells()
+    if not ps then return nil end
+    if ps.activeScreen then return ps.activeScreen end
+    return nil
+end
+
+local function Nav_GetSpellFocusedIdx()
+    local ps = Nav_GetPageSpells()
+    if ps then
+        if ps.focusedCatIdx and type(ps.focusedCatIdx) == "number" then return ps.focusedCatIdx end
+        if ps.catScreen and ps.catScreen.focusedCatIdx and type(ps.catScreen.focusedCatIdx) == "number" then
+            return ps.catScreen.focusedCatIdx
+        end
+        if ps.selectedCat and type(ps.selectedCat) == "number" then return ps.selectedCat end
+    end
+    local grid = Nav_GetSpellGrid()
+    if grid and grid.selectedSlotIndex and type(grid.selectedSlotIndex) == "number" then
+        return nil
+    end
+    return nil
+end
+
+local function Nav_SpellCols()
+    local grid = Nav_GetSpellGrid()
+    local cols = 8
+    if grid and grid.cols and type(grid.cols) == "number" and grid.cols >= 4 and grid.cols <= 11 then
+        cols = grid.cols
+    end
+    if grid and grid.GetCapacity then
+        local ok, _, c = pcall(function() return grid:GetCapacity() end)
+        if ok and type(c) == "number" and c >= 4 and c <= 11 then cols = c end
+    end
+    return cols
+end
+
+local function Nav_VisibleSpellGridCount()
+    local grid = Nav_GetSpellGrid()
+    if not grid or not grid.slots then return 0 end
+    local n = 0
+    local total = table.getn(grid.slots)
+    for i = 1, total do
+        local slot = grid.slots[i]
+        if slot and type(slot.IsVisible) == "function" then
+            local ok, vis = pcall(function() return slot:IsVisible() end)
+            if ok and vis then n = n + 1 end
+        end
+    end
+    return n
+end
+
 local function Nav_GetBuffRows()
     local MM = nil
     local okMM, mm = pcall(function() return Nav_GetMM() end)
@@ -332,11 +411,67 @@ local function Nav_EnsureFocus()
         f.buffPos = bc
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" then
+    -- FASE 3: clamp SPELLS (spellCat init focusedCatIdx ou 1; spellSlot init selectedSlotIndex ou 1).
+    local scats = Nav_GetSpellCats()
+    local nsc = 0
+    if scats then nsc = table.getn(scats) end
+    if nsc > 0 then
+        if not f.spellCat then
+            f.spellCat = Nav_GetSpellFocusedIdx() or 1
+        end
+        if f.spellCat < 1 then f.spellCat = 1 end
+        if f.spellCat > nsc then f.spellCat = nsc end
+    else
+        if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
+    end
+    local svis = Nav_VisibleSpellGridCount()
+    if svis > 0 then
+        if not f.spellSlot then
+            local sg = Nav_GetSpellGrid()
+            if sg and sg.selectedSlotIndex and type(sg.selectedSlotIndex) == "number" and sg.selectedSlotIndex >= 1 and sg.selectedSlotIndex <= svis then
+                f.spellSlot = sg.selectedSlotIndex
+            else
+                f.spellSlot = 1
+            end
+        end
+        if f.spellSlot < 1 then f.spellSlot = 1 end
+        if f.spellSlot > svis then f.spellSlot = svis end
+    else
+        -- fallback grade vazia: mantem slot 1 sem forcar troca de zona aqui.
+        if not f.spellSlot or f.spellSlot < 1 then f.spellSlot = 1 end
+    end
+    if f.zone == "SPCAT" and nsc < 1 then
+        if svis > 0 then f.zone = "SPGRID" end
+    end
+
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" then
         f.returnZone = "GRID"
+    end
+    -- Conversao por aba: evita zona BAGS presa em SPELLS e vice-versa.
+    local curTabEf = Nav_GetCurrentTab()
+    if curTabEf == "SPELLS" then
+        local scr = Nav_GetSpellActiveScreen()
+        local defSp = "SPCAT"
+        if scr == 2 then defSp = "SPGRID" end
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" then
+            f.zone = defSp
+        end
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" then
+            f.returnZone = defSp
+        end
+        if f.zone == "BUFFS" and bc < 1 then
+            f.zone = defSp
+        end
+    elseif curTabEf == "BAGS" then
+        if f.zone == "SPCAT" or f.zone == "SPGRID" then
+            f.zone = "GRID"
+        end
+        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" then
+            f.returnZone = "GRID"
+        end
     end
 end
 
@@ -458,6 +593,35 @@ local function Nav_ApplyFocus()
         end
     end
 
+    -- FASE 3 SPELLS visual:
+    -- SPCAT usa FocusSpellCategoryButton (pinta + DetailCard + pose);
+    -- SPGRID usa grid:SelectSlot; fora de SPGRID esconde highlights sem zerar selectedSlotIndex.
+    local pageSpellsVis = Nav_GetPageSpells()
+    if f.zone == "SPCAT" then
+        if pageSpellsVis and type(pageSpellsVis.FocusSpellCategoryButton) == "function" then
+            local idx = f.spellCat or 1
+            pcall(function() pageSpellsVis:FocusSpellCategoryButton(idx) end)
+        end
+    end
+    local spellGridForFocus = Nav_GetSpellGrid()
+    if f.zone == "SPGRID" then
+        if spellGridForFocus and type(spellGridForFocus.SelectSlot) == "function" then
+            pcall(function() spellGridForFocus:SelectSlot(f.spellSlot) end)
+        end
+    else
+        if spellGridForFocus and spellGridForFocus.slots then
+            local okS, totalS = pcall(function() return table.getn(spellGridForFocus.slots) end)
+            if okS and type(totalS) == "number" and totalS > 0 then
+                for si = 1, totalS do
+                    local sslot = spellGridForFocus.slots[si]
+                    if sslot and sslot.highlight and type(sslot.highlight.Hide) == "function" then
+                        pcall(function() sslot.highlight:Hide() end)
+                    end
+                end
+            end
+        end
+    end
+
     -- PAGENAV: botao focado ouro; demais voltam ao default.
     local pbForPage = Nav_GetPageBags()
     if pbForPage and (pbForPage.prevPageBtn or pbForPage.nextPageBtn) then
@@ -548,10 +712,18 @@ local function Nav_ApplyFocus()
     end
 end
 
--- Roteador OnDirection. FASE 2: BAGS tem navegação real; demais abas, log.
+-- Roteador OnDirection. FASE 2: BAGS real; FASE 3: SPELLS real; demais, log.
 function Nav:OnDirection(direction)
     if not self:IsActive() then return end
-    if Nav_GetCurrentTab() ~= "BAGS" then
+    local curTab = Nav_GetCurrentTab()
+    if curTab == "SPELLS" then
+        Nav_EnsureFocus()
+        local movedSp = Nav_OnSpellsDirection(direction)
+        Nav_ApplyFocus()
+        if movedSp then MMNav_PlayMove() end
+        return
+    end
+    if curTab ~= "BAGS" then
         MMNav_Log("|cffe09a15[MMNav]|r " .. tostring(direction))
         MMNav_PlayMove()
         return
@@ -560,6 +732,231 @@ function Nav:OnDirection(direction)
     local moved = Nav_OnBagsDirection(direction)
     Nav_ApplyFocus()
     if moved then MMNav_PlayMove() end
+end
+
+-- FASE 3: navegacao SPELLS. Zonas SPCAT (lista vertical tela1) e SPGRID (grade tela2);
+-- TABBAR/EQUIP/BUFFS compartilhadas funcionam igual a BAGS.
+-- Retorna true se moveu/tratou.
+function Nav_OnSpellsDirection(direction)
+    local f = Nav.focus
+    if direction == "UP" then
+        if f.zone == "TABBAR" then return false end
+        if f.zone == "EQUIP" then
+            if f.equipIndex > 1 then f.equipIndex = f.equipIndex - 1 return true end
+            f.returnZone = "EQUIP"
+            f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "SPCAT" then
+            local scats = Nav_GetSpellCats()
+            local nsc = 0
+            if scats then nsc = table.getn(scats) end
+            if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
+            if f.spellCat > 1 then
+                f.spellCat = f.spellCat - 1
+                local ps = Nav_GetPageSpells()
+                if ps and type(ps.FocusSpellCategoryButton) == "function" then
+                    local idx = f.spellCat
+                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
+                end
+                return true
+            end
+            f.returnZone = "SPCAT"
+            f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "SPGRID" then
+            local cols = Nav_SpellCols()
+            if (f.spellSlot - cols) >= 1 then
+                f.spellSlot = f.spellSlot - cols
+                return true
+            end
+            f.returnZone = "SPGRID"
+            f.zone = "TABBAR"
+            return true
+        end
+        if f.zone == "BUFFS" then
+            local bc = Nav_BuffCount()
+            if bc < 1 then
+                local scrB = Nav_GetSpellActiveScreen()
+                if scrB == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+            if f.buffPos > bc then f.buffPos = bc end
+            if f.buffPos > 1 then
+                f.buffPos = f.buffPos - 1
+                return true
+            end
+            f.returnZone = "BUFFS"
+            f.zone = "TABBAR"
+            return true
+        end
+        return false
+    end
+    if direction == "DOWN" then
+        if f.zone == "TABBAR" then
+            f.zone = f.returnZone or "SPCAT"
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "EQUIP" then
+            local eq = Nav_GetEquipButtons()
+            local ne = 17
+            if eq then ne = table.getn(eq) end
+            if f.equipIndex < ne then f.equipIndex = f.equipIndex + 1 return true end
+            return false
+        end
+        if f.zone == "SPCAT" then
+            local scats = Nav_GetSpellCats()
+            local nsc = 0
+            if scats then nsc = table.getn(scats) end
+            if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
+            if f.spellCat < nsc then
+                f.spellCat = f.spellCat + 1
+                local ps = Nav_GetPageSpells()
+                if ps and type(ps.FocusSpellCategoryButton) == "function" then
+                    local idx = f.spellCat
+                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
+                end
+                return true
+            end
+            return false
+        end
+        if f.zone == "SPGRID" then
+            local cols = Nav_SpellCols()
+            local svis = Nav_VisibleSpellGridCount()
+            if (f.spellSlot + cols) <= svis then
+                f.spellSlot = f.spellSlot + cols
+                return true
+            end
+            return false
+        end
+        if f.zone == "BUFFS" then
+            local bc = Nav_BuffCount()
+            if bc < 1 then
+                local scrB2 = Nav_GetSpellActiveScreen()
+                if scrB2 == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.buffPos or f.buffPos < 1 then
+                f.buffPos = 1
+                Nav_EnsureFocus()
+                return true
+            end
+            if f.buffPos > bc then
+                f.buffPos = bc
+                return true
+            end
+            if f.buffPos < bc then
+                f.buffPos = f.buffPos + 1
+                return true
+            end
+            return false
+        end
+        return false
+    end
+    if direction == "LEFT" then
+        if f.zone == "TABBAR" then
+            if f.tabIdx > 1 then f.tabIdx = f.tabIdx - 1 return true end
+            return false
+        end
+        if f.zone == "EQUIP" then return false end
+        if f.zone == "SPCAT" then
+            f.returnZone = "SPCAT"
+            f.zone = "EQUIP"
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "BUFFS" then
+            f.zone = "EQUIP"
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "SPGRID" then
+            local cols = Nav_SpellCols()
+            if math.mod(f.spellSlot - 1, cols) ~= 0 then
+                f.spellSlot = f.spellSlot - 1
+                return true
+            end
+            local bc = Nav_BuffCount()
+            if bc > 0 then
+                f.returnZone = "SPGRID"
+                f.zone = "BUFFS"
+                if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                if f.buffPos > bc then f.buffPos = bc end
+                Nav_EnsureFocus()
+                return true
+            end
+            f.returnZone = "SPGRID"
+            f.zone = "EQUIP"
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
+    if direction == "RIGHT" then
+        if f.zone == "TABBAR" then
+            local tabs = Nav_GetTabButtons()
+            local nt = 5
+            if tabs then nt = table.getn(tabs) end
+            if f.tabIdx < nt then f.tabIdx = f.tabIdx + 1 return true end
+            return false
+        end
+        if f.zone == "EQUIP" then
+            if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" then
+                f.zone = f.returnZone
+                Nav_EnsureFocus()
+                return true
+            end
+            local bc = Nav_BuffCount()
+            if bc > 0 then
+                f.zone = "BUFFS"
+                if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                if f.buffPos > bc then f.buffPos = bc end
+                Nav_EnsureFocus()
+                return true
+            end
+            local scrE = Nav_GetSpellActiveScreen()
+            if scrE == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "SPCAT" then
+            local ps = Nav_GetPageSpells()
+            if ps then
+                if type(ps.FocusSpellCategoryButton) == "function" then
+                    local idx = f.spellCat or 1
+                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
+                end
+                if type(ps.ShowSpellGridScreen) == "function" then
+                    local idx2 = f.spellCat or 1
+                    pcall(function() ps:ShowSpellGridScreen(idx2) end)
+                end
+            end
+            f.zone = "SPGRID"
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "BUFFS" then
+            f.zone = "SPGRID"
+            Nav_EnsureFocus()
+            return true
+        end
+        if f.zone == "SPGRID" then
+            local cols = Nav_SpellCols()
+            local svis = Nav_VisibleSpellGridCount()
+            if math.mod(f.spellSlot, cols) ~= 0 and (f.spellSlot + 1) <= svis then
+                f.spellSlot = f.spellSlot + 1
+                return true
+            end
+            return false
+        end
+        return false
+    end
+    return false
 end
 
 -- FASE 2: navegação BAGS. Retorna true se moveu/tratou.
@@ -853,10 +1250,61 @@ function Nav:EnsureRepeatTicker()
     self.ticker = f
 end
 
--- FASE 2: A/B/Y consomem em BAGS (retornam true); demais abas, false.
+-- FASE 2: A/B/Y consomem em BAGS (retornam true); FASE 3: + SPELLS; demais, false.
 function Nav:OnConfirm()
     if not self:IsActive() then return false end
-    if Nav_GetCurrentTab() ~= "BAGS" then
+    local curTabCf = Nav_GetCurrentTab()
+    if curTabCf == "SPELLS" then
+        Nav_EnsureFocus()
+        local fs = self.focus
+        if fs.zone == "TABBAR" then
+            local tabs = Nav_GetTabButtons()
+            local MM = Nav_GetMM()
+            if tabs and tabs[fs.tabIdx] then
+                local btn = tabs[fs.tabIdx]
+                if btn then pcall(function() btn:Click() end) end
+                return true
+            end
+            if MM and type(MM.SelectTab) == "function" then return true end
+            return true
+        end
+        if fs.zone == "EQUIP" then
+            local eq = Nav_GetEquipButtons()
+            if eq and eq[fs.equipIndex] then
+                pcall(function() eq[fs.equipIndex]:Click("LeftButton") end)
+            end
+            return true
+        end
+        if fs.zone == "BUFFS" then
+            return true
+        end
+        if fs.zone == "SPCAT" then
+            local ps = Nav_GetPageSpells()
+            if ps then
+                if type(ps.FocusSpellCategoryButton) == "function" then
+                    local idx = fs.spellCat or 1
+                    pcall(function() ps:FocusSpellCategoryButton(idx) end)
+                end
+                if type(ps.ShowSpellGridScreen) == "function" then
+                    local idx2 = fs.spellCat or 1
+                    pcall(function() ps:ShowSpellGridScreen(idx2) end)
+                end
+            end
+            fs.zone = "SPGRID"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            return true
+        end
+        if fs.zone == "SPGRID" then
+            local grid = Nav_GetSpellGrid()
+            if grid and grid.slots and grid.slots[fs.spellSlot] then
+                pcall(function() grid.slots[fs.spellSlot]:Click("LeftButton") end)
+            end
+            return true
+        end
+        return false
+    end
+    if curTabCf ~= "BAGS" then
         MMNav_Log("|cffe09a15[MMNav]|r A (fase1: cursor ainda trata)")
         return false
     end
@@ -915,7 +1363,32 @@ end
 
 function Nav:OnCancel()
     if not self:IsActive() then return false end
-    if Nav_GetCurrentTab() ~= "BAGS" then
+    local curTabCx = Nav_GetCurrentTab()
+    if curTabCx == "SPELLS" then
+        local ps = Nav_GetPageSpells()
+        local scr = nil
+        if ps then scr = ps.activeScreen end
+        local isGridScreen = (scr == 2)
+        if scr == nil then
+            isGridScreen = (self.focus and self.focus.zone == "SPGRID")
+        end
+        if isGridScreen then
+            if ps then
+                if type(ps.ShowSpellCategoryScreen) == "function" then
+                    pcall(function() ps:ShowSpellCategoryScreen() end)
+                elseif type(ps.HandleSpellsBack) == "function" then
+                    pcall(function() ps:HandleSpellsBack() end)
+                end
+            end
+            self.focus.zone = "SPCAT"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        return false
+    end
+    if curTabCx ~= "BAGS" then
         MMNav_Log("|cffe09a15[MMNav]|r B (fase1: cursor ainda trata)")
         return false
     end
@@ -954,7 +1427,45 @@ end
 
 function Nav:OnUse()
     if not self:IsActive() then return false end
-    if Nav_GetCurrentTab() ~= "BAGS" then
+    local curTabUs = Nav_GetCurrentTab()
+    if curTabUs == "SPELLS" then
+        Nav_EnsureFocus()
+        local fu = self.focus
+        if fu.zone == "EQUIP" then
+            local eq = Nav_GetEquipButtons()
+            if eq and eq[fu.equipIndex] then
+                pcall(function() eq[fu.equipIndex]:Click("RightButton") end)
+            end
+            return true
+        end
+        if fu.zone == "SPGRID" then
+            local grid = Nav_GetSpellGrid()
+            if grid and grid.slots and grid.slots[fu.spellSlot] then
+                pcall(function() grid.slots[fu.spellSlot]:Click("RightButton") end)
+            end
+            return true
+        end
+        if fu.zone == "BUFFS" then
+            local vis = Nav_VisibleBuffs()
+            local row = nil
+            if vis and fu.buffPos then row = vis[fu.buffPos] end
+            local isVis = false
+            if row and type(row.IsVisible) == "function" then
+                local ok, v = pcall(function() return row:IsVisible() end)
+                if ok and v then isVis = true end
+            end
+            if isVis and not row.isWeaponEnchant and row.buffIndex then
+                local MM = Nav_GetMM()
+                if MM and type(MM.OpenBuffContextMenu) == "function" then
+                    pcall(function() MM:OpenBuffContextMenu(row.buffIndex, row) end)
+                end
+                return true
+            end
+            return false
+        end
+        return false
+    end
+    if curTabUs ~= "BAGS" then
         MMNav_Log("|cffe09a15[MMNav]|r Y (fase1: cursor ainda trata)")
         return false
     end
@@ -1050,7 +1561,9 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID" }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil }
     if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
     if self.focus.pageBtn == nil or self.focus.pageBtn < 1 then self.focus.pageBtn = 1 end
+    if self.focus.spellCat ~= nil and self.focus.spellCat < 1 then self.focus.spellCat = 1 end
+    if self.focus.spellSlot == nil or self.focus.spellSlot < 1 then self.focus.spellSlot = 1 end
 end

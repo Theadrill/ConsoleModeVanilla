@@ -4211,6 +4211,20 @@ function MainMenu:SetupBagsPage(pageBags)
     prevPageBtn:SetScript("OnClick", function()
         MainMenu:PrevBagPage()
     end)
+    local prevPageFullHi = CreateFrame("Frame", nil, prevPageBtn)
+    prevPageFullHi:SetPoint("TOPLEFT", prevPageBtn, "TOPLEFT", -6, 6)
+    prevPageFullHi:SetPoint("BOTTOMRIGHT", prevPageBtn, "BOTTOMRIGHT", 6, -6)
+    prevPageFullHi:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 20,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    prevPageFullHi:SetBackdropColor(1.0, 0.82, 0.20, 0.08)
+    prevPageFullHi:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95)
+    prevPageFullHi:EnableMouse(false)
+    prevPageFullHi:Hide()
+    prevPageBtn.fullHi = prevPageFullHi
     pageBags.prevPageBtn = prevPageBtn
 
     local pageText = pageNav:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -4243,6 +4257,20 @@ function MainMenu:SetupBagsPage(pageBags)
     nextPageBtn:SetScript("OnClick", function()
         MainMenu:NextBagPage()
     end)
+    local nextPageFullHi = CreateFrame("Frame", nil, nextPageBtn)
+    nextPageFullHi:SetPoint("TOPLEFT", nextPageBtn, "TOPLEFT", -6, 6)
+    nextPageFullHi:SetPoint("BOTTOMRIGHT", nextPageBtn, "BOTTOMRIGHT", 6, -6)
+    nextPageFullHi:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 20,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    nextPageFullHi:SetBackdropColor(1.0, 0.82, 0.20, 0.08)
+    nextPageFullHi:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95)
+    nextPageFullHi:EnableMouse(false)
+    nextPageFullHi:Hide()
+    nextPageBtn.fullHi = nextPageFullHi
     pageBags.nextPageBtn = nextPageBtn
     pageBags.pageNav = pageNav
 

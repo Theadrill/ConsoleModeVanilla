@@ -24,7 +24,7 @@ Nav.navState = Nav.navState or { direction = nil, timer = 0, initialDelay = 0.35
 Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, returnZone = "GRID" }
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID" }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -236,6 +236,28 @@ local function Nav_VisibleGridCount()
     return n
 end
 
+-- PAGENAV: botoes [<] [>] visiveis na ordem (pageNav escondido = vazio).
+local function Nav_VisiblePageBtns()
+    local out = {}
+    local pb = Nav_GetPageBags()
+    if not pb then return out end
+    if pb.pageNav and type(pb.pageNav.IsVisible) == "function" then
+        local ok, vis = pcall(function() return pb.pageNav:IsVisible() end)
+        if not (ok and vis) then return out end
+    end
+    local prev = pb.prevPageBtn
+    if prev and type(prev.IsVisible) == "function" then
+        local ok, vis = pcall(function() return prev:IsVisible() end)
+        if ok and vis then table.insert(out, prev) end
+    end
+    local nxt = pb.nextPageBtn
+    if nxt and type(nxt.IsVisible) == "function" then
+        local ok, vis = pcall(function() return nxt:IsVisible() end)
+        if ok and vis then table.insert(out, nxt) end
+    end
+    return out
+end
+
 local function Nav_FindCatIndexForCurrent()
     local pb = Nav_GetPageBags()
     local cats = Nav_GetCatButtons()
@@ -286,6 +308,18 @@ local function Nav_EnsureFocus()
         if not f.gridIndex or f.gridIndex < 1 then f.gridIndex = 1 end
     end
 
+    if not f.pageBtn or f.pageBtn < 1 then f.pageBtn = 1 end
+    if f.zone == "PAGENAV" then
+        local pbtns = Nav_VisiblePageBtns()
+        local np = 0
+        if pbtns then np = table.getn(pbtns) end
+        if np < 1 then
+            f.zone = "GRID"
+        elseif f.pageBtn > np then
+            f.pageBtn = np
+        end
+    end
+
     if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
     local bc = Nav_BuffCount()
     if f.zone == "BUFFS" then
@@ -298,10 +332,10 @@ local function Nav_EnsureFocus()
         f.buffPos = bc
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" then
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" then
         f.returnZone = "GRID"
     end
 end
@@ -424,6 +458,49 @@ local function Nav_ApplyFocus()
         end
     end
 
+    -- PAGENAV: botao focado ouro; demais voltam ao default.
+    local pbForPage = Nav_GetPageBags()
+    if pbForPage and (pbForPage.prevPageBtn or pbForPage.nextPageBtn) then
+        local pbtns = Nav_VisiblePageBtns()
+        local focusedBtn = nil
+        if f.zone == "PAGENAV" and pbtns then
+            local npv = table.getn(pbtns)
+            if f.pageBtn and f.pageBtn >= 1 and f.pageBtn <= npv then
+                focusedBtn = pbtns[f.pageBtn]
+            end
+        end
+        local allBtns = { pbForPage.prevPageBtn, pbForPage.nextPageBtn }
+        for i = 1, 2 do
+            local b = allBtns[i]
+            if b then
+                if focusedBtn and b == focusedBtn then
+                    if b.fullHi and type(b.fullHi.Show) == "function" then
+                        pcall(function() b.fullHi:Show() end)
+                    elseif type(b.SetBackdropBorderColor) == "function" then
+                        pcall(function() b:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.95) end)
+                    elseif type(b.LockHighlight) == "function" then
+                        pcall(function() b:LockHighlight() end)
+                    elseif b.highlight and type(b.highlight.Show) == "function" then
+                        pcall(function() b.highlight:Show() end)
+                    end
+                else
+                    if b.fullHi and type(b.fullHi.Hide) == "function" then
+                        pcall(function() b.fullHi:Hide() end)
+                    end
+                    if type(b.SetBackdropBorderColor) == "function" then
+                        pcall(function() b:SetBackdropBorderColor(0.5, 0.4, 0.28, 0.65) end)
+                    end
+                    if type(b.UnlockHighlight) == "function" then
+                        pcall(function() b:UnlockHighlight() end)
+                    end
+                    if b.highlight and type(b.highlight.Hide) == "function" then
+                        pcall(function() b.highlight:Hide() end)
+                    end
+                end
+            end
+        end
+    end
+
     -- BUFFS: row focada ouro + DetailCard ShowBuffRow; demais voltam ao default.
     local buffRows = Nav_GetBuffRows()
     if buffRows then
@@ -514,6 +591,12 @@ function Nav_OnBagsDirection(direction)
             f.zone = "CATS"
             return true
         end
+        if f.zone == "PAGENAV" then
+            f.returnZone = "PAGENAV"
+            f.zone = "GRID"
+            Nav_EnsureFocus()
+            return true
+        end
         if f.zone == "BUFFS" then
             local bc = Nav_BuffCount()
             if bc < 1 then
@@ -561,6 +644,18 @@ function Nav_OnBagsDirection(direction)
                 f.gridIndex = f.gridIndex + cols
                 return true
             end
+            local pgDown = Nav_VisiblePageBtns()
+            local npDown = 0
+            if pgDown then npDown = table.getn(pgDown) end
+            if npDown > 0 then
+                f.zone = "PAGENAV"
+                if not f.pageBtn or f.pageBtn < 1 then f.pageBtn = 1 end
+                if f.pageBtn > npDown then f.pageBtn = npDown end
+                return true
+            end
+            return false
+        end
+        if f.zone == "PAGENAV" then
             return false
         end
         if f.zone == "BUFFS" then
@@ -630,6 +725,23 @@ function Nav_OnBagsDirection(direction)
             Nav_EnsureFocus()
             return true
         end
+        if f.zone == "PAGENAV" then
+            local pgL = Nav_VisiblePageBtns()
+            local npL = 0
+            if pgL then npL = table.getn(pgL) end
+            if npL < 1 then
+                f.zone = "GRID"
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.pageBtn or f.pageBtn < 1 then f.pageBtn = 1 end
+            if f.pageBtn > npL then f.pageBtn = npL end
+            if npL > 1 then
+                f.pageBtn = f.pageBtn - 1
+                if f.pageBtn < 1 then f.pageBtn = npL end
+            end
+            return true
+        end
         return false
     end
     if direction == "RIGHT" then
@@ -681,6 +793,23 @@ function Nav_OnBagsDirection(direction)
                 return true
             end
             return false
+        end
+        if f.zone == "PAGENAV" then
+            local pgR = Nav_VisiblePageBtns()
+            local npR = 0
+            if pgR then npR = table.getn(pgR) end
+            if npR < 1 then
+                f.zone = "GRID"
+                Nav_EnsureFocus()
+                return true
+            end
+            if not f.pageBtn or f.pageBtn < 1 then f.pageBtn = 1 end
+            if f.pageBtn > npR then f.pageBtn = npR end
+            if npR > 1 then
+                f.pageBtn = f.pageBtn + 1
+                if f.pageBtn > npR then f.pageBtn = 1 end
+            end
+            return true
         end
         return false
     end
@@ -770,6 +899,17 @@ function Nav:OnConfirm()
     if f.zone == "BUFFS" then
         return true
     end
+    if f.zone == "PAGENAV" then
+        local pgC = Nav_VisiblePageBtns()
+        local npC = 0
+        if pgC then npC = table.getn(pgC) end
+        local pbtn = nil
+        if f.pageBtn and f.pageBtn >= 1 and f.pageBtn <= npC then
+            pbtn = pgC[f.pageBtn]
+        end
+        if pbtn then pcall(function() pbtn:Click() end) end
+        return true
+    end
     return false
 end
 
@@ -796,6 +936,13 @@ function Nav:OnCancel()
         return true
     end
     if f.zone == "BUFFS" then
+        f.zone = "GRID"
+        Nav_EnsureFocus()
+        Nav_ApplyFocus()
+        MMNav_PlayMove()
+        return true
+    end
+    if f.zone == "PAGENAV" then
         f.zone = "GRID"
         Nav_EnsureFocus()
         Nav_ApplyFocus()
@@ -903,6 +1050,7 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, returnZone = "GRID" }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID" }
     if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
+    if self.focus.pageBtn == nil or self.focus.pageBtn < 1 then self.focus.pageBtn = 1 end
 end

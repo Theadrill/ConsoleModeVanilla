@@ -126,6 +126,8 @@ Cada fase é **100% testável no jogo imediatamente após a sua conclusão**. Ne
 
 ### 🟢 FASE 4: TALENTS (specs ⇄ árvore + voltar)
 > **Objetivo de Teste:** O jogador lista as 3 specs, entra na árvore com A, navega os talentos na grade e volta com B.
+> **Anti-retrabalho (ver §6):** valem os itens 1, 2, 3, 4, 8, 9, 10, 11, 12, 14, 17.
+> Respeitar em especial: não perder seleção ao redesenhar, foco único por zona, receptor na raiz do menu e eixo real da grade.
 
 - [ ] Tela 1 = `specButtons[1..3]` (`FocusTalentSpecButton:5445`); tela 2 = `allSlots` da árvore (`FocusTalentSlot:5933`) + `backBtn:5892`.
 - [ ] `OnTalentsDirection`: mesma regra SPELLS; B → `HandleTalentsBack` (`6290`).
@@ -137,6 +139,9 @@ Cada fase é **100% testável no jogo imediatamente após a sua conclusão**. Ne
 
 ### 🟢 FASE 5: QUESTS + MAPA (lista ⇄ detalhe ⇄ mapa + overlay)
 > **Objetivo de Teste:** O jogador navega as 10 quests, entra no detalhe (recompensas + ações), abre o mapa, troca de continente/zona e fecha o overlay só com o controle.
+> **Anti-retrabalho (ver §6):** valem os itens 2, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16.
+> Respeitar em especial: ordem visual antes de navegar fileiras, parada no nível intermediário sem pular para o topo,
+> vizinhos laterais versus verticais corretos e releitura de colunas dinâmicas a cada movimento.
 
 - [ ] Lista `questButtons[1..10]` vertical (`SelectQuest:8593`, `selectedQuestIndex:8600`); RIGHT/A → detalhe (`rewardSlots[1..4]:6994` + ações Ver-no-Mapa/X-Rastrear/Y-Ações `7031,8174,8287`); B → volta p/ lista.
 - [ ] Overlay `questDetailOverlay` (`8334,8472,8307`): quando visível, D-pad/A/B pertencem a ele até B fechar.
@@ -148,6 +153,8 @@ Cada fase é **100% testável no jogo imediatamente após a sua conclusão**. Ne
 
 ### 🟢 FASE 6: SYSTEM + botões globais + desligamento do cursor + regressão
 > **Objetivo de Teste:** O jogador percorre SYSTEM (sub-abas, linhas, binds, picker), usa LB/RB/LT/RT/A/B/X/Y em todas as abas, e o cursor espacial nunca mais aparece dentro do MainMenu.
+> **Anti-retrabalho (ver §6):** valem todos os itens 1–17, mais o deshook total documentado abaixo.
+> Esta é a fase de consolidação: nenhuma lição das FASES 2–3 pode reaparecer, e a remoção do cursor deve ser total e auditável.
 
 - [ ] SYSTEM: `subButtons` ⇄ `rows` (`10431,10503-10512`); BINDS `bindCards` vertical (`11318,11724`, X limpa `1368`); PICKER `modeButtons` ⇄ `subTabButtons` ⇄ `gridButtons[1..16]` + paginação (portar `Cursor.lua:828-1042`).
 - [ ] Globais: LB/RB = `CycleTabs:12857` de qualquer zona; LT/RT = `CycleCategories:12881` (QUESTS = zoom); A = click esquerdo, B = pilha overlay→sub-tela→aba→fechar (ordem `Keybindings:1392-1500`), X/Y contextuais por aba.
@@ -175,3 +182,27 @@ Interface/AddOns/ConsoleModeVanilla/
 └── docs/
     └── plano_de_feature_DPAD_NO_MAIN_MENU.md <-- Este documento
 ```
+
+---
+
+## 6. Known bugs (anti-retrabalho FASES 2–3)
+
+Lições já pagas nas FASES 2–3. Cada item: o que impedir + o que fazer. Sem código.
+
+1. Perda da seleção ao redesenhar para o primeiro índice: impedir o salto para o início; preservar a seleção anterior e preferir o índice guardado na navegação.
+2. Focos duplicados entre zonas: impedir duas zonas acesas ao mesmo tempo; aplicar foco sempre apagando as demais zonas sem zerar os índices guardados.
+3. Redesenho externo que rouba a zona: impedir que atualização externa mostre zona errada; respeitar a zona ativa e re-esconder o que for de fora dela.
+4. Receptor da navegação no lugar errado: impedir lógica presa na página; manter os métodos na raiz do menu e proteger com aviso quando o receptor estiver ausente.
+5. Ordem da lista diferente da ordem visual: impedir navegação em sequência trocada; conferir a ordem do vetor contra a ordem na tela antes de navegar fileiras.
+6. Salto direto para o topo ao subir: impedir pular o nível do meio; parar nos filtros/abas intermediárias e nunca pular direto para a barra de abas.
+7. Vizinho lateral confundido com filtro: impedir troca errada de painel; tratar painel lateral como vizinho horizontal e filtro como vizinho vertical.
+8. Eixo de navegação trocado: impedir andar no eixo errado; navegar no eixo real do leiaute e só aplicar volta circular onde fizer sentido.
+9. Elemento clicável sem zona: impedir ponto cego no controle; dar zona a tudo que é clicável, incluindo a paginação de anterior/próximo.
+10. Saída lateral que cruza contextos: impedir sair para aba ou tela errada; consultar a aba aberta e a tela ativa antes de sair, sem cruzamento.
+11. Entrada em aba que herda tela antiga: impedir cair em sub-tela residual; ao entrar na aba, recomeçar sempre pela tela inicial dela.
+12. Cores de ativa e de foco misturadas: impedir confusão visual; usar uma única cor canônica para a aba ativa e reservar o dourado claro só para o foco.
+13. Foco que repinta a aba: impedir título de aba pintado pelo foco; nunca pintar o título com o foco e manter o sublinhado da ativa intocável.
+14. Moldura de foco fora do padrão: impedir destaque fino ou desalinhado; usar moldura dedicada de linha inteira, espessa e ancorada para fora, no padrão da grade.
+15. Cursor reaparecendo durante a navegação: impedir disputa de cursor; suprimir o cursor com portão enquanto a navegação estiver ativa e manter os ganchos até a FASE 6.
+16. Colunas dinâmicas com leitura velha: impedir cálculo com largura obsoleta; reler a capacidade vigente a cada movimento antes de navegar.
+17. Confirmação em alvo desatualizado: impedir confirmar o que não está focado; nunca confirmar via cursor antigo, acionar sempre direto o item focado.

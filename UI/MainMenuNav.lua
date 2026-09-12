@@ -623,12 +623,38 @@ local function Nav_ApplyFocus()
     -- FASE 3 SPELLS visual:
     -- SPCAT usa FocusSpellCategoryButton (pinta + DetailCard + pose);
     -- SPGRID usa grid:SelectSlot; fora de SPGRID esconde highlights sem zerar selectedSlotIndex.
+    -- SPCAT repinta TODOS os cards a cada ApplyFocus (espelho CATS/SPTABS/GRID else-hide):
+    -- focado so recebe ouro em zone==SPCAT; fora disso, ativa fica dim e demais inativos.
     local MMVis = Nav_GetMM()
     if f.zone == "SPCAT" then
         if MMVis and type(MMVis.FocusSpellCategoryButton) == "function" then
             local idx = f.spellCat or 1
             pcall(function() MMVis:FocusSpellCategoryButton(idx) end)
         end
+    else
+        pcall(function()
+            local page = MMVis and MMVis.tabContainer and MMVis.tabContainer.pages and MMVis.tabContainer.pages["SPELLS"]
+            local cbs = page and page.catButtons
+            if not cbs then return end
+            local activeIdx = f.spellCat or page.focusedCatIdx or 1
+            local n = table.getn(cbs)
+            for i = 1, n do
+                local b = cbs[i]
+                if b then
+                    if b.focusBorder and type(b.focusBorder.Hide) == "function" then b.focusBorder:Hide() end
+                    if b.highlight and type(b.highlight.Hide) == "function" then b.highlight:Hide() end
+                    if i == activeIdx then
+                        if b.activeBorder and type(b.activeBorder.Show) == "function" then b.activeBorder:Show() end
+                        if b.inactiveBorder and type(b.inactiveBorder.Hide) == "function" then b.inactiveBorder:Hide() end
+                        if b.catName and type(b.catName.SetTextColor) == "function" then b.catName:SetTextColor(0.88, 0.60, 0.08) end
+                    else
+                        if b.activeBorder and type(b.activeBorder.Hide) == "function" then b.activeBorder:Hide() end
+                        if b.inactiveBorder and type(b.inactiveBorder.Show) == "function" then b.inactiveBorder:Show() end
+                        if b.catName and type(b.catName.SetTextColor) == "function" then b.catName:SetTextColor(0.90, 0.90, 0.90) end
+                    end
+                end
+            end
+        end)
     end
     local spellGridForFocus = Nav_GetSpellGrid()
     if f.zone == "SPGRID" then
@@ -933,6 +959,17 @@ function Nav_OnSpellsDirection(direction)
             if nsc < 1 then return false end
             if not f.spellCat or f.spellCat < 1 then f.spellCat = 1 end
             if f.spellCat > nsc then f.spellCat = nsc end
+            if f.spellCat <= 1 then
+                local bcSPL = Nav_BuffCount()
+                if bcSPL and bcSPL > 0 then
+                    f.returnZone = "SPCAT"
+                    f.zone = "BUFFS"
+                    if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
+                    if f.buffPos > bcSPL then f.buffPos = bcSPL end
+                    Nav_EnsureFocus()
+                    return true
+                end
+            end
             f.spellCat = f.spellCat - 1
             if f.spellCat < 1 then f.spellCat = nsc end
             local MMLeft = Nav_GetMM()
@@ -995,13 +1032,9 @@ function Nav_OnSpellsDirection(direction)
             return false
         end
         if f.zone == "EQUIP" then
-            if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" then
-                f.zone = f.returnZone
-                Nav_EnsureFocus()
-                return true
-            end
             local bc = Nav_BuffCount()
             if bc > 0 then
+                f.returnZone = "EQUIP"
                 f.zone = "BUFFS"
                 if not f.buffPos or f.buffPos < 1 then f.buffPos = 1 end
                 if f.buffPos > bc then f.buffPos = bc end
@@ -1009,7 +1042,14 @@ function Nav_OnSpellsDirection(direction)
                 return true
             end
             local scrE = Nav_GetSpellActiveScreen()
-            if scrE == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            local curE = Nav_GetCurrentTab()
+            if curE == "BAGS" then
+                f.zone = "GRID"
+            elseif curE == "SPELLS" or curE == nil then
+                if scrE == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            else
+                f.zone = "GRID"
+            end
             Nav_EnsureFocus()
             return true
         end
@@ -1047,7 +1087,16 @@ function Nav_OnSpellsDirection(direction)
             return true
         end
         if f.zone == "BUFFS" then
-            f.zone = "SPGRID"
+            f.returnZone = "BUFFS"
+            local curRB = Nav_GetCurrentTab()
+            if curRB == "BAGS" then
+                f.zone = "GRID"
+            elseif curRB == "SPELLS" then
+                local scrRB = Nav_GetSpellActiveScreen()
+                if scrRB == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            else
+                f.zone = "GRID"
+            end
             Nav_EnsureFocus()
             return true
         end
@@ -1264,7 +1313,13 @@ function Nav_OnBagsDirection(direction)
                 Nav_EnsureFocus()
                 return true
             end
-            f.zone = "GRID"
+            local curEB = Nav_GetCurrentTab()
+            if curEB == "SPELLS" then
+                local scrEB = Nav_GetSpellActiveScreen()
+                if scrEB == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            else
+                f.zone = "GRID"
+            end
             Nav_EnsureFocus()
             return true
         end
@@ -1281,7 +1336,16 @@ function Nav_OnBagsDirection(direction)
             return true
         end
         if f.zone == "BUFFS" then
-            f.zone = "GRID"
+            f.returnZone = "BUFFS"
+            local curBRB = Nav_GetCurrentTab()
+            if curBRB == "BAGS" then
+                f.zone = "GRID"
+            elseif curBRB == "SPELLS" then
+                local scrBRB = Nav_GetSpellActiveScreen()
+                if scrBRB == 2 then f.zone = "SPGRID" else f.zone = "SPCAT" end
+            else
+                f.zone = "GRID"
+            end
             Nav_EnsureFocus()
             return true
         end

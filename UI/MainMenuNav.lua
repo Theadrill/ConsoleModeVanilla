@@ -1333,6 +1333,10 @@ local function Nav_SelectQuestByIdx(targetIdx)
     end
     Nav.focus.questIdx = targetIdx
     pcall(function() MM:SelectQuest(targetIdx, true) end)
+    -- bug 17: offset ajustado mas lista não re-renderizada → scroll visual fica preso.
+    if qp and type(MM.UpdateQuestsPage) == "function" then
+        pcall(function() MM:UpdateQuestsPage() end)
+    end
     return true
 end
 

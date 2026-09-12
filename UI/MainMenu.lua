@@ -4395,6 +4395,8 @@ function MainMenu:UpdateBagsPage(keepPage)
     end
 
     -- 4. Preenche os slots da página atual
+    -- B1: grid:Clear() zera selectedSlotIndex; preserva antes de limpar.
+    local keepSel = grid.selectedSlotIndex
     grid:Clear()
 
     local startIndex = (curPage - 1) * pageSize + 1
@@ -4479,7 +4481,19 @@ function MainMenu:UpdateBagsPage(keepPage)
     if isInspectingLeft then
         -- Nao interfere no DetailCard se o jogador estiver com foco nos equipamentos ou buffs da esquerda
     else
-        local curSlot = grid.selectedSlotIndex
+        -- B1: usa keepSel (salvo antes do Clear); se Nav ativo, prefere focus.gridIndex (defensivo, clamp).
+        local curSlot = keepSel
+        if ConsoleMode_MainMenuNav and type(ConsoleMode_MainMenuNav.IsActive) == "function" then
+            local ok, active = pcall(ConsoleMode_MainMenuNav.IsActive, ConsoleMode_MainMenuNav)
+            if ok and active and ConsoleMode_MainMenuNav.focus then
+                local navIdx = tonumber(ConsoleMode_MainMenuNav.focus.gridIndex)
+                if navIdx then
+                    if navIdx < 1 then navIdx = 1 end
+                    if displaySlots and navIdx > displaySlots then navIdx = displaySlots end
+                    curSlot = navIdx
+                end
+            end
+        end
         if curSlot and curSlot > 0 and curSlot <= displaySlots then
             grid:SelectSlot(curSlot)
         elseif displaySlots > 0 and items[startIndex] then

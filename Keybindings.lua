@@ -1223,10 +1223,10 @@ function CM_CursorConfirm()
         return
     end
 
-    -- FASE 1 MainMenuNav: log via OnConfirm, sem consumir (cai no cursor).
+    -- FASE 2 MainMenuNav: consome se OnConfirm retornar true (BAGS).
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnConfirm then
-            ConsoleMode_MainMenuNav:OnConfirm()
+            if ConsoleMode_MainMenuNav:OnConfirm() then return end
         end
     end
 
@@ -1302,10 +1302,10 @@ function CM_CursorUse()
         return
     end
 
-    -- FASE 1 MainMenuNav: log via OnUse, sem consumir (cai no cursor).
+    -- FASE 2 MainMenuNav: consome se OnUse retornar true (BAGS).
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnUse then
-            ConsoleMode_MainMenuNav:OnUse()
+            if ConsoleMode_MainMenuNav:OnUse() then return end
         end
     end
 
@@ -1388,10 +1388,10 @@ function CM_CursorSecondary(keystate)
         return
     end
 
-    -- FASE 1 MainMenuNav: log via OnSecondary, sem consumir (cai no cursor).
+    -- FASE 2 MainMenuNav: consome se OnSecondary retornar true.
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnSecondary then
-            ConsoleMode_MainMenuNav:OnSecondary()
+            if ConsoleMode_MainMenuNav:OnSecondary() then return end
         end
     end
 
@@ -1458,10 +1458,10 @@ function CM_CursorCancel()
         return
     end
 
-    -- FASE 1 MainMenuNav: log via OnCancel, sem consumir (cai no cursor).
+    -- FASE 2 MainMenuNav: consome se OnCancel retornar true (BAGS).
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnCancel then
-            ConsoleMode_MainMenuNav:OnCancel()
+            if ConsoleMode_MainMenuNav:OnCancel() then return end
         end
     end
 

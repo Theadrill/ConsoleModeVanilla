@@ -7488,6 +7488,16 @@ function MainMenu:CreateQuestListButton(parent, idx)
     highlight:Hide()
     btn.highlight = highlight
 
+    local underline = btn:CreateTexture(nil, "OVERLAY")
+    underline:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    underline:SetHeight(2)
+    underline:SetPoint("BOTTOMLEFT", btn, "BOTTOMLEFT", 2, 0)
+    underline:SetPoint("BOTTOMRIGHT", btn, "BOTTOMRIGHT", -2, 0)
+    underline:SetVertexColor(0.45, 0.38, 0.22, 0.45)
+    underline:Show()
+    btn.underline = underline
+    btn.bottomBorder = underline
+
     local headerBg = btn:CreateTexture(nil, "BACKGROUND")
     headerBg:SetAllPoints(btn)
     headerBg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
@@ -7531,6 +7541,10 @@ function MainMenu:CreateQuestListButton(parent, idx)
         if not this.isHeader then
             this.highlight:Show()
             this.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.20)
+            if this.underline then
+                this.underline:Show()
+                this.underline:SetVertexColor(0.08, 0.06, 0.04, 0.95)
+            end
         end
         if not this.isHeader and this.questLogIndex then
             MainMenu:SelectQuest(this.questLogIndex, true)
@@ -7539,11 +7553,22 @@ function MainMenu:CreateQuestListButton(parent, idx)
 
     btn:SetScript("OnLeave", function()
         local curSelected = (ConsoleMode and ConsoleMode.mainMenu and ConsoleMode.mainMenu.selectedQuestIndex) or 0
-        if this.questLogIndex ~= curSelected or this.isHeader then
+        if this.isHeader then
             this.highlight:Hide()
+            if this.underline then this.underline:Hide() end
+        elseif this.questLogIndex ~= curSelected then
+            this.highlight:Hide()
+            if this.underline then
+                this.underline:Show()
+                this.underline:SetVertexColor(0.45, 0.38, 0.22, 0.45)
+            end
         else
             this.highlight:Show()
             this.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
+            if this.underline then
+                this.underline:Show()
+                this.underline:SetVertexColor(0.08, 0.06, 0.04, 0.95)
+            end
         end
     end)
 
@@ -7697,6 +7722,7 @@ function MainMenu:UpdateQuestsPage()
                 btn:Disable()
                 btn.headerBg:Show()
                 btn.highlight:Hide()
+                if btn.underline then btn.underline:Hide() end
                 btn.tagText:SetText("")
                 btn.titleText:SetText("|cffe09a15[ " .. itemData.title .. " ]|r")
                 btn.titleText:ClearAllPoints()
@@ -7761,8 +7787,16 @@ function MainMenu:UpdateQuestsPage()
                 if currentSelected == itemData.index then
                     btn.highlight:Show()
                     btn.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
+                    if btn.underline then
+                        btn.underline:Show()
+                        btn.underline:SetVertexColor(0.08, 0.06, 0.04, 0.95)
+                    end
                 else
                     btn.highlight:Hide()
+                    if btn.underline then
+                        btn.underline:Show()
+                        btn.underline:SetVertexColor(0.45, 0.38, 0.22, 0.45)
+                    end
                 end
             end
 
@@ -7806,7 +7840,19 @@ function MainMenu:UpdateQuestsPage()
                 if okA and isAct and type(z) == "string" and z ~= "QMISSOES" and z ~= "QDETALHE" then
                     if questPanel.questButtons then
                         for _, btn in ipairs(questPanel.questButtons) do
-                            if btn and btn.highlight then pcall(function() btn.highlight:Hide() end) end
+                            if btn then
+                                if btn.highlight then pcall(function() btn.highlight:Hide() end) end
+                                if btn.underline then
+                                    if btn.isHeader then
+                                        pcall(function() btn.underline:Hide() end)
+                                    else
+                                        pcall(function()
+                                            btn.underline:Show()
+                                            btn.underline:SetVertexColor(0.45, 0.38, 0.22, 0.45)
+                                        end)
+                                    end
+                                end
+                            end
                         end
                     end
                 end
@@ -8875,11 +8921,22 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
 
     if questPanel.questButtons then
         for _, btn in ipairs(questPanel.questButtons) do
-            if btn.questLogIndex == questLogIndex and not btn.isHeader then
+            if btn.isHeader then
+                if btn.highlight then btn.highlight:Hide() end
+                if btn.underline then btn.underline:Hide() end
+            elseif btn.questLogIndex == questLogIndex then
                 btn.highlight:Show()
                 btn.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
+                if btn.underline then
+                    btn.underline:Show()
+                    btn.underline:SetVertexColor(0.08, 0.06, 0.04, 0.95)
+                end
             else
                 btn.highlight:Hide()
+                if btn.underline then
+                    btn.underline:Show()
+                    btn.underline:SetVertexColor(0.45, 0.38, 0.22, 0.45)
+                end
             end
         end
     end

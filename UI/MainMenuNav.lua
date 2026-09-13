@@ -1228,11 +1228,12 @@ local function Nav_PaintAddonCfg()
     local abtns = Nav_GetVisibleAddonCfgButtons()
     local n = table.getn(abtns)
     local inZone = (f.zone == "SYS_ADDONCFG")
+    local curA = f.addonCfgIdx or 1
 
     for i = 1, n do
         local row = abtns[i]
         if row then
-            local isFocus = (inZone and i == f.addonCfgIdx)
+            local isFocus = (inZone and i == curA)
             if isFocus then
                 if row.highlightBar then pcall(function() row.highlightBar:Show() end) end
                 if row.bg then pcall(function() row.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18) end) end
@@ -1241,6 +1242,29 @@ local function Nav_PaintAddonCfg()
                 if row.highlightBar then pcall(function() row.highlightBar:Hide() end) end
                 if row.bg then pcall(function() row.bg:SetVertexColor(0.0, 0.0, 0.0, 0.30) end) end
                 if row.title then pcall(function() row.title:SetTextColor(1.0, 1.0, 1.0) end) end
+            end
+        end
+    end
+
+    if inZone and f.addonCfgIdx then
+        local okMM, MMM = pcall(function() return Nav_GetMM() end)
+        local pageSystem = okMM and MMM and MMM.tabContainer and MMM.tabContainer.pages and MMM.tabContainer.pages["SYSTEM"]
+        local subPage = pageSystem and pageSystem.subPageAddonCfg
+        local sf = (subPage and subPage.scrollFrame) or getglobal("ConsoleModeMM_AddonCfgScrollFrame")
+        if sf and sf.GetVerticalScroll then
+            local btnH = 38
+            local gap = 6
+            local cur = sf:GetVerticalScroll() or 0
+            local vpH = sf:GetHeight() or 300
+            if vpH <= 0 then vpH = 300 end
+            local visRows = math.floor(vpH / (btnH + gap))
+            if visRows < 1 then visRows = 6 end
+            local firstVis = math.floor(cur / (btnH + gap)) + 1
+            local lastVis = firstVis + visRows - 1
+            if f.addonCfgIdx < firstVis then
+                sf:SetVerticalScroll((f.addonCfgIdx - 1) * (btnH + gap))
+            elseif f.addonCfgIdx > lastVis then
+                sf:SetVerticalScroll((f.addonCfgIdx - visRows) * (btnH + gap))
             end
         end
     end
@@ -2164,6 +2188,57 @@ function Nav_OnSysAddonCfgDirection(direction)
         return true
     end
     if direction == "LEFT" or direction == "RIGHT" then
+        local idx = f.addonCfgIdx or 1
+        local row = abtns[idx]
+        if row then
+            local opt = row.optData
+            local slider = row.slider or (opt and opt.slider)
+            if slider and type(slider.GetValue) == "function" and type(slider.SetValue) == "function" then
+                local okV, curV = pcall(function() return slider:GetValue() end)
+                if okV and type(curV) == "number" then
+                    local stepV = 1
+                    local okS, sMin, sMax = pcall(function() return slider:GetMinMaxValues() end)
+                    if okS and type(sMin) == "number" and type(sMax) == "number" then
+                        local span = sMax - sMin
+                        if span > 0 then
+                            stepV = span / 20
+                            if stepV < 1 then stepV = 1 end
+                        end
+                    end
+                    local newV = curV
+                    if direction == "LEFT" then newV = curV - stepV else newV = curV + stepV end
+                    if okS and type(sMin) == "number" and type(sMax) == "number" then
+                        if newV < sMin then newV = sMin end
+                        if newV > sMax then newV = sMax end
+                    end
+                    pcall(function() slider:SetValue(newV) end)
+                    return true
+                end
+                return false
+            end
+            if opt and type(opt.value) == "number" and type(opt.min) == "number" and type(opt.max) == "number" then
+                local stepN = opt.step
+                if type(stepN) ~= "number" then stepN = 1 end
+                local newN = opt.value
+                if direction == "LEFT" then newN = opt.value - stepN else newN = opt.value + stepN end
+                if newN < opt.min then newN = opt.min end
+                if newN > opt.max then newN = opt.max end
+                opt.value = newN
+                if type(opt.set) == "function" then
+                    local v = newN
+                    pcall(function() opt.set(v) end)
+                end
+                if type(opt.title) == "function" and row.title then
+                    local okT, tStr = pcall(function() return opt.title() end)
+                    if okT and tStr then
+                        local tt = row.title
+                        local ts = tStr
+                        pcall(function() tt:SetText("|cffffffff" .. ts .. "|r") end)
+                    end
+                end
+                return true
+            end
+        end
         return false
     end
     return false

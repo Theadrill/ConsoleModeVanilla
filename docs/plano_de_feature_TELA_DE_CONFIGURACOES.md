@@ -276,3 +276,15 @@ Central de controle das opções do ConsoleMode, dividida em cartões de control
 - **SEM PUSH AUTOMÁTICO.**
 - **SEM COMMITS INTERMEDIÁRIOS SEM AUTORIZAÇÃO.**
 - **PARADA OBRIGATÓRIA NO FIM DE CADA FASE PARA VALIDAÇÃO NO JOGO PELO USUÁRIO.**
+
+---
+
+## 8. PRÓXIMA TELA: BINDS DO ADDON (placeholder)
+
+Esta é a última tela pendente do MainMenu; o levantamento técnico detalhado será feito depois, sem detalhamento neste momento.
+
+---
+
+## 9. QOL FUTURO: LEFT/RIGHT GLOBAL ENTRE SEÇÕES (visão geral, sem profundidade)
+
+Como passo futuro de qualidade de vida, a ideia é aplicar por cima o mesmo atalho LEFT/RIGHT de troca de seção/sub-aba usado na tela SYSTEM em todas as telas do addon, sem detalhar implementação agora.

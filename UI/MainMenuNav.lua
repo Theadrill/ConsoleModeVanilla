@@ -2159,8 +2159,20 @@ function Nav_OnSysGameMenuDirection(direction)
         f.gameMenuIdx = f.gameMenuIdx + 1
         return true
     end
-    if direction == "LEFT" or direction == "RIGHT" then
+    if direction == "LEFT" then
         return false
+    end
+    if direction == "RIGHT" then
+        f.sysSubTabIdx = 2
+        f.zone = "SYS_ADDONCFG"
+        f.addonCfgIdx = 1
+        local okMM, MMM = pcall(function() return Nav_GetMM() end)
+        if okMM and MMM and type(MMM.SelectSystemSubTab) == "function" then
+            pcall(function() MMM:SelectSystemSubTab(2) end)
+        end
+        Nav_EnsureFocus()
+        Nav_ApplyFocus()
+        return true
     end
     return false
 end
@@ -2187,58 +2199,19 @@ function Nav_OnSysAddonCfgDirection(direction)
         f.addonCfgIdx = f.addonCfgIdx + 1
         return true
     end
-    if direction == "LEFT" or direction == "RIGHT" then
-        local idx = f.addonCfgIdx or 1
-        local row = abtns[idx]
-        if row then
-            local opt = row.optData
-            local slider = row.slider or (opt and opt.slider)
-            if slider and type(slider.GetValue) == "function" and type(slider.SetValue) == "function" then
-                local okV, curV = pcall(function() return slider:GetValue() end)
-                if okV and type(curV) == "number" then
-                    local stepV = 1
-                    local okS, sMin, sMax = pcall(function() return slider:GetMinMaxValues() end)
-                    if okS and type(sMin) == "number" and type(sMax) == "number" then
-                        local span = sMax - sMin
-                        if span > 0 then
-                            stepV = span / 20
-                            if stepV < 1 then stepV = 1 end
-                        end
-                    end
-                    local newV = curV
-                    if direction == "LEFT" then newV = curV - stepV else newV = curV + stepV end
-                    if okS and type(sMin) == "number" and type(sMax) == "number" then
-                        if newV < sMin then newV = sMin end
-                        if newV > sMax then newV = sMax end
-                    end
-                    pcall(function() slider:SetValue(newV) end)
-                    return true
-                end
-                return false
-            end
-            if opt and type(opt.value) == "number" and type(opt.min) == "number" and type(opt.max) == "number" then
-                local stepN = opt.step
-                if type(stepN) ~= "number" then stepN = 1 end
-                local newN = opt.value
-                if direction == "LEFT" then newN = opt.value - stepN else newN = opt.value + stepN end
-                if newN < opt.min then newN = opt.min end
-                if newN > opt.max then newN = opt.max end
-                opt.value = newN
-                if type(opt.set) == "function" then
-                    local v = newN
-                    pcall(function() opt.set(v) end)
-                end
-                if type(opt.title) == "function" and row.title then
-                    local okT, tStr = pcall(function() return opt.title() end)
-                    if okT and tStr then
-                        local tt = row.title
-                        local ts = tStr
-                        pcall(function() tt:SetText("|cffffffff" .. ts .. "|r") end)
-                    end
-                end
-                return true
-            end
+    if direction == "LEFT" then
+        f.sysSubTabIdx = 1
+        f.zone = "SYS_GAMEMENU"
+        f.gameMenuIdx = 1
+        local okMM, MMM = pcall(function() return Nav_GetMM() end)
+        if okMM and MMM and type(MMM.SelectSystemSubTab) == "function" then
+            pcall(function() MMM:SelectSystemSubTab(1) end)
         end
+        Nav_EnsureFocus()
+        Nav_ApplyFocus()
+        return true
+    end
+    if direction == "RIGHT" then
         return false
     end
     return false

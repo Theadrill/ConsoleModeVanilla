@@ -1143,6 +1143,14 @@ local function Nav_PaintZonas()
     end
 end
 
+local function Nav_GetSysSubTabs()
+    local okMM, MMM = pcall(function() return Nav_GetMM() end)
+    if not okMM or not MMM or not MMM.tabContainer or not MMM.tabContainer.pages then return nil end
+    local pageSystem = MMM.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return nil end
+    return pageSystem.subTabButtons or pageSystem.subButtons
+end
+
 local function Nav_GetVisibleGameMenuButtons()
     local out = {}
     local okMM, MMM = pcall(function() return Nav_GetMM() end)
@@ -1158,6 +1166,84 @@ local function Nav_GetVisibleGameMenuButtons()
         end
     end
     return out
+end
+
+local function Nav_GetVisibleAddonCfgButtons()
+    local out = {}
+    local okMM, MMM = pcall(function() return Nav_GetMM() end)
+    if not okMM or not MMM or not MMM.tabContainer or not MMM.tabContainer.pages then return out end
+    local pageSystem = MMM.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.subPageAddonCfg or not pageSystem.subPageAddonCfg.rows then return out end
+    local rows = pageSystem.subPageAddonCfg.rows
+    local n = table.getn(rows)
+    for i = 1, n do
+        local b = rows[i]
+        if b and SafeIsVisible(b) then
+            table.insert(out, b)
+        end
+    end
+    return out
+end
+
+local function Nav_PaintSysSubTabs()
+    local f = Nav.focus
+    local subTabs = Nav_GetSysSubTabs()
+    if not subTabs then return end
+    local n = table.getn(subTabs)
+    local inZone = (f.zone == "SYS_SUBTABS")
+    local curSubTab = nil
+    local okMM, MMM = pcall(function() return Nav_GetMM() end)
+    if okMM and MMM and MMM.tabContainer and MMM.tabContainer.pages then
+        local pageSystem = MMM.tabContainer.pages["SYSTEM"]
+        if pageSystem then curSubTab = pageSystem.currentSubTab end
+    end
+
+    for i = 1, n do
+        local btn = subTabs[i]
+        if btn then
+            local isFocus = (inZone and i == (f.sysSubTabIdx or 1))
+            local isActive = (btn.subTabData and btn.subTabData.id == curSubTab) or (i == (f.sysSubTabIdx or 1))
+            if isFocus then
+                if btn.highlight then pcall(function() btn.highlight:Show() end) end
+                if btn.title then
+                    pcall(function() btn.title:SetTextColor(1.0, 0.85, 0.2) end)
+                end
+            elseif isActive then
+                if btn.highlight then pcall(function() btn.highlight:Hide() end) end
+                if btn.title then
+                    pcall(function() btn.title:SetTextColor(0.88, 0.60, 0.08) end)
+                end
+            else
+                if btn.highlight then pcall(function() btn.highlight:Hide() end) end
+                if btn.title then
+                    pcall(function() btn.title:SetTextColor(0.6, 0.6, 0.6) end)
+                end
+            end
+        end
+    end
+end
+
+local function Nav_PaintAddonCfg()
+    local f = Nav.focus
+    local abtns = Nav_GetVisibleAddonCfgButtons()
+    local n = table.getn(abtns)
+    local inZone = (f.zone == "SYS_ADDONCFG")
+
+    for i = 1, n do
+        local row = abtns[i]
+        if row then
+            local isFocus = (inZone and i == f.addonCfgIdx)
+            if isFocus then
+                if row.highlightBar then pcall(function() row.highlightBar:Show() end) end
+                if row.bg then pcall(function() row.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18) end) end
+                if row.title then pcall(function() row.title:SetTextColor(1.0, 0.85, 0.2) end) end
+            else
+                if row.highlightBar then pcall(function() row.highlightBar:Hide() end) end
+                if row.bg then pcall(function() row.bg:SetVertexColor(0.0, 0.0, 0.0, 0.30) end) end
+                if row.title then pcall(function() row.title:SetTextColor(1.0, 1.0, 1.0) end) end
+            end
+        end
+    end
 end
 
 local function Nav_PaintGameMenu()
@@ -1192,6 +1278,29 @@ local function Nav_PaintGameMenu()
                 if row.title then
                     pcall(function() row.title:SetTextColor(1.0, 1.0, 1.0) end)
                 end
+            end
+        end
+    end
+
+    if inZone and f.gameMenuIdx then
+        local okMM, MMM = pcall(function() return Nav_GetMM() end)
+        local pageSystem = okMM and MMM and MMM.tabContainer and MMM.tabContainer.pages and MMM.tabContainer.pages["SYSTEM"]
+        local subPage = pageSystem and pageSystem.subPageGameMenu
+        local sf = (subPage and subPage.scrollFrame) or getglobal("ConsoleModeMM_GameMenuScrollFrame")
+        if sf and sf.GetVerticalScroll then
+            local btnH = 34
+            local gap = 4
+            local cur = sf:GetVerticalScroll() or 0
+            local vpH = sf:GetHeight() or 300
+            if vpH <= 0 then vpH = 300 end
+            local visRows = math.floor(vpH / (btnH + gap))
+            if visRows < 1 then visRows = 6 end
+            local firstVis = math.floor(cur / (btnH + gap)) + 1
+            local lastVis = firstVis + visRows - 1
+            if f.gameMenuIdx < firstVis then
+                sf:SetVerticalScroll((f.gameMenuIdx - 1) * (btnH + gap))
+            elseif f.gameMenuIdx > lastVis then
+                sf:SetVerticalScroll((f.gameMenuIdx - visRows) * (btnH + gap))
             end
         end
     end
@@ -1346,72 +1455,87 @@ local function Nav_EnsureFocus()
         if f.zone == "SPTABS" then f.zone = "SPGRID" end
     end
 
+    if not f.sysSubTabIdx or f.sysSubTabIdx < 1 then f.sysSubTabIdx = 1 end
+    if f.sysSubTabIdx > 2 then f.sysSubTabIdx = 2 end
+
     if not f.gameMenuIdx or f.gameMenuIdx < 1 then f.gameMenuIdx = 1 end
     if f.zone == "SYS_GAMEMENU" then
         local gbtns = Nav_GetVisibleGameMenuButtons()
         local ngm = 0
         if gbtns then ngm = table.getn(gbtns) end
         if ngm < 1 then
-            f.zone = "TABBAR"
+            f.zone = "SYS_SUBTABS"
         elseif f.gameMenuIdx > ngm then
             f.gameMenuIdx = ngm
         end
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_GAMEMENU" then
+    if not f.addonCfgIdx or f.addonCfgIdx < 1 then f.addonCfgIdx = 1 end
+    if f.zone == "SYS_ADDONCFG" then
+        local abtns = Nav_GetVisibleAddonCfgButtons()
+        local na = 0
+        if abtns then na = table.getn(abtns) end
+        if na < 1 then
+            f.zone = "SYS_SUBTABS"
+        elseif f.addonCfgIdx > na then
+            f.addonCfgIdx = na
+        end
+    end
+
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_SUBTABS" and f.zone ~= "SYS_GAMEMENU" and f.zone ~= "SYS_ADDONCFG" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" and f.returnZone ~= "SYS_GAMEMENU" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" and f.returnZone ~= "SYS_SUBTABS" and f.returnZone ~= "SYS_GAMEMENU" and f.returnZone ~= "SYS_ADDONCFG" then
         f.returnZone = "GRID"
     end
-    -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS).
+    -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS/QUESTS/SYSTEM).
     local curTabEf = Nav_GetCurrentTab()
     if curTabEf == "SPELLS" then
         local scr = Nav_GetSpellActiveScreen()
         local defSp = "SPCAT"
         if scr == 2 then defSp = "SPGRID" end
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_GAMEMENU" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_SUBTABS" or f.zone == "SYS_GAMEMENU" or f.zone == "SYS_ADDONCFG" then
             f.zone = defSp
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_GAMEMENU" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_SUBTABS" or f.returnZone == "SYS_GAMEMENU" or f.returnZone == "SYS_ADDONCFG" then
             f.returnZone = defSp
         end
         if f.zone == "BUFFS" and bc < 1 then
             f.zone = defSp
         end
     elseif curTabEf == "BAGS" then
-        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_GAMEMENU" then
+        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_SUBTABS" or f.zone == "SYS_GAMEMENU" or f.zone == "SYS_ADDONCFG" then
             f.zone = "GRID"
         end
-        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_GAMEMENU" then
+        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_SUBTABS" or f.returnZone == "SYS_GAMEMENU" or f.returnZone == "SYS_ADDONCFG" then
             f.returnZone = "GRID"
         end
     elseif curTabEf == "TALENTS" then
         local defTal = "TALENTS1"
         local scrT = Nav_GetTalentActiveScreen()
         if scrT == 2 then defTal = "TALENTS2" end
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_GAMEMENU" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_SUBTABS" or f.zone == "SYS_GAMEMENU" or f.zone == "SYS_ADDONCFG" then
             f.zone = defTal
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_GAMEMENU" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_SUBTABS" or f.returnZone == "SYS_GAMEMENU" or f.returnZone == "SYS_ADDONCFG" then
             f.returnZone = defTal
         end
         if f.zone == "BUFFS" and bc < 1 then
             f.zone = defTal
         end
     elseif curTabEf == "QUESTS" then
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "SYS_GAMEMENU" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "SYS_SUBTABS" or f.zone == "SYS_GAMEMENU" or f.zone == "SYS_ADDONCFG" then
             f.zone = "QMISSOES"
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" or f.returnZone == "SYS_GAMEMENU" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" or f.returnZone == "SYS_SUBTABS" or f.returnZone == "SYS_GAMEMENU" or f.returnZone == "SYS_ADDONCFG" then
             f.returnZone = "QMISSOES"
         end
     elseif curTabEf == "SYSTEM" then
         if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
-            f.zone = "SYS_GAMEMENU"
+            f.zone = "SYS_SUBTABS"
         end
         if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
-            f.returnZone = "SYS_GAMEMENU"
+            f.returnZone = "SYS_SUBTABS"
         end
     end
     if f.zone == "QMISSOES" or f.zone == "QDETALHE" then
@@ -1945,9 +2069,56 @@ local function Nav_ApplyFocus()
     do
         local curSys = Nav_GetCurrentTab()
         if curSys == "SYSTEM" then
+            pcall(function() Nav_PaintSysSubTabs() end)
             pcall(function() Nav_PaintGameMenu() end)
+            pcall(function() Nav_PaintAddonCfg() end)
         end
     end
+end
+
+function Nav_OnSysSubTabsDirection(direction)
+    local f = Nav.focus
+    if not f.sysSubTabIdx or f.sysSubTabIdx < 1 then f.sysSubTabIdx = 1 end
+    if direction == "UP" then
+        f.zone = "TABBAR"
+        f.returnZone = "SYS_SUBTABS"
+        Nav_EnsureFocus()
+        return true
+    end
+    if direction == "DOWN" then
+        if f.sysSubTabIdx == 2 then
+            f.zone = "SYS_ADDONCFG"
+            f.addonCfgIdx = 1
+        else
+            f.zone = "SYS_GAMEMENU"
+            f.gameMenuIdx = 1
+        end
+        Nav_EnsureFocus()
+        return true
+    end
+    if direction == "LEFT" then
+        if f.sysSubTabIdx > 1 then
+            f.sysSubTabIdx = f.sysSubTabIdx - 1
+            local okMM, MMM = pcall(function() return Nav_GetMM() end)
+            if okMM and MMM and type(MMM.SelectSystemSubTab) == "function" then
+                pcall(function() MMM:SelectSystemSubTab(f.sysSubTabIdx) end)
+            end
+            return true
+        end
+        return false
+    end
+    if direction == "RIGHT" then
+        if f.sysSubTabIdx < 2 then
+            f.sysSubTabIdx = f.sysSubTabIdx + 1
+            local okMM, MMM = pcall(function() return Nav_GetMM() end)
+            if okMM and MMM and type(MMM.SelectSystemSubTab) == "function" then
+                pcall(function() MMM:SelectSystemSubTab(f.sysSubTabIdx) end)
+            end
+            return true
+        end
+        return false
+    end
+    return false
 end
 
 function Nav_OnSysGameMenuDirection(direction)
@@ -1955,12 +2126,10 @@ function Nav_OnSysGameMenuDirection(direction)
     local gbtns = Nav_GetVisibleGameMenuButtons()
     local n = table.getn(gbtns)
     if direction == "UP" then
-        if f.zone == "TABBAR" then return false end
-        if n < 1 then return false end
         if not f.gameMenuIdx or f.gameMenuIdx < 1 then f.gameMenuIdx = 1 end
         if f.gameMenuIdx <= 1 then
-            f.zone = "TABBAR"
-            f.returnZone = "SYS_GAMEMENU"
+            f.zone = "SYS_SUBTABS"
+            f.sysSubTabIdx = 1
             Nav_EnsureFocus()
             return true
         end
@@ -1968,33 +2137,75 @@ function Nav_OnSysGameMenuDirection(direction)
         return true
     end
     if direction == "DOWN" then
-        if f.zone == "TABBAR" then
-            f.zone = "SYS_GAMEMENU"
-            f.gameMenuIdx = 1
-            Nav_EnsureFocus()
-            return true
-        end
         if n < 1 then return false end
         if not f.gameMenuIdx or f.gameMenuIdx < 1 then f.gameMenuIdx = 1 end
         if f.gameMenuIdx >= n then return false end
         f.gameMenuIdx = f.gameMenuIdx + 1
         return true
     end
-    if direction == "LEFT" then
-        if f.zone == "TABBAR" then
+    if direction == "LEFT" or direction == "RIGHT" then
+        return false
+    end
+    return false
+end
+
+function Nav_OnSysAddonCfgDirection(direction)
+    local f = Nav.focus
+    local abtns = Nav_GetVisibleAddonCfgButtons()
+    local n = table.getn(abtns)
+    if direction == "UP" then
+        if not f.addonCfgIdx or f.addonCfgIdx < 1 then f.addonCfgIdx = 1 end
+        if f.addonCfgIdx <= 1 then
+            f.zone = "SYS_SUBTABS"
+            f.sysSubTabIdx = 2
+            Nav_EnsureFocus()
+            return true
+        end
+        f.addonCfgIdx = f.addonCfgIdx - 1
+        return true
+    end
+    if direction == "DOWN" then
+        if n < 1 then return false end
+        if not f.addonCfgIdx or f.addonCfgIdx < 1 then f.addonCfgIdx = 1 end
+        if f.addonCfgIdx >= n then return false end
+        f.addonCfgIdx = f.addonCfgIdx + 1
+        return true
+    end
+    if direction == "LEFT" or direction == "RIGHT" then
+        return false
+    end
+    return false
+end
+
+function Nav_OnSysDirection(direction)
+    local f = Nav.focus
+    if f.zone == "TABBAR" then
+        if direction == "DOWN" then
+            f.zone = "SYS_SUBTABS"
+            f.sysSubTabIdx = f.sysSubTabIdx or 1
+            Nav_EnsureFocus()
+            return true
+        end
+        if direction == "LEFT" then
             if f.tabIdx > 1 then f.tabIdx = f.tabIdx - 1 return true end
             return false
         end
-        return false
-    end
-    if direction == "RIGHT" then
-        if f.zone == "TABBAR" then
+        if direction == "RIGHT" then
             local tabs = Nav_GetTabButtons()
             local nt = (tabs and table.getn(tabs)) or 5
             if f.tabIdx < nt then f.tabIdx = f.tabIdx + 1 return true end
             return false
         end
         return false
+    end
+    if f.zone == "SYS_SUBTABS" then
+        return Nav_OnSysSubTabsDirection(direction)
+    end
+    if f.zone == "SYS_GAMEMENU" then
+        return Nav_OnSysGameMenuDirection(direction)
+    end
+    if f.zone == "SYS_ADDONCFG" then
+        return Nav_OnSysAddonCfgDirection(direction)
     end
     return false
 end
@@ -2378,7 +2589,7 @@ function Nav:OnDirection(direction)
     local curTab = Nav_GetCurrentTab()
     if curTab == "SYSTEM" then
         Nav_EnsureFocus()
-        local movedSys = Nav_OnSysGameMenuDirection(direction)
+        local movedSys = Nav_OnSysDirection(direction)
         Nav_ApplyFocus()
         if movedSys then MMNav_PlayMove() end
         return
@@ -3384,10 +3595,35 @@ function Nav:OnConfirm()
             if MM and type(MM.SelectTab) == "function" then return true end
             return true
         end
+        if fs.zone == "SYS_SUBTABS" then
+            local subTabs = Nav_GetSysSubTabs()
+            local idx = fs.sysSubTabIdx or 1
+            local b = subTabs and subTabs[idx]
+            if b then
+                pcall(function() b:Click() end)
+                return true
+            end
+            local MM = Nav_GetMM()
+            if MM and type(MM.SelectSystemSubTab) == "function" then
+                pcall(function() MM:SelectSystemSubTab(idx) end)
+                return true
+            end
+            return false
+        end
         if fs.zone == "SYS_GAMEMENU" then
             local gbtns = Nav_GetVisibleGameMenuButtons()
             local idx = fs.gameMenuIdx or 1
             local b = gbtns and gbtns[idx]
+            if b then
+                pcall(function() b:Click() end)
+                return true
+            end
+            return false
+        end
+        if fs.zone == "SYS_ADDONCFG" then
+            local abtns = Nav_GetVisibleAddonCfgButtons()
+            local idx = fs.addonCfgIdx or 1
+            local b = abtns and abtns[idx]
             if b then
                 pcall(function() b:Click() end)
                 return true
@@ -3715,9 +3951,17 @@ function Nav:OnCancel()
     if curTabCx == "SYSTEM" then
         Nav_EnsureFocus()
         local fs = self.focus
-        if fs.zone == "SYS_GAMEMENU" then
+        if fs.zone == "SYS_GAMEMENU" or fs.zone == "SYS_ADDONCFG" then
+            fs.zone = "SYS_SUBTABS"
+            fs.returnZone = fs.zone
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        if fs.zone == "SYS_SUBTABS" then
             fs.zone = "TABBAR"
-            fs.returnZone = "SYS_GAMEMENU"
+            fs.returnZone = "SYS_SUBTABS"
             Nav_EnsureFocus()
             Nav_ApplyFocus()
             MMNav_PlayMove()

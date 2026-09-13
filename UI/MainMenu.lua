@@ -10678,6 +10678,7 @@ function MainMenu:SetupSystemPage(pageSystem)
 
     -- Botões das Sub-Abas: ancorados da direita para a esquerda
     local subButtons = {}
+    local subTabButtons = {}
     local prevBtn = r2Hint
     pageSystem.currentSubTab = "GAME_MENU"
 
@@ -10698,6 +10699,16 @@ function MainMenu:SetupSystemPage(pageSystem)
         if txtW < 50 then txtW = 50 end
         subBtn:SetWidth(txtW + 16)
 
+        local highlight = subBtn:CreateTexture(nil, "OVERLAY")
+        highlight:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        highlight:SetHeight(2)
+        highlight:SetPoint("BOTTOMLEFT", subBtn, "BOTTOMLEFT", 2, 0)
+        highlight:SetPoint("BOTTOMRIGHT", subBtn, "BOTTOMRIGHT", -2, 0)
+        highlight:SetVertexColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b, 0.95)
+        highlight:Hide()
+        subBtn.highlight = highlight
+        subBtn.borderTex = highlight
+
         subBtn:SetPoint("RIGHT", prevBtn, "LEFT", -6, 0)
 
         subBtn:SetScript("OnClick", function()
@@ -10706,9 +10717,13 @@ function MainMenu:SetupSystemPage(pageSystem)
         end)
 
         table.insert(subButtons, subBtn)
+        subTabButtons[i] = subBtn
         prevBtn = subBtn
     end
     pageSystem.subButtons = subButtons
+    pageSystem.subTabButtons = subTabButtons
+    pageSystem.subTabBar = headerBar
+    pageSystem.subTabs = CFG.System.subTabs
 
     -- Indicador LT à esquerda da primeira sub-aba
     local l2Hint = headerBar:CreateTexture(nil, "OVERLAY")
@@ -10753,6 +10768,29 @@ function MainMenu:SetupSystemPage(pageSystem)
     gmListContainer:SetPoint("TOPLEFT", gmSubText, "BOTTOMLEFT", 0, -8)
     gmListContainer:SetPoint("BOTTOMRIGHT", subPageGameMenu, "BOTTOMRIGHT", -12, 10)
     subPageGameMenu.listContainer = gmListContainer
+
+    local sf = CreateFrame("ScrollFrame", "ConsoleModeMM_GameMenuScrollFrame", gmListContainer)
+    sf:SetPoint("TOPLEFT", gmListContainer, "TOPLEFT", 10, -10)
+    sf:SetPoint("BOTTOMRIGHT", gmListContainer, "BOTTOMRIGHT", -10, 10)
+    sf:EnableMouseWheel(true)
+    sf:SetScript("OnMouseWheel", function()
+        local cur = sf:GetVerticalScroll() or 0
+        local delta = arg1
+        local step = 38
+        local maxScroll = sf:GetVerticalScrollRange() or 0
+        local newScroll = cur - (delta * step)
+        if newScroll < 0 then newScroll = 0 end
+        if newScroll > maxScroll then newScroll = maxScroll end
+        sf:SetVerticalScroll(newScroll)
+    end)
+
+    local sc = CreateFrame("Frame", "ConsoleModeMM_GameMenuScrollChild", sf)
+    sc:SetWidth(460)
+    sc:SetHeight(1)
+    sf:SetScrollChild(sc)
+
+    subPageGameMenu.scrollFrame = sf
+    subPageGameMenu.scrollChild = sc
     subPageGameMenu.rows = {}
 
     -- Sub-Página 2: Configurações do ConsoleMode (Etapa 8.4)
@@ -11020,6 +11058,7 @@ function MainMenu:UpdateGameMenuSubPage()
     local startY = -4
 
     local tColor = CFG.System.itemTextColor or "|cffffffff"
+    local sc = subPage.scrollChild or subPage.listContainer
 
     for i = 1, count do
         local btnData = buttons[i]
@@ -11032,7 +11071,7 @@ function MainMenu:UpdateGameMenuSubPage()
 
         local row = subPage.rows[i]
         if not row then
-            row = CreateFrame("Button", "ConsoleModeMM_GameMenuBtn" .. i, subPage.listContainer)
+            row = CreateFrame("Button", "ConsoleModeMM_GameMenuBtn" .. i, sc)
             row:SetHeight(rowHeight)
             row:SetBackdrop({
                 bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -11165,8 +11204,8 @@ function MainMenu:UpdateGameMenuSubPage()
         end
 
         row:ClearAllPoints()
-        row:SetPoint("TOPLEFT", subPage.listContainer, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
-        row:SetPoint("TOPRIGHT", subPage.listContainer, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
+        row:SetPoint("TOPLEFT", sc, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
+        row:SetPoint("TOPRIGHT", sc, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
 
         if row.icon then row.icon:Hide() end
         if row.iconBorder then row.iconBorder:Hide() end
@@ -11182,6 +11221,14 @@ function MainMenu:UpdateGameMenuSubPage()
     if totalRows > count then
         for j = count + 1, totalRows do
             subPage.rows[j]:Hide()
+        end
+    end
+
+    if subPage.scrollFrame and subPage.scrollChild then
+        local totalH = count * (rowHeight + rowGap) + 10
+        subPage.scrollChild:SetHeight(totalH)
+        if subPage.scrollFrame.UpdateScrollChildRect then
+            subPage.scrollFrame:UpdateScrollChildRect()
         end
     end
 end
@@ -11355,6 +11402,12 @@ function MainMenu:SelectSystemSubTab(subTabID)
 
     self:SetupSystemPage(pageSystem)
 
+    if type(subTabID) == "number" then
+        if CFG.System.subTabs and CFG.System.subTabs[subTabID] then
+            subTabID = CFG.System.subTabs[subTabID].id
+        end
+    end
+
     subTabID = subTabID or "GAME_MENU"
     pageSystem.currentSubTab = subTabID
 
@@ -11385,12 +11438,17 @@ function MainMenu:SelectSystemSubTab(subTabID)
     end
 
     -- Atualiza estilo dos botões da sub-aba
-    if pageSystem.subButtons then
-        for _, btn in ipairs(pageSystem.subButtons) do
-            if btn.subTabData and btn.subTabData.id == subTabID then
-                btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
-            else
-                btn.title:SetTextColor(0.6, 0.6, 0.6)
+    local btnsToUpdate = pageSystem.subTabButtons or pageSystem.subButtons
+    if btnsToUpdate then
+        local nSub = table.getn(btnsToUpdate)
+        for i = 1, nSub do
+            local btn = btnsToUpdate[i]
+            if btn then
+                if btn.subTabData and btn.subTabData.id == subTabID then
+                    if btn.title then btn.title:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b) end
+                else
+                    if btn.title then btn.title:SetTextColor(0.6, 0.6, 0.6) end
+                end
             end
         end
     end

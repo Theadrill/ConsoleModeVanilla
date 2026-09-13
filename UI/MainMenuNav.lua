@@ -1143,6 +1143,69 @@ local function Nav_PaintZonas()
     end
 end
 
+local function Nav_GetVisibleGameMenuButtons()
+    local out = {}
+    local okMM, MMM = pcall(function() return Nav_GetMM() end)
+    if not okMM or not MMM or not MMM.tabContainer or not MMM.tabContainer.pages then return out end
+    local pageSystem = MMM.tabContainer.pages["SYSTEM"]
+    if not pageSystem or not pageSystem.subPageGameMenu or not pageSystem.subPageGameMenu.rows then return out end
+    local rows = pageSystem.subPageGameMenu.rows
+    local n = table.getn(rows)
+    for i = 1, n do
+        local b = rows[i]
+        if b and SafeIsVisible(b) then
+            table.insert(out, b)
+        end
+    end
+    return out
+end
+
+local function Nav_PaintGameMenu()
+    local f = Nav.focus
+    local gbtns = Nav_GetVisibleGameMenuButtons()
+    local n = table.getn(gbtns)
+    local inZone = (f.zone == "SYS_GAMEMENU")
+    local focusedBtn = nil
+
+    for i = 1, n do
+        local row = gbtns[i]
+        if row then
+            local isFocus = (inZone and i == f.gameMenuIdx)
+            if isFocus then
+                focusedBtn = row
+                if row.highlight then pcall(function() row.highlight:Show() end) end
+                if row.SetBackdropBorderColor then
+                    pcall(function() row:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                end
+                if row.SetBackdropColor then
+                    pcall(function() row:SetBackdropColor(1.0, 0.85, 0.2, 0.15) end)
+                end
+                if row.title then
+                    pcall(function() row.title:SetTextColor(1.0, 0.85, 0.2) end)
+                end
+            else
+                if row.highlight then pcall(function() row.highlight:Hide() end) end
+                if row.SetBackdropBorderColor then
+                    pcall(function() row:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5) end)
+                end
+                if row.SetBackdropColor then
+                    pcall(function() row:SetBackdropColor(0.0, 0.0, 0.0, 0.35) end)
+                end
+                if row.title then
+                    pcall(function() row.title:SetTextColor(1.0, 1.0, 1.0) end)
+                end
+            end
+        end
+    end
+
+    if focusedBtn and inZone then
+        local okMM, MMM = pcall(function() return Nav_GetMM() end)
+        if okMM and MMM and type(MMM.UpdateGameMenuDetail) == "function" then
+            pcall(function() MMM:UpdateGameMenuDetail(focusedBtn.btnData) end)
+        end
+    end
+end
+
 -- Garante foco valido (clampa índices; resolve catIndex inicial via categoria).
 local function Nav_EnsureFocus()
     local f = Nav.focus
@@ -1292,10 +1355,22 @@ local function Nav_EnsureFocus()
         if f.zone == "SPTABS" then f.zone = "SPGRID" end
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" then
+    if not f.gameMenuIdx or f.gameMenuIdx < 1 then f.gameMenuIdx = 1 end
+    if f.zone == "SYS_GAMEMENU" then
+        local gbtns = Nav_GetVisibleGameMenuButtons()
+        local ngm = 0
+        if gbtns then ngm = table.getn(gbtns) end
+        if ngm < 1 then
+            f.zone = "TABBAR"
+        elseif f.gameMenuIdx > ngm then
+            f.gameMenuIdx = ngm
+        end
+    end
+
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_GAMEMENU" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" and f.returnZone ~= "SYS_GAMEMENU" then
         f.returnZone = "GRID"
     end
     -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS).
@@ -1304,41 +1379,48 @@ local function Nav_EnsureFocus()
         local scr = Nav_GetSpellActiveScreen()
         local defSp = "SPCAT"
         if scr == 2 then defSp = "SPGRID" end
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_GAMEMENU" then
             f.zone = defSp
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_GAMEMENU" then
             f.returnZone = defSp
         end
         if f.zone == "BUFFS" and bc < 1 then
             f.zone = defSp
         end
     elseif curTabEf == "BAGS" then
-        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
+        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_GAMEMENU" then
             f.zone = "GRID"
         end
-        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
+        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_GAMEMENU" then
             f.returnZone = "GRID"
         end
     elseif curTabEf == "TALENTS" then
         local defTal = "TALENTS1"
         local scrT = Nav_GetTalentActiveScreen()
         if scrT == 2 then defTal = "TALENTS2" end
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" or f.zone == "SYS_GAMEMENU" then
             f.zone = defTal
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" or f.returnZone == "SYS_GAMEMENU" then
             f.returnZone = defTal
         end
         if f.zone == "BUFFS" and bc < 1 then
             f.zone = defTal
         end
     elseif curTabEf == "QUESTS" then
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "SYS_GAMEMENU" then
             f.zone = "QMISSOES"
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" or f.returnZone == "SYS_GAMEMENU" then
             f.returnZone = "QMISSOES"
+        end
+    elseif curTabEf == "SYSTEM" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
+            f.zone = "SYS_GAMEMENU"
+        end
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
+            f.returnZone = "SYS_GAMEMENU"
         end
     end
     if f.zone == "QMISSOES" or f.zone == "QDETALHE" then
@@ -1868,6 +1950,62 @@ local function Nav_ApplyFocus()
             end
         end
     end
+
+    do
+        local curSys = Nav_GetCurrentTab()
+        if curSys == "SYSTEM" then
+            pcall(function() Nav_PaintGameMenu() end)
+        end
+    end
+end
+
+function Nav_OnSysGameMenuDirection(direction)
+    local f = Nav.focus
+    local gbtns = Nav_GetVisibleGameMenuButtons()
+    local n = table.getn(gbtns)
+    if direction == "UP" then
+        if f.zone == "TABBAR" then return false end
+        if n < 1 then return false end
+        if not f.gameMenuIdx or f.gameMenuIdx < 1 then f.gameMenuIdx = 1 end
+        if f.gameMenuIdx <= 1 then
+            f.zone = "TABBAR"
+            f.returnZone = "SYS_GAMEMENU"
+            Nav_EnsureFocus()
+            return true
+        end
+        f.gameMenuIdx = f.gameMenuIdx - 1
+        return true
+    end
+    if direction == "DOWN" then
+        if f.zone == "TABBAR" then
+            f.zone = "SYS_GAMEMENU"
+            f.gameMenuIdx = 1
+            Nav_EnsureFocus()
+            return true
+        end
+        if n < 1 then return false end
+        if not f.gameMenuIdx or f.gameMenuIdx < 1 then f.gameMenuIdx = 1 end
+        if f.gameMenuIdx >= n then return false end
+        f.gameMenuIdx = f.gameMenuIdx + 1
+        return true
+    end
+    if direction == "LEFT" then
+        if f.zone == "TABBAR" then
+            if f.tabIdx > 1 then f.tabIdx = f.tabIdx - 1 return true end
+            return false
+        end
+        return false
+    end
+    if direction == "RIGHT" then
+        if f.zone == "TABBAR" then
+            local tabs = Nav_GetTabButtons()
+            local nt = (tabs and table.getn(tabs)) or 5
+            if f.tabIdx < nt then f.tabIdx = f.tabIdx + 1 return true end
+            return false
+        end
+        return false
+    end
+    return false
 end
 
 -- QNPCS: UP/DOWN param no fim (bug 8: sem wrap); UP primeira -> TABBAR; RIGHT -> QZONAS; LEFT=false.
@@ -2247,6 +2385,13 @@ end
 function Nav:OnDirection(direction)
     if not self:IsActive() then return end
     local curTab = Nav_GetCurrentTab()
+    if curTab == "SYSTEM" then
+        Nav_EnsureFocus()
+        local movedSys = Nav_OnSysGameMenuDirection(direction)
+        Nav_ApplyFocus()
+        if movedSys then MMNav_PlayMove() end
+        return
+    end
     if curTab == "TALENTS" then
         Nav_EnsureFocus()
         local movedT = Nav_OnTalentsDirection(direction)
@@ -3234,6 +3379,32 @@ end
 function Nav:OnConfirm()
     if not self:IsActive() then return false end
     local curTabCf = Nav_GetCurrentTab()
+    if curTabCf == "SYSTEM" then
+        Nav_EnsureFocus()
+        local fs = self.focus
+        if fs.zone == "TABBAR" then
+            local tabs = Nav_GetTabButtons()
+            local MM = Nav_GetMM()
+            if tabs and tabs[fs.tabIdx] then
+                local btn = tabs[fs.tabIdx]
+                if btn then pcall(function() btn:Click() end) end
+                return true
+            end
+            if MM and type(MM.SelectTab) == "function" then return true end
+            return true
+        end
+        if fs.zone == "SYS_GAMEMENU" then
+            local gbtns = Nav_GetVisibleGameMenuButtons()
+            local idx = fs.gameMenuIdx or 1
+            local b = gbtns and gbtns[idx]
+            if b then
+                pcall(function() b:Click() end)
+                return true
+            end
+            return false
+        end
+        return false
+    end
     if curTabCf == "QUESTS" then
         Nav_EnsureFocus()
         local fq = self.focus
@@ -3550,6 +3721,26 @@ end
 function Nav:OnCancel()
     if not self:IsActive() then return false end
     local curTabCx = Nav_GetCurrentTab()
+    if curTabCx == "SYSTEM" then
+        Nav_EnsureFocus()
+        local fs = self.focus
+        if fs.zone == "SYS_GAMEMENU" then
+            fs.zone = "TABBAR"
+            fs.returnZone = "SYS_GAMEMENU"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        if fs.zone == "TABBAR" then
+            local MM = Nav_GetMM()
+            if MM and type(MM.Hide) == "function" then
+                MM:Hide()
+                return true
+            end
+        end
+        return false
+    end
     if curTabCx == "QUESTS" then
         Nav_EnsureFocus()
         local fq = self.focus

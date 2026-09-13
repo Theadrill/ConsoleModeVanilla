@@ -10749,9 +10749,19 @@ function MainMenu:SetupSystemPage(pageSystem)
     gmSubText:SetText("|cffaaaaaaVarredura dinâmica de botões nativos e de addons|r")
     subPageGameMenu.subText = gmSubText
 
+    local detailCard = self:CreateDetailCard(subPageGameMenu)
+    subPageGameMenu.detailCard = detailCard
+    pageSystem.gameMenuDetailCard = detailCard
+    pageSystem.detailCard = detailCard
+    if detailCard.slotsFreeText then
+        detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Executar   |   |cffe09a15[D-Pad]|r Navegar   |   |cffe09a15[B]|r Voltar")
+    end
+    if detailCard.sellWidget then detailCard.sellWidget:Hide() end
+    if detailCard.moneyWidget then detailCard.moneyWidget:Hide() end
+
     local gmListContainer = CreateFrame("Frame", "ConsoleModeMM_GMListContainer", subPageGameMenu)
-    gmListContainer:SetPoint("TOPLEFT", gmSubText, "BOTTOMLEFT", 0, -10)
-    gmListContainer:SetPoint("BOTTOMRIGHT", subPageGameMenu, "BOTTOMRIGHT", -12, 10)
+    gmListContainer:SetPoint("TOPLEFT", gmSubText, "BOTTOMLEFT", 0, -8)
+    gmListContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", -12, 8)
     subPageGameMenu.listContainer = gmListContainer
     subPageGameMenu.rows = {}
 
@@ -10761,6 +10771,201 @@ function MainMenu:SetupSystemPage(pageSystem)
     pageSystem.subPageAddonCfg = subPageAddonCfg
 
     pageSystem.isInitialized = true
+end
+
+local GAME_MENU_METADATA = {
+    ["GameMenuButtonOptions"] = {
+        icon = "Interface\\Icons\\Spell_Holy_Perception",
+        title = "Opções de Vídeo",
+        desc = "Ajuste de resolução, gráficos, efeitos visuais e taxa de quadros.",
+        hint = "Pressione [A] para abrir as configurações de vídeo.",
+    },
+    ["GameMenuButtonSoundOptions"] = {
+        icon = "Interface\\Icons\\INV_Misc_Ear_Human_01",
+        title = "Opções de Som",
+        desc = "Volume geral, efeitos sonoros, música de ambiente e canais de áudio.",
+        hint = "Pressione [A] para abrir as configurações de som.",
+    },
+    ["GameMenuButtonUIOptions"] = {
+        icon = "Interface\\Icons\\INV_Gizmo_02",
+        title = "Opções de Interface",
+        desc = "Interface de usuário, barras de ação, nomes e textos de combate.",
+        hint = "Pressione [A] para abrir as opções de interface.",
+    },
+    ["GameMenuButtonKeybindings"] = {
+        icon = "Interface\\Icons\\INV_Misc_Book_09",
+        title = "Teclas de Atalho",
+        desc = "Configuração de atalhos do teclado e comandos do jogo.",
+        hint = "Pressione [A] para gerenciar teclas de atalho.",
+    },
+    ["GameMenuButtonMacros"] = {
+        icon = "Interface\\Icons\\INV_Misc_PaperBundle01a",
+        title = "Macros",
+        desc = "Criação e edição de macros personalizadas para comandos e magias.",
+        hint = "Pressione [A] para abrir o editor de macros.",
+    },
+    ["GameMenuButtonHelp"] = {
+        icon = "Interface\\Icons\\INV_Misc_QuestionMark",
+        title = "Ajuda & Suporte",
+        desc = "Suporte ao jogador, base de conhecimento e abertura de chamados.",
+        hint = "Pressione [A] para abrir a central de ajuda.",
+    },
+    ["GameMenuButtonLogout"] = {
+        icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+        title = "Desconectar",
+        desc = "Desconecta do personagem atual e retorna à tela de seleção de personagens.",
+        hint = "Pressione [A] para desconectar do mundo.",
+    },
+    ["GameMenuButtonQuit"] = {
+        icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+        title = "Sair do Jogo",
+        desc = "Encerra completamente o cliente do World of Warcraft.",
+        hint = "Pressione [A] para encerrar o aplicativo.",
+    },
+    ["GameMenuButtonContinue"] = {
+        icon = "Interface\\Icons\\INV_Misc_Rune_01",
+        title = "Voltar ao Jogo",
+        desc = "Fecha o menu principal e retorna à jogabilidade.",
+        hint = "Pressione [A] para retornar ao jogo.",
+    },
+    ["ConsoleModeMM_OpenConfigBtn"] = {
+        icon = "Interface\\Icons\\INV_Misc_Gear_01",
+        title = "ConsoleMode Config",
+        desc = "Painel de configurações avançadas do addon ConsoleMode.",
+        hint = "Pressione [A] para abrir as opções do ConsoleMode.",
+    },
+    ["GameMenuButtonConsoleMode"] = {
+        icon = "Interface\\Icons\\INV_Misc_Gear_01",
+        title = "ConsoleMode Config",
+        desc = "Painel de configurações avançadas do addon ConsoleMode.",
+        hint = "Pressione [A] para abrir as opções do ConsoleMode.",
+    },
+}
+
+local function GetGameMenuButtonMeta(name, cleanText)
+    if name and GAME_MENU_METADATA[name] then
+        return GAME_MENU_METADATA[name]
+    end
+
+    local lower = string.lower(cleanText or "")
+    local lowerName = string.lower(name or "")
+
+    if string.find(lower, "video") or string.find(lower, "vídeo") or (string.find(lowerName, "option") and not string.find(lowerName, "sound") and not string.find(lowerName, "ui")) then
+        return {
+            icon = "Interface\\Icons\\Spell_Holy_Perception",
+            title = "Opções de Vídeo",
+            desc = "Ajuste de resolução, gráficos, efeitos visuais e taxa de quadros.",
+            hint = "Pressione [A] para abrir as configurações de vídeo.",
+        }
+    elseif string.find(lower, "sound") or string.find(lower, "som") or string.find(lower, "áudio") or string.find(lower, "audio") or string.find(lowerName, "sound") then
+        return {
+            icon = "Interface\\Icons\\INV_Misc_Ear_Human_01",
+            title = "Opções de Som",
+            desc = "Volume geral, efeitos sonoros, música de ambiente e canais de áudio.",
+            hint = "Pressione [A] para abrir as configurações de som.",
+        }
+    elseif string.find(lower, "interface") or string.find(lower, "ui") or string.find(lowerName, "uioptions") then
+        return {
+            icon = "Interface\\Icons\\INV_Gizmo_02",
+            title = "Opções de Interface",
+            desc = "Interface de usuário, barras de ação, nomes e textos de combate.",
+            hint = "Pressione [A] para abrir as opções de interface.",
+        }
+    elseif string.find(lower, "key") or string.find(lower, "bind") or string.find(lower, "atalho") or string.find(lowerName, "keybind") then
+        return {
+            icon = "Interface\\Icons\\INV_Misc_Book_09",
+            title = "Teclas de Atalho",
+            desc = "Configuração de atalhos do teclado e comandos do jogo.",
+            hint = "Pressione [A] para gerenciar teclas de atalho.",
+        }
+    elseif string.find(lower, "macro") or string.find(lowerName, "macro") then
+        return {
+            icon = "Interface\\Icons\\INV_Misc_PaperBundle01a",
+            title = "Macros",
+            desc = "Criação e edição de macros personalizadas para comandos e magias.",
+            hint = "Pressione [A] para abrir o editor de macros.",
+        }
+    elseif string.find(lower, "help") or string.find(lower, "ajuda") or string.find(lowerName, "help") then
+        return {
+            icon = "Interface\\Icons\\INV_Misc_QuestionMark",
+            title = "Ajuda & Suporte",
+            desc = "Suporte ao jogador, base de conhecimento e abertura de chamados.",
+            hint = "Pressione [A] para abrir a central de ajuda.",
+        }
+    elseif string.find(lower, "log out") or string.find(lower, "logout") or string.find(lower, "desconectar") or string.find(lowerName, "logout") then
+        return {
+            icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
+            title = "Desconectar",
+            desc = "Desconecta do personagem atual e retorna à tela de seleção de personagens.",
+            hint = "Pressione [A] para desconectar do mundo.",
+        }
+    elseif string.find(lower, "exit") or string.find(lower, "quit") or string.find(lower, "sair") or string.find(lowerName, "quit") then
+        return {
+            icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
+            title = "Sair do Jogo",
+            desc = "Encerra completamente o cliente do World of Warcraft.",
+            hint = "Pressione [A] para encerrar o aplicativo.",
+        }
+    elseif string.find(lower, "continue") or string.find(lower, "voltar") or string.find(lower, "retornar") or string.find(lowerName, "continue") then
+        return {
+            icon = "Interface\\Icons\\INV_Misc_Rune_01",
+            title = "Voltar ao Jogo",
+            desc = "Fecha o menu principal e retorna à jogabilidade.",
+            hint = "Pressione [A] para retornar ao jogo.",
+        }
+    end
+
+    return {
+        icon = "Interface\\Icons\\INV_Misc_Gear_01",
+        title = cleanText or name or "Opção",
+        desc = "Opção de sistema ou addon detectada dinamicamente.",
+        hint = "Pressione [A] para executar esta opção.",
+    }
+end
+
+function MainMenu:UpdateGameMenuDetail(btnData)
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageSystem = self.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return end
+    local card = pageSystem.gameMenuDetailCard or pageSystem.detailCard
+    if not card then return end
+
+    if not btnData then
+        card.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+        card.titleText:SetText("|cffe09a15Menu do Jogo|r")
+        card.typeText:SetText("|cffaaaaaaOpções de Sistema — ConsoleMode Vanilla|r")
+        card.descColLeft:SetText("|cffccccccSelecione uma opção na lista acima para visualizar os detalhes.|r")
+        card.descColRight:SetText("|cff888888Pressione [A] para executar a ação selecionada.|r")
+        if card.slotsFreeText then
+            card.slotsFreeText:SetText("|cffe09a15[A]|r Executar   |   |cffe09a15[D-Pad]|r Navegar   |   |cffe09a15[B]|r Voltar")
+        end
+        return
+    end
+
+    local icon = btnData.icon or "Interface\\Icons\\INV_Misc_Gear_01"
+    local title = btnData.title or btnData.text or "Opção"
+    local desc = btnData.desc or "Configurações do World of Warcraft."
+    local hint = btnData.hint or btnData.detailText or "Pressione [A] para executar esta opção."
+
+    card.icon:SetTexture(icon)
+    card.icon:Show()
+    if card.iconBorder then
+        card.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
+        card.iconBorder:Show()
+    end
+
+    card.titleText:SetText(string.format("|cffe09a15%s|r", title))
+    card.typeText:SetText("|cffaaaaaaMenu de Sistema / Interface — 1.12.1|r")
+    card.descColLeft:SetWidth(360)
+    card.descColLeft:SetText(string.format("|cffdddddd%s|r", desc))
+    card.descColRight:SetText(string.format("|cff888888%s|r", hint))
+    card.descColRight:Show()
+    if card.slotsFreeText then
+        card.slotsFreeText:SetText("|cffe09a15[A]|r Executar   |   |cffe09a15[D-Pad]|r Navegar   |   |cffe09a15[B]|r Voltar")
+    end
+    if card.sellWidget then card.sellWidget:Hide() end
+    if card.moneyWidget then card.moneyWidget:Hide() end
+    card:Show()
 end
 
 function MainMenu:CleanButtonText(text, buttonName)
@@ -10854,64 +11059,104 @@ function MainMenu:UpdateGameMenuSubPage()
     local subPage = pageSystem.subPageGameMenu
     local buttons = self:ScanGameMenuButtons()
     local count = table.getn(buttons)
+    if count > 16 then count = 16 end
 
     if subPage.subText then
-        subPage.subText:SetText(string.format("|cffaaaaaaTotal de botões detectados: |cffffffff%d|r |cffaaaaaa(Blizzard + Addons)|r", count))
+        subPage.subText:SetText(string.format("|cffaaaaaaTotal de opções detectadas: |cffffffff%d|r |cffaaaaaa(Menus Nativos + Addons)|r", count))
     end
 
     if not subPage.rows then subPage.rows = {} end
 
-    local rowHeight = 24
+    local rowHeight = 28
     local rowGap = 3
     local startY = -4
 
-    local bColor = CFG.System.badgeColor or "|cffe09a15"
     local tColor = CFG.System.itemTextColor or "|cffffffff"
-    local fColor = CFG.System.frameNameColor or "|cff777777"
 
     for i = 1, count do
         local btnData = buttons[i]
+        local meta = GetGameMenuButtonMeta(btnData.name, btnData.text)
+        btnData.icon = meta.icon
+        btnData.title = meta.title or btnData.text
+        btnData.desc = meta.desc
+        btnData.hint = meta.hint
+        btnData.detailText = meta.hint
+
         local row = subPage.rows[i]
         if not row then
-            row = CreateFrame("Button", "ConsoleModeMM_GMBtn_" .. i, subPage.listContainer)
+            row = CreateFrame("Button", "ConsoleModeMM_GameMenuBtn" .. i, subPage.listContainer)
             row:SetHeight(rowHeight)
-            row:SetPoint("LEFT", subPage.listContainer, "LEFT", 0, 0)
-            row:SetPoint("RIGHT", subPage.listContainer, "RIGHT", 0, 0)
+            row:SetBackdrop({
+                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile     = true, tileSize = 16, edgeSize = 10,
+                insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+            })
+            row:SetBackdropColor(0.0, 0.0, 0.0, 0.35)
+            row:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
 
-            -- Fundo translúcido com destaque visual
             local bg = row:CreateTexture(nil, "BACKGROUND")
             bg:SetAllPoints(row)
             bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-            bg:SetVertexColor(0.0, 0.0, 0.0, 0.25)
+            bg:SetVertexColor(0.0, 0.0, 0.0, 0.35)
             row.bg = bg
 
-            -- Linha de destaque dourada à esquerda ao focar
             local highlightBar = row:CreateTexture(nil, "OVERLAY")
             highlightBar:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-            highlightBar:SetWidth(3)
+            highlightBar:SetWidth(4)
             highlightBar:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
             highlightBar:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 0, 0)
             highlightBar:SetVertexColor(1.0, 0.85, 0.2, 0.95)
             highlightBar:Hide()
             row.highlightBar = highlightBar
+            row.highlight = highlightBar
+            row.borderTex = highlightBar
+
+            local icon = row:CreateTexture(nil, "ARTWORK")
+            icon:SetWidth(20)
+            icon:SetHeight(20)
+            icon:SetPoint("LEFT", row, "LEFT", 5, 0)
+            row.icon = icon
+
+            local iconBorder = CreateFrame("Frame", nil, row)
+            iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+            iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+            iconBorder:SetBackdrop({
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                edgeSize = 6,
+                insets = { left = 1, right = 1, top = 1, bottom = 1 }
+            })
+            iconBorder:SetBackdropBorderColor(0.6, 0.5, 0.3, 0.8)
+            row.iconBorder = iconBorder
 
             local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            title:SetPoint("LEFT", row, "LEFT", 12, 0)
-            MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
+            title:SetPoint("TOPLEFT", icon, "TOPRIGHT", 8, -2)
+            MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 13)
             row.title = title
+            row.label = title
+            row.nameFS = title
 
-            -- Eventos de foco / mouse hover
+            local desc = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            desc:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 8, 2)
+            desc:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+            desc:SetJustifyH("LEFT")
+            MainMenu:ApplyFont(desc, CFG.Fonts.subFontFile, 10)
+            row.desc = desc
+            row.descFS = desc
+
             row:SetScript("OnEnter", function()
                 this.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18)
                 if this.highlightBar then this.highlightBar:Show() end
+                this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
+                MainMenu:UpdateGameMenuDetail(this.btnData)
             end)
 
             row:SetScript("OnLeave", function()
-                this.bg:SetVertexColor(0.0, 0.0, 0.0, 0.25)
+                this.bg:SetVertexColor(0.0, 0.0, 0.0, 0.35)
                 if this.highlightBar then this.highlightBar:Hide() end
+                this:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
             end)
 
-            -- Ação OnClick (Etapa 8.3)
             row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
             row:SetScript("OnClick", function()
                 if this.btnData and this.btnData.frame then
@@ -10967,6 +11212,20 @@ function MainMenu:UpdateGameMenuSubPage()
                         elseif targetBtn.Click then
                             targetBtn:Click()
                         end
+                    elseif targetName == "GameMenuButtonHelp" then
+                        if ToggleHelpFrame then
+                            ToggleHelpFrame()
+                        elseif HelpFrame then
+                            ShowUIPanel(HelpFrame)
+                        elseif targetBtn.Click then
+                            targetBtn:Click()
+                        end
+                    elseif targetName == "GameMenuButtonLogout" then
+                        Logout()
+                    elseif targetName == "GameMenuButtonQuit" then
+                        Quit()
+                    elseif targetName == "GameMenuButtonContinue" then
+                        -- Fechamento do menu ja realizado acima
                     else
                         if targetBtn.Click then
                             targetBtn:Click()
@@ -10985,18 +11244,25 @@ function MainMenu:UpdateGameMenuSubPage()
         row:SetPoint("TOPLEFT", subPage.listContainer, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
         row:SetPoint("TOPRIGHT", subPage.listContainer, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
 
-        row.title:SetText(string.format("%s%s|r", tColor, btnData.text))
-        if row.frameName then row.frameName:SetText("") end
+        row.icon:SetTexture(btnData.icon)
+        row.title:SetText(string.format("%s%s|r", tColor, btnData.title))
+        row.desc:SetText(string.format("|cff888888%s|r", btnData.desc))
+        row.detailText = btnData.detailText
         row.btnData = btnData
         row:Show()
     end
 
-    -- Oculta linhas excedentes
     local totalRows = table.getn(subPage.rows)
     if totalRows > count then
         for j = count + 1, totalRows do
             subPage.rows[j]:Hide()
         end
+    end
+
+    if count > 0 then
+        self:UpdateGameMenuDetail(buttons[1])
+    else
+        self:UpdateGameMenuDetail(nil)
     end
 end
 

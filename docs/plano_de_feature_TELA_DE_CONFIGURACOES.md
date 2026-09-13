@@ -279,9 +279,38 @@ Central de controle das opções do ConsoleMode, dividida em cartões de control
 
 ---
 
-## 8. PRÓXIMA TELA: BINDS DO ADDON (placeholder)
+## 8. PRÓXIMA TELA: BINDS DO ADDON (levantamento concluído — falta investigação complementar + plano de implementação)
 
-Esta é a última tela pendente do MainMenu; o levantamento técnico detalhado será feito depois, sem detalhamento neste momento.
+Última tela pendente do MainMenu. Levantamento técnico profundo concluído (somente leitura, nada modificado). **Ainda falta: investigação complementar + plano de implementação em fases.**
+
+### 8.1 Fluxo de acesso
+- Entrada: Sub-Aba 2 → 1ª linha "Mapeador de Atalhos / Binds" (`MainMenu.lua:11300`, `UpdateAddonConfigSubPage`) → `ShowBindsScreen()`.
+- Binds (`ConsoleModeMM_BindsScreen`, `11686`) e Picker (`ConsoleModeMM_PickerScreen`, `11893`) são **sub-estados** (`pageSystem.activeSubScreen`: `nil`/`BINDS`/`PICKER`), frames irmãos criados uma vez via `SetupKeybindingsPage()` (`11679`).
+- `[B]` volta pela pilha `HandleBindsBack()` (`13069`): PICKER→BINDS→ADDON_CFG (via `CM_CursorCancel` + botões Voltar).
+
+### 8.2 Estrutura visual (funciona, não reescrever)
+- bindsScreen: header + barra de 5 páginas (Base/L2/R1/R2/L2+R2, LT/RT) + DetailCard inferior + pool de 8 cards (4 D-Pad + 4 ABXY, `CreateBindCard()`, `11579`), cada um com ícone, badge do combo, nome da ação e borda de foco.
+- pickerScreen: header `[ MAPEANDO: <combo> ]` + 4 modos (Grimório/Bolsas/Macros/Barras) + sub-abas dinâmicas + grade 4×4 (`PickerSlot1..16`) + paginação.
+
+### 8.3 Modelo de dados (funciona, unificar espelhos)
+- Binds vivem nos **bindings nativos do WoW** (`GetBindingAction`/`SetBinding` + `SaveBindings`), não em SV do addon.
+- Formato: (página 1-5, botão) → tecla física → ação (`ACTIONBUTTONn`/`MULTIACTIONBARnBUTTONn`/`JUMP`...).
+- **3 tabelas-espelho** (`Keybindings.defaults`, `SBP.KEY_MAPPINGS`, `BINDS_KEY_DEFAULTS`): unificar pontualmente, sem rewrite.
+- Escrita única segura: `KB:ApplySingleGameBinding()` (`Keybindings.lua:714`).
+
+### 8.4 Edição (funciona, manter)
+- Slot → picker → conteúdo → confirmar (`Pickup*+PlaceAction` + `ApplySingleGameBinding`); sem captura de input, mapeamento físico fixo.
+- Limpar: clique direito / `[X]` / botão X; A-pág1 (Pulo) bloqueado.
+
+### 8.5 Navegação gamepad — O MAIOR GAP (é aqui que o trabalho está)
+- **Não existem zonas `SYS_BINDS_*` no `MainMenuNav`** (só `SYS_SUBTABS`/`SYS_GAMEMENU`/`SYS_ADDONCFG`).
+- O que funciona hoje vem do **Cursor legado** (D-Pad geométrico, `[A]` clica, `[B]` via fallback, `[X]` limpa, `[LT]/[RT]` troca páginas).
+- Trabalho futuro = **fiação, não reconstrução**: criar zonas `SYS_BINDS_*`, pintura de foco, handlers direcionais, `[A]/[B]` no Nav.
+
+### 8.6 Integração e legados
+- Disparo 100% nativo via ActionBar; sem taint prático no 1.12; sem guardas de combate na edição.
+- Legado morto candidato a arquivamento (não rewrite): `ConfigFrame.lua`, frame do `KeybindingsList`, frame do `ActionBarPicker`.
+- Leitura de nomes via tooltip-scan é frágil; `savedNavBindings` pode reverter edição externa — endurecer depois.
 
 ---
 

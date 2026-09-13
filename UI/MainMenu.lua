@@ -7484,7 +7484,7 @@ function MainMenu:CreateQuestListButton(parent, idx)
     local highlight = btn:CreateTexture(nil, "BACKGROUND")
     highlight:SetAllPoints(btn)
     highlight:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-    highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+    highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
     highlight:Hide()
     btn.highlight = highlight
 
@@ -7543,7 +7543,7 @@ function MainMenu:CreateQuestListButton(parent, idx)
             this.highlight:Hide()
         else
             this.highlight:Show()
-            this.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.40)
+            this.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
         end
     end)
 
@@ -7760,7 +7760,7 @@ function MainMenu:UpdateQuestsPage()
 
                 if currentSelected == itemData.index then
                     btn.highlight:Show()
-                    btn.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+                    btn.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
                 else
                     btn.highlight:Hide()
                 end
@@ -8877,7 +8877,7 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
         for _, btn in ipairs(questPanel.questButtons) do
             if btn.questLogIndex == questLogIndex and not btn.isHeader then
                 btn.highlight:Show()
-                btn.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+                btn.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
             else
                 btn.highlight:Hide()
             end

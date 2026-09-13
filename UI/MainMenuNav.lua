@@ -636,16 +636,85 @@ local function Nav_PaintQuests()
     local inQuestZone = (f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "QLEITURA")
     for i = 1, n do
         local b = btns[i]
-        if b and not b.isHeader and b.highlight then
+        if b and not b.isHeader then
             local qli = b.questLogIndex
             if inQuestZone and qli and qli == f.questIdx then
-                pcall(function() b.highlight:Show() end)
-                pcall(function() b.highlight:SetVertexColor(1.0, 0.82, 0.20, 0.35) end)
+                if b.highlight then
+                    pcall(function() b.highlight:Show() end)
+                    pcall(function() b.highlight:SetVertexColor(1.0, 0.85, 0.15, 0.55) end)
+                end
+                if b.borderTex and type(b.borderTex.SetVertexColor) == "function" then
+                    pcall(function() b.borderTex:SetVertexColor(1.0, 0.85, 0.20, 1.0) end)
+                end
+                if b.border and type(b.border.SetVertexColor) == "function" then
+                    pcall(function() b.border:SetVertexColor(1.0, 0.85, 0.20, 1.0) end)
+                end
+                if type(b.SetBackdropBorderColor) == "function" then
+                    pcall(function() b:SetBackdropBorderColor(1.0, 0.85, 0.20, 1.0) end)
+                end
+                if b.titleText and type(b.titleText.SetTextColor) == "function" then
+                    pcall(function() b.titleText:SetTextColor(1.0, 0.95, 0.40) end)
+                end
+                if b.title and type(b.title.SetTextColor) == "function" then
+                    pcall(function() b.title:SetTextColor(1.0, 0.95, 0.40) end)
+                end
+                if b.nameFS and type(b.nameFS.SetTextColor) == "function" then
+                    pcall(function() b.nameFS:SetTextColor(1.0, 0.95, 0.40) end)
+                end
+                if b.label and type(b.label.SetTextColor) == "function" then
+                    pcall(function() b.label:SetTextColor(1.0, 0.95, 0.40) end)
+                end
             elseif qli and activeIdx and qli == activeIdx then
-                pcall(function() b.highlight:Show() end)
-                pcall(function() b.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35) end)
+                if b.highlight then
+                    pcall(function() b.highlight:Show() end)
+                    pcall(function() b.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28) end)
+                end
+                if b.borderTex and type(b.borderTex.SetVertexColor) == "function" then
+                    pcall(function() b.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end)
+                end
+                if b.border and type(b.border.SetVertexColor) == "function" then
+                    pcall(function() b.border:SetVertexColor(0.45, 0.38, 0.22, 0.5) end)
+                end
+                if type(b.SetBackdropBorderColor) == "function" then
+                    pcall(function() b:SetBackdropBorderColor(0.5, 0.4, 0.28, 0.65) end)
+                end
+                if b.titleText and type(b.titleText.SetTextColor) == "function" then
+                    pcall(function() b.titleText:SetTextColor(0.96, 0.88, 0.68) end)
+                end
+                if b.title and type(b.title.SetTextColor) == "function" then
+                    pcall(function() b.title:SetTextColor(0.96, 0.88, 0.68) end)
+                end
+                if b.nameFS and type(b.nameFS.SetTextColor) == "function" then
+                    pcall(function() b.nameFS:SetTextColor(0.96, 0.88, 0.68) end)
+                end
+                if b.label and type(b.label.SetTextColor) == "function" then
+                    pcall(function() b.label:SetTextColor(0.96, 0.88, 0.68) end)
+                end
             else
-                pcall(function() b.highlight:Hide() end)
+                if b.highlight then
+                    pcall(function() b.highlight:Hide() end)
+                end
+                if b.borderTex and type(b.borderTex.SetVertexColor) == "function" then
+                    pcall(function() b.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end)
+                end
+                if b.border and type(b.border.SetVertexColor) == "function" then
+                    pcall(function() b.border:SetVertexColor(0.45, 0.38, 0.22, 0.5) end)
+                end
+                if type(b.SetBackdropBorderColor) == "function" then
+                    pcall(function() b:SetBackdropBorderColor(0.5, 0.4, 0.28, 0.65) end)
+                end
+                if b.titleText and type(b.titleText.SetTextColor) == "function" then
+                    pcall(function() b.titleText:SetTextColor(0.96, 0.88, 0.68) end)
+                end
+                if b.title and type(b.title.SetTextColor) == "function" then
+                    pcall(function() b.title:SetTextColor(0.96, 0.88, 0.68) end)
+                end
+                if b.nameFS and type(b.nameFS.SetTextColor) == "function" then
+                    pcall(function() b.nameFS:SetTextColor(0.96, 0.88, 0.68) end)
+                end
+                if b.label and type(b.label.SetTextColor) == "function" then
+                    pcall(function() b.label:SetTextColor(0.96, 0.88, 0.68) end)
+                end
             end
         elseif b and b.isHeader and b.highlight then
             pcall(function() b.highlight:Hide() end)
@@ -1564,7 +1633,7 @@ local function Nav_ApplyFocus()
                     if b and b.highlight then
                         if b.questLogIndex and activeIdx and b.questLogIndex == activeIdx and not b.isHeader then
                             b.highlight:Show()
-                            b.highlight:SetVertexColor(0.88, 0.60, 0.08, 0.35)
+                            b.highlight:SetVertexColor(0.85, 0.55, 0.08, 0.28)
                         else
                             b.highlight:Hide()
                         end
@@ -1807,11 +1876,13 @@ function Nav_OnQnpcsDirection(direction)
             f.zone = "QZONAS"
             f.zonaIdx = 1
             Nav_EnsureFocus()
+            Nav_ApplyFocus()
             return true
         end
-        f.zone = "QMISSOES"
-        f.qDetail = false
+        f.zone = "QNAV"
+        f.navIdx = f.navIdx or 1
         Nav_EnsureFocus()
+        Nav_ApplyFocus()
         return true
     end
     if direction == "LEFT" then

@@ -7992,6 +7992,12 @@ function MainMenu:SwitchMapToZone(zoneName)
                 self.mapFileName = fileName
                 self.mapShowingQuestZone = true
                 self:ClearDungeonPreview()
+                if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
+                    local c = self.tabContainer.pages["QUESTS"].mapPanel.canvas
+                    c.panX = 0
+                    c.panY = 0
+                    c.currentMapFile = fileName
+                end
                 self:UpdateBackButton()
                 self:UpdateNavButtonHighlight()
                 return true

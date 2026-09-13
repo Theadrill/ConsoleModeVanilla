@@ -614,6 +614,9 @@ local function Nav_SelectQuestByIdx(targetIdx)
     end
     Nav.focus.questIdx = targetIdx
     pcall(function() MM:SelectQuest(targetIdx, true) end)
+    if type(MM.FocusMapOnQuest) == "function" then
+        pcall(function() MM:FocusMapOnQuest(targetIdx) end)
+    end
     if qp and type(MM.UpdateQuestsPage) == "function" then
         pcall(function() MM:UpdateQuestsPage() end)
     end
@@ -2132,6 +2135,9 @@ function Nav_OnQuestsDirection(direction)
                 local MM = Nav_GetMM()
                 if MM and type(MM.SelectQuest) == "function" then
                     pcall(function() MM:SelectQuest(f.questIdx, true) end)
+                end
+                if MM and type(MM.FocusMapOnQuest) == "function" then
+                    pcall(function() MM:FocusMapOnQuest(f.questIdx) end)
                 end
             end
             return true

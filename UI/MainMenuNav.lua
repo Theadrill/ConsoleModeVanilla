@@ -1095,14 +1095,26 @@ local function Nav_PaintZonas()
         local vb = vis[vi]
         if vb then posByBtn[vb] = vi end
     end
+    local focusedBtn = nil
     for i = 1, n do
         local b = raw[i]
         if b then
             local vpos = posByBtn[b]
             if vpos and inZone and vpos == f.zonaIdx then
                 Nav_PaintOneButton(b, true)
+                focusedBtn = b
             else
                 Nav_PaintOneButton(b, false)
+            end
+        end
+    end
+    if inZone and focusedBtn then
+        local MM = Nav_GetMM()
+        if MM then
+            if focusedBtn.zoneName and not focusedBtn.isInstance and type(MM.ShowZonePinForZone) == "function" then
+                MM:ShowZonePinForZone(focusedBtn.zoneName, focusedBtn.zoneCont)
+            elseif type(MM.HideZonePin) == "function" then
+                MM:HideZonePin()
             end
         end
     end
@@ -1952,6 +1964,14 @@ function Nav_OnQnavDirection(direction)
         return true
     end
     if direction == "RIGHT" then
+        local zf = Nav_GetZoneListFrame()
+        local vz = Nav_GetVisibleZones()
+        if zf and SafeIsVisible(zf) and vz and table.getn(vz) > 0 then
+            f.zone = "QZONAS"
+            f.zonaIdx = 1
+            Nav_EnsureFocus()
+            return true
+        end
         f.zone = "QMISSOES"
         f.qDetail = false
         Nav_EnsureFocus()
@@ -2027,6 +2047,14 @@ function Nav_OnQzonasDirection(direction)
         return true
     end
     if direction == "LEFT" then
+        local npcPanel = Nav_GetNpcPanel()
+        local npcs = Nav_GetVisibleNpcs()
+        if npcPanel and SafeIsVisible(npcPanel) and npcs and table.getn(npcs) > 0 then
+            f.zone = "QNPCS"
+            f.npcIdx = 1
+            Nav_EnsureFocus()
+            return true
+        end
         f.zone = "QNAV"
         f.navIdx = f.navIdx or 1
         Nav_EnsureFocus()
@@ -3257,6 +3285,17 @@ function Nav:OnConfirm()
             local b = rawNav and rawNav[idx]
             if not b then return false end
             pcall(function() b:Click() end)
+            local zf = Nav_GetZoneListFrame()
+            if zf and SafeIsVisible(zf) then
+                local vz = Nav_GetVisibleZones()
+                if vz and table.getn(vz) > 0 then
+                    fq.zone = "QZONAS"
+                    fq.zonaIdx = 1
+                end
+            else
+                fq.zone = "QNAV"
+            end
+            Nav_EnsureFocus()
             Nav_ApplyFocus()
             return true
         end
@@ -3265,6 +3304,22 @@ function Nav:OnConfirm()
             local zb = zones and zones[fq.zonaIdx]
             if not zb then return false end
             pcall(function() zb:Click() end)
+            local zf = Nav_GetZoneListFrame()
+            if zf and type(zf.Hide) == "function" then
+                zf:Hide()
+            end
+            local MM = Nav_GetMM()
+            if MM then
+                if type(MM.HideZonePin) == "function" then
+                    MM:HideZonePin()
+                end
+                if type(MM.HideInstancesList) == "function" then
+                    MM:HideInstancesList()
+                end
+            end
+            fq.zone = "QNAV"
+            fq.navIdx = fq.navIdx or 1
+            Nav_EnsureFocus()
             Nav_ApplyFocus()
             return true
         end
@@ -3503,14 +3558,19 @@ function Nav:OnCancel()
             MMNav_PlayMove()
             return true
         end
-        if fq.zone == "QZONAS" or fq.zone == "QMAPAS" then
+        if fq.zone == "QZONAS" or fq.zone == "QMAPAS" or fq.zone == "ZONAS" then
             local zf = Nav_GetZoneListFrame()
             if zf and type(zf.Hide) == "function" then
                 zf:Hide()
             end
             local MM = Nav_GetMM()
-            if MM and type(MM.HideZonePin) == "function" then
-                MM:HideZonePin()
+            if MM then
+                if type(MM.HideZonePin) == "function" then
+                    MM:HideZonePin()
+                end
+                if type(MM.HideInstancesList) == "function" then
+                    MM:HideInstancesList()
+                end
             end
             fq.zone = "QNAV"
             fq.navIdx = fq.navIdx or 1

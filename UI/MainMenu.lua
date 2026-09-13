@@ -7930,6 +7930,7 @@ function MainMenu:SwitchMapToDungeon(instanceName)
         end
         self.mapViewMode = "ZONE"
         self.mapContinentView = nil
+        self.zoneListMode = nil
         self.mapContinent = pc
         self.mapZoneIdx = pidx
         self.mapZoneName = instanceName
@@ -7951,6 +7952,7 @@ function MainMenu:SwitchMapToDungeon(instanceName)
             local fileName = (GetMapInfo and GetMapInfo()) or parentZone
             self.mapViewMode = "ZONE"
             self.mapContinentView = nil
+            self.zoneListMode = nil
             self.mapContinent = pc
             self.mapZoneIdx = pidx
             self.mapZoneName = parentZone
@@ -7975,12 +7977,15 @@ function MainMenu:SwitchMapToZone(zoneName)
     if not zoneName or zoneName == "" then return false end
     for cont = 1, 4 do
         local zones = {GetMapZones(cont)}
-        for zoneIdx, name in ipairs(zones) do
+        local numZones = table.getn(zones)
+        for zoneIdx = 1, numZones do
+            local name = zones[zoneIdx]
             if name == zoneName then
                 CMSafeSetMap(SetMapZoom, cont, zoneIdx)
                 local fileName = (GetMapInfo and GetMapInfo()) or zoneName
                 self.mapViewMode = "ZONE"
                 self.mapContinentView = nil
+                self.zoneListMode = nil
                 self.mapContinent = cont
                 self.mapZoneIdx = zoneIdx
                 self.mapZoneName = zoneName
@@ -8169,11 +8174,17 @@ function MainMenu:UpdateNavButtonHighlight()
                 mp.zoneListFrame.scrollFrame:UpdateScrollChildRect()
             end
             if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText("|cffe09a15INSTANCIAS|r") end
+        else
+            mp.zoneListFrame:Hide()
         end
     end
     if mp.hintText then
-        if (self.mapViewMode or "ZONE") == "CONTINENT" or self.zoneListMode == "INSTANCES" then
+        local nav = ConsoleModeMM_Nav or (ConsoleMode and ConsoleMode.MainMenuNav)
+        local curZone = nav and nav.focus and nav.focus.zone
+        if curZone == "QZONAS" or (self.mapViewMode or "ZONE") == "CONTINENT" or self.zoneListMode == "INSTANCES" then
             mp.hintText:SetText("|cffe09a15[D-Pad] Navegar  •  [A] Entrar  •  [B] Voltar|r")
+        elseif curZone == "QNAV" then
+            mp.hintText:SetText("|cffe09a15[D-Pad] Selecionar  •  [A] Abrir  •  [B] Voltar|r")
         else
             mp.hintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
         end

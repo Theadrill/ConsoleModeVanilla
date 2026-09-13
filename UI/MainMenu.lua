@@ -6959,11 +6959,18 @@ function MainMenu:SetupQuestsPage(pageQuests)
         _nbg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
         _nbg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
         _nb.bg = _nbg
+        local _nbd = _nb:CreateTexture(nil, "BORDER")
+        _nbd:SetPoint("TOPLEFT", _nb, "TOPLEFT", -1, 1)
+        _nbd:SetPoint("BOTTOMRIGHT", _nb, "BOTTOMRIGHT", 1, -1)
+        _nbd:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        _nbd:SetVertexColor(0.45, 0.38, 0.22, 0.5)
+        _nb.borderTex = _nbd
         local _nhl = _nb:CreateTexture(nil, "HIGHLIGHT")
         _nhl:SetAllPoints(_nb)
         _nhl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
         _nhl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
         _nhl:SetBlendMode("ADD")
+        _nb.highlight = _nhl
         local _nic = _nb:CreateTexture(nil, "ARTWORK")
         _nic:SetWidth(14)
         _nic:SetHeight(14)
@@ -6979,6 +6986,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
         _nb.label = _nfs
         _nb.nameFS = _nfs
         _nb:SetScript("OnEnter", function()
+            if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 0.9) end
             if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
             if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
             local mp2 = nil
@@ -7005,6 +7013,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
             end
         end)
         _nb:SetScript("OnLeave", function()
+            if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
             if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
             if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
             local mp2 = nil
@@ -7228,17 +7237,25 @@ function MainMenu:SetupQuestsPage(pageQuests)
         _zbg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
         _zbg:SetVertexColor(0.14, 0.12, 0.09, 0.9)
         _zb.bg = _zbg
+        local _zbd = _zb:CreateTexture(nil, "BORDER")
+        _zbd:SetPoint("TOPLEFT", _zb, "TOPLEFT", -1, 1)
+        _zbd:SetPoint("BOTTOMRIGHT", _zb, "BOTTOMRIGHT", 1, -1)
+        _zbd:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+        _zbd:SetVertexColor(0.45, 0.38, 0.22, 0.5)
+        _zb.borderTex = _zbd
         local _zhl = _zb:CreateTexture(nil, "HIGHLIGHT")
         _zhl:SetAllPoints(_zb)
         _zhl:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
         _zhl:SetVertexColor(0.85, 0.68, 0.12, 0.22)
         _zhl:SetBlendMode("ADD")
+        _zb.highlight = _zhl
         local _zfs = _zb:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         _zfs:SetPoint("CENTER", _zb, "CENTER", 0, 0)
         MainMenu:ApplyFont(_zfs, CFG.Fonts.subFontFile, 13)
         _zfs:SetTextColor(0.96, 0.88, 0.68, 1.0)
         _zb.label = _zfs
         _zb:SetScript("OnEnter", function()
+            if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 0.9) end
             if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end
             if this.label then this.label:SetTextColor(1.0, 0.92, 0.45, 1.0) end
             if this.isInstance then
@@ -7263,6 +7280,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
             end
         end)
         _zb:SetScript("OnLeave", function()
+            if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
             if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
             if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
             if this.isInstance then

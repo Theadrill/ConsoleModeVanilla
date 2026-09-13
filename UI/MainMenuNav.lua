@@ -1215,30 +1215,30 @@ local function Nav_EnsureFocus()
         local scr = Nav_GetSpellActiveScreen()
         local defSp = "SPCAT"
         if scr == 2 then defSp = "SPGRID" end
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "TALENTS1" or f.zone == "TALENTS2" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
             f.zone = defSp
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
             f.returnZone = defSp
         end
         if f.zone == "BUFFS" and bc < 1 then
             f.zone = defSp
         end
     elseif curTabEf == "BAGS" then
-        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" then
+        if f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
             f.zone = "GRID"
         end
-        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" then
+        if f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
             f.returnZone = "GRID"
         end
     elseif curTabEf == "TALENTS" then
         local defTal = "TALENTS1"
         local scrT = Nav_GetTalentActiveScreen()
         if scrT == 2 then defTal = "TALENTS2" end
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" then
+        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
             f.zone = defTal
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "EQUIP" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
             f.returnZone = defTal
         end
         if f.zone == "BUFFS" and bc < 1 then
@@ -1248,18 +1248,8 @@ local function Nav_EnsureFocus()
         if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" then
             f.zone = "QMISSOES"
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" then
+        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" then
             f.returnZone = "QMISSOES"
-        end
-    else
-        if f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
-            if curTabEf == "BAGS" then f.zone = "GRID"
-            elseif curTabEf == "SPELLS" then f.zone = "SPCAT"
-            elseif curTabEf == "TALENTS" then f.zone = "TALENTS1"
-            else f.zone = "GRID" end
-        end
-        if f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
-            f.returnZone = "GRID"
         end
     end
     if f.zone == "QMISSOES" or f.zone == "QDETALHE" then

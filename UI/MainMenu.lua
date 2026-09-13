@@ -7250,10 +7250,13 @@ function MainMenu:SetupQuestsPage(pageQuests)
         _zhl:SetBlendMode("ADD")
         _zb.highlight = _zhl
         local _zfs = _zb:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        _zfs:SetPoint("CENTER", _zb, "CENTER", 0, 0)
+        _zfs:SetPoint("LEFT", _zb, "LEFT", 8, 0)
+        _zfs:SetPoint("RIGHT", _zb, "RIGHT", -4, 0)
+        _zfs:SetJustifyH("LEFT")
         MainMenu:ApplyFont(_zfs, CFG.Fonts.subFontFile, 13)
         _zfs:SetTextColor(0.96, 0.88, 0.68, 1.0)
         _zb.label = _zfs
+        _zb.nameFS = _zfs
         _zb:SetScript("OnEnter", function()
             if this.borderTex then this.borderTex:SetVertexColor(0.85, 0.68, 0.12, 0.9) end
             if this.bg then this.bg:SetVertexColor(0.22, 0.18, 0.10, 1.0) end

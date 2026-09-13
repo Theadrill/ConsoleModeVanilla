@@ -1165,14 +1165,12 @@ local function Nav_PaintGameMenu()
     local gbtns = Nav_GetVisibleGameMenuButtons()
     local n = table.getn(gbtns)
     local inZone = (f.zone == "SYS_GAMEMENU")
-    local focusedBtn = nil
 
     for i = 1, n do
         local row = gbtns[i]
         if row then
             local isFocus = (inZone and i == f.gameMenuIdx)
             if isFocus then
-                focusedBtn = row
                 if row.highlight then pcall(function() row.highlight:Show() end) end
                 if row.SetBackdropBorderColor then
                     pcall(function() row:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
@@ -1195,13 +1193,6 @@ local function Nav_PaintGameMenu()
                     pcall(function() row.title:SetTextColor(1.0, 1.0, 1.0) end)
                 end
             end
-        end
-    end
-
-    if focusedBtn and inZone then
-        local okMM, MMM = pcall(function() return Nav_GetMM() end)
-        if okMM and MMM and type(MMM.UpdateGameMenuDetail) == "function" then
-            pcall(function() MMM:UpdateGameMenuDetail(focusedBtn.btnData) end)
         end
     end
 end

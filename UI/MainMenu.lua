@@ -10749,19 +10749,9 @@ function MainMenu:SetupSystemPage(pageSystem)
     gmSubText:SetText("|cffaaaaaaVarredura dinâmica de botões nativos e de addons|r")
     subPageGameMenu.subText = gmSubText
 
-    local detailCard = self:CreateDetailCard(subPageGameMenu)
-    subPageGameMenu.detailCard = detailCard
-    pageSystem.gameMenuDetailCard = detailCard
-    pageSystem.detailCard = detailCard
-    if detailCard.slotsFreeText then
-        detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Executar   |   |cffe09a15[D-Pad]|r Navegar   |   |cffe09a15[B]|r Voltar")
-    end
-    if detailCard.sellWidget then detailCard.sellWidget:Hide() end
-    if detailCard.moneyWidget then detailCard.moneyWidget:Hide() end
-
     local gmListContainer = CreateFrame("Frame", "ConsoleModeMM_GMListContainer", subPageGameMenu)
     gmListContainer:SetPoint("TOPLEFT", gmSubText, "BOTTOMLEFT", 0, -8)
-    gmListContainer:SetPoint("BOTTOMRIGHT", detailCard, "TOPRIGHT", -12, 8)
+    gmListContainer:SetPoint("BOTTOMRIGHT", subPageGameMenu, "BOTTOMRIGHT", -12, 10)
     subPageGameMenu.listContainer = gmListContainer
     subPageGameMenu.rows = {}
 
@@ -10924,48 +10914,6 @@ local function GetGameMenuButtonMeta(name, cleanText)
 end
 
 function MainMenu:UpdateGameMenuDetail(btnData)
-    if not self.tabContainer or not self.tabContainer.pages then return end
-    local pageSystem = self.tabContainer.pages["SYSTEM"]
-    if not pageSystem then return end
-    local card = pageSystem.gameMenuDetailCard or pageSystem.detailCard
-    if not card then return end
-
-    if not btnData then
-        card.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-        card.titleText:SetText("|cffe09a15Menu do Jogo|r")
-        card.typeText:SetText("|cffaaaaaaOpções de Sistema — ConsoleMode Vanilla|r")
-        card.descColLeft:SetText("|cffccccccSelecione uma opção na lista acima para visualizar os detalhes.|r")
-        card.descColRight:SetText("|cff888888Pressione [A] para executar a ação selecionada.|r")
-        if card.slotsFreeText then
-            card.slotsFreeText:SetText("|cffe09a15[A]|r Executar   |   |cffe09a15[D-Pad]|r Navegar   |   |cffe09a15[B]|r Voltar")
-        end
-        return
-    end
-
-    local icon = btnData.icon or "Interface\\Icons\\INV_Misc_Gear_01"
-    local title = btnData.title or btnData.text or "Opção"
-    local desc = btnData.desc or "Configurações do World of Warcraft."
-    local hint = btnData.hint or btnData.detailText or "Pressione [A] para executar esta opção."
-
-    card.icon:SetTexture(icon)
-    card.icon:Show()
-    if card.iconBorder then
-        card.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
-        card.iconBorder:Show()
-    end
-
-    card.titleText:SetText(string.format("|cffe09a15%s|r", title))
-    card.typeText:SetText("|cffaaaaaaMenu de Sistema / Interface — 1.12.1|r")
-    card.descColLeft:SetWidth(360)
-    card.descColLeft:SetText(string.format("|cffdddddd%s|r", desc))
-    card.descColRight:SetText(string.format("|cff888888%s|r", hint))
-    card.descColRight:Show()
-    if card.slotsFreeText then
-        card.slotsFreeText:SetText("|cffe09a15[A]|r Executar   |   |cffe09a15[D-Pad]|r Navegar   |   |cffe09a15[B]|r Voltar")
-    end
-    if card.sellWidget then card.sellWidget:Hide() end
-    if card.moneyWidget then card.moneyWidget:Hide() end
-    card:Show()
 end
 
 function MainMenu:CleanButtonText(text, buttonName)
@@ -11067,8 +11015,8 @@ function MainMenu:UpdateGameMenuSubPage()
 
     if not subPage.rows then subPage.rows = {} end
 
-    local rowHeight = 28
-    local rowGap = 3
+    local rowHeight = 34
+    local rowGap = 4
     local startY = -4
 
     local tColor = CFG.System.itemTextColor or "|cffffffff"
@@ -11112,43 +11060,19 @@ function MainMenu:UpdateGameMenuSubPage()
             row.highlight = highlightBar
             row.borderTex = highlightBar
 
-            local icon = row:CreateTexture(nil, "ARTWORK")
-            icon:SetWidth(20)
-            icon:SetHeight(20)
-            icon:SetPoint("LEFT", row, "LEFT", 5, 0)
-            row.icon = icon
-
-            local iconBorder = CreateFrame("Frame", nil, row)
-            iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
-            iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
-            iconBorder:SetBackdrop({
-                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-                edgeSize = 6,
-                insets = { left = 1, right = 1, top = 1, bottom = 1 }
-            })
-            iconBorder:SetBackdropBorderColor(0.6, 0.5, 0.3, 0.8)
-            row.iconBorder = iconBorder
-
             local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            title:SetPoint("TOPLEFT", icon, "TOPRIGHT", 8, -2)
-            MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 13)
+            title:SetPoint("LEFT", row, "LEFT", 16, 0)
+            title:SetPoint("RIGHT", row, "RIGHT", -16, 0)
+            title:SetJustifyH("LEFT")
+            MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
             row.title = title
             row.label = title
             row.nameFS = title
-
-            local desc = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-            desc:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 8, 2)
-            desc:SetPoint("RIGHT", row, "RIGHT", -8, 0)
-            desc:SetJustifyH("LEFT")
-            MainMenu:ApplyFont(desc, CFG.Fonts.subFontFile, 10)
-            row.desc = desc
-            row.descFS = desc
 
             row:SetScript("OnEnter", function()
                 this.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18)
                 if this.highlightBar then this.highlightBar:Show() end
                 this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
-                MainMenu:UpdateGameMenuDetail(this.btnData)
             end)
 
             row:SetScript("OnLeave", function()
@@ -11244,9 +11168,11 @@ function MainMenu:UpdateGameMenuSubPage()
         row:SetPoint("TOPLEFT", subPage.listContainer, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
         row:SetPoint("TOPRIGHT", subPage.listContainer, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
 
-        row.icon:SetTexture(btnData.icon)
+        if row.icon then row.icon:Hide() end
+        if row.iconBorder then row.iconBorder:Hide() end
+        if row.desc then row.desc:Hide() end
+        if row.descFS then row.descFS:Hide() end
         row.title:SetText(string.format("%s%s|r", tColor, btnData.title))
-        row.desc:SetText(string.format("|cff888888%s|r", btnData.desc))
         row.detailText = btnData.detailText
         row.btnData = btnData
         row:Show()
@@ -11257,12 +11183,6 @@ function MainMenu:UpdateGameMenuSubPage()
         for j = count + 1, totalRows do
             subPage.rows[j]:Hide()
         end
-    end
-
-    if count > 0 then
-        self:UpdateGameMenuDetail(buttons[1])
-    else
-        self:UpdateGameMenuDetail(nil)
     end
 end
 

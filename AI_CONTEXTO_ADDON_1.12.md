@@ -101,9 +101,9 @@ Outro.lua
 
 ## 7. Próximo ajuste (preencher a cada tarefa)
 
-* **Addon alvo:** (ex: `RogueSpam` / novo `MeuAddon`)
-* **Modo:** [ ] 1.12 puro / [ ] pode usar SuperWoW
-* **Objetivo:** descrever aqui
+* **Addon alvo:** `ConsoleModeVanilla` (WoW 1.12.1 / Turtle WoW)
+* **Modo:** [x] 1.12 puro / [ ] pode usar SuperWoW
+* **Objetivo:** Implementação da Tela de Configurações & Sistema (`SYSTEM`), conforme `docs/plano_de_feature_TELA_DE_CONFIGURACOES.md` (Sub-abas `GAME_MENU` e `ADDON_CFG`, Widgets D-Pad, Mapeador de Binds e Roteador D-Pad).
 
 ---
 > [!CAUTION]
@@ -119,7 +119,7 @@ Outro.lua
 > Cole este bloco no início de qualquer nova conversa para restaurar o contexto completo sem precisar redescobrir nada.
 
 **Prompt de abertura:**
-> "Estamos trabalhando no addon de WoW. Leia `AI_CONTEXTO_ADDON_1.12.md` para entender o addon e fixar as regras na memória. Depois leia `docs/plano_de_feature_TELA_DE_MAIL.md` para ter contexto sobre a feature de Mail que implementamos. Depois leia `docs/plano_de_refatoração_missoes_mapas.md` para entender a refatoração em andamento e onde paramos. Apresente o que entendeu e aguarde."
+> "Estamos trabalhando no addon de WoW. Leia `AI_CONTEXTO_ADDON_1.12.md` para entender o addon e fixar as regras na memória. Depois leia `docs/plano_de_feature_TELA_DE_CONFIGURACOES.md` para ter o contexto arquitetural completo da tela de Configurações (`SYSTEM`) e `docs/plano_de_refatoração_missoes_mapas.md` para verificar o histórico consolidado de Missões/Mapas. Apresente o que entendeu e aguarde."
 
 ---
 
@@ -131,25 +131,18 @@ Outro.lua
 #### Feature de Mail (concluída)
 Tela de correio completa (`UI/MailScreen.lua`) com inbox + painel de detalhe, tela de composição com inventário lateral, VirtualKeyboard desacoplado (`UI/VirtualKeyboard.lua`) com autocomplete, seletor de dinheiro estilo "alarme" (reels por dígito), fila serializada por eventos.
 
-#### Refatoração Missões & Mapa — estado em 12/Set/2026
-**Fase 1 concluída** (commit `5fd22ec`):
-- Modal de leitura de missão (`questDetailOverlay`) criado em `UI/MainMenu.lua`
-- Nova zona `QLEITURA` no roteador `UI/MainMenuNav.lua`
-- `[A]` na lista → `MM:ShowQuestDetail(idx)` + `fq.zone = "QLEITURA"`
-- `[B]` fecha modal → `MM:HideQuestDetail()` + volta para `QMISSOES`
-- `[X]` no modal → `MM:ToggleQuestWatch(idx)`
-- `[Y]` na lista → `MM:AbandonSelectedQuest(idx)` → `StaticPopup_Show("ABANDON_QUEST")`
-- D-Pad UP/DOWN no modal rola o scrollframe
-- `IsQuestDetailOpen()` removido do `Nav:IsActive()` (eliminava taint)
+#### Refatoração Missões & Mapa (100% CONCLUÍDA E HOMOLOGADA)
+- **Fase 1 (Modal de Leitura):** Leitura nobre em pergaminho (`questDetailOverlay`), botões `[X] Rastrear` e `[B] Sair`, abandono seguro com `[Y]` (`StaticPopup_Show`).
+- **Fase 2 (Pool Fixo):** Pools pré-alocados para Zonas (32) e NPCs (24), eliminação completa de `buttons = {}` e zero garbage collection em runtime.
+- **Fase 3 (Navegação Espacial):** D-Pad direcional fluido `QMISSOES ⇄ QNAV ⇄ QNPCS`.
+- **Fase 4 (Seleção de Zonas/Instâncias):** Suporte completo à sub-zona `QZONAS` com níveis `(min-max)` e instâncias contextuais.
+- **Fase 5 (Mecânicas de Mapa & Regressão):** L-Stick pan livre contínuo, zoom via gatilhos `[LT]/[RT]`, sublinhado dourado estável, auto-foco preservado e inter-abas 100% sincronizado.
 
-**Fases 2–5 pendentes:**
-- Fase 2: Pool fixo (32 zonas + 24 NPCs) — eliminar `buttons = {}` + `CreateFrame` destrutivo
-- Fase 3: Navegação espacial `QMISSOES ⇄ QNAV ⇄ QNPCS`
-- Fase 4: Ativação botões do mapa + sub-zona `QZONAS`
-- Fase 5: Preservação L-Stick pan, LT/RT zoom, regressão inter-abas
-
-#### O problema raiz (por que refatorar)
-As listas de Zonas/Mapas e NPCs destroem e recriam botões a cada navegação/polling (`buttons = {}` + `CreateFrame`), corrompendo o `Nav.focus`. O polling de NPCs roda a cada 0.5s concorrentemente com o D-pad. `SelectQuestLogEntry` no stack de input causava `ADDON_ACTION_BLOCKED`. A solução é espelhar o padrão do `MailScreen`/`MerchantMenu`: pool fixo pré-alocado no `CreateUI`, apenas `Show/Hide/SetText` em runtime.
+#### Nova Frente de Trabalho: Tela de Configurações & Sistema (`SYSTEM`)
+Documento: `docs/plano_de_feature_TELA_DE_CONFIGURACOES.md`.
+- **Sub-Aba 1: MENU DO JOGO (`GAME_MENU`):** Opções clássicas do cliente WoW (Vídeo, Áudio, Interface, Macros, Atalhos, Ajuda, Logout, Sair) + botões de Addons de terceiros com ícones temáticos, DetailCard descritivo e disparo seguro de janelas Blizzard.
+- **Sub-Aba 2: CONFIGURAÇÕES DO ADDON (`ADDON_CFG`):** Central de ajustes do ConsoleMode com widgets interativos D-Pad: Toggles com `[A]`, Sliders com `[LEFT/RIGHT]`, Botões de Ação, e Mapeador de Binds integrado (`SYS_BINDS`).
+- **Roteador D-Pad (`MainMenuNav.lua`):** Zonas `SYS_SUBTABS`, `SYS_GAMEMENU`, `SYS_ADDONCFG`, `SYS_BINDS`, alternância rápida via `[LT]/[RT]`.
 
 #### Regras inegociáveis (resumo executivo)
 1. **PUSH SOMENTE quando o usuário pedir, uma vez só. É a regra mais importante.**

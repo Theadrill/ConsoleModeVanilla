@@ -65,114 +65,98 @@ O objetivo desta refatoração é estabilizar a mecânica interna da aba **Miss�
 
 ---
 
-### 🟢 FASE 1: Modal de Leitura da Missão (Botão [A]) e Ações Diretas ([X] e [Y])
+### 🟢 FASE 1: Modal de Leitura da Missão (Botão [A]) e Ações Diretas ([X] e [Y]) [CONCLUÍDA]
 > **Objetivo de Teste:** O jogador está na lista de missões. Ao apertar `[A]`, abre o Modal de Leitura com o texto completo da missão, que rola com `D-Pad UP / DOWN`. O modal possui apenas dois botões: `[X] Rastrear` e `[B] Sair`. Ao apertar `[Y]` na lista, abandona a missão pelo popup oficial da Blizzard. **Zero menus de contexto flutuantes e ZERO erros de segurança da Blizzard.**
 
-- [ ] **1.1.** Criar/reutilizar o frame pré-alocado `ConsoleModeMM_QuestReadingModal` em `UI/MainMenu.lua` (estilo pergaminho nobre com backdrop escurecido, título dourado, scrollframe amplo e texto com formatação limpa).
-- [ ] **1.2.** Criar no rodapé do modal os 2 botões de ação reutilizáveis com as texturas de controle:
+- [x] **1.1.** Criar/reutilizar o frame pré-alocado `ConsoleModeMM_QuestReadingModal` em `UI/MainMenu.lua` (estilo pergaminho nobre com backdrop escurecido, título dourado, scrollframe amplo e texto com formatação limpa).
+- [x] **1.2.** Criar no rodapé do modal os 2 botões de ação reutilizáveis com as texturas de controle:
   - Botão `[X] Rastrear`: alterna o status de rastreio da missão ativa (`IsQuestWatched`, `AddQuestWatch`, `RemoveQuestWatch`).
   - Botão `[B] Sair`: fecha o modal (`Hide()`) e retorna o foco para a missão selecionada na lista.
   - Ambos os botões com scripts de clique de mouse nativos (`OnClick`, `OnEnter`, `OnLeave`).
-- [ ] **1.3.** Conectar o preenchimento de dados de forma passiva em `ShowQuestReadingModal(questLogIndex)`:
+- [x] **1.3.** Conectar o preenchimento de dados de forma passiva em `ShowQuestReadingModal(questLogIndex)`:
   - Ler título, nível e objetivos via `GetQuestLogTitle(questLogIndex)`.
   - Ler descrição e objetivos de `GetQuestLogQuestText()` ou da base local traduzida `Data/QuestDB_ptBR.lua` sem acionar `SelectQuestLogEntry` de dentro do clique do gamepad.
-- [ ] **1.4.** Em `UI/MainMenuNav.lua`:
+- [x] **1.4.** Em `UI/MainMenuNav.lua`:
   - Tratar `OnConfirm (A)` quando `f.zone == "QMISSOES"`: abre o modal de leitura e define a zona como `QLEITURA`.
   - Na zona `QLEITURA`:
     - `D-Pad UP / DOWN`: rola o scrollframe do texto da missão.
     - `Botão X`: aciona a alternância de rastreamento.
     - `Botão B` / tecla `ESC`: fecha o modal e devolve `f.zone = "QMISSOES"`.
   - Tratar `OnUse (Y)` quando `f.zone == "QMISSOES"`: chama direto o diálogo nativo `StaticPopup_Show("ABANDON_QUEST", questTitle)`.
-- [ ] **1.5.** Validação de sintaxe via `luac -p`.
-- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 1):**
-  - O jogador faz `/reload` no jogo.
-  - Abre a aba Missões & Mapa (`SELECT` ou pelo menu).
-  - Aperta `[A]` em uma missão: valida se o modal de leitura abre limpo, sem nenhum erro de segurança na tela.
-  - Rola o texto da história com o D-Pad para cima e para baixo.
-  - Testa o botão `[X]` (rastrear) e fecha com `[B]` ou clicando em Sair com o mouse.
-  - Aperta `[Y]` na lista e valida se o popup clássico da Blizzard para abandonar a missão abre perfeitamente.
+- [x] **1.5.** Validação de sintaxe via `luac -p`.
+- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 1):** VALIDADA E APROVADA NO JOGO.
 
 ---
 
-### 🟢 FASE 2: Estabilização com Pool Fixo de Zonas e NPCs (Fim do `buttons = {}`)
+### 🟢 FASE 2: Estabilização com Pool Fixo de Zonas e NPCs (Fim do `buttons = {}`) [CONCLUÍDA]
 > **Objetivo de Teste:** As listas de Zonas (`zoneListFrame`) e de NPCs (`npcListPanel`) utilizam pools fixos de botões pré-alocados. O loop OnUpdate de 0.5s de NPCs não recria mais botões e não interfere na memória durante a execução do jogo.
 
-- [ ] **2.1.** Pool Fixo de Zonas e Instâncias em `UI/MainMenu.lua`:
+- [x] **2.1.** Pool Fixo de Zonas e Instâncias em `UI/MainMenu.lua`:
   - Pré-alocar 32 botões `ConsoleMode_ZoneListButton1..32` como filhos estáveis de `zoneListFrame.scrollChild`.
   - Refatorar `BuildContinentZoneList` e `BuildInstancesListForZone` para **nunca mais** executar `frame.buttons = {}` com `CreateFrame`. Apenas preencher os dados dos botões existentes, dar `:Show()` nos necessários e `:Hide()` no restante do pool.
   - **Preservar a formatação de níveis e instâncias da zona:**
     - Modo `REGIOES`: exibe cada zona com seu intervalo de nível `Nome (min-max)` (ex: `Ashenvale (18-30)`, `Durotar (1-10)`), extraído de `Data/ZoneLevels.lua`.
     - Modo `INSTANCIAS`: exibe as instâncias contextuais da zona atual com seus níveis `Nome (min-max)` (ex: `Blackfathom Deeps (24-32)` em Ashenvale), extraídos de `Data/Instances.lua` e `Data/ZoneLevels.lua`.
     - Rodapé do mapa exibindo: `[D-Pad] Navegar · [A] Entrar · [B] Voltar`.
-- [ ] **2.2.** Pool Fixo de NPCs em `UI/MainMenu.lua`:
+- [x] **2.2.** Pool Fixo de NPCs em `UI/MainMenu.lua`:
   - Pré-alocar 24 botões `ConsoleMode_NPCListButton1..24` como filhos estáveis de `npcListPanel.scrollChild`.
   - Refatorar `UpdateNPCServicePins` para reutilizar o pool de 24 botões, atualizando nome, ícone e função do NPC sem recriar objetos.
-- [ ] **2.3.** Trava de concorrência (`Nav_focusLock`):
+- [x] **2.3.** Trava de concorrência (`Nav_focusLock`):
   - Inserir guarda no loop OnUpdate de 0.5s de NPCs: se `MainMenuNav.focus.zone == "QNPCS"`, o loop não altera o layout nem a visibilidade dos botões.
-- [ ] **2.4.** Remover chamadas indevidas de `zoneListFrame:Hide()` em rotinas secundárias de highlight.
-- [ ] **2.5.** Validação de sintaxe via `luac -p`.
-- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 2):**
-  - O jogador faz `/reload` no jogo.
-  - Interage com o mapa e valida se as listas de NPCs, Zonas com níveis `(min-max)` e Instâncias contextuais continuam exibindo todos os seus dados perfeitamente, sem falhas de layout e com performance estável.
+- [x] **2.4.** Remover chamadas indevidas de `zoneListFrame:Hide()` em rotinas secundárias de highlight.
+- [x] **2.5.** Validação de sintaxe via `luac -p`.
+- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 2):** VALIDADA E APROVADA NO JOGO.
 
 ---
 
-### 🟢 FASE 3: Navegação Espacial Direcional (Missões ⇄ Botões do Mapa ⇄ NPCs)
+### 🟢 FASE 3: Navegação Espacial Direcional (Missões ⇄ Botões do Mapa ⇄ NPCs) [CONCLUÍDA]
 > **Objetivo de Teste:** O jogador navega livremente pelo D-Pad entre as 3 colunas da tela: saindo da Lista de Missões para a coluna de botões do mapa com `D-Pad LEFT`, e dos botões do mapa para o painel de NPCs com outro `D-Pad LEFT`. O caminho inverso com `D-Pad RIGHT` devolve o foco para a lista de missões.
 
-- [ ] **3.1.** Mapeamento das 3 zonas no `UI/MainMenuNav.lua`:
+- [x] **3.1.** Mapeamento das 3 zonas no `UI/MainMenuNav.lua`:
   - `QMISSOES`: Lista de Missões (coluna direita).
   - `QNAV`: Coluna dos 5 botões de navegação do mapa (`ATUAL`, `KALIMDOR`, `EASTERN KINGDOM`, `INSTANCIAS`, `VOLTAR`).
   - `QNPCS`: Painel de Serviços & NPCs (canto superior esquerdo do mapa).
-- [ ] **3.2.** Regras de Travessia Horizontal no `OnDirection`:
+- [x] **3.2.** Regras de Travessia Horizontal no `OnDirection`:
   - Em `QMISSOES`: `D-Pad LEFT` move para `QNAV` (focando no botão ativo ou no primeiro, `ATUAL`).
   - Em `QNAV`:
     - `D-Pad RIGHT` move de volta para `QMISSOES`.
     - `D-Pad LEFT` move para `QNPCS` (se o painel de NPCs estiver visível).
   - Em `QNPCS`: `D-Pad RIGHT` move de volta para `QNAV`.
-- [ ] **3.3.** Regras Verticais (`D-Pad UP / DOWN`):
+- [x] **3.3.** Regras Verticais (`D-Pad UP / DOWN`):
   - Em `QNAV`: navega sequencialmente entre os 5 botões verticais com realce dourado padrão (`SetVertexColor(1.0, 0.82, 0.20)`).
   - Em `QNPCS`: navega pelos NPCs da lista com auto-scroll vertical.
-- [ ] **3.4.** Suprimir hooks residuais do `Cursor.lua` que tentavam gerenciar navegação de missões (`HandleQuestNavigation`).
-- [ ] **3.5.** Validação de sintaxe via `luac -p`.
-- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 3):**
-  - O jogador faz `/reload`.
-  - Testa a navegação completa em cruz: desce nas missões, aperta `LEFT` e o foco vai para os botões do mapa; aperta `LEFT` de novo e entra nos NPCs; aperta `RIGHT` duas vezes e volta suavemente para as missões.
+- [x] **3.4.** Suprimir hooks residuais do `Cursor.lua` que tentavam gerenciar navegação de missões (`HandleQuestNavigation`).
+- [x] **3.5.** Validação de sintaxe via `luac -p`.
+- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 3):** VALIDADA E APROVADA NO JOGO.
 
 ---
 
-### 🟢 FASE 4: Ativação dos Botões do Mapa e Seleção de Continente / Zonas / Instâncias
+### 🟢 FASE 4: Ativação dos Botões do Mapa e Seleção de Continente / Zonas / Instâncias [CONCLUÍDA]
 > **Objetivo de Teste:** Estando na coluna de botões do mapa (`QNAV`), apertar `[A]` em `ATUAL` centraliza a zona atual; apertar `[A]` em `KALIMDOR` ou `EASTERN KINGDOM` abre o painel `REGIOES` com as zonas e seus níveis `(min-max)`; apertar `[A]` em `INSTÂNCIAS` abre o painel `INSTANCIAS` com as masmorras da zona atual e seus níveis. O foco entra na lista; `[A]` seleciona e carrega o mapa correspondente; `[B]` fecha a lista e devolve o foco para a coluna de botões (`QNAV`).
 
-- [ ] **4.1.** Em `MainMenuNav.lua`:
+- [x] **4.1.** Em `MainMenuNav.lua`:
   - Tratar `OnConfirm (A)` quando `f.zone == "QNAV"`: aciona o clique do botão selecionado (`ATUAL`, `KALIMDOR`, `EASTERN KINGDOM`, `INSTANCIAS`, `VOLTAR`).
-- [ ] **4.2.** Sub-zona `QZONAS`:
+- [x] **4.2.** Sub-zona `QZONAS`:
   - Quando a lista de zonas/instâncias abrir (`zoneListFrame:Show()`), direcionar o foco para `QZONAS`.
   - Em `QZONAS`:
     - `D-Pad UP / DOWN`: navega pelas zonas/instâncias com scroll suave.
     - `Botão A`: seleciona a zona ou instância, carrega o mapa correspondente e fecha a lista.
     - `Botão B`: cancela, fecha a lista (`zoneListFrame:Hide()`) e devolve o foco para a coluna de botões (`QNAV`).
-- [ ] **4.3.** Validação de sintaxe via `luac -p`.
-- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 4):**
-  - O jogador faz `/reload`.
-  - Navega até `KALIMDOR` no D-Pad e aperta `[A]`: valida o painel `REGIOES` com os níveis `(min-max)`.
-  - Navega pelas zonas, escolhe uma com `[A]` e vê o mapa carregar.
-  - Navega até `INSTANCIAS` e aperta `[A]`: valida a exibição das instâncias da zona atual com seus níveis `(min-max)`.
-  - Testa apertar `[B]` para fechar a lista e voltar o foco para a coluna de botões.
+- [x] **4.3.** Validação de sintaxe via `luac -p`.
+- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 4):** VALIDADA E APROVADA NO JOGO.
 
 ---
 
-### 🟢 FASE 5: Preservação do L-Stick (Pan), LT/RT (Zoom) e Regressão Geral
-> **Objetivo de Teste:** O jogador valida que mover o analógico esquerdo (L-Stick) continua movimentando o mapa livremente em qualquer direção, os gatilhos LT/RT continuam controlando o zoom sem qualquer conflito com o D-Pad, e a troca de abas com LB/RB (Bolsas, Magias, Talentos, Missões) mantém todos os focos íntegros.
+### 🟢 FASE 5: Preservação do L-Stick (Pan), LT/RT (Zoom) e Regressão Geral [CONCLUÍDA / CONSOLIDADA]
+> **Objetivo de Teste:** O jogador valida que mover o analógico esquerdo (L-Stick) continua movimentando o mapa livremente em qualquer direção, os gatilhos LT/RT continuam controlando o zoom sem qualquer conflito com o D-Pad, e a troca de abas com LB/RB (Bolsas, Magias, Talentos, Missões) mantém todos os focos íntegros, sublinhado e auto-foco consolidados.
 
-- [ ] **5.1.** Garantir que `stickPanX` e `stickPanY` continuam operando de forma 100% independente do D-Pad durante todo o tempo em que a aba de Missões estiver ativa.
-- [ ] **5.2.** Assegurar que os comandos de zoom `[LT]` e `[RT]` funcionam no mapa em qualquer zona da tela de missões.
-- [ ] **5.3.** Teste de troca inter-abas:
-  - Ir para Bolsas com `[LB]` → voltar para Missões com `[RB]`: a missão anteriormente selecionada deve permanecer destacada sem piscar.
+- [x] **5.1.** Garantir que `stickPanX` e `stickPanY` continuam operando de forma 100% independente do D-Pad durante todo o tempo em que a aba de Missões estiver ativa.
+- [x] **5.2.** Assegurar que os comandos de zoom `[LT]` e `[RT]` funcionam no mapa em qualquer zona da tela de missões.
+- [x] **5.3.** Teste de troca inter-abas:
+  - Ir para Bolsas com `[LB]` → voltar para Missões com `[RB]`: a missão anteriormente selecionada permanece destacada sem piscar.
   - Visitar Livro de Magias e Talentos e certificar que nenhuma outra aba perdeu o comportamento do D-Pad.
-- [ ] **5.4.** Validação de sintaxe final via `luac -p`.
-- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 5):**
-  - O jogador faz `/reload` e realiza o teste geral de controle e mouse em toda a interface do jogo.
+- [x] **5.4.** Sublinhado de foco visual, auto-foco suave e validação de sintaxe final via `luac -p`.
+- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 5):** VALIDADA, CONSOLIDADA E HOMOLOGADA NO JOGO.
 
 ---
 

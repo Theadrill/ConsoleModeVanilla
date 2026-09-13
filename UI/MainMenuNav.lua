@@ -4076,6 +4076,22 @@ function Nav:OnCancel()
             MMNav_PlayMove()
             return true
         end
+        if self.focus and self.focus.zone == "SPGRID" then
+            if isGridScreen then
+                local MM = Nav_GetMM()
+                if MM and type(MM.ShowSpellCategoryScreen) == "function" then
+                    pcall(function() MM:ShowSpellCategoryScreen() end)
+                elseif MM and type(MM.HandleSpellsBack) == "function" then
+                    pcall(function() MM:HandleSpellsBack() end)
+                end
+            end
+            self.focus.zone = "SPCAT"
+            if ps and type(ps.focusedCatIdx) == "number" then self.focus.spellCat = ps.focusedCatIdx end
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
         if isGridScreen then
             local MM = Nav_GetMM()
             if MM and type(MM.ShowSpellCategoryScreen) == "function" then
@@ -4093,7 +4109,8 @@ function Nav:OnCancel()
         Nav_EnsureFocus()
         local fsp = self.focus
         if fsp and fsp.zone == "SPCAT" then
-            fsp.zone = "EQUIP"
+            fsp.returnZone = "SPCAT"
+            fsp.zone = "TABBAR"
             Nav_EnsureFocus()
             Nav_ApplyFocus()
             MMNav_PlayMove()
@@ -4115,6 +4132,19 @@ function Nav:OnCancel()
             pt = MM.tabContainer.pages["TALENTS"]
         end
         local scr = pt and pt.activeScreen
+        if self.focus and self.focus.zone == "TALENTS2" then
+            if scr == 2 then
+                if MM and type(MM.HandleTalentsBack) == "function" then
+                    pcall(function() MM:HandleTalentsBack() end)
+                end
+            end
+            self.focus.zone = "TALENTS1"
+            if pt and type(pt.focusedSpecIdx) == "number" then self.focus.talentSpec = pt.focusedSpecIdx end
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
         if scr == 2 or (scr == nil and self.focus and self.focus.zone == "TALENTS2") then
             if MM and type(MM.HandleTalentsBack) == "function" then
                 pcall(function() MM:HandleTalentsBack() end)
@@ -4129,7 +4159,8 @@ function Nav:OnCancel()
         Nav_EnsureFocus()
         local ftp = self.focus
         if ftp and ftp.zone == "TALENTS1" then
-            ftp.zone = "EQUIP"
+            ftp.returnZone = "TALENTS1"
+            ftp.zone = "TABBAR"
             Nav_EnsureFocus()
             Nav_ApplyFocus()
             MMNav_PlayMove()

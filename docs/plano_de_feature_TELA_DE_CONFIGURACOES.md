@@ -279,38 +279,16 @@ Central de controle das opções do ConsoleMode, dividida em cartões de control
 
 ---
 
-## 8. PRÓXIMA TELA: BINDS DO ADDON (levantamento concluído — falta investigação complementar + plano de implementação)
+## 8. PRÓXIMA TELA: BINDS DO ADDON (levantamento + plano faseado F1..F5 — ver doc dedicado)
 
-Última tela pendente do MainMenu. Levantamento técnico profundo concluído (somente leitura, nada modificado). **Ainda falta: investigação complementar + plano de implementação em fases.**
+Última tela pendente do MainMenu. Levantamento profundo concluído (somente leitura) e plano faseado TESTÁVEL F1..F5 estruturado — **documentado em `docs/plano_de_feature_MAPEADOR_DE_BINDS_NO_MAIN_MENU.md`**.
 
-### 8.1 Fluxo de acesso
-- Entrada: Sub-Aba 2 → 1ª linha "Mapeador de Atalhos / Binds" (`MainMenu.lua:11300`, `UpdateAddonConfigSubPage`) → `ShowBindsScreen()`.
-- Binds (`ConsoleModeMM_BindsScreen`, `11686`) e Picker (`ConsoleModeMM_PickerScreen`, `11893`) são **sub-estados** (`pageSystem.activeSubScreen`: `nil`/`BINDS`/`PICKER`), frames irmãos criados uma vez via `SetupKeybindingsPage()` (`11679`).
-- `[B]` volta pela pilha `HandleBindsBack()` (`13069`): PICKER→BINDS→ADDON_CFG (via `CM_CursorCancel` + botões Voltar).
-
-### 8.2 Estrutura visual (funciona, não reescrever)
-- bindsScreen: header + barra de 5 páginas (Base/L2/R1/R2/L2+R2, LT/RT) + DetailCard inferior + pool de 8 cards (4 D-Pad + 4 ABXY, `CreateBindCard()`, `11579`), cada um com ícone, badge do combo, nome da ação e borda de foco.
-- pickerScreen: header `[ MAPEANDO: <combo> ]` + 4 modos (Grimório/Bolsas/Macros/Barras) + sub-abas dinâmicas + grade 4×4 (`PickerSlot1..16`) + paginação.
-
-### 8.3 Modelo de dados (funciona, unificar espelhos)
-- Binds vivem nos **bindings nativos do WoW** (`GetBindingAction`/`SetBinding` + `SaveBindings`), não em SV do addon.
-- Formato: (página 1-5, botão) → tecla física → ação (`ACTIONBUTTONn`/`MULTIACTIONBARnBUTTONn`/`JUMP`...).
-- **3 tabelas-espelho** (`Keybindings.defaults`, `SBP.KEY_MAPPINGS`, `BINDS_KEY_DEFAULTS`): unificar pontualmente, sem rewrite.
-- Escrita única segura: `KB:ApplySingleGameBinding()` (`Keybindings.lua:714`).
-
-### 8.4 Edição (funciona, manter)
-- Slot → picker → conteúdo → confirmar (`Pickup*+PlaceAction` + `ApplySingleGameBinding`); sem captura de input, mapeamento físico fixo.
-- Limpar: clique direito / `[X]` / botão X; A-pág1 (Pulo) bloqueado.
-
-### 8.5 Navegação gamepad — O MAIOR GAP (é aqui que o trabalho está)
-- **Não existem zonas `SYS_BINDS_*` no `MainMenuNav`** (só `SYS_SUBTABS`/`SYS_GAMEMENU`/`SYS_ADDONCFG`).
-- O que funciona hoje vem do **Cursor legado** (D-Pad geométrico, `[A]` clica, `[B]` via fallback, `[X]` limpa, `[LT]/[RT]` troca páginas).
-- Trabalho futuro = **fiação, não reconstrução**: criar zonas `SYS_BINDS_*`, pintura de foco, handlers direcionais, `[A]/[B]` no Nav.
-
-### 8.6 Integração e legados
-- Disparo 100% nativo via ActionBar; sem taint prático no 1.12; sem guardas de combate na edição.
-- Legado morto candidato a arquivamento (não rewrite): `ConfigFrame.lua`, frame do `KeybindingsList`, frame do `ActionBarPicker`.
-- Leitura de nomes via tooltip-scan é frágil; `savedNavBindings` pode reverter edição externa — endurecer depois.
+Resumo consolidado (4 frentes — detalhe e fases no doc dedicado):
+- **Fluxo:** Sub-Aba 2 → "Mapeador de Atalhos / Binds" (`MainMenu.lua:11300`, `UpdateAddonConfigSubPage`) → `ShowBindsScreen()`: `ConsoleModeMM_BindsScreen:11686` + `ConsoleModeMM_PickerScreen:11893`, sub-estados `pageSystem.activeSubScreen=nil/BINDS/PICKER:11445,12496,13032`, volta `HandleBindsBack:13069`.
+- **Visual (fica, sem rewrite):** `bindsScreen` 8 cards `CreateBindCard:11579` + pageBar 5x; `pickerScreen` modeBar 4 + subTabs + grid 4x4 `PickerSlot1..16` + pageBar; DetailCards Zelda-style; identidade bronze/bordas douradas preservada.
+- **Dados (fica):** bindings nativos `GetBindingAction/SetBinding+SaveBindings` (não SV), `KB:ApplySingleGameBinding:714`, espelhos `KEY_DEFAULTS/BAR_DEFS` para unificar depois.
+- **Navegação — o gap:** **sem zonas `SYS_BINDS*/SYS_PICKER*` no `MainMenuNav:1501`**; hoje `Cursor` genérico + fallbacks. Fiação futura F1..F4 resolve com zonas, pintura e direções determinísticas (lições `EQUIP→SPCAT/TALENTS1` + `QZONAS/QNPCS`).
+- **Integração/legados:** `ConfigFrame.lua` + `KeybindingsList` frame + `ActionBarPicker` frame para arquivar (SBP/BP/MP puros de dados mantidos); `LT/RT` duplo trigger e `savedNavBindings` stale para endurecer em F4/F5.
 
 ---
 

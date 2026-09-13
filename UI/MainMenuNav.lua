@@ -1257,27 +1257,19 @@ local function Nav_PaintGameMenu()
         if row then
             local isFocus = (inZone and i == f.gameMenuIdx)
             if isFocus then
-                if row.highlight then pcall(function() row.highlight:Show() end) end
-                if row.SetBackdropBorderColor then
-                    pcall(function() row:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
-                end
-                if row.SetBackdropColor then
-                    pcall(function() row:SetBackdropColor(1.0, 0.85, 0.2, 0.15) end)
-                end
-                if row.title then
-                    pcall(function() row.title:SetTextColor(1.0, 0.85, 0.2) end)
-                end
+                if row.highlightBar then pcall(function() row.highlightBar:Show() end) end
+                if row.highlight and row.highlight ~= row.highlightBar then pcall(function() row.highlight:Show() end) end
+                if row.bg then pcall(function() row.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18) end) end
+                if row.title then pcall(function() row.title:SetTextColor(1.0, 0.85, 0.2) end) end
+                if row.label and row.label ~= row.title then pcall(function() row.label:SetTextColor(1.0, 0.85, 0.2) end) end
+                if row.nameFS and row.nameFS ~= row.title then pcall(function() row.nameFS:SetTextColor(1.0, 0.85, 0.2) end) end
             else
-                if row.highlight then pcall(function() row.highlight:Hide() end) end
-                if row.SetBackdropBorderColor then
-                    pcall(function() row:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5) end)
-                end
-                if row.SetBackdropColor then
-                    pcall(function() row:SetBackdropColor(0.0, 0.0, 0.0, 0.35) end)
-                end
-                if row.title then
-                    pcall(function() row.title:SetTextColor(1.0, 1.0, 1.0) end)
-                end
+                if row.highlightBar then pcall(function() row.highlightBar:Hide() end) end
+                if row.highlight and row.highlight ~= row.highlightBar then pcall(function() row.highlight:Hide() end) end
+                if row.bg then pcall(function() row.bg:SetVertexColor(0.0, 0.0, 0.0, 0.30) end) end
+                if row.title then pcall(function() row.title:SetTextColor(1.0, 1.0, 1.0) end) end
+                if row.label and row.label ~= row.title then pcall(function() row.label:SetTextColor(1.0, 1.0, 1.0) end) end
+                if row.nameFS and row.nameFS ~= row.title then pcall(function() row.nameFS:SetTextColor(1.0, 1.0, 1.0) end) end
             end
         end
     end
@@ -1288,8 +1280,8 @@ local function Nav_PaintGameMenu()
         local subPage = pageSystem and pageSystem.subPageGameMenu
         local sf = (subPage and subPage.scrollFrame) or getglobal("ConsoleModeMM_GameMenuScrollFrame")
         if sf and sf.GetVerticalScroll then
-            local btnH = 34
-            local gap = 4
+            local btnH = 38
+            local gap = 6
             local cur = sf:GetVerticalScroll() or 0
             local vpH = sf:GetHeight() or 300
             if vpH <= 0 then vpH = 300 end

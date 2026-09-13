@@ -11053,8 +11053,8 @@ function MainMenu:UpdateGameMenuSubPage()
 
     if not subPage.rows then subPage.rows = {} end
 
-    local rowHeight = 34
-    local rowGap = 4
+    local rowHeight = 38
+    local rowGap = 6
     local startY = -4
 
     local tColor = CFG.System.itemTextColor or "|cffffffff"
@@ -11072,25 +11072,18 @@ function MainMenu:UpdateGameMenuSubPage()
         local row = subPage.rows[i]
         if not row then
             row = CreateFrame("Button", "ConsoleModeMM_GameMenuBtn" .. i, sc)
+            row:EnableMouse(true)
             row:SetHeight(rowHeight)
-            row:SetBackdrop({
-                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-                tile     = true, tileSize = 16, edgeSize = 10,
-                insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-            })
-            row:SetBackdropColor(0.0, 0.0, 0.0, 0.35)
-            row:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
 
             local bg = row:CreateTexture(nil, "BACKGROUND")
             bg:SetAllPoints(row)
             bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-            bg:SetVertexColor(0.0, 0.0, 0.0, 0.35)
+            bg:SetVertexColor(0.0, 0.0, 0.0, 0.30)
             row.bg = bg
 
             local highlightBar = row:CreateTexture(nil, "OVERLAY")
             highlightBar:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-            highlightBar:SetWidth(4)
+            highlightBar:SetWidth(3)
             highlightBar:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
             highlightBar:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 0, 0)
             highlightBar:SetVertexColor(1.0, 0.85, 0.2, 0.95)
@@ -11100,24 +11093,27 @@ function MainMenu:UpdateGameMenuSubPage()
             row.borderTex = highlightBar
 
             local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            title:SetPoint("LEFT", row, "LEFT", 16, 0)
-            title:SetPoint("RIGHT", row, "RIGHT", -16, 0)
+            title:SetPoint("TOPLEFT", row, "TOPLEFT", 12, -6)
             title:SetJustifyH("LEFT")
             MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
             row.title = title
             row.label = title
             row.nameFS = title
 
+            local desc = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            desc:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 12, 5)
+            MainMenu:ApplyFont(desc, CFG.Fonts.subFontFile, 11)
+            row.desc = desc
+            row.descFS = desc
+
             row:SetScript("OnEnter", function()
                 this.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18)
                 if this.highlightBar then this.highlightBar:Show() end
-                this:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95)
             end)
 
             row:SetScript("OnLeave", function()
-                this.bg:SetVertexColor(0.0, 0.0, 0.0, 0.35)
+                this.bg:SetVertexColor(0.0, 0.0, 0.0, 0.30)
                 if this.highlightBar then this.highlightBar:Hide() end
-                this:SetBackdropBorderColor(0.5, 0.4, 0.3, 0.5)
             end)
 
             row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
@@ -11204,14 +11200,46 @@ function MainMenu:UpdateGameMenuSubPage()
         end
 
         row:ClearAllPoints()
+        row:SetHeight(rowHeight)
+        row:EnableMouse(true)
+        if row.SetBackdrop then
+            pcall(function() row:SetBackdrop(nil) end)
+        end
+        if row.bg then
+            row.bg:ClearAllPoints()
+            row.bg:SetAllPoints(row)
+            row.bg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+            row.bg:SetVertexColor(0.0, 0.0, 0.0, 0.30)
+        end
+        if row.highlightBar then
+            row.highlightBar:SetWidth(3)
+            row.highlightBar:SetVertexColor(1.0, 0.85, 0.2, 0.95)
+        end
+        if row.title then
+            row.title:ClearAllPoints()
+            row.title:SetPoint("TOPLEFT", row, "TOPLEFT", 12, -6)
+            row.title:SetJustifyH("LEFT")
+            MainMenu:ApplyFont(row.title, CFG.Fonts.bodyFontFile, 14)
+        end
+        if row.desc then
+            row.desc:ClearAllPoints()
+            row.desc:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 12, 5)
+            MainMenu:ApplyFont(row.desc, CFG.Fonts.subFontFile, 11)
+        end
         row:SetPoint("TOPLEFT", sc, "TOPLEFT", 0, startY - (i - 1) * (rowHeight + rowGap))
         row:SetPoint("TOPRIGHT", sc, "TOPRIGHT", 0, startY - (i - 1) * (rowHeight + rowGap))
 
         if row.icon then row.icon:Hide() end
         if row.iconBorder then row.iconBorder:Hide() end
-        if row.desc then row.desc:Hide() end
-        if row.descFS then row.descFS:Hide() end
         row.title:SetText(string.format("%s%s|r", tColor, btnData.title))
+        if row.desc then
+            row.desc:SetText(string.format("|cff888888%s|r", btnData.desc or ""))
+            row.desc:Show()
+        end
+        if row.descFS and row.descFS ~= row.desc then
+            row.descFS:SetText(string.format("|cff888888%s|r", btnData.desc or ""))
+            row.descFS:Show()
+        end
         row.detailText = btnData.detailText
         row.btnData = btnData
         row:Show()

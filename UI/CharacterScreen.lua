@@ -1,9 +1,10 @@
 -- ============================================================================
 -- ConsoleModeVanilla - UI/CharacterScreen.lua
 -- FASE 4 RETRABALHO (docs/plano_de_feature_ABA_DO_PERSONAGEM.md, Fase 4):
--- 11 cards full-width 1 coluna separadas como o BetterCharacterStats:
--- Identidade, Base Stats, Recursos, Melee, Melee vs Boss, Ranged,
--- Spell, Schools, Defenses, Defenses vs Boss, Resistencias.
+-- 11 cards BCS em 2 COLUNAS (metade da largura util cada):
+-- (Identidade, Base), (Recursos, Melee), (MeleeBoss, Ranged),
+-- (Spell, Schools), (Def, DefBoss), (Resist sozinho). Sem barras:
+-- Resistencias em texto "Nome: valor / 100".
 -- Tecnica BCS PORTADA (sem OptionalDeps, sem chamar BCS): formulas base
 -- por classe via UnitStat + varredura de tooltips de gear/talentos/auras
 -- com strfind em GameTooltip dedicado criado uma vez (pool fixo).
@@ -82,7 +83,7 @@ CharacterScreen.scrollStep   = CharacterScreen.scrollStep or 60
 CharacterScreen.contentH     = CharacterScreen.contentH or 0
 CharacterScreen.viewH        = CharacterScreen.viewH or 0
 
--- FASE 4: gap entre cards full-width 1 coluna.
+-- RETRABALHO 2 colunas: gap horizontal entre colunas e vertical entre linhas.
 CharacterScreen.cardGap = CharacterScreen.cardGap or 12
 
 -- ----------------------------------------------------------------------------
@@ -198,16 +199,8 @@ local function CS_DPS(minD, maxD, speed)
     return CS_Fmt1(((minD + maxD) / 2) / speed)
 end
 
--- Barra textual proporcional 0..100+ (12 blocos); pool fixo de
--- FontStrings, sem criar textures novas. Lua 5.0 ok (string.rep).
-local function CS_ResistBar(total)
-    local t = CS_Num(total, 0)
-    if t < 0 then t = 0 end
-    local filled = math.floor((t / 100) * 12)
-    if filled < 0 then filled = 0 end
-    if filled > 12 then filled = 12 end
-    return "[" .. string.rep("=", filled) .. string.rep(" ", 12 - filled) .. "]"
-end
+-- (RETRABALHO 2 colunas: sem barras — helper de barra removido;
+-- Resistencias usa texto "Nome: valor / 100".)
 
 -- Cor hexadecimal da classe: RAID_CLASS_COLORS (1.12) ou fallback estatico.
 local function CS_ClassColorHex(classFile)
@@ -1249,6 +1242,8 @@ end
 -- (Padrao que funciona em MainMenu.lua: zlContent/sc/GameMenu sc usam
 -- SetWidth explicito — 222/460/536. So com TOPLEFT+TOPRIGHT o ScrollChild
 -- 1.12 colapsa para largura 0 no primeiro frame e os blocos somem.)
+-- RETRABALHO 2 colunas: apos SetWidth, recalcula as colunas via
+-- LayoutCards (largura muda apos /reload; fallback 460 dentro do Layout).
 function CharacterScreen:UpdateLayout()
     if not self.scrollFrame or not self.scrollChild then return end
     local w = 0
@@ -1262,7 +1257,9 @@ function CharacterScreen:UpdateLayout()
     end
     if w <= 0 then w = 460 end
     self.scrollChild:SetWidth(w)
-    if self.contentH and self.contentH > 0 then
+    if self.cardOrder then
+        self:LayoutCards()
+    elseif self.contentH and self.contentH > 0 then
         self.scrollChild:SetHeight(self.contentH)
     end
 end
@@ -1303,9 +1300,16 @@ end
 
 -- Cria um card com titulo ambar + N linhas de texto. Pool fixo: chamado
 -- apenas dentro de CreateUI; Refresh() so atualiza os FontStrings.
-local function CS_MakeCard(scrollChild, name, titleText, height, numLines)
+-- RETRABALHO 2 colunas: aceita largura (colW); linhas usam TOPLEFT/TOPRIGHT
+-- do card, entao seguem o SetWidth automaticamente (sem re-ancorar).
+local function CS_MakeCard(scrollChild, name, titleText, height, numLines, width)
     local card = CreateFrame("Frame", name, scrollChild)
     card:SetHeight(height)
+    if width and type(width) == "number" and width > 0 then
+        if type(card.SetWidth) == "function" then
+            card:SetWidth(width)
+        end
+    end
     -- Guards 1.12: sem backdrop o card ainda aparece (degradacao graciosa
     -- em vez de abortar o CreateUI inteiro e travar no placeholder).
     if type(card.SetBackdrop) == "function" then
@@ -1351,39 +1355,72 @@ local function CS_MakeCard(scrollChild, name, titleText, height, numLines)
     return card
 end
 
--- Empilha os cards visiveis (Ranged oculto p/ relic classes), recalcula
--- contentH = soma das alturas + gaps + padding. Pool fixo: so reposiciona.
+-- RETRABALHO 2 colunas: pareamento sequencial dos VISIVEIS na ordem do
+-- cardOrder — (Ident,Base),(Res,Melee),(MeleeBoss,Ranged),(Spell,Schools),
+-- (Def,DefBoss),(Resist sozinho). Ranged oculto p/ relic classes NAO deixa
+-- buraco (pares recomputados so com visiveis). Linha: altura = max(A,B),
+-- cards top-aligned. contentH = soma das linhas + gaps + padding.
+-- Pool fixo: so reposiciona + SetWidth (linhas sao TOPLEFT/TOPRIGHT do card,
+-- seguem a largura automaticamente).
 function CharacterScreen:LayoutCards()
     if not self.cardOrder or not self.scrollChild then return end
     local gap = self.cardGap or 12
-    local yOff = -4
-    local first = true
-    local totalH = 0
+    local totalW = 460
+    if type(self.scrollChild.GetWidth) == "function" then
+        local sw = self.scrollChild:GetWidth()
+        if type(sw) == "number" and sw > 0 then totalW = sw end
+    end
+    if totalW <= 0 then totalW = 460 end
+    local avail = totalW - 8
+    if avail <= 0 then avail = 452 end
+    local colW = (avail - gap) / 2
+    local rightX = 4 + colW + gap
+    local relic = CS_HasRelicSlot()
+    local vis = {}
     local n = table.getn(self.cardOrder)
     for i = 1, n do
         local card = self.cardOrder[i]
         if card then
-            local show = true
-            if card == self.cardRanged and CS_HasRelicSlot() then
-                show = false
-            end
-            if show then
-                if type(card.Show) == "function" then card:Show() end
-                card:ClearAllPoints()
-                card:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
-                card:SetPoint("TOPRIGHT", self.scrollChild, "TOPRIGHT", -4, yOff)
-                local h = card.cardH or 170
-                yOff = yOff - h - gap
-                if first then
-                    totalH = h
-                    first = false
-                else
-                    totalH = totalH + gap + h
-                end
-            else
+            if card == self.cardRanged and relic then
                 if type(card.Hide) == "function" then card:Hide() end
+            else
+                table.insert(vis, card)
             end
         end
+    end
+    local m = table.getn(vis)
+    local yOff = -4
+    local totalH = 0
+    local row = 0
+    local i = 1
+    while i <= m do
+        local left = vis[i]
+        local right = nil
+        if (i + 1) <= m then right = vis[i + 1] end
+        local hL = left.cardH or 170
+        local rowH = hL
+        if right then
+            local hR = right.cardH or 170
+            if hR > rowH then rowH = hR end
+        end
+        if type(left.Show) == "function" then left:Show() end
+        if type(left.SetWidth) == "function" then left:SetWidth(colW) end
+        left:ClearAllPoints()
+        left:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
+        if right then
+            if type(right.Show) == "function" then right:Show() end
+            if type(right.SetWidth) == "function" then right:SetWidth(colW) end
+            right:ClearAllPoints()
+            right:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", rightX, yOff)
+        end
+        if row == 0 then
+            totalH = rowH
+        else
+            totalH = totalH + gap + rowH
+        end
+        row = row + 1
+        yOff = yOff - rowH - gap
+        i = i + 2
     end
     totalH = totalH + 8
     self.contentH = totalH
@@ -1435,17 +1472,20 @@ function CharacterScreen:CreateUI(parent)
 
     -- FASE 4: 11 cards BCS (6 linhas por categoria BCS) + Identidade (6),
     -- Recursos (4) e Resistencias (5). Pool fixo: criados uma vez aqui.
-    self.cardIdent     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardIdent", "IDENTIDADE & BIOGRAFIA", 200, 6)
-    self.cardBase      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardBase", "ATRIBUTOS PRIMARIOS (BASE STATS)", 190, 6)
-    self.cardRes       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRes", "RECURSOS & REGENERACAO", 150, 4)
-    self.cardMelee     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMelee", "COMBATE CORPO A CORPO (MELEE)", 190, 6)
-    self.cardMeleeBoss = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMeleeBoss", "MELEE VS BOSS (NIVEL 63)", 190, 6)
-    self.cardRanged    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRanged", "COMBATE A DISTANCIA (RANGED)", 190, 6)
-    self.cardSpell     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSpell", "PODER MAGICO (SPELL)", 190, 6)
-    self.cardSchools   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSchools", "ESCOLAS DE MAGIA (SCHOOLS)", 190, 6)
-    self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", "DEFESA & SOBREVIVENCIA", 190, 6)
-    self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", "DEFESA VS BOSS (NIVEL 63)", 190, 6)
-    self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", "RESISTENCIAS ELEMENTAIS", 170, 5)
+    -- RETRABALHO 2 colunas: largura inicial = metade da largura util
+    -- (LayoutCards reajusta via SetWidth a cada Refresh/UpdateLayout).
+    local colW = ((parentW - 8) - (self.cardGap or 12)) / 2
+    self.cardIdent     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardIdent", "IDENTIDADE & BIOGRAFIA", 200, 6, colW)
+    self.cardBase      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardBase", "ATRIBUTOS PRIMARIOS (BASE STATS)", 190, 6, colW)
+    self.cardRes       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRes", "RECURSOS & REGENERACAO", 150, 4, colW)
+    self.cardMelee     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMelee", "COMBATE CORPO A CORPO (MELEE)", 190, 6, colW)
+    self.cardMeleeBoss = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMeleeBoss", "MELEE VS BOSS (NIVEL 63)", 190, 6, colW)
+    self.cardRanged    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRanged", "COMBATE A DISTANCIA (RANGED)", 190, 6, colW)
+    self.cardSpell     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSpell", "PODER MAGICO (SPELL)", 190, 6, colW)
+    self.cardSchools   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSchools", "ESCOLAS DE MAGIA (SCHOOLS)", 190, 6, colW)
+    self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", "DEFESA & SOBREVIVENCIA", 190, 6, colW)
+    self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", "DEFESA VS BOSS (NIVEL 63)", 190, 6, colW)
+    self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", "RESISTENCIAS ELEMENTAIS", 170, 5, colW)
 
     self.cardOrder = {
         self.cardIdent, self.cardBase, self.cardRes,
@@ -1509,7 +1549,6 @@ local H = {
     Fmt1 = CS_Fmt1,
     Fmt2 = CS_Fmt2,
     DPS = CS_DPS,
-    ResistBar = CS_ResistBar,
     ClassColorHex = CS_ClassColorHex,
     PlayerClass = CS_PlayerClass,
     OffhandHasWeapon = CS_OffhandHasWeapon,
@@ -2083,8 +2122,8 @@ end
 
 local function CS_RefreshResist(self)
 -- CARD 11: Resistencias. UnitResistance("player", 2..6)
-    -- (indice 1 = Armadura, pulado). Exibe total + barra textual
-    -- proporcional via string.rep; sem criar textures novas.
+    -- (indice 1 = Armadura, pulado). RETRABALHO: sem barra textual;
+    -- formato padrao texto "Nome: valor / 100".
     local c11 = self.cardResist
     if c11 and c11.lines and table.getn(c11.lines) >= 5 then
         local resNames = { "Fogo", "Natureza", "Gelo", "Sombra", "Arcano" }
@@ -2098,8 +2137,7 @@ local function CS_RefreshResist(self)
                 end
             end
             local tot = H.Num(rtotal, H.Num(rbase, 0))
-            local line = tostring(resNames[i]) .. ": " .. tostring(tot)
-                .. " " .. H.ResistBar(tot)
+            local line = tostring(resNames[i]) .. ": " .. tostring(tot) .. " / 100"
             local pos = H.Num(rpos, 0)
             local neg = H.Num(rneg, 0)
             if pos > 0 then

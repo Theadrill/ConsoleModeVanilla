@@ -36,19 +36,24 @@ Esta feature implementa a **Aba do Personagem ("PERSONAGEM")** acessada pelo `Ma
      - **Linha 2:** `[ Missões & Mapa ]` `*[ PERSONAGEM ]*` `[ Opções / Binds ]`
    - Navegação contínua e cíclica pelos botões de ombro `[LB]` e `[RB]`.
 3. **Módulo Desacoplado da Ficha (`UI/CharacterScreen.lua`):**
-   - Um arquivo limpo, modular e autônomo contendo a renderização da área scrollável, a leitura de todas as APIs do jogo e a gerência dos cards:
-     - **Identidade & Biografia** (Nome, Nível, Raça, Classe, Guilda, XP, Modos Hardcore/Turtle).
-     - **Atributos Primários & Recursos** (Força, Agilidade, Vigor, Intelecto, Espírito, Vida, Fúria/Mana, Regen).
-     - **Combate Corpo a Corpo (Melee)** (AP, Dano Main/Off, Velocidade, DPS, Crítico, Hit).
-     - **Combate à Distância (Ranged)** (Ranged AP, Dano, Velocidade, DPS, Crítico).
-     - **Defesa & Sobrevivência** (Armadura, Defesa, Esquiva, Aparo, Bloqueio, Valor de Bloqueio).
-     - **Resistências Elementais** (Fogo, Natureza, Gelo, Sombra, Arcano com barras visuais).
-     - **Poder Mágico & Cura** (Spell Damage por escola, +Heal, Crítico Mágico, MP5).
+   - Um arquivo limpo, modular e autônomo contendo a renderização da área scrollável, a leitura de todas as APIs do jogo e a gerência dos cards.
+   - **Separação de seções espelhando o addon BetterCharacterStats v1.14.x (moh, Bennylava, Lexie, Spit, Pepopo) — ver créditos no `README.md`:** cada grupo abaixo vira um card próprio na ficha, na mesma ordem do addon:
+     - **Identidade & Biografia** (Nome, Nível, Raça, Classe, Guilda, XP, Modos Hardcore/Turtle). Card próprio ConsoleMode (fora do BCS).
+     - **Base Stats** (Força, Agilidade, Vigor, Intelecto, Espírito + Armadura).
+     - **Melee** (Perícia de Arma, Dano, Velocidade de Ataque, Attack Power, Hit, Crítico Melee).
+     - **Melee vs Boss** (Perícia de Arma, chance de Miss/Dodge do boss, redução de Glancing, Crit Cap, Crítico Efetivo vs alvo nível 63).
+     - **Ranged** (Perícia Ranged, Dano, Velocidade, Ranged AP, Hit, Crítico Ranged). Oculto para classes com slot de relíquia (mesma regra do BCS).
+     - **Spell** (Spell Power, Hit Mágico, Crítico Mágico, Cura (+Heal), Regen de Mana, Spell Haste).
+     - **Schools** (Spell Power por escola: Arcano, Fogo, Gelo, Sagrado, Natureza, Sombra).
+     - **Defenses** (Armadura, Defesa, Esquiva, Aparo, Bloqueio, Esquiva Total).
+     - **Defenses vs Boss** (idem, com diferencial de +3 níveis vs alvo nível 63).
+     - **Resistências Elementais** (Fogo, Natureza, Gelo, Sombra, Arcano com barras visuais). Card próprio ConsoleMode (fora do BCS, via `UnitResistance` real).
      - **Profissões & Ofícios** (Primárias, Secundárias e Sobrevivência/Tendas com barras `X/300`).
      - **Perícias de Armas & Armaduras** (Espadas, Machados, Arcos, etc. com barras `X/300`).
      - **Honra & JxJ (PvP)** (Rank militar, progresso semanal, abates hoje/ontem/vida).
      - **Reputações & Facções** (Capitais e facções com barras de amizade).
      - **Idiomas & Raciais** (Línguas conhecidas e passivas raciais).
+   - **Técnica de cálculo (fonte: `BetterCharacterStats/helper.lua`):** a 1.12 NÃO expõe `GetManaRegen`/`GetSpellBonusDamage`/`GetSpellCritChance` — o BCS calcula tudo com APIs permitidas e a ficha replica a técnica: (a) fórmulas base por classe via `UnitStat` (ex. regen `spirit/4 + 12.5` para priest/mage); (b) varredura de tooltips de equipamento/talentos/auras com `strfind` (padrões `"Restores (%d+) mana per 5 sec."`, `"Mana Regen %+(%d+)"` etc.); (c) tabelas vs Boss derivadas da perícia de arma/defesa contra alvo nível 63. Nenhum número é inventado: onde não houver fórmula confiável, o card exibe `"—"` honesto até a técnica ser portada.
 4. **Navegação & Cursor (D-Pad Direto + Arquitetura de Hover Adormecida):**
    - **Comportamento Atual:** A navegação nesta página é feita pelo **D-Pad (`Cima`/`Baixo`)**, rolando a página de forma contínua e direta.
    - **Infraestrutura de Hover Pré-Construída (Dormant):** Cada campo e card da ficha já é registrado em uma matriz de foco com callbacks `OnEnter`/`OnLeave` e bordas douradas ativas. Uma chave booleana `CharacterScreen.enableSlotNavigation = false` mantém o hover item a item desligado no momento, garantindo que no futuro baste mudar a flag para `true` para ter navegação slot-a-slot estilo console sem precisar reescrever nada.
@@ -245,8 +250,8 @@ Cada fase foi planejada para gerar um entregável **100% testável no jogo via `
 
 ---
 
-### 🟢 FASE 3: Cards de Identidade, Atributos Primários e Recursos (Dados Reais)
-> **Objetivo de Teste:** Os blocos de teste são substituídos pelos 3 primeiros cards reais preenchidos com os dados dinâmicos do personagem do jogador: Identidade/Bio, Atributos Primários com bônus/penalidades e Recursos (Vida, Mana/Fúria/Energia e taxas de regeneração).
+### 🟢 FASE 3: Cards de Identidade, Base Stats e Recursos (Dados Reais)
+> **Objetivo de Teste:** Os blocos de teste são substituídos pelos 3 primeiros cards reais preenchidos com os dados dinâmicos do personagem do jogador: Identidade/Bio, Base Stats no padrão BetterCharacterStats (5 atributos + Armadura) e Recursos (Vida, Mana/Fúria/Energia e taxas de regeneração — regen calculada pela técnica BCS na Fase 4).
 
 - [ ] Implementar dentro de `UI/CharacterScreen.lua`:
   - **Card Identidade & Biografia:** Nome, Nível, Classe (colorida pela cor da classe), Raça, Guilda com patente, Posto PvP, barra de XP atual e detecção de auras do Turtle WoW (Hardcore/Turtle Mode).
@@ -258,18 +263,22 @@ Cada fase foi planejada para gerar um entregável **100% testável no jogo via `
 
 ---
 
-### 🟢 FASE 4: Cards de Estatísticas de Combate (Melee, Ranged, Mágico, Defesa e Resistências)
-> **Objetivo de Teste:** A página passa a exibir os cards completos de combate: Ataque Físico Corpo a Corpo, Ataque à Distância, Poder Mágico por escola elementar, Defesa/Mitigação com percentuais e as 5 Resistências Elementais com barras gráficas coloridas.
+### 🟢 FASE 4: Cards de Estatísticas de Combate no padrão BetterCharacterStats (Base, Melee, Melee vs Boss, Ranged, Spell, Schools, Defenses, Defenses vs Boss + Resistências)
+> **Objetivo de Teste:** A página passa a exibir os cards de combate **separados exatamente como o addon BetterCharacterStats separa** (dropdown `PLAYERSTAT_*`): Base Stats, Melee, Melee vs Boss, Ranged, Spell, Schools, Defenses, Defenses vs Boss — mais o card próprio de Resistências Elementais. Valores calculados pela técnica do BCS (fórmulas + scan de tooltips), sem número inventado.
 
-- [ ] Implementar dentro de `UI/CharacterScreen.lua`:
-  - **Card Combate Melee:** Attack Power, Dano min-max de armas principal e secundária, Velocidade, DPS real, % Crítico Melee e % Chance de Acerto (Hit).
-  - **Card Combate Ranged:** Ranged AP, Dano da arma de longo alcance, Velocidade de disparo, DPS e % Crítico Ranged.
-  - **Card Defesa & Sobrevivência:** Armadura total com mitigação percentual, Habilidade de Defesa, % Esquiva (Dodge), % Aparo (Parry), % Bloqueio (Block) e Valor de Bloqueio.
-  - **Card Poder Mágico & Conjuração:** Bônus de Cura (+Heal), Dano por Escola (Sagrado, Fogo, Natureza, Gelo, Sombra, Arcano) e % Crítico Mágico.
-  - **Card Resistências Elementais:** Barras proporcionais coloridas para Fogo, Natureza, Gelo, Sombra e Arcano com percentual de resistência média estimada.
-- [ ] Conectar os eventos `UNIT_ATTACK_POWER`, `UNIT_RANGED_ATTACK_POWER`, `UNIT_RESISTANCES` e `UNIT_INVENTORY_CHANGED`.
+- [ ] Implementar dentro de `UI/CharacterScreen.lua` (1 card por grupo BCS, full-width, pool fixo):
+  - **Card Base Stats:** Força, Agilidade, Vigor, Intelecto, Espírito (`UnitStat` 1..5 com bônus verde/vermelho) + Armadura (`UnitArmor`).
+  - **Card Melee:** Perícia de Arma, Dano main/off (`UnitDamage`), Velocidade (`UnitAttackSpeed`), Attack Power (`UnitAttackPower`), Hit melee, Crítico (`GetCritChance`).
+  - **Card Melee vs Boss:** Perícia de Arma + Miss/Dodge do boss, redução de Glancing, Crit Cap e Crítico Efetivo vs alvo nível 63 (tabelas derivadas da perícia — técnica `BCS:SetBossMissChance/SetBossDodgeChance/SetBossGlanceReduction/SetBossCritCap/SetEffectiveBossCrit`).
+  - **Card Ranged:** Perícia Ranged, Dano, Velocidade, Ranged AP, Hit, Crítico Ranged (oculto p/ classes com relíquia, regra BCS).
+  - **Card Spell:** Spell Power, Hit mágico, Crítico mágico (`BCS:GetSpellCritChance`), Cura (+Heal), Regen de Mana (`BCS:GetManaRegen`: fórmula espírito/classe + scan MP5) e Spell Haste.
+  - **Card Schools:** Spell Power por escola — Arcano, Fogo, Gelo, Sagrado, Natureza, Sombra (scan de bônus por escola).
+  - **Card Defenses:** Armadura, Defesa (`UnitDefense`), Esquiva, Aparo, Bloqueio (`GetDodge/Parry/BlockChance`), Esquiva Total.
+  - **Card Defenses vs Boss:** idem com diferencial +3 níveis (técnica `BCS:SetDodge/SetParry/SetBlock/SetTotalAvoidance` com `levelDiff = 3`).
+  - **Card Resistências Elementais (próprio ConsoleMode):** barras proporcionais Fogo/Natureza/Gelo/Sombra/Arcano via `UnitResistance` real.
+- [ ] Conectar os eventos `UNIT_ATTACK_POWER`, `UNIT_RANGED_ATTACK_POWER`, `UNIT_RESISTANCES` e `UNIT_INVENTORY_CHANGED` (o scan de gear re-roda sob `needScanGear`, padrão BCS).
 - [ ] Validar sintaxe com `luac -p`.
-- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 4):** O jogador equipa/desequipa uma arma ou escudo e confirma se os valores de DPS, Defesa e Bloqueio atualizam imediatamente na tela.
+- **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 4):** O jogador equipa/desequipa arma/escudo e confirma DPS/Defesa/Bloqueio atualizando; compara cada card lado a lado com o BetterCharacterStats (modo comparação com strata rebaixado) e confirma fidelidade — incluindo Melee vs Boss e Mana Regen.
 
 ---
 

@@ -1288,11 +1288,6 @@ function CM_CursorConfirm()
         if _tHandled then return end
     end
 
-    if not CM.cursor or not CM.cursor.state.enabled then
-        if Jump then Jump() end
-        return
-    end
-
     -- Seletor de quantidade compartilhado: [A] confirma.
     do
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
@@ -1300,6 +1295,25 @@ function CM_CursorConfirm()
             qp:Confirm()
             return
         end
+    end
+
+    -- Menu de Contexto compartilhado: [A] confirma o botão focado
+    do
+        local ctxMenu = CM.ui and CM.ui.contextMenu
+        if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then
+            if CM.cursor and CM.cursor.state and CM.cursor.state.currentButton and CM.cursor.state.currentButton:IsVisible() then
+                CM.logger:Log("ContextMenu: Confirmar (A)")
+                local btn = CM.cursor.state.currentButton
+                if btn.Click then
+                    btn:Click("LeftButton")
+                end
+                return
+            end
+        end
+    end
+
+    if not CM.cursor or not CM.cursor.state.enabled then
+        return
     end
     
     -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao A (Confirmar/Clicar)") -- NOLOG 2026-09-14

@@ -245,6 +245,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
 
 
     if CM.cursor then
+        if CM.cursor.Enable then CM.cursor:Enable() end
         CM.cursor.state.activeFrames[self.frame] = true
         local targetBtn = nil
         if self.buttons then
@@ -343,6 +344,7 @@ function Menu:OpenForEquipItem(invSlotID, anchorFrame)
     PlaySound("igMainMenuOptionCheckBoxOn")
 
     if CM.cursor then
+        if CM.cursor.Enable then CM.cursor:Enable() end
         CM.cursor.state.activeFrames[self.frame] = true
         if unequipBtn then
             CM.cursor:MoveTo(unequipBtn)
@@ -408,6 +410,7 @@ function Menu:OpenForBuff(buffIndex, buffName, anchorFrame)
     PlaySound("igMainMenuOptionCheckBoxOn")
 
     if CM.cursor then
+        if CM.cursor.Enable then CM.cursor:Enable() end
         CM.cursor.state.activeFrames[self.frame] = true
         if cancelBtn then
             CM.cursor:MoveTo(cancelBtn)
@@ -433,6 +436,11 @@ function Menu:Close()
         if self.returnButton and self.returnButton:IsVisible() then
             CM.cursor:MoveTo(self.returnButton)
             CM.cursor:UpdateState()
+        end
+        -- Se o menu principal com navegação de console estiver ativo, mantém o ponteiro escondido
+        local nav = getglobal("ConsoleMode_MainMenuNav")
+        if nav and nav.IsActive and nav:IsActive() then
+            if CM.cursor.Hide then CM.cursor:Hide() end
         end
     end
 
@@ -482,8 +490,29 @@ function Menu:ExecuteAction(action)
         if invSlot then
             PickupInventoryItem(invSlot)
             PutItemInBackpack()
-            if CursorHasItem() then ClearCursor() end
-            PlaySound("igMainMenuOptionCheckBoxOn")
+            if CursorHasItem() then
+                for b = 1, 4 do
+                    local numSlots = GetContainerNumSlots(b)
+                    if numSlots and numSlots > 0 then
+                        for s = 1, numSlots do
+                            local tex = GetContainerItemInfo(b, s)
+                            if not tex then
+                                PickupContainerItem(b, s)
+                                if not CursorHasItem() then break end
+                            end
+                        end
+                    end
+                    if not CursorHasItem() then break end
+                end
+            end
+            if CursorHasItem() then
+                ClearCursor()
+                if DEFAULT_CHAT_FRAME then
+                    DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Suas bolsas estão cheias!")
+                end
+            else
+                PlaySound("igMainMenuOptionCheckBoxOn")
+            end
             if CM.mainMenu and CM.mainMenu.UpdateEquipmentColumn then
                 CM.mainMenu:UpdateEquipmentColumn()
                 CM.mainMenu:UpdatePlayerModel()
@@ -762,6 +791,7 @@ function Menu:OpenForQuest(questLogIndex, questTitle, anchorFrame)
     PlaySound("igMainMenuOptionCheckBoxOn")
 
     if CM.cursor then
+        if CM.cursor.Enable then CM.cursor:Enable() end
         CM.cursor.state.activeFrames[self.frame] = true
         if btn1 then
             CM.cursor:MoveTo(btn1)

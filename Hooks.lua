@@ -237,8 +237,9 @@ function Hooks:OnFrameShow(frame)
     end
 
     -- MainMenuNav ativo: ele gerencia a navegacao do MainMenu (D-pad);
-    -- cursor virtual fica escondido, SEM Enable/MoveTo inicial.
+    -- cursor virtual fica escondido (Enable mantém state.enabled ativo sem MoveTo/Show).
     if name == "ConsoleModeMainMenuFrame" and MainMenuNavActive() then
+        if Cursor.Enable then Cursor:Enable() end
         if Cursor.Hide then Cursor:Hide() end
         return
     end

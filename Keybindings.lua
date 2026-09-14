@@ -362,6 +362,8 @@ modFrame:SetScript("OnUpdate", function()
         local isQuestsTab = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and (mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS")
         local isMerchant = ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen
         local isMail = ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen
+        local pageSystem = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and mm and mm.tabContainer and mm.tabContainer.pages and mm.tabContainer.pages["SYSTEM"]
+        local isSysSubActive = pageSystem and pageSystem:IsVisible() and (pageSystem.activeSubScreen == "BINDS" or pageSystem.activeSubScreen == "PICKER")
 
         -- 1. R1 (CTRL) = Próxima Aba Principal / Alternar Colunas
         if ctrlNow and not wasCtrlDown then
@@ -370,7 +372,9 @@ modFrame:SetScript("OnUpdate", function()
             elseif isMail and ConsoleMode_MailScreen.ShowComposeScreen then
                 -- M4.1: RB/R1 vai p/ a tela COMPOR (substitui ToggleColumn).
                 ConsoleMode_MailScreen:ShowComposeScreen()
-            elseif CM.cursor and CM.cursor.CycleTabs then
+            elseif ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() and ConsoleMode_MainMenuNav.OnNextTab and ConsoleMode_MainMenuNav:OnNextTab() then
+                -- Interceptado pelo MainMenuNav (ex: BINDS / PICKER)
+            elseif not isSysSubActive and CM.cursor and CM.cursor.CycleTabs then
                 CM.cursor:CycleTabs(1)
             end
         end
@@ -388,7 +392,9 @@ modFrame:SetScript("OnUpdate", function()
                 end
             elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(-1)
-            elseif CM.cursor and CM.cursor.CycleSubTabs then
+            elseif ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() and ConsoleMode_MainMenuNav.OnPrevSubTab and ConsoleMode_MainMenuNav:OnPrevSubTab() then
+                -- Interceptado pelo MainMenuNav (ex: BINDS cicla pagina, PICKER consome)
+            elseif not (pageSystem and pageSystem:IsVisible() and pageSystem.activeSubScreen == "PICKER") and CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(-1)
             end
         end
@@ -406,7 +412,9 @@ modFrame:SetScript("OnUpdate", function()
                 end
             elseif isQuestsTab and mm and mm.MapZoomStep then
                 mm:MapZoomStep(1)
-            elseif CM.cursor and CM.cursor.CycleSubTabs then
+            elseif ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() and ConsoleMode_MainMenuNav.OnNextSubTab and ConsoleMode_MainMenuNav:OnNextSubTab() then
+                -- Interceptado pelo MainMenuNav (ex: BINDS cicla pagina, PICKER consome)
+            elseif not (pageSystem and pageSystem:IsVisible() and pageSystem.activeSubScreen == "PICKER") and CM.cursor and CM.cursor.CycleSubTabs then
                 CM.cursor:CycleSubTabs(1)
             end
         end
@@ -1174,7 +1182,7 @@ function CM_CursorMove(direction, keystate)
             CM.cursor:StopRepeat(direction)
         end
     else
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Key]|r D-Pad: " .. tostring(direction))
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Key]|r D-Pad: " .. tostring(direction)) -- NOLOG 2026-09-14
         CM.logger:Log("Cursor: Mover " .. tostring(direction))
         if CM.cursor.StartRepeat then
             CM.cursor:StartRepeat(direction)
@@ -1204,7 +1212,7 @@ function CM_CursorConfirm()
         end
         if ConsoleMode_MerchantMenu.activeColumn == "BAGS" then
             ConsoleMode_MerchantMenu:SellSelectedItem()
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão A (Vender item)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão A (Vender item)") -- NOLOG 2026-09-14
             return
         elseif ConsoleMode_MerchantMenu.activeColumn == "VENDOR" then
             if ConsoleMode_MerchantMenu.BuySelectedItem then
@@ -1294,7 +1302,7 @@ function CM_CursorConfirm()
         end
     end
     
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao A (Confirmar/Clicar)")
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao A (Confirmar/Clicar)") -- NOLOG 2026-09-14
     CM.logger:Log("Cursor: Confirmar (A)")
     CM.cursor:Click("LeftButton")
 end
@@ -1380,7 +1388,7 @@ function CM_CursorUse()
     if not CM.cursor or not CM.cursor.state.enabled or not CM.cursor.state.currentButton then
         return
     end
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao Y (Usar Item / Botao Direito)")
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao Y (Usar Item / Botao Direito)") -- NOLOG 2026-09-14
     CM.logger:Log("Cursor: Usar Item / Botao Direito (Y)")
     CM.cursor:Click("RightButton")
 end
@@ -1415,7 +1423,7 @@ function CM_CursorSecondary(keystate)
         end
         if ConsoleMode_MerchantMenu.activeColumn == "BAGS" then
             ConsoleMode_MerchantMenu:SellSelectedItem()
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão X (Vender item)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botão X (Vender item)") -- NOLOG 2026-09-14
             return
         elseif ConsoleMode_MerchantMenu.activeColumn == "VENDOR" then
             if ConsoleMode_MerchantMenu.VendorSecondaryAction then
@@ -1455,7 +1463,7 @@ function CM_CursorSecondary(keystate)
     local mmQ = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if mmQ and mmQ.HandleBindsClear and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
         if mmQ:HandleBindsClear() then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao X (Limpar Atalho)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao X (Limpar Atalho)") -- NOLOG 2026-09-14
             return
         end
     end
@@ -1463,7 +1471,7 @@ function CM_CursorSecondary(keystate)
     if CM.cursor and CM.cursor.state and CM.cursor.state.currentButton then
         local btn = CM.cursor.state.currentButton
         if btn and btn.Click then
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao X (Acao Secundaria)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao X (Acao Secundaria)") -- NOLOG 2026-09-14
             btn:Click("LeftButton")
         end
     end
@@ -1495,7 +1503,7 @@ function CM_CursorCancel()
             return
         end
         ConsoleMode_MerchantMenu:Close()
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mercador fechado)")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mercador fechado)") -- NOLOG 2026-09-14
         return
     end
 
@@ -1520,24 +1528,24 @@ function CM_CursorCancel()
     local mmQ = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if mmQ and mmQ.IsQuestDetailVisible and mmQ:IsQuestDetailVisible() then
         mmQ:HideQuestDetail()
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Detalhes da Missao)")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Detalhes da Missao)") -- NOLOG 2026-09-14
         return
     end
     if mmQ and mmQ.HandleTalentsBack and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
         if mmQ:HandleTalentsBack() then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Especializacoes)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Especializacoes)") -- NOLOG 2026-09-14
             return
         end
     end
     if mmQ and mmQ.HandleSpellsBack and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
         if mmQ:HandleSpellsBack() then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Categorias Grimorio)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Categorias Grimorio)") -- NOLOG 2026-09-14
             return
         end
     end
     if mmQ and mmQ.HandleBindsBack and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
         if mmQ:HandleBindsBack() then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Configuracoes)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Retornar Configuracoes)") -- NOLOG 2026-09-14
             return
         end
     end
@@ -1546,7 +1554,7 @@ function CM_CursorCancel()
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
         if qp and qp.IsOpen and qp:IsOpen() then
             qp:Cancel()
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Quantidade)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Quantidade)") -- NOLOG 2026-09-14
             return
         end
     end
@@ -1554,7 +1562,7 @@ function CM_CursorCancel()
     local ctxMenu = CM.ui and CM.ui.contextMenu
     if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then
         ctxMenu:Close()
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Menu de Contexto)")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Menu de Contexto)") -- NOLOG 2026-09-14
         return
     end
 
@@ -1571,19 +1579,19 @@ function CM_CursorCancel()
     -- 1. Se estiver com item ou magia no cursor do mouse, limpa a mão
     if CursorHasItem() or CursorHasSpell() then
         ClearCursor()
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Item no cursor limpo)")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Item no cursor limpo)") -- NOLOG 2026-09-14
         return
     end
     
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if mm and mm.HandleMapBack and ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
         if mm:HandleMapBack() then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mapa: voltar)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mapa: voltar)") -- NOLOG 2026-09-14
             return
         end
     end
     if CM.hooks and CM.hooks.CloseTopFrame and CM.hooks:CloseTopFrame() then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Janela fechada)")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Janela fechada)") -- NOLOG 2026-09-14
         return
     end
     
@@ -1616,10 +1624,12 @@ function CM_NavNextTab()
         end
         return
     end
-    -- FASE 1 MainMenuNav: log via OnNextTab, sem consumir (cai no cursor).
+    -- FASE 1 MainMenuNav: se consumir retorna imediatamente.
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnNextTab then
-            ConsoleMode_MainMenuNav:OnNextTab()
+            if ConsoleMode_MainMenuNav:OnNextTab() then
+                return
+            end
         end
     end
     if CM.cursor and CM.cursor.CycleTabs then
@@ -1650,10 +1660,12 @@ function CM_NavPrevTab()
         end
         return
     end
-    -- FASE 1 MainMenuNav: log via OnPrevTab, sem consumir (cai no cursor).
+    -- FASE 1 MainMenuNav: se consumir retorna imediatamente.
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnPrevTab then
-            ConsoleMode_MainMenuNav:OnPrevTab()
+            if ConsoleMode_MainMenuNav:OnPrevTab() then
+                return
+            end
         end
     end
     if CM.cursor and CM.cursor.CycleTabs then
@@ -1684,10 +1696,12 @@ function CM_NavNextSubTab()
         end
         return
     end
-    -- FASE 1 MainMenuNav: log via OnNextSubTab, sem consumir (cai no cursor).
+    -- FASE 1 MainMenuNav: se consumir retorna imediatamente.
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnNextSubTab then
-            ConsoleMode_MainMenuNav:OnNextSubTab()
+            if ConsoleMode_MainMenuNav:OnNextSubTab() then
+                return
+            end
         end
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
@@ -1722,10 +1736,12 @@ function CM_NavPrevSubTab()
         end
         return
     end
-    -- FASE 1 MainMenuNav: log via OnPrevSubTab, sem consumir (cai no cursor).
+    -- FASE 1 MainMenuNav: se consumir retorna imediatamente.
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnPrevSubTab then
-            ConsoleMode_MainMenuNav:OnPrevSubTab()
+            if ConsoleMode_MainMenuNav:OnPrevSubTab() then
+                return
+            end
         end
     end
     local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]

@@ -170,7 +170,7 @@ function Hooks:HookFrame(frame, name)
     
     -- ✅ CRÍTICO: Se o frame já está visível ao hookar, inicializa o cursor
     if frame:IsVisible() then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Frame " .. frameName .. " ja esta visivel, inicializando cursor...")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Frame " .. frameName .. " ja esta visivel, inicializando cursor...") -- NOLOG 2026-09-14
         self:OnFrameShow(frame)
     end
     
@@ -179,7 +179,7 @@ end
 
 function Hooks:OnFrameShow(frame)
     if not frame then 
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM OnFrameShow]|r frame is NIL!")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM OnFrameShow]|r frame is NIL!") -- NOLOG 2026-09-14
         return 
     end
 
@@ -206,20 +206,20 @@ function Hooks:OnFrameShow(frame)
         return
     end
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r JANELA ABRIU: " .. name)
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r JANELA ABRIU: " .. name) -- NOLOG 2026-09-14
 
     if not Cursor then 
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM OnFrameShow]|r ConsoleMode.cursor is NIL!")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM OnFrameShow]|r ConsoleMode.cursor is NIL!") -- NOLOG 2026-09-14
         return 
     end
 
     if Cursor.state.activeFrames[frame] then 
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM OnFrameShow]|r Frame " .. name .. " ja esta em activeFrames, ignorando")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM OnFrameShow]|r Frame " .. name .. " ja esta em activeFrames, ignorando") -- NOLOG 2026-09-14
         return 
     end
     
     Cursor.state.activeFrames[frame] = true
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM OnFrameShow]|r Frame " .. name .. " adicionado a activeFrames")
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM OnFrameShow]|r Frame " .. name .. " adicionado a activeFrames") -- NOLOG 2026-09-14
 
     -- Se for o GameMenuFrame, garante a injeção e alinhamento do botão
     if name == "GameMenuFrame" and Hooks.InjectGameMenuButton then
@@ -252,7 +252,7 @@ function Hooks:OnFrameShow(frame)
     
     if isPfUIBag or isBagshuiBag or isBagnonBag or isTurtleDFBag then
         local addonName = isPfUIBag and "pfUI" or (isBagshuiBag and "Bagshui" or (isBagnonBag and "Bagnon" or "Turtle-Dragonflight"))
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Frame de " .. addonName .. " detectado, aguardando botoes...")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Frame de " .. addonName .. " detectado, aguardando botoes...") -- NOLOG 2026-09-14
         
         -- Retry ate 10x (1 segundo total) esperando os botoes aparecerem
         local delayFrame = CreateFrame("Frame")
@@ -268,24 +268,24 @@ function Hooks:OnFrameShow(frame)
                 
                 if count > 0 then
                     this:SetScript("OnUpdate", nil)
-                    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r " .. count .. " botoes encontrados! Inicializando...")
+                    -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r " .. count .. " botoes encontrados! Inicializando...") -- NOLOG 2026-09-14
                     Hooks:InitCursorOnFrame(frame)
                 elseif attempts >= 10 then
                     this:SetScript("OnUpdate", nil)
-                    DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Timeout: nenhum botao em " .. addonName)
+                    -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Timeout: nenhum botao em " .. addonName) -- NOLOG 2026-09-14
                     Hooks:InitCursorOnFrame(frame)
                 end
             end
         end)
     else
         -- Para frames normais, inicializa com delay pequeno (50ms)
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM OnFrameShow]|r Criando delay de 50ms antes de InitCursorOnFrame...")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM OnFrameShow]|r Criando delay de 50ms antes de InitCursorOnFrame...") -- NOLOG 2026-09-14
         local delay = CreateFrame("Frame")
         delay:SetScript("OnUpdate", function()
             this.elapsed = (this.elapsed or 0) + arg1
             if this.elapsed > 0.05 then
                 this:SetScript("OnUpdate", nil)
-                DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM OnFrameShow]|r Delay terminado, chamando InitCursorOnFrame...")
+                -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM OnFrameShow]|r Delay terminado, chamando InitCursorOnFrame...") -- NOLOG 2026-09-14
                 Hooks:InitCursorOnFrame(frame)
             end
         end)
@@ -317,8 +317,8 @@ function Hooks:InitCursorOnFrame(frame)
     if not frame:IsVisible() then return end
 
     local frameName = frame:GetName() or "?"
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM InitCursor]|r Inicializando cursor em: " .. frameName)
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM InitCursor]|r Buscando primeiro botao...")
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM InitCursor]|r Inicializando cursor em: " .. frameName) -- NOLOG 2026-09-14
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM InitCursor]|r Buscando primeiro botao...") -- NOLOG 2026-09-14
     
     if Cursor.EnsureOnTop then
         Cursor:EnsureOnTop(frame)
@@ -327,16 +327,16 @@ function Hooks:InitCursorOnFrame(frame)
     local firstButton = Cursor:FindFirstVisibleButton(frame)
     
     if firstButton then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r ✓ Auto-snap: " .. (firstButton:GetName() or "unnamed"))
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r ✓ Auto-snap: " .. (firstButton:GetName() or "unnamed")) -- NOLOG 2026-09-14
         Cursor:Enable()
         Cursor:MoveTo(firstButton)
         Cursor:UpdateState()
     else
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r ❌ Nenhum botao encontrado em: " .. frameName)
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Estrutura do frame:")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r   Tipo: " .. (frame:GetObjectType() or "unknown"))
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r ❌ Nenhum botao encontrado em: " .. frameName) -- NOLOG 2026-09-14
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Estrutura do frame:") -- NOLOG 2026-09-14
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r   Tipo: " .. (frame:GetObjectType() or "unknown")) -- NOLOG 2026-09-14
         local children = { frame:GetChildren() }
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r   Children: " .. table.getn(children))
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r   Children: " .. table.getn(children)) -- NOLOG 2026-09-14
     end
 end
 
@@ -392,7 +392,7 @@ function Hooks:TryHookPendingFrames()
         local frame = getglobal(frameInfo.frame)
         if frame and not frame.cmHooked then
             if self:HookFrame(frame, frameInfo.name) then
-                DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Late hook: " .. frameInfo.frame)
+                -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Late hook: " .. frameInfo.frame) -- NOLOG 2026-09-14
                 
                 -- Se o frame já está visível, inicializa o cursor
                 if frame:IsVisible() then
@@ -408,7 +408,7 @@ function Hooks:TryHookPendingFrames()
     if talentFrame and talentFrame:IsVisible() then
         local Cursor = ConsoleMode.cursor
         if Cursor and not Cursor.state.activeFrames[talentFrame] then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r TalentFrame detectado visível mas não inicializado, forçando...")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r TalentFrame detectado visível mas não inicializado, forçando...") -- NOLOG 2026-09-14
             self:OnFrameShow(talentFrame)
         end
     end

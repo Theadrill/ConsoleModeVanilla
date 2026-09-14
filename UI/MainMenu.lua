@@ -3720,7 +3720,7 @@ function MainMenu:LogBagKinds()
         local btype = (info and tonumber(info.bagType)) or 0
         local r, g, bl = self:GetBagBorderColor(kind)
         pcall(function()
-            DEFAULT_CHAT_FRAME:AddMessage(string.format("[ConsoleMode] Bag %d: \"%s\" -> %s (type=%d) (%.2f,%.2f,%.2f)", bag, bname, kind, btype, r, g, bl))
+            -- DEFAULT_CHAT_FRAME:AddMessage(string.format("[ConsoleMode] Bag %d: \"%s\" -> %s (type=%d) (%.2f,%.2f,%.2f)", bag, bname, kind, btype, r, g, bl)) -- NOLOG 2026-09-14
         end)
     end
 end
@@ -11652,7 +11652,43 @@ function MainMenu:CreateBindCard(parent, btnDef)
     card:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
     card:SetScript("OnEnter", function()
+        local navDriving = false
+        pcall(function()
+            local nav = getglobal("ConsoleMode_MainMenuNav")
+            if nav and type(nav.IsActive) == "function" and nav:IsActive() then
+                if nav.focus and nav.focus.zone == "SYS_BINDS" then
+                    navDriving = true
+                end
+            end
+        end)
+        if not navDriving then
+            pcall(function()
+                if type(MainMenuNavActive) == "function" then
+                    if MainMenuNavActive() then
+                        local nav2 = getglobal("ConsoleMode_MainMenuNav")
+                        if nav2 and nav2.focus and nav2.focus.zone == "SYS_BINDS" then
+                            navDriving = true
+                        end
+                    end
+                end
+            end)
+        end
+        if navDriving then return end
         MainMenu:FocusBindsSlot(this)
+        pcall(function()
+            local ps = MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["SYSTEM"]
+            if ps and ps.bindsScreen and ps.bindsScreen.bindCards then
+                local nav3 = getglobal("ConsoleMode_MainMenuNav")
+                if nav3 and nav3.focus then
+                    for i = 1, 8 do
+                        if ps.bindsScreen.bindCards[i] == this then
+                            nav3.focus.bindsIdx = i
+                            break
+                        end
+                    end
+                end
+            end
+        end)
     end)
 
     card:SetScript("OnLeave", function()
@@ -11666,6 +11702,20 @@ function MainMenu:CreateBindCard(parent, btnDef)
 
     card:SetScript("OnClick", function()
         MainMenu:FocusBindsSlot(this)
+        pcall(function()
+            local ps = MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["SYSTEM"]
+            if ps and ps.bindsScreen and ps.bindsScreen.bindCards then
+                local nav = getglobal("ConsoleMode_MainMenuNav")
+                if nav and nav.focus then
+                    for i = 1, 8 do
+                        if ps.bindsScreen.bindCards[i] == this then
+                            nav.focus.bindsIdx = i
+                            break
+                        end
+                    end
+                end
+            end
+        end)
         if arg1 == "RightButton" then
             MainMenu:ClearBinding(this.page, this.btnKey)
         else
@@ -12492,6 +12542,21 @@ function MainMenu:ShowBindsScreen()
     if pageSystem.bindsScreen then
         pageSystem.bindsScreen:Show()
         self:SelectBindsPage(pageSystem.bindsScreen.currentPage or 1)
+        local mmSelf = self
+        pcall(function()
+            local fresh = true
+            local okG, nav = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and nav and nav.focus and type(nav.focus.zone) == "string" then
+                if nav.focus.zone == "SYS_BINDS" or nav.focus.zone == "SYS_PICKER" then
+                    fresh = false
+                end
+            end
+            if fresh then
+                if pageSystem.bindsScreen and pageSystem.bindsScreen.bindCards and pageSystem.bindsScreen.bindCards[1] then
+                    mmSelf:FocusBindsSlot(pageSystem.bindsScreen.bindCards[1])
+                end
+            end
+        end)
     end
     pageSystem.activeSubScreen = "BINDS"
 
@@ -13378,6 +13443,13 @@ end
 function MainMenu:CycleTabs(direction)
     if not self.tabContainer then return false end
 
+    if self.tabContainer.pages then
+        local pageSystem = self.tabContainer.pages["SYSTEM"]
+        if pageSystem and pageSystem:IsVisible() and (pageSystem.activeSubScreen == "BINDS" or pageSystem.activeSubScreen == "PICKER") then
+            return false
+        end
+    end
+
     direction = direction or 1
     local curTab = self.tabContainer.currentTab or "BAGS"
     local list = CFG.Tabs.list
@@ -13495,6 +13567,10 @@ function MainMenu:CycleCategories(direction)
         if not pageSystem or not pageSystem:IsVisible() then return false end
 
         direction = direction or 1
+
+        if pageSystem.activeSubScreen == "PICKER" then
+            return false
+        end
 
         if pageSystem.activeSubScreen == "BINDS" then
             local curPage = (pageSystem.bindsScreen and pageSystem.bindsScreen.currentPage) or 1
@@ -14010,13 +14086,13 @@ SlashCmdList["CMANIM"] = function(msg)
     if id then
         MainMenu.animTestSequence = id - 1
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Próximo ID definido para: |cffffffff" .. id .. "|r (navegue no grid ou use /anim <num>)")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Próximo ID definido para: |cffffffff" .. id .. "|r (navegue no grid ou use /anim <num>)") -- NOLOG 2026-09-14
         end
         MainMenu:TriggerSpellPose(id)
     else
         MainMenu.animTestSequence = -1
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Sequenciador resetado para ID 0. Navegue pelos slots do Grimório para avançar +1 a cada slot.")
+            -- DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Sequenciador resetado para ID 0. Navegue pelos slots do Grimório para avançar +1 a cada slot.") -- NOLOG 2026-09-14
         end
         MainMenu:TriggerSpellPose(0)
     end

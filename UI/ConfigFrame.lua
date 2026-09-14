@@ -75,7 +75,7 @@ function Config:Initialize()
     tabKeybindings:SetPoint("TOP", leftNav, "TOP", 0, -8)
     tabKeybindings:SetText("Atalhos / Binds")
     tabKeybindings:SetScript("OnClick", function()
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 1]|r Botao lateral Atalhos/Binds clicado!")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 1]|r Botao lateral Atalhos/Binds clicado!") -- NOLOG 2026-09-14
         Config:SelectTab("KEYBINDINGS")
     end)
     

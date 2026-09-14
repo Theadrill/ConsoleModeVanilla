@@ -1396,14 +1396,36 @@ end
 
 function Cursor:MoveDirection(direction)
     if not self.state.enabled then 
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Navegacao inativa (nenhuma janela ativa no cursor)")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Navegacao inativa (nenhuma janela ativa no cursor)") -- NOLOG 2026-09-14
         return 
     end
     
     local currentButton = self.state.currentButton
     if not currentButton then 
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Nenhum botao selecionado atualmente")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Cursor]|r Nenhum botao selecionado atualmente") -- NOLOG 2026-09-14
         return 
+    end
+
+    -- F2.3 GATE CURSOR: Nav pinta BINDS/PICKER, Cursor nao disputa foco.
+    do
+        local navOn = false
+        pcall(function() navOn = MainMenuNavActive() end)
+        if navOn then
+            local sub = nil
+            pcall(function()
+                local m = CM.mainMenu
+                local pg = m and m.tabContainer and m.tabContainer.pages and m.tabContainer.pages["SYSTEM"]
+                if pg then sub = pg.activeSubScreen end
+            end)
+            local z = nil
+            pcall(function()
+                local nv = getglobal("ConsoleMode_MainMenuNav")
+                if nv and nv.focus then z = nv.focus.zone end
+            end)
+            if sub == "BINDS" or sub == "PICKER" then
+                return true
+            end
+        end
     end
 
     -- Seletor de quantidade compartilhado: direcionais ajustam (UP/DOWN +-1,
@@ -1555,10 +1577,10 @@ function Cursor:MoveDirection(direction)
     if targetButton then
         local fromName = currentButton:GetName() or "unnamed"
         local toName = targetButton:GetName() or "unnamed"
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Move]|r " .. direction .. ": " .. fromName .. " -> " .. toName)
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Move]|r " .. direction .. ": " .. fromName .. " -> " .. toName) -- NOLOG 2026-09-14
         self:MoveTo(targetButton)
     else
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM Move]|r Nenhum botao para: " .. direction .. " (total na tela: " .. table.getn(self.state.allButtons) .. ")")
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM Move]|r Nenhum botao para: " .. direction .. " (total na tela: " .. table.getn(self.state.allButtons) .. ")") -- NOLOG 2026-09-14
     end
 end
 

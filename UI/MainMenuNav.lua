@@ -25,7 +25,7 @@ Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
 -- FASE 3: + spellCat/spellSlot para aba SPELLS (zonas SPCAT/SPGRID).
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, npcIdx = 1, zonaIdx = 1, qMapaOrigem = nil, mapaIdx = 1, bindsPage = 1, bindsIdx = 1, pickerMode = 1, pickerSubIdx = 1, pickerGridIdx = 1, pickerPage = 1 }
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, npcIdx = 1, zonaIdx = 1, qMapaOrigem = nil, mapaIdx = 1, bindsPage = 1, bindsIdx = 1, pickerMode = 1, pickerSubIdx = 1, pickerGridIdx = 1, pickerPage = 1, pickerSection = "MODE", pickerPageBtn = 1 }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -581,7 +581,7 @@ local function Nav_SelectQuestByIdx(targetIdx)
     local MM = Nav_GetMM()
     if not MM then return false end
     if type(MM.SelectQuest) ~= "function" then
-        MMNav_Log("|cffe09a15[MMNav]|r SelectQuest ausente")
+        -- MMNav_Log("|cffe09a15[MMNav]|r SelectQuest ausente") -- NOLOG 2026-09-14
         return false
     end
     local qp = Nav_GetQuestPanel()
@@ -1352,6 +1352,200 @@ local function Nav_PaintGameMenu()
     end
 end
 
+-- F2.1 PINTURA BINDS (pool fixo; sem criar frames; so Show/Hide/SetTextColor/SetBackdropColor/SetBackdropBorderColor).
+-- Espelho MainMenu.lua FocusBindsSlot (~12239) e UpdateBindsPage (~12290).
+local function Nav_PaintBinds()
+    local f = Nav.focus
+    if not f then return end
+    local ps = Nav_GetBindsState()
+    if not ps then return end
+    local bindsScreen = ps.bindsScreen
+    if not bindsScreen then return end
+    local inBinds = (f.zone == "SYS_BINDS")
+    local curPage = f.bindsPage or 1
+    if bindsScreen.currentPage and type(bindsScreen.currentPage) == "number" then
+        curPage = bindsScreen.currentPage
+    end
+    local focusPage = f.bindsPage or curPage
+    local pbs = bindsScreen.pageButtons
+    if pbs then
+        for p = 1, 5 do
+            local btn = pbs[p]
+            if btn then
+                local isFocus = (inBinds and p == focusPage)
+                local isActive = (p == curPage)
+                if isFocus then
+                    if btn.title then pcall(function() btn.title:SetTextColor(1.0, 0.85, 0.2) end) end
+                    pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                    pcall(function() btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+                elseif isActive then
+                    if btn.title then pcall(function() btn.title:SetTextColor(0.88, 0.60, 0.08) end) end
+                    pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                    pcall(function() btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+                else
+                    if btn.title then pcall(function() btn.title:SetTextColor(0.65, 0.65, 0.65) end) end
+                    pcall(function() btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40) end)
+                    pcall(function() btn:SetBackdropColor(0, 0, 0, 0.35) end)
+                end
+            end
+        end
+    end
+    local cards = bindsScreen.bindCards
+    if cards then
+        local focusIdx = f.bindsIdx or 1
+        for i = 1, 8 do
+            local card = cards[i]
+            if card then
+                local isFocus = (inBinds and i == focusIdx)
+                if isFocus then
+                    if card.focusBorder then pcall(function() card.focusBorder:Show() end) end
+                    pcall(function() card:SetBackdropColor(0.20, 0.16, 0.06, 0.65) end)
+                    pcall(function() card:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                else
+                    if card.focusBorder then pcall(function() card.focusBorder:Hide() end) end
+                    pcall(function() card:SetBackdropColor(0, 0, 0, 0.40) end)
+                    pcall(function() card:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5) end)
+                end
+            end
+        end
+        if inBinds then
+            local target = cards[focusIdx]
+            if target then
+                local okMM, MMM = pcall(function() return Nav_GetMM() end)
+                if okMM and MMM and type(MMM.FocusBindsSlot) == "function" then
+                    pcall(function() MMM:FocusBindsSlot(target) end)
+                end
+            end
+        end
+    end
+end
+
+-- F2.2 PINTURA PICKER (pool fixo; sem criar frames; sem zerar currentMode/currentSubTab/gridPage).
+-- Espelho MainMenu.lua SetPickerMode (~12510), HighlightPickerSubTab e FocusPickerSlot (~12895).
+local function Nav_PaintPicker()
+    local f = Nav.focus
+    if not f then return end
+    local ps = Nav_GetBindsState()
+    if not ps then return end
+    local pickerScreen = ps.pickerScreen
+    if not pickerScreen then return end
+    local inPicker = (f.zone == "SYS_PICKER")
+    local sec = f.pickerSection
+    if sec ~= "MODE" and sec ~= "SUB" and sec ~= "GRID" and sec ~= "PAGE" then sec = "MODE" end
+    local currentMode = pickerScreen.currentMode
+    local mbs = pickerScreen.modeButtons
+    if mbs then
+        local okN, nm = pcall(function() return table.getn(mbs) end)
+        if okN and type(nm) == "number" and nm > 0 then
+            local modeIdx = f.pickerMode or 1
+            for i = 1, nm do
+                local btn = mbs[i]
+                if btn then
+                    local isActive = (btn.modeId ~= nil and btn.modeId == currentMode)
+                    local isFocusMode = (inPicker and sec == "MODE" and i == modeIdx)
+                    if isFocusMode then
+                        if btn.title then pcall(function() btn.title:SetTextColor(1.0, 0.85, 0.2) end) end
+                        pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                        pcall(function() btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+                    elseif isActive then
+                        if btn.title then pcall(function() btn.title:SetTextColor(0.88, 0.60, 0.08) end) end
+                        pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                        pcall(function() btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+                    else
+                        if btn.title then pcall(function() btn.title:SetTextColor(0.65, 0.65, 0.65) end) end
+                        pcall(function() btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40) end)
+                        pcall(function() btn:SetBackdropColor(0, 0, 0, 0.45) end)
+                    end
+                end
+            end
+        end
+    end
+    local stbs = pickerScreen.subTabButtons
+    if stbs then
+        local okS, ns = pcall(function() return table.getn(stbs) end)
+        if okS and type(ns) == "number" and ns > 0 then
+            local subIdx = f.pickerSubIdx or 1
+            for i = 1, ns do
+                local btn = stbs[i]
+                if btn then
+                    local isFocus = (inPicker and sec == "SUB" and i == subIdx)
+                    if isFocus then
+                        if btn.title then pcall(function() btn.title:SetTextColor(1.0, 0.85, 0.2) end) end
+                        pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                        pcall(function() btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+                    else
+                        if btn.title then pcall(function() btn.title:SetTextColor(0.65, 0.65, 0.65) end) end
+                        pcall(function() btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40) end)
+                        pcall(function() btn:SetBackdropColor(0, 0, 0, 0.40) end)
+                    end
+                end
+            end
+        end
+    end
+    local gbs = pickerScreen.gridButtons
+    if gbs then
+        local gridIdx = f.pickerGridIdx or 1
+        for i = 1, 16 do
+            local btn = gbs[i]
+            if btn then
+                local isFocus = (inPicker and sec == "GRID" and i == gridIdx)
+                if isFocus then
+                    if btn.focusBorder then pcall(function() btn.focusBorder:Show() end) end
+                    pcall(function() btn:SetBackdropColor(0.20, 0.16, 0.06, 0.65) end)
+                    pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                else
+                    if btn.focusBorder then pcall(function() btn.focusBorder:Hide() end) end
+                    pcall(function() btn:SetBackdropColor(0, 0, 0, 0.40) end)
+                    pcall(function() btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5) end)
+                end
+            end
+        end
+        if inPicker and sec == "GRID" then
+            local target = gbs[gridIdx]
+            if target and target.itemData then
+                local okMM2, MMM2 = pcall(function() return Nav_GetMM() end)
+                if okMM2 and MMM2 and type(MMM2.FocusPickerSlot) == "function" then
+                    pcall(function() MMM2:FocusPickerSlot(target) end)
+                end
+            end
+        end
+    end
+    local pb = pickerScreen.pageBar
+    if pb then
+        local prev = pb.prevBtn
+        local nxt = pb.nextBtn
+        local pageBtn = f.pickerPageBtn or 1
+        if pageBtn < 1 then pageBtn = 1 end
+        if pageBtn > 2 then pageBtn = 2 end
+        if prev then
+            local isF = (inPicker and sec == "PAGE" and pageBtn == 1)
+            local lbl = prev.text or prev.title
+            if isF then
+                if lbl then pcall(function() lbl:SetTextColor(1.0, 0.85, 0.2) end) end
+                pcall(function() prev:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                pcall(function() prev:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+            else
+                if lbl then pcall(function() lbl:SetTextColor(0.65, 0.65, 0.65) end) end
+                pcall(function() prev:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5) end)
+                pcall(function() prev:SetBackdropColor(0, 0, 0, 0.45) end)
+            end
+        end
+        if nxt then
+            local isF2 = (inPicker and sec == "PAGE" and pageBtn == 2)
+            local lbl2 = nxt.text or nxt.title
+            if isF2 then
+                if lbl2 then pcall(function() lbl2:SetTextColor(1.0, 0.85, 0.2) end) end
+                pcall(function() nxt:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                pcall(function() nxt:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+            else
+                if lbl2 then pcall(function() lbl2:SetTextColor(0.65, 0.65, 0.65) end) end
+                pcall(function() nxt:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.5) end)
+                pcall(function() nxt:SetBackdropColor(0, 0, 0, 0.45) end)
+            end
+        end
+    end
+end
+
 -- Garante foco valido (clampa índices; resolve catIndex inicial via categoria).
 local function Nav_EnsureFocus()
     local f = Nav.focus
@@ -1539,6 +1733,9 @@ local function Nav_EnsureFocus()
     if not f.pickerGridIdx or f.pickerGridIdx < 1 then f.pickerGridIdx = 1 end
     if f.pickerGridIdx > 16 then f.pickerGridIdx = 16 end
     if not f.pickerPage or f.pickerPage < 1 then f.pickerPage = 1 end
+    if f.pickerSection ~= "MODE" and f.pickerSection ~= "SUB" and f.pickerSection ~= "GRID" and f.pickerSection ~= "PAGE" then f.pickerSection = "MODE" end
+    if not f.pickerPageBtn or f.pickerPageBtn < 1 then f.pickerPageBtn = 1 end
+    if f.pickerPageBtn > 2 then f.pickerPageBtn = 2 end
 
     if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_SUBTABS" and f.zone ~= "SYS_GAMEMENU" and f.zone ~= "SYS_ADDONCFG" and f.zone ~= "SYS_BINDS" and f.zone ~= "SYS_PICKER" then
         f.zone = "GRID"
@@ -2157,6 +2354,8 @@ local function Nav_ApplyFocus()
             pcall(function() Nav_PaintSysSubTabs() end)
             pcall(function() Nav_PaintGameMenu() end)
             pcall(function() Nav_PaintAddonCfg() end)
+            pcall(function() Nav_PaintBinds() end)
+            pcall(function() Nav_PaintPicker() end)
         end
     end
 end
@@ -2286,10 +2485,285 @@ function Nav_OnSysAddonCfgDirection(direction)
     return false
 end
 
+-- F3.1 BINDS: matriz 2col x 4lin (1..4 esq DUP/DDOWN/DLEFT/DRIGHT + 5..8 dir Y/X/B/A).
+function Nav_OnSysBindsDirection(direction)
+    local f = Nav.focus
+    if not f then return false end
+    if not f.bindsIdx or f.bindsIdx < 1 then f.bindsIdx = 1 end
+    if f.bindsIdx > 8 then f.bindsIdx = 8 end
+    local idx = f.bindsIdx
+    local row = math.mod(idx - 1, 4) + 1
+    if direction == "UP" then
+        if row == 1 then
+            f.zone = "TABBAR"
+            f.returnZone = "SYS_BINDS"
+            Nav_EnsureFocus()
+            return true
+        end
+        f.bindsIdx = idx - 1
+        return true
+    end
+    if direction == "DOWN" then
+        if row == 4 then return false end
+        f.bindsIdx = idx + 1
+        return true
+    end
+    if direction == "LEFT" then
+        if idx >= 5 and idx <= 8 then
+            f.bindsIdx = idx - 4
+            return true
+        end
+        return false
+    end
+    if direction == "RIGHT" then
+        if idx >= 1 and idx <= 4 then
+            f.bindsIdx = idx + 4
+            return true
+        end
+        return false
+    end
+    return false
+end
+
+local function Nav_PickerPageBarVisible(scr)
+    if not scr then return false end
+    if scr.currentMode == "BARS" then return false end
+    local pb = scr.pageBar
+    if not pb then return false end
+    if type(pb.IsVisible) ~= "function" then return false end
+    local ok, vis = pcall(function() return pb:IsVisible() end)
+    if ok and vis then return true end
+    return false
+end
+
+-- F3.1 PICKER: secoes MODE/SUB/GRID/PAGE (espelho Cursor.lua HandlePickerNavigation:853 casos A/B/C/D).
+function Nav_OnSysPickerDirection(direction)
+    local f = Nav.focus
+    if not f then return false end
+    local sec = f.pickerSection
+    if sec ~= "MODE" and sec ~= "SUB" and sec ~= "GRID" and sec ~= "PAGE" then
+        sec = "MODE"
+        f.pickerSection = "MODE"
+    end
+    local ps = Nav_GetBindsState()
+    if not ps or not ps.pickerScreen then return false end
+    local scr = ps.pickerScreen
+    if direction ~= "UP" and direction ~= "DOWN" and direction ~= "LEFT" and direction ~= "RIGHT" then return false end
+    if sec == "MODE" then
+        if not f.pickerMode or f.pickerMode < 1 then f.pickerMode = 1 end
+        if f.pickerMode > 4 then f.pickerMode = 4 end
+        local pm = f.pickerMode
+        if direction == "LEFT" then
+            if pm <= 1 then return false end
+            f.pickerMode = pm - 1
+            f.pickerSubIdx = 1
+            local mbs = scr.modeButtons
+            local dest = mbs and mbs[f.pickerMode]
+            local mid = dest and dest.modeId
+            if mid then
+                local MM = Nav_GetMM()
+                if MM and type(MM.SetPickerMode) == "function" then
+                    pcall(function() MM:SetPickerMode(mid) end)
+                end
+            end
+            f.pickerSubIdx = 1
+            return true
+        end
+        if direction == "RIGHT" then
+            if pm >= 4 then return false end
+            f.pickerMode = pm + 1
+            f.pickerSubIdx = 1
+            local mbs2 = scr.modeButtons
+            local dest2 = mbs2 and mbs2[f.pickerMode]
+            local mid2 = dest2 and dest2.modeId
+            if mid2 then
+                local MM2 = Nav_GetMM()
+                if MM2 and type(MM2.SetPickerMode) == "function" then
+                    pcall(function() MM2:SetPickerMode(mid2) end)
+                end
+            end
+            f.pickerSubIdx = 1
+            return true
+        end
+        if direction == "DOWN" then
+            f.pickerSection = "SUB"
+            Nav_EnsureFocus()
+            return true
+        end
+        if direction == "UP" then
+            f.zone = "TABBAR"
+            f.returnZone = "SYS_PICKER"
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
+    if sec == "SUB" then
+        local stbs = scr.subTabButtons
+        local n = 0
+        if stbs then n = table.getn(stbs) end
+        if not f.pickerSubIdx or f.pickerSubIdx < 1 then f.pickerSubIdx = 1 end
+        if n >= 1 and f.pickerSubIdx > n then f.pickerSubIdx = n end
+        local j = f.pickerSubIdx
+        if direction == "LEFT" then
+            if n < 1 then return false end
+            if j <= 1 then return false end
+            f.pickerSubIdx = j - 1
+            scr.currentSubTab = f.pickerSubIdx
+            local MM = Nav_GetMM()
+            if MM and type(MM.RefreshPickerGrid) == "function" then
+                pcall(function() MM:RefreshPickerGrid() end)
+            end
+            local gbs = scr.gridButtons
+            local first = 1
+            if gbs then
+                for i = 1, 16 do
+                    local b = gbs[i]
+                    if b and b.itemData then first = i break end
+                end
+            end
+            f.pickerGridIdx = first
+            return true
+        end
+        if direction == "RIGHT" then
+            if n < 1 then return false end
+            if j >= n then return false end
+            f.pickerSubIdx = j + 1
+            scr.currentSubTab = f.pickerSubIdx
+            local MM2 = Nav_GetMM()
+            if MM2 and type(MM2.RefreshPickerGrid) == "function" then
+                pcall(function() MM2:RefreshPickerGrid() end)
+            end
+            local gbs2 = scr.gridButtons
+            local first2 = 1
+            if gbs2 then
+                for i = 1, 16 do
+                    local b2 = gbs2[i]
+                    if b2 and b2.itemData then first2 = i break end
+                end
+            end
+            f.pickerGridIdx = first2
+            return true
+        end
+        if direction == "UP" then
+            f.pickerSection = "MODE"
+            Nav_EnsureFocus()
+            return true
+        end
+        if direction == "DOWN" then
+            local col = math.mod((f.pickerGridIdx or 1) - 1, 4) + 1
+            local cand = col
+            local gbs3 = scr.gridButtons
+            if gbs3 then
+                local cb = gbs3[cand]
+                if not cb or not cb.itemData then
+                    for i = 1, 16 do
+                        local b3 = gbs3[i]
+                        if b3 and b3.itemData then cand = i break end
+                    end
+                end
+            end
+            f.pickerGridIdx = cand
+            f.pickerSection = "GRID"
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
+    if sec == "GRID" then
+        if not f.pickerGridIdx or f.pickerGridIdx < 1 then f.pickerGridIdx = 1 end
+        if f.pickerGridIdx > 16 then f.pickerGridIdx = 16 end
+        local idx = f.pickerGridIdx
+        local row = math.floor((idx - 1) / 4) + 1
+        local col = math.mod(idx - 1, 4) + 1
+        if direction == "UP" then
+            if row == 1 then
+                f.pickerSection = "SUB"
+                Nav_EnsureFocus()
+                return true
+            end
+            f.pickerGridIdx = idx - 4
+            return true
+        end
+        if direction == "DOWN" then
+            if row == 4 then
+                if Nav_PickerPageBarVisible(scr) then
+                    f.pickerSection = "PAGE"
+                    if not f.pickerPageBtn or f.pickerPageBtn < 1 then f.pickerPageBtn = 1 end
+                    if f.pickerPageBtn > 2 then f.pickerPageBtn = 2 end
+                    Nav_EnsureFocus()
+                    return true
+                end
+                return false
+            end
+            f.pickerGridIdx = idx + 4
+            return true
+        end
+        if direction == "LEFT" then
+            if col == 1 then return false end
+            f.pickerGridIdx = idx - 1
+            return true
+        end
+        if direction == "RIGHT" then
+            if col == 4 then return false end
+            f.pickerGridIdx = idx + 1
+            return true
+        end
+        return false
+    end
+    if sec == "PAGE" then
+        if not Nav_PickerPageBarVisible(scr) then
+            if direction == "UP" then
+                f.pickerSection = "GRID"
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
+        if not f.pickerPageBtn or f.pickerPageBtn < 1 then f.pickerPageBtn = 1 end
+        if f.pickerPageBtn > 2 then f.pickerPageBtn = 2 end
+        if direction == "LEFT" then
+            if f.pickerPageBtn == 1 then f.pickerPageBtn = 2 else f.pickerPageBtn = 1 end
+            return true
+        end
+        if direction == "RIGHT" then
+            if f.pickerPageBtn == 1 then f.pickerPageBtn = 2 else f.pickerPageBtn = 1 end
+            return true
+        end
+        if direction == "UP" then
+            if f.pickerPageBtn == 1 then f.pickerGridIdx = 13 else f.pickerGridIdx = 16 end
+            f.pickerSection = "GRID"
+            Nav_EnsureFocus()
+            return true
+        end
+        if direction == "DOWN" then return false end
+        return false
+    end
+    return false
+end
+
 function Nav_OnSysDirection(direction)
     local f = Nav.focus
     if f.zone == "TABBAR" then
         if direction == "DOWN" then
+            local curTab = Nav_GetCurrentTab()
+            if curTab == "SYSTEM" then
+                local ps = Nav_GetBindsState()
+                local sub = ps and ps.activeSubScreen
+                if sub == "BINDS" then
+                    f.zone = "SYS_BINDS"
+                    f.returnZone = "SYS_BINDS"
+                    Nav_EnsureFocus()
+                    return true
+                end
+                if sub == "PICKER" then
+                    f.zone = "SYS_PICKER"
+                    f.returnZone = "SYS_PICKER"
+                    f.pickerSection = "MODE"
+                    Nav_EnsureFocus()
+                    return true
+                end
+            end
             f.zone = "SYS_SUBTABS"
             f.sysSubTabIdx = f.sysSubTabIdx or 1
             Nav_EnsureFocus()
@@ -2316,6 +2790,8 @@ function Nav_OnSysDirection(direction)
     if f.zone == "SYS_ADDONCFG" then
         return Nav_OnSysAddonCfgDirection(direction)
     end
+    if f.zone == "SYS_BINDS" then return Nav_OnSysBindsDirection(direction) end
+    if f.zone == "SYS_PICKER" then return Nav_OnSysPickerDirection(direction) end
     return false
 end
 
@@ -2725,7 +3201,7 @@ function Nav:OnDirection(direction)
         return
     end
     if curTab ~= "BAGS" then
-        MMNav_Log("|cffe09a15[MMNav]|r " .. tostring(direction))
+        -- MMNav_Log("|cffe09a15[MMNav]|r " .. tostring(direction)) -- NOLOG 2026-09-14
         MMNav_PlayMove()
         return
     end
@@ -3741,8 +4217,12 @@ function Nav:OnConfirm()
                 if ps and ps.activeSubScreen == "BINDS" then
                     fs.zone = "SYS_BINDS"
                     fs.returnZone = "SYS_BINDS"
-                    if not fs.bindsIdx or fs.bindsIdx < 1 then fs.bindsIdx = 1 end
+                    fs.bindsIdx = 1
                     if ps.bindsScreen and ps.bindsScreen.currentPage then fs.bindsPage = ps.bindsScreen.currentPage end
+                    local MM = Nav_GetMM()
+                    if MM and type(MM.FocusBindsSlot) == "function" and ps.bindsScreen and ps.bindsScreen.bindCards and ps.bindsScreen.bindCards[1] then
+                        pcall(function() MM:FocusBindsSlot(ps.bindsScreen.bindCards[1]) end)
+                    end
                     Nav_EnsureFocus()
                     Nav_ApplyFocus()
                 end
@@ -3762,9 +4242,11 @@ function Nav:OnConfirm()
                         local ps2 = Nav_GetBindsState()
                         if ps2 and ps2.activeSubScreen == "PICKER" then
                             fs.zone = "SYS_PICKER"
+                            fs.pickerSection = "MODE"
                             if not fs.pickerMode or fs.pickerMode < 1 then fs.pickerMode = 1 end
                             if not fs.pickerSubIdx or fs.pickerSubIdx < 1 then fs.pickerSubIdx = 1 end
                             if not fs.pickerGridIdx or fs.pickerGridIdx < 1 then fs.pickerGridIdx = 1 end
+                            if not fs.pickerPageBtn or fs.pickerPageBtn < 1 then fs.pickerPageBtn = 1 end
                             fs.returnZone = "SYS_BINDS"
                             Nav_EnsureFocus()
                             Nav_ApplyFocus()
@@ -3775,6 +4257,95 @@ function Nav:OnConfirm()
             return true
         end
         if fs.zone == "SYS_PICKER" then
+            local sec = fs.pickerSection
+            if sec ~= "MODE" and sec ~= "SUB" and sec ~= "GRID" and sec ~= "PAGE" then sec = "MODE" fs.pickerSection = "MODE" end
+            local psc = Nav_GetBindsState()
+            local scrc = psc and psc.pickerScreen
+            local MMc = Nav_GetMM()
+            if sec == "MODE" then
+                if scrc and scrc.modeButtons and MMc and type(MMc.SetPickerMode) == "function" then
+                    local pm = fs.pickerMode or 1
+                    if pm < 1 then pm = 1 end
+                    if pm > 4 then pm = 4 end
+                    fs.pickerMode = pm
+                    local mb = scrc.modeButtons[pm]
+                    local mid = mb and mb.modeId
+                    if mid then pcall(function() MMc:SetPickerMode(mid) end) end
+                end
+                fs.pickerSubIdx = 1
+                fs.pickerSection = "SUB"
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                return true
+            end
+            if sec == "SUB" then
+                if scrc then
+                    local sj = fs.pickerSubIdx or 1
+                    if sj < 1 then sj = 1 end
+                    scrc.currentSubTab = sj
+                    if MMc and type(MMc.RefreshPickerGrid) == "function" then
+                        pcall(function() MMc:RefreshPickerGrid() end)
+                    end
+                    local gbs = scrc.gridButtons
+                    local first = 1
+                    if gbs then
+                        for i = 1, 16 do
+                            local gb = gbs[i]
+                            if gb and gb.itemData then first = i break end
+                        end
+                    end
+                    fs.pickerGridIdx = first
+                end
+                fs.pickerSection = "GRID"
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                return true
+            end
+            if sec == "GRID" then
+                if scrc and scrc.gridButtons then
+                    local gi = fs.pickerGridIdx or 1
+                    if gi < 1 then gi = 1 end
+                    if gi > 16 then gi = 16 end
+                    fs.pickerGridIdx = gi
+                    local btn = scrc.gridButtons[gi]
+                    if btn and btn.itemData then
+                        if MMc and type(MMc.OnPickerSlotClick) == "function" then
+                            pcall(function() MMc:OnPickerSlotClick(btn) end)
+                        end
+                        Nav_EnsureFocus()
+                        Nav_ApplyFocus()
+                        return true
+                    end
+                end
+                return true
+            end
+            if sec == "PAGE" then
+                if scrc then
+                    local pb = fs.pickerPageBtn or 1
+                    if pb < 1 then pb = 1 end
+                    if pb > 2 then pb = 2 end
+                    fs.pickerPageBtn = pb
+                    local mp = scrc.maxPages or 1
+                    if type(mp) ~= "number" or mp < 1 then mp = 1 end
+                    local gp = scrc.gridPage or 1
+                    if type(gp) ~= "number" or gp < 1 then gp = 1 end
+                    if gp > mp then gp = mp end
+                    if pb == 1 then
+                        gp = gp - 1
+                        if gp < 1 then gp = 1 end
+                    else
+                        gp = gp + 1
+                        if gp > mp then gp = mp end
+                    end
+                    scrc.gridPage = gp
+                    if MMc and type(MMc.RefreshPickerGrid) == "function" then
+                        pcall(function() MMc:RefreshPickerGrid() end)
+                    end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                return true
+            end
             return true
         end
         return false
@@ -3818,7 +4389,7 @@ function Nav:OnConfirm()
                 Nav_ApplyFocus()
                 return true
             else
-                MMNav_Log("|cffe09a15[MMNav]|r MM ausente")
+                -- MMNav_Log("|cffe09a15[MMNav]|r MM ausente") -- NOLOG 2026-09-14
                 return false
             end
         end
@@ -4031,7 +4602,7 @@ function Nav:OnConfirm()
         return false
     end
     if curTabCf ~= "BAGS" then
-        MMNav_Log("|cffe09a15[MMNav]|r A (fase1: cursor ainda trata)")
+        -- MMNav_Log("|cffe09a15[MMNav]|r A (fase1: cursor ainda trata)") -- NOLOG 2026-09-14
         return false
     end
     Nav_EnsureFocus()
@@ -4104,6 +4675,16 @@ function Nav:OnCancel()
             if MM and type(MM.HandleBindsBack) == "function" then pcall(function() MM:HandleBindsBack() end) end
             fs.zone = "SYS_BINDS"
             fs.returnZone = "SYS_BINDS"
+            if not fs.bindsIdx or fs.bindsIdx < 1 then fs.bindsIdx = 1 end
+            if fs.bindsIdx > 8 then fs.bindsIdx = 8 end
+            local psb = Nav_GetBindsState()
+            if MM and type(MM.FocusBindsSlot) == "function" and psb and psb.bindsScreen and psb.bindsScreen.bindCards then
+                local bi = fs.bindsIdx or 1
+                local card = psb.bindsScreen.bindCards[bi]
+                if not card then card = psb.bindsScreen.bindCards[1] bi = 1 end
+                if card then pcall(function() MM:FocusBindsSlot(card) end) end
+                fs.bindsIdx = bi
+            end
             Nav_EnsureFocus()
             Nav_ApplyFocus()
             MMNav_PlayMove()
@@ -4297,7 +4878,7 @@ function Nav:OnCancel()
         return false
     end
     if curTabCx ~= "BAGS" then
-        MMNav_Log("|cffe09a15[MMNav]|r B (fase1: cursor ainda trata)")
+        -- MMNav_Log("|cffe09a15[MMNav]|r B (fase1: cursor ainda trata)") -- NOLOG 2026-09-14
         return false
     end
     Nav_EnsureFocus()
@@ -4358,7 +4939,7 @@ function Nav:OnUse()
                 pcall(function() MM:AbandonSelectedQuest(idx) end)
                 return true
             else
-                MMNav_Log("|cffe09a15[MMNav]|r AbandonSelectedQuest ausente")
+                -- MMNav_Log("|cffe09a15[MMNav]|r AbandonSelectedQuest ausente") -- NOLOG 2026-09-14
                 return false
             end
         end
@@ -4405,7 +4986,7 @@ function Nav:OnUse()
         return false
     end
     if curTabUs ~= "BAGS" then
-        MMNav_Log("|cffe09a15[MMNav]|r Y (fase1: cursor ainda trata)")
+        -- MMNav_Log("|cffe09a15[MMNav]|r Y (fase1: cursor ainda trata)") -- NOLOG 2026-09-14
         return false
     end
     Nav_EnsureFocus()
@@ -4480,72 +5061,106 @@ function Nav:OnSecondary()
                 Nav_ApplyFocus()
                 return true
             else
-                MMNav_Log("|cffe09a15[MMNav]|r ToggleQuestWatch ausente")
+                -- MMNav_Log("|cffe09a15[MMNav]|r ToggleQuestWatch ausente") -- NOLOG 2026-09-14
                 return false
             end
         end
         return false
     end
-    MMNav_Log("|cffe09a15[MMNav]|r X (fase2 BAGS: sem acao)")
+    -- MMNav_Log("|cffe09a15[MMNav]|r X (fase2 BAGS: sem acao)") -- NOLOG 2026-09-14
     return false
 end
 
 function Nav:OnNextTab()
     if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end
-    MMNav_Log("|cffe09a15[MMNav]|r RB (fase2: cursor ainda trata)")
+    local ps = Nav_GetBindsState()
+    local sub = ps and ps.activeSubScreen
+    if sub == "BINDS" or sub == "PICKER" then return true end
+    -- MMNav_Log("|cffe09a15[MMNav]|r RB (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false
 end
 
 function Nav:OnPrevTab()
     if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end
-    MMNav_Log("|cffe09a15[MMNav]|r LB (fase2: cursor ainda trata)")
+    local ps = Nav_GetBindsState()
+    local sub = ps and ps.activeSubScreen
+    if sub == "BINDS" or sub == "PICKER" then return true end
+    -- MMNav_Log("|cffe09a15[MMNav]|r LB (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false
 end
 
 function Nav:OnNextSubTab()
-    if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then
-        local ps = Nav_GetBindsState()
-        local sub = ps and ps.activeSubScreen
+    local ps = Nav_GetBindsState()
+    local sub = ps and ps.activeSubScreen
+    local inBindsOrPicker = (Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER")) or (sub == "BINDS" or sub == "PICKER")
+    if inBindsOrPicker then
+        if sub == "PICKER" then
+            return true
+        end
         if sub == "BINDS" then
             local MM = Nav_GetMM()
             if MM and type(MM.SelectBindsPage) == "function" then
-                local cur = (ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus.bindsPage or 1)
+                local cur = (ps and ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus and Nav.focus.bindsPage) or 1
                 local nxt = cur + 1
                 if nxt > 5 then nxt = 1 end
                 pcall(function() MM:SelectBindsPage(nxt) end)
-                Nav.focus.bindsPage = nxt
+                if Nav.focus then Nav.focus.bindsPage = nxt end
+                if Nav.focus and MM and type(MM.FocusBindsSlot) == "function" and ps and ps.bindsScreen and ps.bindsScreen.bindCards then
+                    local bi = Nav.focus.bindsIdx or 1
+                    if bi < 1 then bi = 1 end
+                    if bi > 8 then bi = 8 end
+                    Nav.focus.bindsIdx = bi
+                    local card = ps.bindsScreen.bindCards[bi]
+                    if card then pcall(function() MM:FocusBindsSlot(card) end) end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
             end
             return true
         end
         return true
     end
-    MMNav_Log("|cffe09a15[MMNav]|r RT (fase2: cursor ainda trata)")
+    -- MMNav_Log("|cffe09a15[MMNav]|r RT (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false
 end
 
 function Nav:OnPrevSubTab()
-    if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then
-        local ps = Nav_GetBindsState()
-        local sub = ps and ps.activeSubScreen
+    local ps = Nav_GetBindsState()
+    local sub = ps and ps.activeSubScreen
+    local inBindsOrPicker = (Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER")) or (sub == "BINDS" or sub == "PICKER")
+    if inBindsOrPicker then
+        if sub == "PICKER" then
+            return true
+        end
         if sub == "BINDS" then
             local MM = Nav_GetMM()
             if MM and type(MM.SelectBindsPage) == "function" then
-                local cur = (ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus.bindsPage or 1)
+                local cur = (ps and ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus and Nav.focus.bindsPage) or 1
                 local prv = cur - 1
                 if prv < 1 then prv = 5 end
                 pcall(function() MM:SelectBindsPage(prv) end)
-                Nav.focus.bindsPage = prv
+                if Nav.focus then Nav.focus.bindsPage = prv end
+                if Nav.focus and MM and type(MM.FocusBindsSlot) == "function" and ps and ps.bindsScreen and ps.bindsScreen.bindCards then
+                    local bi = Nav.focus.bindsIdx or 1
+                    if bi < 1 then bi = 1 end
+                    if bi > 8 then bi = 8 end
+                    Nav.focus.bindsIdx = bi
+                    local card = ps.bindsScreen.bindCards[bi]
+                    if card then pcall(function() MM:FocusBindsSlot(card) end) end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
             end
             return true
         end
         return true
     end
-    MMNav_Log("|cffe09a15[MMNav]|r LT (fase2: cursor ainda trata)")
+    -- MMNav_Log("|cffe09a15[MMNav]|r LT (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false
 end
 
 function Nav:OnSmartTab()
-    MMNav_Log("|cffe09a15[MMNav]|r TAB (fase2: cursor ainda trata)")
+    -- MMNav_Log("|cffe09a15[MMNav]|r TAB (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false
 end
 
@@ -4573,7 +5188,7 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, bindsPage = 1, bindsIdx = 1, pickerMode = 1, pickerSubIdx = 1, pickerGridIdx = 1, pickerPage = 1 }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, bindsPage = 1, bindsIdx = 1, pickerMode = 1, pickerSubIdx = 1, pickerGridIdx = 1, pickerPage = 1, pickerSection = "MODE", pickerPageBtn = 1 }
     if self.focus.questIdx ~= nil and self.focus.questIdx < 1 then self.focus.questIdx = nil end
     if self.focus.qDetail == nil then self.focus.qDetail = false end
     if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
@@ -4594,4 +5209,7 @@ function Nav:Initialize()
     if self.focus.pickerGridIdx == nil or self.focus.pickerGridIdx < 1 then self.focus.pickerGridIdx = 1 end
     if self.focus.pickerGridIdx > 16 then self.focus.pickerGridIdx = 16 end
     if self.focus.pickerPage == nil or self.focus.pickerPage < 1 then self.focus.pickerPage = 1 end
+    if self.focus.pickerSection ~= "MODE" and self.focus.pickerSection ~= "SUB" and self.focus.pickerSection ~= "GRID" and self.focus.pickerSection ~= "PAGE" then self.focus.pickerSection = "MODE" end
+    if self.focus.pickerPageBtn == nil or self.focus.pickerPageBtn < 1 then self.focus.pickerPageBtn = 1 end
+    if self.focus.pickerPageBtn > 2 then self.focus.pickerPageBtn = 2 end
 end

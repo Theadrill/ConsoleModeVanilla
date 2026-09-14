@@ -65,6 +65,9 @@ QID.SLOT_LABELS = {
 -- Set de itemIDs conhecidos na bolsa (evita spam de anunciar o mesmo item repetidamente)
 QID.knownItemIDs = {}
 
+-- Set de itemIDs que falharam ao ser colocados na action bar (ex: itens de leitura/letter que o WoW 1.12 rejeita)
+QID.unplaceableItemIDs = {}
+
 -- Helper de log: imprime no chat com prefixo colorido
 local function QLog(msg)
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[QID]|r " .. tostring(msg))
@@ -73,6 +76,202 @@ end
 -- Helper de debug: silenciado para evitar flood no chat durante o polling periodico de itens
 local function QDebug(msg)
     -- Silenciado intencionalmente para nao poluir o chat durante o polling periodico
+end
+
+-- ============================================================================
+-- FILTROS DE ITENS DE LEITURA / CARTAS / DOCUMENTOS
+-- ============================================================================
+
+-- Remove acentos para comparacao robusta
+local function StripAccents(s)
+    if not s then return "" end
+    s = string.gsub(s, "á", "a")
+    s = string.gsub(s, "à", "a")
+    s = string.gsub(s, "ã", "a")
+    s = string.gsub(s, "â", "a")
+    s = string.gsub(s, "é", "e")
+    s = string.gsub(s, "ê", "e")
+    s = string.gsub(s, "í", "i")
+    s = string.gsub(s, "ó", "o")
+    s = string.gsub(s, "õ", "o")
+    s = string.gsub(s, "ô", "o")
+    s = string.gsub(s, "ú", "u")
+    s = string.gsub(s, "ç", "c")
+    s = string.gsub(s, "ü", "u")
+    s = string.gsub(s, "ö", "o")
+    s = string.gsub(s, "ä", "a")
+    s = string.gsub(s, "Á", "a")
+    s = string.gsub(s, "À", "a")
+    s = string.gsub(s, "Ã", "a")
+    s = string.gsub(s, "Â", "a")
+    s = string.gsub(s, "É", "e")
+    s = string.gsub(s, "Ê", "e")
+    s = string.gsub(s, "Í", "i")
+    s = string.gsub(s, "Ó", "o")
+    s = string.gsub(s, "Õ", "o")
+    s = string.gsub(s, "Ô", "o")
+    s = string.gsub(s, "Ú", "u")
+    s = string.gsub(s, "Ç", "c")
+    s = string.gsub(s, "Ü", "u")
+    s = string.gsub(s, "Ö", "o")
+    s = string.gsub(s, "Ä", "a")
+    return s
+end
+
+-- Normaliza texto em caixa baixa e sem acentos
+local function NormalizeText(txt)
+    if not txt then return "" end
+    local s = (strlower and strlower(txt)) or string.lower(txt)
+    return StripAccents(s)
+end
+
+-- Lista abrangente de termos que indicam itens de leitura, cartas e documentos.
+-- WoW 1.12 nao permite colocar itens puramente de leitura na action bar.
+-- Cobre: Ingles (EN), Portugues (PT), Espanhol (ES), Frances (FR), Alemao (DE), Russo (RU), Chines (ZH) e Coreano (KR).
+QID.EXCLUDED_NAME_TERMS = {
+    -- 1. LETTER (Carta / Brief / Lettre / Письмо / 信 / 편지)
+    "letter", "letters",
+    "carta", "cartas",
+    "lettre", "lettres",
+    "brief", "briefe",
+    "письмо", "письма", "письмецо", "Письмо", "ПИСЬМО",
+    "信", "信件", "书信", "密信", "信函",
+    "편지", "서한",
+
+    -- 2. NOTE / BILHETE (Note / Bilhete / Notiz / Zettel / Записка / 便条 / 쪽지)
+    "note", "notes",
+    "bilhete", "bilhetes", "nota", "notas", "lembrete", "lembretes",
+    "notiz", "notizen", "zettel",
+    "записка", "записки", "заметка", "заметки", "Записка", "ЗАПИСКА",
+    "便条", "便笺", "便签", "笔记", "记事",
+    "쪽지", "메모",
+
+    -- 3. MESSAGE / MISSIVE (Mensagem / Missiva / Botschaft / Послание / 密函 / 서신)
+    "message", "messages", "missive", "missives",
+    "mensagem", "mensagens", "missiva", "missivas", "recado", "recados",
+    "nachricht", "nachrichten", "botschaft", "botschaften",
+    "послание", "послания", "сообщение", "сообщения", "депеша", "депеши", "Послание", "ПОСЛАНИЕ",
+    "密函", "简讯", "讯息", "信息", "书函",
+    "기별", "전갈",
+
+    -- 4. DOCUMENT / PAPERS (Documento / Dokument / Документ / 文件 / 문서)
+    "document", "documents", "paper", "papers",
+    "documento", "documentos", "papel", "papeis",
+    "dokument", "dokumente", "papier", "papiere", "unterlage", "unterlagen",
+    "документ", "документы", "бумага", "бумаги", "Документ", "ДОКУМЕНТ",
+    "文件", "文档", "文书", "公文",
+    "문서", "서류", "공문",
+
+    -- 5. SCROLL / PARCHMENT (Pergaminho / Schriftrolle / Свиток / 卷轴 / 두루마리)
+    "scroll", "scrolls", "parchment", "parchments",
+    "pergaminho", "pergaminhos", "pergamino", "pergaminos",
+    "parchemin", "parchemins", "rouleau", "rouleaux",
+    "schriftrolle", "schriftrollen", "pergament", "pergamente",
+    "свиток", "свитки", "пергамент", "пергаменты", "Свиток", "СВИТОК",
+    "卷轴", "羊皮纸",
+    "두루마리", "양피지",
+
+    -- 6. BOOK / TOME / GRIMOIRE (Livro / Tomo / Grimório / Buch / Книга / 书 / 책)
+    "book", "books", "tome", "tomes", "grimoire", "grimoires",
+    "livro", "livros", "tomo", "tomos", "grimorio", "grimorios",
+    "buch", "bücher", "buecher",
+    "livre", "livres",
+    "книга", "книги", "фолиант", "фолианты", "гримуар", "гримуары", "Книга", "КНИГА", "Фолиант", "ФОЛИАНТ",
+    "书籍", "典籍", "魔法书", "秘典", "宝典",
+    "서적", "마법서",
+
+    -- 7. JOURNAL / DIARY / LOGBOOK (Diário / Tagebuch / Дневник / 日记 / 일지)
+    "journal", "journals", "diary", "diaries", "logbook", "logbooks",
+    "diario", "diarios", "caderno", "cadernos", "carnet", "carnets",
+    "tagebuch", "tagebücher", "tagebuecher", "logbuch", "logbücher",
+    "дневник", "дневники", "Дневник", "ДНЕВНИК",
+    "日记", "航海日志",
+    "일지", "일기",
+
+    -- 8. REPORT / DISPATCH (Relatório / Bericht / Rapport / Отчет / 报告 / 보고서)
+    "report", "reports", "dispatch", "dispatches",
+    "relatorio", "relatorios", "despacho", "despachos",
+    "informe", "informes",
+    "rapport", "rapports", "depeche", "depeches",
+    "bericht", "berichte", "meldung", "meldungen", "depesche", "depeschen",
+    "отчет", "отчеты", "отчёт", "отчёты", "доклад", "доклады", "донесение", "донесения", "Отчет", "ОТЧЕТ", "Доклад", "ДОКЛАД",
+    "报告", "通报",
+    "보고서", "보고",
+
+    -- 9. ORDERS / INSTRUCTIONS / DIRECTIVES (Ordens / Instruções / Befehle / Приказы / 指令 / 지령)
+    "orders", "instruction", "instructions", "directive", "directives",
+    "ordens", "instrucao", "instrucoes", "diretriz", "diretrizes",
+    "órdenes", "ordenes", "instruccion", "instrucciones",
+    "ordres",
+    "befehl", "befehle", "anweisung", "anweisungen", "direktive", "direktiven",
+    "приказ", "приказы", "инструкция", "инструкции", "директива", "директивы", "распоряжение", "Приказ", "ПРИКАЗ",
+    "指令", "命令", "指示", "训令",
+    "명령", "명령서", "지시서", "지령",
+
+    -- 10. PROCLAMATION / DECREE / WRIT / NOTICE / MANIFESTO (Proclamação / Decreto / Указ / 告示 / 포고문)
+    "proclamation", "proclamations", "decree", "decrees", "writ", "writs", "notice", "notices", "manifesto",
+    "proclamacao", "proclamacoes", "decreto", "decretos", "mandado", "mandados", "aviso", "avisos", "boletim",
+    "edicto", "edictos",
+    "dekret", "dekrete", "erlass", "erlasse", "aushang",
+    "прокламация", "прокламации", "указ", "указы", "манифест", "манифесты", "объявление", "объявления", "Указ", "УКАЗ",
+    "告示", "公告", "宣言", "诏令",
+    "포고", "포고문", "칙령", "공고",
+
+    -- 11. PAMPHLET / FLYER / BROCHURE (Panfleto / Folheto / Flugblatt / Листовка / 传单 / 전단)
+    "pamphlet", "pamphlets", "flyer", "flyers", "brochure", "brochures", "leaflet", "leaflets",
+    "panfleto", "panfletos", "folheto", "folhetos", "livreto", "livretos",
+    "flugblatt", "flugblätter", "flugblaetter", "broschuere", "broschüre", "tract",
+    "листовка", "листовки", "брошюра", "брошюры", "Листовка", "ЛИСТОВКА",
+    "传单", "小册子",
+    "전단", "전단지",
+
+    -- 12. TABLET / SLATE / MANUSCRIPT (Tabuleta / Manuscrito / Табличка / 石板 / 석판)
+    "tablet", "tablets", "slate", "slates", "manuscript", "manuscripts",
+    "tabuleta", "tabuletas", "tablilla", "tablillas", "tablette", "tablettes",
+    "tafel", "tafeln", "steintafel", "steintafeln", "manuskript", "manuskripte",
+    "табличка", "таблички", "рукопись", "рукописи", "Табличка", "ТАБЛИЧКА", "Рукопись", "РУКОПИСЬ",
+    "石板", "泥板", "手稿",
+    "석판", "필사본",
+
+    -- 13. CONTRACT / DEED / LEDGER (Contrato / Escritura / Livro-razão / Договор / 契约 / 계약서)
+    "contract", "contracts", "deed", "deeds", "ledger", "ledgers",
+    "contrato", "contratos", "escritura", "escrituras", "livro-razao", "libro mayor",
+    "vertrag", "verträge", "vertraege", "urkunde", "urkunden", "hauptbuch",
+    "договор", "договоры", "контракт", "контракты", "гроссбух", "Договор", "ДОГОВОР", "Контракт", "КОНТРАКТ",
+    "契约", "合同", "账本", "帐本",
+    "계약서", "장부",
+
+    -- 14. TREATISE / CODEX / MANUAL (Tratado / Códice / Руководство / 指南)
+    "treatise", "codex", "manual", "manuals",
+    "tratado", "tratados", "codice",
+    "abhandlung", "leitfaden",
+    "трактат", "трактаты", "руководство", "Трактат", "Руководство",
+    "指南", "手册", "论著",
+    "논문", "교본", "지침서",
+
+    -- 15. PAGE / SHEET (Página / Folha / Страница / 页 / 페이지)
+    "page", "pages",
+    "pagina", "paginas",
+    "seite", "seiten",
+    "страница", "страницы", "Страница", "СТРАНИЦА",
+    "页码", "书页",
+    "페이지",
+}
+
+-- Retorna true se o nome do item coincidir com algum dos termos excluidos (case-insensitive e sem acentos).
+function QID:IsExcludedByName(itemName)
+    if not itemName or itemName == "" then return false end
+
+    local normName = NormalizeText(itemName)
+    local rawName  = itemName
+
+    for _, term in ipairs(QID.EXCLUDED_NAME_TERMS) do
+        if string.find(normName, term, 1, true) or string.find(rawName, term, 1, true) then
+            return true
+        end
+    end
+
+    return false
 end
 
 -- ============================================================================
@@ -92,8 +291,14 @@ end
 -- DETECCAO DE ITEM DE QUEST NAS BOLSAS
 -- ============================================================================
 
--- Verifica via tooltip se o item e do tipo Quest/Missao e tem efeito de uso.
+-- Verifica via tooltip se o item e do tipo Quest/Missao e tem efeito de uso real na action bar.
 function QID:IsQuestItem(bagID, slotID, readable)
+    -- Se o proprio client reporta como readable (livros, cartas, pergaminhos sem acao),
+    -- esses itens abrem interface de leitura e NAO podem ser colocados na action bar do WoW 1.12.
+    if readable then
+        return false
+    end
+
     local scanTooltip = GetScanTooltip()
     if not scanTooltip then return false end
 
@@ -106,28 +311,51 @@ function QID:IsQuestItem(bagID, slotID, readable)
     local numLines = scanTooltip:NumLines()
     if not numLines or numLines <= 0 then return false end
 
-    local isQuest  = false
-    local isUsable = false
+    -- Linha 1 do tooltip e o nome do item: verifica filtro de nome
+    local nameObj = getglobal("ConsoleModeBagScanTooltipTextLeft1")
+    local itemName = nameObj and nameObj:GetText()
+    if itemName and QID:IsExcludedByName(itemName) then
+        return false
+    end
+
+    local isQuest    = false
+    local isUsable   = false
+    local isReadItem = false
 
     for i = 1, numLines do
         local leftObj = getglobal("ConsoleModeBagScanTooltipTextLeft" .. i)
         local leftTxt = (leftObj and leftObj:GetText()) or ""
-        local lLow    = string.lower(leftTxt)
+        local lNorm   = NormalizeText(leftTxt)
 
-        -- Tipo: "Quest Item" (EN) ou "Missao" (PT-BR) ou variantes
-        if string.find(lLow, "quest") or string.find(lLow, "miss") then
+        -- Tipo: "Quest Item" (EN) ou "Missao" (PT-BR) ou variantes em outras linguas
+        if string.find(lNorm, "quest") or string.find(lNorm, "miss")
+        or string.find(lNorm, "quete") or string.find(lNorm, "zadan")
+        or string.find(lNorm, "задан") then
             isQuest = true
         end
 
-        -- Linha de uso: "Use: ...", "Uso: ...", etc.
-        if string.find(lLow, "use:") or string.find(lLow, "uso:")
-        or string.find(lLow, "utilizar:") or string.find(lLow, "direito para")
-        or string.find(lLow, "right") or string.find(lLow, "bot") then
+        -- Se houver instrucao de leitura na tooltip, desqualifica imediatamente
+        -- ex: "<Right Click to Read>", "<Clique com o botão direito para ler>", etc.
+        if string.find(lNorm, "read") or string.find(lNorm, "ler")
+        or string.find(lNorm, "lire") or string.find(lNorm, "lesen")
+        or string.find(lNorm, "прочитать") then
+            isReadItem = true
+        end
+
+        -- Linha de uso real de feitico/acao no mundo: "Use: ...", "Uso: ...", etc.
+        if string.find(lNorm, "use:") or string.find(lNorm, "uso:")
+        or string.find(lNorm, "utilizar:") or string.find(lNorm, "benutzen:")
+        or string.find(lNorm, "utilise") or string.find(lNorm, "использование:")
+        or string.find(lNorm, "para usar") or string.find(lNorm, "to use") then
             isUsable = true
         end
     end
 
-    return isQuest and (isUsable or readable)
+    if isReadItem then
+        return false
+    end
+
+    return isQuest and isUsable
 end
 
 -- Varre bags 0-4 e retorna lista FIFO de itens quest usaveis (sem duplicatas).
@@ -148,24 +376,26 @@ function QID:GetUsableQuestItems()
 
                 if texture then
                     local itemLink = GetContainerItemLink(bagID, slotID)
-                    if itemLink and QID:IsQuestItem(bagID, slotID, readable) then
+                    if itemLink then
                         local _, _, extracted = string.find(itemLink, "%[(.-)%]")
                         local itemName = extracted or "Item"
 
                         local _, _, itemIDStr = string.find(itemLink, "item:(%d+)")
                         local itemID = tonumber(itemIDStr)
 
-                        -- So adiciona se este itemID ainda nao foi visto
-                        if itemID and not seenItemIDs[itemID] then
-                            seenItemIDs[itemID] = true
-                            tinsert(items, {
-                                bagID    = bagID,
-                                slotID   = slotID,
-                                itemLink = itemLink,
-                                itemID   = itemID,
-                                itemName = itemName,
-                                texture  = texture,
-                            })
+                        -- So adiciona se o itemID ainda nao foi visto, nao falhou na action bar, nao for carta/leitura e for quest usavel
+                        if itemID and not seenItemIDs[itemID] and not QID.unplaceableItemIDs[itemID] then
+                            if not QID:IsExcludedByName(itemName) and QID:IsQuestItem(bagID, slotID, readable) then
+                                seenItemIDs[itemID] = true
+                                tinsert(items, {
+                                    bagID    = bagID,
+                                    slotID   = slotID,
+                                    itemLink = itemLink,
+                                    itemID   = itemID,
+                                    itemName = itemName,
+                                    texture  = texture,
+                                })
+                            end
                         end
                     end
                 end
@@ -209,13 +439,17 @@ end
 -- ============================================================================
 
 -- Coloca um item da bag num slot da action bar.
+-- Retorna true apenas se a acao foi de fato atribuida ao slot (verificado via HasAction).
 function QID:PlaceItemInSlot(bagID, slotID, actionSlot)
-    local ok = pcall(function()
+    local placed = false
+    pcall(function()
+        ClearCursor()
         PickupContainerItem(bagID, slotID)
         PlaceAction(actionSlot)
         ClearCursor()
+        placed = (HasAction(actionSlot) == 1 or HasAction(actionSlot) == true)
     end)
-    return ok
+    return placed
 end
 
 -- Limpa um slot da action bar de forma segura no WoW 1.12.
@@ -471,6 +705,10 @@ function QID:DistributeQuestItems(forceDedup)
                     QID.slotMap[actionSlot] = itemToPlace.itemID
                     itemsAdded = itemsAdded + 1
                     QLog("Posicionando |cffffff00[" .. itemToPlace.itemName .. "]|r no slot " .. actionSlot .. " (" .. btnLabel .. ")")
+                else
+                    -- Nao foi possivel colocar na action bar (item rejeitado pelo client WoW 1.12, ex: carta/livro)
+                    QID.unplaceableItemIDs[itemToPlace.itemID] = true
+                    QDebug("Falha ao colocar item " .. (itemToPlace.itemName or "?") .. " no slot " .. actionSlot .. " (nao aceito na action bar)")
                 end
             else
                 -- Sem mais itens de quest: limpa o slot alvo se estiver ocupado
@@ -505,6 +743,7 @@ end
 -- Permite acionamento manual do deduplicador para testes (/cm dedup)
 function QID:ForceDeduplicate()
     QLog("Forcando redistribuicao e deduplicacao manual...")
+    QID.unplaceableItemIDs = {}
     QID:DistributeQuestItems(true)
 end
 
@@ -535,6 +774,7 @@ function QID:Initialize()
             QID.scanTimer = 0
             QID.pollTimer = 0
             QID.initialDedupDone = false
+            QID.unplaceableItemIDs = {}
         elseif event == "BAG_UPDATE" or event == "UNIT_INVENTORY_CHANGED" then
             -- Delay curto para updates de bolsa
             if QID.scanDelay <= 0 or QID.scanTimer < 0.5 then

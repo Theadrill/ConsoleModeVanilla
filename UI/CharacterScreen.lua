@@ -1405,11 +1405,13 @@ function CharacterScreen:LayoutCards()
         end
         if type(left.Show) == "function" then left:Show() end
         if type(left.SetWidth) == "function" then left:SetWidth(colW) end
+        if type(left.SetHeight) == "function" then left:SetHeight(rowH) end
         left:ClearAllPoints()
         left:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
         if right then
             if type(right.Show) == "function" then right:Show() end
             if type(right.SetWidth) == "function" then right:SetWidth(colW) end
+            if type(right.SetHeight) == "function" then right:SetHeight(rowH) end
             right:ClearAllPoints()
             right:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", rightX, yOff)
         end

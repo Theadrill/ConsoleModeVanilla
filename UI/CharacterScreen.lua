@@ -1357,7 +1357,7 @@ end
 
 -- RETRABALHO 2 colunas: pareamento sequencial dos VISIVEIS na ordem do
 -- cardOrder — (Ident,Base),(Res,Melee),(MeleeBoss,Ranged),(Spell,Schools),
--- (Def,DefBoss),(Resist,Armas),(Armadura sozinha). Ranged oculto p/ relic classes NAO deixa
+-- (Def,DefBoss),(Resist,Armas). Ranged oculto p/ relic classes NAO deixa
 -- buraco (pares recomputados so com visiveis). Linha: altura = max(A,B),
 -- cards top-aligned. contentH = soma das linhas + gaps + padding.
 -- Pool fixo: so reposiciona + SetWidth (linhas sao TOPLEFT/TOPRIGHT do card,
@@ -1488,20 +1488,72 @@ function CharacterScreen:CreateUI(parent)
     self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", "DEFESA & SOBREVIVENCIA", 190, 6, colW)
     self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", "DEFESA VS BOSS (NIVEL 63)", 190, 6, colW)
     self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", "RESISTENCIAS ELEMENTAIS", 170, 5, colW)
-    -- FASE 5 (parcial: Proficiencias): 2 cards no FIM da ordem (apos
-    -- Resistencias). Armas: 8 linhas "Nome: X/Y [bar8]" (barras permitidas
-    -- aqui por padronizacao); Armadura: 3 linhas (lista curta 2+rest + escudos).
-    -- Pool fixo: criados uma vez aqui; Refresh so atualiza os FontStrings.
-    -- Altura = 30 (titulo) + 20*n (linhas) + 40 (respiro): 8->230, 3->130.
-    self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", "PERICIAS DE ARMAS", 230, 8, colW)
-    self.cardArmor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardArmor", "PROFICIENCIAS DE ARMADURA", 130, 3, colW)
+    -- FASE 5 (parcial: Proficiencias): 1 card no FIM da ordem (apos
+    -- Resistencias). Armas: 8 slots "nome em cima + StatusBar embaixo"
+    -- (barras visuais douradas, pool fixo em CreateUI). Pool fixo: criado
+    -- uma vez aqui; Refresh so atualiza os FontStrings + SetMinMaxValues/SetValue.
+    -- Altura armas = 30 (titulo) + 8*32 (nome+barra+gap) + 24 (respiro) = 310.
+    self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", "PERICIAS DE ARMAS", 310, 8, colW)
+
+    -- PERICIAS DE ARMAS: cada pericia ocupa 2 linhas visuais (nome em cima +
+    -- StatusBar h10 embaixo). Pool fixo de 8 StatusBars criado UMA vez aqui;
+    -- Refresh so faz SetMinMaxValues/SetValue/Show/Hide. Pitch 32px por slot:
+    -- nome (13) + 3 gap + barra 10 + 6 gap. Altura = 30 + 8*32 + 24 = 310.
+    -- Barra dourada ambar (0.88/0.60/0.08) + fundo escuro (textura filha).
+    -- Overflow "... (+N)" e linha de texto sem barra.
+    do
+        local wcard = self.cardWeapon
+        if wcard and wcard.lines and table.getn(wcard.lines) >= 8 then
+            wcard.bars = wcard.bars or {}
+            local si = 1
+            while si <= 8 do
+                local yName = -(30 + ((si - 1) * 32))
+                local fsW = wcard.lines[si]
+                if fsW then
+                    fsW:ClearAllPoints()
+                    fsW:SetPoint("TOPLEFT", wcard, "TOPLEFT", 12, yName)
+                    fsW:SetPoint("TOPRIGHT", wcard, "TOPRIGHT", -12, yName)
+                end
+                local barW = wcard.bars[si]
+                if not barW then
+                    barW = CreateFrame("StatusBar", nil, wcard)
+                    if barW then
+                        barW:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+                        barW:SetStatusBarColor(0.88, 0.60, 0.08, 1)
+                        barW:SetMinMaxValues(0, 1)
+                        barW:SetValue(0)
+                        local bgW = barW:CreateTexture(nil, "BACKGROUND")
+                        if bgW then
+                            bgW:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                            bgW:SetVertexColor(0, 0, 0, 0.85)
+                            bgW:SetPoint("TOPLEFT", barW, "TOPLEFT", 0, 0)
+                            bgW:SetPoint("BOTTOMRIGHT", barW, "BOTTOMRIGHT", 0, 0)
+                        end
+                        wcard.bars[si] = barW
+                    end
+                end
+                if barW then
+                    barW:ClearAllPoints()
+                    barW:SetPoint("TOPLEFT", wcard, "TOPLEFT", 12, yName - 16)
+                    barW:SetPoint("TOPRIGHT", wcard, "TOPRIGHT", -12, yName - 16)
+                    barW:SetHeight(10)
+                    barW:SetMinMaxValues(0, 1)
+                    barW:SetValue(0)
+                    barW:Hide()
+                end
+                si = si + 1
+            end
+            wcard:SetHeight(310)
+            wcard.cardH = 310
+        end
+    end
 
     self.cardOrder = {
         self.cardIdent, self.cardBase, self.cardRes,
         self.cardMelee, self.cardMeleeBoss, self.cardRanged,
         self.cardSpell, self.cardSchools,
         self.cardDef, self.cardDefBoss, self.cardResist,
-        self.cardWeapon, self.cardArmor,
+        self.cardWeapon,
     }
 
     self.scrollFrame = scrollFrame
@@ -2163,13 +2215,14 @@ end
 -- ----------------------------------------------------------------------------
 -- FASE 5 (parcial: Proficiencias). Metodos CharacterScreen:X (NAO sao
 -- file-locals): corpo usa so self + globais + locais internos => 0 upvalues.
--- Refresh() ganha so 2 chamadas via self (sem upvalue novo).
+-- Refresh() ganha so 1 chamada via self (sem upvalue novo).
 -- Armas: deteccao do cabecalho via GetNumSkillLines/GetSkillLineInfo com
 -- isHeader==1 + strlower + find "weapon"/"arma" (guarda [^d]/$ para nao casar
 -- "armaduras"); fallback posicional = 3o cabecalho (clientes localizados).
--- Filhos listados ate o proximo header; linha "Nome: X/max [bar8]" com barra
--- textual curta de 8 blocos (permitida aqui); overflow vira "+N (tecla K)".
--- Armaduras: sem API direta na 1.12 — derivado da classe via UnitClass.
+-- Filhos listados ate o proximo header; slot = nome "Nome  X/max (+mod
+-- verde)" em cima + StatusBar dourada embaixo (pool fixo card.bars, criado
+-- uma vez em CreateUI; Refresh so SetMinMaxValues/SetValue, guard max>0);
+-- overflow vira "... (+N)" como linha de texto sem barra.
 -- Evento SKILL_LINES_CHANGED ja registrado em EnsureEventFrame (so Refresh
 -- com isVisible); sem cache — leitura direta a cada Refresh (barata).
 -- ----------------------------------------------------------------------------
@@ -2215,6 +2268,14 @@ function CharacterScreen:RefreshWeaponProfs()
         while z <= 8 do
             card.lines[z]:SetText("")
             z = z + 1
+        end
+        if card.bars then
+            local hb = 1
+            while hb <= 8 do
+                local b0 = card.bars[hb]
+                if b0 and type(b0.Hide) == "function" then b0:Hide() end
+                hb = hb + 1
+            end
         end
         return
     end
@@ -2265,83 +2326,60 @@ function CharacterScreen:RefreshWeaponProfs()
             card.lines[z2]:SetText("")
             z2 = z2 + 1
         end
+        if card.bars then
+            local hb2 = 1
+            while hb2 <= 8 do
+                local b02 = card.bars[hb2]
+                if b02 and type(b02.Hide) == "function" then b02:Hide() end
+                hb2 = hb2 + 1
+            end
+        end
         return
     end
-    -- 3. Render: ate 8 linhas; com overflow a 8a vira "+N (tecla K)".
+    -- 3. Render: ate 8 slots (nome em cima + barra embaixo); com overflow
+    -- a 8a vira "... (+N)" como linha de texto sem barra. Barras do pool
+    -- fixo: so SetMinMaxValues/SetValue/Show/Hide, com guard max>0.
     local shown = n
     if shown > 8 then shown = 8 end
     local li = 1
     while li <= shown do
+        local barLi = nil
+        if card.bars then barLi = card.bars[li] end
         if n > 8 and li == 8 then
             card.lines[li]:SetText("... (+" .. tostring(n - 7) .. " ver SkillFrame K)")
+            if barLi and type(barLi.Hide) == "function" then barLi:Hide() end
         else
             local rk = ranks[li]
             local mx = maxs[li]
-            local fill = 0
-            if mx > 0 then fill = math.floor((rk / mx) * 8 + 0.5) end
-            if fill < 0 then fill = 0 end
-            if fill > 8 then fill = 8 end
-            local bar = string.rep("=", fill) .. string.rep("-", 8 - fill)
-            local txt = tostring(names[li]) .. ": " .. tostring(rk) .. "/" .. tostring(mx)
-                .. " [" .. bar .. "]"
-            if mods[li] > 0 then
+            if type(rk) ~= "number" then rk = 0 end
+            if type(mx) ~= "number" then mx = 0 end
+            local txt = tostring(names[li]) .. "  " .. tostring(rk) .. "/" .. tostring(mx)
+            if mods[li] and mods[li] > 0 then
                 txt = txt .. " |cff20ff20(+" .. tostring(mods[li]) .. ")|r"
             end
             card.lines[li]:SetText(txt)
+            if barLi then
+                if mx > 0 then
+                    barLi:SetMinMaxValues(0, mx)
+                    local vv = rk
+                    if vv < 0 then vv = 0 end
+                    if vv > mx then vv = mx end
+                    barLi:SetValue(vv)
+                    if type(barLi.Show) == "function" then barLi:Show() end
+                else
+                    if type(barLi.Hide) == "function" then barLi:Hide() end
+                end
+            end
         end
         li = li + 1
     end
     local k = shown + 1
     while k <= 8 do
         card.lines[k]:SetText("")
-        k = k + 1
-    end
-end
-
-function CharacterScreen:RefreshArmorProfs()
-    local card = self.cardArmor
-    if not card then return end
-    if not card.lines then return end
-    if table.getn(card.lines) < 3 then return end
-    local classFile = ""
-    if type(UnitClass) == "function" then
-        local okC, cLoc, cFile = pcall(UnitClass, "player")
-        if okC and type(cFile) == "string" then classFile = cFile end
-    end
-    -- Progressao 1.12: tecido base; couro soma tecido; malha soma os dois;
-    -- placas soma os tres; escudos so p/ guerreiro/paladino/xama.
-    local armors = { "Tecido" }
-    local shields = "Nao"
-    if classFile == "WARRIOR" or classFile == "PALADIN" then
-        armors = { "Tecido", "Couro", "Malha", "Placas" }
-        shields = "Sim"
-    elseif classFile == "HUNTER" then
-        armors = { "Tecido", "Couro", "Malha" }
-    elseif classFile == "SHAMAN" then
-        armors = { "Tecido", "Couro", "Malha" }
-        shields = "Sim"
-    elseif classFile == "ROGUE" or classFile == "DRUID" then
-        armors = { "Tecido", "Couro" }
-    end
-    -- Lista curta em 1-2 linhas (meia coluna nao cabe "Tecido..Placas" numa
-    -- so); ultima linha sempre "Escudos: Sim/Nao".
-    if table.getn(armors) <= 2 then
-        local list = armors[1]
-        if table.getn(armors) == 2 then list = list .. ", " .. armors[2] end
-        card.lines[1]:SetText("Armaduras: " .. list)
-        card.lines[2]:SetText("Escudos: " .. shields)
-        card.lines[3]:SetText("")
-    else
-        card.lines[1]:SetText("Armaduras: " .. tostring(armors[1]) .. ", " .. tostring(armors[2]) .. ",")
-        local rest = ""
-        local ri = 3
-        while ri <= table.getn(armors) do
-            if rest ~= "" then rest = rest .. ", " end
-            rest = rest .. tostring(armors[ri])
-            ri = ri + 1
+        if card.bars and card.bars[k] and type(card.bars[k].Hide) == "function" then
+            card.bars[k]:Hide()
         end
-        card.lines[2]:SetText(rest)
-        card.lines[3]:SetText("Escudos: " .. shields)
+        k = k + 1
     end
 end
 
@@ -2361,7 +2399,6 @@ function CharacterScreen:Refresh()
     if self.cardResist then CS_RefreshResist(self) end
     -- FASE 5 (parcial): metodos via self (sem upvalue novo).
     if self.cardWeapon then self:RefreshWeaponProfs() end
-    if self.cardArmor then self:RefreshArmorProfs() end
     self:LayoutCards()
 end
 

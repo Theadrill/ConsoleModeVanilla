@@ -25,7 +25,7 @@ Nav.ticker = Nav.ticker or nil
 
 -- FASE 2: foco por zona dentro da aba BAGS.
 -- FASE 3: + spellCat/spellSlot para aba SPELLS (zonas SPCAT/SPGRID).
-Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, npcIdx = 1, zonaIdx = 1, qMapaOrigem = nil, mapaIdx = 1 }
+Nav.focus = Nav.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, npcIdx = 1, zonaIdx = 1, qMapaOrigem = nil, mapaIdx = 1, bindsPage = 1, bindsIdx = 1, pickerMode = 1, pickerSubIdx = 1, pickerGridIdx = 1, pickerPage = 1 }
 
 -- ----------------------------------------------------------------------------
 -- Helpers defensivos (nunca quebram se o frame/modulo nao existir).
@@ -1143,6 +1143,36 @@ local function Nav_PaintZonas()
     end
 end
 
+local function Nav_GetBindsState()
+    local okMM, MMM = pcall(function() return Nav_GetMM() end)
+    if not okMM or not MMM or not MMM.tabContainer or not MMM.tabContainer.pages then return nil end
+    local pageSystem = MMM.tabContainer.pages["SYSTEM"]
+    if not pageSystem then return nil end
+    return pageSystem
+end
+
+local function Nav_IsBindsScreenVisible()
+    local ps = Nav_GetBindsState()
+    if not ps then return false end
+    if ps.activeSubScreen ~= "BINDS" then return false end
+    if ps.bindsScreen and type(ps.bindsScreen.IsVisible) == "function" then
+        local ok, v = pcall(function() return ps.bindsScreen:IsVisible() end)
+        if ok then return v end
+    end
+    return ps.activeSubScreen == "BINDS"
+end
+
+local function Nav_IsPickerScreenVisible()
+    local ps = Nav_GetBindsState()
+    if not ps then return false end
+    if ps.activeSubScreen ~= "PICKER" then return false end
+    if ps.pickerScreen and type(ps.pickerScreen.IsVisible) == "function" then
+        local ok, v = pcall(function() return ps.pickerScreen:IsVisible() end)
+        if ok then return v end
+    end
+    return ps.activeSubScreen == "PICKER"
+end
+
 local function Nav_GetSysSubTabs()
     local okMM, MMM = pcall(function() return Nav_GetMM() end)
     if not okMM or not MMM or not MMM.tabContainer or not MMM.tabContainer.pages then return nil end
@@ -1498,10 +1528,22 @@ local function Nav_EnsureFocus()
         end
     end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_SUBTABS" and f.zone ~= "SYS_GAMEMENU" and f.zone ~= "SYS_ADDONCFG" then
+    -- F1 BINDS/PICKER: indices (pool fixo 8 cards + picker 4x4).
+    if not f.bindsPage or f.bindsPage < 1 then f.bindsPage = 1 end
+    if f.bindsPage > 5 then f.bindsPage = 5 end
+    if not f.bindsIdx or f.bindsIdx < 1 then f.bindsIdx = 1 end
+    if f.bindsIdx > 8 then f.bindsIdx = 8 end
+    if not f.pickerMode or f.pickerMode < 1 then f.pickerMode = 1 end
+    if f.pickerMode > 4 then f.pickerMode = 4 end
+    if not f.pickerSubIdx or f.pickerSubIdx < 1 then f.pickerSubIdx = 1 end
+    if not f.pickerGridIdx or f.pickerGridIdx < 1 then f.pickerGridIdx = 1 end
+    if f.pickerGridIdx > 16 then f.pickerGridIdx = 16 end
+    if not f.pickerPage or f.pickerPage < 1 then f.pickerPage = 1 end
+
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_SUBTABS" and f.zone ~= "SYS_GAMEMENU" and f.zone ~= "SYS_ADDONCFG" and f.zone ~= "SYS_BINDS" and f.zone ~= "SYS_PICKER" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" and f.returnZone ~= "SYS_SUBTABS" and f.returnZone ~= "SYS_GAMEMENU" and f.returnZone ~= "SYS_ADDONCFG" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" and f.returnZone ~= "SYS_SUBTABS" and f.returnZone ~= "SYS_GAMEMENU" and f.returnZone ~= "SYS_ADDONCFG" and f.returnZone ~= "SYS_BINDS" and f.returnZone ~= "SYS_PICKER" then
         f.returnZone = "GRID"
     end
     -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS/QUESTS/SYSTEM).
@@ -1547,11 +1589,38 @@ local function Nav_EnsureFocus()
             f.returnZone = "QMISSOES"
         end
     elseif curTabEf == "SYSTEM" then
-        if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
-            f.zone = "SYS_SUBTABS"
+        -- F1 BINDS/PICKER: activeSubScreen decide sub-zona; sem generica p/ SYS_SUBTABS quando em BINDS/PICKER.
+        local psEf = Nav_GetBindsState()
+        local subEf = psEf and psEf.activeSubScreen
+        if subEf == "BINDS" then
+            if f.zone ~= "SYS_BINDS" and f.zone ~= "TABBAR" then f.zone = "SYS_BINDS" end
+        elseif subEf == "PICKER" then
+            if f.zone ~= "SYS_PICKER" and f.zone ~= "TABBAR" then f.zone = "SYS_PICKER" end
+        else
+            if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
+                f.zone = "SYS_SUBTABS"
+            end
         end
-        if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
-            f.returnZone = "SYS_SUBTABS"
+        if not subEf then
+            if f.returnZone == "CATS" or f.returnZone == "GRID" or f.returnZone == "PAGENAV" or f.returnZone == "SORT" or f.returnZone == "SPCAT" or f.returnZone == "SPGRID" or f.returnZone == "SPTABS" or f.returnZone == "SPPAGE" or f.returnZone == "TALENTS1" or f.returnZone == "TALENTS2" or f.returnZone == "EQUIP" or f.returnZone == "BUFFS" or f.returnZone == "QMISSOES" or f.returnZone == "QDETALHE" or f.returnZone == "ZONAS" or f.returnZone == "QNPCS" or f.returnZone == "QZONAS" or f.returnZone == "QMAPAS" or f.returnZone == "QLEITURA" or f.returnZone == "QNAV" then
+                f.returnZone = "SYS_SUBTABS"
+            end
+        end
+        -- Conversao quando activeSubScreen existe nao toca returnZone (lição EQUIP→SPCAT/TALENTS1).
+        if f.zone == "SYS_BINDS" or f.zone == "SYS_PICKER" then
+            -- clamp leve de pickerSubIdx pelo num de subTabs visiveis (se existir)
+            local psClamp = Nav_GetBindsState()
+            if f.zone == "SYS_PICKER" and psClamp and psClamp.pickerScreen and psClamp.pickerScreen.subTabButtons then
+                local okN, nst = pcall(function() return table.getn(psClamp.pickerScreen.subTabButtons) end)
+                if okN and type(nst) == "number" and nst >= 1 then
+                    if not f.pickerSubIdx or f.pickerSubIdx < 1 then f.pickerSubIdx = 1 end
+                    if f.pickerSubIdx > nst then f.pickerSubIdx = nst end
+                end
+            end
+            if psClamp and psClamp.pickerScreen and psClamp.pickerScreen.maxPages then
+                local mp = psClamp.pickerScreen.maxPages
+                if type(mp) == "number" and mp >= 1 and f.pickerPage > mp then f.pickerPage = mp end
+            end
         end
     end
     if f.zone == "QMISSOES" or f.zone == "QDETALHE" then
@@ -3666,9 +3735,47 @@ function Nav:OnConfirm()
             local b = abtns and abtns[idx]
             if b then
                 pcall(function() b:Click() end)
+                -- Se clicou na 1a linha (Binds), a tela muda para sub-estado BINDS;
+                -- registra no Nav para OnCancel/Dpad não ficarem stales (F1 minimo).
+                local ps = Nav_GetBindsState()
+                if ps and ps.activeSubScreen == "BINDS" then
+                    fs.zone = "SYS_BINDS"
+                    fs.returnZone = "SYS_BINDS"
+                    if not fs.bindsIdx or fs.bindsIdx < 1 then fs.bindsIdx = 1 end
+                    if ps.bindsScreen and ps.bindsScreen.currentPage then fs.bindsPage = ps.bindsScreen.currentPage end
+                    Nav_EnsureFocus()
+                    Nav_ApplyFocus()
+                end
                 return true
             end
             return false
+        end
+        if fs.zone == "SYS_BINDS" then
+            local ps = Nav_GetBindsState()
+            if ps and ps.bindsScreen and ps.bindsScreen.bindCards then
+                local idx = fs.bindsIdx or 1
+                local b = ps.bindsScreen.bindCards[idx]
+                if b and type(b.GetScript) == "function" then
+                    local MM = Nav_GetMM()
+                    if MM and type(MM.OpenPickerForSlot) == "function" then
+                        pcall(function() MM:OpenPickerForSlot(b) end)
+                        local ps2 = Nav_GetBindsState()
+                        if ps2 and ps2.activeSubScreen == "PICKER" then
+                            fs.zone = "SYS_PICKER"
+                            if not fs.pickerMode or fs.pickerMode < 1 then fs.pickerMode = 1 end
+                            if not fs.pickerSubIdx or fs.pickerSubIdx < 1 then fs.pickerSubIdx = 1 end
+                            if not fs.pickerGridIdx or fs.pickerGridIdx < 1 then fs.pickerGridIdx = 1 end
+                            fs.returnZone = "SYS_BINDS"
+                            Nav_EnsureFocus()
+                            Nav_ApplyFocus()
+                        end
+                    end
+                end
+            end
+            return true
+        end
+        if fs.zone == "SYS_PICKER" then
+            return true
         end
         return false
     end
@@ -3991,6 +4098,27 @@ function Nav:OnCancel()
     if curTabCx == "SYSTEM" then
         Nav_EnsureFocus()
         local fs = self.focus
+        -- F1 BINDS/PICKER: regresso deterministico antes de SYS_GAMEMENU/ADDONCFG (lição SPCAT/TALENTS1→TABBAR).
+        if fs.zone == "SYS_PICKER" then
+            local MM = Nav_GetMM()
+            if MM and type(MM.HandleBindsBack) == "function" then pcall(function() MM:HandleBindsBack() end) end
+            fs.zone = "SYS_BINDS"
+            fs.returnZone = "SYS_BINDS"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
+        if fs.zone == "SYS_BINDS" then
+            local MM = Nav_GetMM()
+            if MM and type(MM.HandleBindsBack) == "function" then pcall(function() MM:HandleBindsBack() end) else fs.zone = "SYS_ADDONCFG" end
+            if fs.zone == "SYS_BINDS" then fs.zone = "SYS_ADDONCFG" end
+            fs.returnZone = "SYS_BINDS"
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            MMNav_PlayMove()
+            return true
+        end
         if fs.zone == "SYS_GAMEMENU" or fs.zone == "SYS_ADDONCFG" then
             fs.zone = "SYS_SUBTABS"
             fs.returnZone = fs.zone
@@ -4363,21 +4491,55 @@ function Nav:OnSecondary()
 end
 
 function Nav:OnNextTab()
+    if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end
     MMNav_Log("|cffe09a15[MMNav]|r RB (fase2: cursor ainda trata)")
     return false
 end
 
 function Nav:OnPrevTab()
+    if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end
     MMNav_Log("|cffe09a15[MMNav]|r LB (fase2: cursor ainda trata)")
     return false
 end
 
 function Nav:OnNextSubTab()
+    if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then
+        local ps = Nav_GetBindsState()
+        local sub = ps and ps.activeSubScreen
+        if sub == "BINDS" then
+            local MM = Nav_GetMM()
+            if MM and type(MM.SelectBindsPage) == "function" then
+                local cur = (ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus.bindsPage or 1)
+                local nxt = cur + 1
+                if nxt > 5 then nxt = 1 end
+                pcall(function() MM:SelectBindsPage(nxt) end)
+                Nav.focus.bindsPage = nxt
+            end
+            return true
+        end
+        return true
+    end
     MMNav_Log("|cffe09a15[MMNav]|r RT (fase2: cursor ainda trata)")
     return false
 end
 
 function Nav:OnPrevSubTab()
+    if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then
+        local ps = Nav_GetBindsState()
+        local sub = ps and ps.activeSubScreen
+        if sub == "BINDS" then
+            local MM = Nav_GetMM()
+            if MM and type(MM.SelectBindsPage) == "function" then
+                local cur = (ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus.bindsPage or 1)
+                local prv = cur - 1
+                if prv < 1 then prv = 5 end
+                pcall(function() MM:SelectBindsPage(prv) end)
+                Nav.focus.bindsPage = prv
+            end
+            return true
+        end
+        return true
+    end
     MMNav_Log("|cffe09a15[MMNav]|r LT (fase2: cursor ainda trata)")
     return false
 end
@@ -4411,7 +4573,7 @@ function Nav:Initialize()
     if self.navState.interval == nil then self.navState.interval = 0.12 end
     if self.navState.timer == nil then self.navState.timer = 0 end
     if self.ticker == nil then self.ticker = nil end
-    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false }
+    self.focus = self.focus or { zone = "GRID", tabIdx = 1, equipIndex = 1, catIndex = nil, gridIndex = 1, buffPos = 1, pageBtn = 1, returnZone = "GRID", spellCat = nil, spellSlot = nil, spellTab = nil, talentSpec = nil, talentSlot = nil, spellPageBtn = 1, questIdx = nil, qDetail = false, bindsPage = 1, bindsIdx = 1, pickerMode = 1, pickerSubIdx = 1, pickerGridIdx = 1, pickerPage = 1 }
     if self.focus.questIdx ~= nil and self.focus.questIdx < 1 then self.focus.questIdx = nil end
     if self.focus.qDetail == nil then self.focus.qDetail = false end
     if self.focus.buffPos == nil or self.focus.buffPos < 1 then self.focus.buffPos = 1 end
@@ -4422,4 +4584,14 @@ function Nav:Initialize()
     if self.focus.spellTab == nil or self.focus.spellTab < 1 then self.focus.spellTab = 1 end
     if self.focus.talentSpec ~= nil and self.focus.talentSpec < 1 then self.focus.talentSpec = 1 end
     if self.focus.talentSpec ~= nil and self.focus.talentSpec > 3 then self.focus.talentSpec = 3 end
+    if self.focus.bindsPage == nil or self.focus.bindsPage < 1 then self.focus.bindsPage = 1 end
+    if self.focus.bindsPage > 5 then self.focus.bindsPage = 5 end
+    if self.focus.bindsIdx == nil or self.focus.bindsIdx < 1 then self.focus.bindsIdx = 1 end
+    if self.focus.bindsIdx > 8 then self.focus.bindsIdx = 8 end
+    if self.focus.pickerMode == nil or self.focus.pickerMode < 1 then self.focus.pickerMode = 1 end
+    if self.focus.pickerMode > 4 then self.focus.pickerMode = 4 end
+    if self.focus.pickerSubIdx == nil or self.focus.pickerSubIdx < 1 then self.focus.pickerSubIdx = 1 end
+    if self.focus.pickerGridIdx == nil or self.focus.pickerGridIdx < 1 then self.focus.pickerGridIdx = 1 end
+    if self.focus.pickerGridIdx > 16 then self.focus.pickerGridIdx = 16 end
+    if self.focus.pickerPage == nil or self.focus.pickerPage < 1 then self.focus.pickerPage = 1 end
 end

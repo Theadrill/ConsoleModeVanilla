@@ -13898,7 +13898,34 @@ function MainMenu:CreateUI()
         end
 
         local cur = (MainMenu.tabContainer and MainMenu.tabContainer.currentTab) or "BAGS"
+        -- DEMANDA 1: reabrir cai em BAGS sem foco navegavel; garantir foco no 1o slot do grid (cobre START e /reload, sem quebrar outras abas)
+        pcall(function()
+            if cur == "BAGS" then
+                local okG, nav = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+                if okG and nav and nav.focus then
+                    pcall(function()
+                        nav.focus.zone = "GRID"
+                        nav.focus.returnZone = "GRID"
+                        nav.focus.gridIndex = 1
+                        nav.focus.equipIndex = 1
+                        nav.focus.catIndex = 1
+                        nav.focus.pageBtn = 1
+                    end)
+                end
+            end
+        end)
         MainMenu:SelectTab(cur, false)
+        -- Pintor dourado canonico: OnShow resetava para GRID mas nao pintava (ApplyFocus so apos D-pad)
+        pcall(function()
+            local okG, nav = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and nav and type(nav.IsActive) == "function" then
+                local ok, active = pcall(nav.IsActive, nav)
+                if ok and active and type(nav.EnsureFocus) == "function" and type(nav.ApplyFocus) == "function" then
+                    pcall(function() nav:EnsureFocus() end)
+                    pcall(function() nav:ApplyFocus() end)
+                end
+            end
+        end)
 
         if dimmer then dimmer:Show() end
         if CFG.Audio.soundOpen then PlaySound(CFG.Audio.soundOpen) end

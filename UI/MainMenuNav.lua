@@ -2360,6 +2360,14 @@ local function Nav_ApplyFocus()
     end
 end
 
+function Nav:EnsureFocus()
+    Nav_EnsureFocus()
+end
+
+function Nav:ApplyFocus()
+    Nav_ApplyFocus()
+end
+
 function Nav_OnSysSubTabsDirection(direction)
     local f = Nav.focus
     if not f.sysSubTabIdx or f.sysSubTabIdx < 1 then f.sysSubTabIdx = 1 end

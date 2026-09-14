@@ -1357,7 +1357,7 @@ end
 
 -- RETRABALHO 2 colunas: pareamento sequencial dos VISIVEIS na ordem do
 -- cardOrder — (Ident,Base),(Res,Melee),(MeleeBoss,Ranged),(Spell,Schools),
--- (Def,DefBoss),(Resist sozinho). Ranged oculto p/ relic classes NAO deixa
+-- (Def,DefBoss),(Resist,Armas),(Armadura sozinha). Ranged oculto p/ relic classes NAO deixa
 -- buraco (pares recomputados so com visiveis). Linha: altura = max(A,B),
 -- cards top-aligned. contentH = soma das linhas + gaps + padding.
 -- Pool fixo: so reposiciona + SetWidth (linhas sao TOPLEFT/TOPRIGHT do card,
@@ -1488,12 +1488,20 @@ function CharacterScreen:CreateUI(parent)
     self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", "DEFESA & SOBREVIVENCIA", 190, 6, colW)
     self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", "DEFESA VS BOSS (NIVEL 63)", 190, 6, colW)
     self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", "RESISTENCIAS ELEMENTAIS", 170, 5, colW)
+    -- FASE 5 (parcial: Proficiencias): 2 cards no FIM da ordem (apos
+    -- Resistencias). Armas: 8 linhas "Nome: X/Y [bar8]" (barras permitidas
+    -- aqui por padronizacao); Armadura: 3 linhas (lista curta 2+rest + escudos).
+    -- Pool fixo: criados uma vez aqui; Refresh so atualiza os FontStrings.
+    -- Altura = 30 (titulo) + 20*n (linhas) + 40 (respiro): 8->230, 3->130.
+    self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", "PERICIAS DE ARMAS", 230, 8, colW)
+    self.cardArmor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardArmor", "PROFICIENCIAS DE ARMADURA", 130, 3, colW)
 
     self.cardOrder = {
         self.cardIdent, self.cardBase, self.cardRes,
         self.cardMelee, self.cardMeleeBoss, self.cardRanged,
         self.cardSpell, self.cardSchools,
         self.cardDef, self.cardDefBoss, self.cardResist,
+        self.cardWeapon, self.cardArmor,
     }
 
     self.scrollFrame = scrollFrame
@@ -2152,6 +2160,191 @@ local function CS_RefreshResist(self)
     end
 end
 
+-- ----------------------------------------------------------------------------
+-- FASE 5 (parcial: Proficiencias). Metodos CharacterScreen:X (NAO sao
+-- file-locals): corpo usa so self + globais + locais internos => 0 upvalues.
+-- Refresh() ganha so 2 chamadas via self (sem upvalue novo).
+-- Armas: deteccao do cabecalho via GetNumSkillLines/GetSkillLineInfo com
+-- isHeader==1 + strlower + find "weapon"/"arma" (guarda [^d]/$ para nao casar
+-- "armaduras"); fallback posicional = 3o cabecalho (clientes localizados).
+-- Filhos listados ate o proximo header; linha "Nome: X/max [bar8]" com barra
+-- textual curta de 8 blocos (permitida aqui); overflow vira "+N (tecla K)".
+-- Armaduras: sem API direta na 1.12 — derivado da classe via UnitClass.
+-- Evento SKILL_LINES_CHANGED ja registrado em EnsureEventFrame (so Refresh
+-- com isVisible); sem cache — leitura direta a cada Refresh (barata).
+-- ----------------------------------------------------------------------------
+function CharacterScreen:RefreshWeaponProfs()
+    local card = self.cardWeapon
+    if not card then return end
+    if not card.lines then return end
+    if table.getn(card.lines) < 8 then return end
+    local total = 0
+    if type(GetNumSkillLines) == "function" then
+        local okN, nLines = pcall(GetNumSkillLines)
+        if okN and type(nLines) == "number" then total = nLines end
+    end
+    -- 1a. Acha o cabecalho de armas (primeiro match vence).
+    local headerIdx = nil
+    local nHeaders = 0
+    local thirdHeader = nil
+    local i = 1
+    while i <= total do
+        local okH, hName, hIsHeader = pcall(GetSkillLineInfo, i)
+        if not okH then break end
+        if hName == nil then break end
+        if hIsHeader == 1 then
+            nHeaders = nHeaders + 1
+            if nHeaders == 3 then thirdHeader = i end
+            if not headerIdx and type(hName) == "string" and hName ~= "" then
+                local low = string.lower(hName)
+                if string.find(low, "weapon", 1, true) then
+                    headerIdx = i
+                elseif string.find(low, "arma[^d]") or string.find(low, "arma$") then
+                    headerIdx = i
+                end
+            end
+        end
+        i = i + 1
+    end
+    -- 1b. Fallback posicional: 3o cabecalho (ordem 1.12: profissoes,
+    -- secundarias, ARMAS, ...). Sem cabecalho: linha honesta, resto vazio.
+    if not headerIdx then headerIdx = thirdHeader end
+    if not headerIdx then
+        card.lines[1]:SetText("Pericias: — (cabecalho nao achado)")
+        local z = 2
+        while z <= 8 do
+            card.lines[z]:SetText("")
+            z = z + 1
+        end
+        return
+    end
+    -- 1c. Cabecalho recolhido esconde os filhos: expande e reconta.
+    if type(ExpandSkillHeader) == "function" then
+        local okE, eName, eIsHeader, eExpanded = pcall(GetSkillLineInfo, headerIdx)
+        if okE and eIsHeader == 1 and eExpanded == 0 then
+            pcall(ExpandSkillHeader, headerIdx)
+            if type(GetNumSkillLines) == "function" then
+                local okR, nR = pcall(GetNumSkillLines)
+                if okR and type(nR) == "number" then total = nR end
+            end
+        end
+    end
+    -- 2. Coleta os filhos ate o proximo header (cap 40; locais de corpo,
+    -- nao upvalues).
+    local names = {}
+    local ranks = {}
+    local maxs = {}
+    local mods = {}
+    local j = headerIdx + 1
+    while j <= total do
+        local okS, sName, sIsHeader, sIsExp, sRank, sTmp, sMod, sMax = pcall(GetSkillLineInfo, j)
+        if not okS then break end
+        if sName == nil then break end
+        if sIsHeader == 1 then break end
+        if type(sName) == "string" and sName ~= "" then
+            if table.getn(names) < 40 then
+                table.insert(names, sName)
+                local rk = 0
+                if type(sRank) == "number" then rk = sRank end
+                table.insert(ranks, rk)
+                local mx = 300
+                if type(sMax) == "number" and sMax > 0 then mx = sMax end
+                table.insert(maxs, mx)
+                local md = 0
+                if type(sMod) == "number" and sMod > 0 then md = sMod end
+                table.insert(mods, md)
+            end
+        end
+        j = j + 1
+    end
+    local n = table.getn(names)
+    if n == 0 then
+        card.lines[1]:SetText("Sem pericias de arma")
+        local z2 = 2
+        while z2 <= 8 do
+            card.lines[z2]:SetText("")
+            z2 = z2 + 1
+        end
+        return
+    end
+    -- 3. Render: ate 8 linhas; com overflow a 8a vira "+N (tecla K)".
+    local shown = n
+    if shown > 8 then shown = 8 end
+    local li = 1
+    while li <= shown do
+        if n > 8 and li == 8 then
+            card.lines[li]:SetText("... (+" .. tostring(n - 7) .. " ver SkillFrame K)")
+        else
+            local rk = ranks[li]
+            local mx = maxs[li]
+            local fill = 0
+            if mx > 0 then fill = math.floor((rk / mx) * 8 + 0.5) end
+            if fill < 0 then fill = 0 end
+            if fill > 8 then fill = 8 end
+            local bar = string.rep("=", fill) .. string.rep("-", 8 - fill)
+            local txt = tostring(names[li]) .. ": " .. tostring(rk) .. "/" .. tostring(mx)
+                .. " [" .. bar .. "]"
+            if mods[li] > 0 then
+                txt = txt .. " |cff20ff20(+" .. tostring(mods[li]) .. ")|r"
+            end
+            card.lines[li]:SetText(txt)
+        end
+        li = li + 1
+    end
+    local k = shown + 1
+    while k <= 8 do
+        card.lines[k]:SetText("")
+        k = k + 1
+    end
+end
+
+function CharacterScreen:RefreshArmorProfs()
+    local card = self.cardArmor
+    if not card then return end
+    if not card.lines then return end
+    if table.getn(card.lines) < 3 then return end
+    local classFile = ""
+    if type(UnitClass) == "function" then
+        local okC, cLoc, cFile = pcall(UnitClass, "player")
+        if okC and type(cFile) == "string" then classFile = cFile end
+    end
+    -- Progressao 1.12: tecido base; couro soma tecido; malha soma os dois;
+    -- placas soma os tres; escudos so p/ guerreiro/paladino/xama.
+    local armors = { "Tecido" }
+    local shields = "Nao"
+    if classFile == "WARRIOR" or classFile == "PALADIN" then
+        armors = { "Tecido", "Couro", "Malha", "Placas" }
+        shields = "Sim"
+    elseif classFile == "HUNTER" then
+        armors = { "Tecido", "Couro", "Malha" }
+    elseif classFile == "SHAMAN" then
+        armors = { "Tecido", "Couro", "Malha" }
+        shields = "Sim"
+    elseif classFile == "ROGUE" or classFile == "DRUID" then
+        armors = { "Tecido", "Couro" }
+    end
+    -- Lista curta em 1-2 linhas (meia coluna nao cabe "Tecido..Placas" numa
+    -- so); ultima linha sempre "Escudos: Sim/Nao".
+    if table.getn(armors) <= 2 then
+        local list = armors[1]
+        if table.getn(armors) == 2 then list = list .. ", " .. armors[2] end
+        card.lines[1]:SetText("Armaduras: " .. list)
+        card.lines[2]:SetText("Escudos: " .. shields)
+        card.lines[3]:SetText("")
+    else
+        card.lines[1]:SetText("Armaduras: " .. tostring(armors[1]) .. ", " .. tostring(armors[2]) .. ",")
+        local rest = ""
+        local ri = 3
+        while ri <= table.getn(armors) do
+            if rest ~= "" then rest = rest .. ", " end
+            rest = rest .. tostring(armors[ri])
+            ri = ri + 1
+        end
+        card.lines[2]:SetText(rest)
+        card.lines[3]:SetText("Escudos: " .. shields)
+    end
+end
+
 function CharacterScreen:Refresh()
     if not self.cardOrder then return end
     H.ConsumeScans()
@@ -2166,6 +2359,9 @@ function CharacterScreen:Refresh()
     if self.cardDef then CS_RefreshDef(self) end
     if self.cardDefBoss then CS_RefreshDefBoss(self) end
     if self.cardResist then CS_RefreshResist(self) end
+    -- FASE 5 (parcial): metodos via self (sem upvalue novo).
+    if self.cardWeapon then self:RefreshWeaponProfs() end
+    if self.cardArmor then self:RefreshArmorProfs() end
     self:LayoutCards()
 end
 

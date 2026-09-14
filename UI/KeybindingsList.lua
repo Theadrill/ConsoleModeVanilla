@@ -32,7 +32,6 @@ local PAGE_NAMES = {
     [2] = "Pagina 2 (L2 / Shift)",
     [3] = "Pagina 3 (R1 / Ctrl)",
     [4] = "Pagina 4 (R2 / Alt)",
-    [5] = "Pagina 5 (L2+R2)",
 }
 
 local PAGE_PREFIXES = {
@@ -40,7 +39,6 @@ local PAGE_PREFIXES = {
     [2] = "L2 + ",
     [3] = "R1 + ",
     [4] = "R2 + ",
-    [5] = "L2+R2 + ",
 }
 
 -- Mesma tabela de teclas que o Keybindings.lua usa como fonte da verdade
@@ -167,20 +165,20 @@ function KBList:Show(parent)
         desc:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
         desc:SetText("Escolha a pagina e selecione um botao para vincular:")
         
-        -- Barra de Abas das 5 Paginas (Base, L2, R1, R2, L2+R2)
+        -- Barra de Abas das 4 Paginas (Base, L2, R1, R2)
         local pageBar = CreateFrame("Frame", "ConsoleModePageTabs", f)
         pageBar:SetWidth(414)
         pageBar:SetHeight(28)
         pageBar:SetPoint("TOPLEFT", desc, "BOTTOMLEFT", 0, -8)
         
-        for idx = 1, 5 do
+        for idx = 1, 4 do
             local pageNum = idx
             local pBtn = CreateFrame("Button", "ConsoleModePageBtn" .. idx, pageBar, "UIPanelButtonTemplate")
-            pBtn:SetWidth(78)
+            pBtn:SetWidth(98)
             pBtn:SetHeight(24)
-            pBtn:SetPoint("LEFT", pageBar, "LEFT", (idx - 1) * 84, 0)
+            pBtn:SetPoint("LEFT", pageBar, "LEFT", (idx - 1) * 105, 0)
             
-            local shortName = idx == 1 and "1: Base" or (idx == 2 and "2: L2" or (idx == 3 and "3: R1" or (idx == 4 and "4: R2" or "5: L2+R2")))
+            local shortName = idx == 1 and "1: Base" or (idx == 2 and "2: L2" or (idx == 3 and "3: R1" or "4: R2"))
             pBtn:SetText(shortName)
             
             pBtn:SetScript("OnClick", function()
@@ -275,7 +273,7 @@ function KBList:SelectPage(pageNum)
     self.currentPage = pageNum
     
     -- Destaca a aba ativa
-    for p = 1, 5 do
+    for p = 1, 4 do
         local pBtn = self.pageButtons[p]
         if pBtn then
             if p == pageNum then

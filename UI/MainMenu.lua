@@ -11300,7 +11300,7 @@ function MainMenu:UpdateAddonConfigSubPage()
     local options = {
         {
             title = "Mapeador de Atalhos / Binds",
-            desc = "Configurar habilidades, itens e macros dos botões do controle (Páginas 1 a 5)",
+            desc = "Configurar habilidades, itens e macros dos botões do controle (Páginas 1 a 4)",
             onClick = function()
                 MainMenu:ShowBindsScreen()
             end,
@@ -11504,7 +11504,6 @@ local BINDS_PAGE_INFO = {
     [2] = { name = "2: L2",    prefix = "L2 + ",     desc = "Página de Combate L2 (Shift)" },
     [3] = { name = "3: R1",    prefix = "R1 + ",     desc = "Página de Combate R1 (Ctrl)" },
     [4] = { name = "4: R2",    prefix = "R2 + ",     desc = "Página de Combate R2 (Alt)" },
-    [5] = { name = "5: L2+R2", prefix = "L2+R2 + ",  desc = "Página de Combate L2+R2 (Shift+Alt)" },
 }
 
 local BINDS_KEY_DEFAULTS = {
@@ -11731,7 +11730,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     pageSystem.isBindsInitialized = true
 
     -- ------------------------------------------------------------------------
-    -- TELA 1: MAPEADOR DE COMBINAÇÕES (Páginas 1 a 5)
+    -- TELA 1: MAPEADOR DE COMBINAÇÕES (Páginas 1 a 4)
     -- ------------------------------------------------------------------------
     local bindsScreen = CreateFrame("Frame", "ConsoleModeMM_BindsScreen", pageSystem)
     bindsScreen:SetAllPoints(pageSystem)
@@ -11792,7 +11791,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.4)
     headerBar.hDiv = hDiv
 
-    -- 2. Barra de Navegação das 5 Páginas ([LT] e [RT])
+    -- 2. Barra de Navegação das 4 Páginas ([LT] e [RT])
     local pageBar = CreateFrame("Frame", "ConsoleModeMM_BindsPageBar", bindsScreen)
     pageBar:SetHeight(28)
     pageBar:SetPoint("TOPLEFT", headerBar, "BOTTOMLEFT", 0, -4)
@@ -11814,11 +11813,11 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     pageBar.rtIcon = rtIcon
 
     local pageButtons = {}
-    local pBtnW = 86
-    local pGap = 6
+    local pBtnW = 108
+    local pGap = 8
     local startX = 36
 
-    for p = 1, 5 do
+    for p = 1, 4 do
         local pInfo = BINDS_PAGE_INFO[p]
         local btn = CreateFrame("Button", "ConsoleModeMM_BindsPageBtn" .. p, pageBar)
         btn:SetHeight(24)
@@ -11866,7 +11865,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     if detailCard.sellWidget then detailCard.sellWidget:Hide() end
     if detailCard.moneyWidget then detailCard.moneyWidget:Hide() end
     detailCard.titleText:SetText("|cffe09a15Mapeador de Atalhos / Binds|r")
-    detailCard.typeText:SetText("|cffaaaaaaModo Console — Atalhos do Controle (Páginas 1 a 5)|r")
+    detailCard.typeText:SetText("|cffaaaaaaModo Console — Atalhos do Controle (Páginas 1 a 4)|r")
     detailCard.descColLeft:SetText("|cffccccccNavegue pelos botões do controle para vincular habilidades, itens do inventário ou macros.|r")
     detailCard.descColRight:SetText("|cff888888Pressione [B] no controle ou clique no botão acima para voltar.|r")
     detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
@@ -12408,7 +12407,7 @@ function MainMenu:SelectBindsPage(pageIndex)
 
     pageIndex = pageIndex or 1
     if pageIndex < 1 then pageIndex = 1 end
-    if pageIndex > 5 then pageIndex = 5 end
+    if pageIndex > 4 then pageIndex = 4 end
 
     pageSystem.bindsScreen.currentPage = pageIndex
     self:UpdateBindsPage()
@@ -13575,8 +13574,8 @@ function MainMenu:CycleCategories(direction)
         if pageSystem.activeSubScreen == "BINDS" then
             local curPage = (pageSystem.bindsScreen and pageSystem.bindsScreen.currentPage) or 1
             local nextPage = curPage + direction
-            if nextPage > 5 then nextPage = 1 end
-            if nextPage < 1 then nextPage = 5 end
+            if nextPage > 4 then nextPage = 1 end
+            if nextPage < 1 then nextPage = 4 end
             self:SelectBindsPage(nextPage)
             if CFG.Audio.soundItemSelect then
                 PlaySound(CFG.Audio.soundItemSelect)

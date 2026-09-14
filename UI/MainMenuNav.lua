@@ -5110,7 +5110,7 @@ function Nav:OnNextSubTab()
             if MM and type(MM.SelectBindsPage) == "function" then
                 local cur = (ps and ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus and Nav.focus.bindsPage) or 1
                 local nxt = cur + 1
-                if nxt > 5 then nxt = 1 end
+                if nxt > 4 then nxt = 1 end
                 pcall(function() MM:SelectBindsPage(nxt) end)
                 if Nav.focus then Nav.focus.bindsPage = nxt end
                 if Nav.focus and MM and type(MM.FocusBindsSlot) == "function" and ps and ps.bindsScreen and ps.bindsScreen.bindCards then
@@ -5197,7 +5197,7 @@ function Nav:OnPrevSubTab()
             if MM and type(MM.SelectBindsPage) == "function" then
                 local cur = (ps and ps.bindsScreen and ps.bindsScreen.currentPage) or (Nav.focus and Nav.focus.bindsPage) or 1
                 local prv = cur - 1
-                if prv < 1 then prv = 5 end
+                if prv < 1 then prv = 4 end
                 pcall(function() MM:SelectBindsPage(prv) end)
                 if Nav.focus then Nav.focus.bindsPage = prv end
                 if Nav.focus and MM and type(MM.FocusBindsSlot) == "function" and ps and ps.bindsScreen and ps.bindsScreen.bindCards then

@@ -257,7 +257,7 @@ CFG.RightPanel = {
 -- 6.1. BARRA DE ABAS SUPERIORES E CONTAINERS (FASE 4 - NAVEGAÇÃO [L1] / [R1])
 -- ----------------------------------------------------------------------------
 CFG.Tabs = {
-    barHeight       = 38,                   -- Altura da barra superior de abas (px)
+    barHeight       = 68,                   -- Altura da barra superior de abas (px) - 2 linhas de 3 botoes (FASE 1 Aba Personagem)
     buttonHeight    = 30,                   -- Altura de cada botão de aba (px)
     gapX            = 6,                    -- Espaçamento horizontal entre os botões (px)
     fontFile        = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Fonts\\AlegreyaSans-Bold.ttf", -- Alegreya Sans Bold (-9% kerning, SIL OFL)
@@ -268,8 +268,9 @@ CFG.Tabs = {
     shadowOffset    = { 1, -1 },            -- Drop shadow original suave de 1px
     list = {
         { id = "BAGS",    name = "Bolsas & Itens",  shortName = "Bolsas" },
-        { id = "SPELLS",  name = "Livro de Magias", shortName = "Magias" },
+        { id = "CHARACTER", name = "Personagem",  shortName = "Personagem" },
         { id = "TALENTS", name = "Talentos",        shortName = "Talentos" },
+        { id = "SPELLS",  name = "Livro de Magias", shortName = "Magias" },
         { id = "QUESTS",  name = "Missões & Mapa",  shortName = "Missões" },
         { id = "SYSTEM",  name = "Configurações",   shortName = "Opções" },
     }
@@ -852,14 +853,61 @@ function MainMenu:UpdateLayout()
     end
 
     -- Ajusta a largura proporcional dos botões de aba no painel direito (evita encavalar textos)
+    -- FASE 1 Aba Personagem: 2 linhas centralizadas de 3 botoes (recalcula cada linha separadamente)
     if self.tabContainer and self.tabContainer.tabBar and self.tabContainer.tabBar.buttons then
         local usableTabW = rightW - 64
         local numTabs = table.getn(CFG.Tabs.list)
         local gapX = CFG.Tabs.gapX or 6
-        local tabsCenter = self.tabContainer.tabBar.tabsCenter or getglobal("ConsoleModeMM_TabsCenter")
+        local tabBar = self.tabContainer.tabBar
+        local minBtnW = 60
+
+        if tabBar.rows and tabBar.rowButtons then
+            -- Novo layout: cada linha recebe a largura util cheia e centraliza via ancora TOP
+            for rowIdx, row in ipairs(tabBar.rows) do
+                local rowBtns = tabBar.rowButtons[rowIdx]
+                local numRowBtns = table.getn(rowBtns)
+                if numRowBtns > 0 then
+                    local totalNeeded = 0
+                    local neededWidths = {}
+                    for idx, btn in ipairs(rowBtns) do
+                        local strW = 0
+                        if btn.title and btn.title.GetStringWidth then
+                            strW = math.floor(btn.title:GetStringWidth() or 0)
+                        end
+                        local w = math.max(minBtnW, strW + 16)
+                        neededWidths[idx] = w
+                        totalNeeded = totalNeeded + w
+                    end
+
+                    local totalGaps = (numRowBtns - 1) * gapX
+                    local availForBtns = usableTabW - totalGaps
+                    local curX = 0
+
+                    for idx, btn in ipairs(rowBtns) do
+                        local btnW = neededWidths[idx] or minBtnW
+                        if totalNeeded > 0 and availForBtns > 0 then
+                            if totalNeeded <= availForBtns then
+                                -- Folga restante dividida igualmente
+                                local extra = math.floor((availForBtns - totalNeeded) / numRowBtns)
+                                btnW = btnW + extra
+                            else
+                                -- Escala proporcional segura se muito apertado
+                                btnW = math.max(minBtnW, math.floor(btnW * (availForBtns / totalNeeded)))
+                            end
+                        end
+                        btn:SetWidth(btnW)
+                        btn:ClearAllPoints()
+                        btn:SetPoint("LEFT", row, "LEFT", curX, 0)
+                        curX = curX + btnW + (idx < numRowBtns and gapX or 0)
+                    end
+                    row:SetWidth(curX)
+                end
+            end
+        else
+            -- Compat: layout antigo de linha unica alinhada a direita
+            local tabsCenter = tabBar.tabsCenter or getglobal("ConsoleModeMM_TabsCenter")
 
         -- Calcula a largura necessária para cada botão com base na largura real do seu texto
-        local minBtnW = 60
         local totalNeeded = 0
         local neededWidths = {}
         for idx, btn in ipairs(self.tabContainer.tabBar.buttons) do
@@ -897,6 +945,7 @@ function MainMenu:UpdateLayout()
         end
         if tabsCenter then
             tabsCenter:SetWidth(curX)
+        end
         end
     end
 end
@@ -13155,13 +13204,15 @@ end
 function MainMenu:CreateTabContainer(rightPanel)
     if self.tabContainer then return self.tabContainer end
 
-    -- 1. Barra Superior de Abas (com indicadores de gatilho [L1] e [R1] fixos e alinhados à direita)
+    -- 1. Barra Superior de Abas em 2 linhas centralizadas (FASE 1 Aba Personagem:
+    --    Linha 1 = BAGS/CHARACTER/TALENTS, Linha 2 = SPELLS/QUESTS/SYSTEM,
+    --    com indicadores [LB] a esquerda e [RB] a direita)
     local tabBar = CreateFrame("Frame", "ConsoleModeMM_TabBar", rightPanel)
     tabBar:SetHeight(CFG.Tabs.barHeight)
     tabBar:SetPoint("TOPLEFT", rightPanel, "TOPLEFT", 0, 0)
     tabBar:SetPoint("TOPRIGHT", rightPanel, "TOPRIGHT", 0, 0)
 
-    -- Indicador RB fixo na extremidade direita
+    -- Indicador RB fixo na extremidade direita (centralizado verticalmente na barra)
     local r1Hint = tabBar:CreateTexture(nil, "OVERLAY")
     r1Hint:SetWidth(22)
     r1Hint:SetHeight(22)
@@ -13169,25 +13220,37 @@ function MainMenu:CreateTabContainer(rightPanel)
     r1Hint:SetTexture(CFG.Icons.RB)
     tabBar.r1Hint = r1Hint
 
-    -- Indicador LB à esquerda do bloco de abas
+    -- Indicador LB fixo na extremidade esquerda (centralizado verticalmente na barra)
     local l1Hint = tabBar:CreateTexture(nil, "OVERLAY")
     l1Hint:SetWidth(22)
     l1Hint:SetHeight(22)
+    l1Hint:SetPoint("LEFT", tabBar, "LEFT", 2, 0)
     l1Hint:SetTexture(CFG.Icons.LB)
     tabBar.l1Hint = l1Hint
 
-    -- Container dos Botões de Aba (alinhado à direita, encostado no RB)
-    local tabsCenter = CreateFrame("Frame", "ConsoleModeMM_TabsCenter", tabBar)
-    tabsCenter:SetPoint("RIGHT", r1Hint, "LEFT", -6, 0)
-    tabsCenter:SetHeight(CFG.Tabs.buttonHeight)
-    tabBar.tabsCenter = tabsCenter
+    -- Duas linhas de botoes centralizadas horizontalmente na barra
+    local rowGapY = 4
+    local row1 = CreateFrame("Frame", "ConsoleModeMM_TabsRow1", tabBar)
+    row1:SetHeight(CFG.Tabs.buttonHeight)
+    row1:SetPoint("TOP", tabBar, "TOP", 0, -2)
+    local row2 = CreateFrame("Frame", "ConsoleModeMM_TabsRow2", tabBar)
+    row2:SetHeight(CFG.Tabs.buttonHeight)
+    row2:SetPoint("TOP", row1, "BOTTOM", 0, -rowGapY)
+    tabBar.row1 = row1
+    tabBar.row2 = row2
+    -- Compat: UpdateLayout antigo usava tabsCenter (linha unica a direita);
+    -- mantido apontando para a linha 1 ate o novo layout recalcular ambas.
+    tabBar.tabsCenter = row1
 
     local tabButtons = {}
     local tabBtnWidth = 104
     local gapX = CFG.Tabs.gapX or 6
 
     for i, tabData in ipairs(CFG.Tabs.list) do
-        local tabBtn = CreateFrame("Button", "ConsoleModeMM_TabBtn" .. tabData.id, tabsCenter)
+        -- Linha 1 = indices 1-3, Linha 2 = indices 4-6
+        local parentRow = row1
+        if i > 3 then parentRow = row2 end
+        local tabBtn = CreateFrame("Button", "ConsoleModeMM_TabBtn" .. tabData.id, parentRow)
         tabBtn:SetHeight(CFG.Tabs.buttonHeight)
 
         local title = tabBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -13218,17 +13281,25 @@ function MainMenu:CreateTabContainer(rightPanel)
         table.insert(tabButtons, tabBtn)
     end
 
-    -- Posiciona os botões da esquerda para a direita dentro do container alinhado à direita
-    local curX = 0
-    local numButtons = table.getn(tabButtons)
+    -- Posiciona os botoes da esquerda para a direita dentro de cada linha
+    -- (cada linha e ancorada pelo TOP centralizado, logo fica centralizada)
+    tabBar.rows = { row1, row2 }
+    tabBar.rowButtons = { {}, {} }
     for idx, btn in ipairs(tabButtons) do
-        btn:SetPoint("LEFT", tabsCenter, "LEFT", curX, 0)
-        curX = curX + btn:GetWidth() + (idx < numButtons and gapX or 0)
+        local rowIdx = 1
+        if idx > 3 then rowIdx = 2 end
+        table.insert(tabBar.rowButtons[rowIdx], btn)
     end
-    tabsCenter:SetWidth(curX)
-
-    -- Ancara o [LB] exatamente à esquerda do primeiro botão de aba
-    l1Hint:SetPoint("RIGHT", tabsCenter, "LEFT", -6, 0)
+    for rowIdx, row in ipairs(tabBar.rows) do
+        local curX = 0
+        local rowBtns = tabBar.rowButtons[rowIdx]
+        local numRowBtns = table.getn(rowBtns)
+        for bIdx, btn in ipairs(rowBtns) do
+            btn:SetPoint("LEFT", row, "LEFT", curX, 0)
+            curX = curX + btn:GetWidth() + (bIdx < numRowBtns and gapX or 0)
+        end
+        row:SetWidth(curX)
+    end
 
     tabBar.buttons = tabButtons
 
@@ -13253,22 +13324,33 @@ function MainMenu:CreateTabContainer(rightPanel)
     pageBags:SetAllPoints(contentFrame)
     pages["BAGS"] = pageBags
 
-    -- Página 2: Livro de Magias & Habilidades (Fase 7)
-    local pageSpells = CreateFrame("Frame", "ConsoleModeMM_Page_SPELLS", contentFrame)
-    pageSpells:SetAllPoints(contentFrame)
-    pages["SPELLS"] = pageSpells
+    -- Página 2: Personagem (FASE 1 Aba Personagem - hospedeiro temporario;
+    -- o modulo UI/CharacterScreen.lua assume na Fase 2)
+    local pageChar = CreateFrame("Frame", "ConsoleModeMM_Page_CHARACTER", contentFrame)
+    pageChar:SetAllPoints(contentFrame)
+    local charPlaceholder = pageChar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    charPlaceholder:SetPoint("CENTER", pageChar, "CENTER", 0, 0)
+    MainMenu:ApplyFont(charPlaceholder, CFG.Tabs.fontFile or CFG.Fonts.bodyFontFile, CFG.Fonts.tabSize, CFG.Tabs.outline or "", CFG.Tabs.shadowOffset or { 1, -1 })
+    charPlaceholder:SetText("Aba Personagem - Modulo em Carregamento")
+    pageChar:Hide()
+    pages["CHARACTER"] = pageChar
 
     -- Página 3: Especializações & Talentos (Fase 1)
     local pageTalents = CreateFrame("Frame", "ConsoleModeMM_Page_TALENTS", contentFrame)
     pageTalents:SetAllPoints(contentFrame)
     pages["TALENTS"] = pageTalents
 
-    -- Página 4: Diário de Missões & Mapa Mundi (Fase 9)
+    -- Página 4: Livro de Magias & Habilidades (Fase 7)
+    local pageSpells = CreateFrame("Frame", "ConsoleModeMM_Page_SPELLS", contentFrame)
+    pageSpells:SetAllPoints(contentFrame)
+    pages["SPELLS"] = pageSpells
+
+    -- Página 5: Diário de Missões & Mapa Mundi (Fase 9)
     local pageQuests = CreateFrame("Frame", "ConsoleModeMM_Page_QUESTS", contentFrame)
     pageQuests:SetAllPoints(contentFrame)
     pages["QUESTS"] = pageQuests
 
-    -- Página 4: Sistema e Configurações (Fase 8)
+    -- Página 6: Sistema e Configurações (Fase 8)
     local pageSystem = CreateFrame("Frame", "ConsoleModeMM_Page_SYSTEM", contentFrame)
     pageSystem:SetAllPoints(contentFrame)
     pages["SYSTEM"] = pageSystem
@@ -13424,6 +13506,11 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             self:RestorePlayerModel()
             self:UpdateLayout()
             self:UpdateSystemPage()
+        elseif tabID == "CHARACTER" then
+            -- FASE 1 Aba Personagem: aba neutra (sem Update de conteudo ainda;
+            -- Fase 2 delega ao modulo UI/CharacterScreen.lua)
+            self:RestorePlayerModel()
+            self:UpdateLayout()
         else
             self:RestorePlayerModel()
         end

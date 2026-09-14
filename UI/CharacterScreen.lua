@@ -1494,6 +1494,15 @@ function CharacterScreen:CreateUI(parent)
     -- uma vez aqui; Refresh so atualiza os FontStrings + SetMinMaxValues/SetValue.
     -- Altura armas = 30 (titulo) + 8*32 (nome+barra+gap) + 24 (respiro) = 310.
     self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", "PERICIAS DE ARMAS", 310, 8, colW)
+    -- FASE 5 (parcial: Profissoes): 2 cards no FIM da ordem (apos Armas),
+    -- mesmo molde do card de Armas (nome em cima + StatusBar dourada
+    -- embaixo, pitch 32px). PROFISSOES (primarias, 3 slots = 2 + overflow)
+    -- altura = 30 + 3*32 + 24 = 150; OFICIOS (secundarias, 4 slots exatos
+    -- Cooking/First Aid/Fishing/Survival) altura = 30 + 4*32 + 24 = 182.
+    -- Pool fixo: FontStrings via CS_MakeCard + StatusBars criados uma vez
+    -- aqui; Refresh so atualiza textos + SetMinMaxValues/SetValue.
+    self.cardProf      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardProf", "PROFISSOES", 150, 3, colW)
+    self.cardSec       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSec", "OFICIOS", 182, 4, colW)
 
     -- PERICIAS DE ARMAS: cada pericia ocupa 2 linhas visuais (nome em cima +
     -- StatusBar h10 embaixo). Pool fixo de 8 StatusBars criado UMA vez aqui;
@@ -1548,12 +1557,72 @@ function CharacterScreen:CreateUI(parent)
         end
     end
 
+    -- PROFISSOES / OFICIOS: mesmo pool fixo de StatusBars do card de Armas
+    -- (dourada ambar + fundo escuro, h10, pitch 32px). Criado UMA vez aqui;
+    -- Refresh so faz SetMinMaxValues/SetValue/Show/Hide (guard max>0).
+    do
+        local ci = 1
+        while ci <= 2 do
+            local pcard = nil
+            local nSlots = 0
+            if ci == 1 then
+                pcard = self.cardProf
+                nSlots = 3
+            else
+                pcard = self.cardSec
+                nSlots = 4
+            end
+            if pcard and pcard.lines and table.getn(pcard.lines) >= nSlots then
+                pcard.bars = pcard.bars or {}
+                local si = 1
+                while si <= nSlots do
+                    local yName = -(30 + ((si - 1) * 32))
+                    local fsP = pcard.lines[si]
+                    if fsP then
+                        fsP:ClearAllPoints()
+                        fsP:SetPoint("TOPLEFT", pcard, "TOPLEFT", 12, yName)
+                        fsP:SetPoint("TOPRIGHT", pcard, "TOPRIGHT", -12, yName)
+                    end
+                    local barP = pcard.bars[si]
+                    if not barP then
+                        barP = CreateFrame("StatusBar", nil, pcard)
+                        if barP then
+                            barP:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+                            barP:SetStatusBarColor(0.88, 0.60, 0.08, 1)
+                            barP:SetMinMaxValues(0, 1)
+                            barP:SetValue(0)
+                            local bgP = barP:CreateTexture(nil, "BACKGROUND")
+                            if bgP then
+                                bgP:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                                bgP:SetVertexColor(0, 0, 0, 0.85)
+                                bgP:SetPoint("TOPLEFT", barP, "TOPLEFT", 0, 0)
+                                bgP:SetPoint("BOTTOMRIGHT", barP, "BOTTOMRIGHT", 0, 0)
+                            end
+                            pcard.bars[si] = barP
+                        end
+                    end
+                    if barP then
+                        barP:ClearAllPoints()
+                        barP:SetPoint("TOPLEFT", pcard, "TOPLEFT", 12, yName - 16)
+                        barP:SetPoint("TOPRIGHT", pcard, "TOPRIGHT", -12, yName - 16)
+                        barP:SetHeight(10)
+                        barP:SetMinMaxValues(0, 1)
+                        barP:SetValue(0)
+                        barP:Hide()
+                    end
+                    si = si + 1
+                end
+            end
+            ci = ci + 1
+        end
+    end
+
     self.cardOrder = {
         self.cardIdent, self.cardBase, self.cardRes,
         self.cardMelee, self.cardMeleeBoss, self.cardRanged,
         self.cardSpell, self.cardSchools,
         self.cardDef, self.cardDefBoss, self.cardResist,
-        self.cardWeapon,
+        self.cardWeapon, self.cardProf, self.cardSec,
     }
 
     self.scrollFrame = scrollFrame
@@ -2383,6 +2452,284 @@ function CharacterScreen:RefreshWeaponProfs()
     end
 end
 
+-- ----------------------------------------------------------------------------
+-- FASE 5 (parcial: Profissoes). Metodo CharacterScreen:X (NAO e file-local):
+-- corpo usa so self + globais + locais internos => 0 upvalues. Atualiza os
+-- 2 cards (PROFISSOES + OFICIOS); Refresh() ganha so 1 chamada via self.
+-- Classificacao: secundaria conhecida por nome (match strlower plain EN+PT:
+-- cooking/culin, first aid/primeiros socorros, fishing/pesca, survival/
+-- sobreviv) vai para OFICIOS; o restante (fora do cabecalho, excluindo os
+-- filhos da secao de armas detectada como no RefreshWeaponProfs) vai para
+-- PROFISSOES, max 2 (3a linha vira overflow). Formato igual ao das pericias:
+-- "Nome  X/max" (+bonus verde) em cima + StatusBar dourada embaixo (pool
+-- fixo card.bars, guard max>0); overflow vira "... (+N)" sem barra.
+-- Sem cache — leitura direta a cada Refresh (barata); SKILL_LINES_CHANGED
+-- ja registrado em EnsureEventFrame dispara o Refresh quando visivel.
+-- ----------------------------------------------------------------------------
+function CharacterScreen:RefreshProfessions()
+    local cardP = self.cardProf
+    local cardS = self.cardSec
+    if not cardP then return end
+    if not cardS then return end
+    if not cardP.lines then return end
+    if not cardS.lines then return end
+    if table.getn(cardP.lines) < 3 then return end
+    if table.getn(cardS.lines) < 4 then return end
+    local total = 0
+    if type(GetNumSkillLines) == "function" then
+        local okN, nLines = pcall(GetNumSkillLines)
+        if okN and type(nLines) == "number" then total = nLines end
+    end
+    if total <= 0 then
+        cardP.lines[1]:SetText("Sem profissoes")
+        local zp = 2
+        while zp <= 3 do
+            cardP.lines[zp]:SetText("")
+            zp = zp + 1
+        end
+        if cardP.bars then
+            local hb = 1
+            while hb <= 3 do
+                local b0 = cardP.bars[hb]
+                if b0 and type(b0.Hide) == "function" then b0:Hide() end
+                hb = hb + 1
+            end
+        end
+        cardS.lines[1]:SetText("Sem oficios")
+        local zs = 2
+        while zs <= 4 do
+            cardS.lines[zs]:SetText("")
+            zs = zs + 1
+        end
+        if cardS.bars then
+            local hb2 = 1
+            while hb2 <= 4 do
+                local b02 = cardS.bars[hb2]
+                if b02 and type(b02.Hide) == "function" then b02:Hide() end
+                hb2 = hb2 + 1
+            end
+        end
+        return
+    end
+    -- 1. Secao de armas (mesma deteccao do RefreshWeaponProfs): os filhos
+    -- dela sao pericias, nunca profissoes — excluidos da coleta abaixo.
+    local headerIdx = nil
+    local i = 1
+    while i <= total do
+        local okH, hName, hIsHeader = pcall(GetSkillLineInfo, i)
+        if not okH then break end
+        if hName == nil then break end
+        if hIsHeader == 1 and not headerIdx
+            and type(hName) == "string" and hName ~= "" then
+            local lowH = string.lower(hName)
+            if string.find(lowH, "weapon", 1, true) then
+                headerIdx = i
+            elseif string.find(lowH, "arma[^d]") or string.find(lowH, "arma$") then
+                headerIdx = i
+            end
+        end
+        i = i + 1
+    end
+    local weaponEnd = nil
+    if headerIdx then
+        weaponEnd = total + 1
+        local k = headerIdx + 1
+        while k <= total do
+            local okK, kName, kIsH = pcall(GetSkillLineInfo, k)
+            if not okK then break end
+            if kName == nil then break end
+            if kIsH == 1 then weaponEnd = k break end
+            k = k + 1
+        end
+    end
+    -- 2. Coleta: nao-cabecalhos fora da secao de armas; secundarias por
+    -- nome EN+PT, restante = primarias (cap 40 interno, exibicao capa).
+    local pNames = {}
+    local pRanks = {}
+    local pMaxs = {}
+    local pMods = {}
+    local sNames = {}
+    local sRanks = {}
+    local sMaxs = {}
+    local sMods = {}
+    local j = 1
+    while j <= total do
+        local inWeapon = false
+        if headerIdx and weaponEnd and j > headerIdx and j < weaponEnd then
+            inWeapon = true
+        end
+        if not inWeapon then
+            local okS, sName, sIsHeader, sIsExp, sRank, sTmp, sMod, sMax = pcall(GetSkillLineInfo, j)
+            if not okS then break end
+            if sName == nil then break end
+            if sIsHeader ~= 1 and type(sName) == "string" and sName ~= "" then
+                local low = string.lower(sName)
+                local isSec = false
+                if string.find(low, "cooking", 1, true) then
+                    isSec = true
+                elseif string.find(low, "culin", 1, true) then
+                    isSec = true
+                elseif string.find(low, "first aid", 1, true) then
+                    isSec = true
+                elseif string.find(low, "primeiros socorros", 1, true) then
+                    isSec = true
+                elseif string.find(low, "fishing", 1, true) then
+                    isSec = true
+                elseif string.find(low, "pesca", 1, true) then
+                    isSec = true
+                elseif string.find(low, "survival", 1, true) then
+                    isSec = true
+                elseif string.find(low, "sobreviv", 1, true) then
+                    isSec = true
+                end
+                local rk = 0
+                if type(sRank) == "number" then rk = sRank end
+                local mx = 300
+                if type(sMax) == "number" and sMax > 0 then mx = sMax end
+                local md = 0
+                if type(sMod) == "number" and sMod > 0 then md = sMod end
+                if isSec then
+                    if table.getn(sNames) < 40 then
+                        table.insert(sNames, sName)
+                        table.insert(sRanks, rk)
+                        table.insert(sMaxs, mx)
+                        table.insert(sMods, md)
+                    end
+                else
+                    if table.getn(pNames) < 40 then
+                        table.insert(pNames, sName)
+                        table.insert(pRanks, rk)
+                        table.insert(pMaxs, mx)
+                        table.insert(pMods, md)
+                    end
+                end
+            end
+        end
+        j = j + 1
+    end
+    -- 3a. PROFISSOES: max 2 linhas de dados; havendo mais, a 3a vira
+    -- overflow "... (+N)" sem barra. Zero: linha honesta + resto vazio.
+    local np = table.getn(pNames)
+    if np == 0 then
+        cardP.lines[1]:SetText("Sem profissoes")
+        local z3 = 2
+        while z3 <= 3 do
+            cardP.lines[z3]:SetText("")
+            z3 = z3 + 1
+        end
+        if cardP.bars then
+            local hb3 = 1
+            while hb3 <= 3 do
+                local b03 = cardP.bars[hb3]
+                if b03 and type(b03.Hide) == "function" then b03:Hide() end
+                hb3 = hb3 + 1
+            end
+        end
+    else
+        local shownP = np
+        if shownP > 2 then shownP = 2 end
+        local li = 1
+        while li <= shownP do
+            local rk = pRanks[li]
+            local mx = pMaxs[li]
+            if type(rk) ~= "number" then rk = 0 end
+            if type(mx) ~= "number" then mx = 0 end
+            local txt = tostring(pNames[li]) .. "  " .. tostring(rk) .. "/" .. tostring(mx)
+            if pMods[li] and pMods[li] > 0 then
+                txt = txt .. " |cff20ff20(+" .. tostring(pMods[li]) .. ")|r"
+            end
+            cardP.lines[li]:SetText(txt)
+            local barLi = nil
+            if cardP.bars then barLi = cardP.bars[li] end
+            if barLi then
+                if mx > 0 then
+                    barLi:SetMinMaxValues(0, mx)
+                    local vv = rk
+                    if vv < 0 then vv = 0 end
+                    if vv > mx then vv = mx end
+                    barLi:SetValue(vv)
+                    if type(barLi.Show) == "function" then barLi:Show() end
+                else
+                    if type(barLi.Hide) == "function" then barLi:Hide() end
+                end
+            end
+            li = li + 1
+        end
+        if np > 2 then
+            cardP.lines[3]:SetText("... (+" .. tostring(np - 2) .. " ver SkillFrame K)")
+            if cardP.bars and cardP.bars[3] and type(cardP.bars[3].Hide) == "function" then
+                cardP.bars[3]:Hide()
+            end
+        else
+            cardP.lines[3]:SetText("")
+            if cardP.bars and cardP.bars[3] and type(cardP.bars[3].Hide) == "function" then
+                cardP.bars[3]:Hide()
+            end
+        end
+    end
+    -- 3b. OFICIOS: ate 4 linhas de dados; havendo mais, a 4a vira overflow.
+    local ns = table.getn(sNames)
+    if ns == 0 then
+        cardS.lines[1]:SetText("Sem oficios")
+        local z4 = 2
+        while z4 <= 4 do
+            cardS.lines[z4]:SetText("")
+            z4 = z4 + 1
+        end
+        if cardS.bars then
+            local hb4 = 1
+            while hb4 <= 4 do
+                local b04 = cardS.bars[hb4]
+                if b04 and type(b04.Hide) == "function" then b04:Hide() end
+                hb4 = hb4 + 1
+            end
+        end
+    else
+        local shownS = ns
+        if shownS > 4 then shownS = 4 end
+        local lj = 1
+        while lj <= shownS do
+            local barLj = nil
+            if cardS.bars then barLj = cardS.bars[lj] end
+            if ns > 4 and lj == 4 then
+                cardS.lines[lj]:SetText("... (+" .. tostring(ns - 3) .. " ver SkillFrame K)")
+                if barLj and type(barLj.Hide) == "function" then barLj:Hide() end
+            else
+                local rk2 = sRanks[lj]
+                local mx2 = sMaxs[lj]
+                if type(rk2) ~= "number" then rk2 = 0 end
+                if type(mx2) ~= "number" then mx2 = 0 end
+                local txt2 = tostring(sNames[lj]) .. "  " .. tostring(rk2) .. "/" .. tostring(mx2)
+                if sMods[lj] and sMods[lj] > 0 then
+                    txt2 = txt2 .. " |cff20ff20(+" .. tostring(sMods[lj]) .. ")|r"
+                end
+                cardS.lines[lj]:SetText(txt2)
+                if barLj then
+                    if mx2 > 0 then
+                        barLj:SetMinMaxValues(0, mx2)
+                        local vv2 = rk2
+                        if vv2 < 0 then vv2 = 0 end
+                        if vv2 > mx2 then vv2 = mx2 end
+                        barLj:SetValue(vv2)
+                        if type(barLj.Show) == "function" then barLj:Show() end
+                    else
+                        if type(barLj.Hide) == "function" then barLj:Hide() end
+                    end
+                end
+            end
+            lj = lj + 1
+        end
+        local m2 = shownS + 1
+        while m2 <= 4 do
+            cardS.lines[m2]:SetText("")
+            if cardS.bars and cardS.bars[m2] and type(cardS.bars[m2].Hide) == "function" then
+                cardS.bars[m2]:Hide()
+            end
+            m2 = m2 + 1
+        end
+    end
+end
+
 function CharacterScreen:Refresh()
     if not self.cardOrder then return end
     H.ConsumeScans()
@@ -2399,6 +2746,7 @@ function CharacterScreen:Refresh()
     if self.cardResist then CS_RefreshResist(self) end
     -- FASE 5 (parcial): metodos via self (sem upvalue novo).
     if self.cardWeapon then self:RefreshWeaponProfs() end
+    if self.cardProf and self.cardSec then self:RefreshProfessions() end
     self:LayoutCards()
 end
 

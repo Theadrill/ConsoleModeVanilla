@@ -1751,7 +1751,10 @@ local function CS_RefreshMelee(self)
                 sMain, sOff = a, b
             end
         end
-        c4.lines[2]:SetText("Dano: " .. tostring(H.Num(dMin, 0)) .. "-" .. tostring(H.Num(dMax, 0))
+        -- BCS:AddDamageTooltip (BetterCharacterStats.lua:311-312): a Blizzard
+        -- exibe inteiros (PaperDoll trunca com %d; BCS: floor/ceil). DPS usa
+        -- os valores crus (floats) com 1 casa — ver H.DPS.
+        c4.lines[2]:SetText("Dano: " .. tostring(math.floor(H.Num(dMin, 0))) .. "-" .. tostring(math.floor(H.Num(dMax, 0)))
             .. "  DPS: " .. H.DPS(dMin, dMax, sMain))
         c4.lines[3]:SetText("Velocidade: " .. H.Fmt2(sMain) .. "s")
 
@@ -1866,7 +1869,8 @@ local function CS_RefreshRanged(self)
             if ok and type(v) == "number" then rSpeed = v end
         end
         if type(rMin) == "number" and type(rMax) == "number" then
-            c6.lines[2]:SetText("Dano: " .. tostring(H.Num(rMin, 0)) .. "-" .. tostring(H.Num(rMax, 0))
+            -- Mesmo padrao do Melee/BCS: inteiros via floor, DPS com 1 casa.
+            c6.lines[2]:SetText("Dano: " .. tostring(math.floor(H.Num(rMin, 0))) .. "-" .. tostring(math.floor(H.Num(rMax, 0)))
                 .. "  DPS: " .. H.DPS(rMin, rMax, rSpeed))
         else
             c6.lines[2]:SetText("Dano: — (sem arma de longo alcance)")

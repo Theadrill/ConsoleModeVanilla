@@ -5128,6 +5128,58 @@ function Nav:OnNextSubTab()
         end
         return true
     end
+    -- DEMANDA 2: LT/RT em SYSTEM sincroniza currentSubTab + sysSubTabIdx (sem depender de Cursor:CycleSubTabs)
+    if Nav_GetCurrentTab() == "SYSTEM" and not (ps and ps.activeSubScreen) then
+        local MM = Nav_GetMM()
+        if MM and type(MM.SelectSystemSubTab) == "function" and MM.tabContainer and MM.tabContainer.pages then
+            local pageSystem = MM.tabContainer.pages["SYSTEM"]
+            if pageSystem then
+                local curId = pageSystem.currentSubTab or "GAME_MENU"
+                local subTabs = pageSystem.subTabs
+                local total = 0
+                if subTabs then total = table.getn(subTabs) end
+                local curIdx = 1
+                if total > 0 then
+                    for i = 1, total do
+                        local st = subTabs[i]
+                        if st and st.id == curId then curIdx = i; break end
+                    end
+                    -- fallback se currentSubTab numerico
+                    if type(curId) == "number" and curId >= 1 and curId <= total then curIdx = curId end
+                else
+                    if curId == "ADDON_CFG" then curIdx = 2 else curIdx = 1 end
+                    total = 2
+                    subTabs = { { id = "GAME_MENU" }, { id = "ADDON_CFG" } }
+                end
+                local nextIdx = curIdx + 1
+                if nextIdx > total then nextIdx = 1 end
+                local nextId = subTabs[nextIdx] and subTabs[nextIdx].id or "GAME_MENU"
+                if Nav.focus then Nav.focus.sysSubTabIdx = nextIdx end
+                pcall(function() MM:SelectSystemSubTab(nextId) end)
+                -- Se estava dentro das listas, espelha o movimento lateral RIGHT/LEFT
+                if Nav.focus then
+                    if Nav.focus.zone == "SYS_SUBTABS" then
+                        if nextId == "ADDON_CFG" then
+                            Nav.focus.zone = "SYS_ADDONCFG"
+                            Nav.focus.addonCfgIdx = 1
+                        else
+                            Nav.focus.zone = "SYS_GAMEMENU"
+                            Nav.focus.gameMenuIdx = 1
+                        end
+                    elseif Nav.focus.zone == "SYS_GAMEMENU" and nextId == "ADDON_CFG" then
+                        Nav.focus.zone = "SYS_ADDONCFG"
+                        Nav.focus.addonCfgIdx = 1
+                    elseif Nav.focus.zone == "SYS_ADDONCFG" and nextId == "GAME_MENU" then
+                        Nav.focus.zone = "SYS_GAMEMENU"
+                        Nav.focus.gameMenuIdx = 1
+                    end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                return true
+            end
+        end
+    end
     -- MMNav_Log("|cffe09a15[MMNav]|r RT (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false
 end
@@ -5162,6 +5214,56 @@ function Nav:OnPrevSubTab()
             return true
         end
         return true
+    end
+    -- DEMANDA 2: LT (prev) em SYSTEM sincroniza currentSubTab + sysSubTabIdx
+    if Nav_GetCurrentTab() == "SYSTEM" and not (ps and ps.activeSubScreen) then
+        local MM = Nav_GetMM()
+        if MM and type(MM.SelectSystemSubTab) == "function" and MM.tabContainer and MM.tabContainer.pages then
+            local pageSystem = MM.tabContainer.pages["SYSTEM"]
+            if pageSystem then
+                local curId = pageSystem.currentSubTab or "GAME_MENU"
+                local subTabs = pageSystem.subTabs
+                local total = 0
+                if subTabs then total = table.getn(subTabs) end
+                local curIdx = 1
+                if total > 0 then
+                    for i = 1, total do
+                        local st = subTabs[i]
+                        if st and st.id == curId then curIdx = i; break end
+                    end
+                    if type(curId) == "number" and curId >= 1 and curId <= total then curIdx = curId end
+                else
+                    if curId == "ADDON_CFG" then curIdx = 2 else curIdx = 1 end
+                    total = 2
+                    subTabs = { { id = "GAME_MENU" }, { id = "ADDON_CFG" } }
+                end
+                local prevIdx = curIdx - 1
+                if prevIdx < 1 then prevIdx = total end
+                local prevId = subTabs[prevIdx] and subTabs[prevIdx].id or "GAME_MENU"
+                if Nav.focus then Nav.focus.sysSubTabIdx = prevIdx end
+                pcall(function() MM:SelectSystemSubTab(prevId) end)
+                if Nav.focus then
+                    if Nav.focus.zone == "SYS_SUBTABS" then
+                        if prevId == "ADDON_CFG" then
+                            Nav.focus.zone = "SYS_ADDONCFG"
+                            Nav.focus.addonCfgIdx = 1
+                        else
+                            Nav.focus.zone = "SYS_GAMEMENU"
+                            Nav.focus.gameMenuIdx = 1
+                        end
+                    elseif Nav.focus.zone == "SYS_GAMEMENU" and prevId == "ADDON_CFG" then
+                        Nav.focus.zone = "SYS_ADDONCFG"
+                        Nav.focus.addonCfgIdx = 1
+                    elseif Nav.focus.zone == "SYS_ADDONCFG" and prevId == "GAME_MENU" then
+                        Nav.focus.zone = "SYS_GAMEMENU"
+                        Nav.focus.gameMenuIdx = 1
+                    end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                return true
+            end
+        end
     end
     -- MMNav_Log("|cffe09a15[MMNav]|r LT (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false

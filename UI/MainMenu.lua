@@ -13332,6 +13332,7 @@ function MainMenu:CreateTabContainer(rightPanel)
     charPlaceholder:SetPoint("CENTER", pageChar, "CENTER", 0, 0)
     MainMenu:ApplyFont(charPlaceholder, CFG.Tabs.fontFile or CFG.Fonts.bodyFontFile, CFG.Fonts.tabSize, CFG.Tabs.outline or "", CFG.Tabs.shadowOffset or { 1, -1 })
     charPlaceholder:SetText("Aba Personagem - Modulo em Carregamento")
+    pageChar.placeholder = charPlaceholder
     pageChar:Hide()
     pages["CHARACTER"] = pageChar
 
@@ -13513,6 +13514,35 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
             self:UpdateLayout()
         else
             self:RestorePlayerModel()
+        end
+    end
+
+    -- FASE 2 Aba Personagem: delega ao modulo isolado UI/CharacterScreen.lua
+    -- (acoplamento minimo com guards; erro vai ao chat em vez de sumir no pcall).
+    if tabID == "CHARACTER" then
+        local csPage = container.pages and container.pages["CHARACTER"]
+        local csMod = getglobal("ConsoleMode_CharacterScreen")
+        if csMod and type(csMod.AttachTo) == "function" then
+            local okA, errA = pcall(function() csMod:AttachTo(csPage) end)
+            if not okA and DEFAULT_CHAT_FRAME and type(DEFAULT_CHAT_FRAME.AddMessage) == "function" then
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff4040[ConsoleMode/Character]|r AttachTo falhou: " .. tostring(errA))
+            end
+        end
+        if csMod and type(csMod.Show) == "function" then
+            local okS, errS = pcall(function() csMod:Show() end)
+            if not okS and DEFAULT_CHAT_FRAME and type(DEFAULT_CHAT_FRAME.AddMessage) == "function" then
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff4040[ConsoleMode/Character]|r Show falhou: " .. tostring(errS))
+            end
+        end
+        -- Re-afirma a page DEPOIS do AttachTo/Show (nada sobrescreve o Show do loop).
+        if csPage and type(csPage.Show) == "function" then csPage:Show() end
+        -- Re-layout no proximo frame (molde BAGS/SPELLS): o layout 1.12 ainda
+        -- nao calculou as dimensoes do ScrollFrame no primeiro frame.
+        do local f=CreateFrame("Frame",nil,self.frame); f.t=0; f:SetScript("OnUpdate", function() this.t=this.t+arg1; if this.t>0.05 then this:SetScript("OnUpdate",nil); if MainMenu.frame and MainMenu.frame:IsVisible() and MainMenu.tabContainer and MainMenu.tabContainer.currentTab=="CHARACTER" then local cs=getglobal("ConsoleMode_CharacterScreen"); if cs and type(cs.UpdateLayout)=="function" then cs:UpdateLayout() end; if cs and type(cs.Show)=="function" then cs:Show() end; end end end) end
+    else
+        local csOther = getglobal("ConsoleMode_CharacterScreen")
+        if csOther and type(csOther.Hide) == "function" then
+            pcall(function() csOther:Hide() end)
         end
     end
 

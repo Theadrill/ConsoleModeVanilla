@@ -3180,6 +3180,18 @@ end
 function Nav:OnDirection(direction)
     if not self:IsActive() then return end
     local curTab = Nav_GetCurrentTab()
+    if curTab == "CHARACTER" then
+        -- FASE 2 Aba Personagem: UP/DOWN rolam o ScrollFrame do modulo
+        -- isolado UI/CharacterScreen.lua (guards; nunca quebra as outras abas).
+        local csMod = getglobal("ConsoleMode_CharacterScreen")
+        if csMod and type(csMod.OnDirection) == "function" then
+            local okCs, consumedCs = pcall(function() return csMod:OnDirection(direction) end)
+            if okCs and consumedCs then MMNav_PlayMove() end
+            return
+        end
+        MMNav_PlayMove()
+        return
+    end
     if curTab == "SYSTEM" then
         Nav_EnsureFocus()
         local movedSys = Nav_OnSysDirection(direction)

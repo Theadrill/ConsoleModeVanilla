@@ -32,6 +32,7 @@ Data\QuestDB_ptBR.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 UI\MainMenuNav.lua
+UI\CharacterScreen.lua
 UI\MerchantMenu.lua
 UI\VirtualKeyboard.lua
 UI\BagSplit.lua

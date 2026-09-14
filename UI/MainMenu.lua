@@ -13923,6 +13923,39 @@ function MainMenu:CreateUI()
         if MainMenu.HideCompare then
             pcall(function() MainMenu:HideCompare() end)
         end
+        -- FIX START-fecha-BINDS/PICKER: reset limpo da sub-tela do SYSTEM.
+        -- START (CM_Fixed) fecha via Hide()/:Hide() e este OnHide e' o ponto
+        -- unico que sempre roda; sem ele, activeSubScreen ficava BINDS/PICKER
+        -- com as telas escondidas e o Nav preso em SYS_BINDS/SYS_PICKER
+        -- (foco invisivel + D-pad no-op ao reabrir). So atua em BINDS/PICKER.
+        pcall(function()
+            local tc = MainMenu.tabContainer
+            local ps = tc and tc.pages and tc.pages["SYSTEM"]
+            if not ps then return end
+            local sub = ps.activeSubScreen
+            if sub ~= "BINDS" and sub ~= "PICKER" then return end
+            if ps.bindsScreen then pcall(function() ps.bindsScreen:Hide() end) end
+            if ps.pickerScreen then pcall(function() ps.pickerScreen:Hide() end) end
+            ps.activeSubScreen = nil
+            -- Default real do open (UpdateSystemPage): currentSubTab ou
+            -- GAME_MENU; NAO forca ADDON_CFG (ShowAddonConfigSubPage).
+            if type(MainMenu.SelectSystemSubTab) == "function" then
+                pcall(function() MainMenu:SelectSystemSubTab(ps.currentSubTab or "GAME_MENU") end)
+            else
+                if ps.headerBar then pcall(function() ps.headerBar:Show() end) end
+                if ps.subContent then pcall(function() ps.subContent:Show() end) end
+            end
+            ps.activeSubScreen = nil
+            local okG, nav = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and nav and nav.focus then
+                pcall(function()
+                    nav.focus.zone = "SYS_SUBTABS"
+                    nav.focus.returnZone = "TABBAR"
+                    nav.focus.bindsIdx = 1
+                    nav.focus.pickerSection = "MODE"
+                end)
+            end
+        end)
         if dimmer then dimmer:Hide() end
         if CFG.Audio.soundClose then PlaySound(CFG.Audio.soundClose) end
         if ConsoleMode.hooks and ConsoleMode.hooks.OnFrameHide then

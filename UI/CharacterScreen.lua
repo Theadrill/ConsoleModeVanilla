@@ -65,6 +65,29 @@ local SCHOOL_NAMES = { "Arcano", "Fogo", "Gelo", "Sagrado", "Natureza", "Sombra"
 local SCHOOL_KEYS  = { "arcane", "fire", "frost", "holy", "nature", "shadow" }
 
 -- ----------------------------------------------------------------------------
+-- 1b. REPUTACOES full-width: MAXIMO + slots + linhas + altura.
+-- Calculo do maximo (Turtle WoW 1.12, GetFactionInfo com barra/standing):
+-- vanilla ~50 com rep listavel (Wowhead Classic lista 59 linhas no DB de
+-- faccoes; menos ~9 sazonais/teste/Brawlpub/DNT = ~50 com barra ou
+-- standing 1..8, incluindo racials da faccao oposta visiveis como Odiado +
+-- cabecalhos com rep propria) + turtle ~10 customs com rep (Durotar Supply
+-- and Logistics / Durotar Labor Union, Silvermoon Remnant / High Elves,
+-- Goblin, Caer Darrow, Gilneas City, Emerald Sanctuary / Wardens,
+-- Timbermaw extra, Darkmoon extra, etc. — TurtleDB 1.18.1 lista 164
+-- Faction.dbc vs ~120 do vanilla) = 60 base; +20% margem (12) = 72 slots.
+-- Grade interna 2 colunas: linhas = ceil(72/2) = 36; altura fixa do card =
+-- 30 (titulo) + 36*32 (nome+barra+gap) + 24 (respiro) = 1206.
+-- Pool fixo: 72 FontStrings + 72 StatusBars criados uma vez em CreateUI;
+-- Refresh so atualiza textos + SetMinMaxValues/SetValue. Overflow alem dos
+-- 72: ultima celula vira "... (+N)"; zero faccoes: "Sem reputacoes".
+-- ----------------------------------------------------------------------------
+local CS_MAX_REP = 72
+local CS_REP_COLS = 2
+local CS_REP_ROWS = 36
+local CS_REP_H = 1206
+local CS_REP_GAP = 12
+
+-- ----------------------------------------------------------------------------
 -- 2. ESTADO DO MODULO (pool fixo: frames criados uma vez, nunca destruidos)
 -- ----------------------------------------------------------------------------
 CharacterScreen.initialized  = CharacterScreen.initialized or false
@@ -1355,6 +1378,53 @@ local function CS_MakeCard(scrollChild, name, titleText, height, numLines, width
     return card
 end
 
+-- REPUTACOES full-width: grade interna 2 colunas (pool fixo CS_MAX_REP).
+-- Slot s (1-based): fileira = floor((s-1)/2)+1, coluna = (s-1)%2
+-- (indice 0-based par -> esquerda, impar -> direita). y = -(30+(row-1)*32),
+-- x = 12 + col*(colInnerW+gap). FontStrings: TOPLEFT + SetWidth (LEFT);
+-- barras: TOPLEFT + SetWidth, h10. Chamada em CreateUI (uma vez) e em
+-- LayoutCards quando a largura do card muda (ex. apos /reload). So
+-- reposiciona; nunca cria/destroi (pool fixo). 0 upvalues alem dos consts.
+local function CS_LayoutRepCard(card)
+    if not card then return end
+    if not card.lines then return end
+    if table.getn(card.lines) < CS_MAX_REP then return end
+    local cardW = 0
+    if type(card.GetWidth) == "function" then
+        local w = card:GetWidth()
+        if type(w) == "number" and w > 0 then cardW = w end
+    end
+    if cardW <= 0 then cardW = CS_REP_H end
+    if cardW <= 0 then cardW = 452 end
+    local innerW = cardW - 24
+    if innerW <= 0 then innerW = cardW end
+    local colIW = (innerW - CS_REP_GAP) / 2
+    if colIW <= 0 then colIW = innerW end
+    local si = 1
+    while si <= CS_MAX_REP do
+        local row = math.floor((si - 1) / CS_REP_COLS) + 1
+        local col = math.mod((si - 1), CS_REP_COLS)
+        local yName = -(30 + ((row - 1) * 32))
+        local xCol = 12 + (col * (colIW + CS_REP_GAP))
+        local fsR = card.lines[si]
+        if fsR then
+            fsR:ClearAllPoints()
+            fsR:SetPoint("TOPLEFT", card, "TOPLEFT", xCol, yName)
+            if type(fsR.SetWidth) == "function" then fsR:SetWidth(colIW) end
+            if type(fsR.SetJustifyH) == "function" then fsR:SetJustifyH("LEFT") end
+        end
+        local barR = nil
+        if card.bars then barR = card.bars[si] end
+        if barR then
+            barR:ClearAllPoints()
+            barR:SetPoint("TOPLEFT", card, "TOPLEFT", xCol, yName - 16)
+            if type(barR.SetWidth) == "function" then barR:SetWidth(colIW) end
+            if type(barR.SetHeight) == "function" then barR:SetHeight(10) end
+        end
+        si = si + 1
+    end
+end
+
 -- RETRABALHO 2 colunas: pareamento sequencial dos VISIVEIS na ordem do
 -- cardOrder — (Ident,Base),(Res,Melee),(MeleeBoss,Ranged),(Spell,Schools),
 -- (Def,DefBoss),(Resist,Armas). Ranged oculto p/ relic classes NAO deixa
@@ -1362,6 +1432,12 @@ end
 -- cards top-aligned. contentH = soma das linhas + gaps + padding.
 -- Pool fixo: so reposiciona + SetWidth (linhas sao TOPLEFT/TOPRIGHT do card,
 -- seguem a largura automaticamente).
+-- Full-width (card.fullWidth=true, ex. REPUTACOES): ocupa a linha inteira
+-- sozinho (largura avail); os demais seguem pareando 2 a 2. O proprio card
+-- isolado ja da o respiro visual da secao (como pular uma linha).
+-- Se o proximo for fullWidth, o normal corrente fecha a linha sozinho em
+-- meia largura (sem esticar, sem buraco no reflow). Stretch rowH mantido
+-- nas linhas pareadas.
 function CharacterScreen:LayoutCards()
     if not self.cardOrder or not self.scrollChild then return end
     local gap = self.cardGap or 12
@@ -1395,34 +1471,56 @@ function CharacterScreen:LayoutCards()
     local i = 1
     while i <= m do
         local left = vis[i]
-        local right = nil
-        if (i + 1) <= m then right = vis[i + 1] end
-        local hL = left.cardH or 170
-        local rowH = hL
-        if right then
-            local hR = right.cardH or 170
-            if hR > rowH then rowH = hR end
-        end
-        if type(left.Show) == "function" then left:Show() end
-        if type(left.SetWidth) == "function" then left:SetWidth(colW) end
-        if type(left.SetHeight) == "function" then left:SetHeight(rowH) end
-        left:ClearAllPoints()
-        left:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
-        if right then
-            if type(right.Show) == "function" then right:Show() end
-            if type(right.SetWidth) == "function" then right:SetWidth(colW) end
-            if type(right.SetHeight) == "function" then right:SetHeight(rowH) end
-            right:ClearAllPoints()
-            right:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", rightX, yOff)
-        end
-        if row == 0 then
-            totalH = rowH
+        if left.fullWidth then
+            local rowH = left.cardH or 170
+            if type(left.Show) == "function" then left:Show() end
+            if type(left.SetWidth) == "function" then left:SetWidth(avail) end
+            if type(left.SetHeight) == "function" then left:SetHeight(rowH) end
+            left:ClearAllPoints()
+            left:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
+            CS_LayoutRepCard(left)
+            if row == 0 then
+                totalH = rowH
+            else
+                totalH = totalH + gap + rowH
+            end
+            row = row + 1
+            yOff = yOff - rowH - gap
+            i = i + 1
         else
-            totalH = totalH + gap + rowH
+            local right = nil
+            if (i + 1) <= m and not vis[i + 1].fullWidth then right = vis[i + 1] end
+            local hL = left.cardH or 170
+            local rowH = hL
+            if right then
+                local hR = right.cardH or 170
+                if hR > rowH then rowH = hR end
+            end
+            if type(left.Show) == "function" then left:Show() end
+            if type(left.SetWidth) == "function" then left:SetWidth(colW) end
+            if type(left.SetHeight) == "function" then left:SetHeight(rowH) end
+            left:ClearAllPoints()
+            left:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
+            if right then
+                if type(right.Show) == "function" then right:Show() end
+                if type(right.SetWidth) == "function" then right:SetWidth(colW) end
+                if type(right.SetHeight) == "function" then right:SetHeight(rowH) end
+                right:ClearAllPoints()
+                right:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", rightX, yOff)
+            end
+            if row == 0 then
+                totalH = rowH
+            else
+                totalH = totalH + gap + rowH
+            end
+            row = row + 1
+            yOff = yOff - rowH - gap
+            if right then
+                i = i + 2
+            else
+                i = i + 1
+            end
         end
-        row = row + 1
-        yOff = yOff - rowH - gap
-        i = i + 2
     end
     totalH = totalH + 8
     self.contentH = totalH
@@ -1503,15 +1601,19 @@ function CharacterScreen:CreateUI(parent)
     -- aqui; Refresh so atualiza textos + SetMinMaxValues/SetValue.
     self.cardProf      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardProf", "PROFISSOES", 150, 3, colW)
     self.cardSec       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSec", "OFICIOS", 182, 4, colW)
-    -- FASE 5 (parcial: Reputacoes): 2 cards no FIM da ordem (apos Oficios),
-    -- mesmo molde Pericias/Profissoes (nome em cima + StatusBar dourada
-    -- embaixo, pitch 32px). REPUTACOES I/II (3 slots cada = 6 no total;
-    -- overflow "... (+N)" no ultimo slot do card II). Altura cada =
-    -- 30 + 3*32 + 24 = 150. Pool fixo: FontStrings via CS_MakeCard +
-    -- StatusBars criados uma vez abaixo; Refresh so atualiza textos +
-    -- SetMinMaxValues(barMin,barMax)/SetValue(barValue).
-    self.cardRep1      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep1", "REPUTACOES I", 150, 3, colW)
-    self.cardRep2      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep2", "REPUTACOES II", 150, 3, colW)
+    -- FASE 5 (Reputacoes, card UNICO full-width no FIM da ordem apos
+    -- Oficios): mesmo molde Pericias/Profissoes (nome em cima + StatusBar
+    -- dourada embaixo, pitch 32px por fileira) com 2 colunas INTERNAS.
+    -- REPUTACOES (CS_MAX_REP=72 slots = 36 fileiras x 2 col; calculo em 1b:
+    -- vanilla 50 + turtle 10 = 60 base +20% = 72). Altura = 30 + 36*32 +
+    -- 24 = 1206 (CS_REP_H). Overflow alem dos 72: ultima celula vira
+    -- "... (+N)"; zero faccoes: "Sem reputacoes". Pool fixo: FontStrings
+    -- via CS_MakeCard + StatusBars criados uma vez abaixo; Refresh so
+    -- atualiza textos + SetMinMaxValues(barMin,barMax)/SetValue(barValue).
+    -- fullWidth=true: LayoutCards coloca o card sozinho na linha inteira
+    -- (o proprio card isolado ja da o respiro da secao).
+    self.cardRep       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep", "REPUTACOES", CS_REP_H, CS_MAX_REP, (parentW - 8))
+    if self.cardRep then self.cardRep.fullWidth = true end
 
     -- PERICIAS DE ARMAS: cada pericia ocupa 2 linhas visuais (nome em cima +
     -- StatusBar h10 embaixo). Pool fixo de 8 StatusBars criado UMA vez aqui;
@@ -1626,61 +1728,46 @@ function CharacterScreen:CreateUI(parent)
         end
     end
 
-    -- REPUTACOES I/II: mesmo pool fixo de StatusBars (dourada ambar + fundo
-    -- escuro, h10, pitch 32px). Criado UMA vez aqui; Refresh so faz
+    -- REPUTACOES (card unico full-width, 2 colunas internas): mesmo pool
+    -- fixo de StatusBars (dourada ambar + fundo escuro, h10, pitch 32px por
+    -- fileira). Criado UMA vez aqui; Refresh so faz
     -- SetMinMaxValues(barMin,barMax)/SetValue(barValue)/Show/Hide
-    -- (guard barMax>barMin).
+    -- (guard barMax>barMin). Posicionamento 2-col via CS_LayoutRepCard
+    -- (slot impar -> esquerda, par -> direita).
     do
-        local ri = 1
-        while ri <= 2 do
-            local rcard = nil
-            if ri == 1 then
-                rcard = self.cardRep1
-            else
-                rcard = self.cardRep2
-            end
-            if rcard and rcard.lines and table.getn(rcard.lines) >= 3 then
-                rcard.bars = rcard.bars or {}
-                local si = 1
-                while si <= 3 do
-                    local yName = -(30 + ((si - 1) * 32))
-                    local fsR = rcard.lines[si]
-                    if fsR then
-                        fsR:ClearAllPoints()
-                        fsR:SetPoint("TOPLEFT", rcard, "TOPLEFT", 12, yName)
-                        fsR:SetPoint("TOPRIGHT", rcard, "TOPRIGHT", -12, yName)
-                    end
-                    local barR = rcard.bars[si]
-                    if not barR then
-                        barR = CreateFrame("StatusBar", nil, rcard)
-                        if barR then
-                            barR:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
-                            barR:SetStatusBarColor(0.88, 0.60, 0.08, 1)
-                            barR:SetMinMaxValues(0, 1)
-                            barR:SetValue(0)
-                            local bgR = barR:CreateTexture(nil, "BACKGROUND")
-                            if bgR then
-                                bgR:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-                                bgR:SetVertexColor(0, 0, 0, 0.85)
-                                bgR:SetPoint("TOPLEFT", barR, "TOPLEFT", 0, 0)
-                                bgR:SetPoint("BOTTOMRIGHT", barR, "BOTTOMRIGHT", 0, 0)
-                            end
-                            rcard.bars[si] = barR
-                        end
-                    end
+        local rcard = self.cardRep
+        if rcard and rcard.lines and table.getn(rcard.lines) >= CS_MAX_REP then
+            rcard.bars = rcard.bars or {}
+            local si = 1
+            while si <= CS_MAX_REP do
+                local barR = rcard.bars[si]
+                if not barR then
+                    barR = CreateFrame("StatusBar", nil, rcard)
                     if barR then
-                        barR:ClearAllPoints()
-                        barR:SetPoint("TOPLEFT", rcard, "TOPLEFT", 12, yName - 16)
-                        barR:SetPoint("TOPRIGHT", rcard, "TOPRIGHT", -12, yName - 16)
-                        barR:SetHeight(10)
+                        barR:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+                        barR:SetStatusBarColor(0.88, 0.60, 0.08, 1)
                         barR:SetMinMaxValues(0, 1)
                         barR:SetValue(0)
-                        barR:Hide()
+                        local bgR = barR:CreateTexture(nil, "BACKGROUND")
+                        if bgR then
+                            bgR:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                            bgR:SetVertexColor(0, 0, 0, 0.85)
+                            bgR:SetPoint("TOPLEFT", barR, "TOPLEFT", 0, 0)
+                            bgR:SetPoint("BOTTOMRIGHT", barR, "BOTTOMRIGHT", 0, 0)
+                        end
+                        rcard.bars[si] = barR
                     end
-                    si = si + 1
                 end
+                if barR then
+                    barR:SetMinMaxValues(0, 1)
+                    barR:SetValue(0)
+                    barR:Hide()
+                end
+                si = si + 1
             end
-            ri = ri + 1
+            CS_LayoutRepCard(rcard)
+            rcard:SetHeight(CS_REP_H)
+            rcard.cardH = CS_REP_H
         end
     end
 
@@ -1690,7 +1777,7 @@ function CharacterScreen:CreateUI(parent)
         self.cardSpell, self.cardSchools,
         self.cardDef, self.cardDefBoss, self.cardResist,
         self.cardWeapon, self.cardProf, self.cardSec,
-        self.cardRep1, self.cardRep2,
+        self.cardRep,
     }
 
     self.scrollFrame = scrollFrame
@@ -2526,9 +2613,11 @@ end
 -- 2 cards (PROFISSOES + OFICIOS); Refresh() ganha so 1 chamada via self.
 -- Classificacao: secundaria conhecida por nome (match strlower plain EN+PT:
 -- cooking/culin, first aid/primeiros socorros, fishing/pesca, survival/
--- sobreviv) vai para OFICIOS; o restante (fora do cabecalho, excluindo os
--- filhos da secao de armas detectada como no RefreshWeaponProfs) vai para
--- PROFISSOES, max 2 (3a linha vira overflow). Formato igual ao das pericias:
+-- sobreviv) vai para OFICIOS; o restante SOB OS CABECALHOS DE PROFISSAO
+-- (allowlist EN 1.12 "Professions"/"Secondary Skills" + PT "Profiss"/
+-- "Secund") vai para PROFISSOES, max 2 (3a linha vira overflow). Skills fora
+-- desses cabecalhos (armas, classe Turtle ex. "Elemental Combat"/
+-- "Enhancement", armaduras, idiomas) sao ignoradas. Formato igual ao das pericias:
 -- "Nome  X/max" (+bonus verde) em cima + StatusBar dourada embaixo (pool
 -- fixo card.bars, guard max>0); overflow vira "... (+N)" sem barra.
 -- Sem cache — leitura direta a cada Refresh (barata); SKILL_LINES_CHANGED
@@ -2579,39 +2668,47 @@ function CharacterScreen:RefreshProfessions()
         end
         return
     end
-    -- 1. Secao de armas (mesma deteccao do RefreshWeaponProfs): os filhos
-    -- dela sao pericias, nunca profissoes — excluidos da coleta abaixo.
-    local headerIdx = nil
+    -- 1. Allowlist de cabecalhos (EN 1.12 + PT): so skills sob
+    -- "Professions"/"Secondary Skills" (PT: "Profiss", "Secund") entram na
+    -- coleta. Skills de classe do Turtle sob outro cabecalho (ex.
+    -- "Elemental Combat"/"Enhancement") e pericias de arma sao ignoradas.
+    -- 1a. Expande cabecalhos de profissao recolhidos (espelha o
+    -- RefreshWeaponProfs: recolhido esconde os filhos) e reconta o total.
+    local needRecount = false
     local i = 1
     while i <= total do
-        local okH, hName, hIsHeader = pcall(GetSkillLineInfo, i)
+        local okH, hName, hIsHeader, hIsExp = pcall(GetSkillLineInfo, i)
         if not okH then break end
         if hName == nil then break end
-        if hIsHeader == 1 and not headerIdx
-            and type(hName) == "string" and hName ~= "" then
+        if hIsHeader == 1 and type(hName) == "string" and hName ~= "" then
             local lowH = string.lower(hName)
-            if string.find(lowH, "weapon", 1, true) then
-                headerIdx = i
-            elseif string.find(lowH, "arma[^d]") or string.find(lowH, "arma$") then
-                headerIdx = i
+            local isProfH = false
+            local isSecH = false
+            if string.find(lowH, "profession", 1, true)
+                or string.find(lowH, "profiss", 1, true)
+                or string.find(lowH, "profes", 1, true) then
+                isProfH = true
+            elseif string.find(lowH, "secondary", 1, true)
+                or string.find(lowH, "second", 1, true)
+                or string.find(lowH, "secund", 1, true) then
+                isSecH = true
+            end
+            if (isProfH or isSecH) and hIsExp == 0 then
+                if type(ExpandSkillHeader) == "function" then
+                    pcall(ExpandSkillHeader, i)
+                    needRecount = true
+                end
             end
         end
         i = i + 1
     end
-    local weaponEnd = nil
-    if headerIdx then
-        weaponEnd = total + 1
-        local k = headerIdx + 1
-        while k <= total do
-            local okK, kName, kIsH = pcall(GetSkillLineInfo, k)
-            if not okK then break end
-            if kName == nil then break end
-            if kIsH == 1 then weaponEnd = k break end
-            k = k + 1
-        end
+    if needRecount and type(GetNumSkillLines) == "function" then
+        local okR, nR = pcall(GetNumSkillLines)
+        if okR and type(nR) == "number" then total = nR end
     end
-    -- 2. Coleta: nao-cabecalhos fora da secao de armas; secundarias por
-    -- nome EN+PT, restante = primarias (cap 40 interno, exibicao capa).
+    -- 2. Coleta: so filhos dos cabecalhos da allowlist (rastreia o cabecalho
+    -- corrente; qualquer outro cabecalho zera); secundarias por nome EN+PT,
+    -- restante sob o cabecalho de profissoes = primarias (cap 40, exibicao).
     local pNames = {}
     local pRanks = {}
     local pMaxs = {}
@@ -2620,56 +2717,65 @@ function CharacterScreen:RefreshProfessions()
     local sRanks = {}
     local sMaxs = {}
     local sMods = {}
+    local curKind = 0
     local j = 1
     while j <= total do
-        local inWeapon = false
-        if headerIdx and weaponEnd and j > headerIdx and j < weaponEnd then
-            inWeapon = true
-        end
-        if not inWeapon then
-            local okS, sName, sIsHeader, sIsExp, sRank, sTmp, sMod, sMax = pcall(GetSkillLineInfo, j)
-            if not okS then break end
-            if sName == nil then break end
-            if sIsHeader ~= 1 and type(sName) == "string" and sName ~= "" then
-                local low = string.lower(sName)
-                local isSec = false
-                if string.find(low, "cooking", 1, true) then
-                    isSec = true
-                elseif string.find(low, "culin", 1, true) then
-                    isSec = true
-                elseif string.find(low, "first aid", 1, true) then
-                    isSec = true
-                elseif string.find(low, "primeiros socorros", 1, true) then
-                    isSec = true
-                elseif string.find(low, "fishing", 1, true) then
-                    isSec = true
-                elseif string.find(low, "pesca", 1, true) then
-                    isSec = true
-                elseif string.find(low, "survival", 1, true) then
-                    isSec = true
-                elseif string.find(low, "sobreviv", 1, true) then
-                    isSec = true
+        local okS, sName, sIsHeader, sIsExp, sRank, sTmp, sMod, sMax = pcall(GetSkillLineInfo, j)
+        if not okS then break end
+        if sName == nil then break end
+        if sIsHeader == 1 then
+            curKind = 0
+            if type(sName) == "string" and sName ~= "" then
+                local lowH = string.lower(sName)
+                if string.find(lowH, "profession", 1, true)
+                    or string.find(lowH, "profiss", 1, true)
+                    or string.find(lowH, "profes", 1, true) then
+                    curKind = 1
+                elseif string.find(lowH, "secondary", 1, true)
+                    or string.find(lowH, "second", 1, true)
+                    or string.find(lowH, "secund", 1, true) then
+                    curKind = 2
                 end
-                local rk = 0
-                if type(sRank) == "number" then rk = sRank end
-                local mx = 300
-                if type(sMax) == "number" and sMax > 0 then mx = sMax end
-                local md = 0
-                if type(sMod) == "number" and sMod > 0 then md = sMod end
-                if isSec then
-                    if table.getn(sNames) < 40 then
-                        table.insert(sNames, sName)
-                        table.insert(sRanks, rk)
-                        table.insert(sMaxs, mx)
-                        table.insert(sMods, md)
-                    end
-                else
-                    if table.getn(pNames) < 40 then
-                        table.insert(pNames, sName)
-                        table.insert(pRanks, rk)
-                        table.insert(pMaxs, mx)
-                        table.insert(pMods, md)
-                    end
+            end
+        elseif curKind ~= 0 and type(sName) == "string" and sName ~= "" then
+            local low = string.lower(sName)
+            local isSec = false
+            if string.find(low, "cooking", 1, true) then
+                isSec = true
+            elseif string.find(low, "culin", 1, true) then
+                isSec = true
+            elseif string.find(low, "first aid", 1, true) then
+                isSec = true
+            elseif string.find(low, "primeiros socorros", 1, true) then
+                isSec = true
+            elseif string.find(low, "fishing", 1, true) then
+                isSec = true
+            elseif string.find(low, "pesca", 1, true) then
+                isSec = true
+            elseif string.find(low, "survival", 1, true) then
+                isSec = true
+            elseif string.find(low, "sobreviv", 1, true) then
+                isSec = true
+            end
+            local rk = 0
+            if type(sRank) == "number" then rk = sRank end
+            local mx = 300
+            if type(sMax) == "number" and sMax > 0 then mx = sMax end
+            local md = 0
+            if type(sMod) == "number" and sMod > 0 then md = sMod end
+            if isSec then
+                if table.getn(sNames) < 40 then
+                    table.insert(sNames, sName)
+                    table.insert(sRanks, rk)
+                    table.insert(sMaxs, mx)
+                    table.insert(sMods, md)
+                end
+            else
+                if table.getn(pNames) < 40 then
+                    table.insert(pNames, sName)
+                    table.insert(pRanks, rk)
+                    table.insert(pMaxs, mx)
+                    table.insert(pMods, md)
                 end
             end
         end
@@ -2799,30 +2905,33 @@ function CharacterScreen:RefreshProfessions()
 end
 
 -- ----------------------------------------------------------------------------
--- FASE 5 (parcial: Reputacoes). Metodo CharacterScreen:X (NAO e file-local):
--- corpo usa so self + globais + locais internos => 0 upvalues. Atualiza os
--- 2 cards (REPUTACOES I + II, 3 slots cada = 6 no total); Refresh() ganha so
--- 1 chamada via self.
--- Filtro: lista GetNumFactions()/GetFactionInfo(i); pula cabecalhos
--- (isHeader==1) e entradas sem hasRep; mostra as visiveis SEM expandir
--- (sem ExpandFactionHeader para nao mexer na UI da Blizzard).
+-- FASE 5 (Reputacoes, card UNICO full-width). Metodo CharacterScreen:X (NAO
+-- e file-local): corpo usa so self + globais + locais internos => 0
+-- upvalues. Atualiza o card REPUTACOES (CS_MAX_REP=72 slots em grade
+-- interna 2 colunas x 36 fileiras; calculo do maximo em 1b); Refresh()
+-- ganha so 1 chamada via self.
+-- Filtro (mantido do fix anterior): lista GetNumFactions()/GetFactionInfo;
+-- pula cabecalhos PUROS (categoria, sem rep propria) e entradas sem dado
+-- de rep; ACEITA entradas com rep propria mesmo se header (Turtle 1.12:
+-- faccoes-guarda-chuva com barra) e nao-headers com hasRep nil mas com
+-- barra/standing (hasRep OU barMax>barMin OU standingId 1..8). Mostra as
+-- visiveis SEM expandir (sem ExpandFactionHeader para nao mexer na UI).
 -- standingId 1..8 via globals FACTION_STANDING_LABEL1..8 (type check) com
--- fallback PT. Formato: "Nome  Status (atual/max)" em cima + StatusBar
--- dourada embaixo (pool fixo card.bars, SetMinMaxValues(barMin,barMax) +
--- SetValue(barValue), guard barMax>barMin); overflow "... (+N)" sem barra
--- no ultimo slot do card II. Sem cache — leitura direta a cada Refresh
--- (barata); UPDATE_FACTION registrado em EnsureEventFrame dispara o
--- Refresh quando visivel.
+-- fallback PT. Formato por celula: "Nome  Status (atual/max)" em cima +
+-- StatusBar dourada embaixo (pool fixo card.bars,
+-- SetMinMaxValues(barMin,barMax)+SetValue(barValue), guard barMax>barMin).
+-- Grade 2-col: slot s impar -> coluna esquerda, par -> direita (indice
+-- 0-based (s-1) par -> esquerda, impar -> direita); posicoes fixas via
+-- CS_LayoutRepCard, aqui so textos+barras. Overflow alem dos 72: ultima
+-- celula vira "... (+N)" sem barra. Zero: "Sem reputacoes" + resto vazio.
+-- Sem cache — leitura direta a cada Refresh (barata); UPDATE_FACTION
+-- registrado em EnsureEventFrame dispara o Refresh quando visivel.
 -- ----------------------------------------------------------------------------
 function CharacterScreen:RefreshReputations()
-    local card1 = self.cardRep1
-    local card2 = self.cardRep2
-    if not card1 then return end
-    if not card2 then return end
-    if not card1.lines then return end
-    if not card2.lines then return end
-    if table.getn(card1.lines) < 3 then return end
-    if table.getn(card2.lines) < 3 then return end
+    local card = self.cardRep
+    if not card then return end
+    if not card.lines then return end
+    if table.getn(card.lines) < CS_MAX_REP then return end
     local fallbacks = { "Odiado", "Hostil", "Inamistoso", "Neutro", "Amistoso", "Honrado", "Reverenciado", "Exaltado" }
     local names = {}
     local labels = {}
@@ -2840,9 +2949,32 @@ function CharacterScreen:RefreshReputations()
             local okF, fName, fDesc, fStanding, fMin, fMax, fVal, fAtWar, fCanWar, fIsHeader, fCollapsed, fHasRep = pcall(GetFactionInfo, i)
             if okF and type(fName) == "string" and fName ~= "" then
                 local skip = false
-                if fIsHeader == 1 then skip = true end
-                if not skip and (not fHasRep or fHasRep == 0) then skip = true end
-                if not skip and table.getn(names) < 40 then
+                if fIsHeader == 1 then
+                    -- Header: entra so com rep propria (hasRep OU barra
+                    -- real); categoria pura continua ignorada.
+                    local headerRep = false
+                    if fHasRep and fHasRep ~= 0 then headerRep = true end
+                    if type(fMax) == "number" and type(fMin) == "number"
+                        and fMax > fMin then
+                        headerRep = true
+                    end
+                    if not headerRep then skip = true end
+                else
+                    -- Nao-header: hasRep OU barra OU standing valido
+                    -- (Turtle: hasRep pode vir nil com barra/standing ok).
+                    local hasOwn = false
+                    if fHasRep and fHasRep ~= 0 then hasOwn = true end
+                    if type(fMax) == "number" and type(fMin) == "number"
+                        and fMax > fMin then
+                        hasOwn = true
+                    end
+                    if type(fStanding) == "number" and fStanding >= 1
+                        and fStanding <= 8 then
+                        hasOwn = true
+                    end
+                    if not hasOwn then skip = true end
+                end
+                if not skip and table.getn(names) < 200 then
                     local sid = 0
                     if type(fStanding) == "number" then sid = fStanding end
                     local stTxt = nil
@@ -2873,50 +3005,40 @@ function CharacterScreen:RefreshReputations()
     end
     local n = table.getn(names)
     if n == 0 then
-        card1.lines[1]:SetText("Sem reputacoes")
+        card.lines[1]:SetText("Sem reputacoes")
         local z1 = 2
-        while z1 <= 3 do
-            card1.lines[z1]:SetText("")
+        while z1 <= 72 do
+            card.lines[z1]:SetText("")
             z1 = z1 + 1
         end
-        if card1.bars then
+        if card.bars then
             local hb1 = 1
-            while hb1 <= 3 do
-                local b01 = card1.bars[hb1]
+            while hb1 <= 72 do
+                local b01 = card.bars[hb1]
                 if b01 and type(b01.Hide) == "function" then b01:Hide() end
                 hb1 = hb1 + 1
             end
         end
-        local z2 = 1
-        while z2 <= 3 do
-            card2.lines[z2]:SetText("")
-            z2 = z2 + 1
-        end
-        if card2.bars then
-            local hb2 = 1
-            while hb2 <= 3 do
-                local b02 = card2.bars[hb2]
-                if b02 and type(b02.Hide) == "function" then b02:Hide() end
-                hb2 = hb2 + 1
-            end
-        end
+        -- ALTURA DINAMICA: 1 linha minima ("Sem reputacoes").
+        -- Formula: altura = 30 + linhas*32 + 24 (linhas=1 -> 86).
+        -- cardH atualizado ANTES do LayoutCards (Refresh->Layout no Refresh()).
+        local repH0 = 30 + 1 * 32 + 24
+        if type(card.SetHeight) == "function" then card:SetHeight(repH0) end
+        card.cardH = repH0
         return
     end
-    -- Render slot: indice global 1..6 -> card 1 (1..3) ou card 2 (4..6);
-    -- com overflow (n>6) o slot 6 vira "... (+N)" sem barra.
+    -- Render grade 2-col: slot s 1..72 (impar -> esquerda, par -> direita;
+    -- posicao fixa em CS_LayoutRepCard). Com overflow (n>72) o slot 72 vira
+    -- "... (+N)" sem barra, com N = n-71.
     local s = 1
-    while s <= 6 do
-        local tgtCard = card1
-        local tgtSlot = s
-        if s > 3 then
-            tgtCard = card2
-            tgtSlot = s - 3
-        end
-        local fs = tgtCard.lines[tgtSlot]
+    while s <= 72 do
+        local fs = card.lines[s]
         local bar = nil
-        if tgtCard.bars then bar = tgtCard.bars[tgtSlot] end
-        if n > 6 and s == 6 then
-            fs:SetText("... (+" .. tostring(n - 5) .. " ver Reputacao U)")
+        if card.bars then bar = card.bars[s] end
+        if not fs or type(fs.SetText) ~= "function" then
+            if bar and type(bar.Hide) == "function" then bar:Hide() end
+        elseif n > 72 and s == 72 then
+            fs:SetText("... (+" .. tostring(n - 71) .. " ver Reputacao U)")
             if bar and type(bar.Hide) == "function" then bar:Hide() end
         elseif s <= n then
             fs:SetText(tostring(names[s]) .. "  " .. tostring(labels[s]) .. " (" .. tostring(bVals[s]) .. "/" .. tostring(bMaxs[s]) .. ")")
@@ -2943,6 +3065,19 @@ function CharacterScreen:RefreshReputations()
         end
         s = s + 1
     end
+    -- ALTURA DINAMICA: linhas = max(ceil(shown/2),1), shown = min(n,72);
+    -- overflow "... (+N)" ocupa o slot 72 (conta como linha). Formula:
+    -- altura = 30 + linhas*32 + 24 (ex. n=5 -> 3 linhas -> 150;
+    -- n=72/80 -> 36 linhas -> 1206). Pool fixo: so SetHeight + cardH
+    -- (slots nao usados ja escondidos acima); contentH via LayoutCards.
+    local shown = n
+    if shown > 72 then shown = 72 end
+    local repLines = math.ceil(shown / 2)
+    if repLines < 1 then repLines = 1 end
+    if repLines > 36 then repLines = 36 end
+    local repH = 30 + repLines * 32 + 24
+    if type(card.SetHeight) == "function" then card:SetHeight(repH) end
+    card.cardH = repH
 end
 
 function CharacterScreen:Refresh()
@@ -2962,8 +3097,8 @@ function CharacterScreen:Refresh()
     -- FASE 5 (parcial): metodos via self (sem upvalue novo).
     if self.cardWeapon then self:RefreshWeaponProfs() end
     if self.cardProf and self.cardSec then self:RefreshProfessions() end
-    -- FASE 5 (parcial: Reputacoes): metodo via self (sem upvalue novo).
-    if self.cardRep1 and self.cardRep2 then self:RefreshReputations() end
+    -- FASE 5 (Reputacoes, card unico): metodo via self (sem upvalue novo).
+    if self.cardRep then self:RefreshReputations() end
     self:LayoutCards()
 end
 

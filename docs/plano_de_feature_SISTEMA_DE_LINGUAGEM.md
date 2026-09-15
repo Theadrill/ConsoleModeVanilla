@@ -234,6 +234,33 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 ---
 
+### 🟢 FASE 7: Tradução de conteúdo do jogo (tabelas GamePT por ID/nome)
+> **Objetivo observável:** Nomes de skills/idiomas (cards Armas/Profissões/Ofícios/Idiomas), nomes de talentos (árvore + detailCard) e nomes de magias (spellbook + pickers) exibidos **em PT** nos frames do addon, com fallback ao texto original do cliente onde não houver entrada. Tooltips nativas e nomes de itens permanecem como o cliente entrega.
+>
+> **Premissa (investigação):** esse conteúdo vem do **cliente** (DBCs), não do servidor. Não há spellID/skillID acessível na 1.12 (`GetTalentInfo`/`GetSpellName`/`GetSkillLineInfo` não devolvem ID; índice de spellbook/skill desloca e nunca é chave). Tradução = tabelas autorais ID→PT no addon, com fallback identidade (sem entrada = texto original, nunca `nil`).
+>
+> - [ ] **UM arquivo por idioma (arquitetura preservada):** nada de pasta `GamePT/` separada — cada `localization_<id>.lua` ganha **segunda seção** `game={...}` ao lado de `strings={...}`:
+>   ```lua
+>   CM_Langs["ptBR"] = {
+>     name = "Português (Brasil)", flag = "...flag_ptBR.tga",
+>     strings = { TAB_BAGS = "...", ... },   -- UI do addon (Fases 1–4)
+>     game = {                                -- conteúdo do jogo (Fase 7)
+>       skills  = { ["Swords"]="Espadas", ["Cooking"]="Culinária", ... },
+>       talents = { ["MAGE|1|3|2"]={ name="...", desc={[1]="...",...} }, ... },
+>       spells  = { ["Fireball|Rank 4"]="Bola de Fogo|Grau 4", ... },
+>       buffs   = { ["Arcane Intellect"]="Intelecto Arcano", ... },
+>     },
+>   };
+>   ```
+>   Acessores moram no loader (`Data/Localization.lua`): `CM:GamePT_Skill/Talent/Spell/Buff` lendo `CM_Langs[ativo].game` → fallback `CM_Langs["ptBR"].game` → texto original (nunca `nil`). **enUS não precisa de seção `game`** (cliente já é EN — fallback identidade resolve tudo). Idioma novo continua "2 arquivos + 1 linha", com `game` opcional por categoria.
+> - [ ] Chaves: skills/magias/buffs por **nome EN** (`["Swords"]`, `["Fireball"]` + rank separado ou `"Nome|Rank 4"`, lookup `string.lower`); talentos por **posição** `["MAGE|1|3|2"]` (`classFile|aba|tier|coluna`, valor `{ name, desc por rank opcional}`); itens **sem tabela** (fora de escopo permanente — `GetItemInfo` já dá o nome).
+> - [ ] Ordem de implementação: 1) skills+idiomas (~100 entradas, 3–8 KB) → 2) nomes de talentos (~450, 12–20 KB, sem descrições) → 3) magias em cobertura parcial (classe do jogador, resto via cache volátil de sessão — **nunca em SavedVariables**) → 4) buffs recorrentes (~150).
+> - [ ] Regras de segurança: parse de tooltip **sempre no texto EN bruto antes** de qualquer tradução (os ~60 matchers EN ficam intactos para sempre); structs carregam `nameEN` (lógica/match/índice) + `namePT` (display) — `CS_GetWeaponSkillByName`, `GetSpellIdByName`, `CS_WEAPON_SKILL_MAP`, `CLASS_SPEC_KEYWORDS` operam em `nameEN`; `Rank N`→`Grau N`/`Passive`→`Passiva` como regra de formato, não tabela; tradução só nos frames próprios, nunca reescrever tooltip nativa; seção `turtle` separada para customs.
+> - [ ] Validador da Fase 6 ganha modo por categoria (`MISSING:` por arquivo GamePT). `luac -p` em tudo.
+> - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7):** jogador abre cards de perícias/idiomas, árvore de talentos, spellbook e pickers e confirma nomes PT com números idênticos + fallback correto (ex. magia sem entrada exibe nome original, sem erro).
+
+---
+
 ### 🟢 FASE FINAL: Inclusão de mais linguagens (template + idioma de prova)
 > **Objetivo observável:** Qualquer pessoa adiciona um idioma novo **sem tocar no core** (só 2 arquivos + 1 linha de registro + 1 linha no `.toc`) e ele **aparece automaticamente** no `/cm lang` e no picker com sua flag.
 
@@ -266,8 +293,10 @@ Interface/AddOns/ConsoleModeVanilla/
 ├── Core.lua                        <-- mensagens /cm + MSG_* via CM:T; init de ConsoleModeDB.lang (só id)
 ├── Data/
 │   ├── Localization.lua            <-- REGISTRO GLOBAL + LOADER (ids, nomes, flags, CM:T, fallback)
-│   ├── Localization/               <-- PASTA NOVA (um par de arquivos por idioma)
-│   │   ├── localization_ptBR.lua   <-- CM_Langs["ptBR"] = { name, flag, strings={...} } (base completa)
+│   ├── Localization/               <-- PASTA (um par de arquivos por idioma)
+│   │   ├── localization_ptBR.lua   <-- CM_Langs["ptBR"] = { name, flag, strings={...} }
+│   │   │                              + seção game={skills,talents,spells,buffs} (Fase 7)
+│   │   │                              (base completa: UI + conteúdo do jogo)
 │   │   ├── flag_ptBR.tga           <-- bandeira PT-BR (TGA 32-bit / BLP, potência de 2)
 │   │   ├── localization_enUS.lua   <-- CM_Langs["enUS"] = { name, flag, strings={...} } (Fase 5)
 │   │   ├── flag_enUS.tga           <-- bandeira EN-US (Fase 5)
@@ -275,6 +304,8 @@ Interface/AddOns/ConsoleModeVanilla/
 │   │   ├── localization_xxYY.lua   <-- (só no teste de prova da Fase FINAL, removível)
 │   │   ├── flag_xxYY.tga           <-- (só no teste de prova da Fase FINAL, removível)
 │   │   └── ...                     <-- futuros: localization_esES.lua + flag_esES.tga, etc.
+│   ├── GamePT.lua                  <-- REMOVIDO do desenho (Fase 7 usa seção game={} dentro
+│   │                               de cada localization_<id>.lua: UM arquivo por idioma, sem exceção)
 │   └── QuestDB_ptBR.lua            <-- intocado (conteúdo de jogo, fora de escopo)
 ├── UI/
 │   ├── CharacterScreen.lua         <-- Fase 2: CHAR_* (todos os SetText)

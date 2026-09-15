@@ -88,6 +88,43 @@ local CS_REP_H = 1206
 local CS_REP_GAP = 12
 
 -- ----------------------------------------------------------------------------
+-- 1d. DETAILCARD COMPACTO (rodape fixo, fora do ScrollFrame; max ~70px).
+-- Pool fixo: 1 frame + 1 icone (Texture 24px) + 3 FontStrings (titulo ambar
+-- + 2 linhas de descricao), criados uma vez em CreateUI; Refresh/Scroll/Show
+-- so fazem SetTexture/SetText (nunca criam/destroem).
+-- CS_DETAIL_H = 64 (<=70) + CS_DETAIL_GAP = 6; o ScrollFrame tem a ancora
+-- inferior reduzida na mesma altura + gap (ver CreateUI/UpdateLayout).
+-- CS_DETAIL_TEXT: 1 entrada curta por card (corpo com "\n" separando as 2
+-- linhas; cada corpo <= ~140 caracteres, formula pratica no tom do addon).
+-- Chaves: Identidade, Base, Recursos, Melee, MeleeBoss, Ranged, Spell,
+-- Schools, Def, DefBoss, Resist, Armas, Profissoes, Oficios, Reputacoes,
+-- Honra, Idiomas. Sem hover: o rodape segue a secao visivel no topo
+-- (scrollOffset vs topos cacheados em LayoutCards; padrao = Identidade).
+-- ----------------------------------------------------------------------------
+local CS_DETAIL_H = 64
+local CS_DETAIL_GAP = 6
+
+local CS_DETAIL_TEXT = {
+    Identidade  = { icon = "Interface\\Icons\\INV_Misc_Book_09",        title = "Identidade",       body = "Nome, nivel, raca, guilda e XP.\nDescansado = bonus de XP; Turtle/Hardcore ativo." },
+    Base        = { icon = "Interface\\Icons\\Spell_Nature_Strength",   title = "Base",             body = "For/Agi/Vig/Int/Esp + Armadura.\nAgi: +2 Armadura/cada; +critico/esquiva. Verde (+X) = buffs." },
+    Recursos    = { icon = "Interface\\Icons\\INV_Potion_76",            title = "Recursos",         body = "Vida/Mana/Furia/Energia atuais.\nRegen Mana = base(Esp) + MP5x0,4; em combate so % casting." },
+    Melee       = { icon = "Interface\\Icons\\INV_Sword_01",             title = "Melee",            body = "Pericia, dano, velocidade e AP.\n14 AP = 1 DPS no dano da arma. Hit reduz erro." },
+    MeleeBoss   = { icon = "Interface\\Icons\\INV_Sword_39",             title = "Melee vs Boss",    body = "Melee vs alvo nv 63 (+3).\nMiss/Dodge sobem; Glancing ~40%; Crit Cap limita critico." },
+    Ranged      = { icon = "Interface\\Icons\\INV_Weapon_Bow_07",        title = "Ranged",           body = "Arco/arma/faca: dano, DPS e RAP.\nVarinha ignora RAP (dano magico). Hit como no melee." },
+    Spell       = { icon = "Interface\\Icons\\Spell_Holy_MagicalSentry", title = "Spell",            body = "Spell Power, hit/critico e +Heal.\nHit evita erro; critico +50% dano (cura dobra c/ talento)." },
+    Schools     = { icon = "Interface\\Icons\\Spell_Fire_Fireball",      title = "Escolas",          body = "Bonus por escola somam ao generico.\nVerde = bonus proprio; total = generico + escola." },
+    Def         = { icon = "Interface\\Icons\\INV_Shield_04",            title = "Defesa",           body = "Armadura reduz dano fisico %.\nDefesa + esquiva/aparo/bloqueio; Total = miss 5% + tudo." },
+    DefBoss     = { icon = "Interface\\Icons\\INV_Shield_06",            title = "Defesa vs Boss",   body = "Defesa vs nv 63.\n-0,6% esquiva/aparo/bloqueio; armadura vale menos %." },
+    Resist      = { icon = "Interface\\Icons\\Spell_Nature_ResistNature", title = "Resistencias",    body = "Fogo/Nat/Gelo/Sombra/Arcano X/100.\n100 = teto pratico; (+) buff, (-) penalidade." },
+    Armas       = { icon = "Interface\\Icons\\INV_Axe_01",               title = "Armas",            body = "Pericias X/max por arma (barras).\nUse a arma p/ subir; +5 pericia = -miss/glancing." },
+    Profissoes  = { icon = "Interface\\Icons\\Trade_BlackSmithing",      title = "Profissoes",       body = "Primarias (max 2) X/max.\nSuba criando itens; bonus de gear contam no modificador." },
+    Oficios     = { icon = "Interface\\Icons\\Trade_Cooking",            title = "Oficios",          body = "Culinaria/Primeiros Socorros/Pesca.\nSem limite; cozinhar/pescar dao regen e buffs." },
+    Reputacoes  = { icon = "Interface\\Icons\\INV_Misc_TabardPVP_01",    title = "Reputacoes",       body = "Barras por faccao + status.\nExaltado = desconto e itens; barra cheia sobe nivel." },
+    Honra       = { icon = "Interface\\Icons\\INV_BannerPVP_01",         title = "Honra",            body = "Posto, progresso semanal e HKs.\nHKs hoje/ontem/vida; posto sobe c/ honra semanal." },
+    Idiomas     = { icon = "Interface\\Icons\\INV_Letter_11",            title = "Idiomas",          body = "Idiomas falados + raciais.\nRaciais sao fixas da raca; ver spellbook (K = skills)." },
+}
+
+-- ----------------------------------------------------------------------------
 -- 1c. COR POR STANDING (card REPUTACOES): fonte primaria = global Blizzard
 -- FACTION_BAR_COLORS[standingId] (FrameXML/ReputationFrame, 1.12) com
 -- type-check; fallback estatico espelha os valores exatos do 1.12 (4 cores
@@ -145,6 +182,16 @@ CharacterScreen.viewH        = CharacterScreen.viewH or 0
 
 -- RETRABALHO 2 colunas: gap horizontal entre colunas e vertical entre linhas.
 CharacterScreen.cardGap = CharacterScreen.cardGap or 12
+
+-- DetailCard compacto (rodape fixo fora do scroll; pool fixo criado uma vez
+-- em CreateUI; topos por card cacheados em LayoutCards para o topo-visivel).
+CharacterScreen.detailFrame = CharacterScreen.detailFrame or nil
+CharacterScreen.detailIcon  = CharacterScreen.detailIcon or nil
+CharacterScreen.detailTitle = CharacterScreen.detailTitle or nil
+CharacterScreen.detailBody1 = CharacterScreen.detailBody1 or nil
+CharacterScreen.detailBody2 = CharacterScreen.detailBody2 or nil
+CharacterScreen.detailTops  = CharacterScreen.detailTops or nil
+CharacterScreen.detailCurKey = CharacterScreen.detailCurKey or nil
 
 -- ----------------------------------------------------------------------------
 -- 2b. CACHE DE SCAN (padrao BCS needScanGear: so re-escaneia sob demanda;
@@ -1317,8 +1364,12 @@ function CharacterScreen:UpdateLayout()
     end
     if w <= 0 then w = 460 end
     self.scrollChild:SetWidth(w)
+    -- Roda-pe fixo: re-afirma a ancora inferior reduzida (CreateUI define uma
+    -- vez; UpdateLayout re-afirma apos /reload sem quebrar o scroll).
+    self:EnsureDetailAnchors()
     if self.cardOrder then
         self:LayoutCards()
+        self:UpdateDetail()
     elseif self.contentH and self.contentH > 0 then
         self.scrollChild:SetHeight(self.contentH)
     end
@@ -1478,6 +1529,9 @@ end
 function CharacterScreen:LayoutCards()
     if not self.cardOrder or not self.scrollChild then return end
     local gap = self.cardGap or 12
+    -- Cache do topo-visivel (DetailCard): topos (px desde o topo do conteudo)
+    -- + chave de detalhe por card, na ordem do layout. So locais de corpo.
+    local dTops = {}
     local totalW = 460
     if type(self.scrollChild.GetWidth) == "function" then
         local sw = self.scrollChild:GetWidth()
@@ -1516,6 +1570,10 @@ function CharacterScreen:LayoutCards()
             left:ClearAllPoints()
             left:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
             CS_LayoutRepCard(left)
+            -- Topo-visivel: topo = distancia desde o topo do conteudo.
+            if left.detailKey then
+                table.insert(dTops, { top = -yOff, key = left.detailKey })
+            end
             if row == 0 then
                 totalH = rowH
             else
@@ -1538,12 +1596,19 @@ function CharacterScreen:LayoutCards()
             if type(left.SetHeight) == "function" then left:SetHeight(rowH) end
             left:ClearAllPoints()
             left:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", 4, yOff)
+            -- Topo-visivel: mesma fileira = mesmo topo (esquerda vence).
+            if left.detailKey then
+                table.insert(dTops, { top = -yOff, key = left.detailKey })
+            end
             if right then
                 if type(right.Show) == "function" then right:Show() end
                 if type(right.SetWidth) == "function" then right:SetWidth(colW) end
                 if type(right.SetHeight) == "function" then right:SetHeight(rowH) end
                 right:ClearAllPoints()
                 right:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", rightX, yOff)
+                if right.detailKey then
+                    table.insert(dTops, { top = -yOff, key = right.detailKey })
+                end
             end
             if row == 0 then
                 totalH = rowH
@@ -1561,8 +1626,101 @@ function CharacterScreen:LayoutCards()
     end
     totalH = totalH + 8
     self.contentH = totalH
+    self.detailTops = dTops
     if type(self.scrollChild.SetHeight) == "function" then
         self.scrollChild:SetHeight(totalH)
+    end
+end
+
+-- DetailCard compacto: API publica CharacterScreen:SetDetail(iconPath,
+-- titleText, bodyText). Pool fixo (so SetTexture/SetText; body com "\n"
+-- divide as 2 linhas de descricao). Metodo (0 upvalues alem de COLORS).
+function CharacterScreen:SetDetail(iconPath, titleText, bodyText)
+    local title = self.detailTitle
+    local b1 = self.detailBody1
+    local b2 = self.detailBody2
+    local icon = self.detailIcon
+    if not title or not b1 or not b2 then return end
+    if icon and type(icon.SetTexture) == "function" then
+        if type(iconPath) == "string" and iconPath ~= "" then
+            icon:SetTexture(iconPath)
+        end
+    end
+    title:SetText(COLORS.amberText .. tostring(titleText or "") .. "|r")
+    local body = tostring(bodyText or "")
+    local s, e = strfind(body, "\n", 1, true)
+    if s then
+        b1:SetText(string.sub(body, 1, s - 1))
+        b2:SetText(string.sub(body, e + 1, -1))
+    else
+        b1:SetText(body)
+        b2:SetText("")
+    end
+end
+
+-- DetailCard segue a SECAO VISIVEL NO TOPO (sem hover/slot): compara o
+-- scrollOffset com os topos cacheados em LayoutCards (self.detailTops,
+-- ordenados por top crescente). Varredura linear sobre ~17 entradas =
+-- custo O(1) limitado (sem medir frames, sem GetTop). Metodo (1 upvalue:
+-- CS_DETAIL_TEXT). Chamado em Scroll/Show/Refresh.
+function CharacterScreen:UpdateDetail()
+    local tops = self.detailTops
+    if not tops or table.getn(tops) == 0 then
+        local d0 = CS_DETAIL_TEXT.Identidade
+        if d0 then self:SetDetail(d0.icon, d0.title, d0.body) end
+        self.detailCurKey = "Identidade"
+        return
+    end
+    local off = self.scrollOffset or 0
+    if type(off) ~= "number" then off = 0 end
+    if off < 0 then off = 0 end
+    -- Fileira pareada tem o mesmo topo (esquerda inserida antes): so troca o
+    -- pick quando o topo e ESTRITAMENTE maior, entao a esquerda vence.
+    local first = tops[1]
+    local pick = "Identidade"
+    local lastTop = -1
+    if first and type(first.key) == "string" then
+        pick = first.key
+        if type(first.top) == "number" then lastTop = first.top end
+    end
+    local n = table.getn(tops)
+    local i = 1
+    while i <= n do
+        local e = tops[i]
+        if e and type(e.top) == "number" and type(e.key) == "string"
+            and e.top <= (off + 1) and e.top > lastTop then
+            pick = e.key
+            lastTop = e.top
+        elseif e and type(e.top) == "number" and e.top > (off + 1) then
+            break
+        end
+        i = i + 1
+    end
+    if not pick then pick = "Identidade" end
+    if pick == self.detailCurKey then return end
+    local d = CS_DETAIL_TEXT[pick]
+    if not d then
+        d = CS_DETAIL_TEXT.Identidade
+        pick = "Identidade"
+    end
+    if d then self:SetDetail(d.icon, d.title, d.body) end
+    self.detailCurKey = pick
+end
+
+-- Re-afirma as ancoras do rodape (DetailCard fora do scroll + scroll com a
+-- inferior reduzida em CS_DETAIL_H + CS_DETAIL_GAP). Metodo (2 upvalues).
+function CharacterScreen:EnsureDetailAnchors()
+    if not self.scrollFrame or not self.parentFrame then return end
+    self.scrollFrame:ClearAllPoints()
+    self.scrollFrame:SetPoint("TOPLEFT", self.parentFrame, "TOPLEFT", 8, -8)
+    self.scrollFrame:SetPoint("BOTTOMRIGHT", self.parentFrame, "BOTTOMRIGHT", -8, 8 + CS_DETAIL_H + CS_DETAIL_GAP)
+    if self.detailFrame then
+        self.detailFrame:ClearAllPoints()
+        self.detailFrame:SetPoint("BOTTOMLEFT", self.parentFrame, "BOTTOMLEFT", 8, 8)
+        self.detailFrame:SetPoint("BOTTOMRIGHT", self.parentFrame, "BOTTOMRIGHT", -8, 8)
+        if type(self.detailFrame.SetHeight) == "function" then
+            self.detailFrame:SetHeight(CS_DETAIL_H)
+        end
     end
 end
 
@@ -1579,7 +1737,10 @@ function CharacterScreen:CreateUI(parent)
     -- depende da criacao da GameTooltip dedicada.
     local scrollFrame = CreateFrame("ScrollFrame", "ConsoleMode_CharacterScrollFrame", parent)
     scrollFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 8, -8)
-    scrollFrame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -8, 8)
+    -- DetailCard compacto no rodape (fora do scroll): ancora inferior reduzida
+    -- na altura do rodape + gap (CS_DETAIL_H + CS_DETAIL_GAP), sem quebrar o
+    -- scroll existente (so o ponto BOTTOMRIGHT muda; o resto e identico).
+    scrollFrame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -8, 8 + CS_DETAIL_H + CS_DETAIL_GAP)
     if type(scrollFrame.EnableMouse) == "function" then
         scrollFrame:EnableMouse(true)
     end
@@ -1907,9 +2068,94 @@ function CharacterScreen:CreateUI(parent)
         self.cardRep, self.cardHonor, self.cardLang,
     }
 
+    -- Chave de detalhe por card (topo-visivel usa card.detailKey; Ranged
+    -- oculto p/ relic classes sai do cache sozinho via LayoutCards).
+    if self.cardIdent then self.cardIdent.detailKey = "Identidade" end
+    if self.cardBase then self.cardBase.detailKey = "Base" end
+    if self.cardRes then self.cardRes.detailKey = "Recursos" end
+    if self.cardMelee then self.cardMelee.detailKey = "Melee" end
+    if self.cardMeleeBoss then self.cardMeleeBoss.detailKey = "MeleeBoss" end
+    if self.cardRanged then self.cardRanged.detailKey = "Ranged" end
+    if self.cardSpell then self.cardSpell.detailKey = "Spell" end
+    if self.cardSchools then self.cardSchools.detailKey = "Schools" end
+    if self.cardDef then self.cardDef.detailKey = "Def" end
+    if self.cardDefBoss then self.cardDefBoss.detailKey = "DefBoss" end
+    if self.cardResist then self.cardResist.detailKey = "Resist" end
+    if self.cardWeapon then self.cardWeapon.detailKey = "Armas" end
+    if self.cardProf then self.cardProf.detailKey = "Profissoes" end
+    if self.cardSec then self.cardSec.detailKey = "Oficios" end
+    if self.cardRep then self.cardRep.detailKey = "Reputacoes" end
+    if self.cardHonor then self.cardHonor.detailKey = "Honra" end
+    if self.cardLang then self.cardLang.detailKey = "Idiomas" end
+
+    -- DetailCard COMPACTO (rodape fixo da page, fora do scroll; pool fixo:
+    -- 1 frame + 1 icone 24px + 3 FontStrings, criados uma unica vez aqui).
+    -- Altura CS_DETAIL_H (64 <= 70): icone 24px + titulo ambar + 2 linhas.
+    do
+        local foot = CreateFrame("Frame", "ConsoleMode_CharacterDetailCard", parent)
+        foot:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 8, 8)
+        foot:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -8, 8)
+        foot:SetHeight(CS_DETAIL_H)
+        if type(foot.SetBackdrop) == "function" then
+            foot:SetBackdrop({
+                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile     = true, tileSize = 16, edgeSize = 12,
+                insets   = { left = 3, right = 3, top = 3, bottom = 3 },
+            })
+        end
+        if type(foot.SetBackdropColor) == "function" then
+            foot:SetBackdropColor(COLORS.blockBg.r, COLORS.blockBg.g, COLORS.blockBg.b, COLORS.blockBg.a)
+        end
+        if type(foot.SetBackdropBorderColor) == "function" then
+            foot:SetBackdropBorderColor(COLORS.blockBorder.r, COLORS.blockBorder.g, COLORS.blockBorder.b, COLORS.blockBorder.a)
+        end
+        local dIcon = foot:CreateTexture(nil, "OVERLAY")
+        dIcon:SetPoint("TOPLEFT", foot, "TOPLEFT", 8, -8)
+        dIcon:SetWidth(24)
+        dIcon:SetHeight(24)
+        local dTitle = foot:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        dTitle:SetPoint("TOPLEFT", foot, "TOPLEFT", 40, -8)
+        dTitle:SetPoint("TOPRIGHT", foot, "TOPRIGHT", -8, -8)
+        dTitle:SetJustifyH("LEFT")
+        CS_ApplyFont(dTitle, FONTS.titleBold, 14)
+        dTitle:SetText(COLORS.amberText .. "Identidade|r")
+        local dBody1 = foot:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        dBody1:SetPoint("TOPLEFT", foot, "TOPLEFT", 40, -26)
+        dBody1:SetPoint("TOPRIGHT", foot, "TOPRIGHT", -8, -26)
+        dBody1:SetJustifyH("LEFT")
+        CS_ApplyFont(dBody1, FONTS.medium, 12)
+        if type(dBody1.SetTextColor) == "function" then
+            dBody1:SetTextColor(COLORS.body.r, COLORS.body.g, COLORS.body.b)
+        end
+        dBody1:SetText("")
+        local dBody2 = foot:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        dBody2:SetPoint("TOPLEFT", foot, "TOPLEFT", 40, -42)
+        dBody2:SetPoint("TOPRIGHT", foot, "TOPRIGHT", -8, -42)
+        dBody2:SetJustifyH("LEFT")
+        CS_ApplyFont(dBody2, FONTS.medium, 12)
+        if type(dBody2.SetTextColor) == "function" then
+            dBody2:SetTextColor(COLORS.body.r, COLORS.body.g, COLORS.body.b)
+        end
+        dBody2:SetText("")
+        self.detailFrame = foot
+        self.detailIcon = dIcon
+        self.detailTitle = dTitle
+        self.detailBody1 = dBody1
+        self.detailBody2 = dBody2
+        self.detailCurKey = nil
+        if type(foot.Show) == "function" then foot:Show() end
+    end
+
     self.scrollFrame = scrollFrame
     self.scrollChild = scrollChild
     self:LayoutCards()
+    -- Conteudo padrao ao abrir: Identidade.
+    do
+        local d0 = CS_DETAIL_TEXT.Identidade
+        if d0 then self:SetDetail(d0.icon, d0.title, d0.body) end
+        self.detailCurKey = "Identidade"
+    end
 
     -- Roda do mouse (companheiro de mesa; o D-Pad continua sendo o principal).
     scrollFrame:SetScript("OnMouseWheel", function()
@@ -3592,6 +3838,8 @@ function CharacterScreen:Refresh()
     -- FASE 5 (Idiomas & Raciais, 1 card): metodo via self (sem upvalue novo).
     if self.cardLang then self:RefreshLangRacial() end
     self:LayoutCards()
+    -- DetailCard segue o topo visivel (cache de LayoutCards; O(1) limitado).
+    self:UpdateDetail()
 end
 
 
@@ -3674,7 +3922,16 @@ function CharacterScreen:AttachTo(parentFrame)
         self.scrollFrame:SetParent(parentFrame)
         self.scrollFrame:ClearAllPoints()
         self.scrollFrame:SetPoint("TOPLEFT", parentFrame, "TOPLEFT", 8, -8)
-        self.scrollFrame:SetPoint("BOTTOMRIGHT", parentFrame, "BOTTOMRIGHT", -8, 8)
+        self.scrollFrame:SetPoint("BOTTOMRIGHT", parentFrame, "BOTTOMRIGHT", -8, 8 + CS_DETAIL_H + CS_DETAIL_GAP)
+        -- Roda-pe acompanha a page hospedeira (fora do scroll).
+        if self.detailFrame then
+            if type(self.detailFrame.SetParent) == "function" then
+                self.detailFrame:SetParent(parentFrame)
+            end
+            self.detailFrame:ClearAllPoints()
+            self.detailFrame:SetPoint("BOTTOMLEFT", parentFrame, "BOTTOMLEFT", 8, 8)
+            self.detailFrame:SetPoint("BOTTOMRIGHT", parentFrame, "BOTTOMRIGHT", -8, 8)
+        end
     end
     CS_HidePlaceholder(parentFrame)
     self:EnsureEventFrame()
@@ -3693,6 +3950,10 @@ function CharacterScreen:Show()
     else
         CS_ChatError("Show com scrollFrame nil (AttachTo nao rodou?)")
         return
+    end
+    -- Roda-pe visivel junto da page (pool fixo; conteudo via UpdateDetail).
+    if self.detailFrame and type(self.detailFrame.Show) == "function" then
+        self.detailFrame:Show()
     end
     self.isVisible = true
     -- FASE 5 (Honra): dados de HK sao assincronos — pede ao servidor a cada
@@ -3714,6 +3975,8 @@ function CharacterScreen:Show()
         self.scrollFrame:SetVerticalScroll(CS_Clamp(self.scrollOffset or 0, 0, self:GetMaxScroll()))
     end
     self:UpdateLayout()
+    -- UpdateLayout refez o cache de topos: re-sincroniza o topo-visivel.
+    self:UpdateDetail()
     self:ScheduleLayoutRefresh()
 end
 
@@ -3721,6 +3984,9 @@ function CharacterScreen:Hide()
     self.isVisible = false
     if self.scrollFrame and type(self.scrollFrame.Hide) == "function" then
         self.scrollFrame:Hide()
+    end
+    if self.detailFrame and type(self.detailFrame.Hide) == "function" then
+        self.detailFrame:Hide()
     end
 end
 
@@ -3740,6 +4006,8 @@ function CharacterScreen:Scroll(delta)
     if type(self.scrollFrame.SetVerticalScroll) == "function" then
         self.scrollFrame:SetVerticalScroll(cur)
     end
+    -- Sem hover: o DetailCard segue a secao visivel no topo (O(1) limitado).
+    self:UpdateDetail()
     return cur
 end
 

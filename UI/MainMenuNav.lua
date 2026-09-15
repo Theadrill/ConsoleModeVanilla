@@ -5058,10 +5058,12 @@ function Nav:OnSecondary()
             if idx and idx >= 1 and MM and type(MM.ToggleQuestWatch) == "function" then
                 pcall(function() MM:ToggleQuestWatch(idx) end)
                 if overlay and overlay.trackBtn and overlay.trackBtn.label and type(IsQuestWatched) == "function" then
+                    -- FASE 3 (linguagem): rotulos via CM:T em runtime (mesmo conceito do MainMenu).
+                    local cmNav = getglobal("ConsoleMode")
                     if IsQuestWatched(idx) then
-                        overlay.trackBtn.label:SetText("DESACOMPANHAR")
+                        overlay.trackBtn.label:SetText(cmNav:T("HINT_UNTRACK"))
                     else
-                        overlay.trackBtn.label:SetText("RASTREAR")
+                        overlay.trackBtn.label:SetText(cmNav:T("HINT_TRACK"))
                     end
                 end
                 return true

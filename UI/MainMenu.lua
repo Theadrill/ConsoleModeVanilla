@@ -165,7 +165,7 @@ CFG.NineSlice = {
 -- ----------------------------------------------------------------------------
 CFG.Title = {
     show            = true,                 -- true = exibe o título, false = oculta
-    text            = "|cffe09a15MENU PRINCIPAL|r",
+    tkey            = "TAB_MAIN_TITLE",     -- FASE 3 (linguagem): texto via CM:T em runtime
     offsetY         = -22,                  -- Posição Y a partir do topo da janela (px)
 }
 
@@ -210,23 +210,25 @@ CFG.Equipment = {
     dividerColor    = { r = 0.5, g = 0.4, b = 0.3, a = 0.35 }, -- Cor e opacidade da linha divisória
     dividerTexture  = "Interface\\Tooltips\\UI-Tooltip-Background",
     slots = {
-        { name = "HeadSlot",          label = "CABEÇA" },
-        { name = "NeckSlot",          label = "COLAR" },
-        { name = "ShoulderSlot",      label = "OMBROS" },
-        { name = "BackSlot",          label = "CAPA" },
-        { name = "ChestSlot",         label = "PEITORAL" },
-        { name = "WristSlot",         label = "PUNHOS" },
-        { name = "HandsSlot",         label = "LUVAS" },
-        { name = "WaistSlot",         label = "CINTO" },
-        { name = "LegsSlot",          label = "PERNAS" },
-        { name = "FeetSlot",          label = "BOTAS" },
-        { name = "Finger0Slot",       label = "ANEL 1" },
-        { name = "Finger1Slot",       label = "ANEL 2" },
-        { name = "Trinket0Slot",      label = "BERLOQUE 1" },
-        { name = "Trinket1Slot",      label = "BERLOQUE 2" },
-        { name = "MainHandSlot",      label = "MÃO DIR." },
-        { name = "SecondaryHandSlot", label = "MÃO ESQ." },
-        { name = "RangedSlot",        label = "ALCANCE" },
+        -- FASE 3 (linguagem): lkey resolve via CM:T no uso (runtime);
+        -- label mantido como matcher de texto do jogo (fora de escopo, cf. QuestDB).
+        { name = "HeadSlot",          label = "CABEÇA",   lkey = "SLOT_HEAD" },
+        { name = "NeckSlot",          label = "COLAR",    lkey = "SLOT_NECK" },
+        { name = "ShoulderSlot",      label = "OMBROS",   lkey = "SLOT_SHOULDER" },
+        { name = "BackSlot",          label = "CAPA",     lkey = "SLOT_BACK" },
+        { name = "ChestSlot",         label = "PEITORAL", lkey = "SLOT_CHEST" },
+        { name = "WristSlot",         label = "PUNHOS",   lkey = "SLOT_WRIST" },
+        { name = "HandsSlot",         label = "LUVAS",    lkey = "SLOT_HANDS" },
+        { name = "WaistSlot",         label = "CINTO",    lkey = "SLOT_WAIST" },
+        { name = "LegsSlot",          label = "PERNAS",   lkey = "SLOT_LEGS" },
+        { name = "FeetSlot",          label = "BOTAS",    lkey = "SLOT_FEET" },
+        { name = "Finger0Slot",       label = "ANEL 1",   lkey = "SLOT_FINGER1" },
+        { name = "Finger1Slot",       label = "ANEL 2",   lkey = "SLOT_FINGER2" },
+        { name = "Trinket0Slot",      label = "BERLOQUE 1", lkey = "SLOT_TRINKET1" },
+        { name = "Trinket1Slot",      label = "BERLOQUE 2", lkey = "SLOT_TRINKET2" },
+        { name = "MainHandSlot",      label = "MÃO DIR.", lkey = "SLOT_MAINHAND" },
+        { name = "SecondaryHandSlot", label = "MÃO ESQ.", lkey = "SLOT_OFFHAND" },
+        { name = "RangedSlot",        label = "ALCANCE",  lkey = "SLOT_RANGED" },
     }
 }
 
@@ -267,12 +269,13 @@ CFG.Tabs = {
     outline         = "",                   -- Sem outline (letras limpas sem contorno)
     shadowOffset    = { 1, -1 },            -- Drop shadow original suave de 1px
     list = {
-        { id = "BAGS",    name = "Bolsas & Itens",  shortName = "Bolsas" },
-        { id = "CHARACTER", name = "Personagem",  shortName = "Personagem" },
-        { id = "TALENTS", name = "Talentos",        shortName = "Talentos" },
-        { id = "SPELLS",  name = "Livro de Magias", shortName = "Magias" },
-        { id = "QUESTS",  name = "Missões & Mapa",  shortName = "Missões" },
-        { id = "SYSTEM",  name = "Configurações",   shortName = "Opções" },
+        -- FASE 3 (linguagem): nomes via CM:T(tkey/skey) em runtime (criacao dos botoes).
+        { id = "BAGS",    tkey = "TAB_BAGS",          skey = "TAB_BAGS_SHORT" },
+        { id = "CHARACTER", tkey = "TAB_CHARACTER",   skey = "TAB_CHARACTER_SHORT" },
+        { id = "TALENTS", tkey = "TAB_TALENTS",       skey = "TAB_TALENTS_SHORT" },
+        { id = "SPELLS",  tkey = "TAB_SPELLS",        skey = "TAB_SPELLS_SHORT" },
+        { id = "QUESTS",  tkey = "TAB_QUESTS_MAP",    skey = "TAB_QUESTS_SHORT" },
+        { id = "SYSTEM",  tkey = "TAB_SYSTEM_CONFIG", skey = "TAB_SYSTEM_SHORT" },
     }
 }
 
@@ -326,11 +329,12 @@ CFG.DetailCard = {
 -- ----------------------------------------------------------------------------
 CFG.Bags = {
     categories = {
-        { id = "ALL",    name = "Todos" },
-        { id = "EQUIP",  name = "Equipamentos" },
-        { id = "USABLE", name = "Consumíveis" },
-        { id = "TRADE",  name = "Materiais" },
-        { id = "MISC",   name = "Diversos" },
+        -- FASE 3 (linguagem): nomes via CM:T(tkey) em runtime (criacao dos botoes).
+        { id = "ALL",    tkey = "TAB_FILTER_ALL" },
+        { id = "EQUIP",  tkey = "TAB_FILTER_EQUIP" },
+        { id = "USABLE", tkey = "TAB_FILTER_USABLE" },
+        { id = "TRADE",  tkey = "TAB_FILTER_TRADE" },
+        { id = "MISC",   tkey = "TAB_FILTER_MISC" },
     }
 }
 
@@ -362,8 +366,9 @@ local NPC_SERVICE_NAMES = {
 -- ----------------------------------------------------------------------------
 CFG.System = {
     subTabs = {
-        { id = "GAME_MENU", name = "Opções do Jogo", shortName = "Opções" },
-        { id = "ADDON_CFG", name = "Configurações do Addon", shortName = "Addon" },
+        -- FASE 3 (linguagem): nomes via CM:T(tkey/skey) em runtime (criacao dos botoes).
+        { id = "GAME_MENU", tkey = "SYS_GAME_MENU", skey = "SYS_GAME_MENU_SHORT" },
+        { id = "ADDON_CFG", tkey = "SYS_ADDON_CFG", skey = "SYS_ADDON_CFG_SHORT" },
     },
     -- Cores centralizadas e padronizadas para as opções do sistema
     itemTextColor   = "|cffffffff",         -- Cor branca uniforme para todos os títulos de botões
@@ -542,17 +547,17 @@ scanTip:SetScript("OnTooltipAddMoney", function()
 end)
 
 function MainMenu:GetBuffName(buffIndexID)
-    if not scanTip then return "Efeito Ativo" end
+    if not scanTip then return CM:T("DETAIL_EFFECT_DEFAULT") end
     scanTip:ClearLines()
     scanTip:SetPlayerBuff(buffIndexID)
     local textObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
-    local text = (textObj and textObj:GetText()) or "Efeito Ativo"
+    local text = (textObj and textObj:GetText()) or CM:T("DETAIL_EFFECT_DEFAULT")
     return text
 end
 
 function MainMenu:GetWeaponEnchantDetails(slotID)
     local icon = GetInventoryItemTexture("player", slotID) or "Interface\\Icons\\INV_Sword_04"
-    local enchantName = (slotID == 16 and "Arma Principal") or "Arma Secundária"
+    local enchantName = (slotID == 16 and CM:T("DETAIL_MAINHAND")) or CM:T("DETAIL_OFFHAND")
 
     if not scanTip then return enchantName, icon end
     scanTip:ClearLines()
@@ -1360,7 +1365,11 @@ function MainMenu:UpdateEquipmentColumn()
 
     for _, btn in ipairs(self.equipColumn.buttons) do
         local slotName = btn.slotData.name
+        -- FASE 3 (linguagem): rotulo via CM:T(lkey) em runtime; label cru mantido de fallback.
         local slotLabel = btn.slotData.label
+        if btn.slotData.lkey then
+            slotLabel = CM:T(btn.slotData.lkey)
+        end
         local slotID, emptyTex = GetInventorySlotInfo(slotName)
 
         if slotID then
@@ -1415,7 +1424,7 @@ function MainMenu:UpdateEquipmentColumn()
             else
                 btn.icon:SetTexture(emptyTex or "Interface\\Icons\\INV_Misc_QuestionMark")
                 btn.slotText:SetText(CFG.Equipment.emptyColor .. slotLabel .. "|r")
-                btn.nameText:SetText(CFG.Equipment.emptyColor .. "(Vazio)|r")
+                btn.nameText:SetText(CFG.Equipment.emptyColor .. CM:T("DETAIL_EMPTY_SHORT") .. "|r")
                 btn.border:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.4)
             end
         end
@@ -1439,7 +1448,7 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     local statsHeader = container:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     statsHeader:SetPoint("TOPLEFT", container, "TOPLEFT", 0, 0)
     MainMenu:ApplyFont(statsHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
-    statsHeader:SetText("|cffe09a15STATUS|r")
+    statsHeader:SetText(CM:T("DETAIL_STATUS_HEADER"))
 
     local statLines = {}
     local statKeys = { "HP", "Recurso", "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura" }
@@ -1474,7 +1483,7 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     compareHeader:SetPoint("RIGHT", container, "RIGHT", 0, 0)
     compareHeader:SetJustifyH("LEFT")
     MainMenu:ApplyFont(compareHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
-    compareHeader:SetText("|cffffcc00⚔️ COMPARAÇÃO|r")
+    compareHeader:SetText(CM:T("DETAIL_COMPARE_HEADER"))
     compareHeader:Hide()
 
     local compareDivTop = container:CreateTexture(nil, "ARTWORK")
@@ -1521,7 +1530,7 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     local buffHeader = container:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     buffHeader:SetPoint("TOPLEFT", statDiv, "BOTTOMLEFT", 0, -6)
     MainMenu:ApplyFont(buffHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
-    buffHeader:SetText("|cff00ffccBUFFS ATIVOS|r")
+    buffHeader:SetText(CM:T("DETAIL_BUFFS_HEADER"))
     container.buffHeader = buffHeader
 
     local buffRows = {}
@@ -2751,7 +2760,7 @@ function MainMenu:CreateMoneyWidget(parent, prefix, alignRight)
 
     local prefixText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     MainMenu:ApplyFont(prefixText, CFG.Fonts.subFontFile, 12)
-    prefixText:SetText(prefix or "|cffe09a15Moedas:|r")
+    prefixText:SetText(prefix or CM:T("DETAIL_MONEY"))
     frame.prefixText = prefixText
 
     function frame:SetAmount(amount)
@@ -2941,7 +2950,7 @@ function MainMenu:CreateDetailCard(parent, config)
     card.descColRight = descColRight
 
     -- 5. Preço de Venda do Item (Widget gráfico nativo com ícones de moedas)
-    local sellWidget = MainMenu:CreateMoneyWidget(card, "|cffaaaaaaVenda:|r", false)
+    local sellWidget = MainMenu:CreateMoneyWidget(card, CM:T("DETAIL_SELL"), false)
     sellWidget:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 26)
     sellWidget:Hide()
     card.sellWidget = sellWidget
@@ -2965,17 +2974,17 @@ function MainMenu:CreateDetailCard(parent, config)
     local slotsFreeText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     slotsFreeText:SetPoint("LEFT", footerBar, "LEFT", 0, 0)
     MainMenu:ApplyFont(slotsFreeText, CFG.Fonts.subFontFile, 12)
-    slotsFreeText:SetText("|cffaaaaaaEspaço Livre:|r |cffffffff0 / 0|r")
+    slotsFreeText:SetText(format(CM:T("DETAIL_SPACE_FMT"), 0, 0))
     card.slotsFreeText = slotsFreeText
 
-    local moneyWidget = MainMenu:CreateMoneyWidget(footerBar, "|cffe09a15Moedas:|r", true)
+    local moneyWidget = MainMenu:CreateMoneyWidget(footerBar, CM:T("DETAIL_MONEY"), true)
     moneyWidget:SetPoint("RIGHT", footerBar, "RIGHT", 0, 0)
     card.moneyWidget = moneyWidget
 
     -- Método para exibir dados de um item
     function card:ShowItem(itemData)
         if not itemData or not itemData.link then
-            self:Clear("Nenhum item selecionado")
+            self:Clear(CM:T("DETAIL_NO_SELECTION"))
             return
         end
 
@@ -3118,7 +3127,7 @@ function MainMenu:CreateDetailCard(parent, config)
             if self.descColLeft then self.descColLeft:SetWidth(180); self.descColLeft:SetText(table.concat(leftLines, "\n")) else self.descText:SetText(table.concat(leftLines, "\n")) end
             if self.descColRight then self.descColRight:SetText(table.concat(rightLines, "\n")); self.descColRight:Show() end
         else
-            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff888888Sem informacoes adicionais.|r") else self.descText:SetText("|cff888888Sem informacoes adicionais.|r") end
+            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(CM:T("DETAIL_NO_INFO")) else self.descText:SetText(CM:T("DETAIL_NO_INFO")) end
             if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
         end
 
@@ -3138,7 +3147,7 @@ function MainMenu:CreateDetailCard(parent, config)
     -- Método para exibir dados de uma magia/habilidade
     function card:ShowSpell(spellData)
         if not spellData or not spellData.name then
-            self:Clear("Nenhuma magia selecionada")
+            self:Clear(CM:T("DETAIL_NO_SPELL"))
             return
         end
 
@@ -3175,7 +3184,7 @@ function MainMenu:CreateDetailCard(parent, config)
         if table.getn(bodyLines) > 0 then
             if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(bodyLines, "\n")) else self.descText:SetText(table.concat(bodyLines, "\n")) end
         else
-            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff888888Sem descrição adicional.|r") else self.descText:SetText("|cff888888Sem descrição adicional.|r") end
+            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(CM:T("DETAIL_NO_DESC")) else self.descText:SetText(CM:T("DETAIL_NO_DESC")) end
         end
         if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
 
@@ -3198,13 +3207,22 @@ function MainMenu:CreateDetailCard(parent, config)
             self.icon:Show()
             self.iconBorder:SetBackdropBorderColor(0.35, 0.35, 0.35, 0.5)
             self.iconBorder:Show()
-            self.titleText:SetText("|cff888888" .. (slotData and slotData.label or "Compartimento") .. " (Vazio)|r")
-            self.typeText:SetText("|cff666666Nenhum item equipado|r")
+            -- FASE 3 (linguagem): rotulo via CM:T(lkey) em runtime; label cru de fallback.
+            local emptyLabel = CM:T("DETAIL_SLOT_DEFAULT")
+            if slotData then
+                if slotData.lkey then
+                    emptyLabel = CM:T(slotData.lkey)
+                elseif slotData.label then
+                    emptyLabel = slotData.label
+                end
+            end
+            self.titleText:SetText(format(CM:T("DETAIL_EMPTY_SLOT_FMT"), emptyLabel))
+            self.typeText:SetText(CM:T("DETAIL_NO_ITEM"))
             if self.descColLeft then
                 self.descColLeft:SetWidth(380)
-                self.descColLeft:SetText("|cff777777Voce nao possui nenhum item equipado neste compartimento.|r")
+                self.descColLeft:SetText(CM:T("DETAIL_NO_ITEM_BODY"))
             else
-                self.descText:SetText("|cff777777Voce nao possui nenhum item equipado neste compartimento.|r")
+                self.descText:SetText(CM:T("DETAIL_NO_ITEM_BODY"))
             end
             if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
             if self.sellWidget then self.sellWidget:Hide() end
@@ -3323,7 +3341,7 @@ function MainMenu:CreateDetailCard(parent, config)
             self.descColRight:Show()
         else
             self.descColLeft:SetWidth(380)
-            self.descColLeft:SetText("|cff888888Sem informacoes adicionais.|r")
+            self.descColLeft:SetText(CM:T("DETAIL_NO_INFO"))
             self.descColRight:SetText("")
             self.descColRight:Hide()
         end
@@ -3340,8 +3358,8 @@ function MainMenu:CreateDetailCard(parent, config)
             self.icon:Show()
             self.iconBorder:SetBackdropBorderColor(1.0, 0.82, 0.0, 0.95)
             self.iconBorder:Show()
-            self.titleText:SetText("|cffffd100" .. (buffRow.enchantName or "Encantamento de Arma") .. "|r")
-            self.typeText:SetText("|cffaaaaaaENCANTAMENTO DE ARMA  •  Temporário|r")
+            self.titleText:SetText("|cffffd100" .. (buffRow.enchantName or CM:T("DETAIL_ENCHANT_DEFAULT")) .. "|r")
+            self.typeText:SetText(CM:T("DETAIL_ENCHANT_TYPE"))
             local lines = {}
             if scanTip and buffRow.weaponSlot then
                 scanTip:ClearLines()
@@ -3362,7 +3380,7 @@ function MainMenu:CreateDetailCard(parent, config)
             if table.getn(lines) > 0 then
                 if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(lines, "\n")) else self.descText:SetText(table.concat(lines, "\n")) end
             else
-                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff00ff00Aplica um efeito temporario de combate nesta arma.|r") else self.descText:SetText("|cff00ff00Aplica um efeito temporario de combate nesta arma.|r") end
+                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(CM:T("DETAIL_ENCHANT_BODY")) else self.descText:SetText(CM:T("DETAIL_ENCHANT_BODY")) end
             end
             if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
             if self.sellWidget then self.sellWidget:Hide() end
@@ -3380,14 +3398,14 @@ function MainMenu:CreateDetailCard(parent, config)
             self.icon:Show()
             self.iconBorder:SetBackdropBorderColor(0.2, 0.8, 1.0, 0.95)
             self.iconBorder:Show()
-            self.titleText:SetText("|cff00e5ff" .. (name or "Efeito Ativo") .. "|r")
-            local durStr = "Duração Permanente"
+            self.titleText:SetText("|cff00e5ff" .. (name or CM:T("DETAIL_EFFECT_DEFAULT")) .. "|r")
+            local durStr = CM:T("DETAIL_DUR_PERM")
             if timeLeft and timeLeft > 0 then
-                if timeLeft >= 3600 then durStr = "Restam " .. math.floor(timeLeft / 3600) .. " hora(s)"
-                elseif timeLeft >= 60 then durStr = "Restam " .. math.floor(timeLeft / 60) .. " minuto(s)"
-                else durStr = "Restam " .. math.floor(timeLeft) .. " segundo(s)" end
+                if timeLeft >= 3600 then durStr = format(CM:T("DETAIL_TIME_H_FMT"), math.floor(timeLeft / 3600))
+                elseif timeLeft >= 60 then durStr = format(CM:T("DETAIL_TIME_M_FMT"), math.floor(timeLeft / 60))
+                else durStr = format(CM:T("DETAIL_TIME_S_FMT"), math.floor(timeLeft)) end
             end
-            self.typeText:SetText("|cffaaaaaa" .. durStr .. "  •  Efeito Benéfico|r")
+            self.typeText:SetText(format(CM:T("DETAIL_BUFF_TYPE_FMT"), durStr))
             local lines = {}
             if scanTip then
                 scanTip:ClearLines()
@@ -3408,7 +3426,7 @@ function MainMenu:CreateDetailCard(parent, config)
             if table.getn(lines) > 0 then
                 if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(lines, "\n")) else self.descText:SetText(table.concat(lines, "\n")) end
             else
-                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText("|cff888888Efeito benefico ativo no personagem.|r") else self.descText:SetText("|cff888888Efeito benefico ativo no personagem.|r") end
+                if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(CM:T("DETAIL_BUFF_BODY")) else self.descText:SetText(CM:T("DETAIL_BUFF_BODY")) end
             end
             if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
             if self.sellWidget then self.sellWidget:Hide() end
@@ -3421,11 +3439,11 @@ function MainMenu:CreateDetailCard(parent, config)
     function card:Clear(msg)
         self.icon:Hide()
         self.iconBorder:Hide()
-        self.titleText:SetText("|cff888888" .. (msg or "Nenhum item em foco") .. "|r")
+        self.titleText:SetText("|cff888888" .. (msg or CM:T("DETAIL_NO_FOCUS")) .. "|r")
         self.typeText:SetText("")
         if self.descColLeft then self.descColLeft:SetText("|cff888888" .. (msg or "") .. "|r"); self.descColLeft:SetWidth(380) end
         if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
-        if self.descText and not self.descColLeft then self.descText:SetText("|cff555555Navegue com o D-Pad para inspecionar itens.|r") end
+        if self.descText and not self.descColLeft then self.descText:SetText(CM:T("DETAIL_NAVIGATE_HINT")) end
         if self.sellWidget then self.sellWidget:Hide() end
         self:UpdateMoney()
     end
@@ -4234,7 +4252,7 @@ function MainMenu:SetupBagsPage(pageBags)
         local catTitle = catBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         catTitle:SetPoint("CENTER", catBtn, "CENTER", 0, 0)
         MainMenu:ApplyFont(catTitle, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or CFG.Fonts.bagCatSize or 15)
-        catTitle:SetText(catData.name)
+        catTitle:SetText(CM:T(catData.tkey))
         catBtn.title = catTitle
         catBtn.catData = catData
 
@@ -4456,7 +4474,7 @@ function MainMenu:SetupBagsPage(pageBags)
                 pcall(function() MainMenu:HideCompare() end)
             end
         else
-            detailCard:Clear("Slot Vazio")
+            detailCard:Clear(CM:T("DETAIL_EMPTY_SLOT"))
             MainMenu:RestorePlayerModel()
             -- FASE 14 (Passo 3): sem foco -> restaura coluna STATUS.
             pcall(function() MainMenu:HideCompare() end)
@@ -4526,7 +4544,7 @@ function MainMenu:UpdateBagsPage(keepPage)
 
     -- 2. Atualiza contador de espaço livre na barra inferior do DetailCard
     if pageBags.detailCard and pageBags.detailCard.slotsFreeText then
-        pageBags.detailCard.slotsFreeText:SetText(string.format("|cffaaaaaaEspaço Livre:|r |cffffffff%d / %d|r", scanResult.freeSlots, scanResult.totalSlots))
+        pageBags.detailCard.slotsFreeText:SetText(format(CM:T("DETAIL_SPACE_FMT"), scanResult.freeSlots, scanResult.totalSlots))
     end
 
     -- 3. Cálculo de Paginação
@@ -4669,7 +4687,7 @@ function MainMenu:UpdateBagsPage(keepPage)
         elseif displaySlots > 0 and items[startIndex] then
             grid:SelectSlot(1)
         else
-            pageBags.detailCard:Clear("Inventário Vazio")
+            pageBags.detailCard:Clear(CM:T("DETAIL_EMPTY_BAGS"))
         end
     end
     -- FIX hover grade: BAG_UPDATE/MONEY/LOCK reacendem highlight mesmo com Nav fora do GRID.
@@ -4908,7 +4926,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
             detailCard:ShowSpell(spellData)
             MainMenu:TriggerSpellPose(spellData.pose)
         else
-            detailCard:Clear("Grimório")
+            detailCard:Clear(CM:T("DETAIL_EMPTY_SPELLS_SHORT"))
             MainMenu:TriggerSpellPose(0)
         end
     end
@@ -5610,7 +5628,7 @@ function MainMenu:UpdateSpellsPage(keepPage)
             end
         end
     else
-        pageSpells.detailCard:Clear("Grimório Vazio")
+        pageSpells.detailCard:Clear(CM:T("DETAIL_EMPTY_SPELLS"))
         MainMenu:TriggerSpellPose(0)
     end
 end
@@ -8836,7 +8854,7 @@ function MainMenu:CreateQuestDetailOverlay()
     local tlabel = trackBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     tlabel:SetPoint("LEFT", ticon, "RIGHT", 6, 0)
     MainMenu:ApplyFont(tlabel, CFG.Fonts.subFontFile, 10)
-    tlabel:SetText("RASTREAR")
+    tlabel:SetText(CM:T("HINT_TRACK"))
     tlabel:SetTextColor(0.96, 0.88, 0.68, 1.0)
     trackBtn.label = tlabel
     trackBtn:SetScript("OnEnter", function()
@@ -8853,9 +8871,9 @@ function MainMenu:CreateQuestDetailOverlay()
         if f.currentQuestIndex then
             MainMenu:ToggleQuestWatch(f.currentQuestIndex)
             if IsQuestWatched and IsQuestWatched(f.currentQuestIndex) then
-                this.label:SetText("DESACOMPANHAR")
+                this.label:SetText(CM:T("HINT_UNTRACK"))
             else
-                this.label:SetText("RASTREAR")
+                this.label:SetText(CM:T("HINT_TRACK"))
             end
         end
     end)
@@ -9026,9 +9044,9 @@ function MainMenu:ShowQuestDetail(questLogIndex)
     f.currentQuestIndex = questLogIndex
     if f.trackBtn and f.trackBtn.label then
         if IsQuestWatched and IsQuestWatched(questLogIndex) then
-            f.trackBtn.label:SetText("DESACOMPANHAR")
+            f.trackBtn.label:SetText(CM:T("HINT_UNTRACK"))
         else
-            f.trackBtn.label:SetText("RASTREAR")
+            f.trackBtn.label:SetText(CM:T("HINT_TRACK"))
         end
     end
     PlaySound("igMainMenuOptionCheckBoxOn")
@@ -10799,7 +10817,7 @@ function MainMenu:SetupSystemPage(pageSystem)
         local title = subBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         title:SetPoint("CENTER", subBtn, "CENTER", 0, 0)
         MainMenu:ApplyFont(title, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or 15)
-        title:SetText(tabData.name)
+        title:SetText(CM:T(tabData.tkey))
         subBtn.title = title
         subBtn.subTabData = tabData
 
@@ -10863,13 +10881,13 @@ function MainMenu:SetupSystemPage(pageSystem)
     local gmHeader = subPageGameMenu:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     gmHeader:SetPoint("TOPLEFT", subPageGameMenu, "TOPLEFT", 12, -8)
     MainMenu:ApplyFont(gmHeader, CFG.Fonts.titleFontFile, 16, "")
-    gmHeader:SetText("|cffe09a15[ MENUS DO SISTEMA & ADDONS DETECTADOS ]|r")
+    gmHeader:SetText(CM:T("SYS_GAMEMENU_HEADER"))
     subPageGameMenu.header = gmHeader
 
     local gmSubText = subPageGameMenu:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     gmSubText:SetPoint("TOPLEFT", gmHeader, "BOTTOMLEFT", 0, -4)
     MainMenu:ApplyFont(gmSubText, CFG.Fonts.subFontFile, 12, "")
-    gmSubText:SetText("|cffaaaaaaVarredura dinâmica de botões nativos e de addons|r")
+    gmSubText:SetText(CM:T("SYS_GAMEMENU_SUB"))
     subPageGameMenu.subText = gmSubText
 
     local gmListContainer = CreateFrame("Frame", "ConsoleModeMM_GMListContainer", subPageGameMenu)
@@ -10909,72 +10927,74 @@ function MainMenu:SetupSystemPage(pageSystem)
     pageSystem.isInitialized = true
 end
 
+-- FASE 3 (linguagem): tkey/dkey/hkey resolvem via CM:T em runtime
+-- (UpdateGameMenuSubPage); texto PT vive em localization_ptBR.lua.
 local GAME_MENU_METADATA = {
     ["GameMenuButtonOptions"] = {
         icon = "Interface\\Icons\\Spell_Holy_Perception",
-        title = "Opções de Vídeo",
-        desc = "Ajuste de resolução, gráficos, efeitos visuais e taxa de quadros.",
-        hint = "Pressione [A] para abrir as configurações de vídeo.",
+        tkey = "SYS_OPT_VIDEO",
+        dkey = "SYS_OPT_VIDEO_DESC",
+        hkey = "SYS_OPT_VIDEO_HINT",
     },
     ["GameMenuButtonSoundOptions"] = {
         icon = "Interface\\Icons\\INV_Misc_Ear_Human_01",
-        title = "Opções de Som",
-        desc = "Volume geral, efeitos sonoros, música de ambiente e canais de áudio.",
-        hint = "Pressione [A] para abrir as configurações de som.",
+        tkey = "SYS_OPT_SOUND",
+        dkey = "SYS_OPT_SOUND_DESC",
+        hkey = "SYS_OPT_SOUND_HINT",
     },
     ["GameMenuButtonUIOptions"] = {
         icon = "Interface\\Icons\\INV_Gizmo_02",
-        title = "Opções de Interface",
-        desc = "Interface de usuário, barras de ação, nomes e textos de combate.",
-        hint = "Pressione [A] para abrir as opções de interface.",
+        tkey = "SYS_OPT_INTERFACE",
+        dkey = "SYS_OPT_INTERFACE_DESC",
+        hkey = "SYS_OPT_INTERFACE_HINT",
     },
     ["GameMenuButtonKeybindings"] = {
         icon = "Interface\\Icons\\INV_Misc_Book_09",
-        title = "Teclas de Atalho",
-        desc = "Configuração de atalhos do teclado e comandos do jogo.",
-        hint = "Pressione [A] para gerenciar teclas de atalho.",
+        tkey = "SYS_OPT_KEYBINDINGS",
+        dkey = "SYS_OPT_KEYBINDINGS_DESC",
+        hkey = "SYS_OPT_KEYBINDINGS_HINT",
     },
     ["GameMenuButtonMacros"] = {
         icon = "Interface\\Icons\\INV_Misc_PaperBundle01a",
-        title = "Macros",
-        desc = "Criação e edição de macros personalizadas para comandos e magias.",
-        hint = "Pressione [A] para abrir o editor de macros.",
+        tkey = "SYS_OPT_MACROS",
+        dkey = "SYS_OPT_MACROS_DESC",
+        hkey = "SYS_OPT_MACROS_HINT",
     },
     ["GameMenuButtonHelp"] = {
         icon = "Interface\\Icons\\INV_Misc_QuestionMark",
-        title = "Ajuda & Suporte",
-        desc = "Suporte ao jogador, base de conhecimento e abertura de chamados.",
-        hint = "Pressione [A] para abrir a central de ajuda.",
+        tkey = "SYS_OPT_HELP",
+        dkey = "SYS_OPT_HELP_DESC",
+        hkey = "SYS_OPT_HELP_HINT",
     },
     ["GameMenuButtonLogout"] = {
         icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
-        title = "Desconectar",
-        desc = "Desconecta do personagem atual e retorna à tela de seleção de personagens.",
-        hint = "Pressione [A] para desconectar do mundo.",
+        tkey = "SYS_OPT_LOGOUT",
+        dkey = "SYS_OPT_LOGOUT_DESC",
+        hkey = "SYS_OPT_LOGOUT_HINT",
     },
     ["GameMenuButtonQuit"] = {
         icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-        title = "Sair do Jogo",
-        desc = "Encerra completamente o cliente do World of Warcraft.",
-        hint = "Pressione [A] para encerrar o aplicativo.",
+        tkey = "SYS_OPT_QUIT",
+        dkey = "SYS_OPT_QUIT_DESC",
+        hkey = "SYS_OPT_QUIT_HINT",
     },
     ["GameMenuButtonContinue"] = {
         icon = "Interface\\Icons\\INV_Misc_Rune_01",
-        title = "Voltar ao Jogo",
-        desc = "Fecha o menu principal e retorna à jogabilidade.",
-        hint = "Pressione [A] para retornar ao jogo.",
+        tkey = "SYS_OPT_CONTINUE",
+        dkey = "SYS_OPT_CONTINUE_DESC",
+        hkey = "SYS_OPT_CONTINUE_HINT",
     },
     ["ConsoleModeMM_OpenConfigBtn"] = {
         icon = "Interface\\Icons\\INV_Misc_Gear_01",
-        title = "ConsoleMode Config",
-        desc = "Painel de configurações avançadas do addon ConsoleMode.",
-        hint = "Pressione [A] para abrir as opções do ConsoleMode.",
+        tkey = "SYS_OPT_CONSOLEMODE",
+        dkey = "SYS_OPT_CONSOLEMODE_DESC",
+        hkey = "SYS_OPT_CONSOLEMODE_HINT",
     },
     ["GameMenuButtonConsoleMode"] = {
         icon = "Interface\\Icons\\INV_Misc_Gear_01",
-        title = "ConsoleMode Config",
-        desc = "Painel de configurações avançadas do addon ConsoleMode.",
-        hint = "Pressione [A] para abrir as opções do ConsoleMode.",
+        tkey = "SYS_OPT_CONSOLEMODE",
+        dkey = "SYS_OPT_CONSOLEMODE_DESC",
+        hkey = "SYS_OPT_CONSOLEMODE_HINT",
     },
 }
 
@@ -10989,73 +11009,73 @@ local function GetGameMenuButtonMeta(name, cleanText)
     if string.find(lower, "video") or string.find(lower, "vídeo") or (string.find(lowerName, "option") and not string.find(lowerName, "sound") and not string.find(lowerName, "ui")) then
         return {
             icon = "Interface\\Icons\\Spell_Holy_Perception",
-            title = "Opções de Vídeo",
-            desc = "Ajuste de resolução, gráficos, efeitos visuais e taxa de quadros.",
-            hint = "Pressione [A] para abrir as configurações de vídeo.",
+            tkey = "SYS_OPT_VIDEO",
+            dkey = "SYS_OPT_VIDEO_DESC",
+            hkey = "SYS_OPT_VIDEO_HINT",
         }
     elseif string.find(lower, "sound") or string.find(lower, "som") or string.find(lower, "áudio") or string.find(lower, "audio") or string.find(lowerName, "sound") then
         return {
             icon = "Interface\\Icons\\INV_Misc_Ear_Human_01",
-            title = "Opções de Som",
-            desc = "Volume geral, efeitos sonoros, música de ambiente e canais de áudio.",
-            hint = "Pressione [A] para abrir as configurações de som.",
+            tkey = "SYS_OPT_SOUND",
+            dkey = "SYS_OPT_SOUND_DESC",
+            hkey = "SYS_OPT_SOUND_HINT",
         }
     elseif string.find(lower, "interface") or string.find(lower, "ui") or string.find(lowerName, "uioptions") then
         return {
             icon = "Interface\\Icons\\INV_Gizmo_02",
-            title = "Opções de Interface",
-            desc = "Interface de usuário, barras de ação, nomes e textos de combate.",
-            hint = "Pressione [A] para abrir as opções de interface.",
+            tkey = "SYS_OPT_INTERFACE",
+            dkey = "SYS_OPT_INTERFACE_DESC",
+            hkey = "SYS_OPT_INTERFACE_HINT",
         }
     elseif string.find(lower, "key") or string.find(lower, "bind") or string.find(lower, "atalho") or string.find(lowerName, "keybind") then
         return {
             icon = "Interface\\Icons\\INV_Misc_Book_09",
-            title = "Teclas de Atalho",
-            desc = "Configuração de atalhos do teclado e comandos do jogo.",
-            hint = "Pressione [A] para gerenciar teclas de atalho.",
+            tkey = "SYS_OPT_KEYBINDINGS",
+            dkey = "SYS_OPT_KEYBINDINGS_DESC",
+            hkey = "SYS_OPT_KEYBINDINGS_HINT",
         }
     elseif string.find(lower, "macro") or string.find(lowerName, "macro") then
         return {
             icon = "Interface\\Icons\\INV_Misc_PaperBundle01a",
-            title = "Macros",
-            desc = "Criação e edição de macros personalizadas para comandos e magias.",
-            hint = "Pressione [A] para abrir o editor de macros.",
+            tkey = "SYS_OPT_MACROS",
+            dkey = "SYS_OPT_MACROS_DESC",
+            hkey = "SYS_OPT_MACROS_HINT",
         }
     elseif string.find(lower, "help") or string.find(lower, "ajuda") or string.find(lowerName, "help") then
         return {
             icon = "Interface\\Icons\\INV_Misc_QuestionMark",
-            title = "Ajuda & Suporte",
-            desc = "Suporte ao jogador, base de conhecimento e abertura de chamados.",
-            hint = "Pressione [A] para abrir a central de ajuda.",
+            tkey = "SYS_OPT_HELP",
+            dkey = "SYS_OPT_HELP_DESC",
+            hkey = "SYS_OPT_HELP_HINT",
         }
     elseif string.find(lower, "log out") or string.find(lower, "logout") or string.find(lower, "desconectar") or string.find(lowerName, "logout") then
         return {
             icon = "Interface\\Icons\\Spell_Nature_AstralRecalGroup",
-            title = "Desconectar",
-            desc = "Desconecta do personagem atual e retorna à tela de seleção de personagens.",
-            hint = "Pressione [A] para desconectar do mundo.",
+            tkey = "SYS_OPT_LOGOUT",
+            dkey = "SYS_OPT_LOGOUT_DESC",
+            hkey = "SYS_OPT_LOGOUT_HINT",
         }
     elseif string.find(lower, "exit") or string.find(lower, "quit") or string.find(lower, "sair") or string.find(lowerName, "quit") then
         return {
             icon = "Interface\\Icons\\Spell_Fire_SelfDestruct",
-            title = "Sair do Jogo",
-            desc = "Encerra completamente o cliente do World of Warcraft.",
-            hint = "Pressione [A] para encerrar o aplicativo.",
+            tkey = "SYS_OPT_QUIT",
+            dkey = "SYS_OPT_QUIT_DESC",
+            hkey = "SYS_OPT_QUIT_HINT",
         }
     elseif string.find(lower, "continue") or string.find(lower, "voltar") or string.find(lower, "retornar") or string.find(lowerName, "continue") then
         return {
             icon = "Interface\\Icons\\INV_Misc_Rune_01",
-            title = "Voltar ao Jogo",
-            desc = "Fecha o menu principal e retorna à jogabilidade.",
-            hint = "Pressione [A] para retornar ao jogo.",
+            tkey = "SYS_OPT_CONTINUE",
+            dkey = "SYS_OPT_CONTINUE_DESC",
+            hkey = "SYS_OPT_CONTINUE_HINT",
         }
     end
 
     return {
         icon = "Interface\\Icons\\INV_Misc_Gear_01",
-        title = cleanText or name or "Opção",
-        desc = "Opção de sistema ou addon detectada dinamicamente.",
-        hint = "Pressione [A] para executar esta opção.",
+        title = cleanText or name or CM:T("SYS_OPT_DEFAULT"),
+        dkey = "SYS_OPT_DEFAULT_DESC",
+        hkey = "SYS_OPT_DEFAULT_HINT",
     }
 end
 
@@ -11156,7 +11176,7 @@ function MainMenu:UpdateGameMenuSubPage()
     if count > 16 then count = 16 end
 
     if subPage.subText then
-        subPage.subText:SetText(string.format("|cffaaaaaaTotal de opções detectadas: |cffffffff%d|r |cffaaaaaa(Menus Nativos + Addons)|r", count))
+        subPage.subText:SetText(format(CM:T("SYS_GAMEMENU_COUNT_FMT"), count))
     end
 
     if not subPage.rows then subPage.rows = {} end
@@ -11172,10 +11192,25 @@ function MainMenu:UpdateGameMenuSubPage()
         local btnData = buttons[i]
         local meta = GetGameMenuButtonMeta(btnData.name, btnData.text)
         btnData.icon = meta.icon
-        btnData.title = meta.title or btnData.text
-        btnData.desc = meta.desc
-        btnData.hint = meta.hint
-        btnData.detailText = meta.hint
+        -- FASE 3 (linguagem): metadados guardam chaves; texto resolve aqui em runtime.
+        if meta.tkey then
+            btnData.title = CM:T(meta.tkey)
+        elseif meta.title then
+            btnData.title = meta.title
+        else
+            btnData.title = btnData.text
+        end
+        if meta.dkey then
+            btnData.desc = CM:T(meta.dkey)
+        else
+            btnData.desc = meta.desc
+        end
+        if meta.hkey then
+            btnData.hint = CM:T(meta.hkey)
+        else
+            btnData.hint = meta.hint
+        end
+        btnData.detailText = btnData.hint
 
         local row = subPage.rows[i]
         if not row then
@@ -11391,13 +11426,13 @@ function MainMenu:UpdateAddonConfigSubPage()
     local header = subPage:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     header:SetPoint("TOPLEFT", subPage, "TOPLEFT", 12, -8)
     MainMenu:ApplyFont(header, CFG.Fonts.titleFontFile, 16, "")
-    header:SetText("|cffe09a15[ CONSOLEMODE - PAINEL DE CONTROLE ]|r")
+    header:SetText(CM:T("SYS_ADDONCFG_HEADER"))
     subPage.header = header
 
     local subText = subPage:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     subText:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -4)
     MainMenu:ApplyFont(subText, CFG.Fonts.subFontFile, 12, "")
-    subText:SetText("|cffaaaaaaGerencie atalhos do controle, sensibilidade e elementos visuais|r")
+    subText:SetText(CM:T("SYS_ADDONCFG_SUB"))
     subPage.subText = subText
 
     local listContainer = CreateFrame("Frame", "ConsoleModeMM_AddonCfgListContainer", subPage)
@@ -11406,9 +11441,10 @@ function MainMenu:UpdateAddonConfigSubPage()
     subPage.listContainer = listContainer
 
     local options = {
+        -- FASE 3 (linguagem): titulos/desc via CM:T(tkey/dkey) em runtime (criacao abaixo).
         {
-            title = "Mapeador de Atalhos / Binds",
-            desc = "Configurar habilidades, itens e macros dos botões do controle (Páginas 1 a 4)",
+            tkey = "SYS_CFG_BINDS",
+            dkey = "SYS_CFG_BINDS_DESC",
             onClick = function()
                 MainMenu:ShowBindsScreen()
             end,
@@ -11416,22 +11452,22 @@ function MainMenu:UpdateAddonConfigSubPage()
         {
             title = function()
                 local isShown = ConsoleModeDB and (ConsoleModeDB.showRightActionBars ~= false)
-                return "Barras de Ação da Direita (Blizzard): " .. (isShown and "|cff00ff00[ VISÍVEIS ]|r" or "|cff888888[ OCULTAS ]|r")
+                return format(CM:T("SYS_CFG_BARS_FMT"), (isShown and CM:T("SYS_CFG_VISIBLE") or CM:T("SYS_CFG_HIDDEN")))
             end,
-            desc = "Exibe ou oculta as duas barras de ação verticais padrão da Blizzard na borda direita da tela",
+            dkey = "SYS_CFG_BARS_DESC",
             onClick = function(rowBtn)
                 if CM and CM.ToggleRightActionBars then
                     local newVal = CM:ToggleRightActionBars()
                     if rowBtn and rowBtn.title then
                         local tColor = CFG.System.itemTextColor or "|cffffffff"
-                        rowBtn.title:SetText(string.format("%s%s|r", tColor, "Barras de Ação da Direita (Blizzard): " .. (newVal and "|cff00ff00[ VISÍVEIS ]|r" or "|cff888888[ OCULTAS ]|r")))
+                        rowBtn.title:SetText(string.format("%s%s|r", tColor, format(CM:T("SYS_CFG_BARS_FMT"), (newVal and CM:T("SYS_CFG_VISIBLE") or CM:T("SYS_CFG_HIDDEN")))))
                     end
                 end
             end,
         },
         {
-            title = "Resetar Posições dos Elementos de UI",
-            desc = "Restaura o posicionamento original de fábrica de todos os frames arrastáveis",
+            tkey = "SYS_CFG_RESET",
+            dkey = "SYS_CFG_RESET_DESC",
             onClick = function()
                 if ConsoleModeDB then
                     ConsoleModeDB.positions = {}
@@ -11450,8 +11486,8 @@ function MainMenu:UpdateAddonConfigSubPage()
             end,
         },
         {
-            title = "Recarregar Interface (/reload)",
-            desc = "Reinicia a interface do World of Warcraft para aplicar configurações",
+            tkey = "SYS_CFG_RELOAD",
+            dkey = "SYS_CFG_RELOAD_DESC",
             onClick = function()
                 ReloadUI()
             end,
@@ -11496,14 +11532,14 @@ function MainMenu:UpdateAddonConfigSubPage()
         local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("TOPLEFT", row, "TOPLEFT", 12, -6)
         MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
-        local tStr = (type(opt.title) == "function") and opt.title() or opt.title
+        local tStr = (type(opt.title) == "function") and opt.title() or CM:T(opt.tkey)
         title:SetText(string.format("%s%s|r", tColor, tStr))
         row.title = title
 
         local desc = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
         desc:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 12, 5)
         MainMenu:ApplyFont(desc, CFG.Fonts.subFontFile, 11)
-        desc:SetText(string.format("|cff888888%s|r", opt.desc))
+        desc:SetText(string.format("|cff888888%s|r", CM:T(opt.dkey)))
         row.desc = desc
 
         row:SetScript("OnEnter", function()
@@ -13315,7 +13351,7 @@ function MainMenu:CreateTabContainer(rightPanel)
         local title = tabBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("CENTER", tabBtn, "CENTER", 0, 0)
         MainMenu:ApplyFont(title, CFG.Tabs.fontFile or CFG.Fonts.bodyFontFile, CFG.Fonts.tabSize, CFG.Tabs.outline or "", CFG.Tabs.shadowOffset or { 1, -1 })
-        title:SetText(tabData.name)
+        title:SetText(CM:T(tabData.tkey))
         tabBtn.title = title
 
         local strWidth = math.floor(title:GetStringWidth() or 80)
@@ -13390,7 +13426,7 @@ function MainMenu:CreateTabContainer(rightPanel)
     local charPlaceholder = pageChar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     charPlaceholder:SetPoint("CENTER", pageChar, "CENTER", 0, 0)
     MainMenu:ApplyFont(charPlaceholder, CFG.Tabs.fontFile or CFG.Fonts.bodyFontFile, CFG.Fonts.tabSize, CFG.Tabs.outline or "", CFG.Tabs.shadowOffset or { 1, -1 })
-    charPlaceholder:SetText("Aba Personagem - Modulo em Carregamento")
+    charPlaceholder:SetText(CM:T("TAB_CHARACTER_LOADING"))
     pageChar.placeholder = charPlaceholder
     pageChar:Hide()
     pages["CHARACTER"] = pageChar
@@ -13791,12 +13827,13 @@ end
 
 function MainMenu:CreateFooterHints(footer)
     local hints = {
-        { icons = { "LB", "RB" }, label = "Abas" },
-        { icons = { "LT", "RT" }, label = "Filtros" },
-        { icons = { "DALL" },     label = "Navegar" },
-        { icons = { "A" },        label = "Usar / Equipar" },
-        { icons = { "Y" },        label = "Ações" },
-        { icons = { "B" },        label = "Fechar" },
+        -- FASE 3 (linguagem): labels via CM:T(lkey) em runtime (criacao abaixo).
+        { icons = { "LB", "RB" }, lkey = "HINT_FOOTER_TABS" },
+        { icons = { "LT", "RT" }, lkey = "HINT_FOOTER_FILTERS" },
+        { icons = { "DALL" },     lkey = "HINT_FOOTER_NAVIGATE" },
+        { icons = { "A" },        lkey = "HINT_FOOTER_USE" },
+        { icons = { "Y" },        lkey = "HINT_FOOTER_ACTIONS" },
+        { icons = { "B" },        lkey = "HINT_FOOTER_CLOSE" },
     }
 
     local iconSize = CFG.Footer.iconSize or 18
@@ -13843,7 +13880,7 @@ function MainMenu:CreateFooterHints(footer)
         local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
         MainMenu:ApplyFont(label, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize or 12)
-        label:SetText(hint.label)
+        label:SetText(CM:T(hint.lkey))
         label:SetTextColor(0.85, 0.85, 0.85, 0.95)
 
         local textW = math.floor(label:GetStringWidth() or 40)
@@ -14007,7 +14044,7 @@ function MainMenu:CreateUI()
         local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
         titleText:SetPoint("TOP", frame, "TOP", 0, CFG.Title.offsetY)
         MainMenu:ApplyFont(titleText, CFG.Fonts.titleFontFile, CFG.Fonts.titleSize)
-        titleText:SetText(CFG.Title.text)
+        titleText:SetText(CM:T(CFG.Title.tkey))
         frame.title = titleText
     end
 

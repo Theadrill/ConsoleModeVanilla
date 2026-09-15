@@ -855,21 +855,35 @@ function MainMenu:UpdateLayout()
     -- Ajusta a largura proporcional dos botões de aba no painel direito (evita encavalar textos)
     -- FASE 1 Aba Personagem: 2 linhas centralizadas de 3 botoes (recalcula cada linha separadamente)
     if self.tabContainer and self.tabContainer.tabBar and self.tabContainer.tabBar.buttons then
-        local usableTabW = rightW - 64
+        local tabBar = self.tabContainer.tabBar
+        -- Largura util padrao das linhas (layout normal, com leftPanel visivel).
+        local normalTabW = rightW - 64
+        local usableTabW = normalTabW
+        -- Na aba do mapa o rightPanel ocupa a janela toda (leftPanel oculto):
+        -- trava a largura util no valor normal para a folga extra nao esticar
+        -- os botoes. O tabBar continua full-width (hints LB/RB nas extremidades)
+        -- e as linhas seguem centralizadas via ancora TOP. Demais abas: intactas.
+        if self.tabContainer.currentTab == "QUESTS" then
+            local barW = tabBar:GetWidth() or 0
+            if barW > 100 then
+                usableTabW = math.min(barW - 64, normalTabW)
+            end
+        end
         local numTabs = table.getn(CFG.Tabs.list)
         local gapX = CFG.Tabs.gapX or 6
-        local tabBar = self.tabContainer.tabBar
         local minBtnW = 60
 
         if tabBar.rows and tabBar.rowButtons then
-            -- Novo layout: cada linha recebe a largura util cheia e centraliza via ancora TOP
+            -- Passo 1: largura final de cada botao (folga de usableTabW distribuida por linha)
+            local finalW = { {}, {} }
+            local contentW = { 0, 0 }
             for rowIdx, row in ipairs(tabBar.rows) do
-                local rowBtns = tabBar.rowButtons[rowIdx]
-                local numRowBtns = table.getn(rowBtns)
-                if numRowBtns > 0 then
+                local rowBtnsA = tabBar.rowButtons[rowIdx]
+                local numRowBtnsA = table.getn(rowBtnsA)
+                if numRowBtnsA > 0 then
                     local totalNeeded = 0
                     local neededWidths = {}
-                    for idx, btn in ipairs(rowBtns) do
+                    for idx, btn in ipairs(rowBtnsA) do
                         local strW = 0
                         if btn.title and btn.title.GetStringWidth then
                             strW = math.floor(btn.title:GetStringWidth() or 0)
@@ -879,28 +893,73 @@ function MainMenu:UpdateLayout()
                         totalNeeded = totalNeeded + w
                     end
 
-                    local totalGaps = (numRowBtns - 1) * gapX
+                    local totalGaps = (numRowBtnsA - 1) * gapX
                     local availForBtns = usableTabW - totalGaps
-                    local curX = 0
+                    local curW = 0
 
-                    for idx, btn in ipairs(rowBtns) do
+                    for idx, btn in ipairs(rowBtnsA) do
                         local btnW = neededWidths[idx] or minBtnW
                         if totalNeeded > 0 and availForBtns > 0 then
                             if totalNeeded <= availForBtns then
                                 -- Folga restante dividida igualmente
-                                local extra = math.floor((availForBtns - totalNeeded) / numRowBtns)
+                                local extra = math.floor((availForBtns - totalNeeded) / numRowBtnsA)
                                 btnW = btnW + extra
                             else
                                 -- Escala proporcional segura se muito apertado
                                 btnW = math.max(minBtnW, math.floor(btnW * (availForBtns / totalNeeded)))
                             end
                         end
+                        finalW[rowIdx][idx] = btnW
+                        curW = curW + btnW + (idx < numRowBtnsA and gapX or 0)
+                    end
+                    contentW[rowIdx] = curW
+                end
+            end
+            -- Passo 2: unifica a largura das 2 rows no maior conteudo e (re-)ancora
+            -- o bloco: QUESTS ancora pela DIREITA (fora do hint RB), demais abas
+            -- re-afirmam o TOP-center original. Botoes centralizados DENTRO de cada
+            -- row via offset inicial (rowW - conteudoRow)/2 — nas demais abas isso e
+            -- matematicamente identico ao centrado-por-linha (visual intacto).
+            local rowW = contentW[1] or 0
+            if (contentW[2] or 0) > rowW then rowW = contentW[2] end
+            local isQuests = self.tabContainer.currentTab == "QUESTS"
+            -- QUESTS (mapa): replica a coluna exata do modo normal. No modo
+            -- normal o bloco rowW e centrado num tabBar de largura rightW
+            -- (GetRightPanelDimensions, tab-independent = largura estreita),
+            -- logo a folga direita normal = (rightW - rowW)/2. A borda direita
+            -- do tabBar coincide com a da janela nos dois modos (mesmo
+            -- padding), entao basta ancorar TOPRIGHT com esse offset exato.
+            -- Minimo 30px = hint RB (22px a -2) + gap 6, para nunca colidir.
+            local questsOff = math.floor(((rightW or 0) - (rowW or 0)) / 2)
+            if questsOff < 30 then questsOff = 30 end
+            for rowIdx, row in ipairs(tabBar.rows) do
+                local rowBtns = tabBar.rowButtons[rowIdx]
+                local numRowBtns = table.getn(rowBtns)
+                row:ClearAllPoints()
+                if isQuests then
+                    if rowIdx == 1 then
+                        row:SetPoint("TOPRIGHT", tabBar, "TOPRIGHT", -questsOff, -2)
+                    else
+                        row:SetPoint("TOP", tabBar.rows[1], "BOTTOM", 0, -4)
+                    end
+                else
+                    if rowIdx == 1 then
+                        row:SetPoint("TOP", tabBar, "TOP", 0, -2)
+                    else
+                        row:SetPoint("TOP", tabBar.rows[1], "BOTTOM", 0, -4)
+                    end
+                end
+                row:SetWidth(rowW)
+                if numRowBtns > 0 then
+                    local curX = math.floor((rowW - (contentW[rowIdx] or 0)) / 2)
+                    if curX < 0 then curX = 0 end
+                    for idx, btn in ipairs(rowBtns) do
+                        local btnW = finalW[rowIdx][idx] or minBtnW
                         btn:SetWidth(btnW)
                         btn:ClearAllPoints()
                         btn:SetPoint("LEFT", row, "LEFT", curX, 0)
                         curX = curX + btnW + (idx < numRowBtns and gapX or 0)
                     end
-                    row:SetWidth(curX)
                 end
             end
         else

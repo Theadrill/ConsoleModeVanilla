@@ -105,23 +105,23 @@ local CS_DETAIL_H = 64
 local CS_DETAIL_GAP = 6
 
 local CS_DETAIL_TEXT = {
-    Identidade  = { icon = "Interface\\Icons\\INV_Misc_Book_09",        title = "Identidade",       body = "Nome, nivel, raca, guilda e XP.\nDescansado = bonus de XP; Turtle/Hardcore ativo." },
-    Base        = { icon = "Interface\\Icons\\Spell_Nature_Strength",   title = "Base",             body = "For/Agi/Vig/Int/Esp + Armadura.\nAgi: +2 Armadura/cada; +critico/esquiva. Verde (+X) = buffs." },
-    Recursos    = { icon = "Interface\\Icons\\INV_Potion_76",            title = "Recursos",         body = "Vida/Mana/Furia/Energia atuais.\nRegen Mana = base(Esp) + MP5x0,4; em combate so % casting." },
-    Melee       = { icon = "Interface\\Icons\\INV_Sword_01",             title = "Melee",            body = "Pericia, dano, velocidade e AP.\n14 AP = 1 DPS no dano da arma. Hit reduz erro." },
-    MeleeBoss   = { icon = "Interface\\Icons\\INV_Sword_39",             title = "Melee vs Boss",    body = "Melee vs alvo nv 63 (+3).\nMiss/Dodge sobem; Glancing ~40%; Crit Cap limita critico." },
-    Ranged      = { icon = "Interface\\Icons\\INV_Weapon_Bow_07",        title = "Ranged",           body = "Arco/arma/faca: dano, DPS e RAP.\nVarinha ignora RAP (dano magico). Hit como no melee." },
-    Spell       = { icon = "Interface\\Icons\\Spell_Holy_MagicalSentry", title = "Spell",            body = "Spell Power, hit/critico e +Heal.\nHit evita erro; critico +50% dano (cura dobra c/ talento)." },
-    Schools     = { icon = "Interface\\Icons\\Spell_Fire_Fireball",      title = "Escolas",          body = "Bonus por escola somam ao generico.\nVerde = bonus proprio; total = generico + escola." },
-    Def         = { icon = "Interface\\Icons\\INV_Shield_04",            title = "Defesa",           body = "Armadura reduz dano fisico %.\nDefesa + esquiva/aparo/bloqueio; Total = miss 5% + tudo." },
+    Identidade  = { icon = "Interface\\Icons\\INV_Misc_Book_09",        title = "Identidade",       body = "Nome, nível, raça, guilda e XP.\nDescansado = bônus de XP; Turtle/Hardcore ativo." },
+    Base        = { icon = "Interface\\Icons\\Spell_Nature_Strength",   title = "Base",             body = "For/Agi/Vig/Int/Esp + Armadura.\nAgi: +2 Armadura/cada; +crítico/esquiva. Verde (+X) = buffs." },
+    Recursos    = { icon = "Interface\\Icons\\INV_Potion_76",            title = "Recursos",         body = "Vida/Mana/Fúria/Energia atuais.\nRegen Mana = base(Esp) + MP5x0,4; em combate só % casting." },
+    Melee       = { icon = "Interface\\Icons\\INV_Sword_01",             title = "Melee",            body = "Perícia, dano, velocidade e AP.\n14 AP = 1 DPS no dano da arma. Hit reduz erro." },
+    MeleeBoss   = { icon = "Interface\\Icons\\INV_Sword_39",             title = "Melee vs Boss",    body = "Melee vs alvo nv 63 (+3).\nMiss/Dodge sobem; Glancing ~40%; Crit Cap limita crítico." },
+    Ranged      = { icon = "Interface\\Icons\\INV_Weapon_Bow_07",        title = "Ranged",           body = "Arco/arma/faca: dano, DPS e RAP.\nVarinha ignora RAP (dano mágico). Hit como no melee." },
+    Spell       = { icon = "Interface\\Icons\\Spell_Holy_MagicalSentry", title = "Spell",            body = "Spell Power, hit/crítico e +Heal.\nHit evita erro; crítico +50% dano (cura dobra c/ talento)." },
+    Schools     = { icon = "Interface\\Icons\\Spell_Fire_Fireball",      title = "Escolas",          body = "Bônus por escola somam ao genérico.\nVerde = bônus próprio; total = genérico + escola." },
+    Def         = { icon = "Interface\\Icons\\INV_Shield_04",            title = "Defesa",           body = "Armadura reduz dano físico %.\nDefesa + esquiva/aparo/bloqueio; Total = miss 5% + tudo." },
     DefBoss     = { icon = "Interface\\Icons\\INV_Shield_06",            title = "Defesa vs Boss",   body = "Defesa vs nv 63.\n-0,6% esquiva/aparo/bloqueio; armadura vale menos %." },
-    Resist      = { icon = "Interface\\Icons\\Spell_Nature_ResistNature", title = "Resistencias",    body = "Fogo/Nat/Gelo/Sombra/Arcano X/100.\n100 = teto pratico; (+) buff, (-) penalidade." },
-    Armas       = { icon = "Interface\\Icons\\INV_Axe_01",               title = "Armas",            body = "Pericias X/max por arma (barras).\nUse a arma p/ subir; +5 pericia = -miss/glancing." },
-    Profissoes  = { icon = "Interface\\Icons\\Trade_BlackSmithing",      title = "Profissoes",       body = "Primarias (max 2) X/max.\nSuba criando itens; bonus de gear contam no modificador." },
-    Oficios     = { icon = "Interface\\Icons\\Trade_Cooking",            title = "Oficios",          body = "Culinaria/Primeiros Socorros/Pesca.\nSem limite; cozinhar/pescar dao regen e buffs." },
-    Reputacoes  = { icon = "Interface\\Icons\\INV_Misc_TabardPVP_01",    title = "Reputacoes",       body = "Barras por faccao + status.\nExaltado = desconto e itens; barra cheia sobe nivel." },
+    Resist      = { icon = "Interface\\Icons\\Spell_Nature_ResistNature", title = "Resistências",    body = "Fogo/Nat/Gelo/Sombra/Arcano X/100.\n100 = teto prático; (+) buff, (-) penalidade." },
+    Armas       = { icon = "Interface\\Icons\\INV_Axe_01",               title = "Armas",            body = "Perícias X/max por arma (barras).\nUse a arma p/ subir; +5 perícia = -miss/glancing." },
+    Profissoes  = { icon = "Interface\\Icons\\Trade_BlackSmithing",      title = "Profissões",       body = "Primárias (max 2) X/max.\nSuba criando itens; bônus de gear contam no modificador." },
+    Oficios     = { icon = "Interface\\Icons\\Trade_Cooking",            title = "Ofícios",          body = "Culinária/Primeiros Socorros/Pesca.\nSem limite; cozinhar/pescar dão regen e buffs." },
+    Reputacoes  = { icon = "Interface\\Icons\\INV_Misc_TabardPVP_01",    title = "Reputações",       body = "Barras por facção + status.\nExaltado = desconto e itens; barra cheia sobe nível." },
     Honra       = { icon = "Interface\\Icons\\INV_BannerPVP_01",         title = "Honra",            body = "Posto, progresso semanal e HKs.\nHKs hoje/ontem/vida; posto sobe c/ honra semanal." },
-    Idiomas     = { icon = "Interface\\Icons\\INV_Letter_11",            title = "Idiomas",          body = "Idiomas falados + raciais.\nRaciais sao fixas da raca; ver spellbook (K = skills)." },
+    Idiomas     = { icon = "Interface\\Icons\\INV_Letter_11",            title = "Idiomas",          body = "Idiomas falados + raciais.\nRaciais são fixas da raça; ver spellbook (K = skills)." },
 }
 
 -- ----------------------------------------------------------------------------
@@ -1532,7 +1532,9 @@ local function CS_MakeCard(scrollChild, name, titleText, height, numLines, width
     title:SetPoint("TOPLEFT", card, "TOPLEFT", 12, -10)
     title:SetPoint("TOPRIGHT", card, "TOPRIGHT", -12, -10)
     title:SetJustifyH("LEFT")
-    CS_ApplyFont(title, FONTS.titleBold, 16)
+    -- Fase 6 polimento: titulo de card 15 bold (padrao de todos os cards;
+    -- Honra troca a cor para vermelho depois, sem tocar aqui).
+    CS_ApplyFont(title, FONTS.titleBold, 15)
     title:SetText(COLORS.amberText .. tostring(titleText) .. "|r")
     card.title = title
 
@@ -1989,22 +1991,22 @@ function CharacterScreen:CreateUI(parent)
     -- (LayoutCards reajusta via SetWidth a cada Refresh/UpdateLayout).
     local colW = ((parentW - 8) - (self.cardGap or 12)) / 2
     self.cardIdent     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardIdent", "IDENTIDADE & BIOGRAFIA", 200, 6, colW)
-    self.cardBase      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardBase", "ATRIBUTOS PRIMARIOS (BASE STATS)", 190, 6, colW)
-    self.cardRes       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRes", "RECURSOS & REGENERACAO", 150, 4, colW)
+    self.cardBase      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardBase", "ATRIBUTOS PRIMÁRIOS (BASE STATS)", 190, 6, colW)
+    self.cardRes       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRes", "RECURSOS & REGENERAÇÃO", 150, 4, colW)
     self.cardMelee     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMelee", "COMBATE CORPO A CORPO (MELEE)", 190, 6, colW)
-    self.cardMeleeBoss = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMeleeBoss", "MELEE VS BOSS (NIVEL 63)", 190, 6, colW)
-    self.cardRanged    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRanged", "COMBATE A DISTANCIA (RANGED)", 190, 6, colW)
-    self.cardSpell     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSpell", "PODER MAGICO (SPELL)", 190, 6, colW)
+    self.cardMeleeBoss = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMeleeBoss", "MELEE VS BOSS (NÍVEL 63)", 190, 6, colW)
+    self.cardRanged    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRanged", "COMBATE A DISTÂNCIA (RANGED)", 190, 6, colW)
+    self.cardSpell     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSpell", "PODER MÁGICO (SPELL)", 190, 6, colW)
     self.cardSchools   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSchools", "ESCOLAS DE MAGIA (SCHOOLS)", 190, 6, colW)
-    self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", "DEFESA & SOBREVIVENCIA", 190, 6, colW)
-    self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", "DEFESA VS BOSS (NIVEL 63)", 190, 6, colW)
-    self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", "RESISTENCIAS ELEMENTAIS", 170, 5, colW)
+    self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", "DEFESA & SOBREVIVÊNCIA", 190, 6, colW)
+    self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", "DEFESA VS BOSS (NÍVEL 63)", 190, 6, colW)
+    self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", "RESISTÊNCIAS ELEMENTAIS", 170, 5, colW)
     -- FASE 5 (parcial: Proficiencias): 1 card no FIM da ordem (apos
     -- Resistencias). Armas: 8 slots "nome em cima + StatusBar embaixo"
     -- (barras visuais douradas, pool fixo em CreateUI). Pool fixo: criado
     -- uma vez aqui; Refresh so atualiza os FontStrings + SetMinMaxValues/SetValue.
     -- Altura armas = 30 (titulo) + 8*32 (nome+barra+gap) + 24 (respiro) = 310.
-    self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", "PERICIAS DE ARMAS", 310, 8, colW)
+    self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", "PERÍCIAS DE ARMAS", 310, 8, colW)
     -- FASE 5 (parcial: Profissoes): 2 cards no FIM da ordem (apos Armas),
     -- mesmo molde do card de Armas (nome em cima + StatusBar dourada
     -- embaixo, pitch 32px). PROFISSOES (primarias, 3 slots = 2 + overflow)
@@ -2012,8 +2014,8 @@ function CharacterScreen:CreateUI(parent)
     -- Cooking/First Aid/Fishing/Survival) altura = 30 + 4*32 + 24 = 182.
     -- Pool fixo: FontStrings via CS_MakeCard + StatusBars criados uma vez
     -- aqui; Refresh so atualiza textos + SetMinMaxValues/SetValue.
-    self.cardProf      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardProf", "PROFISSOES", 150, 3, colW)
-    self.cardSec       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSec", "OFICIOS", 182, 4, colW)
+    self.cardProf      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardProf", "PROFISSÕES", 150, 3, colW)
+    self.cardSec       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSec", "OFÍCIOS", 182, 4, colW)
     -- FASE 5 (Reputacoes, card UNICO full-width no FIM da ordem apos
     -- Oficios): mesmo molde Pericias/Profissoes (nome em cima + StatusBar
     -- dourada embaixo, pitch 32px por fileira) com 2 colunas INTERNAS.
@@ -2025,7 +2027,7 @@ function CharacterScreen:CreateUI(parent)
     -- atualiza textos + SetMinMaxValues(barMin,barMax)/SetValue(barValue).
     -- fullWidth=true: LayoutCards coloca o card sozinho na linha inteira
     -- (o proprio card isolado ja da o respiro da secao).
-    self.cardRep       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep", "REPUTACOES", CS_REP_H, CS_MAX_REP, (parentW - 8))
+    self.cardRep       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep", "REPUTAÇÕES", CS_REP_H, CS_MAX_REP, (parentW - 8))
     if self.cardRep then self.cardRep.fullWidth = true end
     -- FASE 5 (Honra & JxJ, 1 card meia-largura no FIM da ordem apos
     -- REPUTACOES): mesmo molde Pericias/Profissoes (nome em cima +
@@ -2338,7 +2340,8 @@ function CharacterScreen:CreateUI(parent)
         dTitle:SetPoint("TOPLEFT", foot, "TOPLEFT", 40, -8)
         dTitle:SetPoint("TOPRIGHT", foot, "TOPRIGHT", -8, -8)
         dTitle:SetJustifyH("LEFT")
-        CS_ApplyFont(dTitle, FONTS.titleBold, 14)
+        -- Fase 6 polimento: mesmo 15 bold ambar dos titulos de card.
+        CS_ApplyFont(dTitle, FONTS.titleBold, 15)
         dTitle:SetText(COLORS.amberText .. "Identidade|r")
         local dBody1 = foot:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         dBody1:SetPoint("TOPLEFT", foot, "TOPLEFT", 40, -26)
@@ -2615,13 +2618,13 @@ local function CS_RefreshRes(self)
         end
         local pname = "Mana"
         if ptype == 1 then
-            pname = "Furia"
+            pname = "Fúria"
         elseif ptype == 3 then
             pname = "Energia"
         end
         c3.lines[1]:SetText("Vida: " .. tostring(hp) .. " / " .. tostring(hpMax))
         c3.lines[2]:SetText(tostring(pname) .. ": " .. tostring(mp) .. " / " .. tostring(mpMax))
-        c3.lines[3]:SetText("Regen. Vida: — (sem formula na 1.12)")
+        c3.lines[3]:SetText("Regen. Vida: — (sem fórmula na 1.12)")
         if ptype == 0 then
             local base, casting, mp5 = H.ManaRegen()
             local mp2 = (mp5 or 0) * 0.4
@@ -2633,7 +2636,7 @@ local function CS_RefreshRes(self)
                 c3.lines[4]:SetText("Regen. Mana: " .. string.format("%d MP2", totalRegen))
             end
         else
-            c3.lines[4]:SetText("Regen. " .. tostring(pname) .. ": — (sem formula na 1.12)")
+            c3.lines[4]:SetText("Regen. " .. tostring(pname) .. ": — (sem fórmula na 1.12)")
         end
     end
 end
@@ -2641,7 +2644,7 @@ end
 local function CS_RefreshMelee(self)
 -- CARD 4: Melee BCS (SetWeaponSkill/SetDamage/SetAttackSpeed/
     -- SetAttackPower/SetHitRating MELEE/SetMeleeCritChance).
-    -- Critico melee usa GetCritChance NATIVO (PaperDoll 1.12). Desvio
+    -- Crítico melee usa GetCritChance NATIVO (PaperDoll 1.12). Desvio
     -- consciente do BCS: BCS:GetCritChance() varre o spellbook atras de
     -- "chance to crit" (nao reflete crit melee do PaperDoll); o nativo e
     -- o valor correto e testavel lado a lado.
@@ -2651,9 +2654,9 @@ local function CS_RefreshMelee(self)
         local mhSkill, ohSkill = 0, 0
         if sc then mhSkill, ohSkill = sc.mh or 0, sc.oh or 0 end
         if H.OffhandHasWeapon() then
-            c4.lines[1]:SetText("Pericia de Arma: " .. tostring(mhSkill) .. " | " .. tostring(ohSkill))
+            c4.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill) .. " | " .. tostring(ohSkill))
         else
-            c4.lines[1]:SetText("Pericia de Arma: " .. tostring(mhSkill))
+            c4.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill))
         end
 
         local dMin, dMax, dOffMin, dOffMax = nil, nil, nil, nil
@@ -2701,16 +2704,16 @@ local function CS_RefreshMelee(self)
             if ok and type(v) == "number" then crit = v end
         end
         if type(crit) == "number" then
-            c4.lines[6]:SetText("Critico: " .. H.Fmt1(crit) .. "%")
+            c4.lines[6]:SetText("Crítico: " .. H.Fmt1(crit) .. "%")
         else
-            c4.lines[6]:SetText("Critico: —")
+            c4.lines[6]:SetText("Crítico: —")
         end
     end
 end
 
 local function CS_RefreshMeleeBoss(self)
 -- CARD 5: Melee vs Boss BCS (alvo nivel 63: pericia, Miss, Dodge,
-    -- Glancing, Crit Cap, Critico Efetivo = min(crit-3, cap)).
+    -- Glancing, Crit Cap, Crítico Efetivo = min(crit-3, cap)).
     local c5 = self.cardMeleeBoss
     if c5 and c5.lines and table.getn(c5.lines) >= 6 then
         local sc = self.skillCache
@@ -2718,9 +2721,9 @@ local function CS_RefreshMeleeBoss(self)
         if sc then mhSkill, ohSkill = sc.mh or 0, sc.oh or 0 end
         local dual = H.OffhandHasWeapon()
         if dual then
-            c5.lines[1]:SetText("Pericia de Arma: " .. tostring(mhSkill) .. " | " .. tostring(ohSkill))
+            c5.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill) .. " | " .. tostring(ohSkill))
         else
-            c5.lines[1]:SetText("Pericia de Arma: " .. tostring(mhSkill))
+            c5.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill))
         end
         if dual then
             c5.lines[2]:SetText("Miss vs Boss: " .. H.Fmt1(H.DualWieldMissChance(mhSkill))
@@ -2749,14 +2752,14 @@ local function CS_RefreshMeleeBoss(self)
                 if a > H.DualWieldCritCap(mhSkill) then a = H.DualWieldCritCap(mhSkill) end
                 local b = effCrit
                 if b > H.DualWieldCritCap(ohSkill) then b = H.DualWieldCritCap(ohSkill) end
-                c5.lines[6]:SetText("Critico Efetivo: " .. H.Fmt1(a) .. "% | " .. H.Fmt1(b) .. "%")
+                c5.lines[6]:SetText("Crítico Efetivo: " .. H.Fmt1(a) .. "% | " .. H.Fmt1(b) .. "%")
             else
                 local cap = H.CritCap(mhSkill)
                 if effCrit > cap then effCrit = cap end
-                c5.lines[6]:SetText("Critico Efetivo: " .. H.Fmt1(effCrit) .. "%")
+                c5.lines[6]:SetText("Crítico Efetivo: " .. H.Fmt1(effCrit) .. "%")
             end
         else
-            c5.lines[6]:SetText("Critico Efetivo: —")
+            c5.lines[6]:SetText("Crítico Efetivo: —")
         end
     end
 end
@@ -2769,7 +2772,7 @@ local function CS_RefreshRanged(self)
         local sc = self.skillCache
         local rSkill = 0
         if sc then rSkill = sc.ranged or 0 end
-        c6.lines[1]:SetText("Pericia Ranged: " .. tostring(rSkill))
+        c6.lines[1]:SetText("Perícia Ranged: " .. tostring(rSkill))
 
         local rMin, rMax, rSpeedFromDmg = nil, nil, nil
         if type(UnitRangedDamage) == "function" then
@@ -2806,7 +2809,7 @@ local function CS_RefreshRanged(self)
             if ok and v then isWand = true end
         end
         if isWand then
-            c6.lines[4]:SetText("Poder de Ataque (dist.): --")
+            c6.lines[4]:SetText("Poder de Ataque (dist.): —")
         else
             local rapBase, rapPos, rapNeg = nil, nil, nil
             if type(UnitRangedAttackPower) == "function" then
@@ -2820,7 +2823,7 @@ local function CS_RefreshRanged(self)
         end
 
         c6.lines[5]:SetText("Acerto (Hit): +" .. H.Fmt1(H.RangedHit()) .. "%")
-        c6.lines[6]:SetText("Critico (dist.): " .. H.Fmt1(H.RangedCrit()) .. "%")
+        c6.lines[6]:SetText("Crítico (dist.): " .. H.Fmt1(H.RangedCrit()) .. "%")
     end
 end
 
@@ -2839,8 +2842,8 @@ local function CS_RefreshSpell(self)
         c7.lines[1]:SetText(spTxt)
 
         local sHit = H.SpellHit()
-        c7.lines[2]:SetText("Hit Magico: +" .. H.Fmt1(sHit) .. "%")
-        c7.lines[3]:SetText("Critico Magico: " .. H.Fmt1(H.SpellCritBase()) .. "%")
+        c7.lines[2]:SetText("Hit Mágico: +" .. H.Fmt1(sHit) .. "%")
+        c7.lines[3]:SetText("Crítico Mágico: " .. H.Fmt1(H.SpellCritBase()) .. "%")
 
         local healTotal = H.HealingTotal()
         c7.lines[4]:SetText("Poder de Cura (+Heal): +" .. tostring(H.Num(healTotal, 0)))
@@ -2860,11 +2863,12 @@ local function CS_RefreshSpell(self)
                 c7.lines[5]:SetText("Regen. Mana: " .. string.format("%d MP2", totalRegen))
             end
         else
-            c7.lines[5]:SetText("Regen. Mana: N/A (sem mana)")
+            c7.lines[5]:SetText("Regen. Mana: — (sem mana)")
         end
 
         local haste, spellHaste = H.Haste()
-        c7.lines[6]:SetText("Spell Haste: " .. tostring(H.Num(haste, 0) + H.Num(spellHaste, 0)) .. "%")
+        -- Fase 6 polimento: % com 1 casa como os demais stats (Fmt1).
+        c7.lines[6]:SetText("Spell Haste: " .. H.Fmt1(H.Num(haste, 0) + H.Num(spellHaste, 0)) .. "%")
     end
 end
 
@@ -3081,7 +3085,7 @@ function CharacterScreen:RefreshWeaponProfs()
     -- secundarias, ARMAS, ...). Sem cabecalho: linha honesta, resto vazio.
     if not headerIdx then headerIdx = thirdHeader end
     if not headerIdx then
-        card.lines[1]:SetText("Pericias: — (cabecalho nao achado)")
+        card.lines[1]:SetText("Perícias: — (cabeçalho não achado)")
         local z = 2
         while z <= 8 do
             card.lines[z]:SetText("")
@@ -3138,7 +3142,7 @@ function CharacterScreen:RefreshWeaponProfs()
     end
     local n = table.getn(names)
     if n == 0 then
-        card.lines[1]:SetText("Sem pericias de arma")
+        card.lines[1]:SetText("Sem perícias de arma")
         local z2 = 2
         while z2 <= 8 do
             card.lines[z2]:SetText("")
@@ -3232,7 +3236,7 @@ function CharacterScreen:RefreshProfessions()
         if okN and type(nLines) == "number" then total = nLines end
     end
     if total <= 0 then
-        cardP.lines[1]:SetText("Sem profissoes")
+        cardP.lines[1]:SetText("Sem profissões")
         local zp = 2
         while zp <= 3 do
             cardP.lines[zp]:SetText("")
@@ -3246,7 +3250,7 @@ function CharacterScreen:RefreshProfessions()
                 hb = hb + 1
             end
         end
-        cardS.lines[1]:SetText("Sem oficios")
+        cardS.lines[1]:SetText("Sem ofícios")
         local zs = 2
         while zs <= 4 do
             cardS.lines[zs]:SetText("")
@@ -3379,7 +3383,7 @@ function CharacterScreen:RefreshProfessions()
     -- overflow "... (+N)" sem barra. Zero: linha honesta + resto vazio.
     local np = table.getn(pNames)
     if np == 0 then
-        cardP.lines[1]:SetText("Sem profissoes")
+        cardP.lines[1]:SetText("Sem profissões")
         local z3 = 2
         while z3 <= 3 do
             cardP.lines[z3]:SetText("")
@@ -3438,7 +3442,7 @@ function CharacterScreen:RefreshProfessions()
     -- 3b. OFICIOS: ate 4 linhas de dados; havendo mais, a 4a vira overflow.
     local ns = table.getn(sNames)
     if ns == 0 then
-        cardS.lines[1]:SetText("Sem oficios")
+        cardS.lines[1]:SetText("Sem ofícios")
         local z4 = 2
         while z4 <= 4 do
             cardS.lines[z4]:SetText("")
@@ -3604,7 +3608,7 @@ function CharacterScreen:RefreshReputations()
     end
     local n = table.getn(names)
     if n == 0 then
-        card.lines[1]:SetText("Sem reputacoes")
+        card.lines[1]:SetText("Sem reputações")
         local z1 = 2
         while z1 <= 72 do
             card.lines[z1]:SetText("")
@@ -3649,7 +3653,7 @@ function CharacterScreen:RefreshReputations()
             if bar and type(bar.Hide) == "function" then bar:Hide() end
             if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
         elseif n > 72 and s == 72 then
-            fs:SetText("... (+" .. tostring(n - 71) .. " ver Reputacao U)")
+            fs:SetText("... (+" .. tostring(n - 71) .. " ver Reputação U)")
             if bar and type(bar.Hide) == "function" then bar:Hide() end
             if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
         elseif s <= n then

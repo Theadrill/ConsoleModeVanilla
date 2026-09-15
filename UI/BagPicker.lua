@@ -244,19 +244,19 @@ function BP:ApplyItemBinding(page, btnKey, comboName, item)
     -- Reutiliza o SBP para resoluÃ§Ã£o de slot (mesma lÃ³gica)
     local SBP = CM.config and CM.config.spellbookPicker
     if not SBP then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro interno: SBP nao encontrado!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("BAGPK_ERR_SBP"))
         return false
     end
 
     local physKey = SBP.KEY_MAPPINGS[page] and SBP.KEY_MAPPINGS[page][btnKey]
     if not physKey then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro: tecla fisica nao encontrada!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("BAGPK_ERR_KEY"))
         return false
     end
 
     local slot, bindingAction = SBP:ResolveTargetSlot(page, btnKey)
     if not slot then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Sem slot disponivel! Libere um slot nas barras de acao.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("BAGPK_ERR_NOSLOT"))
         return false
     end
 
@@ -267,7 +267,7 @@ function BP:ApplyItemBinding(page, btnKey, comboName, item)
         ClearCursor()
     end)
     if not ok then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro ao colocar item no slot " .. slot .. "!")
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("BAGPK_ERR_PLACE_FMT"), slot))
         ClearCursor()
         return false
     end
@@ -284,9 +284,7 @@ function BP:ApplyItemBinding(page, btnKey, comboName, item)
     end
 
     DEFAULT_CHAT_FRAME:AddMessage(
-        "|cff00ff00[ConsoleMode]|r |cffffcc00" .. comboName
-        .. "|r vinculado a |cff88ccff" .. item.name
-        .. "|r (slot " .. slot .. ")!"
+        format(CM:T("BAGPK_BOUND_FMT"), comboName, item.name, slot)
     )
     PlaySound("igMainMenuOptionCheckBoxOn")
 

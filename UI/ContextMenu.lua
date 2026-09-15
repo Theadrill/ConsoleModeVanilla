@@ -62,10 +62,10 @@ function Menu:Initialize()
     f.menuView = menuView
 
     local btnDefs = {
-        { id = 1, label = "Usar / Equipar",     color = { r=0.2, g=0.9, b=0.3 }, action = "USE" },
-        { id = 2, label = "Dividir (Split)",    color = { r=0.3, g=0.7, b=1.0 }, action = "SPLIT" },
-        { id = 3, label = "Re-Stack (Agrupar)", color = { r=1.0, g=0.85, b=0.2 }, action = "RESTACK" },
-        { id = 4, label = "Excluir / Destruir", color = { r=0.95, g=0.3, b=0.3 }, action = "DROP" },
+        { id = 1, label = "Usar / Equipar",     tkey = "CTX_USE_EQUIP", color = { r=0.2, g=0.9, b=0.3 }, action = "USE" },
+        { id = 2, label = "Dividir (Split)",    tkey = "CTX_SPLIT",     color = { r=0.3, g=0.7, b=1.0 }, action = "SPLIT" },
+        { id = 3, label = "Re-Stack (Agrupar)", tkey = "CTX_RESTACK",   color = { r=1.0, g=0.85, b=0.2 }, action = "RESTACK" },
+        { id = 4, label = "Excluir / Destruir", tkey = "CTX_DROP",      color = { r=0.95, g=0.3, b=0.3 }, action = "DROP" },
     }
 
     self.buttons = {}
@@ -86,7 +86,7 @@ function Menu:Initialize()
 
         local text = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         text:SetPoint("CENTER", btn, "CENTER", 0, 0)
-        text:SetText(def.label)
+        text:SetText(CM:T(def.tkey or ""))
         text:SetTextColor(def.color.r, def.color.g, def.color.b)
         do
             local f, s, o = text:GetFont()
@@ -177,7 +177,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     local useBtn = self.buttons[1]
     if useBtn then
         useBtn:Show()
-        useBtn.text:SetText("Usar / Equipar")
+        useBtn.text:SetText(CM:T("CTX_USE_EQUIP"))
         useBtn.action = "USE"
         if isUsable then
             useBtn:Enable()
@@ -192,7 +192,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     local splitBtn = self.buttons[2]
     if splitBtn then
         splitBtn:Show()
-        splitBtn.text:SetText("Dividir (Split)")
+        splitBtn.text:SetText(CM:T("CTX_SPLIT"))
         splitBtn.action = "SPLIT"
         if count and count > 1 then
             splitBtn:Enable()
@@ -206,7 +206,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     local restackBtn = self.buttons[3]
     if restackBtn then
         restackBtn:Show()
-        restackBtn.text:SetText("Re-Stack (Agrupar)")
+        restackBtn.text:SetText(CM:T("CTX_RESTACK"))
         restackBtn.action = "RESTACK"
         if count > 1 or maxStack > 1 then
             restackBtn:Enable()
@@ -221,7 +221,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     if dropBtn then
         dropBtn:Show()
         dropBtn:Enable()
-        dropBtn.text:SetText("Excluir / Destruir")
+        dropBtn.text:SetText(CM:T("CTX_DROP"))
         dropBtn.text:SetTextColor(0.95, 0.3, 0.3)
         dropBtn.action = "DROP"
     end
@@ -317,7 +317,7 @@ function Menu:OpenForEquipItem(invSlotID, anchorFrame)
     if unequipBtn then
         unequipBtn:Show()
         unequipBtn:Enable()
-        unequipBtn.text:SetText("Desequipar (Unequip)")
+        unequipBtn.text:SetText(CM:T("CTX_UNEQUIP"))
         unequipBtn.text:SetTextColor(0.3, 0.8, 1.0)
         unequipBtn.action = "UNEQUIP"
     end
@@ -384,7 +384,7 @@ function Menu:OpenForBuff(buffIndex, buffName, anchorFrame)
     if cancelBtn then
         cancelBtn:Show()
         cancelBtn:Enable()
-        cancelBtn.text:SetText("Cancelar Buff")
+        cancelBtn.text:SetText(CM:T("CTX_BUFF_CANCEL"))
         cancelBtn.text:SetTextColor(0.95, 0.3, 0.3)
         cancelBtn.action = "CANCEL_BUFF"
     end
@@ -508,7 +508,7 @@ function Menu:ExecuteAction(action)
             if CursorHasItem() then
                 ClearCursor()
                 if DEFAULT_CHAT_FRAME then
-                    DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Suas bolsas estão cheias!")
+                    DEFAULT_CHAT_FRAME:AddMessage(CM:T("CTX_MSG_BAGS_FULL"))
                 end
             else
                 PlaySound("igMainMenuOptionCheckBoxOn")
@@ -551,7 +551,7 @@ function Menu:ExecuteAction(action)
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
         if not qp or not qp.Open then return end
         qp:Open({
-            title = "Dividir Pilha",
+            title = CM:T("CTX_SPLIT_TITLE"),
             itemName = nm,
             qty = startQ,
             maxQty = liveCount,
@@ -562,12 +562,12 @@ function Menu:ExecuteAction(action)
                     local okS, why = bs:Start(ctx.bag, ctx.slot, q, {
                         onFail = function(reason, c)
                             if DEFAULT_CHAT_FRAME then
-                                DEFAULT_CHAT_FRAME:AddMessage("Divisão falhou (" .. tostring(reason) .. "). Confira a bolsa.", 1, 0.25, 0.25)
+                                DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("CTX_MSG_SPLIT_FAIL_FMT"), tostring(reason)), 1, 0.25, 0.25)
                             end
                         end,
                     })
                     if not okS and DEFAULT_CHAT_FRAME then
-                        DEFAULT_CHAT_FRAME:AddMessage("Divisão falhou (" .. tostring(why) .. ").", 1, 0.25, 0.25)
+                        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("CTX_MSG_SPLIT_FAIL_SHORT_FMT"), tostring(why)), 1, 0.25, 0.25)
                     end
                 end
             end,
@@ -659,7 +659,7 @@ restackTicker:SetScript("OnUpdate", function()
         -- Todas as pilhas parciais foram unificadas!
         this:Hide()
         PlaySound("igMainMenuOptionCheckBoxOn")
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Todas as pilhas de " .. (this.itemName or "Item") .. " foram consolidadas!")
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("CTX_MSG_RESTACED_FMT"), (this.itemName or "Item")))
         return
     end
 
@@ -743,7 +743,7 @@ function Menu:OpenForQuest(questLogIndex, questTitle, anchorFrame)
     if btn1 then
         btn1:Show()
         btn1:Enable()
-        btn1.text:SetText("Detalhes da Missao")
+        btn1.text:SetText(CM:T("CTX_QUEST_DETAIL"))
         btn1.text:SetTextColor(0.3, 0.7, 1.0)
         btn1.action = "QUEST_DETAIL"
     end
@@ -752,7 +752,7 @@ function Menu:OpenForQuest(questLogIndex, questTitle, anchorFrame)
     if btn2 then
         btn2:Show()
         btn2:Enable()
-        btn2.text:SetText("Abandonar Missao")
+        btn2.text:SetText(CM:T("CTX_QUEST_ABANDON"))
         btn2.text:SetTextColor(0.95, 0.3, 0.3)
         btn2.action = "QUEST_ABANDON"
     end

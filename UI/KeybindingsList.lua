@@ -21,17 +21,17 @@ local BUTTON_INFO = {
     B      = { label = "B",              fallback = "[B]" },
     X      = { label = "X",              fallback = "[X]" },
     Y      = { label = "Y",              fallback = "[Y]" },
-    DUP    = { label = "D-Pad Cima",     fallback = "[^]" },
-    DDOWN  = { label = "D-Pad Baixo",    fallback = "[v]" },
-    DLEFT  = { label = "D-Pad Esquerda", fallback = "[<]" },
-    DRIGHT = { label = "D-Pad Direita",  fallback = "[>]" },
+    DUP    = { label = "D-Pad Cima",     lkey = "BIND_DPAD_UP",    fallback = "[^]" },
+    DDOWN  = { label = "D-Pad Baixo",    lkey = "BIND_DPAD_DOWN",  fallback = "[v]" },
+    DLEFT  = { label = "D-Pad Esquerda", lkey = "BIND_DPAD_LEFT",  fallback = "[<]" },
+    DRIGHT = { label = "D-Pad Direita",  lkey = "BIND_DPAD_RIGHT", fallback = "[>]" },
 }
 
 local PAGE_NAMES = {
-    [1] = "Pagina 1 (Base)",
-    [2] = "Pagina 2 (L2 / Shift)",
-    [3] = "Pagina 3 (R1 / Ctrl)",
-    [4] = "Pagina 4 (R2 / Alt)",
+    [1] = { label = "Pagina 1 (Base)",      tkey = "BIND_PAGE_1" },
+    [2] = { label = "Pagina 2 (L2 / Shift)", tkey = "BIND_PAGE_2" },
+    [3] = { label = "Pagina 3 (R1 / Ctrl)",  tkey = "BIND_PAGE_3" },
+    [4] = { label = "Pagina 4 (R2 / Alt)",   tkey = "BIND_PAGE_4" },
 }
 
 local PAGE_PREFIXES = {
@@ -57,12 +57,12 @@ scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
 function KBList:GetDisplayForButton(page, btnKey)
     -- Caso especial: A na pagina 1 e' sempre Pulo
     if page == 1 and btnKey == "A" then
-        return nil, "Pulo / Jump", "Interface\\Icons\\Ability_Rogue_Sprint"
+        return nil, CM:T("BIND_JUMP"), "Interface\\Icons\\Ability_Rogue_Sprint"
     end
 
     local physKey = KEY_DEFAULTS[page] and KEY_DEFAULTS[page][btnKey]
     if not physKey then
-        return nil, "|cff888888(sem tecla)|r", nil
+        return nil, CM:T("BIND_NO_KEY"), nil
     end
 
     -- Pega qual acao esta vinculada a esta tecla fisica
@@ -78,7 +78,7 @@ function KBList:GetDisplayForButton(page, btnKey)
     end
 
     if not boundAction or boundAction == "" then
-        return nil, "|cff888888(vazio)|r", nil
+        return nil, CM:T("BIND_EMPTY"), nil
     end
 
     -- Resolve slot de action bar (string.find com captures = Lua 5.0 safe)
@@ -127,10 +127,10 @@ function KBList:GetDisplayForButton(page, btnKey)
                     end
                 end
                 if not name or name == "" then
-                    name = "Acao (Slot " .. slot .. ")"
+                    name = format(CM:T("BIND_ACTION_SLOT_FMT"), slot)
                 end
             else
-                name = "|cff888888(Vazio - Slot " .. slot .. ")|r"
+                name = format(CM:T("BIND_EMPTY_SLOT_FMT"), slot)
             end
         end
         return slot, name, tex
@@ -159,11 +159,11 @@ function KBList:Show(parent)
         -- Titulo da Secao
         local title = f:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
         title:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -12)
-        title:SetText("Mapeamento de Combinacoes")
+        title:SetText(CM:T("BIND_TITLE"))
         
         local desc = f:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
         desc:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -4)
-        desc:SetText("Escolha a pagina e selecione um botao para vincular:")
+        desc:SetText(CM:T("BIND_DESC"))
         
         -- Barra de Abas das 4 Paginas (Base, L2, R1, R2)
         local pageBar = CreateFrame("Frame", "ConsoleModePageTabs", f)
@@ -178,7 +178,7 @@ function KBList:Show(parent)
             pBtn:SetHeight(24)
             pBtn:SetPoint("LEFT", pageBar, "LEFT", (idx - 1) * 105, 0)
             
-            local shortName = idx == 1 and "1: Base" or (idx == 2 and "2: L2" or (idx == 3 and "3: R1" or "4: R2"))
+            local shortName = idx == 1 and CM:T("BIND_PAGE_SHORT_1") or (idx == 2 and CM:T("BIND_PAGE_SHORT_2") or (idx == 3 and CM:T("BIND_PAGE_SHORT_3") or CM:T("BIND_PAGE_SHORT_4")))
             pBtn:SetText(shortName)
             
             pBtn:SetScript("OnClick", function()
@@ -222,14 +222,15 @@ function KBList:Show(parent)
             -- Texto da combinacao de controle (ex: "L2 + X")
             local comboText = rowBtn:CreateFontString(nil, "ARTWORK", "GameFontNormal")
             comboText:SetPoint("TOPLEFT", actIcon, "TOPRIGHT", 8, 0)
-            comboText:SetText(BUTTON_INFO[btnKey] and BUTTON_INFO[btnKey].label or btnKey)
+            local bi = BUTTON_INFO[btnKey]
+            comboText:SetText((bi and bi.lkey) and CM:T(bi.lkey) or (bi and bi.label or btnKey))
             
             -- Nome da acao vinculada (ex: "Fireball", "Pulo")
             local actionText = rowBtn:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
             actionText:SetPoint("BOTTOMLEFT", actIcon, "BOTTOMRIGHT", 8, 2)
             actionText:SetPoint("RIGHT", rowBtn, "RIGHT", -8, 0)
             actionText:SetJustifyH("LEFT")
-            actionText:SetText("Carregando...")
+            actionText:SetText(CM:T("BIND_LOADING"))
             
             rowBtn.btnKey = curBtnKey
             rowBtn.actIcon = actIcon
@@ -289,14 +290,15 @@ function KBList:SelectPage(pageNum)
         local rowBtn = self.buttons[i]
         if rowBtn then
             local prefix = PAGE_PREFIXES[pageNum] or ""
-            local info = BUTTON_INFO[btnKey]
-            local comboName = prefix .. (info and info.label or btnKey)
+        local info = BUTTON_INFO[btnKey]
+        local infoLabel = (info and info.lkey) and CM:T(info.lkey) or (info and info.label or btnKey)
+        local comboName = prefix .. infoLabel
             
             rowBtn.comboText:SetText("|cffffcc00" .. comboName .. "|r")
             
             local slot, displayName, texture = self:GetDisplayForButton(pageNum, btnKey)
             rowBtn.actIcon:SetTexture(texture or "Interface\\Icons\\INV_Misc_QuestionMark")
-            rowBtn.actionText:SetText(displayName or "|cff888888(vazio)|r")
+            rowBtn.actionText:SetText(displayName or CM:T("BIND_EMPTY"))
         end
     end
 end
@@ -304,7 +306,8 @@ end
 function KBList:OnKeySelected(btnKey)
     local prefix = PAGE_PREFIXES[self.currentPage] or ""
     local info = BUTTON_INFO[btnKey]
-    local comboName = prefix .. (info and info.label or btnKey)
+    local infoLabel = (info and info.lkey) and CM:T(info.lkey) or (info and info.label or btnKey)
+    local comboName = prefix .. infoLabel
     
     -- Esconde a lista de binds e abre o Seletor de Action Bar diretamente no painel!
     if self.frame then
@@ -315,7 +318,7 @@ function KBList:OnKeySelected(btnKey)
     if picker and picker.Show and self.parent then
         picker:Show(self.parent, self.currentPage, btnKey, comboName)
     else
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro ao abrir seletor de barras!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("BIND_ERR_PICKER"))
     end
 end
 

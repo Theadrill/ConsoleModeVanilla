@@ -173,13 +173,13 @@ end
 function SBP:ApplySpellBinding(page, btnKey, comboName, spell)
     local physKey = self.KEY_MAPPINGS[page] and self.KEY_MAPPINGS[page][btnKey]
     if not physKey then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro: tecla fisica nao encontrada!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("SPBOOK_ERR_KEY"))
         return false
     end
 
     local slot, bindingAction = self:ResolveTargetSlot(page, btnKey)
     if not slot then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Sem slot disponivel! Libere um slot nas barras de acao.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("SPBOOK_ERR_NOSLOT"))
         return false
     end
 
@@ -190,7 +190,7 @@ function SBP:ApplySpellBinding(page, btnKey, comboName, spell)
         ClearCursor()
     end)
     if not ok then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro ao colocar magia no slot " .. slot .. "!")
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("SPBOOK_ERR_PLACE_FMT"), slot))
         ClearCursor()
         return false
     end
@@ -208,8 +208,7 @@ function SBP:ApplySpellBinding(page, btnKey, comboName, spell)
 
     local rankStr = (spell.rank and spell.rank ~= "") and (" (" .. spell.rank .. ")") or ""
     DEFAULT_CHAT_FRAME:AddMessage(
-        "|cff00ff00[ConsoleMode]|r |cffffcc00" .. comboName .. "|r vinculado a |cff88ccff"
-        .. spell.name .. rankStr .. "|r (slot " .. slot .. ")!"
+        format(CM:T("SPBOOK_BOUND_FMT"), comboName, spell.name .. rankStr, slot)
     )
     PlaySound("igMainMenuOptionCheckBoxOn")
 

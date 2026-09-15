@@ -234,7 +234,7 @@ function KB:Initialize()
     if type(InteractNearest) == "function" then
         SetBinding("ALT-SPACE", "CM_INTERACT")
         CM.logger:Log("Interact.dll detectada! R2 + A configurado automaticamente para Interagir.")
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Interact DLL detectada! |cffffcc00R2 + A|r vinculado para Interagir.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_INTERACT"))
     end
 
     -- Aplica todos os bindings das 5 paginas automaticamente no login
@@ -562,7 +562,7 @@ function KB:BackupProfile()
     ConsoleModeDB.backup[UnitName("player")] = backup
 
     CM.logger:Log("Backup criado para " .. UnitName("player") .. " em " .. backup.timestamp)
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Backup salvo! Use |cffffd100/cm keyboard|r para restaurar.")
+    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_BACKUP_SAVED"))
 end
 
 -- ============================================================
@@ -570,7 +570,7 @@ end
 -- ============================================================
 function KB:RestoreProfile()
     if not ConsoleModeDB or not ConsoleModeDB.backup then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Nenhum backup encontrado!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_BACKUP_NONE"))
         return
     end
 
@@ -578,7 +578,7 @@ function KB:RestoreProfile()
     local backup = ConsoleModeDB.backup[playerName]
 
     if not backup then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Nenhum backup para " .. playerName .. "!")
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_BACKUP_PLAYER_FMT"), playerName))
         return
     end
 
@@ -600,7 +600,7 @@ function KB:RestoreProfile()
     SaveBindings(GetCurrentBindingSet())
 
     CM.logger:Log("Perfil de teclado restaurado para " .. playerName)
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Perfil original de teclado restaurado!")
+    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_PROFILE_RESTORED"))
 end
 
 -- ============================================================
@@ -613,9 +613,9 @@ function KB:ToggleMouseMode()
     else
         KB.mouseModeActive = not KB.mouseModeActive
         if KB.mouseModeActive then
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode |cff00ff00ATIVADO|r")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_ON"))
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode |cffff4444DESATIVADO|r")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_OFF"))
         end
     end
 end
@@ -697,7 +697,7 @@ function KB:EnterNavigationMode()
     -- Aplica bindings de navegação no D-Pad e botões A, B, X, Y
     KB:ReapplyNavigationBindings()
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Keybindings]|r Modo Navegacao ATIVADO (D-Pad = Navegar | A = Clicar | Y = Usar Item | B = Cancelar)")
+    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_NAV_ON"))
     CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, Y = Usar Item, B = Cancelar")
 end
 
@@ -836,7 +836,7 @@ function KB:ExitNavigationMode(force)
         CM.ui.actionHUD:Update()
     end
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cffff8800[CM Keybindings]|r Modo Navegacao DESATIVADO (Combate restaurado)")
+    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_NAV_OFF"))
     CM.logger:Log("Modo HOTKEY restaurado - D-Pad = ações de combate")
 end
 
@@ -996,10 +996,10 @@ end
 function CM_ToggleMouseMode()
     if IsMouselooking() then
         CM_MouseLookStop()
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode: |cff00ff00ATIVADO|r (Cursor Livre)")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_FREE_ON"))
     else
         CM_MouseLookStart()
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Mouse Mode: |cffff4444DESATIVADO|r (Câmera no Analógico)")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_FREE_OFF"))
     end
 end
 
@@ -1346,7 +1346,7 @@ function CM_CursorUse()
         if ConsoleMode_MerchantMenu.AutoSellJunk then
             ConsoleMode_MerchantMenu:AutoSellJunk()
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Este mercador não oferece serviço de reparos.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_NO_REPAIR"))
         end
         return
     end
@@ -1828,5 +1828,5 @@ end
 function CM_OpenRingMenu()
     if CM.keybindings.chatActive then return end
     CM.logger:Log("Menu Ring: Abrir (L2+R2+A) — Em desenvolvimento!")
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[ConsoleMode]|r Menu Ring |cffffcc00em breve!|r")
+    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_RING_SOON"))
 end

@@ -30,7 +30,7 @@ function XPBar:Initialize()
     f:SetHeight(22)
     -- Torna o frame movivel, persistente e resetavel globalmente
     if CM.ui and CM.ui.MakeMovable then
-        CM.ui:MakeMovable(f, "XPBar", "BOTTOM", "BOTTOM", 0, 10, "Barra de Experiencia")
+        CM.ui:MakeMovable(f, "XPBar", "BOTTOM", "BOTTOM", 0, 10, CM:T("HUD_XP_BAR_NAME"))
     else
         f:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 10)
     end
@@ -93,14 +93,14 @@ function XPBar:Initialize()
         local pct = maxXP > 0 and math.floor((curXP / maxXP) * 100) or 0
         
         GameTooltip:SetOwner(this, "ANCHOR_TOP")
-        GameTooltip:AddLine("Experiencia", 1, 1, 1)
-        GameTooltip:AddLine(string.format("XP: %d / %d (%d%%)", curXP, maxXP, pct), 0.8, 0.8, 0.8)
+        GameTooltip:AddLine(CM:T("HUD_XP_TITLE"), 1, 1, 1)
+        GameTooltip:AddLine(format(CM:T("HUD_XP_FMT"), curXP, maxXP, pct), 0.8, 0.8, 0.8)
         if restXP > 0 then
             local restPct = math.floor((restXP / maxXP) * 100)
-            GameTooltip:AddLine(string.format("Descansado: +%d (%d%%)", restXP, restPct), 0.2, 0.6, 1.0)
+            GameTooltip:AddLine(format(CM:T("HUD_XP_RESTED_FMT"), restXP, restPct), 0.2, 0.6, 1.0)
         end
-        GameTooltip:AddLine("|cff888888Shift + Clique Esquerdo: Arrastar|r", 0.5, 0.5, 0.5)
-        GameTooltip:AddLine("|cff888888Shift + Clique Direito: Resetar posicao|r", 0.5, 0.5, 0.5)
+        GameTooltip:AddLine(CM:T("HUD_XP_DRAG"), 0.5, 0.5, 0.5)
+        GameTooltip:AddLine(CM:T("HUD_XP_RESET"), 0.5, 0.5, 0.5)
         GameTooltip:Show()
     end)
     
@@ -173,7 +173,7 @@ function XPBar:Update()
         self.frame.bar:SetMinMaxValues(0, 1)
         self.frame.bar:SetValue(1)
         self.frame.bar:SetStatusBarColor(0.58, 0.2, 0.9, 1.0) -- Roxo
-        self.frame.text:SetText("Level Maximo (60)")
+        self.frame.text:SetText(CM:T("HUD_XP_MAX"))
         return
     end
     

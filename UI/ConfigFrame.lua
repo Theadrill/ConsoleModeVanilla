@@ -45,7 +45,7 @@ function Config:Initialize()
     
     local title = f:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     title:SetPoint("TOP", headerTexture, "TOP", 0, -14)
-    title:SetText("ConsoleMode - Settings")
+    title:SetText(CM:T("CFG_TITLE"))
     
     -- Botao de Fechar no canto superior direito
     local closeBtn = CreateFrame("Button", "ConsoleModeSettingsCloseButton", f, "UIPanelCloseButton")
@@ -73,7 +73,7 @@ function Config:Initialize()
     tabKeybindings:SetWidth(134)
     tabKeybindings:SetHeight(32)
     tabKeybindings:SetPoint("TOP", leftNav, "TOP", 0, -8)
-    tabKeybindings:SetText("Atalhos / Binds")
+    tabKeybindings:SetText(CM:T("CFG_TAB_BINDS"))
     tabKeybindings:SetScript("OnClick", function()
         -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[LOG 1]|r Botao lateral Atalhos/Binds clicado!") -- NOLOG 2026-09-14
         Config:SelectTab("KEYBINDINGS")
@@ -96,7 +96,7 @@ function Config:Initialize()
     -- Rodape informativo com prompts de controle
     local footerText = f:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
     footerText:SetPoint("BOTTOM", f, "BOTTOM", 0, 16)
-    footerText:SetText("|cff00ff00[A]|r Selecionar / Mapear   |   |cffff4444[B]|r Voltar / Fechar")
+    footerText:SetText(CM:T("CFG_FOOTER"))
     
     f:Hide()
     self.frame = f

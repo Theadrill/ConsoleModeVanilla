@@ -60,19 +60,19 @@ end
 function MP:ApplyMacroBinding(page, btnKey, comboName, macro)
     local SBP = CM.config and CM.config.spellbookPicker
     if not SBP then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro interno: SBP nao encontrado!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MACPK_ERR_SBP"))
         return false
-   end
+    end
 
     local physKey = SBP.KEY_MAPPINGS[page] and SBP.KEY_MAPPINGS[page][btnKey]
     if not physKey then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro; tecla fisica nao encontrada!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MACPK_ERR_KEY"))
         return false
     end
 
     local slot, bindingAction = SBP:ResolveTargetSlot(page, btnKey)
     if not slot then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Sem slot disponivel! Libere um slot nas barras de acao.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MACPK_ERR_NOSLOT"))
         return false
     end
 
@@ -83,7 +83,7 @@ function MP:ApplyMacroBinding(page, btnKey, comboName, macro)
         ClearCursor()
     end)
     if not ok then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro ao colocar macro no slot " .. slot .. "!")
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MACPK_ERR_PLACE_FMT"), slot))
         ClearCursor()
         return false
     end
@@ -100,9 +100,7 @@ function MP:ApplyMacroBinding(page, btnKey, comboName, macro)
     end
 
     DEFAULT_CHAT_FRAME:AddMessage(
-        "|cff00ff00[ConsoleMode]|r |cffffcc00" .. comboName
-        .. "|r vinculado a macro |cff88ccff#" .. macro.name
-        .. "|r (slot " .. slot .. ")!"
+        format(CM:T("MACPK_BOUND_FMT"), comboName, macro.name, slot)
     )
     PlaySound("igMainMenuOptionCheckBoxOn")
 

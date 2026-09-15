@@ -326,7 +326,7 @@ function PF:Initialize()
             f, "PlayerFrame",
             CFG.Anchor.point, CFG.Anchor.relPoint,
             CFG.Anchor.defaultX, CFG.Anchor.defaultY,
-            "Player Frame"
+            CM:T("HUD_PLAYERFRAME_NAME")
         )
     else
         f:SetPoint(
@@ -389,7 +389,7 @@ function PF:Initialize()
                 if ConsoleModeDB and ConsoleModeDB.positions then
                     ConsoleModeDB.positions["PlayerFrame"] = nil
                 end
-                DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Player Frame restaurado para a posicao padrao!")
+                DEFAULT_CHAT_FRAME:AddMessage(CM:T("HUD_PLAYERFRAME_RESET"))
             end
         end
     end)
@@ -598,7 +598,7 @@ function PF:Initialize()
         end
         this:SetValue(this.value)
         local secs = math.ceil(this.value)
-        this.text:SetText("Respiracao " .. secs .. "s")
+        this.text:SetText(format(CM:T("HUD_BREATH_FMT"), secs))
     end)
 
 
@@ -1101,7 +1101,7 @@ function PF:Initialize()
                     bb:SetMinMaxValues(0, bb.maxValue)
                     bb:SetValue(bb.value)
                     local secs = math.ceil(bb.value)
-                    bb.text:SetText("Respiracao " .. secs .. "s")
+                    bb.text:SetText(format(CM:T("HUD_BREATH_FMT"), secs))
                     bb:Show()
                 end
             end

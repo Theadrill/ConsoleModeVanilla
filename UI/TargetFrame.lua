@@ -89,7 +89,7 @@ function TF:Initialize()
     f:SetHeight(CFG.Size.height)
     
     if CM.ui and CM.ui.MakeMovable then
-        CM.ui:MakeMovable(f, "TargetFrame", CFG.Anchor.point, CFG.Anchor.relPoint, CFG.Anchor.defaultX, CFG.Anchor.defaultY, "Target Frame")
+        CM.ui:MakeMovable(f, "TargetFrame", CFG.Anchor.point, CFG.Anchor.relPoint, CFG.Anchor.defaultX, CFG.Anchor.defaultY, CM:T("HUD_TARGETFRAME_NAME"))
     else
         f:SetPoint(CFG.Anchor.point, UIParent, CFG.Anchor.relPoint, CFG.Anchor.defaultX, CFG.Anchor.defaultY)
     end
@@ -517,7 +517,7 @@ function TF:Update()
     self.frame:Show()
 
     -- 1. Nome do Alvo
-    local name = UnitName("target") or "Desconhecido"
+    local name = UnitName("target") or CM:T("HUD_TARGET_UNKNOWN")
     self.frame.nameText:SetText(name)
 
     -- 2. Nivel e Classificacao
@@ -526,25 +526,25 @@ function TF:Update()
     local classText = ""
 
     if classification == "worldboss" then
-        classText = " [Chefe Mundial]"
+        classText = CM:T("HUD_CLASS_WORLDBOSS")
         self.frame.eliteIcon:Show()
     elseif classification == "rareelite" then
-        classText = " [Raro Elite]"
+        classText = CM:T("HUD_CLASS_RAREELITE")
         self.frame.eliteIcon:Show()
     elseif classification == "elite" then
-        classText = " [Elite]"
+        classText = CM:T("HUD_CLASS_ELITE")
         self.frame.eliteIcon:Show()
     elseif classification == "rare" then
-        classText = " [Raro]"
+        classText = CM:T("HUD_CLASS_RARE")
         self.frame.eliteIcon:Hide()
     else
         self.frame.eliteIcon:Hide()
     end
 
     if level and level > 0 then
-        self.frame.levelText:SetText("Nível " .. level .. classText)
+        self.frame.levelText:SetText(format(CM:T("HUD_LEVEL_FMT"), level, classText))
     else
-        self.frame.levelText:SetText("Nível ?? " .. classText) -- Boss / Caveira
+        self.frame.levelText:SetText(format(CM:T("HUD_LEVEL_UNKNOWN_FMT"), classText)) -- Boss / Caveira
     end
 
     -- 3. Retrato e Moldura Dinamica do Alvo

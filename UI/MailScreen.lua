@@ -358,11 +358,11 @@ end
 function MailScreen:GetInboxFilterName()
     local f = self.inboxFilter or 1
     if f == 2 then
-        return "Nao lidos"
+        return CM:T("MAIL_FILTER_UNREAD")
     elseif f == 3 then
-        return "Com anexo"
+        return CM:T("MAIL_FILTER_ATTACH")
     end
-    return "Todos"
+    return CM:T("MAIL_FILTER_ALL")
 end
 
 function MailScreen:RequestInboxRefresh()
@@ -714,21 +714,21 @@ end
 -- ShowInboxScreen/ShowComposeScreen alternam a visibilidade.
 function MailScreen:CreateFooterHints(parent)
     local inboxHints = {
-        { icons = { "DALL" },     label = "Navegar" },
-        { icons = { "A" },        label = "Entrar no detalhe" },
-        { icons = { "Y" },        label = "Retirar tudo" },
-        { icons = { "LT", "RT" }, label = "Filtros" },
-        { icons = { "RB" },       label = "Nova mensagem" },
-        { icons = { "B" },        label = "Voltar/Fechar" },
+        { icons = { "DALL" },     label = CM:T("HINT_FOOTER_NAVIGATE") },
+        { icons = { "A" },        label = CM:T("MAIL_HINT_DETAIL") },
+        { icons = { "Y" },        label = CM:T("MAIL_HINT_TAKE_ALL") },
+        { icons = { "LT", "RT" }, label = CM:T("HINT_FOOTER_FILTERS") },
+        { icons = { "RB" },       label = CM:T("MAIL_HINT_NEW") },
+        { icons = { "B" },        label = CM:T("MAIL_HINT_BACK") },
     }
     local composeHints = {
-        { icons = { "DALL" },     label = "Navegar" },
-        { icons = { "A" },        label = "Selecionar" },
-        { icons = { "X" },        label = "Tirar item" },
-        { icons = { "Y" },        label = "Quantidade" },
-        { icons = { "LT", "RT" }, label = "Pular metade" },
-        { icons = { "LB" },       label = "Caixa" },
-        { icons = { "B" },        label = "Voltar/Fechar" },
+        { icons = { "DALL" },     label = CM:T("HINT_FOOTER_NAVIGATE") },
+        { icons = { "A" },        label = CM:T("MAIL_HINT_SELECT") },
+        { icons = { "X" },        label = CM:T("MAIL_HINT_TAKE_ITEM") },
+        { icons = { "Y" },        label = CM:T("MAIL_HINT_QTY") },
+        { icons = { "LT", "RT" }, label = CM:T("MAIL_HINT_HALF") },
+        { icons = { "LB" },       label = CM:T("MAIL_HINT_INBOX") },
+        { icons = { "B" },        label = CM:T("MAIL_HINT_BACK") },
     }
 
     parent.inboxFooter = self:BuildFooterHintsSet("ConsoleMode_MailFooterInbox", inboxHints)
@@ -785,8 +785,8 @@ function MailScreen:CreateTabIndicator(parent)
     end
 
     -- INBOX: LB CAIXA DE ENTRADA RB. COMPOSE: LB NOVA CARTA RB.
-    bar.groupInbox = BuildTabGroup("CAIXA DE ENTRADA")
-    bar.groupCompose = BuildTabGroup("NOVA CARTA")
+    bar.groupInbox = BuildTabGroup(CM:T("MAIL_COL_INBOX"))
+    bar.groupCompose = BuildTabGroup(CM:T("MAIL_COL_NEW"))
     bar.groupCompose:Hide()
 
     self.tabIndicator = bar
@@ -840,7 +840,7 @@ function MailScreen:CreateUI()
     local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     titleText:SetPoint("TOP", frame, "TOP", 0, -20)
     self:ApplyFont(titleText, FONTS.titleBold, 28)
-    titleText:SetText("|cffe09a15CORREIO|r")
+    titleText:SetText(CM:T("MAIL_TITLE"))
     frame.titleText = titleText
 
     -- M4.1: indicador de aba centralizado sob o titulo (§3.1).
@@ -876,7 +876,7 @@ function MailScreen:CreateUI()
     local closeTxt = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     closeTxt:SetPoint("LEFT", closeIcon, "RIGHT", 6, 0)
     self:ApplyFont(closeTxt, FONTS.titleBold, 16)
-    closeTxt:SetText("Sair")
+    closeTxt:SetText(CM:T("MAIL_CLOSE"))
 
     closeBtn:SetScript("OnClick", function()
         MailScreen:Close()
@@ -1023,19 +1023,19 @@ function MailScreen:CreateUI()
         local placeholder = listArea:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         placeholder:SetPoint("CENTER", listArea, "CENTER", 0, 0)
         MailScreen:ApplyFont(placeholder, FONTS.medium, 16)
-        placeholder:SetText("|cffaaaaaaEm breve|r")
+        placeholder:SetText(CM:T("MAIL_COMING_SOON"))
         col.placeholder = placeholder
 
         return col
     end
 
     -- Coluna Esquerda: Caixa de Entrada (lista do inbox, M2)
-    local leftCol = CreateColumnPanel("ConsoleMode_MailColLeft", "CAIXA DE ENTRADA", ICONS.LB)
+    local leftCol = CreateColumnPanel("ConsoleMode_MailColLeft", CM:T("MAIL_COL_INBOX"), ICONS.LB)
     leftCol:SetPoint("TOPLEFT", contentArea, "TOPLEFT", 0, 0)
     leftCol:SetPoint("BOTTOMLEFT", contentArea, "BOTTOMLEFT", 0, 0)
     leftCol:SetPoint("RIGHT", divider, "LEFT", -6, 0)
-    leftCol.placeholder:SetText("|cffaaaaaaAbrindo correio...|r")
-    leftCol.pageIndicator:SetText("|cff888888Caixa de entrada|r")
+    leftCol.placeholder:SetText(CM:T("MAIL_OPENING"))
+    leftCol.pageIndicator:SetText(CM:T("MAIL_COL_INBOX_SUB"))
     frame.leftCol = leftCol
 
     leftCol.header:EnableMouse(true)
@@ -1049,7 +1049,7 @@ function MailScreen:CreateUI()
 
     -- Coluna Direita: detalhe FULL da carta + botoes (tela inbox; o compor
     -- virou tela propria em M4, nada de placeholder aqui).
-    local rightCol = CreateColumnPanel("ConsoleMode_MailColRight", "CARTA", ICONS.RB)
+    local rightCol = CreateColumnPanel("ConsoleMode_MailColRight", CM:T("MAIL_COL_LETTER"), ICONS.RB)
     rightCol:SetPoint("TOPRIGHT", contentArea, "TOPRIGHT", 0, 0)
     rightCol:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
     rightCol:SetPoint("LEFT", divider, "RIGHT", 6, 0)
@@ -1059,7 +1059,7 @@ function MailScreen:CreateUI()
     if rightCol.ltBtn then rightCol.ltBtn:Hide() end
     if rightCol.rtBtn then rightCol.rtBtn:Hide() end
     if rightCol.tabsLabel then
-        rightCol.tabsLabel:SetText("|cff888888Detalhe da carta|r")
+        rightCol.tabsLabel:SetText(CM:T("MAIL_DETAIL_HINT"))
     end
     if rightCol.placeholder then rightCol.placeholder:Hide() end
     if rightCol.pageIndicator then rightCol.pageIndicator:SetText("") end
@@ -1137,9 +1137,9 @@ end
 -- dado de exibicao (nunca retira nada). Sem tooltip nesta fase.
 -- ----------------------------------------------------------------------------
 local MAIL_FILTERS = {
-    { id = 1, name = "Todos" },
-    { id = 2, name = "Nao lidos" },
-    { id = 3, name = "Com anexo" },
+    { id = 1, name = "Todos",     tkey = "MAIL_FILTER_ALL" },
+    { id = 2, name = "Nao lidos", tkey = "MAIL_FILTER_UNREAD" },
+    { id = 3, name = "Com anexo", tkey = "MAIL_FILTER_ATTACH" },
 }
 
 local MAIL_LETTER_ICON = "Interface\\Icons\\INV_Misc_Note_01"
@@ -1185,19 +1185,19 @@ end
 function MailScreen:BuildMailBadges(item)
     local parts = {}
     if self:IsMailUnread(item) then
-        table.insert(parts, "|cffff2020Nova|r")
+        table.insert(parts, CM:T("MAIL_BADGE_NEW"))
     end
     if item.hasItem then
-        table.insert(parts, "|cff1eff00Anexo|r")
+        table.insert(parts, CM:T("MAIL_BADGE_ATTACH"))
     end
     if tonumber(item.money) and tonumber(item.money) > 0 then
-        table.insert(parts, "|cffffd700$|r")
+        table.insert(parts, CM:T("MAIL_BADGE_MONEY"))
     end
     if tonumber(item.cod) and tonumber(item.cod) > 0 then
-        table.insert(parts, "|cffff2020COD|r")
+        table.insert(parts, CM:T("MAIL_BADGE_COD"))
     end
     if table.getn(parts) == 0 then
-        return "|cff666666--|r"
+        return CM:T("MAIL_BADGE_NONE")
     end
     return table.concat(parts, " ")
 end
@@ -1394,7 +1394,7 @@ function MailScreen:CreateMailDetailCard(parent)
     titleText:SetPoint("RIGHT", priceText, "LEFT", -12, 0)
     titleText:SetJustifyH("LEFT")
     self:ApplyFont(titleText, FONTS.titleBold, 19)
-    titleText:SetText("|cff888888Nenhuma carta selecionada|r")
+    titleText:SetText(CM:T("MAIL_NO_SELECT"))
     card.titleText = titleText
 
     -- 4. Remetente
@@ -1403,7 +1403,7 @@ function MailScreen:CreateMailDetailCard(parent)
     typeText:SetPoint("RIGHT", card, "RIGHT", -16, 0)
     typeText:SetJustifyH("LEFT")
     self:ApplyFont(typeText, FONTS.medium, 15)
-    typeText:SetText("|cff666666Navegue pelo inbox usando o D-Pad|r")
+    typeText:SetText(CM:T("MAIL_NAVIGATE"))
     card.typeText = typeText
 
     -- 4b. Dias restantes
@@ -1423,7 +1423,7 @@ function MailScreen:CreateMailDetailCard(parent)
     descTop:SetJustifyH("LEFT")
     descTop:SetJustifyV("TOP")
     self:ApplyFont(descTop, FONTS.bodyBold, 13)
-    descTop:SetText("|cff666666Sem cartas para exibir.|r")
+    descTop:SetText(CM:T("MAIL_NO_DISPLAY"))
     card.descTop = descTop
 
     local descBottom = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -1467,14 +1467,14 @@ function MailScreen:ShowMailDetail(item)
     if not item then
         card.icon:SetTexture(MAIL_LETTER_ICON)
         card.iconBorder:SetBackdropBorderColor(0.40, 0.35, 0.25, 0.60)
-        card.titleText:SetText("|cff888888Nenhuma carta selecionada|r")
+        card.titleText:SetText(CM:T("MAIL_NO_SELECT"))
         card.priceText:SetText("")
-        card.typeText:SetText("|cff666666Navegue pelo inbox usando o D-Pad|r")
+        card.typeText:SetText(CM:T("MAIL_NAVIGATE"))
         if card.useText then
             card.useText:SetText("")
             card.useText:Hide()
         end
-        card.descTop:SetText("|cff666666Sem cartas para exibir.|r")
+        card.descTop:SetText(CM:T("MAIL_NO_DISPLAY"))
         card.descBottom:SetText("")
         if card.bodyText then card.bodyText:SetText("") end
         return
@@ -1488,31 +1488,31 @@ function MailScreen:ShowMailDetail(item)
     end
 
     local subject = item.subject
-    if not subject or subject == "" then subject = "(sem assunto)" end
+    if not subject or subject == "" then subject = CM:T("MAIL_EMPTY_SUBJECT") end
     card.titleText:SetText("|cffe09a15" .. self:TruncateText(subject, 26) .. "|r")
 
-    local sender = item.sender or "Desconhecido"
-    local senderStr = "|cffb0b0b0De: |cffffffff" .. self:TruncateText(sender, 26) .. "|r"
+    local sender = item.sender or CM:T("HUD_TARGET_UNKNOWN")
+    local senderStr = format(CM:T("MAIL_FROM_FMT"), self:TruncateText(sender, 26))
     if item.wasReturned then
-        senderStr = senderStr .. " |cff888888(devolvida)|r"
+        senderStr = senderStr .. CM:T("MAIL_RETURNED")
     end
     card.typeText:SetText(senderStr)
 
     local money = tonumber(item.money) or 0
     local cod = tonumber(item.cod) or 0
-    local priceStr = "|cff888888Sem dinheiro|r"
+    local priceStr = CM:T("MAIL_NO_MONEY")
     if money > 0 and cod > 0 then
-        priceStr = "|cffaaaaaaContem:|r " .. self:FormatMoneyText(money) .. "  |cffff2020COD|r"
+        priceStr = format(CM:T("MAIL_CONTAINS_COD_FMT"), self:FormatMoneyText(money))
     elseif money > 0 then
-        priceStr = "|cffaaaaaaContem:|r " .. self:FormatMoneyText(money)
+        priceStr = format(CM:T("MAIL_CONTAINS_FMT"), self:FormatMoneyText(money))
     elseif cod > 0 then
-        priceStr = "|cffff2020COD:|r " .. self:FormatMoneyText(cod)
+        priceStr = format(CM:T("MAIL_COD_FMT"), self:FormatMoneyText(cod))
     end
     card.priceText:SetText(priceStr)
 
     if card.useText then
         if tonumber(item.daysLeft) then
-            card.useText:SetText("|cffb0b0b0Expira em " .. tonumber(item.daysLeft) .. " dias|r")
+            card.useText:SetText(format(CM:T("MAIL_EXPIRE_FMT"), tonumber(item.daysLeft)))
             card.useText:Show()
         else
             card.useText:SetText("")
@@ -1520,24 +1520,24 @@ function MailScreen:ShowMailDetail(item)
         end
     end
 
-    local attachStr = "|cff888888Nao|r"
-    if item.hasItem then attachStr = "|cff1eff00Sim|r" end
-    local statusStr = "|cff888888Lida|r"
-    if self:IsMailUnread(item) then statusStr = "|cffff2020Nova|r" end
-    card.descTop:SetText("|cffaaaaaaAnexo:|r " .. attachStr .. "   |cffaaaaaaStatus:|r " .. statusStr)
+    local attachStr = CM:T("MAIL_ATTACH_NO")
+    if item.hasItem then attachStr = CM:T("MAIL_ATTACH_YES") end
+    local statusStr = CM:T("MAIL_STATUS_READ")
+    if self:IsMailUnread(item) then statusStr = CM:T("MAIL_STATUS_NEW") end
+    card.descTop:SetText(format(CM:T("MAIL_ATTACH_STATUS_FMT"), attachStr, statusStr))
 
-    local replyStr = "|cff888888Nao|r"
-    if item.canReply then replyStr = "|cffffffffSim|r" end
-    card.descBottom:SetText("|cffaaaaaaResposta:|r " .. replyStr)
+    local replyStr = CM:T("MAIL_ATTACH_NO")
+    if item.canReply then replyStr = CM:T("MAIL_REPLY_YES") end
+    card.descBottom:SetText(format(CM:T("MAIL_REPLY_FMT"), replyStr))
 
     if card.bodyText then
         local body = self:GetMailBodyText(item)
         if not body or body == "" then
-            body = "|cff666666(sem texto para exibir)|r"
+            body = CM:T("MAIL_BODY_EMPTY")
         elseif string.len(body) > 600 then
             body = string.sub(body, 1, 600) .. "..."
         end
-        card.bodyText:SetText("|cffaaaaaaTexto:|r " .. body)
+        card.bodyText:SetText(format(CM:T("MAIL_BODY_FMT"), body))
     end
 end
 
@@ -1564,15 +1564,15 @@ function MailScreen:RefreshInboxList()
         if numItems == 0 then
             rightCol.pageIndicator:SetText("")
         else
-            rightCol.pageIndicator:SetText("|cff888888" .. numItems .. " carta(s)|r")
+            rightCol.pageIndicator:SetText(format(CM:T("MAIL_COUNT_FMT"), numItems))
         end
     end
 
     if numItems == 0 then
         for i = 1, poolN do rows[i]:Hide() end
-        leftCol.placeholder:SetText("|cffaaaaaaCaixa de entrada vazia.|r")
+        leftCol.placeholder:SetText(CM:T("MAIL_INBOX_EMPTY"))
         leftCol.placeholder:Show()
-        leftCol.pageIndicator:SetText("|cff666666Nenhuma carta|r")
+        leftCol.pageIndicator:SetText(CM:T("MAIL_NO_LETTER"))
         self:ShowMailDetail(nil)
         self:UpdateActionButtonsVisuals()
         return
@@ -1609,13 +1609,13 @@ function MailScreen:RefreshInboxList()
             row.senderText:SetText(senderColor .. self:TruncateText(item.sender or "?", 20) .. "|r")
 
             local subject = item.subject
-            if not subject or subject == "" then subject = "(sem assunto)" end
+            if not subject or subject == "" then subject = CM:T("MAIL_EMPTY_SUBJECT") end
             row.subjectText:SetText("|cffaaaaaa" .. self:TruncateText(subject, 30) .. "|r")
 
             if tonumber(item.daysLeft) then
-                row.daysText:SetText("|cffb0b0b0" .. tonumber(item.daysLeft) .. "d|r")
+                row.daysText:SetText(format(CM:T("MAIL_DAYS_FMT"), tonumber(item.daysLeft)))
             else
-                row.daysText:SetText("|cff666666--|r")
+                row.daysText:SetText(CM:T("MAIL_DAYS_NONE"))
             end
             row.badgesText:SetText(self:BuildMailBadges(item))
 
@@ -1651,7 +1651,7 @@ function MailScreen:RefreshInboxList()
     if totalPages < 1 then totalPages = 1 end
     local arrowUp = (self.inboxScrollOffset > 0) and "▲ " or ""
     local arrowDown = ((self.inboxScrollOffset + visible) < numItems) and " ▼" or ""
-    leftCol.pageIndicator:SetText(string.format("%s|cffaaaaaaItem %d de %d|r  |cff888888(Pág. %d/%d)|r%s", arrowUp, self.selectedInboxIndex, numItems, curPage, totalPages, arrowDown))
+    leftCol.pageIndicator:SetText(format(CM:T("MAIL_PAGE_FMT"), arrowUp, self.selectedInboxIndex, numItems, curPage, totalPages, arrowDown))
 
     self:ShowMailDetail(selectedItem)
     self:UpdateActionButtonsVisuals()
@@ -1665,17 +1665,18 @@ function MailScreen:UpdateInboxFilterBar()
     local num = table.getn(MAIL_FILTERS)
     for idx = 1, num do
         local f = MAIL_FILTERS[idx]
+        local fname = (f.tkey and CM:T(f.tkey)) or f.name
         if idx == (self.inboxFilter or 1) then
-            table.insert(parts, "|cffe09a15[ " .. f.name .. " ]|r")
+            table.insert(parts, "|cffe09a15[ " .. fname .. " ]|r")
         else
-            table.insert(parts, "|cff848484" .. f.name .. "|r")
+            table.insert(parts, "|cff848484" .. fname .. "|r")
         end
     end
     if leftCol.tabsLabel then
         leftCol.tabsLabel:SetText(table.concat(parts, "   "))
     end
     if leftCol.title then
-        leftCol.title:SetText("CAIXA DE ENTRADA: " .. self:GetInboxFilterName())
+        leftCol.title:SetText(format(CM:T("MAIL_INBOX_TITLE_FMT"), self:GetInboxFilterName()))
     end
 end
 
@@ -1817,9 +1818,9 @@ function MailScreen:ShowInboxScreen()
     if rightCol.detailCard then rightCol.detailCard:Show() end
     if self.actionBar then self.actionBar:Show() end
 
-    if rightCol.title then rightCol.title:SetText("CARTA") end
+    if rightCol.title then rightCol.title:SetText(CM:T("MAIL_COL_LETTER")) end
     if rightCol.tabsLabel then
-        rightCol.tabsLabel:SetText("|cff888888Detalhe da carta|r")
+        rightCol.tabsLabel:SetText(CM:T("MAIL_DETAIL_HINT"))
     end
 
     self:ClearComposeFocus()
@@ -1863,16 +1864,16 @@ function MailScreen:ShowComposeScreen()
     if rightCol.invGrid then rightCol.invGrid:Show() end
 
     -- Titulos e barras da tela compor.
-    if leftCol.title then leftCol.title:SetText("NOVA CARTA") end
+    if leftCol.title then leftCol.title:SetText(CM:T("MAIL_COL_NEW")) end
     if leftCol.tabsLabel then
-        leftCol.tabsLabel:SetText("|cff888888Campos da carta|r")
+        leftCol.tabsLabel:SetText(CM:T("MAIL_COMPOSE_FIELDS_LABEL"))
     end
     if leftCol.pageIndicator then
-        leftCol.pageIndicator:SetText("|cff8888885 campos + enviar|r")
+        leftCol.pageIndicator:SetText(CM:T("MAIL_COMPOSE_FIELDS"))
     end
-    if rightCol.title then rightCol.title:SetText("INVENTÁRIO") end
+    if rightCol.title then rightCol.title:SetText(CM:T("MAIL_COL_INVENTORY")) end
     if rightCol.tabsLabel then
-        rightCol.tabsLabel:SetText("|cff888888Grade da bolsa (visual)|r")
+        rightCol.tabsLabel:SetText(CM:T("MAIL_COMPOSE_GRID"))
     end
 
     -- Restaura o texto das EditBoxes a partir dos buffers estruturais.
@@ -1921,11 +1922,11 @@ end
 -- verdade; A sobre campo so faz log (VK chega na M4.2; SEM VirtualKeyboard).
 -- ----------------------------------------------------------------------------
 local COMPOSE_FIELDS = {
-    { key = "composeTo",      label = "PARA",     h = 44,  kind = "edit",   max = 64 },
-    { key = "composeSubject", label = "ASSUNTO",  h = 44,  kind = "edit",   max = 64 },
-    { key = "composeBody",    label = "MENSAGEM", h = 122, kind = "editml", max = 2000 },
-    { key = "composeMoney",   label = "DINHEIRO", h = 44,  kind = "edit",   max = 32 },
-    { key = "itens",          label = "ITENS",    h = 60,  kind = "static", max = 0 },
+    { key = "composeTo",      label = "PARA",     tkey = "MAIL_FIELD_TO",      h = 44,  kind = "edit",   max = 64 },
+    { key = "composeSubject", label = "ASSUNTO",  tkey = "MAIL_FIELD_SUBJECT", h = 44,  kind = "edit",   max = 64 },
+    { key = "composeBody",    label = "MENSAGEM", tkey = "MAIL_FIELD_BODY",    h = 122, kind = "editml", max = 2000 },
+    { key = "composeMoney",   label = "DINHEIRO", tkey = "MAIL_FIELD_MONEY",   h = 44,  kind = "edit",   max = 32 },
+    { key = "itens",          label = "ITENS",    tkey = "MAIL_FIELD_ITEMS",   h = 60,  kind = "static", max = 0 },
 }
 
 function MailScreen:CreateComposeUI()
@@ -1965,7 +1966,7 @@ function MailScreen:CreateComposeUI()
         local cap = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         cap:SetPoint("TOPLEFT", row, "TOPLEFT", 8, -4)
         self:ApplyFont(cap, FONTS.titleBold, 14)
-        cap:SetText("|cffffffff" .. def.label .. "|r")
+        cap:SetText((def.tkey and CM:T(def.tkey)) or ("|cffffffff" .. def.label .. "|r"))
         row.caption = cap
 
         row.fieldIndex = i
@@ -1979,7 +1980,7 @@ function MailScreen:CreateComposeUI()
             st:SetJustifyH("LEFT")
             st:SetJustifyV("TOP")
             self:ApplyFont(st, FONTS.medium, 14)
-            st:SetText("|cff666666Nenhum item na carta.|r")
+            st:SetText(CM:T("MAIL_NO_ITEM"))
             row.staticText = st
         else
             local eb = CreateFrame("EditBox", "ConsoleMode_MailComposeEB" .. i, row)
@@ -2074,7 +2075,7 @@ function MailScreen:CreateComposeUI()
     local sendLabel = sendBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     sendLabel:SetPoint("CENTER", sendBtn, "CENTER", 0, 0)
     self:ApplyFont(sendLabel, FONTS.titleBold, 15)
-    sendLabel:SetText("ENVIAR (postagem 30c)")
+    sendLabel:SetText(format(CM:T("MAIL_SEND_FMT"), "30c"))
     box.sendBtn = sendBtn
     box.sendLabel = sendLabel
     sendBtn:RegisterForClicks("LeftButtonUp")
@@ -2142,7 +2143,7 @@ end
 function MailScreen:UpdateComposePostage()
     local box = self.frame and self.frame.leftCol and self.frame.leftCol.composeBox
     if not box or not box.sendLabel then return end
-    box.sendLabel:SetText("ENVIAR (postagem " .. self:GetComposePostageText() .. ")")
+    box.sendLabel:SetText(format(CM:T("MAIL_SEND_FMT"), self:GetComposePostageText()))
 end
 
 -- Barra de progresso da fila de envio (texto "ENVIANDO X/Y" + fill ouro).
@@ -2177,7 +2178,7 @@ function MailScreen:UpdateSendProgress()
         prog.fill:SetWidth(w)
     end
     if prog.text then
-        prog.text:SetText("ENVIANDO " .. pos .. "/" .. total)
+        prog.text:SetText(format(CM:T("MAIL_SENDING_FMT"), pos, total))
     end
     if not prog:IsVisible() then prog:Show() end
 end
@@ -2445,9 +2446,9 @@ function MailScreen:RefreshInventoryGrid()
     local rightCol = self.frame.rightCol
     if rightCol and rightCol.pageIndicator then
         if n == 0 then
-            rightCol.pageIndicator:SetText("|cff666666Bolsas vazias|r")
+            rightCol.pageIndicator:SetText(CM:T("MAIL_BAGS_EMPTY"))
         else
-            rightCol.pageIndicator:SetText("|cff888888" .. n .. " item(s)|r")
+            rightCol.pageIndicator:SetText(format(CM:T("MAIL_INV_COUNT_FMT"), n))
         end
     end
 
@@ -2487,7 +2488,7 @@ function MailScreen:RefreshInventoryGrid()
                 local bdg = s:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
                 bdg:SetPoint("TOP", s, "TOP", 0, -1)
                 self:ApplyFont(bdg, FONTS.titleBold, 9)
-                bdg:SetText("NA CARTA")
+                bdg:SetText(CM:T("MAIL_ON_LETTER"))
                 bdg:SetTextColor(1.0, 0.25, 0.25, 1.0)
                 s.badge = bdg
             end
@@ -3262,16 +3263,16 @@ function MailScreen:UpdateComposeItemsText()
     local list = self.composeItems or {}
     local total = table.getn(list)
     if total == 0 then
-        stRow:SetText("|cff666666Nenhum item na carta.|r")
+        stRow:SetText(CM:T("MAIL_NO_ITEM"))
         return
     end
     local e = list[1]
     local nm = (e and e.name) or "Item"
     local q = (e and tonumber(e.qty)) or 1
     if total == 1 then
-        stRow:SetText("|cffffffff• " .. self:TruncateText(nm, 24) .. "|r |cffaaaaaax" .. q .. "|r")
+        stRow:SetText(format(CM:T("MAIL_COMPOSE_ITEM_FMT"), self:TruncateText(nm, 24), q))
     else
-        stRow:SetText("|cffffffff• " .. self:TruncateText(nm, 24) .. "|r |cffaaaaaax" .. q .. "|r  |cff888888(+" .. (total - 1) .. ")|r")
+        stRow:SetText(format(CM:T("MAIL_COMPOSE_ITEM_MORE_FMT"), self:TruncateText(nm, 24), q, (total - 1)))
     end
 end
 
@@ -3317,7 +3318,7 @@ function MailScreen:OpenQtyModalForInvIndex()
         return
     end
     qp:Open({
-        title = "Quantidade",
+        title = CM:T("QTY_DEFAULT"),
         itemName = it.name or "Item",
         qty = startQ,
         maxQty = maxQ,
@@ -3580,7 +3581,7 @@ function MailScreen:CreateMoneyModalUI()
     local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOP", m, "TOP", 0, -14)
     self:ApplyFont(title, FONTS.titleBold, 19)
-    title:SetText("|cffe09a15Dinheiro|r")
+    title:SetText(CM:T("MAIL_MONEY_TITLE"))
     m.title = title
 
     -- Fileira de 8 reels: passo 50px (44 larg + 6 gap), +10 apos grupos.
@@ -3629,15 +3630,15 @@ function MailScreen:CreateMoneyModalUI()
     local goldL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     goldL:SetPoint("TOP", row, "BOTTOM", -110, -2)
     self:ApplyFont(goldL, FONTS.titleBold, 13)
-    goldL:SetText("|cffffd700OURO|r")
+    goldL:SetText(CM:T("MAIL_GOLD"))
     local silverL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     silverL:SetPoint("TOP", row, "BOTTOM", 44, -2)
     self:ApplyFont(silverL, FONTS.titleBold, 13)
-    silverL:SetText("|cffc7c7cfPRATA|r")
+    silverL:SetText(CM:T("MAIL_SILVER"))
     local copperL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     copperL:SetPoint("TOP", row, "BOTTOM", 148, -2)
     self:ApplyFont(copperL, FONTS.titleBold, 13)
-    copperL:SetText("|cffeda55fCOBRE|r")
+    copperL:SetText(CM:T("MAIL_COPPER"))
 
     local total = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     total:SetPoint("TOP", row, "BOTTOM", 0, -24)
@@ -3659,10 +3660,10 @@ function MailScreen:CreateMoneyModalUI()
     -- renderizava "[D-Pad Esq/Dir] digito [Up/Down] girar [A] confirmar [B]
     -- cancelar" como texto; agora usa texturas iguais ao footer do MainMenu).
     local moneyHints = {
-        { icons = { "DLEFT", "DRIGHT" }, label = "digito" },
-        { icons = { "DUP", "DDOWN" },    label = "girar" },
-        { icons = { "A" },               label = "confirmar" },
-        { icons = { "B" },               label = "cancelar" },
+        { icons = { "DLEFT", "DRIGHT" }, label = CM:T("MAIL_HINT_DIGIT") },
+        { icons = { "DUP", "DDOWN" },    label = CM:T("MAIL_HINT_SPIN") },
+        { icons = { "A" },               label = CM:T("HINT_CONFIRM") },
+        { icons = { "B" },               label = CM:T("HINT_CANCEL") },
     }
     m.hints = self:BuildIconHints(m, "ConsoleMode_MailMoneyHints", moneyHints, 52)
 
@@ -3686,7 +3687,7 @@ function MailScreen:CreateMoneyModalUI()
     local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     confirmTxt:SetPoint("LEFT", confirmIcon, "RIGHT", 5, 0)
     MailScreen:ApplyFont(confirmTxt, FONTS.titleBold, 15)
-    confirmTxt:SetText("Confirmar")
+    confirmTxt:SetText(CM:T("MAIL_CONFIRM"))
     confirmBtn:SetScript("OnClick", function()
         MailScreen:MoneyModalConfirm()
     end)
@@ -3720,7 +3721,7 @@ function MailScreen:CreateMoneyModalUI()
     local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     cancelTxt:SetPoint("LEFT", cancelIcon, "RIGHT", 5, 0)
     MailScreen:ApplyFont(cancelTxt, FONTS.titleBold, 15)
-    cancelTxt:SetText("Cancelar")
+    cancelTxt:SetText(CM:T("BTN_CANCEL"))
     cancelBtn:SetScript("OnClick", function()
         MailScreen:CloseMoneyModal()
     end)
@@ -3933,14 +3934,14 @@ function MailScreen:UpdateMoneyModalVisuals()
     end
     local total = self:MoneyModalCopper()
     if m.totalText then
-        m.totalText:SetText("|cffaaaaaaTotal:|r " .. self:FormatMoneyText(total))
+        m.totalText:SetText(format(CM:T("MAIL_TOTAL_FMT"), self:FormatMoneyText(total)))
     end
     if m.balanceText then
         local balance = self:GetPlayerCopper()
         local postage = self:GetPostageCopper()
-        local line = "|cffaaaaaaSaldo:|r " .. self:FormatMoneyText(balance) .. "  |cffaaaaaaPostagem:|r " .. self:FormatMoneyText(postage)
+        local line = format(CM:T("MAIL_BALANCE_FMT"), self:FormatMoneyText(balance), self:FormatMoneyText(postage))
         if total > balance then
-            line = line .. "  |cffff2020(saldo insuficiente)|r"
+            line = line .. CM:T("MAIL_BALANCE_LOW")
         end
         m.balanceText:SetText(line)
     end
@@ -4579,9 +4580,9 @@ end
 -- B volta p/ lista (pilha em OnCancel/CloseTopFrame). Mouse clica direto.
 -- ----------------------------------------------------------------------------
 local MAIL_DETAIL_BUTTONS = {
-    { key = "RETIRAR",  label = "RETIRAR",  icon = "Interface\\MoneyFrame\\UI-GoldIcon", action = "take" },
-    { key = "DEVOLVER", label = "DEVOLVER", icon = "Interface\\Icons\\INV_Misc_Note_01", action = "return" },
-    { key = "APAGAR",   label = "APAGAR",   icon = nil, action = "delete" },
+    { key = "RETIRAR",  label = "RETIRAR",  tkey = "MAIL_BTN_TAKE",   icon = "Interface\\MoneyFrame\\UI-GoldIcon", action = "take" },
+    { key = "DEVOLVER", label = "DEVOLVER", tkey = "MAIL_BTN_RETURN", icon = "Interface\\Icons\\INV_Misc_Note_01", action = "return" },
+    { key = "APAGAR",   label = "APAGAR",   tkey = "MAIL_BTN_DELETE", icon = nil, action = "delete" },
 }
 
 function MailScreen:CreateMailActionBar(parent, anchorTop)
@@ -4621,7 +4622,7 @@ function MailScreen:CreateMailActionBar(parent, anchorTop)
         local bTxt = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         bTxt:SetPoint("LEFT", bIcon, "RIGHT", 5, 0)
         MailScreen:ApplyFont(bTxt, FONTS.titleBold, 14)
-        bTxt:SetText(def.label)
+        bTxt:SetText((def.tkey and CM:T(def.tkey)) or def.label)
 
         b.actionIndex = i
         b.actionKey = def.action
@@ -4832,7 +4833,7 @@ function MailScreen:CreateDeleteConfirmUI()
     local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOP", m, "TOP", 0, -14)
     self:ApplyFont(title, FONTS.titleBold, 19)
-    title:SetText("|cffe09a15Apagar carta?|r")
+    title:SetText(CM:T("MAIL_DELETE_TITLE"))
     m.title = title
 
     local info = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -4848,13 +4849,13 @@ function MailScreen:CreateDeleteConfirmUI()
     warn:SetWidth(400)
     warn:SetJustifyH("CENTER")
     self:ApplyFont(warn, FONTS.bodyBold, 14)
-    warn:SetText("|cffff2020A carta ainda tem dinheiro ou anexo nao retirado.|r")
+    warn:SetText(CM:T("MAIL_DELETE_WARN"))
     m.warnText = warn
 
     -- Footer de hints com icones (ICONS), nao texto puro (Bug A).
     local deleteHints = {
-        { icons = { "A" }, label = "confirmar" },
-        { icons = { "B" }, label = "cancelar" },
+        { icons = { "A" }, label = CM:T("HINT_CONFIRM") },
+        { icons = { "B" }, label = CM:T("HINT_CANCEL") },
     }
     m.hints = self:BuildIconHints(m, "ConsoleMode_MailDeleteHints", deleteHints, 44)
 
@@ -4873,7 +4874,7 @@ function MailScreen:CreateDeleteConfirmUI()
     local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     confirmTxt:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
     MailScreen:ApplyFont(confirmTxt, FONTS.titleBold, 15)
-    confirmTxt:SetText("Apagar")
+    confirmTxt:SetText(CM:T("MAIL_DELETE_YES"))
     confirmBtn:SetScript("OnClick", function()
         MailScreen:ConfirmDelete()
     end)
@@ -4900,7 +4901,7 @@ function MailScreen:CreateDeleteConfirmUI()
     local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     cancelTxt:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
     MailScreen:ApplyFont(cancelTxt, FONTS.titleBold, 15)
-    cancelTxt:SetText("Cancelar")
+    cancelTxt:SetText(CM:T("BTN_CANCEL"))
     cancelBtn:SetScript("OnClick", function()
         MailScreen:CloseDeleteConfirm()
     end)
@@ -4927,14 +4928,14 @@ function MailScreen:OpenDeleteConfirm(inboxIndex)
     inboxIndex = tonumber(inboxIndex) or 0
     if inboxIndex < 1 then return end
     local m = self:CreateDeleteConfirmUI()
-    local label = "Carta " .. inboxIndex
+    local label = format(CM:T("MAIL_DELETE_LABEL_FMT"), inboxIndex)
     if GetInboxHeaderInfo then
         local ok, packageIcon, stationeryIcon, sender, subject, money,
             codAmount, daysLeft, hasItem = pcall(GetInboxHeaderInfo, inboxIndex)
         if ok and sender then
             local subj = subject
-            if not subj or subj == "" then subj = "(sem assunto)" end
-            label = "|cffffffff" .. self:TruncateText(subj, 30) .. "|r|cffaaaaaa de " .. self:TruncateText(tostring(sender), 22) .. "|r"
+            if not subj or subj == "" then subj = CM:T("MAIL_EMPTY_SUBJECT") end
+            label = format(CM:T("MAIL_DELETE_INFO_FMT"), self:TruncateText(subj, 30), self:TruncateText(tostring(sender), 22))
         end
     end
     m.infoText:SetText(label)

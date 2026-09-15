@@ -113,7 +113,7 @@ function CM.ui:ResetPosition(key)
         ConsoleModeDB.positions[key] = nil
     end
     
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. info.friendlyName .. " restaurado para a posicao padrao!")
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_POS_RESET_FMT"), info.friendlyName))
     PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
@@ -121,7 +121,7 @@ function CM.ui:ResetAllPositions()
     for key, _ in pairs(CM.ui.registeredFrames) do
         CM.ui:ResetPosition(key)
     end
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Todas as posicoes da interface foram restauradas!")
+    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_POS_ALL"))
 end
 
 -- Registra eventos principais
@@ -158,16 +158,16 @@ CM:SetScript("OnEvent", function()
         
         -- ✅ CRÍTICO: Verificar se módulos foram carregados
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Core]|r " .. CM:T("MSG_CHECKING_MODULES"))
-        DEFAULT_CHAT_FRAME:AddMessage("  CM.cursor: " .. (CM.cursor and "|cff00ff00OK|r" or "|cffff4444NIL|r"))
-        DEFAULT_CHAT_FRAME:AddMessage("  CM.hooks:  " .. (CM.hooks and "|cff00ff00OK|r" or "|cffff4444NIL|r"))
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_CHECK_CURSOR_FMT"), (CM.cursor and "|cff00ff00OK|r" or "|cffff4444NIL|r")))
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_CHECK_HOOKS_FMT"), (CM.hooks and "|cff00ff00OK|r" or "|cffff4444NIL|r")))
         
         if not CM.cursor then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Core]|r ❌ ERRO: Cursor module não carregou! Abortando inicialização.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_ERR_CURSOR"))
             return
         end
         
         if not CM.hooks then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Core]|r ❌ ERRO: Hooks module não carregou! Abortando inicialização.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_ERR_HOOKS"))
             return
         end
 
@@ -265,8 +265,8 @@ function CM:ToggleRightActionBars(forcedState)
     if CM.ui and CM.ui.actionHUD and CM.ui.actionHUD.UpdateRightBarsVisibility then
         CM.ui.actionHUD:UpdateRightBarsVisibility()
     end
-    local statusStr = newVal and "|cff00ff00[ VISÍVEIS ]|r" or "|cffff4444[ OCULTAS ]|r"
-    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Barras de Ação da Direita (Blizzard): " .. statusStr)
+    local statusStr = newVal and CM:T("MSG_BARS_ON") or CM:T("MSG_BARS_OFF")
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_BARS_FMT"), statusStr))
     return newVal
 end
 
@@ -286,7 +286,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         if CM.HandleLangCommand then
             CM:HandleLangCommand(rest)
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Sistema de idioma nao carregado.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_LANG_NOLOADER"))
         end
 
     elseif cmd == "rightbars" or cmd == "barras" or cmd == "barradireita" then
@@ -298,32 +298,46 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         end
 
     elseif cmd == "xp" then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Comando /cm xp executado!")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_XP_DONE"))
         if CM.ui and CM.ui.xpBar then
             CM.ui.xpBar:Initialize()
             if CM.ui.xpBar.frame then
                 CM.ui.xpBar.frame:Show()
                 CM.ui.xpBar:Update()
-                DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r XPBar: frame exibido e atualizado!")
+                DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_XP_SHOWN"))
             else
-                DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r XPBar: frame é nil!")
+                DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_XP_NIL"))
             end
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r XPBar module não carregado no CM.ui!")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_XP_NOMOD"))
         end
 
     elseif cmd == "status" then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00====== ConsoleMode Status ======|r")
-        DEFAULT_CHAT_FRAME:AddMessage("  Versao:    " .. CM.version)
-        DEFAULT_CHAT_FRAME:AddMessage("  Hooks:     " .. (CM.hooks and (CM.hooks.initialized and "|cff00ff00Inicializado|r" or "|cffffcc00Carregado mas nao init|r") or "|cffff4444NIL|r"))
-        DEFAULT_CHAT_FRAME:AddMessage("  Cursor:    " .. (CM.cursor and (CM.cursor.state.enabled and "|cff00ff00ATIVO|r" or "|cffaaaaaaInativo|r") or "|cffff4444NIL|r"))
-        DEFAULT_CHAT_FRAME:AddMessage("  Debug:     " .. (CM.debug and "|cffffcc00ON|r" or "|cff888888OFF|r"))
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00================================|r")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_STATUS_HEAD"))
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_STATUS_VER_FMT"), CM.version))
+        local hooksState = CM:T("MSG_STATE_NIL")
+        if CM.hooks then
+            if CM.hooks.initialized then hooksState = CM:T("MSG_STATE_INIT") else hooksState = CM:T("MSG_STATE_LOADED") end
+        end
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_STATUS_HOOKS_FMT"), hooksState))
+        local cursorState = CM:T("MSG_STATE_NIL")
+        if CM.cursor then
+            if CM.cursor.state.enabled then cursorState = CM:T("MSG_STATE_ACTIVE") else cursorState = CM:T("MSG_STATE_INACTIVE") end
+        end
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_STATUS_CURSOR_FMT"), cursorState))
+        local debugState = CM:T("MSG_OFF")
+        if CM.debug then debugState = CM:T("MSG_ON") end
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_STATUS_DEBUG_FMT"), debugState))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_STATUS_FOOT"))
 
     elseif cmd == "debug" then
         CM.debug = not CM.debug
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Modo debug: " .. (CM.debug and "|cffffcc00LIGADO|r" or "|cff888888DESLIGADO|r"))
-        DEFAULT_CHAT_FRAME:AddMessage("|cffaaaaaa[CM]|r Logs verbosos estao " .. (CM.debug and "habilitados" or "desabilitados"))
+        local dbgMode = CM:T("MSG_DEBUG_OFF")
+        if CM.debug then dbgMode = CM:T("MSG_DEBUG_ON") end
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_DEBUG_FMT"), dbgMode))
+        local dbgDetail = CM:T("MSG_DEBUG_DISABLED")
+        if CM.debug then dbgDetail = CM:T("MSG_DEBUG_ENABLED") end
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_DEBUG_DETAIL_FMT"), dbgDetail))
 
     elseif cmd == "dedup" or cmd == "qid" then
         if CM.questItemDistributor and CM.questItemDistributor.ForceDeduplicate then
@@ -333,7 +347,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
     elseif cmd == "controller" then
         if CM.keybindings and CM.keybindings.ApplyDefaults then
             CM.keybindings:ApplyDefaults()
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Perfil de controle aplicado com sucesso!")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_PROFILE_OK"))
         end
 
     elseif cmd == "keyboard" then
@@ -369,18 +383,22 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
             local parent = frame:GetParent()
             local parentName = parent and (parent:GetName() or "(unnamed parent)") or "none"
             
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Frame Debug]|r")
-            DEFAULT_CHAT_FRAME:AddMessage("  Nome:      |cffffcc00" .. name .. "|r")
-            DEFAULT_CHAT_FRAME:AddMessage("  Tipo:      |cff88ccff" .. ftype .. "|r")
-            DEFAULT_CHAT_FRAME:AddMessage("  Parent:    |cffcccccc" .. parentName .. "|r")
-            DEFAULT_CHAT_FRAME:AddMessage("  Visivel:   " .. (frame:IsVisible() and "|cff00ff00SIM|r" or "|cffff4444NAO|r"))
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_FRAME_HEAD"))
+            DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_FRAME_NAME_FMT"), name))
+            DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_FRAME_TYPE_FMT"), ftype))
+            DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_FRAME_PARENT_FMT"), parentName))
+            local visState = CM:T("MSG_NO")
+            if frame:IsVisible() then visState = CM:T("MSG_YES") end
+            DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_FRAME_VIS_FMT"), visState))
             
             if CM.cursor and CM.cursor.IsInteractive then
                 local interactive = CM.cursor:IsInteractive(frame)
-                DEFAULT_CHAT_FRAME:AddMessage("  Interativo: " .. (interactive and "|cff00ff00SIM|r" or "|cffff4444NAO|r"))
+                local interState = CM:T("MSG_NO")
+                if interactive then interState = CM:T("MSG_YES") end
+                DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_FRAME_INTER_FMT"), interState))
             end
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM]|r Nenhum frame sob o mouse")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_FRAME_NONE"))
         end
 
     elseif cmd == "menu" then
@@ -394,17 +412,17 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         end
 
     else
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00ConsoleMode:|r Comandos disponiveis:")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm menu|r       - Abre/Fecha o Menu Principal (Console Hub)")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm config|r     - Abre o Painel de Configuracoes")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm resetui|r    - Restaura todas as posicoes de UI para o padrao")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm controller|r - Aplica perfil de controle completo")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm keyboard|r   - Restaura perfil de teclado/mouse")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm mouse|r      - Alterna Mouse Mode (Cursor Livre)")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm status|r     - Mostra status do addon")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm lang|r       - Lista idiomas (uso: /cm lang [id])")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm debug|r      - Liga/desliga logs verbosos")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm frame|r      - Identifica frame sob o mouse")
-        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm init|r       - Re-inicializa hooks e bindings")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_HEAD"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_MENU"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_CONFIG"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_RESETUI"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_CONTROLLER"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_KEYBOARD"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_MOUSE"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_STATUS"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_LANG"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_DEBUG"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_FRAME"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_INIT"))
     end
 end

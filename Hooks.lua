@@ -430,7 +430,7 @@ end
 function Hooks:Initialize()
     if self.initialized then return end
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Inicializando sistema de hooks...")
+    DEFAULT_CHAT_FRAME:AddMessage(ConsoleMode:T("MSG_HOOKS_START"))
 
     -- Hook inicial de todos os frames que já existem
     local count = 0
@@ -663,7 +663,7 @@ function Hooks:Initialize()
     end
 
     self.initialized = true
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM]|r Hooks inicializados: " .. count .. " frames hookados.")
+    DEFAULT_CHAT_FRAME:AddMessage(format(ConsoleMode:T("MSG_HOOKS_DONE_FMT"), count))
 end
 
 function Hooks:InjectGameMenuButton()
@@ -671,7 +671,7 @@ function Hooks:InjectGameMenuButton()
     
     if not GameMenuButtonConsoleMode then
         local btn = CreateFrame("Button", "GameMenuButtonConsoleMode", GameMenuFrame, "GameMenuButtonTemplate")
-        btn:SetText("|cff00ff00ConsoleMode - Settings|r")
+        btn:SetText(ConsoleMode:T("MSG_GAMEMENU_BTN"))
         btn:SetWidth(144)
         btn:SetHeight(21)
         

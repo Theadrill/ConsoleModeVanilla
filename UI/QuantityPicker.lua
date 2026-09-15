@@ -43,7 +43,7 @@ local function ApplyFont(fontString, fontPath, size)
 end
 
 QP.state = QP.state or {
-    isOpen = false, title = "Quantidade", itemName = "Item",
+    isOpen = false, title = nil, itemName = nil,
     qty = 1, maxQty = 1, onConfirm = nil, onCancel = nil, ctx = nil,
 }
 QP.frame = QP.frame or nil
@@ -65,7 +65,7 @@ function QP:Open(cfg)
     if q < 1 then q = 1 end
     if q > maxQ then q = maxQ end
     self.state.isOpen = true
-    self.state.title = tostring(cfg.title or "Quantidade")
+    self.state.title = tostring(cfg.title or CM:T("QTY_DEFAULT"))
     self.state.itemName = tostring(cfg.itemName or "Item")
     self.state.qty = q
     self.state.maxQty = maxQ
@@ -153,13 +153,13 @@ function QP:UpdateVisuals()
     local qty = tonumber(self.state.qty) or 1
     local mx = tonumber(self.state.maxQty) or 1
     if m.title then
-        m.title:SetText("|cffe09a15" .. tostring(self.state.title or "Quantidade") .. "|r")
+        m.title:SetText(format(CM:T("QTY_TITLE_FMT"), tostring(self.state.title or CM:T("QTY_DEFAULT"))))
     end
     if m.nameText then
-        m.nameText:SetText("|cffffffff" .. tostring(self.state.itemName or "Item") .. "|r")
+        m.nameText:SetText(format(CM:T("QTY_NAME_FMT"), tostring(self.state.itemName or "Item")))
     end
     if m.qtyText then
-        m.qtyText:SetText("|cffe09a15x" .. qty .. "|r  |cff888888/ " .. mx .. "|r")
+        m.qtyText:SetText(format(CM:T("QTY_COUNT_FMT"), qty, mx))
     end
     if m.qtyEditBox then
         local ok, cur = pcall(function() return m.qtyEditBox:GetText() end)
@@ -247,7 +247,7 @@ function QP:CreateUI()
     local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOP", m, "TOP", 0, -14)
     ApplyFont(title, FONTS.titleBold, 19)
-    title:SetText("|cffe09a15Quantidade|r")
+    title:SetText(format(CM:T("QTY_TITLE_FMT"), CM:T("QTY_DEFAULT")))
     m.title = title
 
     local name = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -255,13 +255,13 @@ function QP:CreateUI()
     name:SetWidth(380)
     name:SetJustifyH("CENTER")
     ApplyFont(name, FONTS.titleBold, 16)
-    name:SetText("|cffffffffItem|r")
+    name:SetText(format(CM:T("QTY_NAME_FMT"), "Item"))
     m.nameText = name
 
     local qty = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     qty:SetPoint("CENTER", m, "CENTER", 0, 18)
     ApplyFont(qty, FONTS.titleBold, 30)
-    qty:SetText("|cffe09a15x1|r")
+    qty:SetText(format(CM:T("QTY_COUNT_FMT"), 1, 1))
     m.qtyText = qty
 
     local eb = CreateFrame("EditBox", "ConsoleMode_QuantityPickerEB", m)
@@ -297,9 +297,9 @@ function QP:CreateUI()
     m.qtyEditBox = eb
 
     m.hints = BuildHints(m, "ConsoleMode_QuantityPickerHints", {
-        { icons = { "DDOWN", "DUP" }, label = "ajustar" },
-        { icons = { "A" },            label = "confirmar" },
-        { icons = { "B" },            label = "cancelar" },
+        { icons = { "DDOWN", "DUP" }, label = CM:T("QTY_HINT_ADJUST") },
+        { icons = { "A" },            label = CM:T("HINT_CONFIRM") },
+        { icons = { "B" },            label = CM:T("HINT_CANCEL") },
     })
 
     local function styleBtn(btn)
@@ -321,7 +321,7 @@ function QP:CreateUI()
     local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     confirmTxt:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
     ApplyFont(confirmTxt, FONTS.titleBold, 15)
-    confirmTxt:SetText("Confirmar")
+    confirmTxt:SetText(CM:T("QTY_CONFIRM"))
     confirmBtn:SetScript("OnClick", function()
         local qp = ConsoleMode_QuantityPicker
         if qp then qp:Confirm() end
@@ -340,7 +340,7 @@ function QP:CreateUI()
     local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     cancelTxt:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
     ApplyFont(cancelTxt, FONTS.titleBold, 15)
-    cancelTxt:SetText("Cancelar")
+    cancelTxt:SetText(CM:T("BTN_CANCEL"))
     cancelBtn:SetScript("OnClick", function()
         local qp = ConsoleMode_QuantityPicker
         if qp then qp:Cancel() end

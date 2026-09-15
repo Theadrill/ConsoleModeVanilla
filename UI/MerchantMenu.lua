@@ -50,18 +50,18 @@ local QUALITY_COLORS = {
 }
 
 local SUBTABS_BAGS = {
-    { id = "ALL",        name = "Todos" },
-    { id = "EQUIP",      name = "Equipamentos" },
-    { id = "CONSUMABLE", name = "Consumíveis" },
-    { id = "JUNK",       name = "Lixo" },
+    { id = "ALL",        name = "Todos",       tkey = "MERCH_FILTER_ALL" },
+    { id = "EQUIP",      name = "Equipamentos", tkey = "MERCH_FILTER_EQUIP" },
+    { id = "CONSUMABLE", name = "Consumíveis", tkey = "MERCH_FILTER_CONSUM" },
+    { id = "JUNK",       name = "Lixo",        tkey = "MERCH_FILTER_JUNK" },
 }
 
 -- Sub-abas da coluna VENDEDOR (Fase 5/6). Recompra usa API de buyback 1.12.
 local SUBTABS_VENDOR = {
-    { id = "ALL",     name = "Todos" },
-    { id = "EQUIP",   name = "Equip" },
-    { id = "CONSUM",  name = "Consum" },
-    { id = "BUYBACK", name = "Recompra" },
+    { id = "ALL",     name = "Todos",    tkey = "MERCH_FILTER_ALL" },
+    { id = "EQUIP",   name = "Equip",    tkey = "MERCH_FILTER_EQUIP_SHORT" },
+    { id = "CONSUM",  name = "Consum",   tkey = "MERCH_FILTER_CONSUM_SHORT" },
+    { id = "BUYBACK", name = "Recompra", tkey = "MERCH_FILTER_BUYBACK" },
 }
 
 local NINESLICE = {
@@ -781,10 +781,11 @@ function MerchantMenu:UpdateBagsSubTabBar()
     local num = table.getn(SUBTABS_BAGS)
     for idx = 1, num do
         local tab = SUBTABS_BAGS[idx]
+        local tabName = (tab.tkey and CM:T(tab.tkey)) or tab.name
         if idx == self.bagSubTabIdx then
-            table.insert(parts, "|cffe09a15[ " .. tab.name .. " ]|r")
+            table.insert(parts, "|cffe09a15[ " .. tabName .. " ]|r")
         else
-            table.insert(parts, "|cff848484" .. tab.name .. "|r")
+            table.insert(parts, "|cff848484" .. tabName .. "|r")
         end
     end
 
@@ -799,10 +800,11 @@ function MerchantMenu:UpdateVendorSubTabBar()
     local num = table.getn(SUBTABS_VENDOR)
     for idx = 1, num do
         local tab = SUBTABS_VENDOR[idx]
+        local tabName = (tab.tkey and CM:T(tab.tkey)) or tab.name
         if idx == self.vendorSubTabIdx then
-            table.insert(parts, "|cffe09a15[ " .. tab.name .. " ]|r")
+            table.insert(parts, "|cffe09a15[ " .. tabName .. " ]|r")
         else
-            table.insert(parts, "|cff848484" .. tab.name .. "|r")
+            table.insert(parts, "|cff848484" .. tabName .. "|r")
         end
     end
     leftCol.tabsLabel:SetText(table.concat(parts, "   "))
@@ -938,7 +940,7 @@ function MerchantMenu:CreateDetailCard(parent)
     priceText:SetPoint("TOPRIGHT", card, "TOPRIGHT", -16, -10)
     priceText:SetJustifyH("RIGHT")
     self:ApplyFont(priceText, FONTS.titleBold, 17)
-    priceText:SetText("|cffaaaaaaPreço: |r--")
+    priceText:SetText(CM:T("MERCH_CARD_PRICE"))
     card.priceText = priceText
 
     -- 3. Título (+20%: 16 -> 19)
@@ -947,7 +949,7 @@ function MerchantMenu:CreateDetailCard(parent)
     titleText:SetPoint("RIGHT", priceText, "LEFT", -12, 0)
     titleText:SetJustifyH("LEFT")
     self:ApplyFont(titleText, FONTS.titleBold, 19)
-    titleText:SetText("|cffe09a15Selecione um item para inspecionar|r")
+    titleText:SetText(CM:T("MERCH_CARD_SELECT"))
     card.titleText = titleText
 
     -- 4. Subtítulo (Tipo / Subtipo / Nível) (+20%: 12 -> 15)
@@ -956,7 +958,7 @@ function MerchantMenu:CreateDetailCard(parent)
     typeText:SetPoint("RIGHT", card, "RIGHT", -16, 0)
     typeText:SetJustifyH("LEFT")
     self:ApplyFont(typeText, FONTS.medium, 15)
-    typeText:SetText("|cffaaaaaaNavegue pelas colunas para comprar ou vender itens|r")
+    typeText:SetText(CM:T("MERCH_CARD_NAVIGATE"))
     card.typeText = typeText
 
     -- 4b. Linha dedicada de Uso/Efeito (item.desc), abaixo do subtipo.
@@ -978,7 +980,7 @@ function MerchantMenu:CreateDetailCard(parent)
     descColLeft:SetJustifyH("LEFT")
     descColLeft:SetJustifyV("TOP")
     self:ApplyFont(descColLeft, FONTS.bodyBold, 13)
-    descColLeft:SetText("|cff888888Use [D-Pad] para navegar pela lista de mercadorias e pelas suas bolsas.|r")
+    descColLeft:SetText(CM:T("MERCH_CARD_USE_DPAD"))
     card.descColLeft = descColLeft
 
     local descColRight = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -987,7 +989,7 @@ function MerchantMenu:CreateDetailCard(parent)
     descColRight:SetJustifyH("LEFT")
     descColRight:SetJustifyV("TOP")
     self:ApplyFont(descColRight, FONTS.bodyBold, 13)
-    descColRight:SetText("|cff888888Pressione [LB] ou [RB] para alternar entre a loja do NPC e seu inventário.|r")
+    descColRight:SetText(CM:T("MERCH_CARD_TOGGLE"))
     card.descColRight = descColRight
 
     return card
@@ -995,13 +997,13 @@ end
 
 function MerchantMenu:CreateFooterHints(parent)
     local hints = {
-        { icons = { "LB", "RB" }, label = "Colunas" },
-        { icons = { "LT", "RT" }, label = "Filtros" },
-        { icons = { "DALL" },     label = "Navegar" },
-        { icons = { "A" },        label = "Comprar 1x" },
-        { icons = { "X" },        label = "Qtd/Vender" },
-        { icons = { "Y" },        label = "Reparar / Lixo", key = "REPAIR" },
-        { icons = { "B" },        label = "Fechar" },
+        { icons = { "LB", "RB" }, label = CM:T("MERCH_HINT_COLS") },
+        { icons = { "LT", "RT" }, label = CM:T("MERCH_HINT_FILTERS") },
+        { icons = { "DALL" },     label = CM:T("HINT_FOOTER_NAVIGATE") },
+        { icons = { "A" },        label = CM:T("MERCH_HINT_BUY") },
+        { icons = { "X" },        label = CM:T("MERCH_HINT_QTY") },
+        { icons = { "Y" },        label = CM:T("MERCH_HINT_REPAIR"), key = "REPAIR" },
+        { icons = { "B" },        label = CM:T("MERCH_HINT_CLOSE") },
     }
 
     local container = CreateFrame("Frame", "ConsoleMode_MerchantFooterContainer", parent)
@@ -1334,7 +1336,7 @@ function MerchantMenu:CreateUI()
     local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     titleText:SetPoint("TOP", frame, "TOP", 0, -20)
     self:ApplyFont(titleText, FONTS.titleBold, 23)
-    titleText:SetText("|cffe09a15COMÉRCIO & REPAROS|r")
+    titleText:SetText(CM:T("MERCH_TITLE"))
     frame.titleText = titleText
 
     -- Barra de Cabeçalho (Nome do NPC, Saldo de Moedas e Botão Sair)
@@ -1348,7 +1350,7 @@ function MerchantMenu:CreateUI()
     local npcNameText = header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     npcNameText:SetPoint("LEFT", header, "LEFT", 0, 0)
     self:ApplyFont(npcNameText, FONTS.titleBold, 19)
-    npcNameText:SetText("|cffffffffVendedor|r")
+    npcNameText:SetText(format("|cffffffff%s|r", CM:T("MERCH_VENDOR_DEFAULT")))
     header.npcNameText = npcNameText
 
     -- Saldo de Moedas (+20%: 15 -> 18)
@@ -1381,7 +1383,7 @@ function MerchantMenu:CreateUI()
     local closeTxt = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     closeTxt:SetPoint("LEFT", closeIcon, "RIGHT", 6, 0)
     self:ApplyFont(closeTxt, FONTS.titleBold, 16)
-    closeTxt:SetText("Sair")
+    closeTxt:SetText(CM:T("MERCH_CLOSE"))
 
     closeBtn:SetScript("OnClick", function()
         MerchantMenu:Close()
@@ -1493,7 +1495,7 @@ function MerchantMenu:CreateUI()
         local tabsLabel = subTabBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         tabsLabel:SetPoint("CENTER", subTabBar, "CENTER", 0, 0)
         MerchantMenu:ApplyFont(tabsLabel, FONTS.titleBold, 17)
-        tabsLabel:SetText("|cffe09a15[ Todos ]|r   |cff848484[ Equipamentos ]|r   |cff848484[ Consumíveis ]|r")
+        tabsLabel:SetText("|cffe09a15[ " .. CM:T("MERCH_FILTER_ALL") .. " ]|r   |cff848484" .. CM:T("MERCH_FILTER_EQUIP") .. "|r   |cff848484" .. CM:T("MERCH_FILTER_CONSUM") .. "|r")
         col.tabsLabel = tabsLabel
 
         -- Divisória abaixo das abas
@@ -1532,12 +1534,12 @@ function MerchantMenu:CreateUI()
     end
 
     -- Coluna Esquerda: Vendedor
-    local leftCol = CreateColumnPanel("ConsoleMode_MerchantColLeft", "LOJA DO VENDEDOR", ICONS.LB)
+    local leftCol = CreateColumnPanel("ConsoleMode_MerchantColLeft", CM:T("MERCH_COL_VENDOR"), ICONS.LB)
     leftCol:SetPoint("TOPLEFT", contentArea, "TOPLEFT", 0, 0)
     leftCol:SetPoint("BOTTOMLEFT", contentArea, "BOTTOMLEFT", 0, 0)
     leftCol:SetPoint("RIGHT", divider, "LEFT", -6, 0)
-    leftCol.placeholder:SetText("|cffe09a15[ Catálogo do Vendedor ]|r\n\n|cffaaaaaaSincronizando itens com o servidor...|r\n|cff666666(Fase 4: Exibição completa da loja)|r")
-    leftCol.pageIndicator:SetText("|cff888888Catálogo do Vendedor|r")
+    leftCol.placeholder:SetText(CM:T("MERCH_CATALOG_SYNC"))
+    leftCol.pageIndicator:SetText(CM:T("MERCH_CATALOG_LABEL"))
     frame.leftCol = leftCol
 
     leftCol.header:EnableMouse(true)
@@ -1548,7 +1550,7 @@ function MerchantMenu:CreateUI()
     end)
 
     -- Coluna Direita: Inventário
-    local rightCol = CreateColumnPanel("ConsoleMode_MerchantColRight", "SEU INVENTÁRIO", ICONS.RB)
+    local rightCol = CreateColumnPanel("ConsoleMode_MerchantColRight", CM:T("MERCH_COL_BAGS"), ICONS.RB)
     rightCol:SetPoint("TOPRIGHT", contentArea, "TOPRIGHT", 0, 0)
     rightCol:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
     rightCol:SetPoint("LEFT", divider, "RIGHT", 6, 0)
@@ -1642,7 +1644,7 @@ end
 function MerchantMenu:RefreshHeader()
     if not self.frame then return end
 
-    local npcName = self.currentNPC or UnitName("npc") or "Vendedor"
+    local npcName = self.currentNPC or UnitName("npc") or CM:T("MERCH_VENDOR_DEFAULT")
     if self.frame.header and self.frame.header.npcNameText then
         self.frame.header.npcNameText:SetText("|cffffffff" .. npcName .. "|r")
     end
@@ -1703,9 +1705,9 @@ function MerchantMenu:UpdateBagRows()
         for i = 1, 7 do
             rows[i]:Hide()
         end
-        rightCol.placeholder:SetText("|cffaaaaaaNenhum item encontrado nesta categoria.|r")
+        rightCol.placeholder:SetText(CM:T("MERCH_BAGS_NONE"))
         rightCol.placeholder:Show()
-        rightCol.pageIndicator:SetText("|cff666666Nenhum item|r")
+        rightCol.pageIndicator:SetText(CM:T("MERCH_NONE"))
         if self.activeColumn == "BAGS" then
             self:ShowItemDetail(nil)
         end
@@ -1738,7 +1740,7 @@ function MerchantMenu:UpdateBagRows()
             if item.sellPrice and item.sellPrice > 0 then
                 row.priceText:SetText(self:FormatMoneyText(item.sellPrice))
             else
-                row.priceText:SetText("|cff666666Sem valor|r")
+                row.priceText:SetText(CM:T("MERCH_NOVALUE_SHORT"))
             end
 
             -- Linha selecionada
@@ -1768,7 +1770,7 @@ function MerchantMenu:UpdateBagRows()
 
     local arrowUp = (self.bagScrollOffset > 0) and "▲ " or ""
     local arrowDown = ((self.bagScrollOffset + 7) < numItems) and " ▼" or ""
-    rightCol.pageIndicator:SetText(string.format("%s|cffaaaaaaItem %d de %d|r  |cff888888(Pág. %d/%d)|r%s", arrowUp, self.selectedBagIndex, numItems, curPage, totalPages, arrowDown))
+    rightCol.pageIndicator:SetText(format(CM:T("MERCH_PAGE_FMT"), arrowUp, self.selectedBagIndex, numItems, curPage, totalPages, arrowDown))
 
     if self.activeColumn == "BAGS" then
         self:ShowItemDetail(selectedItem)
@@ -1784,9 +1786,9 @@ function MerchantMenu:UpdateVendorRows()
     local numItems = table.getn(filtered)
     if numItems == 0 then
         for i = 1, 7 do rows[i]:Hide() end
-        leftCol.placeholder:SetText("|cffaaaaaaNenhum item à venda nesta categoria.|r")
+        leftCol.placeholder:SetText(CM:T("MERCH_VENDOR_NONE"))
         leftCol.placeholder:Show()
-        leftCol.pageIndicator:SetText("|cff666666Loja vazia|r")
+        leftCol.pageIndicator:SetText(CM:T("MERCH_SHOP_EMPTY"))
         if self.activeColumn == "VENDOR" then self:ShowItemDetail(nil) end
         return
     end
@@ -1808,9 +1810,9 @@ function MerchantMenu:UpdateVendorRows()
             end
             local nameStr = qColor.hex .. (item.name or "Item") .. "|r"
             if item.isBuyback then
-                nameStr = nameStr .. " |cff888888(Recompra)|r"
+                nameStr = nameStr .. CM:T("MERCH_BUYBACK_ROW")
             elseif item.numAvailable and item.numAvailable >= 0 then
-                nameStr = nameStr .. " |cffffd700(x" .. item.numAvailable .. ")|r"
+                nameStr = nameStr .. format(CM:T("MERCH_STOCK_ROW_FMT"), item.numAvailable)
             end
             row.nameText:SetText(nameStr)
             if item.price and item.price > 0 then
@@ -1821,7 +1823,7 @@ function MerchantMenu:UpdateVendorRows()
                     row.priceText:SetText("|cffff2020" .. self:FormatMoneyText(item.price) .. "|r")
                 end
             else
-                row.priceText:SetText("|cff666666Sem preço|r")
+                row.priceText:SetText(CM:T("MERCH_NOPRICE"))
             end
             if self.activeColumn == "VENDOR" and itemIdx == self.selectedVendorIndex then
                 row:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
@@ -2024,10 +2026,10 @@ function MerchantMenu:ShowItemDetail(item)
     if not item then
         card.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
         card.iconBorder:SetBackdropBorderColor(0.40, 0.35, 0.25, 0.60)
-        card.titleText:SetText("|cff888888Nenhum item selecionado|r")
+        card.titleText:SetText(CM:T("MERCH_NO_ITEM"))
         card.priceText:SetText("")
-        card.typeText:SetText("|cff666666Navegue pelas bolsas usando o direcional [D-Pad]|r")
-        card.descColLeft:SetText("|cff666666Suas bolsas estão vazias ou a categoria selecionada não possui itens.|r")
+        card.typeText:SetText(CM:T("MERCH_BAGS_NAVIGATE"))
+        card.descColLeft:SetText(CM:T("MERCH_BAGS_EMPTY"))
         card.descColRight:SetText("")
         if card.useText then
             card.useText:SetText("")
@@ -2041,29 +2043,29 @@ function MerchantMenu:ShowItemDetail(item)
     card.icon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
     card.iconBorder:SetBackdropBorderColor(qColor.r, qColor.g, qColor.b, 0.90)
 
-    local countStr = (item.count and item.count > 1) and (" |cffffffff(x" .. item.count .. ")|r") or ""
+    local countStr = (item.count and item.count > 1) and format(CM:T("MERCH_COUNT_FMT"), item.count) or ""
     card.titleText:SetText(qColor.hex .. item.name .. "|r" .. countStr)
 
     -- Preço no DetailCard (venda da bolsa ou compra da loja)
     if item.sellPrice and item.sellPrice > 0 then
-        local priceStr = "|cffaaaaaaPreço de Venda: |r" .. self:FormatMoneyText(item.sellPrice)
+        local priceStr = format(CM:T("MERCH_SELL_FMT"), self:FormatMoneyText(item.sellPrice))
         if item.count and item.count > 1 then
             local unit = math.floor(item.sellPrice / item.count)
             if unit > 0 then
-                priceStr = priceStr .. " |cff888888(" .. self:FormatMoneyText(unit) .. " cada)|r"
+                priceStr = priceStr .. format(CM:T("MERCH_SELL_EACH_FMT"), self:FormatMoneyText(unit))
             end
         end
         card.priceText:SetText(priceStr)
     elseif item.price and item.price > 0 then
         local extra = ""
         if item.isBuyback then
-            extra = " |cffffd700(Recompra)|r"
+            extra = CM:T("MERCH_BUYBACK_TAG")
         elseif item.numAvailable and item.numAvailable >= 0 then
-            extra = " |cffaaaaaa(estoque: " .. item.numAvailable .. ")|r"
+            extra = format(CM:T("MERCH_STOCK_FMT"), item.numAvailable)
         end
-        card.priceText:SetText("|cffaaaaaaPreço de Compra: |r" .. self:FormatMoneyText(item.price) .. extra)
+        card.priceText:SetText(format(CM:T("MERCH_BUY_FMT"), self:FormatMoneyText(item.price), extra))
     else
-        card.priceText:SetText("|cff888888Sem valor de venda comercial|r")
+        card.priceText:SetText(CM:T("MERCH_NO_VALUE"))
     end
 
     -- Subtítulo: Tipo • Subtipo • Slot • Requisito
@@ -2082,11 +2084,11 @@ function MerchantMenu:ShowItemDetail(item)
     if item.reqLevel and item.reqLevel > 0 then
         local pLvl = UnitLevel("player") or 1
         local reqColor = (item.reqLevel > pLvl) and "|cffff2020" or "|cffffffff"
-        table.insert(typeParts, reqColor .. "Requer Nível " .. item.reqLevel .. "|r")
+        table.insert(typeParts, reqColor .. format(CM:T("MERCH_REQ_LEVEL_FMT"), item.reqLevel) .. "|r")
     end
 
     local subStr = table.concat(typeParts, "  •  ")
-    if subStr == "" then subStr = "Item do Inventário" end
+    if subStr == "" then subStr = CM:T("MERCH_INV_DEFAULT") end
     card.typeText:SetText("|cffb0b0b0" .. subStr .. "|r")
 
     -- Linha dedicada de Uso (campo proprio abaixo do subtipo): usa item.desc;
@@ -2129,15 +2131,15 @@ function MerchantMenu:ShowItemDetail(item)
     local rightText = table.concat(rightLines, "\n")
 
     if leftText == "" then
-        leftText = "|cff888888Nenhum atributo adicional.|r"
+        leftText = CM:T("MERCH_NO_STATS")
     end
     if rightText == "" then
         if item.sellPrice and item.sellPrice > 0 then
-            rightText = "|cff888888Pronto para venda no vendedor.|r\n|cffaaaaaaPressione [X] para vender.|r"
+            rightText = CM:T("MERCH_SELL_READY")
         elseif item.price and item.price > 0 then
-            rightText = "|cff888888Pressione [A] para comprar 1x.|r\n|cffaaaaaaPressione [X] para quantidade.|r"
+            rightText = CM:T("MERCH_BUY_HINT")
         else
-            rightText = "|cff666666Item sem preço de compra em mercadores.|r"
+            rightText = CM:T("MERCH_NO_PRICE_INFO")
         end
     end
 
@@ -2152,11 +2154,11 @@ function MerchantMenu:ShowVendorPlaceholderDetail()
 
     card.icon:SetTexture("Interface\\Icons\\INV_Misc_Bag_08")
     card.iconBorder:SetBackdropBorderColor(0.50, 0.40, 0.30, 0.80)
-    card.titleText:SetText("|cffe09a15Loja do Vendedor (" .. (self.itemCount or 0) .. " itens)|r")
-    card.priceText:SetText("|cffaaaaaaPressione [RB] para o seu Inventário|r")
-    card.typeText:SetText("|cff888888Fase 4: Catálogo Completo do Vendedor|r")
-    card.descColLeft:SetText("|cffccccccOs itens à venda pelo NPC serão listados aqui na próxima fase.|r\n|cffaaaaaaVocê poderá comprar itens usando o botão [A].|r")
-    card.descColRight:SetText("|cff888888Pressione [RB] no controle ou clique na coluna da direita para voltar a inspecionar seu inventário.|r")
+    card.titleText:SetText(format(CM:T("MERCH_VENDOR_TITLE_FMT"), (self.itemCount or 0)))
+    card.priceText:SetText(CM:T("MERCH_VENDOR_RB"))
+    card.typeText:SetText(CM:T("MERCH_VENDOR_PHASE"))
+    card.descColLeft:SetText(CM:T("MERCH_VENDOR_NEXT"))
+    card.descColRight:SetText(CM:T("MERCH_VENDOR_BACK"))
     if card.useText then
         card.useText:SetText("")
         card.useText:Hide()
@@ -2397,7 +2399,7 @@ function MerchantMenu:SellItem(bagID, slotID, item)
     end
 
     if item and (not item.sellPrice or item.sellPrice <= 0) then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Este item não pode ser vendido ao mercador.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_NOSELL"))
         if UIErrorsFrame and UIERRORS_HOLD_TIME then
             UIErrorsFrame:AddMessage("O mercador não deseja esse item.", 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
         end
@@ -2413,8 +2415,8 @@ function MerchantMenu:SellItem(bagID, slotID, item)
     PlaySound("igMainMenuOptionCheckBoxOn")
 
     local name = (item and item.name) or "Item"
-    local priceStr = (item and item.sellPrice and item.sellPrice > 0) and (" por " .. self:FormatMoneyText(item.sellPrice)) or ""
-    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Item vendido: " .. ((item and item.link) or name) .. priceStr)
+    local priceStr = (item and item.sellPrice and item.sellPrice > 0) and format(CM:T("MERCH_MSG_SOLD_FOR_FMT"), self:FormatMoneyText(item.sellPrice)) or ""
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_SOLD_FMT"), ((item and item.link) or name), priceStr))
 end
 
 function MerchantMenu:RepairAll()
@@ -2422,13 +2424,13 @@ function MerchantMenu:RepairAll()
 
     local repairCost, canRepair = GetRepairAllCost()
     if not canRepair or (repairCost or 0) <= 0 then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Seus equipamentos não precisam de reparos.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_NOREPAIR"))
         return
     end
 
     local playerMoney = GetMoney() or 0
     if playerMoney < repairCost then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Dinheiro insuficiente para reparar todos os itens (" .. self:FormatMoneyText(repairCost) .. ").")
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_REPAIR_FUNDS_FMT"), self:FormatMoneyText(repairCost)))
         if UIErrorsFrame and ERR_NOT_ENOUGH_MONEY and UIERRORS_HOLD_TIME then
             UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
         end
@@ -2438,7 +2440,7 @@ function MerchantMenu:RepairAll()
 
     RepairAllItems()
     PlaySound("ITEM_REPAIR")
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Todos os itens foram reparados por " .. self:FormatMoneyText(repairCost) .. "!")
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_REPAIRED_FMT"), self:FormatMoneyText(repairCost)))
     self:RefreshHeader()
 end
 
@@ -2478,7 +2480,7 @@ function MerchantMenu:BuyItem(mercIndex, qty, item)
     end
     local money = GetMoney() or 0
     if money < total then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Dinheiro insuficiente (" .. self:FormatMoneyText(total) .. ").")
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_BUY_FUNDS_FMT"), self:FormatMoneyText(total)))
         if UIErrorsFrame and ERR_NOT_ENOUGH_MONEY and UIERRORS_HOLD_TIME then
             UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
         end
@@ -2490,7 +2492,7 @@ function MerchantMenu:BuyItem(mercIndex, qty, item)
     end
     PlaySound("igMainMenuOptionCheckBoxOn")
     local label = (item and item.link) or ((item and item.name) or "Item")
-    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Item comprado: " .. label .. " por " .. self:FormatMoneyText(total))
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_BOUGHT_FMT"), label, self:FormatMoneyText(total)))
     self:RefreshHeader()
     self:ScanMerchantItems()
     self:UpdateVendorRows()
@@ -2504,14 +2506,14 @@ function MerchantMenu:BuybackSelectedItem()
     if idx < 1 then return end
     local price = tonumber(item.price) or 0
     if (GetMoney() or 0) < price then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Dinheiro insuficiente para recomprar.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_NOBUYBACK_FUNDS"))
         PlaySound("igQuestFailed")
         return
     end
     if BuybackItem then
         pcall(function() BuybackItem(idx) end)
         PlaySound("igMainMenuOptionCheckBoxOn")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Recomprado: " .. tostring(item.link or item.name))
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_REBOUGHT_FMT"), tostring(item.link or item.name)))
     end
     self:ScanMerchantItems()
     self:UpdateVendorRows()
@@ -2565,19 +2567,19 @@ function MerchantMenu:CreateQtyModalUI()
     local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOP", m, "TOP", 0, -14)
     self:ApplyFont(title, FONTS.titleBold, 19)
-    title:SetText("|cffe09a15Quantidade|r")
+    title:SetText(CM:T("MERCH_QTY_TITLE"))
     m.title = title
     local name = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     name:SetPoint("TOP", title, "BOTTOM", 0, -6)
     name:SetWidth(380)
     name:SetJustifyH("CENTER")
     self:ApplyFont(name, FONTS.titleBold, 16)
-    name:SetText("|cffffffffItem|r")
+    name:SetText(format(CM:T("MERCH_QTY_NAME_FMT"), "Item"))
     m.nameText = name
     local qty = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     qty:SetPoint("CENTER", m, "CENTER", 0, 10)
     self:ApplyFont(qty, FONTS.titleBold, 30)
-    qty:SetText("|cffe09a15x1|r")
+    qty:SetText(format(CM:T("MERCH_QTY_COUNT_FMT"), 1, 1))
     m.qtyText = qty
     local cost = m:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     cost:SetPoint("TOP", qty, "BOTTOM", 0, -8)
@@ -2598,7 +2600,7 @@ function MerchantMenu:CreateQtyModalUI()
     hints:SetWidth(390)
     hints:SetJustifyH("CENTER")
     self:ApplyFont(hints, FONTS.titleBold, 14)
-    hints:SetText("|cffffffff[A]|r |cff1eff00confirmar|r   |cffffffff[B]|r |cffff2020cancelar|r   |cffe09a15[D-Pad </>] +-1  [Up/Down] +-5|r")
+    hints:SetText(CM:T("MERCH_QTY_HINTS"))
     m.hints = hints
     self.qtyModalFrame = m
     return m
@@ -2628,7 +2630,7 @@ function MerchantMenu:OpenQtyModal(vendorIndex)
     if not name then return end
     price = tonumber(price) or 0
     if price <= 0 then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Este item não tem preço de compra.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_NOPRICE"))
         PlaySound("igQuestFailed")
         return
     end
@@ -2702,14 +2704,14 @@ function MerchantMenu:UpdateQtyModalVisuals()
     local money = GetMoney() or 0
     local rest = money - total
     if rest < 0 then rest = 0 end
-    m.title:SetText("|cffe09a15Quantidade|r")
-    m.nameText:SetText("|cffffffff" .. tostring(self.qtyModal.itemName or "Item") .. "|r")
-    m.qtyText:SetText("|cffe09a15x" .. qty .. "|r  |cff888888/ " .. mx .. "|r")
-    m.costText:SetText("|cffaaaaaaTotal:|r " .. self:FormatMoneyText(total) .. "  |cff888888(unit. " .. self:FormatMoneyText(unit) .. ")|r")
+    m.title:SetText(CM:T("MERCH_QTY_TITLE"))
+    m.nameText:SetText(format(CM:T("MERCH_QTY_NAME_FMT"), tostring(self.qtyModal.itemName or "Item")))
+    m.qtyText:SetText(format(CM:T("MERCH_QTY_COUNT_FMT"), qty, mx))
+    m.costText:SetText(format(CM:T("MERCH_QTY_COST_FMT"), self:FormatMoneyText(total), self:FormatMoneyText(unit)))
     if total > money then
-        m.restText:SetText("|cffff2020Saldo insuficiente após compra.|r")
+        m.restText:SetText(CM:T("MERCH_QTY_NOFUNDS"))
     else
-        m.restText:SetText("|cffaaaaaaRestante:|r " .. self:FormatMoneyText(rest))
+        m.restText:SetText(format(CM:T("MERCH_QTY_REST_FMT"), self:FormatMoneyText(rest)))
     end
 end
 
@@ -2741,7 +2743,7 @@ function MerchantMenu:AutoSellJunk()
     if MerchantFrame and MerchantFrame:IsShown() then MerchantFrame.selectedTab = 1 end
     local queue = self:BuildAutoSellQueue()
     if table.getn(queue) == 0 then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Nenhum lixo (cinza) para vender.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_NOJUNK"))
         PlaySound("igQuestFailed")
         return
     end
@@ -2756,7 +2758,7 @@ function MerchantMenu:AutoSellJunk()
     self.autoSellFrame:SetScript("OnUpdate", function()
         MerchantMenu:AutoSell_OnUpdate(arg1)
     end)
-    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Vendendo " .. table.getn(queue) .. " itens cinza...")
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_SELLING_FMT"), table.getn(queue)))
     PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
@@ -2800,10 +2802,10 @@ function MerchantMenu:AutoSell_Stop(announce)
     if announce then
         local g = tonumber(st.gained) or 0
         if g > 0 then
-            DEFAULT_CHAT_FRAME:AddMessage("|cff1eff00[ConsoleMode]|r Lixo vendido: +" .. self:FormatMoneyText(g))
+            DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_JUNK_SOLD_FMT"), self:FormatMoneyText(g)))
             PlaySound("ITEM_REPAIR")
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Auto-sell concluído (sem ganho).")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_AUTOSELL_DONE"))
         end
         st.gained = 0
         st.queue = {}
@@ -2911,7 +2913,7 @@ function MerchantMenu:Close()
 
     CloseMerchant()
     PlaySound("igMainMenuClose")
-    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Interação com Mercador encerrada.")
+    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_CLOSED"))
 end
 
 -- ----------------------------------------------------------------------------
@@ -2953,8 +2955,8 @@ function MerchantMenu:AnnounceMerchant(itemCount)
     self:Open()
 
     -- Feedback visual limpo no chat para validação
-    local repairStr = self.canRepair and "|cff00ff00Sim|r" or "|cffaaaaaaNão|r"
-    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Interação com Mercador detectada: |cffffffff" .. (self.currentNPC or "Vendedor") .. "|r (" .. self.itemCount .. " itens | Reparo: " .. repairStr .. ")")
+    local repairStr = self.canRepair and CM:T("MERCH_REPAIR_YES") or CM:T("MERCH_REPAIR_NO")
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MERCH_MSG_OPEN_FMT"), (self.currentNPC or CM:T("MERCH_VENDOR_DEFAULT")), self.itemCount, repairStr))
 
     -- Reforço de fechamento das bolsas nativas
     self:CloseAllOpenBags()
@@ -2970,7 +2972,7 @@ function MerchantMenu:OnMerchantShow()
     -- 2. Extrai metadados imediatos (Nome e Reparo)
     local npcName = UnitName("npc")
     if not npcName or npcName == "" then
-        npcName = "Vendedor"
+        npcName = CM:T("MERCH_VENDOR_DEFAULT")
     end
 
     local canRepair = false
@@ -3059,7 +3061,7 @@ function MerchantMenu:OnMerchantClosed()
             self.frame:Hide()
         end
 
-        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Interação com Mercador encerrada.")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_CLOSED"))
     end
 end
 

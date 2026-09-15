@@ -110,9 +110,9 @@ local VK_FRAME_H = 292
 -- minimo `w` (na pratica seguem nos valores fixos). Orcamento da grade:
 -- 384px; se o APAGAR estourar a fileira 2, as letras dessa fileira
 -- encolhem o minimo necessario (sem tocar as outras fileiras).
-local VK_EXTRA_BACKSPACE = { label = "APAGAR", op = "backspace", w = 52, textSize = 11, r = 1, g = 0.35, b = 0.3, icon = "X" }
-local VK_EXTRA_OK = { label = "OK", op = "accept", w = 40, textSize = 12, r = 0.2, g = 1, b = 0.2 }
-local VK_EXTRA_SPACE = { label = "ESPACO", op = "space", w = 220, textSize = 11, r = 0.66, g = 0.66, b = 0.66 }
+local VK_EXTRA_BACKSPACE = { label = "APAGAR", lkey = "VK_BACKSPACE", op = "backspace", w = 52, textSize = 11, r = 1, g = 0.35, b = 0.3, icon = "X" }
+local VK_EXTRA_OK = { label = "OK", lkey = "VK_OK", op = "accept", w = 40, textSize = 12, r = 0.2, g = 1, b = 0.2 }
+local VK_EXTRA_SPACE = { label = "ESPACO", lkey = "VK_SPACE", op = "space", w = 220, textSize = 11, r = 0.66, g = 0.66, b = 0.66 }
 
 -- Geometria do APAGAR dinamico (espelha VK_CreateKey: glifo 14px a 3px da
 -- borda esquerda, gap 4px ate o texto, pad direito 6px) + valvula de
@@ -155,12 +155,12 @@ local VK_HINT_SEP_PAD = 2
 local VK_HINT_GAP = 4
 local VK_HINT_GAP_MIN = 2
 local VK_HINTS = {
-    { icons = { "A" },        label = "inserir" },
-    { icons = { "B" },        label = "fechar" },
-    { icons = { "X" },        label = "apagar" },
-    { icons = { "Y" },        label = "maiusc" },
-    { icons = { "LB", "RB" }, label = "pág" },
-    { icons = { },            label = "Start OK" },
+    { icons = { "A" },        label = "inserir",  lkey = "VK_HINT_INSERT" },
+    { icons = { "B" },        label = "fechar",   lkey = "VK_HINT_CLOSE" },
+    { icons = { "X" },        label = "apagar",   lkey = "VK_HINT_DELETE" },
+    { icons = { "Y" },        label = "maiusc",   lkey = "VK_HINT_CAPS" },
+    { icons = { "LB", "RB" }, label = "pág",      lkey = "VK_HINT_PAGE" },
+    { icons = { },            label = "Start OK", lkey = "VK_HINT_START" },
 }
 
 -- Paginas VK-3 (cada fileira: teclas op insert + opcional extra de acao)
@@ -378,7 +378,7 @@ function VK:BuildHints(f)
         label:SetPoint("LEFT", group, "LEFT", currentX, 0)
         VK_ApplyFont(label, VK_HINT_FONT)
         label:SetTextColor(0.85, 0.85, 0.85, 0.95)
-        label:SetText(hint.label)
+        label:SetText((hint.lkey and CM:T(hint.lkey)) or hint.label)
         local textW = math.floor(label:GetStringWidth() or 40)
         currentX = currentX + textW
 
@@ -512,7 +512,8 @@ function VK:BuildGrid()
             table.insert(cells, { label = ch, op = "insert", char = ch, w = VK_KEY_W, textSize = 15, r = 1, g = 1, b = 1 })
         end
         if def.extra then
-            table.insert(cells, { label = def.extra.label, op = def.extra.op, char = nil, icon = def.extra.icon,
+            local extraLabel = (def.extra.lkey and CM:T(def.extra.lkey)) or def.extra.label
+            table.insert(cells, { label = extraLabel, op = def.extra.op, char = nil, icon = def.extra.icon,
                 w = def.extra.w, textSize = def.extra.textSize, r = def.extra.r, g = def.extra.g, b = def.extra.b })
         end
 

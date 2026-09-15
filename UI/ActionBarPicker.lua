@@ -51,11 +51,11 @@ local GRID_H     = GRID_ROWS * (BTN_H + BTN_GAP) - BTN_GAP   -- 252
 
 -- Definições das barras de ação
 local BAR_DEFINITIONS = {
-    [1] = { name = "Principal",    startSlot = 1,  bindingPrefix = "ACTIONBUTTON",         count = 12 },
-    [2] = { name = "Inf. Esq",     startSlot = 61, bindingPrefix = "MULTIACTIONBAR1BUTTON", count = 12 },
-    [3] = { name = "Inf. Dir",     startSlot = 49, bindingPrefix = "MULTIACTIONBAR2BUTTON", count = 12 },
-    [4] = { name = "Lat. Dir 1",   startSlot = 25, bindingPrefix = "MULTIACTIONBAR3BUTTON", count = 12 },
-    [5] = { name = "Lat. Dir 2",   startSlot = 37, bindingPrefix = "MULTIACTIONBAR4BUTTON", count = 12 },
+    [1] = { name = "Principal",    tkey = "ABPK_BAR_1", startSlot = 1,  bindingPrefix = "ACTIONBUTTON",         count = 12 },
+    [2] = { name = "Inf. Esq",     tkey = "ABPK_BAR_2", startSlot = 61, bindingPrefix = "MULTIACTIONBAR1BUTTON", count = 12 },
+    [3] = { name = "Inf. Dir",     tkey = "ABPK_BAR_3", startSlot = 49, bindingPrefix = "MULTIACTIONBAR2BUTTON", count = 12 },
+    [4] = { name = "Lat. Dir 1",   tkey = "ABPK_BAR_4", startSlot = 25, bindingPrefix = "MULTIACTIONBAR3BUTTON", count = 12 },
+    [5] = { name = "Lat. Dir 2",   tkey = "ABPK_BAR_5", startSlot = 37, bindingPrefix = "MULTIACTIONBAR4BUTTON", count = 12 },
 }
 
 -- Tooltip scanner
@@ -67,7 +67,7 @@ scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
 -- ============================================================================
 
 local function GetSlotInfo(slot)
-    if not slot or slot <= 0 then return nil, "|cff888888(Vazio)|r" end
+    if not slot or slot <= 0 then return nil, CM:T("ABPK_EMPTY") end
     local tex  = nil
     local name = nil
 
@@ -86,9 +86,9 @@ local function GetSlotInfo(slot)
                 local t = ConsoleModePickerScanTooltipTextLeft1:GetText()
                 if t and t ~= "" then name = t end
             end
-            if not name or name == "" then name = "Acao " .. slot end
+            if not name or name == "" then name = format(CM:T("ABPK_ACTION_FMT"), slot) end
         else
-            name = "|cff888888(Vazio)|r"
+            name = CM:T("ABPK_EMPTY")
         end
     end
     return tex, name
@@ -126,19 +126,19 @@ function Picker:CreateUI(parent)
     -- ── Cabeçalho ────────────────────────────────────────────────────────────
     local titleStr = f:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     titleStr:SetPoint("TOPLEFT", f, "TOPLEFT", 16, -12)
-    titleStr:SetText("Mapear Tecla")
+    titleStr:SetText(CM:T("ABPK_TITLE"))
     f.titleStr = titleStr
 
     local subStr = f:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
     subStr:SetPoint("TOPLEFT", titleStr, "BOTTOMLEFT", 0, -3)
-    subStr:SetText("Escolha a fonte e selecione uma magia ou slot.")
+    subStr:SetText(CM:T("ABPK_SUB"))
     f.subStr = subStr
 
     local backBtn = CreateFrame("Button", "ConsoleModePickerBackBtn", f, "UIPanelButtonTemplate")
     backBtn:SetWidth(80)
     backBtn:SetHeight(24)
     backBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -16, -12)
-    backBtn:SetText("Voltar")
+    backBtn:SetText(CM:T("ABPK_BACK"))
     backBtn:SetScript("OnClick", function() Picker:Cancel() end)
 
     -- ── Linha 1 de abas: [Spellbook] [Barras de Ação] ────────────────────────
@@ -151,7 +151,7 @@ function Picker:CreateUI(parent)
     modeSpell:SetWidth(100)
     modeSpell:SetHeight(22)
     modeSpell:SetPoint("LEFT", modeBar, "LEFT", 0, 0)
-    modeSpell:SetText("Spellbook")
+    modeSpell:SetText(CM:T("ABPK_MODE_SPELLBOOK"))
     modeSpell:SetScript("OnClick", function() Picker:SetMode("SPELLBOOK") end)
     f.modeSpell = modeSpell
 
@@ -159,7 +159,7 @@ function Picker:CreateUI(parent)
     modeBar2:SetWidth(110)
     modeBar2:SetHeight(22)
     modeBar2:SetPoint("LEFT", modeSpell, "RIGHT", 5, 0)
-    modeBar2:SetText("Barras de Acao")
+    modeBar2:SetText(CM:T("ABPK_MODE_BARS"))
     modeBar2:SetScript("OnClick", function() Picker:SetMode("BARS") end)
     f.modeBar2 = modeBar2
 
@@ -167,7 +167,7 @@ function Picker:CreateUI(parent)
     modeBag:SetWidth(65)
     modeBag:SetHeight(22)
     modeBag:SetPoint("LEFT", modeBar2, "RIGHT", 5, 0)
-    modeBag:SetText("Bag")
+    modeBag:SetText(CM:T("ABPK_MODE_BAG"))
     modeBag:SetScript("OnClick", function() Picker:SetMode("BAG") end)
     f.modeBag = modeBag
 
@@ -175,7 +175,7 @@ function Picker:CreateUI(parent)
     modeMacro:SetWidth(75)
     modeMacro:SetHeight(22)
     modeMacro:SetPoint("LEFT", modeBag, "RIGHT", 5, 0)
-    modeMacro:SetText("Macros")
+    modeMacro:SetText(CM:T("ABPK_MODE_MACROS"))
     modeMacro:SetScript("OnClick", function() Picker:SetMode("MACROS") end)
     f.modeMacro = modeMacro
 
@@ -278,7 +278,7 @@ function Picker:CreateUI(parent)
     prevBtn:SetWidth(70)
     prevBtn:SetHeight(22)
     prevBtn:SetPoint("BOTTOMLEFT", gridFrame, "BOTTOMLEFT", 0, -28)
-    prevBtn:SetText("< Prev")
+    prevBtn:SetText(CM:T("ABPK_PREV"))
     prevBtn:SetScript("OnClick", function()
         if Picker.gridPage > 1 then
             Picker.gridPage = Picker.gridPage - 1
@@ -302,7 +302,7 @@ function Picker:CreateUI(parent)
     nextBtn:SetWidth(70)
     nextBtn:SetHeight(22)
     nextBtn:SetPoint("LEFT", pageLabel, "RIGHT", 8, 0)
-    nextBtn:SetText("Next >")
+    nextBtn:SetText(CM:T("ABPK_NEXT"))
     nextBtn:SetScript("OnClick", function()
         local cacheSize = 0
         if Picker.mode == "BAG" then
@@ -453,7 +453,7 @@ function Picker:BuildSubTabs()
             btn:SetWidth(TAB_W)
             btn:SetHeight(22)
             btn:SetPoint("LEFT", subTabBar, "LEFT", (b - 1) * (TAB_W + TAB_GAP), 0)
-            btn:SetText(BAR_DEFINITIONS[b].name)
+            btn:SetText(CM:T(BAR_DEFINITIONS[b].tkey or ""))
             btn:SetScript("OnClick", function()
                 Picker.currentBar = barNum
                 Picker:HighlightSubTab(barNum)
@@ -468,7 +468,7 @@ function Picker:BuildSubTabs()
 
     elseif self.mode == "MACROS" then
         -- Sub-abas de Macros: [Gerais] e [Personagem]
-        local macroTabs = { "Gerais", "Personagem" }
+        local macroTabs = { CM:T("ABPK_MACRO_GENERAL"), CM:T("ABPK_MACRO_CHAR") }
         for t = 1, 2 do
             local tabNum = t
             local btn = CreateFrame("Button", "ConsoleModePickerMacroTab" .. t, subTabBar, "UIPanelButtonTemplate")
@@ -771,7 +771,7 @@ function Picker:OnGridClick(idx)
         local physKey = KEY_MAPPINGS and KEY_MAPPINGS[self.targetPage] and KEY_MAPPINGS[self.targetPage][self.targetBtnKey]
 
         if not physKey then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Erro ao vincular tecla!")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("ABPK_ERR_BIND"))
             self:Cancel()
             return
         end
@@ -790,9 +790,9 @@ function Picker:OnGridClick(idx)
         local realSlot = barDef.startSlot + slotIndex - 1
         local _, actionName = GetSlotInfo(realSlot)
         DEFAULT_CHAT_FRAME:AddMessage(
-            "|cff00ff00[ConsoleMode]|r |cffffcc00" .. self.targetCombo
-            .. "|r vinculado a |cff88ccff" .. (actionName or ("Slot " .. slotIndex))
-            .. "|r (" .. barDef.name .. ")!"
+            format(CM:T("ABPK_BOUND_FMT"), self.targetCombo,
+                (actionName or format(CM:T("ABPK_SLOT_FMT"), slotIndex)),
+                CM:T(barDef.tkey or ""))
         )
         PlaySound("igMainMenuOptionCheckBoxOn")
 
@@ -817,7 +817,7 @@ function Picker:Show(parent, page, btnKey, comboName)
     self:CreateUI(parent)
 
     self.active = true
-    self.frame.titleStr:SetText("Mapear: |cffffcc00" .. self.targetCombo .. "|r")
+    self.frame.titleStr:SetText(format(CM:T("ABPK_TITLE_FMT"), self.targetCombo))
 
     -- Começa sempre no modo Spellbook
     self.mode       = "SPELLBOOK"

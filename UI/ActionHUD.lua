@@ -450,7 +450,7 @@ function HUD:Initialize()
         titleText:SetShadowOffset(1, -1)
         titleText:SetShadowColor(0, 0, 0, 0.90)
         titleText:SetTextColor(0.88, 0.60, 0.08)
-        titleText:SetText("PÁGINA DE ITENS DE QUESTS")
+        titleText:SetText(CM:T("HUD_QUEST_PAGE"))
 
         questHeader:Hide()
         HUD.questPageTitle = questHeader

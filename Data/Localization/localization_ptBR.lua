@@ -228,7 +228,6 @@ CM_Langs["ptBR"].strings = {
     CHAR_HONOR_NO_RANK = "Posto atual: Sem posto",
     CHAR_HONOR_PROGRESS_FMT = "Progresso semanal: %s%%",
     CHAR_HONOR_NO_PROGRESS = "Progresso semanal: —",
-    CHAR_HONOR_BEST = "Maior posto: — (sem API na 1.12)",
     CHAR_HONOR_TODAY_FMT = "Abates hoje: %s HKs (%s honra)",
     CHAR_HONOR_TODAY_HK_FMT = "Abates hoje: %s HKs",
     CHAR_HONOR_TODAY_NONE = "Abates hoje: —",

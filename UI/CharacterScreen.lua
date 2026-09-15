@@ -2035,14 +2035,14 @@ function CharacterScreen:CreateUI(parent)
     if self.cardRep then self.cardRep.fullWidth = true end
     -- FASE 5 (Honra & JxJ, 1 card meia-largura no FIM da ordem apos
     -- REPUTACOES): mesmo molde Pericias/Profissoes (nome em cima +
-    -- StatusBar dourada embaixo, pitch 32px por slot). HONRA (6 slots =
-    -- Posto atual / Progresso semanal / Maior posto / Hoje / Ontem /
-    -- Total da vida). Altura = 30 + 6*32 + 24 = 246. Pool fixo: 6
+    -- StatusBar dourada embaixo, pitch 32px por slot). HONRA (5 slots =
+    -- Posto atual / Progresso semanal / Hoje / Ontem / Total da vida).
+    -- Altura = 30 + 5*32 + 24 = 214. Pool fixo: 5
     -- FontStrings via CS_MakeCard + 1 StatusBar (slot 2, progresso
     -- semanal 0..1) criada uma vez aqui; Refresh so atualiza textos +
     -- SetMinMaxValues(0,1)/SetValue. Reflow do LayoutCards pareia sozinho
     -- (por ora fica sozinho na linha apos o full-width de REPUTACOES).
-    self.cardHonor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardHonor", CM:T("CHAR_TITLE_HONOR"), 246, 6, colW)
+    self.cardHonor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardHonor", CM:T("CHAR_TITLE_HONOR"), 214, 5, colW)
     -- FASE 5 (Idiomas & Raciais, 1 card meia-largura no FIM da ordem apos
     -- Honra; pareia com Honra na mesma linha via reflow do LayoutCards).
     -- Texto puro SEM barras (padrao: so proficiencia/profissoes/reputacoes
@@ -2234,15 +2234,15 @@ function CharacterScreen:CreateUI(parent)
         end
     end
 
-    -- HONRA & JXJ (1 card meia-largura, 6 slots pitch 32): re-ancora as 6
+    -- HONRA & JXJ (1 card meia-largura, 5 slots pitch 32): re-ancora as 5
     -- FontStrings para o pitch 32 (CS_MakeCard cria com pitch 20) + pool
     -- fixo de 1 StatusBar dourada (slot 2 = progresso semanal 0..1, h10).
     -- Criada UMA vez aqui; Refresh so SetMinMaxValues(0,1)/SetValue/Show.
     do
         local hcard = self.cardHonor
-        if hcard and hcard.lines and table.getn(hcard.lines) >= 6 then
+        if hcard and hcard.lines and table.getn(hcard.lines) >= 5 then
             local hi = 1
-            while hi <= 6 do
+            while hi <= 5 do
                 local yH = -(30 + ((hi - 1) * 32))
                 local fsH = hcard.lines[hi]
                 if fsH then
@@ -2280,8 +2280,8 @@ function CharacterScreen:CreateUI(parent)
                 barH:SetValue(0)
                 barH:Hide()
             end
-            hcard:SetHeight(246)
-            hcard.cardH = 246
+            hcard:SetHeight(214)
+            hcard.cardH = 214
         end
     end
 
@@ -3704,7 +3704,7 @@ end
 -- ----------------------------------------------------------------------------
 -- FASE 5 (Honra & JxJ, 1 card meia-largura). Metodo CharacterScreen:X (NAO
 -- e file-local): corpo usa so self + globais + locais internos => 0
--- upvalues. Atualiza o card HONRA (6 linhas + 1 StatusBar do pool fixo no
+-- upvalues. Atualiza o card HONRA (5 linhas + 1 StatusBar do pool fixo no
 -- slot 2); Refresh() ganha so 1 chamada via self.
 -- APIs 1.12 (todas com type-check + pcall + fallback honesto):
 -- UnitPVPRank("player") + GetPVPRankInfo(rank) = (rankName, rankNumber);
@@ -3712,16 +3712,15 @@ end
 -- RequestInspectHonorData("player") + GetInspectHonorData() = (todayHK,
 -- todayHonor, yesterdayHK, yesterdayHonor, lifetimeHK, ...) com guards
 -- (dados assincronos: Request no Show/evento, leitura aqui; sem dado = "—").
--- GetPVPLifetimeStats NAO existe na 1.12: Maior posto = "— (sem API na
--- 1.12)"; dishonorable kills omitido (sem API). Linhas: 1 Posto atual
+-- dishonorable kills omitido (sem API). Linhas: 1 Posto atual
 -- ("Sem posto" se rank 0); 2 Progresso semanal (texto % + barra 0..1);
--- 3 Maior posto; 4 Hoje (HKs + honra); 5 Ontem; 6 Total da vida.
+-- 3 Hoje (HKs + honra); 4 Ontem; 5 Total da vida.
 -- ----------------------------------------------------------------------------
 function CharacterScreen:RefreshHonor()
     local card = self.cardHonor
     if not card then return end
     if not card.lines then return end
-    if table.getn(card.lines) < 6 then return end
+    if table.getn(card.lines) < 5 then return end
     local rank = 0
     if type(UnitPVPRank) == "function" then
         local okR, r = pcall(UnitPVPRank, "player")
@@ -3770,7 +3769,6 @@ function CharacterScreen:RefreshHonor()
         card.lines[2]:SetText(CM:T("CHAR_HONOR_NO_PROGRESS"))
         if bar and type(bar.Hide) == "function" then bar:Hide() end
     end
-    card.lines[3]:SetText(CM:T("CHAR_HONOR_BEST"))
     local tHK, tHonor, yHK, yHonor, lHK = nil, nil, nil, nil, nil
     if type(GetInspectHonorData) == "function" then
         local okH, a, b, c, d, e = pcall(GetInspectHonorData)
@@ -3779,23 +3777,23 @@ function CharacterScreen:RefreshHonor()
         end
     end
     if type(tHK) == "number" and type(tHonor) == "number" then
-        card.lines[4]:SetText(format(CM:T("CHAR_HONOR_TODAY_FMT"), tHK, tHonor))
+        card.lines[3]:SetText(format(CM:T("CHAR_HONOR_TODAY_FMT"), tHK, tHonor))
     elseif type(tHK) == "number" then
-        card.lines[4]:SetText(format(CM:T("CHAR_HONOR_TODAY_HK_FMT"), tHK))
+        card.lines[3]:SetText(format(CM:T("CHAR_HONOR_TODAY_HK_FMT"), tHK))
     else
-        card.lines[4]:SetText(CM:T("CHAR_HONOR_TODAY_NONE"))
+        card.lines[3]:SetText(CM:T("CHAR_HONOR_TODAY_NONE"))
     end
     if type(yHK) == "number" and type(yHonor) == "number" then
-        card.lines[5]:SetText(format(CM:T("CHAR_HONOR_YEST_FMT"), yHK, yHonor))
+        card.lines[4]:SetText(format(CM:T("CHAR_HONOR_YEST_FMT"), yHK, yHonor))
     elseif type(yHK) == "number" then
-        card.lines[5]:SetText(format(CM:T("CHAR_HONOR_YEST_HK_FMT"), yHK))
+        card.lines[4]:SetText(format(CM:T("CHAR_HONOR_YEST_HK_FMT"), yHK))
     else
-        card.lines[5]:SetText(CM:T("CHAR_HONOR_YEST_NONE"))
+        card.lines[4]:SetText(CM:T("CHAR_HONOR_YEST_NONE"))
     end
     if type(lHK) == "number" then
-        card.lines[6]:SetText(format(CM:T("CHAR_HONOR_LIFE_FMT"), lHK))
+        card.lines[5]:SetText(format(CM:T("CHAR_HONOR_LIFE_FMT"), lHK))
     else
-        card.lines[6]:SetText(CM:T("CHAR_HONOR_LIFE_NONE"))
+        card.lines[5]:SetText(CM:T("CHAR_HONOR_LIFE_NONE"))
     end
 end
 

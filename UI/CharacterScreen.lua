@@ -60,8 +60,9 @@ local FALLBACK_CLASS_COLORS = {
     DRUID   = "|cffff7d0a",
 }
 
-local STAT_NAMES = { "Força", "Agilidade", "Vigor", "Intelecto", "Espírito" }
-local SCHOOL_NAMES = { "Arcano", "Fogo", "Gelo", "Sagrado", "Natureza", "Sombra" }
+-- FASE 2 (linguagem): arrays de CHAVES (valores via CM:T no uso, em runtime).
+local STAT_NAMES = { "CHAR_STAT_STR", "CHAR_STAT_AGI", "CHAR_STAT_STA", "CHAR_STAT_INT", "CHAR_STAT_SPI" }
+local SCHOOL_NAMES = { "CHAR_SCHOOL_ARCANE", "CHAR_SCHOOL_FIRE", "CHAR_SCHOOL_FROST", "CHAR_SCHOOL_HOLY", "CHAR_SCHOOL_NATURE", "CHAR_SCHOOL_SHADOW" }
 local SCHOOL_KEYS  = { "arcane", "fire", "frost", "holy", "nature", "shadow" }
 
 -- ----------------------------------------------------------------------------
@@ -104,24 +105,27 @@ local CS_REP_GAP = 12
 local CS_DETAIL_H = 64
 local CS_DETAIL_GAP = 6
 
+-- FASE 2 (linguagem): guarda CHAVES (tkey/bkey); texto resolve via CM:T
+-- nos pontos de consumo (SetDetail), em runtime, para respeitar o idioma
+-- ativo (tabela em file-scope congelaria o default). Icones sao paths.
 local CS_DETAIL_TEXT = {
-    Identidade  = { icon = "Interface\\Icons\\INV_Misc_Book_09",        title = "Identidade",       body = "Nome, nível, raça, guilda e XP.\nDescansado = bônus de XP; Turtle/Hardcore ativo." },
-    Base        = { icon = "Interface\\Icons\\Spell_Nature_Strength",   title = "Base",             body = "For/Agi/Vig/Int/Esp + Armadura.\nAgi: +2 Armadura/cada; +crítico/esquiva. Verde (+X) = buffs." },
-    Recursos    = { icon = "Interface\\Icons\\INV_Potion_76",            title = "Recursos",         body = "Vida/Mana/Fúria/Energia atuais.\nRegen Mana = base(Esp) + MP5x0,4; em combate só % casting." },
-    Melee       = { icon = "Interface\\Icons\\INV_Sword_01",             title = "Melee",            body = "Perícia, dano, velocidade e AP.\n14 AP = 1 DPS no dano da arma. Hit reduz erro." },
-    MeleeBoss   = { icon = "Interface\\Icons\\INV_Sword_39",             title = "Melee vs Boss",    body = "Melee vs alvo nv 63 (+3).\nMiss/Dodge sobem; Glancing ~40%; Crit Cap limita crítico." },
-    Ranged      = { icon = "Interface\\Icons\\INV_Weapon_Bow_07",        title = "Ranged",           body = "Arco/arma/faca: dano, DPS e RAP.\nVarinha ignora RAP (dano mágico). Hit como no melee." },
-    Spell       = { icon = "Interface\\Icons\\Spell_Holy_MagicalSentry", title = "Spell",            body = "Spell Power, hit/crítico e +Heal.\nHit evita erro; crítico +50% dano (cura dobra c/ talento)." },
-    Schools     = { icon = "Interface\\Icons\\Spell_Fire_Fireball",      title = "Escolas",          body = "Bônus por escola somam ao genérico.\nVerde = bônus próprio; total = genérico + escola." },
-    Def         = { icon = "Interface\\Icons\\INV_Shield_04",            title = "Defesa",           body = "Armadura reduz dano físico %.\nDefesa + esquiva/aparo/bloqueio; Total = miss 5% + tudo." },
-    DefBoss     = { icon = "Interface\\Icons\\INV_Shield_06",            title = "Defesa vs Boss",   body = "Defesa vs nv 63.\n-0,6% esquiva/aparo/bloqueio; armadura vale menos %." },
-    Resist      = { icon = "Interface\\Icons\\Spell_Nature_ResistNature", title = "Resistências",    body = "Fogo/Nat/Gelo/Sombra/Arcano X/100.\n100 = teto prático; (+) buff, (-) penalidade." },
-    Armas       = { icon = "Interface\\Icons\\INV_Axe_01",               title = "Armas",            body = "Perícias X/max por arma (barras).\nUse a arma p/ subir; +5 perícia = -miss/glancing." },
-    Profissoes  = { icon = "Interface\\Icons\\Trade_BlackSmithing",      title = "Profissões",       body = "Primárias (max 2) X/max.\nSuba criando itens; bônus de gear contam no modificador." },
-    Oficios     = { icon = "Interface\\Icons\\Trade_Cooking",            title = "Ofícios",          body = "Culinária/Primeiros Socorros/Pesca.\nSem limite; cozinhar/pescar dão regen e buffs." },
-    Reputacoes  = { icon = "Interface\\Icons\\INV_Misc_TabardPVP_01",    title = "Reputações",       body = "Barras por facção + status.\nExaltado = desconto e itens; barra cheia sobe nível." },
-    Honra       = { icon = "Interface\\Icons\\INV_BannerPVP_01",         title = "Honra",            body = "Posto, progresso semanal e HKs.\nHKs hoje/ontem/vida; posto sobe c/ honra semanal." },
-    Idiomas     = { icon = "Interface\\Icons\\INV_Letter_11",            title = "Idiomas",          body = "Idiomas falados + raciais.\nRaciais são fixas da raça; ver spellbook (K = skills)." },
+    Identidade  = { icon = "Interface\\Icons\\INV_Misc_Book_09",        tkey = "CHAR_DETAIL_IDENT_TITLE",    bkey = "CHAR_DETAIL_IDENT_BODY" },
+    Base        = { icon = "Interface\\Icons\\Spell_Nature_Strength",   tkey = "CHAR_DETAIL_BASE_TITLE",     bkey = "CHAR_DETAIL_BASE_BODY" },
+    Recursos    = { icon = "Interface\\Icons\\INV_Potion_76",            tkey = "CHAR_DETAIL_RES_TITLE",      bkey = "CHAR_DETAIL_RES_BODY" },
+    Melee       = { icon = "Interface\\Icons\\INV_Sword_01",             tkey = "CHAR_DETAIL_MELEE_TITLE",    bkey = "CHAR_DETAIL_MELEE_BODY" },
+    MeleeBoss   = { icon = "Interface\\Icons\\INV_Sword_39",             tkey = "CHAR_DETAIL_MELEEBOSS_TITLE", bkey = "CHAR_DETAIL_MELEEBOSS_BODY" },
+    Ranged      = { icon = "Interface\\Icons\\INV_Weapon_Bow_07",        tkey = "CHAR_DETAIL_RANGED_TITLE",   bkey = "CHAR_DETAIL_RANGED_BODY" },
+    Spell       = { icon = "Interface\\Icons\\Spell_Holy_MagicalSentry", tkey = "CHAR_DETAIL_SPELL_TITLE",    bkey = "CHAR_DETAIL_SPELL_BODY" },
+    Schools     = { icon = "Interface\\Icons\\Spell_Fire_Fireball",      tkey = "CHAR_DETAIL_SCHOOLS_TITLE",  bkey = "CHAR_DETAIL_SCHOOLS_BODY" },
+    Def         = { icon = "Interface\\Icons\\INV_Shield_04",            tkey = "CHAR_DETAIL_DEF_TITLE",      bkey = "CHAR_DETAIL_DEF_BODY" },
+    DefBoss     = { icon = "Interface\\Icons\\INV_Shield_06",            tkey = "CHAR_DETAIL_DEFBOSS_TITLE",  bkey = "CHAR_DETAIL_DEFBOSS_BODY" },
+    Resist      = { icon = "Interface\\Icons\\Spell_Nature_ResistNature", tkey = "CHAR_DETAIL_RESIST_TITLE",  bkey = "CHAR_DETAIL_RESIST_BODY" },
+    Armas       = { icon = "Interface\\Icons\\INV_Axe_01",               tkey = "CHAR_DETAIL_WEAPON_TITLE",   bkey = "CHAR_DETAIL_WEAPON_BODY" },
+    Profissoes  = { icon = "Interface\\Icons\\Trade_BlackSmithing",      tkey = "CHAR_DETAIL_PROF_TITLE",     bkey = "CHAR_DETAIL_PROF_BODY" },
+    Oficios     = { icon = "Interface\\Icons\\Trade_Cooking",            tkey = "CHAR_DETAIL_SEC_TITLE",      bkey = "CHAR_DETAIL_SEC_BODY" },
+    Reputacoes  = { icon = "Interface\\Icons\\INV_Misc_TabardPVP_01",    tkey = "CHAR_DETAIL_REP_TITLE",      bkey = "CHAR_DETAIL_REP_BODY" },
+    Honra       = { icon = "Interface\\Icons\\INV_BannerPVP_01",         tkey = "CHAR_DETAIL_HONOR_TITLE",    bkey = "CHAR_DETAIL_HONOR_BODY" },
+    Idiomas     = { icon = "Interface\\Icons\\INV_Letter_11",            tkey = "CHAR_DETAIL_LANG_TITLE",     bkey = "CHAR_DETAIL_LANG_BODY" },
 }
 
 -- ----------------------------------------------------------------------------
@@ -214,7 +218,7 @@ local function CS_NavOnEnter(slot)
         key = "Identidade"
     end
     if d then
-        CharacterScreen:SetDetail(d.icon, d.title, d.body)
+        CharacterScreen:SetDetail(d.icon, CM:T(d.tkey), CM:T(d.bkey))
         CharacterScreen.detailCurKey = key
     end
 end
@@ -472,9 +476,9 @@ local function CS_DetectTurtleMode()
             if ok then CS_ScanTexture(tex) end
         end
     end
-    if foundHC then return "Modo: Hardcore Ativo" end
-    if foundTurtle then return "Modo: Turtle Ativo" end
-    return "Modo: Normal"
+    if foundHC then return CM:T("CHAR_MODE_HARDCORE") end
+    if foundTurtle then return CM:T("CHAR_MODE_TURTLE") end
+    return CM:T("CHAR_MODE_NORMAL")
 end
 
 -- ----------------------------------------------------------------------------
@@ -1273,12 +1277,12 @@ local function CS_SpellPower()
     local damageOnly = gearOnly + aurOnly
     local secondary = 0
     local secondaryName = ""
-    if arcane > secondary then secondary, secondaryName = arcane, "Arcano" end
-    if fire > secondary then secondary, secondaryName = fire, "Fogo" end
-    if frost > secondary then secondary, secondaryName = frost, "Gelo" end
-    if holy > secondary then secondary, secondaryName = holy, "Sagrado" end
-    if nature > secondary then secondary, secondaryName = nature, "Natureza" end
-    if shadow > secondary then secondary, secondaryName = shadow, "Sombra" end
+    if arcane > secondary then secondary, secondaryName = arcane, CM:T("CHAR_SCHOOL_ARCANE") end
+    if fire > secondary then secondary, secondaryName = fire, CM:T("CHAR_SCHOOL_FIRE") end
+    if frost > secondary then secondary, secondaryName = frost, CM:T("CHAR_SCHOOL_FROST") end
+    if holy > secondary then secondary, secondaryName = holy, CM:T("CHAR_SCHOOL_HOLY") end
+    if nature > secondary then secondary, secondaryName = nature, CM:T("CHAR_SCHOOL_NATURE") end
+    if shadow > secondary then secondary, secondaryName = shadow, CM:T("CHAR_SCHOOL_SHADOW") end
     return damageAndHealing, secondary, secondaryName, damageOnly
 end
 
@@ -1884,7 +1888,7 @@ function CharacterScreen:UpdateDetail()
     local tops = self.detailTops
     if not tops or table.getn(tops) == 0 then
         local d0 = CS_DETAIL_TEXT.Identidade
-        if d0 then self:SetDetail(d0.icon, d0.title, d0.body) end
+        if d0 then self:SetDetail(d0.icon, CM:T(d0.tkey), CM:T(d0.bkey)) end
         self.detailCurKey = "Identidade"
         return
     end
@@ -1920,7 +1924,7 @@ function CharacterScreen:UpdateDetail()
         d = CS_DETAIL_TEXT.Identidade
         pick = "Identidade"
     end
-    if d then self:SetDetail(d.icon, d.title, d.body) end
+    if d then self:SetDetail(d.icon, CM:T(d.tkey), CM:T(d.bkey)) end
     self.detailCurKey = pick
 end
 
@@ -1990,23 +1994,23 @@ function CharacterScreen:CreateUI(parent)
     -- RETRABALHO 2 colunas: largura inicial = metade da largura util
     -- (LayoutCards reajusta via SetWidth a cada Refresh/UpdateLayout).
     local colW = ((parentW - 8) - (self.cardGap or 12)) / 2
-    self.cardIdent     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardIdent", "IDENTIDADE & BIOGRAFIA", 200, 6, colW)
-    self.cardBase      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardBase", "ATRIBUTOS PRIMÁRIOS (BASE STATS)", 190, 6, colW)
-    self.cardRes       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRes", "RECURSOS & REGENERAÇÃO", 150, 4, colW)
-    self.cardMelee     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMelee", "COMBATE CORPO A CORPO (MELEE)", 190, 6, colW)
-    self.cardMeleeBoss = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMeleeBoss", "MELEE VS BOSS (NÍVEL 63)", 190, 6, colW)
-    self.cardRanged    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRanged", "COMBATE A DISTÂNCIA (RANGED)", 190, 6, colW)
-    self.cardSpell     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSpell", "PODER MÁGICO (SPELL)", 190, 6, colW)
-    self.cardSchools   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSchools", "ESCOLAS DE MAGIA (SCHOOLS)", 190, 6, colW)
-    self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", "DEFESA & SOBREVIVÊNCIA", 190, 6, colW)
-    self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", "DEFESA VS BOSS (NÍVEL 63)", 190, 6, colW)
-    self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", "RESISTÊNCIAS ELEMENTAIS", 170, 5, colW)
+    self.cardIdent     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardIdent", CM:T("CHAR_TITLE_IDENT"), 200, 6, colW)
+    self.cardBase      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardBase", CM:T("CHAR_TITLE_BASE"), 190, 6, colW)
+    self.cardRes       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRes", CM:T("CHAR_TITLE_RES"), 150, 4, colW)
+    self.cardMelee     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMelee", CM:T("CHAR_TITLE_MELEE"), 190, 6, colW)
+    self.cardMeleeBoss = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardMeleeBoss", CM:T("CHAR_TITLE_MELEE_BOSS"), 190, 6, colW)
+    self.cardRanged    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRanged", CM:T("CHAR_TITLE_RANGED"), 190, 6, colW)
+    self.cardSpell     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSpell", CM:T("CHAR_TITLE_SPELL"), 190, 6, colW)
+    self.cardSchools   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSchools", CM:T("CHAR_TITLE_SCHOOLS"), 190, 6, colW)
+    self.cardDef       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDef", CM:T("CHAR_TITLE_DEF"), 190, 6, colW)
+    self.cardDefBoss   = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardDefBoss", CM:T("CHAR_TITLE_DEF_BOSS"), 190, 6, colW)
+    self.cardResist    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardResist", CM:T("CHAR_TITLE_RESIST"), 170, 5, colW)
     -- FASE 5 (parcial: Proficiencias): 1 card no FIM da ordem (apos
     -- Resistencias). Armas: 8 slots "nome em cima + StatusBar embaixo"
     -- (barras visuais douradas, pool fixo em CreateUI). Pool fixo: criado
     -- uma vez aqui; Refresh so atualiza os FontStrings + SetMinMaxValues/SetValue.
     -- Altura armas = 30 (titulo) + 8*32 (nome+barra+gap) + 24 (respiro) = 310.
-    self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", "PERÍCIAS DE ARMAS", 310, 8, colW)
+    self.cardWeapon    = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardWeapon", CM:T("CHAR_TITLE_WEAPON"), 310, 8, colW)
     -- FASE 5 (parcial: Profissoes): 2 cards no FIM da ordem (apos Armas),
     -- mesmo molde do card de Armas (nome em cima + StatusBar dourada
     -- embaixo, pitch 32px). PROFISSOES (primarias, 3 slots = 2 + overflow)
@@ -2014,8 +2018,8 @@ function CharacterScreen:CreateUI(parent)
     -- Cooking/First Aid/Fishing/Survival) altura = 30 + 4*32 + 24 = 182.
     -- Pool fixo: FontStrings via CS_MakeCard + StatusBars criados uma vez
     -- aqui; Refresh so atualiza textos + SetMinMaxValues/SetValue.
-    self.cardProf      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardProf", "PROFISSÕES", 150, 3, colW)
-    self.cardSec       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSec", "OFÍCIOS", 182, 4, colW)
+    self.cardProf      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardProf", CM:T("CHAR_TITLE_PROF"), 150, 3, colW)
+    self.cardSec       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSec", CM:T("CHAR_TITLE_SEC"), 182, 4, colW)
     -- FASE 5 (Reputacoes, card UNICO full-width no FIM da ordem apos
     -- Oficios): mesmo molde Pericias/Profissoes (nome em cima + StatusBar
     -- dourada embaixo, pitch 32px por fileira) com 2 colunas INTERNAS.
@@ -2027,7 +2031,7 @@ function CharacterScreen:CreateUI(parent)
     -- atualiza textos + SetMinMaxValues(barMin,barMax)/SetValue(barValue).
     -- fullWidth=true: LayoutCards coloca o card sozinho na linha inteira
     -- (o proprio card isolado ja da o respiro da secao).
-    self.cardRep       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep", "REPUTAÇÕES", CS_REP_H, CS_MAX_REP, (parentW - 8))
+    self.cardRep       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep", CM:T("CHAR_TITLE_REP"), CS_REP_H, CS_MAX_REP, (parentW - 8))
     if self.cardRep then self.cardRep.fullWidth = true end
     -- FASE 5 (Honra & JxJ, 1 card meia-largura no FIM da ordem apos
     -- REPUTACOES): mesmo molde Pericias/Profissoes (nome em cima +
@@ -2038,14 +2042,14 @@ function CharacterScreen:CreateUI(parent)
     -- semanal 0..1) criada uma vez aqui; Refresh so atualiza textos +
     -- SetMinMaxValues(0,1)/SetValue. Reflow do LayoutCards pareia sozinho
     -- (por ora fica sozinho na linha apos o full-width de REPUTACOES).
-    self.cardHonor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardHonor", "HONRA & JXJ (PVP)", 246, 6, colW)
+    self.cardHonor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardHonor", CM:T("CHAR_TITLE_HONOR"), 246, 6, colW)
     -- FASE 5 (Idiomas & Raciais, 1 card meia-largura no FIM da ordem apos
     -- Honra; pareia com Honra na mesma linha via reflow do LayoutCards).
     -- Texto puro SEM barras (padrao: so proficiencia/profissoes/reputacoes
     -- tem barras). 6 linhas pitch 20 padrao do CS_MakeCard (2 idiomas + 4
     -- raciais), altura 190 igual aos demais cards de 6 linhas. Pool fixo:
     -- 6 FontStrings criadas uma vez aqui; Refresh so SetText.
-    self.cardLang      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardLang", "IDIOMAS & RACIAIS", 190, 6, colW)
+    self.cardLang      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardLang", CM:T("CHAR_TITLE_LANG"), 190, 6, colW)
     -- Destaque Honra & JxJ: borda vermelho-escuro (0.55, 0.10, 0.10) em vez
     -- do bronze padrao do CS_MakeCard; demais cards inalterados.
     if self.cardHonor and type(self.cardHonor.SetBackdropBorderColor) == "function" then
@@ -2054,7 +2058,7 @@ function CharacterScreen:CreateUI(parent)
     -- Titulo Honra & JxJ em vermelho (|cffc03028) combinando com a borda;
     -- demais cards mantem o ambar padrao do CS_MakeCard (sem tocar CS_MakeCard).
     if self.cardHonor and self.cardHonor.title and type(self.cardHonor.title.SetText) == "function" then
-        self.cardHonor.title:SetText("|cffc03028HONRA & JXJ (PVP)|r")
+        self.cardHonor.title:SetText(CM:T("CHAR_TITLE_HONOR_COLORED"))
     end
 
     -- PERICIAS DE ARMAS: cada pericia ocupa 2 linhas visuais (nome em cima +
@@ -2342,7 +2346,7 @@ function CharacterScreen:CreateUI(parent)
         dTitle:SetJustifyH("LEFT")
         -- Fase 6 polimento: mesmo 15 bold ambar dos titulos de card.
         CS_ApplyFont(dTitle, FONTS.titleBold, 15)
-        dTitle:SetText(COLORS.amberText .. "Identidade|r")
+        dTitle:SetText(COLORS.amberText .. CM:T("CHAR_DETAIL_IDENT_TITLE") .. "|r")
         local dBody1 = foot:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         dBody1:SetPoint("TOPLEFT", foot, "TOPLEFT", 40, -26)
         dBody1:SetPoint("TOPRIGHT", foot, "TOPRIGHT", -8, -26)
@@ -2376,7 +2380,7 @@ function CharacterScreen:CreateUI(parent)
     -- Conteudo padrao ao abrir: Identidade.
     do
         local d0 = CS_DETAIL_TEXT.Identidade
-        if d0 then self:SetDetail(d0.icon, d0.title, d0.body) end
+        if d0 then self:SetDetail(d0.icon, CM:T(d0.tkey), CM:T(d0.bkey)) end
         self.detailCurKey = "Identidade"
     end
 
@@ -2502,7 +2506,7 @@ local function CS_RefreshIdent(self)
         if type(UnitPVPRank) == "function" then
             prank = UnitPVPRank("player") or 0
         end
-        local prankName = "Sem posto"
+        local prankName = CM:T("CHAR_IDENT_RANK_UNKNOWN")
         if prank and prank > 0 and type(GetPVPRankInfo) == "function" then
             local ok, n = pcall(GetPVPRankInfo, prank)
             if ok and type(n) == "string" and n ~= "" then
@@ -2530,24 +2534,22 @@ local function CS_RefreshIdent(self)
 
         local modeText = H.DetectTurtleMode()
 
-        c1.lines[1]:SetText("|cffffffff" .. tostring(name) .. "|r  Niv " .. tostring(H.Num(level, 0)))
+        c1.lines[1]:SetText(format(CM:T("CHAR_IDENT_NAME_FMT"), name, H.Num(level, 0)))
         c1.lines[2]:SetText(tostring(race) .. "  " .. classHex .. tostring(classLoc) .. "|r")
         if gname and gname ~= "" then
-            c1.lines[3]:SetText("Guilda: " .. tostring(gname) .. " (" .. tostring(grank or "?") .. ")")
+            c1.lines[3]:SetText(format(CM:T("CHAR_IDENT_GUILD_FMT"), gname, (grank or "?")))
         else
-            c1.lines[3]:SetText("Guilda: Sem guilda")
+            c1.lines[3]:SetText(CM:T("CHAR_IDENT_NO_GUILD"))
         end
         if prank and prank > 0 then
-            c1.lines[4]:SetText("Posto: " .. tostring(prankName) .. " (Rank " .. tostring(prank) .. ")")
+            c1.lines[4]:SetText(format(CM:T("CHAR_IDENT_RANK_FMT"), prankName, prank))
         else
-            c1.lines[4]:SetText("Posto: Sem posto")
+            c1.lines[4]:SetText(CM:T("CHAR_IDENT_NO_RANK"))
         end
         if rest > 0 then
-            c1.lines[5]:SetText("XP: " .. tostring(curXP) .. "/" .. tostring(maxXP)
-                .. " (" .. tostring(pct) .. "%)  Descansado")
+            c1.lines[5]:SetText(format(CM:T("CHAR_IDENT_XP_REST_FMT"), curXP, maxXP, pct))
         else
-            c1.lines[5]:SetText("XP: " .. tostring(curXP) .. "/" .. tostring(maxXP)
-                .. " (" .. tostring(pct) .. "%)")
+            c1.lines[5]:SetText(format(CM:T("CHAR_IDENT_XP_FMT"), curXP, maxXP, pct))
         end
         c1.lines[6]:SetText(tostring(modeText))
     end
@@ -2565,11 +2567,11 @@ local function CS_RefreshBase(self)
             local eff = H.Num(b, H.Num(a, 0))
             local pos = H.Num(c, 0)
             local neg = H.Num(d, 0)
-            local txt = tostring(H.StatNames[i]) .. ": " .. tostring(eff)
+            local txt = format(CM:T("CHAR_BASE_STAT_FMT"), CM:T(H.StatNames[i]), eff)
             if pos > 0 then
-                txt = txt .. " " .. H.Colors.bonusGreen .. "(+" .. tostring(pos) .. ")|r"
+                txt = txt .. " " .. H.Colors.bonusGreen .. format(CM:T("CHAR_MOD_POS_FMT"), pos)
             elseif neg > 0 then
-                txt = txt .. " " .. H.Colors.penaltyRed .. "(-" .. tostring(neg) .. ")|r"
+                txt = txt .. " " .. H.Colors.penaltyRed .. format(CM:T("CHAR_MOD_NEG_FMT"), neg)
             end
             c2.lines[i]:SetText(txt)
         end
@@ -2582,9 +2584,9 @@ local function CS_RefreshBase(self)
         end
         local effArmor = H.Num(aeff, H.Num(aarmor, H.Num(abase, 0)))
         local bonusArmor = H.Num(abonus, 0)
-        local armorTxt = "Armadura: " .. tostring(effArmor)
+        local armorTxt = format(CM:T("CHAR_BASE_ARMOR_FMT"), effArmor)
         if bonusArmor > 0 then
-            armorTxt = armorTxt .. " " .. H.Colors.bonusGreen .. "(+" .. tostring(bonusArmor) .. ")|r"
+            armorTxt = armorTxt .. " " .. H.Colors.bonusGreen .. format(CM:T("CHAR_MOD_POS_FMT"), bonusArmor)
         end
         c2.lines[6]:SetText(armorTxt)
     end
@@ -2616,27 +2618,27 @@ local function CS_RefreshRes(self)
         if type(UnitPowerType) == "function" then
             ptype = UnitPowerType("player") or 0
         end
-        local pname = "Mana"
+        local pname = CM:T("CHAR_POWER_MANA")
         if ptype == 1 then
-            pname = "Fúria"
+            pname = CM:T("CHAR_POWER_RAGE")
         elseif ptype == 3 then
-            pname = "Energia"
+            pname = CM:T("CHAR_POWER_ENERGY")
         end
-        c3.lines[1]:SetText("Vida: " .. tostring(hp) .. " / " .. tostring(hpMax))
-        c3.lines[2]:SetText(tostring(pname) .. ": " .. tostring(mp) .. " / " .. tostring(mpMax))
-        c3.lines[3]:SetText("Regen. Vida: — (sem fórmula na 1.12)")
+        c3.lines[1]:SetText(format(CM:T("CHAR_RES_HP_FMT"), hp, hpMax))
+        c3.lines[2]:SetText(format(CM:T("CHAR_RES_MP_FMT"), pname, mp, mpMax))
+        c3.lines[3]:SetText(CM:T("CHAR_RES_HP_REGEN_NONE"))
         if ptype == 0 then
             local base, casting, mp5 = H.ManaRegen()
             local mp2 = (mp5 or 0) * 0.4
             local totalRegen = (base or 0) + mp2
             local whileCasting = ((casting or 0) / 100) * (base or 0) + mp2
             if math.floor(whileCasting) ~= math.floor(totalRegen) then
-                c3.lines[4]:SetText("Regen. Mana: " .. string.format("%d (%d MP2 em combate)", totalRegen, whileCasting))
+                c3.lines[4]:SetText(format(CM:T("CHAR_RES_MANA_FMT"), totalRegen, whileCasting))
             else
-                c3.lines[4]:SetText("Regen. Mana: " .. string.format("%d MP2", totalRegen))
+                c3.lines[4]:SetText(format(CM:T("CHAR_RES_MANA_SIMPLE_FMT"), totalRegen))
             end
         else
-            c3.lines[4]:SetText("Regen. " .. tostring(pname) .. ": — (sem fórmula na 1.12)")
+            c3.lines[4]:SetText(format(CM:T("CHAR_RES_NONMANA_FMT"), pname))
         end
     end
 end
@@ -2654,9 +2656,9 @@ local function CS_RefreshMelee(self)
         local mhSkill, ohSkill = 0, 0
         if sc then mhSkill, ohSkill = sc.mh or 0, sc.oh or 0 end
         if H.OffhandHasWeapon() then
-            c4.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill) .. " | " .. tostring(ohSkill))
+            c4.lines[1]:SetText(format(CM:T("CHAR_MELEE_SKILL_DUAL_FMT"), mhSkill, ohSkill))
         else
-            c4.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill))
+            c4.lines[1]:SetText(format(CM:T("CHAR_MELEE_SKILL_FMT"), mhSkill))
         end
 
         local dMin, dMax, dOffMin, dOffMax = nil, nil, nil, nil
@@ -2676,9 +2678,8 @@ local function CS_RefreshMelee(self)
         -- BCS:AddDamageTooltip (BetterCharacterStats.lua:311-312): a Blizzard
         -- exibe inteiros (PaperDoll trunca com %d; BCS: floor/ceil). DPS usa
         -- os valores crus (floats) com 1 casa — ver H.DPS.
-        c4.lines[2]:SetText("Dano: " .. tostring(math.floor(H.Num(dMin, 0))) .. "-" .. tostring(math.floor(H.Num(dMax, 0)))
-            .. "  DPS: " .. H.DPS(dMin, dMax, sMain))
-        c4.lines[3]:SetText("Velocidade: " .. H.Fmt2(sMain) .. "s")
+        c4.lines[2]:SetText(format(CM:T("CHAR_MELEE_DMG_FMT"), math.floor(H.Num(dMin, 0)), math.floor(H.Num(dMax, 0)), H.DPS(dMin, dMax, sMain)))
+        c4.lines[3]:SetText(format(CM:T("CHAR_MELEE_SPEED_FMT"), H.Fmt2(sMain)))
 
         local apBase, apPos, apNeg = nil, nil, nil
         if type(UnitAttackPower) == "function" then
@@ -2688,15 +2689,15 @@ local function CS_RefreshMelee(self)
             end
         end
         local apEff = H.Num(apBase, 0) + H.Num(apPos, 0) + H.Num(apNeg, 0)
-        local apTxt = "Poder de Ataque: " .. tostring(apEff)
+        local apTxt = format(CM:T("CHAR_MELEE_AP_FMT"), apEff)
         if H.Num(apPos, 0) > 0 then
-            apTxt = apTxt .. " " .. H.Colors.bonusGreen .. "(+" .. tostring(H.Num(apPos, 0)) .. ")|r"
+            apTxt = apTxt .. " " .. H.Colors.bonusGreen .. format(CM:T("CHAR_MOD_POS_FMT"), H.Num(apPos, 0))
         elseif H.Num(apNeg, 0) < 0 then
-            apTxt = apTxt .. " " .. H.Colors.penaltyRed .. "(" .. tostring(H.Num(apNeg, 0)) .. ")|r"
+            apTxt = apTxt .. " " .. H.Colors.penaltyRed .. format(CM:T("CHAR_MOD_NEG_FMT"), H.Num(apNeg, 0))
         end
         c4.lines[4]:SetText(apTxt)
 
-        c4.lines[5]:SetText("Acerto (Hit): +" .. H.Fmt1(H.MeleeHit()) .. "%")
+        c4.lines[5]:SetText(format(CM:T("CHAR_MELEE_HIT_FMT"), H.Fmt1(H.MeleeHit())))
 
         local crit = nil
         if type(GetCritChance) == "function" then
@@ -2704,9 +2705,9 @@ local function CS_RefreshMelee(self)
             if ok and type(v) == "number" then crit = v end
         end
         if type(crit) == "number" then
-            c4.lines[6]:SetText("Crítico: " .. H.Fmt1(crit) .. "%")
+            c4.lines[6]:SetText(format(CM:T("CHAR_MELEE_CRIT_FMT"), H.Fmt1(crit)))
         else
-            c4.lines[6]:SetText("Crítico: —")
+            c4.lines[6]:SetText(CM:T("CHAR_MELEE_CRIT_NONE"))
         end
     end
 end
@@ -2721,24 +2722,20 @@ local function CS_RefreshMeleeBoss(self)
         if sc then mhSkill, ohSkill = sc.mh or 0, sc.oh or 0 end
         local dual = H.OffhandHasWeapon()
         if dual then
-            c5.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill) .. " | " .. tostring(ohSkill))
+            c5.lines[1]:SetText(format(CM:T("CHAR_MELEE_SKILL_DUAL_FMT"), mhSkill, ohSkill))
         else
-            c5.lines[1]:SetText("Perícia de Arma: " .. tostring(mhSkill))
+            c5.lines[1]:SetText(format(CM:T("CHAR_MELEE_SKILL_FMT"), mhSkill))
         end
         if dual then
-            c5.lines[2]:SetText("Miss vs Boss: " .. H.Fmt1(H.DualWieldMissChance(mhSkill))
-                .. "% | " .. H.Fmt1(H.DualWieldMissChance(ohSkill)) .. "%")
-            c5.lines[3]:SetText("Dodge vs Boss: " .. H.Fmt1(H.BossDodgeChance(mhSkill))
-                .. "% | " .. H.Fmt1(H.BossDodgeChance(ohSkill)) .. "%")
-            c5.lines[4]:SetText("Glancing: " .. H.Fmt1(H.GlanceReduction(mhSkill))
-                .. "% | " .. H.Fmt1(H.GlanceReduction(ohSkill)) .. "%")
-            c5.lines[5]:SetText("Crit Cap: " .. H.Fmt1(H.DualWieldCritCap(mhSkill))
-                .. "% | " .. H.Fmt1(H.DualWieldCritCap(ohSkill)) .. "%")
+            c5.lines[2]:SetText(format(CM:T("CHAR_BOSS_MISS_DUAL_FMT"), H.Fmt1(H.DualWieldMissChance(mhSkill)), H.Fmt1(H.DualWieldMissChance(ohSkill))))
+            c5.lines[3]:SetText(format(CM:T("CHAR_BOSS_DODGE_DUAL_FMT"), H.Fmt1(H.BossDodgeChance(mhSkill)), H.Fmt1(H.BossDodgeChance(ohSkill))))
+            c5.lines[4]:SetText(format(CM:T("CHAR_BOSS_GLANCE_DUAL_FMT"), H.Fmt1(H.GlanceReduction(mhSkill)), H.Fmt1(H.GlanceReduction(ohSkill))))
+            c5.lines[5]:SetText(format(CM:T("CHAR_BOSS_CAP_DUAL_FMT"), H.Fmt1(H.DualWieldCritCap(mhSkill)), H.Fmt1(H.DualWieldCritCap(ohSkill))))
         else
-            c5.lines[2]:SetText("Miss vs Boss: " .. H.Fmt1(H.MissChance(mhSkill)) .. "%")
-            c5.lines[3]:SetText("Dodge vs Boss: " .. H.Fmt1(H.BossDodgeChance(mhSkill)) .. "%")
-            c5.lines[4]:SetText("Glancing: " .. H.Fmt1(H.GlanceReduction(mhSkill)) .. "%")
-            c5.lines[5]:SetText("Crit Cap: " .. H.Fmt1(H.CritCap(mhSkill)) .. "%")
+            c5.lines[2]:SetText(format(CM:T("CHAR_BOSS_MISS_FMT"), H.Fmt1(H.MissChance(mhSkill))))
+            c5.lines[3]:SetText(format(CM:T("CHAR_BOSS_DODGE_FMT"), H.Fmt1(H.BossDodgeChance(mhSkill))))
+            c5.lines[4]:SetText(format(CM:T("CHAR_BOSS_GLANCE_FMT"), H.Fmt1(H.GlanceReduction(mhSkill))))
+            c5.lines[5]:SetText(format(CM:T("CHAR_BOSS_CAP_FMT"), H.Fmt1(H.CritCap(mhSkill))))
         end
         local crit = nil
         if type(GetCritChance) == "function" then
@@ -2752,14 +2749,14 @@ local function CS_RefreshMeleeBoss(self)
                 if a > H.DualWieldCritCap(mhSkill) then a = H.DualWieldCritCap(mhSkill) end
                 local b = effCrit
                 if b > H.DualWieldCritCap(ohSkill) then b = H.DualWieldCritCap(ohSkill) end
-                c5.lines[6]:SetText("Crítico Efetivo: " .. H.Fmt1(a) .. "% | " .. H.Fmt1(b) .. "%")
+                c5.lines[6]:SetText(format(CM:T("CHAR_BOSS_EFF_DUAL_FMT"), H.Fmt1(a), H.Fmt1(b)))
             else
                 local cap = H.CritCap(mhSkill)
                 if effCrit > cap then effCrit = cap end
-                c5.lines[6]:SetText("Crítico Efetivo: " .. H.Fmt1(effCrit) .. "%")
+                c5.lines[6]:SetText(format(CM:T("CHAR_BOSS_EFF_FMT"), H.Fmt1(effCrit)))
             end
         else
-            c5.lines[6]:SetText("Crítico Efetivo: —")
+            c5.lines[6]:SetText(CM:T("CHAR_BOSS_EFF_NONE"))
         end
     end
 end
@@ -2772,7 +2769,7 @@ local function CS_RefreshRanged(self)
         local sc = self.skillCache
         local rSkill = 0
         if sc then rSkill = sc.ranged or 0 end
-        c6.lines[1]:SetText("Perícia Ranged: " .. tostring(rSkill))
+        c6.lines[1]:SetText(format(CM:T("CHAR_RANGED_SKILL_FMT"), rSkill))
 
         local rMin, rMax, rSpeedFromDmg = nil, nil, nil
         if type(UnitRangedDamage) == "function" then
@@ -2792,15 +2789,14 @@ local function CS_RefreshRanged(self)
         end
         if type(rMin) == "number" and type(rMax) == "number" then
             -- Mesmo padrao do Melee/BCS: inteiros via floor, DPS com 1 casa.
-            c6.lines[2]:SetText("Dano: " .. tostring(math.floor(H.Num(rMin, 0))) .. "-" .. tostring(math.floor(H.Num(rMax, 0)))
-                .. "  DPS: " .. H.DPS(rMin, rMax, rSpeed))
+            c6.lines[2]:SetText(format(CM:T("CHAR_MELEE_DMG_FMT"), math.floor(H.Num(rMin, 0)), math.floor(H.Num(rMax, 0)), H.DPS(rMin, rMax, rSpeed)))
         else
-            c6.lines[2]:SetText("Dano: — (sem arma de longo alcance)")
+            c6.lines[2]:SetText(CM:T("CHAR_RANGED_NO_WEAPON"))
         end
         if type(rSpeed) == "number" then
-            c6.lines[3]:SetText("Velocidade: " .. H.Fmt2(rSpeed) .. "s")
+            c6.lines[3]:SetText(format(CM:T("CHAR_MELEE_SPEED_FMT"), H.Fmt2(rSpeed)))
         else
-            c6.lines[3]:SetText("Velocidade: —")
+            c6.lines[3]:SetText(CM:T("CHAR_RANGED_NO_SPEED"))
         end
 
         local isWand = false
@@ -2809,7 +2805,7 @@ local function CS_RefreshRanged(self)
             if ok and v then isWand = true end
         end
         if isWand then
-            c6.lines[4]:SetText("Poder de Ataque (dist.): —")
+            c6.lines[4]:SetText(CM:T("CHAR_RANGED_NO_RAP"))
         else
             local rapBase, rapPos, rapNeg = nil, nil, nil
             if type(UnitRangedAttackPower) == "function" then
@@ -2819,11 +2815,11 @@ local function CS_RefreshRanged(self)
                 end
             end
             local rapEff = H.Num(rapBase, 0) + H.Num(rapPos, 0) + H.Num(rapNeg, 0)
-            c6.lines[4]:SetText("Poder de Ataque (dist.): " .. tostring(rapEff))
+            c6.lines[4]:SetText(format(CM:T("CHAR_RANGED_RAP_FMT"), rapEff))
         end
 
-        c6.lines[5]:SetText("Acerto (Hit): +" .. H.Fmt1(H.RangedHit()) .. "%")
-        c6.lines[6]:SetText("Crítico (dist.): " .. H.Fmt1(H.RangedCrit()) .. "%")
+        c6.lines[5]:SetText(format(CM:T("CHAR_MELEE_HIT_FMT"), H.Fmt1(H.RangedHit())))
+        c6.lines[6]:SetText(format(CM:T("CHAR_RANGED_CRIT_FMT"), H.Fmt1(H.RangedCrit())))
     end
 end
 
@@ -2835,18 +2831,18 @@ local function CS_RefreshSpell(self)
     if c7 and c7.lines and table.getn(c7.lines) >= 6 then
         local dmgHeal, secondary, secName, dmgOnly = H.SpellPower()
         local totalSP = H.Num(dmgHeal, 0) + H.Num(dmgOnly, 0) + H.Num(secondary, 0)
-        local spTxt = "Spell Power: +" .. tostring(totalSP)
+        local spTxt = format(CM:T("CHAR_SPELL_POWER_FMT"), totalSP)
         if H.Num(secondary, 0) > 0 then
-            spTxt = spTxt .. " (" .. tostring(secName) .. ")"
+            spTxt = format(CM:T("CHAR_SPELL_POWER_SEC_FMT"), totalSP, secName)
         end
         c7.lines[1]:SetText(spTxt)
 
         local sHit = H.SpellHit()
-        c7.lines[2]:SetText("Hit Mágico: +" .. H.Fmt1(sHit) .. "%")
-        c7.lines[3]:SetText("Crítico Mágico: " .. H.Fmt1(H.SpellCritBase()) .. "%")
+        c7.lines[2]:SetText(format(CM:T("CHAR_SPELL_HIT_FMT"), H.Fmt1(sHit)))
+        c7.lines[3]:SetText(format(CM:T("CHAR_SPELL_CRIT_FMT"), H.Fmt1(H.SpellCritBase())))
 
         local healTotal = H.HealingTotal()
-        c7.lines[4]:SetText("Poder de Cura (+Heal): +" .. tostring(H.Num(healTotal, 0)))
+        c7.lines[4]:SetText(format(CM:T("CHAR_SPELL_HEAL_FMT"), H.Num(healTotal, 0)))
 
         local ptype = 0
         if type(UnitPowerType) == "function" then
@@ -2858,17 +2854,17 @@ local function CS_RefreshSpell(self)
             local totalRegen = (base or 0) + mp2
             local whileCasting = ((casting or 0) / 100) * (base or 0) + mp2
             if math.floor(whileCasting) ~= math.floor(totalRegen) then
-                c7.lines[5]:SetText("Regen. Mana: " .. string.format("%d (%d em combate)", totalRegen, whileCasting))
+                c7.lines[5]:SetText(format(CM:T("CHAR_SPELL_REGEN_FMT"), totalRegen, whileCasting))
             else
-                c7.lines[5]:SetText("Regen. Mana: " .. string.format("%d MP2", totalRegen))
+                c7.lines[5]:SetText(format(CM:T("CHAR_RES_MANA_SIMPLE_FMT"), totalRegen))
             end
         else
-            c7.lines[5]:SetText("Regen. Mana: — (sem mana)")
+            c7.lines[5]:SetText(CM:T("CHAR_SPELL_NO_MANA"))
         end
 
         local haste, spellHaste = H.Haste()
         -- Fase 6 polimento: % com 1 casa como os demais stats (Fmt1).
-        c7.lines[6]:SetText("Spell Haste: " .. H.Fmt1(H.Num(haste, 0) + H.Num(spellHaste, 0)) .. "%")
+        c7.lines[6]:SetText(format(CM:T("CHAR_SPELL_HASTE_FMT"), H.Fmt1(H.Num(haste, 0) + H.Num(spellHaste, 0))))
     end
 end
 
@@ -2879,7 +2875,7 @@ local function CS_RefreshSchools(self)
     if c8 and c8.lines and table.getn(c8.lines) >= 6 then
         for i = 1, 6 do
             local total, fromSchool = H.SchoolPower(H.SchoolKeys[i])
-            local txt = tostring(H.SchoolNames[i]) .. ": +" .. tostring(H.Num(total, 0))
+            local txt = format(CM:T("CHAR_SCHOOL_LINE_FMT"), CM:T(H.SchoolNames[i]), H.Num(total, 0))
             if H.Num(fromSchool, 0) > 0 then
                 txt = H.Colors.bonusGreen .. txt .. "|r"
             end
@@ -2905,8 +2901,7 @@ local function CS_RefreshDef(self)
         local level = 0
         if type(UnitLevel) == "function" then level = UnitLevel("player") or 0 end
         local red = H.ArmorReduction(effArmor, level)
-        c9.lines[1]:SetText("Armadura: " .. tostring(effArmor)
-            .. " (" .. H.Fmt1(red) .. "% vs niv " .. tostring(H.Num(level, 0)) .. ")")
+        c9.lines[1]:SetText(format(CM:T("CHAR_DEF_ARMOR_FMT"), effArmor, H.Fmt1(red), H.Num(level, 0)))
 
         local defCur, defMax = nil, nil
         if type(UnitDefense) == "function" then
@@ -2916,34 +2911,34 @@ local function CS_RefreshDef(self)
             end
         end
         if type(defCur) == "number" then
-            c9.lines[2]:SetText("Defesa: " .. tostring(defCur) .. " / " .. tostring(H.Num(defMax, defCur)))
+            c9.lines[2]:SetText(format(CM:T("CHAR_DEF_DEFENSE_FMT"), defCur, H.Num(defMax, defCur)))
         else
-            c9.lines[2]:SetText("Defesa: —")
+            c9.lines[2]:SetText(CM:T("CHAR_DEF_NO_DEFENSE"))
         end
 
         local dodge = H.EffDodge(0)
         if type(dodge) == "number" then
-            c9.lines[3]:SetText("Esquiva: " .. H.Fmt1(dodge) .. "%")
+            c9.lines[3]:SetText(format(CM:T("CHAR_DEF_DODGE_FMT"), H.Fmt1(dodge)))
         else
-            c9.lines[3]:SetText("Esquiva: —")
+            c9.lines[3]:SetText(CM:T("CHAR_DEF_NO_DODGE"))
         end
         local parry = H.EffParry(0)
         if type(parry) == "number" then
-            c9.lines[4]:SetText("Aparo: " .. H.Fmt1(parry) .. "%")
+            c9.lines[4]:SetText(format(CM:T("CHAR_DEF_PARRY_FMT"), H.Fmt1(parry)))
         else
-            c9.lines[4]:SetText("Aparo: —")
+            c9.lines[4]:SetText(CM:T("CHAR_DEF_NO_PARRY"))
         end
         local block = H.EffBlock(0)
         if type(block) == "number" then
-            c9.lines[5]:SetText("Bloqueio: " .. H.Fmt1(block) .. "%")
+            c9.lines[5]:SetText(format(CM:T("CHAR_DEF_BLOCK_FMT"), H.Fmt1(block)))
         else
-            c9.lines[5]:SetText("Bloqueio: —")
+            c9.lines[5]:SetText(CM:T("CHAR_DEF_NO_BLOCK"))
         end
         local total = H.TotalAvoidance(0)
         if type(total) == "number" then
-            c9.lines[6]:SetText("Esquiva Total: " .. H.Fmt1(total) .. "%")
+            c9.lines[6]:SetText(format(CM:T("CHAR_DEF_TOTAL_FMT"), H.Fmt1(total)))
         else
-            c9.lines[6]:SetText("Esquiva Total: —")
+            c9.lines[6]:SetText(CM:T("CHAR_DEF_NO_TOTAL"))
         end
     end
 end
@@ -2961,8 +2956,7 @@ local function CS_RefreshDefBoss(self)
         end
         local effArmor = H.Num(deff, H.Num(darmor, H.Num(dbase, 0)))
         local red = H.ArmorReduction(effArmor, 63)
-        c10.lines[1]:SetText("Armadura: " .. tostring(effArmor)
-            .. " (" .. H.Fmt1(red) .. "% vs niv 63)")
+        c10.lines[1]:SetText(format(CM:T("CHAR_DEFBOSS_ARMOR_FMT"), effArmor, H.Fmt1(red)))
 
         local defCur, defMax = nil, nil
         if type(UnitDefense) == "function" then
@@ -2972,34 +2966,34 @@ local function CS_RefreshDefBoss(self)
             end
         end
         if type(defCur) == "number" then
-            c10.lines[2]:SetText("Defesa: " .. tostring(defCur) .. " / " .. tostring(H.Num(defMax, defCur)))
+            c10.lines[2]:SetText(format(CM:T("CHAR_DEF_DEFENSE_FMT"), defCur, H.Num(defMax, defCur)))
         else
-            c10.lines[2]:SetText("Defesa: —")
+            c10.lines[2]:SetText(CM:T("CHAR_DEF_NO_DEFENSE"))
         end
 
         local dodge = H.EffDodge(3)
         if type(dodge) == "number" then
-            c10.lines[3]:SetText("Esquiva: " .. H.Fmt1(dodge) .. "%")
+            c10.lines[3]:SetText(format(CM:T("CHAR_DEF_DODGE_FMT"), H.Fmt1(dodge)))
         else
-            c10.lines[3]:SetText("Esquiva: —")
+            c10.lines[3]:SetText(CM:T("CHAR_DEF_NO_DODGE"))
         end
         local parry = H.EffParry(3)
         if type(parry) == "number" then
-            c10.lines[4]:SetText("Aparo: " .. H.Fmt1(parry) .. "%")
+            c10.lines[4]:SetText(format(CM:T("CHAR_DEF_PARRY_FMT"), H.Fmt1(parry)))
         else
-            c10.lines[4]:SetText("Aparo: —")
+            c10.lines[4]:SetText(CM:T("CHAR_DEF_NO_PARRY"))
         end
         local block = H.EffBlock(3)
         if type(block) == "number" then
-            c10.lines[5]:SetText("Bloqueio: " .. H.Fmt1(block) .. "%")
+            c10.lines[5]:SetText(format(CM:T("CHAR_DEF_BLOCK_FMT"), H.Fmt1(block)))
         else
-            c10.lines[5]:SetText("Bloqueio: —")
+            c10.lines[5]:SetText(CM:T("CHAR_DEF_NO_BLOCK"))
         end
         local total = H.TotalAvoidance(3)
         if type(total) == "number" then
-            c10.lines[6]:SetText("Esquiva Total: " .. H.Fmt1(total) .. "%")
+            c10.lines[6]:SetText(format(CM:T("CHAR_DEF_TOTAL_FMT"), H.Fmt1(total)))
         else
-            c10.lines[6]:SetText("Esquiva Total: —")
+            c10.lines[6]:SetText(CM:T("CHAR_DEF_NO_TOTAL"))
         end
     end
 end
@@ -3010,7 +3004,7 @@ local function CS_RefreshResist(self)
     -- formato padrao texto "Nome: valor / 100".
     local c11 = self.cardResist
     if c11 and c11.lines and table.getn(c11.lines) >= 5 then
-        local resNames = { "Fogo", "Natureza", "Gelo", "Sombra", "Arcano" }
+        local resNames = { "CHAR_SCHOOL_FIRE", "CHAR_SCHOOL_NATURE", "CHAR_SCHOOL_FROST", "CHAR_SCHOOL_SHADOW", "CHAR_SCHOOL_ARCANE" }
         for i = 1, 5 do
             local rid = i + 1
             local rbase, rtotal, rpos, rneg = nil, nil, nil, nil
@@ -3021,13 +3015,13 @@ local function CS_RefreshResist(self)
                 end
             end
             local tot = H.Num(rtotal, H.Num(rbase, 0))
-            local line = tostring(resNames[i]) .. ": " .. tostring(tot) .. " / 100"
+            local line = format(CM:T("CHAR_RES_LINE_FMT"), CM:T(resNames[i]), tot)
             local pos = H.Num(rpos, 0)
             local neg = H.Num(rneg, 0)
             if pos > 0 then
-                line = line .. " " .. H.Colors.bonusGreen .. "(+" .. tostring(pos) .. ")|r"
+                line = line .. " " .. H.Colors.bonusGreen .. format(CM:T("CHAR_MOD_POS_FMT"), pos)
             elseif neg < 0 then
-                line = line .. " " .. H.Colors.penaltyRed .. "(" .. tostring(neg) .. ")|r"
+                line = line .. " " .. H.Colors.penaltyRed .. format(CM:T("CHAR_MOD_NEG_FMT"), neg)
             end
             c11.lines[i]:SetText(line)
         end
@@ -3085,7 +3079,7 @@ function CharacterScreen:RefreshWeaponProfs()
     -- secundarias, ARMAS, ...). Sem cabecalho: linha honesta, resto vazio.
     if not headerIdx then headerIdx = thirdHeader end
     if not headerIdx then
-        card.lines[1]:SetText("Perícias: — (cabeçalho não achado)")
+        card.lines[1]:SetText(CM:T("CHAR_WEAPON_NO_HEADER"))
         local z = 2
         while z <= 8 do
             card.lines[z]:SetText("")
@@ -3142,7 +3136,7 @@ function CharacterScreen:RefreshWeaponProfs()
     end
     local n = table.getn(names)
     if n == 0 then
-        card.lines[1]:SetText("Sem perícias de arma")
+        card.lines[1]:SetText(CM:T("CHAR_WEAPON_NONE"))
         local z2 = 2
         while z2 <= 8 do
             card.lines[z2]:SetText("")
@@ -3168,16 +3162,16 @@ function CharacterScreen:RefreshWeaponProfs()
         local barLi = nil
         if card.bars then barLi = card.bars[li] end
         if n > 8 and li == 8 then
-            card.lines[li]:SetText("... (+" .. tostring(n - 7) .. " ver SkillFrame K)")
+            card.lines[li]:SetText(format(CM:T("CHAR_WEAPON_MORE_FMT"), n - 7))
             if barLi and type(barLi.Hide) == "function" then barLi:Hide() end
         else
             local rk = ranks[li]
             local mx = maxs[li]
             if type(rk) ~= "number" then rk = 0 end
             if type(mx) ~= "number" then mx = 0 end
-            local txt = tostring(names[li]) .. "  " .. tostring(rk) .. "/" .. tostring(mx)
+            local txt = format(CM:T("CHAR_SKILL_LINE_FMT"), names[li], rk, mx)
             if mods[li] and mods[li] > 0 then
-                txt = txt .. " |cff20ff20(+" .. tostring(mods[li]) .. ")|r"
+                txt = txt .. format(CM:T("CHAR_SKILL_MOD_FMT"), mods[li])
             end
             card.lines[li]:SetText(txt)
             if barLi then
@@ -3236,7 +3230,7 @@ function CharacterScreen:RefreshProfessions()
         if okN and type(nLines) == "number" then total = nLines end
     end
     if total <= 0 then
-        cardP.lines[1]:SetText("Sem profissões")
+        cardP.lines[1]:SetText(CM:T("CHAR_PROF_NONE"))
         local zp = 2
         while zp <= 3 do
             cardP.lines[zp]:SetText("")
@@ -3250,7 +3244,7 @@ function CharacterScreen:RefreshProfessions()
                 hb = hb + 1
             end
         end
-        cardS.lines[1]:SetText("Sem ofícios")
+        cardS.lines[1]:SetText(CM:T("CHAR_SEC_NONE"))
         local zs = 2
         while zs <= 4 do
             cardS.lines[zs]:SetText("")
@@ -3383,7 +3377,7 @@ function CharacterScreen:RefreshProfessions()
     -- overflow "... (+N)" sem barra. Zero: linha honesta + resto vazio.
     local np = table.getn(pNames)
     if np == 0 then
-        cardP.lines[1]:SetText("Sem profissões")
+        cardP.lines[1]:SetText(CM:T("CHAR_PROF_NONE"))
         local z3 = 2
         while z3 <= 3 do
             cardP.lines[z3]:SetText("")
@@ -3406,9 +3400,9 @@ function CharacterScreen:RefreshProfessions()
             local mx = pMaxs[li]
             if type(rk) ~= "number" then rk = 0 end
             if type(mx) ~= "number" then mx = 0 end
-            local txt = tostring(pNames[li]) .. "  " .. tostring(rk) .. "/" .. tostring(mx)
+            local txt = format(CM:T("CHAR_SKILL_LINE_FMT"), pNames[li], rk, mx)
             if pMods[li] and pMods[li] > 0 then
-                txt = txt .. " |cff20ff20(+" .. tostring(pMods[li]) .. ")|r"
+                txt = txt .. format(CM:T("CHAR_SKILL_MOD_FMT"), pMods[li])
             end
             cardP.lines[li]:SetText(txt)
             local barLi = nil
@@ -3428,7 +3422,7 @@ function CharacterScreen:RefreshProfessions()
             li = li + 1
         end
         if np > 2 then
-            cardP.lines[3]:SetText("... (+" .. tostring(np - 2) .. " ver SkillFrame K)")
+            cardP.lines[3]:SetText(format(CM:T("CHAR_PROF_MORE_FMT"), np - 2))
             if cardP.bars and cardP.bars[3] and type(cardP.bars[3].Hide) == "function" then
                 cardP.bars[3]:Hide()
             end
@@ -3442,7 +3436,7 @@ function CharacterScreen:RefreshProfessions()
     -- 3b. OFICIOS: ate 4 linhas de dados; havendo mais, a 4a vira overflow.
     local ns = table.getn(sNames)
     if ns == 0 then
-        cardS.lines[1]:SetText("Sem ofícios")
+        cardS.lines[1]:SetText(CM:T("CHAR_SEC_NONE"))
         local z4 = 2
         while z4 <= 4 do
             cardS.lines[z4]:SetText("")
@@ -3464,16 +3458,16 @@ function CharacterScreen:RefreshProfessions()
             local barLj = nil
             if cardS.bars then barLj = cardS.bars[lj] end
             if ns > 4 and lj == 4 then
-                cardS.lines[lj]:SetText("... (+" .. tostring(ns - 3) .. " ver SkillFrame K)")
+                cardS.lines[lj]:SetText(format(CM:T("CHAR_SEC_MORE_FMT"), ns - 3))
                 if barLj and type(barLj.Hide) == "function" then barLj:Hide() end
             else
                 local rk2 = sRanks[lj]
                 local mx2 = sMaxs[lj]
                 if type(rk2) ~= "number" then rk2 = 0 end
                 if type(mx2) ~= "number" then mx2 = 0 end
-                local txt2 = tostring(sNames[lj]) .. "  " .. tostring(rk2) .. "/" .. tostring(mx2)
+                local txt2 = format(CM:T("CHAR_SKILL_LINE_FMT"), sNames[lj], rk2, mx2)
                 if sMods[lj] and sMods[lj] > 0 then
-                    txt2 = txt2 .. " |cff20ff20(+" .. tostring(sMods[lj]) .. ")|r"
+                    txt2 = txt2 .. format(CM:T("CHAR_SKILL_MOD_FMT"), sMods[lj])
                 end
                 cardS.lines[lj]:SetText(txt2)
                 if barLj then
@@ -3533,7 +3527,7 @@ function CharacterScreen:RefreshReputations()
     if not card then return end
     if not card.lines then return end
     if table.getn(card.lines) < CS_MAX_REP then return end
-    local fallbacks = { "Odiado", "Hostil", "Inamistoso", "Neutro", "Amistoso", "Honrado", "Reverenciado", "Exaltado" }
+    local fallbacks = { "CHAR_STANDING_1", "CHAR_STANDING_2", "CHAR_STANDING_3", "CHAR_STANDING_4", "CHAR_STANDING_5", "CHAR_STANDING_6", "CHAR_STANDING_7", "CHAR_STANDING_8" }
     local names = {}
     local labels = {}
     local sids = {}
@@ -3585,7 +3579,7 @@ function CharacterScreen:RefreshReputations()
                         if type(gv) == "string" and gv ~= "" then
                             stTxt = gv
                         else
-                            stTxt = fallbacks[sid]
+                            stTxt = CM:T(fallbacks[sid])
                         end
                     end
                     if type(stTxt) ~= "string" or stTxt == "" then stTxt = "?" end
@@ -3608,7 +3602,7 @@ function CharacterScreen:RefreshReputations()
     end
     local n = table.getn(names)
     if n == 0 then
-        card.lines[1]:SetText("Sem reputações")
+        card.lines[1]:SetText(CM:T("CHAR_REP_NONE"))
         local z1 = 2
         while z1 <= 72 do
             card.lines[z1]:SetText("")
@@ -3653,7 +3647,7 @@ function CharacterScreen:RefreshReputations()
             if bar and type(bar.Hide) == "function" then bar:Hide() end
             if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
         elseif n > 72 and s == 72 then
-            fs:SetText("... (+" .. tostring(n - 71) .. " ver Reputação U)")
+            fs:SetText(format(CM:T("CHAR_REP_MORE_FMT"), n - 71))
             if bar and type(bar.Hide) == "function" then bar:Hide() end
             if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
         elseif s <= n then
@@ -3745,15 +3739,15 @@ function CharacterScreen:RefreshHonor()
     if rank and rank > 0 then
         if rankName then
             if rankNum then
-                card.lines[1]:SetText("Posto atual: " .. tostring(rankName) .. " (Rank " .. tostring(rankNum) .. ")")
+                card.lines[1]:SetText(format(CM:T("CHAR_HONOR_RANK_FMT"), rankName, rankNum))
             else
-                card.lines[1]:SetText("Posto atual: " .. tostring(rankName) .. " (Rank " .. tostring(rank) .. ")")
+                card.lines[1]:SetText(format(CM:T("CHAR_HONOR_RANK_FMT"), rankName, rank))
             end
         else
-            card.lines[1]:SetText("Posto atual: Rank " .. tostring(rank))
+            card.lines[1]:SetText(format(CM:T("CHAR_HONOR_RANK_NUM_FMT"), rank))
         end
     else
-        card.lines[1]:SetText("Posto atual: Sem posto")
+        card.lines[1]:SetText(CM:T("CHAR_HONOR_NO_RANK"))
     end
     local prog = nil
     if type(GetPVPRankProgress) == "function" then
@@ -3766,17 +3760,17 @@ function CharacterScreen:RefreshHonor()
         if prog < 0 then prog = 0 end
         if prog > 1 then prog = 1 end
         local pct = math.floor(prog * 100)
-        card.lines[2]:SetText("Progresso semanal: " .. tostring(pct) .. "%")
+        card.lines[2]:SetText(format(CM:T("CHAR_HONOR_PROGRESS_FMT"), pct))
         if bar then
             bar:SetMinMaxValues(0, 1)
             bar:SetValue(prog)
             if type(bar.Show) == "function" then bar:Show() end
         end
     else
-        card.lines[2]:SetText("Progresso semanal: —")
+        card.lines[2]:SetText(CM:T("CHAR_HONOR_NO_PROGRESS"))
         if bar and type(bar.Hide) == "function" then bar:Hide() end
     end
-    card.lines[3]:SetText("Maior posto: — (sem API na 1.12)")
+    card.lines[3]:SetText(CM:T("CHAR_HONOR_BEST"))
     local tHK, tHonor, yHK, yHonor, lHK = nil, nil, nil, nil, nil
     if type(GetInspectHonorData) == "function" then
         local okH, a, b, c, d, e = pcall(GetInspectHonorData)
@@ -3785,23 +3779,23 @@ function CharacterScreen:RefreshHonor()
         end
     end
     if type(tHK) == "number" and type(tHonor) == "number" then
-        card.lines[4]:SetText("Abates hoje: " .. tostring(tHK) .. " HKs (" .. tostring(tHonor) .. " honra)")
+        card.lines[4]:SetText(format(CM:T("CHAR_HONOR_TODAY_FMT"), tHK, tHonor))
     elseif type(tHK) == "number" then
-        card.lines[4]:SetText("Abates hoje: " .. tostring(tHK) .. " HKs")
+        card.lines[4]:SetText(format(CM:T("CHAR_HONOR_TODAY_HK_FMT"), tHK))
     else
-        card.lines[4]:SetText("Abates hoje: —")
+        card.lines[4]:SetText(CM:T("CHAR_HONOR_TODAY_NONE"))
     end
     if type(yHK) == "number" and type(yHonor) == "number" then
-        card.lines[5]:SetText("Abates ontem: " .. tostring(yHK) .. " HKs (" .. tostring(yHonor) .. " honra)")
+        card.lines[5]:SetText(format(CM:T("CHAR_HONOR_YEST_FMT"), yHK, yHonor))
     elseif type(yHK) == "number" then
-        card.lines[5]:SetText("Abates ontem: " .. tostring(yHK) .. " HKs")
+        card.lines[5]:SetText(format(CM:T("CHAR_HONOR_YEST_HK_FMT"), yHK))
     else
-        card.lines[5]:SetText("Abates ontem: —")
+        card.lines[5]:SetText(CM:T("CHAR_HONOR_YEST_NONE"))
     end
     if type(lHK) == "number" then
-        card.lines[6]:SetText("Total da vida: " .. tostring(lHK) .. " HKs")
+        card.lines[6]:SetText(format(CM:T("CHAR_HONOR_LIFE_FMT"), lHK))
     else
-        card.lines[6]:SetText("Total da vida: —")
+        card.lines[6]:SetText(CM:T("CHAR_HONOR_LIFE_NONE"))
     end
 end
 
@@ -3954,17 +3948,17 @@ function CharacterScreen:RefreshLangRacial()
     end
     local nLang = table.getn(langNames)
     if nLang == 0 then
-        card.lines[1]:SetText("Idiomas: — (ver SkillFrame K)")
+        card.lines[1]:SetText(CM:T("CHAR_LANG_NONE"))
         card.lines[2]:SetText("")
     elseif nLang == 1 then
-        card.lines[1]:SetText("Idioma: " .. tostring(langNames[1]))
+        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[1]))
         card.lines[2]:SetText("")
     elseif nLang == 2 then
-        card.lines[1]:SetText("Idioma: " .. tostring(langNames[1]))
-        card.lines[2]:SetText("Idioma: " .. tostring(langNames[2]))
+        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[1]))
+        card.lines[2]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[2]))
     else
-        card.lines[1]:SetText("Idioma: " .. tostring(langNames[1]))
-        card.lines[2]:SetText("Idioma: " .. tostring(langNames[2]) .. " (+" .. tostring(nLang - 2) .. " outros)")
+        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[1]))
+        card.lines[2]:SetText(format(CM:T("CHAR_LANG_MORE_FMT"), langNames[2], nLang - 2))
     end
     local raceLoc = nil
     local raceFile = nil
@@ -3980,58 +3974,58 @@ function CharacterScreen:RefreshLangRacial()
     local r3 = nil
     local r4 = nil
     if raceFile == "Human" then
-        r1 = "Percepção"
-        r2 = "Diplomacia (+10% rep.)"
-        r3 = "Espírito Humano (+5% Esp.)"
-        r4 = "Espadas +5"
+        r1 = CM:T("CHAR_RACIAL_HUMAN_1")
+        r2 = CM:T("CHAR_RACIAL_HUMAN_2")
+        r3 = CM:T("CHAR_RACIAL_HUMAN_3")
+        r4 = CM:T("CHAR_RACIAL_HUMAN_4")
     elseif raceFile == "Dwarf" then
-        r1 = "Resist. Gelo"
-        r2 = "Armas de Fogo +5"
-        r3 = "Localizar Tesouro"
-        r4 = "Forma de Pedra"
+        r1 = CM:T("CHAR_RACIAL_DWARF_1")
+        r2 = CM:T("CHAR_RACIAL_DWARF_2")
+        r3 = CM:T("CHAR_RACIAL_DWARF_3")
+        r4 = CM:T("CHAR_RACIAL_DWARF_4")
     elseif raceFile == "NightElf" then
-        r1 = "Rapidez (esquiva)"
-        r2 = "Fusão na Sombra"
-        r3 = "Espírito Wisp"
-        r4 = "Resist. Natureza"
+        r1 = CM:T("CHAR_RACIAL_NIGHTELF_1")
+        r2 = CM:T("CHAR_RACIAL_NIGHTELF_2")
+        r3 = CM:T("CHAR_RACIAL_NIGHTELF_3")
+        r4 = CM:T("CHAR_RACIAL_NIGHTELF_4")
     elseif raceFile == "Gnome" then
-        r1 = "Mente Expansiva (+5% Int)"
-        r2 = "Resist. Arcano"
-        r3 = "Artista da Fuga"
-        r4 = "Engenharia +15"
+        r1 = CM:T("CHAR_RACIAL_GNOME_1")
+        r2 = CM:T("CHAR_RACIAL_GNOME_2")
+        r3 = CM:T("CHAR_RACIAL_GNOME_3")
+        r4 = CM:T("CHAR_RACIAL_GNOME_4")
     elseif raceFile == "Orc" then
-        r1 = "Rustidez (stun)"
-        r2 = "Comando (pet)"
-        r3 = "Machados +5"
-        r4 = "Fúria Sangrenta"
+        r1 = CM:T("CHAR_RACIAL_ORC_1")
+        r2 = CM:T("CHAR_RACIAL_ORC_2")
+        r3 = CM:T("CHAR_RACIAL_ORC_3")
+        r4 = CM:T("CHAR_RACIAL_ORC_4")
     elseif raceFile == "Scourge" or raceFile == "Undead" then
-        r1 = "Vontade Renegada"
-        r2 = "Canibalizar"
-        r3 = "Respir. Subaquática"
-        r4 = "Resist. Sombra"
+        r1 = CM:T("CHAR_RACIAL_UNDEAD_1")
+        r2 = CM:T("CHAR_RACIAL_UNDEAD_2")
+        r3 = CM:T("CHAR_RACIAL_UNDEAD_3")
+        r4 = CM:T("CHAR_RACIAL_UNDEAD_4")
     elseif raceFile == "Tauren" then
-        r1 = "Vigor (+5% Vida)"
-        r2 = "Cultivo (+15 Herb.)"
-        r3 = "Resist. Natureza"
-        r4 = "Pisão de Guerra"
+        r1 = CM:T("CHAR_RACIAL_TAUREN_1")
+        r2 = CM:T("CHAR_RACIAL_TAUREN_2")
+        r3 = CM:T("CHAR_RACIAL_TAUREN_3")
+        r4 = CM:T("CHAR_RACIAL_TAUREN_4")
     elseif raceFile == "Troll" then
-        r1 = "Regeneração"
-        r2 = "Mata-Feras"
-        r3 = "Arco/Arremesso +5"
-        r4 = "Berserk"
+        r1 = CM:T("CHAR_RACIAL_TROLL_1")
+        r2 = CM:T("CHAR_RACIAL_TROLL_2")
+        r3 = CM:T("CHAR_RACIAL_TROLL_3")
+        r4 = CM:T("CHAR_RACIAL_TROLL_4")
     end
     if r1 then
-        card.lines[3]:SetText("Racial: " .. tostring(r1))
-        card.lines[4]:SetText("Racial: " .. tostring(r2))
-        card.lines[5]:SetText("Racial: " .. tostring(r3))
-        card.lines[6]:SetText("Racial: " .. tostring(r4))
+        card.lines[3]:SetText(format(CM:T("CHAR_LANG_RACIAL_FMT"), r1))
+        card.lines[4]:SetText(format(CM:T("CHAR_LANG_RACIAL_FMT"), r2))
+        card.lines[5]:SetText(format(CM:T("CHAR_LANG_RACIAL_FMT"), r3))
+        card.lines[6]:SetText(format(CM:T("CHAR_LANG_RACIAL_FMT"), r4))
     elseif type(raceLoc) == "string" and raceLoc ~= "" then
-        card.lines[3]:SetText("Raciais (" .. tostring(raceLoc) .. "): ver spellbook")
+        card.lines[3]:SetText(format(CM:T("CHAR_LANG_RACIAL_OTHER_FMT"), raceLoc))
         card.lines[4]:SetText("")
         card.lines[5]:SetText("")
         card.lines[6]:SetText("")
     else
-        card.lines[3]:SetText("Raciais: —")
+        card.lines[3]:SetText(CM:T("CHAR_LANG_NO_RACIAL"))
         card.lines[4]:SetText("")
         card.lines[5]:SetText("")
         card.lines[6]:SetText("")
@@ -4127,7 +4121,7 @@ end
 function CharacterScreen:AttachTo(parentFrame)
     self:Initialize()
     if not parentFrame then
-        CS_ChatError("AttachTo recebeu parent nil")
+        CS_ChatError(CM:T("CHAR_MSG_ATTACH_NIL"))
         return
     end
     -- Placeholder escondido AQUI (antes de CreateUI): se a construcao da
@@ -4139,7 +4133,7 @@ function CharacterScreen:AttachTo(parentFrame)
         self:CreateUI(parentFrame)
         self.attached = (self.scrollFrame ~= nil)
         if not self.attached then
-            CS_ChatError("CreateUI falhou (scrollFrame nil)")
+            CS_ChatError(CM:T("CHAR_MSG_CREATEUI_FAIL"))
             return
         end
     elseif self.scrollFrame and self.scrollFrame:GetParent() ~= parentFrame then
@@ -4172,7 +4166,7 @@ function CharacterScreen:Show()
     if self.scrollFrame then
         self.scrollFrame:Show()
     else
-        CS_ChatError("Show com scrollFrame nil (AttachTo nao rodou?)")
+        CS_ChatError(CM:T("CHAR_MSG_SHOW_NIL"))
         return
     end
     -- Roda-pe visivel junto da page (pool fixo; conteudo via UpdateDetail).

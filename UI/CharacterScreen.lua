@@ -88,6 +88,43 @@ local CS_REP_H = 1206
 local CS_REP_GAP = 12
 
 -- ----------------------------------------------------------------------------
+-- 1c. COR POR STANDING (card REPUTACOES): fonte primaria = global Blizzard
+-- FACTION_BAR_COLORS[standingId] (FrameXML/ReputationFrame, 1.12) com
+-- type-check; fallback estatico espelha os valores exatos do 1.12 (4 cores
+-- distintas em 8 ids: 1-2 vermelho, 3 laranja, 4 amarelo, 5-8 verde — cf.
+-- Ara Broker "blizzardColors" + FrameXML classico). Texto de status dentro
+-- da barra e sempre branco (1,1,1) para contraste.
+-- ----------------------------------------------------------------------------
+local CS_FACTION_FALLBACK = {
+    { r = 0.80, g = 0.30, b = 0.22 },
+    { r = 0.80, g = 0.30, b = 0.22 },
+    { r = 0.75, g = 0.27, b = 0.00 },
+    { r = 0.90, g = 0.70, b = 0.00 },
+    { r = 0.00, g = 0.60, b = 0.10 },
+    { r = 0.00, g = 0.60, b = 0.10 },
+    { r = 0.00, g = 0.60, b = 0.10 },
+    { r = 0.00, g = 0.60, b = 0.10 },
+}
+
+local function CS_FactionColor(sid)
+    if type(sid) == "number" and sid >= 1 and sid <= 8 then
+        if type(FACTION_BAR_COLORS) == "table" then
+            local c = FACTION_BAR_COLORS[sid]
+            if type(c) == "table" and type(c.r) == "number"
+                and type(c.g) == "number" and type(c.b) == "number" then
+                return c.r, c.g, c.b
+            end
+        end
+        local fb = CS_FACTION_FALLBACK[sid]
+        if type(fb) == "table" and type(fb.r) == "number"
+            and type(fb.g) == "number" and type(fb.b) == "number" then
+            return fb.r, fb.g, fb.b
+        end
+    end
+    return 0.88, 0.60, 0.08
+end
+
+-- ----------------------------------------------------------------------------
 -- 2. ESTADO DO MODULO (pool fixo: frames criados uma vez, nunca destruidos)
 -- ----------------------------------------------------------------------------
 CharacterScreen.initialized  = CharacterScreen.initialized or false
@@ -1728,16 +1765,19 @@ function CharacterScreen:CreateUI(parent)
         end
     end
 
-    -- REPUTACOES (card unico full-width, 2 colunas internas): mesmo pool
-    -- fixo de StatusBars (dourada ambar + fundo escuro, h10, pitch 32px por
-    -- fileira). Criado UMA vez aqui; Refresh so faz
-    -- SetMinMaxValues(barMin,barMax)/SetValue(barValue)/Show/Hide
-    -- (guard barMax>barMin). Posicionamento 2-col via CS_LayoutRepCard
-    -- (slot impar -> esquerda, par -> direita).
+    -- REPUTACOES (card unico full-width, 2 colunas internas): pool fixo de
+    -- StatusBars (cor por standing via CS_FactionColor + fundo escuro, h10,
+    -- pitch 32px por fileira) + pool fixo de 72 FontStrings de status
+    -- (filhas das barras, ponto CENTER, brancas). Criados UMA vez aqui;
+    -- Refresh so faz SetText/SetStatusBarColor/SetMinMaxValues/SetValue/
+    -- Show/Hide (guard barMax>barMin). Posicionamento 2-col via
+    -- CS_LayoutRepCard (slot impar -> esquerda, par -> direita); o texto
+    -- interno segue a barra sozinho (filho CENTER).
     do
         local rcard = self.cardRep
         if rcard and rcard.lines and table.getn(rcard.lines) >= CS_MAX_REP then
             rcard.bars = rcard.bars or {}
+            rcard.barTexts = rcard.barTexts or {}
             local si = 1
             while si <= CS_MAX_REP do
                 local barR = rcard.bars[si]
@@ -1758,11 +1798,25 @@ function CharacterScreen:CreateUI(parent)
                         rcard.bars[si] = barR
                     end
                 end
+                local fT = rcard.barTexts[si]
+                if not fT and barR and type(barR.CreateFontString) == "function" then
+                    fT = barR:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                    if fT then
+                        CS_ApplyFont(fT, FONTS.medium, 11)
+                        fT:SetPoint("CENTER", barR, "CENTER", 0, 0)
+                        if type(fT.SetJustifyH) == "function" then fT:SetJustifyH("CENTER") end
+                        if type(fT.SetTextColor) == "function" then fT:SetTextColor(1, 1, 1) end
+                        fT:SetText("")
+                        rcard.barTexts[si] = fT
+                    end
+                end
                 if barR then
                     barR:SetMinMaxValues(0, 1)
                     barR:SetValue(0)
                     barR:Hide()
                 end
+                local fT0 = rcard.barTexts[si]
+                if fT0 and type(fT0.SetText) == "function" then fT0:SetText("") end
                 si = si + 1
             end
             CS_LayoutRepCard(rcard)
@@ -1860,6 +1914,7 @@ local H = {
     EffBlock = CS_EffBlock,
     TotalAvoidance = CS_TotalAvoidance,
     ArmorReduction = CS_ArmorReduction,
+    FactionColor = CS_FactionColor,
     Colors = COLORS,
     StatNames = STAT_NAMES,
     SchoolNames = SCHOOL_NAMES,
@@ -2917,13 +2972,16 @@ end
 -- barra/standing (hasRep OU barMax>barMin OU standingId 1..8). Mostra as
 -- visiveis SEM expandir (sem ExpandFactionHeader para nao mexer na UI).
 -- standingId 1..8 via globals FACTION_STANDING_LABEL1..8 (type check) com
--- fallback PT. Formato por celula: "Nome  Status (atual/max)" em cima +
--- StatusBar dourada embaixo (pool fixo card.bars,
--- SetMinMaxValues(barMin,barMax)+SetValue(barValue), guard barMax>barMin).
--- Grade 2-col: slot s impar -> coluna esquerda, par -> direita (indice
--- 0-based (s-1) par -> esquerda, impar -> direita); posicoes fixas via
--- CS_LayoutRepCard, aqui so textos+barras. Overflow alem dos 72: ultima
--- celula vira "... (+N)" sem barra. Zero: "Sem reputacoes" + resto vazio.
+-- fallback PT. Formato por celula: nome da faccao em cima (fora da barra) +
+-- Status branco DENTRO da barra (pool fixo card.barTexts, filhas das barras,
+-- ponto CENTER, cor 1,1,1 aplicada uma vez em CreateUI) + barra colorida por
+-- standing via CS_FactionColor (FACTION_BAR_COLORS com type-check + fallback
+-- 1.12; Refresh so SetText/SetStatusBarColor/SetMinMaxValues/SetValue).
+-- (atual/max) sai do nome: a barra ja mostra o progresso. Grade 2-col: slot
+-- s impar -> coluna esquerda, par -> direita (indice 0-based (s-1) par ->
+-- esquerda, impar -> direita); posicoes fixas via CS_LayoutRepCard, aqui so
+-- textos+barras. Overflow alem dos 72: ultima celula vira "... (+N)" sem
+-- barra. Zero: "Sem reputacoes" + resto vazio.
 -- Sem cache — leitura direta a cada Refresh (barata); UPDATE_FACTION
 -- registrado em EnsureEventFrame dispara o Refresh quando visivel.
 -- ----------------------------------------------------------------------------
@@ -2935,6 +2993,7 @@ function CharacterScreen:RefreshReputations()
     local fallbacks = { "Odiado", "Hostil", "Inamistoso", "Neutro", "Amistoso", "Honrado", "Reverenciado", "Exaltado" }
     local names = {}
     local labels = {}
+    local sids = {}
     local bMins = {}
     local bMaxs = {}
     local bVals = {}
@@ -2995,6 +3054,7 @@ function CharacterScreen:RefreshReputations()
                     if type(fVal) == "number" then vv = fVal end
                     table.insert(names, fName)
                     table.insert(labels, stTxt)
+                    table.insert(sids, sid)
                     table.insert(bMins, mn)
                     table.insert(bMaxs, mx)
                     table.insert(bVals, vv)
@@ -3019,6 +3079,14 @@ function CharacterScreen:RefreshReputations()
                 hb1 = hb1 + 1
             end
         end
+        if card.barTexts then
+            local ht1 = 1
+            while ht1 <= 72 do
+                local t01 = card.barTexts[ht1]
+                if t01 and type(t01.SetText) == "function" then t01:SetText("") end
+                ht1 = ht1 + 1
+            end
+        end
         -- ALTURA DINAMICA: 1 linha minima ("Sem reputacoes").
         -- Formula: altura = 30 + linhas*32 + 24 (linhas=1 -> 86).
         -- cardH atualizado ANTES do LayoutCards (Refresh->Layout no Refresh()).
@@ -3029,19 +3097,24 @@ function CharacterScreen:RefreshReputations()
     end
     -- Render grade 2-col: slot s 1..72 (impar -> esquerda, par -> direita;
     -- posicao fixa em CS_LayoutRepCard). Com overflow (n>72) o slot 72 vira
-    -- "... (+N)" sem barra, com N = n-71.
+    -- "... (+N)" sem barra, com N = n-71. Nome em cima (fora); Status branco
+    -- dentro da barra (filha CENTER); barra na cor do standing.
     local s = 1
     while s <= 72 do
         local fs = card.lines[s]
         local bar = nil
         if card.bars then bar = card.bars[s] end
+        local btxt = nil
+        if card.barTexts then btxt = card.barTexts[s] end
         if not fs or type(fs.SetText) ~= "function" then
             if bar and type(bar.Hide) == "function" then bar:Hide() end
+            if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
         elseif n > 72 and s == 72 then
             fs:SetText("... (+" .. tostring(n - 71) .. " ver Reputacao U)")
             if bar and type(bar.Hide) == "function" then bar:Hide() end
+            if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
         elseif s <= n then
-            fs:SetText(tostring(names[s]) .. "  " .. tostring(labels[s]) .. " (" .. tostring(bVals[s]) .. "/" .. tostring(bMaxs[s]) .. ")")
+            fs:SetText(tostring(names[s]))
             if bar then
                 local mn = bMins[s]
                 local mx = bMaxs[s]
@@ -3054,14 +3127,25 @@ function CharacterScreen:RefreshReputations()
                     if cv < mn then cv = mn end
                     if cv > mx then cv = mx end
                     bar:SetValue(cv)
+                    local cr, cg, cb = CS_FactionColor(sids[s])
+                    if type(bar.SetStatusBarColor) == "function" then
+                        bar:SetStatusBarColor(cr, cg, cb)
+                    end
                     if type(bar.Show) == "function" then bar:Show() end
+                    if btxt and type(btxt.SetText) == "function" then
+                        btxt:SetText(tostring(labels[s]))
+                    end
                 else
                     if type(bar.Hide) == "function" then bar:Hide() end
+                    if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
                 end
+            elseif btxt and type(btxt.SetText) == "function" then
+                btxt:SetText("")
             end
         else
             fs:SetText("")
             if bar and type(bar.Hide) == "function" then bar:Hide() end
+            if btxt and type(btxt.SetText) == "function" then btxt:SetText("") end
         end
         s = s + 1
     end

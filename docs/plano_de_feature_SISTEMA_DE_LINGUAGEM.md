@@ -51,7 +51,7 @@ A nova arquitetura é **modular por idioma, dirigida por registro**:
 +==================================================================+
 ```
 
-**Fora de escopo:** traduzir `Data/QuestDB_ptBR.lua` (conteúdo de jogo, auto-gerado), tooltips nativas da Blizzard, nomes de talentos/magias vindos do cliente. Só strings **do addon**.
+**Fora de escopo:** traduzir `Data/QuestDB_ptBR.lua` (conteúdo de jogo, auto-gerado), tooltips nativas da Blizzard, nomes de talentos/magias vindos do cliente. Só strings **do addon**. Exceções deliberadas (levantadas em auditoria 100% dos arquivos): `UI/QuestItemDistributor.lua` (só `QLog`/`QDebug` internos + termos de matching de nome de item + labels internas de slot — zero texto de UI), `Logger.lua` (logs de debug com prefixo, fora da UI), `UI/BagSplit.lua` (sem nenhum `SetText`/`AddMessage`), `Bindings.xml` + `UI/MainMenu.xml` (sem texto estático), `ConsoleModeVanilla.toc` (Title/Notes da lista de addons, padrão em inglês).
 
 ---
 

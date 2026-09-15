@@ -187,7 +187,7 @@ function CM:ShowLangList()
     DEFAULT_CHAT_FRAME:AddMessage("|cff888888" .. format(self:T("LANG_USAGE_FMT"), orderIds) .. "|r")
 end
 
--- Trata /cm lang [id]. Sem arg lista, arg valido salva e pede reload.
+-- Trata /cm lang [id]. Sem arg lista, arg valido salva e recarrega via ReloadUI.
 function CM:HandleLangCommand(arg)
     local want = arg or ""
     want = string.gsub(want, "^%s+", "")
@@ -219,7 +219,7 @@ function CM:HandleLangCommand(arg)
             lname = le.name
         end
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. format(self:T("LANG_CHANGED_FMT"), canonical .. " (" .. lname .. ")"))
-        DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00" .. self:T("LANG_RELOAD_HINT") .. "|r")
+        ReloadUI()
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r " .. format(self:T("LANG_UNKNOWN_FMT"), want))
         self:ShowLangList()
@@ -229,6 +229,7 @@ end
 -- Registro Fase 1: portugues e a base completa. Novos idiomas entram
 -- abaixo desta linha, uma chamada por idioma, sem tocar no resto.
 CM_RegisterLang("ptBR", "Português (Brasil)", "Data\\Localization\\localization_ptBR.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Localization\\flag_ptBR.tga")
+CM_RegisterLang("enUS", "English (US)", "Data\\Localization\\localization_enUS.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Localization\\flag_enUS.tga")
 
 -- Resolve cedo com default. VARIABLES_LOADED resolve de novo com SavedVariables.
 CM:ResolveLocale()

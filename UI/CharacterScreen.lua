@@ -1503,6 +1503,15 @@ function CharacterScreen:CreateUI(parent)
     -- aqui; Refresh so atualiza textos + SetMinMaxValues/SetValue.
     self.cardProf      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardProf", "PROFISSOES", 150, 3, colW)
     self.cardSec       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardSec", "OFICIOS", 182, 4, colW)
+    -- FASE 5 (parcial: Reputacoes): 2 cards no FIM da ordem (apos Oficios),
+    -- mesmo molde Pericias/Profissoes (nome em cima + StatusBar dourada
+    -- embaixo, pitch 32px). REPUTACOES I/II (3 slots cada = 6 no total;
+    -- overflow "... (+N)" no ultimo slot do card II). Altura cada =
+    -- 30 + 3*32 + 24 = 150. Pool fixo: FontStrings via CS_MakeCard +
+    -- StatusBars criados uma vez abaixo; Refresh so atualiza textos +
+    -- SetMinMaxValues(barMin,barMax)/SetValue(barValue).
+    self.cardRep1      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep1", "REPUTACOES I", 150, 3, colW)
+    self.cardRep2      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep2", "REPUTACOES II", 150, 3, colW)
 
     -- PERICIAS DE ARMAS: cada pericia ocupa 2 linhas visuais (nome em cima +
     -- StatusBar h10 embaixo). Pool fixo de 8 StatusBars criado UMA vez aqui;
@@ -1617,12 +1626,71 @@ function CharacterScreen:CreateUI(parent)
         end
     end
 
+    -- REPUTACOES I/II: mesmo pool fixo de StatusBars (dourada ambar + fundo
+    -- escuro, h10, pitch 32px). Criado UMA vez aqui; Refresh so faz
+    -- SetMinMaxValues(barMin,barMax)/SetValue(barValue)/Show/Hide
+    -- (guard barMax>barMin).
+    do
+        local ri = 1
+        while ri <= 2 do
+            local rcard = nil
+            if ri == 1 then
+                rcard = self.cardRep1
+            else
+                rcard = self.cardRep2
+            end
+            if rcard and rcard.lines and table.getn(rcard.lines) >= 3 then
+                rcard.bars = rcard.bars or {}
+                local si = 1
+                while si <= 3 do
+                    local yName = -(30 + ((si - 1) * 32))
+                    local fsR = rcard.lines[si]
+                    if fsR then
+                        fsR:ClearAllPoints()
+                        fsR:SetPoint("TOPLEFT", rcard, "TOPLEFT", 12, yName)
+                        fsR:SetPoint("TOPRIGHT", rcard, "TOPRIGHT", -12, yName)
+                    end
+                    local barR = rcard.bars[si]
+                    if not barR then
+                        barR = CreateFrame("StatusBar", nil, rcard)
+                        if barR then
+                            barR:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+                            barR:SetStatusBarColor(0.88, 0.60, 0.08, 1)
+                            barR:SetMinMaxValues(0, 1)
+                            barR:SetValue(0)
+                            local bgR = barR:CreateTexture(nil, "BACKGROUND")
+                            if bgR then
+                                bgR:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                                bgR:SetVertexColor(0, 0, 0, 0.85)
+                                bgR:SetPoint("TOPLEFT", barR, "TOPLEFT", 0, 0)
+                                bgR:SetPoint("BOTTOMRIGHT", barR, "BOTTOMRIGHT", 0, 0)
+                            end
+                            rcard.bars[si] = barR
+                        end
+                    end
+                    if barR then
+                        barR:ClearAllPoints()
+                        barR:SetPoint("TOPLEFT", rcard, "TOPLEFT", 12, yName - 16)
+                        barR:SetPoint("TOPRIGHT", rcard, "TOPRIGHT", -12, yName - 16)
+                        barR:SetHeight(10)
+                        barR:SetMinMaxValues(0, 1)
+                        barR:SetValue(0)
+                        barR:Hide()
+                    end
+                    si = si + 1
+                end
+            end
+            ri = ri + 1
+        end
+    end
+
     self.cardOrder = {
         self.cardIdent, self.cardBase, self.cardRes,
         self.cardMelee, self.cardMeleeBoss, self.cardRanged,
         self.cardSpell, self.cardSchools,
         self.cardDef, self.cardDefBoss, self.cardResist,
         self.cardWeapon, self.cardProf, self.cardSec,
+        self.cardRep1, self.cardRep2,
     }
 
     self.scrollFrame = scrollFrame
@@ -2730,6 +2798,153 @@ function CharacterScreen:RefreshProfessions()
     end
 end
 
+-- ----------------------------------------------------------------------------
+-- FASE 5 (parcial: Reputacoes). Metodo CharacterScreen:X (NAO e file-local):
+-- corpo usa so self + globais + locais internos => 0 upvalues. Atualiza os
+-- 2 cards (REPUTACOES I + II, 3 slots cada = 6 no total); Refresh() ganha so
+-- 1 chamada via self.
+-- Filtro: lista GetNumFactions()/GetFactionInfo(i); pula cabecalhos
+-- (isHeader==1) e entradas sem hasRep; mostra as visiveis SEM expandir
+-- (sem ExpandFactionHeader para nao mexer na UI da Blizzard).
+-- standingId 1..8 via globals FACTION_STANDING_LABEL1..8 (type check) com
+-- fallback PT. Formato: "Nome  Status (atual/max)" em cima + StatusBar
+-- dourada embaixo (pool fixo card.bars, SetMinMaxValues(barMin,barMax) +
+-- SetValue(barValue), guard barMax>barMin); overflow "... (+N)" sem barra
+-- no ultimo slot do card II. Sem cache — leitura direta a cada Refresh
+-- (barata); UPDATE_FACTION registrado em EnsureEventFrame dispara o
+-- Refresh quando visivel.
+-- ----------------------------------------------------------------------------
+function CharacterScreen:RefreshReputations()
+    local card1 = self.cardRep1
+    local card2 = self.cardRep2
+    if not card1 then return end
+    if not card2 then return end
+    if not card1.lines then return end
+    if not card2.lines then return end
+    if table.getn(card1.lines) < 3 then return end
+    if table.getn(card2.lines) < 3 then return end
+    local fallbacks = { "Odiado", "Hostil", "Inamistoso", "Neutro", "Amistoso", "Honrado", "Reverenciado", "Exaltado" }
+    local names = {}
+    local labels = {}
+    local bMins = {}
+    local bMaxs = {}
+    local bVals = {}
+    local total = 0
+    if type(GetNumFactions) == "function" then
+        local okN, nFac = pcall(GetNumFactions)
+        if okN and type(nFac) == "number" then total = nFac end
+    end
+    if total > 0 and type(GetFactionInfo) == "function" then
+        local i = 1
+        while i <= total do
+            local okF, fName, fDesc, fStanding, fMin, fMax, fVal, fAtWar, fCanWar, fIsHeader, fCollapsed, fHasRep = pcall(GetFactionInfo, i)
+            if okF and type(fName) == "string" and fName ~= "" then
+                local skip = false
+                if fIsHeader == 1 then skip = true end
+                if not skip and (not fHasRep or fHasRep == 0) then skip = true end
+                if not skip and table.getn(names) < 40 then
+                    local sid = 0
+                    if type(fStanding) == "number" then sid = fStanding end
+                    local stTxt = nil
+                    if sid >= 1 and sid <= 8 then
+                        local gv = getglobal("FACTION_STANDING_LABEL" .. tostring(sid))
+                        if type(gv) == "string" and gv ~= "" then
+                            stTxt = gv
+                        else
+                            stTxt = fallbacks[sid]
+                        end
+                    end
+                    if type(stTxt) ~= "string" or stTxt == "" then stTxt = "?" end
+                    local mn = 0
+                    if type(fMin) == "number" then mn = fMin end
+                    local mx = 0
+                    if type(fMax) == "number" then mx = fMax end
+                    local vv = mn
+                    if type(fVal) == "number" then vv = fVal end
+                    table.insert(names, fName)
+                    table.insert(labels, stTxt)
+                    table.insert(bMins, mn)
+                    table.insert(bMaxs, mx)
+                    table.insert(bVals, vv)
+                end
+            end
+            i = i + 1
+        end
+    end
+    local n = table.getn(names)
+    if n == 0 then
+        card1.lines[1]:SetText("Sem reputacoes")
+        local z1 = 2
+        while z1 <= 3 do
+            card1.lines[z1]:SetText("")
+            z1 = z1 + 1
+        end
+        if card1.bars then
+            local hb1 = 1
+            while hb1 <= 3 do
+                local b01 = card1.bars[hb1]
+                if b01 and type(b01.Hide) == "function" then b01:Hide() end
+                hb1 = hb1 + 1
+            end
+        end
+        local z2 = 1
+        while z2 <= 3 do
+            card2.lines[z2]:SetText("")
+            z2 = z2 + 1
+        end
+        if card2.bars then
+            local hb2 = 1
+            while hb2 <= 3 do
+                local b02 = card2.bars[hb2]
+                if b02 and type(b02.Hide) == "function" then b02:Hide() end
+                hb2 = hb2 + 1
+            end
+        end
+        return
+    end
+    -- Render slot: indice global 1..6 -> card 1 (1..3) ou card 2 (4..6);
+    -- com overflow (n>6) o slot 6 vira "... (+N)" sem barra.
+    local s = 1
+    while s <= 6 do
+        local tgtCard = card1
+        local tgtSlot = s
+        if s > 3 then
+            tgtCard = card2
+            tgtSlot = s - 3
+        end
+        local fs = tgtCard.lines[tgtSlot]
+        local bar = nil
+        if tgtCard.bars then bar = tgtCard.bars[tgtSlot] end
+        if n > 6 and s == 6 then
+            fs:SetText("... (+" .. tostring(n - 5) .. " ver Reputacao U)")
+            if bar and type(bar.Hide) == "function" then bar:Hide() end
+        elseif s <= n then
+            fs:SetText(tostring(names[s]) .. "  " .. tostring(labels[s]) .. " (" .. tostring(bVals[s]) .. "/" .. tostring(bMaxs[s]) .. ")")
+            if bar then
+                local mn = bMins[s]
+                local mx = bMaxs[s]
+                if type(mn) ~= "number" then mn = 0 end
+                if type(mx) ~= "number" then mx = 0 end
+                if mx > mn then
+                    bar:SetMinMaxValues(mn, mx)
+                    local cv = bVals[s]
+                    if type(cv) ~= "number" then cv = mn end
+                    if cv < mn then cv = mn end
+                    if cv > mx then cv = mx end
+                    bar:SetValue(cv)
+                    if type(bar.Show) == "function" then bar:Show() end
+                else
+                    if type(bar.Hide) == "function" then bar:Hide() end
+                end
+            end
+        else
+            fs:SetText("")
+            if bar and type(bar.Hide) == "function" then bar:Hide() end
+        end
+        s = s + 1
+    end
+end
+
 function CharacterScreen:Refresh()
     if not self.cardOrder then return end
     H.ConsumeScans()
@@ -2747,6 +2962,8 @@ function CharacterScreen:Refresh()
     -- FASE 5 (parcial): metodos via self (sem upvalue novo).
     if self.cardWeapon then self:RefreshWeaponProfs() end
     if self.cardProf and self.cardSec then self:RefreshProfessions() end
+    -- FASE 5 (parcial: Reputacoes): metodo via self (sem upvalue novo).
+    if self.cardRep1 and self.cardRep2 then self:RefreshReputations() end
     self:LayoutCards()
 end
 
@@ -2769,6 +2986,7 @@ function CharacterScreen:EnsureEventFrame()
         f:RegisterEvent("UNIT_RANGED_ATTACK_POWER")
         f:RegisterEvent("UNIT_RESISTANCES")
         f:RegisterEvent("SKILL_LINES_CHANGED")
+        f:RegisterEvent("UPDATE_FACTION")
         f:RegisterEvent("CHARACTER_POINTS_CHANGED")
         f:RegisterEvent("PLAYER_AURAS_CHANGED")
     end

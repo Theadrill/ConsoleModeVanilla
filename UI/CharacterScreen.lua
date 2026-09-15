@@ -1661,6 +1661,13 @@ function CharacterScreen:CreateUI(parent)
     -- SetMinMaxValues(0,1)/SetValue. Reflow do LayoutCards pareia sozinho
     -- (por ora fica sozinho na linha apos o full-width de REPUTACOES).
     self.cardHonor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardHonor", "HONRA & JXJ (PVP)", 246, 6, colW)
+    -- FASE 5 (Idiomas & Raciais, 1 card meia-largura no FIM da ordem apos
+    -- Honra; pareia com Honra na mesma linha via reflow do LayoutCards).
+    -- Texto puro SEM barras (padrao: so proficiencia/profissoes/reputacoes
+    -- tem barras). 6 linhas pitch 20 padrao do CS_MakeCard (2 idiomas + 4
+    -- raciais), altura 190 igual aos demais cards de 6 linhas. Pool fixo:
+    -- 6 FontStrings criadas uma vez aqui; Refresh so SetText.
+    self.cardLang      = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardLang", "IDIOMAS & RACIAIS", 190, 6, colW)
     -- Destaque Honra & JxJ: borda vermelho-escuro (0.55, 0.10, 0.10) em vez
     -- do bronze padrao do CS_MakeCard; demais cards inalterados.
     if self.cardHonor and type(self.cardHonor.SetBackdropBorderColor) == "function" then
@@ -1897,7 +1904,7 @@ function CharacterScreen:CreateUI(parent)
         self.cardSpell, self.cardSchools,
         self.cardDef, self.cardDefBoss, self.cardResist,
         self.cardWeapon, self.cardProf, self.cardSec,
-        self.cardRep, self.cardHonor,
+        self.cardRep, self.cardHonor, self.cardLang,
     }
 
     self.scrollFrame = scrollFrame
@@ -3328,6 +3335,239 @@ function CharacterScreen:RefreshHonor()
     end
 end
 
+-- ----------------------------------------------------------------------------
+-- FASE 5 (Idiomas & Raciais, 1 card meia-largura no FIM da ordem apos Honra;
+-- pareia com Honra na mesma linha via reflow do LayoutCards). Metodo
+-- CharacterScreen:X (NAO e file-local): corpo usa so self + globais + locais
+-- internos => 0 upvalues. Texto puro SEM barras (padrao: so proficiencia/
+-- profissoes/reputacoes tem barras). 6 linhas: 2 idiomas + 4 raciais.
+-- Idiomas na 1.12 SAO skill lines (SkillFrame `K`, secao "Languages"/
+-- "Idiomas"): GetNumSkillLines/GetSkillLineInfo com allowlist do header
+-- (EN "Languages" + PT "Idiomas"/"Idioma"/"Linguas"/"Lingua", com e sem
+-- acento; strlower + find plain) rastreando o header corrente como em
+-- RefreshProfessions (qualquer outro header zera). Header recolhido e
+-- expandido via ExpandSkillHeader + recontagem (espelho Professions/Armas).
+-- GetNumLanguages/GetLanguageByIndex NAO existem na 1.12 (so TBC+), por isso
+-- nao sao usados. Formato L1-L2: "Idioma: Nome" (+ "(+N outros)" se >2);
+-- secao ausente/vazia: L1 = "Idiomas: — (ver SkillFrame K)", L2 = "".
+-- Raciais: sem API de lista na 1.12 — tabela estatica por raceFile do
+-- UnitRace (8 racas vanilla, 4 raciais cada, texto curto EN/PT).
+-- Sem eventos novos (SKILL_LINES_CHANGED ja cobre); Refresh() via self no
+-- Show/eventos existentes.
+-- ----------------------------------------------------------------------------
+function CharacterScreen:RefreshLangRacial()
+    local card = self.cardLang
+    if not card then return end
+    if not card.lines then return end
+    if table.getn(card.lines) < 6 then return end
+    local langNames = {}
+    local total = 0
+    if type(GetNumSkillLines) == "function" then
+        local okN, nL = pcall(GetNumSkillLines)
+        if okN and type(nL) == "number" then total = nL end
+    end
+    if total > 0 and type(GetSkillLineInfo) == "function" then
+        local needRecount = false
+        local i = 1
+        while i <= total do
+            local okH, hName, hIsHeader, hIsExp = pcall(GetSkillLineInfo, i)
+            if not okH then break end
+            if hName == nil then break end
+            if hIsHeader == 1 and type(hName) == "string" and hName ~= "" then
+                local lowH = string.lower(hName)
+                local isLangH = false
+                if string.find(lowH, "languages", 1, true) then
+                    isLangH = true
+                elseif string.find(lowH, "language", 1, true) then
+                    isLangH = true
+                elseif string.find(lowH, "idiomas", 1, true) then
+                    isLangH = true
+                elseif string.find(lowH, "idioma", 1, true) then
+                    isLangH = true
+                elseif string.find(lowH, "linguas", 1, true) then
+                    isLangH = true
+                elseif string.find(lowH, "lingua", 1, true) then
+                    isLangH = true
+                elseif string.find(lowH, "línguas", 1, true) then
+                    isLangH = true
+                elseif string.find(lowH, "língua", 1, true) then
+                    isLangH = true
+                end
+                if isLangH and hIsExp == 0 then
+                    if type(ExpandSkillHeader) == "function" then
+                        pcall(ExpandSkillHeader, i)
+                        needRecount = true
+                    end
+                end
+            end
+            i = i + 1
+        end
+        if needRecount and type(GetNumSkillLines) == "function" then
+            local okR, nR = pcall(GetNumSkillLines)
+            if okR and type(nR) == "number" then total = nR end
+        end
+        local curIsLang = false
+        local j = 1
+        while j <= total do
+            local okS, sName, sIsHeader = pcall(GetSkillLineInfo, j)
+            if not okS then break end
+            if sName == nil then break end
+            if sIsHeader == 1 then
+                curIsLang = false
+                if type(sName) == "string" and sName ~= "" then
+                    local lowH = string.lower(sName)
+                    if string.find(lowH, "languages", 1, true) then
+                        curIsLang = true
+                    elseif string.find(lowH, "language", 1, true) then
+                        curIsLang = true
+                    elseif string.find(lowH, "idiomas", 1, true) then
+                        curIsLang = true
+                    elseif string.find(lowH, "idioma", 1, true) then
+                        curIsLang = true
+                    elseif string.find(lowH, "linguas", 1, true) then
+                        curIsLang = true
+                    elseif string.find(lowH, "lingua", 1, true) then
+                        curIsLang = true
+                    elseif string.find(lowH, "línguas", 1, true) then
+                        curIsLang = true
+                    elseif string.find(lowH, "língua", 1, true) then
+                        curIsLang = true
+                    end
+                end
+            elseif curIsLang and type(sName) == "string" and sName ~= "" then
+                if table.getn(langNames) < 40 then
+                    -- BUGFIX card IDIOMAS ("Idioma: Language: orcish"):
+                    -- skill line vem com prefixo ("Language: Orcish"). Remove
+                    -- prefixos Language:/Idioma:/Lingua:/Lingua: (case-insens.)
+                    -- via corte no ":" (strfind plain) + strsub, sem gmatch/
+                    -- gfind (Lua 5.0) e sem tabela de traducao; capitaliza a
+                    -- 1a letra (string.upper/lower). Ex.: "Language: orcish"
+                    -- -> "Orcish"; sem prefixo fica inalterado (so capitaliza).
+                    local cleanLang = sName
+                    local cS, cE = strfind(sName, ":", 1, true)
+                    if cS then
+                        local leftL = string.lower(string.sub(sName, 1, cS - 1))
+                        local isPrefLang = false
+                        if strfind(leftL, "^%s*language%s*$") then
+                            isPrefLang = true
+                        elseif strfind(leftL, "^%s*idioma%s*$") then
+                            isPrefLang = true
+                        elseif strfind(leftL, "^%s*lingua%s*$") then
+                            isPrefLang = true
+                        elseif strfind(leftL, "^%s*l\195\173ngua%s*$") then
+                            isPrefLang = true
+                        end
+                        if isPrefLang then
+                            local _, _, tmpLang = strfind(string.sub(sName, cE + 1, -1), "^%s*(.+)$")
+                            if type(tmpLang) == "string" and tmpLang ~= "" then
+                                local _, _, tmpTrim = strfind(tmpLang, "^(.*[^%s])%s*$")
+                                if type(tmpTrim) == "string" and tmpTrim ~= "" then
+                                    cleanLang = tmpTrim
+                                else
+                                    cleanLang = ""
+                                end
+                            else
+                                cleanLang = ""
+                            end
+                        end
+                    end
+                    if type(cleanLang) == "string" and cleanLang ~= "" then
+                        cleanLang = string.upper(string.sub(cleanLang, 1, 1)) .. string.sub(cleanLang, 2, -1)
+                    else
+                        cleanLang = sName
+                    end
+                    table.insert(langNames, cleanLang)
+                end
+            end
+            j = j + 1
+        end
+    end
+    local nLang = table.getn(langNames)
+    if nLang == 0 then
+        card.lines[1]:SetText("Idiomas: — (ver SkillFrame K)")
+        card.lines[2]:SetText("")
+    elseif nLang == 1 then
+        card.lines[1]:SetText("Idioma: " .. tostring(langNames[1]))
+        card.lines[2]:SetText("")
+    elseif nLang == 2 then
+        card.lines[1]:SetText("Idioma: " .. tostring(langNames[1]))
+        card.lines[2]:SetText("Idioma: " .. tostring(langNames[2]))
+    else
+        card.lines[1]:SetText("Idioma: " .. tostring(langNames[1]))
+        card.lines[2]:SetText("Idioma: " .. tostring(langNames[2]) .. " (+" .. tostring(nLang - 2) .. " outros)")
+    end
+    local raceLoc = nil
+    local raceFile = nil
+    if type(UnitRace) == "function" then
+        local okR, a, b = pcall(UnitRace, "player")
+        if okR then
+            raceLoc = a
+            raceFile = b
+        end
+    end
+    local r1 = nil
+    local r2 = nil
+    local r3 = nil
+    local r4 = nil
+    if raceFile == "Human" then
+        r1 = "Percepção"
+        r2 = "Diplomacia (+10% rep.)"
+        r3 = "Espírito Humano (+5% Esp.)"
+        r4 = "Espadas +5"
+    elseif raceFile == "Dwarf" then
+        r1 = "Resist. Gelo"
+        r2 = "Armas de Fogo +5"
+        r3 = "Localizar Tesouro"
+        r4 = "Forma de Pedra"
+    elseif raceFile == "NightElf" then
+        r1 = "Rapidez (esquiva)"
+        r2 = "Fusão na Sombra"
+        r3 = "Espírito Wisp"
+        r4 = "Resist. Natureza"
+    elseif raceFile == "Gnome" then
+        r1 = "Mente Expansiva (+5% Int)"
+        r2 = "Resist. Arcano"
+        r3 = "Artista da Fuga"
+        r4 = "Engenharia +15"
+    elseif raceFile == "Orc" then
+        r1 = "Rustidez (stun)"
+        r2 = "Comando (pet)"
+        r3 = "Machados +5"
+        r4 = "Fúria Sangrenta"
+    elseif raceFile == "Scourge" or raceFile == "Undead" then
+        r1 = "Vontade Renegada"
+        r2 = "Canibalizar"
+        r3 = "Respir. Subaquática"
+        r4 = "Resist. Sombra"
+    elseif raceFile == "Tauren" then
+        r1 = "Vigor (+5% Vida)"
+        r2 = "Cultivo (+15 Herb.)"
+        r3 = "Resist. Natureza"
+        r4 = "Pisão de Guerra"
+    elseif raceFile == "Troll" then
+        r1 = "Regeneração"
+        r2 = "Mata-Feras"
+        r3 = "Arco/Arremesso +5"
+        r4 = "Berserk"
+    end
+    if r1 then
+        card.lines[3]:SetText("Racial: " .. tostring(r1))
+        card.lines[4]:SetText("Racial: " .. tostring(r2))
+        card.lines[5]:SetText("Racial: " .. tostring(r3))
+        card.lines[6]:SetText("Racial: " .. tostring(r4))
+    elseif type(raceLoc) == "string" and raceLoc ~= "" then
+        card.lines[3]:SetText("Raciais (" .. tostring(raceLoc) .. "): ver spellbook")
+        card.lines[4]:SetText("")
+        card.lines[5]:SetText("")
+        card.lines[6]:SetText("")
+    else
+        card.lines[3]:SetText("Raciais: —")
+        card.lines[4]:SetText("")
+        card.lines[5]:SetText("")
+        card.lines[6]:SetText("")
+    end
+end
+
 function CharacterScreen:Refresh()
     if not self.cardOrder then return end
     H.ConsumeScans()
@@ -3349,6 +3589,8 @@ function CharacterScreen:Refresh()
     if self.cardRep then self:RefreshReputations() end
     -- FASE 5 (Honra & JxJ, 1 card): metodo via self (sem upvalue novo).
     if self.cardHonor then self:RefreshHonor() end
+    -- FASE 5 (Idiomas & Raciais, 1 card): metodo via self (sem upvalue novo).
+    if self.cardLang then self:RefreshLangRacial() end
     self:LayoutCards()
 end
 

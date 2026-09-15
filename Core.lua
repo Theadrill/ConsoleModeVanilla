@@ -133,18 +133,31 @@ CM:RegisterEvent("PLAYER_LOGOUT")
 CM:SetScript("OnEvent", function()
     if event == "ADDON_LOADED" and arg1 == "ConsoleModeVanilla" then
         DEFAULT_CHAT_FRAME:AddMessage(
-            "|cff00ff00[ConsoleMode]|r v" .. CM.version .. " carregado."
+            "|cff00ff00[ConsoleMode]|r " .. format(CM:T("MSG_LOADED_FMT"), CM.version)
         )
 
     elseif event == "VARIABLES_LOADED" then
         ConsoleModeDB = ConsoleModeDB or {}
+        if not ConsoleModeDB.lang or not CM_Langs or not CM_Langs[ConsoleModeDB.lang] then
+            local defLang = "ptBR"
+            if type(GetLocale) == "function" then
+                local g = GetLocale()
+                if g and CM_Langs and CM_Langs[g] then
+                    defLang = g
+                end
+            end
+            ConsoleModeDB.lang = defLang
+        end
+        if CM.ResolveLocale then
+            CM:ResolveLocale()
+        end
         if ConsoleModeDB.showRightActionBars == nil then
             ConsoleModeDB.showRightActionBars = true
         end
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r VARIABLES_LOADED disparou.")
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r " .. CM:T("MSG_VARIABLES_LOADED"))
         
         -- ✅ CRÍTICO: Verificar se módulos foram carregados
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Core]|r Verificando módulos...")
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Core]|r " .. CM:T("MSG_CHECKING_MODULES"))
         DEFAULT_CHAT_FRAME:AddMessage("  CM.cursor: " .. (CM.cursor and "|cff00ff00OK|r" or "|cffff4444NIL|r"))
         DEFAULT_CHAT_FRAME:AddMessage("  CM.hooks:  " .. (CM.hooks and "|cff00ff00OK|r" or "|cffff4444NIL|r"))
         
@@ -262,9 +275,21 @@ SLASH_CONSOLEMODE1 = "/consolemode"
 SLASH_CONSOLEMODE2 = "/cm"
 
 SlashCmdList["CONSOLEMODE"] = function(msg)
-    local cmd = string.lower(msg or "")
+    local rawMsg = msg or ""
+    local _, _, first, rest = string.find(rawMsg, "^%s*(%S+)%s*(.*)$")
+    local cmd = string.lower(first or "")
+    rest = rest or ""
+    rest = string.gsub(rest, "^%s+", "")
+    rest = string.gsub(rest, "%s+$", "")
 
-    if cmd == "rightbars" or cmd == "barras" or cmd == "barradireita" then
+    if cmd == "lang" or cmd == "idioma" or cmd == "language" then
+        if CM.HandleLangCommand then
+            CM:HandleLangCommand(rest)
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r Sistema de idioma nao carregado.")
+        end
+
+    elseif cmd == "rightbars" or cmd == "barras" or cmd == "barradireita" then
         CM:ToggleRightActionBars()
 
     elseif cmd == "config" or cmd == "settings" or cmd == "binds" then
@@ -377,6 +402,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm keyboard|r   - Restaura perfil de teclado/mouse")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm mouse|r      - Alterna Mouse Mode (Cursor Livre)")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm status|r     - Mostra status do addon")
+        DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm lang|r       - Lista idiomas (uso: /cm lang [id])")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm debug|r      - Liga/desliga logs verbosos")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm frame|r      - Identifica frame sob o mouse")
         DEFAULT_CHAT_FRAME:AddMessage("  |cffffcc00/cm init|r       - Re-inicializa hooks e bindings")

@@ -10,6 +10,8 @@ Core.lua
 Logger.lua
 Keybindings.lua
 Cursor.lua
+Data\Localization.lua
+Data\Localization\localization_ptBR.lua
 UI\ConfigFrame.lua
 UI\KeybindingsList.lua
 UI\SpellbookPicker.lua

@@ -162,6 +162,84 @@ local function CS_FactionColor(sid)
 end
 
 -- ----------------------------------------------------------------------------
+-- FASE 6 parte 1: callbacks de foco por slot (ADORMECIDOS: so executam quando
+-- a navegacao for ligada via SetSlotNavigation(true); com a flag false nunca
+-- sao chamados e nenhuma borda muda). OnEnter = borda dourada ativa
+-- (1.00/0.85/0.20, a=1.00) com a cor original guardada em card.navOrigR/G/B/A
+-- na primeira ativacao (Honra guarda o vermelho-escuro 0.55/0.10/0.10 como
+-- "original") + SetDetail do card; OnLeave = restaura a borda + nada mais.
+-- Reutilizam os cards existentes (pool fixo, nenhum frame novo). 1.12 puro:
+-- GetBackdropBorderColor via pcall com fallback para os valores conhecidos.
+-- ----------------------------------------------------------------------------
+local function CS_NavOnEnter(slot)
+    if not slot then return end
+    local card = slot.card
+    if not card then return end
+    if card.navOrigR == nil then
+        local gotR, gotG, gotB, gotA = nil, nil, nil, nil
+        if type(card.GetBackdropBorderColor) == "function" then
+            local ok, a, b, c, d = pcall(card.GetBackdropBorderColor, card)
+            if ok and type(a) == "number" and type(b) == "number"
+                and type(c) == "number" then
+                gotR, gotG, gotB = a, b, c
+                if type(d) == "number" then gotA = d end
+            end
+        end
+        if type(gotR) == "number" then
+            card.navOrigR = gotR
+            card.navOrigG = gotG
+            card.navOrigB = gotB
+            if type(gotA) == "number" then card.navOrigA = gotA
+            else card.navOrigA = 0.65 end
+        elseif card.detailKey == "Honra" then
+            card.navOrigR = 0.55
+            card.navOrigG = 0.10
+            card.navOrigB = 0.10
+            card.navOrigA = 0.65
+        else
+            card.navOrigR = 0.50
+            card.navOrigG = 0.40
+            card.navOrigB = 0.28
+            card.navOrigA = 0.65
+        end
+    end
+    if type(card.SetBackdropBorderColor) == "function" then
+        card:SetBackdropBorderColor(1.00, 0.85, 0.20, 1.00)
+    end
+    local key = slot.key
+    if type(key) ~= "string" then key = "Identidade" end
+    local d = CS_DETAIL_TEXT[key]
+    if not d then
+        d = CS_DETAIL_TEXT.Identidade
+        key = "Identidade"
+    end
+    if d then
+        CharacterScreen:SetDetail(d.icon, d.title, d.body)
+        CharacterScreen.detailCurKey = key
+    end
+end
+
+local function CS_NavOnLeave(slot)
+    if not slot then return end
+    local card = slot.card
+    if not card then return end
+    if type(card.SetBackdropBorderColor) ~= "function" then return end
+    local r = card.navOrigR
+    local g = card.navOrigG
+    local b = card.navOrigB
+    local a = card.navOrigA
+    if type(r) ~= "number" or type(g) ~= "number" or type(b) ~= "number" then
+        if card.detailKey == "Honra" then
+            r, g, b = 0.55, 0.10, 0.10
+        else
+            r, g, b = 0.50, 0.40, 0.28
+        end
+    end
+    if type(a) ~= "number" then a = 0.65 end
+    card:SetBackdropBorderColor(r, g, b, a)
+end
+
+-- ----------------------------------------------------------------------------
 -- 2. ESTADO DO MODULO (pool fixo: frames criados uma vez, nunca destruidos)
 -- ----------------------------------------------------------------------------
 CharacterScreen.initialized  = CharacterScreen.initialized or false
@@ -192,6 +270,18 @@ CharacterScreen.detailBody1 = CharacterScreen.detailBody1 or nil
 CharacterScreen.detailBody2 = CharacterScreen.detailBody2 or nil
 CharacterScreen.detailTops  = CharacterScreen.detailTops or nil
 CharacterScreen.detailCurKey = CharacterScreen.detailCurKey or nil
+
+-- ----------------------------------------------------------------------------
+-- FASE 6 parte 1: NAVEGACAO SLOT-A-SLOT ADORMECIDA (infraestrutura, desligada).
+-- Flag padrao DESLIGADA: D-Pad continua rolando a pagina (OnDirection
+-- inalterado quando false). Matriz navSlots construida em LayoutCards com os
+-- cards visiveis ({card, top, key, OnEnter, OnLeave}); nenhuma borda muda
+-- enquanto a flag estiver false. Pool fixo: reutiliza os cards existentes,
+-- nenhum frame novo em runtime. Para ligar no futuro: SetSlotNavigation(true).
+-- ----------------------------------------------------------------------------
+CharacterScreen.enableSlotNavigation = false
+CharacterScreen.navSlots = CharacterScreen.navSlots or {}
+CharacterScreen.navIndex = CharacterScreen.navIndex or 0
 
 -- ----------------------------------------------------------------------------
 -- 2b. CACHE DE SCAN (padrao BCS needScanGear: so re-escaneia sob demanda;
@@ -1532,6 +1622,9 @@ function CharacterScreen:LayoutCards()
     -- Cache do topo-visivel (DetailCard): topos (px desde o topo do conteudo)
     -- + chave de detalhe por card, na ordem do layout. So locais de corpo.
     local dTops = {}
+    -- FASE 6 parte 1 (adormecida): matriz de slots na ordem do layout, so com
+    -- cards visiveis e sem buracos (Ranged oculto sai via vis[] acima).
+    local nav = {}
     local totalW = 460
     if type(self.scrollChild.GetWidth) == "function" then
         local sw = self.scrollChild:GetWidth()
@@ -1573,6 +1666,7 @@ function CharacterScreen:LayoutCards()
             -- Topo-visivel: topo = distancia desde o topo do conteudo.
             if left.detailKey then
                 table.insert(dTops, { top = -yOff, key = left.detailKey })
+                table.insert(nav, { card = left, top = -yOff, key = left.detailKey, OnEnter = CS_NavOnEnter, OnLeave = CS_NavOnLeave })
             end
             if row == 0 then
                 totalH = rowH
@@ -1599,6 +1693,7 @@ function CharacterScreen:LayoutCards()
             -- Topo-visivel: mesma fileira = mesmo topo (esquerda vence).
             if left.detailKey then
                 table.insert(dTops, { top = -yOff, key = left.detailKey })
+                table.insert(nav, { card = left, top = -yOff, key = left.detailKey, OnEnter = CS_NavOnEnter, OnLeave = CS_NavOnLeave })
             end
             if right then
                 if type(right.Show) == "function" then right:Show() end
@@ -1608,6 +1703,7 @@ function CharacterScreen:LayoutCards()
                 right:SetPoint("TOPLEFT", self.scrollChild, "TOPLEFT", rightX, yOff)
                 if right.detailKey then
                     table.insert(dTops, { top = -yOff, key = right.detailKey })
+                    table.insert(nav, { card = right, top = -yOff, key = right.detailKey, OnEnter = CS_NavOnEnter, OnLeave = CS_NavOnLeave })
                 end
             end
             if row == 0 then
@@ -1627,8 +1723,127 @@ function CharacterScreen:LayoutCards()
     totalH = totalH + 8
     self.contentH = totalH
     self.detailTops = dTops
+    -- FASE 6 parte 1: publica a matriz (sem tocar em bordas quando desligada).
+    self.navSlots = nav
+    local navN = table.getn(nav)
+    local navCur = self.navIndex or 0
+    if type(navCur) ~= "number" then navCur = 0 end
+    if navCur > navN then self.navIndex = 0 end
+    if navN == 0 then self.navIndex = 0 end
     if type(self.scrollChild.SetHeight) == "function" then
         self.scrollChild:SetHeight(totalH)
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- FASE 6 parte 1: API FUTURA de foco slot-a-slot (NAO ligada: nenhum chamador
+-- com a flag false; OnDirection so desvia quando enableSlotNavigation true).
+-- FocusSlot(idx): OnLeave no atual, centraliza o scroll no topo do slot e
+-- OnEnter no novo. FocusNext/FocusPrev: movem o indice com clamp (sem wrap).
+-- SetSlotNavigation(true/false): liga/desliga; ao desligar, restaura a borda
+-- do slot focado via OnLeave e zera o indice. Metodos via self (0 upvalues
+-- pela heuristica tools/ups.lua: so self + globais + callbacks da entrada).
+-- Pool fixo: nenhum frame novo (so SetVerticalScroll + bordas + SetDetail).
+-- ----------------------------------------------------------------------------
+function CharacterScreen:FocusSlot(idx)
+    local slots = self.navSlots
+    if type(slots) ~= "table" then return false end
+    local n = table.getn(slots)
+    if n <= 0 then return false end
+    if type(idx) ~= "number" then return false end
+    if idx < 1 then idx = 1 end
+    if idx > n then idx = n end
+    local cur = self.navIndex or 0
+    if type(cur) ~= "number" then cur = 0 end
+    if cur >= 1 and cur <= n and cur ~= idx then
+        local old = slots[cur]
+        if old and type(old.OnLeave) == "function" then old.OnLeave(old) end
+    end
+    self.navIndex = idx
+    local slot = slots[idx]
+    if not slot then return false end
+    local top = slot.top
+    if type(top) ~= "number" then top = 0 end
+    if top < 0 then top = 0 end
+    local cardH = 170
+    if slot.card and type(slot.card.cardH) == "number" and slot.card.cardH > 0 then
+        cardH = slot.card.cardH
+    end
+    local viewH = 380
+    if type(self.GetViewHeight) == "function" then
+        local vh = self:GetViewHeight()
+        if type(vh) == "number" and vh > 0 then viewH = vh end
+    end
+    local maxS = 0
+    if type(self.GetMaxScroll) == "function" then
+        local ms = self:GetMaxScroll()
+        if type(ms) == "number" and ms > 0 then maxS = ms end
+    end
+    local desired = top - (viewH / 2) + (cardH / 2)
+    if desired < 0 then desired = 0 end
+    if desired > maxS then desired = maxS end
+    self.scrollOffset = desired
+    if self.scrollFrame and type(self.scrollFrame.SetVerticalScroll) == "function" then
+        self.scrollFrame:SetVerticalScroll(desired)
+    end
+    if type(slot.OnEnter) == "function" then slot.OnEnter(slot) end
+    return true
+end
+
+function CharacterScreen:FocusNext()
+    local slots = self.navSlots
+    if type(slots) ~= "table" then return false end
+    local n = table.getn(slots)
+    if n <= 0 then return false end
+    local cur = self.navIndex or 0
+    if type(cur) ~= "number" then cur = 0 end
+    if cur < 1 then return self:FocusSlot(1) end
+    if cur >= n then return self:FocusSlot(n) end
+    return self:FocusSlot(cur + 1)
+end
+
+function CharacterScreen:FocusPrev()
+    local slots = self.navSlots
+    if type(slots) ~= "table" then return false end
+    local n = table.getn(slots)
+    if n <= 0 then return false end
+    local cur = self.navIndex or 0
+    if type(cur) ~= "number" then cur = 0 end
+    if cur <= 1 then return self:FocusSlot(1) end
+    if cur > n then return self:FocusSlot(n) end
+    return self:FocusSlot(cur - 1)
+end
+
+function CharacterScreen:SetSlotNavigation(enabled)
+    if enabled then
+        self.enableSlotNavigation = true
+        local slots = self.navSlots
+        if type(slots) ~= "table" then
+            self.navIndex = 0
+            return true
+        end
+        local n = table.getn(slots)
+        if n <= 0 then
+            self.navIndex = 0
+            return true
+        end
+        local cur = self.navIndex or 0
+        if type(cur) ~= "number" or cur < 1 or cur > n then cur = 1 end
+        self:FocusSlot(cur)
+        return true
+    else
+        local slots = self.navSlots
+        local cur = self.navIndex or 0
+        if type(slots) == "table" and type(cur) == "number" then
+            local n = table.getn(slots)
+            if cur >= 1 and cur <= n then
+                local old = slots[cur]
+                if old and type(old.OnLeave) == "function" then old.OnLeave(old) end
+            end
+        end
+        self.navIndex = 0
+        self.enableSlotNavigation = false
+        return false
     end
 end
 
@@ -1833,6 +2048,11 @@ function CharacterScreen:CreateUI(parent)
     -- do bronze padrao do CS_MakeCard; demais cards inalterados.
     if self.cardHonor and type(self.cardHonor.SetBackdropBorderColor) == "function" then
         self.cardHonor:SetBackdropBorderColor(0.55, 0.10, 0.10, 0.65)
+    end
+    -- Titulo Honra & JxJ em vermelho (|cffc03028) combinando com a borda;
+    -- demais cards mantem o ambar padrao do CS_MakeCard (sem tocar CS_MakeCard).
+    if self.cardHonor and self.cardHonor.title and type(self.cardHonor.title.SetText) == "function" then
+        self.cardHonor.title:SetText("|cffc03028HONRA & JXJ (PVP)|r")
     end
 
     -- PERICIAS DE ARMAS: cada pericia ocupa 2 linhas visuais (nome em cima +
@@ -4013,7 +4233,20 @@ end
 
 -- D-Pad: UP volta (offset -step), DOWN avanca (offset +step).
 -- Retorna true quando consome a direcao (contrato do MainMenuNav).
+-- FASE 6 parte 1 (adormecida): se enableSlotNavigation true, UP/DOWN movem o
+-- slot em vez de rolar; como a flag nasce false, o comportamento atual fica
+-- 100% preservado (mesmo caminho de Scroll de antes).
 function CharacterScreen:OnDirection(direction)
+    if self.enableSlotNavigation then
+        if direction == "UP" then
+            self:FocusPrev()
+            return true
+        elseif direction == "DOWN" then
+            self:FocusNext()
+            return true
+        end
+        return false
+    end
     if direction == "UP" then
         self:Scroll(-(self.scrollStep or 60))
         return true

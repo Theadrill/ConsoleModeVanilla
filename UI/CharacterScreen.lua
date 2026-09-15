@@ -1651,6 +1651,21 @@ function CharacterScreen:CreateUI(parent)
     -- (o proprio card isolado ja da o respiro da secao).
     self.cardRep       = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardRep", "REPUTACOES", CS_REP_H, CS_MAX_REP, (parentW - 8))
     if self.cardRep then self.cardRep.fullWidth = true end
+    -- FASE 5 (Honra & JxJ, 1 card meia-largura no FIM da ordem apos
+    -- REPUTACOES): mesmo molde Pericias/Profissoes (nome em cima +
+    -- StatusBar dourada embaixo, pitch 32px por slot). HONRA (6 slots =
+    -- Posto atual / Progresso semanal / Maior posto / Hoje / Ontem /
+    -- Total da vida). Altura = 30 + 6*32 + 24 = 246. Pool fixo: 6
+    -- FontStrings via CS_MakeCard + 1 StatusBar (slot 2, progresso
+    -- semanal 0..1) criada uma vez aqui; Refresh so atualiza textos +
+    -- SetMinMaxValues(0,1)/SetValue. Reflow do LayoutCards pareia sozinho
+    -- (por ora fica sozinho na linha apos o full-width de REPUTACOES).
+    self.cardHonor     = CS_MakeCard(scrollChild, "ConsoleMode_CharacterCardHonor", "HONRA & JXJ (PVP)", 246, 6, colW)
+    -- Destaque Honra & JxJ: borda vermelho-escuro (0.55, 0.10, 0.10) em vez
+    -- do bronze padrao do CS_MakeCard; demais cards inalterados.
+    if self.cardHonor and type(self.cardHonor.SetBackdropBorderColor) == "function" then
+        self.cardHonor:SetBackdropBorderColor(0.55, 0.10, 0.10, 0.65)
+    end
 
     -- PERICIAS DE ARMAS: cada pericia ocupa 2 linhas visuais (nome em cima +
     -- StatusBar h10 embaixo). Pool fixo de 8 StatusBars criado UMA vez aqui;
@@ -1825,13 +1840,64 @@ function CharacterScreen:CreateUI(parent)
         end
     end
 
+    -- HONRA & JXJ (1 card meia-largura, 6 slots pitch 32): re-ancora as 6
+    -- FontStrings para o pitch 32 (CS_MakeCard cria com pitch 20) + pool
+    -- fixo de 1 StatusBar dourada (slot 2 = progresso semanal 0..1, h10).
+    -- Criada UMA vez aqui; Refresh so SetMinMaxValues(0,1)/SetValue/Show.
+    do
+        local hcard = self.cardHonor
+        if hcard and hcard.lines and table.getn(hcard.lines) >= 6 then
+            local hi = 1
+            while hi <= 6 do
+                local yH = -(30 + ((hi - 1) * 32))
+                local fsH = hcard.lines[hi]
+                if fsH then
+                    fsH:ClearAllPoints()
+                    fsH:SetPoint("TOPLEFT", hcard, "TOPLEFT", 12, yH)
+                    fsH:SetPoint("TOPRIGHT", hcard, "TOPRIGHT", -12, yH)
+                end
+                hi = hi + 1
+            end
+            hcard.bars = hcard.bars or {}
+            local barH = hcard.bars[2]
+            if not barH then
+                barH = CreateFrame("StatusBar", nil, hcard)
+                if barH then
+                    barH:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+                    barH:SetStatusBarColor(0.88, 0.60, 0.08, 1)
+                    barH:SetMinMaxValues(0, 1)
+                    barH:SetValue(0)
+                    local bgH = barH:CreateTexture(nil, "BACKGROUND")
+                    if bgH then
+                        bgH:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+                        bgH:SetVertexColor(0, 0, 0, 0.85)
+                        bgH:SetPoint("TOPLEFT", barH, "TOPLEFT", 0, 0)
+                        bgH:SetPoint("BOTTOMRIGHT", barH, "BOTTOMRIGHT", 0, 0)
+                    end
+                    hcard.bars[2] = barH
+                end
+            end
+            if barH then
+                barH:ClearAllPoints()
+                barH:SetPoint("TOPLEFT", hcard, "TOPLEFT", 12, -(30 + 32 + 16))
+                barH:SetPoint("TOPRIGHT", hcard, "TOPRIGHT", -12, -(30 + 32 + 16))
+                barH:SetHeight(10)
+                barH:SetMinMaxValues(0, 1)
+                barH:SetValue(0)
+                barH:Hide()
+            end
+            hcard:SetHeight(246)
+            hcard.cardH = 246
+        end
+    end
+
     self.cardOrder = {
         self.cardIdent, self.cardBase, self.cardRes,
         self.cardMelee, self.cardMeleeBoss, self.cardRanged,
         self.cardSpell, self.cardSchools,
         self.cardDef, self.cardDefBoss, self.cardResist,
         self.cardWeapon, self.cardProf, self.cardSec,
-        self.cardRep,
+        self.cardRep, self.cardHonor,
     }
 
     self.scrollFrame = scrollFrame
@@ -3164,6 +3230,104 @@ function CharacterScreen:RefreshReputations()
     card.cardH = repH
 end
 
+-- ----------------------------------------------------------------------------
+-- FASE 5 (Honra & JxJ, 1 card meia-largura). Metodo CharacterScreen:X (NAO
+-- e file-local): corpo usa so self + globais + locais internos => 0
+-- upvalues. Atualiza o card HONRA (6 linhas + 1 StatusBar do pool fixo no
+-- slot 2); Refresh() ganha so 1 chamada via self.
+-- APIs 1.12 (todas com type-check + pcall + fallback honesto):
+-- UnitPVPRank("player") + GetPVPRankInfo(rank) = (rankName, rankNumber);
+-- GetPVPRankProgress() = progresso semanal 0..1 (barra); HKs via
+-- RequestInspectHonorData("player") + GetInspectHonorData() = (todayHK,
+-- todayHonor, yesterdayHK, yesterdayHonor, lifetimeHK, ...) com guards
+-- (dados assincronos: Request no Show/evento, leitura aqui; sem dado = "—").
+-- GetPVPLifetimeStats NAO existe na 1.12: Maior posto = "— (sem API na
+-- 1.12)"; dishonorable kills omitido (sem API). Linhas: 1 Posto atual
+-- ("Sem posto" se rank 0); 2 Progresso semanal (texto % + barra 0..1);
+-- 3 Maior posto; 4 Hoje (HKs + honra); 5 Ontem; 6 Total da vida.
+-- ----------------------------------------------------------------------------
+function CharacterScreen:RefreshHonor()
+    local card = self.cardHonor
+    if not card then return end
+    if not card.lines then return end
+    if table.getn(card.lines) < 6 then return end
+    local rank = 0
+    if type(UnitPVPRank) == "function" then
+        local okR, r = pcall(UnitPVPRank, "player")
+        if okR and type(r) == "number" then rank = r end
+    end
+    local rankName = nil
+    local rankNum = nil
+    if rank and rank > 0 and type(GetPVPRankInfo) == "function" then
+        local okI, n, nn = pcall(GetPVPRankInfo, rank)
+        if okI then
+            if type(n) == "string" and n ~= "" then rankName = n end
+            if type(nn) == "number" then rankNum = nn end
+        end
+    end
+    if rank and rank > 0 then
+        if rankName then
+            if rankNum then
+                card.lines[1]:SetText("Posto atual: " .. tostring(rankName) .. " (Rank " .. tostring(rankNum) .. ")")
+            else
+                card.lines[1]:SetText("Posto atual: " .. tostring(rankName) .. " (Rank " .. tostring(rank) .. ")")
+            end
+        else
+            card.lines[1]:SetText("Posto atual: Rank " .. tostring(rank))
+        end
+    else
+        card.lines[1]:SetText("Posto atual: Sem posto")
+    end
+    local prog = nil
+    if type(GetPVPRankProgress) == "function" then
+        local okP, p = pcall(GetPVPRankProgress)
+        if okP and type(p) == "number" then prog = p end
+    end
+    local bar = nil
+    if card.bars then bar = card.bars[2] end
+    if type(prog) == "number" then
+        if prog < 0 then prog = 0 end
+        if prog > 1 then prog = 1 end
+        local pct = math.floor(prog * 100)
+        card.lines[2]:SetText("Progresso semanal: " .. tostring(pct) .. "%")
+        if bar then
+            bar:SetMinMaxValues(0, 1)
+            bar:SetValue(prog)
+            if type(bar.Show) == "function" then bar:Show() end
+        end
+    else
+        card.lines[2]:SetText("Progresso semanal: —")
+        if bar and type(bar.Hide) == "function" then bar:Hide() end
+    end
+    card.lines[3]:SetText("Maior posto: — (sem API na 1.12)")
+    local tHK, tHonor, yHK, yHonor, lHK = nil, nil, nil, nil, nil
+    if type(GetInspectHonorData) == "function" then
+        local okH, a, b, c, d, e = pcall(GetInspectHonorData)
+        if okH then
+            tHK, tHonor, yHK, yHonor, lHK = a, b, c, d, e
+        end
+    end
+    if type(tHK) == "number" and type(tHonor) == "number" then
+        card.lines[4]:SetText("Abates hoje: " .. tostring(tHK) .. " HKs (" .. tostring(tHonor) .. " honra)")
+    elseif type(tHK) == "number" then
+        card.lines[4]:SetText("Abates hoje: " .. tostring(tHK) .. " HKs")
+    else
+        card.lines[4]:SetText("Abates hoje: —")
+    end
+    if type(yHK) == "number" and type(yHonor) == "number" then
+        card.lines[5]:SetText("Abates ontem: " .. tostring(yHK) .. " HKs (" .. tostring(yHonor) .. " honra)")
+    elseif type(yHK) == "number" then
+        card.lines[5]:SetText("Abates ontem: " .. tostring(yHK) .. " HKs")
+    else
+        card.lines[5]:SetText("Abates ontem: —")
+    end
+    if type(lHK) == "number" then
+        card.lines[6]:SetText("Total da vida: " .. tostring(lHK) .. " HKs")
+    else
+        card.lines[6]:SetText("Total da vida: —")
+    end
+end
+
 function CharacterScreen:Refresh()
     if not self.cardOrder then return end
     H.ConsumeScans()
@@ -3183,6 +3347,8 @@ function CharacterScreen:Refresh()
     if self.cardProf and self.cardSec then self:RefreshProfessions() end
     -- FASE 5 (Reputacoes, card unico): metodo via self (sem upvalue novo).
     if self.cardRep then self:RefreshReputations() end
+    -- FASE 5 (Honra & JxJ, 1 card): metodo via self (sem upvalue novo).
+    if self.cardHonor then self:RefreshHonor() end
     self:LayoutCards()
 end
 
@@ -3208,6 +3374,8 @@ function CharacterScreen:EnsureEventFrame()
         f:RegisterEvent("UPDATE_FACTION")
         f:RegisterEvent("CHARACTER_POINTS_CHANGED")
         f:RegisterEvent("PLAYER_AURAS_CHANGED")
+        f:RegisterEvent("PLAYER_PVP_KILLS_CHANGED")
+        f:RegisterEvent("INSPECT_HONOR_UPDATE")
     end
     f:SetScript("OnEvent", function()
         if event and string.sub(event, 1, 5) == "UNIT_" and arg1 ~= "player" then
@@ -3222,6 +3390,10 @@ function CharacterScreen:EnsureEventFrame()
             CharacterScreen.scanTalentsDirty = true
         elseif event == "PLAYER_AURAS_CHANGED" then
             CharacterScreen.scanAurasDirty = true
+        elseif event == "PLAYER_PVP_KILLS_CHANGED" then
+            if type(RequestInspectHonorData) == "function" then
+                pcall(RequestInspectHonorData, "player")
+            end
         end
         if CharacterScreen.isVisible then
             CharacterScreen:Refresh()
@@ -3281,6 +3453,12 @@ function CharacterScreen:Show()
         return
     end
     self.isVisible = true
+    -- FASE 5 (Honra): dados de HK sao assincronos — pede ao servidor a cada
+    -- abertura; a chegada repinta via INSPECT_HONOR_UPDATE (sem loop: o
+    -- RefreshHonor so LE, nunca pede).
+    if type(RequestInspectHonorData) == "function" then
+        pcall(RequestInspectHonorData, "player")
+    end
     -- Primeiro Show sempre parte do offset 0 (nada de fallback 380 jogando
     -- o conteudo para fora da vista).
     if not self.firstShown then

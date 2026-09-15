@@ -216,6 +216,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - [ ] Criar `Data/Localization/localization_enUS.lua` (mesmas chaves do ptBR, traduzidas — nenhuma chave só-ptBR restante) + `flag_enUS.tga` (TGA/BLP, potência de 2); adicionar **1 linha de registro** em `Data/Localization.lua` + 1 linha no `.toc` (após o ptBR, antes de `UI\*`).
 - [ ] Revisar formatos: ordem de `%s/%d` pode mudar no inglês — ajustar args na chamada ou chaves `_FMT` separadas (sem posicional).
 - [ ] Construir o **picker visual de idioma com flags**: lista iterada do registro (`CM_LANG_ORDER` + `CM_Langs[id].name/.flag`), ícone fallback se a TGA faltar, navegação por controle, seleção salva `ConsoleModeDB.lang` + pede `/reload`.
+- [ ] **Botão-flag no header do MainMenu (requisito do usuário):** no canto superior esquerdo, na mesma linha do `MENU PRINCIPAL`, exibir a flag do idioma ativo (`CM_Langs[ativo].flag` + fallback); navegável por hover/controle e **clicável com o mouse** → abre o picker de idioma (mesma ação do picker da Fase 5). Tooltip/hint com o nome do idioma (`LANG_*`). Identidade Vanilla preservada (tamanho/discreto na linha do header).
 - [ ] Validar com `luac -p` + validador de paridade ptBR↔enUS (zero ausências).
 - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 5):** jogador percorre os testes das Fases 2–4 nos dois idiomas (via comando E via picker), confirma flags visíveis e aprova a tradução (ou lista correções).
 

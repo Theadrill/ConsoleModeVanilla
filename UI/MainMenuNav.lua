@@ -91,6 +91,17 @@ local function IsQuestDetailOpen()
     return false
 end
 
+local function IsLangPickerOpen()
+    local cm = getglobal("ConsoleMode")
+    if cm and cm.mainMenu and type(cm.mainMenu.IsLangPickerOpen) == "function" then
+        local ok, vis = pcall(function() return cm.mainMenu:IsLangPickerOpen() end)
+        if ok and vis then return true end
+    end
+    local pf = getglobal("ConsoleModeMM_LangPicker")
+    if SafeIsVisible(pf) then return true end
+    return false
+end
+
 local function MMNav_Log(msg)
     local dcf = getglobal("DEFAULT_CHAT_FRAME")
     if dcf and type(dcf.AddMessage) == "function" then
@@ -1737,10 +1748,10 @@ local function Nav_EnsureFocus()
     if not f.pickerPageBtn or f.pickerPageBtn < 1 then f.pickerPageBtn = 1 end
     if f.pickerPageBtn > 2 then f.pickerPageBtn = 2 end
 
-    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_SUBTABS" and f.zone ~= "SYS_GAMEMENU" and f.zone ~= "SYS_ADDONCFG" and f.zone ~= "SYS_BINDS" and f.zone ~= "SYS_PICKER" then
+    if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" and f.zone ~= "SPPAGE" and f.zone ~= "TALENTS1" and f.zone ~= "TALENTS2" and f.zone ~= "QMISSOES" and f.zone ~= "QDETALHE" and f.zone ~= "ZONAS" and f.zone ~= "QNPCS" and f.zone ~= "QZONAS" and f.zone ~= "QMAPAS" and f.zone ~= "QLEITURA" and f.zone ~= "QNAV" and f.zone ~= "SYS_SUBTABS" and f.zone ~= "SYS_GAMEMENU" and f.zone ~= "SYS_ADDONCFG" and f.zone ~= "SYS_BINDS" and f.zone ~= "SYS_PICKER" and f.zone ~= "HEADER_LANG" then
         f.zone = "GRID"
     end
-    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" and f.returnZone ~= "SYS_SUBTABS" and f.returnZone ~= "SYS_GAMEMENU" and f.returnZone ~= "SYS_ADDONCFG" and f.returnZone ~= "SYS_BINDS" and f.returnZone ~= "SYS_PICKER" then
+    if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRID" and f.returnZone ~= "SPTABS" and f.returnZone ~= "SPPAGE" and f.returnZone ~= "TALENTS1" and f.returnZone ~= "TALENTS2" and f.returnZone ~= "QMISSOES" and f.returnZone ~= "QDETALHE" and f.returnZone ~= "ZONAS" and f.returnZone ~= "QNPCS" and f.returnZone ~= "QZONAS" and f.returnZone ~= "QMAPAS" and f.returnZone ~= "QLEITURA" and f.returnZone ~= "QNAV" and f.returnZone ~= "SYS_SUBTABS" and f.returnZone ~= "SYS_GAMEMENU" and f.returnZone ~= "SYS_ADDONCFG" and f.returnZone ~= "SYS_BINDS" and f.returnZone ~= "SYS_PICKER" and f.returnZone ~= "HEADER_LANG" then
         f.returnZone = "GRID"
     end
     -- Conversao por aba: evita zona presa na aba errada (BAGS/SPELLS/TALENTS/QUESTS/SYSTEM).
@@ -1790,9 +1801,9 @@ local function Nav_EnsureFocus()
         local psEf = Nav_GetBindsState()
         local subEf = psEf and psEf.activeSubScreen
         if subEf == "BINDS" then
-            if f.zone ~= "SYS_BINDS" and f.zone ~= "TABBAR" then f.zone = "SYS_BINDS" end
+            if f.zone ~= "SYS_BINDS" and f.zone ~= "TABBAR" and f.zone ~= "HEADER_LANG" then f.zone = "SYS_BINDS" end
         elseif subEf == "PICKER" then
-            if f.zone ~= "SYS_PICKER" and f.zone ~= "TABBAR" then f.zone = "SYS_PICKER" end
+            if f.zone ~= "SYS_PICKER" and f.zone ~= "TABBAR" and f.zone ~= "HEADER_LANG" then f.zone = "SYS_PICKER" end
         else
             if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "SPCAT" or f.zone == "SPGRID" or f.zone == "SPTABS" or f.zone == "SPPAGE" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "EQUIP" or f.zone == "BUFFS" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" or f.zone == "QNPCS" or f.zone == "QZONAS" or f.zone == "QMAPAS" or f.zone == "QLEITURA" or f.zone == "QNAV" then
                 f.zone = "SYS_SUBTABS"
@@ -2358,6 +2369,33 @@ local function Nav_ApplyFocus()
             pcall(function() Nav_PaintPicker() end)
         end
     end
+
+    -- HEADER_LANG: destaque do botao-flag no topo esquerdo do MainMenu
+    do
+        local MMH = Nav_GetMM()
+        local flagBtn = MMH and MMH.frame and MMH.frame.langFlagBtn
+        if flagBtn then
+            local nb = flagBtn.navBorder
+            if f.zone == "HEADER_LANG" then
+                if nb then
+                    pcall(function()
+                        nb:SetBackdropBorderColor(1.0, 0.85, 0.20, 1.0)
+                        nb:Show()
+                    end)
+                end
+                if flagBtn.SetBackdropBorderColor then
+                    pcall(function() flagBtn:SetBackdropBorderColor(1.0, 0.85, 0.20, 1.0) end)
+                end
+            else
+                if nb and nb.Hide then
+                    pcall(function() nb:Hide() end)
+                end
+                if flagBtn.SetBackdropBorderColor then
+                    pcall(function() flagBtn:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.80) end)
+                end
+            end
+        end
+    end
 end
 
 function Nav:EnsureFocus()
@@ -2752,7 +2790,25 @@ end
 
 function Nav_OnSysDirection(direction)
     local f = Nav.focus
+    if f.zone == "HEADER_LANG" then
+        if direction == "DOWN" or direction == "RIGHT" then
+            f.zone = "TABBAR"
+            f.tabIdx = 1
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
     if f.zone == "TABBAR" then
+        if direction == "UP" then
+            if f.tabIdx == 1 then
+                f.returnZone = "TABBAR"
+                f.zone = "HEADER_LANG"
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
         if direction == "DOWN" then
             local curTab = Nav_GetCurrentTab()
             if curTab == "SYSTEM" then
@@ -3032,6 +3088,15 @@ end
 function Nav_OnQuestsDirection(direction)
     local f = Nav.focus
     if Nav_GetCurrentTab() ~= "QUESTS" then return false end
+    if f.zone == "HEADER_LANG" then
+        if direction == "DOWN" or direction == "RIGHT" then
+            f.zone = "TABBAR"
+            f.tabIdx = 5
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
     if f.zone == "QLEITURA" or IsQuestDetailOpen() then
         local MM = Nav_GetMM()
         local overlay = MM and MM.questDetailOverlay
@@ -3057,6 +3122,15 @@ function Nav_OnQuestsDirection(direction)
     end
     Nav_EnsureQuestIdx()
     if f.zone == "TABBAR" then
+        if direction == "UP" then
+            if f.tabIdx == 1 or f.tabIdx == 5 then
+                f.returnZone = "TABBAR"
+                f.zone = "HEADER_LANG"
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
         if direction == "DOWN" then
             f.zone = "QMISSOES"
             f.qDetail = false
@@ -3179,6 +3253,16 @@ end
 -- Roteador OnDirection. FASE 2: BAGS real; FASE 3: SPELLS real; demais, log.
 function Nav:OnDirection(direction)
     if not self:IsActive() then return end
+
+    if IsLangPickerOpen() then
+        local MM = Nav_GetMM()
+        if MM and type(MM.NavLangPickerDirection) == "function" then
+            local handled = MM:NavLangPickerDirection(direction)
+            if handled then MMNav_PlayMove() end
+            return
+        end
+    end
+
     local curTab = Nav_GetCurrentTab()
     if curTab == "CHARACTER" then
         -- FASE 2 Aba Personagem: UP/DOWN rolam o ScrollFrame do modulo
@@ -3237,12 +3321,36 @@ end
 -- Retorna true se moveu/tratou.
 function Nav_OnSpellsDirection(direction)
     local f = Nav.focus
+    if f.zone == "HEADER_LANG" then
+        if direction == "DOWN" or direction == "RIGHT" then
+            if f.returnZone == "EQUIP" then
+                f.zone = "EQUIP"
+                if not f.equipIndex or f.equipIndex < 1 then f.equipIndex = 1 end
+            else
+                f.zone = "TABBAR"
+                f.tabIdx = 4
+            end
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
     if direction == "UP" then
-        if f.zone == "TABBAR" then return false end
+        if f.zone == "TABBAR" then
+            if f.tabIdx == 1 or f.tabIdx == 4 then
+                f.returnZone = "TABBAR"
+                f.zone = "HEADER_LANG"
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
         if f.zone == "EQUIP" then
             if f.equipIndex > 1 then f.equipIndex = f.equipIndex - 1 return true end
+            -- Slot HEAD (equipIndex 1): UP vai para a bandeira no header.
             f.returnZone = "EQUIP"
-            f.zone = "TABBAR"
+            f.zone = "HEADER_LANG"
+            Nav_EnsureFocus()
             return true
         end
         if f.zone == "SPCAT" then
@@ -3588,12 +3696,36 @@ end
 -- Tudo via raiz MM=Nav_GetMM(), nunca na pagina. Retorna true se moveu/tratou.
 function Nav_OnTalentsDirection(direction)
     local f = Nav.focus
+    if f.zone == "HEADER_LANG" then
+        if direction == "DOWN" or direction == "RIGHT" then
+            if f.returnZone == "EQUIP" then
+                f.zone = "EQUIP"
+                if not f.equipIndex or f.equipIndex < 1 then f.equipIndex = 1 end
+            else
+                f.zone = "TABBAR"
+                f.tabIdx = 3
+            end
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
     if direction == "UP" then
-        if f.zone == "TABBAR" then return false end
+        if f.zone == "TABBAR" then
+            if f.tabIdx == 1 then
+                f.returnZone = "TABBAR"
+                f.zone = "HEADER_LANG"
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
         if f.zone == "EQUIP" then
             if f.equipIndex > 1 then f.equipIndex = f.equipIndex - 1 return true end
+            -- Slot HEAD (equipIndex 1): UP vai para a bandeira no header.
             f.returnZone = "EQUIP"
-            f.zone = "TABBAR"
+            f.zone = "HEADER_LANG"
+            Nav_EnsureFocus()
             return true
         end
         if f.zone == "TALENTS1" then
@@ -3856,12 +3988,37 @@ end
 -- FASE 2: navegação BAGS. Retorna true se moveu/tratou.
 function Nav_OnBagsDirection(direction)
     local f = Nav.focus
+    if f.zone == "HEADER_LANG" then
+        if direction == "DOWN" or direction == "RIGHT" then
+            -- DOWN volta para a origem: EQUIP (slot HEAD) ou TABBAR (aba BAGS).
+            if f.returnZone == "EQUIP" then
+                f.zone = "EQUIP"
+                if not f.equipIndex or f.equipIndex < 1 then f.equipIndex = 1 end
+            else
+                f.zone = "TABBAR"
+                f.tabIdx = 1
+            end
+            Nav_EnsureFocus()
+            return true
+        end
+        return false
+    end
     if direction == "UP" then
-        if f.zone == "TABBAR" then return false end
+        if f.zone == "TABBAR" then
+            if f.tabIdx == 1 then
+                f.returnZone = "TABBAR"
+                f.zone = "HEADER_LANG"
+                Nav_EnsureFocus()
+                return true
+            end
+            return false
+        end
         if f.zone == "EQUIP" then
             if f.equipIndex > 1 then f.equipIndex = f.equipIndex - 1 return true end
+            -- Slot HEAD (equipIndex 1): UP vai para a bandeira no header.
             f.returnZone = "EQUIP"
-            f.zone = "TABBAR"
+            f.zone = "HEADER_LANG"
+            Nav_EnsureFocus()
             return true
         end
         if f.zone == "CATS" then
@@ -4185,6 +4342,27 @@ end
 -- FASE 2: A/B/Y consomem em BAGS (retornam true); FASE 3: + SPELLS; demais, false.
 function Nav:OnConfirm()
     if not self:IsActive() then return false end
+
+    if IsLangPickerOpen() then
+        local MM = Nav_GetMM()
+        if MM and type(MM.ConfirmLangPicker) == "function" then
+            local ok = MM:ConfirmLangPicker()
+            if ok then MMNav_PlayMove() end
+            return true
+        end
+        return true
+    end
+
+    if self.focus and self.focus.zone == "HEADER_LANG" then
+        local MM = Nav_GetMM()
+        if MM and type(MM.OpenLangPicker) == "function" then
+            MM:OpenLangPicker()
+            MMNav_PlayMove()
+            return true
+        end
+        return true
+    end
+
     local curTabCf = Nav_GetCurrentTab()
     if curTabCf == "SYSTEM" then
         Nav_EnsureFocus()
@@ -4685,6 +4863,25 @@ end
 
 function Nav:OnCancel()
     if not self:IsActive() then return false end
+
+    if IsLangPickerOpen() then
+        local MM = Nav_GetMM()
+        if MM and type(MM.CloseLangPicker) == "function" then
+            MM:CloseLangPicker()
+            MMNav_PlayMove()
+            return true
+        end
+        return true
+    end
+
+    if self.focus and self.focus.zone == "HEADER_LANG" then
+        self.focus.zone = self.focus.returnZone or "TABBAR"
+        self:EnsureFocus()
+        self:ApplyFocus()
+        MMNav_PlayMove()
+        return true
+    end
+
     local curTabCx = Nav_GetCurrentTab()
     if curTabCx == "SYSTEM" then
         Nav_EnsureFocus()

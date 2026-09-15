@@ -46,6 +46,7 @@ CM_Langs["enUS"].strings = {
     LANG_RELOAD_HINT = "Type /reload to apply the new language.",
     LANG_HELP_HINT = "Use /cm lang [id] to switch languages.",
     LANG_CURRENT_FMT = "Current: %s",
+    LANG_CHANGE_HINT = "Click to change language",
     -- CharacterScreen (character sheet). Values mirror the ptBR pack.
     -- _FMT keys go through format() in code (%% = literal %); the rest go
     -- straight to SetText. |cff always INSIDE the value, never in code.

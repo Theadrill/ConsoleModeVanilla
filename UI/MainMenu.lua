@@ -14000,6 +14000,316 @@ function MainMenu:RestoreModelRotationBindings()
 end
 
 -- ============================================================================
+-- PICKER VISUAL DE IDIOMA & HEADER (FASE 5b)
+-- ============================================================================
+
+function MainMenu:UpdateHeader()
+    if self.frame and self.frame.title and CFG.Title.show then
+        self.frame.title:SetText(CM:T(CFG.Title.tkey))
+    end
+    if self.frame and self.frame.langFlagBtn and self.frame.langFlagBtn.flagTex then
+        local activeId = CM:GetActiveLangId()
+        local flagTexPath = CM:GetLangFlag(activeId)
+        self.frame.langFlagBtn.flagTex:SetTexture(flagTexPath)
+    end
+end
+
+function MainMenu:CreateLangPicker()
+    if self.langPickerFrame then return self.langPickerFrame end
+
+    local dimmer = CreateFrame("Frame", "ConsoleModeMM_LangDimmer", UIParent)
+    dimmer:SetAllPoints(UIParent)
+    dimmer:SetFrameStrata("FULLSCREEN_DIALOG")
+    dimmer:SetFrameLevel(45)
+    dimmer:EnableMouse(true)
+    local dimTex = dimmer:CreateTexture(nil, "BACKGROUND")
+    dimTex:SetAllPoints(dimmer)
+    dimTex:SetTexture(0, 0, 0, 0.65)
+    dimmer:SetScript("OnMouseDown", function()
+        MainMenu:CloseLangPicker()
+    end)
+    dimmer:Hide()
+    self.langPickerDimmer = dimmer
+
+    local picker = CreateFrame("Frame", "ConsoleModeMM_LangPicker", UIParent)
+    picker:SetWidth(330)
+    picker:SetHeight(200)
+    picker:SetPoint("CENTER", UIParent, "CENTER", 0, 20)
+    picker:SetFrameStrata("FULLSCREEN_DIALOG")
+    picker:SetFrameLevel(50)
+    picker:EnableMouse(true)
+    picker:SetBackdrop({
+        bgFile   = "Interface\\DialogFrame\\UI-DialogBox-Background",
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        tile     = true,
+        tileSize = 32,
+        edgeSize = 32,
+        insets   = { left = 11, right = 12, top = 12, bottom = 11 },
+    })
+    picker:Hide()
+
+    local headerTex = picker:CreateTexture(nil, "ARTWORK")
+    headerTex:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Header")
+    headerTex:SetWidth(256)
+    headerTex:SetHeight(64)
+    headerTex:SetPoint("TOP", picker, "TOP", 0, 12)
+    picker.headerTex = headerTex
+
+    local title = picker:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+    title:SetPoint("TOP", headerTex, "TOP", 0, -14)
+    MainMenu:ApplyFont(title, CFG.Fonts.titleFontFile, 15)
+    title:SetTextColor(1.0, 0.82, 0.20)
+    title:SetText(CM:T("LANG_TITLE"))
+    picker.title = title
+
+    local closeBtn = CreateFrame("Button", "ConsoleModeMM_LangCloseBtn", picker, "UIPanelCloseButton")
+    closeBtn:SetPoint("TOPRIGHT", picker, "TOPRIGHT", -4, -4)
+    closeBtn:SetScript("OnClick", function()
+        MainMenu:CloseLangPicker()
+    end)
+    picker.closeBtn = closeBtn
+
+    picker.rows = {}
+    local maxRows = 16
+    local i = 1
+    while i <= maxRows do
+        local row = CreateFrame("Button", "ConsoleModeMM_LangRow" .. i, picker)
+        row:SetHeight(36)
+        row:SetPoint("LEFT", picker, "LEFT", 18, 0)
+        row:SetPoint("RIGHT", picker, "RIGHT", -18, 0)
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 16, edgeSize = 12,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 },
+        })
+        row:SetBackdropColor(0.08, 0.06, 0.04, 0.60)
+        row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.60)
+
+        local flag = row:CreateTexture(nil, "ARTWORK")
+        flag:SetWidth(24)
+        flag:SetHeight(24)
+        flag:SetPoint("LEFT", row, "LEFT", 8, 0)
+        row.flag = flag
+
+        local name = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        name:SetPoint("LEFT", flag, "RIGHT", 10, 0)
+        name:SetPoint("RIGHT", row, "RIGHT", -36, 0)
+        name:SetJustifyH("LEFT")
+        MainMenu:ApplyFont(name, CFG.Fonts.bodyFontFile, 15)
+        row.name = name
+
+        local check = row:CreateTexture(nil, "OVERLAY")
+        check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+        check:SetWidth(20)
+        check:SetHeight(20)
+        check:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        row.check = check
+
+        row.rowIdx = i
+        row:SetScript("OnClick", function()
+            if this.langId then
+                MainMenu:SelectLangPickerItem(this.langId)
+            end
+        end)
+        row:SetScript("OnEnter", function()
+            MainMenu:FocusLangPickerRow(this.rowIdx)
+        end)
+
+        row:Hide()
+        table.insert(picker.rows, row)
+        i = i + 1
+    end
+
+    local footerText = picker:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    footerText:SetPoint("BOTTOM", picker, "BOTTOM", 0, 14)
+    MainMenu:ApplyFont(footerText, CFG.Fonts.subFontFile, 13)
+    footerText:SetTextColor(0.8, 0.8, 0.8)
+    footerText:SetText("|cffffd200[A]|r " .. CM:T("HINT_CONFIRM") .. "   |cffffd200[B]|r " .. CM:T("BTN_CLOSE"))
+    picker.footerText = footerText
+
+    table.insert(UISpecialFrames, "ConsoleModeMM_LangPicker")
+
+    picker:SetScript("OnHide", function()
+        if MainMenu.langPickerDimmer and MainMenu.langPickerDimmer:IsVisible() then
+            MainMenu.langPickerDimmer:Hide()
+        end
+        local nav = getglobal("ConsoleMode_MainMenuNav")
+        if nav and nav.focus and MainMenu.langPickerPrevZone then
+            nav.focus.zone = MainMenu.langPickerPrevZone
+            if nav.EnsureFocus then pcall(function() nav:EnsureFocus() end) end
+            if nav.ApplyFocus then pcall(function() nav:ApplyFocus() end) end
+        end
+        MainMenu.langPickerPrevZone = nil
+    end)
+
+    self.langPickerFrame = picker
+    return picker
+end
+
+function MainMenu:OpenLangPicker()
+    local picker = self:CreateLangPicker()
+    local dimmer = self.langPickerDimmer
+
+    if picker.title then
+        picker.title:SetText(CM:T("LANG_TITLE"))
+    end
+    if picker.footerText then
+        picker.footerText:SetText("|cffffd200[A]|r " .. CM:T("HINT_CONFIRM") .. "   |cffffd200[B]|r " .. CM:T("BTN_CLOSE"))
+    end
+
+    local activeId = CM:GetActiveLangId()
+    local n = table.getn(CM_LANG_ORDER)
+    local startY = -46
+    local rowHeight = 36
+    local rowGap = 5
+    local activeRowIdx = 1
+
+    local totalRows = table.getn(picker.rows)
+    local i = 1
+    while i <= totalRows do
+        local row = picker.rows[i]
+        if i <= n then
+            local langId = CM_LANG_ORDER[i]
+            local entry = CM_Langs[langId]
+            local langName = (entry and entry.name) or langId
+            local flagTex = CM:GetLangFlag(langId)
+
+            row.langId = langId
+            row.name:SetText(langName)
+            row.flag:SetTexture(flagTex)
+
+            row:ClearAllPoints()
+            local yPos = startY - ((i - 1) * (rowHeight + rowGap))
+            row:SetPoint("TOPLEFT", picker, "TOPLEFT", 18, yPos)
+            row:SetPoint("TOPRIGHT", picker, "TOPRIGHT", -18, yPos)
+
+            if langId == activeId then
+                activeRowIdx = i
+                row.check:Show()
+                row.name:SetTextColor(1.0, 0.85, 0.20)
+            else
+                row.check:Hide()
+                row.name:SetTextColor(0.90, 0.90, 0.90)
+            end
+            row:Show()
+        else
+            row.langId = nil
+            row:Hide()
+        end
+        i = i + 1
+    end
+
+    local totalHeight = math.abs(startY) + (n * (rowHeight + rowGap)) + 38
+    if totalHeight < 140 then totalHeight = 140 end
+    picker:SetHeight(totalHeight)
+
+    self.langPickerSelectedIdx = activeRowIdx
+    self:HighlightLangPickerRow(activeRowIdx)
+
+    local nav = getglobal("ConsoleMode_MainMenuNav")
+    if nav and nav.focus then
+        self.langPickerPrevZone = nav.focus.zone
+    else
+        self.langPickerPrevZone = nil
+    end
+
+    dimmer:Show()
+    picker:Show()
+end
+
+function MainMenu:CloseLangPicker()
+    if self.langPickerFrame and self.langPickerFrame:IsVisible() then
+        self.langPickerFrame:Hide()
+    end
+    if self.langPickerDimmer and self.langPickerDimmer:IsVisible() then
+        self.langPickerDimmer:Hide()
+    end
+    local nav = getglobal("ConsoleMode_MainMenuNav")
+    if nav and nav.focus and self.langPickerPrevZone then
+        nav.focus.zone = self.langPickerPrevZone
+        if nav.EnsureFocus then pcall(function() nav:EnsureFocus() end) end
+        if nav.ApplyFocus then pcall(function() nav:ApplyFocus() end) end
+    end
+    self.langPickerPrevZone = nil
+end
+
+function MainMenu:IsLangPickerOpen()
+    return (self.langPickerFrame ~= nil) and self.langPickerFrame:IsVisible()
+end
+
+function MainMenu:NavLangPickerDirection(direction)
+    if not self:IsLangPickerOpen() then return false end
+    local n = table.getn(CM_LANG_ORDER)
+    if n < 1 then return false end
+    local cur = self.langPickerSelectedIdx or 1
+    if direction == "UP" then
+        if cur > 1 then
+            cur = cur - 1
+        else
+            cur = n
+        end
+        self:HighlightLangPickerRow(cur)
+        return true
+    elseif direction == "DOWN" then
+        if cur < n then
+            cur = cur + 1
+        else
+            cur = 1
+        end
+        self:HighlightLangPickerRow(cur)
+        return true
+    end
+    return false
+end
+
+function MainMenu:HighlightLangPickerRow(idx)
+    self.langPickerSelectedIdx = idx
+    local picker = self.langPickerFrame
+    if not picker or not picker.rows then return end
+    local n = table.getn(picker.rows)
+    local i = 1
+    while i <= n do
+        local row = picker.rows[i]
+        if row:IsVisible() then
+            if i == idx then
+                row:SetBackdropColor(0.28, 0.22, 0.12, 0.85)
+                row:SetBackdropBorderColor(1.0, 0.85, 0.20, 1.0)
+            else
+                row:SetBackdropColor(0.08, 0.06, 0.04, 0.60)
+                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.60)
+            end
+        end
+        i = i + 1
+    end
+end
+
+function MainMenu:FocusLangPickerRow(idx)
+    self:HighlightLangPickerRow(idx)
+end
+
+function MainMenu:ConfirmLangPicker()
+    if not self:IsLangPickerOpen() then return false end
+    local idx = self.langPickerSelectedIdx or 1
+    local langId = CM_LANG_ORDER[idx]
+    if langId then
+        self:SelectLangPickerItem(langId)
+        return true
+    end
+    return false
+end
+
+function MainMenu:SelectLangPickerItem(langId)
+    local current = CM:GetActiveLangId()
+    if langId == current then
+        self:CloseLangPicker()
+        return
+    end
+    self:CloseLangPicker()
+    CM:HandleLangCommand(langId)
+end
+
+-- ============================================================================
 -- CRIAÇÃO DA JANELA PRINCIPAL (MAIN MENU FRAME)
 -- ============================================================================
 
@@ -14047,6 +14357,74 @@ function MainMenu:CreateUI()
         titleText:SetText(CM:T(CFG.Title.tkey))
         frame.title = titleText
     end
+
+    -- 4.1. Botão-Flag no Header (Canto superior esquerdo, alinhado com o título)
+    local flagBtn = CreateFrame("Button", "ConsoleModeMM_LangFlagBtn", frame)
+    flagBtn:SetWidth(28)
+    flagBtn:SetHeight(22)
+    flagBtn:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, CFG.Title.offsetY + 2)
+    flagBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true,
+        tileSize = 8,
+        edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 },
+    })
+    flagBtn:SetBackdropColor(0.05, 0.05, 0.05, 0.70)
+    flagBtn:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.80)
+
+    local flagTex = flagBtn:CreateTexture(nil, "ARTWORK")
+    flagTex:SetPoint("CENTER", flagBtn, "CENTER", 0, 0)
+    flagTex:SetWidth(20)
+    flagTex:SetHeight(16)
+    flagBtn.flagTex = flagTex
+
+    flagBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.20, 1.0)
+        GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT", 0, -4)
+        local activeId = CM:GetActiveLangId()
+        local entry = CM_Langs and CM_Langs[activeId]
+        local langName = (entry and entry.name) or activeId
+        GameTooltip:SetText(langName, 1.0, 0.82, 0.20)
+        local hint = CM:T("LANG_CHANGE_HINT")
+        if not hint or hint == "" or hint == "LANG_CHANGE_HINT" then
+            hint = CM:T("LANG_TITLE")
+        end
+        GameTooltip:AddLine(hint, 0.80, 0.80, 0.80)
+        GameTooltip:Show()
+    end)
+
+    flagBtn:SetScript("OnLeave", function()
+        local nav = getglobal("ConsoleMode_MainMenuNav")
+        local isNavFocused = nav and nav.focus and nav.focus.zone == "HEADER_LANG"
+        if not isNavFocused then
+            this:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.80)
+        end
+        GameTooltip:Hide()
+    end)
+
+    flagBtn:SetScript("OnClick", function()
+        MainMenu:OpenLangPicker()
+    end)
+
+    -- Moldura de foco espacada (borda visivelmente destacada da bandeira,
+    -- usada pelo D-Pad em HEADER_LANG). Criada 1x no pool fixo.
+    local navBorder = CreateFrame("Frame", nil, flagBtn)
+    navBorder:SetWidth(44)
+    navBorder:SetHeight(34)
+    navBorder:SetPoint("CENTER", flagBtn, "CENTER", 0, 0)
+    navBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 12,
+        insets   = { left = 0, right = 0, top = 0, bottom = 0 },
+    })
+    navBorder:SetBackdropColor(0, 0, 0, 0)
+    navBorder:SetBackdropBorderColor(1.0, 0.85, 0.20, 1.0)
+    navBorder:Hide()
+    flagBtn.navBorder = navBorder
+
+    frame.langFlagBtn = flagBtn
 
     -- 5. Painel Esquerdo: Palco do Personagem (Esquerda)
     local leftPanel = CreateFrame("Frame", "ConsoleModeMM_LeftPanel", frame)
@@ -14100,6 +14478,7 @@ function MainMenu:CreateUI()
         MainMenu:ApplyModelRotationBindings()
 
         MainMenu:UpdateLayout()
+        MainMenu:UpdateHeader()
         MainMenu:UpdatePlayerModel()
         MainMenu:UpdateEquipmentColumn()
         MainMenu:UpdateStatsAndBuffs()
@@ -14149,6 +14528,10 @@ function MainMenu:CreateUI()
     frame:SetScript("OnHide", function()
         if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.ExitMapMode then
             ConsoleMode.keybindings:ExitMapMode()
+        end
+
+        if MainMenu.CloseLangPicker then
+            MainMenu:CloseLangPicker()
         end
 
         MainMenu:RestoreModelRotationBindings()
@@ -14206,6 +14589,7 @@ function MainMenu:CreateUI()
 
     -- Aplica o layout inicial
     self:UpdateLayout()
+    self:UpdateHeader()
 end
 
 -- ============================================================================

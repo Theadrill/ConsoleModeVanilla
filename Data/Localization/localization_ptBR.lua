@@ -46,6 +46,7 @@ CM_Langs["ptBR"].strings = {
     LANG_RELOAD_HINT = "Digite /reload para aplicar o novo idioma.",
     LANG_HELP_HINT = "Use /cm lang [id] para trocar de idioma.",
     LANG_CURRENT_FMT = "Atual: %s",
+    LANG_CHANGE_HINT = "Clique para alterar o idioma",
     -- FASE 2: CharacterScreen (ficha do personagem). Valores byte-identicos
     -- aos hardcoded originais de UI/CharacterScreen.lua (UTF-8 sem BOM).
     -- Chaves _FMT vao ao format() no codigo (%% = % literal); demais vao

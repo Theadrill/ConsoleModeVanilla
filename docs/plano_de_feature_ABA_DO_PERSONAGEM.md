@@ -61,133 +61,73 @@ Esta feature implementa a **Aba do Personagem ("PERSONAGEM")** acessada pelo `Ma
 ---
 
 ## 2. Diagrama Visual em ASCII Art (Apresentação Completa "Long-Page")
+> Agrupamento final = `cardOrder` real de `UI/CharacterScreen.lua` (2 colunas,
+> pareamento sequencial dos visíveis; `REPUTAÇÕES` full-width; `HONRA` borda
+> vermelho-escuro; `DetailCard` 64px fixo no rodapé; `RANGED` oculto p/ relic).
 
 ```text
-+======================================================================================================================================================+
-|                                                           |cffe09a15[ MENU PRINCIPAL ]|r                                                             |
-+--------------------------------------------------------------+---------------------------------------------------------------------------------------+
-|                       PAINEL ESQUERDO                        |                                    PAINEL DIREITO                                     |
-|               (PALCO 3D DO PERSONAGEM - FIXO)                |             (BARRA DE ABAS EM 2 LINHAS + CONTEÚDO SCROLLÁVEL DA FICHA)                |
-+--------------------------------------------------------------+---------------------------------------------------------------------------------------+
-|                                                              |                                                                                       |
-| [CABEÇA]  Capacete de Placas         FOR  142 [=====]  (12)  |   [LB]        [ Bolsas & Itens ]    [ Livro de Magias ]    [ Talentos ]               |
-| [COLAR]   Pingente do Sol            AGI   84 [===  ]  ( 5)  |                                                                                       |
-| [OMBROS]  Ombreiras da Vanguarda     VIG  165 [======] (18)  |               [ Missões & Mapa ]    *[ PERSONAGEM ]*       [ Opções / Binds ]     [RB] |
-| [CAPA]    Capa de Couro Pesado       INT   32 [=    ]        |   ---------------------------------------------------------------------------------   |
-| [PEITORAL]Armadura de Ferro          ESP   48 [==   ]        |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|           /---------------------\    BUFFS ATIVOS:           |   | IDENTIDADE & BIOGRAFIA                                                        |   |
-|           |                     |    [*] Grito de Batalha    |   | Rodrigo Vernaschi  <Os Guardiões de Ferro>               Humano Guerreiro Niv 60|   |
-|           |                     |        [==========]  12m   |   | Posto: Sargento-Mor (Rank 5)        Facção: Aliança     Modo: Hardcore Ativo   |   |
-| [PUNHOS]  |     PERSONAGEM      |    [*] Intelecto Arcano    |   | XP: [=============================== 100%] 60/60        Status: Descansado(200%)|   |
-| [LUVAS]   |         3D          |        [========  ]  28m   |   +-------------------------------------------------------------------------------+   |
-| [CINTO]   |   (Giro livre com   |    [*] Pedra de Fogo       |                                                                                       |
-| [PERNAS]  |   analógico dir.)   |        [======    ]  18m   |   +-------------------------------------------------------------------------------+   |
-| [BOTAS]   |                     |    [*] Bênção do Poder     |   | ATRIBUTOS PRIMÁRIOS & RECURSOS                                                |   |
-|           \---------------------/        [===========] 54m   |   |  Vida Máxima:  4.280 HP  (Regen: 38 HP/s fora de comb. / 0 HP/s em comb.)     |   |
-| [ANEL 1]  Anel de Ouro Puro                                  |   |  Fúria/Mana:     100 Fúria                                                    |   |
-| [ANEL 2]  Selo do Guerreiro          ARMADURA TOTAL:         |   |  Força:        142  (+284 Attack Power, +28 Valor de Bloqueio)                |   |
-| [BERL. 1] Insígnia da Aliança        4.890  (Redução: 52%)   |   |  Agilidade:     84  (+168 Armadura, +4.2% Crítico Físico, +4.2% Esquiva)      |   |
-| [BERL. 2] Ícone de Coragem                                   |   |  Vigor:        165  (+1.650 Pontos de Vida)                                   |   |
-|                                                              |   |  Intelecto:     32  (+480 Mana, +0.5% Crítico Mágico)                          |   |
-| [MÃO DIR] Lâmina da Bravura          DEFESA:                 |   |  Espírito:      48  (+18 HP regen/5s fora de combate)                          |   |
-| [MÃO ESQ] Escudo Muralha do Leão     300 / 300               |   +-------------------------------------------------------------------------------+   |
-| [ALCANCE] Balestra de Carvalho                               |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | COMBATE CORPO A CORPO (MELEE)                                                 |   |
-|                                                              |   |  Poder de Ataque (AP):    684          Habilidade de Arma:     300 / 300      |   |
-|                                                              |   |  Arma Principal (1H):    142 - 188 Dano Velocidade: 2.60s       DPS: 82.5    |   |
-|                                                              |   |  Arma Secundária (Off):   -- (Escudo)   Velocidade: ----        DPS: ----    |   |
-|                                                              |   |  Acerto Crítico Melee:   14.8%         Chance de Acerto (Hit):  +5.0%       |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | COMBATE À DISTÂNCIA (RANGED)                                                  |   |
-|                                                              |   |  Poder de Ataque à Dist.: 210          Perícia em Balestras:   295 / 300      |   |
-|                                                              |   |  Dano de Longo Alcance:    88 - 124    Velocidade: 2.80s       DPS: 42.1    |   |
-|                                                              |   |  Crítico à Distância:    8.2%          Chance de Acerto (Hit):  +2.0%       |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | DEFESA & SOBREVIVÊNCIA                                                        |   |
-|                                                              |   |  Armadura:     4.890  (52.4% absorção contra alvos de nível 60)               |   |
-|                                                              |   |  Habilidade de Defesa:   300 / 300 (Reduz chance de receber crítico em +0.0%) |   |
-|                                                              |   |  Esquiva (Dodge):         8.4%         Aparo (Parry):           12.2%       |   |
-|                                                              |   |  Bloqueio (Block):       18.5%         Valor de Bloqueio:       145 Dano    |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | RESISTÊNCIAS ELEMENTAIS & MÁGICAS                                             |   |
-|                                                              |   |  (Fogo)      Fogo:      85  [==========          ]  (28% redução média)       |   |
-|                                                              |   |  (Natureza)  Natureza:  40  [=====               ]  (14% redução média)       |   |
-|                                                              |   |  (Gelo)      Gelo:      20  [==                  ]  ( 7% redução média)       |   |
-|                                                              |   |  (Sombra)    Sombra:    60  [=======             ]  (20% redução média)       |   |
-|                                                              |   |  (Arcano)    Arcano:     0  [                    ]  ( 0% redução média)       |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | PODER MÁGICO & CONJURAÇÃO (SPELL & HEAL)                                      |   |
-|                                                              |   |  Poder de Cura (+Heal):    +0          Dano Mágico Geral:       +0          |   |
-|                                                              |   |  Sagrado:   +0    Fogo:    +0   Natureza: +0                                  |   |
-|                                                              |   |  Gelo:      +0    Sombra:  +0   Arcano:   +0                                  |   |
-|                                                              |   |  Crítico Mágico Geral:   2.4%          Spell Penetration:        0          |   |
-|                                                              |   |  Regeneração Mana (MP5):  0 MP5 ativo / 22 MP5 fora da regra dos 5 seg.      |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | PROFISSÕES & OFÍCIOS                                                          |   |
-|                                                              |   |  [Ferraria]      Ferraria (Armaduras)    [======================]  300 / 300  |   |
-|                                                              |   |  [Mineração]     Mineração               [======================]  300 / 300  |   |
-|                                                              |   |  [Culinária]     Culinária               [==================    ]  255 / 300  |   |
-|                                                              |   |  [1º Socorros]   Primeiros Socorros      [======================]  300 / 300  |   |
-|                                                              |   |  [Pesca]         Pesca                   [============          ]  160 / 300  |   |
-|                                                              |   |  [Sobrevivência] Sobrevivência (Tendas)  [=================     ]  230 / 300  |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | PERÍCIAS DE ARMAS & PROFICIÊNCIAS                                             |   |
-|                                                              |   |  Espadas de 1 Mão:  [======================] 300 / 300  (Cap Máximo)          |   |
-|                                                              |   |  Machados de 1 Mão: [======================] 300 / 300  (Cap Máximo)          |   |
-|                                                              |   |  Maças de 1 Mão:    [======================] 300 / 300  (Cap Máximo)          |   |
-|                                                              |   |  Espadas de 2 Mãos: [======================] 300 / 300  (Cap Máximo)          |   |
-|                                                              |   |  Balestras:         [====================  ] 295 / 300                        |   |
-|                                                              |   |  Armas de Haste:    [==================    ] 250 / 300                        |   |
-|                                                              |   |  Desarmado:         [==============        ] 190 / 300                        |   |
-|                                                              |   |  Armaduras:         Tecido, Couro, Malha, Placas, Escudos                     |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | HONRA & JXJ (PVP)                                                             |   |
-|                                                              |   |  Posto Atual: Sargento-Mor (Rank 5)      Progresso Semanal: [======== ] 42%   |   |
-|                                                              |   |  Maior Posto Alcançado: Cavaleiro-Tenente (Rank 7)                            |   |
-|                                                              |   |  Abates de Hoje:    14 HKs (182 Honra)   Abates de Ontem:   48 HKs (950 Honra)|   |
-|                                                              |   |  Esta Semana:      124 HKs (3.410 Honra) Total da Vida:   1.842 HKs (0 DKs)   |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | REPUTAÇÕES & FACÇÕES                                                            |   |
-|                                                              |   |  Ventobravo (Stormwind)    [========================] Exaltado    (1.000/999) |   |
-|                                                              |   |  Altaforja (Ironforge)     [====================    ] Reverenciado(14.200/21k)|   |
-|                                                              |   |  Darnassus                 [==============          ] Honrado     (4.500/12k) |   |
-|                                                              |   |  Alvorada Argêntea         [=================       ] Reverenciado(8.900/21k) |   |
-|                                                              |   |  Círculo Cenariano         [============            ] Honrado     (2.100/12k) |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | IDIOMAS & HABILIDADES RACIAIS                                                 |   |
-|                                                              |   |  Idiomas:  Comum (100%), Anão (Compreensão 0%)                                |   |
-|                                                              |   |  Raciais:  O Espírito Humano (+5% Espírito), Diplomacia (+10% Reputação),     |   |
-|                                                              |   |            Especialização em Espadas (+5 Perícia), Percepção (Furtividade)    |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |                                                                                       |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-|                                                              |   | DETAIL CARD INFERIOR (ESTILO ZELDA / CONSOLE RPG):                            |   |
-|                                                              |   | [ÍCONE] |cffe09a15Poder de Ataque Corpo a Corpo (Attack Power)|r               |   |
-|                                                              |   | Aumenta o dano causado com armas brancas em 48.8 DPS. Base: 120 / Bônus: +564 |   |
-|                                                              |   | [D-Pad Cima/Baixo] Rolar Página          [B] Voltar                           |   |
-|                                                              |   +-------------------------------------------------------------------------------+   |
-+--------------------------------------------------------------+---------------------------------------------------------------------------------------+
++====================================================================================================+
+|                                     |cffe09a15[ MENU PRINCIPAL ]|r                                  |
++------------------------------+---------------------------------------------------------------------+
+|       PAINEL ESQUERDO        |                            PAINEL DIREITO                           |
+|    (PALCO 3D - FIXO)         |                (2 LINHAS + FICHA SCROLL 2-COLUNAS)                  |
++------------------------------+---------------------------------------------------------------------+
+| [CABEÇA] Capacete de Placas  | [LB]   [ Bolsas ]   [ Personagem ]*  [ Talentos ]                    |
+| [COLAR]  Pingente do Sol ... |        [ Magias ]    [ Missões ]      [ Opções ]              [RB]  |
+|  /-----------------\  BUFFS  | ------------------------------------------------------------------- |
+|  |                 |  [*] x4 | +-------------------------------+-------------------------------+ |
+|  |   PERSONAGEM    |  ARMAD. | | IDENTIDADE & BIOGRAFIA        | ATRIBUTOS PRIMÁRIOS (BASE)      | |
+|  |   3D (giro      |  DEFESA | | Nome N60 Humano Guerreiro     | For 142  Agi 84  Vig 165        | |
+|  |   analógico)    |  [...]  | | Guilda <...> XP [ \#\#\#\# ] 100% | Int 32  Esp 48 + Armadura       | |
+|  \-----------------/         | +-------------------------------+-------------------------------+ |
+| [MÃO DIR] Lâmina... [ANEL..] | +-------------------------------+-------------------------------+ |
+| (... palco fixo inalterado)  | | RECURSOS & REGENERAÇÃO        | COMBATE CORPO A CORPO (MELEE)   | |
+|  :                           | | Vida 4.280  Fúria 100         | AP 684  Dano 142-188  DPS 82.5  | |
+|  :                           | | Regen HP/MP5 (técnica BCS)    | Hit +5%  Crit 14.8%             | |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | | MELEE VS BOSS (NÍVEL 63)      | COMBATE A DISTÂNCIA (RANGED)*   | |
+|  :                           | | Miss/Dodge vs +3 níveis       | RAP 210  Dano 88-124 DPS 42.1   | |
+|  :                           | | Glancing ~40% / Crit Cap      | Hit +2%  Crit 8.2%              | |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | | PODER MÁGICO (SPELL)          | ESCOLAS DE MAGIA (SCHOOLS)      | |
+|  :                           | | SP +0  +Heal +0  MP5 0/22     | Arcano/Fogo/Gelo +0             | |
+|  :                           | | Hit 0%  Crit 2.4%  Haste --   | Sagrado/Nat/Sombra +0           | |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | | DEFESA & SOBREVIVÊNCIA        | DEFESA VS BOSS (NÍVEL 63)       | |
+|  :                           | | Armadura 4.890 (52.4%)        | Idem, diferencial +3 níveis     | |
+|  :                           | | Esquiva 8.4% Aparo 12.2%     | (técnica BCS levelDiff=3)       | |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | | RESISTÊNCIAS ELEMENTAIS       | PERÍCIAS DE ARMAS               | |
+|  :                           | | Fogo 85 Nat 40 Gelo 20 ...    | Espadas 1M [ \#\#\#\# ] 300/300  | |
+|  :                           | | (texto "Nome: valor / 100")   | Balestras 295/300 ...           | |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | | PROFISSÕES (max 2)            | OFÍCIOS (secundárias)           | |
+|  :                           | | Ferraria 300/300 [ \#\#\#\# ]   | Culinária 255/300 / Pesca ...   | |
+|  :                           | | Mineração 300/300             | 1º Socorros 300/300             | |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | +---------------------------------------------------------------+ |
+|  :                           | | REPUTAÇÕES (FULL-WIDTH, 2 col internas, 72 slots)             | |
+|  :                           | | Ventobravo [ \#\#\#\# ] Exaltado / Altaforja Reverenciado ...  | |
+|  :                           | | (... +N overflow / "Sem reputacoes")                          | |
+|  :                           | +---------------------------------------------------------------+ |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | | # HONRA & JXJ (borda verm.) # | IDIOMAS & RACIAIS               | |
+|  :                           | | Posto Rank 5  Prog [==  ] 42% | Comum 100% / Anão ...           | |
+|  :                           | | Hoje 14 / Ontem 48 / Vida N   | Raciais: Espírito Humano ...    | |
+|  :                           | +-------------------------------+-------------------------------+ |
+|  :                           | +---------------------------------------------------------------+ |
+|  :                           | | DETAILCARD 64px (rodapé fixo): [ÍCONE] Título + 2 linhas      | |
+|  :                           | | Segue a seção visível no topo (D-Pad Cima/Baixo rola a página)| |
+|  :                           | +---------------------------------------------------------------+ |
++------------------------------+---------------------------------------------------------------------+
 ```
+* `RANGED` oculto p/ classes com slot de relíquia (paladino/xamã/druida) — reflow sem buraco.
+# `HONRA` = único card com borda vermelho-escuro (0.55/0.10/0.10) e título vermelho.
 
 ---
 

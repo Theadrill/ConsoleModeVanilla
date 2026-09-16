@@ -97,6 +97,96 @@ def fmt_spec(c):
     return "s:%d d:%d f:%d" % (c["s"], c["d"], c["f"])
 
 
+def parse_game(path):
+    """Extrai categorias e contagem de entradas do bloco `game = { ... }`.
+
+    Categorias tipicas: skills, talents, spells, buffs.
+    Retorna dict {categoria: contagem}.
+    """
+    counts = {}
+    try:
+        with open(path, "r", encoding="utf-8-sig") as fh:
+            content = fh.read()
+    except OSError as exc:
+        return counts
+
+    # Remove comentarios de bloco --[[ ... ]] e de linha -- ...
+    content = re.sub(r"--\[\[.*?\]\]", "", content, flags=re.DOTALL)
+    content = re.sub(r"--.*$", "", content, flags=re.MULTILINE)
+
+    def count_entries_in_body(cat_body):
+        edepth = 0
+        entries = 0
+        entry_pat = re.compile(r"^\s*(?:\[.*?\]|[a-zA-Z0-9_]+)\s*=")
+        for line in cat_body.splitlines():
+            if edepth == 0 and entry_pat.match(line):
+                entries += 1
+            for char in line:
+                if char == "{":
+                    edepth += 1
+                elif char == "}":
+                    edepth -= 1
+        return entries
+
+    # Caso A: procura por game = { ... }
+    for m in re.finditer(r"(?:^|\s|\.)game\s*=\s*\{", content):
+        start_idx = m.end() - 1
+        depth = 0
+        game_str = ""
+        for i in range(start_idx, len(content)):
+            ch = content[i]
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    game_str = content[start_idx + 1:i]
+                    break
+
+        cat_re = re.compile(r"([a-zA-Z0-9_]+)\s*=\s*\{")
+        pos = 0
+        while True:
+            cm = cat_re.search(game_str, pos)
+            if not cm:
+                break
+            cat_name = cm.group(1)
+            cat_brace_start = cm.end() - 1
+            cdepth = 0
+            cat_content = ""
+            cat_end = len(game_str)
+            for j in range(cat_brace_start, len(game_str)):
+                c = game_str[j]
+                if c == "{":
+                    cdepth += 1
+                elif c == "}":
+                    cdepth -= 1
+                    if cdepth == 0:
+                        cat_content = game_str[cat_brace_start + 1:j]
+                        cat_end = j + 1
+                        break
+            counts[cat_name] = counts.get(cat_name, 0) + count_entries_in_body(cat_content)
+            pos = cat_end
+
+    # Caso B: procura por game.<categoria> = { ... }
+    for m in re.finditer(r"game\.([a-zA-Z0-9_]+)\s*=\s*\{", content):
+        cat_name = m.group(1)
+        start_idx = m.end() - 1
+        depth = 0
+        cat_content = ""
+        for i in range(start_idx, len(content)):
+            ch = content[i]
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    cat_content = content[start_idx + 1:i]
+                    break
+        counts[cat_name] = counts.get(cat_name, 0) + count_entries_in_body(cat_content)
+
+    return counts
+
+
 def check_file(lang_id, base, path, warn):
     """Compara um pacote contra a base. Retorna (missing, extra, nkeys)."""
     data = parse_strings(path)
@@ -121,6 +211,10 @@ def check_file(lang_id, base, path, warn):
                     % (k, pcol[0], pcol[1], lang_id, lcol[0], lcol[1]))
     sys.stdout.write(
         "[%s] keys=%d missing=%d extra=%d\n" % (lang_id, len(data), len(missing), len(extra)))
+    game_data = parse_game(path)
+    if game_data:
+        cats_str = " ".join("%s=%d" % (k, game_data[k]) for k in sorted(game_data))
+        sys.stdout.write("[%s] game: %s\n" % (lang_id, cats_str))
     return missing, extra, len(data)
 
 
@@ -196,6 +290,10 @@ def main():
         return 2
 
     base = parse_strings(base_path)
+    base_game = parse_game(base_path)
+    if base_game:
+        cats_str = " ".join("%s=%d" % (k, base_game[k]) for k in sorted(base_game))
+        sys.stdout.write("[%s] game: %s\n" % (BASE_LANG_ID, cats_str))
     total_missing = 0
     total_extra = 0
     checked = 0

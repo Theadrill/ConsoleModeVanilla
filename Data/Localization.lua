@@ -149,6 +149,168 @@ function CM:GetLangFlag(id)
     return CM_FALLBACK_TEX2
 end
 
+---------------------------------------------------------------------------
+-- Acessores GamePT (Fase 7 - Localizacao de Conteudo de Jogo)
+---------------------------------------------------------------------------
+
+-- Traducao de perícias/profissoes (skills).
+-- Lookup insensivel a maiusculas/minusculas com fallback ptBR -> original.
+function CM:GamePT_Skill(skillName)
+    if not skillName or skillName == "" then
+        return ""
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return skillName
+    end
+    local key = string.lower(skillName)
+    local entry = CM_Langs[activeId]
+    if entry and entry.game and entry.game.skills then
+        local v = entry.game.skills[key] or entry.game.skills[skillName]
+        if v and v ~= "" then
+            return v
+        end
+    end
+    if activeId ~= "ptBR" then
+        local base = CM_Langs["ptBR"]
+        if base and base.game and base.game.skills then
+            local b = base.game.skills[key] or base.game.skills[skillName]
+            if b and b ~= "" then
+                return b
+            end
+        end
+    end
+    return skillName
+end
+
+-- Regra de formato pura para rank/grau.
+function CM:GamePT_Rank(rankStr)
+    if not rankStr or rankStr == "" then
+        return ""
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return rankStr
+    end
+    if rankStr == "Passive" then
+        return "Passiva"
+    end
+    local res, count = string.gsub(rankStr, "Rank (%d+)", "Grau %1")
+    if count > 0 then
+        return res
+    end
+    return rankStr
+end
+
+-- Traducao de magias/habilidades (spells).
+-- Lookup insensivel a maiusculas/minusculas com fallback ptBR -> original.
+function CM:GamePT_Spell(spellName, rankStr)
+    if not spellName or spellName == "" then
+        return ""
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return spellName
+    end
+    local key = string.lower(spellName)
+    local entry = CM_Langs[activeId]
+    if entry and entry.game and entry.game.spells then
+        local v = entry.game.spells[key] or entry.game.spells[spellName]
+        if v and v ~= "" then
+            return v
+        end
+    end
+    if activeId ~= "ptBR" then
+        local base = CM_Langs["ptBR"]
+        if base and base.game and base.game.spells then
+            local b = base.game.spells[key] or base.game.spells[spellName]
+            if b and b ~= "" then
+                return b
+            end
+        end
+    end
+    return spellName
+end
+
+-- Traducao de talentos por coordenada ou coordKey.
+-- Aceita (classFile, tab, tier, col, origName) OU (coordKey, origName).
+-- Retorna name, desc se tabela, string se string, ou origName.
+function CM:GamePT_Talent(a1, a2, a3, a4, a5)
+    local coordKey, origName
+    if a5 ~= nil then
+        coordKey = string.format("%s|%d|%d|%d", tostring(a1 or ""), tonumber(a2) or 0, tonumber(a3) or 0, tonumber(a4) or 0)
+        origName = a5
+    else
+        coordKey = a1
+        origName = a2
+    end
+    if not origName then
+        origName = ""
+    end
+    if not coordKey or coordKey == "" then
+        return origName
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return origName
+    end
+    local entry = CM_Langs[activeId]
+    if entry and entry.game and entry.game.talents then
+        local t = entry.game.talents[coordKey]
+        if t then
+            if type(t) == "table" then
+                return t.name or origName, t.desc
+            elseif type(t) == "string" and t ~= "" then
+                return t
+            end
+        end
+    end
+    if activeId ~= "ptBR" then
+        local base = CM_Langs["ptBR"]
+        if base and base.game and base.game.talents then
+            local t = base.game.talents[coordKey]
+            if t then
+                if type(t) == "table" then
+                    return t.name or origName, t.desc
+                elseif type(t) == "string" and t ~= "" then
+                    return t
+                end
+            end
+        end
+    end
+    return origName
+end
+
+-- Traducao de buffs/debuffs.
+-- Lookup insensivel a maiusculas/minusculas com fallback ptBR -> original.
+function CM:GamePT_Buff(buffName)
+    if not buffName or buffName == "" then
+        return ""
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return buffName
+    end
+    local key = string.lower(buffName)
+    local entry = CM_Langs[activeId]
+    if entry and entry.game and entry.game.buffs then
+        local v = entry.game.buffs[key] or entry.game.buffs[buffName]
+        if v and v ~= "" then
+            return v
+        end
+    end
+    if activeId ~= "ptBR" then
+        local base = CM_Langs["ptBR"]
+        if base and base.game and base.game.buffs then
+            local b = base.game.buffs[key] or base.game.buffs[buffName]
+            if b and b ~= "" then
+                return b
+            end
+        end
+    end
+    return buffName
+end
+
 -- Lista idiomas do registro no chat. Usado por /cm lang sem arg.
 function CM:ShowLangList()
     local activeId = self:GetActiveLangId()

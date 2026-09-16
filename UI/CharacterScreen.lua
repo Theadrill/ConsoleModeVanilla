@@ -3169,7 +3169,7 @@ function CharacterScreen:RefreshWeaponProfs()
             local mx = maxs[li]
             if type(rk) ~= "number" then rk = 0 end
             if type(mx) ~= "number" then mx = 0 end
-            local txt = format(CM:T("CHAR_SKILL_LINE_FMT"), names[li], rk, mx)
+            local txt = format(CM:T("CHAR_SKILL_LINE_FMT"), CM:GamePT_Skill(names[li]), rk, mx)
             if mods[li] and mods[li] > 0 then
                 txt = txt .. format(CM:T("CHAR_SKILL_MOD_FMT"), mods[li])
             end
@@ -3400,7 +3400,7 @@ function CharacterScreen:RefreshProfessions()
             local mx = pMaxs[li]
             if type(rk) ~= "number" then rk = 0 end
             if type(mx) ~= "number" then mx = 0 end
-            local txt = format(CM:T("CHAR_SKILL_LINE_FMT"), pNames[li], rk, mx)
+            local txt = format(CM:T("CHAR_SKILL_LINE_FMT"), CM:GamePT_Skill(pNames[li]), rk, mx)
             if pMods[li] and pMods[li] > 0 then
                 txt = txt .. format(CM:T("CHAR_SKILL_MOD_FMT"), pMods[li])
             end
@@ -3465,7 +3465,7 @@ function CharacterScreen:RefreshProfessions()
                 local mx2 = sMaxs[lj]
                 if type(rk2) ~= "number" then rk2 = 0 end
                 if type(mx2) ~= "number" then mx2 = 0 end
-                local txt2 = format(CM:T("CHAR_SKILL_LINE_FMT"), sNames[lj], rk2, mx2)
+                local txt2 = format(CM:T("CHAR_SKILL_LINE_FMT"), CM:GamePT_Skill(sNames[lj]), rk2, mx2)
                 if sMods[lj] and sMods[lj] > 0 then
                     txt2 = txt2 .. format(CM:T("CHAR_SKILL_MOD_FMT"), sMods[lj])
                 end
@@ -3949,14 +3949,14 @@ function CharacterScreen:RefreshLangRacial()
         card.lines[1]:SetText(CM:T("CHAR_LANG_NONE"))
         card.lines[2]:SetText("")
     elseif nLang == 1 then
-        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[1]))
+        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), CM:GamePT_Skill(langNames[1])))
         card.lines[2]:SetText("")
     elseif nLang == 2 then
-        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[1]))
-        card.lines[2]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[2]))
+        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), CM:GamePT_Skill(langNames[1])))
+        card.lines[2]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), CM:GamePT_Skill(langNames[2])))
     else
-        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), langNames[1]))
-        card.lines[2]:SetText(format(CM:T("CHAR_LANG_MORE_FMT"), langNames[2], nLang - 2))
+        card.lines[1]:SetText(format(CM:T("CHAR_LANG_ONE_FMT"), CM:GamePT_Skill(langNames[1])))
+        card.lines[2]:SetText(format(CM:T("CHAR_LANG_MORE_FMT"), CM:GamePT_Skill(langNames[2]), nLang - 2))
     end
     local raceLoc = nil
     local raceFile = nil

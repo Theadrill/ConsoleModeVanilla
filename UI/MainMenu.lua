@@ -6226,7 +6226,9 @@ function MainMenu:FocusTalentSlot(slot)
         card.icon:SetTexture(data.icon)
         card.icon:Show()
 
-        card.titleText:SetText(string.format("|cffe09a15%s|r", data.name))
+        local _, classFile = UnitClass("player")
+        local tName = CM:GamePT_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
+        card.titleText:SetText(string.format("|cffe09a15%s|r", tName or data.name))
         card.typeText:SetText(string.format("|cffaaaaaaTier %d  •  Rank %d/%d|r", data.tier, data.currentRank, data.maxRank))
 
         -- Descrição obtida via GameTooltip invisível

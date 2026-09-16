@@ -234,30 +234,81 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 ---
 
-### 🟢 FASE 7: Tradução de conteúdo do jogo (tabelas GamePT por ID/nome)
-> **Objetivo observável:** Nomes de skills/idiomas (cards Armas/Profissões/Ofícios/Idiomas), nomes de talentos (árvore + detailCard) e nomes de magias (spellbook + pickers) exibidos **em PT** nos frames do addon, com fallback ao texto original do cliente onde não houver entrada. Tooltips nativas e nomes de itens permanecem como o cliente entrega.
+### 🟢 FASE 7: Tradução Integral do Conteúdo do Jogo (GamePT Master Architecture)
+> **Objetivo observável:** Tradução completa e contextual em Português Brasileiro (ptBR) de todo o conteúdo exibido pelo ConsoleModeVanilla: Perícias/Idiomas, Talentos (nomes e descrições completas com ranks), Magias/Habilidades (Spellbook e pickers da barra de ação), Auras/Buffs e Termos de Itens/Tooltips.
 >
-> **Premissa (investigação):** esse conteúdo vem do **cliente** (DBCs), não do servidor. Não há spellID/skillID acessível na 1.12 (`GetTalentInfo`/`GetSpellName`/`GetSkillLineInfo` não devolvem ID; índice de spellbook/skill desloca e nunca é chave). Tradução = tabelas autorais ID→PT no addon, com fallback identidade (sem entrada = texto original, nunca `nil`).
+> **Diretriz de Qualidade Inegociável:** Tradução contextual fluente com padrão de RPG brasileiro oficial (vocabulário Blizzard pt-BR), sem traduções mecânicas/robóticas.
 >
-> - [ ] **UM arquivo por idioma (arquitetura preservada):** nada de pasta `GamePT/` separada — cada `localization_<id>.lua` ganha **segunda seção** `game={...}` ao lado de `strings={...}`:
->   ```lua
->   CM_Langs["ptBR"] = {
->     name = "Português (Brasil)", flag = "...flag_ptBR.tga",
->     strings = { TAB_BAGS = "...", ... },   -- UI do addon (Fases 1–4)
->     game = {                                -- conteúdo do jogo (Fase 7)
->       skills  = { ["Swords"]="Espadas", ["Cooking"]="Culinária", ... },
->       talents = { ["MAGE|1|3|2"]={ name="...", desc={[1]="...",...} }, ... },
->       spells  = { ["Fireball|Rank 4"]="Bola de Fogo|Grau 4", ... },
->       buffs   = { ["Arcane Intellect"]="Intelecto Arcano", ... },
->     },
->   };
->   ```
->   Acessores moram no loader (`Data/Localization.lua`): `CM:GamePT_Skill/Talent/Spell/Buff` lendo `CM_Langs[ativo].game` → fallback `CM_Langs["ptBR"].game` → texto original (nunca `nil`). **enUS não precisa de seção `game`** (cliente já é EN — fallback identidade resolve tudo). Idioma novo continua "2 arquivos + 1 linha", com `game` opcional por categoria.
-> - [ ] Chaves: skills/magias/buffs por **nome EN** (`["Swords"]`, `["Fireball"]` + rank separado ou `"Nome|Rank 4"`, lookup `string.lower`); talentos por **posição** `["MAGE|1|3|2"]` (`classFile|aba|tier|coluna`, valor `{ name, desc por rank opcional}`); itens **sem tabela** (fora de escopo permanente — `GetItemInfo` já dá o nome).
-> - [ ] Ordem de implementação: 1) skills+idiomas (~100 entradas, 3–8 KB) → 2) nomes de talentos (~450, 12–20 KB, sem descrições) → 3) magias em cobertura parcial (classe do jogador, resto via cache volátil de sessão — **nunca em SavedVariables**) → 4) buffs recorrentes (~150).
-> - [ ] Regras de segurança: parse de tooltip **sempre no texto EN bruto antes** de qualquer tradução (os ~60 matchers EN ficam intactos para sempre); structs carregam `nameEN` (lógica/match/índice) + `namePT` (display) — `CS_GetWeaponSkillByName`, `GetSpellIdByName`, `CS_WEAPON_SKILL_MAP`, `CLASS_SPEC_KEYWORDS` operam em `nameEN`; `Rank N`→`Grau N`/`Passive`→`Passiva` como regra de formato, não tabela; tradução só nos frames próprios, nunca reescrever tooltip nativa; seção `turtle` separada para customs.
-> - [ ] Validador da Fase 6 ganha modo por categoria (`MISSING:` por arquivo GamePT). `luac -p` em tudo.
-> - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7):** jogador abre cards de perícias/idiomas, árvore de talentos, spellbook e pickers e confirma nomes PT com números idênticos + fallback correto (ex. magia sem entrada exibe nome original, sem erro).
+> **Decisão Arquitetural do Tech Lead — Motor Híbrido em Camadas (Tiered Translation Engine):**
+> Para contornar os limites rígidos do WoW 1.12.1 (Lua 5.0, 32-bit, limite de heap e risco de *Garbage Collector Stalls*) e garantir imunidade a patches de rebalanceamento do Turtle WoW (que alteram números e fórmulas mantendo a gramática base):
+> 1. **Camada 1 (Dicionário Nominal O(1)):** Lookup exato para nomes próprios de perícias, talentos, magias e auras.
+> 2. **Camada 2 (Templates Regex com Preservação de Valores):** Motor dinâmico que captura os valores numéricos reais (`%d+`, `[%d%.]+`) calculados pelo cliente/servidor e os injeta nos moldes sintáticos em português. Exemplo: *"Increases critical strike chance by 5%"* $\rightarrow$ extrai `5` e gera *"Aumenta a chance de acerto crítico em 5%"*. Se um patch alterar para 6%, a tradução reflete 6% instantaneamente sem necessidade de manutenção.
+> 3. **Camada 3 (Tabela de Exceções Autorais):** Dicionário para habilidades narrativas ou mecânicas complexas que fogem aos padrões reutilizáveis.
+> 4. **Camada 4 (Fallback Seguro):** Qualquer texto não mapeado permanece no original em inglês, garantindo **zero falhas de UI, zero telas em branco e zero taint no motor de combate**.
+
+---
+
+#### Status Atual de Execução da Fase 7
+- [x] **Etapa 0 (Acessores Core & Validador):** Implementados em `Data/Localization.lua` (`GamePT_Skill`, `GamePT_Rank`, `GamePT_Spell`, `GamePT_Talent`, `GamePT_Buff`) e suporte no `tools/check_locales.py`. (Commit `8561471`).
+- [x] **Bloco 1 (Perícias & Idiomas):** 102 entradas em `Data/Localization/localization_ptBR.lua` integradas visualmente em `UI/CharacterScreen.lua`. Testado no jogo, commitado e enviado ao repo remoto (`8561471`).
+- [x] **Bloco 2 (Nomes de Talentos):** 1.280 entradas (432 coordenadas canônicas das 9 classes + 848 nomes nominais) em `localization_ptBR.lua` com fallback resiliente em `Data/Localization.lua` e renderização no `card.titleText` de `UI/MainMenu.lua`. Concluído e validado.
+
+---
+
+#### Roadmap da Tradução Integral (Fases 7.1 a 7.4)
+
+```text
+[Fase 7.1: Descrições Dinâmicas de Talentos] 
+       │
+       ▼
+[Fase 7.2: Magias & Habilidades (Spellbook & Action Pickers)]
+       │
+       ▼
+[Fase 7.3: Motor de Auras & Efeitos (Buffs / Debuffs)]
+       │
+       ▼
+[Fase 7.4: Motor de Itens, Equipamentos & Interceptação de Tooltips]
+```
+
+---
+
+#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.1 (Módulo 1 — Motor de Descrições de Talentos)
+> **Meta:** A tela de talentos do `MainMenu.lua` passa a exibir **100% em Português** — tanto o título quanto a descrição completa de cada grau (*rank*) atual e próximo grau (*next rank*), preservando todos os números dinâmicos.
+
+1. **Criar `Data/TalentDescriptions_ptBR.lua`:**
+   - Registrado no `ConsoleModeVanilla.toc` logo após `Data\Localization\localization_ptBR.lua` e antes de `UI\*`.
+   - Tabela de **Templates Sintáticos Regex** cobrindo os padrões fundamentais de talentos:
+     - Aumento/redução percentual de dano/cura: `Increases damage done by (.+) by (%d+)%%` $\rightarrow$ `Aumenta o dano causado por %1 em %2%`.
+     - Redução de tempo de lançamento: `Reduces the casting time of your (.+) by ([%d%.]+) sec` $\rightarrow$ `Reduz o tempo de lançamento de %1 em %2 s`.
+     - Aumento de chance de acerto crítico: `Increases your chance to get a critical strike with (.+) by (%d+)%%` $\rightarrow$ `Aumenta a sua chance de acerto crítico com %1 em %2%`.
+     - Redução de tempo de recarga (cooldown): `Reduces the cooldown of your (.+) by ([%d%.]+) sec` $\rightarrow$ `Reduz o tempo de recarga de %1 em %2 s`.
+     - Aumento de alcance: `Increases the range of your (.+) by (%d+) yards` $\rightarrow$ `Aumenta o alcance de %1 em %2 m`.
+     - Redução de custo de mana/fúria/energia: `Reduces the Mana cost of your (.+) by (%d+)%%` $\rightarrow$ `Reduz o custo de Mana de %1 em %2%`.
+     - Bônus de atributos: `Increases your total (.+) by (%d+)%%` $\rightarrow$ `Aumenta o seu total de %1 em %2%`.
+     - Chance de ativação por golpe: `Gives your (.+) a (%d+)%% chance to (.+)` $\rightarrow$ `Concede a %1 uma chance de %2% de %3`.
+   - Tabela de **Exceções Autorais de Capstones**:
+     - Habilidades ativas concedidas por talentos das 9 classes (ex.: *Golpe Mortal*, *Sede de Sangue*, *Ignimpacto*, *Barreira de Gelo*, *Lâminas Dançantes*, *Forma de Sombra*, *Ira Bestial*, *Tiro Certo*, *Choque Sagrado*, *Golpe da Tempestade*, *Forma de Luniscado*, etc.).
+2. **Atualizar `Data/Localization.lua`:**
+   - Adicionar o acessor:
+     ```lua
+     function CM:GamePT_TalentDesc(classFile, tabIndex, tier, column, currentRank, maxRank, rawDescEN)
+     ```
+   - Executa a cascata: Camada 3 (Exceção por coordenada/nome) $\rightarrow$ Camada 2 (Passagem de linha por linha pelos templates regex) $\rightarrow$ Camada 4 (Fallback ao texto bruto `rawDescEN`).
+3. **Conectar em `UI/MainMenu.lua`:**
+   - Em `MainMenu:FocusTalentSlot` (linha ~6254):
+     Substituir a atribuição de `card.descColLeft:SetText(desc)` pela versão traduzida via `CM:GamePT_TalentDesc`.
+   - Manter o cache `data.desc` original intocado para segurança.
+4. **Governança & Validação:**
+   - `luac -p Data/Localization.lua`
+   - `luac -p Data/TalentDescriptions_ptBR.lua`
+   - `luac -p UI/MainMenu.lua`
+   - `python3 tools/check_locales.py` (garantindo paridade e métricas de dados).
+5. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.1):**
+   - Apresentar instruções de teste com `/reload`.
+   - Jogador inspeciona a árvore de talentos de sua classe e valida que os títulos e as descrições dos graus aparecem fluidas em português com os números corretos.
+   - Aguardar autorização expressa ("OK") do usuário antes de realizar commit. Zero commits/pushes automáticos.
+
+---
 
 ---
 

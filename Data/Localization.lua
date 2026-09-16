@@ -247,7 +247,7 @@ function CM:GamePT_Talent(a1, a2, a3, a4, a5)
     if not origName then
         origName = ""
     end
-    if not coordKey or coordKey == "" then
+    if (not coordKey or coordKey == "") and origName == "" then
         return origName
     end
     local activeId = self:GetActiveLangId()
@@ -256,7 +256,13 @@ function CM:GamePT_Talent(a1, a2, a3, a4, a5)
     end
     local entry = CM_Langs[activeId]
     if entry and entry.game and entry.game.talents then
-        local t = entry.game.talents[coordKey]
+        local t
+        if coordKey and coordKey ~= "" then
+            t = entry.game.talents[coordKey]
+        end
+        if not t and origName ~= "" then
+            t = entry.game.talents[string.lower(origName)] or entry.game.talents[origName]
+        end
         if t then
             if type(t) == "table" then
                 return t.name or origName, t.desc
@@ -268,7 +274,13 @@ function CM:GamePT_Talent(a1, a2, a3, a4, a5)
     if activeId ~= "ptBR" then
         local base = CM_Langs["ptBR"]
         if base and base.game and base.game.talents then
-            local t = base.game.talents[coordKey]
+            local t
+            if coordKey and coordKey ~= "" then
+                t = base.game.talents[coordKey]
+            end
+            if not t and origName ~= "" then
+                t = base.game.talents[string.lower(origName)] or base.game.talents[origName]
+            end
             if t then
                 if type(t) == "table" then
                     return t.name or origName, t.desc

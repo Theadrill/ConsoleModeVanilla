@@ -311,11 +311,17 @@ def main():
             pass
     if target_txt and "CM_TalentDesc_ptBR" in target_txt:
         ntemplates = len(re.findall(r"\{\s*pat\s*=", target_txt))
+        m_talents = re.search(r"CM_TalentDesc_ptBR\.talents\s*=\s*\{", target_txt)
+        ntalents = 0
+        if m_talents:
+            m_end_t = target_txt.find("CM_TalentDesc_ptBR.templates", m_talents.end())
+            t_slice = target_txt[m_talents.end():m_end_t] if m_end_t != -1 else target_txt[m_talents.end():]
+            ntalents = len(re.findall(r'\["[^"]+"\]\s*=', t_slice))
         m_exc = re.search(r"CM_TalentDesc_ptBR\.exceptions\s*=\s*\{", target_txt)
         nexceptions = 0
         if m_exc:
             nexceptions = len(re.findall(r'\["[^"]+"\]\s*=', target_txt[m_exc.end():]))
-        sys.stdout.write("[%s] talent_desc: templates=%d exceptions=%d\n" % (BASE_LANG_ID, ntemplates, nexceptions))
+        sys.stdout.write("[%s] talent_desc: catalog_talents=%d templates=%d exceptions=%d\n" % (BASE_LANG_ID, ntalents, ntemplates, nexceptions))
     total_missing = 0
     total_extra = 0
     checked = 0

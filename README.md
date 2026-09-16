@@ -17,11 +17,8 @@
 
 **ConsoleMode - Vanilla** é um addon de experiência com controle/gamepad construído para World of Warcraft 1.12 (Vanilla / Turtle WoW), especialmente desenvolvido para dispositivos portáteis como o Steam Deck e para jogadores que preferem usar controles no PC.
 
-> **Multilíngue:** o addon tem localização modular (um arquivo por idioma,
-> base ptBR com fallback e troca em runtime via `/cm lang`). Para traduzir
-> o addon para um novo idioma ou conferir a convenção de chaves e o
-> validador de paridade, veja o guia de contribuição:
-> [Data/Localization/README.md](https://github.com/Theadrill/ConsoleModeVanilla/blob/main/Data/Localization/README.md)
+> **Multilíngue:** o addon conta com um sistema próprio de localização modular (base ptBR com fallback e troca em runtime via `/cm lang`).
+> O motor de tradução contextual e de jogo (UI, perícias, árvores de talentos e descrições dinâmicas em tempo real) está atualmente em desenvolvimento ativo e contínuo aprimoramento.
 
 ---
 
@@ -250,11 +247,8 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 
 **ConsoleMode - Vanilla** is a gamepad/controller experience addon built for World of Warcraft 1.12 (Vanilla / Turtle WoW), especially developed for handheld devices like the Steam Deck and for players who prefer using controllers on their PC.
 
-> **Multilingual:** the addon has modular localization (one file per
-> language, ptBR base with fallback and runtime switching via `/cm lang`).
-> To translate the addon into a new language or review the key conventions
-> and the parity checker, see the contribution guide:
-> [Data/Localization/README.md](https://github.com/Theadrill/ConsoleModeVanilla/blob/main/Data/Localization/README.md)
+> **Multilingual:** the addon features a modular localization system (ptBR base with fallback and runtime switching via `/cm lang`).
+> The contextual game translation engine (UI, skills, talent trees, and real-time dynamic descriptions) is currently under active development and continuous refinement.
 
 ---
 
@@ -446,9 +440,7 @@ When any game window (quests, NPC, bags, menus, settings, etc.) is open, the con
 
 ## 简体中文
 
-> **译者说明（AI Notice）**：本节中文翻译由 AI 辅助生成，可能有不准确或不够地道之处。
-> 如果你想帮助改进翻译或参与本地化贡献，请访问贡献指南（Localization）：
-> [Data/Localization/README.md](https://github.com/Theadrill/ConsoleModeVanilla/blob/main/Data/Localization/README.md)
+> **译者说明（AI Notice）**：本节中文文档由 AI 辅助生成，本地化与游戏内容翻译系统目前正在积极开发与持续完善中。
 
 > ⚠️ **法律声明（Legal Notice）**：本项目的所有代码均参考并汲取了社区开源项目的灵感开发：
 > - **[ConsoleExperienceClassic](https://github.com/pepordev/ConsoleExperienceClassic)** —— 适用于 WoW 1.12 / Turtle WoW 的插件，是本项目导航光标逻辑、UI 钩子（hooks）与 Vanilla API 兼容性的主要技术参考。
@@ -459,8 +451,7 @@ When any game window (quests, NPC, bags, menus, settings, etc.) is open, the con
 
 **ConsoleMode - Vanilla** 是一款专为 World of Warcraft 1.12（Vanilla / Turtle WoW）打造的手柄/控制器体验插件，特别针对 Steam Deck 等掌上设备，也适合喜欢在电脑上使用控制器游玩的玩家。
 
-> **多语言（Multilingual）**：本插件采用模块化本地化——每种语言一个文件，以 ptBR 为基准并支持回退，可通过 `/cm lang` 在运行时切换。如果你想将插件翻译成新语言，或了解键名（key）规范与一致性检查工具，请参阅贡献指南：
-> [Data/Localization/README.md](https://github.com/Theadrill/ConsoleModeVanilla/blob/main/Data/Localization/README.md)
+> **多语言（Multilingual）**：本插件具备模块化本地化系统（以 ptBR 为基准支持回退，可通过 `/cm lang` 在运行时切换）。情境化游戏翻译引擎（UI、技能、天赋树与实时动态描述）目前正在积极开发与持续完善中。
 
 ---
 

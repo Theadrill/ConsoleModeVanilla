@@ -478,6 +478,25 @@ function CM:GamePT_TalentDesc(classFile, tabIndex, tier, col, currentRank, maxRa
         return rawDesc
     end
 
+    local db = CM_TalentDesc_ptBR
+    if db and talentName and talentName ~= "" then
+        local key = string.lower(talentName)
+        if db.talents and type(db.talents[key]) == "table" then
+            local r = (currentRank and currentRank > 0) and currentRank or 1
+            local t = db.talents[key][r] or db.talents[key][1]
+            if t and t ~= "" then
+                return t
+            end
+        end
+        if db.exceptions and type(db.exceptions[key]) == "table" then
+            local r = (currentRank and currentRank > 0) and currentRank or 1
+            local t = db.exceptions[key][r] or db.exceptions[key][1]
+            if t and t ~= "" then
+                return t
+            end
+        end
+    end
+
     local gfind = string.gfind or string.gmatch
     local out = ""
     for line in gfind(rawDesc, "([^\r\n]+)") do

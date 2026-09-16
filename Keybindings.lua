@@ -1231,6 +1231,15 @@ function CM_CursorConfirm()
         return
     end
 
+    -- Modal de Inspecao de Talentos: A confirma aprendizado
+    local mmT = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mmT and mmT.IsTalentInspectModalOpen and mmT:IsTalentInspectModalOpen() then
+        if mmT.ConfirmTalentInspectModal then
+            mmT:ConfirmTalentInspectModal()
+        end
+        return
+    end
+
     -- FASE 2 MainMenuNav: consome se OnConfirm retornar true (BAGS).
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnConfirm then
@@ -1246,6 +1255,7 @@ function CM_CursorConfirm()
             if not (nav and nav.IsActive and nav:IsActive()) then return end
             local MM = ConsoleMode and ConsoleMode.mainMenu
             if not MM then return end
+            if MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then return end
             local cur = MM.currentTab
             if cur == nil and MM.tabContainer then cur = MM.tabContainer.currentTab end
             if cur == nil then cur = nav.currentTab end
@@ -1500,6 +1510,15 @@ end
 
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
+
+    -- Modal de Inspecao de Talentos: B fecha com prioridade maxima
+    local mmT = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
+    if mmT and mmT.IsTalentInspectModalOpen and mmT:IsTalentInspectModalOpen() then
+        if mmT.HideTalentInspectModal then
+            mmT:HideTalentInspectModal()
+        end
+        return
+    end
 
     -- VK: B so fecha (descarta via onCancel)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard

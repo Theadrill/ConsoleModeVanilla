@@ -6127,7 +6127,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
             end)
             slot:SetScript("OnClick", function()
                 MainMenu:FocusTalentSlot(this)
-                if this.talentData then
+                if this.talentData and this.talentData.name and this.talentData.name ~= "" then
                     MainMenu:ShowTalentInspectModal(this)
                 else
                     if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
@@ -6513,6 +6513,10 @@ function MainMenu:CreateTalentInspectModal()
     end)
     dimmer.closeBtn = closeBtn
 
+    dimmer:SetScript("OnHide", function()
+        MainMenu:HideTalentInspectModal()
+    end)
+
     table.insert(UISpecialFrames, "ConsoleModeMM_TalentInspectModal")
 
     self.talentInspectModal = dimmer
@@ -6524,15 +6528,19 @@ function MainMenu:IsTalentInspectModalOpen()
 end
 
 function MainMenu:HideTalentInspectModal()
-    if self.talentInspectModal and self.talentInspectModal:IsVisible() then
+    if self.talentInspectModal then
+        local wasVisible = self.talentInspectModal:IsVisible()
         self.talentInspectModal:Hide()
         self.talentInspectModal.slot = nil
-        PlaySound("igMainMenuOptionCheckBoxOff")
+        if wasVisible then
+            PlaySound("igMainMenuOptionCheckBoxOff")
+        end
     end
 end
 
 function MainMenu:ShowTalentInspectModal(slot)
-    if not slot or not slot.talentData then return end
+    if not self.frame or not self.frame:IsVisible() then return end
+    if not slot or not slot.talentData or not slot.talentData.name or slot.talentData.name == "" then return end
     local data = slot.talentData
     local modal = self.talentInspectModal or self:CreateTalentInspectModal()
     modal.slot = slot
@@ -6847,6 +6855,10 @@ function MainMenu:ShowTalentTreeScreen(specIdx)
 
     self:SetupTalentsPage(pageTalents)
 
+    if self.HideTalentInspectModal then
+        pcall(function() self:HideTalentInspectModal() end)
+    end
+
     specIdx = specIdx or pageTalents.focusedSpecIdx or 1
     if specIdx < 1 then specIdx = 1 end
     if specIdx > 3 then specIdx = 3 end
@@ -6881,6 +6893,9 @@ end
 
 
 function MainMenu:ShowTalentSpecScreen()
+    if self.HideTalentInspectModal then
+        pcall(function() self:HideTalentInspectModal() end)
+    end
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageTalents = self.tabContainer.pages["TALENTS"]
     if not pageTalents then return end
@@ -6905,6 +6920,10 @@ function MainMenu:ShowTalentSpecScreen()
 end
 
 function MainMenu:HandleTalentsBack()
+    if self:IsTalentInspectModalOpen() then
+        self:HideTalentInspectModal()
+        return true
+    end
     if not self.tabContainer or not self.tabContainer.pages then return false end
     local pageTalents = self.tabContainer.pages["TALENTS"]
     if not pageTalents or not pageTalents:IsVisible() then return false end
@@ -13808,6 +13827,9 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
     if self.HideCompare then
         pcall(function() self:HideCompare() end)
     end
+    if self.HideTalentInspectModal then
+        pcall(function() self:HideTalentInspectModal() end)
+    end
 
     local container = self.tabContainer
     tabID = tabID or "BAGS"
@@ -14865,6 +14887,9 @@ function MainMenu:CreateUI()
     end)
 
     frame:SetScript("OnHide", function()
+        if MainMenu.HideTalentInspectModal then
+            pcall(function() MainMenu:HideTalentInspectModal() end)
+        end
         if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.ExitMapMode then
             ConsoleMode.keybindings:ExitMapMode()
         end
@@ -14960,6 +14985,9 @@ function MainMenu:Show(initialTab)
 end
 
 function MainMenu:Hide()
+    if self.HideTalentInspectModal then
+        pcall(function() self:HideTalentInspectModal() end)
+    end
     if self.questDetailOverlay and self.questDetailOverlay:IsVisible() then self.questDetailOverlay:Hide() end
     if self.frame and self.frame:IsVisible() then
         self:RestorePlayerModel()

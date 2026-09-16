@@ -4359,7 +4359,13 @@ end
 
 -- FASE 2: A/B/Y consomem em BAGS (retornam true); FASE 3: + SPELLS; demais, false.
 function Nav:OnConfirm()
-    if not self:IsActive() then return false end
+    local MM = Nav_GetMM()
+    if MM and MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
+        if type(MM.ConfirmTalentInspectModal) == "function" then
+            MM:ConfirmTalentInspectModal()
+        end
+        return true
+    end
 
     if IsLangPickerOpen() then
         local MM = Nav_GetMM()
@@ -4888,6 +4894,15 @@ function Nav:OnConfirm()
 end
 
 function Nav:OnCancel()
+    local MM = Nav_GetMM()
+    if MM and MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
+        if type(MM.HideTalentInspectModal) == "function" then
+            MM:HideTalentInspectModal()
+            MMNav_PlayMove()
+        end
+        return true
+    end
+
     if not self:IsActive() then return false end
 
     if IsLangPickerOpen() then

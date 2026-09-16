@@ -735,6 +735,20 @@ function Hooks:InjectGameMenuButton()
 end
 
 function Hooks:CloseTopFrame()
+    -- Prioridade modal inspecao de talentos MainMenu
+    local mmT = ConsoleMode and ConsoleMode.mainMenu
+    if mmT and mmT.IsTalentInspectModalOpen and mmT:IsTalentInspectModalOpen() then
+        if mmT.HideTalentInspectModal then
+            pcall(function() mmT:HideTalentInspectModal() end)
+        end
+        return true
+    end
+    local tModal = getglobal("ConsoleModeMM_TalentInspectModal")
+    if tModal and tModal.IsVisible and tModal:IsVisible() then
+        pcall(function() tModal:Hide() end)
+        return true
+    end
+
     -- Prioridade overlay quest MainMenu (somente se visivel)
     local qOverlay = getglobal("ConsoleModeMM_QuestDetailOverlay")
     if qOverlay and qOverlay.IsVisible and qOverlay:IsVisible() then

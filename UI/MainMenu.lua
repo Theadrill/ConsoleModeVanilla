@@ -6128,7 +6128,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
             slot:SetScript("OnClick", function()
                 MainMenu:FocusTalentSlot(this)
                 if this.talentData then
-                    MainMenu:SpendTalentPoint(this.talentData.tabIndex, this.talentData.talentIndex)
+                    MainMenu:ShowTalentInspectModal(this)
                 else
                     if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
                 end
@@ -6304,6 +6304,328 @@ function MainMenu:PlayTalentFlash(slot)
             this.flash:SetAlpha(this.flashTimer / 0.35)
         end
     end)
+end
+
+function MainMenu:CreateTalentInspectModal()
+    if self.talentInspectModal then return self.talentInspectModal end
+
+    local dimmer = CreateFrame("Frame", "ConsoleModeMM_TalentInspectModal", self.frame or UIParent)
+    dimmer:SetFrameStrata("DIALOG")
+    dimmer:SetAllPoints(self.frame or UIParent)
+    dimmer:EnableMouse(true)
+    dimmer:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        tile = true, tileSize = 16,
+    })
+    dimmer:SetBackdropColor(0, 0, 0, 0.75)
+    dimmer:Hide()
+    dimmer:SetScript("OnMouseDown", function()
+        MainMenu:HideTalentInspectModal()
+    end)
+
+    local panel = CreateFrame("Frame", nil, dimmer)
+    panel:SetWidth(580)
+    panel:SetHeight(460)
+    panel:SetPoint("CENTER", dimmer, "CENTER", 0, 0)
+    panel:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 14,
+        insets = { left = 4, right = 4, top = 4, bottom = 4 }
+    })
+    panel:SetBackdropColor(0.06, 0.06, 0.08, 0.98)
+    panel:SetBackdropBorderColor(0.85, 0.68, 0.15, 0.95)
+    panel:EnableMouse(true)
+    dimmer.panel = panel
+
+    -- Icon
+    local iconFrame = CreateFrame("Frame", nil, panel)
+    iconFrame:SetWidth(48)
+    iconFrame:SetHeight(48)
+    iconFrame:SetPoint("TOPLEFT", panel, "TOPLEFT", 18, -16)
+    iconFrame:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 10,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    iconFrame:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.90)
+
+    local icon = iconFrame:CreateTexture(nil, "ARTWORK")
+    icon:SetPoint("TOPLEFT", 2, -2)
+    icon:SetPoint("BOTTOMRIGHT", -2, 2)
+    icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    dimmer.icon = icon
+
+    -- Title (PT)
+    local title = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOPLEFT", iconFrame, "TOPRIGHT", 14, -2)
+    title:SetPoint("RIGHT", panel, "RIGHT", -18, 0)
+    title:SetJustifyH("LEFT")
+    title:SetTextColor(1.0, 0.85, 0.20)
+    MainMenu:ApplyFont(title, CFG.Fonts.titleFontFile, 16)
+    dimmer.titleText = title
+
+    -- Subtitle (EN)
+    local subTitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    subTitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -3)
+    subTitle:SetTextColor(0.65, 0.65, 0.65)
+    MainMenu:ApplyFont(subTitle, CFG.Fonts.subFontFile, 12)
+    dimmer.subTitleText = subTitle
+
+    -- Badges
+    local badges = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    badges:SetPoint("TOPLEFT", subTitle, "BOTTOMLEFT", 0, -4)
+    badges:SetTextColor(0.40, 1.0, 0.40)
+    MainMenu:ApplyFont(badges, CFG.Fonts.subFontFile, 11)
+    dimmer.badgesText = badges
+
+    -- Top Divider
+    local divTop = panel:CreateTexture(nil, "ARTWORK")
+    divTop:SetHeight(1)
+    divTop:SetPoint("TOPLEFT", panel, "TOPLEFT", 14, -72)
+    divTop:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -14, -72)
+    divTop:SetTexture(0.5, 0.4, 0.2, 0.6)
+
+    -- ScrollFrame
+    local scroll = CreateFrame("ScrollFrame", "ConsoleModeMM_TalentInspectScroll", panel)
+    scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 18, -78)
+    scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -18, 48)
+    scroll:EnableMouse(true)
+    scroll:EnableMouseWheel(true)
+
+    local child = CreateFrame("Frame", nil, scroll)
+    child:SetWidth(544)
+    child:SetHeight(320)
+    scroll:SetScrollChild(child)
+    dimmer.scroll = scroll
+    dimmer.child = child
+
+    scroll:SetScript("OnMouseWheel", function()
+        local delta = arg1 or 0
+        local cur = this:GetVerticalScroll() or 0
+        local maxRange = (this:GetVerticalScrollRange() or 0)
+        cur = cur - delta * 30
+        if cur < 0 then cur = 0 end
+        if cur > maxRange then cur = maxRange end
+        this:SetVerticalScroll(cur)
+    end)
+
+    -- Section 1: Tradução
+    local sec1Header = child:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    sec1Header:SetPoint("TOPLEFT", child, "TOPLEFT", 0, 0)
+    sec1Header:SetText("|cffe09a15TRADUÇÃO (PORTUGUÊS)|r")
+    MainMenu:ApplyFont(sec1Header, CFG.Fonts.subFontFile, 11)
+
+    local transText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    transText:SetPoint("TOPLEFT", sec1Header, "BOTTOMLEFT", 0, -5)
+    transText:SetWidth(540)
+    transText:SetJustifyH("LEFT")
+    transText:SetTextColor(1, 1, 1)
+    MainMenu:ApplyFont(transText, CFG.Fonts.bodyFontFile, 13)
+    dimmer.transText = transText
+
+    -- Section 2: Descrição Original
+    local midDiv = child:CreateTexture(nil, "ARTWORK")
+    midDiv:SetHeight(1)
+    midDiv:SetPoint("TOPLEFT", transText, "BOTTOMLEFT", 0, -12)
+    midDiv:SetPoint("RIGHT", child, "RIGHT", 0, 0)
+    midDiv:SetTexture(0.35, 0.35, 0.40, 0.6)
+    dimmer.midDiv = midDiv
+
+    local sec2Header = child:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    sec2Header:SetPoint("TOPLEFT", midDiv, "BOTTOMLEFT", 0, -10)
+    sec2Header:SetText("|cff888888DESCRIÇÃO ORIGINAL (CLIENT EN)|r")
+    MainMenu:ApplyFont(sec2Header, CFG.Fonts.subFontFile, 11)
+    dimmer.sec2Header = sec2Header
+
+    local origText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    origText:SetPoint("TOPLEFT", sec2Header, "BOTTOMLEFT", 0, -5)
+    origText:SetWidth(540)
+    origText:SetJustifyH("LEFT")
+    origText:SetTextColor(0.72, 0.72, 0.72)
+    MainMenu:ApplyFont(origText, CFG.Fonts.bodyFontFile, 12)
+    dimmer.origText = origText
+
+    -- Action Buttons Footer
+    local learnBtn = CreateFrame("Button", "ConsoleModeMM_TalentInspectLearnBtn", panel)
+    learnBtn:SetWidth(290)
+    learnBtn:SetHeight(28)
+    learnBtn:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 18, 12)
+    learnBtn:EnableMouse(true)
+    learnBtn:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 12, edgeSize = 10,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    learnBtn:SetBackdropColor(0.12, 0.10, 0.06, 0.95)
+    learnBtn:SetBackdropBorderColor(0.65, 0.52, 0.20, 0.8)
+
+    local lIconPath = (CFG and CFG.Icons and CFG.Icons["A"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\A.tga"
+    local lIcon = learnBtn:CreateTexture(nil, "OVERLAY")
+    lIcon:SetWidth(22)
+    lIcon:SetHeight(22)
+    lIcon:SetPoint("LEFT", learnBtn, "LEFT", 6, 0)
+    lIcon:SetTexture(lIconPath)
+    learnBtn.icon = lIcon
+
+    local lText = learnBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    lText:SetPoint("LEFT", lIcon, "RIGHT", 6, 0)
+    lText:SetPoint("RIGHT", learnBtn, "RIGHT", -6, 0)
+    lText:SetJustifyH("LEFT")
+    MainMenu:ApplyFont(lText, CFG.Fonts.subFontFile, 11)
+    learnBtn.text = lText
+
+    learnBtn:SetScript("OnClick", function()
+        MainMenu:ConfirmTalentInspectModal()
+    end)
+    dimmer.learnBtn = learnBtn
+
+    local closeBtn = CreateFrame("Button", "ConsoleModeMM_TalentInspectCloseBtn", panel)
+    closeBtn:SetWidth(120)
+    closeBtn:SetHeight(28)
+    closeBtn:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -18, 12)
+    closeBtn:EnableMouse(true)
+    closeBtn:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 12, edgeSize = 10,
+        insets = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    closeBtn:SetBackdropColor(0.10, 0.10, 0.12, 0.95)
+    closeBtn:SetBackdropBorderColor(0.40, 0.40, 0.45, 0.7)
+
+    local cIconPath = (CFG and CFG.Icons and CFG.Icons["B"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\B.tga"
+    local cIcon = closeBtn:CreateTexture(nil, "OVERLAY")
+    cIcon:SetWidth(22)
+    cIcon:SetHeight(22)
+    cIcon:SetPoint("LEFT", closeBtn, "LEFT", 8, 0)
+    cIcon:SetTexture(cIconPath)
+
+    local cText = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    cText:SetPoint("LEFT", cIcon, "RIGHT", 6, 0)
+    cText:SetText(CM:T("BTN_CLOSE") or "Fechar")
+    cText:SetTextColor(0.85, 0.85, 0.85)
+    MainMenu:ApplyFont(cText, CFG.Fonts.subFontFile, 11)
+
+    closeBtn:SetScript("OnClick", function()
+        MainMenu:HideTalentInspectModal()
+    end)
+    dimmer.closeBtn = closeBtn
+
+    table.insert(UISpecialFrames, "ConsoleModeMM_TalentInspectModal")
+
+    self.talentInspectModal = dimmer
+    return dimmer
+end
+
+function MainMenu:IsTalentInspectModalOpen()
+    return (self.talentInspectModal and self.talentInspectModal:IsVisible()) and true or false
+end
+
+function MainMenu:HideTalentInspectModal()
+    if self.talentInspectModal and self.talentInspectModal:IsVisible() then
+        self.talentInspectModal:Hide()
+        self.talentInspectModal.slot = nil
+        PlaySound("igMainMenuOptionCheckBoxOff")
+    end
+end
+
+function MainMenu:ShowTalentInspectModal(slot)
+    if not slot or not slot.talentData then return end
+    local data = slot.talentData
+    local modal = self.talentInspectModal or self:CreateTalentInspectModal()
+    modal.slot = slot
+
+    local _, classFile = UnitClass("player")
+    local tName = CM:GamePT_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
+
+    modal.icon:SetTexture(data.icon)
+    modal.titleText:SetText(string.format("|cffe09a15%s|r", tName or data.name))
+    modal.subTitleText:SetText(string.format("|cff888888%s|r", data.name))
+
+    local rankStr = CM:GamePT_Rank(string.format("Rank %d", data.currentRank or 0))
+    local tierLabel = (activeLang and activeLang == "enUS") and "Tier" or "Camada"
+    modal.badgesText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
+
+    local origFull = ""
+    local transFull = ""
+
+    if GameTooltip and GameTooltip.SetTalent then
+        GameTooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+        GameTooltip:ClearLines()
+        GameTooltip:SetTalent(data.tabIndex, data.talentIndex)
+        local numLines = GameTooltip:NumLines()
+        for l = 2, numLines do
+            local lineObj = getglobal("GameTooltipTextLeft" .. l)
+            if lineObj and lineObj:GetText() then
+                local rawT = lineObj:GetText()
+                local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawT, data.currentRank)
+
+                if string.find(rawT, "^Rank ") or string.find(rawT, "^Next rank") then
+                    origFull = origFull .. (origFull ~= "" and "\n" or "") .. "|cffbbbbbb" .. rawT .. "|r\n"
+                elseif string.find(rawT, "^Requires ") then
+                    origFull = origFull .. "|cffff6666" .. rawT .. "|r\n"
+                else
+                    origFull = origFull .. rawT .. "\n"
+                end
+
+                if string.find(tTrans, "Grau") or string.find(tTrans, "Rank") or string.find(tTrans, "Next rank") or string.find(tTrans, "Próximo") then
+                    transFull = transFull .. (transFull ~= "" and "\n" or "") .. "|cffe09a15" .. tTrans .. "|r\n"
+                elseif string.find(tTrans, "^Requer ") or string.find(tTrans, "^Requires ") then
+                    if not data.meetsPrereq then
+                        transFull = transFull .. "|cffff4444" .. tTrans .. "|r\n"
+                    else
+                        transFull = transFull .. "|cffaaaaaa" .. tTrans .. "|r\n"
+                    end
+                else
+                    transFull = transFull .. tTrans .. "\n"
+                end
+            end
+        end
+        GameTooltip:Hide()
+    end
+
+    modal.transText:SetText(transFull ~= "" and transFull or "|cff888888Sem descrição disponível.|r")
+    modal.origText:SetText(origFull ~= "" and origFull or "|cff888888No description available.|r")
+
+    local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
+    local lBtn = modal.learnBtn
+    if data.currentRank >= data.maxRank then
+        lBtn.text:SetText("|cff55ff55Grau Máximo Aprendido|r")
+        lBtn.icon:Hide()
+        lBtn:Disable()
+    elseif not data.meetsPrereq then
+        lBtn.text:SetText("|cffff4444Requisitos não atendidos|r")
+        lBtn.icon:Hide()
+        lBtn:Disable()
+    elseif unspent < 1 then
+        lBtn.text:SetText("|cffffaa00Sem pontos disponíveis|r")
+        lBtn.icon:Hide()
+        lBtn:Disable()
+    else
+        lBtn.text:SetText("|cffffd200Aprender Talento (+1 ponto)|r")
+        local lIconPath = (CFG and CFG.Icons and CFG.Icons["A"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\A.tga"
+        lBtn.icon:SetTexture(lIconPath)
+        lBtn.icon:Show()
+        lBtn:Enable()
+    end
+
+    modal.scroll:SetVerticalScroll(0)
+    modal:Show()
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function MainMenu:ConfirmTalentInspectModal()
+    if not self:IsTalentInspectModalOpen() then return end
+    local slot = self.talentInspectModal and self.talentInspectModal.slot
+    if not slot or not slot.talentData then return end
+    local data = slot.talentData
+    local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
+    if unspent >= 1 and data.currentRank < data.maxRank and data.meetsPrereq then
+        self:SpendTalentPoint(data.tabIndex, data.talentIndex)
+        self:ShowTalentInspectModal(slot)
+    end
 end
 
 function MainMenu:SpendTalentPoint(tabIndex, talentIndex)

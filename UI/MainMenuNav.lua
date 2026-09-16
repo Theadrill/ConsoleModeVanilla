@@ -3695,6 +3695,24 @@ end
 -- EQUIP/BUFFS RIGHT voltam via tab-aware (tela1->TALENTS1, tela2->TALENTS2).
 -- Tudo via raiz MM=Nav_GetMM(), nunca na pagina. Retorna true se moveu/tratou.
 function Nav_OnTalentsDirection(direction)
+    local MM = Nav_GetMM()
+    if MM and MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
+        if direction == "UP" or direction == "DOWN" then
+            local scroll = getglobal("ConsoleModeMM_TalentInspectScroll")
+            if scroll then
+                local cur = scroll:GetVerticalScroll() or 0
+                local step = 32
+                if direction == "UP" then
+                    scroll:SetVerticalScroll(math.max(0, cur - step))
+                else
+                    scroll:SetVerticalScroll(cur + step)
+                end
+                return true
+            end
+        end
+        return true
+    end
+
     local f = Nav.focus
     if f.zone == "HEADER_LANG" then
         if direction == "DOWN" or direction == "RIGHT" then
@@ -4788,11 +4806,19 @@ function Nav:OnConfirm()
         end
         if ft.zone == "TALENTS2" then
             local slot = ft.talentSlot
-            if slot and slot.talentData and slot.talentData.tabIndex and slot.talentData.talentIndex then
-                local MM = Nav_GetMM()
-                if MM and type(MM.SpendTalentPoint) == "function" then
-                    local ti, tj = slot.talentData.tabIndex, slot.talentData.talentIndex
-                    pcall(function() MM:SpendTalentPoint(ti, tj) end)
+            local MM = Nav_GetMM()
+            if MM then
+                if MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
+                    MM:ConfirmTalentInspectModal()
+                else
+                    if slot and slot.talentData then
+                        if type(MM.ShowTalentInspectModal) == "function" then
+                            MM:ShowTalentInspectModal(slot)
+                        elseif type(MM.SpendTalentPoint) == "function" then
+                            local ti, tj = slot.talentData.tabIndex, slot.talentData.talentIndex
+                            pcall(function() MM:SpendTalentPoint(ti, tj) end)
+                        end
+                    end
                 end
             end
             return true
@@ -5053,6 +5079,11 @@ function Nav:OnCancel()
     end
     if curTabCx == "TALENTS" then
         local MM = Nav_GetMM()
+        if MM and MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
+            MM:HideTalentInspectModal()
+            MMNav_PlayMove()
+            return true
+        end
         local pt = nil
         if MM and MM.tabContainer and MM.tabContainer.pages then
             pt = MM.tabContainer.pages["TALENTS"]

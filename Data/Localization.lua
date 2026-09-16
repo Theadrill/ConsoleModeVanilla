@@ -259,8 +259,7 @@ function CM:GamePT_Talent(a1, a2, a3, a4, a5)
         local t
         if origName ~= "" then
             t = entry.game.talents[string.lower(origName)] or entry.game.talents[origName]
-        end
-        if not t and coordKey and coordKey ~= "" then
+        elseif coordKey and coordKey ~= "" then
             t = entry.game.talents[coordKey]
         end
         if t then
@@ -277,8 +276,7 @@ function CM:GamePT_Talent(a1, a2, a3, a4, a5)
             local t
             if origName ~= "" then
                 t = base.game.talents[string.lower(origName)] or base.game.talents[origName]
-            end
-            if not t and coordKey and coordKey ~= "" then
+            elseif coordKey and coordKey ~= "" then
                 t = base.game.talents[coordKey]
             end
             if t then

@@ -150,6 +150,7 @@ CM_TalentDesc_ptBR.substitutions = {
     ["Lesser Healing Wave"] = "Onda de Cura Menor",
     ["Chain Heal"] = "Cadeia de Cura",
     ["Ghost Wolf"] = "Lobo Fantasma",
+    ["Earthquake"] = "Terremoto",
 
     -- Habilidades de Druida
     ["Maul"] = "Esmagar",
@@ -336,6 +337,7 @@ CM_TalentDesc_ptBR.talents = {
     ["concussion"] = "Aumenta o dano causado pelos seus feitiços de Raio, Cadeia de Raios e Choque em %s%%.",
     ["convection"] = "Reduz o custo de mana dos seus feitiços de Choque, Raio e Cadeia de Raios em %s%%.",
     ["earth's grasp"] = "Aumenta os pontos de vida do seu Totem de Garra de Pedra em %s%% e o raio do seu Totem de Prisão Terrestre em %s%%.",
+    ["earthquake"] = "Faz a terra tremer violentamente, causando %s de dano de Natureza a cada %s s a todos os inimigos na área de efeito por %s s e tendo %s%% de chance de derrubá-los ao chão.",
     ["electrify"] = "Seus feitiços de Raio e Cadeia de Raios aumentam o dano de Natureza causado em %s%% e o bônus de dano de acerto crítico em %s%% por %s s.",
     ["elemental devastation"] = "Aumenta a sua chance de acerto com feitiços e ataques corpo a corpo em %s%%, e acertos críticos corpo a corpo aumentam a chance de acerto com feitiços em %s%% adicionais por %s s.",
     ["elemental focus"] = "Após desferir um acerto crítico com feitiço de dano de Fogo, Gelo ou Natureza ou ataque corpo a corpo, você entra em Lançamento Livre, reduzindo o custo de mana dos seus próximos 2 feitiços ou habilidades de dano em %s%%.",

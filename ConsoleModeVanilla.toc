@@ -32,6 +32,7 @@ Data\ZoneLevels.lua
 Data\ZonePositions.lua
 Data\ClassTrainers.lua
 Data\QuestDB_ptBR.lua
+Data\TalentDescriptions_ptBR.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 UI\MainMenuNav.lua

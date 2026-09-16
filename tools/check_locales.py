@@ -294,6 +294,28 @@ def main():
     if base_game:
         cats_str = " ".join("%s=%d" % (k, base_game[k]) for k in sorted(base_game))
         sys.stdout.write("[%s] game: %s\n" % (BASE_LANG_ID, cats_str))
+
+    target_txt = ""
+    tdesc_path = os.path.join(root, "Data", "TalentDescriptions_ptBR.lua")
+    if os.path.exists(tdesc_path):
+        try:
+            with open(tdesc_path, "r", encoding="utf-8-sig") as fh:
+                target_txt = fh.read()
+        except Exception:
+            pass
+    elif os.path.exists(base_path):
+        try:
+            with open(base_path, "r", encoding="utf-8-sig") as fh:
+                target_txt = fh.read()
+        except Exception:
+            pass
+    if target_txt and "CM_TalentDesc_ptBR" in target_txt:
+        ntemplates = len(re.findall(r"\{\s*pat\s*=", target_txt))
+        m_exc = re.search(r"CM_TalentDesc_ptBR\.exceptions\s*=\s*\{", target_txt)
+        nexceptions = 0
+        if m_exc:
+            nexceptions = len(re.findall(r'\["[^"]+"\]\s*=', target_txt[m_exc.end():]))
+        sys.stdout.write("[%s] talent_desc: templates=%d exceptions=%d\n" % (BASE_LANG_ID, ntemplates, nexceptions))
     total_missing = 0
     total_extra = 0
     checked = 0

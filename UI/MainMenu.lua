@@ -5688,7 +5688,10 @@ function MainMenu:GetTalentSpecData(tabIndex)
     local classSpecs = engClass and CFG.Talents and CFG.Talents.Specs and CFG.Talents.Specs[engClass]
     local defaultSpec = classSpecs and classSpecs[tabIndex]
 
-    if not name or name == "" then
+    local activeLang = CM and CM.GetActiveLangId and CM:GetActiveLangId()
+    if activeLang and activeLang ~= "enUS" and defaultSpec and defaultSpec.name then
+        name = defaultSpec.name
+    elseif not name or name == "" then
         name = (defaultSpec and defaultSpec.name) or ("Especialização " .. tabIndex)
     end
     if not icon or icon == "" then
@@ -6229,9 +6232,11 @@ function MainMenu:FocusTalentSlot(slot)
         local _, classFile = UnitClass("player")
         local tName = CM:GamePT_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
         card.titleText:SetText(string.format("|cffe09a15%s|r", tName or data.name))
-        card.typeText:SetText(string.format("|cffaaaaaaTier %d  •  Rank %d/%d|r", data.tier, data.currentRank, data.maxRank))
+        local rankStr = CM:GamePT_Rank(string.format("Rank %d", data.currentRank or 0))
+        local tierLabel = (activeLang and activeLang == "enUS") and "Tier" or "Camada"
+        card.typeText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
 
-        -- Descrição obtida via GameTooltip invisível
+        -- Descrição obtida via GameTooltip invisível com tradução dinâmica
         local desc = data.desc or ""
         if not desc or desc == "" then
             if GameTooltip and GameTooltip.SetTalent then
@@ -6244,16 +6249,26 @@ function MainMenu:FocusTalentSlot(slot)
                     local lineObj = getglobal("GameTooltipTextLeft" .. l)
                     if lineObj and lineObj:GetText() then
                         local t = lineObj:GetText()
-                        if string.find(t, "Rank") or string.find(t, "Next rank") or string.find(t, "Próximo") then
-                            fullDesc = fullDesc .. "\n|cffe09a15" .. t .. "|r\n"
+                        local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, t, data.currentRank)
+                        if string.find(tTrans, "Grau") or string.find(tTrans, "Rank") or string.find(tTrans, "Next rank") or string.find(tTrans, "Próximo") then
+                            fullDesc = fullDesc .. (fullDesc ~= "" and "\n" or "") .. "|cffe09a15" .. tTrans .. "|r\n"
+                        elseif string.find(tTrans, "^Requer ") or string.find(tTrans, "^Requires ") then
+                            if not data.meetsPrereq then
+                                fullDesc = fullDesc .. "|cffff4444" .. tTrans .. "|r\n"
+                            else
+                                fullDesc = fullDesc .. "|cffaaaaaa" .. tTrans .. "|r\n"
+                            end
                         else
-                            fullDesc = fullDesc .. t .. "\n"
+                            fullDesc = fullDesc .. tTrans .. "\n"
                         end
                     end
                 end
-                desc = fullDesc
+                desc = string.gsub(fullDesc, "^%s+", "")
+                desc = string.gsub(desc, "%s+$", "")
                 GameTooltip:Hide()
             end
+        else
+            desc = CM:GamePT_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, desc)
         end
 
         card.descColLeft:SetText(desc ~= "" and desc or "|cff888888Sem descrição disponível.|r")
@@ -6261,7 +6276,7 @@ function MainMenu:FocusTalentSlot(slot)
         local statusText = ""
         local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
         if data.currentRank == data.maxRank then
-            statusText = "|cff55ff55Rank Máximo Aprendido|r"
+            statusText = (activeLang and activeLang == "enUS") and "|cff55ff55Max Rank Learned|r" or "|cff55ff55Grau Máximo Aprendido|r"
         elseif not data.meetsPrereq then
             statusText = "|cffff4444Requisitos não atendidos|r"
         elseif unspent < 1 then

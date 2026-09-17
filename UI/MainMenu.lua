@@ -6252,14 +6252,21 @@ function MainMenu:FocusTalentSlot(slot)
                     if lineObj and lineObj:GetText() then
                         local t = lineObj:GetText()
                         if t and t ~= "" then
-                            table.insert(rawLines, t)
+                            local r, g, b = lineObj:GetTextColor()
+                            local isRed = false
+                            if r and g and r > 0.8 and g < 0.3 then
+                                isRed = true
+                            end
+                            table.insert(rawLines, { text = t, isRed = isRed })
                         end
                     end
                 end
                 local segments = {}
                 local curBlock = nil
                 for i = 1, table.getn(rawLines) do
-                    local t = rawLines[i]
+                    local lineData = rawLines[i]
+                    local t = lineData.text
+                    local isRed = lineData.isRed
                     local isHead = false
                     if CM.GamePT_IsTalentHeaderLine then
                         isHead = CM:GamePT_IsTalentHeaderLine(t)
@@ -6271,7 +6278,7 @@ function MainMenu:FocusTalentSlot(slot)
                             table.insert(segments, { kind = "desc", text = curBlock })
                             curBlock = nil
                         end
-                        table.insert(segments, { kind = "header", text = t })
+                        table.insert(segments, { kind = "header", text = t, isRed = isRed })
                     else
                         if not curBlock then
                             curBlock = t
@@ -6291,7 +6298,7 @@ function MainMenu:FocusTalentSlot(slot)
                         if string.find(tTrans, "Grau") or string.find(tTrans, "Rank") or string.find(tTrans, "Next rank") or string.find(tTrans, "Próximo") then
                             fullDesc = fullDesc .. (fullDesc ~= "" and "\n" or "") .. "|cffe09a15" .. tTrans .. "|r\n"
                         elseif string.find(tTrans, "^Requer ") or string.find(tTrans, "^Requires ") then
-                            if not data.meetsPrereq then
+                            if seg.isRed or (not data.meetsPrereq) then
                                 fullDesc = fullDesc .. "|cffff4444" .. tTrans .. "|r\n"
                             else
                                 fullDesc = fullDesc .. "|cffaaaaaa" .. tTrans .. "|r\n"
@@ -6609,13 +6616,22 @@ function MainMenu:ShowTalentInspectModal(slot)
             local lineObj = getglobal("GameTooltipTextLeft" .. l)
             if lineObj and lineObj:GetText() then
                 local rt = lineObj:GetText()
-                if rt and rt ~= "" then table.insert(rawLines, rt) end
+                if rt and rt ~= "" then
+                    local r, g, b = lineObj:GetTextColor()
+                    local isRed = false
+                    if r and g and r > 0.8 and g < 0.3 then
+                        isRed = true
+                    end
+                    table.insert(rawLines, { text = rt, isRed = isRed })
+                end
             end
         end
         local segments = {}
         local curBlock = nil
         for i = 1, table.getn(rawLines) do
-            local rt = rawLines[i]
+            local lineData = rawLines[i]
+            local rt = lineData.text
+            local isRed = lineData.isRed
             local isHead = false
             if CM.GamePT_IsTalentHeaderLine then
                 isHead = CM:GamePT_IsTalentHeaderLine(rt)
@@ -6627,7 +6643,7 @@ function MainMenu:ShowTalentInspectModal(slot)
                     table.insert(segments, { kind = "desc", text = curBlock })
                     curBlock = nil
                 end
-                table.insert(segments, { kind = "header", text = rt })
+                table.insert(segments, { kind = "header", text = rt, isRed = isRed })
             else
                 if not curBlock then curBlock = rt else curBlock = curBlock .. " " .. rt end
             end
@@ -6641,14 +6657,18 @@ function MainMenu:ShowTalentInspectModal(slot)
                 if string.find(rawT, "^Rank ") or string.find(rawT, "^Next rank") then
                     origFull = origFull .. (origFull ~= "" and "\n" or "") .. "|cffbbbbbb" .. rawT .. "|r\n"
                 elseif string.find(rawT, "^Requires ") then
-                    origFull = origFull .. "|cffff6666" .. rawT .. "|r\n"
+                    if seg.isRed or (not data.meetsPrereq) then
+                        origFull = origFull .. "|cffff4444" .. rawT .. "|r\n"
+                    else
+                        origFull = origFull .. "|cffaaaaaa" .. rawT .. "|r\n"
+                    end
                 else
                     origFull = origFull .. rawT .. "\n"
                 end
                 if string.find(tTrans, "Grau") or string.find(tTrans, "Rank") or string.find(tTrans, "Next rank") or string.find(tTrans, "Próximo") then
                     transFull = transFull .. (transFull ~= "" and "\n" or "") .. "|cffe09a15" .. tTrans .. "|r\n"
                 elseif string.find(tTrans, "^Requer ") or string.find(tTrans, "^Requires ") then
-                    if not data.meetsPrereq then
+                    if seg.isRed or (not data.meetsPrereq) then
                         transFull = transFull .. "|cffff4444" .. tTrans .. "|r\n"
                     else
                         transFull = transFull .. "|cffaaaaaa" .. tTrans .. "|r\n"

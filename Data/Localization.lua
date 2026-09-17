@@ -319,6 +319,50 @@ function CM:GamePT_IsTalentHeaderLine(rawLine)
     return false
 end
 
+-- Helper central: extracao semantica de valores numericos em tooltips de talentos.
+-- Reconhece ranges nativos ("X to Y") e faz folding inteligente ("X a Y") quando o
+-- template em portugues usa um unico %s, ou preserva min e max caso o template use "%s a %s".
+function CM:GamePT_ExtractSemanticValues(rawLine, tEntry)
+    if not rawLine or rawLine == "" then return {} end
+    local args = {}
+    local hasDualRange = false
+    if tEntry then
+        if string.find(tEntry, "%%s%s+a%s+%%s") or string.find(tEntry, "%%s%s+até%s+%%s") or string.find(tEntry, "%%s%s*%-%%s") then
+            hasDualRange = true
+        end
+    end
+
+    local pos = 1
+    local len = string.len(rawLine)
+    while pos <= len do
+        local rStart, rEnd, rMin, rMax = string.find(rawLine, "(%d+[%d%.]*)%s+to%s+(%d+[%d%.]*)", pos)
+        local nStart, nEnd, nVal = string.find(rawLine, "(%d+[%d%.]*)", pos)
+
+        if not nStart then
+            break
+        end
+
+        if rStart and rStart == nStart then
+            rMin = string.gsub(rMin, "%.$", "")
+            rMax = string.gsub(rMax, "%.$", "")
+            if hasDualRange then
+                table.insert(args, rMin)
+                table.insert(args, rMax)
+            else
+                table.insert(args, rMin .. " a " .. rMax)
+            end
+            pos = rEnd + 1
+        else
+            nVal = string.gsub(nVal, "%.$", "")
+            if nVal ~= "" then
+                table.insert(args, nVal)
+            end
+            pos = nEnd + 1
+        end
+    end
+    return args
+end
+
 -- Traduz uma linha individual do tooltip de talento usando o motor de templates
 function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLine, currentRank)
     if not rawLine or rawLine == "" then
@@ -399,8 +443,8 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
     -- 1. Motor Centrado no Talento (Mapeamento Direto por Nome do Talento)
     -- So aplica em linhas de descricao real; headers nunca entram aqui.
     -- Para entradas do tipo tabela (por rank), retorna direto (rank-aware).
-    -- Para strings com %s, exige correspondencia de placeholders vs numeros
-    -- para evitar preencher "%s" vazios ou numeros trocados por fragmento.
+    -- Para strings com %s, exige correspondencia semantica e paridade estrita
+    -- entre valores identificados e placeholders para impedir o deslocamento em cascata.
     if not isHeader and db.talents and talentName and talentName ~= "" then
         local key = string.lower(talentName)
         local tEntry = db.talents[key]
@@ -409,31 +453,23 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
                 local r = (currentRank and currentRank > 0) and currentRank or 1
                 return tEntry[r] or tEntry[1] or rawLine
             elseif type(tEntry) == "string" and tEntry ~= "" then
-                if string.find(tEntry, "%%s") then
-                    local nums = {}
-                    for num in gfind(rawLine, "([%d%.]+)") do
-                        table.insert(nums, num)
-                    end
-                    local phCount = 0
-                    for _ in string.gfind(tEntry, "%%s") do phCount = phCount + 1 end
-                    -- So aplica se houver numeros suficientes (evita "%" vazios)
-                    -- e se a linha nao for fragmento parcial com menos numeros que
-                    -- o template exige. Fragmentos serao tratados via agregacao no caller.
-                    if table.getn(nums) >= phCount and phCount > 0 then
-                        local unpackFn = unpack or table.unpack
-                        local callNums = {}
-                        for i = 1, phCount do callNums[i] = nums[i] end
-                        for i = phCount + 1, 10 do callNums[i] = "" end
-                        local ok, formatted = pcall(string.format, tEntry, unpackFn(callNums))
-                        if ok and formatted then
-                            return formatted
-                        end
-                    end
-                else
-                    -- Entrada fixa sem placeholder: retorna direto.
-                    -- Seguro agora que a UI agrega linhas fisicas em um unico
-                    -- bloco logico por paragrafo (sem duplicacao por fragmento).
+                local phCount = 0
+                for _ in gfind(tEntry, "%%s") do phCount = phCount + 1 end
+
+                if phCount == 0 then
                     return tEntry
+                end
+
+                local args = self:GamePT_ExtractSemanticValues(rawLine, tEntry)
+                if table.getn(args) == phCount then
+                    local unpackFn = unpack or table.unpack
+                    local callNums = {}
+                    for i = 1, phCount do callNums[i] = args[i] end
+                    for i = phCount + 1, 10 do callNums[i] = "" end
+                    local ok, formatted = pcall(string.format, tEntry, unpackFn(callNums))
+                    if ok and formatted then
+                        return formatted
+                    end
                 end
             end
         end

@@ -318,7 +318,7 @@ BAG_TYPE_COLORS = {
 -- 6.3. PAINEL FIXO DE DETALHES / TOOLTIP (FASE 5 - ESTILO ZELDA / CONSOLE)
 -- ----------------------------------------------------------------------------
 CFG.DetailCard = {
-    height          = 135,                  -- Altura do painel fixo de detalhes na base (px)
+    height          = 145,                  -- Altura do painel fixo de detalhes na base (px)
     iconSize        = 34,                   -- Tamanho do ícone grande de detalhes (px)
     bgColor         = { r = 0.0, g = 0.0, b = 0.0, a = 0.50 },
     borderColor     = { r = 0.5, g = 0.4, b = 0.3, a = 0.6 },
@@ -2930,6 +2930,32 @@ function MainMenu:CreateDetailCard(parent, config)
     MainMenu:ApplyFont(typeText, CFG.Fonts.subFontFile, CFG.Fonts.detailTypeSize)
     card.typeText = typeText
 
+    -- 3.1. Topo Centro: Custo de Mana / Lançamento / Alcance / Recarga
+    local topCenterText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    topCenterText:SetJustifyH("LEFT")
+    topCenterText:SetJustifyV("TOP")
+    MainMenu:ApplyFont(topCenterText, CFG.Fonts.bodyFontFile, 11)
+    topCenterText:Hide()
+    card.topCenterText = topCenterText
+
+    -- 3.2. Topo Direita: Pré-requisitos de Talentos / Pontos
+    local topRightText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    topRightText:SetJustifyH("RIGHT")
+    topRightText:SetJustifyV("TOP")
+    MainMenu:ApplyFont(topRightText, CFG.Fonts.bodyFontFile, 11)
+    topRightText:Hide()
+    card.topRightText = topRightText
+
+    -- 3.3. Linha Divisória Horizontal separando Cabeçalho do Corpo
+    local hDiv = card:CreateTexture(nil, "ARTWORK")
+    hDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    hDiv:SetHeight(1)
+    hDiv:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -46)
+    hDiv:SetPoint("TOPRIGHT", card, "TOPRIGHT", -10, -46)
+    hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.35)
+    hDiv:Hide()
+    card.hDiv = hDiv
+
     -- 4. Descrição / Atributos do Item (2 colunas para aproveitar 100% da largura)
     local descColLeft = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     descColLeft:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -4)
@@ -3439,9 +3465,24 @@ function MainMenu:CreateDetailCard(parent, config)
     function card:Clear(msg)
         self.icon:Hide()
         self.iconBorder:Hide()
+        self.titleText:ClearAllPoints()
+        self.titleText:SetPoint("TOPLEFT", self.icon, "TOPRIGHT", 10, 0)
+        self.titleText:SetPoint("RIGHT", self, "RIGHT", -10, 0)
         self.titleText:SetText("|cff888888" .. (msg or CM:T("DETAIL_NO_FOCUS")) .. "|r")
+        self.typeText:ClearAllPoints()
+        self.typeText:SetPoint("TOPLEFT", self.titleText, "BOTTOMLEFT", 0, -2)
+        self.typeText:SetPoint("RIGHT", self, "RIGHT", -10, 0)
         self.typeText:SetText("")
-        if self.descColLeft then self.descColLeft:SetText("|cff888888" .. (msg or "") .. "|r"); self.descColLeft:SetWidth(380) end
+        if self.topCenterText then self.topCenterText:SetText(""); self.topCenterText:Hide() end
+        if self.topRightText then self.topRightText:SetText(""); self.topRightText:Hide() end
+        if self.hDiv then self.hDiv:Hide() end
+        if self.descColLeft then
+            self.descColLeft:ClearAllPoints()
+            self.descColLeft:SetPoint("TOPLEFT", self.icon, "BOTTOMLEFT", 0, -4)
+            self.descColLeft:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 10, 26)
+            self.descColLeft:SetText("|cff888888" .. (msg or "") .. "|r")
+            self.descColLeft:SetWidth(380)
+        end
         if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
         if self.descText and not self.descColLeft then self.descText:SetText(CM:T("DETAIL_NAVIGATE_HINT")) end
         if self.sellWidget then self.sellWidget:Hide() end
@@ -5748,8 +5789,20 @@ function MainMenu:FocusTalentSpecButton(idx)
         pageTalents.detailCard.icon:Show()
         pageTalents.detailCard.titleText:SetText(string.format("|cffe09a15Especialização: %s|r", specData.name))
         pageTalents.detailCard.typeText:SetText(string.format("|cffaaaaaaÁrvore %d de 3 — ConsoleMode Vanilla|r", idx))
-        pageTalents.detailCard.descColLeft:SetText(specData.desc)
-        pageTalents.detailCard.descColRight:SetText(string.format("|cffaaaaaaPontos investidos: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n|cffe09a15Pressione [A] para abrir árvore|r", specData.pointsSpent, unspent))
+        local card = pageTalents.detailCard
+        if card.topCenterText then card.topCenterText:Hide() end
+        if card.topRightText then card.topRightText:Hide() end
+        if card.hDiv then card.hDiv:Hide() end
+        local cardW = (card:GetWidth() and card:GetWidth() > 0) and card:GetWidth() or 580
+        local colW = math.floor((cardW - 32) / 2)
+        if colW < 220 then colW = 220 end
+        card.descColLeft:ClearAllPoints()
+        card.descColLeft:SetPoint("TOPLEFT", card.icon, "BOTTOMLEFT", 0, -4)
+        card.descColLeft:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 26)
+        card.descColLeft:SetWidth(colW)
+        card.descColLeft:SetText(specData.desc)
+        card.descColRight:SetText(string.format("|cffaaaaaaPontos investidos: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n|cffe09a15Pressione [A] para abrir árvore|r", specData.pointsSpent, unspent))
+        card.descColRight:Show()
     end
 end
 
@@ -6236,103 +6289,201 @@ function MainMenu:FocusTalentSlot(slot)
         local tierLabel = (activeLang and activeLang == "enUS") and "Tier" or "Camada"
         card.typeText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
 
-        -- Descrição obtida via GameTooltip invisível com tradução dinâmica
-        -- Agrega linhas físicas consecutivas (wrap) num bloco lógico para
-        -- tradução sem duplicação por fragmento (fix: Flurry, Bloodlust, etc).
-        local desc = data.desc or ""
-        if not desc or desc == "" then
-            if GameTooltip and GameTooltip.SetTalent then
-                GameTooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
-                GameTooltip:ClearLines()
-                GameTooltip:SetTalent(data.tabIndex, data.talentIndex)
-                local numLines = GameTooltip:NumLines()
-                local rawLines = {}
-                for l = 2, numLines do
-                    local lineObj = getglobal("GameTooltipTextLeft" .. l)
-                    if lineObj and lineObj:GetText() then
-                        local t = lineObj:GetText()
-                        if t and t ~= "" then
-                            local r, g, b = lineObj:GetTextColor()
-                            local isRed = false
-                            if r and g and r > 0.8 and g < 0.3 then
-                                isRed = true
-                            end
-                            table.insert(rawLines, { text = t, isRed = isRed })
+        -- 1. Extração e Tradução Estruturada em Duas Colunas
+        local rankHeader = nil
+        local reqLines = {}
+        local spellAttrs = {}
+        local descCurParts = {}
+        local descNextParts = {}
+        local inNextRank = false
+        local nextRankHeader = nil
+
+        if GameTooltip and GameTooltip.SetTalent then
+            GameTooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+            GameTooltip:ClearLines()
+            GameTooltip:SetTalent(data.tabIndex, data.talentIndex)
+            local numLines = GameTooltip:NumLines()
+            local rawLines = {}
+            for l = 2, numLines do
+                local lineObj = getglobal("GameTooltipTextLeft" .. l)
+                if lineObj and lineObj:GetText() then
+                    local t = lineObj:GetText()
+                    if t and t ~= "" then
+                        local r, g, b = lineObj:GetTextColor()
+                        local isRed = false
+                        if r and g and r > 0.8 and g < 0.3 then
+                            isRed = true
                         end
+                        table.insert(rawLines, { text = t, isRed = isRed })
                     end
                 end
-                local segments = {}
-                local curBlock = nil
-                for i = 1, table.getn(rawLines) do
-                    local lineData = rawLines[i]
-                    local t = lineData.text
-                    local isRed = lineData.isRed
-                    local isHead = false
-                    if CM.GamePT_IsTalentHeaderLine then
-                        isHead = CM:GamePT_IsTalentHeaderLine(t)
-                    else
-                        isHead = (string.find(t, "^Rank ") or string.find(t, "^Next rank") or string.find(t, "^Requires ")) and true or false
-                    end
-                    if isHead then
-                        if curBlock and curBlock ~= "" then
-                            table.insert(segments, { kind = "desc", text = curBlock })
-                            curBlock = nil
-                        end
-                        table.insert(segments, { kind = "header", text = t, isRed = isRed })
-                    else
-                        if not curBlock then
-                            curBlock = t
-                        else
-                            curBlock = curBlock .. " " .. t
-                        end
-                    end
-                end
-                if curBlock and curBlock ~= "" then
-                    table.insert(segments, { kind = "desc", text = curBlock })
-                end
-                local fullDesc = ""
-                for i = 1, table.getn(segments) do
-                    local seg = segments[i]
-                    local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, seg.text, data.currentRank)
-                    if seg.kind == "header" then
-                        if string.find(tTrans, "Grau") or string.find(tTrans, "Rank") or string.find(tTrans, "Next rank") or string.find(tTrans, "Próximo") then
-                            fullDesc = fullDesc .. (fullDesc ~= "" and "\n" or "") .. "|cffe09a15" .. tTrans .. "|r\n"
-                        elseif string.find(tTrans, "^Requer ") or string.find(tTrans, "^Requires ") then
-                            if seg.isRed or (not data.meetsPrereq) then
-                                fullDesc = fullDesc .. "|cffff4444" .. tTrans .. "|r\n"
-                            else
-                                fullDesc = fullDesc .. "|cffaaaaaa" .. tTrans .. "|r\n"
-                            end
-                        else
-                            fullDesc = fullDesc .. tTrans .. "\n"
-                        end
-                    else
-                        fullDesc = fullDesc .. tTrans .. "\n"
-                    end
-                end
-                desc = string.gsub(fullDesc, "^%s+", "")
-                desc = string.gsub(desc, "%s+$", "")
-                GameTooltip:Hide()
             end
-        else
-            desc = CM:GamePT_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, desc)
+
+            local segments = {}
+            local curBlock = nil
+            for i = 1, table.getn(rawLines) do
+                local lineData = rawLines[i]
+                local t = lineData.text
+                local isRed = lineData.isRed
+                local isHead = false
+                if CM.GamePT_IsTalentHeaderLine then
+                    isHead = CM:GamePT_IsTalentHeaderLine(t)
+                else
+                    isHead = (string.find(t, "^Rank ") or string.find(t, "^Next rank") or string.find(t, "^Requires ")) and true or false
+                end
+                if isHead then
+                    if curBlock and curBlock ~= "" then
+                        table.insert(segments, { kind = "desc", text = curBlock })
+                        curBlock = nil
+                    end
+                    table.insert(segments, { kind = "header", text = t, isRed = isRed })
+                else
+                    if not curBlock then
+                        curBlock = t
+                    else
+                        curBlock = curBlock .. " " .. t
+                    end
+                end
+            end
+            if curBlock and curBlock ~= "" then
+                table.insert(segments, { kind = "desc", text = curBlock })
+            end
+
+            for i = 1, table.getn(segments) do
+                local seg = segments[i]
+                local rawText = seg.text
+                local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawText, data.currentRank)
+
+                if string.find(rawText, "^Rank ") or string.find(rawText, "^Grau ") then
+                    rankHeader = tTrans
+                elseif string.find(rawText, "^Next rank") or string.find(rawText, "^Próximo") then
+                    inNextRank = true
+                    nextRankHeader = tTrans
+                elseif string.find(rawText, "^Requires ") or string.find(rawText, "^Requer ") then
+                    local color = (seg.isRed or not data.meetsPrereq) and "|cffff4444" or "|cffaaaaaa"
+                    table.insert(reqLines, color .. tTrans .. "|r")
+                elseif seg.kind == "header" then
+                    table.insert(spellAttrs, "|cffffffff" .. tTrans .. "|r")
+                else
+                    if inNextRank then
+                        table.insert(descNextParts, tTrans)
+                    else
+                        table.insert(descCurParts, tTrans)
+                    end
+                end
+            end
+            GameTooltip:Hide()
+        elseif data.desc and data.desc ~= "" then
+            local tDesc = CM:GamePT_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, data.desc)
+            table.insert(descCurParts, tDesc)
         end
 
-        card.descColLeft:SetText(desc ~= "" and desc or "|cff888888Sem descrição disponível.|r")
+        local curDesc = table.concat(descCurParts, "\n")
+        if not curDesc or curDesc == "" then
+            if data.desc and data.desc ~= "" then
+                curDesc = CM:GamePT_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, data.desc)
+            else
+                curDesc = "|cff888888Sem descrição disponível.|r"
+            end
+        end
 
+        local nextDesc = table.concat(descNextParts, "\n")
+
+        -- 2. Status de Ação (Apenas quando houver ação válida disponível)
         local statusText = ""
         local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
-        if data.currentRank == data.maxRank then
-            statusText = (activeLang and activeLang == "enUS") and "|cff55ff55Max Rank Learned|r" or "|cff55ff55Grau Máximo Aprendido|r"
-        elseif not data.meetsPrereq then
-            statusText = "|cffff4444Requisitos não atendidos|r"
-        elseif unspent < 1 then
-            statusText = "|cffffaa00Sem pontos disponíveis|r"
-        else
+        if data.currentRank < data.maxRank and data.meetsPrereq and unspent >= 1 then
             statusText = "|cffe09a15Pressione [A] para gastar 1 ponto|r"
         end
 
-        card.descColRight:SetText(string.format("|cffaaaaaaPontos na spec: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n\n%s", data.tabPointsSpent or 0, unspent, statusText))
+        -- 3. Configuração dos Blocos Superiores (Linha 1)
+        local cardW = (card:GetWidth() and card:GetWidth() > 0) and card:GetWidth() or 580
+
+        -- 3.1. Linha Divisória Horizontal separando Cabeçalho do Corpo
+        if card.hDiv then
+            card.hDiv:ClearAllPoints()
+            card.hDiv:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -46)
+            card.hDiv:SetPoint("TOPRIGHT", card, "TOPRIGHT", -10, -46)
+            card.hDiv:Show()
+        end
+
+        -- 3.2. Zona 3 Superior: Pré-requisitos (Alinhados à Direita)
+        if card.topRightText then
+            if table.getn(reqLines) > 0 then
+                card.topRightText:ClearAllPoints()
+                card.topRightText:SetPoint("TOPRIGHT", card, "TOPRIGHT", -10, -8)
+                card.topRightText:SetWidth(220)
+                card.topRightText:SetText(table.concat(reqLines, "\n"))
+                card.topRightText:Show()
+            else
+                card.topRightText:SetText("")
+                card.topRightText:Hide()
+            end
+        end
+
+        -- 3.3. Zona 2 Superior: Custo de Mana / Lançamento / Alcance (Centro)
+        if card.topCenterText then
+            if table.getn(spellAttrs) > 0 then
+                card.topCenterText:ClearAllPoints()
+                if card.topRightText and card.topRightText:IsShown() then
+                    card.topCenterText:SetPoint("TOPRIGHT", card.topRightText, "TOPLEFT", -12, 0)
+                    card.topCenterText:SetWidth(170)
+                else
+                    card.topCenterText:SetPoint("TOPRIGHT", card, "TOPRIGHT", -10, -8)
+                    card.topCenterText:SetWidth(200)
+                end
+                card.topCenterText:SetText(table.concat(spellAttrs, "\n"))
+                card.topCenterText:Show()
+            else
+                card.topCenterText:SetText("")
+                card.topCenterText:Hide()
+            end
+        end
+
+        -- 3.4. Zona 1 Superior: Título e Subtítulo (Esquerda) com contenção dinâmica
+        card.titleText:ClearAllPoints()
+        card.titleText:SetPoint("TOPLEFT", card.icon, "TOPRIGHT", 10, 0)
+        if card.topCenterText and card.topCenterText:IsShown() then
+            card.titleText:SetPoint("RIGHT", card.topCenterText, "LEFT", -8, 0)
+        elseif card.topRightText and card.topRightText:IsShown() then
+            card.titleText:SetPoint("RIGHT", card.topRightText, "LEFT", -8, 0)
+        else
+            card.titleText:SetPoint("RIGHT", card, "RIGHT", -10, 0)
+        end
+
+        card.typeText:ClearAllPoints()
+        card.typeText:SetPoint("TOPLEFT", card.titleText, "BOTTOMLEFT", 0, -2)
+        card.typeText:SetPoint("RIGHT", card.titleText, "RIGHT", 0, 0)
+
+        -- 4. Corpo da Descrição: Coluna Única Full Width (Aproveitamento Total)
+        local bodyParts = {}
+
+        if inNextRank and nextDesc ~= "" then
+            -- Cenário A: Talento parcialmente aprendido (ex: 1/5 a 4/5) exibindo Atual e Próximo
+            table.insert(bodyParts, string.format("|cffe09a15Grau Atual (%d/%d):|r %s", data.currentRank or 0, data.maxRank or 1, curDesc))
+            table.insert(bodyParts, string.format("|cffe09a15Próximo Grau (%d/%d):|r %s", (data.currentRank or 0) + 1, data.maxRank or 1, nextDesc))
+        else
+            -- Cenário B: Não aprendido (Grau 0), Grau Máximo ou Talento de Rank Único
+            local isMax = (data.currentRank == data.maxRank)
+            local effLabel = isMax and "Efeito do Talento:" or ((data.maxRank and data.maxRank > 1) and "Efeito do Grau 1:" or "Efeito do Talento:")
+            table.insert(bodyParts, string.format("|cffe09a15%s|r %s", effLabel, curDesc))
+        end
+
+        if statusText ~= "" then
+            table.insert(bodyParts, statusText)
+        end
+
+        local bodyText = table.concat(bodyParts, "\n")
+
+        card.descColLeft:ClearAllPoints()
+        card.descColLeft:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -50)
+        card.descColLeft:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 26)
+        card.descColLeft:SetWidth(cardW - 20)
+        card.descColLeft:SetText(bodyText)
+        card.descColLeft:Show()
+
+        card.descColRight:SetText("")
+        card.descColRight:Hide()
     end
 end
 

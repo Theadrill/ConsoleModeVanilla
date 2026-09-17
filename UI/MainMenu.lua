@@ -6736,7 +6736,9 @@ function MainMenu:CreateTalentInspectModal()
     dimmer.closeBtn = closeBtn
 
     dimmer:SetScript("OnHide", function()
-        MainMenu:HideTalentInspectModal()
+        if MainMenu.talentInspectModal then
+            MainMenu.talentInspectModal.slot = nil
+        end
     end)
 
     table.insert(UISpecialFrames, "ConsoleModeMM_TalentInspectModal")
@@ -6752,10 +6754,12 @@ end
 function MainMenu:HideTalentInspectModal()
     if self.talentInspectModal then
         local wasVisible = self.talentInspectModal:IsVisible()
-        self.talentInspectModal:Hide()
         self.talentInspectModal.slot = nil
         if wasVisible then
+            self.talentInspectModal:Hide()
             PlaySound("igMainMenuOptionCheckBoxOff")
+        else
+            self.talentInspectModal:Hide()
         end
     end
 end
@@ -14378,6 +14382,10 @@ function MainMenu:CycleCategories(direction)
         local pageTalents = self.tabContainer.pages["TALENTS"]
         if not pageTalents or not pageTalents:IsVisible() then return false end
 
+        if self.HideTalentInspectModal then
+            self:HideTalentInspectModal()
+        end
+
         direction = direction or 1
         local curIdx = pageTalents.focusedSpecIdx or 1
         local nextIdx = curIdx + direction
@@ -14386,11 +14394,25 @@ function MainMenu:CycleCategories(direction)
 
         if pageTalents.activeScreen == 2 then
             self:ShowTalentTreeScreen(nextIdx)
+            local navObj = getglobal("ConsoleMode_MainMenuNav")
+            if navObj and navObj.IsActive and navObj:IsActive() and navObj.focus then
+                navObj.focus.talentSpec = nextIdx
+                navObj.focus.zone = "TALENTS2"
+                if navObj.EnsureFocus then navObj:EnsureFocus() end
+                if navObj.ApplyFocus then navObj:ApplyFocus() end
+            end
         else
             self:FocusTalentSpecButton(nextIdx)
             if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageTalents.specButtons and pageTalents.specButtons[nextIdx] then
                 ConsoleMode.cursor:MoveTo(pageTalents.specButtons[nextIdx])
                 ConsoleMode.cursor:UpdateState()
+            end
+            local navObj = getglobal("ConsoleMode_MainMenuNav")
+            if navObj and navObj.IsActive and navObj:IsActive() and navObj.focus then
+                navObj.focus.talentSpec = nextIdx
+                navObj.focus.zone = "TALENTS1"
+                if navObj.EnsureFocus then navObj:EnsureFocus() end
+                if navObj.ApplyFocus then navObj:ApplyFocus() end
             end
         end
 

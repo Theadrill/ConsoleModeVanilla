@@ -5437,6 +5437,53 @@ function Nav:OnNextSubTab()
             end
         end
     end
+    -- RT em TALENTS: cicla especialização ou árvore e fecha modal se aberto
+    if Nav_GetCurrentTab() == "TALENTS" then
+        local MM = Nav_GetMM()
+        if MM and MM.tabContainer and MM.tabContainer.pages then
+            local pageTalents = MM.tabContainer.pages["TALENTS"]
+            if pageTalents then
+                if MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
+                    if type(MM.HideTalentInspectModal) == "function" then
+                        MM:HideTalentInspectModal()
+                    end
+                end
+                local activeScreen = pageTalents.activeScreen or 1
+                local curIdx = pageTalents.focusedSpecIdx or (Nav.focus and Nav.focus.talentSpec) or 1
+                local nextIdx = curIdx + 1
+                if nextIdx > 3 then nextIdx = 1 end
+
+                if activeScreen == 2 then
+                    if type(MM.ShowTalentTreeScreen) == "function" then
+                        MM:ShowTalentTreeScreen(nextIdx)
+                    end
+                    if Nav.focus then
+                        Nav.focus.talentSpec = nextIdx
+                        Nav.focus.zone = "TALENTS2"
+                        local fv = Nav_GetTalentFirstVisible()
+                        if fv then
+                            Nav.focus.talentSlot = fv
+                            if type(MM.FocusTalentSlot) == "function" then
+                                pcall(function() MM:FocusTalentSlot(fv) end)
+                            end
+                        end
+                    end
+                else
+                    if Nav.focus then
+                        Nav.focus.talentSpec = nextIdx
+                        Nav.focus.zone = "TALENTS1"
+                    end
+                    if type(MM.FocusTalentSpecButton) == "function" then
+                        pcall(function() MM:FocusTalentSpecButton(nextIdx, true) end)
+                    end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                PlaySound("igMainMenuOptionCheckBoxOn")
+                return true
+            end
+        end
+    end
     -- MMNav_Log("|cffe09a15[MMNav]|r RT (fase2: cursor ainda trata)") -- NOLOG 2026-09-14
     return false
 end
@@ -5518,6 +5565,53 @@ function Nav:OnPrevSubTab()
                 end
                 Nav_EnsureFocus()
                 Nav_ApplyFocus()
+                return true
+            end
+        end
+    end
+    -- LT em TALENTS: cicla especialização ou árvore (reverso) e fecha modal se aberto
+    if Nav_GetCurrentTab() == "TALENTS" then
+        local MM = Nav_GetMM()
+        if MM and MM.tabContainer and MM.tabContainer.pages then
+            local pageTalents = MM.tabContainer.pages["TALENTS"]
+            if pageTalents then
+                if MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
+                    if type(MM.HideTalentInspectModal) == "function" then
+                        MM:HideTalentInspectModal()
+                    end
+                end
+                local activeScreen = pageTalents.activeScreen or 1
+                local curIdx = pageTalents.focusedSpecIdx or (Nav.focus and Nav.focus.talentSpec) or 1
+                local prevIdx = curIdx - 1
+                if prevIdx < 1 then prevIdx = 3 end
+
+                if activeScreen == 2 then
+                    if type(MM.ShowTalentTreeScreen) == "function" then
+                        MM:ShowTalentTreeScreen(prevIdx)
+                    end
+                    if Nav.focus then
+                        Nav.focus.talentSpec = prevIdx
+                        Nav.focus.zone = "TALENTS2"
+                        local fv = Nav_GetTalentFirstVisible()
+                        if fv then
+                            Nav.focus.talentSlot = fv
+                            if type(MM.FocusTalentSlot) == "function" then
+                                pcall(function() MM:FocusTalentSlot(fv) end)
+                            end
+                        end
+                    end
+                else
+                    if Nav.focus then
+                        Nav.focus.talentSpec = prevIdx
+                        Nav.focus.zone = "TALENTS1"
+                    end
+                    if type(MM.FocusTalentSpecButton) == "function" then
+                        pcall(function() MM:FocusTalentSpecButton(prevIdx, true) end)
+                    end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                PlaySound("igMainMenuOptionCheckBoxOn")
                 return true
             end
         end

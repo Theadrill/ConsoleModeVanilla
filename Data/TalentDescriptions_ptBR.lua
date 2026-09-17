@@ -598,7 +598,7 @@ CM_TalentDesc_ptBR.talents = {
     ["arcane instability"] = "Feitiços Arcanos de dano bem-sucedidos têm %s%% de chance de irromper, consumindo 2%% do mana base para causar %s%% a mais de dano.",
     ["arcane meditation"] = "Permite que %s%% da sua regeneração de mana continue durante o lançamento. Esse efeito é triplicado abaixo de %s%% de mana total.",
     ["arcane potency"] = "Aumenta o bônus de dano de acerto crítico dos seus feitiços Arcanos em %s%%.",
-    ["arcane power"] = "Quando ativado, sua velocidade de lançamento aumenta em %s%%, mas drena %s%% do seu mana máximo por segundo e reduz todo ganho de mana em %s%%. Se ficar abaixo de 10%% de mana, explode instantaneamente. Dura %s s.",
+    ["arcane power"] = "Quando ativado, sua velocidade de lançamento aumenta em %s%%, mas drena %s%% do seu mana máximo por segundo e reduz todo ganho de mana em %s%%. Ficar abaixo de %s%% de mana causa combustão violenta por poder incontrolável, matando você instantaneamente. Dura %s s e não pode ser cancelado.",
     ["arcane rupture"] = "Rompe o alvo com força de energia arcana concentrada, causando %s de dano Arcano e aumentando o dano e custo de mana de Mísseis Arcanos em %s%% por %s s.",
     ["arcane subtlety"] = "Reduz a resistência do alvo a todos os seus feitiços em %s e reduz a ameaça gerada pelos seus feitiços Arcanos em %s%%.",
     ["arctic reach"] = "Aumenta o alcance de Seta de Gelo, Sincelos e Nevasca e o raio de Nova de Gelo e Cone de Frio em %s%%.",
@@ -1038,7 +1038,7 @@ CM_TalentDesc_ptBR.exceptions = {
     ["pyroblast"] = "Lança uma imensa pedra flamejante que causa dano massivo de Fogo ao impacto, além de dano de fogo contínuo ao longo de 12 s.",
     ["combustion"] = "Quando ativado, cada feitiço de Fogo lançado aumenta a chance de acerto crítico dos seus feitiços de Fogo em 10% cumulativos até desferir 3 acertos críticos.",
     ["ice barrier"] = "Cria um escudo protetor de gelo ao redor do mago que absorve dano por 1 min. Enquanto a barreira persistir, lançamentos de feitiços não são interrompidos por dano.",
-    ["arcane power"] = "Quando ativado, seus feitiços causam 30% a mais de dano, mas custam 30% a mais de mana por 15 s.",
+    ["arcane power"] = "Quando ativado, sua velocidade de lançamento aumenta em 30%, mas drena 1% do seu mana máximo por segundo e reduz todo ganho de mana em 50%. Ficar abaixo de 10% de mana causa combustão violenta, matando você instantaneamente. Dura 20 s e não pode ser cancelado.",
     ["presence of mind"] = "Quando ativado, seu próximo feitiço de Mago com tempo de lançamento inferior a 10 s torna-se instantâneo.",
     ["blast wave"] = "Libera uma onda de fogo explosiva ao redor do mago que causa dano de Fogo a todos os inimigos e os atordoa/reduz a velocidade por 6 s.",
 

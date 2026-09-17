@@ -621,22 +621,20 @@ function Hooks:Initialize()
     if not Hooks.toggleGameMenuHooked and ToggleGameMenu then
         local orig_ToggleGameMenu = ToggleGameMenu
         ToggleGameMenu = function(clicked)
-            -- 1. Se a tela de Mail estiver aberta, ESC tem a mesma função de [B]: fecha sub-telas ou fecha o Mail
+            -- 1. Se a tela de Mail estiver aberta, ESC fecha sub-telas ou fecha o Mail por completo
             if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
                 if ConsoleMode_MailScreen.OnCancel then
                     ConsoleMode_MailScreen:OnCancel()
                 elseif ConsoleMode_MailScreen.Close then
                     ConsoleMode_MailScreen:Close()
                 end
+                if not ConsoleMode_MailScreen.isOpen then
+                    if CloseMail then pcall(CloseMail) end
+                end
                 return
             end
 
-            -- 2. Fecha janelas/overlays prioritárias do ConsoleMode (VK, Merchant, Modais, etc.)
-            if Hooks and Hooks.CloseTopFrame and Hooks:CloseTopFrame() then
-                return
-            end
-
-            -- 3. Se o nosso Main Menu já estiver aberto, processa OnCancel do Nav ou fecha o menu
+            -- 2. Se o nosso Main Menu já estiver aberto, processa OnCancel do Nav ou fecha o menu
             if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
                 if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() and ConsoleMode_MainMenuNav.OnCancel then
                     if ConsoleMode_MainMenuNav:OnCancel() then
@@ -651,24 +649,24 @@ function Hooks:Initialize()
                 return
             end
 
+            -- 3. Fecha overlays e janelas prioritárias do ConsoleMode (VK, Merchant, Modais, Dropdowns)
+            if Hooks and Hooks.CloseTopFrame and Hooks:CloseTopFrame() then
+                return
+            end
+
             -- 4. Se o GameMenuFrame da Blizzard estiver aberto, deixa o original fechar
             if GameMenuFrame and GameMenuFrame:IsVisible() then
                 orig_ToggleGameMenu(clicked)
                 return
             end
 
-            -- 5. Chama o ToggleGameMenu nativo da Blizzard.
-            -- Se a Blizzard tiver janelas abertas (Bags nativas, CharacterFrame, etc.), ela fecha uma janela e não abre o GameMenuFrame.
-            -- Se nada estava aberto (jogador no mundo), ela abre o GameMenuFrame.
-            orig_ToggleGameMenu(clicked)
-
-            -- Se o GameMenuFrame da Blizzard foi aberto pelo clique/ESC no mundo, substituímos pelo nosso Console Main Menu
-            if GameMenuFrame and GameMenuFrame:IsVisible() then
-                GameMenuFrame:Hide()
-                if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
-                    ConsoleMode.mainMenu:Show("BAGS")
-                end
+            -- 5. Se não houver nada aberto no mundo, abre o nosso Main Menu SEMPRE na aba de BOLSAS
+            if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Show then
+                ConsoleMode.mainMenu:Show("BAGS")
+                return
             end
+
+            orig_ToggleGameMenu(clicked)
         end
         Hooks.toggleGameMenuHooked = true
     end
@@ -841,6 +839,9 @@ function Hooks:CloseTopFrame()
         end
         if ConsoleMode_MailScreen.Close then
             ConsoleMode_MailScreen:Close()
+        end
+        if not ConsoleMode_MailScreen.isOpen then
+            if CloseMail then pcall(CloseMail) end
         end
         return true
     end

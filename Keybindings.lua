@@ -1548,6 +1548,9 @@ function CM_CursorCancel()
         else
             ConsoleMode_MailScreen:Close()
         end
+        if not ConsoleMode_MailScreen.isOpen then
+            if CloseMail then pcall(CloseMail) end
+        end
         return
     end
 

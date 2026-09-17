@@ -280,42 +280,26 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - [x] **Bloco 1 (Perícias & Idiomas):** 102 entradas em `Data/Localization/localization_ptBR.lua` integradas visualmente em `UI/CharacterScreen.lua`. Testado no jogo, commitado e enviado ao repo remoto (`8561471`).
 - [x] **Bloco 2 (Nomes de Talentos):** 1.280 entradas (432 coordenadas canônicas das 9 classes + 848 nomes nominais) em `localization_ptBR.lua` com fallback resiliente em `Data/Localization.lua` e renderização no `card.titleText` de `UI/MainMenu.lua`. Concluído e validado.
 - [x] **Fase 7.1 (Módulo 1 — Descrições Dinâmicas & Catálogo Base de Talentos):** Criação de `Data/TalentDescriptions_ptBR.lua` com catálogo base dos 460 talentos do cliente, agregação de linhas de quebra física de tooltips e modal de inspeção/comparação com [A]. Concluído (Commits `4a0d743` e `0ff81a0`).
+- [x] **Fase 7.2 (Motor Semântico de Ranges & Coloração Fiel de Requisitos):** Implementação de `GamePT_ExtractNumbersWithRanges`, paridade estrita de placeholders, captura de cor nativa de requisitos via `GetTextColor()` e sincronização com Turtle WoW. Concluído e testado no jogo (Commit `f9f6f4d`).
 
 ---
 
-#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.2 (Motor Semântico de Valores Numéricos, Preservação de Ranges & Coloração Fiel de Requisitos)
-> **Meta:** Corrigir de forma limpa e estrutural a lógica de injeção numérica em descrições de talentos, impedindo o deslocamento em cascata de argumentos (*cascading shift*) em habilidades com intervalos de dano/cura (*ranges*), e sincronizar a coloração visual exata dos requisitos (*Requires...*) diretamente com o estado nativo do cliente WoW.
+#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.3 (Magias & Habilidades — Spellbook & Action Pickers)
+> **Meta:** Tradução contextual de nomes e ranks de feitiços/habilidades no Livro de Magias (`UI/SpellBook` / `UI/MainMenu.lua`) e nos seletores de barra de ação (`UI/ActionBarPicker.lua` / `UI/MacroPicker.lua`).
 
-1. **Motor Semântico de Extração & Preservação de Ranges (*Semantic Range Folding*):**
-   - No `Data/Localization.lua`, implementar função de extração semântica que reconhece construções de intervalo nativas do WoW (`(%d+) to (%d+)`, ex.: `101 to 114 Arcane damage`, `204 to 220 healing`).
-   - Se o molde em português contiver apenas 1 placeholder para o dano (`%s de dano`), fundir semanticamente o intervalo em uma única string (`"101 a 114"`), preservando a posição exata de todas as variáveis seguintes (porcentagens, durações, alcance).
-   - Se o molde contiver `%s a %s`, expandir o par ordenado para ambos os slots.
-2. **Paridade Estrita de Placeholders vs. Argumentos:**
-   - Eliminar a tolerância cega `table.getn(nums) >= phCount` em `CM:GamePT_TalentLine`.
-   - Exigir correspondência estrita (`table.getn(args) == phCount`). Se a contagem semântica não for idêntica ao número de `%s`, rejeitar a formatação cega para evitar exibição de dados corrompidos na UI, delegando aos templates regex da Camada 2 ou fallback seguro da Camada 4.
-3. **Coloração Fiel de Requisitos de Linha via Tooltip Nativo:**
-   - Em `UI/MainMenu.lua` (tanto no painel inferior de detalhes quanto no modal de inspeção), capturar a cor nativa da linha de cabeçalho através de `lineObj:GetTextColor()`.
-   - Se o cliente original tiver pintado a linha de requisito de vermelho (`r > 0.8 and g < 0.3`), aplicar a mesma coloração vermelha (`|cffff4444`) no texto traduzido em português (`Requer...`).
-   - Garantir coerência visual 100% fiel ao cliente WoW Vanilla.
-4. **Auditoria & Sincronização do Catálogo (`db.talents`):**
-   - Revisar e sincronizar os moldes de habilidades ativas que contêm intervalos e múltiplos parâmetros em `Data/TalentDescriptions_ptBR.lua` (ex.: `arcane rupture`, `holy shock`, `pyroblast`, `shadowburn`, `blast wave`).
-5. **Governança & Validação:**
-   - `luac -p Data/Localization.lua`
-   - `luac -p Data/TalentDescriptions_ptBR.lua`
-   - `luac -p UI/MainMenu.lua`
-   - `python tools/check_locales.py`
-6. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.2):**
-   - Apresentar instruções de teste no jogo via `/reload`.
-   - Jogador inspeciona *Ruptura Arcana* (e outros talentos com range de dano) e valida:
-     1. Dano exibido corretamente como intervalo (`101 a 114 de dano Arcano`).
-     2. Porcentagem correta (`20%`) e duração correta (`8 s`).
-     3. Linha de requerimento colorida fielmente de vermelho quando não atendida.
-   - Parada obrigatória para aprovação do usuário.
-
----
-
-### 🟢 FASE 7.3: Magias & Habilidades (Spellbook & Action Pickers)
-> **Objetivo observável:** Tradução contextual de nomes e ranks de feitiços no Livro de Magias e nos seletores de barra de ação.
+1. **Catálogo de Feitiços & Habilidades (`Data/Localization/localization_ptBR.lua`):**
+   - Mapear nomes das magias e habilidades das classes e raciais (Camada 1 - Dicionário Nominal).
+   - Tradução contextual de ranks e subtítulos (`Rank %d` -> `Grau %d`, `Passive` -> `Passiva`, `Apprentice` -> `Aprendiz`, etc.).
+2. **Integração no Spellbook da Aba de Magias:**
+   - Em `UI/MainMenu.lua` (aba `SPELLS`), integrar chamadas a `CM:GamePT_Spell` e `CM:GamePT_Rank` nos botões da grade e no painel de detalhes.
+3. **Integração nos Pickers de Ação:**
+   - Em `UI/ActionBarPicker.lua` e `UI/SpellbookPicker.lua`, traduzir os nomes e ranks exibidos na lista de feitiços selecionáveis.
+4. **Governança & Validação:**
+   - `luac -p` nos arquivos tocados.
+   - `python tools/check_locales.py`.
+5. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.3):**
+   - Teste no jogo via `/reload`.
+   - Jogador abre o Grimório / Aba de Magias e confirma nomes traduzidos, ranks corretos e navegação fluida.
 
 ---
 

@@ -291,6 +291,34 @@ function CM:GamePT_Talent(a1, a2, a3, a4, a5)
     return origName
 end
 
+-- Helper central: detecta linhas de cabecalho do tooltip de talento (custo, cast, range, rank, requires).
+-- Usado tanto no motor de traducao quanto na agregacao da UI para evitar hijack de headers.
+function CM:GamePT_IsTalentHeaderLine(rawLine)
+    if not rawLine or rawLine == "" then return false end
+    -- Rank / Next rank / Requires sao sempre cabecalho
+    if string.find(rawLine, "^Rank ") then return true end
+    if string.find(rawLine, "^Next rank") then return true end
+    if string.find(rawLine, "^Requires ") then return true end
+    -- Linhas curtas de custo/recurso
+    if string.find(rawLine, "^%d+ Rage$") then return true end
+    if string.find(rawLine, "^%d+ Energy$") then return true end
+    if string.find(rawLine, "^%d+ Mana$") then return true end
+    if string.find(rawLine, "^Instant$") then return true end
+    if string.find(rawLine, "^Instant cast$") then return true end
+    if string.find(rawLine, "^Channeled$") then return true end
+    if string.find(rawLine, "^[%d%.]+ sec cast$") then return true end
+    if string.find(rawLine, "^[%d%.]+ sec cooldown$") then return true end
+    if string.find(rawLine, "^[%d%.]+ min cooldown$") then return true end
+    if string.find(rawLine, "^[%d%.]+ hr cooldown$") then return true end
+    if string.find(rawLine, "^%d+ yd range$") then return true end
+    if string.find(rawLine, "^Melee Range$") then return true end
+    if string.find(rawLine, "^Requires Melee") then return true end
+    if string.find(rawLine, "^Requires Ranged") then return true end
+    if string.find(rawLine, "^Requires Shields?$") then return true end
+    if string.find(rawLine, "^Requires Shield$") then return true end
+    return false
+end
+
 -- Traduz uma linha individual do tooltip de talento usando o motor de templates
 function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLine, currentRank)
     if not rawLine or rawLine == "" then
@@ -321,10 +349,59 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
 
     local gfind = string.gfind or string.gmatch
 
+    -- 0b. Requisito generico de talento (ex.: "Requires 5 points in Thundering Strikes")
+    -- Cobre prereqs que nao terminam em "Talents" e que o bloco (0) acima nao pegou.
+    do
+        local genReq, genCount = string.gsub(rawLine, "^Requires (%d+) points? in (.+)$", function(pts, who)
+            local ptWho = who
+            if db.substitutions and db.substitutions[who] then
+                ptWho = db.substitutions[who]
+            else
+                local low = string.lower(who)
+                if db.substitutions and db.substitutions[low] then
+                    ptWho = db.substitutions[low]
+                else
+                    -- tenta resolver nome do talento via game.talents (sem pcall recursivo)
+                    local activeId = CM:GetActiveLangId()
+                    if activeId ~= "enUS" then
+                        local entry = CM_Langs[activeId]
+                        local g = entry and entry.game and entry.game.talents
+                        if g then
+                            local v = g[low] or g[who]
+                            if v then
+                                if type(v) == "string" and v ~= "" then ptWho = v
+                                elseif type(v) == "table" and v.name then ptWho = v.name end
+                            end
+                        end
+                        if ptWho == who and activeId ~= "ptBR" then
+                            local base = CM_Langs["ptBR"]
+                            local bg = base and base.game and base.game.talents
+                            if bg then
+                                local bv = bg[low] or bg[who]
+                                if bv then
+                                    if type(bv) == "string" and bv ~= "" then ptWho = bv
+                                    elseif type(bv) == "table" and bv.name then ptWho = bv.name end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            return string.format("Requer %s ponto(s) em %s", pts, ptWho)
+        end)
+        if genCount > 0 then return genReq end
+    end
+
+    -- 0c. Guard de cabecalho: delega ao helper central para evitar duplicacao
+    -- e garantir consistencia com a agregacao da UI.
+    local isHeader = self:GamePT_IsTalentHeaderLine(rawLine)
+
     -- 1. Motor Centrado no Talento (Mapeamento Direto por Nome do Talento)
-    -- Se o talento estiver cadastrado em db.talents, extrai os números do tooltip
-    -- e monta o texto diretamente no template em português. Zero adivinhação.
-    if db.talents and talentName and talentName ~= "" then
+    -- So aplica em linhas de descricao real; headers nunca entram aqui.
+    -- Para entradas do tipo tabela (por rank), retorna direto (rank-aware).
+    -- Para strings com %s, exige correspondencia de placeholders vs numeros
+    -- para evitar preencher "%s" vazios ou numeros trocados por fragmento.
+    if not isHeader and db.talents and talentName and talentName ~= "" then
         local key = string.lower(talentName)
         local tEntry = db.talents[key]
         if tEntry then
@@ -337,16 +414,25 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
                     for num in gfind(rawLine, "([%d%.]+)") do
                         table.insert(nums, num)
                     end
-                    local unpackFn = unpack or table.unpack
-                    local nCount = table.getn(nums)
-                    for p = nCount + 1, 10 do
-                        table.insert(nums, "")
-                    end
-                    local ok, formatted = pcall(string.format, tEntry, unpackFn(nums))
-                    if ok and formatted then
-                        return formatted
+                    local phCount = 0
+                    for _ in string.gfind(tEntry, "%%s") do phCount = phCount + 1 end
+                    -- So aplica se houver numeros suficientes (evita "%" vazios)
+                    -- e se a linha nao for fragmento parcial com menos numeros que
+                    -- o template exige. Fragmentos serao tratados via agregacao no caller.
+                    if table.getn(nums) >= phCount and phCount > 0 then
+                        local unpackFn = unpack or table.unpack
+                        local callNums = {}
+                        for i = 1, phCount do callNums[i] = nums[i] end
+                        for i = phCount + 1, 10 do callNums[i] = "" end
+                        local ok, formatted = pcall(string.format, tEntry, unpackFn(callNums))
+                        if ok and formatted then
+                            return formatted
+                        end
                     end
                 else
+                    -- Entrada fixa sem placeholder: retorna direto.
+                    -- Seguro agora que a UI agrega linhas fisicas em um unico
+                    -- bloco logico por paragrafo (sem duplicacao por fragmento).
                     return tEntry
                 end
             end
@@ -362,12 +448,7 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
             exc = db.exceptions[coordKey]
         end
         if exc then
-            local isHeader = string.find(rawLine, "^Rank ") or string.find(rawLine, "^Next rank") or
-                             string.find(rawLine, "Rage") or string.find(rawLine, "Energy") or
-                             string.find(rawLine, "Mana") or string.find(rawLine, "cooldown") or
-                             string.find(rawLine, "cast") or string.find(rawLine, "range") or
-                             string.find(rawLine, "^Requires ")
-            if not isHeader then
+            if not self:GamePT_IsTalentHeaderLine(rawLine) then
                 if type(exc) == "table" then
                     local r = (currentRank and currentRank > 0) and currentRank or 1
                     return exc[r] or exc[1] or rawLine

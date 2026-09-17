@@ -6237,6 +6237,8 @@ function MainMenu:FocusTalentSlot(slot)
         card.typeText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
 
         -- Descrição obtida via GameTooltip invisível com tradução dinâmica
+        -- Agrega linhas físicas consecutivas (wrap) num bloco lógico para
+        -- tradução sem duplicação por fragmento (fix: Flurry, Bloodlust, etc).
         local desc = data.desc or ""
         if not desc or desc == "" then
             if GameTooltip and GameTooltip.SetTalent then
@@ -6244,12 +6246,48 @@ function MainMenu:FocusTalentSlot(slot)
                 GameTooltip:ClearLines()
                 GameTooltip:SetTalent(data.tabIndex, data.talentIndex)
                 local numLines = GameTooltip:NumLines()
-                local fullDesc = ""
+                local rawLines = {}
                 for l = 2, numLines do
                     local lineObj = getglobal("GameTooltipTextLeft" .. l)
                     if lineObj and lineObj:GetText() then
                         local t = lineObj:GetText()
-                        local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, t, data.currentRank)
+                        if t and t ~= "" then
+                            table.insert(rawLines, t)
+                        end
+                    end
+                end
+                local segments = {}
+                local curBlock = nil
+                for i = 1, table.getn(rawLines) do
+                    local t = rawLines[i]
+                    local isHead = false
+                    if CM.GamePT_IsTalentHeaderLine then
+                        isHead = CM:GamePT_IsTalentHeaderLine(t)
+                    else
+                        isHead = (string.find(t, "^Rank ") or string.find(t, "^Next rank") or string.find(t, "^Requires ")) and true or false
+                    end
+                    if isHead then
+                        if curBlock and curBlock ~= "" then
+                            table.insert(segments, { kind = "desc", text = curBlock })
+                            curBlock = nil
+                        end
+                        table.insert(segments, { kind = "header", text = t })
+                    else
+                        if not curBlock then
+                            curBlock = t
+                        else
+                            curBlock = curBlock .. " " .. t
+                        end
+                    end
+                end
+                if curBlock and curBlock ~= "" then
+                    table.insert(segments, { kind = "desc", text = curBlock })
+                end
+                local fullDesc = ""
+                for i = 1, table.getn(segments) do
+                    local seg = segments[i]
+                    local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, seg.text, data.currentRank)
+                    if seg.kind == "header" then
                         if string.find(tTrans, "Grau") or string.find(tTrans, "Rank") or string.find(tTrans, "Next rank") or string.find(tTrans, "Próximo") then
                             fullDesc = fullDesc .. (fullDesc ~= "" and "\n" or "") .. "|cffe09a15" .. tTrans .. "|r\n"
                         elseif string.find(tTrans, "^Requer ") or string.find(tTrans, "^Requires ") then
@@ -6261,6 +6299,8 @@ function MainMenu:FocusTalentSlot(slot)
                         else
                             fullDesc = fullDesc .. tTrans .. "\n"
                         end
+                    else
+                        fullDesc = fullDesc .. tTrans .. "\n"
                     end
                 end
                 desc = string.gsub(fullDesc, "^%s+", "")
@@ -6564,12 +6604,40 @@ function MainMenu:ShowTalentInspectModal(slot)
         GameTooltip:ClearLines()
         GameTooltip:SetTalent(data.tabIndex, data.talentIndex)
         local numLines = GameTooltip:NumLines()
+        local rawLines = {}
         for l = 2, numLines do
             local lineObj = getglobal("GameTooltipTextLeft" .. l)
             if lineObj and lineObj:GetText() then
-                local rawT = lineObj:GetText()
-                local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawT, data.currentRank)
-
+                local rt = lineObj:GetText()
+                if rt and rt ~= "" then table.insert(rawLines, rt) end
+            end
+        end
+        local segments = {}
+        local curBlock = nil
+        for i = 1, table.getn(rawLines) do
+            local rt = rawLines[i]
+            local isHead = false
+            if CM.GamePT_IsTalentHeaderLine then
+                isHead = CM:GamePT_IsTalentHeaderLine(rt)
+            else
+                isHead = (string.find(rt, "^Rank ") or string.find(rt, "^Next rank") or string.find(rt, "^Requires ")) and true or false
+            end
+            if isHead then
+                if curBlock and curBlock ~= "" then
+                    table.insert(segments, { kind = "desc", text = curBlock })
+                    curBlock = nil
+                end
+                table.insert(segments, { kind = "header", text = rt })
+            else
+                if not curBlock then curBlock = rt else curBlock = curBlock .. " " .. rt end
+            end
+        end
+        if curBlock and curBlock ~= "" then table.insert(segments, { kind = "desc", text = curBlock }) end
+        for i = 1, table.getn(segments) do
+            local seg = segments[i]
+            local rawT = seg.text
+            local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawT, data.currentRank)
+            if seg.kind == "header" then
                 if string.find(rawT, "^Rank ") or string.find(rawT, "^Next rank") then
                     origFull = origFull .. (origFull ~= "" and "\n" or "") .. "|cffbbbbbb" .. rawT .. "|r\n"
                 elseif string.find(rawT, "^Requires ") then
@@ -6577,7 +6645,6 @@ function MainMenu:ShowTalentInspectModal(slot)
                 else
                     origFull = origFull .. rawT .. "\n"
                 end
-
                 if string.find(tTrans, "Grau") or string.find(tTrans, "Rank") or string.find(tTrans, "Next rank") or string.find(tTrans, "Próximo") then
                     transFull = transFull .. (transFull ~= "" and "\n" or "") .. "|cffe09a15" .. tTrans .. "|r\n"
                 elseif string.find(tTrans, "^Requer ") or string.find(tTrans, "^Requires ") then
@@ -6589,6 +6656,9 @@ function MainMenu:ShowTalentInspectModal(slot)
                 else
                     transFull = transFull .. tTrans .. "\n"
                 end
+            else
+                origFull = origFull .. rawT .. "\n"
+                transFull = transFull .. tTrans .. "\n"
             end
         end
         GameTooltip:Hide()

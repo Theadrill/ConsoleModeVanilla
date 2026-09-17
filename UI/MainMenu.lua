@@ -96,8 +96,9 @@ CFG.Fonts = {
     buffSize            = 12,                   -- Aumentado em ~10% (original: 11)
     footerSize          = 16,                   -- Aumentado em +33% (original: 12)
     detailTitleSize     = 16,
-    detailTypeSize      = 11,
-    detailDescSize      = 12,
+    detailTypeSize      = 14,                   -- Aumentado em +25% (original: 11)
+    detailDescSize      = 15,                   -- Aumentado em +25% (original: 12)
+    detailReqSize       = 12,                   -- Pré-requisitos de talentos (12px)
     gridCountSize       = 11,
     bagHeaderSize       = 16,                   -- Aumentado em +30% (original: 12)
     bagCatSize          = 16,                   -- Sub-abas de bolsas (16px)
@@ -2735,7 +2736,7 @@ function MainMenu:CreateMoneyWidget(parent, prefix, alignRight)
     frame.copperIcon = copperIcon
 
     local copperText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    MainMenu:ApplyFont(copperText, CFG.Fonts.bodyFontFile, 12)
+    MainMenu:ApplyFont(copperText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
     frame.copperText = copperText
 
     local silverIcon = frame:CreateTexture(nil, "OVERLAY")
@@ -2745,7 +2746,7 @@ function MainMenu:CreateMoneyWidget(parent, prefix, alignRight)
     frame.silverIcon = silverIcon
 
     local silverText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    MainMenu:ApplyFont(silverText, CFG.Fonts.bodyFontFile, 12)
+    MainMenu:ApplyFont(silverText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
     frame.silverText = silverText
 
     local goldIcon = frame:CreateTexture(nil, "OVERLAY")
@@ -2755,11 +2756,11 @@ function MainMenu:CreateMoneyWidget(parent, prefix, alignRight)
     frame.goldIcon = goldIcon
 
     local goldText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    MainMenu:ApplyFont(goldText, CFG.Fonts.bodyFontFile, 12)
+    MainMenu:ApplyFont(goldText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
     frame.goldText = goldText
 
     local prefixText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    MainMenu:ApplyFont(prefixText, CFG.Fonts.subFontFile, 12)
+    MainMenu:ApplyFont(prefixText, CFG.Fonts.subFontFile, CFG.Fonts.detailTypeSize or 14)
     prefixText:SetText(prefix or CM:T("DETAIL_MONEY"))
     frame.prefixText = prefixText
 
@@ -2934,7 +2935,7 @@ function MainMenu:CreateDetailCard(parent, config)
     local topCenterText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     topCenterText:SetJustifyH("LEFT")
     topCenterText:SetJustifyV("TOP")
-    MainMenu:ApplyFont(topCenterText, CFG.Fonts.bodyFontFile, 11)
+    MainMenu:ApplyFont(topCenterText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
     topCenterText:Hide()
     card.topCenterText = topCenterText
 
@@ -2942,7 +2943,7 @@ function MainMenu:CreateDetailCard(parent, config)
     local topRightText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     topRightText:SetJustifyH("RIGHT")
     topRightText:SetJustifyV("TOP")
-    MainMenu:ApplyFont(topRightText, CFG.Fonts.bodyFontFile, 11)
+    MainMenu:ApplyFont(topRightText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailReqSize or 12)
     topRightText:Hide()
     card.topRightText = topRightText
 
@@ -2963,7 +2964,7 @@ function MainMenu:CreateDetailCard(parent, config)
     descColLeft:SetWidth(180)
     descColLeft:SetJustifyH("LEFT")
     descColLeft:SetJustifyV("TOP")
-    MainMenu:ApplyFont(descColLeft, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize or 11)
+    MainMenu:ApplyFont(descColLeft, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize or 15)
     card.descColLeft = descColLeft
     card.descText = descColLeft
 
@@ -2972,7 +2973,7 @@ function MainMenu:CreateDetailCard(parent, config)
     descColRight:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -10, 26)
     descColRight:SetJustifyH("LEFT")
     descColRight:SetJustifyV("TOP")
-    MainMenu:ApplyFont(descColRight, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize or 11)
+    MainMenu:ApplyFont(descColRight, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize or 15)
     card.descColRight = descColRight
 
     -- 5. Preço de Venda do Item (Widget gráfico nativo com ícones de moedas)
@@ -2999,7 +3000,7 @@ function MainMenu:CreateDetailCard(parent, config)
 
     local slotsFreeText = footerBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     slotsFreeText:SetPoint("LEFT", footerBar, "LEFT", 0, 0)
-    MainMenu:ApplyFont(slotsFreeText, CFG.Fonts.subFontFile, 12)
+    MainMenu:ApplyFont(slotsFreeText, CFG.Fonts.subFontFile, CFG.Fonts.detailTypeSize or 14)
     slotsFreeText:SetText(format(CM:T("DETAIL_SPACE_FMT"), 0, 0))
     card.slotsFreeText = slotsFreeText
 
@@ -6407,13 +6408,38 @@ function MainMenu:FocusTalentSlot(slot)
             card.hDiv:Show()
         end
 
-        -- 3.2. Zona 3 Superior: Pré-requisitos (Alinhados à Direita)
+        local hasReq = (table.getn(reqLines) > 0)
+        local hasCenter = (table.getn(spellAttrs) > 0)
+        local availW = cardW - 64
+
+        -- 3.2. Medição da Zona 2 (Custo / Lançamento / Alcance - Centro)
+        local centerW = 0
+        if hasCenter and card.topCenterText then
+            card.topCenterText:SetText(table.concat(spellAttrs, "\n"))
+            local textW = card.topCenterText:GetStringWidth()
+            centerW = 120
+            if textW and textW > 120 then
+                centerW = math.min(170, math.ceil(textW + 4))
+            end
+        end
+
+        -- 3.3. Medição Dinâmica da Zona 3 (Pré-requisitos - Direita)
+        local reqW = 0
+        if hasReq and card.topRightText then
+            card.topRightText:SetText(table.concat(reqLines, "\n"))
+            local strW = card.topRightText:GetStringWidth() or 180
+            local rawReqW = math.ceil(strW + 6)
+            local maxReqW = availW - (hasCenter and (centerW + 24) or 12) - 160
+            if maxReqW < 180 then maxReqW = 180 end
+            reqW = math.max(160, math.min(maxReqW, rawReqW))
+        end
+
+        -- 3.4. Posicionamento dos Pré-requisitos (Direita)
         if card.topRightText then
-            if table.getn(reqLines) > 0 then
+            if hasReq then
                 card.topRightText:ClearAllPoints()
                 card.topRightText:SetPoint("TOPRIGHT", card, "TOPRIGHT", -10, -8)
-                card.topRightText:SetWidth(220)
-                card.topRightText:SetText(table.concat(reqLines, "\n"))
+                card.topRightText:SetWidth(reqW)
                 card.topRightText:Show()
             else
                 card.topRightText:SetText("")
@@ -6421,18 +6447,16 @@ function MainMenu:FocusTalentSlot(slot)
             end
         end
 
-        -- 3.3. Zona 2 Superior: Custo de Mana / Lançamento / Alcance (Centro)
+        -- 3.5. Posicionamento da Zona Central (Custo / Lançamento)
         if card.topCenterText then
-            if table.getn(spellAttrs) > 0 then
+            if hasCenter then
                 card.topCenterText:ClearAllPoints()
-                if card.topRightText and card.topRightText:IsShown() then
+                if hasReq and card.topRightText:IsShown() then
                     card.topCenterText:SetPoint("TOPRIGHT", card.topRightText, "TOPLEFT", -12, 0)
-                    card.topCenterText:SetWidth(170)
                 else
                     card.topCenterText:SetPoint("TOPRIGHT", card, "TOPRIGHT", -10, -8)
-                    card.topCenterText:SetWidth(200)
                 end
-                card.topCenterText:SetText(table.concat(spellAttrs, "\n"))
+                card.topCenterText:SetWidth(centerW)
                 card.topCenterText:Show()
             else
                 card.topCenterText:SetText("")
@@ -6440,13 +6464,13 @@ function MainMenu:FocusTalentSlot(slot)
             end
         end
 
-        -- 3.4. Zona 1 Superior: Título e Subtítulo (Esquerda) com contenção dinâmica
+        -- 3.6. Zona 1 Superior: Título e Subtítulo (Esquerda) com contenção dinâmica
         card.titleText:ClearAllPoints()
         card.titleText:SetPoint("TOPLEFT", card.icon, "TOPRIGHT", 10, 0)
         if card.topCenterText and card.topCenterText:IsShown() then
-            card.titleText:SetPoint("RIGHT", card.topCenterText, "LEFT", -8, 0)
+            card.titleText:SetPoint("RIGHT", card.topCenterText, "LEFT", -12, 0)
         elseif card.topRightText and card.topRightText:IsShown() then
-            card.titleText:SetPoint("RIGHT", card.topRightText, "LEFT", -8, 0)
+            card.titleText:SetPoint("RIGHT", card.topRightText, "LEFT", -12, 0)
         else
             card.titleText:SetPoint("RIGHT", card, "RIGHT", -10, 0)
         end

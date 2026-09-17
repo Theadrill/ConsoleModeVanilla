@@ -255,58 +255,77 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 ---
 
-#### Roadmap da Tradução Integral (Fases 7.1 a 7.4)
+#### Roadmap da Tradução Integral (Fases 7.1 a 7.5)
 
 ```text
-[Fase 7.1: Descrições Dinâmicas de Talentos] 
+[Fase 7.1: Descrições Dinâmicas & Catálogo Base de Talentos] (Concluída)
        │
        ▼
-[Fase 7.2: Magias & Habilidades (Spellbook & Action Pickers)]
+[Fase 7.2: Motor Semântico de Valores, Preservação de Ranges & Coloração de Requisitos] (PRÓXIMO PASSO IMEDIATO)
        │
        ▼
-[Fase 7.3: Motor de Auras & Efeitos (Buffs / Debuffs)]
+[Fase 7.3: Magias & Habilidades (Spellbook & Action Pickers)]
        │
        ▼
-[Fase 7.4: Motor de Itens, Equipamentos & Interceptação de Tooltips]
+[Fase 7.4: Motor de Auras & Efeitos (Buffs / Debuffs)]
+       │
+       ▼
+[Fase 7.5: Motor de Itens, Equipamentos & Interceptação de Tooltips]
 ```
 
 ---
 
-#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.1 (Módulo 1 — Motor de Descrições de Talentos)
-> **Meta:** A tela de talentos do `MainMenu.lua` passa a exibir **100% em Português** — tanto o título quanto a descrição completa de cada grau (*rank*) atual e próximo grau (*next rank*), preservando todos os números dinâmicos.
+#### Status Atual de Execução da Fase 7
+- [x] **Etapa 0 (Acessores Core & Validador):** Implementados em `Data/Localization.lua` (`GamePT_Skill`, `GamePT_Rank`, `GamePT_Spell`, `GamePT_Talent`, `GamePT_Buff`) e suporte no `tools/check_locales.py`. (Commit `8561471`).
+- [x] **Bloco 1 (Perícias & Idiomas):** 102 entradas em `Data/Localization/localization_ptBR.lua` integradas visualmente em `UI/CharacterScreen.lua`. Testado no jogo, commitado e enviado ao repo remoto (`8561471`).
+- [x] **Bloco 2 (Nomes de Talentos):** 1.280 entradas (432 coordenadas canônicas das 9 classes + 848 nomes nominais) em `localization_ptBR.lua` com fallback resiliente em `Data/Localization.lua` e renderização no `card.titleText` de `UI/MainMenu.lua`. Concluído e validado.
+- [x] **Fase 7.1 (Módulo 1 — Descrições Dinâmicas & Catálogo Base de Talentos):** Criação de `Data/TalentDescriptions_ptBR.lua` com catálogo base dos 460 talentos do cliente, agregação de linhas de quebra física de tooltips e modal de inspeção/comparação com [A]. Concluído (Commits `4a0d743` e `0ff81a0`).
 
-1. **Criar `Data/TalentDescriptions_ptBR.lua`:**
-   - Registrado no `ConsoleModeVanilla.toc` logo após `Data\Localization\localization_ptBR.lua` e antes de `UI\*`.
-   - Tabela de **Templates Sintáticos Regex** cobrindo os padrões fundamentais de talentos:
-     - Aumento/redução percentual de dano/cura: `Increases damage done by (.+) by (%d+)%%` $\rightarrow$ `Aumenta o dano causado por %1 em %2%`.
-     - Redução de tempo de lançamento: `Reduces the casting time of your (.+) by ([%d%.]+) sec` $\rightarrow$ `Reduz o tempo de lançamento de %1 em %2 s`.
-     - Aumento de chance de acerto crítico: `Increases your chance to get a critical strike with (.+) by (%d+)%%` $\rightarrow$ `Aumenta a sua chance de acerto crítico com %1 em %2%`.
-     - Redução de tempo de recarga (cooldown): `Reduces the cooldown of your (.+) by ([%d%.]+) sec` $\rightarrow$ `Reduz o tempo de recarga de %1 em %2 s`.
-     - Aumento de alcance: `Increases the range of your (.+) by (%d+) yards` $\rightarrow$ `Aumenta o alcance de %1 em %2 m`.
-     - Redução de custo de mana/fúria/energia: `Reduces the Mana cost of your (.+) by (%d+)%%` $\rightarrow$ `Reduz o custo de Mana de %1 em %2%`.
-     - Bônus de atributos: `Increases your total (.+) by (%d+)%%` $\rightarrow$ `Aumenta o seu total de %1 em %2%`.
-     - Chance de ativação por golpe: `Gives your (.+) a (%d+)%% chance to (.+)` $\rightarrow$ `Concede a %1 uma chance de %2% de %3`.
-   - Tabela de **Exceções Autorais de Capstones**:
-     - Habilidades ativas concedidas por talentos das 9 classes (ex.: *Golpe Mortal*, *Sede de Sangue*, *Ignimpacto*, *Barreira de Gelo*, *Lâminas Dançantes*, *Forma de Sombra*, *Ira Bestial*, *Tiro Certo*, *Choque Sagrado*, *Golpe da Tempestade*, *Forma de Luniscado*, etc.).
-2. **Atualizar `Data/Localization.lua`:**
-   - Adicionar o acessor:
-     ```lua
-     function CM:GamePT_TalentDesc(classFile, tabIndex, tier, column, currentRank, maxRank, rawDescEN)
-     ```
-   - Executa a cascata: Camada 3 (Exceção por coordenada/nome) $\rightarrow$ Camada 2 (Passagem de linha por linha pelos templates regex) $\rightarrow$ Camada 4 (Fallback ao texto bruto `rawDescEN`).
-3. **Conectar em `UI/MainMenu.lua`:**
-   - Em `MainMenu:FocusTalentSlot` (linha ~6254):
-     Substituir a atribuição de `card.descColLeft:SetText(desc)` pela versão traduzida via `CM:GamePT_TalentDesc`.
-   - Manter o cache `data.desc` original intocado para segurança.
-4. **Governança & Validação:**
+---
+
+#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.2 (Motor Semântico de Valores Numéricos, Preservação de Ranges & Coloração Fiel de Requisitos)
+> **Meta:** Corrigir de forma limpa e estrutural a lógica de injeção numérica em descrições de talentos, impedindo o deslocamento em cascata de argumentos (*cascading shift*) em habilidades com intervalos de dano/cura (*ranges*), e sincronizar a coloração visual exata dos requisitos (*Requires...*) diretamente com o estado nativo do cliente WoW.
+
+1. **Motor Semântico de Extração & Preservação de Ranges (*Semantic Range Folding*):**
+   - No `Data/Localization.lua`, implementar função de extração semântica que reconhece construções de intervalo nativas do WoW (`(%d+) to (%d+)`, ex.: `101 to 114 Arcane damage`, `204 to 220 healing`).
+   - Se o molde em português contiver apenas 1 placeholder para o dano (`%s de dano`), fundir semanticamente o intervalo em uma única string (`"101 a 114"`), preservando a posição exata de todas as variáveis seguintes (porcentagens, durações, alcance).
+   - Se o molde contiver `%s a %s`, expandir o par ordenado para ambos os slots.
+2. **Paridade Estrita de Placeholders vs. Argumentos:**
+   - Eliminar a tolerância cega `table.getn(nums) >= phCount` em `CM:GamePT_TalentLine`.
+   - Exigir correspondência estrita (`table.getn(args) == phCount`). Se a contagem semântica não for idêntica ao número de `%s`, rejeitar a formatação cega para evitar exibição de dados corrompidos na UI, delegando aos templates regex da Camada 2 ou fallback seguro da Camada 4.
+3. **Coloração Fiel de Requisitos de Linha via Tooltip Nativo:**
+   - Em `UI/MainMenu.lua` (tanto no painel inferior de detalhes quanto no modal de inspeção), capturar a cor nativa da linha de cabeçalho através de `lineObj:GetTextColor()`.
+   - Se o cliente original tiver pintado a linha de requisito de vermelho (`r > 0.8 and g < 0.3`), aplicar a mesma coloração vermelha (`|cffff4444`) no texto traduzido em português (`Requer...`).
+   - Garantir coerência visual 100% fiel ao cliente WoW Vanilla.
+4. **Auditoria & Sincronização do Catálogo (`db.talents`):**
+   - Revisar e sincronizar os moldes de habilidades ativas que contêm intervalos e múltiplos parâmetros em `Data/TalentDescriptions_ptBR.lua` (ex.: `arcane rupture`, `holy shock`, `pyroblast`, `shadowburn`, `blast wave`).
+5. **Governança & Validação:**
    - `luac -p Data/Localization.lua`
    - `luac -p Data/TalentDescriptions_ptBR.lua`
    - `luac -p UI/MainMenu.lua`
-   - `python3 tools/check_locales.py` (garantindo paridade e métricas de dados).
-5. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.1):**
-   - Apresentar instruções de teste com `/reload`.
-   - Jogador inspeciona a árvore de talentos de sua classe e valida que os títulos e as descrições dos graus aparecem fluidas em português com os números corretos.
-   - Aguardar autorização expressa ("OK") do usuário antes de realizar commit. Zero commits/pushes automáticos.
+   - `python tools/check_locales.py`
+6. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.2):**
+   - Apresentar instruções de teste no jogo via `/reload`.
+   - Jogador inspeciona *Ruptura Arcana* (e outros talentos com range de dano) e valida:
+     1. Dano exibido corretamente como intervalo (`101 a 114 de dano Arcano`).
+     2. Porcentagem correta (`20%`) e duração correta (`8 s`).
+     3. Linha de requerimento colorida fielmente de vermelho quando não atendida.
+   - Parada obrigatória para aprovação do usuário.
+
+---
+
+### 🟢 FASE 7.3: Magias & Habilidades (Spellbook & Action Pickers)
+> **Objetivo observável:** Tradução contextual de nomes e ranks de feitiços no Livro de Magias e nos seletores de barra de ação.
+
+---
+
+### 🟢 FASE 7.4: Motor de Auras & Efeitos (Buffs / Debuffs)
+> **Objetivo observável:** Tradução completa de auras, bônus e penalidades no HUD e cards de status.
+
+---
+
+### 🟢 FASE 7.5: Motor de Itens, Equipamentos & Interceptação de Tooltips
+> **Objetivo observável:** Interceptação segura de tooltips de itens, termos de equipamento e estatísticas.
 
 ---
 

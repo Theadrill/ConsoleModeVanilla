@@ -339,6 +339,39 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
         if CM.debug then dbgDetail = CM:T("MSG_DEBUG_ENABLED") end
         DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_DEBUG_DETAIL_FMT"), dbgDetail))
 
+    elseif cmd == "spelldbg" then
+        local d = CM._lastSpellDbg
+        if not d or not d.name then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff8888[spelldbg]|r abra uma magia no card primeiro")
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[spelldbg]|r name=" .. tostring(d.name) .. " rank=" .. tostring(d.rank))
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[spelldbg]|r key=" .. tostring(d.key) .. " id=" .. tostring(d.id) .. " src=" .. tostring(d.src))
+            if d.id and ConsoleMode_SpellDescDB and ConsoleMode_SpellDescDB[d.id] then
+                local e = ConsoleMode_SpellDescDB[d.id]
+                local haspt = (e.pt and e.pt ~= "") and "SIM" or "NAO"
+                DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[spelldbg]|r pt=" .. haspt .. " dbdesc=" .. tostring(string.sub(e.d or "", 1, 60)))
+            else
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff8888[spelldbg]|r sem entrada no SpellDescDB")
+            end
+        end
+
+    elseif cmd == "spellmissing" then
+        local q = ConsoleModeDB and ConsoleModeDB.spellMissing
+        local n = (q and table.getn(q)) or 0
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[spellmissing]|r " .. n .. " magia(s) sem entrada no DBC:")
+        if q then
+            local i = 1
+            while i <= n do
+                local e = q[i]
+                if type(e) == "table" then
+                    DEFAULT_CHAT_FRAME:AddMessage("  - " .. tostring(e.n) .. " [" .. tostring(e.r) .. "]")
+                else
+                    DEFAULT_CHAT_FRAME:AddMessage("  - " .. tostring(e))
+                end
+                i = i + 1
+            end
+        end
+
     elseif cmd == "dedup" or cmd == "qid" then
         if CM.questItemDistributor and CM.questItemDistributor.ForceDeduplicate then
             CM.questItemDistributor:ForceDeduplicate()

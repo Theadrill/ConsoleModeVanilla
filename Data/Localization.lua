@@ -343,6 +343,59 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
 
     local _unpack = unpack or (table and table.unpack)
 
+    -- 0a. FASE 8: SpellDescDB por ID (fonte EN = Spell.dbc Turtle, PT autoral).
+    -- Chave: lower(nome).."|"..grau (ex. "earth shock|grau7") + alias "nome|".
+    -- PT preenchido vence tudo; PT vazio cai no legado abaixo e o EN sai integro.
+    local descDBEntry = nil
+    if ConsoleMode_SpellDescDB_ByKey and ConsoleMode_SpellDescDB and spellName then
+        local rk = ""
+        if rankStr and rankStr ~= "" then
+            local _, _, rn = string.find(rankStr, "(%d+)")
+            if rn then
+                rk = "grau" .. rn
+            elseif string.find(string.lower(rankStr), "pass") then
+                rk = "passiva"
+            end
+        end
+        local skey = string.lower(spellName) .. "|" .. rk
+        local did = ConsoleMode_SpellDescDB_ByKey[skey]
+        if not did and rk ~= "" then
+            did = ConsoleMode_SpellDescDB_ByKey[string.lower(spellName) .. "|"]
+        end
+        if did then
+            descDBEntry = ConsoleMode_SpellDescDB[did]
+        elseif spellName and spellName ~= "" then
+            -- FASE 8 bulk: sem entrada no DBC (patch criptografado ou
+            -- server-side), registra nome + texto EN na fila p/ lote futuro.
+            if ConsoleModeDB then
+                ConsoleModeDB.spellMissing = ConsoleModeDB.spellMissing or {}
+                local found = false
+                local n = table.getn(ConsoleModeDB.spellMissing)
+                local i = 1
+                while i <= n do
+                    if ConsoleModeDB.spellMissing[i].n == spellName then found = true end
+                    i = i + 1
+                end
+                if not found and n < 60 then
+                    table.insert(ConsoleModeDB.spellMissing,
+                        { n = spellName, r = rankStr or "",
+                          d = string.sub(rawDesc or "", 1, 300) })
+                end
+            end
+        end
+        -- Guarda diagnóstico da última consulta p/ /cm spelldbg
+        CM._lastSpellDbg = CM._lastSpellDbg or {}
+        CM._lastSpellDbg.name = spellName
+        CM._lastSpellDbg.rank = rankStr
+        CM._lastSpellDbg.key = skey
+        CM._lastSpellDbg.id = did
+        if descDBEntry and descDBEntry.pt and descDBEntry.pt ~= "" then
+            CM._lastSpellDbg.src = "DB-PT"
+        else
+            CM._lastSpellDbg.src = "legado/EN"
+        end
+    end
+
     -- 0. Inicializa mapa reverso e aliases de nomes de feiticos em PT se necessario
     if not db._reverseMap and db.spells then
         db._reverseMap = {}
@@ -490,30 +543,43 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         translatedBody = TryMatchTemplates(db.genericTemplates, normDesc, textToTranslate, canonDesc)
     end
 
-    -- 5. Motor Semantico Universal (Camada 3 Heuristica Global)
-    if not translatedBody and CM_Grammar_ptBR and CM_Grammar_ptBR.TranslateUniversal then
-        if string.find(normDesc, "\n") then
-            local pLines = {}
-            local hasAny = false
-            for p in gfind(normDesc, "([^\r\n]+)") do
-                local u = CM_Grammar_ptBR.TranslateUniversal(p)
-                if u and u ~= "" and u ~= p then
-                    hasAny = true
-                    table.insert(pLines, u)
-                else
-                    table.insert(pLines, p)
-                end
-            end
-            if hasAny then
-                translatedBody = table.concat(pLines, "\n")
-            end
-        else
-            local uTrans = CM_Grammar_ptBR.TranslateUniversal(normDesc)
-            if uTrans and uTrans ~= "" and uTrans ~= normDesc then
-                translatedBody = uTrans
-            end
+    -- 4b. FASE 8: PT autoral do SpellDescDB (placeholders $ preservados).
+    -- Extrai cada valor casando os literais do template EN contra o tooltip:
+    -- o numero entre dois literais pertence ao $ do meio (ex.: o "30%" fixo
+    -- de Chain Lightning nunca e confundido com o $x1 de alvos).
+    -- Se o casamento falhar, cai no modo posicional legado.
+    if not translatedBody and descDBEntry and descDBEntry.pt and descDBEntry.pt ~= "" then
+        local args = nil
+        if descDBEntry.d and descDBEntry.d ~= "" then
+            args = self:GamePT_MatchTemplateValues(descDBEntry.d, normDesc)
         end
+        if not args then
+            args = self:GamePT_ExtractSemanticValues(normDesc, nil)
+        end
+        local ai = 0
+        local nArgs = table.getn(args)
+        local ptTpl = string.gsub(descDBEntry.pt, "%$[a-z]%d*", function(ph)
+            ai = ai + 1
+            if ai <= nArgs then
+                return args[ai]
+            else
+                return ph
+            end
+        end)
+        ptTpl = string.gsub(ptTpl, "%$[a-z]", function(ph)
+            ai = ai + 1
+            if ai <= nArgs then
+                return args[ai]
+            else
+                return ph
+            end
+        end)
+        translatedBody = ptTpl
     end
+
+    -- 5. FASE 8: sem PT em nenhum nivel, o EN sai INTEGRO (textToTranslate).
+    -- O Motor Universal foi removido deste caminho: meio-PT e pior que EN limpo;
+    -- casos sem cobertura viram fila de traducao (SpellDescDB pt="" + spellMissing).
 
     local finalBody = translatedBody or textToTranslate
     if table.getn(headerLines) > 0 then
@@ -650,6 +716,85 @@ function CM:GamePT_ExtractSemanticValues(rawLine, tEntry)
             end
             pos = nEnd + 1
         end
+    end
+    return args
+end
+
+-- FASE 8: extracao dirigida pelo template EN (com $): cada valor e o numero
+-- entre dois literais ("30%" fixo nunca cai num slot $). Retorna nil se algum
+-- literal nao casar (chama quem chama a usar o modo posicional).
+function CM:GamePT_MatchTemplateValues(enTemplate, renderedText)
+    if not enTemplate or enTemplate == "" or not renderedText or renderedText == "" then
+        return nil
+    end
+    local flatT = string.gsub(enTemplate, "%s+", " ")
+    local flatR = string.gsub(renderedText, "%s+", " ")
+    local lowT = string.lower(flatT)
+    local lowR = string.lower(flatR)
+    -- Divide o template em literais (segs) e marcadores $ (marks)
+    local segs = {}
+    local nMarks = 0
+    local pos = 1
+    local tLen = string.len(lowT)
+    while pos <= tLen do
+        local s, e = string.find(lowT, "%$%S+", pos)
+        if not s then
+            break
+        end
+        table.insert(segs, string.sub(lowT, pos, s - 1))
+        nMarks = nMarks + 1
+        pos = e + 1
+    end
+    table.insert(segs, string.sub(lowT, pos))
+    if nMarks == 0 then
+        return nil
+    end
+    -- Localiza cada literal em ordem, uma unica passada
+    local bounds = {}
+    local fpos = 1
+    local rLen = string.len(lowR)
+    local si = 1
+    while si <= table.getn(segs) do
+        local seg = segs[si] or ""
+        if seg == "" then
+            bounds[si] = fpos
+        else
+            local s, e = string.find(lowR, seg, fpos, true)
+            if not s then
+                return nil
+            end
+            bounds[si] = s
+            fpos = e + 1
+        end
+        si = si + 1
+    end
+    -- Gap i = entre o fim de segs[i] e o inicio de segs[i+1] = valor do $ i
+    local args = {}
+    local i = 1
+    while i <= nMarks do
+        local gapStart = bounds[i] + string.len(segs[i] or "")
+        local gapEnd = bounds[i + 1] - 1
+        if gapEnd > rLen then
+            gapEnd = rLen
+        end
+        local gap = ""
+        if gapEnd >= gapStart then
+            gap = string.sub(flatR, gapStart, gapEnd)
+        end
+        local _, _, rMin, rMax = string.find(gap, "(%d+[%d%.]*)%s+to%s+(%d+[%d%.]*)")
+        if rMin and rMax then
+            rMin = string.gsub(rMin, "%.$", "")
+            rMax = string.gsub(rMax, "%.$", "")
+            table.insert(args, rMin .. " a " .. rMax)
+        else
+            local _, _, nVal = string.find(gap, "(%d+[%d%.]*)")
+            if not nVal or nVal == "" then
+                return nil
+            end
+            nVal = string.gsub(nVal, "%.$", "")
+            table.insert(args, nVal)
+        end
+        i = i + 1
     end
     return args
 end

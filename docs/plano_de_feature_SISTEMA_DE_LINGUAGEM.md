@@ -317,19 +317,25 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | Nome de item (24.542) | `pfQuest/db/enUS/items.lua` (17.712) + `pfQuest-turtle/db/enUS/items-turtle.lua` (8.294) | `pfQuest/db/ptBR/items.lua` + `pfQuest-turtle/db/ptBR/items-turtle.lua` | `[id]="Nome"` — **PRONTO** (`Data/ItemDB_ptBR.lua`, `tools/build_itemdb.py`) |
 | 2 | Descrição/USO de item (tooltip completo) | `kofoednielsen/twow-items` (pipeline `ItemTooltipLogger`: varre IDs 0–120000 e grava tooltip EN completo por item, incl. linhas `Use:` de quest) — alternativa: `item_template` do core VMaNGOS | A traduzir (autoral, com placeholders de número preservados) | `[id]={ use="...", equip="..." }` — **A FAZER** (`Data/ItemDescDB_ptBR.lua`, `tools/build_itemdescdb.py`) |
-| 3 | Nome de spell | `Spells.lua` atual (852) + `Spell.json` Turtle (cobre customs) | `Spells.lua` PT atual | `[lower(en)]="PT"` — completar via Spell.json |
-| 4 | Descrição de spell (template canônico) | `oplancelot/Turtle-WOW-DBC` (`Spell.json`: `Description`/`AuraDescription` com placeholders `$s1`, extraído via Ladik MPQ Editor + WDBX Editor do `DBFilesClient/Spell.dbc`) | A traduzir (autoral, placeholders `$` preservados; números de rank resolvidos em runtime como hoje) | `[spellId/rankKey]={ desc="..." }` — **A FAZER** (`Data/SpellDescDB_ptBR.lua`, `tools/build_spelldescdb.py`) |
+| 3 | Nome de spell | `Spells.lua` atual (852) + DBC Turtle (26.321 via patch local) | `Spells.lua` PT atual | `[lower(en)]="PT"` + SpellDescDB |
+| 4 | Descrição de spell (template canônico) | `Spell.dbc` extraído **do próprio client** via `mpyq` (`tools/parse_spell_dbc.py` dual-layout 162/173; merge snapshot+patch-7, patch vence) | Autoral em `tools/spell_pt_authoral.json` (380 templates; `$` preservados; `$l`/`$g` convertidos) | **PRONTO** (`Data/SpellDescDB_ptBR.lua` 4,8 MB, 26.321 spells, 17.877 chaves) |
 
-> Notas: (a) DBCs de item (`ItemClass`, `ItemDisplayInfo`...) são estruturais — nome/descrição de item é server-side, por isso a fonte é o tooltip-logger e não DBC. (b) `Spell.dbc` é client-side e vale como verdade EN. (c) Snapshot Turtle 1.18 pode divergir de customs futuros — o script de build é re-gerável, mesma regra do QuestDB.
+> Notas: (a) DBCs de item são estruturais — nome/descrição de item é server-side, por isso a fonte é o tooltip-logger e não DBC. (b) Snapshot GitHub (16.332) estava desatualizado; fonte real = MPQs do client (patch-7: 26.293; patches 8/9/A+ criptografados ficam de fora). (c) Variantes que diferem só em maiúscula usam chave case-insensitive; fuzzy-adoções com sentido trocado são rejeitadas manualmente. (d) Em 18/09 um clone fresco por cima da árvore apagou o trabalho não-commitado da Fase 8 — reconstruído integralmente; ver regra de checkpoint abaixo.
 
 #### 8.1 Build (mesmo molde do QuestDB/ItemDB, re-gerável)
-- [ ] `tools/build_itemdescdb.py`: EN tooltip por ID -> esqueleto PT (verbatim EN marcado `TODO`) -> saída `Data/ItemDescDB_ptBR.lua` (`ConsoleMode_ItemDescDB[id]={use,equip}` + header `AUTO-GERADO`).
-- [ ] `tools/build_spelldescdb.py`: `Spell.json` -> `Data/SpellDescDB_ptBR.lua` (`ConsoleMode_SpellDescDB[spellKey]={desc}` com `$` preservados).
-- [ ] Tradução autoral acontece nos DBs gerados (ou planilha -> import), nunca em regex no código. Turtle tem prioridade em colisão de ID, mesma regra do QuestDB.
+- [ ] `tools/build_itemdescdb.py`: EN tooltip por ID -> esqueleto PT -> saída `Data/ItemDescDB_ptBR.lua` (aguarda scan `ItemTooltipLogger` do usuário; `twow-items.json` só tem gear, sem `Use:` de quest).
+- [x] `tools/build_spelldescdb.py` + `tools/spell_pt_authoral.json` (380 templates) + `tools/coverage_spells.py` (caça-tudo priorizado: rank≤10 primeiro; `py tools/coverage_spells.py --lote N`).
+- [x] Lotes 1–4 traduzidos (577 templates, ~6,8k descs, 42%). Chave case-insensitive + dobra tipográfica (’—→ASCII). Restam ~6,5k templates / 9,3k descs (cauda majoritariamente NPC) — continuar por `coverage_spells.py --lote N`.
+- [x] Matcher por literais (`GamePT_MatchTemplateValues`): número fixo do template ("30%") nunca cai em slot `$`; fallback posicional.
+- [ ] Próxima caçada (player-coverage): cruzar `SkillLineAbility.dbc` (spell→skill) p/ priorizar magias de jogador vs cauda NPC.
+- [x] Tradução autoral vive em `spell_pt_authoral.json`, nunca em regex no código. Turtle/patch-local tem prioridade em colisão de ID.
 
 #### 8.2 Runtime (Lua 5.0, 1.12 puro)
-- [ ] `GamePT_ItemDesc(itemID)` / `GamePT_SpellDescByID(spellKey)`: `ID -> PT`, senão `ID -> EN íntegro`, senão fallback legado. Nunca meio-PT no caminho principal.
-- [ ] `card:ShowItem` usa `GamePT_ItemDesc` para linhas `Uso/Equipar`; `card:ShowSpell` usa `SpellDescDB` antes dos templates legados.
+- [x] `GamePT_SpellDesc` passo `descDBEntry` (`ByKey["nome|grau"]` + alias `"nome|"` p/ tooltip sem rank) com PT autoral e injeção ordenada de números nos `$`; templates legados mantidos; **fallback Universal removido do corpo — EN íntegro**; sem entrada no DBC, nome+texto vão p/ `ConsoleModeDB.spellMissing` (cap 60) — `/cm spellmissing`, diagnóstico `/cm spelldbg`.
+- [x] `.toc`: `SpellDescDB` + `SpellDescriptions` + `TalentDescriptions` (estas duas **nunca haviam sido carregadas** — era a causa das spells 100% EN).
+- [ ] `GamePT_ItemDesc(itemID)` + `card:ShowItem` p/ linhas `Uso/Equipar` quando o DB existir.
+
+> **Regra de checkpoint (pós-incidente):** trabalho da Fase 8 em diante é commitado localmente a cada etapa concluída; **push só com ordem explícita**, como sempre. Sem commit local, um clone/checkout por cima apaga tudo de novo.
 - [ ] Templates regex atuais viram fallback de extração (logam `MISSING desc <id>` para alimentar a fila de tradução), não caminho principal.
 - [ ] Memória 1.12: DBs de descrição são os maiores — carregar só nomes no login (ItemDB atual, leve); descrições em chunk por categoria ou sob demanda da aba aberta, com descarte quando pfDB equivalente existir em memória (mesma regra QuestDB/pfQuest).
 

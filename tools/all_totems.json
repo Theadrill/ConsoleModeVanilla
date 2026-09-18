@@ -1,0 +1,647 @@
+[
+  {
+    "en": "Summons a Fire Nova Totem that has $s1 health and lasts $d.  Unless it is destroyed within $8443t1 sec., the totem inflicts $8349s1 fire damage to enemies within $8349a1 yd.",
+    "current_pt": "",
+    "samples": [
+      "Fire Nova Totem (Rank 1) [id=1535]"
+    ]
+  },
+  {
+    "en": "Summons a Searing Totem with $s1 health at your feet for $d that repeatedly attacks an enemy within $3606r1 yards for $3606s1 Fire damage.",
+    "current_pt": "Totem Ígneo $s1 por $d s que ataca a até $a1 m com $s2 de Fogo.",
+    "samples": [
+      "Searing Totem (Rank 1) [id=3599]"
+    ]
+  },
+  {
+    "en": "Summons a Healing Stream Totem with $s1 health at the feet of the caster for $d that heals group members within $5672a1 yards for $5672s1 every $5672t1 seconds.",
+    "current_pt": "Totem de Cura $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Healing Stream Totem (Rank 1) [id=5394]"
+    ]
+  },
+  {
+    "en": "Summons a Mana Spring Totem with $s1 health at the feet of the caster for $d that restores $5677s1 mana every $5677t1 seconds to group members within $5677a1 yards.",
+    "current_pt": "Totem de Mana $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Mana Spring Totem (Rank 1) [id=5675]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneclaw Totem with $s1 health at the feet of the caster for $d that taunts creatures within $5729a1 yards to attack it.",
+    "current_pt": "Totem Garra $s1 por $d s; provoca a até $a1 m.",
+    "samples": [
+      "Stoneclaw Totem (Rank 1) [id=5730]"
+    ]
+  },
+  {
+    "en": "Summons an Invisibility Totem at the feet of the caster for $d that turns nearby group members invisible.",
+    "current_pt": "Totem invisível $d s no grupo próximo.",
+    "samples": [
+      "Invisibility Totem (Rank 1) [id=5734]"
+    ]
+  },
+  {
+    "en": "Summons a Searing Totem with $s1 health at your feet for $d that repeatedly attacks an enemy within $6350r1 yards for $6350s1 Fire damage.",
+    "current_pt": "Totem Ígneo $s1 por $d s que ataca a até $a1 m com $s2 de Fogo.",
+    "samples": [
+      "Searing Totem (Rank 2) [id=6363]"
+    ]
+  },
+  {
+    "en": "Summons a Searing Totem with $s1 health at your feet for $d that repeatedly attacks an enemy within $6351r1 yards for $6351s1 Fire damage.",
+    "current_pt": "Totem Ígneo $s1 por $d s que ataca a até $a1 m com $s2 de Fogo.",
+    "samples": [
+      "Searing Totem (Rank 3) [id=6364]"
+    ]
+  },
+  {
+    "en": "Summons a Searing Totem with $s1 health at your feet for $d that repeatedly attacks an enemy within $6352r1 yards for $6352s1 Fire damage.",
+    "current_pt": "Totem Ígneo $s1 por $d s que ataca a até $a1 m com $s2 de Fogo.",
+    "samples": [
+      "Searing Totem (Rank 4) [id=6365]"
+    ]
+  },
+  {
+    "en": "Summons a Healing Stream Totem with $s1 health at the feet of the caster for $d that heals group members within $6371a1 yards for $6371s1 every $6371t1 seconds.",
+    "current_pt": "Totem de Cura $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Healing Stream Totem (Rank 2) [id=6375]"
+    ]
+  },
+  {
+    "en": "Summons a Healing Totem at the feet of the caster for $d that heals nearby group members.",
+    "current_pt": "Totem de Cura $d s no grupo próximo.",
+    "samples": [
+      "Healing Totem (Rank 4) [id=6376]",
+      "Healing Totem (Rank 5) [id=6378]"
+    ]
+  },
+  {
+    "en": "Summons a Healing Stream Totem with $s1 health at the feet of the caster for $d that heals group members within $6372a1 yards for $6372s1 every $6372t1 seconds.",
+    "current_pt": "Totem de Cura $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Healing Stream Totem (Rank 3) [id=6377]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneclaw Totem with $s1 health at the feet of the caster for $d that taunts creatures within $6393a1 yards to attack it.",
+    "current_pt": "Totem Garra $s1 por $d s; provoca a até $a1 m.",
+    "samples": [
+      "Stoneclaw Totem (Rank 2) [id=6390]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneclaw Totem with $s1 health at the feet of the caster for $d that taunts creatures within $6394a1 yards to attack it.",
+    "current_pt": "Totem Garra $s1 por $d s; provoca a até $a1 m.",
+    "samples": [
+      "Stoneclaw Totem (Rank 3) [id=6391]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneclaw Totem with $s1 health at the feet of the caster for $d that taunts creatures within $6395a1 yards to attack it.",
+    "current_pt": "Totem Garra $s1 por $d s; provoca a até $a1 m.",
+    "samples": [
+      "Stoneclaw Totem (Rank 4) [id=6392]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneskin Totem with $s1 health at the feet of the caster.  The totem protects party members within $8072a1 yards, reducing melee damage taken by $8072s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Stoneskin Totem (Rank 1) [id=8071]"
+    ]
+  },
+  {
+    "en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $8076a1 yards by $8076s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Strength of Earth Totem (Rank 1) [id=8075]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneskin Totem with $s1 health at the feet of the caster.  The totem protects party members within $8156a1 yards, reducing melee damage taken by $8156s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Stoneskin Totem (Rank 2) [id=8154]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneskin Totem with $s1 health at the feet of the caster.  The totem protects party members within $8157a1 yards, reducing melee damage taken by $8157s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Stoneskin Totem (Rank 3) [id=8155]"
+    ]
+  },
+  {
+    "en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $8162a1 yards by $8162s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Strength of Earth Totem (Rank 2) [id=8160]"
+    ]
+  },
+  {
+    "en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $8163a1 yards by $8163s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Strength of Earth Totem (Rank 3) [id=8161]"
+    ]
+  },
+  {
+    "en": "Summons a Frost Resistance Totem with $s1 health at the feet of the caster for $d.  The totem increases party members' frost resistance by $8182s1, if within $8182a1 yards.",
+    "current_pt": "",
+    "samples": [
+      "Frost Resistance Totem (Rank 1) [id=8181]"
+    ]
+  },
+  {
+    "en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $8185a1 yards by $8185s1.",
+    "current_pt": "Totem de Fogo $s1 por $d s: +$s2 vs Fogo a $a1 m.",
+    "samples": [
+      "Fire Resistance Totem (Rank 1) [id=8184]"
+    ]
+  },
+  {
+    "en": "Summons a Magma Totem with $s1 health at the feet of the caster for $d that causes $8187s1 Fire damage to creatures within $8187a1 yards every $8188t1 seconds.",
+    "current_pt": "Totem de Magma $s1 por $d s: $s2 de Fogo a $a1 m a cada $t1 s.",
+    "samples": [
+      "Magma Totem (Rank 1) [id=8190]"
+    ]
+  },
+  {
+    "en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;8253m1 to $/25;8253M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $8230a1 yards. Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Flametongue Totem (Rank 1) [id=8227]"
+    ]
+  },
+  {
+    "en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;8248m1 to $/25;8248M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $8250a1 yards.  Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Flametongue Totem (Rank 2) [id=8249]"
+    ]
+  },
+  {
+    "en": "Summons an Elemental Protection Totem at the caster's feet. Totem lasts $d. and increases nearby party members' resistance to harmful magic.",
+    "current_pt": "Totem de Proteção no chão por $d s: +resistência mágica.",
+    "samples": [
+      "Elemental Protection Totem (Rank 1) [id=8262]"
+    ]
+  },
+  {
+    "en": "Summons a Lava Spout Totem at the caster's feet. Totem lasts $d. and inflicts $8265s1 Fire damage to nearby enemies every $8266t1 sec.",
+    "current_pt": "Totem de Lava $d s: $s1 de Fogo a cada $t1 s.",
+    "samples": [
+      "Lava Spout Totem (Rank 1) [id=8264]"
+    ]
+  },
+  {
+    "en": "Summons a Fire Nova Totem that has $s1 health and lasts $d.  Unless it is destroyed within $8504t1 sec., the totem inflicts $8502s1 fire damage to enemies within $8502a1 yd.",
+    "current_pt": "",
+    "samples": [
+      "Fire Nova Totem (Rank 2) [id=8498]"
+    ]
+  },
+  {
+    "en": "Summons a Fire Nova Totem that has $s1 health and lasts $d.  Unless it is destroyed within $8505t1 sec., the totem inflicts $8503s1 fire damage to enemies within $8503a1 yd.",
+    "current_pt": "",
+    "samples": [
+      "Fire Nova Totem (Rank 3) [id=8499]"
+    ]
+  },
+  {
+    "en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $8836a1 yards by $8836s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Grace of Air Totem (Rank 1) [id=8835]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneskin Totem with $s1 health at the feet of the caster.  The totem protects party members within $10403a1 yards, reducing melee damage taken by $10403s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Stoneskin Totem (Rank 4) [id=10406]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneskin Totem with $s1 health at the feet of the caster.  The totem protects party members within $10404a1 yards, reducing melee damage taken by $10404s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Stoneskin Totem (Rank 5) [id=10407]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneskin Totem with $s1 health at the feet of the caster.  The totem protects party members within $10405a1 yards, reducing melee damage taken by $10405s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Stoneskin Totem (Rank 6) [id=10408]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneclaw Totem with $s1 health at the feet of the caster for $d that taunts creatures within $10423a1 yards to attack it.",
+    "current_pt": "Totem Garra $s1 por $d s; provoca a até $a1 m.",
+    "samples": [
+      "Stoneclaw Totem (Rank 5) [id=10427]"
+    ]
+  },
+  {
+    "en": "Summons a Stoneclaw Totem with $s1 health at the feet of the caster for $d that taunts creatures within $10424a1 yards to attack it.",
+    "current_pt": "Totem Garra $s1 por $d s; provoca a até $a1 m.",
+    "samples": [
+      "Stoneclaw Totem (Rank 6) [id=10428]"
+    ]
+  },
+  {
+    "en": "Summons a Searing Totem with $s1 health at your feet for $d that repeatedly attacks an enemy within $10435r1 yards for $10435s1 Fire damage.",
+    "current_pt": "Totem Ígneo $s1 por $d s que ataca a até $a1 m com $s2 de Fogo.",
+    "samples": [
+      "Searing Totem (Rank 5) [id=10437]"
+    ]
+  },
+  {
+    "en": "Summons a Searing Totem with $s1 health at your feet for $d that repeatedly attacks an enemy within $10436r1 yards for $10436s1 Fire damage.",
+    "current_pt": "Totem Ígneo $s1 por $d s que ataca a até $a1 m com $s2 de Fogo.",
+    "samples": [
+      "Searing Totem (Rank 6) [id=10438]"
+    ]
+  },
+  {
+    "en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $10441a1 yards by $10441s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Strength of Earth Totem (Rank 4) [id=10442]"
+    ]
+  },
+  {
+    "en": "Summons a Healing Stream Totem with $s1 health at the feet of the caster for $d that heals group members within $10460a1 yards for $10460s1 every $10460t1 seconds.",
+    "current_pt": "Totem de Cura $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Healing Stream Totem (Rank 4) [id=10462]"
+    ]
+  },
+  {
+    "en": "Summons a Healing Stream Totem with $s1 health at the feet of the caster for $d that heals group members within $10461a1 yards for $10461s1 every $10461t1 seconds.",
+    "current_pt": "Totem de Cura $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Healing Stream Totem (Rank 5) [id=10463]",
+      "Corrupted Healing Stream Totem (Rank 5) [id=23422]"
+    ]
+  },
+  {
+    "en": "Summons a Frost Resistance Totem with $s1 health at the feet of the caster for $d.  The totem increases party members' frost resistance by $10476s1, if within $10476a1 yards.",
+    "current_pt": "",
+    "samples": [
+      "Frost Resistance Totem (Rank 2) [id=10478]"
+    ]
+  },
+  {
+    "en": "Summons a Frost Resistance Totem with $s1 health at the feet of the caster for $d.  The totem increases party members' frost resistance by $10477s1, if within $10477a1 yards.",
+    "current_pt": "",
+    "samples": [
+      "Frost Resistance Totem (Rank 3) [id=10479]"
+    ]
+  },
+  {
+    "en": "Summons a Mana Spring Totem with $s1 health at the feet of the caster for $d that restores $10491s1 mana every $10491t1 seconds to group members within $10491a1 yards.",
+    "current_pt": "Totem de Mana $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Mana Spring Totem (Rank 2) [id=10495]"
+    ]
+  },
+  {
+    "en": "Summons a Mana Spring Totem with $s1 health at the feet of the caster for $d that restores $10493s1 mana every $10493t1 seconds to group members within $10493a1 yards.",
+    "current_pt": "Totem de Mana $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Mana Spring Totem (Rank 3) [id=10496]"
+    ]
+  },
+  {
+    "en": "Summons a Mana Spring Totem with $s1 health at the feet of the caster for $d that restores $10494s1 mana every $10494t1 seconds to group members within $10494a1 yards.",
+    "current_pt": "Totem de Mana $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Mana Spring Totem (Rank 4) [id=10497]"
+    ]
+  },
+  {
+    "en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;10523m1 to $/25;10523M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $10521a1 yards.  Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Flametongue Totem (Rank 3) [id=10526]"
+    ]
+  },
+  {
+    "en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $10534a1 yards by $10534s1.",
+    "current_pt": "Totem de Fogo $s1 por $d s: +$s2 vs Fogo a $a1 m.",
+    "samples": [
+      "Fire Resistance Totem (Rank 2) [id=10537]"
+    ]
+  },
+  {
+    "en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $10535a1 yards by $10535s1.",
+    "current_pt": "Totem de Fogo $s1 por $d s: +$s2 vs Fogo a $a1 m.",
+    "samples": [
+      "Fire Resistance Totem (Rank 3) [id=10538]"
+    ]
+  },
+  {
+    "en": "Summons a Magma Totem with $s1 health at the feet of the caster for $d that causes $10579s1 Fire damage to creatures within $10579a1 yards every $10582t1 seconds.",
+    "current_pt": "Totem de Magma $s1 por $d s: $s2 de Fogo a $a1 m a cada $t1 s.",
+    "samples": [
+      "Magma Totem (Rank 2) [id=10585]"
+    ]
+  },
+  {
+    "en": "Summons a Magma Totem with $s1 health at the feet of the caster for $d that causes $10580s1 Fire damage to creatures within $10580a1 yards every $10583t1 seconds.",
+    "current_pt": "Totem de Magma $s1 por $d s: $s2 de Fogo a $a1 m a cada $t1 s.",
+    "samples": [
+      "Magma Totem (Rank 3) [id=10586]"
+    ]
+  },
+  {
+    "en": "Summons a Magma Totem with $s1 health at the feet of the caster for $d that causes $10581s1 Fire damage to creatures within $10581a1 yards every $10584t1 seconds.",
+    "current_pt": "Totem de Magma $s1 por $d s: $s2 de Fogo a $a1 m a cada $t1 s.",
+    "samples": [
+      "Magma Totem (Rank 4) [id=10587]"
+    ]
+  },
+  {
+    "en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10596a1 yards by $10596s1.",
+    "current_pt": "Totem de Natureza $s1 por $d s: +$s2 vs Natureza a $a1 m.",
+    "samples": [
+      "Nature Resistance Totem (Rank 1) [id=10595]"
+    ]
+  },
+  {
+    "en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10598a1 yards by $10598s1.",
+    "current_pt": "Totem de Natureza $s1 por $d s: +$s2 vs Natureza a $a1 m.",
+    "samples": [
+      "Nature Resistance Totem (Rank 2) [id=10600]"
+    ]
+  },
+  {
+    "en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10599a1 yards by $10599s1.",
+    "current_pt": "Totem de Natureza $s1 por $d s: +$s2 vs Natureza a $a1 m.",
+    "samples": [
+      "Nature Resistance Totem (Rank 3) [id=10601]"
+    ]
+  },
+  {
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem enchants all party members main-hand weapons with wind, if they are within $10607a1 yards.  Each hit has a 20% chance of granting the attacker $10608s2 extra $lattack:attacks; with $10608s1 extra melee attack power.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "[Deprecated] Windfury Totem (Rank 2) [id=10613]"
+    ]
+  },
+  {
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem enchants all party members main-hand weapons with wind, if they are within $10611a1 yards.  Each hit has a 20% chance of granting the attacker $10610s2 extra $lattack:attacks; with $10610s1 extra melee attack power.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "[Deprecated] Windfury Totem (Rank 3) [id=10614]"
+    ]
+  },
+  {
+    "en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $10626a1 yards by $10626s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Grace of Air Totem (Rank 2) [id=10627]"
+    ]
+  },
+  {
+    "en": "Summons a Fire Nova Totem that has $s1 health and lasts $d.  Unless it is destroyed within $11310t1 sec., the totem inflicts $11306s1 fire damage to enemies within $11306a1 yd.",
+    "current_pt": "",
+    "samples": [
+      "Fire Nova Totem (Rank 4) [id=11314]"
+    ]
+  },
+  {
+    "en": "Summons a Fire Nova Totem that has $s1 health and lasts $d.  Unless it is destroyed within $11311t1 sec., the totem inflicts $11307s1 fire damage to enemies within $11307a1 yd.",
+    "current_pt": "",
+    "samples": [
+      "Fire Nova Totem (Rank 5) [id=11315]",
+      "Fire Nova Totem (Rank 5) [id=27623]"
+    ]
+  },
+  {
+    "en": "Summons a Windwall Totem with $s1 health at the feet of the caster.  The totem protects party members within $15108a1 yards, reducing ranged damage taken by $15108s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Windwall Totem (Rank 1) [id=15107]"
+    ]
+  },
+  {
+    "en": "Summons a Windwall Totem with $s1 health at the feet of the caster.  The totem protects party members within $15109a1 yards, reducing ranged damage taken by $15109s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Windwall Totem (Rank 2) [id=15111]"
+    ]
+  },
+  {
+    "en": "Summons a Windwall Totem with $s1 health at the feet of the caster.  The totem protects party members within $15110a1 yards, reducing ranged damage taken by $15110s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Windwall Totem (Rank 3) [id=15112]"
+    ]
+  },
+  {
+    "en": "Reduces the delay before your Fire Nova Totem activates by $/1000;s1 sec and decreases the threat generated by your Magma Totem by $s3%.",
+    "current_pt": "Nova ativa -$s1 s e Magma -$s2% ameaça.",
+    "samples": [
+      "Improved Fire Totems (Rank 1) [id=16086]",
+      "Improved Fire Totems (Rank 2) [id=16544]"
+    ]
+  },
+  {
+    "en": "Reduces the Mana cost of your Magma Totem by $s1%.",
+    "current_pt": "Magma -$s1% mana.",
+    "samples": [
+      "Improved Magma Totem (Rank 1) [id=16088]",
+      "Improved Magma Totem (Rank 2) [id=16129]"
+    ]
+  },
+  {
+    "en": "Increases the duration of your Searing Totem by $s1%.",
+    "current_pt": "Ígneo +$s1% duração.",
+    "samples": [
+      "Improved Searing Totem (Rank 2) [id=16127]"
+    ]
+  },
+  {
+    "en": "Increases the Health of your Stoneclaw Totem by $s1%.",
+    "current_pt": "Aumenta a Vida do seu Totem Garra de Pedra em $s1%.",
+    "samples": [
+      "Improved Stoneclaw Totem (Rank 3) [id=16131]",
+      "Improved Stoneclaw Totem (Rank 4) [id=16132]",
+      "Improved Stoneclaw Totem (Rank 5) [id=16133]"
+    ]
+  },
+  {
+    "en": "Reduces the Mana cost of your totems by $s1%.",
+    "current_pt": "Reduz o custo de mana dos seus totens em $s1%.",
+    "samples": [
+      "Totemic Focus (Rank 1) [id=16173]",
+      "Totemic Focus (Rank 2) [id=16222]",
+      "Totemic Focus (Rank 3) [id=16223]",
+      "Totemic Focus (Rank 4) [id=16224]",
+      "Totemic Focus (Rank 5) [id=16225]"
+    ]
+  },
+  {
+    "en": "Increases the effect of your Healing Stream Totem by $s1%.",
+    "current_pt": "Aumenta o efeito do seu Totem de Cura em $s1%.",
+    "samples": [
+      "Improved Healing Stream Totem (Rank 1) [id=16185]",
+      "Improved Healing Stream Totem (Rank 2) [id=16201]",
+      "Improved Healing Stream Totem (Rank 3) [id=16202]",
+      "Improved Healing Stream Totem (Rank 4) [id=16203]",
+      "Improved Healing Stream Totem (Rank 5) [id=16204]"
+    ]
+  },
+  {
+    "en": "Reduces mana cost of your Mana Spring Totem by $s2% and increases the effect of your Healing Stream Totem by $s1%.",
+    "current_pt": "Reduz o custo do Totem de Mana em $s1% e aumenta o efeito do Totem de Cura em $s2%.",
+    "samples": [
+      "Restorative Totems (Rank 1) [id=16187]",
+      "Restorative Totems (Rank 2) [id=16205]",
+      "Restorative Totems (Rank 3) [id=16206]",
+      "Restorative Totems (Rank 4) [id=16207]",
+      "Restorative Totems (Rank 5) [id=16208]"
+    ]
+  },
+  {
+    "en": "Summons a Mana Tide Totem with $s1 health at the feet of the caster for $d that restores $16191s1 mana every $16191t1 seconds to group members within $16191a1 yards.",
+    "current_pt": "Totem de Mana $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "samples": [
+      "Mana Tide Totem (Rank 1) [id=16190]"
+    ]
+  },
+  {
+    "en": "Increases the effects of your Flametongue and Windfury Totems by $s1%.",
+    "current_pt": "Aumenta o efeito dos seus Totens de Fogo e Vento em $s1%.",
+    "samples": [
+      "Totemic Wrath (Rank 1) [id=16251]",
+      "Totemic Wrath (Rank 2) [id=16395]",
+      "Totemic Wrath (Rank 3) [id=16397]",
+      "Totemic Wrath (Rank 4) [id=16398]",
+      "Totemic Wrath (Rank 5) [id=16399]"
+    ]
+  },
+  {
+    "en": "Increases the amount of damage reduced by your Stoneskin Totem and Windwall Totem by $s1% and reduces the cooldown of your Grounding Totem by $/1000;s2 sec.",
+    "current_pt": "Ao morrer, seu espírito se perde no Éter, sem retorno ao plano material.",
+    "samples": [
+      "Guardian Totems (Rank 1) [id=16258]",
+      "Guardian Totems (Rank 2) [id=16293]"
+    ]
+  },
+  {
+    "en": "Increases the effect of your Strength of Earth and Grace of Air Totems by $s1% and reduces the cooldown of your Grounding Totem by $/1000;s3 sec. Your Stoneskin Totem's damage reduction is increased by $s2% and additionally it increases block amount by $s2%.",
+    "current_pt": "Aumenta o efeito dos Totens de Terra, Ar e Aterrar em $s1% e -$s2 s de recarga, com Pele de Pedra +$s3% e +$s3 bloqueio.",
+    "samples": [
+      "Enhancing Totems (Rank 1) [id=16259]",
+      "Enhancing Totems (Rank 2) [id=16295]"
+    ]
+  },
+  {
+    "en": "Increases the amount of Agility raised by your Grace of Air Totem by $s1%.",
+    "current_pt": "Aumenta a Agi do Totem Graça Aérea em $s1%.",
+    "samples": [
+      "Improved Grace of Air Totem (Rank 1) [id=16260]",
+      "Improved Grace of Air Totem (Rank 2) [id=16288]",
+      "Improved Grace of Air Totem (Rank 3) [id=16289]"
+    ]
+  },
+  {
+    "en": "Increases the amount of damage absorbed by your Stoneskin Totem by $s1%.",
+    "current_pt": "Pele de Pedra +$s1% absorção.",
+    "samples": [
+      "Improved Stoneskin Totem (Rank 3) [id=16294]"
+    ]
+  },
+  {
+    "en": "Increases the amount of Strength raised by your Strength of Earth Totem by $s1%.",
+    "current_pt": "Força da Terra +$s1% For.",
+    "samples": [
+      "Improved Strength of Earth Totem (Rank 3) [id=16296]"
+    ]
+  },
+  {
+    "en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;16389m1 to $/25;16389M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $15036a1 yards.  Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Flametongue Totem (Rank 4) [id=16387]"
+    ]
+  },
+  {
+    "en": "Increases the frequency that your Grounding Totem will redirect a spell by $/1000;s1 sec.",
+    "current_pt": "Aumenta a frequência do Totem Aterrador em $s1 s.",
+    "samples": [
+      "Improved Grounding Totem (Rank 1) [id=16546]",
+      "Improved Grounding Totem (Rank 2) [id=16547]"
+    ]
+  },
+  {
+    "en": "Summons a Mana Tide Totem with $s1 health at the feet of the caster for $d that restores $17355s1 mana every $17355t1 seconds to group members within $17355a1 yards.",
+    "current_pt": "Invoca um Totem de Maré de Mana com $s1 de vida aos pés do conjurador por $d s, restaurando $s2 de mana a cada $t1 s ao grupo a até $a1 m.",
+    "samples": [
+      "Mana Tide Totem (Rank 2) [id=17354]"
+    ]
+  },
+  {
+    "en": "Summons a Mana Tide Totem with $s1 health at the feet of the caster for $d that restores $17360s1 mana every $17360t1 seconds to group members within $17360a1 yards.",
+    "current_pt": "Invoca um Totem de Maré de Mana com $s1 de vida aos pés do conjurador por $d s, restaurando $s2 de mana a cada $t1 s ao grupo a até $a1 m.",
+    "samples": [
+      "Mana Tide Totem (Rank 3) [id=17359]"
+    ]
+  },
+  {
+    "en": "Summons a Testing Totem with $s1 health at your feet for $d that rapidly attacks an enemy within $22048r1 yards for $22048s1 Fire damage.",
+    "current_pt": "",
+    "samples": [
+      "Testing Totem (Rank 1) [id=22047]"
+    ]
+  },
+  {
+    "en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $25360a1 yards by $25360s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Grace of Air Totem (Rank 3) [id=25359]"
+    ]
+  },
+  {
+    "en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $25362a1 yards by $25362s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Strength of Earth Totem (Rank 5) [id=25361]"
+    ]
+  },
+  {
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem enchants all party members main-hand weapons with wind, if they are within $10611a1 yards.  Each hit has a 20% chance of granting the attacker $10610s2 extra $lattack:attacks; with $10610s1 extra attack power.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Windfury Totem (Rank 3) [id=27621]"
+    ]
+  },
+  {
+    "en": "Increases the melee attack power bonus of your Windfury Totem by $s1% and increases the damage caused by your Flametongue Totem by $s2%.",
+    "current_pt": "Aumenta o bônus do Totem Fúria dos Ventos em $s1% e o dano do Língua de Fogo em $s2%.",
+    "samples": [
+      "Improved Weapon Totems (Rank 1) [id=29192]",
+      "Improved Weapon Totems (Rank 2) [id=29193]"
+    ]
+  },
+  {
+    "en": "$51379s1% of the threat generated by your totems is transferred to you.",
+    "current_pt": "$s1% da ameaça do totem pra você.",
+    "samples": [
+      "Totemic Alignment (Rank 1) [id=51381]"
+    ]
+  },
+  {
+    "en": "$51380s1% of the threat generated by your totems is transferred to you.",
+    "current_pt": "$s1% da ameaça do totem pra você.",
+    "samples": [
+      "Totemic Alignment (Rank 2) [id=51382]"
+    ]
+  }
+]

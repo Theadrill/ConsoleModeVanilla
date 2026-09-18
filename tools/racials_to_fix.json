@@ -1,0 +1,370 @@
+[
+  {
+    "en": "Allows the dwarf to sense nearby treasure, making it appear on the minimap.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Find Treasure (Racial) [id=2481]"
+    ]
+  },
+  {
+    "en": "Absorbs $s1 frost damage.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Frost Resistance () [id=4077]",
+      "Frost Resistance () [id=27534]"
+    ]
+  },
+  {
+    "en": "Your resistance to Frost spells is increased by $s1.",
+    "current_pt": "Gelo +$s1.",
+    "samples": [
+      "Frost Resistance (Racial) [id=4080]"
+    ]
+  },
+  {
+    "en": "Your resistance to Nature spells is increased by $m1.",
+    "current_pt": "Natureza +$s1.",
+    "samples": [
+      "Nature Resistance (Racial) [id=4081]"
+    ]
+  },
+  {
+    "en": "Your resistance to Shadow spells is increased by $s1.",
+    "current_pt": "Sombra +$s1.",
+    "samples": [
+      "Shadow Resistance (Racial) [id=4084]"
+    ]
+  },
+  {
+    "en": "Adds $s1 damage and hits one additional target",
+    "current_pt": "+$s1 e +1 alvo.",
+    "samples": [
+      "Quickness () [id=4281]"
+    ]
+  },
+  {
+    "en": "Underwater breath lasts $s1% longer than normal.",
+    "current_pt": "Respira +$s1% tempo.",
+    "samples": [
+      "Underwater Breathing (Racial Passive) [id=5227]"
+    ]
+  },
+  {
+    "en": "Restores 5 mana every 5 seconds.",
+    "current_pt": "5 mana a cada 5 s.",
+    "samples": [
+      "Mana Regeneration I () [id=5694]",
+      "Mana Regeneration I () [id=7822]"
+    ]
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed gorilla the Quickness ability. Quickness is an attack that can hit multiple enemies.\nRequires: \nPet Level 36+",
+    "current_pt": "",
+    "samples": [
+      "Quickness () [id=6015]"
+    ]
+  },
+  {
+    "en": "Increases the caster's armor by $s1 for $d.",
+    "current_pt": "Armadura +$s1 por $d s.",
+    "samples": [
+      "Stoneform () [id=7020]"
+    ]
+  },
+  {
+    "en": "Provides immunity to Charm, Fear and Sleep while active.  May also be used while already afflicted by Charm, Fear or Sleep.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Will of the Forsaken (Racial) [id=7744]"
+    ]
+  },
+  {
+    "en": "Permanently enchant a cloak so that it increases resistance to shadow by 10.",
+    "current_pt": "Manto: +10 vs Sombra.",
+    "samples": [
+      "Enchant Cloak - Lesser Shadow Resistance () [id=13522]"
+    ]
+  },
+  {
+    "en": "Permanently enchant a shield to give +8 Frost Resistance.",
+    "current_pt": "Escudo: +8 vs Gelo.",
+    "samples": [
+      "Enchant Shield - Frost Resistance () [id=13933]"
+    ]
+  },
+  {
+    "en": "Total Health increased by $s1%.",
+    "current_pt": "Vida +$s1%.",
+    "samples": [
+      "Endurance (Racial Passive) [id=20550]"
+    ]
+  },
+  {
+    "en": "Nature Resistance increased by $s1.",
+    "current_pt": "Natureza +$s1.",
+    "samples": [
+      "Nature Resistance (Racial Passive) [id=20551]",
+      "Nature Resistance (Racial Passive) [id=20583]"
+    ]
+  },
+  {
+    "en": "Herbalism skill increased by $s1.",
+    "current_pt": "Herborismo +$s1.",
+    "samples": [
+      "Cultivation (Racial Passive) [id=20552]"
+    ]
+  },
+  {
+    "en": "Increases your casting and attack speed by $26635m1% to $26635M1%.  At full health the speed increase is $26635m1% with a greater effect up to $26635M1% if you are badly hurt when you activate Berserking.  Lasts $26635d.",
+    "current_pt": "",
+    "samples": [
+      "Berserking (Racial) [id=20554]"
+    ]
+  },
+  {
+    "en": "Health regeneration rate increased by $s1%.  $s2% of total Health regeneration may continue during combat.",
+    "current_pt": "",
+    "samples": [
+      "Regeneration (Racial Passive) [id=20555]"
+    ]
+  },
+  {
+    "en": "Damage dealt versus Beasts increased by $s1%.",
+    "current_pt": "Feras +$s1%.",
+    "samples": [
+      "Beast Slaying (Racial Passive) [id=20557]"
+    ]
+  },
+  {
+    "en": "Skill with Throwing Weapons increased by $s1.",
+    "current_pt": "Arremesso +$s1.",
+    "samples": [
+      "Throwing Specialization (Racial Passive) [id=20558]"
+    ]
+  },
+  {
+    "en": "Increases attack power by $*2;s1 and damage done by magical spells and effects by up to $s1 for $23234d. Reduces healing effects on you by $23230s1% for $23230d.",
+    "current_pt": "Poder +$s1 e magia +$s2 por $d1 s. Cura em você -$s3% por $d2 s.",
+    "samples": [
+      "Blood Fury (Racial) [id=20572]"
+    ]
+  },
+  {
+    "en": "When activated, regenerates $20578s1% of total health every $20578t1 sec for $20578d.  Only works on Humanoid or Undead corpses within $a1 yds.  Any movement, action, or damage taken while Cannibalizing will cancel the effect.",
+    "current_pt": "",
+    "samples": [
+      "Cannibalize (Racial) [id=20577]"
+    ]
+  },
+  {
+    "en": "Shadow Resistance increased by $s1.",
+    "current_pt": "Sombra +$s1.",
+    "samples": [
+      "Shadow Resistance (Racial Passive) [id=20579]"
+    ]
+  },
+  {
+    "en": "Activate to slip into the shadows, reducing the chance for enemies to detect your presence.  Lasts until cancelled or moving and remains active for $20581d after either action.  Night Elf Rogues and Druids with Shadowmeld are more difficult to detect while stealthed or prowling.",
+    "current_pt": "",
+    "samples": [
+      "Shadowmeld (Racial) [id=20580]"
+    ]
+  },
+  {
+    "en": "Transform into a wisp upon death, increasing speed by $20584s1%.",
+    "current_pt": "Morto vira fada: +$s1% velocidade.",
+    "samples": [
+      "Wisp Spirit (Racial Passive) [id=20585]"
+    ]
+  },
+  {
+    "en": "Intelligence increased by $s1%.",
+    "current_pt": "Int +$s1%.",
+    "samples": [
+      "Expansive Mind (Racial Passive) [id=20591]"
+    ]
+  },
+  {
+    "en": "Arcane Resistance increased by $s1.",
+    "current_pt": "Arcano +$s1.",
+    "samples": [
+      "Arcane Resistance (Racial Passive) [id=20592]"
+    ]
+  },
+  {
+    "en": "Engineering skill increased by $s1.",
+    "current_pt": "Engenharia +$s1.",
+    "samples": [
+      "Engineering Specialization (Racial Passive) [id=20593]"
+    ]
+  },
+  {
+    "en": "While active, grants immunity to Bleed, Poison, and Disease effects.  In addition, reduces physical damage taken by $s1%.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Stoneform (Racial) [id=20594]"
+    ]
+  },
+  {
+    "en": "Skill with Guns increased by $s1.",
+    "current_pt": "Armas de Fogo +$s1.",
+    "samples": [
+      "Gun Specialization (Racial Passive) [id=20595]"
+    ]
+  },
+  {
+    "en": "Frost resistance increased by $s1.",
+    "current_pt": "Gelo +$s1.",
+    "samples": [
+      "Frost Resistance (Racial Passive) [id=20596]"
+    ]
+  },
+  {
+    "en": "Reputation gains increased by $s1%.",
+    "current_pt": "Reputação +$s1%.",
+    "samples": [
+      "Diplomacy (Racial Passive) [id=20599]"
+    ]
+  },
+  {
+    "en": "Dramatically increases stealth detection and grants $s2% increased spell and physical critical strike chance.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Perception (Racial) [id=20600]"
+    ]
+  },
+  {
+    "en": "Skill with Maces and Two-Handed Maces increased by $s1.",
+    "current_pt": "Maças e Maças 2M +$s1.",
+    "samples": [
+      "Mace Specialization (Racial Passive) [id=20864]"
+    ]
+  },
+  {
+    "en": "Permanently enchants bracers to restore 4 mana every 5 seconds.",
+    "current_pt": "Braçadeira: +4 mana/5 s.",
+    "samples": [
+      "Enchant Bracer - Mana Regeneration () [id=23801]"
+    ]
+  },
+  {
+    "en": "Regenerate $s1 mana per 5 sec for $d.",
+    "current_pt": "$s1 mana/5 s por $d s.",
+    "samples": [
+      "Mana Regeneration () [id=24363]"
+    ]
+  },
+  {
+    "en": "Instantly increases your rage by $/10;s1.",
+    "current_pt": "Fúria +$s1 na hora.",
+    "samples": [
+      "Blood Fury () [id=24571]"
+    ]
+  },
+  {
+    "en": "Permanently enchant a cloak to give 15 nature resistance.",
+    "current_pt": "Manto: +15 vs Natureza.",
+    "samples": [
+      "Enchant Cloak - Greater Nature Resistance () [id=25082]"
+    ]
+  },
+  {
+    "en": "Skill with Bow Weapons increased by $s1.",
+    "current_pt": "Arco +$s1.",
+    "samples": [
+      "Bow Specialization (Racial Passive) [id=26290]"
+    ]
+  },
+  {
+    "en": "Increases your attack speed by $26635m1% to $26635M1%.  At full health the speed increase is $26635m1% with a greater effect up to $26635M1% if you are badly hurt when you activate Berserking.  Lasts $26635d.",
+    "current_pt": "",
+    "samples": [
+      "Berserking (Racial) [id=26296]",
+      "Berserking (Racial) [id=26297]"
+    ]
+  },
+  {
+    "en": "Absorbs $s1 shadow damage.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Shadow Resistance () [id=27535]"
+    ]
+  },
+  {
+    "en": "Absorbs $s1 nature damage.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Nature Resistance () [id=27538]"
+    ]
+  },
+  {
+    "en": "Absorbs $s1 arcane damage.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Arcane Resistance () [id=27540]"
+    ]
+  },
+  {
+    "en": "Increases frost resistance by $s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Frost Resistance () [id=28766]"
+    ]
+  },
+  {
+    "en": "Increases nature resistance by $s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Nature Resistance () [id=28768]"
+    ]
+  },
+  {
+    "en": "Increases shadow resistance by $s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Shadow Resistance () [id=28769]"
+    ]
+  },
+  {
+    "en": "Increases arcane resistance by $s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Arcane Resistance () [id=28770]"
+    ]
+  },
+  {
+    "en": "The warrior shouts, increasing the health of all party members within $a1 yards by $s1.  Lasts $d.",
+    "current_pt": "",
+    "samples": [
+      "Shout of Endurance () [id=52310]"
+    ]
+  },
+  {
+    "en": "Command with your Battle Shout, granting  $52310s1 additional health.",
+    "current_pt": "",
+    "samples": [
+      "Shout of Endurance Passive () [id=52311]"
+    ]
+  },
+  {
+    "en": "Permanently enchant a cloak to increase arcane magic resistance by 15.",
+    "current_pt": "Manto: +15 vs Arcano.",
+    "samples": [
+      "Enchant Cloak - Greater Arcane Resistance () [id=57117]"
+    ]
+  },
+  {
+    "en": "Permanently adds 25 spell penetration to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "current_pt": "Perna/cabeça: +25 penetração. Sem acumular.",
+    "samples": [
+      "Invocation of Expansive Mind () [id=57153]"
+    ]
+  },
+  {
+    "en": "Permanently adds 2% haste to a shoulder slot item.",
+    "current_pt": "Ombro: +2% pressa.",
+    "samples": [
+      "Sigil of Quickness () [id=57156]"
+    ]
+  }
+]

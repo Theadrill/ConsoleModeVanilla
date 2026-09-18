@@ -589,7 +589,7 @@ end
 
 function MainMenu:ScanTooltipForItemLink(itemLink)
     if not itemLink or itemLink == "" then return nil end
-    local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:%d+:%d+:%d+:%d+)|h%[(.-)%]|h|r")
+    local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:[^|]+)|h%[(.-)%]|h|r")
     if not rawLink then return nil end
     local itemName, itemQuality, itemReqLevel, itemType, itemSubType, itemEquipLoc
     local n, _, q, reqL, t, st, _, eqL = GetItemInfo(rawLink)
@@ -1383,7 +1383,7 @@ function MainMenu:UpdateEquipmentColumn()
             if itemTexture and itemLink then
                 btn.icon:SetTexture(itemTexture)
 
-                local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:%d+:%d+:%d+:%d+)|h%[(.-)%]|h|r")
+                local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:[^|]+)|h%[(.-)%]|h|r")
                 
                 local itemName = nameFromLink
                 local itemQuality = nil
@@ -1907,7 +1907,7 @@ function MainMenu:ParseItemStats(itemLink, bagID, slotID)
     if string.find(itemLink, "^item:") then
         rawLink = itemLink
     else
-        local _, _, extracted = string.find(itemLink, "(item:%d+:%d+:%d+:%d+)")
+        local _, _, extracted = string.find(itemLink, "(item:[^|%s>]+)")
         if extracted then rawLink = extracted end
     end
 
@@ -3344,7 +3344,8 @@ function MainMenu:CreateDetailCard(parent, config)
         -- 6. Rodape e Atualizacoes Finais
         if self.sellWidget then self.sellWidget:Hide() end
         if self.slotsFreeText then
-            self.slotsFreeText:SetText("|cffe09a15Grimório:|r |cffffffff" .. (spellData.tabName or "Geral") .. "|r")
+            local locTab = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(spellData.tabName) or (spellData.tabName or "Geral")
+            self.slotsFreeText:SetText("|cffe09a15Grimório:|r |cffffffff" .. locTab .. "|r")
         end
         self:UpdateMoney()
         self:Show()
@@ -3391,7 +3392,8 @@ function MainMenu:CreateDetailCard(parent, config)
 
         local quality = (scanned and scanned.quality) or 1
         local qCol = (ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]) or { r=1, g=1, b=1, hex="|cffffffff" }
-        self.titleText:SetText(qCol.hex .. ((scanned and scanned.name) or "Item") .. "|r")
+        local locEqName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(scanned and scanned.name) or ((scanned and scanned.name) or "Item")
+        self.titleText:SetText(qCol.hex .. locEqName .. "|r")
         self.iconBorder:SetBackdropBorderColor(qCol.r, qCol.g, qCol.b, 0.95)
         self.iconBorder:Show()
 
@@ -3432,13 +3434,16 @@ function MainMenu:CreateDetailCard(parent, config)
         local subParts = {}
         if slotData and slotData.label then table.insert(subParts, slotData.label) end
         if scanned and scanned.subType and scanned.subType ~= "" then
-            local st = scanned.subType
+            local st = (ConsoleMode and ConsoleMode.GamePT_ItemSubType) and ConsoleMode:GamePT_ItemSubType(scanned.subType) or scanned.subType
             local isDup = false
             if slotData and slotData.label and (string.lower(st) == string.lower(slotData.label)) then isDup = true end
             if not isDup then table.insert(subParts, st) end
         end
-        if durText then table.insert(subParts, durText) end
-        if isSoulbound then table.insert(subParts, "|cffffd100Soulbound|r") end
+        if durText then
+            local locDur = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(durText) or durText
+            table.insert(subParts, locDur)
+        end
+        if isSoulbound then table.insert(subParts, "|cffffd100Vinculado|r") end
         if isUnique then table.insert(subParts, "|cffffd100Único|r") end
         if scanned and scanned.reqLevel and tonumber(scanned.reqLevel) > 1 then
             table.insert(subParts, "Req. Nv " .. scanned.reqLevel)
@@ -3462,17 +3467,20 @@ function MainMenu:CreateDetailCard(parent, config)
             local lower = string.lower(txt)
             if ignoredSlots[lower] or string.find(lower, "requires level") or string.find(lower, "requer nível") or string.find(lower, "req. nv") then
                 -- ignora linha duplicada
-            elseif string.find(txt, "Uso:") or string.find(txt, "Use:") or string.find(txt, "Equipar:") or string.find(txt, "Equip:") then
-                table.insert(rightLines, "|cff00ff00" .. txt .. "|r")
             else
-                local isCombat = false
-                if string.find(lower, "dano") or string.find(lower, "damage") or string.find(lower, "velocidade") or string.find(lower, "speed") or string.find(lower, "por segundo") or string.find(lower, "per second") or string.find(lower, "armadura") or string.find(lower, "armor") or string.find(lower, "bloqueio") or string.find(lower, "block") then
-                    isCombat = true
-                end
-                if isCombat then
-                    table.insert(leftLines, "|cffffffff" .. txt .. "|r")
+                local locTxt = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(txt) or txt
+                if string.find(locTxt, "Uso:") or string.find(locTxt, "Use:") or string.find(locTxt, "Equipar:") or string.find(locTxt, "Equip:") then
+                    table.insert(rightLines, "|cff00ff00" .. locTxt .. "|r")
                 else
-                    table.insert(rightLines, "|cffffffff" .. txt .. "|r")
+                    local isCombat = false
+                    if string.find(lower, "dano") or string.find(lower, "damage") or string.find(lower, "velocidade") or string.find(lower, "speed") or string.find(lower, "por segundo") or string.find(lower, "per second") or string.find(lower, "armadura") or string.find(lower, "armor") or string.find(lower, "bloqueio") or string.find(lower, "block") then
+                        isCombat = true
+                    end
+                    if isCombat then
+                        table.insert(leftLines, "|cffffffff" .. locTxt .. "|r")
+                    else
+                        table.insert(rightLines, "|cffffffff" .. locTxt .. "|r")
+                    end
                 end
             end
         end
@@ -4029,7 +4037,7 @@ function MainMenu:ParseItemData(bagID, slotID)
     local sellPrice = 0
 
     if link then
-        local _, _, _, rawL, nameFromL = string.find(link, "|c(%x+)|H(item:%d+:%d+:%d+:%d+)|h%[(.-)%]|h|r")
+        local _, _, _, rawL, nameFromL = string.find(link, "|c(%x+)|H(item:[^|]+)|h%[(.-)%]|h|r")
         itemName = nameFromL
         rawLink = rawL
     end

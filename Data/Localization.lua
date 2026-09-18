@@ -289,6 +289,11 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         return rawDesc
     end
 
+    -- Normaliza espaços múltiplos (ex: ".  " para ". ") para garantir casamento uniforme
+    local normDesc = string.gsub(rawDesc, "%s+", " ")
+    normDesc = string.gsub(normDesc, "^%s+", "")
+    normDesc = string.gsub(normDesc, "%s+$", "")
+
     local key = string.lower(spellName or "")
 
     -- 1. Tenta casar nos templates canonicos especificos do feitico
@@ -296,7 +301,10 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         local entryList = db.spells[key]
         for _, item in ipairs(entryList) do
             if item.pat and item.tpl then
-                local matches = { string.find(rawDesc, item.pat) }
+                local matches = { string.find(normDesc, item.pat) }
+                if not matches[1] then
+                    matches = { string.find(rawDesc, item.pat) }
+                end
                 if matches[1] then
                     local args = {}
                     local mLen = table.getn(matches)
@@ -327,7 +335,10 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
     if db.genericTemplates then
         for _, gItem in ipairs(db.genericTemplates) do
             if gItem.pat and gItem.tpl then
-                local matches = { string.find(rawDesc, gItem.pat) }
+                local matches = { string.find(normDesc, gItem.pat) }
+                if not matches[1] then
+                    matches = { string.find(rawDesc, gItem.pat) }
+                end
                 if matches[1] then
                     local args = {}
                     local mLen = table.getn(matches)
@@ -793,6 +804,33 @@ end
 -- Tradução de Conteúdo de Itens e Inventário (Fase 7.5)
 ---------------------------------------------------------------------------
 
+local CM_ITEM_SUFFIXES = {
+    ["of the Monkey"] = "do Macaco", ["of the monkey"] = "do Macaco",
+    ["of the Eagle"] = "da Águia", ["of the eagle"] = "da Águia",
+    ["of the Bear"] = "do Urso", ["of the bear"] = "do Urso",
+    ["of the Whale"] = "da Baleia", ["of the whale"] = "da Baleia",
+    ["of the Owl"] = "da Coruja", ["of the owl"] = "da Coruja",
+    ["of the Gorilla"] = "do Gorila", ["of the gorilla"] = "do Gorila",
+    ["of the Falcon"] = "do Falcão", ["of the falcon"] = "do Falcão",
+    ["of the Wolf"] = "do Lobo", ["of the wolf"] = "do Lobo",
+    ["of the Tiger"] = "do Tigre", ["of the tiger"] = "do Tigre",
+    ["of the Boar"] = "do Javali", ["of the boar"] = "do Javali",
+    ["of Strength"] = "da Força", ["of strength"] = "da Força",
+    ["of Agility"] = "da Agilidade", ["of agility"] = "da Agilidade",
+    ["of Stamina"] = "do Vigor", ["of stamina"] = "do Vigor",
+    ["of Intellect"] = "do Intelecto", ["of intellect"] = "do Intelecto",
+    ["of Spirit"] = "do Espírito", ["of spirit"] = "do Espírito",
+    ["of Power"] = "do Poder", ["of power"] = "do Poder",
+    ["of Defense"] = "da Defesa", ["of defense"] = "da Defesa",
+    ["of Blocking"] = "do Bloqueio", ["of blocking"] = "do Bloqueio",
+    ["of Healing"] = "da Cura", ["of healing"] = "da Cura",
+    ["of Fire Wrath"] = "da Fúria do Fogo",
+    ["of Frost Wrath"] = "da Fúria do Gelo",
+    ["of Nature's Wrath"] = "da Fúria da Natureza",
+    ["of Shadow Wrath"] = "da Fúria da Sombra",
+    ["of Arcane Wrath"] = "da Fúria Arcana",
+}
+
 -- Tradução do nome do item. Lookup em game.items com fallback ptBR -> original.
 function CM:GamePT_Item(itemName)
     if not itemName or itemName == "" then
@@ -819,6 +857,19 @@ function CM:GamePT_Item(itemName)
             end
         end
     end
+
+    -- Decomposição de itens mágicos verdes com sufixo (ex: "Linen Belt of the Boar")
+    local _, _, baseName, sfx = string.find(itemName, "^(.+)%s+(of%s+.+)$")
+    if baseName and sfx then
+        local locBase = self:GamePT_Item(baseName)
+        local locSfx = CM_ITEM_SUFFIXES[sfx] or sfx
+        if locBase and locBase ~= baseName then
+            return locBase .. " " .. locSfx
+        elseif locSfx ~= sfx then
+            return baseName .. " " .. locSfx
+        end
+    end
+
     return itemName
 end
 
@@ -999,6 +1050,16 @@ function CM:GamePT_ItemStat(statLine)
     s = string.gsub(s, "^Use:%s*", "Uso: ")
     s = string.gsub(s, "^Equip:%s*", "Equipar: ")
     s = string.gsub(s, "^Chance on hit:%s*", "Chance ao acertar: ")
+
+    -- Efeito canônico da Pedra de Regresso (Hearthstone)
+    s = string.gsub(s, "Return to ([^%.]+)%.%s*Speak to an Innkeeper in a different place to change your home location%.", "Retorna a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "Speak to an Innkeeper in a different place to change your home location%.", "Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+
+    -- Comidas, Bebidas e Bandagens
+    s = string.gsub(s, "Must remain seated while eating%.", "Deve permanecer sentado enquanto come.")
+    s = string.gsub(s, "Must remain seated while drinking%.", "Deve permanecer sentado enquanto bebe.")
+    s = string.gsub(s, "Heals (%d+) damage over (%d+) sec%.", "Cura %1 de dano ao longo de %2 s.")
+    s = string.gsub(s, "Recently Bandaged", "Enfaixado Recentemente")
 
     -- 7. Efeitos Frequentes de Poções, Comidas e Itens
     s = string.gsub(s, "Restores (%d+ to %d+) health%.", "Restaura %1 de vida.")

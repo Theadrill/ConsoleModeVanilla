@@ -130,6 +130,267 @@ CM_SpellDesc_ptBR.spells = {
         }
     },
 
+    ["frostbrand weapon"] = {
+        {
+            pat = "Imbue the Shaman's weapon with frost%. Each hit has a chance of causing (%d+ to %d+) Frost damage and slowing the target's movement speed by (%d+)%% for (%d+) sec%. Lasts (%d+) min%.",
+            tpl = "Infunde a arma do Xamã com gelo. Cada golpe tem chance de causar %s de dano de Gelo e reduzir a velocidade de movimento do alvo em %s%% por %s s. Dura %s min."
+        },
+        {
+            pat = "Imbue the Shaman's weapon with frost%. Each hit has a chance of causing (%d+) Frost damage and slowing the target's movement speed by (%d+)%% for (%d+) sec%. Lasts (%d+) min%.",
+            tpl = "Infunde a arma do Xamã com gelo. Cada golpe tem chance de causar %s de dano de Gelo e reduzir a velocidade de movimento do alvo em %s%% por %s s. Dura %s min."
+        }
+    },
+    ["stoneskin totem"] = {
+        {
+            pat = "Summons a Stoneskin Totem with 5 health at the feet of the caster%. The totem protects party members within (%d+) yards, reducing melee damage taken by (%d+)%. Lasts (%d+) min%.",
+            tpl = "Evoca um Totem de Pele de Pedra com 5 de vida aos pés do lançador. O totem protege membros do grupo a até %s metros, reduzindo o dano corpo a corpo recebido em %s. Dura %s min."
+        },
+        {
+            pat = "Summons a Stoneskin Totem with 5 health at the feet of the caster for (%d+) min%. The totem protects party members within (%d+) yards, reducing melee damage taken by (%d+)%.",
+            tpl = "Evoca um Totem de Pele de Pedra com 5 de vida aos pés do lançador por %s min. O totem protege membros do grupo a até %s metros, reduzindo o dano corpo a corpo recebido em %s."
+        }
+    },
+    ["earthbind totem"] = {
+        {
+            pat = "Summons an Earthbind Totem with 5 health at the feet of the caster for (%d+) sec that periodically pulses, slowing the movement speed of all nearby enemies within (%d+) yards for (%d+) sec%.",
+            tpl = "Evoca um Totem de Prisão da Terra com 5 de vida aos pés do lançador por %s s que emite pulsos periódicos, reduzindo a velocidade de movimento de inimigos próximos a até %s metros por %s s."
+        },
+        {
+            pat = "Summons an Earthbind Totem with 5 health at the feet of the caster for (%d+) sec that periodically pulses, slowing the movement speed of all nearby enemies within (%d+) yards%.",
+            tpl = "Evoca um Totem de Prisão da Terra com 5 de vida aos pés do lançador por %s s que emite pulsos periódicos, reduzindo a velocidade de movimento de inimigos próximos a até %s metros."
+        }
+    },
+    ["stoneclaw totem"] = {
+        {
+            pat = "Summons a Stoneclaw Totem with (%d+) health at the feet of the caster for (%d+) sec that taunts creatures within (%d+) yards to attack it%.",
+            tpl = "Evoca um Totem da Garra de Pedra com %s de vida aos pés do lançador por %s s que provoca criaturas a até %s metros para atacá-lo."
+        },
+        {
+            pat = "Summons a Stoneclaw Totem with (%d+) health at the feet of the caster for (%d+) sec that taunts creatures to attack it%.",
+            tpl = "Evoca um Totem da Garra de Pedra com %s de vida aos pés do lançador por %s s que provoca criaturas para atacá-lo."
+        }
+    },
+    ["strength of earth totem"] = {
+        {
+            pat = "Summons a Strength of Earth Totem with 5 health at the feet of the caster for (%d+) min%. The totem increases party members' Strength by (%d+) within (%d+) yards%.",
+            tpl = "Evoca um Totem da Força da Terra com 5 de vida aos pés do lançador por %s min. O totem aumenta a Força de membros do grupo em %s a até %s metros."
+        },
+        {
+            pat = "Summons a Strength of Earth Totem with 5 health at the feet of the caster for (%d+) min%. The totem increases the Strength of party members within (%d+) yards by (%d+)%.",
+            tpl = "Evoca um Totem da Força da Terra com 5 de vida aos pés do lançador por %s min. O totem aumenta a Força de membros do grupo em até %s metros em %s."
+        }
+    },
+    ["searing totem"] = {
+        {
+            pat = "Summons a Searing Totem with 5 health at the feet of the caster for (%d+) sec that attacks nearby enemies within (%d+) yards for (%d+ to %d+) Fire damage%.",
+            tpl = "Evoca um Totem Calcinante com 5 de vida aos pés do lançador por %s s que ataca inimigos a até %s metros causando %s de dano de Fogo."
+        },
+        {
+            pat = "Summons a Searing Totem with 5 health at the feet of the caster for (%d+) sec that attacks nearby enemies within (%d+) yards for (%d+) to (%d+) Fire damage%.",
+            tpl = "Evoca um Totem Calcinante com 5 de vida aos pés do lançador por %s s que ataca inimigos a até %s metros causando %s a %s de dano de Fogo."
+        }
+    },
+    ["fire nova totem"] = {
+        {
+            pat = "Summons a Fire Nova Totem with 5 health at the feet of the caster that detonates after 4 sec, causing (%d+ to %d+) Fire damage to all nearby enemies within (%d+) yards%.",
+            tpl = "Evoca um Totem de Nova de Fogo com 5 de vida aos pés do lançador que detona após 4 s, causando %s de dano de Fogo a inimigos próximos a até %s metros."
+        },
+        {
+            pat = "Summons a Fire Nova Totem with 5 health at the feet of the caster that detonates after 4 sec, causing (%d+) to (%d+) Fire damage to all nearby enemies within (%d+) yards%.",
+            tpl = "Evoca um Totem de Nova de Fogo com 5 de vida aos pés do lançador que detona após 4 s, causando %s a %s de dano de Fogo a inimigos próximos a até %s metros."
+        }
+    },
+    ["magma totem"] = {
+        {
+            pat = "Summons a Magma Totem with 5 health at the feet of the caster for (%d+) sec that causes (%d+) Fire damage to all nearby enemies within (%d+) yards every 2 seconds%.",
+            tpl = "Evoca um Totem de Magma com 5 de vida aos pés do lançador por %s s que causa %s de dano de Fogo a inimigos próximos a até %s metros a cada 2 segundos."
+        }
+    },
+    ["flametongue totem"] = {
+        {
+            pat = "Summons a Flametongue Totem with 5 health at the feet of the caster for (%d+) min%. Party members' weapons within (%d+) yards are imbued with fire, each hit causing (%d+ to %d+) additional Fire damage%.",
+            tpl = "Evoca um Totem de Labaredas com 5 de vida aos pés do lançador por %s min. Armas de membros do grupo a até %s metros são imbuidas com fogo, cada golpe causando %s de dano de Fogo adicional."
+        }
+    },
+    ["healing stream totem"] = {
+        {
+            pat = "Summons a Healing Stream Totem with 5 health at the feet of the caster for (%d+) sec that heals nearby group members for (%d+) every 2 seconds%.",
+            tpl = "Evoca um Totem de Torrente Curativa com 5 de vida aos pés do lançador por %s s que cura membros do grupo próximos em %s a cada 2 segundos."
+        },
+        {
+            pat = "Summons a Healing Stream Totem with 5 health at the feet of the caster for (%d+) min that heals nearby group members for (%d+) every 2 seconds%.",
+            tpl = "Evoca um Totem de Torrente Curativa com 5 de vida aos pés do lançador por %s min que cura membros do grupo próximos em %s a cada 2 segundos."
+        }
+    },
+    ["mana spring totem"] = {
+        {
+            pat = "Summons a Mana Spring Totem with 5 health at the feet of the caster for (%d+) sec that restores (%d+) mana every 2 seconds to party members within (%d+) yards%.",
+            tpl = "Evoca um Totem de Fonte de Mana com 5 de vida aos pés do lançador por %s s que restaura %s de mana a cada 2 segundos para membros do grupo a até %s metros."
+        },
+        {
+            pat = "Summons a Mana Spring Totem with 5 health at the feet of the caster for (%d+) min that restores (%d+) mana every 2 seconds to party members within (%d+) yards%.",
+            tpl = "Evoca um Totem de Fonte de Mana com 5 de vida aos pés do lançador por %s min que restaura %s de mana a cada 2 segundos para membros do grupo a até %s metros."
+        }
+    },
+    ["poison cleansing totem"] = {
+        {
+            pat = "Summons a Poison Cleansing Totem with 5 health at the feet of the caster for (%d+) min that attempts to remove 1 Poison effect from party members within (%d+) yards every (%d+) seconds%.",
+            tpl = "Evoca um Totem de Purificação de Veneno com 5 de vida aos pés do lançador por %s min que tenta remover 1 efeito de Veneno de membros do grupo a até %s metros a cada %s segundos."
+        }
+    },
+    ["disease cleansing totem"] = {
+        {
+            pat = "Summons a Disease Cleansing Totem with 5 health at the feet of the caster for (%d+) min that attempts to remove 1 Disease effect from party members within (%d+) yards every (%d+) seconds%.",
+            tpl = "Evoca um Totem de Purificação de Doença com 5 de vida aos pés do lançador por %s min que tenta remover 1 efeito de Doença de membros do grupo a até %s metros a cada %s segundos."
+        }
+    },
+    ["tremor totem"] = {
+        {
+            pat = "Summons a Tremor Totem with 5 health at the feet of the caster for (%d+) min that shakes the ground, removing Fear, Charm, and Sleep effects from party members within (%d+) yards%.",
+            tpl = "Evoca um Totem de Tremor com 5 de vida aos pés do lançador por %s min que agita a terra, removendo efeitos de Medo, Encantamento e Sono de membros do grupo a até %s metros."
+        }
+    },
+    ["grounding totem"] = {
+        {
+            pat = "Summons a Grounding Totem with 5 health at the feet of the caster for (%d+) sec that will redirect one harmful spell cast on a nearby party member to itself every (%d+) sec%.",
+            tpl = "Evoca um Totem de Aterramento com 5 de vida aos pés do lançador por %s s que redireciona um feitiço nocivo lançado em membros próximos do grupo para si mesmo a cada %s s."
+        }
+    },
+    ["grace of air totem"] = {
+        {
+            pat = "Summons a Grace of Air Totem with 5 health at the feet of the caster for (%d+) min%. The totem increases the Agility of party members within (%d+) yards by (%d+)%.",
+            tpl = "Evoca um Totem da Graça do Ar com 5 de vida aos pés do lançador por %s min. O totem aumenta a Agilidade de membros do grupo em até %s metros em %s."
+        }
+    },
+    ["windfury totem"] = {
+        {
+            pat = "Summons a Windfury Totem with 5 health at the feet of the caster for (%d+) min%. Party members' main hand weapons within (%d+) yards are imbued with wind, granting each hit a (%d+)%% chance of triggering (%d+) extra attacks with (%d+) bonus attack power%.",
+            tpl = "Evoca um Totem de Fúria dos Ventos com 5 de vida aos pés do lançador por %s min. Armas principais de membros do grupo a até %s metros são imbuidas com vento, concedendo a cada golpe %s%% de chance de disparar %s ataques adicionais com %s de poder de ataque extra."
+        }
+    },
+    ["ghost wolf"] = {
+        {
+            pat = "Transforms the Shaman into a Ghost Wolf, increasing movement speed by (%d+)%%%. Can only be used outdoors%.",
+            tpl = "Transforma o Xamã em um Lobo Fantasma, aumentando a velocidade de movimento em %s%%. Pode ser usado apenas ao ar livre."
+        }
+    },
+    ["astral recall"] = {
+        {
+            pat = "Yanks the caster through the astral planes back to your home location%. Speak to an Innkeeper in a different place to change your home location%.",
+            tpl = "Puxa o lançador através dos planos astrais de volta ao seu local de refúgio. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso."
+        }
+    },
+    ["reincarnation"] = {
+        {
+            pat = "Allows you to resurrect yourself upon death with (%d+)%% health and mana%. Cannot be used more than once every (%d+) min%.",
+            tpl = "Permite ressuscitar a si mesmo após a morte com %s%% de vida e mana. Não pode ser usado mais de uma vez a cada %s min."
+        }
+    },
+    ["purge"] = {
+        {
+            pat = "Purges the enemy target, removing (%d+) beneficial magic effects?%.",
+            tpl = "Purifica o alvo inimigo, removendo %s efeito(s) mágico(s) benéfico(s)."
+        }
+    },
+    ["cure poison"] = {
+        {
+            pat = "Cures 1 Poison effect on a friendly target%.",
+            tpl = "Cura 1 efeito de Veneno em um alvo aliado."
+        }
+    },
+    ["cure disease"] = {
+        {
+            pat = "Cures 1 Disease effect on a friendly target%.",
+            tpl = "Cura 1 efeito de Doença em um alvo aliado."
+        }
+    },
+    ["water walking"] = {
+        {
+            pat = "Allows the friendly target to walk on water for (%d+) min%. Any damage will cancel the effect%.",
+            tpl = "Permite que o alvo aliado caminhe sobre a água por %s min. Qualquer dano recebido cancelará o efeito."
+        }
+    },
+    ["water breathing"] = {
+        {
+            pat = "Allows the friendly target to breathe underwater for (%d+) min%.",
+            tpl = "Permite que o alvo aliado respire debaixo d'água por %s min."
+        }
+    },
+    ["ancestral spirit"] = {
+        {
+            pat = "Returns the spirit to the body, restoring a dead target to life with (%d+) health and (%d+) mana%. Cannot be cast when in combat%.",
+            tpl = "Devolve o espírito ao corpo, trazendo um alvo morto de volta à vida com %s de vida e %s de mana. Não pode ser lançado em combate."
+        }
+    },
+    ["far sight"] = {
+        {
+            pat = "Changes the caster's perspective to the targeted location for (%d+) min%.",
+            tpl = "Muda a perspectiva do lançador para o local selecionado por %s min."
+        }
+    },
+    -- GERAIS E RACIAIS
+    ["attack"] = {
+        {
+            pat = "Attacks the target for weapon damage%.",
+            tpl = "Ataca o alvo causando dano da arma."
+        },
+        {
+            pat = "Continuously attack the target%.",
+            tpl = "Ataca o alvo continuamente."
+        }
+    },
+    ["auto attack"] = {
+        {
+            pat = "Attacks the target for weapon damage%.",
+            tpl = "Ataca o alvo causando dano da arma."
+        },
+        {
+            pat = "Continuously attack the target%.",
+            tpl = "Ataca o alvo continuamente."
+        }
+    },
+    ["shoot"] = {
+        {
+            pat = "Shoots the target with your ranged weapon%.",
+            tpl = "Dispara no alvo com sua arma de longo alcance."
+        }
+    },
+    ["throw"] = {
+        {
+            pat = "Throws your ranged weapon at the target%.",
+            tpl = "Arremessa sua arma de arremesso no alvo."
+        }
+    },
+    ["war stomp"] = {
+        {
+            pat = "Stuns up to (%d+) enemies within (%d+) yds for (%d+) sec%.",
+            tpl = "Atordoa até %s inimigos em até %s metros por %s s."
+        }
+    },
+    ["blood fury"] = {
+        {
+            pat = "Increases base melee attack power by (%d+) for (%d+) sec and reduces healing effects on you by (%d+)%% for (%d+) sec%.",
+            tpl = "Aumenta o poder de ataque corpo a corpo básico em %s por %s s e reduz a eficácia de curas recebidas em %s%% por %s s."
+        }
+    },
+    ["berserking"] = {
+        {
+            pat = "Increases your casting and attack speed by (%d+)%% to (%d+)%%%.?.*",
+            tpl = "Aumenta a velocidade de lançamento e ataque em %s%% a %s%%. Dura 10 s."
+        }
+    },
+    ["will of the forsaken"] = {
+        {
+            pat = "Provides immunity to Charm, Fear and Sleep while active%. Lasts (%d+) sec%.",
+            tpl = "Concede imunidade a Encantamento, Medo e Sono enquanto ativo. Dura %s s."
+        }
+    },
+    ["cannibalize"] = {
+        {
+            pat = "When activated, regenerates (%d+)%% of total health every (%d+) sec for (%d+) sec%. Only works on Humanoid or Undead corpses within (%d+) yds%. Any movement, action, or damage taken while Cannibalizing will cancel the effect%.",
+            tpl = "Ao ser ativado, regenera %s%% da vida total a cada %s s por %s s. Funciona apenas em cadáveres Humanóides ou Mortos-vivos a até %s metros. Qualquer movimento cancela o efeito."
+        }
+    },
     -- WARRIOR
     ["heroic strike"] = {
         {

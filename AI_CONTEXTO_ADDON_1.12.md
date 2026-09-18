@@ -103,7 +103,7 @@ Outro.lua
 
 * **Addon alvo:** `ConsoleModeVanilla` (WoW 1.12.1 / Turtle WoW)
 * **Modo:** [x] 1.12 puro / [ ] pode usar SuperWoW
-* **Objetivo:** Implementação da Tela de Configurações & Sistema (`SYSTEM`), conforme `docs/plano_de_feature_TELA_DE_CONFIGURACOES.md` (Sub-abas `GAME_MENU` e `ADDON_CFG`, Widgets D-Pad, Mapeador de Binds e Roteador D-Pad).
+* **Objetivo:** Fase 8.A — Retradução Humanizada e Contextual Blizzlike do Spellbook do Jogador (9 classes, raciais, pets, perícias, profissões), eliminando abreviações telegráficas e restaurando fórmulas fiéis de variáveis ($s1, $d, $a1).
 
 ---
 > [!CAUTION]

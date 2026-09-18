@@ -306,10 +306,24 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 ---
 
-### 🟢 FASE 8: Descrições Completas por ID — Fonte da Verdade EN Offline (NOVA LINHA DE RACIOCÍNIO)
-> **Diagnóstico que motivou a virada:** o motor das Fases 7.3/7.5 traduz **nomes** (lookup exato, funciona) mas tenta adivinhar **descrições** com regex do inglês Vanilla. O Turtle WoW mudou textos, números e adicionou customs — regex quebra e o fallback `TranslateUniversal` entrega "meio-PT". Nome de item de missão ficou PT (ItemDB por ID), mas o USO continuou EN. Conclusão: descrição não se deduz, se **cadastra**. Cada descrição vira dado autoral chaveado por ID, com o EN canônico offline como fonte da verdade.
+### 🟢 FASE 8: Descrições Completas por ID — Fonte da Verdade EN Offline & Retradução Humana Blizzlike
+> **Diagnóstico Crítico da Falha do Modelo Anterior (18/09):**
+> O modelo anterior tentou retraduzir em lotes automáticos gigantescos usando scripts com `zip(batch, pts)` em arquivos de texto soltos, resultando em:
+> 1. **Resumos Telegráficos Artificiais / "Estilo SMS":** Abreviações bizarras como `"Arma com fogo: 5.5~16.8 por golpe conforme velocidade. Lenta bate mais. 1 hora."`, `"Totem 5 por 45 s; lentidão a até 10 m."`, `"Arma: +79 poder e +35% ameaça por 1 hora."`, `"Pet +60 vida."`, destruindo a imersão e clareza do jogo.
+> 2. **Bug Grave de Dessincronização de Linhas:** Deslocamento de índices ao ler arquivos `.txt` (ex.: `rw16_pt.txt` com 205 linhas para 200 blocos), fazendo com que magias recebessem traduções completamente erradas (ex.: `Death Touch` de GM recebeu a tradução de resistência à sombra com reflexão).
+> 3. **Corrupção de Fórmulas e Placeholders (`$`):** Ao omitir ou mover posições sintáticas dos marcadores `$s1`, `$d`, `$a1`, as fórmulas dinâmicas injetadas pelo runtime geraram números desconexos no tooltip.
 >
-> **Princípio novo:** NENHUMA descrição é traduzida por regex em runtime como caminho principal. Regex/heurstica viram fallback de última linha (marcado para extração). O caminho principal é sempre `ID -> PT autoral`, com `ID -> EN canônico` como fallback limpo (inglês íntegro é melhor UX que meio-PT).
+> **Diretrizes Irrevogáveis da Retradução:**
+> - **Escrita Natural e Fluente (Padrão Blizzard pt-BR):** Texto narrativo e claro como se um jogador humano estivesse lendo a descrição oficial da Blizzard (ex.: *"Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora."*).
+> - **Imunidade a Dessincronização:** Mapeamento explícito via dicionários JSON indexados diretamente pela chave original em inglês (`{"EN_ORIGINAL": "PT_HUMANO"}`), eliminando qualquer risco de deslocamento de índices.
+> - **Preservação Obrigatória de Placeholders:** Todo marcador de valor (`$s1`, `$s2`, `$d`, `$a1`, `$o1`, etc.) deve ser mantido estritamente no local sintático correto para renderização no motor do WoW 1.12.
+>
+> **Estratégia de Execução (Abordagem 1 — Decisão Acordada):**
+> 1. **Fase 8.A (Spellbook de Jogadores — Foco Imediato):** Retradução completa dos ~1.200 templates canônicos que compõem o Grimório das 9 classes de jogadores, talentos, raciais, perícias, magias de pet e profissões. Permite teste e homologação imediata no controle sem queimar a cota da sessão em magias de monstros.
+> 2. **Fase 8.B (Itens, Consumíveis & Equipamentos):** Retradução dos templates de encantamentos, elixires, poções e efeitos de itens.
+> 3. **Fase 8.C (Cauda de Monstros & NPCs):** Retradução sistemática da cauda de chefes de raide, monstros e mecânicas internas.
+>
+> **Parada Crítica:** Ao término da Fase 8.A, parada imediata para validação no jogo (`/reload`), conferência de gastos de tokens e homologação do usuário antes de avançar para as etapas subsequentes.
 
 #### 8.0 Levantamento de fontes (sem char high-level, sem servidor, tudo offline)
 
@@ -318,30 +332,23 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 | 1 | Nome de item (24.542) | `pfQuest/db/enUS/items.lua` (17.712) + `pfQuest-turtle/db/enUS/items-turtle.lua` (8.294) | `pfQuest/db/ptBR/items.lua` + `pfQuest-turtle/db/ptBR/items-turtle.lua` | `[id]="Nome"` — **PRONTO** (`Data/ItemDB_ptBR.lua`, `tools/build_itemdb.py`) |
 | 2 | Descrição/USO de item (tooltip completo) | `kofoednielsen/twow-items` (pipeline `ItemTooltipLogger`: varre IDs 0–120000 e grava tooltip EN completo por item, incl. linhas `Use:` de quest) — alternativa: `item_template` do core VMaNGOS | A traduzir (autoral, com placeholders de número preservados) | `[id]={ use="...", equip="..." }` — **A FAZER** (`Data/ItemDescDB_ptBR.lua`, `tools/build_itemdescdb.py`) |
 | 3 | Nome de spell | `Spells.lua` atual (852) + DBC Turtle (26.321 via patch local) | `Spells.lua` PT atual | `[lower(en)]="PT"` + SpellDescDB |
-| 4 | Descrição de spell (template canônico) | `Spell.dbc` extraído **do próprio client** via `mpyq` (`tools/parse_spell_dbc.py` dual-layout 162/173; merge snapshot+patch-7, patch vence) | Autoral em `tools/spell_pt_authoral.json` (380 templates; `$` preservados; `$l`/`$g` convertidos) | **PRONTO** (`Data/SpellDescDB_ptBR.lua` 4,8 MB, 26.321 spells, 17.877 chaves) |
+| 4 | Descrição de spell (template canônico) | `Spell.dbc` extraído **do próprio client** via `mpyq` (`tools/parse_spell_dbc.py` dual-layout 162/173; merge snapshot+patch-7, patch vence) | Autoral em `tools/spell_pt_authoral.json` com reestruturação humana em lote por classe/jogador | **EM ANDAMENTO** (`Data/SpellDescDB_ptBR.lua`, 26.321 spells, templates de jogadores em revisão) |
 
-> Notas: (a) DBCs de item são estruturais — nome/descrição de item é server-side, por isso a fonte é o tooltip-logger e não DBC. (b) Snapshot GitHub (16.332) estava desatualizado; fonte real = MPQs do client (patch-7: 26.293; patches 8/9/A+ criptografados ficam de fora). (c) Variantes que diferem só em maiúscula usam chave case-insensitive; fuzzy-adoções com sentido trocado são rejeitadas manualmente. (d) Em 18/09 um clone fresco por cima da árvore apagou o trabalho não-commitado da Fase 8 — reconstruído integralmente; ver regra de checkpoint abaixo.
-
-#### 8.1 Build (mesmo molde do QuestDB/ItemDB, re-gerável)
-- [ ] `tools/build_itemdescdb.py`: EN tooltip por ID -> esqueleto PT -> saída `Data/ItemDescDB_ptBR.lua` (aguarda scan `ItemTooltipLogger` do usuário; `twow-items.json` só tem gear, sem `Use:` de quest).
-- [x] `tools/build_spelldescdb.py` + `tools/spell_pt_authoral.json` (380 templates) + `tools/coverage_spells.py` (caça-tudo priorizado: rank≤10 primeiro; `py tools/coverage_spells.py --lote N`).
-- [x] Lotes 1–4 traduzidos (577 templates, ~6,8k descs, 42%). Chave case-insensitive + dobra tipográfica (’—→ASCII). Restam ~6,5k templates / 9,3k descs (cauda majoritariamente NPC) — continuar por `coverage_spells.py --lote N`.
-- [x] Matcher por literais (`GamePT_MatchTemplateValues`): número fixo do template ("30%") nunca cai em slot `$`; fallback posicional.
-- [ ] Próxima caçada (player-coverage): cruzar `SkillLineAbility.dbc` (spell→skill) p/ priorizar magias de jogador vs cauda NPC.
-- [x] Tradução autoral vive em `spell_pt_authoral.json`, nunca em regex no código. Turtle/patch-local tem prioridade em colisão de ID.
+#### 8.1 Pipeline Robusto de Retradução Humana
+- [x] Diagnóstico completo de anomalias telegráficas e dessincronizações nos lotes anteriores.
+- [ ] Construção do catálogo de templates do Spellbook de Jogador (~1.200 templates prioritários).
+- [ ] Retradução contextual humana blizzlike item a item (Fase 8.A).
+- [ ] Validador de consistência de variáveis (`tools/validate_spell_vars.py`) assegurando integridade dos marcadores `$`.
+- [ ] Rebuild de `Data/SpellDescDB_ptBR.lua` e conferência via `/reload` e `/cm spelldbg`.
 
 #### 8.2 Runtime (Lua 5.0, 1.12 puro)
 - [x] `GamePT_SpellDesc` passo `descDBEntry` (`ByKey["nome|grau"]` + alias `"nome|"` p/ tooltip sem rank) com PT autoral e injeção ordenada de números nos `$`; templates legados mantidos; **fallback Universal removido do corpo — EN íntegro**; sem entrada no DBC, nome+texto vão p/ `ConsoleModeDB.spellMissing` (cap 60) — `/cm spellmissing`, diagnóstico `/cm spelldbg`.
-- [x] `.toc`: `SpellDescDB` + `SpellDescriptions` + `TalentDescriptions` (estas duas **nunca haviam sido carregadas** — era a causa das spells 100% EN).
+- [x] `.toc`: `SpellDescDB` + `SpellDescriptions` + `TalentDescriptions`.
 - [ ] `GamePT_ItemDesc(itemID)` + `card:ShowItem` p/ linhas `Uso/Equipar` quando o DB existir.
 
-> **Regra de checkpoint (pós-incidente):** trabalho da Fase 8 em diante é commitado localmente a cada etapa concluída; **push só com ordem explícita**, como sempre. Sem commit local, um clone/checkout por cima apaga tudo de novo.
-- [ ] Templates regex atuais viram fallback de extração (logam `MISSING desc <id>` para alimentar a fila de tradução), não caminho principal.
-- [ ] Memória 1.12: DBs de descrição são os maiores — carregar só nomes no login (ItemDB atual, leve); descrições em chunk por categoria ou sob demanda da aba aberta, com descarte quando pfDB equivalente existir em memória (mesma regra QuestDB/pfQuest).
-
-#### 8.3 Validação
-- [ ] `luac -p` em tudo; validador estendido conta `MISSING desc` (sem PT) vs `EXTRA`; `/reload` + tour bags/spellbook com item de missão e spell custom Turtle.
-- **🛑 PARADA CRÍTICA:** usuário confirma zero USO de quest-item em inglês no lote piloto antes de expandir a tradução autoral.
+#### 8.3 Validação e Parada Crítica
+- [ ] `luac -p` em todos os arquivos tocados.
+- **🛑 PARADA CRÍTICA:** Validação visual in-game via `/reload` pelo usuário no Grimório do jogador (ex.: Arma de Labaredas, Totens, Choque, etc.) confirmando escrita natural, fluente e sem resumos telegráficos.
 
 ---
 

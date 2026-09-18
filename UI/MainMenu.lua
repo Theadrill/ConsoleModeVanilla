@@ -3021,7 +3021,7 @@ function MainMenu:CreateDetailCard(parent, config)
         self.icon:SetTexture(itemData.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
         self.icon:Show()
 
-        local locItemName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(itemData.name) or itemData.name
+        local locItemName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(itemData.name, itemData.rawLink or itemData.link) or itemData.name
         local r, g, b = 0.8, 0.8, 0.8
         if itemData.quality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemData.quality] then
             local qCol = ITEM_QUALITY_COLORS[itemData.quality]
@@ -3392,7 +3392,7 @@ function MainMenu:CreateDetailCard(parent, config)
 
         local quality = (scanned and scanned.quality) or 1
         local qCol = (ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]) or { r=1, g=1, b=1, hex="|cffffffff" }
-        local locEqName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(scanned and scanned.name) or ((scanned and scanned.name) or "Item")
+        local locEqName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(scanned and scanned.name, itemLink) or ((scanned and scanned.name) or "Item")
         self.titleText:SetText(qCol.hex .. locEqName .. "|r")
         self.iconBorder:SetBackdropBorderColor(qCol.r, qCol.g, qCol.b, 0.95)
         self.iconBorder:Show()
@@ -13872,6 +13872,8 @@ function MainMenu:RefreshPickerGrid()
             local displayName = item.name or ""
             if mode == "SPELLBOOK" then
                 displayName = (ConsoleMode and ConsoleMode.GamePT_Spell) and ConsoleMode:GamePT_Spell(item.name, item.rank) or displayName
+            elseif mode == "BAG" then
+                displayName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(item.name, item.rawLink or item.link) or displayName
             end
             btn.label:SetText(MM_WrapName(displayName))
             

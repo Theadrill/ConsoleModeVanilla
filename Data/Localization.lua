@@ -1013,14 +1013,59 @@ local CM_QUEST_ITEM_PREFIXES = {
     ["Crown"] = "Coroa", ["Medallion"] = "Medalhão", ["Relic"] = "Relíquia",
 }
 
--- Tradução do nome do item. Lookup em game.items com fallback ptBR -> original.
-function CM:GamePT_Item(itemName)
-    if not itemName or itemName == "" then
+-- Tradução do nome do item. Fonte da verdade por ID (ItemDB offline pfQuest+Turtle).
+-- Aceita (name) ou (name, linkOrID). Link "item:1234:..." ou ID numerico tem prioridade;
+-- fallback por nome via ByName, depois game.items legado, depois heuristicas.
+function CM:GamePT_Item(itemName, itemLinkOrID)
+    if (not itemName or itemName == "") and (not itemLinkOrID or itemLinkOrID == "") then
         return ""
     end
     local activeId = self:GetActiveLangId()
     if activeId == "enUS" then
-        return itemName
+        return itemName or ""
+    end
+    -- 0. Resolve ID do item a partir do link ou numero direto
+    local itemID = nil
+    if itemLinkOrID then
+        if type(itemLinkOrID) == "number" then
+            itemID = itemLinkOrID
+        elseif type(itemLinkOrID) == "string" and itemLinkOrID ~= "" then
+            local _, _, idStr = string.find(itemLinkOrID, "item:(%d+)")
+            if idStr then
+                itemID = tonumber(idStr)
+            else
+                local asNum = tonumber(itemLinkOrID)
+                if asNum then itemID = asNum end
+            end
+        end
+    end
+    -- 0a. pfDB em memoria tem prioridade (jogador com pfQuest ativo, mesma regra do QuestDB)
+    if pfDB and pfDB["items"] then
+        local langKey = "ptBR"
+        if activeId ~= "ptBR" and pfDB["items"][activeId] then langKey = activeId end
+        local t1 = pfDB["items"][langKey] or pfDB["items"]["ptBR"]
+        local t2 = pfDB["items"][langKey .. "-turtle"] or pfDB["items"]["ptBR-turtle"]
+        if itemID then
+            if t2 and t2[itemID] and t2[itemID] ~= "" and t2[itemID] ~= "_" then return t2[itemID] end
+            if t1 and t1[itemID] and t1[itemID] ~= "" and t1[itemID] ~= "_" then return t1[itemID] end
+        end
+    end
+    -- 0b. ItemDB local (build_itemdb.py: vanilla + Turtle customs, Turtle vence)
+    if itemID and ConsoleMode_ItemDB then
+        local v = ConsoleMode_ItemDB[itemID]
+        if v and v ~= "" then
+            return v
+        end
+    end
+    -- 0c. Fallback por nome EN -> ID -> PT (quando link/ID indisponivel, ex. reagentes de spell)
+    if itemName and itemName ~= "" and ConsoleMode_ItemDB_ByName and ConsoleMode_ItemDB then
+        local nid = ConsoleMode_ItemDB_ByName[string.lower(itemName)]
+        if nid and ConsoleMode_ItemDB[nid] and ConsoleMode_ItemDB[nid] ~= "" then
+            return ConsoleMode_ItemDB[nid]
+        end
+    end
+    if not itemName or itemName == "" then
+        return ""
     end
     local key = string.lower(itemName)
     local entry = CM_Langs[activeId]

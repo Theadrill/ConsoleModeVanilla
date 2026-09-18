@@ -292,15 +292,50 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 ---
 
-### 🟢 Status da Cobertura de 100% do MainMenu:
-- [x] **Aba 1 (Bolsas / Bags):** Nomes de itens, slots de equipamento, subtipos, stats, buffs de consumíveis, requisitos, vínculos, preço de venda, footer (espaço e dinheiro).
-- [x] **Aba 2 (Feitiços / Spells):** Nomes de magias, graus/ranks, escolas/abas de categorias, atributos operacionais (Custo, Tempo, Alcance, Recarga) e corpo descritivo completo em português.
+### 🟢 Status da Cobertura de 100% do MainMenu (REVISADO — auditoria pós-Turtle):
+- [x] **Aba 1 (Bolsas / Bags — NOMES):** Nomes de itens por ID via `Data/ItemDB_ptBR.lua` (24.542 itens, `tools/build_itemdb.py`, Turtle vence vanilla). Slots, subtipos, preço de venda, footer OK.
+- [ ] **Aba 1 (Bolsas / Bags — DESCRIÇÕES/USO):** `GamePT_ItemStat` cobre só padrões genéricos (poção/comida/stats). Textos de USO de itens de missão (frases únicas de lore) permanecem em inglês. Requer Fase 8 (ItemDescDB).
+- [x] **Aba 2 (Feitiços / Spells — NOMES/ranks/atributos):** Nomes, graus, escolas, custo/tempo/alcance/recarga OK.
+- [ ] **Aba 2 (Feitiços / Spells — DESCRIÇÕES):** `SpellDescriptions_ptBR.lua` cobre subset via regex exato do inglês; resto cai em `TranslateUniversal` parcial. Requer Fase 8 (SpellDescDB).
 - [x] **Aba 3 (Talentos / Talents):** Títulos, ranks, requisitos de pontos por árvore, textos descritivos dinâmicos com preservação de ranges.
 - [x] **Aba 4 (Personagem / Character):** Atributos primários, resistências, perícias e idiomas.
 - [x] **Aba 5 (Missões / Quests):** Tradução contextual conectada a QuestDB / pfQuest.
 - [x] **Aba 6 (Sistema / System):** Todas as opções e textos de configuração em português.
 
 ---
+
+---
+
+### 🟢 FASE 8: Descrições Completas por ID — Fonte da Verdade EN Offline (NOVA LINHA DE RACIOCÍNIO)
+> **Diagnóstico que motivou a virada:** o motor das Fases 7.3/7.5 traduz **nomes** (lookup exato, funciona) mas tenta adivinhar **descrições** com regex do inglês Vanilla. O Turtle WoW mudou textos, números e adicionou customs — regex quebra e o fallback `TranslateUniversal` entrega "meio-PT". Nome de item de missão ficou PT (ItemDB por ID), mas o USO continuou EN. Conclusão: descrição não se deduz, se **cadastra**. Cada descrição vira dado autoral chaveado por ID, com o EN canônico offline como fonte da verdade.
+>
+> **Princípio novo:** NENHUMA descrição é traduzida por regex em runtime como caminho principal. Regex/heurstica viram fallback de última linha (marcado para extração). O caminho principal é sempre `ID -> PT autoral`, com `ID -> EN canônico` como fallback limpo (inglês íntegro é melhor UX que meio-PT).
+
+#### 8.0 Levantamento de fontes (sem char high-level, sem servidor, tudo offline)
+
+| # | Dado | Fonte da verdade EN | PT existente | Formato |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | Nome de item (24.542) | `pfQuest/db/enUS/items.lua` (17.712) + `pfQuest-turtle/db/enUS/items-turtle.lua` (8.294) | `pfQuest/db/ptBR/items.lua` + `pfQuest-turtle/db/ptBR/items-turtle.lua` | `[id]="Nome"` — **PRONTO** (`Data/ItemDB_ptBR.lua`, `tools/build_itemdb.py`) |
+| 2 | Descrição/USO de item (tooltip completo) | `kofoednielsen/twow-items` (pipeline `ItemTooltipLogger`: varre IDs 0–120000 e grava tooltip EN completo por item, incl. linhas `Use:` de quest) — alternativa: `item_template` do core VMaNGOS | A traduzir (autoral, com placeholders de número preservados) | `[id]={ use="...", equip="..." }` — **A FAZER** (`Data/ItemDescDB_ptBR.lua`, `tools/build_itemdescdb.py`) |
+| 3 | Nome de spell | `Spells.lua` atual (852) + `Spell.json` Turtle (cobre customs) | `Spells.lua` PT atual | `[lower(en)]="PT"` — completar via Spell.json |
+| 4 | Descrição de spell (template canônico) | `oplancelot/Turtle-WOW-DBC` (`Spell.json`: `Description`/`AuraDescription` com placeholders `$s1`, extraído via Ladik MPQ Editor + WDBX Editor do `DBFilesClient/Spell.dbc`) | A traduzir (autoral, placeholders `$` preservados; números de rank resolvidos em runtime como hoje) | `[spellId/rankKey]={ desc="..." }` — **A FAZER** (`Data/SpellDescDB_ptBR.lua`, `tools/build_spelldescdb.py`) |
+
+> Notas: (a) DBCs de item (`ItemClass`, `ItemDisplayInfo`...) são estruturais — nome/descrição de item é server-side, por isso a fonte é o tooltip-logger e não DBC. (b) `Spell.dbc` é client-side e vale como verdade EN. (c) Snapshot Turtle 1.18 pode divergir de customs futuros — o script de build é re-gerável, mesma regra do QuestDB.
+
+#### 8.1 Build (mesmo molde do QuestDB/ItemDB, re-gerável)
+- [ ] `tools/build_itemdescdb.py`: EN tooltip por ID -> esqueleto PT (verbatim EN marcado `TODO`) -> saída `Data/ItemDescDB_ptBR.lua` (`ConsoleMode_ItemDescDB[id]={use,equip}` + header `AUTO-GERADO`).
+- [ ] `tools/build_spelldescdb.py`: `Spell.json` -> `Data/SpellDescDB_ptBR.lua` (`ConsoleMode_SpellDescDB[spellKey]={desc}` com `$` preservados).
+- [ ] Tradução autoral acontece nos DBs gerados (ou planilha -> import), nunca em regex no código. Turtle tem prioridade em colisão de ID, mesma regra do QuestDB.
+
+#### 8.2 Runtime (Lua 5.0, 1.12 puro)
+- [ ] `GamePT_ItemDesc(itemID)` / `GamePT_SpellDescByID(spellKey)`: `ID -> PT`, senão `ID -> EN íntegro`, senão fallback legado. Nunca meio-PT no caminho principal.
+- [ ] `card:ShowItem` usa `GamePT_ItemDesc` para linhas `Uso/Equipar`; `card:ShowSpell` usa `SpellDescDB` antes dos templates legados.
+- [ ] Templates regex atuais viram fallback de extração (logam `MISSING desc <id>` para alimentar a fila de tradução), não caminho principal.
+- [ ] Memória 1.12: DBs de descrição são os maiores — carregar só nomes no login (ItemDB atual, leve); descrições em chunk por categoria ou sob demanda da aba aberta, com descarte quando pfDB equivalente existir em memória (mesma regra QuestDB/pfQuest).
+
+#### 8.3 Validação
+- [ ] `luac -p` em tudo; validador estendido conta `MISSING desc` (sem PT) vs `EXTRA`; `/reload` + tour bags/spellbook com item de missão e spell custom Turtle.
+- **🛑 PARADA CRÍTICA:** usuário confirma zero USO de quest-item em inglês no lote piloto antes de expandir a tradução autoral.
 
 ---
 

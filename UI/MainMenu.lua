@@ -553,6 +553,9 @@ function MainMenu:GetBuffName(buffIndexID)
     scanTip:SetPlayerBuff(buffIndexID)
     local textObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
     local text = (textObj and textObj:GetText()) or CM:T("DETAIL_EFFECT_DEFAULT")
+    if ConsoleMode and ConsoleMode.GamePT_Buff then
+        text = ConsoleMode:GamePT_Buff(text)
+    end
     return text
 end
 
@@ -3018,13 +3021,14 @@ function MainMenu:CreateDetailCard(parent, config)
         self.icon:SetTexture(itemData.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
         self.icon:Show()
 
+        local locItemName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(itemData.name) or itemData.name
         local r, g, b = 0.8, 0.8, 0.8
         if itemData.quality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemData.quality] then
             local qCol = ITEM_QUALITY_COLORS[itemData.quality]
             r, g, b = qCol.r, qCol.g, qCol.b
-            self.titleText:SetText(qCol.hex .. (itemData.name or "Item") .. "|r")
+            self.titleText:SetText(qCol.hex .. (locItemName or "Item") .. "|r")
         else
-            self.titleText:SetText("|cffffffff" .. (itemData.name or "Item") .. "|r")
+            self.titleText:SetText("|cffffffff" .. (locItemName or "Item") .. "|r")
         end
         self.iconBorder:SetBackdropBorderColor(r, g, b, 0.95)
         self.iconBorder:Show()
@@ -3032,12 +3036,12 @@ function MainMenu:CreateDetailCard(parent, config)
         -- Subtitulo rico + filtragem + colapso inteligente (ShowItem)
         local locName = nil
         if itemData.equipLoc and itemData.equipLoc ~= "" then
-            locName = getglobal(itemData.equipLoc) or itemData.equipLoc
-            if string.find(locName, "^INVTYPE_") then
-                locName = nil
+            locName = (ConsoleMode and ConsoleMode.GamePT_EquipLoc) and ConsoleMode:GamePT_EquipLoc(itemData.equipLoc) or getglobal(itemData.equipLoc)
+            if not locName or string.find(locName, "^INVTYPE_") then
+                locName = (ConsoleMode and ConsoleMode.GamePT_EquipLoc) and ConsoleMode:GamePT_EquipLoc(itemData.equipLoc) or nil
             end
         end
-        local stName = itemData.subType
+        local stName = (ConsoleMode and ConsoleMode.GamePT_ItemSubType) and ConsoleMode:GamePT_ItemSubType(itemData.subType) or itemData.subType
         local rLevel = tonumber(itemData.reqLevel) or 0
         local leftLines = {}
         local rightLines = {}
@@ -3065,25 +3069,18 @@ function MainMenu:CreateDetailCard(parent, config)
                     skip = true
                 end
                 if not skip then
-                    if string.find(sLine, "Uso:") or string.find(sLine, "Use:") or string.find(sLine, "Equipar:") or string.find(sLine, "Equip:") then
-                        table.insert(rightLines, sLine)
+                    local locLine = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(sLine) or sLine
+                    if string.find(locLine, "Uso:") or string.find(locLine, "Use:") or string.find(locLine, "Equipar:") or string.find(locLine, "Equip:") then
+                        table.insert(rightLines, locLine)
                     else
                         local isLeft = false
                         if string.find(lower, "dano") or string.find(lower, "damage") or string.find(lower, "velocidade") or string.find(lower, "speed") or string.find(lower, "por segundo") or string.find(lower, "per second") or string.find(lower, "armadura") or string.find(lower, "armor") or string.find(lower, "bloqueio") or string.find(lower, "block") then
                             isLeft = true
                         end
                         if isLeft then
-                            table.insert(leftLines, sLine)
+                            table.insert(leftLines, locLine)
                         else
-                            local isRightAttr = false
-                            if string.find(sLine, "%+%d+") or string.find(lower, "força") or string.find(lower, "agilidade") or string.find(lower, "vigor") or string.find(lower, "intelecto") or string.find(lower, "espírito") or string.find(lower, "strength") or string.find(lower, "agility") or string.find(lower, "stamina") or string.find(lower, "intellect") or string.find(lower, "spirit") or string.find(sLine, "Uso:") or string.find(sLine, "Use:") or string.find(sLine, "Equipar:") or string.find(sLine, "Equip:") then
-                                isRightAttr = true
-                            end
-                            if isRightAttr then
-                                table.insert(rightLines, sLine)
-                            else
-                                table.insert(rightLines, sLine)
-                            end
+                            table.insert(rightLines, locLine)
                         end
                     end
                 end
@@ -3092,7 +3089,8 @@ function MainMenu:CreateDetailCard(parent, config)
         if itemData.desc and itemData.desc ~= "" then
             local dl = string.lower(itemData.desc)
             if not (string.find(dl, "soulbound") or string.find(dl, "unique") or string.find(dl, "durability") or string.find(dl, "durabilidade")) then
-                table.insert(rightLines, "|cff00ff00" .. itemData.desc .. "|r")
+                local locDesc = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(itemData.desc) or itemData.desc
+                table.insert(rightLines, "|cff00ff00" .. locDesc .. "|r")
             end
         end
         local subParts = {}
@@ -3116,7 +3114,7 @@ function MainMenu:CreateDetailCard(parent, config)
         if durCur and durMax then
             table.insert(subParts, "Dur. " .. durCur .. "/" .. durMax)
         end
-        if isSoulbound then table.insert(subParts, "|cffffd100Soulbound|r") end
+        if isSoulbound then table.insert(subParts, "|cffffd100Vinculado|r") end
         if isUnique then table.insert(subParts, "|cffffd100Único|r") end
         -- FASE 4 (tag da bag): item de bag especial ganha tag colorida no subtipo.
         -- Bag normal (nil/"NORMAL") não mostra nada: card pixel-idêntico.
@@ -3318,6 +3316,9 @@ function MainMenu:CreateDetailCard(parent, config)
 
         -- 5. Corpo da Descricao: Coluna Unica Full-Width
         local descBody = spellData.desc or ""
+        if descBody ~= "" and ConsoleMode and ConsoleMode.GamePT_SpellDesc then
+            descBody = ConsoleMode:GamePT_SpellDesc(spellData.name, spellData.rank, descBody)
+        end
         if descBody == "" then
             descBody = CM:T("DETAIL_NO_DESC")
         end
@@ -5450,7 +5451,8 @@ function MainMenu:UpdateSpellCategories()
 
             btn.catIndex = i
             btn.tabData = tabData
-            btn.catName:SetText(tabData.name or ("Aba " .. i))
+            local locCatName = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(tabData.name) or (tabData.name or ("Aba " .. i))
+            btn.catName:SetText(locCatName)
             btn.spellsCount:SetText(string.format("|cffe09a15%d magias|r", tabData.numSpells or 0))
             if tabData.icon and tabData.icon ~= "" then
                 btn.catIcon:SetTexture(tabData.icon)
@@ -5498,6 +5500,7 @@ function MainMenu:FocusSpellCategoryButton(idx)
 
     local name, icon, offset, numSpells = GetSpellTabInfo(idx)
     name = name or ("Categoria " .. idx)
+    local locTabName = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(name) or name
     icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark"
     numSpells = numSpells or 0
 
@@ -5517,7 +5520,7 @@ function MainMenu:FocusSpellCategoryButton(idx)
         pageSpells.detailCard.titleText:ClearAllPoints()
         pageSpells.detailCard.titleText:SetPoint("TOPLEFT", pageSpells.detailCard.icon, "TOPRIGHT", 10, 0)
         pageSpells.detailCard.titleText:SetPoint("RIGHT", pageSpells.detailCard, "RIGHT", -10, 0)
-        pageSpells.detailCard.titleText:SetText(string.format("|cffe09a15Categoria: %s|r", name))
+        pageSpells.detailCard.titleText:SetText(string.format("|cffe09a15Categoria: %s|r", locTabName))
 
         pageSpells.detailCard.typeText:ClearAllPoints()
         pageSpells.detailCard.typeText:SetPoint("TOPLEFT", pageSpells.detailCard.titleText, "BOTTOMLEFT", 0, -2)
@@ -5667,7 +5670,8 @@ function MainMenu:UpdateSpellsPage(keepPage)
             MainMenu:ApplyFont(btn.title, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or 15)
         end
 
-        btn.title:SetText(tabData.name)
+        local locTabTitle = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(tabData.name) or tabData.name
+        btn.title:SetText(locTabTitle)
         local txtW = math.floor(btn.title:GetStringWidth() or 60)
         if txtW < 40 then txtW = 40 end
         btn:SetWidth(txtW + 14)

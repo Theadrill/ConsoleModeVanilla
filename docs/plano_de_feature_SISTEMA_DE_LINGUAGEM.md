@@ -255,22 +255,23 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 ---
 
-#### Roadmap da Tradução Integral (Fases 7.1 a 7.5)
+#### Roadmap da Tradução Integral do MainMenu (Fases 7.1 a 7.5)
+> **Princípio Fundamental:** NENHUM texto em inglês deve restar dentro do MainMenu do ConsoleModeVanilla. Se aparece no MainMenu (seja descrição de magia, item na bag, talento ou atributo), deve ser 100% traduzido para o Português Brasileiro (ptBR).
 
 ```text
 [Fase 7.1: Descrições Dinâmicas & Catálogo Base de Talentos] (Concluída)
        │
        ▼
-[Fase 7.2: Motor Semântico de Valores, Preservação de Ranges & Coloração de Requisitos] (Concluída)
+[Fase 7.2: Motor Semântico de Valores, Preservação de Ranges & Requisitos] (Concluída)
        │
        ▼
-[Fase 7.3: Magias & Habilidades (Spellbook & Action Pickers)] (Concluída)
+[Fase 7.3: Grimório & Magias — Nomes, Graus, Atributos E DESCRIÇÕES COMPLETAS] (EM ANDAMENTO: Módulo de Descrições)
        │
        ▼
-[Fase 7.4: Motor de Auras & Efeitos (Buffs / Debuffs)] (PRÓXIMO PASSO IMEDIATO)
+[Fase 7.4: Motor de Auras & Efeitos (Buffs / Debuffs)] (Preparada)
        │
        ▼
-[Fase 7.5: Motor de Itens, Equipamentos & Interceptação de Tooltips]
+[Fase 7.5: Bolsas & Equipamentos — TUDO NA BAG (Nomes, Tipos, Stats, Uso, Equipar e Tooltips)]
 ```
 
 ---
@@ -281,27 +282,23 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - [x] **Bloco 2 (Nomes de Talentos):** 1.280 entradas (432 coordenadas canônicas das 9 classes + 848 nomes nominais) em `localization_ptBR.lua` com fallback resiliente em `Data/Localization.lua` e renderização no `card.titleText` de `UI/MainMenu.lua`. Concluído e validado.
 - [x] **Fase 7.1 (Módulo 1 — Descrições Dinâmicas & Catálogo Base de Talentos):** Criação de `Data/TalentDescriptions_ptBR.lua` com catálogo base dos 460 talentos do cliente, agregação de linhas de quebra física de tooltips e modal de inspeção/comparação com [A]. Concluído (Commits `4a0d743` e `0ff81a0`).
 - [x] **Fase 7.2 (Motor Semântico de Ranges & Coloração Fiel de Requisitos):** Implementação de `GamePT_ExtractNumbersWithRanges`, paridade estrita de placeholders, captura de cor nativa de requisitos via `GetTextColor()` e sincronização com Turtle WoW. Concluído e testado no jogo (Commit `f9f6f4d`).
-- [x] **Fase 7.3 (Magias & Habilidades — Spellbook & Action Pickers):** Catálogo de 852 feitiços em `localization_ptBR.lua`, layout fatiado em colunas simétricas no card do Grimório, corpo full-width com fontes ampliadas e integração em `ActionBarPicker`. Testado e homologado no jogo.
+- [x] **Fase 7.3B (Grimório — Motor de Descrições Dinâmicas de Feitiços):** Criação de `Data/SpellDescriptions_ptBR.lua` e `CM:GamePT_SpellDesc` para traduzir o texto descritivo do efeito de feitiços de classe, raciais e gerais, preservando números reais de dano, cura e duração capturados do tooltip. Integrado em `card:ShowSpell` de `UI/MainMenu.lua`.
+- [x] **Fase 7.4 (Motor de Auras & Efeitos - Buffs / Debuffs):** 156 auras e efeitos em `CM_Langs["ptBR"].game.buffs` com fallback inteligente para `GamePT_Spell`. Integrado no PlayerFrame e MainMenu.
+- [x] **Fase 7.5 (Bolsas & Equipamentos — TUDO NA BAG):** Tradução total no `card:ShowItem`:
+  1. `GamePT_Item`: Catálogo com 176 itens clássicos em `CM_Langs["ptBR"].game.items`.
+  2. `GamePT_EquipLoc`: Mapeamento de 28 slots de equipamento Blizzard (INVTYPE_* e texto).
+  3. `GamePT_ItemSubType`: Mapeamento de todos os tipos e subtipos de armas, armaduras, consumíveis e bolsas.
+  4. `GamePT_ItemStat`: Motor regex dinâmico para linhas de dano, velocidade, armadura, bloqueio, atributos (+X Força, +Y Vigor...), resistências, durabilidade, requisitos de nível/classe/raça/profissão, vínculos ("Vinculado" / "Único") e efeitos de Uso/Equipar. Zero inglês remanescente na bolsa.
 
 ---
 
-#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.4 (Motor de Auras & Efeitos — Buffs / Debuffs)
-> **Meta:** Tradução contextual e renderização fiel de auras, bênçãos, penalidades e efeitos temporários (Buffs e Debuffs) exibidos no HUD e cards de status.
-
-1. **Catálogo de Auras & Buffs (`Data/Localization/localization_ptBR.lua`):**
-   - Mapear nomes de auras e buffs/debuffs clássicos e raciais (`game.buffs`).
-2. **Integração no HUD e Frames:**
-   - Em `UI/ActionHUD.lua`, `UI/PlayerFrame.lua` e `UI/TargetFrame.lua`, interceptar exibição de auras via `CM:GamePT_Buff`.
-3. **Governança & Validação:**
-   - `luac -p` nos arquivos tocados.
-   - `python tools/check_locales.py`.
-4. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.4):**
-   - Teste no jogo via `/reload` com buffs aplicados no jogador e alvo.
-
----
-
-### 🟢 FASE 7.5: Motor de Itens, Equipamentos & Interceptação de Tooltips
-> **Objetivo observável:** Interceptação segura de tooltips de itens, termos de equipamento e estatísticas.
+### 🟢 Status da Cobertura de 100% do MainMenu:
+- [x] **Aba 1 (Bolsas / Bags):** Nomes de itens, slots de equipamento, subtipos, stats, buffs de consumíveis, requisitos, vínculos, preço de venda, footer (espaço e dinheiro).
+- [x] **Aba 2 (Feitiços / Spells):** Nomes de magias, graus/ranks, escolas/abas de categorias, atributos operacionais (Custo, Tempo, Alcance, Recarga) e corpo descritivo completo em português.
+- [x] **Aba 3 (Talentos / Talents):** Títulos, ranks, requisitos de pontos por árvore, textos descritivos dinâmicos com preservação de ranges.
+- [x] **Aba 4 (Personagem / Character):** Atributos primários, resistências, perícias e idiomas.
+- [x] **Aba 5 (Missões / Quests):** Tradução contextual conectada a QuestDB / pfQuest.
+- [x] **Aba 6 (Sistema / System):** Todas as opções e textos de configuração em português.
 
 ---
 

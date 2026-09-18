@@ -735,6 +735,14 @@ function PF:Initialize()
                     GameTooltip:SetInventoryItem("player", this.itemSlot)
                 elseif this.buffIndex then
                     GameTooltip:SetPlayerBuff(this.buffIndex)
+                    local titleObj = getglobal("GameTooltipTextLeft1")
+                    if titleObj and titleObj:GetText() then
+                        local rawName = titleObj:GetText()
+                        local trans = (ConsoleMode and ConsoleMode.GamePT_Buff) and ConsoleMode:GamePT_Buff(rawName) or rawName
+                        if trans and trans ~= rawName then
+                            titleObj:SetText(trans)
+                        end
+                    end
                 end
                 GameTooltip:Show()
             end
@@ -789,6 +797,14 @@ function PF:Initialize()
             if GameTooltip and this.buffIndex then
                 GameTooltip:SetOwner(this, "ANCHOR_BOTTOMRIGHT")
                 GameTooltip:SetPlayerBuff(this.buffIndex)
+                local titleObj = getglobal("GameTooltipTextLeft1")
+                if titleObj and titleObj:GetText() then
+                    local rawName = titleObj:GetText()
+                    local trans = (ConsoleMode and ConsoleMode.GamePT_Buff) and ConsoleMode:GamePT_Buff(rawName) or rawName
+                    if trans and trans ~= rawName then
+                        titleObj:SetText(trans)
+                    end
+                end
                 GameTooltip:Show()
             end
         end)

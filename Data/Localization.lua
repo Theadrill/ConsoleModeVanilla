@@ -274,6 +274,89 @@ function CM:GamePT_SpellAttr(attrText)
     return s
 end
 
+-- Traducao de descricoes completas de feiticos/magias (Spellbook / Grimorio)
+function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
+    if not rawDesc or rawDesc == "" then
+        return ""
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return rawDesc
+    end
+
+    local db = CM_SpellDesc_ptBR
+    if not db then
+        return rawDesc
+    end
+
+    local key = string.lower(spellName or "")
+
+    -- 1. Tenta casar nos templates canonicos especificos do feitico
+    if key ~= "" and db.spells and db.spells[key] then
+        local entryList = db.spells[key]
+        for _, item in ipairs(entryList) do
+            if item.pat and item.tpl then
+                local matches = { string.find(rawDesc, item.pat) }
+                if matches[1] then
+                    local args = {}
+                    local mLen = table.getn(matches)
+                    for idx = 3, mLen do
+                        local argVal = matches[idx]
+                        if type(argVal) == "string" then
+                            argVal = string.gsub(argVal, "(%d+)%s+to%s+(%d+)", "%1 a %2")
+                        end
+                        table.insert(args, argVal)
+                    end
+                    if type(item.tpl) == "function" then
+                        local ok, res = pcall(item.tpl, unpack(args))
+                        if ok and res and res ~= "" then
+                            return res
+                        end
+                    elseif type(item.tpl) == "string" then
+                        local ok, res = pcall(string.format, item.tpl, unpack(args))
+                        if ok and res and res ~= "" then
+                            return res
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- 2. Tenta casar nos templates genericos de feiticos
+    if db.genericTemplates then
+        for _, gItem in ipairs(db.genericTemplates) do
+            if gItem.pat and gItem.tpl then
+                local matches = { string.find(rawDesc, gItem.pat) }
+                if matches[1] then
+                    local args = {}
+                    local mLen = table.getn(matches)
+                    for idx = 3, mLen do
+                        local argVal = matches[idx]
+                        if type(argVal) == "string" then
+                            argVal = string.gsub(argVal, "(%d+)%s+to%s+(%d+)", "%1 a %2")
+                        end
+                        table.insert(args, argVal)
+                    end
+                    if type(gItem.tpl) == "function" then
+                        local ok, res = pcall(gItem.tpl, unpack(args))
+                        if ok and res and res ~= "" then
+                            return res
+                        end
+                    elseif type(gItem.tpl) == "string" then
+                        local ok, res = pcall(string.format, gItem.tpl, unpack(args))
+                        if ok and res and res ~= "" then
+                            return res
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return rawDesc
+end
+
 -- Traducao de talentos por coordenada ou coordKey.
 -- Aceita (classFile, tab, tier, col, origName) OU (coordKey, origName).
 -- Retorna name, desc se tabela, string se string, ou origName.
@@ -696,7 +779,253 @@ function CM:GamePT_Buff(buffName)
             end
         end
     end
+    -- Fallback inteligente: auras e efeitos de feitiços compartilham o mesmo nome da magia
+    if self.GamePT_Spell then
+        local sp = self:GamePT_Spell(buffName)
+        if sp and sp ~= buffName then
+            return sp
+        end
+    end
     return buffName
+end
+
+---------------------------------------------------------------------------
+-- Tradução de Conteúdo de Itens e Inventário (Fase 7.5)
+---------------------------------------------------------------------------
+
+-- Tradução do nome do item. Lookup em game.items com fallback ptBR -> original.
+function CM:GamePT_Item(itemName)
+    if not itemName or itemName == "" then
+        return ""
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return itemName
+    end
+    local key = string.lower(itemName)
+    local entry = CM_Langs[activeId]
+    if entry and entry.game and entry.game.items then
+        local v = entry.game.items[key] or entry.game.items[itemName]
+        if v and v ~= "" then
+            return v
+        end
+    end
+    if activeId ~= "ptBR" then
+        local base = CM_Langs["ptBR"]
+        if base and base.game and base.game.items then
+            local b = base.game.items[key] or base.game.items[itemName]
+            if b and b ~= "" then
+                return b
+            end
+        end
+    end
+    return itemName
+end
+
+-- Mapeamento oficial de slots/locais de equipamento Blizzard
+local CM_EQUIPLOC_MAP = {
+    ["INVTYPE_HEAD"] = "Cabeça", ["Head"] = "Cabeça", ["head"] = "Cabeça",
+    ["INVTYPE_NECK"] = "Pescoço", ["Neck"] = "Pescoço", ["neck"] = "Pescoço",
+    ["INVTYPE_SHOULDER"] = "Ombros", ["Shoulder"] = "Ombros", ["shoulder"] = "Ombros",
+    ["INVTYPE_BODY"] = "Camisa", ["Shirt"] = "Camisa", ["shirt"] = "Camisa",
+    ["INVTYPE_CHEST"] = "Torso", ["Chest"] = "Torso", ["chest"] = "Torso",
+    ["INVTYPE_ROBE"] = "Veste", ["Robe"] = "Veste", ["robe"] = "Veste",
+    ["INVTYPE_WAIST"] = "Cintura", ["Waist"] = "Cintura", ["waist"] = "Cintura",
+    ["INVTYPE_LEGS"] = "Pernas", ["Legs"] = "Pernas", ["legs"] = "Pernas",
+    ["INVTYPE_FEET"] = "Pés", ["Feet"] = "Pés", ["feet"] = "Pés",
+    ["INVTYPE_WRIST"] = "Pulsos", ["Wrist"] = "Pulsos", ["wrist"] = "Pulsos",
+    ["INVTYPE_HAND"] = "Mãos", ["Hands"] = "Mãos", ["hands"] = "Mãos",
+    ["INVTYPE_FINGER"] = "Dedo", ["Finger"] = "Dedo", ["finger"] = "Dedo",
+    ["INVTYPE_TRINKET"] = "Berloque", ["Trinket"] = "Berloque", ["trinket"] = "Berloque",
+    ["INVTYPE_CLOAK"] = "Costas", ["Cloak"] = "Costas", ["cloak"] = "Costas", ["Back"] = "Costas", ["back"] = "Costas",
+    ["INVTYPE_WEAPON"] = "Uma Mão", ["One-Hand"] = "Uma Mão", ["one-hand"] = "Uma Mão",
+    ["INVTYPE_SHIELD"] = "Escudo", ["Shield"] = "Escudo", ["shield"] = "Escudo",
+    ["INVTYPE_2HWEAPON"] = "Duas Mãos", ["Two-Hand"] = "Duas Mãos", ["two-hand"] = "Duas Mãos",
+    ["INVTYPE_WEAPONMAINHAND"] = "Mão Principal", ["Main Hand"] = "Mão Principal", ["main hand"] = "Mão Principal",
+    ["INVTYPE_WEAPONOFFHAND"] = "Mão Secundária", ["Off Hand"] = "Mão Secundária", ["off hand"] = "Mão Secundária",
+    ["INVTYPE_HOLDABLE"] = "Empunhado na Mão Secundária", ["Held in Off-hand"] = "Empunhado na Mão Secundária", ["Held In Off-hand"] = "Empunhado na Mão Secundária",
+    ["INVTYPE_RANGED"] = "Longo Alcance", ["Ranged"] = "Longo Alcance", ["ranged"] = "Longo Alcance",
+    ["INVTYPE_THROWN"] = "Arremesso", ["Thrown"] = "Arremesso", ["thrown"] = "Arremesso",
+    ["INVTYPE_RANGEDRIGHT"] = "Longo Alcance",
+    ["INVTYPE_RELIC"] = "Relíquia", ["Relic"] = "Relíquia", ["relic"] = "Relíquia",
+    ["INVTYPE_TABARD"] = "Tabardo", ["Tabard"] = "Tabardo", ["tabard"] = "Tabardo",
+    ["INVTYPE_BAG"] = "Bolsa", ["Bag"] = "Bolsa", ["bag"] = "Bolsa",
+    ["INVTYPE_AMMO"] = "Munição", ["Ammo"] = "Munição", ["ammo"] = "Munição",
+}
+
+function CM:GamePT_EquipLoc(equipLoc)
+    if not equipLoc or equipLoc == "" then return "" end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then return equipLoc end
+    return CM_EQUIPLOC_MAP[equipLoc] or equipLoc
+end
+
+-- Mapeamento oficial de subtipos de itens Blizzard
+local CM_SUBTYPE_MAP = {
+    -- Armaduras
+    ["Cloth"] = "Tecido", ["cloth"] = "Tecido",
+    ["Leather"] = "Couro", ["leather"] = "Couro",
+    ["Mail"] = "Malha", ["mail"] = "Malha",
+    ["Plate"] = "Placas", ["plate"] = "Placas",
+    ["Shields"] = "Escudos", ["Shield"] = "Escudo", ["shields"] = "Escudos", ["shield"] = "Escudo",
+    ["Buckler"] = "Broquel", ["buckler"] = "Broquel",
+    ["Libram"] = "Livro Sagrado", ["Idol"] = "Ídolo", ["Totem"] = "Totem",
+    -- Armas
+    ["One-Handed Swords"] = "Espadas de Uma Mão", ["one-handed swords"] = "Espadas de Uma Mão",
+    ["Two-Handed Swords"] = "Espadas de Duas Mãos", ["two-handed swords"] = "Espadas de Duas Mãos",
+    ["One-Handed Axes"] = "Machados de Uma Mão", ["one-handed axes"] = "Machados de Uma Mão",
+    ["Two-Handed Axes"] = "Machados de Duas Mãos", ["two-handed axes"] = "Machados de Duas Mãos",
+    ["One-Handed Maces"] = "Maças de Uma Mão", ["one-handed maces"] = "Maças de Uma Mão",
+    ["Two-Handed Maces"] = "Maças de Duas Mãos", ["two-handed maces"] = "Maças de Duas Mãos",
+    ["Daggers"] = "Adagas", ["daggers"] = "Adagas", ["Dagger"] = "Adaga",
+    ["Polearms"] = "Armas de Haste", ["polearms"] = "Armas de Haste",
+    ["Staves"] = "Cajados", ["staves"] = "Cajados", ["Staff"] = "Cajado",
+    ["Fist Weapons"] = "Armas de Punho", ["fist weapons"] = "Armas de Punho",
+    ["Bows"] = "Arcos", ["bows"] = "Arcos", ["Bow"] = "Arco",
+    ["Crossbows"] = "Bestas", ["crossbows"] = "Bestas", ["Crossbow"] = "Besta",
+    ["Guns"] = "Armas de Fogo", ["guns"] = "Armas de Fogo", ["Gun"] = "Arma de Fogo",
+    ["Wands"] = "Varinhas", ["wands"] = "Varinhas", ["Wand"] = "Varinha",
+    ["Thrown"] = "Armas de Arremesso", ["thrown"] = "Armas de Arremesso",
+    ["Fishing Pole"] = "Vara de Pesca", ["Fishing Poles"] = "Varas de Pesca",
+    ["Miscellaneous"] = "Diversos", ["miscellaneous"] = "Diversos",
+    -- Consumíveis
+    ["Consumable"] = "Consumível", ["consumable"] = "Consumível",
+    ["Potion"] = "Poção", ["potion"] = "Poção",
+    ["Elixir"] = "Elixir", ["elixir"] = "Elixir",
+    ["Flask"] = "Frasco", ["flask"] = "Frasco",
+    ["Scroll"] = "Pergaminho", ["scroll"] = "Pergaminho",
+    ["Food & Drink"] = "Comida e Bebida", ["food & drink"] = "Comida e Bebida",
+    ["Food"] = "Comida", ["Drink"] = "Bebida",
+    ["Bandage"] = "Bandagem", ["bandage"] = "Bandagem",
+    -- Bolsas
+    ["Bag"] = "Bolsa", ["bag"] = "Bolsa",
+    ["Soul Bag"] = "Bolsa de Almas", ["soul bag"] = "Bolsa de Almas",
+    ["Herb Bag"] = "Bolsa de Ervas", ["herb bag"] = "Bolsa de Ervas",
+    ["Enchanting Bag"] = "Bolsa de Encantamento", ["enchanting bag"] = "Bolsa de Encantamento",
+    ["Engineering Bag"] = "Bolsa de Engenharia", ["engineering bag"] = "Bolsa de Engenharia",
+    ["Mining Bag"] = "Bolsa de Mineração", ["mining bag"] = "Bolsa de Mineração",
+    ["Quiver"] = "Aljava", ["quiver"] = "Aljava",
+    ["Ammo Pouch"] = "Bolsa de Munição", ["ammo pouch"] = "Bolsa de Munição",
+    -- Comércio e Outros
+    ["Trade Goods"] = "Itens de Comércio", ["trade goods"] = "Itens de Comércio",
+    ["Parts"] = "Peças", ["parts"] = "Peças",
+    ["Explosives"] = "Explosivos", ["explosives"] = "Explosivos",
+    ["Devices"] = "Dispositivos", ["devices"] = "Dispositivos",
+    ["Reagent"] = "Reagente", ["reagent"] = "Reagente",
+    ["Quest"] = "Missão", ["quest"] = "Missão",
+    ["Key"] = "Chave", ["key"] = "Chave",
+    ["Junk"] = "Lixo", ["junk"] = "Lixo",
+}
+
+function CM:GamePT_ItemSubType(subType)
+    if not subType or subType == "" then return "" end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then return subType end
+    return CM_SUBTYPE_MAP[subType] or subType
+end
+
+-- Tradução procedural de linhas de atributos, efeitos e requisitos de itens
+function CM:GamePT_ItemStat(statLine)
+    if not statLine or statLine == "" then return "" end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then return statLine end
+
+    local s = statLine
+
+    -- 1. Vínculos e Estados
+    s = string.gsub(s, "Binds when picked up", "Vincula-se ao ser recolhido")
+    s = string.gsub(s, "Binds when equipped", "Vincula-se quando equipado")
+    s = string.gsub(s, "Binds when used", "Vincula-se quando usado")
+    s = string.gsub(s, "Soulbound", "Vinculado")
+    s = string.gsub(s, "Unique", "Único")
+
+    -- 2. Dano, Velocidade e Armadura
+    s = string.gsub(s, "(%d+)%s*-%s*(%d+)%s+Damage", "%1 - %2 de Dano")
+    s = string.gsub(s, "Speed%s+([%d%.]+)", "Velocidade %1")
+    s = string.gsub(s, "%(([%d%.]+)%s+damage%s+per%s+second%)", "(%1 de dano por segundo)")
+    s = string.gsub(s, "(%d+)%s+Armor", "%1 de Armadura")
+    s = string.gsub(s, "(%d+)%s+Block", "%1 de Bloqueio")
+
+    -- 3. Atributos Primários (+X Stat)
+    s = string.gsub(s, "%+(%d+)%s+Strength", "+%1 de Força")
+    s = string.gsub(s, "%+(%d+)%s+Agility", "+%1 de Agilidade")
+    s = string.gsub(s, "%+(%d+)%s+Stamina", "+%1 de Vigor")
+    s = string.gsub(s, "%+(%d+)%s+Intellect", "+%1 de Intelecto")
+    s = string.gsub(s, "%+(%d+)%s+Spirit", "+%1 de Espírito")
+    s = string.gsub(s, "%+(%d+)%s+Attack Power", "+%1 de Poder de Ataque")
+    s = string.gsub(s, "%+(%d+)%s+[aA]rmor", "+%1 de Armadura")
+
+    -- 4. Resistências
+    s = string.gsub(s, "%+(%d+)%s+Fire Resistance", "+%1 de Resistência ao Fogo")
+    s = string.gsub(s, "%+(%d+)%s+Frost Resistance", "+%1 de Resistência ao Gelo")
+    s = string.gsub(s, "%+(%d+)%s+Nature Resistance", "+%1 de Resistência à Natureza")
+    s = string.gsub(s, "%+(%d+)%s+Shadow Resistance", "+%1 de Resistência à Sombra")
+    s = string.gsub(s, "%+(%d+)%s+Arcane Resistance", "+%1 de Resistência ao Arcano")
+
+    -- 5. Requisitos e Durabilidade
+    s = string.gsub(s, "Durability%s+(%d+)%s*/%s*(%d+)", "Durabilidade %1 / %2")
+    s = string.gsub(s, "Requires Level%s+(%d+)", "Requer Nível %1")
+    s = string.gsub(s, "Requires%s+([%a%s]+)%s*%((%d+)%)", function(prof, lvl)
+        local locProf = CM and CM.GamePT_Skill and CM:GamePT_Skill(prof) or prof
+        return string.format("Requer %s (%s)", locProf, lvl)
+    end)
+    s = string.gsub(s, "Classes:%s*(.+)", function(clsList)
+        local c = clsList
+        c = string.gsub(c, "Warrior", "Guerreiro")
+        c = string.gsub(c, "Paladin", "Paladino")
+        c = string.gsub(c, "Hunter", "Caçador")
+        c = string.gsub(c, "Rogue", "Ladino")
+        c = string.gsub(c, "Priest", "Sacerdote")
+        c = string.gsub(c, "Shaman", "Xamã")
+        c = string.gsub(c, "Mage", "Mago")
+        c = string.gsub(c, "Warlock", "Bruxo")
+        c = string.gsub(c, "Druid", "Druida")
+        return "Classes: " .. c
+    end)
+    s = string.gsub(s, "Races:%s*(.+)", function(raceList)
+        local r = raceList
+        r = string.gsub(r, "Human", "Humano")
+        r = string.gsub(r, "Orc", "Orc")
+        r = string.gsub(r, "Dwarf", "Anão")
+        r = string.gsub(r, "Night Elf", "Elfo Noturno")
+        r = string.gsub(r, "Undead", "Renegado")
+        r = string.gsub(r, "Tauren", "Tauren")
+        r = string.gsub(r, "Gnome", "Gnomo")
+        r = string.gsub(r, "Troll", "Troll")
+        return "Raças: " .. r
+    end)
+
+    -- 6. Prefixos de Efeitos
+    s = string.gsub(s, "^Use:%s*", "Uso: ")
+    s = string.gsub(s, "^Equip:%s*", "Equipar: ")
+    s = string.gsub(s, "^Chance on hit:%s*", "Chance ao acertar: ")
+
+    -- 7. Efeitos Frequentes de Poções, Comidas e Itens
+    s = string.gsub(s, "Restores (%d+ to %d+) health%.", "Restaura %1 de vida.")
+    s = string.gsub(s, "Restores (%d+) to (%d+) health%.", "Restaura %1 a %2 de vida.")
+    s = string.gsub(s, "Restores (%d+) health over (%d+) sec%.", "Restaura %1 de vida ao longo de %2 s.")
+    s = string.gsub(s, "Restores (%d+ to %d+) mana%.", "Restaura %1 de mana.")
+    s = string.gsub(s, "Restores (%d+) to (%d+) mana%.", "Restaura %1 a %2 de mana.")
+    s = string.gsub(s, "Restores (%d+) mana over (%d+) sec%.", "Restaura %1 de mana ao longo de %2 s.")
+    s = string.gsub(s, "Increases attack power by (%d+)%.", "Aumenta o poder de ataque em %1.")
+    s = string.gsub(s, "Increases armor by (%d+)%.", "Aumenta a armadura em %1.")
+    s = string.gsub(s, "Increases Stamina by (%d+) for (%d+) min%.", "Aumenta o Vigor em %1 por %2 min.")
+    s = string.gsub(s, "Increases Strength by (%d+) for (%d+) min%.", "Aumenta a Força em %1 por %2 min.")
+    s = string.gsub(s, "Increases Intellect by (%d+) for (%d+) min%.", "Aumenta o Intelecto em %1 por %2 min.")
+    s = string.gsub(s, "Increases Agility by (%d+) for (%d+) min%.", "Aumenta a Agilidade em %1 por %2 min.")
+    s = string.gsub(s, "Increases Spirit by (%d+) for (%d+) min%.", "Aumenta o Espírito em %1 por %2 min.")
+    s = string.gsub(s, "Increases defense by (%d+)%.", "Aumenta a defesa em %1.")
+    s = string.gsub(s, "Increases spell damage and healing by up to (%d+)%.", "Aumenta o dano mágico e a cura em até %1.")
+    s = string.gsub(s, "Increases damage and healing done by magical spells and effects by up to (%d+)%.", "Aumenta o dano e a cura realizados por feitiços e efeitos mágicos em até %1.")
+    s = string.gsub(s, "Increases healing done by spells and effects by up to (%d+)%.", "Aumenta a cura realizada por feitiços e efeitos em até %1.")
+    s = string.gsub(s, "Restores (%d+) mana per 5 sec%.", "Restaura %1 de mana a cada 5 s.")
+    s = string.gsub(s, "Improves your chance to get a critical strike by (%d+)%%%.?", "Aumenta sua chance de conseguir um acerto crítico em %1%%.")
+    s = string.gsub(s, "Improves your chance to hit with all spells and attacks by (%d+)%%%.?", "Aumenta sua chance de acertar com todos os feitiços e ataques em %1%%.")
+
+    -- Ranges numéricos 'to' -> 'a'
+    s = string.gsub(s, "(%d+)%s+to%s+(%d+)", "%1 a %2")
+
+    return s
 end
 
 -- Lista idiomas do registro no chat. Usado por /cm lang sem arg.

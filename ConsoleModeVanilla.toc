@@ -11,8 +11,12 @@ Logger.lua
 Keybindings.lua
 Cursor.lua
 Data\Localization.lua
-Data\Localization\localization_ptBR.lua
-Data\Localization\localization_enUS.lua
+Data\Locales\enUS\UI.lua
+Data\Locales\ptBR\UI.lua
+Data\Locales\ptBR\Grammar.lua
+Data\Locales\ptBR\Items.lua
+Data\Locales\ptBR\Spells.lua
+Data\Locales\ptBR\Talents.lua
 UI\ConfigFrame.lua
 UI\KeybindingsList.lua
 UI\SpellbookPicker.lua
@@ -32,8 +36,6 @@ Data\ZoneLevels.lua
 Data\ZonePositions.lua
 Data\ClassTrainers.lua
 Data\QuestDB_ptBR.lua
-Data\TalentDescriptions_ptBR.lua
-Data\SpellDescriptions_ptBR.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 UI\MainMenuNav.lua

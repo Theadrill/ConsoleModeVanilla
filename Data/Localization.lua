@@ -274,6 +274,58 @@ function CM:GamePT_SpellAttr(attrText)
     return s
 end
 
+-- Traduz linhas de requisitos de ferramentas ou reagentes de feiticos (Tools: ... / Reagents: ...)
+function CM:GamePT_SpellTool(line)
+    if not line or line == "" then
+        return line
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return line
+    end
+
+    local db = CM_SpellDesc_ptBR
+
+    -- Tools: <item>
+    local _, _, toolItem = string.find(line, "^Tools:%s*(.+)")
+    if toolItem then
+        local key = string.lower(toolItem)
+        local transItem = nil
+        if db and db.tools and db.tools[key] then
+            transItem = db.tools[key]
+        elseif self.GamePT_Item then
+            transItem = self:GamePT_Item(toolItem)
+        end
+        transItem = transItem or toolItem
+        return "|cffffd100Ferramentas:|r " .. transItem
+    end
+
+    -- Reagents: <item> [opcional (qty)]
+    local _, _, reagentLine = string.find(line, "^Reagents:%s*(.+)")
+    if reagentLine then
+        local _, _, itemPart, qtyPart = string.find(reagentLine, "^(.-)%s*(%(%d+%))$")
+        if not itemPart then
+            itemPart = reagentLine
+            qtyPart = ""
+        end
+        local key = string.lower(itemPart)
+        local transItem = nil
+        if db and db.reagents and db.reagents[key] then
+            transItem = db.reagents[key]
+        elseif self.GamePT_Item then
+            transItem = self:GamePT_Item(itemPart)
+        end
+        transItem = transItem or itemPart
+        if qtyPart and qtyPart ~= "" then
+            return "|cffffd100Reagentes:|r " .. transItem .. " " .. qtyPart
+        else
+            return "|cffffd100Reagentes:|r " .. transItem
+        end
+    end
+
+    return line
+end
+
 -- Traducao de descricoes completas de feiticos/magias (Spellbook / Grimorio)
 function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
     if not rawDesc or rawDesc == "" then
@@ -289,21 +341,74 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         return rawDesc
     end
 
-    -- Normaliza espaços múltiplos (ex: ".  " para ". ") para garantir casamento uniforme
-    local normDesc = string.gsub(rawDesc, "%s+", " ")
+    local _unpack = unpack or (table and table.unpack)
+
+    -- 0. Inicializa mapa reverso e aliases de nomes de feiticos em PT se necessario
+    if not db._reverseMap and db.spells then
+        db._reverseMap = {}
+        local ptSpells = CM_Langs and CM_Langs["ptBR"] and CM_Langs["ptBR"].game and CM_Langs["ptBR"].game.spells
+        if ptSpells then
+            for en, pt in pairs(ptSpells) do
+                if type(pt) == "string" and pt ~= "" then
+                    local lowPT = string.lower(pt)
+                    local lowEN = string.lower(en)
+                    db._reverseMap[lowPT] = lowEN
+                    if db.spells[lowEN] and not db.spells[lowPT] then
+                        db.spells[lowPT] = db.spells[lowEN]
+                    end
+                end
+            end
+        end
+        -- Aliases comuns adicionais de jogadores e macros
+        if db.spells["searing totem"] and not db.spells["totem de fogo"] then
+            db.spells["totem de fogo"] = db.spells["searing totem"]
+        end
+    end
+
+    -- 1. Separa linhas de ferramentas e reagentes do corpo real do feitico
+    local headerLines = {}
+    local bodyLines = {}
+    local gfind = string.gfind or string.gmatch
+    for line in gfind(rawDesc, "([^\r\n]+)") do
+        local trimmed = string.gsub(line, "^%s+", "")
+        trimmed = string.gsub(trimmed, "%s+$", "")
+        if string.find(trimmed, "^Tools%s*:") or string.find(trimmed, "^Ferramentas%s*:") or
+           string.find(trimmed, "^Reagents%s*:") or string.find(trimmed, "^Reagentes%s*:") then
+            table.insert(headerLines, self:GamePT_SpellTool(trimmed))
+        else
+            table.insert(bodyLines, line)
+        end
+    end
+
+    local bodyText = table.concat(bodyLines, "\n")
+    if bodyText == "" and table.getn(headerLines) > 0 then
+        return table.concat(headerLines, "\n")
+    end
+
+    local textToTranslate = bodyText ~= "" and bodyText or rawDesc
+    local translatedBody = nil
+
+    -- Normaliza espacos multiplos para garantir casamento uniforme de regex
+    local normDesc = string.gsub(textToTranslate, "%s+", " ")
     normDesc = string.gsub(normDesc, "^%s+", "")
     normDesc = string.gsub(normDesc, "%s+$", "")
 
-    local key = string.lower(spellName or "")
+    -- Forma canonica de descricoes (normaliza variantes sintaticas do Vanilla / Turtle WoW)
+    local canonDesc = string.gsub(normDesc, "at your feet", "at the feet of the caster")
+    canonDesc = string.gsub(canonDesc, "Magic", "magic")
+    canonDesc = string.gsub(canonDesc, "%s+seconds", " sec")
+    canonDesc = string.gsub(canonDesc, "%s+minutes", " min")
 
-    -- 1. Tenta casar nos templates canonicos especificos do feitico
-    if key ~= "" and db.spells and db.spells[key] then
-        local entryList = db.spells[key]
+    local function TryMatchTemplates(entryList, s1, s2, s3)
+        if not entryList then return nil end
         for _, item in ipairs(entryList) do
             if item.pat and item.tpl then
-                local matches = { string.find(normDesc, item.pat) }
-                if not matches[1] then
-                    matches = { string.find(rawDesc, item.pat) }
+                local matches = { string.find(s1, item.pat) }
+                if not matches[1] and s2 then
+                    matches = { string.find(s2, item.pat) }
+                end
+                if not matches[1] and s3 then
+                    matches = { string.find(s3, item.pat) }
                 end
                 if matches[1] then
                     local args = {}
@@ -316,12 +421,12 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
                         table.insert(args, argVal)
                     end
                     if type(item.tpl) == "function" then
-                        local ok, res = pcall(item.tpl, unpack(args))
+                        local ok, res = pcall(item.tpl, _unpack(args))
                         if ok and res and res ~= "" then
                             return res
                         end
                     elseif type(item.tpl) == "string" then
-                        local ok, res = pcall(string.format, item.tpl, unpack(args))
+                        local ok, res = pcall(string.format, item.tpl, _unpack(args))
                         if ok and res and res ~= "" then
                             return res
                         end
@@ -329,43 +434,59 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
                 end
             end
         end
+        return nil
     end
 
-    -- 2. Tenta casar nos templates genericos de feiticos
-    if db.genericTemplates then
-        for _, gItem in ipairs(db.genericTemplates) do
-            if gItem.pat and gItem.tpl then
-                local matches = { string.find(normDesc, gItem.pat) }
-                if not matches[1] then
-                    matches = { string.find(rawDesc, gItem.pat) }
-                end
-                if matches[1] then
-                    local args = {}
-                    local mLen = table.getn(matches)
-                    for idx = 3, mLen do
-                        local argVal = matches[idx]
-                        if type(argVal) == "string" then
-                            argVal = string.gsub(argVal, "(%d+)%s+to%s+(%d+)", "%1 a %2")
-                        end
-                        table.insert(args, argVal)
-                    end
-                    if type(gItem.tpl) == "function" then
-                        local ok, res = pcall(gItem.tpl, unpack(args))
-                        if ok and res and res ~= "" then
-                            return res
-                        end
-                    elseif type(gItem.tpl) == "string" then
-                        local ok, res = pcall(string.format, gItem.tpl, unpack(args))
-                        if ok and res and res ~= "" then
-                            return res
-                        end
-                    end
-                end
+    local key = string.lower(spellName or "")
+    local baseKey = string.gsub(key, "%s*%([^%)]*%)", "")
+    baseKey = string.gsub(baseKey, "%s+[ivxldcm%d]+$", "")
+    baseKey = string.gsub(baseKey, "^%s+", "")
+    baseKey = string.gsub(baseKey, "%s+$", "")
+
+    -- 2. Tenta casar nos templates canonicos especificos do feitico
+    if db.spells then
+        local entryList = db.spells[key] or db.spells[baseKey]
+        if not entryList and db._reverseMap then
+            local revKey = db._reverseMap[key] or db._reverseMap[baseKey]
+            if revKey then
+                entryList = db.spells[revKey]
+            end
+        end
+        if entryList then
+            translatedBody = TryMatchTemplates(entryList, normDesc, textToTranslate, canonDesc)
+        end
+    end
+
+    -- 3. Se nao encontrou pelo nome exato, busca nos templates cujas palavras-chave batem com o texto
+    if not translatedBody and db.spells then
+        local lowerNorm = string.lower(normDesc)
+        for sKey, entryList in pairs(db.spells) do
+            if string.find(lowerNorm, sKey) then
+                translatedBody = TryMatchTemplates(entryList, normDesc, textToTranslate, canonDesc)
+                if translatedBody then break end
             end
         end
     end
 
-    return rawDesc
+    -- 4. Tenta casar nos templates genericos de feiticos
+    if not translatedBody and db.genericTemplates then
+        translatedBody = TryMatchTemplates(db.genericTemplates, normDesc, textToTranslate, canonDesc)
+    end
+
+    -- 5. Motor Semantico Universal (Camada 3 Heuristica Global)
+    if not translatedBody and CM_Grammar_ptBR and CM_Grammar_ptBR.TranslateUniversal then
+        local uTrans = CM_Grammar_ptBR.TranslateUniversal(normDesc)
+        if uTrans and uTrans ~= "" and uTrans ~= normDesc then
+            translatedBody = uTrans
+        end
+    end
+
+    local finalBody = translatedBody or textToTranslate
+    if table.getn(headerLines) > 0 then
+        return table.concat(headerLines, "\n") .. "\n" .. finalBody
+    else
+        return finalBody
+    end
 end
 
 -- Traducao de talentos por coordenada ou coordKey.
@@ -718,6 +839,14 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
         end
     end
 
+    -- 5. Motor Semantico Universal (Camada 3 Heuristica Global para Talentos)
+    if CM_Grammar_ptBR and CM_Grammar_ptBR.TranslateUniversal then
+        local uTrans = CM_Grammar_ptBR.TranslateUniversal(rawLine)
+        if uTrans and uTrans ~= "" and uTrans ~= rawLine then
+            return uTrans
+        end
+    end
+
     return rawLine
 end
 
@@ -1052,14 +1181,38 @@ function CM:GamePT_ItemStat(statLine)
     s = string.gsub(s, "^Chance on hit:%s*", "Chance ao acertar: ")
 
     -- Efeito canônico da Pedra de Regresso (Hearthstone)
-    s = string.gsub(s, "Return to ([^%.]+)%.%s*Speak to an Innkeeper in a different place to change your home location%.", "Retorna a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
-    s = string.gsub(s, "Speak to an Innkeeper in a different place to change your home location%.", "Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "Return to ([^%.]+)%.%s*Speak to an [Ii]nnkeeper in a different place to change your home location%.?", "Retorna a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "Speak to an [Ii]nnkeeper in a different place to change your home location%.?", "Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
 
     -- Comidas, Bebidas e Bandagens
-    s = string.gsub(s, "Must remain seated while eating%.", "Deve permanecer sentado enquanto come.")
-    s = string.gsub(s, "Must remain seated while drinking%.", "Deve permanecer sentado enquanto bebe.")
-    s = string.gsub(s, "Heals (%d+) damage over (%d+) sec%.", "Cura %1 de dano ao longo de %2 s.")
+    s = string.gsub(s, "Must remain seated while eating%.?", "Deve permanecer sentado enquanto come.")
+    s = string.gsub(s, "Must remain seated while drinking%.?", "Deve permanecer sentado enquanto bebe.")
+    s = string.gsub(s, "Heals (%d+) damage over (%d+) sec%.?", "Cura %1 de dano ao longo de %2 s.")
     s = string.gsub(s, "Recently Bandaged", "Enfaixado Recentemente")
+
+    -- 6b. Motor Semântico Universal para efeitos de Uso / Equipar / Chance
+    if CM_Grammar_ptBR and CM_Grammar_ptBR.TranslateUniversal then
+        local prefix, effect = nil, nil
+        if string.find(s, "^Uso:%s*(.+)") then
+            prefix = "Uso: "
+            local _, _, ef = string.find(s, "^Uso:%s*(.+)")
+            effect = ef
+        elseif string.find(s, "^Equipar:%s*(.+)") then
+            prefix = "Equipar: "
+            local _, _, ef = string.find(s, "^Equipar:%s*(.+)")
+            effect = ef
+        elseif string.find(s, "^Chance ao acertar:%s*(.+)") then
+            prefix = "Chance ao acertar: "
+            local _, _, ef = string.find(s, "^Chance ao acertar:%s*(.+)")
+            effect = ef
+        end
+        if prefix and effect then
+            local u = CM_Grammar_ptBR.TranslateUniversal(effect)
+            if u and u ~= "" then
+                s = prefix .. u
+            end
+        end
+    end
 
     -- 7. Efeitos Frequentes de Poções, Comidas e Itens
     s = string.gsub(s, "Restores (%d+ to %d+) health%.", "Restaura %1 de vida.")
@@ -1168,8 +1321,8 @@ end
 
 -- Registro Fase 1: portugues e a base completa. Novos idiomas entram
 -- abaixo desta linha, uma chamada por idioma, sem tocar no resto.
-CM_RegisterLang("ptBR", "Português (Brasil)", "Data\\Localization\\localization_ptBR.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Localization\\flag_ptBR.tga")
-CM_RegisterLang("enUS", "English (US)", "Data\\Localization\\localization_enUS.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Localization\\flag_enUS.tga")
+CM_RegisterLang("ptBR", "Português (Brasil)", "Data\\Locales\\ptBR\\UI.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Locales\\ptBR\\flag_ptBR.tga")
+CM_RegisterLang("enUS", "English (US)", "Data\\Locales\\enUS\\UI.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Locales\\enUS\\flag_enUS.tga")
 
 -- Resolve cedo com default. VARIABLES_LOADED resolve de novo com SavedVariables.
 CM:ResolveLocale()

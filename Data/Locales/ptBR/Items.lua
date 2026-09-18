@@ -268,8 +268,28 @@ CM_SUBTYPE_MAP = {
     ["Miscellaneous"] = "Diversos", ["miscellaneous"] = "Diversos",
     ["Consumable"] = "Consumível", ["consumable"] = "Consumível",
     ["Quest"] = "Missão", ["quest"] = "Missão",
+    ["Quest Item"] = "Item de Missão", ["quest item"] = "Item de Missão",
     ["Trade Goods"] = "Mercadorias", ["trade goods"] = "Mercadorias",
     ["Reagent"] = "Reagente", ["reagent"] = "Reagente",
     ["Key"] = "Chave", ["key"] = "Chave",
     ["Junk"] = "Lixo", ["junk"] = "Lixo",
+}
+
+CM_QUEST_ITEM_PREFIXES = CM_QUEST_ITEM_PREFIXES or {
+    ["Horn"] = "Chifre", ["Head"] = "Cabeça", ["Claw"] = "Garra", ["Heart"] = "Coração",
+    ["Eye"] = "Olho", ["Eyes"] = "Olhos", ["Blood"] = "Sangue", ["Tusk"] = "Presa",
+    ["Tusks"] = "Presas", ["Fang"] = "Presa", ["Fangs"] = "Presas", ["Skin"] = "Pele",
+    ["Scale"] = "Escama", ["Scales"] = "Escamas", ["Tail"] = "Cauda", ["Tooth"] = "Dente",
+    ["Teeth"] = "Dentes", ["Feather"] = "Pena", ["Feathers"] = "Penas", ["Letter"] = "Carta",
+    ["Key"] = "Chave", ["Note"] = "Nota", ["Token"] = "Ficha", ["Remains"] = "Restos",
+    ["Tears"] = "Lágrimas", ["Hand"] = "Mão", ["Essence"] = "Essência", ["Symbol"] = "Símbolo",
+    ["Badge"] = "Distintivo", ["Crest"] = "Brasão", ["Trophy"] = "Troféu", ["Mark"] = "Marca",
+    ["Tome"] = "Tomo", ["Scroll"] = "Pergaminho", ["Book"] = "Livro", ["Skull"] = "Crânio",
+    ["Bone"] = "Osso", ["Bones"] = "Ossos", ["Rib"] = "Costela", ["Femur"] = "Fêmur",
+    ["Shard"] = "Fragmento", ["Shards"] = "Fragmentos", ["Crystal"] = "Cristal",
+    ["Crystals"] = "Cristais", ["Gem"] = "Gema", ["Gems"] = "Gemas", ["Orb"] = "Orbe",
+    ["Ring"] = "Anel", ["Amulet"] = "Amuleto", ["Pendant"] = "Pingente", ["Idol"] = "Ídolo",
+    ["Staff"] = "Cajado", ["Blade"] = "Lâmina", ["Sword"] = "Espada", ["Dagger"] = "Adaga",
+    ["Axe"] = "Machado", ["Hammer"] = "Martelo", ["Shield"] = "Escudo", ["Helm"] = "Elmo",
+    ["Crown"] = "Coroa", ["Medallion"] = "Medalhão", ["Relic"] = "Relíquia",
 }

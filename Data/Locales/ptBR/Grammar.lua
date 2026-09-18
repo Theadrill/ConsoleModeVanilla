@@ -143,6 +143,22 @@ CM_Grammar_ptBR.terms = {
     ["in addition,"] = "além disso,",
     ["In addition"] = "Além disso",
     ["in addition"] = "além disso",
+    ["The Crossroads"] = "Encruzilhada",
+    ["the Crossroads"] = "Encruzilhada",
+    ["Crossroads"] = "Encruzilhada",
+    ["earthen fury"] = "fúria terrena",
+    ["earthen"] = "terrena",
+    ["Quest Item"] = "Item de Missão",
+    ["Earthshaker Slam"] = "Golpe Abalador da Terra",
+    ["earthshaker slam"] = "Golpe Abalador da Terra",
+    ["Totemic Recall"] = "Revogação Totêmica",
+    ["totemic recall"] = "Revogação Totêmica",
+    ["Water Shield"] = "Escudo de Água",
+    ["water shield"] = "Escudo de Água",
+    ["Crusader Strike"] = "Golpe do Cruzado",
+    ["crusader strike"] = "Golpe do Cruzado",
+    ["Holy Strike"] = "Golpe Sagrado",
+    ["holy strike"] = "Golpe Sagrado",
     ["the target"] = "o alvo",
     ["the enemy"] = "o inimigo",
     ["target"] = "alvo",
@@ -231,6 +247,34 @@ function CM_Grammar_ptBR.TranslateUniversal(text)
     s = string.gsub(s, "Restores (%d+) health per 5 sec%.?", "Restaura %1 de vida a cada 5 s.")
     s = string.gsub(s, "Teaches you how to (.+)%.?", "Ensina como %1.")
     s = string.gsub(s, "Permanently (.+)%.?", "Permanentemente %1.")
+
+    -- Normalização de Recarga de Itens (CD: 30 s / 60.0 min)
+    s = string.gsub(s, "%(%s*CD:%s*([%d%.]+)%s*([%a]+)%s*%)", "(Recarga: %1 %2)")
+    s = string.gsub(s, "CD:%s*([%d%.]+)%s*([%a]+)", "Recarga: %1 %2")
+    s = string.gsub(s, "%(%s*(%d+%.?%d*)%s*Min%s*[Cc]ooldown%s*%)", "(Recarga: %1 min)")
+    s = string.gsub(s, "%(%s*(%d+%.?%d*)%s*Sec%s*[Cc]ooldown%s*%)", "(Recarga: %1 s)")
+    s = string.gsub(s, "%(%s*(%d+%.?%d*)%s*Hr%s*[Cc]ooldown%s*%)", "(Recarga: %1 h)")
+
+    -- Efeito canônico da Pedra de Regresso (Hearthstone)
+    s = string.gsub(s, "[Rr]eturns?%s+you%s+to%s+([^%.]+)%.%s*[Ss]peak to an [Ii]nnkeeper in a different place to change your home location%.?", "Retorna você a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "[Rr]eturns?%s+to%s+([^%.]+)%.%s*Speak to an [Ii]nnkeeper in a different place to change your home location%.?", "Retorna a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "[Rr]eturns?%s+you%s+to%s+([^%.]+)%.?", "Retorna você a %1.")
+    s = string.gsub(s, "[Rr]eturns?%s+to%s+([^%.]+)%.?", "Retorna a %1.")
+    s = string.gsub(s, "Speak to an [Ii]nnkeeper in a different place to change your home location%.?", "Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+
+    -- Ações Imperativas de Itens de Missão e Interação
+    s = string.gsub(s, "(%a+)\'s Lair", "Covil de %1")
+    s = string.gsub(s, "Lair", "Covil")
+    s = string.gsub(s, "[Bb]low near ([^%.]+)%.?", "Toque próximo ao %1.")
+    s = string.gsub(s, "[Uu]se near ([^%.]+)%.?", "Use próximo a %1.")
+    s = string.gsub(s, "[Pp]lace near ([^%.]+)%.?", "Coloque próximo a %1.")
+    s = string.gsub(s, "[Pp]lant near ([^%.]+)%.?", "Plante próximo a %1.")
+    s = string.gsub(s, "[Oo]pen ([^%.]+)%.?", "Abra %1.")
+    s = string.gsub(s, "[Rr]ead ([^%.]+)%.?", "Leia %1.")
+    s = string.gsub(s, "<[Rr]ight%s+[Cc]lick%s+to%s+[Oo]pen%>", "<Clique com o botão direito para abrir>")
+    s = string.gsub(s, "<[Rr]ight%s+[Cc]lick%s+to%s+[Rr]ead%>", "<Clique com o botão direito para ler>")
+    s = string.gsub(s, "[Rr]ight%s+[Cc]lick%s+to%s+[Oo]pen", "Clique com o botão direito para abrir")
+    s = string.gsub(s, "[Rr]ight%s+[Cc]lick%s+to%s+[Rr]ead", "Clique com o botão direito para ler")
 
     -- 4. Dano Direto, Escolas Elementais e Verbos Ofensivos
     -- Causes
@@ -552,6 +596,47 @@ function CM_Grammar_ptBR.TranslateUniversal(text)
     s = string.gsub(s, "Finishing move that", "Golpe finalizador que")
     s = string.gsub(s, "Awards (%d+) combo points?", "Concede %1 ponto(s) de combo")
     s = string.gsub(s, "awards (%d+) combo points?", "concede %1 ponto(s) de combo")
+
+    -- Golpes com Provocação / Efeitos Especiais de Postura
+    s = string.gsub(s, "Slam the target with (.-), taunting it to attack you%.%s*Has no effect if the target is already attacking you%.?", function(fury)
+        local locFury = (CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[fury]) or fury
+        return "Golpeia o alvo com " .. locFury .. ", provocando-o para atacar você. Não tem efeito se o alvo já estiver atacando você."
+    end)
+    s = string.gsub(s, "slam the target with (.-), taunting it to attack you%.%s*Has no effect if the target is already attacking you%.?", function(fury)
+        local locFury = (CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[fury]) or fury
+        return "golpeia o alvo com " .. locFury .. ", provocando-o para atacar você. Não tem efeito se o alvo já estiver atacando você."
+    end)
+    s = string.gsub(s, "Slam the target with (.-), taunting it to attack you%.?", function(fury)
+        local locFury = (CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[fury]) or fury
+        return "Golpeia o alvo com " .. locFury .. ", provocando-o para atacar você."
+    end)
+    s = string.gsub(s, "slam the target with (.-), taunting it to attack you%.?", function(fury)
+        local locFury = (CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[fury]) or fury
+        return "golpeia o alvo com " .. locFury .. ", provocando-o para atacar você."
+    end)
+    s = string.gsub(s, "Slam the target with (.-)%.?", function(fury)
+        local locFury = (CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[fury]) or fury
+        return "Golpeia o alvo com " .. locFury .. "."
+    end)
+    s = string.gsub(s, "slam the target with (.-)%.?", function(fury)
+        local locFury = (CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[fury]) or fury
+        return "golpeia o alvo com " .. locFury .. "."
+    end)
+    s = string.gsub(s, "taunting it to attack you%.?", "provocando-o para atacar você.")
+    s = string.gsub(s, "taunting the target to attack you%.?", "provocando o alvo para atacar você.")
+    s = string.gsub(s, "Has no effect if the target is already attacking you%.?", "Não tem efeito se o alvo já estiver atacando você.")
+    s = string.gsub(s, "has no effect if the target is already attacking you%.?", "não tem efeito se o alvo já estiver atacando você.")
+    s = string.gsub(s, "Has no effect if (.-) is already attacking you%.?", "Não tem efeito se %1 já estiver atacando você.")
+    s = string.gsub(s, "has no effect if (.-) is already attacking you%.?", "não tem efeito se %1 já estiver atacando você.")
+
+    -- Restituição e Gerenciamento de Totens / Recursos
+    s = string.gsub(s, "Returns your totems to the earth, refunding (%d+)%% of the mana required to cast each totem destroyed by (.-)%.?", "Devolve seus totens à terra, restituindo %1%% do mana necessário para evocar cada totem destruído por %2.")
+    s = string.gsub(s, "returns your totems to the earth, refunding (%d+)%% of the mana required to cast each totem destroyed by (.-)%.?", "devolve seus totens à terra, restituindo %1%% do mana necessário para evocar cada totem destruído por %2.")
+    s = string.gsub(s, "Returns your totems to the earth, refunding (%d+)%% of the mana required to cast each totem%.?", "Devolve seus totens à terra, restituindo %1%% do mana necessário para evocar cada totem.")
+    s = string.gsub(s, "returns your totems to the earth, refunding (%d+)%% of the mana required to cast each totem%.?", "devolve seus totens à terra, restituindo %1%% do mana necessário para evocar cada totem.")
+    s = string.gsub(s, "Returns (your .-) to the earth", "Devolve %1 à terra")
+    s = string.gsub(s, "returns (your .-) to the earth", "devolve %1 à terra")
+    s = string.gsub(s, "refunding (%d+)%% of the mana required to cast each totem", "restituindo %1%% do mana necessário para evocar cada totem")
 
     -- 11. Fórmulas de Duração e Requisitos
     s = string.gsub(s, "Lasts (%d+) s%.?", "Dura %1 s.")

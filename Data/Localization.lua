@@ -365,7 +365,7 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         end
     end
 
-    -- 1. Separa linhas de ferramentas e reagentes do corpo real do feitico
+    -- 1. Separa linhas de ferramentas, reagentes e requisitos do corpo real do feitico
     local headerLines = {}
     local bodyLines = {}
     local gfind = string.gfind or string.gmatch
@@ -375,6 +375,18 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         if string.find(trimmed, "^Tools%s*:") or string.find(trimmed, "^Ferramentas%s*:") or
            string.find(trimmed, "^Reagents%s*:") or string.find(trimmed, "^Reagentes%s*:") then
             table.insert(headerLines, self:GamePT_SpellTool(trimmed))
+        elseif string.find(trimmed, "^Requires%s+") or string.find(trimmed, "^Requer%s+") then
+            local req = string.gsub(trimmed, "^Requires%s+", "")
+            local locReq = req
+            if CM_Grammar_ptBR and CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[req] then
+                locReq = CM_Grammar_ptBR.terms[req]
+            elseif CM_Grammar_ptBR and CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[string.gsub(req, "s$", "")] then
+                locReq = CM_Grammar_ptBR.terms[string.gsub(req, "s$", "")]
+            end
+            table.insert(headerLines, "|cffffd100Requer " .. locReq .. "|r")
+        elseif string.find(trimmed, "^%d+.*yd%s*range") or string.find(trimmed, "^%d+.*m%s*de alcance") or
+               string.find(trimmed, "^Melee%s*Range") or string.find(trimmed, "^Corpo a corpo") then
+            -- Linha redundante de alcance que caiu no descLines: descartada do corpo
         else
             table.insert(bodyLines, line)
         end
@@ -388,10 +400,10 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
     local textToTranslate = bodyText ~= "" and bodyText or rawDesc
     local translatedBody = nil
 
-    -- Normaliza espacos multiplos para garantir casamento uniforme de regex
-    local normDesc = string.gsub(textToTranslate, "%s+", " ")
-    normDesc = string.gsub(normDesc, "^%s+", "")
-    normDesc = string.gsub(normDesc, "%s+$", "")
+    -- Normaliza espacos multiplos horizontais (preserva quebras de linha entre paragrafos)
+    local normDesc = string.gsub(textToTranslate, "[ \t]+", " ")
+    normDesc = string.gsub(normDesc, "^[ \t]+", "")
+    normDesc = string.gsub(normDesc, "[ \t]+$", "")
 
     -- Forma canonica de descricoes (normaliza variantes sintaticas do Vanilla / Turtle WoW)
     local canonDesc = string.gsub(normDesc, "at your feet", "at the feet of the caster")
@@ -417,6 +429,11 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
                         local argVal = matches[idx]
                         if type(argVal) == "string" then
                             argVal = string.gsub(argVal, "(%d+)%s+to%s+(%d+)", "%1 a %2")
+                            if CM_Grammar_ptBR and CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[argVal] then
+                                argVal = CM_Grammar_ptBR.terms[argVal]
+                            elseif CM_SpellDesc_ptBR and CM_SpellDesc_ptBR.terms and CM_SpellDesc_ptBR.terms[argVal] then
+                                argVal = CM_SpellDesc_ptBR.terms[argVal]
+                            end
                         end
                         table.insert(args, argVal)
                     end
@@ -475,9 +492,26 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
 
     -- 5. Motor Semantico Universal (Camada 3 Heuristica Global)
     if not translatedBody and CM_Grammar_ptBR and CM_Grammar_ptBR.TranslateUniversal then
-        local uTrans = CM_Grammar_ptBR.TranslateUniversal(normDesc)
-        if uTrans and uTrans ~= "" and uTrans ~= normDesc then
-            translatedBody = uTrans
+        if string.find(normDesc, "\n") then
+            local pLines = {}
+            local hasAny = false
+            for p in gfind(normDesc, "([^\r\n]+)") do
+                local u = CM_Grammar_ptBR.TranslateUniversal(p)
+                if u and u ~= "" and u ~= p then
+                    hasAny = true
+                    table.insert(pLines, u)
+                else
+                    table.insert(pLines, p)
+                end
+            end
+            if hasAny then
+                translatedBody = table.concat(pLines, "\n")
+            end
+        else
+            local uTrans = CM_Grammar_ptBR.TranslateUniversal(normDesc)
+            if uTrans and uTrans ~= "" and uTrans ~= normDesc then
+                translatedBody = uTrans
+            end
         end
     end
 
@@ -960,6 +994,25 @@ local CM_ITEM_SUFFIXES = {
     ["of Arcane Wrath"] = "da Fúria Arcana",
 }
 
+local CM_QUEST_ITEM_PREFIXES = {
+    ["Horn"] = "Chifre", ["Head"] = "Cabeça", ["Claw"] = "Garra", ["Heart"] = "Coração",
+    ["Eye"] = "Olho", ["Eyes"] = "Olhos", ["Blood"] = "Sangue", ["Tusk"] = "Presa",
+    ["Tusks"] = "Presas", ["Fang"] = "Presa", ["Fangs"] = "Presas", ["Skin"] = "Pele",
+    ["Scale"] = "Escama", ["Scales"] = "Escamas", ["Tail"] = "Cauda", ["Tooth"] = "Dente",
+    ["Teeth"] = "Dentes", ["Feather"] = "Pena", ["Feathers"] = "Penas", ["Letter"] = "Carta",
+    ["Key"] = "Chave", ["Note"] = "Nota", ["Token"] = "Ficha", ["Remains"] = "Restos",
+    ["Tears"] = "Lágrimas", ["Hand"] = "Mão", ["Essence"] = "Essência", ["Symbol"] = "Símbolo",
+    ["Badge"] = "Distintivo", ["Crest"] = "Brasão", ["Trophy"] = "Troféu", ["Mark"] = "Marca",
+    ["Tome"] = "Tomo", ["Scroll"] = "Pergaminho", ["Book"] = "Livro", ["Skull"] = "Crânio",
+    ["Bone"] = "Osso", ["Bones"] = "Ossos", ["Rib"] = "Costela", ["Femur"] = "Fêmur",
+    ["Shard"] = "Fragmento", ["Shards"] = "Fragmentos", ["Crystal"] = "Cristal",
+    ["Crystals"] = "Cristais", ["Gem"] = "Gema", ["Gems"] = "Gemas", ["Orb"] = "Orbe",
+    ["Ring"] = "Anel", ["Amulet"] = "Amuleto", ["Pendant"] = "Pingente", ["Idol"] = "Ídolo",
+    ["Staff"] = "Cajado", ["Blade"] = "Lâmina", ["Sword"] = "Espada", ["Dagger"] = "Adaga",
+    ["Axe"] = "Machado", ["Hammer"] = "Martelo", ["Shield"] = "Escudo", ["Helm"] = "Elmo",
+    ["Crown"] = "Coroa", ["Medallion"] = "Medalhão", ["Relic"] = "Relíquia",
+}
+
 -- Tradução do nome do item. Lookup em game.items com fallback ptBR -> original.
 function CM:GamePT_Item(itemName)
     if not itemName or itemName == "" then
@@ -989,13 +1042,30 @@ function CM:GamePT_Item(itemName)
 
     -- Decomposição de itens mágicos verdes com sufixo (ex: "Linen Belt of the Boar")
     local _, _, baseName, sfx = string.find(itemName, "^(.+)%s+(of%s+.+)$")
-    if baseName and sfx then
+    if baseName and sfx and CM_ITEM_SUFFIXES and CM_ITEM_SUFFIXES[sfx] then
         local locBase = self:GamePT_Item(baseName)
-        local locSfx = CM_ITEM_SUFFIXES[sfx] or sfx
+        local locSfx = CM_ITEM_SUFFIXES[sfx]
         if locBase and locBase ~= baseName then
             return locBase .. " " .. locSfx
-        elseif locSfx ~= sfx then
+        else
             return baseName .. " " .. locSfx
+        end
+    end
+
+    -- Decomposição sintática de itens de missões/lore X of Y (ex: "Horn of Echeyakee")
+    local _, _, noun, entity = string.find(itemName, "^([%a%s]+)%s+of%s+(.+)$")
+    if noun and entity then
+        local locNoun = CM_QUEST_ITEM_PREFIXES[noun]
+        if locNoun then
+            local prep = "de"
+            if string.find(entity, "^the%s+") then
+                entity = string.gsub(entity, "^the%s+", "")
+                prep = "do(a)"
+            end
+            if CM_Grammar_ptBR and CM_Grammar_ptBR.terms and CM_Grammar_ptBR.terms[entity] then
+                entity = CM_Grammar_ptBR.terms[entity]
+            end
+            return locNoun .. " " .. prep .. " " .. entity
         end
     end
 
@@ -1113,6 +1183,10 @@ function CM:GamePT_ItemStat(statLine)
     local s = statLine
 
     -- 1. Vínculos e Estados
+    if s == "Quest Item" then return "Item de Missão" end
+    if s == "Quest" then return "Missão" end
+    s = string.gsub(s, "^Quest Item$", "Item de Missão")
+    s = string.gsub(s, "^Quest$", "Missão")
     s = string.gsub(s, "Binds when picked up", "Vincula-se ao ser recolhido")
     s = string.gsub(s, "Binds when equipped", "Vincula-se quando equipado")
     s = string.gsub(s, "Binds when used", "Vincula-se quando usado")
@@ -1180,8 +1254,18 @@ function CM:GamePT_ItemStat(statLine)
     s = string.gsub(s, "^Equip:%s*", "Equipar: ")
     s = string.gsub(s, "^Chance on hit:%s*", "Chance ao acertar: ")
 
+    -- Normalização de Recarga de Itens (CD: 30 s / 60.0 min)
+    s = string.gsub(s, "%(%s*CD:%s*([%d%.]+)%s*([%a]+)%s*%)", "(Recarga: %1 %2)")
+    s = string.gsub(s, "CD:%s*([%d%.]+)%s*([%a]+)", "Recarga: %1 %2")
+    s = string.gsub(s, "%(%s*(%d+%.?%d*)%s*Min%s*[Cc]ooldown%s*%)", "(Recarga: %1 min)")
+    s = string.gsub(s, "%(%s*(%d+%.?%d*)%s*Sec%s*[Cc]ooldown%s*%)", "(Recarga: %1 s)")
+    s = string.gsub(s, "%(%s*(%d+%.?%d*)%s*Hr%s*[Cc]ooldown%s*%)", "(Recarga: %1 h)")
+
     -- Efeito canônico da Pedra de Regresso (Hearthstone)
-    s = string.gsub(s, "Return to ([^%.]+)%.%s*Speak to an [Ii]nnkeeper in a different place to change your home location%.?", "Retorna a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "[Rr]eturns?%s+you%s+to%s+([^%.]+)%.%s*[Ss]peak to an [Ii]nnkeeper in a different place to change your home location%.?", "Retorna você a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "[Rr]eturns?%s+to%s+([^%.]+)%.%s*Speak to an [Ii]nnkeeper in a different place to change your home location%.?", "Retorna a %1. Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
+    s = string.gsub(s, "[Rr]eturns?%s+you%s+to%s+([^%.]+)%.?", "Retorna você a %1.")
+    s = string.gsub(s, "[Rr]eturns?%s+to%s+([^%.]+)%.?", "Retorna a %1.")
     s = string.gsub(s, "Speak to an [Ii]nnkeeper in a different place to change your home location%.?", "Fale com um Estalajadeiro em outro local para mudar sua pedra de regresso.")
 
     -- Comidas, Bebidas e Bandagens
@@ -1190,7 +1274,7 @@ function CM:GamePT_ItemStat(statLine)
     s = string.gsub(s, "Heals (%d+) damage over (%d+) sec%.?", "Cura %1 de dano ao longo de %2 s.")
     s = string.gsub(s, "Recently Bandaged", "Enfaixado Recentemente")
 
-    -- 6b. Motor Semântico Universal para efeitos de Uso / Equipar / Chance
+    -- 6b. Motor Semântico Universal para efeitos de Uso / Equipar / Chance e instruções de itens
     if CM_Grammar_ptBR and CM_Grammar_ptBR.TranslateUniversal then
         local prefix, effect = nil, nil
         if string.find(s, "^Uso:%s*(.+)") then
@@ -1205,6 +1289,11 @@ function CM:GamePT_ItemStat(statLine)
             prefix = "Chance ao acertar: "
             local _, _, ef = string.find(s, "^Chance ao acertar:%s*(.+)")
             effect = ef
+        else
+            local u = CM_Grammar_ptBR.TranslateUniversal(s)
+            if u and u ~= "" and u ~= s then
+                s = u
+            end
         end
         if prefix and effect then
             local u = CM_Grammar_ptBR.TranslateUniversal(effect)

@@ -3,6 +3,16 @@ CM_Langs = CM_Langs or {}
 CM_Langs["ptBR"] = CM_Langs["ptBR"] or {}
 CM_Langs["ptBR"].game = CM_Langs["ptBR"].game or {}
 CM_Langs["ptBR"].game.spells = {
+        ["earthshaker slam"] = "Golpe Abalador da Terra",
+        ["Earthshaker Slam"] = "Golpe Abalador da Terra",
+        ["totemic recall"] = "Revogação Totêmica",
+        ["Totemic Recall"] = "Revogação Totêmica",
+        ["water shield"] = "Escudo de Água",
+        ["Water Shield"] = "Escudo de Água",
+        ["crusader strike"] = "Golpe do Cruzado",
+        ["Crusader Strike"] = "Golpe do Cruzado",
+        ["holy strike"] = "Golpe Sagrado",
+        ["Holy Strike"] = "Golpe Sagrado",
         ["attack"] = "Ataque",
         ["Attack"] = "Ataque",
         ["auto attack"] = "Ataque Automático",
@@ -1117,6 +1127,46 @@ CM_SpellDesc_ptBR.reagents = {
 -- 2. Templates Canonicos Mapeados por Nome da Magia (Chaves em minusculas)
 -- ----------------------------------------------------------------------------
 CM_SpellDesc_ptBR.spells = {
+    -- TURTLE WOW / SHAMAN CUSTOM
+    ["earthshaker slam"] = {
+        {
+            pat = "Slam the target with earthen fury, taunting it to attack you%.%s*Has no effect if the target is already attacking you%.?",
+            tpl = "Golpeia o alvo com fúria terrena, provocando-o para atacar você. Não tem efeito se o alvo já estiver atacando você."
+        },
+        {
+            pat = "Slam the target with (.-), taunting it to attack you%.%s*Has no effect if the target is already attacking you%.?",
+            tpl = "Golpeia o alvo com %s, provocando-o para atacar você. Não tem efeito se o alvo já estiver atacando você."
+        },
+        {
+            pat = "Slam the target with (.-), taunting it to attack you%.?",
+            tpl = "Golpeia o alvo com %s, provocando-o para atacar você."
+        },
+    },
+    ["totemic recall"] = {
+        {
+            pat = "Returns your totems to the earth, refunding (%d+)%% of the mana required to cast each totem destroyed by Totemic Recall%.?",
+            tpl = "Devolve seus totens à terra, restituindo %s%% do mana necessário para evocar cada totem destruído pela Revogação Totêmica."
+        },
+        {
+            pat = "Returns your totems to the earth, refunding (%d+)%% of the mana required to cast each totem destroyed by (.-)%.?",
+            tpl = "Devolve seus totens à terra, restituindo %s%% do mana necessário para evocar cada totem destruído por %s."
+        },
+        {
+            pat = "Returns your totems to the earth, refunding (%d+)%% of the mana required to cast each totem%.?",
+            tpl = "Devolve seus totens à terra, restituindo %s%% do mana necessário para evocar cada totem."
+        },
+    },
+    ["water shield"] = {
+        {
+            pat = "The caster is surrounded by (%d+) globes of water, granting (%d+) mana per (%d+) sec%. When a spell, melee or ranged attack hits the caster, (%d+) mana is restored to the caster%. This expends one water globe%. Only one globe will activate every few seconds%. Lasts (%d+) min%. Only one Elemental Shield can be active on the Shaman at any one time%.?",
+            tpl = "O lançador é envolvido por %s globos de água, concedendo %s de mana a cada %s s. Quando um feitiço, ataque corpo a corpo ou de longo alcance atinge o lançador, %s de mana é restaurado. Isto consome um globo de água. Apenas um globo é ativado a cada poucos segundos. Dura %s min. Apenas um Escudo Elemental pode ficar ativo no Xamã por vez."
+        },
+        {
+            pat = "The caster is surrounded by (%d+) globes of water.*granting (%d+) mana per 5 sec.*hits the caster, (%d+) mana is restored.*Lasts (%d+) min",
+            tpl = "O lançador é envolvido por %s globos de água, concedendo %s de mana a cada 5 s. Quando um ataque atinge o lançador, %s de mana é restaurado. Dura %s min."
+        },
+    },
+
     -- SHAMAN
     ["earth shock"] = {
         {

@@ -1,0 +1,4206 @@
+[
+  {
+    "template_en": "Teaches Polymorph: Pig.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Polymorph: Pig (Rank 1) [id=477]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frostbolt (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frostbolt (Rank 1) [id=478]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fireball (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fireball (Rank 2) [id=483]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frost Armor (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frost Armor (Rank 2) [id=484]"
+    ]
+  },
+  {
+    "template_en": "Teaches Water Breathing.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Water Breathing (Rank 1) [id=488]"
+    ]
+  },
+  {
+    "template_en": "Teaches Mana Totem.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Mana Totem (Rank 1) [id=492]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frostbolt (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frostbolt (Rank 2) [id=494]"
+    ]
+  },
+  {
+    "template_en": "Teaches Polymorph: Sheep.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Polymorph: Sheep (Rank 3) [id=495]"
+    ]
+  },
+  {
+    "template_en": "Teaches Drain Mana (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Drain Mana (Rank 1) [id=496]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frost Nova (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frost Nova (Rank 1) [id=497]"
+    ]
+  },
+  {
+    "template_en": "Teaches Agitating Totem (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Agitating Totem (Rank 2) [id=501]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fireball (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fireball (Rank 3) [id=502]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Protection (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Protection (Rank 2) [id=504]"
+    ]
+  },
+  {
+    "template_en": "Teaches Ice Armor (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Ice Armor (Rank 1) [id=506]"
+    ]
+  },
+  {
+    "template_en": "Teaches Blink (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Blink (Rank 1) [id=517]"
+    ]
+  },
+  {
+    "template_en": "Teaches Moonfire (Rank 7).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Moonfire (Rank 7) [id=521]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Bolt (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Bolt (Rank 2) [id=531]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Shield (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Shield (Rank 1) [id=532]"
+    ]
+  },
+  {
+    "template_en": "Teaches Cure Poison (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Cure Poison (Rank 1) [id=536]",
+      "Cure Poison (Rank 1) [id=3212]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Wave (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Wave (Rank 2) [id=538]"
+    ]
+  },
+  {
+    "template_en": "Teaches Moonfire (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Moonfire (Rank 2) [id=539]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Shield (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Shield (Rank 2) [id=557]"
+    ]
+  },
+  {
+    "template_en": "Teaches Purge.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Purge (Rank 1) [id=558]"
+    ]
+  },
+  {
+    "template_en": "Teaches Exorcism (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Exorcism (Rank 3) [id=559]"
+    ]
+  },
+  {
+    "template_en": "Teaches Water Walking.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Water Walking (Rank 1) [id=562]"
+    ]
+  },
+  {
+    "template_en": "Teaches Moonfire (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Moonfire (Rank 6) [id=563]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Wave (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Wave (Rank 3) [id=565]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Bolt (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Bolt (Rank 3) [id=566]"
+    ]
+  },
+  {
+    "template_en": "Teaches Far Sight.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Far Sight (Rank 1) [id=570]"
+    ]
+  },
+  {
+    "template_en": "Teaches Moonfire (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Moonfire (Rank 3) [id=573]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lmuffin:muffins;, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 bolinhos pra comer. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Food (Rank 1) [id=587]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lloaf:loaves; of bread, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 pães pra comer. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Food (Rank 2) [id=597]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Food (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Food (Rank 1) [id=608]"
+    ]
+  },
+  {
+    "template_en": "Teaches Inner Fire (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Inner Fire (Rank 1) [id=609]",
+      "Inner Fire (Rank 2) [id=7129]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Pain (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Pain (Rank 1) [id=610]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Sacrifice (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Sacrifice (Rank 1) [id=611]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Smite (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Smite (Rank 2) [id=612]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lesser Heal (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lesser Heal (Rank 2) [id=613]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Fumble (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Fumble (Rank 1) [id=614]"
+    ]
+  },
+  {
+    "template_en": "Teaches Dispel Magic (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Dispel Magic (Rank 1) [id=615]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Pain (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Pain (Rank 2) [id=616]"
+    ]
+  },
+  {
+    "template_en": "Teaches Prayer of Healing (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Prayer of Healing (Rank 1) [id=618]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Food (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Food (Rank 2) [id=619]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Smite (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Smite (Rank 3) [id=620]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Totem (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Totem (Rank 1) [id=621]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lesser Heal (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lesser Heal (Rank 3) [id=622]"
+    ]
+  },
+  {
+    "template_en": "Teaches Inner Fire (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Inner Fire (Rank 3) [id=624]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Archimonde.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Archimonde (Rank 1) [id=625]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Might (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Might (Rank 3) [id=626]"
+    ]
+  },
+  {
+    "template_en": "Teaches Mind Control.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Mind Control (Rank 1) [id=627]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Totem (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Totem (Rank 3) [id=631]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Totem (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Totem (Rank 4) [id=632]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Might (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Might (Rank 1) [id=653]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fear (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fear (Rank 2) [id=654]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Light (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Light (Rank 2) [id=656]"
+    ]
+  },
+  {
+    "template_en": "Teaches Create Greater Healthstone.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Create Greater Healthstone (Rank 4) [id=657]"
+    ]
+  },
+  {
+    "template_en": "Teaches Invisibility Totem.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Invisibility Totem (Rank 1) [id=658]"
+    ]
+  },
+  {
+    "template_en": "Teaches Divine Shield (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Divine Shield (Rank 1) [id=659]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Might (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Might (Rank 2) [id=662]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fear (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fear (Rank 3) [id=663]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Light (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Light (Rank 3) [id=664]"
+    ]
+  },
+  {
+    "template_en": "Teaches Drain Life (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Drain Life (Rank 1) [id=714]"
+    ]
+  },
+  {
+    "template_en": "Teaches you the spell Immolate (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Immolate (Rank 1) [id=718]"
+    ]
+  },
+  {
+    "template_en": "Teaches Create Soulstone.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Create Soulstone (Rank 1) [id=719]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Bolt (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Bolt (Rank 2) [id=721]"
+    ]
+  },
+  {
+    "template_en": "Teaches Drain Life (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Drain Life (Rank 2) [id=725]"
+    ]
+  },
+  {
+    "template_en": "Teaches Cripple.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Cripple (Rank 1) [id=727]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Weakness (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Weakness () [id=729]"
+    ]
+  },
+  {
+    "template_en": "Teaches Health Funnel (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Health Funnel (Rank 1) [id=730]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Bolt (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Bolt (Rank 3) [id=732]"
+    ]
+  },
+  {
+    "template_en": "Teaches Immolate (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Immolate (Rank 2) [id=734]"
+    ]
+  },
+  {
+    "template_en": "Teaches Divine Protection (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Divine Protection (Rank 2) [id=735]"
+    ]
+  },
+  {
+    "template_en": "Teaches Drain Life (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Drain Life (Rank 3) [id=736]"
+    ]
+  },
+  {
+    "template_en": "Conjures a mana agate that can be used to instantly restore $5405s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura ágata: restaura $s1 de mana na hora. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Mana Agate () [id=759]"
+    ]
+  },
+  {
+    "template_en": "Shapeshift into cat form, increasing melee attack power by $3025s1 plus Agility.  Also protects the caster from Polymorph effects and allows the use of various cat abilities.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "current_pt": "Vira Gato: +$s1 poder + Agi. Imune a Polimorfia, libera habilidades. Virar limpa Polimorfia e lentidões.",
+    "reason": "telegraphic",
+    "samples": [
+      "Cat Form (Shapeshift) [id=768]"
+    ]
+  },
+  {
+    "template_en": "Transforms the druid into a travel form, increasing movement speed by $5419s1%.  Also protects the caster from Polymorph effects.  Only useable outdoors.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "current_pt": "Vira Viagem: +$s1% velocidade. Imune a Polimorfia. Só ao ar livre. Virar limpa Polimorfia e lentidões.",
+    "reason": "telegraphic",
+    "samples": [
+      "Travel Form (Shapeshift) [id=783]"
+    ]
+  },
+  {
+    "template_en": "Teaches Faerie Fire (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Faerie Fire (Rank 1) [id=784]"
+    ]
+  },
+  {
+    "template_en": "Teaches Thorns (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Thorns (Rank 1) [id=786]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rejuvenation (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rejuvenation (Rank 1) [id=788]",
+      "Regrowth (Rank 1) [id=3734]"
+    ]
+  },
+  {
+    "template_en": "Teaches Entangling Roots (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Entangling Roots (Rank 1) [id=790]"
+    ]
+  },
+  {
+    "template_en": "Teaches Tranquility (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Tranquility (Rank 1) [id=792]"
+    ]
+  },
+  {
+    "template_en": "Teaches Faerie Fire (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Faerie Fire (Rank 2) [id=793]"
+    ]
+  },
+  {
+    "template_en": "Teaches Thorns (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Thorns (Rank 2) [id=795]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frostbolt (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frostbolt (Rank 3) [id=838]"
+    ]
+  },
+  {
+    "template_en": "Teaches Ice Armor (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Ice Armor (Rank 2) [id=844]"
+    ]
+  },
+  {
+    "template_en": "Teaches Flamestrike (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Flamestrike (Rank 1) [id=846]"
+    ]
+  },
+  {
+    "template_en": "Teaches Polymorph: Chicken.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Polymorph: Chicken (Rank 2) [id=852]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fireball (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fireball (Rank 4) [id=854]",
+      "Fireball (Rank 1) [id=3688]"
+    ]
+  },
+  {
+    "template_en": "Teaches Renew (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Renew (Rank 6) [id=860]"
+    ]
+  },
+  {
+    "template_en": "Teaches Drain Mana (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Drain Mana (Rank 2) [id=862]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Righteousness (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Righteousness (Rank 1) [id=864]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frost Nova (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frost Nova (Rank 2) [id=866]"
+    ]
+  },
+  {
+    "template_en": "Teaches Renew (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Renew (Rank 4) [id=870]"
+    ]
+  },
+  {
+    "template_en": "Teaches Flamestrike (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Flamestrike (Rank 2) [id=872]"
+    ]
+  },
+  {
+    "template_en": "Teaches Agitating Totem (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Agitating Totem (Rank 3) [id=876]"
+    ]
+  },
+  {
+    "template_en": "Teaches Moonfire (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Moonfire (Rank 5) [id=880]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Smite (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Smite (Rank 6) [id=882]"
+    ]
+  },
+  {
+    "template_en": "Teaches Renew (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Renew (Rank 5) [id=890]"
+    ]
+  },
+  {
+    "template_en": "Teaches Sentry Totem.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Sentry Totem (Rank 1) [id=892]"
+    ]
+  },
+  {
+    "template_en": "Teaches Blink (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Blink (Rank 2) [id=894]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Shield (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Shield (Rank 3) [id=906]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Wave (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Wave (Rank 4) [id=914]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Bolt (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Bolt (Rank 4) [id=916]",
+      "Lightning Bolt (Rank 4) [id=3089]"
+    ]
+  },
+  {
+    "template_en": "Teaches Create Spellstone.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Create Spellstone (Rank 1) [id=918]"
+    ]
+  },
+  {
+    "template_en": "Teaches Chain Lightning (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Chain Lightning (Rank 1) [id=920]"
+    ]
+  },
+  {
+    "template_en": "Teaches Exorcism (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Exorcism (Rank 2) [id=931]"
+    ]
+  },
+  {
+    "template_en": "Teaches Greater Healing Wave (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Greater Healing Wave (Rank 1) [id=940]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Bolt (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Bolt (Rank 5) [id=944]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Shield (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Shield (Rank 4) [id=946]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Tongues (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Tongues (Rank 1) [id=956]"
+    ]
+  },
+  {
+    "template_en": "Teaches Greater Healing Wave (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Greater Healing Wave (Rank 2) [id=960]"
+    ]
+  },
+  {
+    "template_en": "Teaches Moonfire (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Moonfire (Rank 4) [id=962]"
+    ]
+  },
+  {
+    "template_en": "Teaches Heal (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Heal (Rank 3) [id=964]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Pain (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Pain (Rank 3) [id=971]"
+    ]
+  },
+  {
+    "template_en": "Teaches Serpent Totem (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Serpent Totem (Rank 3) [id=975]"
+    ]
+  },
+  {
+    "template_en": "Teaches Corruption (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Corruption (Rank 3) [id=979]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Agony (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Agony (Rank 1) [id=981]"
+    ]
+  },
+  {
+    "template_en": "Teaches Heal (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Heal (Rank 4) [id=983]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Smite (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Smite (Rank 4) [id=985]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Totem (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Totem (Rank 5) [id=987]"
+    ]
+  },
+  {
+    "template_en": "Teaches Dispel Magic (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Dispel Magic (Rank 2) [id=989]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lloaf:loaves; of rye, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 centeios pra comer. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Food (Rank 3) [id=990]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Food (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Food (Rank 3) [id=991]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Pain (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Pain (Rank 4) [id=993]"
+    ]
+  },
+  {
+    "template_en": "Teaches Prayer of Healing (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Prayer of Healing (Rank 2) [id=997]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Fumble (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Fumble (Rank 2) [id=999]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Totem (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Totem (Rank 2) [id=1001]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Befuddle (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Befuddle (Rank 2) [id=1003]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Smite (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Smite (Rank 5) [id=1005]"
+    ]
+  },
+  {
+    "template_en": "Teaches Inner Fire (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Inner Fire (Rank 4) [id=1007]"
+    ]
+  },
+  {
+    "template_en": "Amplifies magic used against the targeted party member, increasing damage taken from spells by $10169s1% and healing spells by $10169s2%.  Lasts $10169d.",
+    "current_pt": "Magia no aliado amplificada: +$s1% dano e +$s2% cura recebidos. $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Amplify Magic () [id=1008]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Agony (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Agony (Rank 2) [id=1015]"
+    ]
+  },
+  {
+    "template_en": "Teaches Divine Shield (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Divine Shield (Rank 2) [id=1021]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Protection (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Protection (Rank 1) [id=1023]"
+    ]
+  },
+  {
+    "template_en": "Teaches Corruption (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Corruption (Rank 2) [id=1025]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Light (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Light (Rank 4) [id=1027]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Agony (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Agony (Rank 3) [id=1029]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Weakness (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Weakness (Rank 3) [id=1031]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Fury (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Fury (Rank 1) [id=1037]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Salvation (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Salvation (Rank 1) [id=1039]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Light (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Light (Rank 5) [id=1043]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fear (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fear (Rank 1) [id=1045]"
+    ]
+  },
+  {
+    "template_en": "Teaches Create Healthstone.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Create Healthstone (Rank 3) [id=1049]"
+    ]
+  },
+  {
+    "template_en": "Teaches Counterspell.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Counterspell (Rank 1) [id=1053]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rejuvenation (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rejuvenation (Rank 2) [id=1059]"
+    ]
+  },
+  {
+    "template_en": "Teaches Entangling Roots (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Entangling Roots (Rank 2) [id=1063]"
+    ]
+  },
+  {
+    "template_en": "Shapeshift into aquatic form, increasing swim speed by $5421s1% and allowing the druid to breathe underwater.  Also protects the caster from Polymorph effects.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "current_pt": "Vira Aquático: +$s1% nado e respira na água. Imune a Polimorfia. Virar limpa Polimorfia e lentidões.",
+    "reason": "telegraphic",
+    "samples": [
+      "Aquatic Form (Shapeshift) [id=1066]"
+    ]
+  },
+  {
+    "template_en": "Teaches Faerie Fire (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Faerie Fire (Rank 3) [id=1070]"
+    ]
+  },
+  {
+    "template_en": "Teaches Thorns (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Thorns (Rank 3) [id=1076]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Bolt (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Bolt (Rank 4) [id=1089]"
+    ]
+  },
+  {
+    "template_en": "Teaches Immolate (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Immolate (Rank 3) [id=1095]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Wisdom (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Wisdom (Rank 3) [id=1105]"
+    ]
+  },
+  {
+    "template_en": "Teaches Corruption (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Corruption (Rank 1) [id=1107]"
+    ]
+  },
+  {
+    "template_en": "Teaches Curse of Weakness (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Curse of Weakness (Rank 2) [id=1109]"
+    ]
+  },
+  {
+    "template_en": "Teaches Heal (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Heal (Rank 2) [id=1153]"
+    ]
+  },
+  {
+    "template_en": "Creates a Spellstone for the caster.  When equipped and used, the Spellstone removes all magic effects from the caster and will absorb $128s2 magic damage for $128d.  In addition, equipping the Spellstone improves your chance to get a critical strike with spells by $18384s1%.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Cria Pedra: equipada remove magias e absorve $s1 por $d s. +$s2% crítico com magias. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Spellstone () [id=2362]"
+    ]
+  },
+  {
+    "template_en": "Summons an Earthbind Totem with $s1 health at the feet of the caster for $d that slows the movement speed of enemies within $3600a1 yards.",
+    "current_pt": "Totem $s1 por $d s; lentidão a até $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Earthbind Totem () [id=2484]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rejuvenation (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rejuvenation (Rank 3) [id=3062]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rejuvenation (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rejuvenation (Rank 4) [id=3063]"
+    ]
+  },
+  {
+    "template_en": "Teaches Arcane Intellect (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Arcane Intellect (Rank 2) [id=3065]"
+    ]
+  },
+  {
+    "template_en": "Teaches Arcane Intellect (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Arcane Intellect (Rank 3) [id=3066]"
+    ]
+  },
+  {
+    "template_en": "Teaches Blizzard (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Blizzard (Rank 1) [id=3067]"
+    ]
+  },
+  {
+    "template_en": "Teaches Blizzard (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Blizzard (Rank 2) [id=3068]"
+    ]
+  },
+  {
+    "template_en": "Teaches Renew (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Renew (Rank 1) [id=3070]"
+    ]
+  },
+  {
+    "template_en": "Teaches Renew (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Renew (Rank 2) [id=3071]"
+    ]
+  },
+  {
+    "template_en": "Teaches Renew (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Renew (Rank 3) [id=3072]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fire Blast (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fire Blast (Rank 1) [id=3073]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fire Blast (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fire Blast (Rank 2) [id=3074]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fire Blast (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fire Blast (Rank 3) [id=3075]"
+    ]
+  },
+  {
+    "template_en": "Teaches Agitating Totem (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Agitating Totem (Rank 1) [id=3077]"
+    ]
+  },
+  {
+    "template_en": "Teaches Serpent Totem (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Serpent Totem (Rank 4) [id=3078]"
+    ]
+  },
+  {
+    "template_en": "Teaches Greater Heal.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Greater Heal (Rank 1) [id=3085]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Befuddle (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Befuddle (Rank 1) [id=3086]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Storm (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Storm (Rank 1) [id=3087]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Storm (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Storm (Rank 2) [id=3088]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shock (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shock (Rank 1) [id=3090]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shock (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shock (Rank 2) [id=3091]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shock (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shock (Rank 3) [id=3092]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Righteousness (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Righteousness (Rank 2) [id=3093]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Righteousness (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Righteousness (Rank 3) [id=3094]"
+    ]
+  },
+  {
+    "template_en": "Teaches Life Tap (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Life Tap (Rank 1) [id=3095]"
+    ]
+  },
+  {
+    "template_en": "Teaches Life Tap (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Life Tap (Rank 2) [id=3096]"
+    ]
+  },
+  {
+    "template_en": "Teaches Life Tap (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Life Tap (Rank 3) [id=3097]"
+    ]
+  },
+  {
+    "template_en": "Teaches you the spell Shadow Bolt (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Bolt (Rank 1) [id=3098]"
+    ]
+  },
+  {
+    "template_en": "Teaches Cure Poison (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Cure Poison (Rank 2) [id=3213]"
+    ]
+  },
+  {
+    "template_en": "Teaches Lightning Storm (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lightning Storm (Rank 3) [id=3214]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rain of Fire (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rain of Fire (Rank 1) [id=3354]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Light (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Light (Rank 6) [id=3474]"
+    ]
+  },
+  {
+    "template_en": "Teaches Agitating Totem (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Agitating Totem (Rank 4) [id=3549]"
+    ]
+  },
+  {
+    "template_en": "Conjures a mana jade that can be used to instantly restore $10052s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura jade: restaura $s1 de mana na hora. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Mana Jade () [id=3552]"
+    ]
+  },
+  {
+    "template_en": "Teaches Immolate (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Immolate (Rank 4) [id=3686]"
+    ]
+  },
+  {
+    "template_en": "Teaches Exorcism (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Exorcism (Rank 1) [id=3690]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Reckoning (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Reckoning (Rank 1) [id=3694]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Reckoning (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Reckoning (Rank 2) [id=3695]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Water (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Water (Rank 2) [id=3696]"
+    ]
+  },
+  {
+    "template_en": "Teaches Divine Protection (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Divine Protection (Rank 1) [id=3697]"
+    ]
+  },
+  {
+    "template_en": "Teaches Health Funnel (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Health Funnel (Rank 2) [id=3701]"
+    ]
+  },
+  {
+    "template_en": "Teaches Health Funnel (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Health Funnel (Rank 3) [id=3702]"
+    ]
+  },
+  {
+    "template_en": "Teaches Health Funnel (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Health Funnel (Rank 4) [id=3703]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Wisdom (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Wisdom (Rank 2) [id=3713]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Mana Gem.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Mana Gem (Rank 1) [id=3724]"
+    ]
+  },
+  {
+    "template_en": "Teaches Purify.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Purify () [id=3725]"
+    ]
+  },
+  {
+    "template_en": "Teaches Earthbind Totem.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Earthbind Totem () [id=3727]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shock (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shock (Rank 4) [id=3728]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shock (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shock (Rank 5) [id=3729]"
+    ]
+  },
+  {
+    "template_en": "Teaches Serpent Totem (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Serpent Totem (Rank 1) [id=3731]"
+    ]
+  },
+  {
+    "template_en": "Teaches Hellfire.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Hellfire (Rank 1) [id=3732]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Touch (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Touch (Rank 1) [id=3735]"
+    ]
+  },
+  {
+    "template_en": "Teaches Wrath (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Wrath (Rank 1) [id=3737]"
+    ]
+  },
+  {
+    "template_en": "Teaches Cure Poison (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Cure Poison (Rank 3) [id=3738]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rejuvenation (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rejuvenation (Rank 6) [id=3740]"
+    ]
+  },
+  {
+    "template_en": "Teaches Serpent Totem (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Serpent Totem (Rank 2) [id=3746]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rain of Fire (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rain of Fire (Rank 2) [id=3751]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Word: Pain (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Word: Pain (Rank 5) [id=3752]"
+    ]
+  },
+  {
+    "template_en": "Teaches Heal (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Heal (Rank 1) [id=3810]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 22+",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Web (Spider - Rank 1) [id=4782]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 30+",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Web (Spider - Rank 2) [id=4783]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 37+",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Web (Spider - Rank 3) [id=4785]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 22+",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Tongue (Tall Strider - Rank 1) [id=4807]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 28+",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Tongue (Tall Strider - Rank 2) [id=4808]"
+    ]
+  },
+  {
+    "template_en": "Teaches Cleanse.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Cleanse () [id=4993]"
+    ]
+  },
+  {
+    "template_en": "The hunter takes on the aspects of a cheetah, increasing movement speed by $s1%.  If the hunter takes damage, $ghe:she; will be dazed for $15571d.  Only one Aspect can be active at a time.",
+    "current_pt": "Guepardo: +$s1% velocidade. Dano atordoa por $d s. Um Aspecto por vez.",
+    "reason": "telegraphic",
+    "samples": [
+      "Aspect of the Cheetah () [id=5118]"
+    ]
+  },
+  {
+    "template_en": "Finishing move that increases melee attack speed by $s2%.  Lasts longer per combo point:\n   1 point  : 9 seconds\n   2 points: 12 seconds\n   3 points: 15 seconds\n   4 points: 18 seconds\n   5 points: 21 seconds",
+    "current_pt": "Final: +$s1% velocidade. Por combo: 1: 9 s, 2: 12 s, 3: 15 s, 4: 18 s, 5: 21 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Slice and Dice (Rank 1) [id=5171]",
+      "Slice and Dice (Rank 2) [id=6774]"
+    ]
+  },
+  {
+    "template_en": "Teaches Mark of the Wild (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Mark of the Wild (Rank 1) [id=5285]"
+    ]
+  },
+  {
+    "template_en": "Teaches Mark of the Wild (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Mark of the Wild (Rank 2) [id=5286]"
+    ]
+  },
+  {
+    "template_en": "Teaches Mark of the Wild (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Mark of the Wild (Rank 3) [id=5287]"
+    ]
+  },
+  {
+    "template_en": "Teaches Wrath (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Wrath (Rank 2) [id=5289]"
+    ]
+  },
+  {
+    "template_en": "Teaches Wrath (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Wrath (Rank 3) [id=5290]"
+    ]
+  },
+  {
+    "template_en": "Teaches Wrath (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Wrath (Rank 4) [id=5291]"
+    ]
+  },
+  {
+    "template_en": "Teaches Wrath (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Wrath (Rank 5) [id=5292]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Touch (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Touch (Rank 2) [id=5294]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Touch (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Touch (Rank 3) [id=5295]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Touch (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Touch (Rank 4) [id=5296]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Touch (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Touch (Rank 5) [id=5297]"
+    ]
+  },
+  {
+    "template_en": "Teaches Dampen Magic (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Dampen Magic (Rank 1) [id=5305]"
+    ]
+  },
+  {
+    "template_en": "Teaches Moonfire (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Moonfire (Rank 1) [id=5307]"
+    ]
+  },
+  {
+    "template_en": "Teaches Entangling Roots (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Entangling Roots (Rank 3) [id=5309]"
+    ]
+  },
+  {
+    "template_en": "Teaches Mark of the Wild (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Mark of the Wild (Rank 1) [id=5310]"
+    ]
+  },
+  {
+    "template_en": "Teaches Entangling Roots (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Entangling Roots (Rank 4) [id=5312]"
+    ]
+  },
+  {
+    "template_en": "Shapeshift into a bear, increasing melee attack power by $1178s3, armor contribution from items by $1178s1%, and health by $1178s2.  Also protects the caster from Polymorph effects and allows the use of various bear abilities.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "current_pt": "Vira Urso: +$s1 poder, +$s2% armadura de itens e +$s3 vida. Imune a Polimorfia, libera habilidades. Virar limpa Polimorfia e lentidões.",
+    "reason": "telegraphic",
+    "samples": [
+      "Bear Form (Shapeshift) [id=5487]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lbottle:bottles; of water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 águas pra beber. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Water (Rank 1) [id=5504]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lbottle:bottles; of fresh water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 águas frescas pra beber. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Water (Rank 2) [id=5505]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lbottle:bottles; of purified water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 águas puras pra beber. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Water (Rank 3) [id=5506]"
+    ]
+  },
+  {
+    "template_en": "Charge an enemy, generate $/10;s2 rage and stun them for $7922d.",
+    "current_pt": "Investida: +fúria e atordoa por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Charge (TEST) (Rank 1) [id=5696]"
+    ]
+  },
+  {
+    "template_en": "Creates a Healthstone that can be used to instantly restore $5720s1 health.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Cria Pedra: restaura $s1 na hora. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Healthstone () [id=5699]"
+    ]
+  },
+  {
+    "template_en": "Teaches Create Lesser Healthstone.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Create Lesser Healthstone (Rank 2) [id=6042]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lbottle:bottles; of spring water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 águas da fonte pra beber. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Water (Rank 4) [id=6127]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lloaf:loaves; of pumpernickel, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 pães pretos pra comer. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Food (Rank 4) [id=6129]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 50.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Pet Hardiness (Any Pet - Rank 1) [id=6284]"
+    ]
+  },
+  {
+    "template_en": "Allows a hunter to toughen his pet adding 20 to its health.",
+    "current_pt": "Pet +20 vida.",
+    "reason": "telegraphic",
+    "samples": [
+      "Pet Hardiness (Rank 1) [id=6285]",
+      "Pet Hardiness (Rank 2) [id=6291]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 100.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Pet Hardiness (Any Pet - Rank 2) [id=6287]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 150.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Pet Hardiness (Any Pet - Rank 3) [id=6288]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 200.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Pet Hardiness (Any Pet - Rank 4) [id=6289]"
+    ]
+  },
+  {
+    "template_en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 250.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Pet Hardiness (Any Pet - Rank 5) [id=6290]"
+    ]
+  },
+  {
+    "template_en": "Allows a hunter to toughen his pet adding 40 to its health.",
+    "current_pt": "Pet +40 vida.",
+    "reason": "telegraphic",
+    "samples": [
+      "Pet Hardiness (Rank 3) [id=6292]",
+      "Pet Hardiness (Rank 4) [id=6293]"
+    ]
+  },
+  {
+    "template_en": "Allows a hunter to toughen his pet adding 60 to its health.",
+    "current_pt": "Pet +60 vida.",
+    "reason": "telegraphic",
+    "samples": [
+      "Pet Hardiness (Rank 5) [id=6294]"
+    ]
+  },
+  {
+    "template_en": "Charge an enemy, generating 20 rage and stunning the target for $d.",
+    "current_pt": "Investida: +20 fúria e atordoa por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Heroic Leap (Rank 1) [id=6544]"
+    ]
+  },
+  {
+    "template_en": "Teaches Arcane Missiles (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Arcane Missiles (Rank 1) [id=6631]"
+    ]
+  },
+  {
+    "template_en": "Teaches Arcane Missiles (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Arcane Missiles (Rank 2) [id=6632]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Water (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Water (Rank 1) [id=6635]"
+    ]
+  },
+  {
+    "template_en": "Teaches Arcane Missiles (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Arcane Missiles (Rank 3) [id=6637]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Water (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Water (Rank 3) [id=6638]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Water (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Water (Rank 4) [id=6639]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Food (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Food (Rank 4) [id=6641]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frost Armor (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frost Armor (Rank 3) [id=6643]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frost Nova (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frost Nova (Rank 3) [id=6644]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Touch (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Touch (Rank 1) [id=6659]"
+    ]
+  },
+  {
+    "template_en": "Increases the Physical damage dealt by the caster by $s2 and speeds its movement by $s1% for $d. Also curses an enemy on the first successful hit, reducing the Physical damage it deals by $6922s2, reducing the magical damage it deals by $6922s3, and increasing the Physical damage it takes by $6922s1 for $6922d.",
+    "current_pt": "Físico +$s1 e +$s2% velocidade por $d s. Primeiro golpe amaldiçoa: +$s3 recebido e -$s4 mágico por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Shadowhorn Charge (Rank 1) [id=6921]"
+    ]
+  },
+  {
+    "template_en": "Fires an explosive shot, causing $s1 additional damage to the target and exploding for $s2 damage to nearby enemies.",
+    "current_pt": "Tiro explosivo: +$s1 e $s2 nos próximos.",
+    "reason": "telegraphic",
+    "samples": [
+      "Explosive Shot (Rank 2) [id=6996]"
+    ]
+  },
+  {
+    "template_en": "Charge an enemy, increasing speed and causing an additional $s2 damage on the first attack.",
+    "current_pt": "Investida veloz: +$s1 no primeiro golpe.",
+    "reason": "telegraphic",
+    "samples": [
+      "Shadow Charge (Rank 1) [id=7137]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frostbolt (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frostbolt (Rank 4) [id=7324]"
+    ]
+  },
+  {
+    "template_en": "Teaches Seal of Wisdom (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Wisdom (Rank 1) [id=7327]"
+    ]
+  },
+  {
+    "template_en": "Teaches Drain Life (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Drain Life (Rank 4) [id=7653]"
+    ]
+  },
+  {
+    "template_en": "Conjures $M1 $lloaf:loaves; of bread, providing the mage and his allies with something to eat.",
+    "current_pt": "Conjura $s1 pães pra comer.",
+    "reason": "telegraphic",
+    "samples": [
+      "Scry on Azrethoc (Rank 1) [id=7960]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon, increasing melee attack power by $10400s1 and all threat caused by $10400s2% when using that weapon.  Lasts for 1 hour.",
+    "current_pt": "Arma: +$s1 poder e +$s2% ameaça por 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rockbiter Weapon (Rank 1) [id=8017]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon, increasing melee attack power by $15567s1 and all threat caused by $15567s2% when using that weapon.  Lasts for 1 hour.",
+    "current_pt": "Arma: +$s1 poder e +$s2% ameaça por 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rockbiter Weapon (Rank 2) [id=8018]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon, increasing melee attack power by $15568s1 and all threat caused by $15568s2% when using that weapon.  Lasts for 1 hour.",
+    "current_pt": "Arma: +$s1 poder e +$s2% ameaça por 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rockbiter Weapon (Rank 3) [id=8019]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;8026m1 to $/25;8026M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "current_pt": "Arma com fogo: $s1~$s2 por golpe conforme velocidade. Lenta bate mais. 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flametongue Weapon (Rank 1) [id=8024]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;8028m1 to $/25;8028M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "current_pt": "Arma com fogo: $s1~$s2 por golpe conforme velocidade. Lenta bate mais. 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flametongue Weapon (Rank 2) [id=8027]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;8029m1 to $/25;8029M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "current_pt": "Arma com fogo: $s1~$s2 por golpe conforme velocidade. Lenta bate mais. 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flametongue Weapon (Rank 3) [id=8030]"
+    ]
+  },
+  {
+    "template_en": "Teaches Defensive Stance, Sunder Armor (Rank 1), and Taunt (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Path of Defense (Rank 1) [id=8121]"
+    ]
+  },
+  {
+    "template_en": "Teaches Taunt (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Taunt (Rank 1) [id=8133]"
+    ]
+  },
+  {
+    "template_en": "Summons a Frost Resistance Totem with $s1 health at the feet of the caster for $d.  The totem increases party members' frost resistance by $8182s1, if within $8182a1 yards.",
+    "current_pt": "Totem de Gelo $s1 por $d s: +$s2 vs Gelo a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Frost Resistance Totem (Rank 1) [id=8181]"
+    ]
+  },
+  {
+    "template_en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $8185a1 yards by $8185s1.",
+    "current_pt": "Totem de Fogo $s1 por $d s: +$s2 vs Fogo a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Fire Resistance Totem (Rank 1) [id=8184]"
+    ]
+  },
+  {
+    "template_en": "Teaches Stoneskin Totem (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Stoneskin Totem (Rank 1) [id=8199]"
+    ]
+  },
+  {
+    "template_en": "Teaches Searing Totem (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Searing Totem (Rank 1) [id=8200]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Stream Totem (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Stream Totem (Rank 1) [id=8201]"
+    ]
+  },
+  {
+    "template_en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;8253m1 to $/25;8253M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $8230a1 yards. Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "current_pt": "Totem Língua de Fogo $s1: +$s2 de Fogo na mão principal a $a1 m. Lenta bate mais. $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flametongue Totem (Rank 1) [id=8227]"
+    ]
+  },
+  {
+    "template_en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;8248m1 to $/25;8248M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $8250a1 yards.  Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "current_pt": "Totem Língua de Fogo $s1: +$s2 de Fogo na mão principal a $a1 m. Lenta bate mais. $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flametongue Totem (Rank 2) [id=8249]"
+    ]
+  },
+  {
+    "template_en": "Gives $s1 additional armor to nearby party members for $d. Players may only have one aura on them per paladin at any one time.",
+    "current_pt": "Aura no grupo: +$s1 armadura por $d s. Uma Aura por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Devotion Aura () [id=8258]",
+      "Devotion Aura () [id=17232]"
+    ]
+  },
+  {
+    "template_en": "Summons an Elemental Protection Totem at the caster's feet. Totem lasts $d. and increases nearby party members' resistance to harmful magic.",
+    "current_pt": "Totem de Proteção no chão por $d s: +resistência mágica.",
+    "reason": "telegraphic",
+    "samples": [
+      "Elemental Protection Totem (Rank 1) [id=8262]"
+    ]
+  },
+  {
+    "template_en": "Teaches Berserker Stance (Rank 1).  Teaches Intercept (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Path of the Berserker (Rank 1) [id=8616]"
+    ]
+  },
+  {
+    "template_en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $8836a1 yards by $8836s1.  Lasts $d.",
+    "current_pt": "Totem Graça Aérea $s1: +$s2 de Agi a $a1 m por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Grace of Air Totem (Rank 1) [id=8835]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lloaf:loaves; of bread, providing the mage and $ghis:her; allies with something to eat.",
+    "current_pt": "Conjura $s1 pães pra comer.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Sapta (Rank 1) [id=9200]"
+    ]
+  },
+  {
+    "template_en": "Shapeshift into a dire bear, increasing melee attack power by $9635s3, armor contribution from items by $9635s1%, and health by $9635s2.  Also protects the caster from Polymorph effects and allows the use of various bear abilities.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "current_pt": "Vira Urso Atroz: +$s1 poder, +$s2% armadura de itens e +$s3 vida. Imune a Polimorfia, libera habilidades. Virar limpa Polimorfia e lentidões.",
+    "reason": "telegraphic",
+    "samples": [
+      "Dire Bear Form (Shapeshift) [id=9634]"
+    ]
+  },
+  {
+    "template_en": "Conjures a mana citrine that can be used to instantly restore $10057s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura citrino: restaura $s1 na hora. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Mana Citrine () [id=10053]"
+    ]
+  },
+  {
+    "template_en": "Conjures a mana ruby that can be used to instantly restore $10058s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura rubi: restaura $s1 na hora. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Mana Ruby () [id=10054]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lbottle:bottles; of mineral water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 minerais pra beber. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Water (Rank 5) [id=10138]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lbottle:bottles; of sparkling water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 espumantes pra beber. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Water (Rank 6) [id=10139]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lbottle:bottles; of crystal water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 cristalinas pra beber. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Water (Rank 7) [id=10140]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lloaf:loaves; of sourdough, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 fermentados pra comer. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Food (Rank 5) [id=10144]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lsweet roll:sweet rolls;, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 doces pra comer. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Food (Rank 6) [id=10145]"
+    ]
+  },
+  {
+    "template_en": "Amplifies magic used against the targeted party member, increasing damage taken from spells by up to $s1 and healing spells by up to $s2.  Lasts $d.",
+    "current_pt": "Amplifica no aliado: +$s1 dano e +$s2 cura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "[Deprecated] Amplify Magic (Rank 4) [id=10170]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon, increasing melee attack power by $15569s1 and all threat caused by $15569s2% when using that weapon.  Lasts for 1 hour.",
+    "current_pt": "Arma: +$s1 poder e +$s2% ameaça por 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rockbiter Weapon (Rank 4) [id=10399]"
+    ]
+  },
+  {
+    "template_en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $10441a1 yards by $10441s1.  Lasts $d.",
+    "current_pt": "Totem Força da Terra $s1: +$s2 de For ao grupo a $a1 m por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Strength of Earth Totem (Rank 4) [id=10442]"
+    ]
+  },
+  {
+    "template_en": "Summons a Frost Resistance Totem with $s1 health at the feet of the caster for $d.  The totem increases party members' frost resistance by $10476s1, if within $10476a1 yards.",
+    "current_pt": "Totem de Gelo $s1 por $d s: +$s2 vs Gelo a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Frost Resistance Totem (Rank 2) [id=10478]"
+    ]
+  },
+  {
+    "template_en": "Summons a Frost Resistance Totem with $s1 health at the feet of the caster for $d.  The totem increases party members' frost resistance by $10477s1, if within $10477a1 yards.",
+    "current_pt": "Totem de Gelo $s1 por $d s: +$s2 vs Gelo a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Frost Resistance Totem (Rank 3) [id=10479]"
+    ]
+  },
+  {
+    "template_en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;10523m1 to $/25;10523M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $10521a1 yards.  Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "current_pt": "Totem Língua de Fogo $s1: +$s2~$s3 de Fogo na mão principal a $a1 m. Lenta bate mais. $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flametongue Totem (Rank 3) [id=10526]"
+    ]
+  },
+  {
+    "template_en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $10534a1 yards by $10534s1.",
+    "current_pt": "Totem de Fogo $s1 por $d s: +$s2 vs Fogo a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Fire Resistance Totem (Rank 2) [id=10537]"
+    ]
+  },
+  {
+    "template_en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $10535a1 yards by $10535s1.",
+    "current_pt": "Totem de Fogo $s1 por $d s: +$s2 vs Fogo a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Fire Resistance Totem (Rank 3) [id=10538]"
+    ]
+  },
+  {
+    "template_en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10596a1 yards by $10596s1.",
+    "current_pt": "Totem de Natureza $s1 por $d s: +$s2 vs Natureza a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Nature Resistance Totem (Rank 1) [id=10595]"
+    ]
+  },
+  {
+    "template_en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10598a1 yards by $10598s1.",
+    "current_pt": "Totem de Natureza $s1 por $d s: +$s2 vs Natureza a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Nature Resistance Totem (Rank 2) [id=10600]"
+    ]
+  },
+  {
+    "template_en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10599a1 yards by $10599s1.",
+    "current_pt": "Totem de Natureza $s1 por $d s: +$s2 vs Natureza a $a1 m.",
+    "reason": "telegraphic",
+    "samples": [
+      "Nature Resistance Totem (Rank 3) [id=10601]"
+    ]
+  },
+  {
+    "template_en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $10626a1 yards by $10626s1.  Lasts $d.",
+    "current_pt": "Totem Graça Aérea $s1: +$s2 de Agi a $a1 m por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Grace of Air Totem (Rank 2) [id=10627]"
+    ]
+  },
+  {
+    "template_en": "Increases the effect of your Amplify Magic and Dampen Magic spells by $s1% and allows them to be cast on enemies.  Only affects targets level 62 or lower.",
+    "current_pt": "Amplificar/Amortecer: +$s1%, vale em inimigo. Só nv ≤62.",
+    "reason": "telegraphic",
+    "samples": [
+      "Magic Attunement () [id=11247]"
+    ]
+  },
+  {
+    "template_en": "Allows your Shield Block ability to block an additional attack and increases the duration by $/1000;s2 second.",
+    "current_pt": "Bloqueio: +1 ataque e +$s1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Shield Block (Rank 2) [id=12307]",
+      "Improved Shield Block (Rank 1) [id=45575]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $12966s1% for your next $12966n swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 1) [id=12319]"
+    ]
+  },
+  {
+    "template_en": "Encases the caster in a layer of frost that lasts $d. The thick ice increases armor by $s1, slows melee attackers' movement to $6136s2%, and increases the time between their attacks by $6136s1%.",
+    "current_pt": "Gelo $d s: +$s1 armadura, atacante -$s2% velocidade e +$s3% intervalo.",
+    "reason": "telegraphic",
+    "samples": [
+      "Frost Armor () [id=12544]"
+    ]
+  },
+  {
+    "template_en": "Allows your Shield Block ability to block an additional attack and increases the duration by $/1000;s2 seconds.",
+    "current_pt": "Bloqueio: +1 ataque e +$s1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Shield Block (Rank 3) [id=12944]"
+    ]
+  },
+  {
+    "template_en": "Allows your Shield Block ability to block an additional attack and increases the duration by 0.$/100;s2 second.",
+    "current_pt": "Bloqueio: +1 ataque e +0.$s1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Shield Block (Rank 1) [id=12945]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $12967s1% for your next $12967n swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 2) [id=12971]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $12968s1% for your next $12968n swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 3) [id=12972]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $12969s1% for your next $12969n swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 4) [id=12973]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $12970s1% for your next $12970n swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 5) [id=12974]"
+    ]
+  },
+  {
+    "template_en": "The hunter and group members within $a1 yards take on the aspects of a pack of cheetahs, increasing movement speed by $s1%.  If a pack member takes damage, they will be dazed for $15571d.  Only one Aspect can be active at a time.",
+    "current_pt": "Alcateia a $a1 m: +$s1% velocidade. Dano atordoa por $d s. Um Aspecto por vez.",
+    "reason": "telegraphic",
+    "samples": [
+      "Aspect of the Pack () [id=13159]"
+    ]
+  },
+  {
+    "template_en": "The hunter takes on the aspects of a monkey, increasing chance to dodge by $s1%.  Only one Aspect can be active at a time.",
+    "current_pt": "Macaco: +$s1% esquiva. Um Aspecto por vez.",
+    "reason": "telegraphic",
+    "samples": [
+      "Aspect of the Monkey () [id=13163]"
+    ]
+  },
+  {
+    "template_en": "Place a frost trap that creates an ice slick around itself for $13810d when the first enemy approaches it.  All enemies within $13810a1 yards will be slowed by $14207s1% while in the area of effect.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "current_pt": "Gelo: congela em $d1 s; lentidão $s1% a $a1 m. Dura $d2 s. Fora de combate.",
+    "reason": "telegraphic",
+    "samples": [
+      "Frost Trap () [id=13809]"
+    ]
+  },
+  {
+    "template_en": "Your attacks strike an additional nearby opponent. Lasts $d.",
+    "current_pt": "+Lâmina: +1 alvo. $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Blade Flurry () [id=13877]"
+    ]
+  },
+  {
+    "template_en": "After killing an opponent that yields experience or honor, gives you a $14143s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14143d.",
+    "current_pt": "Abate com honra: +$s1% crítico no próximo Golpe, Apunhalar, Emboscada ou Espectral por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Remorseless Attacks (Rank 1) [id=14144]"
+    ]
+  },
+  {
+    "template_en": "After killing an opponent that yields experience or honor, gives you a $14149s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14149d.",
+    "current_pt": "Abate com honra: +$s1% crítico no próximo Golpe, Apunhalar, Emboscada ou Espectral por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Remorseless Attacks (Rank 2) [id=14148]"
+    ]
+  },
+  {
+    "template_en": "After killing an opponent that yields experience or honor, gives you a $14151s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14151d.",
+    "current_pt": "Abate com honra: +$s1% crítico no próximo Golpe, Apunhalar, Emboscada ou Espectral por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Remorseless Attacks (Rank 3) [id=14150]"
+    ]
+  },
+  {
+    "template_en": "After killing an opponent that yields experience or honor, gives you a $14153s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14153d.",
+    "current_pt": "Abate com honra: +$s1% crítico no próximo Golpe, Apunhalar, Emboscada ou Espectral por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Remorseless Attacks (Rank 4) [id=14152]"
+    ]
+  },
+  {
+    "template_en": "After killing an opponent that yields experience or honor, gives you a $14155s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14155d.",
+    "current_pt": "Abate com honra: +$s1% crítico no próximo Golpe, Apunhalar, Emboscada ou Espectral por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Remorseless Attacks (Rank 5) [id=14154]"
+    ]
+  },
+  {
+    "template_en": "Each time you use Rupture, your melee damage increases by $52528s1% for the full duration of Rupture, regardless of successful application.",
+    "current_pt": "Ruptura: +$s1% dano por toda ela.",
+    "reason": "telegraphic",
+    "samples": [
+      "Taste for Blood (Rank 1) [id=14174]"
+    ]
+  },
+  {
+    "template_en": "Each time you use Rupture, your melee damage increases by $52529s1% for the full duration of Rupture, regardless of successful application.",
+    "current_pt": "Ruptura: +$s1% dano por toda ela.",
+    "reason": "telegraphic",
+    "samples": [
+      "Taste for Blood (Rank 2) [id=14175]"
+    ]
+  },
+  {
+    "template_en": "Each time you use Rupture, your melee damage increases by $52530s1% for the full duration of Rupture, regardless of successful application.",
+    "current_pt": "Ruptura: +$s1% dano por toda ela.",
+    "reason": "telegraphic",
+    "samples": [
+      "Taste for Blood (Rank 3) [id=14176]"
+    ]
+  },
+  {
+    "template_en": "When activated, increases the critical strike chance of your next Sinister Strike, Backstab, Ambush, or Eviscerate by $s1%.",
+    "current_pt": "Próximo Golpe/Apunhalar/Emboscada/Eviscerar: +$s1% crítico.",
+    "reason": "telegraphic",
+    "samples": [
+      "Cold Blood () [id=14177]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor by $14893s1% for $14893d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Inspiration (Rank 1) [id=14892]"
+    ]
+  },
+  {
+    "template_en": "Inflicts Physical damage to an enemy every $t1 sec. Additional combo points increase the periodic damage inflicted and the total duration.",
+    "current_pt": "Físico a cada $t1 s. +combo: +dano e duração.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rupture () [id=14903]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by 30% for your next 3 swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +30% velocidade nos próximos 3 golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry () [id=15088]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor by $15357s1% for $15357d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Inspiration (Rank 2) [id=15362]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor by $15359s1% for $15359d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Inspiration (Rank 3) [id=15363]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor by $15360s1% for $15360d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Inspiration (Rank 4) [id=15364]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor by $15361s1% for $15361d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Inspiration (Rank 5) [id=15365]"
+    ]
+  },
+  {
+    "template_en": "Encases an ally in a layer of frost that lasts $d. The thick ice increases armor by $s1, slows melee attackers' movement to $6136s2%, and increases the time between their attacks by $6136s1%.",
+    "current_pt": "Gelo no aliado $d s: +$s1 armadura, atacante -$s2% velocidade e +$s3% intervalo.",
+    "reason": "telegraphic",
+    "samples": [
+      "Frost Armor () [id=15784]"
+    ]
+  },
+  {
+    "template_en": "Your Lightning Bolt and Chain Lightning spells charge you with electricity, increasing your Nature damage dealt by $51395s2% and the critical strike damage bonus of your offensive spells by $51395s1%. Lasts $51395d. Stacks up to $51395u times.",
+    "current_pt": "Raio/Cadeia: +$s1% Natureza e +$s2% crítico por $d s. Até $s3x.",
+    "reason": "telegraphic",
+    "samples": [
+      "Electrify () [id=16089]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor value by $16177s1% for $16177d after getting a critical effect from one of your healing spells.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Ancestral Healing (Rank 1) [id=16176]"
+    ]
+  },
+  {
+    "template_en": "Increases an enemy's attack power by $s1, but reduces its armor by $s2 for $d. Cursed enemies will ignore fear effects and refuse to flee from combat. Only one curse per warlock can be active on any one target.",
+    "current_pt": "+$s1 poder e -$s2 armadura por $d s. Ignora medo, não foge. Uma maldição por Bruxo.",
+    "reason": "telegraphic",
+    "samples": [
+      "Curse of Recklessness () [id=16231]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor value by $16236s1% for $16236d after getting a critical effect from one of your healing spells.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Ancestral Healing (Rank 2) [id=16235]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor value by $16237s1% for $16237d after getting a critical effect from one of your healing spells.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Ancestral Healing (Rank 3) [id=16240]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor value by $16238s1% for $16238d after getting a critical effect from one of your healing spells.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Ancestral Healing (Rank 4) [id=16241]"
+    ]
+  },
+  {
+    "template_en": "Increases your target's armor value by $16239s1% for $16239d after getting a critical effect from one of your healing spells.",
+    "current_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Ancestral Healing (Rank 5) [id=16242]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $16257s1% for your next 3 swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 1) [id=16256]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $16277s1% for your next 3 swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 2) [id=16281]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $16278s1% for your next 3 swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 3) [id=16282]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $16279s1% for your next 3 swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 4) [id=16283]"
+    ]
+  },
+  {
+    "template_en": "Increases your attack speed by $16280s1% for your next 3 swings after dealing a melee critical strike.",
+    "current_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "reason": "telegraphic",
+    "samples": [
+      "Flurry (Rank 5) [id=16284]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon, increasing melee attack power by $16311s1 and all threat caused by $16311s2% when using that weapon.  Lasts for 1 hour.",
+    "current_pt": "Arma: +$s1 poder e +$s2% ameaça por 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rockbiter Weapon (Rank 5) [id=16314]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon, increasing melee attack power by $16312s1 and all threat caused by $16312s2% when using that weapon.  Lasts for 1 hour.",
+    "current_pt": "Arma: +$s1 poder e +$s2% ameaça por 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rockbiter Weapon (Rank 6) [id=16315]"
+    ]
+  },
+  {
+    "template_en": "Imbue the Shaman's weapon, increasing melee attack power by $16313s1 and all threat caused by $16313s2% when using that weapon.  Lasts for 1 hour.",
+    "current_pt": "Arma: +$s1 poder e +$s2% ameaça por 1 hora.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rockbiter Weapon (Rank 7) [id=16316]"
+    ]
+  },
+  {
+    "template_en": "An instant strike that damages the opponent and causes the target to hemorrhage, increasing any Physical damage dealt to the target by $s3%.  Lasts $n charges or $d.  Awards $s2 combo $lpoint:points;.",
+    "current_pt": "Golpe: +$s1% Físico por $n cargas ou $d s. Combo +$s2.",
+    "reason": "telegraphic",
+    "samples": [
+      "Hemorrhage () [id=16511]"
+    ]
+  },
+  {
+    "template_en": "Creates a Firestone which can be equipped in the off hand.  When equipped, enchants the main hand weapon with fire, granting each attack a chance to deal $17933s1 additional Fire damage.  In addition, equipping the Firestone increases the damage done by fire spells by $23481s1.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Pedra maior na secundária: arma +$s1 de Fogo ao acertar. Magias de fogo +$s2. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Firestone () [id=17951]"
+    ]
+  },
+  {
+    "template_en": "TEST: Gives you a $s2% chance of entering a Clearcasting state after any damage spell hits a target.  The Clearcasting state reduces the mana cost of your next damage spell by $12536s1%.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "TEST Arcane Concentration (Rank 5) [id=18189]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.   Must remain seated while eating.   If you eat for 10 seconds will also increase your Agility by $18192s for $18192d. ",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s comendo: +Agi $s2 por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=18230]"
+    ]
+  },
+  {
+    "template_en": "Scorpid String reduces enemy attack speed by an additional $s1% and reduces their damage done by an additional $s2%.",
+    "current_pt": "Ferrão: +$s1% velocidade e +$s2% dano.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Scorpid Sting (Rank 1) [id=19491]",
+      "Improved Scorpid Sting (Rank 2) [id=19493]"
+    ]
+  },
+  {
+    "template_en": "Increases amount you heal your pet with Mend Pet by $s2% and gives the spell a $s1% chance of cleansing $24406s1 Curse, Disease, Magic or Poison effect from the pet each tick.",
+    "current_pt": "Cura pet +$s1% e $s2% de chance de limpar 1 efeito por tick.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Mend Pet (Rank 1) [id=19572]",
+      "Improved Mend Pet (Rank 2) [id=19573]"
+    ]
+  },
+  {
+    "template_en": "Send your pet into a rage causing $s2% additional damage for $d.  While enraged, the beast does not feel pity or remorse or fear and it cannot be stopped unless killed.",
+    "current_pt": "Pet: +$s1% dano por $d s. Sem pena, piedade ou medo; só a morte para.",
+    "reason": "telegraphic",
+    "samples": [
+      "Bestial Wrath () [id=19574]"
+    ]
+  },
+  {
+    "template_en": "Increases the outdoor movement speed of your pets by $s1%, the attack speed of your pet by $s3% and the speed bonus of your Aspect of the Cheetah and Aspect of the Pack spells by $s2%.",
+    "current_pt": "Pet: +$s1% fora, +$s2% velocidade e Guepardo/Alcateia +$s3%.",
+    "reason": "telegraphic",
+    "samples": [
+      "Bestial Swiftness () [id=19596]"
+    ]
+  },
+  {
+    "template_en": "Creates a Soulstone that is automatically used upon death, restoring its owner to life at $3026s1% health and mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Pedra usa sozinha ao morrer: $s1% de vida e mana. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Soulstone () [id=20022]"
+    ]
+  },
+  {
+    "template_en": "The hunter and group members within $a1 yards take on the aspect of the wild, increasing Nature resistance by $s1.  Only one Aspect can be active at a time.",
+    "current_pt": "Caçador e grupo a $a1 m viram fera: +$s1 vs Natureza. Um Aspecto por vez.",
+    "reason": "telegraphic",
+    "samples": [
+      "Aspect of the Wild (Rank 1) [id=20043]",
+      "Aspect of the Wild (Rank 2) [id=20190]"
+    ]
+  },
+  {
+    "template_en": "Gives you a $20050s1% bonus to all damage you deal and decreases threat you generate by $20050s2% for $20050d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times.",
+    "current_pt": "Crítico com arma, magia ou habilidade: +$s1% de dano e -$s2% de ameaça por $d s. Até 3x.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeance (Rank 1) [id=20049]"
+    ]
+  },
+  {
+    "template_en": "Gives you a $20052s1% bonus to all damage you deal and decreases threat you generate by $20052s2% for $20052d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times.",
+    "current_pt": "Crítico com arma, magia ou habilidade: +$s1% de dano e -$s2% de ameaça por $d s. Até 3x.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeance (Rank 2) [id=20056]"
+    ]
+  },
+  {
+    "template_en": "Gives you a $20053s1% bonus to all damage you deal and decreases threat you generate by $20053s2% for $20053d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times.",
+    "current_pt": "Crítico com arma, magia ou habilidade: +$s1% de dano e -$s2% de ameaça por $d s. Até 3x.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeance (Rank 3) [id=20057]"
+    ]
+  },
+  {
+    "template_en": "Gives you a $20054s1% bonus to all damage you deal and decreases threat you generate by $20054s2% for $20054d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times.",
+    "current_pt": "Crítico com arma, magia ou habilidade: +$s1% de dano e -$s2% de ameaça por $d s. Até 3x.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeance (Rank 4) [id=20058]"
+    ]
+  },
+  {
+    "template_en": "Gives you a $20055s1% bonus to all damage you deal and decreases threat you generate by $20055s2% for $20055d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times.",
+    "current_pt": "Crítico com arma, magia ou habilidade: +$s1% de dano e -$s2% de ameaça por $d s. Até 3x.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeance (Rank 5) [id=20059]"
+    ]
+  },
+  {
+    "template_en": "Increases your chance to block attacks with your shield by $20128s1% after being the victim of a critical strike.  Lasts $20128d or $20128n blocks.",
+    "current_pt": "Após sofrer crítico: +$s1% de bloqueio por $d s ou $n bloqueios.",
+    "reason": "telegraphic",
+    "samples": [
+      "Redoubt (Rank 1) [id=20127]"
+    ]
+  },
+  {
+    "template_en": "Increases your chance to block attacks with your shield by $20131s1% after being the victim of a critical strike.  Lasts $20131d or $20131n blocks.",
+    "current_pt": "Após sofrer crítico: +$s1% de bloqueio por $d s ou $n bloqueios.",
+    "reason": "telegraphic",
+    "samples": [
+      "Redoubt (Rank 2) [id=20130]"
+    ]
+  },
+  {
+    "template_en": "Increases your chance to block attacks with your shield by $20132s1% after being the victim of a critical strike.  Lasts $20132d or $20132n blocks.",
+    "current_pt": "Após sofrer crítico: +$s1% de bloqueio por $d s ou $n bloqueios.",
+    "reason": "telegraphic",
+    "samples": [
+      "Redoubt (Rank 3) [id=20135]"
+    ]
+  },
+  {
+    "template_en": "Increases your chance to block attacks with your shield by $20133s1% after being the victim of a critical strike.  Lasts $20133d or $20133n blocks.",
+    "current_pt": "Após sofrer crítico: +$s1% de bloqueio por $d s ou $n bloqueios.",
+    "reason": "telegraphic",
+    "samples": [
+      "Redoubt (Rank 4) [id=20136]"
+    ]
+  },
+  {
+    "template_en": "Increases your chance to block attacks with your shield by $20134s1% after being the victim of a critical strike.  Lasts $20134d or $20134n blocks.",
+    "current_pt": "Após sofrer crítico: +$s1% de bloqueio por $d s ou $n bloqueios.",
+    "reason": "telegraphic",
+    "samples": [
+      "Redoubt (Rank 5) [id=20137]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;s1 to $/25;s1 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 1) [id=20154]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20188d, increasing Holy damage taken by up to $20188s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "current_pt": "Enche o Paladino de cruzado por $d s: +$s1 de poder corpo a corpo e +$s2% de velocidade, menos dano. Um Selo por vez. Julgar por $d1 s: +$s3 Sagrado recebido; golpe renova. Um Julgamento por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of the Crusader (Rank 2) [id=20162]"
+    ]
+  },
+  {
+    "template_en": "Places a Blessing on the friendly target, increasing total stats by $s1% for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "current_pt": "Bênção: +$s1% tudo por $d s. Uma por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Blessing of Kings () [id=20217]"
+    ]
+  },
+  {
+    "template_en": "Designer Note:  Effect 1 points = desired threat per second, before misses.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Seal of Fury (Rank 1) [id=20231]",
+      "Seal of Fury (Rank 2) [id=20415]",
+      "Seal of Fury (Rank 3) [id=20416]"
+    ]
+  },
+  {
+    "template_en": "Designer note:  This costs 1 rage to prevent its damage from generating rage.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Retaliation () [id=20240]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20280s3 to $/25;20280s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20280s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 2) [id=20287]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20281s3 to $/25;20281s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20281s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 3) [id=20288]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20282s3 to $/25;20282s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20282s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 4) [id=20289]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20283s3 to $/25;20283s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20283s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 5) [id=20290]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20284s3 to $/25;20284s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20284s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 6) [id=20291]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20285s3 to $/25;20285s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20285s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 7) [id=20292]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20286s3 to $/25;20286s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20286s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 8) [id=20293]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20300d, increasing Holy damage taken by up to $20300s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "current_pt": "Enche o Paladino de cruzado por $d s: +$s1 de poder corpo a corpo e +$s2% de velocidade, menos dano. Um Selo por vez. Julgar por $d1 s: +$s3 Sagrado recebido; golpe renova. Um Julgamento por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of the Crusader (Rank 3) [id=20305]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20301d, increasing Holy damage taken by up to $20301s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "current_pt": "Enche o Paladino de cruzado por $d s: +$s1 de poder corpo a corpo e +$s2% de velocidade, menos dano. Um Selo por vez. Julgar por $d1 s: +$s3 Sagrado recebido; golpe renova. Um Julgamento por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of the Crusader (Rank 4) [id=20306]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20302d, increasing Holy damage taken by up to $20302s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "current_pt": "Enche o Paladino de cruzado por $d s: +$s1 de poder corpo a corpo e +$s2% de velocidade, menos dano. Um Selo por vez. Julgar por $d1 s: +$s3 Sagrado recebido; golpe renova. Um Julgamento por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of the Crusader (Rank 5) [id=20307]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20303d, increasing Holy damage taken by up to $20303s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "current_pt": "Enche o Paladino de cruzado por $d s: +$s1 de poder corpo a corpo e +$s2% de velocidade, menos dano. Um Selo por vez. Julgar por $d1 s: +$s3 Sagrado recebido; golpe renova. Um Julgamento por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of the Crusader (Rank 6) [id=20308]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20304d, increasing Holy damage taken by up to $20304s1.  Only one Judgement per Paladin can be active at any one time.",
+    "current_pt": "Enche o Paladino de cruzado por $d s: +$s1 de poder e +$s2% de velocidade, menos dano. Um Selo por vez. Julgar por $d1 s: +$s3 Sagrado recebido. Um Julgamento por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of the Crusader (Rank 6) [id=20309]"
+    ]
+  },
+  {
+    "template_en": "Increases the Attack Power bonus of your Seal of the Crusader and the Holy damage increase of your Judgement of the Crusader by $s1%.",
+    "current_pt": "Cruzado: +$s1% poder e +$s1% Julgamento.",
+    "reason": "telegraphic",
+    "samples": [
+      "[Deprecated] Improved Seal of the Crusader (Rank 5) [id=20338]",
+      "[Deprecated] Improved Seal of the Crusader (Rank 4) [id=20339]"
+    ]
+  },
+  {
+    "template_en": "Increases the chance your Seal of Justice will stun the opponent by 53%.",
+    "current_pt": "Selo da Justiça: +53% de atordoar.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Seal of Justice (Rank 4) [id=20490]"
+    ]
+  },
+  {
+    "template_en": "Increases the chance your Seal of Justice will stun the opponent by 67%.",
+    "current_pt": "Selo da Justiça: +67% de atordoar.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Seal of Justice (Rank 5) [id=20491]"
+    ]
+  },
+  {
+    "template_en": "Creates a Soulstone.  The Soulstone can be used to store one target's soul.  If the target dies while his soul is stored, he will be able to resurrect with $20759s1 health and $20759q1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Cria Pedra: guarda a alma; morto ressuscita com $s1 de vida e $s2 de mana. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Soulstone () [id=20755]"
+    ]
+  },
+  {
+    "template_en": "Increases the attack power of party members within $a1 yards by $51521s1% plus an additional $s1.  The aura lasts until cancelled.",
+    "current_pt": "Poder a $a1 m: +$s1% mais $s2. Até cancelar.",
+    "reason": "telegraphic",
+    "samples": [
+      "Trueshot Aura (Rank 2) [id=20905]"
+    ]
+  },
+  {
+    "template_en": "Increases the attack power of party members within $a1 yards by $51522s1% plus an additional $s1.  The aura lasts until cancelled.",
+    "current_pt": "Poder a $a1 m: +$s1% mais $s2. Até cancelar.",
+    "reason": "telegraphic",
+    "samples": [
+      "Trueshot Aura (Rank 3) [id=20906]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $21183d, increasing Holy damage taken by up to $21183s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "current_pt": "Enche o Paladino de cruzado por $d s: +$s1 de poder corpo a corpo e +$s2% de velocidade, menos dano. Um Selo por vez. Julgar por $d1 s: +$s3 Sagrado recebido; golpe renova. Um Julgamento por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of the Crusader (Rank 1) [id=21082]"
+    ]
+  },
+  {
+    "template_en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20187s3 to $/25;20187s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20187s1 Holy damage to an enemy.",
+    "current_pt": "Enche o Paladino de espírito sagrado por $d s: cada corpo a corpo +$s1 a $s2 Sagrado. Arma lenta bate mais. Um Selo por vez. Julgar causa $s3 Sagrado.",
+    "reason": "telegraphic",
+    "samples": [
+      "Seal of Righteousness (Rank 1) [id=21084]"
+    ]
+  },
+  {
+    "template_en": "Place a frost trap that freezes the first enemy that approaches, preventing all action for up to $3355d.  Any damage caused will break the ice.  Trap will exist for $d.  Only one trap can be active at a time.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Freezing Trap (TEST) (Rank 1) [id=21750]"
+    ]
+  },
+  {
+    "template_en": "Increases your chance to resist Stun and Fear effects by $s1%.",
+    "current_pt": "Atordoar e Medo: +$s1% de resistir.",
+    "reason": "telegraphic",
+    "samples": [
+      "Stout Heart (Rank 1) [id=21958]"
+    ]
+  },
+  {
+    "template_en": "Summons a Testing Totem with $s1 health at your feet for $d that rapidly attacks an enemy within $22048r1 yards for $22048s1 Fire damage.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Testing Totem (Rank 1) [id=22047]"
+    ]
+  },
+  {
+    "template_en": "Improves your chance to get a critical strike with all Shock spells by $s1%.",
+    "current_pt": "Choques: +$s1% de crítico.",
+    "reason": "telegraphic",
+    "samples": [
+      "Shaman Shock Crit Bonus (Rank 1) [id=22804]"
+    ]
+  },
+  {
+    "template_en": "Infuses the target's party with brilliance, increasing their Intellect by $M1 for $d.",
+    "current_pt": "Brilho no grupo: +Intelecto $s1 por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Arcane Brilliance (Rank 1) [id=23027]"
+    ]
+  },
+  {
+    "template_en": "Infuses the target's party with brilliance, increasing their Intellect by $s1 for $d.",
+    "current_pt": "Brilho no grupo: +Intelecto $s1 por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Arcane Brilliance (Rank 1) [id=23028]"
+    ]
+  },
+  {
+    "template_en": "Teaches Arcane Brilliance (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Arcane Brilliance (Rank 1) [id=23029]",
+      "Arcane Brilliance (Rank 1) [id=23030]"
+    ]
+  },
+  {
+    "template_en": "Increases the range of your Mend Pet spell by $s1% and the effect by $s2%.  Also reduces the cost by $s3%.",
+    "current_pt": "Cura pet: +$s1% alcance, +$s2% efeito, -$s3% custo.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Mend Pet () [id=23560]"
+    ]
+  },
+  {
+    "template_en": "A vicious strike that deals $s3% weapon damage plus $/2;s2 and wounds the target, reducing the effectiveness of any healing by $s1% for $d.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Test Strike W50 (Rank 4) [id=23848]"
+    ]
+  },
+  {
+    "template_en": "A vicious strike that deals $s3% weapon damage plus 396 and wounds the target, reducing the effectiveness of any healing by $s1% for $d.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Test Strike W35 (Rank 4) [id=23850]"
+    ]
+  },
+  {
+    "template_en": "Power infuses the target increasing their Stamina by $M1 for $d.",
+    "current_pt": "Poder no alvo: +Vigor $s1 por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Power Word: Fortitude (Rank 5) [id=23947]",
+      "Power Word: Fortitude (Rank 6) [id=23948]"
+    ]
+  },
+  {
+    "template_en": "Backstab the target, causing $s2% weapon damage plus 334 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Test Stab R50 (Rank 8) [id=23959]"
+    ]
+  },
+  {
+    "template_en": "An instant strike that causes $/2;s1 damage in addition to your normal weapon damage.  Awards $s2 combo $lpoint:points;.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Test Strike R50 (Rank 8) [id=23960]"
+    ]
+  },
+  {
+    "template_en": "Instant attack plus $s1 damage.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Test Maul (Rank 4) [id=24042]"
+    ]
+  },
+  {
+    "template_en": "Finishing move that causes damage over time.  Damage increases per combo point:\n   1 point  : 228 damage over $d.\n   2 points: 354 damage over $d.\n   3 points: 480 damage over $d.\n   4 points: 606 damage over $d.\n   5 points: 732 damage over $d.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Test Rip (Rank 6) [id=24238]"
+    ]
+  },
+  {
+    "template_en": "Transforms the Druid into Moonkin Form. While in this form the armor contribution from items is increased by $24905s1%, the Mana cost of your Balance spells is reduced by 20%, and all party members within 30 yards have their spell critical chance increased by 3%. The Moonkin can only cast Balance spells, Innervate, and Remove Curse while shapeshifted. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "current_pt": "Vira Coruja: +$s1% armadura de itens, -20% custo, grupo a 30 m +3% crítico. Só Equilíbrio/Inervar/Remover. Virar limpa Polimorfia e lentidões.",
+    "reason": "telegraphic",
+    "samples": [
+      "Moonkin Form (Shapeshift) [id=24858]"
+    ]
+  },
+  {
+    "template_en": "Restores $s1% of your health per second for $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain Stamina and Spirit for $24870d.",
+    "current_pt": "$s1% da vida por segundo por $d s sentado. 10 s+ comendo: +Vig/Esp por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=24869]"
+    ]
+  },
+  {
+    "template_en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $25360a1 yards by $25360s1.  Lasts $d.",
+    "current_pt": "Totem Graça Aérea $s1: +$s2 de Agi a $a1 m por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Grace of Air Totem (Rank 3) [id=25359]"
+    ]
+  },
+  {
+    "template_en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $25362a1 yards by $25362s1.  Lasts $d.",
+    "current_pt": "Totem Força da Terra $s1: +$s2 de For a $a1 m por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Strength of Earth Totem (Rank 5) [id=25361]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain 25 Stamina for $24799d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +25 Vig por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=25660]",
+      "Food () [id=45024]"
+    ]
+  },
+  {
+    "template_en": "Increases the threat generated by your Holy attacks by $s1%.  Lasts until cancelled.",
+    "current_pt": "Sagrado: +$s1% ameaça. Até cancelar.",
+    "reason": "telegraphic",
+    "samples": [
+      "Righteous Fury () [id=25780]"
+    ]
+  },
+  {
+    "template_en": "Gives all members of the raid or group that share the same class with the target the Greater Blessing of Might, increasing melee attack power by $s1 for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "current_pt": "Bênção Maior de Poder no grupo: +$s1 corpo a corpo por $d s. Uma por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Greater Blessing of Might (Rank 1) [id=25782]",
+      "Greater Blessing of Might (Rank 2) [id=25916]"
+    ]
+  },
+  {
+    "template_en": "Gives all members of the raid or group that share the same class with the target the Greater Blessing of Wisdom, restoring $s1 mana every $t1 seconds for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "current_pt": "Bênção Maior de Sabedoria no grupo: +$s1 mana a cada $t1 s por $d s. Uma por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Greater Blessing of Wisdom (Rank 1) [id=25894]",
+      "Greater Blessing of Wisdom (Rank 2) [id=25918]"
+    ]
+  },
+  {
+    "template_en": "Gives all members of the raid or group that share the same class with the target the Greater Blessing of Kings, increasing total stats by $s1% for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "current_pt": "Bênção Maior dos Reis na classe: +$s1% tudo por $d s. Uma por Paladino.",
+    "reason": "telegraphic",
+    "samples": [
+      "Greater Blessing of Kings () [id=25898]"
+    ]
+  },
+  {
+    "template_en": "Teaches Frostbolt (Rank 11).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Frostbolt (Rank 11) [id=25940]",
+      "Frostbolt (Rank 11) [id=25977]"
+    ]
+  },
+  {
+    "template_en": "Teaches Heroic Strike (Rank 9).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Heroic Strike (Rank 9) [id=25958]"
+    ]
+  },
+  {
+    "template_en": "Teaches Battle Shout (Rank 7).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Battle Shout (Rank 7) [id=25959]"
+    ]
+  },
+  {
+    "template_en": "Teaches Blessing of Wisdom (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Blessing of Wisdom (Rank 6) [id=25961]"
+    ]
+  },
+  {
+    "template_en": "Teaches Blessing of Might (Rank 7).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Blessing of Might (Rank 7) [id=25962]"
+    ]
+  },
+  {
+    "template_en": "Teaches Holy Light (Rank 9).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Holy Light (Rank 9) [id=25963]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Wave (Rank 10).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Wave (Rank 10) [id=25964]"
+    ]
+  },
+  {
+    "template_en": "Teaches Strength of Earth Totem (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Strength of Earth Totem (Rank 5) [id=25965]"
+    ]
+  },
+  {
+    "template_en": "Teaches Grace of Air Totem (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Grace of Air Totem (Rank 3) [id=25966]"
+    ]
+  },
+  {
+    "template_en": "Teaches Multi-Shot (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Multi-Shot (Rank 5) [id=25967]"
+    ]
+  },
+  {
+    "template_en": "Teaches Serpent Sting (Rank 9).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Serpent Sting (Rank 9) [id=25968]"
+    ]
+  },
+  {
+    "template_en": "Teaches Aspect of the Hawk (Rank 7).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Aspect of the Hawk (Rank 7) [id=25969]"
+    ]
+  },
+  {
+    "template_en": "Teaches Healing Touch (Rank 11).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Healing Touch (Rank 11) [id=25970]"
+    ]
+  },
+  {
+    "template_en": "Teaches Starfire (Rank 7).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Starfire (Rank 7) [id=25971]"
+    ]
+  },
+  {
+    "template_en": "Teaches Rejuvenation (Rank 11).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Rejuvenation (Rank 11) [id=25972]"
+    ]
+  },
+  {
+    "template_en": "Teaches Backstab (Rank 9).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Backstab (Rank 9) [id=25973]"
+    ]
+  },
+  {
+    "template_en": "Teaches Fireball (Rank 12).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Fireball (Rank 12) [id=25978]"
+    ]
+  },
+  {
+    "template_en": "Teaches Arcane Missiles (Rank 8).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Arcane Missiles (Rank 8) [id=25979]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shadow Bolt (Rank 10).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shadow Bolt (Rank 10) [id=25980]"
+    ]
+  },
+  {
+    "template_en": "Teaches Immolate (Rank 8).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Immolate (Rank 8) [id=25981]"
+    ]
+  },
+  {
+    "template_en": "Teaches Corruption (Rank 7).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Corruption (Rank 7) [id=25982]"
+    ]
+  },
+  {
+    "template_en": "Teaches Greater Heal (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Greater Heal (Rank 5) [id=25983]"
+    ]
+  },
+  {
+    "template_en": "Teaches Renew (Rank 10).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Renew (Rank 10) [id=25984]"
+    ]
+  },
+  {
+    "template_en": "Teaches Prayer of Healing (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Prayer of Healing (Rank 5) [id=25985]"
+    ]
+  },
+  {
+    "template_en": "Creates a Minor Healthstone that can be used to instantly restore $6262s1 health.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Pedra Menor: restaura $s1 na hora. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Healthstone () [id=28023]"
+    ]
+  },
+  {
+    "template_en": "Your next 5 damage or healing spells cast within 20 seconds will grant a bonus of up to 40 damage and up to 75 healing, stacking up to 5 times. Expires after 6 damage or healing spells or 20 seconds, whichever occurs first. ",
+    "current_pt": "Próximas 5 magias em 20 s: +40 dano/+75 cura, até 5x. Expira em 6 ou 20 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Ascendance () [id=28200]"
+    ]
+  },
+  {
+    "template_en": "Conjures $s1 $lcinnamon roll:cinnamon rolls;, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Conjura $s1 canelas pra comer. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Conjure Food (Rank 7) [id=28612]"
+    ]
+  },
+  {
+    "template_en": "Teaches Conjure Food (Rank 7).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Conjure Food (Rank 7) [id=28613]"
+    ]
+  },
+  {
+    "template_en": "On Healing Touch critical hits, you regain 30% of the mana cost of the spell.",
+    "current_pt": "Crítico Toque: +30% mana de volta.",
+    "reason": "telegraphic",
+    "samples": [
+      "Healing Touch () [id=28719]"
+    ]
+  },
+  {
+    "template_en": "Your initial cast and Regrowth ticks will increase the maximum health of your target by up to 50, stacking up to 7 times.",
+    "current_pt": "Recrescer: +50 vida máx até 7x.",
+    "reason": "telegraphic",
+    "samples": [
+      "Regrowth () [id=28744]"
+    ]
+  },
+  {
+    "template_en": "Regain up to $28850s1 mana each time you cast Lesser Healing Wave.",
+    "current_pt": "Onda: +$s1 mana.",
+    "reason": "telegraphic",
+    "samples": [
+      "Lesser Healing Wave () [id=28849]"
+    ]
+  },
+  {
+    "template_en": "Increases the melee attack power bonus of your Seal of the Crusader by $s1 and the Holy damage increase of your Judgement of the Crusader by $s2.",
+    "current_pt": "Cruzado: +$s1 poder e +$s2 Julgamento.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Seal of the Crusader () [id=28852]"
+    ]
+  },
+  {
+    "template_en": "Increases the critical strike chance with your Shock, Lightning Bolt and Chain Lightning spells by $s1%.",
+    "current_pt": "Choque, Raio e Cadeia: +$s1% de crítico.",
+    "reason": "telegraphic",
+    "samples": [
+      "Storm Mastery (Rank 1) [id=29005]"
+    ]
+  },
+  {
+    "template_en": "Teaches Flame Shock (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Flame Shock (Rank 6) [id=29229]"
+    ]
+  },
+  {
+    "template_en": "Designer Note: The only purpose of this aura is to mark a player who just cast Nature's Swiftness.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Nature's Swiftness () [id=29274]"
+    ]
+  },
+  {
+    "template_en": "Teaches Eviscerate (Rank 9).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Eviscerate (Rank 9) [id=31017]"
+    ]
+  },
+  {
+    "template_en": "Teaches Ferocious Bite (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Learn Ferocious Bite (Rank 6) [id=31020]"
+    ]
+  },
+  {
+    "template_en": "Increases your movement speed by 10% whenever you deal damage to a target who is below 20% health.",
+    "current_pt": "Alvo abaixo de 20% e você causa dano: +10% de velocidade.",
+    "reason": "telegraphic",
+    "samples": [
+      "Deadly Swiftness (Rank 1) [id=31255]"
+    ]
+  },
+  {
+    "template_en": "Fly into a frenzy, increasing your attack speed by $s1% and spell casting speed by $s2% for $d.  While under this effect, your melee critical strikes increase the attack and spell casting speed of all party members within $51394a1 yards by $51394s1% for $51394d.",
+    "current_pt": "Frenesi: +$s1% corpo a corpo e +$s2% lançamento por $d s. Crítico: grupo a $a1 m +$s3% velocidade por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Bloodlust () [id=45509]"
+    ]
+  },
+  {
+    "template_en": "Fly into a frenzy, increasing your melee and spell casting speed by $s1% for $d. While under this effect, your melee critical hits increase melee, ranged, and spell casting speed of all party members within $51394r yards by $51394s1% for $51394d.",
+    "current_pt": "Frenesi: +$s1% corpo a corpo e lançamento por $d s. Crítico: grupo a $a1 m +$s2% por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "[Deprecated] Bloodlust (Rank 2) [id=45511]"
+    ]
+  },
+  {
+    "template_en": "Your Divine Spirit and Prayer of Spirit spells also increase the target's spell damage and healing by an amount equal to 5% of their total Spirit.",
+    "current_pt": "Espírito e Oração: +dano e cura de 5% do Espírito.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Divine Spirit (Rank 1) [id=45550]"
+    ]
+  },
+  {
+    "template_en": "When your Power Word: Shield is broken, $s2% of its base mana cost is refunded and increases damage and healing done by Holy spells and effects by up to $s1% of the shield's total absorption amount for $51477d.",
+    "current_pt": "Escudo quebra: +$s1% mana e +$s2% Sagrado do absorvido por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Resurgent Shield () [id=45560]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $45623s1% dodge and $45623s2 defense for $45623d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +esquiva $s2% e +defesa $s3 por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=45624]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $45628s1 spell damage for $45628d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +$s2 magia por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=45626]"
+    ]
+  },
+  {
+    "template_en": "Removes all Fear effects and increases your energy regeneration rate by 100% while in Cat form, and increases your total health by 20% while in Bear form. After the effect ends, the health is lost. Effect lasts 20 seconds.",
+    "current_pt": "Gato: +100% energia e sem Medo; Urso: +20% vida. 20 s, depois perde.",
+    "reason": "telegraphic",
+    "samples": [
+      "Berserk () [id=45708]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $46083s1 Stamina, while reducing damage taken from critical hits and damage over time effects by $46083s2% for $46083d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +Vig $s2 e -crítico/dot $s3% por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=46084]"
+    ]
+  },
+  {
+    "template_en": "Teaches Wrath (Rank 9).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Wrath (Rank 9) [id=47306]"
+    ]
+  },
+  {
+    "template_en": "Teaches Smite (Rank 9).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Smite (Rank 9) [id=47307]"
+    ]
+  },
+  {
+    "template_en": "Teaches Shred (Rank 6).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Shred (Rank 6) [id=47308]"
+    ]
+  },
+  {
+    "template_en": "Increases your pet's damage by $s1%, maximum health by $s2% and critical strike chance by $s3%.",
+    "current_pt": "Pet: +$s1% dano, +$s2% vida, +$s3% crítico.",
+    "reason": "telegraphic",
+    "samples": [
+      "Beast Mastery () [id=47354]"
+    ]
+  },
+  {
+    "template_en": "Increases your pet's damage by 3%, maximum health by 5% and critical strike chance by 2%.",
+    "current_pt": "Pet: +3% dano, +5% vida, +2% crítico.",
+    "reason": "telegraphic",
+    "samples": [
+      "Beast Mastery () [id=47355]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain 24 Healing Bonus for $24799d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +24 cura por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=49552]"
+    ]
+  },
+  {
+    "template_en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%.  In addition, Zeal increases the amount of damage blocked by $51336s1%.",
+    "current_pt": "Golpe Sagrado: +$s1% ameaça e +$s2% dano. Zelo: +$s3% bloqueio.",
+    "reason": "telegraphic",
+    "samples": [
+      "Righteous Strikes (Rank 1) [id=51341]"
+    ]
+  },
+  {
+    "template_en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%.  In addition, Zeal increases the amount of damage blocked by $51337s1%.",
+    "current_pt": "Golpe Sagrado: +$s1% ameaça e +$s2% dano. Zelo: +$s3% bloqueio.",
+    "reason": "telegraphic",
+    "samples": [
+      "Righteous Strikes (Rank 2) [id=51342]"
+    ]
+  },
+  {
+    "template_en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%.  In addition, Zeal increases the amount of damage blocked by $51338s1%.",
+    "current_pt": "Golpe Sagrado: +$s1% ameaça e +$s2% dano. Zelo: +$s3% bloqueio.",
+    "reason": "telegraphic",
+    "samples": [
+      "Righteous Strikes (Rank 3) [id=51343]"
+    ]
+  },
+  {
+    "template_en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%.  In addition, Zeal increases the amount of damage blocked by $51339s1%.",
+    "current_pt": "Golpe Sagrado: +$s1% ameaça e +$s2% dano. Zelo: +$s3% bloqueio.",
+    "reason": "telegraphic",
+    "samples": [
+      "Righteous Strikes (Rank 4) [id=51344]"
+    ]
+  },
+  {
+    "template_en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%.  In addition, Zeal increases the amount of damage blocked by $51340s1%.",
+    "current_pt": "Golpe Sagrado: +$s1% ameaça e +$s2% dano. Zelo: +$s3% bloqueio.",
+    "reason": "telegraphic",
+    "samples": [
+      "Righteous Strikes (Rank 5) [id=51345]"
+    ]
+  },
+  {
+    "template_en": "Crusader Strike deals an additional $s2% damage and Zeal increases your attack and casting speed by an additional $s3% per stack.\r\nHoly Strike infuses you with Holy Might, increasing your Strength by $51350s1% for $51350d.",
+    "current_pt": "Cruzado +$s1% dano; Zelo +$s2% velocidade por acúmulo; Golpe: +$s3% For por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeful Strikes (Rank 1) [id=51355]"
+    ]
+  },
+  {
+    "template_en": "Crusader Strike deals an additional $s2% damage and Zeal increases your attack and casting speed by an additional $s3% per stack.\r\nHoly Strike infuses you with Holy Might, increasing your Strength by $51351s1% for $51351d.",
+    "current_pt": "Cruzado +$s1% dano; Zelo +$s2% velocidade por acúmulo; Golpe: +$s3% For por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeful Strikes (Rank 2) [id=51356]"
+    ]
+  },
+  {
+    "template_en": "Crusader Strike deals an additional $s2% damage and Zeal increases your attack and casting speed by an additional $s3% per stack.\r\nHoly Strike infuses you with Holy Might, increasing your Strength by $51352s1% for $51352d.",
+    "current_pt": "Cruzado +$s1% dano; Zelo +$s2% velocidade por acúmulo; Golpe: +$s3% For por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeful Strikes (Rank 3) [id=51357]"
+    ]
+  },
+  {
+    "template_en": "Crusader Strike deals an additional $s2% damage and Zeal increases your attack and casting speed by an additional $s3% per stack.\r\nHoly Strike infuses you with Holy Might, increasing your Strength by $51353s1% for $51353d.",
+    "current_pt": "Cruzado +$s1% dano; Zelo +$s2% velocidade por acúmulo; Golpe: +$s3% For por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeful Strikes (Rank 4) [id=51358]"
+    ]
+  },
+  {
+    "template_en": "Crusader Strike deals an additional $s2% damage and Zeal increases your attack and casting speed by an additional $s3% per stack.\r\nHoly Strike infuses you with Holy Might, increasing your Strength by $51354s1% for $51354d.",
+    "current_pt": "Cruzado +$s1% dano; Zelo +$s2% velocidade por acúmulo; Golpe: +$s3% For por $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vengeful Strikes (Rank 5) [id=51359]"
+    ]
+  },
+  {
+    "template_en": "If one of the bonus attacks doesn't land, your attack speed is increased by $51388s1% for your next strike.",
+    "current_pt": "Erro: +$s1% velocidade no próximo golpe.",
+    "reason": "telegraphic",
+    "samples": [
+      "Elemental Flurry Passive (Rank 1) [id=51391]"
+    ]
+  },
+  {
+    "template_en": "If one of the bonus attacks doesn't land, your attack speed is increased by $51389s1% for your next strike.",
+    "current_pt": "Erro: +$s1% velocidade no próximo golpe.",
+    "reason": "telegraphic",
+    "samples": [
+      "Elemental Flurry Passive (Rank 2) [id=51392]"
+    ]
+  },
+  {
+    "template_en": "If one of the bonus attacks doesn't land, your attack speed is increased by $51390s1% for your next strike.",
+    "current_pt": "Erro: +$s1% velocidade no próximo golpe.",
+    "reason": "telegraphic",
+    "samples": [
+      "Elemental Flurry Passive (Rank 3) [id=51393]"
+    ]
+  },
+  {
+    "template_en": "Suffering a physical critical strike while in Bear, Dire Bear or Cat Form increases your chance to dodge by $51406s1% until you dodge the next physical attack against you. This effect can only occur once every 30 seconds.",
+    "current_pt": "Crítico físico em Urso/Gato: +$s1% esquiva até esquivar. 1x a cada 30 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Feral Adrenaline (Rank 1) [id=51409]"
+    ]
+  },
+  {
+    "template_en": "Suffering a physical critical strike while in Bear, Dire Bear or Cat Form increases your chance to dodge by $51407s1% until you dodge the next physical attack against you. This effect can only occur once every 30 seconds.",
+    "current_pt": "Crítico físico em Urso/Gato: +$s1% esquiva até esquivar. 1x a cada 30 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Feral Adrenaline (Rank 2) [id=51410]"
+    ]
+  },
+  {
+    "template_en": "Suffering a physical critical strike while in Bear, Dire Bear or Cat Form increases your chance to dodge by $51408s1% until you dodge the next physical attack against you. This effect can only occur once every 30 seconds.",
+    "current_pt": "Crítico físico em Urso/Gato: +$s1% esquiva até esquivar. 1x a cada 30 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Feral Adrenaline (Rank 3) [id=51411]"
+    ]
+  },
+  {
+    "template_en": "Transforms the Druid into Moonkin Form. While in this form the armor contribution from items is increased by $51431s1%, the Mana cost of your Balance spells is reduced by 20%, and all party members within 30 yards have their spell critical chance increased by 3%. The Moonkin can only cast Balance spells, Innervate, and Remove Curse while shapeshifted. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "current_pt": "Vira Coruja: +$s1% armadura de itens, -20% custo, grupo a 30 m +3% crítico. Só Equilíbrio/Inervar/Remover. Virar limpa Polimorfia e lentidões.",
+    "reason": "telegraphic",
+    "samples": [
+      "Moonkin Form (Shapeshift) [id=51430]"
+    ]
+  },
+  {
+    "template_en": "Aligns natural and astral energies. Critical strikes with Starfire increase your Nature damage by $51442s1% and critical strikes with Wrath increase your Arcane damage by $51443s1%. Each effect lasts $51442d and has a separate 30 sec cooldown. Both effects cannot be active at the same time.",
+    "current_pt": "Starfire crítico: +$s1% Natureza; Ira crítico: +$s2% Arcano. Cada um $d s, 30 s separados. Nunca juntos.",
+    "reason": "telegraphic",
+    "samples": [
+      "Eclipse () [id=51444]"
+    ]
+  },
+  {
+    "template_en": "Bring a party member under your tutelage.  Whenever you cast a Discipline or Holy spell, you have a $51475h% chance to burn them for $51474s1% of their total health as Holy damage and increase both your and their spell damage and healing by $51472s1% for $51472d.  If this spell is used on yourself, the spell damage and healing bonus increases to $51473s1%.  You can only have one party member under your tutelage at a time.  Lasts $d.",
+    "current_pt": "Tutela: ao lançar, $h% de queimar $s1% da vida e +$s2% magia por $d1 s (em você: +$s3%). Um por vez. $d2 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Enlighten () [id=51476]"
+    ]
+  },
+  {
+    "template_en": "Chastise the target, causing $s1 Holy damage.  If the target is an enemy, they are disoriented for up to $51569d or until they take damage.  If the target is an ally, their attack and casting speed is increased by $51481s1% for $51481d, increased to $52658d if the damage results in a critical strike.  Cannot be used on allies with less than 80% health or below level 35.",
+    "current_pt": "Castiga $s1 Sagrado. Inimigo: desorienta até $d1 s. Aliado: +$s2% velocidade por $d2 s ($d3 s se crítico). Sem 80% vida ou nv 35.",
+    "reason": "telegraphic",
+    "samples": [
+      "Chastise (Rank 1) [id=51478]"
+    ]
+  },
+  {
+    "template_en": "Chastise the target, causing $s1 Holy damage.  If the target is an enemy, they are disoriented for up to $51569d or until they take damage.  If the target is an ally, their attack and casting speed is increased by $51482s1% for $51482d, increased to $52659d if the damage results in a critical strike.  Cannot be used on allies with less than 80% health or below level 45.",
+    "current_pt": "Castiga $s1 Sagrado. Inimigo: desorienta até $d1 s. Aliado: +$s2% velocidade por $d2 s ($d3 s se crítico). Sem 80% vida ou nv 45.",
+    "reason": "telegraphic",
+    "samples": [
+      "Chastise (Rank 2) [id=51479]"
+    ]
+  },
+  {
+    "template_en": "Chastise the target, causing $s1 Holy damage.  If the target is an enemy, they are disoriented for up to $51569d or until they take damage.  If the target is an ally, their attack and casting speed is increased by $51483s1% for $51483d, increased to $52660d if the damage results in a critical strike.  Cannot be used on allies with less than 80% health or below level 55.",
+    "current_pt": "Castiga $s1 Sagrado. Inimigo: desorienta até $d1 s. Aliado: +$s2% velocidade por $d2 s ($d3 s se crítico). Sem 80% vida ou nv 55.",
+    "reason": "telegraphic",
+    "samples": [
+      "Chastise (Rank 3) [id=51480]"
+    ]
+  },
+  {
+    "template_en": "Teaches Aspect of the Wolf (Rank 7)",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Aspect of the Wolf (Rank 7) [id=51507]"
+    ]
+  },
+  {
+    "template_en": "A sweeping attack that strikes up to $i1 enemies in a $a1 yard cone in front of you, dealing $s1% weapon damage.\nThis ability shares a cooldown with Multi-Shot.",
+    "current_pt": "Amaldiçoa o alvo com imprudência: +$s1 de poder corpo a corpo, -$s2 de armadura por $d s. Não foge e ignora Medo e Horror. Só uma Maldição por Bruxo no alvo.",
+    "reason": "telegraphic",
+    "samples": [
+      "Carve (Rank 1) [id=51575]",
+      "Carve (Rank 2) [id=52415]",
+      "Carve (Rank 3) [id=52416]"
+    ]
+  },
+  {
+    "template_en": "Your Rapid Fire ability now also increases your melee attack speed by the same amount and the cooldown of your Raptor Strike and Mongoose Bite abilities is reduced by $/1000;s1 sec.",
+    "current_pt": "Tiro Rápido: +corpo a corpo e Garra/Mordida -$s1 s recarga.",
+    "reason": "telegraphic",
+    "samples": [
+      "Rapid Strikes () [id=51583]"
+    ]
+  },
+  {
+    "template_en": "Your Mongoose Bite and Raptor Strike deal $s1% additional weapon damage and the additional damage is increased by $s1.",
+    "current_pt": "Mordida e Raptor: +$s1% da arma, com +$s2.",
+    "reason": "telegraphic",
+    "samples": [
+      "Vicious Strikes (Rank 1) [id=51584]",
+      "Vicious Strikes (Rank 2) [id=51585]"
+    ]
+  },
+  {
+    "template_en": "Reduces the cooldown of your Whirlwind ability by $/1000;m1 sec.",
+    "current_pt": "Marca o alvo com a Marca do Caçador: +$s1 de Poder de Ataque à distância contra ele, sempre visível mesmo furtivo ou invisível, e no minimapa. Dura $d s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Improved Whirlwind (Rank 1) [id=51616]",
+      "Improved Whirlwind (Rank 2) [id=51617]",
+      "Improved Whirlwind (Rank 3) [id=51618]"
+    ]
+  },
+  {
+    "template_en": "Creates a Firestone for the caster.  When used, it increases the critical strike chance of your Fire spells by $51690s2% and grants melee and wand attacks a chance to deal $51691s1 additional Fire damage on hit for $51690d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Pedra: Fogo +$s1% crítico e +$s2 Fogo ao acertar por $d s. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Firestone () [id=51692]"
+    ]
+  },
+  {
+    "template_en": "Creates a Spellstone for the caster.  When used, it decreases the threat generated by your spells by $51694s1% for $51694d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "current_pt": "Pedra: magia -$s1% ameaça por $d s. Some se deslogar 15 min.",
+    "reason": "telegraphic",
+    "samples": [
+      "Create Spellstone () [id=51695]"
+    ]
+  },
+  {
+    "template_en": "Channel energy into your demon, increasing its damage dealt by $s2% for $d.  The demon takes $o3% of its Health as damage over the duration",
+    "current_pt": "Demônio: +$s1% dano por $d s. Custa $s2% da vida.",
+    "reason": "telegraphic",
+    "samples": [
+      "Power Overwhelming () [id=51714]"
+    ]
+  },
+  {
+    "template_en": "Finishing move that increases the effectiveness and the chance to apply poisons to your target by $s2%.  Lasts longer per combo point:\n   1 point  : 12 seconds\n   2 points: 16 seconds\n   3 points: 20 seconds\n   4 points: 24 seconds\n   5 points: 28 seconds",
+    "current_pt": "Final: +$s1% veneno. Por combo: 1: 12 s, 2: 16 s, 3: 20 s, 4: 24 s, 5: 28 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Envenom () [id=52531]"
+    ]
+  },
+  {
+    "template_en": "Teaches Corrosive Poison (Rank 2) and Deadly Poison (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Lethal Poisons (Rank 2) [id=52578]"
+    ]
+  },
+  {
+    "template_en": "Teaches Searing Shot (Rank 1).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Searing Shot (Rank 1) [id=52639]",
+      "Searing Shot (Rank 1) [id=52648]"
+    ]
+  },
+  {
+    "template_en": "Teaches Searing Shot (Rank 2).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Searing Shot (Rank 2) [id=52641]"
+    ]
+  },
+  {
+    "template_en": "Teaches Searing Shot (Rank 3).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Searing Shot (Rank 3) [id=52643]"
+    ]
+  },
+  {
+    "template_en": "Teaches Searing Shot (Rank 4).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Searing Shot (Rank 4) [id=52645]"
+    ]
+  },
+  {
+    "template_en": "Teaches Searing Shot (Rank 5).",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Searing Shot (Rank 5) [id=52647]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57044s1 spell damage for $57044d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +$s2 magia por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=57043]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57046s1% Haste for $57046d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +$s2% pressa por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=57045]"
+    ]
+  },
+  {
+    "template_en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57042s1 Ranged Attack Power for $57042d.",
+    "current_pt": "$s1 de vida em $d s sentado. 10 s+ comendo: +$s2 à distância por $d1 s.",
+    "reason": "telegraphic",
+    "samples": [
+      "Food () [id=57055]"
+    ]
+  },
+  {
+    "template_en": "Teaches Polymorph: Rodent.",
+    "current_pt": "",
+    "reason": "missing",
+    "samples": [
+      "Polymorph: Rodent (Rank 1) [id=57560]"
+    ]
+  }
+]

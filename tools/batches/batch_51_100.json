@@ -1,0 +1,352 @@
+[
+  {
+    "idx": 51,
+    "count": 9,
+    "sample": "Sneaky (Rank 1) [id=6151]",
+    "en": "Increases your stealth by $s1.",
+    "curr_pt": "Aumenta sua furtividade em $s1."
+  },
+  {
+    "idx": 52,
+    "count": 9,
+    "sample": "Sneaky (Rank 1) [id=6163]",
+    "en": "Increases your stealth by 2.",
+    "curr_pt": "Aumenta sua furtividade em 2."
+  },
+  {
+    "idx": 53,
+    "count": 9,
+    "sample": "Arcane Missile (Rank 1) [id=7268]",
+    "en": "Launches an Arcane Missile at the enemy, causing $s1 Arcane damage.",
+    "curr_pt": "Lança um Míssil Arcano no inimigo, causando $s1 de dano Arcano."
+  },
+  {
+    "idx": 54,
+    "count": 9,
+    "sample": "Mind Blast (Rank 1) [id=8092]",
+    "en": "Blasts the target for $s1 Shadow damage, but causes a high amount of threat.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 55,
+    "count": 9,
+    "sample": "Regrowth (Rank 1) [id=8936]",
+    "en": "Heals a friendly target for $s1 and another $o2 over $d.",
+    "curr_pt": "Cura um alvo aliado em $s1 e mais $s2 ao longo de $d s."
+  },
+  {
+    "idx": 56,
+    "count": 9,
+    "sample": "Pyroblast (Rank 1) [id=11366]",
+    "en": "Hurls an immense fiery boulder that causes $s1 Fire damage and an additional $o2 Fire damage over $d.",
+    "curr_pt": "Arremessa um pedregulho ígneo que causa $s1 de dano de Fogo e mais $s2 de Fogo ao longo de $d s."
+  },
+  {
+    "idx": 57,
+    "count": 9,
+    "sample": "Drain Life () [id=12693]",
+    "en": "Steals $s1 life from target enemy.",
+    "curr_pt": "Rouba $s1 de vida do inimigo."
+  },
+  {
+    "idx": 58,
+    "count": 8,
+    "sample": "Immolate (Rank 1) [id=348]",
+    "en": "Burns the enemy for $s2 Fire damage and then an additional $o1 Fire damage over $d.",
+    "curr_pt": "Queima o inimigo com $s1 de dano de Fogo e mais $s2 de Fogo ao longo de $d s."
+  },
+  {
+    "idx": 59,
+    "count": 8,
+    "sample": "Sinister Strike (Rank 1) [id=1752]",
+    "en": "An instant strike that causes $s1 damage in addition to your melee damage.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 60,
+    "count": 8,
+    "sample": "Starfire (Rank 1) [id=2912]",
+    "en": "Causes $s1 Arcane damage to the target.",
+    "curr_pt": "Causa $s1 de dano Arcano ao alvo."
+  },
+  {
+    "idx": 61,
+    "count": 8,
+    "sample": "Raptor Strike (Rank 1) [id=2973]",
+    "en": "A strong attack that deals $s2% of weapon damage plus an additional $s1 damage.",
+    "curr_pt": "Um ataque forte que causa $s1% do dano de arma mais $s2 de dano adicional."
+  },
+  {
+    "idx": 62,
+    "count": 8,
+    "sample": "Claw (Rank 8) [id=3009]",
+    "en": "Claw the enemy, causing $s1 damage.",
+    "curr_pt": "Dilacera o inimigo, causando $s1 de dano."
+  },
+  {
+    "idx": 63,
+    "count": 8,
+    "sample": "Arcane Shot (Rank 1) [id=3044]",
+    "en": "An instant shot that causes $s1 Arcane damage.",
+    "curr_pt": "Um tiro instantâneo que causa $s1 de dano Arcano."
+  },
+  {
+    "idx": 64,
+    "count": 8,
+    "sample": "Physical Prowess (Rank 1) [id=4247]",
+    "en": "Your Health is increased by $s1.",
+    "curr_pt": "Sua Vida aumenta em $s1."
+  },
+  {
+    "idx": 65,
+    "count": 8,
+    "sample": "Lightning Reflexes (Rank 1) [id=4779]",
+    "en": "Increases your defense by 1.",
+    "curr_pt": "Aumenta sua defesa em 1."
+  },
+  {
+    "idx": 66,
+    "count": 8,
+    "sample": "Demoralizing Roar () [id=10968]",
+    "en": "Reduces the melee attack power of nearby enemies by $s1 for $d.",
+    "curr_pt": "Reduz o poder de ataque corpo a corpo dos inimigos próximos em $s1 por $d s."
+  },
+  {
+    "idx": 67,
+    "count": 8,
+    "sample": "Shadow Word: Pain () [id=11639]",
+    "en": "Utters a word of darkness, inflicting Shadow damage to an enemy every $t1 sec. for $d.",
+    "curr_pt": "Profere uma palavra sombria, causando dano de Sombra ao inimigo a cada $t1 s por $d s."
+  },
+  {
+    "idx": 68,
+    "count": 8,
+    "sample": "Renew () [id=11640]",
+    "en": "Heals an ally every $t1 sec. for $d.",
+    "curr_pt": "Cura um aliado a cada $t1 s por $d s."
+  },
+  {
+    "idx": 69,
+    "count": 8,
+    "sample": "Entangling Roots () [id=11922]",
+    "en": "Entangles an enemy in roots, inflicting Nature damage every $t2 sec. and immobilizing it for up to $d.",
+    "curr_pt": "Enreda o inimigo em raízes, causando dano de Natureza a cada $t1 s e imobilizando-o por até $d s."
+  },
+  {
+    "idx": 70,
+    "count": 8,
+    "sample": "Sunder Armor () [id=11971]",
+    "en": "Hacks at an enemy's armor, reducing it by $s1 per Sunder Armor. Can be applied up to 5 times. Lasts $d.",
+    "curr_pt": "Golpeia a armadura do inimigo, reduzindo-a em $s1 por Sunder Armor. Acumula até 5 vezes. Dura $d s."
+  },
+  {
+    "idx": 71,
+    "count": 8,
+    "sample": "Earth Shock () [id=13281]",
+    "en": "Shocks an enemy with concussive force, inflicting Nature damage and interrupting the spell being cast for $d.",
+    "curr_pt": "Golpeia o inimigo com força de concussão, causando dano de Natureza e interrompendo a magia lançada por $d s."
+  },
+  {
+    "idx": 72,
+    "count": 8,
+    "sample": "Holy Fire (Rank 1) [id=14914]",
+    "en": "Consumes the enemy in holy flames that cause $s1 Holy damage and an additional $o2 Holy damage over $d.",
+    "curr_pt": "Consome o inimigo em chamas sagradas que causam $s1 de dano Sagrado e mais $s2 de dano Sagrado ao longo de $d s."
+  },
+  {
+    "idx": 73,
+    "count": 8,
+    "sample": "Mind Flay () [id=16568]",
+    "en": "Inflicts Shadow damage to an enemy and reduces its movement speed for $d.",
+    "curr_pt": "Causa dano de Sombra ao inimigo e reduz sua velocidade de movimento por $d s."
+  },
+  {
+    "idx": 74,
+    "count": 8,
+    "sample": "Improved Starfire (Rank 1) [id=16850]",
+    "en": "Reduces the cast time of Starfire by $/1000;S2 sec and gives it a $h% chance to stun the target for $16922d.",
+    "curr_pt": "Reduz o tempo de lançamento de Estrela Cadente em $s1 s e dá $h% de chance de atordoar o alvo por $d s."
+  },
+  {
+    "idx": 75,
+    "count": 8,
+    "sample": "Drain Life () [id=17173]",
+    "en": "Drains $o1 health from an enemy over $d., transferring it to the caster.",
+    "curr_pt": "Drena $s1 de vida do inimigo ao longo de $d s, transferindo-a para você."
+  },
+  {
+    "idx": 76,
+    "count": 8,
+    "sample": "Bite (Rank 1) [id=17253]",
+    "en": "Bite the enemy, causing $s1 damage.",
+    "curr_pt": "Morde o inimigo, causando $s1 de dano."
+  },
+  {
+    "idx": 77,
+    "count": 8,
+    "sample": "Mending Light (Rank 1) [id=51301]",
+    "en": "Restores health.",
+    "curr_pt": "Restaura vida."
+  },
+  {
+    "idx": 78,
+    "count": 7,
+    "sample": "Mend Pet (Rank 1) [id=136]",
+    "en": "Heals your pet $s1 health every second while you focus.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 79,
+    "count": 7,
+    "sample": "Devotion Aura (Rank 1) [id=465]",
+    "en": "Gives $s1 additional armor to party members within $a1 yards.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 80,
+    "count": 7,
+    "sample": "Health Funnel (Rank 1) [id=755]",
+    "en": "Gives $s1 Health to your demon every second for $d while channeling.",
+    "curr_pt": "Dá $s1 de Vida ao seu demônio a cada segundo por $d s enquanto canaliza."
+  },
+  {
+    "idx": 81,
+    "count": 7,
+    "sample": "Curse of Agony (Rank 1) [id=980]",
+    "en": "Curses the target with agony, causing $*12;s1 Shadow damage over $d.  This damage is dealt slowly at first, and builds up as the Curse reaches its full duration.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 82,
+    "count": 7,
+    "sample": "Flamestrike (Rank 1) [id=2120]",
+    "en": "Calls down a pillar of fire, burning all enemies within the area for $s1 Fire damage and an additional $o2 Fire damage over $d.",
+    "curr_pt": "Invoca uma coluna de fogo que queima todos os inimigos na área com $s1 de dano de Fogo e mais $s2 de Fogo ao longo de $d s."
+  },
+  {
+    "idx": 83,
+    "count": 7,
+    "sample": "Scorch (Rank 1) [id=2948]",
+    "en": "Scorch the enemy for $s1 Fire damage.",
+    "curr_pt": "Chamuscar o inimigo com $s1 de dano de Fogo."
+  },
+  {
+    "idx": 84,
+    "count": 7,
+    "sample": "Battle Shout (Rank 2) [id=5242]",
+    "en": "The warrior shouts, increasing the melee attack power of all party members within $a1 yards by $s1.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 85,
+    "count": 7,
+    "sample": "Maul (Rank 1) [id=6807]",
+    "en": "Increases the druid's next attack by $s1 damage.",
+    "curr_pt": "Aumenta o próximo ataque do druida em $s1 de dano."
+  },
+  {
+    "idx": 86,
+    "count": 7,
+    "sample": "Blizzard () [id=8364]",
+    "en": "Calls down a blizzard that lasts $d., inflicting $s1 Frost damage every $t1 sec. to all enemies in a selected area.",
+    "curr_pt": "Invoca uma nevasca que dura $d s, causando $s1 de dano de Gelo a cada $t1 s em todos os inimigos na área."
+  },
+  {
+    "idx": 87,
+    "count": 7,
+    "sample": "Healing Touch () [id=11431]",
+    "en": "Calls upon Nature magic to heal an ally.",
+    "curr_pt": "Recorre à magia da Natureza para curar um aliado."
+  },
+  {
+    "idx": 88,
+    "count": 7,
+    "sample": "Chain Lightning () [id=12058]",
+    "en": "Strikes an enemy with a lightning bolt that arcs to another nearby enemy. The spell affects up to $x1 targets, inflicting greater Nature damage to each successive target.",
+    "curr_pt": "Golpeia o inimigo com um raio que salta para outro inimigo próximo, afetando até $x1 alvos e causando mais dano de Natureza a cada salto."
+  },
+  {
+    "idx": 89,
+    "count": 7,
+    "sample": "Aspect of the Hawk (Rank 1) [id=13165]",
+    "en": "The hunter takes on the aspects of a hawk, increasing Ranged Attack Power by $s1.  Only one Aspect can be active at a time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 90,
+    "count": 7,
+    "sample": "Flame Shock () [id=13729]",
+    "en": "Instantly burns an enemy, then inflicts additional Fire damage every $t2 sec. for $d.",
+    "curr_pt": "Queima o inimigo na hora e causa mais dano de Fogo a cada $t1 s por $d s."
+  },
+  {
+    "idx": 91,
+    "count": 7,
+    "sample": "Desperate Prayer (Rank 1) [id=13908]",
+    "en": "Instantly heals the caster for $s1.",
+    "curr_pt": "Cura o conjurador em $s1 na hora."
+  },
+  {
+    "idx": 92,
+    "count": 7,
+    "sample": "Blink () [id=14514]",
+    "en": "Teleports the caster 20 yd. forward unless something is in the way. Also frees the caster from any bonds.",
+    "curr_pt": "Teleporta o conjurador 20 m à frente, a menos que algo bloqueie. Também liberta de qualquer laço."
+  },
+  {
+    "idx": 93,
+    "count": 7,
+    "sample": "Chain Lightning () [id=15117]",
+    "en": "Strikes an enemy with a lightning bolt that arcs to another nearby enemy. The spell affects up to $x1 targets, causing Nature damage to each.",
+    "curr_pt": "Golpeia o inimigo com um raio que salta para outro inimigo próximo, afetando até $x1 alvos e causando dano de Natureza em cada um."
+  },
+  {
+    "idx": 94,
+    "count": 7,
+    "sample": "Improved Enslave Demon (Rank 1) [id=18821]",
+    "en": "Reduces the Attack Speed and Casting Speed penalty of your Enslave Demon spell by $s1% and reduces the resist chance by $s3%.",
+    "curr_pt": "Reduz a penalidade de velocidade de ataque e lançamento da sua magia Escravizar Demônio em $s1% e a chance de resistir em $s2%."
+  },
+  {
+    "idx": 95,
+    "count": 7,
+    "sample": "Aimed Shot (Rank 1) [id=19434]",
+    "en": "An aimed shot that increases ranged damage by $s1.",
+    "curr_pt": "Um tiro mirado que aumenta o dano à distância em $s1."
+  },
+  {
+    "idx": 96,
+    "count": 7,
+    "sample": "Blessing of Might (Rank 1) [id=19740]",
+    "en": "Places a Blessing on the friendly target, increasing melee attack power by $s1 for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 97,
+    "count": 7,
+    "sample": "Aspect of the Wolf (Rank 1) [id=45650]",
+    "en": "The hunter takes on the aspects of a wolf, increasing melee attack power by $s1.  Only one Aspect can be active at a time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 98,
+    "count": 6,
+    "sample": "Inner Fire (Rank 1) [id=588]",
+    "en": "A burst of Holy energy fills the caster, increasing armor by $s1 and spell damage by $s2.  Each melee or ranged damage hit against the priest will remove one charge.  Lasts $d or until $n charges are used.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 99,
+    "count": 6,
+    "sample": "Healing Aura (Rank 1) [id=649]",
+    "en": "Increases the health regeneration of the Paladin and nearby group members by $s1 every 5 seconds.  Only works out of combat.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 100,
+    "count": 6,
+    "sample": "Drain Life (Rank 1) [id=689]",
+    "en": "Transfers $*5;s1 Health from the target to the caster over $d.",
+    "curr_pt": "Transfere $s1 de Vida do alvo para você ao longo de $d s."
+  }
+]

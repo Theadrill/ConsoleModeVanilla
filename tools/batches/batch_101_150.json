@@ -1,0 +1,352 @@
+[
+  {
+    "idx": 101,
+    "count": 6,
+    "sample": "Garrote (Rank 1) [id=703]",
+    "en": "Garrote the enemy, causing $o1 damage over $d, increased by your Attack Power.  Must be stealthed and behind the target.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 102,
+    "count": 6,
+    "sample": "Exorcism (Rank 1) [id=879]",
+    "en": "Causes $s1 Holy damage to an Undead or Demon target. This spell generates reduced threat.",
+    "curr_pt": "Causa $s1 de dano Sagrado num alvo Morto-vivo ou Demônio, gerando pouca ameaça."
+  },
+  {
+    "idx": 103,
+    "count": 6,
+    "sample": "Power Word: Fortitude (Rank 1) [id=1243]",
+    "en": "Power infuses the target, increasing their Stamina by $s1 for $d.",
+    "curr_pt": "O poder infunde o alvo, aumentando seu Vigor em $s1 por $d s."
+  },
+  {
+    "idx": 104,
+    "count": 6,
+    "sample": "Life Tap (Rank 1) [id=1454]",
+    "en": "Converts $s1 health into $s1 mana.",
+    "curr_pt": "Converte $s1 de vida em $s1 de mana."
+  },
+  {
+    "idx": 105,
+    "count": 6,
+    "sample": "Mana Shield (Rank 1) [id=1463]",
+    "en": "Absorbs $s1 physical damage, draining mana instead.  Drains $e mana per damage absorbed.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 106,
+    "count": 6,
+    "sample": "Cower (Rank 1) [id=1742]",
+    "en": "Cower, causing no damage but lowering your threat, making the enemy less likely to attack you.",
+    "curr_pt": "Encolhe-se sem causar dano, reduzindo sua ameaça e deixando o inimigo menos propenso a atacar você."
+  },
+  {
+    "idx": 107,
+    "count": 6,
+    "sample": "Greater Heal (Rank 1) [id=2060]",
+    "en": "A slow casting spell that heals a single target for $s1.",
+    "curr_pt": "Uma magia lenta que cura um único alvo em $s1."
+  },
+  {
+    "idx": 108,
+    "count": 6,
+    "sample": "Devouring Plague (Rank 1) [id=2944]",
+    "en": "Afflicts the target with a disease that causes $o1 Shadow damage over $d.  Damage caused by the Devouring Plague heals the caster.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 109,
+    "count": 6,
+    "sample": "Mark of the Wild (Rank 4) [id=5234]",
+    "en": "Increases the friendly target's armor by $s1, all attributes by $s2 and all resistances by $s3 for $d.",
+    "curr_pt": "Aumenta a armadura do alvo aliado em $s1, todos os atributos em $s2 e todas as resistências em $s3 por $d s."
+  },
+  {
+    "idx": 110,
+    "count": 6,
+    "sample": "Searing Pain (Rank 1) [id=5676]",
+    "en": "Inflict searing pain on the enemy target, causing $s1 Fire damage.",
+    "curr_pt": "Inflige dor escaldante no alvo, causando $s1 de dano de Fogo."
+  },
+  {
+    "idx": 111,
+    "count": 6,
+    "sample": "Perceptive (Rank 1) [id=6164]",
+    "en": "Increases your stealth detection by 3.",
+    "curr_pt": "Aumenta sua detecção de furtividade em 3."
+  },
+  {
+    "idx": 112,
+    "count": 6,
+    "sample": "Flame Blast (Rank 3) [id=7101]",
+    "en": "Inflicts $s1 Fire damage to an enemy.",
+    "curr_pt": "Causa $s1 de dano de Fogo a um inimigo."
+  },
+  {
+    "idx": 113,
+    "count": 6,
+    "sample": "Charge (Rank 1) [id=7371]",
+    "en": "Charges an enemy, immobilizes it for $7922d, and adds $s2 melee attack power to the boar's next attack.",
+    "curr_pt": "Investida contra o inimigo, imobilizando-o por $d s e dando $s1 de poder de ataque corpo a corpo no próximo ataque do javali."
+  },
+  {
+    "idx": 114,
+    "count": 6,
+    "sample": "Sacrifice (Rank 1) [id=7812]",
+    "en": "Sacrifices the Voidwalker, giving its owner a shield that will absorb $s1 damage for $d.  While the shield holds, spellcasting will not be interrupted by damage.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 115,
+    "count": 6,
+    "sample": "Earth Shock (Rank 1) [id=8042]",
+    "en": "Instantly shocks the target with concussive force, causing $s1 Nature damage.  It also interrupts spellcasting and prevents any spell in that school from being cast for $d.  Causes a medium amount of threat.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 116,
+    "count": 6,
+    "sample": "Hex of Weakness (Rank 1) [id=9035]",
+    "en": "Weakens the target enemy, reducing damage caused by $s1 and reducing the effectiveness of any healing by $s2%.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 117,
+    "count": 6,
+    "sample": "Rain of Fire () [id=11990]",
+    "en": "Calls down a molten rain, burning all enemies in a selected area for $s1 Fire damage every $t1 sec. for $d.",
+    "curr_pt": "Invoca uma chuva fundida que queima todos os inimigos na área com $s1 de dano de Fogo a cada $t1 s por $d s."
+  },
+  {
+    "idx": 118,
+    "count": 6,
+    "sample": "Cone of Cold () [id=12557]",
+    "en": "Inflicts Frost damage to enemies in a cone in front of the caster, reducing their movement speed for $d.",
+    "curr_pt": "Causa dano de Gelo nos inimigos em cone à frente do conjurador, reduzindo sua velocidade de movimento por $d s."
+  },
+  {
+    "idx": 119,
+    "count": 6,
+    "sample": "Mind Blast () [id=13860]",
+    "en": "Inflicts Shadow damage to an enemy, but causes a high amount of threat.",
+    "curr_pt": "Causa dano de Sombra ao inimigo, mas gera muita ameaça."
+  },
+  {
+    "idx": 120,
+    "count": 6,
+    "sample": "Improved Poisons (Rank 1) [id=14113]",
+    "en": "Increases the chance to apply poisons to your target by $s1%.",
+    "curr_pt": "Aumenta a chance de aplicar venenos no alvo em $s1%."
+  },
+  {
+    "idx": 121,
+    "count": 6,
+    "sample": "Mind Flay (Rank 1) [id=15407]",
+    "en": "Assault the target's mind with Shadow energy, causing $o1 Shadow damage over $d and slowing their movement speed by $s2%.",
+    "curr_pt": "Assalta a mente do alvo com energia Sombria, causando $s1 de dano de Sombra ao longo de $d s e reduzindo sua velocidade de movimento em $s2%."
+  },
+  {
+    "idx": 122,
+    "count": 6,
+    "sample": "Consume Shadows (Rank 1) [id=17767]",
+    "en": "The Voidwalker consumes nearby shadows to bolster its form, recovering $o1 health over $d.  Cannot be used while in combat.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 123,
+    "count": 6,
+    "sample": "Shadowburn (Rank 1) [id=17877]",
+    "en": "Instantly blasts the target for $s2 Shadow damage.  If the target dies within $d of Shadowburn, and yields experience or honor, the caster gains a Soul Shard.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 124,
+    "count": 6,
+    "sample": "Blessing of Wisdom (Rank 1) [id=19742]",
+    "en": "Places a Blessing on the friendly target, restoring $s1 mana every $t1 seconds for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 125,
+    "count": 6,
+    "sample": "Dash (Rank 1) [id=23099]",
+    "en": "Increases movement speed by $s1% for $d.",
+    "curr_pt": "Aumenta a velocidade de movimento em $s1% por $d s."
+  },
+  {
+    "idx": 126,
+    "count": 6,
+    "sample": "Lightning Breath (Rank 1) [id=24844]",
+    "en": "Breathes lightning, instantly dealing $s1 Nature damage to a single target.",
+    "curr_pt": "Exala raio, causando $s1 de dano de Natureza num único alvo na hora."
+  },
+  {
+    "idx": 127,
+    "count": 6,
+    "sample": "Arcane Rupture (Rank 1) [id=51949]",
+    "en": "Rupture your target with the force of concentrated arcane energy, dealing $s1 Arcane damage and increasing the damage and mana cost of your Arcane Missiles spell by $52502s1% for $52502d.",
+    "curr_pt": "Rasga o alvo com energia arcana concentrada, causando $s1 de dano Arcano e aumentando o dano e o custo de mana dos seus Mísseis Arcanos em $s2% por $d s."
+  },
+  {
+    "idx": 128,
+    "count": 5,
+    "sample": "Demoralizing Roar (Rank 1) [id=99]",
+    "en": "The druid roars, decreasing nearby enemies' melee attack power by $s1.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 129,
+    "count": 5,
+    "sample": "Cone of Cold (Rank 1) [id=120]",
+    "en": "Targets in a $a1 yard cone in front of the caster take $s2 Frost damage and are slowed by $s1% for $d.",
+    "curr_pt": "Alvos num cone de $a1 m à frente do conjurador sofrem $s1 de dano de Gelo e ficam lentos em $s2% por $d s."
+  },
+  {
+    "idx": 130,
+    "count": 5,
+    "sample": "Frost Nova (Rank 1) [id=122]",
+    "en": "Blasts enemies within $a1 yards near the caster for $s1 Frost damage and freezes them in place for up to $d.  Damage caused may interrupt the effect.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 131,
+    "count": 5,
+    "sample": "Prayer of Healing (Rank 1) [id=596]",
+    "en": "A powerful prayer heals party members within $a1 yards for $s1.",
+    "curr_pt": "Uma prece poderosa cura os aliados a até $a1 m em $s1."
+  },
+  {
+    "idx": 132,
+    "count": 5,
+    "sample": "Dominance Aura (Rank 1) [id=636]",
+    "en": "Increases attack power of all party members within $a1 yards by $s1.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 133,
+    "count": 5,
+    "sample": "Mocking Blow (Rank 1) [id=694]",
+    "en": "A mocking attack that causes $s1 damage, a moderate amount of threat and forces the target to focus attacks on you for $d.",
+    "curr_pt": "Um ataque zombeteiro que causa $s1 de dano e ameaça moderada, forçando o alvo a focar os ataques em você por $d s."
+  },
+  {
+    "idx": 134,
+    "count": 5,
+    "sample": "Demon Armor (Rank 3) [id=706]",
+    "en": "Protects the caster, increasing armor by $s1, Shadow resistance by $s2 and restores $s3 health every 5 sec.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 135,
+    "count": 5,
+    "sample": "Swipe (Rank 3) [id=769]",
+    "en": "Swipe $x1 nearby enemies, inflicting $s1 damage.",
+    "curr_pt": "Golpeia $x1 inimigos próximos, causando $s1 de dano."
+  },
+  {
+    "idx": 136,
+    "count": 5,
+    "sample": "Blessing of Righteousness (Rank 1) [id=1052]",
+    "en": "Places a Blessing on the friendly target. increasing attack power by $s1 against undead enemies.  Lasts $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 137,
+    "count": 5,
+    "sample": "[Deprecated] Curse of Weakness (Rank 2) [id=1108]",
+    "en": "Damage caused by the target is reduced by $s1 for $d.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 138,
+    "count": 5,
+    "sample": "Drain Soul (Rank 1) [id=1120]",
+    "en": "Drains the soul of the target, causing $*6;s2 Shadow damage over $d.  If the target dies while being drained, and yields experience or honor, the caster gains a Soul Shard.  Soul Shards are required for other spells.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 139,
+    "count": 5,
+    "sample": "Regeneration (Rank 1) [id=1146]",
+    "en": "Increases your health regeneration rate.",
+    "curr_pt": "Aumenta sua regeneração de vida."
+  },
+  {
+    "idx": 140,
+    "count": 5,
+    "sample": "Demoralizing Shout (Rank 1) [id=1160]",
+    "en": "Reduces the melee attack power of all enemies within $a1 yards by $s1 for $d.",
+    "curr_pt": "Reduz o poder de ataque corpo a corpo de todos os inimigos a até $a1 m em $s1 por $d s."
+  },
+  {
+    "idx": 141,
+    "count": 5,
+    "sample": "Gouge (Rank 1) [id=1776]",
+    "en": "Causes $s1 damage, incapacitating the opponent for $d, and turns off your attack.  Target must be facing you.  Any damage caused will revive the target.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 142,
+    "count": 5,
+    "sample": "Ancestral Spirit (Rank 1) [id=2008]",
+    "en": "Returns the spirit to the body, restoring a dead target to life with $s1 health and $q1 mana.  Cannot be cast when in combat.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 143,
+    "count": 5,
+    "sample": "Divine Strike (Rank 1) [id=2497]",
+    "en": "The paladin's next attack will stun the enemy for $d.",
+    "curr_pt": "O próximo ataque do paladino vai atordoar o inimigo por $d s."
+  },
+  {
+    "idx": 144,
+    "count": 5,
+    "sample": "Crusader Strike (Rank 1) [id=2537]",
+    "en": "A strike that deals $s1% weapon damage plus an additional $s2 and increases your attack speed by $51300s1%.  Stacks up to $51300u times.  Lasts $51300d.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 145,
+    "count": 5,
+    "sample": "Shock (Rank 2) [id=2606]",
+    "en": "Instantly throws a bolt of lightning at the target for $s1 damage.",
+    "curr_pt": "Arremessa um raio no alvo na hora, causando $s1 de dano."
+  },
+  {
+    "idx": 146,
+    "count": 5,
+    "sample": "Fire Shield (Rank 1) [id=2947]",
+    "en": "Surrounds the target in a shield of fire.  Every strike against the target causes $s1 Fire damage to the attacker.  Lasts $d.  The caster cannot cast Fire Shield on himself.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 147,
+    "count": 5,
+    "sample": "Steady Shot (Rank 1) [id=3035]",
+    "en": "A precise shot with a ranged weapon that strikes the target for $s2% weapon damage plus an additional $s1 damage.",
+    "curr_pt": "Um tiro preciso com arma à distância que golpeia o alvo com $s1% do dano de arma mais $s2 de dano adicional."
+  },
+  {
+    "idx": 148,
+    "count": 5,
+    "sample": "Holy Specialization (Rank 2) [id=4818]",
+    "en": "Increases Holy spell and ability damage by 2 and the effect from Holy healing by 4.",
+    "curr_pt": "Aumenta o dano Sagrado de magias e habilidades em 2 e a cura Sagrada em 4."
+  },
+  {
+    "idx": 149,
+    "count": 5,
+    "sample": "Execute (Rank 1) [id=5308]",
+    "en": "Attempt to finish off a wounded foe, causing $s1 damage and converting each extra point of rage into $*10;F1 additional damage.  Only usable on enemies that have 20% or less health.",
+    "curr_pt": ""
+  },
+  {
+    "idx": 150,
+    "count": 5,
+    "sample": "Insect Swarm (Rank 1) [id=5570]",
+    "en": "The enemy target is swarmed by insects, decreasing their chance to hit by $s2% and causing $o1 Nature damage over $d.",
+    "curr_pt": "O alvo inimigo é coberto de insetos, reduzindo sua chance de acertar em $s1% e causando $s2 de dano de Natureza ao longo de $d s."
+  }
+]

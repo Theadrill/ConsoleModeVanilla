@@ -728,6 +728,7 @@ function CM:GamePT_MatchTemplateValues(enTemplate, renderedText)
         return nil
     end
     local flatT = string.gsub(enTemplate, "%s+", " ")
+    flatT = string.gsub(flatT, "%$[lg][^;]*;", "")
     local flatR = string.gsub(renderedText, "%s+", " ")
     local lowT = string.lower(flatT)
     local lowR = string.lower(flatR)

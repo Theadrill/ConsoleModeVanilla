@@ -261,13 +261,13 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 [Fase 7.1: Descrições Dinâmicas & Catálogo Base de Talentos] (Concluída)
        │
        ▼
-[Fase 7.2: Motor Semântico de Valores, Preservação de Ranges & Coloração de Requisitos] (PRÓXIMO PASSO IMEDIATO)
+[Fase 7.2: Motor Semântico de Valores, Preservação de Ranges & Coloração de Requisitos] (Concluída)
        │
        ▼
-[Fase 7.3: Magias & Habilidades (Spellbook & Action Pickers)]
+[Fase 7.3: Magias & Habilidades (Spellbook & Action Pickers)] (Concluída)
        │
        ▼
-[Fase 7.4: Motor de Auras & Efeitos (Buffs / Debuffs)]
+[Fase 7.4: Motor de Auras & Efeitos (Buffs / Debuffs)] (PRÓXIMO PASSO IMEDIATO)
        │
        ▼
 [Fase 7.5: Motor de Itens, Equipamentos & Interceptação de Tooltips]
@@ -281,30 +281,22 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - [x] **Bloco 2 (Nomes de Talentos):** 1.280 entradas (432 coordenadas canônicas das 9 classes + 848 nomes nominais) em `localization_ptBR.lua` com fallback resiliente em `Data/Localization.lua` e renderização no `card.titleText` de `UI/MainMenu.lua`. Concluído e validado.
 - [x] **Fase 7.1 (Módulo 1 — Descrições Dinâmicas & Catálogo Base de Talentos):** Criação de `Data/TalentDescriptions_ptBR.lua` com catálogo base dos 460 talentos do cliente, agregação de linhas de quebra física de tooltips e modal de inspeção/comparação com [A]. Concluído (Commits `4a0d743` e `0ff81a0`).
 - [x] **Fase 7.2 (Motor Semântico de Ranges & Coloração Fiel de Requisitos):** Implementação de `GamePT_ExtractNumbersWithRanges`, paridade estrita de placeholders, captura de cor nativa de requisitos via `GetTextColor()` e sincronização com Turtle WoW. Concluído e testado no jogo (Commit `f9f6f4d`).
+- [x] **Fase 7.3 (Magias & Habilidades — Spellbook & Action Pickers):** Catálogo de 852 feitiços em `localization_ptBR.lua`, layout fatiado em colunas simétricas no card do Grimório, corpo full-width com fontes ampliadas e integração em `ActionBarPicker`. Testado e homologado no jogo.
 
 ---
 
-#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.3 (Magias & Habilidades — Spellbook & Action Pickers)
-> **Meta:** Tradução contextual de nomes e ranks de feitiços/habilidades no Livro de Magias (`UI/SpellBook` / `UI/MainMenu.lua`) e nos seletores de barra de ação (`UI/ActionBarPicker.lua` / `UI/MacroPicker.lua`).
+#### 🚀 PRÓXIMO PASSO IMEDIATO: FASE 7.4 (Motor de Auras & Efeitos — Buffs / Debuffs)
+> **Meta:** Tradução contextual e renderização fiel de auras, bênçãos, penalidades e efeitos temporários (Buffs e Debuffs) exibidos no HUD e cards de status.
 
-1. **Catálogo de Feitiços & Habilidades (`Data/Localization/localization_ptBR.lua`):**
-   - Mapear nomes das magias e habilidades das classes e raciais (Camada 1 - Dicionário Nominal).
-   - Tradução contextual de ranks e subtítulos (`Rank %d` -> `Grau %d`, `Passive` -> `Passiva`, `Apprentice` -> `Aprendiz`, etc.).
-2. **Integração no Spellbook da Aba de Magias:**
-   - Em `UI/MainMenu.lua` (aba `SPELLS`), integrar chamadas a `CM:GamePT_Spell` e `CM:GamePT_Rank` nos botões da grade e no painel de detalhes.
-3. **Integração nos Pickers de Ação:**
-   - Em `UI/ActionBarPicker.lua` e `UI/SpellbookPicker.lua`, traduzir os nomes e ranks exibidos na lista de feitiços selecionáveis.
-4. **Governança & Validação:**
+1. **Catálogo de Auras & Buffs (`Data/Localization/localization_ptBR.lua`):**
+   - Mapear nomes de auras e buffs/debuffs clássicos e raciais (`game.buffs`).
+2. **Integração no HUD e Frames:**
+   - Em `UI/ActionHUD.lua`, `UI/PlayerFrame.lua` e `UI/TargetFrame.lua`, interceptar exibição de auras via `CM:GamePT_Buff`.
+3. **Governança & Validação:**
    - `luac -p` nos arquivos tocados.
    - `python tools/check_locales.py`.
-5. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.3):**
-   - Teste no jogo via `/reload`.
-   - Jogador abre o Grimório / Aba de Magias e confirma nomes traduzidos, ranks corretos e navegação fluida.
-
----
-
-### 🟢 FASE 7.4: Motor de Auras & Efeitos (Buffs / Debuffs)
-> **Objetivo observável:** Tradução completa de auras, bônus e penalidades no HUD e cards de status.
+4. **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 7.4):**
+   - Teste no jogo via `/reload` com buffs aplicados no jogador e alvo.
 
 ---
 

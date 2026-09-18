@@ -3171,50 +3171,176 @@ function MainMenu:CreateDetailCard(parent, config)
         self:Show()
     end
 
-    -- Método para exibir dados de uma magia/habilidade
+    -- Metodo para exibir dados de uma magia/habilidade com layout padrao de talentos (3 zonas superiores + corpo full-width)
     function card:ShowSpell(spellData)
         if not spellData or not spellData.name then
             self:Clear(CM:T("DETAIL_NO_SPELL"))
             return
         end
 
+        local cardW = (self:GetWidth() and self:GetWidth() > 0) and self:GetWidth() or 580
+
+        -- 1. Icone da Magia
         self.icon:SetTexture(spellData.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
         self.icon:Show()
         self.iconBorder:Show()
         self.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
 
-        self.titleText:SetText("|cffffd200" .. spellData.name .. "|r")
-        
-        local subInfo = {}
-        if spellData.rank and spellData.rank ~= "" then
-            table.insert(subInfo, "|cffffffff" .. spellData.rank .. "|r")
+        -- 2. Traducao do Nome e Grau (Rank)
+        local locName = (ConsoleMode and ConsoleMode.GamePT_Spell) and ConsoleMode:GamePT_Spell(spellData.name, spellData.rank) or spellData.name
+        local locRank = (ConsoleMode and ConsoleMode.GamePT_Rank) and ConsoleMode:GamePT_Rank(spellData.rank) or spellData.rank
+
+        self.titleText:SetText("|cffffd200" .. locName .. "|r")
+        MainMenu:ApplyFont(self.titleText, CFG.Fonts.titleFontFile, CFG.Fonts.detailTitleSize or 16)
+
+        if locRank and locRank ~= "" then
+            self.typeText:SetText("|cffffffff" .. locRank .. "|r")
+            self.typeText:Show()
+        else
+            self.typeText:SetText("")
+            self.typeText:Hide()
+        end
+        MainMenu:ApplyFont(self.typeText, CFG.Fonts.subFontFile, CFG.Fonts.detailTypeSize or 14)
+
+        -- 3. Linha Divisoria Horizontal separando Cabecalho do Corpo
+        if self.hDiv then
+            self.hDiv:ClearAllPoints()
+            self.hDiv:SetPoint("TOPLEFT", self, "TOPLEFT", 10, -50)
+            self.hDiv:SetPoint("TOPRIGHT", self, "TOPRIGHT", -10, -50)
+            self.hDiv:Show()
+        end
+
+        -- 4. Extracao e Formatacao dos Atributos Operacionais em 2 Colunas Simetricas (max 2 linhas cada)
+        -- Coluna Central: Custo de Recurso (L1) e Tempo de Lancamento (L2)
+        local centerLines = {}
+        if spellData.cost and spellData.cost ~= "" then
+            local c = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.cost) or spellData.cost
+            table.insert(centerLines, "|cff3399ff" .. c .. "|r")
         end
         if spellData.castTime and spellData.castTime ~= "" then
-            table.insert(subInfo, "|cffaaaaaa" .. spellData.castTime .. "|r")
+            local ct = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.castTime) or spellData.castTime
+            table.insert(centerLines, "|cffaaaaaa" .. ct .. "|r")
         end
-        if spellData.range and spellData.range ~= "" then
-            table.insert(subInfo, "|cffaaaaaa" .. spellData.range .. "|r")
-        end
-        self.typeText:SetText(table.concat(subInfo, "  |  "))
 
-        local bodyLines = {}
-        if spellData.cost and spellData.cost ~= "" then
-            table.insert(bodyLines, "|cff3399ff" .. spellData.cost .. "|r")
+        -- Coluna Direita: Alcance (L1) e Tempo de Recarga (L2)
+        local rightLines = {}
+        if spellData.range and spellData.range ~= "" then
+            local rg = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.range) or spellData.range
+            table.insert(rightLines, "|cffaaaaaa" .. rg .. "|r")
         end
         if spellData.cooldown and spellData.cooldown ~= "" then
-            table.insert(bodyLines, "|cffff5555" .. spellData.cooldown .. "|r")
-        end
-        if spellData.desc and spellData.desc ~= "" then
-            table.insert(bodyLines, "|cffffffff" .. spellData.desc .. "|r")
+            local cd = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.cooldown) or spellData.cooldown
+            table.insert(rightLines, "|cffff5555" .. cd .. "|r")
         end
 
-        if table.getn(bodyLines) > 0 then
-            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(table.concat(bodyLines, "\n")) else self.descText:SetText(table.concat(bodyLines, "\n")) end
+        local hasRight = (table.getn(rightLines) > 0)
+        local hasCenter = (table.getn(centerLines) > 0)
+        local availW = cardW - 64
+
+        -- 4.1. Medicao Dinamica da Coluna Direita (Alcance / Recarga)
+        local rightW = 0
+        if hasRight and self.topRightText then
+            MainMenu:ApplyFont(self.topRightText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
+            self.topRightText:SetWidth(0)
+
+            local maxR = 0
+            for _, rLine in ipairs(rightLines) do
+                self.topRightText:SetText(rLine)
+                local rlw = self.topRightText:GetStringWidth() or 0
+                if rlw > maxR then
+                    maxR = rlw
+                end
+            end
+
+            self.topRightText:SetText(table.concat(rightLines, "\n"))
+            rightW = math.max(90, math.ceil(maxR + 12))
+
+            self.topRightText:ClearAllPoints()
+            self.topRightText:SetPoint("TOPRIGHT", self, "TOPRIGHT", -10, -8)
+            self.topRightText:SetWidth(rightW)
+            self.topRightText:Show()
+        elseif self.topRightText then
+            self.topRightText:SetText("")
+            self.topRightText:Hide()
+        end
+
+        -- 4.2. Medicao Dinamica da Coluna Central (Custo / Lancamento)
+        local centerW = 0
+        if hasCenter and self.topCenterText then
+            MainMenu:ApplyFont(self.topCenterText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
+            self.topCenterText:SetWidth(0)
+
+            local maxC = 0
+            for _, cLine in ipairs(centerLines) do
+                self.topCenterText:SetText(cLine)
+                local clw = self.topCenterText:GetStringWidth() or 0
+                if clw > maxC then
+                    maxC = clw
+                end
+            end
+
+            self.topCenterText:SetText(table.concat(centerLines, "\n"))
+            centerW = math.max(110, math.ceil(maxC + 14))
+
+            local maxCenterW = availW - (hasRight and (rightW + 20) or 10) - 170
+            if maxCenterW < 130 then maxCenterW = 130 end
+            if centerW > maxCenterW then
+                centerW = maxCenterW
+            end
+
+            self.topCenterText:ClearAllPoints()
+            if hasRight and self.topRightText and self.topRightText:IsShown() then
+                self.topCenterText:SetPoint("TOPRIGHT", self.topRightText, "TOPLEFT", -14, 0)
+            else
+                self.topCenterText:SetPoint("TOPRIGHT", self, "TOPRIGHT", -10, -8)
+            end
+            self.topCenterText:SetWidth(centerW)
+            self.topCenterText:Show()
+        elseif self.topCenterText then
+            self.topCenterText:SetText("")
+            self.topCenterText:Hide()
+        end
+
+        -- 4.3. Posicionamento da Zona 1 (Titulo e Grau a Esquerda com contencao dinamica)
+        self.titleText:ClearAllPoints()
+        self.titleText:SetPoint("TOPLEFT", self.icon, "TOPRIGHT", 10, 0)
+        if self.topCenterText and self.topCenterText:IsShown() then
+            self.titleText:SetPoint("RIGHT", self.topCenterText, "LEFT", -12, 0)
+        elseif self.topRightText and self.topRightText:IsShown() then
+            self.titleText:SetPoint("RIGHT", self.topRightText, "LEFT", -12, 0)
         else
-            if self.descColLeft then self.descColLeft:SetWidth(380); self.descColLeft:SetText(CM:T("DETAIL_NO_DESC")) else self.descText:SetText(CM:T("DETAIL_NO_DESC")) end
+            self.titleText:SetPoint("RIGHT", self, "RIGHT", -10, 0)
         end
-        if self.descColRight then self.descColRight:SetText(""); self.descColRight:Hide() end
 
+        self.typeText:ClearAllPoints()
+        self.typeText:SetPoint("TOPLEFT", self.titleText, "BOTTOMLEFT", 0, -2)
+        self.typeText:SetPoint("RIGHT", self.titleText, "RIGHT", 0, 0)
+
+        -- 5. Corpo da Descricao: Coluna Unica Full-Width
+        local descBody = spellData.desc or ""
+        if descBody == "" then
+            descBody = CM:T("DETAIL_NO_DESC")
+        end
+
+        if self.descColLeft then
+            self.descColLeft:ClearAllPoints()
+            self.descColLeft:SetPoint("TOPLEFT", self, "TOPLEFT", 10, -54)
+            self.descColLeft:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -10, 26)
+            self.descColLeft:SetWidth(cardW - 20)
+            MainMenu:ApplyFont(self.descColLeft, CFG.Fonts.bodyFontFile, CFG.Fonts.detailDescSize or 15)
+            self.descColLeft:SetText(descBody)
+            self.descColLeft:Show()
+        elseif self.descText then
+            self.descText:SetText(descBody)
+            self.descText:Show()
+        end
+
+        if self.descColRight then
+            self.descColRight:SetText("")
+            self.descColRight:Hide()
+        end
+
+        -- 6. Rodape e Atualizacoes Finais
         if self.sellWidget then self.sellWidget:Hide() end
         if self.slotsFreeText then
             self.slotsFreeText:SetText("|cffe09a15Grimório:|r |cffffffff" .. (spellData.tabName or "Geral") .. "|r")
@@ -4123,18 +4249,51 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
         local left = (leftObj and leftObj:GetText()) or ""
         local right = (rightObj and rightObj:GetText()) or ""
 
-        if string.find(left, "Mana") or string.find(left, "Rage") or string.find(left, "Energy") or string.find(left, "Fúria") or string.find(left, "Energia") then
-            cost = left
-        elseif string.find(left, "cast") or string.find(left, "Instant") or string.find(left, "lançamento") or string.find(left, "Instantâneo") or string.find(left, "Canalizada") then
-            castTime = left
-        elseif left ~= "" and not string.find(left, "Rank") and not string.find(left, "Grau") then
-            table.insert(descLines, left)
+        -- Checa Right primeiro (geralmente alcance ou recarga)
+        if right ~= "" then
+            if string.find(right, "yd range") or string.find(right, "m de alcance") or string.find(right, "Melee Range") or string.find(right, "Corpo a corpo") or string.find(right, "Unlimited range") then
+                range = right
+            elseif string.find(right, "cooldown") or string.find(right, "recarga") or string.find(right, "espera") then
+                cooldown = right
+            end
         end
 
-        if string.find(right, "yd range") or string.find(right, "m de alcance") or string.find(right, "Melee Range") or string.find(right, "Corpo a corpo") then
-            range = right
-        elseif string.find(right, "cooldown") or string.find(right, "recarga") or string.find(right, "espera") then
-            cooldown = right
+        -- Checa Left (recurso, tempo de lancamento ou linha de descricao)
+        if left ~= "" then
+            local isCost = false
+            if string.find(left, "^%d+.*Mana") or string.find(left, "^%d+.*Rage") or string.find(left, "^%d+.*Energy") or string.find(left, "^%d+.*Health")
+               or string.find(left, "^%d+.*Fúria") or string.find(left, "^%d+.*Energia") or string.find(left, "^%d+.*Vida") then
+                isCost = true
+            end
+
+            local isCast = false
+            if left == "Instant" or left == "Instant cast" or left == "Instantâneo" or left == "Channeled" or left == "Channelled" or left == "Canalizada" then
+                isCast = true
+            elseif string.find(left, "^[%d%.]+%s*sec%s*cast") or string.find(left, "^[%d%.]+%s*min%s*cast") or string.find(left, "^[%d%.]+%s*s%s*de lançamento") or string.find(left, "^[%d%.]+%s*min%s*de lançamento") then
+                isCast = true
+            end
+
+            local isRange = false
+            if string.find(left, "yd range") or string.find(left, "m de alcance") or string.find(left, "Melee Range") or string.find(left, "Corpo a corpo") then
+                isRange = true
+            end
+
+            local isCooldown = false
+            if string.find(left, "%d+%s*sec%s*cooldown") or string.find(left, "%d+%s*min%s*cooldown") or string.find(left, "%d+%s*s%s*de recarga") or string.find(left, "%d+%s*min%s*de recarga") then
+                isCooldown = true
+            end
+
+            if isCost then
+                cost = left
+            elseif isCast then
+                castTime = left
+            elseif isRange and range == "" then
+                range = left
+            elseif isCooldown and cooldown == "" then
+                cooldown = left
+            elseif not string.find(left, "Rank") and not string.find(left, "Grau") then
+                table.insert(descLines, left)
+            end
         end
     end
 
@@ -5346,11 +5505,25 @@ function MainMenu:FocusSpellCategoryButton(idx)
     local desc = tabTypeInfo.desc
 
     if pageSpells.detailCard then
+        if pageSpells.detailCard.hDiv then pageSpells.detailCard.hDiv:Hide() end
+        if pageSpells.detailCard.topCenterText then pageSpells.detailCard.topCenterText:SetText(""); pageSpells.detailCard.topCenterText:Hide() end
+        if pageSpells.detailCard.topRightText then pageSpells.detailCard.topRightText:SetText(""); pageSpells.detailCard.topRightText:Hide() end
+
         pageSpells.detailCard.icon:SetTexture(icon)
         pageSpells.detailCard.icon:Show()
         pageSpells.detailCard.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
         pageSpells.detailCard.iconBorder:Show()
+
+        pageSpells.detailCard.titleText:ClearAllPoints()
+        pageSpells.detailCard.titleText:SetPoint("TOPLEFT", pageSpells.detailCard.icon, "TOPRIGHT", 10, 0)
+        pageSpells.detailCard.titleText:SetPoint("RIGHT", pageSpells.detailCard, "RIGHT", -10, 0)
         pageSpells.detailCard.titleText:SetText(string.format("|cffe09a15Categoria: %s|r", name))
+
+        pageSpells.detailCard.typeText:ClearAllPoints()
+        pageSpells.detailCard.typeText:SetPoint("TOPLEFT", pageSpells.detailCard.titleText, "BOTTOMLEFT", 0, -2)
+        pageSpells.detailCard.typeText:SetPoint("RIGHT", pageSpells.detailCard.titleText, "RIGHT", 0, 0)
+        pageSpells.detailCard.typeText:Show()
+
         if tabTypeInfo.tabType == "PET" then
             pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaAjudante / Mascote — ConsoleMode Vanilla|r"))
         elseif tabTypeInfo.tabType == "GENERAL" then
@@ -5360,8 +5533,14 @@ function MainMenu:FocusSpellCategoryButton(idx)
         else
             pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaCategoria %d de %d — ConsoleMode Vanilla|r", idx, numTabs))
         end
+
+        pageSpells.detailCard.descColLeft:ClearAllPoints()
+        pageSpells.detailCard.descColLeft:SetPoint("TOPLEFT", pageSpells.detailCard.icon, "BOTTOMLEFT", 0, -4)
+        pageSpells.detailCard.descColLeft:SetPoint("BOTTOMLEFT", pageSpells.detailCard, "BOTTOMLEFT", 10, 26)
         pageSpells.detailCard.descColLeft:SetWidth(380)
         pageSpells.detailCard.descColLeft:SetText(desc)
+        pageSpells.detailCard.descColLeft:Show()
+
         pageSpells.detailCard.descColRight:SetText(string.format("|cffaaaaaaMagias aprendidas: |cffffffff%d magias|r\n\n|cffe09a15Pressione [A] para abrir grimório|r", numSpells))
         pageSpells.detailCard.descColRight:Show()
         if pageSpells.detailCard.slotsFreeText then
@@ -6412,26 +6591,38 @@ function MainMenu:FocusTalentSlot(slot)
         local hasCenter = (table.getn(spellAttrs) > 0)
         local availW = cardW - 64
 
-        -- 3.2. Medição da Zona 2 (Custo / Lançamento / Alcance - Centro)
-        local centerW = 0
-        if hasCenter and card.topCenterText then
-            card.topCenterText:SetText(table.concat(spellAttrs, "\n"))
-            local textW = card.topCenterText:GetStringWidth()
-            centerW = 120
-            if textW and textW > 120 then
-                centerW = math.min(170, math.ceil(textW + 4))
-            end
-        end
-
-        -- 3.3. Medição Dinâmica da Zona 3 (Pré-requisitos - Direita)
+        -- 3.2. Medicao Dinamica da Zona 3 (Pre-requisitos - Direita)
         local reqW = 0
         if hasReq and card.topRightText then
+            card.topRightText:SetWidth(0)
+            local maxReqLineW = 0
+            for _, rLine in ipairs(reqLines) do
+                card.topRightText:SetText(rLine)
+                local rlw = card.topRightText:GetStringWidth() or 0
+                if rlw > maxReqLineW then maxReqLineW = rlw end
+            end
             card.topRightText:SetText(table.concat(reqLines, "\n"))
-            local strW = card.topRightText:GetStringWidth() or 180
-            local rawReqW = math.ceil(strW + 6)
-            local maxReqW = availW - (hasCenter and (centerW + 24) or 12) - 160
-            if maxReqW < 180 then maxReqW = 180 end
-            reqW = math.max(160, math.min(maxReqW, rawReqW))
+            reqW = math.max(120, math.ceil(maxReqLineW + 12))
+        end
+
+        -- 3.3. Medicao Dinamica da Zona 2 (Custo / Lancamento / Alcance - Centro)
+        local centerW = 0
+        if hasCenter and card.topCenterText then
+            card.topCenterText:SetWidth(0)
+            local maxCenterLineW = 0
+            for _, aLine in ipairs(spellAttrs) do
+                card.topCenterText:SetText(aLine)
+                local clw = card.topCenterText:GetStringWidth() or 0
+                if clw > maxCenterLineW then maxCenterLineW = clw end
+            end
+            card.topCenterText:SetText(table.concat(spellAttrs, "\n"))
+            centerW = math.max(120, math.ceil(maxCenterLineW + 14))
+
+            local maxCenterW = availW - (hasReq and (reqW + 20) or 10) - 170
+            if maxCenterW < 140 then maxCenterW = 140 end
+            if centerW > maxCenterW then
+                centerW = maxCenterW
+            end
         end
 
         -- 3.4. Posicionamento dos Pré-requisitos (Direita)
@@ -13665,10 +13856,16 @@ function MainMenu:RefreshPickerGrid()
         if item then
             btn.icon:SetTexture(item.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
             btn.icon:SetVertexColor(1, 1, 1, 1)
-            btn.label:SetText(MM_WrapName(item.name or ""))
+
+            local displayName = item.name or ""
+            if mode == "SPELLBOOK" then
+                displayName = (ConsoleMode and ConsoleMode.GamePT_Spell) and ConsoleMode:GamePT_Spell(item.name, item.rank) or displayName
+            end
+            btn.label:SetText(MM_WrapName(displayName))
             
             if mode == "SPELLBOOK" then
-                btn.rankLabel:SetText(item.rank or "")
+                local displayRank = (ConsoleMode and ConsoleMode.GamePT_Rank) and ConsoleMode:GamePT_Rank(item.rank) or (item.rank or "")
+                btn.rankLabel:SetText(displayRank)
             elseif mode == "BAG" then
                 if item.count and item.count > 1 then
                     btn.rankLabel:SetText("x" .. item.count)

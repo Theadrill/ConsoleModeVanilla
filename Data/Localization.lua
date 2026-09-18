@@ -232,6 +232,48 @@ function CM:GamePT_Spell(spellName, rankStr)
     return spellName
 end
 
+-- Traducao e normalizacao de atributos operacionais de feiticos (custo, tempo, alcance, recarga).
+function CM:GamePT_SpellAttr(attrText)
+    if not attrText or attrText == "" then
+        return ""
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return attrText
+    end
+
+    local s = attrText
+    -- Custo de recursos
+    s = string.gsub(s, "(%d+)%s*Mana", "%1 de Mana")
+    s = string.gsub(s, "(%d+)%s*Rage", "%1 de Fúria")
+    s = string.gsub(s, "(%d+)%s*Energy", "%1 de Energia")
+
+    -- Tempo de Lancamento
+    if s == "Instant" or s == "Instant cast" then
+        s = "Instantâneo"
+    elseif s == "Channelled" or s == "Channeled" then
+        s = "Canalizada"
+    else
+        s = string.gsub(s, "^Instant%s*cast$", "Instantâneo")
+        s = string.gsub(s, "^Instant$", "Instantâneo")
+        s = string.gsub(s, "^([%d%.]+)%s*sec%s*cast$", "%1 s de lançamento")
+        s = string.gsub(s, "^([%d%.]+)%s*min%s*cast$", "%1 min de lançamento")
+    end
+
+    -- Alcance
+    s = string.gsub(s, "([%d%.]+)%s*yd%s*range", "%1 m de alcance")
+    s = string.gsub(s, "^Melee%s*Range", "Corpo a corpo")
+    s = string.gsub(s, "^Unlimited%s*range", "Alcance ilimitado")
+
+    -- Tempo de Recarga / Cooldown
+    s = string.gsub(s, "([%d%.]+)%s*sec%s*cooldown", "Recarga: %1 s")
+    s = string.gsub(s, "([%d%.]+)%s*min%s*cooldown", "Recarga: %1 min")
+    s = string.gsub(s, "([%d%.]+)%s*hr%s*cooldown", "Recarga: %1 h")
+    s = string.gsub(s, "([%d%.]+)%s*hour%s*cooldown", "Recarga: %1 h")
+
+    return s
+end
+
 -- Traducao de talentos por coordenada ou coordKey.
 -- Aceita (classFile, tab, tier, col, origName) OU (coordKey, origName).
 -- Retorna name, desc se tabela, string se string, ou origName.

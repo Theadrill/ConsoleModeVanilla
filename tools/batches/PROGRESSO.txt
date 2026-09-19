@@ -46,3 +46,5 @@
 42 | 50 | OK (revisao: 22 corrigidos)
 43 | 50 | OK (revisao: 21 corrigidos)
 44 | 50 | OK (revisao totem: 7 corrigidos)
+45 | 28 | OK (revisao final: 11 corrigidos)
+# FASE 8.A COMPLETA: 2.180/2.180 templates com PT (verificado via script).

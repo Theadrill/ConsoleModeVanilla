@@ -32,3 +32,4 @@
 28 | 50 | OK
 29 | 50 | OK
 30 | 50 | OK
+31 | 50 | OK (+fix Shred->Triturar em 18/20/22/28)

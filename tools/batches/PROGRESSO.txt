@@ -59,3 +59,5 @@ O07 | 23u | OK
 O08 | 13u | OK
 O09 | 24u | OK
 O10 | 29u | OK
+O11 | 32u | OK
+O12 | 24u | OK

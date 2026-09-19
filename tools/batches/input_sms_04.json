@@ -1,0 +1,200 @@
+[
+  {
+    "en": "Raising mining to an art form. Gives a potential mining skill of 300.",
+    "curr_pt": "Mineração arte até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a leatherworker to make artisan quality leather armors, up to a maximum potential skill of 300.",
+    "curr_pt": "Coureiro artesão até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Artisan skill in skinning the hides from beasts for use in Leatherworking. Gives a potential skinning skill of 300. Requires a Skinning Knife.",
+    "curr_pt": "Esfolador artesão até 300. Precisa faca.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a physician to make and use bandages up to a potential skill of 300. The cloth used to make those bandages are found on humanoids in the world.",
+    "curr_pt": "Médico até 300. Pano de humanoide.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an alchemist to brew astounding potions up to a maximum potential skill of 300.",
+    "curr_pt": "Alquimista artesão até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a tailor to make shirts and armors that are the height of style up to a maximum potential skill of 300.",
+    "curr_pt": "Alfaiate arte até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes all enemies near the warrior to be dazed, reducing movement speed by $s1% for $d.",
+    "curr_pt": "Atordoa: -$s1% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an engineer to make bombs and gizmos that are truly amazing up to a maximum potential skill of 300.",
+    "curr_pt": "Engenheiro arte até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done by $s1 and attack speed by $s2% for $d.",
+    "curr_pt": "+$s1 dano e +$s2% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When activated, this ability temporarily grants you 30% of your maximum hit points for 20 seconds. After the effect expires, the hit points are lost.",
+    "curr_pt": "30% da vida máx por 20 s, depois perde.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an enchanter to put masterful enchantments on weapons and armor up to a maximum potential skill of 300.",
+    "curr_pt": "Encantador artesão até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When activated, this ability immediately finishes the cooldown on your other Rogue abilities.",
+    "curr_pt": "Zera recarga de Ladino.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When activated, reduces the Mana cost of your next spell by $s1% and increases its critical effect chance by $s2% if it is capable of a critical effect.",
+    "curr_pt": "Mana -$s1% e crítico +$s2% na próxima.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts nearby enemies for Frost damage and freezes them in place for up to $d.",
+    "curr_pt": "Gelo e congela até $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Bear, Dire Bear and Cat Form by $24867s1%.",
+    "curr_pt": "Gato ao ar livre +$s1% velocidade; Urso/Gato +$s2% esquiva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While in Cat, Bear or Dire Bear Form, the Leader of the Pack increases ranged and melee critical chance of all party members within $24932a1 yards by $24932s1%.",
+    "curr_pt": "Líder: grupo a $a1 m +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a cook to make amazing recipes up to a maximum potential skill of 300.",
+    "curr_pt": "Cozinheiro artesão até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shapeshifts into a bear, increasing armor and hit points, as well as allowing the use of various bear abilities. Lasts until cancelled.",
+    "curr_pt": "Vira Urso até cancelar: +vida, habilidades.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Physical damage dealt by the caster by $s1 and speeds its attacks by $s2% for $d.",
+    "curr_pt": "Físico +$s1 e +$s2% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When activated, increases your Dodge and Parry chance by $s1% for $d.",
+    "curr_pt": "Esquiva e Aparo +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Compels an undead enemy to flee for up to $d. Only one target can be turned at a time.",
+    "curr_pt": "Morto-vivo foge até $d s. Um por vez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts weapon damage plus $s1 to an enemy and its nearest allies, affecting up to $x1 targets and knocking them back.",
+    "curr_pt": "Arma +$s1 no inimigo e vizinhos (até $x1), arremessa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts normal damage to an enemy and its nearest allies, affecting up to $x1 targets.",
+    "curr_pt": "Normal no inimigo e vizinhos (até $x1).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical hit chance of your Arcane spells by $s1%, and increases the critical hit damage of your Arcane spells by $s2% for $d.",
+    "curr_pt": "Crítico Arcano +$s1% e dano +$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Bear, Dire Bear and Cat Form by $24864s1%.",
+    "curr_pt": "Gato ao ar livre +$s1% velocidade; Urso/Gato +$s2% esquiva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Proclaims a friendly target as your Champion for $45568d, increasing armor by $45568s2 and all resistances by $45568s3. Allows the use of various Champion spells on that target. In addition, you gain Mana equal to $45568s1% of the damage taken by your Champion. Only one Champion can be proclaimed at a time.",
+    "curr_pt": "Campeão $d s: +$s1 armadura e +$s2 tudo. Mana de $s3% do dano nele. Um por vez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 75.",
+    "curr_pt": "Sobrevivente básico até 75.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 150.",
+    "curr_pt": "Sobrevivente médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 225.",
+    "curr_pt": "Sobrevivente perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 300.",
+    "curr_pt": "Sobrevivente artesão até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Links the spirit of an ally to that of other group members within 15 yards. When the target takes damage, $s1% is distributed among nearby allies. Lasts $d.",
+    "curr_pt": "Elo: $s1% do dano divide no grupo a 15 m. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a cloud of thick smoke in $51967a1 yds around you for $51967d. All targets inside the smoke have a $51967s1% reduced chance of being hit by attacks and spells for the duration.",
+    "curr_pt": "Fumaça $a1 m por $d s: -$s1% acerto dentro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "All damage caused against Humanoid and Undead targets is increased by $s1%. Does not affect player targets.",
+    "curr_pt": "Humanoide/Morto-vivo +$s1%. Sem jogador.",
+    "sample": "",
+    "need": "review"
+  }
+]

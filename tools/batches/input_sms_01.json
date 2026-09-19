@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases your damage with One-Handed Axes by $s1 and gives a 1% chance of reducing enemy armor by 200 for 15 seconds.",
+    "curr_pt": "Chicoteia os próximos na hora com magia sombria.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Maces by $s1 and has a 1% chance of stunning the target for 8 seconds.",
+    "curr_pt": "Herói vira morto-vivo, cavalo junto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cast time of your Ghost Wolf spell by $/1000;s1 sec.",
+    "curr_pt": "Lobo -$s1 s lançamento.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the resurrection sickness penalty of your Resurrection spell by $s1%.",
+    "curr_pt": "Ressurreição -$s1% fraqueza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases the chance your target can resist your Shackle Undead spell by $s1%.",
+    "curr_pt": "Prender Morto-vivo +$s1% acerto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Forms icy chains around the enemy, locking the target in place for $d.",
+    "curr_pt": "Prende com gelo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives your Pounce ability a $h% chance to add an additional combo point to the target.",
+    "curr_pt": "Bote: $h% de combo extra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the chance of getting a critical hit with a One-Handed Mace by 2%.",
+    "curr_pt": "Maça 1M +2% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the chance of parrying with a One-Handed Mace by 2%.",
+    "curr_pt": "Maça 1M +2% aparo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Undead with either spells or physical attacks by 4.",
+    "curr_pt": "Morto-vivo +4 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Beasts with either spells or physical attacks by 4.",
+    "curr_pt": "Feras +4 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Demons with either spells or physical attacks by 5.",
+    "curr_pt": "Demônios +5 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Demons with either spells or physical attacks by 3.",
+    "curr_pt": "Demônios +3 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Dragons with either spells or physical attacks by 5.",
+    "curr_pt": "Dragões +5 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Dragons with either spells or physical attacks by 3.",
+    "curr_pt": "Dragões +3 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Elementals with either spells or physical attacks by 5.",
+    "curr_pt": "Elementais +5 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Elementals with either spells or physical attacks by 3.",
+    "curr_pt": "Elementais +3 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Giants with either spells or physical attacks by 5.",
+    "curr_pt": "Gigantes +5 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Giants with either spells or physical attacks by 3.",
+    "curr_pt": "Gigantes +3 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to increase $ghis:her; pet's ferocity, increasing its damage by 1.",
+    "curr_pt": "Pet: +1 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to increase $ghis:her; pet's Spirit by 1.",
+    "curr_pt": "Pet: +1 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to increase $ghis:her; pet's Spirit by 2.",
+    "curr_pt": "Pet: +2 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Enchants the main hand weapon with fire, granting each attack a chance to deal $17809s1 additional fire damage.",
+    "curr_pt": "Arma com fogo: chance de +$s1 por golpe.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Abolishes all magic on the friendly target, and prevents any magic from affecting the target for $d.",
+    "curr_pt": "Abole magia do aliado por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Performs a feint, causing no damage but lowering your threat by a small amount, making the enemy less likely to attack you.",
+    "curr_pt": "Finta: -ameaça pequena.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chances to parry with a One-Handed Sword by 1%.",
+    "curr_pt": "Aparar espada 1M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance of parrying with One-Handed Axes by 1%.",
+    "curr_pt": "Aparar machado 1M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the chance of parrying with a One-Handed Mace by 1%.",
+    "curr_pt": "Aparar maça 1M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Daggers by 2 and gives a 1% chance of bleeding the target for 90 damage over 10 seconds.",
+    "curr_pt": "Adagas +2 e 1% de sangrar 90/10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Daggers by 3 and gives a 1% chance of bleeding the target for 180 damage over 10 seconds.",
+    "curr_pt": "Adagas +3 e 1% de sangrar 180/10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to get a critical hit with a Two-Handed Sword by 1%.",
+    "curr_pt": "Crítico espada 2M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Staves by $s1 and gives a 2% chance to stun the target for 8 seconds.",
+    "curr_pt": "Cajados +$s1 e 2% de atordoar 8 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Staves by 3 and gives a 2% chance to stun the target for 5 seconds.",
+    "curr_pt": "Cajados +3 e 2% de atordoar 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Staves by 4 and gives a 2% chance to stun the target for 8 seconds.",
+    "curr_pt": "Cajados +4 e 2% de atordoar 8 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Holy resistance by 4 and gives a 3% chance of reflecting hostile Holy spells back at the caster.",
+    "curr_pt": "Sagrado +4 e 3% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Holy resistance by 4 and gives a 5% chance of reflecting hostile Holy spells back at the caster.",
+    "curr_pt": "Sagrado +4 e 5% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Fire resistance by 4 and gives a 3% chance of reflecting hostile Fire spells back at the caster.",
+    "curr_pt": "Fogo +4 e 3% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Fire resistance by 4 and gives a 5% chance of reflecting hostile Fire spells back at the caster.",
+    "curr_pt": "Fogo +4 e 5% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Nature resistance by 4 and gives a 3% chance of reflecting hostile Nature spells back at the caster.",
+    "curr_pt": "Natureza +4 e 3% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Nature resistance by 4 and gives a 5% chance of reflecting hostile Nature spells back at the caster.",
+    "curr_pt": "Natureza +4 e 5% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Frost resistance by 4 and gives a 3% chance of reflecting hostile Frost spells back at the caster.",
+    "curr_pt": "Gelo +4 e 3% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Frost resistance by 4 and gives a 5% chance of reflecting hostile Frost spells back at the caster.",
+    "curr_pt": "Gelo +4 e 5% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Shadow resistance by 4 and gives a 3% chance of reflecting hostile Shadow spells back at the caster.",
+    "curr_pt": "Sombra +4 e 3% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Shadow resistance by 4 and gives a 5% chance of reflecting hostile Shadow spells back at the caster.",
+    "curr_pt": "Sombra +4 e 5% de refletir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Beasts with either spells or physical attacks by 5.",
+    "curr_pt": "Feras +5 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Beasts with either spells or physical attacks by 6.",
+    "curr_pt": "Feras +6 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Demons with either spells or physical attacks by 6.",
+    "curr_pt": "Demônios +6 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Dragons with either spells or physical attacks by 6.",
+    "curr_pt": "Dragões +6 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Elementals with either spells or physical attacks by 6.",
+    "curr_pt": "Elementais +6 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Giants with either spells or physical attacks by 6.",
+    "curr_pt": "Gigantes +6 dano.",
+    "sample": "",
+    "need": "review"
+  }
+]

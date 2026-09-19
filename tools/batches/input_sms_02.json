@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases damage done to Undead with either spells or physical attacks by 5.",
+    "curr_pt": "Morto-vivos +5 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Undead with either spells or physical attacks by 6.",
+    "curr_pt": "Morto-vivos +6 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to parry while wielding a Two-Handed Sword by 2%.",
+    "curr_pt": "Aparar espada 2M +2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to parry while wielding a Two-Handed Sword by 4%.",
+    "curr_pt": "Aparar espada 2M +4%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to parry while wielding a Two-Handed Sword by 5%.",
+    "curr_pt": "Aparar espada 2M +5%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Swords by 3 and your chance to parry with one by 3%.",
+    "curr_pt": "Espadas 2M +3 e aparo +3%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to parry with a Two-Handed sword by 1%.",
+    "curr_pt": "Aparar espada 2M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Axes by 3 and gives a 1% chance of decreasing enemy armor by 100 for 15 seconds.",
+    "curr_pt": "Machados 2M +3 e 1% de -100 armadura 15 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to critical hit with a Two-Handed Axe by 1%.",
+    "curr_pt": "Crítico machado 2M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to get a critical with One-Handed Swords by $s1.",
+    "curr_pt": "Crítico espada 1M +$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Swords by 2 and your chance to parry by 3%.",
+    "curr_pt": "Espadas 1M +2 e aparo +3%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chances to score a critical hit with a One-Handed Sword by 1%.",
+    "curr_pt": "Crítico espada 1M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Axes by 2 and gives a 1% chance of decreasing enemy armor by 100 for 15 seconds.",
+    "curr_pt": "Machados 1M +2 e 1% de -100 armadura 15 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance of getting a critical hit with One-Handed Axes by 1%.",
+    "curr_pt": "Crítico machado 1M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Maces by 3 and gives a 2% chance of stunning the target for 5 seconds.",
+    "curr_pt": "Maças 2M +3 e 2% de atordoar 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to get a critical hit with a Two-Handed mace by 1%.",
+    "curr_pt": "Crítico maça 2M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the chance of getting a critical hit with a One-Handed Mace by 1%.",
+    "curr_pt": "Crítico maça 1M +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Maces by 2 and gives a 1% chance to stun the target for 5 seconds.",
+    "curr_pt": "Maças 1M +2 e 1% de atordoar 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with guns by 2 and gives a 2% chance to stun the target for 3 seconds.",
+    "curr_pt": "Armas de fogo +2 e 2% de atordoar 3 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows you to disguise yourself as a Human Peasant, and allows other Disguises as you find them in the world.",
+    "curr_pt": "Disfarce de Camponês e outros.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows you to disguise yourself as an Orcish Peon, and allows other Disguises as you find them in the world.",
+    "curr_pt": "Disfarce de Peão e outros.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to get a critical hit with Staves by 1%.",
+    "curr_pt": "Crítico cajado +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Bows by 2 and adds a 2% chance that you will bleed the target for 90 damage over 10 seconds.",
+    "curr_pt": "Arcos +2 e 2% de sangrar 90/10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 20.",
+    "curr_pt": "Armadura de escudo +20.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 25.",
+    "curr_pt": "Armadura de escudo +25.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 30.",
+    "curr_pt": "Armadura de escudo +30.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 35.",
+    "curr_pt": "Armadura de escudo +35.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 40.",
+    "curr_pt": "Armadura de escudo +40.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 45.",
+    "curr_pt": "Armadura de escudo +45.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 50.",
+    "curr_pt": "Armadura de escudo +50.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor while wearing a Shield or Buckler by 55.",
+    "curr_pt": "Armadura de escudo +55.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to critical with Nature Magic skill by 1%.",
+    "curr_pt": "Crítico Natureza +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases chance of getting a Critical with Fire spells by 1%.",
+    "curr_pt": "Crítico Fogo +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases chance of getting a Critical with Frost spells by 1%.",
+    "curr_pt": "Crítico Gelo +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases chance of getting a Critical with Shadow spells by 1%.",
+    "curr_pt": "Crítico Sombra +1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Crossbows by $s1 and have a 2% chance of bleeding the target for 180 damage over 10 seconds.",
+    "curr_pt": "Bestas +$s1 e 2% de sangrar 180/10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Crossbows by 2 and adds a 2% chance of bleeding the target for 90 damage over 10 seconds.",
+    "curr_pt": "Bestas +2 e 2% de sangrar 90/10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Crossbows by 3 and adds a 2% chance of bleeding the target for 180 damage over 10 seconds.",
+    "curr_pt": "Bestas +3 e 2% de sangrar 180/10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to increase $ghis:her; pet's Spirit by 3.",
+    "curr_pt": "Pet +3 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Performs a feint, causing no damage but lowering your threat by a medium amount, making the enemy less likely to attack you.",
+    "curr_pt": "Finta: -ameaça média.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Removes 1 negative spell effect from user. Cleans with the power of lemon.",
+    "curr_pt": "Tira 1 magia ruim com limão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Casts a mind bomb that affects an enemy. If the target casts a spell in the next $d., it takes $7996s1 Shadow damage.",
+    "curr_pt": "Bomba mental: lançar em $d s dá $s1 de Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Removes a medium amount of threat for all enemies of the target.",
+    "curr_pt": "Tira ameaça média de todos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Casts a mind bomb that affects nearby enemies. If a target casts a spell in the next $d., it takes $7996s1 Shadow damage.",
+    "curr_pt": "Bomba nos próximos: lançar em $d s dá $s1 de Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A burst of energy fills the caster, increasing $ghis:her; damage by $s1 and armor by $s2 for $d.",
+    "curr_pt": "Energia: +$s1 dano e +$s2 armadura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Removes a large amount of threat for all enemies of the target.",
+    "curr_pt": "Tira ameaça grande de todos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Has a 2% chance when struck in combat of protecting you with a holy shield.",
+    "curr_pt": "Acerto: 2% de escudo sagrado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Instantly shields the target, absorbing $s1 damage. Lasts $d. While the shield holds, spells will not be interrupted by physical attacks.",
+    "curr_pt": "Escudo instantâneo de $s1 por $d s, sem interrupção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the caster to see through the target's eyes for $d. Will not work if the target is in another instance or on another continent.",
+    "curr_pt": "Vê pelos olhos por $d s. Sem outra instância ou continente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of your Inner Rage ability by $/60000;s1 mins.",
+    "curr_pt": "Fúria Interior -$s1 min.",
+    "sample": "",
+    "need": "review"
+  }
+]

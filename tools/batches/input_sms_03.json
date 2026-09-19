@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Attempts to cure $s2 poison $leffect:effects; on the target, and $3137s1 more poison $leffect:effects; every $t1 seconds for $d.",
+    "curr_pt": "Cura $s1 veneno e +$s2 a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows one-hand and off-hand weapons to be equipped in the off-hand.",
+    "curr_pt": "1M e secundária na secundária.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the friendly target to detect greater invisibility for $d.",
+    "curr_pt": "Detecta invis maior por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Builds a campfire that increases the spirits of those nearby by 4 and allows cooking.",
+    "curr_pt": "Fogueira: +4 Esp próximos e cozinha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the caster to levitate, floating a few feet above the ground. While levitating, you will fall at a reduced speed and travel over water-like surfaces. Any damage will cancel the effect. Lasts $d.",
+    "curr_pt": "Levita uns palmos. Cai devagar e anda na água. Dano cancela. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Blacksmith to make basic weapons and armor up to a maximum potential skill of 75. Requires stone and metal found with the mining skill.",
+    "curr_pt": "Ferreiro básico até 75. Precisa pedra e metal.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a leatherworker to make leather armor, up to to a maximum potential skill of 75. Requires leather scraps and hides gathered with the Skinning skill.",
+    "curr_pt": "Coureiro básico até 75. Precisa retalho e couro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an alchemist to brew basic potions up to a maximum potential skill of 75. Requires Herbs found with the Herbalism skill.",
+    "curr_pt": "Alquimista básico até 75. Precisa erva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a cook to make basic recipes up to a maximum potential skill of 75. Requires meat from beasts and fire to make food.",
+    "curr_pt": "Cozinheiro básico até 75. Precisa carne e fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "How to pull ore and stone from mineral veins for use in Engineering and Blacksmithing. Gives a potential mining skill of 75. Requires a Mining Pick.",
+    "curr_pt": "Minera minério e pedra até 75. Precisa picareta.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A more advanced level of mining. Gives a potential mining skill of 150.",
+    "curr_pt": "Mineração média até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Dismiss your pet. Dismissing your pet will reduce its happiness by $/1000;s1.",
+    "curr_pt": "Dispensa o pet. Felicidade -$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Blacksmith to make well-crafted weapons and armor up to a maximum potential skill of 150.",
+    "curr_pt": "Ferreiro médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an alchemist to brew standard potions up to a maximum potential skill of 150.",
+    "curr_pt": "Alquimista médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a cook to make delicious recipes up to a maximum potential skill of 150.",
+    "curr_pt": "Cozinheiro médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a leatherworker to make well crafted leather armors, up to a maximum potential skill of 150.",
+    "curr_pt": "Coureiro médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the creation and use bandages up to a potential skill of 75. The cloth used to make those bandages are found on humanoids in the world.",
+    "curr_pt": "Primeiros socorros até 75. Pano de humanoide.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the creation and use of bandages up to a potential skill of 150. The cloth used to make those bandages are found on humanoids in the world.",
+    "curr_pt": "Primeiros socorros até 150. Pano de humanoide.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a cook to make mouth watering recipes up to a maximum potential skill of 225.",
+    "curr_pt": "Cozinheiro perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an alchemist to brew amazing potions up to a maximum potential skill of 225.",
+    "curr_pt": "Alquimista perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Blacksmith to make masterful weapons and armor up to a maximum potential skill of 225.",
+    "curr_pt": "Ferreiro perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A more advanced level of mining. Gives a potential mining skill of 225.",
+    "curr_pt": "Mineração perita até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a leatherworker to make high quality leather armors, up to a maximum potential skill of 225.",
+    "curr_pt": "Coureiro perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a tailor to make basic cloth armors up to a maximum potential skill of 75. Requires cloth found on humanoids.",
+    "curr_pt": "Alfaiate básico até 75. Precisa pano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a tailor to make fashionable cloth shirts and armors up to a maximum potential skill of 150.",
+    "curr_pt": "Alfaiate médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a tailor to make shirts and armors that are the height of style up to a maximum potential skill of 225.",
+    "curr_pt": "Alfaiate perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an engineer to make more powerful devices and explosives up to a maximum potential skill of 150.",
+    "curr_pt": "Engenheiro médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an engineer to make bombs and gizmos that are a wonder to behold up to a maximum potential skill of 225.",
+    "curr_pt": "Engenheiro perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Cat goes into a ferocious rage granting $s1% haste but takes $s2 more damage from attacks for $d",
+    "curr_pt": "Gato furioso: +$s1% pressa, +$s2 dano recebido por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lets the Hunter train his pet with various abilities that he has learned.",
+    "curr_pt": "Treina o pet com habilidades.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Maces by $s1 and gives a 2% chance of stunning the target for 8 seconds.",
+    "curr_pt": "Maças 2M +$s1 e 2% de atordoar 8 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Swords by $s1 and your chance to parry by 5%.",
+    "curr_pt": "Espadas 1M +$s1 e aparar +5%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Swords by 4 and your chance to parry with one by 2%.",
+    "curr_pt": "Espadas 2M +4 e aparar +2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Axes by 4 and gives a 2% chance of reducing enemy armor for 15 seconds.",
+    "curr_pt": "Machados 2M +4 e 2% de -armadura 15 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Swords by 3 and your chance to parry by 2%.",
+    "curr_pt": "Espadas 1M +3 e aparar +2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Axes by 3 and gives a 1% chance of decreasing enemy armor by 200 for 15 seconds.",
+    "curr_pt": "Machados 1M +3 e 1% de -200 armadura 15 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Maces by 4 and gives a 2% chance of stunning the target for 8 seconds.",
+    "curr_pt": "Maças 2M +4 e 2% de atordoar 8 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with One-Handed Maces by 3 and gives a 1% chance to stun the target for 8 seconds.",
+    "curr_pt": "Maças 1M +3 e 1% de atordoar 8 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with guns by 3 and gives a 2% chance to stun the target for 5 seconds.",
+    "curr_pt": "Armas de fogo +3 e 2% de atordoar 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your damage with Bows by 3 and adds a 2% chance that you will bleed the target for 180 damage over 10 seconds.",
+    "curr_pt": "Arcos +3 e 2% de sangrar 180/10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed cat the Ferocity ability. Ferocity increases attack speed of the cat at the cost of receiving more damage when hit by phsical attacks. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Ferocidade ao gato: +velocidade +dano recebido. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Assumes a defensive stance that generates rage when the warrior is hit, as well as reducing rage decay while the warrior is out of combat. Lasts $d.",
+    "curr_pt": "Postura: fúria ao apanhar, sem decair fora de combate. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an enchanter to enchant basic items up to a maximum potential skill of 75. Requires Dusts and Essences found by disenchanting magic items.",
+    "curr_pt": "Encantador básico até 75. Precisa pó e essência.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an enchanter to enchant weapons and armor up to a maximum potential skill of 150.",
+    "curr_pt": "Encantador médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows an enchanter to put masterful enchantments on weapons and armor up to a maximum potential skill of 225.",
+    "curr_pt": "Encantador perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a physician to make and use bandages up to a potential skill of 225. The cloth used to make those bandages are found on humanoids in the world.",
+    "curr_pt": "Médico até 225. Pano de humanoide.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The basics of how to skin animals for their pelts and furs for use in Leatherworking. Gives a potential skinning skill of 75. Requires a Skinning Knife.",
+    "curr_pt": "Esfolador básico até 75. Precisa faca.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Advanced skills in skinning the leather from beasts for use in Leatherworking. Gives a potential skinning skill of 150. Requires a Skinning Knife.",
+    "curr_pt": "Esfolador médio até 150. Precisa faca.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Expert skill in skinning the hides from beasts for use in Leatherworking. Gives a potential skinning skill of 225. Requires a Skinning Knife.",
+    "curr_pt": "Esfolador perito até 225. Precisa faca.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a Blacksmith to make weapons and armor up to a maximum potential skill of 300.",
+    "curr_pt": "Ferreiro artesão até 300.",
+    "sample": "",
+    "need": "review"
+  }
+]

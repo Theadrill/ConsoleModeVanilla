@@ -2152,4 +2152,12 @@ CM_SpellDesc_ptBR.genericTemplates = {
             return string.format("Evoca um %s com %s de vida aos pés do lançador por %s s que reduz a velocidade de movimento dos inimigos a até %s metros.", nomeTr, hp, dur, dist)
         end
     },
+    -- Linha de status do Ataque basico (tooltip do cliente Turtle: "4.25% chance to crit")
+    {
+        pat = "^([%d%.]+)%% chance to crit%.?$",
+        tpl = function(val)
+            val = string.gsub(val or "", "%.", ",")
+            return string.format("%s%% de chance de crítico.", val)
+        end
+    },
 }

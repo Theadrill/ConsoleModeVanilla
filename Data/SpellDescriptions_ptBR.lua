@@ -651,4 +651,12 @@ CM_SpellDesc_ptBR.genericTemplates = {
         pat = "^A strike that deals (%d+) extra damage on top of your normal weapon damage%.$",
         tpl = "Um golpe que causa %s de dano adicional além do dano normal da arma."
     },
+    -- Linha de status do Ataque basico (tooltip do cliente Turtle: "4.25% chance to crit")
+    {
+        pat = "^([%d%.]+)%% chance to crit%.?$",
+        tpl = function(val)
+            val = string.gsub(val or "", "%.", ",")
+            return string.format("%s%% de chance de crítico.", val)
+        end
+    },
 }

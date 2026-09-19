@@ -51,3 +51,5 @@
 # ONDA ORFAOS TURTLE (mpq_work: 1.102 templates, lotes O01-O23):
 O01 | 37u | OK
 O02 | 37u | OK
+O03 | 44u | OK
+O04 | 33u | OK

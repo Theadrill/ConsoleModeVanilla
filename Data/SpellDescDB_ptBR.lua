@@ -2626,11 +2626,11 @@ ConsoleMode_SpellDescDB[3559] = { n="Ethereal Form", r="Rank 1", d="Teaches Ethe
 ConsoleMode_SpellDescDB[3560] = { n="Resist Frost", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3561] = { n="Teleport: Stormwind", r="", d="Teleports the caster to Stormwind.", t="", pt="Teleporta o lançador para Ventobravo." }
 ConsoleMode_SpellDescDB[3562] = { n="Teleport: Ironforge", r="", d="Teleports the caster to Ironforge.", t="", pt="Teleporta o lançador para Altaforja." }
-ConsoleMode_SpellDescDB[3563] = { n="Teleport: Undercity", r="", d="Teleports the caster to Undercity.", t="", pt="Teleporta pra Cidade Baixa." }
+ConsoleMode_SpellDescDB[3563] = { n="Teleport: Undercity", r="", d="Teleports the caster to Undercity.", t="", pt="Teleporta o lançador para Cidade Baixa." }
 ConsoleMode_SpellDescDB[3564] = { n="Mining", r="Expert", d="A more advanced level of mining.  Gives a potential mining skill of 225.", t="", pt="Mineração perita até 225." }
-ConsoleMode_SpellDescDB[3565] = { n="Teleport: Darnassus", r="", d="Teleports the caster to Darnassus.", t="", pt="Teleporta pra Darnassus." }
-ConsoleMode_SpellDescDB[3566] = { n="Teleport: Thunder Bluff", r="", d="Teleports the caster to Thunder Bluff.", t="", pt="Teleporta pra Penhasco." }
-ConsoleMode_SpellDescDB[3567] = { n="Teleport: Orgrimmar", r="", d="Teleports the caster to Orgrimmar.", t="", pt="Aumenta sua defesa em 3." }
+ConsoleMode_SpellDescDB[3565] = { n="Teleport: Darnassus", r="", d="Teleports the caster to Darnassus.", t="", pt="Teleporta o lançador para Darnassus." }
+ConsoleMode_SpellDescDB[3566] = { n="Teleport: Thunder Bluff", r="", d="Teleports the caster to Thunder Bluff.", t="", pt="Teleporta o lançador para Penhasco do Trovão." }
+ConsoleMode_SpellDescDB[3567] = { n="Teleport: Orgrimmar", r="", d="Teleports the caster to Orgrimmar.", t="", pt="Teleporta o lançador para Orgrimmar." }
 ConsoleMode_SpellDescDB[3568] = { n="Expert Miner", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3569] = { n="Smelt Steel", r="", d="Allows the miner to smelt a chunk of iron ore and a lump of coal together into a steel bar.  Smelting steel requires a forge.", t="", pt="Funde ferro+carvão em aço. Precisa forja." }
 ConsoleMode_SpellDescDB[3570] = { n="Herb Gathering", r="Expert", d="How to find and gather more difficult to harvest herbs.   Gives a potential herbalism skill of 225.", t="", pt="Erva perita até 225." }
@@ -2711,32 +2711,32 @@ ConsoleMode_SpellDescDB[3678] = { n="Focusing", r="", d="Use the blade on the Al
 ConsoleMode_SpellDescDB[3680] = { n="Lesser Invisibility", r="", d="Gives the imbiber lesser invisibility for $d.", t="Lesser Invisibility", pt="Invis menor por $d s." }
 ConsoleMode_SpellDescDB[3682] = { n="Slow", r="Rank 2", d="Teaches Slow (Rank 2).", t="", pt="" }
 ConsoleMode_SpellDescDB[3684] = { n="Judgement", r="Rank 1", d="Teaches Judgement.", t="", pt="" }
-ConsoleMode_SpellDescDB[3686] = { n="Immolate", r="Rank 4", d="Teaches Immolate (Rank 4).", t="", pt="" }
+ConsoleMode_SpellDescDB[3686] = { n="Immolate", r="Rank 4", d="Teaches Immolate (Rank 4).", t="", pt="Ensina Imolação (Grau 4)." }
 ConsoleMode_SpellDescDB[3688] = { n="Fireball", r="Rank 1", d="Teaches Fireball (Rank 4).", t="", pt="Ensina Bola de Fogo (Grau 4)." }
-ConsoleMode_SpellDescDB[3690] = { n="Exorcism", r="Rank 1", d="Teaches Exorcism (Rank 1).", t="", pt="" }
+ConsoleMode_SpellDescDB[3690] = { n="Exorcism", r="Rank 1", d="Teaches Exorcism (Rank 1).", t="", pt="Ensina Exorcismo (Grau 1)." }
 ConsoleMode_SpellDescDB[3691] = { n="Ghost Wolf", r="Rank 1", d="Teaches Ghost Wolf (Rank 1).", t="", pt="" }
 ConsoleMode_SpellDescDB[3692] = { n="Detect Invisibility", r="Rank 2", d="Teaches Detect Invisibility.", t="", pt="" }
 ConsoleMode_SpellDescDB[3693] = { n="Burning Spirit", r="Rank 4", d="Teaches Burning Spirit (Rank 4).", t="", pt="" }
-ConsoleMode_SpellDescDB[3694] = { n="Seal of Reckoning", r="Rank 1", d="Teaches Seal of Reckoning (Rank 1).", t="", pt="" }
-ConsoleMode_SpellDescDB[3695] = { n="Seal of Reckoning", r="Rank 2", d="Teaches Seal of Reckoning (Rank 2).", t="", pt="" }
-ConsoleMode_SpellDescDB[3696] = { n="Conjure Water", r="Rank 2", d="Teaches Conjure Water (Rank 2).", t="", pt="" }
-ConsoleMode_SpellDescDB[3697] = { n="Divine Protection", r="Rank 1", d="Teaches Divine Protection (Rank 1).", t="", pt="" }
+ConsoleMode_SpellDescDB[3694] = { n="Seal of Reckoning", r="Rank 1", d="Teaches Seal of Reckoning (Rank 1).", t="", pt="Ensina Selo do Ajuste de Contas (Grau 1)." }
+ConsoleMode_SpellDescDB[3695] = { n="Seal of Reckoning", r="Rank 2", d="Teaches Seal of Reckoning (Rank 2).", t="", pt="Ensina Selo do Ajuste de Contas (Grau 2)." }
+ConsoleMode_SpellDescDB[3696] = { n="Conjure Water", r="Rank 2", d="Teaches Conjure Water (Rank 2).", t="", pt="Ensina Conjurar Água (Grau 2)." }
+ConsoleMode_SpellDescDB[3697] = { n="Divine Protection", r="Rank 1", d="Teaches Divine Protection (Rank 1).", t="", pt="Ensina Proteção Divina (Grau 1)." }
 ConsoleMode_SpellDescDB[3698] = { n="Health Funnel", r="Rank 2", d="Gives $s1 Health to your demon every second for $d while channeling.", t="Transferring Health.", pt="Transfere $s1 de vida para o seu demônio a cada segundo por $d s enquanto canaliza." }
 ConsoleMode_SpellDescDB[3699] = { n="Health Funnel", r="Rank 3", d="Gives $s1 Health to your demon every second for $d while channeling.", t="Transferring Health.", pt="Transfere $s1 de vida para o seu demônio a cada segundo por $d s enquanto canaliza." }
 ConsoleMode_SpellDescDB[3700] = { n="Health Funnel", r="Rank 4", d="Gives $s1 Health to your demon every second for $d while channeling.", t="Transferring Health.", pt="Transfere $s1 de vida para o seu demônio a cada segundo por $d s enquanto canaliza." }
-ConsoleMode_SpellDescDB[3701] = { n="Health Funnel", r="Rank 2", d="Teaches Health Funnel (Rank 2).", t="", pt="" }
-ConsoleMode_SpellDescDB[3702] = { n="Health Funnel", r="Rank 3", d="Teaches Health Funnel (Rank 3).", t="", pt="" }
-ConsoleMode_SpellDescDB[3703] = { n="Health Funnel", r="Rank 4", d="Teaches Health Funnel (Rank 4).", t="", pt="" }
+ConsoleMode_SpellDescDB[3701] = { n="Health Funnel", r="Rank 2", d="Teaches Health Funnel (Rank 2).", t="", pt="Ensina Canalizar Vida (Grau 2)." }
+ConsoleMode_SpellDescDB[3702] = { n="Health Funnel", r="Rank 3", d="Teaches Health Funnel (Rank 3).", t="", pt="Ensina Canalizar Vida (Grau 3)." }
+ConsoleMode_SpellDescDB[3703] = { n="Health Funnel", r="Rank 4", d="Teaches Health Funnel (Rank 4).", t="", pt="Ensina Canalizar Vida (Grau 4)." }
 ConsoleMode_SpellDescDB[3704] = { n="Health Funnel", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3705] = { n="Health Funnel", r="Rank 2", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3706] = { n="Health Funnel", r="Rank 3", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3707] = { n="Health Funnel", r="Rank 4", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3710] = { n="Mana Funnel", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3712] = { n="Dark Ritual II", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[3713] = { n="Seal of Wisdom", r="Rank 2", d="Teaches Seal of Wisdom (Rank 2).", t="", pt="" }
+ConsoleMode_SpellDescDB[3713] = { n="Seal of Wisdom", r="Rank 2", d="Teaches Seal of Wisdom (Rank 2).", t="", pt="Ensina Selo da Sabedoria (Grau 2)." }
 ConsoleMode_SpellDescDB[3714] = { n="Dark Ritual", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3715] = { n="Dark Ritual II", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[3716] = { n="Torment", r="Rank 1", d="Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.", t="", pt="Provoca com $s1 de Sombra e foca o Emissário." }
+ConsoleMode_SpellDescDB[3716] = { n="Torment", r="Rank 1", d="Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.", t="", pt="Provoca a criatura, causando $s1 de dano de Sombra e aumentando a chance de ela atacar o Emissário do Caos." }
 ConsoleMode_SpellDescDB[3717] = { n="Succubus Link", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3718] = { n="Syndicate Bomb", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3719] = { n="Debuff Holy Resist (TEST)", r="", d="", t="", pt="" }
@@ -2744,33 +2744,33 @@ ConsoleMode_SpellDescDB[3720] = { n="Throw Syndicate Bomb", r="", d="Throws a Sy
 ConsoleMode_SpellDescDB[3721] = { n="Teleport Altar of the Tides", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3722] = { n="Summon Syndicate Spectre", r="", d="Summons $s1 $lSyndicate Spectre:Syndicate Spectres; to aid the caster in battle for $d.", t="", pt="Invoca $s1 Espectros por $d s." }
 ConsoleMode_SpellDescDB[3723] = { n="Frost Ward", r="Rank 5", d="Teaches Frost Ward (Rank 5).", t="", pt="" }
-ConsoleMode_SpellDescDB[3724] = { n="Conjure Mana Gem", r="Rank 1", d="Teaches Conjure Mana Gem.", t="", pt="" }
-ConsoleMode_SpellDescDB[3725] = { n="Purify", r="", d="Teaches Purify.", t="", pt="" }
+ConsoleMode_SpellDescDB[3724] = { n="Conjure Mana Gem", r="Rank 1", d="Teaches Conjure Mana Gem.", t="", pt="Ensina Conjurar Gema de Mana." }
+ConsoleMode_SpellDescDB[3725] = { n="Purify", r="", d="Teaches Purify.", t="", pt="Ensina Purificar." }
 ConsoleMode_SpellDescDB[3726] = { n="Thunder Clap", r="Rank 1", d="Teaches Thunder Clap (Rank 1).", t="", pt="" }
-ConsoleMode_SpellDescDB[3727] = { n="Earthbind Totem", r="", d="Teaches Earthbind Totem.", t="", pt="" }
-ConsoleMode_SpellDescDB[3728] = { n="Shock", r="Rank 4", d="Teaches Shock (Rank 4).", t="", pt="" }
-ConsoleMode_SpellDescDB[3729] = { n="Shock", r="Rank 5", d="Teaches Shock (Rank 5).", t="", pt="" }
+ConsoleMode_SpellDescDB[3727] = { n="Earthbind Totem", r="", d="Teaches Earthbind Totem.", t="", pt="Ensina Totem Aprisionador da Terra." }
+ConsoleMode_SpellDescDB[3728] = { n="Shock", r="Rank 4", d="Teaches Shock (Rank 4).", t="", pt="Ensina Choque (Grau 4)." }
+ConsoleMode_SpellDescDB[3729] = { n="Shock", r="Rank 5", d="Teaches Shock (Rank 5).", t="", pt="Ensina Choque (Grau 5)." }
 ConsoleMode_SpellDescDB[3730] = { n="Initialize Image", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[3731] = { n="Serpent Totem", r="Rank 1", d="Teaches Serpent Totem (Rank 1).", t="", pt="" }
-ConsoleMode_SpellDescDB[3732] = { n="Hellfire", r="Rank 1", d="Teaches Hellfire.", t="", pt="" }
+ConsoleMode_SpellDescDB[3731] = { n="Serpent Totem", r="Rank 1", d="Teaches Serpent Totem (Rank 1).", t="", pt="Ensina Totem da Serpente (Grau 1)." }
+ConsoleMode_SpellDescDB[3732] = { n="Hellfire", r="Rank 1", d="Teaches Hellfire.", t="", pt="Ensina Fogo do Inferno." }
 ConsoleMode_SpellDescDB[3733] = { n="Demon Breath", r="Rank 1", d="Teaches Demon Breath.", t="", pt="" }
 ConsoleMode_SpellDescDB[3734] = { n="Regrowth", r="Rank 1", d="Teaches Rejuvenation (Rank 1).", t="", pt="Ensina Rejuvenescimento (Grau 1)." }
-ConsoleMode_SpellDescDB[3735] = { n="Healing Touch", r="Rank 1", d="Teaches Healing Touch (Rank 6).", t="", pt="" }
-ConsoleMode_SpellDescDB[3737] = { n="Wrath", r="Rank 1", d="Teaches Wrath (Rank 6).", t="", pt="" }
-ConsoleMode_SpellDescDB[3738] = { n="Cure Poison", r="Rank 3", d="Teaches Cure Poison (Rank 3).", t="", pt="" }
+ConsoleMode_SpellDescDB[3735] = { n="Healing Touch", r="Rank 1", d="Teaches Healing Touch (Rank 6).", t="", pt="Ensina Toque de Cura (Grau 6)." }
+ConsoleMode_SpellDescDB[3737] = { n="Wrath", r="Rank 1", d="Teaches Wrath (Rank 6).", t="", pt="Ensina Cólera (Grau 6)." }
+ConsoleMode_SpellDescDB[3738] = { n="Cure Poison", r="Rank 3", d="Teaches Cure Poison (Rank 3).", t="", pt="Ensina Curar Veneno (Grau 3)." }
 ConsoleMode_SpellDescDB[3739] = { n="Faerie Fire (Feral)", r="Rank 2", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[3740] = { n="Rejuvenation", r="Rank 6", d="Teaches Rejuvenation (Rank 6).", t="", pt="" }
+ConsoleMode_SpellDescDB[3740] = { n="Rejuvenation", r="Rank 6", d="Teaches Rejuvenation (Rank 6).", t="", pt="Ensina Rejuvenescimento (Grau 6)." }
 ConsoleMode_SpellDescDB[3741] = { n="Holy Resist", r="Rank 1", d="Increase Holy resistance by $s1.", t="", pt="Aumenta a resistência a Sagrado em $s1." }
 ConsoleMode_SpellDescDB[3742] = { n="Static Electricity", r="", d="Surrounds you with electricity, dealing $s1 Nature damage to any who strike you for $d.", t="Causes $s1 Nature damage to attackers.", pt="Cerca de eletricidade: $s1 de Natureza em quem bater por $d s." }
 ConsoleMode_SpellDescDB[3743] = { n="Holy Smash", r="Rank 6", d="A crushing attack that does your weapon damage plus $s1.", t="", pt="Um ataque esmagador que causa dano de arma mais $s1." }
 ConsoleMode_SpellDescDB[3744] = { n="Holy Smash", r="Rank 6", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3745] = { n="Levitate", r="Rank 1", d="Teaches Levitate.", t="", pt="" }
-ConsoleMode_SpellDescDB[3746] = { n="Serpent Totem", r="Rank 2", d="Teaches Serpent Totem (Rank 2).", t="", pt="" }
+ConsoleMode_SpellDescDB[3746] = { n="Serpent Totem", r="Rank 2", d="Teaches Serpent Totem (Rank 2).", t="", pt="Ensina Totem da Serpente (Grau 2)." }
 ConsoleMode_SpellDescDB[3747] = { n="Power Word: Shield", r="Rank 4", d="Draws on the soul of the party member to shield them, absorbing $s1 damage.  Lasts $d.  While the shield holds, spellcasting will not be interrupted by damage.  Once shielded, the target cannot be shielded again for $6788d. Can be used while in Shadowform.", t="Absorbs damage.", pt="Recorre à alma do membro do grupo para protegê-lo com um escudo, absorvendo $s1 de dano. Dura $d s. Enquanto o escudo resistir, o lançamento de feitiços não será interrompido por dano. Uma vez protegido, o alvo não poderá ser protegido novamente por $d s. Pode ser usado na Forma de Sombra." }
 ConsoleMode_SpellDescDB[3748] = { n="Holy Word: Shield", r="Rank 4", d="Teaches Holy Word: Shield (Rank 4).", t="", pt="" }
 ConsoleMode_SpellDescDB[3750] = { n="Remove Curse", r="Rank 2", d="Teaches Remove Curse (Rank 2).", t="", pt="" }
-ConsoleMode_SpellDescDB[3751] = { n="Rain of Fire", r="Rank 2", d="Teaches Rain of Fire (Rank 2).", t="", pt="" }
-ConsoleMode_SpellDescDB[3752] = { n="Shadow Word: Pain", r="Rank 5", d="Teaches Shadow Word: Pain (Rank 5).", t="", pt="" }
+ConsoleMode_SpellDescDB[3751] = { n="Rain of Fire", r="Rank 2", d="Teaches Rain of Fire (Rank 2).", t="", pt="Ensina Chuva de Fogo (Grau 2)." }
+ConsoleMode_SpellDescDB[3752] = { n="Shadow Word: Pain", r="Rank 5", d="Teaches Shadow Word: Pain (Rank 5).", t="", pt="Ensina Palavra Sombria: Dor (Grau 5)." }
 ConsoleMode_SpellDescDB[3753] = { n="Handstitched Leather Belt", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3755] = { n="Linen Bag", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3756] = { n="Embossed Leather Gloves", r="", d="", t="", pt="" }
@@ -2825,7 +2825,7 @@ ConsoleMode_SpellDescDB[3805] = { n="Pattern: Guardian Armor", r="", d="Teaches 
 ConsoleMode_SpellDescDB[3806] = { n="Pattern: Guardian Belt", r="", d="Teaches you how to craft a Guardian Belt.", t="", pt="" }
 ConsoleMode_SpellDescDB[3807] = { n="Pattern: Guardian Leather Bracers", r="", d="Teaches you how to craft Guardian Leather Bracers.", t="", pt="" }
 ConsoleMode_SpellDescDB[3808] = { n="Pattern: Barbaric Belt", r="", d="Teaches you how to craft a Barbaric Belt.", t="", pt="" }
-ConsoleMode_SpellDescDB[3810] = { n="Heal", r="Rank 1", d="Teaches Heal (Rank 1).", t="", pt="" }
+ConsoleMode_SpellDescDB[3810] = { n="Heal", r="Rank 1", d="Teaches Heal (Rank 1).", t="", pt="Ensina Cura (Grau 1)." }
 ConsoleMode_SpellDescDB[3811] = { n="Leatherworking", r="Expert", d="Allows a leatherworker to make high quality leather armors, up to a maximum potential skill of 225.", t="", pt="Coureiro perito até 225." }
 ConsoleMode_SpellDescDB[3812] = { n="Expert Leatherworking", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[3813] = { n="Small Silk Pack", r="", d="", t="", pt="" }
@@ -3026,7 +3026,7 @@ ConsoleMode_SpellDescDB[4032] = { n="Schematic: Portable Bronze Mortar", r="", d
 ConsoleMode_SpellDescDB[4033] = { n="Schematic: Craftsman's Monocle", r="", d="Teaches you how to make a Craftman's Monocle.", t="", pt="" }
 ConsoleMode_SpellDescDB[4034] = { n="Schematic: Goblin Land Mine", r="", d="Teaches you how to make a Goblin Land Mine.", t="", pt="" }
 ConsoleMode_SpellDescDB[4035] = { n="Schematic: Large Seaforium Charge", r="", d="Teaches you how to make a Large Seaforium Charge.", t="", pt="" }
-ConsoleMode_SpellDescDB[4036] = { n="Engineering", r="Apprentice", d="Allows an engineer to make basic contraptions up to a maximum potential skill of 75.  Requires stone and metal found with the mining skill.", t="", pt="Engenheiro básico até 75. Precisa pedra e metal." }
+ConsoleMode_SpellDescDB[4036] = { n="Engineering", r="Apprentice", d="Allows an engineer to make basic contraptions up to a maximum potential skill of 75.  Requires stone and metal found with the mining skill.", t="", pt="Permite que um engenheiro fabrique engenhocas básicas até uma perícia potencial máxima de 75. Exige pedra e metal obtidos com a perícia de mineração." }
 ConsoleMode_SpellDescDB[4037] = { n="Engineering", r="Journeyman", d="Allows an engineer to make more powerful devices and explosives up to a maximum potential skill of 150.", t="", pt="Engenheiro médio até 150." }
 ConsoleMode_SpellDescDB[4038] = { n="Engineering", r="Expert", d="Allows an engineer to make bombs and gizmos that are a wonder to behold up to a maximum potential skill of 225.", t="", pt="Engenheiro perito até 225." }
 ConsoleMode_SpellDescDB[4039] = { n="Apprentice Engineer", r="", d="", t="", pt="" }
@@ -3071,7 +3071,7 @@ ConsoleMode_SpellDescDB[4081] = { n="Nature Resistance", r="Racial", d="Your res
 ConsoleMode_SpellDescDB[4083] = { n="Bull Rush", r="Racial", d="Greatly increases running speed for $d.", t="", pt="Corre muito por $d s." }
 ConsoleMode_SpellDescDB[4084] = { n="Shadow Resistance", r="Racial", d="Your resistance to Shadow spells is increased by $s1.", t="", pt="Aumenta a sua resistência a feitiços de Sombra em $s1." }
 ConsoleMode_SpellDescDB[4085] = { n="Holy Affinity", r="Rank 1", d="Increases your Holy Magic skill by 4 and reduces your Shadow Resistance by 2.", t="", pt="Aumenta sua magia Sagrada em 4 e reduz sua resistência a Sombra em 2." }
-ConsoleMode_SpellDescDB[4086] = { n="Evasion", r="", d="Increases the caster's chance to dodge by $s1%. Lasts until cancelled.", t="Chance to dodge increased by $s1%.", pt="Esquiva +$s1%. Até cancelar." }
+ConsoleMode_SpellDescDB[4086] = { n="Evasion", r="", d="Increases the caster's chance to dodge by $s1%. Lasts until cancelled.", t="Chance to dodge increased by $s1%.", pt="Aumenta a chance de esquiva do lançador em $s1%. Permanece ativo até ser cancelado." }
 ConsoleMode_SpellDescDB[4089] = { n="Curse of Frailty", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[4090] = { n="Life Tap", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[4091] = { n="Mana Burn", r="", d="", t="", pt="" }
@@ -3230,10 +3230,10 @@ ConsoleMode_SpellDescDB[4255] = { n="Physical Prowess", r="Rank 1", d="Increases
 ConsoleMode_SpellDescDB[4256] = { n="Physical Prowess", r="Rank 2", d="Increases your Health by 20.", t="", pt="Aumenta a sua Vida em 20." }
 ConsoleMode_SpellDescDB[4257] = { n="Physical Prowess", r="Rank 3", d="Increases your Health by 30.", t="", pt="Aumenta a sua Vida em 30." }
 ConsoleMode_SpellDescDB[4258] = { n="Physical Prowess", r="Rank 4", d="Increases your Health by 30.", t="", pt="Aumenta a sua Vida em 30." }
-ConsoleMode_SpellDescDB[4259] = { n="Physical Prowess", r="Rank 5", d="Increases your Health by 40.", t="", pt="Vida +40." }
-ConsoleMode_SpellDescDB[4260] = { n="Physical Prowess", r="Rank 6", d="Increases your Health by 50.", t="", pt="Vida +50." }
-ConsoleMode_SpellDescDB[4261] = { n="Physical Prowess", r="Rank 7", d="Increases your Health by 60.", t="", pt="Vida +60." }
-ConsoleMode_SpellDescDB[4262] = { n="Physical Prowess", r="Rank 8", d="Increases your Health by 80.", t="", pt="Vida +80." }
+ConsoleMode_SpellDescDB[4259] = { n="Physical Prowess", r="Rank 5", d="Increases your Health by 40.", t="", pt="Aumenta a sua vida em 40." }
+ConsoleMode_SpellDescDB[4260] = { n="Physical Prowess", r="Rank 6", d="Increases your Health by 50.", t="", pt="Aumenta a sua vida em 50." }
+ConsoleMode_SpellDescDB[4261] = { n="Physical Prowess", r="Rank 7", d="Increases your Health by 60.", t="", pt="Aumenta a sua vida em 60." }
+ConsoleMode_SpellDescDB[4262] = { n="Physical Prowess", r="Rank 8", d="Increases your Health by 80.", t="", pt="Aumenta a sua vida em 80." }
 ConsoleMode_SpellDescDB[4263] = { n="Mental Acuity", r="Rank 1", d="Increases your Mana by $s1.", t="", pt="Aumenta sua mana em $s1." }
 ConsoleMode_SpellDescDB[4264] = { n="Mental Acuity", r="Rank 2", d="Increases your Mana by $s1.", t="", pt="Aumenta sua mana em $s1." }
 ConsoleMode_SpellDescDB[4265] = { n="Mental Acuity", r="Rank 3", d="Increases your Mana by $s1.", t="", pt="Aumenta sua mana em $s1." }
@@ -3590,7 +3590,7 @@ ConsoleMode_SpellDescDB[4625] = { n="Shadow Resist", r="Rank 5", d="Increase Sha
 ConsoleMode_SpellDescDB[4626] = { n="Shadow Resist", r="Rank 6", d="Increase Shadow resistance by 4 and gives a 5% chance of reflecting hostile Shadow spells back at the caster.", t="", pt="Sombra +4 e 5% de refletir." }
 ConsoleMode_SpellDescDB[4627] = { n="Shadow Resist", r="Rank 7", d="Increase Shadow resistance by 4.", t="", pt="Aumenta a resistência a Sombra em 4." }
 ConsoleMode_SpellDescDB[4628] = { n="Shadow Resist", r="Rank 8", d="Increase Shadow resistance by 4.", t="", pt="Aumenta a resistência a Sombra em 4." }
-ConsoleMode_SpellDescDB[4629] = { n="Rain of Fire", r="", d="Does $o1 fire damage to all enemies in the area of effect over $d.", t="", pt="$s1 de fogo na área ao longo de $d s." }
+ConsoleMode_SpellDescDB[4629] = { n="Rain of Fire", r="", d="Does $o1 fire damage to all enemies in the area of effect over $d.", t="", pt="Causa $s1 de dano de Fogo a todos os inimigos na área de efeito ao longo de $d s." }
 ConsoleMode_SpellDescDB[4630] = { n="Phase Shift", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[4631] = { n="Beast Slayer", r="Rank 2", d="Increases damage done to Beasts with either spells or physical attacks by $s1.", t="", pt="Aumenta o dano contra Feras com magias ou ataques físicos em $s1." }
 ConsoleMode_SpellDescDB[4632] = { n="Beast Slayer", r="Rank 3", d="Increases damage done to Beasts with either spells or physical attacks by $s1.", t="", pt="Aumenta o dano contra Feras com magias ou ataques físicos em $s1." }
@@ -3714,12 +3714,12 @@ ConsoleMode_SpellDescDB[4756] = { n="Parry Mastery", r="Rank 2", d="Increases yo
 ConsoleMode_SpellDescDB[4757] = { n="Parry Mastery", r="Rank 3", d="Increases your chance to parry by $s1%.", t="", pt="Aumenta sua chance de aparar em $s1%." }
 ConsoleMode_SpellDescDB[4758] = { n="Parry Mastery", r="Rank 2", d="Increases your chance to parry by 3%.", t="", pt="Aumenta sua chance de aparar em 3%." }
 ConsoleMode_SpellDescDB[4759] = { n="Parry Mastery", r="Rank 3", d="Increases your chance to parry by 3%.", t="", pt="Aumenta sua chance de aparar em 3%." }
-ConsoleMode_SpellDescDB[4760] = { n="Shield Blocking", r="Rank 1", d="Increases your chance to block with a Shield (not a Buckler) by 2%.", t="", pt="Bloqueio de Escudo +2%." }
-ConsoleMode_SpellDescDB[4761] = { n="Shield Blocking", r="Rank 1", d="Increases your chance to block with a shield by 2%.", t="", pt="Bloqueio +2%." }
-ConsoleMode_SpellDescDB[4762] = { n="Shield Blocking", r="Rank 2", d="Increases your chance to block with a Shield (not a Buckler) by 4% and reflects $s2% of hostile spells back at the caster.", t="", pt="Bloqueio +4% e reflete $s1%." }
-ConsoleMode_SpellDescDB[4763] = { n="Shield Blocking", r="Rank 3", d="Increases your chance to block with a Shield (not a Buckler) by 5% and reflects $s2% of hostile spells back at the caster.", t="", pt="Bloqueio +5% e reflete $s1%." }
-ConsoleMode_SpellDescDB[4764] = { n="Shield Blocking", r="Rank 2", d="Increases your chance to block with a Shield (not a Buckler) by 2% and reflects 1% of hostile spells back at the caster.", t="", pt="Bloqueio +2% e reflete 1%." }
-ConsoleMode_SpellDescDB[4765] = { n="Shield Blocking", r="Rank 3", d="Increases your chance to block with a Shield (not a Buckler) by 1%.", t="", pt="Bloqueio +1%." }
+ConsoleMode_SpellDescDB[4760] = { n="Shield Blocking", r="Rank 1", d="Increases your chance to block with a Shield (not a Buckler) by 2%.", t="", pt="Aumenta a sua chance de bloquear com um escudo (mas não com um broquel) em 2%." }
+ConsoleMode_SpellDescDB[4761] = { n="Shield Blocking", r="Rank 1", d="Increases your chance to block with a shield by 2%.", t="", pt="Aumenta a sua chance de bloquear com um escudo em 2%." }
+ConsoleMode_SpellDescDB[4762] = { n="Shield Blocking", r="Rank 2", d="Increases your chance to block with a Shield (not a Buckler) by 4% and reflects $s2% of hostile spells back at the caster.", t="", pt="Aumenta a sua chance de bloquear com um escudo (mas não com um broquel) em 4% e reflete $s1% dos feitiços hostis de volta ao lançador." }
+ConsoleMode_SpellDescDB[4763] = { n="Shield Blocking", r="Rank 3", d="Increases your chance to block with a Shield (not a Buckler) by 5% and reflects $s2% of hostile spells back at the caster.", t="", pt="Aumenta a sua chance de bloquear com um escudo (mas não com um broquel) em 5% e reflete $s1% dos feitiços hostis de volta ao lançador." }
+ConsoleMode_SpellDescDB[4764] = { n="Shield Blocking", r="Rank 2", d="Increases your chance to block with a Shield (not a Buckler) by 2% and reflects 1% of hostile spells back at the caster.", t="", pt="Aumenta a sua chance de bloquear com um escudo (mas não com um broquel) em 2% e reflete 1% dos feitiços hostis de volta ao lançador." }
+ConsoleMode_SpellDescDB[4765] = { n="Shield Blocking", r="Rank 3", d="Increases your chance to block with a Shield (not a Buckler) by 1%.", t="", pt="Aumenta a sua chance de bloquear com um escudo (mas não com um broquel) em 1%." }
 ConsoleMode_SpellDescDB[4766] = { n="Rapid Gallop", r="Horse", d="Teaches your tamed horse the Rapid Gallop ability. Rapid Gallop increases the movement speed of your horse.", t="", pt="" }
 ConsoleMode_SpellDescDB[4767] = { n="Stomp", r="Horse", d="Teaches your tamed horse the Stomp ability. Stomp deals additional damage as well as slowing the movement speed of the enemy.\nRequires: \nPet Level 36+", t="", pt="" }
 ConsoleMode_SpellDescDB[4768] = { n="Feast of Prey", r="Raptor", d="Teaches your tamed raptor the Feast of Prey ability. Feast of Prey allows your raptor to recover health every time it kills an enemy.\nRequires: \nPet Level 13+", t="", pt="" }
@@ -3736,9 +3736,9 @@ ConsoleMode_SpellDescDB[4778] = { n="Lightning Reflexes", r="Rank 1", d="Increas
 ConsoleMode_SpellDescDB[4779] = { n="Lightning Reflexes", r="Rank 1", d="Increases your defense by 1.", t="", pt="Aumenta a sua perícia de Defesa em 1." }
 ConsoleMode_SpellDescDB[4780] = { n="Lightning Reflexes", r="Rank 2", d="Increases your defense by $s1.", t="", pt="Aumenta sua defesa em $s1." }
 ConsoleMode_SpellDescDB[4781] = { n="Lightning Reflexes", r="Rank 2", d="Increases your defense by 1.", t="", pt="Aumenta a sua perícia de Defesa em 1." }
-ConsoleMode_SpellDescDB[4782] = { n="Web", r="Spider - Rank 1", d="Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 22+", t="", pt="" }
-ConsoleMode_SpellDescDB[4783] = { n="Web", r="Spider - Rank 2", d="Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 30+", t="", pt="" }
-ConsoleMode_SpellDescDB[4785] = { n="Web", r="Spider - Rank 3", d="Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 37+", t="", pt="" }
+ConsoleMode_SpellDescDB[4782] = { n="Web", r="Spider - Rank 1", d="Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 22+", t="", pt="Ensina à sua aranha domesticada a habilidade Teia. Teia deixa um inimigo incapaz de se mover.\nRequer: \nAjudante de nível 22 ou superior" }
+ConsoleMode_SpellDescDB[4783] = { n="Web", r="Spider - Rank 2", d="Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 30+", t="", pt="Ensina à sua aranha domesticada a habilidade Teia. Teia deixa um inimigo incapaz de se mover.\nRequer: \nAjudante de nível 30 ou superior" }
+ConsoleMode_SpellDescDB[4785] = { n="Web", r="Spider - Rank 3", d="Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 37+", t="", pt="Ensina à sua aranha domesticada a habilidade Teia. Teia deixa um inimigo incapaz de se mover.\nRequer: \nAjudante de nível 37 ou superior" }
 ConsoleMode_SpellDescDB[4786] = { n="Holy Affinity", r="Rank 2", d="Increases your Holy Magic skill by $s1 and reduces your Shadow Resistance by $s2.", t="", pt="Aumenta sua magia Sagrada em $s1 e reduz sua resistência a Sombra em $s2." }
 ConsoleMode_SpellDescDB[4787] = { n="Holy Affinity", r="Rank 2", d="Increases your Holy Magic skill by 4 and reduces your Shadow Resistance by 2.", t="", pt="Aumenta sua magia Sagrada em 4 e reduz sua resistência a Sombra em 2." }
 ConsoleMode_SpellDescDB[4788] = { n="Fire Affinity", r="Rank 1", d="Increases your Fire Magic skill by $s1 and reduces your Frost Resistance by $s2.", t="", pt="Aumenta sua magia de Fogo em $s1 e reduz sua resistência a Gelo em $s2." }
@@ -3760,8 +3760,8 @@ ConsoleMode_SpellDescDB[4803] = { n="Shadow Affinity", r="Rank 2", d="Increases 
 ConsoleMode_SpellDescDB[4804] = { n="Poisonous Spit", r="Spider", d="Teaches your tamed spider the Poisonous Spit ability. Poisonous Spit ranged attack that deals damage over time to an enemy.\nRequires: \nPet Level 36+", t="", pt="" }
 ConsoleMode_SpellDescDB[4805] = { n="Distracting Spit", r="", d="Adds $m1 damage taken on a target.", t="", pt="+$s1 dano recebido." }
 ConsoleMode_SpellDescDB[4806] = { n="Distracting Spit", r="Tall Strider", d="Teaches your tamed tall strider the Distracting Spit ability. Distracting Spit increases physical damage dealt to an enemy.\nRequires: \nPet Level 13+", t="", pt="" }
-ConsoleMode_SpellDescDB[4807] = { n="Healing Tongue", r="Tall Strider - Rank 1", d="Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 22+", t="", pt="" }
-ConsoleMode_SpellDescDB[4808] = { n="Healing Tongue", r="Tall Strider - Rank 2", d="Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 28+", t="", pt="" }
+ConsoleMode_SpellDescDB[4807] = { n="Healing Tongue", r="Tall Strider - Rank 1", d="Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 22+", t="", pt="Ensina ao seu moa domesticado a habilidade Língua Curativa. Língua Curativa cura alvos aliados a curta distância.\nRequer: \nAjudante de nível 22 ou superior" }
+ConsoleMode_SpellDescDB[4808] = { n="Healing Tongue", r="Tall Strider - Rank 2", d="Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 28+", t="", pt="Ensina ao seu moa domesticado a habilidade Língua Curativa. Língua Curativa cura alvos aliados a curta distância.\nRequer: \nAjudante de nível 28 ou superior" }
 ConsoleMode_SpellDescDB[4809] = { n="Magic Focus", r="Rank 1", d="Increases your chance to get a critical with a spell by 2%.", t="", pt="Aumenta sua chance de crítico com magia em 2%." }
 ConsoleMode_SpellDescDB[4810] = { n="(OLD) Magic Focus", r="Rank 2", d="Increases your chance to get a critical with a spell by $s1%.", t="", pt="Aumenta sua chance de crítico com magia em $s1%." }
 ConsoleMode_SpellDescDB[4811] = { n="(Old) Magic Focus", r="Rank 3", d="Increases your chance to get a critical with a spell by $s1%.", t="", pt="Aumenta sua chance de crítico com magia em $s1%." }
@@ -3772,8 +3772,8 @@ ConsoleMode_SpellDescDB[4815] = { n="Enraged Howl", r="Wolf", d="Teaches your ta
 ConsoleMode_SpellDescDB[4816] = { n="Rabid Maw", r="Wolf", d="Teaches your tamed wolf the Rabid Maw ability. Rabid Maw decreases an enemy's strength and agility.\nRequires: \nPet Level 36+", t="", pt="" }
 ConsoleMode_SpellDescDB[4817] = { n="Holy Specialization", r="Rank 1", d="Increases Holy spell and ability damage by 1 and the effect from Holy healing by 2.", t="", pt="Aumenta o dano de feitiços e habilidades Sagrados em 1 e o efeito de curas Sagradas em 2." }
 ConsoleMode_SpellDescDB[4818] = { n="Holy Specialization", r="Rank 2", d="Increases Holy spell and ability damage by 2 and the effect from Holy healing by 4.", t="", pt="Aumenta o dano de magias e habilidades Sagradas em 2 e a eficácia de curas Sagradas em 4." }
-ConsoleMode_SpellDescDB[4819] = { n="Holy Specialization", r="Rank 3", d="Increases Holy spell and ability damage by 4 and the effect from Holy healing by 8.", t="", pt="Sagrado +4 e cura +8." }
-ConsoleMode_SpellDescDB[4820] = { n="Holy Specialization", r="Rank 4", d="Increases Holy spell and ability damage by 6 and the effect from Holy healing by 12.", t="", pt="Sagrado +6 e cura +12." }
+ConsoleMode_SpellDescDB[4819] = { n="Holy Specialization", r="Rank 3", d="Increases Holy spell and ability damage by 4 and the effect from Holy healing by 8.", t="", pt="Aumenta o dano de feitiços e habilidades Sagradas em 4 e o efeito de curas Sagradas em 8." }
+ConsoleMode_SpellDescDB[4820] = { n="Holy Specialization", r="Rank 4", d="Increases Holy spell and ability damage by 6 and the effect from Holy healing by 12.", t="", pt="Aumenta o dano de feitiços e habilidades Sagradas em 6 e o efeito de curas Sagradas em 12." }
 ConsoleMode_SpellDescDB[4821] = { n="Holy Specialization", r="Rank 5", d="Increases Holy spell and ability damage by 8 and the effect from Holy healing by 16.", t="", pt="Sagrado +8 e cura +16." }
 ConsoleMode_SpellDescDB[4822] = { n="Holy Specialization", r="Rank 6", d="Increases Holy spell and ability damage by 10 and the effect from Holy healing by 20.", t="", pt="Sagrado +10 e cura +20." }
 ConsoleMode_SpellDescDB[4823] = { n="Holy Specialization", r="Rank 7", d="Increases Holy spell and ability damage by 13 and the effect from Holy healing by 26.", t="", pt="Sagrado +13 e cura +26." }
@@ -20310,7 +20310,7 @@ ConsoleMode_SpellDescDB[26410] = { n="Holiday - Lunar Teleport Cap: Undercity", 
 ConsoleMode_SpellDescDB[26411] = { n="Pattern: Festive Red Dress", r="", d="Teaches you how to sew a Festive Red Dress.", t="", pt="" }
 ConsoleMode_SpellDescDB[26412] = { n="Holiday - Lunar Teleport Cap: Thunderbluff", r="", d="Teleports the caster to Thunderbluff.", t="", pt="Teleporta pra Penhasco." }
 ConsoleMode_SpellDescDB[26413] = { n="Pattern: Festival Suit", r="", d="Teaches you how to sew a Festival Suit.", t="", pt="" }
-ConsoleMode_SpellDescDB[26414] = { n="Holiday - Lunar Teleport Cap: Orgrimmar", r="", d="Teleports the caster to Orgrimmar.", t="", pt="Aumenta sua defesa em 3." }
+ConsoleMode_SpellDescDB[26414] = { n="Holiday - Lunar Teleport Cap: Orgrimmar", r="", d="Teleports the caster to Orgrimmar.", t="", pt="Teleporta o lançador para Orgrimmar." }
 ConsoleMode_SpellDescDB[26415] = { n="Shock", r="", d="Instantly lightning shocks the target for $s1 Nature damage.", t="", pt="Raio: $s1 de Natureza no alvo." }
 ConsoleMode_SpellDescDB[26416] = { n="Small Blue Rocket", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26417] = { n="Small Green Rocket", r="", d="", t="", pt="" }
@@ -20347,7 +20347,7 @@ ConsoleMode_SpellDescDB[26448] = { n="Holiday - Teleport: Moonglade", r="", d="T
 ConsoleMode_SpellDescDB[26450] = { n="Holiday - Lunar Teleport: Darnassus", r="", d="Teleports the caster to the Darnassus.", t="", pt="Teleporta pra Darnassus." }
 ConsoleMode_SpellDescDB[26451] = { n="Holiday - Teleport: Moonglade (self)", r="", d="Teleports the caster to the Moonglade.", t="", pt="Aumenta sua chance de aparar em $s1%." }
 ConsoleMode_SpellDescDB[26452] = { n="Holiday - Lunar Teleport: Ironforge", r="", d="Teleports the caster to the Ironforge.", t="", pt="Teleporta pra Altaforja." }
-ConsoleMode_SpellDescDB[26453] = { n="Holiday - Lunar Teleport: Orgrimmar", r="", d="Teleports the caster to Orgrimmar.", t="", pt="Aumenta sua defesa em 3." }
+ConsoleMode_SpellDescDB[26453] = { n="Holiday - Lunar Teleport: Orgrimmar", r="", d="Teleports the caster to Orgrimmar.", t="", pt="Teleporta o lançador para Orgrimmar." }
 ConsoleMode_SpellDescDB[26454] = { n="Holiday - Lunar Teleport: Stormwind", r="", d="Teleports the caster to the Stormwind.", t="", pt="Teleporta pra Ventobravo." }
 ConsoleMode_SpellDescDB[26455] = { n="Holiday - Lunar Teleport: Thunderbluff", r="", d="Teleports the caster to Thunderbluff.", t="", pt="Teleporta pra Penhasco." }
 ConsoleMode_SpellDescDB[26456] = { n="Holiday - Lunar Teleport: Undercity", r="", d="Teleports the caster to the Undercity.", t="", pt="Teleporta pra Cidade Baixa." }
@@ -26000,7 +26000,7 @@ ConsoleMode_SpellDescDB[57089] = { n="Grellfire", r="", d="Consumes an enemy in 
 ConsoleMode_SpellDescDB[57090] = { n="Grellkin Heal", r="", d="Heal friendly target for $s1.", t="", pt="Cura $s1 no aliado." }
 ConsoleMode_SpellDescDB[57091] = { n="Flamewave", r="", d="Ignites the area surrounding the caster causing $s2 Fire damage to $ghimself:herself; and $57092s1 Fire damage to all nearby enemies every $t2 sec. Lasts $d.", t="Damages self and all nearby enemies.", pt="Imola: $s1 em você e $s2 em todos a cada $t1 s. $d s." }
 ConsoleMode_SpellDescDB[57092] = { n="Flamewave Effect", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57093] = { n="Grellkin Rain of Fire", r="", d="Does $o1 fire damage to all enemies in the area of effect over $d.", t="", pt="$s1 de fogo na área ao longo de $d s." }
+ConsoleMode_SpellDescDB[57093] = { n="Grellkin Rain of Fire", r="", d="Does $o1 fire damage to all enemies in the area of effect over $d.", t="", pt="Causa $s1 de dano de Fogo a todos os inimigos na área de efeito ao longo de $d s." }
 ConsoleMode_SpellDescDB[57094] = { n="Grellkin Fireball", r="", d="Hurls a fiery ball that causes $s1 Fire damage and an additional $o2 damage over $d.", t="$s2 Fire damage every $t2 sec.", pt="Arremessa uma bola ígnea que causa $s1 de dano de Fogo e mais $s2 de dano ao longo de $d s." }
 ConsoleMode_SpellDescDB[57095] = { n="Glittering Dust", r="", d="Casts a smoke bomb stunning nearby enemies for $d.", t="Stunned.", pt="Bomba: atordoa por $d s." }
 ConsoleMode_SpellDescDB[57096] = { n="Smoke Bomb", r="", d="Silences nearby enemies preventing them from casting spells for $d.", t="Cannot cast spells.", pt="Silencia próximos por $d s." }

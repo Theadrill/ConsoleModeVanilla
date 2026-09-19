@@ -71,3 +71,5 @@ O19 | 29u | OK
 O20 | 29u | OK
 O21 | 23u | OK
 O22 | 21u | OK
+O23 | 1u | OK
+# ONDA ORFAOS TURTLE COMPLETA: 1.102 templates player-facing (customs + modificadas).

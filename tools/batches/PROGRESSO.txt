@@ -42,3 +42,4 @@
 38 | 50 | OK
 39 | 2 | OK (fila 1-39 zerada; gerados input 40-45 p/ 278 restantes)
 40 | 50 | OK (revisao: 11 corrigidos)
+41 | 50 | OK (revisao: 16 corrigidos)

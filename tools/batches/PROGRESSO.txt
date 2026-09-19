@@ -76,3 +76,5 @@ O23 | 1u | OK
 # SMS EFETIVO other (183, lotes S01-S04):
 S01 | 50 | OK
 S02 | 50 | OK
+S03 | 50 | OK
+S04 | 33 | OK (SMS other zerado: 183/183)

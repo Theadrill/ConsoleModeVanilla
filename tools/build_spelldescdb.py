@@ -56,6 +56,16 @@ def ranknum(r):
     return int(m.group(1)) if m else 999
 
 
+# Homonimos confirmados por auditoria: mesmo nome, magias diferentes.
+# O ByKey resolve por NOME, entao a entrada do grimorio do jogador vence
+# a do pet/monstro Outrora: "attack|" -> 7389 (pet) em vez de 6603 (basico).
+BYKEY_OVERRIDES = {
+    # nome|grau: id correto
+    "attack|": 6603,      # Ataque basico (desc vazia -> EN integro) vence o pet 7389
+    "barkskin|": 22812,   # Barkskin druida vence o 20655 (texto de cura alheio)
+}
+
+
 def score(entry):
     d = entry.get("d") or ""
     if d and not d.startswith("Teaches "):
@@ -105,6 +115,8 @@ def main():
     for k, (_, sid) in byname_best.items():
         if k + "|" not in bykey:
             bykey[k + "|"] = sid
+    for k, sid in BYKEY_OVERRIDES.items():
+        bykey[k] = sid
 
     with open(OUTPUT, "w", encoding="utf-8", newline="\n") as fh:
         fh.write("-- AUTO-GERADO. NAO EDITAR MANUALMENTE (exceto via spell_pt_authoral.json + rebuild).\n")

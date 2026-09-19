@@ -364,6 +364,21 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         end
         if did then
             descDBEntry = ConsoleMode_SpellDescDB[did]
+            -- FASE 8 anti-trainer: entrada "Teaches ..." nunca e descricao de
+            -- grimorio (ex. "blink|grau1" -> 517). Com grau pedido, tenta a
+            -- base "nome|" antes de aceitar texto de treinador.
+            if descDBEntry and rk ~= "" and descDBEntry.d and
+                string.find(descDBEntry.d, "^Teaches ") then
+                local baseDid = ConsoleMode_SpellDescDB_ByKey[string.lower(spellName) .. "|"]
+                if baseDid and baseDid ~= did then
+                    local baseEntry = ConsoleMode_SpellDescDB[baseDid]
+                    if baseEntry and baseEntry.d and
+                        not string.find(baseEntry.d, "^Teaches ") then
+                        did = baseDid
+                        descDBEntry = baseEntry
+                    end
+                end
+            end
         elseif spellName and spellName ~= "" then
             -- FASE 8 bulk: sem entrada no DBC (patch criptografado ou
             -- server-side), registra nome + texto EN na fila p/ lote futuro.

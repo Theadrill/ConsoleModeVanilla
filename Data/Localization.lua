@@ -558,6 +558,22 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         end
         local ai = 0
         local nArgs = table.getn(args)
+        -- FASE 8 anti-"$ cru": conta os $ do PT; se os numeros extraidos nao
+        -- preenchem todos (template errado p/ o tooltip, ex. homonimo "Attack"
+        -- do pet aplicado no Ataque basico), nao renderiza PT parcial com $
+        -- cru: mantem translatedBody nil p/ cair no EN integro abaixo.
+        local nPh = 0
+        local tmpPt = string.gsub(descDBEntry.pt, "%$[a-z]%d*", function(ph)
+            nPh = nPh + 1
+            return ""
+        end)
+        string.gsub(tmpPt, "%$[a-z]", function(ph)
+            nPh = nPh + 1
+            return ""
+        end)
+        if nArgs < nPh then
+            translatedBody = nil
+        else
         local ptTpl = string.gsub(descDBEntry.pt, "%$[a-z]%d*", function(ph)
             ai = ai + 1
             if ai <= nArgs then
@@ -575,6 +591,7 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
             end
         end)
         translatedBody = ptTpl
+        end
     end
 
     -- 5. FASE 8: sem PT em nenhum nivel, o EN sai INTEGRO (textToTranslate).

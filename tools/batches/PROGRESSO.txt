@@ -50,3 +50,4 @@
 # FASE 8.A COMPLETA: 2.180/2.180 templates com PT (verificado via script).
 # ONDA ORFAOS TURTLE (mpq_work: 1.102 templates, lotes O01-O23):
 O01 | 37u | OK
+O02 | 37u | OK

@@ -44,3 +44,4 @@
 40 | 50 | OK (revisao: 11 corrigidos)
 41 | 50 | OK (revisao: 16 corrigidos)
 42 | 50 | OK (revisao: 22 corrigidos)
+43 | 50 | OK (revisao: 21 corrigidos)

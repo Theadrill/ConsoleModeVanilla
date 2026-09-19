@@ -73,3 +73,6 @@ O21 | 23u | OK
 O22 | 21u | OK
 O23 | 1u | OK
 # ONDA ORFAOS TURTLE COMPLETA: 1.102 templates player-facing (customs + modificadas).
+# SMS EFETIVO other (183, lotes S01-S04):
+S01 | 50 | OK
+S02 | 50 | OK

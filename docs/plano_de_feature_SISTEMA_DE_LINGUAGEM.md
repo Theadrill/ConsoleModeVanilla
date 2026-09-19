@@ -364,6 +364,13 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 1. **Terminar os 2.180 primeiro** (re-auditoria futura dos 750 + lotes 16–44), lote a lote, olho humano item por item, `validate_spell_vars.py` + `luac -p` + commit local por lote, **zero push** sem ordem explícita. Fecha a Fase 8.A com `/reload` + `/cm spelldbg`.
 2. **Depois, varredura MPQ por MPQ:** o extrator atual (`tools/parse_spell_dbc.py`) funde só 2 fontes (snapshot 162 campos + patch-7 local 173 campos). Extrair o `Spell.dbc` de **cada MPQ** do cliente em ordem de precedência, difar contra o vanilla 1.12.1 ID por ID e classificar: (a) **custom Turtle** (ID novo), (b) **original modificado pelo Turtle** (mesmo ID, texto diferente), (c) intacto (ignora). Baldes (a)+(b) com descrição não-vazia viram **fila de órfãos** com o mesmo crivo humano Blizzlike. Critério de pronto: zero descrição SMS/inglesa no grimório do jogador, seja vanilla, modificada ou custom.
 
+#### 8.5 Resultado da execução (19/09 — tudo commitado local)
+- **Fase 8.A COMPLETA:** 2.180/2.180 (lotes 01–45 + inputs 40–45 gerados no caminho). Push autorizado feito.
+- **Onda órfãos Turtle COMPLETA:** varredura snapshot→patch-7 achou 9.989 customs + 3.864 modificadas; triagem player-facing (Rank ou nome em `Spells.lua`) menos 2.723 já cobertos = **1.102 templates** em 23 lotes O01–O23, todos traduzidos/revisados (`tools/mpq_work.json`, `input_orphan_*.json`). Inclui **Revogação Totêmica** (45513) reescrita.
+- **Bug do "Ataque" (Geral) corrigido em 3 camadas:** (1) motor (`Data/Localization.lua`): se os números extraídos não preenchem todos os `$` do PT, cai no EN íntegro em vez de exibir `$` cru; (2) `tools/build_spelldescdb.py`: `BYKEY_OVERRIDES` (`attack|`→6603, `barkskin|`→22812); (3) PT do template pet reescrito em Blizzlike. Extra: fallback anti-trainer (grau→"Teaches" cai para a base).
+- **SMS efetivo "other" zerado:** auditoria pós-norm (`tools/audit_effective_sms.py`, 0 flagged em ranked/orphan) + 183 templates other reescritos (S01–S04).
+- **Restam:** cauda de monstros/NPCs (~1.084 + 2.056 tail, Fases 8.B/8.C) e typos de NOMES (`Armadura de Glugelo`, `Batida no Chão` × `Trovoada`).
+
 ---
 
 ### 🟢 FASE FINAL: Inclusão de mais linguagens (template + idioma de prova)

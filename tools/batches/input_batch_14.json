@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 859,
+    "en": "Teaches Create Spellstone.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Spellstone (Rank 1) [id=918]"
+  },
+  {
+    "ranked_idx": 860,
+    "en": "Teaches Chain Lightning (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Chain Lightning (Rank 1) [id=920]"
+  },
+  {
+    "ranked_idx": 861,
+    "en": "Pick the target's pocket.",
+    "curr_pt": "Furtapeta.",
+    "count": 1,
+    "sample": "Pick Pocket () [id=921]"
+  },
+  {
+    "ranked_idx": 862,
+    "en": "Teaches Exorcism (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Exorcism (Rank 2) [id=931]"
+  },
+  {
+    "ranked_idx": 863,
+    "en": "Teaches Greater Healing Wave (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Healing Wave (Rank 1) [id=940]"
+  },
+  {
+    "ranked_idx": 864,
+    "en": "Teaches Lightning Bolt (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Bolt (Rank 5) [id=944]"
+  },
+  {
+    "ranked_idx": 865,
+    "en": "The caster is surrounded by $n globes of unstable lightning for $d. When a spell, melee or ranged attack hits the caster, the attacker will be struck for $26367s1 Nature damage, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "O conjurador é cercado por $n globos de relâmpago instável por $d s. Quem bater leva $s1 de Natureza e gasta 1 globo. Uma vez a cada 3 s. Só um escudo por vez.",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 4) [id=945]"
+  },
+  {
+    "ranked_idx": 866,
+    "en": "Teaches Lightning Shield (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 4) [id=946]"
+  },
+  {
+    "ranked_idx": 867,
+    "en": "Teaches Curse of Tongues (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Tongues (Rank 1) [id=956]"
+  },
+  {
+    "ranked_idx": 868,
+    "en": "Teaches Greater Healing Wave (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Healing Wave (Rank 2) [id=960]"
+  },
+  {
+    "ranked_idx": 869,
+    "en": "Teaches Moonfire (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Moonfire (Rank 4) [id=962]"
+  },
+  {
+    "ranked_idx": 870,
+    "en": "Teaches Heal (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Heal (Rank 3) [id=964]"
+  },
+  {
+    "ranked_idx": 871,
+    "en": "Sends the caster's group through the twisting nether back to their bind stone.",
+    "curr_pt": "Grupo pelo éter até a pedra.",
+    "count": 1,
+    "sample": "Group Astral Recall (Rank 1) [id=966]"
+  },
+  {
+    "ranked_idx": 872,
+    "en": "Teaches Shadow Word: Pain (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Pain (Rank 3) [id=971]"
+  },
+  {
+    "ranked_idx": 873,
+    "en": "Teaches Serpent Totem (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Serpent Totem (Rank 3) [id=975]"
+  },
+  {
+    "ranked_idx": 874,
+    "en": "Teaches Corruption (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Corruption (Rank 3) [id=979]"
+  },
+  {
+    "ranked_idx": 875,
+    "en": "Teaches Curse of Agony (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Agony (Rank 1) [id=981]"
+  },
+  {
+    "ranked_idx": 876,
+    "en": "Revive your pet, returning it to life with $s1% of its health.",
+    "curr_pt": "Revive o pet com $s1% da vida.",
+    "count": 1,
+    "sample": "Revive Pet () [id=982]"
+  },
+  {
+    "ranked_idx": 877,
+    "en": "Teaches Heal (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Heal (Rank 4) [id=983]"
+  },
+  {
+    "ranked_idx": 878,
+    "en": "Teaches Holy Smite (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Smite (Rank 4) [id=985]"
+  },
+  {
+    "ranked_idx": 879,
+    "en": "Teaches Healing Totem (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Totem (Rank 5) [id=987]"
+  },
+  {
+    "ranked_idx": 880,
+    "en": "Teaches Dispel Magic (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Dispel Magic (Rank 2) [id=989]"
+  },
+  {
+    "ranked_idx": 881,
+    "en": "Conjures $s1 $lloaf:loaves; of rye, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 3) [id=990]"
+  },
+  {
+    "ranked_idx": 882,
+    "en": "Teaches Conjure Food (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 3) [id=991]"
+  },
+  {
+    "ranked_idx": 883,
+    "en": "Teaches Shadow Word: Pain (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Pain (Rank 4) [id=993]"
+  },
+  {
+    "ranked_idx": 884,
+    "en": "Teaches Prayer of Healing (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Prayer of Healing (Rank 2) [id=997]"
+  },
+  {
+    "ranked_idx": 885,
+    "en": "Teaches Shadow Word: Fumble (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Fumble (Rank 2) [id=999]"
+  },
+  {
+    "ranked_idx": 886,
+    "en": "Teaches Healing Totem (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Totem (Rank 2) [id=1001]"
+  },
+  {
+    "ranked_idx": 887,
+    "en": "Teaches Shadow Word: Befuddle (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Befuddle (Rank 2) [id=1003]"
+  },
+  {
+    "ranked_idx": 888,
+    "en": "Teaches Holy Smite (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Smite (Rank 5) [id=1005]"
+  },
+  {
+    "ranked_idx": 889,
+    "en": "Teaches Inner Fire (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Inner Fire (Rank 4) [id=1007]"
+  },
+  {
+    "ranked_idx": 890,
+    "en": "Amplifies magic used against the targeted party member, increasing damage taken from spells by $10169s1% and healing spells by $10169s2%.  Lasts $10169d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Amplify Magic () [id=1008]"
+  },
+  {
+    "ranked_idx": 891,
+    "en": "Pummels an enemy.",
+    "curr_pt": "Esmurra o inimigo.",
+    "count": 1,
+    "sample": "Savage Pummel (Rank 1) [id=1009]"
+  },
+  {
+    "ranked_idx": 892,
+    "en": "Curse the target with idiocy, reducing Intellect and Spirit by $s1 every $t3 seconds until each is reduced by a total of $*15;s1.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Idiocy (Rank 1) [id=1010]"
+  },
+  {
+    "ranked_idx": 893,
+    "en": "Teaches Curse of Agony (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Agony (Rank 2) [id=1015]"
+  },
+  {
+    "ranked_idx": 894,
+    "en": "Teaches Divine Shield (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Divine Shield (Rank 2) [id=1021]"
+  },
+  {
+    "ranked_idx": 895,
+    "en": "Teaches Seal of Protection (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Protection (Rank 1) [id=1023]"
+  },
+  {
+    "ranked_idx": 896,
+    "en": "Teaches Corruption (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Corruption (Rank 2) [id=1025]"
+  },
+  {
+    "ranked_idx": 897,
+    "en": "Teaches Holy Light (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Light (Rank 4) [id=1027]"
+  },
+  {
+    "ranked_idx": 898,
+    "en": "Teaches Curse of Agony (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Agony (Rank 3) [id=1029]"
+  },
+  {
+    "ranked_idx": 899,
+    "en": "Teaches Curse of Weakness (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Weakness (Rank 3) [id=1031]"
+  },
+  {
+    "ranked_idx": 900,
+    "en": "Places a Blessing on a friendly target that lasts $d.  Every time the Blessed character strikes an enemy, the Blessed character gains $5281s1 health.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Reckoning (Rank 2) [id=1034]"
+  },
+  {
+    "ranked_idx": 901,
+    "en": "Teaches Seal of Fury (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Fury (Rank 1) [id=1037]"
+  },
+  {
+    "ranked_idx": 902,
+    "en": "Places a Blessing on the party member, reducing the amount of all threat generated by $s1% for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Salvation () [id=1038]"
+  },
+  {
+    "ranked_idx": 903,
+    "en": "Teaches Seal of Salvation (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Salvation (Rank 1) [id=1039]"
+  },
+  {
+    "ranked_idx": 904,
+    "en": "Teaches Holy Light (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Light (Rank 5) [id=1043]"
+  },
+  {
+    "ranked_idx": 905,
+    "en": "Teaches Fear (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fear (Rank 1) [id=1045]"
+  },
+  {
+    "ranked_idx": 906,
+    "en": "Teaches Create Healthstone.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Healthstone (Rank 3) [id=1049]"
+  },
+  {
+    "ranked_idx": 907,
+    "en": "Teaches Counterspell.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Counterspell (Rank 1) [id=1053]"
+  },
+  {
+    "ranked_idx": 908,
+    "en": "Teaches Rejuvenation (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rejuvenation (Rank 2) [id=1059]"
+  }
+]

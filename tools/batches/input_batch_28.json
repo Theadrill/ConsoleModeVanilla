@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1620,
+    "en": "Decrease the energy cost of Shred by $s1. Additionally, increases the damage of Shred by $52399s1% for $52399d sec after entering Cat Form.",
+    "curr_pt": "Reduz o custo de Dilacerar em $s1 e aumenta seu dano em $s2% por $d s após virar Gato.",
+    "count": 1,
+    "sample": "Improved Shred (Rank 1) [id=16966]"
+  },
+  {
+    "ranked_idx": 1621,
+    "en": "Decrease the energy cost of Shred by $s1. Additionally, increases the damage of Shred by $52400s1% for $52400d sec after entering Cat Form.",
+    "curr_pt": "Reduz o custo de Dilacerar em $s1 e aumenta seu dano em $s2% por $d s após virar Gato.",
+    "count": 1,
+    "sample": "Improved Shred (Rank 2) [id=16968]"
+  },
+  {
+    "ranked_idx": 1622,
+    "en": "Causes you to charge an enemy, immobilizing and interrupting any spell being cast for $19675d.",
+    "curr_pt": "Investida: imobiliza e interrompe por $d s.",
+    "count": 1,
+    "sample": "Feral Charge () [id=16979]"
+  },
+  {
+    "ranked_idx": 1623,
+    "en": "When activated, allows the caster to return to life at $s1% health and mana.  This ability may only be used when the caster is dead.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Reincarnation () [id=17130]"
+  },
+  {
+    "ranked_idx": 1624,
+    "en": "Heals an ally for an amount equal to the caster's maximum health. Drains all of the caster's remaining mana when used.",
+    "curr_pt": "Cura um aliado com valor igual à sua vida máxima, drenando toda a sua mana.",
+    "count": 1,
+    "sample": "Lay on Hands (Rank 1) [id=17233]"
+  },
+  {
+    "ranked_idx": 1625,
+    "en": "While active, any time an enemy strikes the caster they have a $h% chance to become afflicted by Entangling Roots (Rank 6).  Only useable outdoors.  $n charge.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Nature's Grasp (Rank 6) [id=17329]"
+  },
+  {
+    "ranked_idx": 1628,
+    "en": "Gives you an extra attack for $s1% weapon damage and increases the next $52412n sources of Nature damage you deal by $52412s1%.  Lasts $52412d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Stormstrike () [id=17364]"
+  },
+  {
+    "ranked_idx": 1629,
+    "en": "Increases an ally's casting speed by $s1% for $d.",
+    "curr_pt": "Lançar +$s1% por $d s.",
+    "count": 1,
+    "sample": "Arcane Focus () [id=17633]"
+  },
+  {
+    "ranked_idx": 1630,
+    "en": "Taunts all enemies within $a1 yards, dealing $s2 Shadow damage and increasing the chance that they will attack the Voidwalker.",
+    "curr_pt": "Provoca todos os inimigos a até $a1 m, causando $s1 de dano de Sombra e focando o Emissário do Vazio.",
+    "count": 1,
+    "sample": "Suffering (Rank 1) [id=17735]"
+  },
+  {
+    "ranked_idx": 1631,
+    "en": "Taunts all enemies within $a1 yards, dealing $s2 Shadow damage and increasing the chance that they will attack the Voidwalker.  More effective than Suffering (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Suffering (Rank 2) [id=17750]"
+  },
+  {
+    "ranked_idx": 1632,
+    "en": "Taunts all enemies within $a1 yards, dealing $s2 Shadow damage and increasing the chance that they will attack the Voidwalker.  More effective than Suffering (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Suffering (Rank 3) [id=17751]"
+  },
+  {
+    "ranked_idx": 1633,
+    "en": "Taunts all enemies within $a1 yards, dealing $s2 Shadow damage and increasing the chance that they will attack the Voidwalker.  More effective than Suffering (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Suffering (Rank 4) [id=17752]"
+  },
+  {
+    "ranked_idx": 1634,
+    "en": "Curses nearby enemies with agony, inflicting Shadow damage every $t1 sec. over $d. Only one curse per warlock can be active on any one target.",
+    "curr_pt": "Agonia: Sombra a cada $t1 s por $d s. Uma maldição por Bruxo.",
+    "count": 1,
+    "sample": "Curse of Agony () [id=17771]"
+  },
+  {
+    "ranked_idx": 1635,
+    "en": "Causes 15% of the Mana drained by your Drain Mana spell to damage the opponent.",
+    "curr_pt": "15% da mana drenada pelo Dreno de Mana fere o oponente.",
+    "count": 1,
+    "sample": "Improved Drain Mana (Rank 1) [id=17864]"
+  },
+  {
+    "ranked_idx": 1636,
+    "en": "Creates a Firestone which can be equipped in the off hand.  When equipped, enchants the main hand weapon with fire, granting each attack a chance to deal $17933s1 additional Fire damage.  In addition, equipping the Firestone increases the damage done by fire spells by $23481s1.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Firestone () [id=17951]"
+  },
+  {
+    "ranked_idx": 1637,
+    "en": "Increases the critical strike damage bonus of your Destruction spells by $s1%.",
+    "curr_pt": "Aumenta o bônus de dano crítico das magias de Destruição em $s1%.",
+    "count": 1,
+    "sample": "Ruin (Rank 1) [id=17959]"
+  },
+  {
+    "ranked_idx": 1638,
+    "en": "Gives your Rain of Fire, Hellfire, Conflagrate, and Soul Fire spells a 26% chance to stun the target for $18093d.",
+    "curr_pt": "Chuva de Fogo, Fogo Vivo, Conflagrar e Fogo da Alma têm 26% de chance de atordoar por $d s.",
+    "count": 1,
+    "sample": "Pyroclasm (Rank 2) [id=18073]"
+  },
+  {
+    "ranked_idx": 1639,
+    "en": "Gives your Rain of Fire, Hellfire, Conflagrate, and Soul Fire spells a 13% chance to stun the target for $18093d.",
+    "curr_pt": "Chuva de Fogo, Fogo Vivo, Conflagrar e Fogo da Alma têm 13% de chance de atordoar por $d s.",
+    "count": 1,
+    "sample": "Pyroclasm (Rank 1) [id=18096]"
+  },
+  {
+    "ranked_idx": 1640,
+    "en": "Encases the caster in a layer of frost that lasts $d. The thick ice increases armor by $s1, slows melee attackers' movement to $18101s2%, and increases the time between their attacks by $18101s1%.",
+    "curr_pt": "Explosão Arcana no conjurador.",
+    "count": 1,
+    "sample": "Frost Armor () [id=18100]"
+  },
+  {
+    "ranked_idx": 1641,
+    "en": "The caster is surrounded by shadows.  When a spell, melee or ranged attack hits the caster, the attacker will be struck for $28377s1 Shadow damage.  Attackers can only be damaged once every few seconds.  This damage causes no threat.  $n charges.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadowguard (Rank 1) [id=18137]"
+  },
+  {
+    "ranked_idx": 1642,
+    "en": "Increases the effect of your Curse of Weakness by $s1%.",
+    "curr_pt": "Aumenta o efeito de Maldição de Fraqueza em $s1%.",
+    "count": 1,
+    "sample": "zzOLD Improved Curse of Weakness (Rank 3) [id=18181]"
+  },
+  {
+    "ranked_idx": 1643,
+    "en": "TEST: Gives you a $s2% chance of entering a Clearcasting state after any damage spell hits a target.  The Clearcasting state reduces the mana cost of your next damage spell by $12536s1%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "TEST Arcane Concentration (Rank 5) [id=18189]"
+  },
+  {
+    "ranked_idx": 1644,
+    "en": "Reduces the target's movement speed by $s1% for $d.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Exhaustion () [id=18223]"
+  },
+  {
+    "ranked_idx": 1645,
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   If you eat for 10 seconds will also increase your Agility by $18192s for $18192d. ",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=18230]"
+  },
+  {
+    "ranked_idx": 1646,
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   Also increases your Spirit by $18193s for $18193d. ",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=18231]"
+  },
+  {
+    "ranked_idx": 1647,
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   Also restores $18222s1 health every 5 seconds for $18222d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=18232]"
+  },
+  {
+    "ranked_idx": 1648,
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   Also restores $18194s Mana every 5 seconds for $18194d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=18233]"
+  },
+  {
+    "ranked_idx": 1649,
+    "en": "Reduces target enemy's attack power by $s1 for $d.",
+    "curr_pt": "Reduz o poder de ataque do inimigo em $s1 por $d s.",
+    "count": 1,
+    "sample": "Cripple (Rank 1) [id=18381]"
+  },
+  {
+    "ranked_idx": 1650,
+    "en": "Inflicts $s1 Fire damage to all enemies in a selected area.",
+    "curr_pt": "Protege você na hora com $s1 de absorção e +$s2% de dano de Gelo por $d s, sem interrupção.",
+    "count": 1,
+    "sample": "Fireball () [id=18392]"
+  },
+  {
+    "ranked_idx": 1651,
+    "en": "Causes 30% of the Mana drained by your Drain Mana spell to damage the opponent.",
+    "curr_pt": "30% da mana drenada pelo Dreno de Mana fere o oponente.",
+    "count": 1,
+    "sample": "Improved Drain Mana (Rank 2) [id=18393]"
+  },
+  {
+    "ranked_idx": 1652,
+    "en": "The warrior enters a berserker rage, becoming immune to Fear and Incapacitate effects and generating extra rage when taking damage.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Berserker Rage () [id=18499]"
+  },
+  {
+    "ranked_idx": 1653,
+    "en": "Begins a ritual that summons a Doomguard under the command of the caster for $53222d. Once control is lost, the Doomguard attacks the caster until one of them dies. Requires the caster and 2 additional party members to complete the ritual.  In order to participate, all players must right-click the portal and not move until the ritual is complete.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ritual of Doom () [id=18540]"
+  },
+  {
+    "ranked_idx": 1654,
+    "en": "Stings an enemy, reducing its Strength and Agility by $s1 for $d.",
+    "curr_pt": "Ferrão: -For e Agi $s1 por $d s.",
+    "count": 1,
+    "sample": "Scorpid Sting () [id=18545]"
+  },
+  {
+    "ranked_idx": 1655,
+    "en": "Consumes a Rejuvenation or Regrowth effect on a friendly target to instantly heal them an amount equal to 12 sec. of Rejuvenation or 18 sec. of Regrowth.",
+    "curr_pt": "Consome Rejuvenescer/Recrescer do aliado e cura na hora o valor de 12 s de Reju ou 18 s de Recres.",
+    "count": 1,
+    "sample": "Swiftmend () [id=18562]"
+  },
+  {
+    "ranked_idx": 1656,
+    "en": "Curses nearby enemies with agony, inflicting Shadow damage every $t1 sec. for $d. Only one curse per warlock can be active on any one target.",
+    "curr_pt": "Agonia: Sombra a cada $t1 s por $d s. Uma maldição por Bruxo.",
+    "count": 1,
+    "sample": "Curse of Agony () [id=18671]"
+  },
+  {
+    "ranked_idx": 1657,
+    "en": "Your next Common demon summoning spell has its casting time reduced by $/1000;S1 sec and its Mana cost reduced by $s2%.",
+    "curr_pt": "Próxima invocação: -$s1 s e -$s2% mana.",
+    "count": 1,
+    "sample": "Fel Domination () [id=18708]"
+  },
+  {
+    "ranked_idx": 1658,
+    "en": "Causes the caster's next $n melee attacks to strike an additional nearby enemy. This battle frenzy is tiring, however, and lasts $d. at most.",
+    "curr_pt": "Próximos $n corpo a corpo atingem +1. Até $d s.",
+    "count": 1,
+    "sample": "Sweeping Strikes () [id=18765]"
+  },
+  {
+    "ranked_idx": 1659,
+    "en": "When activated, sacrifices your summoned demon to grant you an effect. The effect is canceled if any demon is summoned or enslaved.\n\nImp: Increases your Fire damage by $18789s1%.\n\nVoidwalker: Restores $18790s1% of total Health every $18790t1 sec.\n\nSuccubus: Increases your Shadow damage by $18791s1%.\n\nFelhunter: Restores $18792s1% of total Mana every $18792t1 sec.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Demonic Sacrifice () [id=18788]"
+  },
+  {
+    "ranked_idx": 1660,
+    "en": "When struck in combat has a 3% chance of stealing $18817s1 life from target enemy.",
+    "curr_pt": "Acerto: 3% de roubar $s1.",
+    "count": 1,
+    "sample": "Drain Life () [id=18815]"
+  },
+  {
+    "ranked_idx": 1661,
+    "en": "When struck in combat has a 1% chance of dealing $18818s1 Fire damage to all targets around you.",
+    "curr_pt": "Acerto: 1% de $s1 de Fogo em todos.",
+    "count": 1,
+    "sample": "Flamestrike () [id=18816]"
+  },
+  {
+    "ranked_idx": 1662,
+    "en": "Conjures a Lily Root that restores health and mana when eaten.",
+    "curr_pt": "Conjura uma Raiz de Lírio que restaura vida e mana ao comer.",
+    "count": 1,
+    "sample": "Conjure Lily Root (Rank 1) [id=18831]"
+  },
+  {
+    "ranked_idx": 1663,
+    "en": "Teleports the caster to the Moonglade.",
+    "curr_pt": "Aumenta sua chance de aparar em $s1%.",
+    "count": 1,
+    "sample": "Teleport: Moonglade () [id=18960]"
+  },
+  {
+    "ranked_idx": 1664,
+    "en": "Blasts the enemy for $s1 Nature damage.",
+    "curr_pt": "Detona o inimigo com $s1 de dano de Natureza.",
+    "count": 1,
+    "sample": "Lightning (Rank 1) [id=18980]"
+  },
+  {
+    "ranked_idx": 1665,
+    "en": "Heal yourself of $s1 damage.",
+    "curr_pt": "Cura $s1 de dano em você.",
+    "count": 1,
+    "sample": "Heal on Kill (Rank 1) [id=18984]"
+  },
+  {
+    "ranked_idx": 1666,
+    "en": "Increases your resistance to silence by $s1%.",
+    "curr_pt": "Resistência a silêncio +$s1%.",
+    "count": 1,
+    "sample": "Resist Silence (Rank 1) [id=18985]"
+  },
+  {
+    "ranked_idx": 1667,
+    "en": "Calls down a blizzard that lasts $d., inflicting $s1 Frost damage every $t1 sec. to all enemies in the nearby area.",
+    "curr_pt": "Nevasca $d s: $s1 de Gelo a cada $t1 s na área.",
+    "count": 1,
+    "sample": "Blizzard () [id=19099]"
+  },
+  {
+    "ranked_idx": 1668,
+    "en": "Shouts at an enemy, paralyzing it with terror for $d. and causing all other nearby enemies to flee in fear.",
+    "curr_pt": "Grita: paralisa por $d s, resto foge.",
+    "count": 1,
+    "sample": "Intimidating Shout () [id=19134]"
+  },
+  {
+    "ranked_idx": 1669,
+    "en": "The priest becomes surrounded with anti-magic energy.  Any successful spell cast against the priest will burn $19267s1 of the attacker's Mana, causing 1 Shadow damage for each point of Mana burned.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Feedback (Rank 2) [id=19271]"
+  },
+  {
+    "ranked_idx": 1670,
+    "en": "The priest becomes surrounded with anti-magic energy.  Any successful spell cast against the priest will burn $19268s1 of the attacker's Mana, causing 1 Shadow damage for each point of Mana burned.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Feedback (Rank 3) [id=19273]"
+  },
+  {
+    "ranked_idx": 1671,
+    "en": "The priest becomes surrounded with anti-magic energy.  Any successful spell cast against the priest will burn $19269s1 of the attacker's Mana, causing 1 Shadow damage for each point of Mana burned.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Feedback (Rank 4) [id=19274]"
+  }
+]

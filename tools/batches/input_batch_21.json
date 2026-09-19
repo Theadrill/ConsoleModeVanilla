@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1223,
+    "en": "Imbue the Shaman's weapon with frost.  Each hit has a chance of causing $8037s2 additional Frost damage and slowing the target's movement speed by $8037s1% for $8037d.  Lasts for1 hour.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbrand Weapon (Rank 2) [id=8038]"
+  },
+  {
+    "ranked_idx": 1226,
+    "en": "Teaches Defensive Stance, Sunder Armor (Rank 1), and Taunt (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Path of Defense (Rank 1) [id=8121]"
+  },
+  {
+    "ranked_idx": 1227,
+    "en": "Teaches Taunt (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Taunt (Rank 1) [id=8133]"
+  },
+  {
+    "ranked_idx": 1228,
+    "en": "The caster is surrounded by $n globes of unstable lightning for $d. When a spell, melee or ranged attack hits the caster, the attacker will be struck for $26369s1 Nature damage, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "O conjurador é cercado por $n globos de relâmpago instável por $d s. Quem bater leva $s1 de Natureza e gasta 1 globo. Uma vez a cada 3 s. Só um escudo por vez.",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 5) [id=8134]"
+  },
+  {
+    "ranked_idx": 1229,
+    "en": "Reduces an enemy's casting speed by $s1% for $d.",
+    "curr_pt": "Aumenta a resistência a Gelo em $s1.",
+    "count": 1,
+    "sample": "Befuddlement (Rank 1) [id=8140]"
+  },
+  {
+    "ranked_idx": 1230,
+    "en": "Summons a Tremor Totem with $s1 health at the feet of the caster that shakes the ground around it, removing Fear, Charm and Sleep effects from party members within $8146a1 yards.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Tremor Totem () [id=8143]"
+  },
+  {
+    "ranked_idx": 1231,
+    "en": "Inflicts normal damage plus $s1 to an enemy when attacking from stealth, stunning the target for $d.",
+    "curr_pt": "Furtivo: normal +$s1 e atordoa por $d s.",
+    "count": 1,
+    "sample": "Surprise Attack (Rank 1) [id=8151]"
+  },
+  {
+    "ranked_idx": 1236,
+    "en": "Summons a Poison Cleansing Totem with $s1 health at the feet of the caster that attempts to remove 1 poison effect from party members within $8168a1 yards every $8167t1 seconds.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Poison Cleansing Totem () [id=8166]"
+  },
+  {
+    "ranked_idx": 1237,
+    "en": "Summons a Disease Cleansing Totem with $s1 health at the feet of the caster that attempts to remove 1 disease effect from party members within $8171a1 yards every $8172t1 seconds.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Disease Cleansing Totem () [id=8170]"
+  },
+  {
+    "ranked_idx": 1238,
+    "en": "Summons a guardian felhunter that will protect you for $d.",
+    "curr_pt": "Invoca caçador guardião por $d s.",
+    "count": 1,
+    "sample": "Summon Felhunter (Summon) [id=8176]"
+  },
+  {
+    "ranked_idx": 1239,
+    "en": "Summons a Grounding Totem with $s1 health at the feet of the caster that will redirect one harmful spell cast on a nearby party member to itself every $8179t1 seconds.  Will not redirect area of effect spells.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Grounding Totem () [id=8177]"
+  },
+  {
+    "ranked_idx": 1243,
+    "en": "Teaches Stoneskin Totem (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Stoneskin Totem (Rank 1) [id=8199]"
+  },
+  {
+    "ranked_idx": 1244,
+    "en": "Teaches Searing Totem (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Searing Totem (Rank 1) [id=8200]"
+  },
+  {
+    "ranked_idx": 1245,
+    "en": "Teaches Healing Stream Totem (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Stream Totem (Rank 1) [id=8201]"
+  },
+  {
+    "ranked_idx": 1247,
+    "en": "Imbue the Shaman's weapon with wind. Each hit has a 20% chance of granting you $8233s2 extra $lattack:attacks; with $8233s1 extra melee attack power. Lasts for 1 hour.",
+    "curr_pt": "Arma com vento: 20% de +$s1 ataques com +$s2 de poder por 1 hora.",
+    "count": 1,
+    "sample": "Windfury Weapon (Rank 1) [id=8232]"
+  },
+  {
+    "ranked_idx": 1248,
+    "en": "Imbue the Shaman's weapon with wind. Each hit has a 20% chance of granting you $8236s2 extra $lattack:attacks; with $8236s1 extra melee attack power. Lasts for 1 hour.",
+    "curr_pt": "Arma com vento: 20% de +$s1 ataques com +$s2 de poder por 1 hora.",
+    "count": 1,
+    "sample": "Windfury Weapon (Rank 2) [id=8235]"
+  },
+  {
+    "ranked_idx": 1250,
+    "en": "Summons an Elemental Protection Totem at the caster's feet. Totem lasts $d. and increases nearby party members' resistance to harmful magic.",
+    "curr_pt": "Totem de Proteção no chão por $d s: +resistência mágica.",
+    "count": 1,
+    "sample": "Elemental Protection Totem (Rank 1) [id=8262]"
+  },
+  {
+    "ranked_idx": 1251,
+    "en": "Summons a Lava Spout Totem at the caster's feet. Totem lasts $d. and inflicts $8265s1 Fire damage to nearby enemies every $8266t1 sec.",
+    "curr_pt": "Totem de Lava $d s: $s1 de Fogo a cada $t1 s.",
+    "count": 1,
+    "sample": "Lava Spout Totem (Rank 1) [id=8264]"
+  },
+  {
+    "ranked_idx": 1252,
+    "en": "Heals wielder of $o1 damage over $d.",
+    "curr_pt": "Cura $s1 em $d s no portador.",
+    "count": 1,
+    "sample": "Julie's Blessing (Rank 1) [id=8348]"
+  },
+  {
+    "ranked_idx": 1253,
+    "en": "Launches Arcane Missiles at the enemy, causing $8419s1 Arcane damage every $8419d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 4) [id=8416]"
+  },
+  {
+    "ranked_idx": 1254,
+    "en": "Launches Arcane Missiles at the enemy, causing $8418s1 Arcane damage every $8418d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 5) [id=8417]"
+  },
+  {
+    "ranked_idx": 1257,
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem grants a chance to gain extra main hand weapon attacks to party members, if they are within $51367a1 yards.  Each hit has a 20% chance of granting the attacker $51368s1 extra $lattack:attacks;.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Windfury Totem () [id=8512]"
+  },
+  {
+    "ranked_idx": 1258,
+    "en": "Damage caused by the target is reduced by $s1 for $d.",
+    "curr_pt": "Dano do alvo -$s1 por $d s.",
+    "count": 1,
+    "sample": "Curse of Weakness () [id=8552]"
+  },
+  {
+    "ranked_idx": 1259,
+    "en": "Teaches Berserker Stance (Rank 1).  Teaches Intercept (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Path of the Berserker (Rank 1) [id=8616]"
+  },
+  {
+    "ranked_idx": 1260,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 60-90 damage\n   2 points: 105-135 damage\n   3 points: 150-180 damage\n   4 points: 195-225 damage\n   5 points: 240-270 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 5) [id=8623]"
+  },
+  {
+    "ranked_idx": 1261,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 99-143 damage\n   2 points: 176-220 damage\n   3 points: 253-297 damage\n   4 points: 330-374 damage\n   5 points: 407-451 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 6) [id=8624]"
+  },
+  {
+    "ranked_idx": 1262,
+    "en": "Backstab the target, causing $s2% of weapon damage plus an additional $s1 to the target.  Must be stealthed and behind the target.  Awards $s3 combo point.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (TEST) (Rank 1) [id=8627]"
+  },
+  {
+    "ranked_idx": 1263,
+    "en": "Finishing move that causes damage over time, increased by your Attack Power.  Lasts longer per combo point:\n   1 point  : 60 damage over 8 secs\n   2 points: 90 damage over 10 secs\n   3 points: 126 damage over 12 secs\n   4 points: 168 damage over 14 secs\n   5 points: 216 damage over 16 secs",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rupture (Rank 2) [id=8639]"
+  },
+  {
+    "ranked_idx": 1264,
+    "en": "Finishing move that causes damage over time, increased by your Attack Power.  Lasts longer per combo point:\n   1 point  : 88 damage over 8 secs\n   2 points: 130 damage over 10 secs\n   3 points: 180 damage over 12 secs\n   4 points: 238 damage over 14 secs\n   5 points: 304 damage over 16 secs",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rupture (Rank 3) [id=8640]"
+  },
+  {
+    "ranked_idx": 1265,
+    "en": "Finishing move that stuns the target.  Lasts longer per combo point:\n   1 point  : 2 seconds\n   2 points: 3 seconds\n   3 points: 4 seconds\n   4 points: 5 seconds\n   5 points: 6 seconds",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Kidney Shot (Rank 2) [id=8643]"
+  },
+  {
+    "ranked_idx": 1266,
+    "en": "Ambush the target, causing $s2% melee damage plus 70 to the target.  Must be stealthed and behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ambush (Rank 1) [id=8676]"
+  },
+  {
+    "ranked_idx": 1267,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy which instantly inflicts $8680s1 Nature damage.  40 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison (Rank 1) [id=8679]"
+  },
+  {
+    "ranked_idx": 1268,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy which instantly inflicts $8680s1 Nature damage.  40 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison (Rank 1) [id=8681]"
+  },
+  {
+    "ranked_idx": 1269,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy which instantly inflicts $8685s1 Nature damage.  55 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison II (Rank 2) [id=8686]"
+  },
+  {
+    "ranked_idx": 1270,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy which instantly inflicts $8685s1 Nature damage.  55 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison II (Rank 2) [id=8687]"
+  },
+  {
+    "ranked_idx": 1271,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy which instantly inflicts $8689s1 Nature damage.  70 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison III (Rank 3) [id=8688]"
+  },
+  {
+    "ranked_idx": 1272,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy which instantly inflicts $8689s1 Nature damage.  70 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison III (Rank 3) [id=8691]"
+  },
+  {
+    "ranked_idx": 1273,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, increasing their casting time by $8692s1% for $8692d.  75 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind-numbing Poison II (Rank 2) [id=8693]"
+  },
+  {
+    "ranked_idx": 1274,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy, increasing their casting time by $8692s1% for $8692d.  75 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind-numbing Poison II (Rank 2) [id=8694]"
+  },
+  {
+    "ranked_idx": 1275,
+    "en": "Call forth a felhunter using the summoning circle.",
+    "curr_pt": "Invoca Caçador Vil no círculo.",
+    "count": 1,
+    "sample": "Summon Felhunter (Rank 1) [id=8712]"
+  },
+  {
+    "ranked_idx": 1276,
+    "en": "Learn Summon Felhunter.",
+    "curr_pt": "Aprende Invocar Caçador Vil.",
+    "count": 1,
+    "sample": "Summon Felhunter (Summon) [id=8717]"
+  },
+  {
+    "ranked_idx": 1277,
+    "en": "Backstab the target, causing $s2% melee damage plus 90 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 5) [id=8721]"
+  },
+  {
+    "ranked_idx": 1278,
+    "en": "Summons $s1 $lSuccubus:Succubi; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Súcubos até dispensar.",
+    "count": 1,
+    "sample": "Summon Succubus () [id=8722]"
+  },
+  {
+    "ranked_idx": 1279,
+    "en": "Ambush the target, causing $s2% melee damage plus 100 to the target.  Must be stealthed and behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ambush (Rank 2) [id=8724]"
+  },
+  {
+    "ranked_idx": 1280,
+    "en": "Ambush the target, causing $s2% melee damage plus 125 to the target.  Must be stealthed and behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ambush (Rank 3) [id=8725]"
+  },
+  {
+    "ranked_idx": 1281,
+    "en": "Conjures food to eat.",
+    "curr_pt": "Conjura comida.",
+    "count": 1,
+    "sample": "Conjure Food (Rank 1) [id=8736]"
+  },
+  {
+    "ranked_idx": 1282,
+    "en": "Surrounds an ally with $n balls of lightning that have $h% chance of striking melee or ranged attackers for $s1 damage. Each time the lightning shield strikes, a ball of lightning dissipates. Thus, the shield expires after $d. or after it has struck $n times.  Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 4) [id=8788]"
+  },
+  {
+    "ranked_idx": 1283,
+    "en": "Casts a smoke bomb, stunning nearby enemies for $d. and putting the caster into stealth mode.",
+    "curr_pt": "Bomba: atordoa por $d s e furtivo.",
+    "count": 1,
+    "sample": "Smoke Bomb () [id=8817]"
+  },
+  {
+    "ranked_idx": 1284,
+    "en": "Slam your opponent, causing $45964s1% weapon damage.  Can be used while moving.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Slam (Rank 2) [id=8820]"
+  },
+  {
+    "ranked_idx": 1285,
+    "en": "Puts the caster in stealth mode for $d.",
+    "curr_pt": "Furtivo por $d s.",
+    "count": 1,
+    "sample": "Stealth () [id=8822]"
+  }
+]

@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 909,
+    "en": "Teaches Entangling Roots (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Entangling Roots (Rank 2) [id=1063]"
+  },
+  {
+    "ranked_idx": 910,
+    "en": "Shapeshift into aquatic form, increasing swim speed by $5421s1% and allowing the druid to breathe underwater.  Also protects the caster from Polymorph effects.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Aquatic Form (Shapeshift) [id=1066]"
+  },
+  {
+    "ranked_idx": 911,
+    "en": "Teaches Faerie Fire (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Faerie Fire (Rank 3) [id=1070]"
+  },
+  {
+    "ranked_idx": 912,
+    "en": "Teaches Thorns (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Thorns (Rank 3) [id=1076]"
+  },
+  {
+    "ranked_idx": 913,
+    "en": "Finishing move that causes damage over time.  Damage increases per combo point and by your Attack Power:\n   1 point  : 42 damage over $d.\n   2 points: 66 damage over $d.\n   3 points: 90 damage over $d.\n   4 points: 114 damage over $d.\n   5 points: 138 damage over $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rip (Rank 1) [id=1079]"
+  },
+  {
+    "ranked_idx": 914,
+    "en": "Teaches Shadow Bolt (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Bolt (Rank 4) [id=1089]"
+  },
+  {
+    "ranked_idx": 915,
+    "en": "Teaches Immolate (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolate (Rank 3) [id=1095]"
+  },
+  {
+    "ranked_idx": 916,
+    "en": "Teaches Seal of Wisdom (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Wisdom (Rank 3) [id=1105]"
+  },
+  {
+    "ranked_idx": 917,
+    "en": "Teaches Corruption (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Corruption (Rank 1) [id=1107]"
+  },
+  {
+    "ranked_idx": 918,
+    "en": "Teaches Curse of Weakness (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Weakness (Rank 2) [id=1109]"
+  },
+  {
+    "ranked_idx": 919,
+    "en": "Purifies the friendly target, removing $s1 disease effect and $s2 poison effect.",
+    "curr_pt": "Purifica: -$s1 doença e -$s2 veneno do aliado.",
+    "count": 1,
+    "sample": "Purify () [id=1152]"
+  },
+  {
+    "ranked_idx": 920,
+    "en": "Teaches Heal (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Heal (Rank 2) [id=1153]"
+  },
+  {
+    "ranked_idx": 921,
+    "en": "Restores 12 health per minute.",
+    "curr_pt": "12 de vida por minuto.",
+    "count": 1,
+    "sample": "Regeneration (Rank 2) [id=1181]"
+  },
+  {
+    "ranked_idx": 922,
+    "en": "Restores 24 health per minute.",
+    "curr_pt": "24 de vida por minuto.",
+    "count": 1,
+    "sample": "Regeneration (Rank 3) [id=1182]"
+  },
+  {
+    "ranked_idx": 923,
+    "en": "Restores 36 health per minute.",
+    "curr_pt": "36 de vida por minuto.",
+    "count": 1,
+    "sample": "Regeneration (Rank 4) [id=1183]"
+  },
+  {
+    "ranked_idx": 924,
+    "en": "Learn Summon Imp.",
+    "curr_pt": "Aprende Invocar Diabrete.",
+    "count": 1,
+    "sample": "Summon Imp (Summon) [id=1366]"
+  },
+  {
+    "ranked_idx": 925,
+    "en": "Learn Summon Voidwalker.",
+    "curr_pt": "Aprende Invocar Emissário.",
+    "count": 1,
+    "sample": "Summon Voidwalker (Summon) [id=1385]"
+  },
+  {
+    "ranked_idx": 926,
+    "en": "Learn Summon Succubus.",
+    "curr_pt": "Aprende Invocar Súcubo.",
+    "count": 1,
+    "sample": "Summon Succubus (Summon) [id=1403]"
+  },
+  {
+    "ranked_idx": 927,
+    "en": "Gather information about the target beast.  The tooltip will display damage, health, armor, any special resistances, and diet.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Beast Lore () [id=1462]"
+  },
+  {
+    "ranked_idx": 928,
+    "en": "Slam your opponent, causing $45963s1% weapon damage.  Can be used while moving.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Slam (Rank 1) [id=1464]"
+  },
+  {
+    "ranked_idx": 929,
+    "en": "Shows the location of all nearby beasts on the minimap.  Only one form of tracking can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Track Beasts () [id=1494]"
+  },
+  {
+    "ranked_idx": 930,
+    "en": "Place a frost trap that freezes the first enemy that approaches, preventing all action for up to $3355d.  Any damage caused will break the ice.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Freezing Trap (Rank 1) [id=1499]"
+  },
+  {
+    "ranked_idx": 931,
+    "en": "Begins taming a beast to be your companion. Your armor is reduced by $s3% while you focus on taming the beast for $d. Once tamed, the beast will be very unhappy and disloyal. Try feeding the pet immediately to make it happy.",
+    "curr_pt": "Doma fera pra companheira. Armadura -$s1% por $d s focando. Domesticada infeliz e desleal. Alimente já.",
+    "count": 1,
+    "sample": "Tame Beast () [id=1515]"
+  },
+  {
+    "ranked_idx": 933,
+    "en": "Exposes all hidden and invisible enemies within $a1 yards of the targeted area for $d.",
+    "curr_pt": "Revela ocultos a até $a1 m por $d s.",
+    "count": 1,
+    "sample": "Flare () [id=1543]"
+  },
+  {
+    "ranked_idx": 934,
+    "en": "In a whirlwind of steel you attack up to $i enemies within $a1 yards, causing melee damage to each enemy.",
+    "curr_pt": "Redemoinho: até $i inimigos a $a1 m, dano corpo a corpo.",
+    "count": 1,
+    "sample": "Whirlwind () [id=1680]"
+  },
+  {
+    "ranked_idx": 935,
+    "en": "A rapid-fire attack that hits all nearby enemies in a cone in front of the warrior for weapon damage plus $s1 damage.",
+    "curr_pt": "Cone: arma +$s1 nos próximos.",
+    "count": 1,
+    "sample": "Shockwave (Rank 1) [id=1698]"
+  },
+  {
+    "ranked_idx": 936,
+    "en": "The warrior will cause critical hits with most attacks and will be immune to Fear effects for the next $d, but all damage taken is increased by $s2%.",
+    "curr_pt": "Críticos garantidos e imune a Medo por $d s, mas +$s2% dano recebido.",
+    "count": 1,
+    "sample": "Recklessness () [id=1719]"
+  },
+  {
+    "ranked_idx": 937,
+    "en": "Throws a distraction, attracting the attention of all nearby monsters for $s1 seconds.  Does not break stealth.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Distract () [id=1725]"
+  },
+  {
+    "ranked_idx": 938,
+    "en": "Stuns the target for $d.  Must be stealthed.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cheap Shot () [id=1833]"
+  },
+  {
+    "ranked_idx": 939,
+    "en": "Sneak up on the trap in order to disarm it.  Don't get too close or the trap will go off.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Disarm Trap () [id=1842]"
+  },
+  {
+    "ranked_idx": 940,
+    "en": "This is a GM tool for silencing players.  This spell just acts as a visual indicator so the player and GM know the player is currently silenced.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Silenced () [id=1852]"
+  },
+  {
+    "ranked_idx": 941,
+    "en": "Allows the rogue to vanish from sight, entering an improved stealth mode for $11327d.  Also breaks movement impairing effects.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Vanish (Rank 1) [id=1856]"
+  },
+  {
+    "ranked_idx": 942,
+    "en": "Strike your target for $s1 Holy damage, restoring $51756s1 health and $51876s1 mana to you and 4 allies within $51876a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 3) [id=1866]"
+  },
+  {
+    "ranked_idx": 943,
+    "en": "Finishing move that causes damage over time, increased by your Attack Power.  Lasts longer per combo point:\n   1 point  : 40 damage over 8 secs\n   2 points: 60 damage over 10 secs\n   3 points: 84 damage over 12 secs\n   4 points: 112 damage over 14 secs\n   5 points: 144 damage over 16 secs",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rupture (Rank 1) [id=1943]"
+  },
+  {
+    "ranked_idx": 944,
+    "en": "Ignites the area surrounding the caster, causing $s2 Fire damage to $ghimself:herself; and $5857s1 Fire damage to all nearby enemies within $5857a1 yards every $t2 sec.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Hellfire (Rank 1) [id=1949]"
+  },
+  {
+    "ranked_idx": 945,
+    "en": "Teleports the caster 20 yards forward, unless something is in the way.  Also frees the caster from stuns and bonds.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blink () [id=1953]"
+  },
+  {
+    "ranked_idx": 946,
+    "en": "Silences the target for $d.",
+    "curr_pt": "Silencia por $d s.",
+    "count": 1,
+    "sample": "Silencing Shot (Rank 1) [id=1979]"
+  },
+  {
+    "ranked_idx": 947,
+    "en": "Returns the spirit to the body, restoring a dead target to life with $s1% of their health and mana.",
+    "curr_pt": "Ressuscita com $s1% de vida e mana.",
+    "count": 1,
+    "sample": "Rebirth (Rank 2) [id=2011]"
+  },
+  {
+    "ranked_idx": 948,
+    "en": "Blinds the target, causing it to wander disoriented for up to $d.  Any damage caused will remove the effect.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blind () [id=2094]"
+  },
+  {
+    "ranked_idx": 949,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 6-10 damage\n   2 points: 11-15 damage\n   3 points: 16-20 damage\n   4 points: 21-25 damage\n   5 points: 26-30 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 1) [id=2098]"
+  },
+  {
+    "ranked_idx": 950,
+    "en": "Creates a Spellstone for the caster.  When equipped and used, the Spellstone removes all magic effects from the caster and will absorb $128s2 magic damage for $128d.  In addition, equipping the Spellstone improves your chance to get a critical strike with spells by $18384s1%.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Spellstone () [id=2362]"
+  },
+  {
+    "ranked_idx": 951,
+    "en": "Summons an Earthbind Totem with $s1 health at the feet of the caster for $d that slows the movement speed of enemies within $3600a1 yards.",
+    "curr_pt": "Evoca um Totem Aprisionador da Terra com $s1 de vida aos pés do lançador por $d s que reduz a velocidade de movimento de inimigos em um raio de $a1 metros.",
+    "count": 1,
+    "sample": "Earthbind Totem () [id=2484]"
+  },
+  {
+    "ranked_idx": 952,
+    "en": "Strike your target for $s1 Holy damage, restoring $51871s1 health and $51878s1 mana to you and 4 allies within $51878a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 5) [id=2495]"
+  },
+  {
+    "ranked_idx": 953,
+    "en": "Increases chance to block by $s1% for $d, but will only block $n $lattack:attacks;.",
+    "curr_pt": "Bloqueio +$s1% por $d s, até $n ataques.",
+    "count": 1,
+    "sample": "Shield Block () [id=2565]"
+  },
+  {
+    "ranked_idx": 954,
+    "en": "Backstab the target, causing $s2% melee damage plus 30 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 2) [id=2589]"
+  },
+  {
+    "ranked_idx": 955,
+    "en": "Backstab the target, causing $s2% melee damage plus 48 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 3) [id=2590]"
+  },
+  {
+    "ranked_idx": 956,
+    "en": "Backstab the target, causing $s2% melee damage plus 69 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 4) [id=2591]"
+  },
+  {
+    "ranked_idx": 957,
+    "en": "Restores $o1 health and $o2 mana over $d. Must remain seated while eating.",
+    "curr_pt": "$s1 de vida e $s2 de mana em $d s sentado.",
+    "count": 1,
+    "sample": "Food () [id=2639]"
+  },
+  {
+    "ranked_idx": 958,
+    "en": "Fires several missiles, hitting $x1 targets.",
+    "curr_pt": "Mísseis em $x1 alvos.",
+    "count": 1,
+    "sample": "Multi-Shot (Rank 1) [id=2643]"
+  },
+  {
+    "ranked_idx": 959,
+    "en": "Generates $/10;s1 rage at the cost of $*2;s3% of your base health, and then generates an additional $/10;29131o1 rage over $29131d. The self inflicted damage is always a critical strike. The warrior is considered in combat for the duration.",
+    "curr_pt": "Gera $s1 de fúria por $s2% da vida, +$s3 em $d s. Dano próprio sempre crítico. Em combate.",
+    "count": 1,
+    "sample": "Bloodrage () [id=2687]"
+  }
+]

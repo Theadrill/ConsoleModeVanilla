@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1774,
+    "en": "Entangles nearby enemies in roots, inflicting Nature damage every $t2 sec. and immobilizing them for up to $d.",
+    "curr_pt": "Raízes: Natureza a cada $t1 s e imobiliza até $d s.",
+    "count": 1,
+    "sample": "Entangling Roots () [id=20654]"
+  },
+  {
+    "ranked_idx": 1775,
+    "en": "Heals an ally for $s2 damage every $t2 sec. and increases its armor by $s1 for $d.",
+    "curr_pt": "Cura $s1 a cada $t1 s e +$s2 armadura por $d s.",
+    "count": 1,
+    "sample": "Barkskin () [id=20655]"
+  },
+  {
+    "ranked_idx": 1776,
+    "en": "Turns the caster invisible and increases its movement speed by $s3% for $d.",
+    "curr_pt": "Invisível e +$s1% velocidade por $d s.",
+    "count": 1,
+    "sample": "Fade () [id=20672]"
+  },
+  {
+    "ranked_idx": 1777,
+    "en": "Entangles nearby enemies in roots, inflicting $s2 Nature damage every $t2 sec. and immobilizing them for up to $d.",
+    "curr_pt": "Raízes: $s1 de Natureza a cada $t1 s e imobiliza até $d s.",
+    "count": 1,
+    "sample": "Entangling Roots () [id=20699]"
+  },
+  {
+    "ranked_idx": 1778,
+    "en": "Draws on the soul of the target to shield them, absorbing $s1 damage.  Lasts $d.  While the shield holds, spellcasting will not be interrupted by damage.  Once shielded, the target cannot be shielded again for $6788d. Can be used while in Shadowform.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Power Word: Shield 500 (Rank 7) [id=20706]"
+  },
+  {
+    "ranked_idx": 1779,
+    "en": "Stores the friendly target's soul.  If the target dies while his soul is stored, he will be able to resurrect with $3026s1 health and $3026q1 mana.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Soulstone Resurrection () [id=20707]"
+  },
+  {
+    "ranked_idx": 1780,
+    "en": "Increases total Spirit by $s2%.  Upon death, the priest becomes the Spirit of Redemption for $27827d.  The Spirit of Redemption cannot move, attack, be attacked or targeted by any spells or effects.  While in this form the priest can cast any healing spell free of cost.  When the effect ends, the priest dies.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Spirit of Redemption () [id=20711]"
+  },
+  {
+    "ranked_idx": 1781,
+    "en": "Distract the target, causing threat.",
+    "curr_pt": "Distrai com ameaça.",
+    "count": 1,
+    "sample": "Distracting Shot (Rank 1) [id=20736]"
+  },
+  {
+    "ranked_idx": 1782,
+    "en": "Drains $o1 health from nearby enemies over $d., transferring it to the caster.",
+    "curr_pt": "Drena $s1 em $d s.",
+    "count": 1,
+    "sample": "Drain Life () [id=20743]"
+  },
+  {
+    "ranked_idx": 1783,
+    "en": "Creates a Soulstone.  The Soulstone can be used to store one target's soul.  If the target dies while his soul is stored, he will be able to resurrect with $20759s1 health and $20759q1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Soulstone () [id=20755]"
+  },
+  {
+    "ranked_idx": 1784,
+    "en": "Stores the friendly target's soul.  If the target dies while his soul is stored, he will be able to resurrect with $20758s1 health and $20758q1 mana.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Soulstone Resurrection () [id=20762]"
+  },
+  {
+    "ranked_idx": 1785,
+    "en": "Stores the friendly target's soul.  If the target dies while his soul is stored, he will be able to resurrect with $20759s1 health and $20759q1 mana.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Soulstone Resurrection () [id=20763]"
+  },
+  {
+    "ranked_idx": 1786,
+    "en": "Stores the friendly target's soul.  If the target dies while his soul is stored, he will be able to resurrect with $20760s1 health and $20760q1 mana.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Soulstone Resurrection () [id=20764]"
+  },
+  {
+    "ranked_idx": 1787,
+    "en": "Stores the friendly target's soul.  If the target dies while his soul is stored, he will be able to resurrect with $20761s1 health and $20761q1 mana.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Soulstone Resurrection () [id=20765]"
+  },
+  {
+    "ranked_idx": 1788,
+    "en": "Counters an enemy's spell.",
+    "curr_pt": "Contra-magia no inimigo.",
+    "count": 1,
+    "sample": "Counterspell () [id=20788]"
+  },
+  {
+    "ranked_idx": 1789,
+    "en": "Increases the caster's armor by $s1 and speeds its health regeneration for $d.",
+    "curr_pt": "Armadura +$s1 e regen por $d s.",
+    "count": 1,
+    "sample": "Demon Skin () [id=20798]"
+  },
+  {
+    "ranked_idx": 1790,
+    "en": "Your pet gains melee attack power equal to $s2% of your ranged attack power and spell power equal to $s3% of your ranged attack power. While your pet is active, you and your pet will regenerate $24529s1% of total health every $24529t1 sec.",
+    "curr_pt": "Pet com poder corpo a corpo de $s1% do seu à distância e magia de $s2%. Com pet, +$s3% da vida a cada $t1 s.",
+    "count": 1,
+    "sample": "Spirit Bond (Rank 2) [id=20895]"
+  },
+  {
+    "ranked_idx": 1791,
+    "en": "Every time your pet strikes an enemy, you gain $20894s1 health. Lasts for $d.",
+    "curr_pt": "Cada golpe do pet cura $s1 por $d s.",
+    "count": 1,
+    "sample": "Spirit Bond (Rank 3) [id=20896]"
+  },
+  {
+    "ranked_idx": 1792,
+    "en": "Increases the attack power of party members within $a1 yards by $51521s1% plus an additional $s1.  The aura lasts until cancelled.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Trueshot Aura (Rank 2) [id=20905]"
+  },
+  {
+    "ranked_idx": 1793,
+    "en": "Increases the attack power of party members within $a1 yards by $51522s1% plus an additional $s1.  The aura lasts until cancelled.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Trueshot Aura (Rank 3) [id=20906]"
+  },
+  {
+    "ranked_idx": 1794,
+    "en": "Gives the Paladin a chance to deal additional Holy damage equal to $20424s1% of melee damage.  Only one Seal can be active on the Paladin at any one time.  Lasts $d.\n\nUnleashing this Seal's energy will judge an enemy, instantly causing $/2;20963s1 Holy damage, $20963s1 if the target is stunned or incapacitated. This damage is increased by 15% of your attack power.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Command (Rank 2) [id=20915]"
+  },
+  {
+    "ranked_idx": 1795,
+    "en": "Gives the Paladin a chance to deal additional Holy damage equal to $20424s1% of melee damage.  Only one Seal can be active on the Paladin at any one time.  Lasts $d.\n\nUnleashing this Seal's energy will judge an enemy, instantly causing $/2;20964s1 Holy damage, $20964s1 if the target is stunned or incapacitated. This damage is increased by 15% of your attack power.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Command (Rank 3) [id=20918]"
+  },
+  {
+    "ranked_idx": 1796,
+    "en": "Gives the Paladin a chance to deal additional Holy damage equal to $20424s1% of melee damage.  Only one Seal can be active on the Paladin at any one time.  Lasts $d.\n\nUnleashing this Seal's energy will judge an enemy, instantly causing $/2;20965s1 Holy damage, $20965s1 if the target is stunned or incapacitated. This damage is increased by 15% of your attack power.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Command (Rank 4) [id=20919]"
+  },
+  {
+    "ranked_idx": 1797,
+    "en": "Gives the Paladin a chance to deal additional Holy damage equal to $20424s1% of melee damage.  Only one Seal can be active on the Paladin at any one time.  Lasts $d.\n\nUnleashing this Seal's energy will judge an enemy, instantly causing $/2;20966s1 Holy damage, $20966s1 if the target is stunned or incapacitated. This damage is increased by 15% of your attack power.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Command (Rank 5) [id=20920]"
+  },
+  {
+    "ranked_idx": 1798,
+    "en": "Blasts the target with Holy energy, causing $25913s1 healing to an ally. Casting Holy Shock has a chance to have no cooldown for its next cast.",
+    "curr_pt": "Detona Sagrado de $s1 num aliado. Pode zerar a próxima.",
+    "count": 1,
+    "sample": "Holy Shock (Rank 2) [id=20929]"
+  },
+  {
+    "ranked_idx": 1799,
+    "en": "Blasts the target with Holy energy, causing $25903s1 healing to an ally. Casting Holy Shock has a chance to have no cooldown for its next cast.",
+    "curr_pt": "Detona Sagrado de $s1 num aliado. Pode zerar a próxima.",
+    "count": 1,
+    "sample": "Holy Shock (Rank 3) [id=20930]"
+  },
+  {
+    "ranked_idx": 1800,
+    "en": "A mocking attack that causes $s1 damage and forces the target to focus attacks on you for $d.",
+    "curr_pt": "Provoca: $s1 e foca você por $d s.",
+    "count": 1,
+    "sample": "Mocking Blow () [id=21008]"
+  },
+  {
+    "ranked_idx": 1801,
+    "en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $21183d, increasing Holy damage taken by up to $21183s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Crusader (Rank 1) [id=21082]"
+  },
+  {
+    "ranked_idx": 1802,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20187s3 to $/25;20187s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20187s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 1) [id=21084]"
+  },
+  {
+    "ranked_idx": 1804,
+    "en": "Blinds the target, causing it to wander confused for up to $d.  Any damage caused will remove the effect.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blind () [id=21060]"
+  },
+  {
+    "ranked_idx": 1805,
+    "en": "Dispels magic on nearbv targets, removing $s1 harmful spells from allies.",
+    "curr_pt": "Dissipa $s1 nocivas dos aliados próximos.",
+    "count": 1,
+    "sample": "Dispel Magic () [id=21076]"
+  },
+  {
+    "ranked_idx": 1806,
+    "en": "Blasts up to 3 targets for $s1 Nature damage. Each target after the first takes less damage.",
+    "curr_pt": "Cadeia em até 3: $s1 de Natureza. Cai por salto.",
+    "count": 1,
+    "sample": "Chain Lightning () [id=21179]"
+  },
+  {
+    "ranked_idx": 1807,
+    "en": "Reduces the casting cost of all your Blessings by $s1.",
+    "curr_pt": "Bênção -$s1 custo.",
+    "count": 1,
+    "sample": "Improved Blessings () [id=21745]"
+  },
+  {
+    "ranked_idx": 1808,
+    "en": "Place a frost trap that freezes the first enemy that approaches, preventing all action for up to $3355d.  Any damage caused will break the ice.  Trap will exist for $d.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Freezing Trap (TEST) (Rank 1) [id=21750]"
+  },
+  {
+    "ranked_idx": 1809,
+    "en": "Increases the bleed damage done by your Rend ability by $s1 per period.",
+    "curr_pt": "Rasgar +$s1 por período.",
+    "count": 1,
+    "sample": "Improved Rend (Rank 3) [id=21831]"
+  },
+  {
+    "ranked_idx": 1810,
+    "en": "Increases your chance to resist Stun and Fear effects by $s1%.",
+    "curr_pt": "Atordoar e Medo: +$s1% de resistir.",
+    "count": 1,
+    "sample": "Stout Heart (Rank 1) [id=21958]"
+  },
+  {
+    "ranked_idx": 1811,
+    "en": "Summons a Testing Totem with $s1 health at your feet for $d that rapidly attacks an enemy within $22048r1 yards for $22048s1 Fire damage.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Testing Totem (Rank 1) [id=22047]"
+  },
+  {
+    "ranked_idx": 1812,
+    "en": "Charges an enemy, inflicting normal damage plus $s3.",
+    "curr_pt": "Investida: normal +$s1.",
+    "count": 1,
+    "sample": "Charge () [id=22120]"
+  },
+  {
+    "ranked_idx": 1813,
+    "en": "Causes $s1 Nature damage to any creature that strikes the caster.",
+    "curr_pt": "$s1 de Natureza em quem bater.",
+    "count": 1,
+    "sample": "Thorns () [id=22351]"
+  },
+  {
+    "ranked_idx": 1814,
+    "en": "Finishing move that causes damage per combo point and converts each extra point of energy into $f1 additional damage.  Damage is increased by your Attack Power.\n   1 point  : 35-51 damage\n   2 points: 66-82 damage\n   3 points: 97-113 damage\n   4 points: 128-144 damage\n   5 points: 159-175 damage\n",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ferocious Bite (Rank 1) [id=22557]"
+  },
+  {
+    "ranked_idx": 1815,
+    "en": "Finishing move that causes damage per combo point and converts each extra point of energy into $f1 additional damage.  Damage is increased by your Attack Power.\n   1 point  : 50-66 damage\n   2 points: 86-102 damage\n   3 points: 122-138 damage\n   4 points: 158-174 damage\n   5 points: 194-210 damage\n",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ferocious Bite (Rank 2) [id=22568]"
+  },
+  {
+    "ranked_idx": 1816,
+    "en": "After leaving a shapeshift form, reduces the casting cost of the next shapeshift by $s1% if used within $d.",
+    "curr_pt": "Sair de forma: próxima forma -$s1% em $d s.",
+    "count": 1,
+    "sample": "Swiftshifting (Rank 1) [id=22583]"
+  },
+  {
+    "ranked_idx": 1817,
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   Also increases your Intellect by $18191s for $18191d. ",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=22731]"
+  },
+  {
+    "ranked_idx": 1818,
+    "en": "Hamstring Rage cost reduced by $/10;s1.",
+    "curr_pt": "Aleijar -$s1 de fúria.",
+    "count": 1,
+    "sample": "Hamstring Rage Reduction (Rank 1) [id=22778]"
+  },
+  {
+    "ranked_idx": 1819,
+    "en": "Improves your chance to get a critical strike with all Shock spells by $s1%.",
+    "curr_pt": "Choques: +$s1% de crítico.",
+    "count": 1,
+    "sample": "Shaman Shock Crit Bonus (Rank 1) [id=22804]"
+  },
+  {
+    "ranked_idx": 1820,
+    "en": "The druid's skin becomes as tough as bark.  Physical damage taken is reduced by $22839s2%.  While protected, damaging attacks will not cause spellcasting delays but non-instant spells take $/1000;s3 sec longer to cast and melee combat is slowed by $22839s1%.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Barkskin () [id=22812]"
+  },
+  {
+    "ranked_idx": 1821,
+    "en": "Finishing move that causes damage per combo point and converts each extra point of energy into $f1 additional damage.  Damage is increased by your Attack Power.\n   1 point  : 79-103 damage\n   2 points: 138-162 damage\n   3 points: 197-221 damage\n   4 points: 256-280 damage\n   5 points: 315-339 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ferocious Bite (Rank 3) [id=22827]"
+  },
+  {
+    "ranked_idx": 1822,
+    "en": "Finishing move that causes damage per combo point and converts each extra point of energy into $f1 additional damage.  Damage is increased by your Attack Power.\n   1 point  : 122-162 damage\n   2 points: 214-254 damage\n   3 points: 306-346 damage\n   4 points: 398-438 damage\n   5 points: 490-530 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ferocious Bite (Rank 4) [id=22828]"
+  },
+  {
+    "ranked_idx": 1823,
+    "en": "Finishing move that causes damage per combo point and converts each extra point of energy into $f1 additional damage.  Damage is increased by your Attack Power.\n   1 point  : 173-223 damage\n   2 points: 301-351 damage\n   3 points: 429-479 damage\n   4 points: 557-607 damage\n   5 points: 685-735 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ferocious Bite (Rank 5) [id=22829]"
+  },
+  {
+    "ranked_idx": 1824,
+    "en": "Instantly counterattack any enemy that strikes you in melee for $d.  Melee attacks made from behind cannot be counterattacked.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Retaliation () [id=22857]"
+  }
+]

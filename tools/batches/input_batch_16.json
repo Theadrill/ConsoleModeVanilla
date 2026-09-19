@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 960,
+    "en": "Hits an enemy with an anti-mana bolt that consumes up to $s1 mana. For each point of mana consumed by the bolt, the target takes $e1 damage.",
+    "curr_pt": "Consome até $s1 de mana; cada ponto = $s2 de dano.",
+    "count": 1,
+    "sample": "Mana Burn () [id=2691]"
+  },
+  {
+    "ranked_idx": 961,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy for $2818o1 Nature damage over $2818d.  Stacks up to 5 times on a single target.  60 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison (Rank 1) [id=2823]"
+  },
+  {
+    "ranked_idx": 962,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy for $2819o1 Nature damage over $2819d.  Stacks up to 5 times on a single target.  75 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison II (Rank 2) [id=2824]"
+  },
+  {
+    "ranked_idx": 963,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy for $2818o1 Nature damage over $2818d.  Stacks up to 5 times on a single target.  60 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison (Rank 1) [id=2835]"
+  },
+  {
+    "ranked_idx": 964,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy for $2819o1 Nature damage over $2819d.  Stacks up to 5 times on a single target.  75 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison II (Rank 2) [id=2837]"
+  },
+  {
+    "ranked_idx": 965,
+    "en": "You can create and mix poisons, with both found and storebought ingredients.",
+    "curr_pt": "Cria e mistura venenos.",
+    "count": 1,
+    "sample": "Poisons () [id=2842]"
+  },
+  {
+    "ranked_idx": 966,
+    "en": "Cures $s1 $ldisease:diseases; on the target.",
+    "curr_pt": "Cura $s1 doenças do alvo.",
+    "count": 1,
+    "sample": "Cure Disease () [id=2870]"
+  },
+  {
+    "ranked_idx": 967,
+    "en": "Target is immune to disease for $d and is cured of any existing diseases.",
+    "curr_pt": "Imune a doença por $d s e curado das atuais.",
+    "count": 1,
+    "sample": "Nullify Disease (Rank 1) [id=2871]"
+  },
+  {
+    "ranked_idx": 968,
+    "en": "Stings the target, reducing their physical damage done by $51509s1% and their attack speed by $s2% for $d. Only one Sting per Hunter can be active on any one target.",
+    "curr_pt": "Ferrão: -$s1% dano físico e -$s2% velocidade por $d s. Um Ferrão por Caçador.",
+    "count": 1,
+    "sample": "Scorpid Sting () [id=3043]"
+  },
+  {
+    "ranked_idx": 969,
+    "en": "Teaches Rejuvenation (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rejuvenation (Rank 3) [id=3062]"
+  },
+  {
+    "ranked_idx": 970,
+    "en": "Teaches Rejuvenation (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rejuvenation (Rank 4) [id=3063]"
+  },
+  {
+    "ranked_idx": 971,
+    "en": "Teaches Arcane Intellect (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Arcane Intellect (Rank 2) [id=3065]"
+  },
+  {
+    "ranked_idx": 972,
+    "en": "Teaches Arcane Intellect (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Arcane Intellect (Rank 3) [id=3066]"
+  },
+  {
+    "ranked_idx": 973,
+    "en": "Teaches Blizzard (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blizzard (Rank 1) [id=3067]"
+  },
+  {
+    "ranked_idx": 974,
+    "en": "Teaches Blizzard (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blizzard (Rank 2) [id=3068]"
+  },
+  {
+    "ranked_idx": 975,
+    "en": "Teaches Renew (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Renew (Rank 1) [id=3070]"
+  },
+  {
+    "ranked_idx": 976,
+    "en": "Teaches Renew (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Renew (Rank 2) [id=3071]"
+  },
+  {
+    "ranked_idx": 977,
+    "en": "Teaches Renew (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Renew (Rank 3) [id=3072]"
+  },
+  {
+    "ranked_idx": 978,
+    "en": "Teaches Fire Blast (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fire Blast (Rank 1) [id=3073]"
+  },
+  {
+    "ranked_idx": 979,
+    "en": "Teaches Fire Blast (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fire Blast (Rank 2) [id=3074]"
+  },
+  {
+    "ranked_idx": 980,
+    "en": "Teaches Fire Blast (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fire Blast (Rank 3) [id=3075]"
+  },
+  {
+    "ranked_idx": 981,
+    "en": "Teaches Agitating Totem (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Agitating Totem (Rank 1) [id=3077]"
+  },
+  {
+    "ranked_idx": 982,
+    "en": "Teaches Serpent Totem (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Serpent Totem (Rank 4) [id=3078]"
+  },
+  {
+    "ranked_idx": 983,
+    "en": "Teaches Greater Heal.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Heal (Rank 1) [id=3085]"
+  },
+  {
+    "ranked_idx": 984,
+    "en": "Teaches Shadow Word: Befuddle (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Befuddle (Rank 1) [id=3086]"
+  },
+  {
+    "ranked_idx": 985,
+    "en": "Teaches Lightning Storm (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Storm (Rank 1) [id=3087]"
+  },
+  {
+    "ranked_idx": 986,
+    "en": "Teaches Lightning Storm (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Storm (Rank 2) [id=3088]"
+  },
+  {
+    "ranked_idx": 987,
+    "en": "Teaches Shock (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shock (Rank 1) [id=3090]"
+  },
+  {
+    "ranked_idx": 988,
+    "en": "Teaches Shock (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shock (Rank 2) [id=3091]"
+  },
+  {
+    "ranked_idx": 989,
+    "en": "Teaches Shock (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shock (Rank 3) [id=3092]"
+  },
+  {
+    "ranked_idx": 990,
+    "en": "Teaches Seal of Righteousness (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 2) [id=3093]"
+  },
+  {
+    "ranked_idx": 991,
+    "en": "Teaches Seal of Righteousness (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 3) [id=3094]"
+  },
+  {
+    "ranked_idx": 992,
+    "en": "Teaches Life Tap (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Life Tap (Rank 1) [id=3095]"
+  },
+  {
+    "ranked_idx": 993,
+    "en": "Teaches Life Tap (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Life Tap (Rank 2) [id=3096]"
+  },
+  {
+    "ranked_idx": 994,
+    "en": "Teaches Life Tap (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Life Tap (Rank 3) [id=3097]"
+  },
+  {
+    "ranked_idx": 995,
+    "en": "Teaches you the spell Shadow Bolt (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Bolt (Rank 1) [id=3098]"
+  },
+  {
+    "ranked_idx": 996,
+    "en": "Reduces the rate of an enemy's health regeneration by $s1%, in addition to lowering its Strength by $s2 and its Agility by $s3, for $d.",
+    "curr_pt": "Regen -$s1%, For -$s2 e Agi -$s3 por $d s.",
+    "count": 1,
+    "sample": "Rabies () [id=3150]"
+  },
+  {
+    "ranked_idx": 997,
+    "en": "Teaches Cure Poison (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cure Poison (Rank 2) [id=3213]"
+  },
+  {
+    "ranked_idx": 998,
+    "en": "Teaches Lightning Storm (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Storm (Rank 3) [id=3214]"
+  },
+  {
+    "ranked_idx": 999,
+    "en": "Teaches Rain of Fire (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rain of Fire (Rank 1) [id=3354]"
+  },
+  {
+    "ranked_idx": 1000,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, slowing their movement speed by $3409s1% for $3409d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Crippling Poison (Rank 1) [id=3408]"
+  },
+  {
+    "ranked_idx": 1001,
+    "en": "When applied to a weapon, it slows the first target it strikes to 30% movement speed for 30 seconds.  Lasts for one attack.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "DONOTREUSE (Rank 2) [id=3411]"
+  },
+  {
+    "ranked_idx": 1002,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy, slowing their movement speed by $3409s1% for $3409d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Crippling Poison (Rank 1) [id=3420]"
+  },
+  {
+    "ranked_idx": 1003,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy, slowing their movement speed by $11201s1% for $11201d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Crippling Poison II (Rank 2) [id=3421]"
+  },
+  {
+    "ranked_idx": 1004,
+    "en": "Inflicts Physical damage to an enemy, stunning it for $d.",
+    "curr_pt": "Dano Físico e atordoa por $d s.",
+    "count": 1,
+    "sample": "Ravage () [id=3446]"
+  },
+  {
+    "ranked_idx": 1005,
+    "en": "Teaches Holy Light (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Light (Rank 6) [id=3474]"
+  },
+  {
+    "ranked_idx": 1006,
+    "en": "Teaches Agitating Totem (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Agitating Totem (Rank 4) [id=3549]"
+  },
+  {
+    "ranked_idx": 1007,
+    "en": "Conjures a mana jade that can be used to instantly restore $10052s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Mana Jade () [id=3552]"
+  },
+  {
+    "ranked_idx": 1008,
+    "en": "Teleports the caster to Stormwind.",
+    "curr_pt": "Teleporta pra Ventobravo.",
+    "count": 1,
+    "sample": "Teleport: Stormwind () [id=3561]"
+  },
+  {
+    "ranked_idx": 1009,
+    "en": "Teleports the caster to Ironforge.",
+    "curr_pt": "Teleporta pra Altaforja.",
+    "count": 1,
+    "sample": "Teleport: Ironforge () [id=3562]"
+  }
+]

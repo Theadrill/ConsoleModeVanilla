@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1112,
+    "en": "Places a Blessing on a friendly target that lasts $d.  Every time the Blessed character strikes an enemy, the Blessed character gains $5576s1 health.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Reckoning (Rank 3) [id=5575]"
+  },
+  {
+    "ranked_idx": 1113,
+    "en": "Places a Blessing on a friendly target that lasts $d.  Every time the Blessed character strikes an enemy, the Blessed character gains $5578s1 health.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Reckoning (Rank 4) [id=5580]"
+  },
+  {
+    "ranked_idx": 1114,
+    "en": "Brings a dead player back to life with $s1% of their health and mana and no resurrection sickness.",
+    "curr_pt": "Ressuscita com $s1% de vida e mana, sem fraqueza.",
+    "count": 1,
+    "sample": "Redemption () [id=5592]"
+  },
+  {
+    "ranked_idx": 1116,
+    "en": "Charge an enemy, generate $/10;s2 rage and stun them for $7922d.",
+    "curr_pt": "Investida: +fúria e atordoa por $d s.",
+    "count": 1,
+    "sample": "Charge (TEST) (Rank 1) [id=5696]"
+  },
+  {
+    "ranked_idx": 1117,
+    "en": "Creates a Healthstone that can be used to instantly restore $5720s1 health.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Healthstone () [id=5699]"
+  },
+  {
+    "ranked_idx": 1118,
+    "en": "Stuns an enemy for $d.",
+    "curr_pt": "Atordoa por $d s.",
+    "count": 1,
+    "sample": "Stunning Strike (Rank 1) [id=5703]"
+  },
+  {
+    "ranked_idx": 1120,
+    "en": "Summons an Invisibility Totem at the feet of the caster for $d that turns nearby group members invisible.",
+    "curr_pt": "Totem invisível $d s no grupo próximo.",
+    "count": 1,
+    "sample": "Invisibility Totem (Rank 1) [id=5734]"
+  },
+  {
+    "ranked_idx": 1121,
+    "en": "Slows the targets movement by $s1% and their attack speed by $s2% for $d.",
+    "curr_pt": "Lentidão $s1% e velocidade $s2% por $d s.",
+    "count": 1,
+    "sample": "Crippling Curse (Rank 1) [id=5737]"
+  },
+  {
+    "ranked_idx": 1122,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, increasing their casting time by $5760s1% for $5760d.  50 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind-numbing Poison (Rank 1) [id=5761]"
+  },
+  {
+    "ranked_idx": 1123,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy, increasing their casting time by $5760s1% for $5760d.  50 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind-numbing Poison (Rank 1) [id=5763]"
+  },
+  {
+    "ranked_idx": 1124,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 6% and reflects $s2% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +6% e reflete $s1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 4) [id=5794]"
+  },
+  {
+    "ranked_idx": 1125,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 7% and reflects $s2% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +7% e reflete $s1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 5) [id=5795]"
+  },
+  {
+    "ranked_idx": 1126,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 8% and reflects $s2% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +8% e reflete $s1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 6) [id=5796]"
+  },
+  {
+    "ranked_idx": 1127,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 1% and reflects 2% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +1% e reflete 2%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 4) [id=5797]"
+  },
+  {
+    "ranked_idx": 1128,
+    "en": "Increases your chance to block with a shield by 1%.",
+    "curr_pt": "Bloqueio +1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 5) [id=5798]"
+  },
+  {
+    "ranked_idx": 1129,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 1% and reflects 3% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +1% e reflete 3%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 6) [id=5799]"
+  },
+  {
+    "ranked_idx": 1130,
+    "en": "Inflicts normal damage plus $s1 to an enemy when attacking from stealth, stunning it $d.",
+    "curr_pt": "Furtivo: normal +$s1 e atordoa por $d s.",
+    "count": 1,
+    "sample": "Shadowstalker Stab (Rank 1) [id=5918]"
+  },
+  {
+    "ranked_idx": 1131,
+    "en": "Increases Holy spell and ability damage by 19 and the effect from Holy healing by 38.",
+    "curr_pt": "Sagrado +19 e cura +38.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 9) [id=5921]"
+  },
+  {
+    "ranked_idx": 1132,
+    "en": "Increases Holy spell and ability damage by 22 and the effect from Holy healing by 44.",
+    "curr_pt": "Sagrado +22 e cura +44.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 10) [id=5922]"
+  },
+  {
+    "ranked_idx": 1133,
+    "en": "Allows a hunter to teach $ghis:her; tamed Spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 22+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Web (Rank 1) [id=6026]"
+  },
+  {
+    "ranked_idx": 1134,
+    "en": "Allows a hunter to teach $ghis:her; tamed Spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 30+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Web (Rank 2) [id=6027]"
+  },
+  {
+    "ranked_idx": 1135,
+    "en": "Allows a hunter to teach $ghis:her; tamed Spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 37+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Web (Rank 3) [id=6028]"
+  },
+  {
+    "ranked_idx": 1136,
+    "en": "Allows a hunter to teach $ghis:her; tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 22+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Tongue (Rank 1) [id=6031]"
+  },
+  {
+    "ranked_idx": 1137,
+    "en": "Allows a hunter to teach $ghis:her; tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 28+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Tongue (Rank 2) [id=6032]"
+  },
+  {
+    "ranked_idx": 1138,
+    "en": "Allows a hunter to teach $ghis:her; tamed turtle the Hand Snap ability. Hand Snap disarms an enemy as well as causing damage over time.\nRequires: \nPet Level 22+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Hand Snap (Rank 1) [id=6038]"
+  },
+  {
+    "ranked_idx": 1139,
+    "en": "Teaches Create Lesser Healthstone.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Lesser Healthstone (Rank 2) [id=6042]"
+  },
+  {
+    "ranked_idx": 1140,
+    "en": "Prevents the first $s1 physical damage from harming the caster.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mage Armor (Rank 3) [id=6118]"
+  },
+  {
+    "ranked_idx": 1141,
+    "en": "Conjures $s1 $lbottle:bottles; of spring water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 4) [id=6127]"
+  },
+  {
+    "ranked_idx": 1142,
+    "en": "Conjures $s1 $lloaf:loaves; of pumpernickel, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 4) [id=6129]"
+  },
+  {
+    "ranked_idx": 1143,
+    "en": "Changes the caster's viewpoint to the targeted location.  Lasts $d.  Only useable outdoors.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Far Sight () [id=6196]"
+  },
+  {
+    "ranked_idx": 1144,
+    "en": "Corrupts the target, causing $*5;s1 Shadow damage over $d.",
+    "curr_pt": "Corrompe com $s1 de Sombra em $d s.",
+    "count": 1,
+    "sample": "Corruption (Rank 2) [id=6222]"
+  },
+  {
+    "ranked_idx": 1145,
+    "en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 50.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pet Hardiness (Any Pet - Rank 1) [id=6284]"
+  },
+  {
+    "ranked_idx": 1146,
+    "en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 100.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pet Hardiness (Any Pet - Rank 2) [id=6287]"
+  },
+  {
+    "ranked_idx": 1147,
+    "en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 150.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pet Hardiness (Any Pet - Rank 3) [id=6288]"
+  },
+  {
+    "ranked_idx": 1148,
+    "en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 200.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pet Hardiness (Any Pet - Rank 4) [id=6289]"
+  },
+  {
+    "ranked_idx": 1149,
+    "en": "Teaches your tamed pet to be tougher. This increases the base health of your pet by 250.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pet Hardiness (Any Pet - Rank 5) [id=6290]"
+  },
+  {
+    "ranked_idx": 1150,
+    "en": "Allows a hunter to toughen his pet adding 60 to its health.",
+    "curr_pt": "Pet +60 vida.",
+    "count": 1,
+    "sample": "Pet Hardiness (Rank 5) [id=6294]"
+  },
+  {
+    "ranked_idx": 1159,
+    "en": "Inflicts normal damage plus $s1 on an enemy, stunning it for $d. when attacking from stealth.",
+    "curr_pt": "Dano normal +$s1 furtivo e atordoa por $d s.",
+    "count": 1,
+    "sample": "Cheap Shot (Rank 1) [id=6409]"
+  },
+  {
+    "ranked_idx": 1160,
+    "en": "Restores 294 health over 21 sec, assuming you don't bite down on a poison sac.  Must remain seated while eating.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=6410]"
+  },
+  {
+    "ranked_idx": 1161,
+    "en": "Increases the caster's attack speed by $s1% for $d.",
+    "curr_pt": "Aumenta sua velocidade de ataque em $s1% por $d s.",
+    "count": 1,
+    "sample": "Slice and Dice (Rank 1) [id=6434]"
+  },
+  {
+    "ranked_idx": 1162,
+    "en": "The warrior shouts, increasing the party's melee and ranged damage by $s1.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Spell - Reuse 6542 (Rank 4) [id=6542]"
+  },
+  {
+    "ranked_idx": 1163,
+    "en": "Charge an enemy, generating 20 rage and stunning the target for $d.",
+    "curr_pt": "Investida: +20 fúria e atordoa por $d s.",
+    "count": 1,
+    "sample": "Heroic Leap (Rank 1) [id=6544]"
+  },
+  {
+    "ranked_idx": 1164,
+    "en": "Pummel the target, dealing a small amount of damage, interrupts spellcasting, and prevents any spell in that school from being cast for $d.",
+    "curr_pt": "Esmurra pouco, interrompe e bloqueia a escola por $d s.",
+    "count": 1,
+    "sample": "Pummel () [id=6552]"
+  },
+  {
+    "ranked_idx": 1165,
+    "en": "Teaches Arcane Missiles (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 1) [id=6631]"
+  },
+  {
+    "ranked_idx": 1166,
+    "en": "Teaches Arcane Missiles (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 2) [id=6632]"
+  },
+  {
+    "ranked_idx": 1167,
+    "en": "Teaches Conjure Water (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 1) [id=6635]"
+  },
+  {
+    "ranked_idx": 1168,
+    "en": "Teaches Arcane Missiles (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 3) [id=6637]"
+  },
+  {
+    "ranked_idx": 1169,
+    "en": "Teaches Conjure Water (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 3) [id=6638]"
+  },
+  {
+    "ranked_idx": 1170,
+    "en": "Teaches Conjure Water (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 4) [id=6639]"
+  },
+  {
+    "ranked_idx": 1171,
+    "en": "Teaches Conjure Food (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 4) [id=6641]"
+  }
+]

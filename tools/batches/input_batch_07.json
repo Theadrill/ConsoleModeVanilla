@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 504,
+    "en": "Teaches Lightning Bolt (Rank 4).",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Lightning Bolt (Rank 4) [id=916]"
+  },
+  {
+    "ranked_idx": 505,
+    "en": "Increases the friendly target's armor by $s1 for $d.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1.",
+    "count": 2,
+    "sample": "Mark of the Wild (Rank 1) [id=1126]"
+  },
+  {
+    "ranked_idx": 506,
+    "en": "Forces all nearby enemies to focus attacks on you for $d.",
+    "curr_pt": "Força todos a focarem você por $d s.",
+    "count": 2,
+    "sample": "Challenging Shout () [id=1161]"
+  },
+  {
+    "ranked_idx": 507,
+    "en": "All shots fired within the next $d will always hit for critical damage.",
+    "curr_pt": "Próximos $d s: todo tiro crita.",
+    "count": 2,
+    "sample": "Critical Shot (Rank 1) [id=1491]"
+  },
+  {
+    "ranked_idx": 508,
+    "en": "Forces the target to speak in Demonic, slowing the casting time of all spells by $s1%.  Only one Curse per Warlock can be active on any one target.  Lasts $d.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Curse of Tongues (Rank 1) [id=1714]"
+  },
+  {
+    "ranked_idx": 509,
+    "en": "A quick kick that injures a single foe for $s1 damage.",
+    "curr_pt": "Chute rápido de $s1 no inimigo.",
+    "count": 2,
+    "sample": "Kick (Rank 5) [id=1770]"
+  },
+  {
+    "ranked_idx": 510,
+    "en": "Increases movement speed by $s1% for $d.  Does not break prowling.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Dash (Rank 1) [id=1850]"
+  },
+  {
+    "ranked_idx": 511,
+    "en": "Allows the rogue to vanish from sight, entering an improved stealth mode for $11329d.  Also breaks movement impairing effects.  More effective than Vanish (Rank 1).",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Vanish (Rank 2) [id=1857]"
+  },
+  {
+    "ranked_idx": 512,
+    "en": "Nearby herb bushes appear on the minimap.   Only one type of thing can be tracked at a time.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Find Herbs () [id=2383]"
+  },
+  {
+    "ranked_idx": 513,
+    "en": "Nearby mineral veins appear on the minimap.   Only one type of thing can be tracked at a time.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Find Minerals () [id=2580]"
+  },
+  {
+    "ranked_idx": 514,
+    "en": "Heals a friendly target for an amount equal to the Paladin's maximum health and restores $s2 of their mana.  Drains all of the Paladin's remaining mana when used.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Lay on Hands (Rank 2) [id=2800]"
+  },
+  {
+    "ranked_idx": 515,
+    "en": "Sends bolts of holy power in all directions, causing $s1 Holy damage to all Undead and Demon targets within $a1 yds.",
+    "curr_pt": "Raios sagrados em tudo: $s1 nos mortos e demônios a $a1 m.",
+    "count": 2,
+    "sample": "Holy Wrath (Rank 1) [id=2812]"
+  },
+  {
+    "ranked_idx": 516,
+    "en": "Increases your Health by 20.",
+    "curr_pt": "Aumenta sua Vida em 20.",
+    "count": 2,
+    "sample": "Physical Prowess (Rank 1) [id=4255]"
+  },
+  {
+    "ranked_idx": 517,
+    "en": "Increases your Health by 30.",
+    "curr_pt": "Aumenta sua Vida em 30.",
+    "count": 2,
+    "sample": "Physical Prowess (Rank 3) [id=4257]"
+  },
+  {
+    "ranked_idx": 518,
+    "en": "Finishing move that increases melee attack speed by $s2%.  Lasts longer per combo point:\n   1 point  : 9 seconds\n   2 points: 12 seconds\n   3 points: 15 seconds\n   4 points: 18 seconds\n   5 points: 21 seconds",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Slice and Dice (Rank 1) [id=5171]"
+  },
+  {
+    "ranked_idx": 519,
+    "en": "Heals the caster for $s1.",
+    "curr_pt": "Cura $s1 em você.",
+    "count": 2,
+    "sample": "Cookie's Cooking (Rank 4) [id=5174]"
+  },
+  {
+    "ranked_idx": 520,
+    "en": "Increases the friendly target's armor by $s1 and all attributes by $s2 for $d.",
+    "curr_pt": "Aumenta a armadura do alvo aliado em $s1 e tudo em $s2 por $d s.",
+    "count": 2,
+    "sample": "Mark of the Wild (Rank 2) [id=5232]"
+  },
+  {
+    "ranked_idx": 521,
+    "en": "Howl, causing $i enemies within $a1 yds to flee in terror for $d.  Damage caused may interrupt the effect.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Howl of Terror (Rank 1) [id=5484]"
+  },
+  {
+    "ranked_idx": 522,
+    "en": "A word of darkness that befuddles the enemy for $d, making spells cast much slower.",
+    "curr_pt": "Treva que enrola por $d s, bem devagar.",
+    "count": 2,
+    "sample": "Shadow Word: Befuddle (Rank 1) [id=5704]"
+  },
+  {
+    "ranked_idx": 523,
+    "en": "Puts the caster in stealth mode. Lasts until cancelled.",
+    "curr_pt": "Aumenta seu dano com Machados de Duas Mãos em 2.",
+    "count": 2,
+    "sample": "Shadowstalker Stealth (Rank 1) [id=5916]"
+  },
+  {
+    "ranked_idx": 524,
+    "en": "Teleports the caster 20 yards forward, unless something is in the way.  Also frees the caster from any bonds.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Blink (Rank 2) [id=6139]"
+  },
+  {
+    "ranked_idx": 525,
+    "en": "Warrior's next attack will attempt to finish off a wounded foe, causing an additional $s1 damage.  Only works on enemies that have 20% or less health.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Execute (Rank 2) [id=6174]"
+  },
+  {
+    "ranked_idx": 526,
+    "en": "Increases the caster's movement speed by $s1% for $d. and causes it to inflict an additional $s2 damage on its first attack.",
+    "curr_pt": "Aumenta a velocidade do conjurador em $s1% por $d s e dá +$s2 de dano no primeiro ataque.",
+    "count": 2,
+    "sample": "Rushing Charge (Rank 1) [id=6268]"
+  },
+  {
+    "ranked_idx": 527,
+    "en": "Allows a hunter to toughen his pet adding 20 to its health.",
+    "curr_pt": "Pet +20 vida.",
+    "count": 2,
+    "sample": "Pet Hardiness (Rank 1) [id=6285]"
+  },
+  {
+    "ranked_idx": 528,
+    "en": "Allows a hunter to toughen his pet adding 40 to its health.",
+    "curr_pt": "Pet +40 vida.",
+    "count": 2,
+    "sample": "Pet Hardiness (Rank 3) [id=6292]"
+  },
+  {
+    "ranked_idx": 529,
+    "en": "Summons a Healing Totem at the feet of the caster for $d that heals nearby group members.",
+    "curr_pt": "Totem de Cura $d s no grupo próximo.",
+    "count": 2,
+    "sample": "Healing Totem (Rank 4) [id=6376]"
+  },
+  {
+    "ranked_idx": 530,
+    "en": "Allows opening of locked chests and doors.  Gives a potential of 150 in your lockpicking skill.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Pick Lock (Journeyman) [id=6461]"
+  },
+  {
+    "ranked_idx": 531,
+    "en": "Allows opening of locked chests and doors.  Gives a potential of 225 in your lockpicking skill.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Pick Lock (Expert) [id=6463]"
+  },
+  {
+    "ranked_idx": 532,
+    "en": "Pummel the target for $s1 damage.  It also interrupts spellcasting and prevents any spell in that school from being cast for $d.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "zzOLD Pummel (Rank 2) [id=6554]"
+  },
+  {
+    "ranked_idx": 533,
+    "en": "Places a Blessing on the party member, transfering $s1 damage taken per hit to the caster.  Lasts $d.  Players may only have one Hand on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Hand of Sacrifice (Rank 1) [id=6940]"
+  },
+  {
+    "ranked_idx": 534,
+    "en": "Fires a frost shot at the enemy, causing $s1 additional frost damage and slowing the enemy's movement speed by $s2%.",
+    "curr_pt": "Tiro gélido com +$s1 de Gelo e -$s2% velocidade por $d s.",
+    "count": 2,
+    "sample": "Frost Shot (Rank 2) [id=6984]"
+  },
+  {
+    "ranked_idx": 535,
+    "en": "Purges the enemy target, removing $m1 beneficial magic $leffect:effects;.",
+    "curr_pt": "Expurga $s1 magia benéfica do inimigo.",
+    "count": 2,
+    "sample": "Purge (Rank 2) [id=8012]"
+  },
+  {
+    "ranked_idx": 536,
+    "en": "Heals the target for $o1 damage over $d.",
+    "curr_pt": "Cura $s1 ao longo de $d s.",
+    "count": 2,
+    "sample": "Rejuvenation (Rank 1) [id=8070]"
+  },
+  {
+    "ranked_idx": 537,
+    "en": "Inflicts $s2 damage to an enemy, stunning it for $d.",
+    "curr_pt": "Causa $s1 de dano ao inimigo, atordoando-o por $d s.",
+    "count": 2,
+    "sample": "Shield Slam () [id=8242]"
+  },
+  {
+    "ranked_idx": 538,
+    "en": "Blasts an enemy with lightning for $s1 Nature damage.",
+    "curr_pt": "Raio de $s1 de Natureza no inimigo.",
+    "count": 2,
+    "sample": "Lightning Bolt (Rank 4) [id=8246]"
+  },
+  {
+    "ranked_idx": 539,
+    "en": "Gives $s1 additional armor to nearby party members for $d. Players may only have one aura on them per paladin at any one time.",
+    "curr_pt": "Aura no grupo: +$s1 armadura por $d s. Uma Aura por Paladino.",
+    "count": 2,
+    "sample": "Devotion Aura () [id=8258]"
+  },
+  {
+    "ranked_idx": 540,
+    "en": "Strikes an enemy with a lightning bolt that arcs to another nearby enemy. The spell affects up to $x1 targets, causing $s1 Nature damage to each.",
+    "curr_pt": "Aumenta seu dano com Espadas de Duas Mãos em 2.",
+    "count": 2,
+    "sample": "Chain Bolt (Rank 1) [id=8292]"
+  },
+  {
+    "ranked_idx": 541,
+    "en": "Heals an ally for $s1 damage every $t1 sec. for $d.",
+    "curr_pt": "Causa $s1 de dano e atordoa o oponente por $d s, com muita ameaça e 100% de penetração de armadura.",
+    "count": 2,
+    "sample": "Renew () [id=8362]"
+  },
+  {
+    "ranked_idx": 542,
+    "en": "Inflicts $s1 Nature damage to enemies in a cone in front of the caster.",
+    "curr_pt": "Causa $s1 de dano de Natureza nos inimigos em cone à frente.",
+    "count": 2,
+    "sample": "Forked Lightning (Rank 1) [id=8435]"
+  },
+  {
+    "ranked_idx": 543,
+    "en": "Negative",
+    "curr_pt": "Negativo.",
+    "count": 2,
+    "sample": "Dampen Magic () [id=8450]"
+  },
+  {
+    "ranked_idx": 544,
+    "en": "Positive",
+    "curr_pt": "Positivo.",
+    "count": 2,
+    "sample": "Dampen Magic () [id=8451]"
+  },
+  {
+    "ranked_idx": 545,
+    "en": "Inflicts $s1 damage to an enemy every $t1 sec. for $d. when attacking from stealth.",
+    "curr_pt": "Causa $s1 de dano ao inimigo a cada $t1 s por $d s, furtivo.",
+    "count": 2,
+    "sample": "Garrote (Rank 4) [id=8818]"
+  },
+  {
+    "ranked_idx": 546,
+    "en": "Causes $s1 Holy damage to any creature that strikes a nearby party member. Players may only have one aura on them per paladin at any one time. The aura lasts until cancelled.",
+    "curr_pt": "Causa $s1 Sagrado a quem bater num aliado próximo. Uma aura por Paladino.",
+    "count": 2,
+    "sample": "Retribution Aura (Rank 1) [id=8990]"
+  },
+  {
+    "ranked_idx": 547,
+    "en": "Banishes an enemy, preventing all action but making it invulnerable for up to $d. Only one target can be banished at a time.",
+    "curr_pt": "Bane até $d s: sem agir, invulnerável. Um por vez.",
+    "count": 2,
+    "sample": "Banish () [id=8994]"
+  },
+  {
+    "ranked_idx": 548,
+    "en": "Increases your chance to resist Fear and Disorient effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua chance de resistir a Medo e Desorientar em $s1%.",
+    "count": 2,
+    "sample": "Unyielding Faith (Rank 1) [id=9453]"
+  },
+  {
+    "ranked_idx": 549,
+    "en": "Allows the rogue to vanish from sight, entering an improved stealth mode for $d.",
+    "curr_pt": "Some melhor por $d s, sem lentidão.",
+    "count": 2,
+    "sample": "Arantir's Deception (Rank 1) [id=9736]"
+  },
+  {
+    "ranked_idx": 550,
+    "en": "Hurls a bolt of lightning at an enemy, inflicting Nature damage.",
+    "curr_pt": "Raio: Natureza no inimigo.",
+    "count": 2,
+    "sample": "Wrath () [id=9739]"
+  },
+  {
+    "ranked_idx": 551,
+    "en": "All spell criticals against you cause $s1% of the damage taken to the caster as well.  The damage caused by Eye for an Eye will not exceed 50% of the Paladin's total health.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Eye for an Eye (Rank 1) [id=9799]"
+  },
+  {
+    "ranked_idx": 552,
+    "en": "Claw the enemy, causing $s3% normal damage plus $s1.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Claw (Rank 4) [id=9849]"
+  },
+  {
+    "ranked_idx": 553,
+    "en": "Dampens magic used against the targeted party member, decreasing damage taken from spells by up to $s1 and healing spells by up to $s2.  Lasts $d.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "[Deprecated] Dampen Magic (Rank 4) [id=10173]"
+  }
+]

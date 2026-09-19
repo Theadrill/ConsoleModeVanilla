@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1172,
+    "en": "Teaches Frost Armor (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frost Armor (Rank 3) [id=6643]"
+  },
+  {
+    "ranked_idx": 1173,
+    "en": "Teaches Frost Nova (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frost Nova (Rank 3) [id=6644]"
+  },
+  {
+    "ranked_idx": 1174,
+    "en": "Teaches Healing Touch (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Touch (Rank 1) [id=6659]"
+  },
+  {
+    "ranked_idx": 1175,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 14-22 damage\n   2 points: 25-33 damage\n   3 points: 36-44 damage\n   4 points: 47-55 damage\n   5 points: 58-66 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 2) [id=6760]"
+  },
+  {
+    "ranked_idx": 1176,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 25-39 damage\n   2 points: 44-58 damage\n   3 points: 63-77 damage\n   4 points: 82-96 damage\n   5 points: 101-115 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 3) [id=6761]"
+  },
+  {
+    "ranked_idx": 1177,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 41-61 damage\n   2 points: 72-92 damage\n   3 points: 103-123 damage\n   4 points: 134-154 damage\n   5 points: 165-185 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 4) [id=6762]"
+  },
+  {
+    "ranked_idx": 1178,
+    "en": "Ravage the target, causing $s2% damage plus 147 to the target.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ravage (Rank 1) [id=6785]"
+  },
+  {
+    "ranked_idx": 1179,
+    "en": "Ravage the target, causing $s2% damage plus 217 to the target.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ravage (Rank 2) [id=6787]"
+  },
+  {
+    "ranked_idx": 1180,
+    "en": "Shred the target, causing $s2% damage plus 72 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shred (Rank 2) [id=6800]"
+  },
+  {
+    "ranked_idx": 1181,
+    "en": "Increases the Physical damage dealt by the caster by $s2 and speeds its movement by $s1% for $d. Also curses an enemy on the first successful hit, reducing the Physical damage it deals by $6922s2, reducing the magical damage it deals by $6922s3, and increasing the Physical damage it takes by $6922s1 for $6922d.",
+    "curr_pt": "Físico +$s1 e +$s2% velocidade por $d s. Primeiro golpe amaldiçoa: +$s3 recebido e -$s4 mágico por $d1 s.",
+    "count": 1,
+    "sample": "Shadowhorn Charge (Rank 1) [id=6921]"
+  },
+  {
+    "ranked_idx": 1182,
+    "en": "Inflicts normal damage plus $s2 to an enemy when attacking from stealth, stunning it $d. Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "Furtivo: normal +$s1 e atordoa por $d s. Combo +$s2.",
+    "count": 1,
+    "sample": "Shadowstalker Slash (Rank 1) [id=6927]"
+  },
+  {
+    "ranked_idx": 1183,
+    "en": "Launches a bolt of ice at an enemy, inflicting $s1 Frost damage.",
+    "curr_pt": "Raio de gelo de $s1 no inimigo.",
+    "count": 1,
+    "sample": "Weak Frostbolt (Rank 1) [id=6949]"
+  },
+  {
+    "ranked_idx": 1184,
+    "en": "Surrounds an ally with a shield of crackling electricity that lasts $d. and inflicts $s1 Nature damage to melee attackers.",
+    "curr_pt": "Aliado cercado de eletricidade $d s: $s1 de Natureza em corpo a corpo.",
+    "count": 1,
+    "sample": "Lightning Barrier (Rank 1) [id=6960]"
+  },
+  {
+    "ranked_idx": 1185,
+    "en": "Feed your pet the selected item.  Feeding your pet increases happiness.  Using food close to the pet's level will have a better result.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Feed Pet () [id=6991]"
+  },
+  {
+    "ranked_idx": 1186,
+    "en": "Attempts to disengage from the target, reducing threat.  Cancels combat.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Feinting Strike (Rank 2) [id=6994]"
+  },
+  {
+    "ranked_idx": 1187,
+    "en": "Fires an explosive shot, causing $s1 additional damage to the target and exploding for $s2 damage to nearby enemies.",
+    "curr_pt": "Tiro explosivo: +$s1 e $s2 nos próximos.",
+    "count": 1,
+    "sample": "Explosive Shot (Rank 2) [id=6996]"
+  },
+  {
+    "ranked_idx": 1188,
+    "en": "Increases the next attack by $s1 damage.",
+    "curr_pt": "Próximo ataque +$s1.",
+    "count": 1,
+    "sample": "Maul () [id=7092]"
+  },
+  {
+    "ranked_idx": 1189,
+    "en": "Intimidates an enemy, causing it to flee in terror for $d. Only 1 target can be feared at a time.",
+    "curr_pt": "Assusta e foge por $d s. Um por vez.",
+    "count": 1,
+    "sample": "Intimidation () [id=7093]"
+  },
+  {
+    "ranked_idx": 1190,
+    "en": "Charge an enemy, increasing speed and causing an additional $s2 damage on the first attack.",
+    "curr_pt": "Investida veloz: +$s1 no primeiro golpe.",
+    "count": 1,
+    "sample": "Shadow Charge (Rank 1) [id=7137]"
+  },
+  {
+    "ranked_idx": 1191,
+    "en": "Attempts to finish off a wounded enemy, inflicting normal damage plus $s1. Execute can only be used on enemies that have 20% or less health.",
+    "curr_pt": "Finaliza ferido (≤20%): normal +$s1.",
+    "count": 1,
+    "sample": "Execute () [id=7160]"
+  },
+  {
+    "ranked_idx": 1192,
+    "en": "Heals a target for an amount equal to the caster's maximum health.",
+    "curr_pt": "Cura igual à vida máxima.",
+    "count": 1,
+    "sample": "First Aid (Rank 1) [id=7162]"
+  },
+  {
+    "ranked_idx": 1193,
+    "en": "Assumes a balanced combat stance that generates rage when the warrior is hit, as well as when the warrior strikes an opponent. Lasts $d.",
+    "curr_pt": "Postura que gera fúria ao apanhar e ao bater. $d s.",
+    "count": 1,
+    "sample": "Battle Stance (Rank 1) [id=7165]"
+  },
+  {
+    "ranked_idx": 1194,
+    "en": "Allows the Imbiber to breathe water for $d.",
+    "curr_pt": "Respira na água por $d s.",
+    "count": 1,
+    "sample": "Water Breathing (Rank 1) [id=7178]"
+  },
+  {
+    "ranked_idx": 1195,
+    "en": "Restores 48 health per minute.",
+    "curr_pt": "48 de vida por minuto.",
+    "count": 1,
+    "sample": "Regeneration (Rank 5) [id=7200]"
+  },
+  {
+    "ranked_idx": 1196,
+    "en": "Burns the enemy for $s1 damage and then an additional $o1 damage over $d.",
+    "curr_pt": "Queima $s1 e +$s2 em $d s.",
+    "count": 1,
+    "sample": "Immolate Cumulative (TEST) (Rank 1) [id=7288]"
+  },
+  {
+    "ranked_idx": 1197,
+    "en": "Drains $o1 health over $d. from an enemy and its nearest ally, healing the caster for up to twice the amount of health stolen.",
+    "curr_pt": "Drena $s1 do inimigo e vizinho e cura até 2x em $d s.",
+    "count": 1,
+    "sample": "Soul Siphon (Rank 1) [id=7290]"
+  },
+  {
+    "ranked_idx": 1198,
+    "en": "Teaches Frostbolt (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbolt (Rank 4) [id=7324]"
+  },
+  {
+    "ranked_idx": 1199,
+    "en": "Teaches Seal of Wisdom (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Wisdom (Rank 1) [id=7327]"
+  },
+  {
+    "ranked_idx": 1200,
+    "en": "Heals the Paladin and nearby group members for $s1 every tick.",
+    "curr_pt": "Cura o Paladino e próximos $s1 por tick.",
+    "count": 1,
+    "sample": "Healing Aura (TEST) (Rank 1) [id=7331]"
+  },
+  {
+    "ranked_idx": 1201,
+    "en": "Assumes an aggressive stance that generates rage when the warrior strikes an opponent. Lasts $d.",
+    "curr_pt": "Postura que gera fúria ao bater. $d s.",
+    "count": 1,
+    "sample": "Berserker Stance (Rank 1) [id=7366]"
+  },
+  {
+    "ranked_idx": 1202,
+    "en": "Bashes the target with your shield for $s2 damage and interrupting the spell being cast for $d.",
+    "curr_pt": "Escudada com $s1 e interrompe por $d s.",
+    "count": 1,
+    "sample": "Spell - Reuse 7377 (Rank 4) [id=7377]"
+  },
+  {
+    "ranked_idx": 1203,
+    "en": "Taunts the target to attack you, causing a medium amount of threat.  More effective than Taunt (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Taunt (Rank 2) [id=7390]"
+  },
+  {
+    "ranked_idx": 1204,
+    "en": "Taunts the target to attack you, causing a high amount of threat.  More effective than Taunt (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Taunt (Rank 3) [id=7391]"
+  },
+  {
+    "ranked_idx": 1205,
+    "en": "When struck in combat has a $h% chance of inflicting $16783s1 Shadow damage to the attacker.",
+    "curr_pt": "Acerto: $h% de $s1 de Sombra no atacante.",
+    "count": 1,
+    "sample": "Shadow Bolt () [id=7617]"
+  },
+  {
+    "ranked_idx": 1206,
+    "en": "When struck in combat has a $h% chance of inflicting $16784s1 Shadow damage to the attacker.",
+    "curr_pt": "Ao apanhar: $h% de $s1 de Sombra no atacante.",
+    "count": 1,
+    "sample": "Shadow Bolt () [id=7619]"
+  },
+  {
+    "ranked_idx": 1207,
+    "en": "Teaches Drain Life (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Drain Life (Rank 4) [id=7653]"
+  },
+  {
+    "ranked_idx": 1209,
+    "en": "Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Torment (Rank 2) [id=7809]"
+  },
+  {
+    "ranked_idx": 1210,
+    "en": "Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Torment (Rank 3) [id=7810]"
+  },
+  {
+    "ranked_idx": 1211,
+    "en": "Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Torment (Rank 4) [id=7811]"
+  },
+  {
+    "ranked_idx": 1212,
+    "en": "Target is cured of poisons up to level 25.",
+    "curr_pt": "Cura veneno até nv 25.",
+    "count": 1,
+    "sample": "Anti-Venom (Rank 1) [id=7932]"
+  },
+  {
+    "ranked_idx": 1213,
+    "en": "Target is cured of poisons up to level 35.",
+    "curr_pt": "Cura veneno até nv 35.",
+    "count": 1,
+    "sample": "Strong Anti-Venom (Rank 1) [id=7933]"
+  },
+  {
+    "ranked_idx": 1214,
+    "en": "Puts the caster in stealth mode, but slows its movement to $s2% of normal. Lasts until cancelled.",
+    "curr_pt": "Furtivo a -$s1% de velocidade, até cancelar.",
+    "count": 1,
+    "sample": "Sneak (Rank 1) [id=7939]"
+  },
+  {
+    "ranked_idx": 1215,
+    "en": "Conjures $M1 $lloaf:loaves; of bread, providing the mage and his allies with something to eat.",
+    "curr_pt": "Conjura $s1 pães pra comer.",
+    "count": 1,
+    "sample": "Scry on Azrethoc (Rank 1) [id=7960]"
+  },
+  {
+    "ranked_idx": 1216,
+    "en": "Imbue the Shaman's weapon, increasing melee attack power by $10400s1 and all threat caused by $10400s2% when using that weapon.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.",
+    "count": 1,
+    "sample": "Rockbiter Weapon (Rank 1) [id=8017]"
+  },
+  {
+    "ranked_idx": 1217,
+    "en": "Imbue the Shaman's weapon, increasing melee attack power by $15567s1 and all threat caused by $15567s2% when using that weapon.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.",
+    "count": 1,
+    "sample": "Rockbiter Weapon (Rank 2) [id=8018]"
+  },
+  {
+    "ranked_idx": 1218,
+    "en": "Imbue the Shaman's weapon, increasing melee attack power by $15568s1 and all threat caused by $15568s2% when using that weapon.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.",
+    "count": 1,
+    "sample": "Rockbiter Weapon (Rank 3) [id=8019]"
+  },
+  {
+    "ranked_idx": 1219,
+    "en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;8026m1 to $/25;8026M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.",
+    "count": 1,
+    "sample": "Flametongue Weapon (Rank 1) [id=8024]"
+  },
+  {
+    "ranked_idx": 1220,
+    "en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;8028m1 to $/25;8028M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.",
+    "count": 1,
+    "sample": "Flametongue Weapon (Rank 2) [id=8027]"
+  },
+  {
+    "ranked_idx": 1221,
+    "en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;8029m1 to $/25;8029M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.",
+    "count": 1,
+    "sample": "Flametongue Weapon (Rank 3) [id=8030]"
+  },
+  {
+    "ranked_idx": 1222,
+    "en": "Imbue the Shaman's weapon with frost.  Each hit has a chance of causing $8034s2 additional Frost damage and slowing the target's movement speed by $8034s1% for $8034d.  Lasts for 1 hour.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbrand Weapon (Rank 1) [id=8033]"
+  }
+]

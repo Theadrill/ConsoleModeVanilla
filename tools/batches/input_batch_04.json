@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 353,
+    "en": "Heals the friendly target for $s1, then jumps to heal additional nearby targets.  If cast on a party member, the heal will only jump to other party members.  Each jump is $*100;F1% as effective as the previous target.  Heals $x1 total targets.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Chain Heal (Rank 1) [id=1064]"
+  },
+  {
+    "ranked_idx": 354,
+    "en": "Claw the enemy, causing additional $s1 damage.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Claw (Rank 1) [id=1082]"
+  },
+  {
+    "ranked_idx": 355,
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding.  While enslaved, the time between the demon's attacks is increased by $s2% and its casting speed is slowed by $s3%.  Lasts up to $d.  If you repeatedly enslave the same demon, it will become more difficult to control with each attempt.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Enslave Demon (Rank 1) [id=1098]"
+  },
+  {
+    "ranked_idx": 356,
+    "en": "Curses the target for $d, reducing Fire and Frost resistances by $s1 and increasing Fire and Frost damage taken by $s2%.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Curse of the Elements (Rank 1) [id=1490]"
+  },
+  {
+    "ranked_idx": 357,
+    "en": "Scares a beast, causing it to run in fear for up to $d.  Damage caused may interrupt the effect.  Only one beast can be feared at a time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Scare Beast (Rank 1) [id=1513]"
+  },
+  {
+    "ranked_idx": 358,
+    "en": "Incapacitates the target for up to $d.  Must be stealthed.  Only works on Humanoids that are not in combat.    Any damage caused will revive the target.  Only 1 target may be sapped at a time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Sap (Rank 2) [id=2070]"
+  },
+  {
+    "ranked_idx": 359,
+    "en": "Counters the enemy's spellcast, preventing any spell from that school of magic from being cast for $d.  Generates a high amount of threat.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Counterspell () [id=2139]"
+  },
+  {
+    "ranked_idx": 360,
+    "en": "Blasts all targets within $a1 yards with bolts of lightning that do $s1 damage and then $o2 damage over $d.",
+    "curr_pt": "Detona todos os alvos a até $a1 m com raios de $s1 de dano e mais $s2 ao longo de $d s.",
+    "count": 3,
+    "sample": "Lightning Storm (Rank 1) [id=2616]"
+  },
+  {
+    "ranked_idx": 361,
+    "en": "Forces the enemy target to sleep for up to $d.  Any damage will awaken the target.  Only one target can be forced to hibernate at a time.  Only works on Beasts and Dragonkin.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Hibernate (Rank 1) [id=2637]"
+  },
+  {
+    "ranked_idx": 362,
+    "en": "Increases Holy spell and ability damage by 1 and the effect from Holy healing by 2.",
+    "curr_pt": "Aumenta o dano Sagrado de magias e habilidades em 1 e a cura Sagrada em 2.",
+    "count": 3,
+    "sample": "Holy Specialization (Rank 1) [id=2917]"
+  },
+  {
+    "ranked_idx": 363,
+    "en": "Increases the rogue's movement speed by $s1% for $d.  Does not break stealth.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Sprint (Rank 1) [id=2983]"
+  },
+  {
+    "ranked_idx": 364,
+    "en": "Fires a flaming shot at the enemy, doing an additional $s1 and making the damage fire based.",
+    "curr_pt": "Atira uma flecha flamejante com +$s1, virando dano de fogo.",
+    "count": 3,
+    "sample": "Fire Shot (Rank 1) [id=3011]"
+  },
+  {
+    "ranked_idx": 365,
+    "en": "Increases nearby group member's resistance to all magic by $s1.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Resistance Aura (Rank 1) [id=3487]"
+  },
+  {
+    "ranked_idx": 366,
+    "en": "Allows the Druid to prowl around, but reduces your movement speed by $s2%.  Lasts until cancelled.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Prowl (Rank 1) [id=5215]"
+  },
+  {
+    "ranked_idx": 367,
+    "en": "Strikes fear in the enemy, causing it to run in fear for up to $d.  Damage caused may interrupt the effect.  Only 1 target can be feared at a time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Fear (Rank 1) [id=5782]"
+  },
+  {
+    "ranked_idx": 368,
+    "en": "Decreases the Mana cost of casting Nature spells by 1.",
+    "curr_pt": "Reduz o custo de mana das magias de Natureza em 1.",
+    "count": 3,
+    "sample": "Nature Focus (Rank 1) [id=5831]"
+  },
+  {
+    "ranked_idx": 369,
+    "en": "Increases the critical effect chance of your Holy Light and Flash of Light by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico de Luz Sagrada e Clarão em $s1%.",
+    "count": 3,
+    "sample": "Holy Power (Rank 1) [id=5923]"
+  },
+  {
+    "ranked_idx": 370,
+    "en": "Increases your resistance to all magic by $s1 and allows $s2% of your mana regeneration to continue while casting.  Only one type of Armor spell can be active on the Mage at any time.  Lasts $d.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Mage Armor (Rank 1) [id=6117]"
+  },
+  {
+    "ranked_idx": 371,
+    "en": "Disarms an enemy, forcing it to stop wielding its weapon for $d.",
+    "curr_pt": "Aumenta a Armadura em $s1 e a resistência a gelo em $s2. Quem golpear pode ficar lento em $s3% e com +$s4% de intervalo por $d1 s. Só uma magia de Armadura por vez. Dura $d2 s.",
+    "count": 3,
+    "sample": "Disarm () [id=6713]"
+  },
+  {
+    "ranked_idx": 372,
+    "en": "Call forth a voidwalker using the summoning circle.",
+    "curr_pt": "Invoca um emissário pelo círculo.",
+    "count": 3,
+    "sample": "Summon Voidwalker (Rank 1) [id=7728]"
+  },
+  {
+    "ranked_idx": 373,
+    "en": "Instantly shocks the target with frost, causing $s2 Frost damage and slowing movement speed by $s1%.  Lasts $d.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Frost Shock (Rank 1) [id=8056]"
+  },
+  {
+    "ranked_idx": 374,
+    "en": "Instantly shocks the target with lightning, causing $s1 damage and dispelling $s2 magic $leffect:effects;.",
+    "curr_pt": "Golpeia o alvo na hora com raio, causando $s1 de dano e dissipando $s2 magias.",
+    "count": 3,
+    "sample": "Lightning Shock (Rank 1) [id=8060]"
+  },
+  {
+    "ranked_idx": 375,
+    "en": "Puts the caster in stealth mode, but slows its movement by $s2%. Lasts until cancelled.",
+    "curr_pt": "Põe você em furtividade, mas a -$s1% de velocidade, até cancelar.",
+    "count": 3,
+    "sample": "Prowl (Rank 1) [id=8152]"
+  },
+  {
+    "ranked_idx": 376,
+    "en": "Allows the rogue to sneak around, but reduces your speed to $s2% of normal.  Lasts until cancelled.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Stealth (Rank 1) [id=8216]"
+  },
+  {
+    "ranked_idx": 377,
+    "en": "Inflicts weapon damage plus $s1 to an enemy, reducing its movement speed by $s2% for $d.",
+    "curr_pt": "Causa dano de arma mais $s1 ao inimigo, reduzindo sua velocidade em $s2% por $d s.",
+    "count": 3,
+    "sample": "Hamstring () [id=9080]"
+  },
+  {
+    "ranked_idx": 378,
+    "en": "Increases the melee attack power of nearby party members by $s1 for $d.",
+    "curr_pt": "Aumenta a chance do Abraço da Natureza enraizar em $s1%.",
+    "count": 3,
+    "sample": "Battle Shout () [id=9128]"
+  },
+  {
+    "ranked_idx": 379,
+    "en": "Sends out a blast wave of magic, inflicting $s1 Arcane damage to nearby enemies.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1, com $s2% de chance de refletir magia de Natureza hostil.",
+    "count": 3,
+    "sample": "Arcane Explosion (Rank 4) [id=9433]"
+  },
+  {
+    "ranked_idx": 380,
+    "en": "Reduces the cooldown of your Fire Blast spell by $/1000;S1 sec and reduces the global cooldown of your Fire Blast spell by $/1000;S2 sec.",
+    "curr_pt": "Reduz o tempo de lançamento da Explosão de Fogo em $s1 s e o global em $s2 s.",
+    "count": 3,
+    "sample": "Improved Fire Blast (Rank 1) [id=11078]"
+  },
+  {
+    "ranked_idx": 381,
+    "en": "Increases the critical strike chance of your Flamestrike spell by $s1%.",
+    "curr_pt": "Aumenta a chance de crítico da sua Chuva de Meteoro em $s1%.",
+    "count": 3,
+    "sample": "Improved Flamestrike (Rank 1) [id=11108]"
+  },
+  {
+    "ranked_idx": 382,
+    "en": "Increases the damage dealt by your Cone of Cold spell by $s1%.",
+    "curr_pt": "Aumenta o dano do seu Cone de Gelo em $s1%.",
+    "count": 3,
+    "sample": "Improved Cone of Cold (Rank 1) [id=11190]"
+  },
+  {
+    "ranked_idx": 383,
+    "en": "Increases the critical strike chance of your Arcane spells by an additional $s1%.",
+    "curr_pt": "Aumenta o crítico Arcano em $s1%.",
+    "count": 3,
+    "sample": "Arcane Impact (Rank 1) [id=11242]"
+  },
+  {
+    "ranked_idx": 384,
+    "en": "Wraps an ally in a shield that lasts up to $d., absorbing a maximum of $s1 Physical or magical damage. While the shield holds, spells will not be interrupted by Physical attacks.",
+    "curr_pt": "Causa $s1 de dano de Natureza ao longo de $d s. Acumula até 5 vezes no alvo.",
+    "count": 3,
+    "sample": "Power Word: Shield () [id=11974]"
+  },
+  {
+    "ranked_idx": 385,
+    "en": "Increases the bleed damage done by your Rend ability by $s1%.",
+    "curr_pt": "Aumenta o sangramento de Rasgar em $s1%.",
+    "count": 3,
+    "sample": "Improved Rend (Rank 1) [id=12286]"
+  },
+  {
+    "ranked_idx": 386,
+    "en": "Gives your Hamstring ability a $h% chance to immobilize the target for $23694d.",
+    "curr_pt": "Dá ao Aleijar $h% de chance de imobilizar por $d s.",
+    "count": 3,
+    "sample": "[Deprecated] Improved Hamstring (Rank 1) [id=12289]"
+  },
+  {
+    "ranked_idx": 387,
+    "en": "Decreases the cooldown of your Disarm ability by $/1000;s1 secs.",
+    "curr_pt": "Reduz a recarga do Desarmar em $s1 s.",
+    "count": 3,
+    "sample": "Improved Disarm (Rank 1) [id=12313]"
+  },
+  {
+    "ranked_idx": 388,
+    "en": "Reduces the cooldown of your Counterspell by $/1000;s1 secs.",
+    "curr_pt": "Reduz a recarga da Contra-magia em $s1 s.",
+    "count": 3,
+    "sample": "Improved Counterspell (Rank 3) [id=12600]"
+  },
+  {
+    "ranked_idx": 389,
+    "en": "Forces nearby enemies to speak in Demonic, reducing their casting speed by $s1% for $d. Only one curse per warlock can be active on any one target.",
+    "curr_pt": "Detona o inimigo com $s1 de dano Sagrado.",
+    "count": 3,
+    "sample": "Curse of Tongues () [id=12889]"
+  },
+  {
+    "ranked_idx": 390,
+    "en": "Instantly shields you, absorbing $s1 damage.  Lasts $d.  While the shield holds, spells will not be interrupted.\n",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Ice Barrier (Rank 5) [id=13034]"
+  },
+  {
+    "ranked_idx": 391,
+    "en": "Lets out a psychic scream, causing up to $i nearby enemies to flee for $d.",
+    "curr_pt": "Invoca uma coluna de chamas que queima todos na área com $s1 de dano de Fogo e mais $s2 a cada $t1 s por $d s.",
+    "count": 3,
+    "sample": "Psychic Scream () [id=13704]"
+  },
+  {
+    "ranked_idx": 392,
+    "en": "Increases the critical strike chance of your Backstab ability by $s1% and gives your Backstab a $s2% chance to award an additional combo point.",
+    "curr_pt": "Aumenta o crítico do Apunhalar em $s1% e dá $s2% de chance de combo extra.",
+    "count": 3,
+    "sample": "Improved Backstab (Rank 1) [id=13733]"
+  },
+  {
+    "ranked_idx": 393,
+    "en": "Attacks nearby enemies in a whirlwind of steel that lasts $d. and inflicts normal damage plus $15589s1.",
+    "curr_pt": "Faz os inimigos próximos fugirem de medo por $d s.",
+    "count": 3,
+    "sample": "Whirlwind () [id=13736]"
+  },
+  {
+    "ranked_idx": 394,
+    "en": "Increases the effect duration of your Gouge ability by $/1000;S1 sec.",
+    "curr_pt": "Aumenta a duração da Goiva em $s1 s.",
+    "count": 3,
+    "sample": "Improved Gouge (Rank 1) [id=13741]"
+  },
+  {
+    "ranked_idx": 395,
+    "en": "Scorches an enemy for Fire damage.",
+    "curr_pt": "Investida contra o inimigo com dano normal mais $s1.",
+    "count": 3,
+    "sample": "Scorch () [id=13878]"
+  },
+  {
+    "ranked_idx": 396,
+    "en": "Gives you a $h1% chance to add a combo point to your target after dodging their attack or fully resisting one of their spells.",
+    "curr_pt": "Dá $h% de chance de combo ao esquivar ou resistir tudo.",
+    "count": 3,
+    "sample": "Setup (Rank 1) [id=13983]"
+  },
+  {
+    "ranked_idx": 397,
+    "en": "Gives you a $s1% chance to return to stealth mode after using your Sap ability.",
+    "curr_pt": "Dá $s1% de chance de voltar à furtividade após Sap.",
+    "count": 3,
+    "sample": "Improved Sap (Rank 1) [id=14076]"
+  },
+  {
+    "ranked_idx": 398,
+    "en": "Increases the critical strike chance of your Ambush ability by $s2%.  Your Ambush will refund $s1 Energy if it does not result in a critical strike.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Improved Ambush (Rank 1) [id=14079]"
+  },
+  {
+    "ranked_idx": 399,
+    "en": "Increases your movement speed while vanished by $s1%.",
+    "curr_pt": "Aumenta sua velocidade sumido em $s1%.",
+    "count": 3,
+    "sample": "Improved Vanish (Rank 1) [id=14088]"
+  },
+  {
+    "ranked_idx": 400,
+    "en": "Increases the damage done by your Eviscerate ability by $s1%.",
+    "curr_pt": "Aumenta o dano do Eviscerar em $s1%.",
+    "count": 3,
+    "sample": "Improved Eviscerate (Rank 1) [id=14162]"
+  },
+  {
+    "ranked_idx": 401,
+    "en": "Increases the duration of your Slice and Dice and Flourish abilities by $s1%.",
+    "curr_pt": "Aumenta a duração de Fatiar e Florescer em $s1%.",
+    "count": 3,
+    "sample": "Improved Blade Tactics (Rank 1) [id=14165]"
+  },
+  {
+    "ranked_idx": 402,
+    "en": "Increases the effects of your Inner Fire spell by $s1%.",
+    "curr_pt": "Aumenta o efeito do Fogo Interior em $s1%.",
+    "count": 3,
+    "sample": "Improved Inner Fire (Rank 1) [id=14747]"
+  }
+]

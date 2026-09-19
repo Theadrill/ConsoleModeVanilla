@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 606,
+    "en": "Increases the health of your Stoneclaw Totem by $s1% and the radius of your Earthbind Totem by $s2%.",
+    "curr_pt": "Aumenta a Vida do Garra de Pedra em $s1% e o raio do Vínculo em $s2%.",
+    "count": 2,
+    "sample": "Earth's Grasp (Rank 1) [id=16043]"
+  },
+  {
+    "ranked_idx": 609,
+    "en": "Increases the damage dealt by your Chain Lightning spell by $s1%.",
+    "curr_pt": "Aumenta o dano da sua Cadeia de Relâmpagos em $s1%.",
+    "count": 2,
+    "sample": "Improved Chain Lightning (Rank 1) [id=16090]"
+  },
+  {
+    "ranked_idx": 610,
+    "en": "Increases the amount healed to targets beyond the first by $s1%.",
+    "curr_pt": "Sua invasão alertou o Barão Rivendare, e o prisioneiro tem pouco tempo.",
+    "count": 2,
+    "sample": "Improved Chain Heal (Rank 1) [id=16183]"
+  },
+  {
+    "ranked_idx": 611,
+    "en": "Reduces the cooldown of your Reincarnation spell by $/60000;s1 min and increases the amount of health and mana you reincarnate with by an additional $s2%.",
+    "curr_pt": "Renascer -$s1 min e +$s2% vida/mana.",
+    "count": 2,
+    "sample": "Improved Reincarnation (Rank 1) [id=16184]"
+  },
+  {
+    "ranked_idx": 612,
+    "en": "Increases the duration of your Healing Stream and Mana Spring totems by $/1000;s1 sec.",
+    "curr_pt": "Aumenta a duração dos Totens de Cura e Mana em $s1 s.",
+    "count": 2,
+    "sample": "Eventide (Rank 4) [id=16199]"
+  },
+  {
+    "ranked_idx": 614,
+    "en": "Increases the effect of your Strength of Earth and Grace of Air Totems by $s1% and reduces the cooldown of your Grounding Totem by $/1000;s3 sec. Your Stoneskin Totem's damage reduction is increased by $s2% and additionally it increases block amount by $s2%.",
+    "curr_pt": "Aumenta o efeito dos Totens de Terra, Ar e Aterrar em $s1% e -$s2 s de recarga, com Pele de Pedra +$s3% e +$s3 bloqueio.",
+    "count": 2,
+    "sample": "Enhancing Totems (Rank 1) [id=16259]"
+  },
+  {
+    "ranked_idx": 615,
+    "en": "Increases the damage done by your Flametongue Weapon effect by $s1%.",
+    "curr_pt": "Aumenta o dano causado pelo efeito da sua Arma de Labaredas em $s1%.",
+    "count": 2,
+    "sample": "Improved Flametongue Weapon (Rank 1) [id=16263]"
+  },
+  {
+    "ranked_idx": 616,
+    "en": "Increases the damage done by your Frostbrand Weapon effect by $s1%.",
+    "curr_pt": "Aumenta o dano do efeito Marca Gélida em $s1%.",
+    "count": 2,
+    "sample": "Improved Frostbrand Weapon (Rank 1) [id=16264]"
+  },
+  {
+    "ranked_idx": 617,
+    "en": "Increases the melee attack power bonus of your Rockbiter Weapon by $s1%.",
+    "curr_pt": "Aumenta o bônus de poder de ataque corpo a corpo da sua Arma de Rachapedra em $s1%.",
+    "count": 2,
+    "sample": "Improved Rockbiter Weapon (Rank 1) [id=16265]"
+  },
+  {
+    "ranked_idx": 618,
+    "en": "Increases the critical strike damage bonus of your abilities in Battle, Defensive, and Berserker stance by $s1%.",
+    "curr_pt": "Aumenta o bônus de dano crítico em Posturas de Batalha, Defesa e Fúria em $s1%.",
+    "count": 2,
+    "sample": "Impale (Rank 1) [id=16493]"
+  },
+  {
+    "ranked_idx": 619,
+    "en": "Increases the frequency that your Grounding Totem will redirect a spell by $/1000;s1 sec.",
+    "curr_pt": "Aumenta a frequência do Totem Aterrador em $s1 s.",
+    "count": 2,
+    "sample": "Improved Grounding Totem (Rank 1) [id=16546]"
+  },
+  {
+    "ranked_idx": 620,
+    "en": "Assumes a Shadowform, increasing Shadow damage dealt by $s2% and reducing melee damage taken by $s1%. Shadowform lasts until cancelled.",
+    "curr_pt": "Sombra +$s1% e corpo a corpo -$s2%. Até cancelar.",
+    "count": 2,
+    "sample": "Shadowform () [id=16592]"
+  },
+  {
+    "ranked_idx": 621,
+    "en": "Increases the range of your Frostbolt, Icicles and Blizzard spells and the radius of your Frost Nova and Cone of Cold spells by $s1%.",
+    "curr_pt": "Aumenta o alcance de Setavolt, Estacas e Nevasca e o raio de Nova e Cone em $s1%.",
+    "count": 2,
+    "sample": "Arctic Reach (Rank 1) [id=16757]"
+  },
+  {
+    "ranked_idx": 622,
+    "en": "Increases your spell damage and critical strike chance by $s1%.",
+    "curr_pt": "Aumenta seu dano mágico e crítico em $s1%.",
+    "count": 2,
+    "sample": "[Deprecated] Arcane Instability (Rank 4) [id=16773]"
+  },
+  {
+    "ranked_idx": 623,
+    "en": "Increases the range of your Wrath, Entangling Roots, Faerie Fire, Moonfire, Starfire, Insect Swarm and Hurricane spells by $s1%.",
+    "curr_pt": "Aumenta o alcance de Ira, Raízes, Fogo Fátuo, Fogofátuo, Starfire, Enxame e Furacão em $s1%.",
+    "count": 2,
+    "sample": "Nature's Reach (Rank 1) [id=16819]"
+  },
+  {
+    "ranked_idx": 624,
+    "en": "Reduces the Mana cost of your Moonfire and Starfire spells by $s1%.",
+    "curr_pt": "Fogofátuo e Starfire -$s1% mana.",
+    "count": 2,
+    "sample": "Moonglow (Rank 4) [id=16848]"
+  },
+  {
+    "ranked_idx": 625,
+    "en": "Increases the damage done by your Starfire, Moonfire and Wrath spells by $s1%.",
+    "curr_pt": "Aumenta o dano de Starfire, Fogofátuo e Ira em $s1%.",
+    "count": 2,
+    "sample": "[Deprecated] Moonfury (Rank 4) [id=16900]"
+  },
+  {
+    "ranked_idx": 626,
+    "en": "Increases the stun duration of your Bash and Pounce abilities by $/1000;S1 sec.",
+    "curr_pt": "Aumenta o atordoamento de Espancar e Bote em $s1 s.",
+    "count": 2,
+    "sample": "Brutal Impact (Rank 1) [id=16940]"
+  },
+  {
+    "ranked_idx": 627,
+    "en": "Increases your Attack Power in Cat, Bear and Dire Bear Forms by $s1%.",
+    "curr_pt": "Aumenta seu Poder de Ataque em Gato, Urso e Urso Atroz em $s1%.",
+    "count": 2,
+    "sample": "zzOLD Predatory Strikes (Rank 4) [id=16976]"
+  },
+  {
+    "ranked_idx": 628,
+    "en": "Increases the damage caused by your Claw, Rake, Maul, Swipe and Savage Bite abilities by $s1%.",
+    "curr_pt": "Aumenta o dano de Garra, Ancinha, Dilacerar, Patada e Mordida Selvagem em $s1%.",
+    "count": 2,
+    "sample": "Savage Fury (Rank 1) [id=16998]"
+  },
+  {
+    "ranked_idx": 629,
+    "en": "Increases the effect of your Rejuvenation spell by $s1%.",
+    "curr_pt": "Aumenta o efeito do Rejuvenescer em $s1%.",
+    "count": 2,
+    "sample": "[Deprecated] Improved Rejuvenation (Rank 4) [id=17114]"
+  },
+  {
+    "ranked_idx": 630,
+    "en": "Increases the healing done by your Tranquility spell by $s1%.",
+    "curr_pt": "Aumenta a cura da Tranquilidade em $s1%.",
+    "count": 2,
+    "sample": "Improved Tranquility (Rank 1) [id=17123]"
+  },
+  {
+    "ranked_idx": 631,
+    "en": "Inflicts Holy damage to an undead enemy.",
+    "curr_pt": "Causa dano Sagrado em morto-vivo.",
+    "count": 2,
+    "sample": "Exorcism () [id=17147]"
+  },
+  {
+    "ranked_idx": 632,
+    "en": "Dispels magic on an ally, removing $s1 harmful $lspell:spells;.",
+    "curr_pt": "Aumenta o poder de ataque em $s1 por $d s.",
+    "count": 2,
+    "sample": "Dispel Magic () [id=17201]"
+  },
+  {
+    "ranked_idx": 633,
+    "en": "Inflicts Fire damage to an enemy, then additional damage every $t2 sec. for $d.",
+    "curr_pt": "Queima o inimigo com Fogo e mais dano a cada $t1 s por $d s.",
+    "count": 2,
+    "sample": "Pyroblast () [id=17273]"
+  },
+  {
+    "ranked_idx": 634,
+    "en": "An instant strike that damages the opponent and causes the target to hemorrhage, increasing any Physical damage dealt to the target by up to $s3.  Lasts $n charges or $d.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "[Deprecated] Hemorrhage (Rank 2) [id=17347]"
+  },
+  {
+    "ranked_idx": 635,
+    "en": "Sends a shadowy bolt at the enemy causing $s1 Shadow damage and dealing $s2 damage every $t2 sec for $d.",
+    "curr_pt": "Envia raio sombrio de $s1 e $s2 a cada $t1 s por $d s.",
+    "count": 2,
+    "sample": "Shadow Bolt () [id=17483]"
+  },
+  {
+    "ranked_idx": 636,
+    "en": "Enfolds the caster in a protective shield that lasts $d. and absorbs up to $s1 Physical damage, draining mana instead of health. Drains $e mana per point of damage absorbed.",
+    "curr_pt": "Escudo de $d s com até $s1 Físico, drenando $s2 de mana por dano.",
+    "count": 2,
+    "sample": "Mana Shield () [id=17740]"
+  },
+  {
+    "ranked_idx": 637,
+    "en": "Curses the target for $d, reducing Shadow and Arcane resistances by $s1 and increasing Shadow and Arcane damage taken by $s2%.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Curse of Shadow (Rank 1) [id=17862]"
+  },
+  {
+    "ranked_idx": 638,
+    "en": "Gives your Corruption, Dark Harvest and Drain spells a $h% chance to cause you to enter a Shadow Trance state after damaging the opponent.  The Shadow Trance state reduces the casting time of your next Shadow Bolt spell by $17941s1% and makes it guaranteed to land.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Nightfall (Rank 1) [id=18094]"
+  },
+  {
+    "ranked_idx": 639,
+    "en": "Reduces the casting time of your Imp's Firebolt spell by $/1000;S1 sec.",
+    "curr_pt": "Setafímbrea do Diabrete -$s1 s.",
+    "count": 2,
+    "sample": "[Deprecated] Improved Firebolt (Rank 1) [id=18126]"
+  },
+  {
+    "ranked_idx": 640,
+    "en": "Gives your Fire spells a $s1% chance to not lose casting time when you take damage.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Intensity (Rank 1) [id=18135]"
+  },
+  {
+    "ranked_idx": 641,
+    "en": "Increases the attack speed reduction of your Curse of Weakness by $s1% and increases the speed reduction of your Curse of Exhaustion by $s2%.",
+    "curr_pt": "Aumenta a redução de ataque da Maldição de Fraqueza em $s1% e a lentidão da Maldição de Exaustão em $s2%.",
+    "count": 2,
+    "sample": "Improved Debilitating Curses (Rank 1) [id=18179]"
+  },
+  {
+    "ranked_idx": 642,
+    "en": "Increases the amount of Mana awarded by your Life Tap spell by $s1%.",
+    "curr_pt": "Escamas translúcidas para ver um futuro melhor.",
+    "count": 2,
+    "sample": "Improved Life Tap (Rank 1) [id=18182]"
+  },
+  {
+    "ranked_idx": 643,
+    "en": "Gives you a $s1% chance to get a $18371s1% increase to your Mana regeneration for $18371d if the target is killed by you while you drain its soul.  In addition your Mana may continue to regenerate while casting at $18371s2% of normal.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "[Deprecated] Improved Drain Soul (Rank 1) [id=18213]"
+  },
+  {
+    "ranked_idx": 644,
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   Also increases your Stamina by $18191s for $18191d. ",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Food () [id=18229]"
+  },
+  {
+    "ranked_idx": 645,
+    "en": "Curses the target with agony, causing $o1 damage over $d.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Curse of Agony (TEST2) (Rank 1) [id=18237]"
+  },
+  {
+    "ranked_idx": 646,
+    "en": "Silences an enemy preventing it from casting spells for $d.",
+    "curr_pt": "Silencia por $d s.",
+    "count": 2,
+    "sample": "Silence (Rank 1) [id=18278]"
+  },
+  {
+    "ranked_idx": 647,
+    "en": "Corrupts nearby enemies, inflicting Shadow damage every $t1 sec. for $d.",
+    "curr_pt": "Corrompe próximos com Sombra a cada $t1 s por $d s.",
+    "count": 2,
+    "sample": "Corruption () [id=18376]"
+  },
+  {
+    "ranked_idx": 648,
+    "en": "Increases the critical strike chance of your Fire Blast and Scorch spells by $s1%.",
+    "curr_pt": "Aumenta o crítico de Explosão de Fogo e Chamuscar em $s1%.",
+    "count": 2,
+    "sample": "Incinerate (Rank 1) [id=18459]"
+  },
+  {
+    "ranked_idx": 649,
+    "en": "Increases the critical strike chance of your Arcane Explosion spell by an additional $s1%.",
+    "curr_pt": "Aumenta o crítico da sua Explosão Arcana em $s1%.",
+    "count": 2,
+    "sample": "Improved Arcane Explosion (Rank 4) [id=18467]"
+  },
+  {
+    "ranked_idx": 650,
+    "en": "Increases the amount of Health restored by your Healthstone by $s1%.",
+    "curr_pt": "Dizem que pertence aos Cavaleiros Sombrios e anuncia uma era de agonia.",
+    "count": 2,
+    "sample": "Improved Healthstone (Rank 1) [id=18692]"
+  },
+  {
+    "ranked_idx": 651,
+    "en": "Increases the amount of Health transferred by your Health Funnel by $s1% of your demon's missing Health and the Mana transferred by your Mana Funnel by $s1% of your demon's missing Mana. This additional transfer drains $q1% of that amount from you.",
+    "curr_pt": "Corpos firmes que protegem o dono de má energia.",
+    "count": 2,
+    "sample": "Soul Funnel (Rank 1) [id=18703]"
+  },
+  {
+    "ranked_idx": 652,
+    "en": "Reduces the casting time of your Imp, Voidwalker, Succubus and Felhunter summoning spells by $/1000;s1 sec and their Mana cost by $s2%.  In addition, reduces the cooldown of your Inferno and Demon Gate spells by $s3%.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Master Summoner (Rank 1) [id=18709]"
+  },
+  {
+    "ranked_idx": 653,
+    "en": "Reduces the Mana cost and casting time of your Stone creation spells by $s1%.",
+    "curr_pt": "Pedra -$s1% mana.",
+    "count": 2,
+    "sample": "Master Conjuror (Rank 1) [id=18757]"
+  },
+  {
+    "ranked_idx": 654,
+    "en": "Increases the damage done by your offhand weapon by $s2% and the critical strike chance of your Raptor Strike, Mongoose Bite, Carve and Wing Clip abilities by $s1%.",
+    "curr_pt": "Aumenta o dano da secundária em $s1% e o crítico de Raptor, Mangusto, Esculpir e Asa em $s2%.",
+    "count": 2,
+    "sample": "Savage Strikes (Rank 1) [id=19159]"
+  },
+  {
+    "ranked_idx": 655,
+    "en": "Increases the duration of Freezing and Frost trap effects by $s1% and the damage of Immolation and Explosive trap effects by $s2%.",
+    "curr_pt": "Aumenta a duração de Congelante e Gelo em $s1% e o dano de Imolação e Explosiva em $s2%.",
+    "count": 2,
+    "sample": "Clever Traps (Rank 1) [id=19239]"
+  },
+  {
+    "ranked_idx": 656,
+    "en": "Silences the enemy for $24259d.  If used on a casting target, it will counter the enemy's spellcast, preventing any spell from that school of magic from being cast for $d.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Spell Lock (Rank 1) [id=19244]"
+  },
+  {
+    "ranked_idx": 657,
+    "en": "Reduces the chance your Feign Death ability will be resisted by $s1%.",
+    "curr_pt": "Fingir -$s1% resistência.",
+    "count": 2,
+    "sample": "Improved Feign Death (Rank 1) [id=19286]"
+  },
+  {
+    "ranked_idx": 658,
+    "en": "Increases your critical strike chance with all attacks by $s1%.",
+    "curr_pt": "Aumenta sua chance de crítico com tudo em $s1%.",
+    "count": 2,
+    "sample": "[Deprecated] Killer Instinct (Rank 4) [id=19374]"
+  }
+]

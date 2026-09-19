@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1875,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $24799s1 Strength for $24799d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=24800]"
+  },
+  {
+    "ranked_idx": 1876,
+    "en": "Breathes lightning, instantly dealing $24844s1 Nature damage to a single target.",
+    "curr_pt": "Sopra raio com $s1 de Natureza num alvo na hora.",
+    "count": 1,
+    "sample": "Lightning Breath (Rank 1) [id=24845]"
+  },
+  {
+    "ranked_idx": 1877,
+    "en": "Summons a Mana Spring Totem with $s1 health at the feet of the caster for $d that restores $24853s1 mana every $24853t1 seconds to group members within $24853a1 yards.",
+    "curr_pt": "Totem $s1 por $d s; grupo a até $a1 m recebe $s2 a cada $t1 s.",
+    "count": 1,
+    "sample": "Mana Spring Totem () [id=24854]"
+  },
+  {
+    "ranked_idx": 1878,
+    "en": "Transforms the Druid into Moonkin Form. While in this form the armor contribution from items is increased by $24905s1%, the Mana cost of your Balance spells is reduced by 20%, and all party members within 30 yards have their spell critical chance increased by 3%. The Moonkin can only cast Balance spells, Innervate, and Remove Curse while shapeshifted. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "Vira Coruja: +$s1% armadura de itens, -20% custo, grupo a 30 m +3% crítico. Só Equilíbrio/Inervar/Remover. Virar limpa Polimorfia e lentidões.",
+    "count": 1,
+    "sample": "Moonkin Form (Shapeshift) [id=24858]"
+  },
+  {
+    "ranked_idx": 1879,
+    "en": "Restores $s1% of your health per second for $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain Stamina and Spirit for $24870d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=24869]"
+  },
+  {
+    "ranked_idx": 1880,
+    "en": "Restores all health.",
+    "curr_pt": "Cura tudo.",
+    "count": 1,
+    "sample": "Heal () [id=24947]"
+  },
+  {
+    "ranked_idx": 1881,
+    "en": "Breathes lightning, instantly dealing $25008s1 Nature damage to a single target.",
+    "curr_pt": "Sopra raio com $s1 de Natureza num alvo na hora.",
+    "count": 1,
+    "sample": "Lightning Breath (Rank 2) [id=25013]"
+  },
+  {
+    "ranked_idx": 1882,
+    "en": "Breathes lightning, instantly dealing $25009s1 Nature damage to a single target.",
+    "curr_pt": "Sopra raio com $s1 de Natureza num alvo na hora.",
+    "count": 1,
+    "sample": "Lightning Breath (Rank 3) [id=25014]"
+  },
+  {
+    "ranked_idx": 1883,
+    "en": "Breathes lightning, instantly dealing $25010s1 Nature damage to a single target.",
+    "curr_pt": "Sopra raio com $s1 de Natureza num alvo na hora.",
+    "count": 1,
+    "sample": "Lightning Breath (Rank 4) [id=25015]"
+  },
+  {
+    "ranked_idx": 1884,
+    "en": "Breathes lightning, instantly dealing $25011s1 Nature damage to a single target.",
+    "curr_pt": "Sopra raio com $s1 de Natureza num alvo na hora.",
+    "count": 1,
+    "sample": "Lightning Breath (Rank 5) [id=25016]"
+  },
+  {
+    "ranked_idx": 1885,
+    "en": "Breathes lightning, instantly dealing $25012s1 Nature damage to a single target.",
+    "curr_pt": "Sopra raio com $s1 de Natureza num alvo na hora.",
+    "count": 1,
+    "sample": "Lightning Breath (Rank 6) [id=25017]"
+  },
+  {
+    "ranked_idx": 1886,
+    "en": "Casts your Summon Voidwalker spell with no mana or Soul Shard requirements.",
+    "curr_pt": "Invocar sem mana/pedra.",
+    "count": 1,
+    "sample": "Summon Voidwalker (Summon) [id=25112]"
+  },
+  {
+    "ranked_idx": 1887,
+    "en": "Backstab the target, causing $s2% melee damage plus 225 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 9) [id=25300]"
+  },
+  {
+    "ranked_idx": 1888,
+    "en": "Launches Arcane Missiles at the enemy, causing $25346s1 Arcane damage every $25346d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 8) [id=25345]"
+  },
+  {
+    "ranked_idx": 1889,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy for $25349o1 Nature damage over $25349d.  Stacks up to 5 times on a single target.  105 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison V (Rank 5) [id=25347]"
+  },
+  {
+    "ranked_idx": 1890,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy for $25349o1 Nature damage over $25349d.  Stacks up to 5 times on a single target.  120 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison V (Rank 5) [id=25351]"
+  },
+  {
+    "ranked_idx": 1893,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20286s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 8) [id=25715]"
+  },
+  {
+    "ranked_idx": 1894,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20285s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 7) [id=25727]"
+  },
+  {
+    "ranked_idx": 1895,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20284s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 6) [id=25728]"
+  },
+  {
+    "ranked_idx": 1896,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20283s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 5) [id=25729]"
+  },
+  {
+    "ranked_idx": 1897,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20282s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 4) [id=25730]"
+  },
+  {
+    "ranked_idx": 1898,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20281s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 3) [id=25731]"
+  },
+  {
+    "ranked_idx": 1899,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20280s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 2) [id=25732]"
+  },
+  {
+    "ranked_idx": 1900,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20187s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 1) [id=25733]"
+  },
+  {
+    "ranked_idx": 1901,
+    "en": "Fills the Paladin with holy spirit for $d, giving each melee attack a chance to cause $s1 additional Holy damage.  Only one Seal can be active on the Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 1) [id=25734]"
+  },
+  {
+    "ranked_idx": 1902,
+    "en": "Increases the threat generated by your Holy attacks by $s1%.  Lasts until cancelled.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Righteous Fury () [id=25780]"
+  },
+  {
+    "ranked_idx": 1903,
+    "en": "Gives all members of the raid or group that share the same class with the target the Greater Blessing of Light, increasing the effects of Holy Light spells used on the target by up to $s1, the effect Flash of Light spells used on the target by up to $s2 and the effect Holy Shock spells used on the target by up to $s3.  Lasts $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Blessing of Light (Rank 1) [id=25890]"
+  },
+  {
+    "ranked_idx": 1904,
+    "en": "Gives all members of the raid or group that share the same class with the target the Greater Blessing of Salvation, reducing the amount of all threat generated by $s1% for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Blessing of Salvation () [id=25895]"
+  },
+  {
+    "ranked_idx": 1905,
+    "en": "Gives all members of the raid or group that share the same class with the target the Greater Blessing of Kings, increasing total stats by $s1% for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Blessing of Kings () [id=25898]"
+  },
+  {
+    "ranked_idx": 1906,
+    "en": "Gives all members of the raid or group that share the same class with the target the Greater Blessing of Sanctuary, reducing damage dealt from all sources by up to $s1 for $d.  In addition, when the target blocks a melee attack the attacker will take $s2 Holy damage.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Blessing of Sanctuary (Rank 1) [id=25899]"
+  },
+  {
+    "ranked_idx": 1907,
+    "en": "Teaches Heroic Strike (Rank 9).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Heroic Strike (Rank 9) [id=25958]"
+  },
+  {
+    "ranked_idx": 1908,
+    "en": "Teaches Battle Shout (Rank 7).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Battle Shout (Rank 7) [id=25959]"
+  },
+  {
+    "ranked_idx": 1909,
+    "en": "Teaches Blessing of Wisdom (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Wisdom (Rank 6) [id=25961]"
+  },
+  {
+    "ranked_idx": 1910,
+    "en": "Teaches Blessing of Might (Rank 7).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Might (Rank 7) [id=25962]"
+  },
+  {
+    "ranked_idx": 1911,
+    "en": "Teaches Holy Light (Rank 9).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Light (Rank 9) [id=25963]"
+  },
+  {
+    "ranked_idx": 1912,
+    "en": "Teaches Healing Wave (Rank 10).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Wave (Rank 10) [id=25964]"
+  },
+  {
+    "ranked_idx": 1913,
+    "en": "Teaches Strength of Earth Totem (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Strength of Earth Totem (Rank 5) [id=25965]"
+  },
+  {
+    "ranked_idx": 1914,
+    "en": "Teaches Grace of Air Totem (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Grace of Air Totem (Rank 3) [id=25966]"
+  },
+  {
+    "ranked_idx": 1915,
+    "en": "Teaches Multi-Shot (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Multi-Shot (Rank 5) [id=25967]"
+  },
+  {
+    "ranked_idx": 1916,
+    "en": "Teaches Serpent Sting (Rank 9).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Serpent Sting (Rank 9) [id=25968]"
+  },
+  {
+    "ranked_idx": 1917,
+    "en": "Teaches Aspect of the Hawk (Rank 7).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Aspect of the Hawk (Rank 7) [id=25969]"
+  },
+  {
+    "ranked_idx": 1918,
+    "en": "Teaches Healing Touch (Rank 11).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Touch (Rank 11) [id=25970]"
+  },
+  {
+    "ranked_idx": 1919,
+    "en": "Teaches Starfire (Rank 7).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Starfire (Rank 7) [id=25971]"
+  },
+  {
+    "ranked_idx": 1920,
+    "en": "Teaches Rejuvenation (Rank 11).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rejuvenation (Rank 11) [id=25972]"
+  },
+  {
+    "ranked_idx": 1921,
+    "en": "Teaches Backstab (Rank 9).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 9) [id=25973]"
+  },
+  {
+    "ranked_idx": 1922,
+    "en": "Teaches Fireball (Rank 12).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fireball (Rank 12) [id=25978]"
+  },
+  {
+    "ranked_idx": 1923,
+    "en": "Teaches Arcane Missiles (Rank 8).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 8) [id=25979]"
+  },
+  {
+    "ranked_idx": 1924,
+    "en": "Teaches Shadow Bolt (Rank 10).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Bolt (Rank 10) [id=25980]"
+  },
+  {
+    "ranked_idx": 1925,
+    "en": "Teaches Immolate (Rank 8).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolate (Rank 8) [id=25981]"
+  },
+  {
+    "ranked_idx": 1926,
+    "en": "Teaches Corruption (Rank 7).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Corruption (Rank 7) [id=25982]"
+  }
+]

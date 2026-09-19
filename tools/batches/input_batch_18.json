@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1061,
+    "en": "Increases Holy spell and ability damage by 8 and the effect from Holy healing by 16.",
+    "curr_pt": "Sagrado +8 e cura +16.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 5) [id=4821]"
+  },
+  {
+    "ranked_idx": 1062,
+    "en": "Increases Holy spell and ability damage by 10 and the effect from Holy healing by 20.",
+    "curr_pt": "Sagrado +10 e cura +20.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 6) [id=4822]"
+  },
+  {
+    "ranked_idx": 1063,
+    "en": "Increases Holy spell and ability damage by 13 and the effect from Holy healing by 26.",
+    "curr_pt": "Sagrado +13 e cura +26.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 7) [id=4823]"
+  },
+  {
+    "ranked_idx": 1064,
+    "en": "Increases Holy spell and ability damage by 16 and the effect from Holy healing by 32.",
+    "curr_pt": "Sagrado +16 e cura +32.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 8) [id=4824]"
+  },
+  {
+    "ranked_idx": 1065,
+    "en": "Cleanses a friendly target, removing $s1 poison effect, $s2 disease effect, and $s3 magic effect.",
+    "curr_pt": "Limpa: -$s1 veneno, -$s2 doença, -$s3 magia do aliado.",
+    "count": 1,
+    "sample": "Cleanse () [id=4987]"
+  },
+  {
+    "ranked_idx": 1066,
+    "en": "Teaches Cleanse.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cleanse () [id=4993]"
+  },
+  {
+    "ranked_idx": 1067,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $19705s1 Stamina and Spirit for $19705d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=5004]"
+  },
+  {
+    "ranked_idx": 1068,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $19706s1 Stamina and Spirit for $19706d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=5005]"
+  },
+  {
+    "ranked_idx": 1069,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $19708s1 Stamina and Spirit for $19708d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=5006]"
+  },
+  {
+    "ranked_idx": 1070,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $19709s1 Stamina and Spirit for $19709d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=5007]"
+  },
+  {
+    "ranked_idx": 1071,
+    "en": "Dazes the target, slowing movement speed by $s1% for $d.",
+    "curr_pt": "Atordoa: -$s1% velocidade por $d s.",
+    "count": 1,
+    "sample": "Concussive Shot () [id=5116]"
+  },
+  {
+    "ranked_idx": 1072,
+    "en": "The hunter takes on the aspects of a cheetah, increasing movement speed by $s1%.  If the hunter takes damage, $ghe:she; will be dazed for $15571d.  Only one Aspect can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Aspect of the Cheetah () [id=5118]"
+  },
+  {
+    "ranked_idx": 1073,
+    "en": "Shows the location of all nearby undead on the minimap for $d.",
+    "curr_pt": "Aumenta a resistência a Sombra em $s1.",
+    "count": 1,
+    "sample": "Undead Tracker (Rank 1) [id=5120]"
+  },
+  {
+    "ranked_idx": 1074,
+    "en": "Shows the location of all nearby giants on the minimap for $d.",
+    "curr_pt": "Gigantes no minimapa por $d s.",
+    "count": 1,
+    "sample": "Giant Tracker (Rank 1) [id=5121]"
+  },
+  {
+    "ranked_idx": 1075,
+    "en": "Shows the location of all nearby demons on the minimap for $d.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1, com $s2% de chance de refletir magia de Fogo hostil.",
+    "count": 1,
+    "sample": "Demon Tracker (Rank 1) [id=5122]"
+  },
+  {
+    "ranked_idx": 1076,
+    "en": "Shows the location of all nearby dragons on the minimap for $d.",
+    "curr_pt": "Dragões no minimapa por $d s.",
+    "count": 1,
+    "sample": "Dragon Tracker (Rank 1) [id=5123]"
+  },
+  {
+    "ranked_idx": 1077,
+    "en": "Shows the location of all nearby elementals on the minimap for $d.",
+    "curr_pt": "Elementais no minimapa por $d s.",
+    "count": 1,
+    "sample": "Elemental Tracker (Rank 1) [id=5124]"
+  },
+  {
+    "ranked_idx": 1078,
+    "en": "Launches Arcane Missiles at the enemy, causing $7268s1 Arcane damage every $7268d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 1) [id=5143]"
+  },
+  {
+    "ranked_idx": 1079,
+    "en": "Launches Arcane Missiles at the enemy, causing $7269s1 Arcane damage every $7269d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 2) [id=5144]"
+  },
+  {
+    "ranked_idx": 1080,
+    "en": "Launches Arcane Missiles at the enemy, causing $7270s1 Arcane damage every $7270d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 3) [id=5145]"
+  },
+  {
+    "ranked_idx": 1081,
+    "en": "Shred the target, causing $s2% damage plus 54 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shred (Rank 1) [id=5221]"
+  },
+  {
+    "ranked_idx": 1082,
+    "en": "Shows the location of all nearby humanoids on the minimap.  Only one type of thing can be tracked at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Track Humanoids () [id=5225]"
+  },
+  {
+    "ranked_idx": 1083,
+    "en": "Caster is protected from Nature attacks and spells for $d.",
+    "curr_pt": "Protegido de Natureza por $d s.",
+    "count": 1,
+    "sample": "Nature's Blessing (Rank 1) [id=5236]"
+  },
+  {
+    "ranked_idx": 1084,
+    "en": "The warrior shouts, causing the targeted enemy to cower in fear.  Up to $i total nearby enemies will flee in fear.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Intimidating Shout () [id=5246]"
+  },
+  {
+    "ranked_idx": 1085,
+    "en": "The rogue's dodge chance will increase by $s1% for $d.",
+    "curr_pt": "Esquiva +$s1% por $d s.",
+    "count": 1,
+    "sample": "Evasion () [id=5277]"
+  },
+  {
+    "ranked_idx": 1086,
+    "en": "Causes thorns to sprout from the caster, inflicting $s1 Nature damage to melee attackers. The thorns last $d.",
+    "curr_pt": "Espinheiros no conjurador: $s1 de Natureza em corpo a corpo por $d s.",
+    "count": 1,
+    "sample": "Razor Mane (Rank 1) [id=5280]"
+  },
+  {
+    "ranked_idx": 1087,
+    "en": "Teaches Mark of the Wild (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mark of the Wild (Rank 1) [id=5285]"
+  },
+  {
+    "ranked_idx": 1088,
+    "en": "Teaches Mark of the Wild (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mark of the Wild (Rank 2) [id=5286]"
+  },
+  {
+    "ranked_idx": 1089,
+    "en": "Teaches Mark of the Wild (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mark of the Wild (Rank 3) [id=5287]"
+  },
+  {
+    "ranked_idx": 1090,
+    "en": "Teaches Wrath (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wrath (Rank 2) [id=5289]"
+  },
+  {
+    "ranked_idx": 1091,
+    "en": "Teaches Wrath (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wrath (Rank 3) [id=5290]"
+  },
+  {
+    "ranked_idx": 1092,
+    "en": "Teaches Wrath (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wrath (Rank 4) [id=5291]"
+  },
+  {
+    "ranked_idx": 1093,
+    "en": "Teaches Wrath (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wrath (Rank 5) [id=5292]"
+  },
+  {
+    "ranked_idx": 1094,
+    "en": "Teaches Healing Touch (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Touch (Rank 2) [id=5294]"
+  },
+  {
+    "ranked_idx": 1095,
+    "en": "Teaches Healing Touch (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Touch (Rank 3) [id=5295]"
+  },
+  {
+    "ranked_idx": 1096,
+    "en": "Teaches Healing Touch (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Touch (Rank 4) [id=5296]"
+  },
+  {
+    "ranked_idx": 1097,
+    "en": "Teaches Healing Touch (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Touch (Rank 5) [id=5297]"
+  },
+  {
+    "ranked_idx": 1098,
+    "en": "Teaches Dampen Magic (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Dampen Magic (Rank 1) [id=5305]"
+  },
+  {
+    "ranked_idx": 1099,
+    "en": "Teaches Moonfire (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Moonfire (Rank 1) [id=5307]"
+  },
+  {
+    "ranked_idx": 1100,
+    "en": "Teaches Entangling Roots (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Entangling Roots (Rank 3) [id=5309]"
+  },
+  {
+    "ranked_idx": 1101,
+    "en": "Teaches Mark of the Wild (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mark of the Wild (Rank 1) [id=5310]"
+  },
+  {
+    "ranked_idx": 1102,
+    "en": "Teaches Entangling Roots (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Entangling Roots (Rank 4) [id=5312]"
+  },
+  {
+    "ranked_idx": 1103,
+    "en": "Feign death which may trick enemies into ignoring you.  Lasts up to $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Feign Death () [id=5384]"
+  },
+  {
+    "ranked_idx": 1105,
+    "en": "Shapeshift into a bear, increasing melee attack power by $1178s3, armor contribution from items by $1178s1%, and health by $1178s2.  Also protects the caster from Polymorph effects and allows the use of various bear abilities.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Bear Form (Shapeshift) [id=5487]"
+  },
+  {
+    "ranked_idx": 1106,
+    "en": "Shows the location of all nearby demons on the minimap until cancelled.  Only one type of tracking can be used at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Sense Demons () [id=5500]"
+  },
+  {
+    "ranked_idx": 1107,
+    "en": "Shows the location of all nearby undead on the minimap until cancelled.   Only one type of tracking can be used at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Sense Undead () [id=5502]"
+  },
+  {
+    "ranked_idx": 1108,
+    "en": "Conjures $s1 $lbottle:bottles; of water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 1) [id=5504]"
+  },
+  {
+    "ranked_idx": 1109,
+    "en": "Conjures $s1 $lbottle:bottles; of fresh water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 2) [id=5505]"
+  },
+  {
+    "ranked_idx": 1110,
+    "en": "Conjures $s1 $lbottle:bottles; of purified water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 3) [id=5506]"
+  },
+  {
+    "ranked_idx": 1111,
+    "en": "Strike your target for $s1 Holy damage, restoring $51872s1 health and $51879s1 mana to you and 4 allies within $51879a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 6) [id=5569]"
+  }
+]

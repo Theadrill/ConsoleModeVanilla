@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1514,
+    "en": "Each time you use Rupture, your melee damage increases by $52528s1% for the full duration of Rupture, regardless of successful application.",
+    "curr_pt": "Ruptura: +$s1% dano por toda ela.",
+    "count": 1,
+    "sample": "Taste for Blood (Rank 1) [id=14174]"
+  },
+  {
+    "ranked_idx": 1515,
+    "en": "Each time you use Rupture, your melee damage increases by $52529s1% for the full duration of Rupture, regardless of successful application.",
+    "curr_pt": "Ruptura: +$s1% dano por toda ela.",
+    "count": 1,
+    "sample": "Taste for Blood (Rank 2) [id=14175]"
+  },
+  {
+    "ranked_idx": 1516,
+    "en": "Each time you use Rupture, your melee damage increases by $52530s1% for the full duration of Rupture, regardless of successful application.",
+    "curr_pt": "Ruptura: +$s1% dano por toda ela.",
+    "count": 1,
+    "sample": "Taste for Blood (Rank 3) [id=14176]"
+  },
+  {
+    "ranked_idx": 1517,
+    "en": "When activated, increases the critical strike chance of your next Sinister Strike, Backstab, Ambush, or Eviscerate by $s1%.",
+    "curr_pt": "Próximo Golpe/Apunhalar/Emboscada/Eviscerar: +$s1% crítico.",
+    "count": 1,
+    "sample": "Cold Blood () [id=14177]"
+  },
+  {
+    "ranked_idx": 1518,
+    "en": "Your finishing moves have a $b1% chance per combo point to restore $14181s1 energy and increase the damage of your finishing moves by $14181s2% for $14181d.  Stacks up to $14181u times.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Relentless Strikes () [id=14179]"
+  },
+  {
+    "ranked_idx": 1519,
+    "en": "A strike that becomes active after parrying an opponent's attack.  This attack deals $s1% weapon damage and disarms the target for $19718d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Riposte () [id=14251]"
+  },
+  {
+    "ranked_idx": 1520,
+    "en": "Attempts to disengage from the target, reducing threat.  More effective than Disengage (Rank 1).  Character exits combat mode.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Disengage (Rank 2) [id=14272]"
+  },
+  {
+    "ranked_idx": 1521,
+    "en": "Attempts to disengage from the target, reducing threat.  More effective than Disengage (Rank 2).  Character exits combat mode.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Disengage (Rank 3) [id=14273]"
+  },
+  {
+    "ranked_idx": 1522,
+    "en": "Distract the target, causing threat.  More effective than Distracting Shot (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Distracting Shot (Rank 2) [id=14274]"
+  },
+  {
+    "ranked_idx": 1523,
+    "en": "A strike that deals $s1% melee damage and increases your chance to dodge by $s2% for $d.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ghostly Strike () [id=14278]"
+  },
+  {
+    "ranked_idx": 1524,
+    "en": "Place a fire trap that will burn the first enemy to approach for $14298o1 Fire damage over $14298d.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolation Trap (Rank 2) [id=14302]"
+  },
+  {
+    "ranked_idx": 1525,
+    "en": "Place a fire trap that will burn the first enemy to approach for $14299o1 Fire damage over $14299d.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolation Trap (Rank 3) [id=14303]"
+  },
+  {
+    "ranked_idx": 1526,
+    "en": "Place a fire trap that will burn the first enemy to approach for $14300o1 Fire damage over $14300d.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolation Trap (Rank 4) [id=14304]"
+  },
+  {
+    "ranked_idx": 1527,
+    "en": "Place a frost trap that freezes the first enemy that approaches, preventing all action for up to $14308d.  Any damage caused will break the ice.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Freezing Trap (Rank 2) [id=14310]"
+  },
+  {
+    "ranked_idx": 1528,
+    "en": "Place a fire trap that explodes when an enemy approaches, causing $14314s1 Fire damage and $14314o2 additional Fire damage over $14314d to all within $14314a1 yards.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Explosive Trap (Rank 2) [id=14316]"
+  },
+  {
+    "ranked_idx": 1529,
+    "en": "Place a fire trap that explodes when an enemy approaches, causing $14315s1 Fire damage and $14315o2 additional Fire damage over $14315d to all within $14315a1 yards.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Explosive Trap (Rank 3) [id=14317]"
+  },
+  {
+    "ranked_idx": 1530,
+    "en": "Gives you a $h% chance to gain the Focused Casting effect that lasts for $14743d after being the victim of a melee or ranged critical strike.  The Focused Casting effect prevents you from losing casting time when taking damage and increases resistance to Interrupt effects by $14743s2%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessed Concentration (Rank 1) [id=14531]"
+  },
+  {
+    "ranked_idx": 1531,
+    "en": "Transforms you into a sheep, forcing you to wander around for up to $d.  While wandering, you cannot attack or cast spells and any damage will transform you back into your normal form.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Polymorph () [id=14621]"
+  },
+  {
+    "ranked_idx": 1532,
+    "en": "Reduces the casting time of your Mana Burn spell by 0.25 secs.",
+    "curr_pt": "Queimar Mana -0.25 s.",
+    "count": 1,
+    "sample": "Improved Mana Burn (Rank 1) [id=14750]"
+  },
+  {
+    "ranked_idx": 1533,
+    "en": "Reduces the casting time of your Mana Burn spell by $/1000;S1 sec.",
+    "curr_pt": "Queimar Mana -$s1 s.",
+    "count": 1,
+    "sample": "Improved Mana Burn (Rank 2) [id=14772]"
+  },
+  {
+    "ranked_idx": 1534,
+    "en": "Gives you a $h% chance to gain the Focused Casting effect that lasts for $27828d after being the victim of a melee or ranged critical strike.  The Focused Casting effect prevents you from losing casting time when taking damage and increases resistance to Interrupt effects by $27828s2%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessed Concentration (Rank 2) [id=14774]"
+  },
+  {
+    "ranked_idx": 1535,
+    "en": "Increases your target's armor by $14893s1% for $14893d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Inspiration (Rank 1) [id=14892]"
+  },
+  {
+    "ranked_idx": 1536,
+    "en": "Stuns an enemy for $d. Must be stealthed. Awards $s2 combo $lpoint:points;.",
+    "curr_pt": "Atordoa por $d s. Furtivo. Combo +$s2.",
+    "count": 1,
+    "sample": "Cheap Shot () [id=14902]"
+  },
+  {
+    "ranked_idx": 1537,
+    "en": "Inflicts Physical damage to an enemy every $t1 sec. Additional combo points increase the periodic damage inflicted and the total duration.",
+    "curr_pt": "Físico a cada $t1 s. +combo: +dano e duração.",
+    "count": 1,
+    "sample": "Rupture () [id=14903]"
+  },
+  {
+    "ranked_idx": 1538,
+    "en": "Increases the rogue's chance to dodge by $s1% for $d.",
+    "curr_pt": "Esquiva +$s1% por $d s.",
+    "count": 1,
+    "sample": "Evasion () [id=15087]"
+  },
+  {
+    "ranked_idx": 1539,
+    "en": "Increases your attack speed by 30% for your next 3 swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +30% velocidade nos próximos 3 golpes.",
+    "count": 1,
+    "sample": "Flurry () [id=15088]"
+  },
+  {
+    "ranked_idx": 1540,
+    "en": "Dispels magic on the target, removing $s1 harmful $lspell:spells; from an ally or $s1 beneficial $lspell:spells; from an enemy.",
+    "curr_pt": "Dissipa $s1 nocivas do aliado ou $s2 benéficas do inimigo.",
+    "count": 1,
+    "sample": "Dispel Magic () [id=15090]"
+  },
+  {
+    "ranked_idx": 1544,
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $23455a1 yards for $23455s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause no threat.",
+    "curr_pt": "Explosão sagrada de $s1 a $a1 m e cura $s2 a $a1 m. Em Sombra te fere. Sem ameaça.",
+    "count": 1,
+    "sample": "Holy Nova (Rank 1) [id=15237]"
+  },
+  {
+    "ranked_idx": 1545,
+    "en": "Afflicts your target with Shadow energy that causes all party members to be healed for $s1% of any Shadow spell damage you deal for $d.",
+    "curr_pt": "Sombra: grupo cura $s1% do seu dano por $d s.",
+    "count": 1,
+    "sample": "Vampiric Embrace () [id=15286]"
+  },
+  {
+    "ranked_idx": 1546,
+    "en": "Increases your target's armor by $15357s1% for $15357d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Inspiration (Rank 2) [id=15362]"
+  },
+  {
+    "ranked_idx": 1547,
+    "en": "Increases your target's armor by $15359s1% for $15359d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Inspiration (Rank 3) [id=15363]"
+  },
+  {
+    "ranked_idx": 1548,
+    "en": "Increases your target's armor by $15360s1% for $15360d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Inspiration (Rank 4) [id=15364]"
+  },
+  {
+    "ranked_idx": 1549,
+    "en": "Increases your target's armor by $15361s1% for $15361d after getting a critical effect from your Flash Heal, Heal, Greater Heal, or Prayer of Healing spell.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Inspiration (Rank 5) [id=15365]"
+  },
+  {
+    "ranked_idx": 1550,
+    "en": "The caster lets out a psychic scream, causing an enemy to be frozen in fear for $d.",
+    "curr_pt": "Grito congela por $d s.",
+    "count": 1,
+    "sample": "Psychic Scream () [id=15398]"
+  },
+  {
+    "ranked_idx": 1551,
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $23458a1 yards for $23458s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause no threat.",
+    "curr_pt": "Explosão sagrada de $s1 a $a1 m e cura $s2 a $a1 m. Em Sombra te fere. Sem ameaça.",
+    "count": 1,
+    "sample": "Holy Nova (Rank 2) [id=15430]"
+  },
+  {
+    "ranked_idx": 1552,
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $23459a1 yards for $23459s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause no threat.",
+    "curr_pt": "Explosão sagrada de $s1 a $a1 m e cura $s2 a $a1 m. Em Sombra te fere. Sem ameaça.",
+    "count": 1,
+    "sample": "Holy Nova (Rank 3) [id=15431]"
+  },
+  {
+    "ranked_idx": 1553,
+    "en": "Decreases an enemy's chance to resist your Psychic Scream spell by $s1%.",
+    "curr_pt": "Grito: -$s1% resistência.",
+    "count": 1,
+    "sample": "Improved Psychic Scream (Rank 3) [id=15450]"
+  },
+  {
+    "ranked_idx": 1554,
+    "en": "Assume a Shadowform, increasing your Shadow damage by $s2% and reducing Physical damage done to you by $s3%.  However, you may not cast Holy spells with the exception of Holy Nova while in this form.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadowform () [id=15473]"
+  },
+  {
+    "ranked_idx": 1555,
+    "en": "Silences the target, preventing them from casting spells for $d.",
+    "curr_pt": "Silencia por $d s.",
+    "count": 1,
+    "sample": "Silence () [id=15487]"
+  },
+  {
+    "ranked_idx": 1556,
+    "en": "Hacks at nearby enemies, reducing their armor by $s1 per Sunder Armor. Can be applied up to 5 times. Lasts $d.",
+    "curr_pt": "Armadura -$s1 por acúmulo. Até 5x. $d s.",
+    "count": 1,
+    "sample": "Sunder Armor () [id=15502]"
+  },
+  {
+    "ranked_idx": 1557,
+    "en": "Distract the target, causing threat.  More effective than Distracting Shot (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Distracting Shot (Rank 3) [id=15629]"
+  },
+  {
+    "ranked_idx": 1558,
+    "en": "Distract the target, causing threat.  More effective than Distracting Shot (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Distracting Shot (Rank 4) [id=15630]"
+  },
+  {
+    "ranked_idx": 1559,
+    "en": "Distract the target, causing threat.  More effective than Distracting Shot (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Distracting Shot (Rank 5) [id=15631]"
+  },
+  {
+    "ranked_idx": 1560,
+    "en": "Distract the target, causing threat.  More effective than Distracting Shot (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Distracting Shot (Rank 6) [id=15632]"
+  },
+  {
+    "ranked_idx": 1561,
+    "en": "Eviscerates an enemy, inflicting $s1 Physical damage.",
+    "curr_pt": "Eviscera $s1 Físico.",
+    "count": 1,
+    "sample": "Eviscerate () [id=15692]"
+  },
+  {
+    "ranked_idx": 1562,
+    "en": "Increases the mana regeneration of all nearby party members by $s1 every $t1 seconds.",
+    "curr_pt": "Regen +$s1 a cada $t1 s no grupo.",
+    "count": 1,
+    "sample": "Wisdom Aura (Rank 1) [id=15697]"
+  },
+  {
+    "ranked_idx": 1563,
+    "en": "Launches a magical missile at an enemy, inflicting Arcane damage.",
+    "curr_pt": "Míssil arcano no inimigo.",
+    "count": 1,
+    "sample": "Arcane Missiles () [id=15736]"
+  },
+  {
+    "ranked_idx": 1564,
+    "en": "Encases an ally in a layer of frost that lasts $d. The thick ice increases armor by $s1, slows melee attackers' movement to $6136s2%, and increases the time between their attacks by $6136s1%.",
+    "curr_pt": "Gelo no aliado $d s: +$s1 armadura, atacante -$s2% velocidade e +$s3% intervalo.",
+    "count": 1,
+    "sample": "Frost Armor () [id=15784]"
+  },
+  {
+    "ranked_idx": 1565,
+    "en": "Summons an Earthbind Totem that lasts $d. and periodically reduces the movement speed of nearby enemies to $3600s1% of normal.",
+    "curr_pt": "Evoca um Totem Aprisionador da Terra que dura $d s e periodicamente reduz a velocidade de movimento dos inimigos próximos para $s1% do normal.",
+    "count": 1,
+    "sample": "Earthbind Totem () [id=15786]"
+  },
+  {
+    "ranked_idx": 1566,
+    "en": "Your Lightning Bolt and Chain Lightning spells charge you with electricity, increasing your Nature damage dealt by $51395s2% and the critical strike damage bonus of your offensive spells by $51395s1%. Lasts $51395d. Stacks up to $51395u times.",
+    "curr_pt": "Raio/Cadeia: +$s1% Natureza e +$s2% crítico por $d s. Até $s3x.",
+    "count": 1,
+    "sample": "Electrify () [id=16089]"
+  }
+]

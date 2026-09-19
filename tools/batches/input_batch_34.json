@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1927,
+    "en": "Teaches Greater Heal (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Greater Heal (Rank 5) [id=25983]"
+  },
+  {
+    "ranked_idx": 1928,
+    "en": "Teaches Renew (Rank 10).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Renew (Rank 10) [id=25984]"
+  },
+  {
+    "ranked_idx": 1929,
+    "en": "Teaches Prayer of Healing (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Prayer of Healing (Rank 5) [id=25985]"
+  },
+  {
+    "ranked_idx": 1930,
+    "en": "Increases the damage of nearby party members by $s1% and attack speed by $s2% for $d.",
+    "curr_pt": "Dano +$s1% e velocidade +$s2% por $d s.",
+    "count": 1,
+    "sample": "Battle Shout () [id=26099]"
+  },
+  {
+    "ranked_idx": 1931,
+    "en": "A stinging shot that puts the target to sleep for $d.  Any damage will cancel the effect. ",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wyvern Sting () [id=26180]"
+  },
+  {
+    "ranked_idx": 1932,
+    "en": "Taunts the creature, increasing the chance that it will attack the caster.",
+    "curr_pt": "Provoca: ataca você.",
+    "count": 1,
+    "sample": "Taunt () [id=26281]"
+  },
+  {
+    "ranked_idx": 1933,
+    "en": "Will grant the caster a Soul Shard upon victim's death.",
+    "curr_pt": "Mata: Fragmento.",
+    "count": 1,
+    "sample": "Shadowburn () [id=26385]"
+  },
+  {
+    "ranked_idx": 1934,
+    "en": "Disorient.",
+    "curr_pt": "Desorienta.",
+    "count": 1,
+    "sample": "Bestial Wrath () [id=26592]"
+  },
+  {
+    "ranked_idx": 1935,
+    "en": "A vicious strike that deals weapon damage plus $s2 and wounds the target, reducing the effectiveness of any healing by $s1% for $d.",
+    "curr_pt": "Golpe cruel: arma +$s1 e cura -$s2% por $d s.",
+    "count": 1,
+    "sample": "Copy of Mortal Strike (Rank 1) [id=26652]"
+  },
+  {
+    "ranked_idx": 1936,
+    "en": "Imbiber is cured of up to four poisons up to level 60.",
+    "curr_pt": "Cura até 4 venenos nv 60.",
+    "count": 1,
+    "sample": "Cure Poison () [id=26677]"
+  },
+  {
+    "ranked_idx": 1937,
+    "en": "The warrior shouts, increasing the attack power of all party members within $a1 yards by $s1.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Battle Shout (Rank 6) [id=27578]"
+  },
+  {
+    "ranked_idx": 1938,
+    "en": "Reduces the attack power of all enemies within $a1 yards by $s1 for $d.",
+    "curr_pt": "Grito: poder dos inimigos a $a1 m -$s1 por $d s.",
+    "count": 1,
+    "sample": "Demoralizing Shout (Rank 5) [id=27579]"
+  },
+  {
+    "ranked_idx": 1939,
+    "en": "A vicious strike that deals melee damage plus $s2 and wounds the target, reducing the effectiveness of any healing by $s1% for $d.",
+    "curr_pt": "Golpe cruel: corpo a corpo +$s1 e cura -$s2% por $d s.",
+    "count": 1,
+    "sample": "Mortal Strike (Rank 4) [id=27580]"
+  },
+  {
+    "ranked_idx": 1940,
+    "en": "Finishing move that stuns the target. ",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Kidney Shot (Rank 2) [id=27615]"
+  },
+  {
+    "ranked_idx": 1942,
+    "en": "When struck in combat has a chance of shielding the wearer in a protective shield which will absorb 350 damage.",
+    "curr_pt": "Acerto: chance de escudo 350.",
+    "count": 1,
+    "sample": "Divine Protection () [id=27778]"
+  },
+  {
+    "ranked_idx": 1943,
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $27803a1 yards for $27803s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause no threat.",
+    "curr_pt": "Explosão sagrada de $s1 a $a1 m e cura $s2 a $a1 m. Em Sombra te fere. Sem ameaça.",
+    "count": 1,
+    "sample": "Holy Nova (Rank 4) [id=27799]"
+  },
+  {
+    "ranked_idx": 1944,
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $27804a1 yards for $27804s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause no threat.",
+    "curr_pt": "Explosão sagrada de $s1 a $a1 m e cura $s2 a $a1 m. Em Sombra te fere. Sem ameaça.",
+    "count": 1,
+    "sample": "Holy Nova (Rank 5) [id=27800]"
+  },
+  {
+    "ranked_idx": 1945,
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $27805a1 yards for $27805s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause no threat.",
+    "curr_pt": "Explosão sagrada de $s1 a $a1 m e cura $s2 a $a1 m. Em Sombra te fere. Sem ameaça.",
+    "count": 1,
+    "sample": "Holy Nova (Rank 6) [id=27801]"
+  },
+  {
+    "ranked_idx": 1946,
+    "en": "After being struck by a melee or ranged critical hit, heal $s1% of the damage taken over $27813d.",
+    "curr_pt": "Crítico recebido: cura $s1% em $d s.",
+    "count": 1,
+    "sample": "Blessed Recovery (Rank 1) [id=27811]"
+  },
+  {
+    "ranked_idx": 1947,
+    "en": "After being struck by a melee or ranged critical hit, heal $s1% of the damage taken over $27817d.",
+    "curr_pt": "Crítico recebido: cura $s1% em $d s.",
+    "count": 1,
+    "sample": "Blessed Recovery (Rank 2) [id=27815]"
+  },
+  {
+    "ranked_idx": 1948,
+    "en": "After being struck by a melee or ranged critical hit, heal $s1% of the damage taken over $27818d.",
+    "curr_pt": "Crítico recebido: cura $s1% em $d s.",
+    "count": 1,
+    "sample": "Blessed Recovery (Rank 3) [id=27816]"
+  },
+  {
+    "ranked_idx": 1949,
+    "en": "Creates a holy Lightwell near the priest.  Members of your raid or party can click the Lightwell to restore $27873o1 health over $27873d. Lightwell lasts for $d or 5 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightwell (Rank 2) [id=27870]"
+  },
+  {
+    "ranked_idx": 1950,
+    "en": "Creates a holy Lightwell near the priest.  Members of your raid or party can click the Lightwell to restore $27874o1 health over $27874d. Lightwell lasts for $d or 5 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightwell (Rank 3) [id=27871]"
+  },
+  {
+    "ranked_idx": 1951,
+    "en": "Creates a Minor Healthstone that can be used to instantly restore $6262s1 health.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Healthstone () [id=28023]"
+  },
+  {
+    "ranked_idx": 1952,
+    "en": "Your next 5 damage or healing spells cast within 20 seconds will grant a bonus of up to 40 damage and up to 75 healing, stacking up to 5 times. Expires after 6 damage or healing spells or 20 seconds, whichever occurs first. ",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ascendance () [id=28200]"
+  },
+  {
+    "ranked_idx": 1953,
+    "en": "Strikes nearby enemies with a lightning bolt that arcs to another nearby enemies. The spell affects up to $x1 targets, inflicting greater Nature damage to each successive target.",
+    "curr_pt": "Cadeia em até $x1: mais Natureza por salto.",
+    "count": 1,
+    "sample": "Chain Lightning () [id=28293]"
+  },
+  {
+    "ranked_idx": 1954,
+    "en": "Attacks nearby enemies in a whirlwind of steel that lasts $d. and inflicts normal damage plus $28335s1.",
+    "curr_pt": "Redemoinho $d s: normal +$s1 nos próximos.",
+    "count": 1,
+    "sample": "Whirlwind () [id=28334]"
+  },
+  {
+    "ranked_idx": 1955,
+    "en": "Teleports the caster to an enemy target. Also frees the caster from any bonds.",
+    "curr_pt": "Teleporta no inimigo. Livre de laço.",
+    "count": 1,
+    "sample": "Blink () [id=28391]"
+  },
+  {
+    "ranked_idx": 1956,
+    "en": "Conjures $s1 $lcinnamon roll:cinnamon rolls;, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 7) [id=28612]"
+  },
+  {
+    "ranked_idx": 1957,
+    "en": "Teaches Conjure Food (Rank 7).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 7) [id=28613]"
+  },
+  {
+    "ranked_idx": 1958,
+    "en": "Your Rejuvenation ticks have a chance to restore 60 mana, 8 energy, or 2 rage to your target.",
+    "curr_pt": "Reju: chance de +60 mana/8 energia/2 fúria.",
+    "count": 1,
+    "sample": "Rejuvenation () [id=28716]"
+  },
+  {
+    "ranked_idx": 1959,
+    "en": "On Healing Touch critical hits, you regain 30% of the mana cost of the spell.",
+    "curr_pt": "Crítico Toque: +30% mana de volta.",
+    "count": 1,
+    "sample": "Healing Touch () [id=28719]"
+  },
+  {
+    "ranked_idx": 1960,
+    "en": "Your initial cast and Regrowth ticks will increase the maximum health of your target by up to 50, stacking up to 7 times.",
+    "curr_pt": "Recrescer: +50 vida máx até 7x.",
+    "count": 1,
+    "sample": "Regrowth () [id=28744]"
+  },
+  {
+    "ranked_idx": 1961,
+    "en": "Reduces the mana cost of your Raptor Strike, Mongoose Bite, Carve, Multi-Shot, Aimed Shot and Steady Shot by $s1.",
+    "curr_pt": "Golpe/Garra/Mordida/Multi/Mira/Flecha -$s1 mana.",
+    "count": 1,
+    "sample": "Multi-Shot () [id=28751]"
+  },
+  {
+    "ranked_idx": 1962,
+    "en": "Reduces cooldown on your Evocation by $/60000;s1 minute.",
+    "curr_pt": "Armadura: ao apanhar, +$s1 vs escola por $d s.",
+    "count": 1,
+    "sample": "Evocation () [id=28763]"
+  },
+  {
+    "ranked_idx": 1963,
+    "en": "Your Cleanse spell also heals the target for 200.",
+    "curr_pt": "Corpo a corpo: chance de curar $s1 e +$s2 fúria.",
+    "count": 1,
+    "sample": "Cleanse () [id=28787]"
+  },
+  {
+    "ranked_idx": 1964,
+    "en": "Your Flash of Light and Holy Light spells have a chance to imbue your target with Holy Power.",
+    "curr_pt": "Clarão/Luz: chance de Poder.",
+    "count": 1,
+    "sample": "Holy Power () [id=28789]"
+  },
+  {
+    "ranked_idx": 1965,
+    "en": "Increases the friendly target's spell damage and healing by up to $s1 for $d.",
+    "curr_pt": "Aumenta dano e cura mágicos do alvo aliado em até $s1 por $d s.",
+    "count": 1,
+    "sample": "Holy Power () [id=28793]"
+  },
+  {
+    "ranked_idx": 1966,
+    "en": "Reduces the mana cost of your Renew spell by $s1%.",
+    "curr_pt": "Renovar -$s1% mana.",
+    "count": 1,
+    "sample": "Renew () [id=28807]"
+  },
+  {
+    "ranked_idx": 1967,
+    "en": "On Greater Heal critical hits, your target will gain Armor of Faith, absorbing up to $28810s1 damage.",
+    "curr_pt": "Crítico: escudo $s1.",
+    "count": 1,
+    "sample": "Greater Heal () [id=28809]"
+  },
+  {
+    "ranked_idx": 1968,
+    "en": "Restores $s1 mana per 5 sec.",
+    "curr_pt": "Restaura $s1 de mana a cada 5 s.",
+    "count": 1,
+    "sample": "Lightning Shield () [id=28820]"
+  },
+  {
+    "ranked_idx": 1969,
+    "en": "Increases damage caused by your Corruption by $s1%.",
+    "curr_pt": "Corrupção +$s1%.",
+    "count": 1,
+    "sample": "Corruption () [id=28829]"
+  },
+  {
+    "ranked_idx": 1970,
+    "en": "Reduces health cost of your Life Tap by $s1%.",
+    "curr_pt": "Sugar -$s1% vida.",
+    "count": 1,
+    "sample": "Life Tap () [id=28830]"
+  },
+  {
+    "ranked_idx": 1971,
+    "en": "Regain up to $28850s1 mana each time you cast Lesser Healing Wave.",
+    "curr_pt": "Onda: +$s1 mana.",
+    "count": 1,
+    "sample": "Lesser Healing Wave () [id=28849]"
+  },
+  {
+    "ranked_idx": 1972,
+    "en": "Increases the melee attack power bonus of your Seal of the Crusader by $s1 and the Holy damage increase of your Judgement of the Crusader by $s2.",
+    "curr_pt": "Cruzado: +$s1 poder e +$s2 Julgamento.",
+    "count": 1,
+    "sample": "Improved Seal of the Crusader () [id=28852]"
+  },
+  {
+    "ranked_idx": 1973,
+    "en": "Increases the damage of your Moonfire spell by up to $s1%.",
+    "curr_pt": "Lua +$s1%.",
+    "count": 1,
+    "sample": "Improved Moonfire () [id=28854]"
+  },
+  {
+    "ranked_idx": 1974,
+    "en": "Increases the critical strike chance with your Shock, Lightning Bolt and Chain Lightning spells by $s1%.",
+    "curr_pt": "Choque, Raio e Cadeia: +$s1% de crítico.",
+    "count": 1,
+    "sample": "Storm Mastery (Rank 1) [id=29005]"
+  },
+  {
+    "ranked_idx": 1975,
+    "en": "Taunts the target to attack you.",
+    "curr_pt": "Provoca o alvo.",
+    "count": 1,
+    "sample": "Taunt () [id=29060]"
+  },
+  {
+    "ranked_idx": 1976,
+    "en": "Imbuing your weapon gives you a special benefit based on the imbue.\r\n\r\nFlametongue: Increases the damage done by your Fire Totems and spells by $s2%.\r\n\r\nRockbiter: Reduces your damage taken by $s1%.\r\n\r\nFrostbrand: Increases the chance to proc the effect by $s3% and becomes guaranteed to critically hit if the target is afflicted with Frost Shock.\r\n\r\nWindfury: If one of the bonus attacks doesn't land, your attack speed is increased by $51389s1% for your next strike.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Elemental Weapons (Rank 2) [id=29079]"
+  },
+  {
+    "ranked_idx": 1977,
+    "en": "Imbuing your weapon gives you a special benefit based on the imbue.\r\n\r\nFlametongue: Increases the damage done by your Fire Totems and spells by $s2%.\r\n\r\nRockbiter: Reduces your damage taken by $s1%.\r\n\r\nFrostbrand: Increases the chance to proc the effect by $s3% and becomes guaranteed to critically hit if the target is afflicted with Frost Shock.\r\n\r\nWindfury: If one of the bonus attacks doesn't land, your attack speed is increased by $51390s1% for your next strike.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Elemental Weapons (Rank 3) [id=29080]"
+  }
+]

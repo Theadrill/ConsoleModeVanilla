@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1287,
+    "en": "Attacks nearby enemies in a whirlwind of steel that lasts $d., inflicting weapon damage plus $3231s1 every $t1 sec. Grants the caster temporary magic immunity.",
+    "curr_pt": "Redemoinho $d s: arma +$s1 a cada $t1 s e imune a magia.",
+    "count": 1,
+    "sample": "Whirlwind (Rank 1) [id=8989]"
+  },
+  {
+    "ranked_idx": 1288,
+    "en": "Shred the target, causing $s2% damage plus 99 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shred (Rank 3) [id=8992]"
+  },
+  {
+    "ranked_idx": 1289,
+    "en": "Cower, causing no damage but lowering your threat a small amount, making the enemy less likely to attack you.",
+    "curr_pt": "Encolhe: -ameaça pequena.",
+    "count": 1,
+    "sample": "Cower (Rank 1) [id=8998]"
+  },
+  {
+    "ranked_idx": 1290,
+    "en": "Cower, causing no damage but lowering your threat a medium amount, making the enemy less likely to attack you.",
+    "curr_pt": "Encolhe: -ameaça média.",
+    "count": 1,
+    "sample": "Cower (Rank 2) [id=9000]"
+  },
+  {
+    "ranked_idx": 1291,
+    "en": "Pounce, stunning the target for $d and causing $9007o1 damage over $9007d.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pounce (Rank 1) [id=9005]"
+  },
+  {
+    "ranked_idx": 1292,
+    "en": "Improves your chance to get a critical strike with missile weapons by $s1%.",
+    "curr_pt": "Crítico com projétil +$s1%.",
+    "count": 1,
+    "sample": "Increased Critical 1 (Rank 1) [id=9132]"
+  },
+  {
+    "ranked_idx": 1293,
+    "en": "Conjures $s1 $lloaf:loaves; of bread, providing the mage and $ghis:her; allies with something to eat.",
+    "curr_pt": "Conjura $s1 pães pra comer.",
+    "count": 1,
+    "sample": "Create Sapta (Rank 1) [id=9200]"
+  },
+  {
+    "ranked_idx": 1294,
+    "en": "Periodically casts Mortal Strike.",
+    "curr_pt": "Lança Golpe Mortal de tempos em tempos.",
+    "count": 1,
+    "sample": "Mortal Strike () [id=9347]"
+  },
+  {
+    "ranked_idx": 1295,
+    "en": "Drains $s1 health every $t1 sec. from an enemy and its nearest ally, healing the caster for up to twice the amount of health stolen. Lasts $d.",
+    "curr_pt": "Drena $s1 a cada $t1 s do inimigo e vizinho, cura até 2x. $d s.",
+    "count": 1,
+    "sample": "Soul Siphon () [id=9373]"
+  },
+  {
+    "ranked_idx": 1296,
+    "en": "Smites an enemy, inflicting Holy damage.",
+    "curr_pt": "Castiga o inimigo, causando dano Sagrado.",
+    "count": 1,
+    "sample": "Holy Smite (Rank 6) [id=9481]"
+  },
+  {
+    "ranked_idx": 1297,
+    "en": "Finishing move that causes damage over time.  Damage increases per combo point and by your Attack Power:\n   1 point  : 66 damage over $d.\n   2 points: 108 damage over $d.\n   3 points: 150 damage over $d.\n   4 points: 192 damage over $d.\n   5 points: 234 damage over $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rip (Rank 2) [id=9492]"
+  },
+  {
+    "ranked_idx": 1298,
+    "en": "Finishing move that causes damage over time.  Damage increases per combo point and by your Attack Power:\n   1 point  : 90 damage over $d.\n   2 points: 144 damage over $d.\n   3 points: 198 damage over $d.\n   4 points: 252 damage over $d.\n   5 points: 306 damage over $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rip (Rank 3) [id=9493]"
+  },
+  {
+    "ranked_idx": 1299,
+    "en": "Fade out, discouraging enemies from attacking you for $d.  More effective than Fade (rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fade (Rank 2) [id=9578]"
+  },
+  {
+    "ranked_idx": 1300,
+    "en": "Fade out, discouraging enemies from attacking you for $d.  More effective than Fade (rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fade (Rank 3) [id=9579]"
+  },
+  {
+    "ranked_idx": 1301,
+    "en": "Fade out, discouraging enemies from attacking you for $d.  More effective than Fade (rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fade (Rank 4) [id=9592]"
+  },
+  {
+    "ranked_idx": 1302,
+    "en": "Shapeshift into a dire bear, increasing melee attack power by $9635s3, armor contribution from items by $9635s1%, and health by $9635s2.  Also protects the caster from Polymorph effects and allows the use of various bear abilities.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Dire Bear Form (Shapeshift) [id=9634]"
+  },
+  {
+    "ranked_idx": 1303,
+    "en": "In a whirlwind of steel you attack all nearby enemies for $d, causing weapon damage plus an additional $3231s1 every $t1 seconds.",
+    "curr_pt": "Redemoinho de aço por $d s: arma +$s1 a cada $t1 s.",
+    "count": 1,
+    "sample": "Arantir's Anger (Rank 1) [id=9733]"
+  },
+  {
+    "ranked_idx": 1304,
+    "en": "Taunts all nearby enemies.",
+    "curr_pt": "Provoca todos próximos.",
+    "count": 1,
+    "sample": "Arantir's Rage (Rank 1) [id=9741]"
+  },
+  {
+    "ranked_idx": 1305,
+    "en": "Finishing move that causes damage over time.  Damage increases per combo point and by your Attack Power:\n   1 point  : 138 damage over $d.\n   2 points: 222 damage over $d.\n   3 points: 306 damage over $d.\n   4 points: 390 damage over $d.\n   5 points: 474 damage over $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rip (Rank 4) [id=9752]"
+  },
+  {
+    "ranked_idx": 1306,
+    "en": "Has a $h% chance of disarming your opponent each time you hit.",
+    "curr_pt": "Cada golpe: $h% de desarmar.",
+    "count": 1,
+    "sample": "Disarm () [id=9793]"
+  },
+  {
+    "ranked_idx": 1307,
+    "en": "Pounce, stunning the target for $d and causing $9824o1 damage over $9824d.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pounce (Rank 2) [id=9823]"
+  },
+  {
+    "ranked_idx": 1308,
+    "en": "Pounce, stunning the target for $d and causing $9826o1 damage over $9826d.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Pounce (Rank 3) [id=9827]"
+  },
+  {
+    "ranked_idx": 1309,
+    "en": "Shred the target, causing $s2% damage plus 144 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shred (Rank 4) [id=9829]"
+  },
+  {
+    "ranked_idx": 1310,
+    "en": "Shred the target, causing $s2% damage plus 180 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shred (Rank 5) [id=9830]"
+  },
+  {
+    "ranked_idx": 1311,
+    "en": "Ravage the target, causing $s2% damage plus 273 to the target.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ravage (Rank 3) [id=9866]"
+  },
+  {
+    "ranked_idx": 1312,
+    "en": "Ravage the target, causing $s2% damage plus 343 to the target.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ravage (Rank 4) [id=9867]"
+  },
+  {
+    "ranked_idx": 1313,
+    "en": "Cower, causing no damage but lowering your threat a large amount, making the enemy less likely to attack you.",
+    "curr_pt": "Encolhe: -ameaça grande.",
+    "count": 1,
+    "sample": "Cower (Rank 3) [id=9892]"
+  },
+  {
+    "ranked_idx": 1314,
+    "en": "Finishing move that causes damage over time.  Damage increases per combo point and by your Attack Power:\n   1 point  : 192 damage over $d.\n   2 points: 312 damage over $d.\n   3 points: 432 damage over $d.\n   4 points: 552 damage over $d.\n   5 points: 672 damage over $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rip (Rank 5) [id=9894]"
+  },
+  {
+    "ranked_idx": 1315,
+    "en": "Finishing move that causes damage over time.  Damage increases per combo point and by your Attack Power:\n   1 point  : 270 damage over $d.\n   2 points: 438 damage over $d.\n   3 points: 606 damage over $d.\n   4 points: 774 damage over $d.\n   5 points: 942 damage over $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rip (Rank 6) [id=9896]"
+  },
+  {
+    "ranked_idx": 1316,
+    "en": "Inflicts $s1 Frost damage to nearby enemies, immobilizing them for up to $d.",
+    "curr_pt": "Nova de Gelo de $s1 e imobiliza até $d s.",
+    "count": 1,
+    "sample": "Frost Nova (Rank 3) [id=9915]"
+  },
+  {
+    "ranked_idx": 1317,
+    "en": "Conjures a mana citrine that can be used to instantly restore $10057s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Mana Citrine () [id=10053]"
+  },
+  {
+    "ranked_idx": 1318,
+    "en": "Conjures a mana ruby that can be used to instantly restore $10058s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Mana Ruby () [id=10054]"
+  },
+  {
+    "ranked_idx": 1319,
+    "en": "Creates a portal, teleporting group members that use it to Stormwind.",
+    "curr_pt": "Portal pra Ventobravo.",
+    "count": 1,
+    "sample": "Portal: Stormwind () [id=10059]"
+  },
+  {
+    "ranked_idx": 1320,
+    "en": "Shoots a flare into the air.",
+    "curr_pt": "Sinalizador pro céu.",
+    "count": 1,
+    "sample": "Flare () [id=10113]"
+  },
+  {
+    "ranked_idx": 1321,
+    "en": "Conjures $s1 $lbottle:bottles; of mineral water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 5) [id=10138]"
+  },
+  {
+    "ranked_idx": 1322,
+    "en": "Conjures $s1 $lbottle:bottles; of sparkling water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 6) [id=10139]"
+  },
+  {
+    "ranked_idx": 1323,
+    "en": "Conjures $s1 $lbottle:bottles; of crystal water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 7) [id=10140]"
+  },
+  {
+    "ranked_idx": 1324,
+    "en": "Conjures $s1 $lloaf:loaves; of sourdough, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 5) [id=10144]"
+  },
+  {
+    "ranked_idx": 1325,
+    "en": "Conjures $s1 $lsweet roll:sweet rolls;, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 6) [id=10145]"
+  },
+  {
+    "ranked_idx": 1326,
+    "en": "Amplifies magic used against the targeted party member, increasing damage taken from spells by up to $s1 and healing spells by up to $s2.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "[Deprecated] Amplify Magic (Rank 4) [id=10170]"
+  },
+  {
+    "ranked_idx": 1327,
+    "en": "Launches Arcane Missiles at the enemy, causing $10273s1 Arcane damage every $10273d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 6) [id=10211]"
+  },
+  {
+    "ranked_idx": 1328,
+    "en": "Launches Arcane Missiles at the enemy, causing $10274s1 Arcane damage every $10274d for $d.",
+    "curr_pt": "Mísseis Arcanos de $s1 a cada $d1 s por $d2 s.",
+    "count": 1,
+    "sample": "Arcane Missiles (Rank 7) [id=10212]"
+  },
+  {
+    "ranked_idx": 1329,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $19710s1 Stamina and Spirit for $19710d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=10256]"
+  },
+  {
+    "ranked_idx": 1330,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $19711s1 Stamina and Spirit for $19711d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=10257]"
+  },
+  {
+    "ranked_idx": 1331,
+    "en": "Strike your target for $s1 Holy damage, restoring $51873s1 health and $51880s1 mana to you and 4 allies within $51880a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 7) [id=10332]"
+  },
+  {
+    "ranked_idx": 1332,
+    "en": "Strike your target for $s1 Holy damage, restoring $51874s1 health and $51881s1 mana to you and 4 allies within $51881a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 8) [id=10333]"
+  },
+  {
+    "ranked_idx": 1333,
+    "en": "Instantly counterattack an enemy for weapon damage plus $s1. Riposte must follow a block, dodge or parry.",
+    "curr_pt": "Revida: arma +$s1 após bloquear/esquivar/aparar.",
+    "count": 1,
+    "sample": "Riposte () [id=10374]"
+  },
+  {
+    "ranked_idx": 1334,
+    "en": "Imbue the Shaman's weapon, increasing melee attack power by $15569s1 and all threat caused by $15569s2% when using that weapon.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.",
+    "count": 1,
+    "sample": "Rockbiter Weapon (Rank 4) [id=10399]"
+  },
+  {
+    "ranked_idx": 1338,
+    "en": "Instantly shocks the target with concussive force, causing $s1 Nature damage.  This spell benefits from your melee Attack Power.  It also interrupts spellcasting and prevents any spell in that school from being cast for $d.  Causes a medium amount of threat.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Earth Shock (Rank 7) [id=10414]"
+  },
+  {
+    "ranked_idx": 1341,
+    "en": "The caster is surrounded by $n globes of unstable lightning for $d. When a spell, melee or ranged attack hits the caster, the attacker will be struck for $26370s1 Nature damage, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "O conjurador é cercado por $n globos de relâmpago instável por $d s. Quem bater leva $s1 de Natureza e gasta 1 globo. Uma vez a cada 3 s. Só um escudo por vez.",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 6) [id=10431]"
+  }
+]

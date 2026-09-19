@@ -1,0 +1,366 @@
+Total items: 50
+=== ITEM 1 / 50 (idx=1172) ===
+SAMPLE: Frost Armor (Rank 3) [id=6643]
+EN:
+Teaches Frost Armor (Rank 3).
+CURR_PT:
+
+
+=== ITEM 2 / 50 (idx=1173) ===
+SAMPLE: Frost Nova (Rank 3) [id=6644]
+EN:
+Teaches Frost Nova (Rank 3).
+CURR_PT:
+
+
+=== ITEM 3 / 50 (idx=1174) ===
+SAMPLE: Healing Touch (Rank 1) [id=6659]
+EN:
+Teaches Healing Touch (Rank 1).
+CURR_PT:
+
+
+=== ITEM 4 / 50 (idx=1175) ===
+SAMPLE: Eviscerate (Rank 2) [id=6760]
+EN:
+Finishing move that causes damage per combo point, increased by Attack Power:
+   1 point  : 14-22 damage
+   2 points: 25-33 damage
+   3 points: 36-44 damage
+   4 points: 47-55 damage
+   5 points: 58-66 damage
+CURR_PT:
+
+
+=== ITEM 5 / 50 (idx=1176) ===
+SAMPLE: Eviscerate (Rank 3) [id=6761]
+EN:
+Finishing move that causes damage per combo point, increased by Attack Power:
+   1 point  : 25-39 damage
+   2 points: 44-58 damage
+   3 points: 63-77 damage
+   4 points: 82-96 damage
+   5 points: 101-115 damage
+CURR_PT:
+
+
+=== ITEM 6 / 50 (idx=1177) ===
+SAMPLE: Eviscerate (Rank 4) [id=6762]
+EN:
+Finishing move that causes damage per combo point, increased by Attack Power:
+   1 point  : 41-61 damage
+   2 points: 72-92 damage
+   3 points: 103-123 damage
+   4 points: 134-154 damage
+   5 points: 165-185 damage
+CURR_PT:
+
+
+=== ITEM 7 / 50 (idx=1178) ===
+SAMPLE: Ravage (Rank 1) [id=6785]
+EN:
+Ravage the target, causing $s2% damage plus 147 to the target.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.
+CURR_PT:
+
+
+=== ITEM 8 / 50 (idx=1179) ===
+SAMPLE: Ravage (Rank 2) [id=6787]
+EN:
+Ravage the target, causing $s2% damage plus 217 to the target.  Must be prowling and behind the target.  Awards $s3 combo $lpoint:points;.
+CURR_PT:
+
+
+=== ITEM 9 / 50 (idx=1180) ===
+SAMPLE: Shred (Rank 2) [id=6800]
+EN:
+Shred the target, causing $s2% damage plus 72 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.
+CURR_PT:
+
+
+=== ITEM 10 / 50 (idx=1181) ===
+SAMPLE: Shadowhorn Charge (Rank 1) [id=6921]
+EN:
+Increases the Physical damage dealt by the caster by $s2 and speeds its movement by $s1% for $d. Also curses an enemy on the first successful hit, reducing the Physical damage it deals by $6922s2, reducing the magical damage it deals by $6922s3, and increasing the Physical damage it takes by $6922s1 for $6922d.
+CURR_PT:
+Físico +$s1 e +$s2% velocidade por $d s. Primeiro golpe amaldiçoa: +$s3 recebido e -$s4 mágico por $d1 s.
+
+=== ITEM 11 / 50 (idx=1182) ===
+SAMPLE: Shadowstalker Slash (Rank 1) [id=6927]
+EN:
+Inflicts normal damage plus $s2 to an enemy when attacking from stealth, stunning it $d. Awards $s3 combo $lpoint:points;.
+CURR_PT:
+Furtivo: normal +$s1 e atordoa por $d s. Combo +$s2.
+
+=== ITEM 12 / 50 (idx=1183) ===
+SAMPLE: Weak Frostbolt (Rank 1) [id=6949]
+EN:
+Launches a bolt of ice at an enemy, inflicting $s1 Frost damage.
+CURR_PT:
+Raio de gelo de $s1 no inimigo.
+
+=== ITEM 13 / 50 (idx=1184) ===
+SAMPLE: Lightning Barrier (Rank 1) [id=6960]
+EN:
+Surrounds an ally with a shield of crackling electricity that lasts $d. and inflicts $s1 Nature damage to melee attackers.
+CURR_PT:
+Aliado cercado de eletricidade $d s: $s1 de Natureza em corpo a corpo.
+
+=== ITEM 14 / 50 (idx=1185) ===
+SAMPLE: Feed Pet () [id=6991]
+EN:
+Feed your pet the selected item.  Feeding your pet increases happiness.  Using food close to the pet's level will have a better result.
+CURR_PT:
+
+
+=== ITEM 15 / 50 (idx=1186) ===
+SAMPLE: Feinting Strike (Rank 2) [id=6994]
+EN:
+Attempts to disengage from the target, reducing threat.  Cancels combat.
+CURR_PT:
+
+
+=== ITEM 16 / 50 (idx=1187) ===
+SAMPLE: Explosive Shot (Rank 2) [id=6996]
+EN:
+Fires an explosive shot, causing $s1 additional damage to the target and exploding for $s2 damage to nearby enemies.
+CURR_PT:
+Tiro explosivo: +$s1 e $s2 nos próximos.
+
+=== ITEM 17 / 50 (idx=1188) ===
+SAMPLE: Maul () [id=7092]
+EN:
+Increases the next attack by $s1 damage.
+CURR_PT:
+Próximo ataque +$s1.
+
+=== ITEM 18 / 50 (idx=1189) ===
+SAMPLE: Intimidation () [id=7093]
+EN:
+Intimidates an enemy, causing it to flee in terror for $d. Only 1 target can be feared at a time.
+CURR_PT:
+Assusta e foge por $d s. Um por vez.
+
+=== ITEM 19 / 50 (idx=1190) ===
+SAMPLE: Shadow Charge (Rank 1) [id=7137]
+EN:
+Charge an enemy, increasing speed and causing an additional $s2 damage on the first attack.
+CURR_PT:
+Investida veloz: +$s1 no primeiro golpe.
+
+=== ITEM 20 / 50 (idx=1191) ===
+SAMPLE: Execute () [id=7160]
+EN:
+Attempts to finish off a wounded enemy, inflicting normal damage plus $s1. Execute can only be used on enemies that have 20% or less health.
+CURR_PT:
+Finaliza ferido (≤20%): normal +$s1.
+
+=== ITEM 21 / 50 (idx=1192) ===
+SAMPLE: First Aid (Rank 1) [id=7162]
+EN:
+Heals a target for an amount equal to the caster's maximum health.
+CURR_PT:
+Cura igual à vida máxima.
+
+=== ITEM 22 / 50 (idx=1193) ===
+SAMPLE: Battle Stance (Rank 1) [id=7165]
+EN:
+Assumes a balanced combat stance that generates rage when the warrior is hit, as well as when the warrior strikes an opponent. Lasts $d.
+CURR_PT:
+Postura que gera fúria ao apanhar e ao bater. $d s.
+
+=== ITEM 23 / 50 (idx=1194) ===
+SAMPLE: Water Breathing (Rank 1) [id=7178]
+EN:
+Allows the Imbiber to breathe water for $d.
+CURR_PT:
+Respira na água por $d s.
+
+=== ITEM 24 / 50 (idx=1195) ===
+SAMPLE: Regeneration (Rank 5) [id=7200]
+EN:
+Restores 48 health per minute.
+CURR_PT:
+48 de vida por minuto.
+
+=== ITEM 25 / 50 (idx=1196) ===
+SAMPLE: Immolate Cumulative (TEST) (Rank 1) [id=7288]
+EN:
+Burns the enemy for $s1 damage and then an additional $o1 damage over $d.
+CURR_PT:
+Queima $s1 e +$s2 em $d s.
+
+=== ITEM 26 / 50 (idx=1197) ===
+SAMPLE: Soul Siphon (Rank 1) [id=7290]
+EN:
+Drains $o1 health over $d. from an enemy and its nearest ally, healing the caster for up to twice the amount of health stolen.
+CURR_PT:
+Drena $s1 do inimigo e vizinho e cura até 2x em $d s.
+
+=== ITEM 27 / 50 (idx=1198) ===
+SAMPLE: Frostbolt (Rank 4) [id=7324]
+EN:
+Teaches Frostbolt (Rank 4).
+CURR_PT:
+
+
+=== ITEM 28 / 50 (idx=1199) ===
+SAMPLE: Seal of Wisdom (Rank 1) [id=7327]
+EN:
+Teaches Seal of Wisdom (Rank 1).
+CURR_PT:
+
+
+=== ITEM 29 / 50 (idx=1200) ===
+SAMPLE: Healing Aura (TEST) (Rank 1) [id=7331]
+EN:
+Heals the Paladin and nearby group members for $s1 every tick.
+CURR_PT:
+Cura o Paladino e próximos $s1 por tick.
+
+=== ITEM 30 / 50 (idx=1201) ===
+SAMPLE: Berserker Stance (Rank 1) [id=7366]
+EN:
+Assumes an aggressive stance that generates rage when the warrior strikes an opponent. Lasts $d.
+CURR_PT:
+Postura que gera fúria ao bater. $d s.
+
+=== ITEM 31 / 50 (idx=1202) ===
+SAMPLE: Spell - Reuse 7377 (Rank 4) [id=7377]
+EN:
+Bashes the target with your shield for $s2 damage and interrupting the spell being cast for $d.
+CURR_PT:
+Escudada com $s1 e interrompe por $d s.
+
+=== ITEM 32 / 50 (idx=1203) ===
+SAMPLE: Taunt (Rank 2) [id=7390]
+EN:
+Taunts the target to attack you, causing a medium amount of threat.  More effective than Taunt (Rank 1).
+CURR_PT:
+
+
+=== ITEM 33 / 50 (idx=1204) ===
+SAMPLE: Taunt (Rank 3) [id=7391]
+EN:
+Taunts the target to attack you, causing a high amount of threat.  More effective than Taunt (Rank 2).
+CURR_PT:
+
+
+=== ITEM 34 / 50 (idx=1205) ===
+SAMPLE: Shadow Bolt () [id=7617]
+EN:
+When struck in combat has a $h% chance of inflicting $16783s1 Shadow damage to the attacker.
+CURR_PT:
+Acerto: $h% de $s1 de Sombra no atacante.
+
+=== ITEM 35 / 50 (idx=1206) ===
+SAMPLE: Shadow Bolt () [id=7619]
+EN:
+When struck in combat has a $h% chance of inflicting $16784s1 Shadow damage to the attacker.
+CURR_PT:
+Ao apanhar: $h% de $s1 de Sombra no atacante.
+
+=== ITEM 36 / 50 (idx=1207) ===
+SAMPLE: Drain Life (Rank 4) [id=7653]
+EN:
+Teaches Drain Life (Rank 4).
+CURR_PT:
+
+
+=== ITEM 37 / 50 (idx=1209) ===
+SAMPLE: Torment (Rank 2) [id=7809]
+EN:
+Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 1).
+CURR_PT:
+
+
+=== ITEM 38 / 50 (idx=1210) ===
+SAMPLE: Torment (Rank 3) [id=7810]
+EN:
+Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 2).
+CURR_PT:
+
+
+=== ITEM 39 / 50 (idx=1211) ===
+SAMPLE: Torment (Rank 4) [id=7811]
+EN:
+Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 3).
+CURR_PT:
+
+
+=== ITEM 40 / 50 (idx=1212) ===
+SAMPLE: Anti-Venom (Rank 1) [id=7932]
+EN:
+Target is cured of poisons up to level 25.
+CURR_PT:
+Cura veneno até nv 25.
+
+=== ITEM 41 / 50 (idx=1213) ===
+SAMPLE: Strong Anti-Venom (Rank 1) [id=7933]
+EN:
+Target is cured of poisons up to level 35.
+CURR_PT:
+Cura veneno até nv 35.
+
+=== ITEM 42 / 50 (idx=1214) ===
+SAMPLE: Sneak (Rank 1) [id=7939]
+EN:
+Puts the caster in stealth mode, but slows its movement to $s2% of normal. Lasts until cancelled.
+CURR_PT:
+Furtivo a -$s1% de velocidade, até cancelar.
+
+=== ITEM 43 / 50 (idx=1215) ===
+SAMPLE: Scry on Azrethoc (Rank 1) [id=7960]
+EN:
+Conjures $M1 $lloaf:loaves; of bread, providing the mage and his allies with something to eat.
+CURR_PT:
+Conjura $s1 pães pra comer.
+
+=== ITEM 44 / 50 (idx=1216) ===
+SAMPLE: Rockbiter Weapon (Rank 1) [id=8017]
+EN:
+Imbue the Shaman's weapon, increasing melee attack power by $10400s1 and all threat caused by $10400s2% when using that weapon.  Lasts for 1 hour.
+CURR_PT:
+Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.
+
+=== ITEM 45 / 50 (idx=1217) ===
+SAMPLE: Rockbiter Weapon (Rank 2) [id=8018]
+EN:
+Imbue the Shaman's weapon, increasing melee attack power by $15567s1 and all threat caused by $15567s2% when using that weapon.  Lasts for 1 hour.
+CURR_PT:
+Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.
+
+=== ITEM 46 / 50 (idx=1218) ===
+SAMPLE: Rockbiter Weapon (Rank 3) [id=8019]
+EN:
+Imbue the Shaman's weapon, increasing melee attack power by $15568s1 and all threat caused by $15568s2% when using that weapon.  Lasts for 1 hour.
+CURR_PT:
+Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.
+
+=== ITEM 47 / 50 (idx=1219) ===
+SAMPLE: Flametongue Weapon (Rank 1) [id=8024]
+EN:
+Imbue the Shaman's weapon with fire.  Each hit causes $/77;8026m1 to $/25;8026M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.
+CURR_PT:
+Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.
+
+=== ITEM 48 / 50 (idx=1220) ===
+SAMPLE: Flametongue Weapon (Rank 2) [id=8027]
+EN:
+Imbue the Shaman's weapon with fire.  Each hit causes $/77;8028m1 to $/25;8028M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.
+CURR_PT:
+Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.
+
+=== ITEM 49 / 50 (idx=1221) ===
+SAMPLE: Flametongue Weapon (Rank 3) [id=8030]
+EN:
+Imbue the Shaman's weapon with fire.  Each hit causes $/77;8029m1 to $/25;8029M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.
+CURR_PT:
+Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.
+
+=== ITEM 50 / 50 (idx=1222) ===
+SAMPLE: Frostbrand Weapon (Rank 1) [id=8033]
+EN:
+Imbue the Shaman's weapon with frost.  Each hit has a chance of causing $8034s2 additional Frost damage and slowing the target's movement speed by $8034s1% for $8034d.  Lasts for 1 hour.
+CURR_PT:
+
+

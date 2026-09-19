@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1010,
+    "en": "Teleports the caster to Undercity.",
+    "curr_pt": "Teleporta pra Cidade Baixa.",
+    "count": 1,
+    "sample": "Teleport: Undercity () [id=3563]"
+  },
+  {
+    "ranked_idx": 1011,
+    "en": "Teleports the caster to Darnassus.",
+    "curr_pt": "Teleporta pra Darnassus.",
+    "count": 1,
+    "sample": "Teleport: Darnassus () [id=3565]"
+  },
+  {
+    "ranked_idx": 1012,
+    "en": "Teleports the caster to Thunder Bluff.",
+    "curr_pt": "Teleporta pra Penhasco.",
+    "count": 1,
+    "sample": "Teleport: Thunder Bluff () [id=3566]"
+  },
+  {
+    "ranked_idx": 1013,
+    "en": "Teleports the caster to Orgrimmar.",
+    "curr_pt": "Aumenta sua defesa em 3.",
+    "count": 1,
+    "sample": "Teleport: Orgrimmar () [id=3567]"
+  },
+  {
+    "ranked_idx": 1015,
+    "en": "Teaches Immolate (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolate (Rank 4) [id=3686]"
+  },
+  {
+    "ranked_idx": 1016,
+    "en": "Teaches Exorcism (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Exorcism (Rank 1) [id=3690]"
+  },
+  {
+    "ranked_idx": 1017,
+    "en": "Teaches Seal of Reckoning (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Reckoning (Rank 1) [id=3694]"
+  },
+  {
+    "ranked_idx": 1018,
+    "en": "Teaches Seal of Reckoning (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Reckoning (Rank 2) [id=3695]"
+  },
+  {
+    "ranked_idx": 1019,
+    "en": "Teaches Conjure Water (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Water (Rank 2) [id=3696]"
+  },
+  {
+    "ranked_idx": 1020,
+    "en": "Teaches Divine Protection (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Divine Protection (Rank 1) [id=3697]"
+  },
+  {
+    "ranked_idx": 1021,
+    "en": "Teaches Health Funnel (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Health Funnel (Rank 2) [id=3701]"
+  },
+  {
+    "ranked_idx": 1022,
+    "en": "Teaches Health Funnel (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Health Funnel (Rank 3) [id=3702]"
+  },
+  {
+    "ranked_idx": 1023,
+    "en": "Teaches Health Funnel (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Health Funnel (Rank 4) [id=3703]"
+  },
+  {
+    "ranked_idx": 1024,
+    "en": "Teaches Seal of Wisdom (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Wisdom (Rank 2) [id=3713]"
+  },
+  {
+    "ranked_idx": 1025,
+    "en": "Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.",
+    "curr_pt": "Provoca com $s1 de Sombra e foca o Emissário.",
+    "count": 1,
+    "sample": "Torment (Rank 1) [id=3716]"
+  },
+  {
+    "ranked_idx": 1026,
+    "en": "Teaches Conjure Mana Gem.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Mana Gem (Rank 1) [id=3724]"
+  },
+  {
+    "ranked_idx": 1027,
+    "en": "Teaches Purify.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Purify () [id=3725]"
+  },
+  {
+    "ranked_idx": 1028,
+    "en": "Teaches Earthbind Totem.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Earthbind Totem () [id=3727]"
+  },
+  {
+    "ranked_idx": 1029,
+    "en": "Teaches Shock (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shock (Rank 4) [id=3728]"
+  },
+  {
+    "ranked_idx": 1030,
+    "en": "Teaches Shock (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shock (Rank 5) [id=3729]"
+  },
+  {
+    "ranked_idx": 1031,
+    "en": "Teaches Serpent Totem (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Serpent Totem (Rank 1) [id=3731]"
+  },
+  {
+    "ranked_idx": 1032,
+    "en": "Teaches Hellfire.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Hellfire (Rank 1) [id=3732]"
+  },
+  {
+    "ranked_idx": 1033,
+    "en": "Teaches Healing Touch (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Touch (Rank 1) [id=3735]"
+  },
+  {
+    "ranked_idx": 1034,
+    "en": "Teaches Wrath (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wrath (Rank 1) [id=3737]"
+  },
+  {
+    "ranked_idx": 1035,
+    "en": "Teaches Cure Poison (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cure Poison (Rank 3) [id=3738]"
+  },
+  {
+    "ranked_idx": 1036,
+    "en": "Teaches Rejuvenation (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rejuvenation (Rank 6) [id=3740]"
+  },
+  {
+    "ranked_idx": 1037,
+    "en": "Teaches Serpent Totem (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Serpent Totem (Rank 2) [id=3746]"
+  },
+  {
+    "ranked_idx": 1038,
+    "en": "Teaches Rain of Fire (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rain of Fire (Rank 2) [id=3751]"
+  },
+  {
+    "ranked_idx": 1039,
+    "en": "Teaches Shadow Word: Pain (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Pain (Rank 5) [id=3752]"
+  },
+  {
+    "ranked_idx": 1040,
+    "en": "Teaches Heal (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Heal (Rank 1) [id=3810]"
+  },
+  {
+    "ranked_idx": 1041,
+    "en": "Allows an engineer to make basic contraptions up to a maximum potential skill of 75.  Requires stone and metal found with the mining skill.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Engineering (Apprentice) [id=4036]"
+  },
+  {
+    "ranked_idx": 1042,
+    "en": "Increases the caster's chance to dodge by $s1%. Lasts until cancelled.",
+    "curr_pt": "Esquiva +$s1%. Até cancelar.",
+    "count": 1,
+    "sample": "Evasion () [id=4086]"
+  },
+  {
+    "ranked_idx": 1043,
+    "en": "Increases your Health by 40.",
+    "curr_pt": "Vida +40.",
+    "count": 1,
+    "sample": "Physical Prowess (Rank 5) [id=4259]"
+  },
+  {
+    "ranked_idx": 1044,
+    "en": "Increases your Health by 50.",
+    "curr_pt": "Vida +50.",
+    "count": 1,
+    "sample": "Physical Prowess (Rank 6) [id=4260]"
+  },
+  {
+    "ranked_idx": 1045,
+    "en": "Increases your Health by 60.",
+    "curr_pt": "Vida +60.",
+    "count": 1,
+    "sample": "Physical Prowess (Rank 7) [id=4261]"
+  },
+  {
+    "ranked_idx": 1046,
+    "en": "Increases your Health by 80.",
+    "curr_pt": "Vida +80.",
+    "count": 1,
+    "sample": "Physical Prowess (Rank 8) [id=4262]"
+  },
+  {
+    "ranked_idx": 1047,
+    "en": "Does $o1 fire damage to all enemies in the area of effect over $d.",
+    "curr_pt": "$s1 de fogo na área ao longo de $d s.",
+    "count": 1,
+    "sample": "Rain of Fire () [id=4629]"
+  },
+  {
+    "ranked_idx": 1048,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 2%.",
+    "curr_pt": "Bloqueio de Escudo +2%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 1) [id=4760]"
+  },
+  {
+    "ranked_idx": 1049,
+    "en": "Increases your chance to block with a shield by 2%.",
+    "curr_pt": "Bloqueio +2%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 1) [id=4761]"
+  },
+  {
+    "ranked_idx": 1050,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 4% and reflects $s2% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +4% e reflete $s1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 2) [id=4762]"
+  },
+  {
+    "ranked_idx": 1051,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 5% and reflects $s2% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +5% e reflete $s1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 3) [id=4763]"
+  },
+  {
+    "ranked_idx": 1052,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 2% and reflects 1% of hostile spells back at the caster.",
+    "curr_pt": "Bloqueio +2% e reflete 1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 2) [id=4764]"
+  },
+  {
+    "ranked_idx": 1053,
+    "en": "Increases your chance to block with a Shield (not a Buckler) by 1%.",
+    "curr_pt": "Bloqueio +1%.",
+    "count": 1,
+    "sample": "Shield Blocking (Rank 3) [id=4765]"
+  },
+  {
+    "ranked_idx": 1054,
+    "en": "Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 22+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Web (Spider - Rank 1) [id=4782]"
+  },
+  {
+    "ranked_idx": 1055,
+    "en": "Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 30+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Web (Spider - Rank 2) [id=4783]"
+  },
+  {
+    "ranked_idx": 1056,
+    "en": "Teaches your tamed spider the Web ability. Web renders an enemy unable to move.\nRequires: \nPet Level 37+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Web (Spider - Rank 3) [id=4785]"
+  },
+  {
+    "ranked_idx": 1057,
+    "en": "Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 22+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Tongue (Tall Strider - Rank 1) [id=4807]"
+  },
+  {
+    "ranked_idx": 1058,
+    "en": "Teaches your tamed tall strider the Healing Tongue ability. Healing Tongue heals friendly targets from a short range.\nRequires: \nPet Level 28+",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Tongue (Tall Strider - Rank 2) [id=4808]"
+  },
+  {
+    "ranked_idx": 1059,
+    "en": "Increases Holy spell and ability damage by 4 and the effect from Holy healing by 8.",
+    "curr_pt": "Sagrado +4 e cura +8.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 3) [id=4819]"
+  },
+  {
+    "ranked_idx": 1060,
+    "en": "Increases Holy spell and ability damage by 6 and the effect from Holy healing by 12.",
+    "curr_pt": "Sagrado +6 e cura +12.",
+    "count": 1,
+    "sample": "Holy Specialization (Rank 4) [id=4820]"
+  }
+]

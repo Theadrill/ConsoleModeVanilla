@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 253,
+    "en": "Increases your critical strike chance with ranged weapons by $s1%.",
+    "curr_pt": "Aumenta sua chance de crítico com armas à distância em $s1%.",
+    "count": 5,
+    "sample": "Lethal Shots (Rank 1) [id=19426]"
+  },
+  {
+    "ranked_idx": 254,
+    "en": "Increases the damage done by your Serpent Sting by $s1% and increases the mana drained by Viper Sting by $s2%.",
+    "curr_pt": "Aumenta o dano da sua Ferroada de Serpente em $s1% e a mana drenada pela Ferroada de Víbora em $s2%.",
+    "count": 5,
+    "sample": "Improved Stings (Rank 1) [id=19464]"
+  },
+  {
+    "ranked_idx": 255,
+    "en": "Increases your ranged weapon critical strike damage bonus by $s1%.",
+    "curr_pt": "Aumenta o bônus de dano crítico à distância em $s1%.",
+    "count": 5,
+    "sample": "Mortal Shots (Rank 1) [id=19485]"
+  },
+  {
+    "ranked_idx": 256,
+    "en": "Adds $s2% of your Stamina to the Stamina of your pets and increases the Health of your pets by $s1%.",
+    "curr_pt": "Adiciona $s1% do seu Vigor ao Vigor dos pets e aumenta a Vida deles em $s2%.",
+    "count": 5,
+    "sample": "Endurance Training (Rank 1) [id=19583]"
+  },
+  {
+    "ranked_idx": 257,
+    "en": "Increases the critical strike chance of your pets by $s1%.",
+    "curr_pt": "Aumenta a chance de crítico dos seus pets em $s1%.",
+    "count": 5,
+    "sample": "Ferocity (Rank 1) [id=19598]"
+  },
+  {
+    "ranked_idx": 258,
+    "en": "Gives your pet a $s1% chance to gain $19604s1 Focus after getting a critical strike.",
+    "curr_pt": "Dá ao seu pet $s1% de chance de ganhar $s2 de Foco após critar.",
+    "count": 5,
+    "sample": "Bestial Fury (Rank 1) [id=19603]"
+  },
+  {
+    "ranked_idx": 259,
+    "en": "Gives your pet a $s1% chance to gain a $19615s1% attack speed increase for $19615d after dealing a critical strike.",
+    "curr_pt": "Dá ao seu pet $s1% de chance de ganhar $s2% de velocidade de ataque por $d s após critar.",
+    "count": 5,
+    "sample": "Frenzy (Rank 1) [id=19621]"
+  },
+  {
+    "ranked_idx": 260,
+    "en": "Increases the effectiveness your Blessing of Might and Wisdom by $s1%.",
+    "curr_pt": "Aumenta o efeito da sua Bênção de Poder e Sabedoria em $s1%.",
+    "count": 5,
+    "sample": "Improved Blessings (Rank 1) [id=20042]"
+  },
+  {
+    "ranked_idx": 261,
+    "en": "Increases the damage done by your Retribution Aura by $s1%.",
+    "curr_pt": "Aumenta o dano da sua Aura de Retribuição em $s1%.",
+    "count": 5,
+    "sample": "Improved Retribution Aura (Rank 1) [id=20091]"
+  },
+  {
+    "ranked_idx": 262,
+    "en": "Reduces the Mana cost of your Judgement and Seal spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana de Julgamento e Selos em $s1%.",
+    "count": 5,
+    "sample": "Benediction (Rank 1) [id=20101]"
+  },
+  {
+    "ranked_idx": 263,
+    "en": "Increases the duration of your Blessing of Freedom by $/1000;s1 sec.",
+    "curr_pt": "Aumenta a duração da sua Bênção de Liberdade em $s1 s.",
+    "count": 5,
+    "sample": "Improved Blessing of Freedom (Rank 1) [id=20106]"
+  },
+  {
+    "ranked_idx": 264,
+    "en": "Consecrates the land beneath Paladin, doing $o1 Holy damage over $d to enemies who enter the area.",
+    "curr_pt": "Consagra o chão sob o Paladino, causando $s1 de dano Sagrado ao longo de $d s nos inimigos na área.",
+    "count": 5,
+    "sample": "Consecration (Rank 2) [id=20116]"
+  },
+  {
+    "ranked_idx": 265,
+    "en": "Increases the armor bonus of your Devotion Aura by $s1%.",
+    "curr_pt": "Aumenta o bônus de armadura da sua Aura de Devoção em $s1%.",
+    "count": 5,
+    "sample": "Improved Devotion Aura (Rank 1) [id=20138]"
+  },
+  {
+    "ranked_idx": 266,
+    "en": "Gives you a $h% chance to gain an extra attack after being the victim of a critical strike.",
+    "curr_pt": "Dá $h% de chance de um ataque extra após sofrer crítico.",
+    "count": 5,
+    "sample": "zzOLD Reckoning (Rank 1) [id=20177]"
+  },
+  {
+    "ranked_idx": 267,
+    "en": "Places a Blessing on the friendly target, reducing damage dealt from all sources by up to $s1 for $d.  In addition, when the target blocks a melee attack the attacker will take $s2 Holy damage.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 5,
+    "sample": "Blessing of Sanctuary (Rank 1) [id=20204]"
+  },
+  {
+    "ranked_idx": 268,
+    "en": "Gives your Flash of Light and Holy Light spells a $s1% chance to not lose casting time when you take damage.",
+    "curr_pt": "Dá às suas magias Clarão e Luz Sagrada $s1% de chance de não perder tempo ao sofrer dano.",
+    "count": 5,
+    "sample": "Spiritual Focus (Rank 1) [id=20205]"
+  },
+  {
+    "ranked_idx": 269,
+    "en": "After getting a critical effect from your Flash of Light, Holy Light, or Holy Shock heal spell, you regain Mana equal to $s1% of the base cost of the spell.",
+    "curr_pt": "Após critar com Clarão, Luz Sagrada ou Choque Sagrado, recupera mana de $s1% do custo base.",
+    "count": 5,
+    "sample": "Illumination (Rank 1) [id=20210]"
+  },
+  {
+    "ranked_idx": 270,
+    "en": "Increases the damage done by your Seal of Righteousness and Judgement of Righteousness by $s1%.",
+    "curr_pt": "Aumenta o dano do seu Selo e Julgamento da Justiça em $s1%.",
+    "count": 5,
+    "sample": "Improved Seal of Righteousness (Rank 1) [id=20224]"
+  },
+  {
+    "ranked_idx": 271,
+    "en": "Returns the spirit to the body, restoring a dead target to life with $s1 health and $q mana.",
+    "curr_pt": "Devolve o espírito ao corpo, trazendo o morto de volta à vida com $s1 de vida e $s2 de mana.",
+    "count": 5,
+    "sample": "Rebirth (Rank 1) [id=20484]"
+  },
+  {
+    "ranked_idx": 272,
+    "en": "Charges an enemy, inflicting normal damage plus $s3 and stuns the opponent for $d.",
+    "curr_pt": "Investida contra o inimigo, causando dano normal mais $s1 e atordoando-o por $d s.",
+    "count": 5,
+    "sample": "Charge () [id=22911]"
+  },
+  {
+    "ranked_idx": 273,
+    "en": "Slam the target with your shield, causing $s2 damage, modified by your shield block value and attack power. This attack causes a high amount of threat, and has a 50% chance of dispelling $s1 magic effect on the target.",
+    "curr_pt": "Esmaga o alvo com o escudo, causando $s1 de dano conforme bloqueio e poder, com muita ameaça e 50% de chance de dissipar $s2 magia no alvo.",
+    "count": 5,
+    "sample": "Shield Slam (Rank 1) [id=23922]"
+  },
+  {
+    "ranked_idx": 274,
+    "en": "Reduces the mana cost of your Healing Touch, Regrowth and Tranquility spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana de Toque de Cura, Recrescer e Tranquilidade em $s1%.",
+    "count": 5,
+    "sample": "Tranquil Spirit (Rank 1) [id=24968]"
+  },
+  {
+    "ranked_idx": 275,
+    "en": "Increases the damage you deal with all weapons, Stormstrike and Lightning Strike abilities by $s1%.",
+    "curr_pt": "Aumenta o dano com todas as armas, Golpe Storm e Ferida em $s1%.",
+    "count": 5,
+    "sample": "Weapon Mastery (Rank 1) [id=29082]"
+  },
+  {
+    "ranked_idx": 276,
+    "en": "Increases your spell damage and healing by an amount equal to $s1% of your Intellect.",
+    "curr_pt": "Aumenta seu dano e cura mágicos em $s1% do Intelecto.",
+    "count": 5,
+    "sample": "Nature's Blessing (Rank 1) [id=30867]"
+  },
+  {
+    "ranked_idx": 277,
+    "en": "A strike that causes $s2 damage and increases the holy damage taken by the target by up to $s1 per Crusader Strike.  Can be applied up to 5 times.  Lasts $d.",
+    "curr_pt": "",
+    "count": 5,
+    "sample": "Crusader Strike (Rank 1) [id=45409]"
+  },
+  {
+    "ranked_idx": 278,
+    "en": "Increases your armor value from items by $s1% and chance to dodge by an additional $s2%.",
+    "curr_pt": "Aumenta sua armadura de itens em $s1% e sua esquiva em $s2%.",
+    "count": 5,
+    "sample": "Ancestral Guardian (Rank 1) [id=45545]"
+  },
+  {
+    "ranked_idx": 279,
+    "en": "Triggered by Decisive Strike",
+    "curr_pt": "Ativada por Golpe Decisivo.",
+    "count": 5,
+    "sample": "Slam (Rank 3) [id=45599]"
+  },
+  {
+    "ranked_idx": 280,
+    "en": "Slashes the enemy with the raptor's talons for $s1 damage, and causes the target to bleed for $s2 damage every 5 sec for $d.",
+    "curr_pt": "Dilacera o inimigo com as garras do raptor por $s1 de dano, e o alvo sangra $s2 a cada 5 s por $d s.",
+    "count": 5,
+    "sample": "Savage Rend (Rank 1) [id=46282]"
+  },
+  {
+    "ranked_idx": 281,
+    "en": "Swipe nearby enemies, inflicting $s1 damage.",
+    "curr_pt": "Golpeia os inimigos próximos, causando $s1 de dano.",
+    "count": 5,
+    "sample": "Swipe (Rank 1) [id=46287]"
+  },
+  {
+    "ranked_idx": 282,
+    "en": "Expels a lightning bolt at the enemy, instantly dealing $s1 Nature damage to a single target.",
+    "curr_pt": "Expele um raio no inimigo, causando $s1 de dano de Natureza num único alvo na hora.",
+    "count": 5,
+    "sample": "Lizard Bolt (Rank 1) [id=46297]"
+  },
+  {
+    "ranked_idx": 283,
+    "en": "Your successful damaging Arcane spells have a $h% chance to duplicate for $s1% of the damage.  This effect can trigger off of itself and duplicated Arcane Missiles are channeled in tandem with the original cast.",
+    "curr_pt": "",
+    "count": 5,
+    "sample": "Resonance Cascade (Rank 1) [id=51262]"
+  },
+  {
+    "ranked_idx": 284,
+    "en": "Improves your chance to get a critical strike with Holy Shock by $s1%.",
+    "curr_pt": "Melhora sua chance de crítico com Choque Sagrado em $s1%.",
+    "count": 5,
+    "sample": "Divine Favor (Rank 1) [id=51312]"
+  },
+  {
+    "ranked_idx": 285,
+    "en": "Crusader Strike has a $h% chance to reset the cooldown of your Holy Shock.  In addition, the healing effect of your Holy Strike is increased by $s3% and benefits from an additional $s2% of your healing power.",
+    "curr_pt": "",
+    "count": 5,
+    "sample": "Blessed Strikes (Rank 1) [id=51317]"
+  },
+  {
+    "ranked_idx": 286,
+    "en": "Increases the amount of damage blocked by $s1%.",
+    "curr_pt": "Aumenta o valor bloqueado em $s1%.",
+    "count": 5,
+    "sample": "Righteous Strikes (Rank 1) [id=51336]"
+  },
+  {
+    "ranked_idx": 287,
+    "en": "Reduces the cast time of your Chain Heal spell by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de lançamento da sua Cura Encadeada em $s1 s.",
+    "count": 5,
+    "sample": "Improved Chain Heal (Rank 1) [id=51374]"
+  },
+  {
+    "ranked_idx": 288,
+    "en": "Gives your Insect Swarm spell a $h% chance to reduce the cast time of your next Starfire by $/1000;51432S1 sec.\r\n\r\nGives your Moonfire spell a $h% chance to reduce the mana cost of your next Wrath by $51671s1%.",
+    "curr_pt": "",
+    "count": 5,
+    "sample": "Balance of All Things (Rank 1) [id=51433]"
+  },
+  {
+    "ranked_idx": 289,
+    "en": "Reduces the Mana cost of all traps and melee abilities by $s1%.",
+    "curr_pt": "Reduz o custo de mana de armadilhas e corpo a corpo em $s1%.",
+    "count": 5,
+    "sample": "Resourcefulness (Rank 1) [id=51570]"
+  },
+  {
+    "ranked_idx": 290,
+    "en": "Increases the melee attack power bonus of your Battle Shout by $s1% and increases the melee attack power reduction of your Demoralizing Shout by $s2%.",
+    "curr_pt": "Aumenta o bônus de poder de ataque do seu Grito de Batalha em $s1% e a redução do Grito Desmoralizante em $s2%.",
+    "count": 5,
+    "sample": "Improved Shouts (Rank 1) [id=51609]"
+  },
+  {
+    "ranked_idx": 291,
+    "en": "A strike that becomes active after parrying an opponent's attack. This attack deals $s1 damage plus 10% of your Attack Power and immobilizes the target for $d. Counterattack cannot be blocked, dodged, or parried.",
+    "curr_pt": "Um golpe ativo após aparar, causando $s1 de dano mais 10% do Poder de Ataque e imobilizando por $d s, sem bloqueio, esquiva ou aparo.",
+    "count": 5,
+    "sample": "Counterattack (Rank 1) [id=51626]"
+  },
+  {
+    "ranked_idx": 292,
+    "en": "Increases your chance to get a critical strike with Axes by $s1%.",
+    "curr_pt": "Aumenta sua chance de crítico com Machados em $s1%.",
+    "count": 5,
+    "sample": "Axe Master (Rank 1) [id=51659]"
+  },
+  {
+    "ranked_idx": 293,
+    "en": "Damage from your Moonfire spells now has a $h% chance to reduce the mana cost of your next Wrath by $51671s1%.",
+    "curr_pt": "O dano da Fogofátuo passa a ter $h% de chance de reduzir o custo da próxima Ira em $s1%.",
+    "count": 5,
+    "sample": "Balance of All Things (Moonfire) (Rank 1) [id=51672]"
+  },
+  {
+    "ranked_idx": 294,
+    "en": "Your opening moves have a $s1% chance and your finishing moves have a $b2% chance per combo point to increase your party members' critical strike chance by $52540s1% for $52540d. This effect stacks up to $52540u times.",
+    "curr_pt": "Suas aberturas têm $s1% de chance e os finais $s2% por ponto de combo de aumentar o crítico do grupo em $s3% por $d s. Acumula até $s4 vezes.",
+    "count": 5,
+    "sample": "Tricks of the Trade (Rank 1) [id=52541]"
+  },
+  {
+    "ranked_idx": 295,
+    "en": "Fire a searing arrow, dealing weapon damage plus $s1 Fire damage.",
+    "curr_pt": "Atira uma flecha abrasadora com dano de arma mais $s1 de Fogo.",
+    "count": 5,
+    "sample": "Searing Shot (Rank 1) [id=52638]"
+  },
+  {
+    "ranked_idx": 296,
+    "en": "Increases the mana regeneration of party members within $a1 yards by $s1 every $t1 seconds.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Wisdom Aura (Rank 2) [id=94]"
+  },
+  {
+    "ranked_idx": 297,
+    "en": "Transforms the enemy into a sheep, forcing it to wander around for up to $d.  While wandering, the sheep cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Polymorph (Rank 1) [id=118]"
+  },
+  {
+    "ranked_idx": 298,
+    "en": "Hurls a lightning bolt at the enemy, dealing $s1 Nature damage and then jumping to additional nearby enemies.  Each jump reduces the damage by 30%.  Affects $x1 total targets.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Chain Lightning (Rank 1) [id=421]"
+  },
+  {
+    "ranked_idx": 299,
+    "en": "Dispels magic on the target, removing $s1 harmful $lspell:spells; from a friend or $s1 beneficial $lspell:spells; from an enemy.",
+    "curr_pt": "Dissipa a magia do alvo, removendo $s1 magia nociva do aliado ou $s1 benéfica do inimigo.",
+    "count": 4,
+    "sample": "Dispel Magic (Rank 1) [id=527]"
+  },
+  {
+    "ranked_idx": 300,
+    "en": "Target is immune to poison for $d and is cured of any existing poisons.",
+    "curr_pt": "O alvo fica imune a veneno por $d s e se cura dos atuais.",
+    "count": 4,
+    "sample": "Nullify Poison (Rank 1) [id=550]"
+  },
+  {
+    "ranked_idx": 301,
+    "en": "Curses the target with recklessness, increasing melee attack power by $s1 but reducing armor by $s2 for $d.  Cursed enemies will not flee and will ignore Fear and Horror effects.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Curse of Recklessness (Rank 1) [id=704]"
+  },
+  {
+    "ranked_idx": 302,
+    "en": "Regenerates all nearby raid members for $s1 every second for $d.  Druid must channel to maintain the spell.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Tranquility (Rank 1) [id=740]"
+  }
+]

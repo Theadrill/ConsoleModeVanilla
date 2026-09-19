@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1464,
+    "en": "Gives you a $14204s1% melee damage bonus for $14204d after being the victim of a critical strike.",
+    "curr_pt": "+$s1% dano corpo a corpo por $d s após crítico.",
+    "count": 1,
+    "sample": "Enrage (Rank 5) [id=13048]"
+  },
+  {
+    "ranked_idx": 1465,
+    "en": "Gives your Intimidating Shout a 75% chance to cause 2 additional enemy to cower in fear rather than flee.",
+    "curr_pt": "Grito: 75% de +2 encolhidos em vez de fugir.",
+    "count": 1,
+    "sample": "Improved Intimidating Shout (Rank 2) [id=13058]"
+  },
+  {
+    "ranked_idx": 1466,
+    "en": "Gives your Intimidating Shout a 75% chance to cause 3 additional enemy to cower in fear rather than flee.",
+    "curr_pt": "Grito: 75% de +3 encolhidos em vez de fugir.",
+    "count": 1,
+    "sample": "Improved Intimidating Shout (Rank 3) [id=13059]"
+  },
+  {
+    "ranked_idx": 1467,
+    "en": "Activates after dealing a killing blow. Your next weapon attack deals $12331s1% increased damage.",
+    "curr_pt": "Abate: próximo ataque +$s1%.",
+    "count": 1,
+    "sample": "Bloodthirst (Rank 1) [id=13078]"
+  },
+  {
+    "ranked_idx": 1468,
+    "en": "The hunter and group members within $a1 yards take on the aspects of a pack of cheetahs, increasing movement speed by $s1%.  If a pack member takes damage, they will be dazed for $15571d.  Only one Aspect can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Aspect of the Pack () [id=13159]"
+  },
+  {
+    "ranked_idx": 1469,
+    "en": "The hunter takes on the aspects of a beast, becoming untrackable.  Only one Aspect can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Aspect of the Beast () [id=13161]"
+  },
+  {
+    "ranked_idx": 1470,
+    "en": "The hunter takes on the aspects of a monkey, increasing chance to dodge by $s1%.  Only one Aspect can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Aspect of the Monkey () [id=13163]"
+  },
+  {
+    "ranked_idx": 1471,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, reducing all healing effects used on them by $13218s1% for $13218d.  Stacks up to 5 times on a single target.  60 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wound Poison () [id=13219]"
+  },
+  {
+    "ranked_idx": 1472,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $13219h% chance of poisoning the enemy, reducing all healing effects used on them by $13218s1% for $13218d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wound Poison () [id=13220]"
+  },
+  {
+    "ranked_idx": 1473,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, reducing all healing effects used on them by $13222s1 for $13222d.  Stacks up to 5 times on a single target.  75 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "[Deprecated] Wound Poison (Rank 2) [id=13225]"
+  },
+  {
+    "ranked_idx": 1474,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, reducing all healing effects used on them by $13223s1 for $13223d.  Stacks up to 5 times on a single target.  90 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "[Deprecated] Wound Poison (Rank 3) [id=13226]"
+  },
+  {
+    "ranked_idx": 1475,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, reducing all healing effects used on them by $13224s1 for $13224d.  Stacks up to 5 times on a single target.  105 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "[Deprecated] Wound Poison (Rank 4) [id=13227]"
+  },
+  {
+    "ranked_idx": 1476,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy, reducing all healing effects used on them by $13222s1 for $13222d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wound Poison II (Rank 2) [id=13228]"
+  },
+  {
+    "ranked_idx": 1477,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy, reducing all healing effects used on them by $13223s1 for $13223d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wound Poison III (Rank 3) [id=13229]"
+  },
+  {
+    "ranked_idx": 1478,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy, reducing all healing effects used on them by $13224s1 for $13224d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wound Poison IV (Rank 4) [id=13230]"
+  },
+  {
+    "ranked_idx": 1479,
+    "en": "Increases an ally's Intellect by $s1 for $d.",
+    "curr_pt": "Int do aliado +$s1 por $d s.",
+    "count": 1,
+    "sample": "Arcane Intellect () [id=13326]"
+  },
+  {
+    "ranked_idx": 1480,
+    "en": "Forces an enemy to speak in Demonic, reducing its casting speed by $s1% for $d. Only one curse per warlock can be active on any one target.",
+    "curr_pt": "Força demoníaco: -$s1% por $d s. Uma maldição por Bruxo.",
+    "count": 1,
+    "sample": "Curse of Tongues () [id=13338]"
+  },
+  {
+    "ranked_idx": 1481,
+    "en": "Pummel the target for $s1 damage and interrupt the spell being cast for $d.",
+    "curr_pt": "Esmurra $s1 e interrompe por $d s.",
+    "count": 1,
+    "sample": "Pummel (Rank 1) [id=13491]"
+  },
+  {
+    "ranked_idx": 1482,
+    "en": "Surrounds an ally with $n balls of lightning that have $h% chance of striking melee or ranged attackers for $s1 damage. Each time the lightning shield strikes, a ball of lightning dissipates. Thus, the shield expires after $d. or after it has struck $n times.",
+    "curr_pt": "Cerca um aliado com $n esferas com $h% de revidar corpo a corpo/à distância com $s1. Cada revide dissipa 1; acaba em $d s ou após $n revides.",
+    "count": 1,
+    "sample": "Lightning Shield () [id=13585]"
+  },
+  {
+    "ranked_idx": 1483,
+    "en": "Reduces the cooldown of your Sprint and Evasion abilities by $/1000;s1 sec.",
+    "curr_pt": "Sprint e Evasão -$s1 s.",
+    "count": 1,
+    "sample": "Endurance (Rank 1) [id=13742]"
+  },
+  {
+    "ranked_idx": 1484,
+    "en": "Protects the caster, increasing armor by $s1, Shadow resistance by $s2, and health regeneration for $d.",
+    "curr_pt": "Armadura +$s1, Sombra +$s2 e regen por $d s.",
+    "count": 1,
+    "sample": "Demon Armor () [id=13787]"
+  },
+  {
+    "ranked_idx": 1485,
+    "en": "Place a fire trap that will burn the first enemy to approach for $13797o1 Fire damage over $13797d.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolation Trap (Rank 1) [id=13795]"
+  },
+  {
+    "ranked_idx": 1486,
+    "en": "Place a frost trap that creates an ice slick around itself for $13810d when the first enemy approaches it.  All enemies within $13810a1 yards will be slowed by $14207s1% while in the area of effect.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frost Trap () [id=13809]"
+  },
+  {
+    "ranked_idx": 1487,
+    "en": "Place a fire trap that explodes when an enemy approaches, causing $13812s1 Fire damage and $13812o2 additional Fire damage over $13812d to all within $13812a1 yards.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Explosive Trap (Rank 1) [id=13813]"
+  },
+  {
+    "ranked_idx": 1488,
+    "en": "Increases an ally's Stamina by $s1 for $d.",
+    "curr_pt": "Vig do aliado +$s1 por $d s.",
+    "count": 1,
+    "sample": "Power Word: Fortitude () [id=13864]"
+  },
+  {
+    "ranked_idx": 1489,
+    "en": "Reduces the cooldown of your Sprint and Evasion abilities by $/60000;S1 min.",
+    "curr_pt": "Sprint e Evasão -$s1 min.",
+    "count": 1,
+    "sample": "Endurance (Rank 2) [id=13872]"
+  },
+  {
+    "ranked_idx": 1490,
+    "en": "Protects the caster from all attacks and spells for $d., but also increases the time between attacks by $s2% during that time.",
+    "curr_pt": "Imune a tudo por $d s, +$s2% intervalo.",
+    "count": 1,
+    "sample": "Divine Shield () [id=13874]"
+  },
+  {
+    "ranked_idx": 1491,
+    "en": "Reduces the cooldown of your Sprint ability by $/1000;s1 sec.",
+    "curr_pt": "Sprint -$s1 s.",
+    "count": 1,
+    "sample": "Improved Sprint (Rank 3) [id=13876]"
+  },
+  {
+    "ranked_idx": 1492,
+    "en": "Your attacks strike an additional nearby opponent. Lasts $d.",
+    "curr_pt": "+Lâmina: +1 alvo. $d s.",
+    "count": 1,
+    "sample": "Blade Flurry () [id=13877]"
+  },
+  {
+    "ranked_idx": 1493,
+    "en": "The priest becomes surrounded with anti-magic energy.  Any successful spell cast against the priest will burn $6347s1 of the attacker's Mana, causing 1 Shadow damage for each point of Mana burned.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Feedback (Rank 1) [id=13896]"
+  },
+  {
+    "ranked_idx": 1494,
+    "en": "Reduces the chance enemies have to detect you while in Stealth mode.",
+    "curr_pt": "Furtivo -detecção.",
+    "count": 1,
+    "sample": "Master of Deception (Rank 1) [id=13958]"
+  },
+  {
+    "ranked_idx": 1495,
+    "en": "Reduces the chance enemies have to detect you while in Stealth mode.  More effective than Master of Deception (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Master of Deception (Rank 2) [id=13970]"
+  },
+  {
+    "ranked_idx": 1496,
+    "en": "Reduces the chance enemies have to detect you while in Stealth mode.  More effective than Master of Deception (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Master of Deception (Rank 3) [id=13971]"
+  },
+  {
+    "ranked_idx": 1497,
+    "en": "Reduces the chance enemies have to detect you while in Stealth mode.  More effective than Master of Deception (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Master of Deception (Rank 4) [id=13972]"
+  },
+  {
+    "ranked_idx": 1498,
+    "en": "Reduces the chance enemies have to detect you while in Stealth mode.  More effective than Master of Deception (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Master of Deception (Rank 5) [id=13973]"
+  },
+  {
+    "ranked_idx": 1499,
+    "en": "Reduces the cooldown of your Stealth ability by $/1000;s1 sec.",
+    "curr_pt": "Furtividade -$s1 s.",
+    "count": 1,
+    "sample": "Rapid Concealment (Rank 1) [id=13974]"
+  },
+  {
+    "ranked_idx": 1500,
+    "en": "Increases your speed while stealthed by $s1% and reduces the cooldown of your Stealth ability by $/1000;s2 sec. In addition, reduces the chance enemies have to detect you while in Stealth mode.",
+    "curr_pt": "Furtivo +$s1% velocidade, Furtividade -$s2 s e -detecção.",
+    "count": 1,
+    "sample": "Camouflage (Rank 1) [id=13975]"
+  },
+  {
+    "ranked_idx": 1501,
+    "en": "Reduces the cooldown of your Vanish and Blind abilities by $/1000;S1 sec.",
+    "curr_pt": "Sumir e Cegar -$s1 s.",
+    "count": 1,
+    "sample": "Elusiveness (Rank 1) [id=13981]"
+  },
+  {
+    "ranked_idx": 1502,
+    "en": "Increases your speed while stealthed by $s1% and reduces the cooldown of your Stealth ability by $/1000;s2 sec. In addition, reduces the chance enemies have to detect you while in Stealth mode. More effective than Camouflage (Rank 1).",
+    "curr_pt": "Furtivo +$s1% velocidade, Furtividade -$s2 s e -detecção. Melhor que Grau 1.",
+    "count": 1,
+    "sample": "Camouflage (Rank 2) [id=14062]"
+  },
+  {
+    "ranked_idx": 1503,
+    "en": "Increases your speed while stealthed by $s1% and reduces the cooldown of your Stealth ability by $/1000;s2 sec. In addition, reduces the chance enemies have to detect you while in Stealth mode. More effective than Camouflage (Rank 2).",
+    "curr_pt": "Furtivo +$s1% velocidade, Furtividade -$s2 s e -detecção. Melhor que Grau 2.",
+    "count": 1,
+    "sample": "Camouflage (Rank 3) [id=14063]"
+  },
+  {
+    "ranked_idx": 1504,
+    "en": "Increases your speed while stealthed by $s1% and reduces the cooldown of your Stealth ability by $/1000;s2 sec. In addition, reduces the chance enemies have to detect you while in Stealth mode. More effective than Camouflage (Rank 3).",
+    "curr_pt": "Furtivo +$s1% velocidade, Furtividade -$s2 s e -detecção. Melhor que Grau 3.",
+    "count": 1,
+    "sample": "Camouflage (Rank 4) [id=14064]"
+  },
+  {
+    "ranked_idx": 1505,
+    "en": "Increases your speed while stealthed by $s1% and reduces the cooldown of your Stealth ability by $/1000;s2 sec. In addition, reduces the chance enemies have to detect you while in Stealth mode. More effective than Camouflage (Rank 4).",
+    "curr_pt": "Furtivo +$s1% velocidade, Furtividade -$s2 s e -detecção. Melhor que Grau 4.",
+    "count": 1,
+    "sample": "Camouflage (Rank 5) [id=14065]"
+  },
+  {
+    "ranked_idx": 1506,
+    "en": "After killing an opponent that yields experience or honor, gives you a $14143s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14143d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Remorseless Attacks (Rank 1) [id=14144]"
+  },
+  {
+    "ranked_idx": 1507,
+    "en": "After killing an opponent that yields experience or honor, gives you a $14149s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14149d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Remorseless Attacks (Rank 2) [id=14148]"
+  },
+  {
+    "ranked_idx": 1508,
+    "en": "After killing an opponent that yields experience or honor, gives you a $14151s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14151d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Remorseless Attacks (Rank 3) [id=14150]"
+  },
+  {
+    "ranked_idx": 1509,
+    "en": "After killing an opponent that yields experience or honor, gives you a $14153s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14153d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Remorseless Attacks (Rank 4) [id=14152]"
+  },
+  {
+    "ranked_idx": 1510,
+    "en": "After killing an opponent that yields experience or honor, gives you a $14155s1% increased critical strike chance on your next Sinister Strike, Backstab, Ambush, or Ghostly Strike.  Lasts $14155d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Remorseless Attacks (Rank 5) [id=14154]"
+  },
+  {
+    "ranked_idx": 1511,
+    "en": "Causes your attacks to ignore 1.67 of your target's Armor per level and increases the damage dealt by your Rupture and Garrote abilities by $s1%.",
+    "curr_pt": "Ignora 1.67 de armadura/nv; Ruptura e Garrote +$s1%.",
+    "count": 1,
+    "sample": "Serrated Blades (Rank 1) [id=14171]"
+  },
+  {
+    "ranked_idx": 1512,
+    "en": "Causes your attacks to ignore 3.34 of your target's Armor per level and increases the damage dealt by your Rupture and Garrote abilities by $s1%.",
+    "curr_pt": "Ignora 3.34 de armadura/nv; Ruptura e Garrote +$s1%.",
+    "count": 1,
+    "sample": "Serrated Blades (Rank 2) [id=14172]"
+  },
+  {
+    "ranked_idx": 1513,
+    "en": "Causes your attacks to ignore 5 of your target's Armor per level and increases the damage dealt by your Rupture and Garrote abilities by $s1%.",
+    "curr_pt": "Ignora 5 de armadura/nv; Ruptura e Garrote +$s1%.",
+    "count": 1,
+    "sample": "Serrated Blades (Rank 3) [id=14173]"
+  }
+]

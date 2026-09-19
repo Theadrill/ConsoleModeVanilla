@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1342,
+    "en": "The caster is surrounded by $n globes of unstable lightning for $d. When a spell, melee or ranged attack hits the caster, the attacker will be struck for $26363s1 Nature damage, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "O conjurador é cercado por $n globos de relâmpago instável por $d s. Quem bater leva $s1 de Natureza e gasta 1 globo. Uma vez a cada 3 s. Só um escudo por vez.",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 7) [id=10432]"
+  },
+  {
+    "ranked_idx": 1346,
+    "en": "Imbue the Shaman's weapon with frost.  Each hit has a chance of causing $10458s2 additional Frost damage and slowing the target's movement speed by $10458s1% for $10458d.  Lasts for 1 hour.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbrand Weapon (Rank 3) [id=10456]"
+  },
+  {
+    "ranked_idx": 1348,
+    "en": "Instantly shocks the target with frost, causing $s2 Frost damage and slowing movement speed by $s1%. This spell benefits from your melee Attack Power. Lasts $d.",
+    "curr_pt": "Choque gélido de $s1 com poder e -$s2% velocidade por $d s.",
+    "count": 1,
+    "sample": "Frost Shock (Rank 4) [id=10473]"
+  },
+  {
+    "ranked_idx": 1351,
+    "en": "Imbue the Shaman's weapon with wind. Each hit has a 20% chance of granting you $10484s2 extra $lattack:attacks; with $10484s1 extra melee attack power. Lasts for 1 hour.",
+    "curr_pt": "Arma com vento: 20% de +$s1 ataques com +$s2 de poder por 1 hora.",
+    "count": 1,
+    "sample": "Windfury Weapon (Rank 3) [id=10486]"
+  },
+  {
+    "ranked_idx": 1358,
+    "en": "Silences all nearby enemies for $d.",
+    "curr_pt": "Silencia próximos por $d s.",
+    "count": 1,
+    "sample": "Piercing Howl () [id=10576]"
+  },
+  {
+    "ranked_idx": 1359,
+    "en": "Heal friendly target for $s1.",
+    "curr_pt": "Cura $s1 no aliado.",
+    "count": 1,
+    "sample": "Heal () [id=10577]"
+  },
+  {
+    "ranked_idx": 1369,
+    "en": "Pummels nearby enemies for normal damage plus $s1 and interrupts any spell being cast 75% of the time for $d.",
+    "curr_pt": "Esmurra próximos: normal +$s1 e interrompe 75% por $d s.",
+    "count": 1,
+    "sample": "Crowd Pummel (Rank 3) [id=10887]"
+  },
+  {
+    "ranked_idx": 1370,
+    "en": "Fade out, discouraging enemies from attacking you for $d.  More effective than Fade (rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fade (Rank 5) [id=10941]"
+  },
+  {
+    "ranked_idx": 1371,
+    "en": "Fade out, discouraging enemies from attacking you for $d.  More effective than Fade (rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fade (Rank 6) [id=10942]"
+  },
+  {
+    "ranked_idx": 1372,
+    "en": "Your critical strikes from Fire damage spells cause the target to burn for an additional 8% of your spell's damage over $12654d.",
+    "curr_pt": "Crítico de Fogo queima +8% em $d s.",
+    "count": 1,
+    "sample": "Ignite (Rank 1) [id=11119]"
+  },
+  {
+    "ranked_idx": 1373,
+    "en": "Your critical strikes from Fire damage spells cause the target to burn for an additional 16% of your spell's damage over $12654d.",
+    "curr_pt": "Crítico de Fogo queima +16% em $d s.",
+    "count": 1,
+    "sample": "Ignite (Rank 2) [id=11120]"
+  },
+  {
+    "ranked_idx": 1374,
+    "en": "When activated, this spell causes each of your Fire damage spell hits to increase your critical strike chance with Fire damage spells by $28682s1%.  This effect lasts until you have caused $n critical strikes with Fire spells.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Combustion () [id=11129]"
+  },
+  {
+    "ranked_idx": 1375,
+    "en": "Adds a chill effect to your Blizzard spell.  This effect lowers the target's movement speed by $12484s1%.  Lasts $12484d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Improved Blizzard (Rank 1) [id=11185]"
+  },
+  {
+    "ranked_idx": 1376,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, slowing their movement speed by $11201s1% for $11201d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Crippling Poison (Rank 2) [id=11202]"
+  },
+  {
+    "ranked_idx": 1377,
+    "en": "Increases the effect of your Amplify Magic and Dampen Magic spells by $s1% and allows them to be cast on enemies.  Only affects targets level 62 or lower.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Magic Attunement () [id=11247]"
+  },
+  {
+    "ranked_idx": 1378,
+    "en": "Ambush the target, causing $s2% melee damage plus 185 to the target.  Must be stealthed and behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ambush (Rank 4) [id=11267]"
+  },
+  {
+    "ranked_idx": 1379,
+    "en": "Ambush the target, causing $s2% melee damage plus 230 to the target.  Must be stealthed and behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ambush (Rank 5) [id=11268]"
+  },
+  {
+    "ranked_idx": 1380,
+    "en": "Ambush the target, causing $s2% melee damage plus 290 to the target.  Must be stealthed and behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ambush (Rank 6) [id=11269]"
+  },
+  {
+    "ranked_idx": 1381,
+    "en": "Finishing move that causes damage over time, increased by your Attack Power.  Lasts longer per combo point:\n   1 point  : 128 damage over 8 secs\n   2 points: 185 damage over 10 secs\n   3 points: 252 damage over 12 secs\n   4 points: 329 damage over 14 secs\n   5 points: 416 damage over 16 secs",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rupture (Rank 4) [id=11273]"
+  },
+  {
+    "ranked_idx": 1382,
+    "en": "Finishing move that causes damage over time, increased by your Attack Power.  Lasts longer per combo point:\n   1 point  : 176 damage over 8 secs\n   2 points: 255 damage over 10 secs\n   3 points: 348 damage over 12 secs\n   4 points: 455 damage over 14 secs\n   5 points: 576 damage over 16 secs",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rupture (Rank 5) [id=11274]"
+  },
+  {
+    "ranked_idx": 1383,
+    "en": "Finishing move that causes damage over time, increased by your Attack Power.  Lasts longer per combo point:\n   1 point  : 272 damage over 8 secs\n   2 points: 380 damage over 10 secs\n   3 points: 504 damage over 12 secs\n   4 points: 644 damage over 14 secs\n   5 points: 800 damage over 16 secs",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Rupture (Rank 6) [id=11275]"
+  },
+  {
+    "ranked_idx": 1384,
+    "en": "Backstab the target, causing $s2% melee damage plus 135 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 6) [id=11279]"
+  },
+  {
+    "ranked_idx": 1385,
+    "en": "Backstab the target, causing $s2% melee damage plus 165 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 7) [id=11280]"
+  },
+  {
+    "ranked_idx": 1386,
+    "en": "Backstab the target, causing $s2% melee damage plus 210 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 8) [id=11281]"
+  },
+  {
+    "ranked_idx": 1387,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 144-212 damage\n   2 points: 254-322 damage\n   3 points: 364-432 damage\n   4 points: 474-542 damage\n   5 points: 584-652 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 7) [id=11299]"
+  },
+  {
+    "ranked_idx": 1388,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 199-295 damage\n   2 points: 350-446 damage\n   3 points: 501-597 damage\n   4 points: 652-748 damage\n   5 points: 803-899 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 8) [id=11300]"
+  },
+  {
+    "ranked_idx": 1390,
+    "en": "Lets you walk on water for $d.",
+    "curr_pt": "Anda na água por $d s.",
+    "count": 1,
+    "sample": "Water Walking () [id=11319]"
+  },
+  {
+    "ranked_idx": 1391,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy which instantly inflicts $11335s1 Nature damage.  85 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison IV (Rank 4) [id=11338]"
+  },
+  {
+    "ranked_idx": 1392,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy which instantly inflicts $11336s1 Nature damage.  100 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison V (Rank 5) [id=11339]"
+  },
+  {
+    "ranked_idx": 1393,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy which instantly inflicts $11337s1 Nature damage.  115 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison VI (Rank 6) [id=11340]"
+  },
+  {
+    "ranked_idx": 1394,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy which instantly inflicts $11335s1 Nature damage.  85 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison IV (Rank 4) [id=11341]"
+  },
+  {
+    "ranked_idx": 1395,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy which instantly inflicts $11336s1 Nature damage.  100 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison V (Rank 5) [id=11342]"
+  },
+  {
+    "ranked_idx": 1396,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy which instantly inflicts $11337s1 Nature damage.  115 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Instant Poison VI (Rank 6) [id=11343]"
+  },
+  {
+    "ranked_idx": 1397,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy for $11353o1 Nature damage over $11353d.  Stacks up to 5 times on a single target.  90 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison III (Rank 3) [id=11355]"
+  },
+  {
+    "ranked_idx": 1398,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy for $11354o1 Nature damage over $11354d.  Stacks up to 5 times on a single target.  105 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison IV (Rank 4) [id=11356]"
+  },
+  {
+    "ranked_idx": 1399,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy for $11353o1 Nature damage over $11353d.  Stacks up to 5 times on a single target.  90 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison III (Rank 3) [id=11357]"
+  },
+  {
+    "ranked_idx": 1400,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 30% chance of poisoning the enemy for $11354o1 Nature damage over $11354d.  Stacks up to 5 times on a single target.  105 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Deadly Poison IV (Rank 4) [id=11358]"
+  },
+  {
+    "ranked_idx": 1401,
+    "en": "Increases resistance to shadow by $s1.  If an enemy strikes the imbiber, the attacker has a 30% chance of being inflicted with disease that increases their damage taken by $11374s1 for $11374d.  Lasts for $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Gift of Arthas (Rank 1) [id=11371]"
+  },
+  {
+    "ranked_idx": 1402,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy, increasing their casting time by $11398s1% for $11398d.  100 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind-numbing Poison III (Rank 3) [id=11399]"
+  },
+  {
+    "ranked_idx": 1403,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy, increasing their casting time by $11398s1% for $11398d.  100 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind-numbing Poison III (Rank 3) [id=11400]"
+  },
+  {
+    "ranked_idx": 1404,
+    "en": "Creates a portal, teleporting group members that use it to Ironforge.",
+    "curr_pt": "Portal pra Altaforja.",
+    "count": 1,
+    "sample": "Portal: Ironforge () [id=11416]"
+  },
+  {
+    "ranked_idx": 1405,
+    "en": "Creates a portal, teleporting group members that use it to Orgrimmar.",
+    "curr_pt": "Portal pra Orgrimmar.",
+    "count": 1,
+    "sample": "Portal: Orgrimmar () [id=11417]"
+  },
+  {
+    "ranked_idx": 1406,
+    "en": "Creates a portal, teleporting group members that use it to Undercity.",
+    "curr_pt": "Portal pra Cidade Baixa.",
+    "count": 1,
+    "sample": "Portal: Undercity () [id=11418]"
+  },
+  {
+    "ranked_idx": 1407,
+    "en": "Creates a portal, teleporting group members that use it to Darnassus.",
+    "curr_pt": "Portal pra Darnassus.",
+    "count": 1,
+    "sample": "Portal: Darnassus () [id=11419]"
+  },
+  {
+    "ranked_idx": 1408,
+    "en": "Creates a portal, teleporting group members that use it to Thunder Bluff.",
+    "curr_pt": "Portal pro Penhasco.",
+    "count": 1,
+    "sample": "Portal: Thunder Bluff () [id=11420]"
+  },
+  {
+    "ranked_idx": 1409,
+    "en": "Slams an enemy to the ground, inflicting Physical damage and stunning it for $d.",
+    "curr_pt": "Esmaga: Físico e atordoa por $d s.",
+    "count": 1,
+    "sample": "Slam () [id=11430]"
+  },
+  {
+    "ranked_idx": 1410,
+    "en": "Shackles an undead enemy for up to $d., preventing it from casting spells, attacking, or moving. Any damage caused will release the target. Only one target can be shackled at a time.",
+    "curr_pt": "Prende morto-vivo até $d s. Dano solta. Um por vez.",
+    "count": 1,
+    "sample": "Shackle Undead () [id=11444]"
+  },
+  {
+    "ranked_idx": 1411,
+    "en": "Controls a humanoid mind up to level $s1.  Lasts $d, but the target gets a chance to break free every 5 seconds.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind Control () [id=11446]"
+  },
+  {
+    "ranked_idx": 1412,
+    "en": "Taunts the target to attack you, causing a high amount of threat.  More effective than Taunt (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Taunt (Rank 4) [id=11588]"
+  },
+  {
+    "ranked_idx": 1413,
+    "en": "Taunts the target to attack you, causing a high amount of threat.  More effective than Taunt (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Taunt (Rank 5) [id=11589]"
+  }
+]

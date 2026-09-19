@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1978,
+    "en": "Consumes a Rejuvenation or Regrowth aura on a friendly target to instantly heal them an amount equal to 12 sec. of Rejuvenation or 15 sec. of Regrowth.",
+    "curr_pt": "Consome Rejuvenescer ou Recrescer e cura o valor de 12 s de Reju ou 15 s de Recres na hora.",
+    "count": 1,
+    "sample": "Swiftmend (Rank 1) [id=29142]"
+  },
+  {
+    "ranked_idx": 1979,
+    "en": "Increases the target's Mana regeneration by $s2% and allows $s1% of the target's Mana regeneration to continue while casting.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Innervate () [id=29166]"
+  },
+  {
+    "ranked_idx": 1980,
+    "en": "Increases your chance to hit with spells and melee attacks by $s2% and your melee critical strikes increase your chance to hit with spells by additional $29177s1% for $29177d.",
+    "curr_pt": "Acerto com magia e corpo a corpo +$s1%; crítico corpo a corpo dá +$s2% com magia por $d s.",
+    "count": 1,
+    "sample": "Elemental Devastation (Rank 2) [id=29179]"
+  },
+  {
+    "ranked_idx": 1981,
+    "en": "Increases your chance to hit with spells and melee attacks by $s2% and your melee critical strikes increase your chance to hit with spells by additional $29178s1% for $29178d.",
+    "curr_pt": "Acerto com magia e corpo a corpo +$s1%; crítico corpo a corpo dá +$s2% com magia por $d s.",
+    "count": 1,
+    "sample": "Elemental Devastation (Rank 3) [id=29180]"
+  },
+  {
+    "ranked_idx": 1982,
+    "en": "Teaches Flame Shock (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Flame Shock (Rank 6) [id=29229]"
+  },
+  {
+    "ranked_idx": 1983,
+    "en": "Designer Note: The only purpose of this aura is to mark a player who just cast Nature's Swiftness.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Nature's Swiftness () [id=29274]"
+  },
+  {
+    "ranked_idx": 1984,
+    "en": "Chance to strike your ranged target with a Shadowbolt for $29640s1 Shadow damage.",
+    "curr_pt": "Chance à distância: $s1 de Sombra.",
+    "count": 1,
+    "sample": "Shadow Bolt () [id=29626]"
+  },
+  {
+    "ranked_idx": 1985,
+    "en": "Chance to strike your ranged target with a Fire Blast for $29644s1 Fire damage.",
+    "curr_pt": "Chance à distância: $s1 de Fogo.",
+    "count": 1,
+    "sample": "Fire Blast () [id=29633]"
+  },
+  {
+    "ranked_idx": 1986,
+    "en": "Shadowbolt for $s1 Shadow damage.",
+    "curr_pt": "Raio: $s1 de Sombra.",
+    "count": 1,
+    "sample": "Shadow Bolt () [id=29640]"
+  },
+  {
+    "ranked_idx": 1987,
+    "en": "Fire Blast for $s1 Fire damage.",
+    "curr_pt": "Explosão: $s1 de Fogo.",
+    "count": 1,
+    "sample": "Fire Blast () [id=29644]"
+  },
+  {
+    "ranked_idx": 1988,
+    "en": "Increases your chance to hit with spells and melee attacks by $s2% and your melee critical strikes increase your chance to hit with spells by additional $30165s1% for $30165d.",
+    "curr_pt": "Acerto com magia e corpo a corpo +$s1%; crítico corpo a corpo dá +$s2% com magia por $d s.",
+    "count": 1,
+    "sample": "Elemental Devastation (Rank 1) [id=30160]"
+  },
+  {
+    "ranked_idx": 1989,
+    "en": "Increases the effectiveness of your Chain Heal spell by $s1%.",
+    "curr_pt": "Cura Encadeada +$s1%.",
+    "count": 1,
+    "sample": "Improved Chain Heal (Rank 1) [id=30872]"
+  },
+  {
+    "ranked_idx": 1990,
+    "en": "Increases your Stealth detection and reduces the chance you are hit by spells and ranged attacks by $s2%.",
+    "curr_pt": "Fareja furtivo e -$s1% acerto mágico/distância.",
+    "count": 1,
+    "sample": "Heightened Senses (Rank 1) [id=30894]"
+  },
+  {
+    "ranked_idx": 1991,
+    "en": "Increases your Stealth detection slightly and reduces the chance you are hit by spells and ranged attacks by $s2%.",
+    "curr_pt": "Fareja furtivo um pouco e -$s1% acerto mágico/distância.",
+    "count": 1,
+    "sample": "Heightened Senses (Rank 3) [id=30896]"
+  },
+  {
+    "ranked_idx": 1992,
+    "en": "Removes snares and roots.",
+    "curr_pt": "Tira laço e raiz.",
+    "count": 1,
+    "sample": "Improved Sprint () [id=30918]"
+  },
+  {
+    "ranked_idx": 1993,
+    "en": "Finishing move that causes damage per combo point, increased by Attack Power:\n   1 point  : 224-332 damage\n   2 points: 394-502 damage\n   3 points: 564-672 damage\n   4 points: 734-842 damage\n   5 points: 904-1012 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 9) [id=31016]"
+  },
+  {
+    "ranked_idx": 1994,
+    "en": "Teaches Eviscerate (Rank 9).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Eviscerate (Rank 9) [id=31017]"
+  },
+  {
+    "ranked_idx": 1995,
+    "en": "Finishing move that causes damage per combo point and converts each extra point of energy into $f1 additional damage.  Damage is increased by your Attack Power.\n   1 point  : 199-259 damage\n   2 points: 346-406 damage\n   3 points: 493-553 damage\n   4 points: 640-700 damage\n   5 points: 787-847 damage",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ferocious Bite (Rank 6) [id=31018]"
+  },
+  {
+    "ranked_idx": 1996,
+    "en": "Teaches Ferocious Bite (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Learn Ferocious Bite (Rank 6) [id=31020]"
+  },
+  {
+    "ranked_idx": 1997,
+    "en": "Increases your movement speed by 10% whenever you deal damage to a target who is below 20% health.",
+    "curr_pt": "Alvo abaixo de 20% e você causa dano: +10% de velocidade.",
+    "count": 1,
+    "sample": "Deadly Swiftness (Rank 1) [id=31255]"
+  },
+  {
+    "ranked_idx": 1998,
+    "en": "Channels the power of the spirits, rendering nearby party members immune to all damage and effects for $d. Does not affect the caster.",
+    "curr_pt": "Espíritos: grupo próximo imune a tudo por $d s. Menos você.",
+    "count": 1,
+    "sample": "Big Bad Voodoo (Rank 1) [id=45503]"
+  },
+  {
+    "ranked_idx": 1999,
+    "en": "Allows your Lightning Shield to be cast on allies and reduces its mana cost by 20%. Only usable on one ally at a time.",
+    "curr_pt": "Escudo em aliado por -20% de mana. Um por vez.",
+    "count": 1,
+    "sample": "Thunderhead (Rank 1) [id=45508]"
+  },
+  {
+    "ranked_idx": 2000,
+    "en": "Fly into a frenzy, increasing your attack speed by $s1% and spell casting speed by $s2% for $d.  While under this effect, your melee critical strikes increase the attack and spell casting speed of all party members within $51394a1 yards by $51394s1% for $51394d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Bloodlust () [id=45509]"
+  },
+  {
+    "ranked_idx": 2001,
+    "en": "Fly into a frenzy, increasing your melee and spell casting speed by $s1% for $d. While under this effect, your melee critical hits increase melee, ranged, and spell casting speed of all party members within $51394r yards by $51394s1% for $51394d.",
+    "curr_pt": "Frenesi: +$s1% corpo a corpo e lançamento por $d s. Crítico: grupo a $a1 m +$s2% por $d1 s.",
+    "count": 1,
+    "sample": "[Deprecated] Bloodlust (Rank 2) [id=45511]"
+  },
+  {
+    "ranked_idx": 2002,
+    "en": "Gives you an extra attack for $s1% weapon damage and causes the next 2 sources of Nature damage you deal to be increased by $s2%.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "[Deprecated] Stormstrike (Rank 2) [id=45521]"
+  },
+  {
+    "ranked_idx": 2003,
+    "en": "The caster is surrounded by $n globes of protective earth for $d. When a spell, melee or ranged attack hits the caster, $45526s1 Health is restored to the caster, spending one globe. This effect can only occur once every 3 sec. Additionally, you gain $s2% chance to avoid interruption caused by damage while casting. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "Terra $n globos por $d s. Quem bater cura $s1, gasta 1 globo. 1x a cada 3 s. +$s2% contra interrupção. Um escudo por vez.",
+    "count": 1,
+    "sample": "Earth Shield (Rank 1) [id=45525]"
+  },
+  {
+    "ranked_idx": 2004,
+    "en": "Charge your weapon with lava, instantly dealing $s1% Weapon Damage as fire damage. Damage is increased by $s2% if your weapon is enchanted with Flametongue.",
+    "curr_pt": "Arma com lava: $s1% da arma em Fogo na hora. +$s2% com Língua de Fogo.",
+    "count": 1,
+    "sample": "Lava Lash (Rank 1) [id=45534]"
+  },
+  {
+    "ranked_idx": 2005,
+    "en": "Blanket the target area in healing rains, restoring $o1 health to party members over $d.",
+    "curr_pt": "Chuva de cura: $s1 no grupo em $d s.",
+    "count": 1,
+    "sample": "Healing Rain (Rank 1) [id=45536]"
+  },
+  {
+    "ranked_idx": 2006,
+    "en": "After landing a critical strike with a Fire, Frost, or Nature damage spell or melee attack, you enter a Clearcasting state.  The Clearcasting state reduces the mana cost of your next two damage spells or abilities by $45542s1%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Elemental Focus () [id=45541]"
+  },
+  {
+    "ranked_idx": 2007,
+    "en": "Your Divine Spirit and Prayer of Spirit spells also increase the target's spell damage and healing by an amount equal to 5% of their total Spirit.",
+    "curr_pt": "Espírito e Oração: +dano e cura de 5% do Espírito.",
+    "count": 1,
+    "sample": "Improved Divine Spirit (Rank 1) [id=45550]"
+  },
+  {
+    "ranked_idx": 2008,
+    "en": "Heal the friendly target $s1. This spell generates reduced threat.",
+    "curr_pt": "Cura $s1 no aliado. Pouca ameaça.",
+    "count": 1,
+    "sample": "Shadow Mend (Rank 1) [id=45554]"
+  },
+  {
+    "ranked_idx": 2009,
+    "en": "When your Power Word: Shield is broken, $s2% of its base mana cost is refunded and increases damage and healing done by Holy spells and effects by up to $s1% of the shield's total absorption amount for $51477d.",
+    "curr_pt": "Escudo quebra: +$s1% mana e +$s2% Sagrado do absorvido por $d s.",
+    "count": 1,
+    "sample": "Resurgent Shield () [id=45560]"
+  },
+  {
+    "ranked_idx": 2010,
+    "en": "Returns the priest's Champion to life with $s2 health and $q2 mana.",
+    "curr_pt": "Campeão volta com $s1 de vida e $s2 de mana.",
+    "count": 1,
+    "sample": "Revive Champion (Rank 1) [id=45567]"
+  },
+  {
+    "ranked_idx": 2011,
+    "en": "An instant weapon attack that causes $s1% of weapon damage plus $s2 and additional threat for each application of Sunder Armor on the target. In addition, this attack will renew the duration of the Sunder Armor effect.",
+    "curr_pt": "Ataque: $s1% da arma +$s2 e ameaça por Sunder. Renova o Sunder.",
+    "count": 1,
+    "sample": "Devastate (Rank 1) [id=45579]"
+  },
+  {
+    "ranked_idx": 2012,
+    "en": "The warrior shouts, maximum health of all party members within within $a1 yards by $s1.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Commanding Shout (Rank 1) [id=45580]"
+  },
+  {
+    "ranked_idx": 2013,
+    "en": "You attack all nearby enemies for $d causing weapon damage plus an additional $9633s1 every $t1 sec.  While under the effects of Bladestorm, you cannot move or perform any other abilities but you do not feel pity or remorse or fear and you cannot be stopped unless killed.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Bladestorm (Rank 1) [id=45587]"
+  },
+  {
+    "ranked_idx": 2014,
+    "en": "You attack all nearby enemies for $d causing weapon damage plus an additional $9633s1 every $t1 sec. While under the effects of Bladestorm, you move $s3% slower than normal, but cannot perform any other abilities but you do not feel pity or remorse or fear and you cannot be stopped unless killed.",
+    "curr_pt": "Ataca todos por $d s: arma +$s1 a cada $t1 s. Anda $s1% mais devagar, sem pena nem medo, só a morte para.",
+    "count": 1,
+    "sample": "Bladestorm (Rank 2) [id=45588]"
+  },
+  {
+    "ranked_idx": 2015,
+    "en": "Run at high speed towards a party member, intercepting the next melee or ranged attack made against them.",
+    "curr_pt": "Corre e intercepta o próximo golpe no aliado.",
+    "count": 1,
+    "sample": "Intervene (Rank 1) [id=45595]"
+  },
+  {
+    "ranked_idx": 2016,
+    "en": "A strike that deals $s1% weapon damage. This attack cannot be blocked, dodged or parried. Awards $s2 combo $lpoint:points;.",
+    "curr_pt": "$s1% da arma, sem bloqueio/esquiva/aparo. Combo +$s2.",
+    "count": 1,
+    "sample": "Surprise Attack () [id=45603]"
+  },
+  {
+    "ranked_idx": 2017,
+    "en": "Ignites Flash Powder in a burst that interrupts all enemy casting nearby for $d.",
+    "curr_pt": "Pólvora que interrompe todos por $d s.",
+    "count": 1,
+    "sample": "Flashbang (Rank 1) [id=45607]"
+  },
+  {
+    "ranked_idx": 2018,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a 20% chance of poisoning the enemy which instantly inflicts $45613s1 Nature damage, and causes additional threat.  115 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Agitating Poison (Rank 1) [id=45611]"
+  },
+  {
+    "ranked_idx": 2019,
+    "en": "Coats a weapon with poison that lasts for 30 minutes.\nEach strike has a $h% chance of poisoning the enemy which instantly inflicts $45613s1 Nature damage, and causes additional threat.  115 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Agitating Poison I (Rank 1) [id=45612]"
+  },
+  {
+    "ranked_idx": 2020,
+    "en": "Strikes the enemy with holy conviction that causes $s1 Holy damage and infuses the paladin with holy power, increasing critical strike chance for melee and spells by 2% for 30 seconds. Has a chance to activate any seal effects.",
+    "curr_pt": "Convicção de $s1 Sagrado e +2% de crítico por 30 s. Ativa selo.",
+    "count": 1,
+    "sample": "Conviction (Rank 1) [id=45619]"
+  },
+  {
+    "ranked_idx": 2021,
+    "en": "Strikes the enemy with holy conviction that causes $s1 Holy damage and infuses the paladin with holy power, increasing critical strike chance for melee and spells by 3% for 30 seconds. Has a chance to activate any seal effects.",
+    "curr_pt": "Convicção de $s1 Sagrado e +3% de crítico por 30 s. Ativa selo.",
+    "count": 1,
+    "sample": "Conviction (Rank 2) [id=45620]"
+  },
+  {
+    "ranked_idx": 2022,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $45623s1% dodge and $45623s2 defense for $45623d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=45624]"
+  },
+  {
+    "ranked_idx": 2023,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $45628s1 spell damage for $45628d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=45626]"
+  },
+  {
+    "ranked_idx": 2024,
+    "en": "Most ranged and melee attacks to have a chance to restore $s1 mana. ",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Aspect of the Snake (Rank 1) [id=45664]"
+  },
+  {
+    "ranked_idx": 2025,
+    "en": "Channel negative magical energies into an area that deals $s1 arcane damage to nearby enemies when they cast spells.",
+    "curr_pt": "Trevas na área: $s1 Arcano em quem lançar.",
+    "count": 1,
+    "sample": "Mana Flare (Rank 1) [id=45702]"
+  },
+  {
+    "ranked_idx": 2026,
+    "en": "Shapeshift into the Tree of Life.  While in this form the healing power of nearby party members is increased by an amount equal to $45707s1% of your spirit, your movement speed is reduced by $45706s2%, and you cannot cast damaging spells or Healing Touch, but the mana cost of heal over time spells is reduced by 20%.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Tree of Life Form (Shapeshift) [id=45705]"
+  },
+  {
+    "ranked_idx": 2027,
+    "en": "Removes all Fear effects and increases your energy regeneration rate by 100% while in Cat form, and increases your total health by 20% while in Bear form. After the effect ends, the health is lost. Effect lasts 20 seconds.",
+    "curr_pt": "Gato: +100% energia e sem Medo; Urso: +20% vida. 20 s, depois perde.",
+    "count": 1,
+    "sample": "Berserk () [id=45708]"
+  }
+]

@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 403,
+    "en": "Increases the damage absorbed by your Power Word: Shield by $s1%.",
+    "curr_pt": "Aumenta a absorção da Palavra Escudo em $s1%.",
+    "count": 3,
+    "sample": "Improved Power Word: Shield (Rank 1) [id=14748]"
+  },
+  {
+    "ranked_idx": 404,
+    "en": "Curses an enemy with agony, inflicting Shadow damage every $t1 sec. over $d. Only one curse per warlock can be active on any one target.",
+    "curr_pt": "Amaldiçoa o inimigo com agonia de Sombra a cada $t1 s por $d s. Só uma maldição por bruxo no alvo.",
+    "count": 3,
+    "sample": "Curse of Agony () [id=14868]"
+  },
+  {
+    "ranked_idx": 405,
+    "en": "Instantly overpowers an enemy, causing weapon damage plus $s1. Can only be used after the target dodges. Overpower cannot be blocked, dodged, or parried.",
+    "curr_pt": "Desfere um ferimento fatal de $s1 de dano.",
+    "count": 3,
+    "sample": "Overpower () [id=14895]"
+  },
+  {
+    "ranked_idx": 406,
+    "en": "Infuses a wounded ally with healing energy that spreads to another nearby ally. The spell affects up to $x1 targets, but the healing energy is diminished by 50% for each successive target.",
+    "curr_pt": "Infunde um aliado ferido com cura que pula para outro próximo, até $x1 alvos com -50% por salto.",
+    "count": 3,
+    "sample": "Chain Heal () [id=14900]"
+  },
+  {
+    "ranked_idx": 407,
+    "en": "Reduces the Mana cost of your Prayer of Healing spell by $s1%.",
+    "curr_pt": "Reduz o custo de mana da Oração de Cura em $s1%.",
+    "count": 3,
+    "sample": "[Deprecated] Improved Prayer of Healing (Rank 1) [id=14911]"
+  },
+  {
+    "ranked_idx": 408,
+    "en": "Increases the damage of your Smite spell by $s1%.",
+    "curr_pt": "Aumenta o dano de Castigar em $s1%.",
+    "count": 3,
+    "sample": "Improved Smite (Rank 3) [id=15509]"
+  },
+  {
+    "ranked_idx": 409,
+    "en": "Launches magical missiles at an enemy, inflicting Arcane damage each second for $d.",
+    "curr_pt": "Larga um boneco no chão que atrai os monstros próximos por 3 min.",
+    "count": 3,
+    "sample": "Arcane Missiles () [id=15735]"
+  },
+  {
+    "ranked_idx": 411,
+    "en": "Increases the amount of Agility raised by your Grace of Air Totem by $s1%.",
+    "curr_pt": "Aumenta a Agi do Totem Graça Aérea em $s1%.",
+    "count": 3,
+    "sample": "Improved Grace of Air Totem (Rank 1) [id=16260]"
+  },
+  {
+    "ranked_idx": 412,
+    "en": "Increases the number of charges of your shield spells by $s1, but increases the cooldown between activations by $s2 sec.",
+    "curr_pt": "Aumenta as cargas dos escudos em $s1, mas +$s2 s de recarga.",
+    "count": 3,
+    "sample": "Stable Shields (Rank 1) [id=16261]"
+  },
+  {
+    "ranked_idx": 413,
+    "en": "Increases damage caused by your Thorns spell by $s1%.",
+    "curr_pt": "Aumenta o dano de Espinhos em $s1%.",
+    "count": 3,
+    "sample": "Improved Thorns (Rank 1) [id=16836]"
+  },
+  {
+    "ranked_idx": 414,
+    "en": "Reduces the Mana cost of your Moonfire, Starfire, Wrath, Hurricane, Insect Swarm, Healing Touch, Regrowth and Rejuvenation spells by $s1%.",
+    "curr_pt": "Reduz o custo de Fogofátuo, Starfire, Ira, Furacão, Enxame, Toque, Recrescer e Rejuvenescer em $s1%.",
+    "count": 3,
+    "sample": "Moonglow (Rank 1) [id=16845]"
+  },
+  {
+    "ranked_idx": 415,
+    "en": "Increases the damage done by your Starfire, Moonfire, Hurricane, Insect Swarm and Wrath spells by $s1%.",
+    "curr_pt": "Aumenta o dano de Starfire, Fogofátuo, Furacão, Enxame e Ira em $s1%.",
+    "count": 3,
+    "sample": "Moonfury (Rank 1) [id=16896]"
+  },
+  {
+    "ranked_idx": 416,
+    "en": "Gives you a $s1% chance to avoid interruption caused by damage while casting Entangling Roots.",
+    "curr_pt": "Dá $s1% de chance de evitar interrupção ao lançar Raízes.",
+    "count": 3,
+    "sample": "Improved Entangling Roots (Rank 1) [id=16918]"
+  },
+  {
+    "ranked_idx": 417,
+    "en": "Increases your melee attack power in Cat, Bear and Dire Bear Forms by $s1%.",
+    "curr_pt": "Aumenta seu poder de ataque corpo a corpo em Gato, Urso e Urso Atroz em $s1%.",
+    "count": 3,
+    "sample": "Predatory Strikes (Rank 1) [id=16972]"
+  },
+  {
+    "ranked_idx": 418,
+    "en": "Drains up to $o1 mana from an enemy over $d. and transfers it to the caster.",
+    "curr_pt": "Drena até $s1 de mana do inimigo ao longo de $d s para você.",
+    "count": 3,
+    "sample": "Drain Mana () [id=17008]"
+  },
+  {
+    "ranked_idx": 419,
+    "en": "Increases the damage and healing of your periodic magical spells and effects by $s1%.",
+    "curr_pt": "Aumenta o dano e a cura periódicos mágicos em $s1%.",
+    "count": 3,
+    "sample": "Genesis (Rank 1) [id=17111]"
+  },
+  {
+    "ranked_idx": 420,
+    "en": "Dazes an enemy, reducing its movement speed by $s1% for $d.",
+    "curr_pt": "Aumenta o Espírito em $s1 por $d s.",
+    "count": 3,
+    "sample": "Concussive Shot () [id=17174]"
+  },
+  {
+    "ranked_idx": 421,
+    "en": "Attacks nearby enemies in a whirlwind of steel that lasts $d. and inflicts normal damage plus $15576s1.",
+    "curr_pt": "Ataca os inimigos próximos num redemoinho de aço por $d s com dano normal mais $s1.",
+    "count": 3,
+    "sample": "Whirlwind () [id=17207]"
+  },
+  {
+    "ranked_idx": 422,
+    "en": "Allows $s1% of your Health regeneration to work while in combat.",
+    "curr_pt": "Permite que $s1% da sua regeneração de Vida funcione em combate.",
+    "count": 3,
+    "sample": "Combat Endurance (Rank 1) [id=17427]"
+  },
+  {
+    "ranked_idx": 423,
+    "en": "Increases the periodic damage of your Immolate spell by $s2% and gives your Destruction spells a $h% chance to slow the target by 50% for $18118d.",
+    "curr_pt": "Aumenta o periódico do Imolar em $s1% e dá $h% de chance de lentidão de 50% por $d s.",
+    "count": 3,
+    "sample": "Aftermath (Rank 1) [id=18119]"
+  },
+  {
+    "ranked_idx": 424,
+    "en": "Increases the damage of your Sinister Strike, Eviscerate, Riposte and Surprise Attack abilities by $s1%.",
+    "curr_pt": "Aumenta o dano de Golpe Sinistro, Eviscerar, Riposte e Surpresa em $s1%.",
+    "count": 3,
+    "sample": "Aggression (Rank 1) [id=18427]"
+  },
+  {
+    "ranked_idx": 425,
+    "en": "Allows $s1% of your Mana regeneration to continue while casting. This effect is tripled while below $s2% total mana.",
+    "curr_pt": "Permite $s1% da regen continuar lançando, triplicado abaixo de $s2% de mana.",
+    "count": 3,
+    "sample": "Arcane Meditation (Rank 1) [id=18462]"
+  },
+  {
+    "ranked_idx": 426,
+    "en": "Increases your total Intellect by $s1% and your spell casting speed by $s2%.",
+    "curr_pt": "Aumenta seu Intelecto total em $s1% e a velocidade de lançamento em $s2%.",
+    "count": 3,
+    "sample": "Mental Strength (Rank 1) [id=18551]"
+  },
+  {
+    "ranked_idx": 427,
+    "en": "Restores $s1 health every $t1 sec.",
+    "curr_pt": "Restaura $s1 de vida a cada $t1 s.",
+    "count": 3,
+    "sample": "Fungal Regrowth (Rank 1) [id=18764]"
+  },
+  {
+    "ranked_idx": 428,
+    "en": "Increases the damage done by your Curse of Agony by $s1%.",
+    "curr_pt": "Aumenta o dano da sua Maldição de Agonia em $s1%.",
+    "count": 3,
+    "sample": "Improved Curse of Agony (Rank 1) [id=18827]"
+  },
+  {
+    "ranked_idx": 429,
+    "en": "Transfer $s1 Health from the target to the caster over $t1 sec.",
+    "curr_pt": "Transfere $s1 de Vida do alvo para você em $t1 s.",
+    "count": 3,
+    "sample": "Siphon Life (Rank 2) [id=18927]"
+  },
+  {
+    "ranked_idx": 430,
+    "en": "Increases the critical strike chance of Raptor Strike and Mongoose Bite by $s1%.",
+    "curr_pt": "Aumenta o crítico de Golpe de Raptor e Mordida de Mangusto em $s1%.",
+    "count": 3,
+    "sample": "Killer Instinct (Rank 3) [id=19162]"
+  },
+  {
+    "ranked_idx": 431,
+    "en": "Increases the damage done by your Immolation Trap by $s1%.",
+    "curr_pt": "Aumenta o dano da sua Armadilha de Imolação em $s1%.",
+    "count": 3,
+    "sample": "Improved Immolation Trap (Rank 3) [id=19246]"
+  },
+  {
+    "ranked_idx": 432,
+    "en": "Increases the duration of your Freezing Trap by $/1000;s1 sec.",
+    "curr_pt": "Aumenta a duração da Armadilha Congelante em $s1 s.",
+    "count": 3,
+    "sample": "Improved Freezing Trap (Rank 3) [id=19288]"
+  },
+  {
+    "ranked_idx": 433,
+    "en": "A strike that becomes active after parrying an opponent's attack.  This attack deals $s1 damage and immobilizes the target for $d.  Counterattack cannot be blocked, dodged, or parried.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Counterattack (Rank 1) [id=19306]"
+  },
+  {
+    "ranked_idx": 434,
+    "en": "Increases your critical strike chance with all attacks by $s1%, increases your melee critical strike damage bonus by $s2%.",
+    "curr_pt": "Aumenta seu crítico com tudo em $s1% e o dano crítico corpo a corpo em $s2%.",
+    "count": 3,
+    "sample": "Killer Instinct (Rank 1) [id=19370]"
+  },
+  {
+    "ranked_idx": 435,
+    "en": "Increases the duration of Freezing and Frost Trap effects by $s2% and the damage of Immolation and Explosive Trap effects by $s3%.  In addition, reduces the chance that enemies will resist trap effects by $s1%.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Trap Mastery (Rank 1) [id=19376]"
+  },
+  {
+    "ranked_idx": 436,
+    "en": "Reduces the cooldown of your Arcane Shot and Aimed Shot by $/1000;S1 sec.",
+    "curr_pt": "Reduz a recarga de Tiro Arcano e Mirado em $s1 s.",
+    "count": 3,
+    "sample": "Swiftshot (Rank 1) [id=19454]"
+  },
+  {
+    "ranked_idx": 437,
+    "en": "Increases the damage done by your Multi-Shot and Volley spells by $s1%.",
+    "curr_pt": "Aumenta o dano de Multi-Tiro e Saraivada em $s1%.",
+    "count": 3,
+    "sample": "Barrage (Rank 1) [id=19461]"
+  },
+  {
+    "ranked_idx": 438,
+    "en": "Increases the Dodge bonus of your Aspect of the Monkey by $s1%. While Aspect of the Wolf is active, you're healed for $s2% of your melee damage.",
+    "curr_pt": "Aumenta a esquiva do Aspecto do Macaco em $s1%. Com o Lobo, cura $s2% do corpo a corpo.",
+    "count": 3,
+    "sample": "Improved Primal Aspects (Rank 1) [id=19549]"
+  },
+  {
+    "ranked_idx": 439,
+    "en": "Hurls a bolt of dark magic at an enemy, inflicting $s1 Shadow damage.",
+    "curr_pt": "Invoca um Elemental da Água para lutar por $d s.",
+    "count": 3,
+    "sample": "Shadow Bolt () [id=19728]"
+  },
+  {
+    "ranked_idx": 440,
+    "en": "Gives $s1 additional Shadow resistance to all party members within $a1 yards.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Shadow Resistance Aura (Rank 1) [id=19876]"
+  },
+  {
+    "ranked_idx": 441,
+    "en": "Gives $s1 additional Frost resistance to all party members within $a1 yards.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Frost Resistance Aura (Rank 1) [id=19888]"
+  },
+  {
+    "ranked_idx": 442,
+    "en": "Gives $s1 additional Fire resistance to all party members within $a1 yards.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Fire Resistance Aura (Rank 1) [id=19891]"
+  },
+  {
+    "ranked_idx": 443,
+    "en": "Places a Blessing on the friendly target, increasing the effects of Holy Light spells used on the target by up to $s1,  the effect Flash of Light spells used on the target by up to $s2 and the effect Holy Shock spells used on the target by up to $s3.  Lasts $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Blessing of Light (Rank 1) [id=19977]"
+  },
+  {
+    "ranked_idx": 444,
+    "en": "Increases the amount healed by your Holy Light, Flash of Light and Holy Shock spells by $s1%.",
+    "curr_pt": "Aumenta a cura de Luz Sagrada, Clarão e Choque Sagrado em $s1%.",
+    "count": 3,
+    "sample": "Healing Light (Rank 1) [id=20237]"
+  },
+  {
+    "ranked_idx": 445,
+    "en": "Increases the effect of your Blessing of Wisdom and Blessing of Light by $s1%.",
+    "curr_pt": "Aumenta o efeito de Sabedoria e Luz em $s1%.",
+    "count": 3,
+    "sample": "Improved Holy Blessings (Rank 3) [id=20246]"
+  },
+  {
+    "ranked_idx": 446,
+    "en": "Increases the critical effect chance of your Flash of Light spell by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico do Clarão em $s1%.",
+    "count": 3,
+    "sample": "Improved Flash of Light (Rank 1) [id=20249]"
+  },
+  {
+    "ranked_idx": 447,
+    "en": "Increases the melee attack power bonus of your Seal of the Crusader and the Holy damage increase of your Judgement of the Crusader by $s1%.",
+    "curr_pt": "Aumenta o bônus de poder de ataque do seu Selo do Cruzado e o dano Sagrado do Julgamento do Cruzado em $s1%.",
+    "count": 3,
+    "sample": "Improved Seal of the Crusader (Rank 1) [id=20335]"
+  },
+  {
+    "ranked_idx": 448,
+    "en": "Increases the duration of your Judgement of Light and Judgement of Wisdom by $/1000;s1 sec.",
+    "curr_pt": "Aumenta a duração de Julgamento da Luz e Sabedoria em $s1 s.",
+    "count": 3,
+    "sample": "Lasting Judgement (Rank 1) [id=20359]"
+  },
+  {
+    "ranked_idx": 449,
+    "en": "Increases the amount of threat generated by your Righteous Fury spell by $s1%.",
+    "curr_pt": "Aumenta a ameaça da Fúria Justa em $s1%.",
+    "count": 3,
+    "sample": "Improved Righteous Fury (Rank 1) [id=20468]"
+  },
+  {
+    "ranked_idx": 450,
+    "en": "Decreases the cooldown of your Hammer of Justice spell by $/1000;s1 sec.",
+    "curr_pt": "Reduz a recarga do Martelo da Justiça em $s1 s.",
+    "count": 3,
+    "sample": "Improved Hammer of Justice (Rank 1) [id=20487]"
+  },
+  {
+    "ranked_idx": 451,
+    "en": "Decreases the casting time of your Slam ability by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de Esmagar em $s1 s.",
+    "count": 3,
+    "sample": "zzOLD Improved Slam (Rank 3) [id=20497]"
+  },
+  {
+    "ranked_idx": 452,
+    "en": "Reduces the cooldown of your Intercept and Intervene abilities by $/1000;s1 sec.",
+    "curr_pt": "Reduz a recarga de Interceptar e Intervir em $s1 s.",
+    "count": 3,
+    "sample": "Battlefield Mobility (Rank 1) [id=20504]"
+  },
+  {
+    "ranked_idx": 453,
+    "en": "Charge an enemy, causing $20615s2 damage and stunning it for $20615d.",
+    "curr_pt": "Investida contra o inimigo com $s1 de dano e atordoamento por $d s.",
+    "count": 3,
+    "sample": "Intercept (Rank 3) [id=20617]"
+  }
+]

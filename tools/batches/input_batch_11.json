@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 709,
+    "en": "Your critical strikes from Multi-Shot, Steady Shot and Aimed Shot cause the target to bleed, dealing $s1% of the damage over $51514d.  This damage generates no threat.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Piercing Shots (Rank 1) [id=51512]"
+  },
+  {
+    "ranked_idx": 710,
+    "en": "Increases the damage done by your Steady Shot by $s1%.",
+    "curr_pt": "Aumenta o dano do seu Tiro Firme em $s1%.",
+    "count": 2,
+    "sample": "Improved Steady Shot (Rank 1) [id=51515]"
+  },
+  {
+    "ranked_idx": 711,
+    "en": "Your Auto Shot, Arcane Shot, Steady Shot and Multi-Shot have a $h% chance to fire an additional normal ranged attack.  This additional shot does not spend ammo.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Endless Quiver (Rank 1) [id=51517]"
+  },
+  {
+    "ranked_idx": 712,
+    "en": "The duration of Freezing and Frost Trap effects and the damage of Immolation and Explosive Trap effects are increased by $s1% if the traps are not triggered within the first $51578d after being placed.",
+    "curr_pt": "Congelante e Gelo +$s1% fora dos $d1 s iniciais.",
+    "count": 2,
+    "sample": "Planning Ahead (Rank 1) [id=51576]"
+  },
+  {
+    "ranked_idx": 713,
+    "en": "Your Mongoose Bite and triggered Fire traps now apply your highest rank of Serpent Sting for $s1% of the duration. Serpent Stings applied this way ignore resistances and immunities.",
+    "curr_pt": "Mordida e armadilha aplicam Ferrão por $s1% do tempo, sem resistir.",
+    "count": 2,
+    "sample": "Stinging Nettle (Rank 1) [id=51579]"
+  },
+  {
+    "ranked_idx": 714,
+    "en": "Your Mongoose Bite and Raptor Strike deal $s1% additional weapon damage and the additional damage is increased by $s1.",
+    "curr_pt": "Mordida e Raptor: +$s1% da arma, com +$s2.",
+    "count": 2,
+    "sample": "Vicious Strikes (Rank 1) [id=51584]"
+  },
+  {
+    "ranked_idx": 715,
+    "en": "Increases chance to block by $s1% for $d.",
+    "curr_pt": "Bloqueio +$s1% por $d s.",
+    "count": 2,
+    "sample": "Improved Shield Slam (Rank 1) [id=51596]"
+  },
+  {
+    "ranked_idx": 716,
+    "en": "Gives your Pummel ability a $h% chance to slow the victim for $58033d. In addition, increases the duration of spellcasting school lockouts by $/1000;s2 sec.",
+    "curr_pt": "Esmurrar: $h% de lentidão por $d s e +$s1 s de bloqueio.",
+    "count": 2,
+    "sample": "Improved Pummel (Rank 1) [id=51614]"
+  },
+  {
+    "ranked_idx": 717,
+    "en": "Increases the effects of your Felstone, Wrathstone and Spellstone by $s1% and the critical strike chance bonus of your Firestone by $s2%.",
+    "curr_pt": "Aumenta o efeito das Pedras Vil, Ira e Mágica em $s1% e o crítico da Ígnea em $s2%.",
+    "count": 2,
+    "sample": "Improved Stones (Rank 1) [id=51712]"
+  },
+  {
+    "ranked_idx": 718,
+    "en": "Blasts the enemy for $s1 Shadow damage.",
+    "curr_pt": "Detona o inimigo com $s1 de dano de Sombra.",
+    "count": 2,
+    "sample": "Corruption () [id=51769]"
+  },
+  {
+    "ranked_idx": 719,
+    "en": "Increases damage done by your Shred ability by $s1%.",
+    "curr_pt": "Dilacerar +$s1%.",
+    "count": 2,
+    "sample": "Improved Shred (Rank 1) [id=52399]"
+  },
+  {
+    "ranked_idx": 720,
+    "en": "Increases your melee attack speed by $s1%.",
+    "curr_pt": "Aumenta sua velocidade de ataque corpo a corpo em $s1%.",
+    "count": 2,
+    "sample": "Swift Strikes (Rank 1) [id=52505]"
+  },
+  {
+    "ranked_idx": 721,
+    "en": "Physical critical strikes by your party members within $a1 yards grant you $s1 Energy.  This effect can occur once every 2 sec.",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Honor Among Thieves (Rank 1) [id=52512]"
+  },
+  {
+    "ranked_idx": 722,
+    "en": "Teaches Searing Shot (Rank 1).",
+    "curr_pt": "",
+    "count": 2,
+    "sample": "Searing Shot (Rank 1) [id=52639]"
+  },
+  {
+    "ranked_idx": 723,
+    "en": "Reduces the casting time of your Imp's Firebolt spell by $/1000;S2 sec and reduces the cooldown of your Succubus' Lash of Pain spell by $/1000;s1 sec.",
+    "curr_pt": "Setafímbrea -$s1 s e Látego -$s2 s.",
+    "count": 2,
+    "sample": "Demonic Swiftness (Rank 1) [id=57730]"
+  },
+  {
+    "ranked_idx": 724,
+    "en": "Draws on the soul of the party member to shield them, absorbing $s1 damage.  Lasts $d.  While the shield holds, spellcasting will not be interrupted by damage.  Once shielded, the target cannot be shielded again for $6788d.  Can be used while in Shadowform.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Power Word: Shield (Rank 1) [id=17]"
+  },
+  {
+    "ranked_idx": 725,
+    "en": "Backstab the target, causing $s2% melee damage plus 15 to the target.  Must be behind the target.  Requires a dagger in the main hand.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Backstab (Rank 1) [id=53]"
+  },
+  {
+    "ranked_idx": 726,
+    "en": "Cripples the target, reducing movement speed by $s3%, increasing time between melee attacks by $s1% and increasing time between ranged attacks by $s2%.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cripple (Rank 1) [id=89]"
+  },
+  {
+    "ranked_idx": 727,
+    "en": "Slows falling speed for $d.",
+    "curr_pt": "Queda lenta por $d s.",
+    "count": 1,
+    "sample": "Slow Fall () [id=130]"
+  },
+  {
+    "ranked_idx": 728,
+    "en": "Corrupts the target, causing $*4;s1 Shadow damage over $d.",
+    "curr_pt": "Corrompe com $s1 de Sombra em $d s.",
+    "count": 1,
+    "sample": "Corruption (Rank 1) [id=172]"
+  },
+  {
+    "ranked_idx": 729,
+    "en": "Transforms the enemy into a chicken that cannot cast, and does $s3% less damage for up to $d.",
+    "curr_pt": "Vira galinha sem magia e -$s1% dano por até $d s.",
+    "count": 1,
+    "sample": "Polymorph: Chicken (Rank 2) [id=228]"
+  },
+  {
+    "ranked_idx": 730,
+    "en": "The caster is surrounded by $n globes of unstable lightning for $d. When a spell, melee or ranged attack hits the caster, the attacker will be struck for $26364s1 Nature damage, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "O conjurador é cercado por $n globos de relâmpago instável por $d s. Quem bater leva $s1 de Natureza e gasta 1 globo. Uma vez a cada 3 s. Só um escudo por vez.",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 1) [id=324]"
+  },
+  {
+    "ranked_idx": 731,
+    "en": "The caster is surrounded by $n globes of unstable lightning for $d. When a spell, melee or ranged attack hits the caster, the attacker will be struck for $26365s1 Nature damage, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "O conjurador é cercado por $n globos de relâmpago instável por $d s. Quem bater leva $s1 de Natureza e gasta 1 globo. Uma vez a cada 3 s. Só um escudo por vez.",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 2) [id=325]"
+  },
+  {
+    "ranked_idx": 732,
+    "en": "Purges the enemy target, removing $m1 magic $leffect:effects;.",
+    "curr_pt": "Expurga $s1 magia do inimigo.",
+    "count": 1,
+    "sample": "Purge (Rank 1) [id=370]"
+  },
+  {
+    "ranked_idx": 733,
+    "en": "Finishing move that stuns the target.  Lasts longer per combo point:\n   1 point  : 1 second\n   2 points: 2 seconds\n   3 points: 3 seconds\n   4 points: 4 seconds\n   5 points: 5 seconds",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Kidney Shot (Rank 1) [id=408]"
+  },
+  {
+    "ranked_idx": 734,
+    "en": "A single word of darkness silences the target, preventing spellcasting for $d.",
+    "curr_pt": "Palavra sombria que silencia por $d s.",
+    "count": 1,
+    "sample": "Shadow Word: Silence (Rank 1) [id=451]"
+  },
+  {
+    "ranked_idx": 735,
+    "en": "Teaches Polymorph: Pig.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Polymorph: Pig (Rank 1) [id=477]"
+  },
+  {
+    "ranked_idx": 736,
+    "en": "Teaches Frostbolt (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbolt (Rank 1) [id=478]"
+  },
+  {
+    "ranked_idx": 737,
+    "en": "Teaches Fireball (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fireball (Rank 2) [id=483]"
+  },
+  {
+    "ranked_idx": 738,
+    "en": "Teaches Frost Armor (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frost Armor (Rank 2) [id=484]"
+  },
+  {
+    "ranked_idx": 739,
+    "en": "Teaches Water Breathing.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Water Breathing (Rank 1) [id=488]"
+  },
+  {
+    "ranked_idx": 740,
+    "en": "Teaches Mana Totem.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mana Totem (Rank 1) [id=492]"
+  },
+  {
+    "ranked_idx": 741,
+    "en": "Teaches Frostbolt (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbolt (Rank 2) [id=494]"
+  },
+  {
+    "ranked_idx": 742,
+    "en": "Teaches Polymorph: Sheep.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Polymorph: Sheep (Rank 3) [id=495]"
+  },
+  {
+    "ranked_idx": 743,
+    "en": "Teaches Drain Mana (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Drain Mana (Rank 1) [id=496]"
+  },
+  {
+    "ranked_idx": 744,
+    "en": "Teaches Frost Nova (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frost Nova (Rank 1) [id=497]"
+  },
+  {
+    "ranked_idx": 745,
+    "en": "Teaches Agitating Totem (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Agitating Totem (Rank 2) [id=501]"
+  },
+  {
+    "ranked_idx": 746,
+    "en": "Teaches Fireball (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fireball (Rank 3) [id=502]"
+  },
+  {
+    "ranked_idx": 747,
+    "en": "Teaches Seal of Protection (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Protection (Rank 2) [id=504]"
+  },
+  {
+    "ranked_idx": 748,
+    "en": "Teaches Ice Armor (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ice Armor (Rank 1) [id=506]"
+  },
+  {
+    "ranked_idx": 749,
+    "en": "Teaches Blink (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blink (Rank 1) [id=517]"
+  },
+  {
+    "ranked_idx": 750,
+    "en": "Teaches Moonfire (Rank 7).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Moonfire (Rank 7) [id=521]"
+  },
+  {
+    "ranked_idx": 751,
+    "en": "Teaches Lightning Bolt (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Bolt (Rank 2) [id=531]"
+  },
+  {
+    "ranked_idx": 752,
+    "en": "Teaches Lightning Shield (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 1) [id=532]"
+  },
+  {
+    "ranked_idx": 753,
+    "en": "Teaches Healing Wave (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Wave (Rank 2) [id=538]"
+  },
+  {
+    "ranked_idx": 754,
+    "en": "Teaches Moonfire (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Moonfire (Rank 2) [id=539]"
+  },
+  {
+    "ranked_idx": 755,
+    "en": "Allows the friendly target to walk across water for $d.  Any damage will cancel the effect.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Water Walking () [id=546]"
+  },
+  {
+    "ranked_idx": 756,
+    "en": "Attempts to cure $s2 disease effect on the target, and $10872s1 more disease effect every $t1 seconds for $d.",
+    "curr_pt": "Cura $s1 doença e +$s2 a cada $t1 s por $d s.",
+    "count": 1,
+    "sample": "Abolish Disease () [id=552]"
+  },
+  {
+    "ranked_idx": 757,
+    "en": "Yanks the caster through the twisting nether back to $z.  Speak to an Innkeeper in a different place to change your home location.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Astral Recall () [id=556]"
+  },
+  {
+    "ranked_idx": 758,
+    "en": "Teaches Lightning Shield (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 2) [id=557]"
+  }
+]

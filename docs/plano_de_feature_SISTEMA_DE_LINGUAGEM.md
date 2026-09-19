@@ -350,6 +350,20 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - [ ] `luac -p` em todos os arquivos tocados.
 - **🛑 PARADA CRÍTICA:** Validação visual in-game via `/reload` pelo usuário no Grimório do jogador (ex.: Arma de Labaredas, Totens, Choque, etc.) confirmando escrita natural, fluente e sem resumos telegráficos.
 
+#### 8.4 Checkpoint de estado (19/09 — onde paramos, o que falta, ordem acordada)
+> Escrito para permitir retomada exata após qualquer interrupção (troca de sessão, estouro de cota 429, queda de agente).
+
+**Onde paramos (verificado no repo):**
+- **Concluído e commitado:** Lotes 01–15 = **750/2.180** templates (`tools/batches/output_batch_01..15.json`, `tools/spell_pt_authoral.json`, `Data/SpellDescDB_ptBR.lua` rebuildado). Commits `0f7ea84`, `e316a2e`, `6119af2`, `d238568`. Ritmo paralelo de 5 subagentes foi **abandonado** após `RESOURCE_EXHAUSTED (429)` — daqui em diante **1 lote por vez**.
+- **Preparado, commitado neste checkpoint:** `tools/batches/input_batch_01..39.json` = 1.902 itens (fila pronta para os lotes 16–39).
+- **Rastro do Antigravity:** só `scratch/test_batch_17.py` (draft de 50 traduções do lote 17 com validação local). **Nenhum `output_batch_16+.json` foi entregue, nada aplicado ao DB, nada commitado.** Retomada oficial recomeça no **lote 16**.
+- **A gerar:** `input_batch_40..44` (~278 itens restantes dos 2.180).
+- **Caso-órfão conhecido:** `Totemic Recall` (Turtle custom, `id 45513`) — nome OK (`"Revogação Totêmica"`), mas descrição ainda SMS do modelo antigo (`"Totem volta: +$s1% mana de cada."` em `spell_pt_authoral.json:6050` / `SpellDescDB_ptBR.lua:23311`). **Fora** dos 2.180: `analyze_player_spells.py` só inclui template com `"Rank"` no grau ou nome em `localization_ptBR.lua`; este tem `r=""` e nome ausente → nunca entrou em `player_templates.json`.
+
+**O que falta (ordem acordada com o usuário — sem exceção):**
+1. **Terminar os 2.180 primeiro** (re-auditoria futura dos 750 + lotes 16–44), lote a lote, olho humano item por item, `validate_spell_vars.py` + `luac -p` + commit local por lote, **zero push** sem ordem explícita. Fecha a Fase 8.A com `/reload` + `/cm spelldbg`.
+2. **Depois, varredura MPQ por MPQ:** o extrator atual (`tools/parse_spell_dbc.py`) funde só 2 fontes (snapshot 162 campos + patch-7 local 173 campos). Extrair o `Spell.dbc` de **cada MPQ** do cliente em ordem de precedência, difar contra o vanilla 1.12.1 ID por ID e classificar: (a) **custom Turtle** (ID novo), (b) **original modificado pelo Turtle** (mesmo ID, texto diferente), (c) intacto (ignora). Baldes (a)+(b) com descrição não-vazia viram **fila de órfãos** com o mesmo crivo humano Blizzlike. Critério de pronto: zero descrição SMS/inglesa no grimório do jogador, seja vanilla, modificada ou custom.
+
 ---
 
 ### 🟢 FASE FINAL: Inclusão de mais linguagens (template + idioma de prova)

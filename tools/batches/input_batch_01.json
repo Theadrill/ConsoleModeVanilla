@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 200,
+    "en": "Burns the enemy for Arcane damage and inflicts additional damage over $d.",
+    "curr_pt": "Queima o inimigo com dano Arcano e mais dano ao longo de $d s.",
+    "count": 5,
+    "sample": "Moonfire () [id=15798]"
+  },
+  {
+    "ranked_idx": 201,
+    "en": "Increases the damage done by your Lightning Bolt, Chain Lightning and Shock spells by $s1%.",
+    "curr_pt": "Aumenta o dano do seu Raio, Cadeia de Relâmpagos e Choque em $s1%.",
+    "count": 5,
+    "sample": "Concussion (Rank 1) [id=16035]"
+  },
+  {
+    "ranked_idx": 202,
+    "en": "Reduces the Mana cost of your Lightning Bolt spell by $s1%.",
+    "curr_pt": "Reduz o custo de mana do seu Raio em $s1%.",
+    "count": 5,
+    "sample": "Improved Lightning Bolt (Rank 1) [id=16036]"
+  },
+  {
+    "ranked_idx": 203,
+    "en": "Increases the damage done by your Fire Totems and spells by $s1%",
+    "curr_pt": "Aumenta o dano dos seus Totens e magias de Fogo em $s1%.",
+    "count": 5,
+    "sample": "Call of Flame (Rank 1) [id=16038]"
+  },
+  {
+    "ranked_idx": 204,
+    "en": "Reduces the mana cost of your Shock, Lightning Bolt and Chain Lightning spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana de Choque, Raio e Cadeia de Relâmpagos em $s1%.",
+    "count": 5,
+    "sample": "Convection (Rank 1) [id=16039]"
+  },
+  {
+    "ranked_idx": 205,
+    "en": "Reduces the cooldown of your Shock spells by $/1000;S1 sec.",
+    "curr_pt": "Reduz a recarga dos seus Choques em $s1 s.",
+    "count": 5,
+    "sample": "Reverberation (Rank 1) [id=16040]"
+  },
+  {
+    "ranked_idx": 206,
+    "en": "Increases the critical strike chance of your Lightning Bolt and Chain Lightning spells by an additional $s1%.",
+    "curr_pt": "Aumenta o crítico do seu Raio e Cadeia de Relâmpagos em $s1%.",
+    "count": 5,
+    "sample": "Call of Thunder (Rank 1) [id=16041]"
+  },
+  {
+    "ranked_idx": 207,
+    "en": "Reduces the Mana cost of your totems by $s1%.",
+    "curr_pt": "Reduz o custo de mana dos seus totens em $s1%.",
+    "count": 5,
+    "sample": "Totemic Focus (Rank 1) [id=16173]"
+  },
+  {
+    "ranked_idx": 208,
+    "en": "Increases the effectiveness of your healing spells by $s1%.",
+    "curr_pt": "Aumenta o efeito das suas magias de cura em $s1%.",
+    "count": 5,
+    "sample": "Purification (Rank 1) [id=16178]"
+  },
+  {
+    "ranked_idx": 209,
+    "en": "Reduces the Mana cost of your healing spells by $s1% and your totems by $s2%.",
+    "curr_pt": "Reduz o custo de mana das suas curas em $s1% e dos totens em $s2%.",
+    "count": 5,
+    "sample": "Tidal Focus (Rank 1) [id=16179]"
+  },
+  {
+    "ranked_idx": 210,
+    "en": "Gives you a $s1% chance to avoid interruption caused by damage while casting any healing spell.",
+    "curr_pt": "Dá $s1% de chance de evitar interrupção por dano ao lançar qualquer cura.",
+    "count": 5,
+    "sample": "Healing Focus (Rank 1) [id=16181]"
+  },
+  {
+    "ranked_idx": 211,
+    "en": "Reduces the casting time of your Healing Wave spell by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de lançamento da sua Onda de Cura em $s1 s.",
+    "count": 5,
+    "sample": "Improved Healing Wave (Rank 1) [id=16182]"
+  },
+  {
+    "ranked_idx": 214,
+    "en": "Increases the critical effect chance of your healing and lightning spells by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico das suas magias de cura e de raio em $s1%.",
+    "count": 5,
+    "sample": "Tidal Mastery (Rank 1) [id=16194]"
+  },
+  {
+    "ranked_idx": 216,
+    "en": "Improves your chance to get a critical strike with your weapon attacks by $s1%.",
+    "curr_pt": "Melhora sua chance de crítico com ataques de arma em $s1%.",
+    "count": 5,
+    "sample": "Thundering Strikes (Rank 1) [id=16255]"
+  },
+  {
+    "ranked_idx": 217,
+    "en": "Increases the damage dealt by your poisons by $s1% and gives your poisons an additional $s3% chance to resist dispel effects.",
+    "curr_pt": "Aumenta o dano dos seus venenos em $s1% e dá $s2% de chance extra de resistir a dissipação.",
+    "count": 5,
+    "sample": "Vile Poisons (Rank 1) [id=16513]"
+  },
+  {
+    "ranked_idx": 218,
+    "en": "Heals an ally for a fixed amount, then heals additional damage every $t2 sec. for $d.",
+    "curr_pt": "Cura um aliado num valor fixo e mais dano a cada $t1 s por $d s.",
+    "count": 5,
+    "sample": "Regrowth () [id=16561]"
+  },
+  {
+    "ranked_idx": 219,
+    "en": "Reduces the cast time of your Lightning Bolt and Chain Lightning spells by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de lançamento do seu Raio e Cadeia de Relâmpagos em $s1 s.",
+    "count": 5,
+    "sample": "Lightning Mastery (Rank 1) [id=16578]"
+  },
+  {
+    "ranked_idx": 220,
+    "en": "Reduces the cast time and global cooldown of your Wrath spell by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de lançamento e global da sua Ira em $s1 s.",
+    "count": 5,
+    "sample": "Improved Wrath (Rank 1) [id=16814]"
+  },
+  {
+    "ranked_idx": 221,
+    "en": "Increases the damage and critical strike chance of your Moonfire spell by $s1%.",
+    "curr_pt": "Aumenta o dano e a chance de crítico da sua Fogofátuo em $s1%.",
+    "count": 5,
+    "sample": "Improved Moonfire (Rank 1) [id=16821]"
+  },
+  {
+    "ranked_idx": 222,
+    "en": "Increases the Attack Power reduction of your Demoralizing Roar by $s1% and the damage caused by your Ferocious Bite by $s2%.",
+    "curr_pt": "Aumenta a redução de poder de ataque do seu Rugido Desmoralizante em $s1% e o dano da sua Mordida Feroz em $s2%.",
+    "count": 5,
+    "sample": "Feral Aggression (Rank 1) [id=16858]"
+  },
+  {
+    "ranked_idx": 223,
+    "en": "Increases the critical strike damage bonus of your Starfire, Moonfire, and Wrath spells by $s1%.",
+    "curr_pt": "Aumenta o bônus de dano crítico de Starfire, Fogofátuo e Ira em $s1%.",
+    "count": 5,
+    "sample": "Vengeance (Rank 1) [id=16909]"
+  },
+  {
+    "ranked_idx": 224,
+    "en": "Reduces the cost of your Maul, Swipe, Savage Bite, Claw, and Rake abilities by $/10;s1 Rage or Energy.",
+    "curr_pt": "Reduz o custo de Dilacerar, Patada, Mordida Selvagem, Garra e Ancinha em $s1 de fúria ou energia.",
+    "count": 5,
+    "sample": "Ferocity (Rank 1) [id=16934]"
+  },
+  {
+    "ranked_idx": 225,
+    "en": "Increases your critical strike chance while in Bear, Dire Bear or Cat Form by $s1%.",
+    "curr_pt": "Aumenta sua chance de crítico em Urso, Urso Atroz ou Gato em $s1%.",
+    "count": 5,
+    "sample": "Sharpened Claws (Rank 1) [id=16942]"
+  },
+  {
+    "ranked_idx": 226,
+    "en": "Increases threat caused in Bear and Dire Bear Form by $s2% and reduces the chance enemies have to detect you while Prowling.",
+    "curr_pt": "Aumenta a ameaça em Urso e Urso Atroz em $s1% e reduz a detecção furtiva.",
+    "count": 5,
+    "sample": "Feral Instinct (Rank 1) [id=16947]"
+  },
+  {
+    "ranked_idx": 227,
+    "en": "Your critical strikes from Cat Form abilities that add combo points  have a $h% chance to add an additional combo point.",
+    "curr_pt": "",
+    "count": 5,
+    "sample": "Blood Frenzy (Rank 1) [id=16952]"
+  },
+  {
+    "ranked_idx": 228,
+    "en": "Gives you a $h% chance to gain an additional $/10;16959s1 Rage anytime you get a critical strike while in Bear and Dire Bear Form.",
+    "curr_pt": "Dá $h% de chance de ganhar $s1 de fúria ao critar em Urso ou Urso Atroz.",
+    "count": 5,
+    "sample": "Primal Fury (Rank 1) [id=16958]"
+  },
+  {
+    "ranked_idx": 229,
+    "en": "Increases the effects of your Mark of the Wild and Gift of the Wild spells by $s1%.",
+    "curr_pt": "Aumenta o efeito da sua Marca e Dádiva Selvagem em $s1%.",
+    "count": 5,
+    "sample": "Improved Mark of the Wild (Rank 1) [id=17050]"
+  },
+  {
+    "ranked_idx": 230,
+    "en": "Gives you a $s1% chance to avoid interruption caused by damage while casting the Healing Touch, Regrowth, and Tranquility spells.",
+    "curr_pt": "Dá $s1% de chance de evitar interrupção por dano ao lançar Toque de Cura, Recrescer e Tranquilidade.",
+    "count": 5,
+    "sample": "Nature's Focus (Rank 1) [id=17063]"
+  },
+  {
+    "ranked_idx": 231,
+    "en": "Reduces the cast time of your Healing Touch spell by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de lançamento do seu Toque de Cura em $s1 s.",
+    "count": 5,
+    "sample": "Improved Healing Touch (Rank 1) [id=17069]"
+  },
+  {
+    "ranked_idx": 232,
+    "en": "Increases the critical effect chance of your Regrowth spell by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico do seu Recrescer em $s1%.",
+    "count": 5,
+    "sample": "Improved Regrowth (Rank 1) [id=17074]"
+  },
+  {
+    "ranked_idx": 233,
+    "en": "Increases the effect of all healing spells by $s1%.",
+    "curr_pt": "Aumenta o efeito de todas as curas em $s1%.",
+    "count": 5,
+    "sample": "Gift of Nature (Rank 1) [id=17104]"
+  },
+  {
+    "ranked_idx": 234,
+    "en": "Consumes an enemy in flames, burning it and inflicting additional Fire damage every $t2 sec. over $d.",
+    "curr_pt": "Consome o inimigo em chamas, queimando e causando mais dano de Fogo a cada $t1 s ao longo de $d s.",
+    "count": 5,
+    "sample": "Holy Fire () [id=17140]"
+  },
+  {
+    "ranked_idx": 235,
+    "en": "Increases the total value of all your stats by $s1%.",
+    "curr_pt": "Aumenta todos os seus atributos em $s1%.",
+    "count": 5,
+    "sample": "Ancestral Knowledge (Rank 1) [id=17485]"
+  },
+  {
+    "ranked_idx": 236,
+    "en": "Gives you a $s1% chance to avoid interruption caused by damage while channeling Drain Life, Drain Mana, Drain Soul or Dark Harvest spells.",
+    "curr_pt": "Dá $s1% de chance de evitar interrupção por dano ao canalizar Dreno de Vida, Mana, Alma ou Colheita Sombria.",
+    "count": 5,
+    "sample": "Fel Concentration (Rank 1) [id=17783]"
+  },
+  {
+    "ranked_idx": 237,
+    "en": "Reduces the casting time of your Shadow Bolt and Immolate spells by $/1000;S1 sec and your Soul Fire spell by $/1000;S2 sec.",
+    "curr_pt": "Reduz o tempo de lançamento de Raio Sombrio e Imolar em $s1 s, e de Fogo da Alma em $s2 s.",
+    "count": 5,
+    "sample": "Bane (Rank 1) [id=17788]"
+  },
+  {
+    "ranked_idx": 238,
+    "en": "Your Shadow Bolts have a $h% chance to increase Shadow damage dealt to the target by $17794s1% for $17794d, with a higher chance to trigger on critical hits.",
+    "curr_pt": "Seus Raios Sombrios têm $h% de chance de aumentar o dano de Sombra no alvo em $s1% por $d s, mais fácil em crítico.",
+    "count": 5,
+    "sample": "Improved Shadow Bolt (Rank 1) [id=17793]"
+  },
+  {
+    "ranked_idx": 239,
+    "en": "Increases the Health drained by your Drain Life spell by $s1%.",
+    "curr_pt": "Aumenta a Vida drenada pelo seu Dreno de Vida em $s1%.",
+    "count": 5,
+    "sample": "Improved Drain Life (Rank 1) [id=17804]"
+  },
+  {
+    "ranked_idx": 240,
+    "en": "Reduces the casting time of your Corruption spell by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de lançamento da sua Corrupção em $s1 s.",
+    "count": 5,
+    "sample": "Improved Corruption (Rank 1) [id=17810]"
+  },
+  {
+    "ranked_idx": 241,
+    "en": "Increases the damage of your Immolate spell by $s1%.",
+    "curr_pt": "Aumenta o dano do seu Imolar em $s1%.",
+    "count": 5,
+    "sample": "Improved Immolate (Rank 1) [id=17815]"
+  },
+  {
+    "ranked_idx": 242,
+    "en": "Increases the critical strike chance of your Searing Pain spell by $s1%.",
+    "curr_pt": "Aumenta a chance de crítico da sua Dor Escaldante em $s1%.",
+    "count": 5,
+    "sample": "Improved Searing Pain (Rank 1) [id=17927]"
+  },
+  {
+    "ranked_idx": 243,
+    "en": "Increases the critical strike chance of your Destruction spells by $s1%.",
+    "curr_pt": "Aumenta a chance de crítico das suas magias de Destruição em $s1%.",
+    "count": 5,
+    "sample": "Devastation (Rank 1) [id=18130]"
+  },
+  {
+    "ranked_idx": 244,
+    "en": "Reduces the casting time of your Smite, Holy Fire, Heal and Greater Heal spells by $/1000;S1 sec.",
+    "curr_pt": "Reduz o tempo de lançamento de Castigar, Fogo Sagrado, Cura e Cura Maior em $s1 s.",
+    "count": 5,
+    "sample": "Divine Fury (Rank 1) [id=18530]"
+  },
+  {
+    "ranked_idx": 245,
+    "en": "Increases your spell damage and the critical strike chance of your offensive spells by $s1% and the amount of damage absorbed by your Power Word: Shield by $s3%.",
+    "curr_pt": "Aumenta seu dano mágico e o crítico das ofensivas em $s1%, e a absorção da Palavra Escudo em $s2%.",
+    "count": 5,
+    "sample": "Force of Will (Rank 1) [id=18544]"
+  },
+  {
+    "ranked_idx": 246,
+    "en": "Increases your demon's Intellect by $s1% of your total Intellect and allows $s2% of its Mana regeneration to continue while casting.",
+    "curr_pt": "Aumenta o Intelecto do seu demônio em $s1% do seu e deixa $s2% da regen dele continuar lançando.",
+    "count": 5,
+    "sample": "Fel Intellect (Rank 1) [id=18731]"
+  },
+  {
+    "ranked_idx": 247,
+    "en": "Increases your Agility by $s1% and increases your melee attack power by an amount equal to $s2% of your Agility.",
+    "curr_pt": "Aumenta sua Agilidade em $s1% e seu poder de ataque corpo a corpo em $s2% da Agilidade.",
+    "count": 5,
+    "sample": "Lightning Reflexes (Rank 1) [id=19168]"
+  },
+  {
+    "ranked_idx": 248,
+    "en": "Gives your Immolation Trap, Frost Trap, and Explosive Trap a $h% chance to entrap the target, preventing them from moving for $19185d.",
+    "curr_pt": "Dá às suas Armadilhas $h% de chance de prender o alvo por $d s.",
+    "count": 5,
+    "sample": "Entrapment (Rank 1) [id=19184]"
+  },
+  {
+    "ranked_idx": 249,
+    "en": "Gives your Wing Clip ability a $h% chance to immobilize the target for $19229d.",
+    "curr_pt": "Dá ao seu Corte de Asas $h% de chance de imobilizar o alvo por $d s.",
+    "count": 5,
+    "sample": "Improved Wing Clip (Rank 1) [id=19228]"
+  },
+  {
+    "ranked_idx": 250,
+    "en": "Increases total health by $s1%.",
+    "curr_pt": "Aumenta a vida total em $s1%.",
+    "count": 5,
+    "sample": "Survivalist (Rank 1) [id=19255]"
+  },
+  {
+    "ranked_idx": 251,
+    "en": "Gives your Concussive Shot a $h% chance to stun the target for $19410d.",
+    "curr_pt": "Dá ao seu Tiro Concussivo $h% de chance de atordoar por $d s.",
+    "count": 5,
+    "sample": "Improved Concussive Shot (Rank 1) [id=19407]"
+  },
+  {
+    "ranked_idx": 252,
+    "en": "Reduces the Mana cost of your Shots and Stings by $s1%.",
+    "curr_pt": "Reduz o custo de mana de Tiros e Ferrões em $s1%.",
+    "count": 5,
+    "sample": "Efficiency (Rank 1) [id=19416]"
+  }
+]

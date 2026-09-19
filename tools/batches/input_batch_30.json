@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1722,
+    "en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20188d, increasing Holy damage taken by up to $20188s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Crusader (Rank 2) [id=20162]"
+  },
+  {
+    "ranked_idx": 1723,
+    "en": "Fills the Paladin with divine fury for $d, allowing melee attacks to cause additional threat.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20183d, causing Holy damage spells cast on that enemy to generate additional threat.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Fury (Rank 1) [id=20163]"
+  },
+  {
+    "ranked_idx": 1724,
+    "en": "Fills the Paladin with the spirit of justice for $d, giving each melee attack a chance to stun for $20170d.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20184d, preventing them from fleeing.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Justice () [id=20164]"
+  },
+  {
+    "ranked_idx": 1725,
+    "en": "Fills the Paladin with divine light for $d, giving each melee attack a chance to heal the Paladin for $20167s1.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20185d, granting melee attacks made against the judged enemy a chance of healing the attacker for $20267s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Light (Rank 1) [id=20165]"
+  },
+  {
+    "ranked_idx": 1726,
+    "en": "Fills the Paladin with divine wisdom for $d, giving each melee attack a chance to restore $20168s1 of the Paladin's mana.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20186d, granting attacks and spells used against the judged enemy a chance to restore $20268s1 mana to the attacker.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Wisdom (Rank 1) [id=20166]"
+  },
+  {
+    "ranked_idx": 1727,
+    "en": "Increases chance to block by $s1% for $d, and deals $s2 Holy damage for each attack blocked while active.  Each block expends a charge.  $n charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Shield (Rank 1) [id=20169]"
+  },
+  {
+    "ranked_idx": 1728,
+    "en": "Places a Blessing on the friendly target, increasing total stats by $s1% for $d.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Kings () [id=20217]"
+  },
+  {
+    "ranked_idx": 1729,
+    "en": "Increases Holy damage done by party members within $a1 yards by $s1%.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Sanctity Aura () [id=20218]"
+  },
+  {
+    "ranked_idx": 1730,
+    "en": "Inflicts $s1 Fire damage to an enemy and scorches the target for an additional $s2 damage every $t2 sec. for $d.",
+    "curr_pt": "$s1 de Fogo + $s2 a cada $t1 s por $d s.",
+    "count": 1,
+    "sample": "Pyroblast () [id=20228]"
+  },
+  {
+    "ranked_idx": 1731,
+    "en": "Inflicts $s1 Fire damage to nearby enemies and reduces their movement speed by $s2% for $d.",
+    "curr_pt": "$s1 de Fogo e -$s2% velocidade por $d s.",
+    "count": 1,
+    "sample": "Blast Wave () [id=20229]"
+  },
+  {
+    "ranked_idx": 1732,
+    "en": "Instantly counterattack any enemy that strikes you in melee for $d.  Melee attacks made from behind cannot be counterattacked.  A maximum of $n attacks will cause retaliation.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Retaliation () [id=20230]"
+  },
+  {
+    "ranked_idx": 1733,
+    "en": "Gives the target of your Lay on Hands spell a $20233s1% bonus to their armor value from items for $20233d.  In addition, the cooldown for your Lay on Hands spell is reduced by $/60000;s2 min.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Improved Lay on Hands (Rank 1) [id=20234]"
+  },
+  {
+    "ranked_idx": 1734,
+    "en": "Gives the target of your Lay on Hands spell a $20236s1% bonus to their armor value from items for $20236d.  In addition, the cooldown for your Lay on Hands spell is reduced by $/60000;s2 min.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Improved Lay on Hands (Rank 2) [id=20235]"
+  },
+  {
+    "ranked_idx": 1735,
+    "en": "Designer note:  This costs 1 rage to prevent its damage from generating rage.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Retaliation () [id=20240]"
+  },
+  {
+    "ranked_idx": 1736,
+    "en": "Unleashes the energy of a Seal spell upon an enemy.  Refer to individual Seals for Judgement effect.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Judgement () [id=20271]"
+  },
+  {
+    "ranked_idx": 1737,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20280s3 to $/25;20280s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20280s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 2) [id=20287]"
+  },
+  {
+    "ranked_idx": 1738,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20281s3 to $/25;20281s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20281s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 3) [id=20288]"
+  },
+  {
+    "ranked_idx": 1739,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20282s3 to $/25;20282s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20282s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 4) [id=20289]"
+  },
+  {
+    "ranked_idx": 1740,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20283s3 to $/25;20283s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20283s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 5) [id=20290]"
+  },
+  {
+    "ranked_idx": 1741,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20284s3 to $/25;20284s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20284s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 6) [id=20291]"
+  },
+  {
+    "ranked_idx": 1742,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20285s3 to $/25;20285s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20285s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 7) [id=20292]"
+  },
+  {
+    "ranked_idx": 1743,
+    "en": "Fills the Paladin with holy spirit for $d, granting each melee attack an additional $/87;20286s3 to $/25;20286s3 Holy damage.  Slower weapons cause more Holy damage per swing.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will cause $20286s1 Holy damage to an enemy.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 8) [id=20293]"
+  },
+  {
+    "ranked_idx": 1744,
+    "en": "Inflicts $s2 Fire damage to an enemy and scorches it for an additional $s1 damage every $t1 sec. for $d.",
+    "curr_pt": "$s1 de Fogo + $s2 a cada $t1 s por $d s.",
+    "count": 1,
+    "sample": "Immolate () [id=20294]"
+  },
+  {
+    "ranked_idx": 1745,
+    "en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20300d, increasing Holy damage taken by up to $20300s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Crusader (Rank 3) [id=20305]"
+  },
+  {
+    "ranked_idx": 1746,
+    "en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20301d, increasing Holy damage taken by up to $20301s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Crusader (Rank 4) [id=20306]"
+  },
+  {
+    "ranked_idx": 1747,
+    "en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20302d, increasing Holy damage taken by up to $20302s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Crusader (Rank 5) [id=20307]"
+  },
+  {
+    "ranked_idx": 1748,
+    "en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 melee attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\r\n\r\nUnleashing this Seal's energy will judge an enemy for $20303d, increasing Holy damage taken by up to $20303s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Crusader (Rank 6) [id=20308]"
+  },
+  {
+    "ranked_idx": 1749,
+    "en": "Fills the Paladin with the spirit of a crusader for $d, granting $s1 attack power.  The Paladin also attacks $s2% faster, but deals less damage with each attack.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20304d, increasing Holy damage taken by up to $20304s1.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Crusader (Rank 6) [id=20309]"
+  },
+  {
+    "ranked_idx": 1750,
+    "en": "Fills the Paladin with divine light for $d, giving each melee attack a chance to heal the Paladin for $20333s1.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20344d, granting melee attacks made against the judged enemy a chance of healing the attacker for $20341s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Light (Rank 2) [id=20347]"
+  },
+  {
+    "ranked_idx": 1751,
+    "en": "Fills the Paladin with divine light for $d, giving each melee attack a chance to heal the Paladin for $20334s1.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20345d, granting melee attacks made against the judged enemy a chance of healing the attacker for $20342s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Light (Rank 3) [id=20348]"
+  },
+  {
+    "ranked_idx": 1752,
+    "en": "Fills the Paladin with divine light for $d, giving each melee attack a chance to heal the Paladin for $20340s1.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20346d, granting melee attacks made against the judged enemy a chance of healing the attacker for $20343s1.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Light (Rank 4) [id=20349]"
+  },
+  {
+    "ranked_idx": 1753,
+    "en": "Fills the Paladin with divine wisdom for $d, giving each melee attack a chance to restore $20350s1 of the Paladin's mana.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20354d, granting attacks and spells used against the judged enemy a chance to restore $20352s1 mana to the attacker.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Wisdom (Rank 2) [id=20356]"
+  },
+  {
+    "ranked_idx": 1754,
+    "en": "Fills the Paladin with divine wisdom for $d, giving each melee attack a chance to restore $20351s1 of the Paladin's mana.  Only one Seal can be active on the Paladin at any one time.\n\nUnleashing this Seal's energy will judge an enemy for $20355d, granting attacks and spells used against the judged enemy a chance to restore $20353s1 mana to the attacker.  Your melee strikes will refresh the spell's duration.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Wisdom (Rank 3) [id=20357]"
+  },
+  {
+    "ranked_idx": 1755,
+    "en": "Gives the Paladin a chance to deal additional Holy damage equal to $20424s1% of melee damage.  Only one Seal can be active on the Paladin at any one time.  Lasts $d.\n\nUnleashing this Seal's energy will judge an enemy, instantly causing $/2;20467s1 Holy damage, $20467s1 if the target is stunned or incapacitated. This damage is increased by 15% of your attack power.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Command (Rank 1) [id=20375]"
+  },
+  {
+    "ranked_idx": 1756,
+    "en": "Fills the Paladin with divine fury for $d, allowing melee attacks to cause additional threat.  Only one Seal can be active on the Paladin at any one time.  More effective than Seal of Fury (Rank 1).\n\nUnleashing this Seal's energy will judge an enemy for $20411d, causing Holy damage spells cast on that enemy to generate additional threat.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Fury (Rank 2) [id=20419]"
+  },
+  {
+    "ranked_idx": 1757,
+    "en": "Fills the Paladin with divine fury for $d, allowing melee attacks to cause additional threat.  Only one Seal can be active on the Paladin at any one time.  More effective than Seal of Fury (Rank 2).\n\nUnleashing this Seal's energy will judge an enemy for $20412d, causing Holy damage spells cast on that enemy to generate additional threat.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Fury (Rank 3) [id=20421]"
+  },
+  {
+    "ranked_idx": 1758,
+    "en": "Fills the Paladin with divine fury for $d, allowing melee attacks to cause additional threat.  Only one Seal can be active on the Paladin at any one time.  More effective than Seal of Fury (Rank 3).\n\nUnleashing this Seal's energy will judge an enemy for $20413d, causing Holy damage spells cast on that enemy to generate additional threat.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Fury (Rank 4) [id=20422]"
+  },
+  {
+    "ranked_idx": 1759,
+    "en": "Fills the Paladin with divine fury for $d, allowing melee attacks to cause additional threat.  Only one Seal can be active on the Paladin at any one time.  More effective than Seal of Fury (Rank 4).\n\nUnleashing this Seal's energy will judge an enemy for $20414d, causing Holy damage spells cast on that enemy to generate additional threat.  Only one Judgement per Paladin can be active at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Fury (Rank 5) [id=20423]"
+  },
+  {
+    "ranked_idx": 1760,
+    "en": "Blasts the target with Holy energy, causing $25914s1 healing to an ally. Casting Holy Shock has a chance to have no cooldown for its next cast.",
+    "curr_pt": "Detona Sagrado de $s1 num aliado. Pode zerar a próxima.",
+    "count": 1,
+    "sample": "Holy Shock (Rank 1) [id=20473]"
+  },
+  {
+    "ranked_idx": 1761,
+    "en": "Increases the chance your Seal of Justice will stun the opponent by 53%.",
+    "curr_pt": "Selo da Justiça: +53% de atordoar.",
+    "count": 1,
+    "sample": "Improved Seal of Justice (Rank 4) [id=20490]"
+  },
+  {
+    "ranked_idx": 1762,
+    "en": "Increases the chance your Seal of Justice will stun the opponent by 67%.",
+    "curr_pt": "Selo da Justiça: +67% de atordoar.",
+    "count": 1,
+    "sample": "Improved Seal of Justice (Rank 5) [id=20491]"
+  },
+  {
+    "ranked_idx": 1763,
+    "en": "The Berserker Rage ability will generate $/10;23690s1 rage when used.",
+    "curr_pt": "Fúria gera $s1 ao usar.",
+    "count": 1,
+    "sample": "Improved Berserker Rage (Rank 1) [id=20500]"
+  },
+  {
+    "ranked_idx": 1764,
+    "en": "The Berserker Rage ability will generate $/10;23691s1 rage when used.",
+    "curr_pt": "Fúria gera $s1 ao usar.",
+    "count": 1,
+    "sample": "Improved Berserker Rage (Rank 2) [id=20501]"
+  },
+  {
+    "ranked_idx": 1765,
+    "en": "Charges an enemy, inflicting $20527s3 Fire damage to the target and any other nearby enemies, as well as knocking them all back.",
+    "curr_pt": "Investida: $s1 de Fogo e arremessa.",
+    "count": 1,
+    "sample": "Charge () [id=20508]"
+  },
+  {
+    "ranked_idx": 1766,
+    "en": "Increases your casting and attack speed by $26635m1% to $26635M1%.  At full health the speed increase is $26635m1% with a greater effect up to $26635M1% if you are badly hurt when you activate Berserking.  Lasts $26635d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Berserking (Racial) [id=20554]"
+  },
+  {
+    "ranked_idx": 1768,
+    "en": "When activated, regenerates $20578s1% of total health every $20578t1 sec for $20578d.  Only works on Humanoid or Undead corpses within $a1 yds.  Any movement, action, or damage taken while Cannibalizing will cancel the effect.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cannibalize (Racial) [id=20577]"
+  },
+  {
+    "ranked_idx": 1770,
+    "en": "Dramatically increases stealth detection and grants $s2% increased spell and physical critical strike chance.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Perception (Racial) [id=20600]"
+  },
+  {
+    "ranked_idx": 1771,
+    "en": "Allows you to resurrect yourself upon death with $21169s1% health and mana.",
+    "curr_pt": "Auto-revive com $s1% de vida e mana.",
+    "count": 1,
+    "sample": "Reincarnation (Passive) [id=20608]"
+  },
+  {
+    "ranked_idx": 1772,
+    "en": "Charge an enemy, causing $20614s2 damage and stunning it for $20614d.",
+    "curr_pt": "Investida: $s1 de dano e atordoa por $d s.",
+    "count": 1,
+    "sample": "Intercept (Rank 2) [id=20616]"
+  },
+  {
+    "ranked_idx": 1773,
+    "en": "Restores $s1 health every $t1 sec for $d.",
+    "curr_pt": "Aumenta a resistência a Gelo em $s1, com $s2% de chance de refletir magia de Gelo hostil.",
+    "count": 1,
+    "sample": "Furbolg Medicine Pouch (Rank 1) [id=20631]"
+  }
+]

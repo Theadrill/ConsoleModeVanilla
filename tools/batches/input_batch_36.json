@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 2028,
+    "en": "Creates a blessed Mana Tree near the caster.  Members of your raid or party can click the Mana Tree to restore $45733o1 mana over $45733d.  Being attacked cancels the effect.  Mana Tree lasts for $d or 5 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mana Tree (Rank 1) [id=45732]"
+  },
+  {
+    "ranked_idx": 2029,
+    "en": "Damage taken while in Moonkin Form has a $h% chance to enrage you, granting a $45735s1% chance to avoid interruption caused by damage while casting and regenerating $45735s2% of your maximum mana per second for $45735d. This effect can only trigger once every 30 seconds.",
+    "curr_pt": "Lua: dano tem $h% de fúria com +$s1% contra interrupção e +$s2% mana/s por $d s. 1x a cada 30 s.",
+    "count": 1,
+    "sample": "Owlkin Frenzy (Rank 1) [id=45734]"
+  },
+  {
+    "ranked_idx": 2030,
+    "en": "All melee attacks deal additional Holy damage equal to $s1% of normal weapon damage, but the Paladin loses health equal to $s2% of the total damage inflicted. \n\nUnleashing this Seal's energy will judge an enemy, instantly causing $45816s1 Holy damage at the cost of health equal to 33% of the damage caused.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of the Martyr (Rank 1) [id=45802]"
+  },
+  {
+    "ranked_idx": 2031,
+    "en": "Reduces the cast time of your Flash of Light and Holy Wrath spells by $45808s1% after dealing a melee or spell critical strike.",
+    "curr_pt": "Crítico: Clarão e Ira +$s1% velocidade.",
+    "count": 1,
+    "sample": "The Art of War (Rank 1) [id=45807]"
+  },
+  {
+    "ranked_idx": 2032,
+    "en": "Charge an enemy, causing $45812s2 Holy damage and stunning it for $45812d.",
+    "curr_pt": "Investida Sagrada de $s1 e atordoa por $d s.",
+    "count": 1,
+    "sample": "Shield Charge (Rank 1) [id=45811]"
+  },
+  {
+    "ranked_idx": 2033,
+    "en": "Unleashing this Seal's energy will judge an enemy, instantly causing $s1 Holy damage at the cost of health equal to 33% of the damage caused.",
+    "curr_pt": "Julgar: $s1 na hora por 33% da vida.",
+    "count": 1,
+    "sample": "Judgement of the Martyr (Rank 1) [id=45816]"
+  },
+  {
+    "ranked_idx": 2034,
+    "en": "Charges the target.",
+    "curr_pt": "Investida no alvo.",
+    "count": 1,
+    "sample": "Charge () [id=45871]"
+  },
+  {
+    "ranked_idx": 2035,
+    "en": "Increases the amount of Health restored by your Healthstone by $18692s1% and increases the Health and Mana your Soulstone target is resurrected with by $51704s1%.",
+    "curr_pt": "Pedra de Vida +$s1% e Pedra da Alma +$s2% vida/mana.",
+    "count": 1,
+    "sample": "Master Conjuror (Rank 1) [id=45902]"
+  },
+  {
+    "ranked_idx": 2036,
+    "en": "Increases the amount of Health restored by your Healthstone by $18693s1% and increases the Health and Mana your Soulstone target is resurrected with by $51705s1%.",
+    "curr_pt": "Pedra de Vida +$s1% e Pedra da Alma +$s2% vida/mana.",
+    "count": 1,
+    "sample": "Master Conjuror (Rank 2) [id=45903]"
+  },
+  {
+    "ranked_idx": 2037,
+    "en": "You devastate the area around your target, inflicting Corruption (Rank 7) on all enemies around it within 15 yards.",
+    "curr_pt": "Devasta com Corrupção Grau 7 a 15 m.",
+    "count": 1,
+    "sample": "Atrocity (Rank 1) [id=45904]"
+  },
+  {
+    "ranked_idx": 2038,
+    "en": "An arcane curse that decreases the target's Intellect by $s1 and drains $s2 mana every $t2 seconds for $d. Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "Maldição: -Int $s1 e -$s2 mana a cada $t1 s por $d s. Uma Maldição por Bruxo.",
+    "count": 1,
+    "sample": "Curse of Archimonde [PH] (Rank 1) [id=45916]"
+  },
+  {
+    "ranked_idx": 2039,
+    "en": "Slows the target's attack speed by $s1% for $d.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Mannoroth [PH] (Rank 1) [id=45917]"
+  },
+  {
+    "ranked_idx": 2040,
+    "en": "[PH].  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Sargeras [PH] (Rank 1) [id=45918]"
+  },
+  {
+    "ranked_idx": 2041,
+    "en": "Slam your opponent, causing $53214s1% weapon damage.  Can be used while moving.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Slam (Rank 5) [id=45961]"
+  },
+  {
+    "ranked_idx": 2042,
+    "en": "Increases the damage of Revenge by $s1%",
+    "curr_pt": "Vingança +$s1% dano.",
+    "count": 1,
+    "sample": "Riposte () [id=45962]"
+  },
+  {
+    "ranked_idx": 2043,
+    "en": "Restores mana to Priest's party based on a % of the shadow damage their deal to a target affected by their Vampiric Embrace spell.",
+    "curr_pt": "Mana pro grupo de % da Sombra no Abraço.",
+    "count": 1,
+    "sample": "Vampiric Touch () [id=45966]"
+  },
+  {
+    "ranked_idx": 2044,
+    "en": "Shred the target, causing $s2% damage plus 240 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shred (Rank 6) [id=45969]"
+  },
+  {
+    "ranked_idx": 2045,
+    "en": "Causes the next Mongoose Bite within $45985d to deal $45985s1% extra damage and immobilize the target for $45985d after dodging or parrying an enemy's attack.",
+    "curr_pt": "Após esquivar/aparar: próxima Mordida em $d s +$s1% e imobiliza por $d1 s.",
+    "count": 1,
+    "sample": "Counterattack () [id=45984]"
+  },
+  {
+    "ranked_idx": 2046,
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova casts, reducing their mana cost by 25 for 5 casts or 20 seconds, whichever occurs first.",
+    "curr_pt": "Castigar, Fogo e Nova: -25 mana em 5 usos ou 20 s.",
+    "count": 1,
+    "sample": "Sun's Embrace (Rank 1) [id=46043]"
+  },
+  {
+    "ranked_idx": 2047,
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova casts, reducing their mana cost by 50 for 5 casts or 20 seconds, whichever occurs first.",
+    "curr_pt": "Castigar, Fogo e Nova: -50 mana em 5 usos ou 20 s.",
+    "count": 1,
+    "sample": "Sun's Embrace (Rank 2) [id=46044]"
+  },
+  {
+    "ranked_idx": 2048,
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova casts, reducing their mana cost by 100 for 5 casts or 20 seconds, whichever occurs first.",
+    "curr_pt": "Castigar, Fogo e Nova: -100 mana em 5 usos ou 20 s.",
+    "count": 1,
+    "sample": "Sun's Embrace (Rank 3) [id=46045]"
+  },
+  {
+    "ranked_idx": 2049,
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova casts, reducing their mana cost by 150 for 5 casts or 20 seconds, whichever occurs first.",
+    "curr_pt": "Castigar, Fogo e Nova: -150 mana em 5 usos ou 20 s.",
+    "count": 1,
+    "sample": "Sun's Embrace (Rank 4) [id=46046]"
+  },
+  {
+    "ranked_idx": 2050,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $46083s1 Stamina, while reducing damage taken from critical hits and damage over time effects by $46083s2% for $46083d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=46084]"
+  },
+  {
+    "ranked_idx": 2051,
+    "en": "Teaches Wrath (Rank 9).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Wrath (Rank 9) [id=47306]"
+  },
+  {
+    "ranked_idx": 2052,
+    "en": "Teaches Smite (Rank 9).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Smite (Rank 9) [id=47307]"
+  },
+  {
+    "ranked_idx": 2053,
+    "en": "Teaches Shred (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shred (Rank 6) [id=47308]"
+  },
+  {
+    "ranked_idx": 2054,
+    "en": "Increases your pet's damage by $s1%, maximum health by $s2% and critical strike chance by $s3%.",
+    "curr_pt": "Pet: +$s1% dano, +$s2% vida, +$s3% crítico.",
+    "count": 1,
+    "sample": "Beast Mastery () [id=47354]"
+  },
+  {
+    "ranked_idx": 2055,
+    "en": "Increases your pet's damage by 3%, maximum health by 5% and critical strike chance by 2%.",
+    "curr_pt": "Pet: +3% dano, +5% vida, +2% crítico.",
+    "count": 1,
+    "sample": "Beast Mastery () [id=47355]"
+  },
+  {
+    "ranked_idx": 2056,
+    "en": "Wounds the target for 100 damage over $d and reduces healing taken by $s2%.",
+    "curr_pt": "Fere 100 em $d s e cura -$s1%.",
+    "count": 1,
+    "sample": "Bloodletting (Rank 1) [id=48008]"
+  },
+  {
+    "ranked_idx": 2057,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain 24 Healing Bonus for $24799d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Food () [id=49552]"
+  },
+  {
+    "ranked_idx": 2058,
+    "en": "Launches a bolt of frost at the enemy, causing $s2 Frost damage.",
+    "curr_pt": "Seta: $s1 de Gelo.",
+    "count": 1,
+    "sample": "Frostbolt () [id=51118]"
+  },
+  {
+    "ranked_idx": 2059,
+    "en": "Assumes a Shadowform, reducing physical damage taken by $s1%.",
+    "curr_pt": "Físico -$s1%.",
+    "count": 1,
+    "sample": "Shadowform () [id=51125]"
+  },
+  {
+    "ranked_idx": 2060,
+    "en": "Poisons +$s1.",
+    "curr_pt": "Venenos +$s1.",
+    "count": 1,
+    "sample": "Poisons () [id=51152]"
+  },
+  {
+    "ranked_idx": 2061,
+    "en": "Launches Arcane Missiles at the enemy, causing $51183s1 Arcane damage each second for $d.",
+    "curr_pt": "Mísseis: $s1 a cada segundo por $d s.",
+    "count": 1,
+    "sample": "Arcane Missiles () [id=51184]"
+  },
+  {
+    "ranked_idx": 2062,
+    "en": "Banishes nearby enemies, preventing all action for up to $d.",
+    "curr_pt": "Bane próximos até $d s.",
+    "count": 1,
+    "sample": "Banish () [id=51202]"
+  },
+  {
+    "ranked_idx": 2063,
+    "en": "Heals a friendly target to full health.",
+    "curr_pt": "Cura total do aliado.",
+    "count": 1,
+    "sample": "Heal () [id=51214]"
+  },
+  {
+    "ranked_idx": 2064,
+    "en": "Brings a dead creature back to life with $s1% of their health and mana.",
+    "curr_pt": "Ressuscita com $s1% de vida e mana.",
+    "count": 1,
+    "sample": "Redemption () [id=51216]"
+  },
+  {
+    "ranked_idx": 2065,
+    "en": "Bashes an enemy with the caster's shield, inflicting Physical damage and stunning it for $d.",
+    "curr_pt": "Escudada: Físico e atordoa por $d s.",
+    "count": 1,
+    "sample": "Shield Bash () [id=51219]"
+  },
+  {
+    "ranked_idx": 2066,
+    "en": "Blasts the target for 120 Frost damage, reducing movement speed by 20% for 2 seconds.",
+    "curr_pt": "120 Gelo e -20% por 2 s.",
+    "count": 1,
+    "sample": "Frost Shock () [id=51266]"
+  },
+  {
+    "ranked_idx": 2067,
+    "en": "Inflicts $s1 Physical damage, and reduces chance to hit by $s2% for $d.",
+    "curr_pt": "$s1 Físico e -$s2% acerto por $d s.",
+    "count": 1,
+    "sample": "Rupture () [id=51283]"
+  },
+  {
+    "ranked_idx": 2068,
+    "en": "Casting Judgement reduces the casting time of your next Holy Light by $/1000;51305S1 sec.",
+    "curr_pt": "Julgar: próxima Luz -$s1 s.",
+    "count": 1,
+    "sample": "Holy Judgement (Rank 1) [id=51304]"
+  },
+  {
+    "ranked_idx": 2069,
+    "en": "Casting Judgement reduces the casting time of your next Holy Light by $/1000;51307S1 sec.",
+    "curr_pt": "Julgar: próxima Luz -$s1 s.",
+    "count": 1,
+    "sample": "Holy Judgement (Rank 2) [id=51306]"
+  },
+  {
+    "ranked_idx": 2070,
+    "en": "Casting Judgement reduces the casting time of your next Holy Light by $/1000;51309S1 sec.",
+    "curr_pt": "Julgar: próxima Luz -$s1 s.",
+    "count": 1,
+    "sample": "Holy Judgement (Rank 3) [id=51308]"
+  },
+  {
+    "ranked_idx": 2071,
+    "en": "Increases the target's maximum health by $s1%, healing taken from Holy Light and Flash of Light by $s2%, and healing taken from Holy Shock by $s3% for $d.",
+    "curr_pt": "Vida máx +$s1%, Luz/Clarão +$s2%, Choque +$s3% por $d s.",
+    "count": 1,
+    "sample": "Daybreak () [id=51322]"
+  },
+  {
+    "ranked_idx": 2072,
+    "en": "Critically healing an ally applies Daybreak to them for $51322d. Daybreak increases their maximum health by $51322s1%, healing taken from Flash of Light and Holy Light by $51322s2% and healing taken from Holy Shock by $51322s3%.",
+    "curr_pt": "Crítico cura: Amanhecer $d s (+$s1% vida, +$s2% Luz/Clarão, +$s3% Choque).",
+    "count": 1,
+    "sample": "Daybreak () [id=51323]"
+  },
+  {
+    "ranked_idx": 2073,
+    "en": "While Righteous Fury is active, your damage taken is reduced by $51325s1%.",
+    "curr_pt": "Fúria Justa: -$s1% recebido.",
+    "count": 1,
+    "sample": "Righteous Defense (Rank 1) [id=51328]"
+  },
+  {
+    "ranked_idx": 2074,
+    "en": "While Righteous Fury is active, your damage taken is reduced by $51326s1%.",
+    "curr_pt": "Fúria Justa: -$s1% recebido.",
+    "count": 1,
+    "sample": "Righteous Defense (Rank 2) [id=51329]"
+  },
+  {
+    "ranked_idx": 2075,
+    "en": "While Righteous Fury is active, your damage taken is reduced by $51327s1%.",
+    "curr_pt": "Fúria Justa: -$s1% recebido.",
+    "count": 1,
+    "sample": "Righteous Defense (Rank 3) [id=51330]"
+  },
+  {
+    "ranked_idx": 2076,
+    "en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%.  In addition, Zeal increases the amount of damage blocked by $51336s1%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Righteous Strikes (Rank 1) [id=51341]"
+  },
+  {
+    "ranked_idx": 2077,
+    "en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%.  In addition, Zeal increases the amount of damage blocked by $51337s1%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Righteous Strikes (Rank 2) [id=51342]"
+  }
+]

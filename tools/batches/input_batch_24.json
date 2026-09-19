@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1414,
+    "en": "Taunts the target to attack you, causing a high amount of threat.  More effective than Taunt (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Taunt (Rank 6) [id=11590]"
+  },
+  {
+    "ranked_idx": 1415,
+    "en": "Slam your opponent, causing $45599s1% weapon damage.  Can be used while moving.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Slam (Rank 3) [id=11604]"
+  },
+  {
+    "ranked_idx": 1416,
+    "en": "Slam your opponent, causing $45960s1% weapon damage.  Can be used while moving.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Slam (Rank 4) [id=11605]"
+  },
+  {
+    "ranked_idx": 1417,
+    "en": "Ignites the area surrounding the caster, causing $s2 Fire damage to $ghimself:herself; and $11681s1 Fire damage to all nearby enemies within $11681a1 yards every $t2 sec.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Hellfire (Rank 2) [id=11683]"
+  },
+  {
+    "ranked_idx": 1418,
+    "en": "Ignites the area surrounding the caster, causing $s2 Fire damage to $ghimself:herself; and $11682s1 Fire damage to all nearby enemies within $11682a1 yards every $t2 sec.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Hellfire (Rank 3) [id=11684]"
+  },
+  {
+    "ranked_idx": 1419,
+    "en": "Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Torment (Rank 5) [id=11774]"
+  },
+  {
+    "ranked_idx": 1420,
+    "en": "Taunts the creature, dealing $s2 Shadow damage and increasing the chance that it will attack the Voidwalker.  More effective than Torment (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Torment (Rank 6) [id=11775]"
+  },
+  {
+    "ranked_idx": 1421,
+    "en": "Allows underwater breathing.",
+    "curr_pt": "Respira na água.",
+    "count": 1,
+    "sample": "Water Breathing () [id=11789]"
+  },
+  {
+    "ranked_idx": 1422,
+    "en": "Wraps an ally in a shield that lasts up to $d., absorbing fixed amount of Physical or magical damage. While the shield holds, spells will not be interrupted by Physical attacks.",
+    "curr_pt": "Escudo no aliado até $d s, absorve fixo. Sem interrupção.",
+    "count": 1,
+    "sample": "Power Word: Shield () [id=11835]"
+  },
+  {
+    "ranked_idx": 1423,
+    "en": "Summons an Imp to accompany the caster until dismissed.",
+    "curr_pt": "Invoca Diabrete até dispensar.",
+    "count": 1,
+    "sample": "Summon Imp () [id=11939]"
+  },
+  {
+    "ranked_idx": 1424,
+    "en": "Bashes an enemy with the caster's shield, inflicting Physical damage and interrupting the spell being cast for $d.",
+    "curr_pt": "Escudada: Físico e interrompe por $d s.",
+    "count": 1,
+    "sample": "Shield Bash () [id=11972]"
+  },
+  {
+    "ranked_idx": 1425,
+    "en": "When activated, your casting speed is increased by $s1% while draining $s2% of your maximum mana every second and reducing all mana gain by $s3%.\nFalling below 10% maximum mana causes you to violently combust from uncontrollable power, killing you instantly.  Lasts $d and cannot be cancelled.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Arcane Power () [id=12042]"
+  },
+  {
+    "ranked_idx": 1426,
+    "en": "When activated, your next Mage spell with a casting time less than 10 sec becomes an instant cast spell.",
+    "curr_pt": "Próxima magia <10 s vira instantânea.",
+    "count": 1,
+    "sample": "Presence of Mind () [id=12043]"
+  },
+  {
+    "ranked_idx": 1427,
+    "en": "While channeling this spell, your mana regeneration is active and increased by $s1%.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Evocation () [id=12051]"
+  },
+  {
+    "ranked_idx": 1428,
+    "en": "Increases the caster's chance to block by $s1% for $d., but will only block $n $lattack:attacks;.",
+    "curr_pt": "Bloqueio +$s1% por $d s, até $n ataques.",
+    "count": 1,
+    "sample": "Shield Block () [id=12169]"
+  },
+  {
+    "ranked_idx": 1429,
+    "en": "Reduces the cost of your Heroic Strike ability by $/10;s1 rage point.",
+    "curr_pt": "Golpe Heroico -$s1 fúria.",
+    "count": 1,
+    "sample": "Improved Heroic Strike (Rank 1) [id=12282]"
+  },
+  {
+    "ranked_idx": 1430,
+    "en": "Your next $n abilities and main-hand melee attacks strike an additional nearby opponent.",
+    "curr_pt": "Próximas $n + corpo a corpo atingem +1.",
+    "count": 1,
+    "sample": "Sweeping Strikes () [id=12292]"
+  },
+  {
+    "ranked_idx": 1431,
+    "en": "Reduces the cost of your Sunder Armor ability by $/10;s1 rage point.",
+    "curr_pt": "Sunder -$s1 fúria.",
+    "count": 1,
+    "sample": "Improved Sunder Armor (Rank 1) [id=12308]"
+  },
+  {
+    "ranked_idx": 1432,
+    "en": "Your Shield Slam has an additional $h% chance to dispel 1 magic effect on the target and your Shield Bash ability has a 50% chance to silence the target for $18498d.",
+    "curr_pt": "Esmagamento +$h% de dissipar; Porrada 50% de silenciar por $d s.",
+    "count": 1,
+    "sample": "Gag Order (Rank 1) [id=12311]"
+  },
+  {
+    "ranked_idx": 1433,
+    "en": "Gives you a $12880s1% melee damage bonus for $12880d after being the victim of a critical strike.",
+    "curr_pt": "+$s1% dano corpo a corpo por $d s após crítico.",
+    "count": 1,
+    "sample": "Enrage (Rank 1) [id=12317]"
+  },
+  {
+    "ranked_idx": 1434,
+    "en": "Increases your attack speed by $12966s1% for your next $12966n swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 1) [id=12319]"
+  },
+  {
+    "ranked_idx": 1435,
+    "en": "Gives your Intimidating Shout a 75% chance to cause 1 additional enemy to cower in fear rather than flee.",
+    "curr_pt": "Grito: 75% de +1 encolhido em vez de fugir.",
+    "count": 1,
+    "sample": "Improved Intimidating Shout (Rank 1) [id=12326]"
+  },
+  {
+    "ranked_idx": 1436,
+    "en": "When activated, increases your physical damage by $s1% and makes you immune to Fear effects, but lowers your armor and all resistances by $s3%.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Death Wish () [id=12328]"
+  },
+  {
+    "ranked_idx": 1437,
+    "en": "Gives your fire spells a $s1% chance to not lose casting time when you take damage.",
+    "curr_pt": "Dá às magias de fogo $s1% de chance de não perder tempo ao sofrer dano.",
+    "count": 1,
+    "sample": "Burning Soul (Rank 3) [id=12352]"
+  },
+  {
+    "ranked_idx": 1438,
+    "en": "Reduces your fall speed for $d.",
+    "curr_pt": "Queda devagar por $d s.",
+    "count": 1,
+    "sample": "Slow Fall () [id=12438]"
+  },
+  {
+    "ranked_idx": 1439,
+    "en": "Adds a chill effect to your Blizzard spell.  This effect lowers the target's movement speed by $12485s1%.  Lasts $12485d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Improved Blizzard (Rank 2) [id=12487]"
+  },
+  {
+    "ranked_idx": 1440,
+    "en": "Adds a chill effect to your Blizzard spell.  This effect lowers the target's movement speed by $12486s1%.  Lasts $12486d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Improved Blizzard (Rank 3) [id=12488]"
+  },
+  {
+    "ranked_idx": 1441,
+    "en": "Hurls an immense fiery boulder that causes $s1 fire damage and an additional $o2 damage over $d.",
+    "curr_pt": "Pedregulho ígneo de $s1 e +$s2 em $d s.",
+    "count": 1,
+    "sample": "Pyroblast (Rank 8) [id=12527]"
+  },
+  {
+    "ranked_idx": 1442,
+    "en": "Encases the caster in a layer of frost that lasts $d. The thick ice increases armor by $s1, slows melee attackers' movement to $6136s2%, and increases the time between their attacks by $6136s1%.",
+    "curr_pt": "Gelo $d s: +$s1 armadura, atacante -$s2% velocidade e +$s3% intervalo.",
+    "count": 1,
+    "sample": "Frost Armor () [id=12544]"
+  },
+  {
+    "ranked_idx": 1443,
+    "en": "Increases the effect of your Amplify Magic and Dampen Magic spells by $s1%.",
+    "curr_pt": "Amplificar -$s1% efeito.",
+    "count": 1,
+    "sample": "[Deprecated] Magic Attunement (Rank 2) [id=12606]"
+  },
+  {
+    "ranked_idx": 1444,
+    "en": "Reduces threat level on all enemies by a small amount for $d.",
+    "curr_pt": "Ameaça - um pouco por $d s.",
+    "count": 1,
+    "sample": "Fade () [id=12685]"
+  },
+  {
+    "ranked_idx": 1445,
+    "en": "Gives your Pummel ability a $s1% chance to slow the target.",
+    "curr_pt": "Esmurrar: $s1% de lentidão.",
+    "count": 1,
+    "sample": "Improved Pummel (Rank 3) [id=12708]"
+  },
+  {
+    "ranked_idx": 1446,
+    "en": "Summons $s1 $lVoidwalker:Voidwalkers; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Emissários até dispensar.",
+    "count": 1,
+    "sample": "Summon Voidwalker () [id=12746]"
+  },
+  {
+    "ranked_idx": 1447,
+    "en": "Your critical strikes cause the opponent to bleed, dealing 20% of your melee weapon's average damage over $12721d.",
+    "curr_pt": "Crítico sangra 20% da arma em $d s.",
+    "count": 1,
+    "sample": "Deep Wounds (Rank 1) [id=12834]"
+  },
+  {
+    "ranked_idx": 1448,
+    "en": "Your critical strikes from Fire damage spells cause the target to burn for an additional 24% of your spell's damage over $12654d.",
+    "curr_pt": "Crítico de Fogo queima +24% em $d s.",
+    "count": 1,
+    "sample": "Ignite (Rank 3) [id=12846]"
+  },
+  {
+    "ranked_idx": 1449,
+    "en": "Your critical strikes from Fire damage spells cause the target to burn for an additional 32% of your spell's damage over $12654d.",
+    "curr_pt": "Crítico de Fogo queima +32% em $d s.",
+    "count": 1,
+    "sample": "Ignite (Rank 4) [id=12847]"
+  },
+  {
+    "ranked_idx": 1450,
+    "en": "Your critical strikes from Fire damage spells cause the target to burn for an additional 40% of your spell's damage over $12654d.",
+    "curr_pt": "Crítico de Fogo queima +40% em $d s.",
+    "count": 1,
+    "sample": "Ignite (Rank 5) [id=12848]"
+  },
+  {
+    "ranked_idx": 1451,
+    "en": "Your critical strikes cause the opponent to bleed, dealing 40% of your melee weapon's average damage over $12721d.",
+    "curr_pt": "Crítico sangra 40% da arma em $d s.",
+    "count": 1,
+    "sample": "Deep Wounds (Rank 2) [id=12849]"
+  },
+  {
+    "ranked_idx": 1452,
+    "en": "Allows your Shield Block ability to block an additional attack and increases the duration by $/1000;s2 seconds.",
+    "curr_pt": "Bloqueio: +1 ataque e +$s1 s.",
+    "count": 1,
+    "sample": "Improved Shield Block (Rank 3) [id=12944]"
+  },
+  {
+    "ranked_idx": 1453,
+    "en": "Allows your Shield Block ability to block an additional attack and increases the duration by 0.$/100;s2 second.",
+    "curr_pt": "Bloqueio: +1 ataque e +0.$s1 s.",
+    "count": 1,
+    "sample": "Improved Shield Block (Rank 1) [id=12945]"
+  },
+  {
+    "ranked_idx": 1454,
+    "en": "Increases Defense by $s1, Shadow resistance by $s2 and your normal health regeneration by 3.",
+    "curr_pt": "Defesa +$s1, Sombra +$s2 e +3 regen.",
+    "count": 1,
+    "sample": "Demon Armor (Rank 1) [id=12956]"
+  },
+  {
+    "ranked_idx": 1455,
+    "en": "Your Shield Slam has an additional $h% chance to dispel 1 magic effect on the target and your Shield Bash ability has a 100% chance to silence the target for $18498d.",
+    "curr_pt": "Esmagamento +$h% de dissipar; Porrada 100% de silenciar por $d s.",
+    "count": 1,
+    "sample": "Gag Order (Rank 2) [id=12958]"
+  },
+  {
+    "ranked_idx": 1456,
+    "en": "Increases your attack speed by $12967s1% for your next $12967n swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 2) [id=12971]"
+  },
+  {
+    "ranked_idx": 1457,
+    "en": "Increases your attack speed by $12968s1% for your next $12968n swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 3) [id=12972]"
+  },
+  {
+    "ranked_idx": 1458,
+    "en": "Increases your attack speed by $12969s1% for your next $12969n swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 4) [id=12973]"
+  },
+  {
+    "ranked_idx": 1459,
+    "en": "Increases your attack speed by $12970s1% for your next $12970n swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos $n golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 5) [id=12974]"
+  },
+  {
+    "ranked_idx": 1460,
+    "en": "Protects the caster from all attacks and spells for $d., but during that time the caster also cannot attack or use spells.",
+    "curr_pt": "Protege de tudo por $d s, sem agir.",
+    "count": 1,
+    "sample": "Divine Protection () [id=13007]"
+  },
+  {
+    "ranked_idx": 1461,
+    "en": "Gives you a $14201s1% melee damage bonus for $14201d after being the victim of a critical strike.",
+    "curr_pt": "+$s1% dano corpo a corpo por $d s após crítico.",
+    "count": 1,
+    "sample": "Enrage (Rank 2) [id=13045]"
+  },
+  {
+    "ranked_idx": 1462,
+    "en": "Gives you a $14202s1% melee damage bonus for $14202d after being the victim of a critical strike.",
+    "curr_pt": "+$s1% dano corpo a corpo por $d s após crítico.",
+    "count": 1,
+    "sample": "Enrage (Rank 3) [id=13046]"
+  },
+  {
+    "ranked_idx": 1463,
+    "en": "Gives you a $14203s1% melee damage bonus for $14203d after being the victim of a critical strike.",
+    "curr_pt": "+$s1% dano corpo a corpo por $d s após crítico.",
+    "count": 1,
+    "sample": "Enrage (Rank 4) [id=13047]"
+  }
+]

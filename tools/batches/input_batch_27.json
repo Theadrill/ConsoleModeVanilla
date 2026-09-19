@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 1568,
+    "en": "Gives you a $h% chance to enter a Clearcasting state after casting any Fire, Frost, or Nature damage spell.  The Clearcasting state reduces the mana cost of your next damage spell by $16246s1%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Elemental Focus () [id=16164]"
+  },
+  {
+    "ranked_idx": 1569,
+    "en": "When activated, this spell gives you $s3 $lstack:stacks; of Electrify and grants your next offensive spell a $s1% critical strike chance and a $s2% mana cost reduction.",
+    "curr_pt": "+$s1 de Eletrificar; próxima ofensiva +$s2% crítico e -$s3% custo.",
+    "count": 1,
+    "sample": "Elemental Mastery () [id=16166]"
+  },
+  {
+    "ranked_idx": 1570,
+    "en": "Increases your target's armor value by $16177s1% for $16177d after getting a critical effect from one of your healing spells.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Ancestral Healing (Rank 1) [id=16176]"
+  },
+  {
+    "ranked_idx": 1571,
+    "en": "When activated, your next Nature spell with a casting time less than 10 sec becomes an instant cast spell.",
+    "curr_pt": "Próxima Natureza <10 s vira instantânea.",
+    "count": 1,
+    "sample": "Nature's Swiftness () [id=16188]"
+  },
+  {
+    "ranked_idx": 1572,
+    "en": "The radius of your totems that affect friendly targets is increased to 30 yd.",
+    "curr_pt": "Totem bom a 30 m.",
+    "count": 1,
+    "sample": "Totemic Mastery () [id=16189]"
+  },
+  {
+    "ranked_idx": 1574,
+    "en": "Increases an enemy's attack power by $s1, but reduces its armor by $s2 for $d. Cursed enemies will ignore fear effects and refuse to flee from combat. Only one curse per warlock can be active on any one target.",
+    "curr_pt": "+$s1 poder e -$s2 armadura por $d s. Ignora medo, não foge. Uma maldição por Bruxo.",
+    "count": 1,
+    "sample": "Curse of Recklessness () [id=16231]"
+  },
+  {
+    "ranked_idx": 1575,
+    "en": "Increases your target's armor value by $16236s1% for $16236d after getting a critical effect from one of your healing spells.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Ancestral Healing (Rank 2) [id=16235]"
+  },
+  {
+    "ranked_idx": 1576,
+    "en": "Increases your target's armor value by $16237s1% for $16237d after getting a critical effect from one of your healing spells.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Ancestral Healing (Rank 3) [id=16240]"
+  },
+  {
+    "ranked_idx": 1577,
+    "en": "Increases your target's armor value by $16238s1% for $16238d after getting a critical effect from one of your healing spells.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Ancestral Healing (Rank 4) [id=16241]"
+  },
+  {
+    "ranked_idx": 1578,
+    "en": "Increases your target's armor value by $16239s1% for $16239d after getting a critical effect from one of your healing spells.",
+    "curr_pt": "Crítico com cura: +$s1% armadura por $d s.",
+    "count": 1,
+    "sample": "Ancestral Healing (Rank 5) [id=16242]"
+  },
+  {
+    "ranked_idx": 1579,
+    "en": "Increases your attack speed by $16257s1% for your next 3 swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 1) [id=16256]"
+  },
+  {
+    "ranked_idx": 1580,
+    "en": "Imbuing your weapon gives you a special benefit based on the imbue.\r\n\r\nFlametongue: Increases the damage done by your Fire Totems and spells by $s2%.\r\n\r\nRockbiter: Reduces your damage taken by $s1%.\r\n\r\nFrostbrand: Increases the chance to proc the effect by $s3% and becomes guaranteed to critically hit if the target is afflicted with Frost Shock.\r\n\r\nWindfury: If one of the bonus attacks doesn't land, your attack speed is increased by $51388s1% for your next strike.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Elemental Weapons (Rank 1) [id=16266]"
+  },
+  {
+    "ranked_idx": 1581,
+    "en": "Increases your attack speed by $16277s1% for your next 3 swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 2) [id=16281]"
+  },
+  {
+    "ranked_idx": 1582,
+    "en": "Increases your attack speed by $16278s1% for your next 3 swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 3) [id=16282]"
+  },
+  {
+    "ranked_idx": 1583,
+    "en": "Increases your attack speed by $16279s1% for your next 3 swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 4) [id=16283]"
+  },
+  {
+    "ranked_idx": 1584,
+    "en": "Increases your attack speed by $16280s1% for your next 3 swings after dealing a melee critical strike.",
+    "curr_pt": "Crítico: +$s1% velocidade nos próximos 3 golpes.",
+    "count": 1,
+    "sample": "Flurry (Rank 5) [id=16284]"
+  },
+  {
+    "ranked_idx": 1585,
+    "en": "Increases the amount of damage absorbed by your Stoneskin Totem by $s1%.",
+    "curr_pt": "Pele de Pedra +$s1% absorção.",
+    "count": 1,
+    "sample": "Improved Stoneskin Totem (Rank 3) [id=16294]"
+  },
+  {
+    "ranked_idx": 1586,
+    "en": "Increases the amount of Strength raised by your Strength of Earth Totem by $s1%.",
+    "curr_pt": "Força da Terra +$s1% For.",
+    "count": 1,
+    "sample": "Improved Strength of Earth Totem (Rank 3) [id=16296]"
+  },
+  {
+    "ranked_idx": 1587,
+    "en": "Increases the melee attack power bonus of your Windfury Weapon effect by $s1%.",
+    "curr_pt": "Fúria dos Ventos +$s1% poder.",
+    "count": 1,
+    "sample": "Improved Windfury Weapon (Rank 2) [id=16297]"
+  },
+  {
+    "ranked_idx": 1588,
+    "en": "Imbue the Shaman's weapon, increasing melee attack power by $16311s1 and all threat caused by $16311s2% when using that weapon.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.",
+    "count": 1,
+    "sample": "Rockbiter Weapon (Rank 5) [id=16314]"
+  },
+  {
+    "ranked_idx": 1589,
+    "en": "Imbue the Shaman's weapon, increasing melee attack power by $16312s1 and all threat caused by $16312s2% when using that weapon.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.",
+    "count": 1,
+    "sample": "Rockbiter Weapon (Rank 6) [id=16315]"
+  },
+  {
+    "ranked_idx": 1590,
+    "en": "Imbue the Shaman's weapon, increasing melee attack power by $16313s1 and all threat caused by $16313s2% when using that weapon.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã, aumentando o poder de ataque corpo a corpo em $s1 e toda a ameaça gerada em $s2% ao usar esta arma. Dura 1 hora.",
+    "count": 1,
+    "sample": "Rockbiter Weapon (Rank 7) [id=16316]"
+  },
+  {
+    "ranked_idx": 1591,
+    "en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;10445m1 to $/25;10445M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.",
+    "count": 1,
+    "sample": "Flametongue Weapon (Rank 4) [id=16339]"
+  },
+  {
+    "ranked_idx": 1592,
+    "en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;16343m1 to $/25;16343M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.",
+    "count": 1,
+    "sample": "Flametongue Weapon (Rank 5) [id=16341]"
+  },
+  {
+    "ranked_idx": 1593,
+    "en": "Imbue the Shaman's weapon with fire.  Each hit causes $/77;16344m1 to $/25;16344M1 additional Fire damage, based on the speed of the weapon.  Slower weapons cause more fire damage per swing.  Lasts for 1 hour.",
+    "curr_pt": "Encanta a arma do Xamã com fogo. Cada golpe causa de $s1 a $s2 de dano de Fogo adicional, com base na velocidade da arma. Armas mais lentas causam mais dano de fogo por golpe. Dura 1 hora.",
+    "count": 1,
+    "sample": "Flametongue Weapon (Rank 6) [id=16342]"
+  },
+  {
+    "ranked_idx": 1594,
+    "en": "Imbue the Shaman's weapon with frost.  Each hit has a chance of causing $16352s2 additional Frost damage and slowing the target's movement speed by $16352s1% for $16352d.  Lasts for 1 hour.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbrand Weapon (Rank 4) [id=16355]"
+  },
+  {
+    "ranked_idx": 1595,
+    "en": "Imbue the Shaman's weapon with frost.  Each hit has a chance of causing $16353s2 additional Frost damage and slowing the target's movement speed by $16353s1% for $16353d.  Lasts for 1 hour.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbrand Weapon (Rank 5) [id=16356]"
+  },
+  {
+    "ranked_idx": 1596,
+    "en": "Imbue the Shaman's weapon with wind. Each hit has a 20% chance of granting you $16361s2 extra $lattack:attacks; with $16361s1 extra melee attack power. Lasts for 1 hour.",
+    "curr_pt": "Imbui a arma do Xamã com vento. Cada golpe tem 20% de chance de conceder $s1 ataques extras com $s2 de poder de ataque corpo a corpo adicional. Dura 1 hora.",
+    "count": 1,
+    "sample": "Windfury Weapon (Rank 4) [id=16362]"
+  },
+  {
+    "ranked_idx": 1598,
+    "en": "Regenerates $16488o1% of your total Health over $16488d after being the victim of a critical strike.",
+    "curr_pt": "Regenera $s1% da sua vida total em $d s após sofrer um golpe crítico.",
+    "count": 1,
+    "sample": "Blood Craze (Rank 1) [id=16487]"
+  },
+  {
+    "ranked_idx": 1599,
+    "en": "Regenerates $16490o1% of your total Health over $16490d after being the victim of a critical strike.",
+    "curr_pt": "Regenera $s1% da sua vida total em $d s após sofrer um golpe crítico.",
+    "count": 1,
+    "sample": "Blood Craze (Rank 2) [id=16489]"
+  },
+  {
+    "ranked_idx": 1600,
+    "en": "Regenerates $16491o1% of your total Health over $16491d after being the victim of a critical strike.",
+    "curr_pt": "Regenera $s1% da sua vida total em $d s após sofrer um golpe crítico.",
+    "count": 1,
+    "sample": "Blood Craze (Rank 3) [id=16492]"
+  },
+  {
+    "ranked_idx": 1601,
+    "en": "An instant strike that damages the opponent and causes the target to hemorrhage, increasing any Physical damage dealt to the target by $s3%.  Lasts $n charges or $d.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Hemorrhage () [id=16511]"
+  },
+  {
+    "ranked_idx": 1602,
+    "en": "Deals $s1 damage when you are the victim of a critical melee strike.",
+    "curr_pt": "Causa $s1 de dano quando você sofre um crítico corpo a corpo.",
+    "count": 1,
+    "sample": "Bonespike (Rank 1) [id=16550]"
+  },
+  {
+    "ranked_idx": 1603,
+    "en": "Channels the power of Shadow for $d., healing an ally for up to $o1 damage, but reducing the caster's own health regeneration by $s2%.",
+    "curr_pt": "Canaliza Sombra $d s: cura até $s1 e -$s2% sua regen.",
+    "count": 1,
+    "sample": "Health Funnel () [id=16569]"
+  },
+  {
+    "ranked_idx": 1604,
+    "en": "Transfers $s1 health every $t1 seconds from the target to the caster for $d.",
+    "curr_pt": "Transfere $s1 de vida do alvo para você a cada $t1 s por $d s.",
+    "count": 1,
+    "sample": "Demonfork (Rank 1) [id=16603]"
+  },
+  {
+    "ranked_idx": 1605,
+    "en": "Transfers $s1 health every $t1 from the target to the caster for $d.",
+    "curr_pt": "Transfere $s1 a cada $t1 s por $d s.",
+    "count": 1,
+    "sample": "Drain Life () [id=16608]"
+  },
+  {
+    "ranked_idx": 1606,
+    "en": "Does $s1 additional Lightning damage to the target.",
+    "curr_pt": "+$s1 de Raio no alvo.",
+    "count": 1,
+    "sample": "Lightning Strike () [id=16614]"
+  },
+  {
+    "ranked_idx": 1607,
+    "en": "While active, any time an enemy strikes the caster they have a $h% chance to become afflicted by Entangling Roots (Rank 1).  Only useable outdoors.  $n charge.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Nature's Grasp (Rank 1) [id=16689]"
+  },
+  {
+    "ranked_idx": 1608,
+    "en": "While active, any time an enemy strikes the caster they have a $h% chance to become afflicted by Entangling Roots (Rank 2).  Only useable outdoors.  $n charge.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Nature's Grasp (Rank 2) [id=16810]"
+  },
+  {
+    "ranked_idx": 1609,
+    "en": "While active, any time an enemy strikes the caster they have a $h% chance to become afflicted by Entangling Roots (Rank 3).  Only useable outdoors.  $n charge.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Nature's Grasp (Rank 3) [id=16811]"
+  },
+  {
+    "ranked_idx": 1610,
+    "en": "While active, any time an enemy strikes the caster they have a $h% chance to become afflicted by Entangling Roots (Rank 4).  Only useable outdoors.  $n charge.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Nature's Grasp (Rank 4) [id=16812]"
+  },
+  {
+    "ranked_idx": 1611,
+    "en": "While active, any time an enemy strikes the caster they have a $h% chance to become afflicted by Entangling Roots (Rank 5).  Only useable outdoors.  $n charge.  Lasts $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Nature's Grasp (Rank 5) [id=16813]"
+  },
+  {
+    "ranked_idx": 1612,
+    "en": "Gives your Thorns spell a 20% chance to cause the target to take an additional 100% damage.",
+    "curr_pt": "Dá aos Espinhos 20% de chance de +100% de dano no alvo.",
+    "count": 1,
+    "sample": "Improved Thorns (Rank 4) [id=16841]"
+  },
+  {
+    "ranked_idx": 1613,
+    "en": "Gives your Thorns spell a 25% chance to cause the target to take an additional 100% damage.",
+    "curr_pt": "Dá aos Espinhos 25% de chance de +100% de dano no alvo.",
+    "count": 1,
+    "sample": "Improved Thorns (Rank 5) [id=16842]"
+  },
+  {
+    "ranked_idx": 1614,
+    "en": "Imbues the Druid with natural energy.  Each of the Druid's melee attacks or offensive spell casts has a chance of causing the caster to enter a Clearcasting state.  The Clearcasting state reduces the Mana, Rage or Energy cost of your next damage or healing spell or offensive ability by $16870s1%.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Omen of Clarity (Passive) [id=16864]"
+  },
+  {
+    "ranked_idx": 1615,
+    "en": "Increases the target's Intellect by $M1 for $d.",
+    "curr_pt": "Aumenta o Intelecto do alvo em $s1 por $d s.",
+    "count": 1,
+    "sample": "Arcane Intellect (Rank 5) [id=16876]"
+  },
+  {
+    "ranked_idx": 1616,
+    "en": "All spell criticals grace you with a blessing of nature, reducing the casting time of your next spell by $/1000;16886S1 sec.",
+    "curr_pt": "Crítico: próxima -$s1 s.",
+    "count": 1,
+    "sample": "Nature's Grace () [id=16880]"
+  },
+  {
+    "ranked_idx": 1617,
+    "en": "Allows the caster to breathe underwater for $d.",
+    "curr_pt": "Respira na água por $d s.",
+    "count": 1,
+    "sample": "Water Breathing () [id=16881]"
+  },
+  {
+    "ranked_idx": 1618,
+    "en": "Dispels a magic effect on the current foe.",
+    "curr_pt": "Dissipa 1 magia do inimigo.",
+    "count": 1,
+    "sample": "Dispel Magic () [id=16908]"
+  },
+  {
+    "ranked_idx": 1619,
+    "en": "Blasts up to 3 targets for $s1 Nature damage.",
+    "curr_pt": "Cadeia em até 3: $s1 de Natureza.",
+    "count": 1,
+    "sample": "Chain Lightning () [id=16921]"
+  }
+]

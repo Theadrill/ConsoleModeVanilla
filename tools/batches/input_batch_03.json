@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 303,
+    "en": "Places the Hunter's Mark on the target, increasing the Ranged Attack Power of all attackers against that target by $s2.  In addition, the target of this ability can always be seen by the hunter whether it stealths or turns invisible.  The target also appears on the mini-map.  Lasts for $d.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Hunter's Mark (Rank 1) [id=1130]"
+  },
+  {
+    "ranked_idx": 304,
+    "en": "Swiftly attack the enemy for $s2% of weapon damage plus an additional $s1 damage.",
+    "curr_pt": "Ataca o inimigo de pronto com $s1% do dano de arma mais $s2 de dano adicional.",
+    "count": 4,
+    "sample": "Mongoose Bite (Rank 1) [id=1495]"
+  },
+  {
+    "ranked_idx": 305,
+    "en": "Continuously fires a volley of ammo at the target area, causing $s1 Arcane damage to enemy targets within $a1 yards every second for $d.",
+    "curr_pt": "Dispara uma saraivada na área com $s1 de dano Arcano a cada segundo por $d s nos inimigos a até $a1 m.",
+    "count": 4,
+    "sample": "Volley (Rank 1) [id=1510]"
+  },
+  {
+    "ranked_idx": 306,
+    "en": "Instantly fires your weapon, causing $s1 additional damage.",
+    "curr_pt": "Atira com a arma na hora, causando $s1 de dano adicional.",
+    "count": 4,
+    "sample": "Quick Shot (Rank 1) [id=1516]"
+  },
+  {
+    "ranked_idx": 307,
+    "en": "Maims the enemy, causing $s1 damage and slowing the enemy's movement by $s2% for $d.",
+    "curr_pt": "Aleija o inimigo com $s1 de dano e -$s2% de velocidade por $d s.",
+    "count": 4,
+    "sample": "Hamstring (Rank 1) [id=1715]"
+  },
+  {
+    "ranked_idx": 308,
+    "en": "A quick kick that injures a single foe for $s1 damage.  It also interrupts spellcasting and prevents any spell in that school from being cast for $d.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Kick (Rank 1) [id=1766]"
+  },
+  {
+    "ranked_idx": 309,
+    "en": "Allows the rogue to sneak around, but reduces your speed by $s3%.  Lasts until cancelled.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Stealth (Rank 1) [id=1784]"
+  },
+  {
+    "ranked_idx": 310,
+    "en": "Rake the target for $s1 damage and an additional $o2 damage over $d. Damage is increased by your Attack Power. Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "Ancinha o alvo com $s1 de dano e mais $s2 ao longo de $d s, maior com seu Poder de Ataque. Concede $s3 pontos de combo.",
+    "count": 4,
+    "sample": "Rake (Rank 1) [id=1822]"
+  },
+  {
+    "ranked_idx": 311,
+    "en": "Fire a long range shot at the enemy, causing $s1 additional damage.",
+    "curr_pt": "Atira de longe no inimigo com $s1 de dano adicional.",
+    "count": 4,
+    "sample": "Sniper Shot (Rank 1) [id=1960]"
+  },
+  {
+    "ranked_idx": 312,
+    "en": "Inflicts $s2% of weapon damage and reduces the enemy target's movement speed by $s1% for $d.",
+    "curr_pt": "Causa $s1% do dano de arma e reduz a velocidade do alvo em $s2% por $d s.",
+    "count": 4,
+    "sample": "Wing Clip (Rank 1) [id=2974]"
+  },
+  {
+    "ranked_idx": 313,
+    "en": "Stings the target, draining $o1 mana over $d.  Only one Sting per Hunter can be active on any one target.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Viper Sting (Rank 1) [id=3034]"
+  },
+  {
+    "ranked_idx": 314,
+    "en": "Inflicts normal damage plus $s1 to an enemy, stunning it for $d.",
+    "curr_pt": "Causa dano normal mais $s1 ao inimigo, atordoando-o por $d s.",
+    "count": 4,
+    "sample": "Ravage () [id=3242]"
+  },
+  {
+    "ranked_idx": 315,
+    "en": "Increases Holy spell and ability damage by 3 and the effect from Holy healing by 6.",
+    "curr_pt": "Aumenta o dano Sagrado de magias e habilidades em 3 e a cura Sagrada em 6.",
+    "count": 4,
+    "sample": "Holy Specialization (Rank 7) [id=4830]"
+  },
+  {
+    "ranked_idx": 316,
+    "en": "Transfers $*5;s1 Mana from the target to the caster over $d.",
+    "curr_pt": "Transfere $s1 de Mana do alvo para você ao longo de $d s.",
+    "count": 4,
+    "sample": "Drain Mana (Rank 1) [id=5138]"
+  },
+  {
+    "ranked_idx": 317,
+    "en": "Silences an enemy, preventing it from casting spells for $d.",
+    "curr_pt": "Silencia o inimigo, impedindo-o de lançar magias por $d s.",
+    "count": 4,
+    "sample": "Silence () [id=6726]"
+  },
+  {
+    "ranked_idx": 318,
+    "en": "Causes the enemy target to run in horror for $d and causes $s1 Shadow damage.  The caster gains 100% of the damage caused in health.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Death Coil (Rank 1) [id=6789]"
+  },
+  {
+    "ranked_idx": 319,
+    "en": "Reduces an enemy's armor by $s1 for $d. While affected, the target cannot use stealth or invisibility.",
+    "curr_pt": "Reduz a armadura do inimigo em $s1 por $d s, sem furtivo nem invisibilidade.",
+    "count": 4,
+    "sample": "Faerie Fire () [id=6950]"
+  },
+  {
+    "ranked_idx": 320,
+    "en": "Inflicts normal damage plus $s1 to an enemy, but only if attacking from behind. ",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Backstab () [id=7159]"
+  },
+  {
+    "ranked_idx": 321,
+    "en": "Increases Armor by $s1 and frost resistance by $s3.   If an enemy strikes the caster, they may have their movement slowed by $7321s2% and the time between their attacks increased by $7321s1% for $7321d.  Only one type of Armor spell can be active on the Mage at any time.  Lasts $d.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Ice Armor (Rank 1) [id=7302]"
+  },
+  {
+    "ranked_idx": 322,
+    "en": "Instantly overpower the enemy, causing melee damage plus $s1.  Only useable after the target dodges.  The Overpower cannot be blocked, dodged or parried.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Overpower (Rank 1) [id=7384]"
+  },
+  {
+    "ranked_idx": 323,
+    "en": "Call forth a succubus using the summoning circle.",
+    "curr_pt": "Invoca uma súcubo pelo círculo.",
+    "count": 4,
+    "sample": "Summon Succubus (Rank 1) [id=7729]"
+  },
+  {
+    "ranked_idx": 324,
+    "en": "Instantly sears the target with fire, causing $s1 Fire damage immediately and $o2 Fire damage over $d.",
+    "curr_pt": "Chamusca o alvo na hora com $s1 de dano de Fogo e $s2 de Fogo ao longo de $d s.",
+    "count": 4,
+    "sample": "Flame Shock (Rank 1) [id=8050]"
+  },
+  {
+    "ranked_idx": 325,
+    "en": "Instantly shields you, absorbing $s1 damage and increasing your Frost damage by $s2%.  Lasts $d.  While the shield holds, spells will not be interrupted.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Ice Barrier (Rank 1) [id=11426]"
+  },
+  {
+    "ranked_idx": 326,
+    "en": "Reduces the Physical damage dealt by an enemy by $s1 for $d. Only one curse per warlock can be active on any one target.",
+    "curr_pt": "Reduz o dano Físico do inimigo em $s1 por $d s. Só uma maldição por Bruxo no alvo.",
+    "count": 4,
+    "sample": "Curse of Weakness () [id=11980]"
+  },
+  {
+    "ranked_idx": 327,
+    "en": "Strikes fear in an enemy, causing it to flee in terror for up to $d. Only 1 target can be feared at a time.",
+    "curr_pt": "Mete medo no inimigo, fazendo-o fugir apavorado por até $d s. Só um alvo com medo por vez.",
+    "count": 4,
+    "sample": "Fear () [id=12096]"
+  },
+  {
+    "ranked_idx": 328,
+    "en": "A vicious strike that deals $s2% weapon damage and wounds the target, reducing the effectiveness of any healing by $s1% for $d.",
+    "curr_pt": "Um golpe cruel que causa $s1% do dano de arma e reduz a cura recebida em $s2% por $d s.",
+    "count": 4,
+    "sample": "Mortal Strike (Rank 1) [id=12294]"
+  },
+  {
+    "ranked_idx": 329,
+    "en": "Inflicts $s1 damage to an enemy and stuns it for up to $d. You will automatically stop attacking. Target must be facing you. Any damage received by the stunned target will revive it.",
+    "curr_pt": "Causa $s1 de dano e atordoa por até $d s, parando seu ataque. O alvo precisa estar de frente. Dano no atordoado o reanima.",
+    "count": 4,
+    "sample": "Gouge () [id=12540]"
+  },
+  {
+    "ranked_idx": 330,
+    "en": "Your next $n melee weapon swings strike an additional nearby opponent.",
+    "curr_pt": "Seus próximos $n golpes corpo a corpo atingem mais um oponente.",
+    "count": 4,
+    "sample": "Sweeping Strikes (Rank 1) [id=12723]"
+  },
+  {
+    "ranked_idx": 331,
+    "en": "Transforms an enemy into a sheep, forcing it to wander around for up to $d. While wandering, the sheep cannot attack or cast spells, but regenerates very quickly. Any damage will transform the target back into its normal form. Only one target can be polymorphed at a time. Only works on beasts, dragons, giants, humanoids, and critters.",
+    "curr_pt": "Transforma o inimigo numa ovelha que vaga por até $d s sem atacar nem lançar, mas se regenerando rápido. Qualquer dano reverte. Só um alvo por vez. Feras, dragões, gigantes, humanoides e bichos.",
+    "count": 4,
+    "sample": "Polymorph () [id=13323]"
+  },
+  {
+    "ranked_idx": 332,
+    "en": "Reduces the cooldown of your Stealth ability by $/1000;s1 secs.",
+    "curr_pt": "Reduz a recarga da Furtividade em $s1 s.",
+    "count": 4,
+    "sample": "Rapid Concealment (Rank 2) [id=14058]"
+  },
+  {
+    "ranked_idx": 333,
+    "en": "Stings the target, reducing Strength and Agility by $s1 for $d.  Only one Sting per Hunter can be active on any one target.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "[Deprecated] Scorpid Sting (Rank 2) [id=14275]"
+  },
+  {
+    "ranked_idx": 334,
+    "en": "Fires several missiles, hitting $x1 targets for an additional $s1 damage.",
+    "curr_pt": "Dispara vários mísseis que atingem $x1 alvos com $s1 de dano extra.",
+    "count": 4,
+    "sample": "Multi-Shot (Rank 2) [id=14288]"
+  },
+  {
+    "ranked_idx": 335,
+    "en": "Fires a volley of missiles at an enemy and its nearby allies, striking up to $x1 targets for normal damage plus $s1.",
+    "curr_pt": "Dispara uma saraivada no inimigo e aliados próximos, até $x1 alvos com dano normal mais $s1.",
+    "count": 4,
+    "sample": "Multi-Shot () [id=14443]"
+  },
+  {
+    "ranked_idx": 336,
+    "en": "Inflicts normal damage plus $s1 to an enemy.",
+    "curr_pt": "Causa dano normal mais $s1 ao inimigo.",
+    "count": 4,
+    "sample": "Sinister Strike () [id=14873]"
+  },
+  {
+    "ranked_idx": 337,
+    "en": "Ignites the target, dealing $s1 Fire damage and consuming 3 sec of your Immolate spell to deal an amount of damage equal to it.",
+    "curr_pt": "Acende o alvo com $s1 de dano de Fogo, consumindo 3 s do seu Imolar pelo mesmo valor.",
+    "count": 4,
+    "sample": "Conflagrate (Rank 1) [id=17962]"
+  },
+  {
+    "ranked_idx": 338,
+    "en": "Transfers $*10;s1 Health from the target to the caster over $d.",
+    "curr_pt": "Transfere $s1 de Vida do alvo para você ao longo de $d s.",
+    "count": 4,
+    "sample": "Siphon Life (Rank 1) [id=18265]"
+  },
+  {
+    "ranked_idx": 339,
+    "en": "Increases the speed reduction of your Curse of Exhaustion by $s1%.",
+    "curr_pt": "Aumenta a lentidão da sua Maldição de Exaustão em $s1%.",
+    "count": 4,
+    "sample": "[Deprecated] Improved Curse of Exhaustion (Rank 1) [id=18310]"
+  },
+  {
+    "ranked_idx": 340,
+    "en": "Increases the speed bonus of your Aspect of the Cheetah and Aspect of the Pack by $s1%.",
+    "curr_pt": "Aumenta o bônus de velocidade do Aspecto do Guepardo e da Alcateia em $s1%.",
+    "count": 4,
+    "sample": "[Deprecated] Pathfinding (Rank 1) [id=19559]"
+  },
+  {
+    "ranked_idx": 341,
+    "en": "Increases the effect of your Concentration Aura by an additional $s1% and gives all group members affected by the aura an additional $s1% chance to resist Silence and Interrupt effects.",
+    "curr_pt": "Aumenta o efeito da Aura de Concentração em $s1% e dá $s1% de chance extra de resistir a Silêncio e Interrupção.",
+    "count": 4,
+    "sample": "Improved Concentration Aura (Rank 1) [id=20254]"
+  },
+  {
+    "ranked_idx": 342,
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding.  While enslaved, the time between the demon's attacks is increased by $s2% and its casting speed is slowed by $s3%.  Lasts up to $d.",
+    "curr_pt": "",
+    "count": 4,
+    "sample": "Enslave Demon () [id=20882]"
+  },
+  {
+    "ranked_idx": 343,
+    "en": "Instantly perform a reckless attack, dealing $s1 damage plus 35% of your Attack Power and increasing your movement speed by $51670s1% for $51670d.",
+    "curr_pt": "Desfere um ataque temerário com $s1 de dano mais 35% do Poder de Ataque e +$s2% de velocidade por $d s.",
+    "count": 4,
+    "sample": "Bloodthirst (Rank 1) [id=23881]"
+  },
+  {
+    "ranked_idx": 344,
+    "en": "Rake the target for $s1 damage and an additional $o2 damage over $d.",
+    "curr_pt": "Ancinha o alvo com $s1 de dano e mais $s2 ao longo de $d s.",
+    "count": 4,
+    "sample": "Rake () [id=24331]"
+  },
+  {
+    "ranked_idx": 345,
+    "en": "Restores $s1 energy.",
+    "curr_pt": "Restaura $s1 de energia.",
+    "count": 4,
+    "sample": "Rejuvenation () [id=28724]"
+  },
+  {
+    "ranked_idx": 346,
+    "en": "Causes $s1 Shadow damage instantly, but the damage caused will begin healing itself after landing.",
+    "curr_pt": "Causa $s1 de dano de Sombra na hora, e o dano começa a se curar sozinho depois.",
+    "count": 4,
+    "sample": "Pain Spike (Rank 1) [id=45555]"
+  },
+  {
+    "ranked_idx": 347,
+    "en": "Bashes the target with your shield for $s2 damage.  It also interrupts spellcasting and prevents any spell in that school from being cast for $d.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Shield Bash (Rank 1) [id=72]"
+  },
+  {
+    "ranked_idx": 348,
+    "en": "Counterattack an enemy for $s1 additional damage.   Riposte must follow a defensive action.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Riposte (Rank 1) [id=76]"
+  },
+  {
+    "ranked_idx": 349,
+    "en": "Charge an enemy, generate $/10;s2 rage, and stun it for $7922d.  Cannot be used in combat.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Charge (Rank 1) [id=100]"
+  },
+  {
+    "ranked_idx": 350,
+    "en": "Increases Armor by $s1.  If an enemy strikes the caster, they may have their movement slowed by $6136s2% and the time between their attacks increased by $6136s1% for $6136d.  Only one type of Armor spell can be active on the Mage at any time.  Lasts $d.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Frost Armor (Rank 1) [id=168]"
+  },
+  {
+    "ranked_idx": 351,
+    "en": "Disarm the enemy's weapon for $d.",
+    "curr_pt": "Aumenta sua magia de Natureza em 4, mas reduz sua resistência a Sombra e Fogo em 1.",
+    "count": 3,
+    "sample": "Disarm () [id=676]"
+  },
+  {
+    "ranked_idx": 352,
+    "en": "A targeted party member is protected from all physical attacks for $d, but during that time they cannot attack or use physical abilities.  Players may only have one Hand on them per Paladin at any one time.  Once protected, the target cannot be made invulnerable by Divine Shield, Divine Protection or Blessing of Protection again for $25771d.",
+    "curr_pt": "",
+    "count": 3,
+    "sample": "Hand of Protection (Rank 1) [id=1022]"
+  }
+]

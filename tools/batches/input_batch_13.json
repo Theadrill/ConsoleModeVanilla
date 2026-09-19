@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 809,
+    "en": "Begins a ritual that summons the targeted group member.  Requires the caster and 2 additional party members to complete the ritual.  In order to participate, all players must be out of combat and right-click the portal and not move until the ritual is complete.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ritual of Summoning () [id=698]"
+  },
+  {
+    "ranked_idx": 810,
+    "en": "Reduces the attack speed of the target by $s1% for $d sec.  Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Weakness () [id=702]"
+  },
+  {
+    "ranked_idx": 811,
+    "en": "Blasts all enemies in a 10 yard radius with $s1 flame damage.",
+    "curr_pt": "Aumenta sua magia de Gelo em 4 e reduz sua resistência a Fogo em 2.",
+    "count": 1,
+    "sample": "Hellfire () [id=711]"
+  },
+  {
+    "ranked_idx": 812,
+    "en": "Summons a Succubus under the command of the Warlock.",
+    "curr_pt": "Invoca Súcubo do Bruxo.",
+    "count": 1,
+    "sample": "Summon Succubus (Summon) [id=712]"
+  },
+  {
+    "ranked_idx": 813,
+    "en": "Teaches Drain Life (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Drain Life (Rank 1) [id=714]"
+  },
+  {
+    "ranked_idx": 814,
+    "en": "Teaches you the spell Immolate (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolate (Rank 1) [id=718]"
+  },
+  {
+    "ranked_idx": 815,
+    "en": "Teaches Create Soulstone.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Soulstone (Rank 1) [id=719]"
+  },
+  {
+    "ranked_idx": 816,
+    "en": "Teaches Shadow Bolt (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Bolt (Rank 2) [id=721]"
+  },
+  {
+    "ranked_idx": 817,
+    "en": "Creates a holy Lightwell near the priest.  Members of your raid or party can click the Lightwell to restore $7001o1 health over $7001d. Lightwell lasts for $d or 5 charges.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightwell (Rank 1) [id=724]"
+  },
+  {
+    "ranked_idx": 818,
+    "en": "Teaches Drain Life (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Drain Life (Rank 2) [id=725]"
+  },
+  {
+    "ranked_idx": 819,
+    "en": "Teaches Cripple.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cripple (Rank 1) [id=727]"
+  },
+  {
+    "ranked_idx": 820,
+    "en": "Teaches Curse of Weakness (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Weakness () [id=729]"
+  },
+  {
+    "ranked_idx": 821,
+    "en": "Teaches Health Funnel (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Health Funnel (Rank 1) [id=730]"
+  },
+  {
+    "ranked_idx": 822,
+    "en": "Teaches Shadow Bolt (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Bolt (Rank 3) [id=732]"
+  },
+  {
+    "ranked_idx": 823,
+    "en": "Teaches Immolate (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Immolate (Rank 2) [id=734]"
+  },
+  {
+    "ranked_idx": 824,
+    "en": "Teaches Divine Protection (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Divine Protection (Rank 2) [id=735]"
+  },
+  {
+    "ranked_idx": 825,
+    "en": "Teaches Drain Life (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Drain Life (Rank 3) [id=736]"
+  },
+  {
+    "ranked_idx": 826,
+    "en": "Conjures a mana agate that can be used to instantly restore $5405s1 mana.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Mana Agate () [id=759]"
+  },
+  {
+    "ranked_idx": 827,
+    "en": "Shapeshift into cat form, increasing melee attack power by $3025s1 plus Agility.  Also protects the caster from Polymorph effects and allows the use of various cat abilities.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Cat Form (Shapeshift) [id=768]"
+  },
+  {
+    "ranked_idx": 828,
+    "en": "Attempts to disengage from the target, reducing threat.  Character exits combat mode.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Disengage (Rank 1) [id=781]"
+  },
+  {
+    "ranked_idx": 829,
+    "en": "Transforms the druid into a travel form, increasing movement speed by $5419s1%.  Also protects the caster from Polymorph effects.  Only useable outdoors.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Travel Form (Shapeshift) [id=783]"
+  },
+  {
+    "ranked_idx": 830,
+    "en": "Teaches Faerie Fire (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Faerie Fire (Rank 1) [id=784]"
+  },
+  {
+    "ranked_idx": 831,
+    "en": "Teaches Thorns (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Thorns (Rank 1) [id=786]"
+  },
+  {
+    "ranked_idx": 832,
+    "en": "Teaches Entangling Roots (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Entangling Roots (Rank 1) [id=790]"
+  },
+  {
+    "ranked_idx": 833,
+    "en": "Teaches Tranquility (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Tranquility (Rank 1) [id=792]"
+  },
+  {
+    "ranked_idx": 834,
+    "en": "Teaches Faerie Fire (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Faerie Fire (Rank 2) [id=793]"
+  },
+  {
+    "ranked_idx": 835,
+    "en": "Teaches Thorns (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Thorns (Rank 2) [id=795]"
+  },
+  {
+    "ranked_idx": 836,
+    "en": "Restores 6 health per minute.",
+    "curr_pt": "6 de vida por minuto.",
+    "count": 1,
+    "sample": "Regeneration (Rank 1) [id=820]"
+  },
+  {
+    "ranked_idx": 837,
+    "en": "Teaches Frostbolt (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frostbolt (Rank 3) [id=838]"
+  },
+  {
+    "ranked_idx": 838,
+    "en": "Teaches Ice Armor (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Ice Armor (Rank 2) [id=844]"
+  },
+  {
+    "ranked_idx": 839,
+    "en": "Teaches Flamestrike (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Flamestrike (Rank 1) [id=846]"
+  },
+  {
+    "ranked_idx": 840,
+    "en": "Pummel (Learn).",
+    "curr_pt": "Esmurrar (Aprender).",
+    "count": 1,
+    "sample": "Savage Pummel (Rank 1) [id=850]"
+  },
+  {
+    "ranked_idx": 841,
+    "en": "Transforms the enemy into a helpless sheep that cannot cast spells or attack and movement speed is reduced by $s2% for up to $d.",
+    "curr_pt": "Ovelha indefesa sem magia e -$s1% velocidade por até $d s.",
+    "count": 1,
+    "sample": "Polymorph: Sheep (Rank 3) [id=851]"
+  },
+  {
+    "ranked_idx": 842,
+    "en": "Teaches Polymorph: Chicken.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Polymorph: Chicken (Rank 2) [id=852]"
+  },
+  {
+    "ranked_idx": 843,
+    "en": "Teaches Renew (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Renew (Rank 6) [id=860]"
+  },
+  {
+    "ranked_idx": 844,
+    "en": "Teaches Drain Mana (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Drain Mana (Rank 2) [id=862]"
+  },
+  {
+    "ranked_idx": 845,
+    "en": "Teaches Seal of Righteousness (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Righteousness (Rank 1) [id=864]"
+  },
+  {
+    "ranked_idx": 846,
+    "en": "Teaches Frost Nova (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Frost Nova (Rank 2) [id=866]"
+  },
+  {
+    "ranked_idx": 847,
+    "en": "Teaches Renew (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Renew (Rank 4) [id=870]"
+  },
+  {
+    "ranked_idx": 848,
+    "en": "Reduces the damage taken from melee attacks, ranged attacks and spells by $s1% for $d.",
+    "curr_pt": "Aumenta sua magia de Sombra em $s1 e reduz sua resistência a Sagrado em $s2.",
+    "count": 1,
+    "sample": "Shield Wall () [id=871]"
+  },
+  {
+    "ranked_idx": 849,
+    "en": "Teaches Flamestrike (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Flamestrike (Rank 2) [id=872]"
+  },
+  {
+    "ranked_idx": 850,
+    "en": "Teaches Agitating Totem (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Agitating Totem (Rank 3) [id=876]"
+  },
+  {
+    "ranked_idx": 851,
+    "en": "Teaches Moonfire (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Moonfire (Rank 5) [id=880]"
+  },
+  {
+    "ranked_idx": 852,
+    "en": "Teaches Holy Smite (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Smite (Rank 6) [id=882]"
+  },
+  {
+    "ranked_idx": 853,
+    "en": "Teaches Renew (Rank 5).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Renew (Rank 5) [id=890]"
+  },
+  {
+    "ranked_idx": 854,
+    "en": "Teaches Sentry Totem.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Sentry Totem (Rank 1) [id=892]"
+  },
+  {
+    "ranked_idx": 855,
+    "en": "Teaches Blink (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blink (Rank 2) [id=894]"
+  },
+  {
+    "ranked_idx": 856,
+    "en": "The caster is surrounded by $n globes of unstable lightning for $d. When a spell, melee or ranged attack hits the caster, the attacker will be struck for $26366s1 Nature damage, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "O conjurador é cercado por $n globos de relâmpago instável por $d s. Quem bater leva $s1 de Natureza e gasta 1 globo. Uma vez a cada 3 s. Só um escudo por vez.",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 3) [id=905]"
+  },
+  {
+    "ranked_idx": 857,
+    "en": "Teaches Lightning Shield (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Shield (Rank 3) [id=906]"
+  },
+  {
+    "ranked_idx": 858,
+    "en": "Teaches Healing Wave (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Wave (Rank 4) [id=914]"
+  }
+]

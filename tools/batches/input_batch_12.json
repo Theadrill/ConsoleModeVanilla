@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 759,
+    "en": "Teaches Purge.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Purge (Rank 1) [id=558]"
+  },
+  {
+    "ranked_idx": 760,
+    "en": "Teaches Exorcism (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Exorcism (Rank 3) [id=559]"
+  },
+  {
+    "ranked_idx": 761,
+    "en": "Teaches Water Walking.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Water Walking (Rank 1) [id=562]"
+  },
+  {
+    "ranked_idx": 762,
+    "en": "Teaches Moonfire (Rank 6).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Moonfire (Rank 6) [id=563]"
+  },
+  {
+    "ranked_idx": 763,
+    "en": "Teaches Healing Wave (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Wave (Rank 3) [id=565]"
+  },
+  {
+    "ranked_idx": 764,
+    "en": "Teaches Lightning Bolt (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lightning Bolt (Rank 3) [id=566]"
+  },
+  {
+    "ranked_idx": 765,
+    "en": "Teaches Far Sight.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Far Sight (Rank 1) [id=570]"
+  },
+  {
+    "ranked_idx": 766,
+    "en": "Teaches Moonfire (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Moonfire (Rank 3) [id=573]"
+  },
+  {
+    "ranked_idx": 767,
+    "en": "Fade out, discouraging enemies from attacking you for $d.",
+    "curr_pt": "Some por $d s, inimigos te ignoram.",
+    "count": 1,
+    "sample": "Fade (Rank 1) [id=586]"
+  },
+  {
+    "ranked_idx": 768,
+    "en": "Conjures $s1 $lmuffin:muffins;, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 1) [id=587]"
+  },
+  {
+    "ranked_idx": 769,
+    "en": "Conjures $s1 $lloaf:loaves; of bread, providing the mage and $ghis:her; allies with something to eat.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 2) [id=597]"
+  },
+  {
+    "ranked_idx": 770,
+    "en": "Curses the target with impending doom, causing $s1 Shadow damage after $d.  If the target dies from this damage, there is a chance that a Doomguard will be summoned.  Cannot be cast on players. Only one Curse per Warlock can be active on any one target.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Doom () [id=603]"
+  },
+  {
+    "ranked_idx": 771,
+    "en": "Dampens magic used against the targeted party member, decreasing damage taken from spells by $8451s1% and healing spells by $8451s2%.  Lasts $8451d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Dampen Magic () [id=604]"
+  },
+  {
+    "ranked_idx": 772,
+    "en": "Controls a humanoid mind up to level $s1, but increases the time between its attacks by $s3%.  Lasts up to $d.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind Control (Rank 1) [id=605]"
+  },
+  {
+    "ranked_idx": 773,
+    "en": "Teaches Conjure Food (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 1) [id=608]"
+  },
+  {
+    "ranked_idx": 774,
+    "en": "Teaches Shadow Word: Pain (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Pain (Rank 1) [id=610]"
+  },
+  {
+    "ranked_idx": 775,
+    "en": "Teaches Seal of Sacrifice (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Sacrifice (Rank 1) [id=611]"
+  },
+  {
+    "ranked_idx": 776,
+    "en": "Teaches Holy Smite (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Smite (Rank 2) [id=612]"
+  },
+  {
+    "ranked_idx": 777,
+    "en": "Teaches Lesser Heal (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lesser Heal (Rank 2) [id=613]"
+  },
+  {
+    "ranked_idx": 778,
+    "en": "Teaches Shadow Word: Fumble (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Fumble (Rank 1) [id=614]"
+  },
+  {
+    "ranked_idx": 779,
+    "en": "Teaches Dispel Magic (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Dispel Magic (Rank 1) [id=615]"
+  },
+  {
+    "ranked_idx": 780,
+    "en": "Teaches Shadow Word: Pain (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Shadow Word: Pain (Rank 2) [id=616]"
+  },
+  {
+    "ranked_idx": 781,
+    "en": "Teaches Prayer of Healing (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Prayer of Healing (Rank 1) [id=618]"
+  },
+  {
+    "ranked_idx": 782,
+    "en": "Teaches Conjure Food (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Conjure Food (Rank 2) [id=619]"
+  },
+  {
+    "ranked_idx": 783,
+    "en": "Teaches Holy Smite (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Smite (Rank 3) [id=620]"
+  },
+  {
+    "ranked_idx": 784,
+    "en": "Teaches Healing Totem (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Totem (Rank 1) [id=621]"
+  },
+  {
+    "ranked_idx": 785,
+    "en": "Teaches Lesser Heal (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lesser Heal (Rank 3) [id=622]"
+  },
+  {
+    "ranked_idx": 786,
+    "en": "Teaches Inner Fire (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Inner Fire (Rank 3) [id=624]"
+  },
+  {
+    "ranked_idx": 787,
+    "en": "Teaches Curse of Archimonde.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Curse of Archimonde (Rank 1) [id=625]"
+  },
+  {
+    "ranked_idx": 788,
+    "en": "Teaches Seal of Might (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Might (Rank 3) [id=626]"
+  },
+  {
+    "ranked_idx": 789,
+    "en": "Teaches Mind Control.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Mind Control (Rank 1) [id=627]"
+  },
+  {
+    "ranked_idx": 790,
+    "en": "Teaches Healing Totem (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Totem (Rank 3) [id=631]"
+  },
+  {
+    "ranked_idx": 791,
+    "en": "Teaches Healing Totem (Rank 4).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Healing Totem (Rank 4) [id=632]"
+  },
+  {
+    "ranked_idx": 792,
+    "en": "Heals a friendly target for an amount equal to the Paladin's maximum health.  Drains all of the Paladin's remaining mana when used.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Lay on Hands (Rank 1) [id=633]"
+  },
+  {
+    "ranked_idx": 793,
+    "en": "Places a Blessing on a friendly target that lasts $d.  Every time the Blessed character strikes an enemy, the Blessed character gains $1136s1 health.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Blessing of Reckoning (Rank 1) [id=648]"
+  },
+  {
+    "ranked_idx": 794,
+    "en": "Teaches Seal of Might (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Might (Rank 1) [id=653]"
+  },
+  {
+    "ranked_idx": 795,
+    "en": "Teaches Fear (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fear (Rank 2) [id=654]"
+  },
+  {
+    "ranked_idx": 796,
+    "en": "Teaches Holy Light (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Light (Rank 2) [id=656]"
+  },
+  {
+    "ranked_idx": 797,
+    "en": "Teaches Create Greater Healthstone.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Create Greater Healthstone (Rank 4) [id=657]"
+  },
+  {
+    "ranked_idx": 798,
+    "en": "Teaches Invisibility Totem.",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Invisibility Totem (Rank 1) [id=658]"
+  },
+  {
+    "ranked_idx": 799,
+    "en": "Teaches Divine Shield (Rank 1).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Divine Shield (Rank 1) [id=659]"
+  },
+  {
+    "ranked_idx": 800,
+    "en": "Teaches Seal of Might (Rank 2).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Seal of Might (Rank 2) [id=662]"
+  },
+  {
+    "ranked_idx": 801,
+    "en": "Teaches Fear (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Fear (Rank 3) [id=663]"
+  },
+  {
+    "ranked_idx": 802,
+    "en": "Teaches Holy Light (Rank 3).",
+    "curr_pt": "",
+    "count": 1,
+    "sample": "Holy Light (Rank 3) [id=664]"
+  },
+  {
+    "ranked_idx": 803,
+    "en": "Strike your target for $s1 Holy damage, restoring $51755s1 health and $51875s1 mana to you and 4 allies within $51875a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 2) [id=678]"
+  },
+  {
+    "ranked_idx": 804,
+    "en": "Strike your target for $s1 Holy damage, restoring $51301s1 health and $51324s1 mana to you and 4 allies within $51324a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 1) [id=679]"
+  },
+  {
+    "ranked_idx": 805,
+    "en": "Strike your target for $s1 Holy damage, restoring $51757s1 health and $51877s1 mana to you and 4 allies within $51877a1 yards. The healing effect is reduced by half on yourself.",
+    "curr_pt": "Golpe Sagrado de $s1; cura $s2 e $s3 de mana em você e 4 próximos a $a1 m. Metade em você.",
+    "count": 1,
+    "sample": "Holy Strike (Rank 4) [id=680]"
+  },
+  {
+    "ranked_idx": 806,
+    "en": "Summons an Imp under the command of the Warlock.",
+    "curr_pt": "Invoca Diabrete do Bruxo.",
+    "count": 1,
+    "sample": "Summon Imp (Summon) [id=688]"
+  },
+  {
+    "ranked_idx": 807,
+    "en": "Summons a Felhunter under the command of the Warlock.",
+    "curr_pt": "Invoca Caçador Vil do Bruxo.",
+    "count": 1,
+    "sample": "Summon Felhunter (Summon) [id=691]"
+  },
+  {
+    "ranked_idx": 808,
+    "en": "Summons a Voidwalker under the command of the Warlock.",
+    "curr_pt": "Invoca Emissário do Bruxo.",
+    "count": 1,
+    "sample": "Summon Voidwalker (Summon) [id=697]"
+  }
+]

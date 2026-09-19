@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 27636,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Starshards",
+    "en": "Rains starshards down on the enemy target's head, causing $o1 Arcane damage over $d.",
+    "curr_pt": "Despeja estilhaços estelares na cabeça do alvo, causando $s1 de dano Arcano ao longo de $d s."
+  },
+  {
+    "oid": 27681,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Prayer of Spirit Rank 1",
+    "en": "Power infuses the target's party, increasing their Spirit by $s1 for $d.",
+    "curr_pt": "Poder no grupo: +Espírito $s1 por $d s."
+  },
+  {
+    "oid": 27682,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prayer of Spirit Rank 1",
+    "en": "Teaches Prayer of Spirit (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27683,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Prayer of Shadow Protection Rank 1",
+    "en": "Power infuses the target's party, increasing their Shadow resistance by $s1 for $d.",
+    "curr_pt": "Poder no grupo: +$s1 vs Sombra por $d s."
+  },
+  {
+    "oid": 27684,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prayer of Shadow Protection Rank 1",
+    "en": "Teaches Prayer of Shadow Protection (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27758,
+    "kind": "custom",
+    "need": "review",
+    "sample": "War Stomp",
+    "en": "Inflicts normal damage plus $s3 to nearby enemies and stunning them for $d.",
+    "curr_pt": "Normal +$s1 e atordoa por $d s."
+  },
+  {
+    "oid": 27794,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cleave",
+    "en": "Inflicts normal damage plus $s1 to an enemy and its nearest allies, affecting up to $x1 targets.",
+    "curr_pt": "Causa dano normal mais $s1 ao inimigo e aliados próximos, afetando até $x1 alvos."
+  },
+  {
+    "oid": 27841,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Divine Spirit Rank 4",
+    "en": "Holy power infuses the target, increasing their Spirit by $s1 for $d.",
+    "curr_pt": "O poder sagrado infunde o alvo, aumentando seu Espírito em $s1 por $d s."
+  },
+  {
+    "oid": 27842,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Divine Spirit Rank 5",
+    "en": "Holy power infuses the target, increasing their Spirit by $s1 for $d.",
+    "curr_pt": "O poder sagrado infunde o alvo, aumentando seu Espírito em $s1 por $d s."
+  },
+  {
+    "oid": 27897,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Periodically cast a powerful Arcane Explosion",
+    "curr_pt": "Explosão Arcana de tempos em tempos."
+  },
+  {
+    "oid": 27900,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Spell Warding Rank 1",
+    "en": "Reduces all spell damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano mágico recebido em $s1%."
+  },
+  {
+    "oid": 27901,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Spell Warding Rank 2",
+    "en": "Reduces all spell damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano mágico recebido em $s1%."
+  },
+  {
+    "oid": 27902,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Spell Warding Rank 3",
+    "en": "Reduces all spell damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano mágico recebido em $s1%."
+  },
+  {
+    "oid": 27903,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Spell Warding Rank 4",
+    "en": "Reduces all spell damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano mágico recebido em $s1%."
+  },
+  {
+    "oid": 27904,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Spell Warding Rank 5",
+    "en": "Reduces all spell damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano mágico recebido em $s1%."
+  },
+  {
+    "oid": 27986,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Levitate",
+    "en": "Allows the caster to levitate, floating a few feet above the ground.  While levitating, you will fall at a reduced speed and travel over water-like surfaces.  ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28125,
+    "kind": "custom",
+    "need": "review",
+    "sample": "War Stomp",
+    "en": "Knocks nearby enemies back.",
+    "curr_pt": "Arremessa os inimigos próximos."
+  },
+  {
+    "oid": 28131,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1 for $d.",
+    "curr_pt": "Aumenta a velocidade de ataque do conjurador em $s1% e o dano Físico causado em $s2 por $d s."
+  },
+  {
+    "oid": 28158,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison",
+    "en": "Inflicts $s1 Nature damage to nearby enemies every $t1 sec. for $d.",
+    "curr_pt": "Causa $s1 de dano de Natureza nos inimigos próximos a cada $t1 s por $d s."
+  },
+  {
+    "oid": 28377,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadowguard Rank 1",
+    "en": "Casts a bolt of shadow at the target for $s1 Shadow damage.",
+    "curr_pt": "Arremessa um raio de sombra no alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 28378,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadowguard Rank 2",
+    "en": "Casts a bolt of shadow at the target for $s1 Shadow damage.",
+    "curr_pt": "Arremessa um raio de sombra no alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 28379,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadowguard Rank 3",
+    "en": "Casts a bolt of shadow at the target for $s1 Shadow damage.",
+    "curr_pt": "Arremessa um raio de sombra no alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 28380,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadowguard Rank 4",
+    "en": "Casts a bolt of shadow at the target for $s1 Shadow damage.",
+    "curr_pt": "Arremessa um raio de sombra no alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 28381,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadowguard Rank 5",
+    "en": "Casts a bolt of shadow at the target for $s1 Shadow damage.",
+    "curr_pt": "Arremessa um raio de sombra no alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 28382,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadowguard Rank 6",
+    "en": "Casts a bolt of shadow at the target for $s1 Shadow damage.",
+    "curr_pt": "Arremessa um raio de sombra no alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 28430,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fiery Blood Rank 1",
+    "en": "Reduces damage taken from Fire and Frost effects by $s1%.",
+    "curr_pt": "Fogo e Gelo: -$s1%."
+  },
+  {
+    "oid": 28435,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fiery Blood Rank 2",
+    "en": "Increases your resistance to Bleed and Poison effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua resistência a Sangrar e Veneno em $s1%."
+  },
+  {
+    "oid": 28436,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Hot Blooded Rank 3",
+    "en": "Increases your resistance to Bleed and Poison effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua resistência a Sangrar e Veneno em $s1%."
+  },
+  {
+    "oid": 28468,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the Physical damage dealt by the caster by $s1 for $d.",
+    "curr_pt": "Ancinha o alvo com $s1 de dano e mais $s2 ao longo de $d s."
+  },
+  {
+    "oid": 28592,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Winter's Chill Rank 2",
+    "en": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28593,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Winter's Chill Rank 3",
+    "en": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28594,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Winter's Chill Rank 4",
+    "en": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28595,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Winter's Chill Rank 5",
+    "en": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28609,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frost Ward Rank 5",
+    "en": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28610,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Ward Rank 4",
+    "en": "Absorbs $s1 shadow damage.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28611,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Ward Rank 4",
+    "en": "Teaches Shadow Ward (Rank 4).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28683,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Leap Rank 1",
+    "en": "Leaps forward up to $a1 yards.",
+    "curr_pt": "Salta até $a1 m."
+  },
+  {
+    "oid": 28722,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Rejuvenation",
+    "en": "Restores $s1 mana.",
+    "curr_pt": "Restaura $s1 de mana."
+  },
+  {
+    "oid": 28725,
+    "kind": "custom",
+    "need": "review",
+    "sample": "War Stomp",
+    "en": "Inflicts normal damage plus $s3 to nearby enemies, knocking them back and stunning them for $d.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos, arremessando-os e atordoando-os por $d s."
+  },
+  {
+    "oid": 28747,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1 for $d.",
+    "curr_pt": "Aumenta a velocidade de ataque do conjurador em $s1% e o dano Físico causado em $s2 por $d s."
+  },
+  {
+    "oid": 28752,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Adrenaline Rush",
+    "en": "Your ranged and melee critical hits cause an Adrenaline Rush, granting you $28753s1 mana.",
+    "curr_pt": "Crítico: +$s1 mana."
+  },
+  {
+    "oid": 28753,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Adrenaline Rush",
+    "en": "Restores $s1 mana.",
+    "curr_pt": "Restaura $s1 de mana."
+  },
+  {
+    "oid": 28755,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Rapid Fire",
+    "en": "Increases the duration of your Rapid Fire by $/1000;s1 secs.",
+    "curr_pt": "Tiro Rápido +$s1 s."
+  },
+  {
+    "oid": 28798,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1 for $d.",
+    "curr_pt": "Aumenta a velocidade de ataque do conjurador em $s1% e o dano Físico causado em $s2 por $d s."
+  },
+  {
+    "oid": 28844,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Revenge",
+    "en": "Increases the damage done by your Revenge ability by $s1.",
+    "curr_pt": "Vingança +$s1."
+  },
+  {
+    "oid": 28848,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Healing Touch",
+    "en": "Restores $s1 mana.",
+    "curr_pt": "Restaura $s1 de mana."
+  },
+  {
+    "oid": 28850,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lesser Healing Wave",
+    "en": "Restores $s1 mana.",
+    "curr_pt": "Restaura $s1 de mana."
+  },
+  {
+    "oid": 28996,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Elemental Warding Rank 1",
+    "en": "Reduces damage taken from Fire, Frost and Nature effects by $s1%.",
+    "curr_pt": "Reduz o dano de Fogo, Gelo e Natureza em $s1%."
+  },
+  {
+    "oid": 28997,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Elemental Warding Rank 2",
+    "en": "Reduces damage taken from Fire, Frost and Nature effects by $s1%.",
+    "curr_pt": "Reduz o dano de Fogo, Gelo e Natureza em $s1%."
+  },
+  {
+    "oid": 28998,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Elemental Warding Rank 3",
+    "en": "Reduces damage taken from Fire, Frost and Nature effects by $s1%.",
+    "curr_pt": "Reduz o dano de Fogo, Gelo e Natureza em $s1%."
+  }
+]

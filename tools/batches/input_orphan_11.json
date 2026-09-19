@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 20258,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Intellect Rank 2",
+    "en": "Increases your total Intellect by $s1%.",
+    "curr_pt": "Aumenta seu Intelecto total em $s1%."
+  },
+  {
+    "oid": 20259,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Intellect Rank 3",
+    "en": "Increases your total Intellect by $s1%.",
+    "curr_pt": "Aumenta seu Intelecto total em $s1%."
+  },
+  {
+    "oid": 20260,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Intellect Rank 4",
+    "en": "Increases your total Intellect by $s1%.",
+    "curr_pt": "Aumenta seu Intelecto total em $s1%."
+  },
+  {
+    "oid": 20261,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Intellect Rank 5",
+    "en": "Increases your total Intellect by $s1%.",
+    "curr_pt": "Aumenta seu Intelecto total em $s1%."
+  },
+  {
+    "oid": 20502,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Reckless Execute Rank 1",
+    "en": "Reduces the cooldown of your Execute ability by $/1000;S1 sec.",
+    "curr_pt": "Executar -$s1 s de recarga."
+  },
+  {
+    "oid": 20503,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Reckless Execute Rank 2",
+    "en": "Removes the cooldown of your Execute ability.",
+    "curr_pt": "Executar sem recarga."
+  },
+  {
+    "oid": 20569,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Cleave Rank 5",
+    "en": "A sweeping attack that does your melee damage plus $s1 to the target and his nearest ally.",
+    "curr_pt": "Um ataque arrebatador que causa dano corpo a corpo mais $s1 no alvo e no aliado mais próximo."
+  },
+  {
+    "oid": 20594,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Stoneform Racial",
+    "en": "While active, grants immunity to Bleed, Poison, and Disease effects.  In addition, reduces physical damage taken by $s1%.  Lasts $d.",
+    "curr_pt": "Enquanto ativa, concede imunidade a Sangramento, Veneno e Doença, além de aumentar a sua armadura em $s1 por $d s."
+  },
+  {
+    "oid": 21560,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Prayer of Fortitude Rank 1",
+    "en": "Power infuses the party, increasing their Stamina by $M1 for $d.",
+    "curr_pt": "Poder no grupo: +Vigor $s1 por $d s."
+  },
+  {
+    "oid": 21562,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Prayer of Fortitude Rank 1",
+    "en": "Power infuses the target's party, increasing their Stamina by $s1 for $d.",
+    "curr_pt": "Poder no grupo: +Vigor $s1 por $d s."
+  },
+  {
+    "oid": 21564,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Prayer of Fortitude Rank 2",
+    "en": "Power infuses the target's party, increasing their Stamina by $s1 for $d.",
+    "curr_pt": "Poder no grupo: +Vigor $s1 por $d s."
+  },
+  {
+    "oid": 21567,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prayer of Fortitude Rank 1",
+    "en": "Teaches Prayer of Fortitude (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 21568,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prayer of Fortitude Rank 1",
+    "en": "Teaches Prayer of Fortitude (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 21569,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prayer of Fortitude Rank 2",
+    "en": "Teaches Prayer of Fortitude (Rank 2).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 21787,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Deadly Poison",
+    "en": "Inflicts $s1 Nature damage to an enemy every $t1 sec. for $d.",
+    "curr_pt": "Causa $s1 de dano de Natureza ao inimigo a cada $t1 s por $d s."
+  },
+  {
+    "oid": 21849,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gift of the Wild Rank 1",
+    "en": "Gives the Gift of the Wild to the target's party, increasing armor by $s1, all attributes by $s2 and all resistances by $s3 for $d.",
+    "curr_pt": "Dádiva Selvagem no grupo: +armadura $s1, +tudo $s2 e +resist $s3 por $d s."
+  },
+  {
+    "oid": 21850,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gift of the Wild Rank 2",
+    "en": "Gives the Gift of the Wild to the target's party, increasing armor by $s1, all attributes by $s2 and all resistances by $s3 for $d.",
+    "curr_pt": "Dádiva Selvagem no grupo: +armadura $s1, +tudo $s2 e +resist $s3 por $d s."
+  },
+  {
+    "oid": 21851,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gift of the Wild Rank 1",
+    "en": "Teaches Gift of the Wild (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 21852,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gift of the Wild Rank 2",
+    "en": "Teaches Gift of the Wild (Rank 2).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 21969,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mark of the Chosen Rank 1",
+    "en": "Has a 2% chance when struck in combat of increasing all stats by 25 for $21970d1.",
+    "curr_pt": "Acerto: 2% de +25 em tudo por $d s."
+  },
+  {
+    "oid": 21970,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mark of the Chosen Effect Rank 1",
+    "en": "Increases all stats by $s1 for $d.",
+    "curr_pt": "Tudo +$s1 por $d s."
+  },
+  {
+    "oid": 21991,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Talisman of Binding Rank 1",
+    "en": "When struck in combat inflicts $s1 Nature damage to the attacker.",
+    "curr_pt": "Acerto: $s1 de Natureza no atacante."
+  },
+  {
+    "oid": 22121,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shoot",
+    "en": "Shoots at an enemy, inflicting Physical damage.",
+    "curr_pt": "Atira no inimigo, causando dano Físico."
+  },
+  {
+    "oid": 22356,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Slow",
+    "en": "Increases the time between nearby enemies' attacks by $s1% and slows their movement by $s2% for $d.",
+    "curr_pt": "Faz o alvo correr de horror por $d s e sofrer $s1 de dano de Sombra, e você se cura em 100% do dano."
+  },
+  {
+    "oid": 22411,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shoot",
+    "en": "Shoots at an enemy, inflicting Physical damage.",
+    "curr_pt": "Atira no inimigo, causando dano Físico."
+  },
+  {
+    "oid": 22460,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Explosion",
+    "en": "Causes an explosion of arcane magic around the caster, causing $s1 Arcane damage to all targets within $a1 yards.",
+    "curr_pt": "Causa uma explosão de magia arcana ao redor do conjurador, causando $s1 de dano Arcano a todos os alvos a até $a1 m."
+  },
+  {
+    "oid": 22540,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cleave",
+    "en": "Inflicts weapon damage plus $s1 to an enemy and its nearest ally.",
+    "curr_pt": "Causa dano de arma mais $s1 no inimigo e no aliado mais próximo."
+  },
+  {
+    "oid": 22570,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mangle Rank 1",
+    "en": "Finishing move that causes damage, disorients the opponent, and turns off your attack.  Any damage caused will revive the target.  Causes more damage and lasts longer per combo point:\n   1 point  : 7-11 damage and 2 seconds\n   2 points: 13-19 damage and 3 seconds\n   3 points: 19-24 damage and 4 seconds\n   4 points: 25-30 damage and 5 seconds\n   5 points: 31-37 damage and 6 seconds",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22734,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Drink",
+    "en": "Restores $o1 mana over $d.  Must remain seated while drinking.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22801,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ghost Wolf Speed Rank 1",
+    "en": "Increases the speed of your Ghost Wolf ability by $s1%.",
+    "curr_pt": "Lobo Fantasma +$s1% de velocidade."
+  },
+  {
+    "oid": 22822,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Starshards",
+    "en": "Rains starshards down on the enemy target's head, causing $o1 Arcane damage over $d.",
+    "curr_pt": "Despeja estilhaços estelares na cabeça do alvo, causando $s1 de dano Arcano ao longo de $d s."
+  },
+  {
+    "oid": 22823,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Starshards",
+    "en": "Rains starshards down on the enemy target's head, causing $o1 Arcane damage over $d.",
+    "curr_pt": "Despeja estilhaços estelares na cabeça do alvo, causando $s1 de dano Arcano ao longo de $d s."
+  },
+  {
+    "oid": 22887,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Throw",
+    "en": "Throws a weapon at an enemy, inflicting Physical damage.",
+    "curr_pt": "Arremessa a arma no inimigo, causando dano Físico."
+  },
+  {
+    "oid": 22907,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shoot",
+    "en": "Shoots at an enemy, inflicting Physical damage.",
+    "curr_pt": "Atira no inimigo, causando dano Físico."
+  },
+  {
+    "oid": 23073,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shoot",
+    "en": "Shoots at an enemy, inflicting Physical damage.",
+    "curr_pt": "Atira no inimigo, causando dano Físico."
+  },
+  {
+    "oid": 23103,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enveloping Winds Rank 1",
+    "en": "Surrounds an enemy with a cyclone for up to $d. If the target takes any damage, it will break free of the imprisoning winds.",
+    "curr_pt": "Cerca o inimigo com um ciclone por até $d s. Se sofrer dano, ele se liberta dos ventos."
+  },
+  {
+    "oid": 23161,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Summon Dreadsteed Summon",
+    "en": "Summons a Dreadsteed, which serves as a mount for the caster. Speed is increased by $s2%.",
+    "curr_pt": "Invoca Corcel. +$s1% velocidade."
+  },
+  {
+    "oid": 23162,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Harass Rank 1",
+    "en": "Decreases Defense by $s1 for $d.  This decrease increases the chance attacks will Hit and Critical the target and reduces the chance the target will Block, Dodge, or Parry the attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23164,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Harass Rank 2",
+    "en": "Decreases Defense by $s1 for $d.  This decrease increases the chance attacks will Hit and Critical the target and reduces the chance the target will Block, Dodge, or Parry the attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23165,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Harass Rank 3",
+    "en": "Decreases Defense by $s1 for $d.  This decrease increases the chance attacks will Hit and Critical the target and reduces the chance the target will Block, Dodge, or Parry the attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23337,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shoot",
+    "en": "Shoots at an enemy, inflicting Physical damage.",
+    "curr_pt": "Atira no inimigo, causando dano Físico."
+  },
+  {
+    "oid": 23480,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Fire Dam 10 Rank 1",
+    "en": "Increases damage done by Fire spells and effects by up to $s1.",
+    "curr_pt": "Aumenta o dano de magias e efeitos de Fogo em até $s1."
+  },
+  {
+    "oid": 23481,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Fire Dam 14 Rank 2",
+    "en": "Increases damage done by Fire spells and effects by up to $s1.",
+    "curr_pt": "Aumenta o dano de magias e efeitos de Fogo em até $s1."
+  },
+  {
+    "oid": 23482,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Fire Dam 17 Rank 3",
+    "en": "Increases damage done by Fire spells and effects by up to $s1.",
+    "curr_pt": "Aumenta o dano de magias e efeitos de Fogo em até $s1."
+  },
+  {
+    "oid": 23483,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Fire Dam 21 Rank 4",
+    "en": "Increases damage done by Fire spells and effects by up to $s1.",
+    "curr_pt": "Aumenta o dano de magias e efeitos de Fogo em até $s1."
+  },
+  {
+    "oid": 23498,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Call Pet",
+    "en": "Summons your pet to you.",
+    "curr_pt": "Chama o pet até você."
+  },
+  {
+    "oid": 23537,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1 for $d.",
+    "curr_pt": "Aumenta a velocidade de ataque do conjurador em $s1% e o dano Físico causado em $s2 por $d s."
+  },
+  {
+    "oid": 23584,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dual Wield Specialization Rank 1",
+    "en": "Increases the damage done by your offhand weapon by $s1% and your chance to hit with your offhand weapon by $s2%.",
+    "curr_pt": "Aumenta o dano da sua arma secundária em $s1% e sua chance de acertar com ela em $s2%."
+  },
+  {
+    "oid": 23585,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dual Wield Specialization Rank 2",
+    "en": "Increases the damage done by your offhand weapon by $s1% and your chance to hit with your offhand weapon by $s2%.",
+    "curr_pt": "Aumenta o dano da sua arma secundária em $s1% e sua chance de acertar com ela em $s2%."
+  },
+  {
+    "oid": 23586,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dual Wield Specialization Rank 3",
+    "en": "Increases the damage done by your offhand weapon by $s1% and your chance to hit with your offhand weapon by $s2%.",
+    "curr_pt": "Aumenta o dano da sua arma secundária em $s1% e sua chance de acertar com ela em $s2%."
+  }
+]

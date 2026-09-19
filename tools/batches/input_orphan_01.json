@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 45,
+    "kind": "modified",
+    "need": "review",
+    "sample": "War Stomp",
+    "en": "Knocks nearby enemies back.",
+    "curr_pt": "Arremessa os inimigos próximos."
+  },
+  {
+    "oid": 71,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Defensive Stance",
+    "en": "A defensive combat stance.  Decreases damage taken by $7376s1% and damage caused by $7376s2%.  Increases threat generated.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 114,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Frost Shield Rank 1",
+    "en": "Surrounds the target with a shield of frost, damaging and slowing the target's attackers.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 126,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Eye of Kilrogg Summon",
+    "en": "Summons an Eye of Kilrogg and binds your vision to it.  The eye moves quickly but is very fragile.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 179,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Resist Fire Rank 1",
+    "en": "Places a protective shield on the friendly target, increasing fire resistance by $m1.",
+    "curr_pt": "Escudo: +$s1 vs Fogo no aliado."
+  },
+  {
+    "oid": 308,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spirit Armor Rank 1",
+    "en": "Calls upon the spirits to defend the target, increasing armor by $s1 for $d.",
+    "curr_pt": "Invoca os espíritos para defender o alvo com +$s1 de armadura por $d s."
+  },
+  {
+    "oid": 315,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Molten Blast Rank 1",
+    "en": "Burns the target with molten fire, causing $s1 fire damage.",
+    "curr_pt": "Queima o alvo com fogo fundido, causando $s1 de dano de fogo."
+  },
+  {
+    "oid": 365,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Undying Strength Rank 1",
+    "en": "Infuses the target with the spirits of the ancients, increasing $ghis:her; Strength by $s1 for $d.",
+    "curr_pt": "Infunde o alvo com espíritos antigos, com +$s1 de Força por $d s."
+  },
+  {
+    "oid": 453,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Mind Soothe Rank 1",
+    "en": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects Humanoid targets level $v or lower.  Causes aggro if resisted.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 475,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Remove Lesser Curse",
+    "en": "Removes $m1 Curse from a friendly target.",
+    "curr_pt": "Remove $m1 Maldição do aliado."
+  },
+  {
+    "oid": 543,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Ward Rank 1",
+    "en": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 544,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spirit Armor Rank 2",
+    "en": "Calls upon the spirits to defend the target, increasing armor by $s1 for $d.",
+    "curr_pt": "Invoca os espíritos para defender o alvo com +$s1 de armadura por $d s."
+  },
+  {
+    "oid": 545,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Molten Blast Rank 2",
+    "en": "Burns the target with molten fire, causing $s1 fire damage.",
+    "curr_pt": "Queima o alvo com fogo fundido, causando $s1 de dano de fogo."
+  },
+  {
+    "oid": 549,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Undying Strength Rank 2",
+    "en": "Infuses the target with the spirits of the ancients, increasing $ghis:her; Strength by $s1 for $d.",
+    "curr_pt": "Infunde o alvo com espíritos antigos, com +$s1 de Força por $d s."
+  },
+  {
+    "oid": 554,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Unyielding Will Rank 2",
+    "en": "Increases the Stamina of the target by $s1 for $d.",
+    "curr_pt": "Aumenta o Vigor do alvo em $s1 por $d s."
+  },
+  {
+    "oid": 590,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Word: Might Rank 1",
+    "en": "Holy might infuses the target increasing their strength by $s1 for $d.",
+    "curr_pt": "Poder sagrado: +For $s1 por $d s."
+  },
+  {
+    "oid": 599,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Word: Might Rank 2",
+    "en": "Holy might infuses the target increasing their strength by $s1 for $d.",
+    "curr_pt": "Poder sagrado: +For $s1 por $d s."
+  },
+  {
+    "oid": 629,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Word: Protect Rank 2",
+    "en": "Blesses and protects the target increasing their armor by $s1 for $d.",
+    "curr_pt": "Abençoa e protege o alvo, aumentando sua armadura em $s1 por $d s."
+  },
+  {
+    "oid": 630,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Word: Protect Rank 1",
+    "en": "Blesses and protects the target increasing their armor by $s1 for $d.",
+    "curr_pt": "Abençoa e protege o alvo, aumentando sua armadura em $s1 por $d s."
+  },
+  {
+    "oid": 722,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Demon Armor Rank 2",
+    "en": "Teaches Demon Armor (Rank 2).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 733,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Demon Armor Rank 3",
+    "en": "Teaches Demon Armor (Rank 3).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 765,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Water Elemental Rank 1",
+    "en": "Summon a Water Elemental to fight for the caster for $d.",
+    "curr_pt": "Invoca um Elemental da Água para lutar por $d s."
+  },
+  {
+    "oid": 845,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Cleave Rank 1",
+    "en": "A sweeping attack that does your melee damage plus $s1 to the target and his nearest ally.",
+    "curr_pt": "Um ataque arrebatador que causa dano corpo a corpo mais $s1 no alvo e no aliado mais próximo."
+  },
+  {
+    "oid": 899,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Molten Blast Rank 3",
+    "en": "Burns the target with molten fire, causing $s1 fire damage.",
+    "curr_pt": "Queima o alvo com fogo fundido, causando $s1 de dano de fogo."
+  },
+  {
+    "oid": 901,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spirit Armor Rank 3",
+    "en": "Calls upon the spirits to defend the target, increasing armor by $s1 for $d.",
+    "curr_pt": "Invoca os espíritos para defender o alvo com +$s1 de armadura por $d s."
+  },
+  {
+    "oid": 909,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Unyielding Will Rank 3",
+    "en": "Increases the Stamina of the target by $s1 for $d.",
+    "curr_pt": "Aumenta o Vigor do alvo em $s1 por $d s."
+  },
+  {
+    "oid": 923,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Molten Blast Rank 4",
+    "en": "Burns the target with molten fire, causing $s1 fire damage.",
+    "curr_pt": "Queima o alvo com fogo fundido, causando $s1 de dano de fogo."
+  },
+  {
+    "oid": 934,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spirit Armor Rank 4",
+    "en": "Calls upon the spirits to defend the Shaman's target, increasing armor by $s1 for $d.",
+    "curr_pt": "Espírito defende o alvo com +$s1 armadura por $d s."
+  },
+  {
+    "oid": 949,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thunder Clap Rank 2",
+    "en": "Stuns all enemies near the caster for $d.",
+    "curr_pt": "Atordoa todos próximos por $d s."
+  },
+  {
+    "oid": 951,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Molten Blast Rank 5",
+    "en": "Burns the target with molten fire, causing $s1 fire damage.",
+    "curr_pt": "Queima o alvo com fogo fundido, causando $s1 de dano de fogo."
+  },
+  {
+    "oid": 986,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Word: Protect Rank 3",
+    "en": "Blesses and protects the target increasing their armor by $s1 for $d.",
+    "curr_pt": "Abençoa e protege o alvo, aumentando sua armadura em $s1 por $d s."
+  },
+  {
+    "oid": 1087,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Demon Armor Rank 4",
+    "en": "Teaches Demon Armor (Rank 4).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 1134,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Inner Rage Rank 1",
+    "en": "Warrior focuses on releasing $ghis:her; inner rage, gaining 30 rage.",
+    "curr_pt": "Fúria interior: +30 de fúria."
+  },
+  {
+    "oid": 1457,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Burning Spirit Rank 4",
+    "en": "Infuses the caster with a burning spirit, increasing mana regeneration but causing damage to the warlock for $d.",
+    "curr_pt": "Espírito ardente: +regen e dano por $d s."
+  },
+  {
+    "oid": 1609,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spell - Reuse 1609 Rank 5",
+    "en": "A strong attack that increases melee damage by $s1.",
+    "curr_pt": "Um ataque forte que aumenta o dano corpo a corpo em $s1."
+  },
+  {
+    "oid": 1635,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Enrage Rank 1",
+    "en": "Increases Rage by $s2 instead of a normal attack.",
+    "curr_pt": "Fúria +$s1 em vez de atacar."
+  },
+  {
+    "oid": 1645,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spell - Reuse 1645 Rank 2",
+    "en": "Decreases the target's attack speed by $s1% for $d.",
+    "curr_pt": "Velocidade -$s1% por $d s."
+  },
+  {
+    "oid": 1648,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spell - Reuse 1648 Rank 3",
+    "en": "Decreases the target's attack speed by $s1% for $d.",
+    "curr_pt": "Velocidade -$s1% por $d s."
+  },
+  {
+    "oid": 1707,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Mind Bomb Rank 1",
+    "en": "Attaches a mind bomb to the target.  If the target casts a spell in the next $d, they take 200 damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 1941,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mana Funnel Rank 1",
+    "en": "Gives $s1 Mana to your demon every second for $d while channeling.",
+    "curr_pt": "Dá $s1 de Mana ao demônio por segundo por $d s canalizando."
+  },
+  {
+    "oid": 1945,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Ethereal Form Rank 1",
+    "en": "Makes the caster immune to physical damage, but unable to melee or use physical abilities for $d.",
+    "curr_pt": "Imune a físico por $d s, sem atacar."
+  },
+  {
+    "oid": 1955,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fire",
+    "en": "Fire a gun at the target for an additional $s1 damage.",
+    "curr_pt": "Atira com arma de fogo no alvo por $s1 de dano extra."
+  },
+  {
+    "oid": 2457,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Battle Stance",
+    "en": "A balanced combat stance.",
+    "curr_pt": "Postura equilibrada."
+  },
+  {
+    "oid": 2458,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Berserker Stance",
+    "en": "An aggressive stance.  Critical hit chance is increased by $7381s1% and all damage taken is increased by $7381s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 2459,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Offensive Stance Rank 2",
+    "en": "A stance that maximizes your offense, increasing damage by $s1 but slowing the warrior's movement speed.",
+    "curr_pt": "Postura: +$s1 dano e -corrida."
+  },
+  {
+    "oid": 2460,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Offensive Stance Rank 3",
+    "en": "A stance that maximizes your offense, increasing damage by $s1 but slowing the warrior's movement speed.",
+    "curr_pt": "Postura: +$s1 dano e -corrida."
+  },
+  {
+    "oid": 2463,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Power Stance Rank 2",
+    "en": "A stance that maximizes criticals, increasing chances for a critical hit by $s2% for $d.",
+    "curr_pt": "Postura: +$s1% crítico por $d s."
+  },
+  {
+    "oid": 2651,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Elune's Grace Rank 1",
+    "en": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 2652,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Touch of Weakness Rank 1",
+    "en": "The next melee attack against the caster will cause $2943s1 Shadow damage and reduce the damage caused by the attacker by $2943s2 for $2943d.",
+    "curr_pt": "Próximo corpo a corpo: $s1 de Sombra e -$s2 por $d s."
+  },
+  {
+    "oid": 2677,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Smash Rank 1",
+    "en": "A crushing attack that does your weapon damage plus $s1.",
+    "curr_pt": "Um ataque esmagador que causa dano de arma mais $s1."
+  }
+]

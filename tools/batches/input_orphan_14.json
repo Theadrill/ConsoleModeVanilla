@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 24526,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 2",
+    "en": "Increases Shadow resistance by $24505s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24527,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 3",
+    "en": "Increases Shadow resistance by $24506s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24528,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 4",
+    "en": "Increases Shadow resistance by $24507s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24533,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 1",
+    "en": "Increases Stamina by $4187s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 24534,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 2",
+    "en": "Increases Stamina by $4188s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 24535,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 3",
+    "en": "Increases Stamina by $4189s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24536,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 4",
+    "en": "Increases Stamina by $4190s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24537,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 5",
+    "en": "Increases Stamina by $4191s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24538,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 6",
+    "en": "Increases Stamina by $4192s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24539,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 7",
+    "en": "Increases Stamina by $4193s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24540,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 8",
+    "en": "Increases Stamina by $4194s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24541,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 9",
+    "en": "Increases Stamina by $5041s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24545,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 1",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24547,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 1",
+    "en": "Armor increased by $24545s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24548,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 1",
+    "en": "Armor increased by $24545s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24549,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 2",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24550,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 3",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24551,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 4",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24552,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 5",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24553,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 6",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24554,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 7",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24555,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 8",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24556,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 2",
+    "en": "Armor increased by $24549s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24557,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 3",
+    "en": "Armor increased by $24550s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24558,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 4",
+    "en": "Armor increased by $24551s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24559,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 5",
+    "en": "Armor increased by $24552s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24560,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 6",
+    "en": "Armor increased by $24553s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24561,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 7",
+    "en": "Armor increased by $24554s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24562,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 8",
+    "en": "Armor increased by $24555s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24563,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 2",
+    "en": "Armor increased by $24549s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24565,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 3",
+    "en": "Armor increased by $24550s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24566,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 4",
+    "en": "Armor increased by $24551s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24567,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 5",
+    "en": "Armor increased by $24552s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24568,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 6",
+    "en": "Armor increased by $24553s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24569,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 7",
+    "en": "Armor increased by $24554s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24570,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 8",
+    "en": "Armor increased by $24555s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24571,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Blood Fury",
+    "en": "Instantly increases your rage by $/10;s1.",
+    "curr_pt": "Aumenta instantaneamente a sua Raiva em $s1 pontos."
+  },
+  {
+    "oid": 24577,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 2",
+    "en": "Blasts a single enemy for $s1 damage and lowers the attack power of all enemies in melee range by $s2.  Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24578,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 3",
+    "en": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2.  Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24579,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 4",
+    "en": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2.  Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24580,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 2",
+    "en": "Blasts a single enemy for $24577s1 damage and lowers the attack power of all enemies in melee range by $24577s2.  Effect lasts $24577d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24581,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 3",
+    "en": "Blasts a single enemy for $24578s1 damage and lowers the attack power of all enemies in melee range by $24578s2.  Effect lasts $24578d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24582,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 4",
+    "en": "Blasts a single enemy for $24579s1 damage and lowers the attack power of all enemies in melee range by $24579s2.  Effect lasts $24579d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24583,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 2",
+    "en": "Inflicts $o2 Nature damage over $d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Causa $s1 de dano de Natureza ao longo de $d s. Acumula até 5 vezes no alvo."
+  },
+  {
+    "oid": 24584,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 2",
+    "en": "Inflicts $24583o2 Nature damage over $24583d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
+  },
+  {
+    "oid": 24586,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 3",
+    "en": "Inflicts $o2 Nature damage over $d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Causa $s1 de dano de Natureza ao longo de $d s. Acumula até 5 vezes no alvo."
+  },
+  {
+    "oid": 24587,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 4",
+    "en": "Inflicts $o2 Nature damage over $d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Causa $s1 de dano de Natureza ao longo de $d s. Acumula até 5 vezes no alvo."
+  },
+  {
+    "oid": 24588,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 3",
+    "en": "Inflicts $24586o2 Nature damage over $24586d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
+  },
+  {
+    "oid": 24589,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 4",
+    "en": "Inflicts $24587o2 Nature damage over $24587d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
+  },
+  {
+    "oid": 24597,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 4",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d.",
+    "curr_pt": ""
+  }
+]

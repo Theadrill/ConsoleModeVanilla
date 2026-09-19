@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 36603,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Nova Rank 3",
+    "en": "Ah, kurwa!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Nova Rank 4",
+    "en": "Ah, kurwa!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36605,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Nova Rank 5",
+    "en": "Ah, kurwa!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36606,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Nova Rank 6",
+    "en": "Ah, kurwa!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42002,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Touch of Weakness Rank 6",
+    "en": "The next melee attack on the caster will cause $19254s1 Shadow damage and reduce the damage caused by the attacker by $19254s2 for $19254d.",
+    "curr_pt": "Próximo corpo a corpo: $s1 de Sombra e -$s2 por $d s."
+  },
+  {
+    "oid": 45400,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frostfire Bolt Rank 1",
+    "en": "Launches a bolt of frostfire at the enemy, causing $s1 frost and fire damage, slowing movement speed by $s3% and causing an additional $s2 fire damage over $d sec. This spell will be checked against the lower of the target's Frost and Fire resists.",
+    "curr_pt": "Virola de gelo e fogo: $s1 de gelo e fogo, -$s2% de velocidade e +$s3 de Fogo em $d s. Menor resistência vale."
+  },
+  {
+    "oid": 45402,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Water Elemental Rank 2",
+    "en": "Summon a Water Elemental to fight for the caster for $d.",
+    "curr_pt": "Invoca um Elemental da Água para lutar por $d s."
+  },
+  {
+    "oid": 45502,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ethereal Form Rank 1",
+    "en": "Makes the Shaman take $s1% less physical damage, but unable to cast spells for $d.",
+    "curr_pt": "Xamã: -$s1% de físico, sem magia por $d s."
+  },
+  {
+    "oid": 45504,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Hex Rank 1",
+    "en": "Transforms the enemy into a frog that cannot cast, and does $s3% less damage for up to $d. Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Vira sapo sem magia e -$s1% de dano por até $d s. Fera, Humanoide e Bicho."
+  },
+  {
+    "oid": 45505,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Feral Spirit Rank 1",
+    "en": "Summons two Spirit Wolves under the command of the Shaman for $d.",
+    "curr_pt": "Invoca 2 Lobos Espirituais por $d s."
+  },
+  {
+    "oid": 45506,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthquake Rank 1",
+    "en": "Creates a violent earthquake in the target area causing $s1 Physical damage to enemies every $t1 sec, and reducing their speed by $s2% in an 8 yard radius.  Lasts $d.  Shaman must channel to maintain the spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45513,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Totemic Recall",
+    "en": "Returns your totems to the earth, refunding $s1% of the mana required to cast each totem destroyed by Totemic Recall.",
+    "curr_pt": "Totem volta: +$s1% mana de cada."
+  },
+  {
+    "oid": 45514,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Feral Spirit Rank 2",
+    "en": "Summons two Greater Spirit Wolves under the command of the Shaman for $d.",
+    "curr_pt": "Invoca 2 Lobos Maiores por $d s."
+  },
+  {
+    "oid": 45527,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Water Shield Rank 1",
+    "en": "The caster is surrounded by $n globes of rejuvenating water for $d. When a spell, melee or ranged attack hits the caster, $45528s1 Mana is restored to the caster, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "Água $n globos por $d s. Quem bater dá $s1 de mana, gasta 1 globo. 1x a cada 3 s. Um escudo por vez."
+  },
+  {
+    "oid": 45529,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Calm Elements Rank 1",
+    "en": "Calms the target, reducing the range at which it will attack you by $s1 yards.  Only affects Elemental targets level $v or lower.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45551,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Prayer of Spirit Rank 2",
+    "en": "Power infuses the target's party, increasing their Spirit by $s1 for $d.",
+    "curr_pt": "Poder no grupo: +Espírito $s1 por $d s."
+  },
+  {
+    "oid": 45559,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Nova Rank 1",
+    "en": "Causes an explosion of cursed shadow around the caster, causing $s1 Shadow damage to all enemy targets within $a1 yards. This effect causes increased threat.",
+    "curr_pt": "Explosão sombria de $s1 a $a1 m. Mais ameaça."
+  },
+  {
+    "oid": 45564,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Champion's Bond Rank 1",
+    "en": "Creates a bond between priest and Champion. When the priest takes damage up to $45570s2 will be taken by the Champion instead. Lasts $d.",
+    "curr_pt": "Vínculo: até $s1 do dano em você vai pro Campeão por $d s."
+  },
+  {
+    "oid": 45565,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Empower Champion Rank 1",
+    "en": "Empower the target Champion, increasing spell damage done by up to $s2 and attack power by $s3. Lasts $d.",
+    "curr_pt": "Campeão: +$s1 magia e +$s2 poder por $d s."
+  },
+  {
+    "oid": 45570,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Champion's Bond Rank 1",
+    "en": "This spell should be automatically casted by the Priest's champion onto the Priest.",
+    "curr_pt": "Campeão lança sozinho no Sacerdote."
+  },
+  {
+    "oid": 45582,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shield Guard Rank 1",
+    "en": "Guard the friendly target with your shield, causing $s1% of all melee and ranged attacks to attack you instead. Target must remain within $a1 yards of the warrior. A unit can only be guarded by one Shield Guard at a time. The warrior can only Shield Guard one target at a time.",
+    "curr_pt": "Guarda com escudo: $s1% dos ataques no aliado batem em você a $a1 m. Uma guarda por vez."
+  },
+  {
+    "oid": 45586,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Stormbolt Rank 1",
+    "en": "Inflicts $s1 damage to an enemy, stunning it for $d.",
+    "curr_pt": "Causa $s1 de dano ao inimigo, atordoando-o por $d s."
+  },
+  {
+    "oid": 45592,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Pulverize Rank 1",
+    "en": "Causes your melee attacks to have a 35% chance to deal $45593s1 damage to nearby enemies for 30 seconds.",
+    "curr_pt": "Corpo a corpo: 35% de $s1 nos próximos por 30 s."
+  },
+  {
+    "oid": 45604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flourish Rank 1",
+    "en": "Finishing move that increases your chance to parry by an additional 20%.  Lasts longer per combo point:\n   1 point  : 8 seconds\n   2 points: 10 seconds\n   3 points: 12 seconds\n   4 points: 14 seconds\n   5 points: 16 seconds",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45653,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lacerate Rank 1",
+    "en": "Wounds the target causing them to bleed for 21% of your melee attack power over $d.",
+    "curr_pt": "Dilacera: sangra 21% do poder em $d s."
+  },
+  {
+    "oid": 45654,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lacerate Rank 2",
+    "en": "Wounds the target causing them to bleed for 35% of your melee attack power over $d.",
+    "curr_pt": "Dilacera: sangra 35% do poder em $d s."
+  },
+  {
+    "oid": 45655,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lacerate Rank 3",
+    "en": "Wounds the target causing them to bleed for 49% of your melee attack power over $d.",
+    "curr_pt": "Dilacera: sangra 49% do poder em $d s."
+  },
+  {
+    "oid": 45656,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lacerate Rank 1",
+    "en": "Deal damage equal to on $s1% of melee attack power.",
+    "curr_pt": "Ao ser atingido em combate, tem 1% de chance de causar $s1 de dano de Sombra no atacante."
+  },
+  {
+    "oid": 45657,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lacerate Rank 2",
+    "en": "Deal damage equal to on $s1% of melee attack power.",
+    "curr_pt": "Ao ser atingido em combate, tem 1% de chance de causar $s1 de dano de Sombra no atacante."
+  },
+  {
+    "oid": 45658,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lacerate Rank 3",
+    "en": "Deal damage equal to on $s1% of melee attack power.",
+    "curr_pt": "Ao ser atingido em combate, tem 1% de chance de causar $s1 de dano de Sombra no atacante."
+  },
+  {
+    "oid": 45662,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Eyes of the Beast Rank 1",
+    "en": "While channeling your tamed pet deals $s2% additional damage and increases its focus generation by $s3%.",
+    "curr_pt": "Canalizando: pet +$s1% dano e +$s2% foco."
+  },
+  {
+    "oid": 45663,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Eyes of the Beast Rank 2",
+    "en": "While channeling your tamed pet deals $s2% additional damage and increases its focus generation by $s3%.",
+    "curr_pt": "Canalizando: pet +$s1% dano e +$s2% foco."
+  },
+  {
+    "oid": 45715,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Weapons Rank 1",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%. Also increases chance to hit with melee attacks and spells by $s2%.",
+    "curr_pt": "Suas magias têm $s1% de chance de não consumir reagente."
+  },
+  {
+    "oid": 45716,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Weapons Rank 2",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%. Also increases chance to hit with melee attacks and spells by $s2%.",
+    "curr_pt": "Suas magias têm $s1% de chance de não consumir reagente."
+  },
+  {
+    "oid": 45717,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Weapons Rank 3",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%. Also increases chance to hit with melee attacks and spells by $s2%.",
+    "curr_pt": "Suas magias têm $s1% de chance de não consumir reagente."
+  },
+  {
+    "oid": 45721,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 1",
+    "en": "Increases the duration of Tiger's Fury by $/1000;s1 seconds and your Enrage now also instantly generates $/10;17080s1 rage.  In addition, Tiger's Fury and Enrage increase your attack speed by $45729s1% for $45729d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45722,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 2",
+    "en": "Increases the duration of Tiger's Fury by $/1000;s1 seconds and your Enrage now also instantly generates $/10;17081s1 rage.  In addition, Tiger's Fury and Enrage increase your attack speed by $45730s1% for $45730d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45726,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Primal Precision Rank 1",
+    "en": "Increases your skill in Feral Combat by $s1.",
+    "curr_pt": "Aumenta sua perícia em Combate Feral em $s1."
+  },
+  {
+    "oid": 45727,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Primal Precision Rank 2",
+    "en": "Increases your skill in Feral Combat by $s1.",
+    "curr_pt": "Aumenta sua perícia em Combate Feral em $s1."
+  },
+  {
+    "oid": 45818,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Redoubt Rank 1",
+    "en": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20128s1%. Lasts $20128d or $20128n blocks.",
+    "curr_pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
+  },
+  {
+    "oid": 45819,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Redoubt Rank 2",
+    "en": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20131s1%. Lasts $20131d or $20131n blocks.",
+    "curr_pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
+  },
+  {
+    "oid": 45820,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Redoubt Rank 3",
+    "en": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20132s1%. Lasts $20132d or $20132n blocks.",
+    "curr_pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
+  },
+  {
+    "oid": 45821,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Redoubt Rank 4",
+    "en": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20133s1%. Lasts $20133d or $20133n blocks.",
+    "curr_pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
+  },
+  {
+    "oid": 45822,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Redoubt Rank 5",
+    "en": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20134s1%. Lasts $20134d or $20134n blocks.",
+    "curr_pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
+  },
+  {
+    "oid": 45823,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Reckoning Rank 1",
+    "en": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
+    "curr_pt": "Dá $h% de chance de um ataque extra após bloquear."
+  },
+  {
+    "oid": 45824,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Reckoning Rank 2",
+    "en": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
+    "curr_pt": "Dá $h% de chance de um ataque extra após bloquear."
+  },
+  {
+    "oid": 45825,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Reckoning Rank 3",
+    "en": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
+    "curr_pt": "Dá $h% de chance de um ataque extra após bloquear."
+  },
+  {
+    "oid": 45826,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Reckoning Rank 4",
+    "en": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
+    "curr_pt": "Dá $h% de chance de um ataque extra após bloquear."
+  },
+  {
+    "oid": 45837,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Reckoning Rank 5",
+    "en": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
+    "curr_pt": "Dá $h% de chance de um ataque extra após bloquear."
+  },
+  {
+    "oid": 45905,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Doombringer Rank 1",
+    "en": "Reduces the cooldown of your Inferno spell by $/60000;s1 min and your Ritual of Doom spell by $/60000;s2 min.",
+    "curr_pt": "Inferno -$s1 min e Ritual -$s2 min."
+  }
+]

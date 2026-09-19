@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 24446,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 1",
+    "en": "Increases Frost resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 24447,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 2",
+    "en": "Increases Frost resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 24448,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 3",
+    "en": "Increases Frost resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 24449,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 4",
+    "en": "Increases Frost resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 24463,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 3",
+    "en": "Increases Fire resistance by $24444s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24464,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 4",
+    "en": "Increases Fire resistance by $24445s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24468,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 2",
+    "en": "Increases Fire resistance by $24439s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24470,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 3",
+    "en": "Increases Fire resistance by $24444s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24472,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 4",
+    "en": "Increases Fire resistance by $24445s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24473,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 1",
+    "en": "Increases Frost resistance by $24446s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24475,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 1",
+    "en": "Increases Frost resistance by $24446s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24476,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 2",
+    "en": "Increases Frost resistance by $24447s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24477,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 3",
+    "en": "Increases Frost resistance by $24448s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24478,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 4",
+    "en": "Increases Frost resistance by $24449s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24481,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 2",
+    "en": "Increases Frost resistance by $24447s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24484,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 3",
+    "en": "Increases Frost resistance by $24448s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24485,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance Rank 4",
+    "en": "Increases Frost resistance by $24449s1.",
+    "curr_pt": "Gelo +$s1."
+  },
+  {
+    "oid": 24488,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 1",
+    "en": "Increases Shadow resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Sombra em $s1."
+  },
+  {
+    "oid": 24490,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 1",
+    "en": "Increases Shadow resistance by $24488s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24492,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 1",
+    "en": "Increases Nature resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1."
+  },
+  {
+    "oid": 24493,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 1",
+    "en": "Increases Arcane resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Arcano em $s1."
+  },
+  {
+    "oid": 24494,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 1",
+    "en": "Increases Nature resistance by $24492s1.",
+    "curr_pt": "Natureza +$s1."
+  },
+  {
+    "oid": 24495,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 1",
+    "en": "Increases Arcane resistance by $24493s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24497,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 2",
+    "en": "Increases Arcane resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Arcano em $s1."
+  },
+  {
+    "oid": 24500,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 3",
+    "en": "Increases Arcane resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Arcano em $s1."
+  },
+  {
+    "oid": 24501,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 4",
+    "en": "Increases Arcane resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Arcano em $s1."
+  },
+  {
+    "oid": 24502,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 2",
+    "en": "Increases Nature resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1."
+  },
+  {
+    "oid": 24503,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 3",
+    "en": "Increases Nature resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1."
+  },
+  {
+    "oid": 24504,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 4",
+    "en": "Increases Nature resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1."
+  },
+  {
+    "oid": 24505,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 2",
+    "en": "Increases Shadow resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Sombra em $s1."
+  },
+  {
+    "oid": 24506,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 3",
+    "en": "Increases Shadow resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Sombra em $s1."
+  },
+  {
+    "oid": 24507,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 4",
+    "en": "Increases Shadow resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Sombra em $s1."
+  },
+  {
+    "oid": 24508,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 2",
+    "en": "Increases Arcane resistance by $24497s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24509,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 3",
+    "en": "Increases Arcane resistance by $24500s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24510,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 4",
+    "en": "Increases Arcane resistance by $24501s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24511,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 2",
+    "en": "Increases Nature resistance by $24502s1.",
+    "curr_pt": "Natureza +$s1."
+  },
+  {
+    "oid": 24512,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 3",
+    "en": "Increases Nature resistance by $24503s1.",
+    "curr_pt": "Natureza +$s1."
+  },
+  {
+    "oid": 24513,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 4",
+    "en": "Increases Nature resistance by $24504s1.",
+    "curr_pt": "Natureza +$s1."
+  },
+  {
+    "oid": 24514,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 2",
+    "en": "Increases Shadow resistance by $24505s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24515,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 3",
+    "en": "Increases Shadow resistance by $24506s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24516,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 4",
+    "en": "Increases Shadow resistance by $24507s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24517,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 1",
+    "en": "Increases Nature resistance by $24492s1.",
+    "curr_pt": "Natureza +$s1."
+  },
+  {
+    "oid": 24518,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance Rank 1",
+    "en": "Increases Shadow resistance by $24488s1.",
+    "curr_pt": "Sombra +$s1."
+  },
+  {
+    "oid": 24519,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 1",
+    "en": "Increases Arcane resistance by $24493s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24520,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 2",
+    "en": "Increases Arcane resistance by $24497s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24521,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 3",
+    "en": "Increases Arcane resistance by $24500s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24522,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance Rank 4",
+    "en": "Increases Arcane resistance by $24501s1.",
+    "curr_pt": "Arcano +$s1."
+  },
+  {
+    "oid": 24523,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 2",
+    "en": "Increases Nature resistance by $24502s1.",
+    "curr_pt": "Natureza +$s1."
+  },
+  {
+    "oid": 24524,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 3",
+    "en": "Increases Nature resistance by $24503s1.",
+    "curr_pt": "Natureza +$s1."
+  },
+  {
+    "oid": 24525,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance Rank 4",
+    "en": "Increases Nature resistance by $24504s1.",
+    "curr_pt": "Natureza +$s1."
+  }
+]

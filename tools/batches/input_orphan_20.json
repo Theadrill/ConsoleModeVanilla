@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 51326,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Righteous Defense Rank 2",
+    "en": "Reduces all damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano recebido em $s1%."
+  },
+  {
+    "oid": 51327,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Righteous Defense Rank 3",
+    "en": "Reduces all damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano recebido em $s1%."
+  },
+  {
+    "oid": 51331,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Sacred Duty Rank 1",
+    "en": "Increases your total Stamina by $s1%.",
+    "curr_pt": "Faz o alvo inimigo dormir por até $d s. Qualquer dano o desperta. Só um alvo dormindo por vez."
+  },
+  {
+    "oid": 51332,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Sacred Duty Rank 2",
+    "en": "Increases your total Stamina by $s1%.",
+    "curr_pt": "Faz o alvo inimigo dormir por até $d s. Qualquer dano o desperta. Só um alvo dormindo por vez."
+  },
+  {
+    "oid": 51333,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Sacred Duty Rank 3",
+    "en": "Increases your total Stamina by $s1%.",
+    "curr_pt": "Faz o alvo inimigo dormir por até $d s. Qualquer dano o desperta. Só um alvo dormindo por vez."
+  },
+  {
+    "oid": 51334,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Hand of Reckoning Rank 1",
+    "en": "Improves your chance to hit with Hand of Reckoning by $s1%.",
+    "curr_pt": "Mão do Ajuste +$s1% acerto."
+  },
+  {
+    "oid": 51335,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Hand of Reckoning Rank 2",
+    "en": "Improves your chance to hit with Hand of Reckoning by $s1%.",
+    "curr_pt": "Mão do Ajuste +$s1% acerto."
+  },
+  {
+    "oid": 51347,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Two-Handed Weapon Skill Rank 1",
+    "en": "Skill with two-handed swords, maces and axes increased by $s1.",
+    "curr_pt": "Aumenta sua chance de Crítico com magia de Natureza em $s1%."
+  },
+  {
+    "oid": 51348,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Two-Handed Weapon Skill Rank 2",
+    "en": "Skill with two-handed swords, maces and axes increased by $s1.",
+    "curr_pt": "Aumenta sua chance de Crítico com magia de Natureza em $s1%."
+  },
+  {
+    "oid": 51349,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Two-Handed Weapon Skill Rank 3",
+    "en": "Skill with two-handed swords, maces and axes increased by $s1.",
+    "curr_pt": "Aumenta sua chance de Crítico com magia de Natureza em $s1%."
+  },
+  {
+    "oid": 51350,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Might Rank 1",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51351,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Might Rank 2",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51352,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Might Rank 3",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51353,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Might Rank 4",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51354,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Might Rank 5",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51360,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Repent Rank 1",
+    "en": "If the target is immune to the effect, they repent for their sins, taking $51361s1 Holy damage each time they perform a melee attack for $d.",
+    "curr_pt": "Imune: $s1 Sagrado por golpe por $d s."
+  },
+  {
+    "oid": 51361,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Repent Rank 1",
+    "en": "Blasts the enemy for $s1 Holy damage.",
+    "curr_pt": "Detona o inimigo com $s1 de dano Sagrado."
+  },
+  {
+    "oid": 51365,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Earthshaker Slam",
+    "en": "Slams your target with your shield, taunting it. Has no effect if the target is already attacking you.",
+    "curr_pt": "Escudada que provoca, sem efeito se já é o alvo."
+  },
+  {
+    "oid": 51369,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Water Shield Rank 1",
+    "en": "While your Water Shield is active, you restore $s1 Mana every 5 sec, and your total mana regeneration is increased by $/10;S2% for each active Water Shield globe.",
+    "curr_pt": "O alvo fica imune a veneno por $d s e se cura dos atuais."
+  },
+  {
+    "oid": 51370,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Water Shield Rank 2",
+    "en": "While your Water Shield is active, you restore $s1 Mana every 5 sec, and your total mana regeneration is increased by $/10;S2% for each active Water Shield globe.",
+    "curr_pt": "O alvo fica imune a veneno por $d s e se cura dos atuais."
+  },
+  {
+    "oid": 51371,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Water Shield Rank 3",
+    "en": "While your Water Shield is active, you restore $s1 Mana every 5 sec, and your total mana regeneration is increased by $/10;S2% for each active Water Shield globe.",
+    "curr_pt": "O alvo fica imune a veneno por $d s e se cura dos atuais."
+  },
+  {
+    "oid": 51401,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barkskin (Feral) Rank 1",
+    "en": "The druid's skin becomes tough as bark, reducing the damage of the next five direct physical attacks by $s1%. Movement speed is reduced by $s2% during its duration.   Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51406,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Feral Adrenaline Rank 1",
+    "en": "Increase dodge chance by $s1% until the next time you dodge.",
+    "curr_pt": "Invoca uma súcubo pelo círculo."
+  },
+  {
+    "oid": 51407,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Feral Adrenaline Rank 2",
+    "en": "Increase dodge chance by $s1% until the next time you dodge.",
+    "curr_pt": "Invoca uma súcubo pelo círculo."
+  },
+  {
+    "oid": 51408,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Feral Adrenaline Rank 3",
+    "en": "Increase dodge chance by $s1% until the next time you dodge.",
+    "curr_pt": "Invoca uma súcubo pelo círculo."
+  },
+  {
+    "oid": 51415,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ancient Brutality Rank 1",
+    "en": "Periodic ticks of your Bleed effects restore $51412s1 Energy while in Cat Form. Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53219s1 rage per second for $53219d. This effect can only occur once every 9 seconds.",
+    "curr_pt": "Sangrar dá $s1 energia em Gato; esquivar em Urso dá +$s2 fúria/s por $d s. 1x a cada 9 s."
+  },
+  {
+    "oid": 51416,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ancient Brutality Rank 2",
+    "en": "Periodic ticks of your Bleed effects restore $51413s1 Energy while in Cat Form. Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53220s1 rage per second for $53220d. This effect can only occur once every 9 seconds.",
+    "curr_pt": "Sangrar dá $s1 energia em Gato; esquivar em Urso dá +$s2 fúria/s por $d s. 1x a cada 9 s."
+  },
+  {
+    "oid": 51417,
+    "kind": "custom",
+    "need": "review",
+    "sample": "zzOLD Ancient Brutality Rank 3",
+    "en": "Periodic ticks of your Bleed effects restore $51414s1 Energy while in Cat Form. Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53221s1 rage per second for $53221d. This effect can only occur once every 9 seconds.",
+    "curr_pt": "Sangrar dá $s1 energia em Gato; esquivar em Urso dá +$s2 fúria/s por $d s. 1x a cada 9 s."
+  },
+  {
+    "oid": 51438,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gale Winds Rank 1",
+    "en": "Reduces targets attack speed by $s1% for $d.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 51439,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gale Winds Rank 1",
+    "en": "Reduces targets attack speed by $s1% for $d.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 51440,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gale Winds Rank 1",
+    "en": "Causes your Hurricane spell to reduce the attack speed of affected enemies by $51438s1%.",
+    "curr_pt": "Furacão: -$s1% velocidade."
+  },
+  {
+    "oid": 51441,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gale Winds Rank 2",
+    "en": "Causes your Hurricane spell to reduce the attack speed of affected enemies by $51439s1%.",
+    "curr_pt": "Furacão: -$s1% velocidade."
+  },
+  {
+    "oid": 51451,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barkskin (Feral) Rank 2",
+    "en": "The druid's skin becomes tough as bark, reducing the damage of the next ten direct physical attacks by $s1%. Movement speed is reduced by $s2% during its duration.   Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51452,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barkskin (Feral) Rank 3",
+    "en": "The druid's skin becomes tough as bark, reducing the damage of the next fifteen direct physical attacks by $s1%. Movement speed is reduced by $s2% during its duration.   Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51462,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Piercing Light Rank 1",
+    "en": "Reduces the chance for enemies to resist your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Arremessa um raio no inimigo com $s1 de dano de Natureza, saltando para outros próximos. Cada salto reduz o dano em 30%. Afeta $x1 alvos no total."
+  },
+  {
+    "oid": 51463,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Piercing Light Rank 2",
+    "en": "Reduces the chance for enemies to resist your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Arremessa um raio no inimigo com $s1 de dano de Natureza, saltando para outros próximos. Cada salto reduz o dano em 30%. Afeta $x1 alvos no total."
+  },
+  {
+    "oid": 51464,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Piercing Light Rank 3",
+    "en": "Reduces the chance for enemies to resist your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Arremessa um raio no inimigo com $s1 de dano de Natureza, saltando para outros próximos. Cada salto reduz o dano em 30%. Afeta $x1 alvos no total."
+  },
+  {
+    "oid": 51481,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chastise Haste Rank 1",
+    "en": "Increases haste by $s1% for $d.",
+    "curr_pt": "Aumenta a pressa em $s1% por $d s."
+  },
+  {
+    "oid": 51482,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chastise Haste Rank 2",
+    "en": "Increases haste by $s1% for $d.",
+    "curr_pt": "Aumenta a pressa em $s1% por $d s."
+  },
+  {
+    "oid": 51483,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chastise Haste Rank 3",
+    "en": "Increases haste by $s1% for $d.",
+    "curr_pt": "Aumenta a pressa em $s1% por $d s."
+  },
+  {
+    "oid": 51533,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Water Shield Rank 2",
+    "en": "The caster is surrounded by $n globes of rejuvenating water for $d. When a spell, melee or ranged attack hits the caster, $51529s1 Mana is restored to the caster, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "Cercado por $n globos de água por $d s. Quem bater restaura $s1 de mana, gasta 1 globo. 1x a cada 3 s. Um escudo por vez."
+  },
+  {
+    "oid": 51534,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Water Shield Rank 3",
+    "en": "The caster is surrounded by $n globes of rejuvenating water for $d. When a spell, melee or ranged attack hits the caster, $51530s1 Mana is restored to the caster, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "Cercado por $n globos de água por $d s. Quem bater restaura $s1 de mana, gasta 1 globo. 1x a cada 3 s. Um escudo por vez."
+  },
+  {
+    "oid": 51535,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Water Shield Rank 4",
+    "en": "The caster is surrounded by $n globes of rejuvenating water for $d. When a spell, melee or ranged attack hits the caster, $51531s1 Mana is restored to the caster, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "Cercado por $n globos de água por $d s. Quem bater restaura $s1 de mana, gasta 1 globo. 1x a cada 3 s. Um escudo por vez."
+  },
+  {
+    "oid": 51536,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Water Shield Rank 5",
+    "en": "The caster is surrounded by $n globes of rejuvenating water for $d. When a spell, melee or ranged attack hits the caster, $51532s1 Mana is restored to the caster, spending one globe. This effect can only occur once every 3 sec. Only one elemental shield can be active on the Shaman at any one time.",
+    "curr_pt": "Cercado por $n globos de água por $d s. Quem bater restaura $s1 de mana, gasta 1 globo. 1x a cada 3 s. Um escudo por vez."
+  },
+  {
+    "oid": 51552,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Elusiveness Rank 1",
+    "en": "Adds $s1% of your resistances to the resistances of your pets and increases the Dodge chance of your pets by $s2%.",
+    "curr_pt": "Resist do pet +$s1% e esquiva +$s2%."
+  },
+  {
+    "oid": 51553,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Elusiveness Rank 2",
+    "en": "Adds $s1% of your resistances to the resistances of your pets and increases the Dodge chance of your pets by $s2%.",
+    "curr_pt": "Resist do pet +$s1% e esquiva +$s2%."
+  },
+  {
+    "oid": 51554,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bestial Precision Rank 1",
+    "en": "Increases the physical hit chance of your pets by $s1% and the spell hit chance of your pets by $s2%. In addition, increases the weapon skill of your pets by 5.",
+    "curr_pt": "Pet: +$s1% acerto físico e +$s2% mágico. +5 perícia."
+  },
+  {
+    "oid": 51555,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bestial Precision Rank 2",
+    "en": "Increases the physical hit chance of your pets by $s1% and the spell hit chance of your pets by $s2%. In addition, increases the weapon skill of your pets by 10.",
+    "curr_pt": "Pet: +$s1% acerto físico e +$s2% mágico. +10 perícia."
+  },
+  {
+    "oid": 51556,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Intimidation",
+    "en": "Increasing threat caused by your pet by $s1% for $d.",
+    "curr_pt": "Ameaça do pet +$s1% por $d s."
+  },
+  {
+    "oid": 51559,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Repent Rank 2",
+    "en": "Blasts the enemy for $s1 Holy damage.",
+    "curr_pt": "Detona o inimigo com $s1 de dano Sagrado."
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 51737,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Soul Fire Rank 2",
+    "en": "Your Soul Fire has a $h% chance to refund a Soul Shard and increase your Fire damage by $51735s1% for $51735d.",
+    "curr_pt": "Fogo da Alma: $h% de Fragmento de volta e +$s1% Fogo por $d s."
+  },
+  {
+    "oid": 51827,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Holy Might Rank 1",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51828,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Holy Might Rank 2",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51829,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Holy Might Rank 3",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51830,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Holy Might Rank 4",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51831,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Holy Might Rank 5",
+    "en": "Increases your Strength by $s1%.",
+    "curr_pt": "Aumenta sua Força em $s1%."
+  },
+  {
+    "oid": 51875,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 2",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51876,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 3",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51877,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 4",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51878,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 5",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51879,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 6",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51880,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 7",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51881,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 8",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51933,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Surge Rank 1",
+    "en": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51934,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Surge Rank 2",
+    "en": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51935,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Surge Rank 3",
+    "en": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51936,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Surge Rank 4",
+    "en": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51974,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bloody Mess Rank 1",
+    "en": "Reduces the Energy cost of your Hemorrhage by $s1 and increases the Physical damage dealt bonus of your Hemorrhage by $s2%.",
+    "curr_pt": "Hemorragia -$s1 energia e +$s2% Físico."
+  },
+  {
+    "oid": 51975,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bloody Mess Rank 2",
+    "en": "Reduces the Energy cost of your Hemorrhage by $s1 and increases the Physical damage dealt bonus of your Hemorrhage by $s2%.",
+    "curr_pt": "Hemorragia -$s1 energia e +$s2% Físico."
+  },
+  {
+    "oid": 51992,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Icicle Rank 2",
+    "en": "Launches an Icicle at the enemy, causing $s1 Frost damage.",
+    "curr_pt": "Lança uma estaca de gelo no inimigo com $s1 de dano de Gelo."
+  },
+  {
+    "oid": 51996,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Icicle Rank 3",
+    "en": "Launches an Icicle at the enemy, causing $s1 Frost damage.",
+    "curr_pt": "Lança uma estaca de gelo no inimigo com $s1 de dano de Gelo."
+  },
+  {
+    "oid": 51998,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Icicle Rank 4",
+    "en": "Launches an Icicle at the enemy, causing $s1 Frost damage.",
+    "curr_pt": "Lança uma estaca de gelo no inimigo com $s1 de dano de Gelo."
+  },
+  {
+    "oid": 51999,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Flash Freeze Rank 1",
+    "en": "If an effect that causes a target to freeze is not applied due to the target being permanently immune to freeze effects, you have a $h% chance to gain Flash Freeze instead. Flash Freeze resets the cooldown of Icicles and reduces the duration and the time between each Icicle by $52500s1% for your next Icicles.",
+    "curr_pt": "Se imune a congelar, $h% de Congelar em vez disso: zera Estacas e -$s1% tempo por $d s."
+  },
+  {
+    "oid": 52338,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aviana's Torrent Rank 1",
+    "en": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52339,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aviana's Torrent Rank 2",
+    "en": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52340,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aviana's Torrent Rank 3",
+    "en": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52391,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Unstablized Mana Rank 1",
+    "en": "Deals Arcane damage to the target.",
+    "curr_pt": "Causa dano Arcano no alvo."
+  },
+  {
+    "oid": 52501,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Flash Freeze Rank 2",
+    "en": "If an effect that causes a target to freeze is not applied due to the target being permanently immune to freeze effects, you have a $h% chance to gain Flash Freeze instead. Flash Freeze resets the cooldown of Icicles and reduces the duration and the time between each Icicle by $52500s1% for your next Icicles.",
+    "curr_pt": "Se imune a congelar, $h% de Congelar em vez disso: zera Estacas e -$s1% tempo por $d s."
+  },
+  {
+    "oid": 52507,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blade Rush Rank 1",
+    "en": "Reduces the cooldown of your Blade Flurry by $/1000;S1 sec.  In addition, Blade Flurry now increases your attack speed by $s2% for its duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52508,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blade Rush Rank 2",
+    "en": "Reduces the cooldown of your Blade Flurry by $/1000;S1 sec.  In addition, Blade Flurry now increases your attack speed by $s2% for its duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52517,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Icicle Rank 1",
+    "en": "Launches an Icicle at the enemy, causing $s1 Frost damage.",
+    "curr_pt": "Lança uma estaca de gelo no inimigo com $s1 de dano de Gelo."
+  },
+  {
+    "oid": 52527,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vigor Rank 2",
+    "en": "Increases your maximum Energy by $s2.  Each time you apply poison to your target, you have a $s1% chance to gain $52526s1 Energy.  This effect can occur once every 8 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52532,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Irritation Rank 1",
+    "en": "Reduces all damage dealt by $s1% for $d.",
+    "curr_pt": "Causa $s1% do dano de arma e reduz a velocidade do alvo em $s2% por $d s."
+  },
+  {
+    "oid": 52533,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Irritation Rank 2",
+    "en": "Reduces all damage dealt by $s1% for $d.",
+    "curr_pt": "Causa $s1% do dano de arma e reduz a velocidade do alvo em $s2% por $d s."
+  },
+  {
+    "oid": 52534,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Irritation Rank 3",
+    "en": "Reduces all damage dealt by $s1% for $d.",
+    "curr_pt": "Causa $s1% do dano de arma e reduz a velocidade do alvo em $s2% por $d s."
+  },
+  {
+    "oid": 52547,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Resilient Shadows Rank 1",
+    "en": "Reduces the chance your Affliction spells will be dispelled by an additional $s1%.",
+    "curr_pt": "Ferroa o alvo, drenando $s1 de mana ao longo de $d s. Só um Ferrão por Caçador no alvo."
+  },
+  {
+    "oid": 52548,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Resilient Shadows Rank 2",
+    "en": "Reduces the chance your Affliction spells will be dispelled by an additional $s1%.",
+    "curr_pt": "Ferroa o alvo, drenando $s1 de mana ao longo de $d s. Só um Ferrão por Caçador no alvo."
+  },
+  {
+    "oid": 52549,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Resilient Shadows Rank 3",
+    "en": "Reduces the chance your Affliction spells will be dispelled by an additional $s1%.",
+    "curr_pt": "Ferroa o alvo, drenando $s1 de mana ao longo de $d s. Só um Ferrão por Caçador no alvo."
+  },
+  {
+    "oid": 52550,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dark Harvest Rank 1",
+    "en": "Reaps the target's life, dealing $*8;s1 Shadow damage over $d. While channeling, the time between periodic ticks of your Affliction spells on the target is reduced by $s2%. If the target dies while channeling, the cooldown of Dark Harvest is reset.",
+    "curr_pt": "Aumenta a resistência a Sagrado em $s1."
+  },
+  {
+    "oid": 52551,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dark Harvest Rank 2",
+    "en": "Reaps the target's life, dealing $*8;s1 Shadow damage over $d. While channeling, the time between periodic ticks of your Affliction spells on the target is reduced by $s2%. If the target dies while channeling, the cooldown of Dark Harvest is reset.",
+    "curr_pt": "Aumenta a resistência a Sagrado em $s1."
+  },
+  {
+    "oid": 52552,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dark Harvest Rank 3",
+    "en": "Reaps the target's life, dealing $*8;s1 Shadow damage over $d. While channeling, the time between periodic ticks of your Affliction spells on the target is reduced by $s2%. If the target dies while channeling, the cooldown of Dark Harvest is reset.",
+    "curr_pt": "Aumenta a resistência a Sagrado em $s1."
+  },
+  {
+    "oid": 52658,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chastise Haste Rank 1",
+    "en": "Increases haste by $s1% for $d.",
+    "curr_pt": "Aumenta a pressa em $s1% por $d s."
+  },
+  {
+    "oid": 52659,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chastise Haste Rank 2",
+    "en": "Increases haste by $s1% for $d.",
+    "curr_pt": "Aumenta a pressa em $s1% por $d s."
+  },
+  {
+    "oid": 52660,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chastise Haste Rank 3",
+    "en": "Increases haste by $s1% for $d.",
+    "curr_pt": "Aumenta a pressa em $s1% por $d s."
+  },
+  {
+    "oid": 53216,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ancient Brutality (Bear) Rank 1",
+    "en": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53219s1 rage per second for $53219d. This effect can only occur once every 9 seconds.",
+    "curr_pt": "Esquivar em Urso: +$s1 fúria/s por $d s. 1x a cada 9 s."
+  },
+  {
+    "oid": 53217,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ancient Brutality (Bear) Rank 2",
+    "en": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53220s1 rage per second for $53220d. This effect can only occur once every 9 seconds.",
+    "curr_pt": "Esquivar em Urso: +$s1 fúria/s por $d s. 1x a cada 9 s."
+  },
+  {
+    "oid": 53218,
+    "kind": "custom",
+    "need": "review",
+    "sample": "zzOLD Ancient Brutality (Bear) Rank 3",
+    "en": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53221s1 rage per second for $53221d. This effect can only occur once every 9 seconds.",
+    "curr_pt": "Esquivar em Urso: +$s1 fúria/s por $d s. 1x a cada 9 s."
+  },
+  {
+    "oid": 56524,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire-Blessed Weapon Rank 3",
+    "en": "Caster's weapon bursts into flame, causing an additional $s1 fire damage with each hit.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57140,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Elixir of the Mongoose",
+    "en": "Increases Agility by $s1 and chance to get a critical hit by $s2% for $d.",
+    "curr_pt": "Agi +$s1 e crítico +$s2% por $d s."
+  },
+  {
+    "oid": 57709,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Boundless Anger Rank 1",
+    "en": "Increases your maximum Rage by $/10;s1.",
+    "curr_pt": "Aumenta sua magia Sagrada em 4 e reduz sua resistência a Sombra em 2."
+  }
+]

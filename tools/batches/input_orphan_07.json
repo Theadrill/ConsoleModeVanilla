@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 12961,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Iron Will Rank 4",
+    "en": "Increases your chance to resist Stun and Charm effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua chance de resistir a Atordoar e Encantar em $s1%."
+  },
+  {
+    "oid": 12962,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Iron Will Rank 5",
+    "en": "Increases your chance to resist Stun and Charm effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua chance de resistir a Atordoar e Encantar em $s1%."
+  },
+  {
+    "oid": 13043,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Fire Ward Rank 2",
+    "en": "Causes your Fire Ward to have a $s1% chance to reflect Fire spells while active.",
+    "curr_pt": "Guarda de Fogo: $s1% de refletir Fogo ativa."
+  },
+  {
+    "oid": 13532,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Thunder Clap Rank 1",
+    "en": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 13710,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Throwing Weapon Specialization Rank 1",
+    "en": "Increases the range of Throw and Deadly Throw by $s1 yards and gives your Deadly Throw a $s2% chance to apply your off-hand weapon poison.",
+    "curr_pt": "Aumenta o alcance de Arremesso e Mortal em $s1 m e dá $s2% de chance de veneno da secundária."
+  },
+  {
+    "oid": 13744,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Blazing Emblem Rank 1",
+    "en": "Increases Fire resistance by $s2 and reduces all Fire damage taken by up to 25 for $d.",
+    "curr_pt": "Fogo +$s1 e -25 dano por $d s."
+  },
+  {
+    "oid": 13747,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Slow",
+    "en": "Increases the time between nearby enemies' attacks by $s1% and slows their movement by $s2% for $d.",
+    "curr_pt": "Faz o alvo correr de horror por $d s e sofrer $s1 de dano de Sombra, e você se cura em 100% do dano."
+  },
+  {
+    "oid": 13859,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Throwing Weapon Specialization Rank 2",
+    "en": "Increases the range of Throw and Deadly Throw by $s1 yards and gives your Deadly Throw a $s2% chance to apply your off-hand weapon poison.",
+    "curr_pt": "Aumenta o alcance de Arremesso e Mortal em $s1 m e dá $s2% de chance de veneno da secundária."
+  },
+  {
+    "oid": 13960,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Hack and Slash Rank 1",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Axe or Sword.",
+    "curr_pt": "Dá $h% de chance de um ataque extra no mesmo alvo após dano com Machado ou Espada."
+  },
+  {
+    "oid": 13961,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Hack and Slash Rank 2",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Axe or Sword.",
+    "curr_pt": "Dá $h% de chance de um ataque extra no mesmo alvo após dano com Machado ou Espada."
+  },
+  {
+    "oid": 13962,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Hack and Slash Rank 3",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Axe or Sword.",
+    "curr_pt": "Dá $h% de chance de um ataque extra no mesmo alvo após dano com Machado ou Espada."
+  },
+  {
+    "oid": 13963,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Hack and Slash Rank 4",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Axe or Sword.",
+    "curr_pt": "Dá $h% de chance de um ataque extra no mesmo alvo após dano com Machado ou Espada."
+  },
+  {
+    "oid": 13964,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Hack and Slash Rank 5",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Axe or Sword.",
+    "curr_pt": "Dá $h% de chance de um ataque extra no mesmo alvo após dano com Machado ou Espada."
+  },
+  {
+    "oid": 14158,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Murder Rank 1",
+    "en": "Increases all damage caused against Humanoid, Giant, Beast and Dragonkin targets by $s1%.",
+    "curr_pt": "Tudo +$s1% contra Humanoide, Gigante, Fera e Draconídeo."
+  },
+  {
+    "oid": 14159,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Murder Rank 2",
+    "en": "Increases all damage caused against Humanoid, Giant, Beast and Dragonkin targets by $s1%.",
+    "curr_pt": "Tudo +$s1% contra Humanoide, Gigante, Fera e Draconídeo."
+  },
+  {
+    "oid": 14183,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Premeditation",
+    "en": "When used, adds $s1 combo points to your target.  You must add to or use those combo points within $d or the combo points are lost. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14296,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Black Arrow Rank 2",
+    "en": "Fires a Black Arrow into the target, slowing the target's movement speed by $s1%, causing $o2 Shadow damage and draining $o3 mana over $d.",
+    "curr_pt": "Flecha Negra: -$s1% velocidade, $s2 de Sombra e $s3 de mana em $d s."
+  },
+  {
+    "oid": 14520,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mental Agility Rank 1",
+    "en": "Reduces the mana cost of your instant cast spells and offensive Holy and Discipline spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana das instantâneas e das magias Sagradas e Disciplina ofensivas em $s1%."
+  },
+  {
+    "oid": 14523,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Silent Resolve Rank 1",
+    "en": "Reduces the threat generated by your spells by $s1%.",
+    "curr_pt": "Reduz a ameaça gerada pelas suas magias em $s1%."
+  },
+  {
+    "oid": 14524,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Wand Specialization Rank 1",
+    "en": "Increases your damage and chance to hit with Wands and Bows by $s1% and $s2%, respectively.  Successful Wand and Bow attacks have a chance to restore $51461m1 mana.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14525,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Wand Specialization Rank 2",
+    "en": "Increases your damage and chance to hit with Wands and Bows by $s1% and $s2%, respectively.  Successful Wand and Bow attacks have a chance to restore $51461m1 mana.\nHigher chance to trigger than Wand Specialization (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14526,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Wand Specialization Rank 3",
+    "en": "Increases your damage with Wands by $s1%.",
+    "curr_pt": "Aumenta seu dano com Varinhas em $s1%."
+  },
+  {
+    "oid": 14527,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Wand Specialization Rank 4",
+    "en": "Increases your damage with Wands by $s1%.",
+    "curr_pt": "Aumenta seu dano com Varinhas em $s1%."
+  },
+  {
+    "oid": 14528,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Wand Specialization Rank 5",
+    "en": "Increases your damage with Wands by $s1%.",
+    "curr_pt": "Aumenta seu dano com Varinhas em $s1%."
+  },
+  {
+    "oid": 14752,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Spirit Rank 1",
+    "en": "Holy power infuses the target, increasing their Spirit by $s1 for $d.",
+    "curr_pt": "O poder sagrado infunde o alvo, aumentando seu Espírito em $s1 por $d s."
+  },
+  {
+    "oid": 14780,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mental Agility Rank 2",
+    "en": "Reduces the mana cost of your instant cast spells and offensive Holy and Discipline spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana das instantâneas e das magias Sagradas e Disciplina ofensivas em $s1%."
+  },
+  {
+    "oid": 14781,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mental Agility Rank 3",
+    "en": "Reduces the mana cost of your instant cast spells and offensive Holy and Discipline spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana das instantâneas e das magias Sagradas e Disciplina ofensivas em $s1%."
+  },
+  {
+    "oid": 14782,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mental Agility Rank 4",
+    "en": "Reduces the mana cost of your instant cast spells and offensive Holy and Discipline spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana das instantâneas e das magias Sagradas e Disciplina ofensivas em $s1%."
+  },
+  {
+    "oid": 14783,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mental Agility Rank 5",
+    "en": "Reduces the mana cost of your instant cast spells and offensive Holy and Discipline spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana das instantâneas e das magias Sagradas e Disciplina ofensivas em $s1%."
+  },
+  {
+    "oid": 14784,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Silent Resolve Rank 2",
+    "en": "Reduces the threat generated by your spells by $s1%.",
+    "curr_pt": "Reduz a ameaça gerada pelas suas magias em $s1%."
+  },
+  {
+    "oid": 14785,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Silent Resolve Rank 3",
+    "en": "Reduces the threat generated by your spells by $s1%.",
+    "curr_pt": "Reduz a ameaça gerada pelas suas magias em $s1%."
+  },
+  {
+    "oid": 14786,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Silent Resolve Rank 4",
+    "en": "Reduces the threat generated by your spells by $s1%.",
+    "curr_pt": "Reduz a ameaça gerada pelas suas magias em $s1%."
+  },
+  {
+    "oid": 14787,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Silent Resolve Rank 5",
+    "en": "Reduces the threat generated by your spells by $s1%.",
+    "curr_pt": "Reduz a ameaça gerada pelas suas magias em $s1%."
+  },
+  {
+    "oid": 14818,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Spirit Rank 2",
+    "en": "Holy power infuses the target, increasing their Spirit by $s1 for $d.",
+    "curr_pt": "O poder sagrado infunde o alvo, aumentando seu Espírito em $s1 por $d s."
+  },
+  {
+    "oid": 14819,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Spirit Rank 3",
+    "en": "Holy power infuses the target, increasing their Spirit by $s1 for $d.",
+    "curr_pt": "O poder sagrado infunde o alvo, aumentando seu Espírito em $s1 por $d s."
+  },
+  {
+    "oid": 14889,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divinity Rank 1",
+    "en": "Increases the critical effect chance of your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico das suas magias Sagradas e Disciplina em $s1%."
+  },
+  {
+    "oid": 14983,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vigor Rank 1",
+    "en": "Increases your maximum Energy by $s2.  Each time you apply poison to your target, you have a $s1% chance to gain $52526s1 Energy.  This effect can occur once every 8 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15008,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divinity Rank 2",
+    "en": "Increases the critical effect chance of your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico das suas magias Sagradas e Disciplina em $s1%."
+  },
+  {
+    "oid": 15009,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divinity Rank 3",
+    "en": "Increases the critical effect chance of your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico das suas magias Sagradas e Disciplina em $s1%."
+  },
+  {
+    "oid": 15010,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divinity Rank 4",
+    "en": "Increases the critical effect chance of your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico das suas magias Sagradas e Disciplina em $s1%."
+  },
+  {
+    "oid": 15011,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divinity Rank 5",
+    "en": "Increases the critical effect chance of your Holy and Discipline spells by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico das suas magias Sagradas e Disciplina em $s1%."
+  },
+  {
+    "oid": 15058,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Instability Rank 1",
+    "en": "Your successful damaging Arcane spells have an $h% chance to uncontrollably erupt, consuming 2% of your base mana to deal $s1% more damage.",
+    "curr_pt": "Suas magias Arcanas de dano têm $h% de chance de erupção, gastando 2% da mana base para +$s1% de dano."
+  },
+  {
+    "oid": 15059,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Instability Rank 2",
+    "en": "Your successful damaging Arcane spells have an $h% chance to uncontrollably erupt, consuming 2% of your base mana to deal $s1% more damage.",
+    "curr_pt": "Suas magias Arcanas de dano têm $h% de chance de erupção, gastando 2% da mana base para +$s1% de dano."
+  },
+  {
+    "oid": 15060,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Instability Rank 3",
+    "en": "Your successful damaging Arcane spells have an $h% chance to uncontrollably erupt, consuming 2% of your base mana to deal $s1% more damage.",
+    "curr_pt": "Suas magias Arcanas de dano têm $h% de chance de erupção, gastando 2% da mana base para +$s1% de dano."
+  },
+  {
+    "oid": 15644,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Circle of Life Rank 1",
+    "en": "When struck in combat has a 2% chance of protecting you with an arcane shield.",
+    "curr_pt": "Acerto: 2% de escudo arcano."
+  },
+  {
+    "oid": 16180,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Nature's Guidance Rank 1",
+    "en": "Increases your chance to hit with melee attacks and spells by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com ataques corpo a corpo e magias em $s1%."
+  },
+  {
+    "oid": 16196,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Nature's Guidance Rank 2",
+    "en": "Increases your chance to hit with melee attacks and spells by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com ataques corpo a corpo e magias em $s1%."
+  },
+  {
+    "oid": 16198,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Nature's Guidance Rank 3",
+    "en": "Increases your chance to hit with melee attacks and spells by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com ataques corpo a corpo e magias em $s1%."
+  },
+  {
+    "oid": 16253,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 1",
+    "en": "Increases your chance to block attacks with a shield by $s1% and increases the amount blocked by $s2%.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e o valor bloqueado em $s2%."
+  },
+  {
+    "oid": 16254,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Anticipation Rank 1",
+    "en": "Increases your chance to dodge by an additional $s1%.",
+    "curr_pt": "Aumenta sua esquiva em $s1%."
+  }
+]

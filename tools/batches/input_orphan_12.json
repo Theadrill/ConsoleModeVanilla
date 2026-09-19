@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 23587,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dual Wield Specialization Rank 4",
+    "en": "Increases the damage done by your offhand weapon by $s1% and your chance to hit with your offhand weapon by $s2%.",
+    "curr_pt": "Aumenta o dano da sua arma secundária em $s1% e sua chance de acertar com ela em $s2%."
+  },
+  {
+    "oid": 23588,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dual Wield Specialization Rank 5",
+    "en": "Increases the damage done by your offhand weapon by $s1% and your chance to hit with your offhand weapon by $s2%.",
+    "curr_pt": "Aumenta o dano da sua arma secundária em $s1% e sua chance de acertar com ela em $s2%."
+  },
+  {
+    "oid": 23591,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Judgement",
+    "en": "Inflicts $23590s1 additional Holy damage on the target of a Paladin's Judgement.",
+    "curr_pt": "Julgamento +$s1 Sagrado."
+  },
+  {
+    "oid": 23598,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ritual of Summoning",
+    "en": "Begins a ritual that summons the targeted group member.",
+    "curr_pt": "Ritual do membro do grupo."
+  },
+  {
+    "oid": 23759,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Imp",
+    "curr_pt": "Diabrete."
+  },
+  {
+    "oid": 23760,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Voidwalker",
+    "curr_pt": "Emissário do Vazio."
+  },
+  {
+    "oid": 23761,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Succubus",
+    "curr_pt": "Súcubo."
+  },
+  {
+    "oid": 23762,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Felhunter",
+    "curr_pt": "Caçador Vil."
+  },
+  {
+    "oid": 23826,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Imp",
+    "curr_pt": "Diabrete."
+  },
+  {
+    "oid": 23827,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Imp",
+    "curr_pt": "Diabrete."
+  },
+  {
+    "oid": 23828,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Imp",
+    "curr_pt": "Diabrete."
+  },
+  {
+    "oid": 23829,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Imp",
+    "curr_pt": "Diabrete."
+  },
+  {
+    "oid": 23833,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Succubus",
+    "curr_pt": "Súcubo."
+  },
+  {
+    "oid": 23834,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Succubus",
+    "curr_pt": "Súcubo."
+  },
+  {
+    "oid": 23835,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Succubus",
+    "curr_pt": "Súcubo."
+  },
+  {
+    "oid": 23836,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Succubus",
+    "curr_pt": "Súcubo."
+  },
+  {
+    "oid": 23837,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Felhunter",
+    "curr_pt": "Caçador Vil."
+  },
+  {
+    "oid": 23838,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Felhunter",
+    "curr_pt": "Caçador Vil."
+  },
+  {
+    "oid": 23839,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Felhunter",
+    "curr_pt": "Caçador Vil."
+  },
+  {
+    "oid": 23840,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Felhunter",
+    "curr_pt": "Caçador Vil."
+  },
+  {
+    "oid": 23841,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Voidwalker",
+    "curr_pt": "Emissário do Vazio."
+  },
+  {
+    "oid": 23842,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Voidwalker",
+    "curr_pt": "Emissário do Vazio."
+  },
+  {
+    "oid": 23843,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Voidwalker",
+    "curr_pt": "Emissário do Vazio."
+  },
+  {
+    "oid": 23844,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Voidwalker",
+    "curr_pt": "Emissário do Vazio."
+  },
+  {
+    "oid": 23858,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Nova",
+    "en": "Causes an explosion of divine light, inflicting $s1 Holy damage to nearby enemies and reducing the caster's threat level for $d.",
+    "curr_pt": "Causa uma explosão de luz divina com $s1 de dano Sagrado nos próximos e reduz sua ameaça por $d s."
+  },
+  {
+    "oid": 23992,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 1",
+    "en": "Increases Fire resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 24043,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Test Fury Rank 4",
+    "en": "Increases damage done by $s1 for $d.",
+    "curr_pt": "Aumenta o dano em $s1 por $d s."
+  },
+  {
+    "oid": 24097,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison",
+    "en": "Inflicts Nature damage to an enemy every $t1 sec. for $d.",
+    "curr_pt": "Causa dano de Natureza ao inimigo a cada $t1 s por $d s."
+  },
+  {
+    "oid": 24113,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Precision Rank 1",
+    "en": "Increases your chance to hit with melee weapons by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com armas corpo a corpo em $s1%."
+  },
+  {
+    "oid": 24114,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Precision Rank 2",
+    "en": "Increases your chance to hit with melee weapons by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com armas corpo a corpo em $s1%."
+  },
+  {
+    "oid": 24115,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Precision Rank 3",
+    "en": "Increases your chance to hit with melee weapons by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com armas corpo a corpo em $s1%."
+  },
+  {
+    "oid": 24283,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Surefooted Rank 3",
+    "en": "Increases hit chance by $s3% and increases the chance movement impairing effects will be resisted by an additional $s1%.",
+    "curr_pt": "Aumenta o acerto em $s1% e a resistência a lentidão em $s2%."
+  },
+  {
+    "oid": 24286,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Surefooted Rank 4",
+    "en": "Increases hit chance by $s3% and increases the chance movement impairing effects will be resisted by $s1%.",
+    "curr_pt": "Acerto +$s1% e lentidão +$s2%."
+  },
+  {
+    "oid": 24287,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Surefooted Rank 5",
+    "en": "Increases hit chance by $s3% and increases the chance movement impairing effects will be resisted by $s1%.",
+    "curr_pt": "Acerto +$s1% e lentidão +$s2%."
+  },
+  {
+    "oid": 24293,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Monster Slaying Rank 1",
+    "en": "Increases all damage caused against Beasts, Giants and Dragonkin targets by $s1% and increases critical damage caused against Beasts, Giants and Dragonkin targets by an additional $s2%.",
+    "curr_pt": "Aumenta todo o dano contra Feras, Gigantes e Draconídeos em $s1%, e o crítico em mais $s2%."
+  },
+  {
+    "oid": 24294,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Monster Slaying Rank 2",
+    "en": "Increases all damage caused against Beasts, Giants and Dragonkin targets by $s1% and increases critical damage caused against Beasts, Giants and Dragonkin targets by an additional $s2%.",
+    "curr_pt": "Aumenta todo o dano contra Feras, Gigantes e Draconídeos em $s1%, e o crítico em mais $s2%."
+  },
+  {
+    "oid": 24295,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Monster Slaying Rank 3",
+    "en": "Increases all damage caused against Beasts, Giants and Dragonkin targets by $s1% and increases critical damage caused against Beasts, Giants and Dragonkin targets by an additional $s2%.",
+    "curr_pt": "Aumenta todo o dano contra Feras, Gigantes e Draconídeos em $s1%, e o crítico em mais $s2%."
+  },
+  {
+    "oid": 24318,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1 for $d.",
+    "curr_pt": "Aumenta a velocidade de ataque do conjurador em $s1% e o dano Físico causado em $s2 por $d s."
+  },
+  {
+    "oid": 24350,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Safe Fall",
+    "en": "Reduces damage from falling.",
+    "curr_pt": "Aumenta o dano de magias de Fogo em 2."
+  },
+  {
+    "oid": 24355,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Drink",
+    "en": "Restores $s1% of your mana per second for $d.  Must remain seated while drinking.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24363,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mana Regeneration",
+    "en": "Regenerate $s1 mana per 5 sec for $d.",
+    "curr_pt": "$s1 mana/5 s por $d s."
+  },
+  {
+    "oid": 24375,
+    "kind": "custom",
+    "need": "review",
+    "sample": "War Stomp",
+    "en": "Inflicts normal damage plus $s3 to nearby enemies, knocking them back and stunning them for $d.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos, arremessando-os e atordoando-os por $d s."
+  },
+  {
+    "oid": 24423,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 1",
+    "en": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2.  Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24424,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 1",
+    "en": "Blasts a single enemy for $24423s1 damage and lowers the attack power of all enemies in melee range by $24423s2.  Effect lasts $24423d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24439,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 2",
+    "en": "Increases Fire resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 24440,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 1",
+    "en": "Increases Fire resistance by $23992s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24441,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 2",
+    "en": "Increases Fire resistance by $24439s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24442,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 1",
+    "en": "Increases Fire resistance by $23992s1.",
+    "curr_pt": "Fogo +$s1."
+  },
+  {
+    "oid": 24444,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 3",
+    "en": "Increases Fire resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 24445,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance Rank 4",
+    "en": "Increases Fire resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  }
+]

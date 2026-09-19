@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 10177,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Frost Ward Rank 4",
+    "en": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 10223,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Ward Rank 4",
+    "en": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 10225,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Ward Rank 5",
+    "en": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 10319,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Judgement Rank 3",
+    "en": "Sends bolts of holy power in all directions, causing $s1 holy damage to all undead near the Paladin.",
+    "curr_pt": "Raios sagrados de $s1 nos mortos próximos."
+  },
+  {
+    "oid": 10326,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Turn Undead Rank 3",
+    "en": "The targeted undead enemy will be compelled to flee for up to $d.  Damage caused may interrupt the effect.  Only one target can be turned at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 10371,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Slow",
+    "en": "Increases time between victim's attacks by $s1 for $d.",
+    "curr_pt": "Ataques +$s1 intervalo por $d s."
+  },
+  {
+    "oid": 10419,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Molten Blast Rank 6",
+    "en": "Burns the target with molten fire, causing $s1 fire damage.",
+    "curr_pt": "Queima o alvo com fogo fundido, causando $s1 de dano de fogo."
+  },
+  {
+    "oid": 10420,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Molten Blast Rank 7",
+    "en": "Burns the target with molten fire, causing $s1 fire damage.",
+    "curr_pt": "Queima o alvo com fogo fundido, causando $s1 de dano de fogo."
+  },
+  {
+    "oid": 10953,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Mind Soothe Rank 3",
+    "en": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects Humanoid targets level $v or lower.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11094,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Fire Ward Rank 1",
+    "en": "Causes your Fire Ward to have a $s1% chance to reflect Fire spells while active.",
+    "curr_pt": "Guarda de Fogo: $s1% de refletir Fogo ativa."
+  },
+  {
+    "oid": 11100,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Flame Throwing Rank 1",
+    "en": "Increases the range of your Fire spells by $s1 yards.",
+    "curr_pt": "Aumenta o alcance das magias de Fogo em $s1 m."
+  },
+  {
+    "oid": 11124,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fire Power Rank 1",
+    "en": "Increases the damage done by your Fire spells by $s1%.",
+    "curr_pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+  },
+  {
+    "oid": 11160,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Frost Channeling Rank 1",
+    "en": "Reduces the mana cost of your Frost spells by $s1% and reduces the threat caused by your Frost spells by $s2%.",
+    "curr_pt": "Reduz o custo das magias de Gelo em $s1% e a ameaça em $s2%."
+  },
+  {
+    "oid": 11175,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Permafrost Rank 1",
+    "en": "Increases the duration of your Chill effects by $/1000;S1 $lsec:secs; and reduces the target's speed by an additional $s2%.",
+    "curr_pt": "Aumenta a duração do Gelar em $s1 s e a lentidão extra em $s2%."
+  },
+  {
+    "oid": 11180,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Winter's Chill Rank 1",
+    "en": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11197,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Expose Armor Rank 4",
+    "en": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : 275 armor\n   2 points: 550 armor\n   3 points: 825 armor\n   4 points: 1100 armor\n   5 points: 1375 armor",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11198,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Expose Armor Rank 5",
+    "en": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : 340 armor\n   2 points: 680 armor\n   3 points: 1020 armor\n   4 points: 1360 armor\n   5 points: 1700 armor",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11210,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Subtlety Rank 1",
+    "en": "Reduces your target's resistance to all your spells by $s2 and reduces the threat caused by your Arcane spells by $s1%.",
+    "curr_pt": "Alvo resiste -$s1 às magias e Arcano -$s2% ameaça."
+  },
+  {
+    "oid": 11222,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Focus Rank 1",
+    "en": "Reduces the chance that the opponent can resist your Arcane spells by $s1%.",
+    "curr_pt": "Reduz a chance de resistirem às suas magias Arcanas em $s1%."
+  },
+  {
+    "oid": 11359,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Restoration Rank 1",
+    "en": "Removes 1 magic, curse, poison or disease effect on you every 5 seconds for 30 seconds.",
+    "curr_pt": "Tira 1 magia, maldição, veneno ou doença a cada 5 s por 30 s."
+  },
+  {
+    "oid": 11372,
+    "kind": "modified",
+    "need": "new",
+    "sample": "DONOTREUSE Rank 1",
+    "en": "Reuse",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11390,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Elixir",
+    "en": "Increases spell damage by up to $s1 for $d.",
+    "curr_pt": "Desfere um ataque temerário com $s1 de dano mais 35% do Poder de Ataque e +$s2% de velocidade por $d s."
+  },
+  {
+    "oid": 11436,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Slow",
+    "en": "Increases the time between an enemy's attacks by $s1% and slows its movement by $s2% for $d.",
+    "curr_pt": "Aumenta o intervalo entre os ataques do inimigo em $s1% e reduz sua velocidade de movimento em $s2% por $d s."
+  },
+  {
+    "oid": 11560,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Inner Rage Rank 2",
+    "en": "Warrior focuses on releasing $ghis:her; inner rage, gaining 40 rage.",
+    "curr_pt": "Fúria interior: +40 de fúria."
+  },
+  {
+    "oid": 11561,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Inner Rage Rank 3",
+    "en": "Warrior focuses on releasing $ghis:her; inner rage, gaining 50 rage.",
+    "curr_pt": "Fúria interior: +50 de fúria."
+  },
+  {
+    "oid": 11580,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Thunder Clap Rank 5",
+    "en": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11581,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Thunder Clap Rank 6",
+    "en": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11600,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Revenge Rank 4",
+    "en": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11601,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Revenge Rank 5",
+    "en": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11608,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Cleave Rank 3",
+    "en": "A sweeping attack that does your melee damage plus $s1 to the target and his nearest ally.",
+    "curr_pt": "Um ataque arrebatador que causa dano corpo a corpo mais $s1 no alvo e no aliado mais próximo."
+  },
+  {
+    "oid": 11609,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Cleave Rank 4",
+    "en": "A sweeping attack that does your melee damage plus $s1 to the target and his nearest ally.",
+    "curr_pt": "Um ataque arrebatador que causa dano corpo a corpo mais $s1 no alvo e no aliado mais próximo."
+  },
+  {
+    "oid": 11766,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Blood Pact Rank 4",
+    "en": "Increases party members' Stamina by $s1.",
+    "curr_pt": "Aumenta o Vigor dos aliados em $s1."
+  },
+  {
+    "oid": 11767,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Blood Pact Rank 5",
+    "en": "Increases party members' Stamina by $s1.",
+    "curr_pt": "Aumenta o Vigor dos aliados em $s1."
+  },
+  {
+    "oid": 11778,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Lash of Pain Rank 4",
+    "en": "An instant attack that lashes the target, causing $s1 Shadow damage.",
+    "curr_pt": "Um ataque instantâneo que chicoteia o alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 11779,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Lash of Pain Rank 5",
+    "en": "An instant attack that lashes the target, causing $s1 Shadow damage.",
+    "curr_pt": "Um ataque instantâneo que chicoteia o alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 11780,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Lash of Pain Rank 6",
+    "en": "An instant attack that lashes the target, causing $s1 Shadow damage.",
+    "curr_pt": "Um ataque instantâneo que chicoteia o alvo, causando $s1 de dano de Sombra."
+  },
+  {
+    "oid": 11784,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Soothing Kiss Rank 3",
+    "en": "Soothes the target, decreasing all threat previously generated by the Succubus and the Warlock that summoned her by $s1%.",
+    "curr_pt": "Acalma o alvo, reduzindo em $s1% toda a ameaça gerada pela Súcubo e pelo Bruxo."
+  },
+  {
+    "oid": 11785,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Soothing Kiss Rank 4",
+    "en": "Soothes the target, decreasing all threat previously generated by the Succubus and the Warlock that summoned her by $s1%.",
+    "curr_pt": "Acalma o alvo, reduzindo em $s1% toda a ameaça gerada pela Súcubo e pelo Bruxo."
+  },
+  {
+    "oid": 12163,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Two-Handed Weapon Specialization Rank 1",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1% and increases your skill in all two-handed weapons by 1.",
+    "curr_pt": "Armas 2M: +$s1% dano e +1 perícia."
+  },
+  {
+    "oid": 12281,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Sword Specialization Rank 1",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12284,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Mace Specialization Rank 1",
+    "en": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12287,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Thunder Clap Rank 1",
+    "en": "Reduces the cost of your Thunder Clap ability by $/10;s1 rage point and increases the damage by $s2%.",
+    "curr_pt": "Reduz o custo do Trovoada em $s1 de fúria e aumenta o dano em $s2%."
+  },
+  {
+    "oid": 12298,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 1",
+    "en": "Increases your chance to block attacks with a shield by $s1% and generates $s2 rage when a block occurs.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e gera $s2 de fúria ao bloquear."
+  },
+  {
+    "oid": 12299,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Toughness Rank 1",
+    "en": "Increases your armor value from items by $s1% and the amount of damage absorbed by your shield by $s2%.",
+    "curr_pt": "Aumenta sua armadura de itens em $s1% e o dano absorvido pelo escudo em $s2%."
+  },
+  {
+    "oid": 12300,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Iron Will Rank 1",
+    "en": "Increases your chance to resist Stun and Charm effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua chance de resistir a Atordoar e Encantar em $s1%."
+  },
+  {
+    "oid": 12303,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Defiance Rank 1",
+    "en": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
+    "curr_pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
+  },
+  {
+    "oid": 12353,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Flame Throwing Rank 2",
+    "en": "Increases the range of your Fire spells by $s1 yards.",
+    "curr_pt": "Aumenta o alcance das magias de Fogo em $s1 m."
+  },
+  {
+    "oid": 12378,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fire Power Rank 2",
+    "en": "Increases the damage done by your Fire spells by $s1%.",
+    "curr_pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+  },
+  {
+    "oid": 12398,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fire Power Rank 3",
+    "en": "Increases the damage done by your Fire spells by $s1%.",
+    "curr_pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+  },
+  {
+    "oid": 12399,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fire Power Rank 4",
+    "en": "Increases the damage done by your Fire spells by $s1%.",
+    "curr_pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+  }
+]

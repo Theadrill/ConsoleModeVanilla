@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 51560,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Repent Rank 3",
+    "en": "Blasts the enemy for $s1 Holy damage.",
+    "curr_pt": "Detona o inimigo com $s1 de dano Sagrado."
+  },
+  {
+    "oid": 51561,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Repent Rank 2",
+    "en": "If the target is immune to the effect, they repent for their sins, taking $51559s1 Holy damage each time they perform a melee attack for $d.",
+    "curr_pt": "Se imune: arrepende-se, $s1 Sagrado por ataque corpo a corpo por $d s."
+  },
+  {
+    "oid": 51562,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Repent Rank 3",
+    "en": "If the target is immune to the effect, they repent for their sins, taking $51560s1 Holy damage each time they perform a melee attack for $d.",
+    "curr_pt": "Se imune: arrepende-se, $s1 Sagrado por ataque corpo a corpo por $d s."
+  },
+  {
+    "oid": 51591,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Intervene Rank 1",
+    "en": "Grants a $h% chance to gain immunity to movement impairing effects for $51590d after using Intervene.",
+    "curr_pt": "Intervir: $h% de imune a lentidão por $d s."
+  },
+  {
+    "oid": 51592,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Intervene Rank 2",
+    "en": "Grants a $h% chance to gain immunity to movement impairing effects for $51590d after using Intervene.",
+    "curr_pt": "Intervir: $h% de imune a lentidão por $d s."
+  },
+  {
+    "oid": 51593,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Reprisal Rank 1",
+    "en": "Increases the damage dealt by your Revenge ability by $s1%, and has a $h% chance to refund its rage cost if successful.",
+    "curr_pt": "Aumenta o dano da sua Vingança em $s1%, com $h% de chance de devolver a fúria."
+  },
+  {
+    "oid": 51594,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Reprisal Rank 2",
+    "en": "Increases the damage dealt by your Revenge ability by $s1%, and has a $h% chance to refund its rage cost if successful.",
+    "curr_pt": "Aumenta o dano da sua Vingança em $s1%, com $h% de chance de devolver a fúria."
+  },
+  {
+    "oid": 51600,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussion Blow Rank 2",
+    "en": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51601,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussion Blow Rank 3",
+    "en": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51602,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussion Blow Rank 4",
+    "en": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51606,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Defensive Tactics Rank 1",
+    "en": "While wearing a shield, you retain $s1% of the increased threat generation from Defensive Stance in other stances.",
+    "curr_pt": "Regenera os aliados próximos em $s1 por segundo por $d s. É preciso canalizar."
+  },
+  {
+    "oid": 51607,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Defensive Tactics Rank 2",
+    "en": "While wearing a shield, you retain $s1% of the increased threat generation from Defensive Stance in other stances.",
+    "curr_pt": "Regenera os aliados próximos em $s1 por segundo por $d s. É preciso canalizar."
+  },
+  {
+    "oid": 51608,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Defensive Tactics Rank 3",
+    "en": "While wearing a shield, you retain $s1% of the increased threat generation from Defensive Stance in other stances.",
+    "curr_pt": "Regenera os aliados próximos em $s1 por segundo por $d s. É preciso canalizar."
+  },
+  {
+    "oid": 51641,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Precision Cut Rank 1",
+    "en": "Increases the damage done per extra rage spent on Execute by 20% and causes Execute to refund 10% of the rage spent upon hit.",
+    "curr_pt": "Executar: +20% dano por fúria extra e devolve 10% ao acertar."
+  },
+  {
+    "oid": 51642,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Precision Cut Rank 2",
+    "en": "Increases the damage done per extra rage spent on Execute by 40% and causes Execute to refund 20% of the rage spent upon hit.",
+    "curr_pt": "Executar: +40% dano por fúria extra e devolve 20% ao acertar."
+  },
+  {
+    "oid": 51643,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Precision Cut Rank 3",
+    "en": "Increases the damage done per extra rage spent on Execute by 60% and causes Execute to refund 30% of the rage spent upon hit.",
+    "curr_pt": "Executar: +60% dano por fúria extra e devolve 30% ao acertar."
+  },
+  {
+    "oid": 51645,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mace Master Rank 1",
+    "en": "Causes your attacks to ignore 1.2 of your target's Armor per level.",
+    "curr_pt": "Ataques ignoram 1.2 de armadura por nível."
+  },
+  {
+    "oid": 51646,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mace Master Rank 2",
+    "en": "Causes your attacks to ignore 2.4 of your target's Armor per level.",
+    "curr_pt": "Ataques ignoram 2.4 de armadura por nível."
+  },
+  {
+    "oid": 51647,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mace Master Rank 3",
+    "en": "Causes your attacks to ignore 3.6 of your target's Armor per level.",
+    "curr_pt": "Ataques ignoram 3.6 de armadura por nível."
+  },
+  {
+    "oid": 51648,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mace Master Rank 4",
+    "en": "Causes your attacks to ignore 4.8 of your target's Armor per level.",
+    "curr_pt": "Ataques ignoram 4.8 de armadura por nível."
+  },
+  {
+    "oid": 51649,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mace Master Rank 5",
+    "en": "Causes your attacks to ignore 6 of your target's Armor per level.",
+    "curr_pt": "Ataques ignoram 6 de armadura por nível."
+  },
+  {
+    "oid": 51650,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polearm Master Rank 1",
+    "en": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
+    "curr_pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
+  },
+  {
+    "oid": 51651,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polearm Master Rank 2",
+    "en": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
+    "curr_pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
+  },
+  {
+    "oid": 51652,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polearm Master Rank 3",
+    "en": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
+    "curr_pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
+  },
+  {
+    "oid": 51653,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polearm Master Rank 4",
+    "en": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
+    "curr_pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
+  },
+  {
+    "oid": 51654,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polearm Master Rank 5",
+    "en": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
+    "curr_pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
+  },
+  {
+    "oid": 51664,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sword Master Rank 1",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51665,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sword Master Rank 2",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51666,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sword Master Rank 3",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51667,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sword Master Rank 4",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51668,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sword Master Rank 5",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51683,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Soul Fire Rank 3",
+    "en": "Burn the enemy's soul, causing $s1 Fire damage.  This spell benefits significantly from effects that increase your spell damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51684,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Soul Fire Rank 4",
+    "en": "Burn the enemy's soul, causing $s1 Fire damage.  This spell benefits significantly from effects that increase your spell damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51709,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nether Studies Rank 1",
+    "en": "Increases the effect of your Succubus' Seduction, your Voidwalker's Torment, your Imp's Blood Pact, and your Felhunter's Tainted Blood spells by $s1%.",
+    "curr_pt": "Aumenta Sedução, Tormento, Pacto e Sangue Maculado em $s1%."
+  },
+  {
+    "oid": 51710,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nether Studies Rank 2",
+    "en": "Increases the effect of your Succubus' Seduction, your Voidwalker's Torment, your Imp's Blood Pact, and your Felhunter's Tainted Blood spells by $s1%.",
+    "curr_pt": "Aumenta Sedução, Tormento, Pacto e Sangue Maculado em $s1%."
+  },
+  {
+    "oid": 51711,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nether Studies Rank 3",
+    "en": "Increases the effect of your Succubus' Seduction, your Voidwalker's Torment, your Imp's Blood Pact, and your Felhunter's Tainted Blood spells by $s1%.",
+    "curr_pt": "Aumenta Sedução, Tormento, Pacto e Sangue Maculado em $s1%."
+  },
+  {
+    "oid": 51715,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demonic Precision Rank 1",
+    "en": "Your demons inherit $s1% of your spell hit chance and spell critical chance as both melee and spell hit chance, and melee and spell critical chance, respectively.",
+    "curr_pt": "Aleija o inimigo com $s1 de dano e -$s2% de velocidade por $d s."
+  },
+  {
+    "oid": 51716,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demonic Precision Rank 2",
+    "en": "Your demons inherit $s1% of your spell hit chance and spell critical chance as both melee and spell hit chance, and melee and spell critical chance, respectively.",
+    "curr_pt": "Aleija o inimigo com $s1 de dano e -$s2% de velocidade por $d s."
+  },
+  {
+    "oid": 51717,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demonic Precision Rank 3",
+    "en": "Your demons inherit $s1% of your spell hit chance and spell critical chance as both melee and spell hit chance, and melee and spell critical chance, respectively.",
+    "curr_pt": "Aleija o inimigo com $s1 de dano e -$s2% de velocidade por $d s."
+  },
+  {
+    "oid": 51725,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Infernal",
+    "curr_pt": "Infernal."
+  },
+  {
+    "oid": 51726,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Infernal",
+    "curr_pt": "Infernal."
+  },
+  {
+    "oid": 51727,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Infernal",
+    "curr_pt": "Infernal."
+  },
+  {
+    "oid": 51728,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Infernal",
+    "curr_pt": "Infernal."
+  },
+  {
+    "oid": 51729,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Infernal",
+    "curr_pt": "Infernal."
+  },
+  {
+    "oid": 51730,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Felguard",
+    "curr_pt": "Guarda Vil."
+  },
+  {
+    "oid": 51731,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Felguard",
+    "curr_pt": "Guarda Vil."
+  },
+  {
+    "oid": 51732,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Felguard",
+    "curr_pt": "Guarda Vil."
+  },
+  {
+    "oid": 51733,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Felguard",
+    "curr_pt": "Guarda Vil."
+  },
+  {
+    "oid": 51734,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Felguard",
+    "curr_pt": "Guarda Vil."
+  },
+  {
+    "oid": 51736,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Soul Fire Rank 1",
+    "en": "Your Soul Fire has a $h% chance to refund a Soul Shard and increase your Fire damage by $51735s1% for $51735d.",
+    "curr_pt": "Fogo da Alma: $h% de Fragmento de volta e +$s1% Fogo por $d s."
+  }
+]

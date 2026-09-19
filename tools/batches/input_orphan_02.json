@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 2679,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Smash Rank 2",
+    "en": "A crushing attack that does your weapon damage plus $s1.",
+    "curr_pt": "Um ataque esmagador que causa dano de arma mais $s1."
+  },
+  {
+    "oid": 2680,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Smash Rank 3",
+    "en": "A crushing attack that does your weapon damage plus $s1.",
+    "curr_pt": "Um ataque esmagador que causa dano de arma mais $s1."
+  },
+  {
+    "oid": 2681,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Smash Rank 4",
+    "en": "A crushing attack that does your weapon damage plus $s1.",
+    "curr_pt": "Um ataque esmagador que causa dano de arma mais $s1."
+  },
+  {
+    "oid": 2682,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Smash Rank 5",
+    "en": "A crushing attack that does your weapon damage plus $s1.",
+    "curr_pt": "Um ataque esmagador que causa dano de arma mais $s1."
+  },
+  {
+    "oid": 2697,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Smash Rank 1",
+    "en": "Imbues a melee attack with increased power doing weapon damage plus $s1.",
+    "curr_pt": "Imbui um ataque corpo a corpo com poder, causando dano de arma mais $s1."
+  },
+  {
+    "oid": 2699,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Smash Rank 2",
+    "en": "Imbues a melee attack with increased power doing weapon damage plus $s1.",
+    "curr_pt": "Imbui um ataque corpo a corpo com poder, causando dano de arma mais $s1."
+  },
+  {
+    "oid": 2700,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Smash Rank 3",
+    "en": "Imbues a melee attack with increased power doing weapon damage plus $s1.",
+    "curr_pt": "Imbui um ataque corpo a corpo com poder, causando dano de arma mais $s1."
+  },
+  {
+    "oid": 2701,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Smash Rank 4",
+    "en": "Imbues a melee attack with increased power doing weapon damage plus $s1.",
+    "curr_pt": "Imbui um ataque corpo a corpo com poder, causando dano de arma mais $s1."
+  },
+  {
+    "oid": 2702,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Smash Rank 5",
+    "en": "Imbues a melee attack with increased power doing weapon damage plus $s1.",
+    "curr_pt": "Imbui um ataque corpo a corpo com poder, causando dano de arma mais $s1."
+  },
+  {
+    "oid": 2764,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Throw",
+    "en": "Hurl a thrown weapon at the target.",
+    "curr_pt": "Arremessa a arma no alvo."
+  },
+  {
+    "oid": 2770,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Word: Protect Rank 4",
+    "en": "Blesses and protects the target increasing their armor by $s1 for $d.",
+    "curr_pt": "Abençoa e protege o alvo, aumentando sua armadura em $s1 por $d s."
+  },
+  {
+    "oid": 2782,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Remove Curse",
+    "en": "Dispels $s1 Curse from a friendly target.",
+    "curr_pt": "Dissipa $s1 Maldição do aliado."
+  },
+  {
+    "oid": 2783,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Remove Curse Rank 2",
+    "en": "Dispels $m1 curses from the target.",
+    "curr_pt": "Dissipa $s1 maldições."
+  },
+  {
+    "oid": 2825,
+    "kind": "modified",
+    "need": "new",
+    "sample": "DONOTREUSE Rank 3",
+    "en": "NYI.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 2826,
+    "kind": "modified",
+    "need": "new",
+    "sample": "DONOTREUSE Rank 4",
+    "en": "NYI.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 2827,
+    "kind": "modified",
+    "need": "new",
+    "sample": "DONOTREUSE Rank 5",
+    "en": "NYI.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 2854,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Cyclone Rank 1",
+    "en": "Surrounds the enemy with a cyclone for $d, stunning it and preventing others from attacking it.",
+    "curr_pt": "Ciclone no inimigo por $d s, sem ataque alheio."
+  },
+  {
+    "oid": 2856,
+    "kind": "modified",
+    "need": "review",
+    "sample": "DONOTREUSE Rank 1",
+    "en": "Hug the enemy, preventing both the druid and the target from doing anything for $d or until the druid lets go.",
+    "curr_pt": "Abraça o inimigo: ninguém age por $d s, até soltar."
+  },
+  {
+    "oid": 2864,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spirit Armor Rank 5",
+    "en": "Calls upon the spirits to defend the Shaman's target, increasing armor by $s1 for $d.",
+    "curr_pt": "Espírito defende o alvo com +$s1 armadura por $d s."
+  },
+  {
+    "oid": 2866,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spell - Reuse 2866 Rank 1",
+    "en": "Increases a friendly target's resistance to Fire by $s1 for $d.",
+    "curr_pt": "Aliado: +$s1 vs Fogo por $d s."
+  },
+  {
+    "oid": 2878,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Turn Undead Rank 1",
+    "en": "The targeted undead enemy will be compelled to flee for up to $d.  Damage caused may interrupt the effect.  Only one target can be turned at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 2893,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Abolish Poison",
+    "en": "Attempts to cure $s2 poison effect on the target, and $3137s1 more poison effect every $t1 seconds for $d.",
+    "curr_pt": "Cura $s1 veneno e +$s2 a cada $t1 s por $d s."
+  },
+  {
+    "oid": 2908,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Soothe Animal Rank 1",
+    "en": "Soothes the target beast, reducing the range at which it will attack you by $s1 yards.  Only affects Beast targets level 40 or lower.  Causes aggro if resisted.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 3019,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the Physical damage dealt by the caster by $s1 for $d.",
+    "curr_pt": "Ancinha o alvo com $s1 de dano e mais $s2 ao longo de $d s."
+  },
+  {
+    "oid": 3558,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Resist Frost Rank 1",
+    "en": "Places a protective shield on the friendly target, increasing frost resistance by $m1.",
+    "curr_pt": "Escudo: +$s1 vs Gelo no aliado."
+  },
+  {
+    "oid": 3597,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Smash Rank 6",
+    "en": "Imbues a melee attack with increased power doing weapon damage plus $s1.",
+    "curr_pt": "Imbui um ataque corpo a corpo com poder, causando dano de arma mais $s1."
+  },
+  {
+    "oid": 3629,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spell - Reuse 3629 Rank 1",
+    "en": "Increases strength by $s1 and decreases defense by $s2 for $d.",
+    "curr_pt": "Força +$s1 e defesa -$s2 por $d s."
+  },
+  {
+    "oid": 3674,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Black Arrow Rank 1",
+    "en": "Fires a Black Arrow into the target, slowing the target's movement speed by $s1%, causing $o2 Shadow damage and draining $o3 mana over $d.",
+    "curr_pt": "Flecha Negra: -$s1% velocidade, $s2 de Sombra e $s3 de mana em $d s."
+  },
+  {
+    "oid": 3723,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Frost Ward Rank 5",
+    "en": "Teaches Frost Ward (Rank 5).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 3743,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Holy Smash Rank 6",
+    "en": "A crushing attack that does your weapon damage plus $s1.",
+    "curr_pt": "Um ataque esmagador que causa dano de arma mais $s1."
+  },
+  {
+    "oid": 4195,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 1",
+    "en": "Stamina increased by $4187s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4196,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 2",
+    "en": "Stamina increased by $4188s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4197,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 3",
+    "en": "Stamina increased by $4189s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4198,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 4",
+    "en": "Stamina increased by $4190s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4199,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 5",
+    "en": "Stamina increased by $4191s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4200,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 6",
+    "en": "Stamina increased by $4192s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4201,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 7",
+    "en": "Stamina increased by $4193s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4202,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Great Stamina Rank 8",
+    "en": "Stamina increased by $4194s1.",
+    "curr_pt": "Vigor +$s1."
+  },
+  {
+    "oid": 4513,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Curse",
+    "en": "Reduces the target's chance to hit by $s1 for $d.",
+    "curr_pt": "Acerto do alvo -$s1 por $d s."
+  },
+  {
+    "oid": 4742,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tough Shell Crab - Rank 1",
+    "en": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4744,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tough Shell Crab - Rank 3",
+    "en": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 28+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4745,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tough Shell Crab - Rank 4",
+    "en": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4755,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Parry Mastery Rank 1",
+    "en": "Increases your chance to parry by $s1%.",
+    "curr_pt": "Aumenta sua chance de aparar em $s1%."
+  },
+  {
+    "oid": 4756,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Parry Mastery Rank 2",
+    "en": "Increases your chance to parry by $s1%.",
+    "curr_pt": "Aumenta sua chance de aparar em $s1%."
+  },
+  {
+    "oid": 4757,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Parry Mastery Rank 3",
+    "en": "Increases your chance to parry by $s1%.",
+    "curr_pt": "Aumenta sua chance de aparar em $s1%."
+  },
+  {
+    "oid": 4771,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bruise Gorilla - Rank 1",
+    "en": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4772,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bruise Gorilla - Rank 2",
+    "en": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 21+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4773,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bruise Gorilla - Rank 3",
+    "en": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 28+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4774,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bruise Gorilla - Rank 4",
+    "en": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4775,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Throw Rock Gorilla - Rank 1",
+    "en": "Teaches your tamed gorilla the Throw Rock ability. Throw Rock is a ranged attack.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 16271,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Anticipation Rank 2",
+    "en": "Increases your chance to dodge by an additional $s1%.",
+    "curr_pt": "Aumenta sua esquiva em $s1%."
+  },
+  {
+    "oid": 16272,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Anticipation Rank 3",
+    "en": "Increases your chance to dodge by an additional $s1%.",
+    "curr_pt": "Aumenta sua esquiva em $s1%."
+  },
+  {
+    "oid": 16273,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Anticipation Rank 4",
+    "en": "Increases your chance to dodge by an additional $s1%.",
+    "curr_pt": "Aumenta sua esquiva em $s1%."
+  },
+  {
+    "oid": 16274,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Anticipation Rank 5",
+    "en": "Increases your chance to dodge by an additional $s1%.",
+    "curr_pt": "Aumenta sua esquiva em $s1%."
+  },
+  {
+    "oid": 16298,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 2",
+    "en": "Increases your chance to block attacks with a shield by $s1% and increases the amount blocked by $s2%.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e o valor bloqueado em $s2%."
+  },
+  {
+    "oid": 16299,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 3",
+    "en": "Increases your chance to block attacks with a shield by $s1% and increases the amount blocked by $s2%.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e o valor bloqueado em $s2%."
+  },
+  {
+    "oid": 16300,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 4",
+    "en": "Increases your chance to block attacks with a shield by $s1% and increases the amount blocked by $s2%.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e o valor bloqueado em $s2%."
+  },
+  {
+    "oid": 16301,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 5",
+    "en": "Increases your chance to block attacks with a shield by $s1% and increases the amount blocked by $s2%.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e o valor bloqueado em $s2%."
+  },
+  {
+    "oid": 16538,
+    "kind": "modified",
+    "need": "new",
+    "sample": "One-Handed Weapon Specialization Rank 1",
+    "en": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16539,
+    "kind": "modified",
+    "need": "new",
+    "sample": "One-Handed Weapon Specialization Rank 2",
+    "en": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16540,
+    "kind": "modified",
+    "need": "new",
+    "sample": "One-Handed Weapon Specialization Rank 3",
+    "en": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16541,
+    "kind": "modified",
+    "need": "new",
+    "sample": "One-Handed Weapon Specialization Rank 4",
+    "en": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16542,
+    "kind": "modified",
+    "need": "new",
+    "sample": "One-Handed Weapon Specialization Rank 5",
+    "en": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16572,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16767,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16768,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16772,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16775,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16776,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16777,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16778,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16779,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16780,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shoot Rank 1",
+    "en": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16833,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Shapeshifter Rank 1",
+    "en": "Reduces the mana cost of all shapeshifting by $s1%.",
+    "curr_pt": "Reduz o custo de mana de metamorfose em $s1%."
+  },
+  {
+    "oid": 16834,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Shapeshifter Rank 2",
+    "en": "Reduces the mana cost of all shapeshifting by $s1%.",
+    "curr_pt": "Reduz o custo de mana de metamorfose em $s1%."
+  },
+  {
+    "oid": 16835,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Shapeshifter Rank 3",
+    "en": "Reduces the mana cost of all shapeshifting by $s1%.",
+    "curr_pt": "Reduz o custo de mana de metamorfose em $s1%."
+  },
+  {
+    "oid": 16902,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Weapons Rank 1",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%.",
+    "curr_pt": "Aumenta seu dano físico em todas as formas em $s1%."
+  },
+  {
+    "oid": 16903,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Weapons Rank 2",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%.",
+    "curr_pt": "Aumenta seu dano físico em todas as formas em $s1%."
+  },
+  {
+    "oid": 16904,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Weapons Rank 3",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%.",
+    "curr_pt": "Aumenta seu dano físico em todas as formas em $s1%."
+  },
+  {
+    "oid": 16905,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Weapons Rank 4",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%.",
+    "curr_pt": "Aumenta seu dano físico em todas as formas em $s1%."
+  },
+  {
+    "oid": 16906,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Natural Weapons Rank 5",
+    "en": "Increases the damage you deal with physical attacks in all forms by $s1%.",
+    "curr_pt": "Aumenta seu dano físico em todas as formas em $s1%."
+  },
+  {
+    "oid": 16914,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Hurricane Rank 1",
+    "en": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.  Druid must channel to maintain the spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16929,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 1",
+    "en": "Increases your Armor contribution from items by $s1%.",
+    "curr_pt": "Aumenta sua Armadura de itens em $s1%."
+  },
+  {
+    "oid": 16930,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 2",
+    "en": "Increases your Armor contribution from items by $s1%.",
+    "curr_pt": "Aumenta sua Armadura de itens em $s1%."
+  },
+  {
+    "oid": 16931,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 3",
+    "en": "Increases your Armor contribution from items by $s1%.",
+    "curr_pt": "Aumenta sua Armadura de itens em $s1%."
+  },
+  {
+    "oid": 16932,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 4",
+    "en": "Increases your Armor contribution from items by $s1%.",
+    "curr_pt": "Aumenta sua Armadura de itens em $s1%."
+  },
+  {
+    "oid": 16933,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 5",
+    "en": "Increases your Armor contribution from items by $s1%.",
+    "curr_pt": "Aumenta sua Armadura de itens em $s1%."
+  },
+  {
+    "oid": 17003,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Heart of the Wild Rank 1",
+    "en": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17004,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Heart of the Wild Rank 2",
+    "en": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17005,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Heart of the Wild Rank 3",
+    "en": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17006,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Heart of the Wild Rank 4",
+    "en": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17056,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Furor Rank 1",
+    "en": "Gives you $s1% chance to gain $/10;17057s1 Rage when you shapeshift into Bear and Dire Bear Form or $17099s1 Energy when you shapeshift into Cat Form.",
+    "curr_pt": "Dá $s1% de chance de ganhar $s2 de fúria ao virar Urso ou Urso Atroz, ou $s3 de energia ao virar Gato."
+  },
+  {
+    "oid": 17058,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Furor Rank 2",
+    "en": "Gives you $s1% chance to gain $/10;17057s1 Rage when you shapeshift into Bear and Dire Bear Form or $17099s1 Energy when you shapeshift into Cat Form.",
+    "curr_pt": "Dá $s1% de chance de ganhar $s2 de fúria ao virar Urso ou Urso Atroz, ou $s3 de energia ao virar Gato."
+  },
+  {
+    "oid": 17059,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Furor Rank 3",
+    "en": "Gives you $s1% chance to gain $/10;17057s1 Rage when you shapeshift into Bear and Dire Bear Form or $17099s1 Energy when you shapeshift into Cat Form.",
+    "curr_pt": "Dá $s1% de chance de ganhar $s2 de fúria ao virar Urso ou Urso Atroz, ou $s3 de energia ao virar Gato."
+  },
+  {
+    "oid": 17060,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Furor Rank 4",
+    "en": "Gives you $s1% chance to gain $/10;17057s1 Rage when you shapeshift into Bear and Dire Bear Form or $17099s1 Energy when you shapeshift into Cat Form.",
+    "curr_pt": "Dá $s1% de chance de ganhar $s2 de fúria ao virar Urso ou Urso Atroz, ou $s3 de energia ao virar Gato."
+  },
+  {
+    "oid": 17061,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Furor Rank 5",
+    "en": "Gives you $s1% chance to gain $/10;17057s1 Rage when you shapeshift into Bear and Dire Bear Form or $17099s1 Energy when you shapeshift into Cat Form.",
+    "curr_pt": "Dá $s1% de chance de ganhar $s2 de fúria ao virar Urso ou Urso Atroz, ou $s3 de energia ao virar Gato."
+  },
+  {
+    "oid": 17079,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Enrage Rank 1",
+    "en": "The Enrage ability now instantly generates $/10;17080s1 Rage.",
+    "curr_pt": "Enfurecer passa a gerar $s1 de fúria na hora."
+  },
+  {
+    "oid": 17082,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Enrage Rank 2",
+    "en": "The Enrage ability now instantly generates $/10;17081s1 Rage.",
+    "curr_pt": "Enfurecer passa a gerar $s1 de fúria na hora."
+  },
+  {
+    "oid": 17098,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Intensity Rank 1",
+    "en": "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.",
+    "curr_pt": "Dá $s1% de chance de ganhar $s2 de energia ao virar Gato."
+  },
+  {
+    "oid": 17100,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Intensity Rank 2",
+    "en": "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.",
+    "curr_pt": "Dá $s1% de chance de ganhar $s2 de energia ao virar Gato."
+  }
+]

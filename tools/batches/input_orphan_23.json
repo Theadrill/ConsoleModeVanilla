@@ -1,0 +1,18 @@
+[
+  {
+    "oid": 57710,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Boundless Anger Rank 3",
+    "en": "Increases your maximum Rage by $/10;s1.",
+    "curr_pt": "Aumenta sua magia Sagrada em 4 e reduz sua resistência a Sombra em 2."
+  },
+  {
+    "oid": 57711,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Boundless Anger Rank 3",
+    "en": "Increases your maximum Rage by $/10;s1.",
+    "curr_pt": "Aumenta sua magia Sagrada em 4 e reduz sua resistência a Sombra em 2."
+  }
+]

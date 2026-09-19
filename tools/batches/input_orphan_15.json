@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 24599,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 4",
+    "en": "Party members within $24597a1 yards receive an extra $24597s1 damage to their next Physical attack.  Lasts $24597d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24603,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 3",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 1",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24605,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 2",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24607,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 3",
+    "en": "Party members within $24603a1 yards receive an extra $24603s1 damage to their next Physical attack.  Lasts $24603d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24608,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 2",
+    "en": "Party members within $24605a1 yards receive an extra $24605s1 damage to their next Physical attack.  Lasts $24605d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24609,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 1",
+    "en": "Party members within $24604a1 yards receive an extra $24604s1 damage to their next Physical attack.  Lasts $24604d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24629,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 9",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24630,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 10",
+    "en": "Armor increased by $s1.",
+    "curr_pt": "Armadura aumentada em $s1."
+  },
+  {
+    "oid": 24631,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 9",
+    "en": "Armor increased by $24629s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24632,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 10",
+    "en": "Armor increased by $24630s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24633,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 9",
+    "en": "Armor increased by $24629s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24634,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Natural Armor Rank 10",
+    "en": "Armor increased by $24630s1.",
+    "curr_pt": "Armadura +$s1."
+  },
+  {
+    "oid": 24636,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Great Stamina Rank 10",
+    "en": "Increases Stamina by $5042s1.",
+    "curr_pt": "Aumenta o Vigor em $s1."
+  },
+  {
+    "oid": 24640,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 1",
+    "en": "Inflicts $o2 Nature damage over $d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Causa $s1 de dano de Natureza ao longo de $d s. Acumula até 5 vezes no alvo."
+  },
+  {
+    "oid": 24641,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Scorpid Poison Rank 1",
+    "en": "Inflicts $24640o2 Nature damage over $24640d. Effect can stack up to 5 times on a single target.",
+    "curr_pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
+  },
+  {
+    "oid": 24684,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chain Burn Rank 1",
+    "en": "Hits an enemy with an anti-mana bolt that arcs to another nearby enemy. For each point of mana consumed by the bolt, the target takes $e1 damage. The spell affects up to $x1 targets.",
+    "curr_pt": "Raio antimagia em cadeia: cada mana = $s1 de dano. Até $x1 alvos."
+  },
+  {
+    "oid": 24894,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Heart of the Wild Rank 5",
+    "en": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25076,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cobra Reflexes Rank 1",
+    "en": "Attack speed increased by $s1%, but reduces damage.",
+    "curr_pt": "Velocidade +$s1%, mas menos dano."
+  },
+  {
+    "oid": 25077,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cobra Reflexes Rank 1",
+    "en": "Increases attack speed by $25076s1%, but decreases damage.",
+    "curr_pt": "Velocidade +$s1%, mas menos dano."
+  },
+  {
+    "oid": 25085,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bright Campfire",
+    "en": "Builds a campfire that increases the spirits of those nearby by 8 and allows cooking.",
+    "curr_pt": "Fogueira: +8 Esp e cozinha."
+  },
+  {
+    "oid": 25188,
+    "kind": "custom",
+    "need": "review",
+    "sample": "War Stomp",
+    "en": "Knocks nearby enemies back.",
+    "curr_pt": "Arremessa os inimigos próximos."
+  },
+  {
+    "oid": 25288,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Revenge Rank 6",
+    "en": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25302,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Feint Rank 5",
+    "en": "Performs a feint, causing no damage but lowering your threat by a large amount, making the enemy less likely to attack you.",
+    "curr_pt": "Finge sem causar dano, com -ameaça grande."
+  },
+  {
+    "oid": 25503,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enrage",
+    "en": "Generates 20 rage over $d, but reduces base armor by 27% in Bear Form and 16% in Dire Bear Form.  The druid is considered in combat for the duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25605,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison",
+    "en": "Inflicts Nature damage to an enemy every $t1 sec. for $d.",
+    "curr_pt": "Causa dano de Natureza ao inimigo a cada $t1 s por $d s."
+  },
+  {
+    "oid": 25645,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison",
+    "en": "Inflicts Nature damage to an enemy every $t1 sec. for $d.",
+    "curr_pt": "Causa dano de Natureza ao inimigo a cada $t1 s por $d s."
+  },
+  {
+    "oid": 25814,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Wide Slash Rank 1",
+    "en": "Inflicts normal damage plus $s1 to enemies in a cone in front of the caster.",
+    "curr_pt": "Causa dano normal mais $s1 em cone à frente."
+  },
+  {
+    "oid": 25816,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Hex of Weakness Rank 6",
+    "en": "Weakens the target enemy, reducing damage caused by $s1 for $d.",
+    "curr_pt": "Enfraquece o inimigo: -$s1 de dano por $d s."
+  },
+  {
+    "oid": 25829,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Holy Power Rank 5",
+    "en": "Increases the critical effect chance of your Holy spells by $s1%.",
+    "curr_pt": "Aumenta a chance de efeito crítico das suas magias Sagradas em $s1%."
+  },
+  {
+    "oid": 25908,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tranquil Air Totem",
+    "en": "Summons a Tranquil Air Totem with $s1 health at the feet of the caster.  The totem reduces the threat caused by all party members within $25909a1 yards by $25909s1%.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25956,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Judgement Rank 1",
+    "en": "Decreases the cooldown of your Judgement spell by $/1000;s1 sec.",
+    "curr_pt": "Julgamento -$s1 s recarga."
+  },
+  {
+    "oid": 25957,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Judgement Rank 2",
+    "en": "Decreases the cooldown of your Judgement spell by $/1000;s1 sec.",
+    "curr_pt": "Julgamento -$s1 s recarga."
+  },
+  {
+    "oid": 25960,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Revenge Rank 6",
+    "en": "Teaches Revenge (Rank 6).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25974,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Deadly Poison Rank 5",
+    "en": "Teaches Deadly Poison (Rank 5).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25976,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Feint Rank 5",
+    "en": "Teaches Feint (Rank 5).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26016,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Vindication Rank 2",
+    "en": "Gives the Paladin's damaging melee attacks a chance to reduce the target's damage dealt by $26017s1% for $26017d. Does not affect powerful enemies.",
+    "curr_pt": "Corpo a corpo: chance de -$s1% de dano por $d s. Sem chefes."
+  },
+  {
+    "oid": 26021,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Vindication Rank 3",
+    "en": "Gives the Paladin's damaging melee attacks a chance to reduce the target's damage dealt by $26018s1% for $26018d. Does not affect powerful enemies.",
+    "curr_pt": "Corpo a corpo: chance de -$s1% de dano por $d s. Sem chefes."
+  },
+  {
+    "oid": 26022,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pursuit of Justice Rank 1",
+    "en": "Increases movement and mounted movement speed by $s1%.  This does not stack with other movement speed increasing effects.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26023,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pursuit of Justice Rank 2",
+    "en": "Increases movement and mounted movement speed by $s1%.  This does not stack with other movement speed increasing effects.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26064,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shell Shield Rank 1",
+    "en": "Reduces all damage your pet takes by $s1%, but increases the time between your pet's attacks by $s2%.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26090,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Thunderstomp Rank 1",
+    "en": "Shakes the ground with thundering force, doing $s1 Nature damage to all enemies within $a1 yards. Causes a moderate amount of threat.",
+    "curr_pt": "Agita a terra com força trovejante, causando $s1 de dano de Natureza a todos a até $a1 m, com ameaça moderada."
+  },
+  {
+    "oid": 26187,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Thunderstomp Rank 2",
+    "en": "Shakes the ground with thundering force, doing $s1 Nature damage to all enemies within $a1 yards. Causes a moderate amount of threat.",
+    "curr_pt": "Agita a terra com força trovejante, causando $s1 de dano de Natureza a todos a até $a1 m, com ameaça moderada."
+  },
+  {
+    "oid": 26188,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Thunderstomp Rank 3",
+    "en": "Shakes the ground with thundering force, doing $s1 Nature damage to all enemies within $a1 yards. Causes a moderate amount of threat.",
+    "curr_pt": "Agita a terra com força trovejante, causando $s1 de dano de Natureza a todos a até $a1 m, com ameaça moderada."
+  },
+  {
+    "oid": 26350,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cleave",
+    "en": "Inflicts weapon damage plus $s1 to an enemy and its nearest allies, affecting up to $x1 targets.",
+    "curr_pt": "Causa dano de arma mais $s1 ao inimigo e aliados próximos, afetando até $x1 alvos."
+  },
+  {
+    "oid": 26527,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1 for $d.",
+    "curr_pt": "Aumenta a velocidade de ataque do conjurador em $s1% e o dano Físico causado em $s2 por $d s."
+  },
+  {
+    "oid": 26651,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Execute",
+    "en": "Designer Note:\n\nThis marks the warrior as having just used Execute.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27530,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hurricane",
+    "en": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec, and increasing the time between the attacks of enemies by $s2%.  Lasts $d.  Druid must channel to maintain the spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27543,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bear Form Shapeshift",
+    "en": "Shapeshifts into a bear for $d., increasing armor and hit points, as well as allowing the use of various bear abilities.",
+    "curr_pt": "Vira urso por $d s, com mais armadura e vida, liberando habilidades de urso."
+  },
+  {
+    "oid": 27619,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ice Block",
+    "en": "You become encased in a block of ice, protecting you from all physical attacks and spells for $d, but during that time you cannot attack, move or cast spells.",
+    "curr_pt": "Vira bloco de gelo: imune a tudo por $d s, sem agir."
+  }
+]

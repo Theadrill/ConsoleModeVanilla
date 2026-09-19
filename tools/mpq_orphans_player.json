@@ -1,0 +1,2044 @@
+[
+  {
+    "id": 71,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Defensive Stance",
+    "r": "",
+    "d": "A defensive combat stance.  Decreases damage taken by $7376s1% and damage caused by $7376s2%.  Increases threat generated.",
+    "old_d": "A defensive combat stance.  Generates rage when hit and when you strike an opponent.  Decreases damage taken by $7376s1% and damage caused by $7376s2%.  Increases threat generated."
+  },
+  {
+    "id": 114,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Shield",
+    "r": "Rank 1",
+    "d": "Surrounds the target with a shield of frost, damaging and slowing the target's attackers.  Lasts $d.",
+    "old_d": "Surrounds the target with a shield of frost, damaging and slowing the target's attackers.  Lasts $d."
+  },
+  {
+    "id": 126,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Eye of Kilrogg",
+    "r": "Summon",
+    "d": "Summons an Eye of Kilrogg and binds your vision to it.  The eye moves quickly but is very fragile.",
+    "old_d": "Summons an Eye of Kilrogg and binds your vision to it.  The eye is stealthy and quick, but very fragile."
+  },
+  {
+    "id": 453,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Mind Soothe",
+    "r": "Rank 1",
+    "d": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects Humanoid targets level $v or lower.  Causes aggro if resisted.  Lasts $d.",
+    "old_d": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects targets level $v or lower.  Lasts $d."
+  },
+  {
+    "id": 543,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Fire Ward",
+    "r": "Rank 1",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 fire damage.  Lasts $d."
+  },
+  {
+    "id": 722,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Demon Armor",
+    "r": "Rank 2",
+    "d": "Teaches Demon Armor (Rank 2).",
+    "old_d": "Teaches Demon Skin (Rank 2)."
+  },
+  {
+    "id": 733,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Demon Armor",
+    "r": "Rank 3",
+    "d": "Teaches Demon Armor (Rank 3).",
+    "old_d": "Teaches Demon Armor (Rank 1)."
+  },
+  {
+    "id": 1087,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Demon Armor",
+    "r": "Rank 4",
+    "d": "Teaches Demon Armor (Rank 4).",
+    "old_d": "Teaches Demon Armor (Rank 2)."
+  },
+  {
+    "id": 1707,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Mind Bomb",
+    "r": "Rank 1",
+    "d": "Attaches a mind bomb to the target.  If the target casts a spell in the next $d, they take 200 damage.",
+    "old_d": "Attaches a mind bomb to the target.  If the target casts a spell in the next $d, they take 200 damage."
+  },
+  {
+    "id": 2458,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Berserker Stance",
+    "r": "",
+    "d": "An aggressive stance.  Critical hit chance is increased by $7381s1% and all damage taken is increased by $7381s2%.",
+    "old_d": "An aggressive stance.  Generates rage when hit and when you strike an opponent.  Also, attack speed is increased by $7381s1% and all damage taken is increased by $7381s2%."
+  },
+  {
+    "id": 2651,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Elune's Grace",
+    "r": "Rank 1",
+    "d": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "old_d": "Reduces ranged damage taken by $s1 for $d."
+  },
+  {
+    "id": 2825,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "DONOTREUSE",
+    "r": "Rank 3",
+    "d": "NYI.",
+    "old_d": "NYI."
+  },
+  {
+    "id": 2826,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "DONOTREUSE",
+    "r": "Rank 4",
+    "d": "NYI.",
+    "old_d": "NYI."
+  },
+  {
+    "id": 2827,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "DONOTREUSE",
+    "r": "Rank 5",
+    "d": "NYI.",
+    "old_d": "NYI."
+  },
+  {
+    "id": 2878,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Turn Undead",
+    "r": "Rank 1",
+    "d": "The targeted undead enemy will be compelled to flee for up to $d.  Damage caused may interrupt the effect.  Only one target can be turned at a time.",
+    "old_d": "The targeted undead enemy will be compelled to flee for up to $d.  Only one target can be turned at a time."
+  },
+  {
+    "id": 2908,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Soothe Animal",
+    "r": "Rank 1",
+    "d": "Soothes the target beast, reducing the range at which it will attack you by $s1 yards.  Only affects Beast targets level 40 or lower.  Causes aggro if resisted.  Lasts $d.",
+    "old_d": "Soothes the target beast, reducing the range at which it will attack you by $s1 yards.  Only affects targets level 40 or lower.  Lasts $d."
+  },
+  {
+    "id": 3723,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Ward",
+    "r": "Rank 5",
+    "d": "Teaches Frost Ward (Rank 5).",
+    "old_d": "Teaches Frost Ward."
+  },
+  {
+    "id": 4742,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tough Shell",
+    "r": "Crab - Rank 1",
+    "d": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 13+",
+    "old_d": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 13+"
+  },
+  {
+    "id": 4744,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tough Shell",
+    "r": "Crab - Rank 3",
+    "d": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 28+",
+    "old_d": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 28+"
+  },
+  {
+    "id": 4745,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tough Shell",
+    "r": "Crab - Rank 4",
+    "d": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 36+",
+    "old_d": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 36+"
+  },
+  {
+    "id": 4771,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Gorilla - Rank 1",
+    "d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 13+",
+    "old_d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level 13+"
+  },
+  {
+    "id": 4772,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Gorilla - Rank 2",
+    "d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 21+",
+    "old_d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level 21+"
+  },
+  {
+    "id": 4773,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Gorilla - Rank 3",
+    "d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 28+",
+    "old_d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level 28+"
+  },
+  {
+    "id": 4774,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Gorilla - Rank 4",
+    "d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 36+",
+    "old_d": "Teaches your tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level 36+"
+  },
+  {
+    "id": 4775,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Throw Rock",
+    "r": "Gorilla - Rank 1",
+    "d": "Teaches your tamed gorilla the Throw Rock ability. Throw Rock is a ranged attack.\nRequires: \nPet Level 22+",
+    "old_d": "Teaches your tamed gorilla the Throw Rock ability. Throw Rock is a ranged attack.\r\nRequires: \r\nPet Level 22+"
+  },
+  {
+    "id": 5229,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Enrage",
+    "r": "",
+    "d": "Generates 20 rage over $d, but reduces base armor by 27% in Bear Form and 16% in Dire Bear Form.  The druid is considered in combat for the duration.",
+    "old_d": "Generates 20 rage over $d, but reduces armor by $s2%.  The druid is considered in combat for the duration."
+  },
+  {
+    "id": 5303,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Cyclone",
+    "r": "Rank 1",
+    "d": "Teaches Cyclone (Rank 1).",
+    "old_d": "Teaches Cyclone (Rank 1)."
+  },
+  {
+    "id": 5304,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Cyclone",
+    "r": "Rank 2",
+    "d": "Teaches Cyclone (Rank 2).",
+    "old_d": "Teaches Cyclone (Rank 2)."
+  },
+  {
+    "id": 5311,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Battle Roar",
+    "r": "Rank 2",
+    "d": "Teaches Battle Roar (Rank 2).",
+    "old_d": "Teaches Battle Roar (Rank 2)."
+  },
+  {
+    "id": 5378,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thick Skin",
+    "r": "Turtle - Rank 1",
+    "d": "Teaches your tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\nRequires: \nPet Level 13+",
+    "old_d": "Teaches your tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 13+"
+  },
+  {
+    "id": 5627,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Turn Undead",
+    "r": "Rank 2",
+    "d": "The targeted undead enemy will be compelled to flee for up to $d.  Damage caused may interrupt the effect.  Only one target can be turned at a time.",
+    "old_d": "The targeted undead enemy will be compelled to flee for up to $d.  Only one target can be turned at a time."
+  },
+  {
+    "id": 5934,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Flourish",
+    "r": "Rank 1",
+    "d": "Increases your chance to parry by an additional 10% for each combo point.  Lasts 6 sec.",
+    "old_d": "Increases chance of getting a Critical with Holy spells by 2%."
+  },
+  {
+    "id": 6001,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tough Shell",
+    "r": "Rank 1",
+    "d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 13+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 13+"
+  },
+  {
+    "id": 6002,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tough Shell",
+    "r": "Rank 2",
+    "d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 21+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 21+"
+  },
+  {
+    "id": 6003,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tough Shell",
+    "r": "Rank 3",
+    "d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 28+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 28+"
+  },
+  {
+    "id": 6004,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tough Shell",
+    "r": "Rank 4",
+    "d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 36+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 36+"
+  },
+  {
+    "id": 6009,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Rank 1",
+    "d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 13+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level 13+"
+  },
+  {
+    "id": 6010,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Rank 2",
+    "d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 18+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level 18+"
+  },
+  {
+    "id": 6011,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Rank 3",
+    "d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level +25",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level +25"
+  },
+  {
+    "id": 6012,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Bruise",
+    "r": "Rank 4",
+    "d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\nRequires: \nPet Level 32+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed gorilla the Bruise ability. Bruise gives your gorilla a chance to reduce the armor value of an enemy when attacking.\r\nRequires: \r\nPet Level 32+"
+  },
+  {
+    "id": 6013,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Throw Rock",
+    "r": "Rank 1",
+    "d": "Allows a hunter to teach $ghis:her; tamed gorilla the Throw Rock ability. Throw Rock is a ranged attack.\nRequires: \nPet Level 22+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed gorilla the Throw Rock ability. Throw Rock is a ranged attack.\r\nRequires: \r\nPet Level 22+"
+  },
+  {
+    "id": 6014,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Throw Rock",
+    "r": "Rank 2",
+    "d": "Allows a hunter to teach $ghis:her; tamed gorilla the Throw Rock ability. Throw Rock is a ranged attack.\nRequires: \nPet Level 29+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed gorilla the Throw Rock ability. Throw Rock is a ranged attack.\r\nRequires: \r\nPet Level 29+"
+  },
+  {
+    "id": 6034,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thick Skin",
+    "r": "Rank 1",
+    "d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\nRequires: \nPet Level 13+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 13+"
+  },
+  {
+    "id": 6035,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thick Skin",
+    "r": "Rank 2",
+    "d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\nRequires: \nPet Level 18+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 18+"
+  },
+  {
+    "id": 6036,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thick Skin",
+    "r": "Rank 3",
+    "d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\nRequires: \nPet Level 25+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 25+"
+  },
+  {
+    "id": 6037,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thick Skin",
+    "r": "Rank 4",
+    "d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\nRequires: \nPet Level 32+",
+    "old_d": "Allows a hunter to teach $ghis:her; tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\r\nRequires: \r\nPet Level 32+"
+  },
+  {
+    "id": 6057,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Wand Specialization",
+    "r": "Rank 1",
+    "d": "Increases your damage and chance to hit with Wands by $s1% and $s2%, respectively.  Successful Wand attacks have a chance to restore $51976m1 mana.",
+    "old_d": "Increases your damage with Wands by $s1%."
+  },
+  {
+    "id": 6085,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Wand Specialization",
+    "r": "Rank 2",
+    "d": "Increases your damage and chance to hit with Wands by $s1% and $s2%, respectively.  Successful Wand attacks have a chance to restore $51976m1 mana.\nHigher chance to trigger than Wand Specialization (Rank 1).",
+    "old_d": "Increases your damage with Wands by $s1%."
+  },
+  {
+    "id": 6134,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Shield",
+    "r": "Rank 2",
+    "d": "Surrounds the target with a shield of frost, damaging and slowing the target's attackers.  Lasts $d.",
+    "old_d": "Surrounds the target with a shield of frost, damaging and slowing the target's attackers.  Lasts $d."
+  },
+  {
+    "id": 6135,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Shield",
+    "r": "Rank 3",
+    "d": "Surrounds the target with a shield of frost, damaging and slowing the target's attackers.  Lasts $d.",
+    "old_d": "Surrounds the target with a shield of frost, damaging and slowing the target's attackers.  Lasts $d."
+  },
+  {
+    "id": 6143,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Ward",
+    "r": "Rank 1",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 frost damage.  Lasts $d."
+  },
+  {
+    "id": 6197,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Eagle Eye",
+    "r": "",
+    "d": "Zooms in the hunter's vision.  Only usable outdoors.  Lasts $d.",
+    "old_d": "Zooms in the hunter's vision.  Only usable outdoors."
+  },
+  {
+    "id": 6343,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thunder Clap",
+    "r": "Rank 1",
+    "d": "Blasts nearby enemies increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "old_d": "Blasts nearby enemies with thunder slowing their attack speed by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets."
+  },
+  {
+    "id": 6353,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Soul Fire",
+    "r": "Rank 1",
+    "d": "Burn the enemy's soul, causing $s1 Fire damage.  This spell benefits significantly from effects that increase your spell damage.",
+    "old_d": "Burn the enemy's soul, causing $s1 Fire damage."
+  },
+  {
+    "id": 6361,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Barkskin",
+    "r": "Rank 2",
+    "d": "Teaches Barkskin (Rank 2).",
+    "old_d": "Teaches Barkskin (Rank 2)."
+  },
+  {
+    "id": 6570,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Sunder (NYI)",
+    "r": "Rank 1",
+    "d": "Sunder the enemy's weapon for 3 minutes.  The weapon will inflict -10 pts of damage each attack.",
+    "old_d": "Sunder the enemy's weapon for 3 minutes.  The weapon will inflict -10 pts of damage each attack."
+  },
+  {
+    "id": 6572,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Revenge",
+    "r": "Rank 1",
+    "d": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "old_d": "Instantly counterattack an enemy for $s1 damage.   Revenge must follow a block, dodge or parry."
+  },
+  {
+    "id": 6574,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Revenge",
+    "r": "Rank 2",
+    "d": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "old_d": "Instantly counterattack an enemy for $s1 damage.   Revenge must follow a block, dodge or parry."
+  },
+  {
+    "id": 6615,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Free Action",
+    "r": "",
+    "d": "Makes you immune to Stun and Movement Impairing effects for the next $d.   Does not remove effects already on the imbiber.",
+    "old_d": "Makes you immune to Root, Snare and Stun effects for the next $d."
+  },
+  {
+    "id": 7379,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Revenge",
+    "r": "Rank 3",
+    "d": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "old_d": "Instantly counterattack an enemy for $s1 damage.   Revenge must follow a block, dodge or parry."
+  },
+  {
+    "id": 7870,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Lesser Invisibility",
+    "r": "",
+    "d": "Gives the Succubus Lesser Invisibility for up to $d.  This spell can only be used out of combat.",
+    "old_d": "Gives the Succubus Lesser Invisibility for up to $d."
+  },
+  {
+    "id": 8192,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Mind Soothe",
+    "r": "Rank 2",
+    "d": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects Humanoid targets level $v or lower.  Causes aggro if resisted.  Lasts $d.",
+    "old_d": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects targets level $v or lower.  Lasts $d."
+  },
+  {
+    "id": 8198,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thunder Clap",
+    "r": "Rank 2",
+    "d": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "old_d": "Blasts nearby enemies with thunder slowing their attack speed by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets."
+  },
+  {
+    "id": 8204,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thunder Clap",
+    "r": "Rank 3",
+    "d": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "old_d": "Blasts nearby enemies with thunder slowing their attack speed by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets."
+  },
+  {
+    "id": 8205,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thunder Clap",
+    "r": "Rank 4",
+    "d": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "old_d": "Blasts nearby enemies with thunder slowing their attack speed by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets."
+  },
+  {
+    "id": 8457,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Fire Ward",
+    "r": "Rank 2",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 fire damage.  Lasts $d."
+  },
+  {
+    "id": 8458,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Fire Ward",
+    "r": "Rank 3",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 fire damage.  Lasts $d."
+  },
+  {
+    "id": 8461,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Ward",
+    "r": "Rank 2",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 frost damage.  Lasts $d."
+  },
+  {
+    "id": 8462,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Ward",
+    "r": "Rank 3",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 frost damage.  Lasts $d."
+  },
+  {
+    "id": 8647,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Expose Armor",
+    "r": "Rank 1",
+    "d": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : 80 armor\n   2 points: 160 armor\n   3 points: 240 armor\n   4 points: 320 armor\n   5 points: 400 armor",
+    "old_d": "Finishing move that exposes the target for $d, reducing armor per combo point:\r\n   1 point  : 80 armor\r\n   2 points: 160 armor\r\n   3 points: 240 armor\r\n   4 points: 320 armor\r\n   5 points: 400 armor"
+  },
+  {
+    "id": 8649,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Expose Armor",
+    "r": "Rank 2",
+    "d": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : 145 armor\n   2 points: 290 armor\n   3 points: 435 armor\n   4 points: 580 armor\n   5 points: 725 armor",
+    "old_d": "Finishing move that exposes the target for $d, reducing armor per combo point:\r\n   1 point  : 145 armor\r\n   2 points: 290 armor\r\n   3 points: 435 armor\r\n   4 points: 580 armor\r\n   5 points: 725 armor"
+  },
+  {
+    "id": 8650,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Expose Armor",
+    "r": "Rank 3",
+    "d": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : 210 armor\n   2 points: 420 armor\n   3 points: 630 armor\n   4 points: 840 armor\n   5 points: 1050 armor",
+    "old_d": "Finishing move that exposes the target for $d, reducing armor per combo point:\r\n   1 point  : 210 armor\r\n   2 points: 420 armor\r\n   3 points: 630 armor\r\n   4 points: 840 armor\r\n   5 points: 1050 armor"
+  },
+  {
+    "id": 8955,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Soothe Animal",
+    "r": "Rank 2",
+    "d": "Soothes the target beast, reducing the range at which it will attack you by $s1 yards.  Only affects Beast targets level 40 or lower.  Causes aggro if resisted.  Lasts $d.",
+    "old_d": "Soothes the target beast, reducing the range at which it will attack you by $s1 yards.  Only affects targets level 55 or lower.  Lasts $d."
+  },
+  {
+    "id": 9901,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Soothe Animal",
+    "r": "Rank 3",
+    "d": "Soothes the target beast, reducing the range at which it will attack you by $s1 yards.  Only affects Beast targets level 70 or lower.  Lasts $d.",
+    "old_d": "Soothes the target beast, reducing the range at which it will attack you by $s1 yards.  Only affects targets level 70 or lower.  Lasts $d."
+  },
+  {
+    "id": 10177,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Frost Ward",
+    "r": "Rank 4",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 frost damage.  Lasts $d."
+  },
+  {
+    "id": 10223,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Fire Ward",
+    "r": "Rank 4",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 fire damage.  Lasts $d."
+  },
+  {
+    "id": 10225,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Fire Ward",
+    "r": "Rank 5",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 fire damage.  Lasts $d."
+  },
+  {
+    "id": 10326,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Turn Undead",
+    "r": "Rank 3",
+    "d": "The targeted undead enemy will be compelled to flee for up to $d.  Damage caused may interrupt the effect.  Only one target can be turned at a time.",
+    "old_d": "The targeted undead enemy will be compelled to flee for up to $d.  Only one target can be turned at a time."
+  },
+  {
+    "id": 10953,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Mind Soothe",
+    "r": "Rank 3",
+    "d": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects Humanoid targets level $v or lower.  Lasts $d.",
+    "old_d": "Soothes the target, reducing the range at which it will attack you by $s1 yards.  Only affects targets level $v or lower.  Lasts $d."
+  },
+  {
+    "id": 11180,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Winter's Chill",
+    "r": "Rank 1",
+    "d": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times.",
+    "old_d": "Increases the power of your chill effects by slowing the target's movement by an additional $s1%."
+  },
+  {
+    "id": 11197,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Expose Armor",
+    "r": "Rank 4",
+    "d": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : 275 armor\n   2 points: 550 armor\n   3 points: 825 armor\n   4 points: 1100 armor\n   5 points: 1375 armor",
+    "old_d": "Finishing move that exposes the target for $d, reducing armor per combo point:\r\n   1 point  : 275 armor\r\n   2 points: 550 armor\r\n   3 points: 825 armor\r\n   4 points: 1100 armor\r\n   5 points: 1375 armor"
+  },
+  {
+    "id": 11198,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Expose Armor",
+    "r": "Rank 5",
+    "d": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : 340 armor\n   2 points: 680 armor\n   3 points: 1020 armor\n   4 points: 1360 armor\n   5 points: 1700 armor",
+    "old_d": "Finishing move that exposes the target for $d, reducing armor per combo point:\r\n   1 point  : 340 armor\r\n   2 points: 680 armor\r\n   3 points: 1020 armor\r\n   4 points: 1360 armor\r\n   5 points: 1700 armor"
+  },
+  {
+    "id": 11372,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "DONOTREUSE",
+    "r": "Rank 1",
+    "d": "Reuse",
+    "old_d": ""
+  },
+  {
+    "id": 11580,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thunder Clap",
+    "r": "Rank 5",
+    "d": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "old_d": "Blasts nearby enemies with thunder slowing their attack speed by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets."
+  },
+  {
+    "id": 11581,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thunder Clap",
+    "r": "Rank 6",
+    "d": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 damage to them.  Will affect up to $i targets.",
+    "old_d": "Blasts nearby enemies with thunder slowing their attack speed by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets."
+  },
+  {
+    "id": 11600,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Revenge",
+    "r": "Rank 4",
+    "d": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "old_d": "Instantly counterattack an enemy for $s1 damage.   Revenge must follow a block, dodge or parry."
+  },
+  {
+    "id": 11601,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Revenge",
+    "r": "Rank 5",
+    "d": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry.",
+    "old_d": "Instantly counterattack an enemy for $s1 damage.   Revenge must follow a block, dodge or parry."
+  },
+  {
+    "id": 12281,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Sword Specialization",
+    "r": "Rank 1",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "old_d": "Gives you a $h% chance to get an extra attack after dealing damage with your Sword."
+  },
+  {
+    "id": 12284,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Mace Specialization",
+    "r": "Rank 1",
+    "d": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "old_d": "Gives you a $h% chance to stun your target for $5530d with a mace."
+  },
+  {
+    "id": 12561,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Fire Protection",
+    "r": "Rank 1",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "old_d": "Absorbs $s1 Fire damage.  Lasts $d."
+  },
+  {
+    "id": 12701,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Mace Specialization",
+    "r": "Rank 2",
+    "d": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "old_d": "Gives you a $h% chance to stun your target for $5530d with a mace."
+  },
+  {
+    "id": 12702,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Mace Specialization",
+    "r": "Rank 3",
+    "d": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "old_d": "Gives you a $h% chance to stun your target for $5530d with a mace."
+  },
+  {
+    "id": 12703,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Mace Specialization",
+    "r": "Rank 4",
+    "d": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "old_d": "Gives you a $h% chance to stun your target for $5530d with a mace."
+  },
+  {
+    "id": 12704,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Mace Specialization",
+    "r": "Rank 5",
+    "d": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "old_d": "Gives you a $h% chance to stun your target for $5530d with a mace."
+  },
+  {
+    "id": 12809,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Concussion Blow",
+    "r": "Rank 1",
+    "d": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor.",
+    "old_d": "A brutal strike that deals weapon damage and stuns the opponent for $d."
+  },
+  {
+    "id": 12812,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Sword Specialization",
+    "r": "Rank 2",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "old_d": "Gives you a $h% chance to get an extra attack after dealing damage with your Sword."
+  },
+  {
+    "id": 12813,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Sword Specialization",
+    "r": "Rank 3",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "old_d": "Gives you a $h% chance to get an extra attack after dealing damage with your Sword."
+  },
+  {
+    "id": 12814,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Sword Specialization",
+    "r": "Rank 4",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "old_d": "Gives you a $h% chance to get an extra attack after dealing damage with your Sword."
+  },
+  {
+    "id": 12815,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "[Deprecated] Sword Specialization",
+    "r": "Rank 5",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "old_d": "Gives you a $h% chance to get an extra attack after dealing damage with your Sword."
+  },
+  {
+    "id": 13532,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Thunder Clap",
+    "r": "Rank 1",
+    "d": "Blasts nearby enemies with thunder increasing the time between their attacks by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets.",
+    "old_d": "Blasts nearby enemies with thunder slowing their attack speed by $s2% for $d and doing $s1 Nature damage to them.  Will affect up to $i targets."
+  },
+  {
+    "id": 14183,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Premeditation",
+    "r": "",
+    "d": "When used, adds $s1 combo points to your target.  You must add to or use those combo points within $d or the combo points are lost. ",
+    "old_d": "When used, adds $s1 combo points to your target.  The target must become engaged in combat within $d or the combo points are lost."
+  },
+  {
+    "id": 14524,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Wand Specialization",
+    "r": "Rank 1",
+    "d": "Increases your damage and chance to hit with Wands and Bows by $s1% and $s2%, respectively.  Successful Wand and Bow attacks have a chance to restore $51461m1 mana.",
+    "old_d": "Increases your damage with Wands by $s1%."
+  },
+  {
+    "id": 14525,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Wand Specialization",
+    "r": "Rank 2",
+    "d": "Increases your damage and chance to hit with Wands and Bows by $s1% and $s2%, respectively.  Successful Wand and Bow attacks have a chance to restore $51461m1 mana.\nHigher chance to trigger than Wand Specialization (Rank 1).",
+    "old_d": "Increases your damage with Wands by $s1%."
+  },
+  {
+    "id": 14983,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Vigor",
+    "r": "Rank 1",
+    "d": "Increases your maximum Energy by $s2.  Each time you apply poison to your target, you have a $s1% chance to gain $52526s1 Energy.  This effect can occur once every 8 sec.",
+    "old_d": "Increases your maximum Energy by $s1."
+  },
+  {
+    "id": 16538,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "One-Handed Weapon Specialization",
+    "r": "Rank 1",
+    "d": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "old_d": "Increases the damage you deal with one-handed melee weapons by $s1%."
+  },
+  {
+    "id": 16539,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "One-Handed Weapon Specialization",
+    "r": "Rank 2",
+    "d": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "old_d": "Increases the damage you deal with one-handed melee weapons by $s1%."
+  },
+  {
+    "id": 16540,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "One-Handed Weapon Specialization",
+    "r": "Rank 3",
+    "d": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "old_d": "Increases the damage you deal with one-handed melee weapons by $s1%."
+  },
+  {
+    "id": 16541,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "One-Handed Weapon Specialization",
+    "r": "Rank 4",
+    "d": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "old_d": "Increases the damage you deal with one-handed melee weapons by $s1%."
+  },
+  {
+    "id": 16542,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "One-Handed Weapon Specialization",
+    "r": "Rank 5",
+    "d": "Increases the damage you deal with One-Handed Melee weapons by $s1%.",
+    "old_d": "Increases the damage you deal with one-handed melee weapons by $s1%."
+  },
+  {
+    "id": 16572,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16767,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16768,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16772,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16775,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16776,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16777,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16778,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16779,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16780,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Shoot",
+    "r": "Rank 1",
+    "d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.",
+    "old_d": "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell."
+  },
+  {
+    "id": 16914,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Hurricane",
+    "r": "Rank 1",
+    "d": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.  Druid must channel to maintain the spell.",
+    "old_d": "Creates a violent storm in the area surrounding the caster, causing $s1 Nature damage to all nearby enemies every $t1 sec, and reducing the attack speed of all nearby enemies by $s2%.  Lasts $d."
+  },
+  {
+    "id": 17003,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Heart of the Wild",
+    "r": "Rank 1",
+    "d": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "old_d": "Increases your Strength while in Bear or Cat form by $s1%."
+  },
+  {
+    "id": 17004,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Heart of the Wild",
+    "r": "Rank 2",
+    "d": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "old_d": "Increases your Strength while in Bear or Cat form by $s1%."
+  },
+  {
+    "id": 17005,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Heart of the Wild",
+    "r": "Rank 3",
+    "d": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "old_d": "Increases your Strength while in Bear or Cat form by $s1%."
+  },
+  {
+    "id": 17006,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Heart of the Wild",
+    "r": "Rank 4",
+    "d": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.",
+    "old_d": "Increases your Strength while in Bear or Cat form by $s1%."
+  },
+  {
+    "id": 17401,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Hurricane",
+    "r": "Rank 2",
+    "d": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.  Druid must channel to maintain the spell.",
+    "old_d": "Creates a violent storm in the area surrounding the caster, causing $s1 Nature damage to all nearby enemies every $t1 sec, and reducing the attack speed of all nearby enemies by $s2%.  Lasts $d."
+  },
+  {
+    "id": 17402,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Hurricane",
+    "r": "Rank 3",
+    "d": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.  Druid must channel to maintain the spell.",
+    "old_d": "Creates a violent storm in the area surrounding the caster, causing $s1 Nature damage to all nearby enemies every $t1 sec, and reducing the attack speed of all nearby enemies by $s2%.  Lasts $d."
+  },
+  {
+    "id": 17924,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Soul Fire",
+    "r": "Rank 2",
+    "d": "Burn the enemy's soul, causing $s1 Fire damage.  This spell benefits significantly from effects that increase your spell damage.",
+    "old_d": "Burn the enemy's soul, causing $s1 Fire damage."
+  },
+  {
+    "id": 19028,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Soul Link",
+    "r": "Passive",
+    "d": "While a demon is under your control, the damage dealt by you and your demon is increased by $25228s1%. In addition, $25228s2% of all damage you take is taken by your demon.  Your Greater and Enslaved Demons can no longer break free from your control early.",
+    "old_d": "When active, $18814s1% of all damage taken is split with your demon.  Lasts $18814d."
+  },
+  {
+    "id": 19289,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Elune's Grace",
+    "r": "Rank 2",
+    "d": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "old_d": "Reduces ranged damage taken by $s1 for $d."
+  },
+  {
+    "id": 19291,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Elune's Grace",
+    "r": "Rank 3",
+    "d": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "old_d": "Reduces ranged damage taken by $s1 for $d."
+  },
+  {
+    "id": 19292,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Elune's Grace",
+    "r": "Rank 4",
+    "d": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "old_d": "Reduces ranged damage taken by $s1 for $d."
+  },
+  {
+    "id": 19293,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Elune's Grace",
+    "r": "Rank 5",
+    "d": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "old_d": "Reduces ranged damage taken by $s1 for $d."
+  },
+  {
+    "id": 19478,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tainted Blood",
+    "r": "Rank 1",
+    "d": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19479s1 melee attack power for $19479d.  Stacks up to 5 times on a single target.",
+    "old_d": "Taints the Felhunter's blood for $d.  When the Felhunter is hit with a melee attack, the attacker will lose $19479s1 attack power for $19479d.  Stacks up to 5 times on a single target."
+  },
+  {
+    "id": 19557,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Improved Eyes of the Beast",
+    "r": "Rank 1",
+    "d": "Increases the duration of your Eyes of the Beast by $/1000;s1 sec.\n\nWhile channeling Eyes of the Beast, your pet deals $45662s2% additional damage and gains $45662s3% increased Focus regeneration.",
+    "old_d": "Increases the duration of your Eyes of the Beast by $/1000;s1 sec."
+  },
+  {
+    "id": 19558,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Improved Eyes of the Beast",
+    "r": "Rank 2",
+    "d": "Increases the duration of your Eyes of the Beast by $/1000;s1 sec.\n\nWhile channeling Eyes of the Beast, your pet deals $45663s2% additional damage and gains $45663s3% increased Focus regeneration.",
+    "old_d": "Increases the duration of your Eyes of the Beast by $/1000;s1 sec."
+  },
+  {
+    "id": 19655,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tainted Blood",
+    "r": "Rank 2",
+    "d": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19652s1 melee attack power for $19652d.  Stacks up to 5 times on a single target.",
+    "old_d": "Taints the Felhunter's blood for $d.  When the Felhunter is hit with a melee attack, the attacker will lose $19652s1 attack power for $19652d.  Stacks up to 5 times on a single target."
+  },
+  {
+    "id": 19656,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tainted Blood",
+    "r": "Rank 3",
+    "d": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19653s1 melee attack power for $19653d.  Stacks up to 5 times on a single target.",
+    "old_d": "Taints the Felhunter's blood for $d.  When the Felhunter is hit with a melee attack, the attacker will lose $19653s1 attack power for $19653d.  Stacks up to 5 times on a single target."
+  },
+  {
+    "id": 19660,
+    "kind": "modified",
+    "first": "snapshot",
+    "n": "Tainted Blood",
+    "r": "Rank 4",
+    "d": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19654s1 melee attack power for $19654d.  Stacks up to 5 times on a single target.",
+    "old_d": "Taints the Felhunter's blood for $d.  When the Felhunter is hit with a melee attack, the attacker will lose $19654s1 attack power for $19654d.  Stacks up to 5 times on a single target."
+  },
+  {
+    "id": 21567,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Prayer of Fortitude",
+    "r": "Rank 1",
+    "d": "Teaches Prayer of Fortitude (Rank 1)."
+  },
+  {
+    "id": 21568,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Prayer of Fortitude",
+    "r": "Rank 1",
+    "d": "Teaches Prayer of Fortitude (Rank 1)."
+  },
+  {
+    "id": 21569,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Prayer of Fortitude",
+    "r": "Rank 2",
+    "d": "Teaches Prayer of Fortitude (Rank 2)."
+  },
+  {
+    "id": 21851,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Gift of the Wild",
+    "r": "Rank 1",
+    "d": "Teaches Gift of the Wild (Rank 1)."
+  },
+  {
+    "id": 21852,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Gift of the Wild",
+    "r": "Rank 2",
+    "d": "Teaches Gift of the Wild (Rank 2)."
+  },
+  {
+    "id": 22570,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Mangle",
+    "r": "Rank 1",
+    "d": "Finishing move that causes damage, disorients the opponent, and turns off your attack.  Any damage caused will revive the target.  Causes more damage and lasts longer per combo point:\n   1 point  : 7-11 damage and 2 seconds\n   2 points: 13-19 damage and 3 seconds\n   3 points: 19-24 damage and 4 seconds\n   4 points: 25-30 damage and 5 seconds\n   5 points: 31-37 damage and 6 seconds"
+  },
+  {
+    "id": 22734,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Drink",
+    "r": "",
+    "d": "Restores $o1 mana over $d.  Must remain seated while drinking."
+  },
+  {
+    "id": 23162,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Harass",
+    "r": "Rank 1",
+    "d": "Decreases Defense by $s1 for $d.  This decrease increases the chance attacks will Hit and Critical the target and reduces the chance the target will Block, Dodge, or Parry the attack."
+  },
+  {
+    "id": 23164,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Harass",
+    "r": "Rank 2",
+    "d": "Decreases Defense by $s1 for $d.  This decrease increases the chance attacks will Hit and Critical the target and reduces the chance the target will Block, Dodge, or Parry the attack."
+  },
+  {
+    "id": 23165,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Harass",
+    "r": "Rank 3",
+    "d": "Decreases Defense by $s1 for $d.  This decrease increases the chance attacks will Hit and Critical the target and reduces the chance the target will Block, Dodge, or Parry the attack."
+  },
+  {
+    "id": 24355,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Drink",
+    "r": "",
+    "d": "Restores $s1% of your mana per second for $d.  Must remain seated while drinking."
+  },
+  {
+    "id": 24423,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 1",
+    "d": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2.  Effect lasts $d."
+  },
+  {
+    "id": 24424,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 1",
+    "d": "Blasts a single enemy for $24423s1 damage and lowers the attack power of all enemies in melee range by $24423s2.  Effect lasts $24423d."
+  },
+  {
+    "id": 24577,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 2",
+    "d": "Blasts a single enemy for $s1 damage and lowers the attack power of all enemies in melee range by $s2.  Effect lasts $d."
+  },
+  {
+    "id": 24578,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 3",
+    "d": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2.  Effect lasts $d."
+  },
+  {
+    "id": 24579,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 4",
+    "d": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2.  Effect lasts $d."
+  },
+  {
+    "id": 24580,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 2",
+    "d": "Blasts a single enemy for $24577s1 damage and lowers the attack power of all enemies in melee range by $24577s2.  Effect lasts $24577d."
+  },
+  {
+    "id": 24581,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 3",
+    "d": "Blasts a single enemy for $24578s1 damage and lowers the attack power of all enemies in melee range by $24578s2.  Effect lasts $24578d."
+  },
+  {
+    "id": 24582,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Screech",
+    "r": "Rank 4",
+    "d": "Blasts a single enemy for $24579s1 damage and lowers the attack power of all enemies in melee range by $24579s2.  Effect lasts $24579d."
+  },
+  {
+    "id": 24597,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 4",
+    "d": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d."
+  },
+  {
+    "id": 24599,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 4",
+    "d": "Party members within $24597a1 yards receive an extra $24597s1 damage to their next Physical attack.  Lasts $24597d."
+  },
+  {
+    "id": 24603,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 3",
+    "d": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d."
+  },
+  {
+    "id": 24604,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 1",
+    "d": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d."
+  },
+  {
+    "id": 24605,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 2",
+    "d": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack.  Lasts $d."
+  },
+  {
+    "id": 24607,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 3",
+    "d": "Party members within $24603a1 yards receive an extra $24603s1 damage to their next Physical attack.  Lasts $24603d."
+  },
+  {
+    "id": 24608,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 2",
+    "d": "Party members within $24605a1 yards receive an extra $24605s1 damage to their next Physical attack.  Lasts $24605d."
+  },
+  {
+    "id": 24609,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Furious Howl",
+    "r": "Rank 1",
+    "d": "Party members within $24604a1 yards receive an extra $24604s1 damage to their next Physical attack.  Lasts $24604d."
+  },
+  {
+    "id": 24894,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Heart of the Wild",
+    "r": "Rank 5",
+    "d": "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%."
+  },
+  {
+    "id": 25288,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Revenge",
+    "r": "Rank 6",
+    "d": "Instantly counterattack an enemy for $s1 damage and a high amount of threat.   Revenge must follow a block, dodge or parry."
+  },
+  {
+    "id": 25503,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Enrage",
+    "r": "",
+    "d": "Generates 20 rage over $d, but reduces base armor by 27% in Bear Form and 16% in Dire Bear Form.  The druid is considered in combat for the duration."
+  },
+  {
+    "id": 25908,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Tranquil Air Totem",
+    "r": "",
+    "d": "Summons a Tranquil Air Totem with $s1 health at the feet of the caster.  The totem reduces the threat caused by all party members within $25909a1 yards by $25909s1%.  Lasts $d."
+  },
+  {
+    "id": 25960,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Revenge",
+    "r": "Rank 6",
+    "d": "Teaches Revenge (Rank 6)."
+  },
+  {
+    "id": 25974,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Deadly Poison",
+    "r": "Rank 5",
+    "d": "Teaches Deadly Poison (Rank 5)."
+  },
+  {
+    "id": 25976,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Feint",
+    "r": "Rank 5",
+    "d": "Teaches Feint (Rank 5)."
+  },
+  {
+    "id": 26022,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Pursuit of Justice",
+    "r": "Rank 1",
+    "d": "Increases movement and mounted movement speed by $s1%.  This does not stack with other movement speed increasing effects."
+  },
+  {
+    "id": 26023,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Pursuit of Justice",
+    "r": "Rank 2",
+    "d": "Increases movement and mounted movement speed by $s1%.  This does not stack with other movement speed increasing effects."
+  },
+  {
+    "id": 26064,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Shell Shield",
+    "r": "Rank 1",
+    "d": "Reduces all damage your pet takes by $s1%, but increases the time between your pet's attacks by $s2%.  Lasts $d."
+  },
+  {
+    "id": 26651,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Execute",
+    "r": "",
+    "d": "Designer Note:\n\nThis marks the warrior as having just used Execute."
+  },
+  {
+    "id": 27530,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Hurricane",
+    "r": "",
+    "d": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec, and increasing the time between the attacks of enemies by $s2%.  Lasts $d.  Druid must channel to maintain the spell."
+  },
+  {
+    "id": 27682,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Prayer of Spirit",
+    "r": "Rank 1",
+    "d": "Teaches Prayer of Spirit (Rank 1)."
+  },
+  {
+    "id": 27684,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Prayer of Shadow Protection",
+    "r": "Rank 1",
+    "d": "Teaches Prayer of Shadow Protection (Rank 1)."
+  },
+  {
+    "id": 27986,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Levitate",
+    "r": "",
+    "d": "Allows the caster to levitate, floating a few feet above the ground.  While levitating, you will fall at a reduced speed and travel over water-like surfaces.  "
+  },
+  {
+    "id": 28592,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Winter's Chill",
+    "r": "Rank 2",
+    "d": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times."
+  },
+  {
+    "id": 28593,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Winter's Chill",
+    "r": "Rank 3",
+    "d": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times."
+  },
+  {
+    "id": 28594,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Winter's Chill",
+    "r": "Rank 4",
+    "d": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times."
+  },
+  {
+    "id": 28595,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Winter's Chill",
+    "r": "Rank 5",
+    "d": "Gives your Frost damage spells a $h% chance to apply the Winter's Chill effect, which increases the chance a Frost spell will critically hit the target by $12579s1% for $12579d.  Stacks up to $12579u times."
+  },
+  {
+    "id": 28609,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Frost Ward",
+    "r": "Rank 5",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d."
+  },
+  {
+    "id": 28610,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Shadow Ward",
+    "r": "Rank 4",
+    "d": "Absorbs $s1 shadow damage.  Lasts $d."
+  },
+  {
+    "id": 28611,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Shadow Ward",
+    "r": "Rank 4",
+    "d": "Teaches Shadow Ward (Rank 4)."
+  },
+  {
+    "id": 29007,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Drink",
+    "r": "",
+    "d": "Restores $o1 mana over $d.  Must remain seated while drinking."
+  },
+  {
+    "id": 29441,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Magic Absorption",
+    "r": "Rank 1",
+    "d": "Increases all resistances by $s2 and whenever one of your spells is partially or fully resisted you restore $s1% of your maximum mana.  This effect can occur once every 2 sec."
+  },
+  {
+    "id": 29444,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Magic Absorption",
+    "r": "Rank 2",
+    "d": "Increases all resistances by $s2 and whenever one of your spells is partially or fully resisted you restore $s1% of your maximum mana.  This effect can occur once every 2 sec."
+  },
+  {
+    "id": 29445,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Magic Absorption",
+    "r": "Rank 3",
+    "d": "Increases all resistances by $s2 and whenever one of your spells is partially or fully resisted you restore $s1% of your maximum mana.  This effect can occur once every 2 sec."
+  },
+  {
+    "id": 29446,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Magic Absorption",
+    "r": "Rank 4",
+    "d": "Increases all resistances by $s2 and causes all spells you fully resist to restore $s1% of your total mana.  1 sec. cooldown."
+  },
+  {
+    "id": 29447,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Magic Absorption",
+    "r": "Rank 5",
+    "d": "Increases all resistances by $s2 and causes all spells you fully resist to restore $s1% of your total mana.  1 sec. cooldown."
+  },
+  {
+    "id": 30802,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Unleashed Rage",
+    "r": "Rank 1",
+    "d": "Causes your critical hits with melee attacks to increase all party members' attack power by $30803s1% if within $30803a1 yards of the Shaman.  Lasts $30803d."
+  },
+  {
+    "id": 30808,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Unleashed Rage",
+    "r": "Rank 2",
+    "d": "Causes your critical hits with melee attacks to increase all party members' attack power by $30804s1% if within $30804a1 yards of the Shaman.  Lasts $30804d."
+  },
+  {
+    "id": 30809,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Unleashed Rage",
+    "r": "Rank 3",
+    "d": "Causes your critical hits with melee attacks to increase all party members' attack power by $30805s1% if within $30805a1 yards of the Shaman.  Lasts $30805d."
+  },
+  {
+    "id": 30810,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Unleashed Rage",
+    "r": "Rank 4",
+    "d": "Causes your critical hits with melee attacks to increase all party members' attack power by $30806s1% if within $30806a1 yards of the Shaman.  Lasts $30806d."
+  },
+  {
+    "id": 30811,
+    "kind": "custom",
+    "first": "patch_MPQ",
+    "n": "Unleashed Rage",
+    "r": "Rank 5",
+    "d": "Causes your critical hits with melee attacks to increase all party members' attack power by $30807s1% if within $30807a1 yards of the Shaman.  Lasts $30807d."
+  },
+  {
+    "id": 36601,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Holy Nova",
+    "r": "Rank 1",
+    "d": "Ah, kurwa!"
+  },
+  {
+    "id": 36602,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Holy Nova",
+    "r": "Rank 2",
+    "d": "Ah, kurwa!"
+  },
+  {
+    "id": 36603,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Holy Nova",
+    "r": "Rank 3",
+    "d": "Ah, kurwa!"
+  },
+  {
+    "id": 36604,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Holy Nova",
+    "r": "Rank 4",
+    "d": "Ah, kurwa!"
+  },
+  {
+    "id": 36605,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Holy Nova",
+    "r": "Rank 5",
+    "d": "Ah, kurwa!"
+  },
+  {
+    "id": 36606,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Holy Nova",
+    "r": "Rank 6",
+    "d": "Ah, kurwa!"
+  },
+  {
+    "id": 45506,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Earthquake",
+    "r": "Rank 1",
+    "d": "Creates a violent earthquake in the target area causing $s1 Physical damage to enemies every $t1 sec, and reducing their speed by $s2% in an 8 yard radius.  Lasts $d.  Shaman must channel to maintain the spell."
+  },
+  {
+    "id": 45529,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Calm Elements",
+    "r": "Rank 1",
+    "d": "Calms the target, reducing the range at which it will attack you by $s1 yards.  Only affects Elemental targets level $v or lower.  Lasts $d."
+  },
+  {
+    "id": 45604,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Flourish",
+    "r": "Rank 1",
+    "d": "Finishing move that increases your chance to parry by an additional 20%.  Lasts longer per combo point:\n   1 point  : 8 seconds\n   2 points: 10 seconds\n   3 points: 12 seconds\n   4 points: 14 seconds\n   5 points: 16 seconds"
+  },
+  {
+    "id": 45721,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Blood Frenzy",
+    "r": "Rank 1",
+    "d": "Increases the duration of Tiger's Fury by $/1000;s1 seconds and your Enrage now also instantly generates $/10;17080s1 rage.  In addition, Tiger's Fury and Enrage increase your attack speed by $45729s1% for $45729d."
+  },
+  {
+    "id": 45722,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Blood Frenzy",
+    "r": "Rank 2",
+    "d": "Increases the duration of Tiger's Fury by $/1000;s1 seconds and your Enrage now also instantly generates $/10;17081s1 rage.  In addition, Tiger's Fury and Enrage increase your attack speed by $45730s1% for $45730d."
+  },
+  {
+    "id": 46231,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Sun's Embrace",
+    "r": "Rank 1",
+    "d": "Teaches Sun's Embrace (Rank 1)."
+  },
+  {
+    "id": 46232,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Sun's Embrace",
+    "r": "Rank 2",
+    "d": "Teaches Sun's Embrace (Rank 2)."
+  },
+  {
+    "id": 46233,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Sun's Embrace",
+    "r": "Rank 3",
+    "d": "Teaches Sun's Embrace (Rank 3)."
+  },
+  {
+    "id": 46234,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Sun's Embrace",
+    "r": "Rank 4",
+    "d": "Teaches Sun's Embrace (Rank 4)."
+  },
+  {
+    "id": 46235,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Grace of the Sunwell",
+    "r": "Rank 1",
+    "d": "Teaches Grace of the Sunwell."
+  },
+  {
+    "id": 51401,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Barkskin (Feral)",
+    "r": "Rank 1",
+    "d": "The druid's skin becomes tough as bark, reducing the damage of the next five direct physical attacks by $s1%. Movement speed is reduced by $s2% during its duration.   Lasts $d."
+  },
+  {
+    "id": 51451,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Barkskin (Feral)",
+    "r": "Rank 2",
+    "d": "The druid's skin becomes tough as bark, reducing the damage of the next ten direct physical attacks by $s1%. Movement speed is reduced by $s2% during its duration.   Lasts $d."
+  },
+  {
+    "id": 51452,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Barkskin (Feral)",
+    "r": "Rank 3",
+    "d": "The druid's skin becomes tough as bark, reducing the damage of the next fifteen direct physical attacks by $s1%. Movement speed is reduced by $s2% during its duration.   Lasts $d."
+  },
+  {
+    "id": 51600,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Concussion Blow",
+    "r": "Rank 2",
+    "d": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor."
+  },
+  {
+    "id": 51601,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Concussion Blow",
+    "r": "Rank 3",
+    "d": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor."
+  },
+  {
+    "id": 51602,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Concussion Blow",
+    "r": "Rank 4",
+    "d": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor."
+  },
+  {
+    "id": 51664,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Sword Master",
+    "r": "Rank 1",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword."
+  },
+  {
+    "id": 51665,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Sword Master",
+    "r": "Rank 2",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword."
+  },
+  {
+    "id": 51666,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Sword Master",
+    "r": "Rank 3",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword."
+  },
+  {
+    "id": 51667,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Sword Master",
+    "r": "Rank 4",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword."
+  },
+  {
+    "id": 51668,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Sword Master",
+    "r": "Rank 5",
+    "d": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword."
+  },
+  {
+    "id": 51683,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Soul Fire",
+    "r": "Rank 3",
+    "d": "Burn the enemy's soul, causing $s1 Fire damage.  This spell benefits significantly from effects that increase your spell damage."
+  },
+  {
+    "id": 51684,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Soul Fire",
+    "r": "Rank 4",
+    "d": "Burn the enemy's soul, causing $s1 Fire damage.  This spell benefits significantly from effects that increase your spell damage."
+  },
+  {
+    "id": 51933,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Arcane Surge",
+    "r": "Rank 1",
+    "d": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted."
+  },
+  {
+    "id": 51934,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Arcane Surge",
+    "r": "Rank 2",
+    "d": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted."
+  },
+  {
+    "id": 51935,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Arcane Surge",
+    "r": "Rank 3",
+    "d": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted."
+  },
+  {
+    "id": 51936,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Arcane Surge",
+    "r": "Rank 4",
+    "d": "Blast your target with overloaded mana, dealing $s1 Arcane damage.  Only usable after one of your spells has been partially or fully resisted.  This spell cannot be partially or fully resisted."
+  },
+  {
+    "id": 52338,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Aviana's Torrent",
+    "r": "Rank 1",
+    "d": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d."
+  },
+  {
+    "id": 52339,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Aviana's Torrent",
+    "r": "Rank 2",
+    "d": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d."
+  },
+  {
+    "id": 52340,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Aviana's Torrent",
+    "r": "Rank 3",
+    "d": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d."
+  },
+  {
+    "id": 52507,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Blade Rush",
+    "r": "Rank 1",
+    "d": "Reduces the cooldown of your Blade Flurry by $/1000;S1 sec.  In addition, Blade Flurry now increases your attack speed by $s2% for its duration."
+  },
+  {
+    "id": 52508,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Blade Rush",
+    "r": "Rank 2",
+    "d": "Reduces the cooldown of your Blade Flurry by $/1000;S1 sec.  In addition, Blade Flurry now increases your attack speed by $s2% for its duration."
+  },
+  {
+    "id": 52527,
+    "kind": "custom",
+    "first": "patch-6",
+    "n": "Vigor",
+    "r": "Rank 2",
+    "d": "Increases your maximum Energy by $s2.  Each time you apply poison to your target, you have a $s1% chance to gain $52526s1 Energy.  This effect can occur once every 8 sec."
+  },
+  {
+    "id": 56524,
+    "kind": "custom",
+    "first": "patch-3",
+    "n": "Fire-Blessed Weapon",
+    "r": "Rank 3",
+    "d": "Caster's weapon bursts into flame, causing an additional $s1 fire damage with each hit.  Lasts $d."
+  }
+]

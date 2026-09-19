@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 19264,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Touch of Weakness Rank 4",
+    "en": "The next melee attack against the caster will cause $19252s1 Shadow damage and reduce the damage caused by the attacker by $19252s2 for $19252d.",
+    "curr_pt": "O próximo corpo a corpo contra você causa $s1 de Sombra e reduz o dano do atacante em $s2 por $d s."
+  },
+  {
+    "oid": 19265,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Touch of Weakness Rank 5",
+    "en": "The next melee attack on the caster will cause $19253s1 Shadow damage and reduce the damage caused by the attacker by $19253s2 for $19253d.",
+    "curr_pt": "O próximo corpo a corpo contra você causa $s1 de Sombra e reduz o dano do atacante em $s2 por $d s."
+  },
+  {
+    "oid": 19266,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Touch of Weakness Rank 6",
+    "en": "The next melee attack on the caster will cause $19254s1 Shadow damage and reduce the damage caused by the attacker by $19254s2 for $19254d.",
+    "curr_pt": "Próximo corpo a corpo: $s1 de Sombra e -$s2 por $d s."
+  },
+  {
+    "oid": 19289,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Elune's Grace Rank 2",
+    "en": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19290,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Surefooted Rank 1",
+    "en": "Increases hit chance by $s3% and increases the chance movement impairing effects will be resisted by an additional $s1%.",
+    "curr_pt": "Aumenta o acerto em $s1% e a resistência a lentidão em $s2%."
+  },
+  {
+    "oid": 19291,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Elune's Grace Rank 3",
+    "en": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19292,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Elune's Grace Rank 4",
+    "en": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19293,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Elune's Grace Rank 5",
+    "en": "Reduces ranged damage taken by $s1 and increases chance to dodge by $s2% for $d.\r\n\r\nMelee attacks dodged while this effect is active restore mana equal to your agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19294,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Surefooted Rank 2",
+    "en": "Increases hit chance by $s3% and increases the chance movement impairing effects will be resisted by an additional $s1%.",
+    "curr_pt": "Aumenta o acerto em $s1% e a resistência a lentidão em $s2%."
+  },
+  {
+    "oid": 19295,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Swift Reflexes Rank 1",
+    "en": "Increases your Parry chance and attack speed by $s1%.",
+    "curr_pt": "Aumenta seu Aparo e velocidade de ataque em $s1%."
+  },
+  {
+    "oid": 19297,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Swift Reflexes Rank 2",
+    "en": "Increases your Parry chance and attack speed by $s1%.",
+    "curr_pt": "Aumenta seu Aparo e velocidade de ataque em $s1%."
+  },
+  {
+    "oid": 19298,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Deflection Rank 3",
+    "en": "Increases your Parry chance by $s1%.",
+    "curr_pt": "Aumenta sua chance de aparar em $s1%."
+  },
+  {
+    "oid": 19300,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Deflection Rank 5",
+    "en": "Increases your Parry chance by $s1%.",
+    "curr_pt": "Aumenta sua chance de aparar em $s1%."
+  },
+  {
+    "oid": 19301,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Deflection Rank 4",
+    "en": "Increases your Parry chance by $s1%.",
+    "curr_pt": "Aumenta sua chance de aparar em $s1%."
+  },
+  {
+    "oid": 19424,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Improved Hunter's Mark Rank 4",
+    "en": "Increases the Ranged Attack Power bonus of your Hunter's Mark spell by $s1%.",
+    "curr_pt": "Aumenta o bônus de Poder de Ataque à distância da sua Marca do Caçador em $s1%."
+  },
+  {
+    "oid": 19425,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Improved Hunter's Mark Rank 5",
+    "en": "Increases the Ranged Attack Power bonus of your Hunter's Mark spell by $s1%.",
+    "curr_pt": "Aumenta o bônus de Poder de Ataque à distância da sua Marca do Caçador em $s1%."
+  },
+  {
+    "oid": 19478,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tainted Blood Rank 1",
+    "en": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19479s1 melee attack power for $19479d.  Stacks up to 5 times on a single target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19500,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Hawk Eye Rank 3",
+    "en": "Increases the range of your ranged weapons by $s1 yards.",
+    "curr_pt": "Aumenta o alcance à distância em $s1 m."
+  },
+  {
+    "oid": 19557,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Eyes of the Beast Rank 1",
+    "en": "Increases the duration of your Eyes of the Beast by $/1000;s1 sec.\n\nWhile channeling Eyes of the Beast, your pet deals $45662s2% additional damage and gains $45662s3% increased Focus regeneration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19558,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Eyes of the Beast Rank 2",
+    "en": "Increases the duration of your Eyes of the Beast by $/1000;s1 sec.\n\nWhile channeling Eyes of the Beast, your pet deals $45663s2% additional damage and gains $45663s3% increased Focus regeneration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19577,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Intimidation",
+    "en": "Command your pet to intimidate the target on the next successful melee attack, stunning the target for $24394d, and increasing the pet's threat generation by $51556s1% for $51556d.",
+    "curr_pt": "Pet intimida no próximo acerto: atordoa por $d s e +$s1% ameaça por $d1 s."
+  },
+  {
+    "oid": 19590,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Bestial Discipline Rank 1",
+    "en": "Increases the Focus regeneration of your pets by 2 each tick.",
+    "curr_pt": "Foco do pet +2 por tick."
+  },
+  {
+    "oid": 19592,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Bestial Discipline Rank 2",
+    "en": "Increases the Focus regeneration of your pets by 5 each tick.",
+    "curr_pt": "Foco do pet +5 por tick."
+  },
+  {
+    "oid": 19609,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 1",
+    "en": "Adds $s2% of your armor value from items to the armor value of your pets and increases the armor value of your pets by $s1%.",
+    "curr_pt": "Adiciona $s1% da sua armadura de itens à dos pets e aumenta a deles em $s2%."
+  },
+  {
+    "oid": 19610,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 2",
+    "en": "Adds $s2% of your armor value from items to the armor value of your pets and increases the armor value of your pets by $s1%.",
+    "curr_pt": "Adiciona $s1% da sua armadura de itens à dos pets e aumenta a deles em $s2%."
+  },
+  {
+    "oid": 19611,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Thick Hide Rank 4",
+    "en": "Increases the Armor rating of your pets by $s1%.",
+    "curr_pt": "Armadura do pet +$s1%."
+  },
+  {
+    "oid": 19612,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Thick Hide Rank 3",
+    "en": "Adds $s2% of your armor value from items to the armor value of your pets and increases the armor value of your pets by $s1%.",
+    "curr_pt": "Adiciona $s1% da sua armadura de itens à dos pets e aumenta a deles em $s2%."
+  },
+  {
+    "oid": 19613,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Thick Hide Rank 5",
+    "en": "Increases the Armor rating of your pets by $s1%.",
+    "curr_pt": "Armadura do pet +$s1%."
+  },
+  {
+    "oid": 19616,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Unleashed Fury Rank 1",
+    "en": "Increases the damage done by your pets by $s1%.",
+    "curr_pt": "Aumenta o dano dos seus pets em $s1%."
+  },
+  {
+    "oid": 19617,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Unleashed Fury Rank 2",
+    "en": "Increases the damage done by your pets by $s1%.",
+    "curr_pt": "Aumenta o dano dos seus pets em $s1%."
+  },
+  {
+    "oid": 19618,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Unleashed Fury Rank 3",
+    "en": "Increases the damage done by your pets by $s1%.",
+    "curr_pt": "Aumenta o dano dos seus pets em $s1%."
+  },
+  {
+    "oid": 19619,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Unleashed Fury Rank 4",
+    "en": "Increases the damage done by your pets by $s1%.",
+    "curr_pt": "Aumenta o dano dos seus pets em $s1%."
+  },
+  {
+    "oid": 19620,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Unleashed Fury Rank 5",
+    "en": "Increases the damage done by your pets by $s1%.",
+    "curr_pt": "Aumenta o dano dos seus pets em $s1%."
+  },
+  {
+    "oid": 19655,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tainted Blood Rank 2",
+    "en": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19652s1 melee attack power for $19652d.  Stacks up to 5 times on a single target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19656,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tainted Blood Rank 3",
+    "en": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19653s1 melee attack power for $19653d.  Stacks up to 5 times on a single target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19660,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tainted Blood Rank 4",
+    "en": "Taints the Felhunter's blood for $d.  When the Felhunter attacks, the victim will lose $19654s1 melee attack power for $19654d.  Stacks up to 5 times on a single target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20099,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Anticipation Rank 4",
+    "en": "Increases your Defense skill by $s1.",
+    "curr_pt": "Aumenta sua perícia em Defesa em $s1."
+  },
+  {
+    "oid": 20100,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Anticipation Rank 5",
+    "en": "Increases your Defense skill by $s1.",
+    "curr_pt": "Aumenta sua perícia em Defesa em $s1."
+  },
+  {
+    "oid": 20111,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Two-Handed Weapon Specialization Rank 1",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1%, and your weapon skill with two-handed swords, maces and axes by $51347s1.",
+    "curr_pt": "Armas de duas mãos: +$s1% de dano e +$s2 de perícia em espada, maça e machado."
+  },
+  {
+    "oid": 20112,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Two-Handed Weapon Specialization Rank 2",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1%, and your weapon skill with two-handed swords, maces and axes by $51348s1.",
+    "curr_pt": "Armas de duas mãos: +$s1% de dano e +$s2 de perícia em espada, maça e machado."
+  },
+  {
+    "oid": 20113,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Two-Handed Weapon Specialization Rank 3",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1%, and your weapon skill with two-handed swords, maces and axes by $51349s1.",
+    "curr_pt": "Armas de duas mãos: +$s1% de dano e +$s2 de perícia em espada, maça e machado."
+  },
+  {
+    "oid": 20148,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 1",
+    "en": "Increases the amount of damage absorbed by your shield by $s1% and has a $h% chance to restore 2% of maximum mana when a block occurs. This effect cannot occur more than once every 5 sec.",
+    "curr_pt": "Aumenta a absorção do escudo em $s1% e dá $h% de chance de +2% da mana máx ao bloquear. Uma vez a cada 5 s."
+  },
+  {
+    "oid": 20149,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 2",
+    "en": "Increases the amount of damage absorbed by your shield by $s1% and has a $h% chance to restore 2% of maximum mana when a block occurs. This effect cannot occur more than once every 5 sec.",
+    "curr_pt": "Aumenta a absorção do escudo em $s1% e dá $h% de chance de +2% da mana máx ao bloquear. Uma vez a cada 5 s."
+  },
+  {
+    "oid": 20150,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 3",
+    "en": "Increases the amount of damage absorbed by your shield by $s1% and has a $h% chance to restore 2% of maximum mana when a block occurs. This effect cannot occur more than once every 5 sec.",
+    "curr_pt": "Aumenta a absorção do escudo em $s1% e dá $h% de chance de +2% da mana máx ao bloquear. Uma vez a cada 5 s."
+  },
+  {
+    "oid": 20174,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Guardian's Favor Rank 1",
+    "en": "Reduces the cooldown of your Hand of Protection by $/1000;s1 sec and increases the duration of your Hand of Freedom by $/1000;s2 sec.",
+    "curr_pt": "Proteção -$s1 s recarga e Liberdade +$s2 s."
+  },
+  {
+    "oid": 20175,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Guardian's Favor Rank 2",
+    "en": "Reduces the cooldown of your Hand of Protection by $/1000;s1 sec and increases the duration of your Hand of Freedom by $/1000;s2 sec.",
+    "curr_pt": "Proteção -$s1 s recarga e Liberdade +$s2 s."
+  },
+  {
+    "oid": 20189,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Precision Rank 1",
+    "en": "Increases your chance to hit with melee attacks and spells by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com ataques corpo a corpo e magias em $s1%."
+  },
+  {
+    "oid": 20192,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Precision Rank 2",
+    "en": "Increases your chance to hit with melee attacks and spells by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com ataques corpo a corpo e magias em $s1%."
+  },
+  {
+    "oid": 20193,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Precision Rank 3",
+    "en": "Increases your chance to hit with melee attacks and spells by $s1%.",
+    "curr_pt": "Aumenta sua chance de acertar com ataques corpo a corpo e magias em $s1%."
+  },
+  {
+    "oid": 20257,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Divine Intellect Rank 1",
+    "en": "Increases your total Intellect by $s1%.",
+    "curr_pt": "Aumenta seu Intelecto total em $s1%."
+  }
+]

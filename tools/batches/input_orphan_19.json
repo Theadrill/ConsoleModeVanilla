@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 45906,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Doombringer Rank 2",
+    "en": "Reduces the cooldown of your Inferno spell by $/60000;s1 min and your Ritual of Doom spell by $/60000;s2 min.",
+    "curr_pt": "Inferno -$s1 min e Ritual -$s2 min."
+  },
+  {
+    "oid": 45910,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mana Funnel Rank 1",
+    "en": "Gives $s1 Mana to your demon every second for $d while channeling.",
+    "curr_pt": "Dá $s1 de Mana ao demônio por segundo por $d s canalizando."
+  },
+  {
+    "oid": 45911,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mana Funnel Rank 2",
+    "en": "Gives $s1 Mana to your demon every second for $d while channeling.",
+    "curr_pt": "Dá $s1 de Mana ao demônio por segundo por $d s canalizando."
+  },
+  {
+    "oid": 45915,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Carrion Swarm Rank 1",
+    "en": "A wave of demonic bats and chaotic magic releases over enemies in a cone infront of the caster, dealing $s1 Shadow damage and an additional $s2 Shadow damage every $t2 sec. for $d.",
+    "curr_pt": "Onda de morcegos em cone: $s1 de Sombra + $s2 a cada $t1 s por $d s."
+  },
+  {
+    "oid": 45921,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demonic Aegis Rank 1",
+    "en": "Increases the effectiveness of your Demon Armor spell by $s1%.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos."
+  },
+  {
+    "oid": 45922,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demonic Aegis Rank 2",
+    "en": "Increases the effectiveness of your Demon Armor spell by $s1%.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos."
+  },
+  {
+    "oid": 45923,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demonic Aegis Rank 3",
+    "en": "Increases the effectiveness of your Demon Armor spell by $s1%.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos."
+  },
+  {
+    "oid": 45951,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Spirit Armor Rank 1",
+    "en": "Increases the armor gained from Shields by $s1%.",
+    "curr_pt": "Aumenta seu dano com Maças de Duas Mãos em $s1, com 2% de chance de atordoar o alvo por 5 s."
+  },
+  {
+    "oid": 45952,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Spirit Armor Rank 2",
+    "en": "Increases the armor gained from Shields by $s1%.",
+    "curr_pt": "Aumenta seu dano com Maças de Duas Mãos em $s1, com 2% de chance de atordoar o alvo por 5 s."
+  },
+  {
+    "oid": 45953,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Spirit Armor Rank 3",
+    "en": "Increases the armor gained from Shields by $s1%.",
+    "curr_pt": "Aumenta seu dano com Maças de Duas Mãos em $s1, com 2% de chance de atordoar o alvo por 5 s."
+  },
+  {
+    "oid": 45977,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Slaying Rank 1",
+    "en": "Increases all damage caused against Beasts, Giants, Dragonkin, and Humanoid targets by $s1% and increases critical damage caused against Beasts, Giants, Dragonkin, and Humanoid targets by an additional $s2%.",
+    "curr_pt": "Aumenta todo o dano contra Feras, Gigantes, Draconídeos e Humanoides em $s1%, e o crítico em mais $s2%."
+  },
+  {
+    "oid": 45978,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Slaying Rank 1",
+    "en": "Increases all damage caused against Beasts, Giants, Dragonkin, and Humanoid targets by $s1% and increases critical damage caused against Beasts, Giants, Dragonkin, and Humanoid targets by an additional $s2%.",
+    "curr_pt": "Aumenta todo o dano contra Feras, Gigantes, Draconídeos e Humanoides em $s1%, e o crítico em mais $s2%."
+  },
+  {
+    "oid": 45979,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Slaying Rank 1",
+    "en": "Increases all damage caused against Beasts, Giants, Dragonkin, and Humanoid targets by $s1% and increases critical damage caused against Beasts, Giants, Dragonkin, and Humanoid targets by an additional $s2%.",
+    "curr_pt": "Aumenta todo o dano contra Feras, Gigantes, Draconídeos e Humanoides em $s1%, e o crítico em mais $s2%."
+  },
+  {
+    "oid": 45980,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Go for the Throat Rank 1",
+    "en": "Your ranged and melee critical hits cause your pet to generate $45982s1 Focus.",
+    "curr_pt": "Crítico: pet +$s1 Foco."
+  },
+  {
+    "oid": 45981,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Go for the Throat Rank 1",
+    "en": "Your ranged and melee critical hits cause your pet to generate $45983s1 Focus.",
+    "curr_pt": "Crítico: pet +$s1 Foco."
+  },
+  {
+    "oid": 46231,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 1",
+    "en": "Teaches Sun's Embrace (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46232,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 2",
+    "en": "Teaches Sun's Embrace (Rank 2).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46233,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 3",
+    "en": "Teaches Sun's Embrace (Rank 3).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46234,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 4",
+    "en": "Teaches Sun's Embrace (Rank 4).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46235,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grace of the Sunwell Rank 1",
+    "en": "Teaches Grace of the Sunwell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46250,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 1",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46251,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 2",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46252,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 3",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46253,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 4",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46254,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 5",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46255,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 6",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46256,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 7",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46257,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Smack Rank 8",
+    "en": "Smack the enemy, causing $s1 damage.",
+    "curr_pt": "Agride o inimigo, causando $s1 de dano."
+  },
+  {
+    "oid": 46269,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Breath Rank 1",
+    "en": "Targets in a cone in front of the caster take ${$m1*3} Fire damage over $d.",
+    "curr_pt": "Cone à frente: $s1 de Fogo ao longo de $d s."
+  },
+  {
+    "oid": 46270,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Breath Rank 2",
+    "en": "Targets in a cone in front of the caster take ${$m1*3} Fire damage over $d.",
+    "curr_pt": "Cone à frente: $s1 de Fogo ao longo de $d s."
+  },
+  {
+    "oid": 46271,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison Spit Rank 1",
+    "en": "Spits poison at an enemy, dealing $o1 Nature damage over $d.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos e os arremessa."
+  },
+  {
+    "oid": 46272,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison Spit Rank 2",
+    "en": "Spits poison at an enemy, dealing $o1 Nature damage over $d.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos e os arremessa."
+  },
+  {
+    "oid": 46273,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison Spit Rank 3",
+    "en": "Spits poison at an enemy, dealing $o1 Nature damage over $d.",
+    "curr_pt": "Causa dano normal mais $s1 nos inimigos próximos e os arremessa."
+  },
+  {
+    "oid": 46292,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Pin Rank 1",
+    "en": "Pins the target in place, and squeezes for $o2 damage over $d.",
+    "curr_pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
+  },
+  {
+    "oid": 46293,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Pin Rank 2",
+    "en": "Pins the target in place, and squeezes for $o2 damage over $d.",
+    "curr_pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
+  },
+  {
+    "oid": 46294,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Pin Rank 3",
+    "en": "Pins the target in place, and squeezes for $o2 damage over $d.",
+    "curr_pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
+  },
+  {
+    "oid": 46295,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Pin Rank 4",
+    "en": "Pins the target in place, and squeezes for $o2 damage over $d.",
+    "curr_pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
+  },
+  {
+    "oid": 46296,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Grace Rank 1",
+    "en": "Increases chance to dodge by 30% for $d.",
+    "curr_pt": "Esquiva +30% por $d s."
+  },
+  {
+    "oid": 46303,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison Spit Rank 1",
+    "en": "Spits poison at an enemy, dealing $46271o1 Nature damage over $46271d.",
+    "curr_pt": "Cospe: $s1 de Natureza em $d s."
+  },
+  {
+    "oid": 46307,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Grace Rank 1",
+    "en": "Increases chance to dodge by 30% for $46296d.",
+    "curr_pt": "Esquiva +30% por $d s."
+  },
+  {
+    "oid": 46315,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cleave Felgaurd",
+    "en": "A sweeping attack that does your weapon damage plus $s1 to the target and his nearest ally.",
+    "curr_pt": "Arma +$s1 no alvo e vizinho."
+  },
+  {
+    "oid": 50004,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Exhaustion Challenge",
+    "en": "No longer gaining rested experience.",
+    "curr_pt": "Sem mais experiência descansada."
+  },
+  {
+    "oid": 50020,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Exhaustion",
+    "en": "Enable the Exhaustion challenge.",
+    "curr_pt": "Desafio Exaustão."
+  },
+  {
+    "oid": 50038,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Exhaustion Challenge",
+    "en": "No longer gaining rested experience.",
+    "curr_pt": "Sem mais experiência descansada."
+  },
+  {
+    "oid": 51154,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison Spit Rank 2",
+    "en": "Spits poison at an enemy, dealing $46272o1 Nature damage over $46272d.",
+    "curr_pt": "Cospe: $s1 de Natureza em $d s."
+  },
+  {
+    "oid": 51155,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Poison Spit Rank 3",
+    "en": "Spits poison at an enemy, dealing $46273o1 Nature damage over $46273d.",
+    "curr_pt": "Cospe: $s1 de Natureza em $d s."
+  },
+  {
+    "oid": 51156,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Thunderstomp Rank 4",
+    "en": "Shakes the ground with thundering force, doing $s1 Nature damage to all enemies within $a1 yards. Causes a moderate amount of threat.",
+    "curr_pt": "Agita a terra com força trovejante, causando $s1 de dano de Natureza a todos a até $a1 m, com ameaça moderada."
+  },
+  {
+    "oid": 51206,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enrage",
+    "en": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1% for $d.",
+    "curr_pt": "Causa $s1 de dano de Sombra nos próximos após $t1 s."
+  },
+  {
+    "oid": 51324,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mending Light Rank 1",
+    "en": "Restores mana.",
+    "curr_pt": "Restaura mana."
+  },
+  {
+    "oid": 51325,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Righteous Defense Rank 1",
+    "en": "Reduces all damage taken by $s1%.",
+    "curr_pt": "Reduz todo o dano recebido em $s1%."
+  }
+]

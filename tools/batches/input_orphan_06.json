@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 12400,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fire Power Rank 5",
+    "en": "Increases the damage done by your Fire spells by $s1%.",
+    "curr_pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+  },
+  {
+    "oid": 12472,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Cold Snap",
+    "en": "When activated, this spell finishes the cooldown on all of your Frost spells.",
+    "curr_pt": "Zera recarga de todo Gelo."
+  },
+  {
+    "oid": 12518,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Frost Channeling Rank 2",
+    "en": "Reduces the mana cost of your Frost spells by $s1% and reduces the threat caused by your Frost spells by $s2%.",
+    "curr_pt": "Reduz o custo das magias de Gelo em $s1% e a ameaça em $s2%."
+  },
+  {
+    "oid": 12519,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Frost Channeling Rank 3",
+    "en": "Reduces the mana cost of your Frost spells by $s1% and reduces the threat caused by your Frost spells by $s2%.",
+    "curr_pt": "Reduz o custo das magias de Gelo em $s1% e a ameaça em $s2%."
+  },
+  {
+    "oid": 12561,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Protection Rank 1",
+    "en": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12569,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Permafrost Rank 2",
+    "en": "Increases the duration of your Chill effects by $/1000;S1 $lsec:secs; and reduces the target's speed by an additional $s2%.",
+    "curr_pt": "Aumenta a duração do Gelar em $s1 s e a lentidão extra em $s2%."
+  },
+  {
+    "oid": 12570,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Permafrost Rank 4",
+    "en": "Increases the duration of your Chill effects by $/1000;S1 secs.",
+    "curr_pt": "Aumenta a duração do Gelar em $s1 s."
+  },
+  {
+    "oid": 12571,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Permafrost Rank 3",
+    "en": "Increases the duration of your Chill effects by $/1000;S1 $lsec:secs; and reduces the target's speed by an additional $s2%.",
+    "curr_pt": "Aumenta a duração do Gelar em $s1 s e a lentidão extra em $s2%."
+  },
+  {
+    "oid": 12573,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Permafrost Rank 5",
+    "en": "Increases the duration of your Chill effects by $/1000;S1 secs.",
+    "curr_pt": "Aumenta a duração do Gelar em $s1 s."
+  },
+  {
+    "oid": 12580,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Winter's Chill Rank 3",
+    "en": "Increases the power of your Chill effects by slowing the target's movement by an additional $s1%.",
+    "curr_pt": "Gelo: +$s1% lentidão."
+  },
+  {
+    "oid": 12592,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Subtlety Rank 2",
+    "en": "Reduces your target's resistance to all your spells by $s2 and reduces the threat caused by your Arcane spells by $s1%.",
+    "curr_pt": "Alvo resiste -$s1 às magias e Arcano -$s2% ameaça."
+  },
+  {
+    "oid": 12593,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Subtlety Rank 3",
+    "en": "Reduces your target's resistance to all your spells by $s3 and all your spell criticals cause $s1% less threat.",
+    "curr_pt": "Alvo -$s1 resistência; crítico -$s2% ameaça."
+  },
+  {
+    "oid": 12665,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Thunder Clap Rank 2",
+    "en": "Reduces the cost of your Thunder Clap ability by $/10;s1 rage point and increases the damage by $s2%.",
+    "curr_pt": "Reduz o custo do Trovoada em $s1 de fúria e aumenta o dano em $s2%."
+  },
+  {
+    "oid": 12666,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Thunder Clap Rank 3",
+    "en": "Reduces the cost of your Thunder Clap ability by $/10;s1 rage point and increases the damage by $s2%.",
+    "curr_pt": "Reduz o custo do Trovoada em $s1 de fúria e aumenta o dano em $s2%."
+  },
+  {
+    "oid": 12701,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Mace Specialization Rank 2",
+    "en": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12702,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Mace Specialization Rank 3",
+    "en": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12703,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Mace Specialization Rank 4",
+    "en": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12704,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Mace Specialization Rank 5",
+    "en": "Gives you a $h% chance to stun your target for $5530d with a Mace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12711,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Two-Handed Weapon Specialization Rank 2",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1% and increases your skill in all two-handed weapons by 2.",
+    "curr_pt": "Armas 2M: +$s1% dano e +2 perícia."
+  },
+  {
+    "oid": 12712,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Two-Handed Weapon Specialization Rank 3",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1% and increases your skill in all two-handed weapons by 3.",
+    "curr_pt": "Armas 2M: +$s1% dano e +3 perícia."
+  },
+  {
+    "oid": 12713,
+    "kind": "modified",
+    "need": "review",
+    "sample": "zzOLD Two-Handed Weapon Specialization Rank 4",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1%.",
+    "curr_pt": "Infunde um aliado ferido com cura que pula para outro próximo, até $x1 alvos com -50% por salto."
+  },
+  {
+    "oid": 12714,
+    "kind": "modified",
+    "need": "review",
+    "sample": "zzOLD Two-Handed Weapon Specialization Rank 5",
+    "en": "Increases the damage you deal with two-handed melee weapons by $s1%.",
+    "curr_pt": "Infunde um aliado ferido com cura que pula para outro próximo, até $x1 alvos com -50% por salto."
+  },
+  {
+    "oid": 12724,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 2",
+    "en": "Increases your chance to block attacks with a shield by $s1% and generates $s2 rage when a block occurs.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e gera $s2 de fúria ao bloquear."
+  },
+  {
+    "oid": 12725,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 3",
+    "en": "Increases your chance to block attacks with a shield by $s1% and generates $s2 rage when a block occurs.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e gera $s2 de fúria ao bloquear."
+  },
+  {
+    "oid": 12726,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 4",
+    "en": "Increases your chance to block attacks with a shield by $s1% and generates $s2 rage when a block occurs.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e gera $s2 de fúria ao bloquear."
+  },
+  {
+    "oid": 12727,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Shield Specialization Rank 5",
+    "en": "Increases your chance to block attacks with a shield by $s1% and generates $s2 rage when a block occurs.",
+    "curr_pt": "Aumenta sua chance de bloquear com escudo em $s1% e gera $s2 de fúria ao bloquear."
+  },
+  {
+    "oid": 12752,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Anticipation Rank 4",
+    "en": "Increases your Defense skill by $s1.",
+    "curr_pt": "Aumenta sua perícia em Defesa em $s1."
+  },
+  {
+    "oid": 12753,
+    "kind": "modified",
+    "need": "review",
+    "sample": "[Deprecated] Anticipation Rank 5",
+    "en": "Increases your Defense skill by $s1.",
+    "curr_pt": "Aumenta sua perícia em Defesa em $s1."
+  },
+  {
+    "oid": 12761,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Toughness Rank 2",
+    "en": "Increases your armor value from items by $s1% and the amount of damage absorbed by your shield by $s2%.",
+    "curr_pt": "Aumenta sua armadura de itens em $s1% e o dano absorvido pelo escudo em $s2%."
+  },
+  {
+    "oid": 12762,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Toughness Rank 3",
+    "en": "Increases your armor value from items by $s1% and the amount of damage absorbed by your shield by $s2%.",
+    "curr_pt": "Aumenta sua armadura de itens em $s1% e o dano absorvido pelo escudo em $s2%."
+  },
+  {
+    "oid": 12763,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Toughness Rank 4",
+    "en": "Increases your armor value from items by $s1% and the amount of damage absorbed by your shield by $s2%.",
+    "curr_pt": "Aumenta sua armadura de itens em $s1% e o dano absorvido pelo escudo em $s2%."
+  },
+  {
+    "oid": 12764,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Toughness Rank 5",
+    "en": "Increases your armor value from items by $s1% and the amount of damage absorbed by your shield by $s2%.",
+    "curr_pt": "Aumenta sua armadura de itens em $s1% e o dano absorvido pelo escudo em $s2%."
+  },
+  {
+    "oid": 12788,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Defiance Rank 2",
+    "en": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
+    "curr_pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
+  },
+  {
+    "oid": 12789,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Defiance Rank 3",
+    "en": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
+    "curr_pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
+  },
+  {
+    "oid": 12791,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Defiance Rank 4",
+    "en": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
+    "curr_pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
+  },
+  {
+    "oid": 12792,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Defiance Rank 5",
+    "en": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
+    "curr_pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
+  },
+  {
+    "oid": 12797,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Revenge Rank 1",
+    "en": "Gives your Revenge ability a $h% chance to stun the target for $12798d and reduces its cooldown by $/1000;S2 sec.",
+    "curr_pt": "Dá à Vingança $h% de chance de atordoar por $d s e -$s1 s de recarga."
+  },
+  {
+    "oid": 12799,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Revenge Rank 2",
+    "en": "Gives your Revenge ability a $h% chance to stun the target for $12798d and reduces its cooldown by $/1000;S2 sec.",
+    "curr_pt": "Dá à Vingança $h% de chance de atordoar por $d s e -$s1 s de recarga."
+  },
+  {
+    "oid": 12800,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Improved Revenge Rank 3",
+    "en": "Gives your Revenge ability a $h% chance to stun the target for $12798d and reduces its cooldown by $/1000;S2 sec.",
+    "curr_pt": "Dá à Vingança $h% de chance de atordoar por $d s e -$s1 s de recarga."
+  },
+  {
+    "oid": 12809,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Concussion Blow Rank 1",
+    "en": "Deals $s2 damage and stuns the opponent for $d.\r\n\r\nThis ability deals a high amount of threat and penetrates 100% of the enemy's armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12812,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Sword Specialization Rank 2",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12813,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Sword Specialization Rank 3",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12814,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Sword Specialization Rank 4",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12815,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Sword Specialization Rank 5",
+    "en": "Gives you a $h% chance to get an extra attack on the same target after dealing damage with your Sword.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12839,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Focus Rank 2",
+    "en": "Reduces the chance that the opponent can resist your Arcane spells by $s1%.",
+    "curr_pt": "Reduz a chance de resistirem às suas magias Arcanas em $s1%."
+  },
+  {
+    "oid": 12840,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Focus Rank 3",
+    "en": "Reduces the chance that the opponent can resist your Arcane spells by $s1%.",
+    "curr_pt": "Reduz a chance de resistirem às suas magias Arcanas em $s1%."
+  },
+  {
+    "oid": 12841,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Focus Rank 4",
+    "en": "Reduces the chance that the opponent can resist your Arcane spells by $s1%.",
+    "curr_pt": "Reduz a chance de resistirem às suas magias Arcanas em $s1%."
+  },
+  {
+    "oid": 12842,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Arcane Focus Rank 5",
+    "en": "Reduces the chance that the opponent can resist your Arcane spells by $s1%.",
+    "curr_pt": "Reduz a chance de resistirem às suas magias Arcanas em $s1%."
+  },
+  {
+    "oid": 12959,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Iron Will Rank 2",
+    "en": "Increases your chance to resist Stun and Charm effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua chance de resistir a Atordoar e Encantar em $s1%."
+  },
+  {
+    "oid": 12960,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Iron Will Rank 3",
+    "en": "Increases your chance to resist Stun and Charm effects by an additional $s1%.",
+    "curr_pt": "Aumenta sua chance de resistir a Atordoar e Encantar em $s1%."
+  }
+]

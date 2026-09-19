@@ -67,3 +67,5 @@ O15 | 40u | OK
 O16 | 29u | OK
 O17 | 21u | OK (incl. REVOGACAO TOTEMICA corrigida)
 O18 | 37u | OK
+O19 | 29u | OK
+O20 | 29u | OK

@@ -3221,12 +3221,13 @@ function MainMenu:CreateDetailCard(parent, config)
         end
 
         -- Coluna Direita: Alcance (L1) e Tempo de Recarga (L2)
+        -- Passiva nunca exibe recarga de header (o proc/ICD segue no corpo).
         local rightLines = {}
         if spellData.range and spellData.range ~= "" then
             local rg = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.range) or spellData.range
             table.insert(rightLines, "|cffaaaaaa" .. rg .. "|r")
         end
-        if spellData.cooldown and spellData.cooldown ~= "" then
+        if not spellData.isPassive and spellData.cooldown and spellData.cooldown ~= "" then
             local cd = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.cooldown) or spellData.cooldown
             table.insert(rightLines, "|cffff5555" .. cd .. "|r")
         end
@@ -4252,6 +4253,18 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
     local descLines = {}
 
     local numLines = scanTip:NumLines()
+
+    -- Anti-contaminacao: o scanTip e compartilhado entre slots. Se a 1a linha
+    -- do tooltip nao for a magia pedida, o scan pegou sobra do slot anterior
+    -- (ex.: Attack herdando 30m do Shoot, Command herdando 2min do Blood Fury).
+    -- Nesse caso descarta alcance/recarga/custo para nao exibir dado do vizinho.
+    local titleObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
+    local titleLine = (titleObj and titleObj:GetText()) or ""
+    local staleScan = false
+    if titleLine == "" or titleLine ~= name then
+        staleScan = true
+    end
+
     for l = 2, numLines do
         local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
         local rightObj = _G["ConsoleModeMMScanTooltipTextRight" .. l]
@@ -4259,10 +4272,13 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
         local right = (rightObj and rightObj:GetText()) or ""
 
         -- Checa Right primeiro (geralmente alcance ou recarga)
+        -- Right de cooldown exige numero (evita capturar linha descritiva com a palavra solta).
         if right ~= "" then
             if string.find(right, "yd range") or string.find(right, "m de alcance") or string.find(right, "Melee Range") or string.find(right, "Corpo a corpo") or string.find(right, "Unlimited range") then
                 range = right
-            elseif string.find(right, "cooldown") or string.find(right, "recarga") or string.find(right, "espera") then
+            elseif string.find(right, "%d+%s*sec%s*cooldown") or string.find(right, "%d+%s*min%s*cooldown") or string.find(right, "%d+%s*hr%s*cooldown")
+                or string.find(right, "%d+%s*s%s*de recarga") or string.find(right, "%d+%s*min%s*de recarga") or string.find(right, "%d+%s*h%s*de recarga")
+                or string.find(right, "%d+.*cooldown") or string.find(right, "%d+.*recarga") then
                 cooldown = right
             end
         end
@@ -4371,6 +4387,47 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
         pose = 53 -- SpellCastDirected / Arremesso de magia
     end
 
+    -- Passiva nao tem recarga de header: linha de cooldown vinda do scan e
+    -- contaminacao do vizinho (ex.: Command herdando 2min do Blood Fury).
+    -- O tempo de proc (ICD) mora no corpo da descricao e fica intacto.
+    if isPassive then
+        cooldown = ""
+    end
+
+    -- Scan stale (titulo do tooltip != magia pedida): descarta os atributos
+    -- para nao exibir dado do vizinho (ex.: Attack com 30m do Shoot).
+    if staleScan then
+        cost = ""
+        range = ""
+        castTime = ""
+        cooldown = ""
+    end
+
+    -- Ataque basico (toggle melee) nunca tem recarga. Se ainda sobrou
+    -- algum cooldown (ex.: GCD residual "1 s" do tooltip ou staleScan nao pego
+    -- por colisao de nome), descarta. Faz ANTES da validacao por API para nao
+    -- depender do estado de cooldown no DataCache do char.
+    if lowerName == "attack" or lowerName == "ataque" then
+        cooldown = ""
+        if range ~= "" then
+            local isMelee = string.find(range, "Corpo a corpo") or string.find(range, "Melee Range")
+            local has30 = string.find(range, "30")
+            if has30 and not isMelee then
+                range = ""
+            end
+        end
+    end
+
+    -- Validacao por API real (1.12): GetSpellCooldown e a fonte da verdade.
+    -- Se a magia nao tem cooldown no DBC, qualquer linha capturada e
+    -- contaminacao do scanTip compartilhado. Pula Attack ja limpo acima.
+    if cooldown ~= "" and GetSpellCooldown and not (lowerName == "attack" or lowerName == "ataque") then
+        local ok, s, d = pcall(GetSpellCooldown, spellIndex, bookType)
+        if ok and s ~= nil and d ~= nil and tonumber(d) == 0 then
+            cooldown = ""
+        end
+    end
+
     return {
         spellIndex = spellIndex,
         bookType   = bookType,
@@ -4383,6 +4440,7 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
         cooldown   = cooldown,
         desc       = table.concat(descLines, "\n"),
         pose       = pose,
+        isPassive  = isPassive,
     }
 end
 

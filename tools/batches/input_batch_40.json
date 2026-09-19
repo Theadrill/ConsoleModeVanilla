@@ -1,0 +1,352 @@
+[
+  {
+    "ranked_idx": 0,
+    "en": "Heals a friendly target for $s1.",
+    "curr_pt": "Cura um alvo aliado em $s1 de vida.",
+    "count": 57,
+    "sample": "Healing Wave (Rank 1) [id=331]"
+  },
+  {
+    "ranked_idx": 1,
+    "en": "Inflicts Fire damage to an enemy.",
+    "curr_pt": "Causa dano de Fogo a um inimigo.",
+    "count": 43,
+    "sample": "Fireball () [id=9053]"
+  },
+  {
+    "ranked_idx": 2,
+    "en": "Restores $s1 health per 5 sec.",
+    "curr_pt": "Restaura $s1 de vida a cada 5 s.",
+    "count": 39,
+    "sample": "Vitality (Rank 1) [id=20885]"
+  },
+  {
+    "ranked_idx": 3,
+    "en": "Inflicts Frost damage to an enemy and reduces its movement speed for $d.",
+    "curr_pt": "Causa dano de Gelo a um inimigo e reduz sua velocidade de movimento por $d s.",
+    "count": 27,
+    "sample": "Frostbolt () [id=9672]"
+  },
+  {
+    "ranked_idx": 4,
+    "en": "Wounds the target causing them to bleed for $o1 damage over $d.",
+    "curr_pt": "Fere o alvo, fazendo-o sangrar e sofrer $s1 de dano ao longo de $d s.",
+    "count": 26,
+    "sample": "Rend (Rank 1) [id=772]"
+  },
+  {
+    "ranked_idx": 5,
+    "en": "Hurls a bolt of dark magic at an enemy, inflicting Shadow damage.",
+    "curr_pt": "Arremessa uma saraivada de magia sombria contra o inimigo, causando dano de Sombra.",
+    "count": 22,
+    "sample": "Shadow Bolt () [id=9613]"
+  },
+  {
+    "ranked_idx": 6,
+    "en": "Taunt the target, increasing the likelihood the creature will focus attacks on you.",
+    "curr_pt": "Provoca o alvo, aumentando a probabilidade de a criatura focar os ataques em você.",
+    "count": 19,
+    "sample": "Growl (Rank 1) [id=1853]"
+  },
+  {
+    "ranked_idx": 7,
+    "en": "Casts a bolt of lightning at the target for $s1 Nature damage.",
+    "curr_pt": "Dispara um raio no alvo, causando $s1 de dano de Natureza.",
+    "count": 18,
+    "sample": "Lightning Bolt (Rank 1) [id=403]"
+  },
+  {
+    "ranked_idx": 8,
+    "en": "Decrease the armor of the target by $s1 for $d.  While affected, the target cannot stealth or turn invisible.",
+    "curr_pt": "Reduz a armadura do alvo em $s1 por $d s. Enquanto estiver sob o efeito, o alvo não pode entrar em furtividade nem ficar invisível.",
+    "count": 17,
+    "sample": "Faerie Fire (Rank 1) [id=770]"
+  },
+  {
+    "ranked_idx": 9,
+    "en": "Sends a shadowy bolt at the enemy causing $s1 Shadow damage.",
+    "curr_pt": "Lança uma seta sombria contra o inimigo, causando $s1 de dano de Sombra.",
+    "count": 16,
+    "sample": "Shadow Bolt () [id=13440]"
+  },
+  {
+    "ranked_idx": 10,
+    "en": "Launches a bolt of frost at the enemy, causing $s2 Frost damage and slowing movement speed by $s1% for $d.",
+    "curr_pt": "Lança uma seta de gelo contra o inimigo, causando $s2 de dano de Gelo e reduzindo sua velocidade de movimento em $s1% por $d s.",
+    "count": 15,
+    "sample": "Frostbolt (Rank 1) [id=116]"
+  },
+  {
+    "ranked_idx": 11,
+    "en": "Sends out a blast wave of magic, inflicting Arcane damage to nearby enemies.",
+    "curr_pt": "Emite uma onda de impacto mágico, causando dano Arcano a todos os inimigos próximos.",
+    "count": 14,
+    "sample": "Arcane Explosion () [id=11975]"
+  },
+  {
+    "ranked_idx": 12,
+    "en": "Hits an enemy with an anti-mana bolt. For each point of mana consumed by the bolt, the target takes $e1 damage.",
+    "curr_pt": "Atinge o inimigo com uma descarga antimana. Para cada ponto de mana drenado pela descarga, o alvo sofre $s1 de dano.",
+    "count": 14,
+    "sample": "Mana Burn () [id=11981]"
+  },
+  {
+    "ranked_idx": 13,
+    "en": "Thorns sprout from the friendly target causing $s1 Nature damage to attackers when hit.  Lasts $d.",
+    "curr_pt": "Espinhos brotam do alvo aliado, causando $s1 de dano de Natureza aos atacantes sempre que for golpeado. Dura $d s.",
+    "count": 13,
+    "sample": "Thorns (Rank 1) [id=467]"
+  },
+  {
+    "ranked_idx": 14,
+    "en": "Heals $o1 damage over $d.",
+    "curr_pt": "Cura $s1 de vida ao longo de $d s.",
+    "count": 13,
+    "sample": "First Aid (Rank 1) [id=746]"
+  },
+  {
+    "ranked_idx": 15,
+    "en": "Stuns the target for $d.",
+    "curr_pt": "Atordoa o alvo por $d s.",
+    "count": 13,
+    "sample": "Hammer of Justice (Rank 1) [id=853]"
+  },
+  {
+    "ranked_idx": 16,
+    "en": "Poisons target for $s1 Nature damage every $t1 sec for $d.",
+    "curr_pt": "Envenena o alvo, causando $s1 de dano de Natureza a cada $t1 s por $d s.",
+    "count": 13,
+    "sample": "Poison () [id=8313]"
+  },
+  {
+    "ranked_idx": 17,
+    "en": "Hurls a fiery ball that causes $s1 Fire damage and an additional $o2 damage over $d.",
+    "curr_pt": "Arremessa uma bola ígnea que causa $s1 de dano de Fogo e mais $s2 de dano ao longo de $d s.",
+    "count": 13,
+    "sample": "Fireball () [id=10578]"
+  },
+  {
+    "ranked_idx": 18,
+    "en": "Allows $s1% of your Mana regeneration to continue while casting.",
+    "curr_pt": "Permite que $s1% da sua regeneração de mana continue ativa durante o lançamento de feitiços.",
+    "count": 13,
+    "sample": "Meditation (Rank 1) [id=14521]"
+  },
+  {
+    "ranked_idx": 19,
+    "en": "Hurls a fiery ball that causes $s1 Fire damage and an additional $o2 Fire damage over $d.",
+    "curr_pt": "Arremessa uma bola ígnea que causa $s1 de dano de Fogo e mais $s2 de dano de Fogo ao longo de $d s.",
+    "count": 12,
+    "sample": "Fireball (Rank 1) [id=133]"
+  },
+  {
+    "ranked_idx": 20,
+    "en": "Roots the target in place and causes $o2 Nature damage over $d.  Damage caused may interrupt the effect.  Only useable outdoors.",
+    "curr_pt": "Enraíza o alvo no lugar e causa $s1 de dano de Natureza ao longo de $d s. O dano sofrido pode interromper o efeito. Só pode ser usado ao ar livre.",
+    "count": 12,
+    "sample": "Entangling Roots (Rank 1) [id=339]"
+  },
+  {
+    "ranked_idx": 21,
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come.",
+    "count": 12,
+    "sample": "Food () [id=433]"
+  },
+  {
+    "ranked_idx": 22,
+    "en": "Increases your defense by $s1.",
+    "curr_pt": "Aumenta sua defesa em $s1.",
+    "count": 12,
+    "sample": "Lightning Reflexes (Rank 1) [id=4778]"
+  },
+  {
+    "ranked_idx": 23,
+    "en": "Burns an enemy, then inflicts additional Fire damage every $t1 sec. for $d.",
+    "curr_pt": "Queima o inimigo e causa dano de Fogo adicional a cada $t1 s por $d s.",
+    "count": 12,
+    "sample": "Immolate () [id=9034]"
+  },
+  {
+    "ranked_idx": 24,
+    "en": "Calls upon Holy magic to heal an ally.",
+    "curr_pt": "Invoca a magia Sagrada para curar um aliado.",
+    "count": 12,
+    "sample": "Heal () [id=11642]"
+  },
+  {
+    "ranked_idx": 25,
+    "en": "Calls down a pillar of flame, burning all enemies in a selected area and inflicting additional damage every $t2 sec. for $d.",
+    "curr_pt": "Invoca uma coluna de chamas, queimando todos os inimigos na área selecionada e causando dano adicional a cada $t1 s por $d s.",
+    "count": 12,
+    "sample": "Flamestrike () [id=11829]"
+  },
+  {
+    "ranked_idx": 26,
+    "en": "Inflicts Physical damage to an enemy every $t1 sec. for $d.",
+    "curr_pt": "Causa dano Físico contínuo a um inimigo a cada $t1 s por $d s.",
+    "count": 12,
+    "sample": "Rend () [id=11977]"
+  },
+  {
+    "ranked_idx": 27,
+    "en": "Blasts a target for $s1 Nature damage.",
+    "curr_pt": "Atinge o alvo com uma rajada de raios, causando $s1 de dano de Natureza.",
+    "count": 12,
+    "sample": "Lightning Bolt (Rank 1) [id=13482]"
+  },
+  {
+    "ranked_idx": 28,
+    "en": "Designer Note:  Effect 1 points = desired threat per second, before misses.",
+    "curr_pt": "Gera uma grande quantidade de ameaça adicional a cada segundo.",
+    "count": 12,
+    "sample": "Seal of Fury (Rank 1) [id=20231]"
+  },
+  {
+    "ranked_idx": 29,
+    "en": "A strong attack that increases melee damage by $s1 and causes a high amount of threat.",
+    "curr_pt": "Um ataque vigoroso que aumenta o dano corpo a corpo em $s1 e gera uma grande quantidade de ameaça.",
+    "count": 11,
+    "sample": "Heroic Strike (Rank 1) [id=78]"
+  },
+  {
+    "ranked_idx": 30,
+    "en": "Heals the target of $o1 damage over $d.",
+    "curr_pt": "Cura $s1 de vida do alvo ao longo de $d s.",
+    "count": 11,
+    "sample": "Renew (Rank 1) [id=139]"
+  },
+  {
+    "ranked_idx": 31,
+    "en": "Sends a shadowy bolt at the enemy, causing $s1 Shadow damage.",
+    "curr_pt": "Dispara uma seta sombria contra o inimigo, causando $s1 de dano de Sombra.",
+    "count": 11,
+    "sample": "Shadow Bolt (Rank 1) [id=686]"
+  },
+  {
+    "ranked_idx": 32,
+    "en": "Heals the target for $o1 over $d.",
+    "curr_pt": "Regenera $s1 de vida do alvo ao longo de $d s.",
+    "count": 11,
+    "sample": "Rejuvenation (Rank 1) [id=774]"
+  },
+  {
+    "ranked_idx": 33,
+    "en": "Heal your target for $s1.",
+    "curr_pt": "Cura o alvo em $s1 de vida.",
+    "count": 11,
+    "sample": "Lesser Heal (Rank 1) [id=2050]"
+  },
+  {
+    "ranked_idx": 34,
+    "en": "Unleashes a wave of flame, inflicting Fire damage to nearby enemies and reducing their movement speed for $d.",
+    "curr_pt": "Libera uma onda de chamas que causa dano de Fogo a todos os inimigos próximos e reduz sua velocidade de movimento por $d s.",
+    "count": 11,
+    "sample": "Blast Wave () [id=15091]"
+  },
+  {
+    "ranked_idx": 35,
+    "en": "Ice shards pelt the target area doing $o1 Frost damage over $d.",
+    "curr_pt": "Estilhaços de gelo atingem a área-alvo, causando $s1 de dano de Gelo ao longo de $d s.",
+    "count": 10,
+    "sample": "Blizzard (Rank 1) [id=10]"
+  },
+  {
+    "ranked_idx": 36,
+    "en": "Draws on the soul of the party member to shield them, absorbing $s1 damage.  Lasts $d.  While the shield holds, spellcasting will not be interrupted by damage.  Once shielded, the target cannot be shielded again for $6788d. Can be used while in Shadowform.",
+    "curr_pt": "Recorre à alma do aliado para protegê-lo com um escudo que absorve $s1 de dano. Dura $d s. Enquanto o escudo resistir, o lançamento de feitiços não será interrompido por dano. Uma vez protegido, o alvo não pode ser protegido novamente por $d1 s. Pode ser usado na Forma de Sombra.",
+    "count": 10,
+    "sample": "Power Word: Shield (Rank 2) [id=592]"
+  },
+  {
+    "ranked_idx": 37,
+    "en": "Stings the target, causing $o1 Nature damage over $d.  Only one Sting per Hunter can be active on any one target.",
+    "curr_pt": "Pica o alvo, causando $s1 de dano de Natureza ao longo de $d s. Apenas uma Picada por Caçador pode estar ativa em um mesmo alvo.",
+    "count": 10,
+    "sample": "Serpent Sting (Rank 1) [id=1978]"
+  },
+  {
+    "ranked_idx": 38,
+    "en": "Brings a dead player back to life with $s1 health and $q1 mana.  Cannot be cast when in combat.",
+    "curr_pt": "Ressuscita um jogador caído com $s1 de vida e $s2 de mana. Não pode ser lançado durante o combate.",
+    "count": 10,
+    "sample": "Resurrection (Rank 1) [id=2006]"
+  },
+  {
+    "ranked_idx": 39,
+    "en": "Blasts the enemy for $s1 Fire damage.",
+    "curr_pt": "Atinge o inimigo com uma rajada de chamas, causando $s1 de dano de Fogo.",
+    "count": 10,
+    "sample": "Fire Blast (Rank 1) [id=2136]"
+  },
+  {
+    "ranked_idx": 40,
+    "en": "Burns the enemy for $s2 Arcane damage and then an additional $o1 Arcane damage over $d.",
+    "curr_pt": "Queima o inimigo com $s2 de dano Arcano e mais $s1 de dano Arcano adicional ao longo de $d s.",
+    "count": 10,
+    "sample": "Moonfire (Rank 1) [id=8921]"
+  },
+  {
+    "ranked_idx": 41,
+    "en": "Blasts an enemy with lightning, inflicting Nature damage.",
+    "curr_pt": "Atinge um inimigo com um raio potente, causando dano de Natureza.",
+    "count": 10,
+    "sample": "Lightning Bolt () [id=9532]"
+  },
+  {
+    "ranked_idx": 42,
+    "en": "Your Scorch spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": "Seus feitiços de Queimadura têm $s1% de chance de tornar o alvo vulnerável a dano de Fogo. Essa vulnerabilidade aumenta o dano de Fogo sofrido pelo alvo em $s2% e dura $d s. Acumula até $s3 vezes.",
+    "count": 10,
+    "sample": "Improved Scorch (Rank 1) [id=11095]"
+  },
+  {
+    "ranked_idx": 43,
+    "en": "Inflicts Frost damage to nearby enemies, immobilizing them for up to $d.",
+    "curr_pt": "Causa dano de Gelo aos inimigos próximos, congelando-os e imobilizando-os por até $d s.",
+    "count": 10,
+    "sample": "Frost Nova () [id=11831]"
+  },
+  {
+    "ranked_idx": 44,
+    "en": "Increases your chance to get a critical strike with melee weapons by $s1%.",
+    "curr_pt": "Aumenta em $s1% a sua chance de conseguir um acerto crítico com armas corpo a corpo.",
+    "count": 10,
+    "sample": "Cruelty (Rank 1) [id=12320]"
+  },
+  {
+    "ranked_idx": 45,
+    "en": "Smite an enemy for $s1 Holy damage.",
+    "curr_pt": "Castiga o inimigo com luz sagrada, causando $s1 de dano Sagrado.",
+    "count": 9,
+    "sample": "Smite (Rank 1) [id=585]"
+  },
+  {
+    "ranked_idx": 46,
+    "en": "A word of darkness that causes $o1 Shadow damage over $d.",
+    "curr_pt": "Uma palavra de escuridão que causa $s1 de dano de Sombra ao longo de $d s.",
+    "count": 9,
+    "sample": "Shadow Word: Pain (Rank 1) [id=589]"
+  },
+  {
+    "ranked_idx": 47,
+    "en": "Increases the target's Intellect by $s1 for $d.",
+    "curr_pt": "Aumenta o Intelecto do alvo em $s1 por $d s.",
+    "count": 9,
+    "sample": "Arcane Intellect (Rank 1) [id=1459]"
+  },
+  {
+    "ranked_idx": 48,
+    "en": "Fire at the target with a ranged weapon.",
+    "curr_pt": "Dispara contra o alvo com uma arma de longo alcance.",
+    "count": 9,
+    "sample": "Spell - Reuse 1485 (Rank 1) [id=1485]"
+  },
+  {
+    "ranked_idx": 49,
+    "en": "Causes $s1 Nature damage to the target.",
+    "curr_pt": "Causa $s1 de dano de Natureza ao alvo.",
+    "count": 9,
+    "sample": "Wrath (Rank 1) [id=5176]"
+  }
+]

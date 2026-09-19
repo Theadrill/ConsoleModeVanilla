@@ -40,3 +40,4 @@
 36 | 50 | OK
 37 | 50 | OK
 38 | 50 | OK
+39 | 2 | OK (fila 1-39 zerada; gerados input 40-45 p/ 278 restantes)

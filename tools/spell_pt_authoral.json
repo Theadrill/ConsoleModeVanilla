@@ -7070,7 +7070,7 @@
   "Those jolly hippogryphs can only be found in the Winter Veil Vale.": "Hipogrifo alegre do Veil.",
   "Born of plague and shadow, this monstrous spider skitters forth from Naxxramas, its twisted form a testament to the horrors of the Scourge.": "Aranha da peste de Naxx.",
   "Legends speak of kobolds riding these spiders into battle.": "Kobold monta aranha.",
-  "Triggered by Improved Pummel.": "Ativa Esmurrar melhorado.",
+  "Triggered by Improved Pummel.": "Ativado por Espancar Aprimorado.",
   "Let a party member hop on your back while in Swift Travel Form, letting you explore the great outdoors together!": "Colega nas costas em Viagem!",
   "Increases movement speed by $s1%.": "Corrida +$s1%.",
   "A rare predator from the depths of Wailing Caverns.": "Predador raro das Cavernas.",
@@ -8082,5 +8082,6 @@
   "Teaches Searing Shot (Rank 5).": "Ensina Disparo Calcinante (Grau 5).",
   "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57044s1 spell damage for $57044d.": "Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2 de dano mágico por $d s.",
   "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57046s1% Haste for $57046d.": "Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2% de Aceleração por $d s.",
-  "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57042s1 Ranged Attack Power for $57042d.": "Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2 de Poder de Ataque de longo alcance por $d s."
+  "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57042s1 Ranged Attack Power for $57042d.": "Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2 de Poder de Ataque de longo alcance por $d s.",
+  "Teaches Polymorph: Rodent.": "Ensina Metamorfose: Roedor."
 }

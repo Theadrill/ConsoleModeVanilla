@@ -1,0 +1,198 @@
+[
+  {
+    "ranked_idx": 1354,
+    "en": "Summons a Mana Spring Totem with $s1 health at the feet of the caster for $d that restores $10494s1 mana every $10494t1 seconds to group members within $10494a1 yards.",
+    "curr_pt": "Evoca um Totem de Fonte de Mana com $s1 de vida aos pés do lançador por $d s que restaura $s2 de mana a cada $t1 segundos dos membros do grupo a até $a1 metros.",
+    "count": 1,
+    "sample": "Mana Spring Totem (Rank 4) [id=10497]"
+  },
+  {
+    "ranked_idx": 1355,
+    "en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;10523m1 to $/25;10523M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $10521a1 yards.  Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Labaredas com $s1 de vida aos pés do lançador que encanta as armas dos aliados a até $a1 metros com de $s2 a $s3 de dano de Fogo adicional. Armas lentas causam mais dano por golpe. Dura $d s.",
+    "count": 1,
+    "sample": "Flametongue Totem (Rank 3) [id=10526]"
+  },
+  {
+    "ranked_idx": 1356,
+    "en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $10534a1 yards by $10534s1.",
+    "curr_pt": "Evoca um Totem de Resistência ao Fogo com $s1 de vida aos pés do lançador. O totem aumenta a resistência a Fogo dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Fire Resistance Totem (Rank 2) [id=10537]"
+  },
+  {
+    "ranked_idx": 1357,
+    "en": "Summons a Fire Resistance Totem with $s1 health at the feet of the caster for $d that increases the fire resistance of party members within $10535a1 yards by $10535s1.",
+    "curr_pt": "Evoca um Totem de Resistência ao Fogo com $s1 de vida aos pés do lançador. O totem aumenta a resistência a Fogo dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Fire Resistance Totem (Rank 3) [id=10538]"
+  },
+  {
+    "ranked_idx": 1360,
+    "en": "Summons a Magma Totem with $s1 health at the feet of the caster for $d that causes $10579s1 Fire damage to creatures within $10579a1 yards every $10582t1 seconds.",
+    "curr_pt": "Evoca um Totem de Magma com $s1 de vida aos pés do lançador por $d s que causa $s2 de dano de Fogo a inimigos a até $a1 metros a cada $t1 segundos.",
+    "count": 1,
+    "sample": "Magma Totem (Rank 2) [id=10585]"
+  },
+  {
+    "ranked_idx": 1361,
+    "en": "Summons a Magma Totem with $s1 health at the feet of the caster for $d that causes $10580s1 Fire damage to creatures within $10580a1 yards every $10583t1 seconds.",
+    "curr_pt": "Evoca um Totem de Magma com $s1 de vida aos pés do lançador por $d s que causa $s2 de dano de Fogo a inimigos a até $a1 metros a cada $t1 segundos.",
+    "count": 1,
+    "sample": "Magma Totem (Rank 3) [id=10586]"
+  },
+  {
+    "ranked_idx": 1362,
+    "en": "Summons a Magma Totem with $s1 health at the feet of the caster for $d that causes $10581s1 Fire damage to creatures within $10581a1 yards every $10584t1 seconds.",
+    "curr_pt": "Evoca um Totem de Magma com $s1 de vida aos pés do lançador por $d s que causa $s2 de dano de Fogo a inimigos a até $a1 metros a cada $t1 segundos.",
+    "count": 1,
+    "sample": "Magma Totem (Rank 4) [id=10587]"
+  },
+  {
+    "ranked_idx": 1363,
+    "en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10596a1 yards by $10596s1.",
+    "curr_pt": "Evoca um Totem de Resistência à Natureza com $s1 de vida aos pés do lançador. O totem aumenta a resistência a Natureza dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Nature Resistance Totem (Rank 1) [id=10595]"
+  },
+  {
+    "ranked_idx": 1364,
+    "en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10598a1 yards by $10598s1.",
+    "curr_pt": "Evoca um Totem de Resistência à Natureza com $s1 de vida aos pés do lançador. O totem aumenta a resistência a Natureza dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Nature Resistance Totem (Rank 2) [id=10600]"
+  },
+  {
+    "ranked_idx": 1365,
+    "en": "Summons a Nature Resistance Totem with $s1 health at the feet of the caster for $d that increases the nature resistance of party members within $10599a1 yards by $10599s1.",
+    "curr_pt": "Evoca um Totem de Resistência à Natureza com $s1 de vida aos pés do lançador. O totem aumenta a resistência a Natureza dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Nature Resistance Totem (Rank 3) [id=10601]"
+  },
+  {
+    "ranked_idx": 1366,
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem enchants all party members main-hand weapons with wind, if they are within $10607a1 yards.  Each hit has a 20% chance of granting the attacker $10608s2 extra $lattack:attacks; with $10608s1 extra melee attack power.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Fúria dos Ventos com $s1 de vida aos pés do lançador. O totem encanta com vento as armas da mão principal dos aliados a até $a1 metros, concedendo 20% de chance a cada golpe de desferir $s2 ataques extras com $s3 de poder de ataque adicional. Dura $d s.",
+    "count": 1,
+    "sample": "[Deprecated] Windfury Totem (Rank 2) [id=10613]"
+  },
+  {
+    "ranked_idx": 1367,
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem enchants all party members main-hand weapons with wind, if they are within $10611a1 yards.  Each hit has a 20% chance of granting the attacker $10610s2 extra $lattack:attacks; with $10610s1 extra melee attack power.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Fúria dos Ventos com $s1 de vida aos pés do lançador. O totem encanta com vento as armas da mão principal dos aliados a até $a1 metros, concedendo 20% de chance a cada golpe de desferir $s2 ataques extras com $s3 de poder de ataque adicional. Dura $d s.",
+    "count": 1,
+    "sample": "[Deprecated] Windfury Totem (Rank 3) [id=10614]"
+  },
+  {
+    "ranked_idx": 1368,
+    "en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $10626a1 yards by $10626s1.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Graça do Ar com $s1 de vida aos pés do lançador. O totem aumenta a Agilidade dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Grace of Air Totem (Rank 2) [id=10627]"
+  },
+  {
+    "ranked_idx": 1389,
+    "en": "Summons a Fire Nova Totem that has $s1 health and lasts $d.  Unless it is destroyed within $11310t1 sec., the totem inflicts $11306s1 fire damage to enemies within $11306a1 yd.",
+    "curr_pt": "Evoca um Totem de Nova de Fogo com $s1 de vida aos pés do lançador por $d s. A menos que seja destruído dentro de $t1 s, o totem detona causando $s2 de dano de Fogo a inimigos a até $a1 metros.",
+    "count": 1,
+    "sample": "Fire Nova Totem (Rank 4) [id=11314]"
+  },
+  {
+    "ranked_idx": 1541,
+    "en": "Summons a Windwall Totem with $s1 health at the feet of the caster.  The totem protects party members within $15108a1 yards, reducing ranged damage taken by $15108s1.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Cortina de Vento com $s1 de vida aos pés do lançador. O totem protege os aliados a até $a1 metros, reduzindo o dano de longo alcance sofrido em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Windwall Totem (Rank 1) [id=15107]"
+  },
+  {
+    "ranked_idx": 1542,
+    "en": "Summons a Windwall Totem with $s1 health at the feet of the caster.  The totem protects party members within $15109a1 yards, reducing ranged damage taken by $15109s1.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Cortina de Vento com $s1 de vida aos pés do lançador. O totem protege os aliados a até $a1 metros, reduzindo o dano de longo alcance sofrido em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Windwall Totem (Rank 2) [id=15111]"
+  },
+  {
+    "ranked_idx": 1543,
+    "en": "Summons a Windwall Totem with $s1 health at the feet of the caster.  The totem protects party members within $15110a1 yards, reducing ranged damage taken by $15110s1.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Cortina de Vento com $s1 de vida aos pés do lançador. O totem protege os aliados a até $a1 metros, reduzindo o dano de longo alcance sofrido em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Windwall Totem (Rank 3) [id=15112]"
+  },
+  {
+    "ranked_idx": 1567,
+    "en": "Increases the duration of your Searing Totem by $s1%.",
+    "curr_pt": "Aumenta a duração do seu Totem Incandescente em $s1%.",
+    "count": 1,
+    "sample": "Improved Searing Totem (Rank 2) [id=16127]"
+  },
+  {
+    "ranked_idx": 1573,
+    "en": "Summons a Mana Tide Totem with $s1 health at the feet of the caster for $d that restores $16191s1 mana every $16191t1 seconds to group members within $16191a1 yards.",
+    "curr_pt": "Evoca um Totem de Maré de Mana com $s1 de vida aos pés do lançador por $d s que restaura $s2 de mana a cada $t1 segundos para todos os membros do grupo a até $a1 metros.",
+    "count": 1,
+    "sample": "Mana Tide Totem (Rank 1) [id=16190]"
+  },
+  {
+    "ranked_idx": 1597,
+    "en": "Summons a Flametongue Totem with $s1 health at the feet of the caster.  The totem adds $/77;16389m1 to $/25;16389M1 additional Fire damage to all party members' main-hand weapon attacks if they are within $15036a1 yards.  Slower weapons cause more fire damage per swing.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Labaredas com $s1 de vida aos pés do lançador que encanta as armas dos aliados a até $a1 metros com de $s2 a $s3 de dano de Fogo adicional. Armas lentas causam mais dano por golpe. Dura $d s.",
+    "count": 1,
+    "sample": "Flametongue Totem (Rank 4) [id=16387]"
+  },
+  {
+    "ranked_idx": 1626,
+    "en": "Summons a Mana Tide Totem with $s1 health at the feet of the caster for $d that restores $17355s1 mana every $17355t1 seconds to group members within $17355a1 yards.",
+    "curr_pt": "Evoca um Totem de Maré de Mana com $s1 de vida aos pés do lançador por $d s que restaura $s2 de mana a cada $t1 segundos para todos os membros do grupo a até $a1 metros.",
+    "count": 1,
+    "sample": "Mana Tide Totem (Rank 2) [id=17354]"
+  },
+  {
+    "ranked_idx": 1627,
+    "en": "Summons a Mana Tide Totem with $s1 health at the feet of the caster for $d that restores $17360s1 mana every $17360t1 seconds to group members within $17360a1 yards.",
+    "curr_pt": "Evoca um Totem de Maré de Mana com $s1 de vida aos pés do lançador por $d s que restaura $s2 de mana a cada $t1 segundos para todos os membros do grupo a até $a1 metros.",
+    "count": 1,
+    "sample": "Mana Tide Totem (Rank 3) [id=17359]"
+  },
+  {
+    "ranked_idx": 1767,
+    "en": "Increases attack power by $*2;s1 and damage done by magical spells and effects by up to $s1 for $23234d. Reduces healing effects on you by $23230s1% for $23230d.",
+    "curr_pt": "Aumenta o poder de ataque corpo a corpo em $s1 e o dano de feitiços e efeitos mágicos em até $s2 por $d s, mas reduz a eficácia de quaisquer curas recebidas por você em $s3% por $d1 s.",
+    "count": 1,
+    "sample": "Blood Fury (Racial) [id=20572]"
+  },
+  {
+    "ranked_idx": 1769,
+    "en": "Activate to slip into the shadows, reducing the chance for enemies to detect your presence.  Lasts until cancelled or moving and remains active for $20581d after either action.  Night Elf Rogues and Druids with Shadowmeld are more difficult to detect while stealthed or prowling.",
+    "curr_pt": "Ative para deslizar nas sombras, reduzindo a chance de inimigos detectarem a sua presença. Permanece ativo até se mover e continua ativo por $d s após qualquer ação. Ladinos e Druidas com Fusão Sombria são mais difíceis de detectar em furtividade.",
+    "count": 1,
+    "sample": "Shadowmeld (Racial) [id=20580]"
+  },
+  {
+    "ranked_idx": 1803,
+    "en": "Activate to slip into the shadows, reducing the chance for enemies to detect your presence. Lasts until cancelled, moving, or for 2 seconds after either action. Night Elf Rogues and Druids with Shadowmeld are more difficult to detect while stealthed or prowling.",
+    "curr_pt": "Ative para deslizar nas sombras, reduzindo a chance de inimigos detectarem a sua presença. Permanece ativo até se mover ou realizar qualquer ação.",
+    "count": 1,
+    "sample": "Shadowmeld (Racial) [id=20581]"
+  },
+  {
+    "ranked_idx": 1891,
+    "en": "Summons a Grace of Air Totem with $s1 health at the feet of the caster.  The totem increases the agility of party members within $25360a1 yards by $25360s1.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Graça do Ar com $s1 de vida aos pés do lançador. O totem aumenta a Agilidade dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Grace of Air Totem (Rank 3) [id=25359]"
+  },
+  {
+    "ranked_idx": 1892,
+    "en": "Summons a Strength of Earth Totem with $s1 health at the feet of the caster.  The totem increases the strength of party members within $25362a1 yards by $25362s1.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Força da Terra com $s1 de vida aos pés do lançador. O totem aumenta a Força dos membros do grupo a até $a1 metros em $s2. Dura $d s.",
+    "count": 1,
+    "sample": "Strength of Earth Totem (Rank 5) [id=25361]"
+  },
+  {
+    "ranked_idx": 1941,
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem enchants all party members main-hand weapons with wind, if they are within $10611a1 yards.  Each hit has a 20% chance of granting the attacker $10610s2 extra $lattack:attacks; with $10610s1 extra attack power.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Fúria dos Ventos com $s1 de vida aos pés do lançador. O totem encanta com vento as armas da mão principal dos aliados a até $a1 metros, concedendo 20% de chance a cada golpe de desferir $s2 ataques extras com $s3 de poder de ataque adicional. Dura $d s.",
+    "count": 1,
+    "sample": "Windfury Totem (Rank 3) [id=27621]"
+  }
+]

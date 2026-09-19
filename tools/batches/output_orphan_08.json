@@ -1,0 +1,15 @@
+{
+  "Increases your chance to dodge by an additional $s1%.": "Aumenta a sua chance de esquiva em $s1% adicionais.",
+  "Increases your chance to block attacks with a shield by $s1% and increases the amount blocked by $s2%.": "Aumenta a sua chance de bloquear ataques com um escudo em $s1% e aumenta a quantidade bloqueada em $s2%.",
+  "Increases the damage you deal with One-Handed Melee weapons by $s1%.": "Aumenta o dano causado com armas corpo a corpo de uma mão em $s1%.",
+  "Fire at an X, Y, Z location with a ranged weapon.  Each location needs a separate copy of this spell.": "Dispara em uma localização X, Y, Z com uma arma de longo alcance. Cada localização necessita de uma cópia separada deste feitiço.",
+  "Reduces the mana cost of all shapeshifting by $s1%.": "Reduz o custo de mana de todas as metamorfoses em $s1%.",
+  "Increases the damage you deal with physical attacks in all forms by $s1%.": "Aumenta o dano causado com ataques físicos em todas as formas em $s1%.",
+  "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.  Druid must channel to maintain the spell.": "Cria uma tempestade violenta na área-alvo, causando $s1 de dano de Natureza aos inimigos a cada $t1 s. Dura $d s. O druida deve canalizar para manter o feitiço.",
+  "Increases your Armor contribution from items by $s1%.": "Aumenta a contribuição de armadura dos itens em $s1%.",
+  "Increases your Intellect by $s1%.  In addition, while in Bear or Dire Bear Form your Stamina is increased by $s1% and while in Cat Form your Strength is increased by $s1%.": "Aumenta o seu Intelecto em $s1%. Além disso, enquanto estiver na Forma de Urso ou na Forma de Urso Atroz, o seu Vigor é aumentado em $s1% e, enquanto estiver na Forma de Felino, a sua Força é aumentada em $s1%.",
+  "Gives you $s1% chance to gain $/10;17057s1 Rage when you shapeshift into Bear and Dire Bear Form or $17099s1 Energy when you shapeshift into Cat Form.": "Concede $s1% de chance de ganhar $s2 de raiva ao assumir a Forma de Urso ou a Forma de Urso Atroz, ou $s3 de energia ao assumir a Forma de Felino.",
+  "The Enrage ability now instantly generates $/10;17080s1 Rage.": "A habilidade Enfurecer agora gera $s1 de raiva instantaneamente.",
+  "The Enrage ability now instantly generates $/10;17081s1 Rage.": "A habilidade Enfurecer agora gera $s1 de raiva instantaneamente.",
+  "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.": "Concede $s1% de chance de ganhar $s2 de energia ao assumir a Forma de Felino."
+}

@@ -55,3 +55,5 @@ O03 | 44u | OK
 O04 | 33u | OK
 O05 | 37u | OK
 O06 | 23u | OK
+O07 | 23u | OK
+O08 | 13u | OK

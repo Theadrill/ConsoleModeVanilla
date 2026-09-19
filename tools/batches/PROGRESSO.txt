@@ -1,23 +1,24 @@
 # PROGRESSO — Retradução humana Fase 8.A (2.180 templates de classe)
-# Formato: lote | itens | status | commit
-# Atualizado a cada lote aplicado. Se a cota expirar, retomar do primeiro lote SEM linha OK.
+# Último lote com OK = ponto de retomada. Commits locais: git log --oneline.
+# Se a cota expirar, retomar do primeiro lote SEM linha OK.
 
-01 | 50 | OK | 0f7ea84
-02 | 50 | OK | e316a2e
-03 | 50 | OK | e316a2e
-04 | 50 | OK | e316a2e
-05 | 50 | OK | e316a2e
-06 | 50 | OK | 6119af2
-07 | 50 | OK | 6119af2
-08 | 50 | OK | 6119af2
-09 | 50 | OK | 6119af2
-10 | 50 | OK | 6119af2
-11 | 50 | OK | d238568
-12 | 50 | OK | d238568
-13 | 50 | OK | d238568
-14 | 50 | OK | d238568
-15 | 50 | OK | d238568
-16 | 50 | OK | 1524bfe
-17 | 50 | OK | 58aecc2
-18 | 50 | OK | ba90530
-19 | 50 | OK | bdab573
+01 | 50 | OK
+02 | 50 | OK
+03 | 50 | OK
+04 | 50 | OK
+05 | 50 | OK
+06 | 50 | OK
+07 | 50 | OK
+08 | 50 | OK
+09 | 50 | OK
+10 | 50 | OK
+11 | 50 | OK
+12 | 50 | OK
+13 | 50 | OK
+14 | 50 | OK
+15 | 50 | OK
+16 | 50 | OK
+17 | 50 | OK
+18 | 50 | OK
+19 | 50 | OK
+20 | 50 | OK

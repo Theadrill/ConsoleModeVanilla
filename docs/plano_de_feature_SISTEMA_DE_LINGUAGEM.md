@@ -20,6 +20,44 @@
 
 ---
 
+## 0. Contexto dos Servidores — Turtle WoW e seus Forks (Capycraft & OctoWoW)
+
+> [!IMPORTANT]
+> **Histórico:** o servidor original **Turtle WoW** foi encerrado pela Blizzard. O cliente 1.12.1 e seu `Spell.dbc` servem de **base vanilla**, e duas comunidades mantêm forks independentes: **Capycraft** (`apac.capycraft.io` — alvo principal do addon, cliente em `turtle wow\Data`) e **OctoWoW** (`octowow\Data`). Ambos herdam o Turtle, mas divergiram em conteúdo.
+
+**Estratégia do addon:** sem sobrescrever o Capycraft, o OctoWoW entra como **camada de compatibilidade não-destrutiva**. A base EN é o vanilla 1.12.1 (snapshot `Spell.dbc` 16.332 spells `WDBC nf162`), e cada fork é uma **sobreposição** que acrescenta/modifica spells. O `Data/SpellDescDB_ptBR.lua` já funde `snapshot→patch-9`; para OctoWoW prevê-se um `SpellDescDB_ptBR_octo.lua` (ou `ByKey` com fallback `Octo→Capy→vanilla`), carregado apenas quando `GetRealmName()`/`realmlist` identificar Octo. **Capy nunca é sobrescrito** — Octo apenas complementa.
+
+### 0.1 O que a varredura MPQ por MPQ revelou (20/09/2026, `mpyq` + `WDBC`)
+
+Extração `DBFilesClient\Spell.dbc` de cada `patch*.MPQ` (ordem cliente `patch.MPQ → patch-2 → ... → patch-9 → patch-A → Patch-B..Y`), validada via `mpyq.MPQArchive(..., listfile=False)` contornando `Encryption is not supported yet` do `patch-4.mpq`:
+
+| Camada | Capycraft (`turtle wow\Data`) | OctoWoW (`octowow\Data`) | Spell.dbc | Diagnóstico |
+| --- | --- | --- | --- | --- |
+| `patch.MPQ` | 1.909.274.748 | 1.909.274.748 idêntico | 16.300.699 `nrec22351` idêntico | Base comum |
+| `patch-2` | 9.095.702 | 293.360.042 (+284 MB) | Capy 16.305.013 / Octo sem `Spell.dbc` | Octo reestruturado, sem Spell |
+| `patch-3` | 2.060.279.959 | idêntico | 17.162.199 idêntico | Igual |
+| `patch-4` | 385.079.605 | 1.368.080.007 (+983 MB) | Capy 17.517.765 (`nrec23959`) / Octo sem `Spell.dbc` | **Gap histórico:** Capy adicionou `+458` spells (`23501→23959`), Octo moveu conteúdo para `Map`/`AreaTable`/`Talent` |
+| `patch-5` | 260.744.180 | 54.289.426 (-206 MB) | Capy 17.563.396 (`nrec24018`) / **Octo 28.015.080 (`nrec28018`) +59%** | **Maior divergência:** Octo `only 4019` spells além do Capy `patch-5`, `only Capy 19` (ex.: `6559 Decisive Strike`) |
+| `patch-6` / `patch-7` | 451.195.806 / 175.256.564 | inexistentes | Capy `19178540`/`22945363` | Só Capy — cadeia evolutiva até `patch-8` |
+| `patch-1` | inexistente | 293.493.217 criptografado | — | **Só Octo** — container novo (86 blocks `ENCRYPTED`) |
+| `patch-8` / `patch-9` | 484.649.075 / 506.642.995 | idênticos | 24.902.850 / 27.938.523 idênticos | Convergência |
+| `patch-A` / `B..Y` | idênticos (1,8 GB / 979 MB ...) | idênticos | sem `Spell.dbc` | Asset-only, sem Spell |
+
+**Síntese:** base (`patch.MPQ`, `patch-3`, `patch-8/9/A/B..Y`) é bit-idêntica. A divergência é **temporária no meio da cadeia**: Capy incremental `4→5→6→7→8→9`, Octo reescreveu `patch-2,4,5` e criou `patch-1`. No início de `patch-5`, Octo tinha `28.018` spells vs Capy `24.018`; no final (`patch-9` ambos `27.916` idênticos) apenas `102` spells Octo sobrevivem além do Capy, e `~4.000` foram *squashados* em `patch-8`. O `sound.MPQ` também difere (`938M` vs `709M`).
+
+### 0.2 Spells exclusivos do OctoWoW (ramo `patch-5`, sobrevivem 102 em `patch-9`)
+
+`Octo_Spell_patch-5.dbc` (`nrec28018`, `ss8626604`) vs `Capy Spell_patch-5` (`ss942920`) e vs `Capy patch-9` final (`nrec27916`):
+
+- `57847` `Way of the Samurai` — `You may only wield katana-style swords. Available only to Warriors, Paladins, and Hunters.`
+- `62300` `Buccaneer Bubbles` / `62301` `Ozzy` / `62302` `Onyx Baby Octopus` — mascotes `Friend of the OctoWoW Team` / `Closed Beta`
+- `62310` `Cone of Shame` — `Hey, at least it isn't a ban!`
+- Além de `30997 Tenacity of War`, `30005+` série custom, e backports `2 Illusion: Forest Dryad (Toy)`, `6 Pet Command: Take Position` que no Capy só aparecem em `patch-9`.
+
+**Implicação para o plano de linguagem:** o addon mantém o Capycraft como `SpellDescDB_ptBR.lua` (já fundido `snapshot→patch-9`, `11.612 CUSTOM + 3.925 MODIFICADOS`, `ORFAOS 2.584` → `player 497` / `cauda 2.087`). Octo entra como **investigação separada** — um `mpq_orphans_octo.json` / `SpellDescDB_ptBR_octo.lua` gerado a partir do `Octo_Spell_patch-5.dbc` divergente, sem alterar nenhum PT do Capy. O `GamePT_SpellDesc` tenta `Octo DB → Capy DB → EN` nessa ordem.
+
+---
+
 ## 1. Visão Geral da Feature (nova arquitetura decidida)
 
 Hoje o addon inteiro está com **textos hardcoded em PT** espalhados por `UI/*.lua` (`SetText(`, `AddMessage(`, tabelas `CFG.Tabs`, `MAIL_FILTERS`, hints de controle, títulos de cards). Não há nenhum sistema de locale (confirmado por varredura: único `GetLocale()` é uso pontual em `UI/MainMenu.lua:10306`, sem relação com UI do addon).

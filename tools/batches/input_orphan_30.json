@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 34737,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  Also increases Defense by $34731s1 for $34731d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34738,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  Also increases Attack Power by $34732s1 for $34732d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34739,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  Also increases Attack and Casting Speed by $34733s1 for $34733d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36523,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier Rank 1",
+    "en": "Envelop yourself in a bubble, absorbing $s1 damage. When the bubble breaks or expires it deals $36527s1 Frost damage to enemies within $36527a1 yards. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36524,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier Rank 2",
+    "en": "Envelop yourself in a bubble, absorbing $s1 damage. When the bubble breaks or expires it deals $36528s1 Frost damage to enemies within $36528a1 yards. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36525,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier Rank 3",
+    "en": "Envelop yourself in a bubble, absorbing $s1 damage. When the bubble breaks or expires it deals $36529s1 Frost damage to enemies within $36529a1 yards. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36526,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier Rank 4",
+    "en": "Envelop yourself in a bubble, absorbing $s1 damage. When the bubble breaks or expires it deals $36530s1 Frost damage to enemies within $36530a1 yards. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36536,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Savage Rend Rank 1",
+    "en": "Slash at the target with your talons, dealing $s1 damage and causing bleeding for $o2 damage over $d. Critically striking with this ability increases its bleed duration by 1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36537,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Savage Rend Rank 2",
+    "en": "Slash at the target with your talons, dealing $s1 damage and causing bleeding for $o2 damage over $d. Critically striking with this ability increases its bleed duration by 1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36538,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Savage Rend Rank 3",
+    "en": "Slash at the target with your talons, dealing $s1 damage and causing bleeding for $o2 damage over $d. Critically striking with this ability increases its bleed duration by 1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36539,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Savage Rend Rank 4",
+    "en": "Slash at the target with your talons, dealing $s1 damage and causing bleeding for $o2 damage over $d. Critically striking with this ability increases its bleed duration by 1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36540,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Savage Rend Rank 5",
+    "en": "Slash at the target with your talons, dealing $s1 damage and causing bleeding for $o2 damage over $d. Critically striking with this ability increases its bleed duration by 1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36541,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Savage Rend Rank 6",
+    "en": "Slash at the target with your talons, dealing $s1 damage and causing bleeding for $o2 damage over $d. Critically striking with this ability increases its bleed duration by 1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36548,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Death Roll Rank 1",
+    "en": "Initiates a death roll on the target, reducing movement speed by $36542s2% and dealing $*5;36542s1 damage over $d. Deals 25% increased damage to targets below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36549,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Death Roll Rank 2",
+    "en": "Initiates a death roll on the target, reducing movement speed by $36543s2% and dealing $*5;36543s1 damage over $d. Deals 25% increased damage to targets below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36550,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Death Roll Rank 3",
+    "en": "Initiates a death roll on the target, reducing movement speed by $36544s2% and dealing $*5;36544s1 damage over $d. Deals 25% increased damage to targets below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36551,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Death Roll Rank 4",
+    "en": "Initiates a death roll on the target, reducing movement speed by $36545s2% and dealing $*5;36545s1 damage over $d. Deals 25% increased damage to targets below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36552,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Death Roll Rank 5",
+    "en": "Initiates a death roll on the target, reducing movement speed by $36546s2% and dealing $*5;36546s1 damage over $d. Deals 25% increased damage to targets below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36553,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Death Roll Rank 6",
+    "en": "Initiates a death roll on the target, reducing movement speed by $36547s2% and dealing $*5;36547s1 damage over $d. Deals 25% increased damage to targets below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36916,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Rank 1",
+    "en": "Burns the target with molten slag, dealing $s1 Fire damage, refreshing the duration of your Flame Shock effect and focusing your Searing Totem on that target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36917,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Rank 2",
+    "en": "Burns the target with molten slag, dealing $s1 Fire damage, refreshing the duration of your Flame Shock effect and focusing your Searing Totem on that target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36918,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Rank 3",
+    "en": "Burns the target with molten slag, dealing $s1 Fire damage, refreshing the duration of your Flame Shock effect and focusing your Searing Totem on that target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36919,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Rank 4",
+    "en": "Burns the target with molten slag, dealing $s1 Fire damage, refreshing the duration of your Flame Shock effect and focusing your Searing Totem on that target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36920,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Rank 5",
+    "en": "Burns the target with molten slag, dealing $s1 Fire damage, refreshing the duration of your Flame Shock effect and focusing your Searing Totem on that target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36921,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Rank 6",
+    "en": "Burns the target with molten slag, dealing $s1 Fire damage, refreshing the duration of your Flame Shock effect and focusing your Searing Totem on that target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36927,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Rank 6",
+    "en": "Teaches Molten Blast (Rank 6).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36938,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $36937s1 Spirit for $36937d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36940,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and decrease the magical resistances of your spell targets by $36939s1 for $36939d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37076,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Chain Lightning",
+    "en": "Hurls a lightning bolt at the enemy, dealing $s1 Nature damage and then jumping to additional nearby enemies.  Each jump reduces the damage by 20%.  Affects $x1 total targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41831,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Scorch",
+    "en": "Scorch the enemy for $s1 Fire damage and increase Fire damage taken by $s2. This effect stacks up to 5 times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41832,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aimed Shot",
+    "en": "An aimed shot that deals $s1 damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42035,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Slam Rank 1",
+    "en": "Slam your opponent, doing no damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42048,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune of Omen Rank 1",
+    "en": "Corrupts the target, dealing $o1 Shadow damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44057,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enrage",
+    "en": "Increases all damage done by the caster by $s1% and decreases damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45504,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hex Rank 1",
+    "en": "Transforms the enemy into a frog, preventing casting and reducing damage dealt by $s3% for up to $d. Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45505,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Feral Spirit Rank 1",
+    "en": "Summons $s1 Spirit Wolves to fight for the Shaman for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45514,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Feral Spirit Rank 2",
+    "en": "Summons $s1 Greater Spirit Wolves to fight for the Shaman for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45554,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Mend Rank 1",
+    "en": "Heals a friendly target for $s1, but damages you for 50% of the amount healed. This spell generates reduced threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45565,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Empower Champion Rank 1",
+    "en": "Empower the target Champion, increasing their damage by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45721,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 1",
+    "en": "Increases the duration of Tiger's Fury by $/1000;s1 sec, and causes Enrage to instantly generate $/10;17080s1 Rage. In addition, Tiger's Fury and Enrage increase your attack speed by $45729s1% for $45729d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45722,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 2",
+    "en": "Increases the duration of Tiger's Fury by $/1000;s1 sec, and causes Enrage to instantly generate $/10;17081s1 Rage. In addition, Tiger's Fury and Enrage increase your attack speed by $45730s1% for $45730d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45877,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dissolvent Poison Rank 1",
+    "en": "Coats a weapon with poison that lasts for $/60;s1 minutes.\nEach strike has a $h% chance to poison the enemy, instantly inflicting $45876s1 damage. This damage ignores armor. Only affects Elemental, Giant, Undead, and Mechanical enemies. 100 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45878,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dissolvent Poison Rank 1",
+    "en": "Coats a weapon with poison that lasts for $/60;45877s1 minutes.\nEach strike has a $45877h% chance to poison the enemy, instantly inflicting $45876s1 damage. This damage ignores armor. Only affects Elemental, Giant, Undead, and Mechanical enemies. 100 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45881,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dissolvent Poison II Rank 2",
+    "en": "Coats a weapon with poison that lasts for $/60;s1 minutes.\nEach strike has a $h% chance to poison the enemy, instantly inflicting $45880s1 damage. This damage ignores armor. Only affects Elemental, Giant, Undead, and Mechanical enemies. 115 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45882,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dissolvent Poison II Rank 2",
+    "en": "Coats a weapon with poison that lasts for $/60;45881s1 minutes.\nEach strike has a $45881h% chance to poison the enemy, instantly inflicting $45880s1 damage. This damage ignores armor. Only affects Elemental, Giant, Undead, and Mechanical enemies. 115 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45951,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spirit Armor Rank 1",
+    "en": "Increases the armor gained from shields by $s1% and threat generated by $s2% while wearing a shield.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45952,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spirit Armor Rank 2",
+    "en": "Increases the armor gained from shields by $s1% and threat generated by $s2% while wearing a shield.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45969,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shred Rank 6",
+    "en": "Shred the target, causing $s2% damage plus $s1 to the target.  Must be behind the target.  Awards $s3 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46043,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 1",
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova, reducing their mana cost by $46236s1 for $46236n casts or $46236d, whichever occurs first.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46044,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 2",
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova, reducing their mana cost by $46237s1 for $46237n casts or $46237d, whichever occurs first.",
+    "curr_pt": ""
+  }
+]

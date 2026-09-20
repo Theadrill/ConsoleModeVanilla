@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 24283,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Surefooted Rank 3",
+    "en": "Increases hit chance by $s3%, and by an additional $s3% while dual wielding.\nIn addition, increases the chance to resist movement impairing effects by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24423,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 1",
+    "en": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2. Damage scales with attack power. Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24577,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 2",
+    "en": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2. Damage scales with attack power. Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24578,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 3",
+    "en": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2. Damage scales with attack power. Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24579,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Screech Rank 4",
+    "en": "Blasts a single enemy for $s1 damage and lowers the melee attack power of all enemies in melee range by $s2. Damage scales with attack power. Effect lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24597,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 4",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack. The extra damage scales with attack power. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24603,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 3",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack. The extra damage scales with attack power. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 1",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack. The extra damage scales with attack power. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24605,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Howl Rank 2",
+    "en": "Party members within $a1 yards receive an extra $s1 damage to their next Physical attack. The extra damage scales with attack power. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24691,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barrage Rank 3",
+    "en": "Increases the damage of Multi-Shot and Volley by $s1% and reduces the cast time of Volley by $/1000;m3 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24943,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gift of Nature Rank 2",
+    "en": "Increases the effectiveness of all healing spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24944,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gift of Nature Rank 3",
+    "en": "Increases the effectiveness of all healing spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24945,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gift of Nature Rank 4",
+    "en": "Increases the effectiveness of all healing spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24946,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gift of Nature Rank 5",
+    "en": "Increases the effectiveness of all healing spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25316,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prayer of Healing Rank 5",
+    "en": "A powerful prayer heals your target and their party members within $a1 yards for $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26016,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vindication Rank 2",
+    "en": "Gives the Paladin's damaging melee attacks a chance to reduce the target's damage dealt by $26017s1% for $26017d. Only affects targets of level $26017v or lower.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26021,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vindication Rank 3",
+    "en": "Gives the Paladin's damaging melee attacks a chance to reduce the target's damage dealt by $26018s1% for $26018d. Only affects targets of level $26018v or lower.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26177,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Charge Rank 2",
+    "en": "Charges an enemy, immobilizes it for $7922d, and increases the boar's attack power by $s2 and an additional 35% for the next attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26178,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Charge Rank 3",
+    "en": "Charges an enemy, immobilizes it for $7922d, and increases the boar's attack power by $s2 and an additional 35% for the next attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26179,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Charge Rank 4",
+    "en": "Charges an enemy, immobilizes it for $7922d, and increases the boar's attack power by $s2 and an additional 35% for the next attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26201,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Charge Rank 5",
+    "en": "Charges an enemy, immobilizes it for $7922d, and increases the boar's attack power by $s2 and an additional 35% for the next attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26573,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Consecration Rank 1",
+    "en": "Consecrates the land beneath the Paladin, inflicting $o1 Holy damage over $d to enemies within the area. The consecrated power wanes, dealing reduced damage as time passes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27685,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Charge Rank 6",
+    "en": "Charges an enemy, immobilizes it for $7922d, and increases the boar's attack power by $s2 and an additional 35% for the next attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27799,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Nova Rank 4",
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $27803a1 yards for $27803s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause reduced threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27800,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Nova Rank 5",
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $27804a1 yards for $27804s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause reduced threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27801,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Nova Rank 6",
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $27805a1 yards for $27805s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause reduced threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29062,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Eye of the Storm Rank 1",
+    "en": "Gives you a $h% chance to gain the Focused Casting effect for $29063d after being hit by a melee or ranged critical strike. While active, Focused Casting prevents you from losing casting time when taking damage while casting Elemental spells.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29064,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Eye of the Storm Rank 2",
+    "en": "Gives you a $h% chance to gain the Focused Casting effect for $29063d after being hit by a melee or ranged critical strike. While active, Focused Casting prevents you from losing casting time when taking damage while casting Elemental spells.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29065,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Eye of the Storm Rank 3",
+    "en": "Gives you a $h% chance to gain the Focused Casting effect for $29063d after being hit by a melee or ranged critical strike. While active, Focused Casting prevents you from losing casting time when taking damage while casting Elemental spells.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29079,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elemental Weapons Rank 2",
+    "en": "Imbuing your weapon grants a special benefit based on the imbue:\n- Flametongue: Hitting enemies with your attacks increases damage done by Fire Totems and Fire spells by $52971s1% for $52971d.\n- Frostbrand: Increases the chance to trigger the effect by $58249s1% and causes it to critically hit if the target is afflicted with Frost Shock.\n- Windfury: Gaining extra attacks increases attack speed by $52968s1% for $52968d. Stacks up to $52967u times.\n- Rockbiter: Physical damage builds up an earthen bulwark equal to $s3% of damage dealt, tripled while wearing a shield. The bulwark absorbs $58129s1% of incoming damage for $58129d or until it mitigates enough damage. Its durability cannot exceed 20% of maximum health. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29080,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elemental Weapons Rank 3",
+    "en": "Imbuing your weapon grants a special benefit based on the imbue:\n- Flametongue: Hitting enemies with your attacks increases damage done by Fire Totems and Fire spells by $52972s1% for $52972d.\n- Frostbrand: Increases the chance to trigger the effect by $58250s1% and causes it to critically hit if the target is afflicted with Frost Shock.\n- Windfury: Gaining extra attacks increases attack speed by $52969s1% for $52969d. Stacks up to $52967u times.\n- Rockbiter: Physical damage builds up an earthen bulwark equal to $s3% of damage dealt, tripled while wearing a shield. The bulwark absorbs $58130s1% of incoming damage for $58130d or until it mitigates enough damage. Its durability cannot exceed 20% of maximum health. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29082,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Element's Grace Rank 1",
+    "en": "Increases the damage you deal with all weapons, Stormstrike and Lightning Strike abilities by $s1%. Increases the critical strike chance of your instant cast spells by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29084,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Element's Grace Rank 2",
+    "en": "Increases the damage you deal with all weapons, Stormstrike and Lightning Strike abilities by $s1%. Increases the critical strike chance of your instant cast spells by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29086,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Element's Grace Rank 3",
+    "en": "Increases the damage you deal with all weapons, Stormstrike and Lightning Strike abilities by $s1%. Increases the critical strike chance of your instant cast spells by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29087,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Element's Grace Rank 4",
+    "en": "Increases the damage you deal with all weapons, Stormstrike and Lightning Strike abilities by $s1%. Increases the critical strike chance of your instant cast spells by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Element's Grace Rank 5",
+    "en": "Increases the damage you deal with all weapons, Stormstrike and Lightning Strike abilities by $s1%. Increases the critical strike chance of your instant cast spells by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29202,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Healing Way Rank 3",
+    "en": "Your Healing Wave and Lesser Healing Wave spells each have a $s1% chance, and your Chain Heal spell has a $s2% chance to increase the healing of your next Healing Wave or Chain Heal on that target by $29203s1% for $29203d. This effect stacks up to $29203u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29205,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Healing Way Rank 2",
+    "en": "Your Healing Wave and Lesser Healing Wave spells each have a $s1% chance, and your Chain Heal spell has a $s2% chance to increase the healing of your next Healing Wave or Chain Heal on that target by $29203s1% for $29203d. This effect stacks up to $29203u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29206,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Healing Way Rank 1",
+    "en": "Your Healing Wave and Lesser Healing Wave spells each have a $s1% chance, and your Chain Heal spell has a $s2% chance to increase the healing of your next Healing Wave or Chain Heal on that target by $29203s1% for $29203d. This effect stacks up to $29203u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30205,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Charge",
+    "en": "Ezzel prepares to charge towards the enemy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30206,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Charge",
+    "en": "Charge an enemy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30967,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Snap Trap Rank 1",
+    "en": "Place a snap trap that will damage the first enemy to approach for $30966s1 and root them for $30966d.  Trap will exist for $d.  Traps can only be placed when out of combat.  Only one trap can be active at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31018,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ferocious Bite Rank 6",
+    "en": "Finishing move that causes damage per combo point and converts each additional point of Energy into $f1% extra damage. Damage is increased by your Attack Power.\n   1 point  : 199-259 damage\n   2 points: 346-406 damage\n   3 points: 493-553 damage\n   4 points: 640-700 damage\n   5 points: 787-847 damage",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33040,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Throw",
+    "en": "Deals $s1 Physical damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33432,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   If you eat for 10 seconds will also increase your Agility by $33431s1 for $33431d. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33434,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.   Must remain seated while eating.   If you spend at least 10 seconds eating you will become well fed and restore $33433s1 health every 5 seconds and gain $33433s2 armor for $33433d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33436,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $33435s1 Stamina and $33435s2% dodge for $33435d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34734,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health and $o3 mana over $d.  Must remain seated while eating.  Also restores $34728s1 Mana every 5 seconds for $34728d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34735,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  Also increases Strength by $34729s1 for $34729d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34736,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  Also restores $34730s1 Health per 5 seconds for $34730d.",
+    "curr_pt": ""
+  }
+]

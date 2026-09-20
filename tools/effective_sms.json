@@ -1,15 +1,5 @@
 [
   {
-    "en": "Increases your damage with One-Handed Axes by $s1 and gives a 1% chance of reducing enemy armor by 200 for 15 seconds.",
-    "pt": "Chicoteia os próximos na hora com magia sombria.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with One-Handed Maces by $s1 and has a 1% chance of stunning the target for 8 seconds.",
-    "pt": "Herói vira morto-vivo, cavalo junto.",
-    "scope": "other"
-  },
-  {
     "en": "Increases the Physical damage dealt by the caster by $s1% and enhances its armor by $s2% for $d.",
     "pt": "Solta fogos no alvo.",
     "scope": "tail"
@@ -105,23 +95,8 @@
     "scope": "tail"
   },
   {
-    "en": "Reduces the cast time of your Ghost Wolf spell by $/1000;s1 sec.",
-    "pt": "Lobo -$s1 s lançamento.",
-    "scope": "other"
-  },
-  {
-    "en": "Reduces the resurrection sickness penalty of your Resurrection spell by $s1%.",
-    "pt": "Ressurreição -$s1% fraqueza.",
-    "scope": "other"
-  },
-  {
     "en": "Reduces your threat to enemy targets within $a1 yards, making them less likely to attack you.",
     "pt": "Ameaça -$s1 a $a1 m, esquece você.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $o1 mana over $d. Must remain seated while drinking. Also increases your Spirit by $18141s1 for $18141d.",
-    "pt": "$s1 de mana em $d s bebendo. +Esp $s2 por $d1 s.",
     "scope": "tail"
   },
   {
@@ -152,11 +127,6 @@
   {
     "en": "Sets an enemy aflame, inflicting $o1 Fire damage over $d. and sending it into a state of panic. While the target is affected, the flames periodically scorch its nearby allies for $16806s1 damage as well.",
     "pt": "Pega fogo: $s1 em $d s e queima $s2 nos aliados próximos.",
-    "scope": "tail"
-  },
-  {
-    "en": "Sets up a fishing boat. While on your boat you gain +50 fishing skill. Can only be used outdoors near a deep enough body of water.",
-    "pt": "Monta o barco: +50 pesca. Só ao ar livre na água funda.",
     "scope": "tail"
   },
   {
@@ -295,11 +265,6 @@
     "scope": "tail"
   },
   {
-    "en": "When applied to your fishing pole, increases Fishing by 75 for 10 minutes.",
-    "pt": "Vara: +75 Pesca por 10 min.",
-    "scope": "tail"
-  },
-  {
     "en": "When using Shield Block, your first block within $45959d aborbs $45959s1% more damage and causes your next Revenge to deal $45962s1% more damage.",
     "pt": "Bloquear: primeiro em $d s absorve +$s1% e Vingança +$s2%.",
     "scope": "tail"
@@ -340,11 +305,6 @@
     "scope": "tail"
   },
   {
-    "en": "Creates a mobile bomb that charges the nearest enemy and explodes for $13259s1 fire damage.",
-    "pt": "Bomba que investe e explode $s1 de fogo.",
-    "scope": "tail"
-  },
-  {
     "en": "Creates a portal, teleporting group members that use it to Alah'Thalas.",
     "pt": "Portal pra Alah'Thalas.",
     "scope": "tail"
@@ -353,11 +313,6 @@
     "en": "Deals $s1 Shadow damage every $t1 sec for $d. All damage done is then transferred to the caster.",
     "pt": "Causa $s1 de Sombra a cada $t1 s por $d s e passa pra você.",
     "scope": "tail"
-  },
-  {
-    "en": "Decreases the chance your target can resist your Shackle Undead spell by $s1%.",
-    "pt": "Prender Morto-vivo +$s1% acerto.",
-    "scope": "other"
   },
   {
     "en": "Diseases an enemy for $d., increasing the Physical damage it takes by $s1 and reducing its Stamina by $s2. The diseased target has $h% chance of spreading its illness to one of its nearby allies when struck in combat.",
@@ -385,19 +340,9 @@
     "scope": "tail"
   },
   {
-    "en": "Forms icy chains around the enemy, locking the target in place for $d.",
-    "pt": "Prende com gelo por $d s.",
-    "scope": "other"
-  },
-  {
     "en": "Gaining 50% fewer experience points from defeating enemies. Lose 5% of accumulated experience from current level upon being defeated by enemies.",
     "pt": "50% menos exp de inimigo; derrota tira 5% da exp do nível.",
     "scope": "tail"
-  },
-  {
-    "en": "Gives your Pounce ability a $h% chance to add an additional combo point to the target.",
-    "pt": "Bote: $h% de combo extra.",
-    "scope": "other"
   },
   {
     "en": "He's big, he's ready for battle, and he's a bear. What more could you want in a mount?",
@@ -430,21 +375,6 @@
     "scope": "tail"
   },
   {
-    "en": "Increase the chance of getting a critical hit with a One-Handed Mace by 2%.",
-    "pt": "Maça 1M +2% crítico.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase the chance of parrying with a One-Handed Mace by 2%.",
-    "pt": "Maça 1M +2% aparo.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Undead with either spells or physical attacks by 4.",
-    "pt": "Morto-vivo +4 dano.",
-    "scope": "other"
-  },
-  {
     "en": "Increases dodge chance by $s1% while in Bear, Dire Bear and Cat Forms.",
     "pt": "Urso/Gato +$s1% esquiva.",
     "scope": "tail"
@@ -460,469 +390,14 @@
     "scope": "tail"
   },
   {
-    "en": "Increases damage done to Beasts with either spells or physical attacks by 4.",
-    "pt": "Feras +4 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Demons with either spells or physical attacks by 5.",
-    "pt": "Demônios +5 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Demons with either spells or physical attacks by 3.",
-    "pt": "Demônios +3 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Dragons with either spells or physical attacks by 5.",
-    "pt": "Dragões +5 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Dragons with either spells or physical attacks by 3.",
-    "pt": "Dragões +3 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Elementals with either spells or physical attacks by 5.",
-    "pt": "Elementais +5 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Elementals with either spells or physical attacks by 3.",
-    "pt": "Elementais +3 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Giants with either spells or physical attacks by 5.",
-    "pt": "Gigantes +5 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Giants with either spells or physical attacks by 3.",
-    "pt": "Gigantes +3 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a hunter to increase $ghis:her; pet's ferocity, increasing its damage by 1.",
-    "pt": "Pet: +1 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a hunter to increase $ghis:her; pet's Spirit by 1.",
-    "pt": "Pet: +1 Esp.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a hunter to increase $ghis:her; pet's Spirit by 2.",
-    "pt": "Pet: +2 Esp.",
-    "scope": "other"
-  },
-  {
-    "en": "Enchants the main hand weapon with fire, granting each attack a chance to deal $17809s1 additional fire damage.",
-    "pt": "Arma com fogo: chance de +$s1 por golpe.",
-    "scope": "other"
-  },
-  {
-    "en": "Abolishes all magic on the friendly target, and prevents any magic from affecting the target for $d.",
-    "pt": "Abole magia do aliado por $d s.",
-    "scope": "other"
-  },
-  {
-    "en": "Performs a feint, causing no damage but lowering your threat by a small amount, making the enemy less likely to attack you.",
-    "pt": "Finta: -ameaça pequena.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chances to parry with a One-Handed Sword by 1%.",
-    "pt": "Aparar espada 1M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance of parrying with One-Handed Axes by 1%.",
-    "pt": "Aparar machado 1M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase the chance of parrying with a One-Handed Mace by 1%.",
-    "pt": "Aparar maça 1M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Daggers by 2 and gives a 1% chance of bleeding the target for 90 damage over 10 seconds.",
-    "pt": "Adagas +2 e 1% de sangrar 90/10 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Daggers by 3 and gives a 1% chance of bleeding the target for 180 damage over 10 seconds.",
-    "pt": "Adagas +3 e 1% de sangrar 180/10 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to get a critical hit with a Two-Handed Sword by 1%.",
-    "pt": "Crítico espada 2M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Staves by $s1 and gives a 2% chance to stun the target for 8 seconds.",
-    "pt": "Cajados +$s1 e 2% de atordoar 8 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Staves by 3 and gives a 2% chance to stun the target for 5 seconds.",
-    "pt": "Cajados +3 e 2% de atordoar 5 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Staves by 4 and gives a 2% chance to stun the target for 8 seconds.",
-    "pt": "Cajados +4 e 2% de atordoar 8 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Holy resistance by 4 and gives a 3% chance of reflecting hostile Holy spells back at the caster.",
-    "pt": "Sagrado +4 e 3% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Holy resistance by 4 and gives a 5% chance of reflecting hostile Holy spells back at the caster.",
-    "pt": "Sagrado +4 e 5% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Fire resistance by 4 and gives a 3% chance of reflecting hostile Fire spells back at the caster.",
-    "pt": "Fogo +4 e 3% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Fire resistance by 4 and gives a 5% chance of reflecting hostile Fire spells back at the caster.",
-    "pt": "Fogo +4 e 5% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Nature resistance by 4 and gives a 3% chance of reflecting hostile Nature spells back at the caster.",
-    "pt": "Natureza +4 e 3% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Nature resistance by 4 and gives a 5% chance of reflecting hostile Nature spells back at the caster.",
-    "pt": "Natureza +4 e 5% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Frost resistance by 4 and gives a 3% chance of reflecting hostile Frost spells back at the caster.",
-    "pt": "Gelo +4 e 3% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Frost resistance by 4 and gives a 5% chance of reflecting hostile Frost spells back at the caster.",
-    "pt": "Gelo +4 e 5% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Shadow resistance by 4 and gives a 3% chance of reflecting hostile Shadow spells back at the caster.",
-    "pt": "Sombra +4 e 3% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase Shadow resistance by 4 and gives a 5% chance of reflecting hostile Shadow spells back at the caster.",
-    "pt": "Sombra +4 e 5% de refletir.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Beasts with either spells or physical attacks by 5.",
-    "pt": "Feras +5 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Beasts with either spells or physical attacks by 6.",
-    "pt": "Feras +6 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Demons with either spells or physical attacks by 6.",
-    "pt": "Demônios +6 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Dragons with either spells or physical attacks by 6.",
-    "pt": "Dragões +6 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Elementals with either spells or physical attacks by 6.",
-    "pt": "Elementais +6 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Giants with either spells or physical attacks by 6.",
-    "pt": "Gigantes +6 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Undead with either spells or physical attacks by 5.",
-    "pt": "Morto-vivos +5 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases damage done to Undead with either spells or physical attacks by 6.",
-    "pt": "Morto-vivos +6 dano.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to parry while wielding a Two-Handed Sword by 2%.",
-    "pt": "Aparar espada 2M +2%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to parry while wielding a Two-Handed Sword by 4%.",
-    "pt": "Aparar espada 2M +4%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to parry while wielding a Two-Handed Sword by 5%.",
-    "pt": "Aparar espada 2M +5%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Two-Handed Swords by 3 and your chance to parry with one by 3%.",
-    "pt": "Espadas 2M +3 e aparo +3%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to parry with a Two-Handed sword by 1%.",
-    "pt": "Aparar espada 2M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Two-Handed Axes by 3 and gives a 1% chance of decreasing enemy armor by 100 for 15 seconds.",
-    "pt": "Machados 2M +3 e 1% de -100 armadura 15 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to critical hit with a Two-Handed Axe by 1%.",
-    "pt": "Crítico machado 2M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to get a critical with One-Handed Swords by $s1.",
-    "pt": "Crítico espada 1M +$s1.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with One-Handed Swords by 2 and your chance to parry by 3%.",
-    "pt": "Espadas 1M +2 e aparo +3%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chances to score a critical hit with a One-Handed Sword by 1%.",
-    "pt": "Crítico espada 1M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with One-Handed Axes by 2 and gives a 1% chance of decreasing enemy armor by 100 for 15 seconds.",
-    "pt": "Machados 1M +2 e 1% de -100 armadura 15 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance of getting a critical hit with One-Handed Axes by 1%.",
-    "pt": "Crítico machado 1M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Two-Handed Maces by 3 and gives a 2% chance of stunning the target for 5 seconds.",
-    "pt": "Maças 2M +3 e 2% de atordoar 5 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to get a critical hit with a Two-Handed mace by 1%.",
-    "pt": "Crítico maça 2M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increase the chance of getting a critical hit with a One-Handed Mace by 1%.",
-    "pt": "Crítico maça 1M +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with One-Handed Maces by 2 and gives a 1% chance to stun the target for 5 seconds.",
-    "pt": "Maças 1M +2 e 1% de atordoar 5 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with guns by 2 and gives a 2% chance to stun the target for 3 seconds.",
-    "pt": "Armas de fogo +2 e 2% de atordoar 3 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows you to disguise yourself as a Human Peasant, and allows other Disguises as you find them in the world.",
-    "pt": "Disfarce de Camponês e outros.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows you to disguise yourself as an Orcish Peon, and allows other Disguises as you find them in the world.",
-    "pt": "Disfarce de Peão e outros.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to get a critical hit with Staves by 1%.",
-    "pt": "Crítico cajado +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Bows by 2 and adds a 2% chance that you will bleed the target for 90 damage over 10 seconds.",
-    "pt": "Arcos +2 e 2% de sangrar 90/10 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 20.",
-    "pt": "Armadura de escudo +20.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 25.",
-    "pt": "Armadura de escudo +25.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 30.",
-    "pt": "Armadura de escudo +30.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 35.",
-    "pt": "Armadura de escudo +35.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 40.",
-    "pt": "Armadura de escudo +40.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 45.",
-    "pt": "Armadura de escudo +45.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 50.",
-    "pt": "Armadura de escudo +50.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your armor while wearing a Shield or Buckler by 55.",
-    "pt": "Armadura de escudo +55.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your chance to critical with Nature Magic skill by 1%.",
-    "pt": "Crítico Natureza +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases chance of getting a Critical with Fire spells by 1%.",
-    "pt": "Crítico Fogo +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases chance of getting a Critical with Frost spells by 1%.",
-    "pt": "Crítico Gelo +1%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases chance of getting a Critical with Shadow spells by 1%.",
-    "pt": "Crítico Sombra +1%.",
-    "scope": "other"
-  },
-  {
     "en": "Inflicts normal damage plus $s1 to an enemy when attacking from stealth, stunning it $d. Awards $s3 combo $lpoint:points;.",
     "pt": "Furtivo: normal +$s1 e atordoa $d s. Combo +$s3.",
     "scope": "tail"
   },
   {
-    "en": "Increases your damage with Crossbows by $s1 and have a 2% chance of bleeding the target for 180 damage over 10 seconds.",
-    "pt": "Bestas +$s1 e 2% de sangrar 180/10 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Crossbows by 2 and adds a 2% chance of bleeding the target for 90 damage over 10 seconds.",
-    "pt": "Bestas +2 e 2% de sangrar 90/10 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Crossbows by 3 and adds a 2% chance of bleeding the target for 180 damage over 10 seconds.",
-    "pt": "Bestas +3 e 2% de sangrar 180/10 s.",
-    "scope": "other"
-  },
-  {
     "en": "Allows a hunter to teach $ghis:her; tamed tall strider to use the Healing Tongue ability. Healing Tongue heals friendly targets from a short range. Requires: Pet Level 22+",
     "pt": "Ensina Língua Curativa ao moa (Nv 22+).",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a hunter to increase $ghis:her; pet's Spirit by 3.",
-    "pt": "Pet +3 Esp.",
-    "scope": "other"
-  },
-  {
-    "en": "Performs a feint, causing no damage but lowering your threat by a medium amount, making the enemy less likely to attack you.",
-    "pt": "Finta: -ameaça média.",
-    "scope": "other"
-  },
-  {
-    "en": "Removes 1 negative spell effect from user. Cleans with the power of lemon.",
-    "pt": "Tira 1 magia ruim com limão.",
-    "scope": "other"
-  },
-  {
-    "en": "Casts a mind bomb that affects an enemy. If the target casts a spell in the next $d., it takes $7996s1 Shadow damage.",
-    "pt": "Bomba mental: lançar em $d s dá $s1 de Sombra.",
-    "scope": "other"
-  },
-  {
-    "en": "Removes a medium amount of threat for all enemies of the target.",
-    "pt": "Tira ameaça média de todos.",
-    "scope": "other"
-  },
-  {
-    "en": "Casts a mind bomb that affects nearby enemies. If a target casts a spell in the next $d., it takes $7996s1 Shadow damage.",
-    "pt": "Bomba nos próximos: lançar em $d s dá $s1 de Sombra.",
-    "scope": "other"
-  },
-  {
-    "en": "A burst of energy fills the caster, increasing $ghis:her; damage by $s1 and armor by $s2 for $d.",
-    "pt": "Energia: +$s1 dano e +$s2 armadura por $d s.",
-    "scope": "other"
-  },
-  {
-    "en": "Removes a large amount of threat for all enemies of the target.",
-    "pt": "Tira ameaça grande de todos.",
-    "scope": "other"
-  },
-  {
-    "en": "Has a 2% chance when struck in combat of protecting you with a holy shield.",
-    "pt": "Acerto: 2% de escudo sagrado.",
-    "scope": "other"
-  },
-  {
-    "en": "Instantly shields the target, absorbing $s1 damage. Lasts $d. While the shield holds, spells will not be interrupted by physical attacks.",
-    "pt": "Escudo instantâneo de $s1 por $d s, sem interrupção.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows the caster to see through the target's eyes for $d. Will not work if the target is in another instance or on another continent.",
-    "pt": "Vê pelos olhos por $d s. Sem outra instância ou continente.",
-    "scope": "other"
-  },
-  {
-    "en": "Reduces the cooldown of your Inner Rage ability by $/60000;s1 mins.",
-    "pt": "Fúria Interior -$s1 min.",
-    "scope": "other"
-  },
-  {
-    "en": "Attempts to cure $s2 poison $leffect:effects; on the target, and $3137s1 more poison $leffect:effects; every $t1 seconds for $d.",
-    "pt": "Cura $s1 veneno e +$s2 a cada $t1 s por $d s.",
-    "scope": "other"
   },
   {
     "en": "Inflicts Frost damage to enemies in a cone in front of the caster, stealing their mana and reducing their movement speed for $d.",
@@ -985,11 +460,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows one-hand and off-hand weapons to be equipped in the off-hand.",
-    "pt": "1M e secundária na secundária.",
-    "scope": "other"
-  },
-  {
     "en": "A shot to a critical area that blasts an enemy target for $s1 damage.",
     "pt": "Tiro crítico de $s1 no inimigo.",
     "scope": "tail"
@@ -1018,11 +488,6 @@
     "en": "Attaches spurs to your boots that increase your mounted movement speed slightly.",
     "pt": "Espora: +montado um pouco.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows the friendly target to detect greater invisibility for $d.",
-    "pt": "Detecta invis maior por $d s.",
-    "scope": "other"
   },
   {
     "en": "Apply near a Moonkin Stone to bring forth the stone's defender, Lunaclaw.",
@@ -1160,16 +625,6 @@
     "scope": "tail"
   },
   {
-    "en": "Builds a campfire that increases the spirits of those nearby by 4 and allows cooking.",
-    "pt": "Fogueira: +4 Esp próximos e cozinha.",
-    "scope": "other"
-  },
-  {
-    "en": "Instantly heals $s1 damage. Also restores $o2 mana over $d. Must remain seated while drinking.",
-    "pt": "Cura $s1 na hora. +$s2 mana em $d s sentado.",
-    "scope": "tail"
-  },
-  {
     "en": "Share your pet's senses, gaining any detection or tracking abilities for $d.",
     "pt": "Sentidos do pet por $d s.",
     "scope": "tail"
@@ -1195,11 +650,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows the caster to levitate, floating a few feet above the ground. While levitating, you will fall at a reduced speed and travel over water-like surfaces. Any damage will cancel the effect. Lasts $d.",
-    "pt": "Levita uns palmos. Cai devagar e anda na água. Dano cancela. $d s.",
-    "scope": "other"
-  },
-  {
     "en": "Transfer control of your pet to another player.",
     "pt": "Passa o pet pra outro jogador.",
     "scope": "tail"
@@ -1210,68 +660,8 @@
     "scope": "tail"
   },
   {
-    "en": "Allows a Blacksmith to make basic weapons and armor up to a maximum potential skill of 75. Requires stone and metal found with the mining skill.",
-    "pt": "Ferreiro básico até 75. Precisa pedra e metal.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a leatherworker to make leather armor, up to to a maximum potential skill of 75. Requires leather scraps and hides gathered with the Skinning skill.",
-    "pt": "Coureiro básico até 75. Precisa retalho e couro.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows an alchemist to brew basic potions up to a maximum potential skill of 75. Requires Herbs found with the Herbalism skill.",
-    "pt": "Alquimista básico até 75. Precisa erva.",
-    "scope": "other"
-  },
-  {
     "en": "With the mixture of Snakeroot for physical improvement and crushed Silverleaf for enhancement, a potion to to bring out one's inner lion is brewed.",
     "pt": "Poção de Snakeroot e Silverleaf: leão interior.",
-    "scope": "tail"
-  },
-  {
-    "en": "The basics of how to gather herbs from bushes and other plants for use in Alchemy. Gives a potential herbalism skill of 75.",
-    "pt": "Erva básica até 75.",
-    "scope": "tail"
-  },
-  {
-    "en": "How to find and gather more difficult to harvest herbs. Gives a potential herbalism skill of 150.",
-    "pt": "Erva média até 150.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a cook to make basic recipes up to a maximum potential skill of 75. Requires meat from beasts and fire to make food.",
-    "pt": "Cozinheiro básico até 75. Precisa carne e fogo.",
-    "scope": "other"
-  },
-  {
-    "en": "How to pull ore and stone from mineral veins for use in Engineering and Blacksmithing. Gives a potential mining skill of 75. Requires a Mining Pick.",
-    "pt": "Minera minério e pedra até 75. Precisa picareta.",
-    "scope": "other"
-  },
-  {
-    "en": "A more advanced level of mining. Gives a potential mining skill of 150.",
-    "pt": "Mineração média até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Dismiss your pet. Dismissing your pet will reduce its happiness by $/1000;s1.",
-    "pt": "Dispensa o pet. Felicidade -$s1.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of copper ore into a copper bar. Smelting copper requires a forge.",
-    "pt": "Funde cobre em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of silver ore into a silver bar. Smelting silver requires a forge.",
-    "pt": "Funde prata em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt a tin bar and a copper bar together into two bronze bars. Smelting bronze requires a forge.",
-    "pt": "Funde estanho+cobre em 2 bronze. Precisa forja.",
     "scope": "tail"
   },
   {
@@ -1288,26 +678,6 @@
     "en": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 24 and Stamina by 3. Only usable on items level 15 and above.",
     "pt": "Peito/perna/mão/pé: +24 armadura e +3 Vig. Só nv 15+.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a Blacksmith to make well-crafted weapons and armor up to a maximum potential skill of 150.",
-    "pt": "Ferreiro médio até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows an alchemist to brew standard potions up to a maximum potential skill of 150.",
-    "pt": "Alquimista médio até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a cook to make delicious recipes up to a maximum potential skill of 150.",
-    "pt": "Cozinheiro médio até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a leatherworker to make well crafted leather armors, up to a maximum potential skill of 150.",
-    "pt": "Coureiro médio até 150.",
-    "scope": "other"
   },
   {
     "en": "Inflicts normal damage plus $s2 to an enemy, and increases the time between its attacks by $s1% for $d.",
@@ -1345,31 +715,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows the creation and use bandages up to a potential skill of 75. The cloth used to make those bandages are found on humanoids in the world.",
-    "pt": "Primeiros socorros até 75. Pano de humanoide.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows the creation and use of bandages up to a potential skill of 150. The cloth used to make those bandages are found on humanoids in the world.",
-    "pt": "Primeiros socorros até 150. Pano de humanoide.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of tin ore into a tin bar. Smelting tin requires a forge.",
-    "pt": "Funde estanho em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of iron ore into an iron bar. Smelting iron requires a forge.",
-    "pt": "Funde ferro em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of gold ore into a gold bar. Smelting gold requires a forge.",
-    "pt": "Funde ouro em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
     "en": "Adds a chance to deal damage in an area around the caster when successfully hit.",
     "pt": "Acerto: dano em área ao apanhar.",
     "scope": "tail"
@@ -1385,11 +730,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows a cook to make mouth watering recipes up to a maximum potential skill of 225.",
-    "pt": "Cozinheiro perito até 225.",
-    "scope": "other"
-  },
-  {
     "en": "Sends the caster into a rage that lasts $d., increasing the Physical damage it deals by $s2, but increasing the time between its attacks by $s3%.",
     "pt": "Fúria $d s: +$s2 Físico, +$s3% intervalo.",
     "scope": "tail"
@@ -1398,11 +738,6 @@
     "en": "Diseases an enemy for $d., draining $s1 mana every $t1 sec. and transferring it to the caster.",
     "pt": "Adoece por $d s: drena $s1 de mana a cada $t1 s pra você.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows an alchemist to brew amazing potions up to a maximum potential skill of 225.",
-    "pt": "Alquimista perito até 225.",
-    "scope": "other"
   },
   {
     "en": "Kills the caster to summon a copy of itself.",
@@ -1420,28 +755,8 @@
     "scope": "tail"
   },
   {
-    "en": "Allows a Blacksmith to make masterful weapons and armor up to a maximum potential skill of 225.",
-    "pt": "Ferreiro perito até 225.",
-    "scope": "other"
-  },
-  {
     "en": "Drives the caster into a maddened frenzy for $d. Increases the caster's attack speed by $s1%, but slows its movement by $s2% and reduces the Physical damage it deals by $s3.",
     "pt": "Frenesi $d s: +$s1% velocidade, -$s2% movimento, -$s3 Físico.",
-    "scope": "tail"
-  },
-  {
-    "en": "A more advanced level of mining. Gives a potential mining skill of 225.",
-    "pt": "Mineração perita até 225.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of iron ore and a lump of coal together into a steel bar. Smelting steel requires a forge.",
-    "pt": "Funde ferro+carvão em aço. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "How to find and gather more difficult to harvest herbs. Gives a potential herbalism skill of 225.",
-    "pt": "Erva perita até 225.",
     "scope": "tail"
   },
   {
@@ -1490,68 +805,13 @@
     "scope": "tail"
   },
   {
-    "en": "Allows a leatherworker to make high quality leather armors, up to a maximum potential skill of 225.",
-    "pt": "Coureiro perito até 225.",
-    "scope": "other"
-  },
-  {
     "en": "Summons a Ward of Laze that lasts $d. and curses nearby enemies every $3825t1 sec., temporarily reducing their attack speed by $3826%.",
     "pt": "Guarda $d s: amaldiçoa a cada $t1 s, -$s1% velocidade.",
     "scope": "tail"
   },
   {
-    "en": "Allows a tailor to make basic cloth armors up to a maximum potential skill of 75. Requires cloth found on humanoids.",
-    "pt": "Alfaiate básico até 75. Precisa pano.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a tailor to make fashionable cloth shirts and armors up to a maximum potential skill of 150.",
-    "pt": "Alfaiate médio até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a tailor to make shirts and armors that are the height of style up to a maximum potential skill of 225.",
-    "pt": "Alfaiate perito até 225.",
-    "scope": "other"
-  },
-  {
     "en": "A Small Seaforium charge which is enough to blast open some doors.",
     "pt": "Carga pequena abre porta.",
-    "scope": "tail"
-  },
-  {
-    "en": "Attaches a permanent scope to a bow or gun that increases its damage by 1.",
-    "pt": "Mira: arma +1 dano.",
-    "scope": "tail"
-  },
-  {
-    "en": "Attaches a permanent scope to a bow or gun that increases its damage by 2.",
-    "pt": "Mira: arma +2 dano.",
-    "scope": "tail"
-  },
-  {
-    "en": "Attaches a permanent scope to a bow or gun that increases its damage by 3.",
-    "pt": "Mira: arma +3 dano.",
-    "scope": "tail"
-  },
-  {
-    "en": "An improved scope that increases the damage done with your bow or gun.",
-    "pt": "Mira melhorada de arco/arma.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows an engineer to make more powerful devices and explosives up to a maximum potential skill of 150.",
-    "pt": "Engenheiro médio até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows an engineer to make bombs and gizmos that are a wonder to behold up to a maximum potential skill of 225.",
-    "pt": "Engenheiro perito até 225.",
-    "scope": "other"
-  },
-  {
-    "en": "Creates an Explosive Sheep that charges the nearest enemy and explodes.",
-    "pt": "Ovelha que investe e explode.",
     "scope": "tail"
   },
   {
@@ -1575,11 +835,6 @@
     "scope": "tail"
   },
   {
-    "en": "Creates a Compact Harvest Reaper that will fight for you for 10 min or until it is destroyed.",
-    "pt": "Ceifador luta 10 min ou até morrer.",
-    "scope": "tail"
-  },
-  {
     "en": "Places the Goblin Land Mine on the ground. It will explode for $4043s1 fire damage the next time a hostile creature passes near it. The mine has a duration of $d.",
     "pt": "Mina no chão: $s1 de Fogo no próximo hostil. Dura $d s.",
     "scope": "tail"
@@ -1598,11 +853,6 @@
     "en": "Grants the user $m1 additional hitpoints for $d",
     "pt": "+$s1 vida por $d s.",
     "scope": "tail"
-  },
-  {
-    "en": "Cat goes into a ferocious rage granting $s1% haste but takes $s2 more damage from attacks for $d",
-    "pt": "Gato furioso: +$s1% pressa, +$s2 dano recebido por $d s.",
-    "scope": "other"
   },
   {
     "en": "Finds a weak spot which causes the target to take $m1 more damage from physical hits for $d",
@@ -1725,11 +975,6 @@
     "scope": "tail"
   },
   {
-    "en": "Lets the Hunter train his pet with various abilities that he has learned.",
-    "pt": "Treina o pet com habilidades.",
-    "scope": "other"
-  },
-  {
     "en": "Allows a hunter to teach $ghis:her; tamed boar the Gore ability. Gore deals physical damage over time to an enemy. Requires: Pet Level 13+",
     "pt": "Ensina Eviscerar ao javali: dano físico com o tempo. Requer: pet nv 13+.",
     "scope": "tail"
@@ -1750,11 +995,6 @@
     "scope": "tail"
   },
   {
-    "en": "Increases your damage with Two-Handed Maces by $s1 and gives a 2% chance of stunning the target for 8 seconds.",
-    "pt": "Maças 2M +$s1 e 2% de atordoar 8 s.",
-    "scope": "other"
-  },
-  {
     "en": "Creates a Death Capsule, which is used to Feign Death.",
     "pt": "Cria Cápsula pra Fingir.",
     "scope": "tail"
@@ -1765,54 +1005,9 @@
     "scope": "tail"
   },
   {
-    "en": "Increases your damage with One-Handed Swords by $s1 and your chance to parry by 5%.",
-    "pt": "Espadas 1M +$s1 e aparar +5%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Two-Handed Swords by 4 and your chance to parry with one by 2%.",
-    "pt": "Espadas 2M +4 e aparar +2%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Two-Handed Axes by 4 and gives a 2% chance of reducing enemy armor for 15 seconds.",
-    "pt": "Machados 2M +4 e 2% de -armadura 15 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with One-Handed Swords by 3 and your chance to parry by 2%.",
-    "pt": "Espadas 1M +3 e aparar +2%.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with One-Handed Axes by 3 and gives a 1% chance of decreasing enemy armor by 200 for 15 seconds.",
-    "pt": "Machados 1M +3 e 1% de -200 armadura 15 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Two-Handed Maces by 4 and gives a 2% chance of stunning the target for 8 seconds.",
-    "pt": "Maças 2M +4 e 2% de atordoar 8 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with One-Handed Maces by 3 and gives a 1% chance to stun the target for 8 seconds.",
-    "pt": "Maças 1M +3 e 1% de atordoar 8 s.",
-    "scope": "other"
-  },
-  {
     "en": "Choose an appropriate random power as well as select targets to pass the power to on death.",
     "pt": "Escolhe poder e alvos pra herdar ao morrer.",
     "scope": "tail"
-  },
-  {
-    "en": "Increases your damage with guns by 3 and gives a 2% chance to stun the target for 5 seconds.",
-    "pt": "Armas de fogo +3 e 2% de atordoar 5 s.",
-    "scope": "other"
-  },
-  {
-    "en": "Increases your damage with Bows by 3 and adds a 2% chance that you will bleed the target for 180 damage over 10 seconds.",
-    "pt": "Arcos +3 e 2% de sangrar 180/10 s.",
-    "scope": "other"
   },
   {
     "en": "Allows a hunter to teach $ghis:her; tamed boar the Toughen Hide ability. Toughen Hide increases resistance to physical attacks. Requires: Pet Level 22+",
@@ -1853,11 +1048,6 @@
     "en": "Allows a hunter to teach $ghis:her; tamed bird the Pester ability. Pester greatly increases the attack speed of the bird at the cost of dealing less damage. Every successful attack while in this mode renders the target unable to cast spells for a short time. Requires: Pet Level 36+",
     "pt": "Ensina Importunar à ave: +velocidade -dano, silencia ao acertar. Requer: pet nv 36+.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a hunter to teach $ghis:her; tamed cat the Ferocity ability. Ferocity increases attack speed of the cat at the cost of receiving more damage when hit by phsical attacks. Requires: Pet Level 13+",
-    "pt": "Ensina Ferocidade ao gato: +velocidade +dano recebido. Requer: pet nv 13+.",
-    "scope": "other"
   },
   {
     "en": "Allows a hunter to teach $ghis:her; tamed cat the Open Wound ability. Open Wound deals physical damage over time to an enemy as well as increasing damage received by physical attacks for a short time. Requires: Pet Level 36+",
@@ -2120,11 +1310,6 @@
     "scope": "tail"
   },
   {
-    "en": "Assumes a defensive stance that generates rage when the warrior is hit, as well as reducing rage decay while the warrior is out of combat. Lasts $d.",
-    "pt": "Postura: fúria ao apanhar, sem decair fora de combate. $d s.",
-    "scope": "other"
-  },
-  {
     "en": "Attaches an Iron Spike to your shield that deals damage every time you block with it.",
     "pt": "Escudo com prego: dano ao bloquear.",
     "scope": "tail"
@@ -2158,21 +1343,6 @@
     "en": "Terrifies an enemy, causing it to flee in fear for $d. Only 1 target can be terrified at a time.",
     "pt": "Aterroriza e foge por $d s. Um por vez.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows an enchanter to enchant basic items up to a maximum potential skill of 75. Requires Dusts and Essences found by disenchanting magic items.",
-    "pt": "Encantador básico até 75. Precisa pó e essência.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows an enchanter to enchant weapons and armor up to a maximum potential skill of 150.",
-    "pt": "Encantador médio até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows an enchanter to put masterful enchantments on weapons and armor up to a maximum potential skill of 225.",
-    "pt": "Encantador perito até 225.",
-    "scope": "other"
   },
   {
     "en": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 1.",
@@ -2310,11 +1480,6 @@
     "scope": "tail"
   },
   {
-    "en": "A silver rod created by a blacksmith is required to make this item.",
-    "pt": "Faz com haste de prata.",
-    "scope": "tail"
-  },
-  {
     "en": "Imbue a piece of chest armor with regenerative properties that increase the wearers spirit by 6 for 60 minutes.",
     "pt": "Peito: +6 Esp por 60 min.",
     "scope": "tail"
@@ -2365,11 +1530,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows a physician to make and use bandages up to a potential skill of 225. The cloth used to make those bandages are found on humanoids in the world.",
-    "pt": "Médico até 225. Pano de humanoide.",
-    "scope": "other"
-  },
-  {
     "en": "Shapeshifts into a serpent for $d., increasing attack damage by $s2, and increasing the time between attacks by $s3%.",
     "pt": "Vira serpente $d s: +$s1 dano, +$s2% intervalo.",
     "scope": "tail"
@@ -2382,21 +1542,6 @@
   {
     "en": "Shapeshifts into a serpent for $d., increasing Physical damage by $s3, but sacrificing the ability to cast spells.",
     "pt": "Vira serpente $d s: +$s1 Físico, sem magia.",
-    "scope": "tail"
-  },
-  {
-    "en": "When applied to your fishing pole, increases Fishing by 25 for 10 min.",
-    "pt": "Vara +25 Pesca por 10 min.",
-    "scope": "tail"
-  },
-  {
-    "en": "When applied to your fishing pole, increases Fishing by 50 for 10 min.",
-    "pt": "Isca +50 Pesca por 10 min.",
-    "scope": "tail"
-  },
-  {
-    "en": "When applied to your fishing pole, increases Fishing by 100 for 5 minutes.",
-    "pt": "Atrator +100 Pesca por 5 min.",
     "scope": "tail"
   },
   {
@@ -2445,21 +1590,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows the miner to smelt 10 chunks of copper ore into 10 copper bars. Smelting copper requires a forge.",
-    "pt": "Funde 10 cobres em 10 barras. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "The dynamite for Non-Engineers that nearly always gets to the target! Inflicts $s1 Fire damage in a 5 yard radius.",
-    "pt": "Dinamite pra não-engenheiro: $s1 de Fogo a 5 m.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows control of a mechanical target for a short time. It may not always work and may just root the machine or make it very very angry. Gnomish engineering at its finest.",
-    "pt": "Controla mecânico um pouco. Pode prender ou enfurecer. Engenharia gnômica.",
-    "scope": "tail"
-  },
-  {
     "en": "Summons $s1 $lAqua Guardian:Aqua Guardians; to accompany the caster until dismissed.",
     "pt": "Invoca $s1 Guardiões até dispensar.",
     "scope": "tail"
@@ -2475,11 +1605,6 @@
     "scope": "tail"
   },
   {
-    "en": "When applied to your fishing pole, increases Fishing by 50 for 10 minutes.",
-    "pt": "Lente +50 Pesca por 10 min.",
-    "scope": "tail"
-  },
-  {
     "en": "Inflicts $s1 damage to an enemy and forces it to feign death for up to $8359d.",
     "pt": "$s1 e finge-se de morto até $d s.",
     "scope": "tail"
@@ -2488,21 +1613,6 @@
     "en": "Summons $s1 $lMoonstalker Runt:Moonstalker Runts; to accompany the caster until dismissed.",
     "pt": "Invoca $s1 Filhotes até dispensar.",
     "scope": "tail"
-  },
-  {
-    "en": "The basics of how to skin animals for their pelts and furs for use in Leatherworking. Gives a potential skinning skill of 75. Requires a Skinning Knife.",
-    "pt": "Esfolador básico até 75. Precisa faca.",
-    "scope": "other"
-  },
-  {
-    "en": "Advanced skills in skinning the leather from beasts for use in Leatherworking. Gives a potential skinning skill of 150. Requires a Skinning Knife.",
-    "pt": "Esfolador médio até 150. Precisa faca.",
-    "scope": "other"
-  },
-  {
-    "en": "Expert skill in skinning the hides from beasts for use in Leatherworking. Gives a potential skinning skill of 225. Requires a Skinning Knife.",
-    "pt": "Esfolador perito até 225. Precisa faca.",
-    "scope": "other"
   },
   {
     "en": "Causes the caster to periodically inflict $8714s1 Nature damage to all enemies in a selected area, interrupting their casting for $8714d. Lasts until cancelled.",
@@ -2517,16 +1627,6 @@
   {
     "en": "Sends player to Blackfathom Deeps",
     "pt": "Manda jogador pra Profundezas.",
-    "scope": "tail"
-  },
-  {
-    "en": "Creates two Iron Buckles that are used by other trade skills.",
-    "pt": "Cria 2 Fivelas pra ofício.",
-    "scope": "tail"
-  },
-  {
-    "en": "Creates an Iron Buckle that is used by other tradeskills.",
-    "pt": "Cria Fivela pra ofício.",
     "scope": "tail"
   },
   {
@@ -2660,21 +1760,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows a Blacksmith to make weapons and armor up to a maximum potential skill of 300.",
-    "pt": "Ferreiro artesão até 300.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a blacksmith to make special weapons that are unavailable to the typical artisan blacksmith.",
-    "pt": "Armeiro: armas especiais.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a blacksmith to make special armors that are unavailable to the typical artisan blacksmith.",
-    "pt": "Couraceiro: armaduras especiais.",
-    "scope": "tail"
-  },
-  {
     "en": "$h% chance of a phantom strike which reduces the targets armor by $9806s1 and prevents them from stealthing or going invis for $9806d.",
     "pt": "$h% de golpe fantasma: -$s1 armadura e sem furtivo por $d s.",
     "scope": "tail"
@@ -2688,21 +1773,6 @@
     "en": "Infuses the target with power, increasing their spell damage and healing by $s2%. Lasts $d.",
     "pt": "Dano e cura +$s1% por $d s.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of mithril ore into a mithril bar. Smelting mithril requires a forge.",
-    "pt": "Funde mithril em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt a chunk of truesilver ore into a truesilver bar. Smelting truesilver requires a forge.",
-    "pt": "Funde veraprata em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
-    "en": "Raising mining to an art form. Gives a potential mining skill of 300.",
-    "pt": "Mineração arte até 300.",
-    "scope": "other"
   },
   {
     "en": "Sacrifices the caster's life in order to reduce the Stamina of nearby enemies by $s1 for $d.",
@@ -2728,26 +1798,6 @@
     "en": "Causes a minor tremor, inflicting $s1 damage to nearby enemies.",
     "pt": "Tremor: $s1 nos próximos.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a leatherworker to make special dragonscale armors that are unavailable to a normal leatherworker. Dragonscale armor is all mail armor.",
-    "pt": "Coureiro dragão especial, tudo malha.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a leatherworker to make special elemental armors that are unavailable to a normal leatherworker.",
-    "pt": "Coureiro elemental especial.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a leatherworker to make special tribal armors that are unavailable to a normal leatherworker.",
-    "pt": "Coureiro tribal especial.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a leatherworker to make artisan quality leather armors, up to a maximum potential skill of 300.",
-    "pt": "Coureiro artesão até 300.",
-    "scope": "other"
   },
   {
     "en": "Increases Strength by $s1 when consumed. Effect lasts for 60 minutes.",
@@ -2940,11 +1990,6 @@
     "scope": "tail"
   },
   {
-    "en": "Artisan skill in skinning the hides from beasts for use in Leatherworking. Gives a potential skinning skill of 300. Requires a Skinning Knife.",
-    "pt": "Esfolador artesão até 300. Precisa faca.",
-    "scope": "other"
-  },
-  {
     "en": "The jungle trolls have long coveted panther fangs, using them for rituals or as ingredients in mojos.",
     "pt": "Troll cobiça presa pra ritual.",
     "scope": "tail"
@@ -2983,11 +2028,6 @@
     "en": "A rare and exotic bird, with feathers as bright as the tropical seas.",
     "pt": "Rara e exótica, pena do mar.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a physician to make and use bandages up to a potential skill of 300. The cloth used to make those bandages are found on humanoids in the world.",
-    "pt": "Médico até 300. Pano de humanoide.",
-    "scope": "other"
   },
   {
     "en": "Summons $s1 $lDupe Bug:Dupe Bugs; to aid the caster in battle for $d.",
@@ -3095,11 +2135,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows an alchemist to brew astounding potions up to a maximum potential skill of 300.",
-    "pt": "Alquimista artesão até 300.",
-    "scope": "other"
-  },
-  {
     "en": "Shields the wielder from physical damage, absorbing $s1 damage. Lasts $d1.",
     "pt": "Absorve $s1 Físico. $d s.",
     "scope": "tail"
@@ -3140,18 +2175,8 @@
     "scope": "tail"
   },
   {
-    "en": "The sword must be reforged before it can be used. Reforging the sword requires 4 Steel Bars, 4 Strong Flux, 2 Elemental Fire and 2 Heavy Grinding Stones.",
-    "pt": "Refaz a espada: 4 Aço, 4 Fluxo, 2 Fogo, 2 Pedra.",
-    "scope": "tail"
-  },
-  {
     "en": "Inflicts $s3 Nature damage to nearby enemies, reducing their chance to hit by $s1% for $d.",
     "pt": "$s1 de Natureza e -$s2% acerto por $d s.",
-    "scope": "tail"
-  },
-  {
-    "en": "How to find and gather more difficult to harvest herbs. Gives a potential herbalism skill of 300.",
-    "pt": "Erva arte até 300.",
     "scope": "tail"
   },
   {
@@ -3173,11 +2198,6 @@
     "en": "Cripples an enemy, inflicting normal damage plus $s1 and reducing its Strength by $s2 for $d.",
     "pt": "Normal +$s1 e -For $s2 por $d s.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a tailor to make shirts and armors that are the height of style up to a maximum potential skill of 300.",
-    "pt": "Alfaiate arte até 300.",
-    "scope": "other"
   },
   {
     "en": "Place near the Dead Tree northwest of Ratchet, to lure Ishamuhale.",
@@ -3215,23 +2235,8 @@
     "scope": "tail"
   },
   {
-    "en": "Causes all enemies near the warrior to be dazed, reducing movement speed by $s1% for $d.",
-    "pt": "Atordoa: -$s1% velocidade por $d s.",
-    "scope": "other"
-  },
-  {
     "en": "Right click on the Staff of Command when you are near Shadowsilk Poachers to make Raze attack.",
     "pt": "Raze ataca Caçador com o Cajado.",
-    "scope": "tail"
-  },
-  {
-    "en": "Attaches a permanent scope to a bow or gun that increases its damage by 5.",
-    "pt": "Mira: arma +5 dano.",
-    "scope": "tail"
-  },
-  {
-    "en": "Attaches a permanent scope to a bow or gun that increases its damage by 7.",
-    "pt": "Mira: arma +7 dano.",
     "scope": "tail"
   },
   {
@@ -3240,19 +2245,9 @@
     "scope": "tail"
   },
   {
-    "en": "Allows an engineer to make bombs and gizmos that are truly amazing up to a maximum potential skill of 300.",
-    "pt": "Engenheiro arte até 300.",
-    "scope": "other"
-  },
-  {
     "en": "Drains $s1 health from nearby enemies, healing the caster for up to $e times the amount stolen.",
     "pt": "Drena $s1 e cura até $s2x.",
     "scope": "tail"
-  },
-  {
-    "en": "Increases damage done by $s1 and attack speed by $s2% for $d.",
-    "pt": "+$s1 dano e +$s2% velocidade por $d s.",
-    "scope": "other"
   },
   {
     "en": "Summon a screecher spirit from the corpse of a vale screecher.",
@@ -3310,11 +2305,6 @@
     "scope": "tail"
   },
   {
-    "en": "When activated, this ability temporarily grants you 30% of your maximum hit points for 20 seconds. After the effect expires, the hit points are lost.",
-    "pt": "30% da vida máx por 20 s, depois perde.",
-    "scope": "other"
-  },
-  {
     "en": "Shrinks the target reducing their attack power by $13003s1. Thats what it usually does anyway.....",
     "pt": "Encolhe: -$s1 poder. Geralmente.....",
     "scope": "tail"
@@ -3337,11 +2327,6 @@
   {
     "en": "Use at the Altar of the Defiler to summon Razelikh the Defiler.",
     "pt": "Invoca Razelikh no Altar.",
-    "scope": "tail"
-  },
-  {
-    "en": "Creates a Battle Chicken that will fight for you for $d or until it is destroyed.",
-    "pt": "Galinha que luta por $d s.",
     "scope": "tail"
   },
   {
@@ -3470,16 +2455,6 @@
     "scope": "tail"
   },
   {
-    "en": "Permanently enchant gloves to grant +2 herbalism skill.",
-    "pt": "Luvas: +2 herborismo.",
-    "scope": "tail"
-  },
-  {
-    "en": "Permanently enchant gloves to grant +2 fishing skill.",
-    "pt": "Luvas: +2 pesca.",
-    "scope": "tail"
-  },
-  {
     "en": "Permanently enchant a bracer so it increases the wearer's Intellect by 3.",
     "pt": "Braçadeira: +3 Int.",
     "scope": "tail"
@@ -3487,11 +2462,6 @@
   {
     "en": "Permanently enchant a piece of chest armor to grant +1 to all stats.",
     "pt": "Peito: +1 tudo.",
-    "scope": "tail"
-  },
-  {
-    "en": "A golden rod created by a blacksmith is required to make this item.",
-    "pt": "Haste de ouro pra fazer.",
     "scope": "tail"
   },
   {
@@ -3590,18 +2560,8 @@
     "scope": "tail"
   },
   {
-    "en": "Permanently enchant gloves to grant +5 skinning skill.",
-    "pt": "Luvas: +5 esfolar.",
-    "scope": "tail"
-  },
-  {
     "en": "Permanently enchant a piece of chest armor to grant +2 to all stats.",
     "pt": "Peito: +2 tudo.",
-    "scope": "tail"
-  },
-  {
-    "en": "A truesilver rod created by a blacksmith is required to make this item.",
-    "pt": "Haste veraprata pra fazer.",
     "scope": "tail"
   },
   {
@@ -3632,11 +2592,6 @@
   {
     "en": "Permanently enchant gloves to grant +5 mining skill.",
     "pt": "Luvas: +5 mineração.",
-    "scope": "tail"
-  },
-  {
-    "en": "Permanently enchant gloves to grant +5 herbalism skill.",
-    "pt": "Luvas: +5 herborismo.",
     "scope": "tail"
   },
   {
@@ -3678,11 +2633,6 @@
     "en": "Permanently enchant a melee weapon to have a chance of stunning and doing heavy damage to demons.",
     "pt": "Arma: chance de atordoar demônio forte.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows an enchanter to put masterful enchantments on weapons and armor up to a maximum potential skill of 300.",
-    "pt": "Encantador artesão até 300.",
-    "scope": "other"
   },
   {
     "en": "Permanently enchants bracers to give +3 Defense.",
@@ -3730,11 +2680,6 @@
     "scope": "tail"
   },
   {
-    "en": "When activated, this ability immediately finishes the cooldown on your other Rogue abilities.",
-    "pt": "Zera recarga de Ladino.",
-    "scope": "other"
-  },
-  {
     "en": "Sign the pledge, swearing to Nixx Sprocketspring that you will keep the knowledge of Goblin Engineering in eternal secrecy.",
     "pt": "Jura segredo goblin pro Nixx.",
     "scope": "tail"
@@ -3770,18 +2715,8 @@
     "scope": "tail"
   },
   {
-    "en": "When activated, reduces the Mana cost of your next spell by $s1% and increases its critical effect chance by $s2% if it is capable of a critical effect.",
-    "pt": "Mana -$s1% e crítico +$s2% na próxima.",
-    "scope": "other"
-  },
-  {
     "en": "Increases the caster's attack speed by $s1% and increases the Physical damage it deals by $s2 for $d.",
     "pt": "Velocidade +$s1% e Físico +$s2 por $d s.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt chunks of dark iron ore into a dark iron bar. Smelting Dark Iron can only be done at the Black Forge in Blackrock Depths.",
-    "pt": "Funde ferro negro. Só na Forja Negra.",
     "scope": "tail"
   },
   {
@@ -4015,11 +2950,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows the miner to smelt a chunk of thorium ore into a thorium bar. Smelting thorium requires a forge.",
-    "pt": "Funde tório em barra. Precisa forja.",
-    "scope": "tail"
-  },
-  {
     "en": "Place 7 Magic Knucklebones in the Charm Pouch to create a Knucklebone Pouch.",
     "pt": "7 ossos no saquinho.",
     "scope": "tail"
@@ -4150,11 +3080,6 @@
     "scope": "tail"
   },
   {
-    "en": "Blasts nearby enemies for Frost damage and freezes them in place for up to $d.",
-    "pt": "Gelo e congela até $d s.",
-    "scope": "other"
-  },
-  {
     "en": "Gives the caster $s1 extra attacks and causes it to inflict additional Fire damage on each successful hit. Lasts $d.",
     "pt": "+$s1 ataques e +Fogo por golpe por $d s.",
     "scope": "tail"
@@ -4170,16 +3095,6 @@
     "scope": "tail"
   },
   {
-    "en": "Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Bear, Dire Bear and Cat Form by $24867s1%.",
-    "pt": "Gato ao ar livre +$s1% velocidade; Urso/Gato +$s2% esquiva.",
-    "scope": "other"
-  },
-  {
-    "en": "While in Cat, Bear or Dire Bear Form, the Leader of the Pack increases ranged and melee critical chance of all party members within $24932a1 yards by $24932s1%.",
-    "pt": "Líder: grupo a $a1 m +$s1% crítico.",
-    "scope": "other"
-  },
-  {
     "en": "Purges an enemy of $s1 magic $leffect:effects; and heals the caster for $s2.",
     "pt": "Expurga $s1 magia e cura $s2.",
     "scope": "tail"
@@ -4192,21 +3107,6 @@
   {
     "en": "Place in the doorway at one of Andorhal's ruined towers as a magical marker for future troop movement.",
     "pt": "Marca pras tropas em Andorhal.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a blacksmith to make special Swords that are unavailable to the typical artisan weaponsmith.",
-    "pt": "Ferreiro de espada especial.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a blacksmith to make special maces and hammers that are unavailable to the typical artisan weaponsmith.",
-    "pt": "Ferreiro de maça especial.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows a blacksmith to make special axes that are unavailable to the typical artisan weaponsmith.",
-    "pt": "Ferreiro de machado especial.",
     "scope": "tail"
   },
   {
@@ -4237,16 +3137,6 @@
   {
     "en": "Use on Ras Frostwhisper, the lich, to make him mortal.",
     "pt": "Use no Ras pra mortalizar.",
-    "scope": "tail"
-  },
-  {
-    "en": "Create Enchanted Leather for use in other tradeskills.",
-    "pt": "Cria Couro pra ofício.",
-    "scope": "tail"
-  },
-  {
-    "en": "Create Enchanted Thorium for use in Blacksmithing.",
-    "pt": "Cria Tório pra ferraria.",
     "scope": "tail"
   },
   {
@@ -4365,11 +3255,6 @@
     "scope": "tail"
   },
   {
-    "en": "You turn to stone, protecting you from all physical attacks and spells for $d, but during that time you cannot attack, move or cast spells. You can only have the effect of one flask at a time.",
-    "pt": "Vira pedra $d s: imune a tudo, sem agir. 1 frasco por vez.",
-    "scope": "tail"
-  },
-  {
     "en": "Increases your movement speed by $s2% and restores $s1 Health per 5 sec. Half of this effect is granted to allies within 30 yards.",
     "pt": "Velocidade +$s1% e $s2 vida/5 s. Metade pro grupo a 30 m.",
     "scope": "tail"
@@ -4480,11 +3365,6 @@
     "scope": "tail"
   },
   {
-    "en": "Restores $o1 health over $d. Must remain seated while eating. Also increases your Strength by $18125s1 for $18125d.",
-    "pt": "$s1 de vida em $d s sentado. +For $s2 por $d1 s.",
-    "scope": "tail"
-  },
-  {
     "en": "Kodo Kombobulator on any Ancient, Aged, or Dying Kodo to lure the Kodo to follow (one at a time).",
     "pt": "Atrai kodo antigo pra seguir.",
     "scope": "tail"
@@ -4498,11 +3378,6 @@
     "en": "Has a 5% chance on striking the enemy for $18187s1 Fire damage.",
     "pt": "Acerto: 5% de $s1 de Fogo.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a cook to make amazing recipes up to a maximum potential skill of 300.",
-    "pt": "Cozinheiro artesão até 300.",
-    "scope": "other"
   },
   {
     "en": "Gives $M1 additional intellect to party members within $a1 yards.",
@@ -4520,11 +3395,6 @@
     "scope": "tail"
   },
   {
-    "en": "Shapeshifts into a bear, increasing armor and hit points, as well as allowing the use of various bear abilities. Lasts until cancelled.",
-    "pt": "Vira Urso até cancelar: +vida, habilidades.",
-    "scope": "other"
-  },
-  {
     "en": "This is used to turn the kodo into gossip to give player Quest Credit",
     "pt": "Kodo fofoqueiro dá crédito.",
     "scope": "tail"
@@ -4533,11 +3403,6 @@
     "en": "This Kodo with a Ceremonial Attire is usually reserved for Clan Chieftains, but after the Tauren joined the Horde, they have been made available to Champions of Thunder Bluff.",
     "pt": "Kodo de chefe pra campeão.",
     "scope": "tail"
-  },
-  {
-    "en": "Increases the Physical damage dealt by the caster by $s1 and speeds its attacks by $s2% for $d.",
-    "pt": "Físico +$s1 e +$s2% velocidade por $d s.",
-    "scope": "other"
   },
   {
     "en": "Drains $s1 mana from an enemy every $t1 sec., transferring it to the caster over $d.",
@@ -4552,11 +3417,6 @@
   {
     "en": "Immobilizes the caster, but increases its attack speed by $s2% for $d.",
     "pt": "Imóvel: +$s1% velocidade por $d s.",
-    "scope": "tail"
-  },
-  {
-    "en": "The purification of tainted Felcloth into Mooncloth can only be done at a moonwell, and only ocassionally will the waters permit themselves to be used in such a way.",
-    "pt": "Felcraft vira Lunárea no poço, às vezes.",
     "scope": "tail"
   },
   {
@@ -4610,11 +3470,6 @@
     "scope": "tail"
   },
   {
-    "en": "When activated, increases your Dodge and Parry chance by $s1% for $d.",
-    "pt": "Esquiva e Aparo +$s1% por $d s.",
-    "scope": "other"
-  },
-  {
     "en": "Reduces an enemy's casting speed by $s1% and increases the time between its attacks by $s2% for $d.",
     "pt": "Lançamento -$s1% e +$s2% intervalo por $d s.",
     "scope": "tail"
@@ -4662,11 +3517,6 @@
   {
     "en": "Draw a sample of water from the pool of water at the top of Dreadmist Peak.",
     "pt": "Tira água do pico.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows an experienced leatherworker to turn Deeprock Salt into Refined Deeprock Salt. Use of the device exposes the user to sub-core micro radiation and should not be used more than once every few days.",
-    "pt": "Coureiro vira sal refinado. Radiação: 1x a cada dias.",
     "scope": "tail"
   },
   {
@@ -4768,11 +3618,6 @@
     "en": "Combine with the Half Pendant of Aquatic Endurance to form the Pendant of the Sea Lion.",
     "pt": "Junta meio pingente no do Leão.",
     "scope": "tail"
-  },
-  {
-    "en": "Compels an undead enemy to flee for up to $d. Only one target can be turned at a time.",
-    "pt": "Morto-vivo foge até $d s. Um por vez.",
-    "scope": "other"
   },
   {
     "en": "Increases the resistance of nearby group members to all schools of magic by $s1 for $d.",
@@ -4970,11 +3815,6 @@
     "scope": "tail"
   },
   {
-    "en": "Inflicts weapon damage plus $s1 to an enemy and its nearest allies, affecting up to $x1 targets and knocking them back.",
-    "pt": "Arma +$s1 no inimigo e vizinhos (até $x1), arremessa.",
-    "scope": "other"
-  },
-  {
     "en": "Takes control of a humanoid enemy up to level $s1 for $d, increases the magical damage it deals by $s2, and increases the Physical damage it deals by $s3.",
     "pt": "Controla humanoide até nv $s1 por $d s, +$s2 mágico e +$s3 Físico.",
     "scope": "tail"
@@ -4993,11 +3833,6 @@
     "en": "Shoots a flaming arrow at an enemy, inflicting weapon damage plus $s1. All damage inflicted is based upon Fire magic.",
     "pt": "Flecha: arma +$s1 de Fogo.",
     "scope": "tail"
-  },
-  {
-    "en": "Inflicts normal damage to an enemy and its nearest allies, affecting up to $x1 targets.",
-    "pt": "Normal no inimigo e vizinhos (até $x1).",
-    "scope": "other"
   },
   {
     "en": "When the victim of a critical hit in combat, $s1% chance to be sheathed in a magical shield absorbing the next $20706s1 damage.",
@@ -5300,11 +4135,6 @@
     "scope": "tail"
   },
   {
-    "en": "Allows an experienced engineer to turn water into a snowball. The Snowmaster requires a day to build up enough chill to freeze another snowball.",
-    "pt": "Água vira bola. 1 dia por bola.",
-    "scope": "tail"
-  },
-  {
     "en": "+$s1 Attack Power against Giants.",
     "pt": "Gigantes +$s1 poder.",
     "scope": "tail"
@@ -5600,11 +4430,6 @@
     "scope": "tail"
   },
   {
-    "en": "Attaches a permanent scope to a bow or gun that increases its chance to hit by 3%.",
-    "pt": "Mira: +3% acerto.",
-    "scope": "tail"
-  },
-  {
     "en": "You are the king of the Gordok ogres! It's good to be the king...",
     "pt": "Rei dos ogros! Bom ser rei...",
     "scope": "tail"
@@ -5720,11 +4545,6 @@
     "scope": "tail"
   },
   {
-    "en": "Creates a Battle Chicken that will fight for you for $13166d or until it is destroyed.",
-    "pt": "Galinha luta por $d s.",
-    "scope": "tail"
-  },
-  {
     "en": "Throw the ball to a friendly player. If they have free room in their pack they will catch it!",
     "pt": "Joga bola no amigo. Pega se tiver bolso!",
     "scope": "tail"
@@ -5835,11 +4655,6 @@
     "scope": "tail"
   },
   {
-    "en": "Rips the dimensional walls asunder and transports you to Everlook in Winterspring. There are technical problems that sometimes occur, but that's what Goblin Engineering is all about!",
-    "pt": "Rasga o espaço pra Hibérnia. Falha às vezes, é goblin!",
-    "scope": "tail"
-  },
-  {
     "en": "Safely transport yourself to Gadgetzan in Tanaris! Emphasis on Safe! Yup, nothing bad could ever happen while using this device!",
     "pt": "Seguro pra Gadgetzan! Seguro! Nada dá errado!",
     "scope": "tail"
@@ -5872,21 +4687,6 @@
   {
     "en": "Place a Battle Standard with $s1 health that increases the damage of all party members that stay within $23574a1 yards of the Battle Standard by $23574s1%. Lasts $d. May only be used in Alterac Valley.",
     "pt": "Estandarte $s1: dano +$s2% a $a1 m. $d s. Só Alterac.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $25695o1 health and $25696o2 mana over $25695d. Must remain seated while eating. Usable only inside Warsong Gulch.",
-    "pt": "$s1 de vida e $s2 de mana em $d s sentado. Só Garganta.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $26474o1 health and $26475o2 mana over $26474d. Must remain seated while eating. Usable only inside Warsong Gulch.",
-    "pt": "$s1 de vida e $s2 de mana em $d s sentado. Só Garganta.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $26472o1 health and $26473o2 mana over $26472d. Must remain seated while eating. Usable only inside Warsong Gulch.",
-    "pt": "$s1 de vida e $s2 de mana em $d s sentado. Só Garganta.",
     "scope": "tail"
   },
   {
@@ -6002,11 +4802,6 @@
   {
     "en": "Increases your target's armor by $s1, and heals $23781s1 damage every time the targets takes ranged or melee damage and expends a charge. Lasts 5 charges or $d.",
     "pt": "Armadura +$s1 e cura $s2 ao apanhar. 5 cargas ou $d s.",
-    "scope": "tail"
-  },
-  {
-    "en": "Target is cured of poisons up to level 60.",
-    "pt": "Veneno até nv 60 some.",
     "scope": "tail"
   },
   {
@@ -6130,11 +4925,6 @@
     "scope": "tail"
   },
   {
-    "en": "Replaces the fishing line on your fishing pole with a high test eternium line.",
-    "pt": "Linha de etérnio na vara.",
-    "scope": "tail"
-  },
-  {
     "en": "Load with 5 Zulian Mudskunks, and then cast from Pagle's Point in Zul'Gurub.",
     "pt": "5 lambaris e lança do Ponto.",
     "scope": "tail"
@@ -6182,21 +4972,6 @@
   {
     "en": "Your Frostbolt spells have a $s1% chance to restore $s2 mana when cast.",
     "pt": "Setavolt: $s1% de +$s2 mana.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $26472o1 health and $26473o2 mana over $26472d. Must remain seated while eating. Usable only inside Arathi Basin.",
-    "pt": "$s1 de vida e $s2 de mana em $d s sentado. Só Bacia.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $26474o1 health and $26475o2 mana over $26474d. Must remain seated while eating. Usable only inside Arathi Basin.",
-    "pt": "$s1 de vida e $s2 de mana em $d s sentado. Só Bacia.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $25695o1 health and $25696o2 mana over $25695d. Must remain seated while eating. Usable only inside Arathi Basin.",
-    "pt": "$s1 de vida e $s2 de mana em $d s sentado. Só Bacia.",
     "scope": "tail"
   },
   {
@@ -6285,11 +5060,6 @@
     "scope": "tail"
   },
   {
-    "en": "Increases the critical hit chance of your Arcane spells by $s1%, and increases the critical hit damage of your Arcane spells by $s2% for $d.",
-    "pt": "Crítico Arcano +$s1% e dano +$s2% por $d s.",
-    "scope": "other"
-  },
-  {
     "en": "Reduces the casting time of your Greater Heal spells by $s1%, and reduces the mana cost of your healing spells by $s2% for $d.",
     "pt": "Cura Maior -$s1% tempo e cura -$s2% custo por $d s.",
     "scope": "tail"
@@ -6363,11 +5133,6 @@
     "en": "Increases your critical strike chance with spells and melee attacks by $s1%. Lasts $d.",
     "pt": "Crítico +$s1% por $d s.",
     "scope": "tail"
-  },
-  {
-    "en": "Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Bear, Dire Bear and Cat Form by $24864s1%.",
-    "pt": "Gato ao ar livre +$s1% velocidade; Urso/Gato +$s2% esquiva.",
-    "scope": "other"
   },
   {
     "en": "Combine with 1 Rugged Leather and 1 Firebloom to create a Crest of Beckoning: Fire.",
@@ -6585,16 +5350,6 @@
     "scope": "tail"
   },
   {
-    "en": "Restores $25702o1 health and $25703o1 mana over $25702d. Must remain seated while eating. If you spend at least 10 seconds eating you will become well fed and gain $25694s1 Mana every 5 seconds for $25694d.",
-    "pt": "$s1 de vida e $s2 de mana em $d1 s sentado. 10 s+ comendo: +$s3 mana/5 s por $d2 s.",
-    "scope": "tail"
-  },
-  {
-    "en": "Restores $25888o1 health and $25889o1 mana over $25888d. Must remain seated while eating. If you spend at least 10 seconds eating you will become well fed and gain $25941s1 Mana every 5 seconds for $25941d.",
-    "pt": "$s1 de vida e $s2 de mana em $d1 s sentado. 10 s+ comendo: +$s3 mana/5 s por $d2 s.",
-    "scope": "tail"
-  },
-  {
     "en": "Sacrifices the caster's life in order to inflict Fire damage to nearby enemies.",
     "pt": "Morre pra explodir Fogo.",
     "scope": "tail"
@@ -6672,11 +5427,6 @@
   {
     "en": "Permantly enchant boots to increase speed by $13889s1%.",
     "pt": "Bota: +$s1% velocidade.",
-    "scope": "tail"
-  },
-  {
-    "en": "Permanently enchant a cloak to give +$13839s1 Herbalism",
-    "pt": "Manto: +$s1 Herborismo.",
     "scope": "tail"
   },
   {
@@ -6892,11 +5642,6 @@
   {
     "en": "Permanently enchant gloves to increase threat from all attacks and spells by $25063s1%.",
     "pt": "Luvas: +$s1% ameaça.",
-    "scope": "tail"
-  },
-  {
-    "en": "Permanently enchant gloves to grant +$13697s1 skinning skill.",
-    "pt": "Luvas: +$s1 esfolar.",
     "scope": "tail"
   },
   {
@@ -7415,11 +6160,6 @@
     "scope": "tail"
   },
   {
-    "en": "Restores $25888o1 health and $25889o1 mana over $25888d. Must remain seated while eating. If you spend at least 10 seconds eating you will become refreshed and gain $25941s1 Mana every 5 seconds for $25941d.",
-    "pt": "$s1 de vida e $s2 de mana em $d1 s sentado. 10 s+ comendo: +$s3 mana/5 s por $d2 s.",
-    "scope": "tail"
-  },
-  {
     "en": "Improves your chance to get a critical strike with spells against undead by $s1%.",
     "pt": "Magia vs morto-vivo +$s1% crítico.",
     "scope": "tail"
@@ -7590,11 +6330,6 @@
     "scope": "tail"
   },
   {
-    "en": "Permanently enchant gloves to grant $13615s1 fishing skill.",
-    "pt": "Luvas: +$s1 pesca.",
-    "scope": "tail"
-  },
-  {
     "en": "Allows a jewelcrafter to make basic rings and trinkets up to a maximum potential skill of 75.",
     "pt": "Joalheiro básico até 75.",
     "scope": "tail"
@@ -7677,11 +6412,6 @@
   {
     "en": "A mount that embodies the perfect balance between darkness and beauty.",
     "pt": "Treva e beleza em equilíbrio.",
-    "scope": "tail"
-  },
-  {
-    "en": "A sacred vessel filled with the essence of a moonwell, allowing tailors to craft Mooncloth anywhere under Elune’s blessing.",
-    "pt": "Cálice lunar pra costurar em tudo.",
     "scope": "tail"
   },
   {
@@ -7772,11 +6502,6 @@
   {
     "en": "While active, your Travel Form will take the appearance of a White Stag.",
     "pt": "Viagem vira cervo branco.",
-    "scope": "tail"
-  },
-  {
-    "en": "Unpack the Blazing Forge Kit, because a dedicated blacksmith never lets the impossibility of carrying a forge and anvil slow them down. This fiery setup lasts five minutes, just long enough to craft your masterpiece.",
-    "pt": "Forja portátil 5 min. Obra-prima!",
     "scope": "tail"
   },
   {
@@ -8210,11 +6935,6 @@
     "scope": "tail"
   },
   {
-    "en": "Coats a weapon with poison that lasts for 5 minutes. Each strike has a $h% chance of poisoning the enemy for $14795o1 Nature damage over $14795d. Stacks up to 5 times on a single target. 15 charges.",
-    "pt": "Veneno 5 min: $h% de $s1 de Natureza em $d s. 5x. 15 cargas.",
-    "scope": "tail"
-  },
-  {
     "en": "Teleports you back to Thunder Bluff.",
     "pt": "Volta pra Penhasco.",
     "scope": "tail"
@@ -8252,11 +6972,6 @@
   {
     "en": "Transform into a bloodthirsty worgen, increasing shadow resistance by $s2 and melee attack power by $s3 for $d.",
     "pt": "Vira worgen: +$s1 vs Sombra e +$s2 poder por $d s.",
-    "scope": "tail"
-  },
-  {
-    "en": "Allows the miner to smelt a dreamsteel bar. Smelting dreamsteel requires a forge.",
-    "pt": "Funde barra sonhosa. Precisa forja.",
     "scope": "tail"
   },
   {
@@ -8318,11 +7033,6 @@
     "en": "Reduces the Mana cost of your Shadow spells by 15% and allows 15% of your Mana regeneration to continue while casting while in Shadowform.",
     "pt": "Sombra: -15% mana e +15% regen lançando.",
     "scope": "tail"
-  },
-  {
-    "en": "Proclaims a friendly target as your Champion for $45568d, increasing armor by $45568s2 and all resistances by $45568s3. Allows the use of various Champion spells on that target. In addition, you gain Mana equal to $45568s1% of the damage taken by your Champion. Only one Champion can be proclaimed at a time.",
-    "pt": "Campeão $d s: +$s1 armadura e +$s2 tudo. Mana de $s3% do dano nele. Um por vez.",
-    "scope": "other"
   },
   {
     "en": "Bestow the target Champion with grace, increasing all healing done by the priest by $s2%. Lasts $d.",
@@ -8653,26 +7363,6 @@
     "en": "Infuses the target with Holy energy, increasing their melee and ranged attack speed and casting speed by $s1% for $d.",
     "pt": "Sagrado: +$s1% velocidade por $d s.",
     "scope": "tail"
-  },
-  {
-    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 75.",
-    "pt": "Sobrevivente básico até 75.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 150.",
-    "pt": "Sobrevivente médio até 150.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 225.",
-    "pt": "Sobrevivente perito até 225.",
-    "scope": "other"
-  },
-  {
-    "en": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 300.",
-    "pt": "Sobrevivente artesão até 300.",
-    "scope": "other"
   },
   {
     "en": "Cleans a weapon, removing any temporary enhancement that has been applied to it.",
@@ -9685,11 +8375,6 @@
     "scope": "tail"
   },
   {
-    "en": "Creates a mobile bomb that charges the nearest enemy and explodes for $51243s1 fire damage.",
-    "pt": "Bomba que investe e explode $s1 de Fogo.",
-    "scope": "tail"
-  },
-  {
     "en": "5% chance on landing a direct damaging spell to create a mobile bomb that charges the nearest enemy and explodes for $51243s1 Fire damage.",
     "pt": "Bomba: 5% em magia e explode $s1 de Fogo.",
     "scope": "tail"
@@ -9743,11 +8428,6 @@
     "en": "When Repentance is resisted or the target is immune, the target repents for their sins, taking $51361s1 holy damage every time they attack or cast a harmful spell for $51360d.",
     "pt": "Resistido/imune: arrepende-se $s1 Sagrado por ataque/magia por $d s.",
     "scope": "tail"
-  },
-  {
-    "en": "Links the spirit of an ally to that of other group members within 15 yards. When the target takes damage, $s1% is distributed among nearby allies. Lasts $d.",
-    "pt": "Elo: $s1% do dano divide no grupo a 15 m. $d s.",
-    "scope": "other"
   },
   {
     "en": "Increases your Nature damage dealt by $s2% and the critical strike damage bonus of your offensive spells by $s1%. Lasts $d. Stacks up to $u times.",
@@ -10185,11 +8865,6 @@
     "scope": "tail"
   },
   {
-    "en": "Creates a cloud of thick smoke in $51967a1 yds around you for $51967d. All targets inside the smoke have a $51967s1% reduced chance of being hit by attacks and spells for the duration.",
-    "pt": "Fumaça $a1 m por $d s: -$s1% acerto dentro.",
-    "scope": "other"
-  },
-  {
     "en": "Teleports the caster to the Caverns of Time.",
     "pt": "Teleporta pra Caverna.",
     "scope": "tail"
@@ -10393,11 +9068,6 @@
     "en": "Your Consecration heals party members for $52428o1 over $52428d. and grants them $52428s2 Strength while inside it.",
     "pt": "Consagrar: cura $s1 em $d s e +$s2 For.",
     "scope": "tail"
-  },
-  {
-    "en": "All damage caused against Humanoid and Undead targets is increased by $s1%. Does not affect player targets.",
-    "pt": "Humanoide/Morto-vivo +$s1%. Sem jogador.",
-    "scope": "other"
   },
   {
     "en": "Generates $/10;o1 rage over $d. The warrior is considered in combat for the duration.",
@@ -11042,11 +9712,6 @@
   {
     "en": "A common sight in tranquil ponds and marshes, this unassuming frog is a reminder of the simple joys found in nature's embrace.",
     "pt": "Sapo simples da lagoa.",
-    "scope": "tail"
-  },
-  {
-    "en": "The combining of dream fragments can only be done at a moonwell, and only ocassionally will the waters permit themselves to be used in such a way.",
-    "pt": "Sonho só no poço, às vezes.",
     "scope": "tail"
   },
   {

@@ -41,7 +41,13 @@ def parse(path, lay):
 
 def main():
     snap = parse(str(TEMP / "Spell.dbc"), {"id": 0, "name": 112, "rank": 121, "desc": 130, "nf": 162})
-    p7 = parse(str(TEMP / "Spell_patch-7_mpq.dbc"), {"id": 0, "name": 120, "rank": 129, "desc": 138, "nf": 173})
+    # Final e o ultimo patch com Spell.dbc (patch-9 para varredura completa)
+    final_path = TEMP / "Spell_patch-9.dbc"
+    if not final_path.exists():
+        final_path = TEMP / "Spell_patch-7.dbc"
+        if not final_path.exists():
+            final_path = TEMP / "Spell_patch-7_mpq.dbc"
+    p7 = parse(str(final_path), {"id": 0, "name": 120, "rank": 129, "desc": 138, "nf": 173})
     auth = json.loads((ADDON_DIR / "tools" / "spell_pt_authoral.json").read_text(encoding="utf-8"))
     loc = (ADDON_DIR / "Data" / "Locales" / "ptBR" / "Spells.lua").read_text(encoding="utf-8")
     known = set(re.findall(r'\["([^"]+)"\]', loc))

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 19592,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bestial Discipline Rank 2",
+    "en": "Increases the Focus regeneration of your pets by 5 each tick and reduces the cooldown of your pets' special ability by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20049,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vengeance Rank 1",
+    "en": "Gives you a $20050s1% bonus to all damage you deal and decreases threat you generate by $20050s2% for $20050d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times. Threat reduction does not apply if the Paladin is under the effect of Righteous Fury.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20056,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vengeance Rank 2",
+    "en": "Gives you a $20052s1% bonus to all damage you deal and decreases threat you generate by $20052s2% for $20052d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times. Threat reduction does not apply if the Paladin is under the effect of Righteous Fury.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20057,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vengeance Rank 3",
+    "en": "Gives you a $20053s1% bonus to all damage you deal and decreases threat you generate by $20053s2% for $20053d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times. Threat reduction does not apply if the Paladin is under the effect of Righteous Fury.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20058,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vengeance Rank 4",
+    "en": "Gives you a $20054s1% bonus to all damage you deal and decreases threat you generate by $20054s2% for $20054d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times. Threat reduction does not apply if the Paladin is under the effect of Righteous Fury.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20059,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vengeance Rank 5",
+    "en": "Gives you a $20055s1% bonus to all damage you deal and decreases threat you generate by $20055s2% for $20055d after dealing a critical strike from a weapon swing, spell, or ability. This effect stacks up to 3 times. Threat reduction does not apply if the Paladin is under the effect of Righteous Fury.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20106,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Hand of Freedom Rank 1",
+    "en": "Increases the duration of your Hand of Freedom by $/1000;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20107,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Hand of Freedom Rank 2",
+    "en": "Increases the duration of your Hand of Freedom by $/1000;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20108,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Hand of Freedom Rank 3",
+    "en": "Increases the duration of your Hand of Freedom by $/1000;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20109,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Hand of Freedom Rank 4",
+    "en": "Increases the duration of your Hand of Freedom by $/1000;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20110,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Hand of Freedom Rank 5",
+    "en": "Increases the duration of your Hand of Freedom by $/1000;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20116,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Consecration Rank 2",
+    "en": "Consecrates the land beneath the Paladin, inflicting $o1 Holy damage over $d to enemies within the area. The consecrated power wanes, dealing reduced damage as time passes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20204,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blessing of Sanctuary Rank 1",
+    "en": "Places a Blessing on the friendly target, reducing damage taken from all sources by up to $s1 for $d.  In addition, when the target blocks a melee attack, the attacker takes $s2 Holy damage.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20473,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Shock Rank 1",
+    "en": "Blasts the target with Holy energy, causing $25912s1 Holy damage to an enemy, or $25914s1 healing to an ally. Casting Holy Shock has a chance to have no cooldown for its next cast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20500,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Berserker Rage Rank 1",
+    "en": "Using Berserker Rage generates $/10;23690s1 Rage and grants a $s2% chance to break free from movement impairing effects when activated.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20501,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Berserker Rage Rank 2",
+    "en": "Using Berserker Rage generates $/10;23691s1 Rage and grants a $s2% chance to break free from movement impairing effects when activated.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20504,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Battlefield Mobility Rank 1",
+    "en": "Reduces the cooldown of your Intercept and Intervene abilities by $/1000;s1 sec, and your Charge ability by $/1000;s2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20505,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Battlefield Mobility Rank 2",
+    "en": "Reduces the cooldown of your Intercept and Intervene abilities by $/1000;s1 sec, and your Charge ability by $/1000;s2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20711,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Spirit of Redemption",
+    "en": "Increases total Spirit by $s2%. Upon death, the priest becomes the Spirit of Redemption for $27827d. While in this form, the priest cannot move, attack, be attacked, or be targeted by spells or effects, but can cast healing spells at no cost. When the effect ends, the priest dies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20882,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Enslave Demon",
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding for up to $d. While enslaved, the demon's attack speed is reduced by $s2%, casting speed is reduced by $s3%, and healing received is reduced by $58184s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20905,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Trueshot Aura Rank 2",
+    "en": "Increases the attack power of party members within $a1 yards by $s1%, plus an additional $s2. The aura lasts until canceled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20906,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Trueshot Aura Rank 3",
+    "en": "Increases the attack power of party members within $a1 yards by $s1%, plus an additional $s2. The aura lasts until canceled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20911,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blessing of Sanctuary Rank 1",
+    "en": "Places a Blessing on the friendly target, reducing damage taken from all sources by up to $s1 for $d.  In addition, when the target blocks a melee attack, the attacker takes $s2 Holy damage.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20912,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blessing of Sanctuary Rank 2",
+    "en": "Places a Blessing on the friendly target, reducing damage taken from all sources by up to $s1 for $d.  In addition, when the target blocks a melee attack, the attacker takes $s2 Holy damage.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20913,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blessing of Sanctuary Rank 3",
+    "en": "Places a Blessing on the friendly target, reducing damage taken from all sources by up to $s1 for $d.  In addition, when the target blocks a melee attack, the attacker takes $s2 Holy damage.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20914,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blessing of Sanctuary Rank 4",
+    "en": "Places a Blessing on the friendly target, reducing damage taken from all sources by up to $s1 for $d.  In addition, when the target blocks a melee attack, the attacker takes $s2 Holy damage.  Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20922,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Consecration Rank 3",
+    "en": "Consecrates the land beneath the Paladin, inflicting $o1 Holy damage over $d to enemies within the area. The consecrated power wanes, dealing reduced damage as time passes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20923,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Consecration Rank 4",
+    "en": "Consecrates the land beneath the Paladin, inflicting $o1 Holy damage over $d to enemies within the area. The consecrated power wanes, dealing reduced damage as time passes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20924,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Consecration Rank 5",
+    "en": "Consecrates the land beneath the Paladin, inflicting $o1 Holy damage over $d to enemies within the area. The consecrated power wanes, dealing reduced damage as time passes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20925,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Shield Rank 1",
+    "en": "Increases chance to block by $s1% for $d. While active, each blocked attack deals $s2 Holy damage to the attacker.  Damage caused by Holy Shield generates 50% additional threat.  Each block expends a charge.  $n charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20927,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Shield Rank 2",
+    "en": "Increases chance to block by $s1% for $d. While active, each blocked attack deals $s2 Holy damage to the attacker.  Damage caused by Holy Shield generates 50% additional threat.  Each block expends a charge.  $n charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20928,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Shield Rank 3",
+    "en": "Increases chance to block by $s1% for $d. While active, each blocked attack deals $s2 Holy damage to the attacker.  Damage caused by Holy Shield generates 50% additional threat.  Each block expends a charge.  $n charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20929,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Shock Rank 2",
+    "en": "Blasts the target with Holy energy, causing $25911s1 Holy damage to an enemy, or $25913s1 healing to an ally. Casting Holy Shock has a chance to have no cooldown for its next cast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20930,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Shock Rank 3",
+    "en": "Blasts the target with Holy energy, causing $25902s1 Holy damage to an enemy, or $25903s1 healing to an ally. Casting Holy Shock has a chance to have no cooldown for its next cast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22557,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ferocious Bite Rank 1",
+    "en": "Finishing move that causes damage per combo point and converts each additional point of Energy into $f1% extra damage. Damage is increased by your Attack Power.\n   1 point  : 35-51 damage\n   2 points: 66-82 damage\n   3 points: 97-113 damage\n   4 points: 128-144 damage\n   5 points: 159-175 damage\n",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22568,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ferocious Bite Rank 2",
+    "en": "Finishing move that causes damage per combo point and converts each additional point of Energy into $f1% extra damage. Damage is increased by your Attack Power.\n   1 point  : 50-66 damage\n   2 points: 86-102 damage\n   3 points: 122-138 damage\n   4 points: 158-174 damage\n   5 points: 194-210 damage\n",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22812,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barkskin",
+    "en": "The Druid's skin becomes as tough as bark, reducing Physical damage taken by $22839s2%. While protected, damaging attacks do not cause spellcasting delays, but non-instant spells take $/1000;s3 sec longer to cast and melee combat is slowed by $22839s1%. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22827,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ferocious Bite Rank 3",
+    "en": "Finishing move that causes damage per combo point and converts each additional point of Energy into $f1% extra damage. Damage is increased by your Attack Power.\n   1 point  : 79-103 damage\n   2 points: 138-162 damage\n   3 points: 197-221 damage\n   4 points: 256-280 damage\n   5 points: 315-339 damage",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22828,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ferocious Bite Rank 4",
+    "en": "Finishing move that causes damage per combo point and converts each additional point of Energy into $f1% extra damage. Damage is increased by your Attack Power.\n   1 point  : 122-162 damage\n   2 points: 214-254 damage\n   3 points: 306-346 damage\n   4 points: 398-438 damage\n   5 points: 490-530 damage",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22829,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ferocious Bite Rank 5",
+    "en": "Finishing move that causes damage per combo point and converts each additional point of Energy into $f1% extra damage. Damage is increased by your Attack Power.\n   1 point  : 173-223 damage\n   2 points: 301-351 damage\n   3 points: 429-479 damage\n   4 points: 557-607 damage\n   5 points: 685-735 damage",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22960,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 1",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22961,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 2",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22962,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 3",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22963,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 4",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22964,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 5",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23785,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Grants both the Warlock and the summoned demon an effect as long as that demon is active.\n\nImp - Reduces spell costs by $23759s1%.\n\nVoidwalker - Reduces physical damage taken by $23760s1%.\n\nSuccubus - Increases all damage done by $23761s1%.\n\nFelhunter - Increases all resistances by $23762s1.\n\nGreater Demons - Increases spell critical strike chance by $51725s1%.\n",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23822,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Grants both the Warlock and the summoned demon an effect as long as that demon is active.\n\nImp - Reduces spell costs by $23826s1%.\n\nVoidwalker - Reduces physical damage taken by $23841s1%.\n\nSuccubus - Increases all damage done by $23833s1%.\n\nFelhunter - Increases all resistances by $23837s1.\n\nGreater Demons - Increases spell critical strike chance by $51726s1%.\n",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23823,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Grants both the Warlock and the summoned demon an effect as long as that demon is active.\n\nImp - Reduces spell costs by $23827s1%.\n\nVoidwalker - Reduces physical damage taken by $23842s1%.\n\nSuccubus - Increases all damage done by $23834s1%.\n\nFelhunter - Increases all resistances by $23838s1.\n\nGreater Demons - Increases spell critical strike chance by $51727s1%.\n",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23824,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Grants both the Warlock and the summoned demon an effect as long as that demon is active.\n\nImp - Reduces spell costs by $23828s1%.\n\nVoidwalker - Reduces physical damage taken by $23843s1%.\n\nSuccubus - Increases all damage done by $23835s1%.\n\nFelhunter - Increases all resistances by $23839s1.\n\nGreater Demons - Increases spell critical strike chance by $51728s1%.\n",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23825,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Grants both the Warlock and the summoned demon an effect as long as that demon is active.\n\nImp - Reduces spell costs by $23829s1%.\n\nVoidwalker - Reduces physical damage taken by $23844s1%.\n\nSuccubus - Increases all damage done by $23836s1%.\n\nFelhunter - Increases all resistances by $23840s1.\n\nGreater Demons - Increases spell critical strike chance by $51729s1%.\n",
+    "curr_pt": ""
+  }
+]

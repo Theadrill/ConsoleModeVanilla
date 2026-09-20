@@ -5,7 +5,7 @@
     "n": "War Stomp",
     "r": "",
     "d": "Knocks nearby enemies back.",
-    "pt": "Arremessa os inimigos próximos."
+    "pt": "Arremessa os inimigos próximos para trás."
   },
   {
     "id": 56,
@@ -30,14 +30,6 @@
     "r": "",
     "d": "Increases the damage of your next melee swing by $s1 and causes the target to bleed",
     "pt": "Próximo corpo a corpo +$s1 e sangra."
-  },
-  {
-    "id": 179,
-    "kind": "modified",
-    "n": "Resist Fire",
-    "r": "Rank 1",
-    "d": "Places a protective shield on the friendly target, increasing fire resistance by $m1.",
-    "pt": "Escudo: +$s1 vs Fogo no aliado."
   },
   {
     "id": 344,
@@ -101,7 +93,7 @@
     "n": "Remove Lesser Curse",
     "r": "",
     "d": "Removes $m1 Curse from a friendly target.",
-    "pt": "Remove $m1 Maldição do aliado."
+    "pt": "Remove $s1 maldição do alvo aliado."
   },
   {
     "id": 529,
@@ -110,6 +102,14 @@
     "r": "Rank 2",
     "d": "Casts a bolt of lightning at the target for $s1 Nature damage.",
     "pt": "Dispara um raio no alvo, causando $s1 de dano de Natureza."
+  },
+  {
+    "id": 543,
+    "kind": "modified",
+    "n": "Fire Ward",
+    "r": "Rank 1",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Fogo. Dura $d s."
   },
   {
     "id": 548,
@@ -160,14 +160,6 @@
     "pt": "Pune o inimigo, causando $s1 de dano Sagrado."
   },
   {
-    "id": 590,
-    "kind": "modified",
-    "n": "Holy Word: Might",
-    "r": "Rank 1",
-    "d": "Holy might infuses the target increasing their strength by $s1 for $d.",
-    "pt": "Poder sagrado: +For $s1 por $d s."
-  },
-  {
     "id": 591,
     "kind": "modified",
     "n": "Smite",
@@ -182,14 +174,6 @@
     "r": "Rank 3",
     "d": "Smite an enemy for $s1 Holy damage.",
     "pt": "Pune o inimigo, causando $s1 de dano Sagrado."
-  },
-  {
-    "id": 599,
-    "kind": "modified",
-    "n": "Holy Word: Might",
-    "r": "Rank 2",
-    "d": "Holy might infuses the target increasing their strength by $s1 for $d.",
-    "pt": "Poder sagrado: +For $s1 por $d s."
   },
   {
     "id": 682,
@@ -208,6 +192,14 @@
     "pt": "Ensina a você o feitiço Imolação (Grau 1)."
   },
   {
+    "id": 722,
+    "kind": "modified",
+    "n": "Demon Armor",
+    "r": "Rank 2",
+    "d": "Teaches Demon Armor (Rank 2).",
+    "pt": "Ensina Armadura Demoníaca (Grau 2)."
+  },
+  {
     "id": 729,
     "kind": "modified",
     "n": "Curse of Weakness",
@@ -216,12 +208,12 @@
     "pt": "Ensina Maldição da Fraqueza (Grau 1)."
   },
   {
-    "id": 765,
+    "id": 733,
     "kind": "modified",
-    "n": "Water Elemental",
-    "r": "Rank 1",
-    "d": "Summon a Water Elemental to fight for the caster for $d.",
-    "pt": "Invoca um Elemental da Água para lutar por $d s."
+    "n": "Demon Armor",
+    "r": "Rank 3",
+    "d": "Teaches Demon Armor (Rank 3).",
+    "pt": "Ensina Armadura Demoníaca (Grau 3)."
   },
   {
     "id": 767,
@@ -296,14 +288,6 @@
     "pt": "Ensina Raio (Grau 4)."
   },
   {
-    "id": 934,
-    "kind": "modified",
-    "n": "Spirit Armor",
-    "r": "Rank 4",
-    "d": "Calls upon the spirits to defend the Shaman's target, increasing armor by $s1 for $d.",
-    "pt": "Espírito defende o alvo com +$s1 armadura por $d s."
-  },
-  {
     "id": 943,
     "kind": "modified",
     "n": "Lightning Bolt",
@@ -317,7 +301,7 @@
     "n": "Thunder Clap",
     "r": "Rank 2",
     "d": "Stuns all enemies near the caster for $d.",
-    "pt": "Atordoa todos próximos por $d s."
+    "pt": "Atordoa todos os inimigos próximos ao lançador por $d s."
   },
   {
     "id": 978,
@@ -352,12 +336,12 @@
     "pt": "Esmurra um inimigo."
   },
   {
-    "id": 1134,
+    "id": 1087,
     "kind": "modified",
-    "n": "Inner Rage",
-    "r": "Rank 1",
-    "d": "Warrior focuses on releasing $ghis:her; inner rage, gaining 30 rage.",
-    "pt": "Fúria interior: +30 de fúria."
+    "n": "Demon Armor",
+    "r": "Rank 4",
+    "d": "Teaches Demon Armor (Rank 4).",
+    "pt": "Ensina Armadura Demoníaca (Grau 4)."
   },
   {
     "id": 1139,
@@ -398,14 +382,6 @@
     "r": "Rank 3",
     "d": "Converts $s1 health into $s1 mana.",
     "pt": "Converte $s1 de vida em $s1 de mana."
-  },
-  {
-    "id": 1457,
-    "kind": "modified",
-    "n": "Burning Spirit",
-    "r": "Rank 4",
-    "d": "Infuses the caster with a burning spirit, increasing mana regeneration but causing damage to the warlock for $d.",
-    "pt": "Espírito ardente: +regen e dano por $d s."
   },
   {
     "id": 1459,
@@ -461,7 +437,7 @@
     "n": "Enrage",
     "r": "Rank 1",
     "d": "Increases Rage by $s2 instead of a normal attack.",
-    "pt": "Fúria +$s1 em vez de atacar."
+    "pt": "Aumenta a raiva em $s2 em vez de um ataque normal."
   },
   {
     "id": 1645,
@@ -469,7 +445,7 @@
     "n": "Spell - Reuse 1645",
     "r": "Rank 2",
     "d": "Decreases the target's attack speed by $s1% for $d.",
-    "pt": "Velocidade -$s1% por $d s."
+    "pt": "Reduz a velocidade de ataque do alvo em $s1% por $d s."
   },
   {
     "id": 1648,
@@ -477,7 +453,7 @@
     "n": "Spell - Reuse 1648",
     "r": "Rank 3",
     "d": "Decreases the target's attack speed by $s1% for $d.",
-    "pt": "Velocidade -$s1% por $d s."
+    "pt": "Reduz a velocidade de ataque do alvo em $s1% por $d s."
   },
   {
     "id": 1805,
@@ -542,62 +518,6 @@
     "r": "",
     "d": "Inflicts $s1 Fire damage in a 3 yard radius.",
     "pt": "$s1 de Fogo num raio de 3 m."
-  },
-  {
-    "id": 1941,
-    "kind": "modified",
-    "n": "Mana Funnel",
-    "r": "Rank 1",
-    "d": "Gives $s1 Mana to your demon every second for $d while channeling.",
-    "pt": "Dá $s1 de Mana ao demônio por segundo por $d s canalizando."
-  },
-  {
-    "id": 1945,
-    "kind": "modified",
-    "n": "Ethereal Form",
-    "r": "Rank 1",
-    "d": "Makes the caster immune to physical damage, but unable to melee or use physical abilities for $d.",
-    "pt": "Imune a físico por $d s, sem atacar."
-  },
-  {
-    "id": 1955,
-    "kind": "modified",
-    "n": "Fire",
-    "r": "",
-    "d": "Fire a gun at the target for an additional $s1 damage.",
-    "pt": "Atira com arma de fogo no alvo por $s1 de dano extra."
-  },
-  {
-    "id": 1956,
-    "kind": "modified",
-    "n": "Fire II",
-    "r": "",
-    "d": "Fire a gun at the target for an additional $s1 damage.",
-    "pt": "Atira com arma de fogo no alvo por $s1 de dano extra."
-  },
-  {
-    "id": 1957,
-    "kind": "modified",
-    "n": "Fire III",
-    "r": "",
-    "d": "Fire a gun at the target for an additional $s1 damage.",
-    "pt": "Atira com arma de fogo no alvo por $s1 de dano extra."
-  },
-  {
-    "id": 1958,
-    "kind": "modified",
-    "n": "Fire IV",
-    "r": "",
-    "d": "Fire a gun at the target for an additional $s1 damage.",
-    "pt": "Atira com arma de fogo no alvo por $s1 de dano extra."
-  },
-  {
-    "id": 1959,
-    "kind": "modified",
-    "n": "Fire V",
-    "r": "",
-    "d": "Fire a gun at the target for an additional $s1 damage.",
-    "pt": "Atira com arma de fogo no alvo por $s1 de dano extra."
   },
   {
     "id": 1968,
@@ -1157,31 +1077,7 @@
     "n": "Battle Stance",
     "r": "",
     "d": "A balanced combat stance.",
-    "pt": "Postura equilibrada."
-  },
-  {
-    "id": 2459,
-    "kind": "modified",
-    "n": "Offensive Stance",
-    "r": "Rank 2",
-    "d": "A stance that maximizes your offense, increasing damage by $s1 but slowing the warrior's movement speed.",
-    "pt": "Postura: +$s1 dano e -corrida."
-  },
-  {
-    "id": 2460,
-    "kind": "modified",
-    "n": "Offensive Stance",
-    "r": "Rank 3",
-    "d": "A stance that maximizes your offense, increasing damage by $s1 but slowing the warrior's movement speed.",
-    "pt": "Postura: +$s1 dano e -corrida."
-  },
-  {
-    "id": 2463,
-    "kind": "modified",
-    "n": "Power Stance",
-    "r": "Rank 2",
-    "d": "A stance that maximizes criticals, increasing chances for a critical hit by $s2% for $d.",
-    "pt": "Postura: +$s1% crítico por $d s."
+    "pt": "Uma postura de combate equilibrada."
   },
   {
     "id": 2597,
@@ -1248,20 +1144,12 @@
     "pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s."
   },
   {
-    "id": 2652,
-    "kind": "modified",
-    "n": "Touch of Weakness",
-    "r": "Rank 1",
-    "d": "The next melee attack against the caster will cause $2943s1 Shadow damage and reduce the damage caused by the attacker by $2943s2 for $2943d.",
-    "pt": "Próximo corpo a corpo: $s1 de Sombra e -$s2 por $d s."
-  },
-  {
     "id": 2677,
     "kind": "modified",
     "n": "Holy Smash",
     "r": "Rank 1",
     "d": "A crushing attack that does your weapon damage plus $s1.",
-    "pt": "Um ataque esmagador que causa dano de arma mais $s1."
+    "pt": "Um ataque esmagador que causa dano da arma mais $s1."
   },
   {
     "id": 2679,
@@ -1269,7 +1157,7 @@
     "n": "Holy Smash",
     "r": "Rank 2",
     "d": "A crushing attack that does your weapon damage plus $s1.",
-    "pt": "Um ataque esmagador que causa dano de arma mais $s1."
+    "pt": "Um ataque esmagador que causa dano da arma mais $s1."
   },
   {
     "id": 2680,
@@ -1277,7 +1165,7 @@
     "n": "Holy Smash",
     "r": "Rank 3",
     "d": "A crushing attack that does your weapon damage plus $s1.",
-    "pt": "Um ataque esmagador que causa dano de arma mais $s1."
+    "pt": "Um ataque esmagador que causa dano da arma mais $s1."
   },
   {
     "id": 2681,
@@ -1285,7 +1173,7 @@
     "n": "Holy Smash",
     "r": "Rank 4",
     "d": "A crushing attack that does your weapon damage plus $s1.",
-    "pt": "Um ataque esmagador que causa dano de arma mais $s1."
+    "pt": "Um ataque esmagador que causa dano da arma mais $s1."
   },
   {
     "id": 2682,
@@ -1293,7 +1181,7 @@
     "n": "Holy Smash",
     "r": "Rank 5",
     "d": "A crushing attack that does your weapon damage plus $s1.",
-    "pt": "Um ataque esmagador que causa dano de arma mais $s1."
+    "pt": "Um ataque esmagador que causa dano da arma mais $s1."
   },
   {
     "id": 2764,
@@ -1301,7 +1189,7 @@
     "n": "Throw",
     "r": "",
     "d": "Hurl a thrown weapon at the target.",
-    "pt": "Arremessa a arma no alvo."
+    "pt": "Arremessa uma arma de arremesso contra o alvo."
   },
   {
     "id": 2782,
@@ -1309,7 +1197,7 @@
     "n": "Remove Curse",
     "r": "",
     "d": "Dispels $s1 Curse from a friendly target.",
-    "pt": "Dissipa $s1 Maldição do aliado."
+    "pt": "Dissipa $s1 maldição do alvo aliado."
   },
   {
     "id": 2783,
@@ -1317,7 +1205,31 @@
     "n": "Remove Curse",
     "r": "Rank 2",
     "d": "Dispels $m1 curses from the target.",
-    "pt": "Dissipa $s1 maldições."
+    "pt": "Dissipa $s1 maldições do alvo."
+  },
+  {
+    "id": 2825,
+    "kind": "modified",
+    "n": "DONOTREUSE",
+    "r": "Rank 3",
+    "d": "NYI.",
+    "pt": "NYI."
+  },
+  {
+    "id": 2826,
+    "kind": "modified",
+    "n": "DONOTREUSE",
+    "r": "Rank 4",
+    "d": "NYI.",
+    "pt": "NYI."
+  },
+  {
+    "id": 2827,
+    "kind": "modified",
+    "n": "DONOTREUSE",
+    "r": "Rank 5",
+    "d": "NYI.",
+    "pt": "NYI."
   },
   {
     "id": 2831,
@@ -1360,46 +1272,6 @@
     "pt": "Fareja armadilha muito melhor."
   },
   {
-    "id": 2854,
-    "kind": "modified",
-    "n": "Cyclone",
-    "r": "Rank 1",
-    "d": "Surrounds the enemy with a cyclone for $d, stunning it and preventing others from attacking it.",
-    "pt": "Ciclone no inimigo por $d s, sem ataque alheio."
-  },
-  {
-    "id": 2856,
-    "kind": "modified",
-    "n": "DONOTREUSE",
-    "r": "Rank 1",
-    "d": "Hug the enemy, preventing both the druid and the target from doing anything for $d or until the druid lets go.",
-    "pt": "Abraça o inimigo: ninguém age por $d s, até soltar."
-  },
-  {
-    "id": 2864,
-    "kind": "modified",
-    "n": "Spirit Armor",
-    "r": "Rank 5",
-    "d": "Calls upon the spirits to defend the Shaman's target, increasing armor by $s1 for $d.",
-    "pt": "Espírito defende o alvo com +$s1 armadura por $d s."
-  },
-  {
-    "id": 2866,
-    "kind": "modified",
-    "n": "Spell - Reuse 2866",
-    "r": "Rank 1",
-    "d": "Increases a friendly target's resistance to Fire by $s1 for $d.",
-    "pt": "Aliado: +$s1 vs Fogo por $d s."
-  },
-  {
-    "id": 2893,
-    "kind": "modified",
-    "n": "Abolish Poison",
-    "r": "",
-    "d": "Attempts to cure $s2 poison effect on the target, and $3137s1 more poison effect every $t1 seconds for $d.",
-    "pt": "Cura $s1 veneno e +$s2 a cada $t1 s por $d s."
-  },
-  {
     "id": 2948,
     "kind": "modified",
     "n": "Scorch",
@@ -1408,28 +1280,12 @@
     "pt": "Chamusca o inimigo, causando $s1 de dano de Fogo."
   },
   {
-    "id": 3019,
-    "kind": "modified",
-    "n": "Enrage",
-    "r": "",
-    "d": "Increases the Physical damage dealt by the caster by $s1 for $d.",
-    "pt": "Ancinha o alvo com $s1 de dano e mais $s2 ao longo de $d s."
-  },
-  {
     "id": 3098,
     "kind": "modified",
     "n": "Shadow Bolt",
     "r": "Rank 1",
     "d": "Teaches you the spell Shadow Bolt (Rank 1).",
     "pt": "Ensina a você o feitiço Seta Sombria (Grau 1)."
-  },
-  {
-    "id": 3101,
-    "kind": "modified",
-    "n": "Alchemy",
-    "r": "Journeyman",
-    "d": "Allows an alchemist to brew standard potions up to a maximum potential skill of 150.",
-    "pt": "Alquimista médio até 150."
   },
   {
     "id": 3130,
@@ -1512,14 +1368,6 @@
     "pt": "Inflige dano Físico a um inimigo, atordoando-o por $d."
   },
   {
-    "id": 3558,
-    "kind": "modified",
-    "n": "Resist Frost",
-    "r": "Rank 1",
-    "d": "Places a protective shield on the friendly target, increasing frost resistance by $m1.",
-    "pt": "Escudo: +$s1 vs Gelo no aliado."
-  },
-  {
     "id": 3604,
     "kind": "modified",
     "n": "Tendon Rip",
@@ -1533,7 +1381,15 @@
     "n": "Spell - Reuse 3629",
     "r": "Rank 1",
     "d": "Increases strength by $s1 and decreases defense by $s2 for $d.",
-    "pt": "Força +$s1 e defesa -$s2 por $d s."
+    "pt": "Aumenta a Força em $s1 e reduz a Defesa em $s2 por $d s."
+  },
+  {
+    "id": 3723,
+    "kind": "modified",
+    "n": "Frost Ward",
+    "r": "Rank 5",
+    "d": "Teaches Frost Ward (Rank 5).",
+    "pt": "Ensina Proteção contra o Gelo (Grau 5)."
   },
   {
     "id": 3727,
@@ -1565,7 +1421,7 @@
     "n": "Holy Smash",
     "r": "Rank 6",
     "d": "A crushing attack that does your weapon damage plus $s1.",
-    "pt": "Um ataque esmagador que causa dano de arma mais $s1."
+    "pt": "Um ataque esmagador que causa dano da arma mais $s1."
   },
   {
     "id": 4044,
@@ -1621,7 +1477,7 @@
     "n": "Great Stamina",
     "r": "Rank 1",
     "d": "Stamina increased by $4187s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4196,
@@ -1629,7 +1485,7 @@
     "n": "Great Stamina",
     "r": "Rank 2",
     "d": "Stamina increased by $4188s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4197,
@@ -1637,7 +1493,7 @@
     "n": "Great Stamina",
     "r": "Rank 3",
     "d": "Stamina increased by $4189s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4198,
@@ -1645,7 +1501,7 @@
     "n": "Great Stamina",
     "r": "Rank 4",
     "d": "Stamina increased by $4190s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4199,
@@ -1653,7 +1509,7 @@
     "n": "Great Stamina",
     "r": "Rank 5",
     "d": "Stamina increased by $4191s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4200,
@@ -1661,7 +1517,7 @@
     "n": "Great Stamina",
     "r": "Rank 6",
     "d": "Stamina increased by $4192s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4201,
@@ -1669,7 +1525,7 @@
     "n": "Great Stamina",
     "r": "Rank 7",
     "d": "Stamina increased by $4193s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4202,
@@ -1677,7 +1533,7 @@
     "n": "Great Stamina",
     "r": "Rank 8",
     "d": "Stamina increased by $4194s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 4312,
@@ -1709,7 +1565,7 @@
     "n": "Curse",
     "r": "",
     "d": "Reduces the target's chance to hit by $s1 for $d.",
-    "pt": "Acerto do alvo -$s1 por $d s."
+    "pt": "Reduz a chance de acerto do alvo em $s1 por $d s."
   },
   {
     "id": 4755,
@@ -1717,7 +1573,7 @@
     "n": "Parry Mastery",
     "r": "Rank 1",
     "d": "Increases your chance to parry by $s1%.",
-    "pt": "Aumenta sua chance de aparar em $s1%."
+    "pt": "Aumenta a sua chance de aparar em $s1%."
   },
   {
     "id": 4756,
@@ -1725,7 +1581,7 @@
     "n": "Parry Mastery",
     "r": "Rank 2",
     "d": "Increases your chance to parry by $s1%.",
-    "pt": "Aumenta sua chance de aparar em $s1%."
+    "pt": "Aumenta a sua chance de aparar em $s1%."
   },
   {
     "id": 4757,
@@ -1733,7 +1589,7 @@
     "n": "Parry Mastery",
     "r": "Rank 3",
     "d": "Increases your chance to parry by $s1%.",
-    "pt": "Aumenta sua chance de aparar em $s1%."
+    "pt": "Aumenta a sua chance de aparar em $s1%."
   },
   {
     "id": 4955,
@@ -1845,7 +1701,7 @@
     "n": "Great Stamina",
     "r": "Rank 9",
     "d": "Stamina increased by $5041s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 5049,
@@ -1853,15 +1709,7 @@
     "n": "Great Stamina",
     "r": "Rank 10",
     "d": "Stamina increased by $5042s1.",
-    "pt": "Vigor +$s1."
-  },
-  {
-    "id": 5151,
-    "kind": "modified",
-    "n": "Ice Shield",
-    "r": "Rank 1",
-    "d": "Increases your armor by $s1 and your Frost resistance by $s2.",
-    "pt": "Armadura +$s1 e Gelo +$s2."
+    "pt": "Vigor aumentado em $s1."
   },
   {
     "id": 5159,
@@ -1920,44 +1768,36 @@
     "pt": "Causa $s1 de dano de Natureza ao alvo."
   },
   {
-    "id": 5198,
-    "kind": "modified",
-    "n": "Cyclone",
-    "r": "Rank 2",
-    "d": "Surrounds the enemy with a cyclone for $d, stunning it and preventing others from attacking it.",
-    "pt": "Ciclone no inimigo por $d s, sem ataque alheio."
-  },
-  {
-    "id": 5223,
-    "kind": "modified",
-    "n": "Play Dead",
-    "r": "Rank 1",
-    "d": "Druid falls over, immitating death to trick enemies into leaving $ghim:her; alone.",
-    "pt": "Finge-se de morto pros inimigos."
-  },
-  {
-    "id": 5238,
-    "kind": "modified",
-    "n": "Spell Break",
-    "r": "Rank 1",
-    "d": "Allows the warrior to free $ghimself:herself; from $s1 harmful magic $leffect:effects;.",
-    "pt": "Liberta $s1 magia nociva com fúria."
-  },
-  {
-    "id": 5240,
-    "kind": "modified",
-    "n": "Spell Break",
-    "r": "Rank 2",
-    "d": "Allows the warrior to free himself from $s1 harmful magic $leffect:effects;.",
-    "pt": "Liberta $s1 magia nociva."
-  },
-  {
     "id": 5258,
     "kind": "modified",
     "n": "Pinpoint Accuracy",
     "r": "Rank 1",
     "d": "Increases your chance to critical hit by $s1%.",
-    "pt": "Crítico +$s1%."
+    "pt": "Aumenta a sua chance de acerto crítico em $s1%."
+  },
+  {
+    "id": 5303,
+    "kind": "modified",
+    "n": "Cyclone",
+    "r": "Rank 1",
+    "d": "Teaches Cyclone (Rank 1).",
+    "pt": "Ensina Ciclone (Grau 1)."
+  },
+  {
+    "id": 5304,
+    "kind": "modified",
+    "n": "Cyclone",
+    "r": "Rank 2",
+    "d": "Teaches Cyclone (Rank 2).",
+    "pt": "Ensina Ciclone (Grau 2)."
+  },
+  {
+    "id": 5311,
+    "kind": "modified",
+    "n": "Battle Roar",
+    "r": "Rank 2",
+    "d": "Teaches Battle Roar (Rank 2).",
+    "pt": "Ensina Rugido de Batalha (Grau 2)."
   },
   {
     "id": 5312,
@@ -1974,22 +1814,6 @@
     "r": "",
     "d": "Detects all hidden and invisible enemies in the target area.",
     "pt": "Revela ocultos na área."
-  },
-  {
-    "id": 5388,
-    "kind": "modified",
-    "n": "Ghost Wolf",
-    "r": "Rank 2",
-    "d": "Turns the friendly target into a Ghost Wolf, increasing speed.",
-    "pt": "Lobo Fantasma veloz. Só ao ar livre."
-  },
-  {
-    "id": 5391,
-    "kind": "modified",
-    "n": "Ethereal Form",
-    "r": "Rank 2",
-    "d": "Makes the targeted party member immune to physical damage, but unable to melee or use physical abilities for $d.",
-    "pt": "Imune a físico por $d s, sem atacar."
   },
   {
     "id": 5530,
@@ -2021,7 +1845,7 @@
     "n": "Serious Wound",
     "r": "Rank 1",
     "d": "Causes the target to bleed for $o1 damage over $d.",
-    "pt": "Sangra $s1 em $d s no alvo."
+    "pt": "Faz o alvo sangrar, causando $s1 de dano ao longo de $d s."
   },
   {
     "id": 5598,
@@ -2029,7 +1853,7 @@
     "n": "Serious Wound",
     "r": "Rank 2",
     "d": "Causes the target to bleed for $o1 damage over $d.",
-    "pt": "Sangra $s1 em $d s no alvo."
+    "pt": "Faz o alvo sangrar, causando $s1 de dano ao longo de $d s."
   },
   {
     "id": 5610,
@@ -2112,22 +1936,6 @@
     "pt": "Carrega pedra vazia com sua vida."
   },
   {
-    "id": 5759,
-    "kind": "modified",
-    "n": "Cat Form",
-    "r": "",
-    "d": "Shapeshifts into a cat for $d., increasing attack power and allowing the use of various cat abilities.",
-    "pt": "Vira Gato por $d s: +poder, habilidades de gato."
-  },
-  {
-    "id": 5784,
-    "kind": "modified",
-    "n": "Summon Felsteed",
-    "r": "Summon",
-    "d": "Summons a Felsteed, which serves as a mount for the caster. Speed is increased by $s2%.",
-    "pt": "Invoca Corcel Vil. +$s1% velocidade."
-  },
-  {
     "id": 6017,
     "kind": "modified",
     "n": "Rapid Gallop",
@@ -2152,12 +1960,12 @@
     "pt": "Pune o inimigo, causando $s1 de dano Sagrado."
   },
   {
-    "id": 6148,
+    "id": 6143,
     "kind": "modified",
-    "n": "Water Elemental",
-    "r": "Rank 2",
-    "d": "Summon a Water Elemental to fight for the caster for $d.",
-    "pt": "Invoca um Elemental da Água para lutar por $d s."
+    "n": "Frost Ward",
+    "r": "Rank 1",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Gelo. Dura $d s."
   },
   {
     "id": 6152,
@@ -2208,20 +2016,12 @@
     "pt": "Aumenta a sua detecção de furtividade em $s1."
   },
   {
-    "id": 6184,
-    "kind": "modified",
-    "n": "Spell - Reuse 6184",
-    "r": "Rank 2",
-    "d": "Increases the chance to block an incoming blow by $s1%, but prevents the shield user from attacking for $d.",
-    "pt": "Bloqueia com +$s1%, sem atacar por $d s."
-  },
-  {
     "id": 6207,
     "kind": "modified",
     "n": "Blood Boil",
     "r": "Rank 1",
     "d": "Boils the target's blood, doing $s1 damage.",
-    "pt": "Ferve o sangue do alvo com $s1 de dano."
+    "pt": "Ferve o sangue do alvo, causando $s1 de dano."
   },
   {
     "id": 6208,
@@ -2229,7 +2029,7 @@
     "n": "Blood Boil",
     "r": "Rank 2",
     "d": "Boils the target's blood, doing $s1 damage.",
-    "pt": "Ferve o sangue do alvo com $s1 de dano."
+    "pt": "Ferve o sangue do alvo, causando $s1 de dano."
   },
   {
     "id": 6209,
@@ -2237,7 +2037,7 @@
     "n": "Blood Boil",
     "r": "Rank 3",
     "d": "Boils the target's blood, doing $s1 damage.",
-    "pt": "Ferve o sangue do alvo com $s1 de dano."
+    "pt": "Ferve o sangue do alvo, causando $s1 de dano."
   },
   {
     "id": 6260,
@@ -2272,12 +2072,12 @@
     "pt": "Aumenta o Vigor dos aliados em $s1."
   },
   {
-    "id": 6344,
+    "id": 6361,
     "kind": "modified",
-    "n": "Thunderclap",
+    "n": "Barkskin",
     "r": "Rank 2",
-    "d": "Blasts nearby enemies with thunder slowing their movement and attacks by $s2% for $d and doing $s1 nature damage to them.",
-    "pt": "Trovão nos próximos: lentidão e $s1 de natureza por $d s."
+    "d": "Teaches Barkskin (Rank 2).",
+    "pt": "Ensina Pele de Árvore (Grau 2)."
   },
   {
     "id": 6476,
@@ -3064,6 +2864,38 @@
     "pt": "Negativo."
   },
   {
+    "id": 8457,
+    "kind": "modified",
+    "n": "Fire Ward",
+    "r": "Rank 2",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Fogo. Dura $d s."
+  },
+  {
+    "id": 8458,
+    "kind": "modified",
+    "n": "Fire Ward",
+    "r": "Rank 3",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Fogo. Dura $d s."
+  },
+  {
+    "id": 8461,
+    "kind": "modified",
+    "n": "Frost Ward",
+    "r": "Rank 2",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Gelo. Dura $d s."
+  },
+  {
+    "id": 8462,
+    "kind": "modified",
+    "n": "Frost Ward",
+    "r": "Rank 3",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Gelo. Dura $d s."
+  },
+  {
     "id": 8469,
     "kind": "modified",
     "n": "Fire Damage Bonus",
@@ -3142,14 +2974,6 @@
     "r": "",
     "d": "Increases damage done by Holy spells and effects by up to $s1.",
     "pt": "Aumenta o dano de magias e efeitos Sagrados em até $s1."
-  },
-  {
-    "id": 8690,
-    "kind": "modified",
-    "n": "Hearthstone",
-    "r": "So Long! Poof!",
-    "d": "Returns you to $z. Speak to an Innkeeper in a different place to change your home location.",
-    "pt": "Volta pra $z. Fala com Estalajadeiro pra mudar."
   },
   {
     "id": 8716,
@@ -3285,7 +3109,7 @@
     "n": "Iron Belt Buckle",
     "r": "",
     "d": "Creates two Iron Buckles that are used by other trade skills.",
-    "pt": "Cria 2 Fivelas pra ofício."
+    "pt": "Cria duas Fivelas de Ferro usadas por outras profissões."
   },
   {
     "id": 8769,
@@ -3293,7 +3117,7 @@
     "n": "Iron Belt Buckle",
     "r": "",
     "d": "Creates an Iron Buckle that is used by other tradeskills.",
-    "pt": "Cria Fivela pra ofício."
+    "pt": "Cria uma Fivela de Ferro usada por outras profissões."
   },
   {
     "id": 8815,
@@ -3317,7 +3141,7 @@
     "n": "Growl",
     "r": "Rank 2",
     "d": "Adds a medium amount of threat to the target.",
-    "pt": "Provoca com ameaça média."
+    "pt": "Adiciona uma quantidade moderada de ameaça ao alvo."
   },
   {
     "id": 8975,
@@ -3325,7 +3149,7 @@
     "n": "Growl",
     "r": "Rank 3",
     "d": "Adds a high amount of threat to the target.",
-    "pt": "Provoca com ameaça alta."
+    "pt": "Adiciona uma grande quantidade de ameaça ao alvo."
   },
   {
     "id": 8976,
@@ -3333,7 +3157,7 @@
     "n": "Growl",
     "r": "Rank 4",
     "d": "Adds a very high amount of threat to the target.",
-    "pt": "Gera ameaça altíssima no alvo."
+    "pt": "Adiciona uma quantidade muito grande de ameaça ao alvo."
   },
   {
     "id": 9076,
@@ -3944,28 +3768,12 @@
     "pt": "Aumenta o dano de magias e efeitos de Sombra em até $s1."
   },
   {
-    "id": 9452,
-    "kind": "modified",
-    "n": "Vindication",
-    "r": "Rank 1",
-    "d": "Gives the Paladin's damaging melee attacks a chance to reduce the target's damage dealt by $67s1% for $67d. Does not affect powerful enemies.",
-    "pt": "Corpo a corpo: chance de -$s1% dano por $d s. Sem poderoso."
-  },
-  {
     "id": 9454,
     "kind": "modified",
     "n": "Freeze",
     "r": "Game Master",
     "d": "GM tool to freeze players.",
     "pt": "Ferramenta de GM: congela."
-  },
-  {
-    "id": 9632,
-    "kind": "modified",
-    "n": "Bladestorm",
-    "r": "Rank 1",
-    "d": "You attack all nearby enemies for $d causing weapon damage plus an additional $9633s1 every $t1 sec.",
-    "pt": "Ataca todos por $d s: arma +$s1 a cada $t1 s."
   },
   {
     "id": 9657,
@@ -4000,20 +3808,12 @@
     "pt": "Cada ataque: $h% de adoecer."
   },
   {
-    "id": 9801,
-    "kind": "modified",
-    "n": "Holy Shield",
-    "r": "",
-    "d": "Has a $h% chance per hit of protecting you with a holy shield that will stop $9800s1 damage.",
-    "pt": "Golpe: $h% de escudo que segura $s1."
-  },
-  {
     "id": 9870,
     "kind": "modified",
     "n": "Growl",
     "r": "Rank 5",
     "d": "Adds a very high amount of threat to the target.",
-    "pt": "Gera ameaça altíssima no alvo."
+    "pt": "Adiciona uma quantidade muito grande de ameaça ao alvo."
   },
   {
     "id": 9871,
@@ -4021,7 +3821,7 @@
     "n": "Growl",
     "r": "Rank 6",
     "d": "Adds a very high amount of threat to the target.",
-    "pt": "Gera ameaça altíssima no alvo."
+    "pt": "Adiciona uma quantidade muito grande de ameaça ao alvo."
   },
   {
     "id": 9912,
@@ -4064,6 +3864,14 @@
     "pt": "Positivo."
   },
   {
+    "id": 10177,
+    "kind": "modified",
+    "n": "Frost Ward",
+    "r": "Rank 4",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Gelo. Dura $d s."
+  },
+  {
     "id": 10205,
     "kind": "modified",
     "n": "Scorch",
@@ -4088,12 +3896,20 @@
     "pt": "Chamusca o inimigo, causando $s1 de dano de Fogo."
   },
   {
-    "id": 10319,
+    "id": 10223,
     "kind": "modified",
-    "n": "Judgement",
-    "r": "Rank 3",
-    "d": "Sends bolts of holy power in all directions, causing $s1 holy damage to all undead near the Paladin.",
-    "pt": "Raios sagrados de $s1 nos mortos próximos."
+    "n": "Fire Ward",
+    "r": "Rank 4",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Fogo. Dura $d s."
+  },
+  {
+    "id": 10225,
+    "kind": "modified",
+    "n": "Fire Ward",
+    "r": "Rank 5",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Fogo. Dura $d s."
   },
   {
     "id": 10344,
@@ -4102,14 +3918,6 @@
     "r": "",
     "d": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 32 and Stamina by 4. Only usable on items level 25 and above.",
     "pt": "Peito/perna/mão/pé: +32 armadura e +4 Vig. Só nv 25+."
-  },
-  {
-    "id": 10371,
-    "kind": "modified",
-    "n": "Slow",
-    "r": "",
-    "d": "Increases time between victim's attacks by $s1 for $d.",
-    "pt": "Ataques +$s1 intervalo por $d s."
   },
   {
     "id": 10373,
@@ -4680,20 +4488,12 @@
     "pt": "Arremessa e -$s1% velocidade por $d s."
   },
   {
-    "id": 11094,
-    "kind": "modified",
-    "n": "Improved Fire Ward",
-    "r": "Rank 1",
-    "d": "Causes your Fire Ward to have a $s1% chance to reflect Fire spells while active.",
-    "pt": "Guarda de Fogo: $s1% de refletir Fogo ativa."
-  },
-  {
     "id": 11100,
     "kind": "modified",
     "n": "Flame Throwing",
     "r": "Rank 1",
     "d": "Increases the range of your Fire spells by $s1 yards.",
-    "pt": "Aumenta o alcance das magias de Fogo em $s1 m."
+    "pt": "Aumenta o alcance das suas magias de Fogo em $s1 metros."
   },
   {
     "id": 11124,
@@ -4701,7 +4501,7 @@
     "n": "Fire Power",
     "r": "Rank 1",
     "d": "Increases the damage done by your Fire spells by $s1%.",
-    "pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+    "pt": "Aumenta o dano causado pelos seus feitiços de Fogo em $s1%."
   },
   {
     "id": 11131,
@@ -4712,14 +4512,6 @@
     "pt": "Raio de gelo: $s1 de Gelo e -$s2% velocidade por $d s."
   },
   {
-    "id": 11210,
-    "kind": "modified",
-    "n": "Arcane Subtlety",
-    "r": "Rank 1",
-    "d": "Reduces your target's resistance to all your spells by $s2 and reduces the threat caused by your Arcane spells by $s1%.",
-    "pt": "Alvo resiste -$s1 às magias e Arcano -$s2% ameaça."
-  },
-  {
     "id": 11350,
     "kind": "modified",
     "n": "Fire Shield",
@@ -4728,20 +4520,20 @@
     "pt": "$s1 de fogo a $a1 m a cada 3 s por $d s."
   },
   {
-    "id": 11560,
+    "id": 11372,
     "kind": "modified",
-    "n": "Inner Rage",
-    "r": "Rank 2",
-    "d": "Warrior focuses on releasing $ghis:her; inner rage, gaining 40 rage.",
-    "pt": "Fúria interior: +40 de fúria."
+    "n": "DONOTREUSE",
+    "r": "Rank 1",
+    "d": "Reuse",
+    "pt": "Reutilizar"
   },
   {
-    "id": 11561,
+    "id": 11390,
     "kind": "modified",
-    "n": "Inner Rage",
-    "r": "Rank 3",
-    "d": "Warrior focuses on releasing $ghis:her; inner rage, gaining 50 rage.",
-    "pt": "Fúria interior: +50 de fúria."
+    "n": "Arcane Elixir",
+    "r": "",
+    "d": "Increases spell damage by up to $s1 for $d.",
+    "pt": "Aumenta o dano mágico em até $s1 por $d s."
   },
   {
     "id": 11629,
@@ -4773,7 +4565,7 @@
     "n": "Parry",
     "r": "",
     "d": "Increases your chance to parry by $s1%.",
-    "pt": "Aumenta sua chance de aparar em $s1%."
+    "pt": "Aumenta a sua chance de aparar em $s1%."
   },
   {
     "id": 11658,
@@ -4832,14 +4624,6 @@
     "pt": "Mina: $s1 nos próximos. Instável, dura $d s."
   },
   {
-    "id": 11923,
-    "kind": "modified",
-    "n": "Repair the Blade of Heroes",
-    "r": "",
-    "d": "The sword must be reforged before it can be used. Reforging the sword requires 4 Steel Bars, 4 Strong Flux, 2 Elemental Fire and 2 Heavy Grinding Stones.",
-    "pt": "Refaz a espada: 4 Aço, 4 Fluxo, 2 Fogo, 2 Pedra."
-  },
-  {
     "id": 12022,
     "kind": "modified",
     "n": "Admiral's Hat",
@@ -4854,14 +4638,6 @@
     "r": "",
     "d": "Adds $s1 damage to the next attack.",
     "pt": "Adiciona $s1 de dano ao próximo ataque."
-  },
-  {
-    "id": 12163,
-    "kind": "modified",
-    "n": "Two-Handed Weapon Specialization",
-    "r": "Rank 1",
-    "d": "Increases the damage you deal with two-handed melee weapons by $s1% and increases your skill in all two-handed weapons by 1.",
-    "pt": "Armas 2M: +$s1% dano e +1 perícia."
   },
   {
     "id": 12199,
@@ -4896,28 +4672,12 @@
     "pt": "Fúria decai 30% mais devagar; +1 a cada 3 s em combate."
   },
   {
-    "id": 12303,
-    "kind": "modified",
-    "n": "Defiance",
-    "r": "Rank 1",
-    "d": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
-    "pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
-  },
-  {
-    "id": 12323,
-    "kind": "modified",
-    "n": "Piercing Howl",
-    "r": "",
-    "d": "Causes all enemies near the warrior to be dazed, reducing movement speed by $s1% for $d.",
-    "pt": "Atordoa: -$s1% velocidade por $d s."
-  },
-  {
     "id": 12353,
     "kind": "modified",
     "n": "Flame Throwing",
     "r": "Rank 2",
     "d": "Increases the range of your Fire spells by $s1 yards.",
-    "pt": "Aumenta o alcance das magias de Fogo em $s1 m."
+    "pt": "Aumenta o alcance das suas magias de Fogo em $s1 metros."
   },
   {
     "id": 12378,
@@ -4925,7 +4685,7 @@
     "n": "Fire Power",
     "r": "Rank 2",
     "d": "Increases the damage done by your Fire spells by $s1%.",
-    "pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+    "pt": "Aumenta o dano causado pelos seus feitiços de Fogo em $s1%."
   },
   {
     "id": 12398,
@@ -4933,7 +4693,7 @@
     "n": "Fire Power",
     "r": "Rank 3",
     "d": "Increases the damage done by your Fire spells by $s1%.",
-    "pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+    "pt": "Aumenta o dano causado pelos seus feitiços de Fogo em $s1%."
   },
   {
     "id": 12399,
@@ -4941,7 +4701,7 @@
     "n": "Fire Power",
     "r": "Rank 4",
     "d": "Increases the damage done by your Fire spells by $s1%.",
-    "pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+    "pt": "Aumenta o dano causado pelos seus feitiços de Fogo em $s1%."
   },
   {
     "id": 12400,
@@ -4949,7 +4709,7 @@
     "n": "Fire Power",
     "r": "Rank 5",
     "d": "Increases the damage done by your Fire spells by $s1%.",
-    "pt": "Aumenta o dano das suas magias de Fogo em $s1%."
+    "pt": "Aumenta o dano causado pelos seus feitiços de Fogo em $s1%."
   },
   {
     "id": 12418,
@@ -4960,14 +4720,6 @@
     "pt": "Aumenta sua detecção de furtividade."
   },
   {
-    "id": 12472,
-    "kind": "modified",
-    "n": "Cold Snap",
-    "r": "",
-    "d": "When activated, this spell finishes the cooldown on all of your Frost spells.",
-    "pt": "Zera recarga de todo Gelo."
-  },
-  {
     "id": 12551,
     "kind": "modified",
     "n": "Frost Shot",
@@ -4976,12 +4728,20 @@
     "pt": "Atira +$s1 de Gelo e -$s2% velocidade por $d s."
   },
   {
+    "id": 12561,
+    "kind": "modified",
+    "n": "Fire Protection",
+    "r": "Rank 1",
+    "d": "Absorbs $s1 Fire damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Fogo. Dura $d s."
+  },
+  {
     "id": 12570,
     "kind": "modified",
     "n": "Permafrost",
     "r": "Rank 4",
     "d": "Increases the duration of your Chill effects by $/1000;S1 secs.",
-    "pt": "Aumenta a duração do Gelar em $s1 s."
+    "pt": "Aumenta a duração dos seus efeitos de frio em $s1 s."
   },
   {
     "id": 12573,
@@ -4989,31 +4749,7 @@
     "n": "Permafrost",
     "r": "Rank 5",
     "d": "Increases the duration of your Chill effects by $/1000;S1 secs.",
-    "pt": "Aumenta a duração do Gelar em $s1 s."
-  },
-  {
-    "id": 12580,
-    "kind": "modified",
-    "n": "Winter's Chill",
-    "r": "Rank 3",
-    "d": "Increases the power of your Chill effects by slowing the target's movement by an additional $s1%.",
-    "pt": "Gelo: +$s1% lentidão."
-  },
-  {
-    "id": 12592,
-    "kind": "modified",
-    "n": "Arcane Subtlety",
-    "r": "Rank 2",
-    "d": "Reduces your target's resistance to all your spells by $s2 and reduces the threat caused by your Arcane spells by $s1%.",
-    "pt": "Alvo resiste -$s1 às magias e Arcano -$s2% ameaça."
-  },
-  {
-    "id": 12593,
-    "kind": "modified",
-    "n": "Arcane Subtlety",
-    "r": "Rank 3",
-    "d": "Reduces your target's resistance to all your spells by $s3 and all your spell criticals cause $s1% less threat.",
-    "pt": "Alvo -$s1 resistência; crítico -$s2% ameaça."
+    "pt": "Aumenta a duração dos seus efeitos de frio em $s1 s."
   },
   {
     "id": 12608,
@@ -5030,22 +4766,6 @@
     "r": "",
     "d": "Summon a screecher spirit from the corpse of a vale screecher.",
     "pt": "Invoca espírito do vale."
-  },
-  {
-    "id": 12711,
-    "kind": "modified",
-    "n": "Two-Handed Weapon Specialization",
-    "r": "Rank 2",
-    "d": "Increases the damage you deal with two-handed melee weapons by $s1% and increases your skill in all two-handed weapons by 2.",
-    "pt": "Armas 2M: +$s1% dano e +2 perícia."
-  },
-  {
-    "id": 12712,
-    "kind": "modified",
-    "n": "Two-Handed Weapon Specialization",
-    "r": "Rank 3",
-    "d": "Increases the damage you deal with two-handed melee weapons by $s1% and increases your skill in all two-handed weapons by 3.",
-    "pt": "Armas 2M: +$s1% dano e +3 perícia."
   },
   {
     "id": 12732,
@@ -5080,52 +4800,12 @@
     "pt": "Aumenta sua perícia em Defesa em $s1."
   },
   {
-    "id": 12788,
-    "kind": "modified",
-    "n": "Defiance",
-    "r": "Rank 2",
-    "d": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
-    "pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
-  },
-  {
-    "id": 12789,
-    "kind": "modified",
-    "n": "Defiance",
-    "r": "Rank 3",
-    "d": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
-    "pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
-  },
-  {
-    "id": 12791,
-    "kind": "modified",
-    "n": "Defiance",
-    "r": "Rank 4",
-    "d": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
-    "pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
-  },
-  {
-    "id": 12792,
-    "kind": "modified",
-    "n": "Defiance",
-    "r": "Rank 5",
-    "d": "Increases the threat generated while in Defensive Stance by an additional $s1%.",
-    "pt": "Aumenta a ameaça gerada em Postura Defensiva em $s1%."
-  },
-  {
     "id": 13022,
     "kind": "modified",
     "n": "Fire and Arcane Reflect",
     "r": "",
     "d": "Reflect fire and arcane spells back at the caster",
     "pt": "Reflete Fogo e Arcano."
-  },
-  {
-    "id": 13043,
-    "kind": "modified",
-    "n": "Improved Fire Ward",
-    "r": "Rank 2",
-    "d": "Causes your Fire Ward to have a $s1% chance to reflect Fire spells while active.",
-    "pt": "Guarda de Fogo: $s1% de refletir Fogo ativa."
   },
   {
     "id": 13168,
@@ -5384,14 +5064,6 @@
     "pt": "Aumenta sua velocidade de ataque e de lançamento em $s1%."
   },
   {
-    "id": 13744,
-    "kind": "modified",
-    "n": "Blazing Emblem",
-    "r": "Rank 1",
-    "d": "Increases Fire resistance by $s2 and reduces all Fire damage taken by up to 25 for $d.",
-    "pt": "Fogo +$s1 e -25 dano por $d s."
-  },
-  {
     "id": 13819,
     "kind": "modified",
     "n": "Summon Warhorse",
@@ -5512,22 +5184,6 @@
     "pt": "Use no Cofre Secreto."
   },
   {
-    "id": 14158,
-    "kind": "modified",
-    "n": "Murder",
-    "r": "Rank 1",
-    "d": "Increases all damage caused against Humanoid, Giant, Beast and Dragonkin targets by $s1%.",
-    "pt": "Tudo +$s1% contra Humanoide, Gigante, Fera e Draconídeo."
-  },
-  {
-    "id": 14159,
-    "kind": "modified",
-    "n": "Murder",
-    "r": "Rank 2",
-    "d": "Increases all damage caused against Humanoid, Giant, Beast and Dragonkin targets by $s1%.",
-    "pt": "Tudo +$s1% contra Humanoide, Gigante, Fera e Draconídeo."
-  },
-  {
     "id": 14291,
     "kind": "modified",
     "n": "Anubisath Guardian Targeted",
@@ -5549,7 +5205,7 @@
     "n": "[Deprecated] Wand Specialization",
     "r": "Rank 3",
     "d": "Increases your damage with Wands by $s1%.",
-    "pt": "Aumenta seu dano com Varinhas em $s1%."
+    "pt": "Aumenta o seu dano com Varinhas em $s1%."
   },
   {
     "id": 14527,
@@ -5557,7 +5213,7 @@
     "n": "[Deprecated] Wand Specialization",
     "r": "Rank 4",
     "d": "Increases your damage with Wands by $s1%.",
-    "pt": "Aumenta seu dano com Varinhas em $s1%."
+    "pt": "Aumenta o seu dano com Varinhas em $s1%."
   },
   {
     "id": 14528,
@@ -5565,7 +5221,7 @@
     "n": "[Deprecated] Wand Specialization",
     "r": "Rank 5",
     "d": "Increases your damage with Wands by $s1%.",
-    "pt": "Aumenta seu dano com Varinhas em $s1%."
+    "pt": "Aumenta o seu dano com Varinhas em $s1%."
   },
   {
     "id": 14534,
@@ -5800,14 +5456,6 @@
     "pt": "Acerto: 2% de +300 mana."
   },
   {
-    "id": 15644,
-    "kind": "modified",
-    "n": "Circle of Life",
-    "r": "Rank 1",
-    "d": "When struck in combat has a 2% chance of protecting you with an arcane shield.",
-    "pt": "Acerto: 2% de escudo arcano."
-  },
-  {
     "id": 15648,
     "kind": "modified",
     "n": "Corrupted Kitten",
@@ -5909,7 +5557,7 @@
     "n": "Anticipation",
     "r": "Rank 1",
     "d": "Increases your chance to dodge by an additional $s1%.",
-    "pt": "Aumenta sua esquiva em $s1%."
+    "pt": "Aumenta a sua chance de esquiva em $s1% adicionais."
   },
   {
     "id": 16271,
@@ -5917,7 +5565,7 @@
     "n": "Anticipation",
     "r": "Rank 2",
     "d": "Increases your chance to dodge by an additional $s1%.",
-    "pt": "Aumenta sua esquiva em $s1%."
+    "pt": "Aumenta a sua chance de esquiva em $s1% adicionais."
   },
   {
     "id": 16272,
@@ -5925,7 +5573,7 @@
     "n": "Anticipation",
     "r": "Rank 3",
     "d": "Increases your chance to dodge by an additional $s1%.",
-    "pt": "Aumenta sua esquiva em $s1%."
+    "pt": "Aumenta a sua chance de esquiva em $s1% adicionais."
   },
   {
     "id": 16273,
@@ -5933,7 +5581,7 @@
     "n": "Anticipation",
     "r": "Rank 4",
     "d": "Increases your chance to dodge by an additional $s1%.",
-    "pt": "Aumenta sua esquiva em $s1%."
+    "pt": "Aumenta a sua chance de esquiva em $s1% adicionais."
   },
   {
     "id": 16274,
@@ -5941,7 +5589,7 @@
     "n": "Anticipation",
     "r": "Rank 5",
     "d": "Increases your chance to dodge by an additional $s1%.",
-    "pt": "Aumenta sua esquiva em $s1%."
+    "pt": "Aumenta a sua chance de esquiva em $s1% adicionais."
   },
   {
     "id": 16321,
@@ -6069,7 +5717,7 @@
     "n": "Natural Shapeshifter",
     "r": "Rank 1",
     "d": "Reduces the mana cost of all shapeshifting by $s1%.",
-    "pt": "Reduz o custo de mana de metamorfose em $s1%."
+    "pt": "Reduz o custo de mana de todas as metamorfoses em $s1%."
   },
   {
     "id": 16834,
@@ -6077,7 +5725,7 @@
     "n": "Natural Shapeshifter",
     "r": "Rank 2",
     "d": "Reduces the mana cost of all shapeshifting by $s1%.",
-    "pt": "Reduz o custo de mana de metamorfose em $s1%."
+    "pt": "Reduz o custo de mana de todas as metamorfoses em $s1%."
   },
   {
     "id": 16835,
@@ -6085,7 +5733,7 @@
     "n": "Natural Shapeshifter",
     "r": "Rank 3",
     "d": "Reduces the mana cost of all shapeshifting by $s1%.",
-    "pt": "Reduz o custo de mana de metamorfose em $s1%."
+    "pt": "Reduz o custo de mana de todas as metamorfoses em $s1%."
   },
   {
     "id": 16836,
@@ -6112,46 +5760,6 @@
     "pt": "Aumenta o dano causado pelo seu feitiço Espinhos em $s1%."
   },
   {
-    "id": 16902,
-    "kind": "modified",
-    "n": "Natural Weapons",
-    "r": "Rank 1",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%.",
-    "pt": "Aumenta seu dano físico em todas as formas em $s1%."
-  },
-  {
-    "id": 16903,
-    "kind": "modified",
-    "n": "Natural Weapons",
-    "r": "Rank 2",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%.",
-    "pt": "Aumenta seu dano físico em todas as formas em $s1%."
-  },
-  {
-    "id": 16904,
-    "kind": "modified",
-    "n": "Natural Weapons",
-    "r": "Rank 3",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%.",
-    "pt": "Aumenta seu dano físico em todas as formas em $s1%."
-  },
-  {
-    "id": 16905,
-    "kind": "modified",
-    "n": "Natural Weapons",
-    "r": "Rank 4",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%.",
-    "pt": "Aumenta seu dano físico em todas as formas em $s1%."
-  },
-  {
-    "id": 16906,
-    "kind": "modified",
-    "n": "Natural Weapons",
-    "r": "Rank 5",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%.",
-    "pt": "Aumenta seu dano físico em todas as formas em $s1%."
-  },
-  {
     "id": 16927,
     "kind": "modified",
     "n": "Chilled",
@@ -6165,7 +5773,7 @@
     "n": "Thick Hide",
     "r": "Rank 1",
     "d": "Increases your Armor contribution from items by $s1%.",
-    "pt": "Aumenta sua Armadura de itens em $s1%."
+    "pt": "Aumenta a contribuição de armadura dos itens em $s1%."
   },
   {
     "id": 16930,
@@ -6173,7 +5781,7 @@
     "n": "Thick Hide",
     "r": "Rank 2",
     "d": "Increases your Armor contribution from items by $s1%.",
-    "pt": "Aumenta sua Armadura de itens em $s1%."
+    "pt": "Aumenta a contribuição de armadura dos itens em $s1%."
   },
   {
     "id": 16931,
@@ -6181,7 +5789,7 @@
     "n": "Thick Hide",
     "r": "Rank 3",
     "d": "Increases your Armor contribution from items by $s1%.",
-    "pt": "Aumenta sua Armadura de itens em $s1%."
+    "pt": "Aumenta a contribuição de armadura dos itens em $s1%."
   },
   {
     "id": 16932,
@@ -6189,7 +5797,7 @@
     "n": "Thick Hide",
     "r": "Rank 4",
     "d": "Increases your Armor contribution from items by $s1%.",
-    "pt": "Aumenta sua Armadura de itens em $s1%."
+    "pt": "Aumenta a contribuição de armadura dos itens em $s1%."
   },
   {
     "id": 16933,
@@ -6197,23 +5805,7 @@
     "n": "Thick Hide",
     "r": "Rank 5",
     "d": "Increases your Armor contribution from items by $s1%.",
-    "pt": "Aumenta sua Armadura de itens em $s1%."
-  },
-  {
-    "id": 17002,
-    "kind": "modified",
-    "n": "Feral Swiftness",
-    "r": "",
-    "d": "Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Bear, Dire Bear and Cat Form by $24867s1%.",
-    "pt": "Gato ao ar livre +$s1% velocidade; Urso/Gato +$s2% esquiva."
-  },
-  {
-    "id": 17007,
-    "kind": "modified",
-    "n": "Leader of the Pack",
-    "r": "",
-    "d": "While in Cat, Bear or Dire Bear Form, the Leader of the Pack increases ranged and melee critical chance of all party members within $24932a1 yards by $24932s1%.",
-    "pt": "Líder: grupo a $a1 m +$s1% crítico."
+    "pt": "Aumenta a contribuição de armadura dos itens em $s1%."
   },
   {
     "id": 17038,
@@ -6222,86 +5814,6 @@
     "r": "",
     "d": "Increases your melee attack power by $s1 and size for $d.",
     "pt": "Poder +$s1 e tamanho por $d s."
-  },
-  {
-    "id": 17039,
-    "kind": "modified",
-    "n": "Master Swordsmith",
-    "r": "Specialization",
-    "d": "Allows a blacksmith to make special Swords that are unavailable to the typical artisan weaponsmith.",
-    "pt": "Ferreiro de espada especial."
-  },
-  {
-    "id": 17040,
-    "kind": "modified",
-    "n": "Master Hammersmith",
-    "r": "Specialization",
-    "d": "Allows a blacksmith to make special maces and hammers that are unavailable to the typical artisan weaponsmith.",
-    "pt": "Ferreiro de maça especial."
-  },
-  {
-    "id": 17041,
-    "kind": "modified",
-    "n": "Master Axesmith",
-    "r": "Specialization",
-    "d": "Allows a blacksmith to make special axes that are unavailable to the typical artisan weaponsmith.",
-    "pt": "Ferreiro de machado especial."
-  },
-  {
-    "id": 17079,
-    "kind": "modified",
-    "n": "Improved Enrage",
-    "r": "Rank 1",
-    "d": "The Enrage ability now instantly generates $/10;17080s1 Rage.",
-    "pt": "Enfurecer passa a gerar $s1 de fúria na hora."
-  },
-  {
-    "id": 17082,
-    "kind": "modified",
-    "n": "Improved Enrage",
-    "r": "Rank 2",
-    "d": "The Enrage ability now instantly generates $/10;17081s1 Rage.",
-    "pt": "Enfurecer passa a gerar $s1 de fúria na hora."
-  },
-  {
-    "id": 17098,
-    "kind": "modified",
-    "n": "Intensity",
-    "r": "Rank 1",
-    "d": "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.",
-    "pt": "Dá $s1% de chance de ganhar $s2 de energia ao virar Gato."
-  },
-  {
-    "id": 17100,
-    "kind": "modified",
-    "n": "Intensity",
-    "r": "Rank 2",
-    "d": "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.",
-    "pt": "Dá $s1% de chance de ganhar $s2 de energia ao virar Gato."
-  },
-  {
-    "id": 17101,
-    "kind": "modified",
-    "n": "Intensity",
-    "r": "Rank 3",
-    "d": "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.",
-    "pt": "Dá $s1% de chance de ganhar $s2 de energia ao virar Gato."
-  },
-  {
-    "id": 17102,
-    "kind": "modified",
-    "n": "Intensity",
-    "r": "Rank 4",
-    "d": "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.",
-    "pt": "Dá $s1% de chance de ganhar $s2 de energia ao virar Gato."
-  },
-  {
-    "id": 17103,
-    "kind": "modified",
-    "n": "Intensity",
-    "r": "Rank 5",
-    "d": "Gives you a $s1% chance to gain $17099s1 Energy when you shapeshift into Cat Form.",
-    "pt": "Dá $s1% de chance de ganhar $s2 de energia ao virar Gato."
   },
   {
     "id": 17104,
@@ -6381,7 +5893,7 @@
     "n": "Enchanted Leather",
     "r": "",
     "d": "Create Enchanted Leather for use in other tradeskills.",
-    "pt": "Cria Couro pra ofício."
+    "pt": "Cria Couro Encantado para uso em outras profissões."
   },
   {
     "id": 17184,
@@ -6389,7 +5901,7 @@
     "n": "Enchanted Thorium",
     "r": "",
     "d": "Create Enchanted Thorium for use in Blacksmithing.",
-    "pt": "Cria Tório pra ferraria."
+    "pt": "Cria Tório Encantado para uso na Ferraria."
   },
   {
     "id": 17196,
@@ -6613,15 +6125,15 @@
     "n": "Elixir of the Sages",
     "r": "",
     "d": "Increases Intellect and Spirit by $s1 for $d.",
-    "pt": "Int e Esp +$s1 por $d s."
+    "pt": "Aumenta o Intelecto e o Espírito em $s1 por $d s."
   },
   {
-    "id": 17538,
+    "id": 17539,
     "kind": "modified",
-    "n": "Elixir of the Mongoose",
+    "n": "Greater Arcane Elixir",
     "r": "",
-    "d": "Increases Agility by $s1 and chance to get a critical hit by $s2% for $d.",
-    "pt": "Agi +$s1 e crítico +$s2% por $d s."
+    "d": "Increases spell damage by up to $s1 for $d.",
+    "pt": "Aumenta o dano mágico em até $s1 por $d s."
   },
   {
     "id": 17567,
@@ -7688,44 +7200,12 @@
     "pt": "Aumenta sua velocidade de ataque e de lançamento em $s1%."
   },
   {
-    "id": 18122,
-    "kind": "modified",
-    "n": "[Deprecated] Aftermath",
-    "r": "Rank 4",
-    "d": "Gives your Destruction spells a $h% chance to daze the target for $18118d.",
-    "pt": "Destruição: $h% de atordoar por $d s."
-  },
-  {
-    "id": 18123,
-    "kind": "modified",
-    "n": "[Deprecated] Aftermath",
-    "r": "Rank 5",
-    "d": "Gives your Destruction spells a $h% chance to daze the target for $18118d.",
-    "pt": "Destruição: $h% de atordoar por $d s."
-  },
-  {
     "id": 18125,
     "kind": "modified",
     "n": "Blessed Sunfruit",
     "r": "",
     "d": "Increases Strength by $s1 for $d.",
     "pt": "Aumenta a Força em $s1 por $d s."
-  },
-  {
-    "id": 18128,
-    "kind": "modified",
-    "n": "[Deprecated] Improved Lash of Pain",
-    "r": "Rank 1",
-    "d": "Reduces the cooldown of your Succubus' Lash of Pain spell by $/1000;s1 sec.",
-    "pt": "Látego -$s1 s recarga."
-  },
-  {
-    "id": 18129,
-    "kind": "modified",
-    "n": "[Deprecated] Improved Lash of Pain",
-    "r": "Rank 2",
-    "d": "Reduces the cooldown of your Succubus' Lash of Pain spell by $/1000;s1 sec.",
-    "pt": "Látego -$s1 s recarga."
   },
   {
     "id": 18181,
@@ -7854,22 +7334,6 @@
     "r": "",
     "d": "Close Demon Portals.",
     "pt": "Fecha portal de demônio."
-  },
-  {
-    "id": 18767,
-    "kind": "modified",
-    "n": "Improved Firestone",
-    "r": "Rank 1",
-    "d": "Increases the bonus Fire damage from Firestones and the Firestone effect by $s1%.",
-    "pt": "Aumenta o dano de Fogo bônus das Pedras Ígneas em $s1%."
-  },
-  {
-    "id": 18768,
-    "kind": "modified",
-    "n": "Improved Firestone",
-    "r": "Rank 2",
-    "d": "Increases the bonus Fire damage from Firestones and the Firestone effect by $s1%.",
-    "pt": "Aumenta o dano de Fogo bônus das Pedras Ígneas em $s1%."
   },
   {
     "id": 18769,
@@ -8008,14 +7472,6 @@
     "pt": "Aumenta a sua vida total em $s1%."
   },
   {
-    "id": 19266,
-    "kind": "modified",
-    "n": "Touch of Weakness",
-    "r": "Rank 6",
-    "d": "The next melee attack on the caster will cause $19254s1 Shadow damage and reduce the damage caused by the attacker by $19254s2 for $19254d.",
-    "pt": "Próximo corpo a corpo: $s1 de Sombra e -$s2 por $d s."
-  },
-  {
     "id": 19272,
     "kind": "modified",
     "n": "Lava Breath",
@@ -8024,28 +7480,12 @@
     "pt": "$s1 de Fogo à frente."
   },
   {
-    "id": 19295,
-    "kind": "modified",
-    "n": "Swift Reflexes",
-    "r": "Rank 1",
-    "d": "Increases your Parry chance and attack speed by $s1%.",
-    "pt": "Aumenta seu Aparo e velocidade de ataque em $s1%."
-  },
-  {
-    "id": 19297,
-    "kind": "modified",
-    "n": "Swift Reflexes",
-    "r": "Rank 2",
-    "d": "Increases your Parry chance and attack speed by $s1%.",
-    "pt": "Aumenta seu Aparo e velocidade de ataque em $s1%."
-  },
-  {
     "id": 19298,
     "kind": "modified",
     "n": "[Deprecated] Deflection",
     "r": "Rank 3",
     "d": "Increases your Parry chance by $s1%.",
-    "pt": "Aumenta sua chance de aparar em $s1%."
+    "pt": "Aumenta a sua chance de aparar em $s1%."
   },
   {
     "id": 19300,
@@ -8053,7 +7493,7 @@
     "n": "[Deprecated] Deflection",
     "r": "Rank 5",
     "d": "Increases your Parry chance by $s1%.",
-    "pt": "Aumenta sua chance de aparar em $s1%."
+    "pt": "Aumenta a sua chance de aparar em $s1%."
   },
   {
     "id": 19301,
@@ -8061,7 +7501,7 @@
     "n": "[Deprecated] Deflection",
     "r": "Rank 4",
     "d": "Increases your Parry chance by $s1%.",
-    "pt": "Aumenta sua chance de aparar em $s1%."
+    "pt": "Aumenta a sua chance de aparar em $s1%."
   },
   {
     "id": 19365,
@@ -8112,30 +7552,6 @@
     "pt": "Velocidade próximos -$s1% por $d s."
   },
   {
-    "id": 19500,
-    "kind": "modified",
-    "n": "[Deprecated] Hawk Eye",
-    "r": "Rank 3",
-    "d": "Increases the range of your ranged weapons by $s1 yards.",
-    "pt": "Aumenta o alcance à distância em $s1 m."
-  },
-  {
-    "id": 19590,
-    "kind": "modified",
-    "n": "Bestial Discipline",
-    "r": "Rank 1",
-    "d": "Increases the Focus regeneration of your pets by 2 each tick.",
-    "pt": "Foco do pet +2 por tick."
-  },
-  {
-    "id": 19592,
-    "kind": "modified",
-    "n": "Bestial Discipline",
-    "r": "Rank 2",
-    "d": "Increases the Focus regeneration of your pets by 5 each tick.",
-    "pt": "Foco do pet +5 por tick."
-  },
-  {
     "id": 19593,
     "kind": "modified",
     "n": "Egg Explosion",
@@ -8157,7 +7573,7 @@
     "n": "[Deprecated] Thick Hide",
     "r": "Rank 4",
     "d": "Increases the Armor rating of your pets by $s1%.",
-    "pt": "Armadura do pet +$s1%."
+    "pt": "Aumenta a armadura dos seus ajudantes em $s1%."
   },
   {
     "id": 19613,
@@ -8165,7 +7581,7 @@
     "n": "[Deprecated] Thick Hide",
     "r": "Rank 5",
     "d": "Increases the Armor rating of your pets by $s1%.",
-    "pt": "Armadura do pet +$s1%."
+    "pt": "Aumenta a armadura dos seus ajudantes em $s1%."
   },
   {
     "id": 19616,
@@ -8173,7 +7589,7 @@
     "n": "Unleashed Fury",
     "r": "Rank 1",
     "d": "Increases the damage done by your pets by $s1%.",
-    "pt": "Aumenta o dano dos seus pets em $s1%."
+    "pt": "Aumenta o dano causado pelos seus ajudantes em $s1%."
   },
   {
     "id": 19617,
@@ -8181,7 +7597,7 @@
     "n": "Unleashed Fury",
     "r": "Rank 2",
     "d": "Increases the damage done by your pets by $s1%.",
-    "pt": "Aumenta o dano dos seus pets em $s1%."
+    "pt": "Aumenta o dano causado pelos seus ajudantes em $s1%."
   },
   {
     "id": 19618,
@@ -8189,7 +7605,7 @@
     "n": "Unleashed Fury",
     "r": "Rank 3",
     "d": "Increases the damage done by your pets by $s1%.",
-    "pt": "Aumenta o dano dos seus pets em $s1%."
+    "pt": "Aumenta o dano causado pelos seus ajudantes em $s1%."
   },
   {
     "id": 19619,
@@ -8197,7 +7613,7 @@
     "n": "Unleashed Fury",
     "r": "Rank 4",
     "d": "Increases the damage done by your pets by $s1%.",
-    "pt": "Aumenta o dano dos seus pets em $s1%."
+    "pt": "Aumenta o dano causado pelos seus ajudantes em $s1%."
   },
   {
     "id": 19620,
@@ -8205,7 +7621,7 @@
     "n": "Unleashed Fury",
     "r": "Rank 5",
     "d": "Increases the damage done by your pets by $s1%.",
-    "pt": "Aumenta o dano dos seus pets em $s1%."
+    "pt": "Aumenta o dano causado pelos seus ajudantes em $s1%."
   },
   {
     "id": 19638,
@@ -8288,22 +7704,6 @@
     "pt": "Aumenta sua perícia em Defesa em $s1."
   },
   {
-    "id": 20174,
-    "kind": "modified",
-    "n": "Guardian's Favor",
-    "r": "Rank 1",
-    "d": "Reduces the cooldown of your Hand of Protection by $/1000;s1 sec and increases the duration of your Hand of Freedom by $/1000;s2 sec.",
-    "pt": "Proteção -$s1 s recarga e Liberdade +$s2 s."
-  },
-  {
-    "id": 20175,
-    "kind": "modified",
-    "n": "Guardian's Favor",
-    "r": "Rank 2",
-    "d": "Reduces the cooldown of your Hand of Protection by $/1000;s1 sec and increases the duration of your Hand of Freedom by $/1000;s2 sec.",
-    "pt": "Proteção -$s1 s recarga e Liberdade +$s2 s."
-  },
-  {
     "id": 20216,
     "kind": "modified",
     "n": "[Deprecated] Divine Favor",
@@ -8312,28 +7712,12 @@
     "pt": "Próximo Clarão/Luz/Choque: +$s1% crítico."
   },
   {
-    "id": 20219,
-    "kind": "modified",
-    "n": "Gnomish Engineer",
-    "r": "Specialization",
-    "d": "Allows an engineer to make fantastic, yet unreliable gnomish devices.",
-    "pt": "Engenheiro gnomo: incrível e instável."
-  },
-  {
-    "id": 20222,
-    "kind": "modified",
-    "n": "Goblin Engineer",
-    "r": "Specialization",
-    "d": "Allows an engineer to make lethal goblin devices.",
-    "pt": "Engenheiro goblin: letal."
-  },
-  {
     "id": 20257,
     "kind": "modified",
     "n": "Divine Intellect",
     "r": "Rank 1",
     "d": "Increases your total Intellect by $s1%.",
-    "pt": "Aumenta seu Intelecto total em $s1%."
+    "pt": "Aumenta o seu Intelecto total em $s1%."
   },
   {
     "id": 20258,
@@ -8341,7 +7725,7 @@
     "n": "Divine Intellect",
     "r": "Rank 2",
     "d": "Increases your total Intellect by $s1%.",
-    "pt": "Aumenta seu Intelecto total em $s1%."
+    "pt": "Aumenta o seu Intelecto total em $s1%."
   },
   {
     "id": 20259,
@@ -8349,7 +7733,7 @@
     "n": "Divine Intellect",
     "r": "Rank 3",
     "d": "Increases your total Intellect by $s1%.",
-    "pt": "Aumenta seu Intelecto total em $s1%."
+    "pt": "Aumenta o seu Intelecto total em $s1%."
   },
   {
     "id": 20260,
@@ -8357,7 +7741,7 @@
     "n": "Divine Intellect",
     "r": "Rank 4",
     "d": "Increases your total Intellect by $s1%.",
-    "pt": "Aumenta seu Intelecto total em $s1%."
+    "pt": "Aumenta o seu Intelecto total em $s1%."
   },
   {
     "id": 20261,
@@ -8365,15 +7749,7 @@
     "n": "Divine Intellect",
     "r": "Rank 5",
     "d": "Increases your total Intellect by $s1%.",
-    "pt": "Aumenta seu Intelecto total em $s1%."
-  },
-  {
-    "id": 20502,
-    "kind": "modified",
-    "n": "Reckless Execute",
-    "r": "Rank 1",
-    "d": "Reduces the cooldown of your Execute ability by $/1000;S1 sec.",
-    "pt": "Executar -$s1 s de recarga."
+    "pt": "Aumenta o seu Intelecto total em $s1%."
   },
   {
     "id": 20503,
@@ -8381,7 +7757,7 @@
     "n": "Reckless Execute",
     "r": "Rank 2",
     "d": "Removes the cooldown of your Execute ability.",
-    "pt": "Executar sem recarga."
+    "pt": "Remove o tempo de recarga da sua habilidade Executar."
   },
   {
     "id": 20573,
@@ -8390,22 +7766,6 @@
     "r": "Racial Passive",
     "d": "Reduces the duration of Stun effects used against you by $s1%.",
     "pt": "Atordoar -$s1% tempo."
-  },
-  {
-    "id": 20575,
-    "kind": "modified",
-    "n": "Command",
-    "r": "Racial Passive",
-    "d": "Damage dealt by Hunter and Warlock pets increased by $s1%.",
-    "pt": "Reduz todo o dano recebido em $s1%."
-  },
-  {
-    "id": 20576,
-    "kind": "modified",
-    "n": "Command",
-    "r": "Racial Passive",
-    "d": "Damage dealt by Hunter and Warlock pets increased by $s1%.",
-    "pt": "Reduz todo o dano recebido em $s1%."
   },
   {
     "id": 20582,
@@ -10272,44 +9632,36 @@
     "pt": "$s1 de Fogo em cone + 5% no peito."
   },
   {
-    "id": 21560,
-    "kind": "custom",
-    "n": "Prayer of Fortitude",
-    "r": "Rank 1",
-    "d": "Power infuses the party, increasing their Stamina by $M1 for $d.",
-    "pt": "Poder no grupo: +Vigor $s1 por $d s."
-  },
-  {
-    "id": 21562,
-    "kind": "custom",
-    "n": "Prayer of Fortitude",
-    "r": "Rank 1",
-    "d": "Power infuses the target's party, increasing their Stamina by $s1 for $d.",
-    "pt": "Poder no grupo: +Vigor $s1 por $d s."
-  },
-  {
-    "id": 21563,
-    "kind": "custom",
-    "n": "Command",
-    "r": "Racial Passive",
-    "d": "Damage dealt by Hunter and Warlock pets increased by $s1%.",
-    "pt": "Reduz todo o dano recebido em $s1%."
-  },
-  {
-    "id": 21564,
-    "kind": "custom",
-    "n": "Prayer of Fortitude",
-    "r": "Rank 2",
-    "d": "Power infuses the target's party, increasing their Stamina by $s1 for $d.",
-    "pt": "Poder no grupo: +Vigor $s1 por $d s."
-  },
-  {
     "id": 21565,
     "kind": "custom",
     "n": "Create Shredder",
     "r": "",
     "d": "Creates a Shredder Unit that you control!",
     "pt": "Cria Triturador sob seu comando!"
+  },
+  {
+    "id": 21567,
+    "kind": "custom",
+    "n": "Prayer of Fortitude",
+    "r": "Rank 1",
+    "d": "Teaches Prayer of Fortitude (Rank 1).",
+    "pt": "Ensina Prece de Fortitude (Grau 1)."
+  },
+  {
+    "id": 21568,
+    "kind": "custom",
+    "n": "Prayer of Fortitude",
+    "r": "Rank 1",
+    "d": "Teaches Prayer of Fortitude (Rank 1).",
+    "pt": "Ensina Prece de Fortitude (Grau 1)."
+  },
+  {
+    "id": 21569,
+    "kind": "custom",
+    "n": "Prayer of Fortitude",
+    "r": "Rank 2",
+    "d": "Teaches Prayer of Fortitude (Rank 2).",
+    "pt": "Ensina Prece de Fortitude (Grau 2)."
   },
   {
     "id": 21587,
@@ -10904,6 +10256,22 @@
     "pt": "Corpo a corpo: $h% de -$s1 poder por $d s."
   },
   {
+    "id": 21851,
+    "kind": "custom",
+    "n": "Gift of the Wild",
+    "r": "Rank 1",
+    "d": "Teaches Gift of the Wild (Rank 1).",
+    "pt": "Ensina Dádiva do Ermo (Grau 1)."
+  },
+  {
+    "id": 21852,
+    "kind": "custom",
+    "n": "Gift of the Wild",
+    "r": "Rank 2",
+    "d": "Teaches Gift of the Wild (Rank 2).",
+    "pt": "Ensina Dádiva do Ermo (Grau 2)."
+  },
+  {
     "id": 21853,
     "kind": "custom",
     "n": "Reactive Fade",
@@ -11248,20 +10616,12 @@
     "pt": "Poder +$s1."
   },
   {
-    "id": 21969,
-    "kind": "custom",
-    "n": "Mark of the Chosen",
-    "r": "Rank 1",
-    "d": "Has a 2% chance when struck in combat of increasing all stats by 25 for $21970d1.",
-    "pt": "Acerto: 2% de +25 em tudo por $d s."
-  },
-  {
     "id": 21970,
     "kind": "custom",
     "n": "Mark of the Chosen Effect",
     "r": "Rank 1",
     "d": "Increases all stats by $s1 for $d.",
-    "pt": "Tudo +$s1 por $d s."
+    "pt": "Aumenta todos os atributos em $s1 por $d s."
   },
   {
     "id": 21972,
@@ -11310,14 +10670,6 @@
     "r": "",
     "d": "Lashes an enemy, inflicting Shadow damage. The caster must be behind the target.",
     "pt": "Envolve o alvo em teia grudenta, imobilizando-o por $d s."
-  },
-  {
-    "id": 21991,
-    "kind": "custom",
-    "n": "Talisman of Binding",
-    "r": "Rank 1",
-    "d": "When struck in combat inflicts $s1 Nature damage to the attacker.",
-    "pt": "Acerto: $s1 de Natureza no atacante."
   },
   {
     "id": 22007,
@@ -11614,14 +10966,6 @@
     "r": "",
     "d": "Bash at an enemy's armor, reducing it by $s1 per Crush Armor. Can be applied up to 5 times. Lasts $d.",
     "pt": "Armadura -$s1 por acúmulo. Até 5x. $d s."
-  },
-  {
-    "id": 22430,
-    "kind": "custom",
-    "n": "Refined Scale of Onyxia",
-    "r": "",
-    "d": "Transmutes a scale of onyxia into a refined scale of onyxia.",
-    "pt": "Refina escama em escama."
   },
   {
     "id": 22435,
@@ -12024,14 +11368,6 @@
     "pt": "O custo de Raiva de Cortar Tendão é reduzido em $s1."
   },
   {
-    "id": 22779,
-    "kind": "custom",
-    "n": "Biznicks 247x128 Accurascope",
-    "r": "",
-    "d": "Attaches a permanent scope to a bow or gun that increases its chance to hit by 3%.",
-    "pt": "Mira: +3% acerto."
-  },
-  {
     "id": 22780,
     "kind": "custom",
     "n": "Ranged Hit Bonus +3",
@@ -12046,14 +11382,6 @@
     "r": "",
     "d": "Plants a Thornling which attracts nearby enemies.",
     "pt": "Planta espinho que atrai."
-  },
-  {
-    "id": 22801,
-    "kind": "custom",
-    "n": "Ghost Wolf Speed",
-    "r": "Rank 1",
-    "d": "Increases the speed of your Ghost Wolf ability by $s1%.",
-    "pt": "Lobo Fantasma +$s1% de velocidade."
   },
   {
     "id": 22807,
@@ -12512,22 +11840,6 @@
     "pt": "Reflete Sombra por $d s."
   },
   {
-    "id": 23133,
-    "kind": "custom",
-    "n": "Gnomish Battle Chicken",
-    "r": "",
-    "d": "Creates a Battle Chicken that will fight for you for $13166d or until it is destroyed.",
-    "pt": "Galinha luta por $d s."
-  },
-  {
-    "id": 23134,
-    "kind": "custom",
-    "n": "Goblin Bomb",
-    "r": "",
-    "d": "Creates a mobile bomb that charges the nearest enemy and explodes for $13259s1 fire damage.",
-    "pt": "Bomba que investe e explode $s1 de fogo."
-  },
-  {
     "id": 23136,
     "kind": "custom",
     "n": "Release J'eevee",
@@ -12614,14 +11926,6 @@
     "r": "",
     "d": "Reduces the cooldown of your Concussive Shot by $/1000;s1 sec.",
     "pt": "Concussivo -$s1 s recarga."
-  },
-  {
-    "id": 23161,
-    "kind": "custom",
-    "n": "Summon Dreadsteed",
-    "r": "Summon",
-    "d": "Summons a Dreadsteed, which serves as a mount for the caster. Speed is increased by $s2%.",
-    "pt": "Invoca Corcel. +$s1% velocidade."
   },
   {
     "id": 23172,
@@ -13229,7 +12533,7 @@
     "n": "Call Pet",
     "r": "",
     "d": "Summons your pet to you.",
-    "pt": "Chama o pet até você."
+    "pt": "Chama o seu ajudante até você."
   },
   {
     "id": 23509,
@@ -13472,14 +12776,6 @@
     "pt": "Sumir: cura $s1."
   },
   {
-    "id": 23591,
-    "kind": "custom",
-    "n": "Judgement",
-    "r": "",
-    "d": "Inflicts $23590s1 additional Holy damage on the target of a Paladin's Judgement.",
-    "pt": "Julgamento +$s1 Sagrado."
-  },
-  {
     "id": 23593,
     "kind": "custom",
     "n": "Increase Healing 92",
@@ -13509,7 +12805,7 @@
     "n": "Ritual of Summoning",
     "r": "",
     "d": "Begins a ritual that summons the targeted group member.",
-    "pt": "Ritual do membro do grupo."
+    "pt": "Inicia um ritual que evoca o membro do grupo selecionado."
   },
   {
     "id": 23600,
@@ -13733,7 +13029,7 @@
     "n": "Master Demonologist",
     "r": "Rank 1",
     "d": "Imp",
-    "pt": "Diabrete."
+    "pt": "Diabrete"
   },
   {
     "id": 23760,
@@ -13741,7 +13037,7 @@
     "n": "Master Demonologist",
     "r": "Rank 1",
     "d": "Voidwalker",
-    "pt": "Emissário do Vazio."
+    "pt": "Emissário do Caos"
   },
   {
     "id": 23761,
@@ -13749,7 +13045,7 @@
     "n": "Master Demonologist",
     "r": "Rank 1",
     "d": "Succubus",
-    "pt": "Súcubo."
+    "pt": "Súcubo"
   },
   {
     "id": 23762,
@@ -13757,7 +13053,7 @@
     "n": "Master Demonologist",
     "r": "Rank 1",
     "d": "Felhunter",
-    "pt": "Caçador Vil."
+    "pt": "Caçador Vil"
   },
   {
     "id": 23775,
@@ -13789,7 +13085,7 @@
     "n": "Powerful Anti-Venom",
     "r": "",
     "d": "Target is cured of poisons up to level 60.",
-    "pt": "Veneno até nv 60 some."
+    "pt": "O alvo é curado de venenos de até nível 60."
   },
   {
     "id": 23787,
@@ -13797,7 +13093,7 @@
     "n": "Powerful Anti-Venom",
     "r": "",
     "d": "Creates a Vial of Powerful Anti-Venom.",
-    "pt": "Cria Antiveneno."
+    "pt": "Cria um frasco de Antiveneno Poderoso."
   },
   {
     "id": 23795,
@@ -13877,7 +13173,7 @@
     "n": "Master Demonologist",
     "r": "Rank 2",
     "d": "Imp",
-    "pt": "Diabrete."
+    "pt": "Diabrete"
   },
   {
     "id": 23827,
@@ -13885,7 +13181,7 @@
     "n": "Master Demonologist",
     "r": "Rank 3",
     "d": "Imp",
-    "pt": "Diabrete."
+    "pt": "Diabrete"
   },
   {
     "id": 23828,
@@ -13893,7 +13189,7 @@
     "n": "Master Demonologist",
     "r": "Rank 4",
     "d": "Imp",
-    "pt": "Diabrete."
+    "pt": "Diabrete"
   },
   {
     "id": 23829,
@@ -13901,7 +13197,7 @@
     "n": "Master Demonologist",
     "r": "Rank 5",
     "d": "Imp",
-    "pt": "Diabrete."
+    "pt": "Diabrete"
   },
   {
     "id": 23833,
@@ -13909,7 +13205,7 @@
     "n": "Master Demonologist",
     "r": "Rank 2",
     "d": "Succubus",
-    "pt": "Súcubo."
+    "pt": "Súcubo"
   },
   {
     "id": 23834,
@@ -13917,7 +13213,7 @@
     "n": "Master Demonologist",
     "r": "Rank 3",
     "d": "Succubus",
-    "pt": "Súcubo."
+    "pt": "Súcubo"
   },
   {
     "id": 23835,
@@ -13925,7 +13221,7 @@
     "n": "Master Demonologist",
     "r": "Rank 4",
     "d": "Succubus",
-    "pt": "Súcubo."
+    "pt": "Súcubo"
   },
   {
     "id": 23836,
@@ -13933,7 +13229,7 @@
     "n": "Master Demonologist",
     "r": "Rank 5",
     "d": "Succubus",
-    "pt": "Súcubo."
+    "pt": "Súcubo"
   },
   {
     "id": 23837,
@@ -13941,7 +13237,7 @@
     "n": "Master Demonologist",
     "r": "Rank 2",
     "d": "Felhunter",
-    "pt": "Caçador Vil."
+    "pt": "Caçador Vil"
   },
   {
     "id": 23838,
@@ -13949,7 +13245,7 @@
     "n": "Master Demonologist",
     "r": "Rank 3",
     "d": "Felhunter",
-    "pt": "Caçador Vil."
+    "pt": "Caçador Vil"
   },
   {
     "id": 23839,
@@ -13957,7 +13253,7 @@
     "n": "Master Demonologist",
     "r": "Rank 4",
     "d": "Felhunter",
-    "pt": "Caçador Vil."
+    "pt": "Caçador Vil"
   },
   {
     "id": 23840,
@@ -13965,7 +13261,7 @@
     "n": "Master Demonologist",
     "r": "Rank 5",
     "d": "Felhunter",
-    "pt": "Caçador Vil."
+    "pt": "Caçador Vil"
   },
   {
     "id": 23841,
@@ -13973,7 +13269,7 @@
     "n": "Master Demonologist",
     "r": "Rank 2",
     "d": "Voidwalker",
-    "pt": "Emissário do Vazio."
+    "pt": "Emissário do Caos"
   },
   {
     "id": 23842,
@@ -13981,7 +13277,7 @@
     "n": "Master Demonologist",
     "r": "Rank 3",
     "d": "Voidwalker",
-    "pt": "Emissário do Vazio."
+    "pt": "Emissário do Caos"
   },
   {
     "id": 23843,
@@ -13989,7 +13285,7 @@
     "n": "Master Demonologist",
     "r": "Rank 4",
     "d": "Voidwalker",
-    "pt": "Emissário do Vazio."
+    "pt": "Emissário do Caos"
   },
   {
     "id": 23844,
@@ -13997,7 +13293,7 @@
     "n": "Master Demonologist",
     "r": "Rank 5",
     "d": "Voidwalker",
-    "pt": "Emissário do Vazio."
+    "pt": "Emissário do Caos"
   },
   {
     "id": 23859,
@@ -14117,7 +13413,7 @@
     "n": "Test Fury",
     "r": "Rank 4",
     "d": "Increases damage done by $s1 for $d.",
-    "pt": "Aumenta o dano em $s1 por $d s."
+    "pt": "Aumenta o dano causado em $s1 por $d s."
   },
   {
     "id": 24048,
@@ -14408,22 +13704,6 @@
     "pt": "Apaga o Braseiro."
   },
   {
-    "id": 24286,
-    "kind": "custom",
-    "n": "Surefooted",
-    "r": "Rank 4",
-    "d": "Increases hit chance by $s3% and increases the chance movement impairing effects will be resisted by $s1%.",
-    "pt": "Acerto +$s1% e lentidão +$s2%."
-  },
-  {
-    "id": 24287,
-    "kind": "custom",
-    "n": "Surefooted",
-    "r": "Rank 5",
-    "d": "Increases hit chance by $s3% and increases the chance movement impairing effects will be resisted by $s1%.",
-    "pt": "Acerto +$s1% e lentidão +$s2%."
-  },
-  {
     "id": 24291,
     "kind": "custom",
     "n": "Dragon Slaying 48",
@@ -14464,14 +13744,6 @@
     "pt": "Pesca +$s1."
   },
   {
-    "id": 24302,
-    "kind": "custom",
-    "n": "Eternium Fishing Line",
-    "r": "",
-    "d": "Replaces the fishing line on your fishing pole with a high test eternium line.",
-    "pt": "Linha de etérnio na vara."
-  },
-  {
     "id": 24325,
     "kind": "custom",
     "n": "Pagle's Point Cast - Create Mudskunk Lure",
@@ -14509,7 +13781,7 @@
     "n": "Safe Fall",
     "r": "",
     "d": "Reduces damage from falling.",
-    "pt": "Aumenta o dano de magias de Fogo em 2."
+    "pt": "Reduz o dano de queda."
   },
   {
     "id": 24351,
@@ -14557,7 +13829,7 @@
     "n": "Mana Regeneration",
     "r": "",
     "d": "Regenerate $s1 mana per 5 sec for $d.",
-    "pt": "$s1 mana/5 s por $d s."
+    "pt": "Restaura $s1 de mana a cada 5 segundos por $d s."
   },
   {
     "id": 24374,
@@ -14733,7 +14005,7 @@
     "n": "Fire Resistance",
     "r": "Rank 1",
     "d": "Increases Fire resistance by $23992s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24441,
@@ -14741,7 +14013,7 @@
     "n": "Fire Resistance",
     "r": "Rank 2",
     "d": "Increases Fire resistance by $24439s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24442,
@@ -14749,7 +14021,7 @@
     "n": "Fire Resistance",
     "r": "Rank 1",
     "d": "Increases Fire resistance by $23992s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24444,
@@ -14773,7 +14045,7 @@
     "n": "Frost Resistance",
     "r": "Rank 1",
     "d": "Increases Frost resistance by $s1.",
-    "pt": "Aumenta a resistência a Fogo em $s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24447,
@@ -14781,7 +14053,7 @@
     "n": "Frost Resistance",
     "r": "Rank 2",
     "d": "Increases Frost resistance by $s1.",
-    "pt": "Aumenta a resistência a Fogo em $s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24448,
@@ -14789,7 +14061,7 @@
     "n": "Frost Resistance",
     "r": "Rank 3",
     "d": "Increases Frost resistance by $s1.",
-    "pt": "Aumenta a resistência a Fogo em $s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24449,
@@ -14797,7 +14069,7 @@
     "n": "Frost Resistance",
     "r": "Rank 4",
     "d": "Increases Frost resistance by $s1.",
-    "pt": "Aumenta a resistência a Fogo em $s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24456,
@@ -14845,7 +14117,7 @@
     "n": "Fire Resistance",
     "r": "Rank 3",
     "d": "Increases Fire resistance by $24444s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24464,
@@ -14853,7 +14125,7 @@
     "n": "Fire Resistance",
     "r": "Rank 4",
     "d": "Increases Fire resistance by $24445s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24467,
@@ -14869,7 +14141,7 @@
     "n": "Fire Resistance",
     "r": "Rank 2",
     "d": "Increases Fire resistance by $24439s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24469,
@@ -14885,7 +14157,7 @@
     "n": "Fire Resistance",
     "r": "Rank 3",
     "d": "Increases Fire resistance by $24444s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24471,
@@ -14901,7 +14173,7 @@
     "n": "Fire Resistance",
     "r": "Rank 4",
     "d": "Increases Fire resistance by $24445s1.",
-    "pt": "Fogo +$s1."
+    "pt": "Aumenta a resistência a Fogo em $s1."
   },
   {
     "id": 24473,
@@ -14909,7 +14181,7 @@
     "n": "Frost Resistance",
     "r": "Rank 1",
     "d": "Increases Frost resistance by $24446s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24475,
@@ -14917,7 +14189,7 @@
     "n": "Frost Resistance",
     "r": "Rank 1",
     "d": "Increases Frost resistance by $24446s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24476,
@@ -14925,7 +14197,7 @@
     "n": "Frost Resistance",
     "r": "Rank 2",
     "d": "Increases Frost resistance by $24447s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24477,
@@ -14933,7 +14205,7 @@
     "n": "Frost Resistance",
     "r": "Rank 3",
     "d": "Increases Frost resistance by $24448s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24478,
@@ -14941,7 +14213,7 @@
     "n": "Frost Resistance",
     "r": "Rank 4",
     "d": "Increases Frost resistance by $24449s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24479,
@@ -14957,7 +14229,7 @@
     "n": "Frost Resistance",
     "r": "Rank 2",
     "d": "Increases Frost resistance by $24447s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24482,
@@ -14981,7 +14253,7 @@
     "n": "Frost Resistance",
     "r": "Rank 3",
     "d": "Increases Frost resistance by $24448s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24485,
@@ -14989,7 +14261,7 @@
     "n": "Frost Resistance",
     "r": "Rank 4",
     "d": "Increases Frost resistance by $24449s1.",
-    "pt": "Gelo +$s1."
+    "pt": "Aumenta a resistência a Gelo em $s1."
   },
   {
     "id": 24487,
@@ -15021,7 +14293,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 1",
     "d": "Increases Shadow resistance by $24488s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24492,
@@ -15045,7 +14317,7 @@
     "n": "Nature Resistance",
     "r": "Rank 1",
     "d": "Increases Nature resistance by $24492s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24495,
@@ -15053,7 +14325,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 1",
     "d": "Increases Arcane resistance by $24493s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24497,
@@ -15149,7 +14421,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 2",
     "d": "Increases Arcane resistance by $24497s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24509,
@@ -15157,7 +14429,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 3",
     "d": "Increases Arcane resistance by $24500s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24510,
@@ -15165,7 +14437,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 4",
     "d": "Increases Arcane resistance by $24501s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24511,
@@ -15173,7 +14445,7 @@
     "n": "Nature Resistance",
     "r": "Rank 2",
     "d": "Increases Nature resistance by $24502s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24512,
@@ -15181,7 +14453,7 @@
     "n": "Nature Resistance",
     "r": "Rank 3",
     "d": "Increases Nature resistance by $24503s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24513,
@@ -15189,7 +14461,7 @@
     "n": "Nature Resistance",
     "r": "Rank 4",
     "d": "Increases Nature resistance by $24504s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24514,
@@ -15197,7 +14469,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 2",
     "d": "Increases Shadow resistance by $24505s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24515,
@@ -15205,7 +14477,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 3",
     "d": "Increases Shadow resistance by $24506s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24516,
@@ -15213,7 +14485,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 4",
     "d": "Increases Shadow resistance by $24507s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24517,
@@ -15221,7 +14493,7 @@
     "n": "Nature Resistance",
     "r": "Rank 1",
     "d": "Increases Nature resistance by $24492s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24518,
@@ -15229,7 +14501,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 1",
     "d": "Increases Shadow resistance by $24488s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24519,
@@ -15237,7 +14509,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 1",
     "d": "Increases Arcane resistance by $24493s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24520,
@@ -15245,7 +14517,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 2",
     "d": "Increases Arcane resistance by $24497s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24521,
@@ -15253,7 +14525,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 3",
     "d": "Increases Arcane resistance by $24500s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24522,
@@ -15261,7 +14533,7 @@
     "n": "Arcane Resistance",
     "r": "Rank 4",
     "d": "Increases Arcane resistance by $24501s1.",
-    "pt": "Arcano +$s1."
+    "pt": "Aumenta a resistência a Arcano em $s1."
   },
   {
     "id": 24523,
@@ -15269,7 +14541,7 @@
     "n": "Nature Resistance",
     "r": "Rank 2",
     "d": "Increases Nature resistance by $24502s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24524,
@@ -15277,7 +14549,7 @@
     "n": "Nature Resistance",
     "r": "Rank 3",
     "d": "Increases Nature resistance by $24503s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24525,
@@ -15285,7 +14557,7 @@
     "n": "Nature Resistance",
     "r": "Rank 4",
     "d": "Increases Nature resistance by $24504s1.",
-    "pt": "Natureza +$s1."
+    "pt": "Aumenta a resistência a Natureza em $s1."
   },
   {
     "id": 24526,
@@ -15293,7 +14565,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 2",
     "d": "Increases Shadow resistance by $24505s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24527,
@@ -15301,7 +14573,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 3",
     "d": "Increases Shadow resistance by $24506s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24528,
@@ -15309,7 +14581,7 @@
     "n": "Shadow Resistance",
     "r": "Rank 4",
     "d": "Increases Shadow resistance by $24507s1.",
-    "pt": "Sombra +$s1."
+    "pt": "Aumenta a resistência a Sombra em $s1."
   },
   {
     "id": 24531,
@@ -15333,7 +14605,7 @@
     "n": "Great Stamina",
     "r": "Rank 1",
     "d": "Increases Stamina by $4187s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Aumenta o Vigor em $s1."
   },
   {
     "id": 24534,
@@ -15341,7 +14613,7 @@
     "n": "Great Stamina",
     "r": "Rank 2",
     "d": "Increases Stamina by $4188s1.",
-    "pt": "Vigor +$s1."
+    "pt": "Aumenta o Vigor em $s1."
   },
   {
     "id": 24535,
@@ -15416,14 +14688,6 @@
     "pt": "Crítico Destruição +$s1% por $d s."
   },
   {
-    "id": 24544,
-    "kind": "custom",
-    "n": "Arcane Potency",
-    "r": "",
-    "d": "Increases the critical hit chance of your Arcane spells by $s1%, and increases the critical hit damage of your Arcane spells by $s2% for $d.",
-    "pt": "Crítico Arcano +$s1% e dano +$s2% por $d s."
-  },
-  {
     "id": 24545,
     "kind": "custom",
     "n": "Natural Armor",
@@ -15445,7 +14709,7 @@
     "n": "Natural Armor",
     "r": "Rank 1",
     "d": "Armor increased by $24545s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24548,
@@ -15453,7 +14717,7 @@
     "n": "Natural Armor",
     "r": "Rank 1",
     "d": "Armor increased by $24545s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24549,
@@ -15517,7 +14781,7 @@
     "n": "Natural Armor",
     "r": "Rank 2",
     "d": "Armor increased by $24549s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24557,
@@ -15525,7 +14789,7 @@
     "n": "Natural Armor",
     "r": "Rank 3",
     "d": "Armor increased by $24550s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24558,
@@ -15533,7 +14797,7 @@
     "n": "Natural Armor",
     "r": "Rank 4",
     "d": "Armor increased by $24551s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24559,
@@ -15541,7 +14805,7 @@
     "n": "Natural Armor",
     "r": "Rank 5",
     "d": "Armor increased by $24552s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24560,
@@ -15549,7 +14813,7 @@
     "n": "Natural Armor",
     "r": "Rank 6",
     "d": "Armor increased by $24553s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24561,
@@ -15557,7 +14821,7 @@
     "n": "Natural Armor",
     "r": "Rank 7",
     "d": "Armor increased by $24554s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24562,
@@ -15565,7 +14829,7 @@
     "n": "Natural Armor",
     "r": "Rank 8",
     "d": "Armor increased by $24555s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24563,
@@ -15573,7 +14837,7 @@
     "n": "Natural Armor",
     "r": "Rank 2",
     "d": "Armor increased by $24549s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24565,
@@ -15581,7 +14845,7 @@
     "n": "Natural Armor",
     "r": "Rank 3",
     "d": "Armor increased by $24550s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24566,
@@ -15589,7 +14853,7 @@
     "n": "Natural Armor",
     "r": "Rank 4",
     "d": "Armor increased by $24551s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24567,
@@ -15597,7 +14861,7 @@
     "n": "Natural Armor",
     "r": "Rank 5",
     "d": "Armor increased by $24552s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24568,
@@ -15605,7 +14869,7 @@
     "n": "Natural Armor",
     "r": "Rank 6",
     "d": "Armor increased by $24553s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24569,
@@ -15613,7 +14877,7 @@
     "n": "Natural Armor",
     "r": "Rank 7",
     "d": "Armor increased by $24554s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24570,
@@ -15621,7 +14885,7 @@
     "n": "Natural Armor",
     "r": "Rank 8",
     "d": "Armor increased by $24555s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24571,
@@ -15629,7 +14893,7 @@
     "n": "Blood Fury",
     "r": "",
     "d": "Instantly increases your rage by $/10;s1.",
-    "pt": "Aumenta instantaneamente a sua Raiva em $s1 pontos."
+    "pt": "Aumenta instantaneamente a sua raiva em $s1 pontos."
   },
   {
     "id": 24574,
@@ -15648,36 +14912,12 @@
     "pt": "Draco cromático. Queria!"
   },
   {
-    "id": 24584,
-    "kind": "custom",
-    "n": "Scorpid Poison",
-    "r": "Rank 2",
-    "d": "Inflicts $24583o2 Nature damage over $24583d. Effect can stack up to 5 times on a single target.",
-    "pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
-  },
-  {
     "id": 24585,
     "kind": "custom",
     "n": "Drain Life",
     "r": "",
     "d": "Steals $s1 life from target enemy.",
     "pt": "Drena $s1 de vida do inimigo-alvo."
-  },
-  {
-    "id": 24588,
-    "kind": "custom",
-    "n": "Scorpid Poison",
-    "r": "Rank 3",
-    "d": "Inflicts $24586o2 Nature damage over $24586d. Effect can stack up to 5 times on a single target.",
-    "pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
-  },
-  {
-    "id": 24589,
-    "kind": "custom",
-    "n": "Scorpid Poison",
-    "r": "Rank 4",
-    "d": "Inflicts $24587o2 Nature damage over $24587d. Effect can stack up to 5 times on a single target.",
-    "pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
   },
   {
     "id": 24591,
@@ -15741,7 +14981,7 @@
     "n": "Natural Armor",
     "r": "Rank 9",
     "d": "Armor increased by $24629s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24632,
@@ -15749,7 +14989,7 @@
     "n": "Natural Armor",
     "r": "Rank 10",
     "d": "Armor increased by $24630s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24633,
@@ -15757,7 +14997,7 @@
     "n": "Natural Armor",
     "r": "Rank 9",
     "d": "Armor increased by $24629s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24634,
@@ -15765,7 +15005,7 @@
     "n": "Natural Armor",
     "r": "Rank 10",
     "d": "Armor increased by $24630s1.",
-    "pt": "Armadura +$s1."
+    "pt": "Armadura aumentada em $s1."
   },
   {
     "id": 24636,
@@ -15774,14 +15014,6 @@
     "r": "Rank 10",
     "d": "Increases Stamina by $5042s1.",
     "pt": "Aumenta o Vigor em $s1."
-  },
-  {
-    "id": 24641,
-    "kind": "custom",
-    "n": "Scorpid Poison",
-    "r": "Rank 1",
-    "d": "Inflicts $24640o2 Nature damage over $24640d. Effect can stack up to 5 times on a single target.",
-    "pt": "Envenena com $s1 de Natureza ao longo de $d s. Até 5x."
   },
   {
     "id": 24658,
@@ -16006,14 +15238,6 @@
     "r": "",
     "d": "Increases dodge chance by $s1% while in Bear, Dire Bear and Cat Forms.",
     "pt": "Urso/Gato +$s1% esquiva."
-  },
-  {
-    "id": 24866,
-    "kind": "custom",
-    "n": "Feral Swiftness",
-    "r": "",
-    "d": "Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Bear, Dire Bear and Cat Form by $24864s1%.",
-    "pt": "Gato ao ar livre +$s1% velocidade; Urso/Gato +$s2% esquiva."
   },
   {
     "id": 24867,
@@ -16360,22 +15584,6 @@
     "pt": "Luvas: +20 Gelo."
   },
   {
-    "id": 25076,
-    "kind": "custom",
-    "n": "Cobra Reflexes",
-    "r": "Rank 1",
-    "d": "Attack speed increased by $s1%, but reduces damage.",
-    "pt": "Velocidade +$s1%, mas menos dano."
-  },
-  {
-    "id": 25077,
-    "kind": "custom",
-    "n": "Cobra Reflexes",
-    "r": "Rank 1",
-    "d": "Increases attack speed by $25076s1%, but decreases damage.",
-    "pt": "Velocidade +$s1%, mas menos dano."
-  },
-  {
     "id": 25078,
     "kind": "custom",
     "n": "Enchant Gloves - Fire Power",
@@ -16432,14 +15640,6 @@
     "pt": "Manto: -2% ameaça."
   },
   {
-    "id": 25085,
-    "kind": "custom",
-    "n": "Bright Campfire",
-    "r": "",
-    "d": "Builds a campfire that increases the spirits of those nearby by 8 and allows cooking.",
-    "pt": "Fogueira: +8 Esp e cozinha."
-  },
-  {
     "id": 25086,
     "kind": "custom",
     "n": "Enchant Cloak - Dodge",
@@ -16477,7 +15677,7 @@
     "n": "Minor Wizard Oil",
     "r": "",
     "d": "Creates Minor Wizard Oil.",
-    "pt": "Cria Óleo Bruxo."
+    "pt": "Cria um Óleo Bruxo menor."
   },
   {
     "id": 25125,
@@ -16485,7 +15685,7 @@
     "n": "Minor Mana Oil",
     "r": "",
     "d": "Creates Minor Mana Oil.",
-    "pt": "Cria Óleo de Mana."
+    "pt": "Cria um Óleo de Mana menor."
   },
   {
     "id": 25126,
@@ -16493,7 +15693,7 @@
     "n": "Lesser Wizard Oil",
     "r": "",
     "d": "Creates Lesser Wizard Oil.",
-    "pt": "Cria Óleo Bruxo."
+    "pt": "Cria um Óleo Bruxo inferior."
   },
   {
     "id": 25127,
@@ -16501,7 +15701,7 @@
     "n": "Lesser Mana Oil",
     "r": "",
     "d": "Creates Lesser Mana Oil.",
-    "pt": "Cria Óleo de Mana."
+    "pt": "Cria um Óleo de Mana inferior."
   },
   {
     "id": 25128,
@@ -16509,7 +15709,7 @@
     "n": "Wizard Oil",
     "r": "",
     "d": "Creates Wizard Oil.",
-    "pt": "Cria Óleo Bruxo."
+    "pt": "Cria um Óleo Bruxo."
   },
   {
     "id": 25129,
@@ -16517,7 +15717,7 @@
     "n": "Brilliant Wizard Oil",
     "r": "",
     "d": "Creates Brilliant Wizard Oil.",
-    "pt": "Cria Óleo Bruxo."
+    "pt": "Cria um Óleo Bruxo brilhante."
   },
   {
     "id": 25130,
@@ -16525,7 +15725,7 @@
     "n": "Brilliant Mana Oil",
     "r": "",
     "d": "Creates Brilliant Mana Oil.",
-    "pt": "Cria Óleo de Mana."
+    "pt": "Cria um Óleo de Mana brilhante."
   },
   {
     "id": 25139,
@@ -16541,7 +15741,7 @@
     "n": "Transmute: Elemental Fire",
     "r": "",
     "d": "Transmutes a Heart of Fire into three Elemental Fires.",
-    "pt": "Coração vira 3 Fogos."
+    "pt": "Transmuta um Coração de Fogo em três Fogos Elementais."
   },
   {
     "id": 25162,
@@ -16573,7 +15773,7 @@
     "n": "War Stomp",
     "r": "",
     "d": "Knocks nearby enemies back.",
-    "pt": "Arremessa os inimigos próximos."
+    "pt": "Arremessa os inimigos próximos para trás."
   },
   {
     "id": 25200,
@@ -16646,14 +15846,6 @@
     "r": "Rank 11",
     "d": "Heals the target for $o1 over $d.",
     "pt": "Regenera $s1 de vida do alvo ao longo de $d s."
-  },
-  {
-    "id": 25302,
-    "kind": "custom",
-    "n": "Feint",
-    "r": "Rank 5",
-    "d": "Performs a feint, causing no damage but lowering your threat by a large amount, making the enemy less likely to attack you.",
-    "pt": "Finge sem causar dano, com -ameaça grande."
   },
   {
     "id": 25315,
@@ -16888,22 +16080,6 @@
     "pt": "Causa dano de Natureza a um inimigo."
   },
   {
-    "id": 25814,
-    "kind": "custom",
-    "n": "Wide Slash",
-    "r": "Rank 1",
-    "d": "Inflicts normal damage plus $s1 to enemies in a cone in front of the caster.",
-    "pt": "Causa dano normal mais $s1 em cone à frente."
-  },
-  {
-    "id": 25816,
-    "kind": "custom",
-    "n": "Hex of Weakness",
-    "r": "Rank 6",
-    "d": "Weakens the target enemy, reducing damage caused by $s1 for $d.",
-    "pt": "Enfraquece o inimigo: -$s1 de dano por $d s."
-  },
-  {
     "id": 25818,
     "kind": "custom",
     "n": "Aura of Rot",
@@ -17048,22 +16224,6 @@
     "pt": "Tanque ancestral Qiraji."
   },
   {
-    "id": 25956,
-    "kind": "custom",
-    "n": "Improved Judgement",
-    "r": "Rank 1",
-    "d": "Decreases the cooldown of your Judgement spell by $/1000;s1 sec.",
-    "pt": "Julgamento -$s1 s recarga."
-  },
-  {
-    "id": 25957,
-    "kind": "custom",
-    "n": "Improved Judgement",
-    "r": "Rank 2",
-    "d": "Decreases the cooldown of your Judgement spell by $/1000;s1 sec.",
-    "pt": "Julgamento -$s1 s recarga."
-  },
-  {
     "id": 25958,
     "kind": "custom",
     "n": "Heroic Strike",
@@ -17078,6 +16238,14 @@
     "r": "Rank 7",
     "d": "Teaches Battle Shout (Rank 7).",
     "pt": "Ensina Grito de Guerra (Grau 7)."
+  },
+  {
+    "id": 25960,
+    "kind": "custom",
+    "n": "Revenge",
+    "r": "Rank 6",
+    "d": "Teaches Revenge (Rank 6).",
+    "pt": "Ensina Vingança (Grau 6)."
   },
   {
     "id": 25961,
@@ -17182,6 +16350,22 @@
     "r": "Rank 9",
     "d": "Teaches Backstab (Rank 9).",
     "pt": "Ensina Apunhalar (Grau 9)."
+  },
+  {
+    "id": 25974,
+    "kind": "custom",
+    "n": "Deadly Poison",
+    "r": "Rank 5",
+    "d": "Teaches Deadly Poison (Rank 5).",
+    "pt": "Ensina Veneno Mortal (Grau 5)."
+  },
+  {
+    "id": 25976,
+    "kind": "custom",
+    "n": "Feint",
+    "r": "Rank 5",
+    "d": "Teaches Feint (Rank 5).",
+    "pt": "Ensina Finta (Grau 5)."
   },
   {
     "id": 25977,
@@ -17326,14 +16510,6 @@
     "r": "QASpell",
     "d": "Permantly enchant boots to increase speed by $13889s1%.",
     "pt": "Bota: +$s1% velocidade."
-  },
-  {
-    "id": 26020,
-    "kind": "custom",
-    "n": "QAEnchant Gloves +5 Herbalism",
-    "r": "QASpell",
-    "d": "Permanently enchant a cloak to give +$13839s1 Herbalism",
-    "pt": "Manto: +$s1 Herborismo."
   },
   {
     "id": 26025,
@@ -19760,14 +18936,6 @@
     "pt": "Luvas: +$s1% ameaça."
   },
   {
-    "id": 27114,
-    "kind": "custom",
-    "n": "QAEnchant Gloves +5 Skinning",
-    "r": "QASpell",
-    "d": "Permanently enchant gloves to grant +$13697s1 skinning skill.",
-    "pt": "Luvas: +$s1 esfolar."
-  },
-  {
     "id": 27115,
     "kind": "custom",
     "n": "QAEnchant Bracer +4 Mana\\5",
@@ -20032,6 +19200,14 @@
     "pt": "Cura um aliado periodicamente a cada $t1 s por $d s."
   },
   {
+    "id": 27535,
+    "kind": "custom",
+    "n": "Shadow Resistance",
+    "r": "",
+    "d": "Absorbs $s1 shadow damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Sombra. Dura $d s."
+  },
+  {
     "id": 27539,
     "kind": "custom",
     "n": "Obsidian Armor",
@@ -20134,14 +19310,6 @@
     "r": "",
     "d": "Allows wielder to see ghosts of the recently deceased.",
     "pt": "Vê fantasma recente."
-  },
-  {
-    "id": 27619,
-    "kind": "custom",
-    "n": "Ice Block",
-    "r": "",
-    "d": "You become encased in a block of ice, protecting you from all physical attacks and spells for $d, but during that time you cannot attack, move or cast spells.",
-    "pt": "Vira bloco de gelo: imune a tudo por $d s, sem agir."
   },
   {
     "id": 27622,
@@ -20288,20 +19456,20 @@
     "pt": "Magia +até 100 e cura +até 190 por $d s."
   },
   {
-    "id": 27681,
+    "id": 27682,
     "kind": "custom",
     "n": "Prayer of Spirit",
     "r": "Rank 1",
-    "d": "Power infuses the target's party, increasing their Spirit by $s1 for $d.",
-    "pt": "Poder no grupo: +Espírito $s1 por $d s."
+    "d": "Teaches Prayer of Spirit (Rank 1).",
+    "pt": "Ensina Prece de Espírito (Grau 1)."
   },
   {
-    "id": 27683,
+    "id": 27684,
     "kind": "custom",
     "n": "Prayer of Shadow Protection",
     "r": "Rank 1",
-    "d": "Power infuses the target's party, increasing their Shadow resistance by $s1 for $d.",
-    "pt": "Poder no grupo: +$s1 vs Sombra por $d s."
+    "d": "Teaches Prayer of Shadow Protection (Rank 1).",
+    "pt": "Ensina Prece de Proteção contra a Sombra (Grau 1)."
   },
   {
     "id": 27686,
@@ -20533,15 +19701,7 @@
     "n": "Copy of War Stomp",
     "r": "",
     "d": "Knocks nearby enemies back.",
-    "pt": "Arremessa os inimigos próximos."
-  },
-  {
-    "id": 27758,
-    "kind": "custom",
-    "n": "War Stomp",
-    "r": "",
-    "d": "Inflicts normal damage plus $s3 to nearby enemies and stunning them for $d.",
-    "pt": "Normal +$s1 e atordoa por $d s."
+    "pt": "Arremessa os inimigos próximos para trás."
   },
   {
     "id": 27759,
@@ -20829,7 +19989,7 @@
     "n": "Enrage",
     "r": "",
     "d": "Periodically cast a powerful Arcane Explosion",
-    "pt": "Explosão Arcana de tempos em tempos."
+    "pt": "Lança periodicamente uma poderosa Explosão Arcana."
   },
   {
     "id": 27900,
@@ -20989,7 +20149,7 @@
     "n": "War Stomp",
     "r": "",
     "d": "Knocks nearby enemies back.",
-    "pt": "Arremessa os inimigos próximos."
+    "pt": "Arremessa os inimigos próximos para trás."
   },
   {
     "id": 28133,
@@ -21373,7 +20533,7 @@
     "n": "Fiery Blood",
     "r": "Rank 1",
     "d": "Reduces damage taken from Fire and Frost effects by $s1%.",
-    "pt": "Fogo e Gelo: -$s1%."
+    "pt": "Reduz o dano sofrido de efeitos de Fogo e Gelo em $s1%."
   },
   {
     "id": 28431,
@@ -21390,22 +20550,6 @@
     "r": "",
     "d": "Sacrifices the caster's life in order to inflict $s1 nature damage to nearby enemies.",
     "pt": "Morre: $s1 de natureza nos próximos."
-  },
-  {
-    "id": 28435,
-    "kind": "custom",
-    "n": "Fiery Blood",
-    "r": "Rank 2",
-    "d": "Increases your resistance to Bleed and Poison effects by an additional $s1%.",
-    "pt": "Aumenta sua resistência a Sangrar e Veneno em $s1%."
-  },
-  {
-    "id": 28436,
-    "kind": "custom",
-    "n": "Hot Blooded",
-    "r": "Rank 3",
-    "d": "Increases your resistance to Bleed and Poison effects by an additional $s1%.",
-    "pt": "Aumenta sua resistência a Sangrar e Veneno em $s1%."
   },
   {
     "id": 28440,
@@ -21438,14 +20582,6 @@
     "r": "",
     "d": "Let forth a burst of energy knocking all nearby enemies back, dealing $s1 Shadow damage and removing all threat.",
     "pt": "Explosão: $s1 de Sombra e zera ameaça."
-  },
-  {
-    "id": 28468,
-    "kind": "custom",
-    "n": "Enrage",
-    "r": "",
-    "d": "Increases the Physical damage dealt by the caster by $s1 for $d.",
-    "pt": "Ancinha o alvo com $s1 de dano e mais $s2 ao longo de $d s."
   },
   {
     "id": 28487,
@@ -21504,6 +20640,30 @@
     "pt": "Armadura +$s1% do Int."
   },
   {
+    "id": 28609,
+    "kind": "custom",
+    "n": "Frost Ward",
+    "r": "Rank 5",
+    "d": "Absorbs $s1 Frost damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Gelo. Dura $d s."
+  },
+  {
+    "id": 28610,
+    "kind": "custom",
+    "n": "Shadow Ward",
+    "r": "Rank 4",
+    "d": "Absorbs $s1 shadow damage.  Lasts $d.",
+    "pt": "Absorve $s1 de dano de Sombra. Dura $d s."
+  },
+  {
+    "id": 28611,
+    "kind": "custom",
+    "n": "Shadow Ward",
+    "r": "Rank 4",
+    "d": "Teaches Shadow Ward (Rank 4).",
+    "pt": "Ensina Proteção contra a Sombra (Grau 4)."
+  },
+  {
     "id": 28613,
     "kind": "custom",
     "n": "Conjure Food",
@@ -21541,7 +20701,7 @@
     "n": "Leap",
     "r": "Rank 1",
     "d": "Leaps forward up to $a1 yards.",
-    "pt": "Salta até $a1 m."
+    "pt": "Salta para frente a até $a1 metros."
   },
   {
     "id": 28686,
@@ -21648,14 +20808,6 @@
     "pt": "Aumenta a vida do alvo aliado em até $s1 por $d s."
   },
   {
-    "id": 28752,
-    "kind": "custom",
-    "n": "Adrenaline Rush",
-    "r": "",
-    "d": "Your ranged and melee critical hits cause an Adrenaline Rush, granting you $28753s1 mana.",
-    "pt": "Crítico: +$s1 mana."
-  },
-  {
     "id": 28753,
     "kind": "custom",
     "n": "Adrenaline Rush",
@@ -21677,7 +20829,7 @@
     "n": "Rapid Fire",
     "r": "",
     "d": "Increases the duration of your Rapid Fire by $/1000;s1 secs.",
-    "pt": "Tiro Rápido +$s1 s."
+    "pt": "Aumenta a duração do seu Fogo Rápido em $s1 s."
   },
   {
     "id": 28756,
@@ -22029,7 +21181,7 @@
     "n": "Revenge",
     "r": "",
     "d": "Increases the damage done by your Revenge ability by $s1.",
-    "pt": "Vingança +$s1."
+    "pt": "Aumenta o dano causado pela sua habilidade Vingança em $s1."
   },
   {
     "id": 28845,
@@ -22224,30 +21376,6 @@
     "pt": "Lança teia no inimigo, imobilizando-o por $d s."
   },
   {
-    "id": 28996,
-    "kind": "custom",
-    "n": "Elemental Warding",
-    "r": "Rank 1",
-    "d": "Reduces damage taken from Fire, Frost and Nature effects by $s1%.",
-    "pt": "Reduz o dano de Fogo, Gelo e Natureza em $s1%."
-  },
-  {
-    "id": 28997,
-    "kind": "custom",
-    "n": "Elemental Warding",
-    "r": "Rank 2",
-    "d": "Reduces damage taken from Fire, Frost and Nature effects by $s1%.",
-    "pt": "Reduz o dano de Fogo, Gelo e Natureza em $s1%."
-  },
-  {
-    "id": 28998,
-    "kind": "custom",
-    "n": "Elemental Warding",
-    "r": "Rank 3",
-    "d": "Reduces damage taken from Fire, Frost and Nature effects by $s1%.",
-    "pt": "Reduz o dano de Fogo, Gelo e Natureza em $s1%."
-  },
-  {
     "id": 29004,
     "kind": "custom",
     "n": "Transform to Dancer",
@@ -22326,30 +21454,6 @@
     "r": "",
     "d": "Increases Stamina for 1 hour.",
     "pt": "Aumenta o Vigor por 1 hora."
-  },
-  {
-    "id": 29074,
-    "kind": "custom",
-    "n": "Master of Elements",
-    "r": "Rank 1",
-    "d": "Your Fire and Frost spell criticals will refund $s1% of their base mana cost.",
-    "pt": "Críticos de Fogo e Gelo devolvem $s1% da mana base."
-  },
-  {
-    "id": 29075,
-    "kind": "custom",
-    "n": "Master of Elements",
-    "r": "Rank 2",
-    "d": "Your Fire and Frost spell criticals will refund $s1% of their base mana cost.",
-    "pt": "Críticos de Fogo e Gelo devolvem $s1% da mana base."
-  },
-  {
-    "id": 29076,
-    "kind": "custom",
-    "n": "Master of Elements",
-    "r": "Rank 3",
-    "d": "Your Fire and Frost spell criticals will refund $s1% of their base mana cost.",
-    "pt": "Críticos de Fogo e Gelo devolvem $s1% da mana base."
   },
   {
     "id": 29077,
@@ -22445,7 +21549,7 @@
     "n": "Toast Smorc",
     "r": "",
     "d": "Creates 5 Toasted Smorcs when used at a cooking fire.",
-    "pt": "Faz 5 smorcs na fogueira."
+    "pt": "Cria 5 Smorcs Tostados quando usado em um fogo de cozinha."
   },
   {
     "id": 29140,
@@ -22552,36 +21656,12 @@
     "pt": "Teleporta pros Imperadores."
   },
   {
-    "id": 29187,
-    "kind": "custom",
-    "n": "Nature's Grace",
-    "r": "Rank 1",
-    "d": "Reduces the threat generated by your Nature spells by $s1%.",
-    "pt": "Reduz a ameaça das magias de Natureza em $s1%."
-  },
-  {
     "id": 29188,
     "kind": "custom",
     "n": "Teleport to Final Chamber",
     "r": "",
     "d": "Teleport player to the final chamber.",
     "pt": "Teleporta pra câmara."
-  },
-  {
-    "id": 29189,
-    "kind": "custom",
-    "n": "Nature's Grace",
-    "r": "Rank 2",
-    "d": "Reduces the threat generated by your Nature spells by $s1%.",
-    "pt": "Reduz a ameaça das magias de Natureza em $s1%."
-  },
-  {
-    "id": 29191,
-    "kind": "custom",
-    "n": "Nature's Grace",
-    "r": "Rank 3",
-    "d": "Reduces the threat generated by your Nature spells by $s1%.",
-    "pt": "Reduz a ameaça das magias de Natureza em $s1%."
   },
   {
     "id": 29204,
@@ -22760,30 +21840,6 @@
     "pt": "Jogue na fogueira do Festival!"
   },
   {
-    "id": 29438,
-    "kind": "custom",
-    "n": "Elemental Precision",
-    "r": "Rank 1",
-    "d": "Reduces the chance that the opponent can resist your Frost and Fire spells by $s1%.",
-    "pt": "Reduz a resistência a magias de Gelo e Fogo em $s1%."
-  },
-  {
-    "id": 29439,
-    "kind": "custom",
-    "n": "Elemental Precision",
-    "r": "Rank 2",
-    "d": "Reduces the chance that the opponent can resist your Frost and Fire spells by $s1%.",
-    "pt": "Reduz a resistência a magias de Gelo e Fogo em $s1%."
-  },
-  {
-    "id": 29440,
-    "kind": "custom",
-    "n": "Elemental Precision",
-    "r": "Rank 3",
-    "d": "Reduces the chance that the opponent can resist your Frost and Fire spells by $s1%.",
-    "pt": "Reduz a resistência a magias de Gelo e Fogo em $s1%."
-  },
-  {
     "id": 29462,
     "kind": "custom",
     "n": "Antimagic Pulse",
@@ -22846,30 +21902,6 @@
     "r": "",
     "d": "Scorch the enemy for $s1 Fire damage.",
     "pt": "Chamusca o inimigo, causando $s1 de dano de Fogo."
-  },
-  {
-    "id": 29559,
-    "kind": "custom",
-    "n": "Defensive Tactics",
-    "r": "Rank 1",
-    "d": "You retain up to $s1% of your rage when you change from Defensive Stance to any other stance.",
-    "pt": "Mantém até $s1% da fúria ao sair da Postura Defensiva."
-  },
-  {
-    "id": 29588,
-    "kind": "custom",
-    "n": "Defensive Tactics",
-    "r": "Rank 2",
-    "d": "You retain up to $s1% of your rage when you change from Defensive Stance to any other stance.",
-    "pt": "Mantém até $s1% da fúria ao sair da Postura Defensiva."
-  },
-  {
-    "id": 29589,
-    "kind": "custom",
-    "n": "Defensive Tactics",
-    "r": "Rank 3",
-    "d": "You retain up to $s1% of your rage when you change from Defensive Stance to any other stance.",
-    "pt": "Mantém até $s1% da fúria ao sair da Postura Defensiva."
   },
   {
     "id": 29624,
@@ -23248,14 +22280,6 @@
     "pt": "For +$s1 ao consumir."
   },
   {
-    "id": 30187,
-    "kind": "custom",
-    "n": "QAEnchant Gloves +5 Fishing",
-    "r": "QASpell",
-    "d": "Permanently enchant gloves to grant $13615s1 fishing skill.",
-    "pt": "Luvas: +$s1 pesca."
-  },
-  {
     "id": 30190,
     "kind": "custom",
     "n": "QAEnchant Gloves - Riding Skill",
@@ -23416,38 +22440,6 @@
     "pt": "+$s1 de Poder de Ataque."
   },
   {
-    "id": 30798,
-    "kind": "custom",
-    "n": "Dual Wield",
-    "r": "",
-    "d": "Allows one-hand and off-hand weapons to be equipped in the off-hand.",
-    "pt": "1M e secundária na secundária."
-  },
-  {
-    "id": 30812,
-    "kind": "custom",
-    "n": "Mental Quickness",
-    "r": "Rank 1",
-    "d": "Reduces the mana cost of your instant cast spells by $s1%.",
-    "pt": "Reduz o custo de mana das instantâneas em $s1%."
-  },
-  {
-    "id": 30813,
-    "kind": "custom",
-    "n": "Mental Quickness",
-    "r": "Rank 2",
-    "d": "Reduces the mana cost of your instant cast spells by $s1%.",
-    "pt": "Reduz o custo de mana das instantâneas em $s1%."
-  },
-  {
-    "id": 30814,
-    "kind": "custom",
-    "n": "Mental Quickness",
-    "r": "Rank 3",
-    "d": "Reduces the mana cost of your instant cast spells by $s1%.",
-    "pt": "Reduz o custo de mana das instantâneas em $s1%."
-  },
-  {
     "id": 30839,
     "kind": "custom",
     "n": "Debuff Uber Heal Over Time",
@@ -23470,22 +22462,6 @@
     "r": "QASpell",
     "d": "Deals $s1 damage to all enemies in a $a1 yard radius from the caster.",
     "pt": "$s1 a $a1 m."
-  },
-  {
-    "id": 30892,
-    "kind": "custom",
-    "n": "Sleight of Hand",
-    "r": "Rank 1",
-    "d": "Reduces the chance you are critically hit by melee and ranged attacks by $s2% and increases the threat reduction of your Feint ability by $s1%.",
-    "pt": "Crítico corpo a corpo/distância -$s1% e Finta +$s2%."
-  },
-  {
-    "id": 30893,
-    "kind": "custom",
-    "n": "Sleight of Hand",
-    "r": "Rank 2",
-    "d": "Reduces the chance you are critically hit by melee and ranged attacks by $s2% and increases the threat reduction of your Feint ability by $s1%.",
-    "pt": "Crítico corpo a corpo/distância -$s1% e Finta +$s2%."
   },
   {
     "id": 30902,
@@ -24000,14 +22976,6 @@
     "pt": "Treva e beleza em equilíbrio."
   },
   {
-    "id": 35999,
-    "kind": "custom",
-    "n": "Sacred Chalice",
-    "r": "Toy",
-    "d": "A sacred vessel filled with the essence of a moonwell, allowing tailors to craft Mooncloth anywhere under Elune’s blessing.",
-    "pt": "Cálice lunar pra costurar em tudo."
-  },
-  {
     "id": 36500,
     "kind": "custom",
     "n": "Sunfire Fox",
@@ -24160,12 +23128,52 @@
     "pt": "Viagem vira cervo branco."
   },
   {
-    "id": 36600,
+    "id": 36601,
     "kind": "custom",
-    "n": "Blazing Forge Kit",
-    "r": "Toy",
-    "d": "Unpack the Blazing Forge Kit, because a dedicated blacksmith never lets the impossibility of carrying a forge and anvil slow them down. This fiery setup lasts five minutes, just long enough to craft your masterpiece.",
-    "pt": "Forja portátil 5 min. Obra-prima!"
+    "n": "Holy Nova",
+    "r": "Rank 1",
+    "d": "Ah, kurwa!",
+    "pt": "Ah, droga!"
+  },
+  {
+    "id": 36602,
+    "kind": "custom",
+    "n": "Holy Nova",
+    "r": "Rank 2",
+    "d": "Ah, kurwa!",
+    "pt": "Ah, droga!"
+  },
+  {
+    "id": 36603,
+    "kind": "custom",
+    "n": "Holy Nova",
+    "r": "Rank 3",
+    "d": "Ah, kurwa!",
+    "pt": "Ah, droga!"
+  },
+  {
+    "id": 36604,
+    "kind": "custom",
+    "n": "Holy Nova",
+    "r": "Rank 4",
+    "d": "Ah, kurwa!",
+    "pt": "Ah, droga!"
+  },
+  {
+    "id": 36605,
+    "kind": "custom",
+    "n": "Holy Nova",
+    "r": "Rank 5",
+    "d": "Ah, kurwa!",
+    "pt": "Ah, droga!"
+  },
+  {
+    "id": 36606,
+    "kind": "custom",
+    "n": "Holy Nova",
+    "r": "Rank 6",
+    "d": "Ah, kurwa!",
+    "pt": "Ah, droga!"
   },
   {
     "id": 36650,
@@ -24944,14 +23952,6 @@
     "pt": "Estouro -$s1% mana por $d s."
   },
   {
-    "id": 42002,
-    "kind": "custom",
-    "n": "Touch of Weakness",
-    "r": "Rank 6",
-    "d": "The next melee attack on the caster will cause $19254s1 Shadow damage and reduce the damage caused by the attacker by $19254s2 for $19254d.",
-    "pt": "Próximo corpo a corpo: $s1 de Sombra e -$s2 por $d s."
-  },
-  {
     "id": 42025,
     "kind": "custom",
     "n": "Decaying Flesh",
@@ -25544,22 +24544,6 @@
     "pt": "Apaga a runa do Senhor do Fogo."
   },
   {
-    "id": 45401,
-    "kind": "custom",
-    "n": "Water Elemental",
-    "r": "Summon",
-    "d": "Summon a Water Elemental to fight for the caster for $d.",
-    "pt": "Invoca um Elemental da Água para lutar por $d s."
-  },
-  {
-    "id": 45402,
-    "kind": "custom",
-    "n": "Water Elemental",
-    "r": "Rank 2",
-    "d": "Summon a Water Elemental to fight for the caster for $d.",
-    "pt": "Invoca um Elemental da Água para lutar por $d s."
-  },
-  {
     "id": 45406,
     "kind": "custom",
     "n": "Brilliance Aura",
@@ -25653,7 +24637,7 @@
     "n": "Potion of Quickness",
     "r": "",
     "d": "Increases haste by $s1% for $d.",
-    "pt": "Aumenta a pressa em $s1% por $d s."
+    "pt": "Aumenta sua Aceleração em $s1% por $d s."
   },
   {
     "id": 45426,
@@ -25680,12 +24664,12 @@
     "pt": "Vira worgen: +$s1 vs Sombra e +$s2 poder por $d s."
   },
   {
-    "id": 45451,
+    "id": 45489,
     "kind": "custom",
-    "n": "Smelt Dreamsteel",
+    "n": "Dreamtonic",
     "r": "",
-    "d": "Allows the miner to smelt a dreamsteel bar. Smelting dreamsteel requires a forge.",
-    "pt": "Funde barra sonhosa. Precisa forja."
+    "d": "Increases spell damage by up to $s1 for $d.",
+    "pt": "Aumenta o dano mágico em até $s1 por $d s."
   },
   {
     "id": 45490,
@@ -25768,38 +24752,6 @@
     "pt": "Magia: 4% de doença (120 Sombra/6 s). Doença te cura."
   },
   {
-    "id": 45502,
-    "kind": "custom",
-    "n": "Ethereal Form",
-    "r": "Rank 1",
-    "d": "Makes the Shaman take $s1% less physical damage, but unable to cast spells for $d.",
-    "pt": "Xamã: -$s1% de físico, sem magia por $d s."
-  },
-  {
-    "id": 45505,
-    "kind": "custom",
-    "n": "Feral Spirit",
-    "r": "Rank 1",
-    "d": "Summons two Spirit Wolves under the command of the Shaman for $d.",
-    "pt": "Invoca 2 Lobos Espirituais por $d s."
-  },
-  {
-    "id": 45513,
-    "kind": "custom",
-    "n": "Totemic Recall",
-    "r": "",
-    "d": "Returns your totems to the earth, refunding $s1% of the mana required to cast each totem destroyed by Totemic Recall.",
-    "pt": "Totem volta: +$s1% mana de cada."
-  },
-  {
-    "id": 45514,
-    "kind": "custom",
-    "n": "Feral Spirit",
-    "r": "Rank 2",
-    "d": "Summons two Greater Spirit Wolves under the command of the Shaman for $d.",
-    "pt": "Invoca 2 Lobos Maiores por $d s."
-  },
-  {
     "id": 45522,
     "kind": "custom",
     "n": "Poison Bolt",
@@ -25856,14 +24808,6 @@
     "pt": "Magia: chance de 75-85 Arcano e +10 recebido 15 s. Até 3x."
   },
   {
-    "id": 45551,
-    "kind": "custom",
-    "n": "Prayer of Spirit",
-    "r": "Rank 2",
-    "d": "Power infuses the target's party, increasing their Spirit by $s1 for $d.",
-    "pt": "Poder no grupo: +Espírito $s1 por $d s."
-  },
-  {
     "id": 45553,
     "kind": "custom",
     "n": "Improved Shadowform",
@@ -25872,36 +24816,12 @@
     "pt": "Sombra: -15% mana e +15% regen lançando."
   },
   {
-    "id": 45559,
-    "kind": "custom",
-    "n": "Shadow Nova",
-    "r": "Rank 1",
-    "d": "Causes an explosion of cursed shadow around the caster, causing $s1 Shadow damage to all enemy targets within $a1 yards. This effect causes increased threat.",
-    "pt": "Explosão sombria de $s1 a $a1 m. Mais ameaça."
-  },
-  {
     "id": 45563,
     "kind": "custom",
     "n": "Champion's Grace",
     "r": "",
     "d": "Bestow the target Champion with grace, increasing all healing done by the priest by $s2%. Lasts $d.",
     "pt": "Campeão: +$s1% sua cura por $d s."
-  },
-  {
-    "id": 45564,
-    "kind": "custom",
-    "n": "Champion's Bond",
-    "r": "Rank 1",
-    "d": "Creates a bond between priest and Champion. When the priest takes damage up to $45570s2 will be taken by the Champion instead. Lasts $d.",
-    "pt": "Vínculo: até $s1 do dano em você vai pro Campeão por $d s."
-  },
-  {
-    "id": 45565,
-    "kind": "custom",
-    "n": "Empower Champion",
-    "r": "Rank 1",
-    "d": "Empower the target Champion, increasing spell damage done by up to $s2 and attack power by $s3. Lasts $d.",
-    "pt": "Campeão: +$s1 magia e +$s2 poder por $d s."
   },
   {
     "id": 45566,
@@ -25918,14 +24838,6 @@
     "r": "",
     "d": "Arise, my champion!",
     "pt": "Levanta, campeón!"
-  },
-  {
-    "id": 45570,
-    "kind": "custom",
-    "n": "Champion's Bond",
-    "r": "Rank 1",
-    "d": "This spell should be automatically casted by the Priest's champion onto the Priest.",
-    "pt": "Campeão lança sozinho no Sacerdote."
   },
   {
     "id": 45583,
@@ -25949,7 +24861,7 @@
     "n": "Stormbolt",
     "r": "Rank 1",
     "d": "Inflicts $s1 damage to an enemy, stunning it for $d.",
-    "pt": "Causa $s1 de dano ao inimigo, atordoando-o por $d s."
+    "pt": "Causa $s1 de dano a um inimigo, atordoando-o por $d s."
   },
   {
     "id": 45589,
@@ -25974,14 +24886,6 @@
     "r": "Passive",
     "d": "Increases the normalized weapon speed to calculate damage of Daggers to 2.3 seconds.",
     "pt": "Adaga calcula dano em 2.3 s."
-  },
-  {
-    "id": 45592,
-    "kind": "custom",
-    "n": "Pulverize",
-    "r": "Rank 1",
-    "d": "Causes your melee attacks to have a 35% chance to deal $45593s1 damage to nearby enemies for 30 seconds.",
-    "pt": "Corpo a corpo: 35% de $s1 nos próximos por 30 s."
   },
   {
     "id": 45593,
@@ -26096,54 +25000,6 @@
     "pt": "Aumenta a sua chance de obter um acerto crítico em $s1%."
   },
   {
-    "id": 45653,
-    "kind": "custom",
-    "n": "Lacerate",
-    "r": "Rank 1",
-    "d": "Wounds the target causing them to bleed for 21% of your melee attack power over $d.",
-    "pt": "Dilacera: sangra 21% do poder em $d s."
-  },
-  {
-    "id": 45654,
-    "kind": "custom",
-    "n": "Lacerate",
-    "r": "Rank 2",
-    "d": "Wounds the target causing them to bleed for 35% of your melee attack power over $d.",
-    "pt": "Dilacera: sangra 35% do poder em $d s."
-  },
-  {
-    "id": 45655,
-    "kind": "custom",
-    "n": "Lacerate",
-    "r": "Rank 3",
-    "d": "Wounds the target causing them to bleed for 49% of your melee attack power over $d.",
-    "pt": "Dilacera: sangra 49% do poder em $d s."
-  },
-  {
-    "id": 45662,
-    "kind": "custom",
-    "n": "Improved Eyes of the Beast",
-    "r": "Rank 1",
-    "d": "While channeling your tamed pet deals $s2% additional damage and increases its focus generation by $s3%.",
-    "pt": "Canalizando: pet +$s1% dano e +$s2% foco."
-  },
-  {
-    "id": 45663,
-    "kind": "custom",
-    "n": "Improved Eyes of the Beast",
-    "r": "Rank 2",
-    "d": "While channeling your tamed pet deals $s2% additional damage and increases its focus generation by $s3%.",
-    "pt": "Canalizando: pet +$s1% dano e +$s2% foco."
-  },
-  {
-    "id": 45667,
-    "kind": "custom",
-    "n": "Berserk",
-    "r": "",
-    "d": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1% for $d.",
-    "pt": "Causa $s1 de dano de Sombra nos próximos após $t1 s."
-  },
-  {
     "id": 45700,
     "kind": "custom",
     "n": "Nature's Call",
@@ -26184,36 +25040,12 @@
     "pt": "Chance de invis ao apanhar."
   },
   {
-    "id": 45715,
-    "kind": "custom",
-    "n": "Natural Weapons",
-    "r": "Rank 1",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%. Also increases chance to hit with melee attacks and spells by $s2%.",
-    "pt": "Suas magias têm $s1% de chance de não consumir reagente."
-  },
-  {
-    "id": 45716,
-    "kind": "custom",
-    "n": "Natural Weapons",
-    "r": "Rank 2",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%. Also increases chance to hit with melee attacks and spells by $s2%.",
-    "pt": "Suas magias têm $s1% de chance de não consumir reagente."
-  },
-  {
-    "id": 45717,
-    "kind": "custom",
-    "n": "Natural Weapons",
-    "r": "Rank 3",
-    "d": "Increases the damage you deal with physical attacks in all forms by $s1%. Also increases chance to hit with melee attacks and spells by $s2%.",
-    "pt": "Suas magias têm $s1% de chance de não consumir reagente."
-  },
-  {
     "id": 45726,
     "kind": "custom",
     "n": "Primal Precision",
     "r": "Rank 1",
     "d": "Increases your skill in Feral Combat by $s1.",
-    "pt": "Aumenta sua perícia em Combate Feral em $s1."
+    "pt": "Aumenta a sua perícia em Combate Feral em $s1."
   },
   {
     "id": 45727,
@@ -26221,7 +25053,7 @@
     "n": "Primal Precision",
     "r": "Rank 2",
     "d": "Increases your skill in Feral Combat by $s1.",
-    "pt": "Aumenta sua perícia em Combate Feral em $s1."
+    "pt": "Aumenta a sua perícia em Combate Feral em $s1."
   },
   {
     "id": 45736,
@@ -26286,86 +25118,6 @@
     "r": "",
     "d": "Self-damage.",
     "pt": "Dano próprio."
-  },
-  {
-    "id": 45818,
-    "kind": "custom",
-    "n": "Redoubt",
-    "r": "Rank 1",
-    "d": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20128s1%. Lasts $20128d or $20128n blocks.",
-    "pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
-  },
-  {
-    "id": 45819,
-    "kind": "custom",
-    "n": "Redoubt",
-    "r": "Rank 2",
-    "d": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20131s1%. Lasts $20131d or $20131n blocks.",
-    "pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
-  },
-  {
-    "id": 45820,
-    "kind": "custom",
-    "n": "Redoubt",
-    "r": "Rank 3",
-    "d": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20132s1%. Lasts $20132d or $20132n blocks.",
-    "pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
-  },
-  {
-    "id": 45821,
-    "kind": "custom",
-    "n": "Redoubt",
-    "r": "Rank 4",
-    "d": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20133s1%. Lasts $20133d or $20133n blocks.",
-    "pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
-  },
-  {
-    "id": 45822,
-    "kind": "custom",
-    "n": "Redoubt",
-    "r": "Rank 5",
-    "d": "Successful melee and ranged attacks against you have a $h% chance to increase your chance to block by $20134s1%. Lasts $20134d or $20134n blocks.",
-    "pt": "Acerto: $h% de +$s1% bloqueio por $d s ou $n bloqueios."
-  },
-  {
-    "id": 45823,
-    "kind": "custom",
-    "n": "Reckoning",
-    "r": "Rank 1",
-    "d": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
-    "pt": "Dá $h% de chance de um ataque extra após bloquear."
-  },
-  {
-    "id": 45824,
-    "kind": "custom",
-    "n": "Reckoning",
-    "r": "Rank 2",
-    "d": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
-    "pt": "Dá $h% de chance de um ataque extra após bloquear."
-  },
-  {
-    "id": 45825,
-    "kind": "custom",
-    "n": "Reckoning",
-    "r": "Rank 3",
-    "d": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
-    "pt": "Dá $h% de chance de um ataque extra após bloquear."
-  },
-  {
-    "id": 45826,
-    "kind": "custom",
-    "n": "Reckoning",
-    "r": "Rank 4",
-    "d": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
-    "pt": "Dá $h% de chance de um ataque extra após bloquear."
-  },
-  {
-    "id": 45837,
-    "kind": "custom",
-    "n": "Reckoning",
-    "r": "Rank 5",
-    "d": "Gives you a $h% chance after blocking an attack to generate an additional attack.",
-    "pt": "Dá $h% de chance de um ataque extra após bloquear."
   },
   {
     "id": 45838,
@@ -26648,44 +25400,12 @@
     "pt": "Vida +$s1."
   },
   {
-    "id": 45905,
-    "kind": "custom",
-    "n": "Doombringer",
-    "r": "Rank 1",
-    "d": "Reduces the cooldown of your Inferno spell by $/60000;s1 min and your Ritual of Doom spell by $/60000;s2 min.",
-    "pt": "Inferno -$s1 min e Ritual -$s2 min."
-  },
-  {
-    "id": 45906,
-    "kind": "custom",
-    "n": "Doombringer",
-    "r": "Rank 2",
-    "d": "Reduces the cooldown of your Inferno spell by $/60000;s1 min and your Ritual of Doom spell by $/60000;s2 min.",
-    "pt": "Inferno -$s1 min e Ritual -$s2 min."
-  },
-  {
     "id": 45908,
     "kind": "custom",
     "n": "Demon Gate",
     "r": "",
     "d": "Opens a gate into the Twisting Nether that after 6 sec summons a Felguard under the command of the caster for 3 min. Once control is lost, the Felguard attacks the caster until one of them dies.",
     "pt": "Portal 6 s e Guarda 3 min. Sem controle, te ataca."
-  },
-  {
-    "id": 45910,
-    "kind": "custom",
-    "n": "Mana Funnel",
-    "r": "Rank 1",
-    "d": "Gives $s1 Mana to your demon every second for $d while channeling.",
-    "pt": "Dá $s1 de Mana ao demônio por segundo por $d s canalizando."
-  },
-  {
-    "id": 45911,
-    "kind": "custom",
-    "n": "Mana Funnel",
-    "r": "Rank 2",
-    "d": "Gives $s1 Mana to your demon every second for $d while channeling.",
-    "pt": "Dá $s1 de Mana ao demônio por segundo por $d s canalizando."
   },
   {
     "id": 45912,
@@ -26704,28 +25424,28 @@
     "pt": "Demon maior pra sempre: Guarda, Infernal e Vil."
   },
   {
-    "id": 45921,
+    "id": 45951,
     "kind": "custom",
-    "n": "Demonic Aegis",
+    "n": "Spirit Armor",
     "r": "Rank 1",
-    "d": "Increases the effectiveness of your Demon Armor spell by $s1%.",
-    "pt": "Causa dano normal mais $s1 nos inimigos próximos."
+    "d": "Increases the armor gained from Shields by $s1%.",
+    "pt": "Aumenta a armadura obtida de Escudos em $s1%."
   },
   {
-    "id": 45922,
+    "id": 45952,
     "kind": "custom",
-    "n": "Demonic Aegis",
+    "n": "Spirit Armor",
     "r": "Rank 2",
-    "d": "Increases the effectiveness of your Demon Armor spell by $s1%.",
-    "pt": "Causa dano normal mais $s1 nos inimigos próximos."
+    "d": "Increases the armor gained from Shields by $s1%.",
+    "pt": "Aumenta a armadura obtida de Escudos em $s1%."
   },
   {
-    "id": 45923,
+    "id": 45953,
     "kind": "custom",
-    "n": "Demonic Aegis",
+    "n": "[Deprecated] Spirit Armor",
     "r": "Rank 3",
-    "d": "Increases the effectiveness of your Demon Armor spell by $s1%.",
-    "pt": "Causa dano normal mais $s1 nos inimigos próximos."
+    "d": "Increases the armor gained from Shields by $s1%.",
+    "pt": "Aumenta a armadura obtida de Escudos em $s1%."
   },
   {
     "id": 45956,
@@ -26806,22 +25526,6 @@
     "r": "Rank 9",
     "d": "Smite an enemy for $s1 Holy damage.",
     "pt": "Pune o inimigo, causando $s1 de dano Sagrado."
-  },
-  {
-    "id": 45980,
-    "kind": "custom",
-    "n": "Go for the Throat",
-    "r": "Rank 1",
-    "d": "Your ranged and melee critical hits cause your pet to generate $45982s1 Focus.",
-    "pt": "Crítico: pet +$s1 Foco."
-  },
-  {
-    "id": 45981,
-    "kind": "custom",
-    "n": "Go for the Throat",
-    "r": "Rank 1",
-    "d": "Your ranged and melee critical hits cause your pet to generate $45983s1 Focus.",
-    "pt": "Crítico: pet +$s1 Foco."
   },
   {
     "id": 45982,
@@ -27168,52 +25872,12 @@
     "pt": "Sagrado: +$s1% velocidade por $d s."
   },
   {
-    "id": 46050,
-    "kind": "custom",
-    "n": "Survival",
-    "r": "Apprentice",
-    "d": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 75.",
-    "pt": "Sobrevivente básico até 75."
-  },
-  {
-    "id": 46053,
-    "kind": "custom",
-    "n": "Survival",
-    "r": "Journeyman",
-    "d": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 150.",
-    "pt": "Sobrevivente médio até 150."
-  },
-  {
-    "id": 46054,
-    "kind": "custom",
-    "n": "Survival",
-    "r": "Expert",
-    "d": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 225.",
-    "pt": "Sobrevivente perito até 225."
-  },
-  {
-    "id": 46056,
-    "kind": "custom",
-    "n": "Survival",
-    "r": "Artisan",
-    "d": "Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 300.",
-    "pt": "Sobrevivente artesão até 300."
-  },
-  {
     "id": 46058,
     "kind": "custom",
     "n": "Traveler's Tent",
     "r": "",
     "d": "Sets up a traveler's tent. While under the cover of the tent you are resting and may gain rested experience. Can only be used outdoors.",
     "pt": "Monta a tenda: descansa e ganha xp. Só ao ar livre."
-  },
-  {
-    "id": 46060,
-    "kind": "custom",
-    "n": "Fishing Boat",
-    "r": "",
-    "d": "Sets up a fishing boat. While on your boat you gain +50 fishing skill. Can only be used outdoors near a deep enough body of water.",
-    "pt": "Monta o barco: +50 pesca. Só ao ar livre na água funda."
   },
   {
     "id": 46062,
@@ -27238,14 +25902,6 @@
     "r": "",
     "d": "Sets up a traveler's tent. While under the cover of the tent you are resting and may gain rested experience. Can only be used outdoors.",
     "pt": "Monta a tenda: descansa e ganha xp. Só ao ar livre."
-  },
-  {
-    "id": 46073,
-    "kind": "custom",
-    "n": "Fishing Boat",
-    "r": "",
-    "d": "Sets up a fishing boat. While on your boat you gain +50 fishing skill. Can only be used outdoors near a deep enough body of water.",
-    "pt": "Monta o barco: +50 pesca. Só ao ar livre na água funda."
   },
   {
     "id": 46074,
@@ -27488,6 +26144,46 @@
     "pt": "Botão direito invoca/dispensa."
   },
   {
+    "id": 46231,
+    "kind": "custom",
+    "n": "Sun's Embrace",
+    "r": "Rank 1",
+    "d": "Teaches Sun's Embrace (Rank 1).",
+    "pt": "Ensina Abraço do Sol (Grau 1)."
+  },
+  {
+    "id": 46232,
+    "kind": "custom",
+    "n": "Sun's Embrace",
+    "r": "Rank 2",
+    "d": "Teaches Sun's Embrace (Rank 2).",
+    "pt": "Ensina Abraço do Sol (Grau 2)."
+  },
+  {
+    "id": 46233,
+    "kind": "custom",
+    "n": "Sun's Embrace",
+    "r": "Rank 3",
+    "d": "Teaches Sun's Embrace (Rank 3).",
+    "pt": "Ensina Abraço do Sol (Grau 3)."
+  },
+  {
+    "id": 46234,
+    "kind": "custom",
+    "n": "Sun's Embrace",
+    "r": "Rank 4",
+    "d": "Teaches Sun's Embrace (Rank 4).",
+    "pt": "Ensina Abraço do Sol (Grau 4)."
+  },
+  {
+    "id": 46235,
+    "kind": "custom",
+    "n": "Grace of the Sunwell",
+    "r": "Rank 1",
+    "d": "Teaches Grace of the Sunwell.",
+    "pt": "Ensina Graça do Poço do Sol."
+  },
+  {
     "id": 46250,
     "kind": "custom",
     "n": "Smack",
@@ -27560,22 +26256,6 @@
     "pt": "Velocidade +$s1% por $d s, atordoa $d1 s depois."
   },
   {
-    "id": 46269,
-    "kind": "custom",
-    "n": "Fire Breath",
-    "r": "Rank 1",
-    "d": "Targets in a cone in front of the caster take ${$m1*3} Fire damage over $d.",
-    "pt": "Cone à frente: $s1 de Fogo ao longo de $d s."
-  },
-  {
-    "id": 46270,
-    "kind": "custom",
-    "n": "Fire Breath",
-    "r": "Rank 2",
-    "d": "Targets in a cone in front of the caster take ${$m1*3} Fire damage over $d.",
-    "pt": "Cone à frente: $s1 de Fogo ao longo de $d s."
-  },
-  {
     "id": 46280,
     "kind": "custom",
     "n": "Consume Flesh",
@@ -27632,52 +26312,12 @@
     "pt": "Golpeia os inimigos próximos, causando $s1 de dano."
   },
   {
-    "id": 46292,
-    "kind": "custom",
-    "n": "Pin",
-    "r": "Rank 1",
-    "d": "Pins the target in place, and squeezes for $o2 damage over $d.",
-    "pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
-  },
-  {
-    "id": 46293,
-    "kind": "custom",
-    "n": "Pin",
-    "r": "Rank 2",
-    "d": "Pins the target in place, and squeezes for $o2 damage over $d.",
-    "pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
-  },
-  {
-    "id": 46294,
-    "kind": "custom",
-    "n": "Pin",
-    "r": "Rank 3",
-    "d": "Pins the target in place, and squeezes for $o2 damage over $d.",
-    "pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
-  },
-  {
-    "id": 46295,
-    "kind": "custom",
-    "n": "Pin",
-    "r": "Rank 4",
-    "d": "Pins the target in place, and squeezes for $o2 damage over $d.",
-    "pt": "Prende o alvo e espreme com $s1 de dano ao longo de $d s."
-  },
-  {
     "id": 46296,
     "kind": "custom",
     "n": "Grace",
     "r": "Rank 1",
     "d": "Increases chance to dodge by 30% for $d.",
-    "pt": "Esquiva +30% por $d s."
-  },
-  {
-    "id": 46303,
-    "kind": "custom",
-    "n": "Poison Spit",
-    "r": "Rank 1",
-    "d": "Spits poison at an enemy, dealing $46271o1 Nature damage over $46271d.",
-    "pt": "Cospe: $s1 de Natureza em $d s."
+    "pt": "Aumenta a chance de esquiva em 30% por $d s."
   },
   {
     "id": 46307,
@@ -27685,7 +26325,7 @@
     "n": "Grace",
     "r": "Rank 1",
     "d": "Increases chance to dodge by 30% for $46296d.",
-    "pt": "Esquiva +30% por $d s."
+    "pt": "Aumenta a chance de esquiva em 30% por $d s."
   },
   {
     "id": 46309,
@@ -27694,14 +26334,6 @@
     "r": "",
     "d": "Encases the target in sticky webs rendering them unable to move for $d.",
     "pt": "Envolve o alvo em teia grudenta, imobilizando-o por $d s."
-  },
-  {
-    "id": 46315,
-    "kind": "custom",
-    "n": "Cleave",
-    "r": "Felgaurd",
-    "d": "A sweeping attack that does your weapon damage plus $s1 to the target and his nearest ally.",
-    "pt": "Arma +$s1 no alvo e vizinho."
   },
   {
     "id": 46317,
@@ -29341,7 +27973,7 @@
     "n": "Exhaustion",
     "r": "Challenge",
     "d": "No longer gaining rested experience.",
-    "pt": "Sem mais experiência descansada."
+    "pt": "Não obtém mais experiência de descanso."
   },
   {
     "id": 50005,
@@ -29445,7 +28077,7 @@
     "n": "Exhaustion",
     "r": "",
     "d": "Enable the Exhaustion challenge.",
-    "pt": "Desafio Exaustão."
+    "pt": "Ativa o desafio Exaustão."
   },
   {
     "id": 50021,
@@ -29565,7 +28197,7 @@
     "n": "Exhaustion",
     "r": "Challenge",
     "d": "No longer gaining rested experience.",
-    "pt": "Sem mais experiência descansada."
+    "pt": "Não obtém mais experiência de descanso."
   },
   {
     "id": 50040,
@@ -30664,22 +29296,6 @@
     "pt": "Ácido: $s1 de Natureza a cada $t1 s por $d s."
   },
   {
-    "id": 51154,
-    "kind": "custom",
-    "n": "Poison Spit",
-    "r": "Rank 2",
-    "d": "Spits poison at an enemy, dealing $46272o1 Nature damage over $46272d.",
-    "pt": "Cospe: $s1 de Natureza em $d s."
-  },
-  {
-    "id": 51155,
-    "kind": "custom",
-    "n": "Poison Spit",
-    "r": "Rank 3",
-    "d": "Spits poison at an enemy, dealing $46273o1 Nature damage over $46273d.",
-    "pt": "Cospe: $s1 de Natureza em $d s."
-  },
-  {
     "id": 51169,
     "kind": "custom",
     "n": "Hellfire Aura",
@@ -30840,14 +29456,6 @@
     "pt": "Só Sombra fere por $d s."
   },
   {
-    "id": 51206,
-    "kind": "custom",
-    "n": "Enrage",
-    "r": "",
-    "d": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1% for $d.",
-    "pt": "Causa $s1 de dano de Sombra nos próximos após $t1 s."
-  },
-  {
     "id": 51207,
     "kind": "custom",
     "n": "Leader of the Tribe",
@@ -31006,14 +29614,6 @@
     "r": "",
     "d": "Reduces the cooldown of your Holy Strike and Crusader Strike by 0.5 sec.",
     "pt": "Golpe/Cruzado -0.5 s recarga."
-  },
-  {
-    "id": 51244,
-    "kind": "custom",
-    "n": "Summon Goblin Bomb",
-    "r": "",
-    "d": "Creates a mobile bomb that charges the nearest enemy and explodes for $51243s1 fire damage.",
-    "pt": "Bomba que investe e explode $s1 de Fogo."
   },
   {
     "id": 51245,
@@ -31320,20 +29920,28 @@
     "pt": "Reduz todo o dano recebido em $s1%."
   },
   {
-    "id": 51334,
+    "id": 51331,
     "kind": "custom",
-    "n": "Improved Hand of Reckoning",
+    "n": "Sacred Duty",
     "r": "Rank 1",
-    "d": "Improves your chance to hit with Hand of Reckoning by $s1%.",
-    "pt": "Mão do Ajuste +$s1% acerto."
+    "d": "Increases your total Stamina by $s1%.",
+    "pt": "Aumenta o seu total de Vigor em $s1%."
   },
   {
-    "id": 51335,
+    "id": 51332,
     "kind": "custom",
-    "n": "Improved Hand of Reckoning",
+    "n": "Sacred Duty",
     "r": "Rank 2",
-    "d": "Improves your chance to hit with Hand of Reckoning by $s1%.",
-    "pt": "Mão do Ajuste +$s1% acerto."
+    "d": "Increases your total Stamina by $s1%.",
+    "pt": "Aumenta o seu total de Vigor em $s1%."
+  },
+  {
+    "id": 51333,
+    "kind": "custom",
+    "n": "Sacred Duty",
+    "r": "Rank 3",
+    "d": "Increases your total Stamina by $s1%.",
+    "pt": "Aumenta o seu total de Vigor em $s1%."
   },
   {
     "id": 51336,
@@ -31416,68 +30024,12 @@
     "pt": "Aumenta sua Força em $s1%."
   },
   {
-    "id": 51360,
-    "kind": "custom",
-    "n": "Repent",
-    "r": "Rank 1",
-    "d": "If the target is immune to the effect, they repent for their sins, taking $51361s1 Holy damage each time they perform a melee attack for $d.",
-    "pt": "Imune: $s1 Sagrado por golpe por $d s."
-  },
-  {
-    "id": 51361,
-    "kind": "custom",
-    "n": "Repent",
-    "r": "Rank 1",
-    "d": "Blasts the enemy for $s1 Holy damage.",
-    "pt": "Detona o inimigo com $s1 de dano Sagrado."
-  },
-  {
-    "id": 51363,
-    "kind": "custom",
-    "n": "Spirit Link",
-    "r": "",
-    "d": "Links the spirit of an ally to that of other group members within 15 yards. When the target takes damage, $s1% is distributed among nearby allies. Lasts $d.",
-    "pt": "Elo: $s1% do dano divide no grupo a 15 m. $d s."
-  },
-  {
     "id": 51364,
     "kind": "custom",
     "n": "Concussion",
     "r": "",
     "d": "Reduces attack and casting speeds by $s1%.",
     "pt": "Reduz as velocidades de ataque e de lançamento em $s1%."
-  },
-  {
-    "id": 51365,
-    "kind": "custom",
-    "n": "Earthshaker Slam",
-    "r": "",
-    "d": "Slams your target with your shield, taunting it. Has no effect if the target is already attacking you.",
-    "pt": "Escudada que provoca, sem efeito se já é o alvo."
-  },
-  {
-    "id": 51369,
-    "kind": "custom",
-    "n": "Improved Water Shield",
-    "r": "Rank 1",
-    "d": "While your Water Shield is active, you restore $s1 Mana every 5 sec, and your total mana regeneration is increased by $/10;S2% for each active Water Shield globe.",
-    "pt": "O alvo fica imune a veneno por $d s e se cura dos atuais."
-  },
-  {
-    "id": 51370,
-    "kind": "custom",
-    "n": "Improved Water Shield",
-    "r": "Rank 2",
-    "d": "While your Water Shield is active, you restore $s1 Mana every 5 sec, and your total mana regeneration is increased by $/10;S2% for each active Water Shield globe.",
-    "pt": "O alvo fica imune a veneno por $d s e se cura dos atuais."
-  },
-  {
-    "id": 51371,
-    "kind": "custom",
-    "n": "Improved Water Shield",
-    "r": "Rank 3",
-    "d": "While your Water Shield is active, you restore $s1 Mana every 5 sec, and your total mana regeneration is increased by $/10;S2% for each active Water Shield globe.",
-    "pt": "O alvo fica imune a veneno por $d s e se cura dos atuais."
   },
   {
     "id": 51395,
@@ -31502,30 +30054,6 @@
     "r": "Minor",
     "d": "Blasts a target for $s1 Arcane damage.",
     "pt": "Detona o alvo com $s1 de dano Arcano."
-  },
-  {
-    "id": 51406,
-    "kind": "custom",
-    "n": "Feral Adrenaline",
-    "r": "Rank 1",
-    "d": "Increase dodge chance by $s1% until the next time you dodge.",
-    "pt": "Invoca uma súcubo pelo círculo."
-  },
-  {
-    "id": 51407,
-    "kind": "custom",
-    "n": "Feral Adrenaline",
-    "r": "Rank 2",
-    "d": "Increase dodge chance by $s1% until the next time you dodge.",
-    "pt": "Invoca uma súcubo pelo círculo."
-  },
-  {
-    "id": 51408,
-    "kind": "custom",
-    "n": "Feral Adrenaline",
-    "r": "Rank 3",
-    "d": "Increase dodge chance by $s1% until the next time you dodge.",
-    "pt": "Invoca uma súcubo pelo círculo."
   },
   {
     "id": 51412,
@@ -31565,7 +30093,7 @@
     "n": "Gale Winds",
     "r": "Rank 1",
     "d": "Reduces targets attack speed by $s1% for $d.",
-    "pt": "Aumenta a resistência a Fogo em $s1."
+    "pt": "Reduz a velocidade de ataque do alvo em $s1% por $d s."
   },
   {
     "id": 51439,
@@ -31573,23 +30101,7 @@
     "n": "Gale Winds",
     "r": "Rank 1",
     "d": "Reduces targets attack speed by $s1% for $d.",
-    "pt": "Aumenta a resistência a Fogo em $s1."
-  },
-  {
-    "id": 51440,
-    "kind": "custom",
-    "n": "Gale Winds",
-    "r": "Rank 1",
-    "d": "Causes your Hurricane spell to reduce the attack speed of affected enemies by $51438s1%.",
-    "pt": "Furacão: -$s1% velocidade."
-  },
-  {
-    "id": 51441,
-    "kind": "custom",
-    "n": "Gale Winds",
-    "r": "Rank 2",
-    "d": "Causes your Hurricane spell to reduce the attack speed of affected enemies by $51439s1%.",
-    "pt": "Furacão: -$s1% velocidade."
+    "pt": "Reduz a velocidade de ataque do alvo em $s1% por $d s."
   },
   {
     "id": 51442,
@@ -31640,14 +30152,6 @@
     "pt": "Magia +$s1% e cura +$s2%."
   },
   {
-    "id": 51474,
-    "kind": "custom",
-    "n": "Enlighten",
-    "r": "",
-    "d": "Blasts the enemy for $s1 Holy damage.",
-    "pt": "Detona o inimigo com $s1 de dano Sagrado."
-  },
-  {
     "id": 51475,
     "kind": "custom",
     "n": "Enlighten Dummy",
@@ -31669,7 +30173,7 @@
     "n": "Chastise Haste",
     "r": "Rank 1",
     "d": "Increases haste by $s1% for $d.",
-    "pt": "Aumenta a pressa em $s1% por $d s."
+    "pt": "Aumenta sua Aceleração em $s1% por $d s."
   },
   {
     "id": 51482,
@@ -31677,7 +30181,7 @@
     "n": "Chastise Haste",
     "r": "Rank 2",
     "d": "Increases haste by $s1% for $d.",
-    "pt": "Aumenta a pressa em $s1% por $d s."
+    "pt": "Aumenta sua Aceleração em $s1% por $d s."
   },
   {
     "id": 51483,
@@ -31685,7 +30189,7 @@
     "n": "Chastise Haste",
     "r": "Rank 3",
     "d": "Increases haste by $s1% for $d.",
-    "pt": "Aumenta a pressa em $s1% por $d s."
+    "pt": "Aumenta sua Aceleração em $s1% por $d s."
   },
   {
     "id": 51486,
@@ -31784,62 +30288,6 @@
     "pt": "Aumenta o dano de Fogo causado em $s1%."
   },
   {
-    "id": 51552,
-    "kind": "custom",
-    "n": "Elusiveness",
-    "r": "Rank 1",
-    "d": "Adds $s1% of your resistances to the resistances of your pets and increases the Dodge chance of your pets by $s2%.",
-    "pt": "Resist do pet +$s1% e esquiva +$s2%."
-  },
-  {
-    "id": 51553,
-    "kind": "custom",
-    "n": "Elusiveness",
-    "r": "Rank 2",
-    "d": "Adds $s1% of your resistances to the resistances of your pets and increases the Dodge chance of your pets by $s2%.",
-    "pt": "Resist do pet +$s1% e esquiva +$s2%."
-  },
-  {
-    "id": 51554,
-    "kind": "custom",
-    "n": "Bestial Precision",
-    "r": "Rank 1",
-    "d": "Increases the physical hit chance of your pets by $s1% and the spell hit chance of your pets by $s2%. In addition, increases the weapon skill of your pets by 5.",
-    "pt": "Pet: +$s1% acerto físico e +$s2% mágico. +5 perícia."
-  },
-  {
-    "id": 51555,
-    "kind": "custom",
-    "n": "Bestial Precision",
-    "r": "Rank 2",
-    "d": "Increases the physical hit chance of your pets by $s1% and the spell hit chance of your pets by $s2%. In addition, increases the weapon skill of your pets by 10.",
-    "pt": "Pet: +$s1% acerto físico e +$s2% mágico. +10 perícia."
-  },
-  {
-    "id": 51556,
-    "kind": "custom",
-    "n": "Intimidation",
-    "r": "",
-    "d": "Increasing threat caused by your pet by $s1% for $d.",
-    "pt": "Ameaça do pet +$s1% por $d s."
-  },
-  {
-    "id": 51559,
-    "kind": "custom",
-    "n": "Repent",
-    "r": "Rank 2",
-    "d": "Blasts the enemy for $s1 Holy damage.",
-    "pt": "Detona o inimigo com $s1 de dano Sagrado."
-  },
-  {
-    "id": 51560,
-    "kind": "custom",
-    "n": "Repent",
-    "r": "Rank 3",
-    "d": "Blasts the enemy for $s1 Holy damage.",
-    "pt": "Detona o inimigo com $s1 de dano Sagrado."
-  },
-  {
     "id": 51569,
     "kind": "custom",
     "n": "Chastise",
@@ -31878,22 +30326,6 @@
     "r": "",
     "d": "Summons 3 Galak Packhound to protect you.",
     "pt": "Invoca 3 cães."
-  },
-  {
-    "id": 51591,
-    "kind": "custom",
-    "n": "Improved Intervene",
-    "r": "Rank 1",
-    "d": "Grants a $h% chance to gain immunity to movement impairing effects for $51590d after using Intervene.",
-    "pt": "Intervir: $h% de imune a lentidão por $d s."
-  },
-  {
-    "id": 51592,
-    "kind": "custom",
-    "n": "Improved Intervene",
-    "r": "Rank 2",
-    "d": "Grants a $h% chance to gain immunity to movement impairing effects for $51590d after using Intervene.",
-    "pt": "Intervir: $h% de imune a lentidão por $d s."
   },
   {
     "id": 51595,
@@ -31942,86 +30374,6 @@
     "r": "",
     "d": "Skill with Two-Handed Axes, Swords and Maces increased by $s1.",
     "pt": "Machados, Espadas e Maças de Duas Mãos +$s1 de perícia."
-  },
-  {
-    "id": 51645,
-    "kind": "custom",
-    "n": "Mace Master",
-    "r": "Rank 1",
-    "d": "Causes your attacks to ignore 1.2 of your target's Armor per level.",
-    "pt": "Ataques ignoram 1.2 de armadura por nível."
-  },
-  {
-    "id": 51646,
-    "kind": "custom",
-    "n": "Mace Master",
-    "r": "Rank 2",
-    "d": "Causes your attacks to ignore 2.4 of your target's Armor per level.",
-    "pt": "Ataques ignoram 2.4 de armadura por nível."
-  },
-  {
-    "id": 51647,
-    "kind": "custom",
-    "n": "Mace Master",
-    "r": "Rank 3",
-    "d": "Causes your attacks to ignore 3.6 of your target's Armor per level.",
-    "pt": "Ataques ignoram 3.6 de armadura por nível."
-  },
-  {
-    "id": 51648,
-    "kind": "custom",
-    "n": "Mace Master",
-    "r": "Rank 4",
-    "d": "Causes your attacks to ignore 4.8 of your target's Armor per level.",
-    "pt": "Ataques ignoram 4.8 de armadura por nível."
-  },
-  {
-    "id": 51649,
-    "kind": "custom",
-    "n": "Mace Master",
-    "r": "Rank 5",
-    "d": "Causes your attacks to ignore 6 of your target's Armor per level.",
-    "pt": "Ataques ignoram 6 de armadura por nível."
-  },
-  {
-    "id": 51650,
-    "kind": "custom",
-    "n": "Polearm Master",
-    "r": "Rank 1",
-    "d": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
-    "pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
-  },
-  {
-    "id": 51651,
-    "kind": "custom",
-    "n": "Polearm Master",
-    "r": "Rank 2",
-    "d": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
-    "pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
-  },
-  {
-    "id": 51652,
-    "kind": "custom",
-    "n": "Polearm Master",
-    "r": "Rank 3",
-    "d": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
-    "pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
-  },
-  {
-    "id": 51653,
-    "kind": "custom",
-    "n": "Polearm Master",
-    "r": "Rank 4",
-    "d": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
-    "pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
-  },
-  {
-    "id": 51654,
-    "kind": "custom",
-    "n": "Polearm Master",
-    "r": "Rank 5",
-    "d": "Increases the range of melee attacks with Polearms by $/1000;s1 yd.",
-    "pt": "Aumenta o alcance corpo a corpo com Hastas em $s1 m."
   },
   {
     "id": 51670,
@@ -32112,30 +30464,6 @@
     "pt": "Mais vida e mana ao reviver."
   },
   {
-    "id": 51709,
-    "kind": "custom",
-    "n": "Nether Studies",
-    "r": "Rank 1",
-    "d": "Increases the effect of your Succubus' Seduction, your Voidwalker's Torment, your Imp's Blood Pact, and your Felhunter's Tainted Blood spells by $s1%.",
-    "pt": "Aumenta Sedução, Tormento, Pacto e Sangue Maculado em $s1%."
-  },
-  {
-    "id": 51710,
-    "kind": "custom",
-    "n": "Nether Studies",
-    "r": "Rank 2",
-    "d": "Increases the effect of your Succubus' Seduction, your Voidwalker's Torment, your Imp's Blood Pact, and your Felhunter's Tainted Blood spells by $s1%.",
-    "pt": "Aumenta Sedução, Tormento, Pacto e Sangue Maculado em $s1%."
-  },
-  {
-    "id": 51711,
-    "kind": "custom",
-    "n": "Nether Studies",
-    "r": "Rank 3",
-    "d": "Increases the effect of your Succubus' Seduction, your Voidwalker's Torment, your Imp's Blood Pact, and your Felhunter's Tainted Blood spells by $s1%.",
-    "pt": "Aumenta Sedução, Tormento, Pacto e Sangue Maculado em $s1%."
-  },
-  {
     "id": 51724,
     "kind": "custom",
     "n": "Enslave Demon Resist Chance",
@@ -32149,7 +30477,7 @@
     "n": "Master Demonologist",
     "r": "Rank 1",
     "d": "Infernal",
-    "pt": "Infernal."
+    "pt": "Infernal"
   },
   {
     "id": 51726,
@@ -32157,7 +30485,7 @@
     "n": "Master Demonologist",
     "r": "Rank 2",
     "d": "Infernal",
-    "pt": "Infernal."
+    "pt": "Infernal"
   },
   {
     "id": 51727,
@@ -32165,7 +30493,7 @@
     "n": "Master Demonologist",
     "r": "Rank 3",
     "d": "Infernal",
-    "pt": "Infernal."
+    "pt": "Infernal"
   },
   {
     "id": 51728,
@@ -32173,7 +30501,7 @@
     "n": "Master Demonologist",
     "r": "Rank 4",
     "d": "Infernal",
-    "pt": "Infernal."
+    "pt": "Infernal"
   },
   {
     "id": 51729,
@@ -32181,7 +30509,7 @@
     "n": "Master Demonologist",
     "r": "Rank 5",
     "d": "Infernal",
-    "pt": "Infernal."
+    "pt": "Infernal"
   },
   {
     "id": 51730,
@@ -32189,7 +30517,7 @@
     "n": "Master Demonologist",
     "r": "Rank 1",
     "d": "Felguard",
-    "pt": "Guarda Vil."
+    "pt": "Guarda Vil"
   },
   {
     "id": 51731,
@@ -32197,7 +30525,7 @@
     "n": "Master Demonologist",
     "r": "Rank 2",
     "d": "Felguard",
-    "pt": "Guarda Vil."
+    "pt": "Guarda Vil"
   },
   {
     "id": 51732,
@@ -32205,7 +30533,7 @@
     "n": "Master Demonologist",
     "r": "Rank 3",
     "d": "Felguard",
-    "pt": "Guarda Vil."
+    "pt": "Guarda Vil"
   },
   {
     "id": 51733,
@@ -32213,7 +30541,7 @@
     "n": "Master Demonologist",
     "r": "Rank 4",
     "d": "Felguard",
-    "pt": "Guarda Vil."
+    "pt": "Guarda Vil"
   },
   {
     "id": 51734,
@@ -32221,7 +30549,7 @@
     "n": "Master Demonologist",
     "r": "Rank 5",
     "d": "Felguard",
-    "pt": "Guarda Vil."
+    "pt": "Guarda Vil"
   },
   {
     "id": 51735,
@@ -33440,30 +31768,6 @@
     "pt": "Queima $s1 de Fogo a cada $t1 s."
   },
   {
-    "id": 51969,
-    "kind": "custom",
-    "n": "Smoke Bomb",
-    "r": "",
-    "d": "Creates a cloud of thick smoke in $51967a1 yds around you for $51967d. All targets inside the smoke have a $51967s1% reduced chance of being hit by attacks and spells for the duration.",
-    "pt": "Fumaça $a1 m por $d s: -$s1% acerto dentro."
-  },
-  {
-    "id": 51974,
-    "kind": "custom",
-    "n": "Bloody Mess",
-    "r": "Rank 1",
-    "d": "Reduces the Energy cost of your Hemorrhage by $s1 and increases the Physical damage dealt bonus of your Hemorrhage by $s2%.",
-    "pt": "Hemorragia -$s1 energia e +$s2% Físico."
-  },
-  {
-    "id": 51975,
-    "kind": "custom",
-    "n": "Bloody Mess",
-    "r": "Rank 2",
-    "d": "Reduces the Energy cost of your Hemorrhage by $s1 and increases the Physical damage dealt bonus of your Hemorrhage by $s2%.",
-    "pt": "Hemorragia -$s1 energia e +$s2% Físico."
-  },
-  {
     "id": 51976,
     "kind": "custom",
     "n": "Wand Specialization",
@@ -33989,7 +32293,7 @@
     "n": "Unstablized Mana",
     "r": "Rank 1",
     "d": "Deals Arcane damage to the target.",
-    "pt": "Causa dano Arcano no alvo."
+    "pt": "Causa dano Arcano ao alvo."
   },
   {
     "id": 52392,
@@ -34112,28 +32416,28 @@
     "pt": "Gera $s1 energia em $d s."
   },
   {
-    "id": 52550,
+    "id": 52532,
     "kind": "custom",
-    "n": "Dark Harvest",
+    "n": "Irritation",
     "r": "Rank 1",
-    "d": "Reaps the target's life, dealing $*8;s1 Shadow damage over $d. While channeling, the time between periodic ticks of your Affliction spells on the target is reduced by $s2%. If the target dies while channeling, the cooldown of Dark Harvest is reset.",
-    "pt": "Aumenta a resistência a Sagrado em $s1."
+    "d": "Reduces all damage dealt by $s1% for $d.",
+    "pt": "Reduz todo o dano causado em $s1% por $d s."
   },
   {
-    "id": 52551,
+    "id": 52533,
     "kind": "custom",
-    "n": "Dark Harvest",
+    "n": "Irritation",
     "r": "Rank 2",
-    "d": "Reaps the target's life, dealing $*8;s1 Shadow damage over $d. While channeling, the time between periodic ticks of your Affliction spells on the target is reduced by $s2%. If the target dies while channeling, the cooldown of Dark Harvest is reset.",
-    "pt": "Aumenta a resistência a Sagrado em $s1."
+    "d": "Reduces all damage dealt by $s1% for $d.",
+    "pt": "Reduz todo o dano causado em $s1% por $d s."
   },
   {
-    "id": 52552,
+    "id": 52534,
     "kind": "custom",
-    "n": "Dark Harvest",
+    "n": "Irritation",
     "r": "Rank 3",
-    "d": "Reaps the target's life, dealing $*8;s1 Shadow damage over $d. While channeling, the time between periodic ticks of your Affliction spells on the target is reduced by $s2%. If the target dies while channeling, the cooldown of Dark Harvest is reset.",
-    "pt": "Aumenta a resistência a Sagrado em $s1."
+    "d": "Reduces all damage dealt by $s1% for $d.",
+    "pt": "Reduz todo o dano causado em $s1% por $d s."
   },
   {
     "id": 52566,
@@ -34501,7 +32805,7 @@
     "n": "Chastise Haste",
     "r": "Rank 1",
     "d": "Increases haste by $s1% for $d.",
-    "pt": "Aumenta a pressa em $s1% por $d s."
+    "pt": "Aumenta sua Aceleração em $s1% por $d s."
   },
   {
     "id": 52659,
@@ -34509,7 +32813,7 @@
     "n": "Chastise Haste",
     "r": "Rank 2",
     "d": "Increases haste by $s1% for $d.",
-    "pt": "Aumenta a pressa em $s1% por $d s."
+    "pt": "Aumenta sua Aceleração em $s1% por $d s."
   },
   {
     "id": 52660,
@@ -34517,7 +32821,7 @@
     "n": "Chastise Haste",
     "r": "Rank 3",
     "d": "Increases haste by $s1% for $d.",
-    "pt": "Aumenta a pressa em $s1% por $d s."
+    "pt": "Aumenta sua Aceleração em $s1% por $d s."
   },
   {
     "id": 52661,
@@ -34800,30 +33104,6 @@
     "pt": "Restaura $s1 de Raiva."
   },
   {
-    "id": 53216,
-    "kind": "custom",
-    "n": "Ancient Brutality (Bear)",
-    "r": "Rank 1",
-    "d": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53219s1 rage per second for $53219d. This effect can only occur once every 9 seconds.",
-    "pt": "Esquivar em Urso: +$s1 fúria/s por $d s. 1x a cada 9 s."
-  },
-  {
-    "id": 53217,
-    "kind": "custom",
-    "n": "Ancient Brutality (Bear)",
-    "r": "Rank 2",
-    "d": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53220s1 rage per second for $53220d. This effect can only occur once every 9 seconds.",
-    "pt": "Esquivar em Urso: +$s1 fúria/s por $d s. 1x a cada 9 s."
-  },
-  {
-    "id": 53218,
-    "kind": "custom",
-    "n": "zzOLD Ancient Brutality (Bear)",
-    "r": "Rank 3",
-    "d": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53221s1 rage per second for $53221d. This effect can only occur once every 9 seconds.",
-    "pt": "Esquivar em Urso: +$s1 fúria/s por $d s. 1x a cada 9 s."
-  },
-  {
     "id": 53223,
     "kind": "custom",
     "n": "Vorgenfall",
@@ -34838,14 +33118,6 @@
     "r": "",
     "d": "Swipe nearby enemies, inflicting $s1 damage.",
     "pt": "Golpeia os inimigos próximos, causando $s1 de dano."
-  },
-  {
-    "id": 53226,
-    "kind": "custom",
-    "n": "Rage of Vorgendor",
-    "r": "",
-    "d": "Increases the caster's attack speed by $s2% and the Physical damage it deals by $s1% for $d.",
-    "pt": "Causa $s1 de dano de Sombra nos próximos após $t1 s."
   },
   {
     "id": 53227,
@@ -35005,7 +33277,7 @@
     "n": "Dreamfever",
     "r": "",
     "d": "Reduces targets attack speed by $s1% for $d.",
-    "pt": "Aumenta a resistência a Fogo em $s1."
+    "pt": "Reduz a velocidade de ataque do alvo em $s1% por $d s."
   },
   {
     "id": 56515,
@@ -35688,14 +33960,6 @@
     "pt": "Peito/perna/mão/pé: +9 cura e dano mágico. Só nv 60+."
   },
   {
-    "id": 57140,
-    "kind": "custom",
-    "n": "Elixir of the Mongoose",
-    "r": "",
-    "d": "Increases Agility by $s1 and chance to get a critical hit by $s2% for $d.",
-    "pt": "Agi +$s1 e crítico +$s2% por $d s."
-  },
-  {
     "id": 57142,
     "kind": "custom",
     "n": "Enchant Boots - Greater Spirit",
@@ -35936,14 +34200,6 @@
     "pt": "Sapo simples da lagoa."
   },
   {
-    "id": 57518,
-    "kind": "custom",
-    "n": "Eternal Dreamstone Shard",
-    "r": "",
-    "d": "The combining of dream fragments can only be done at a moonwell, and only ocassionally will the waters permit themselves to be used in such a way.",
-    "pt": "Sonho só no poço, às vezes."
-  },
-  {
     "id": 57530,
     "kind": "custom",
     "n": "Add Recording to Collection",
@@ -36101,7 +34357,7 @@
     "n": "Transmute: Elemental Earth",
     "r": "",
     "d": "Transmutes a Heart of Fire into three Elemental Earth.",
-    "pt": "Coração vira 3 Terras."
+    "pt": "Transmuta um Coração de Fogo em três Terras Elementais."
   },
   {
     "id": 57557,
@@ -36109,7 +34365,7 @@
     "n": "Transmute: Elemental Water",
     "r": "",
     "d": "Transmutes a Globe of Water into three Elemental Water.",
-    "pt": "Globo vira 3 Águas."
+    "pt": "Transmuta um Globo de Água em três Águas Elementais."
   },
   {
     "id": 57560,
@@ -36486,6 +34742,30 @@
     "r": "",
     "d": "Increases damage done by $s1% and total health by $s2%.",
     "pt": "Dano +$s1% e vida +$s2%."
+  },
+  {
+    "id": 57709,
+    "kind": "custom",
+    "n": "Boundless Anger",
+    "r": "Rank 1",
+    "d": "Increases your maximum Rage by $/10;s1.",
+    "pt": "Aumenta a sua raiva máxima em $s1."
+  },
+  {
+    "id": 57710,
+    "kind": "custom",
+    "n": "Boundless Anger",
+    "r": "Rank 3",
+    "d": "Increases your maximum Rage by $/10;s1.",
+    "pt": "Aumenta a sua raiva máxima em $s1."
+  },
+  {
+    "id": 57711,
+    "kind": "custom",
+    "n": "Boundless Anger",
+    "r": "Rank 3",
+    "d": "Increases your maximum Rage by $/10;s1.",
+    "pt": "Aumenta a sua raiva máxima em $s1."
   },
   {
     "id": 57712,

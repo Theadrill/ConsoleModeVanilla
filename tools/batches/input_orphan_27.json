@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 16972,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Predatory Strikes Rank 1",
+    "en": "Increases your melee attack power in Cat, Bear, and Dire Bear Forms by $s1%. In addition, increases the damage caused by your Claw, Rake, Maul, Swipe, and Savage Bite abilities by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16974,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Predatory Strikes Rank 2",
+    "en": "Increases your melee attack power in Cat, Bear, and Dire Bear Forms by $s1%. In addition, increases the damage caused by your Claw, Rake, Maul, Swipe, and Savage Bite abilities by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16975,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Predatory Strikes Rank 3",
+    "en": "Increases your melee attack power in Cat, Bear, and Dire Bear Forms by $s1%. In addition, increases the damage caused by your Claw, Rake, Maul, Swipe, and Savage Bite abilities by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16998,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Carnage Rank 1",
+    "en": "Your Maul, Swipe, and Savage Bite abilities return $s1% of their damage as healing to you. In addition, gives your Ferocious Bite a $b2% chance per combo point spent to refresh your active Rake and Rip effects and to add an additional combo point.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16999,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Carnage Rank 2",
+    "en": "Your Maul, Swipe, and Savage Bite abilities return $s1% of their damage as healing to you. In addition, gives your Ferocious Bite a $b2% chance per combo point spent to refresh your active Rake and Rip effects and to add an additional combo point.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17104,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Gift of Nature Rank 1",
+    "en": "Increases the effectiveness of all healing spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17783,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fel Concentration Rank 1",
+    "en": "Gives your Affliction spells a $s1% chance to not lose casting time when you take damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17784,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fel Concentration Rank 2",
+    "en": "Gives your Affliction spells a $s1% chance to not lose casting time when you take damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17788,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bane Rank 1",
+    "en": "Reduces the casting time of your Shadow Bolt, Searing Pain, and Immolate spells by $/1000;S1 sec and your Soul Fire spell by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17789,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bane Rank 2",
+    "en": "Reduces the casting time of your Shadow Bolt, Searing Pain, and Immolate spells by $/1000;S1 sec and your Soul Fire spell by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17790,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bane Rank 3",
+    "en": "Reduces the casting time of your Shadow Bolt, Searing Pain, and Immolate spells by $/1000;S1 sec and your Soul Fire spell by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17791,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bane Rank 4",
+    "en": "Reduces the casting time of your Shadow Bolt, Searing Pain, and Immolate spells by $/1000;S1 sec and your Soul Fire spell by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17792,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bane Rank 5",
+    "en": "Reduces the casting time of your Shadow Bolt, Searing Pain, and Immolate spells by $/1000;S1 sec and your Soul Fire spell by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17793,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Vulnerability Rank 1",
+    "en": "Your Shadow Bolt and Drain Soul have a $h% chance to increase Shadow damage dealt to the target by $17794s1% for $17794d, with a higher chance to trigger on critical hits.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17796,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Vulnerability Rank 2",
+    "en": "Your Shadow Bolt and Drain Soul have a $h% chance to increase Shadow damage dealt to the target by $17794s1% for $17794d, with a higher chance to trigger on critical hits.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17801,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Vulnerability Rank 3",
+    "en": "Your Shadow Bolt and Drain Soul have a $h% chance to increase Shadow damage dealt to the target by $17794s1% for $17794d, with a higher chance to trigger on critical hits.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17802,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Vulnerability Rank 4",
+    "en": "Your Shadow Bolt and Drain Soul have a $h% chance to increase Shadow damage dealt to the target by $17794s1% for $17794d, with a higher chance to trigger on critical hits.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17803,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Vulnerability Rank 5",
+    "en": "Your Shadow Bolt and Drain Soul have a $h% chance to increase Shadow damage dealt to the target by $17794s1% for $17794d, with a higher chance to trigger on critical hits.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17917,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Destructive Reach Rank 1",
+    "en": "Increases the range of your Destruction spells by $s1% and the radius of your Hellfire by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 17918,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Destructive Reach Rank 2",
+    "en": "Increases the range of your Destruction spells by $s1% and the radius of your Hellfire by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 18179,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Curse of Weakness Rank 1",
+    "en": "Increases the attack speed reduction of your Curse of Weakness by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 18180,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Curse of Weakness Rank 2",
+    "en": "Increases the attack speed reduction of your Curse of Weakness by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 18499,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Berserker Rage",
+    "en": "Enters a berserker rage, becoming immune to Fear and Incapacitate effects and generating $s3% more Rage when taking damage. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 18540,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Ritual of Doom",
+    "en": "Begins a ritual that summons a Doomguard under the command of the caster for $53222d. Once control is lost, the Doomguard attacks the caster until one of them dies. Requires the caster and an additional party member to complete the ritual. All players must right-click the portal and remain stationary until the ritual is complete.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 18709,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Master Summoner Rank 1",
+    "en": "Reduces the casting time of your Imp, Voidwalker, Succubus, and Felhunter summoning spells by $/1000;s1 sec and their mana cost by $s2%. In addition, reduces the cooldown of Inferno, Ritual of Doom, and Demon Gate by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 18710,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Master Summoner Rank 2",
+    "en": "Reduces the casting time of your Imp, Voidwalker, Succubus, and Felhunter summoning spells by $/1000;s1 sec and their mana cost by $s2%. In addition, reduces the cooldown of Inferno, Ritual of Doom, and Demon Gate by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19159,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Savage Strikes Rank 1",
+    "en": "Increases the damage done by your offhand weapon by $s2% and the critical strike chance of your Lacerate, Raptor Strike, Mongoose Bite, Carve and Wing Clip abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19160,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Savage Strikes Rank 2",
+    "en": "Increases the damage done by your offhand weapon by $s2% and the critical strike chance of your Lacerate, Raptor Strike, Mongoose Bite, Carve and Wing Clip abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19290,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Surefooted Rank 1",
+    "en": "Increases hit chance by $s3%, and by an additional $s3% while dual wielding.\nIn addition, increases the chance to resist movement impairing effects by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19294,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Surefooted Rank 2",
+    "en": "Increases hit chance by $s3%, and by an additional $s3% while dual wielding.\nIn addition, increases the chance to resist movement impairing effects by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19454,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Swiftshot Rank 1",
+    "en": "Reduces the cooldown of Arcane Shot by $/1000;S1 sec and the cooldown of Aimed Shot by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19455,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Swiftshot Rank 2",
+    "en": "Reduces the cooldown of Arcane Shot by $/1000;S1 sec and the cooldown of Aimed Shot by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19456,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Swiftshot Rank 3",
+    "en": "Reduces the cooldown of Arcane Shot by $/1000;S1 sec and the cooldown of Aimed Shot by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19461,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Barrage Rank 1",
+    "en": "Increases the damage of Multi-Shot and Volley by $s1% and reduces the cast time of Volley by $/1000;m3 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19462,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Barrage Rank 2",
+    "en": "Increases the damage of Multi-Shot and Volley by $s1% and reduces the cast time of Volley by $/1000;m3 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19464,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Stings Rank 1",
+    "en": "Increases the damage of Serpent Sting by $s1%, increases the mana drained by Viper Sting by $s2%, and causes Scorpid Sting to reduce attack speed by an additional $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19465,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Stings Rank 2",
+    "en": "Increases the damage of Serpent Sting by $s1%, increases the mana drained by Viper Sting by $s2%, and causes Scorpid Sting to reduce attack speed by an additional $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19466,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Stings Rank 3",
+    "en": "Increases the damage of Serpent Sting by $s1%, increases the mana drained by Viper Sting by $s2%, and causes Scorpid Sting to reduce attack speed by an additional $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19467,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Stings Rank 4",
+    "en": "Increases the damage of Serpent Sting by $s1%, increases the mana drained by Viper Sting by $s2%, and causes Scorpid Sting to reduce attack speed by an additional $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19468,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Stings Rank 5",
+    "en": "Increases the damage of Serpent Sting by $s1%, increases the mana drained by Viper Sting by $s2%, and causes Scorpid Sting to reduce attack speed by an additional $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19506,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Trueshot Aura",
+    "en": "Increases the attack power of party members within $a1 yards by $s1%, plus an additional $s2. The aura lasts until canceled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19559,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Pathfinding Rank 1",
+    "en": "Increases the speed bonus of your Aspect of the Cheetah and Aspect of the Pack by $s1% and increases your pet's movement speed by $s2%. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19560,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Pathfinding Rank 2",
+    "en": "Increases the speed bonus of your Aspect of the Cheetah and Aspect of the Pack by $s1% and increases your pet's movement speed by $s2%. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19574,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bestial Wrath",
+    "en": "Sends your pet into a rage, granting it Scent of Blood for $d. While enraged, the beast does not feel pity, remorse, or fear, and cannot be stopped except by death.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19583,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Endurance Training Rank 1",
+    "en": "Adds $s2% of your Stamina to your pets' Stamina and increases their health by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19584,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Endurance Training Rank 2",
+    "en": "Adds $s2% of your Stamina to your pets' Stamina and increases their health by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19585,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Endurance Training Rank 3",
+    "en": "Adds $s2% of your Stamina to your pets' Stamina and increases their health by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19586,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Endurance Training Rank 4",
+    "en": "Adds $s2% of your Stamina to your pets' Stamina and increases their health by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19587,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Endurance Training Rank 5",
+    "en": "Adds $s2% of your Stamina to your pets' Stamina and increases their health by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 19590,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Bestial Discipline Rank 1",
+    "en": "Increases the Focus regeneration of your pets by 2 each tick and reduces the cooldown of your pets' special ability by $s2%.",
+    "curr_pt": ""
+  }
+]

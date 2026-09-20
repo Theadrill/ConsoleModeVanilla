@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 46045,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 3",
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova, reducing their mana cost by $46238s1 for $46238n casts or $46238d, whichever occurs first.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46046,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sun's Embrace Rank 4",
+    "en": "Empowers your Smite, Holy Fire, and Holy Nova, reducing their mana cost by $46239s1 for $46239n casts or $46239d, whichever occurs first.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46107,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Molten Blast Rank 1",
+    "en": "Refreshing Flame Shock with Molten Blast deals damage equal to $s1% of the refreshed duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46108,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Molten Blast Rank 2",
+    "en": "Refreshing Flame Shock with Molten Blast deals damage equal to $s1% of the refreshed duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46763,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Holy Dmg +1 Rank 1",
+    "en": "When struck in combat inflicts $s1 Holy damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46764,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Holy Dmg +2 Rank 1",
+    "en": "When struck in combat inflicts $s1 Holy damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46765,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Holy Dmg +3 Rank 1",
+    "en": "When struck in combat inflicts $s1 Holy damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46766,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Holy Dmg +4 Rank 1",
+    "en": "When struck in combat inflicts $s1 Holy damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46767,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Holy Dmg +5 Rank 1",
+    "en": "When struck in combat inflicts $s1 Holy damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46778,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Frost Dmg +1 Rank 1",
+    "en": "When struck in combat inflicts $s1 Frost damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46779,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Frost Dmg +2 Rank 1",
+    "en": "When struck in combat inflicts $s1 Frost damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46780,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Frost Dmg +3 Rank 1",
+    "en": "When struck in combat inflicts $s1 Frost damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46781,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Frost Dmg +4 Rank 1",
+    "en": "When struck in combat inflicts $s1 Frost damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46782,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Frost Dmg +5 Rank 1",
+    "en": "When struck in combat inflicts $s1 Frost damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46783,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Shadow Dmg +1 Rank 1",
+    "en": "When struck in combat inflicts $s1 Shadow damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46784,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Shadow Dmg +2 Rank 1",
+    "en": "When struck in combat inflicts $s1 Shadow damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46785,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Shadow Dmg +3 Rank 1",
+    "en": "When struck in combat inflicts $s1 Shadow damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46786,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Shadow Dmg +4 Rank 1",
+    "en": "When struck in combat inflicts $s1 Shadow damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46787,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Shadow Dmg +5 Rank 1",
+    "en": "When struck in combat inflicts $s1 Shadow damage to the attacker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46788,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aessina's Bloom Rank 1",
+    "en": "Reduces the casting time of your Healing Touch spell by 0.$/10;s2 sec and refunds $s1% of it's mana cost.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46789,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aessina's Bloom Rank 2",
+    "en": "Reduces the casting time of your Healing Touch spell by 0.$/10;s2 sec and refunds $s1% of it's mana cost.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47384,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Word: Pain Rank 1",
+    "en": "A word of darkness that causes $o1 Shadow damage over $d to all enemies in a $a1 yards radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47390,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prayer of Healing",
+    "en": "Invokes Holy magic to heal allies within $a1 yards for $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48306,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthquake Rank 1",
+    "en": "Breaks the earth beneath the target, dealing $s1 Nature damage to the target and an additional $52878m1% of that damage as Nature damage to other enemies within $52878a1 yards. Creates a patch of broken earth that slows enemies inside it by $s2%. After $d, the broken earth erupts in an aftershock, dealing Nature damage equal to $51489m1% of the initial damage to all enemies within the area.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48307,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthquake Rank 2",
+    "en": "Breaks the earth beneath the target, dealing $s1 Nature damage to the target and an additional $52878m1% of that damage as Nature damage to other enemies within $52878a1 yards. Creates a patch of broken earth that slows enemies inside it by $s2%. After $d, the broken earth erupts in an aftershock, dealing Nature damage equal to $51489m1% of the initial damage to all enemies within the area.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48308,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthquake Rank 3",
+    "en": "Breaks the earth beneath the target, dealing $s1 Nature damage to the target and an additional $52878m1% of that damage as Nature damage to other enemies within $52878a1 yards. Creates a patch of broken earth that slows enemies inside it by $s2%. After $d, the broken earth erupts in an aftershock, dealing Nature damage equal to $51489m1% of the initial damage to all enemies within the area.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49015,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Food",
+    "en": "Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $49014s1 to all resistances for $49014d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49554,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Demonic Precision Rank 1",
+    "en": "Your demons gain $s1% melee and spell hit chance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49555,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Demonic Precision Rank 1",
+    "en": "Your demons gain $s1% melee and spell hit chance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49556,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Demonic Precision Rank 1",
+    "en": "Your demons gain $s1% melee and spell hit chance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51310,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ironclad Rank 1",
+    "en": "Increases healing done by spells and effects by up to $s1% of your Armor from items.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51311,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ironclad Rank 2",
+    "en": "Increases healing done by spells and effects by up to $s1% of your Armor from items.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51341,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Righteous Strikes Rank 1",
+    "en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%. In addition, Crusader Strike grants Zealous Defense, reducing the damage of the next blocked attack by $51336s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51342,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Righteous Strikes Rank 2",
+    "en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%. In addition, Crusader Strike grants Zealous Defense, reducing the damage of the next blocked attack by $51337s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51343,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Righteous Strikes Rank 3",
+    "en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%. In addition, Crusader Strike grants Zealous Defense, reducing the damage of the next blocked attack by $51338s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51344,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Righteous Strikes Rank 4",
+    "en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%. In addition, Crusader Strike grants Zealous Defense, reducing the damage of the next blocked attack by $51339s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51345,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Righteous Strikes Rank 5",
+    "en": "Increases the threat generated by your Holy Strike by $s2% and its damage by $s3%. In addition, Crusader Strike grants Zealous Defense, reducing the damage of the next blocked attack by $51340s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51365,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthshaker Slam",
+    "en": "Slam the target with earthen fury, taunting it to attack you. Has no effect if the target is already attacking you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51383,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Calming Winds Rank 1",
+    "en": "Reduces threat generated by your physical attacks, weapon imbue effects, and your Lightning Strike and Stormstrike abilities by $s1%. This effect does not apply while Rockbiter Weapon is active.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51384,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Calming Winds Rank 2",
+    "en": "Reduces threat generated by your physical attacks, weapon imbue effects, and your Lightning Strike and Stormstrike abilities by $s1%. This effect does not apply while Rockbiter Weapon is active.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51385,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Calming Winds Rank 3",
+    "en": "Reduces threat generated by your physical attacks, weapon imbue effects, and your Lightning Strike and Stormstrike abilities by $s1%. This effect does not apply while Rockbiter Weapon is active.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51401,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barkskin (Feral) Rank 1",
+    "en": "The Druid's skin becomes as tough as bark, reducing Physical damage taken by $s1% for the next $n attacks. Movement speed is reduced by $s2% for the duration. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51402,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Open Wounds Rank 1",
+    "en": "Increases the damage of Rip by $s2%. In addition, increases the damage of Claw by $s1% for each of your active Bleed effects on the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51403,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Open Wounds Rank 2",
+    "en": "Increases the damage of Rip by $s2%. In addition, increases the damage of Claw by $s1% for each of your active Bleed effects on the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51404,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Open Wounds Rank 3",
+    "en": "Increases the damage of Rip by $s2%. In addition, increases the damage of Claw by $s1% for each of your active Bleed effects on the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51415,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Brutality Rank 1",
+    "en": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53219s1 Rage per second for $53219d. This effect can only occur once every 9 seconds.  While in Cat Form, periodic ticks of your Bleed effects restore $51412s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51416,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Brutality Rank 2",
+    "en": "Dodging an attack while in Bear or Dire Bear Form imbues you with the spirit of the Ancients, generating $/10;53220s1 Rage per second for $53220d. This effect can only occur once every 9 seconds.  While in Cat Form, periodic ticks of your Bleed effects restore $51413s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51433,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Balance of All Things Rank 1",
+    "en": "Damaging a target afflicted by Insect Swarm with Wrath refunds $s1% of its mana cost.\n\nStarfire has a $s2% increased chance to critically strike against targets affected by Moonfire.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51434,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Balance of All Things Rank 2",
+    "en": "Damaging a target afflicted by Insect Swarm with Wrath refunds $s1% of its mana cost.\n\nStarfire has a $s2% increased chance to critically strike against targets affected by Moonfire.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51435,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Balance of All Things Rank 3",
+    "en": "Damaging a target afflicted by Insect Swarm with Wrath refunds $s1% of its mana cost.\n\nStarfire has a $s2% increased chance to critically strike against targets affected by Moonfire.",
+    "curr_pt": ""
+  }
+]

@@ -19,13 +19,19 @@ LAY173 = {"id": 0, "name": 120, "rank": 129, "desc": 138, "tip": 147, "nf": 173}
 
 CHAIN = [
     ("snapshot", TEMP / "Spell.dbc", LAY162),
-    ("patch_MPQ", TEMP / "Spell_patch_MPQ.dbc", LAY173),
-    ("patch-2", TEMP / "Spell_patch-2_MPQ.dbc", LAY173),
-    ("patch-3", TEMP / "Spell_patch-3_mpq.dbc", LAY173),
-    ("patch-5", TEMP / "Spell_patch-5_mpq.dbc", LAY173),
-    ("patch-6", TEMP / "Spell_patch-6_mpq.dbc", LAY173),
-    ("patch-7", TEMP / "Spell_patch-7_mpq.dbc", LAY173),
+    ("patch", TEMP / "Spell_patch.dbc", LAY173),
+    ("patch-2", TEMP / "Spell_patch-2.dbc", LAY173),
+    ("patch-3", TEMP / "Spell_patch-3.dbc", LAY173),
+    ("patch-4", TEMP / "Spell_patch-4.dbc", LAY173),
+    ("patch-5", TEMP / "Spell_patch-5.dbc", LAY173),
+    ("patch-6", TEMP / "Spell_patch-6.dbc", LAY173),
+    ("patch-7", TEMP / "Spell_patch-7.dbc", LAY173),
+    ("patch-8", TEMP / "Spell_patch-8.dbc", LAY173),
+    ("patch-9", TEMP / "Spell_patch-9.dbc", LAY173),
 ]
+# CHAIN completa MPQ-por-MPQ (turtle wow\Data): snapshot + patch..patch-9
+# via mpyq(listfile=False) extraidos em 20/09/2026. Patch-A/B..Y nao
+# contem Spell.dbc (verificado). Dumps Spell_patch*.dbc no Temp.
 
 
 def parse(path, lay):

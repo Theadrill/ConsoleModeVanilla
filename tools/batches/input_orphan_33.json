@@ -1,0 +1,378 @@
+[
+  {
+    "oid": 51786,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Shock Rank 4",
+    "en": "Blasts the target with Holy energy, causing $52012s1 Holy damage to an enemy, or $51787s1 healing to an ally. Casting Holy Shock has a chance to have no cooldown for its next cast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51923,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosive Poison Rank 1",
+    "en": "Coats a weapon with poison that lasts for $/60;s1 minutes. \nEach strike has a $h% chance of poisoning the enemy for $51922o1 damage over $51922d.  Stacks up to $51922u times on a single target. Only affects Elemental, Giant, Undead, and Mechanical enemies. 105 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51924,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosive Poison Rank 1",
+    "en": "Coats a weapon with poison that lasts for $/60;51923s1 minutes. \nEach strike has a $51923h% chance of poisoning the enemy for $51922o1 damage over $51922d.  Stacks up to $51922u times on a single target. Only affects Elemental, Giant, Undead, and Mechanical enemies. 105 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51927,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hot Streak Rank 1",
+    "en": "Gives your Fireball and Fire Blast critical strikes a $h% chance to grant Hot Streak, reducing the cast time of your next Pyroblast by $/1000;51930s1 sec per stack for $51930d. Stacks up to $51930u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51928,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hot Streak Rank 2",
+    "en": "Gives your Fireball and Fire Blast critical strikes a $h% chance to grant Hot Streak, reducing the cast time of your next Pyroblast by $/1000;51931s1 sec per stack for $51931d. Stacks up to $51930u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51929,
+    "kind": "custom",
+    "need": "new",
+    "sample": "[Deprecated] Hot Streak Rank 3",
+    "en": "Gives your Fireball and Fire Blast critical strikes a $h% chance to grant Hot Streak, reducing the cast time of your next Pyroblast by $/1000;51931s1 sec per stack for $51932d. Stacks up to $51932u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51970,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Ghostly Strike Rank 1",
+    "en": "Your Ghostly Strike increases your movement speed by $46097s1% and increases your party members' movement speed by $46097s2% within $46097a2 yards for $46097d. In addition, reduces the Energy cost of your Ghostly Strike by $s2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51971,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Ghostly Strike Rank 2",
+    "en": "Your Ghostly Strike increases your movement speed by $46098s1% and increases your party members' movement speed by $46098s2% within $46098a2 yards for $46098d. In addition, reduces the Energy cost of your Ghostly Strike by $s2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51972,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Ghostly Strike Rank 3",
+    "en": "Your Ghostly Strike increases your movement speed by $46099s1% and increases your party members' movement speed by $46099s2% within $46099a2 yards for $46099d. In addition, reduces the Energy cost of your Ghostly Strike by $s2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52507,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blade Rush Rank 1",
+    "en": "Increases your melee attack speed by $s1% and reduces the time between your Energy regeneration ticks by an amount equal to your Agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52508,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blade Rush Rank 2",
+    "en": "Increases your melee attack speed by $s1% and reduces the time between your Energy regeneration ticks by an amount equal to your Agility. More effective than Blade Rush (Rank 1).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52512,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Honor Among Thieves Rank 1",
+    "en": "Physical critical strikes by you or party members within $a1 yards grant you $s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52514,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Honor Among Thieves Rank 2",
+    "en": "Physical critical strikes by you or party members within $a1 yards grant you $s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52527,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vigor Rank 2",
+    "en": "Increases your maximum Energy by $s2.  Each time you apply poison to your target, you have a $s1% chance to gain $52526s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52575,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosive Poison II Rank 2",
+    "en": "Coats a weapon with poison that lasts for $/60;s1 minutes. \nEach strike has a $h% chance of poisoning the enemy for $52574o1 damage over $52574d.  Stacks up to $52574u times on a single target. Only affects Elemental, Giant, Undead, and Mechanical enemies. 105 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52576,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosive Poison II Rank 2",
+    "en": "Coats a weapon with poison that lasts for $/60;52575s1 minutes. \nEach strike has a $52575h% chance of poisoning the enemy for $52574o1 damage over $52574d.  Stacks up to $52574u times on a single target. Only affects Elemental, Giant, Undead, and Mechanical enemies. 105 charges.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52707,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cloaked in Shadows Rank 1",
+    "en": "Whenever you Vanish, you and nearby party members within $52708a1 yards are cloaked in shadows, gaining a barrier that absorbs up to $s1% of your maximum health for $52708d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52709,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cloaked in Shadows Rank 2",
+    "en": "Whenever you Vanish, you and nearby party members within $52708a1 yards are cloaked in shadows, gaining a barrier that absorbs up to $s1% of your maximum health for $52708d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52714,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Noxious Assault Rank 1",
+    "en": "Strikes with both weapons, dealing $s1 damage plus 30% of your Attack Power and applies poisons from both weapons. Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52715,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Noxious Assault Rank 2",
+    "en": "Strikes with both weapons, dealing $s1 damage plus 30% of your Attack Power and applies poisons from both weapons. Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52716,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Noxious Assault Rank 3",
+    "en": "Strikes with both weapons, dealing $s1 damage plus 30% of your Attack Power and applies poisons from both weapons. Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52717,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Noxious Assault Rank 4",
+    "en": "Strikes with both weapons, dealing $s1 damage plus 30% of your Attack Power and applies poisons from both weapons. Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52720,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Noxious Assault Rank 4",
+    "en": "Teaches Noxious Assault (Rank 4).",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52737,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sinister Pursuit Rank 1",
+    "en": "Increases the movement speed of your demons by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52739,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sinister Pursuit Rank 2",
+    "en": "Increases the movement speed of your demons by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52821,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Water Walking",
+    "en": "Allows walking on water for $d. Any damage taken cancels the effect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52891,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Alone Against the World Rank 1",
+    "en": "While you have no pet under your control, all damage dealt is increased by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52892,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Alone Against the World Rank 2",
+    "en": "While you have no pet under your control, all damage dealt is increased by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52943,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Book of Prayer Rank 1",
+    "en": "Whenever you cast a healing spell, you regain $s1% of its mana cost if it is different from your previous healing spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52944,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Book of Prayer Rank 2",
+    "en": "Whenever you cast a healing spell, you regain $s1% of its mana cost if it is different from your previous healing spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52949,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light of An'she Rank 1",
+    "en": "Blasts the target with intense light, reducing their hit chance by $s1% and burning them for $o2 Holy damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52951,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light of An'she Rank 2",
+    "en": "Blasts the target with intense light, reducing their hit chance by $s1% and burning them for $o2 Holy damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52953,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light of An'she Rank 3",
+    "en": "Blasts the target with intense light, reducing their hit chance by $s1% and burning them for $o2 Holy damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52955,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light of An'she Rank 4",
+    "en": "Blasts the target with intense light, reducing their hit chance by $s1% and burning them for $o2 Holy damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52957,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light of An'she Rank 5",
+    "en": "Blasts the target with intense light, reducing their hit chance by $s1% and burning them for $o2 Holy damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52959,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light of An'she Rank 6",
+    "en": "Blasts the target with intense light, reducing their hit chance by $s1% and burning them for $o2 Holy damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52994,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Scent of Blood Rank 1",
+    "en": "Your attacks have a $h% chance to send your pet into a rage, causing it to deal $52995s1% additional damage for $52995d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52996,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Scent of Blood Rank 2",
+    "en": "Your attacks have a $h% chance to send your pet into a rage, causing it to deal $52995s1% additional damage for $52995d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52997,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Scent of Blood Rank 3",
+    "en": "Your attacks have a $h% chance to send your pet into a rage, causing it to deal $52995s1% additional damage for $52995d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 53222,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enslave Demon",
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding for up to $d. While enslaved, the demon's attack speed is reduced by $s2%, casting speed is reduced by $s3%, and healing received is reduced by $58184s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56556,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elemental Fury Rank 1",
+    "en": "Increases damage done by your Frost, Fire, and Nature spells by $s2%, and increases the critical strike damage bonus of Searing, Magma, and Fire Nova Totems, as well as your Fire, Frost, and Nature spells, by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56557,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elemental Fury Rank 2",
+    "en": "Increases damage done by your Frost, Fire, and Nature spells by $s2%, and increases the critical strike damage bonus of Searing, Magma, and Fire Nova Totems, as well as your Fire, Frost, and Nature spells, by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56558,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Searing Totem Rank 1",
+    "en": "Increases your Searing Totem's attack speed by $s1% and its attack range by $s2 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56559,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Searing Totem Rank 2",
+    "en": "Increases your Searing Totem's attack speed by $s1% and its attack range by $s2 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58108,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Experimental Ammunition Rank 1",
+    "en": "Your Aimed Shot deals an additional $s1% of its damage as Fire, Arcane, or Nature damage, based on the active effect. Grants a further benefit depending on the element:\n- Explosive Ammunition: Your next Multi-Shot causes hits to explode, dealing $58112s1% ranged weapon damage to enemies within $58112a1 yards of the targets.\n- Poisonous Ammunition: Your next Serpent Sting deals $58110s3% increased damage and applies a corrosive poison that reduces the target's armor by $58113s1 for $58113d.\n- Enchanted Ammunition: Your next Arcane Shot deals $58111s3% increased damage and weakens the target's resistance to magic, increasing magic damage taken by $58114s1% for $58114d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58238,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Call of Earth Rank 1",
+    "en": "Increases the maximum charges of your Earth Shield by $s1. While Earth Shield is active, increases your chance to avoid interruption caused by damage while casting damaging spells by an additional $s2%, and causes your direct damaging spells to replenish $s3 charge.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58239,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Call of Earth Rank 2",
+    "en": "Increases the maximum charges of your Earth Shield by $s1. While Earth Shield is active, increases your chance to avoid interruption caused by damage while casting damaging spells by an additional $s2%, and causes your direct damaging spells to replenish $s3 charge.",
+    "curr_pt": ""
+  }
+]

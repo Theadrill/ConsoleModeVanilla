@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 51436,
+    "kind": "custom",
+    "need": "new",
+    "sample": "[Deprecated] Balance of All Things Rank 4",
+    "en": "Gives your Insect Swarm spell a $h% chance to reduce the cast time of your next Starfire by $/1000;51432S1 sec.\n\nGives your Moonfire spell a $h% chance to reduce the mana cost of your next Wrath by $51671s1%.\n\nEach effect can stack up to $51432n times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51437,
+    "kind": "custom",
+    "need": "new",
+    "sample": "[Deprecated] Balance of All Things Rank 5",
+    "en": "Gives your Insect Swarm spell a $h% chance to reduce the cast time of your next Starfire by $/1000;51432S1 sec.\n\nGives your Moonfire spell a $h% chance to reduce the mana cost of your next Wrath by $51671s1%.\n\nEach effect can stack up to $51432n times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51440,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gale Winds Rank 1",
+    "en": "Reduces the mana cost of Hurricane by $s2% and causes it to reduce the attack speed of affected enemies by $51438s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51441,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gale Winds Rank 2",
+    "en": "Reduces the mana cost of Hurricane by $s2% and causes it to reduce the attack speed of affected enemies by $51439s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51446,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aessina's Bloom Rank 1",
+    "en": "Healing a target affected by Regrowth or Rejuvenation with your Healing Touch spells reduces the casting time of your next Healing Touch spell by 0.$/10;46788s2 sec and refunds $46788s1% of its mana cost within $46788d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51447,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aessina's Bloom Rank 2",
+    "en": "Healing a target affected by Regrowth or Rejuvenation with your Healing Touch spells reduces the casting time of your next Healing Touch spell by 0.$/10;46789s2 sec and refunds $46789s1% of its mana cost within $46789d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51451,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barkskin (Feral) Rank 2",
+    "en": "The Druid's skin becomes as tough as bark, reducing Physical damage taken by $s1% for the next $n attacks. Movement speed is reduced by $s2% for the duration. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51452,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Barkskin (Feral) Rank 3",
+    "en": "The Druid's skin becomes as tough as bark, reducing Physical damage taken by $s1% for the next $n attacks. Movement speed is reduced by $s2% for the duration. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51484,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Empowered Recovery Rank 1",
+    "en": "Increases the duration of Renew by $/1000;S2 sec and increases healing done by your healing spells by $s1% to targets affected by Renew.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51485,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Empowered Recovery Rank 2",
+    "en": "Increases the duration of Renew by $/1000;S2 sec and increases healing done by your healing spells by $s1% to targets affected by Renew.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51486,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reservoir of Light Rank 1",
+    "en": "Increases the effectiveness of Lightwell's Splendor of Light by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51487,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reservoir of Light Rank 2",
+    "en": "Increases the effectiveness of Lightwell's Splendor of Light by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51488,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reservoir of Light Rank 3",
+    "en": "Increases the effectiveness of Lightwell's Splendor of Light by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51491,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tidal Surge Rank 1",
+    "en": "After healing a target affected by your Healing Way effect, you have a $h% chance to regain mana equal to $s1% of the base cost of the spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51492,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tidal Surge Rank 2",
+    "en": "After healing a target affected by your Healing Way effect, you have a $h% chance to regain mana equal to $s1% of the base cost of the spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51515,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Marksmanship Rank 1",
+    "en": "Increases the damage of Steady Shot and Aimed Shot by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51516,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Marksmanship Rank 2",
+    "en": "Increases the damage of Steady Shot and Aimed Shot by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51584,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vicious Strikes Rank 1",
+    "en": "Reduces the cooldown of Raptor Strike and Mongoose Bite by $/1000;m1 sec and increases the damage they deal by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51585,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vicious Strikes Rank 2",
+    "en": "Reduces the cooldown of Raptor Strike and Mongoose Bite by $/1000;m1 sec and increases the damage they deal by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51600,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussion Blow Rank 2",
+    "en": "Deals $s2 damage and stuns the opponent for $d. This ability deals a high amount of threat and penetrates 100% of the enemy's armor. Instantly generates $/10;s3 rage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51601,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussion Blow Rank 3",
+    "en": "Deals $s2 damage and stuns the opponent for $d. This ability deals a high amount of threat and penetrates 100% of the enemy's armor. Instantly generates $/10;s3 rage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51602,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussion Blow Rank 4",
+    "en": "Deals $s2 damage and stuns the opponent for $d. This ability deals a high amount of threat and penetrates 100% of the enemy's armor. Instantly generates $/10;s3 rage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51616,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ravager Rank 1",
+    "en": "Reduces the cooldown of your Whirlwind by $/1000;m1 sec and the Rage cost of your Cleave by $/10;m2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51617,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ravager Rank 2",
+    "en": "Reduces the cooldown of your Whirlwind by $/1000;m1 sec and the Rage cost of your Cleave by $/10;m2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51618,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ravager Rank 3",
+    "en": "Reduces the cooldown of your Whirlwind by $/1000;m1 sec and the Rage cost of your Cleave by $/10;m2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51623,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Drinker Rank 1",
+    "en": "While affected by Enrage, Death Wish, or Recklessness, your melee attacks and abilities restore $/100;m1% of your maximum health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51624,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Drinker Rank 2",
+    "en": "While affected by Enrage, Death Wish, or Recklessness, your melee attacks and abilities restore $/100;m1% of your maximum health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51625,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Drinker Rank 3",
+    "en": "While affected by Enrage, Death Wish, or Recklessness, your melee attacks and abilities restore $/100;m1% of your maximum health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51641,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Precision Cut Rank 1",
+    "en": "Increases damage dealt per extra rage point spent on Execute by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51642,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Precision Cut Rank 2",
+    "en": "Increases damage dealt per extra rage point spent on Execute by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51643,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Precision Cut Rank 3",
+    "en": "Increases damage dealt per extra rage point spent on Execute by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51680,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blinding Haze Rank 1",
+    "en": "Reduces the Energy cost of your Distract by $s2. In addition, targets hit by your Distract have their chance to hit reduced by $51677s1% for $51677d. This effect is guaranteed to be applied.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51681,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blinding Haze Rank 2",
+    "en": "Reduces the Energy cost of your Distract by $s2. In addition, targets hit by your Distract have their chance to hit reduced by $51678s1% for $51678d. This effect is guaranteed to be applied.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51682,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blinding Haze Rank 3",
+    "en": "Reduces the Energy cost of your Distract by $s2. In addition, targets hit by your Distract have their chance to hit reduced by $51679s1% for $51679d. This effect is guaranteed to be applied.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51689,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enslave Demon",
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding for up to $d. While enslaved, the demon's attack speed is reduced by $s2%, casting speed is reduced by $s3%, and healing received is reduced by $58184s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51695,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Create Spellstone",
+    "en": "Creates a Spellstone for the caster.  When used, removes all magic effects from the caster and will absorb $51694s2 magic damage for $51694d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51703,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enslave Demon",
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding for up to $d. While enslaved, the demon's attack speed is reduced by $s2%, casting speed is reduced by $s3%, and healing received is reduced by $58184s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51712,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Stones Rank 1",
+    "en": "Increases the effectiveness of your Felstone, Wrathstone, Voidstone, and Spellstone by $s1%, and increases the critical strike chance bonus of your Firestone by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51713,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Stones Rank 2",
+    "en": "Increases the effectiveness of your Felstone, Wrathstone, Voidstone, and Spellstone by $s1%, and increases the critical strike chance bonus of your Firestone by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51715,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Demonic Precision Rank 1",
+    "en": "Your demons gain $49554s1% increased chance to hit and critically strike, and they also inherit $s1% of your spell hit and crit chance as melee and spell hit and crit chance, respectively.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51716,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Demonic Precision Rank 2",
+    "en": "Your demons gain $49555s1% increased chance to hit and critically strike, and they also inherit $s1% of your spell hit and crit chance as melee and spell hit and crit chance, respectively.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51717,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Demonic Precision Rank 3",
+    "en": "Your demons gain $49556s1% increased chance to hit and critically strike, and they also inherit $s1% of your spell hit and crit chance as melee and spell hit and crit chance, respectively.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51721,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unleashed Potential Rank 1",
+    "en": "Your direct damage spell hits allow your demon to benefit from $51718s1% of your Fire and Shadow spell bonus damage for $51718d. Each tick of your funnel spells refreshes its duration. Stacks up to $51718u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51722,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unleashed Potential Rank 2",
+    "en": "Your direct damage spell hits allow your demon to benefit from $51719s1% of your Fire and Shadow spell bonus damage for $51719d. Each tick of your funnel spells refreshes its duration. Stacks up to $51719u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51723,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unleashed Potential Rank 3",
+    "en": "Your direct damage spell hits allow your demon to benefit from $51720s1% of your Fire and Shadow spell bonus damage for $51720d. Each tick of your funnel spells refreshes its duration. Stacks up to $51720u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51725,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 1",
+    "en": "Greater Demon",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51726,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 2",
+    "en": "Greater Demon",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51727,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 3",
+    "en": "Greater Demon",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51728,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 4",
+    "en": "Greater Demon",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51729,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Demonologist Rank 5",
+    "en": "Greater Demon",
+    "curr_pt": ""
+  }
+]

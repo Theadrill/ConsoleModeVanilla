@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 10961,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Prayer of Healing Rank 4",
+    "en": "A powerful prayer heals your target and their party members within $a1 yards for $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11078,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Fire Blast Rank 1",
+    "en": "Reduces the cooldown of your Fire Blast spell by $/1000;S1 sec and its global cooldown by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11080,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Fire Blast Rank 2",
+    "en": "Reduces the cooldown of your Fire Blast spell by $/1000;S1 sec and its global cooldown by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11095,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 1",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11100,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Flame Throwing Rank 1",
+    "en": "Increases the range of your Fire spells by $s1 yards and the radius of your Blast Wave by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11426,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Ice Barrier Rank 1",
+    "en": "Instantly shields you, absorbing $s1 damage and increasing your Frost damage by $52914s1% for $d. While the shield holds, spells will not be interrupted and Frost damage is increased by an additional $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11725,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Enslave Demon Rank 2",
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding for up to $d. While enslaved, the demon's attack speed is reduced by $s2%, casting speed is reduced by $s3%, and healing received is reduced by $58184s1%. Repeatedly enslaving the same demon makes it more difficult to control.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11726,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Enslave Demon Rank 3",
+    "en": "Enslaves the target demon, up to level $m1, forcing it to do your bidding for up to $d. While enslaved, the demon's attack speed is reduced by $s2%, casting speed is reduced by $s3%, and healing received is reduced by $58184s1%. Repeatedly enslaving the same demon makes it more difficult to control.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12342,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Fire Blast Rank 3",
+    "en": "Reduces the cooldown of your Fire Blast spell by $/1000;S1 sec and its global cooldown by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12353,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Flame Throwing Rank 2",
+    "en": "Increases the range of your Fire spells by $s1 yards and the radius of your Blast Wave by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12809,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Concussion Blow Rank 1",
+    "en": "Deals $s2 damage and stuns the opponent for $d. This ability deals a high amount of threat and penetrates 100% of the enemy's armor. Instantly generates $/10;s3 rage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12872,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 2",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12873,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 3",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12874,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 4",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12875,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Fire Vulnerability Rank 5",
+    "en": "Your Scorch and Fire Blast spells have a $s1% chance to cause your target to be vulnerable to Fire damage.  This vulnerability increases the Fire damage dealt to your target by $22959s1% and lasts $22959d.  Stacks up to $22959u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 13031,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Ice Barrier Rank 2",
+    "en": "Instantly shields you, absorbing $s1 damage and increasing your Frost damage by $52914s1% for $d. While the shield holds, spells will not be interrupted and Frost damage is increased by an additional $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 13032,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Ice Barrier Rank 3",
+    "en": "Instantly shields you, absorbing $s1 damage and increasing your Frost damage by $52914s1% for $d. While the shield holds, spells will not be interrupted and Frost damage is increased by an additional $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 13033,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Ice Barrier Rank 4",
+    "en": "Instantly shields you, absorbing $s1 damage and increasing your Frost damage by $52914s1% for $d. While the shield holds, spells will not be interrupted and Frost damage is increased by an additional $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 13877,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blade Flurry",
+    "en": "Your attacks strike an additional nearby enemy. While active, your damage and Energy regeneration are reduced by $s1%. Lasts until cancelled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14076,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blackjack Rank 1",
+    "en": "Your Sap and Blind abilities reduce the target's damage dealt by $52532s1% for $52532d when their effect ends or fails to apply. In addition, you have a $s1% chance to return to stealth after using your Sap ability.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14094,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blackjack Rank 2",
+    "en": "Your Sap and Blind abilities reduce the target's damage dealt by $52533s1% for $52533d when their effect ends or fails to apply. In addition, you have a $s1% chance to return to stealth after using your Sap ability.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14128,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Lethality Rank 1",
+    "en": "Increases the critical strike damage bonus of your combo point generating abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14132,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Lethality Rank 2",
+    "en": "Increases the critical strike damage bonus of your combo point generating abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14135,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Lethality Rank 3",
+    "en": "Increases the critical strike damage bonus of your combo point generating abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14136,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Lethality Rank 4",
+    "en": "Increases the critical strike damage bonus of your combo point generating abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14137,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Lethality Rank 5",
+    "en": "Increases the critical strike damage bonus of your combo point generating abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14144,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Remorseless Attacks Rank 1",
+    "en": "After killing an opponent that yields experience or honor, gives you a $14143s1% increased critical strike chance on your next Combo Point generating ability.  Lasts $14143d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14148,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Remorseless Attacks Rank 2",
+    "en": "After killing an opponent that yields experience or honor, gives you a $14149s1% increased critical strike chance on your next Combo Point generating ability.  Lasts $14149d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14150,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Remorseless Attacks Rank 3",
+    "en": "After killing an opponent that yields experience or honor, gives you a $14151s1% increased critical strike chance on your next Combo Point generating ability.  Lasts $14151d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14152,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Remorseless Attacks Rank 4",
+    "en": "After killing an opponent that yields experience or honor, gives you a $14153s1% increased critical strike chance on your next Combo Point generating ability.  Lasts $14153d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14154,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Remorseless Attacks Rank 5",
+    "en": "After killing an opponent that yields experience or honor, gives you a $14155s1% increased critical strike chance on your next Combo Point generating ability.  Lasts $14155d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14171,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Serrated Blades Rank 1",
+    "en": "Increases the damage dealt by your Rupture and Garrote abilities by $s1% and causes your attacks to ignore $s2 of your target's Armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14172,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Serrated Blades Rank 2",
+    "en": "Increases the damage dealt by your Rupture and Garrote abilities by $s1% and causes your attacks to ignore $s2 of your target's Armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14173,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Serrated Blades Rank 3",
+    "en": "Increases the damage dealt by your Rupture and Garrote abilities by $s1% and causes your attacks to ignore $s2 of your target's Armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14174,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Taste for Blood Rank 1",
+    "en": "Increases the duration of your Rupture by $/1000;s1 sec. Each time you use Rupture, your melee damage is increased by $52528b1% per combo point for its full duration, regardless of successful application.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14175,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Taste for Blood Rank 2",
+    "en": "Increases the duration of your Rupture by $/1000;s1 sec. Each time you use Rupture, your melee damage is increased by $52529b1% per combo point for its full duration, regardless of successful application.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14176,
+    "kind": "modified",
+    "need": "new",
+    "sample": "[Deprecated] Taste for Blood Rank 3",
+    "en": "Increases the duration of your Rupture by $/1000;s1 sec. Each time you use Rupture, your melee damage is increased by $52530b1% per combo point for its full duration, regardless of successful application.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14177,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Cold Blood",
+    "en": "When activated, increases the critical strike chance of your next Sinister Strike, Backstab, Ambush, Noxious Assault, or Eviscerate by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14269,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Mongoose Bite Rank 2",
+    "en": "Swiftly attack the enemy for $s2% of weapon damage plus an additional $s1 damage. This ability will strike with both of your weapons if you are dual wielding.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14270,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Mongoose Bite Rank 3",
+    "en": "Swiftly attack the enemy for $s2% of weapon damage plus an additional $s1 damage. This ability will strike with both of your weapons if you are dual wielding.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14271,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Mongoose Bite Rank 4",
+    "en": "Swiftly attack the enemy for $s2% of weapon damage plus an additional $s1 damage. This ability will strike with both of your weapons if you are dual wielding.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14281,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Arcane Shot Rank 2",
+    "en": "An instant shot that deals $s2% ranged weapon damage and an additional $s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14282,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Arcane Shot Rank 3",
+    "en": "An instant shot that deals $s2% ranged weapon damage and an additional $s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14283,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Arcane Shot Rank 4",
+    "en": "An instant shot that deals $s2% ranged weapon damage and an additional $s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14284,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Arcane Shot Rank 5",
+    "en": "An instant shot that deals $s2% ranged weapon damage and an additional $s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14285,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Arcane Shot Rank 6",
+    "en": "An instant shot that deals $s2% ranged weapon damage and an additional $s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14286,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Arcane Shot Rank 7",
+    "en": "An instant shot that deals $s2% ranged weapon damage and an additional $s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14287,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Arcane Shot Rank 8",
+    "en": "An instant shot that deals $s2% ranged weapon damage and an additional $s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 14983,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vigor Rank 1",
+    "en": "Increases your maximum Energy by $s2.  Each time you apply poison to your target, you have a $s1% chance to gain $52526s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15237,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Nova Rank 1",
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $23455a1 yards for $23455s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause reduced threat.",
+    "curr_pt": ""
+  }
+]

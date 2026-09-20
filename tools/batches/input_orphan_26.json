@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 15257,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Weaving Rank 1",
+    "en": "Your Shadow damage spells have a $s1% chance to grant you Shadow Weaving for $58136d. Your Shadow damage spells apply a vulnerability that increases Shadow damage taken by $15258s1% per stack of Shadow Weaving for $15258d. Stacks up to $15258u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15270,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Spirit Tap Rank 1",
+    "en": "Gives you a $h% chance to gain a $15271s1% bonus to your Spirit after killing a target that yields experience or critically striking a target with Mind Blast. For the duration, mana regenerates at $15271s2% of the normal rate while casting. Lasts $15271d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15274,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Fade Rank 1",
+    "en": "Reduces the cooldown of Fade by $/1000;s1 sec and the threat returned when Fade ends by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15311,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Fade Rank 2",
+    "en": "Reduces the cooldown of Fade by $/1000;s1 sec and the threat returned when Fade ends by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15331,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Weaving Rank 2",
+    "en": "Your Shadow damage spells have a $s1% chance to grant you Shadow Weaving for $58136d. Your Shadow damage spells apply a vulnerability that increases Shadow damage taken by $15258s1% per stack of Shadow Weaving for $15258d. Stacks up to $15258u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15332,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Weaving Rank 3",
+    "en": "Your Shadow damage spells have a $s1% chance to grant you Shadow Weaving for $58136d. Your Shadow damage spells apply a vulnerability that increases Shadow damage taken by $15258s1% per stack of Shadow Weaving for $15258d. Stacks up to $15258u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15333,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Weaving Rank 4",
+    "en": "Your Shadow damage spells have a $s1% chance to grant you Shadow Weaving for $58136d. Your Shadow damage spells apply a vulnerability that increases Shadow damage taken by $15258s1% per stack of Shadow Weaving for $15258d. Stacks up to $15258u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15334,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Shadow Weaving Rank 5",
+    "en": "Your Shadow damage spells have a $s1% chance to grant you Shadow Weaving for $58136d. Your Shadow damage spells apply a vulnerability that increases Shadow damage taken by $15258s1% per stack of Shadow Weaving for $15258d. Stacks up to $15258u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15335,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Spirit Tap Rank 2",
+    "en": "Gives you a $h% chance to gain a $15271s1% bonus to your Spirit after killing a target that yields experience or critically striking a target with Mind Blast. For the duration, mana regenerates at $15271s2% of the normal rate while casting. Lasts $15271d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15336,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Spirit Tap Rank 3",
+    "en": "Gives you a $h% chance to gain a $15271s1% bonus to your Spirit after killing a target that yields experience or critically striking a target with Mind Blast. For the duration, mana regenerates at $15271s2% of the normal rate while casting. Lasts $15271d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15337,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Spirit Tap Rank 4",
+    "en": "Gives you a $h% chance to gain a $15271s1% bonus to your Spirit after killing a target that yields experience or critically striking a target with Mind Blast. For the duration, mana regenerates at $15271s2% of the normal rate while casting. Lasts $15271d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15338,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Spirit Tap Rank 5",
+    "en": "Gives you a $h% chance to gain a $15271s1% bonus to your Spirit after killing a target that yields experience or critically striking a target with Mind Blast. For the duration, mana regenerates at $15271s2% of the normal rate while casting. Lasts $15271d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15430,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Nova Rank 2",
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $23458a1 yards for $23458s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause reduced threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 15431,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Holy Nova Rank 3",
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $23459a1 yards for $23459s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause reduced threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16035,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Concussion Rank 1",
+    "en": "Increases the damage done by your Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16038,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Call of Flame Rank 1",
+    "en": "Increases the damage done by your Fire Totems and Fire spells by $s1%, and the range of your Flame Shock by $s3 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16039,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Convection Rank 1",
+    "en": "Reduces the mana cost of your offensive Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16086,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Fire Totems Rank 1",
+    "en": "Reduces the delay before your Fire Nova Totem activates by $/1000;s1 sec, decreases the threat generated by your Magma Totem by $s3%, and increases your Searing Totem's attack speed by $56558s1% and its attack range by $56558s2 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16105,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Concussion Rank 2",
+    "en": "Increases the damage done by your Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16106,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Concussion Rank 3",
+    "en": "Increases the damage done by your Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16107,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Concussion Rank 4",
+    "en": "Increases the damage done by your Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16108,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Concussion Rank 5",
+    "en": "Increases the damage done by your Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16109,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Convection Rank 2",
+    "en": "Reduces the mana cost of your offensive Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16110,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Convection Rank 3",
+    "en": "Reduces the mana cost of your offensive Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16111,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Convection Rank 4",
+    "en": "Reduces the mana cost of your offensive Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16112,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Convection Rank 5",
+    "en": "Reduces the mana cost of your offensive Fire, Frost, and Nature spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16160,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Call of Flame Rank 2",
+    "en": "Increases the damage done by your Fire Totems and Fire spells by $s1%, and the range of your Flame Shock by $s3 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16161,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Call of Flame Rank 3",
+    "en": "Increases the damage done by your Fire Totems and Fire spells by $s1%, and the range of your Flame Shock by $s3 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16166,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Elemental Mastery",
+    "en": "Increases your Fire, Frost, and Nature damage by $s1% and reduces the mana cost of your offensive spells by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16182,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Healing Wave Rank 1",
+    "en": "Reduces the casting time of your Healing Wave spell by 0.$/10;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16227,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Healing Wave Rank 3",
+    "en": "Reduces the casting time of your Healing Wave spell by 0.$/10;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16229,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Healing Wave Rank 5",
+    "en": "Reduces the casting time of your Healing Wave spell by 0.$/10;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16259,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Enhancing Totems Rank 1",
+    "en": "Increases the effect of your Strength of Earth and Grace of Air Totems by $s1% and reduces the cooldown of your Grounding Totem by $/1000;s3 sec. Stoneskin Totem's damage reduction is increased by $s2%, and in addition, it increases block amount by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16266,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Elemental Weapons Rank 1",
+    "en": "Imbuing your weapon grants a special benefit based on the imbue:\n- Flametongue: Hitting enemies with your attacks increases damage done by Fire Totems and Fire spells by $52970s1% for $52970d.\n- Frostbrand: Increases the chance to trigger the effect by $58248s1% and causes it to critically hit if the target is afflicted with Frost Shock.\n- Windfury: Gaining extra attacks increases attack speed by $52967s1% for $52967d. Stacks up to $52967u times.\n- Rockbiter: Physical damage builds up an earthen bulwark equal to $s3% of damage dealt, tripled while wearing a shield. The bulwark absorbs $58128s1% of incoming damage for $58128d or until it mitigates enough damage. Its durability cannot exceed 20% of maximum health. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16295,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Enhancing Totems Rank 2",
+    "en": "Increases the effect of your Strength of Earth and Grace of Air Totems by $s1% and reduces the cooldown of your Grounding Totem by $/1000;s3 sec. Stoneskin Totem's damage reduction is increased by $s2%, and in addition, it increases block amount by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16362,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Windfury Weapon Rank 4",
+    "en": "Imbue the Shaman's weapon with wind. Each hit has a 25% chance of granting you $16361s2 extra $lattack:attacks; with $16361s1 extra melee attack power. Lasts for 1 hour.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16511,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Hemorrhage",
+    "en": "An instant strike that deals $s1% weapon damage and causes the target to hemorrhage, increasing any Physical damage dealt to the target by $s3%.  Lasts $n charges or $d.  Awards $s2 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16544,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Fire Totems Rank 2",
+    "en": "Reduces the delay before your Fire Nova Totem activates by $/1000;s1 sec, decreases the threat generated by your Magma Totem by $s3%, and increases your Searing Totem's attack speed by $56559s1% and its attack range by $56559s2 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16819,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Nature's Reach Rank 1",
+    "en": "Increases the range of your Wrath, Entangling Roots, Faerie Fire, Moonfire, Starfire, Insect Swarm, Hurricane, Remove Curse, Abolish Poison, and Cure Poison spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16820,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Nature's Reach Rank 2",
+    "en": "Increases the range of your Wrath, Entangling Roots, Faerie Fire, Moonfire, Starfire, Insect Swarm, Hurricane, Remove Curse, Abolish Poison, and Cure Poison spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16896,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Moonfury Rank 1",
+    "en": "Increases the damage of your Starfire, Moonfire, Hurricane, Insect Swarm, and Wrath spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16897,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Moonfury Rank 2",
+    "en": "Increases the damage of your Starfire, Moonfire, Hurricane, Insect Swarm, and Wrath spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16899,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Moonfury Rank 3",
+    "en": "Increases the damage of your Starfire, Moonfire, Hurricane, Insect Swarm, and Wrath spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16952,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 1",
+    "en": "Your Cat Form abilities that generate combo points have a $h% chance to grant an additional combo point on critical strikes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16954,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 2",
+    "en": "Your Cat Form abilities that generate combo points have a $h% chance to grant an additional combo point on critical strikes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16955,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 3",
+    "en": "Your Cat Form abilities that generate combo points have a $h% chance to grant an additional combo point on critical strikes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16956,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 4",
+    "en": "Your Cat Form abilities that generate combo points have a $h% chance to grant an additional combo point on critical strikes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16957,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Blood Frenzy Rank 5",
+    "en": "Your Cat Form abilities that generate combo points have a $h% chance to grant an additional combo point on critical strikes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16966,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Shred Rank 1",
+    "en": "Increases the damage of Shred by $s2% and reduces its Energy cost by $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 16968,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Improved Shred Rank 2",
+    "en": "Increases the damage of Shred by $s2% and reduces its Energy cost by $s1.",
+    "curr_pt": ""
+  }
+]

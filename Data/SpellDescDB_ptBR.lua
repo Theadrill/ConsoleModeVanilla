@@ -186,7 +186,7 @@ ConsoleMode_SpellDescDB[480] = { n="Learn Fumble", r="Rank 1", d="", t="", pt=""
 ConsoleMode_SpellDescDB[481] = { n="Water Elemental", r="Rank 2", d="Teaches Water Elemental (Rank 2).", t="", pt="" }
 ConsoleMode_SpellDescDB[482] = { n="Reset", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[483] = { n="Fireball", r="Rank 2", d="Teaches Fireball (Rank 2).", t="", pt="Ensina Bola de Fogo (Grau 2)." }
-ConsoleMode_SpellDescDB[484] = { n="Frost Armor", r="Rank 2", d="Teaches Frost Armor (Rank 2).", t="", pt="Ensina Armadura de Gelo (Grau 2)." }
+ConsoleMode_SpellDescDB[484] = { n="Frost Armor", r="Rank 2", d="Teaches Frost Armor (Rank 2).", t="", pt="Ensina Armadura Gélida (Grau 2)." }
 ConsoleMode_SpellDescDB[485] = { n="Chains of Ice", r="Rank 1", d="Teaches Chains of Ice (Rank 1).", t="", pt="" }
 ConsoleMode_SpellDescDB[486] = { n="Remove Curse", r="Rank 1", d="Teaches Remove Curse.", t="", pt="" }
 ConsoleMode_SpellDescDB[487] = { n="Slow", r="Rank 1", d="Teaches Slow (Rank 1).", t="", pt="" }
@@ -5396,7 +5396,7 @@ ConsoleMode_SpellDescDB[6638] = { n="Conjure Water", r="Rank 3", d="Teaches Conj
 ConsoleMode_SpellDescDB[6639] = { n="Conjure Water", r="Rank 4", d="Teaches Conjure Water (Rank 4).", t="", pt="Ensina Conjurar Água (Grau 4)." }
 ConsoleMode_SpellDescDB[6641] = { n="Conjure Food", r="Rank 4", d="Teaches Conjure Food (Rank 4).", t="", pt="Ensina Conjurar Comida (Grau 4)." }
 ConsoleMode_SpellDescDB[6642] = { n="Frost Shield", r="Rank 3", d="Teaches Frost Shield (Rank 3).", t="", pt="" }
-ConsoleMode_SpellDescDB[6643] = { n="Frost Armor", r="Rank 3", d="Teaches Frost Armor (Rank 3).", t="", pt="Ensina Armadura de Glugelo (Grau 3)." }
+ConsoleMode_SpellDescDB[6643] = { n="Frost Armor", r="Rank 3", d="Teaches Frost Armor (Rank 3).", t="", pt="Ensina Armadura Gélida (Grau 3)." }
 ConsoleMode_SpellDescDB[6644] = { n="Frost Nova", r="Rank 3", d="Teaches Frost Nova (Rank 3).", t="", pt="Ensina Nova de Gelo (Grau 3)." }
 ConsoleMode_SpellDescDB[6645] = { n="Snare Poison", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[6647] = { n="Fast Acting Poison", r="Rank 1", d="A fast acting poison that does $s1 damage to the target.", t="", pt="Veneno rápido de $s1 no alvo." }

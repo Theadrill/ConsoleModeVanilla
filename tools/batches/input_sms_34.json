@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Your melee attacks have a $h% chance to cause your physical attacks to ignore all armor for the next $51145d.",
+    "curr_pt": "Corpo a corpo: $h% de ignorar armadura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shocks an enemy with concussive force, inflicting Nature damage.",
+    "curr_pt": "Choque: Natureza no inimigo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Lightning Bolt has a $h% chance to shock your enemy for $51147s1 Nature damage. This effect generates no threat.",
+    "curr_pt": "Raio: $h% de $s1 de Natureza. Sem ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to critically strike with Holy Light and Holy Strike by $s1%.",
+    "curr_pt": "Luz/Golpe +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a meteor from the Twisting Nether, causing $51167s1 Fire damage and stunning all enemy targets in the area for $51167d. An Infernal rises from the crater, under the command of the caster for $51167d.",
+    "curr_pt": "Meteoro: $s1 de Fogo e atordoa por $d s. Infernal por $d1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Physical damage dealt by the caster by $s1% for $d.",
+    "curr_pt": "Físico +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases all damage taken by $s1% and increases Shadow damage done by $s2% for $d.",
+    "curr_pt": "Tudo +$s1% e Sombra +$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Banishes the enemy target, preventing all action but making it invulnerable for up to $d. Only one target can be banished at a time.",
+    "curr_pt": "Bane até $d s: sem ação mas invulnerável. Um por vez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Ignites the area surrounding the caster, causing $51203s1 Fire damage to all nearby enemies within $s1 yards every $t2 sec. Lasts $d.",
+    "curr_pt": "Imola a área: $s1 em todos a até $a1 m a cada $t1 s. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the attack speed of all nearby allies by $s1%. The aura lasts until cancelled.",
+    "curr_pt": "Velocidade +$s1%. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Pawn's damage by $52666s1% for every alive Pawn within a $a1 yard radius.",
+    "curr_pt": "Peão: +$s1% por vivo a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Charges at an enemy, knocking it back and inflicting $s3 damage.",
+    "curr_pt": "Investida: derruba e $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the damage taken from melee attacks, ranged attacks and spells by $s1%. Reflects $s2 damage back to attackers. Lasts for $d.",
+    "curr_pt": "Corpo a corpo/distância/magia -$s1%. Reflete $s2. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place a fire trap that will explode for $51222s1 damage. Trap will exist for $d.",
+    "curr_pt": "Armadilha explode $s1. Dura $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards.",
+    "curr_pt": "Explosão sagrada: $s1 a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts nearby enemies reducing their movement speed by $s1% and increasing the time between their attacks by $s2% for $d.",
+    "curr_pt": "Velocidade -$s1% e +$s2% intervalo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A sweeping attack that does $s1 damage and additional 500 for each target hit.",
+    "curr_pt": "Varre: $s1 + 500 por alvo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons an icy fissure below a player that detonates after 3 seconds, freezing the players standing inside for 8 seconds, dealing Frost damage.",
+    "curr_pt": "Fissura: explode em 3 s, congela 8 s. Gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes the caster to automatically inflict $51236s1 Frost damage every $t1 sec. to nearby enemies. Attack speed increased by $s2%. The aura lasts until cancelled.",
+    "curr_pt": "Aura: $s1 de Gelo a cada $t1 s. +$s2% velocidade. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s2 Physical damage to an enemy directly, and another $s1 every $t1 sec. for $d.",
+    "curr_pt": "$s1 Físico + $s2 a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the Frost resistance of nearby enemies by $s1 for $d.",
+    "curr_pt": "Gelo -$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of your Holy Strike and Crusader Strike by 0.5 sec.",
+    "curr_pt": "Golpe/Cruzado -0.5 s recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "5% chance on landing a direct damaging spell to create a mobile bomb that charges the nearest enemy and explodes for $51243s1 Fire damage.",
+    "curr_pt": "Bomba: 5% em magia e explode $s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your ranged target with a Slag Bolt for $51246s1 Fire damage immediately and $51246o2 Fire damage over $51246d.",
+    "curr_pt": "À distância: $s1 + $s2 em $d s de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your next 5 successful melee attacks smite your target for 7 Holy damage. Lasts 12 sec.",
+    "curr_pt": "Golpes consagrados: 7 Sagrado 12 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your landing damaging spells have a 20% chance to grant you Wisdom of the Mak'aru. When you gain Wisdom of the Mak'aru 8 times, you enter an enlightened state, increasing casting speed by 20% for 12 seconds.",
+    "curr_pt": "Magia: 20% de iluminar (+20% lançamento 12 s em 8x).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts Frost damage to an enemy and reduces its attack and movement speed for $d.",
+    "curr_pt": "Gelo e lentidão por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck has a 10% chance of dealing $51273s2 Frost damage and reducing the attacker's attack and movement speed by $51273s1% for $51273d1. Stacks up to 5 times.",
+    "curr_pt": "Acerto: 10% de $s1 de Gelo e -$s2% velocidade por $d s. Até 5x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your landing attacks and damaging spells have a 4% and 10% chance respectively to freeze the target, increasing its Fire damage taken by $51275s1% for $51275d.",
+    "curr_pt": "Ataque/magia: 4%/10% de congelar (+$s1% Fogo recebido por $d s).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts 200 Frost damage to enemies in a cone in front of you, reducing movement speed by 20% for 5 seconds.",
+    "curr_pt": "Cone: 200 Gelo e -20% 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your landing attacks and damaging spells inflict the target with ‘Frostfire’. When the target is inflicted with Frostfire 10 times the latent energies erupt, dealing 200 Fire damage and 200 Frost damage to the target.",
+    "curr_pt": "10x vira erupção: 200 Fogo + 200 Gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Improves your chance to hit and get a critical strike with spells by $s1%. Increases damage done by magical spells and effects by up to $s3.",
+    "curr_pt": "Magia +$s1% acerto/crítico e +$s2 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When Repentance is resisted or the target is immune, the target repents for their sins, taking $51361s1 holy damage every time they attack or cast a harmful spell for $51360d.",
+    "curr_pt": "Resistido/imune: arrepende-se $s1 Sagrado por ataque/magia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your Nature damage dealt by $s2% and the critical strike damage bonus of your offensive spells by $s1%. Lasts $d. Stacks up to $u times.",
+    "curr_pt": "Natureza +$s1% e crítico +$s2% por $d s. Até $u1x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Any time your Regrowth or Rejuvenation effects are removed early or replaced, they instantly heal for $s1% of the remaining duration. The amount healed decreases based on the remaining time.",
+    "curr_pt": "Reju/Recres cedo: cura $s1% do resto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms the druid into a swift travel form, increasing movement speed by $51399s1%. Also protects the caster from Polymorph effects. Only useable outdoors and out of combat. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "Viagem rápida: +$s1%. Só fora e sem combate. Virar limpa Polimorfia e lentidões.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Target of Enlighten casts this back on caster to save the target as aura's caster.",
+    "curr_pt": "Alvo lança no conjurador.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage and healing done by Holy spells and effects for $d.",
+    "curr_pt": "Sagrado +dano/cura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This playful pup with a warm, orange coat is always ready for adventure, bringing a touch of cheer to your journey.",
+    "curr_pt": "Filhote laranja e aventureiro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "With its noble black and white coat, this corgi exudes both grace and bravery, a perfect ally for any adventurer.",
+    "curr_pt": "Corgi nobre e bravo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gain Dreamsight into the Emerald Dream. Only works in the Twilight Grove.",
+    "curr_pt": "Visão no Bosque.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical strike chance of your Fire spells by $s2% and grants your melee and wand attacks a chance to deal $51691s1 additional Fire damage on hit for $d.",
+    "curr_pt": "Pedra: Fogo +$s1% crítico e +$s2 Fogo ao acertar por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "$s1% of the damage dealt is returned as healing for $d. Health restored this way will also heal your active demon.",
+    "curr_pt": "$s1% do dano vira cura por $d s. Cura o demônio.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Felstone for the caster. When used, it causes $51697s1% of the damage dealt to be returned as healing for $51697d. In addition, health restored this way will also heal your active demon. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Pedra: $s1% do dano vira cura por $d s. Cura o demônio. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the threat generated by your Fire spells by $s1% and reduces the Fire damage you take from your Hellfire spell by $s2% for $d.",
+    "curr_pt": "Fogo +$s1% ameaça e -$s2% Fogo Vivo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Wrathstone for the caster. When used, it increases the threat generated by your Fire spells by $51700s1% and reduces the Fire damage you take from your Hellfire spell by $51700s2% for $51700d. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Pedra: Fogo +$s1% ameaça e -$s2% Fogo Vivo por $d s. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Delivers a devastating blow for $s2 damage and reduces the effectiveness of any healing by $s1% for $d.",
+    "curr_pt": "Golpe: $s1 e cura -$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 Nature damage to an enemy and restores $s2 Mana to you.",
+    "curr_pt": "$s1 de Natureza e +$s2 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done by Shadow spells and effects by up to 45 for $d.",
+    "curr_pt": "Sombra +até 45 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage from your Shadow spells has a $h% chance to cause an Epiphany, increasing damage done by Shadow spells and effects by up to $51773s1 for $51773d. This effect can only trigger once every 10 sec.",
+    "curr_pt": "Sombra: $h% de +$s1 por $d s. 1x a cada 10 s.",
+    "sample": "",
+    "need": "review"
+  }
+]

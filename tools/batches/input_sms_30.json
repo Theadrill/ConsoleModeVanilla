@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Alters your appearance into that of a Banshee. Active until cancelled.",
+    "curr_pt": "Vira Banshee. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Alters your appearance into that of a Ghost. Active until cancelled.",
+    "curr_pt": "Vira Fantasma. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Alters your appearance into that of a Succubus. Active until cancelled.",
+    "curr_pt": "Vira Súcubo. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Alters your appearance into that of a baby Murloc. Active until cancelled.",
+    "curr_pt": "Vira Murloc bebê. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleport to your Guild House.",
+    "curr_pt": "Teleporta pra Guilda.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Winter Veil Vale",
+    "curr_pt": "Manda pra Vale do Veil.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Skill with Daggers, Maces and Two-Handed Maces increased by $s1.",
+    "curr_pt": "Adaga/Maça/Maça 2M +$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases movement speed by $46240s1% for $46240d, but you cannot attack or cast spells during this time. For encounters that do not go quite as planned.",
+    "curr_pt": "Corre +$s1% por $d s, sem agir. Pra fuga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Exit Strategy's slow debuff after the initial Fleeing and speed portions end.",
+    "curr_pt": "Lentidão pós-fuga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the damage your pet takes from area of effect attacks by an additional $s1%.",
+    "curr_pt": "Pet: -$s1% dano em área.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the damage your summoned demon takes from area of effect attacks by an additional $s1%.",
+    "curr_pt": "Demônio: -$s1% dano em área.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Alah'Thalas.",
+    "curr_pt": "Manda pra Alah'Thalas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Amani'Alor.",
+    "curr_pt": "Manda pra Amani'Alor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Outland",
+    "curr_pt": "Manda pra Terralém.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to GM Island.",
+    "curr_pt": "Manda pra Ilha GM.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Shalandis Isle",
+    "curr_pt": "Manda pra Shalandis.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Zul'Aman.",
+    "curr_pt": "Manda pra Zul'Aman.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These birds often prey on turtles by dropping them from great heights to break open their shell.",
+    "curr_pt": "Águia que caça tartaruga do alto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the target to Westfall.",
+    "curr_pt": "Alvo pra Lunargenta.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Infuses the target with Holy energy, increasing their melee and ranged attack speed and casting speed by $s1% for $d.",
+    "curr_pt": "Sagrado: +$s1% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Cleans a weapon, removing any temporary enhancement that has been applied to it.",
+    "curr_pt": "Limpa a arma de buff.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase strength by 9.",
+    "curr_pt": "Luvas: +9 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Elder Crimson Lynx to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Lince por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Ivory Hawkstrider to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Falcostruz por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Lavender Mana Wyrm to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Verme por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Just remember to have your special little passenger straped in tightly before running off at top speed on an adventure.",
+    "curr_pt": "Urso da Blizzcon, passageiro preso!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Amani trolls decorate these ferocious mounts in magic amulets and ceremonial masks as a way to venerate the bear god Nalorakk.",
+    "curr_pt": "Urso Amani de Nalorakk.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Dragonhawks are among the deadliest known predators. They are able to spot prey from great distances, rush in, and rend with both talon and beak.",
+    "curr_pt": "Falcão mortal de longe.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Warp Stalker. Speed is increased based on your Riding skill.",
+    "curr_pt": "Warp montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "But the most important rule, the rule you can never forget, no matter how much he cries, no matter how much he begs, never feed him after midnight.",
+    "curr_pt": "Nunca alimente após meia-noite.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Draker. Speed is increased based on your Riding skill.",
+    "curr_pt": "Draco montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gryphons' keen eyesight allows them to see over vast distances and warn their riders of any dangers that lie ahead.",
+    "curr_pt": "Olho aguçado avisa perigo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This noble gryphon is as staunch a battle companion as any a member of the Alliance could ask for.",
+    "curr_pt": "Grifo nobre da Aliança.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Members of the Cenarion Circle have shared a long and prosperous partnership with their hippogryph allies. When conflict is unavoidable, the Cenarion War Hippogryph is called into service.",
+    "curr_pt": "Hipogrifo parceiro do Círculo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Steed. Speed is increased based on your Riding skill.",
+    "curr_pt": "Corcel montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Only the most talented engineers have the courage and the mental stamina to create a flying machine that boasts stability and safety. Turbo-charging one is just crazy!",
+    "curr_pt": "Voadora estável e segura. Turbo é loucura!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The squirming cub refused to leave the tree. We had to chuck it from the treetops.",
+    "curr_pt": "Filhote jogado da árvore.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Taunts the creature, increasing the chance that it will attack the Felguard.",
+    "curr_pt": "Provoca pro Guarda.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Horde Defender that will protect the area from enemies of the Horde.",
+    "curr_pt": "Defensor que protege a área.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Has a 3% chance when attacked to inflict 15-20 Nature damage to nearby enemies if protected by Thorns.",
+    "curr_pt": "Espinheiros: 3% de 15-20 ao apanhar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sacrifice your life to invoke a dark ritual practiced by trolls of the Winterax tribe. The consequences may be unpredictable!",
+    "curr_pt": "Morre pra invocar ritual. Imprevisível!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Mark nearby enemies as having participated in killing Korrak.",
+    "curr_pt": "Marca quem matou Korrak.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Grants immunity to movement impairing effects, and increases mount speed by $s1%.",
+    "curr_pt": "Imune a lentidão e montaria +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Imbued with the power of the Winterax tribe. Chance to crit increased by 50% while in Alterac Valley.",
+    "curr_pt": "Crítico +50% em Alterac.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These fearsome mounts have a habit of suddenly breaking out into dance amid battle, much to the annoyance of their riders.",
+    "curr_pt": "Urso que dança na batalha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Comes from a lineage of fine horses that once grazed near the shores of the Well of Eternity.",
+    "curr_pt": "Cavalo do Poço da Eternidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Spectral Gryphon. Speed is increased based on your Riding skill.",
+    "curr_pt": "Grifo espectral montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A nightmarish steed of hardened steel and vengeful spirits, this companion will follow you to the depths of the Molten Core and back without complaint.",
+    "curr_pt": "Corcel de aço e espírito vingativo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Zhevras are rarely used as mounts in Azeroth due to their stubborn nature and tendency to bite.",
+    "curr_pt": "Zhevra teimosa que morde.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Ravasaur Hunter. Speed is increased based on your Riding skill.",
+    "curr_pt": "Caçador montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  }
+]

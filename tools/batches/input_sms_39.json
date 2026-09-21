@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases damage done by Shadow spells and effects by up to $s1 and converts physical damage into Shadow damage.NOTE: 2nd Effect uses aura name 4 for Dummy application. Misc Value should determine the class of damage the physical is converted to (ex: 32 = Shadow).",
+    "curr_pt": "Sombra +$s1 e físico vira Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts all targets within $a1 yards with bolts of lightning that do $s1 damage and then $o damage over $d.",
+    "curr_pt": "Raio a $a1 m: $s1 + $s2 em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Ignites the area surrounding the caster causing $s2 Fire damage to $ghimself:herself; and $57092s1 Fire damage to all nearby enemies every $t2 sec. Lasts $d.",
+    "curr_pt": "Imola: $s1 em você e $s2 em todos a cada $t1 s. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 nature damage to a target and afflicts them with Wyrmkins Vendom which increases the time between their attack spells by $56503s1% and reduces movement speed by $56503s2%.",
+    "curr_pt": "$s1 e +$s2% intervalo, -$s3% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts Arcane damage to enemies in a cone in front of the caster, knocking them back.",
+    "curr_pt": "Arcano em cone, arremessa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Intellect by $s1 for $d and gets you drunk to boot!",
+    "curr_pt": "Int +$s1 e bêbado!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The druid and raid members within $a1 yards are blessed by the Emerald Dream granting $s1% movement speed, $s2% spell hit chance, and allows $s3% mana regeneration to continue while casting.",
+    "curr_pt": "Sonho: +$s1% velocidade, +$s2% acerto, +$s3% regen a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently increase the intellect by 8 and spell power by 6 of an item worn on the chest, legs, hands or feet. Only usable on items level 60 and above.",
+    "curr_pt": "Peito/perna/mão/pé: +8 Int e +6 magia. Só nv 60+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to increase arcane magic resistance by 15.",
+    "curr_pt": "Manto: +15 vs Arcano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a chest armor to increase mana by 150.",
+    "curr_pt": "Peito: +150 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +15 Stamina.",
+    "curr_pt": "Bota: +15 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a pair of boots to increase spirit by 12.",
+    "curr_pt": "Bota: +12 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a pair of bracers to increase defense skill by 5.",
+    "curr_pt": "Braçadeira: +5 defesa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a pair of bracers to increase vampirism by 1%.",
+    "curr_pt": "Braçadeira: +1% Vampirismo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a pair of boots to increase vampirism by 1%.",
+    "curr_pt": "Bota: +1% Vampirismo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 40 armor penetration to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +40 penetração. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 2% dodge chance to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +2% esquiva. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 25 spell penetration to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +25 penetração. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 25 arcane resistance to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +25 vs Arcano. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 2% vampirism to a shoulder slot item.",
+    "curr_pt": "Ombro: +2% Vampirismo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 2% haste to a shoulder slot item.",
+    "curr_pt": "Ombro: +2% pressa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds $48033s1 armor penetration to a shoulder slot item.",
+    "curr_pt": "Ombro: +$s1 penetração.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that increase your stamina by 1.",
+    "curr_pt": "Cinto: +1 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that increase your stamina by 2.",
+    "curr_pt": "Cinto: +2 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that increases your armor penetration by 25.",
+    "curr_pt": "Cinto: +25 penetração.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that increases your Agility by 6.",
+    "curr_pt": "Cinto: +6 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that increase your magical resistances by 4.",
+    "curr_pt": "Cinto: +4 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that increase your defense skill by 5.",
+    "curr_pt": "Cinto: +5 defesa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that increases your intellect by 10.",
+    "curr_pt": "Cinto: +10 Int.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently reduces your chance to be critically hit by melee and ranged attacks by $45530s1% to a shoulder slot item.",
+    "curr_pt": "Ombro: -$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a buckle to your belt that reduces damage taken from critical hits and damage over time effects by $45530s1%.",
+    "curr_pt": "Cinto: -$s1% crítico/dot.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A mystical amphibian known for its soothing croaks, said to bring tranquility to those who listen.",
+    "curr_pt": "Sapo místico e calmo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This ethereal creature is believed to possess the ability to enter the dreams of sleeping adventurers, offering them guidance and wisdom.",
+    "curr_pt": "Sapo de sonho e guia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A robust amphibian with a powerful croak, often found near bodies of water, revered by some as a symbol of strength and resilience.",
+    "curr_pt": "Sapo forte e robusto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A peculiar frog that seems to defy the laws of time and space, hopping effortlessly between dimensions.",
+    "curr_pt": "Sapo fora do tempo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Beware the vibrant hues of this deadly amphibian, as its skin secretes a potent toxin capable of incapacitating even the mightiest of foes.",
+    "curr_pt": "Sapo mortal e colorido.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Native to the frigid regions of Azeroth, this hardy frog has adapted to survive in icy environments, its azure skin camouflaging it against the snowy landscapes.",
+    "curr_pt": "Sapo da neve e camuflado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Delicate and enchanting, this rare frog species captivates with its vibrant pink hue, believed to bring good fortune and prosperity to its owner.",
+    "curr_pt": "Sapo rosa da sorte.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Legend has it that this shimmering amphibian is a harbinger of wealth and abundance.",
+    "curr_pt": "Sapo dourado da riqueza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A common sight in tranquil ponds and marshes, this unassuming frog is a reminder of the simple joys found in nature's embrace.",
+    "curr_pt": "Sapo simples da lagoa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Enables a jewelcrafter to prospect gems not accessible to the typical artisan jeweler.",
+    "curr_pt": "Joalheiro: prospecta gema extra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Enables a goldsmith to craft jewerly not accessible to the typical artisan jeweler.",
+    "curr_pt": "Ourives: joia extra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms the enemy into a rodent, forcing it to wander around for up to $d. While wandering, the roodent cannot attack or cast spells but will regenerate very quickly. Any damage will transform the target back into its normal form. Only one target can be polymorphed at a time. Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Vira roedor até $d s. Sem agir/magia, regenera rápido. Dano reverte. Uma por vez. Feras, humanoides e bichos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While active, your Tree Form will take the appearance of a Arcane Treant.",
+    "curr_pt": "Árvore vira Arcana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The famous steed of Arthas Menethil, who serves its master in life and in death. Riding him is truly a feat of strength.",
+    "curr_pt": "Corcel do Arthas, vivo e morto. Força!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A fiery and elusive companion, radiates with the arcane grace and power drawn from the ancient magic of the Thalassian Elves.",
+    "curr_pt": "Raposa fogosa e arcana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces shadow resistance by $s1 and increases shadow damage taken by $s2.",
+    "curr_pt": "-vs Sombra $s1 e +$s2 recebido.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A strong attack that increases melee damage by $s1 and generates a high amount of threat.",
+    "curr_pt": "Forte: +$s1 corpo a corpo e ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Destroys the caster, dealing $s2 damage to all enemies within a $a2 yards",
+    "curr_pt": "Explode: $s1 a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attack speed is decreased by $s1%. Magical attacks against you cause you to take an additional $52411s1 Frost damage.",
+    "curr_pt": "Velocidade -$s1%. Magia te dá +$s2 Gelo.",
+    "sample": "",
+    "need": "review"
+  }
+]

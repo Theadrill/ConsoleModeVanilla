@@ -1,0 +1,302 @@
+[
+  {
+    "en": "All attacks are guaranteed to land and will be critical strikes for the next $d.",
+    "curr_pt": "Tudo acerta e critica por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Envelops the caster with a Fire shield for 15 sec and shoots a ring of fire dealing $s1 damage to all nearby enemies.",
+    "curr_pt": "Escudo de Fogo 15 s e anel de $s1 nos próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives the caster $h% chance to cast Drowning Death on enemy when hit by a melee attack. Lasts until cancelled.",
+    "curr_pt": "Ao apanhar: $h% de Morte por $d s. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth $s1 $lSummoned Zombie:Summoned Zombies; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Zumbis por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases hitpoints by 300. 15% haste to melee attacks. 10 mana regen every 5 seconds.",
+    "curr_pt": "+300 vida, 15% pressa, 10 mana/5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck has a 3% chance of stealing $16608o1 life from the attacker over $16608d.",
+    "curr_pt": "Acerto: 3% de roubar $s1 em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a 3% chance to reduce damage taken by physical attacks by $16621s1% for $16621d. This effect can only occur once every 30 sec.",
+    "curr_pt": "Acerto: 3% de -$s1% físico por $d s. 1x a cada 30 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a Thorium Spike to your shield that deals damage every time you block with it.",
+    "curr_pt": "Prego de tório: dano ao bloquear.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflict $s2 arcane damage on the attuned target, and lower the damage it deals by $s1%.",
+    "curr_pt": "$s1 arcano e -$s2% dano no alvo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Visual of a item summoning for quest use.",
+    "curr_pt": "Visual de item pra quest.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms caster to look like a member of the opposing faction.",
+    "curr_pt": "Vira facção oposta.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the Good Luck Half-Charm with the Good Luck Other-Half-Charm.",
+    "curr_pt": "Junta os trevos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Physical damage dealt by the caster by $s1 and speeds its attack by $s2% for $d.",
+    "curr_pt": "Físico +$s1 e +$s2% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lulls an enemy to sleep for up to $d. Any damage caused will awaken the target. Only one target can be asleep at a time.",
+    "curr_pt": "Dorme até $d s. Dano acorda. Um por vez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives the caster $s1 extra attacks and causes it to inflict additional Fire damage on each successful hit. Lasts $d.",
+    "curr_pt": "+$s1 ataques e +Fogo por golpe por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Enemy is inflicted with the Bleakwood Curse that reduces their magic resistances by $s1. Can be applied up to 3 times.",
+    "curr_pt": "Resist -$s1. Até 3x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Plant the Scourge banner at the Scarlet Crusade's forward base camp in the Western Plaguelands.",
+    "curr_pt": "Finca o estandarte na base.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Purges an enemy of $s1 magic $leffect:effects; and heals the caster for $s2.",
+    "curr_pt": "Expurga $s1 magia e cura $s2.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Encases the caster in a shield of bone shards for $d. The sharpened fragments deal $s1 damage to melee attackers.",
+    "curr_pt": "Escudo de ossos $d s: $s1 em corpo a corpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place in the doorway at one of Andorhal's ruined towers as a magical marker for future troop movement.",
+    "curr_pt": "Marca pras tropas em Andorhal.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Douses the flames off the braziers found within Jaedenar and dispels their protective magic.",
+    "curr_pt": "Apaga o braseiro e quebra a magia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This container should be filled with water from the corrupt moon well in Jaedenar.",
+    "curr_pt": "Enche no poço corrupto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lScarlet Hound:Scarlet Hounds; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Cães até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Stings an enemy and inflicts additional Nature damage every $t2 sec. for $d. Caster must be very badly wounded in order to cast this spell.",
+    "curr_pt": "Ferroada + Natureza a cada $t1 s por $d s. Só muito ferido.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Protects a targeted party member from all attacks for $d., as well as preventing it from attacking or using abilities. Players may only have one seal on them per paladin at any one time.",
+    "curr_pt": "Protege de tudo por $d s, sem agir. Um selo por Paladino.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Use on Ras Frostwhisper, the lich, to make him mortal.",
+    "curr_pt": "Use no Ras pra mortalizar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lIllusory Wraith:Illusory Wraiths; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Aparições por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Takes control of a humanoid enemy up to level $s1 for $d. and increases its maximum health by $s3%.",
+    "curr_pt": "Controla humanoide até nv $s1 por $d s, +$s2% vida máx.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A protective mana shield surrounds the caster absorbing 500 damage. While the shield holds, increases mana regeneration by $s2 every $t2 sec for $d.",
+    "curr_pt": "Escudo 500: +$s1 regen a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Fire Resistance by 20 and deals 20 Fire damage to anyone who strikes you with a melee attack for $d.",
+    "curr_pt": "Gelo +20 e 20 de Fogo em corpo a corpo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals 50 Fire damage for $d to all targets in a cone in front of the caster.",
+    "curr_pt": "Cone: 50 de Fogo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 Fire damage to all targets in a cone in front of the caster.",
+    "curr_pt": "Cone: $s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Punctures target's armor lowering it by $s1. Can be applied up to 3 times.",
+    "curr_pt": "Armadura -$s1. Até 3x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Has a 1% chance when struck in combat of increasing chance to block by 50% for 10 sec.",
+    "curr_pt": "Acerto: 1% de +50% bloqueio 10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Wounds the target for $s1 damage and deals an additional $s2 damage every $t2 sec for $d.",
+    "curr_pt": "Fere $s1 + $s2 a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bewitches enemies in a cone in front of the caster so that they fall asleep, rendering them unable to attack or cast spells for $d.",
+    "curr_pt": "Cone dorme: sem agir/magia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A work in progress, waiting for its true colors to be revealed.",
+    "curr_pt": "Obra em andamento, sem cor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A sleek and stylish machine, perfect for those with a taste for the extraordinary.",
+    "curr_pt": "Máquina elegante e estilosa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A striking combination of fiery red and cool blue, showcasing the power of opposites.",
+    "curr_pt": "Vermelho e azul, poder dos opostos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The trusted mechanical steed of Engineer Figgles, made by accident trying to make improved models of his mechanical whelps.",
+    "curr_pt": "Corcel do Figgles, acidente feliz.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This historic piece of gnomish engineering was forced into retirement due to its extremely \"touchy\" gyroscometer.",
+    "curr_pt": "Peça histórica, giroscópio arisco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "I've not seen this breed in ages, but when they're ram tough they stick around. - Veron Amberstill.",
+    "curr_pt": "Raça rara e durona. - Veron.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons your pet stone. It doesn't seem very active though...",
+    "curr_pt": "Pedra quieta demais....",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attempts to raise an undead servant back to life to aid the caster in battle. After $d., if the servant still lives, it will sacrifice itself to heal the caster.",
+    "curr_pt": "Servo que se sacrifica pra te curar em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When Baron Rivendare became a champion of the Scourge, he condemned his favorite horse to join him in undeath.",
+    "curr_pt": "Corcel do Barão na morte-viva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains target for $s1 Shadow damage every $t1 sec and transfers it to the caster. Lasts for $d.",
+    "curr_pt": "Drena $s1 de Sombra a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases target's Attack Power by $s1 for $d1 and transfers it into Spirit to you.",
+    "curr_pt": "Poder -$s1 por $d s e vira Esp pra você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lRisen Lackey:Risen Lackeys; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Lacaios por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the effects that healing and mana potions have on the wearer by 33%.",
+    "curr_pt": "Poção +33% no usuário.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your movement speed by $s2% and restores $s1 Health per 5 sec. Half of this effect is granted to allies within 30 yards.",
+    "curr_pt": "Velocidade +$s1% e $s2 vida/5 s. Metade pro grupo a 30 m.",
+    "sample": "",
+    "need": "review"
+  }
+]

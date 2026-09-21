@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases the duration of your Vampiric Embrace by $/1000;s1 sec.",
+    "curr_pt": "Abraço +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the critical strike chance of your Mind Blast by $s1%. This effect is expended when your Mind Blast critically strikes an enemy.",
+    "curr_pt": "Estouro +$s1% crítico. Gasta no crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Shadow Word: Pain has a $h% chance to increase the critical strike chance of your Mind Blast by $51777s1%. This effect is expended when your Mind Blast critically strikes an enemy.",
+    "curr_pt": "Dor: $h% de +$s1% crítico no Estouro. Gasta no crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the chance your Mind Control will be resisted by $s1%.",
+    "curr_pt": "Controlar -$s1% resist.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When your Mind Blast critically strikes a target its cooldown is reduced by $/1000;52414s1 sec.",
+    "curr_pt": "Crítico Estouro: -$s1 s recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Mind Flay has a $h% chance to deal additional damage equal to $/1000;s1 sec. of your Shadow Word: Pain if the effect is active on your target.",
+    "curr_pt": "Flagelo: $h% de +dano de $s1 s de Dor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage from your Shadow spells has $h% a chance to grant your party a vampiric aura for $51783d, returning $51783s1% of their damage as healing. This effect can only trigger once every 10 sec.",
+    "curr_pt": "Sombra: $h% de aura por $d s (grupo cura $s1% do dano). 1x a cada 10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Fade increases your Shadow damage done by $52678s1% for $52678d.",
+    "curr_pt": "Sumir: +$s1% Sombra por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the duration of your Chastise spell by $/1000;s1 sec.",
+    "curr_pt": "Castigar +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your healing spells and effects have a $h% chance to apply the Doctor's Cure, causing your friendly targets to heal themselves for $51790s1 health with the next direct instance of damage they deal.",
+    "curr_pt": "Cura: $h% de curar $s1 no próximo dano do aliado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Mind Flay and Mind Blast have a $h% chance to inject a deadly pestilence into the target, dealing $51793o1 Shadow damage over $51793d. Stacks up to $51793u times.",
+    "curr_pt": "Flagelo/Estouro: $h% de $s1 de Sombra em $d s. Até $s2x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Smite and Holy Fire have $h% a chance to reduce the cooldown of Chastise by $/1000;s1 sec.",
+    "curr_pt": "Castigar/Fogo: $h% de -$s1 s recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lightwell reduces damage taken by $s1% while under its effect.",
+    "curr_pt": "Poço: -$s1% dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the number of charges on your Lightwell by $s2 and the healing you receive by $s1% while under its effect.",
+    "curr_pt": "Poço: +$s1 cargas e +$s2% cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Renew and Power Word: Shield grant your targets Resillient Will, reducing the damage of the next direct damage they take by $51799s1%. This effect can only trigger once every 5 sec.",
+    "curr_pt": "Renovar/Escudo: -$s1% próximo dano. 1x a cada 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Judgement of Righteousness and Judgement of Command deal an additional $s1 Holy damage.",
+    "curr_pt": "Julgamento Justo/Comando +$s1 Sagrado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives the Paladin a $h% chance on every melee hit to burst in Holy radiance, dealing additional $51802s1 Holy Damage to the target.",
+    "curr_pt": "Corpo a corpo: $h% de +$s1 Sagrado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives the Paladin a $h% chance on each melee hit to burst with Holy radiance, dealing an additional $51802s1 Holy damage to the target.",
+    "curr_pt": "Corpo a corpo: $h% de +$s1 Sagrado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Whenever you critically heal a target, you have a $h% chance to heal them for an additional $51808s1 health.",
+    "curr_pt": "Crítico cura: $h% de +$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your healing taken by 5% while standing in your Consecration.",
+    "curr_pt": "Consagrar: +5% cura dentro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the block value of your shield by $s1 until the next time you block.",
+    "curr_pt": "Bloqueio +$s1 até bloquear.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Whenever you block an attack, you have a $h% chance to increase the block value of your next block by $51814s1.",
+    "curr_pt": "Bloquear: $h% de +$s1 no próximo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Holy Shock, Flash of Light and Holy Light have a $h% chance to empower you with Spirit of Arathor, increasing healing done by spells and effects by up to $51816s1 for $51816d.",
+    "curr_pt": "Choque/Clarão/Luz: $h% de +$s1 cura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the amount healed by your Judgement of Light by $s1 and Flash of Light by $s2.",
+    "curr_pt": "Julgamento +$s1 e Clarão +$s2 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Holy Shock has an additional 15% chance to reset its own cooldown.",
+    "curr_pt": "Choque: +15% de zerar recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Holy Might increases your Strength by an additional $s1%.",
+    "curr_pt": "Poder: +$s1% For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your melee attacks and abilities have a $h% chance to begin a Crusade, increasing the attack speed of your group members by $51833s1% for $51833d. Stacks up to $51833u times.",
+    "curr_pt": "Corpo a corpo: $h% de +$s1% velocidade por $d s. Até $s2x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the block value of your shield by $s1 and threat generated by Holy Shield by $s2%.",
+    "curr_pt": "Bloqueio +$s1 e Escudo +$s2% ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Flametongue Weapon deals $s1% increased damage against targets affected by your Flame Shock.",
+    "curr_pt": "Língua +$s1% vs Choque Flamejante.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Earth Shock causes an Aftershock, dealing an additional $51839s1 Nature damage after $51839d.",
+    "curr_pt": "Choque Terreno: +$s1 Natureza em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of your Lightning Strike and Stormstrike by $/1000;m1 sec.",
+    "curr_pt": "Ferida/Golpe -$s1 s recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lightning Strike causes your next attack to deal an additional $51843s1% of its damage as Nature damage.",
+    "curr_pt": "Ferida: próximo +$s1% em Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Stormstrike has a $h% chance to cause your next Lightning Bolt to cast instantly and guarantee it to land.",
+    "curr_pt": "Golpe: $h% de próximo Raio instantâneo e certo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Triggering your elemental shield reduces all spell damage taken by $51847s1% for $51847d, stacking up to 3 times. All charges of this effect are removed when you're hit by a direct damaging spell.",
+    "curr_pt": "Escudo: -$s1% magia por $d s. Até 3x. Dano direto limpa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attunes you to the Earthmother, increasing the effects of your Rockbiter Weapon by $s1% and reducing all damage taken by $s3% while its active.",
+    "curr_pt": "Mordente +$s1% e -$s2% tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the effectiveness of shields triggered by your Lightning Strike by $s1%.",
+    "curr_pt": "Escudo do Golpe +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical strike chance of your Shock spells by $s1%.",
+    "curr_pt": "Choque +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Earth Shock, Frost Shock and Flame Shock increase the damage of your next Flame Shock, Earth Shock and Frost Shock respectively by 10%.",
+    "curr_pt": "Choque alterna +10% no próximo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Stormstrike and Lightning Strike spells have a $h% chance to energize you with the power of the elements, resetting the cooldown of your Shock spells.",
+    "curr_pt": "Ferida/Golpe: $h% de zerar Choque.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Windfury Weapon attacks have a 15% chance to strike your target again for $51857s1% weapon damage.",
+    "curr_pt": "Fúria: 15% de +$s1% da arma.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Nature damage dealt by your next Lightning Strike and the effectiveness of the triggered elemental shield's effect by $s1%.",
+    "curr_pt": "Ferida: +$s1% Natureza e escudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Stormstrike fills you with the Stormwolf's Frenzy, increasing the Nature damage dealt by your next Lightning Strike and the effectiveness of the triggered elemental shield's effect by $51859s1%, stacking up to 2 times.",
+    "curr_pt": "Golpe: +$s1% Natureza e escudo (até 2x).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the duration of your Searing Totem by $/1000;s1 sec.",
+    "curr_pt": "Ígneo +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lightning Bolt has a $h% chance to magnetize you, increasing the damage of your next Shock by $51862s1%.",
+    "curr_pt": "Raio: $h% de +$s1% Choque.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the duration of your Flame Shock by $/1000;s1 seconds.",
+    "curr_pt": "Choque +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases All Resistances by $s1 and reduces spell push back by $s2%.",
+    "curr_pt": "Tudo +$s1 e -$s2% repuxo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Earth Shield increases all your resistances by $51866s1 and increases your chance to ignore spell pushback by an additional $51866s2%.",
+    "curr_pt": "Escudo: +$s1 tudo e +$s2% vs repuxo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Shock spells and Lightning Bolt have a $h% and 15% chance respectively to trigger your Lightning Shield's effect on the target without expending a charge.",
+    "curr_pt": "Choque/Raio: $h%/15% de escudo grátis.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Lightning Bolt has a $h% chance to discharge an additional Lightning Bolt at no additional cost that does not generate any threat, but its damage is reduced by $s1%. This effect can trigger only once every 3 sec.",
+    "curr_pt": "Raio: $h% de outro sem ameaça (-$s1%). 1x a cada 3 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Lightning Bolt, Chain Lightning, and Shock spells have a $h% chance to grant up to $51882s1 Nature damage to spells for $51882d.",
+    "curr_pt": "Raio/Cadeia/Choque: $h% de +$s1 Natureza por $d s.",
+    "sample": "",
+    "need": "review"
+  }
+]

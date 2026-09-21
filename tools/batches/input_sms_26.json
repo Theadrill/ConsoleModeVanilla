@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Chance to strike your ranged target with a Flaming Shell for $29647s1 Fire damage.",
+    "curr_pt": "Chance à distância: $s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your ranged target with a Venom Shot for $29653s1 Nature damage.",
+    "curr_pt": "Chance à distância: $s1 de Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your ranged target with Keeper's Sting for $29655s1 Nature damage.",
+    "curr_pt": "Chance à distância: $s1 de Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the Top Half of Advanced Goldsmithing I and the Bottom Half of Advanced Goldsmithing I.",
+    "curr_pt": "Junta Topo e Base de Ourives I.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the Advanced Goldsmithing II and the Bottom Half of Advanced Goldsmithing II.",
+    "curr_pt": "Junta Ourives II e Base.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the Bottom Half of Advanced Gemology I and the Top Half of Advanced Gemology I.",
+    "curr_pt": "Junta Base e Topo de Gemologia I.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the Bottom Half of Advanced Gemology II and the Top Half of Advanced Gemology II.",
+    "curr_pt": "Junta Base e Topo de Gemologia II.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the chance that the player will reflect hostile spells cast on them by $s1% for $d. Only one type of Zanza potion may be active at any given time.",
+    "curr_pt": "$s1% de refletir por $d s. 1 Zanza por vez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Opens a gate into the Twisting Nether that after 6 sec summons a Felguard under the command of the caster for 1 min. Once control is lost, the Felguard attacks the caster until one of them dies.",
+    "curr_pt": "Portal 6 s e Guarda 1 min. Sem controle, te ataca.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "It is said no one has laid their eyes upon a White Tiger Cub given the sheer rarity of this species.",
+    "curr_pt": "Tigre branco raríssimo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "After a harpy incursion in Feralas, several hippogryph nesting grounds were attacked. Hundreds of hatchlings were orphaned, and they have been entrusted to the care of the druids on Sardor Isle.",
+    "curr_pt": "Filhote órfão de Feralas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shoots a firework into the air that bursts into a thousand purple stars.",
+    "curr_pt": "Fogo roxo de mil estrelas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Slow and steady might not always win you the race but it'll get you there... eventually.",
+    "curr_pt": "Devagar sempre chega....",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a jewelcrafter to make basic rings and trinkets up to a maximum potential skill of 75.",
+    "curr_pt": "Joalheiro básico até 75.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a jewelcrafter to make basic rings and trinkets up to a maximum potential skill of 150.",
+    "curr_pt": "Joalheiro médio até 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a jewelcrafter to make basic rings and trinkets up to a maximum potential skill of 225.",
+    "curr_pt": "Joalheiro perito até 225.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a jewelcrafter to make basic rings and trinkets up to a maximum potential skill of 300.",
+    "curr_pt": "Joalheiro artesão até 300.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 damage on enemies in a cone in front of the caster, knocking them back.",
+    "curr_pt": "$s1 em cone e arremessa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 damage to all enemies in a $a1 yard radius from the caster.",
+    "curr_pt": "$s1 a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Finishing move that exposes the target for $d, reducing armor per combo point: 1 point : -8% armor 2 points: -16% armor 3 points: -24% armor 4 points: -32% armor 5 points: -40% armor",
+    "curr_pt": "Final expõe por $d s: 1: -8%, 2: -16%, 3: -24%, 4: -32%, 5: -40%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This dragon heralds the victorious outcomes of its owner's battles.",
+    "curr_pt": "Dragão da vitória.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This mysterious faerie dragon is thought to be extinct, but has been recently sighted in the thicket of Ashenvale.",
+    "curr_pt": "Fada extinta vista em Ashenvale.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "If you listen closely, you can hear the muffled cries of its former crew.",
+    "curr_pt": "Galeão de choro abafado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Trusted mounts of Queen Azshara's personal guard. Haven't been seen since 10.000 years.",
+    "curr_pt": "Sabre da guarda, sumido há 10 mil anos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A being from the Twisting Nether, filled with unbridled hatred.",
+    "curr_pt": "Ódio do Éter.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Native to the fallen kingdom of Azjol-Nerub, these spiders have been tamed by the Forsaken Dark Rangers.",
+    "curr_pt": "Aranha domada por patrulheira.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the player to ride basic ground mounts that require a riding skill of 75.",
+    "curr_pt": "Montaria básica nv 75.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the player to ride swift ground mounts that require a riding skill of 150.",
+    "curr_pt": "Montaria veloz nv 150.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A majestic steed imbued with the ancient power of Nordrassil, its hooves carry the echoes of nature's strength.",
+    "curr_pt": "Corcel de Nordrassil ecoante.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A mount that embodies the perfect balance between darkness and beauty.",
+    "curr_pt": "Treva e beleza em equilíbrio.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Sunfire Fox glows with golden fur, bringing warmth wherever it wanders.",
+    "curr_pt": "Raposa dourada e quente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Floats serenely in the sky, capturing the essence of sunlight and breeze...",
+    "curr_pt": "Serpente serena ao sol.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Behold the Dark Wind Serpent that navigates the skies with an elegant yet mysterious presence.",
+    "curr_pt": "Serpente elegante e misteriosa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Emerald Wind Serpent, with its radiant green scales, gracefully dances through the sky, embodying the tranquility of nature.",
+    "curr_pt": "Serpente verde tranquila.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Adorned with a coat of brilliant blue scales, glides through the air with a serene elegance, leaving a trail of calm in its wake.",
+    "curr_pt": "Serpente azul serena.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A spirited companion, its fiery fur captures the essence of youthful adventure in the wilds of Azeroth.",
+    "curr_pt": "Filhote aventureiro e fogoso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A pint-sized embodiment of courage and unity, sporting the iconic golden mane of its proud lion lineage.",
+    "curr_pt": "Leãozinho de coragem e união.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A playful feline companion adorned with distinctive spots, bringing a touch of the wild to your adventures.",
+    "curr_pt": "Gatinho pintado e brincalhão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A tiny bundle of darkness with a coat of deep, enchanting blue fur, this cute companion brings a touch of mystical charm to your adventures.",
+    "curr_pt": "Fardo de treva azul fofa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A tiny shadow prowler, its velvety fur and curious eyes add an adorable touch to your daring escapades.",
+    "curr_pt": "Sombra aveludada e curiosa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "With its soft, tawny fur and playful antics, this adorable cub is a heartwarming companion for your journey through Azeroth.",
+    "curr_pt": "Filhote fulvo e brincalhão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Elune made nightsabers silver and black so they could meld into the shadows on a moonlit night.",
+    "curr_pt": "Prateado some na noite.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The thick snow near Dun Morogh acts as camouflage for snow cubs learning to hunt.",
+    "curr_pt": "Neve de Dun Morogh camufla.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This lively and affectionate cub boasts unique stripes, a miniature symbol of the wild beauty found in Stangletorn Vale.",
+    "curr_pt": "Listrado do Vale selvagem.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A charming companion with snowy fur adorned by enchanting stripes, bringing the wintry beauty of Azeroth to your side.",
+    "curr_pt": "Branco listrado do inverno.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These playful feline cubs practice their hunting skills by stalking each other through the Barrens.",
+    "curr_pt": "Filhote que caça no Ermo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "With a bushy tail that rivals the fluffiest of pillows, this squirrel is the epitome of woodland charm, spreading happiness wherever it goes.",
+    "curr_pt": "Esquilo fofo da mata.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While active, your Travel Form will take the appearance of a White Stag.",
+    "curr_pt": "Viagem vira cervo branco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A swift mount bred in the depths of Ahn'Qiraj, bearing distinct spotted patterns.",
+    "curr_pt": "Tanque veloz e pintado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A bloodthirsty Nerubian beast, its crimson shell glistening in the sun.",
+    "curr_pt": "Fera rubra sanguinária.",
+    "sample": "",
+    "need": "review"
+  }
+]

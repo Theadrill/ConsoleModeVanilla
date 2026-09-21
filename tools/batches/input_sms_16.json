@@ -1,0 +1,302 @@
+[
+  {
+    "en": "When activated, gives your next Flash of Light, Holy Light, or Holy Shock spell a $s1% critical effect chance.",
+    "curr_pt": "Próximo Clarão/Luz/Choque: +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Helps gather termites from a termite mound in Eastern Plaguelands.",
+    "curr_pt": "Pega cupim no monte.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Throws a bomb at an enemy. After $t1 sec., the bomb explodes, inflicting $20476s1 Fire damage to the target and its nearby allies.",
+    "curr_pt": "Bomba: em $t1 s explode $s1 de Fogo no alvo e próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bind pages 1-4 into Chapter 1 of the Shredder Operating Manual.",
+    "curr_pt": "Páginas 1-4 no cap. 1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bind pages 5-8 into Chapter 2 of the Shredder Operating Manual.",
+    "curr_pt": "Páginas 5-8 no cap. 2.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bind pages 9-12 into Chapter 3 of the Shredder Operating Manual.",
+    "curr_pt": "Páginas 9-12 no cap. 3.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Fire damage to nearby enemies, knocking them back.",
+    "curr_pt": "$s1 de Fogo e arremessa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the duration of Stun effects used against you by $s1%.",
+    "curr_pt": "Atordoar -$s1% tempo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Stamina by 10 and reduces physical damage taken by 5 for $d1. However, lowers Strength and Agility by 5 and increases magical damage taken by up to 20.",
+    "curr_pt": "Vig +10 e Físico -5 por $d s. For/Agi -5 e magia +até 20.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Spirit by $s1%, and allows $s2% of your Mana regeneration to continue while casting.",
+    "curr_pt": "Esp +$s1% e $s2% regen lançando.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Spits poison at an enemy, inflicting harm, reducing the target's armor, and causing additional Nature damage every $t2 sec. for $d.",
+    "curr_pt": "Cuspe: dano, -armadura e Natureza a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Takes control of a humanoid enemy up to level $s1 for $d, increases the magical damage it deals by $s2, and increases the Physical damage it deals by $s3.",
+    "curr_pt": "Controla humanoide até nv $s1 por $d s, +$s2 mágico e +$s3 Físico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports an enemy above Theramore Harbor.",
+    "curr_pt": "Teleporta inimigo pra Teramore.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Throws a hammer at an enemy, inflicting $s1 Physical damage and stunning the target for $d.",
+    "curr_pt": "Martelo: $s1 Físico e atordoa por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shoots a flaming arrow at an enemy, inflicting weapon damage plus $s1. All damage inflicted is based upon Fire magic.",
+    "curr_pt": "Flecha: arma +$s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When the victim of a critical hit in combat, $s1% chance to be sheathed in a magical shield absorbing the next $20706s1 damage.",
+    "curr_pt": "Crítico sofrido: $s1% de escudo de $s2.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Attack Power of your pet by +$20728s1.",
+    "curr_pt": "Pet: +$s1 poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "+$s1 Attack Power",
+    "curr_pt": "+$s1 poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Curses an enemy, inflicting periodic Shadow damage over $d. If the target dies while afflicted by Black Arrow, $20734s1 $lSkeleton:Skeletons; will be summoned from the target's corpse.",
+    "curr_pt": "Maldição Sombra em $d s. Se matar, invoca $s1 Esqueletos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Lesser Soulstone. The Soulstone can be used to store one target's soul. If the target dies while his soul is stored, he will be able to resurrect with $20758s1 health and $20758q1 mana. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria Pedra: guarda a alma; morto ressuscita com $s1 de vida e $s2 de mana. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Greater Soulstone. The Soulstone can be used to store one target's soul. If the target dies while his soul is stored, he will be able to resurrect with $20760s1 health and $20760q1 mana. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria Pedra: guarda a alma; morto ressuscita com $s1 de vida e $s2 de mana. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Major Soulstone. The Soulstone can be used to store one target's soul. If the target dies while his soul is stored, he will be able to resurrect with $20761s1 health and $20761q1 mana. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria Pedra: guarda a alma; morto ressuscita com $s1 de vida e $s2 de mana. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increased the time between an enemy's attacks by $s2% and its movement by $s1%, in addition to reducing its Strength by $s3%. Lasts $d.",
+    "curr_pt": "+$s1% intervalo, +$s2% velocidade e -For $s3. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a 2% chance of increasing all party member's attack and casting speed by 5% for 30 sec.",
+    "curr_pt": "Trompa: grupo +5% velocidade 30 s ao apanhar (2%).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your pet's Attack Power by $s1.",
+    "curr_pt": "Pet: +$s1 poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Attack Power of your pet by +$20991s1.",
+    "curr_pt": "Pet: +$s1 poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the top, middle, and bottom pieces of the ancient idol.",
+    "curr_pt": "Junta as 3 peças do ídolo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Hurls boulders at nearby enemies, inflicting Physical damage.",
+    "curr_pt": "Pedra nos próximos: Físico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Arcane Intellect provides +$s1 more Intellect than normal.",
+    "curr_pt": "Intelecto +$s1 no Arcano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Improves your chance to get a critical strike with Holy spells by $s1%.",
+    "curr_pt": "Crítico Sagrado +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Power Word: Fortitude provides +$s1 more Stamina than normal.",
+    "curr_pt": "Vigor +$s1 na Palavra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls down a mana storm that lasts $d., inflicting $s1 Frost damage and draining $s2 mana every $t1 sec. to all enemies in a selected area.",
+    "curr_pt": "Tempestade $d s: $s1 de Gelo e drena $s2 a cada $t1 s na área.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts nearby enemies with ice, dealing $s1 damage, increasing the time between their attacks by $s2%, and movement speed by $s3%.",
+    "curr_pt": "$s1, +$s2% intervalo e +$s3% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a portal, teleporting group members that use it to Earth Song Falls in inner Maraudon.",
+    "curr_pt": "Portal pra Maraudon.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends a shadowy bolt at the enemy causing $s1 Shadow damage and lowering all stats by $s2 for $d.",
+    "curr_pt": "$s1 de Sombra e tudo -$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Eye of Sulfuras can be combined with the Sulfuron Hammer to create Sulfuras, legendary hammer of Ragnaros.",
+    "curr_pt": "Olho + Martelo viram Sulfuras.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows user to view the Alliance stronghold through Ryson's Eye in the Sky when used in conjunction with a Globe of Scrying.",
+    "curr_pt": "Vê a base pelo Olho.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Restores 8 Health and 10 Mana each second while in the proximity of a Lieutenant.",
+    "curr_pt": "8 vida e 10 mana/s perto do Tenente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Restores $21186s1 mana or 20 rage when you kill a target that gives experience; this effect cannot occur more than once every 10 sec.",
+    "curr_pt": "Abate com exp: $s1 de mana ou 20 fúria. 1x a cada 10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the duration of your Arcane Missiles by $/1000;s1 sec.",
+    "curr_pt": "Mísseis +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the added fire damage of your Fireballs by $s1 per period.",
+    "curr_pt": "Bola: +$s1 Fogo por período.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "You have a $h% chance to regain $21959s1 mana any time you take damage.",
+    "curr_pt": "Dano: $h% de +$s1 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the casting time of your Prayer of Healing by $s1 sec.",
+    "curr_pt": "Oração -$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Just like Creature - Fire Channeling except this one adds a Channel Cast Directed animation.",
+    "curr_pt": "Canaliza com animação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shows the location of all nearby humanoids on the minimap for $d. Also substantially increases your stealth detection.",
+    "curr_pt": "Humanoides no minimapa por $d s. +farejo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows user to view the Horde stronghold through Ryson's Eye in the Sky when used in conjunction with a Globe of Scrying.",
+    "curr_pt": "Vê a base da Horda pelo Olho.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Plants the beacon in the Dun Baldar Courtyard. Protect it from harm!",
+    "curr_pt": "Finca no pátio. Protege!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Plants the beacon in the Frostwolf Keep Courtyard. Protect it from harm!",
+    "curr_pt": "Finca na Fortaleza. Protege!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 Fire damage to all targets in a cone in front of the caster. Also causes 5% durability damage to the chest armor of your opponent.",
+    "curr_pt": "$s1 de Fogo em cone + 5% no peito.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places the Goblin Land Mine on the ground. It will explode for $11815s1 fire damage the next time a hostile creature passes near it.",
+    "curr_pt": "Mina: $s1 de Fogo no próximo hostil.",
+    "sample": "",
+    "need": "review"
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Charges an enemy and causes poison damage to all within 10 yards of the target.",
+    "curr_pt": "Investida envenena a 10 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Let forth a burst of energy knocking all nearby enemies back, dealing $s1 Shadow damage and removing all threat.",
+    "curr_pt": "Explosão: $s1 de Sombra e zera ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Terky is as shy as she is adorable, preferring the company of close friends over new ones.",
+    "curr_pt": "Terky tímida e fofa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This cub shares many traits with its relatives, but it's in a league of its own with its singing ability.",
+    "curr_pt": "Filhote cantor único.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This mechanical toy knight will serve you with loyalty, my liege.",
+    "curr_pt": "Cavaleiro leal, meu senhor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the damge dealt and health regained by your Death Coil spell by $s1%.",
+    "curr_pt": "Espiral +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor by an amount equal to $s1% of your Intellect.",
+    "curr_pt": "Armadura +$s1% do Int.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Many assume 'Wiggles' refers to the motion of this pig's posterior. They discover the true meaning when they see their own entrails.",
+    "curr_pt": "Porco da tripa alheia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A clever tactician, Whiskers will feign death to fool predators and bill collectors.",
+    "curr_pt": "Bigode tático finge-se de morto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the mana cost of your Healing Touch, Regrowth, Rejuvenation, and Tranquility spells by $s1%.",
+    "curr_pt": "Cura -$s1% mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your spell critical hits generate $s1% less threat. In addition, Corruption, Immolate, Curse of Agony, and Siphon Life generate $s2% less threat.",
+    "curr_pt": "Crítico: -$s1% ameaça. Corrupção/Imolar/Agonia/Sugar: -$s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Attack Power by $28758s1 for both you and your pet.",
+    "curr_pt": "Poder +$s1 você e pet.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your damage spells have a chance to displace you, causing the next spell cast to generate no threat.",
+    "curr_pt": "Evocar -$s1 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives your Mage Armor a chance when struck by a harmful spell to increase resistance against that school of magic by $28770s for $28770d.",
+    "curr_pt": "Fogo +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your damage spells have a chance to cause your target to take up to $28772s1 increased damage from subsequent spells.",
+    "curr_pt": "Bloqueio +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the amount healed by your Judgement of Light by $s1.",
+    "curr_pt": "Tudo +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases healing done by the next 5 spells by up to $s1 for $d.",
+    "curr_pt": "Limpar também cura 200.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Each spell you cast can trigger an Epiphany, increasing your mana regeneration by $28804s1 for $28804d.",
+    "curr_pt": "Lançar: chance de +$s1 regen por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Absorbs $s1 damage. Lasts $d. While the shield holds, spellcasting will not be interrupted by damage.",
+    "curr_pt": "Absorve $s1 por $d s. Sem interrupção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Eviscerate has a chance per combo point to reveal a flaw in your opponent's armor, granting a 100% critical hit chance for your next Backstab, Sinister Strike, or Hemorrhage.",
+    "curr_pt": "Eviscerar revela falha: próximo crítico 100%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your normal melee swings have a chance to Invigorate you, healing you for $28817s1.",
+    "curr_pt": "Corpo a corpo: chance de curar $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Water Shield spell also grants you $28820s1 mana per 5 sec. while active.",
+    "curr_pt": "Escudo: +$s1 mana/5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Healing Wave and Lesser Healing Wave spells have a chance to imbue your target with Totemic Power.",
+    "curr_pt": "Onda: chance de Poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When your health drops below 20%, for the next 5 seconds healing spells cast on you help you to Cheat Death, increasing healing done by up to $28846s1.",
+    "curr_pt": "Vida <20%: cura +$s1 por 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gain up to $28848s1 mana each time you cast Healing Touch.",
+    "curr_pt": "Toque: +$s1 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done by Chain Lightning and Lightning Bolt by up to $s1.",
+    "curr_pt": "Cadeia/Raio +$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A radiant spirit of warmth and sunshine, this companion embodies the essence of summer, spreading joy wherever it goes.",
+    "curr_pt": "Espírito do verão alegre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it increases attack power against undead by 100. Lasts for 1 hour.",
+    "curr_pt": "Arma: +100 vs morto-vivo por 1 h.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it increases spell damage against undead by up to 60. Lasts for 1 hour.",
+    "curr_pt": "Arma: +60 magia vs morto-vivo por 1 h.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Improves your chance to get a critical strike with spells against undead by $s1%.",
+    "curr_pt": "Magia vs morto-vivo +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "+$s1 Attack Power when fighting Undead and Demons. It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "+$s1 poder vs Morto/Demônio. Vale Pedra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Undead and Demons by magical spells and effects by up to $s1. It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "Morto/Demônio: +$s1 magia. Vale Pedra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to discharge electricity causing $29151s1 Nature damage to your target.",
+    "curr_pt": "Chance: $s1 de Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Improves your chance to get a critical strike with spells by $s1% against undead.",
+    "curr_pt": "Magia vs morto-vivo +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck has a 15% chance of reducing the attacker's movement speed by 50% for 5 secs.",
+    "curr_pt": "Apanhar: -50% velocidade 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the mana gained from your Mana Spring totems by $s1%.",
+    "curr_pt": "Fonte +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleport player to the final chamber.",
+    "curr_pt": "Teleporta pra câmara.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Curses the target with the Curse of the Plaguebringer. If the target is not dispelled of the curse, the target will become infected along with all nearby allies in a selected area with the Wrath of the Plaguebringer.",
+    "curr_pt": "Maldição vira infecção em área.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Infects nearby allies, inflicting Nature damage, then additional damage every $t1 sec. for $d.",
+    "curr_pt": "Infecta: Natureza + a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shoots acid bolts at an enemy, inflicting Nature damage, then additional damage every $t2 sec. for $d.",
+    "curr_pt": "Ácido e mais a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds to a shoulder slot item increased damage and healing done by magical spells and effects up to 15 and also increases your chance to land a critical strike with spells by 1%.",
+    "curr_pt": "Ombro: +15 magia/cura e +1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds to a shoulder slot item increased healing done by magical spells and effects up to 31 and also increases your mana regen by 5 mana per 5 sec.",
+    "curr_pt": "Ombro: +31 cura e +5 mana/5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds to a shoulder slot item increased Stamina by 16 and also grants 100 armor.",
+    "curr_pt": "Ombro: +16 Vig e +100 armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds to a shoulder slot item increased Attack Power by 26 and also increases your chance to land a critical strike by 1%.",
+    "curr_pt": "Ombro: +26 poder e +1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your target with a Frost Arrow for $29502s1 Frost damage.",
+    "curr_pt": "Chance à distância: $s1 de Gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases attack power by $29604s1 and an additional $29604s1 every $t1 sec. Lasts $d.",
+    "curr_pt": "Poder +$s1 e +$s2 a cada $t1 s. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your ranged target with a Searing Arrow for $29638s1 Fire damage.",
+    "curr_pt": "Chance à distância: $s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your ranged target with a Flaming Cannonball for $29639s1 Fire damage.",
+    "curr_pt": "Chance à distância: $s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your ranged target with Shadow Shot for $29641s1 Shadow damage.",
+    "curr_pt": "Chance à distância: $s1 de Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance to strike your ranged target with a Quill Shot for $29646s1 Nature damage.",
+    "curr_pt": "Chance à distância: $s1 de Natureza.",
+    "sample": "",
+    "need": "review"
+  }
+]

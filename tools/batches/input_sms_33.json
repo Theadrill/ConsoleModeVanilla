@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Unleash a blast of a random element, dealing 490 - 540 damage of that element within 10 yards, additionally causing an effect depending on the element.",
+    "curr_pt": "Explosão aleatória 490-540 a 10 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the time between periodic ticks of your class-specific bleed effects $s1%.",
+    "curr_pt": "Sangrar -$s1% tick.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your next Shred refunds $52343s1 energy.",
+    "curr_pt": "Dilacerar: +$s1 energia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Stamina by 3. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +3 Vig. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Healing by 7. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +7 cura. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Agility by 4. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +4 Agi. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Intellect by 4. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +4 Int. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Fire damage by 6. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +6 Fogo. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Spirit by 4. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +4 Esp. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Arcane damage by 6. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +6 Arcano. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Strength by 5. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +5 For. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Vampirism by 1%. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +1% Vampirismo. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Frost damage by 9. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +9 Gelo. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Intellect by 6. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +6 Int. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Agility by 6. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +6 Agi. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Nature resistance by 8. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +8 vs Natureza. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Nature damage by 9. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +9 Natureza. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Healing by 12. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +12 cura. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Stamina by 6. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +6 Vig. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Arcane resistance by 8. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +8 vs Arcano. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Fire resistance by 8. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +8 vs Fogo. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Strength by 6. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +6 For. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Spell damage by 5. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +5 magia. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase All resistances by 3. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +3 tudo. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase All stats by 3. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +3 tudo. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Spell penetration by 6. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +6 penetração. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Shadow resistance by 8. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +8 vs Sombra. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Armor by 40. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +40 armadura. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Mana regeneration by 2 every 5 seconds. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +2 mana/5 s. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck by a harmful spell, the caster of that spell has a 5% chance to deal 27% reduced damage for $51050d.",
+    "curr_pt": "Magia nociva: 5% de -27% dano por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Successfully parrying an attack grants you $51052s1 Attack Power for $51052d. This effect stacks up to 2 times.",
+    "curr_pt": "Aparar: +$s1 poder por $d s. Até 2x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your landing damaging spells have a 7% chance to incur the wrath of Insomnius, dealing $51054s1 Nature damage. This effect benefits greatly from spellpower.",
+    "curr_pt": "Magia: 7% de $s1 de Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the duration of Corruption and Shadow Word: Pain by $/1000;S1 $lsec:secs;.",
+    "curr_pt": "Corrupção/Dor +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives a chance when your harmful spells land to increase the damage of your spells and effects by $51060s1 for $51060d.",
+    "curr_pt": "Magia nociva: chance de +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the damage done by your Earth Shock by $s1 and causes your Earth Shock to reduce the target's attack speed by $51062s1% for $51062d.",
+    "curr_pt": "Choque Terreno +$s1 e +$s2% intervalo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your auto-attacks have a 20% chance to strike an additional nearby opponent. This effect is disabled while shapeshifted and can only trigger once every 5 sec.",
+    "curr_pt": "Auto-ataque: 20% de +1 alvo. Sem forma, 1x a cada 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth a Spirit Protector to fight at your side for 30 sec.",
+    "curr_pt": "Espírito guardião 30 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives a 5% chance when your harmful spells land to summon a Spirit Protector for $51071d.",
+    "curr_pt": "Magia nociva: 5% de guardião por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your direct healing spells have a 5% chance to increase your target's health by $51075s1 for $51075d.",
+    "curr_pt": "Cura direta: 5% de +$s1 vida por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a ring or amulet to increase Block chance by 1%. Only usable on items level 25 and above.",
+    "curr_pt": "Anel/amuleto: +1% bloqueio. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of shadow magic around the caster, causing $s1 Arcane damage to all targets within $a1 yards.",
+    "curr_pt": "Explosão sombria: $s1 Arcano a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Spawns 12 Blood Ravens (display id 20496) next to random players in 100 yds radius.",
+    "curr_pt": "12 corvos em 100 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transfers $s1 health from the target to the caster every $t1 sec. Lasts $d.",
+    "curr_pt": "Transfere $s1 a cada $t1 s. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of arcane magic around the caster, causing Arcane damage ranging from 8000 to 1000 depending on the distance.",
+    "curr_pt": "Explosão: 8000-1000 por distância.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Infuses the target with Arcane energy, increasing damage done by $s1%, movement speed by $s2% and decreasing threat generated by $s3% for $d. Causes an explosion of arcane damage once the effect expires.",
+    "curr_pt": "Arcano: +$s1% dano, +$s2% velocidade, -$s3% ameaça por $d s. Expira e explode.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Spawns an Unstable Magic Zone beneath the target that explodes after $51103d, dealing Arcane damage to all nearby enemies.",
+    "curr_pt": "Zona que explode em $d s: Arcano nos próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Assault the target's mind with Shadow energy, causing $o1 Shadow damage over $d.",
+    "curr_pt": "$s1 de Sombra em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Corrupts the target, causing $o1 damage over $d and reducing damage done by $s2%.",
+    "curr_pt": "Corrompe: $s1 em $d s e -$s2% dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your landing damaging spells have a 4% chance to reawaken the Lost for $51129d.",
+    "curr_pt": "Magia: 4% de acordar por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Minor Arcane Elemental that will protect you for $d. While this elemental is alive it increases your damage and healing done by magical spells and effects by up to $51142s1.",
+    "curr_pt": "Elemental $d s: +$s1 magia.",
+    "sample": "",
+    "need": "review"
+  }
+]

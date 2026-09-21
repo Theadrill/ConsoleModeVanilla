@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Combines a Case of Homebrew, an Ironforge Pledge Collection and a Parcel of Cards into an Ironforge Gift Collection.",
+    "curr_pt": "Cerveja + Promessa + Carta vira Presente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines a Box of Woodcrafts, a Darnassus Pledge Collection and a Stack of Cards into a Darnassus Gift Collection.",
+    "curr_pt": "Artesanato + Promessa + Carta vira Presente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines a Darnassus Gift Collection, Ironforge Gift Collection and Stormwind Gift Collection into an Alliance Gift Collection.",
+    "curr_pt": "Darnassus + Altaforja + Ventobravo vira Aliança.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines an Orgrimmar Gift Collection, Thunder Bluff Gift Collection and Undercity Gift Collection into a Horde Gift Collection.",
+    "curr_pt": "Orgrimmar + Penhasco + Cidade Baixa vira Horda.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines a Box of Fresh Pies, an Orgrimmar Pledge Collection and a Package of Cards into an Orgrimmar Gift Collection.",
+    "curr_pt": "Torta + Promessa + Carta vira Presente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines a Basket of Flowers, a Satchel of Cards and a Thunder Bluff Pledge Collection into a Thunder Bluff Gift Collection.",
+    "curr_pt": "Flor + Carta + Promessa vira Presente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines a Book of Romantic Poetry, a Sheaf of Cards and an Undercity Pledge Collection into an Undercity Gift Collection.",
+    "curr_pt": "Poema + Carta + Promessa vira Presente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines 5 loaves of Homemade Bread into a Sack of Homemade Bread.",
+    "curr_pt": "5 pães vira Saco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Right Click to combine 5 Pledges of Loyalty: Stormwind into a Stormwind Pledge Collection.",
+    "curr_pt": "Botão direito: 5 promessas vira Coleção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines 5 Pledges of Loyalty: Ironforge into an Ironforge Pledge Collection.",
+    "curr_pt": "5 promessas vira Coleção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Right Click to combine 10 loaves of Homemade Bread into a Sack of Homemade Bread.",
+    "curr_pt": "Botão direito: 10 pães vira Saco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines 5 Pledges of Loyalty: Darnassus into a Darnassus Pledge Collection.",
+    "curr_pt": "5 promessas vira Coleção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines 5 Pledges of Loyalty: Orgrimmar into an Orgrimmar Pledge Collection.",
+    "curr_pt": "5 promessas vira Coleção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines 5 Pledges of Loyalty: Thunder Bluff into an Thunder Bluff Pledge Collection.",
+    "curr_pt": "5 promessas vira Coleção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines 5 Pledges of Loyalty: Undercity into an Undercity Pledge Collection.",
+    "curr_pt": "5 promessas vira Coleção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to resist Silence and Interrupt effects by $s2%.",
+    "curr_pt": "Silêncio/Interrupção +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Protects you with a mana shield which can absorb up to $s1 damage. Two points of mana are drained per point of damage taken.",
+    "curr_pt": "Escudo de mana: $s1. 2 mana por dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance on spell cast to increase your damage and healing by up to $27775s1 for $27775d.",
+    "curr_pt": "Lançar: chance de +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a chance of returning 350 mana to the wearer.",
+    "curr_pt": "Acerto: chance de +350 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a chance of causing the attacker to flee in terror for 2 seconds.",
+    "curr_pt": "Acerto: chance de medo 2 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s2 Nature damage and an additional $s1 damage every $t1 sec. to enemies in a cone in front of the caster. Nature resistance is reduced by $s2. Lasts $d.",
+    "curr_pt": "$s1 de Natureza + $s2 a cada $t1 s em cone. -res $s3. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "In a whirlwind of steel you attack up to $i enemies within $a1 yards, causing weapon damage to each enemy.",
+    "curr_pt": "Redemoinho: até $i a $a1 m, arma.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a two-handed melee weapon to grant +25 Agility.",
+    "curr_pt": "Arma 2M: +25 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the casting time of your Healing Touch spell by 0.15 sec.",
+    "curr_pt": "Toque -0.15 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Devotion Aura reduces physical damage taken by $45073s1%.",
+    "curr_pt": "Devoção: -$s1% físico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done by Earth Shock, Flame Shock, and Frost Shock by up to $s1.",
+    "curr_pt": "Choque +$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a chance of freezing the attacker in place for $27868d.",
+    "curr_pt": "Congela atacante por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines the Top and Bottom Half of Advanced Jewelcrafting XI: Hard as Diamonds.",
+    "curr_pt": "Junta Topo e Base de Joalheria XI.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts normal damage plus $s1 to nearby enemies, reducing movement speed for $d.",
+    "curr_pt": "Normal +$s1 e lentidão por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases an ally's attack speed by $s1% for $d..",
+    "curr_pt": "Aliado: +$s1% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the Energy cost of your Sinister Strike ability by $s1 and your Backstab ability by $s2.",
+    "curr_pt": "Golpe -$s1 e Apunhalar -$s2 energia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the haste effect of your Slice and Dice ability by $s1%.",
+    "curr_pt": "Fatiar +$s1% pressa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the spell critical chance of all party members within $a1 yards by $s1%.",
+    "curr_pt": "Grupo a $a1 m: +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage and healing done by magical spells and effects of all party members within $a1 yards by up to $s1.",
+    "curr_pt": "Grupo a $a1 m: +$s1 dano/cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases healing done by magical spells and effects of all party members within $a1 yards by up to $s1.",
+    "curr_pt": "Grupo a $a1 m: +$s1 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the attack and casting speed of all party members within $a1 yards by $s1%.",
+    "curr_pt": "Grupo a $a1 m: +$s1% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a portal, teleporting group members that use it to Karazhan.",
+    "curr_pt": "Portal pra Karazhan.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Injects a target with a mutagen that transforms them into an abomination after $d.",
+    "curr_pt": "Injeta e vira abominação em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms the enemy into a cow, forcing it to wander around for up to $d. While wandering, the cow cannot attack or cast spells but will regenerate very quickly. Any damage will transform the target back into its normal form. Only one target can be polymorphed at a time. Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Vira vaca até $d s. Sem agir/magia, regenera rápido. Dano reverte. Uma por vez. Feras, dragões, gigantes, humanoides e bichos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms the enemy into a turtle, forcing it to wander around for up to $d. While wandering, the turtle cannot attack or cast spells but will regenerate very quickly. Any damage will transform the target back into its normal form. Only one target can be polymorphed at a time. Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Vira tartaruga até $d s. Sem agir/magia, regenera rápido. Dano reverte. Uma por vez. Feras, dragões, gigantes, humanoides e bichos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms the enemy into a pig, forcing it to wander around for up to $d. While wandering, the pig cannot attack or cast spells but will regenerate very quickly. Any damage will transform the target back into its normal form. Only one target can be polymorphed at a time. Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Vira porco até $d s. Sem agir/magia, regenera rápido. Dano reverte. Uma por vez. Feras, dragões, gigantes, humanoides e bichos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shoots at an enemy, inflicting nature damage and knocking the enemy back.",
+    "curr_pt": "Atira Natureza e arremessa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Physical Damage vs. units that have the ROYAL_GUARD string ID.",
+    "curr_pt": "Físico vs GUARDA_REAL.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase your reputation permanently with Booty Bay.",
+    "curr_pt": "Reputação Angra pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase your reputation permanently with Ratchet.",
+    "curr_pt": "Reputação Vila Catraca pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase your reputation permanently with Everlook.",
+    "curr_pt": "Reputação Hibérnia pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase your reputation permanently with Gadgetzan.",
+    "curr_pt": "Reputação Gadgetzan pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While active, target's size increases, damage done increases by 10%.",
+    "curr_pt": "Grande e +10% dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While active, target's size increases, damage done increases by 20%.",
+    "curr_pt": "Grande e +20% dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While active, target's size increases, damage done increases by 30%.",
+    "curr_pt": "Grande e +30% dano.",
+    "sample": "",
+    "need": "review"
+  }
+]

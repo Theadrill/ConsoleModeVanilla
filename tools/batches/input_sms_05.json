@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases swimming speed by $s1% and allow's the druid to breathe underwater.",
+    "curr_pt": "Nado +$s1% e respira na água.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Choose an appropriate random power as well as select targets to pass the power to on death.",
+    "curr_pt": "Escolhe poder e alvos pra herdar ao morrer.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed boar the Toughen Hide ability. Toughen Hide increases resistance to physical attacks. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Couro ao javali: resiste físico. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed boar the Vital Wound ability. Vital Wound slows the attack speed of an enemy. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Ferida ao javali: lentidão no ataque. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed bear the Enraging Bite ability. Enraging Bite reduces an enemy's resistance to physical attacks as well as drawing its attention. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Mordida ao urso: -resist físico e atrai. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed bear the Growl of Fortitude ability. Growl of Fortitude increases the maximum health of the bear. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Rugido ao urso: +vida máx do urso. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed bear the Roar of Fortitude ability. Roar of Fortitude increases the maximum health of everyone in your party. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Rugido ao urso: +vida máx do grupo. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed bird the Flight of the Peregrine ability. Flight of the Peregrine increase the movement speed of the bird. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Voo à ave: +velocidade. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed bird the Eye Peck ability. Eye Peck causes an enemy to miss more often in combat. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Bicada à ave: inimigo erra mais. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed bird the Pester ability. Pester greatly increases the attack speed of the bird at the cost of dealing less damage. Every successful attack while in this mode renders the target unable to cast spells for a short time. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Importunar à ave: +velocidade -dano, silencia ao acertar. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed cat the Open Wound ability. Open Wound deals physical damage over time to an enemy as well as increasing damage received by physical attacks for a short time. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Ferida ao gato: dot físico e +dano recebido. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed crab the Tight Pinch ability. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Aperto ao siri. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed crab the Clenched Pinchers ability. Clenched Pinchers holds an enemy in place while dealing physical damage over time to it. While holding the enemy, the crab will be unable to attack or perform any other actions. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Pinças ao siri: segura com dot, sem atacar. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed crocilisk the Quick Snap ability. Quick Snap gives your crocilisk a chance to counterattack when hit. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Bote ao crocolisco: contra-ataca ao apanhar. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed crocilisk the Consume Flesh ability. Consume Flesh gives your crocilisk a chance to steal health from an enemy when attacking. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Carne ao crocolisco: rouba vida ao atacar. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed gorilla the Quickness ability. Quickness is an attack that can hit multiple enemies. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Rapidez ao gorila: atinge vários. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed horse the Rapid Gallop ability. Rapid Gallop increases the movement speed of your horse.",
+    "curr_pt": "Ensina Galope ao cavalo: +velocidade. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed horse the Stomp ability. Stomp deals additional damage as well as slowing the movement speed of the enemy. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Pisada ao cavalo: +dano e lentidão. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed raptor the Feast of Prey ability. Feast of Prey allows your raptor to recover health every time it kills an enemy. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Banquete ao raptor: cura ao abater. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed raptor the Vulnerable ability. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Ponto ao raptor. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed Raptor the Tendon Slice ability. Tendon Slice deals damage over time as well as slowing the enemies movement speed. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Tendão ao raptor: dot e lentidão. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed Scorpion the Minor Scorpion Venom ability. Minor Scorpion Venom deals damage over time to an enemy. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Veneno ao escorpião: dot. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed Scorpion the Claw Cover ability. Claw Cover increases your scorpion's chance to parry. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Garra ao escorpião: +aparo. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed Spider the Spider Poison ability. Spider Poison deals damage over time to an enemy. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Veneno à aranha: dot. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed Spider the Poisonous Spit ability. Poisonous Spit ranged attack that deals damage over time to an enemy. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Cuspe à aranha: dot à distância. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed tall strider the Distracting Spit ability. Distracting Spit increases physical damage dealt to an enemy. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Cuspe ao moa: +físico no inimigo. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed tall strider the Strider Presence ability. Strider Presence helps regenerate health and mana. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Presença ao moa: regen vida e mana. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed wolf the Enraged Howl ability. Enraged Howl increases your party's strength and agility. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Uivo ao lobo: +For e Agi no grupo. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed wolf the Rabid Maw ability. Rabid Maw decreases an enemy's strength and agility. Requires: Pet Level 36+",
+    "curr_pt": "Ensina Focinho ao lobo: -For e Agi. Requer: pet nv 36+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your Intellect by $s1 and decreases your Stamina by $s2 for $d.",
+    "curr_pt": "Int +$s1 e Vig -$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Lesser Healthstone that can be used to instantly restore $6263s1 health. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria Pedra menor: restaura $s1 na hora. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Enchants a weapon to have a 15% chance to inflict $6297s1 Fire damage to all enemies within $6297a1 yards.",
+    "curr_pt": "Arma: 15% de $s1 de Fogo em todos a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Wards the friendly target against Fear. The next Fear effect used against the target will fail, using up the ward. Lasts $d.",
+    "curr_pt": "Protege do próximo Medo. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Seduces the target, preventing all actions for up to $d. Any damage caused will remove the effect. Only works against Humanoids.",
+    "curr_pt": "Seduaz: sem ação até $d s. Dano tira. Só Humanoide.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Lesser Firestone which can be equipped in the off hand. When equipped, enchants the main hand weapon with fire, granting each attack a chance to deal $17809s1 additional Fire damage. In addition, equipping the Lesser Firestone increases the damage done by fire spells by $23480s1. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Pedra ígnea menor na secundária: arma +$s1 de Fogo ao acertar. Magias de fogo +$s2. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give $13523s1 Shadow Resistance.",
+    "curr_pt": "Manto: +$s1 vs Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lRazormane Wolf:Razormane Wolves; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Lobos até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Felwood",
+    "curr_pt": "Manda jogador pra Selva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons an immobile Sentry Totem with $s1 health at your feet for $d that allows vision of nearby area and warns of enemies that attack it. Right-Click on buff to switch back and forth between totem sight and shaman sight.",
+    "curr_pt": "Totem Sentinela $s1 por $d s: vê a área e avisa. Botão direito alterna visão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows your scorpion to go into stealth, but it cannot move and it's sight range will be reduced. If it attacks from this position it will deal $s2 additional damage.",
+    "curr_pt": "Escorpião furtivo e imóvel, -visão. Atacar dali: +$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed scorpion the Dig Trap ability. Dig Trap allows the pet to enter stealth mode but will be rendered unable to move. If the scorpion attacks from this position it will deal additional damage. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Armadilha ao escorpião: furtivo e imóvel. Atacar dali: +dano. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Target creature becomes frightened and runs away at an increased speed for $d",
+    "curr_pt": "Assusta e foge rápido por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed wolf the Intimidating Growl ability. Intimidating Growl causes an enemy to run away in fear at an increased movement speed. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Rugido ao lobo: foge com medo rápido. Requer: pet nv 22+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Knocks down an enemy and reduces it's movement speed for 6 sec.",
+    "curr_pt": "Derruba e lentidão 6 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed crocilisk the Pierce Ankle ability. Pierce Ankle knocks down an enemy and reduces it's movement speed. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Tornozelo ao crocolisco: derruba e lentidão. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSavannah Cub:Savannah Cubs; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Filhotes até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fill the Tourmaline Phial at the Pools of Arlithrien moonwell.",
+    "curr_pt": "Enche no poço da lua.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "You run in fear at a high speed from a nearby enemy in a random direction. If there are no enemies nearby you stand frozen in fear.",
+    "curr_pt": "Corre com medo pra longe. Sem inimigo, congela.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Coats a sword or dagger with poison that lasts for 30 minutes. Each strike has a chance of poisoning the enemy which instantly inflicts 10-30 damage.",
+    "curr_pt": "Espada/adaga: chance de 10-30 instantâneo. 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Stuns an enemy and attempts to run away causing the enemy to lose interest in attacking the cat.",
+    "curr_pt": "Atordoa e foge, gato perde o interesse.",
+    "sample": "",
+    "need": "review"
+  }
+]

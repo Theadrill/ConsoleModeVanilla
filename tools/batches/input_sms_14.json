@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases the player's maximum health by $s1 for $d. You can only have the effect of one flask at a time. This effect persists through death.",
+    "curr_pt": "Vida máx +$s1 por $d s. 1 frasco por vez. Vale morto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the player's maximum mana by $s1 for $d. You can only have the effect of one flask at a time. This effect persists through death.",
+    "curr_pt": "Mana máx +$s1 por $d s. 1 frasco por vez. Vale morto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done by magical spells and effects by up to $s1 for $d. You can only have the effect of one flask at a time. This effect persists through death.",
+    "curr_pt": "Magia +$s1 por $d s. 1 frasco por vez. Vale morto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your resistance to all schools of magic by $s1 for $d. You can only have the effect of one flask at a time. This effect persists through death and stacks with all other resistance spells and items.",
+    "curr_pt": "Tudo +$s1 por $d s. 1 frasco por vez. Vale morto e acumula.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts Shadow damage to nearby enemies and hits them with anti-mana bolts, knocking them back.",
+    "curr_pt": "Sombra e antimana nos próximos, arremessa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $17653s1 $lSpectral Projection:Spectral Projections; to fight in the place of the caster, who becomes invisible and invulnerable, though unable to act. After $d., these apparitions sacrifice their lives to heal the caster, who resumes the battle.",
+    "curr_pt": "Invoca $s1 Espectros e fica invis/invulnerável sem agir. Em $d s, morrem pra te curar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Harness the power of lightning to strike down all enemies around you for $17669s1 Nature damage.",
+    "curr_pt": "Raio em todos: $s1 de Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds the caster with an aura that periodically reduces the Shadow resistance of nearby enemies by $17697s1. The aura lasts until cancelled.",
+    "curr_pt": "Aura: -$s1 vs Sombra. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This pint-sized panda cub is highly sought after by adventurers around Azeroth - despite its narcoleptic nature.",
+    "curr_pt": "Panda narcoléptico cobiçado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "AND THE HEAVENS SHALL TREMBLE, AND MAN SHALL WEEP, AND THE END OF DAYS SHALL--wait, why are you so tall?",
+    "curr_pt": "E OS CÉUS TREMERÃO... pera, por que tão alto?",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A small, fierce member of the Zerg swarm, the zergling is not to be trifled with. Very dangerous in high numbers.",
+    "curr_pt": "Zerg pequeno e feroz. Perigoso em bando.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Greater Spellstone for the caster. When equipped and used, the Greater Spellstone removes harmful magic effects from the caster and will absorb $17729s2 magic damage for $17729d. In addition, equipping the Greater Spellstone improves your chance to get a critical strike with spells by $18384s1%. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Pedra maior: remove magia nociva e absorve $s1 por $d s. +$s2% crítico. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Major Spellstone for the caster. When equipped and used, the Major Spellstone removes harmful magic effects from the caster and will absorb $17730s2 magic damage for $17730d. In addition, equipping the Major Spellstone improves your chance to get a critical strike with spells by $18384s1%. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Pedra máxima: remove magia nociva e absorve $s1 por $d s. +$s2% crítico. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms an enemy into a rat, forcing it to wander around and deal $17739s1 Nature damage every $t3 sec to nearby allies for up to $d. While wandering, the rat cannot attack or cast spells, but regenerates very quickly. Only one target can be cursed at a time.",
+    "curr_pt": "Vira rato: vaga e $s1 de Natureza a cada $t1 s nos aliados por até $d s. Regenera rápido. Um por vez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Spits at an enemy, inflicting Nature damage and reducing its Stamina for $d.",
+    "curr_pt": "Cospe: Vig - por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When shapeshifting into Cat form the Druid gains 20 energy, when shapeshifting into Bear form the Druid gains 5 rage.",
+    "curr_pt": "Gato vira +20 energia, Urso +5 fúria.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 illusions to aid the caster in combat and distract the enemy. Illusions last $d.",
+    "curr_pt": "Invoca $s1 ilusões por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Greater Firestone which can be equipped in the off hand. When equipped, enchants the main hand weapon with fire, granting each attack a chance to deal $17934s1 additional Fire damage. In addition, equipping the Greater Firestone increases the damage done by fire spells by $23482s1. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Pedra máxima na secundária: arma +$s1 de Fogo ao acertar. Magias de fogo +$s2. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Major Firestone which can be equipped in the off hand. When equipped, enchants the main hand weapon with fire, granting each attack a chance to deal $17935s1 additional Fire damage. In addition, equipping the Major Firestone increases the damage done by fire spells by $23483s1. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Disfarce Cruzado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Hacks at the armor of an enemy and its nearby allies, affecting up to $x1 targets. A target's armor is reduced by $s1 per Sunder Armor. Can be applied up to 5 times. Lasts $d.",
+    "curr_pt": "$s1 de vida e $s2 de mana em $d s sentado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a 1% chance of raising a thorny shield that inflicts $17154s1 Nature damage to attackers when hit and increases Nature resistance by $17154s2 for $17154d.",
+    "curr_pt": "Gelo e arremessa até $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Kodo Kombobulator on any Ancient, Aged, or Dying Kodo to lure the Kodo to follow (one at a time).",
+    "curr_pt": "Atrai kodo antigo pra seguir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Kodo casts on Player to give player condition for Quest Credit",
+    "curr_pt": "Kodo dá crédito de quest.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Has a 5% chance on striking the enemy for $18187s1 Fire damage.",
+    "curr_pt": "Acerto: 5% de $s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives $M1 additional intellect to party members within $a1 yards.",
+    "curr_pt": "+$m1 Int a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This is linked to a periodic trigger to alert the kodo to Despawn",
+    "curr_pt": "Alerta despawn do kodo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the effect of your next Curse of Weakness or Curse of Agony by $s1%, or your next Curse of Exhaustion by $s2%. Lasts $d.",
+    "curr_pt": "Próxima Fraqueza/Agonia +$s1% ou Exaustão +$s2%. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This is used to turn the kodo into gossip to give player Quest Credit",
+    "curr_pt": "Kodo fofoqueiro dá crédito.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This Kodo with a Ceremonial Attire is usually reserved for Clan Chieftains, but after the Tauren joined the Horde, they have been made available to Champions of Thunder Bluff.",
+    "curr_pt": "Kodo de chefe pra campeão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $s1 mana from an enemy every $t1 sec., transferring it to the caster over $d.",
+    "curr_pt": "Drena $s1 a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms an enemy into a chicken, rendering it unable to attack or cast spells for $d.",
+    "curr_pt": "Vira galinha sem agir/magia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Immobilizes the caster, but increases its attack speed by $s2% for $d.",
+    "curr_pt": "Imóvel: +$s1% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 Shadow damage every $t1 sec for $d and lowers their Strength for the duration of the disease.",
+    "curr_pt": "$s1 de Sombra a cada $t1 s por $d s e -For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fill with lava from the top of Fire Plume RIdge in Un'Goro and two Thorium Bars to create an Unfinished Skeleton Key.",
+    "curr_pt": "Lava + 2 Tório vira chave.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a 1% chance of inflicting $18798s2 Frost damage to the attacker and freezing them for $18798d.",
+    "curr_pt": "Acerto: 1% de $s1 de Gelo e congela por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a 3% chance to encase the caster in bone, increasing armor by $s1 for $d.",
+    "curr_pt": "Acerto: 3% de +$s1 armadura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Opens the termite barrel placed in the Northridge Lumber Mill.",
+    "curr_pt": "Abre o barril na serraria.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons an Ice Totem that lasts $d. and inflicts Frost damage to nearby enemies every $18978t1 sec., slowing their attacks and movement.",
+    "curr_pt": "Totem $d s: Gelo a cada $t1 s, lentidão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "An alpha member of the herd, this kodo is a prime example of the mighty creatures which thunder through Desolace.",
+    "curr_pt": "Kodo alfa de Desolação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine 7 pieces of Living Rot inside the mortar and grind away with the pestle. Leave standing to allow coagulation.",
+    "curr_pt": "Junta 7 Podres no pilão e espera.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 40 and Stamina by 5. Only usable on items level 35 and above.",
+    "curr_pt": "Peito/perna/mão/pé: +40 armadura e +5 Vig. Só nv 35+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes a massive ground tremor, inflicting $s1 damage to nearby enemies and interrupts any spell being cast for $d..",
+    "curr_pt": "$s1 nos próximos e interrompe por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces an enemy's casting speed by $s1% and increases the time between its attacks by $s2% for $d.",
+    "curr_pt": "Lançamento -$s1% e +$s2% intervalo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Disorients nearby enemies, causing them to stop attacking their targets and wander around for $d.",
+    "curr_pt": "Desorienta e vagueia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces nearby enemies' Spirit by $s1% and their Intellect by $s2% for $d.",
+    "curr_pt": "Esp -$s1% e Int -$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $o1 Fire damage to an enemy over $d, preventing it from casting spells and reducing the Physical damage it deals by $s3%.",
+    "curr_pt": "$s1 de Fogo em $d s, sem magia, -$s2% Físico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a 3% chance to encase the caster in bone, increasing armor by $18828s1 for $18828d.",
+    "curr_pt": "Acerto: 3% de +$s1 armadura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lays $s1 $lHive'Zora Egg:Hive'Zora Eggs;. A Hive'Zora Wasp will hatch from $lthe:each; egg.",
+    "curr_pt": "Põe $s1 Ovos. Vespa nasce de cada um.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Takes control of an enemy up to level $s1 and inflicts Nature damage every $t2 sec. for $d.",
+    "curr_pt": "Controla até nv $s1 e Natureza a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the stealth detection of all party members within $a1 yds of the Felhunter.",
+    "curr_pt": "Fareja furtivo a $a1 m.",
+    "sample": "",
+    "need": "review"
+  }
+]

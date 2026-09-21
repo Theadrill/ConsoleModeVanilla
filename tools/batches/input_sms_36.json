@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Your Chain Lightning is imbued with unpredictable storm energies, it now chains to an additional target and deals 15% increased damage if it hits only one target.",
+    "curr_pt": "Cadeia: +1 alvo e +15% se único.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical strike chance of your instant cast spells by $s1%.",
+    "curr_pt": "Instantânea +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduce the time between Searing Totem and Magma Totem's attacks by 0.4 seconds.",
+    "curr_pt": "Totem Fogo ataca -0.4 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Shocks leave traces of raw elemental power on you, generating 1 stack of Electrify and additionally increasing their damage by $s2% for each stack of Electrify.",
+    "curr_pt": "Choque: +Eletrificar e +$s1% por acúmulo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lightning Bolt and Chain Lightning have an additional $h% chance to trigger your Clearcasting effect.",
+    "curr_pt": "Raio/Cadeia: +$h% Limpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Elemental Mastery infuses you with the Stormwolf's Cunning, increasing your casting speed by $51890s1% for $51890d. This effect is refreshed when you critically hit an enemy with a nature spell.",
+    "curr_pt": "Maestria: +$s1% lançamento por $d s. Crítico Natureza renova.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the number of charges of your shield spells by $s1.",
+    "curr_pt": "Escudo +$s1 cargas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The amount of mana you're resurrected with after using Reincarnation is increased by $s1%.",
+    "curr_pt": "Revive +$s1% mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deepen the spiritual connections of your allies, the amount of damage distributed by your Spirit Link is increased by $s1%.",
+    "curr_pt": "Elo +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Mana Spring Totem and Healing Stream Totem energize affected targets with $/10;s1 Rage and $s2 Energy each time they trigger.",
+    "curr_pt": "Fonte/Corrente: +$s1 fúria e $s2 energia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Casting Chain Heal infuses you with the Stormwolf's Spirit, reducing its mana cost by $51896s1%, stacks up 10 times. Lasts for $51896d.",
+    "curr_pt": "Cura Encadeada: -$s1% mana, até 10x. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Whenever you miss with an ability, you gain $/10;51898s1 Rage.",
+    "curr_pt": "Errou: +$s1 fúria.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $51900s1 Mana from enemies within $a1 yards every $t1 seconds. For each Mana point drained, the target takes $51900e1 Shadow damage.",
+    "curr_pt": "Drena $s1 a $a1 m a cada $t1 s; cada ponto = $s2 de Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts your target with a debilitating curse, giving them a $h% chance to be wracked with excruciating pain. Each time they attempt an attack, they suffer $51902s1 Shadow damage",
+    "curr_pt": "Maldição: $h% de dor; atacar = $s1 de Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Stomps the ground, knocking back enemies within $a1 yds and dealing $s1 Nature damage.",
+    "curr_pt": "Pisa: $s1 de Natureza a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Flap your wings, infecting enemies within $a1 yds. Affected targets are inflicted with a disease that deals $s1 damage every $t1 sec for $d and reduces healing received by $s2%.",
+    "curr_pt": "Asa: $s1 a cada $t1 s por $d s a $a1 m, cura -$s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Let out a terrifying howl, causing enemies within $a1 yds to flee in terror for $d. Any damage taken may interrupt the effect.",
+    "curr_pt": "Uivo: foge a $a1 m por $d s. Dano quebra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Puts the enemy target to sleep for $d. Upon awakening, a horror emerges from the target's mind.",
+    "curr_pt": "Dorme por $d s. Acorda e sai horror.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Let forth a burst of energy dealing $s1 Shadow damage to all enemies within $a1 yds.",
+    "curr_pt": "Explosão: $s1 de Sombra a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Puts the target to sleep, immobilizing them, and summons a demonic eye that slowly approaches them. If the effect is not dispelled before the eye reaches the target, it will explode upon contact, resulting in their death. If the effect is dispelled, the eye will explode at its current location, dealing $51914s1 Shadow damage within $51914a1 yds.",
+    "curr_pt": "Dorme e olho se aproxima; explode $s1 a $a1 m. Dissipa e explode onde está.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the caster to the Caverns of Time.",
+    "curr_pt": "Teleporta pra Caverna.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth an Infinite Dragon Whelp to protect you in battle for a short period of time.",
+    "curr_pt": "Dragão Infinito protege um pouco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth a Dryad to protect you in battle for a short period of time.",
+    "curr_pt": "Dríade protege um pouco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth an Bronze Dragon Whelp to protect you in battle for a short period of time.",
+    "curr_pt": "Dragão Bronze protege um pouco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The warrior shouts, increasing the health of all party members within $a1 yards by $s1. Lasts $d.",
+    "curr_pt": "Grito: +$s1 vida a $a1 m. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Command with your Battle Shout, granting $52310s1 additional health.",
+    "curr_pt": "Grito: +$s1 vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Charge grants an additional $/10;52313s2 Rage and reduces the damage you take by $52313s1% for $52313d.",
+    "curr_pt": "Investida: +$s1 fúria e -$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your landing Balance spells have a $h% chance to heal the lowest health friendly target within 30 yards for $52324s1 health.",
+    "curr_pt": "Equilíbrio: $h% de curar $s1 no menor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Critical strikes with your Balance spells shield you, absorbing $52327s1 damage for $52327d.",
+    "curr_pt": "Crítico Equilíbrio: escudo $s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Casting Moonfire reduces the Mana cost of your Moonfire by $52329s1% for $52329d. Stacks up to 3 times.",
+    "curr_pt": "Fogofátuo: -$s1% mana por $d s. Até 3x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the duration of Moonfire by $/1000;S1 $lsec:secs;. and of Insect Swarm by $/1000;S2 $lsec:secs;.",
+    "curr_pt": "Fogofátuo +$s1 s e Enxame +$s2 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Casting Innervate on a different friendly target now also applies an Innervate with 50% effectiveness on yourself.",
+    "curr_pt": "Inervar no outro: +50% em você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Nature and Arcane damage taken by an enemy by $s1% for $d.",
+    "curr_pt": "Natureza/Arcano +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage of your Moonfire and Insect Swarm has a $h% chance to increase Nature and Arcane damage taken by $52334s1% for $52334d.",
+    "curr_pt": "Fogofátuo/Enxame: $h% de +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Entering an Eclipse increases your casting speed by $52336s1% for $52336d.",
+    "curr_pt": "Eclipse: +$s1% lançamento por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Hurricane now cuts your enemies with razor sharp winds, dealing 50% of its total damage as Nature damage over $52338d.",
+    "curr_pt": "Furacão: 50% vira Natureza em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the bonuses provided by Balance of All Things by $s1%.",
+    "curr_pt": "Equilíbrio +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Aessina's Bloom now heals for an amount equal to $/1000;s1 extra seconds of Regrowth.",
+    "curr_pt": "Flor: +$s1 s de Recrescer.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Swiftmend empowers the target, additionally healing them for $52347s1 health each time they take direct damage, up to $52348n times.",
+    "curr_pt": "Recuperação: +$s1 ao apanhar, até $n1x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of Faerie Fire (Feral) by $/1000;s1 seconds.",
+    "curr_pt": "Fogo Fátuo -$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Ferocious Bite has a 20% chance per combo point spent to put you into a frenzy, increasing the attack speed of your next 5 attacks by $52353s1%.",
+    "curr_pt": "Mordida: 20% por combo de +$s1% velocidade 5 golpes.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase Defenses by $52356s1 while Frenzied Regeneration is active.",
+    "curr_pt": "Regen: +$s1 Defesa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage of your Rake and Rip have a 6% and 10% chance respectively to empower your next Shred, Rip or Claw, increasing its critical strike chance and damage by 15%.",
+    "curr_pt": "Ancinha/Rasgar 6%/10%: próximo +15%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Demoralizing Roar now deals Nature damage equal to your active Thorns effect to all enemies nearby.",
+    "curr_pt": "Rugido: dano de Espinhos nos próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to hit with Growl and Challenging Roar by $s1%.",
+    "curr_pt": "Rosnar/Rugido +$s1% acerto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the health contribution of Bear and Dire Bear Form by $s1%.",
+    "curr_pt": "Urso +$s1% vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Using Savage Bite reduces all damage taken by $52365s1% for $52365d. Stacks up to 4 times.",
+    "curr_pt": "Mordida: -$s1% por $d s. Até 4x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage from your Claw, Rake and Shred abilities has a $h% chance to increase your Attack Power by $52367s1 for $52367d.",
+    "curr_pt": "Garra/Ancinha/Dilacerar: $h% de +$s1 poder por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Spending combo points grants a stack of Primal Ferocity per combo point spent. Upon reaching $52369u stacks, all stacks are consumed, increasing your Attack Power by $52370s1% and granting $52371s1 Energy each time you attack for $52370d.",
+    "curr_pt": "Combo: acúmulo por ponto. Em $s1x: +$s2% poder e +$s3 energia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the chance the target will be critically struck by $s2% and whenever the target is critically struck they take an additional $52375s1 Fire damage. This effect can trigger once every 2 sec.",
+    "curr_pt": "Alvo: +$s1% crítico e +$s2 Fogo ao critar. 1x a cada 2 s.",
+    "sample": "",
+    "need": "review"
+  }
+]

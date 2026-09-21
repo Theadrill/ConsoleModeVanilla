@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Permanently enchant a Melee Weapon to do 6 additional points of damage to Beasts.",
+    "curr_pt": "Arma corpo a corpo: +6 em Fera.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 7 Fire Resistance.",
+    "curr_pt": "Manto: +7 vs Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give 5 Spirit.",
+    "curr_pt": "Escudo: +5 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +5 Strength.",
+    "curr_pt": "Braçadeira: +5 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to give +50 mana.",
+    "curr_pt": "Peito: +50 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +3 Spirit.",
+    "curr_pt": "Bota: +3 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give +2% chance to block.",
+    "curr_pt": "Escudo: +2% bloqueio.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces an enemy's Strength by $s1 and its Agility by $s2 for $d.",
+    "curr_pt": "For -$s1 e Agi -$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Melee Weapon to do 3 additional points of damage.",
+    "curr_pt": "Arma corpo a corpo: +3 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Two-handed Melee Weapon to do 5 additional points of damage.",
+    "curr_pt": "Arma 2M: +5 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to grant +2 to all stats.",
+    "curr_pt": "Peito: +2 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 50 additional armor.",
+    "curr_pt": "Manto: +50 armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 3 to all resistances.",
+    "curr_pt": "Manto: +3 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant +5 Agility.",
+    "curr_pt": "Luvas: +5 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give +5 Stamina.",
+    "curr_pt": "Escudo: +5 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +5 Intellect.",
+    "curr_pt": "Braçadeira: +5 Int.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant +5 mining skill.",
+    "curr_pt": "Luvas: +5 mineração.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 3 Agility.",
+    "curr_pt": "Manto: +3 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant +5 Strength.",
+    "curr_pt": "Luvas: +5 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give a slight movement speed increase.",
+    "curr_pt": "Bota: corre um pouco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s3 $lSpawn of Bael'Gar:lSpawns of Bael'Gar; in a selected area to aid the caster in battle for $d. The violent summoning also inflicts $s1 Fire damage to enemies in the selected area.",
+    "curr_pt": "Invoca $s1 Crias na área por $d s. Explosão: $s2 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places a seal on a party member, causing the caster to split $s1% of all damage taken by that party member. Lasts $d.",
+    "curr_pt": "Divide $s1% do dano do aliado por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give +7 Spirit.",
+    "curr_pt": "Escudo: +7 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Used by Princess Bronzebeard to open a portal to Ironforge.",
+    "curr_pt": "Portal da Princesa pra Altaforja.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a melee weapon to have a chance of stunning and doing heavy damage to demons.",
+    "curr_pt": "Arma: chance de atordoar demônio forte.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +3 Defense.",
+    "curr_pt": "Braçadeira: +3 Defesa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give +8 Frost Resistance.",
+    "curr_pt": "Escudo: +8 vs Gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +5 Agility.",
+    "curr_pt": "Bota: +5 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +7 Strength.",
+    "curr_pt": "Braçadeira: +7 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to grant +3 to all stats.",
+    "curr_pt": "Peito: +3 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Melee Weapon to do 4 additional points of damage.",
+    "curr_pt": "Arma corpo a corpo: +4 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant a +1% attack and casting speed bonus.",
+    "curr_pt": "Luvas: +1% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Poisons an enemy for $d. and drains its mana every $t2 sec., transferring it to the caster.",
+    "curr_pt": "Envenena por $d s e drena mana a cada $t1 s pra você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Cleanses a friendly target, removing $m1 poison $leffect:effects;, $m2 disease $leffect:effects;, and $m3 magic $leffect:effects;.",
+    "curr_pt": "Limpa: -$s1 veneno, -$s2 doença, -$s3 magia do aliado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sign the pledge, swearing to Nixx Sprocketspring that you will keep the knowledge of Goblin Engineering in eternal secrecy.",
+    "curr_pt": "Jura segredo goblin pro Nixx.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sign the pledge, swearing to Oglethorpe Obnoticus that you will keep the knowledge of Gnome Engineering in eternal secrecy.",
+    "curr_pt": "Jura segredo gnomo pro Oglethorpe.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sign the pledge, swearing to Tinkmaster Overspark that you will keep the knowledge of Gnome Engineering in eternal secrecy.",
+    "curr_pt": "Jura segredo gnomo pro Thermaplugg.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Physical damage taken by nearby enemies by $s1% for $d.",
+    "curr_pt": "Físico recebido +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the time between nearby enemies' attacks by $s1% for $d.",
+    "curr_pt": "Ataques +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts enemies in front of you with the power of wind, fire, all that kind of thing!",
+    "curr_pt": "Sopra vento, fogo e tal!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Nature damage taken by nearby enemies by $s1% and increases the Shadow damage they take by $s2%. Lasts $d.",
+    "curr_pt": "Natureza +$s1% e Sombra +$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the caster's attack speed by $s1% and increases the Physical damage it deals by $s2 for $d.",
+    "curr_pt": "Velocidade +$s1% e Físico +$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Scorching Totem at the caster's feet. Totem lasts $d. and attacks a nearby enemy every 2 sec.",
+    "curr_pt": "Totem que ataca a cada 2 s. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds the caster with a shield that lasts $d. and can absorb a fixed amount of Fire damage.",
+    "curr_pt": "Escudo anti-Fogo fixo. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds the caster with a shield that lasts $d. and can absorb a fixed amount of Frost damage.",
+    "curr_pt": "Escudo anti-Gelo fixo. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Crafted by goblin tinkers, this explosive little companion loves to leave a trail of mayhem in its wake.",
+    "curr_pt": "Companheiro explosivo e caótico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A loyal robotic companion, Lil' Smoky is always there to lend a mechanical paw when you need it most.",
+    "curr_pt": "Fumaça leal e prestativa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These adorable critters love snuggling with their owners after a long day of brutal, bloody battle.",
+    "curr_pt": "Filhote que ama cafuné pós-batalha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lIllusionary Dreamwatcher:Illusionary Dreamwatchers; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Vigias por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A crystal shield surrounds the friendly target, doing $s1 damage to anyone who hits $ghim:her;. Lasts $d.",
+    "curr_pt": "Escudo: $s1 em quem bater por $d s.",
+    "sample": "",
+    "need": "review"
+  }
+]

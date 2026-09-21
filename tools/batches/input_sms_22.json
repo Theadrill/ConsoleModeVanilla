@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Permanently enchant a cloak to give 15 nature resistance.",
+    "curr_pt": "Manto: +15 vs Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give a increase to stealth.",
+    "curr_pt": "Manto: +furtivo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to decrease threat caused by the wearer by 2%.",
+    "curr_pt": "Manto: -2% ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the periodic effect of your Mana Spring totem by $s1 and your Healing Stream totem by $s2. Lasts $d.",
+    "curr_pt": "Fonte +$s1 e Corrente +$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage and healing done by magical spells and effects by up to $s1. Also increases chance to get a critical hit with spells by $s3%.",
+    "curr_pt": "Magia +$s1 e crítico +$s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it increases spell damage by up to 8. Lasts for 30 minutes.",
+    "curr_pt": "Arma: +8 magia por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it restores 4 mana to the caster every 5 seconds. Lasts for 30 minutes.",
+    "curr_pt": "Arma: +4 mana/5 s por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it increases spell damage by up to 16. Lasts for 30 minutes.",
+    "curr_pt": "Arma: +16 magia por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it restores 8 mana to the caster every 5 seconds. Lasts for 30 minutes.",
+    "curr_pt": "Arma: +8 mana/5 s por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it increases spell damage by up to 24. Lasts for 30 minutes.",
+    "curr_pt": "Arma: +24 magia por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it increases spell damage by up to 36 and increases Spell Critical chance by 1% . Lasts for 30 minutes.",
+    "curr_pt": "Arma: +36 magia e +1% crítico por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While applied to target weapon it restores 12 mana to the caster every 5 seconds and increases the effect of healing spells by up to 25. Lasts for 30 minutes.",
+    "curr_pt": "Arma: +12 mana/5 s e +25 cura por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Born from the depths of ooze, this slimy companion thrives on filth and decay, leaving a trail of disgust in its wake.",
+    "curr_pt": "Gosma nojenta e fiel.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts normal damage plus $s1 to an enemy and its nearest allies, affecting up to $x1 targets. Hits also reduce armor by $s2.",
+    "curr_pt": "Normal +$s1 (até $x1) e -armadura $s2.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Cat Form by $24864s1%.",
+    "curr_pt": "Gato ao ar livre +$s1% velocidade; Gato +$s2% esquiva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The unnatural movement of the abomination's wings fill you with fear.",
+    "curr_pt": "Asa que mete medo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Nature damage to nearby enemies, reducing their attack speed by $s3% and slowing their movement to $s2% of normal for $d.",
+    "curr_pt": "$s1 de Natureza, +$s2% intervalo e lentidão $s3% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms the appearance of the recipient to resemble Narain Soothfancy.",
+    "curr_pt": "Vira Narain.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sacrifices the caster's life in order to inflict Fire damage to nearby enemies.",
+    "curr_pt": "Morre pra explodir Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with Draconic For Dummies Chapters 1 - 8 to create Draconic for Dummies: Volume II.",
+    "curr_pt": "Junta caps. 1-8 no vol. II.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives a chance when your harmful spells land to increase your spell hit chance by $25768s1% for $25768d.",
+    "curr_pt": "Magia nociva: chance de +$s1% acerto por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places Arcanite Buoy at the Swirling Maelstrom in the Bay of Storms. This should coax Maws out of his minnow disguise. Hopefully, you brought some friends!",
+    "curr_pt": "Boia no redemoinho: Maws sai. Traz amigo!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place the torch in the mouth of High Chief Winterfall's cave to summon the demon that is corrupting the Winterfall furbolgs. Bring some friends before planting it...",
+    "curr_pt": "Tocha na caverna: demônio vem. Traz amigo...",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the attack speed of all nearby party members by $s1% and attack damage by $s2%",
+    "curr_pt": "Velocidade +$s1% e dano +$s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes the caster to automatically inflict $25819s1 Nature damage every $t1 sec. to nearby enemies. The aura lasts until cancelled.",
+    "curr_pt": "Aura: $s1 de Natureza a cada $t1 s. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summon a ring of light on a specific location that lasts for $d.",
+    "curr_pt": "Anel de luz por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your melee and ranged attack power by $s1. Effect lasts for $d.",
+    "curr_pt": "Poder +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "+$s1 Weapon Damage.",
+    "curr_pt": "+$s1 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives a chance when your harmful spells land to increase the damage of your spells and effects by $25907s1 for $25907d.",
+    "curr_pt": "Magia nociva: chance de +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "An ancient relic of the Qiraji empire, ready to unleash devastation upon its enemies.",
+    "curr_pt": "Tanque ancestral Qiraji.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase your reputation permanently with the Brood of Nozdormu.",
+    "curr_pt": "Reputação Ninhada pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase your reputation permanently with the Brood of Nozdomru and the Cenarion Circle.",
+    "curr_pt": "Reputação Ninhada e Círculo pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A peaceful creation of gnomish ingenuity, this mechanical yeti brings a sense of calm and tranquility to your journeys.",
+    "curr_pt": "Yeti calmo e sereno.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permantly enchant boots to increase speed by $13889s1%.",
+    "curr_pt": "Bota: +$s1% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A living testament to the might of the Qiraji, striking fear into the hearts of all who witness it.",
+    "curr_pt": "Tanque vivo do poder Qiraji.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth a Timbermaw Ancestor to fight at your side and heal you for 40 sec.",
+    "curr_pt": "Ancestral luta e cura 40 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your finishing moves now refund 30 energy on a Miss, Dodge, Block, or Parry.",
+    "curr_pt": "Final que erra devolve 30 energia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Disorients the target, causing it to wander aimlessly for up to $d.",
+    "curr_pt": "Desorienta e vagueia até $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of your Evasion ability by -$/60000;s1 min.",
+    "curr_pt": "Esquiva +$s1 min recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the mana cost of Shadow Bolt and Searing Pain by $s1%.",
+    "curr_pt": "Raio e Dor -$s1% mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "$s1% increased damage from your summoned pets' melee attacks and damage spells.",
+    "curr_pt": "Pet +$s1% dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Lightning Bolt, Chain Lightning, and Shock spells have a 20% chance to grant up to $26121s1 Nature damage to spells for $26121d.",
+    "curr_pt": "Raio/Cadeia/Choque: 20% de +$s1 Natureza por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done by Nature spells and effects by up to $s1 for $d.",
+    "curr_pt": "Natureza +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "-$/1000;S1 seconds on the casting time of your Chain Heal spell.",
+    "curr_pt": "Cura -$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the chain target damage multiplier of your Chain Lightning spell by $s1%.",
+    "curr_pt": "Cadeia +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Grants +$26129s1% increased spell hit chance for $26129d when one of your spells is resisted.",
+    "curr_pt": "Resistido: +$s1% acerto por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done by magical spells and effects by up to $s1, and decreases the magical resistances of your spell targets by $s2 for $d.",
+    "curr_pt": "Magia +$s1 e -resist $s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "20% chance that your heals on others will also heal you 10% of the amount healed.",
+    "curr_pt": "Cura em outro: 20% de te curar 10%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the damage of your Shadow Word: Pain spell by $s1%.",
+    "curr_pt": "Palavra Sombria: Dor +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Serpent Sting damage has a $h% chance to deal $51770s1 Nature damage and restore $51770s2 Mana.",
+    "curr_pt": "Ferrão: $h% de $s1 de Natureza e +$s2 mana.",
+    "sample": "",
+    "need": "review"
+  }
+]

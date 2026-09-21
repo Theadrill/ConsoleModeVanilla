@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Combine the Band of Sulfuras with a Sulfuron Ingot to shape the ring into its true form. Requires the Black Forge.",
+    "curr_pt": "Anel + Lingote na Forja Negra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Stonetusk Boar to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Javali por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Prowler to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Espreitador por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Young Forest Bear to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Urso por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Decrepit Darkhound. to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Cão por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Greater Duskbat to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Morcego por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Dire Mottled Boar. to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Javali. por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Armored Scorpid to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Escorpídeo por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Large Crag Boar. to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Javali. por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of fire magic around the caster, causing $s2 Fire damage to all targets within $a2 yards.",
+    "curr_pt": "Explosão: $s1 de Fogo a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of fire magic around the caster, causing $s1 Fire damage to friendly targets within $a1 yards.",
+    "curr_pt": "Explosão: $s1 de Fogo em aliados a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "During frigid nights, these critters use their fluffy tails as a blanket to stay warm.",
+    "curr_pt": "Rabo fofo de cobertor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Magic in the hands of a genius can do wonderful, miraculous things. Magic in the hands of an idiot can make a giant rooster.",
+    "curr_pt": "Galo gigante da magia idiota.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Created by a high elf apprentice, this broom would be extremely useful if anyone could figure out how to make it stop.",
+    "curr_pt": "Vassoura que não para.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Once prized by dragonhawk breeders in Silvermoon. Stands out at night to predators, making it necessary to gain awareness at an early age.",
+    "curr_pt": "Filhote premiado de Lunargenta. Noturno, cuidado cedo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summon and dismiss the orphan you've agreed to look after.",
+    "curr_pt": "Órfão pra cuidar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The monkeys of Azeroth are infamous tricksters, and these beloved companions of the Darkmoon Faire have taken that innate cunning to a whole new level.",
+    "curr_pt": "Macaco trambiqueiro da Lua Negra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "In case of darkness, this little elemental is an infinite source of a soothing blue glow.",
+    "curr_pt": "Elemental de luz azul.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Wildhammer Fact Checker claims that this specific breed was the first type of ram domesticated by the dwarves when they settled in Dun Morogh.",
+    "curr_pt": "Carneiro pioneiro de Dun Morogh.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Dwarves attribute this breed's even temperament to rigorous training, but other races argue that a daily diet of strong ale has something to do with it.",
+    "curr_pt": "Carneiro calmo da cerveja.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Brewers retired this mount from active advertising service after complaints that the beasts were \"too temperamental\" to control in major cities.",
+    "curr_pt": "Carneiro bravo aposentado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When a night elf's mount perishes, it is custom for the rider to keep one of the saber's great fangs as a token of remembrance.",
+    "curr_pt": "Sabre: presa de lembrança.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "If asked to fetch, will most likely bring you back the head of a small mammal or humanoid.",
+    "curr_pt": "Worg que traz cabeça de presente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Speed, cunning, and ferocity are the things trolls and raptors admire about each other.",
+    "curr_pt": "Raptor veloz e feroz.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "An alpha member of the herd, this kodo is a prime example of the mighty creatures which thunder through Mulgore.",
+    "curr_pt": "Kodo alfa de Mulgore.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Mechastrider. Speed is increased based on your Riding skill.",
+    "curr_pt": "Mecanostruz montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A mythical creature, protected by enchanted armor, embodying grace and power.",
+    "curr_pt": "Unicórnio blindado e gracioso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A majestic mount, hailing from the enchanted forests of Quel'Thalas.",
+    "curr_pt": "Unicórnio de Quel'Thalas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A rare and magical creature, sought after by those who appreciate beauty and elegance.",
+    "curr_pt": "Unicórnio raro e belo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Light the dynamite and damage enemies 8 yards around you for $s1 Fire damage and damaging you for $s2 Fire damage. This makeshift explosive clearly doesn't follow workplace standards.",
+    "curr_pt": "Dinamite: $s1 nos inimigos a 8 m e $s2 em você. Sem norma de segurança.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a two-handed melee weapon to grant +2 Intellect.",
+    "curr_pt": "Arma 2M: +2 Int.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of thorns around the caster, causing $s1 Nature damage to all targets within $a1 yards.",
+    "curr_pt": "Explosão: $s1 de Natureza a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 Physical damage to nearby enemies, knocking them down for $d.",
+    "curr_pt": "$s1 Físico e derruba por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Unleashes a wave of energy that blasts up to 3 targets for $s1 Nature damage.",
+    "curr_pt": "Onda em até 3: $s1 de Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports you back to Thunder Bluff.",
+    "curr_pt": "Volta pra Penhasco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the target far away.",
+    "curr_pt": "Teleporta o alvo pra longe.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows $s1% Mana regeneration to continue while casting for party members within $a1 yards. Lasts until cancelled.",
+    "curr_pt": "Regen lançando +$s1% a $a1 m. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins a ritual that creates a refreshment table. Raid members can click the table to acquire Conjured Manna Biscuits. The tables lasts for 3 min. Requires the caster and 2 additional party members to complete the ritual. In order to participate, all players must right-click the refreshment portal and not move until the ritual is complete.",
+    "curr_pt": "Ritual da mesa: biscoito pra raide. 3 min. Você +2 parados no portal.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives additional Mana regeneration to the Mage and his Party Members equal to $s1% of the Caster's mana regeneration within $a1 yards. Lasts until cancelled.",
+    "curr_pt": "Regen +$s1% da sua a $a1 m. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A protective ward surrounds the caster absorbing $s1 magical damage. While the shield holds, gain 600 armor. Lasts $d.",
+    "curr_pt": "Escudo: absorve $s1 mágico +600 armadura. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your melee and ranged attacks have a chance to inject poison into your target that deals 120 Nature damage over 12 sec. Stacks up to 2 times.",
+    "curr_pt": "Ataque envenena 120 em 12 s. Até 2x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transform into a bloodthirsty worgen, increasing shadow resistance by $s2 and melee attack power by $s3 for $d.",
+    "curr_pt": "Vira worgen: +$s1 vs Sombra e +$s2 poder por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your direct healing spells have a small chance to instantly heal your target for 150 and increase healing taken by up to 20 for 10 sec.",
+    "curr_pt": "Cura direta: chance de +150 e +20 recebido 10 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your damaging spells and melee attacks have a 3% chance to steal $45497s1 life from the target enemy.",
+    "curr_pt": "Dano: 3% de roubar $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Slam your target with your ancestral totem, causing damage equal to 10% of your attack power and concusses your target, reducing their attack and casting speed by $51364s1% for $51364d.",
+    "curr_pt": "Totemada: 10% do poder e -$s1% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your damaging spells have a 4% chance to inflict the target with a disease that causes 120 Shadow damage over 6 sec. Damage caused by the disease heals you.",
+    "curr_pt": "Magia: 4% de doença (120 Sombra/6 s). Doença te cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your finishing moves have a $b1% chance per combo point to deal $45522s1 Nature damage.",
+    "curr_pt": "Final: $s1% por combo de $s2 Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts a target for $s1 Arcane damage and increases Arcane damage taken by $s2 for $d.",
+    "curr_pt": "$s1 Arcano e +$s2 recebido por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes the shaman's active Fire totem to emit a wave of flames after 4 seconds, inflicting 893 to 997 Fire damage to enemies within 10 yards of the totem.",
+    "curr_pt": "Totem de Fogo: onda em 4 s, 893-997 a 10 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes the shaman's active Water totem to emit a tide of water, restoreing 290 mana every 3 seconds to group members within 20 yards.",
+    "curr_pt": "Totem de Água: 290 mana/3 s a 20 m.",
+    "sample": "",
+    "need": "review"
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Draw a sample of water from the waterfall at the mouth of the Cliffspring Falls cave .",
+    "curr_pt": "Tira água da cachoeira.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Draw a sample of water from the pool of water at the top of Dreadmist Peak.",
+    "curr_pt": "Tira água do pico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Explode, hurting all nearby enemies for damage proportional to distance.",
+    "curr_pt": "Explode: dano por distância.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes flames to blossom from the caster, immobilizing it and periodically inflicting $19637s1 Fire damage to an enemy for $d.",
+    "curr_pt": "Imóvel: $s1 de Fogo no inimigo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $o2 Fire damage to enemies in a cone in front of the caster, stunning them for $d.",
+    "curr_pt": "Cone: $s1 de Fogo e atordoa por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows opening of difficult locks. The skeleton key is consumed in the process.",
+    "curr_pt": "Abre fechadura dura. Gasta a chave.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Burns $19665s1 mana from nearby enemies every $t1 sec. for $d. Each point of mana that is destroyed also damages the target from which it is consumed.",
+    "curr_pt": "Queima $s1 de mana a cada $t1 s por $d s. Mana destruída vira dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Large Crag Boar to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Javali por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming an Adult Plainstrider to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Moa por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Prairie Stalker to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Lobo por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Swoop to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Rasante por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Webwood Lurker to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Tocaieiro por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Dire Mottled Boar to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Javali por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds the caster with an inferno that periodically inflicts Fire damage to nearby enemies for $d. While the caster is aflame, $ghe:she; cannot move or use $ghis:her; abilities.",
+    "curr_pt": "Inferno $d s: Fogo nos próximos. Sem mover/usar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming an Armored Scorpid to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Escorpídeo por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Nightsaber Stalker to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Sabre por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Strigid Screecher to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Coruja por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Hurls a boulder at an enemy, knocking it back and inflicting Physical damage.",
+    "curr_pt": "Pedra que arremessa e derruba.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Curses nearby enemies, increasing the costs of their spells and abilities by $s1% for $d. This cost increase applies to all spells and abilities, whether they cost mana, rage, or energy.",
+    "curr_pt": "Custo de tudo +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lEarth Elemental:Earth Elementals; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Elementais até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the magical damage taken by nearby enemies by $s1% for $d.",
+    "curr_pt": "Magia recebida +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with the Half Pendant of Aquatic Endurance to form the Pendant of the Sea Lion.",
+    "curr_pt": "Junta meio pingente no do Leão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the resistance of nearby group members to all schools of magic by $s1 for $d.",
+    "curr_pt": "Tudo +$s1 por $d s no grupo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases range at which monsters will attack party members within $a1 yards. Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": "Monstro ataca de mais longe a $a1 m. Uma aura por Paladino.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The paladin sacrifices $ghimself:herself; to remove the targeted party member from harms way. Enemies will stop attacking the protected party member, who will be immune to all harmful attacks but cannot take any action for $19753d.",
+    "curr_pt": "Sacrifica-se: aliado imune e sem agir por $d s. Inimigo ignora.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This realistic toad companion is magically enchanted, hopping alongside you as you explore the realms of Azeroth.",
+    "curr_pt": "Sapo mágico de estimação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Physical damage dealt by an ally by $s2% and speeds its attacks by $s1% for $d.",
+    "curr_pt": "Aliado: +$s1% Físico e +$s2% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Tosses a spear of flame, inflicting $s1 Fire damage to an enemy, as well as scorching any other enemies in the vicinity of the target.",
+    "curr_pt": "Lança de fogo: $s1 e queima vizinhos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Activates your Arcanite Dragonling to fight for you for $d. It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Dragonete luta por $d s. 1 h recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $s1 mana from those in the blast radius and does 50% of the mana drained in damage to the target. Also Silences targets in the blast for $d.",
+    "curr_pt": "Drena $s1 de mana (50% vira dano). Silencia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A passive ability that grants a $s1% chance to reflect spells while a shield is equipped. In addition, increases the damage done by your Shield Bash ability by $s2% and the threat it causes by $s3%.",
+    "curr_pt": "Passiva: $s1% de refletir; Escudada +$s2% dano e +$s3% ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give $13652s1 Fire Resistance.",
+    "curr_pt": "Manto: +$s1 vs Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Use to disguise yourself as a member of the Black Dragonflight.",
+    "curr_pt": "Disfarce Dragão Negro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +7 Intellect.",
+    "curr_pt": "Braçadeira: +7 Int.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +9 Spirit.",
+    "curr_pt": "Braçadeira: +9 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +9 Strength.",
+    "curr_pt": "Braçadeira: +9 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +9 Stamina.",
+    "curr_pt": "Braçadeira: +9 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant +7 Agility.",
+    "curr_pt": "Luvas: +7 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant +7 Strength.",
+    "curr_pt": "Luvas: +7 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 5 to all resistances.",
+    "curr_pt": "Manto: +5 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give +9 Spirit.",
+    "curr_pt": "Escudo: +9 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give +7 Stamina.",
+    "curr_pt": "Escudo: +7 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sets an enemy aflame, inflicting $o1 Fire damage over $d. and sending it into a state of panic. While the target is affected, the flames periodically scorch its nearby allies for $20021s1 damage as well.",
+    "curr_pt": "Pega fogo: $s1 em $d s e pânico. Chama queima $s2 nos aliados próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +7 Stamina.",
+    "curr_pt": "Bota: +7 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +7 Agility.",
+    "curr_pt": "Bota: +7 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +5 Spirit.",
+    "curr_pt": "Bota: +5 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to grant +4 to all stats.",
+    "curr_pt": "Peito: +4 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to grant +100 health.",
+    "curr_pt": "Peito: +100 vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Two-Handed Melee Weapon to add 9 to Spirit.",
+    "curr_pt": "Arma 2M: +9 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Two-Handed Melee Weapon to add 9 to intellect.",
+    "curr_pt": "Arma 2M: +9 Int.",
+    "sample": "",
+    "need": "review"
+  }
+]

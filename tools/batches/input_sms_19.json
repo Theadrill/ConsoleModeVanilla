@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases the duration of your Sprint ability by $/1000;s1 sec.",
+    "curr_pt": "Sprint +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Restarts the Bell of Dethmoora during the Ritual of Greater Summoning. Requires 1 Soul Shard.",
+    "curr_pt": "Sino: 1 Fragmento.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Restart a failing power node during the Ritual of Greater Summoning. Requires 1 Soul Shard.",
+    "curr_pt": "Nó: 1 Fragmento.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Re-lights the Doomsday Candle during the Ritual of Greater Summoning. Requires 1 Soul Shard.",
+    "curr_pt": "Vela: 1 Fragmento.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Activates your Arcanite Dragonling to fight for you for $19804d. It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Dragonete luta por $d s. 1 h recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Activates your Mithril Mechanical Dragonling to fight for you for $12749d. It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Dragonete luta por $d s. 1 h recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Activates your Mechanical Dragonling to fight for you for $4073d. It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Dragonete luta por $d s. 1 h recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Throw the ball to a friendly player. If they have free room in their pack they will catch it!",
+    "curr_pt": "Joga bola no amigo. Pega se tiver bolso!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Release the imp J'eevee in the center of the Pedestal of Immol'thar in Dire Maul.",
+    "curr_pt": "Solta o diabrete no pedestal.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Melee Weapon to add up to $22748s1 points of healing to healing spells.",
+    "curr_pt": "Arma corpo a corpo: até +$s1 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Forms Benediction when combined with the Eye of Shadow and the Eye of Divinity.",
+    "curr_pt": "Benediction com os Olhos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summon a Xorothian Dreadsteed within an empowered Circle of Dark Summoning.",
+    "curr_pt": "Invoca Corcel no Círculo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of your Concussive Shot by $/1000;s1 sec.",
+    "curr_pt": "Concussivo -$s1 s recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Infuses imbiber with a taint of shadow, making $ghim:her; friendly to the denizens of Jaedenar. Lasts 20 minutes.",
+    "curr_pt": "Sombra amiga em Jaedenar. 20 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Forms Rhok'delar, Longbow of the Ancient Keepers, when combined with Enchanted Black Dragon Sinew.",
+    "curr_pt": "Rhok'delar com tendão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms into Rhok'delar, Longbow of the Ancient Keepers and Lok'delar, Stave of the Ancient Keepers.",
+    "curr_pt": "Vira Rhok e Lok'delar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces all point-blank, area effect spell damage taken by $s1% when the caster is not facing the Rogue.",
+    "curr_pt": "Área nas costas -$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Plant the Divination Scryer in the heart of the Great Ossuary's basement.",
+    "curr_pt": "Finca o Olho no Ossuário.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your movement speed by $s1% while in Bear, Cat, or Travel Form. Only active outdoors.",
+    "curr_pt": "Urso/Gato/Viagem +$s1% fora.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Some historians claim that this breed's misty grey coat is the result of ancient Highborne experiments conducted on nightsabers.",
+    "curr_pt": "Pelagem de experimento Altaneiro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Night elves raise frostsaber cubs from infancy, forging lifelong bonds of trust between rider and beast.",
+    "curr_pt": "Vínculo elfo-sabre pra vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Prized by horse breeders for their discipline and steadfastness.",
+    "curr_pt": "Criador preza disciplina.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines the Top and Bottom Half of Advanced Armorsmithing: Volume I.",
+    "curr_pt": "Junta Volume I.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines the Top and Bottom Half of Advanced Armorsmithing: Volume II.",
+    "curr_pt": "Junta Volume II.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines the Top and Bottom Half of Advanced Armorsmithing: Volume III.",
+    "curr_pt": "Junta Volume III.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reclaim the lost soul of death knight's charger, judging it redeemed.",
+    "curr_pt": "Alma do corcel redimida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of your Hammer of Justice by $/1000;s1 sec.",
+    "curr_pt": "Martelo -$s1 s recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Rumor has it that this breed was named after the renowned archdruid Malfurion Stormrage.",
+    "curr_pt": "Raça do Malfurion, dizem.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster. The totem enchants all party members weapons with wind, if they are within $10611a1 yards. Each hit has a 20% chance of granting the attacker $10610s2 extra $lattack:attacks; with $10610s1 extra attack power. Lasts $d.",
+    "curr_pt": "Totem Fúria dos Ventos $s1: grupo a até $a1 m; 20% de +$s2 ataques com +$s1 de poder. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Safely transport yourself to Gadgetzan in Tanaris! Emphasis on Safe! Yup, nothing bad could ever happen while using this device!",
+    "curr_pt": "Seguro pra Gadgetzan! Seguro! Nada dá errado!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A symbol of honor and valor, ridden by the brave defenders of Stormpike clan.",
+    "curr_pt": "Honra e valor do Clã.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place near the well at the center of Aerie Peak. Show those filthy dwarven dogs your resolve! Then run away...",
+    "curr_pt": "Põe no poço e foge...",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Said to bring good fortune when spotted in autumn. Known to hide from unfamiliar creatures.",
+    "curr_pt": "Dragãozinho de sorte no outono.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Legends say that these vibrant emerald beings bring good fortune and safe travels to their owners.",
+    "curr_pt": "Esmeralda de boa viagem.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place a Battle Standard with $s1 health that increases the maximum damage of all party members that stay within $23576a1 yards of the Battle Standard by $23576s1%. Lasts $d. May only be used in Alterac Valley.",
+    "curr_pt": "Estandarte $s1: dano máx +$s2% a $a1 m. $d s. Só Alterac.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place a Battle Standard with $s1 health that increases the damage of all party members that stay within $23574a1 yards of the Battle Standard by $23574s1%. Lasts $d. May only be used in Alterac Valley.",
+    "curr_pt": "Estandarte $s1: dano +$s2% a $a1 m. $d s. Só Alterac.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage absorbed by Fire Ward and Frost Ward is increased by $s1%.",
+    "curr_pt": "Guarda +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the radius of Arcane Explosion, Flamestrike, and Blizzard by $s1%.",
+    "curr_pt": "Explosão/Golpe/Chuva +$s1% raio.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance of a critical hit with Prayer of Healing by $s1%.",
+    "curr_pt": "Oração +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Health or Mana gained from Drain Life and Drain Mana increased by $s1%.",
+    "curr_pt": "Dreno +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the threat generated by your Destruction spells by $s1%.",
+    "curr_pt": "Destruição -$s1% ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Ranged Attack Power bonus of your Aspect of the Hawk by $s1% and Melee Attack Power bonus of your Aspect of the Wolf by $s1%.",
+    "curr_pt": "Falcão +$s1% à distância e Lobo +$s1% corpo a corpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the attack power granted by Battle Shout by $s1.",
+    "curr_pt": "Grito +$s1 poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the chance of triggering a Judgement of Light and Judgement of Wisdom by $s1%.",
+    "curr_pt": "Julgamento +$s1% chance.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "After casting your Healing Wave or Lesser Healing Wave spell, gives you a 25% chance to gain Mana equal to 35% of the base cost of the spell.",
+    "curr_pt": "Onda: 25% de mana de 35% do custo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Healing Wave will now jump to additional nearby targets. Each jump reduces the effectiveness of the heal by 80%, and the spell will jump to up to two additional targets.",
+    "curr_pt": "Onda pula em +2 com -80%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "You have a chance whenever you deal melee or ranged damage to gain the Detect Weakness effect. Detect Weakness increases your Attack Power by $23577s1 for $23577d.",
+    "curr_pt": "Dano: chance de +$s1 poder por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduce your threat to the current target making them less likely to attack you.",
+    "curr_pt": "-ameaça no alvo, esquece você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the Ace through Eight of Warlords to complete the set.",
+    "curr_pt": "Junta Ás ao Oito de Senhor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine the Ace through Eight of Portals to complete the set.",
+    "curr_pt": "Junta Ás ao Oito de Portal.",
+    "sample": "",
+    "need": "review"
+  }
+]

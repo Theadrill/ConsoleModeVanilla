@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Permanently adds 150 mana to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +150 mana. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases chance for a melee, ranged, or spell critical by $s1% and all attributes by $s2 for $d.",
+    "curr_pt": "Crítico +$s1% e tudo +$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 100 hit points to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +100 vida. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 125 armor to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +125 armadura. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 20 fire resistance to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +20 vs Fogo. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 8 strength to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +8 For. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 8 stamina to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +8 Vig. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 8 agility to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +8 Agi. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 8 intellect to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +8 Int. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 8 spirit to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +8 Esp. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts weapon damage and $s1 additional Fire damage to an enemy and any of its nearby allies.",
+    "curr_pt": "Arma + $s1 de Fogo no alvo e próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Has a 5% chance on striking the enemy for $9057s1 Fire damage.",
+    "curr_pt": "Acerto: 5% de $s1 de Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Immobilizes nearby enemies for $d. and inflicts Physical damage.",
+    "curr_pt": "Imobiliza por $d s. Físico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Lures out the queen of the Gorishi hive when used on a Gorishi Silithid Crystal.",
+    "curr_pt": "Atrai a rainha no cristal.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds the caster in flames for $d., giving the caster magic immunity and the ability to inflict $15643s1 Fire damage to an enemy on attack.",
+    "curr_pt": "Chamas $d s: imune a magia e $s1 de Fogo ao atacar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Release the kitten near the Jadefire Satyrs' corrupted moonwell.",
+    "curr_pt": "Solta o gatinho no poço.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Wounds the target for $s1 damage and converts that damage into mana to you.",
+    "curr_pt": "Fere $s1 e vira mana pra você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fills an Empty Cursed Ooze Jar with a sample of Cursed Ooze. WARNING! Will likely destroy the creature's body.",
+    "curr_pt": "Enche o pote de Gosma. CUIDADO: destrói o corpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fills an Empty Tainted Ooze Jar with a sample of Tainted Ooze. WARNING! Will likely destroy the creature's body.",
+    "curr_pt": "Enche o pote de Gosma. CUIDADO: destrói o corpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fills an Empty Pure Sample Jar with a sample of pure ooze. WARNING! Will likely destroy the creature's body.",
+    "curr_pt": "Enche o pote de Gosma. CUIDADO: destrói o corpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lFlamekin Torcher:Flamekin Torchers; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Tochas por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lFlamekin Rager:Flamekin Ragers; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Fúrias por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Flings a magical boomerang towards target enemy dealing $s1 damage and has a chance to stun or disarm them.",
+    "curr_pt": "Bumerangue: $s1 e chance de atordoar/desarmar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports $s1 enemy $ltarget:targets; to the caster.",
+    "curr_pt": "Teleporta $s1 inimigos pra você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Forced to recall the model after numerous complaints of an \"uncontrollable throttle\", Gnomish engineers now refer to a proto-type blunder as a \"model B\".",
+    "curr_pt": "Recall do modelo B: acelerador doido.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Moonflare Totem at the caster's feet. Totem lasts $d. and inflicts Arcane damage to nearby enemies every $15789t1 sec.",
+    "curr_pt": "Totem $d s: Arcano a cada $t1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Puts the imbiber in a dreamless sleep for $d. During that time the imbiber heals 1200 health and 1200 mana.",
+    "curr_pt": "Dorme $d s: cura 1200 vida e 1200 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Flame Buffet Totem at the caster's feet. Totem lasts for $d. and attacks an enemy every 2 sec.",
+    "curr_pt": "Totem que ataca a cada 2 s. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Use when near a Bloodaxe Worg Pup. Don't worry, it is G.E.T.A. approved.",
+    "curr_pt": "Pega filhote com aprovação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Worgs are the favored companions of orcs and are fiercely loyal on the battlefield.",
+    "curr_pt": "Worg leal dos orcs.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Releases a captured Felwood ooze so it can interact with a primal ooze in Un'Goro Crater.",
+    "curr_pt": "Solta gosma pra interagir em Un'Goro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A captured Felwood ooze merges with a primal ooze of Un'Goro Crater.",
+    "curr_pt": "Gosmas se fundem em Un'Goro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places the Unforged Seal of Ascension. Use in front of Emberstrife.",
+    "curr_pt": "Põe o Selo sem forjar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a bowl of purified food that the furbolg are sure to enjoy. It requires fruit, grain, and nuts from the Blackwood camp.",
+    "curr_pt": "Tigela purificada: fruta, grão e noz.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fill with moonwell water to prepare the bowl to cleanse food placed in it.",
+    "curr_pt": "Enche pra limpar a tigela.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable red wolf. Speed is increased based on your Riding skill.",
+    "curr_pt": "Lobo vermelho montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Ancient furbolg legends claim that wolves born with a white coat are blessed by Azeroth's two moons.",
+    "curr_pt": "Lobo branco abençoado pelas luas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the duration of your Flame Shock by $/1000;S1 $lsec:secs;.",
+    "curr_pt": "Choque Flamejante +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place 7 Magic Knucklebones in the Charm Pouch to create a Knucklebone Pouch.",
+    "curr_pt": "7 ossos no saquinho.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Empty to create a Charm Pouch.",
+    "curr_pt": "Esvazia pra criar saquinho.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends out an ice blast that stuns and damages enemies in a cone in front of the caster, then inflicts additional Frost damage every $t1 sec. for $d.",
+    "curr_pt": "Cone: atordoa e Gelo a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lRockwing Gargoyle:Rockwing Gargoyles; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Gárgulas até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "At Urok's Tribute Pile, combine Omokk's Head with the Roughshod Pike.",
+    "curr_pt": "Junta cabeça e lança no monte.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These spiders are immensily cunning yet loyal to their brood. Handle with care and no pest will ever disturb your sound sleep.",
+    "curr_pt": "Aranha esperta e leal, ótima pro sono.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts a target for $s1 Fire damage and increases damage done to target by Fire damage by $s2 for $d1.",
+    "curr_pt": "$s1 de Fogo e +$s2 Fogo recebido por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the movement speed of an enemy by $s1%, and reduces all physical and magical damage it deals by $s2. Lasts $d.",
+    "curr_pt": "Velocidade -$s1% e dano -$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces an enemy's chance to critically hit with a melee attack by $s1%, and reduces its chance to critically hit with a spell attack by $s2%. Lasts $d.",
+    "curr_pt": "Crítico corpo a corpo -$s1% e com magia -$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Poisons nearby enemies. Until the poison is entirely removed from the bloodstream by a knowledgeable medical professional, it will periodically immobilize a poisoned individual and any nearby allies.",
+    "curr_pt": "Envenena próximos. Imobiliza até médico tirar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases armor by $s1 for $d1 but cannot cast spells or attack for the duration of the spell.",
+    "curr_pt": "Armadura +$s1 por $d s, sem agir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts numbing pain that deals $m1 Nature damage every 2 sec and increases time between target's attacks by 10% for $d.",
+    "curr_pt": "$s1 de Natureza a cada 2 s e +10% intervalo por $d s.",
+    "sample": "",
+    "need": "review"
+  }
+]

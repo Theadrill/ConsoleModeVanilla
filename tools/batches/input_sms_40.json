@@ -1,0 +1,116 @@
+[
+  {
+    "en": "Your next spell will be imbued with moonlight. This effect can only trigger once every 15 sec.",
+    "curr_pt": "Próxima com luar. 1x a cada 15 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage done reduced by $s1%. You take $52410s1 Nature damage every time you attack or cast a spell.",
+    "curr_pt": "Dano -$s1%. Atacar/lançar dá +$s2 Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Pierce the veil between Azeroth and Vorgendor, summoning a Scytheclaw Pureborn to protect you for $d.",
+    "curr_pt": "Véu: invoca Garra por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Ride the Tel'Abim Gorilla, a banana-powered beast ready to smash through anything in its path!",
+    "curr_pt": "Gorila da banana, esmaga tudo!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A brutal predator twisted by fel magic, relentless in its thirst for battle and destruction.",
+    "curr_pt": "Predador vil e implacável.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "During this challenge, you’ll earn exclusive titles to prove just how far a noob can go, all while staying level one: Earn 10,000 honorable kills to show you’re more than just fresh meat. Reach Exalted with at least one faction to prove that even a tiny hero can have powerful friends. Obtain the Arena Master Trinket to demonstrate that even at level one, you’re an unstoppable force of nature. Prove your dedication by completing every single quest available to you and earning the respect of tutorial NPCs everywhere! The titles will stay with you, even if you eventually decide to level up.",
+    "curr_pt": "Desafio nv 1: títulos por 10k HK, Exaltado, Berloque Arena e toda quest. Título fica mesmo upando.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Equip only what you craft. True power comes from your own hands — at least until you reach level 60!",
+    "curr_pt": "Só usa o que fabrica até 60!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Molten Corehound is a fierce, two-headed beast engulfed in flames, forged in the fiery depths of the Molten Core.",
+    "curr_pt": "Cão de 2 cabeças do Núcleo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transform the target into a sheep, magical effect, lasts 30 seconds, deals $s2 shadow damage every $d",
+    "curr_pt": "Ovelha 30 s e $s1 Sombra a cada $d1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Silences the target and causes them to take damage upon moving.",
+    "curr_pt": "Silencia e fere ao mover.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls down a rain of moonlight, dealing $s1 Arcane damage every $t1 sec for $d to all enemies in the area.",
+    "curr_pt": "Chuva lunar: $s1 Arcano a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 damage and reduces Shadow and Fire resistance by $58007s1.",
+    "curr_pt": "$s1 e -vs Sombra/Fogo $s2.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces all damage and healing by $s1%. Target takes 2000 shadow damage when the spell is decursed.",
+    "curr_pt": "Tudo -$s1%. Decursar: 2000 Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "deals $s1 fire damage to all targets farther then 20 yards away",
+    "curr_pt": "$s1 além de 20 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 Shadow damage to all hostile targets within $a1 yards.",
+    "curr_pt": "$s1 de Sombra a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Those jolly hippogryphs can only be found in the Winter Veil Vale.",
+    "curr_pt": "Hipogrifo alegre do Veil.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Born of plague and shadow, this monstrous spider skitters forth from Naxxramas, its twisted form a testament to the horrors of the Scourge.",
+    "curr_pt": "Aranha da peste de Naxx.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Let a party member hop on your back while in Swift Travel Form, letting you explore the great outdoors together!",
+    "curr_pt": "Colega nas costas em Viagem!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A raptor touched by dark forces, its eyes gleam with unnatural power.",
+    "curr_pt": "Raptor sombrio e poderoso.",
+    "sample": "",
+    "need": "review"
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "en": "The caster lets out a mighty roar, causing all enemies within $a1 yards to flee and reducing their attack power by $40003s1 for $40003d.",
+    "curr_pt": "Rugido: foge a $a1 m e -$s1 poder por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of arcane magic around the caster, causing Arcane damage to all targets within $a1 yards.",
+    "curr_pt": "Arcano a $a1 m em todos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Makes all friendly targets within 30 yards immune to all damage except arcane while the caster is alive.",
+    "curr_pt": "Imune a tudo menos arcano a 30 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Silences enemies near the target, preventing them from casting spells for $d.",
+    "curr_pt": "Silencia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the target's casting speed but they take damage after the effect expires.",
+    "curr_pt": "Lança rápido mas dói depois.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals arcane damage to the target, reducing their magical resistances and increasing magical damage taken for $d.",
+    "curr_pt": "Arcano no alvo, -resist e +dano por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fears all targets within 10 yards, leaves a physical debuff that reduces armor by $52393s1 and reduces attack speed by $52393s2%.",
+    "curr_pt": "Medo a 10 m: -armadura $s1 e -velocidade $s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your Critical Strike chance by $s1% when in Berserker Stance.",
+    "curr_pt": "Fúria +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Elune infuses your magic with astral power, giving your landing damaging spells a $h% chance to unleash the astral power dealing $57658s1 Arcane damage and imbuing your next damaging spell with moonlight. Spells imbued by moonlight increase the damage the target takes from its spell school by 8% and cause an additional effect for 10 sec. depending on the spell school of the damaging spell.",
+    "curr_pt": "Magia: $h% de $s1 Arcano + luar (+8% escola 10 s).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Casting Entangling Roots on a target already afflicted with the effect causes the roots to slice them, reducing their casting speed by $52426s2% and dealing $52426o1 damage over $52426d.",
+    "curr_pt": "Raiz: -$s1% lançamento e $s2 em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Consecration heals party members for $52428o1 over $52428d. and grants them $52428s2 Strength while inside it.",
+    "curr_pt": "Consagrar: cura $s1 em $d s e +$s2 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Generates $/10;o1 rage over $d. The warrior is considered in combat for the duration.",
+    "curr_pt": "Gera $s1 fúria em $d s. Em combate.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your opening moves have a $s1% chance and your finishing moves have a $b2% chance per combo point to increase your attack speed by $52561s1% for $52561d.",
+    "curr_pt": "Abertura +$s1% e final +$s2% por combo de +$s3% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sinister Strike, Backstab and Hemorrhage have a $s1% chance to veil you in shadows, catching your enemy off guard. The next ability you use to generate combo points restores $52565s1 Energy and grants $52565s2 additional combo $lpoint:points; if used within $52563d.",
+    "curr_pt": "Golpe/Apunhalar/Hemorragia +$s1%: próxima +$s2 energia e +$s3 combos em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduce the mana cost of your spells by $52649s1% for $52649d after Presence of Mind is consumed.",
+    "curr_pt": "Magia -$s1% mana por $d s pós-Presença.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your damaging Arcane spells have a $h% chance to restore $52569o1 mana over $52569d.",
+    "curr_pt": "Arcano: $h% de +$s1 mana em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your critical strikes with damaging Arcane spells increase your casting speed by $52571s1% for $52571d.",
+    "curr_pt": "Crítico Arcano: +$s1% lançamento por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Arcane Surge increases the damage of your spells and effects by up to $52573s1 for $52573d.",
+    "curr_pt": "Surto: +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Mage Armor increases resistance by an additional $s1 to all magic schools and allows an additional $s1% of your mana regeneration to continue while casting.",
+    "curr_pt": "Armadura: +$s1 tudo e +$s1% regen lançando.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While Arcane Power is active, your Arcane spell critical strikes restore $s1% of your maximum mana.",
+    "curr_pt": "Poder: crítico devolve $s1% mana máx.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When your Mana Shield is broken, it erupts violently, dealing Arcane damage equal to $s1% of the absorbed damage to all targets within $52583a1 yards.",
+    "curr_pt": "Escudo quebra: $s1% do absorvido a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your spell critical strikes conjure a magical barrier that absorbs $52585s1 damage. While the barrier holds, the damage you deal with magical spells and effects is increased by up to $52585s2 and the threat you generate is reduced by $52585s3%.",
+    "curr_pt": "Crítico: escudo $s1; +$s2 magia e -$s3% ameaça segurando.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When any of your Arcane spells is partially or fully resisted, the cooldown of your next Evocation is reduced by $/1000;52591s1 sec. Stacks up to $52591u times.",
+    "curr_pt": "Resistido: -$s1 s Evocar. Até $s2x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Arcane Rupture affects all Arcane spells that deal damage.",
+    "curr_pt": "Ruptura pega todo Arcano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Whenever your damaging Arcane spells are partially or fully resisted, the damage of your next direct spell cast within $52590d is increased by $52590s1%.",
+    "curr_pt": "Resistido: próxima +$s1% em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Arcane Rupture and Arcane Surge critical strikes displace enemies within $52593a1 yards of the target, reducing all their resistances by $52593s1 for $52593d.",
+    "curr_pt": "Crítico Ruptura/Surto: desloca a $a1 m, -$s1 tudo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Upon fully channeling Evocation, the damage of your magical spells and effects is increased by $52595s1% and their mana costs is increased by $52595s2% for $52595d.",
+    "curr_pt": "Evocar cheia: +$s1% dano e +$s2% custo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Initial damage from Flamestrike and damage from Cone of Cold, Frost Nova, Blast Wave and Arcane Explosion spells have a $h% chance to trigger a rewind effect, causing the spell to deal an additional $s1% of its damage.",
+    "curr_pt": "Chuva/Cone/Nova/Onda/Explosão: $h% de +$s1% de novo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the chance for Resonance Cascade to trigger by $s1%.",
+    "curr_pt": "Cascata +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the range of Drain Life, Drain Mana and Drain Soul spells by 10%.",
+    "curr_pt": "Dreno +10 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the duration of Corruption and Siphon Life spells by $/1000;s1 sec.",
+    "curr_pt": "Corrupção/Sugar +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown of Multi-Shot and Carve by $/1000;S1 sec.",
+    "curr_pt": "Multi/Esculpir -$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the attack speed provided by Swift Aspects by an additional $s1%.",
+    "curr_pt": "Aspecto Veloz +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cooldown and the duration of your Curse of Doom by $/1000;s1 sec.",
+    "curr_pt": "Perdição -$s1 s recarga/duração.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Curse of Agony will instantly deal damage to the target for $s1 $ltick:ticks; upon application.",
+    "curr_pt": "Agonia: +$s1 na hora.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Whenever you use Life Tap, the mana cost of your next spell cast within $52608d is reduced by $52608s1%.",
+    "curr_pt": "Sugar: próxima magia -$s1% mana em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage from your periodic spells and effects has a chance to instantly deal $52610s1 Shadow damage.",
+    "curr_pt": "Dot: chance de +$s1 Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The periodic damage of your Curse of Agony has a chance to increase casting speed by $52612s1% for $52612d.",
+    "curr_pt": "Agonia: chance de +$s1% lançamento por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage from your periodic spells and effects has a chance to grant Ruination, increasing your casting speed by $52614s1% and your damage done by Shadow spells and effects by up to $52614s2 for $52614d.",
+    "curr_pt": "Dot: chance de +$s1% lançamento e +$s2 Sombra por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the caster to Alah'Thalas.",
+    "curr_pt": "Teleporta pra Alah'Thalas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The periodic damage of your Corruption has a chance to inflict the enemy with a devastating plague, increasing their chance to be critically struck by spells by $52621s1% and draining $52621o2 health over $52621d.",
+    "curr_pt": "Corrupção: chance de +$s1% crítico e drena $s2 em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage from your Curse of Doom increases the target's damage taken from periodic spells and effects by $52623s1% for $52623d.",
+    "curr_pt": "Perdição: +$s1% dot recebido por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical strike damage bonus of your Shadow Bolt and Searing Pain spells by $s1% and the critical strike damage bonus of your controlled demon's attacks, abilities and spells by $s2%.",
+    "curr_pt": "Raio/Dor +$s1% crítico e demônio +$s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Damage from your Drain Soul has a chance to increase the damage of your next Corruption spell by $52627s1%.",
+    "curr_pt": "Dreno: chance de +$s1 Corrupção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the health drained by Siphon Life by $s2%. In addition, you gain $s1% of the health drained as mana and attempt to drain that mana directly from the target.",
+    "curr_pt": "Sugar +$s2% e +$s1% vira mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Dealing direct Shadow and Fire damage has a chance to coat the enemy in Felfire, dealing $52631s1 Shadow and $52632s1 Fire damage every second for $52633d. While burning, Shadow and Fire damage taken is increased by $52633s2%.",
+    "curr_pt": "Sombra/Fogo direto: chance de $s1 Sombra + $s2 Fogo/s por $d s. Queimando: +$s3% recebido.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the damage done by your Curse of Agony spell by $s1%.",
+    "curr_pt": "Agonia +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The last tick of your Dark Harvest spell deals 400% damage. If your target dies while under the effect of your Dark Harvest, there is a chance a Doomguard will be summoned.",
+    "curr_pt": "Último tick 400%. Morte invoca Guarda.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Healing Wave additionally heals the target for $52675o1 over $52675d but reduces all their stats by $52675s2 for $52675d.",
+    "curr_pt": "Onda: +$s1 em $d s mas tudo -$s2 por $d1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While active, your Cat Form will take the appearance of a Frostsaber.",
+    "curr_pt": "Gato vira Gelosabre.",
+    "sample": "",
+    "need": "review"
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Summons and dismisses a rideable Ravasaur Runner. Speed is increased based on your Riding skill.",
+    "curr_pt": "Corredor montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Venomide Ravasaur. Speed is increased based on your Riding skill.",
+    "curr_pt": "Venomide montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Unfolds into a Field Repair Bot that can repair damaged items and purchase unwanted goods",
+    "curr_pt": "Robô conserta e compra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bone golems are deadly undead constructs made entirely of bones and fueled by ichor of Undeath.",
+    "curr_pt": "Golem de osso e icor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Moonkins are blessed by Elune and spread nature's grace wherever they travel. The festive fowls are always in the mood for a dance.",
+    "curr_pt": "Corujinha de Eluna que dança.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The little wolf told to stay. Watching, waiting, for vacant prey. Too proud to leave, she slipped away. Unburdened now, forever free to play.",
+    "curr_pt": "Lobinha que espera livre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summon your local Goblin entrepreneur. Buy, sell, bid — he’s got the best deals anywhere!",
+    "curr_pt": "Goblin de oferta e leilão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "She likes the company of friends. Seventy-five of them, to be precise.",
+    "curr_pt": "Corça de 75 amigos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A gift from the Wildhammer dwarves to the heroes of the Alliance, these hatchlings are descendants of the same gryphons ridden by Falstad and his entourage into Grim Batol.",
+    "curr_pt": "Presente anão de Falstad.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A child of phoenix god Al'ar, the hatchling takes flight immediately after birth.",
+    "curr_pt": "Filho de Al'ar voa ao nascer.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This unique species of faerie dragon is not usually found on Azeroth.",
+    "curr_pt": "Fada rara em Azeroth.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "In older age, these little terrors eat everything they want to and are prey to almost no other species.",
+    "curr_pt": "Terrorzinho que come tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These arthropods line many Azerothian shores and seek to fulfill their one true desire: to pinch.",
+    "curr_pt": "Pinchy quer pinçar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The bright scales of this rare wind serpent soak up the sunlight to keep it warm, even in shade.",
+    "curr_pt": "Serpente que se aquece ao sol.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The destructive nature of goblins is best characterized by their shredders.",
+    "curr_pt": "Triturador verde destruidor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Four-legged machine of destruction, for your riding pleasure.",
+    "curr_pt": "Aranha-tanque vermelha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This mechaspider specializes in drilling, clamping, and shooting at the same time. A typical gnome invention.",
+    "curr_pt": "Aranha-broca gnômica.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A fiery inferno on wheels, consuming all in its path with relentless fury.",
+    "curr_pt": "Inferno sobre rodas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable broomstick. Speed is increased based on your Riding skill.",
+    "curr_pt": "Vassoura montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Now the sun is in the sky, and for no reason why, the sad cloud is crying itself away.",
+    "curr_pt": "Nuvem triste que chora.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A delightful companion, bringing joy and happiness wherever it goes.",
+    "curr_pt": "Pônei rosa e feliz.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A cuddly and adorable creature, enchanting all who lay eyes upon it.",
+    "curr_pt": "Pelúcia fofa e meiga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable worg spirit. Speed is increased based on your Riding skill.",
+    "curr_pt": "Worg espírito montaria. Pela equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Phase-Hunter. This mount changes depending on your Riding skill.",
+    "curr_pt": "Caçador que muda com equitação.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase arcane damage by up to 20.",
+    "curr_pt": "Luvas: +20 Arcano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase nature damage by up to 20.",
+    "curr_pt": "Luvas: +20 Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase holy damage by up to 20.",
+    "curr_pt": "Luvas: +20 Sagrado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sets up a remote mail terminal allowing for the sending and receiving of letters. After 5 minutes its power is depleted.",
+    "curr_pt": "Correio remoto 5 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases melee, ranged and spell haste of nearby party members by 5% for $d.",
+    "curr_pt": "Pressa +5% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Blackvenom Scorpid to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Escorpídeo por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Muckreef Crawler to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Lesma por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Ashfeather Swooper to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Rasante por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Glitterglam is your go-to goblin for a style makeover! Always ready to help you look your best before charging into battle.",
+    "curr_pt": "Goblin de visual pré-batalha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the mana-cost reduction of Clearcasting to $46762s1%.",
+    "curr_pt": "Limpo: -$s1% custo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "You must be mounted to play this emote.",
+    "curr_pt": "Montado pra justa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A sweeping attack that deals $s1% of the Felguard's weapon damage as Shadow damage, divided among all targets within melee range. The Felguard's current target is wounded, reducing the effectiveness of any healing received by $s2% for $d.",
+    "curr_pt": "$s1% da arma em Sombra dividido. Alvo: cura -$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Felguard recklessly swings its weapon, striking all nearby targets for $d causing weapon damage plus an additional $52664s1 Shadow damage every $t1 sec.",
+    "curr_pt": "Gira em todos por $d s: arma + $s1 de Sombra a cada $t1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Water Shield ability grants an additional 8 mana per 5 sec. while active. In addition, the amount of mana restored by your Water Shield when attacked is increased by 10.",
+    "curr_pt": "Escudo: +8 mana/5 s e +10 ao apanhar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the target to levitate, floating a few feet above the ground. While levitating, you will fall at a reduced speed and travel over water-like surfaces. Any damage will cancel the effect. Lasts $d.",
+    "curr_pt": "Levita uns palmos. Cai devagar e anda na água. Dano cancela.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Anomalus.",
+    "curr_pt": "Manda pra Anomalus.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A swift and gentle gazelle, Zephyr dances through the Barrens with the grace of the wind, always by your side on every adventure.",
+    "curr_pt": "Gazela do vento no Ermo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your direct healing spells have a chance to place a heal over time on your target, healing $48001o1 over $48001d.",
+    "curr_pt": "Cura direta: chance de +$s1 em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance on landing a damaging spell to deal 250 Fire damage while sacrificing 250 health.",
+    "curr_pt": "Magia: chance de 250 Fogo por 250 vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Blasts all targets in front of you with debilitating poison gas, dealing $o1 Nature damage over 12 sec, reducing attack and movement speed by 20%.",
+    "curr_pt": "Gás: $s1 de Natureza em 12 s, -20% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck in combat has a $h% chance to return with a counterattack.",
+    "curr_pt": "Acerto: $h% de contra-atacar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Tainted by shadow, making $ghim:her; friendly to the denizens of Jaedenar.",
+    "curr_pt": "Sombra amiga em Jaedenar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your landing damaging spells have a chance on sacrificing $48003s1 of your health and dealing $48003s2 Fire damage.",
+    "curr_pt": "Magia: chance de -$s1 vida e +$s2 Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Shock spells have a $h% chance to grant $48101s1 attack power for $48101d.",
+    "curr_pt": "Choque: $h% de +$s1 poder por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical strike chance of your next attack made within 4 seconds by 30%.",
+    "curr_pt": "Próximo ataque em 4 s +30% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 14 Stamina to a shoulder slot item.",
+    "curr_pt": "Ombro: +14 Vig.",
+    "sample": "",
+    "need": "review"
+  }
+]

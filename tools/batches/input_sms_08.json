@@ -1,0 +1,302 @@
+[
+  {
+    "en": "When struck in combat has a 3% chance to heal you for $9777s1.",
+    "curr_pt": "Acerto: 3% de curar $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches a Mithril Spike to your shield that deals damage every time you block with it.",
+    "curr_pt": "Prego de mithril: dano ao bloquear.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "$h% chance of a phantom strike which reduces the targets armor by $9806s1 and prevents them from stealthing or going invis for $9806d.",
+    "curr_pt": "$h% de golpe fantasma: -$s1 armadura e sem furtivo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Forms a bond of empathy with a party member, causing the caster to split $s1% of all damage taken by that party member. Lasts $d.",
+    "curr_pt": "Divide $s1% do dano do aliado por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Infuses the target with power, increasing their spell damage and healing by $s2%. Lasts $d.",
+    "curr_pt": "Dano e cura +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sacrifices the caster's life in order to reduce the Stamina of nearby enemies by $s1 for $d.",
+    "curr_pt": "Morre: Vig dos próximos -$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 32 and Stamina by 4. Only usable on items level 25 and above.",
+    "curr_pt": "Peito/perna/mão/pé: +32 armadura e +4 Vig. Só nv 25+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to target by physical attacks by $s1 for $d1. Stacks up to 5 times.",
+    "curr_pt": "Físico no alvo +$s1 por $d s. Até 5x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an explosion of arcane magic around the caster, causing $s1 damage to all targets within $a1 yards.",
+    "curr_pt": "Explosão arcana: $s1 em todos a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes a minor tremor, inflicting $s1 damage to nearby enemies.",
+    "curr_pt": "Tremor: $s1 nos próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Strength by $s1 when consumed. Effect lasts for 60 minutes.",
+    "curr_pt": "For +$s1 ao consumir. 60 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Stamina by $s1 when consumed. Effect lasts for 60 minutes.",
+    "curr_pt": "Vig +$s1 ao consumir. 60 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Agility by $s1 when consumed. Effect lasts for 60 minutes.",
+    "curr_pt": "Agi +$s1 ao consumir. 60 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Donni Anthania plans to have a bombay buried with her when she dies. A wise adventurer can put its talents to much better use.",
+    "curr_pt": "Gata pra enterrar junto. Aventureiro usa melhor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Donni Anthania invites these cats to her tea parties. But she doesn't serve their favorite drink: the tears of their enemies.",
+    "curr_pt": "Gato de chá que chora lágrima inimiga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The last person who tried to housebreak this cat quickly learned that a soiled rug is better than a shredded everything-else.",
+    "curr_pt": "Gato indomável: melhor tapete sujo que tudo rasgado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Known for its blue eyes. Also considered a delicacy by giant murlocs.",
+    "curr_pt": "Olho azul. Iguaria de murloc.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sleeping is this cat's second favorite activity. The first is yawning.",
+    "curr_pt": "Dorme e boceja.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The queen had three kittens. The first gave her a juicy rat. The second, a tasty hare. And the white, her favorite, presented the head of her rival.",
+    "curr_pt": "Rainha e os 3 gatinhos: rato, lebre e a cabeça da rival.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Some say this clever bird can be taught to speak--but it's smart enough to keep its beak shut.",
+    "curr_pt": "Pássaro esperto que finge mudez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The jungle trolls train these birds to mimic calls for help in order to lure unsuspecting travelers into traps.",
+    "curr_pt": "Papagaio que imita pedido de socorro pra emboscar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Favored pet of the Defias pirates, this colorful bird is handy for remembering passwords, grocery lists, and cracker recipes.",
+    "curr_pt": "Lembra senha, lista e biscoito.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Favored pet of the goblins of Booty Bay, this colorful bird is renowned for its ability to count coins, tally budgets, and lie about contracts.",
+    "curr_pt": "Conta moeda e mente contrato.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The cockroach is usually an impulse buy. Its owners have a hard time parting with it even after numerous attempts.",
+    "curr_pt": "Compra impulso, dono não larga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Intellect by $s1 when consumed. Effect lasts for 60 minutes.",
+    "curr_pt": "Int +$s1 ao consumir. 60 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases Spirit by $s1 when consumed. Effect lasts for 60 minutes.",
+    "curr_pt": "Esp +$s1 ao consumir. 60 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Like other members of the blue dragonflight, these whimsical little critters display an affinity to arcane magic.",
+    "curr_pt": "Azulzinho arcano caprichoso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Hailing from the Wetlands, this young dragon is just learning how to hunt, breathe fire, and go on cute destructive rampages.",
+    "curr_pt": "Jovem caçador de Terralém em fúria fofa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Once bred and raised by the green dragon Itharius, this unique breed of dragon has settled in the jungles of Feralas.",
+    "curr_pt": "Criado pelo Itharius, mora em Feralas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Bronze Whelpling was lost in time until an unusual event allowed her to escape.",
+    "curr_pt": "Perdida no tempo até escapar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Toads and frogs are fast friends of trolls, perfect for poisons.",
+    "curr_pt": "Sapo amigo de troll, bom pra veneno.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This little friend snuck into your boot to join you on your travels.",
+    "curr_pt": "Pulou na sua bota pra viajar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Many owls nest high in the stone structures of Darnassus, hunting any pests that enter the night elves' city.",
+    "curr_pt": "Coruja de Darnassus caça peste.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This dark-feathered bird of prey is often seen as a harbinger of doom amongst the druids of Teldrassil.",
+    "curr_pt": "Arauto da desgraça em Teldrassil.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Night elf children are given an owl feather on their first birthday as a token of good luck.",
+    "curr_pt": "Pena de sorte no 1º aniversário.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Winterspring's furbolg prize the brilliant white feathers of these majestic creatures for ritual purposes.",
+    "curr_pt": "Ursa-mãe usa a pena em ritual.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A complex system of burrows protects the prairie dog from its neighbors' massive hooves.",
+    "curr_pt": "Toca protege do casco vizinho.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Mountain cottontails can leap up a steep incline with speed you would not believe.",
+    "curr_pt": "Coelho montanhês veloz na ladeira.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "If you go chasing snowshoe rabbits, you know you're going to fall.",
+    "curr_pt": "Perseguir coelho dá queda.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Agile and quick, it hops around with a whimsical grace that captivates the hearts of adventurers across Azeroth.",
+    "curr_pt": "Graça que encanta Azeroth.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A favored companion of Kirin Tor magi, this reptile makes one wonder whether it's truly a snake or something else altogether.",
+    "curr_pt": "Companheira de mago: cobra ou o quê?",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Xan'tish fearlessly tracks, captures, and trains these noble snakes so they will aid their comrades in battle.",
+    "curr_pt": "Xan'tish doma cobra nobre pra batalha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The brown snake is native to Horde-controlled territories. It seems unremarkable until its victims are within range.",
+    "curr_pt": "Comum na Horda até chegar perto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The crimson snake is favored among the Darkspear trolls for not only its vicious nature, but also its steadfast loyalty.",
+    "curr_pt": "Leal e feroz dos Darkspear.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Brought to Sparkwater Port aboard merchant ships, these short-lived reptiles are considered pests by the port's residents.",
+    "curr_pt": "Praga de navio, vida curta.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Brave assassins sometimes capture these critters to use their highly toxic venom to poison weapons.",
+    "curr_pt": "Assassino usa o veneno.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSilithid Swarm:Silithid Swarms; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Enxames até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Speeds the attack of nearby mechanical allies by $s2% and increases the Physical damage they deal by $s1 for $d.",
+    "curr_pt": "Mecânicos: +$s1% velocidade e +$s2 Físico por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The jungle trolls have long coveted panther fangs, using them for rituals or as ingredients in mojos.",
+    "curr_pt": "Troll cobiça presa pra ritual.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The wonderful thing about tigers is tigers are wonderful things!",
+    "curr_pt": "Tigre é maravilhoso!",
+    "sample": "",
+    "need": "review"
+  }
+]

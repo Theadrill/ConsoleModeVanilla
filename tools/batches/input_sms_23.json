@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Reduces the cooldown of your Rapid Fire ability by $/60000;s1 minutes.",
+    "curr_pt": "Tiro Rápido -$s1 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place on the ground to launch firework rockets. Lasts 30 minutes.",
+    "curr_pt": "Lança-foguete 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place on the ground to launch cluster rockets. Lasts 30 minutes.",
+    "curr_pt": "Lança-cacho 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons moonlight around Omen, which buffs anyone who walks into it.",
+    "curr_pt": "Luar que buffa quem pisa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your spell resistances by 100 for $d. Every time a hostile spell lands on you, this bonus is reduced by 10 resistance.",
+    "curr_pt": "Resist +100 por $d s. Magia tira 10.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your magical heals provide the target with a shield that absorbs damage equal to 15% of the amount healed for $d.",
+    "curr_pt": "Cura: escudo de 15% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "He loves to dance and wave and play with you! He melts after Winter Veil, but don't worry; he'll be back again someday!",
+    "curr_pt": "Bonequinho dança e derrete. Volta um dia!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives a chance on melee or ranged attack to apply an armor penetration effect on you for $d, lowering the target's physical armor by $26481s1 to your own attacks. The armor penetration effect can be applied up to 6 times.",
+    "curr_pt": "Penetração até 6x: -$s1 armadura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Would rather not spend any more time inside a wrapped holiday gift box.",
+    "curr_pt": "Rena que odeia presente.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These off-season allies work tirelessly to prepare for the Feast of Winter Veil, and would appreciate not being disturbed the rest of the year.",
+    "curr_pt": "Ajudante incansável do Veil.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls down a rain of moonlight, burning all enemies in a selected area for $s1 Arcane damage every $t1 sec. for $d.",
+    "curr_pt": "Chuva lunar: $s1 Arcano a cada $t1 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "During the majestic Winter Veil celebration, these faithful companions spread joy throughout the land. The rest of the year, they are busy.",
+    "curr_pt": "Companheiro fiel do Veil, ocupado o ano todo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1% weapon damage and leaves the target unbalanced, reducing their defense skill by $s2 for $d.",
+    "curr_pt": "$s1% da arma e -defesa $s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "You have looked into the abyss and the abyss looked back. Feared.",
+    "curr_pt": "Abismo que mete medo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Although many varieties of Qiraji Battle Tank can still be found in the ruins of Ahn'Qiraj today, the darkest of the species were only seen on the day the Scarab gong was rung.",
+    "curr_pt": "Tanque negro do Gong.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Determines the sex of the casting NPC, then casts the correct dummy spell (used to switch the creatures gossip entry).",
+    "curr_pt": "Define fofoca do NPC pelo sexo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls down a meteor, burning all enemies within the area for $s1 total Fire damage.",
+    "curr_pt": "Meteoro: $s1 de Fogo na área.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Requires zero food, minimal attention, and will always be there when you need... absolute silence. Truly a rock-solid companion.",
+    "curr_pt": "Pedra silenciosa e fiel.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lPanda Cub:Panda Cub; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Pandas até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your pet's maximum health by 3%.",
+    "curr_pt": "Pet +3% vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to grant +$19988s1 to all stats.",
+    "curr_pt": "Peito: +$s1 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase frost damage by up to $25066s1.",
+    "curr_pt": "Luvas: até +$s1 Gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase fire damage by up to $25065s1.",
+    "curr_pt": "Luvas: até +$s1 Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase shadow damage by up to $25064s1.",
+    "curr_pt": "Luvas: até +$s1 Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase the caster's healing spells by up to $25067s1.",
+    "curr_pt": "Luvas: até +$s1 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase agility by $23794s1.",
+    "curr_pt": "Luvas: +$s1 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase threat from all attacks and spells by $25063s1%.",
+    "curr_pt": "Luvas: +$s1% ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to increase the effects of your healing spells by $23796s1.",
+    "curr_pt": "Braçadeira: +$s1 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give +$13690s1% chance to block.",
+    "curr_pt": "Escudo: +$s1% bloqueio.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give $25068s1 fire resistance.",
+    "curr_pt": "Manto: +$s1 vs Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give $25069s1 nature resistance.",
+    "curr_pt": "Manto: +$s1 vs Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to increase stealth by $13840s1.",
+    "curr_pt": "Manto: +$s1 furtivo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to decrease threat caused by the wearer by $25070s1%.",
+    "curr_pt": "Manto: -$s1% ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give a $25071s1% chance to dodge.",
+    "curr_pt": "Manto: +$s1% esquiva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your pet's armor by 10%.",
+    "curr_pt": "Pet: +10% armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage dealt by your pet by 4%.",
+    "curr_pt": "Pet +4% dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gurky is a born performer, though she remains elusive, making public appearances only on the rarest of occasions.",
+    "curr_pt": "Artista arisca e rara.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Target Lord Valthalak's corpse to instill his spirit from the amulet.",
+    "curr_pt": "No cadáver, põe o espírito.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Proximity to the Ectoplasmic Distiller allows the gathering of Ectoplasm from incorporeal undead.",
+    "curr_pt": "Ectoplasma de morto etéreo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places Ectoplasmic Distiller on the ground, allowing Ectoplasm to be gathered. Requires Goblin Rocket Fuel.",
+    "curr_pt": "Põe o destilador. Precisa combustível.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Chance on melee attack to increase your damage and healing done by magical spells and effects by up to $27499s1 for $27499d.",
+    "curr_pt": "Corpo a corpo: chance de +$s1 magia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Use this banner at the Arena in Blackrock Depths to challenge Theldren.",
+    "curr_pt": "Estandarte na Arena pra duelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "On successful melee or ranged attack gain $29471s1 mana and if possible drain $27526s1 mana from the target.",
+    "curr_pt": "Acerto: +$s1 mana e drena $s2.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck by a non-periodic damage spell you have a $h% chance of getting a $27533d spell shield that absorbs $27533s1 of that school of damage.",
+    "curr_pt": "Magia direta: $h% de escudo $d s que absorve $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When struck by a harmful spell, the caster of that spell has a $h% chance to be silenced for $27559d.",
+    "curr_pt": "Magia nociva: $h% de silenciar por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The power of love can be a dangerous thing, especially when wielded by an airborne, ill-tempered goblin.",
+    "curr_pt": "Amor goblin voador e bravo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $27604s1 fire damage for $d to all targets in a cone in front of the engineer using the weapon. That is unless it explodes.....",
+    "curr_pt": "$s1 de fogo em cone por $d s. A não ser que exploda.....",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a 2H Melee Weapon to add $13735s1 to agility.",
+    "curr_pt": "Arma 2M: +$s1 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drops a love dummy on the ground that drives nearby monsters into an envious rage! Lasts for 15 seconds.",
+    "curr_pt": "Boneco que enfurece monstro. 15 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combines a Bundle of Cards, a Sack of Homemade Bread and a Stormwind Pledge Collection into a Stormwind Gift Collection.",
+    "curr_pt": "Cartas + Pão + Promessa vira Presente.",
+    "sample": "",
+    "need": "review"
+  }
+]

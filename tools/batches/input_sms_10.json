@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Activates your Mithril Mechanical Dragonling to fight for you for $d. It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Dragonete luta por $d s. 1 h recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Poisons all enemies in an $a1 yard radius around the caster. Victims of the poison suffer $s1 Nature damage every 5 sec for 45 sec.",
+    "curr_pt": "Envenena a $a1 m: $s1 de Natureza a cada 5 s por 45 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons Hukku's demonic minions to aid him in battle. The minions last until dismissed.",
+    "curr_pt": "Invoca demônio do Hukku até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This container should be filled with water from the first tide pool in Azshara.",
+    "curr_pt": "Enche na 1ª poça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This container should be filled with water from the second tide pool in Azshara.",
+    "curr_pt": "Enche na 2ª poça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This container should be filled with water from the third tide pool in Azshara.",
+    "curr_pt": "Enche na 3ª poça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This container should be filled with water from the fourth tide pool in Azshara.",
+    "curr_pt": "Enche na 4ª poça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Weakens the servants of Razelikh the Defiler. Must be within close proximity of the target to activate.",
+    "curr_pt": "Enfraquece servo do Razelikh. Perto pra ativar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces nearby enemies' Strength by $s2 and Agility by $s3 for $d., as well as preventing them from casting spells.",
+    "curr_pt": "For -$s1 e Agi -$s2 por $d s, sem magia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shrinks the target reducing their attack power by $13003s1. Thats what it usually does anyway.....",
+    "curr_pt": "Encolhe: -$s1 poder. Geralmente.....",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth an Emerald Dragon Whelp to protect you in battle for a short period of time.",
+    "curr_pt": "Dragão Esmeralda protege um pouco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Captures the target in a net for $13099d. The net has a lot of hooks however and sometimes gets caught in the user's clothing when fired......",
+    "curr_pt": "Rede por $d s. Gancho prende na roupa.....",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "These boots significantly increase your run speed for $d. WARNING: Their power supply and gyros do not always function as intended.",
+    "curr_pt": "Bota: corre + por $d s. Giros falham.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Use at the Altar of the Defiler to summon Razelikh the Defiler.",
+    "curr_pt": "Invoca Razelikh no Altar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Physical damage dealt by the chicken by $s1% and speeds the chicken's attack by $s2% for $d.",
+    "curr_pt": "Galinha: +$s1% Físico e +$s2% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Engage in mental combat with a humanoid target to try and control their mind. If all works well, you will control the mind of the target for $13181d .....",
+    "curr_pt": "Duelo mental: controla por $d s.....",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A shield of force protects you from the next $s1 damage done over the next $d1. WARNING: Force Field may overload when struck temporarily removing the wearer from this dimension.",
+    "curr_pt": "Escudo: próximos $s1 em $d s. Pode sobrecarregar e te ejetar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Fire damage and causes $o2 damage over $d to targets in a 10 yard radius.",
+    "curr_pt": "$s1 de Fogo + $s2 em $d s a 10 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Extracts the magical element(s) from good quality (Green) or better weapons or armor. The targeted item will be DESTROYED and will not be retrievable.",
+    "curr_pt": "Desencanta verde+: DESTRÓI o item.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The devices charges over time using your life force and then directs a burst of energy at your opponent.",
+    "curr_pt": "Raio carrega com sua vida e dispara.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Charge an enemy, knocking it silly for $d. Also knocks you down, stunning you for a short period of time. Any damage caused will revive the target.",
+    "curr_pt": "Investida atordoa por $d s. Você cai atordoado. Dano acorda.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield so that it increases the Stamina of the bearer by 1.",
+    "curr_pt": "Escudo: +1 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Two-Handed Melee Weapon to add 3 to Spirit.",
+    "curr_pt": "Arma 2M: +3 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Consume two Un'Goro Soil samples and a Packet of Tharlendris seeds to make an Evergreen Herb Casing.",
+    "curr_pt": "Terra de Un'Goro + semente vira erva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to grant +1 Agility.",
+    "curr_pt": "Manto: +1 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to increase armor by 20.",
+    "curr_pt": "Manto: +20 armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends Razelikh home - damn dirty cheaters.",
+    "curr_pt": "Manda Razelikh pra casa. Trapaceiros.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to increase its armor by 30.",
+    "curr_pt": "Escudo: +30 armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give 3 spirit.",
+    "curr_pt": "Escudo: +3 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a bracer so it increases the wearer's Stamina by 3.",
+    "curr_pt": "Braçadeira: +3 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Melee Weapon to do 2 additional points of damage.",
+    "curr_pt": "Arma corpo a corpo: +2 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak so that it increases resistance to shadow by 10.",
+    "curr_pt": "Manto: +10 vs Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Two-handed Melee Weapon to do 3 additional points of damage.",
+    "curr_pt": "Arma 2M: +3 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a bracer so it increases the wearer's Strength by 3.",
+    "curr_pt": "Braçadeira: +3 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Enchant a piece of chest armor so it has a 5% chance per hit of giving you 25 points of damage absorption.",
+    "curr_pt": "Peito: 5% de absorver 25 por golpe.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds the caster with searing magic for $d. The flames increase armor by $s2% and inflict $s1 damage to melee attackers.",
+    "curr_pt": "Magia $d s: +$s1% armadura e $s2 em corpo a corpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the attack speed of all nearby party members by $s1%. Players may only have one aura on them per paladin at any one time. The aura lasts until cancelled.",
+    "curr_pt": "Velocidade do grupo +$s1%. Uma aura por Paladino. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to increase the mana of the wearer by 30.",
+    "curr_pt": "Peito: +30 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant +2 mining skill.",
+    "curr_pt": "Luvas: +2 mineração.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a bracer so it increases the wearer's Intellect by 3.",
+    "curr_pt": "Braçadeira: +3 Int.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to grant +1 to all stats.",
+    "curr_pt": "Peito: +1 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Scrape a sample of the hive wall from an area near a Gorishi hatchery.",
+    "curr_pt": "Raspa a colmeia no ninho.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a shield to give 3 Stamina.",
+    "curr_pt": "Escudo: +3 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 30 additional armor.",
+    "curr_pt": "Manto: +30 armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +3 Agility.",
+    "curr_pt": "Bota: +3 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to give +35 health.",
+    "curr_pt": "Peito: +35 vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +5 Spirit.",
+    "curr_pt": "Braçadeira: +5 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +3 Stamina.",
+    "curr_pt": "Bota: +3 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +2 Defense.",
+    "curr_pt": "Braçadeira: +2 Defesa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +5 Stamina.",
+    "curr_pt": "Braçadeira: +5 Vig.",
+    "sample": "",
+    "need": "review"
+  }
+]

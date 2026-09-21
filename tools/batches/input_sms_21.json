@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Reduces the casting time of your Holy Light spell by $/1000;S1 sec.",
+    "curr_pt": "Luz -$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Improves the duration of your Frost Shock spell by $/1000;S1 sec.",
+    "curr_pt": "Choque +$s1 s duração.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the time between periodic ticks and duration of Serpent Sting by $s1%.",
+    "curr_pt": "Ferrão -$s1% tick e duração.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase the range of your Smite and Holy Fire spells by $s1 yds.",
+    "curr_pt": "Castigar/Fogo +$s1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the casting time of your Mind Control spell by $/1000;S1 sec.",
+    "curr_pt": "Controlar -$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases the mana cost of Arcane Intellect and Arcane Brilliance by $s1%.",
+    "curr_pt": "Intelecto -$s1% custo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the effectiveness of your Earth Shield, Water Shield and Lightning Shield spells by $s1% for $d.",
+    "curr_pt": "Escudo Terra/Água/Raio +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Instantly clears the cooldowns of Aimed Shot, Multishot, Volley, and Arcane Shot.",
+    "curr_pt": "Zera Miras de uma vez.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the casting time of your Healing Touch spells by $s1%, and reduces the mana cost of your healing spells by $s2% for $d.",
+    "curr_pt": "Toque -$s1% tempo e cura -$s2% custo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical hit chance of your Destruction spells by $s1% for $d.",
+    "curr_pt": "Crítico Destruição +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the casting time of your Greater Heal spells by $s1%, and reduces the mana cost of your healing spells by $s2% for $d.",
+    "curr_pt": "Cura Maior -$s1% tempo e cura -$s2% custo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your armor by 2000 and defense skill by 30 for $d. Every time you take melee or ranged damage, this bonus is reduced by 200 armor and 3 defense.",
+    "curr_pt": "Armadura 2000 e defesa 30 por $d s. Apanhar tira 200/3.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons and dismisses a rideable Chromatic Drake. This is a very fast mount. You wish!",
+    "curr_pt": "Draco cromático. Queria!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your spell damage by up to 204 and your healing by up to 408 for $d. Every time you cast a spell, the bonus is reduced by 17 spell damage and 34 healing.",
+    "curr_pt": "Magia +até 204 e cura +até 408 por $d s. Lançar tira 17/34.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a meteor from the Twisting Nether, causing $22699s1 Fire damage and stunning all enemy targets in the area for $20310d. An Infernal rises from the crater, under the command of the caster for $20882d. Once control is lost, the Infernal must be Enslaved to maintain control. Can only be used outdoors.",
+    "curr_pt": "Meteoro: $s1 de Fogo e atordoa por $d1 s. Infernal sob seu comando por $d2 s. Sem controle, escraviza. Só ao ar livre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Appearances of this beloved and ultra-reclusive murloc are sure to draw a crowd.",
+    "curr_pt": "Murloc recluso que atrai multidão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases health and mana regeneration by $s1%, and Stamina by $s2%. Lasts $d.",
+    "curr_pt": "Regen +$s1% e Vig +$s2%. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Target a friendly player to deputize them as an Agent of Nozdormu. As an Agent of Nozdormu, only you and your deputies may take the Silithid Carapace Fragments from the corpses of the silithid. Keep your badge in your pack at all times.",
+    "curr_pt": "Deputado de Nozdormu: só vocês pegam fragmento. Distintivo no bolso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Target a friendly player to deputize them as an Agent of Nozdormu.",
+    "curr_pt": "Deputado de Nozdormu.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bestows the wearer with the evil aura of a Twilight's Hammer cultist.",
+    "curr_pt": "Aura maligna do Martelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When worn with the Twilight Trappings Set, allows access to a Wind Stone in Silithus.",
+    "curr_pt": "Pedra do Vento com o set.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When worn with the Twilight Trappings Set and the Medallion of Station, allows access to a Greater Wind Stone.",
+    "curr_pt": "Pedra Maior com medalhão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Required to draw ancient glyphs into the sand at the Bones of Grakkarond.",
+    "curr_pt": "Desenha na areia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shatters the Holy Mightstone, granting $s1 Attack Power and increasing Holy damage from spells and effects by up to $s2 when fighting undead. Lasts $d.",
+    "curr_pt": "Quebra: +$s1 poder e +$s2 Sagrado vs morto-vivo. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your critical strike chance with spells and melee attacks by $s1%. Lasts $d.",
+    "curr_pt": "Crítico +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Rugged Leather and 1 Firebloom to create a Crest of Beckoning: Fire.",
+    "curr_pt": "Couro + Flor vira Brasão: Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Rugged Leather and 1 Elemental Air to create a Crest of Beckoning: Thunder.",
+    "curr_pt": "Couro + Ar vira Brasão: Trovão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Rugged Leather and 1 Dense Stone to create a Crest of Beckoning: Earth.",
+    "curr_pt": "Couro + Pedra vira Brasão: Terra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Rugged Leather and 1 Enchanted Water to create a Crest of Beckoning: Water.",
+    "curr_pt": "Couro + Água vira Brasão: Água.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Dark Rune and 5 Firebloom to create a Signet of Beckoning: Fire.",
+    "curr_pt": "Runa + Flor vira Sinete: Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Dark Rune and 5 Elemental Air to create a Signet of Beckoning: Thunder.",
+    "curr_pt": "Runa + Ar vira Sinete: Trovão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Dark Rune and 5 Dense Stones to create a Signet of Beckoning: Stone.",
+    "curr_pt": "Runa + Pedra vira Sinete: Pedra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Dark Rune and 5 Enchanted Waters to create a Signet of Beckoning:Water.",
+    "curr_pt": "Runa + Água vira Sinete: Água.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the periodic damage of your Drain Soul spell by $s1. Lasts $d.",
+    "curr_pt": "Dreno +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Truesilver Rod and 20 Firebloom to create a Scepter of Beckoning: Fire.",
+    "curr_pt": "Haste + Flor vira Cetro: Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Truesilver Rod and 20 Elemental Air to create a Scepter of Beckoning: Thunder.",
+    "curr_pt": "Haste + Ar vira Cetro: Trovão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Truesilver Rod and 20 Dense Stones to create a Scepter of Beckoning: Stone.",
+    "curr_pt": "Haste + Pedra vira Cetro: Pedra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 1 Truesilver Rod and 20 Enchanted Water to create a Scepter of Beckoning: Water.",
+    "curr_pt": "Haste + Água vira Cetro: Água.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Enjoy a tasty Hallow's End treat! Better eat it quick before they go bad...",
+    "curr_pt": "Doce de Bruxa! Come rápido...",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fires a mortar which lands $a1 yards away dealing $27745s1 damage to all tonks within $27745a1 yards.",
+    "curr_pt": "Morteiro a $a1 m: $s1 em todos a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deploys a land mine. Mines take 3 seconds to arm and deal $25099s1 damage to all tonks in a $25099a1 yard radius once triggered.",
+    "curr_pt": "Mina: 3 s pra armar, $s1 a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "10 mana per second. Automatically fires a shot at the nearest enemy tonk within $25032a1 yards every $t1 sec, dealing $25032s1 damage per shot.",
+    "curr_pt": "10 mana/s. Tiro a cada $t1 s a $a1 m: $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "10 mana per second. Deals $25029s1 damage every $t1 sec to all tonks in front of you within $25029a1 yards. Also slows movement to $25029s2% and deals $25029s3 damage per second for $25029d.",
+    "curr_pt": "10 mana/s. $s1 a cada $t1 s a $a1 m. Lentidão $s2% e $s3/s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase threat from all attacks and spells by 2%.",
+    "curr_pt": "Luvas: +2% ameaça.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase shadow damage by up to 20.",
+    "curr_pt": "Luvas: +20 Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase frost damage by up to 20.",
+    "curr_pt": "Luvas: +20 Gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase fire damage by up to 20.",
+    "curr_pt": "Luvas: +20 Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase the caster's healing spells by up to 30.",
+    "curr_pt": "Luvas: +30 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to increase agility by 15.",
+    "curr_pt": "Luvas: +15 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 15 fire resistance.",
+    "curr_pt": "Manto: +15 vs Fogo.",
+    "sample": "",
+    "need": "review"
+  }
+]

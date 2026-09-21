@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Sometimes heals bearer of $23682s1 damage when damaging an enemy in melee.",
+    "curr_pt": "Corpo a corpo: às vezes cura $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Empowers your pet, increasing all damage it deals by $s1% and its armor by $s2% for $d.",
+    "curr_pt": "Pet: +$s1% dano e +$s2% armadura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Infuses you with Arcane energy, causing your next $n Arcane Shots, Mongoose Bites or Raptor Strikes within $d to detonate at the target. The Arcane Detonation deals $23722s1 damage to enemies within $23722a1 yards of the target.",
+    "curr_pt": "Próximos $n Tiros/Mordidas/Golpes em $d s detonam: $s1 a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Quickens the mind, increasing the Mage's casting speed by $s1% for $d.",
+    "curr_pt": "Lançar +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases the mana cost of all Druid shapeshifting forms by $s1% for $d.",
+    "curr_pt": "Forma -$s1% custo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the chance to apply Rogue poisons to your target by $s1% for $d.",
+    "curr_pt": "Veneno +$s1% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Energizes a Paladin with light, increasing melee attack speed by $s2% and spell casting speed by $s1% for $d.",
+    "curr_pt": "Luz: corpo a corpo +$s1% e magia +$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Aligns the Shaman with nature, increasing spell damage by $s1%, improving heal effects by $s2%, and increasing mana cost of spells by $s3% for $d.",
+    "curr_pt": "Dano +$s1%, cura +$s2%, custo +$s3% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your target's armor by $s1, and heals $23781s1 damage every time the targets takes ranged or melee damage and expends a charge. Lasts 5 charges or $d.",
+    "curr_pt": "Armadura +$s1 e cura $s2 ao apanhar. 5 cargas ou $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to increase the effects of your healing spells by 24.",
+    "curr_pt": "Braçadeira: +24 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The legendary ale frog was believed to be extinct until the strange brews at the Darkmoon Faire brought them out of hiding.",
+    "curr_pt": "Sapo lendário da Lua Negra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Hatch a Jubling from the Egg. It will take a while before the egg is ready to hatch.",
+    "curr_pt": "Choca o sapo. Demora.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Revitalized - $s1 Energy restored.",
+    "curr_pt": "Revigorado: +$s1 energia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "+$s1 Attack Power when fighting Undead. It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "+$s1 poder vs morto-vivo. Vale Pedra do Flagelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "While active, target's critical hit chance with spells and attacks increases by 10%.",
+    "curr_pt": "Crítico +10% com tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When activated, this ability immediately finishes the cooldown on your Deterrence, Feign Death and Trap abilities.",
+    "curr_pt": "Pronto: zera Recarga, Fingir e Armadilha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 Stamina, 7 Defense, and 15 Shield Block value to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 Vig, +7 Defesa, +15 Bloqueio. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 Stamina, 7 Defense, and increases healing by up to 24 to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 Vig, +7 Defesa, +24 cura. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 28 Attack Power and 1% Dodge to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +28 poder e +1% esquiva. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 24 Ranged Attack Power, 10 Stamina, and 1% Chance to Hit to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +24 à distância, +10 Vig, +1% acerto. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 15 Intellect and increases all healing and spell damage by up to 13 to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +15 Int, +13 cura/dano. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 18 to all healing and damage spells and 1% chance to hit with spells to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +18 cura/dano e +1% acerto. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 Stamina and increases spell damage and healing by up to 18 to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 Vig e +18 dano/cura. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 Stamina, 4 mana per 5 sec., and increases healing by up to 24 to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 Vig, +4 mana/5 s, +24 cura. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 Stamina, 10 Intellect, and increases healing by up to 24 to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 Vig, +10 Int, +24 cura. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Offer a tribute at Uther Lightbringer's tomb in Western Plaguelands.",
+    "curr_pt": "Homenagem no túmulo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Undead by magical spells and effects by up to $s1. It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "Morto-vivo: +$s1 dano mágico. Vale Pedra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase your reputation permanently with the Zandalar Tribe.",
+    "curr_pt": "Reputação Zandalar pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The only known Razzashi Raptors were said to have been in the custody of Bloodlord Mandokir in Zul'Gurub. This species of raptor has not been seen in many years.",
+    "curr_pt": "Raptor do Mandokir, sumido há anos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Combine with 5 Channeler's Heads into a Gurubashi Head Collection.",
+    "curr_pt": "5 cabeças vira coleção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A rare and coveted prize, earned only by the most skilled and daring adventurers.",
+    "curr_pt": "Tigre raro de aventureiro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Infuses the caster with a blessing from the Primal Gods. Ranged and melee attack power increased by $s1 for $d.",
+    "curr_pt": "Poder +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Grants a small chance when ranged or melee damage is dealt to infuse the wielder with a blessing from the Primal Gods. Ranged and melee attack power increased by 300 for 12 seconds.",
+    "curr_pt": "Chance ao causar dano: +300 poder por 12 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Load with 5 Zulian Mudskunks, and then cast from Pagle's Point in Zul'Gurub.",
+    "curr_pt": "5 lambaris e lança do Ponto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Turns you into a fish and increases your movement speed, but does not allow casting or attack.",
+    "curr_pt": "Vira peixe veloz, sem agir.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Turns you into a fish giving water breath and increasing your movement speed, but attacking or casting while in this form breaks the effect. Does not work out of water or at the water's surface.",
+    "curr_pt": "Vira peixe com água e veloz, agir quebra. Só na água.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your attack power by $s1 and your chance to hit by $s2%. Effect lasts for $d.",
+    "curr_pt": "Poder +$s1 e acerto +$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your pet's next attack is guaranteed to critically strike if that attack is capable of striking critically.",
+    "curr_pt": "Pet critica sempre se puder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases healing done by spells and effects by up to $s1 for $d.",
+    "curr_pt": "Cura +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Puts the imbiber in a dreamless sleep for $d. During that time the imbiber heals 2100 health and 2100 mana.",
+    "curr_pt": "Dorme $d s: cura 2100 vida e 2100 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Makes you immune to Stun and Movement Impairing effects for the next $d. Also removes existing Stun and Movement Impairing effects.",
+    "curr_pt": "Imune a Atordoar e lentidão por $d s. Tira o atual.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Restores $s1 mana and increases the damage of your next Fire spell by up to $s2. Effect lasts for $d.",
+    "curr_pt": "+$s1 mana e próxima Fogo +$s2. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Your Frostbolt spells have a $s1% chance to restore $s2 mana when cast.",
+    "curr_pt": "Setavolt: $s1% de +$s2 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds to a shoulder slot item increased healing done by spells and effects up to 33.",
+    "curr_pt": "Ombro: +33 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds to a shoulder slot item increased damage and healing done by magical spells and effects up to 18.",
+    "curr_pt": "Ombro: +18 dano/cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 30 attack power to a shoulder slot item.",
+    "curr_pt": "Ombro: +30 poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the cost of your Hamstring ability by $/10;s1 rage points.",
+    "curr_pt": "Aleijar -$s1 fúria.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the critical hit chance of Wrath and Starfire by $s1%.",
+    "curr_pt": "Ira/Starfire +$s1% crítico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases the mana cost of your Healing Stream and Mana Spring totems by $s1.",
+    "curr_pt": "Totem Cura/Mana -$s1 custo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases the cooldown of Intimidating Shout by $/1000;s1 sec.",
+    "curr_pt": "Grito -$s1 s recarga.",
+    "sample": "",
+    "need": "review"
+  }
+]

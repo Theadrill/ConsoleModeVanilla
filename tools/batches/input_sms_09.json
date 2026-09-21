@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Considered one of Azeroth's perfect predators, these agile beasts can sprint through dense forests without making a sound.",
+    "curr_pt": "Predador perfeito e silencioso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A fearsome predator with ivory-colored scales, ready to strike at any moment.",
+    "curr_pt": "Predador marfim sempre pronto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A tall and curious bird, blending perfectly with its natural surroundings.",
+    "curr_pt": "Ave alta e curiosa, camuflada.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A stoic and observant creature, adapting to any environment it encounters.",
+    "curr_pt": "Sóbria e atenta a tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Accidentally released by the Darkmoon Faire — makes for a surprisingly sturdy steed.",
+    "curr_pt": "Solta pela Lua Negra, montaria firme.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A rare and exotic bird, with feathers as bright as the tropical seas.",
+    "curr_pt": "Rara e exótica, pena do mar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lDupe Bug:Dupe Bugs; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Bugs por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lBurning Servant:Burning Servants; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Servos por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $s1 health from nearby enemies, healing the caster for up to twice the amount stolen.",
+    "curr_pt": "Drena $s1 e cura até 2x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $s1 health and $s2 mana from an enemy, transferring them to the caster.",
+    "curr_pt": "Drena $s1 de vida e $s2 de mana pra você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lWitherbark Felhunter:Witherbark Felhunters; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Caçadores por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Disguises the caster as the Priestess Tyriona indefinitely.",
+    "curr_pt": "Disfarce da Tyriona pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Disguises the caster as the Tyrion indefinitely.",
+    "curr_pt": "Disfarce do Tyrion pra sempre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Instantly throws a bolt of lightning at an enemy, inflicting $s1 Nature damage.",
+    "curr_pt": "Raio: $s1 de Natureza no inimigo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Casts a Ward of Zum'rah totem, which lasts $d. and periodically summons a Skeleton of Zum'rah. Each Skeleton lasts $11088d.",
+    "curr_pt": "Totem $d s que invoca Esqueleto. Esqueleto dura $d1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Frost damage to nearby enemies, freezing them in place for up to $d.",
+    "curr_pt": "$s1 de Gelo e congela até $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Does $11351s1 fire damage to any enemies within a $11351a1 yard radius around the caster every 3 seconds for $d",
+    "curr_pt": "$s1 de fogo a $a1 m a cada 3 s por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Returns you to your home. Your home is currently $z.",
+    "curr_pt": "Volta pra casa. Casa atual: $z.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts normal damage plus $s1 to an enemy, reducing its Strength by $s2 and its Agility by $s3 for $d.",
+    "curr_pt": "Normal +$s1, -For $s2 e -Agi $s3 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Ring to call Shay back to you.",
+    "curr_pt": "Toca pra chamar Shay.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives you a dream vision that lets you explore areas that are too dangerous to explore in person.",
+    "curr_pt": "Sonho que explora lugar perigoso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Use at the Jintha'Alor Altar to create the Mallet of Zul'Farrak.",
+    "curr_pt": "Cria o Malho no Altar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Diseases an enemy, inflicting $s1 Shadow damage every $t1 sec. and draining $s2 mana every $t2 sec., transferring it to the caster. Lasts $d.",
+    "curr_pt": "Adoece: $s1 de Sombra a cada $t1 s e drena $s2 a cada $t2 s pra você. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shoots a firework into the air that bursts into a thousand blue stars.",
+    "curr_pt": "Fogo azul de mil estrelas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shoots a firework into the air that bursts into a thousand green stars.",
+    "curr_pt": "Fogo verde de mil estrelas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shields the wielder from physical damage, absorbing $s1 damage. Lasts $d1.",
+    "curr_pt": "Absorve $s1 Físico. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Strikes an enemy with the rage of Sul'thraze. Lowers target's physical damage by $s2% and deals $s1 Shadow damage with an additional $o3 damage over $d.",
+    "curr_pt": "-$s1% Físico e $s2 de Sombra + $s3 em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Greater Healthstone that can be used to instantly restore $5723s1 health. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria Pedra maior: restaura $s1 na hora. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fill the Untapped Dowsing Widget at the Sandsorrow Watch water hole.",
+    "curr_pt": "Enche o widget no poço.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places a Dark Iron Land Mine on the ground. The next hostile creature to pass near the mine will cause it to explode, inflicting $11815s1 damage on nearby enemies. Mines are unstable and only last for $d.",
+    "curr_pt": "Mina: $s1 nos próximos. Instável, dura $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Immobilizes an enemy for $d. and shocks it with electricity, inflicting Nature damage.",
+    "curr_pt": "Imobiliza e Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Channels a bolt of lightning and hurls it towards all enemies in front of the caster causing $11828s1 Nature damage. The caster is then surrounded by a barrier of electricity for 10 min.",
+    "curr_pt": "Raio em todos à frente: $s1 de Natureza. Barreira 10 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds the caster with a shield of lightning that lasts $d and inflicts $s1 Nature damage to melee attackers.",
+    "curr_pt": "Escudo $d s: $s1 de Natureza em corpo a corpo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s3 Nature damage to nearby enemies, reducing their chance to hit by $s1% for $d.",
+    "curr_pt": "$s1 de Natureza e -$s2% acerto por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes an enemy to fixate upon the caster and increases the caster's attack speed by $s2% for $d. While the target is fixated upon the caster, the target is very reluctant to attack anything else.",
+    "curr_pt": "Fixa em você e +$s1% velocidade por $d s. Relutante em trocar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives $M1 additional stamina to party members within $a1 yards.",
+    "curr_pt": "+$m1 Vig a $a1 m.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lAtal'ai Skeleton:Atal'ai Skeletons; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Esqueletos por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Cripples an enemy, inflicting normal damage plus $s1 and reducing its Strength by $s2 for $d.",
+    "curr_pt": "Normal +$s1 e -For $s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place near the Dead Tree northwest of Ratchet, to lure Ishamuhale.",
+    "curr_pt": "Põe na Árvore Morta.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Not to worry; the combat mechanisms and homing logic have been disabled on this unit, I think. (Oglethorpe Obnoticus)",
+    "curr_pt": "Sem combate, eu acho. (Oglethorpe)",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lOozeling:Oozelings; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Gosmas por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces the casting speed of nearby enemies by $s1%, and increases the time between their attacks by $s2%. Lasts $d.",
+    "curr_pt": "Lançamento -$s1% e ataques +$s2% por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "To be used at the makeshift helipad in Azshara. It will summon Pilot Xiggs Fuselighter to pick up the tablet rubbings.",
+    "curr_pt": "Usa no heliponto: Xiggs busca.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the time required for your rage to decay while out of combat by 30% and generate 1 rage per 3 seconds while in combat.",
+    "curr_pt": "Fúria decai 30% mais devagar; +1 a cada 3 s em combate.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Used to create rubbings of the runes in the Ruins of Eldarath.",
+    "curr_pt": "Frota runa em Eldarath.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Right click on the Staff of Command when you are near Shadowsilk Poachers to make Raze attack.",
+    "curr_pt": "Raze ataca Caçador com o Cajado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Stomps the ground, inflicting normal damage to nearby enemies and knocking them back.",
+    "curr_pt": "Pisa: normal e arremessa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $s1 health from nearby enemies, healing the caster for up to $e times the amount stolen.",
+    "curr_pt": "Drena $s1 e cura até $s2x.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summon a screecher spirit from the corpse of a vale screecher.",
+    "curr_pt": "Invoca espírito do vale.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts Physical damage to nearby enemies, stunning them for $d.",
+    "curr_pt": "Físico e atordoa por $d s.",
+    "sample": "",
+    "need": "review"
+  }
+]

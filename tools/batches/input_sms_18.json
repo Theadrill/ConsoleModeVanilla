@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Permanently enchant boots to give $13368s1 Spirit.",
+    "curr_pt": "Bota: +$s1 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give $13827s1 Stamina.",
+    "curr_pt": "Bota: +$s1 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant $13828s1 Strength.",
+    "curr_pt": "Luvas: +$s1 For.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant $13823s1 Agility.",
+    "curr_pt": "Luvas: +$s1 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant a $13928s1 attack speed bonus.",
+    "curr_pt": "Luvas: +$s1 velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms an enemy into a sheep, forcing it to wander around for up to $d. While wandering, the sheep cannot attack or cast spells, but regenerates very quickly. Only one target can be polymorphed at a time. Only works on beasts, dragons, giants, humanoids, and critters.",
+    "curr_pt": "Vira ovelha até $d s. Sem agir/magia, regenera rápido. Uma por vez. Feras, dragões, gigantes, humanoides e bichos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Decreases the Magical damage dealt by the target by $s1 for $d.",
+    "curr_pt": "Mágico -$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Randomly increases the Magical damage dealt by the caster by up to $s1 for $d.",
+    "curr_pt": "Mágico +até $s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Shadow damage to enemies in a cone in front of the caster.",
+    "curr_pt": "$s1 de Sombra em cone.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Returns you to the sanctuary of Frostwolf Keep.",
+    "curr_pt": "Volta pra Fortaleza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Returns you to the sanctuary of Dun Baldar.",
+    "curr_pt": "Volta pra Dun Baldar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes a creature to cast this dummy spell on themself when they detect more than 5 enemies. Add as a spell reaction on a mob's creature level action trigger and use a despawn action. Only use on approved mobs/zones.",
+    "curr_pt": "Dummy: lança em si com +5 inimigos. Só mob/zona aprovado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 5 fire resistance to a shoulder slot item.",
+    "curr_pt": "Ombro: +5 vs Fogo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 5 frost resistance to a shoulder slot item.",
+    "curr_pt": "Ombro: +5 vs Gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 5 shadow resistance to a shoulder slot item.",
+    "curr_pt": "Ombro: +5 vs Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 5 nature resistance to a shoulder slot item.",
+    "curr_pt": "Ombro: +5 vs Natureza.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 5 arcane resistance to a shoulder slot item.",
+    "curr_pt": "Ombro: +5 Arcano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 5 resistance to all magic schools to a shoulder slot item.",
+    "curr_pt": "Ombro: +5 tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When the shield blocks it releases an electrical charge that damages all nearby enemies. This also has a chance of damaging the shield.",
+    "curr_pt": "Bloquear solta choque e pode quebrar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Slows enemy's movement by $s2% and causes them to bleed for $o1 damage over $d.",
+    "curr_pt": "Lentidão $s1% e sangra $s2 em $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Charge an enemy, knocking it silly for 30 seconds. Also knocks you down, stunning you for a short period of time. Any damage caused will revive the target.",
+    "curr_pt": "Investida 30 s. Você cai atordoado. Dano acorda.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "1% chance on a melee critical hit to call forth the spirit of Eskhandar to protect you in battle for $22649d.",
+    "curr_pt": "Crítico: 1% de invocar por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Calls forth the spirit of Eskhandar to protect you in battle for $d.",
+    "curr_pt": "Invoca Eskhandar por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Protects the wearer from being fully engulfed by Shadow Flame.",
+    "curr_pt": "Capa anti-Chama Sombria.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Unfolds into a Field Repair Bot that can repair damaged items and purchase unwanted goods. After 10 minutes its internal motor fails.",
+    "curr_pt": "Robô conserta e compra. 10 min e quebra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bred for their aggressive, unpredictable demeanor by the Kor'kron stablemasters, the Black War Kodos' trumpeting call signifies that blood will soon be shed.",
+    "curr_pt": "Kodo bravo e imprevisível, sangue à vista.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A formidable mount, instilling fear in the hearts of enemies.",
+    "curr_pt": "Montaria temível.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A sturdy and resilient mount, bred for battle in the mountains.",
+    "curr_pt": "Montaria firme de montanha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bred from the same vicious line of raptors which sired Ohgan and brought victory to the Gurubashi Empire.",
+    "curr_pt": "Raptor da linhagem do Ohgan, vitória Gurubashi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently increase the defense value of an item worn on the chest, legs, hands or feet by 5. Only usable on items level 45 and above.",
+    "curr_pt": "Peito/perna/mão/pé: +5 defesa. Só nv 45+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Disguise yourself as one of the Gordok ogres, and maybe even fool a particular captain in the process! The suit will only hold together for $d1.",
+    "curr_pt": "Disfarce de ogro. Dura $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a Melee Weapon to add up to 55 points of healing to healing spells.",
+    "curr_pt": "Arma corpo a corpo: até +55 cura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A razor edge increases your chance to get a critical hit by $s1%.",
+    "curr_pt": "Crítico +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increase critical chance on a melee weapon by 2% for 30 minutes.",
+    "curr_pt": "Crítico +2% por 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "You are the king of the Gordok ogres! It's good to be the king...",
+    "curr_pt": "Rei dos ogros! Bom ser rei...",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "+$s1 Attack Power when fighting Elementals.",
+    "curr_pt": "Gigantes +$s1 poder.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 1% haste to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +1% pressa. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds +12 Healing and Damage from spells to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +12 cura/dano. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 1% dodge to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +1% esquiva. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the damage done by your pets by 4%.",
+    "curr_pt": "Pet +4% dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drive into the heart of the brood mother to temper the heated blade.",
+    "curr_pt": "Crava no coração da mãe pra temperar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Consumed by the fury of Illidan: 1400 Attack Power bonus versus Demons. 20% bonus chance to hit. 30% melee haste.",
+    "curr_pt": "1400 poder vs Demônio, +20% acerto, 30% pressa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Connects the twin warglaives of Azzinoth, forming the Twin Blades of Azzinoth.",
+    "curr_pt": "Junta as glaives em Duas Lâminas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place a Battle Standard that increases the maximum health of all friendly units' that stay within $22998a1 yards of the Battle Standard by $22998s1%. Lasts $d.",
+    "curr_pt": "Estandarte: vida máx +$s1% a $a1 m. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Fire damage in a 5 yard radius (Assuming that it gets to the target, some restrictions may apply.)",
+    "curr_pt": "$s1 de Fogo a 5 m (se chegar, talvez).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons an Alarm-O-Bot for 10 minutes that occasionally sends out a pulse that detects nearby stealthy or invisible enemies.",
+    "curr_pt": "Robô que fareja furtivo 10 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place a Battle Standard that increases the maximum health of all friendly units' that stay within $23006a1 yards of the Battle Standard by $23006s1%. Lasts $d.",
+    "curr_pt": "Estandarte: vida máx +$s1% a $a1 m. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives you a $s1% chance to avoid interruption caused by damage while casting Mind Blast.",
+    "curr_pt": "Explosão: $s1% vs interrupção.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the duration of your Psychic Scream spell by $/1000;s1 sec.",
+    "curr_pt": "Grito +$s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives you a $s1% chance to avoid interruption caused by damage while casting Searing Pain.",
+    "curr_pt": "Dor: $s1% vs interrupção.",
+    "sample": "",
+    "need": "review"
+  }
+]

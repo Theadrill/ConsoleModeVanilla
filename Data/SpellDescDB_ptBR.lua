@@ -24089,53 +24089,53 @@ ConsoleMode_SpellDescDB[47033] = { n="Hateforge Grips", r="", d="", t="", pt="" 
 ConsoleMode_SpellDescDB[47034] = { n="Hateforge Boots", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47035] = { n="Verdant Dreamer's Breastplate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47036] = { n="Flying Riding Gryphon", r="", d="Increases flying speed by $s1% for $d1.", t="Increases flying speed by $s1%.", pt="Voo +$s1% por $d s." }
-ConsoleMode_SpellDescDB[47200] = { n="Grifter's Boots", r="", d="Teaches you how to make Grifter's Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[47201] = { n="Grifter's Gauntlets", r="", d="Teaches you how to make Grifter's Gauntlets.", t="", pt="" }
-ConsoleMode_SpellDescDB[47202] = { n="Grifter's Belt", r="", d="Teaches you how to make Grifter's Belt.", t="", pt="" }
-ConsoleMode_SpellDescDB[47203] = { n="Grifter's Leggings", r="", d="Teaches you how to make Grifter's Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[47204] = { n="Grifter's Tunic", r="", d="Teaches you how to make Grifter's Tunic.", t="", pt="" }
-ConsoleMode_SpellDescDB[47205] = { n="Grifter's Cover", r="", d="Teaches you how to make Grifter's Cover.", t="", pt="" }
-ConsoleMode_SpellDescDB[47206] = { n="Steel Plate Boots", r="", d="Teaches you how to make Steel Plate Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[47207] = { n="Steel Plate Gauntlets", r="", d="Teaches you how to make Steel Plate Gauntlets.", t="", pt="" }
-ConsoleMode_SpellDescDB[47208] = { n="Steel Plate Legguards", r="", d="Teaches you how to make Steel Plate Leggaurds.", t="", pt="" }
-ConsoleMode_SpellDescDB[47209] = { n="Steel Plate Armor", r="", d="Teaches you how to make Steel Plate Armor.", t="", pt="" }
-ConsoleMode_SpellDescDB[47210] = { n="Steel Plate Pauldrons", r="", d="Teaches you how to make Steel Plate Pauldrons.", t="", pt="" }
-ConsoleMode_SpellDescDB[47211] = { n="Steel Plate Barbute", r="", d="Teaches you how to make Steel Plate Helm.", t="", pt="" }
-ConsoleMode_SpellDescDB[47212] = { n="Diviner's Pantaloons", r="", d="Teaches you how to make Diviner's Pantaloons.", t="", pt="" }
-ConsoleMode_SpellDescDB[47213] = { n="Diviner's Robes", r="", d="Teaches you how to make Diviner's Robes.", t="", pt="" }
-ConsoleMode_SpellDescDB[47214] = { n="Diviner's Cowl", r="", d="Teaches you how to make Diviner's Cowl.", t="", pt="" }
-ConsoleMode_SpellDescDB[47215] = { n="Diviner's Boots", r="", d="Teaches you how to make Diviner's Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[47216] = { n="Diviner's Mitts", r="", d="Teaches you how to make Diviner's Mitts.", t="", pt="" }
-ConsoleMode_SpellDescDB[47217] = { n="Diviner's Epaulets", r="", d="Teaches you how to make Diviner's Epaulets.", t="", pt="" }
-ConsoleMode_SpellDescDB[47218] = { n="Augerer's Hat", r="", d="Teaches you how to make Augerer's Hat.", t="", pt="" }
-ConsoleMode_SpellDescDB[47219] = { n="Augerer's Robe", r="", d="Teaches you how to make Augerer's Robe.", t="", pt="" }
-ConsoleMode_SpellDescDB[47220] = { n="Augerer's Trousers", r="", d="Teaches you how to make Augerer's Trousers.", t="", pt="" }
-ConsoleMode_SpellDescDB[47221] = { n="Augerer's Mantle", r="", d="Teaches you how to make Augerer's Mantle.", t="", pt="" }
-ConsoleMode_SpellDescDB[47222] = { n="Augerer's Gloves", r="", d="Teaches you how to make Augerer's Gloves.", t="", pt="" }
-ConsoleMode_SpellDescDB[47223] = { n="Augerer's Boots", r="", d="Teaches you how to make Augerer's Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[47224] = { n="Pillager's Hood", r="", d="Teaches you how to make a Pillager's Hood.", t="", pt="" }
-ConsoleMode_SpellDescDB[47225] = { n="Pillager's Amice", r="", d="Teaches you how to make Pillager's Amice.", t="", pt="" }
-ConsoleMode_SpellDescDB[47226] = { n="Pillager's Robe", r="", d="Teaches you how to make Pillager's Robe.", t="", pt="" }
-ConsoleMode_SpellDescDB[47227] = { n="Pillager's Grips", r="", d="Teaches you how to make Pillager's Grips.", t="", pt="" }
-ConsoleMode_SpellDescDB[47228] = { n="Pillager's Shoes", r="", d="Teaches you how to make Pillager's Shoes.", t="", pt="" }
-ConsoleMode_SpellDescDB[47229] = { n="Pillager's Pantaloons", r="", d="Teaches you how to make Pillager's Pantaloons.", t="", pt="" }
-ConsoleMode_SpellDescDB[47230] = { n="Bloodstone Warblade", r="", d="Teaches you how to make a Bloodstone Warblade.", t="", pt="" }
-ConsoleMode_SpellDescDB[47231] = { n="Untempered Runeblade", r="", d="Teaches you how to make an Untempered Runeblade.", t="", pt="" }
-ConsoleMode_SpellDescDB[47232] = { n="Red Dragonscale Leggings", r="", d="Teaches you how to make Red Dragonscale Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[47233] = { n="Red Dragonscale Shoulders", r="", d="Teaches you how to make Red Dragonscale Shoulders", t="", pt="" }
-ConsoleMode_SpellDescDB[47234] = { n="Red Dragonscale Boots", r="", d="Teaches you how to make Red Dragonscale Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[47235] = { n="Robe of Sacrifice", r="", d="Teaches you how to make Robe of Sacrifice.", t="", pt="" }
-ConsoleMode_SpellDescDB[47236] = { n="Ornate Bloodstone Dagger", r="", d="Teaches you how to make an Ornate Bloodstone Dagger.", t="", pt="" }
-ConsoleMode_SpellDescDB[47237] = { n="Bloodletter Razor", r="", d="Teaches you how to make a Bloodletter Razor.", t="", pt="" }
-ConsoleMode_SpellDescDB[47238] = { n="Stormscale Leggings", r="", d="Teaches you how to make Stormscale Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[47239] = { n="Imperial Plate Gauntlets", r="", d="Teaches you how to make Imperial Plate Gauntlets.", t="", pt="" }
-ConsoleMode_SpellDescDB[47240] = { n="Dream's Herald", r="", d="Teaches you how to make Dream's Herald.", t="", pt="" }
-ConsoleMode_SpellDescDB[47241] = { n="Pattern: Shadowskin Boots", r="", d="Teaches you how to make Shadowskin Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[47242] = { n="Copper Knuckles", r="", d="Teaches you how to make Copper Knuckles.", t="", pt="" }
-ConsoleMode_SpellDescDB[47243] = { n="Sharpened Claw", r="", d="Teaches you how to make a Sharpened Claw.", t="", pt="" }
-ConsoleMode_SpellDescDB[47244] = { n="Bronze Bruiser", r="", d="Teaches you how to make a Bronze Bruiser.", t="", pt="" }
-ConsoleMode_SpellDescDB[47245] = { n="Frostbound Slasher", r="", d="Teaches you how to make a Frostbound Slasher.", t="", pt="" }
-ConsoleMode_SpellDescDB[47246] = { n="Pauldron of Deflection", r="", d="Teaches you how to make Pauldron of Deflection.", t="", pt="" }
+ConsoleMode_SpellDescDB[47200] = { n="Grifter's Boots", r="", d="Teaches you how to make Grifter's Boots.", t="", pt="Ensina a criar as Botas do Golpista." }
+ConsoleMode_SpellDescDB[47201] = { n="Grifter's Gauntlets", r="", d="Teaches you how to make Grifter's Gauntlets.", t="", pt="Ensina a criar as Manoplas do Golpista." }
+ConsoleMode_SpellDescDB[47202] = { n="Grifter's Belt", r="", d="Teaches you how to make Grifter's Belt.", t="", pt="Ensina a criar o Cinto do Golpista." }
+ConsoleMode_SpellDescDB[47203] = { n="Grifter's Leggings", r="", d="Teaches you how to make Grifter's Leggings.", t="", pt="Ensina a criar as Calças do Golpista." }
+ConsoleMode_SpellDescDB[47204] = { n="Grifter's Tunic", r="", d="Teaches you how to make Grifter's Tunic.", t="", pt="Ensina a criar a Túnica do Golpista." }
+ConsoleMode_SpellDescDB[47205] = { n="Grifter's Cover", r="", d="Teaches you how to make Grifter's Cover.", t="", pt="Ensina a criar a Capa do Golpista." }
+ConsoleMode_SpellDescDB[47206] = { n="Steel Plate Boots", r="", d="Teaches you how to make Steel Plate Boots.", t="", pt="Ensina a criar as Botas de Placa de Aço." }
+ConsoleMode_SpellDescDB[47207] = { n="Steel Plate Gauntlets", r="", d="Teaches you how to make Steel Plate Gauntlets.", t="", pt="Ensina a criar as Manoplas de Placa de Aço." }
+ConsoleMode_SpellDescDB[47208] = { n="Steel Plate Legguards", r="", d="Teaches you how to make Steel Plate Leggaurds.", t="", pt="Ensina a criar os Guarda-pernas de Placa de Aço." }
+ConsoleMode_SpellDescDB[47209] = { n="Steel Plate Armor", r="", d="Teaches you how to make Steel Plate Armor.", t="", pt="Ensina a criar a Armadura de Placa de Aço." }
+ConsoleMode_SpellDescDB[47210] = { n="Steel Plate Pauldrons", r="", d="Teaches you how to make Steel Plate Pauldrons.", t="", pt="Ensina a criar as Ombreiras de Placa de Aço." }
+ConsoleMode_SpellDescDB[47211] = { n="Steel Plate Barbute", r="", d="Teaches you how to make Steel Plate Helm.", t="", pt="Ensina a criar o Elmo de Placa de Aço." }
+ConsoleMode_SpellDescDB[47212] = { n="Diviner's Pantaloons", r="", d="Teaches you how to make Diviner's Pantaloons.", t="", pt="Ensina a criar os Calções do Adivinho." }
+ConsoleMode_SpellDescDB[47213] = { n="Diviner's Robes", r="", d="Teaches you how to make Diviner's Robes.", t="", pt="Ensina a criar as Vestes do Adivinho." }
+ConsoleMode_SpellDescDB[47214] = { n="Diviner's Cowl", r="", d="Teaches you how to make Diviner's Cowl.", t="", pt="Ensina a criar o Capuz do Adivinho." }
+ConsoleMode_SpellDescDB[47215] = { n="Diviner's Boots", r="", d="Teaches you how to make Diviner's Boots.", t="", pt="Ensina a criar as Botas do Adivinho." }
+ConsoleMode_SpellDescDB[47216] = { n="Diviner's Mitts", r="", d="Teaches you how to make Diviner's Mitts.", t="", pt="Ensina a criar as Luvas do Adivinho." }
+ConsoleMode_SpellDescDB[47217] = { n="Diviner's Epaulets", r="", d="Teaches you how to make Diviner's Epaulets.", t="", pt="Ensina a criar os Espaldares do Adivinho." }
+ConsoleMode_SpellDescDB[47218] = { n="Augerer's Hat", r="", d="Teaches you how to make Augerer's Hat.", t="", pt="Ensina a criar o Chapéu do Vidente." }
+ConsoleMode_SpellDescDB[47219] = { n="Augerer's Robe", r="", d="Teaches you how to make Augerer's Robe.", t="", pt="Ensina a criar a Túnica do Vidente." }
+ConsoleMode_SpellDescDB[47220] = { n="Augerer's Trousers", r="", d="Teaches you how to make Augerer's Trousers.", t="", pt="Ensina a criar as Calças do Vidente." }
+ConsoleMode_SpellDescDB[47221] = { n="Augerer's Mantle", r="", d="Teaches you how to make Augerer's Mantle.", t="", pt="Ensina a criar o Manto do Vidente." }
+ConsoleMode_SpellDescDB[47222] = { n="Augerer's Gloves", r="", d="Teaches you how to make Augerer's Gloves.", t="", pt="Ensina a criar as Luvas do Vidente." }
+ConsoleMode_SpellDescDB[47223] = { n="Augerer's Boots", r="", d="Teaches you how to make Augerer's Boots.", t="", pt="Ensina a criar as Botas do Vidente." }
+ConsoleMode_SpellDescDB[47224] = { n="Pillager's Hood", r="", d="Teaches you how to make a Pillager's Hood.", t="", pt="Ensina a criar um Capuz do Saqueador." }
+ConsoleMode_SpellDescDB[47225] = { n="Pillager's Amice", r="", d="Teaches you how to make Pillager's Amice.", t="", pt="Ensina a criar o Amito do Saqueador." }
+ConsoleMode_SpellDescDB[47226] = { n="Pillager's Robe", r="", d="Teaches you how to make Pillager's Robe.", t="", pt="Ensina a criar a Veste do Saqueador." }
+ConsoleMode_SpellDescDB[47227] = { n="Pillager's Grips", r="", d="Teaches you how to make Pillager's Grips.", t="", pt="Ensina a criar as Manoplas do Saqueador." }
+ConsoleMode_SpellDescDB[47228] = { n="Pillager's Shoes", r="", d="Teaches you how to make Pillager's Shoes.", t="", pt="Ensina a criar os Sapatos do Saqueador." }
+ConsoleMode_SpellDescDB[47229] = { n="Pillager's Pantaloons", r="", d="Teaches you how to make Pillager's Pantaloons.", t="", pt="Ensina a criar os Calções do Saqueador." }
+ConsoleMode_SpellDescDB[47230] = { n="Bloodstone Warblade", r="", d="Teaches you how to make a Bloodstone Warblade.", t="", pt="Ensina a criar uma Lâmina de Guerra de Pedra-sangrenta." }
+ConsoleMode_SpellDescDB[47231] = { n="Untempered Runeblade", r="", d="Teaches you how to make an Untempered Runeblade.", t="", pt="Ensina a criar uma Lâmina Rúnica Não Temperada." }
+ConsoleMode_SpellDescDB[47232] = { n="Red Dragonscale Leggings", r="", d="Teaches you how to make Red Dragonscale Leggings.", t="", pt="Ensina a criar as Calças de Escama de Dragão Vermelha." }
+ConsoleMode_SpellDescDB[47233] = { n="Red Dragonscale Shoulders", r="", d="Teaches you how to make Red Dragonscale Shoulders", t="", pt="Ensina a criar as Ombreiras de Escama de Dragão Vermelha." }
+ConsoleMode_SpellDescDB[47234] = { n="Red Dragonscale Boots", r="", d="Teaches you how to make Red Dragonscale Boots.", t="", pt="Ensina a criar as Botas de Escama de Dragão Vermelha." }
+ConsoleMode_SpellDescDB[47235] = { n="Robe of Sacrifice", r="", d="Teaches you how to make Robe of Sacrifice.", t="", pt="Ensina a criar a Veste do Sacrifício." }
+ConsoleMode_SpellDescDB[47236] = { n="Ornate Bloodstone Dagger", r="", d="Teaches you how to make an Ornate Bloodstone Dagger.", t="", pt="Ensina a criar uma Adaga de Pedra-sangrenta Ornamentada." }
+ConsoleMode_SpellDescDB[47237] = { n="Bloodletter Razor", r="", d="Teaches you how to make a Bloodletter Razor.", t="", pt="Ensina a criar uma Navalha do Sangrador." }
+ConsoleMode_SpellDescDB[47238] = { n="Stormscale Leggings", r="", d="Teaches you how to make Stormscale Leggings.", t="", pt="Ensina a criar as Calças de Escama da Tempestade." }
+ConsoleMode_SpellDescDB[47239] = { n="Imperial Plate Gauntlets", r="", d="Teaches you how to make Imperial Plate Gauntlets.", t="", pt="Ensina a criar as Manoplas de Placa Imperial." }
+ConsoleMode_SpellDescDB[47240] = { n="Dream's Herald", r="", d="Teaches you how to make Dream's Herald.", t="", pt="Ensina a criar o Arauto do Sonho." }
+ConsoleMode_SpellDescDB[47241] = { n="Pattern: Shadowskin Boots", r="", d="Teaches you how to make Shadowskin Boots.", t="", pt="Ensina a criar as Botas de Pele das Sombras." }
+ConsoleMode_SpellDescDB[47242] = { n="Copper Knuckles", r="", d="Teaches you how to make Copper Knuckles.", t="", pt="Ensina a criar o Soco-inglês de Cobre." }
+ConsoleMode_SpellDescDB[47243] = { n="Sharpened Claw", r="", d="Teaches you how to make a Sharpened Claw.", t="", pt="Ensina a criar uma Garra Afiada." }
+ConsoleMode_SpellDescDB[47244] = { n="Bronze Bruiser", r="", d="Teaches you how to make a Bronze Bruiser.", t="", pt="Ensina a criar um Demolidor de Bronze." }
+ConsoleMode_SpellDescDB[47245] = { n="Frostbound Slasher", r="", d="Teaches you how to make a Frostbound Slasher.", t="", pt="Ensina a criar um Retalhador Glacial." }
+ConsoleMode_SpellDescDB[47246] = { n="Pauldron of Deflection", r="", d="Teaches you how to make Pauldron of Deflection.", t="", pt="Ensina a criar o Espaldar da Deflexão." }
 ConsoleMode_SpellDescDB[47247] = { n="Dragonscale Leggings", r="", d="Teaches you how to make Dragonscale Leggings.", t="", pt="" }
 ConsoleMode_SpellDescDB[47248] = { n="Primalist's Gloves", r="", d="Teaches you how to make Primalist's Gloves.", t="", pt="" }
 ConsoleMode_SpellDescDB[47249] = { n="Primalist's Shoulders", r="", d="Teaches you how to make Primalist's Shoulders.", t="", pt="" }

@@ -26220,27 +26220,27 @@ ConsoleMode_SpellDescDB[57666] = { n="Elune's Radiance", r="", d="", t="Chance t
 ConsoleMode_SpellDescDB[57667] = { n="Elune's Guardian", r="", d="Pierce the veil between Azeroth and Vorgendor, summoning a Scytheclaw Pureborn to protect you for $d.", t="Pierce the veil between Azeroth and Vorgendor, summoning a Scytheclaw Pureborn to protect you for $d.", pt="Fende o véu entre Azeroth e Vorgendor, evocando um Garra-curva Puro-sangue para protegê-lo por $d s." }
 ConsoleMode_SpellDescDB[57668] = { n="Pure Moonfire", r="", d="Burns the enemy for $s2 Arcane damage and then an additional $o1 Arcane damage over $d.", t="$o1 Arcane damage over $d seconds.", pt="Queima o inimigo com $s1 de dano Arcano e mais $s2 de dano Arcano adicional ao longo de $d s." }
 ConsoleMode_SpellDescDB[57669] = { n="Crooked Claw", r="", d="Claw the enemy, causing $s1 damage and increasing physical damage taken by $s2% for $d.", t="Increases Physical damage taken by $s2%.", pt="Garra: $s1 e +$s2% físico recebido por $d s." }
-ConsoleMode_SpellDescDB[57670] = { n="Mastery of Hammers", r="Passive", d="Teaches Mastery of Hammers.", t="", pt="" }
+ConsoleMode_SpellDescDB[57670] = { n="Mastery of Hammers", r="Passive", d="Teaches Mastery of Hammers.", t="", pt="Ensina Maestria em Martelos." }
 ConsoleMode_SpellDescDB[57671] = { n="Mastery of Hammers", r="Passive", d="Skill with Maces and Two-Handed Maces increased by $s1.", t="", pt="Maças e Maças 2M +$s1." }
-ConsoleMode_SpellDescDB[57672] = { n="Mastery of Axes", r="Passive", d="Teaches Mastery of Axes.", t="", pt="" }
+ConsoleMode_SpellDescDB[57672] = { n="Mastery of Axes", r="Passive", d="Teaches Mastery of Axes.", t="", pt="Ensina Maestria em Machados." }
 ConsoleMode_SpellDescDB[57673] = { n="Mastery of Axes", r="Passive", d="Skill with Axes and Two-Handed Axes increased by $s1.", t="", pt="Machados e Machados 2M +$s1." }
-ConsoleMode_SpellDescDB[57674] = { n="Mastery of Swords", r="Passive", d="Teaches Mastery of Swords.", t="", pt="" }
+ConsoleMode_SpellDescDB[57674] = { n="Mastery of Swords", r="Passive", d="Teaches Mastery of Swords.", t="", pt="Ensina Maestria em Espadas." }
 ConsoleMode_SpellDescDB[57675] = { n="Mastery of Swords", r="Passive", d="Skill with Swords and Two-Handed Swords increased by $s1.", t="", pt="Espadas e Espadas 2M +$s1." }
-ConsoleMode_SpellDescDB[57676] = { n="Mastery of Fist Weapons", r="Passive", d="Teaches Mastery of Fist Weapons.", t="", pt="" }
+ConsoleMode_SpellDescDB[57676] = { n="Mastery of Fist Weapons", r="Passive", d="Teaches Mastery of Fist Weapons.", t="", pt="Ensina Maestria em Armas de Punho." }
 ConsoleMode_SpellDescDB[57677] = { n="Mastery of Fist Weapons", r="Passive", d="Skill with Fist Weapons increased by $s1.", t="", pt="Punho +$s1." }
-ConsoleMode_SpellDescDB[57678] = { n="Mastery of Polearms", r="Passive", d="Teaches Mastery of Polearms.", t="", pt="" }
+ConsoleMode_SpellDescDB[57678] = { n="Mastery of Polearms", r="Passive", d="Teaches Mastery of Polearms.", t="", pt="Ensina Maestria em Armas de Haste." }
 ConsoleMode_SpellDescDB[57679] = { n="Mastery of Polearms", r="Passive", d="Skill with Polearms increased by $s1.", t="", pt="Haste +$s1." }
-ConsoleMode_SpellDescDB[57680] = { n="Mastery of Staves", r="Passive", d="Teaches Mastery of Staves.", t="", pt="" }
+ConsoleMode_SpellDescDB[57680] = { n="Mastery of Staves", r="Passive", d="Teaches Mastery of Staves.", t="", pt="Ensina Maestria em Cajados." }
 ConsoleMode_SpellDescDB[57681] = { n="Mastery of Staves", r="Passive", d="Skill with Staves increased by $s1.", t="", pt="Cajado +$s1." }
-ConsoleMode_SpellDescDB[57682] = { n="Mastery of Thrown", r="Passive", d="Teaches Mastery of Thrown.", t="", pt="" }
+ConsoleMode_SpellDescDB[57682] = { n="Mastery of Thrown", r="Passive", d="Teaches Mastery of Thrown.", t="", pt="Ensina Maestria em Armas de Arremesso." }
 ConsoleMode_SpellDescDB[57683] = { n="Mastery of Thrown", r="Passive", d="Skill with Thrown increased by $s1.", t="", pt="Arremesso +$s1." }
-ConsoleMode_SpellDescDB[57684] = { n="Mastery of Bows", r="Passive", d="Teaches Mastery of Bows.", t="", pt="" }
+ConsoleMode_SpellDescDB[57684] = { n="Mastery of Bows", r="Passive", d="Teaches Mastery of Bows.", t="", pt="Ensina Maestria em Arcos." }
 ConsoleMode_SpellDescDB[57685] = { n="Mastery of Bows", r="Passive", d="Skill with Bows increased by $s1.", t="", pt="Arco +$s1." }
-ConsoleMode_SpellDescDB[57686] = { n="Mastery of Crossbows", r="Passive", d="Teaches Mastery of Crossbows.", t="", pt="" }
+ConsoleMode_SpellDescDB[57686] = { n="Mastery of Crossbows", r="Passive", d="Teaches Mastery of Crossbows.", t="", pt="Ensina Maestria em Bestas." }
 ConsoleMode_SpellDescDB[57687] = { n="Mastery of Crossbows", r="Passive", d="Skill with Crossbows increased by $s1.", t="", pt="Besta +$s1." }
-ConsoleMode_SpellDescDB[57688] = { n="Mastery of Daggers", r="Passive", d="Teaches Mastery of Daggers.", t="", pt="" }
+ConsoleMode_SpellDescDB[57688] = { n="Mastery of Daggers", r="Passive", d="Teaches Mastery of Daggers.", t="", pt="Ensina Maestria em Adagas." }
 ConsoleMode_SpellDescDB[57689] = { n="Mastery of Daggers", r="Passive", d="Skill with Daggers increased by $s1.", t="", pt="Adaga +$s1." }
-ConsoleMode_SpellDescDB[57690] = { n="Mastery of Guns", r="Passive", d="Teaches Mastery of Guns.", t="", pt="" }
+ConsoleMode_SpellDescDB[57690] = { n="Mastery of Guns", r="Passive", d="Teaches Mastery of Guns.", t="", pt="Ensina Maestria em Armas de Fogo." }
 ConsoleMode_SpellDescDB[57691] = { n="Mastery of Guns", r="Passive", d="Skill with Guns increased by $s1.", t="", pt="Armas de Fogo +$s1." }
 ConsoleMode_SpellDescDB[57692] = { n="Elune's Courage", r="", d="Increasing party attack and casting speed by $s1% for $d", t="Increases attack and casting speed by $s1%", pt="Grupo +$s1% velocidade por $d s." }
 ConsoleMode_SpellDescDB[57693] = { n="Skyrider's Tenacity", r="", d="Increases damage done by $s1% and total health by $s2%.", t="That which kills you makes you stronger.\r\nIncreases damage done by $s1%.\r\nIncreases total health by $s2%.", pt="Dano +$s1% e vida +$s2%." }
@@ -26315,7 +26315,7 @@ ConsoleMode_SpellDescDB[58031] = { n="Plagued Riding Spider", r="", d="Born of p
 ConsoleMode_SpellDescDB[58032] = { n="Cave Riding Spider", r="", d="Legends speak of kobolds riding these spiders into battle.", t="Increases speed based on your Riding skill.", pt="Kobold monta aranha." }
 ConsoleMode_SpellDescDB[58033] = { n="Improved Pummel", r="", d="Triggered by Improved Pummel.", t="Movement slowed by $s1%.", pt="Ativado por Espancar Aprimorado." }
 ConsoleMode_SpellDescDB[58035] = { n="Ride of the Wild", r="Antler Taxi", d="Let a party member hop on your back while in Swift Travel Form, letting you explore the great outdoors together!", t="Friends ride TOGETHER!", pt="Permita que um membro do grupo suba em suas costas enquanto estiver na Forma de Viagem Veloz, permitindo que vocês explorem a natureza juntos!" }
-ConsoleMode_SpellDescDB[58036] = { n="Ride of the Wild", r="", d="Teaches Ride of the Wild. Friends ride TOGETHER!", t="", pt="" }
+ConsoleMode_SpellDescDB[58036] = { n="Ride of the Wild", r="", d="Teaches Ride of the Wild. Friends ride TOGETHER!", t="", pt="Ensina Cavalgada Selvagem. Amigos cavalgam JUNTOS!" }
 ConsoleMode_SpellDescDB[58037] = { n="Ride of the Wild (Speed)", r="", d="Increases movement speed by $s1%.", t="Movement speed increased by $s1%.", pt="Corrida +$s1%." }
 ConsoleMode_SpellDescDB[58038] = { n="Violet Feral Raptor", r="", d="A rare predator from the depths of Wailing Caverns.", t="Increases speed based on your Riding skill.", pt="Predador raro das Cavernas." }
 ConsoleMode_SpellDescDB[58039] = { n="Obsidian Feral Raptor", r="", d="A shadowy beast hidden in the wilds of Un’Goro.", t="Increases speed based on your Riding skill.", pt="Fera sombria de Un'Goro." }

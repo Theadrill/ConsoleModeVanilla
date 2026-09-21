@@ -72,7 +72,20 @@ O20 | 29u | OK
 O21 | 23u | OK
 O22 | 21u | OK
 O23 | 1u | OK
-# ONDA ORFAOS TURTLE COMPLETA: 1.102 templates player-facing (customs + modificadas).
+# ONDA ORFAOS TURTLE COMPLETA (patch-MPQ..patch-7): 1.102 templates player-facing (customs + modificadas).
+# VARREDURA MPQ COMPLETA (patch..patch-9, gap patch-4 fechado, mpyq listfile=False 20/09/2026):
+# CUSTOM 11612 + MODIFICADOS 3925 = ORFAOS 2584 (player 497 / cauda 2087) | patch-9:523 patch-8:419 | fila 3959 (497 novos + 3462 review)
+O24 | 31 | OK (mpq_queue 497 em 10 lotes, oids 586..58239)
+O25 | 25 | OK
+O26 | 20 | OK
+O27 | 21 | OK
+O28 | 31 | OK (28 EN unicos + 3 dedup)
+O29 | 29 | OK
+O30 | 39 | OK (50 oids 34737..46044)
+O31 | 25 | OK (50 oids 46045..51435)
+O32 | 28 | OK (50 oids 51436..51729)
+O33 | 29 | OK (47 oids 51786..58239) FINAL O24-O33
+# ONDA ORFAOS TURTLE COMPLETA ATUALIZADA: 1.102 + 497 = 1.599 templates player-facing (+ patch-8/9)
 # SMS EFETIVO other (183, lotes S01-S04):
 S01 | 50 | OK
 S02 | 50 | OK

@@ -24136,21 +24136,21 @@ ConsoleMode_SpellDescDB[47243] = { n="Sharpened Claw", r="", d="Teaches you how 
 ConsoleMode_SpellDescDB[47244] = { n="Bronze Bruiser", r="", d="Teaches you how to make a Bronze Bruiser.", t="", pt="Ensina a criar um Demolidor de Bronze." }
 ConsoleMode_SpellDescDB[47245] = { n="Frostbound Slasher", r="", d="Teaches you how to make a Frostbound Slasher.", t="", pt="Ensina a criar um Retalhador Glacial." }
 ConsoleMode_SpellDescDB[47246] = { n="Pauldron of Deflection", r="", d="Teaches you how to make Pauldron of Deflection.", t="", pt="Ensina a criar o Espaldar da Deflexão." }
-ConsoleMode_SpellDescDB[47247] = { n="Dragonscale Leggings", r="", d="Teaches you how to make Dragonscale Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[47248] = { n="Primalist's Gloves", r="", d="Teaches you how to make Primalist's Gloves.", t="", pt="" }
-ConsoleMode_SpellDescDB[47249] = { n="Primalist's Shoulders", r="", d="Teaches you how to make Primalist's Shoulders.", t="", pt="" }
-ConsoleMode_SpellDescDB[47250] = { n="Primalist's Headdress", r="", d="Teaches you how to make Primalist's Headdress.", t="", pt="" }
-ConsoleMode_SpellDescDB[47251] = { n="Primalist's Pants", r="", d="Teaches you how to make Primalist's Pants.", t="", pt="" }
-ConsoleMode_SpellDescDB[47252] = { n="Primalist's Vest", r="", d="Teaches you how to make Primalist's Vest.", t="", pt="" }
-ConsoleMode_SpellDescDB[47253] = { n="Primalist's Boots", r="", d="Teaches you how to make Primalist's Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[47254] = { n="Rune-Etched Greaves", r="", d="Teaches you how to make Rune-Etched Greaves.", t="", pt="" }
-ConsoleMode_SpellDescDB[47255] = { n="Rune-Etched Legplates", r="", d="Teaches you how to make Rune-Etched Legplates.", t="", pt="" }
-ConsoleMode_SpellDescDB[47256] = { n="Rune-Etched Breastplate", r="", d="Teaches you how to make Rune-Etched Breastplate.", t="", pt="" }
-ConsoleMode_SpellDescDB[47257] = { n="Rune-Etched Crown", r="", d="Teaches you how to make Rune-Etched Crown.", t="", pt="" }
-ConsoleMode_SpellDescDB[47258] = { n="Rune-Etched Mantle", r="", d="Teaches you how to make Rune-Etched Mantle.", t="", pt="" }
-ConsoleMode_SpellDescDB[47259] = { n="Rune-Etched Grips", r="", d="Teaches you how to make Rune-Etched Grips.", t="", pt="" }
-ConsoleMode_SpellDescDB[47260] = { n="Portable Wormhole Generator - Stormwind ", r="", d="Teaches you how to make a Portable Wormhole Generator - Stormwind.", t="", pt="" }
-ConsoleMode_SpellDescDB[47261] = { n="Portable Wormhole Generator - Orgrimmar", r="", d="Teaches you how to make Schematic: Portable Wormhole Generator - Orgrimmar.", t="", pt="" }
+ConsoleMode_SpellDescDB[47247] = { n="Dragonscale Leggings", r="", d="Teaches you how to make Dragonscale Leggings.", t="", pt="Ensina a fazer Perneiras de Escama de Dragão." }
+ConsoleMode_SpellDescDB[47248] = { n="Primalist's Gloves", r="", d="Teaches you how to make Primalist's Gloves.", t="", pt="Ensina a fazer as Luvas do Primalista." }
+ConsoleMode_SpellDescDB[47249] = { n="Primalist's Shoulders", r="", d="Teaches you how to make Primalist's Shoulders.", t="", pt="Ensina a fazer os Espaldares do Primalista." }
+ConsoleMode_SpellDescDB[47250] = { n="Primalist's Headdress", r="", d="Teaches you how to make Primalist's Headdress.", t="", pt="Ensina a fazer o Diadema do Primalista." }
+ConsoleMode_SpellDescDB[47251] = { n="Primalist's Pants", r="", d="Teaches you how to make Primalist's Pants.", t="", pt="Ensina a fazer as Calças do Primalista." }
+ConsoleMode_SpellDescDB[47252] = { n="Primalist's Vest", r="", d="Teaches you how to make Primalist's Vest.", t="", pt="Ensina a fazer o Colete do Primalista." }
+ConsoleMode_SpellDescDB[47253] = { n="Primalist's Boots", r="", d="Teaches you how to make Primalist's Boots.", t="", pt="Ensina a fazer as Botas do Primalista." }
+ConsoleMode_SpellDescDB[47254] = { n="Rune-Etched Greaves", r="", d="Teaches you how to make Rune-Etched Greaves.", t="", pt="Ensina a fazer as Grevas Gravadas com Runas." }
+ConsoleMode_SpellDescDB[47255] = { n="Rune-Etched Legplates", r="", d="Teaches you how to make Rune-Etched Legplates.", t="", pt="Ensina a fazer os Coxotes Gravados com Runas." }
+ConsoleMode_SpellDescDB[47256] = { n="Rune-Etched Breastplate", r="", d="Teaches you how to make Rune-Etched Breastplate.", t="", pt="Ensina a fazer o Peitoral Gravado com Runas." }
+ConsoleMode_SpellDescDB[47257] = { n="Rune-Etched Crown", r="", d="Teaches you how to make Rune-Etched Crown.", t="", pt="Ensina a fazer a Coroa Gravada com Runas." }
+ConsoleMode_SpellDescDB[47258] = { n="Rune-Etched Mantle", r="", d="Teaches you how to make Rune-Etched Mantle.", t="", pt="Ensina a fazer o Manto Gravado com Runas." }
+ConsoleMode_SpellDescDB[47259] = { n="Rune-Etched Grips", r="", d="Teaches you how to make Rune-Etched Grips.", t="", pt="Ensina a fazer as Luvas Gravadas com Runas." }
+ConsoleMode_SpellDescDB[47260] = { n="Portable Wormhole Generator - Stormwind ", r="", d="Teaches you how to make a Portable Wormhole Generator - Stormwind.", t="", pt="Ensina a fazer um Gerador Portátil de Buraco de Minhoca - Ventobravo." }
+ConsoleMode_SpellDescDB[47261] = { n="Portable Wormhole Generator - Orgrimmar", r="", d="Teaches you how to make Schematic: Portable Wormhole Generator - Orgrimmar.", t="", pt="Ensina a fazer o Esquema: Gerador Portátil de Buraco de Minhoca - Orgrimmar." }
 ConsoleMode_SpellDescDB[47263] = { n="Hex", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47264] = { n="Bloodlust", r="Rank 2", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47265] = { n="[Deprecated] Stormstrike", r="Rank 2", d="", t="", pt="" }
@@ -24186,17 +24186,17 @@ ConsoleMode_SpellDescDB[47296] = { n="Aspect of the Wolf", r="Rank 1", d="", t="
 ConsoleMode_SpellDescDB[47297] = { n="Detection", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47298] = { n="Flourish", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47299] = { n="Owlkin Frenzy", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47300] = { n="Ritual of Souls", r="", d="Teaches Ritual of Souls.", t="", pt="" }
+ConsoleMode_SpellDescDB[47300] = { n="Ritual of Souls", r="", d="Teaches Ritual of Souls.", t="", pt="Ensina Ritual das Almas." }
 ConsoleMode_SpellDescDB[47301] = { n="Mana Funnel", r="Rank 2", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47302] = { n="Demon Portal", r="", d="Teaches Demon Gate.", t="", pt="" }
+ConsoleMode_SpellDescDB[47302] = { n="Demon Portal", r="", d="Teaches Demon Gate.", t="", pt="Ensina Portal Demoníaco." }
 ConsoleMode_SpellDescDB[47303] = { n="Surprise Attack", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47304] = { n="Fan of Knives", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47305] = { n="Ritual of Refreshment", r="", d="Teaches Ritual of Refreshment.", t="", pt="" }
+ConsoleMode_SpellDescDB[47305] = { n="Ritual of Refreshment", r="", d="Teaches Ritual of Refreshment.", t="", pt="Ensina Ritual de Banquete." }
 ConsoleMode_SpellDescDB[47306] = { n="Wrath", r="Rank 9", d="Teaches Wrath (Rank 9).", t="", pt="Ensina Cólera (Grau 9)." }
 ConsoleMode_SpellDescDB[47307] = { n="Smite", r="Rank 9", d="Teaches Smite (Rank 9).", t="", pt="Ensina Punição (Grau 9)." }
 ConsoleMode_SpellDescDB[47308] = { n="Shred", r="Rank 6", d="Teaches Shred (Rank 6).", t="", pt="Ensina Triturar (Grau 6)." }
-ConsoleMode_SpellDescDB[47309] = { n="Avoidance", r="", d="Teaches Avoidance.", t="Hunter pet version.", pt="" }
-ConsoleMode_SpellDescDB[47310] = { n="Avoidance", r="", d="Teaches Avoidance.", t="Warlock pet version.", pt="" }
+ConsoleMode_SpellDescDB[47309] = { n="Avoidance", r="", d="Teaches Avoidance.", t="Hunter pet version.", pt="Ensina Evitação." }
+ConsoleMode_SpellDescDB[47310] = { n="Avoidance", r="", d="Teaches Avoidance.", t="Warlock pet version.", pt="Ensina Evitação." }
 ConsoleMode_SpellDescDB[47311] = { n="Syndicate Amulet", r="", d="Allows you to attack the Stromgarde soldiers", t="Allows you to attack the Stromgarde soldiers", pt="Ataca soldado de Stromgarde." }
 ConsoleMode_SpellDescDB[47312] = { n="Agitating Poison", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47313] = { n="Insect Swarm", r="Rank 1", d="", t="", pt="" }
@@ -24216,13 +24216,13 @@ ConsoleMode_SpellDescDB[47326] = { n="Lightwell", r="Rank 1", d="", t="", pt="" 
 ConsoleMode_SpellDescDB[47327] = { n="Consecration", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47328] = { n="Mana Funnel", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47329] = { n="Faerie Fire (Feral)", r="Rank 1", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47330] = { n="Verdant Dreamer's Breastplate", r="", d="Teaches you how to make Verdant Dreamer's Breastplate.", t="", pt="" }
-ConsoleMode_SpellDescDB[47331] = { n="Hateforge Helmet", r="", d="Teaches you how to make Hateforge Helmet.", t="", pt="" }
-ConsoleMode_SpellDescDB[47332] = { n="Hateforge Curiass", r="", d="Teaches you how to make Hateforge Curiass.", t="", pt="" }
-ConsoleMode_SpellDescDB[47333] = { n="Hateforge Leggings", r="", d="Teaches you how to make Hateforge Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[47334] = { n="Hateforge Belt", r="", d="Teaches you how to make Hateforge Belt.", t="", pt="" }
-ConsoleMode_SpellDescDB[47335] = { n="Hateforge Grips", r="", d="Teaches you how to make Hateforge Grips.", t="", pt="" }
-ConsoleMode_SpellDescDB[47336] = { n="Hateforge Boots", r="", d="Teaches you how to make Hateforge Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[47330] = { n="Verdant Dreamer's Breastplate", r="", d="Teaches you how to make Verdant Dreamer's Breastplate.", t="", pt="Ensina a fazer o Peitoral do Sonhador Verdejante." }
+ConsoleMode_SpellDescDB[47331] = { n="Hateforge Helmet", r="", d="Teaches you how to make Hateforge Helmet.", t="", pt="Ensina a fazer o Elmo da Forja do Ódio." }
+ConsoleMode_SpellDescDB[47332] = { n="Hateforge Curiass", r="", d="Teaches you how to make Hateforge Curiass.", t="", pt="Ensina a fazer o Peitoral da Forja do Ódio." }
+ConsoleMode_SpellDescDB[47333] = { n="Hateforge Leggings", r="", d="Teaches you how to make Hateforge Leggings.", t="", pt="Ensina a fazer as Calças da Forja do Ódio." }
+ConsoleMode_SpellDescDB[47334] = { n="Hateforge Belt", r="", d="Teaches you how to make Hateforge Belt.", t="", pt="Ensina a fazer o Cinto da Forja do Ódio." }
+ConsoleMode_SpellDescDB[47335] = { n="Hateforge Grips", r="", d="Teaches you how to make Hateforge Grips.", t="", pt="Ensina a fazer as Manoplas da Forja do Ódio." }
+ConsoleMode_SpellDescDB[47336] = { n="Hateforge Boots", r="", d="Teaches you how to make Hateforge Boots.", t="", pt="Ensina a fazer as Botas da Forja do Ódio." }
 ConsoleMode_SpellDescDB[47337] = { n="Aspect of the Snake", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47338] = { n="Aspect of the Fox", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47339] = { n="Aspect of the Turtle", r="", d="", t="", pt="" }

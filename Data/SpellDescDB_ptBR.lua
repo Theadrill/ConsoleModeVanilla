@@ -23681,24 +23681,24 @@ ConsoleMode_SpellDescDB[46057] = { n="Artisan Survivalist", r="", d="", t="", pt
 ConsoleMode_SpellDescDB[46058] = { n="Traveler's Tent", r="", d="Sets up a traveler's tent. While under the cover of the tent you are resting and may gain rested experience. Can only be used outdoors.", t="", pt="Monta a tenda de um viajante. Enquanto estiver abrigado na tenda, você estará descansando e poderá ganhar experiência de descanso. Só pode ser usada ao ar livre." }
 ConsoleMode_SpellDescDB[46059] = { n="Traveler's Tent", r="", d="Teaches how to create a Traveler's Tent.", t="", pt="Ensina a criar uma Barraca do Viajante." }
 ConsoleMode_SpellDescDB[46060] = { n="Fishing Boat", r="", d="Sets up a fishing boat. While on your boat you gain +50 fishing skill. Can only be used outdoors near a deep enough body of water.", t="", pt="Monta um barco de pesca. A bordo do barco, você recebe +50 de perícia de pesca. Só pode ser usado ao ar livre, perto de um corpo de água com profundidade suficiente." }
-ConsoleMode_SpellDescDB[46061] = { n="Fishing Boat", r="", d="Teaches how to create a Fishing Boat.", t="\"Boats for Dummies\"", pt="" }
+ConsoleMode_SpellDescDB[46061] = { n="Fishing Boat", r="", d="Teaches how to create a Fishing Boat.", t="\"Boats for Dummies\"", pt="Ensina a criar um Barco de Pesca." }
 ConsoleMode_SpellDescDB[46062] = { n="Simple Wooden Planter", r="", d="Sets up a simple wooden planter. Planters allow you to plant seeds and cultivate crops.", t="", pt="Monta uma floreira simples de madeira. As floreiras permitem plantar sementes e cultivar colheitas." }
-ConsoleMode_SpellDescDB[46063] = { n="Simple Wooden Planter", r="", d="Teaches how to make a Simple Wooden Planner.", t="", pt="" }
+ConsoleMode_SpellDescDB[46063] = { n="Simple Wooden Planter", r="", d="Teaches how to make a Simple Wooden Planner.", t="", pt="Ensina a fazer uma Jardineira de Madeira Simples." }
 ConsoleMode_SpellDescDB[46064] = { n="Dim Torch", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46065] = { n="Dim Torch", r="", d="Teaches how to create a Dim Torch.", t="", pt="" }
+ConsoleMode_SpellDescDB[46065] = { n="Dim Torch", r="", d="Teaches how to create a Dim Torch.", t="", pt="Ensina a criar uma Tocha Fosca." }
 ConsoleMode_SpellDescDB[46066] = { n="Murloc's Flippers", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46067] = { n="Murloc's Flippers", r="", d="Teaches how to create a pair of Murloc's Flippers.", t="", pt="" }
+ConsoleMode_SpellDescDB[46067] = { n="Murloc's Flippers", r="", d="Teaches how to create a pair of Murloc's Flippers.", t="", pt="Ensina a criar um par de Nadadeiras de Murloc." }
 ConsoleMode_SpellDescDB[46068] = { n="Cleaning Cloth", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46069] = { n="Cleaning Cloth", r="", d="Teaches how to create a Cleaning Cloth", t="", pt="" }
+ConsoleMode_SpellDescDB[46069] = { n="Cleaning Cloth", r="", d="Teaches how to create a Cleaning Cloth", t="", pt="Ensina a criar um Pano de Limpeza." }
 ConsoleMode_SpellDescDB[46070] = { n="Cleaning Cloth", r="", d="Cleans a weapon, removing any temporary enhancement that has been applied to it.", t="", pt="Limpa uma arma, removendo qualquer aprimoramento temporário que tenha sido aplicado a ela." }
 ConsoleMode_SpellDescDB[46071] = { n="Cleaning Cloth", r="", d="", t="Sparkle sparkle!", pt="" }
 ConsoleMode_SpellDescDB[46072] = { n="Traveler's Tent", r="", d="Sets up a traveler's tent. While under the cover of the tent you are resting and may gain rested experience. Can only be used outdoors.", t="", pt="Monta a tenda de um viajante. Enquanto estiver abrigado na tenda, você estará descansando e poderá ganhar experiência de descanso. Só pode ser usada ao ar livre." }
 ConsoleMode_SpellDescDB[46073] = { n="Fishing Boat", r="", d="Sets up a fishing boat. While on your boat you gain +50 fishing skill. Can only be used outdoors near a deep enough body of water.", t="", pt="Monta um barco de pesca. A bordo do barco, você recebe +50 de perícia de pesca. Só pode ser usado ao ar livre, perto de um corpo de água com profundidade suficiente." }
 ConsoleMode_SpellDescDB[46074] = { n="Simple Wooden Planter", r="", d="Sets up a simple wooden planter. Planters allow you to plant seeds and cultivate crops.", t="", pt="Monta uma floreira simples de madeira. As floreiras permitem plantar sementes e cultivar colheitas." }
 ConsoleMode_SpellDescDB[46075] = { n="Iron Lantern", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46076] = { n="Iron Lantern", r="", d="Teaches how to create an Iron Lantern.", t="", pt="" }
+ConsoleMode_SpellDescDB[46076] = { n="Iron Lantern", r="", d="Teaches how to create an Iron Lantern.", t="", pt="Ensina a criar uma Lanterna de Ferro." }
 ConsoleMode_SpellDescDB[46077] = { n="Repaired Electro-Lantern", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46078] = { n="Repaired Electro-Lantern", r="", d="Teaches how to repair Electro-Lanterns.", t="", pt="" }
+ConsoleMode_SpellDescDB[46078] = { n="Repaired Electro-Lantern", r="", d="Teaches how to repair Electro-Lanterns.", t="", pt="Ensina a consertar Eletrolanternas." }
 ConsoleMode_SpellDescDB[46079] = { n="Call of Nightmare", r="", d="Puts the target to sleep, causing $o2 Nature damage over $d.", t="Sleeping and taking damage.", pt="Dorme e $s1 de Natureza em $d s." }
 ConsoleMode_SpellDescDB[46080] = { n="Wail of Erennius", r="", d="Puts all nearby enemies to sleep for $d.", t="Sleeping", pt="Dorme todos por $d s." }
 ConsoleMode_SpellDescDB[46081] = { n="Expulsion of Corruption", r="", d="Inflicts $s1 Nature damage to all targets within $a1 yards.", t="", pt="$s1 de Natureza a $a1 m." }
@@ -23707,8 +23707,8 @@ ConsoleMode_SpellDescDB[46083] = { n="Well Fed", r="", d="", t="Increases Stamin
 ConsoleMode_SpellDescDB[46084] = { n="Food", r="", d="Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $46083s1 Stamina, while reducing damage taken from critical hits and damage over time effects by $46083s2% for $46083d.", t="Restores $/5;s1 health per second.", pt="Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2 de Vigor, além de reduzir o dano sofrido de acertos críticos e efeitos de dano ao longo do tempo em $s3% por $d s." }
 ConsoleMode_SpellDescDB[46085] = { n="Gurubashi Gumbo", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[46086] = { n="Enchant Gloves - Major Strength", r="", d="Permanently enchant gloves to increase strength by 9.", t="", pt="Encanta permanentemente luvas para aumentar a Força em 9." }
-ConsoleMode_SpellDescDB[46087] = { n="Formula: Enchant Gloves - Major Strength", r="", d="Teaches you how to permanently enchant gloves to increase strength by 9.", t="", pt="" }
-ConsoleMode_SpellDescDB[46088] = { n="Recipe: Gurubashi Gumbo", r="", d="Teaches you how to cook Gurubashi Gumbo.", t="", pt="" }
+ConsoleMode_SpellDescDB[46087] = { n="Formula: Enchant Gloves - Major Strength", r="", d="Teaches you how to permanently enchant gloves to increase strength by 9.", t="", pt="Ensina a encantar permanentemente luvas para aumentar a força em 9." }
+ConsoleMode_SpellDescDB[46088] = { n="Recipe: Gurubashi Gumbo", r="", d="Teaches you how to cook Gurubashi Gumbo.", t="", pt="Ensina a cozinhar Gumbo Gurubashi." }
 ConsoleMode_SpellDescDB[46090] = { n="Tame Elder Crimson Lynx", r="", d="Begins taming a Elder Crimson Lynx to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.", t="Taming Elder Crimson Lynx.", pt="Começa a domesticar um Lince Carmesim Ancião para ser seu ajudante por 10 minutos. Se você perder a atenção da fera por qualquer motivo, o processo de domesticação falhará." }
 ConsoleMode_SpellDescDB[46091] = { n="Tame Elder Crimson Lynx", r="", d="", t="Tamed.", pt="" }
 ConsoleMode_SpellDescDB[46092] = { n="Tame Ivory Hawkstrider", r="", d="Begins taming a Ivory Hawkstrider to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.", t="Taming Ivory Hawkstrider.", pt="Começa a domesticar um Falcostruz de Marfim para ser seu ajudante por 10 minutos. Se você perder a atenção da fera por qualquer motivo, o processo de domesticação falhará." }
@@ -23950,19 +23950,19 @@ ConsoleMode_SpellDescDB[46600] = { n="Lordaeron Breastplate", r="", d="", t="", 
 ConsoleMode_SpellDescDB[46601] = { n="Enchant Gloves - Arcane Power", r="", d="Permanently enchant gloves to increase arcane damage by up to 20.", t="", pt="Encanta permanentemente luvas para aumentar o dano Arcano em até 20." }
 ConsoleMode_SpellDescDB[46602] = { n="Enchant Gloves - Nature Power", r="", d="Permanently enchant gloves to increase nature damage by up to 20.", t="", pt="Encanta permanentemente luvas para aumentar o dano de Natureza em até 20." }
 ConsoleMode_SpellDescDB[46603] = { n="Enchant Gloves - Holy Power", r="", d="Permanently enchant gloves to increase holy damage by up to 20.", t="", pt="Encanta permanentemente luvas para aumentar o dano Sagrado em até 20." }
-ConsoleMode_SpellDescDB[46604] = { n="Enchant Gloves - Arcane Power", r="", d="Teaches you how to permanently enchant gloves to increase the arcane damage done by spells and abilities by 20.", t="", pt="" }
-ConsoleMode_SpellDescDB[46605] = { n="Enchant Gloves - Nature Power", r="", d="Teaches you how to permanently enchant gloves to increase the nature damage done by spells and abilities by 20.", t="", pt="" }
-ConsoleMode_SpellDescDB[46606] = { n="Enchant Gloves - Holy Power", r="", d="Teaches you how to permanently enchant gloves to increase the holy damage done by spells and abilities by 20.", t="", pt="" }
-ConsoleMode_SpellDescDB[46607] = { n="Lordaeron Breastplate", r="", d="Teaches you how to make an Lordaeon Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[46604] = { n="Enchant Gloves - Arcane Power", r="", d="Teaches you how to permanently enchant gloves to increase the arcane damage done by spells and abilities by 20.", t="", pt="Ensina a encantar permanentemente luvas para aumentar o dano arcano causado por feitiços e habilidades em 20." }
+ConsoleMode_SpellDescDB[46605] = { n="Enchant Gloves - Nature Power", r="", d="Teaches you how to permanently enchant gloves to increase the nature damage done by spells and abilities by 20.", t="", pt="Ensina a encantar permanentemente luvas para aumentar o dano de natureza causado por feitiços e habilidades em 20." }
+ConsoleMode_SpellDescDB[46606] = { n="Enchant Gloves - Holy Power", r="", d="Teaches you how to permanently enchant gloves to increase the holy damage done by spells and abilities by 20.", t="", pt="Ensina a encantar permanentemente luvas para aumentar o dano sagrado causado por feitiços e habilidades em 20." }
+ConsoleMode_SpellDescDB[46607] = { n="Lordaeron Breastplate", r="", d="Teaches you how to make an Lordaeon Breastplate.", t="", pt="Ensina a fazer um Peitoral de Lordaeron." }
 ConsoleMode_SpellDescDB[46608] = { n="Hypertech Battery Pack", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46609] = { n="Hypertech Battery Pack", r="", d="Teaches you how to make a Hypertech Battery Pack.", t="", pt="" }
+ConsoleMode_SpellDescDB[46609] = { n="Hypertech Battery Pack", r="", d="Teaches you how to make a Hypertech Battery Pack.", t="", pt="Ensina a fazer um Pacote de Bateria Hypertech." }
 ConsoleMode_SpellDescDB[46610] = { n="Battery-Powered Crowd Pummeler", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46611] = { n="Battery-Powered Crowd Pummeler", r="", d="Teaches you how to make a Battery-Powered Crowd Pummeler and a Hypertech Battery Pack.", t="", pt="" }
+ConsoleMode_SpellDescDB[46611] = { n="Battery-Powered Crowd Pummeler", r="", d="Teaches you how to make a Battery-Powered Crowd Pummeler and a Hypertech Battery Pack.", t="", pt="Ensina a fazer um Triturador de Multidões a Bateria e um Pacote de Bateria Hypertech." }
 ConsoleMode_SpellDescDB[46612] = { n="Remote Mail Terminal", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46613] = { n="Remote Mail Terminal", r="", d="Teaches you how to make a Remote Mail Terminal.", t="", pt="" }
+ConsoleMode_SpellDescDB[46613] = { n="Remote Mail Terminal", r="", d="Teaches you how to make a Remote Mail Terminal.", t="", pt="Ensina a fazer um Terminal de Correio Remoto." }
 ConsoleMode_SpellDescDB[46614] = { n="Remote Mail Terminal", r="Device", d="Sets up a remote mail terminal allowing for the sending and receiving of letters. After 5 minutes its power is depleted.", t="", pt="Instala um terminal de correio remoto que permite o envio e o recebimento de cartas. Após 5 minutos, sua energia se esgota." }
 ConsoleMode_SpellDescDB[46616] = { n="Drums of Battle", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[46617] = { n="Drums of Battle", r="", d="Teaches you how to make Drums of Battle.", t="", pt="" }
+ConsoleMode_SpellDescDB[46617] = { n="Drums of Battle", r="", d="Teaches you how to make Drums of Battle.", t="", pt="Ensina a fazer Tambores de Batalha." }
 ConsoleMode_SpellDescDB[46618] = { n="Drums of Battle", r="", d="Increases melee, ranged and spell haste of nearby party members by 5% for $d.", t="Melee, ranged, and spell haste increased by 5%.", pt="Aumenta a aceleração corpo a corpo, à distância e de feitiços dos membros próximos do grupo em 5% por $d s." }
 ConsoleMode_SpellDescDB[46619] = { n="Tinnitus", r="", d="Debuff following the use of Drums,", t="Ears ringing.", pt="Debuff do tambor." }
 ConsoleMode_SpellDescDB[46620] = { n="Grifter's Boots", r="", d="", t="", pt="" }
@@ -24053,19 +24053,19 @@ ConsoleMode_SpellDescDB[46762] = { n="Improved Clearcasting", r="", d="Increase 
 ConsoleMode_SpellDescDB[46854] = { n="Joust", r="Emote", d="You must be mounted to play this emote.", t="", pt="Você precisa estar montado para usar este gesto." }
 ConsoleMode_SpellDescDB[46999] = { n="Shameful Tactics!", r="", d="Marks the player with a purple arrow. Lasts for 10 minutes.", t="You've shamefully left the gameboard! Damage dealt is reduced by $s1%.", pt="Marca o jogador com seta roxa por 10 min." }
 ConsoleMode_SpellDescDB[47000] = { n="Cauldron of Major Arcane Protection", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47001] = { n="Cauldron of Major Arcane Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="" }
+ConsoleMode_SpellDescDB[47001] = { n="Cauldron of Major Arcane Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="Ensina a fazer um Caldeirão de Proteção Arcana Maior." }
 ConsoleMode_SpellDescDB[47002] = { n="Cauldron of Major Arcane Protection", r="", d="Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min." }
 ConsoleMode_SpellDescDB[47003] = { n="Cauldron of Major Fire Protection", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47004] = { n="Cauldron of Major Fire Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="" }
+ConsoleMode_SpellDescDB[47004] = { n="Cauldron of Major Fire Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="Ensina a fazer um Caldeirão de Proteção Arcana Maior." }
 ConsoleMode_SpellDescDB[47005] = { n="Cauldron of Major Fire Protection", r="", d="Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min." }
 ConsoleMode_SpellDescDB[47006] = { n="Cauldron of Major Frost Protection", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47007] = { n="Cauldron of Major Frost Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="" }
+ConsoleMode_SpellDescDB[47007] = { n="Cauldron of Major Frost Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="Ensina a fazer um Caldeirão de Proteção Arcana Maior." }
 ConsoleMode_SpellDescDB[47008] = { n="Cauldron of Major Frost Protection", r="", d="Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min." }
 ConsoleMode_SpellDescDB[47009] = { n="Cauldron of Major Shadow Protection", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47010] = { n="Cauldron of Major Shadow Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="" }
+ConsoleMode_SpellDescDB[47010] = { n="Cauldron of Major Shadow Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="Ensina a fazer um Caldeirão de Proteção Arcana Maior." }
 ConsoleMode_SpellDescDB[47011] = { n="Cauldron of Major Shadow Protection", r="", d="Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min." }
 ConsoleMode_SpellDescDB[47012] = { n="Cauldron of Major Nature Protection", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[47013] = { n="Cauldron of Major Nature Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="" }
+ConsoleMode_SpellDescDB[47013] = { n="Cauldron of Major Nature Protection", r="", d="Teaches you how to make a Cauldron of Major Arcane Protection.", t="", pt="Ensina a fazer um Caldeirão de Proteção Arcana Maior." }
 ConsoleMode_SpellDescDB[47014] = { n="Cauldron of Major Nature Protection", r="", d="Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min." }
 ConsoleMode_SpellDescDB[47015] = { n="Primalist's Gloves", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[47016] = { n="Primalist's Shoulders", r="", d="", t="", pt="" }

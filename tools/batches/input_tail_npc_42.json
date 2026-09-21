@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 45909,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demonic Empowerment",
+    "en": "Grants the Warlock's summoned demon Empowerment.\n\nImp - Increases the Imp's spell critical strike chance by 20% for 30 sec.\n\nVoidwalker - Increases the Voidwalker's health by 20%, and its threat generated from spells and attacks by 20% for 20 sec.\n\nSuccubus -  Instantly vanishes, causing the Succubus to go into an improved Invisibility state.\n\nFelhunter - Dispels all magical effects from the Felhunter.",
+    "curr_pt": "Concede Empoderamento ao demônio evocado pelo Bruxo. Diabrete – Aumenta a chance de acerto crítico com feitiços do Diabrete em 20% por 30 s. Emissário do Caos – Aumenta a vida do Emissário do Caos em 20% e a ameaça gerada por feitiços e ataques em 20% por 20 s. Súcubo – Desaparece instantaneamente, fazendo com que o Súcubo entre em um estado de Invisibilidade aprimorada. Caçador Vil – Dissipa todos os efeitos mágicos do Caçador Vil."
+  },
+  {
+    "oid": 45920,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ritual of Souls",
+    "en": "Begins a ritual that creates a Soulwell.  Raid members can click the Soulwell to acquire a Major Healthstone.  The Soulwell lasts for 3 min.  Requires the caster and 2 additional party members to complete the ritual.  In order to participate, all players must right-click the soul portal and not move until the ritual is complete.",
+    "curr_pt": "Inicia um ritual que cria um Poço de Almas. Membros da raide podem clicar no Poço de Almas para adquirir uma Pedra de Vida Maior. O Poço de Almas dura por 3 min. Requer o lançador e mais 2 membros do grupo para completar o ritual. Para participar, todos os jogadores devem clicar com o botão direito no portal de almas e permanecer imóveis até que o ritual seja concluído."
+  },
+  {
+    "oid": 46018,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Exit Strategy Racial",
+    "en": "Increases movement speed by $46240s1% for $46240d, but you cannot attack or cast spells during this time.  For encounters that do not go quite as planned.",
+    "curr_pt": "Aumenta a velocidade de movimento em $s1% por $d s, mas você não pode atacar nem lançar feitiços durante esse tempo. Para encontros que não saem exatamente como planejado."
+  },
+  {
+    "oid": 46229,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gray Bear Cub",
+    "en": "Right Click to summon and dismiss your Bear Cub.",
+    "curr_pt": "Faz um inimigo dormir por até $d s. Qualquer dano o desperta. Só um dormindo por vez."
+  },
+  {
+    "oid": 46762,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Improved Clearcasting",
+    "en": "Increase the mana-cost reduction of Clearcasting to $46762s1%. ",
+    "curr_pt": "Aumenta a redução do custo de mana do Presságio de Clareza para $s1%."
+  },
+  {
+    "oid": 47002,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cauldron of Major Arcane Protection",
+    "en": "Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min."
+  },
+  {
+    "oid": 47005,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cauldron of Major Fire Protection",
+    "en": "Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min."
+  },
+  {
+    "oid": 47008,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cauldron of Major Frost Protection",
+    "en": "Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min."
+  },
+  {
+    "oid": 47011,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cauldron of Major Shadow Protection",
+    "en": "Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min."
+  },
+  {
+    "oid": 47014,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cauldron of Major Nature Protection",
+    "en": "Creates a cauldron that raid members can use to conjure a Major Arcane Protection Potion.  Cauldron has 40 uses and lasts for $d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria um caldeirão para a raide conjurar Poção de Proteção Arcana Maior. 40 usos por $d s. Some se deslogar 15 min."
+  },
+  {
+    "oid": 47350,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Legion Strike",
+    "en": "A sweeping attack that deals $s1% of the Felguard's weapon damage as Shadow damage, divided among all targets within melee range.\nThe Felguard's current target is wounded, reducing the effectiveness of any healing received by $s2% for $d.",
+    "curr_pt": "Um ataque avassalador que causa $s1% do dano de arma do Guarda Vil como dano de Sombra, dividido entre todos os alvos a alcance corpo a corpo. O alvo atual do Guarda Vil fica ferido, reduzindo a eficácia de qualquer cura recebida em $s2% por $d s."
+  },
+  {
+    "oid": 47368,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Book of Levitation",
+    "en": "Allows the target to levitate, floating a few feet above the ground.  While levitating, you will fall at a reduced speed and travel over water-like surfaces.  Any damage will cancel the effect.  Lasts $d.",
+    "curr_pt": "Permite que o alvo levite, flutuando alguns palmos acima do solo. Enquanto estiver levitando, você cairá com velocidade reduzida e poderá caminhar sobre a água. Qualquer dano cancelará o efeito. Dura por $d s."
+  },
+  {
+    "oid": 49031,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Rampaging Earth",
+    "en": "Charge an enemy.",
+    "curr_pt": "Investe contra um inimigo."
+  },
+  {
+    "oid": 50002,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Survivalist Challenge",
+    "en": "More easily wethered by the elements.  Must overcome hunger, thirst, encumbrance, temperature, tiredness, sickness, and injury in order to survive.",
+    "curr_pt": "Frágil aos elementos. Fome, sede, peso, frio, cansaço, doença e ferida para sobreviver."
+  },
+  {
+    "oid": 50007,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lone Wolf Challenge",
+    "en": "Trading with players and use of the Auction House are disabled.\n\nRestricted  from grouping with other players. \n\nCannot craft gear.\n\nCannot use consumables other than health potions.\n\nAutomatically revive at a graveyard upon death.",
+    "curr_pt": "As trocas com jogadores e o uso da Casa de Leilões estão desabilitados. Não é possível formar grupos com outros jogadores. Não é possível fabricar equipamentos. Não é possível usar consumíveis, exceto poções de vida. Revive automaticamente em um cemitério ao morrer."
+  },
+  {
+    "oid": 50013,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Day Trader Challenge",
+    "en": "Time is money, friend!\n\n-Cannot trade with or receive mail from other players.\n\n-Items sold to vendors have no value.",
+    "curr_pt": "Tempo é dinheiro! Sem troca ou correio. Venda sem valor."
+  },
+  {
+    "oid": 50036,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Survivalist Challenge",
+    "en": "More easily wethered by the elements.  Must overcome hunger, thirst, encumbrance, temperature, tiredness, sickness, and injury in order to survive.",
+    "curr_pt": "Frágil aos elementos. Fome, sede, peso, frio, cansaço, doença e ferida para sobreviver."
+  },
+  {
+    "oid": 50039,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lone Wolf Challenge",
+    "en": "Trading with players and use of the Auction House are disabled.\n\nRestricted  from grouping with other players. \n\nCannot craft gear.\n\nCannot use consumables other than health potions.\n\nAutomatically revive at a graveyard upon death.",
+    "curr_pt": "As trocas com jogadores e o uso da Casa de Leilões estão desabilitados. Não é possível formar grupos com outros jogadores. Não é possível fabricar equipamentos. Não é possível usar consumíveis, exceto poções de vida. Revive automaticamente em um cemitério ao morrer."
+  },
+  {
+    "oid": 50044,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Day Trader Challenge",
+    "en": "Time is money, friend!\n\n-Cannot trade with or receive mail from other players.\n\n-Items sold to vendors have no value.",
+    "curr_pt": "Tempo é dinheiro! Sem troca ou correio. Venda sem valor."
+  },
+  {
+    "oid": 50100,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lunar Festival Lantern",
+    "en": "Light your lantern to honor the past and brighten the future! ",
+    "curr_pt": "Lanterna do passado e futuro!"
+  },
+  {
+    "oid": 50901,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Tame Decrepit Darkhound",
+    "en": "Begins taming a Decrepit Darkhound to be your companion for 10 minutes.  If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Começa a domar um Cão Sombrio Decrépito para ser seu ajudante por 10 minutos. Se você perder a atenção da fera por qualquer motivo, o processo de domesticação falhará."
+  },
+  {
+    "oid": 50902,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Tame Greater Dusk Bat",
+    "en": "Begins taming a Greater Dusk Bat to be your companion for 10 minutes.  If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Começa a domar um Morcego do Crepúsculo Maior para ser seu ajudante por 10 minutos. Se você perder a atenção da fera por qualquer motivo, o processo de domesticação falhará."
+  },
+  {
+    "oid": 50903,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Tame Tirisfal Plagued Bear",
+    "en": "Begins taming a Tirisfal Plagued Bear to be your companion for 10 minutes.  If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Começa a domar um Urso Pestilento de Tirisfal para ser seu companheiro por 10 minutos. Se você perder a atenção da fera por qualquer motivo, o processo de domesticação falhará."
+  },
+  {
+    "oid": 51084,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Blood Siphon",
+    "en": "Transfers $s1 health from the target to the caster every $t1 sec.  Lasts $d.",
+    "curr_pt": "Transfere $s1 de vida do alvo para o lançador a cada $t1 s. Dura $d s."
+  },
+  {
+    "oid": 51144,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shattered Armor",
+    "en": "Reduces an enemy's armor by $s1. ",
+    "curr_pt": "Armadura -$s1."
+  },
+  {
+    "oid": 51170,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Call from the Twisting Nether Summon",
+    "en": "Summons a meteor from the Twisting Nether, causing $51167s1 Fire damage and stunning all enemy targets in the area for $51167d.  An Infernal rises from the crater, under the command of the caster for $51167d.",
+    "curr_pt": "Evoca um meteoro da Espiral Etérea, causando $s1 de dano de Fogo e atordoando todos os alvos inimigos na área por $d s. Um Infernal surge da cratera, sob o comando do lançador, por $d s."
+  },
+  {
+    "oid": 51195,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nether Banishment",
+    "en": "Banishes the enemy target, preventing all action but making it invulnerable for up to $d.  Only one target can be banished at a time. ",
+    "curr_pt": "Bane o alvo inimigo, impedindo qualquer ação, mas tornando-o invulnerável por até $d s. Apenas um alvo pode ser banido por vez."
+  },
+  {
+    "oid": 51204,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Overflowing Hatred",
+    "en": "Ignites the area surrounding the caster, causing $51203s1 Fire damage to all nearby enemies within $s1 yards every $t2 sec.  Lasts $d.",
+    "curr_pt": "Incendeia a área ao redor do lançador, causando $s1 de dano de Fogo a todos os inimigos próximos a até $a1 metros a cada $t2 s. Dura $d s."
+  },
+  {
+    "oid": 51284,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shifting Rock",
+    "en": "Increases your Armor by $s1 for $d.",
+    "curr_pt": "Aumenta sua armadura em $s1 por $d s."
+  },
+  {
+    "oid": 51292,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Explode",
+    "en": "Sacrifices the caster's life in order to inflict $s1 Nature damage to nearby enemies.",
+    "curr_pt": "Sacrifica a vida do lançador para infligir $s1 de dano de Natureza a inimigos próximos."
+  },
+  {
+    "oid": 51398,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Swift Travel Form Shapeshift",
+    "en": "Transforms the druid into a swift travel form, increasing movement speed by $51399s1%.  Also protects the caster from Polymorph effects.  Only useable outdoors and out of combat.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "Transforma o druida em uma forma de viagem veloz, aumentando a velocidade de movimento em $s1%. Também protege o lançador contra efeitos de Metamorfose. Só pode ser usado ao ar livre e fora de combate. O ato de metamorfosear-se liberta o lançador de efeitos de Metamorfose e que prejudicam o movimento."
+  },
+  {
+    "oid": 51697,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Felstone",
+    "en": "$s1% of the damage dealt is returned as healing for $d.  Health restored this way will also heal your active demon.",
+    "curr_pt": "$s1% do dano causado é devolvido como cura por $d s. A vida restaurada dessa forma também cura seu demônio ativo."
+  },
+  {
+    "oid": 51698,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Create Felstone",
+    "en": "Creates a Felstone for the caster.  When used, it causes $51697s1% of the damage dealt to be returned as healing for $51697d.  In addition, health restored this way will also heal your active demon.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra Vil para o lançador. Quando usada, faz com que $s1% do dano causado seja devolvido como cura por $d s. Além disso, a vida restaurada dessa forma também cura seu demônio ativo. Itens conjurados desaparecem se você ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 51701,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Create Wrathstone",
+    "en": "Creates a Wrathstone for the caster.  When used, it increases the threat generated by your Fire spells by $51700s1% and reduces the Fire damage you take from your Hellfire spell by $51700s2% for $51700d.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra da Ira para o lançador. Quando usada, aumenta a ameaça gerada por seus feitiços de Fogo em $s1% e reduz o dano de Fogo que você recebe de seu feitiço Fogo do Inferno em $s2% por $d s. Itens conjurados desaparecem se você ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 51784,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Vampiric Aura Passive",
+    "en": "Damage from your Shadow spells has $h% a chance to grant your party a vampiric aura for $51783d, returning $51783s1% of their damage as healing.  This effect can only trigger once every 10 sec.",
+    "curr_pt": "O dano dos seus feitiços de Sombra tem $h% de chance de conceder ao seu grupo uma aura vampírica por $d s, devolvendo $s1% do dano que causarem como cura. Este efeito só pode ser desencadeado uma vez a cada 10 s."
+  },
+  {
+    "oid": 51843,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Echoed Thunder",
+    "en": "Your next attack deals an additional $s1% of its damage as Nature damage. ",
+    "curr_pt": "Próximo ataque +$s1% em Natureza."
+  },
+  {
+    "oid": 51844,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Echoed Thunder",
+    "en": "Lightning Strike causes your next attack to deal an additional $51843s1% of its damage as Nature damage. ",
+    "curr_pt": "Golpe Relampejante faz com que seu próximo ataque cause $s1% adicionais do seu dano como dano de Natureza."
+  },
+  {
+    "oid": 52310,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shout of Endurance",
+    "en": "The warrior shouts, increasing the health of all party members within $a1 yards by $s1.  Lasts $d.",
+    "curr_pt": "O guerreiro brada, aumentando a vida de todos os membros do grupo a até $a1 metros em $s1. Dura $d s."
+  },
+  {
+    "oid": 52311,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shout of Endurance Passive",
+    "en": "Command with your Battle Shout, granting  $52310s1 additional health.",
+    "curr_pt": "Comanda com seu Grito de Batalha, concedendo $s1 de vida adicional."
+  },
+  {
+    "oid": 52327,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Thorned Bulwark",
+    "en": "Absorbs $s1 damage.  Lasts $d.",
+    "curr_pt": "Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s."
+  },
+  {
+    "oid": 52361,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demoralizing Thorns",
+    "en": "Causes an explosion of Nature magic around the caster, causing $s1 Nature damage to all targets within $a1 yards.",
+    "curr_pt": "Causa uma explosão de magia da natureza com $s1 de dano de Natureza em todos a até $a1 m."
+  },
+  {
+    "oid": 52371,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ashamane's Fury",
+    "en": "Restores $s1 Energy.",
+    "curr_pt": "Restaura $s1 de Energia."
+  },
+  {
+    "oid": 52394,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Draconic Intimidation",
+    "en": "Fears all targets within 10 yards, leaves a physical debuff that reduces armor by $52393s1 and reduces attack speed by  $52393s2%.",
+    "curr_pt": "Aterroriza todos os alvos a até 10 metros, deixando uma penalidade física que reduz a armadura em $s1 e reduz a velocidade de ataque em $s2%."
+  },
+  {
+    "oid": 52522,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Vengeance Racial Passive",
+    "en": "All damage caused against Humanoid and Undead targets is increased by $s1%.  Does not affect player targets.",
+    "curr_pt": "Todo o dano causado contra alvos Humanoides e Mortos-vivos é aumentado em $s1%. Não afeta alvos jogadores."
+  },
+  {
+    "oid": 52524,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Quel'dorei Meditation Racial",
+    "en": "Generates $/10;o1 rage over $d.\nThe warrior is considered in combat for the duration.",
+    "curr_pt": "Gera $s1 de raiva ao longo de $d s. O guerreiro é considerado em combate durante toda a duração."
+  },
+  {
+    "oid": 52586,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Evocation Mastery",
+    "en": "When any of your Arcane spells is partially or fully resisted, the cooldown of your next Evocation is reduced by $/1000;52591s1 sec.  Stacks up to $52591u times.",
+    "curr_pt": "Quando qualquer um dos seus feitiços Arcanos é parcial ou totalmente resistido, o tempo de recarga da sua próxima Evocação é reduzido em $s1 s. Acumula até $u vezes."
+  },
+  {
+    "oid": 52630,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Felfire Punishment",
+    "en": "Dealing direct Shadow and Fire damage has a chance to coat the enemy in Felfire, dealing $52631s1 Shadow and $52632s1 Fire damage every second for $52633d.  While burning, Shadow and Fire damage taken is increased by $52633s2%.",
+    "curr_pt": "Causar dano direto de Sombra e Fogo tem chance de envolver o inimigo em Fogo Vil, causando $s1 de dano de Sombra e $s2 de dano de Fogo a cada segundo por $d s. Enquanto estiver queimando, o dano de Sombra e Fogo recebido é aumentado em $s3%."
+  },
+  {
+    "oid": 52656,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dark Harvest Doomguard",
+    "en": "The last tick of your Dark Harvest spell deals 400% damage.  If your target dies while under the effect of your Dark Harvest, there is a chance a Doomguard will be summoned.",
+    "curr_pt": "O último tique do seu feitiço Colheita Sombria causa 400% de dano. Se seu alvo morrer enquanto estiver sob o efeito da sua Colheita Sombria, há chance de que um Guarda do Medo seja evocado."
+  },
+  {
+    "oid": 53236,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Herald's Terror",
+    "en": "The caster lets out a psychic scream, causing all enemies within $a1 yards to flee for $d.  Damage caused may interrupt the effect.",
+    "curr_pt": "O lançador solta um grito psíquico, fazendo com que todos os inimigos a até $a1 metros fujam por $d s. O dano causado pode interromper o efeito."
+  },
+  {
+    "oid": 56548,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Magic Shield",
+    "en": "Absorbs $s1 damage.  Lasts $d.",
+    "curr_pt": "Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s."
+  }
+]

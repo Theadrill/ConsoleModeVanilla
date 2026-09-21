@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 25113,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Spell Dam 36 and 1% Crit",
+    "en": "Increases damage and healing done by magical spells and effects by up to $s1.   Also increases chance to get a critical hit with spells by $s3%.",
+    "curr_pt": "Aumenta o dano e a cura causados por feitiços e efeitos mágicos em até $s1. Também aumenta a chance de obter acerto crítico com feitiços em $s3%."
+  },
+  {
+    "oid": 25117,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Minor Wizard Oil",
+    "en": "While applied to target weapon it increases spell damage by up to 8.  Lasts for 30 minutes.",
+    "curr_pt": "Quando aplicado à arma alvo, aumenta o dano mágico em até 8. Dura por 30 min."
+  },
+  {
+    "oid": 25118,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Minor Mana Oil",
+    "en": "While applied to target weapon it restores 4 mana to the caster every 5 seconds.  Lasts for 30 minutes.",
+    "curr_pt": "Quando aplicado à arma alvo, restaura 4 de mana ao lançador a cada 5 s. Dura por 30 min."
+  },
+  {
+    "oid": 25119,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lesser Wizard Oil",
+    "en": "While applied to target weapon it increases spell damage by up to 16.  Lasts for 30 minutes.",
+    "curr_pt": "Quando aplicado à arma alvo, aumenta o dano mágico em até 16. Dura por 30 min."
+  },
+  {
+    "oid": 25120,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lesser Mana Oil",
+    "en": "While applied to target weapon it restores 8 mana to the caster every 5 seconds.  Lasts for 30 minutes.",
+    "curr_pt": "Quando aplicado à arma alvo, restaura 8 de mana ao lançador a cada 5 s. Dura por 30 min."
+  },
+  {
+    "oid": 25121,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Wizard Oil",
+    "en": "While applied to target weapon it increases spell damage by up to 24.  Lasts for 30 minutes.",
+    "curr_pt": "Quando aplicado à arma alvo, aumenta o dano mágico em até 24. Dura por 30 min."
+  },
+  {
+    "oid": 25122,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brilliant Wizard Oil",
+    "en": "While applied to target weapon it increases spell damage by up to 36 and increases Spell Critical chance by 1% .  Lasts for 30 minutes.",
+    "curr_pt": "Quando aplicado à arma alvo, aumenta o dano mágico em até 36 e aumenta a chance de acerto crítico com feitiços em 1%. Dura por 30 min."
+  },
+  {
+    "oid": 25123,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brilliant Mana Oil",
+    "en": "While applied to target weapon it restores 12 mana to the caster every 5 seconds and increases the effect of healing spells by up to 25.  Lasts for 30 minutes.",
+    "curr_pt": "Quando aplicado à arma alvo, restaura 12 de mana ao lançador a cada 5 s e aumenta o efeito dos feitiços de cura em até 25. Dura por 30 min."
+  },
+  {
+    "oid": 25174,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Sundering Cleave",
+    "en": "Inflicts normal damage plus $s1 to an enemy and its nearest allies, affecting up to $x1 targets.  Hits also reduce armor by $s2.",
+    "curr_pt": "Causa dano normal mais $s1 a um inimigo e a seus aliados mais próximos, afetando até $x1 alvos. Os acertos também reduzem a armadura em $s2."
+  },
+  {
+    "oid": 25190,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Stinger Charge",
+    "en": "Charges an enemy, inflicting normal damage plus $s2 ",
+    "curr_pt": "Investida contra o inimigo com dano normal mais $s1."
+  },
+  {
+    "oid": 25191,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Stinger Charge",
+    "en": "Charges an enemy, inflicting normal damage plus $s2 ",
+    "curr_pt": "Investida contra o inimigo com dano normal mais $s1."
+  },
+  {
+    "oid": 25199,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frogged",
+    "en": "Transform yourself into a frog.  Lasts $d.",
+    "curr_pt": "Vira sapo por $d s."
+  },
+  {
+    "oid": 25690,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brain Food",
+    "en": "Restores $25702o1 health and $25703o1 mana over $25702d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $25694s1 Mana every 5 seconds for $25694d.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d1 s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s3 de mana a cada 5 segundos por $d2 s."
+  },
+  {
+    "oid": 25691,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brain Food",
+    "en": "Restores $25888o1 health and $25889o1 mana over $25888d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $25941s1 Mana every 5 seconds for $25941d.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d1 s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s3 de mana a cada 5 segundos por $d2 s."
+  },
+  {
+    "oid": 25692,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brain Food",
+    "en": "Restores $25700o1 health and $25701o1 mana over $25700d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come."
+  },
+  {
+    "oid": 25693,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brain Food",
+    "en": "Restores $25886o1 health and $25887o1 mana over $25887d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come."
+  },
+  {
+    "oid": 25697,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Old Enriched Manna Biscuit",
+    "en": "Restores $o1 health and $o2 mana over $d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come."
+  },
+  {
+    "oid": 25701,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brain Food",
+    "en": "Restores $o1 mana over $d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de mana ao longo de $d s. É necessário permanecer sentado enquanto come."
+  },
+  {
+    "oid": 25746,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Damage Absorb",
+    "en": "Absorbs $s1 physical damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano físico. Dura $d s."
+  },
+  {
+    "oid": 25747,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Damage Absorb",
+    "en": "Absorbs $s1 physical damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano físico. Dura $d s."
+  },
+  {
+    "oid": 25750,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Damage Absorb",
+    "en": "Absorbs $s1 physical damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano físico. Dura $d s."
+  },
+  {
+    "oid": 25793,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Demon Summoning Torch",
+    "en": "Place the torch in the mouth of High Chief Winterfall's cave to summon the demon that is corrupting the Winterfall furbolgs.  Bring some friends before planting it...",
+    "curr_pt": "Coloque a tocha na boca da caverna do Alto Chefe Invernevo para invocar o demônio que está corrompendo os pelúzeros Invernevo. Traga alguns amigos antes de colocá-la..."
+  },
+  {
+    "oid": 25805,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Soul Corruption",
+    "en": "All stats reduced by 100.\n$s1 Shadow damage inflicted every $t1 sec.",
+    "curr_pt": "Tudo -100. $s1 de Sombra a cada $t1 s."
+  },
+  {
+    "oid": 25815,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frightening Shriek",
+    "en": "The  Hunter-Killer's shriek fills you with fear.",
+    "curr_pt": "Grito que mete medo."
+  },
+  {
+    "oid": 25851,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lightheaded",
+    "en": "Drink me.  I'm delicious!",
+    "curr_pt": "Beba-me. Delícia!"
+  },
+  {
+    "oid": 25887,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Brain Food",
+    "en": "Restores $o1 mana over $d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de mana ao longo de $d s. É necessário permanecer sentado enquanto come."
+  },
+  {
+    "oid": 25891,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Earthstrike",
+    "en": "Increases your melee and ranged attack power by $s1.  Effect lasts for $d.",
+    "curr_pt": "Aumenta seu poder de ataque corpo a corpo e à distância em $s1. O efeito dura por $d s."
+  },
+  {
+    "oid": 25990,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Graccu's Mince Meat Fruitcake",
+    "en": "Restores $s1% of your health and mana per second for $d.  Must remain seated while eating.  You should also probably like the taste of fruitcake.",
+    "curr_pt": "Restaura $s1% da sua vida e mana por segundo por $d s. É necessário permanecer sentado enquanto come. E é melhor gostar de bolo de frutas."
+  },
+  {
+    "oid": 26081,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Stinger Charge",
+    "en": "Charges an enemy, inflicting normal damage plus $s2 ",
+    "curr_pt": "Investida contra o inimigo com dano normal mais $s1."
+  },
+  {
+    "oid": 26082,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Stinger Charge",
+    "en": "Charges an enemy, inflicting normal damage plus $s2 ",
+    "curr_pt": "Investida contra o inimigo com dano normal mais $s1."
+  },
+  {
+    "oid": 26168,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chitinous Spikes",
+    "en": "Spikes sprout from you causing $s1 Nature damage to attackers when hit.  Lasts $d.",
+    "curr_pt": "Espinho: $s1 de Natureza ao apanhar por $d s."
+  },
+  {
+    "oid": 26265,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Elune's Lantern Toy",
+    "en": "Create an Elune Stone.  Requires a Solid Stone.",
+    "curr_pt": "Pedra de Eluna. Precisa sólida."
+  },
+  {
+    "oid": 26298,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Create Firework Rocket Launcher",
+    "en": "Place on the ground to launch firework rockets.  Lasts 30 minutes.",
+    "curr_pt": "Coloca no chão para lançar foguetes de fogos de artifício. Dura por 30 min."
+  },
+  {
+    "oid": 26299,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Create Cluster Rocket Launcher",
+    "en": "Place on the ground to launch cluster rockets.  Lasts 30 minutes.",
+    "curr_pt": "Coloca no chão para lançar foguetes múltiplos de fogos de artifício. Dura por 30 min."
+  },
+  {
+    "oid": 26521,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lucky Lunar Rocket",
+    "en": "You're in luck!  Throw into a cluster launcher!",
+    "curr_pt": "Sorte! Joga no lançador!"
+  },
+  {
+    "oid": 27433,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ectoplasmic Distiller",
+    "en": "Places Ectoplasmic Distiller on the ground, allowing Ectoplasm to be gathered.   Requires Goblin Rocket Fuel.",
+    "curr_pt": "Coloca o Destilador Ectoplásmico no chão, permitindo coletar ectoplasma. Requer Combustível de Foguete Goblínico."
+  },
+  {
+    "oid": 27533,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance",
+    "en": "Absorbs $s1 fire damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano de Fogo. Dura $d s."
+  },
+  {
+    "oid": 27534,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance",
+    "en": "Absorbs $s1 frost damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano de Gelo. Dura $d s."
+  },
+  {
+    "oid": 27536,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Resistance",
+    "en": "Absorbs $s1 holy damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano sagrado. Dura $d s."
+  },
+  {
+    "oid": 27538,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance",
+    "en": "Absorbs $s1 nature damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano de natureza. Dura $d s."
+  },
+  {
+    "oid": 27540,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance",
+    "en": "Absorbs $s1 arcane damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 arcano. $d s."
+  },
+  {
+    "oid": 27603,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Goblin Dragon Gun",
+    "en": "Deals $27604s1 fire damage for $d to all targets in a cone in front of the engineer using the weapon.   That is unless it explodes.....",
+    "curr_pt": "Causa $s1 de dano de Fogo por $d s a todos os alvos em um cone à frente do engenheiro que usa a arma. Isso a menos que ela exploda....."
+  },
+  {
+    "oid": 27661,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Love Fool",
+    "en": "Drops a love dummy on the ground that drives nearby monsters into an envious rage!  Lasts for 15 seconds.",
+    "curr_pt": "Larga um boneco do amor no chão que leva monstros próximos a uma fúria invejosa! Dura por 15 s."
+  },
+  {
+    "oid": 27662,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Throw Cupid's Dart",
+    "en": "Shoot a player, and Kwee Q. Peddlefeet will find them!  (Only works on players with no current critter pets.)",
+    "curr_pt": "Atira no jogador e o Peddlefeet acha! (Sem bicho.)"
+  },
+  {
+    "oid": 27677,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Recombobulate",
+    "en": "Dispels Polymorph effects on a friendly target.  Also restores $s2 health and mana.",
+    "curr_pt": "Aumenta sua chance de aparar um ataque em $s1%."
+  },
+  {
+    "oid": 27746,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nitrous Boost",
+    "en": "10 mana per second.\nIncreases movement speed by $s1%.",
+    "curr_pt": "10 mana/s. +$s1% velocidade."
+  },
+  {
+    "oid": 27776,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Surging Mana",
+    "en": "When struck in combat has a chance of returning 350 mana to the wearer. ",
+    "curr_pt": "Quando atingido em combate, tem chance de devolver 350 de mana ao portador."
+  },
+  {
+    "oid": 27780,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Corrupted Fear",
+    "en": "When struck in combat has a chance of causing the attacker to flee in terror for 2 seconds. ",
+    "curr_pt": "Quando atingido em combate, tem chance de fazer o atacante fugir em pavor por 2 s."
+  },
+  {
+    "oid": 27781,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature's Bounty",
+    "en": "When struck in combat has a chance of returning 300 mana, 10 rage, or 40 energy to the wearer. ",
+    "curr_pt": "Acerto: chance de 300 mana/10 fúria/40 energia."
+  },
+  {
+    "oid": 27861,
+    "kind": "custom",
+    "need": "review",
+    "sample": "The Baron's Ultimatum",
+    "en": "Your intrusion has alerted Baron Rivendare.  His prisoner doesn't have much time left.",
+    "curr_pt": "Sua invasão alertou o Barão Rivendare, e o prisioneiro tem pouco tempo."
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 6024,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Claw Cover",
+    "en": "Allows a hunter to teach $ghis:her; tamed Scorpion the Claw Cover ability. Claw Cover increases your scorpion's chance to parry.\nRequires: \nPet Level 36+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Cobertura de Garra ao seu escorpião domesticado. Cobertura de Garra aumenta a chance de aparar do seu escorpião. Requer: Ajudante de Nível 36 ou superior."
+  },
+  {
+    "oid": 6025,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Spider Poison",
+    "en": "Allows a hunter to teach $ghis:her; tamed Spider the Spider Poison ability. Spider Poison deals damage over time to an enemy.\nRequires: \nPet Level 13+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Veneno de Aranha à sua aranha domesticada. Veneno de Aranha causa dano ao longo do tempo a um inimigo. Requer: Ajudante de Nível 13 ou superior."
+  },
+  {
+    "oid": 6029,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Poisonous Spit",
+    "en": "Allows a hunter to teach $ghis:her; tamed Spider the Poisonous Spit ability. Poisonous Spit ranged attack that deals damage over time to an enemy.\nRequires: \nPet Level 36+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Cuspe Venenoso à sua aranha domesticada. Cuspe Venenoso é um ataque à distância que causa dano ao longo do tempo a um inimigo. Requer: Ajudante de Nível 36 ou superior."
+  },
+  {
+    "oid": 6030,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Distracting Spit",
+    "en": "Allows a hunter to teach $ghis:her; tamed tall strider the Distracting Spit ability. Distracting Spit increases physical damage dealt to an enemy.\nRequires: \nPet Level 13+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Cuspe Distrativo ao seu moa domesticado. Cuspe Distrativo aumenta o dano físico causado a um inimigo. Requer: Ajudante de Nível 13 ou superior."
+  },
+  {
+    "oid": 6033,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Strider Presence",
+    "en": "Allows a hunter to teach $ghis:her; tamed tall strider the Strider Presence ability. Strider Presence helps regenerate health and mana.\nRequires: \nPet Level 36+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Presença do Moa ao seu moa domesticado. Presença do Moa ajuda a regenerar vida e mana. Requer: Ajudante de Nível 36 ou superior."
+  },
+  {
+    "oid": 6039,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Enraged Howl",
+    "en": "Allows a hunter to teach $ghis:her; tamed wolf the Enraged Howl ability. Enraged Howl increases your party's strength and agility.\nRequires: \nPet Level 13+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Uivo Enfurecido ao seu lobo domesticado. Uivo Enfurecido aumenta a força e a agilidade do seu grupo. Requer: Ajudante de Nível 13 ou superior."
+  },
+  {
+    "oid": 6040,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Rabid Maw",
+    "en": "Allows a hunter to teach $ghis:her; tamed wolf the Rabid Maw ability. Rabid Maw decreases an enemy's strength and agility.\nRequires: \nPet Level 36+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Focinho Raivoso ao seu lobo domesticado. Focinho Raivoso reduz a força e a agilidade de um inimigo. Requer: Ajudante de Nível 36 ou superior."
+  },
+  {
+    "oid": 6202,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Create Healthstone (Lesser)",
+    "en": "Creates a Lesser Healthstone that can be used to instantly restore $6263s1 health.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra de Vida Menor que pode ser usada para restaurar instantaneamente $s1 de vida. Itens conjurados desaparecem se o jogador ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 6346,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fear Ward",
+    "en": "Wards the friendly target against Fear.  The next Fear effect used against the target will fail, using up the ward.  Lasts $d.",
+    "curr_pt": "Protege o alvo aliado contra Medo. O próximo efeito de Medo usado contra o alvo falhará, consumindo a proteção. Dura $d s."
+  },
+  {
+    "oid": 6366,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Create Firestone (Lesser)",
+    "en": "Creates a Lesser Firestone which can be equipped in the off hand.  When equipped, enchants the main hand weapon with fire, granting each attack a chance to deal $17809s1 additional Fire damage.  In addition, equipping the Lesser Firestone increases the damage done by fire spells by $23480s1.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra Ígnea Menor que pode ser equipada na mão secundária. Quando equipada, encanta a arma da mão principal com fogo, concedendo a cada ataque uma chance de causar $s1 de dano de Fogo adicional. Além disso, equipar a Pedra Ígnea Menor aumenta o dano causado por feitiços de Fogo em $s2. Itens conjurados desaparecem se o jogador ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 6540,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Dig Trap",
+    "en": "Allows a hunter to teach $ghis:her; tamed scorpion the Dig Trap ability. Dig Trap allows the pet to enter stealth mode but will be rendered unable to move. If the scorpion attacks from this position it will deal additional damage.\nRequires: \nPet Level 22+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Armadilha de Escavação ao seu escorpião domesticado. Armadilha de Escavação permite que o ajudante entre em modo furtivo, mas ficará incapaz de se mover. Se o escorpião atacar dessa posição, causará dano adicional. Requer: Ajudante de Nível 22 ou superior."
+  },
+  {
+    "oid": 6579,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Intimidating Growl",
+    "en": "Allows a hunter to teach $ghis:her; tamed wolf the Intimidating Growl ability. Intimidating Growl causes an enemy to run away in fear at an increased movement speed.\nRequires: \nPet Level 22+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Rugido Intimidador ao seu lobo domesticado. Rugido Intimidador faz com que um inimigo fuja amedrontado em velocidade de movimento aumentada. Requer: Ajudante de Nível 22 ou superior."
+  },
+  {
+    "oid": 6583,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Pierce Ankle",
+    "en": "Allows a hunter to teach $ghis:her; tamed crocilisk the Pierce Ankle ability. Pierce Ankle knocks down an enemy and reduces it's movement speed.\nRequires: \nPet Level 13+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Perfurar Tornozelo ao seu crocolisco domesticado. Perfurar Tornozelo derruba um inimigo e reduz sua velocidade de movimento. Requer: Ajudante de Nível 13 ou superior."
+  },
+  {
+    "oid": 6650,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Instant Toxin",
+    "en": "Coats a sword or dagger with poison that lasts for 30 minutes.\nEach strike has a chance of poisoning the enemy which instantly inflicts 10-30 damage.",
+    "curr_pt": "Reveste uma espada ou adaga com veneno que dura 30 minutos. Cada golpe tem chance de envenenar o inimigo, infligindo instantaneamente de 10 a 30 de dano."
+  },
+  {
+    "oid": 6667,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Survival Instinct",
+    "en": "Allows a hunter to teach $ghis:her; tamed cat the Survival Instinct ability. Survival Instinct stuns an enemy and attempts to run away causing the enemy to lose interest in attacking the cat.\nRequires: \nPet Level 13+",
+    "curr_pt": "Permite que um caçador ensine a habilidade Instinto de Sobrevivência ao felino domesticado. O Instinto de Sobrevivência atordoa um inimigo e tenta fugir, fazendo o inimigo perder o interesse em atacar o felino. Requer: ajudante de nível 13 ou superior."
+  },
+  {
+    "oid": 7376,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Defensive Stance Passive",
+    "en": "Decreases damage taken from all sources by $s1%.  Decreases damage caused by $s2%.\nIncreases threat generated by $s3%.",
+    "curr_pt": "Reduz o dano sofrido de todas as fontes em $s1%. Reduz o dano causado em $s2%. Aumenta a ameaça gerada em $s3%."
+  },
+  {
+    "oid": 7381,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Berserker Stance Passive",
+    "en": "Increases crit chance by $s1%.\nIncreases all damage taken by $s2%.\nDecreases threat generated by $s3%.",
+    "curr_pt": "Aumenta a chance de acerto crítico em $s1%. Aumenta todo o dano sofrido em $s2%. Reduz a ameaça gerada em $s3%."
+  },
+  {
+    "oid": 7620,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Fishing Apprentice",
+    "en": "Equip a fishing pole and find a body of water to fish.  Right-Click on the bob in the water when it splashes to catch your fish.  Higher skill increases your chance of fishing successfully in higher level areas.\n",
+    "curr_pt": "Equipe uma vara de pesca e encontre um corpo de água para pescar. Clique com o botão direito na boia quando ela afundar para fisgar o peixe. Quanto maior a perícia, maior a chance de pescar com sucesso em áreas de nível mais alto."
+  },
+  {
+    "oid": 7720,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Ritual of Summoning Effect",
+    "en": "Triggered by ritual of summoning to summon a player\n",
+    "curr_pt": "Invoca jogador pelo ritual."
+  },
+  {
+    "oid": 8342,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Defibrillate",
+    "en": "Jumper Cables will sometimes be able to shock a dead player back to life.  Cannot be used when in combat.",
+    "curr_pt": "O cabo às vezes ressuscita o morto. Fora de combate."
+  },
+  {
+    "oid": 8613,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Skinning Apprentice",
+    "en": "The basics of how to skin animals for their pelts and furs for use in Leatherworking.  Gives a potential skinning skill of 75.  Requires a Skinning Knife.",
+    "curr_pt": "Ensina o básico de como esfolar animais para obter peles e pelagens para uso em Couraria. Concede perícia potencial de Esfolamento 75. Requer uma Faca de Esfolar."
+  },
+  {
+    "oid": 8617,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Skinning Journeyman",
+    "en": "Advanced skills in skinning the leather from beasts for use in Leatherworking.  Gives a potential skinning skill of 150. Requires a Skinning Knife.",
+    "curr_pt": "Ensina habilidades avançadas de esfolar o couro de feras para uso em Couraria. Concede perícia potencial de Esfolamento 150. Requer uma Faca de Esfolar."
+  },
+  {
+    "oid": 8618,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Skinning Expert",
+    "en": "Expert skill in skinning the hides from beasts for use in Leatherworking.  Gives a potential skinning skill of 225.  Requires a Skinning Knife.",
+    "curr_pt": "Ensina habilidade perita em esfolar as peles de feras para uso em Couraria. Concede perícia potencial de Esfolamento 225. Requer uma Faca de Esfolar."
+  },
+  {
+    "oid": 9160,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Sleep",
+    "en": "When struck by a melee attacker, that attacker has a 5% chance of being put to sleep for $9159d.  Only affects enemies level 50 and below.",
+    "curr_pt": "Quando atingido por um atacante corpo a corpo, esse atacante tem 5% de chance de ser posto para dormir por $d s. Afeta apenas inimigos de nível 50 ou inferior."
+  },
+  {
+    "oid": 10060,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Power Infusion",
+    "en": "Infuses the target with power, increasing their spell damage and healing by $s2%.  Lasts $d.",
+    "curr_pt": "Infunde o alvo com poder, aumentando o dano e a cura causados por feitiços em $s2%. Dura $d s."
+  },
+  {
+    "oid": 10248,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mining Artisan",
+    "en": "Raising mining to an art form.  Gives a potential mining skill of 300.",
+    "curr_pt": "Eleva a mineração a uma forma de arte. Concede uma perícia potencial em Mineração de 300."
+  },
+  {
+    "oid": 10768,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Skinning Artisan",
+    "en": "Artisan skill in skinning the hides from beasts for use in Leatherworking.  Gives a potential skinning skill of 300.  Requires a Skinning Knife.",
+    "curr_pt": "Perícia artesanal em esfolar os couros das feras para uso na Couraria. Concede uma perícia potencial em Esfolamento de 300. Requer uma Faca de Esfolar."
+  },
+  {
+    "oid": 11729,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Create Healthstone (Greater)",
+    "en": "Creates a Greater Healthstone that can be used to instantly restore $5723s1 health.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra de Vida Maior que pode ser usada para restaurar instantaneamente $s1 de vida. Itens conjurados desaparecem se você ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 11730,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Create Healthstone (Major)",
+    "en": "Creates a Major Healthstone that can be used to instantly restore $11732s1 health.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra de Vida Maior que pode ser usada para restaurar instantaneamente $s1 de vida. Itens conjurados desaparecem se você ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 11759,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Basilisk Sample",
+    "en": "Test this sample for quality.  Requires Field Testing Kit.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1."
+  },
+  {
+    "oid": 11760,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Hyena Sample",
+    "en": "Test this sample for quality.  Requires Field Testing Kit.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1."
+  },
+  {
+    "oid": 11761,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Scorpid Sample",
+    "en": "Test this sample for quality.  Requires Field Testing Kit.",
+    "curr_pt": "Aumenta a resistência a Natureza em $s1."
+  },
+  {
+    "oid": 11993,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Herb Gathering Artisan",
+    "en": "How to find and gather more difficult to harvest herbs.   Gives a potential herbalism skill of 300.",
+    "curr_pt": "Como encontrar e colher ervas mais difíceis de coletar. Permite uma perícia potencial máxima de Herborismo de 300."
+  },
+  {
+    "oid": 12421,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Mithril Frag Bomb",
+    "en": "Inflicts $s1 Fire damage and stuns targets in a 8 yard radius for $d.  Any damage will break the effect.",
+    "curr_pt": "$s1 de Fogo e atordoa a 8 m por $d s. Dano quebra."
+  },
+  {
+    "oid": 12543,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Hi-Explosive Bomb",
+    "en": "Inflicts $s1 Fire damage and stuns targets in a 3 yard radius for $d.  Any damage will break the effect.",
+    "curr_pt": "Inflige $s1 de dano de Fogo e atordoa alvos em um raio de 3 metros por $d s. Qualquer dano removerá o efeito."
+  },
+  {
+    "oid": 12562,
+    "kind": "modified",
+    "need": "review",
+    "sample": "The Big One",
+    "en": "Inflicts $s1 Fire damage and stuns targets for $d in a 10 yard radius.  Any damage will break the effect.",
+    "curr_pt": "$s1 de Fogo e atordoa a 10 m por $d s. Dano quebra."
+  },
+  {
+    "oid": 12565,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Wyatt Test",
+    "en": "Increases your running speed.   The longer you run the faster you go up to a maximum speed.  You cannot use plainsrunning in combat, underwater, or Indoors.",
+    "curr_pt": "Aumenta sua corrida. Quanto mais corre, mais rápido, até o máximo. Sem correria em combate, água ou interno."
+  },
+  {
+    "oid": 12766,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Poison Cloud",
+    "en": "Poisons all enemies in an $a1 yard radius around the caster.  Victims of the poison suffer $s1 Nature damage every 5 sec for 45 sec.",
+    "curr_pt": "Envenena todos os inimigos a até $a1 metros ao redor do lançador. As vítimas do veneno sofrem $s1 de dano de Natureza a cada 5 s por 45 s."
+  },
+  {
+    "oid": 13808,
+    "kind": "modified",
+    "need": "review",
+    "sample": "M73 Frag Grenade",
+    "en": "Inflicts $s1 Fire damage and stuns targets in a 10 yard radius for $d.  Any damage will break the effect.",
+    "curr_pt": "$s1 de Fogo e atordoa a 10 m por $d s. Dano quebra."
+  },
+  {
+    "oid": 15822,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Dreamless Sleep",
+    "en": "Puts the imbiber in a dreamless sleep for $d.  During that time the imbiber heals 1200 health and 1200 mana.",
+    "curr_pt": "Deixa quem o ingerir em sono sem sonhos por $d s. Durante esse período, quem o ingerir recupera 1200 de vida e 1200 de mana."
+  },
+  {
+    "oid": 16611,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Demon Forged Breastplate",
+    "en": "When struck has a 3% chance of stealing $16608o1 life from the attacker over $16608d.\n",
+    "curr_pt": "Quando atingido em combate, tem 3% de chance de roubar $s1 de vida do atacante ao longo de $d s."
+  },
+  {
+    "oid": 16928,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Armor Shatter",
+    "en": "Reduces an enemy's armor by $s1.  Stacks up to 3 times.",
+    "curr_pt": "Armadura -$s1. Até 3x."
+  },
+  {
+    "oid": 17291,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Stratholme Holy Water",
+    "en": "Inflicts $s1 damage to Undead within $a1 yards.  This effect generates no threat.",
+    "curr_pt": "$s1 em morto-vivo a $a1 m. Sem ameaça."
+  },
+  {
+    "oid": 17626,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Flask of the Titans",
+    "en": "Increases the player's maximum health by $s1 for $d.  You can only have the effect of one flask at a time.  This effect persists through death.",
+    "curr_pt": "Aumenta a vida máxima do jogador em $s1 por $d s. Você só pode ter o efeito de um frasco por vez. Este efeito persiste através da morte."
+  },
+  {
+    "oid": 17627,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Distilled Wisdom",
+    "en": "Increases the player's maximum mana by $s1 for $d.  You can only have the effect of one flask at a time.  This effect persists through death.",
+    "curr_pt": "Aumenta a mana máxima do jogador em $s1 por $d s. Você só pode ter o efeito de um frasco por vez. Este efeito persiste através da morte."
+  },
+  {
+    "oid": 17628,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Supreme Power",
+    "en": "Increases damage done by magical spells and effects by up to $s1 for $d.  You can only have the effect of one flask at a time.  This effect persists through death.",
+    "curr_pt": "Aumenta o dano causado por feitiços e efeitos mágicos em até $s1 por $d s. Você só pode ter o efeito de um frasco por vez. Este efeito persiste através da morte."
+  },
+  {
+    "oid": 17629,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Chromatic Resistance",
+    "en": "Increases your resistance to all schools of magic by $s1 for $d.  You can only have the effect of one flask at a time.  This effect persists through death and stacks with all other resistance spells and items.",
+    "curr_pt": "Aumenta sua resistência a todas as escolas de magia em $s1 por $d s. Você só pode ter o efeito de um frasco por vez. Este efeito persiste através da morte e acumula com todos os outros feitiços e itens de resistência."
+  },
+  {
+    "oid": 17727,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Create Spellstone (Greater)",
+    "en": "Creates a Greater Spellstone for the caster.  When equipped and used, the Greater Spellstone removes harmful magic effects from the caster and will absorb $17729s2 magic damage for $17729d.  In addition, equipping the Greater Spellstone improves your chance to get a critical strike with spells by $18384s1%.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra de Feitiço Maior para o lançador. Quando equipada e usada, a Pedra de Feitiço Maior remove efeitos mágicos nocivos do lançador e absorverá $s1 de dano mágico por $d s. Além disso, equipar a Pedra de Feitiço Maior aumenta sua chance de obter um acerto crítico com feitiços em $s2%. Itens conjurados desaparecem se você ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 17728,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Create Spellstone (Major)",
+    "en": "Creates a Major Spellstone for the caster.  When equipped and used, the Major Spellstone removes harmful magic effects from the caster and will absorb $17730s2 magic damage for $17730d.  In addition, equipping the Major Spellstone improves your chance to get a critical strike with spells by $18384s1%.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra de Feitiço Superior para o lançador. Quando equipada e usada, a Pedra de Feitiço Superior remove efeitos mágicos nocivos do lançador e absorverá $s1 de dano mágico por $d s. Além disso, equipar a Pedra de Feitiço Superior aumenta sua chance de obter um acerto crítico com feitiços em $s2%. Itens conjurados desaparecem se você ficar desconectado por mais de 15 minutos."
+  },
+  {
+    "oid": 17952,
+    "kind": "modified",
+    "need": "review",
+    "sample": "Create Firestone (Greater)",
+    "en": "Creates a Greater Firestone which can be equipped in the off hand.  When equipped, enchants the main hand weapon with fire, granting each attack a chance to deal $17934s1 additional Fire damage.  In addition, equipping the Greater Firestone increases the damage done by fire spells by $23482s1.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria uma Pedra de Fogo Maior que pode ser equipada na mão secundária. Quando equipada, encanta a arma da mão principal com fogo, concedendo a cada ataque uma chance de causar $s1 de dano de Fogo adicional. Além disso, equipar a Pedra de Fogo Maior aumenta o dano causado por feitiços de Fogo em $s2. Itens conjurados desaparecem se você ficar desconectado por mais de 15 minutos."
+  }
+]

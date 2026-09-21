@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 23065,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Throw Rock",
+    "en": "Throw rock to a friendly target.   If they have free room in their pack they will catch it!",
+    "curr_pt": "Joga pedra no amigo. Pega se tiver bolso!"
+  },
+  {
+    "oid": 23074,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcanite Dragonling",
+    "en": "Activates your Arcanite Dragonling to fight for you for $19804d.  It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Ativa seu Dragonete de Arcanita para lutar por você por $d s. É necessário aguardar uma hora de recarga antes que possa ser usado novamente."
+  },
+  {
+    "oid": 23075,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mithril Mechanical Dragonling",
+    "en": "Activates your Mithril Mechanical Dragonling to fight for you for $12749d.  It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Ativa seu Dragonete Mecânico de Mithril para lutar por você por $d s. É necessário aguardar uma hora de recarga antes que possa ser usado novamente."
+  },
+  {
+    "oid": 23076,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Mechanical Dragonling",
+    "en": "Activates your Mechanical Dragonling to fight for you for $4073d.  It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Ativa seu Dragonete Mecânico para lutar por você por $d s. É necessário aguardar uma hora de recarga antes que possa ser usado novamente."
+  },
+  {
+    "oid": 23135,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Heavy Leather Ball",
+    "en": "Throw the ball to a friendly player.   If they have free room in their pack they will catch it!",
+    "curr_pt": "Arremessa a bola para um jogador aliado. Se ele tiver espaço livre na mochila, ele a pegará!"
+  },
+  {
+    "oid": 23179,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Taint of Shadow",
+    "en": "Infuses imbiber with a taint of shadow, making $ghim:her; friendly to the denizens of Jaedenar.  Lasts 20 minutes.",
+    "curr_pt": "Infunde o usuário com uma mácula de sombra, tornando-o amistoso com os habitantes de Jaedenar. Dura 20 minutos."
+  },
+  {
+    "oid": 23218,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Feral Move Speed Increase",
+    "en": "Increases your movement speed by $s1% while in Bear, Cat, or Travel Form.  Only active outdoors.",
+    "curr_pt": "Aumenta sua velocidade de movimento em $s1% enquanto estiver na Forma de Urso, Forma de Felino ou Forma de Viagem. Só funciona em áreas externas."
+  },
+  {
+    "oid": 23423,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Corrupted Windfury Totem",
+    "en": "Summons a Windfury Totem with $s1 health at the feet of the caster.  The totem enchants all party members weapons with wind, if they are within $10611a1 yards.  Each hit has a 20% chance of granting the attacker $10610s2 extra $lattack:attacks; with $10610s1 extra attack power.  Lasts $d.",
+    "curr_pt": "Evoca um Totem de Fúria dos Ventos com $s1 de vida aos pés do lançador. O totem encanta as armas de todos os membros do grupo com vento, se estiverem a até $a1 metros. Cada acerto tem 20% de chance de conceder ao atacante $s2 ataques extras com $s1 de poder de ataque adicional. Dura $d s."
+  },
+  {
+    "oid": 23442,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Everlook Transporter",
+    "en": "Rips the dimensional walls asunder and transports you to Everlook in Winterspring.   There are technical problems that sometimes occur, but that's what Goblin Engineering is all about!",
+    "curr_pt": "Rasga as paredes dimensionais e transporta você para Everlook, em Hibérnia. Problemas técnicos às vezes acontecem, mas é disso que se trata a Engenharia Goblínica!"
+  },
+  {
+    "oid": 23453,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gnomish Transporter",
+    "en": "Safely transport yourself to Gadgetzan in Tanaris!    Emphasis on Safe!   Yup, nothing bad could ever happen while using this device!",
+    "curr_pt": "Transporta você com segurança para Geringontzan em Tanaris! Com ênfase em segurança! Sim, nada de ruim poderia acontecer ao usar este dispositivo!"
+  },
+  {
+    "oid": 23506,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Aura of Protection",
+    "en": "Absorbs $s1 damage.  Lasts $d.",
+    "curr_pt": "Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s."
+  },
+  {
+    "oid": 23538,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Battle Standard",
+    "en": "Place a Battle Standard with $s1 health that increases the maximum damage of all party members that stay within $23576a1 yards of the Battle Standard by $23576s1%.  Lasts $d. May only be used in Alterac Valley.",
+    "curr_pt": "Coloca um Estandarte de Batalha com $s1 de vida que aumenta o dano máximo de todos os membros do grupo que permanecerem a até $a1 metros do Estandarte de Batalha em $s1%. Dura $d s. Só pode ser usado no Vale Alterac."
+  },
+  {
+    "oid": 23539,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Battle Standard",
+    "en": "Place a Battle Standard with $s1 health that increases the damage of all party members that stay within $23574a1 yards of the Battle Standard by $23574s1%.  Lasts $d. May only be used in Alterac Valley.",
+    "curr_pt": "Coloca um Estandarte de Batalha com $s1 de vida que aumenta o dano de todos os membros do grupo que permanecerem a até $a1 metros do Estandarte de Batalha em $s1%. Dura $d s. Só pode ser usado no Vale Alterac."
+  },
+  {
+    "oid": 23540,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Warsong Gulch Enriched Ration",
+    "en": "Restores $25695o1 health and $25696o2 mana over $25695d.  Must remain seated while eating.  Usable only inside Warsong Gulch.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come. Utilizável apenas dentro da Ravina do Brado Guerreiro."
+  },
+  {
+    "oid": 23541,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Warsong Gulch Iron Ration",
+    "en": "Restores $26474o1 health and $26475o2 mana over $26474d.  Must remain seated while eating.  Usable only inside Warsong Gulch.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come. Utilizável apenas dentro da Ravina do Brado Guerreiro."
+  },
+  {
+    "oid": 23542,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Warsong Gulch Field Ration",
+    "en": "Restores $26472o1 health and $26473o2 mana over $26472d.  Must remain seated while eating.  Usable only inside Warsong Gulch.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come. Utilizável apenas dentro da Ravina do Brado Guerreiro."
+  },
+  {
+    "oid": 23581,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bloodfang",
+    "en": "Gives the Rogue a chance to inflict $23580s1 damage on the target and heal the Rogue for $23580s2 health every $23580t2 sec. for $23580d. on a melee hit.\n",
+    "curr_pt": "Chance em corpo a corpo: $s1 no alvo e cura $s2 a cada $t1 s por $d s."
+  },
+  {
+    "oid": 23683,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Twisting Nether",
+    "en": "Allows you to resurrect yourself upon death with $21169s1% health and mana.  Usable once per hour.",
+    "curr_pt": "Auto-revive com $s1% de vida e mana. 1x por hora."
+  },
+  {
+    "oid": 23692,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Alterac Manna Biscuit",
+    "en": "Restores $26260o1 health and $26261o2 mana over $26260d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come."
+  },
+  {
+    "oid": 23698,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Alterac Spring Water",
+    "en": "Restores $o1 mana over $d.  Must remain seated while drinking. Also increases your Spirit by $18141s1 for $18141d.",
+    "curr_pt": "Restaura $s1 de mana ao longo de $d s. É necessário permanecer sentado enquanto bebe. Também aumenta seu Espírito em $s2 por $d s."
+  },
+  {
+    "oid": 23851,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Hatch Egg",
+    "en": "Hatch a Jubling from the Egg.   It will take a while before the egg is ready to hatch.",
+    "curr_pt": "Choca um Jubling do Ovo. Levará algum tempo até que o ovo esteja pronto para chocar."
+  },
+  {
+    "oid": 23930,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Seal of the Dawn",
+    "en": "+$s1 Attack Power when fighting Undead.  It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "+$s1 de Poder de Ataque ao lutar contra Mortos-vivos. Também permite adquirir Pedras do Flagelo em nome da Aurora Argêntea."
+  },
+  {
+    "oid": 23991,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Damage Absorb",
+    "en": "Absorbs $s1 physical damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano físico. Dura $d s."
+  },
+  {
+    "oid": 24006,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Bounty of the Harvest",
+    "en": "Conjures $s1 food from the harvest.\n\nConjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Conjura $s1 comidas. Some se deslogar 15 min."
+  },
+  {
+    "oid": 24198,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Rune of the Dawn",
+    "en": "Increases damage done to Undead by magical spells and effects by up to $s1.  It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "Aumenta o dano causado a Mortos-vivos por feitiços e efeitos mágicos em até $s1. Também permite adquirir Pedras do Flagelo em nome da Aurora Argêntea."
+  },
+  {
+    "oid": 24347,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Master Angler",
+    "en": "Turns you into a fish giving water breath and increasing your movement speed, but attacking or casting while in this form breaks the effect.  Does not work out of water or at the water's surface.",
+    "curr_pt": "Transforma você em um peixe, concedendo respiração aquática e aumentando sua velocidade de movimento, mas atacar ou lançar feitiços nesta forma quebra o efeito. Não funciona fora da água nem na superfície da água."
+  },
+  {
+    "oid": 24352,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Devilsaur Fury",
+    "en": "Increases your attack power by $s1 and your chance to hit by $s2%.  Effect lasts for $d.",
+    "curr_pt": "Aumenta seu poder de ataque em $s1 e sua chance de acerto em $s2%. O efeito dura por $d s."
+  },
+  {
+    "oid": 24360,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Greater Dreamless Sleep",
+    "en": "Puts the imbiber in a dreamless sleep for $d.  During that time the imbiber heals 2100 health and 2100 mana.",
+    "curr_pt": "Coloca quem bebe em um sono sem sonhos por $d s. Durante esse tempo, quem bebe recupera 2100 de vida e 2100 de mana."
+  },
+  {
+    "oid": 24364,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Living Free Action",
+    "en": "Makes you immune to Stun and Movement Impairing effects for the next $d.  Also removes existing Stun and Movement Impairing effects.",
+    "curr_pt": "Torna você imune a efeitos de Atordoamento e de Comprometimento de Movimento pelos próximos $d s. Também remove efeitos existentes de Atordoamento e de Comprometimento de Movimento."
+  },
+  {
+    "oid": 24382,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Spirit of Zanza",
+    "en": "Increases the player's Spirit by $s1 and Stamina by $s2 for $d.  You can only have the effect of one Zanza potion at a time.",
+    "curr_pt": "Aumenta o Espírito do jogador em $s1 e o Vigor em $s2 por $d s. Só uma poção Zanza por vez."
+  },
+  {
+    "oid": 24383,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Swiftness of Zanza",
+    "en": "Increases the player's run speed by $s1% for $d.  You can only have the effect of one Zanza potion at a time.",
+    "curr_pt": "Aumenta a corrida do jogador em $s1% por $d s. Só uma poção Zanza por vez."
+  },
+  {
+    "oid": 24384,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Essence Mango",
+    "en": "Restores $26401o1 health and $26402o2 mana over $25695d.  Must remain seated while eating.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come."
+  },
+  {
+    "oid": 24389,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Chaos Fire",
+    "en": "Restores $s1 mana and increases the damage of your next Fire spell by up to $s2.  Effect lasts for $d.",
+    "curr_pt": "Restaura $s1 de mana e aumenta o dano do seu próximo feitiço de Fogo em até $s2. O efeito dura por $d s."
+  },
+  {
+    "oid": 24409,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arathi Basin Field Ration",
+    "en": "Restores $26472o1 health and $26473o2 mana over $26472d.  Must remain seated while eating.  Usable only inside Arathi Basin.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come. Utilizável apenas dentro da Bacia Arathi."
+  },
+  {
+    "oid": 24410,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arathi Basin Iron Ration",
+    "en": "Restores $26474o1 health and $26475o2 mana over $26474d.  Must remain seated while eating.  Usable only inside Arathi Basin.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come. Utilizável apenas dentro da Bacia Arathi."
+  },
+  {
+    "oid": 24411,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arathi Basin Enriched Ration",
+    "en": "Restores $25695o1 health and $25696o2 mana over $25695d.  Must remain seated while eating.  Usable only inside Arathi Basin.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come. Utilizável apenas dentro da Bacia Arathi."
+  },
+  {
+    "oid": 24427,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Diamond Flask",
+    "en": "Restores $s2 health every $t2 sec and increases your Strength by $s1.  Lasts $d.",
+    "curr_pt": "$s1 de vida a cada $t1 s e For +$s2. $d s."
+  },
+  {
+    "oid": 24670,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Inferno",
+    "en": "Summons a meteor from the Twisting Nether, causing $22699s1 Fire damage and stunning all enemy targets in the area for $20310d.  An Infernal rises from the crater, under the command of the caster for $20882d.  Once control is lost, the Infernal must be Enslaved to maintain control.  Can only be used outdoors.",
+    "curr_pt": "Invoca um meteoro da Espiral Etérea, causando $s1 de dano de Fogo e atordoando todos os alvos inimigos na área por $d s. Um Infernal surge da cratera, sob o comando do lançador por $d s. Uma vez perdido o controle, o Infernal deve ser Escravizado para manter o controle. Só pode ser usado em áreas externas."
+  },
+  {
+    "oid": 24705,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Invocation of the Wickerman",
+    "en": "Increases health and mana regeneration by $s1%, and Stamina by $s2%.  Lasts $d.",
+    "curr_pt": "Aumenta a regeneração de vida e mana em $s1% e o Vigor em $s2%. Dura $d s."
+  },
+  {
+    "oid": 24706,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Toss Stink Bomb",
+    "en": "Toss a stink bomb on Southshore.  P-U!",
+    "curr_pt": "Bomba em Costassul. Eca!"
+  },
+  {
+    "oid": 24833,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Holy Mightstone",
+    "en": "Shatters the Holy Mightstone, granting $s1 Attack Power and increasing Holy damage from spells and effects by up to $s2 when fighting undead.  Lasts $d.",
+    "curr_pt": "Estilhaça a Pedra do Poder Sagrado, concedendo $s1 de Poder de Ataque e aumentando o dano Sagrado de feitiços e efeitos em até $s2 ao lutar contra mortos-vivos. Dura $d s."
+  },
+  {
+    "oid": 24865,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Sanctified Orb",
+    "en": "Increases your critical strike chance with spells and melee attacks by $s1%.  Lasts $d.",
+    "curr_pt": "Aumenta sua chance de acerto crítico com feitiços e ataques corpo a corpo em $s1%. Dura $d s."
+  },
+  {
+    "oid": 24893,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Black Sapphire",
+    "en": "Increases the periodic damage of your Drain Soul spell by $s1.  Lasts $d.",
+    "curr_pt": "Aumenta o dano periódico do seu feitiço Drenar Alma em $s1. Dura $d s."
+  },
+  {
+    "oid": 24930,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Hallow's End Candy",
+    "en": "Enjoy a tasty Hallow's End treat!  Better eat it quick before they go bad...",
+    "curr_pt": "Saboreie uma deliciosa guloseima da Noturnália! É melhor comer rápido antes que estrague..."
+  },
+  {
+    "oid": 25026,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Activate MG Turret",
+    "en": "10 mana per second.\nAutomatically fires a shot at the nearest enemy tonk within $25032a1 yards every $t1 sec, dealing $25032s1 damage per shot.\n",
+    "curr_pt": "10 de mana por segundo. Dispara automaticamente um tiro no tonque inimigo mais próximo a até $a1 metros a cada $t1 s, causando $s1 de dano por disparo."
+  },
+  {
+    "oid": 25027,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Flamethrower",
+    "en": "10 mana per second.\nDeals $25029s1 damage every $t1 sec to all tonks in front of you within $25029a1 yards. Also slows movement to $25029s2% and deals $25029s3 damage per second for $25029d.",
+    "curr_pt": "10 de mana por segundo. Causa $s1 de dano a cada $t1 s a todos os tonques à sua frente a até $a1 metros. Também reduz o movimento para $s2% e causa $s3 de dano por segundo por $d s."
+  },
+  {
+    "oid": 25064,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Shadow Dam 20",
+    "en": "Increases damage done by shadow spells and effects by up to $s1.",
+    "curr_pt": "Aumenta o dano de magias e efeitos de Sombra em até $s1."
+  },
+  {
+    "oid": 25065,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Fire Dam 20",
+    "en": "Increases damage done by fire spells and effects by up to $s1.",
+    "curr_pt": "Aumenta o dano de magias e efeitos de Fogo em até $s1."
+  },
+  {
+    "oid": 25066,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Increase Ice Dam 20",
+    "en": "Increases damage done by frost spells and effects by up to $s1.",
+    "curr_pt": "Aumenta o dano de magias e efeitos de Gelo em até $s1."
+  },
+  {
+    "oid": 25102,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Water Mastery",
+    "en": "Increases the periodic effect of your Mana Spring totem by $s1 and your Healing Stream totem by $s2.  Lasts $d.",
+    "curr_pt": "Aumenta o efeito periódico do seu Totem de Fonte de Mana em $s1 e do seu Totem de Torrente Curativa em $s2. Dura por $d s."
+  }
+]

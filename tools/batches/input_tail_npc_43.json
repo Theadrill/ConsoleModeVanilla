@@ -1,0 +1,50 @@
+[
+  {
+    "oid": 57102,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Temporal Conflux",
+    "en": "Deal $s1 Arcane damage to the target over $d,  but increases their haste by $s2%.",
+    "curr_pt": "$s1 Arcano em $d s, mas +$s2% pressa."
+  },
+  {
+    "oid": 57115,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Enchanted Armor Kit",
+    "en": "Permanently increase the intellect by 8 and spell power by 6 of an item worn on the chest, legs, hands or feet.  Only usable on items level 60 and above.",
+    "curr_pt": "Aumenta permanentemente o Intelecto em 8 e o poder mágico em 6 de um item equipado no peito, nas pernas, nas mãos ou nos pés. Só pode ser usado em itens de nível 60 ou superior."
+  },
+  {
+    "oid": 57139,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lucid Action",
+    "en": "Makes you immune to Sleep, Polymorph, and Charm effects for the next $d.   Does not remove effects already on the imbiber.",
+    "curr_pt": "Imune a Sono/Polimorfia/Encanto por $d s. Não tira o atual."
+  },
+  {
+    "oid": 57736,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Level One Lunatic Challenge",
+    "en": "During this challenge, you’ll earn exclusive titles to prove just how far a noob can go, all while staying level one:\n\nEarn 10,000 honorable kills to show you’re more than just fresh meat.\n\nReach Exalted with at least one faction to prove that even a tiny hero can have powerful friends.\n\nObtain the Arena Master Trinket to demonstrate that even at level one, you’re an unstoppable force of nature.\n\nProve your dedication by completing every single quest available to you and earning the respect of tutorial NPCs everywhere!\n\nThe titles will stay with you, even if you eventually decide to level up.",
+    "curr_pt": "Durante este desafio, você receberá títulos exclusivos para provar até onde um novato pode chegar, permanecendo no nível um: obtenha 10.000 abates honrosos para mostrar que você é mais do que apenas carne fresca. Alcance Exaltado com pelo menos uma facção para provar que até mesmo um herói minúsculo pode ter amigos poderosos. Obtenha o Berloque do Mestre de Arena para demonstrar que, mesmo no nível um, você é uma força imparável da natureza. Prove sua dedicação completando todas as missões disponíveis para você e conquistando o respeito dos PNJs do tutorial em todos os lugares! Os títulos permanecerão com você, mesmo se você decidir subir de nível eventualmente."
+  },
+  {
+    "oid": 58002,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Lingering Polymorph",
+    "en": "Transform the target into a sheep, magical effect, lasts 30 seconds, deals  $s2 shadow damage every $d",
+    "curr_pt": "Transforma o alvo em ovelha, efeito mágico, dura 30 segundos e causa $s2 de dano de Sombra a cada $d s."
+  },
+  {
+    "oid": 58026,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Astral Insight",
+    "en": "Deals $s1 shadow damage.",
+    "curr_pt": "Causa $s1 de Sombra."
+  }
+]

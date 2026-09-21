@@ -79,8 +79,34 @@ def main():
         print(f"  {fname.name}: {len(chunk)} itens (IDs {chunk[0]['oid']}..{chunk[-1]['oid']})")
         batch_idx += 1
 
-    total_batches = batch_idx - 1
-    print(f"Geração concluída com sucesso! Total de {total_batches} lotes gerados.")
+    total_new_batches = batch_idx - 1
+    print(f"Lotes de novos (01..{total_new_batches:02d}) gerados com sucesso!")
+
+    # Ordena os 356 por ID
+    tail_with_pt.sort(key=lambda x: x["id"])
+    review_queue = []
+    for o in tail_with_pt:
+        nd = norm(o["d"])
+        item = {
+            "oid": o["id"],
+            "kind": o.get("kind", "custom"),
+            "need": "review",
+            "sample": f"{o.get('n', '')} {o.get('r', '')}".strip(),
+            "en": o["d"],
+            "curr_pt": norm_auth[nd]
+        }
+        review_queue.append(item)
+
+    print(f"Gerando lotes de revisão para os 356 tail com PT legado...")
+    for i in range(0, len(review_queue), batch_size):
+        chunk = review_queue[i:i + batch_size]
+        fname = batches_dir / f"input_tail_npc_{batch_idx:02d}.json"
+        fname.write_text(json.dumps(chunk, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"  {fname.name}: {len(chunk)} itens (IDs {chunk[0]['oid']}..{chunk[-1]['oid']})")
+        batch_idx += 1
+
+    total_all_batches = batch_idx - 1
+    print(f"Geração total concluída! {total_all_batches} lotes gerados no total (1.731 novos + 356 revisão = 2.087 tail NPC).")
 
 if __name__ == "__main__":
     main()

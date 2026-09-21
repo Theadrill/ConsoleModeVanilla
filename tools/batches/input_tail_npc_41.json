@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 27863,
+    "kind": "custom",
+    "need": "review",
+    "sample": "The Baron's Ultimatum",
+    "en": "Your intrusion has alerted Baron Rivendare.  His prisoner doesn't have much time left.",
+    "curr_pt": "Sua invasão alertou o Barão Rivendare, e o prisioneiro tem pouco tempo."
+  },
+  {
+    "oid": 27864,
+    "kind": "custom",
+    "need": "review",
+    "sample": "The Baron's Ultimatum",
+    "en": "Your intrusion has alerted Baron Rivendare.  His prisoner doesn't have much time left.",
+    "curr_pt": "Sua invasão alertou o Barão Rivendare, e o prisioneiro tem pouco tempo."
+  },
+  {
+    "oid": 27865,
+    "kind": "custom",
+    "need": "review",
+    "sample": "The Baron's Ultimatum",
+    "en": "Your intrusion has alerted Baron Rivendare.  His prisoner doesn't have much time left.",
+    "curr_pt": "Sua invasão alertou o Barão Rivendare, e o prisioneiro tem pouco tempo."
+  },
+  {
+    "oid": 28143,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Power of the Guardian",
+    "en": "Increases damage and healing done by magical spells and effects of all party members within $a1 yards by up to $s1. ",
+    "curr_pt": "Aumenta o dano e a cura causados por feitiços e efeitos mágicos de todos os membros do grupo a até $a1 metros em até $s1."
+  },
+  {
+    "oid": 28144,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Power of the Guardian",
+    "en": "Increases healing done by magical spells and effects of all party members within $a1 yards by up to $s1. ",
+    "curr_pt": "Aumenta a cura causada por feitiços e efeitos mágicos de todos os membros do grupo a até $a1 metros em até $s1."
+  },
+  {
+    "oid": 28270,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polymorph: Cow",
+    "en": "Transforms the enemy into a cow, forcing it to wander around for up to $d.  While wandering, the cow cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Transforma o inimigo em uma vaca, forçando-o a vagar por até $d s. Enquanto vaga, a vaca não pode atacar nem lançar feitiços, mas se regenerará muito rapidamente. Qualquer dano fará o alvo voltar à sua forma normal. Apenas um alvo pode ser transformado por vez. Só funciona em Feras, Humanoides e Bichos."
+  },
+  {
+    "oid": 28271,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polymorph: Turtle",
+    "en": "Transforms the enemy into a turtle, forcing it to wander around for up to $d.  While wandering, the turtle cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Transforma o inimigo em uma tartaruga, forçando-o a vagar por até $d s. Enquanto vaga, a tartaruga não pode atacar nem lançar feitiços, mas se regenerará muito rapidamente. Qualquer dano fará o alvo voltar à sua forma normal. Apenas um alvo pode ser transformado por vez. Só funciona em Feras, Humanoides e Bichos."
+  },
+  {
+    "oid": 28272,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Polymorph: Pig",
+    "en": "Transforms the enemy into a pig, forcing it to wander around for up to $d.  While wandering, the pig cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": "Transforma o inimigo em um porco, forçando-o a vagar por até $d s. Enquanto vaga, o porco não pode atacar nem lançar feitiços, mas se regenerará muito rapidamente. Qualquer dano fará o alvo voltar à sua forma normal. Apenas um alvo pode ser transformado por vez. Só funciona em Feras, Humanoides e Bichos."
+  },
+  {
+    "oid": 28342,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Breath of Sargeras",
+    "en": "Reduces the melee  and ranged attack power of nearby enemies by $s1 for $d.",
+    "curr_pt": "Reduz o poder de ataque corpo a corpo e à distância dos inimigos próximos em $s1 por $d s."
+  },
+  {
+    "oid": 28732,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Widow's Embrace",
+    "en": "Sacrifices self, prevents and removes enrage. Silences nature spells for $d.  Reduces casting speed by $s1%.",
+    "curr_pt": "Morre: tira fúria, silencia Natureza $d s e -$s1% lançamento."
+  },
+  {
+    "oid": 28743,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Dreamwalker",
+    "en": "Reduces the mana cost of your Healing Touch, Regrowth, Rejuvenation,  and Tranquility spells by $s1%.",
+    "curr_pt": "Reduz o custo de mana dos seus feitiços Toque de Cura, Recrescimento, Rejuvenescimento e Tranquilidade em $s1%."
+  },
+  {
+    "oid": 28746,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Plagueheart",
+    "en": "Your spell critical hits generate $s1% less threat.  In addition, Corruption, Immolate, Curse of Agony, and Siphon Life generate $s2% less threat.",
+    "curr_pt": "Seus acertos críticos com feitiços geram $s1% a menos de ameaça. Além disso, Corrupção, Imolação, Maldição da Agonia e Sugar Vida geram $s2% a menos de ameaça."
+  },
+  {
+    "oid": 28765,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Resistance",
+    "en": "Increases fire resistance by $s1.  Lasts $d.",
+    "curr_pt": "Gelo +$s1 por $d s."
+  },
+  {
+    "oid": 28766,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Frost Resistance",
+    "en": "Increases frost resistance by $s1.  Lasts $d.",
+    "curr_pt": "Natureza +$s1 por $d s."
+  },
+  {
+    "oid": 28768,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Nature Resistance",
+    "en": "Increases nature resistance by $s1.  Lasts $d.",
+    "curr_pt": "Sombra +$s1 por $d s."
+  },
+  {
+    "oid": 28769,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shadow Resistance",
+    "en": "Increases shadow resistance by $s1.  Lasts $d.",
+    "curr_pt": "Arcano +$s1 por $d s."
+  },
+  {
+    "oid": 28770,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Arcane Resistance",
+    "en": "Increases arcane resistance by $s1.  Lasts $d.",
+    "curr_pt": "Magia: chance de +$s1 no alvo."
+  },
+  {
+    "oid": 28777,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Slayer's Crest",
+    "en": "Increases Attack Power by $s1 for $d.",
+    "curr_pt": "Aumenta o poder de ataque em $s1 por $d s."
+  },
+  {
+    "oid": 28810,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Armor of Faith",
+    "en": "Absorbs $s1 damage.  Lasts $d.  While the shield holds, spellcasting will not be interrupted by damage.",
+    "curr_pt": "Absorve $s1 de dano. Dura por $d s. Enquanto o escudo estiver ativo, o lançamento de feitiços não será interrompido por dano."
+  },
+  {
+    "oid": 29029,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fizzy Energy Drink",
+    "en": "Restores $25888o1 health and $25889o1 mana over $25888d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become refreshed and gain $25941s1 Mana every 5 seconds for $25941d.",
+    "curr_pt": "Restaura $s1 de vida e $s2 de mana ao longo de $d1 s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará revigorado e receberá $s3 de mana a cada 5 segundos por $d2 s."
+  },
+  {
+    "oid": 29112,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Champion of the Dawn",
+    "en": "+$s1 Attack Power when fighting Undead and Demons.  It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "+$s1 de poder de ataque ao lutar contra mortos-vivos e demônios. Também permite adquirir Pedras do Flagelo em nome da Aurora Argêntea."
+  },
+  {
+    "oid": 29113,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Champion of the Dawn",
+    "en": "Increases damage done to Undead and Demons by magical spells and effects by up to $s1.  It also allows the acquisition of Scourgestones on behalf of the Argent Dawn.",
+    "curr_pt": "Aumenta o dano causado a mortos-vivos e demônios por feitiços e efeitos mágicos em até $s1. Também permite adquirir Pedras do Flagelo em nome da Aurora Argêntea."
+  },
+  {
+    "oid": 29175,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ribbon Dance",
+    "en": "Increases Fire Resistance by $s1.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1."
+  },
+  {
+    "oid": 29432,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fire Protection",
+    "en": "Absorbs $s1 fire damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano de Fogo. Dura $d s."
+  },
+  {
+    "oid": 29480,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Fortitude of the Scourge",
+    "en": "Permanently adds to a shoulder slot item increased Stamina by 16 and also grants 100 armor. ",
+    "curr_pt": "Adiciona permanentemente a um item de ombro 16 de vigor e também concede 100 de armadura."
+  },
+  {
+    "oid": 29506,
+    "kind": "custom",
+    "need": "review",
+    "sample": "The Burrower's Shell",
+    "en": "Absorbs $s1 damage.  Lasts $d.",
+    "curr_pt": "Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s."
+  },
+  {
+    "oid": 29602,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Jom Gabbar",
+    "en": "Increases attack power by $29604s1 and an additional $29604s1 every $t1 sec.  Lasts $d.",
+    "curr_pt": "Aumenta o poder de ataque em $s1 e $s1 adicionais a cada $t1 s. Dura por $d s."
+  },
+  {
+    "oid": 30003,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Sheen of Zanza",
+    "en": "Increases the chance that the player will reflect hostile spells cast on them by $s1% for $d.  Only one type of Zanza potion may be active at any given time.",
+    "curr_pt": "Aumenta em $s1% a chance de o jogador refletir feitiços hostis lançados contra ele por $d s. Apenas um tipo de poção Zanza pode estar ativo por vez."
+  },
+  {
+    "oid": 30336,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Permanent Spirit of Zanza QASpell",
+    "en": "Increases the player's Spirit by $s1 and Stamina by $s2 for $d.  You can only have the effect of one Zanza potion at a time.",
+    "curr_pt": "Aumenta o Espírito do jogador em $s1 e o Vigor em $s2 por $d s. Só uma poção Zanza por vez."
+  },
+  {
+    "oid": 30338,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Permanent Swiftness of Zanza",
+    "en": "Increases the player's run speed by $s1% for $d.  You can only have the effect of one Zanza potion at a time.",
+    "curr_pt": "Aumenta a corrida do jogador em $s1% por $d s. Só uma poção Zanza por vez."
+  },
+  {
+    "oid": 30895,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Heightened Senses Passive",
+    "en": "Increases your Stealth detection.",
+    "curr_pt": "Aumenta sua detecção de furtividade."
+  },
+  {
+    "oid": 30965,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Expose Armor",
+    "en": "Finishing move that exposes the target for $d, reducing armor per combo point:\n   1 point  : -8% armor\n   2 points: -16% armor\n   3 points: -24% armor\n   4 points: -32% armor\n   5 points: -40% armor",
+    "curr_pt": "Golpe finalizador que expõe o alvo por $d s, reduzindo a armadura por ponto de combo: 1 ponto: -8% de armadura, 2 pontos: -16% de armadura, 3 pontos: -24% de armadura, 4 pontos: -32% de armadura, 5 pontos: -40% de armadura."
+  },
+  {
+    "oid": 31364,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Spice Mortar",
+    "en": "$s1 Fire damage to area enemies. ",
+    "curr_pt": "$s1 de Fogo na área."
+  },
+  {
+    "oid": 41538,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Sleep",
+    "en": "Puts the enemy target to sleep for up to $d.  Any damage caused will awaken the target.  ",
+    "curr_pt": "Faz o alvo inimigo adormecer por até $d s. Qualquer dano causado acordará o alvo."
+  },
+  {
+    "oid": 42021,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Generate Energy",
+    "en": "While channeling this spell, your mana regeneration is active and increased by $s1.  Lasts $d.",
+    "curr_pt": "Enquanto canaliza este feitiço, sua regeneração de mana permanece ativa e aumentada em $s1. Dura $d s."
+  },
+  {
+    "oid": 44063,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Earthen Bulwark",
+    "en": "Absorbs $s1 Physical damage.  Lasts $d.",
+    "curr_pt": "Absorve $s1 de dano físico. Dura $d s."
+  },
+  {
+    "oid": 45079,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Portable Bronze Bomb",
+    "en": "Inflicts $s1 Fire damage and stuns targets in a 5 yard radius for $d.  Any damage will break the effect.",
+    "curr_pt": "Causa $s1 de dano de Fogo e atordoa num raio de 5 m por $d s. Qualquer dano quebra."
+  },
+  {
+    "oid": 45300,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Venomhide Poison",
+    "en": "Coats a weapon with poison that lasts for 5 minutes.\nEach strike has a $h% chance of poisoning the enemy for $14795o1 Nature damage over $14795d.  Stacks up to 5 times on a single target.  15 charges.",
+    "curr_pt": "Reveste a arma com veneno que dura 5 minutos. Cada golpe tem $h% de chance de envenenar o inimigo, causando $s1 de dano de Natureza ao longo de $d s. Acumula até 5 vezes no mesmo alvo. 15 cargas."
+  },
+  {
+    "oid": 45407,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Ritual of Refreshment",
+    "en": "Begins a ritual that creates a refreshment table.  Raid members can click the table to acquire Conjured Manna Biscuits.  The tables lasts for 3 min.  Requires the caster and 2 additional party members to complete the ritual.  In order to participate, all players must right-click the refreshment portal and not move until the ritual is complete.",
+    "curr_pt": "Inicia um ritual que cria uma mesa de quitutes. Membros da raide podem clicar na mesa para obter Biscoitos de Mana Conjurados. A mesa dura por 3 min. Requer o lançador e mais 2 membros do grupo para completar o ritual. Para participar, todos os jogadores devem clicar com o botão direito no portal de quitutes e permanecer imóveis até que o ritual seja concluído."
+  },
+  {
+    "oid": 45415,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Emerald Transformation",
+    "en": "Take the form of a green dragonkin, gaining immunity to Fear and Charm effects.  Lasts $d.",
+    "curr_pt": "Vira dragão verde: imune a Medo/Encanto por $d s."
+  },
+  {
+    "oid": 45540,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[PH] Harsh Wind",
+    "en": "Causes the shaman's active Wind totem to emit a gust of wind, ",
+    "curr_pt": "Faz com que o Totem de Vento ativo do xamã emita uma rajada de vento,"
+  },
+  {
+    "oid": 45569,
+    "kind": "custom",
+    "need": "review",
+    "sample": "[Deprecated] Champion's Resolve",
+    "en": "Wards the champion against Fear.  The next Fear effect used against the target will fail, using up the ward. Lasts $d.",
+    "curr_pt": "Protege o campeão contra Medo. O próximo efeito de Medo usado contra o alvo falhará, consumindo a proteção. Dura por $d s."
+  },
+  {
+    "oid": 45597,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gladiator Stance",
+    "en": "A dauntless combat stance.\n\nIncreases your damage by $45598s1%.",
+    "curr_pt": "Uma postura de combate destemida. Aumenta seu dano em $s1%."
+  },
+  {
+    "oid": 45598,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Gladiator Stance Passive",
+    "en": "Increase physical damage done by $s1%.\nDecreases threat generated by $s3%.",
+    "curr_pt": "Aumenta o dano Físico causado em $s1%. Diminui a ameaça gerada em $s3%."
+  },
+  {
+    "oid": 45609,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Shiv",
+    "en": "Performs an instant off-hand weapon attack that automatically applies the poison from your off-hand weapon to the target.  Slower weapons require more Energy.  Awards 1 combo point.",
+    "curr_pt": "Um ataque instantâneo com a secundária que aplica seu veneno, custando mais energia com arma lenta. Concede 1 combo."
+  },
+  {
+    "oid": 45649,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Aspect of the Turtle",
+    "en": "The hunter takes on the aspects of a turtle, reducing all damage they take by 20%, but increases their time between attacks by 30%, and reduces their movement speed by 30%.  Lasts $d.",
+    "curr_pt": "O caçador assume os aspectos de uma tartaruga, reduzindo todo o dano que recebe em 20%, mas aumentando o tempo entre ataques em 30% e reduzindo a velocidade de movimento em 30%. Dura por $d s."
+  },
+  {
+    "oid": 45652,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Aspect of the Snake",
+    "en": "The hunter takes on the aspects of a snake, causing most melee attacks and ranged auto attacks to have a chance to restore $45664s1 mana.  Only one Aspect can be active at a time.",
+    "curr_pt": "O caçador assume os aspectos de uma cobra, fazendo com que a maioria dos ataques corpo a corpo e ataques automáticos à distância tenha chance de restaurar $s1 de mana. Apenas um Aspecto pode estar ativo por vez."
+  },
+  {
+    "oid": 45740,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Storm Crow Form Shapeshift",
+    "en": "Transforms the Druid into Storm Crow Form. The Storm Crow can only cast Balance spells while shapeshifted.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": "Transforma o Druida na Forma de Corvo Tempestuoso. O Corvo Tempestuoso só pode lançar feitiços de Equilíbrio enquanto estiver metamorfoseado. O ato de metamorfosear liberta o lançador de efeitos de Metamorfose e de Redução de Movimento."
+  },
+  {
+    "oid": 45742,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Cyclone",
+    "en": "Tosses the enemy target into the air, preventing all action but making them invulnerable for up to $d.  Only one target can be affected by your Cyclone at a time.",
+    "curr_pt": "Arremessa o alvo inimigo no ar, impedindo qualquer ação, mas tornando-o invulnerável por até $d s. Apenas um alvo pode ser afetado por seu Ciclone por vez."
+  },
+  {
+    "oid": 45907,
+    "kind": "custom",
+    "need": "review",
+    "sample": "Rain of Chaos Summon",
+    "en": "Summons a meteor from the Twisting Nether, causing $22699s1 Fire damage and stunning all enemy targets in the area for $20310d.  An Infernal rises from the crater, under the command of the Warlock.",
+    "curr_pt": "Evoca um meteoro da Espiral Etérea, causando $s1 de dano de Fogo e atordoando todos os alvos inimigos na área por $d s. Um Infernal surge da cratera, sob o comando do Bruxo."
+  }
+]

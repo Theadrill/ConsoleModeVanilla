@@ -24355,7 +24355,7 @@ ConsoleMode_SpellDescDB[49525] = { n="Call of Blades", r="", d="Conjures the dua
 ConsoleMode_SpellDescDB[49526] = { n="Schematic: Thorium Grenade", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[49527] = { n="Schematic: Thorium Widget", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[49528] = { n="Schematic: Truesilver Transformer", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[49550] = { n="Empowering Herbal Salad", r="", d="Teaches you how to cook a Empowering Herbal Salad.", t="", pt="" }
+ConsoleMode_SpellDescDB[49550] = { n="Empowering Herbal Salad", r="", d="Teaches you how to cook a Empowering Herbal Salad.", t="", pt="Ensina a cozinhar uma Salada de Ervas Potencializadora." }
 ConsoleMode_SpellDescDB[49551] = { n="Empowering Herbal Salad", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[49552] = { n="Food", r="", d="Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain 24 Healing Bonus for $24799d.", t="Restores $/5;s1 health per second.", pt="Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá 24 de bônus de cura por $d s." }
 ConsoleMode_SpellDescDB[49553] = { n="Increased Healing Bonus", r="", d="Increases Healing by 24 for $d.", t="Healing Bonus increased by 24.", pt="Cura +24 por $d s." }

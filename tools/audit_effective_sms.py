@@ -36,6 +36,9 @@ def looks_sms(en, pt):
         if re.search(pat, pt):
             return True
     # muito curto em relacao ao EN (menos de 45% dos chars, EN com 2+ frases)
+    # ignora se EN contem NOTE: (nota interna do DBC, nao deve entrar no PT)
+    if "NOTE:" in en:
+        return False
     if len(pt) < 0.45 * len(en) and len(en) > 60:
         return True
     return False

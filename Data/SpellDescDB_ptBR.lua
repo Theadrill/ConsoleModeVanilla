@@ -22795,53 +22795,53 @@ ConsoleMode_SpellDescDB[41284] = { n="Shimmering Moonstone Tablet", r="", d="Tea
 ConsoleMode_SpellDescDB[41285] = { n="Shimmering Moonstone Tablet", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[41286] = { n="Stormcloud Sigil", r="", d="Teaches you how to craft a Stormcloud Sigil.", t="", pt="" }
 ConsoleMode_SpellDescDB[41287] = { n="Stormcloud Sigil", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41302] = { n="Massive Jewel Circlet", r="", d="Teaches you how to craft a Massive Jewel Circlet.", t="", pt="" }
+ConsoleMode_SpellDescDB[41302] = { n="Massive Jewel Circlet", r="", d="Teaches you how to craft a Massive Jewel Circlet.", t="", pt="Ensina a criar um Diadema de Joia Maciça." }
 ConsoleMode_SpellDescDB[41303] = { n="Massive Jewel Circlet", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41304] = { n="Golden Scepter of Authority", r="", d="Teaches you how to craft a Golden Scepter of Authority.", t="", pt="" }
+ConsoleMode_SpellDescDB[41304] = { n="Golden Scepter of Authority", r="", d="Teaches you how to craft a Golden Scepter of Authority.", t="", pt="Ensina a criar um Cetro Dourado da Autoridade." }
 ConsoleMode_SpellDescDB[41305] = { n="Golden Scepter of Authority", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41306] = { n="Gemkeeper's Folio", r="", d="Teaches you how to craft a Gemkeeper's Folio.", t="", pt="" }
+ConsoleMode_SpellDescDB[41306] = { n="Gemkeeper's Folio", r="", d="Teaches you how to craft a Gemkeeper's Folio.", t="", pt="Ensina a criar o Fólio do Guardião das Gemas." }
 ConsoleMode_SpellDescDB[41307] = { n="Gemkeeper's Folio", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41308] = { n="Stellar Ruby Ring", r="", d="Teaches you how to craft a Stellar Ruby Ring.", t="", pt="" }
+ConsoleMode_SpellDescDB[41308] = { n="Stellar Ruby Ring", r="", d="Teaches you how to craft a Stellar Ruby Ring.", t="", pt="Ensina a criar um Anel de Rubi Estelar." }
 ConsoleMode_SpellDescDB[41309] = { n="Stellar Ruby Ring", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41310] = { n="Stellar Gemguards", r="", d="Teaches you how to craft a Stellar Gemguards.", t="", pt="" }
+ConsoleMode_SpellDescDB[41310] = { n="Stellar Gemguards", r="", d="Teaches you how to craft a Stellar Gemguards.", t="", pt="Ensina a criar Protetores de Gemas Estelares." }
 ConsoleMode_SpellDescDB[41311] = { n="Stellar Gemguards", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41312] = { n="Garnet Guardian Staff", r="", d="Teaches you how to craft a Garnet Guardian Staff.", t="", pt="" }
+ConsoleMode_SpellDescDB[41312] = { n="Garnet Guardian Staff", r="", d="Teaches you how to craft a Garnet Guardian Staff.", t="", pt="Ensina a criar um Cajado Guardião de Granate." }
 ConsoleMode_SpellDescDB[41313] = { n="Garnet Guardian Staff", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41314] = { n="Moonlit Charm", r="", d="Teaches you how to craft a Moonlit Charm.", t="", pt="" }
+ConsoleMode_SpellDescDB[41314] = { n="Moonlit Charm", r="", d="Teaches you how to craft a Moonlit Charm.", t="", pt="Ensina a criar um Amuleto do Luar." }
 ConsoleMode_SpellDescDB[41315] = { n="Moonlit Charm", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41316] = { n="Twilight Opal Cascade", r="", d="Teaches you how to craft a Twilight Opal Cascade.", t="", pt="" }
+ConsoleMode_SpellDescDB[41316] = { n="Twilight Opal Cascade", r="", d="Teaches you how to craft a Twilight Opal Cascade.", t="", pt="Ensina a criar uma Cascata de Opala do Crepúsculo." }
 ConsoleMode_SpellDescDB[41317] = { n="Twilight Opal Cascade", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41320] = { n="Gleaming Chain", r="", d="Teaches you how to craft a Gleaming Chain.", t="", pt="" }
+ConsoleMode_SpellDescDB[41320] = { n="Gleaming Chain", r="", d="Teaches you how to craft a Gleaming Chain.", t="", pt="Ensina a criar uma Corrente Cintilante." }
 ConsoleMode_SpellDescDB[41321] = { n="Gleaming Chain", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41322] = { n="Talisman of Stone", r="", d="Teaches you how to craft a Talisman of Stone.", t="", pt="" }
+ConsoleMode_SpellDescDB[41322] = { n="Talisman of Stone", r="", d="Teaches you how to craft a Talisman of Stone.", t="", pt="Ensina a criar um Talismã de Pedra." }
 ConsoleMode_SpellDescDB[41323] = { n="Talisman of Stone", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41324] = { n="Medallion of Flame", r="", d="Teaches you how to craft a Medallion of Flame.", t="", pt="" }
+ConsoleMode_SpellDescDB[41324] = { n="Medallion of Flame", r="", d="Teaches you how to craft a Medallion of Flame.", t="", pt="Ensina a criar um Medalhão da Chama." }
 ConsoleMode_SpellDescDB[41325] = { n="Medallion of Flame", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41326] = { n="Gleaming Silver Necklace", r="", d="Teaches you how to craft a Gleaming Silver Necklace.", t="", pt="" }
+ConsoleMode_SpellDescDB[41326] = { n="Gleaming Silver Necklace", r="", d="Teaches you how to craft a Gleaming Silver Necklace.", t="", pt="Ensina a criar um Colar de Prata Brilhante." }
 ConsoleMode_SpellDescDB[41327] = { n="Gleaming Silver Necklace", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41328] = { n="Ring of The Turtle", r="", d="Teaches you how to craft a Ring of The Turtle.", t="", pt="" }
+ConsoleMode_SpellDescDB[41328] = { n="Ring of The Turtle", r="", d="Teaches you how to craft a Ring of The Turtle.", t="", pt="Ensina a criar o Anel da Tartaruga." }
 ConsoleMode_SpellDescDB[41329] = { n="Ring of The Turtle", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41330] = { n="Gem Encrusted Choker", r="", d="Teaches you how to craft a Gem Encrusted Choker.", t="", pt="" }
+ConsoleMode_SpellDescDB[41330] = { n="Gem Encrusted Choker", r="", d="Teaches you how to craft a Gem Encrusted Choker.", t="", pt="Ensina a criar uma Gargantilha Incrustada de Gemas." }
 ConsoleMode_SpellDescDB[41331] = { n="Gem Encrusted Choker", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41332] = { n="Goldcrest Amulet", r="", d="Teaches you how to craft a Goldcrest Amulet.", t="", pt="" }
+ConsoleMode_SpellDescDB[41332] = { n="Goldcrest Amulet", r="", d="Teaches you how to craft a Goldcrest Amulet.", t="", pt="Ensina a criar um Amuleto da Crista Dourada." }
 ConsoleMode_SpellDescDB[41333] = { n="Goldcrest Amulet", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41334] = { n="Shining Copper Cuffs", r="", d="Teaches you how to craft a Shining Copper Cuffs.", t="", pt="" }
+ConsoleMode_SpellDescDB[41334] = { n="Shining Copper Cuffs", r="", d="Teaches you how to craft a Shining Copper Cuffs.", t="", pt="Ensina a criar Braçadeiras de Cobre Brilhante." }
 ConsoleMode_SpellDescDB[41335] = { n="Shining Copper Cuffs", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41336] = { n="Dawnbright Cuffs", r="", d="Teaches you how to craft a Dawnbright Cuffs.", t="", pt="" }
+ConsoleMode_SpellDescDB[41336] = { n="Dawnbright Cuffs", r="", d="Teaches you how to craft a Dawnbright Cuffs.", t="", pt="Ensina a criar Braçadeiras da Aurora Brilhante." }
 ConsoleMode_SpellDescDB[41337] = { n="Dawnbright Cuffs", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41338] = { n="Circlet of Dampening", r="", d="Teaches you how to craft a Circlet of Dampening.", t="", pt="" }
+ConsoleMode_SpellDescDB[41338] = { n="Circlet of Dampening", r="", d="Teaches you how to craft a Circlet of Dampening.", t="", pt="Ensina a criar um Diadema de Atenuação." }
 ConsoleMode_SpellDescDB[41339] = { n="Circlet of Dampening", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41340] = { n="Eternal Jade Crown", r="", d="Teaches you how to craft a Eternal Jade Crown.", t="", pt="" }
+ConsoleMode_SpellDescDB[41340] = { n="Eternal Jade Crown", r="", d="Teaches you how to craft a Eternal Jade Crown.", t="", pt="Ensina a criar uma Coroa de Jade Eterna." }
 ConsoleMode_SpellDescDB[41341] = { n="Eternal Jade Crown", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41347] = { n="Crystalfire Armlets", r="", d="Teaches you how to craft a Crystalfire Armlets.", t="", pt="" }
+ConsoleMode_SpellDescDB[41347] = { n="Crystalfire Armlets", r="", d="Teaches you how to craft a Crystalfire Armlets.", t="", pt="Ensina a criar Braçadeiras de Cristalfogo." }
 ConsoleMode_SpellDescDB[41348] = { n="Crystalfire Armlets", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41349] = { n="Cinderfall Band", r="", d="Teaches you how to craft a Cinderfall Band.", t="", pt="" }
+ConsoleMode_SpellDescDB[41349] = { n="Cinderfall Band", r="", d="Teaches you how to craft a Cinderfall Band.", t="", pt="Ensina a criar um Aro de Cinzas Cadentes." }
 ConsoleMode_SpellDescDB[41350] = { n="Cinderfall Band", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41351] = { n="Opaline Illuminator", r="", d="Teaches you how to craft a Opaline Illuminator.", t="", pt="" }
+ConsoleMode_SpellDescDB[41351] = { n="Opaline Illuminator", r="", d="Teaches you how to craft a Opaline Illuminator.", t="", pt="Ensina a criar um Iluminador Opalino." }
 ConsoleMode_SpellDescDB[41352] = { n="Opaline Illuminator", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41353] = { n="Skyfire Jewel", r="", d="Teaches you how to craft a Skyfire Jewel.", t="", pt="" }
+ConsoleMode_SpellDescDB[41353] = { n="Skyfire Jewel", r="", d="Teaches you how to craft a Skyfire Jewel.", t="", pt="Ensina a criar uma Joia do Fogo Celestial." }
 ConsoleMode_SpellDescDB[41354] = { n="Skyfire Jewel", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41355] = { n="Gemstone Compendium", r="", d="Teaches you how to craft a Gemstone Compendium.", t="", pt="" }
+ConsoleMode_SpellDescDB[41355] = { n="Gemstone Compendium", r="", d="Teaches you how to craft a Gemstone Compendium.", t="", pt="Ensina a criar um Compêndio de Gemas." }
 ConsoleMode_SpellDescDB[41356] = { n="Gemstone Compendium", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[41357] = { n="Mana Renewal", r="", d="Restores mana.", t="", pt="Restaura mana." }
 ConsoleMode_SpellDescDB[41358] = { n="Mana Renewal Passive", r="", d="Ticks of your Renew spells have a $h% chance to refund $s1% of their base mana cost.", t="", pt="Os tiques dos seus feitiços Renovar têm $h% de chance de restituir $s1% do custo base de mana deles." }
@@ -22852,39 +22852,39 @@ ConsoleMode_SpellDescDB[41362] = { n="Bulwark of the Brotherhood", r="", d="Redu
 ConsoleMode_SpellDescDB[41363] = { n="Warrior T3.5 5P Passive", r="", d="Shield Wall, Recklessness and Retaliation inspire your group, granting unique benefits during their duration depending on the ability used.", t="", pt="Muralha de Escudos, Temeridade e Retaliação inspiram seu grupo, concedendo benefícios únicos durante sua duração dependendo da habilidade usada." }
 ConsoleMode_SpellDescDB[41364] = { n="Justice of the Brotherhood", r="", d="Critical strike damage increased by $s1%.", t="Critical strike damage increased by $s1%.", pt="Crítico +$s1% dano." }
 ConsoleMode_SpellDescDB[41365] = { n="Persistence of the Brotherhood", r="", d="Attack speed increased by $s1%.", t="Attack speed increased by $s1%.", pt="Velocidade +$s1%." }
-ConsoleMode_SpellDescDB[41540] = { n="Dazzling Aquamarine Loop", r="", d="Teaches you how to craft a Dazzling Aquamarine Loop.", t="", pt="" }
+ConsoleMode_SpellDescDB[41540] = { n="Dazzling Aquamarine Loop", r="", d="Teaches you how to craft a Dazzling Aquamarine Loop.", t="", pt="Ensina a criar um Elo de Água-marinha Deslumbrante." }
 ConsoleMode_SpellDescDB[41541] = { n="Dazzling Aquamarine Loop", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41545] = { n="Alluring Citrine Choker", r="", d="Teaches you how to craft a Alluring Citrine Choker.", t="", pt="" }
+ConsoleMode_SpellDescDB[41545] = { n="Alluring Citrine Choker", r="", d="Teaches you how to craft a Alluring Citrine Choker.", t="", pt="Ensina a criar uma Gargantilha Cativante de Citrino." }
 ConsoleMode_SpellDescDB[41546] = { n="Alluring Citrine Choker", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41547] = { n="Elaborate Golden Bracelets", r="", d="Teaches you how to craft a Elaborate Golden Bracelets.", t="", pt="" }
+ConsoleMode_SpellDescDB[41547] = { n="Elaborate Golden Bracelets", r="", d="Teaches you how to craft a Elaborate Golden Bracelets.", t="", pt="Ensina a criar Braceletes de Ouro Elaborados." }
 ConsoleMode_SpellDescDB[41548] = { n="Elaborate Golden Bracelets", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41549] = { n="Heart of the Sea", r="", d="Teaches you how to craft a Heart of the Sea.", t="", pt="" }
+ConsoleMode_SpellDescDB[41549] = { n="Heart of the Sea", r="", d="Teaches you how to craft a Heart of the Sea.", t="", pt="Ensina a criar o Coração do Mar." }
 ConsoleMode_SpellDescDB[41550] = { n="Heart of the Sea", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41551] = { n="Staff of Gallitrea", r="", d="Teaches you how to craft a Staff of Gallitrea.", t="", pt="" }
+ConsoleMode_SpellDescDB[41551] = { n="Staff of Gallitrea", r="", d="Teaches you how to craft a Staff of Gallitrea.", t="", pt="Ensina a criar o Cajado de Gallitrea." }
 ConsoleMode_SpellDescDB[41552] = { n="Staff of Gallitrea", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41553] = { n="Golden Jade Ring", r="", d="Teaches you how to craft a Golden Jade Ring.", t="", pt="" }
+ConsoleMode_SpellDescDB[41553] = { n="Golden Jade Ring", r="", d="Teaches you how to craft a Golden Jade Ring.", t="", pt="Ensina a criar um Anel de Jade Dourado." }
 ConsoleMode_SpellDescDB[41554] = { n="Golden Jade Ring", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41555] = { n="Delicate Mithril Amulet", r="", d="Teaches you how to craft a Delicate Mithril Amulet.", t="", pt="" }
+ConsoleMode_SpellDescDB[41555] = { n="Delicate Mithril Amulet", r="", d="Teaches you how to craft a Delicate Mithril Amulet.", t="", pt="Ensina a criar um Amuleto Delicado de Mithril." }
 ConsoleMode_SpellDescDB[41556] = { n="Delicate Mithril Amulet", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41557] = { n="Draenethyst Baton", r="", d="Teaches you how to craft a Draenethyst Baton.", t="", pt="" }
+ConsoleMode_SpellDescDB[41557] = { n="Draenethyst Baton", r="", d="Teaches you how to craft a Draenethyst Baton.", t="", pt="Ensina a criar um Bastão de Draenetista." }
 ConsoleMode_SpellDescDB[41558] = { n="Draenethyst Baton", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41559] = { n="Ebon Ring", r="", d="Teaches you how to craft a Ebon Ring.", t="", pt="" }
+ConsoleMode_SpellDescDB[41559] = { n="Ebon Ring", r="", d="Teaches you how to craft a Ebon Ring.", t="", pt="Ensina a criar um Anel de Ébano." }
 ConsoleMode_SpellDescDB[41560] = { n="Ebon Ring", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41561] = { n="The King's Conviction", r="", d="Teaches you how to craft a The King's Conviction.", t="", pt="" }
+ConsoleMode_SpellDescDB[41561] = { n="The King's Conviction", r="", d="Teaches you how to craft a The King's Conviction.", t="", pt="Ensina a criar A Convicção do Rei." }
 ConsoleMode_SpellDescDB[41562] = { n="The King's Conviction", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41563] = { n="Shadowfall Jewel", r="", d="Teaches you how to craft a Shadowfall Jewel.", t="", pt="" }
+ConsoleMode_SpellDescDB[41563] = { n="Shadowfall Jewel", r="", d="Teaches you how to craft a Shadowfall Jewel.", t="", pt="Ensina a criar uma Joia da Queda das Sombras." }
 ConsoleMode_SpellDescDB[41564] = { n="Shadowfall Jewel", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41565] = { n="Ocean's Wrath", r="", d="Teaches you how to craft a Ocean's Wrath.", t="", pt="" }
+ConsoleMode_SpellDescDB[41565] = { n="Ocean's Wrath", r="", d="Teaches you how to craft a Ocean's Wrath.", t="", pt="Ensina a criar a Ira do Oceano." }
 ConsoleMode_SpellDescDB[41566] = { n="Ocean's Wrath", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41567] = { n="Dazzling Moonstone Band", r="", d="Teaches you how to craft a Dazzling Moonstone Band.", t="", pt="" }
+ConsoleMode_SpellDescDB[41567] = { n="Dazzling Moonstone Band", r="", d="Teaches you how to craft a Dazzling Moonstone Band.", t="", pt="Ensina a criar um Aro de Pedra-da-lua Deslumbrante." }
 ConsoleMode_SpellDescDB[41568] = { n="Dazzling Moonstone Band", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41569] = { n="Harpy Talon Ring", r="", d="Teaches you how to craft a Harpy Talon Ring.", t="", pt="" }
+ConsoleMode_SpellDescDB[41569] = { n="Harpy Talon Ring", r="", d="Teaches you how to craft a Harpy Talon Ring.", t="", pt="Ensina a criar um Anel de Garras de Harpia." }
 ConsoleMode_SpellDescDB[41570] = { n="Harpy Talon Ring", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41571] = { n="Centaur Hoof Circlet", r="", d="Teaches you how to craft a Centaur Hoof Circlet.", t="", pt="" }
+ConsoleMode_SpellDescDB[41571] = { n="Centaur Hoof Circlet", r="", d="Teaches you how to craft a Centaur Hoof Circlet.", t="", pt="Ensina a criar um Diadema de Casco de Centauro." }
 ConsoleMode_SpellDescDB[41572] = { n="Centaur Hoof Circlet", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41573] = { n="Ogre Bone Band", r="", d="Teaches you how to craft a Ogre Bone Band.", t="", pt="" }
+ConsoleMode_SpellDescDB[41573] = { n="Ogre Bone Band", r="", d="Teaches you how to craft a Ogre Bone Band.", t="", pt="Ensina a criar um Aro de Osso de Ogro." }
 ConsoleMode_SpellDescDB[41574] = { n="Ogre Bone Band", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41575] = { n="Specter's Shade Ring", r="", d="Teaches you how to craft a Specter's Shade Ring.", t="", pt="" }
+ConsoleMode_SpellDescDB[41575] = { n="Specter's Shade Ring", r="", d="Teaches you how to craft a Specter's Shade Ring.", t="", pt="Ensina a criar um Anel da Sombra do Espectro." }
 ConsoleMode_SpellDescDB[41576] = { n="Malachite Ring", r="", d="Teaches you how to craft a Malachite Ring.", t="", pt="Ensina a criar um Anel de Malaquita." }
 ConsoleMode_SpellDescDB[41577] = { n="Malachite Ring", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[41578] = { n="Marine's Demise", r="", d="Teaches you how to craft a Marine's Demise.", t="", pt="" }
@@ -22899,7 +22899,7 @@ ConsoleMode_SpellDescDB[41586] = { n="Gloomweed Bindings", r="", d="Teaches you 
 ConsoleMode_SpellDescDB[41587] = { n="Gloomweed Bindings", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[41588] = { n="Crystal Earring", r="", d="Teaches you how to craft a Crystal Earring.", t="", pt="" }
 ConsoleMode_SpellDescDB[41589] = { n="Crystal Earring", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[41590] = { n="Specter's Shade Ring", r="", d="Teaches you how to craft a Specter's Shade Ring.", t="", pt="" }
+ConsoleMode_SpellDescDB[41590] = { n="Specter's Shade Ring", r="", d="Teaches you how to craft a Specter's Shade Ring.", t="", pt="Ensina a criar um Anel da Sombra do Espectro." }
 ConsoleMode_SpellDescDB[41591] = { n="Specter's Shade Ring", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[41600] = { n="Sharpened Citrine Gemstone", r="", d="Teaches you how to craft a Sharpened Citrine Gemstone.", t="", pt="" }
 ConsoleMode_SpellDescDB[41601] = { n="Sharpened Citrine Gemstone", r="", d="", t="", pt="" }

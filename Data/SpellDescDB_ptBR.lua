@@ -23173,17 +23173,17 @@ ConsoleMode_SpellDescDB[45058] = { n="Schematic: Unstable Mining Dynamite", r=""
 ConsoleMode_SpellDescDB[45059] = { n="Volatile Concoction", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45060] = { n="Volatile Concoction", r="", d="Breathes fire for 5 seconds, damaging enemies in front of you for 22 Fire damage. A true afterburner.", t="Damages enemies in front of you.", pt="Sopra fogo 5 s: 22 nos da frente. Pós-combustão." }
 ConsoleMode_SpellDescDB[45061] = { n="Volatile Concoction", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45062] = { n="Recipe: Volatile Concoction", r="", d="Teaches you how to make an Volatile Concoction.", t="", pt="" }
+ConsoleMode_SpellDescDB[45062] = { n="Recipe: Volatile Concoction", r="", d="Teaches you how to make an Volatile Concoction.", t="", pt="Ensina a criar uma Mistura Volátil." }
 ConsoleMode_SpellDescDB[45063] = { n="Blast Shield", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45064] = { n="Plans: Blast Shield", r="", d="Teaches you how to make Blast Shield.", t="", pt="" }
+ConsoleMode_SpellDescDB[45064] = { n="Plans: Blast Shield", r="", d="Teaches you how to make Blast Shield.", t="", pt="Ensina a criar o Escudo de Detonação." }
 ConsoleMode_SpellDescDB[45065] = { n="Spell Haste 1", r="", d="Increases your casting speed by $s1%.", t="", pt="Aumenta sua velocidade de lançamento em $s1%." }
 ConsoleMode_SpellDescDB[45066] = { n="Gloves of Manathirst", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45067] = { n="Pattern: Gloves of Manathirst", r="", d="Teaches you how to sew Gloves of Manathirst.", t="", pt="" }
+ConsoleMode_SpellDescDB[45067] = { n="Pattern: Gloves of Manathirst", r="", d="Teaches you how to sew Gloves of Manathirst.", t="", pt="Ensina a costurar as Luvas da Sede de Mana." }
 ConsoleMode_SpellDescDB[45068] = { n="Run Speed 3", r="", d="Increases run speed by $s1%.", t="Increases run speed by $s1%.", pt="Corre +$s1%." }
 ConsoleMode_SpellDescDB[45069] = { n="Lynxstep Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45070] = { n="Pattern: Lynxstep Boots", r="", d="Teaches you how to craft Lynxstep Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[45070] = { n="Pattern: Lynxstep Boots", r="", d="Teaches you how to craft Lynxstep Boots.", t="", pt="Ensina a criar as Botas Passo-de-lince." }
 ConsoleMode_SpellDescDB[45071] = { n="Enchant 2H Weapon - Minor Intellect", r="", d="Permanently enchant a two-handed melee weapon to grant +2 Intellect.", t="", pt="Encanta permanentemente uma arma corpo a corpo de duas mãos para conceder +2 de Intelecto." }
-ConsoleMode_SpellDescDB[45072] = { n="Formula: Enchant 2H Weapon - Minor Intellect", r="", d="Teaches you how to permanently enchant a two-handed weapon so it grants +2 intellect.", t="", pt="" }
+ConsoleMode_SpellDescDB[45072] = { n="Formula: Enchant 2H Weapon - Minor Intellect", r="", d="Teaches you how to permanently enchant a two-handed weapon so it grants +2 intellect.", t="", pt="Ensina a encantar permanentemente uma arma de duas mãos para que conceda +2 de intelecto." }
 ConsoleMode_SpellDescDB[45073] = { n="Devotion Aura Dmg Reduction", r="", d="Decreases physical damage taken from all sources by $s1%.", t="", pt="Físico -$s1%." }
 ConsoleMode_SpellDescDB[45074] = { n="Thorns Explosion", r="", d="Causes an explosion of thorns around the caster, causing $s1 Nature damage to all targets within $a1 yards.", t="", pt="Causa uma explosão de espinhos ao redor do lançador, causando $s1 de dano de Natureza a todos os alvos a até $a1 metros." }
 ConsoleMode_SpellDescDB[45075] = { n="Thorn Volley", r="", d="Deals $s1 Physical damage to nearby enemies, knocking them down for $d.", t="Stunned.", pt="Causa $s1 de dano Físico a inimigos próximos, derrubando-os por $d s." }
@@ -23192,7 +23192,7 @@ ConsoleMode_SpellDescDB[45077] = { n="Plague Strain", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45078] = { n="Plague Strain", r="", d="Infects an enemy with the plague for $d., causing it to inflict $45077s1 Nature damage to its nearby allies every $t1 sec.", t="Inflicting $45077s1 Nature damage to nearby allies every $t1 sec.", pt="Peste $d s: $s1 de Natureza nos aliados próximos a cada $t1 s." }
 ConsoleMode_SpellDescDB[45079] = { n="Portable Bronze Bomb", r="", d="Inflicts $s1 Fire damage and stuns targets in a 5 yard radius for $d.  Any damage will break the effect.", t="Stunned.  Any damage will break the effect.", pt="Causa $s1 de dano de Fogo e atordoa num raio de 5 m por $d s. Qualquer dano quebra." }
 ConsoleMode_SpellDescDB[45300] = { n="Venomhide Poison", r="", d="Coats a weapon with poison that lasts for 5 minutes.\nEach strike has a $h% chance of poisoning the enemy for $14795o1 Nature damage over $14795d.  Stacks up to 5 times on a single target.  15 charges.", t="", pt="Reveste a arma com veneno que dura 5 minutos. Cada golpe tem $h% de chance de envenenar o inimigo, causando $s1 de dano de Natureza ao longo de $d s. Acumula até 5 vezes no mesmo alvo. 15 cargas." }
-ConsoleMode_SpellDescDB[45301] = { n="Venomhide Poison", r="", d="Teaches Venhomide Poison.", t="", pt="" }
+ConsoleMode_SpellDescDB[45301] = { n="Venomhide Poison", r="", d="Teaches Venhomide Poison.", t="", pt="Ensina Veneno Courovenenoso." }
 ConsoleMode_SpellDescDB[45302] = { n="Return to Thunder Bluff", r="", d="Teleports you back to Thunder Bluff.", t="", pt="Teleporta você de volta ao Penhasco do Trovão." }
 ConsoleMode_SpellDescDB[45303] = { n="Teleport Away", r="", d="Teleports the target far away.", t="", pt="Teleporta o alvo para longe." }
 ConsoleMode_SpellDescDB[45304] = { n="Eternal Quintessence - Dowse Molten Core Rune", r="", d="Dowses a rune of the Firelords.", t="", pt="Apaga a runa do Senhor do Fogo." }
@@ -23246,45 +23246,45 @@ ConsoleMode_SpellDescDB[45446] = { n=" Attack Power - Feral (+294)", r="", d="+$
 ConsoleMode_SpellDescDB[45447] = { n=" Attack Power - Feral (+308)", r="", d="+$s1 Attack Power in Cat, Bear, Dire Bear, and Moonkin forms only.", t="", pt="+$s1 de Poder de Ataque apenas nas formas de Gato, Urso, Urso Atroz e Coruja." }
 ConsoleMode_SpellDescDB[45448] = { n=" Attack Power - Feral (+322)", r="", d="+$s1 Attack Power in Cat, Bear, Dire Bear, and Moonkin forms only.", t="", pt="+$s1 de Poder de Ataque apenas nas formas de Gato, Urso, Urso Atroz e Coruja." }
 ConsoleMode_SpellDescDB[45449] = { n="Call of Worgen", r="", d="Transform into a bloodthirsty worgen, increasing shadow resistance by $s2 and melee attack power by $s3 for $d.", t="Increased shadow resistance and melee attack power.", pt="Transforma-se em um worgen sanguinário, aumentando a resistência à Sombra em $s2 e o poder de ataque corpo a corpo em $s3 por $d s." }
-ConsoleMode_SpellDescDB[45450] = { n="Smelt Dreamsteel", r="", d="Teaches you how to smelt Dreamsteel.", t="", pt="" }
+ConsoleMode_SpellDescDB[45450] = { n="Smelt Dreamsteel", r="", d="Teaches you how to smelt Dreamsteel.", t="", pt="Ensina a fundir Aço do Sonho." }
 ConsoleMode_SpellDescDB[45451] = { n="Smelt Dreamsteel", r="", d="Allows the miner to smelt a dreamsteel bar. Smelting dreamsteel requires a forge.", t="", pt="Permite ao minerador fundir uma barra de dreamsteel. Requer uma forja." }
-ConsoleMode_SpellDescDB[45452] = { n="Pattern: Dreamthread", r="", d="Teaches you how to make Dreamthread.", t="", pt="" }
+ConsoleMode_SpellDescDB[45452] = { n="Pattern: Dreamthread", r="", d="Teaches you how to make Dreamthread.", t="", pt="Ensina a criar Linha do Sonho." }
 ConsoleMode_SpellDescDB[45453] = { n="Dreamthread", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45454] = { n="Dreamhide", r="", d="Teaches you how to craft Dreamhide.", t="", pt="" }
+ConsoleMode_SpellDescDB[45454] = { n="Dreamhide", r="", d="Teaches you how to craft Dreamhide.", t="", pt="Ensina a criar Couro do Sonho." }
 ConsoleMode_SpellDescDB[45455] = { n="Dreamhide", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45456] = { n="Pattern: Dreamthread Mantle", r="", d="Teaches you how to sew a Dreamthread Mantle.", t="", pt="" }
+ConsoleMode_SpellDescDB[45456] = { n="Pattern: Dreamthread Mantle", r="", d="Teaches you how to sew a Dreamthread Mantle.", t="", pt="Ensina a costurar um Manto de Linha do Sonho." }
 ConsoleMode_SpellDescDB[45457] = { n="Dreamthread Mantle", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45458] = { n="Pattern: Dreamthread Kilt", r="", d="Teaches you how to sew a Dreamthread Kilt.", t="", pt="" }
+ConsoleMode_SpellDescDB[45458] = { n="Pattern: Dreamthread Kilt", r="", d="Teaches you how to sew a Dreamthread Kilt.", t="", pt="Ensina a costurar um Kilt de Linha do Sonho." }
 ConsoleMode_SpellDescDB[45459] = { n="Dreamthread Kilt", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45460] = { n="Pattern: Dreamthread Bracers", r="", d="Teaches you how to sew a Dreamthread Bracers.", t="", pt="" }
+ConsoleMode_SpellDescDB[45460] = { n="Pattern: Dreamthread Bracers", r="", d="Teaches you how to sew a Dreamthread Bracers.", t="", pt="Ensina a costurar as Braçadeiras de Linha do Sonho." }
 ConsoleMode_SpellDescDB[45461] = { n="Dreamthread Bracers", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45462] = { n="Pattern: Dreamthread Gloves", r="", d="Teaches you how to sew a Dreamthread Gloves.", t="", pt="" }
+ConsoleMode_SpellDescDB[45462] = { n="Pattern: Dreamthread Gloves", r="", d="Teaches you how to sew a Dreamthread Gloves.", t="", pt="Ensina a costurar as Luvas de Linha do Sonho." }
 ConsoleMode_SpellDescDB[45463] = { n="Dreamthread Gloves", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45464] = { n="Plans: Dreamsteel Mantle", r="", d="Teaches you how to make Dreamsteel Mantle.", t="", pt="" }
+ConsoleMode_SpellDescDB[45464] = { n="Plans: Dreamsteel Mantle", r="", d="Teaches you how to make Dreamsteel Mantle.", t="", pt="Ensina a criar o Manto de Aço do Sonho." }
 ConsoleMode_SpellDescDB[45465] = { n="Dreamsteel Mantle", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45466] = { n="Plans: Dreamsteel Leggings", r="", d="Teaches you how to make Dreamsteel Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[45466] = { n="Plans: Dreamsteel Leggings", r="", d="Teaches you how to make Dreamsteel Leggings.", t="", pt="Ensina a criar as Calças de Aço do Sonho." }
 ConsoleMode_SpellDescDB[45467] = { n="Dreamsteel Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45468] = { n="Plans: Dreamsteel Bracers", r="", d="Teaches you how to make Dreamsteel Bracers.", t="", pt="" }
+ConsoleMode_SpellDescDB[45468] = { n="Plans: Dreamsteel Bracers", r="", d="Teaches you how to make Dreamsteel Bracers.", t="", pt="Ensina a criar as Braçadeiras de Aço do Sonho." }
 ConsoleMode_SpellDescDB[45469] = { n="Dreamsteel Bracers", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45470] = { n="Plans: Dreamsteel Boots", r="", d="Teaches you how to make Dreamsteel Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[45470] = { n="Plans: Dreamsteel Boots", r="", d="Teaches you how to make Dreamsteel Boots.", t="", pt="Ensina a criar as Botas de Aço do Sonho." }
 ConsoleMode_SpellDescDB[45471] = { n="Dreamsteel Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45472] = { n="Pattern: Dreamhide Mantle", r="", d="Teaches you how to craft a Dreamhide Mantle.", t="", pt="" }
+ConsoleMode_SpellDescDB[45472] = { n="Pattern: Dreamhide Mantle", r="", d="Teaches you how to craft a Dreamhide Mantle.", t="", pt="Ensina a criar um Manto de Couro do Sonho." }
 ConsoleMode_SpellDescDB[45473] = { n="Dreamhide Mantle", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45474] = { n="Pattern: Dreamhide Bracers", r="", d="Teaches you how to craft a Dreamhide Bracers.", t="", pt="" }
+ConsoleMode_SpellDescDB[45474] = { n="Pattern: Dreamhide Bracers", r="", d="Teaches you how to craft a Dreamhide Bracers.", t="", pt="Ensina a criar as Braçadeiras de Couro do Sonho." }
 ConsoleMode_SpellDescDB[45475] = { n="Dreamhide Bracers", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45476] = { n="Pattern: Dreamhide Leggings", r="", d="Teaches you how to craft a Dreamhide Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[45476] = { n="Pattern: Dreamhide Leggings", r="", d="Teaches you how to craft a Dreamhide Leggings.", t="", pt="Ensina a criar as Calças de Couro do Sonho." }
 ConsoleMode_SpellDescDB[45477] = { n="Dreamhide Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45478] = { n="Pattern: Dreamhide Belt ", r="", d="Teaches you how to craft a Dreamhide Belt .", t="", pt="" }
+ConsoleMode_SpellDescDB[45478] = { n="Pattern: Dreamhide Belt ", r="", d="Teaches you how to craft a Dreamhide Belt .", t="", pt="Ensina a criar um Cinto de Couro do Sonho." }
 ConsoleMode_SpellDescDB[45479] = { n="Dreamhide Belt", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45480] = { n="Schematic: Intricate Gyroscope Goggles", r="", d="Teaches you how to make Intricate Gyroscope Goggles.", t="", pt="" }
+ConsoleMode_SpellDescDB[45480] = { n="Schematic: Intricate Gyroscope Goggles", r="", d="Teaches you how to make Intricate Gyroscope Goggles.", t="", pt="Ensina a criar os Óculos Giroscópicos Intrincados." }
 ConsoleMode_SpellDescDB[45481] = { n="Intricate Gyroscope Goggles", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45482] = { n="Pattern: Inscribed Runic Bracers", r="", d="Teaches you how to craft Inscribed Runic Bracers.", t="", pt="" }
+ConsoleMode_SpellDescDB[45482] = { n="Pattern: Inscribed Runic Bracers", r="", d="Teaches you how to craft Inscribed Runic Bracers.", t="", pt="Ensina a criar as Braçadeiras Rúnicas Inscritas." }
 ConsoleMode_SpellDescDB[45483] = { n="Inscribed Runic Bracers", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45484] = { n="Pattern: Gloves of Unwinding Mystery", r="", d="Teaches you how to sew Gloves of Unwinding Mystery.", t="", pt="" }
+ConsoleMode_SpellDescDB[45484] = { n="Pattern: Gloves of Unwinding Mystery", r="", d="Teaches you how to sew Gloves of Unwinding Mystery.", t="", pt="Ensina a costurar as Luvas do Mistério Desvendado." }
 ConsoleMode_SpellDescDB[45485] = { n="Gloves of Unwinding Mystery", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45486] = { n="Plans: Dawnstone Hammer", r="", d="Teaches you how to make a Dawnstone Hammer.", t="", pt="" }
+ConsoleMode_SpellDescDB[45486] = { n="Plans: Dawnstone Hammer", r="", d="Teaches you how to make a Dawnstone Hammer.", t="", pt="Ensina a criar um Martelo de Alvorita." }
 ConsoleMode_SpellDescDB[45487] = { n="Dawnstone Hammer", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45488] = { n="Bow Specialization", r="", d="Teaches Bow Specialization.", t="", pt="" }
+ConsoleMode_SpellDescDB[45488] = { n="Bow Specialization", r="", d="Teaches Bow Specialization.", t="", pt="Ensina Especialização em Arcos." }
 ConsoleMode_SpellDescDB[45489] = { n="Dreamtonic", r="", d="Increases spell damage by up to $s1 for $d.", t="Magical damage dealt by spells and abilities is increased by up to $s1.", pt="Aumenta o dano mágico em até $s1 por $d s." }
 ConsoleMode_SpellDescDB[45490] = { n="Moon's Blessing", r="", d="Heal your target for $s1 and increase healing taken by up to $s2 for $d.", t="Increases healing received by up to $s2.", pt="Cura $s1 e +$s2 recebido por $d s." }
 ConsoleMode_SpellDescDB[45491] = { n="Moon's Blessing", r="", d="Your direct healing spells have a small chance to instantly heal your target for 150 and increase healing taken by up to 20 for 10 sec.", t="", pt="Seus feitiços de cura direta têm uma pequena chance de curar seu alvo instantaneamente em 150 e aumentar a cura recebida em até 20 por 10 s." }
@@ -23418,8 +23418,8 @@ ConsoleMode_SpellDescDB[45625] = { n="Le Fishe Au Chocolat", r="", d="", t="", p
 ConsoleMode_SpellDescDB[45626] = { n="Food", r="", d="Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $45628s1 spell damage for $45628d.", t="Restores $/5;s1 health per second.", pt="Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2 de dano mágico por $d s." }
 ConsoleMode_SpellDescDB[45627] = { n="Gilneas Hot Stew", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45628] = { n="Well Fed", r="", d="", t="Spell Damage increased by $s1.", pt="" }
-ConsoleMode_SpellDescDB[45629] = { n="Recipe: Le Fishe Au Chocolat", r="", d="Teaches you how to cook a delicious Le Fishe Au Chocolat.", t="", pt="" }
-ConsoleMode_SpellDescDB[45630] = { n="Recipe: Gilneas Hot Stew", r="", d="Teaches you how to cook a mediocre Gilneas Hot Stew.", t="", pt="" }
+ConsoleMode_SpellDescDB[45629] = { n="Recipe: Le Fishe Au Chocolat", r="", d="Teaches you how to cook a delicious Le Fishe Au Chocolat.", t="", pt="Ensina a cozinhar um delicioso Le Fishe Au Chocolat." }
+ConsoleMode_SpellDescDB[45630] = { n="Recipe: Gilneas Hot Stew", r="", d="Teaches you how to cook a mediocre Gilneas Hot Stew.", t="", pt="Ensina a cozinhar um medíocre Ensopado Quente de Guilnéas." }
 ConsoleMode_SpellDescDB[45649] = { n="Aspect of the Turtle", r="", d="The hunter takes on the aspects of a turtle, reducing all damage they take by 20%, but increases their time between attacks by 30%, and reduces their movement speed by 30%.  Lasts $d.", t="Damage taken reduced by 20% but movement speed and time between attacks increased by 30%.", pt="O caçador assume os aspectos de uma tartaruga, reduzindo todo o dano que recebe em 20%, mas aumentando o tempo entre ataques em 30% e reduzindo a velocidade de movimento em 30%. Dura por $d s." }
 ConsoleMode_SpellDescDB[45650] = { n="Aspect of the Wolf", r="Rank 1", d="The hunter takes on the aspects of a wolf, increasing melee attack power by $s1.  Only one Aspect can be active at a time.", t="Increases melee attack power by $s1.", pt="O caçador assume os aspectos de um lobo, aumentando o poder de ataque corpo a corpo em $s1. Apenas um Aspecto pode estar ativo por vez." }
 ConsoleMode_SpellDescDB[45651] = { n="Aspect of the Fox", r="", d="The hunter takes on the aspects of a fox, allowing for casting of stationary ranged attacks while moving, but reducing damage done by $s1%.  Only one Aspect can be active at a time.", t="Able to cast while moving. Ranged damage reduced by $s1%.", pt="O caçador assume os aspectos de uma raposa, permitindo lançar ataques à distância estacionários enquanto se move, mas reduzindo o dano causado em $s1%. Apenas um Aspecto pode estar ativo por vez." }
@@ -23618,7 +23618,7 @@ ConsoleMode_SpellDescDB[45986] = { n="Deadly Throw Poison", r="", d="", t="", pt
 ConsoleMode_SpellDescDB[45987] = { n="Sanctified Command", r="", d="Restores mana.", t="", pt="Restaura mana." }
 ConsoleMode_SpellDescDB[45988] = { n="Elixir of Greater Nature Power", r="", d="Increases nature spell damage by up to $s1 for $d.", t="Nature damage dealt by spells and abilities is increased by up to $s1.", pt="Natureza +$s1 por $d s." }
 ConsoleMode_SpellDescDB[45989] = { n="Elixir of Greater Nature Power", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45990] = { n="Recipe: Elixir of Greater Nature Power", r="", d="Teaches you how to make an Elixir of Greater Nature Power.", t="", pt="" }
+ConsoleMode_SpellDescDB[45990] = { n="Recipe: Elixir of Greater Nature Power", r="", d="Teaches you how to make an Elixir of Greater Nature Power.", t="", pt="Ensina a criar um Elixir de Poder da Natureza Maior." }
 ConsoleMode_SpellDescDB[45991] = { n="Hand of Reckoning", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45993] = { n="Ivory Boar", r="", d="Believed to descend from the legendary Agamaggan, these boars are now esteemed companions and mounts of the Razorfen tribe.", t="Increases speed based on your Riding skill.", pt="Acredita-se que descendam do lendário Agamaggan, estes javalis são agora companheiros e montarias estimados da tribo do Urzal." }
 ConsoleMode_SpellDescDB[45994] = { n="Plagued Boar", r="", d="Even the incredibly resilient boars stand no chance against the overwhelming might of the Scourge.", t="Increases speed based on your Riding skill.", pt="Mesmo os javalis incrivelmente resilientes não têm chance contra o poder avassalador do Flagelo." }
@@ -23679,7 +23679,7 @@ ConsoleMode_SpellDescDB[46055] = { n="Expert Survivalist", r="", d="", t="", pt=
 ConsoleMode_SpellDescDB[46056] = { n="Survival", r="Artisan", d="Allows a Survivalist to create tools to overcome obstacles and tame the wilderness up to a maximum potential skill of 300.", t="", pt="Permite que um sobrevivencialista crie ferramentas para superar obstáculos e domar a natureza selvagem até uma perícia potencial máxima de 300." }
 ConsoleMode_SpellDescDB[46057] = { n="Artisan Survivalist", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[46058] = { n="Traveler's Tent", r="", d="Sets up a traveler's tent. While under the cover of the tent you are resting and may gain rested experience. Can only be used outdoors.", t="", pt="Monta a tenda de um viajante. Enquanto estiver abrigado na tenda, você estará descansando e poderá ganhar experiência de descanso. Só pode ser usada ao ar livre." }
-ConsoleMode_SpellDescDB[46059] = { n="Traveler's Tent", r="", d="Teaches how to create a Traveler's Tent.", t="", pt="" }
+ConsoleMode_SpellDescDB[46059] = { n="Traveler's Tent", r="", d="Teaches how to create a Traveler's Tent.", t="", pt="Ensina a criar uma Barraca do Viajante." }
 ConsoleMode_SpellDescDB[46060] = { n="Fishing Boat", r="", d="Sets up a fishing boat. While on your boat you gain +50 fishing skill. Can only be used outdoors near a deep enough body of water.", t="", pt="Monta um barco de pesca. A bordo do barco, você recebe +50 de perícia de pesca. Só pode ser usado ao ar livre, perto de um corpo de água com profundidade suficiente." }
 ConsoleMode_SpellDescDB[46061] = { n="Fishing Boat", r="", d="Teaches how to create a Fishing Boat.", t="\"Boats for Dummies\"", pt="" }
 ConsoleMode_SpellDescDB[46062] = { n="Simple Wooden Planter", r="", d="Sets up a simple wooden planter. Planters allow you to plant seeds and cultivate crops.", t="", pt="Monta uma floreira simples de madeira. As floreiras permitem plantar sementes e cultivar colheitas." }

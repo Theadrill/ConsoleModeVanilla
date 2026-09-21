@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 24860,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Sandstalker Bracers",
+    "en": "Teaches you how to craft Sandstalker Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24861,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Sandstalker Gauntlets",
+    "en": "Teaches you how to craft Sandstalker Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24862,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Sandstalker Breastplate",
+    "en": "Teaches you how to craft Sandstalker Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24908,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Runed Stygian Leggings",
+    "en": "Teaches you how to sew Runed Stygian Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24909,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Runed Stygian Belt",
+    "en": "Teaches you how to sew a Runed Stygian Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24911,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Runed Stygian Boots",
+    "en": "Teaches you how to sew Runed Stygian Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24915,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Darkrune Gauntlets",
+    "en": "Teaches you how to make Darkrune Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24916,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Darkrune Helm",
+    "en": "Teaches you how to make a Darkrune Helm.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24917,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Darkrune Breastplate",
+    "en": "Teaches you how to make a Darkrune Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24941,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Black Whelp Tunic",
+    "en": "Teaches you how to craft a Black Whelp Tunic.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25087,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Gloves - Threat",
+    "en": "Teaches you how to permanently enchant gloves to increase the threat that the wearer generates against monsters.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Gloves - Shadow Power",
+    "en": "Teaches you how to permanently enchant gloves to increase the shadow damage done by spells and abilities by 20.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25089,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Gloves - Frost Power",
+    "en": "Teaches you how to permanently enchant gloves to increase the frost damage done by spells and abilities by 20.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25090,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Gloves - Fire Power",
+    "en": "Teaches you how to permanently enchant gloves to increase the fire damage done by spells and abilities by 20.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25091,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Gloves - Healing Power",
+    "en": "Teaches you how to permanently enchant gloves to increase the healing done by spells and abilities by 30.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25092,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Gloves - Superior Agility",
+    "en": "Teaches you how to permanently enchant gloves to increase Agility by 15.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25093,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Greater Fire Resistance",
+    "en": "Teaches you how to permanently enchant a cloak to increase Fire Resistance by 15 .",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25094,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Greater Nature Resistance",
+    "en": "Teaches you how to permanently enchant a cloak to increase Nature Resistance by 15 .",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25095,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Stealth",
+    "en": "Teaches you how to permanently enchant a cloak to increase stealth.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25096,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Subtlety",
+    "en": "Teaches you how to permanently enchant a cloak to reduce how threatening the wearer is to monsters by 2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25097,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Dodge",
+    "en": "Teaches you how to permanently enchant a cloak to increase dodge chance by 1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25132,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Minor Wizard Oil",
+    "en": "Teaches you how to create Minor Wizard Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25133,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Minor Mana Oil",
+    "en": "Teaches you how to create Minor Mana Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25134,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Lesser Wizard Oil",
+    "en": "Teaches you how to create Lesser Wizard Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25135,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Lesser Mana Oil",
+    "en": "Teaches you how to create Lesser Mana Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25136,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Wizard Oil",
+    "en": "Teaches you how to create Wizard Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25137,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Brilliant Wizard Oil",
+    "en": "Teaches you how to create Brilliant Wizard Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25138,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Brilliant Mana Oil",
+    "en": "Teaches you how to create Brilliant Mana Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25147,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Transmute Elemental Fire",
+    "en": "Teaches you how to transmute a Heart of Fire into three Elemental Fires.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25165,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dancing Companion",
+    "en": "Start dancing, and your little friend will groove right beside you!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25658,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Dirge's Kickin' Chimaerok Chops",
+    "en": "Teaches you how to cook Dirge's Kickin' Chimaerok Chops.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25663,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: TEST",
+    "en": "Teaches you how to cook Baked Salmon.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25666,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: DIRGE TEST LEARN",
+    "en": "Teaches you how to cook a delicious Giant Clam Scorcho.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25705,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Smoked Sagefish",
+    "en": "Teaches you how to cook Smoked Sagefish.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25848,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Test Enemy Crit Bonus - 10%",
+    "en": "Target gets +10% melee crit.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25906,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spell Blasting",
+    "en": "Gives a chance when your harmful spells land to increase the damage of your spells and effects by up to $25907s1 for $25907d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 25955,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Sagefish Delight",
+    "en": "Teaches you how to cook Sagefish Delight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Soul Pouch",
+    "en": "Teaches you how to sew a Soul Pouch.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26089,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Felcloth Bag",
+    "en": "Teaches you how to sew a Felcloth Bag.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26091,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Core Felcloth Bag",
+    "en": "Teaches you how to sew a Core Felcloth Bag.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26220,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Digestive Acid",
+    "en": "Old Z = -30.1445",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26278,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Elixir of Greater Firepower",
+    "en": "Teaches you how to make an Elixir of Greater Firepower.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26280,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Stormshroud Gloves",
+    "en": "Teaches you how to craft Stormshroud Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26376,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Combo PROC Test",
+    "en": "Casts a spell when you do something.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26411,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Festive Red Dress",
+    "en": "Teaches you how to sew a Festive Red Dress.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26413,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Festival Suit",
+    "en": "Teaches you how to sew a Festival Suit.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26429,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Small Blue Rocket",
+    "en": "Teaches you how to make a Small Blue Rocket.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26430,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Small Green Rocket",
+    "en": "Teaches you how to make a Small Green Rocket.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26431,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Small Red Rocket",
+    "en": "Teaches you how to make a Small Red Rocket.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26432,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Large Blue Rocket",
+    "en": "Teaches you how to make a Large Blue Rocket.",
+    "curr_pt": ""
+  }
+]

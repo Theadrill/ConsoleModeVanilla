@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 33451,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elementium Sharpening Stone",
+    "en": "Sharpen an Arcanite Reaper or Arcanite Champion with the stone, improving its efficiency. Items improved in this way can only be used by those skilled in Blacksmithing and the improved item's crafting specialization.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33452,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pristine Chromatic Scale",
+    "en": "Sew the pristine scale on a Chromatic Cloak, improving its efficiency. Items improved in this way can only be used by those skilled in Dragonscale Leatherworking.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33453,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Over-Tinkered Lens",
+    "en": "Replace the lens of a Spellpower Goggles Xtreme Plus, improving its efficiency. Items improved in this way can only be used by those skilled in Engineering.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33468,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pyroclast Barrage",
+    "en": "Inflicts $o1 Fire damage to enemies in a cone in front of the caster, stunning them for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34708,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wands +5",
+    "en": "Skill with Wands increased by $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34710,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Coordinated Strike",
+    "en": "Deals $s1 Physical damage to the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34711,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Focused Assault",
+    "en": "Increases Physical damage done by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34712,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flame Spew",
+    "en": "Casts 34714 in front and to the sides.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34713,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flame Spew",
+    "en": "Casts 34714 in front and in the back.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34715,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flame Spit",
+    "en": "Deals $s1 Fire damage and increases Fire damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34720,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosive Spit",
+    "en": "Deals $s1 Nature damage and increases Nature damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34721,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Icicle Crash",
+    "en": "Inflicts $s1 Frost damage in a 8 yard radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34722,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Icicle Crash",
+    "en": "Inflicts $s1 Frost damage in a 100 yard radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34723,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frozen Spit",
+    "en": "Deals $s1 Frost damage and increases Nature damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34743,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Leeching Strike",
+    "en": "Targets in a $a1 yard cone in front of the caster take $s1 Physical damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34745,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Leech",
+    "en": "Steals 3000 health from the target when the debuff expires.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34746,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Leech",
+    "en": "Deals 3000 Shadow damage to the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34748,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shade of the Withermaw",
+    "en": "Makes the caster immune to all attacks and spells.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34749,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illumination Aura",
+    "en": "Inflicts $s1 Fire damage to enemies in a $a1 yards radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34750,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illumination Aura",
+    "en": "Restores $s1 health to friendly targets in a $a1 yards radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34751,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illumination Aura",
+    "en": "Causes the caster to automatically inflict $34749s1 Fire damage every $t1 sec. to nearby enemies, and restore $34750s2 health to frienfly targets every $t2 secs. The aura lasts until cancelled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34753,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Withering Rejuvenation",
+    "en": "A slow casting spell that heals a single target for $s1 directly and another $s2 every $t2 seconds for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34754,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Witherbolt",
+    "en": "Sends a shadowy bolt at the enemy, causing $s1 Shadow damage directly and leaving a curse on the target that deals another $o2 over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34756,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enveloping Shadows",
+    "en": "Envelops the area surrounding the caster in shadows, causing $34757s1 Shadow damage to all nearby enemies within $34757a1 yards every $t1 sec.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34759,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Kodoheart Necklace",
+    "en": "Teaches you how to craft a Kodoheart Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34761,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Grimtotem Bracers",
+    "en": "Teaches you how to craft Grimtotem Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34763,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Ceremonial Belt Buckle",
+    "en": "Teaches you how to make Ceremonial Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34764,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Essence of Purification",
+    "en": "Dowses a brazier in Timbermaw Hold.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34765,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Eternal Essence of Purification",
+    "en": "Dowses a brazier in Timbermaw Hold.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34768,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nightmare",
+    "en": "Deals $s1 damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34770,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Miasma",
+    "en": "Causes the caster to automatically inflict $34769s1 Shadow damage every $t1 sec. to nearby enemies. The aura lasts until cancelled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34772,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dream Fever",
+    "en": "Reduces damage done by $s1% and inflicts $o2 damage over $d",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34773,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorn Burst",
+    "en": "Sends a burst of thorns at the enemy, causing $s1 Physical damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34774,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lucid Nightmare",
+    "en": "Puts the target to sleep and causes it to take $o1 Shadow damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34775,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nightmare Burst",
+    "en": "Deals $s1 damage to nearby enemies, knocks them back and clears their threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34778,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Satyr Strike",
+    "en": "A vicious strike that deals $s1 damage and wounds the target, reducing the effectiveness of any healing by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34779,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ultimate Sacrifice",
+    "en": "Sacrifice yourself to heal Archdruid Kronn.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34780,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reform Body",
+    "en": "Archdruid Kronn reforms his body.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 34781,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Return to Body",
+    "en": "Archdruid Kronn returns to his body.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 35998,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concoction of the Emerald Mongoose",
+    "en": "Increases healing done by spells and effects by up to $s1 and your chance to get a critical strike with spells by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36527,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier",
+    "en": "Inflicts Frost damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36528,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier",
+    "en": "Inflicts Frost damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36529,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier",
+    "en": "Inflicts Frost damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36530,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bubble Barrier",
+    "en": "Inflicts Frost damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36531,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Strider Presence",
+    "en": "Party members within $a1 yards of the Tallstrider continue $s1% of their Mana regeneration and $s2% of their Health regeneration while in combat. Lasts until cancelled. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36532,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Packleader",
+    "en": "Let out a cackle, calling in a Pack Ally to assist you for $36562d. The Pack Ally also follows the commands given to your pet and does not generate threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36533,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Web",
+    "en": "Encases the target in sticky webs, rooting the target in place for $d then reducing movement speed by $36534s1% for $36534d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36534,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Web",
+    "en": "Slows the target's movement speed by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36535,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Roar of Fortitude",
+    "en": "Let out a fortifying roar, reducing damage taken by $s1% and increasing all damage dealt by $s2% for your party members within $a1 yards for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36562,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Packleader",
+    "en": "Let out a cackle, calling in a Pack Ally to assist you for $d. The Pack Ally also follows the commands given to your pet and does not generate threat.",
+    "curr_pt": ""
+  }
+]

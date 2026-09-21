@@ -91,3 +91,5 @@ S01 | 50 | OK
 S02 | 50 | OK
 S03 | 50 | OK
 S04 | 33 | OK (SMS other zerado: 183/183)
+# FASE 8.C — TAIL NPC (1.731 sem PT, 35 lotes input_tail_npc_01..35):
+

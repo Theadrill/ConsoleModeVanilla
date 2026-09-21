@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 52989,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reactive Protection Passive",
+    "en": "When struck in combat, you have a $h% chance to be surrounded by $52990n protective scales, granting $52990s1 Armor for $52990d. Each time you are struck, you lose a scale. When all scales are lost, you release a wave of flames, dealing $52991s1 Fire damage to nearby enemies and slowing them by $52991s2% for $52991d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52998,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Decayed Heart Passive",
+    "en": "Your periodic damage spells have a $h% chance to deal an additional $52999s1 Nature damage when dealing damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 53008,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glyph of the Ice Bear",
+    "en": "While active, your Bear Form and Dire Bear Form will take the appearance of an Ice Bear.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 53011,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glyph of the Emerald Bear",
+    "en": "While active, your Bear Form and Dire Bear Form will take the appearance of an Emerald Bear.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 53207,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Warrior Crit Damage Bonus",
+    "en": "Increases the critical strike damage bonus of your abilities by $s1%",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54000,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Blue Dragonscale Boots",
+    "en": "Teaches you how to craft a Blue Dragonscale Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54002,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Fury of the Timbermaw",
+    "en": "Teaches you how to make a Fury of the Timbermaw.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54004,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Pauldrons of the Timbermaw",
+    "en": "Teaches you how to make a Pauldrons of the Timbermaw.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54006,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Corehound Gloves",
+    "en": "Teaches you how to craft a Corehound Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54008,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Fiery Chain Breastplate",
+    "en": "Teaches you how to make a Fiery Chain Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54010,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Flarecore Boots",
+    "en": "Teaches you how to sew a Flarecore Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54012,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Chromatic Leggings",
+    "en": "Teaches you how to craft a Chromatic Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54014,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Molten Leggings",
+    "en": "Teaches you how to craft a Molten Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54016,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Strike Mace",
+    "en": "Disorient the enemy for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54018,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Strike Axe",
+    "en": "Root the enemy for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54019,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Strike Polearm",
+    "en": "Deal $s1% weapon damage and dismount the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54021,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Strike Staff",
+    "en": "Increases your parry chance by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54023,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Master Strike",
+    "en": "Performs a skillful attack, dealing $s1% weapon damage and causing an additional effect depending on your main hand weapon.\n\nMace: Disorients the target for $54016d. Any damage caused will remove the effect.\nSword: Disarms the target for $54017d.\nAxe: Immobilizes the target for $54018d.\nPolearm: Deals an additional $54019s1% weapon damage if the target is mounted and dismounts them.\nFist Weapon: Knocks down the target for $54020d.\nStaff: Increases your chance to parry by $54021s1% for $54021d.\nDagger: Silences the target for $54022d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56539,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fungal Infection",
+    "en": "Deals $o1 damage over $d and triggers an instant burst of $56540s2 damage when the target's health drops under 20%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56541,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fungal Infection Passive",
+    "en": "Your Insect Swarm spreads a deadly fungus, dealing $56539o1 Nature damage over $56539d. If the target falls below 20% health, the fungus bursts, instantly dealing $56540s2 Nature damage and reducing movement speed by $56540s1% for $56540d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56542,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Call of the Wild",
+    "en": "Summons a Deranged Treant that will protect you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56543,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Boots - Major Intellect",
+    "en": "Permanently enchant boots to give +9 Intellect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56544,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Greater Frost Power",
+    "en": "Increases frost spell damage by up to $s1 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56545,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Greater Arcane Power",
+    "en": "Increases arcane spell damage by up to $s1 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56546,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Highborne Insight",
+    "en": "Increases the caster's Intellect by $s1 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56547,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Highborne Insight Passive",
+    "en": "Your harmful spells have a chance to grant you Highborne Insight, increasing your Intellect by $56546s1 for $56546d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56549,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Magic Shield Passive",
+    "en": "Chance to be protected by a magic shield if hit in combat, absorbing $56548s1 damage for $56548d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56550,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shen'dralar Wisdom",
+    "en": "Your spells cost $s1% less mana. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56551,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shen'dralar Wisdom Passive",
+    "en": "Your helpful spells have a chance to grant wisdom to party members within $56550a1 yards, causing their next spell to cost $56550s1% less mana.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56554,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Twisted Siphon",
+    "en": "Feast on the target's life essence, dealing $o1 Shadow damage over $d. If you fully channel this spell, your Stamina is increased by $56553s1 and your target's Stamina is reduced by $56552s1 for $56552d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 56555,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Boots - Major Intellect",
+    "en": "Teaches you how to permanently enchant a pair of boots to grant +9 Intellect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57007,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Breastplate of the Earth",
+    "en": "Teaches you how to craft Breastplate of the Earth.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57009,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Boots of the Wind",
+    "en": "Teaches you how to craft Boots of the Wind.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57011,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Earthguard Tunic",
+    "en": "Teaches you how to craft Earthguard Tunic.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57013,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Flamewrath Leggings",
+    "en": "Teaches you how to craft Flamewrath Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57015,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Depthstalker Helmet",
+    "en": "Teaches you how to craft Depthstalker Helmet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57017,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Windwalker Boots",
+    "en": "Teaches you how to craft Windwalker Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57019,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dustguider Sash",
+    "en": "Teaches you how to craft Dustguider Sash.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57021,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Centaur Battle Harness",
+    "en": "Teaches you how to craft Centaur Battle Harness.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57023,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Windbinder Gloves",
+    "en": "Teaches you how to craft Windbinder Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57025,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Mantle of Centaur Authority",
+    "en": "Teaches you how to craft Mantle of Centaur Authority.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57027,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Spell Power",
+    "en": "Teaches you how to permanently enchant a bracer to give +12 Spell Damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57029,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Greater Agility",
+    "en": "Teaches you how to permanently enchant a bracer to give +7 Agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57031,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Spell Penetration",
+    "en": "Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 6.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57033,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Greater Spell Penetration",
+    "en": "Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 10.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57035,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Superior Spell Penetration",
+    "en": "Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 15.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57048,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Danonzo's Tel'Abim Surprise",
+    "en": "Teaches you how to cook Danonzo's Tel'Abim Surprise.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57050,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Danonzo's Tel'Abim Delight",
+    "en": "Teaches you how to cook Danonzo's Tel'Abim Delight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57052,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Danonzo's Tel'Abim Medley",
+    "en": "Teaches you how to cook Danonzo's Tel'Abim Medley.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57109,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Emerald Blessing",
+    "en": "Teaches Emerald Blessing.",
+    "curr_pt": ""
+  }
+]

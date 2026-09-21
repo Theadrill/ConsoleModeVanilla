@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 57664,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elune's Grace",
+    "en": "Reduces damage done by $s1%. Takes $52410s1 Nature damage each time an attack or spell is cast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57665,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elune's Twilight",
+    "en": "Reduces healing taken by $s1%, loses $s2 mana every $t2 sec and takes $s3 Shadow damage every $t3 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57670,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Hammers Passive",
+    "en": "Teaches Mastery of Hammers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57672,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Axes Passive",
+    "en": "Teaches Mastery of Axes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57674,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Swords Passive",
+    "en": "Teaches Mastery of Swords.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57676,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Fist Weapons Passive",
+    "en": "Teaches Mastery of Fist Weapons.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57678,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Polearms Passive",
+    "en": "Teaches Mastery of Polearms.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57680,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Staves Passive",
+    "en": "Teaches Mastery of Staves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57682,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Thrown Passive",
+    "en": "Teaches Mastery of Thrown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57684,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Bows Passive",
+    "en": "Teaches Mastery of Bows.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57686,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Crossbows Passive",
+    "en": "Teaches Mastery of Crossbows.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57688,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Daggers Passive",
+    "en": "Teaches Mastery of Daggers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57690,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastery of Guns Passive",
+    "en": "Teaches Mastery of Guns.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57745,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Path of the Brewmaster",
+    "en": "Enable the Brewmaster's Path challenge.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57746,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Path of the Brewmaster Challenge",
+    "en": "From bar to the Barrens, your journey begins!\n\nYou gain no experience unless you're completely smashed.\n\nFor every ding, have a drink!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57846,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Trial of Heroism Challenge",
+    "en": "Achieve level 58 by earning experience strictly from orange and red-tier monsters and quests.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58036,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ride of the Wild",
+    "en": "Teaches Ride of the Wild. Friends ride TOGETHER!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58043,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Ambersap Glazed Boar Ribs",
+    "en": "Teaches you how to cook an Ambersap Glazed Boar Ribs.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58045,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Crawford Apple Tarte",
+    "en": "Teaches you how to cook a Crawford Apple Tarte.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58047,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opening Blackrock Coffer",
+    "en": "Opens the Blackrock Coffer.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58048,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opening Kwabit's Chest",
+    "en": "Opens the Kwabit's Chest.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58049,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opening Lower Reserve Gate",
+    "en": "Opens Lower Reserve Gate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58050,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opening Stormwrought Castle Gate",
+    "en": "Opens Stormwrought Castle Gate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58051,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opening Magically Sealed Door",
+    "en": "Opens Magically Sealed Door.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58052,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opening Karazhan Crypt",
+    "en": "Opens Karazhan Crypt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58053,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ceremonial Belt Buckle",
+    "en": "Attaches a buckle to your belt that increase your Intellect by 4.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58054,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opening Shadowforge Cage",
+    "en": "Opens Shadowforge Cage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58100,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spore-laden Passive",
+    "en": "Reduces healing taken by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58101,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Kodiak's Collar Passive Warlock",
+    "en": "Reduces the casting time of your Imp, Voidwalker, Succubus, and Felhunter summoning spells by $/1000;S1 sec and their mana cost by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58102,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Kodiak's Collar Passive Hunter",
+    "en": "Reduces the casting time of Revive Pet by $/1000;S1 sec and its mana cost by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58103,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Echo of the First Called",
+    "en": "Stabs yourself to infuse the corruption within, dealing $s1% of your total health as damage and increasing damage done by magical spells and effects by up to $s2 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58104,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrupted Essence",
+    "en": "Steals corrupting power from the shard, increasing your Strength by $s1 and inflicting $s2% of your total health as Shadow damage every $t2. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58106,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosion",
+    "en": "Expulses corrosive sludge onto your weapon, dealing $s1 Nature damage to you and coating your weapon to ignore $s2 of enemies' armor and deal an additional $s3% of your Physical damage as Nature damage. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58115,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Increased Attacking Rage 3%",
+    "en": "Increases Rage generated by $s1% when dealing damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58116,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unity of the Timbermaw",
+    "en": "Increases damage and healing done by magical spells and effects by up to $s1 and Attack Power by $s3 for all party members within $a1 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58117,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Emerald Dream Welcome",
+    "en": "No longer considered an intruder of the Emerald Dream.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58118,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reduced Hit Chance 1",
+    "en": "Reduces your chance to hit by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58119,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reduces Critical 1",
+    "en": "Reduces your chance to get a critical strike by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58120,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Whisper of the Emerald Dream Passive",
+    "en": "Your heal over time effects instantly heal for $s1% of a periodic tick, but their duration is reduced by one tick.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58122,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Maddened Strikes Passive",
+    "en": "Your successful attacks have a chance to grant you $58123s1 extra $lattack:attacks;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58124,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Endless Bond",
+    "en": "Attaches a tether to a party member, increasing both your and your party member's damage done by magical spells and effects by up to $58126s1, and causing $58126s2% of all damage taken to be redirected to the other tethered player. Can be used on yourself to increase damage done by magical spells and effects by up to $58125s1 instead, without tethering. Lasts $58125d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58131,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Broken Will",
+    "en": "Throws a chain at the target, pulling them toward you and reducing their movement speed by $58132s1% for $58132d. If the target cannot be pulled, they are instead immobilized for $58133d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58134,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gluttony's Avarice",
+    "en": "Feasts on the target, stealing life equal to $s2% of maximum health and increasing health by $s1% for $d. Stacks up to $u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58135,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pysan's Wrath",
+    "en": "Burns the target with righteous fire, dealing $s1 Holy damage and triggering Paladin seals. Undead and Demons take an additional $s2 Holy damage and are stunned for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58137,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wild Thrash",
+    "en": "Wildly lashes out at enemies within $a1 yards, dealing $s1 Physical damage and damaging you for $s2% of total damage dealt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58139,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reclaimed Power Passive",
+    "en": "Your direct harmful spells have a $h% chance to cause the crown to reclaim its power, reducing your damage done by magical spells and effects by up to $58140s1 for $58140d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58141,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthen Attunement Passive",
+    "en": "Taking magical damage attunes you to its school, reducing damage taken from that school by $58142s1% and increasing damage taken from another school by $58142s2% for $58142d. This effect can only occur once every 20 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58147,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Heightened Vitality Passive",
+    "en": "Increases healing taken by $s1% but also increases threat generated by spells and attacks by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58148,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unyielding Determination Passive",
+    "en": "Taking damage has a $h% chance to increase your armor by $58149s1 and healing taken by $58149s2% for $58149d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58150,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mounting Protection Passive",
+    "en": "Blocking, dodging, or parrying an attack increases your Stamina by $58151s1 and your Defense by $58151s2 for $58151d, stacking up to $58151u times.",
+    "curr_pt": ""
+  }
+]

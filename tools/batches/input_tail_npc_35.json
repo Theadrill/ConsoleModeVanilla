@@ -1,0 +1,250 @@
+[
+  {
+    "oid": 58153,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hippogryph Spirit Passive",
+    "en": "Your melee and ranged critical strikes have a $h% chance to call forth a Hippogryph Spirit to fight alongside you for $58155d. While present, it increases your physical critical damage bonus by $58155s1% and Agility by $58155s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58156,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ursine Restoration Passive",
+    "en": "Your successful melee attacks have a chance to restore $/10;58157s1 Rage, $58157s2 Energy, or $58157s3 Mana.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58158,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brooding Rage Passive",
+    "en": "Your melee critical strikes grant a stack of Brooding Rage. At $58159u stacks, you bellow a mighty roar, increasing physical damage done by $58160s1 and Strength by $58160s2 for $58160d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58161,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Imparted Wisdom Passive",
+    "en": "Your direct healing spells have a $h% chance to revitalize the target, increasing their Strength, Intellect, and Stamina by $58162s1 for $58162d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58163,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tranquility of the Deer Passive",
+    "en": "Your helpful spells have a $h% chance to imbue you with natural wisdom, allowing $58164s1% of your mana regeneration to continue while casting for $58164d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58165,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stag's Edict Passive",
+    "en": "Your harmful direct spell damage increases your spell critical strike chance by $58166s1% until your next spell critical strike.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58167,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cervid Rejuvenation Passive",
+    "en": "Your harmful spell critical strikes have a chance to restore $s1% of your base mana and health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58169,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hippogryph Charge Passive",
+    "en": "Your melee and ranged attacks have a chance to increase your attack speed by $58170s1% and cause your attacks to deal $58171s1 Nature damage. Lasts $58170d or until you attack $58170n times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58172,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowflame Affliction",
+    "en": "Deals $s2 Shadow damage every $t2 sec while in combat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58173,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rear Assault",
+    "en": "Increases physical damage done when attacking from behind by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58174,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Toxic Surge Passive",
+    "en": "On successful poison application, you have a chance to deal $58175s1 Nature damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58176,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ice Tomb Passive",
+    "en": "Your harmful spells have a $h% chance to encase the target in an icy tomb for $58177d and inflict $58177s2 Frost damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58178,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Desperate Resilience",
+    "en": "Reduces damage taken by $s2% while below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58179,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glyph of the Tainted Wild God",
+    "en": "Adds a new glyph to your spellbook.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58180,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glyph of the Tainted Wild God",
+    "en": "While active, your Bear Form and Dire Bear Form will take on the appearance of a Tainted Wild God.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58182,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Parasite of Aln Passive",
+    "en": "Dealing Shadow or Fire damage has a chance to plant a parasite in the target, reducing magical resistances by $58183s1 and dealing $58183o2 Shadow damage over $58183d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58185,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Trifang Shredders Passive",
+    "en": "Your melee attacks have a chance to blast the target with Frost, Fire, or Acid, dealing $58186s1 damage of that element and triggering an additional effect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58189,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Precision 1",
+    "en": "Improves spell critical strike chance by $s1% and increases Shadow damage dealt by damage over time effects by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58190,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Precision 2",
+    "en": "Improves spell critical strike chance by $s1% and increases Shadow damage dealt by damage over time effects by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58226,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nordrassil's Reprieve Passive",
+    "en": "Increases damage done by magical spells and effects by up to $58227s1 and increases spell hit chance by $58227s2% for $58227d whenever your spells are fully or partially resisted.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58228,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reduced Interrupt Duration 20%",
+    "en": "Reduces the duration of interrupt effects used against you by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58229,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mental Overload Passive",
+    "en": "When your healing spells critically heal, they cost an additional $s1% of your total mana.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58231,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Whispers of Aln",
+    "en": "Beckon the fragment, allowing it to study and absorb knowledge equal to $s1% of your physical damage dealt. After $d, or when sufficient knowledge is absorbed, the fragment unleashes its stored power, dealing up to $q1 Shadow damage to targets within $58232a1 yards, divided evenly among all targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58233,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Horrific Refuse Passive",
+    "en": "Chance on ranged attack to spew horrific refuse on the target, dealing $58234o2 Nature damage over $58234d. When the effect expires, the target vomits the refuse, dealing an additional $58235s1 Nature damage and reducing movement speed by $58235s2% for $58235d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58236,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Call of the Emerald Dream",
+    "en": "Channel the shard to infuse yourself with a fraction of the Emerald Dream for $d. While infused, your direct healing spells allow $58237s1% of your Mana regeneration to continue while casting and increase casting speed by $58237s2% for $58237d. Stacks up to $58237u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58240,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Rites (Cooldown)",
+    "en": "Reduces the cooldown of Totemic Slam, Feral Spirit, and Hex by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58241,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Rites (Totemic Slam)",
+    "en": "Increases the damage of Totemic Slam by $s1% and causes it to knock down the target for $58244d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58242,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Rites (Feral Spirit)",
+    "en": "Feral Spirits lunge at your selected target upon being summoned, each dealing 200 Physical damage, if the target is within 30 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58243,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Rites (Hex)",
+    "en": "Causes your Hex to summon $58245s1 Bloodthirsty Frogs that attack the target for $58245d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58251,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reduced Silence Duration 10%",
+    "en": "Reduces the duration of silence effects used against you by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 58252,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reduced Silence Duration 5%",
+    "en": "Reduces the duration of silence effects used against you by $s1%.",
+    "curr_pt": ""
+  }
+]

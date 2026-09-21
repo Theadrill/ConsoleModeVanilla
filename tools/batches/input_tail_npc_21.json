@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 42041,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fiery Hatching",
+    "en": "Unleashes a wave of flame, inflicting Fire damage to nearby enemies and summoning a Spawn of Incindis.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42043,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fiery Hatching",
+    "en": "Unleashes a wave of flame, inflicting Fire damage to nearby enemies and summoning a Flameskin Incendosaur.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42046,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flameskin Aura",
+    "en": "Causes the caster to automatically inflict $42045s1 Fire damage every $t1 sec. to nearby enemies. The aura lasts until cancelled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42047,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dentarg's Bane",
+    "en": "Reduces the casting speed, attack speed and movement speed of all nearby enemies $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42049,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune of Omen Passive",
+    "en": "Your harmful spells have a $h% chance to carve an ancient rune into your target, dealing $42048o1 Shadow damage over $42048d. Afterwards, the rune bursts, cursing enemies within $42047a1 yards of the target, reducing their attack, casting, and movement speed by $42047s1% for $42047d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42051,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pollen Burst",
+    "en": "Heal party members within $a2 yards for $s2 and reduce the attack speed of targets within $a1 yards by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44034,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dragon’s Maw",
+    "en": "Breathe flames at your enemy, dealing $s1 Fire damage and an additional $o2 Fire damage over $d. This damage ignores resistances.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44035,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dragon’s Maw Passive",
+    "en": "Your successful melee attacks have a 5% chance to breathe flames at your enemy, dealing $44034s1 Fire damage and an additional $44034o2 Fire damage over $44034d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44036,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mighty Leechroot Potion",
+    "en": "Increases damage done by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44037,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosive Bolt",
+    "en": "Shoots corrosive acid at an enemy, inflicting $s1 Nature damage and an additional $o2 Nature damage over $d. Reduces the enemy's armor by $s3 per stack. Can stack up to 10 times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44038,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Razorlash",
+    "en": "Wounds the target causing them to take $s1 damage and bleed for an additional $o2 damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44039,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shredded Muscle",
+    "en": "Wounds the target causing them to bleed for $o1 damage over $d. Reduces movement speed by $s2%. Reduces attack speed by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44041,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tail Slap",
+    "en": "Inflicts $s1 damage and knocks back the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44042,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Primordial Regeneration",
+    "en": "Armor increased by $s1.\r\nMagical resistances increased by $s2.\r\nRegenerating $s3 health every 2 seconds.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44044,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Piercing Pain",
+    "en": "Hurls a fiery ball that causes $s1 Fire damage and increasing fire damage taken by $s2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44046,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Draining Rot",
+    "en": "Reduces the enemy's attack and casting speed by $s1% and decreases their stamina by $s3.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44047,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lash of Lust",
+    "en": "An instant attack that lashes the target, causing $s1 Physical damage and reducing damage they deal by $s2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44048,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Volatile Fungus",
+    "en": "Spawns a gas cloud, poisoning all enemies within the area for $s1 Nature damage and an additional $o2 Nature damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44051,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Seduction",
+    "en": "Seduces the target, preventing all actions for up to $d.  Target takes damage once effect ends.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44052,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Drazare's Embrace",
+    "en": "Causes an explosion of shadow magic around the caster, causing $s1 Shadow damage to all targets within $a1 yards and knocking them back.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44056,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Soul Harvest",
+    "en": "Drains the target's soul, dealing $s1 damage and weakening them while empowering the caster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44058,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elemental Fire",
+    "en": "Deals $1 Fire damage in a 10 yard radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44059,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Inspire",
+    "en": "Reduced all damage taken by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44060,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Ground",
+    "en": "Calls down a pillar of fire, burning all enemies within the area for $o1 Fire damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44061,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Catastrophic Reaction",
+    "en": "A wave of flame radiates outward from the caster, damaging all enemies caught within the $a1 yard blast for $s1 Fire damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44065,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lightning",
+    "en": "$h% chance of dealing $44064s1 Nature damage on a successful melee attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44067,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shifting Image Passive",
+    "en": "You have a $h% chance when struck in combat of increasing your chance to dodge by $44066s1% for $44066d or until you dodge.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44069,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wild Regeneration",
+    "en": "Heals you for $o1 over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44070,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wild Regeneration Passive",
+    "en": "When your health drops below 35%, you rapidly heal $44069o1 health over $44069d. This effect can trigger only once every 3 min.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44072,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opportunistic Strike",
+    "en": "Strikes at an enemy, inflicting $s1 damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44073,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opportunistic Strike Passive",
+    "en": "Your successful melee attacks have a $h% chance to strike the target again, dealing $44072s1 Physical damage. This damage is increased by 35% if the target is not facing you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44074,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Purging Flames",
+    "en": "Consumes the enemy in holy flames that cause $s1 Holy damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44076,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Purging Flames Passive",
+    "en": "Your successful melee attacks and damaging Holy spells have a $h% chance to consume the enemy in holy flames for $44074s1 Holy damage. Undead are stunned for $44075d. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44077,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Agonizing Thorns",
+    "en": "The caster takes $s1 Nature damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44078,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Agonizing Thorns",
+    "en": "Razor sharp thorns are embedded in you, reducing healing taken by $s2% and dealing $44077s1 Nature damage to you when you attack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44079,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rotroot",
+    "en": "Your Earth Shock reduces healing taken by $44078s2% and causes the target to take $44077s1 Nature damage when they attack for $44078d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44081,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Impending Doom Passive",
+    "en": "Your landing damaging spells have a 5% chance to curse the enemy with Impending Doom, which arrives after $44080d and deals $44080s1 Shadow damage. Dealing Shadow damage to the target causes the Doom to arrive instantly and deal 20% more damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44084,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brand of Lohengrin",
+    "en": "Your attacks and landing harmful spells have a chance to invoke the flames within, dealing $44082s1 Fire Damage and restoring $44083s1 health. The damage against Dragonkin is doubled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44085,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cat to Serpent Form",
+    "en": "Your Cat Form seems to react to the full embrace of the Viper.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44087,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Greymane Passive",
+    "en": "Your successful melee attacks have a $h% chance to bestow you with the mark of Greymane, increasing your Strength by $44086s2 and causes $44086s1% of damage dealt to heal you but damages you for $44086s3 Shadow damage every second for $44086d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Invigorating Hymn",
+    "en": "Invigorate your target with a warrior hymn of old, healing them for $o1 over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44089,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stormcaller",
+    "en": "Launch the electrified hammer at an enemy, dealing $s2 Nature damage and slowing it by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44092,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Curse of Mergothid",
+    "en": "Decreases the target's Intellect by $s1, and slows attack and casting speed by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44096,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Accord Passive",
+    "en": "Your direct damage spells have a $h% chance to detonate surrounding magic, dealing $44095s2 Arcane damage to the target and all enemies within $44095a2 yards. The primary target takes an additional $44095s1 Arcane damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44098,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Final Judgement Passive",
+    "en": "Your Judgements deal an additional $44097s1 Holy damage to enemies below 35% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45003,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Keeper of the Grove Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45005,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Delicious Pizza",
+    "en": "Teaches you how to cook Delicious Pizza .",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45044,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Swift Blood Kodo",
+    "en": "Its crimson hide reflects the warrior spirit of the nomadic tribes, bred for both battle and travel.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45055,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Maritime Gumbo",
+    "en": "Teaches you how to make Maritime Gumbo.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45058,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Unstable Mining Dynamite",
+    "en": "Teaches you how to make Unstable Mining Dynamite.",
+    "curr_pt": ""
+  }
+]

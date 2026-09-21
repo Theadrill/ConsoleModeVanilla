@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 2,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Forest Dryad Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 6,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pet Command: Take Position",
+    "en": "Commands your pet to go to the targeted position and stay there.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 8,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pet Command: Take Position",
+    "en": "Commands your pet to go to the targeted position and stay there.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 9,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Frost Dryad Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 20,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Mirkfallon Dryad Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 21,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Path of the Wild Passive",
+    "en": "While mounted, allows a player under a Dryad or Worgen disguise to move at mount speed without leaving that form.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Twisted Grove Dryad Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ride of the Wild",
+    "en": "Teaches Path of the Wild.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 29,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Billy",
+    "en": "The ducks of Northwind are known for their distinctive call, and Billy is no different!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Harness of the High Thane",
+    "en": "Teaches you how to craft Harness of the High Thane.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 32,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Amberleaf Dryad Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Lunar Dryad Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 38,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Agility",
+    "en": "Teaches you how to permanently enchant a bracer to give +5 Agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 39,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dragonmaw Armor Kit",
+    "en": "Permanently increase the spell power value of an item worn on the chest, legs, hands or feet by 5. Only usable on items level 25 and above.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gold Belt Buckle",
+    "en": "Attaches a buckle to your belt that increases your Ranged Attack Power by 14.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dragonscale Belt Buckle",
+    "en": "Attaches a buckle to your belt that increases your Fire Spell Damage by 9.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dragonmaw Armor Kit",
+    "en": "Teaches you how to createan Dragonmaw Armor Kit.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 44,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Bracer - Agility",
+    "en": "Permanently enchant bracers to grant +5 Agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Boots - Lesser Intellect",
+    "en": "Teaches you how to permanentl enchant boots to give +3 Intellect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Boots - Lesser Intellect",
+    "en": "Permanently enchant boots to give +3 Intellect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stormwrought Deathsteed",
+    "en": "The mount of a fallen Death Knight, risen once more in the mists of Balor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Iron Belt Buckle",
+    "en": "Attaches a buckle to your belt that increases your Fire Resistance by 10.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 54,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchanted Thorium Belt Buckle",
+    "en": "Attaches a buckle to your belt that increases your Arcane Resistance by 10.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Steel Belt Buckle",
+    "en": "Teaches you how to create Steel Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 63,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Gold Belt Buckle",
+    "en": "Teaches you how to create Gold Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dragonmaw Gloves",
+    "en": "Teaches you how to craft Dragonmaw Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 73,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Obsidian Belt Buckle",
+    "en": "Attaches a buckle to your belt that increases your Strength by 10.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 79,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dragonscale Belt Buckle",
+    "en": "Teaches you how to create Dragonscale Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 80,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Stormreaver Gloves",
+    "en": "Teaches you how to sew Stormreaver Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 82,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dark Iron Belt Buckle",
+    "en": "Teaches you how to create Dark Iron Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 86,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Refined Dwarven Necklace",
+    "en": "Teaches you how to craft a Refined Dwarven Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 88,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Truesilver Belt Buckle",
+    "en": "Teaches you how to create Truesilver Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 92,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Enchanted Thorium Belt Buckle",
+    "en": "Teaches you how to create Enchanted Thorium Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 97,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Obsidian Belt Buckle",
+    "en": "Teaches you how to create Obsidian Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 98,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Refined Dwarven Necklace",
+    "en": "Teaches you how to craft a Refined Dwarven Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 105,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Elixir of Rapid Growth",
+    "en": "Teaches you how to make an Elixir of Rapid Growth.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 106,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Booze Berserk",
+    "en": "Increases the user's attack speed by $s1% and increases the Physical damage it deals by $s2 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 119,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cooking Fire",
+    "en": "Provides enough heat to sear, boil, or roast food!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 121,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steel Belt Buckle",
+    "en": "Attaches a buckle to your belt that increases your Block Value by 10.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 123,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Find Fish",
+    "en": "Displays nearby schools of fish on your minimap. Only one type of thing can be tracked at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 129,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Snippy",
+    "en": "This feisty anthropod is not letting go of its home invader — which is you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 333,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Quickfooted Passive",
+    "en": "Your movement speed is increased by $s1%. This stacks with other movement speed increasing effects.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 386,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flame Ward",
+    "en": "Render yourself immune to Fire damage for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 724,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Lightwell",
+    "en": "Creates a Holy Lightwell at a target location. When you heal a friendly target with Lesser Heal, Flash Heal, Heal, or Greater Heal, the Lightwell heals an injured friendly target within $a2 yards with Splendor of Light, healing for $s2% of the initial healing spell and consuming a charge. A target cannot benefit from this effect more than once every $52961d. The Lightwell lasts for $d or until $n charges are depleted.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 1122,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Inferno Summon",
+    "en": "Summons a meteor from the Twisting Nether, causing $22699s1 Fire damage and stunning all enemy targets in the area for $20310d.  An Infernal rises from the crater, under the command of the caster for $53222d.  Once control is lost, the Infernal attacks the caster until one of them dies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 1204,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Fried Strider with a Side of Berries",
+    "en": "Teaches you how to cook Fried Strider with a Side of Berries.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4284,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tendon Slice",
+    "en": "Grants a chance on hit to slow the target's movement and deal additional damage over time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4285,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tendon Slice",
+    "en": "Deals $o1 damage to the target over $d and reduces movement speed by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4425,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Spider Poison Spider",
+    "en": "Teaches your tamed spider the Spider Poison ability. Spider Poison deals damage over time to an enemy.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4715,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Growl of Fortitude Bear",
+    "en": "Teaches your tamed bear the Growl of Fortitude ability. Growl of Fortitude increases the maximum health of the bear.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  }
+]

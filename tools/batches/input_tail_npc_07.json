@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 26433,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Large Green Rocket",
+    "en": "Teaches you how to make a Large Green Rocket.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26434,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Large Red Rocket",
+    "en": "Teaches you how to make a Large Red Rocket.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26435,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Blue Rocket Cluster",
+    "en": "Teaches you how to make a Blue Rocket Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26436,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Green Rocket Cluster",
+    "en": "Teaches you how to make a Green Rocket Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26437,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Red Rocket Cluster",
+    "en": "Teaches you how to make a Red Rocket Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26438,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Large Blue Rocket Cluster",
+    "en": "Teaches you how to make a Large Blue Rocket Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26439,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Large Green Rocket Cluster",
+    "en": "Teaches you how to make a Large Green Rocket Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26440,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Large Red Rocket Cluster",
+    "en": "Teaches you how to make a Large Red Rocket Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26444,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Firework Launcher",
+    "en": "Teaches you how to make a Firework Launcher.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 26445,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Firework Cluster Launcher",
+    "en": "Teaches you how to make a Firework Cluster Launcher.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27043,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Increased Pet Crit +2%",
+    "en": "Increases your pet's melee and spell critical strike chance by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27106,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Copy of Enchant Weapon - Superior Striking",
+    "en": "Permanently enchant a Melee Weapon to do 5 additional points of damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27123,
+    "kind": "custom",
+    "need": "new",
+    "sample": "- QAEnchant Weapon +5 Damage QASpell",
+    "en": "Permanently enchant a Melee Weapon to do 5 additional points of damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27591,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Heavy Obsidian Belt",
+    "en": "Teaches you how to make a Heavy Obsidian Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27592,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Jagged Obsidian Shield",
+    "en": "Teaches you how to make a Jagged Obsidian Shield.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27593,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Thick Obsidian Breastplate",
+    "en": "Teaches you how to make a Thick Obsidian Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27594,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Light Obsidian Belt",
+    "en": "Teaches you how to make a Light Obsidian Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27595,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Black Grasp of the Destroyer",
+    "en": "Teaches you how to make the Black Grasp of the Destroyer.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27596,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Obsidian Mail Tunic",
+    "en": "Teaches you how to make an Obsidian Mail Tunic.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27726,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Enchanted Mageweave Pouch",
+    "en": "Teaches you how to sew an Enchanted Mageweave Pouch.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27727,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Enchanted Runecloth Bag",
+    "en": "Teaches you how to sew an Enchanted Runecloth Bag.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27728,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Big Bag of Enchantment",
+    "en": "Teaches you how to sew an Big Bag of Enchantment.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27729,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Cenarion Herb Bag",
+    "en": "Teaches you how to sew a Cenarion Herb Bag.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27730,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Satchel of Cenarius",
+    "en": "Teaches you how to sew a Satchel of Cenarius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27833,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Titanic Leggings",
+    "en": "Teaches you how to make Titanic Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27834,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Sageblade",
+    "en": "Teaches you how to make a Sageblade.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27835,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Persuader",
+    "en": "Teaches you how to make the Persuader.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 27838,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant 2H Weapon - Agility",
+    "en": "Teaches you how to permanently enchant a two-handed weapon to increase your agility by 25.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28211,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Gaea's Embrace",
+    "en": "Teaches you how to sew Gaea's Embrace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28212,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Glacial Gloves",
+    "en": "Teaches you how to sew Glacial Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28213,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Glacial Gloves",
+    "en": "Teaches you how to sew Glacial Vest.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28214,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Glacial Cloak",
+    "en": "Teaches you how to sew a Glacial Cloak.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28215,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Glacial Wrists",
+    "en": "Teaches you how to sew a Glacial Wrists.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28228,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Polar Tunic",
+    "en": "Teaches you how to craft a Polar Tunic.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28229,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Polar Gloves",
+    "en": "Teaches you how to craft Polar Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28230,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Polar Bracers",
+    "en": "Teaches you how to craft Polar Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28231,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Icy Scale Breastplate",
+    "en": "Teaches you how to craft an Icy Scale Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28232,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Icy Scale Gauntlets",
+    "en": "Teaches you how to craft Icy Scale Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28233,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Icy Scale Bracers",
+    "en": "Teaches you how to craft Icy Scale Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28245,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Icebane Breastplate",
+    "en": "Teaches you how to make an Icebane Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28248,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Icebane Gauntlets",
+    "en": "Teaches you how to make Icebane Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28249,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Icebane Bracers",
+    "en": "Teaches you how to make Icebane Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28286,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Polymorph: Turtle",
+    "en": "Teaches Polymorph: Turtle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28328,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Steam Tonk Controller",
+    "en": "Teaches you how to make a Steam Tonk Controller.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28464,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Ironvine Breastplate",
+    "en": "Teaches you how to make an Ironvine Breastplate",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28465,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Ironvine Gloves",
+    "en": "Teaches you how to make Ironvine Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28466,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Ironvine Belt",
+    "en": "Teaches you how to make an Ironvine Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28469,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghost Vision",
+    "en": "Spell used for the Ghost cheat",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28475,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Bramblewood Helm",
+    "en": "Teaches you how to craft a Bramblewood Helm.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 28476,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Bramblewood Boots",
+    "en": "Teaches you how to craft Bramblewood Boots.",
+    "curr_pt": ""
+  }
+]

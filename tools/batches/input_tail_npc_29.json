@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 51849,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthmother's Attunement",
+    "en": "Increases the amount of Earthen Bulwark built up from physical damage by $s1% for Elemental Weapons' Rockbiter effect, and increases the damage absorbed by the Earthen Bulwark by an additional $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51850,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lightning Strike Shield Bonus",
+    "en": "Increases the effectiveness of your empowered shields by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51899,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Effective Strike Passive",
+    "en": "Whenever you hit with an ability, you have a $h chance to gain $/10;51898s1 Rage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51918,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Doom of Outland",
+    "en": "Summon Desolate Doomguard",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51969,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Smoke Bomb",
+    "en": "Creates a cloud of thick smoke in $51967a1 yards around you for $51967d. All targets inside the smoke have a $51967s1% reduced chance of being hit by attacks and spells for the duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52000,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glaives",
+    "en": "Teaches how to use Glaives.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52047,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Torch of Purifying Embers",
+    "en": "Illuminate the darkness in the Heart of the Nightmare in Timbermaw Hold.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52249,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchanting Flames",
+    "en": "Empowered by magical fire, reduces damage taken by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52250,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Moon's Mount Test Spell Test",
+    "en": "Mount spell for the purposes of testing.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52253,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Teleport: Nordanaar",
+    "en": "Teleports the caster to Nordanaar in Hyjal.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52254,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fel-Empowered",
+    "en": "Players within $a1 yard radius of Felheart deal $s1% increased damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52345,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Resto T2.5 5p Bonus",
+    "en": "Your Healing Touch spells heal targets affected by Rejuvenation and Regrowth each for 10% more.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52360,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Attacks Passive",
+    "en": "Damage of your Rake and Rip have a 6% and 10% chance respectively to empower your next Shred, Rake or Claw, increasing its critical strike chance and damage by 15%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52376,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elune's Rage",
+    "en": "Increases the target's chance to be critically hit with spells by $s2%. When the target is critically struck by a spell, they take an additional $52375s1 Fire damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52403,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elune Infusion Passive",
+    "en": "Elune infuses your magic with astral power, giving a $h% chance when your harmful spells are cast to unleash astral energy, dealing $57658s1 Arcane damage and imbuing your next harmful spell with moonlight. Spells imbued by moonlight increase the damage the target takes from its spell school by 8% and trigger an additional effect for 10 sec depending on the spell school of the harmful spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52427,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Razor Vines Passive",
+    "en": "Casting Entangling Roots on an enemy causes the roots to slice them, reducing their casting speed by $52426s2% and dealing $52426o1 damage over $52426d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52429,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Heathen's Light Passive",
+    "en": "Your Consecration heals party members for $52428o1 over $52428d. and grants them $52430s1 Strength while inside it.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52538,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark for Death",
+    "en": "A marking strike that deals $s1% weapon damage and reveals the target’s vulnerabilities, increasing your party members' Attack Power by 30% and damage done by magical spells and effects up to 18% of your melee Attack Power for $52539d. Cannot be blocked, dodged or parried by the target. Awards $s3 combo $lpoint:points;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52564,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nightblade",
+    "en": "Sinister Strike, Backstab, Noxious Assault, and Hemorrhage have a $s1% chance to veil you in shadows, catching your enemy off guard.  The next ability you use to generate combo points restores $52565s1 Energy and grants $52565s2 additional combo $lpoint:points; if used within $52563d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52596,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mirror Magic",
+    "en": "Initial hits from Flamestrike, Cone of Cold, Frost Nova, Blast Wave, and Arcane Explosion have a chance to trigger a rewind effect. On rewind, Arcane spells deal $s1% additional damage, and Frost and Fire spells deal $s2% additional damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52606,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Curse of Agony Bonus Damage",
+    "en": "Your Curse of Agony deals $s1% increased damage for the first 4 $ltick:ticks;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52681,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Immolate Cast Time Bonus",
+    "en": "Reduces the casting time of your Immolate spell by $/1000;S1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52682,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Conflagrate Tick Bonus",
+    "en": "Conflagrate deals an amount of damage equal to 3 sec. of your Immolate spell without consuming its duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52684,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steady Shot and Raptor Strike Crit Bonus",
+    "en": "Increases the critical strike chance of Steady Shot, Raptor Strike and Mongoose Bite by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52685,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pet Focus Regen Bonus",
+    "en": "Increases pet Focus regeneration by $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52686,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unyielding Assault",
+    "en": "You gain $/10;52687s1 Rage when your Heroic Strike or Slam is dodged or parried.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52688,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Qiraji Poison",
+    "en": "On successful poison application, you have a $s1% chance to deal $52689s1 Nature damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52690,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crystal Infusion",
+    "en": "Using a Mana Gem increases your damage and healing from magical spells and effects by up to $52691s1 for $52691d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52692,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Shield",
+    "en": "Surrounds the caster with a shield woven from Shadow magic for $d, absorbing up to $s1 Physical or magical damage and inflicting $s2 damage to melee attackers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52693,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Swipe Chain Bonus",
+    "en": "Your Swipe hits $s1 additional target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52697,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Qiraji Recuperation",
+    "en": "Your finishing moves have a $b1% chance per combo point to restore $52696s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52698,
+    "kind": "custom",
+    "need": "new",
+    "sample": "T2.5 Set Bonus - Hammer of Wrath",
+    "en": "Reduces the casting time of your Hammer of Wrath by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52699,
+    "kind": "custom",
+    "need": "new",
+    "sample": "T2.5 Set Bonus - Pain Spike",
+    "en": "Increases Pain Spike damage by $s1% and heals you for $s2% of its damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52701,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Purge Haste Passive",
+    "en": "Purge increases your casting speed by $52702s1% for $52702d or until you cast a spell when it successfully removes a magic effect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52704,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Seafarer's Protection",
+    "en": "You have a $h% chance when struck in combat to increase Defense by $52703s1 for $52703d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52706,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blessing of the Ancestors",
+    "en": "Your spell critical strikes increase the damage of your next spell by up to $52705s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52710,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow of Death",
+    "en": "A finishing move that etches a sigil onto the target for $d. The sigil accumulates damage equal to a percentage of all damage the target takes during its duration, up to a percentage of your Attack Power. When the maximum capacity is reached or the sigil expires, the stored damage is unleashed as Physical damage. Both values increase with each combo point:\n   1 point : 10% of damage accumulated, up to 50% of Attack Power\n   2 points: 20% of damage accumulated, up to 100% of Attack Power\n   3 points: 30% of damage accumulated, up to 150% of Attack Power\n   4 points: 40% of damage accumulated, up to 200% of Attack Power\n   5 points: 50% of damage accumulated, up to 250% of Attack Power",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52713,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dragonfire Bomb",
+    "en": "Throw the bomb to shatter the Skardyn defenses.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52722,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Rupture",
+    "en": "Rupture your target with the force of concentrated arcane energy, dealing $s1 Arcane damage and increasing Arcane damage taken by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52723,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Barrage",
+    "en": "Hurls a magical bolt at an enemy, inflicting Arcane damage and knocking them back.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52724,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune of Power",
+    "en": "Consecrates the land beneath caster, increasing all damage done by $s1% and decreasing all damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52725,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune of Detonation",
+    "en": "Marks all enemies for explosion after $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52726,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune of Combustion",
+    "en": "Marks all enemies for explosion after $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52729,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune of Power",
+    "en": "Consecrates the land beneath caster, increasing all damage done by $s1% and decreasing all damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52731,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Timeless Strike",
+    "en": "Gives your melee attacks a $h% chance to grant $52732s1 extra $lattack:attacks;.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52742,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrosive Breath",
+    "en": "Shoots a cloud of acidic breath at enemies in a cone in front of the caster, dealing $s2 Nature damage, reducing their armor by $s3%, and draining $o1 Mana over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52743,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dragon's Rage",
+    "en": "Increases movement speed by $s1% and attack speed by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52744,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crippling Fatigue",
+    "en": "Increases all damage taken by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52748,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Voltage-Neutralizing Nature Reflector",
+    "en": "Teaches you how to make a Voltage-Neutralizing Nature Reflector.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52750,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Giga-Charged Arcane Reflector",
+    "en": "Teaches you how to make a Giga-Charged Arcane Reflector.",
+    "curr_pt": ""
+  }
+]

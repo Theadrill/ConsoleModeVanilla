@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 52864,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Midnight Comet",
+    "en": "Your melee attacks, ranged attacks, and direct damaging spells have a $h% chance to deal Arcane damage equal to $/10;m1% of your maximum mana to the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52867,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Summon Ar'lia",
+    "en": "Summons Ar'lia of the Moro'gai to aid in battle for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52868,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Idol of Brambleskin",
+    "en": "Barkskin causes you to deal $52870s1 Physical damage to attackers for the next $52869n melee attacks received and reduces their physical damage dealt by $52870s2% for $52870d. This damage generates no threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52871,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Totem of Thundercall",
+    "en": "Gives your Stormstrike a $s1% chance to coalesce storms above your target, dealing $52872o1 Nature damage to enemies within $52872a1 yards over $52872d, divided evenly among all affected targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52879,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Totem of Distant Tremors",
+    "en": "Your Earthquake's aftershock deals $s2% increased damage, but takes an additional $/1000;S1 sec to erupt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52880,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Inner Fire",
+    "en": "Inner Fire gains $s1 additional charges and grants an extra $s2 spell damage and armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52881,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy and Discipline Cost Reduction",
+    "en": "Reduces the mana cost of Holy and Discipline spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52882,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Castigation",
+    "en": "Successful Smite hits have a $h% chance to consume a charge of Inner Fire, castigating the target and burning them for $52883o1 Holy damage over $52883d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52884,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light Speed",
+    "en": "Power Word: Shield increases the target's movement speed by $52885s1% for $52885d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52886,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flickering Light",
+    "en": "Your instant Smite casts increase the casting speed of your next Smite within $52887d by $52887s1% and reduce its mana cost by $52887s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52888,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Enlightened",
+    "en": "Increases the duration of the benefit granted by Enlighten $/1000;s1 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52889,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Holy Fire",
+    "en": "Reduces the time between periodic ticks of Holy Fire by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52890,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Weak Healing Salve",
+    "en": "Heals the user for $o1 over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52893,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthwall",
+    "en": "Your Healing Wave and Lesser Healing Wave have a $s1% chance to surround the target with an earth wall, absorbing $52894s1 damage for $52894d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52895,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Qiraji Deterioration",
+    "en": "Vampiric Embrace deals $52896o1 Shadow damage over $52896d, healing you for 50% of each damage dealt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52897,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Uncoiled Shadows",
+    "en": "Mind Blast and Pain Spike critical strikes increase the damage of your next Mind Flay within $52898d by $52898s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52900,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Libram of Hallowed Ground",
+    "en": "Your Consecration instantly deals $52899s1 Holy damage and reduces movement speed by $52899s2% for $52899d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52906,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Chromatic Empowerment",
+    "en": "Increases damage done by magical spells and effects of a random element by up to $52901s1. The empowered element changes every $52901d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52908,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Overpowered Passive",
+    "en": "Your direct harmful spells have a $h% chance to increase damage done by magical spells and effects by up to $52907s1, but reduce casting speed by $52907s2%. Lasts $52907d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52909,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Decapitate",
+    "en": "Attempts to decapitate the target, dealing $s1 Physical damage. Damage is increased by 25% if the target is below 30% health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52910,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Killing Frenzy Passive",
+    "en": "Killing a target that yields experience or honor increases attack speed by $52911s1% for $52911d. This effect cannot occur more than once every 20 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52912,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowflame Within",
+    "en": "Unleash the shadowflame within, increasing Strength by $s1 and dealing $52913s2 Shadow damage to enemies within $52913a2 yards every $t2 sec. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52916,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radiant Dawn",
+    "en": "Increases Holy Shock's chance to hit by $s1% and its damage by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52917,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Find Trees",
+    "en": "Nearby harvestable trees appear on the minimap.  Only one type of thing can be tracked at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52918,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Find Trees",
+    "en": "Teaches Find Trees.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52920,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lock and Load",
+    "en": "Your Steady Shot, Aimed Shot, and Arcane Shot critical strikes have a $h% chance to reset the cooldown of Aimed Shot and trigger Lock and Load. Lock and Load reduces the cast time of Aimed Shot by $/1000;52921s1 sec and causes Aimed Shot to hit all enemies between you and the target. Lasts $52921d or until Aimed Shot is cast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52922,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Polymorph: Draenei Homunculus",
+    "en": "Teaches Polymorph: Draenei Homunculus",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52923,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Polymorph: Draenei Homunculus",
+    "en": "Transforms the enemy into a Draenei Homunculus, forcing it to wander around for up to $d.  While wandering, the rodent cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52926,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spiritwalk Racial",
+    "en": "Embraces the ancient path of the Spiritwalker, entering the spirit realm and becoming invisible for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52927,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spiritwalk",
+    "en": "Teaches Spiritwalk",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52929,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elemental Efficiency",
+    "en": "Reduces the mana cost of Fire, Nature, and Frost spells by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52930,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Coil of the Hydra Passive",
+    "en": "Your critical strikes with spells increase damage done by your Fire, Nature, and Frost spells by up to $52931s1 for $52931d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52932,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tricolored Blast Passive",
+    "en": "Dealing direct damage with Fire, Nature, or Frost spells has a chance to blast the target with a tricolored spell, causing $52933s1 Fire, Nature, and Frost damage simultaneously.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52936,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Searing Radiance Passive",
+    "en": "Your Exorcism and Holy Wrath deal an additional $52937s1 Holy damage and disorient targets for up to $52937d, causing them to wander aimlessly. Any damage taken will remove the effect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52938,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blessed Wildfire - Holy Fire",
+    "en": "Damage caused by Holy Fire increases the damage of your next Holy Fire or Holy Nova by $52939s1% for $52939d, stacking up to $52939u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52940,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blessed Wildfire - Chastise",
+    "en": "Reduces Chastise's cooldown by $s2% and grants $s1 stacks of Blessed Wildfire when cast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52941,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blessed Wildfire - Power Word: Shield",
+    "en": "Resurgent Shield causes your Power Word: Shield to grant $s1 stacks of Blessed Wildfire and activate Resurgent Shield. This effect can only occur once every 15 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52945,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cooking Fire",
+    "en": "Builds a cooking fire that increases the spirits of those nearby by 4 and allows cooking.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52946,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spirited Precision Sickle",
+    "en": "Increases the chance to gather Black Lotus.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52947,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prospector's Magnifying Lens",
+    "en": "Increases the chance to find Arcane Crystal.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52948,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Simple Slingshot",
+    "en": "Fires a projectile at the target, dealing $s1 damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52962,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ascendance",
+    "en": "Calls upon divine aid, purging all forms of crowd control and empowering your healing spells. Healing spells cost $52963s2% less mana and their cast time is reduced by $52963s1%. Allies healed gain Apotheosis, increasing healing received by $52964s1% for $52964d. Lasts $52963d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52973,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Commander's Rally Passive",
+    "en": "Your melee attacks have a $h% chance to increase attack and casting speed for you and your party by $52974s1% for $52974d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52975,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Obsidian Blessing Passive",
+    "en": "Taking Fire damage has a $h% chance to grant a flame ward, causing you to reflect the next Fire spell. Lasts $52976d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52977,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Light Infusion Passive",
+    "en": "Casting Lightwell grants Light Infusion, giving Smite, Holy Fire, and Chastise a chance to increase your party's attack and casting speed by $52979s1% for $52979d. Lasts $52978d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52981,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Burning Zeal Passive",
+    "en": "Casting Holy Fire on a target afflicted by your Shadow Word: Pain (Rank 8) converts it into Burning Zeal, dealing $52980o1 Holy damage over $52980d and increasing Holy damage taken by $52980s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52982,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Conflagration Passive",
+    "en": "Your harmful spells have a $h% chance to Conflagrate the target, dealing $52983o2 Fire damage over $52983d. While affected, the target's flames periodically scorch their nearby allies for $52984s1 Fire damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52985,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Avoidance 95",
+    "en": "Reduces damage taken from area of effect spells and abilities by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52986,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hatch Whelp",
+    "en": "Hatches an Onyxian Whelp to aid you in battle for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 52987,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Command Whelp Passive",
+    "en": "Your harmful spells have a $h% chance to hatch an Onyxian Whelp to aid you in battle for $52988d.",
+    "curr_pt": ""
+  }
+]

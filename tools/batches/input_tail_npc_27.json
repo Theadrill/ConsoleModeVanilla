@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 48676,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Drakesteed",
+    "en": "A fearsome fusion of drake and warhorse, bred for battle and bound to those strong enough to command it.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48677,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lunar Steed of Good Fortune",
+    "en": "Said to bring prosperity to its rider, this celestial steed gallops across the heavens under a silver glow.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49010,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elixir of Mind's Reach",
+    "en": "Increases the range of your attacks and spells by $/1000;s1 yards for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49013,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crystalized Topaz",
+    "en": "Permanently enchant a ring or amulet to increase Arcane Damage by 9. Only usable on items level 25 and above.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49016,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Cloak - Agility",
+    "en": "Permanently enchant a cloak to give 7 Agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49017,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Agility",
+    "en": "Teaches you how to permanently enchant a cloak so it grants +7 Agility.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49018,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Cloak - Greater Shadow Resistance",
+    "en": "Permanently enchant a cloak so that it increases resistance to shadow by 15.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49019,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Greater Shadow Resistance",
+    "en": "Teaches you how to permanently enchant a cloak so it grants 15 shadow resistance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49020,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant 2H Weapon - Nature Damage",
+    "en": "Permanently enchant a Two-Handed Melee Weapon to increase Nature damage by 40.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49021,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant 2H Weapon - Nature Damage",
+    "en": "Teaches you how to permanently enchant a two-handed weapon so it grants +40 Nature damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49022,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant 2H Weapon - Shadow Damage",
+    "en": "Permanently enchant a Two-Handed Melee Weapon to increase Shadow damage by 40.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49023,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant 2H Weapon - Shadow Damage",
+    "en": "Teaches you how to permanently enchant a two-handed weapon so it grants +40 Shadow damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49024,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Erosion",
+    "en": "A brutal strike that stuns the opponent for $d and increases all damage taken by $49025s1 for $49025d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49025,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Erosion",
+    "en": "Increases damage taken by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49026,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crush Earth",
+    "en": "Crushes the earth, impacting all enemies within the area for $s1 Nature damage and an additional $o2 Nature damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49027,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tremors of Ormanos",
+    "en": "Shakes the ground below the targeted area, dealing $o1 Nature damage over $d and reducing the movement speed of all enemies by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49029,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rampaging Earth",
+    "en": "Deals damage dependent on the distance Ormanos charged and knocks the target back.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49030,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rampaging Earth",
+    "en": "Ormanos prepares to charge towards the enemy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49032,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Attunement of Granite",
+    "en": "Immune to Frost damage.\nIncreases Nature damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49033,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Attunement of Slate",
+    "en": "Immune to Fire damage.\nIncreases Arcane damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49034,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Attunement of Basalt",
+    "en": "Immune to Shadow damage.\nIncreases Fire damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49035,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Attunement of Quartz",
+    "en": "Immune to Nature damage.\nIncreases Shadow damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49036,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Attunement of Marble",
+    "en": "Immune to Arcane damage.\nIncreases Frost damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49037,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Attune to Earth",
+    "en": "Chooses a random Attunement.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49039,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spirit Bond",
+    "en": "Reduces damage taken by $s1% while Kodiak lives.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49040,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Broken Bond",
+    "en": "Increases damage taken by $s1% while Kodiak is dead.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49042,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fearful Roar",
+    "en": "Lets out a deep roar, causing nearby enemies to flee for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49043,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rage of the Ursa",
+    "en": "Increases the caster's attack speed by $s2% and the damage it deals by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49046,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire-Soaked Arrow",
+    "en": "Inflict $s1 Fire damage to an enemy and any of its nearby allies. Damage is split among targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49047,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Volley of Arrows",
+    "en": "Continuously fires a volley of ammo at the target area, causing $s1 Physical damage to enemy targets within $a1 yards every second for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49368,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unrelenting Strikes Passive",
+    "en": "Your extra attacks increase your attack speed by $49367s1% for $49367d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49369,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rage of the Mountain",
+    "en": "Grants $s1 extra attack on your next swing and increase damage by $s2 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49370,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fluidity Potion",
+    "en": "Increases swim speed by $s1% for $d1. Can only be used inside Balor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49550,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Empowering Herbal Salad",
+    "en": "Teaches you how to cook a Empowering Herbal Salad.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49557,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Strike Together",
+    "en": "Deals damage equal to 20% of the hunter's Attack Power.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49558,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Strike Together",
+    "en": "Your pet's next attack deals damage equal to 20% of your Attack Power.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49559,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Coordinated Assault",
+    "en": "Hitting an enemy with Arcane Shot, Steady Shot, or Raptor Strike causes your pet's next attack within $49558d to also strike for Physical damage equal to 20% of your Attack Power. This effect can only occur once every 3 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49560,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Curse of Drowned Souls",
+    "en": "Slows movement speed by $s1% and increased Frost damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49561,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tidal Crash",
+    "en": "Send a crashing a wave on enemies in front of you, dealing $s2 Frost damage, increasing Frost damage taken by $49560s2% and reducing movement and swimming speed by $49560s1% for $49560d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49562,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tidal Crash Passive",
+    "en": "Have a $h% chance when struck in combat of crashing a wave on enemies in front of you, dealing $49561s2 Frost damage, increasing Frost damage taken by $49560s2% and reducing movement and swimming speed by $49560s1% for $49560d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49567,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sticky Faerie Spit",
+    "en": "Inflicts Nature damage to an enemy and slows their movement, attacking and casting speed by $49566s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49568,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Faerie Dust",
+    "en": "Enemies around the caster regenerate $s1% of their health and mana over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 49569,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fire-Soaked Arrow",
+    "en": "Inflict $s1 Fire damage to an enemy and any of its nearby allies. Damage is split among targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50008,
+    "kind": "custom",
+    "need": "new",
+    "sample": "War Mode Challenge",
+    "en": "You can no longer disable PvP mode, but experience gains from all sources are increased by 5%, with an additional 20% inside battlegrounds. In addition, reputation gains inside battlegrounds are increased by 10%, and killing players in the open world grants experience.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50040,
+    "kind": "custom",
+    "need": "new",
+    "sample": "War Mode Challenge",
+    "en": "You can no longer disable PvP mode. Gain XP from killing players and bonus XP in the open world, battlegrounds, and arenas.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50047,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Kara Chess Periodic Heartbeat",
+    "en": "Sends periodic heartbeats to update unit position.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50048,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Periodic Heartbeat",
+    "en": "Sends periodic heartbeats to update unit position.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50908,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Chronoboon Displacer",
+    "en": "Alters the fabric of time, preserving and suspending the duration of certain powerful world buffs, including Dragonslayer's Blessing, Dire Maul Tribute, Zandalar Spirit, Darkmoon Faire, Warchief's Blessing, and Felwood Songflower Serenade.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50909,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Supercharged Chronoboon Displacer",
+    "en": "Restores suspended time, reactivating all world buffs preserved by the Chronoboon Displacer, with their remaining durations intact.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50910,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Felguard Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  }
+]

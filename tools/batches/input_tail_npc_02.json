@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 4731,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Enraging Bite Bear",
+    "en": "Teaches your tamed bear the Enraging Bite ability. Enraging Bite reduces an enemy's resistance to physical attacks as well as drawing its attention.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4732,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Roar of Fortitude Bear",
+    "en": "Teaches your tamed bear the Roar of Fortitude ability. Roar of Fortitude increases the maximum health of everyone in your party.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4733,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Gore Boar",
+    "en": "Teaches your tamed boar the Gore ability. Gore deals physical damage over time to an enemy.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4734,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Toughen Hide Boar",
+    "en": "Teaches your tamed boar the Toughen Hide ability. Toughen Hide increases resistance to physical attacks.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4735,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vital Wound Boar",
+    "en": "Teaches your tamed boar the Vital Wound ability. Vital Wound slows the attack speed of an enemy.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4736,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Flight of the Peregrine Bird",
+    "en": "Teaches your tamed bird the Flight of the Peregrine ability. Flight of the Peregrine increase the movement speed of the bird.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4737,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Eye Peck Bird",
+    "en": "Teaches your tamed bird the Eye Peck ability. Eye Peck causes an enemy to miss more often in combat.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4739,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Pester Bird",
+    "en": "Teaches your tamed bird the Pester ability. Pester greatly increases the attack speed of the bird at the cost of dealing less damage. Every successful attack while in this mode renders the target unable to cast spells for a short time.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4740,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Ferocity Cat",
+    "en": "Teaches your tamed cat the Ferocity ability. Ferocity increases attack speed of the cat at the cost of receiving more damage when hit by phsical attacks.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4741,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Open Wound Cat",
+    "en": "Teaches your tamed cat the Open Wound ability. Open Wound deals physical damage over time to an enemy as well as increasing damage received by physical attacks for a short time.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4743,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tough Shell Crab",
+    "en": "Teaches your tamed crab the Tough Shell ability. Tough Shell gives your crab a chance to increase it's armor value when hit.\nRequires: \nPet Level 21+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4746,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tight Pinch Crab",
+    "en": "Teaches your tamed crab the Tight Pinch ability. Tight Pinch deals additional damage on the crab's next hit as well as stunning the enemy.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4747,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Clenched Pinchers Crab",
+    "en": "Teaches your tamed crab the Clenched Pinchers ability. Clenched Pinchers holds an enemy in place while dealing physical damage over time to it. While holding the enemy, the crab will be unable to attack or perform any other actions.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4748,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Quick Snap Crocilisk",
+    "en": "Teaches your tamed crocilisk the Quick Snap ability. Quick Snap gives your crocilisk a chance to counterattack when hit.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4750,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Consume Flesh Crocilisk",
+    "en": "Teaches your tamed crocilisk the Consume Flesh ability. Consume Flesh gives your crocilisk a chance to steal health from an enemy when attacking.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4766,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Rapid Gallop Horse",
+    "en": "Teaches your tamed horse the Rapid Gallop ability. Rapid Gallop increases the movement speed of your horse.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4767,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Stomp Horse",
+    "en": "Teaches your tamed horse the Stomp ability. Stomp deals additional damage as well as slowing the movement speed of the enemy.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4768,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Feast of Prey Raptor",
+    "en": "Teaches your tamed raptor the Feast of Prey ability. Feast of Prey allows your raptor to recover health every time it kills an enemy.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4769,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Vulnerable Raptor",
+    "en": "Teaches your tamed raptor the Vulnerable ability. Vulnerable increases all physical damage done to an enemy for a short time.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4770,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Tendon Slice Raptor",
+    "en": "Teaches your tamed raptor the Tendon Slice ability. Tendon Slice deals damage over time as well as slowing the enemies movement speed.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4777,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Quickness Gorilla",
+    "en": "Teaches your tamed gorilla the Quickness ability. Quickness is an attack that can hit multiple enemies.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4804,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Poisonous Spit Spider",
+    "en": "Teaches your tamed spider the Poisonous Spit ability. Poisonous Spit ranged attack that deals damage over time to an enemy.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4806,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Distracting Spit Tall Strider",
+    "en": "Teaches your tamed tall strider the Distracting Spit ability. Distracting Spit increases physical damage dealt to an enemy.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4814,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Strider Presence Tall Strider",
+    "en": "Teaches your tamed tall strider the Strider Presence ability. Strider Presence helps regenerate health and mana.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4815,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Enraged Howl Wolf",
+    "en": "Teaches your tamed wolf the Enraged Howl ability. Enraged Howl increases your party's strength and agility.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 4816,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Rabid Maw Wolf",
+    "en": "Teaches your tamed wolf the Rabid Maw ability. Rabid Maw decreases an enemy's strength and agility.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 5383,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Hand Snap Turtle",
+    "en": "Teaches your tamed turtle the Hand Snap ability. Hand Snap disarms an enemy as well as causing damage over time.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 5398,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Claw Cover Scorpion",
+    "en": "Teaches your tamed scorpion the Claw Cover ability. Claw Cover increases your scorpion's chance to parry.\nRequires: \nPet Level 36+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 5399,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Minor Scorpion Venom Scorpion",
+    "en": "Teaches your tamed scorpion the Minor Scorpion Venom ability. Minor Scorpion Venom deals damage over time to an enemy.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 5581,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Script Test",
+    "en": "Applies a test script to the caster.  Exciting!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 6539,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Dig Trap Scorpion",
+    "en": "Teaches your tamed scorpion the Dig Trap ability. Dig Trap allows the pet to enter stealth mode but will be rendered unable to move. If the scorpion attacks from this position it will deal additional damage.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 6560,
+    "kind": "modified",
+    "need": "new",
+    "sample": "LeCraft Test Spell",
+    "en": "Deal $s1 Fire damage to the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 6577,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Intimidating Growl Wolf",
+    "en": "Teaches your tamed wolf the Intimidating Growl ability. Intimidating Growl causes an enemy to run away in fear at an increased movement speed.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 6582,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Pierce Ankle Crocilisk",
+    "en": "Teaches your tamed crocilisk the Pierce Ankle ability. Pierce Ankle knocks down an enemy and reduces it's movement speed.\nRequires: \nPet Level 13+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 6666,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Survival Instinct Cat",
+    "en": "Teaches your tamed cat the Survival Instinct ability. Survival Instinct stuns an enemy and attempts to run away causing the enemy to lose interest in attacking the cat.\nRequires: \nPet Level 22+",
+    "curr_pt": ""
+  },
+  {
+    "oid": 7218,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Weapon Counterweight",
+    "en": "Attaches a counterweight to a two-handed sword, mace, axe, staff, or polearm, increasing attack speed by $7217s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 7931,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Heavy Silk Bandage",
+    "en": "Teaches you how to make a Heavy Silk Bandage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 8089,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Aquadynamic Fish Attractor",
+    "en": "When applied to your fishing pole, increases Fishing by 100 for 10 minutes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 8299,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Oozed and Confused",
+    "en": "Reality is slippery. So are you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 9067,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Pattern: Rugged Leather Pants",
+    "en": "Teaches you how to craft Rugged Leather Pants.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 9073,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Pattern: Red Whelp Gloves",
+    "en": "Teaches you how to craft Red Whelp Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 10721,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Forest Wisp",
+    "en": "Wisps are ancient spirits of nature that inhabit the forestlands of Kalimdor. Legends say that Wisps are actually the disembodied spirits of the Night Elves themselves, but these rumors have yet to be proven.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 10842,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Mageweave Bandage",
+    "en": "Teaches you how to make a Mageweave Bandage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 11412,
+    "kind": "modified",
+    "need": "new",
+    "sample": "DONOTREUSE 11412",
+    "en": "?",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12773,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Goblin \"Boom\" Box",
+    "en": "Teaches you how to make a Goblin \"Boom\" Box.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12775,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Goblin Radio",
+    "en": "Teaches you how to make a Goblin Radio.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12901,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Pattern: Black Swashbucklers Shirt",
+    "en": "Teaches you how to sew a Black Swashbuckler's Shirt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 12915,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Gnomish Ham Radio",
+    "en": "Teaches you how to make a Gnomish \"Ham\" Radio.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 13393,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Formula: Enchant 2H Weapon - Spirit",
+    "en": "Teaches you how to permanently enchant a two-handed weapon so it grants +3 Spirit.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 13465,
+    "kind": "modified",
+    "need": "new",
+    "sample": "Formula: Enchant Shield - Lesser Protection",
+    "en": "Teaches you how to permanently enchant a shield with +30 armor.",
+    "curr_pt": ""
+  }
+]

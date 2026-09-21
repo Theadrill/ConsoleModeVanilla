@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 45060,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Volatile Concoction",
+    "en": "Breathes fire for $d, dealing $45059s1 Fire damage to enemies in front of you. A true afterburner.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45062,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Volatile Concoction",
+    "en": "Teaches you how to make an Volatile Concoction.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45064,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Blast Shield",
+    "en": "Teaches you how to make Blast Shield.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45067,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Gloves of Manathirst",
+    "en": "Teaches you how to sew Gloves of Manathirst.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45070,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Lynxstep Boots",
+    "en": "Teaches you how to craft Lynxstep Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45072,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant 2H Weapon - Minor Intellect",
+    "en": "Teaches you how to permanently enchant a two-handed weapon so it grants +2 intellect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45074,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Thorns Explosion",
+    "en": "Causes an explosion of thorns around the caster, dealing $s1 Nature damage to all enemy targets within $a1 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45080,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Power",
+    "en": "Increases your melee and ranged attack power by $s1 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45301,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Venomhide Poison",
+    "en": "Teaches Venhomide Poison.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45417,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Potent Venom",
+    "en": "Your melee and ranged attacks have a chance to inject poison into the target, dealing $45416o1 Nature damage over $45416d. Stacks up to $45416u times.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45450,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Smelt Dreamsteel",
+    "en": "Teaches you how to smelt Dreamsteel.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45452,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamthread",
+    "en": "Teaches you how to make Dreamthread.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45454,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dreamhide",
+    "en": "Teaches you how to craft Dreamhide.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45456,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamthread Mantle",
+    "en": "Teaches you how to sew a Dreamthread Mantle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45458,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamthread Kilt",
+    "en": "Teaches you how to sew a Dreamthread Kilt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45460,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamthread Bracers",
+    "en": "Teaches you how to sew a Dreamthread Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45462,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamthread Gloves",
+    "en": "Teaches you how to sew a Dreamthread Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45464,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dreamsteel Mantle",
+    "en": "Teaches you how to make Dreamsteel Mantle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45466,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dreamsteel Leggings",
+    "en": "Teaches you how to make Dreamsteel Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45468,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dreamsteel Bracers",
+    "en": "Teaches you how to make Dreamsteel Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45470,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dreamsteel Boots",
+    "en": "Teaches you how to make Dreamsteel Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45472,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamhide Mantle",
+    "en": "Teaches you how to craft a Dreamhide Mantle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45474,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamhide Bracers",
+    "en": "Teaches you how to craft a Dreamhide Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45476,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamhide Leggings",
+    "en": "Teaches you how to craft a Dreamhide Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45478,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamhide Belt",
+    "en": "Teaches you how to craft a Dreamhide Belt .",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45480,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Intricate Gyroscope Goggles",
+    "en": "Teaches you how to make Intricate Gyroscope Goggles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45482,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Inscribed Runic Bracers",
+    "en": "Teaches you how to craft Inscribed Runic Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45484,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Gloves of Unwinding Mystery",
+    "en": "Teaches you how to sew Gloves of Unwinding Mystery.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45486,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dawnstone Hammer",
+    "en": "Teaches you how to make a Dawnstone Hammer.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45488,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bow Specialization",
+    "en": "Teaches Bow Specialization.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45498,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Tiger's Blessing",
+    "en": "Gives a $h% chance when your melee attacks, harmful spells or abilities land to steal $45497s1 life from the target enemy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45500,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Totemic Slam",
+    "en": "Slams the target with your ancestral totem, dealing damage equal to $*10;m1% of your Attack Power and reducing their attack and casting speed by $51364s1% for $51364d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45501,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blood Plague",
+    "en": "Your damaging spells have a $h% chance to inflict the target with a disease, dealing $45499o1 Shadow damage over $45499d. Damage caused by the disease heals you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45562,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Proclaim Champion",
+    "en": "Proclaims a friendly target as your Champion for $45568d, reducing all damage taken by $45568s2% and increasing all resistances by $45568s3. Allows the use of various Champion spells on that target. In addition, you gain Mana equal to $45568s1% of the damage taken by your Champion. Only one Champion can be proclaimed at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45571,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow Mend",
+    "en": "Damages you for a portion of the healing done.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45629,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Le Fishe Au Chocolat",
+    "en": "Teaches you how to cook a delicious Le Fishe Au Chocolat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45630,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Gilneas Hot Stew",
+    "en": "Teaches you how to cook a mediocre Gilneas Hot Stew.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45651,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aspect of the Viper",
+    "en": "The hunter takes on the aspects of the viper, regenerating $s1% of maximum mana every $t1 sec.  Only one Aspect can be active at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45669,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Infernal Blade",
+    "en": "Attacks deal $45668s1% bonus Fire damage, engulfing the target in flames and dealing $45668o2 Fire damage over $45668d. Stacks up to $45668u times. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45705,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tree of Life Form Shapeshift",
+    "en": "Shapeshift into the Tree of Life.  While in this form armor contribution from items is inreased by $s3%, the healing power of nearby party members is increased by an amount equal to $45707s1% of your spirit, your movement speed is reduced by $45706s1%, and you cannot cast damaging spells or Healing Touch, but the mana cost of heal over time spells is reduced by 20%.\n\nThe act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45842,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bonus Healing",
+    "en": "If your target is below 50% health, your direct healing spells heal them for an additional $45841s1 health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45859,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fever Dream",
+    "en": "Gives a $h% chance when your helpful spells land to increase your casting speed by $45858s1 for $45858d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45863,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Faithful",
+    "en": "Your Consecration reduces damage taken by 2% for party members that are inside it.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45990,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Elixir of Greater Nature Power",
+    "en": "Teaches you how to make an Elixir of Greater Nature Power.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 45998,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ragers Unchained",
+    "en": "Slows the caster by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46000,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Mending Light Heal",
+    "en": "Increases healing of your Holy Strike by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46023,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Avoidance Passive",
+    "en": "Reduces the damage your pet takes from area of effect attacks by an additional $s1% and from physical chain attacks by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46024,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Avoidance Passive",
+    "en": "Reduces the damage your summoned demon takes from area of effect attacks by an additional $s1% and from physical chain attacks by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46029,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hair Dye",
+    "en": "Recolor your hair to the chosen shade.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46059,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Traveler's Tent",
+    "en": "Teaches how to create a Traveler's Tent.",
+    "curr_pt": ""
+  }
+]

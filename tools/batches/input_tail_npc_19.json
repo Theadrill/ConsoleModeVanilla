@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 41576,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Malachite Ring",
+    "en": "Teaches you how to craft a Malachite Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41578,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Marine's Demise",
+    "en": "Teaches you how to craft a Marine's Demise.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41580,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Serpent's Coil Staff",
+    "en": "Teaches you how to craft a Serpent's Coil Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41582,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Farraki Ceremony Totem",
+    "en": "Teaches you how to craft a Farraki Ceremony Totem.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41584,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sphinx's Wisdom Staff",
+    "en": "Teaches you how to craft a Sphinx's Wisdom Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41586,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gloomweed Bindings",
+    "en": "Teaches you how to craft a Gloomweed Bindings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41588,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crystal Earring",
+    "en": "Teaches you how to craft a Crystal Earring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41590,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Specter's Shade Ring",
+    "en": "Teaches you how to craft a Specter's Shade Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41600,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sharpened Citrine Gemstone",
+    "en": "Teaches you how to craft a Sharpened Citrine Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41602,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radiant Ember Gemstone",
+    "en": "Teaches you how to craft a Radiant Ember Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glowing Ruby Gemstone",
+    "en": "Teaches you how to craft a Glowing Ruby Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41606,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shimmering Aqua Gemstone",
+    "en": "Teaches you how to craft a Shimmering Aqua Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41608,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Azerothian Ruby Gemstone",
+    "en": "Teaches you how to craft a Azerothian Ruby Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41610,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gloomy Diamond Gemstone",
+    "en": "Teaches you how to craft a Gloomy Diamond Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41612,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flawless Black Gemstone",
+    "en": "Teaches you how to craft a Flawless Black Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41614,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Emerald Gemstone",
+    "en": "Teaches you how to craft a Arcane Emerald Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41616,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tempered Azerothian Gemstone",
+    "en": "Teaches you how to craft a Tempered Azerothian Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41618,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stunning Imperial Gemstone",
+    "en": "Teaches you how to craft a Stunning Imperial Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41620,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchanted Emerald Gemstone",
+    "en": "Teaches you how to craft a Enchanted Emerald Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41622,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pure Shining Moonstone",
+    "en": "Teaches you how to craft a Pure Shining Moonstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41624,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Beautiful Diamond Gemstone",
+    "en": "Teaches you how to craft a Beautiful Diamond Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41626,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pristine Crystal Gemstone",
+    "en": "Teaches you how to craft a Pristine Crystal Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41628,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gleaming Jade Gemstone",
+    "en": "Teaches you how to craft a Gleaming Jade Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41630,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illuminated Gemstone",
+    "en": "Teaches you how to craft a Illuminated Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41632,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Burning Star Gemstone",
+    "en": "Teaches you how to craft a Burning Star Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41634,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brilliant Opal Gemstone",
+    "en": "Teaches you how to craft a Brilliant Opal Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41636,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elegant Emerald Gemstone",
+    "en": "Teaches you how to craft a Elegant Emerald Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41638,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shining Sapphire Gemstone",
+    "en": "Teaches you how to craft a Shining Sapphire Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41640,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Unstable Arcane Gemstone",
+    "en": "Teaches you how to craft a Unstable Arcane Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41642,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glittering Sapphire Gemstone",
+    "en": "Teaches you how to craft a Glittering Sapphire Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41651,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Truesilver Belt Buckle",
+    "en": "Attaches a buckle to your belt that increase your healing power by 8.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41695,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shimmering Diamond Band",
+    "en": "Teaches you how to craft a Shimmering Diamond Band.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41697,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crown of Molten Ascension",
+    "en": "Teaches you how to craft a Crown of Molten Ascension.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41699,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Embergem Cuffs",
+    "en": "Teaches you how to craft a Embergem Cuffs.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41701,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blackwing Signet of Command",
+    "en": "Teaches you how to craft a Blackwing Signet of Command.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41703,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Talisman of Hinderance",
+    "en": "Teaches you how to craft a Talisman of Hinderance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41705,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastercrafted Diamond Crown",
+    "en": "Teaches you how to craft a Mastercrafted Diamond Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41707,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opalstone Circle",
+    "en": "Teaches you how to craft a Opalstone Circle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41709,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Deep Sapphire Circlet",
+    "en": "Teaches you how to craft a Deep Sapphire Circlet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41711,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Iron Signet Ring",
+    "en": "Teaches you how to craft a Dark Iron Signet Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41713,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opal Guided Bangles",
+    "en": "Teaches you how to craft a Opal Guided Bangles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41715,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crown of Elegance",
+    "en": "Teaches you how to craft a Crown of Elegance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41717,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ornate Mithril Bracelets",
+    "en": "Teaches you how to craft a Ornate Mithril Bracelets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41719,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Regal Twilight Staff",
+    "en": "Teaches you how to craft a Regal Twilight Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41721,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pendant of Instability",
+    "en": "Teaches you how to craft a Pendant of Instability.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41723,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ornament of Restraint",
+    "en": "Teaches you how to craft a Ornament of Restraint.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41725,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hydrathorn Bracers",
+    "en": "Teaches you how to craft a Hydrathorn Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41727,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blackrock Ironclamps",
+    "en": "Teaches you how to craft a Blackrock Ironclamps.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41729,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Monastery Emberbrace",
+    "en": "Teaches you how to craft a Monastery Emberbrace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41731,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowmoon Orb",
+    "en": "Teaches you how to craft a Shadowmoon Tome.",
+    "curr_pt": ""
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 36576,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Idol of Moonfang",
+    "en": "Moonfire, Savage Bite and Shred restore $36575s1 mana and $36575s2 health. This effect is doubled on a critical strike.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36577,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Increased Pet Damage and Health",
+    "en": "Increases your pet and enslaved demon's damage and health by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36578,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Engulfing Vortex",
+    "en": "Causes the caster to automatically inflict $s1 Nature damage every $t1 sec. to nearby enemies and reduces their chance to hit by $s2%. The aura lasts until cancelled.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36579,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Timberheart Dreamcatcher",
+    "en": "Creates Timberheart Dreamcatcher.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36580,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Timberheart Dreamcatcher",
+    "en": "Teaches you how to create Timberheart Dreamcatcher.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36582,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ceremonial Furbolg Pendant",
+    "en": "Teaches you how to craft a Ceremonial Furbolg Pendant.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36584,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Deeproot Sash",
+    "en": "Teaches you how to sew a Deeproot Sash.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36586,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Timberclaw Bracers",
+    "en": "Teaches you how to craft Timberclaw Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36588,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Witherhide Gloves",
+    "en": "Teaches you how to craft a Witherhide Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36590,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Mixologist Stone",
+    "en": "Teaches you how to make an Mixologist Stone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36592,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crystalized Topaz",
+    "en": "Teaches you how to craft a Crystalized Topaz.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36594,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Denwatcher",
+    "en": "Teaches you how to make Denwatcher.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36726,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sprout Sproutling",
+    "en": "Summons a Sproutling that will heal you for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36727,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sprout Sproutling Passive",
+    "en": "The initial healing from Regrowth has a $h% chance to sprout a plant that heals wounded allies for $36726d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36728,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arena Stealth",
+    "en": "Makes arena participants invisible to enemy team until battle begins.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36730,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blackwind Aura",
+    "en": "Increases attack speed of party members within $a1 yards.  Players may only have one Aura on them per Paladin at any one time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36732,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bloodguard Ritual",
+    "en": "Slows the caster's movement speed by $s2% but the damage it deals is increased by $s1% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36733,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Curse of the Deathtotem",
+    "en": "Reduces the Stamina and Spirit of nearby enemies by $s1 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36734,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Alchemist's Fire",
+    "en": "Burns the target for $36735o1 Fire damage over $36735d. When Alchemist's Fire expires, it deals $36736s1 Fire damage to the target and their allies within $36736a1 yards and applies Alchemist's Fire to them.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36736,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Alchemist's Fire",
+    "en": "Burns nearby allies for $s1 Fire damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36737,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Alchemist's Fire",
+    "en": "Spreads Alchemist's Fire to nearby allies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36738,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Adrenal Overload",
+    "en": "Increases attack speed by $s2%, but taking $s3 Physical damage every second.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36740,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Supercooled Body",
+    "en": "Reduces damage taken by $s2% and periodically dealing damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36741,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dissolution",
+    "en": "Dissolve into a living ooze, increasing Physical damage done by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36742,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sludge Bolt",
+    "en": "Shoots poison at an enemy, inflicting $s1 Nature damage, decreasing movement speed by $s2% and increasing Nature damage taken by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36744,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Internal Combustion",
+    "en": "Explodes dealing $s1 Fire damage to all enemies nearby and killing the caster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36746,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Experimental Potion",
+    "en": "Drink an experimental potion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36748,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Jungle Remedy",
+    "en": "Teaches how to create a Jungle Remedy",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36750,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spirited Precision Sickle",
+    "en": "Teaches how to create a Spirited Precision Sickle",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36752,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prospector’s Magnifying Lens",
+    "en": "Teaches how to create a Prospector’s Magnifying Lens",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36759,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spiral of Hellfire",
+    "en": "Envelops the target in a fiery swirl, causing them to take $36761s1 Fire damage every time they or any friendly target in $36760a1 yards takes damage for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36760,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spiral of Hellfire",
+    "en": "Envelops the target in a fiery swirl, causing them to take $36761s1 Fire damage every time they or any friendly target in $36760a1 yards takes damage for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36761,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spiral of Hellfire",
+    "en": "Blasts the caster for $s1 Fire damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36763,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nightmare Miasma",
+    "en": "While channeling this spell, nearby enemies take $36762s1 damage every second and an additional 150 if they are moving.  Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36775,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bundle of Simple Sticks",
+    "en": "Teaches how to create a Bundle of Simple Sticks.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36776,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crude Walking Stick",
+    "en": "Teaches how to create a Crude Walking Stick.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36777,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crude Machete",
+    "en": "Teaches how to create a Crude Machete.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36778,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crude Hatchet",
+    "en": "Teaches how to create a Crude Hatchet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36779,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crude Hunting Bow",
+    "en": "Teaches how to create a Crude Hunting Bow.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36780,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Copper Lantern",
+    "en": "Teaches how to create a Copper Lantern.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36781,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Simple Slingshot",
+    "en": "Teaches how to create a Simple Slingshot.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36782,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Simple Herbalist’s Backpack",
+    "en": "Teaches how to create a Simple Herbalist’s Backpack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36783,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Makeshift Rations Bag",
+    "en": "Teaches how to create a Makeshift Rations Bag.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36784,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Weak Healing Salve",
+    "en": "Teaches how to create a Weak Healing Salve.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36790,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Makeshift Knife",
+    "en": "Teaches how to create a Makeshift Knife.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36791,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gardening Gloves",
+    "en": "Teaches how to create a Gardening Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36792,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crude Fishing Rod",
+    "en": "Teaches how to create a Crude Fishing Rod.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36793,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hunting Spear",
+    "en": "Teaches how to create a Hunting Spear.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36794,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gardening Broom",
+    "en": "Teaches how to create a Gardening Broom.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36810,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nutritious Rations",
+    "en": "Teaches how to create Nutritious Rations.",
+    "curr_pt": ""
+  }
+]

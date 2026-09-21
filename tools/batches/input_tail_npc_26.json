@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 48607,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Infernal Beast",
+    "en": "Summons your Infernal Beast mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48608,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Moonwhisper Moth",
+    "en": "Summons your Moonwhisper Moth companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48609,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Winterspring Moth",
+    "en": "Summons your Winterspring Moth companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48610,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Azure Slitherer",
+    "en": "Summons your Azure Slitherer mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48611,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Olive Slitherer",
+    "en": "Summons your Olive Slitherer mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48612,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Orange Slitherer",
+    "en": "Summons your Orange Slitherer mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48613,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Celestial Construct",
+    "en": "Summons your Celestial Construct.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48614,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Abyssal Construct",
+    "en": "Summons your Abyssal Construct.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48615,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nimble Skitterer",
+    "en": "Summons your Nimble Skitterer companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48616,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frozen Skitterer",
+    "en": "Summons your Frozen Skitterer companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48617,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tropical Skitterer",
+    "en": "Summons your Tropical Skitterer companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48618,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fiery Skitterer",
+    "en": "Summons your Fiery Skitterer companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48619,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fel-Powered Chopper",
+    "en": "Summons your Fel-Powered Chopper mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48620,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Infernal Chopper",
+    "en": "Summons your Infernal Chopper mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48621,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Voidborne Chopper",
+    "en": "Summons your Voidborne Chopper mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48622,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Jade Slug",
+    "en": "Summons your Jade Slug companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48623,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crimson Slug",
+    "en": "Summons your Crimson Slug companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48624,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tanaris Alpaca",
+    "en": "Summons your Tanaris Alpaca mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48625,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sandy Alpaca",
+    "en": "Summons your Sandy Alpaca mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48626,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frosty Alpaca",
+    "en": "Summons your Frosty Alpaca mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48627,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nazjatar Shark",
+    "en": "Summons your Nazjatar Shark mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48628,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Northrend Moose",
+    "en": "Summons your Northrend Moose mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48629,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Festival Rocket",
+    "en": "Launches your Festival Rocket mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48630,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Polly",
+    "en": "Summons Polly, your loyal parrot.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48631,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lapidis Parrot",
+    "en": "Summons your Lapidis Parrot companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48632,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gillijim’s Parrot",
+    "en": "Summons your Gillijim’s Parrot companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48633,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tuskarr Ottuk",
+    "en": "Summons your Tuskarr Ottuk mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48634,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Icepoint Ottuk",
+    "en": "Summons your Icepoint Ottuk mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48635,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Snowstorm",
+    "en": "Summons your Snowstorm mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48636,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Riding Hound",
+    "en": "Summons your Dark Riding Hound mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48637,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brown Riding Hound",
+    "en": "Summons your Brown Riding Hound mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48638,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Snowy Riding Hound",
+    "en": "Summons your Snowy Riding Hound mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48639,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Feralas Chimaera",
+    "en": "Summons your Feralas Chimaera mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48640,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nordrassil Drake",
+    "en": "Summons your Nordrassil Drake mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48641,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lunar Serpent",
+    "en": "Summons your Lunar Serpent mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48642,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cloudy Red Panda",
+    "en": "Summons your Cloudy Red Panda companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48643,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sunset Red Panda",
+    "en": "Summons your Sunset Red Panda companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48644,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dreamy Red Panda",
+    "en": "Summons your Dreamy Red Panda companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48645,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mechano-Rex",
+    "en": "Summons your Mechano-Rex mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48646,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Voidborne Tiger",
+    "en": "Summons your Voidborne Tiger mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48647,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Infernal Steed",
+    "en": "Summons your Infernal Steed mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48648,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Skeletal Raptor",
+    "en": "Summons your Skeletal Raptor mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48649,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gnomeregan Chopper",
+    "en": "Summons your Gnomeregan Chopper mount.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48660,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spectral Steed",
+    "en": "The echo of a dream, made real.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48670,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lightforged Dragonhawk",
+    "en": "A radiant dragonhawk blessed by holy fire, its wings blaze with the unyielding light of the Lightforged.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48671,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lovely Lavender Squirrel",
+    "en": "This charming lavender-furred squirrel carries an air of whimsy, as if it wandered out of a dream.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48672,
+    "kind": "custom",
+    "need": "new",
+    "sample": "D.L.U. Gallycopter",
+    "en": "A quirky, whirring contraption that defies gravity with sputtering engines and questionable engineering.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48673,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lunar Flying Snake",
+    "en": "Gliding through the night sky, this serpentine creature shimmers with the quiet glow of moonlight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48674,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Moonwhisper Sporebat",
+    "en": "A gentle sporebat that drifts silently beneath the stars, scattering luminous spores in its wake.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48675,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Falstad's Lost Gryphon",
+    "en": "Once loyal to a famed rider, this gryphon now roams the skies in search of its long-lost master.",
+    "curr_pt": ""
+  }
+]

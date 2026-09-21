@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 23670,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Argent Boots",
+    "en": "Teaches you how to sew Argent Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23671,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Argent Shoulders",
+    "en": "Teaches you how to sew Argent Shoulders.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23672,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Flarecore Robe",
+    "en": "Teaches you how to sew a Flarecore Robe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23673,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Flarecore Leggings",
+    "en": "Teaches you how to sew Flarecore Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23674,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Test Eng Haste",
+    "en": "SO FAST!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23711,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Might of the Timbermaw",
+    "en": "Teaches you how to craft the Might of the Timbermaw.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23712,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dawn Treaders",
+    "en": "Teaches you how to craft Dawn Treaders.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23713,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Timbermaw Brawlers",
+    "en": "Teaches you how to craft Timbermaw Brawlers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23714,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Golden Mantle of the Dawn",
+    "en": "Teaches you how to craft a Golden Mantle of the Dawn.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23715,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Lava Belt",
+    "en": "Teaches you how to craft a Lava Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23716,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Chromatic Gauntlets",
+    "en": "Teaches you how to craft Chromatic Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23717,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Corehound Belt",
+    "en": "Teaches you how to craft a Corehound Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23718,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Molten Belt",
+    "en": "Teaches you how to craft a Molten Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23788,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Powerful Anti-Venom",
+    "en": "Teaches you how to make Powerful Anti-Venom.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23789,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stoneclaw Totem TEST",
+    "en": "Summons a Stoneclaw Totem TEST.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23805,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Weapon - Strength",
+    "en": "Teaches you how to permanently enchant a weapon to increase your strength by 15.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23806,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Weapon - Agility",
+    "en": "Teaches you how to permanently enchant a weapon to increase your agility by 15.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23807,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Mana Regeneration",
+    "en": "Teaches you how to permanently enchant a bracer to restore 4 mana every 5 seconds.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23808,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Healing",
+    "en": "Teaches you how to permanently enchant a bracer to increase the effects of healing spells by 24.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23809,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Weapon - Mighty Spirit",
+    "en": "Teaches you how to permanently enchant a weapon to increase your spirit by 20.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23810,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Weapon - Mighty Intellect",
+    "en": "Teaches you how to permanently enchant a weapon to increase your intellect by 22.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23863,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Revitalize",
+    "en": "Your melee attacks have a $h% chance to restore $44068s1 energy and increase your chance to dodge and melee attack speed by $44068s2% for $44068d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24094,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Bloodvine Vest",
+    "en": "Teaches you how to sew a Bloodvine Vest.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24095,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Bloodvine Leggings",
+    "en": "Teaches you how to sew Bloodvine Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24096,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Bloodvine Boots",
+    "en": "Teaches you how to sew Bloodvine Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24126,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Primal Batskin Jerkin",
+    "en": "Teaches you how to craft a Primal Batskin Jerkin.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24127,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Primal Batskin Gloves",
+    "en": "Teaches you how to craft Primal Batskin Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24128,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Primal Batskin Bracers",
+    "en": "Teaches you how to craft Primal Batskin Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24129,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Blood Tiger Breastplate",
+    "en": "Teaches you how to craft a Blood Tiger Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24130,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Blood Tiger Shoulders",
+    "en": "Teaches you how to craft a Blood Tiger Shoulders.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24142,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Bloodsoul Breastplate",
+    "en": "Teaches you how to make a Bloodsoul Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24143,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Bloodsoul Shoulders",
+    "en": "Teaches you how to make Bloodsoul Shoulders",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24144,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Bloodsoul Gauntlets",
+    "en": "Teaches you how to make Bloodsoul Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24145,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Darksoul Breastplate",
+    "en": "Teaches you how to make a Darksoul Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24146,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Darksoul Leggings",
+    "en": "Teaches you how to make Darksoul Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24147,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Darksoul Shoulders",
+    "en": "Teaches you how to make Darksoul Shoulders.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24358,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Bloodvine Goggles",
+    "en": "Teaches you how to make Bloodvine Goggles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24359,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Bloodvine Lens",
+    "en": "Teaches you how to make a Bloodvine Lens.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24369,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Mageblood Potion",
+    "en": "Teaches you how to make a Mageblood Potion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24370,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Greater Dreamless Sleep Potion",
+    "en": "Teaches you how to make a Greater Dreamless Sleep Potion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24372,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Living Action Potion",
+    "en": "Teaches you how to make a Living Action Potion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24373,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Major Troll's Blood Potion",
+    "en": "Teaches you how to make a Major Troll's Blood Potion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24393,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Test Strike",
+    "en": "457 Damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24400,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dark Iron Boots",
+    "en": "Teaches you how to make Dark Iron Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24419,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Heavy Crocilisk Stew",
+    "en": "Teaches you how to cook a Heavy Crocilisk Stew.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24531,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Refocus",
+    "en": "Instantly clears the cooldowns of Aimed Shot, Multi-Shot, Volley, Arcane Shot and Carve.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24704,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamscale Breastplate",
+    "en": "Teaches you how to craft a Dreamscale Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24855,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Spitfire Bracers",
+    "en": "Teaches you how to craft Spitfire Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24856,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Spitfire Gauntlets",
+    "en": "Teaches you how to craft Spitfire Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 24859,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Spitfire Breastplate",
+    "en": "Teaches you how to craft a Spitfire Breastplate.",
+    "curr_pt": ""
+  }
+]

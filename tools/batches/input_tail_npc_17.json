@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 41102,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ethereal Frostspark Crown",
+    "en": "Teaches you how to craft a Ethereal Frostspark Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41104,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pendant of Arcane Radiance",
+    "en": "Teaches you how to craft a Pendant of Arcane Radiance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41120,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Scalding Mineral Water",
+    "en": "Reduces damage done by $s1% and silences you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41121,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Flame of Shalk",
+    "en": "Unleashes a wave of flame, inflicting $s1 Fire damage periodically and reducing healing taken by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41197,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shaman Enhancement T3.5 3P Bonus",
+    "en": "Your melee attacks, Stormstrike and Lightning Strike have a $h% chance to trigger an empowered version of your active shield without expending a charge.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41199,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Restorative Totems",
+    "en": "Increases the effectiveness of Healing Stream Totem and Mana Spring Totem by $s1% and reduces their periodic timer by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41200,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Heavy Gritted Paper",
+    "en": "Teaches you how to craft a Heavy Gritted Paper.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41202,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Heavy Gemstone Cluster",
+    "en": "Teaches you how to craft a Heavy Gemstone Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41204,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Goldfire Crystal Bracelet",
+    "en": "Teaches you how to craft a Goldfire Crystal Bracelet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41206,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Quartz Halo",
+    "en": "Teaches you how to craft a Quartz Halo.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41208,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Staff of Blossomed Jade",
+    "en": "Teaches you how to craft a Staff of Blossomed Jade.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41210,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Jade Harmony Circlet",
+    "en": "Teaches you how to craft a Jade Harmony Circlet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41212,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Goldenshade Quartz Crown",
+    "en": "Teaches you how to craft a Goldenshade Quartz Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41214,
+    "kind": "custom",
+    "need": "new",
+    "sample": "The Golden Goblet",
+    "en": "Teaches you how to craft a The Golden Goblet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41216,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Powerful Citrine Pendant",
+    "en": "Teaches you how to craft a Powerful Citrine Pendant.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41218,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Mithril Ring",
+    "en": "Teaches you how to craft a Rough Mithril Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41220,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ironsun Citrine Ring",
+    "en": "Teaches you how to craft a Ironsun Citrine Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41222,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shimmering Gold Necklace",
+    "en": "Teaches you how to craft a Shimmering Gold Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41224,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ironbloom Ring",
+    "en": "Teaches you how to craft a Ironbloom Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41226,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ornate Mithril Scepter",
+    "en": "Teaches you how to craft a Ornate Mithril Scepter.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41228,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Solid Gritted Paper",
+    "en": "Teaches you how to craft a Solid Gritted Paper.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41230,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Minor Trollblood Ring",
+    "en": "Teaches you how to craft a Minor Trollblood Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41232,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Truesilver Ring",
+    "en": "Teaches you how to craft a Rough Truesilver Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41234,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Aquamarine Pendant",
+    "en": "Teaches you how to craft a Aquamarine Pendant.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41236,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Solid Gemstone Cluster",
+    "en": "Teaches you how to craft a Solid Gemstone Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41238,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Greater Binding Signet",
+    "en": "Teaches you how to craft a Greater Binding Signet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41240,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Royal Gemstone Staff",
+    "en": "Teaches you how to craft a Royal Gemstone Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41242,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Emberstone Idol",
+    "en": "Teaches you how to craft a Emberstone Idol.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41244,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Runed Truesilver Ring",
+    "en": "Teaches you how to craft a Runed Truesilver Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41246,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Small Pearl Ring",
+    "en": "Teaches you how to craft a Small Pearl Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41248,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bulky Copper Ring",
+    "en": "Teaches you how to craft a Bulky Copper Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41250,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blue Starfire",
+    "en": "Teaches you how to craft a Blue Starfire.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41252,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Emerald Monarch's Glow",
+    "en": "Teaches you how to craft a Emerald Monarch's Glow.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41254,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sapphire Luminescence",
+    "en": "Teaches you how to craft a Sapphire Luminescence.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41256,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcanum Baton",
+    "en": "Teaches you how to craft a Arcanum Baton.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41258,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcanum Baton",
+    "en": "Teaches you how to craft a Arcanum Baton.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41260,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sunburst Tiara",
+    "en": "Teaches you how to craft a Sunburst Tiara.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41262,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ocean's Gaze",
+    "en": "Teaches you how to craft a Ocean's Gaze.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41264,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Starry Thorium Band",
+    "en": "Teaches you how to craft a Starry Thorium Band.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41266,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ruby Ring of Ruin",
+    "en": "Teaches you how to craft a Ruby Ring of Ruin.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41268,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Encrusted Gemstone Ring",
+    "en": "Teaches you how to craft a Encrusted Gemstone Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41270,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pure Gold Ring",
+    "en": "Teaches you how to craft a Pure Gold Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41272,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Prism Amulet",
+    "en": "Teaches you how to craft a Prism Amulet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41274,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gemmed Citrine Pendant",
+    "en": "Teaches you how to craft a Gemmed Citrine Pendant.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41276,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Starforge Amulet",
+    "en": "Teaches you how to craft a Starforge Amulet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41278,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Voidheart Charm",
+    "en": "Teaches you how to craft a Voidheart Charm.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41280,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Runebound Amulet",
+    "en": "Teaches you how to craft a Runebound Amulet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41282,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Astral Amulet",
+    "en": "Teaches you how to craft a Astral Amulet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41284,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shimmering Moonstone Tablet",
+    "en": "Teaches you how to craft a Shimmering Moonstone Tablet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41286,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stormcloud Sigil",
+    "en": "Teaches you how to craft a Stormcloud Sigil.",
+    "curr_pt": ""
+  }
+]

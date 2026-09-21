@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 46061,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fishing Boat",
+    "en": "Teaches how to create a Fishing Boat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46063,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Simple Wooden Planter",
+    "en": "Teaches how to make a Simple Wooden Planner.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46065,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dim Torch",
+    "en": "Teaches how to create a Dim Torch.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46067,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Murloc's Flippers",
+    "en": "Teaches how to create a pair of Murloc's Flippers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46069,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cleaning Cloth",
+    "en": "Teaches how to create a Cleaning Cloth",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46076,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Iron Lantern",
+    "en": "Teaches how to create an Iron Lantern.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46078,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Repaired Electro-Lantern",
+    "en": "Teaches how to repair Electro-Lanterns.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46087,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Gloves - Major Strength",
+    "en": "Teaches you how to permanently enchant gloves to increase strength by 9.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Gurubashi Gumbo",
+    "en": "Teaches you how to cook Gurubashi Gumbo.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46101,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ancient Dwarven Gemstone",
+    "en": "Permanently enchant a ring or amulet to increase Spell Power by 3. Only usable on items level 25 and above.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46102,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elixir of Rapid Growth",
+    "en": "Increases Strength by $s1 for $d. Once the effect expires, the user will become affected by Rapid Deterioration, reducing their strength and stamina by $46103s1 for $46103d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46103,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rapid Deteroriation",
+    "en": "Decreases Strength and Stamina by $s1 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46104,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Strike",
+    "en": "Strike the target again for $s1 Shadow damage and $46106s1% of damage dealt is returned as healing for $46106d. The damage dealt is also done to you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46105,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Strike",
+    "en": "Deal Shadow damage to yourself.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46106,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadow's Embrace",
+    "en": "$s1% of damage dealt is returned as healing for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46110,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Core",
+    "en": "Increases damage dealt by Molten Blast by up to $s1. Improved Molten Blast deals additional damage equal to $s2% of the refreshed duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46111,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Seismic Strength",
+    "en": "Your next Earth Shock within $d deals $46115s1 additional damage to targets in a $46115a1 yards radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46112,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Seismic Strength Passive",
+    "en": "Earthquake causes your next Earth Shock within $46111d to cause $46115s1 additional damage to targets in a $46115a1 yards radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46113,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Blast Cast Time Reduction",
+    "en": "Molten Blast's cast time is reduced by 0.2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46114,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Earthquake",
+    "en": "Earthquake's broken earth lasts $/1000;S1 sec longer, and its aftershock deals $s2% increased damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46115,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Seismic Shock",
+    "en": "Inflicts $s1 Nature damage in a $a1 yard radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46321,
+    "kind": "custom",
+    "need": "new",
+    "sample": "[Deprecated] Baited Shot",
+    "en": "An instant shot that deals $s1% weapon damage and attaches bait to the target, causing them to take $s2% more damage from your pet. Your pet’s attacks generate $s3 Focus for $d. Can only be used after your pet critically strikes a target. Focus generation can only occur once every 2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46445,
+    "kind": "custom",
+    "need": "new",
+    "sample": "White Unicorn",
+    "en": "Graceful and elusive, this mount is cherished by the citizens of Quel'Thalas.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46450,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Twilight Unicorn",
+    "en": "Once a creature of starlight, now touched by shadow. The Twilight Unicorn walks a forgotten path.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46486,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nerubling",
+    "en": "Small but very swift, this tiny terror hurls itself into the fray, spinning chaos in its wake.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46518,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Magic Broom",
+    "en": "Perfect for spring cleaning, or just sweeping your problems under the rug!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46531,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cobalt Talbuk",
+    "en": "Despite their docile nature, talbuks have been known to gore seasoned warriors to death when threatened.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46532,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Black Talbuk",
+    "en": "A sleek, dark-colored steed.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46535,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Black Armored Talbuk",
+    "en": "Despite their docile nature, talbuks have been known to gore seasoned warriors to death when threatened.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46536,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cobalt Armored Talbuk",
+    "en": "Despite their docile nature, talbuks have been known to gore seasoned warriors to death when threatened.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46537,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spirit Worg",
+    "en": "The Spirit Worg, a fierce beast of the elements, controlled by the shaman’s power, stalking the wilds with relentless fury.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46539,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lovely Pink Talbuk",
+    "en": "What do you call a pink horse?",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Gloves - Arcane Power",
+    "en": "Teaches you how to permanently enchant gloves to increase the arcane damage done by spells and abilities by 20.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46605,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Gloves - Nature Power",
+    "en": "Teaches you how to permanently enchant gloves to increase the nature damage done by spells and abilities by 20.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46606,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Gloves - Holy Power",
+    "en": "Teaches you how to permanently enchant gloves to increase the holy damage done by spells and abilities by 20.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46607,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lordaeron Breastplate",
+    "en": "Teaches you how to make an Lordaeon Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46609,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hypertech Battery Pack",
+    "en": "Teaches you how to make a Hypertech Battery Pack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46611,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Battery-Powered Crowd Pummeler",
+    "en": "Teaches you how to make a Battery-Powered Crowd Pummeler and a Hypertech Battery Pack.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46613,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Remote Mail Terminal",
+    "en": "Teaches you how to make a Remote Mail Terminal.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46617,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Drums of Battle",
+    "en": "Teaches you how to make Drums of Battle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46855,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowflame Burst",
+    "en": "Burns the enemy for $s1 Fire damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46856,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowflame Explosion",
+    "en": "Causes an explosion of flames around the caster, causing $s1 Fire damage to all targets within $a1 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 46870,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Aquatic Form",
+    "en": "Increases the swim speed of your Aquatic Form by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47001,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cauldron of Major Arcane Protection",
+    "en": "Teaches you how to make a Cauldron of Major Arcane Protection.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47004,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cauldron of Major Fire Protection",
+    "en": "Teaches you how to make a Cauldron of Major Arcane Protection.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47007,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cauldron of Major Frost Protection",
+    "en": "Teaches you how to make a Cauldron of Major Arcane Protection.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47010,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cauldron of Major Shadow Protection",
+    "en": "Teaches you how to make a Cauldron of Major Arcane Protection.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47013,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cauldron of Major Nature Protection",
+    "en": "Teaches you how to make a Cauldron of Major Arcane Protection.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47100,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Survivalist's Skinning Knife",
+    "en": "Teaches how to create a Survivalist's Skinning Knife.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47102,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Driftwood Fishing Pole",
+    "en": "Teaches how to create a Driftwood Fishing Pole.",
+    "curr_pt": ""
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 36904,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Grandstaff of the Shen'dralar Elder",
+    "en": "Teaches you how to make a Grandstaff of the Shen'dralar Elder.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36906,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Rune-Inscribed Plate Leggings",
+    "en": "Teaches you how to make Rune-Inscribed Plate Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36908,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Essence Infused Leather Gloves",
+    "en": "Teaches you how to make Essence Infused Leather Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36910,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Prismatic Scale Barbute",
+    "en": "Teaches you how to make Prismatic Scale Barbute.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36912,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Astronomer Raiments",
+    "en": "Teaches you how to make Astronomer Raiments.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36914,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Spellwoven Nobility Drape",
+    "en": "Teaches you how to make a Spellwoven Nobility Drape.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36928,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concoction of the Emerald Mongoose",
+    "en": "Increases spell damage and healing power by up to $s1, Agility by $s2, and physical and spell critical strike chance by $s3% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36930,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Concoction of the Emerald Mongoose",
+    "en": "Teaches you how to make a Concoction of the Emerald Mongoose.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36931,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concoction of the Arcane Giant",
+    "en": "Increases spell damage by up to $s1 and Strength by $s2 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36933,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Concoction of the Arcane Giant",
+    "en": "Teaches you how to make a Concoction of the Arcane Giant.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36934,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concoction of the Dreamwater",
+    "en": "Increases spell damage by up to $s1 and melee attack power by $s2 for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36936,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Concoction of the Dreamwater",
+    "en": "Teaches you how to make a Concoction of the Dreamwater.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36941,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rift Tear",
+    "en": "Causes an explosion of arcane magic around the caster, dealing $s1 Arcane damage to all targets within $a1 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36942,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchant Weapon - Rift Tear",
+    "en": "Permanently enchants a weapon to sometimes deal $36941s1 Arcane damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36943,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Weapon - Rift Tear",
+    "en": "Teaches you how to permanently enchant a weapon to sometimes deal $36941s1 Arcane damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36944,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ranged Crit Bonus +2",
+    "en": "Increases your chance to crit with a missile weapon by 2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36945,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Facetted Crystal Scope",
+    "en": "Attaches a permanent scope to a bow or gun that increases its chance to crit by 2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36947,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Facetted Crystal Scope",
+    "en": "Teaches you how to make a Facetted Crystal Scope .",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36949,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Bulwark of Unshaken Earth",
+    "en": "Teaches you how to make Bulwark of Unshaken Earth.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 36999,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Honeycomb Delight",
+    "en": "Teaches you how to prepare a Honeycomb Delight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37000,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Webwood Hatchling",
+    "en": "A nimble forest crawler, weaving small webs among the leaves to catch morning dew.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37001,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wildthorn Hatchling",
+    "en": "Silent and watchful, this spiderling moves carefully through the thorns, ever curious.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37002,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lava Hatchling",
+    "en": "Born of flame and stone, its glowing legs light the darkest caves with a gentle warmth.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37003,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tarantula Hatchling",
+    "en": "Bright and quick, it darts through sunlit groves, weaving webs as fine as silk.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37004,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Timberweb Hatchling",
+    "en": "This shy recluse spins intricate webs among fallen timber, blending with the forest floor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37005,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mistbark Hatchling",
+    "en": "This little spiderling wishes to weave its own web across the forests of Balor one day.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37006,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Skitterweb Hatchling",
+    "en": "Dormant arcane energies cause the harmless kitchen spiders to grow to monstrous sizes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37007,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Black Widow Hatchling",
+    "en": "They may not look like much, but their bite leaves a nasty mark. Luckily their poison is still weak.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37008,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Night Web Hatchling",
+    "en": "The Night Web spiders adapted and learned how to survive in the cursed stretches of the Tirisfal Glades.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37009,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cavernweb Hatchling",
+    "en": "Native to the mines beneath Grim Batol, this hatchling escaped the dark magic of the Dragonmaw sorcerers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37010,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Razzashi Hatchling",
+    "en": "Blessed by Shadra herself, this brood is known for their especially potent venom.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37011,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Araxxna's Hatchling",
+    "en": "Broodmother Araxxna gave birth to many eight-legged horrors - and this eight-legged sweetie.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37012,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Maexxna's Hatchling",
+    "en": "One of the few rare hatchlings of Maexxna, this little one feasts on corpses just like its mother.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37013,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Darkmist Hatchling",
+    "en": "The infamous Darkmist netting is strong enough to web even an ogre. This one, however, can at most catch a rat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37014,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Magus Alfred Wartbeard",
+    "en": "One moment, I was reading this ancient scroll... the next? Flies. So many flies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37020,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Son of Mergothid",
+    "en": "Like father, like son.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37021,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Swamp Crocolisk Hatchling",
+    "en": "As hungry as the big ones.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37022,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Marsh Crocolisk Hatchling",
+    "en": "As hungry as the big ones.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37023,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dust Crocolisk Hatchling",
+    "en": "As hungry as the big ones.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37024,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Baby Moonwhisper Elekk",
+    "en": "Young elekks are a rare sight these days, yet some remain in the forgotten lands of Moonwhisper Coast.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37025,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Baby Ashenvale Elekk",
+    "en": "Young elekks are a rare sight these days, yet some remain in the enchanted lands of Ashenvale.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37026,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Baby Azshara Elekk",
+    "en": "Young elekks are a rare sight these days, yet some remain in the haunted lands of Azshara.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37027,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hawkstrider Hatchling",
+    "en": "Miraculously saved from Quel'Thalas.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37028,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tamed Skunk",
+    "en": "Stinks.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37029,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wolpertinger",
+    "en": "Not even the wisest druids know what a Wolpentinger is. It's best not to dwell on this question.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37030,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Portable Zeppelin Prototype",
+    "en": "Property of DLU.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37050,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Potato Fairy",
+    "en": "The rotund body of this amphibian had you fooled for just a second. It was no yam after all!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37051,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Berry Squirrel",
+    "en": "With a mouth full of berries, this critter got caught feasting on your plentiful harvest.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37052,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pumpkin Marmot",
+    "en": "A bite strong enough to shred the thick pumpkin shell. Terrifying on its own.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37053,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sand Hare",
+    "en": "Its brown fur helps it camouflage seemlessly with the sandy ground.",
+    "curr_pt": ""
+  }
+]

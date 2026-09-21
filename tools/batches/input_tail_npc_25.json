@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 47247,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dragonscale Leggings",
+    "en": "Teaches you how to make Dragonscale Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47248,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Primalist's Gloves",
+    "en": "Teaches you how to make Primalist's Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47249,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Primalist's Shoulders",
+    "en": "Teaches you how to make Primalist's Shoulders.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47250,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Primalist's Headdress",
+    "en": "Teaches you how to make Primalist's Headdress.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47251,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Primalist's Pants",
+    "en": "Teaches you how to make Primalist's Pants.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47252,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Primalist's Vest",
+    "en": "Teaches you how to make Primalist's Vest.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47253,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Primalist's Boots",
+    "en": "Teaches you how to make Primalist's Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47254,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune-Etched Greaves",
+    "en": "Teaches you how to make Rune-Etched Greaves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47255,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune-Etched Legplates",
+    "en": "Teaches you how to make Rune-Etched Legplates.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47256,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune-Etched Breastplate",
+    "en": "Teaches you how to make Rune-Etched Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47257,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune-Etched Crown",
+    "en": "Teaches you how to make Rune-Etched Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47258,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune-Etched Mantle",
+    "en": "Teaches you how to make Rune-Etched Mantle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47259,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rune-Etched Grips",
+    "en": "Teaches you how to make Rune-Etched Grips.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47260,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Portable Wormhole Generator - Stormwind",
+    "en": "Teaches you how to make a Portable Wormhole Generator - Stormwind.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47261,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Portable Wormhole Generator - Orgrimmar",
+    "en": "Teaches you how to make Schematic: Portable Wormhole Generator - Orgrimmar.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47300,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ritual of Souls",
+    "en": "Teaches Ritual of Souls.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47302,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Demon Portal",
+    "en": "Teaches Demon Gate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47305,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ritual of Refreshment",
+    "en": "Teaches Ritual of Refreshment.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47309,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Avoidance",
+    "en": "Teaches Avoidance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47310,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Avoidance",
+    "en": "Teaches Avoidance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47330,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Verdant Dreamer's Breastplate",
+    "en": "Teaches you how to make Verdant Dreamer's Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47331,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hateforge Helmet",
+    "en": "Teaches you how to make Hateforge Helmet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47332,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hateforge Curiass",
+    "en": "Teaches you how to make Hateforge Curiass.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47333,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hateforge Leggings",
+    "en": "Teaches you how to make Hateforge Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47334,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hateforge Belt",
+    "en": "Teaches you how to make Hateforge Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47335,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hateforge Grips",
+    "en": "Teaches you how to make Hateforge Grips.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47336,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hateforge Boots",
+    "en": "Teaches you how to make Hateforge Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47356,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Bleeds",
+    "en": "Reduces the time between periodic ticks and the duration of Rake and Rip by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47357,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Calming River",
+    "en": "Water Shield grants an additional $s1 mana per 5 sec while active. In addition, mana restored when Water Shield is triggered by attacks is increased by $s2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47374,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crushing Slam",
+    "en": "Reduces an enemy's armor by $s1% and stuns them for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47375,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Bulwark",
+    "en": "Reduces all damage taken by $s2% and deals $s1 Fire damage to melee attackers when struck for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47379,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reshift Shapeshift",
+    "en": "Cancels and reapplies the current shapeshift form.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47381,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Protector's Vigilance",
+    "en": "Reduces all damage taken by $s1% for allies within $a1 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47382,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shield Slam",
+    "en": "Slam the target with your shield, causing $s2 damage and dispelling $s1 magic effect on the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47389,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wildfire",
+    "en": "Fans the flames on the enemy, dealing $o1 Fire damage over $d. This effect attempts to spread to an ally within 10 yards whenever it deals damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47403,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Throw Glaive",
+    "en": "Throws a glaive at the target, knocking them back, reducing all healing taken by $s3%, and dealing $o2 damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47404,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Commanding Shout",
+    "en": "Shout so loudly that you injure nearby enemies and interrupt all spell casting.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47406,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Searing Chains",
+    "en": "Reduces the target's movement speed by $s1% and causes them to take $s2 damage every $t2 seconds.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48000,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lifebinding",
+    "en": "Your direct healing spells have a chance to heal your target for 240 over 12 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48003,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Burning Hatred",
+    "en": "Gives a chance when your harmful spells land to deal $48048s2 Fire damage while sacrificing $48048s2 health.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48004,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dream's Herald",
+    "en": "Blasts all targets in front of you with debilitating poison gas, dealing $o1 Nature damage over $d, reducing attack and movement speed by 20%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48049,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lacerate",
+    "en": "Deepens the target's open wound, dealing damage equal to $s1% of melee Attack Power and causing the target to bleed for $48050s1% of that damage over $48050d. Can only be used after critically striking the target. Using this ability from the target's sides increases its damage by 15%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48050,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lacerate",
+    "en": "Bbleeds the target for $s1% of the damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48600,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frosty Hedgehog",
+    "en": "Placeholder",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48601,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Northwind Hedgehog",
+    "en": "Summons your Northwind Hedgehog companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48602,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frosty Vulpen",
+    "en": "Summons your Frosty Vulpen companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48603,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crimson Vulpen",
+    "en": "Summons your Crimson Vulpen companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Emerald Vulpen",
+    "en": "Summons your Emerald Vulpen companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48605,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Vulpen",
+    "en": "Summons your Arcane Vulpen companion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 48606,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Son of Deathwing",
+    "en": "Summons your Son of Deathwing mount.",
+    "curr_pt": ""
+  }
+]

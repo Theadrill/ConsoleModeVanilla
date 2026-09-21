@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 37054,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Verdant Melon Muncher",
+    "en": "This merciless melon demolisher is a menace for all aspiring gardeners.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37055,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wild Autumn Owl",
+    "en": "These grapes must pack a punch, if this little owl had feasted on them so viciously.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37056,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Living Mushroom",
+    "en": "This mushroom is moving on its own! Just what are they putting in that Spring Water…?",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37057,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Swiftstar",
+    "en": "Already matured, yet still somehow miniscule. Going fast and strong nevertheless.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37058,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grumbles",
+    "en": "Angry and all out of honey. Not a good combination.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37059,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Whitebranch",
+    "en": "Creaks and cracks with every move.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37060,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rufflebeak",
+    "en": "It wants to aggressively peck at your feet. A true killing machine is about to be let loose.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37061,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wood Constrictor",
+    "en": "You almost mistook this serpent for a twig! Luckily your keen eye caught the difference before your axe could.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37062,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Yellow Wasp",
+    "en": "The steady buzzing of this insect could drive a short-tempered to insanity.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37063,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dung Beetle",
+    "en": "Comes with bite sized candy. Experts advise against eating them.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37064,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reclusive Spider",
+    "en": "Just a simple touch and it scurries back into your pocket.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37065,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Darkfeather Owl",
+    "en": "Curious and chatty, at night and at day. You wonder how it survived for so long on its own.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37066,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadewing Bat",
+    "en": "This bat has no visible eyes, yet can maneuver effortlessly through the air.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37067,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tropical Monkey",
+    "en": "Simian real estate is scarce in today's times, especially with people chopping trees left and right. You wouldn't leave this little fellow all alone, would you?",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37068,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vibrant Parrot",
+    "en": "It is well known that the buccaneers of the South Seas keep parrots as their companions, but not many know that there are educated trainers preparing them for long days at sea.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37069,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sludge Ooze",
+    "en": "A sluggish gelatinous wanderer, feeding on rot and leaving a glistening trail of decay behind.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37070,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Starsilk Moth",
+    "en": "The silk of this moth glitters in the moonlight like a curtain of endless stars.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37071,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Toothy",
+    "en": "Some of the Sawtooth offspring have found their way into the care of the Sanv Tribe, now being trained to be protectors of the Harborage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37072,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Palatinate Pebble",
+    "en": "It speaks in an alien language.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37075,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Totem of Corruption",
+    "en": "Summons a Totem of Corruption that has $s1 health and lasts $d.  The totem pulsates $37074s1 Shadow damage to enemies within $37074a1 yd.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37077,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rotten Earth Shock",
+    "en": "Instantly shocks the target with concussive force, causing $s1 Nature damage.  It also interrupts spellcasting and prevents any spell in that school from being cast for $d. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37078,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nightmare Fire",
+    "en": "Reduces an enemy's armor by $s1% and increases their threat by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37079,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brutalizing Thrash",
+    "en": "Violantly thrash at nearby enemies, dealing $s1 Physical damage and reducing their movement speed by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37081,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mind-Shattering Rumble",
+    "en": "Let out a distorted roar, interrupting all spell casts and causing all healing spells to deal Damage instead for $d within $a1 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37086,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Possess",
+    "en": "Takes control of a humanoid enemy up to level $s1 for $d, increasing its movement speed by $s2% and decreasing damage taken by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37087,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Roar of Terror",
+    "en": "The caster lets out a psychic scream, causing enemies within $a1 yards to flee and take $o3 damage for $d. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Presence of the Wild God",
+    "en": "Grants immunity to all damage and spells, but stuns the caster for the duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37090,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gaze into the Void",
+    "en": "Drains $s1 mana from a target. For each mana drained in this way, the target takes 2 Shadow damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37091,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Corrupted Sweep",
+    "en": "Targets in a $a1 yard cone in front of the caster take $s1 Shadow damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37092,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mind-Shattering Rumble",
+    "en": "Interrupts spell casts within a $a1 yard radius and locks out the school for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37093,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Permanent Taunt",
+    "en": "Permanently taunts the target to attack you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37094,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blackmouth Fishing Trap",
+    "en": "Sets up a wooden fishing trap. This trap lures in Oily Blackmouths when used near an associated fishing pool and despawns the pool.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37095,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Firefin Fishing Trap",
+    "en": "Sets up a wooden fishing trap. This trap lures in Firefin Snappers when used near an associated fishing pool and despawns the pool.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37096,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stonescale Fishing Trap",
+    "en": "Sets up a wooden fishing trap. This trap lures in Stonescale Eels when used near an associated fishing pool and despawns the pool.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37097,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Find Fish",
+    "en": "Teaches Find Fish, allowing you to track schools of fish.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37098,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bundle of Beads",
+    "en": "Channel the energy in the beads.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 37099,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthquake",
+    "en": "Creates an Earthquake visual.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40700,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rented Palomino Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40701,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rented White Stallion Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40702,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rented Dire Wolf Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40703,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rented Timber Wolf Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40704,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Red Rented Skeletal Horse Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40705,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blue Rented Skeletal Horse Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40706,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brown Rented Skeletal Horse Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40707,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brown Rented Ram Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40708,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gray Rented Ram Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40709,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brown Rented Kodo Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40710,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gray Rented Kodo Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40711,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rented Thalassian Unicorn Rented Mount",
+    "en": "Summons a barely willing mount, increasing movement speed by 40%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 40712,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sweep",
+    "en": "Causes the caster's melee attacks to cleave nearby targets.",
+    "curr_pt": ""
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 50911,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Prismatic Dragonkin Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50912,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Chromatic Dragonkin Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50913,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Infinite Dragonkin Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50914,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Bronze Dragonkin Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50915,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Blue Dragonkin Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50916,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Murloc Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50917,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Gilnean Worgen Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50918,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Zombie Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50919,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Ghoul Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50920,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Scourge Mage Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50921,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Incubus Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 50931,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Daybreak",
+    "en": "Heals you for $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51013,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Faster Bleeds 5 (Druid)",
+    "en": "Reduces the time between periodic ticks and the duration of your class-specific bleed effects $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51017,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Idol of Laceration",
+    "en": "Your finishing moves have a $b1% chance per combo point to cause your next Shred to refund $52343s1 Energy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51022,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Loop of Infused Renewal",
+    "en": "Your magical heals have a chance to trigger a bonus healing effect.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51050,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nullified",
+    "en": "Reduces damage dealt by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51051,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nullified Passive",
+    "en": "When struck by a harmful spell, the caster of that spell has a $h% chance to deal $51050s1% reduced damage for $51050d. Only affects targets of level $51050v or lower.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51061,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Uncontained Magic Passive",
+    "en": "Gives a chance when your harmful spells land to increase the damage of your spells and effects by up to $51060s1 for $51060d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51068,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Adrift Strikes",
+    "en": "Your melee attacks have a $h% chance to strike an additional nearby enemy. This effect is disabled while shapeshifted and can only trigger once every 5 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51076,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Draenor's Blessing Passive",
+    "en": "Gives a $h% chance when your helpful spells land to increase your target's health by $51075s1 for $51075d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51107,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Prison",
+    "en": "Stuns the target, dealing $s2 damage and draining $s3 mana per sec for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51130,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Accursed Remains",
+    "en": "Gives a $h% chance when your harmful spells land to reawaken the Lost for $51129d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51146,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shieldrender Talisman Passive",
+    "en": "Your physical attacks have a chance to cause your next $51145n physical attacks to ignore armor. Lasts $51145d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51271,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wisdom of the Mak'aru",
+    "en": "Becomes enlightened upon reaching $u stacks.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51272,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Wisdom of the Mak'aru Passive",
+    "en": "Gives a $h% chance when your harmful spells land to grant you Wisdom of the Mak'aru. Upon gaining Wisdom of the Mak'aru $51271u times, you enter an enlightened state, increasing casting speed by $51270s1% for $51270d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51276,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Freezing Cold Passive",
+    "en": "Your landing attacks and harmful spells have a $h% and 10% chance respectively to freeze the target, increasing its Fire damage taken by $51275s1% for $51275d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51287,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthstomp",
+    "en": "Damages all nearby enemies for $s1 physical damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51290,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthquake",
+    "en": "Inflicts $s1 damage to nearby enemies and slows their movement speed by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51301,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Savory Fishing Lure",
+    "en": "When applied to your fishing pole, increases Fishing by $8085s1 for $/60;s1 minutes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51323,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Daybreak",
+    "en": "Critically healing an ally applies Daybreak for $51322d. When the ally takes damage, Daybreak is consumed to heal them for $50931s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51363,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spirit Link",
+    "en": "Links the spirit of an ally to that of other group members within 35 yards. When the target takes damage, $s1% is distributed among nearby allies. Lasts $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51389,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Simple Fishing Lure",
+    "en": "When applied to your fishing pole, increases Fishing by $8083s1 for $/60;s1 minutes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51390,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spicy Fishing Lure",
+    "en": "When applied to your fishing pole, increases Fishing by $8084s1 for $/60;s1 minutes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51397,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Efflorescence Passive",
+    "en": "Any time your Regrowth or Rejuvenation effects are replaced by another Druid, they instantly heal for $s1% of their remaining value.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51442,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nature Eclipse",
+    "en": "Increases damage done by Nature spells for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51443,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Eclipse",
+    "en": "Increases damage done by Arcane spells for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51444,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Eclipse",
+    "en": "Aligns natural and astral energies. Damage from Wrath has a $51444h% chance to grant Arcane Eclipse, increasing Arcane damage dealt. Damage from Starfire has a $51445h% chance to grant Nature Eclipse, increasing Nature damage dealt.\n\nThe damage bonus is $51443s1% plus $s1% of your spell critical strike chance. Each effect lasts $51443d and has its own 30 sec cooldown. Only one Eclipse can be active at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51445,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Eclipse (Arcane)",
+    "en": "Aligns natural and astral energies. Damage from Wrath has a $51444h% chance to grant Arcane Eclipse, increasing Arcane damage dealt. Damage from Starfire has a $51445h% chance to grant Nature Eclipse, increasing Nature damage dealt. The damage bonus is $51443s1% plus $s1% of your spell critical strike chance. Each effect lasts $51443d and has its own 30 sec cooldown. Only one Eclipse can be active at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51476,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enlighten",
+    "en": "Bring a party member under your tutelage for $d. Whenever you cast a Discipline or Holy spell, you have a $51475h% chance with helpful spells, or 15% chance with harmful spells, to burn them for $51474s1% of their total health as Holy damage and increase both your and their spell damage and healing by $51472s1% for $51472d.  If cast on yourself, the spell damage and healing bonus is increased to $51473s1%.  Only one party member can be under your tutelage at a time.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51694,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spellstone",
+    "en": "Removes all magic effects from the caster and absorbs up to $s2 magic damage for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51714,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Power Overwhelming",
+    "en": "Channel energy into your demon, breaking all crowd control effects and increasing its damage dealt by $s2% for $d. The demon takes $o3% of its base health as damage over the duration.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51755,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Premium Fishing Lure",
+    "en": "When applied to your fishing pole, increases Fishing by $51388s1 for $/60;s1 minutes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51796,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Oracle's Insight Passive",
+    "en": "Your Chastise increases damage and healing done by magical spells and effects by up to $52966s1, and reduces the mana cost of Smite and Holy Fire by $52966s2% for $52966d. Grants $52966u stacks when Chastise critically strikes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51797,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spiritual Elevation Passive",
+    "en": "When Heal or Greater Heal critically heals, your Spirit increases by $52919s1 for $52919d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51798,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Lightwell",
+    "en": "Increases the radius of your Lightwell's Splendor of Light by $s1 yards and the number of charges by $s2.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51805,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Holy Radiance Passive",
+    "en": "Gives the Paladin a $h% chance on each melee hit to burst with Holy radiance, dealing an additional $51804s1 Holy damage to the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51813,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Protective Light",
+    "en": "Reduces damage taken from all sources by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51818,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Judgement Righteous Command 1",
+    "en": "Increases the damage of Judgement of Righteousness and Judgement of Command by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51819,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Improved Judgement Righteous Command 2",
+    "en": "Increases the damage of Judgement of Righteousness and Judgement of Command by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 51834,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crusade Passive",
+    "en": "Your melee attacks and abilities have a $h% chance to begin a Crusade, increasing the attack speed of your party members by $51833s1% for $51833d.",
+    "curr_pt": ""
+  }
+]

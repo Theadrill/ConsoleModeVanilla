@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 41000,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bright Copper Ring",
+    "en": "Teaches you how to craft a Bright Copper Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41002,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Malachite Ring",
+    "en": "Teaches you how to craft a Malachite Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41004,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sturdy Copper Ring",
+    "en": "Teaches you how to craft a Sturdy Copper Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41006,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Inlaid Copper Ring",
+    "en": "Teaches you how to craft a Inlaid Copper Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41008,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Copper Staff",
+    "en": "Teaches you how to craft a Copper Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41010,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Encrusted Copper Bangle",
+    "en": "Teaches you how to craft a Encrusted Copper Bangle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41012,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lesser Fortification Ring",
+    "en": "Teaches you how to craft a Lesser Fortification Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41014,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tigercrest Ring",
+    "en": "Teaches you how to craft a Tigercrest Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41016,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Small Pearlstone Staff",
+    "en": "Teaches you how to craft a Small Pearlstone Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41018,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Amber Ring",
+    "en": "Teaches you how to craft a Amber Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41020,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Azure Ring",
+    "en": "Teaches you how to craft a Azure Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41022,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bright Copper Necklace",
+    "en": "Teaches you how to craft a Bright Copper Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41024,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Softglow Ring",
+    "en": "Teaches you how to craft a Softglow Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41026,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Topaz Studded Ring",
+    "en": "Teaches you how to craft a Topaz Studded Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41028,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Coarse Gritted Paper",
+    "en": "Teaches you how to craft a Coarse Gritted Paper.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41030,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Gemstone Cluster",
+    "en": "Teaches you how to craft a Rough Gemstone Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41032,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Lavish Gemmed Necklace",
+    "en": "Teaches you how to craft a Lavish Gemmed Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41034,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Amberstone Pendant",
+    "en": "Teaches you how to craft a Amberstone Pendant.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41036,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Deepmist Choker",
+    "en": "Teaches you how to craft a Deepmist Choker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41038,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Bronze Ring",
+    "en": "Teaches you how to craft a Rough Bronze Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41040,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shimmering Bronze Ring",
+    "en": "Teaches you how to craft a Shimmering Bronze Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41042,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Amber Orb",
+    "en": "Teaches you how to craft a Amber Orb.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41044,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Encrusted Bronze Staff",
+    "en": "Teaches you how to craft a Encrusted Bronze Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41046,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Earthrock Loop",
+    "en": "Teaches you how to craft a Earthrock Loop.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41048,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bronze Cuffed Bangles",
+    "en": "Teaches you how to craft a Bronze Cuffed Bangles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41050,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowgem Band",
+    "en": "Teaches you how to craft a Shadowgem Band.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41052,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bronze Scepter",
+    "en": "Teaches you how to craft a Bronze Scepter.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41054,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pendant of Midnight",
+    "en": "Teaches you how to craft a Pendant of Midnight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41056,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Agatestone Crown",
+    "en": "Teaches you how to craft a Agatestone Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41058,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Moonlight Staff",
+    "en": "Teaches you how to craft a Moonlight Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41060,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Binding Signet",
+    "en": "Teaches you how to craft a Binding Signet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41062,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchanted Bracelets",
+    "en": "Teaches you how to craft a Enchanted Bracelets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41064,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Coarse Gemstone Cluster",
+    "en": "Teaches you how to craft a Coarse Gemstone Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41066,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Silver Ring",
+    "en": "Teaches you how to craft a Rough Silver Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41068,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Silver Medallion",
+    "en": "Teaches you how to craft a Silver Medallion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41070,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ring of Purified Silver",
+    "en": "Teaches you how to craft a Ring of Purified Silver.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41072,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Jewelry Lens",
+    "en": "Teaches you how to craft a Jewelry Lens.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41074,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Jewelry Scope",
+    "en": "Teaches you how to craft a Jewelry Scope.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41076,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Precision Jewelry Kit",
+    "en": "Teaches you how to craft a Precision Jewelry Kit.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41080,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Iron Ring",
+    "en": "Teaches you how to craft a Rough Iron Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41082,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Gold Ring",
+    "en": "Teaches you how to craft a Rough Gold Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41084,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Emberstone Studded Ring",
+    "en": "Teaches you how to craft a Emberstone Studded Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41086,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rough Thorium Ring",
+    "en": "Teaches you how to craft a Rough Thorium Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mithril Blackstone Necklace",
+    "en": "Teaches you how to craft a Mithril Blackstone Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41090,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dense Gritted Paper",
+    "en": "Teaches you how to craft a Dense Gritted Paper.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41092,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radiant Thorium Twilight",
+    "en": "Teaches you how to craft a Radiant Thorium Twilight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41094,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Glyph Codex",
+    "en": "Teaches you how to craft a Glyph Codex.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41096,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spellweaver Rod",
+    "en": "Teaches you how to craft a Spellweaver Rod.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41098,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Quicksilver Whirl",
+    "en": "Teaches you how to craft a Quicksilver Whirl.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41100,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crystalweft Bracers",
+    "en": "Teaches you how to craft a Crystalweft Bracers.",
+    "curr_pt": ""
+  }
+]

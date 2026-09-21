@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 41302,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Massive Jewel Circlet",
+    "en": "Teaches you how to craft a Massive Jewel Circlet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41304,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Golden Scepter of Authority",
+    "en": "Teaches you how to craft a Golden Scepter of Authority.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41306,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gemkeeper's Folio",
+    "en": "Teaches you how to craft a Gemkeeper's Folio.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41308,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stellar Ruby Ring",
+    "en": "Teaches you how to craft a Stellar Ruby Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41310,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stellar Gemguards",
+    "en": "Teaches you how to craft a Stellar Gemguards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41312,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Garnet Guardian Staff",
+    "en": "Teaches you how to craft a Garnet Guardian Staff.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41314,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Moonlit Charm",
+    "en": "Teaches you how to craft a Moonlit Charm.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41316,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Twilight Opal Cascade",
+    "en": "Teaches you how to craft a Twilight Opal Cascade.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41320,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gleaming Chain",
+    "en": "Teaches you how to craft a Gleaming Chain.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41322,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Talisman of Stone",
+    "en": "Teaches you how to craft a Talisman of Stone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41324,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Medallion of Flame",
+    "en": "Teaches you how to craft a Medallion of Flame.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41326,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gleaming Silver Necklace",
+    "en": "Teaches you how to craft a Gleaming Silver Necklace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41328,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ring of The Turtle",
+    "en": "Teaches you how to craft a Ring of The Turtle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41330,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gem Encrusted Choker",
+    "en": "Teaches you how to craft a Gem Encrusted Choker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41332,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Goldcrest Amulet",
+    "en": "Teaches you how to craft a Goldcrest Amulet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41334,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shining Copper Cuffs",
+    "en": "Teaches you how to craft a Shining Copper Cuffs.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41336,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dawnbright Cuffs",
+    "en": "Teaches you how to craft a Dawnbright Cuffs.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41338,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Circlet of Dampening",
+    "en": "Teaches you how to craft a Circlet of Dampening.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41340,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Eternal Jade Crown",
+    "en": "Teaches you how to craft a Eternal Jade Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41347,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crystalfire Armlets",
+    "en": "Teaches you how to craft a Crystalfire Armlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41349,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cinderfall Band",
+    "en": "Teaches you how to craft a Cinderfall Band.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41351,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Opaline Illuminator",
+    "en": "Teaches you how to craft a Opaline Illuminator.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41353,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Skyfire Jewel",
+    "en": "Teaches you how to craft a Skyfire Jewel.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41355,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gemstone Compendium",
+    "en": "Teaches you how to craft a Gemstone Compendium.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41358,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mana Renewal Passive",
+    "en": "Each tick of your Renew spell has a $h% chance to refund $s1% of its mana cost.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41361,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reduced Ability Costs",
+    "en": "Reduces the rage cost of Sunder Armor, Whirlwind and Heroic Strike by $/10;s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41364,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Justice of the Brotherhood",
+    "en": "Increases the critical strike damage bonus by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41367,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Empowered",
+    "en": "Empowers the target, causing them to take $s1 Shadow damage every $t1 seconds and increasing damage they deal by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41369,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Doom",
+    "en": "Doom approaches...",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41370,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Taint of the Satyr",
+    "en": "Increases Shadow damage taken by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41374,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Satyr Claws",
+    "en": "Your melee attacks strike all enemies in front of you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41375,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Satyr Claws",
+    "en": "Deals physical damage to the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41537,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Searing Chains",
+    "en": "Chains two random players.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41540,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dazzling Aquamarine Loop",
+    "en": "Teaches you how to craft a Dazzling Aquamarine Loop.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41545,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Alluring Citrine Choker",
+    "en": "Teaches you how to craft a Alluring Citrine Choker.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41547,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elaborate Golden Bracelets",
+    "en": "Teaches you how to craft a Elaborate Golden Bracelets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41549,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Heart of the Sea",
+    "en": "Teaches you how to craft a Heart of the Sea.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41551,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Staff of Gallitrea",
+    "en": "Teaches you how to craft a Staff of Gallitrea.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41553,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Golden Jade Ring",
+    "en": "Teaches you how to craft a Golden Jade Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41555,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Delicate Mithril Amulet",
+    "en": "Teaches you how to craft a Delicate Mithril Amulet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41557,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Draenethyst Baton",
+    "en": "Teaches you how to craft a Draenethyst Baton.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41559,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ebon Ring",
+    "en": "Teaches you how to craft a Ebon Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41561,
+    "kind": "custom",
+    "need": "new",
+    "sample": "The King's Conviction",
+    "en": "Teaches you how to craft a The King's Conviction.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41563,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowfall Jewel",
+    "en": "Teaches you how to craft a Shadowfall Jewel.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41565,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ocean's Wrath",
+    "en": "Teaches you how to craft a Ocean's Wrath.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41567,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dazzling Moonstone Band",
+    "en": "Teaches you how to craft a Dazzling Moonstone Band.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41569,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Harpy Talon Ring",
+    "en": "Teaches you how to craft a Harpy Talon Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41571,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Centaur Hoof Circlet",
+    "en": "Teaches you how to craft a Centaur Hoof Circlet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41573,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ogre Bone Band",
+    "en": "Teaches you how to craft a Ogre Bone Band.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41575,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Specter's Shade Ring",
+    "en": "Teaches you how to craft a Specter's Shade Ring.",
+    "curr_pt": ""
+  }
+]

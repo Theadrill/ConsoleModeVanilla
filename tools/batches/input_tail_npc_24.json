@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 47104,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Liferoot Healing Brew",
+    "en": "Teaches how to cook a Liferoot Healing Brew.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47106,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Liferoot Healing Brew",
+    "en": "Drinking this brew lightens weariness and makes you feel a little more rested.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47107,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Croak Cannon Toy",
+    "en": "Throw a frog into your unsuspecting friend's face.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47200,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grifter's Boots",
+    "en": "Teaches you how to make Grifter's Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47201,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grifter's Gauntlets",
+    "en": "Teaches you how to make Grifter's Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47202,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grifter's Belt",
+    "en": "Teaches you how to make Grifter's Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47203,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grifter's Leggings",
+    "en": "Teaches you how to make Grifter's Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47204,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grifter's Tunic",
+    "en": "Teaches you how to make Grifter's Tunic.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47205,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grifter's Cover",
+    "en": "Teaches you how to make Grifter's Cover.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47206,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steel Plate Boots",
+    "en": "Teaches you how to make Steel Plate Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47207,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steel Plate Gauntlets",
+    "en": "Teaches you how to make Steel Plate Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47208,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steel Plate Legguards",
+    "en": "Teaches you how to make Steel Plate Leggaurds.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47209,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steel Plate Armor",
+    "en": "Teaches you how to make Steel Plate Armor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47210,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steel Plate Pauldrons",
+    "en": "Teaches you how to make Steel Plate Pauldrons.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47211,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Steel Plate Barbute",
+    "en": "Teaches you how to make Steel Plate Helm.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47212,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Diviner's Pantaloons",
+    "en": "Teaches you how to make Diviner's Pantaloons.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47213,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Diviner's Robes",
+    "en": "Teaches you how to make Diviner's Robes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47214,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Diviner's Cowl",
+    "en": "Teaches you how to make Diviner's Cowl.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47215,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Diviner's Boots",
+    "en": "Teaches you how to make Diviner's Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47216,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Diviner's Mitts",
+    "en": "Teaches you how to make Diviner's Mitts.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47217,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Diviner's Epaulets",
+    "en": "Teaches you how to make Diviner's Epaulets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47218,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Augerer's Hat",
+    "en": "Teaches you how to make Augerer's Hat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47219,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Augerer's Robe",
+    "en": "Teaches you how to make Augerer's Robe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47220,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Augerer's Trousers",
+    "en": "Teaches you how to make Augerer's Trousers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47221,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Augerer's Mantle",
+    "en": "Teaches you how to make Augerer's Mantle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47222,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Augerer's Gloves",
+    "en": "Teaches you how to make Augerer's Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47223,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Augerer's Boots",
+    "en": "Teaches you how to make Augerer's Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47224,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pillager's Hood",
+    "en": "Teaches you how to make a Pillager's Hood.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47225,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pillager's Amice",
+    "en": "Teaches you how to make Pillager's Amice.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47226,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pillager's Robe",
+    "en": "Teaches you how to make Pillager's Robe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47227,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pillager's Grips",
+    "en": "Teaches you how to make Pillager's Grips.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47228,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pillager's Shoes",
+    "en": "Teaches you how to make Pillager's Shoes.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47229,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pillager's Pantaloons",
+    "en": "Teaches you how to make Pillager's Pantaloons.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47230,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bloodstone Warblade",
+    "en": "Teaches you how to make a Bloodstone Warblade.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47231,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Untempered Runeblade",
+    "en": "Teaches you how to make an Untempered Runeblade.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47232,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Red Dragonscale Leggings",
+    "en": "Teaches you how to make Red Dragonscale Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47233,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Red Dragonscale Shoulders",
+    "en": "Teaches you how to make Red Dragonscale Shoulders",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47234,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Red Dragonscale Boots",
+    "en": "Teaches you how to make Red Dragonscale Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47235,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Robe of Sacrifice",
+    "en": "Teaches you how to make Robe of Sacrifice.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47236,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ornate Bloodstone Dagger",
+    "en": "Teaches you how to make an Ornate Bloodstone Dagger.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47237,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bloodletter Razor",
+    "en": "Teaches you how to make a Bloodletter Razor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47238,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stormscale Leggings",
+    "en": "Teaches you how to make Stormscale Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47239,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Imperial Plate Gauntlets",
+    "en": "Teaches you how to make Imperial Plate Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47240,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dream's Herald",
+    "en": "Teaches you how to make Dream's Herald.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47241,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Shadowskin Boots",
+    "en": "Teaches you how to make Shadowskin Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47242,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Copper Knuckles",
+    "en": "Teaches you how to make Copper Knuckles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47243,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sharpened Claw",
+    "en": "Teaches you how to make a Sharpened Claw.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47244,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bronze Bruiser",
+    "en": "Teaches you how to make a Bronze Bruiser.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47245,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frostbound Slasher",
+    "en": "Teaches you how to make a Frostbound Slasher.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 47246,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pauldron of Deflection",
+    "en": "Teaches you how to make Pauldron of Deflection.",
+    "curr_pt": ""
+  }
+]

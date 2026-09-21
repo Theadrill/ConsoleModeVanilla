@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 41733,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fangclaw Relic",
+    "en": "Teaches you how to craft a Fangclaw Relic.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41735,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Netherbane Rod",
+    "en": "Teaches you how to craft a Netherbane Spellbook.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41737,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Marine Root",
+    "en": "Teaches you how to craft a Marine Root.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41739,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mistwood Tiara",
+    "en": "Teaches you how to craft a Mistwood Tiara.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41741,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Venomspire Diadem",
+    "en": "Teaches you how to craft a Venomspire Diadem.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41743,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bloodfire Circlet",
+    "en": "Teaches you how to craft a Bloodfire Circlet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41745,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Shadowforged Eye",
+    "en": "Teaches you how to craft a Shadowforged Eye.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41747,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Totem of Self Preservation",
+    "en": "Teaches you how to craft a Totem of Self Preservation.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41749,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Facetted Moonstone Brooch",
+    "en": "Teaches you how to craft a Facetted Moonstone Brooch.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41751,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Obsidian Brooch",
+    "en": "Teaches you how to craft a Obsidian Brooch.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41753,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Smoldering Brooch",
+    "en": "Teaches you how to craft a Smoldering Brooch.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41755,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vitriol Brooch",
+    "en": "Teaches you how to craft a Vitriol Brooch.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41757,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Enchanted Gemstone Oil",
+    "en": "Teaches you how to craft a Enchanted Gemstone Oil.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41759,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Graceful Agate Gemstone",
+    "en": "Teaches you how to craft a Graceful Agate Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41761,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dreary Opal Gemstone",
+    "en": "Teaches you how to craft a Dreary Opal Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41763,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Resurged Topaz Gemstone",
+    "en": "Teaches you how to craft a Resurged Topaz Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41767,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Resilient Arcane Gemstone",
+    "en": "Teaches you how to craft a Resilient Arcane Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41769,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dense Gemstone Cluster",
+    "en": "Teaches you how to craft a Dense Gemstone Cluster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41773,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spellweaver Pendant",
+    "en": "Teaches you how to craft a Spellweaver Pendant.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41775,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ring of Midnight",
+    "en": "Teaches you how to craft a Ring of Midnight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41777,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stormcloud Shackles",
+    "en": "Teaches you how to craft a Stormcloud Shackles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41779,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stormcloud Signet",
+    "en": "Teaches you how to craft a Stormcloud Signet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41781,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Golden Runed Ring",
+    "en": "Teaches you how to craft a Golden Runed Ring.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41783,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mana Binding Signet",
+    "en": "Teaches you how to craft a Mana Binding Signet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41785,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ornate Mithril Crown",
+    "en": "Teaches you how to craft a Ornate Mithril Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41787,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blazefury Circlet",
+    "en": "Teaches you how to craft a Blazefury Circlet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41789,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ring of Unleashed Potential",
+    "en": "Teaches you how to craft a Ring of Unleashed Potential.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41791,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Empowered Domination Rod",
+    "en": "Teaches you how to craft a Empowered Domination Rod.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41793,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Orb of Clairvoyance",
+    "en": "Teaches you how to craft a Orb of Clairvoyance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41795,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Grail of Forgotten Memories",
+    "en": "Teaches you how to craft a Grail of Forgotten Memories.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41797,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Guardbreaker Charm",
+    "en": "Teaches you how to craft a Shard of Aman'zasi.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41799,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Rudeus' Focusing Cane",
+    "en": "Teaches you how to craft a Rudeus' Focusing Cane.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41801,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spire of Channeled Power",
+    "en": "Teaches you how to craft a Spire of Channeled Power.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41803,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bindings of Luminance",
+    "en": "Teaches you how to craft a Bindings of Luminance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41805,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crown of the Illustrious Queen",
+    "en": "Teaches you how to craft a Crown of the Illustrious Queen.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41807,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mastercrafted Diamond Bangles",
+    "en": "Teaches you how to craft a Mastercrafted Diamond Bangles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41820,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Gorgeous Mountain Gemstone",
+    "en": "Teaches you how to craft a Gorgeous Mountain Gemstone.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41823,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Virtuous Smite",
+    "en": "Your next Holy Strike smites the target for $41822s1 Holy damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41824,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Libram of Virtue",
+    "en": "Your Holy Light causes your next Holy Strike to smite the target for $41822s1 Holy damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41825,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tidal Wave",
+    "en": "Inflicts Frost damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41826,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Tidal Wave Passive",
+    "en": "Your Water Shield releases a tide whenever you are struck while it's active, damaging enemies within $41825a1 yards for $41825s1 Frost damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 41827,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Kill Command",
+    "en": "Commands your pet to instantly attack for 80% of its Attack Power. Can only be used after the Hunter lands a critical strike on the target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42026,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Embrace of the Wind Serpent",
+    "en": "Your landing damaging spells have a $h% chance to decay the target, dealing $42025s1 Shadow damage. After $42025u stacks, the target's armor is reduced by $42024s2 and you siphon $42024o1 health over $42024d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42030,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ebon Gryphon",
+    "en": "They love lions in Stormwind, and the gryphon is half lion. Of course they might not like which half.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42031,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Snowy Gryphon",
+    "en": "They love lions in Stormwind, and the gryphon is half lion. Of course they might not like which half.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42032,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Armored Snowy Gryphon",
+    "en": "The Horde had dragons, we had the gryphons. We won that war.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42033,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Armored Ebon Gryphon",
+    "en": "The Horde had dragons, we had the gryphons. We won that war.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42034,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Argent Hippogryph",
+    "en": "Hippogryphs will partner with only the bravest and most battle-tested champions.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42038,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Armor",
+    "en": "Blasts the caster for $s1 Fire damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 42040,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Molten Bite",
+    "en": "Bite the enemy, causing $s1 Fire damage and afflicting them with Molten Armor.",
+    "curr_pt": ""
+  }
+]

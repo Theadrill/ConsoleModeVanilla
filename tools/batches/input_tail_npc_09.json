@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 30087,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stonescale Fishing Trap",
+    "en": "Teaches how to create a Stonescale Fishing Trap.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30194,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Acid Bomb",
+    "en": "Inflicts Nature damage to enemies in the area.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30195,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Acid Bomb",
+    "en": "Creates an area covered by acid that deals $s1 damage per second, reduces movement speed by $s2% and armor by $s3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30196,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Chemical Rage",
+    "en": "Enters a chemically induced rage, decreasing damage taken by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30197,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Collide",
+    "en": "Blasts the enemy for $s1 Physical damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30198,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Falling Debris",
+    "en": "Causes all targets inside a $r1 radius to take $s1 Physical damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30199,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crumbling Foundation",
+    "en": "The roof's integrity is weakened, Falling Debris deals $s1% increased damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30202,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussion",
+    "en": "Stuns the caster.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30203,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pillar Breaker",
+    "en": "Stomps on the ground, dealing $s1 damage to nearby enemies and knocking them back.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30204,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Transmute to Gold",
+    "en": "Kills all enemies in a $a1 radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30239,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sea Turtle Shell",
+    "en": "Combine 2 Sea Turtle Shells into Sea Turtle Shell Pauldrons.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30282,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Bishop Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30283,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: King Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30284,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Rook Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 30968,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Oil-Powered Cooker",
+    "en": "Increases the speed at which you cook by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31478,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Black Unicorn",
+    "en": "Not all unicorns serve the light.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31771,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pulverize",
+    "en": "Deals $s1 Physical damage to all nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31772,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pulverize Passive",
+    "en": "$h% chance on each melee attack to pulverize the ground, dealing $31771s1 Physical damage to nearby enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31960,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Blood Elf Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31962,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Harpy Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31963,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Dryad Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31964,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Worgen Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31966,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Ghost Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31967,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Banshee Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31968,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Serpent Lord Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31969,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Succubus Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31970,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Shade Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31971,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Flamewaker Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31972,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Bone Serpent Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31973,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Furbolg Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31974,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Rat Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31975,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Two-headed Ogre Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31976,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Baby Murloc Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31977,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Scourge Warrior Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31978,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Gnoll Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31979,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Pandaren Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31980,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Dreadlord Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31981,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Smolderthorn Berserker Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31982,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Naga Explorer Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31983,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Naga Siren Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31984,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Chromie Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31985,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Satyr Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31986,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Green Dragonkin Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31987,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Illusion: Celestial Dragon Toy",
+    "en": "You're not who you appear to be.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 31988,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Icicles Kill Proc",
+    "en": "Triggers a secondary AoE if an enemy is killed by Icicles.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 32311,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Enchanted Thorium Shells",
+    "en": "Teaches you how to make a Enchanted Thorium Shells.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 32312,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Squid Eel Skewer",
+    "en": "Teaches you how to cook Squid Eel Skewer.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 32315,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Deep Sea Stew",
+    "en": "Teaches you how to cook Deep Sea Stew.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33032,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Brambled Fur",
+    "en": "Deals $s1 Nature damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33033,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bulwark of Timbermaw",
+    "en": "Reduces damage taken by $s1% and damage done by $s2%.",
+    "curr_pt": ""
+  }
+]

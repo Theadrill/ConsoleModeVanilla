@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 33034,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crushing Maul",
+    "en": "Inflicts $s1 damage on an enemy, knocking it back.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33035,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Resolve of Timbermaw",
+    "en": "This is a dummy on the Timbermaw Defender.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33037,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Spear of Timbermaw",
+    "en": "Increases damage done by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33038,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sweep",
+    "en": "A sweeping attack that does your melee damage plus $s1.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33039,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Furious Roar",
+    "en": "Deals $s1 Physical damage in a $a1 yard radius.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33041,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Might of Timbermaw",
+    "en": "This is a dummy on the Timbermaw Sentinel.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33043,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Stomp",
+    "en": "Stomps all Timbermaw Defenders and Sentinels.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33044,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Doom of Timbermaw",
+    "en": "Increases damage taken by $s1% and damage done by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33046,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Seed of Corruption",
+    "en": "Increases damage done by $s1% but deals $33047s1 damage to nearby allies upon removal.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33048,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Fel Stomp",
+    "en": "Blasts nearby enemies for $s1 Shadow damage and knocks them back.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33399,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Summon Ice Claw",
+    "en": "Summons a Tamed Ice Claw Bear that will protect you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33400,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Black Tournament Charger",
+    "en": "Champion of the Northwind Joust.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33402,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Albino Riding Crocolisk",
+    "en": "Stares into your soul like it knows your deepest secret...",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33403,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Marsh Riding Crocolisk",
+    "en": "Stares into your soul like it knows your deepest secret...",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33404,
+    "kind": "custom",
+    "need": "new",
+    "sample": "River Riding Crocolisk",
+    "en": "Stares into your soul like it knows your deepest secret...",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33405,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Swamp Riding Crocolisk",
+    "en": "Stares into your soul like it knows your deepest secret...",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33406,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Bronze Riding Crab",
+    "en": "Grumpy, clicky, and always five minutes late.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33407,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sandy Riding Crab",
+    "en": "Grumpy, clicky, and always five minutes late.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33408,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Riding Crab",
+    "en": "Carries emotional baggage and you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33409,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vermillion Riding Crab",
+    "en": "Walks sideways, charges forward. ",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33410,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Infinite Crustacean",
+    "en": "Knows exactly where he's going. It just isn't forward.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33411,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Diamond Crustacean",
+    "en": "May or may not be sentient. Won't stop judging you.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33412,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Black Thunder Lizard",
+    "en": "Lightning doesn't strike twice, but he does.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33413,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Azure Thunder Lizard",
+    "en": "Lightning doesn't strike twice, but he does.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33414,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Green Thunder Lizard",
+    "en": "Lightning doesn't strike twice, but he does.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33415,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pale Thunder Lizard",
+    "en": "Lightning doesn't strike twice, but he does.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33416,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Red Thunder Lizard",
+    "en": "Lightning doesn't strike twice, but he does.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33417,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Onyxian Drake",
+    "en": "Nothing says \"I hold a grudge\" like riding her child into battle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33418,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Emerald Drake",
+    "en": "Dreamy, green, and very-very sleepy.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33419,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Beige Riding Scorpid",
+    "en": "Desert-approved and sand-colored.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33420,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Black Riding Scorpid",
+    "en": "Dark and mysterious.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33421,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Blue Riding Scorpid",
+    "en": "A scorpid with a bright blue carapace, swift across open terrain.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33422,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Dark Iron Scorpid",
+    "en": "Forged in fire and definitely not for cuddling.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33423,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Golden Riding Scorpid",
+    "en": "Shiny enough to blind your enemies.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33424,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Red Riding Scorpid",
+    "en": "Fiery as a sunset and twice as stubborn.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33425,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Silver Riding Scorpid",
+    "en": "A rare scorpid with a shimmering silver carapace.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33426,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Desert Riding Scorpid",
+    "en": "A scorpid adapted to harsh desert environments.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33427,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cut Wood Apprentice",
+    "en": "How to cut down trees for wood.  Gives a potential survival skill of 75.  Requires a Woodcutting Axe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33428,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cut Wood Journeyman",
+    "en": "How to cut down trees for wood.  Gives a potential survival skill of 150.  Requires a Woodcutting Axe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33429,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cut Wood Expert",
+    "en": "How to cut down trees for wood.  Gives a potential survival skill of 225.  Requires a Woodcutting Axe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33430,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cut Wood Artisan",
+    "en": "How to cut down trees for wood.  Gives a potential survival skill of 300.  Requires a Woodcutting Axe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33435,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Increased Stamina",
+    "en": "Increases Stamina by $s1 and chance to dodge by $s2% for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33440,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Draconic Resilience",
+    "en": "Reduces all damage taken by $s1% while airborne.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33442,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Frenzying Bond",
+    "en": "Reduces all damage taken by $s1% and increases attack speed by $s2%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33444,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Summon Avatar of Vengeance",
+    "en": "Summons an Avatar of Vengeance that will protect you for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33445,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Avatar of Vengeance",
+    "en": "Dealing critical damage has a $h% chance to summon an Avatar of Vengeance to fight alongside you for $33444d. The orb's fleeting energy may only allow the summoning of one avatar every minute.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33447,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Upgrade Arcanite Reaper",
+    "en": "Sharpen an Arcanite Reaper or Arcanite Champion with the stone, improving its efficiency. Items improved in this way can only be used by those skilled in Blacksmithing and the improved item's crafting specialization.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33448,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Upgrade Arcanite Champion",
+    "en": "Sharpen an Arcanite Reaper or Arcanite Champion with the stone, improving its efficiency. Items improved in this way can only be used by those skilled in Blacksmithing and the improved item's crafting specialization.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33449,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Upgrade Spellpower Goggles Xtreme Plus",
+    "en": "Replace the lens of a Spellpower Goggles Xtreme Plus, improving its efficiency. Items improved in this way can only be used by those skilled in Engineering.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 33450,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Upgrade Chromatic Cloak",
+    "en": "Sew the pristine scale on a Chromatic Cloak, improving its efficiency. Items improved in this way can only be used by those skilled in Dragonscale Leatherworking.",
+    "curr_pt": ""
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 22872,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Felcloth Gloves",
+    "en": "Teaches you how to sew Felcloth Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22873,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Inferno Gloves",
+    "en": "Teaches you how to sew Inferno Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22874,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Mooncloth Gloves",
+    "en": "Teaches you how to sew Mooncloth Gloves.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22875,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Cloak of Warding",
+    "en": "Teaches you how to sew a Cloak of Warding.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22903,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Mooncloth Robe",
+    "en": "Teaches you how to sew a Mooncloth Robe.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22929,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Girdle of Insight",
+    "en": "Teaches you how to craft a Girdle of Insight.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22930,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Mongoose Boots",
+    "en": "Teaches you how to craft Mongoose Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22931,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Swift Flight Bracers",
+    "en": "Teaches you how to craft Swift Flight Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22932,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Chromatic Cloak",
+    "en": "Teaches you how to craft a Chromatic Cloak.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22933,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Hide of the Wild",
+    "en": "Teaches you how to craft a Hide of the Wild.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 22934,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Shifting Cloak",
+    "en": "Teaches you how to craft a Shifting Cloak.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23007,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Sulfuron Hammer",
+    "en": "Teaches you how to make a Sulfuron Hammer.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23043,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Priest Pushback Reduction",
+    "en": "Gives a $s1% chance to avoid interruption caused by damage while casting Mind Blast, Smite, and Flash Heal.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23046,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Warlock Cast Pushback Reduction",
+    "en": "Gives a $s1% chance to avoid interruption caused by damage while casting Searing Pain, Shadow Bolt, and Drain Soul.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23083,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Red Firework",
+    "en": "Teaches you how to make a Red Firework.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23084,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Blue Firework",
+    "en": "Teaches you how to make a Blue Firework.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23085,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Green Firework",
+    "en": "Teaches you how to make a Green Firework.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23086,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: EZ-Thro Dynamite II",
+    "en": "Teaches you how to make EZ-Thro Dynamite II.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23087,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Copy of Schematic: EZ-Thro Dynamite II",
+    "en": "Teaches you how to make EZ-Thro Dynamite II.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23088,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Truesilver Transformer",
+    "en": "Teaches you how to make a Truesilver Transformer.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23089,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Gyrofreeze Ice Reflector",
+    "en": "Teaches you how to make a Gyrofreeze Ice Reflector.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23090,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Goblin Jumper Cable XL",
+    "en": "Teaches you how to make a Goblin Jumper Cable XL.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23091,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Major Recombobulator",
+    "en": "Teaches you how to make a Major Recombobulator.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23092,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Powerful Seaforium Charge",
+    "en": "Teaches you how to make a Powerful Seaforium Charge.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23093,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Hyper-Radiant Flame Reflector",
+    "en": "Teaches you how to make a Hyper-Radiant Flame Reflector.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23094,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Ultra-Flash Shadow Reflector",
+    "en": "Teaches you how to make a Ultra-Flash Shadow Reflector.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23098,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Alarm-O-Bot",
+    "en": "Teaches you how to make an Alarm-O-Bot.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23130,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: World Enlarger",
+    "en": "Teaches you how to make a World Enlarger.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23158,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Concussive Shot & Wing Clip Cooldown Reduction",
+    "en": "Reduces the cooldown of Concussive Shot by $/1000;S1 sec and Wing Clip by $/1000;S2 sec.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23178,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Nature Reflector",
+    "en": "Reflects Nature spells back at their caster for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23191,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Heavy Leather Ball",
+    "en": "Teaches you how to craft a Heavy Leather Ball.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23216,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Arcane Reflector",
+    "en": "Reflects Arcane spells back at their caster for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23356,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Taming Lesson",
+    "en": "Teaches Tame Beast, Call Pet and Dismiss Pet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23357,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Training Lesson",
+    "en": "Teaches Beast Training, Feed Pet and Revive Pet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23400,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Barbaric Bracers",
+    "en": "Teaches you how to craft Barbaric Bracers.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23508,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Schematic: Snake Burst Firework",
+    "en": "Teaches you how to make a Snake Burst Firework.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23630,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Heavy Timbermaw Belt",
+    "en": "Teaches you how to make a Heavy Timbermaw Belt.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23631,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Heavy Timbermaw Boots",
+    "en": "Teaches you how to make Heavy Timbermaw Boots.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23634,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Girdle of the Dawn",
+    "en": "Teaches you how to make a Girdle of the Dawn.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23635,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Gloves of the Dawn",
+    "en": "Teaches you how to make Gloves of the Dawn.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23640,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Black Amnesty",
+    "en": "Teaches you how to make Black Amnesty.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23641,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Blackfury",
+    "en": "Teaches you how to make Blackfury.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23645,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Hourglass Sand",
+    "en": "Cures the user and their pet or demon of Brood Affliction: Bronze.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23651,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Ebon Hand",
+    "en": "Teaches you how to make the Ebon Hand.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23654,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Blackguard",
+    "en": "Teaches you how to make Blackguard.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23655,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Nightfall",
+    "en": "Teaches you how to make Nightfall.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23656,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dark Iron Helm",
+    "en": "Teaches you how to make a Dark Iron Helm.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23657,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dark Iron Gauntlets",
+    "en": "Teaches you how to make Dark Iron Gauntlets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23668,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Wisdom of the Timbermaw",
+    "en": "Teaches you how to sew the Wisdom of the Timbermaw.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 23669,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Mantle of the Timbermaw",
+    "en": "Teaches you how to sew a Mantle of the Timbermaw.",
+    "curr_pt": ""
+  }
+]

@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 57110,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Potion of Quickness",
+    "en": "Teaches you how to create a Potion of Quickness.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57112,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Thorium Spurs",
+    "en": "Teaches you how to create Thorium Spurs.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57114,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Enchanted Armor Kit",
+    "en": "Teaches you how to createan Enchanted Armor Kit.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57116,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Cloak - Greater Arcane Resistance",
+    "en": "Teaches you how to permanently enchant a cloak to increase arcane magic resistance by 15.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57118,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Chest - Mighty Mana",
+    "en": "Teaches you how to permanently enchant a chest armor to increase mana by 150.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57120,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dreamsteel",
+    "en": "Teaches you how to smelt Dreamsteel",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57122,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamthread",
+    "en": "Teaches you how to spin Dreamthread",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57124,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pattern: Dreamhide",
+    "en": "Teaches you how to tan Dreamhide.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57126,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Boots - Superior Stamina",
+    "en": "Teaches you how to permanently enchant a pair of boots to increase stamina by 15.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57128,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Lucidity Potion",
+    "en": "Teaches you how to brew a lucidity potion.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57130,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Dreamshard Elixir",
+    "en": "Teaches you how to make a Dreamshard Elixir.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57143,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Boots - Greater Spirit",
+    "en": "Teaches you how to permanently enchant a pair of boots to increase spirit by 12.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57145,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Greater Deflection",
+    "en": "Teaches you how to permanently enchant a pair of bracers to increase defense skill by 5.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57147,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Bracer - Vampirism",
+    "en": "Teaches you how to permanently enchant a pair of bracers to increase vampirism by 1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57149,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Enchant Boots - Vampirism",
+    "en": "Teaches you how to permanently enchant a pair of boots to increase vampirism by 1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57162,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Copper Belt Buckle",
+    "en": "Teaches you how to create Copper Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57165,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Bronze Belt Buckle",
+    "en": "Teaches you how to create Bronze Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57168,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Iron Belt Buckle",
+    "en": "Teaches you how to create Iron Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57171,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Mithril Belt Buckle",
+    "en": "Teaches you how to create Mithril Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57174,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Thorium Belt Buckle",
+    "en": "Teaches you how to create Thorium Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57177,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Arcanite Belt Buckle",
+    "en": "Teaches you how to create Arcanite Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57180,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Dreamsteel Belt Buckle",
+    "en": "Teaches you how to create Dreamsteel Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57188,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Towerforge Crown",
+    "en": "Teaches you how to make a Towerforge Crown.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57190,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Towerforge Breastplate",
+    "en": "Teaches you how to make a Towerforge Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57192,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Towerforge Pauldrons",
+    "en": "Teaches you how to make Towerforge Pauldrons.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57194,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Towerforge Demolisher",
+    "en": "Teaches you how to make a Towerforge Demolisher.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57195,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Plans: Bloody Belt Buckle",
+    "en": "Teaches you how to make a Bloody Belt Buckle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57519,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Formula: Eternal Dreamstone Shard",
+    "en": "Teaches you how to create an Eternal Dreamstone Shard",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57554,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Transmute Elemental Earth",
+    "en": "Teaches you how to transmute a Core of Earth into three Elemental Earth.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57556,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Recipe: Transmute Elemental Water",
+    "en": "Teaches you how to transmute a Globe of Water into three Elemental Water.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57561,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Polymorph: Rodent",
+    "en": "Transforms the enemy into a rodent, forcing it to wander around for up to $d.  While wandering, the rodent cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57600,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cosmic Headdress",
+    "en": "Teaches you how to sew a Cosmic Headdress.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57602,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cosmic Mantle",
+    "en": "Teaches you how to sew a Cosmic Mantle.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57604,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cosmic Vest",
+    "en": "Teaches you how to craft a Cosmic Vest.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57606,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cosmic Leggings",
+    "en": "Teaches you how to sew a Cosmic Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57608,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ethereal Helmet",
+    "en": "Teaches you how to craft a Ethereal Helmet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57610,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ethereal Shoulder Pads",
+    "en": "Teaches you how to craft a Ethereal Shoulder Pads.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57612,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ethereal Tunic",
+    "en": "Teaches you how to craft a Ethereal Tunic.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57614,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ethereal Leggings",
+    "en": "Teaches you how to craft a Ethereal Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57616,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Otherworldly Coif",
+    "en": "Teaches you how to craft a Otherworldly Coif.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57618,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Otherworldly Spaulders",
+    "en": "Teaches you how to craft a Otherworldly Spaulders.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57620,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Otherworldly Breastplate",
+    "en": "Teaches you how to craft a Otherworldly Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57622,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Otherworldly Leggings",
+    "en": "Teaches you how to craft a Otherworldly Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57624,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reflective Helmet",
+    "en": "Teaches you how to craft a Reflective Helmet.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57626,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reflective Pauldrons",
+    "en": "Teaches you how to craft a Reflective Pauldrons.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57628,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reflective Breastplate",
+    "en": "Teaches you how to craft a Reflective Breastplate.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57630,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Reflective Leggings",
+    "en": "Teaches you how to craft a Reflective Leggings.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57632,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ley-Kissed Drape",
+    "en": "Teaches you how to sew a Ley-Kissed Drape.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57662,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elune's Ire",
+    "en": "Decreases attack speed by $s1%. Magical attacks against you cause an additional $52411s1 Frost damage.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 57663,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Elune's Wrath",
+    "en": "Your next spell is imbued with moonlight. This effect can occur once every 15 sec.",
+    "curr_pt": ""
+  }
+]

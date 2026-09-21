@@ -1,0 +1,76 @@
+{
+  "capy": {
+    "spells": {
+      "files": 16,
+      "nrec_total": 232650
+    },
+    "items": {
+      "files": 18,
+      "nrec_total": 361761
+    },
+    "quests": {
+      "files": 4,
+      "nrec_total": 32
+    },
+    "npcs": {
+      "files": 20,
+      "nrec_total": 128858
+    },
+    "areas": {
+      "files": 17,
+      "nrec_total": 12836
+    },
+    "talents": {
+      "files": 12,
+      "nrec_total": 3326
+    },
+    "skills": {
+      "files": 17,
+      "nrec_total": 55348
+    },
+    "misc": {
+      "files": 10,
+      "nrec_total": 96
+    }
+  },
+  "octo": {
+    "spells": {
+      "files": 10,
+      "nrec_total": 135435
+    },
+    "items": {
+      "files": 10,
+      "nrec_total": 199298
+    },
+    "quests": {
+      "files": 3,
+      "nrec_total": 25
+    },
+    "npcs": {
+      "files": 12,
+      "nrec_total": 79347
+    },
+    "areas": {
+      "files": 10,
+      "nrec_total": 7210
+    },
+    "talents": {
+      "files": 10,
+      "nrec_total": 2426
+    },
+    "skills": {
+      "files": 10,
+      "nrec_total": 31901
+    },
+    "misc": {
+      "files": 9,
+      "nrec_total": 86
+    }
+  },
+  "snapshot": {
+    "spells": {
+      "nrec": 16332,
+      "with_desc": 0
+    }
+  }
+}

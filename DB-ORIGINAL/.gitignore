@@ -1,0 +1,7 @@
+# DB-ORIGINAL é banco local de DBCs crus extraídos dos MPQs do cliente.
+# Tudo aqui é gerado localmente (extração de DBFilesClient/*.dbc) e NÃO deve ir para o repo.
+# Mantemos apenas o README.md e o catalog/ como manifest versionado.
+raw/
+extracted/
+*.dbc
+*.db2

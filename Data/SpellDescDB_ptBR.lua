@@ -25835,21 +25835,21 @@ ConsoleMode_SpellDescDB[53233] = { n="Doombolt", r="", d="Sends a shadowy bolt a
 ConsoleMode_SpellDescDB[53234] = { n="Devour Magic", r="", d="Drains up to $o1 mana from an enemy over $d. and transfers it to the caster.", t="$o1 mana leeched over $d.", pt="Drena até $s1 de mana de um inimigo ao longo de $d s, transferindo-a para o lançador." }
 ConsoleMode_SpellDescDB[53235] = { n="Devour Magic", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[53236] = { n="Herald's Terror", r="", d="The caster lets out a psychic scream, causing all enemies within $a1 yards to flee for $d.  Damage caused may interrupt the effect.", t="Running in Fear.", pt="O lançador solta um grito psíquico, fazendo com que todos os inimigos a até $a1 metros fujam por $d s. O dano causado pode interromper o efeito." }
-ConsoleMode_SpellDescDB[54000] = { n="Pattern: Blue Dragonscale Boots", r="", d="Teaches you how to craft a Blue Dragonscale Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[54000] = { n="Pattern: Blue Dragonscale Boots", r="", d="Teaches you how to craft a Blue Dragonscale Boots.", t="", pt="Ensina a criar as Botas de Escama de Dragão Azul." }
 ConsoleMode_SpellDescDB[54001] = { n="Blue Dragonscale Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[54002] = { n="Plans: Fury of the Timbermaw", r="", d="Teaches you how to make a Fury of the Timbermaw.", t="", pt="" }
+ConsoleMode_SpellDescDB[54002] = { n="Plans: Fury of the Timbermaw", r="", d="Teaches you how to make a Fury of the Timbermaw.", t="", pt="Ensina a criar a Fúria dos Timbermaw." }
 ConsoleMode_SpellDescDB[54003] = { n="Fury of the Timbermaw", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[54004] = { n="Plans: Pauldrons of the Timbermaw", r="", d="Teaches you how to make a Pauldrons of the Timbermaw.", t="", pt="" }
+ConsoleMode_SpellDescDB[54004] = { n="Plans: Pauldrons of the Timbermaw", r="", d="Teaches you how to make a Pauldrons of the Timbermaw.", t="", pt="Ensina a criar os Espaldares dos Timbermaw." }
 ConsoleMode_SpellDescDB[54005] = { n="Pauldrons of the Timbermaw", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[54006] = { n="Pattern: Corehound Gloves", r="", d="Teaches you how to craft a Corehound Gloves.", t="", pt="" }
+ConsoleMode_SpellDescDB[54006] = { n="Pattern: Corehound Gloves", r="", d="Teaches you how to craft a Corehound Gloves.", t="", pt="Ensina a criar as Luvas do Cão do Magma." }
 ConsoleMode_SpellDescDB[54007] = { n="Corehound Gloves", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[54008] = { n="Plans: Fiery Chain Breastplate", r="", d="Teaches you how to make a Fiery Chain Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[54008] = { n="Plans: Fiery Chain Breastplate", r="", d="Teaches you how to make a Fiery Chain Breastplate.", t="", pt="Ensina a criar um Peitoral de Cadeia Ardente." }
 ConsoleMode_SpellDescDB[54009] = { n="Fiery Chain Breastplate", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[54010] = { n="Pattern: Flarecore Boots", r="", d="Teaches you how to sew a Flarecore Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[54010] = { n="Pattern: Flarecore Boots", r="", d="Teaches you how to sew a Flarecore Boots.", t="", pt="Ensina a costurar as Botas Flarecore." }
 ConsoleMode_SpellDescDB[54011] = { n="Flarecore Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[54012] = { n="Pattern: Chromatic Leggings", r="", d="Teaches you how to craft a Chromatic Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[54012] = { n="Pattern: Chromatic Leggings", r="", d="Teaches you how to craft a Chromatic Leggings.", t="", pt="Ensina a criar as Perneiras Cromáticas." }
 ConsoleMode_SpellDescDB[54013] = { n="Chromatic Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[54014] = { n="Pattern: Molten Leggings", r="", d="Teaches you how to craft a Molten Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[54014] = { n="Pattern: Molten Leggings", r="", d="Teaches you how to craft a Molten Leggings.", t="", pt="Ensina a criar as Calças Fundidas." }
 ConsoleMode_SpellDescDB[54015] = { n="Molten Leggings", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[56042] = { n="Dummy Spell", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[56043] = { n="Debug: Next DisplayID", r="Game Master", d="", t="", pt="" }
@@ -25915,35 +25915,35 @@ ConsoleMode_SpellDescDB[57003] = { n="Piercing Cold", r="", d="", t="Movement sp
 ConsoleMode_SpellDescDB[57004] = { n="Target Channel", r="", d="Channels a blue beam to the target specified in spell_script_target. Visual.", t="", pt="Canaliza um feixe azul até o alvo especificado em spell_script_target. Visual." }
 ConsoleMode_SpellDescDB[57005] = { n="Mortality Scan", r="", d="Encages an enemy, stunning it for $d.", t="Ignited into flames if completed.\nStunned.", pt="Encanta a arma com fogo." }
 ConsoleMode_SpellDescDB[57006] = { n="QA Shield", r="", d="Protects thine caster from all attacks and spells $d.", t="Immune to all attacks and spells.", pt="Protege de tudo por $d s." }
-ConsoleMode_SpellDescDB[57007] = { n="Pattern: Breastplate of the Earth", r="", d="Teaches you how to craft Breastplate of the Earth.", t="", pt="" }
+ConsoleMode_SpellDescDB[57007] = { n="Pattern: Breastplate of the Earth", r="", d="Teaches you how to craft Breastplate of the Earth.", t="", pt="Ensina a criar o Peitoral da Terra." }
 ConsoleMode_SpellDescDB[57008] = { n="Breastplate of the Earth", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57009] = { n="Pattern: Boots of the Wind", r="", d="Teaches you how to craft Boots of the Wind.", t="", pt="" }
+ConsoleMode_SpellDescDB[57009] = { n="Pattern: Boots of the Wind", r="", d="Teaches you how to craft Boots of the Wind.", t="", pt="Ensina a criar as Botas do Vento." }
 ConsoleMode_SpellDescDB[57010] = { n="Boots of the Wind", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57011] = { n="Pattern: Earthguard Tunic", r="", d="Teaches you how to craft Earthguard Tunic.", t="", pt="" }
+ConsoleMode_SpellDescDB[57011] = { n="Pattern: Earthguard Tunic", r="", d="Teaches you how to craft Earthguard Tunic.", t="", pt="Ensina a criar a Túnica do Guardião Telúrico." }
 ConsoleMode_SpellDescDB[57012] = { n="Earthguard Tunic", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57013] = { n="Pattern: Flamewrath Leggings", r="", d="Teaches you how to craft Flamewrath Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[57013] = { n="Pattern: Flamewrath Leggings", r="", d="Teaches you how to craft Flamewrath Leggings.", t="", pt="Ensina a criar as Perneiras de Flamewrath." }
 ConsoleMode_SpellDescDB[57014] = { n="Flamewrath Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57015] = { n="Pattern: Depthstalker Helmet", r="", d="Teaches you how to craft Depthstalker Helmet.", t="", pt="" }
+ConsoleMode_SpellDescDB[57015] = { n="Pattern: Depthstalker Helmet", r="", d="Teaches you how to craft Depthstalker Helmet.", t="", pt="Ensina a criar o Elmo do Rastreador de Profundezas." }
 ConsoleMode_SpellDescDB[57016] = { n="Depthstalker Helmet", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57017] = { n="Pattern: Windwalker Boots", r="", d="Teaches you how to craft Windwalker Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[57017] = { n="Pattern: Windwalker Boots", r="", d="Teaches you how to craft Windwalker Boots.", t="", pt="Ensina a criar as Botas de Caminhante do Vento." }
 ConsoleMode_SpellDescDB[57018] = { n="Windwalker Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57019] = { n="Pattern: Dustguider Sash", r="", d="Teaches you how to craft Dustguider Sash.", t="", pt="" }
+ConsoleMode_SpellDescDB[57019] = { n="Pattern: Dustguider Sash", r="", d="Teaches you how to craft Dustguider Sash.", t="", pt="Ensina a criar a Faixa de Guiador de Poeira." }
 ConsoleMode_SpellDescDB[57020] = { n="Dustguider Sash", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57021] = { n="Pattern: Centaur Battle Harness", r="", d="Teaches you how to craft Centaur Battle Harness.", t="", pt="" }
+ConsoleMode_SpellDescDB[57021] = { n="Pattern: Centaur Battle Harness", r="", d="Teaches you how to craft Centaur Battle Harness.", t="", pt="Ensina a criar o Arreio de Batalha de Centauro." }
 ConsoleMode_SpellDescDB[57022] = { n="Centaur Battle Harness", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57023] = { n="Pattern: Windbinder Gloves", r="", d="Teaches you how to craft Windbinder Gloves.", t="", pt="" }
+ConsoleMode_SpellDescDB[57023] = { n="Pattern: Windbinder Gloves", r="", d="Teaches you how to craft Windbinder Gloves.", t="", pt="Ensina a criar as Luvas de Ligação do Vento." }
 ConsoleMode_SpellDescDB[57024] = { n="Windbinder Gloves", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57025] = { n="Pattern: Mantle of Centaur Authority", r="", d="Teaches you how to craft Mantle of Centaur Authority.", t="", pt="" }
+ConsoleMode_SpellDescDB[57025] = { n="Pattern: Mantle of Centaur Authority", r="", d="Teaches you how to craft Mantle of Centaur Authority.", t="", pt="Ensina a criar o Manto da Autoridade Centauro." }
 ConsoleMode_SpellDescDB[57026] = { n="Mantle of Centaur Authority", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57027] = { n="Formula: Enchant Bracer - Spell Power", r="", d="Teaches you how to permanently enchant a bracer to give +12 Spell Damage.", t="", pt="" }
+ConsoleMode_SpellDescDB[57027] = { n="Formula: Enchant Bracer - Spell Power", r="", d="Teaches you how to permanently enchant a bracer to give +12 Spell Damage.", t="", pt="Ensina a encantar permanentemente uma braçadeira para conceder +12 de Dano Mágico." }
 ConsoleMode_SpellDescDB[57028] = { n="Enchant Bracer - Spell Power", r="", d="Permanently enchant bracers to give +12 Spell Damage.", t="", pt="Encanta permanentemente braçadeiras para conceder +12 de Dano Mágico." }
-ConsoleMode_SpellDescDB[57029] = { n="Formula: Enchant Bracer - Greater Agility", r="", d="Teaches you how to permanently enchant a bracer to give +7 Agility.", t="", pt="" }
+ConsoleMode_SpellDescDB[57029] = { n="Formula: Enchant Bracer - Greater Agility", r="", d="Teaches you how to permanently enchant a bracer to give +7 Agility.", t="", pt="Ensina a encantar permanentemente uma braçadeira para conceder +7 de Agilidade." }
 ConsoleMode_SpellDescDB[57030] = { n="Enchant Bracer - Greater Agility", r="", d="Permanently enchant bracers to grant +7 Agility.", t="", pt="Encanta permanentemente braçadeiras para conceder +7 de Agilidade." }
-ConsoleMode_SpellDescDB[57031] = { n="Formula: Enchant Bracer - Spell Penetration", r="", d="Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 6.", t="", pt="" }
+ConsoleMode_SpellDescDB[57031] = { n="Formula: Enchant Bracer - Spell Penetration", r="", d="Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 6.", t="", pt="Ensina a encantar permanentemente uma braçadeira para reduzir as resistências mágicas dos alvos dos seus feitiços em 6." }
 ConsoleMode_SpellDescDB[57032] = { n="Enchant Bracer - Spell Penetration", r="", d="Permanently enchant a bracer to decreases the magical resistances of your spell targets by 6.", t="", pt="Encanta permanentemente uma braçadeira para reduzir as resistências mágicas dos alvos dos seus feitiços em 6." }
-ConsoleMode_SpellDescDB[57033] = { n="Formula: Enchant Bracer - Greater Spell Penetration", r="", d="Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 10.", t="", pt="" }
+ConsoleMode_SpellDescDB[57033] = { n="Formula: Enchant Bracer - Greater Spell Penetration", r="", d="Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 10.", t="", pt="Ensina a encantar permanentemente uma braçadeira para reduzir as resistências mágicas dos alvos dos seus feitiços em 10." }
 ConsoleMode_SpellDescDB[57034] = { n="Enchant Bracer - Greater Spell Penetration", r="", d="Permanently enchant a bracer to decreases the magical resistances of your spell targets by 10.", t="", pt="Encanta permanentemente uma braçadeira para reduzir as resistências mágicas dos alvos dos seus feitiços em 10." }
-ConsoleMode_SpellDescDB[57035] = { n="Formula: Enchant Bracer - Superior Spell Penetration", r="", d="Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 15.", t="", pt="" }
+ConsoleMode_SpellDescDB[57035] = { n="Formula: Enchant Bracer - Superior Spell Penetration", r="", d="Teaches you how to permanently enchant a bracer to decreases the magical resistances of your spell targets by 15.", t="", pt="Ensina a encantar permanentemente uma braçadeira para reduzir as resistências mágicas dos alvos dos seus feitiços em 15." }
 ConsoleMode_SpellDescDB[57036] = { n="Enchant Bracer - Superior Spell Penetration", r="", d="Permanently enchant a bracer to decreases the magical resistances of your spell targets by 15.", t="", pt="Encanta permanentemente uma braçadeira para reduzir as resistências mágicas dos alvos dos seus feitiços em 15." }
 ConsoleMode_SpellDescDB[57037] = { n="Tiny Gelkis Rumbler", r="", d="Right Click to summon and dismiss your miniature earth elemental.", t="", pt="Invoca/dispensa elemental mini." }
 ConsoleMode_SpellDescDB[57038] = { n="Bonepaw Pup", r="", d="Right Click to summon and dismiss your hyena pup.", t="", pt="Invoca/dispensa hiena." }
@@ -25956,11 +25956,11 @@ ConsoleMode_SpellDescDB[57044] = { n="Well Fed", r="", d="", t="Spell Damage inc
 ConsoleMode_SpellDescDB[57045] = { n="Food", r="", d="Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57046s1% Haste for $57046d.", t="Restores $/5;s1 health per second.", pt="Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2% de Aceleração por $d s." }
 ConsoleMode_SpellDescDB[57046] = { n="Well Fed", r="", d="", t="Haste increased by $s1%.", pt="" }
 ConsoleMode_SpellDescDB[57047] = { n="Danonzo's Tel'Abim Surprise", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57048] = { n="Recipe: Danonzo's Tel'Abim Surprise", r="", d="Teaches you how to cook Danonzo's Tel'Abim Surprise.", t="", pt="" }
+ConsoleMode_SpellDescDB[57048] = { n="Recipe: Danonzo's Tel'Abim Surprise", r="", d="Teaches you how to cook Danonzo's Tel'Abim Surprise.", t="", pt="Ensina a cozinhar Surpresa de Tel'Abim do Danonzo." }
 ConsoleMode_SpellDescDB[57049] = { n="Danonzo's Tel'Abim Delight", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57050] = { n="Recipe: Danonzo's Tel'Abim Delight", r="", d="Teaches you how to cook Danonzo's Tel'Abim Delight.", t="", pt="" }
+ConsoleMode_SpellDescDB[57050] = { n="Recipe: Danonzo's Tel'Abim Delight", r="", d="Teaches you how to cook Danonzo's Tel'Abim Delight.", t="", pt="Ensina a cozinhar Delícia de Tel'Abim do Danonzo." }
 ConsoleMode_SpellDescDB[57051] = { n="Danonzo's Tel'Abim Medley", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57052] = { n="Recipe: Danonzo's Tel'Abim Medley", r="", d="Teaches you how to cook Danonzo's Tel'Abim Medley.", t="", pt="" }
+ConsoleMode_SpellDescDB[57052] = { n="Recipe: Danonzo's Tel'Abim Medley", r="", d="Teaches you how to cook Danonzo's Tel'Abim Medley.", t="", pt="Ensina a cozinhar Medley de Tel'Abim do Danonzo." }
 ConsoleMode_SpellDescDB[57053] = { n="Mini Krampus", r="", d="Right Click to summon and dismiss your krampus.", t="", pt="Botão direito invoca/dispensa." }
 ConsoleMode_SpellDescDB[57055] = { n="Food", r="", d="Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain $57042s1 Ranged Attack Power for $57042d.", t="Restores $/5;s1 health per second.", pt="Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá $s2 de Poder de Ataque de longo alcance por $d s." }
 ConsoleMode_SpellDescDB[57056] = { n="Leeching Bite", r="", d="Inflicts $s2 Nature damage to an enemy and reduces healing taken by $s1%.", t="Healing effects reduced by $s1%.", pt="Inflige $s2 de dano de Natureza a um inimigo e reduz a cura recebida em $s1%." }
@@ -26016,7 +26016,7 @@ ConsoleMode_SpellDescDB[57105] = { n="Empowered Dust", r="", d="Increases your a
 ConsoleMode_SpellDescDB[57106] = { n="Medivh's Merlot", r="", d="Increases Stamina by $s1 for $d and gets you drunk to boot!", t="Stamina increased by $s1.", pt="Aumenta o Vigor em $s1 por $d s e ainda embebeda!" }
 ConsoleMode_SpellDescDB[57107] = { n="Medivh's Merlot Blue Label", r="", d="Increases Intellect by $s1 for $d and gets you drunk to boot!", t="Increases Intellect by $s1.", pt="Aumenta o Intelecto em $s1 por $d s e ainda deixa você bêbado!" }
 ConsoleMode_SpellDescDB[57108] = { n="Emerald Blessing", r="", d="The druid and raid members within $a1 yards are blessed by the Emerald Dream granting $s1% movement speed, $s2% spell hit chance, and allows $s3% mana regeneration to continue while casting.", t="Movement speed increased by $s1%. Spell hit chance increased by $s2%. Allows $s3% of your mana regeneration to continue while casting.", pt="O druida e os membros da raide a até $a1 metros são abençoados pelo Sonho Esmeralda, concedendo $s1% de velocidade de movimento, $s2% de chance de acerto com feitiços e permitindo que $s3% da regeneração de mana continue enquanto lança feitiços." }
-ConsoleMode_SpellDescDB[57109] = { n="Emerald Blessing", r="", d="Teaches Emerald Blessing.", t="", pt="" }
+ConsoleMode_SpellDescDB[57109] = { n="Emerald Blessing", r="", d="Teaches Emerald Blessing.", t="", pt="Ensina Bênção Esmeralda." }
 ConsoleMode_SpellDescDB[57110] = { n="Recipe: Potion of Quickness", r="", d="Teaches you how to create a Potion of Quickness.", t="", pt="" }
 ConsoleMode_SpellDescDB[57111] = { n="Potion of Quickness", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57112] = { n="Plans: Thorium Spurs", r="", d="Teaches you how to create Thorium Spurs.", t="", pt="" }

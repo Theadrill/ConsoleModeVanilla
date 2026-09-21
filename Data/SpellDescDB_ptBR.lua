@@ -21485,15 +21485,15 @@ ConsoleMode_SpellDescDB[28473] = { n="Bramblewood Boots", r="", d="", t="", pt="
 ConsoleMode_SpellDescDB[28474] = { n="Bramblewood Belt", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[28475] = { n="Pattern: Bramblewood Helm", r="", d="Teaches you how to craft a Bramblewood Helm.", t="", pt="Ensina a fazer Elmo de Sarça." }
 ConsoleMode_SpellDescDB[28476] = { n="Pattern: Bramblewood Boots", r="", d="Teaches you how to craft Bramblewood Boots.", t="", pt="Ensina a fazer Botas de Sarça." }
-ConsoleMode_SpellDescDB[28477] = { n="Pattern: Bramblewood Belt", r="", d="Teaches you how to craft a Bramblewood Belt.", t="", pt="" }
+ConsoleMode_SpellDescDB[28477] = { n="Pattern: Bramblewood Belt", r="", d="Teaches you how to craft a Bramblewood Belt.", t="", pt="Ensina a criar um Cinto de Madeira Espinhosa." }
 ConsoleMode_SpellDescDB[28478] = { n="Frostbolt", r="", d="Inflicts Frost damage to an enemy and reduces its movement speed for $d.", t="Reduced movement speed.", pt="Causa dano de Gelo a um inimigo e reduz sua velocidade de movimento por $d s." }
 ConsoleMode_SpellDescDB[28479] = { n="Frostbolt", r="", d="Inflicts Frost damage to nearby enemies, reducing their movement speed for $d.", t="Reduced movement speed.", pt="Causa dano de Gelo aos inimigos próximos, reduzindo a velocidade de movimento deles por $d s." }
 ConsoleMode_SpellDescDB[28480] = { n="Sylvan Vest", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[28481] = { n="Sylvan Crown", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[28482] = { n="Sylvan Shoulders", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[28483] = { n="Pattern: Sylvan Vest", r="", d="Teaches you how to sew a Sylvan Vest.", t="", pt="" }
-ConsoleMode_SpellDescDB[28484] = { n="Pattern: Sylvan Crown", r="", d="Teaches you how to sew a Sylvan Crown.", t="", pt="" }
-ConsoleMode_SpellDescDB[28485] = { n="Pattern: Sylvan Shoulders", r="", d="Teaches you how to sew Sylvan Shoulders.", t="", pt="" }
+ConsoleMode_SpellDescDB[28483] = { n="Pattern: Sylvan Vest", r="", d="Teaches you how to sew a Sylvan Vest.", t="", pt="Ensina a costurar um Colete Silvano." }
+ConsoleMode_SpellDescDB[28484] = { n="Pattern: Sylvan Crown", r="", d="Teaches you how to sew a Sylvan Crown.", t="", pt="Ensina a costurar uma Coroa Silvana." }
+ConsoleMode_SpellDescDB[28485] = { n="Pattern: Sylvan Shoulders", r="", d="Teaches you how to sew Sylvan Shoulders.", t="", pt="Ensina a costurar as Ombreiras Silvanas." }
 ConsoleMode_SpellDescDB[28487] = { n="Terky", r="", d="Terky is as shy as she is adorable, preferring the company of close friends over new ones.", t="", pt="Terky é tão tímida quanto adorável, preferindo a companhia de amigos próximos a novos conhecidos." }
 ConsoleMode_SpellDescDB[28498] = { n="Berserk", r="", d="", t="Physical damage dealt is increased by $s1.", pt="" }
 ConsoleMode_SpellDescDB[28505] = { n="Poley", r="", d="This cub shares many traits with its relatives, but it's in a league of its own with its singing ability.", t="", pt="Este filhote compartilha muitos traços com seus parentes, mas está em uma categoria própria quando se trata de sua habilidade de canto." }
@@ -22133,13 +22133,13 @@ ConsoleMode_SpellDescDB[29715] = { n="Test RPole Periodic", r="", d="", t="", pt
 ConsoleMode_SpellDescDB[29726] = { n="Test Ribbon Pole Channel", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[29727] = { n="Test Ribbon Pole Channel", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[29728] = { n="Rough Gritted Paper", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[29729] = { n="Rough Gritted Paper", r="", d="Teaches you how to craft a Rough Gritted Paper.", t="", pt="" }
+ConsoleMode_SpellDescDB[29729] = { n="Rough Gritted Paper", r="", d="Teaches you how to craft a Rough Gritted Paper.", t="", pt="Ensina a criar um Papel de Lixa Bruto." }
 ConsoleMode_SpellDescDB[29730] = { n="Rough Copper Ring", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[29731] = { n="Rough Copper Ring", r="", d="Teaches you how to craft a Rough Copper Ring.", t="", pt="" }
+ConsoleMode_SpellDescDB[29731] = { n="Rough Copper Ring", r="", d="Teaches you how to craft a Rough Copper Ring.", t="", pt="Ensina a criar um Anel de Cobre Bruto." }
 ConsoleMode_SpellDescDB[29732] = { n="Copper Bangle", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[29733] = { n="Copper Bangle", r="", d="Teaches you how to craft a Copper Bangle.", t="", pt="" }
+ConsoleMode_SpellDescDB[29733] = { n="Copper Bangle", r="", d="Teaches you how to craft a Copper Bangle.", t="", pt="Ensina a criar um Bracelete de Cobre." }
 ConsoleMode_SpellDescDB[29785] = { n="Sillithus Flag Capture", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[29820] = { n="wr", r="", d="DEBUG\nAssist a raid when it wipes.  For use on Test Realms only.", t="", pt="" }
+ConsoleMode_SpellDescDB[29820] = { n="wr", r="", d="DEBUG\nAssist a raid when it wipes.  For use on Test Realms only.", t="", pt="DEPURAÇÃO\nAjuda um grupo de raide quando ele é derrotado. Uso exclusivo nos Reinos de Teste." }
 ConsoleMode_SpellDescDB[29825] = { n="Copy of Self Stun - 30 seconds", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[29826] = { n="Self Stun (DND)", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[29831] = { n="Damage Bonfire (DND)", r="", d="", t="", pt="" }
@@ -22185,9 +22185,9 @@ ConsoleMode_SpellDescDB[30020] = { n="First Aid", r="", d="Heals $o1 damage over
 ConsoleMode_SpellDescDB[30021] = { n="Crystal Infused Bandage", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[30025] = { n="Mind Exhaustion Passive", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[30043] = { n="Poison Spray", r="", d="Shoots poison at an enemy, inflicting $s1 Nature damage.", t="", pt="Atira $s1 de Natureza no inimigo." }
-ConsoleMode_SpellDescDB[30046] = { n="Crystal Infused Bandage", r="", d="Teaches you how to make a Crystal Infused Bandage.", t="", pt="" }
+ConsoleMode_SpellDescDB[30046] = { n="Crystal Infused Bandage", r="", d="Teaches you how to make a Crystal Infused Bandage.", t="", pt="Ensina a criar uma Bandagem Infundida com Cristal." }
 ConsoleMode_SpellDescDB[30047] = { n="Crystal Throat Lozenge", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[30048] = { n="Recipe: Crystal Throat Lozenge", r="", d="Teaches you how to create Crystal Throat Lozenges.", t="", pt="" }
+ConsoleMode_SpellDescDB[30048] = { n="Recipe: Crystal Throat Lozenge", r="", d="Teaches you how to create Crystal Throat Lozenges.", t="", pt="Ensina a criar Pastilhas de Cristal para Garganta." }
 ConsoleMode_SpellDescDB[30056] = { n="Knockback", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[30058] = { n="Trigger Flight Path", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[30059] = { n="Trigger Flight Path", r="", d="", t="", pt="" }

@@ -1,0 +1,8 @@
+[
+  {
+    "en": "Increases damage done by Shadow spells and effects by up to $s1 and converts physical damage into Shadow damage.NOTE: 2nd Effect uses aura name 4 for Dummy application. Misc Value should determine the class of damage the physical is converted to (ex: 32 = Shadow).",
+    "curr_pt": "Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1 e converte dano físico em dano de Sombra.",
+    "sample": "",
+    "need": "review"
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Summons Sloth and Sludge, the minions of Lord Malathrom. Each minion lasts $d.",
+    "curr_pt": "Invoca Preguiça e Lodo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drives the caster into a maddened frenzy for $d. Increases the caster's attack speed by $s1%, but slows its movement by $s2% and reduces the Physical damage it deals by $s3.",
+    "curr_pt": "Frenesi $d s: +$s1% velocidade, -$s2% movimento, -$s3 Físico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When applied to a melee weapon it gives a 15% chance of casting Shadowbolt III at the opponent when it hits. Lasts 30 minutes.",
+    "curr_pt": "Arma corpo a corpo: 15% de Raio III ao acertar. 30 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lRemote-Controlled Golem:Remote-Controlled Golems; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Golems por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lMinion of Morganth:Minions of Morganth; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Lacaios por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Bloodscalp Tiger to accompany the caster until dismissed.",
+    "curr_pt": "Invoca Tigre até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lDalaran Serpent:Dalaran Serpents; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Serpentes por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSkullsplitter Panther:Skullsplitter Panthers; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Panteras até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives the caster $s1% chance to reflect spells for $d. at the cost of rendering it unable to move or cast spells.",
+    "curr_pt": "$s1% de refletir por $d s, imóvel e sem magia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSpirit of Old:Spirits of Old; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Espíritos por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSyndicate Spectre:Syndicate Spectres; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Espectros por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a Ward of Laze that lasts $d. and curses nearby enemies every $3825t1 sec., temporarily reducing their attack speed by $3826%.",
+    "curr_pt": "Guarda $d s: amaldiçoa a cada $t1 s, -$s1% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A Small Seaforium charge which is enough to blast open some doors.",
+    "curr_pt": "Carga pequena abre porta.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Mechanical Dragonling comes to life and defends you for $d.",
+    "curr_pt": "Dragonete defende por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A marvel of gnomish engineering, this box contains a mischievous mechanical squirrel ready to assist you in your adventures.",
+    "curr_pt": "Caixa com esquilo mecânico travesso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Have a 2% chance when struck in combat of increasing armor by $10342s1 for $10342d1.",
+    "curr_pt": "Acerto: 2% de +$s1 armadura por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Activates your Mechanical Dragonling to fight for you for $d. It requires an hour to cool down before it can be used again.",
+    "curr_pt": "Dragonete luta por $d s. 1 h recarga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places the Goblin Land Mine on the ground. It will explode for $4043s1 fire damage the next time a hostile creature passes near it. The mine has a duration of $d.",
+    "curr_pt": "Mina no chão: $s1 de Fogo no próximo hostil. Dura $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Angers a target, drawing its attention and lowering its armor value by $m3.",
+    "curr_pt": "Enfurece, atrai e -$s1 armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Strength of nearby party members by $s1 and boosts their Agility by $s2 for $d.",
+    "curr_pt": "For +$s1 e Agi +$s2 no grupo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Grants the user $m1 additional hitpoints for $d",
+    "curr_pt": "+$s1 vida por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Finds a weak spot which causes the target to take $m1 more damage from physical hits for $d",
+    "curr_pt": "+$s1 físico recebido por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Adds a chance to open a wound on a target causing damage over time and increased damage taken.",
+    "curr_pt": "Chance de ferida com dot e +dano recebido.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Grabs a target, holding them in place for $d while doing $o3 damage in that time.",
+    "curr_pt": "Segura por $d s com $s1 de dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Adds a chance to do extra damage to next attack and slow the target's movement on a successful hit.",
+    "curr_pt": "Chance de dano extra e lentidão no próximo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Adds a chance to slow a targets movement as well as do extra damage over time on a successful hit.",
+    "curr_pt": "Chance de lentidão e dot ao acertar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Does $o1 damage to the target over $d while reducing their movement speed by $s2%.",
+    "curr_pt": "$s1 em $d s e -$s2% velocidade.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases health regeneration by $m1 and mana regeneration by $m2 of all allies in the party.",
+    "curr_pt": "Regen de vida +$s1 e mana +$s2 no grupo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attacks all enemies in front of the Infernal doing it's normal damage plus $s1.",
+    "curr_pt": "Todos à frente: normal +$s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the damage that the Infernal does by $s1, but decreases it's attack speed by $s2% for $d.",
+    "curr_pt": "Infernal +$s1 dano, -$s2% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Adds $m1 damage taken on a target.",
+    "curr_pt": "+$s1 dano recebido.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Renders the caster immune to magical damage, reduces the Physical damage it takes by $s3, and causes it to summon a Prismatic Exile when hit. Lasts $d.",
+    "curr_pt": "Imune a magia, Físico -$s1, invoca Exilado ao apanhar. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lPuppet of Helcular:Puppets of Helcular; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Fantoches por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Grants invisibility to the master of the caster for $d. at the cost of rendering the master unable to attack.",
+    "curr_pt": "Mestre invisível por $d s, sem atacar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives the caster an additional $s3 damage per hit for $d., but reduces its movement speed by $s1% and increases the time between its attacks by $s2%.",
+    "curr_pt": "+$s1 por golpe por $d s, -$s2% velocidade, +$s3% intervalo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Right-click to fill the Crystal Phial at the Shadowglen moonwell.",
+    "curr_pt": "Botão direito enche no poço.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Orgrimmar",
+    "curr_pt": "Manda jogador pra Orgrimmar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Booty Bay",
+    "curr_pt": "Manda jogador pra Angra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Grom'Gol",
+    "curr_pt": "Manda jogador pra Grom'Gol.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Ratchet",
+    "curr_pt": "Manda jogador pra Vila Catraca.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Undercity",
+    "curr_pt": "Manda jogador pra Cidade Baixa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your health by $s1, but decreases your spirit by $s2 for $d.",
+    "curr_pt": "Vida +$s1, Esp -$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases your chance to block attacks with your shield by $s1%.",
+    "curr_pt": "Bloqueio +$s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lLiving Flame:Living Flames; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Chamas por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shows the location of all nearby beasts on the minimap for $d.",
+    "curr_pt": "Feras no minimapa por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed boar the Gore ability. Gore deals physical damage over time to an enemy. Requires: Pet Level 13+",
+    "curr_pt": "Ensina Eviscerar ao javali: dano físico com o tempo. Requer: pet nv 13+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $o1 Fire damage to nearby enemies and reduces their movement speed by $s2% for $d.",
+    "curr_pt": "$s1 de Fogo e -$s2% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lDefias Companion:Defias Companions; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Companheiros até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes the caster to inflict an additional $5263s1 Fire damage to an enemy when the caster is using melee attacks. Lasts $d.",
+    "curr_pt": "Corpo a corpo: +$s1 de Fogo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Death Capsule, which is used to Feign Death.",
+    "curr_pt": "Cria Cápsula pra Fingir.",
+    "sample": "",
+    "need": "review"
+  }
+]

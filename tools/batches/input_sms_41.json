@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Increases the Physical damage dealt by the caster by $s1% and enhances its armor by $s2% for $d.",
+    "curr_pt": "Solta fogos no alvo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds +9 Healing and Damage from spells to an item worn on the chest, legs, hands or feet. Only usable on items level 60 and above.",
+    "curr_pt": "Peito/perna/mão/pé: +9 cura e dano mágico. Só nv 60+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 frost resistance to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 vs Gelo. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 nature resistance to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 vs Natureza. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently adds 10 shadow resistance to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.",
+    "curr_pt": "Perna/cabeça: +10 vs Sombra. Sem acumular.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give 70 additional armor.",
+    "curr_pt": "Manto: +70 armadura.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a melee weapon so that often when attacking in melee it heals for $20007s2 and increases Strength by $20007s1 for $20007d.",
+    "curr_pt": "Arma corpo a corpo: às vezes cura $s1 e For +$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to give +100 mana.",
+    "curr_pt": "Peito: +100 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to give +65 mana.",
+    "curr_pt": "Peito: +65 mana.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a piece of chest armor to grant +50 health.",
+    "curr_pt": "Peito: +50 vida.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a two-handed melee weapon to do +7 damage.",
+    "curr_pt": "Arma 2M: +7 dano.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant boots to give +5 Stamina.",
+    "curr_pt": "Bota: +5 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant gloves to grant a minor movement bonus while mounted.",
+    "curr_pt": "Luvas: +movimento montado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +7 Spirit.",
+    "curr_pt": "Braçadeira: +7 Esp.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to give +7 Stamina.",
+    "curr_pt": "Braçadeira: +7 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchants bracers to restore 4 mana every 5 seconds.",
+    "curr_pt": "Braçadeira: +4 mana/5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Place a Battle Standard with $s1 health that increases the maximum health of all party members that stay within $23033a1 yards of the Battle Standard by $23033s1%. Lasts $d. The Battle Standard may only be used in PvP Battlegrounds.",
+    "curr_pt": "Estandarte com $s1 de vida: vida máx +$s2% a $a1 m por $d s. Só em Campo de Batalha.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Plants the beacon at the Snowfall Graveyard. Protect it from harm!",
+    "curr_pt": "Finca no Cemitério. Protege!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces an enemy's Strength by $s1 and its Stamina by $s2 for $d.",
+    "curr_pt": "For -$s1 e Vig -$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces your threat to enemy targets within $a1 yards, making them less likely to attack you.",
+    "curr_pt": "Ameaça -$s1 a $a1 m, esquece você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Right Click to summon and dismiss the orphan you've agreed to look after for Children's Week.",
+    "curr_pt": "Botão direito invoca/dispensa o órfão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Roars at an enemy, paralyzing it with terror for $d. and causing all other nearby enemies to flee in fear.",
+    "curr_pt": "Ruge e paralisa por $d s, o resto foge.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sacrifices the caster's life in order to inflict $s1 nature damage to nearby enemies.",
+    "curr_pt": "Morre: $s1 de natureza nos próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Auberdine",
+    "curr_pt": "Manda pra Auberdine.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends player to Gnomeregan.",
+    "curr_pt": "Manda pra Gnomeregan.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sets an enemy aflame, inflicting $o1 Fire damage over $d. and sending it into a state of panic. While the target is affected, the flames periodically scorch its nearby allies for $16806s1 damage as well.",
+    "curr_pt": "Pega fogo: $s1 em $d s e queima $s2 nos aliados próximos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sets up a simple wooden planter. Planters allow you to plant seeds and cultivate crops.",
+    "curr_pt": "Monta o vaso: planta e colhe.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sets up a traveler's tent. While under the cover of the tent you are resting and may gain rested experience. Can only be used outdoors.",
+    "curr_pt": "Monta a tenda: descansa e ganha xp. Só ao ar livre.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Shoots a firework into the air that bursts into a thousand red stars.",
+    "curr_pt": "Fogo vermelho de mil estrelas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sprays water in all directions, inflicting Frost damage to nearby enemies and knocking them back.",
+    "curr_pt": "Água em tudo: Gelo e arremesso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Stuns enemies in a cone in front of the caster, rendering them unable to move or attack for $d.",
+    "curr_pt": "Atordoa em cone por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lPrismatic Exile:Prismatic Exiles; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Exilados por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSand Storm:Sand Storms; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Tempestades por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSkeletal Servant:Skeletal Servants; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Servos até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lSkeleton:Skeletons; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Esqueletos por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lTreant Ally:Treant Allies; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Treants até dispensar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons $s1 $lVoidwalker:Voidwalkers; to aid the caster in battle for $d.",
+    "curr_pt": "Invoca $s1 Emissários por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Surrounds an ally with a seal that lasts $d. Every time the sealed character strikes an enemy, the sealed character gains health.",
+    "curr_pt": "Selo no aliado: cada golpe cura. Dura $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Taming this savage breed requires patience, strength, and a large supply of fake mice and twine.",
+    "curr_pt": "Gato bravo: paciência, força e rato falso.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Tasked with hunting down Outlaws and claiming their bounties.",
+    "curr_pt": "Caça Proscrito e cobra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleport player to Blackwing Lair.",
+    "curr_pt": "Teleporta pra Toca Asanegra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the caster to Thunderbluff.",
+    "curr_pt": "Teleporta pra Penhasco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the caster to the Darnassus.",
+    "curr_pt": "Teleporta pra Darnassus.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the caster to the Ironforge.",
+    "curr_pt": "Teleporta pra Altaforja.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the caster to the Stormwind.",
+    "curr_pt": "Teleporta pra Ventobravo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleports the caster to the Undercity.",
+    "curr_pt": "Teleporta pra Cidade Baixa.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The Arcanite Dragonling comes to life and defends you for $d.",
+    "curr_pt": "Dragonete defende por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "The elusive Elekks are rumored to inhabit the easternmost shores of Kalimdor.",
+    "curr_pt": "Elekks no leste de Kalimdor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This creates an effect on the casting NPC that makes it appear as though they just arrived.",
+    "curr_pt": "Chegada fingida de NPC.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This foreboding creature stalks the night skies of the Eastern Plaguelands, feeding on carrion.",
+    "curr_pt": "Ave da Peste Oriental come carniça.",
+    "sample": "",
+    "need": "review"
+  }
+]

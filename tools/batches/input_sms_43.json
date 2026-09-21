@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Allows opening of hard locks. The skeleton key is consumed in the process.",
+    "curr_pt": "Abre duro. Gasta a chave.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Snow Leopard to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Leopardo por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Surf Crawler to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Lesma por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases damage done to Demons by magical spells and effects by up to $s1.",
+    "curr_pt": "Demônios: +$s1 magia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bash at an enemy's armor, reducing it by $s1 per Crush Armor. Can be applied up to 5 times. Lasts $d.",
+    "curr_pt": "Armadura -$s1 por acúmulo. Até 5x. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A veteran of some of the toughest battles fought by the Argent Crusade.",
+    "curr_pt": "Veterano da Cruzada Argêntea.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "2% chance on successful spellcast to allow $23684s1% of your Mana regeneration to continue while casting for $23684d.",
+    "curr_pt": "2% ao lançar: $s1% da regen continua por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A passive ability that grants a $s1% chance to reflect spells while a shield is equipped.",
+    "curr_pt": "Passiva de $s1% de refletir de escudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "+$s1 Attack Power when fighting Dragonkin.",
+    "curr_pt": "+$s1 poder vs Dracônico.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A symbol of power and authority, commanding respect on the battlefield.",
+    "curr_pt": "Poder e respeito no campo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming a Tirisfal Plagued Bear to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Urso por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Ancient mounts of the Highborne, now left to run wild, they can rarely be found due to their latent magical powers.",
+    "curr_pt": "Montaria altaneira e rara.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A favorite of children across Azeroth, this tough little toy can withstand even the most aggressive imagination.",
+    "curr_pt": "Brinquedo duro de criança.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A friendly farm sheep that wandered away from its flock, it now follows you faithfully, providing a comforting presence in the midst of your adventures.",
+    "curr_pt": "Ovelha fiel e reconfortante.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Cannot attack or take actions that would harm a target. Gain increased experience from crafting and gathering items.",
+    "curr_pt": "Sem ferir: +exp de ofício e coleta.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the damage of your next melee swing by $s1 and causes the target to bleed",
+    "curr_pt": "Próximo corpo a corpo +$s1 e sangra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleport to Northshire Abbey!!!",
+    "curr_pt": "Teleporta pra Abadia!!!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleport to Darkshire!!!",
+    "curr_pt": "Teleporta pra Villa Sombria!!!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Teleport to the Treant!!!",
+    "curr_pt": "Teleporta pra Treant!!!",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Rumored to be favored by SI:7 for night missions due to its dark coat.",
+    "curr_pt": "SI:7 adora pra missão noturna.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Its calm temperament makes it ideal to train young children in horseback riding.",
+    "curr_pt": "Calmo, ideal pra criança aprender.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Once thought to be nearly extinct, this wolf can still occasionally be seen in the company of a few Horde veterans.",
+    "curr_pt": "Quase extinto, visto com veteranos.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Almost none remain in the whole of Azeroth; only the most experienced will have seen one.",
+    "curr_pt": "Raros em Azeroth, só experiente viu.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Minor Soulstone. The Soulstone can be used to store one target's soul. If the target dies while his soul is stored, he will be able to resurrect with $3026s1 health and $3026q1 mana. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Cria Pedra da Alma menor. Guarda a alma; morto ressuscita com $s1 de vida e $s2 de mana. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms the druid into a tree form, removing all harmful physical effects and protecting from all physical attacks for $d, but during that time you cannot attack, move or cast spells. Also protects the caster from polymorph effects. The act of shapeshifting frees the caster of roots, snares, and freeze effects.",
+    "curr_pt": "Vira Árvore: imune a físico por $d s, sem agir. Imune a polimorfia. Virar limpa raiz, laço e gelo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Share your pet's senses, gaining any detection or tracking abilities for $d.",
+    "curr_pt": "Sentidos do pet por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places a Blessing on the party member, increasing threat caused by $s1% for $d. Players may only have one Blessing on them per Paladin at any one time.",
+    "curr_pt": "Bênção: +$s1% ameaça por $d s. Uma por Paladino.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Places a Blessing on the friendly target, granting immunity to movement impairing effects for $d. Players may only have one Hand on them per Paladin at any one time.",
+    "curr_pt": "Bênção: imune a lentidão por $d s. Uma Mão por Paladino.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Summons a meteor from the Twisting Nether, causing $22699s1 Fire damage and stunning all enemy targets in the area for $20310d. An Infernal rises from the crater, under the command of the caster for $51703d. Once control is lost, the Infernal attacks the caster until one of them dies.",
+    "curr_pt": "Meteoro: $s1 de Fogo e atordoa a área por $d1 s. Infernal sob seu comando por $d2 s. Sem controle, ele te ataca até morrer um.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Charges the Rod of Helcular when used at the three ceremonial pyres.",
+    "curr_pt": "Carrega o Cetro nas 3 piras.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transfer control of your pet to another player.",
+    "curr_pt": "Passa o pet pra outro jogador.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows the Anubisath Sentinel to grant his special power to all nearby Anubisath Sentinels",
+    "curr_pt": "Sentinela dá seu poder às próximas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "With the mixture of Snakeroot for physical improvement and crushed Silverleaf for enhancement, a potion to to bring out one's inner lion is brewed.",
+    "curr_pt": "Poção de Snakeroot e Silverleaf: leão interior.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 8 and Stamina by 1.",
+    "curr_pt": "Peito/perna/mão/pé: +8 armadura e +1 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 16 and Stamina by 2.",
+    "curr_pt": "Peito/perna/mão/pé: +16 armadura e +2 Vig.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently increase the armor value of an item worn on the chest, legs, hands or feet by 24 and Stamina by 3. Only usable on items level 15 and above.",
+    "curr_pt": "Peito/perna/mão/pé: +24 armadura e +3 Vig. Só nv 15+.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts normal damage plus $s2 to an enemy, and increases the time between its attacks by $s1% for $d.",
+    "curr_pt": "Normal +$s2 e +$s1% intervalo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Reduces nearby enemies' Strength by $s1 and Agility by $s2 for $d.",
+    "curr_pt": "For -$s1 e Agi -$s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Strength of nearby party members by $s1 for $d.",
+    "curr_pt": "For do grupo +$s1 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "With Swiftthistle for speed and crushed Silverleaf for enhancement, a potion to to enchance ones natural agility is brewed.",
+    "curr_pt": "Poção de Swiftthistle e Silverleaf: agilidade natural.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Permanently enchant a cloak to give $7473s1 Agility.",
+    "curr_pt": "Manto: +$s1 Agi.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gives the caster $h% chance to deal $3322s1 Shadow damage to nearby enemies when the caster is successfully hit. Lasts until cancelled.",
+    "curr_pt": "$h% de $s1 de Sombra ao apanhar. Até cancelar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the caster's attack speed by $s1% for $d. However, the caster becomes fatigued from the extra effort.",
+    "curr_pt": "Velocidade +$s1% por $d s, mas fatiga.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Adds a chance to deal damage in an area around the caster when successfully hit.",
+    "curr_pt": "Acerto: dano em área ao apanhar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Curses an enemy with the Eye of Paleth, reducing the Physical damage it deals by $10653s1 and slowing its spellcasting by $10653s2% for $10653d.",
+    "curr_pt": "Olho de Paleth: -$s1 Físico e -$s2% lançamento por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the Physical damage dealt by the caster by $s2 and its movement speed by $s1% for $d.",
+    "curr_pt": "Físico +$s2 e +$s1% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Sends the caster into a rage that lasts $d., increasing the Physical damage it deals by $s2, but increasing the time between its attacks by $s3%.",
+    "curr_pt": "Fúria $d s: +$s2 Físico, +$s3% intervalo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Diseases an enemy for $d., draining $s1 mana every $t1 sec. and transferring it to the caster.",
+    "curr_pt": "Adoece por $d s: drena $s1 de mana a cada $t1 s pra você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Kills the caster to summon a copy of itself.",
+    "curr_pt": "Morre pra invocar cópia.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases the caster's attack speed by $s1% for $d., but reduces the Physical damage dealt by $s2.",
+    "curr_pt": "+$s1% velocidade por $d s, -$s2 Físico.",
+    "sample": "",
+    "need": "review"
+  }
+]

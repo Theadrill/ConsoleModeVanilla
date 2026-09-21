@@ -1,0 +1,302 @@
+[
+  {
+    "en": "Trading with players and use of the Auction House are disabled. Restricted from grouping with other players. Cannot craft gear. Cannot use consumables other than health potions. Automatically revive at a graveyard upon death.",
+    "curr_pt": "Sem grupo, leilão, ofício ou consumível além de poção de vida. Revive no cemitério.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Unlocks the 4th pet stable slot, providing access to another loyal companion.",
+    "curr_pt": "Abre o 4º estábulo de pets.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Use to lull the vermin infesting the Deeprun Tram into a state of raptured bliss.",
+    "curr_pt": "Acalma a praga do túnel em êxtase.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "When using Shield Block, your first block within $45959d aborbs $45959s1% more damage and causes your next Revenge to deal $45962s1% more damage.",
+    "curr_pt": "Bloquear: primeiro em $d s absorve +$s1% e Vingança +$s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Wounds the target for $s1 damage and lowers Intellect of target by $s2 for $d.",
+    "curr_pt": "Fere $s1 e -Int $s2 por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "You can no longer disable PvP but experience gain from all sources is increased.",
+    "curr_pt": "PvP sempre, +exp de tudo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes the caster to periodically inflict $17716s1 Shadow damage to all enemies in a selected area, slowing their movement to $17716s2%. Lasts $d.",
+    "curr_pt": "Sombra periódica em área com -$s1% velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Consecrates the caster's weapon, inflicting $s1 additional damage on its next attack. All damage caused is considered Shadow damage.",
+    "curr_pt": "Arma consagrada: +$s1 no próximo golpe, tudo Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Major Healthstone that can be used to instantly restore $11732s1 health. Conjured items disappear if logged out for more than 15 minutes.",
+    "curr_pt": "Pedra Maior: restaura $s1 na hora. Some se deslogar 15 min.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Tiny Bronze Key that is a reagent for mage unlocking spells.",
+    "curr_pt": "Chave de bronze pra magia de unlocking.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a Tiny Iron Key that is a reagent for mage unlocking spells.",
+    "curr_pt": "Chave de ferro pra magia de unlocking.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Creates a portal, teleporting group members that use it to Alah'Thalas.",
+    "curr_pt": "Portal pra Alah'Thalas.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $s1 Shadow damage every $t1 sec for $d. All damage done is then transferred to the caster.",
+    "curr_pt": "Causa $s1 de Sombra a cada $t1 s por $d s e passa pra você.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Diseases an enemy for $d., increasing the Physical damage it takes by $s1 and reducing its Stamina by $s2. The diseased target has $h% chance of spreading its illness to one of its nearby allies when struck in combat.",
+    "curr_pt": "Adoece por $d s com +$s1 Físico e -Vig $s2, com $h% de espalhar ao apanhar.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $s1 health from an enemy, healing the caster for up to 150% of that amount.",
+    "curr_pt": "Drena $s1 e cura até 150%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Eats away at an enemy's armor, reducing it by $s1 per application. Can be applied up to 5 times. Lasts $d.",
+    "curr_pt": "Corrói $s1 por acúmulo. Até 5x. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Encases the caster in bone armor, absorbing $s1 damage for $d. While the armor holds, spellcasting cannot be interrupted by Physical attacks.",
+    "curr_pt": "Cerca de osso com $s1 por $d s, sem interrupção física.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Fires a cannon round at the nearest tonk in front of you within $a1 yards. Deals $s1 damage.",
+    "curr_pt": "Tiro de canhão no tonk a $a1 m: $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Gaining 50% fewer experience points from defeating enemies. Lose 5% of accumulated experience from current level upon being defeated by enemies.",
+    "curr_pt": "50% menos exp de inimigo; derrota tira 5% da exp do nível.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "He's big, he's ready for battle, and he's a bear. What more could you want in a mount?",
+    "curr_pt": "Grande, pronto e urso. Que mais quer?",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Historians claim that these incorporeal beasts were created when Draenor exploded, unleashing energies that warped the world's flora and fauna.",
+    "curr_pt": "Fera etérea do estouro de Draenor.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Hurls a stun bomb, inflicting normal damage plus $s1 to all enemies in a selected area and stunning them for $d.",
+    "curr_pt": "Bomba: normal +$s1 em área e atordoa por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Hurls missiles of dark magic, inflicting $s1 Shadow damage to up to the 3 nearest enemies.",
+    "curr_pt": "Míssil sombrio em até 3 próximos de $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Immobilizes an enemy, increases the time between its attacks by $s2%, and prevents it from casting spells for $d.",
+    "curr_pt": "Imobiliza, +$s1% intervalo e sem magia por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Improves your chance to hit with Taunt and Challenging Shout by $s1%.",
+    "curr_pt": "Provocar e Grito +$s1% acerto.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases dodge chance by $s1% while in Bear, Dire Bear and Cat Forms.",
+    "curr_pt": "Urso/Gato +$s1% esquiva.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases spell damage done by $s1%. Increases healing done by $s2%.",
+    "curr_pt": "Magia +$s1% e cura +$s2%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases spellpower by magical spells and effects on Warlock Demons and Enslaves",
+    "curr_pt": "Poder em demônio e escravizado.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts normal damage plus $s1 to an enemy when attacking from stealth, stunning it $d. Awards $s3 combo $lpoint:points;.",
+    "curr_pt": "Furtivo: normal +$s1 e atordoa $d s. Combo +$s3.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Allows a hunter to teach $ghis:her; tamed tall strider to use the Healing Tongue ability. Healing Tongue heals friendly targets from a short range. Requires: Pet Level 22+",
+    "curr_pt": "Ensina Língua Curativa ao moa (Nv 22+).",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts Frost damage to enemies in a cone in front of the caster, stealing their mana and reducing their movement speed for $d.",
+    "curr_pt": "Gelo em cone: rouba mana e reduz a velocidade por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Fire damage and stuns targets in a 3 yard radius for $d. Any damage will break the effect.",
+    "curr_pt": "Aumenta seu dano com Armas de Arremesso em 1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drops a target dummy on the ground that attracts nearby monsters to attack it. Lasts for 15 seconds or until killed.",
+    "curr_pt": "Aumenta seu dano com Bestas em $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 Nature damage to an enemy, then an additional $s2 damage every $t2 sec. for $d.",
+    "curr_pt": "Reduz a recarga da Furtividade em $s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Transforms an enemy into a frog, rendering it unable to attack or cast spells for $d.",
+    "curr_pt": "Aumenta a resistência a Fogo em $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Drains $s1 health from nearby enemies, healing the caster for up to three times the amount stolen.",
+    "curr_pt": "Aumenta a resistência a Arcano em $s1.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Deals $13184s1 fire damage for $d to all targets in a cone in front of the engineer using the weapon. That is unless it explodes.....",
+    "curr_pt": "Detona o inimigo com $s1 de dano de Sombra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Inflicts $s1 damage to an enemy and increases the Holy damage it takes by $s2 per Crusader Strike. Can be applied up to 5 times. Lasts $d.",
+    "curr_pt": "Reduz a recarga do Martelo da Justiça em $s1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Spits poison at nearby enemies, inflicting Nature damage, then additional damage every $t2 sec. for $d.",
+    "curr_pt": "Imobiliza o inimigo por $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes the caster to automatically inflict $17466s1 Shadow damage every $t1 sec. to nearby enemies. The aura lasts until cancelled.",
+    "curr_pt": "Aumenta a velocidade montado em $s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Dispels magic on nearby enemies, removing $s1 beneficial spell $leffect:effects;.",
+    "curr_pt": "Aumenta o dano do seu pet em $s1%.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Recombines the left, right and top pieces of Lord Valthalak's Amulet into one whole.",
+    "curr_pt": "Regenera $s1 de vida a cada 5 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "A shot to a critical area that blasts an enemy target for $s1 damage.",
+    "curr_pt": "Tiro crítico de $s1 no inimigo.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Causes $s1 Nature damage to any creature that strikes a nearby party member. Players may only have one aura on them per paladin at any one time. The aura lasts $d.",
+    "curr_pt": "$s1 de Natureza em quem bater num aliado. Uma aura por Paladino. $d s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "This hearty mount's ferocious appetite earned it the nickname \"Dragon Belly\" in the Night Elf language.",
+    "curr_pt": "Apetite de Barriga de Dragão.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Bred from the fiercest stock anywhere and guaranteed not to bite (much).",
+    "curr_pt": "Quase não morde, juro.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Increases an ally's attack speed by $s1% for $d., but also inflicts $s2 Nature damage to that ally every $t2 sec.",
+    "curr_pt": "Aliado: +$s1% velocidade por $d s, mas $s2 de Natureza a cada $t1 s.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Attaches spurs to your boots that increase your mounted movement speed slightly.",
+    "curr_pt": "Espora: +montado um pouco.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Apply near a Moonkin Stone to bring forth the stone's defender, Lunaclaw.",
+    "curr_pt": "Pedra da Coruja traz Lunagarra.",
+    "sample": "",
+    "need": "review"
+  },
+  {
+    "en": "Begins taming an Ice Claw Bear to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.",
+    "curr_pt": "Doma Urso por 10 min. Perdeu atenção, falhou.",
+    "sample": "",
+    "need": "review"
+  }
+]

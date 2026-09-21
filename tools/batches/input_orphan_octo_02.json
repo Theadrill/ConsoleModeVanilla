@@ -1,0 +1,370 @@
+[
+  {
+    "oid": 64922,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Dark Trolls",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64923,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Frozen Trolls",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64924,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Darkness",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64925,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Undead: Blood Widow",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64926,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Night Elf: Demon",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64927,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Demon Hunter",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64928,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Necromancy II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64929,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Dark Ranger",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64930,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Zul'Farrak Curse",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64931,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Magic Addiction",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64932,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Death I",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64933,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Spirit Walker",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64934,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Death II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64935,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Necromancy III",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64936,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Dreadskull Clan III",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64937,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Dalaran Legacy",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64938,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Frost Affinity",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64939,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Nature I",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64940,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Nature II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64941,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Nature III",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64942,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Change Appearance: Mark of Enchantress",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64943,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Change Appearance: Mark of Sorcery",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64944,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Change Appearance: Mark of the Grand Destiny",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64945,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Change Appearance: Mark of the Grim Totem",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64960,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Frost Storm Rank 1",
+    "en": "Ice shards pelt the target area doing $o1 Frost damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64961,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Fire Rain Rank 1",
+    "en": "Calls down a fiery rain to burn enemies in the area of effect for $o1 Fire damage over $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64962,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Flare",
+    "en": "Exposes all hidden and invisible enemies within $a1 yards of the targeted area for $d.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64963,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Wind Storm Rank 1",
+    "en": "Creates a violent storm in the target area causing $s1 Nature damage to enemies every $t1 sec.  Lasts $d.  Druid must channel to maintain the spell.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64964,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Chain Lightning Rank 1",
+    "en": "Hurls a lightning bolt at the enemy, dealing $s1 Nature damage and then jumping to additional nearby enemies.  Each jump reduces the damage by 30%.  Affects $x1 total targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64965,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Chain Heal Rank 1",
+    "en": "Heals the friendly target for $s1, then jumps to heal additional nearby targets.  If cast on a party member, the heal will only jump to other party members.  Each jump is $*100;F1% as effective as the previous target.  Heals $x1 total targets.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64967,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Holy Burst Rank 1",
+    "en": "Causes an explosion of holy light around the caster, causing $s1 Holy damage to all enemy targets within $a1 yards and healing all party members within $23455a1 yards for $23455s1. Using this spell while in Shadowform damages you instead of healing you. These effects cause reduced threat.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64968,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Arcane Burst Rank 1",
+    "en": "Causes an explosion of arcane magic around the caster, causing $s1 Arcane damage to all targets within $a1 yards.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64969,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Firework Blue",
+    "en": "Shoots a firework into the air that bursts into red, white and blue stars.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64970,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Firework Gold",
+    "en": "Shoots a firework into the air that bursts in a yellow pattern.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64971,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Firework Red",
+    "en": "Shoots a firework into the air that bursts into red streaks.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64974,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Radio: Sky Burst",
+    "en": "Shoots a firework at target.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65001,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Vow of the Damned",
+    "en": "Bind yourself to the Hardcore realm for all time. You can never cross the Dark Portal again. This choice is permanent.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65200,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Pig Disguise",
+    "en": "Oink, Oink!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65250,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Redeem OctoTokens",
+    "en": "Right-click to gain 200 OctoTokens",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65300,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Haunted by the Innocent",
+    "en": "The vengeful spirits of those you have slain in open-world combat cling to you. Your next resurrection wait grows with each stack (10 minutes, then 20, then +50 percent per stack). They depart only when you fall.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65310,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Together Forever Challenge",
+    "en": "Bound to a fellowship of up to five. You gain experience from your kills only while every member of your fellowship is by your side.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65311,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Together Rank 1",
+    "en": "Your fellowship is at your side.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65312,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ring of Friendship So Long! Poof!",
+    "en": "Calls the members of your fellowship to your side.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65313,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Increased Pet Damage +3%",
+    "en": "Increases your pet's damage by $s1%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 65314,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Increased Pet Damage +3%",
+    "en": "Increases damage dealt by your pet by 3%.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 90301,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Octopuss",
+    "en": "Teaches you the Octopuss companion.",
+    "curr_pt": ""
+  }
+]

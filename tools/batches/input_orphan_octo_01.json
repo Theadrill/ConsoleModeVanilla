@@ -1,0 +1,402 @@
+[
+  {
+    "oid": 57847,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Way of the Samurai Challenge",
+    "en": "You may only wield katana-style swords. Available only to Warriors, Paladins, and Hunters.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62300,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Buccaneer Bubbles",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62301,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ozzy",
+    "en": "Participated in the OctoWoW Closed Beta",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62302,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Onyx Baby Octopus",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62303,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Faceless Baby Octopus",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62304,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Verdant Baby Octopus",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62305,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crimson Baby Octopus",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62306,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sandy Baby Octopus",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62307,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Teal Baby Octopus",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62308,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Void Baby Octopus",
+    "en": "Friend of the OctoWoW Team",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62310,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Cone of Shame",
+    "en": "Hey, at least it isn't a ban!",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62320,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Bubbles",
+    "en": "A translucent echo of the OctoWoW mascot.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62321,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Captain Ozzy",
+    "en": "A one-eyed scoundrel of the tide pools.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62322,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Sandy Octopus",
+    "en": "A pale spirit drifting over the sea floor.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62323,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Crimson Buccaneer Octopus",
+    "en": "A crimson corsair with a patched eye.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62324,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Faceless Buccaneer Octopus",
+    "en": "It watches the horizon with one good eye.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62325,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Teal Buccaneer Octopus",
+    "en": "A bright rogue of the tropical shallows.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62326,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Teal Octopus",
+    "en": "A shimmering wisp the color of shallows.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62327,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Teal Buccaneer Octopus",
+    "en": "A spectral pirate haunting the reef.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62328,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Onyx Buccaneer Octopus",
+    "en": "Dark as the deepest trench, one eye patched.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62329,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Onyx Octopus",
+    "en": "A shadow given eight translucent arms.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62330,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Onyx Buccaneer Octopus",
+    "en": "A phantom corsair from the black depths.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62331,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Verdant Buccaneer Octopus",
+    "en": "Freshly bloomed and ready to plunder.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62332,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Verdant Octopus",
+    "en": "A faint green glow from a drowned reef.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62333,
+    "kind": "custom",
+    "need": "new",
+    "sample": "D'Dossy",
+    "en": "Given to those who survived an OctoWoW DDoS",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62334,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Void Buccaneer Octopus",
+    "en": "A void-dark pirate with a single eye.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62335,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Void Octopus",
+    "en": "A near-invisible shade of the abyss.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 62336,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Ghostly Void Buccaneer Octopus",
+    "en": "A spectral buccaneer from the drowned depths.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64900,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Scarlet Crusade",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64901,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Necromancy I",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64902,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Wildhammer Clan I",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64903,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Dark Iron Clan",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64904,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Earthen Dwarves",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64905,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Blackrock Clan I",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64906,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Burning Blade",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64907,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Mag'har Heritage",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64908,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Forest Troll",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64909,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Sandfury Trolls",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64910,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Radioactive Fallout",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64911,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Orc: Blackrock II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64912,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Blackrock Clan II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64913,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Dreadskull Clan I",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64914,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Dreadskull Clan II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64915,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Forest Troll II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64916,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Wildhammer Clan II",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64917,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Wildhammer Clan III",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64918,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Wildhammer Clan IV",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64919,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Azotha",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64920,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of Fel Power",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  },
+  {
+    "oid": 64921,
+    "kind": "custom",
+    "need": "new",
+    "sample": "Mark of the Arcane Binder",
+    "en": "Right-click to update your appearance.",
+    "curr_pt": ""
+  }
+]

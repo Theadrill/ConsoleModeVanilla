@@ -409,6 +409,41 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - **SMS efetivo "other" zerado:** auditoria pós-norm (`tools/audit_effective_sms.py`, 0 flagged em ranked/orphan) + 183 templates other reescritos (S01–S04).
 - **Restam:** cauda de monstros/NPCs (~1.084 + 2.056 tail, Fases 8.B/8.C) e typos de NOMES (`Armadura de Glugelo`, `Batida no Chão` × `Trovoada`).
 
+#### 8.6 Checkpoint de estado — Fase 8.C Tail NPC (21/09/2026)
+> Registro detalhado para retomada exata da Fase 8.C (Tail NPC).
+
+**O que foi feito:**
+1. **Geração e Estruturação de 43 Lotes da Cauda NPC (2.087 templates):**
+   - Extração via `tools/build_tail_npc_batches.py` a partir de `tools/mpq_orphans.json` (excluindo os 497 player-facing já homologados).
+   - Lotes `T01` a `T35` (1.731 templates novos sem tradução prévia).
+   - Lotes `T36` a `T43` (356 templates com tradução legada normalizada incluídos na fila de revisão humana para expurgo total de resíduos SMS).
+   - Índice unificado salvo em `tools/tail_npc_queue.json` e todos os `input_tail_npc_01..43.json` gerados e versionados.
+2. **Tradução e Homologação dos Lotes T01 a T27 (1.350 templates):**
+   - Todos os 27 lotes traduzidos sob estrito padrão Blizzard pt-BR oficial (3ª pessoa, 'ajudante' para pets, durações em `$d s`, distâncias em `a até $a1 metros`, sem resumos telegráficos).
+   - 100% dos lotes validados com `tools/validate_spell_vars.py` (ordem e contagem idêntica de marcadores `$`, limpeza de prefixos DBC).
+   - `tools/spell_pt_authoral.json` expandido para **8.957 templates autorais**.
+   - `Data/SpellDescDB_ptBR.lua` reconstruído a cada lote e validado com `luac -p` (**0 erros** de compilação em todas as etapas).
+   - Ledger `tools/batches/PROGRESSO.txt` rigorosamente atualizado a cada lote.
+   - Commits locais realizados lote a lote (`T01` até `T27`).
+
+**Onde parou:**
+- **Último lote concluído:** `T27` (Commit `21a9ad3`).
+- **Próximo lote a processar:** **Lote T28** (`tools/batches/input_tail_npc_28.json`).
+- **Lotes pendentes da Fase 8.C:** `T28` a `T43` (16 lotes = 737 templates restantes).
+
+**Como continuar na próxima sessão:**
+1. Executar 2 agentes tradutores em paralelo:
+   - Agente 1: `tools/batches/input_tail_npc_28.json` $\rightarrow$ `tools/batches/output_tail_npc_28.json`.
+   - Agente 2: `tools/batches/input_tail_npc_29.json` $\rightarrow$ `tools/batches/output_tail_npc_29.json`.
+2. Diretrizes inegociáveis para os agentes: padrão Blizzard pt-BR oficial, variáveis `$` idênticas em contagem/ordem, durações `$d s`, distâncias `a até $a1 metros`, 'ajudante' (nunca mascote), sem SMS.
+3. Para cada lote entregue:
+   - Aplicar: `python tools/apply_batch.py tools/batches/output_tail_npc_XX.json`
+   - Validar sintaxe: `luac -p Data/SpellDescDB_ptBR.lua`
+   - Atualizar ledger: adicionar linha `TXX | 50 | OK` em `tools/batches/PROGRESSO.txt`
+   - Commitar local: `git commit -m "feat(fase8): TXX (50 Templates) - tail NPC Blizzlike"`
+4. Repetir sequencialmente até o lote `T43`.
+5. **NÃO FAZER PUSH sem autorização explícita do usuário.**
+
 ---
 
 ### 🟢 FASE FINAL: Inclusão de mais linguagens (template + idioma de prova)

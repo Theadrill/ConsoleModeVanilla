@@ -6130,13 +6130,13 @@ ConsoleMode_SpellDescDB[7678] = { n="Increase Healing 9", r="", d="Increases hea
 ConsoleMode_SpellDescDB[7679] = { n="Increase Healing 11", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[7680] = { n="Increase Healing 13", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[7681] = { n="Increase Healing 15", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
-ConsoleMode_SpellDescDB[7683] = { n="Increase Fire Dam 1", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[7684] = { n="Increase Fire Dam 3", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[7685] = { n="Increase Fire Dam 4", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[7686] = { n="Increase Fire Dam 6", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[7687] = { n="Increase Fire Dam 7", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[7688] = { n="Increase Fire Dam 9", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[7689] = { n="Increase Fire Dam 10", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[7683] = { n="Increase Fire Dam 1", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[7684] = { n="Increase Fire Dam 3", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[7685] = { n="Increase Fire Dam 4", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[7686] = { n="Increase Fire Dam 6", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[7687] = { n="Increase Fire Dam 7", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[7688] = { n="Increase Fire Dam 9", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[7689] = { n="Increase Fire Dam 10", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[7690] = { n="Increase Nature Dam 1", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[7691] = { n="Increase Nature Dam 3", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[7692] = { n="Increase Nature Dam 4", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
@@ -6144,20 +6144,20 @@ ConsoleMode_SpellDescDB[7693] = { n="Increase Nature Dam 6", r="", d="Increases 
 ConsoleMode_SpellDescDB[7694] = { n="Increase Nature Dam 7", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[7695] = { n="Increase Nature Dam 9", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[7696] = { n="Increase Nature Dam 10", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
-ConsoleMode_SpellDescDB[7697] = { n="Increase Frost Dam 1", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[7698] = { n="Increase Frost Dam 3", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[7699] = { n="Increase Frost Dam 4", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[7700] = { n="Increase Frost Dam 6", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[7701] = { n="Increase Frost Dam 7", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[7702] = { n="Increase Frost Dam 9", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[7703] = { n="Increase Frost Dam 10", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[7704] = { n="Increase Shadow Dam 1", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[7705] = { n="Increase Shadow Dam 3", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[7706] = { n="Increase Shadow Dam 4", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[7707] = { n="Increase Shadow Dam 6", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[7708] = { n="Increase Shadow Dam 7", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[7709] = { n="Increase Shadow Dam 10", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[7710] = { n="Increase Shadow Dam 9", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[7697] = { n="Increase Frost Dam 1", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[7698] = { n="Increase Frost Dam 3", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[7699] = { n="Increase Frost Dam 4", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[7700] = { n="Increase Frost Dam 6", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[7701] = { n="Increase Frost Dam 7", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[7702] = { n="Increase Frost Dam 9", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[7703] = { n="Increase Frost Dam 10", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[7704] = { n="Increase Shadow Dam 1", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[7705] = { n="Increase Shadow Dam 3", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[7706] = { n="Increase Shadow Dam 4", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[7707] = { n="Increase Shadow Dam 6", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[7708] = { n="Increase Shadow Dam 7", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[7709] = { n="Increase Shadow Dam 10", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[7710] = { n="Increase Shadow Dam 9", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[7711] = { n="Add Fire Dam - Weap 02", r="", d="Adds 2 fire damage to your melee attacks.", t="", pt="Arma corpo a corpo +2 fogo." }
 ConsoleMode_SpellDescDB[7712] = { n="Fire Strike", r="", d="Does $s1 additional Fire damage to the target.", t="", pt="Causa $s1 de dano de Fogo adicional no alvo." }
 ConsoleMode_SpellDescDB[7713] = { n="Wailing Dead", r="", d="Reduces all the attributes of nearby enemies by $s1% for $d.", t="All attributes reduced by $s1%.", pt="Atributos dos próximos -$s1% por $d s." }
@@ -7383,21 +7383,21 @@ ConsoleMode_SpellDescDB[9275] = { n="Immolate", r="", d="Burns an enemy, then in
 ConsoleMode_SpellDescDB[9276] = { n="Immolate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[9292] = { n="Fire Damage Bonus", r="", d="Increases the damage you do with Fire spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Fogo em $s1." }
 ConsoleMode_SpellDescDB[9293] = { n="Fire Damage Bonus", r="", d="Increases the damage you do with Fire spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Fogo em $s1." }
-ConsoleMode_SpellDescDB[9294] = { n="Increase Fire Dam 16", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[9295] = { n="Increase Fire Dam 17", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[9296] = { n="Increase Fire Dam 19", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[9297] = { n="Increase Fire Dam 20", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[9298] = { n="Increase Fire Dam 21", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9294] = { n="Increase Fire Dam 16", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9295] = { n="Increase Fire Dam 17", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9296] = { n="Increase Fire Dam 19", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9297] = { n="Increase Fire Dam 20", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9298] = { n="Increase Fire Dam 21", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[9299] = { n="Frost Damage Bonus", r="", d="Increases the damage you do with Frost spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Gelo em $s1." }
 ConsoleMode_SpellDescDB[9300] = { n="Frost Damage Bonus", r="", d="Increases the damage you do with Frost spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Gelo em $s1." }
 ConsoleMode_SpellDescDB[9301] = { n="Frost Damage Bonus", r="", d="Increases the damage you do with Frost spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Gelo em $s1." }
 ConsoleMode_SpellDescDB[9302] = { n="Frost Damage Bonus", r="", d="Increases the damage you do with Frost spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Gelo em $s1." }
 ConsoleMode_SpellDescDB[9303] = { n="Frost Damage Bonus", r="", d="Increases the damage you do with Frost spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Gelo em $s1." }
-ConsoleMode_SpellDescDB[9304] = { n="Increase Frost Dam 16", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[9305] = { n="Increase Frost Dam 17", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[9306] = { n="Increase Frost Dam 19", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[9307] = { n="Increase Frost Dam 20", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[9308] = { n="Increase Frost Dam 21", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9304] = { n="Increase Frost Dam 16", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9305] = { n="Increase Frost Dam 17", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9306] = { n="Increase Frost Dam 19", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9307] = { n="Increase Frost Dam 20", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9308] = { n="Increase Frost Dam 21", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
 ConsoleMode_SpellDescDB[9309] = { n="Holy Damage Bonus", r="", d="Increases damage done by Holy spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Sagrados em até $s1." }
 ConsoleMode_SpellDescDB[9310] = { n="Holy Damage Bonus", r="", d="Increases damage done by Holy spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Sagrados em até $s1." }
 ConsoleMode_SpellDescDB[9311] = { n="Holy Damage Bonus", r="", d="Increases damage done by Holy spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Sagrados em até $s1." }
@@ -7413,11 +7413,11 @@ ConsoleMode_SpellDescDB[9320] = { n="Shadow Damage Bonus", r="", d="Increases th
 ConsoleMode_SpellDescDB[9321] = { n="Shadow Damage Bonus", r="", d="Increases the damage you do with Shadow spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Sombra em $s1." }
 ConsoleMode_SpellDescDB[9322] = { n="Shadow Damage Bonus", r="", d="Increases the damage you do with Shadow spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Sombra em $s1." }
 ConsoleMode_SpellDescDB[9323] = { n="Shadow Damage Bonus", r="", d="Increases the damage you do with Shadow spells and attacks by $s1.", t="", pt="Aumenta o dano com magias e ataques de Sombra em $s1." }
-ConsoleMode_SpellDescDB[9324] = { n="Increase Shadow Dam 16", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[9325] = { n="Increase Shadow Dam 17", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[9326] = { n="Increase Shadow Dam 19", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[9327] = { n="Increase Shadow Dam 20", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[9328] = { n="Increase Shadow Dam 21", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9324] = { n="Increase Shadow Dam 16", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9325] = { n="Increase Shadow Dam 17", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9326] = { n="Increase Shadow Dam 19", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9327] = { n="Increase Shadow Dam 20", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9328] = { n="Increase Shadow Dam 21", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[9329] = { n="Attack Power 16", r="", d="+$s1 Attack Power.", t="", pt="+$s1 de Poder de Ataque." }
 ConsoleMode_SpellDescDB[9330] = { n="Attack Power 18", r="", d="+$s1 Attack Power.", t="", pt="+$s1 de Poder de Ataque." }
 ConsoleMode_SpellDescDB[9331] = { n="Attack Power 20", r="", d="+$s1 Attack Power.", t="", pt="+$s1 de Poder de Ataque." }
@@ -7460,12 +7460,12 @@ ConsoleMode_SpellDescDB[9395] = { n="Increase Spell Dam 5", r="", d="Increases d
 ConsoleMode_SpellDescDB[9396] = { n="Increase Spell Dam 6", r="", d="Increases damage and healing done by magical spells and effects by up to $s1.", t="", pt="Aumenta o dano e a cura de magias e efeitos mágicos em até $s1." }
 ConsoleMode_SpellDescDB[9397] = { n="Increase Spell Dam 7", r="", d="Increases damage and healing done by magical spells and effects by up to $s1.", t="", pt="Aumenta o dano e a cura de magias e efeitos mágicos em até $s1." }
 ConsoleMode_SpellDescDB[9398] = { n="Increase Spell Dam 8", r="", d="Increases damage and healing done by magical spells and effects by up to $s1.", t="", pt="Aumenta o dano e a cura de magias e efeitos mágicos em até $s1." }
-ConsoleMode_SpellDescDB[9399] = { n="Increase Fire Dam 11", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[9400] = { n="Increase Fire Dam 13", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[9401] = { n="Increase Fire Dam 14", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[9402] = { n="Increase Frost Dam 11", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[9403] = { n="Increase Frost Dam 13", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[9404] = { n="Increase Frost Dam 14", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9399] = { n="Increase Fire Dam 11", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9400] = { n="Increase Fire Dam 13", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9401] = { n="Increase Fire Dam 14", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[9402] = { n="Increase Frost Dam 11", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9403] = { n="Increase Frost Dam 13", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[9404] = { n="Increase Frost Dam 14", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
 ConsoleMode_SpellDescDB[9405] = { n="Increased Critical 5", r="", d="Improves your chance to get a critical strike by $s1%.", t="", pt="Aumenta a sua chance de obter um acerto crítico em $s1%." }
 ConsoleMode_SpellDescDB[9406] = { n="Increase Healing 18", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[9407] = { n="Increase Healing 20", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
@@ -7473,9 +7473,9 @@ ConsoleMode_SpellDescDB[9408] = { n="Increase Healing 22", r="", d="Increases he
 ConsoleMode_SpellDescDB[9409] = { n="Increase Nature Dam 11", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[9410] = { n="Increase Nature Dam 13", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[9411] = { n="Increase Nature Dam 14", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
-ConsoleMode_SpellDescDB[9412] = { n="Increase Shadow Dam 11", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[9413] = { n="Increase Shadow Dam 13", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[9414] = { n="Increase Shadow Dam 14", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9412] = { n="Increase Shadow Dam 11", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9413] = { n="Increase Shadow Dam 13", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[9414] = { n="Increase Shadow Dam 14", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[9415] = { n="Increase Spell Dam 9", r="", d="Increases damage and healing done by magical spells and effects by up to $s1.", t="", pt="Aumenta o dano e a cura de magias e efeitos mágicos em até $s1." }
 ConsoleMode_SpellDescDB[9416] = { n="Increase Spell Dam 11", r="", d="Increases damage and healing done by magical spells and effects by up to $s1.", t="", pt="Aumenta o dano e a cura de magias e efeitos mágicos em até $s1." }
 ConsoleMode_SpellDescDB[9417] = { n="Increase Spell Dam 12", r="", d="Increases damage and healing done by magical spells and effects by up to $s1.", t="", pt="Aumenta o dano e a cura de magias e efeitos mágicos em até $s1." }
@@ -10382,8 +10382,8 @@ ConsoleMode_SpellDescDB[13826] = { n="Greater Spirit", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[13827] = { n="Greater Stamina", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[13828] = { n="Greater Strength", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[13829] = { n="Enchant Bracer - Intellect", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[13830] = { n="Increase Fire Dam 29", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[13831] = { n="Increase Frost Dam 29", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[13830] = { n="Increase Fire Dam 29", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[13831] = { n="Increase Frost Dam 29", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
 ConsoleMode_SpellDescDB[13832] = { n="Precision", r="Rank 2", d="Increases your chance to hit with melee weapons by $s1%.", t="", pt="Aumenta sua chance de acertar com armas corpo a corpo em $s1%." }
 ConsoleMode_SpellDescDB[13835] = { n="Unkillable Off", r="Rank 1", d="Protects the caster from all damage and spells for $d.", t="Immune to all attacks and spells, but attack speed is reduced by 50%.", pt="Imune a tudo e magia por $d s." }
 ConsoleMode_SpellDescDB[13836] = { n="Enchant Boots - Stamina", r="", d="Permanently enchant boots to give +5 Stamina.", t="", pt="Encanta permanentemente botas para conceder +5 de Vigor." }
@@ -11203,8 +11203,8 @@ ConsoleMode_SpellDescDB[14789] = { n="Unbreakable Will", r="Rank 3", d="Increase
 ConsoleMode_SpellDescDB[14790] = { n="Unbreakable Will", r="Rank 4", d="Increases your chance to resist Stun, Fear, and Silence effects by an additional $s1%.", t="", pt="Aumenta em $s1% a sua chance de resistir a efeitos de Atordoamento, Medo e Silêncio." }
 ConsoleMode_SpellDescDB[14791] = { n="Unbreakable Will", r="Rank 5", d="Increases your chance to resist Stun, Fear, and Silence effects by an additional $s1%.", t="", pt="Aumenta em $s1% a sua chance de resistir a efeitos de Atordoamento, Medo e Silêncio." }
 ConsoleMode_SpellDescDB[14792] = { n="Venomhide Poison", r="", d="", t="Nature damage inflicted every $t1 sec.", pt="" }
-ConsoleMode_SpellDescDB[14793] = { n="Increase Shadow Dam 23", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[14794] = { n="Increase Shadow Dam 24", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[14793] = { n="Increase Shadow Dam 23", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[14794] = { n="Increase Shadow Dam 24", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[14795] = { n="Venomhide Poison", r="", d="", t="Target takes $s1 nature damage every $t1 seconds.", pt="" }
 ConsoleMode_SpellDescDB[14796] = { n="Burning Tar", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[14797] = { n="Burning Tar", r="", d="", t="$s1 Fire damage inflicted every $t1 sec.", pt="" }
@@ -13506,7 +13506,7 @@ ConsoleMode_SpellDescDB[17680] = { n="Spirit Spawn-out", r="", d="", t="", pt=""
 ConsoleMode_SpellDescDB[17681] = { n="Reputation - Caer Darrow", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17682] = { n="Drain Mana", r="", d="Drains up to $o1 mana from an enemy over $d. and transfers it to the caster.", t="$o1 mana leeched over $d.", pt="Drena até $s1 de mana de um inimigo ao longo de $d s, transferindo-a para o lançador." }
 ConsoleMode_SpellDescDB[17683] = { n="Full Heal", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[17684] = { n="Increase Fire Dam 39", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17684] = { n="Increase Fire Dam 39", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[17685] = { n="Cleave", r="", d="Inflicts normal damage plus $s1 to an enemy and its nearest allies, affecting up to $x1 targets.", t="", pt="Inflige dano normal mais $s1 a um inimigo e aos aliados mais próximos dele, afetando até $x1 alvos." }
 ConsoleMode_SpellDescDB[17686] = { n="Deadly Acid", r="", d="", t="$o1 Nature damage inflicted over $d.", pt="" }
 ConsoleMode_SpellDescDB[17687] = { n="Flurry", r="", d="", t="Attack speed increased by $s1%.", pt="" }
@@ -13548,7 +13548,7 @@ ConsoleMode_SpellDescDB[17743] = { n="Peon Sleeping", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17744] = { n="Force Target - Kick", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17745] = { n="Diseased Spit", r="", d="Spits at an enemy, inflicting Nature damage and reducing its Stamina for $d.", t="Reduced Stamina.", pt="Cospe em um inimigo, causando dano de Natureza e reduzindo seu Vigor por $d s." }
 ConsoleMode_SpellDescDB[17746] = { n="Stealth 5", r="", d="Increases your effective stealth level by 1.", t="", pt="Furtivo +1." }
-ConsoleMode_SpellDescDB[17747] = { n="Increase Fire Dam 23", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17747] = { n="Increase Fire Dam 23", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[17748] = { n="Kick Peon", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17749] = { n="Kick Peon Prologue", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17750] = { n="Suffering", r="Rank 2", d="Taunts all enemies within $a1 yards, dealing $s2 Shadow damage and increasing the chance that they will attack the Voidwalker.  More effective than Suffering (Rank 1).", t="", pt="Provoca todos os inimigos em um raio de $a1 metros, causando $s1 de dano de Sombra e aumentando a chance de eles atacarem o Emissário do Caos. Mais eficaz que Sofrimento (Grau 1)." }
@@ -13652,51 +13652,51 @@ ConsoleMode_SpellDescDB[17862] = { n="Curse of Shadow", r="Rank 1", d="Curses th
 ConsoleMode_SpellDescDB[17863] = { n="Shadow Portal", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17864] = { n="Improved Drain Mana", r="Rank 1", d="Causes 15% of the Mana drained by your Drain Mana spell to damage the opponent.", t="", pt="Faz com que 15% da mana drenada pelo seu feitiço Drenar Mana cause dano ao oponente." }
 ConsoleMode_SpellDescDB[17865] = { n="Curse of Shadow", r="Rank 1", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[17866] = { n="Increase Fire Dam 24", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17867] = { n="Increase Fire Dam 26", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17868] = { n="Increase Fire Dam 27", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17869] = { n="Increase Fire Dam 30", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17870] = { n="Increase Fire Dam 31", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17871] = { n="Increase Fire Dam 33", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17872] = { n="Increase Fire Dam 34", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17873] = { n="Increase Fire Dam 36", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17874] = { n="Increase Fire Dam 37", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17875] = { n="Increase Fire Dam 40", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17876] = { n="Increase Fire Dam 41", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17866] = { n="Increase Fire Dam 24", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17867] = { n="Increase Fire Dam 26", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17868] = { n="Increase Fire Dam 27", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17869] = { n="Increase Fire Dam 30", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17870] = { n="Increase Fire Dam 31", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17871] = { n="Increase Fire Dam 33", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17872] = { n="Increase Fire Dam 34", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17873] = { n="Increase Fire Dam 36", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17874] = { n="Increase Fire Dam 37", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17875] = { n="Increase Fire Dam 40", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17876] = { n="Increase Fire Dam 41", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[17877] = { n="Shadowburn", r="Rank 1", d="Instantly blasts the target for $s2 Shadow damage.  If the target dies within $d of Shadowburn, and yields experience or honor, the caster gains a Soul Shard.", t="", pt="Atinge instantaneamente o alvo com $s2 de dano de Sombra. Se o alvo morrer em até $d s após a Queimadura Sombria e conceder experiência ou honra, o lançador recebe um Fragmento de Alma." }
-ConsoleMode_SpellDescDB[17878] = { n="Increase Fire Dam 43", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17879] = { n="Increase Fire Dam 44", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17880] = { n="Increase Fire Dam 46", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17881] = { n="Increase Fire Dam 47", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17882] = { n="Increase Fire Dam 49", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17878] = { n="Increase Fire Dam 43", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17879] = { n="Increase Fire Dam 44", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17880] = { n="Increase Fire Dam 46", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17881] = { n="Increase Fire Dam 47", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17882] = { n="Increase Fire Dam 49", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[17883] = { n="Immolate", r="", d="Burns an enemy, then inflicts additional Fire damage every $t1 sec. for $d.", t="Fire damage inflicted every $t1 sec.", pt="Queima o inimigo e causa dano de Fogo adicional a cada $t1 s por $d s." }
-ConsoleMode_SpellDescDB[17884] = { n="Increase Fire Dam 50", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17885] = { n="Increase Fire Dam 51", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17886] = { n="Increase Fire Dam 53", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17887] = { n="Increase Fire Dam 54", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[17889] = { n="Increase Frost Dam 23", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17890] = { n="Increase Frost Dam 24", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17891] = { n="Increase Frost Dam 26", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17892] = { n="Increase Frost Dam 27", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17893] = { n="Increase Frost Dam 30", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17894] = { n="Increase Frost Dam 31", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17895] = { n="Increase Frost Dam 33", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17896] = { n="Increase Frost Dam 34", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17897] = { n="Increase Frost Dam 36", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17898] = { n="Increase Frost Dam 37", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17899] = { n="Increase Frost Dam 39", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17900] = { n="Increase Frost Dam 40", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17901] = { n="Increase Frost Dam 41", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17902] = { n="Increase Frost Dam 43", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17903] = { n="Increase Frost Dam 44", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17884] = { n="Increase Fire Dam 50", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17885] = { n="Increase Fire Dam 51", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17886] = { n="Increase Fire Dam 53", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17887] = { n="Increase Fire Dam 54", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[17889] = { n="Increase Frost Dam 23", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17890] = { n="Increase Frost Dam 24", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17891] = { n="Increase Frost Dam 26", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17892] = { n="Increase Frost Dam 27", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17893] = { n="Increase Frost Dam 30", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17894] = { n="Increase Frost Dam 31", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17895] = { n="Increase Frost Dam 33", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17896] = { n="Increase Frost Dam 34", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17897] = { n="Increase Frost Dam 36", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17898] = { n="Increase Frost Dam 37", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17899] = { n="Increase Frost Dam 39", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17900] = { n="Increase Frost Dam 40", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17901] = { n="Increase Frost Dam 41", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17902] = { n="Increase Frost Dam 43", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17903] = { n="Increase Frost Dam 44", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
 ConsoleMode_SpellDescDB[17904] = { n="Decrease Mana Cost - Fire", r="", d="Decreases mana cost of Fire spells and effects by $s1.", t="", pt="Fogo -$s1 mana." }
-ConsoleMode_SpellDescDB[17905] = { n="Increase Frost Dam 46", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17906] = { n="Increase Frost Dam 47", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17907] = { n="Increase Frost Dam 49", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17908] = { n="Increase Frost Dam 50", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17909] = { n="Increase Frost Dam 51", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17910] = { n="Increase Frost Dam 53", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[17911] = { n="Increase Frost Dam 54", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17905] = { n="Increase Frost Dam 46", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17906] = { n="Increase Frost Dam 47", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17907] = { n="Increase Frost Dam 49", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17908] = { n="Increase Frost Dam 50", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17909] = { n="Increase Frost Dam 51", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17910] = { n="Increase Frost Dam 53", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[17911] = { n="Increase Frost Dam 54", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
 ConsoleMode_SpellDescDB[17912] = { n="Decrease Mana Cost - Shadow", r="", d="Decreases mana cost of Shadow spells and effects by $s1.", t="", pt="Sombra -$s1 mana." }
 ConsoleMode_SpellDescDB[17913] = { n="Decrease Mana Cost - Nature", r="", d="Decreases mana cost of Nature spells and effects by $s1.", t="", pt="Natureza -$s1 mana." }
 ConsoleMode_SpellDescDB[17914] = { n="Decrease Mana Cost - Frost", r="", d="Decreases mana cost of Frost spells and effects by $s1.", t="", pt="Gelo -$s1 mana." }
@@ -13772,27 +13772,27 @@ ConsoleMode_SpellDescDB[18004] = { n="Increase Nature Dam 50", r="", d="Increase
 ConsoleMode_SpellDescDB[18005] = { n="Increase Nature Dam 51", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[18006] = { n="Increase Nature Dam 53", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
 ConsoleMode_SpellDescDB[18007] = { n="Increase Nature Dam 54", r="", d="Increases damage done by Nature spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Natureza em até $s1." }
-ConsoleMode_SpellDescDB[18008] = { n="Increase Shadow Dam 26", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18009] = { n="Increase Shadow Dam 27", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18010] = { n="Increase Shadow Dam 29", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18011] = { n="Increase Shadow Dam 30", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18012] = { n="Increase Shadow Dam 31", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18013] = { n="Increase Shadow Dam 33", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18014] = { n="Increase Shadow Dam 34", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18015] = { n="Increase Shadow Dam 36", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18016] = { n="Increase Shadow Dam 37", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18017] = { n="Increase Shadow Dam 39", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18018] = { n="Increase Shadow Dam 40", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18019] = { n="Increase Shadow Dam 41", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18020] = { n="Increase Shadow Dam 43", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18021] = { n="Increase Shadow Dam 44", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18022] = { n="Increase Shadow Dam 46", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18023] = { n="Increase Shadow Dam 47", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18024] = { n="Increase Shadow Dam 49", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18025] = { n="Increase Shadow Dam 50", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18026] = { n="Increase Shadow Dam 51", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18027] = { n="Increase Shadow Dam 53", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[18028] = { n="Increase Shadow Dam 54", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18008] = { n="Increase Shadow Dam 26", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18009] = { n="Increase Shadow Dam 27", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18010] = { n="Increase Shadow Dam 29", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18011] = { n="Increase Shadow Dam 30", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18012] = { n="Increase Shadow Dam 31", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18013] = { n="Increase Shadow Dam 33", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18014] = { n="Increase Shadow Dam 34", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18015] = { n="Increase Shadow Dam 36", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18016] = { n="Increase Shadow Dam 37", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18017] = { n="Increase Shadow Dam 39", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18018] = { n="Increase Shadow Dam 40", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18019] = { n="Increase Shadow Dam 41", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18020] = { n="Increase Shadow Dam 43", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18021] = { n="Increase Shadow Dam 44", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18022] = { n="Increase Shadow Dam 46", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18023] = { n="Increase Shadow Dam 47", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18024] = { n="Increase Shadow Dam 49", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18025] = { n="Increase Shadow Dam 50", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18026] = { n="Increase Shadow Dam 51", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18027] = { n="Increase Shadow Dam 53", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[18028] = { n="Increase Shadow Dam 54", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[18029] = { n="Increase Healing 35", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[18030] = { n="Increase Healing 37", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[18031] = { n="Increase Healing 40", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
@@ -17566,7 +17566,7 @@ ConsoleMode_SpellDescDB[23061] = { n="Fix Ritual Node", r="", d="Restart a faili
 ConsoleMode_SpellDescDB[23062] = { n="Fix Ritual Candle (DND)", r="", d="Re-lights the Doomsday Candle during the Ritual of Greater Summoning.  Requires 1 Soul Shard.", t="", pt="Reacende a Vela do Juízo Final durante o Ritual de Evocação Maior. Requer 1 Fragmento de Alma." }
 ConsoleMode_SpellDescDB[23063] = { n="Dense Dynamite", r="", d="Inflicts $s1 Fire damage in a 5 yard radius.", t="", pt="Causa $s1 de dano de Fogo num raio de 5 m." }
 ConsoleMode_SpellDescDB[23064] = { n="Recombobulate", r="", d="Dispels Polymorph effects on a friendly target.  Also restores $s2 health and mana.", t="", pt="Dissipa efeitos de Polimorfia em um alvo aliado. Também restaura $s1 de vida e mana." }
-ConsoleMode_SpellDescDB[23065] = { n="Throw Rock", r="", d="Throw rock to a friendly target.   If they have free room in their pack they will catch it!", t="", pt="Joga pedra no amigo. Pega se tiver bolso!" }
+ConsoleMode_SpellDescDB[23065] = { n="Throw Rock", r="", d="Throw rock to a friendly target.   If they have free room in their pack they will catch it!", t="", pt="Arremessa uma pedra para um alvo aliado. Se ele tiver espaço livre na mochila, ele a pegará!" }
 ConsoleMode_SpellDescDB[23066] = { n="Red Firework", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23067] = { n="Blue Firework", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23068] = { n="Green Firework", r="", d="", t="", pt="" }
@@ -17762,7 +17762,7 @@ ConsoleMode_SpellDescDB[23260] = { n="Entropic Sting", r="", d="", t="Damage dea
 ConsoleMode_SpellDescDB[23261] = { n="Summon Darkreaver's Fallen Charger", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23262] = { n="Demoralize", r="", d="Reduces the melee attack power of an enemy by $s1 for $d.", t="Melee attack power reduced by $s1.", pt="Poder corpo a corpo -$s1 por $d s." }
 ConsoleMode_SpellDescDB[23264] = { n="Increase Healing 106", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
-ConsoleMode_SpellDescDB[23265] = { n="Increase Shadow Dam 69", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[23265] = { n="Increase Shadow Dam 69", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[23266] = { n="Fiery Aura", r="Rank 1", d="When struck in combat inflicts $s1 Fire damage to the attacker.", t="", pt="Quando atingido em combate, inflige $s1 de dano de Fogo ao atacante." }
 ConsoleMode_SpellDescDB[23267] = { n="Firebolt", r="", d="Blasts a target for $s1 Fire damage.", t="", pt="Detona o alvo com $s1 de dano de Fogo." }
 ConsoleMode_SpellDescDB[23268] = { n="Shadow Word: Pain", r="", d="Utters a word of darkness, inflicting Shadow damage to an enemy every $t1 sec. for $d.", t="Shadow damage inflicted every $t1 sec.", pt="Profere uma palavra de escuridão, causando dano de Sombra ao inimigo a cada $t1 s por $d s." }
@@ -17940,10 +17940,10 @@ ConsoleMode_SpellDescDB[23476] = { n="Major Healthstone", r="", d="Instantly res
 ConsoleMode_SpellDescDB[23477] = { n="Major Healthstone", r="", d="Instantly restores $s1 life.", t="", pt="Restaura $s1 de vida na hora." }
 ConsoleMode_SpellDescDB[23478] = { n="Burning Adrenaline", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23479] = { n="Remove Bones", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23480] = { n="Increase Fire Dam 10", r="Rank 1", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[23481] = { n="Increase Fire Dam 14", r="Rank 2", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[23482] = { n="Increase Fire Dam 17", r="Rank 3", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[23483] = { n="Increase Fire Dam 21", r="Rank 4", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[23480] = { n="Increase Fire Dam 10", r="Rank 1", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[23481] = { n="Increase Fire Dam 14", r="Rank 2", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[23482] = { n="Increase Fire Dam 17", r="Rank 3", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[23483] = { n="Increase Fire Dam 21", r="Rank 4", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[23484] = { n="Dispel Drakonids", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23485] = { n="Big Bonfire Damage", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23486] = { n="Dimensional Ripper - Everlook", r="", d="", t="", pt="" }
@@ -17962,7 +17962,7 @@ ConsoleMode_SpellDescDB[23502] = { n="Summon Succubus", r="", d="", t="", pt="" 
 ConsoleMode_SpellDescDB[23503] = { n="Summon Imp", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23504] = { n="Fool's Plight", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23505] = { n="Berserking", r="", d="", t="Increases all damage caused by $s1% and all damage taken by $s2%.", pt="" }
-ConsoleMode_SpellDescDB[23506] = { n="Aura of Protection", r="", d="Absorbs $s1 damage.  Lasts $d.", t="Absorbs $s1 damage.", pt="Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s." }
+ConsoleMode_SpellDescDB[23506] = { n="Aura of Protection", r="", d="Absorbs $s1 damage.  Lasts $d.", t="Absorbs $s1 damage.", pt="Absorve $s1 de dano. Dura $d s." }
 ConsoleMode_SpellDescDB[23507] = { n="Snake Burst Firework", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23508] = { n="Schematic: Snake Burst Firework", r="", d="Teaches you how to make a Snake Burst Firework.", t="", pt="Ensina a fazer Rojão Rabo-de-cobra." }
 ConsoleMode_SpellDescDB[23509] = { n="Frostwolf Howler", r="", d="Raised in the Alterac Mountains by the Frostwolf Clan.", t="Increases speed based on your Riding skill.", pt="Criado pelo Clã Lobo." }
@@ -18036,7 +18036,7 @@ ConsoleMode_SpellDescDB[23577] = { n="Detect Weakness", r="", d="", t="Attack Po
 ConsoleMode_SpellDescDB[23578] = { n="Detect Weakness", r="", d="You have a chance whenever you deal melee or ranged damage to gain the Detect Weakness effect. Detect Weakness increases your Attack Power by $23577s1 for $23577d.", t="", pt="Você tem chance, sempre que causar dano corpo a corpo ou à distância, de obter o efeito Detectar Fraqueza. Detectar Fraqueza aumenta seu Poder de Ataque em $s1 por $d s." }
 ConsoleMode_SpellDescDB[23579] = { n="DONOTREUSE", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23580] = { n="Bloodfang", r="", d="", t="Heals $s2 damage per second.", pt="" }
-ConsoleMode_SpellDescDB[23581] = { n="Bloodfang", r="", d="Gives the Rogue a chance to inflict $23580s1 damage on the target and heal the Rogue for $23580s2 health every $23580t2 sec. for $23580d. on a melee hit.\n", t="", pt="Chance em corpo a corpo: $s1 no alvo e cura $s2 a cada $t1 s por $d s." }
+ConsoleMode_SpellDescDB[23581] = { n="Bloodfang", r="", d="Gives the Rogue a chance to inflict $23580s1 damage on the target and heal the Rogue for $23580s2 health every $23580t2 sec. for $23580d. on a melee hit.\n", t="", pt="Concede ao Ladino uma chance de causar $s1 de dano ao alvo e curar $s2 de vida do Ladino a cada $t1 s por $d s ao acertar um ataque corpo a corpo." }
 ConsoleMode_SpellDescDB[23582] = { n="Clean Escape", r="", d="Heals the rogue for $23583s1 when Vanish is performed.", t="", pt="Sumir: cura $s1." }
 ConsoleMode_SpellDescDB[23583] = { n="Clean Escape", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23584] = { n="Dual Wield Specialization", r="Rank 1", d="Increases the damage done by your offhand weapon by $s1% and your chance to hit with your offhand weapon by $s2%.", t="", pt="Aumenta o dano causado pela sua arma de mão secundária em $s1% e a sua chance de acertar com a arma de mão secundária em $s2%." }
@@ -18049,7 +18049,7 @@ ConsoleMode_SpellDescDB[23590] = { n="Judgement", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23591] = { n="Judgement", r="", d="Inflicts $23590s1 additional Holy damage on the target of a Paladin's Judgement.", t="", pt="Inflige $s1 de dano Sagrado adicional ao alvo do Julgamento de um Paladino." }
 ConsoleMode_SpellDescDB[23592] = { n="Lightning Bolt", r="", d="Blasts a target for $s1 Nature damage.", t="", pt="Atinge o alvo com uma rajada de raios, causando $s1 de dano de Natureza." }
 ConsoleMode_SpellDescDB[23593] = { n="Increase Healing 92", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
-ConsoleMode_SpellDescDB[23594] = { n="Increase Shadow Dam 64", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[23594] = { n="Increase Shadow Dam 64", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[23595] = { n="Luffa", r="", d="Removes one Bleed effect.", t="", pt="Tira 1 Sangrar." }
 ConsoleMode_SpellDescDB[23598] = { n="Ritual of Summoning", r="", d="Begins a ritual that summons the targeted group member.", t="", pt="Inicia um ritual que evoca o membro do grupo selecionado." }
 ConsoleMode_SpellDescDB[23600] = { n="Piercing Howl", r="", d="Causes all enemies near the warrior to be dazed for $d.", t="Dazed.", pt="Atordoa próximos por $d s." }
@@ -18121,7 +18121,7 @@ ConsoleMode_SpellDescDB[23679] = { n="Elementals Deck", r="", d="Combine the Ace
 ConsoleMode_SpellDescDB[23680] = { n="Portals Deck", r="", d="Combine the Ace through Eight of Portals to complete the set.", t="", pt="Combine o Ás ao Oito de Portais para completar o conjunto." }
 ConsoleMode_SpellDescDB[23681] = { n="Clear Essence of the Red", r="", d="", t="Restores $s1 Mana per second.\nRestores $s2 Energy per second.\nGenerates $/10;s3 Rage per second.", pt="" }
 ConsoleMode_SpellDescDB[23682] = { n="Heroism", r="", d="Sometimes heals bearer of $s1 damage when attacking an enemy.", t="", pt="Às vezes cura $s1 ao atacar." }
-ConsoleMode_SpellDescDB[23683] = { n="Twisting Nether", r="", d="Allows you to resurrect yourself upon death with $21169s1% health and mana.  Usable once per hour.", t="", pt="Auto-revive com $s1% de vida e mana. 1x por hora." }
+ConsoleMode_SpellDescDB[23683] = { n="Twisting Nether", r="", d="Allows you to resurrect yourself upon death with $21169s1% health and mana.  Usable once per hour.", t="", pt="Permite ressuscitar a si mesmo após a morte com $s1% de vida e mana. Pode ser usado uma vez por hora." }
 ConsoleMode_SpellDescDB[23684] = { n="Aura of the Blue Dragon", r="", d="2% chance successful spellcast to allow $s1% of your Mana regeneration to continue while casting for $d.", t="$s1% of your Mana regeneration continuing while casting.", pt="2% ao lançar: $s1% da regen continua lançando por $d s." }
 ConsoleMode_SpellDescDB[23685] = { n="Sam's Test Spell", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23686] = { n="Lightning Strike", r="", d="Chance to strike your melee target with lightning for $23687s1 Nature damage.", t="", pt="Chance de golpear o alvo corpo a corpo com um raio, causando $s1 de dano de Natureza." }
@@ -18366,7 +18366,7 @@ ConsoleMode_SpellDescDB[24002] = { n="Tranquilizing Poison", r="", d="", t="Time
 ConsoleMode_SpellDescDB[24003] = { n="Tranquilizing Poison", r="", d="", t="Time between attacks increased by $s1%.\nReduces movement speed by $s2%.\nDrains $/10;s3 rage per second.\nGetting sleepy...", pt="" }
 ConsoleMode_SpellDescDB[24004] = { n="Sleep", r="", d="", t="Asleep.", pt="" }
 ConsoleMode_SpellDescDB[24005] = { n="Food", r="", d="Restores $s1% of your health per second for $d.  Must remain seated while eating.", t="Restores $s1% of your health per second.", pt="Restaura $s1% da sua vida por segundo por $d s. É necessário permanecer sentado enquanto come." }
-ConsoleMode_SpellDescDB[24006] = { n="Bounty of the Harvest", r="", d="Conjures $s1 food from the harvest.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Conjura $s1 comidas. Some se deslogar 15 min." }
+ConsoleMode_SpellDescDB[24006] = { n="Bounty of the Harvest", r="", d="Conjures $s1 food from the harvest.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Conjura $s1 alimentos da colheita.\n\nItens conjurados desaparecem se você permanecer desconectado por mais de 15 minutos." }
 ConsoleMode_SpellDescDB[24007] = { n="Zul'Gurub Talisman PAL R1 DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24008] = { n="Zul'Gurub Talisman PAL R2 DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24009] = { n="Zul'Gurub Talisman PAL R3 DND", r="", d="", t="", pt="" }
@@ -18694,11 +18694,11 @@ ConsoleMode_SpellDescDB[24356] = { n="Bloodvine Goggles", r="", d="", t="", pt="
 ConsoleMode_SpellDescDB[24357] = { n="Bloodvine Lens", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24358] = { n="Schematic: Bloodvine Goggles", r="", d="Teaches you how to make Bloodvine Goggles.", t="", pt="Ensina a criar os Óculos de Videira Sangrenta." }
 ConsoleMode_SpellDescDB[24359] = { n="Schematic: Bloodvine Lens", r="", d="Teaches you how to make a Bloodvine Lens.", t="", pt="Ensina a criar uma Lente de Videira Sangrenta." }
-ConsoleMode_SpellDescDB[24360] = { n="Greater Dreamless Sleep", r="", d="Puts the imbiber in a dreamless sleep for $d.  During that time the imbiber heals 2100 health and 2100 mana.", t="Dreamless Sleep.", pt="Coloca quem bebe em um sono sem sonhos por $d s. Durante esse tempo, quem bebe recupera 2100 de vida e 2100 de mana." }
+ConsoleMode_SpellDescDB[24360] = { n="Greater Dreamless Sleep", r="", d="Puts the imbiber in a dreamless sleep for $d.  During that time the imbiber heals 2100 health and 2100 mana.", t="Dreamless Sleep.", pt="Deixa quem o ingerir em sono sem sonhos por $d s. Durante esse período, quem o ingerir recupera 2100 de vida e 2100 de mana." }
 ConsoleMode_SpellDescDB[24361] = { n="Regeneration", r="", d="Regenerate $s1 health every 5 sec for $d.", t="Regenerate $s1 health every 5 sec.", pt="Regenera $s1 de vida a cada 5 s por $d s." }
 ConsoleMode_SpellDescDB[24362] = { n="Increased 1H Fist Weapons", r="", d="Increased Fist Weapons +$s1.", t="", pt="Punho +$s1." }
 ConsoleMode_SpellDescDB[24363] = { n="Mana Regeneration", r="", d="Regenerate $s1 mana per 5 sec for $d.", t="Regenerate $s1 mana per 5 sec.", pt="Restaura $s1 de mana a cada 5 segundos por $d s." }
-ConsoleMode_SpellDescDB[24364] = { n="Living Free Action", r="", d="Makes you immune to Stun and Movement Impairing effects for the next $d.  Also removes existing Stun and Movement Impairing effects.", t="Free Action.", pt="Torna você imune a efeitos de Atordoamento e de Comprometimento de Movimento pelos próximos $d s. Também remove efeitos existentes de Atordoamento e de Comprometimento de Movimento." }
+ConsoleMode_SpellDescDB[24364] = { n="Living Free Action", r="", d="Makes you immune to Stun and Movement Impairing effects for the next $d.  Also removes existing Stun and Movement Impairing effects.", t="Free Action.", pt="Torna você imune a efeitos de Atordoamento e que dificultam o movimento pelos próximos $d s. Também remove efeitos existentes de Atordoamento e que dificultam o movimento." }
 ConsoleMode_SpellDescDB[24365] = { n="Mageblood Potion", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24366] = { n="Greater Dreamless Sleep Potion", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24367] = { n="Living Action Potion", r="", d="", t="", pt="" }
@@ -18713,8 +18713,8 @@ ConsoleMode_SpellDescDB[24376] = { n="Opening Azure Bag", r="", d="Opens the Sea
 ConsoleMode_SpellDescDB[24377] = { n="Destroy Bijou", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24378] = { n="Berserking", r="", d="", t="Increases all damage caused by $s1% and all damage taken by $s2%.", pt="" }
 ConsoleMode_SpellDescDB[24379] = { n="Restoration", r="", d="", t="Restores Health, Mana and Pet Happiness.", pt="" }
-ConsoleMode_SpellDescDB[24382] = { n="Spirit of Zanza", r="", d="Increases the player's Spirit by $s1 and Stamina by $s2 for $d.  You can only have the effect of one Zanza potion at a time.", t="Spirit increased by $s1 and Stamina by $s2.", pt="Aumenta o Espírito do jogador em $s1 e o Vigor em $s2 por $d s. Só uma poção Zanza por vez." }
-ConsoleMode_SpellDescDB[24383] = { n="Swiftness of Zanza", r="", d="Increases the player's run speed by $s1% for $d.  You can only have the effect of one Zanza potion at a time.", t="Run speed increased by $s1%.", pt="Aumenta a corrida do jogador em $s1% por $d s. Só uma poção Zanza por vez." }
+ConsoleMode_SpellDescDB[24382] = { n="Spirit of Zanza", r="", d="Increases the player's Spirit by $s1 and Stamina by $s2 for $d.  You can only have the effect of one Zanza potion at a time.", t="Spirit increased by $s1 and Stamina by $s2.", pt="Aumenta o Espírito do jogador em $s1 e o Vigor em $s2 por $d s. Você só pode ter o efeito de uma poção Zanza por vez." }
+ConsoleMode_SpellDescDB[24383] = { n="Swiftness of Zanza", r="", d="Increases the player's run speed by $s1% for $d.  You can only have the effect of one Zanza potion at a time.", t="Run speed increased by $s1%.", pt="Aumenta a velocidade de corrida do jogador em $s1% por $d s. Você só pode ter o efeito de uma poção Zanza por vez." }
 ConsoleMode_SpellDescDB[24384] = { n="Essence Mango", r="", d="Restores $26401o1 health and $26402o2 mana over $25695d.  Must remain seated while eating.", t="", pt="Restaura $s1 de vida e $s2 de mana ao longo de $d s. É necessário permanecer sentado enquanto come." }
 ConsoleMode_SpellDescDB[24386] = { n="[Deprecated] Improved Aspect of the Monkey", r="Rank 4", d="Increases the Dodge bonus of your Aspect of the Monkey by $s1%.", t="", pt="Aumenta o bônus de Esquiva do seu Aspecto do Macaco em $s1%." }
 ConsoleMode_SpellDescDB[24387] = { n="[Deprecated] Improved Aspect of the Monkey", r="Rank 5", d="Increases the Dodge bonus of your Aspect of the Monkey by $s1%.", t="", pt="Aumenta o bônus de Esquiva do seu Aspecto do Macaco em $s1%." }
@@ -18755,7 +18755,7 @@ ConsoleMode_SpellDescDB[24423] = { n="Screech", r="Rank 1", d="Blasts a single e
 ConsoleMode_SpellDescDB[24424] = { n="Screech", r="Rank 1", d="Blasts a single enemy for $24423s1 damage and lowers the attack power of all enemies in melee range by $24423s2.  Effect lasts $24423d.", t="", pt="Atinge um único inimigo, causando $s1 de dano, e reduz o poder de ataque de todos os inimigos em alcance corpo a corpo em $s2. O efeito dura $d s." }
 ConsoleMode_SpellDescDB[24425] = { n="Spirit of Zandalar", r="", d="Increases movement speed by 10% and all stats by 15% for 2 hours.", t="Increases movement speed by 10% and all stats by 15% for 2 hours.", pt="+10% corrida e +15% tudo por 2 h." }
 ConsoleMode_SpellDescDB[24426] = { n="Increased Critical Holy Spells", r="", d="Increases the critical effect chance of your Holy spells by $s1%.", t="", pt="Aumenta a chance de efeito crítico das suas magias Sagradas em $s1%." }
-ConsoleMode_SpellDescDB[24427] = { n="Diamond Flask", r="", d="Restores $s2 health every $t2 sec and increases your Strength by $s1.  Lasts $d.", t="Restores $s2 health every $t2 sec and Strength increased by $s1.", pt="$s1 de vida a cada $t1 s e For +$s2. $d s." }
+ConsoleMode_SpellDescDB[24427] = { n="Diamond Flask", r="", d="Restores $s2 health every $t2 sec and increases your Strength by $s1.  Lasts $d.", t="Restores $s2 health every $t2 sec and Strength increased by $s1.", pt="Restaura $s2 de vida a cada $t2 s e aumenta sua Força em $s1. Dura $d s." }
 ConsoleMode_SpellDescDB[24428] = { n="Improved Hamstring", r="", d="Reduces the cost of your Hamstring ability by $/10;s1 rage points.", t="", pt="Reduz o custo da sua habilidade Cortar Tendão em $s1 pontos de raiva." }
 ConsoleMode_SpellDescDB[24429] = { n="Improved Counterspell", r="", d="Reduces the cooldown of Counterspell by $/1000;s1 sec.", t="", pt="Reduz o tempo de recarga de Contrafeitiço em $s1 s." }
 ConsoleMode_SpellDescDB[24430] = { n="Improved Rain of Fire/Hellfire", r="", d="Increases the radius of Rain of Fire and Hellfire by 1 yard.", t="", pt="Chuva +1 m." }
@@ -18988,8 +18988,8 @@ ConsoleMode_SpellDescDB[24661] = { n="Restless Strength", r="", d="Increases you
 ConsoleMode_SpellDescDB[24662] = { n="Restless Strength", r="", d="", t="Melee and ranged damage increased by $s1.", pt="" }
 ConsoleMode_SpellDescDB[24663] = { n="Restless Strength", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24664] = { n="Sleep", r="", d="Puts nearby enemies to sleep for up to $d. Any damage caused will awaken them.", t="Asleep.", pt="Faz os inimigos próximos dormirem por até $d s. Qualquer dano os desperta." }
-ConsoleMode_SpellDescDB[24666] = { n="Increase Frost Dam 132", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[24667] = { n="Increase Frost Dam 72", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[24666] = { n="Increase Frost Dam 132", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[24667] = { n="Increase Frost Dam 72", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
 ConsoleMode_SpellDescDB[24668] = { n="Shadow Bolt", r="", d="Hurls a bolt of dark magic at an enemy, inflicting Shadow damage.", t="", pt="Dispara uma seta de magia sombria contra um inimigo, causando dano de Sombra." }
 ConsoleMode_SpellDescDB[24669] = { n="Rain of Fire", r="", d="Calls down a molten rain, burning all enemies in a selected area for $s1 Fire damage every $t1 sec. for $d.", t="$s1 Fire damage inflicted every $t1 sec.", pt="Invoca uma chuva de fogo derretido, queimando todos os inimigos na área selecionada com $s1 de dano de Fogo a cada $t1 s por $d s." }
 ConsoleMode_SpellDescDB[24670] = { n="Inferno", r="", d="Summons a meteor from the Twisting Nether, causing $22699s1 Fire damage and stunning all enemy targets in the area for $20310d.  An Infernal rises from the crater, under the command of the caster for $20882d.  Once control is lost, the Infernal must be Enslaved to maintain control.  Can only be used outdoors.", t="", pt="Invoca um meteoro da Espiral Etérea, causando $s1 de dano de Fogo e atordoando todos os alvos inimigos na área por $d s. Um Infernal surge da cratera, sob o comando do lançador por $d s. Uma vez perdido o controle, o Infernal deve ser Escravizado para manter o controle. Só pode ser usado em áreas externas." }
@@ -19027,7 +19027,7 @@ ConsoleMode_SpellDescDB[24702] = { n="Hallow's End Aura", r="", d="", t="", pt="
 ConsoleMode_SpellDescDB[24703] = { n="Dreamscale Breastplate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24704] = { n="Pattern: Dreamscale Breastplate", r="", d="Teaches you how to craft a Dreamscale Breastplate.", t="", pt="Ensina a criar um Peitoral de Escama do Sonho." }
 ConsoleMode_SpellDescDB[24705] = { n="Invocation of the Wickerman", r="", d="Increases health and mana regeneration by $s1%, and Stamina by $s2%.  Lasts $d.", t="Increases health and mana regeneration by $s1%, and Stamina by $s2%.  Lasts $d.", pt="Aumenta a regeneração de vida e mana em $s1% e o Vigor em $s2%. Dura $d s." }
-ConsoleMode_SpellDescDB[24706] = { n="Toss Stink Bomb", r="", d="Toss a stink bomb on Southshore.  P-U!", t="", pt="Bomba em Costassul. Eca!" }
+ConsoleMode_SpellDescDB[24706] = { n="Toss Stink Bomb", r="", d="Toss a stink bomb on Southshore.  P-U!", t="", pt="Arremessa uma bomba fedorenta em Costassul. Que fedor!" }
 ConsoleMode_SpellDescDB[24707] = { n="Food", r="", d="Restores $s1% of your health and mana per second for $d.  Must remain seated while eating.", t="Restores $s1% of your health and mana per second.", pt="Restaura $s1% da sua vida e mana por segundo por $d s. É necessário permanecer sentado enquanto come." }
 ConsoleMode_SpellDescDB[24708] = { n="Pirate Costume", r="", d="", t="Pirate Costume.", pt="" }
 ConsoleMode_SpellDescDB[24709] = { n="Pirate Costume", r="", d="", t="Pirate Costume.", pt="" }
@@ -19325,8 +19325,8 @@ ConsoleMode_SpellDescDB[25022] = { n="Hallow's End Fright", r="", d="", t="Spook
 ConsoleMode_SpellDescDB[25023] = { n="Hallow's End Fright", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25024] = { n="Drop Mine", r="", d="Deploys a land mine. Mines take 3 seconds to arm and deal $25099s1 damage to all tonks in a $25099a1 yard radius once triggered.", t="", pt="Implanta uma mina terrestre. As minas levam 3 segundos para armar e causam $s1 de dano a todos os tonques em um raio de $a1 metros quando acionadas." }
 ConsoleMode_SpellDescDB[25025] = { n="Earth Shock", r="", d="Shocks an enemy with concussive force, inflicting Nature damage and interrupting the spell being cast for $d.", t="", pt="Eletrocuta o inimigo com força concussiva, causando dano de Natureza e interrompendo o feitiço em lançamento por $d s." }
-ConsoleMode_SpellDescDB[25026] = { n="Activate MG Turret", r="", d="10 mana per second.\nAutomatically fires a shot at the nearest enemy tonk within $25032a1 yards every $t1 sec, dealing $25032s1 damage per shot.\n", t="", pt="10 de mana por segundo. Dispara automaticamente um tiro no tonque inimigo mais próximo a até $a1 metros a cada $t1 s, causando $s1 de dano por disparo." }
-ConsoleMode_SpellDescDB[25027] = { n="Flamethrower", r="", d="10 mana per second.\nDeals $25029s1 damage every $t1 sec to all tonks in front of you within $25029a1 yards. Also slows movement to $25029s2% and deals $25029s3 damage per second for $25029d.", t="", pt="10 de mana por segundo. Causa $s1 de dano a cada $t1 s a todos os tonques à sua frente a até $a1 metros. Também reduz o movimento para $s2% e causa $s3 de dano por segundo por $d s." }
+ConsoleMode_SpellDescDB[25026] = { n="Activate MG Turret", r="", d="10 mana per second.\nAutomatically fires a shot at the nearest enemy tonk within $25032a1 yards every $t1 sec, dealing $25032s1 damage per shot.\n", t="", pt="10 de mana por segundo.\nDispara automaticamente um tiro no tonque inimigo mais próximo a até $a1 metros a cada $t1 s, causando $s1 de dano por disparo." }
+ConsoleMode_SpellDescDB[25027] = { n="Flamethrower", r="", d="10 mana per second.\nDeals $25029s1 damage every $t1 sec to all tonks in front of you within $25029a1 yards. Also slows movement to $25029s2% and deals $25029s3 damage per second for $25029d.", t="", pt="10 de mana por segundo.\nCausa $s1 de dano a cada $t1 s a todos os tonques à sua frente a até $a1 metros. Também reduz o movimento para $s2% e causa $s3 de dano por segundo por $d s." }
 ConsoleMode_SpellDescDB[25028] = { n="Fire Blast", r="", d="Inflicts Fire damage to an enemy.", t="", pt="Causa dano de Fogo a um inimigo." }
 ConsoleMode_SpellDescDB[25029] = { n="Flamethrower", r="", d="", t="Deals $s3 damage every $t3 sec.\nMovement speed slowed by $s2%.", pt="" }
 ConsoleMode_SpellDescDB[25030] = { n="Shoot Rocket", r="", d="", t="", pt="" }
@@ -19357,9 +19357,9 @@ ConsoleMode_SpellDescDB[25059] = { n="Dmg Shield", r="", d="Thorns sprout from t
 ConsoleMode_SpellDescDB[25060] = { n="Updraft", r="", d="Strikes enemies in a cone in front of the caster, knocking them back.", t="", pt="Golpeia em cone à frente, arremessando os inimigos." }
 ConsoleMode_SpellDescDB[25061] = { n="Judgement of Wisdom Intermediate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25063] = { n="Increase Threat", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[25064] = { n="Increase Shadow Dam 20", r="", d="Increases damage done by shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[25065] = { n="Increase Fire Dam 20", r="", d="Increases damage done by fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[25066] = { n="Increase Ice Dam 20", r="", d="Increases damage done by frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[25064] = { n="Increase Shadow Dam 20", r="", d="Increases damage done by shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[25065] = { n="Increase Fire Dam 20", r="", d="Increases damage done by fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[25066] = { n="Increase Ice Dam 20", r="", d="Increases damage done by frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
 ConsoleMode_SpellDescDB[25067] = { n="Increase Healing 30", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[25068] = { n="Resistance - Greater Fire Resistance", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25069] = { n="Resistance - Greater Nature Resistance", r="", d="", t="", pt="" }
@@ -19394,7 +19394,7 @@ ConsoleMode_SpellDescDB[25098] = { n="Transform Hero", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25099] = { n="Detonation", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25100] = { n="Untransform Hero", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25101] = { n="Battle Shout", r="", d="", t="Attack power increased by $s1.", pt="" }
-ConsoleMode_SpellDescDB[25102] = { n="Water Mastery", r="", d="Increases the periodic effect of your Mana Spring totem by $s1 and your Healing Stream totem by $s2.  Lasts $d.", t="Periodic effect of your Mana Sprint totem increased by $s1 and your Healing Stream totem by $s2.", pt="Aumenta o efeito periódico do seu Totem de Fonte de Mana em $s1 e do seu Totem de Torrente Curativa em $s2. Dura por $d s." }
+ConsoleMode_SpellDescDB[25102] = { n="Water Mastery", r="", d="Increases the periodic effect of your Mana Spring totem by $s1 and your Healing Stream totem by $s2.  Lasts $d.", t="Periodic effect of your Mana Sprint totem increased by $s1 and your Healing Stream totem by $s2.", pt="Aumenta o efeito periódico do seu Totem de Fonte de Mana em $s1 e do seu Totem de Torrente Curativa em $s2. Dura $d s." }
 ConsoleMode_SpellDescDB[25104] = { n="Summon Player", r="", d="Summons an enemy player.", t="", pt="Cerca o inimigo com um ciclone por até $d s. Se sofrer dano, ele se liberta dos ventos." }
 ConsoleMode_SpellDescDB[25105] = { n="Green Dragon Transform DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25106] = { n="Red Dragon Transform DND", r="", d="", t="", pt="" }
@@ -20301,7 +20301,7 @@ ConsoleMode_SpellDescDB[26401] = { n="Food", r="", d="", t="Restores $/5;s1 heal
 ConsoleMode_SpellDescDB[26402] = { n="Drink", r="", d="", t="Restores $/5;s2 mana per second.", pt="" }
 ConsoleMode_SpellDescDB[26403] = { n="Festive Red Dress", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26404] = { n="Despawn Tent Port", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26405] = { n="Increase Fire Dam 57", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26405] = { n="Increase Fire Dam 57", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[26406] = { n="Holiday - Lunar Teleport Cap: Stormwind", r="", d="Teleports the caster to the Stormwind.", t="", pt="Teletransporta o lançador para Ventobravo." }
 ConsoleMode_SpellDescDB[26407] = { n="Festive Red Pant Suit", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26408] = { n="Holiday - Lunar Teleport Cap: Ironforge", r="", d="Teleports the caster to the Ironforge.", t="", pt="Teletransporta o lançador para Altaforja." }
@@ -20544,16 +20544,16 @@ ConsoleMode_SpellDescDB[26686] = { n="Whirlwind", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26687] = { n="Revall", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26690] = { n="Increase Healing 110", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[26693] = { n="Drain Life", r="", d="Steals $s1 life from target enemy.", t="", pt="Drena $s1 de vida do inimigo-alvo." }
-ConsoleMode_SpellDescDB[26694] = { n="Increase Fire Dam 59", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26695] = { n="Increase Fire Dam 60", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26696] = { n="Increase Fire Dam 61", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26697] = { n="Increase Fire Dam 63", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26698] = { n="Increase Fire Dam 64", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26699] = { n="Increase Fire Dam 66", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26700] = { n="Increase Fire Dam 67", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26701] = { n="Increase Fire Dam 69", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26702] = { n="Increase Fire Dam 70", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
-ConsoleMode_SpellDescDB[26703] = { n="Increase Fire Dam 72", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26694] = { n="Increase Fire Dam 59", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26695] = { n="Increase Fire Dam 60", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26696] = { n="Increase Fire Dam 61", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26697] = { n="Increase Fire Dam 63", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26698] = { n="Increase Fire Dam 64", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26699] = { n="Increase Fire Dam 66", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26700] = { n="Increase Fire Dam 67", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26701] = { n="Increase Fire Dam 69", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26702] = { n="Increase Fire Dam 70", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
+ConsoleMode_SpellDescDB[26703] = { n="Increase Fire Dam 72", r="", d="Increases damage done by Fire spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Fogo em até $s1." }
 ConsoleMode_SpellDescDB[26704] = { n="Increase Arcane Dam 56", r="", d="Increases damage done by Arcane spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Arcanos em até $s1." }
 ConsoleMode_SpellDescDB[26705] = { n="Increase Arcane Dam 57", r="", d="Increases damage done by Arcane spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Arcanos em até $s1." }
 ConsoleMode_SpellDescDB[26706] = { n="Increase Arcane Dam 59", r="", d="Increases damage done by Arcane spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Arcanos em até $s1." }
@@ -20566,28 +20566,28 @@ ConsoleMode_SpellDescDB[26712] = { n="Increase Arcane Dam 67", r="", d="Increase
 ConsoleMode_SpellDescDB[26713] = { n="Increase Arcane Dam 69", r="", d="Increases damage done by Arcane spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Arcanos em até $s1." }
 ConsoleMode_SpellDescDB[26714] = { n="Increase Arcane Dam 70", r="", d="Increases damage done by Arcane spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Arcanos em até $s1." }
 ConsoleMode_SpellDescDB[26715] = { n="Increase Arcane Dam 72", r="", d="Increases damage done by Arcane spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos Arcanos em até $s1." }
-ConsoleMode_SpellDescDB[26716] = { n="Increase Frost Dam 56", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26717] = { n="Increase Frost Dam 57", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26718] = { n="Increase Frost Dam 59", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26719] = { n="Increase Frost Dam 60", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26720] = { n="Increase Frost Dam 61", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26721] = { n="Increase Frost Dam 63", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26722] = { n="Increase Frost Dam 64", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26723] = { n="Increase Frost Dam 66", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26724] = { n="Increase Frost Dam 67", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26725] = { n="Increase Frost Dam 69", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26726] = { n="Increase Frost Dam 70", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26727] = { n="Increase Frost Dam 72", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Gelo em até $s1." }
-ConsoleMode_SpellDescDB[26728] = { n="Increase Shadow Dam 56", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26729] = { n="Increase Shadow Dam 57", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26730] = { n="Increase Shadow Dam 59", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26731] = { n="Increase Shadow Dam 60", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26732] = { n="Increase Shadow Dam 61", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26733] = { n="Increase Shadow Dam 63", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26734] = { n="Increase Shadow Dam 66", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26735] = { n="Increase Shadow Dam 67", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26736] = { n="Increase Shadow Dam 70", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
-ConsoleMode_SpellDescDB[26737] = { n="Increase Shadow Dam 72", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano de magias e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26716] = { n="Increase Frost Dam 56", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26717] = { n="Increase Frost Dam 57", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26718] = { n="Increase Frost Dam 59", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26719] = { n="Increase Frost Dam 60", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26720] = { n="Increase Frost Dam 61", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26721] = { n="Increase Frost Dam 63", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26722] = { n="Increase Frost Dam 64", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26723] = { n="Increase Frost Dam 66", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26724] = { n="Increase Frost Dam 67", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26725] = { n="Increase Frost Dam 69", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26726] = { n="Increase Frost Dam 70", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26727] = { n="Increase Frost Dam 72", r="", d="Increases damage done by Frost spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Gelo em até $s1." }
+ConsoleMode_SpellDescDB[26728] = { n="Increase Shadow Dam 56", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26729] = { n="Increase Shadow Dam 57", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26730] = { n="Increase Shadow Dam 59", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26731] = { n="Increase Shadow Dam 60", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26732] = { n="Increase Shadow Dam 61", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26733] = { n="Increase Shadow Dam 63", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26734] = { n="Increase Shadow Dam 66", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26735] = { n="Increase Shadow Dam 67", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26736] = { n="Increase Shadow Dam 70", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
+ConsoleMode_SpellDescDB[26737] = { n="Increase Shadow Dam 72", r="", d="Increases damage done by Shadow spells and effects by up to $s1.", t="", pt="Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1." }
 ConsoleMode_SpellDescDB[26740] = { n="Gnomish Mind Control Cap", r="", d="", t="Charmed.", pt="" }
 ConsoleMode_SpellDescDB[26743] = { n="QAEnchant Weapon +20 Spirit", r="QASpell", d="Permanently enchant a Melee Weapon to add $14439s1 to Spirit.", t="", pt="Arma corpo a corpo: +$s1 Esp." }
 ConsoleMode_SpellDescDB[26744] = { n="Poisonous Blood", r="", d="", t="", pt="" }
@@ -22081,7 +22081,7 @@ ConsoleMode_SpellDescDB[29499] = { n="Teleport Trigger", r="", d="", t="", pt=""
 ConsoleMode_SpellDescDB[29500] = { n="Cancel Mouth Spawns", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[29501] = { n="Frost Arrow", r="", d="Chance to strike your target with a Frost Arrow for $29502s1 Frost damage.", t="", pt="Chance de golpear seu alvo com uma Flecha de Gelo, causando $s1 de dano de Gelo." }
 ConsoleMode_SpellDescDB[29502] = { n="Frost Arrow", r="", d="Frost Arrow for $s1 Frost damage.", t="", pt="Flecha: $s1 de Gelo." }
-ConsoleMode_SpellDescDB[29506] = { n="The Burrower's Shell", r="", d="Absorbs $s1 damage.  Lasts $d.", t="Absorbs $s1 damage.", pt="Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s." }
+ConsoleMode_SpellDescDB[29506] = { n="The Burrower's Shell", r="", d="Absorbs $s1 damage.  Lasts $d.", t="Absorbs $s1 damage.", pt="Absorve $s1 de dano. Dura $d s." }
 ConsoleMode_SpellDescDB[29508] = { n="Summon Crypt Guard", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[29509] = { n="Attack All (Summoned Only) Trigger", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[29510] = { n="Attack All (Summoned Only) Effect", r="", d="", t="", pt="" }
@@ -22278,8 +22278,8 @@ ConsoleMode_SpellDescDB[30284] = { n="Illusion: Rook", r="Toy", d="Alters your a
 ConsoleMode_SpellDescDB[30285] = { n="Eagle Claw", r="", d="Inflicts Physical damage to an enemy every $t1 sec. for $d.", t="$s1 Physical damage inflicted every $t1 sec.", pt="Causa dano Físico contínuo a um inimigo a cada $t1 s por $d s." }
 ConsoleMode_SpellDescDB[30297] = { n="Heightened Senses", r="", d="Decreases your chance to be crit by $s1%.", t="Decreases your chance to be crit by $s1%.", pt="Crítico -$s1%." }
 ConsoleMode_SpellDescDB[30331] = { n="Permanent Sheen of Zanza", r="QASpell", d="Increases the chance that the player will reflect hostile spells cast on them by $s1% for $d. Will automatically reflect the first offensive spell cast against the user. Only one type of Zanza potion may be active at any given time.", t="Hostile spells reflected $s1% of the time.", pt="Aumenta a chance de refletir magia hostil em $s1% por $d s, refletindo a primeira ofensiva na hora. Só uma poção Zanza por vez." }
-ConsoleMode_SpellDescDB[30336] = { n="Permanent Spirit of Zanza", r="QASpell", d="Increases the player's Spirit by $s1 and Stamina by $s2 for $d.  You can only have the effect of one Zanza potion at a time.", t="Spirit increased by $s1 and Stamina by $s2.", pt="Aumenta o Espírito do jogador em $s1 e o Vigor em $s2 por $d s. Só uma poção Zanza por vez." }
-ConsoleMode_SpellDescDB[30338] = { n="Permanent Swiftness of Zanza", r="", d="Increases the player's run speed by $s1% for $d.  You can only have the effect of one Zanza potion at a time.", t="Run speed increased by $s1%.", pt="Aumenta a corrida do jogador em $s1% por $d s. Só uma poção Zanza por vez." }
+ConsoleMode_SpellDescDB[30336] = { n="Permanent Spirit of Zanza", r="QASpell", d="Increases the player's Spirit by $s1 and Stamina by $s2 for $d.  You can only have the effect of one Zanza potion at a time.", t="Spirit increased by $s1 and Stamina by $s2.", pt="Aumenta o Espírito do jogador em $s1 e o Vigor em $s2 por $d s. Você só pode ter o efeito de uma poção Zanza por vez." }
+ConsoleMode_SpellDescDB[30338] = { n="Permanent Swiftness of Zanza", r="", d="Increases the player's run speed by $s1% for $d.  You can only have the effect of one Zanza potion at a time.", t="Run speed increased by $s1%.", pt="Aumenta a velocidade de corrida do jogador em $s1% por $d s. Você só pode ter o efeito de uma poção Zanza por vez." }
 ConsoleMode_SpellDescDB[30339] = { n="Mechanical Horse", r="", d="This mechanical horse is powered by arcane energy.", t="Increases speed based on your Riding skill.", pt="Cavalo arcano." }
 ConsoleMode_SpellDescDB[30440] = { n=" Increased Spell Hit Chance", r="", d="Improves your chance to hit with Taunt and Challenging Shout by $s1%.", t="", pt="Aumenta sua chance de acertar com Provocar e Grito Desafiador em $s1%." }
 ConsoleMode_SpellDescDB[30441] = { n=" Increased Spell Hit Chance", r="", d="Improves your chance to hit with Growl by $s1%.", t="", pt="Rosnar +$s1% acerto." }
@@ -25487,7 +25487,7 @@ ConsoleMode_SpellDescDB[52323] = { n="Balance Spells Cost Reduction", r="", d="R
 ConsoleMode_SpellDescDB[52324] = { n="Cenarion Blessing", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[52325] = { n="Cenarion Blessing Passive", r="", d="Your landing Balance spells have a $h% chance to heal the lowest health friendly target within 30 yards for $52324s1 health.", t="", pt="Seus feitiços de Equilíbrio ao acertarem têm $h% de chance de curar o alvo amistoso com menos vida a até 30 metros em $s1 de vida." }
 ConsoleMode_SpellDescDB[52326] = { n="Owlkin Frenzy Increased Regen", r="", d="Increase the mana regeneration of Owlkin Frenzy by $s1%.", t="", pt="Fúria da Coruja +$s1% regen." }
-ConsoleMode_SpellDescDB[52327] = { n="Thorned Bulwark", r="", d="Absorbs $s1 damage.  Lasts $d.", t="Absorbs $s1 damage.", pt="Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s." }
+ConsoleMode_SpellDescDB[52327] = { n="Thorned Bulwark", r="", d="Absorbs $s1 damage.  Lasts $d.", t="Absorbs $s1 damage.", pt="Absorve $s1 de dano. Dura $d s." }
 ConsoleMode_SpellDescDB[52328] = { n="Thorned Bulwark Passive", r="", d="Critical strikes with your Balance spells shield you, absorbing $52327s1 damage for $52327d.", t="", pt="Acertos críticos com seus feitiços de Equilíbrio o envolvem em escudo, absorvendo $s1 de dano por $d s." }
 ConsoleMode_SpellDescDB[52329] = { n="Astral Shower", r="", d="Reduces the mana cost of Moonfire by $s1%.", t="Reduces the mana cost of Moonfire by $s1%.", pt="Fogofátuo -$s1% mana." }
 ConsoleMode_SpellDescDB[52330] = { n="Astral Shower Passive", r="", d="Casting Moonfire reduces the Mana cost of your Moonfire by $52329s1% for $52329d. Stacks up to 3 times.", t="", pt="Lançar Fogo Lunar reduz o custo de mana do seu Fogo Lunar em $s1% por $d s. Acumula até 3 vezes." }

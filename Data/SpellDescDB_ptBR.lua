@@ -18108,11 +18108,11 @@ ConsoleMode_SpellDescDB[23666] = { n="Flarecore Robe", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23667] = { n="Flarecore Leggings", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23668] = { n="Pattern: Wisdom of the Timbermaw", r="", d="Teaches you how to sew the Wisdom of the Timbermaw.", t="", pt="" }
 ConsoleMode_SpellDescDB[23669] = { n="Pattern: Mantle of the Timbermaw", r="", d="Teaches you how to sew a Mantle of the Timbermaw.", t="", pt="" }
-ConsoleMode_SpellDescDB[23670] = { n="Pattern: Argent Boots", r="", d="Teaches you how to sew Argent Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[23671] = { n="Pattern: Argent Shoulders", r="", d="Teaches you how to sew Argent Shoulders.", t="", pt="" }
-ConsoleMode_SpellDescDB[23672] = { n="Pattern: Flarecore Robe", r="", d="Teaches you how to sew a Flarecore Robe.", t="", pt="" }
-ConsoleMode_SpellDescDB[23673] = { n="Pattern: Flarecore Leggings", r="", d="Teaches you how to sew Flarecore Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[23674] = { n="Test Eng Haste", r="", d="SO FAST!", t="", pt="" }
+ConsoleMode_SpellDescDB[23670] = { n="Pattern: Argent Boots", r="", d="Teaches you how to sew Argent Boots.", t="", pt="Ensina a costurar as Botas Argênteas." }
+ConsoleMode_SpellDescDB[23671] = { n="Pattern: Argent Shoulders", r="", d="Teaches you how to sew Argent Shoulders.", t="", pt="Ensina a costurar as Ombreiras Argênteas." }
+ConsoleMode_SpellDescDB[23672] = { n="Pattern: Flarecore Robe", r="", d="Teaches you how to sew a Flarecore Robe.", t="", pt="Ensina a costurar um Robe Flarecore." }
+ConsoleMode_SpellDescDB[23673] = { n="Pattern: Flarecore Leggings", r="", d="Teaches you how to sew Flarecore Leggings.", t="", pt="Ensina a costurar as Calças Flarecore." }
+ConsoleMode_SpellDescDB[23674] = { n="Test Eng Haste", r="", d="SO FAST!", t="", pt="TÃO RÁPIDO!" }
 ConsoleMode_SpellDescDB[23675] = { n="Minigun", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23676] = { n="Minigun", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23677] = { n="Beasts Deck", r="", d="Combine the Ace through Eight of Beasts to complete the set.", t="", pt="Junta Ás ao Oito de Fera." }
@@ -18149,14 +18149,14 @@ ConsoleMode_SpellDescDB[23707] = { n="Lava Belt", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23708] = { n="Chromatic Gauntlets", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23709] = { n="Corehound Belt", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23710] = { n="Molten Belt", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23711] = { n="Pattern: Might of the Timbermaw", r="", d="Teaches you how to craft the Might of the Timbermaw.", t="", pt="" }
-ConsoleMode_SpellDescDB[23712] = { n="Pattern: Dawn Treaders", r="", d="Teaches you how to craft Dawn Treaders.", t="", pt="" }
-ConsoleMode_SpellDescDB[23713] = { n="Pattern: Timbermaw Brawlers", r="", d="Teaches you how to craft Timbermaw Brawlers.", t="", pt="" }
-ConsoleMode_SpellDescDB[23714] = { n="Pattern: Golden Mantle of the Dawn", r="", d="Teaches you how to craft a Golden Mantle of the Dawn.", t="", pt="" }
-ConsoleMode_SpellDescDB[23715] = { n="Pattern: Lava Belt", r="", d="Teaches you how to craft a Lava Belt.", t="", pt="" }
-ConsoleMode_SpellDescDB[23716] = { n="Pattern: Chromatic Gauntlets", r="", d="Teaches you how to craft Chromatic Gauntlets.", t="", pt="" }
-ConsoleMode_SpellDescDB[23717] = { n="Pattern: Corehound Belt", r="", d="Teaches you how to craft a Corehound Belt.", t="", pt="" }
-ConsoleMode_SpellDescDB[23718] = { n="Pattern: Molten Belt", r="", d="Teaches you how to craft a Molten Belt.", t="", pt="" }
+ConsoleMode_SpellDescDB[23711] = { n="Pattern: Might of the Timbermaw", r="", d="Teaches you how to craft the Might of the Timbermaw.", t="", pt="Ensina a criar o Poder dos Timbermaw." }
+ConsoleMode_SpellDescDB[23712] = { n="Pattern: Dawn Treaders", r="", d="Teaches you how to craft Dawn Treaders.", t="", pt="Ensina a criar as Calçadeiras da Aurora." }
+ConsoleMode_SpellDescDB[23713] = { n="Pattern: Timbermaw Brawlers", r="", d="Teaches you how to craft Timbermaw Brawlers.", t="", pt="Ensina a criar os Brawlers Timbermaw." }
+ConsoleMode_SpellDescDB[23714] = { n="Pattern: Golden Mantle of the Dawn", r="", d="Teaches you how to craft a Golden Mantle of the Dawn.", t="", pt="Ensina a criar um Manto Dourado da Aurora." }
+ConsoleMode_SpellDescDB[23715] = { n="Pattern: Lava Belt", r="", d="Teaches you how to craft a Lava Belt.", t="", pt="Ensina a criar um Cinto de Lava." }
+ConsoleMode_SpellDescDB[23716] = { n="Pattern: Chromatic Gauntlets", r="", d="Teaches you how to craft Chromatic Gauntlets.", t="", pt="Ensina a criar as Manoplas Cromáticas." }
+ConsoleMode_SpellDescDB[23717] = { n="Pattern: Corehound Belt", r="", d="Teaches you how to craft a Corehound Belt.", t="", pt="Ensina a criar um Cinto do Cão do Magma." }
+ConsoleMode_SpellDescDB[23718] = { n="Pattern: Molten Belt", r="", d="Teaches you how to craft a Molten Belt.", t="", pt="Ensina a criar um Cinto Fundido." }
 ConsoleMode_SpellDescDB[23719] = { n="Untamed Fury", r="", d="Increases Strength by $s1 for $d.", t="Strength increased by $s1.", pt="Aumenta a Força em $s1 por $d s." }
 ConsoleMode_SpellDescDB[23720] = { n="Blessing of the Black Book", r="", d="Empowers your pet, increasing all damage it deals by $s1% and its armor by $s2% for $d.", t="Increases all damage dealt by your pet by $s1% and its armor by $s2%.", pt="Fortalece seu ajudante, aumentando todo o dano que ele causa em $s1% e sua armadura em $s2% por $d s." }
 ConsoleMode_SpellDescDB[23721] = { n="Arcane Infused", r="", d="Infuses you with Arcane energy, causing your next $n Arcane Shots, Mongoose Bites or Raptor Strikes within $d to detonate at the target. The Arcane Detonation deals $23722s1 damage to enemies within $23722a1 yards of the target.", t="Your next Mongoose Bite, Raptor Strike or Arcane Shot creates an Arcane Detonation.", pt="Infunde você com energia Arcana, fazendo com que seus próximos $n Tiros Arcanos, Mordidas de Mangusto ou Golpes do Raptor em $d s detonem no alvo. A Detonação Arcana causa $s1 de dano a inimigos a até $a1 metros do alvo." }
@@ -18206,8 +18206,8 @@ ConsoleMode_SpellDescDB[23784] = { n="Master Demonologist", r="", d="", t="", pt
 ConsoleMode_SpellDescDB[23785] = { n="Master Demonologist", r="Rank 1", d="Grants both the Warlock and the summoned demon an effect as long as that demon is active.\n\nImp - Reduces spell costs by $23759s1% and increases casting speed by $23759s2%.\n\nVoidwalker - Reduces physical damage taken by $23760s1% and increases healing taken by $23760s2%.\n\nSuccubus - Increases all damage done by $23761s1% and threat generated by $23761s2%.\n\nFelhunter - Increases all resistances by 0.2 per level and enemies attacking you have a 10% chance to be affected by Tainted Blood.\n\nInfernal - Increases casting and attack speed by $51725s1%, but reduces healing received by $51725s3%.\n\nFelguard - Increases all damage done by $51730s1%, but increases mana costs by $51730s2%.", t="", pt="Concede ao Bruxo e ao demônio invocado um efeito enquanto aquele demônio estiver ativo.\n\nDiabrete – Reduz os custos de feitiços em $s1% e aumenta a velocidade de lançamento em $s2%.\n\nEmissário do Caos – Reduz o dano físico sofrido em $s3% e aumenta a cura recebida em $s4%.\n\nSúcubo – Aumenta todo o dano causado em $s5% e a ameaça gerada em $s6%.\n\ncaçador vil – Aumenta todas as resistências em 0,2 por nível, e os inimigos que atacarem você têm 10% de chance de serem afetados por Sangue Maculado.\n\nInfernal – Aumenta a velocidade de lançamento e de ataque em $s7%, mas reduz a cura recebida em $s8%.\n\nGuarda Vil – Aumenta todo o dano causado em $s9%, mas aumenta os custos de mana em $s10%." }
 ConsoleMode_SpellDescDB[23786] = { n="Powerful Anti-Venom", r="", d="Target is cured of poisons up to level 60.", t="", pt="O alvo é curado de venenos de até nível 60." }
 ConsoleMode_SpellDescDB[23787] = { n="Powerful Anti-Venom", r="", d="Creates a Vial of Powerful Anti-Venom.", t="", pt="Cria um frasco de Antiveneno Poderoso." }
-ConsoleMode_SpellDescDB[23788] = { n="Formula: Powerful Anti-Venom", r="", d="Teaches you how to make Powerful Anti-Venom.", t="", pt="" }
-ConsoleMode_SpellDescDB[23789] = { n="Stoneclaw Totem TEST", r="", d="Summons a Stoneclaw Totem TEST.", t="", pt="" }
+ConsoleMode_SpellDescDB[23788] = { n="Formula: Powerful Anti-Venom", r="", d="Teaches you how to make Powerful Anti-Venom.", t="", pt="Ensina a criar Antiveneno Poderoso." }
+ConsoleMode_SpellDescDB[23789] = { n="Stoneclaw Totem TEST", r="", d="Summons a Stoneclaw Totem TEST.", t="", pt="Evoca um Totem de Garra de Pedra de TESTE." }
 ConsoleMode_SpellDescDB[23790] = { n="Stoneclaw Totem Effect TEST", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23792] = { n="Stoneclaw Totem Passive TEST", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23793] = { n="Strength", r="", d="", t="", pt="" }
@@ -18222,12 +18222,12 @@ ConsoleMode_SpellDescDB[23801] = { n="Enchant Bracer - Mana Regeneration", r="",
 ConsoleMode_SpellDescDB[23802] = { n="Enchant Bracer - Healing Power", r="", d="Permanently enchants bracers to increase the effects of your healing spells by 24.", t="", pt="Encanta permanentemente braçadeiras para aumentar os efeitos dos seus feitiços de cura em 24." }
 ConsoleMode_SpellDescDB[23803] = { n="Enchant Weapon - Mighty Spirit", r="", d="Permanently enchant a melee weapon to grant +20 Spirit.", t="", pt="Arma corpo a corpo: +20 Esp." }
 ConsoleMode_SpellDescDB[23804] = { n="Enchant Weapon - Mighty Intellect", r="", d="Permanently enchant a melee weapon to grant +22 Intellect.", t="", pt="Arma corpo a corpo: +22 Int." }
-ConsoleMode_SpellDescDB[23805] = { n="Formula: Enchant Weapon - Strength", r="", d="Teaches you how to permanently enchant a weapon to increase your strength by 15.", t="", pt="" }
-ConsoleMode_SpellDescDB[23806] = { n="Formula: Enchant Weapon - Agility", r="", d="Teaches you how to permanently enchant a weapon to increase your agility by 15.", t="", pt="" }
-ConsoleMode_SpellDescDB[23807] = { n="Formula: Enchant Bracer - Mana Regeneration", r="", d="Teaches you how to permanently enchant a bracer to restore 4 mana every 5 seconds.", t="", pt="" }
-ConsoleMode_SpellDescDB[23808] = { n="Formula: Enchant Bracer - Healing", r="", d="Teaches you how to permanently enchant a bracer to increase the effects of healing spells by 24.", t="", pt="" }
-ConsoleMode_SpellDescDB[23809] = { n="Formula: Enchant Weapon - Mighty Spirit", r="", d="Teaches you how to permanently enchant a weapon to increase your spirit by 20.", t="", pt="" }
-ConsoleMode_SpellDescDB[23810] = { n="Formula: Enchant Weapon - Mighty Intellect", r="", d="Teaches you how to permanently enchant a weapon to increase your intellect by 22.", t="", pt="" }
+ConsoleMode_SpellDescDB[23805] = { n="Formula: Enchant Weapon - Strength", r="", d="Teaches you how to permanently enchant a weapon to increase your strength by 15.", t="", pt="Ensina a encantar permanentemente uma arma para aumentar sua Força em 15." }
+ConsoleMode_SpellDescDB[23806] = { n="Formula: Enchant Weapon - Agility", r="", d="Teaches you how to permanently enchant a weapon to increase your agility by 15.", t="", pt="Ensina a encantar permanentemente uma arma para aumentar sua Agilidade em 15." }
+ConsoleMode_SpellDescDB[23807] = { n="Formula: Enchant Bracer - Mana Regeneration", r="", d="Teaches you how to permanently enchant a bracer to restore 4 mana every 5 seconds.", t="", pt="Ensina a encantar permanentemente uma braçadeira para restaurar 4 de mana a cada 5 segundos." }
+ConsoleMode_SpellDescDB[23808] = { n="Formula: Enchant Bracer - Healing", r="", d="Teaches you how to permanently enchant a bracer to increase the effects of healing spells by 24.", t="", pt="Ensina a encantar permanentemente uma braçadeira para aumentar os efeitos de feitiços de cura em 24." }
+ConsoleMode_SpellDescDB[23809] = { n="Formula: Enchant Weapon - Mighty Spirit", r="", d="Teaches you how to permanently enchant a weapon to increase your spirit by 20.", t="", pt="Ensina a encantar permanentemente uma arma para aumentar seu Espírito em 20." }
+ConsoleMode_SpellDescDB[23810] = { n="Formula: Enchant Weapon - Mighty Intellect", r="", d="Teaches you how to permanently enchant a weapon to increase your intellect by 22.", t="", pt="Ensina a encantar permanentemente uma arma para aumentar seu Intelecto em 22." }
 ConsoleMode_SpellDescDB[23811] = { n="Jubling", r="", d="The legendary ale frog was believed to be extinct until the strange brews at the Darkmoon Faire brought them out of hiding.", t="", pt="Acreditava-se que o lendário sapo da cerveja estivesse extinto até que as estranhas infusões da Feira de Negraluna o trouxeram de volta do esconderijo." }
 ConsoleMode_SpellDescDB[23813] = { n="Create Healthstone", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23814] = { n="Create Healthstone", r="", d="", t="", pt="" }
@@ -18441,9 +18441,9 @@ ConsoleMode_SpellDescDB[24090] = { n="Minor Movement Speed", r="", d="Minor incr
 ConsoleMode_SpellDescDB[24091] = { n="Bloodvine Vest", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24092] = { n="Bloodvine Leggings", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24093] = { n="Bloodvine Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24094] = { n="Pattern: Bloodvine Vest", r="", d="Teaches you how to sew a Bloodvine Vest.", t="", pt="" }
-ConsoleMode_SpellDescDB[24095] = { n="Pattern: Bloodvine Leggings", r="", d="Teaches you how to sew Bloodvine Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[24096] = { n="Pattern: Bloodvine Boots", r="", d="Teaches you how to sew Bloodvine Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[24094] = { n="Pattern: Bloodvine Vest", r="", d="Teaches you how to sew a Bloodvine Vest.", t="", pt="Ensina a costurar um Colete de Videira Sangrenta." }
+ConsoleMode_SpellDescDB[24095] = { n="Pattern: Bloodvine Leggings", r="", d="Teaches you how to sew Bloodvine Leggings.", t="", pt="Ensina a costurar as Perneiras de Videira Sangrenta." }
+ConsoleMode_SpellDescDB[24096] = { n="Pattern: Bloodvine Boots", r="", d="Teaches you how to sew Bloodvine Boots.", t="", pt="Ensina a costurar as Botas de Videira Sangrenta." }
 ConsoleMode_SpellDescDB[24097] = { n="Poison", r="", d="Inflicts Nature damage to an enemy every $t1 sec. for $d.", t="Nature damage inflicted every $t1 sec.", pt="Causa dano de Natureza ao inimigo a cada $t1 s por $d s." }
 ConsoleMode_SpellDescDB[24098] = { n="Copy of Bind", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24099] = { n="Poison Bolt Volley", r="", d="Shoots poison at an enemy, inflicting Nature damage, then additional damage every $t2 sec. for $d.", t="Nature damage inflicted every $t2 sec.", pt="Cospe veneno no inimigo, causando dano de Natureza e mais dano a cada $t1 s por $d s." }
@@ -18473,11 +18473,11 @@ ConsoleMode_SpellDescDB[24122] = { n="Primal Batskin Gloves", r="", d="", t="", 
 ConsoleMode_SpellDescDB[24123] = { n="Primal Batskin Bracers", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24124] = { n="Blood Tiger Breastplate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24125] = { n="Blood Tiger Shoulders", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24126] = { n="Pattern: Primal Batskin Jerkin", r="", d="Teaches you how to craft a Primal Batskin Jerkin.", t="", pt="" }
-ConsoleMode_SpellDescDB[24127] = { n="Pattern: Primal Batskin Gloves", r="", d="Teaches you how to craft Primal Batskin Gloves.", t="", pt="" }
-ConsoleMode_SpellDescDB[24128] = { n="Pattern: Primal Batskin Bracers", r="", d="Teaches you how to craft Primal Batskin Bracers.", t="", pt="" }
-ConsoleMode_SpellDescDB[24129] = { n="Pattern: Blood Tiger Breastplate", r="", d="Teaches you how to craft a Blood Tiger Breastplate.", t="", pt="" }
-ConsoleMode_SpellDescDB[24130] = { n="Pattern: Blood Tiger Shoulders", r="", d="Teaches you how to craft a Blood Tiger Shoulders.", t="", pt="" }
+ConsoleMode_SpellDescDB[24126] = { n="Pattern: Primal Batskin Jerkin", r="", d="Teaches you how to craft a Primal Batskin Jerkin.", t="", pt="Ensina a criar um Gibão de Couro de Morcego Primal." }
+ConsoleMode_SpellDescDB[24127] = { n="Pattern: Primal Batskin Gloves", r="", d="Teaches you how to craft Primal Batskin Gloves.", t="", pt="Ensina a criar as Luvas de Couro de Morcego Primal." }
+ConsoleMode_SpellDescDB[24128] = { n="Pattern: Primal Batskin Bracers", r="", d="Teaches you how to craft Primal Batskin Bracers.", t="", pt="Ensina a criar as Braçadeiras de Couro de Morcego Primal." }
+ConsoleMode_SpellDescDB[24129] = { n="Pattern: Blood Tiger Breastplate", r="", d="Teaches you how to craft a Blood Tiger Breastplate.", t="", pt="Ensina a criar um Peitoral de Tigre Sangrento." }
+ConsoleMode_SpellDescDB[24130] = { n="Pattern: Blood Tiger Shoulders", r="", d="Teaches you how to craft a Blood Tiger Shoulders.", t="", pt="Ensina a criar os Espaldares de Tigre Sangrento." }
 ConsoleMode_SpellDescDB[24131] = { n="Wyvern Sting", r="Rank 1", d="", t="$s1 Nature damage every $t1 seconds.", pt="" }
 ConsoleMode_SpellDescDB[24132] = { n="Wyvern Sting", r="Rank 2", d="A stinging shot that puts the target to sleep for $d.  Any damage will cancel the effect.  When the target wakes up, the Sting causes $24134o1 Nature damage over $24134d.  Only usable out of combat.  Only one Sting per Hunter can be active on the target at a time.", t="Asleep.", pt="Uma picada pungente que adormece o alvo por $d s. Qualquer dano cancelará o efeito. Quando o alvo acordar, a Picada de Serpetário causará $s1 de dano de Natureza ao longo de $d s. Só pode ser usado fora de combate. Apenas uma Picada por Caçador pode estar ativa em cada alvo." }
 ConsoleMode_SpellDescDB[24133] = { n="Wyvern Sting", r="Rank 3", d="A stinging shot that puts the target to sleep for $d.  Any damage will cancel the effect.  When the target wakes up, the Sting causes $24135o1 Nature damage over $24135d.  Only usable out of combat.  Only one Sting per Hunter can be active on the target at a time.", t="Asleep.", pt="Uma picada pungente que adormece o alvo por $d s. Qualquer dano cancelará o efeito. Quando o alvo acordar, a Picada de Serpetário causará $s1 de dano de Natureza ao longo de $d s. Só pode ser usado fora de combate. Apenas uma Picada por Caçador pode estar ativa em cada alvo." }
@@ -18489,12 +18489,12 @@ ConsoleMode_SpellDescDB[24138] = { n="Bloodsoul Gauntlets", r="", d="", t="", pt
 ConsoleMode_SpellDescDB[24139] = { n="Darksoul Breastplate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24140] = { n="Darksoul Leggings", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24141] = { n="Darksoul Shoulders", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24142] = { n="Plans: Bloodsoul Breastplate", r="", d="Teaches you how to make a Bloodsoul Breastplate.", t="", pt="" }
-ConsoleMode_SpellDescDB[24143] = { n="Plans: Bloodsoul Shoulders", r="", d="Teaches you how to make Bloodsoul Shoulders", t="", pt="" }
-ConsoleMode_SpellDescDB[24144] = { n="Plans: Bloodsoul Gauntlets", r="", d="Teaches you how to make Bloodsoul Gauntlets.", t="", pt="" }
-ConsoleMode_SpellDescDB[24145] = { n="Plans: Darksoul Breastplate", r="", d="Teaches you how to make a Darksoul Breastplate.", t="", pt="" }
-ConsoleMode_SpellDescDB[24146] = { n="Plans: Darksoul Leggings", r="", d="Teaches you how to make Darksoul Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[24147] = { n="Plans: Darksoul Shoulders", r="", d="Teaches you how to make Darksoul Shoulders.", t="", pt="" }
+ConsoleMode_SpellDescDB[24142] = { n="Plans: Bloodsoul Breastplate", r="", d="Teaches you how to make a Bloodsoul Breastplate.", t="", pt="Ensina a criar um Peitoral Alma-sangrenta." }
+ConsoleMode_SpellDescDB[24143] = { n="Plans: Bloodsoul Shoulders", r="", d="Teaches you how to make Bloodsoul Shoulders", t="", pt="Ensina a criar os Espaldares Alma-sangrenta." }
+ConsoleMode_SpellDescDB[24144] = { n="Plans: Bloodsoul Gauntlets", r="", d="Teaches you how to make Bloodsoul Gauntlets.", t="", pt="Ensina a criar as Manoplas Alma-sangrenta." }
+ConsoleMode_SpellDescDB[24145] = { n="Plans: Darksoul Breastplate", r="", d="Teaches you how to make a Darksoul Breastplate.", t="", pt="Ensina a criar uma Couraça de Alma Sombria." }
+ConsoleMode_SpellDescDB[24146] = { n="Plans: Darksoul Leggings", r="", d="Teaches you how to make Darksoul Leggings.", t="", pt="Ensina a criar as Calças de Alma Sombria." }
+ConsoleMode_SpellDescDB[24147] = { n="Plans: Darksoul Shoulders", r="", d="Teaches you how to make Darksoul Shoulders.", t="", pt="Ensina a criar as Ombreiras de Alma Sombria." }
 ConsoleMode_SpellDescDB[24148] = { n="Presence of Might", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24149] = { n="Presence of Might", r="", d="Permanently adds 10 Stamina, 7 Defense, and 15 Shield Block value to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.", t="", pt="Adiciona permanentemente 10 de Vigor, 7 de Defesa e 15 de valor de Bloqueio com Escudo a um item da ranhura de pernas ou cabeça. Não acumula com outros encantamentos para a ranhura de equipamento selecionada." }
 ConsoleMode_SpellDescDB[24150] = { n="Stinger Charge Primer", r="", d="Charge a nearby enemy", t="", pt="Investida no próximo." }
@@ -18692,8 +18692,8 @@ ConsoleMode_SpellDescDB[24354] = { n="Prayer Beads Blessing", r="", d="Increases
 ConsoleMode_SpellDescDB[24355] = { n="Drink", r="", d="Restores $s1% of your mana per second for $d.  Must remain seated while drinking.", t="Restores $s1% of your mana per second.", pt="Restaura $s1% da sua mana por segundo por $d s. É necessário permanecer sentado enquanto bebe." }
 ConsoleMode_SpellDescDB[24356] = { n="Bloodvine Goggles", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24357] = { n="Bloodvine Lens", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24358] = { n="Schematic: Bloodvine Goggles", r="", d="Teaches you how to make Bloodvine Goggles.", t="", pt="" }
-ConsoleMode_SpellDescDB[24359] = { n="Schematic: Bloodvine Lens", r="", d="Teaches you how to make a Bloodvine Lens.", t="", pt="" }
+ConsoleMode_SpellDescDB[24358] = { n="Schematic: Bloodvine Goggles", r="", d="Teaches you how to make Bloodvine Goggles.", t="", pt="Ensina a criar os Óculos de Videira Sangrenta." }
+ConsoleMode_SpellDescDB[24359] = { n="Schematic: Bloodvine Lens", r="", d="Teaches you how to make a Bloodvine Lens.", t="", pt="Ensina a criar uma Lente de Videira Sangrenta." }
 ConsoleMode_SpellDescDB[24360] = { n="Greater Dreamless Sleep", r="", d="Puts the imbiber in a dreamless sleep for $d.  During that time the imbiber heals 2100 health and 2100 mana.", t="Dreamless Sleep.", pt="Coloca quem bebe em um sono sem sonhos por $d s. Durante esse tempo, quem bebe recupera 2100 de vida e 2100 de mana." }
 ConsoleMode_SpellDescDB[24361] = { n="Regeneration", r="", d="Regenerate $s1 health every 5 sec for $d.", t="Regenerate $s1 health every 5 sec.", pt="Regenera $s1 de vida a cada 5 s por $d s." }
 ConsoleMode_SpellDescDB[24362] = { n="Increased 1H Fist Weapons", r="", d="Increased Fist Weapons +$s1.", t="", pt="Punho +$s1." }
@@ -18703,10 +18703,10 @@ ConsoleMode_SpellDescDB[24365] = { n="Mageblood Potion", r="", d="", t="", pt=""
 ConsoleMode_SpellDescDB[24366] = { n="Greater Dreamless Sleep Potion", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24367] = { n="Living Action Potion", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24368] = { n="Major Troll's Blood Potion", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24369] = { n="Recipe: Mageblood Potion", r="", d="Teaches you how to make a Mageblood Potion.", t="", pt="" }
-ConsoleMode_SpellDescDB[24370] = { n="Recipe: Greater Dreamless Sleep Potion", r="", d="Teaches you how to make a Greater Dreamless Sleep Potion.", t="", pt="" }
-ConsoleMode_SpellDescDB[24372] = { n="Recipe: Living Action Potion", r="", d="Teaches you how to make a Living Action Potion.", t="", pt="" }
-ConsoleMode_SpellDescDB[24373] = { n="Recipe: Major Troll's Blood Potion", r="", d="Teaches you how to make a Major Troll's Blood Potion.", t="", pt="" }
+ConsoleMode_SpellDescDB[24369] = { n="Recipe: Mageblood Potion", r="", d="Teaches you how to make a Mageblood Potion.", t="", pt="Ensina a criar uma Poção de Sangue de Mago." }
+ConsoleMode_SpellDescDB[24370] = { n="Recipe: Greater Dreamless Sleep Potion", r="", d="Teaches you how to make a Greater Dreamless Sleep Potion.", t="", pt="Ensina a criar uma Poção de Sono Sem Sonhos Maior." }
+ConsoleMode_SpellDescDB[24372] = { n="Recipe: Living Action Potion", r="", d="Teaches you how to make a Living Action Potion.", t="", pt="Ensina a criar uma Poção de Ação Viva." }
+ConsoleMode_SpellDescDB[24373] = { n="Recipe: Major Troll's Blood Potion", r="", d="Teaches you how to make a Major Troll's Blood Potion.", t="", pt="Ensina a criar uma Poção Maior de Sangue de Troll." }
 ConsoleMode_SpellDescDB[24374] = { n="Fireball", r="", d="Inflicts Fire damage to an enemy.", t="", pt="Causa dano de Fogo a um inimigo." }
 ConsoleMode_SpellDescDB[24375] = { n="War Stomp", r="", d="Inflicts normal damage plus $s3 to nearby enemies, knocking them back and stunning them for $d.", t="Stunned.", pt="Causa o dano normal mais $s3 aos inimigos próximos, arremessando-os para trás e atordoando-os por $d s." }
 ConsoleMode_SpellDescDB[24376] = { n="Opening Azure Bag", r="", d="Opens the Sealed Azure Bag.", t="", pt="Abre a Bolsa Lacrada." }
@@ -18723,14 +18723,14 @@ ConsoleMode_SpellDescDB[24389] = { n="Chaos Fire", r="", d="Restores $s1 mana an
 ConsoleMode_SpellDescDB[24390] = { n="Opening", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24391] = { n="Opening", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24392] = { n="Frosty Zap", r="", d="Your Frostbolt spells have a $s1% chance to restore $s2 mana when cast.", t="", pt="Seus feitiços Seta de Gelo têm $s1% de chance de restaurar $s2 de mana quando lançados." }
-ConsoleMode_SpellDescDB[24393] = { n="Test Strike", r="", d="457 Damage.", t="", pt="" }
+ConsoleMode_SpellDescDB[24393] = { n="Test Strike", r="", d="457 Damage.", t="", pt="457 de dano." }
 ConsoleMode_SpellDescDB[24394] = { n="Intimidation", r="", d="", t="Stunned.", pt="" }
 ConsoleMode_SpellDescDB[24395] = { n="Bestial Wrath", r="", d="Charm, Fear, Polymorph.", t="", pt="Encanto, Medo, Metamorfose." }
 ConsoleMode_SpellDescDB[24396] = { n="Bestial Wrath", r="", d="Incapacitate, Freeze, Horror.", t="", pt="Incapacitação, Congelamento, Horror." }
 ConsoleMode_SpellDescDB[24397] = { n="Bestial Wrath", r="", d="Root, Sleep, Snare.", t="", pt="Enraizamento, Sono, Aprisionamento." }
 ConsoleMode_SpellDescDB[24398] = { n="zzDONOTREUSE", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24399] = { n="Dark Iron Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24400] = { n="Plans: Dark Iron Boots", r="", d="Teaches you how to make Dark Iron Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[24400] = { n="Plans: Dark Iron Boots", r="", d="Teaches you how to make Dark Iron Boots.", t="", pt="Ensina a criar as Botas de Ferro Sombrio." }
 ConsoleMode_SpellDescDB[24401] = { n="Test Pet Passive", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24402] = { n="Deafened", r="", d="", t="Decreases your chance to hit with spells and melee attacks by $s1.", pt="" }
 ConsoleMode_SpellDescDB[24405] = { n="Icy Energy", r="", d="", t="", pt="" }
@@ -18747,7 +18747,7 @@ ConsoleMode_SpellDescDB[24415] = { n="Slow", r="", d="Increases the time between
 ConsoleMode_SpellDescDB[24416] = { n="Superior Aspects", r="Rank 1", d="Allows Aspect of the Beast and $s1% of the effect of Aspect of the Monkey to be shared with the Hunter's party.", t="", pt="Permite que Aspecto da Fera e $s1% do efeito de Aspecto do Macaco sejam compartilhados com o grupo do Caçador." }
 ConsoleMode_SpellDescDB[24417] = { n="Sheen of Zanza", r="", d="Increases the chance that the player will reflect hostile spells cast on them by $s1% for $d. Will automatically reflect the first offensive spell cast against the user. Only one type of Zanza potion may be active at any given time.", t="Hostile spells reflected $s1% of the time.", pt="Aumenta a chance de refletir magia hostil em $s1% por $d s, refletindo a primeira ofensiva na hora. Só uma poção Zanza por vez." }
 ConsoleMode_SpellDescDB[24418] = { n="Heavy Crocolisk Stew", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24419] = { n="Recipe: Heavy Crocilisk Stew", r="", d="Teaches you how to cook a Heavy Crocilisk Stew.", t="", pt="" }
+ConsoleMode_SpellDescDB[24419] = { n="Recipe: Heavy Crocilisk Stew", r="", d="Teaches you how to cook a Heavy Crocilisk Stew.", t="", pt="Ensina a cozinhar um Ensopado Pesado de Crocolisco." }
 ConsoleMode_SpellDescDB[24420] = { n="Zandalar Signet of Serenity", r="", d="Permanently adds to a shoulder slot item increased healing done by spells and effects up to 33.", t="", pt="Adiciona permanentemente a um item da ranhura de ombros cura causada por feitiços e efeitos aumentada em até 33." }
 ConsoleMode_SpellDescDB[24421] = { n="Zandalar Signet of Mojo", r="", d="Permanently adds to a shoulder slot item increased damage and healing done by magical spells and effects up to 18.", t="", pt="Adiciona permanentemente a um item da ranhura de ombros dano e cura causados por feitiços e efeitos mágicos aumentados em até 18." }
 ConsoleMode_SpellDescDB[24422] = { n="Zandalar Signet of Might", r="", d="Permanently adds 30 attack power to a shoulder slot item.", t="", pt="Adiciona permanentemente 30 de poder de ataque a um item da ranhura de ombros." }
@@ -19025,7 +19025,7 @@ ConsoleMode_SpellDescDB[24700] = { n="Vanish", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24701] = { n="Burning Adrenaline", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24702] = { n="Hallow's End Aura", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24703] = { n="Dreamscale Breastplate", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24704] = { n="Pattern: Dreamscale Breastplate", r="", d="Teaches you how to craft a Dreamscale Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[24704] = { n="Pattern: Dreamscale Breastplate", r="", d="Teaches you how to craft a Dreamscale Breastplate.", t="", pt="Ensina a criar um Peitoral de Escama do Sonho." }
 ConsoleMode_SpellDescDB[24705] = { n="Invocation of the Wickerman", r="", d="Increases health and mana regeneration by $s1%, and Stamina by $s2%.  Lasts $d.", t="Increases health and mana regeneration by $s1%, and Stamina by $s2%.  Lasts $d.", pt="Aumenta a regeneração de vida e mana em $s1% e o Vigor em $s2%. Dura $d s." }
 ConsoleMode_SpellDescDB[24706] = { n="Toss Stink Bomb", r="", d="Toss a stink bomb on Southshore.  P-U!", t="", pt="Bomba em Costassul. Eca!" }
 ConsoleMode_SpellDescDB[24707] = { n="Food", r="", d="Restores $s1% of your health and mana per second for $d.  Must remain seated while eating.", t="Restores $s1% of your health and mana per second.", pt="Restaura $s1% da sua vida e mana por segundo por $d s. É necessário permanecer sentado enquanto come." }
@@ -19162,11 +19162,11 @@ ConsoleMode_SpellDescDB[24851] = { n="Sandstalker Breastplate", r="", d="", t=""
 ConsoleMode_SpellDescDB[24852] = { n="Increased Nature Criticals", r="", d="Improves your chance to get a critical strike with Nature spells by $s1%.", t="", pt="Melhora sua chance de crítico com magias de Natureza em $s1%." }
 ConsoleMode_SpellDescDB[24853] = { n="Mana Spring", r="", d="", t="Gain $s1 mana every $t1 seconds.", pt="" }
 ConsoleMode_SpellDescDB[24854] = { n="Mana Spring Totem", r="", d="Summons a Mana Spring Totem with $s1 health at the feet of the caster for $d that restores $24853s1 mana every $24853t1 seconds to group members within $24853a1 yards.", t="", pt="Evoca um Totem de Fonte de Mana com $s1 de vida aos pés do lançador por $d s que restaura $s2 de mana dos membros do grupo a até $a1 metros a cada $t1 segundos." }
-ConsoleMode_SpellDescDB[24855] = { n="Pattern: Spitfire Bracers", r="", d="Teaches you how to craft Spitfire Bracers.", t="", pt="" }
-ConsoleMode_SpellDescDB[24856] = { n="Pattern: Spitfire Gauntlets", r="", d="Teaches you how to craft Spitfire Gauntlets.", t="", pt="" }
+ConsoleMode_SpellDescDB[24855] = { n="Pattern: Spitfire Bracers", r="", d="Teaches you how to craft Spitfire Bracers.", t="", pt="Ensina a criar as Braçadeiras da Fúria do Fogo." }
+ConsoleMode_SpellDescDB[24856] = { n="Pattern: Spitfire Gauntlets", r="", d="Teaches you how to craft Spitfire Gauntlets.", t="", pt="Ensina a criar as Luvas da Fúria do Fogo." }
 ConsoleMode_SpellDescDB[24857] = { n="Arcane Blast", r="", d="Blasts an enemy with Arcane magic, inflicting normal damage plus $s2 and knocking the enemy back.", t="", pt="Detona o inimigo com magia Arcana, causando dano normal mais $s1 e arremessando-o." }
 ConsoleMode_SpellDescDB[24858] = { n="Moonkin Form", r="Shapeshift", d="Transforms the Druid into Moonkin Form. While in this form the armor contribution from items is increased by $24905s1%, the Mana cost of your Balance spells is reduced by 20%, and all party members within 30 yards have their spell critical chance increased by 3%. The Moonkin can only cast Balance spells, Innervate, and Remove Curse while shapeshifted. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.", t="Immune to Polymorph effects.  Armor contribution from items is increased by $24905s1%.", pt="Transforma o Druida em Forma de Luniscante. Nesta forma, a contribuição de armadura dos itens é aumentada em $s1%, o custo de mana dos seus feitiços de Equilíbrio é reduzido em 20% e todos os membros do grupo em um raio de 30 metros têm a chance de acerto crítico com feitiços aumentada em 3%. O Luniscante só pode lançar feitiços de Equilíbrio, Estimular e Remover Maldição enquanto estiver sob esta forma. O ato de mudar de forma liberta o lançador de Polimorfia e de efeitos de redução de movimento." }
-ConsoleMode_SpellDescDB[24859] = { n="Pattern: Spitfire Breastplate", r="", d="Teaches you how to craft a Spitfire Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[24859] = { n="Pattern: Spitfire Breastplate", r="", d="Teaches you how to craft a Spitfire Breastplate.", t="", pt="Ensina a criar um Peitoral da Fúria do Fogo." }
 ConsoleMode_SpellDescDB[24860] = { n="Pattern: Sandstalker Bracers", r="", d="Teaches you how to craft Sandstalker Bracers.", t="", pt="" }
 ConsoleMode_SpellDescDB[24861] = { n="Pattern: Sandstalker Gauntlets", r="", d="Teaches you how to craft Sandstalker Gauntlets.", t="", pt="" }
 ConsoleMode_SpellDescDB[24862] = { n="Pattern: Sandstalker Breastplate", r="", d="Teaches you how to craft Sandstalker Breastplate.", t="", pt="" }

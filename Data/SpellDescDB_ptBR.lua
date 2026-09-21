@@ -17385,10 +17385,10 @@ ConsoleMode_SpellDescDB[22868] = { n="Inferno Gloves", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22869] = { n="Mooncloth Gloves", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22870] = { n="Cloak of Warding", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22871] = { n="Pattern: Belt of the Archmage", r="", d="Teaches you how to sew a Belt of the Archmage.", t="", pt="Ensina a costurar um Cinto do Arquimago." }
-ConsoleMode_SpellDescDB[22872] = { n="Pattern: Felcloth Gloves", r="", d="Teaches you how to sew Felcloth Gloves.", t="", pt="" }
-ConsoleMode_SpellDescDB[22873] = { n="Pattern: Inferno Gloves", r="", d="Teaches you how to sew Inferno Gloves.", t="", pt="" }
-ConsoleMode_SpellDescDB[22874] = { n="Pattern: Mooncloth Gloves", r="", d="Teaches you how to sew Mooncloth Gloves.", t="", pt="" }
-ConsoleMode_SpellDescDB[22875] = { n="Pattern: Cloak of Warding", r="", d="Teaches you how to sew a Cloak of Warding.", t="", pt="" }
+ConsoleMode_SpellDescDB[22872] = { n="Pattern: Felcloth Gloves", r="", d="Teaches you how to sew Felcloth Gloves.", t="", pt="Ensina a confeccionar Luvas de Tecido Vil." }
+ConsoleMode_SpellDescDB[22873] = { n="Pattern: Inferno Gloves", r="", d="Teaches you how to sew Inferno Gloves.", t="", pt="Ensina a confeccionar Luvas Inferno." }
+ConsoleMode_SpellDescDB[22874] = { n="Pattern: Mooncloth Gloves", r="", d="Teaches you how to sew Mooncloth Gloves.", t="", pt="Ensina a confeccionar Luvas de Lunatrama." }
+ConsoleMode_SpellDescDB[22875] = { n="Pattern: Cloak of Warding", r="", d="Teaches you how to sew a Cloak of Warding.", t="", pt="Ensina a confeccionar Manto de Proteção." }
 ConsoleMode_SpellDescDB[22876] = { n="Summon Netherwalker", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22877] = { n="Attunement to the Core", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22878] = { n="Shadow Bolt Volley", r="", d="Hurls missiles of dark magic, inflicting Shadow damage to nearby enemies.", t="", pt="Arremessa mísseis de magia sombria, causando dano de Sombra nos inimigos próximos." }
@@ -17414,7 +17414,7 @@ ConsoleMode_SpellDescDB[22899] = { n="Eye of Immol'thar", r="", d="", t="", pt="
 ConsoleMode_SpellDescDB[22900] = { n="Body Switch", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22901] = { n="Body Switch", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22902] = { n="Mooncloth Robe", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[22903] = { n="Pattern: Mooncloth Robe", r="", d="Teaches you how to sew a Mooncloth Robe.", t="", pt="" }
+ConsoleMode_SpellDescDB[22903] = { n="Pattern: Mooncloth Robe", r="", d="Teaches you how to sew a Mooncloth Robe.", t="", pt="Ensina a confeccionar Veste de Lunatrama." }
 ConsoleMode_SpellDescDB[22904] = { n="Heated Blade DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22905] = { n="Place Unfired Blade", r="", d="Place under the flaming breath of Onyxia.", t="", pt="Põe sob o bafo da Onyxia." }
 ConsoleMode_SpellDescDB[22906] = { n="Plunging Blade into Onyxia", r="", d="Drive into the heart of the brood mother to temper the heated blade.", t="", pt="Crave no coração da mãe da ninhada para temperar a lâmina aquecida." }
@@ -17440,12 +17440,12 @@ ConsoleMode_SpellDescDB[22925] = { n="Conjure Dull Flat Elven Blade DND", r="", 
 ConsoleMode_SpellDescDB[22926] = { n="Chromatic Cloak", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22927] = { n="Hide of the Wild", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22928] = { n="Shifting Cloak", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[22929] = { n="Pattern: Girdle of Insight", r="", d="Teaches you how to craft a Girdle of Insight.", t="", pt="" }
-ConsoleMode_SpellDescDB[22930] = { n="Pattern: Mongoose Boots", r="", d="Teaches you how to craft Mongoose Boots.", t="", pt="" }
-ConsoleMode_SpellDescDB[22931] = { n="Pattern: Swift Flight Bracers", r="", d="Teaches you how to craft Swift Flight Bracers.", t="", pt="" }
-ConsoleMode_SpellDescDB[22932] = { n="Pattern: Chromatic Cloak", r="", d="Teaches you how to craft a Chromatic Cloak.", t="", pt="" }
-ConsoleMode_SpellDescDB[22933] = { n="Pattern: Hide of the Wild", r="", d="Teaches you how to craft a Hide of the Wild.", t="", pt="" }
-ConsoleMode_SpellDescDB[22934] = { n="Pattern: Shifting Cloak", r="", d="Teaches you how to craft a Shifting Cloak.", t="", pt="" }
+ConsoleMode_SpellDescDB[22929] = { n="Pattern: Girdle of Insight", r="", d="Teaches you how to craft a Girdle of Insight.", t="", pt="Ensina a fazer Cinturão da Percepção." }
+ConsoleMode_SpellDescDB[22930] = { n="Pattern: Mongoose Boots", r="", d="Teaches you how to craft Mongoose Boots.", t="", pt="Ensina a fazer Botas do Mangusto." }
+ConsoleMode_SpellDescDB[22931] = { n="Pattern: Swift Flight Bracers", r="", d="Teaches you how to craft Swift Flight Bracers.", t="", pt="Ensina a fazer Braçadeiras do Voo Veloz." }
+ConsoleMode_SpellDescDB[22932] = { n="Pattern: Chromatic Cloak", r="", d="Teaches you how to craft a Chromatic Cloak.", t="", pt="Ensina a fazer Manto Cromático." }
+ConsoleMode_SpellDescDB[22933] = { n="Pattern: Hide of the Wild", r="", d="Teaches you how to craft a Hide of the Wild.", t="", pt="Ensina a fazer Pelego da Natureza." }
+ConsoleMode_SpellDescDB[22934] = { n="Pattern: Shifting Cloak", r="", d="Teaches you how to craft a Shifting Cloak.", t="", pt="Ensina a fazer Manto Cambiante." }
 ConsoleMode_SpellDescDB[22935] = { n="Planted", r="", d="", t="Rooted.", pt="" }
 ConsoleMode_SpellDescDB[22936] = { n="Mana Burn", r="", d="Hits an enemy with an anti-mana bolt. For each point of mana consumed by the bolt, the target takes $e1 damage.", t="", pt="Atinge o inimigo com uma descarga antimana. Para cada ponto de mana consumido pela descarga, o alvo sofre $s1 de dano." }
 ConsoleMode_SpellDescDB[22937] = { n="Poison Bolt", r="", d="Shoots poison at an enemy, inflicting Nature damage, then additional damage every $t2 sec. for $d.", t="Nature damage inflicted every $t2 sec.", pt="Cospe veneno no inimigo, causando dano de Natureza e mais dano a cada $t1 s por $d s." }
@@ -17510,7 +17510,7 @@ ConsoleMode_SpellDescDB[23003] = { n="Alarm-o-bot", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23004] = { n="Summon Alarm-o-Bot", r="", d="Summons an Alarm-O-Bot for 10 minutes that occasionally sends out a pulse that detects nearby stealthy or invisible enemies.", t="", pt="Evoca um Alarmo-bô por 10 minutos que ocasionalmente emite um pulso que detecta inimigos furtivos ou invisíveis próximos." }
 ConsoleMode_SpellDescDB[23005] = { n="Battle Standard", r="", d="Place a Battle Standard that increases the maximum health of all friendly units' that stay within $23006a1 yards of the Battle Standard by $23006s1%.  Lasts $d.", t="", pt="Coloca um Estandarte de Batalha que aumenta a vida máxima de todas as unidades aliadas que permanecerem a até $a1 metros do Estandarte de Batalha em $s1%. Dura $d s." }
 ConsoleMode_SpellDescDB[23006] = { n="Battle Standard", r="", d="", t="Increases maximum health by $s1%.", pt="" }
-ConsoleMode_SpellDescDB[23007] = { n="Plans: Sulfuron Hammer", r="", d="Teaches you how to make a Sulfuron Hammer.", t="", pt="" }
+ConsoleMode_SpellDescDB[23007] = { n="Plans: Sulfuron Hammer", r="", d="Teaches you how to make a Sulfuron Hammer.", t="", pt="Ensina a fazer Martelo de Sulfuron." }
 ConsoleMode_SpellDescDB[23008] = { n="Powerful Seaforium Charge", r="", d="Blasts open nearly any locked door.", t="", pt="Abre quase tudo." }
 ConsoleMode_SpellDescDB[23009] = { n="Tendrils of Air", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23010] = { n="Tendrils of Air", r="", d="", t="", pt="" }
@@ -17584,22 +17584,22 @@ ConsoleMode_SpellDescDB[23079] = { n="Major Recombobulator", r="", d="", t="", p
 ConsoleMode_SpellDescDB[23080] = { n="Powerful Seaforium Charge", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23081] = { n="Hyper-Radiant Flame Reflector", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23082] = { n="Ultra-Flash Shadow Reflector", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23083] = { n="Schematic: Red Firework", r="", d="Teaches you how to make a Red Firework.", t="", pt="" }
-ConsoleMode_SpellDescDB[23084] = { n="Schematic: Blue Firework", r="", d="Teaches you how to make a Blue Firework.", t="", pt="" }
-ConsoleMode_SpellDescDB[23085] = { n="Schematic: Green Firework", r="", d="Teaches you how to make a Green Firework.", t="", pt="" }
-ConsoleMode_SpellDescDB[23086] = { n="Schematic: EZ-Thro Dynamite II", r="", d="Teaches you how to make EZ-Thro Dynamite II.", t="", pt="" }
-ConsoleMode_SpellDescDB[23087] = { n="Copy of Schematic: EZ-Thro Dynamite II", r="", d="Teaches you how to make EZ-Thro Dynamite II.", t="", pt="" }
-ConsoleMode_SpellDescDB[23088] = { n="Schematic: Truesilver Transformer", r="", d="Teaches you how to make a Truesilver Transformer.", t="", pt="" }
-ConsoleMode_SpellDescDB[23089] = { n="Schematic: Gyrofreeze Ice Reflector", r="", d="Teaches you how to make a Gyrofreeze Ice Reflector.", t="", pt="" }
-ConsoleMode_SpellDescDB[23090] = { n="Schematic: Goblin Jumper Cable XL", r="", d="Teaches you how to make a Goblin Jumper Cable XL.", t="", pt="" }
-ConsoleMode_SpellDescDB[23091] = { n="Schematic: Major Recombobulator", r="", d="Teaches you how to make a Major Recombobulator.", t="", pt="" }
-ConsoleMode_SpellDescDB[23092] = { n="Schematic: Powerful Seaforium Charge", r="", d="Teaches you how to make a Powerful Seaforium Charge.", t="", pt="" }
-ConsoleMode_SpellDescDB[23093] = { n="Schematic: Hyper-Radiant Flame Reflector", r="", d="Teaches you how to make a Hyper-Radiant Flame Reflector.", t="", pt="" }
-ConsoleMode_SpellDescDB[23094] = { n="Schematic: Ultra-Flash Shadow Reflector", r="", d="Teaches you how to make a Ultra-Flash Shadow Reflector.", t="", pt="" }
+ConsoleMode_SpellDescDB[23083] = { n="Schematic: Red Firework", r="", d="Teaches you how to make a Red Firework.", t="", pt="Ensina a fazer Fogos de Artifício Vermelhos." }
+ConsoleMode_SpellDescDB[23084] = { n="Schematic: Blue Firework", r="", d="Teaches you how to make a Blue Firework.", t="", pt="Ensina a fazer Fogos de Artifício Azuis." }
+ConsoleMode_SpellDescDB[23085] = { n="Schematic: Green Firework", r="", d="Teaches you how to make a Green Firework.", t="", pt="Ensina a fazer Fogos de Artifício Verdes." }
+ConsoleMode_SpellDescDB[23086] = { n="Schematic: EZ-Thro Dynamite II", r="", d="Teaches you how to make EZ-Thro Dynamite II.", t="", pt="Ensina a fazer Dinamite Taca-fácil II." }
+ConsoleMode_SpellDescDB[23087] = { n="Copy of Schematic: EZ-Thro Dynamite II", r="", d="Teaches you how to make EZ-Thro Dynamite II.", t="", pt="Ensina a fazer Dinamite Taca-fácil II." }
+ConsoleMode_SpellDescDB[23088] = { n="Schematic: Truesilver Transformer", r="", d="Teaches you how to make a Truesilver Transformer.", t="", pt="Ensina a fazer Transformador Veraprata." }
+ConsoleMode_SpellDescDB[23089] = { n="Schematic: Gyrofreeze Ice Reflector", r="", d="Teaches you how to make a Gyrofreeze Ice Reflector.", t="", pt="Ensina a fazer Refletor de Gelo Girogélido." }
+ConsoleMode_SpellDescDB[23090] = { n="Schematic: Goblin Jumper Cable XL", r="", d="Teaches you how to make a Goblin Jumper Cable XL.", t="", pt="Ensina a fazer Cabo de Chupeta Goblínico XG." }
+ConsoleMode_SpellDescDB[23091] = { n="Schematic: Major Recombobulator", r="", d="Teaches you how to make a Major Recombobulator.", t="", pt="Ensina a fazer Rebotocador Maior." }
+ConsoleMode_SpellDescDB[23092] = { n="Schematic: Powerful Seaforium Charge", r="", d="Teaches you how to make a Powerful Seaforium Charge.", t="", pt="Ensina a fazer Carga Poderosa de Cequatrum." }
+ConsoleMode_SpellDescDB[23093] = { n="Schematic: Hyper-Radiant Flame Reflector", r="", d="Teaches you how to make a Hyper-Radiant Flame Reflector.", t="", pt="Ensina a fazer Refletor de Chamas Hiper-radiante." }
+ConsoleMode_SpellDescDB[23094] = { n="Schematic: Ultra-Flash Shadow Reflector", r="", d="Teaches you how to make a Ultra-Flash Shadow Reflector.", t="", pt="Ensina a fazer Refletor de Sombras Ultrafulgurante." }
 ConsoleMode_SpellDescDB[23095] = { n="Dense Dynamite", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23096] = { n="Alarm-O-Bot", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23097] = { n="Fire Reflector", r="", d="Reflects Fire spells back at their caster for $d.", t="Reflecting Fire spells.", pt="Reflete Fogo por $d s." }
-ConsoleMode_SpellDescDB[23098] = { n="Schematic: Alarm-O-Bot", r="", d="Teaches you how to make an Alarm-O-Bot.", t="", pt="" }
+ConsoleMode_SpellDescDB[23098] = { n="Schematic: Alarm-O-Bot", r="", d="Teaches you how to make an Alarm-O-Bot.", t="", pt="Ensina a fazer Alarmobô." }
 ConsoleMode_SpellDescDB[23099] = { n="Dash", r="Rank 1", d="Increases movement speed by $s1% for $d.", t="Increases movement speed by $s1%.", pt="Aumenta a velocidade de movimento em $s1% por $d s." }
 ConsoleMode_SpellDescDB[23100] = { n="Dash", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23101] = { n="Eye of Divinity", r="", d="", t="You feel at peace with the world.", pt="" }
@@ -17631,7 +17631,7 @@ ConsoleMode_SpellDescDB[23126] = { n="World Enlarger", r="", d="Enlarges the ent
 ConsoleMode_SpellDescDB[23127] = { n="Death's Door", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23128] = { n="Frenzy", r="", d="", t="Attack speed increased by $s1%.\nSpell damage increased by $s3%.", pt="" }
 ConsoleMode_SpellDescDB[23129] = { n="World Enlarger", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23130] = { n="Schematic: World Enlarger", r="", d="Teaches you how to make a World Enlarger.", t="", pt="" }
+ConsoleMode_SpellDescDB[23130] = { n="Schematic: World Enlarger", r="", d="Teaches you how to make a World Enlarger.", t="", pt="Ensina a fazer Aumentador de Mundo." }
 ConsoleMode_SpellDescDB[23131] = { n="Frost Reflector", r="", d="Reflects Frost spells back at their caster for $d.", t="Reflecting Frost spells.", pt="Reflete Gelo por $d s." }
 ConsoleMode_SpellDescDB[23132] = { n="Shadow Reflector", r="", d="Reflects Shadow spells back at their caster for $d.", t="Reflecting Shadow spells.", pt="Reflete Sombra por $d s." }
 ConsoleMode_SpellDescDB[23133] = { n="Gnomish Battle Chicken", r="", d="Creates a Battle Chicken that will fight for you for $13166d or until it is destroyed.", t="", pt="Cria uma Galinha de Batalha que lutará por você por $d s ou até ser destruída." }
@@ -17691,7 +17691,7 @@ ConsoleMode_SpellDescDB[23187] = { n="Frost Burn", r="", d="", t="Increases the 
 ConsoleMode_SpellDescDB[23188] = { n="trans", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23189] = { n="Frost Burn", r="", d="", t="Increases the time between attacks by $s2%.", pt="" }
 ConsoleMode_SpellDescDB[23190] = { n="Heavy Leather Ball", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23191] = { n="Pattern: Heavy Leather Ball", r="", d="Teaches you how to craft a Heavy Leather Ball.", t="", pt="" }
+ConsoleMode_SpellDescDB[23191] = { n="Pattern: Heavy Leather Ball", r="", d="Teaches you how to craft a Heavy Leather Ball.", t="", pt="Ensina a fazer Bola de Couro Pesado." }
 ConsoleMode_SpellDescDB[23192] = { n="Forming Rhok'delar", r="", d="Forms Rhok'delar, Longbow of the Ancient Keepers, when combined with Enchanted Black Dragon Sinew.", t="", pt="Forma Rhok'delar, Arco Longo dos Guardiões Ancestrais, quando combinado com Tendão de Dragão Negro Encantado." }
 ConsoleMode_SpellDescDB[23193] = { n="Forming Lok'delar", r="", d="Transforms into Lok'delar, Stave of the Ancient Keepers.", t="", pt="Vira Lok'delar." }
 ConsoleMode_SpellDescDB[23194] = { n="Forming Rhok'delar", r="", d="Transforms into Rhok'delar, Longbow of the Ancient Keepers and Lok'delar, Stave of the Ancient Keepers.", t="", pt="Transforma-se em Rhok'delar, Arco Longo dos Guardiões Ancestrais, e Lok'delar, Bastão dos Guardiões Ancestrais." }
@@ -17835,8 +17835,8 @@ ConsoleMode_SpellDescDB[23352] = { n="Nefarian Tunnel Selection (R4)", r="", d="
 ConsoleMode_SpellDescDB[23353] = { n="Nefarian Tunnel Selection (R5)", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23354] = { n="Feed Pet (Quest Test)", r="", d="Feed your pet the selected item.  Feeding your pet increases happiness.  Using food close to the pet's level will have a better result.", t="", pt="Dê ao seu ajudante o item selecionado. Alimentar o seu ajudante aumenta a felicidade dele. Usar comida de nível próximo ao do ajudante produzirá um resultado melhor." }
 ConsoleMode_SpellDescDB[23355] = { n="Feed Pet Effect (Quest Test)", r="", d="", t="Increases happiness.", pt="" }
-ConsoleMode_SpellDescDB[23356] = { n="Taming Lesson", r="", d="Teaches Tame Beast, Call Pet and Dismiss Pet.", t="", pt="" }
-ConsoleMode_SpellDescDB[23357] = { n="Training Lesson", r="", d="Teaches Beast Training, Feed Pet and Revive Pet.", t="", pt="" }
+ConsoleMode_SpellDescDB[23356] = { n="Taming Lesson", r="", d="Teaches Tame Beast, Call Pet and Dismiss Pet.", t="", pt="Ensina Domar Fera, Chamar Ajudante e Dispensar Ajudante." }
+ConsoleMode_SpellDescDB[23357] = { n="Training Lesson", r="", d="Teaches Beast Training, Feed Pet and Revive Pet.", t="", pt="Ensina Treinamento de Feras, Alimentar Ajudante e Reviver Ajudante." }
 ConsoleMode_SpellDescDB[23359] = { n="Transmogrify!", r="", d="Zap a Feralas giant into a more manageable form.", t="Zapped!", pt="Zap gigante em forma menor." }
 ConsoleMode_SpellDescDB[23360] = { n="Trigger Trap2", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23361] = { n="Raise Undead Drakonid", r="", d="", t="", pt="" }
@@ -17865,7 +17865,7 @@ ConsoleMode_SpellDescDB[23396] = { n="Restoration", r="Rank 1", d="", t="", pt="
 ConsoleMode_SpellDescDB[23397] = { n="Berserk", r="", d="", t="Forced into Berseker Stance.\nIncreases damage taken by $s3%.", pt="" }
 ConsoleMode_SpellDescDB[23398] = { n="Involuntary Transformation", r="", d="", t="Forced into cat form.", pt="" }
 ConsoleMode_SpellDescDB[23399] = { n="Barbaric Bracers", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23400] = { n="Pattern: Barbaric Bracers", r="", d="Teaches you how to craft Barbaric Bracers.", t="", pt="" }
+ConsoleMode_SpellDescDB[23400] = { n="Pattern: Barbaric Bracers", r="", d="Teaches you how to craft Barbaric Bracers.", t="", pt="Ensina a fazer Braçadeiras Barbarescas." }
 ConsoleMode_SpellDescDB[23401] = { n="Corrupted Healing", r="", d="", t="Direct healing spells cause the target to take damage over time.", pt="" }
 ConsoleMode_SpellDescDB[23402] = { n="Corrupted Healing", r="", d="", t="Deals $s1 damage every $t1 sec.", pt="" }
 ConsoleMode_SpellDescDB[23405] = { n="Alliance Reset Teleport", r="", d="", t="", pt="" }
@@ -17964,7 +17964,7 @@ ConsoleMode_SpellDescDB[23504] = { n="Fool's Plight", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23505] = { n="Berserking", r="", d="", t="Increases all damage caused by $s1% and all damage taken by $s2%.", pt="" }
 ConsoleMode_SpellDescDB[23506] = { n="Aura of Protection", r="", d="Absorbs $s1 damage.  Lasts $d.", t="Absorbs $s1 damage.", pt="Aumenta seu dano com Armas de Fogo em $s1, com 2% de chance de atordoar por 3 s." }
 ConsoleMode_SpellDescDB[23507] = { n="Snake Burst Firework", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23508] = { n="Schematic: Snake Burst Firework", r="", d="Teaches you how to make a Snake Burst Firework.", t="", pt="" }
+ConsoleMode_SpellDescDB[23508] = { n="Schematic: Snake Burst Firework", r="", d="Teaches you how to make a Snake Burst Firework.", t="", pt="Ensina a fazer Rojão Rabo-de-cobra." }
 ConsoleMode_SpellDescDB[23509] = { n="Frostwolf Howler", r="", d="Raised in the Alterac Mountains by the Frostwolf Clan.", t="Increases speed based on your Riding skill.", pt="Criado pelo Clã Lobo." }
 ConsoleMode_SpellDescDB[23510] = { n="Stormpike Battle Charger", r="", d="A symbol of honor and valor, ridden by the brave defenders of Stormpike clan.", t="Increases speed based on your Riding skill.", pt="Um símbolo de honra e valor, montado pelos bravos defensores do Clã Lançatroz." }
 ConsoleMode_SpellDescDB[23511] = { n="Demoralizing Shout", r="", d="Reduces the melee attack power of nearby enemies by $s1 for $d.", t="Melee attack power reduced by $s1.", pt="Reduz o poder de ataque corpo a corpo dos inimigos próximos em $s1 por $d s." }
@@ -18069,18 +18069,18 @@ ConsoleMode_SpellDescDB[23626] = { n="Wild Leather Shoulders", r="", d="", t="",
 ConsoleMode_SpellDescDB[23627] = { n="Wild Leather Vest", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23628] = { n="Heavy Timbermaw Belt", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23629] = { n="Heavy Timbermaw Boots", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23630] = { n="Plans: Heavy Timbermaw Belt", r="", d="Teaches you how to make a Heavy Timbermaw Belt.", t="", pt="" }
-ConsoleMode_SpellDescDB[23631] = { n="Plans: Heavy Timbermaw Boots", r="", d="Teaches you how to make Heavy Timbermaw Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[23630] = { n="Plans: Heavy Timbermaw Belt", r="", d="Teaches you how to make a Heavy Timbermaw Belt.", t="", pt="Ensina a fazer Cinto Pesado dos Presamatos." }
+ConsoleMode_SpellDescDB[23631] = { n="Plans: Heavy Timbermaw Boots", r="", d="Teaches you how to make Heavy Timbermaw Boots.", t="", pt="Ensina a fazer Botas Pesadas dos Presamatos." }
 ConsoleMode_SpellDescDB[23632] = { n="Girdle of the Dawn", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23633] = { n="Gloves of the Dawn", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23634] = { n="Plans: Girdle of the Dawn", r="", d="Teaches you how to make a Girdle of the Dawn.", t="", pt="" }
-ConsoleMode_SpellDescDB[23635] = { n="Plans: Gloves of the Dawn", r="", d="Teaches you how to make Gloves of the Dawn.", t="", pt="" }
+ConsoleMode_SpellDescDB[23634] = { n="Plans: Girdle of the Dawn", r="", d="Teaches you how to make a Girdle of the Dawn.", t="", pt="Ensina a fazer Cinturão da Aurora." }
+ConsoleMode_SpellDescDB[23635] = { n="Plans: Gloves of the Dawn", r="", d="Teaches you how to make Gloves of the Dawn.", t="", pt="Ensina a fazer Luvas da Aurora." }
 ConsoleMode_SpellDescDB[23636] = { n="Dark Iron Helm", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23637] = { n="Dark Iron Gauntlets", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23638] = { n="Black Amnesty", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23639] = { n="Blackfury", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23640] = { n="Plans: Black Amnesty", r="", d="Teaches you how to make Black Amnesty.", t="", pt="" }
-ConsoleMode_SpellDescDB[23641] = { n="Plans: Blackfury", r="", d="Teaches you how to make Blackfury.", t="", pt="" }
+ConsoleMode_SpellDescDB[23640] = { n="Plans: Black Amnesty", r="", d="Teaches you how to make Black Amnesty.", t="", pt="Ensina a fazer Anistia Negra." }
+ConsoleMode_SpellDescDB[23641] = { n="Plans: Blackfury", r="", d="Teaches you how to make Blackfury.", t="", pt="Ensina a fazer Fúria Negra." }
 ConsoleMode_SpellDescDB[23642] = { n="Corruption", r="", d="", t="\nReduced movement speed.", pt="" }
 ConsoleMode_SpellDescDB[23644] = { n="Burning Adrenaline", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23645] = { n="Hourglass Sand", r="", d="Cures the user of Brood Affliction: Bronze.", t="", pt="Cura Aflição: Bronze." }
@@ -18089,13 +18089,13 @@ ConsoleMode_SpellDescDB[23647] = { n="Avoidance", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23648] = { n="Alliance Flag Captured", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23649] = { n="Horde Flag Captured", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23650] = { n="Ebon Hand", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23651] = { n="Plans: Ebon Hand", r="", d="Teaches you how to make the Ebon Hand.", t="", pt="" }
+ConsoleMode_SpellDescDB[23651] = { n="Plans: Ebon Hand", r="", d="Teaches you how to make the Ebon Hand.", t="", pt="Ensina a fazer a Mão de Ébano." }
 ConsoleMode_SpellDescDB[23652] = { n="Blackguard", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23653] = { n="Nightfall", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23654] = { n="Plans: Blackguard", r="", d="Teaches you how to make Blackguard.", t="", pt="" }
-ConsoleMode_SpellDescDB[23655] = { n="Plans: Nightfall", r="", d="Teaches you how to make Nightfall.", t="", pt="" }
-ConsoleMode_SpellDescDB[23656] = { n="Plans: Dark Iron Helm", r="", d="Teaches you how to make a Dark Iron Helm.", t="", pt="" }
-ConsoleMode_SpellDescDB[23657] = { n="Plans: Dark Iron Gauntlets", r="", d="Teaches you how to make Dark Iron Gauntlets.", t="", pt="" }
+ConsoleMode_SpellDescDB[23654] = { n="Plans: Blackguard", r="", d="Teaches you how to make Blackguard.", t="", pt="Ensina a fazer Guarda Negra." }
+ConsoleMode_SpellDescDB[23655] = { n="Plans: Nightfall", r="", d="Teaches you how to make Nightfall.", t="", pt="Ensina a fazer Ocaso." }
+ConsoleMode_SpellDescDB[23656] = { n="Plans: Dark Iron Helm", r="", d="Teaches you how to make a Dark Iron Helm.", t="", pt="Ensina a fazer Elmo Ferro Negro." }
+ConsoleMode_SpellDescDB[23657] = { n="Plans: Dark Iron Gauntlets", r="", d="Teaches you how to make Dark Iron Gauntlets.", t="", pt="Ensina a fazer Manoplas Ferro Negro." }
 ConsoleMode_SpellDescDB[23658] = { n="Complete Alterac Valley quest", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23659] = { n="Complete Warsong Gulch Quest", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23660] = { n="Complete Warsong Gulch Quest", r="", d="", t="", pt="" }
@@ -18106,8 +18106,8 @@ ConsoleMode_SpellDescDB[23664] = { n="Argent Boots", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23665] = { n="Argent Shoulders", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23666] = { n="Flarecore Robe", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23667] = { n="Flarecore Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[23668] = { n="Pattern: Wisdom of the Timbermaw", r="", d="Teaches you how to sew the Wisdom of the Timbermaw.", t="", pt="" }
-ConsoleMode_SpellDescDB[23669] = { n="Pattern: Mantle of the Timbermaw", r="", d="Teaches you how to sew a Mantle of the Timbermaw.", t="", pt="" }
+ConsoleMode_SpellDescDB[23668] = { n="Pattern: Wisdom of the Timbermaw", r="", d="Teaches you how to sew the Wisdom of the Timbermaw.", t="", pt="Ensina a confeccionar Sabedoria dos Presamatos." }
+ConsoleMode_SpellDescDB[23669] = { n="Pattern: Mantle of the Timbermaw", r="", d="Teaches you how to sew a Mantle of the Timbermaw.", t="", pt="Ensina a confeccionar Dragonas dos Presamatos." }
 ConsoleMode_SpellDescDB[23670] = { n="Pattern: Argent Boots", r="", d="Teaches you how to sew Argent Boots.", t="", pt="Ensina a costurar as Botas Argênteas." }
 ConsoleMode_SpellDescDB[23671] = { n="Pattern: Argent Shoulders", r="", d="Teaches you how to sew Argent Shoulders.", t="", pt="Ensina a costurar as Ombreiras Argênteas." }
 ConsoleMode_SpellDescDB[23672] = { n="Pattern: Flarecore Robe", r="", d="Teaches you how to sew a Flarecore Robe.", t="", pt="Ensina a costurar um Robe Flarecore." }

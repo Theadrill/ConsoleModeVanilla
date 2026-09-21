@@ -95,6 +95,7 @@ S04 | 33 | OK (SMS other zerado: 183/183)
 T01 | 50 (43u) | OK
 T02 | 50 | OK
 T03 | 50 (46u) | OK
+T04 | 50 (49u) | OK
 T05 | 50 | OK
 
 

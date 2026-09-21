@@ -23116,7 +23116,7 @@ ConsoleMode_SpellDescDB[45001] = { n="Azure Spectral Tiger", r="", d="Historians
 ConsoleMode_SpellDescDB[45002] = { n="Dryad Form", r="", d="", t="\"What is nature's call?\"", pt="" }
 ConsoleMode_SpellDescDB[45003] = { n="Keeper of the Grove Form", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45004] = { n="Fox Form", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45005] = { n="Recipe: Delicious Pizza", r="", d="Teaches you how to cook Delicious Pizza .", t="", pt="" }
+ConsoleMode_SpellDescDB[45005] = { n="Recipe: Delicious Pizza", r="", d="Teaches you how to cook Delicious Pizza .", t="", pt="Ensina a cozinhar uma Pizza Deliciosa." }
 ConsoleMode_SpellDescDB[45006] = { n="Delicious Pizza", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45007] = { n="Swift Magic Rooster", r="", d="Magic in the hands of a genius can do wonderful, miraculous things. Magic in the hands of an idiot can make a giant rooster.", t="Increases speed based on your Riding skill.", pt="A magia nas mãos de um gênio pode realizar feitos maravilhosos e milagrosos. Nas mãos de um idiota, pode criar um galo gigante." }
 ConsoleMode_SpellDescDB[45008] = { n="White Riding Bear", r="", d="Summons and dismisses a rideable Bear. Speed is increased based on your Riding skill.", t="Increases speed based on your Riding skill.", pt="Invoca e dispensa um Urso montaria, mais veloz com sua equitação." }
@@ -23166,10 +23166,10 @@ ConsoleMode_SpellDescDB[45051] = { n="Swift Blue Rocket Car", r="", d="Airbags n
 ConsoleMode_SpellDescDB[45052] = { n="Green Rocket Car", r="", d="Fasten your seatbelts, kid!", t="Increases speed based on your Riding skill.", pt="Cinto, criança!" }
 ConsoleMode_SpellDescDB[45053] = { n="White Stag", r="", d="A powerful, beautiful being.", t="Increases speed based on your Riding skill.", pt="Ser belo e poderoso." }
 ConsoleMode_SpellDescDB[45054] = { n="Maritime Gumbo", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45055] = { n="Recipe: Maritime Gumbo", r="", d="Teaches you how to make Maritime Gumbo.", t="", pt="" }
+ConsoleMode_SpellDescDB[45055] = { n="Recipe: Maritime Gumbo", r="", d="Teaches you how to make Maritime Gumbo.", t="", pt="Ensina a fazer Gumbo Marítimo." }
 ConsoleMode_SpellDescDB[45056] = { n="Unstable Mining Dynamite", r="", d="Light the dynamite and damage enemies 8 yards around you for $s1 Fire damage and damaging you for $s2 Fire damage. This makeshift explosive clearly doesn't follow workplace standards.", t="", pt="Acende a dinamite e causa $s1 de dano de Fogo a inimigos a até 8 metros ao seu redor e $s2 de dano de Fogo a você. Este explosivo improvisado claramente não segue as normas de segurança do trabalho." }
 ConsoleMode_SpellDescDB[45057] = { n="Unstable Mining Dynamite", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45058] = { n="Schematic: Unstable Mining Dynamite", r="", d="Teaches you how to make Unstable Mining Dynamite.", t="", pt="" }
+ConsoleMode_SpellDescDB[45058] = { n="Schematic: Unstable Mining Dynamite", r="", d="Teaches you how to make Unstable Mining Dynamite.", t="", pt="Ensina a fazer Dinamite de Mineração Instável." }
 ConsoleMode_SpellDescDB[45059] = { n="Volatile Concoction", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45060] = { n="Volatile Concoction", r="", d="Breathes fire for 5 seconds, damaging enemies in front of you for 22 Fire damage. A true afterburner.", t="Damages enemies in front of you.", pt="Sopra fogo 5 s: 22 nos da frente. Pós-combustão." }
 ConsoleMode_SpellDescDB[45061] = { n="Volatile Concoction", r="", d="", t="", pt="" }

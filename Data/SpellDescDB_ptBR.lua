@@ -5748,7 +5748,7 @@ ConsoleMode_SpellDescDB[7210] = { n="Sneaky", r="Rank 9", d="Increases your stea
 ConsoleMode_SpellDescDB[7211] = { n="Devilsaur Barb", r="", d="Stabs a devilsaur, inflicting a large dose of poison.", t="Extremely angry.", pt="Espeta dinossauro com veneno." }
 ConsoleMode_SpellDescDB[7212] = { n="Perceptive", r="Rank 6", d="Increases your stealth detection by 3.", t="", pt="Aumenta a sua detecção de furtividade em 3." }
 ConsoleMode_SpellDescDB[7213] = { n="Giant Clam Scorcho", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[7214] = { n="Recipe: Giant Clam Scorcho", r="", d="Teaches you how to cook a delicious Giant Clam Scorcho.", t="", pt="" }
+ConsoleMode_SpellDescDB[7214] = { n="Recipe: Giant Clam Scorcho", r="", d="Teaches you how to cook a delicious Giant Clam Scorcho.", t="", pt="Ensina a cozinhar um delicioso Molusco Scorcho Gigante." }
 ConsoleMode_SpellDescDB[7215] = { n="Mithril Spurs", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7216] = { n="Iron Shield Spike", r="", d="Attaches an Iron Spike to your shield that deals damage every time you block with it.", t="", pt="Prende um Espeto de Ferro ao seu escudo, causando dano sempre que você bloquear com ele." }
 ConsoleMode_SpellDescDB[7217] = { n="Weapon Counterweight", r="", d="", t="", pt="" }
@@ -14010,7 +14010,7 @@ ConsoleMode_SpellDescDB[18255] = { n="Recipe: Nightfin Soup", r="", d="Teaches y
 ConsoleMode_SpellDescDB[18256] = { n="Recipe: Poached Sunscale Salmon", r="", d="Teaches you how to cook Poached Sunscale Salmon.", t="", pt="" }
 ConsoleMode_SpellDescDB[18257] = { n="Recipe: Lobster Stew", r="", d="Teaches you how to cook Lobster Stew.", t="", pt="" }
 ConsoleMode_SpellDescDB[18258] = { n="Recipe: Mightfish Steak", r="", d="Teaches you how to cook Mightfish Steak.", t="", pt="" }
-ConsoleMode_SpellDescDB[18259] = { n="Recipe: Baked Salmon", r="", d="Teaches you how to cook Baked Salmon.", t="", pt="" }
+ConsoleMode_SpellDescDB[18259] = { n="Recipe: Baked Salmon", r="", d="Teaches you how to cook Baked Salmon.", t="", pt="Ensina a cozinhar Salmão Assado." }
 ConsoleMode_SpellDescDB[18260] = { n="Cooking", r="Artisan", d="Allows a cook to make amazing recipes up to a maximum potential skill of 300.", t="", pt="Permite que um cozinheiro prepare receitas maravilhosas até uma perícia potencial máxima de 300." }
 ConsoleMode_SpellDescDB[18261] = { n="Artisan Cook", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18262] = { n="Call Bloodshot", r="", d="Summons Bloodshot to accompany the caster until dismissed.", t="", pt="Invoca Sanguessuga até dispensar." }
@@ -19167,9 +19167,9 @@ ConsoleMode_SpellDescDB[24856] = { n="Pattern: Spitfire Gauntlets", r="", d="Tea
 ConsoleMode_SpellDescDB[24857] = { n="Arcane Blast", r="", d="Blasts an enemy with Arcane magic, inflicting normal damage plus $s2 and knocking the enemy back.", t="", pt="Detona o inimigo com magia Arcana, causando dano normal mais $s1 e arremessando-o." }
 ConsoleMode_SpellDescDB[24858] = { n="Moonkin Form", r="Shapeshift", d="Transforms the Druid into Moonkin Form. While in this form the armor contribution from items is increased by $24905s1%, the Mana cost of your Balance spells is reduced by 20%, and all party members within 30 yards have their spell critical chance increased by 3%. The Moonkin can only cast Balance spells, Innervate, and Remove Curse while shapeshifted. The act of shapeshifting frees the caster of Polymorph and Movement Impairing effects.", t="Immune to Polymorph effects.  Armor contribution from items is increased by $24905s1%.", pt="Transforma o Druida em Forma de Luniscante. Nesta forma, a contribuição de armadura dos itens é aumentada em $s1%, o custo de mana dos seus feitiços de Equilíbrio é reduzido em 20% e todos os membros do grupo em um raio de 30 metros têm a chance de acerto crítico com feitiços aumentada em 3%. O Luniscante só pode lançar feitiços de Equilíbrio, Estimular e Remover Maldição enquanto estiver sob esta forma. O ato de mudar de forma liberta o lançador de Polimorfia e de efeitos de redução de movimento." }
 ConsoleMode_SpellDescDB[24859] = { n="Pattern: Spitfire Breastplate", r="", d="Teaches you how to craft a Spitfire Breastplate.", t="", pt="Ensina a criar um Peitoral da Fúria do Fogo." }
-ConsoleMode_SpellDescDB[24860] = { n="Pattern: Sandstalker Bracers", r="", d="Teaches you how to craft Sandstalker Bracers.", t="", pt="" }
-ConsoleMode_SpellDescDB[24861] = { n="Pattern: Sandstalker Gauntlets", r="", d="Teaches you how to craft Sandstalker Gauntlets.", t="", pt="" }
-ConsoleMode_SpellDescDB[24862] = { n="Pattern: Sandstalker Breastplate", r="", d="Teaches you how to craft Sandstalker Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[24860] = { n="Pattern: Sandstalker Bracers", r="", d="Teaches you how to craft Sandstalker Bracers.", t="", pt="Ensina a criar as Braçadeiras Sandstalker." }
+ConsoleMode_SpellDescDB[24861] = { n="Pattern: Sandstalker Gauntlets", r="", d="Teaches you how to craft Sandstalker Gauntlets.", t="", pt="Ensina a criar as Manoplas Sandstalker." }
+ConsoleMode_SpellDescDB[24862] = { n="Pattern: Sandstalker Breastplate", r="", d="Teaches you how to craft Sandstalker Breastplate.", t="", pt="Ensina a criar o Peitoral Sandstalker." }
 ConsoleMode_SpellDescDB[24863] = { n="Create BlizzCon Prize", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24864] = { n="Feral Swiftness Passive 2a", r="", d="Increases dodge chance by $s1% while in Bear, Dire Bear and Cat Forms.", t="Increases dodge chance by $s1%.", pt="Aumenta a chance de esquiva em $s1% enquanto estiver nas Formas de Urso, Urso Enfurecido e Felino." }
 ConsoleMode_SpellDescDB[24865] = { n="Sanctified Orb", r="", d="Increases your critical strike chance with spells and melee attacks by $s1%.  Lasts $d.", t="Critical strike chance with spells and melee attacks increased by $s1%.", pt="Aumenta sua chance de acerto crítico com feitiços e ataques corpo a corpo em $s1%. Dura $d s." }
@@ -19208,16 +19208,16 @@ ConsoleMode_SpellDescDB[24904] = { n="Summon Putrid Mushroom", r="", d="", t="",
 ConsoleMode_SpellDescDB[24905] = { n="Moonkin Form (Passive)", r="Passive", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24906] = { n="Emeriss Aura", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24907] = { n="Moonkin Aura", r="", d="", t="Increases spell critical chance by $s1%.", pt="" }
-ConsoleMode_SpellDescDB[24908] = { n="Pattern: Runed Stygian Leggings", r="", d="Teaches you how to sew Runed Stygian Leggings.", t="", pt="" }
-ConsoleMode_SpellDescDB[24909] = { n="Pattern: Runed Stygian Belt", r="", d="Teaches you how to sew a Runed Stygian Belt.", t="", pt="" }
+ConsoleMode_SpellDescDB[24908] = { n="Pattern: Runed Stygian Leggings", r="", d="Teaches you how to sew Runed Stygian Leggings.", t="", pt="Ensina a costurar as Calças Estígias Rúnicas." }
+ConsoleMode_SpellDescDB[24909] = { n="Pattern: Runed Stygian Belt", r="", d="Teaches you how to sew a Runed Stygian Belt.", t="", pt="Ensina a costurar um Cinto Estígio Rúnico." }
 ConsoleMode_SpellDescDB[24910] = { n="Corruption of the Earth", r="", d="", t="Deals $s1% health damage every $t1 sec.", pt="" }
-ConsoleMode_SpellDescDB[24911] = { n="Pattern: Runed Stygian Boots", r="", d="Teaches you how to sew Runed Stygian Boots.", t="", pt="" }
+ConsoleMode_SpellDescDB[24911] = { n="Pattern: Runed Stygian Boots", r="", d="Teaches you how to sew Runed Stygian Boots.", t="", pt="Ensina a costurar as Botas Estígias Rúnicas." }
 ConsoleMode_SpellDescDB[24912] = { n="Darkrune Gauntlets", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24913] = { n="Darkrune Helm", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24914] = { n="Darkrune Breastplate", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24915] = { n="Plans: Darkrune Gauntlets", r="", d="Teaches you how to make Darkrune Gauntlets.", t="", pt="" }
-ConsoleMode_SpellDescDB[24916] = { n="Plans: Darkrune Helm", r="", d="Teaches you how to make a Darkrune Helm.", t="", pt="" }
-ConsoleMode_SpellDescDB[24917] = { n="Plans: Darkrune Breastplate", r="", d="Teaches you how to make a Darkrune Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[24915] = { n="Plans: Darkrune Gauntlets", r="", d="Teaches you how to make Darkrune Gauntlets.", t="", pt="Ensina a criar as Manoplas de Runanegra." }
+ConsoleMode_SpellDescDB[24916] = { n="Plans: Darkrune Helm", r="", d="Teaches you how to make a Darkrune Helm.", t="", pt="Ensina a criar um Elmo de Runanegra." }
+ConsoleMode_SpellDescDB[24917] = { n="Plans: Darkrune Breastplate", r="", d="Teaches you how to make a Darkrune Breastplate.", t="", pt="Ensina a criar uma Couraça de Runanegra." }
 ConsoleMode_SpellDescDB[24918] = { n="Stink Trap", r="", d="", t="You smell horrible.", pt="" }
 ConsoleMode_SpellDescDB[24919] = { n="Nauseous", r="", d="", t="Stunned.", pt="" }
 ConsoleMode_SpellDescDB[24920] = { n="Flag Guard", r="", d="", t="", pt="" }
@@ -19241,7 +19241,7 @@ ConsoleMode_SpellDescDB[24937] = { n="Using Control Console", r="", d="", t="Use
 ConsoleMode_SpellDescDB[24938] = { n="Close Control Console", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24939] = { n="Murky", r="", d="Summons $s1 $lMurky:Murky; to accompany the caster until dismissed.", t="", pt="Invoca $s1 Murkis até dispensar." }
 ConsoleMode_SpellDescDB[24940] = { n="Black Whelp Tunic", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24941] = { n="Pattern: Black Whelp Tunic", r="", d="Teaches you how to craft a Black Whelp Tunic.", t="", pt="" }
+ConsoleMode_SpellDescDB[24941] = { n="Pattern: Black Whelp Tunic", r="", d="Teaches you how to craft a Black Whelp Tunic.", t="", pt="Ensina a criar uma Túnica de Dragonete Negro." }
 ConsoleMode_SpellDescDB[24942] = { n="Frostbolt", r="", d="Inflicts Frost damage to an enemy and reduces its movement speed for $d.", t="Reduced movement speed.", pt="Causa dano de Gelo a um inimigo e reduz sua velocidade de movimento por $d s." }
 ConsoleMode_SpellDescDB[24943] = { n="Gift of Nature", r="Rank 2", d="Increases the effect of all healing spells by $s1%.", t="", pt="Aumenta o efeito de todos os feitiços de cura em $s1%." }
 ConsoleMode_SpellDescDB[24944] = { n="Gift of Nature", r="Rank 3", d="Increases the effect of all healing spells by $s1%.", t="", pt="Aumenta o efeito de todos os feitiços de cura em $s1%." }
@@ -19379,17 +19379,17 @@ ConsoleMode_SpellDescDB[25083] = { n="Enchant Cloak - Stealth", r="", d="Permane
 ConsoleMode_SpellDescDB[25084] = { n="Enchant Cloak - Subtlety", r="", d="Permanently enchant a cloak to decrease threat caused by the wearer by 2%.", t="", pt="Encanta permanentemente uma capa para diminuir a ameaça causada pelo portador em 2%." }
 ConsoleMode_SpellDescDB[25085] = { n="Bright Campfire", r="", d="Builds a campfire that increases the spirits of those nearby by 8 and allows cooking.", t="", pt="Acende uma fogueira que aumenta o espírito dos aliados próximos em 8 e permite cozinhar." }
 ConsoleMode_SpellDescDB[25086] = { n="Enchant Cloak - Dodge", r="", d="Permanently enchant a cloak to give a 1% chance to dodge.", t="", pt="Manto: 1% esquiva." }
-ConsoleMode_SpellDescDB[25087] = { n="Formula: Enchant Gloves - Threat", r="", d="Teaches you how to permanently enchant gloves to increase the threat that the wearer generates against monsters.", t="", pt="" }
-ConsoleMode_SpellDescDB[25088] = { n="Formula: Enchant Gloves - Shadow Power", r="", d="Teaches you how to permanently enchant gloves to increase the shadow damage done by spells and abilities by 20.", t="", pt="" }
-ConsoleMode_SpellDescDB[25089] = { n="Formula: Enchant Gloves - Frost Power", r="", d="Teaches you how to permanently enchant gloves to increase the frost damage done by spells and abilities by 20.", t="", pt="" }
-ConsoleMode_SpellDescDB[25090] = { n="Formula: Enchant Gloves - Fire Power", r="", d="Teaches you how to permanently enchant gloves to increase the fire damage done by spells and abilities by 20.", t="", pt="" }
-ConsoleMode_SpellDescDB[25091] = { n="Formula: Enchant Gloves - Healing Power", r="", d="Teaches you how to permanently enchant gloves to increase the healing done by spells and abilities by 30.", t="", pt="" }
-ConsoleMode_SpellDescDB[25092] = { n="Formula: Enchant Gloves - Superior Agility", r="", d="Teaches you how to permanently enchant gloves to increase Agility by 15.", t="", pt="" }
-ConsoleMode_SpellDescDB[25093] = { n="Formula: Enchant Cloak - Greater Fire Resistance", r="", d="Teaches you how to permanently enchant a cloak to increase Fire Resistance by 15 .", t="", pt="" }
-ConsoleMode_SpellDescDB[25094] = { n="Formula: Enchant Cloak - Greater Nature Resistance", r="", d="Teaches you how to permanently enchant a cloak to increase Nature Resistance by 15 .", t="", pt="" }
-ConsoleMode_SpellDescDB[25095] = { n="Formula: Enchant Cloak - Stealth", r="", d="Teaches you how to permanently enchant a cloak to increase stealth.", t="", pt="" }
-ConsoleMode_SpellDescDB[25096] = { n="Formula: Enchant Cloak - Subtlety", r="", d="Teaches you how to permanently enchant a cloak to reduce how threatening the wearer is to monsters by 2%.", t="", pt="" }
-ConsoleMode_SpellDescDB[25097] = { n="Formula: Enchant Cloak - Dodge", r="", d="Teaches you how to permanently enchant a cloak to increase dodge chance by 1%.", t="", pt="" }
+ConsoleMode_SpellDescDB[25087] = { n="Formula: Enchant Gloves - Threat", r="", d="Teaches you how to permanently enchant gloves to increase the threat that the wearer generates against monsters.", t="", pt="Ensina a encantar permanentemente luvas para aumentar a ameaça que o usuário gera contra monstros." }
+ConsoleMode_SpellDescDB[25088] = { n="Formula: Enchant Gloves - Shadow Power", r="", d="Teaches you how to permanently enchant gloves to increase the shadow damage done by spells and abilities by 20.", t="", pt="Ensina a encantar permanentemente luvas para aumentar o dano de sombra causado por feitiços e habilidades em 20." }
+ConsoleMode_SpellDescDB[25089] = { n="Formula: Enchant Gloves - Frost Power", r="", d="Teaches you how to permanently enchant gloves to increase the frost damage done by spells and abilities by 20.", t="", pt="Ensina a encantar permanentemente luvas para aumentar o dano de gelo causado por feitiços e habilidades em 20." }
+ConsoleMode_SpellDescDB[25090] = { n="Formula: Enchant Gloves - Fire Power", r="", d="Teaches you how to permanently enchant gloves to increase the fire damage done by spells and abilities by 20.", t="", pt="Ensina a encantar permanentemente luvas para aumentar o dano de fogo causado por feitiços e habilidades em 20." }
+ConsoleMode_SpellDescDB[25091] = { n="Formula: Enchant Gloves - Healing Power", r="", d="Teaches you how to permanently enchant gloves to increase the healing done by spells and abilities by 30.", t="", pt="Ensina a encantar permanentemente luvas para aumentar a cura realizada por feitiços e habilidades em 30." }
+ConsoleMode_SpellDescDB[25092] = { n="Formula: Enchant Gloves - Superior Agility", r="", d="Teaches you how to permanently enchant gloves to increase Agility by 15.", t="", pt="Ensina a encantar permanentemente luvas para aumentar a Agilidade em 15." }
+ConsoleMode_SpellDescDB[25093] = { n="Formula: Enchant Cloak - Greater Fire Resistance", r="", d="Teaches you how to permanently enchant a cloak to increase Fire Resistance by 15 .", t="", pt="Ensina a encantar permanentemente um manto para aumentar a Resistência ao Fogo em 15." }
+ConsoleMode_SpellDescDB[25094] = { n="Formula: Enchant Cloak - Greater Nature Resistance", r="", d="Teaches you how to permanently enchant a cloak to increase Nature Resistance by 15 .", t="", pt="Ensina a encantar permanentemente um manto para aumentar a Resistência à Natureza em 15." }
+ConsoleMode_SpellDescDB[25095] = { n="Formula: Enchant Cloak - Stealth", r="", d="Teaches you how to permanently enchant a cloak to increase stealth.", t="", pt="Ensina a encantar permanentemente um manto para aumentar a furtividade." }
+ConsoleMode_SpellDescDB[25096] = { n="Formula: Enchant Cloak - Subtlety", r="", d="Teaches you how to permanently enchant a cloak to reduce how threatening the wearer is to monsters by 2%.", t="", pt="Ensina a encantar permanentemente um manto para reduzir em 2% a ameaça gerada pelo usuário contra monstros." }
+ConsoleMode_SpellDescDB[25097] = { n="Formula: Enchant Cloak - Dodge", r="", d="Teaches you how to permanently enchant a cloak to increase dodge chance by 1%.", t="", pt="Ensina a encantar permanentemente um manto para aumentar a chance de esquiva em 1%." }
 ConsoleMode_SpellDescDB[25098] = { n="Transform Hero", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25099] = { n="Detonation", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25100] = { n="Untransform Hero", r="", d="", t="", pt="" }
@@ -19422,19 +19422,19 @@ ConsoleMode_SpellDescDB[25127] = { n="Lesser Mana Oil", r="", d="Creates Lesser 
 ConsoleMode_SpellDescDB[25128] = { n="Wizard Oil", r="", d="Creates Wizard Oil.", t="", pt="Cria um Óleo Bruxo." }
 ConsoleMode_SpellDescDB[25129] = { n="Brilliant Wizard Oil", r="", d="Creates Brilliant Wizard Oil.", t="", pt="Cria um Óleo Bruxo brilhante." }
 ConsoleMode_SpellDescDB[25130] = { n="Brilliant Mana Oil", r="", d="Creates Brilliant Mana Oil.", t="", pt="Cria um Óleo de Mana brilhante." }
-ConsoleMode_SpellDescDB[25132] = { n="Formula: Minor Wizard Oil", r="", d="Teaches you how to create Minor Wizard Oil.", t="", pt="" }
-ConsoleMode_SpellDescDB[25133] = { n="Formula: Minor Mana Oil", r="", d="Teaches you how to create Minor Mana Oil.", t="", pt="" }
-ConsoleMode_SpellDescDB[25134] = { n="Formula: Lesser Wizard Oil", r="", d="Teaches you how to create Lesser Wizard Oil.", t="", pt="" }
-ConsoleMode_SpellDescDB[25135] = { n="Formula: Lesser Mana Oil", r="", d="Teaches you how to create Lesser Mana Oil.", t="", pt="" }
-ConsoleMode_SpellDescDB[25136] = { n="Formula: Wizard Oil", r="", d="Teaches you how to create Wizard Oil.", t="", pt="" }
-ConsoleMode_SpellDescDB[25137] = { n="Formula: Brilliant Wizard Oil", r="", d="Teaches you how to create Brilliant Wizard Oil.", t="", pt="" }
-ConsoleMode_SpellDescDB[25138] = { n="Formula: Brilliant Mana Oil", r="", d="Teaches you how to create Brilliant Mana Oil.", t="", pt="" }
+ConsoleMode_SpellDescDB[25132] = { n="Formula: Minor Wizard Oil", r="", d="Teaches you how to create Minor Wizard Oil.", t="", pt="Ensina a criar Óleo Menor de Feiticeiro." }
+ConsoleMode_SpellDescDB[25133] = { n="Formula: Minor Mana Oil", r="", d="Teaches you how to create Minor Mana Oil.", t="", pt="Ensina a criar Óleo Menor de Mana." }
+ConsoleMode_SpellDescDB[25134] = { n="Formula: Lesser Wizard Oil", r="", d="Teaches you how to create Lesser Wizard Oil.", t="", pt="Ensina a criar Óleo Inferior de Feiticeiro." }
+ConsoleMode_SpellDescDB[25135] = { n="Formula: Lesser Mana Oil", r="", d="Teaches you how to create Lesser Mana Oil.", t="", pt="Ensina a criar Óleo Inferior de Mana." }
+ConsoleMode_SpellDescDB[25136] = { n="Formula: Wizard Oil", r="", d="Teaches you how to create Wizard Oil.", t="", pt="Ensina a criar Óleo de Feiticeiro." }
+ConsoleMode_SpellDescDB[25137] = { n="Formula: Brilliant Wizard Oil", r="", d="Teaches you how to create Brilliant Wizard Oil.", t="", pt="Ensina a criar Óleo de Feiticeiro Brilhante." }
+ConsoleMode_SpellDescDB[25138] = { n="Formula: Brilliant Mana Oil", r="", d="Teaches you how to create Brilliant Mana Oil.", t="", pt="Ensina a criar Óleo de Mana Brilhante." }
 ConsoleMode_SpellDescDB[25139] = { n="Teleport to Molten Core DND", r="", d="Teleport player to Blackwing Lair.", t="", pt="Teletransporta o jogador para o Covil Asa Negra." }
 ConsoleMode_SpellDescDB[25141] = { n="Copy of Heart of the Wild Bear Effect", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25142] = { n="Heart of the Wild Bear Effect 2", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25145] = { n="Merithra's Wake", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25146] = { n="Transmute: Elemental Fire", r="", d="Transmutes a Heart of Fire into three Elemental Fires.", t="", pt="Transmuta um Coração de Fogo em três Fogos Elementais." }
-ConsoleMode_SpellDescDB[25147] = { n="Recipe: Transmute Elemental Fire", r="", d="Teaches you how to transmute a Heart of Fire into three Elemental Fires.", t="", pt="" }
+ConsoleMode_SpellDescDB[25147] = { n="Recipe: Transmute Elemental Fire", r="", d="Teaches you how to transmute a Heart of Fire into three Elemental Fires.", t="", pt="Ensina a transmutar um Coração de Fogo em três Fogos Elementais." }
 ConsoleMode_SpellDescDB[25148] = { n="Sleep Visual DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25149] = { n="Arygos's Vengeance", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25150] = { n="Molten Rain", r="", d="", t="", pt="" }
@@ -19589,14 +19589,14 @@ ConsoleMode_SpellDescDB[25654] = { n="Tail Lash", r="", d="", t="Stunned.", pt="
 ConsoleMode_SpellDescDB[25655] = { n="Dropped Weapon", r="", d="", t="Not wielding a weapon.", pt="" }
 ConsoleMode_SpellDescDB[25656] = { n="Sand Trap", r="", d="", t="Chance to hit reduced by $s2%.\nUnable to cast spells.", pt="" }
 ConsoleMode_SpellDescDB[25657] = { n="Random Aggro", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[25658] = { n="Recipe: Dirge's Kickin' Chimaerok Chops", r="", d="Teaches you how to cook Dirge's Kickin' Chimaerok Chops.", t="", pt="" }
+ConsoleMode_SpellDescDB[25658] = { n="Recipe: Dirge's Kickin' Chimaerok Chops", r="", d="Teaches you how to cook Dirge's Kickin' Chimaerok Chops.", t="", pt="Ensina a cozinhar Costeletas de Chimaerok do Dirge." }
 ConsoleMode_SpellDescDB[25659] = { n="Dirge's Kickin' Chimaerok Chops", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25660] = { n="Food", r="", d="Restores $o1 health over $d.  Must remain seated while eating.  If you spend at least 10 seconds eating you will become well fed and gain 25 Stamina for $24799d.", t="Restores $/5;s1 health per second.", pt="Restaura $s1 de vida ao longo de $d s. É necessário permanecer sentado enquanto come. Se passar pelo menos 10 segundos comendo, você ficará bem alimentado e receberá 25 de Vigor por $d s." }
 ConsoleMode_SpellDescDB[25661] = { n="Increased Stamina", r="", d="Increases Stamina by $s1 for $d.", t="Stamina increased by $s1.", pt="Vigor +$s1 por $d s." }
 ConsoleMode_SpellDescDB[25662] = { n="Copy of Nightfin Soup", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[25663] = { n="Recipe: TEST", r="", d="Teaches you how to cook Baked Salmon.", t="", pt="" }
+ConsoleMode_SpellDescDB[25663] = { n="Recipe: TEST", r="", d="Teaches you how to cook Baked Salmon.", t="", pt="Ensina a cozinhar Salmão Assado." }
 ConsoleMode_SpellDescDB[25664] = { n="DIRGE TEST", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[25666] = { n="Recipe: DIRGE TEST LEARN", r="", d="Teaches you how to cook a delicious Giant Clam Scorcho.", t="", pt="" }
+ConsoleMode_SpellDescDB[25666] = { n="Recipe: DIRGE TEST LEARN", r="", d="Teaches you how to cook a delicious Giant Clam Scorcho.", t="", pt="Ensina a cozinhar um delicioso Molusco Scorcho Gigante." }
 ConsoleMode_SpellDescDB[25668] = { n="Flame Buffet", r="", d="Inflicts $s1 Fire damage to an enemy and increases the Fire damage it takes by $s2 for $d.", t="Fire damage taken is increased by $s2.", pt="Causa $s1 de dano de Fogo ao inimigo e aumenta o dano de Fogo recebido em $s2 por $d s." }
 ConsoleMode_SpellDescDB[25669] = { n="Decapitate", r="", d="Chance to decapitate the target on a melee swing, causing $24241s1 damage.", t="", pt="Chance ao abater corpo a corpo: $s1." }
 ConsoleMode_SpellDescDB[25671] = { n="Drain Mana", r="", d="", t="", pt="" }
@@ -19632,7 +19632,7 @@ ConsoleMode_SpellDescDB[25701] = { n="Brain Food", r="", d="Restores $o1 mana ov
 ConsoleMode_SpellDescDB[25702] = { n="Food", r="", d="", t="Restores $/5;s1 health per second.", pt="" }
 ConsoleMode_SpellDescDB[25703] = { n="Brain Food", r="", d="", t="Restores $/5;s1 mana per second.", pt="" }
 ConsoleMode_SpellDescDB[25704] = { n="Smoked Sagefish", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[25705] = { n="Recipe: Smoked Sagefish", r="", d="Teaches you how to cook Smoked Sagefish.", t="", pt="" }
+ConsoleMode_SpellDescDB[25705] = { n="Recipe: Smoked Sagefish", r="", d="Teaches you how to cook Smoked Sagefish.", t="", pt="Ensina a cozinhar Sagefish Defumado." }
 ConsoleMode_SpellDescDB[25708] = { n="Summon Hive'Zara Swarmer", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25709] = { n="Hive'Zara Swarmer Teleport", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25710] = { n="Heroic Strike", r="", d="A strong attack that increases melee damage by $s1 and causes a high amount of threat.", t="", pt="Um ataque vigoroso que aumenta o dano corpo a corpo em $s1 e gera uma grande quantidade de ameaça." }
@@ -19769,7 +19769,7 @@ ConsoleMode_SpellDescDB[25844] = { n="Hive'Zara Swarmers Swarm", r="", d="", t="
 ConsoleMode_SpellDescDB[25845] = { n="Create Hive'Ashi Scout Report", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25846] = { n="Eranikus Night Elf DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25847] = { n="Create Hive'Regal Scout Report", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[25848] = { n="Test Enemy Crit Bonus - 10%", r="", d="Target gets +10% melee crit.", t="+10% melee crit.", pt="" }
+ConsoleMode_SpellDescDB[25848] = { n="Test Enemy Crit Bonus - 10%", r="", d="Target gets +10% melee crit.", t="+10% melee crit.", pt="O alvo recebe +10% de acerto crítico corpo a corpo." }
 ConsoleMode_SpellDescDB[25849] = { n="Baby Shark", r="", d="Who would leave such a cute shark behind?", t="", pt="Tubarão fofo abandonado?" }
 ConsoleMode_SpellDescDB[25850] = { n="Drain Festive Mug", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25851] = { n="Lightheaded", r="", d="Drink me.  I'm delicious!", t="You feel light as a feather...", pt="Beba-me. Delícia!" }
@@ -19875,7 +19875,7 @@ ConsoleMode_SpellDescDB[25951] = { n="Greater Blessing of Sanctuary", r="Rank 1"
 ConsoleMode_SpellDescDB[25952] = { n="Reindeer Dust Effect", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25953] = { n="Blue Qiraji Battle Tank", r="", d="An ancient relic of the Qiraji empire, ready to unleash devastation upon its enemies.", t="Increases speed based on your Riding skill.", pt="Uma relíquia ancestral do império Qiraji, pronta para desencadear devastação sobre seus inimigos." }
 ConsoleMode_SpellDescDB[25954] = { n="Sagefish Delight", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[25955] = { n="Recipe: Sagefish Delight", r="", d="Teaches you how to cook Sagefish Delight.", t="", pt="" }
+ConsoleMode_SpellDescDB[25955] = { n="Recipe: Sagefish Delight", r="", d="Teaches you how to cook Sagefish Delight.", t="", pt="Ensina a cozinhar Delícia de Sagefish." }
 ConsoleMode_SpellDescDB[25956] = { n="Improved Judgement", r="Rank 1", d="Decreases the cooldown of your Judgement spell by $/1000;s1 sec.", t="", pt="Reduz o tempo de recarga do seu feitiço Julgamento em $s1 s." }
 ConsoleMode_SpellDescDB[25957] = { n="Improved Judgement", r="Rank 2", d="Decreases the cooldown of your Judgement spell by $/1000;s1 sec.", t="", pt="Reduz o tempo de recarga do seu feitiço Julgamento em $s1 s." }
 ConsoleMode_SpellDescDB[25958] = { n="Heroic Strike", r="Rank 9", d="Teaches Heroic Strike (Rank 9).", t="", pt="Ensina Golpe Heroico (Grau 9)." }
@@ -19997,10 +19997,10 @@ ConsoleMode_SpellDescDB[26084] = { n="Whirlwind", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26085] = { n="Soul Pouch", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26086] = { n="Felcloth Bag", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26087] = { n="Core Felcloth Bag", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26088] = { n="Pattern: Soul Pouch", r="", d="Teaches you how to sew a Soul Pouch.", t="", pt="" }
-ConsoleMode_SpellDescDB[26089] = { n="Pattern: Felcloth Bag", r="", d="Teaches you how to sew a Felcloth Bag.", t="", pt="" }
+ConsoleMode_SpellDescDB[26088] = { n="Pattern: Soul Pouch", r="", d="Teaches you how to sew a Soul Pouch.", t="", pt="Ensina a costurar uma Bolsa de Almas." }
+ConsoleMode_SpellDescDB[26089] = { n="Pattern: Felcloth Bag", r="", d="Teaches you how to sew a Felcloth Bag.", t="", pt="Ensina a costurar uma Bolsa de Tecido Vil." }
 ConsoleMode_SpellDescDB[26090] = { n="Thunderstomp", r="Rank 1", d="Shakes the ground with thundering force, doing $s1 Nature damage to all enemies within $a1 yards. Causes a moderate amount of threat.", t="", pt="Agita o solo com força trovejante, causando $s1 de dano de Natureza a todos os inimigos em um raio de $a1 metros. Gera uma quantidade moderada de ameaça." }
-ConsoleMode_SpellDescDB[26091] = { n="Pattern: Core Felcloth Bag", r="", d="Teaches you how to sew a Core Felcloth Bag.", t="", pt="" }
+ConsoleMode_SpellDescDB[26091] = { n="Pattern: Core Felcloth Bag", r="", d="Teaches you how to sew a Core Felcloth Bag.", t="", pt="Ensina a costurar uma Bolsa de Tecido Vil do Núcleo." }
 ConsoleMode_SpellDescDB[26092] = { n="Dirt Mound Passive", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26093] = { n="Quake", r="", d="", t="Stunned.", pt="" }
 ConsoleMode_SpellDescDB[26094] = { n="Thunderstomp", r="Rank 1", d="", t="", pt="" }
@@ -20127,7 +20127,7 @@ ConsoleMode_SpellDescDB[26216] = { n="Summon Giant Hook Tentacles", r="", d="", 
 ConsoleMode_SpellDescDB[26217] = { n="Summon Giant Hook Tentacles", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26218] = { n="Mistletoe", r="", d="", t="You've kissed someone under a sprig of mistletoe!", pt="" }
 ConsoleMode_SpellDescDB[26219] = { n="Creature - Mouth Tentacle Grab Trigger", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26220] = { n="Digestive Acid", r="", d="Old Z = -30.1445", t="Deals $s2 damage every $t2 sec.", pt="" }
+ConsoleMode_SpellDescDB[26220] = { n="Digestive Acid", r="", d="Old Z = -30.1445", t="Deals $s2 damage every $t2 sec.", pt="Antigo Z = -30.1445" }
 ConsoleMode_SpellDescDB[26221] = { n="Exit Stomach", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26222] = { n="Super Invis", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26224] = { n="Exit Stomach", r="", d="", t="", pt="" }
@@ -20180,9 +20180,9 @@ ConsoleMode_SpellDescDB[26274] = { n="PX-238 Winter Wondervolt", r="", d="", t="
 ConsoleMode_SpellDescDB[26275] = { n="PX-238 Winter Wondervolt TRAP", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26276] = { n="Greater Firepower", r="", d="Increases spell fire damage by up to $s1 for $d.", t="Fire damage dealt by spells and abilities is increased by up to $s1.", pt="Fogo +$s1 por $d s." }
 ConsoleMode_SpellDescDB[26277] = { n="Elixir of Greater Firepower", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26278] = { n="Recipe: Elixir of Greater Firepower", r="", d="Teaches you how to make an Elixir of Greater Firepower.", t="", pt="" }
+ConsoleMode_SpellDescDB[26278] = { n="Recipe: Elixir of Greater Firepower", r="", d="Teaches you how to make an Elixir of Greater Firepower.", t="", pt="Ensina a criar um Elixir de Poder de Fogo Superior." }
 ConsoleMode_SpellDescDB[26279] = { n="Stormshroud Gloves", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26280] = { n="Pattern: Stormshroud Gloves", r="", d="Teaches you how to craft Stormshroud Gloves.", t="", pt="" }
+ConsoleMode_SpellDescDB[26280] = { n="Pattern: Stormshroud Gloves", r="", d="Teaches you how to craft Stormshroud Gloves.", t="", pt="Ensina a criar as Luvas Tempestárias." }
 ConsoleMode_SpellDescDB[26281] = { n="Taunt", r="", d="Taunts the creature, increasing the chance that it will attack the caster.", t="", pt="Provoca a criatura, aumentando a chance de ela atacar o lançador." }
 ConsoleMode_SpellDescDB[26282] = { n="Shoot Tauren Rifleman", r="", d="Shoots at an enemy, inflicting Physical damage.", t="", pt="Atira no inimigo, causando dano Físico." }
 ConsoleMode_SpellDescDB[26283] = { n="Increased Spell Penetration 20", r="", d="Decreases the magical resistances of your spell targets by $s1.", t="", pt="Reduz as resistências mágicas dos alvos das suas magias em $s1." }
@@ -20272,7 +20272,7 @@ ConsoleMode_SpellDescDB[26370] = { n="Lightning Shield", r="Rank 6", d="Casts a 
 ConsoleMode_SpellDescDB[26373] = { n="Lunar Invititation", r="", d="Teleports the caster from within Greater Moonlight.", t="", pt="Teleporta do Luar." }
 ConsoleMode_SpellDescDB[26374] = { n="Elune's Candle", r="", d="Shoots a firework at target.", t="", pt="Dispara um fogo de artifício contra o alvo." }
 ConsoleMode_SpellDescDB[26375] = { n="Create Lunar Festival Invitation", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26376] = { n="Combo PROC Test", r="", d="Casts a spell when you do something.", t="", pt="" }
+ConsoleMode_SpellDescDB[26376] = { n="Combo PROC Test", r="", d="Casts a spell when you do something.", t="", pt="Lança um feitiço quando você faz algo." }
 ConsoleMode_SpellDescDB[26377] = { n="My Little PROC", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26378] = { n="Copy of Piercing Screech", r="", d="Inflicts $s1 Shadow damage to nearby enemies.", t="", pt="Causa $s1 de dano de Sombra nos próximos." }
 ConsoleMode_SpellDescDB[26379] = { n="Piercing Shriek", r="", d="Causes all enemies nearby to be dazed for $d.", t="Dazed.", pt="Atordoa próximos por $d s." }
@@ -20307,9 +20307,9 @@ ConsoleMode_SpellDescDB[26407] = { n="Festive Red Pant Suit", r="", d="", t="", 
 ConsoleMode_SpellDescDB[26408] = { n="Holiday - Lunar Teleport Cap: Ironforge", r="", d="Teleports the caster to the Ironforge.", t="", pt="Teletransporta o lançador para Altaforja." }
 ConsoleMode_SpellDescDB[26409] = { n="Holiday - Lunar Teleport Cap: Darnassus", r="", d="Teleports the caster to the Darnassus.", t="", pt="Teletransporta o lançador para Darnassus." }
 ConsoleMode_SpellDescDB[26410] = { n="Holiday - Lunar Teleport Cap: Undercity", r="", d="Teleports the caster to the Undercity.", t="", pt="Teletransporta o lançador para a Cidade Baixa." }
-ConsoleMode_SpellDescDB[26411] = { n="Pattern: Festive Red Dress", r="", d="Teaches you how to sew a Festive Red Dress.", t="", pt="" }
+ConsoleMode_SpellDescDB[26411] = { n="Pattern: Festive Red Dress", r="", d="Teaches you how to sew a Festive Red Dress.", t="", pt="Ensina a costurar um Vestido Festivo Vermelho." }
 ConsoleMode_SpellDescDB[26412] = { n="Holiday - Lunar Teleport Cap: Thunderbluff", r="", d="Teleports the caster to Thunderbluff.", t="", pt="Teletransporta o lançador para o Penhasco do Trovão." }
-ConsoleMode_SpellDescDB[26413] = { n="Pattern: Festival Suit", r="", d="Teaches you how to sew a Festival Suit.", t="", pt="" }
+ConsoleMode_SpellDescDB[26413] = { n="Pattern: Festival Suit", r="", d="Teaches you how to sew a Festival Suit.", t="", pt="Ensina a costurar um Traje Festivo." }
 ConsoleMode_SpellDescDB[26414] = { n="Holiday - Lunar Teleport Cap: Orgrimmar", r="", d="Teleports the caster to Orgrimmar.", t="", pt="Teleporta o lançador para Orgrimmar." }
 ConsoleMode_SpellDescDB[26415] = { n="Shock", r="", d="Instantly lightning shocks the target for $s1 Nature damage.", t="", pt="Raio: $s1 de Natureza no alvo." }
 ConsoleMode_SpellDescDB[26416] = { n="Small Blue Rocket", r="", d="", t="", pt="" }
@@ -20325,10 +20325,10 @@ ConsoleMode_SpellDescDB[26425] = { n="Red Rocket Cluster", r="", d="", t="", pt=
 ConsoleMode_SpellDescDB[26426] = { n="Large Blue Rocket Cluster", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26427] = { n="Large Green Rocket Cluster", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26428] = { n="Large Red Rocket Cluster", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26429] = { n="Schematic: Small Blue Rocket", r="", d="Teaches you how to make a Small Blue Rocket.", t="", pt="" }
-ConsoleMode_SpellDescDB[26430] = { n="Schematic: Small Green Rocket", r="", d="Teaches you how to make a Small Green Rocket.", t="", pt="" }
-ConsoleMode_SpellDescDB[26431] = { n="Schematic: Small Red Rocket", r="", d="Teaches you how to make a Small Red Rocket.", t="", pt="" }
-ConsoleMode_SpellDescDB[26432] = { n="Schematic: Large Blue Rocket", r="", d="Teaches you how to make a Large Blue Rocket.", t="", pt="" }
+ConsoleMode_SpellDescDB[26429] = { n="Schematic: Small Blue Rocket", r="", d="Teaches you how to make a Small Blue Rocket.", t="", pt="Ensina a criar um Foguete Azul Pequeno." }
+ConsoleMode_SpellDescDB[26430] = { n="Schematic: Small Green Rocket", r="", d="Teaches you how to make a Small Green Rocket.", t="", pt="Ensina a criar um Foguete Verde Pequeno." }
+ConsoleMode_SpellDescDB[26431] = { n="Schematic: Small Red Rocket", r="", d="Teaches you how to make a Small Red Rocket.", t="", pt="Ensina a criar um Foguete Vermelho Pequeno." }
+ConsoleMode_SpellDescDB[26432] = { n="Schematic: Large Blue Rocket", r="", d="Teaches you how to make a Large Blue Rocket.", t="", pt="Ensina a criar um Foguete Azul Grande." }
 ConsoleMode_SpellDescDB[26433] = { n="Schematic: Large Green Rocket", r="", d="Teaches you how to make a Large Green Rocket.", t="", pt="" }
 ConsoleMode_SpellDescDB[26434] = { n="Schematic: Large Red Rocket", r="", d="Teaches you how to make a Large Red Rocket.", t="", pt="" }
 ConsoleMode_SpellDescDB[26435] = { n="Schematic: Blue Rocket Cluster", r="", d="Teaches you how to make a Blue Rocket Cluster.", t="", pt="" }

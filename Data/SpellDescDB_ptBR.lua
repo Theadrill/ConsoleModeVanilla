@@ -26017,27 +26017,27 @@ ConsoleMode_SpellDescDB[57106] = { n="Medivh's Merlot", r="", d="Increases Stami
 ConsoleMode_SpellDescDB[57107] = { n="Medivh's Merlot Blue Label", r="", d="Increases Intellect by $s1 for $d and gets you drunk to boot!", t="Increases Intellect by $s1.", pt="Aumenta o Intelecto em $s1 por $d s e ainda deixa você bêbado!" }
 ConsoleMode_SpellDescDB[57108] = { n="Emerald Blessing", r="", d="The druid and raid members within $a1 yards are blessed by the Emerald Dream granting $s1% movement speed, $s2% spell hit chance, and allows $s3% mana regeneration to continue while casting.", t="Movement speed increased by $s1%. Spell hit chance increased by $s2%. Allows $s3% of your mana regeneration to continue while casting.", pt="O druida e os membros da raide a até $a1 metros são abençoados pelo Sonho Esmeralda, concedendo $s1% de velocidade de movimento, $s2% de chance de acerto com feitiços e permitindo que $s3% da regeneração de mana continue enquanto lança feitiços." }
 ConsoleMode_SpellDescDB[57109] = { n="Emerald Blessing", r="", d="Teaches Emerald Blessing.", t="", pt="Ensina Bênção Esmeralda." }
-ConsoleMode_SpellDescDB[57110] = { n="Recipe: Potion of Quickness", r="", d="Teaches you how to create a Potion of Quickness.", t="", pt="" }
+ConsoleMode_SpellDescDB[57110] = { n="Recipe: Potion of Quickness", r="", d="Teaches you how to create a Potion of Quickness.", t="", pt="Ensina a criar uma Poção de Rapidez." }
 ConsoleMode_SpellDescDB[57111] = { n="Potion of Quickness", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57112] = { n="Plans: Thorium Spurs", r="", d="Teaches you how to create Thorium Spurs.", t="", pt="" }
+ConsoleMode_SpellDescDB[57112] = { n="Plans: Thorium Spurs", r="", d="Teaches you how to create Thorium Spurs.", t="", pt="Ensina a criar as Esporas de Tório." }
 ConsoleMode_SpellDescDB[57113] = { n="Thorium Spurs", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57114] = { n="Pattern: Enchanted Armor Kit", r="", d="Teaches you how to createan Enchanted Armor Kit.", t="", pt="" }
+ConsoleMode_SpellDescDB[57114] = { n="Pattern: Enchanted Armor Kit", r="", d="Teaches you how to createan Enchanted Armor Kit.", t="", pt="Ensina a criar um Kit de Armadura Encantada." }
 ConsoleMode_SpellDescDB[57115] = { n="Enchanted Armor Kit", r="", d="Permanently increase the intellect by 8 and spell power by 6 of an item worn on the chest, legs, hands or feet.  Only usable on items level 60 and above.", t="", pt="Aumenta permanentemente o Intelecto em 8 e o poder mágico em 6 de um item equipado no peito, nas pernas, nas mãos ou nos pés. Só pode ser usado em itens de nível 60 ou superior." }
-ConsoleMode_SpellDescDB[57116] = { n="Formula: Enchant Cloak - Greater Arcane Resistance", r="", d="Teaches you how to permanently enchant a cloak to increase arcane magic resistance by 15.", t="", pt="" }
+ConsoleMode_SpellDescDB[57116] = { n="Formula: Enchant Cloak - Greater Arcane Resistance", r="", d="Teaches you how to permanently enchant a cloak to increase arcane magic resistance by 15.", t="", pt="Ensina a encantar permanentemente uma capa para aumentar a resistência à magia Arcana em 15." }
 ConsoleMode_SpellDescDB[57117] = { n="Enchant Cloak - Greater Arcane Resistance", r="", d="Permanently enchant a cloak to increase arcane magic resistance by 15.", t="", pt="Encanta permanentemente uma capa para aumentar a resistência à magia Arcana em 15." }
-ConsoleMode_SpellDescDB[57118] = { n="Formula: Enchant Chest - Mighty Mana", r="", d="Teaches you how to permanently enchant a chest armor to increase mana by 150.", t="", pt="" }
+ConsoleMode_SpellDescDB[57118] = { n="Formula: Enchant Chest - Mighty Mana", r="", d="Teaches you how to permanently enchant a chest armor to increase mana by 150.", t="", pt="Ensina a encantar permanentemente uma armadura de peito para aumentar a mana em 150." }
 ConsoleMode_SpellDescDB[57119] = { n="Enchant Chest - Mighty Mana", r="", d="Permanently enchant a chest armor to increase mana by 150.", t="", pt="Encanta permanentemente uma armadura de peito para aumentar a mana em 150." }
-ConsoleMode_SpellDescDB[57120] = { n="Plans: Dreamsteel", r="", d="Teaches you how to smelt Dreamsteel", t="", pt="" }
+ConsoleMode_SpellDescDB[57120] = { n="Plans: Dreamsteel", r="", d="Teaches you how to smelt Dreamsteel", t="", pt="Ensina a fundir Aço do Sonho." }
 ConsoleMode_SpellDescDB[57121] = { n="Dreamsteel", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57122] = { n="Pattern: Dreamthread", r="", d="Teaches you how to spin Dreamthread", t="", pt="" }
+ConsoleMode_SpellDescDB[57122] = { n="Pattern: Dreamthread", r="", d="Teaches you how to spin Dreamthread", t="", pt="Ensina a fiar Fio do Sonho." }
 ConsoleMode_SpellDescDB[57123] = { n="Dreamthread", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57124] = { n="Pattern: Dreamhide", r="", d="Teaches you how to tan Dreamhide.", t="", pt="" }
+ConsoleMode_SpellDescDB[57124] = { n="Pattern: Dreamhide", r="", d="Teaches you how to tan Dreamhide.", t="", pt="Ensina a curtir Pele do Sonho." }
 ConsoleMode_SpellDescDB[57125] = { n="Dreamhide", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57126] = { n="Formula: Enchant Boots - Superior Stamina", r="", d="Teaches you how to permanently enchant a pair of boots to increase stamina by 15.", t="", pt="" }
+ConsoleMode_SpellDescDB[57126] = { n="Formula: Enchant Boots - Superior Stamina", r="", d="Teaches you how to permanently enchant a pair of boots to increase stamina by 15.", t="", pt="Ensina a encantar permanentemente um par de botas para aumentar o Vigor em 15." }
 ConsoleMode_SpellDescDB[57127] = { n="Enchant Boots - Superior Stamina", r="", d="Permanently enchant boots to give +15 Stamina.", t="", pt="Encanta permanentemente botas para conceder +15 de Vigor." }
-ConsoleMode_SpellDescDB[57128] = { n="Recipe: Lucidity Potion", r="", d="Teaches you how to brew a lucidity potion.", t="", pt="" }
+ConsoleMode_SpellDescDB[57128] = { n="Recipe: Lucidity Potion", r="", d="Teaches you how to brew a lucidity potion.", t="", pt="Ensina a preparar uma Poção de Lucidez." }
 ConsoleMode_SpellDescDB[57129] = { n="Lucidity Potion", r="", d="Become Immune to Sleep, Polymorphs, and Charms for 30 seconds,", t="", pt="Imune a Sono/Polimorfia/Encanto 30 s." }
-ConsoleMode_SpellDescDB[57130] = { n="Recipe: Dreamshard Elixir", r="", d="Teaches you how to make a Dreamshard Elixir.", t="", pt="" }
+ConsoleMode_SpellDescDB[57130] = { n="Recipe: Dreamshard Elixir", r="", d="Teaches you how to make a Dreamshard Elixir.", t="", pt="Ensina a criar um Elixir de Fragmento de Sonho." }
 ConsoleMode_SpellDescDB[57131] = { n="Dreamshard Elixir", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57132] = { n="Haste 10", r="", d="Increases your attack and casting speed by $s1%.", t="", pt="Aumenta sua velocidade de ataque e de lançamento em $s1%." }
 ConsoleMode_SpellDescDB[57133] = { n="Thorium Spurs", r="", d="Jingle jangle!", t="", pt="Espora tilinta!" }
@@ -26049,13 +26049,13 @@ ConsoleMode_SpellDescDB[57138] = { n="Increased Stamina 12", r="", d="", t="", p
 ConsoleMode_SpellDescDB[57139] = { n="Lucid Action", r="", d="Makes you immune to Sleep, Polymorph, and Charm effects for the next $d.   Does not remove effects already on the imbiber.", t="Lucid Action.", pt="Imune a Sono/Polimorfia/Encanto por $d s. Não tira o atual." }
 ConsoleMode_SpellDescDB[57140] = { n="Elixir of the Mongoose", r="", d="Increases Agility by $s1 and chance to get a critical hit by $s2% for $d.", t="Agility increased by $s1, Critical hit chance increases by $s2%.", pt="Aumenta a Agilidade em $s1 e a chance de obter um acerto crítico em $s2% por $d s." }
 ConsoleMode_SpellDescDB[57142] = { n="Enchant Boots - Greater Spirit", r="", d="Permanently enchant a pair of boots to increase spirit by 12.", t="", pt="Encanta permanentemente um par de botas para aumentar o Espírito em 12." }
-ConsoleMode_SpellDescDB[57143] = { n="Formula: Enchant Boots - Greater Spirit", r="", d="Teaches you how to permanently enchant a pair of boots to increase spirit by 12.", t="", pt="" }
+ConsoleMode_SpellDescDB[57143] = { n="Formula: Enchant Boots - Greater Spirit", r="", d="Teaches you how to permanently enchant a pair of boots to increase spirit by 12.", t="", pt="Ensina a encantar permanentemente um par de botas para aumentar o Espírito em 12." }
 ConsoleMode_SpellDescDB[57144] = { n="Enchant Bracer - Greater Deflection", r="", d="Permanently enchant a pair of bracers to increase defense skill by 5.", t="", pt="Encanta permanentemente um par de braçadeiras para aumentar a perícia de defesa em 5." }
-ConsoleMode_SpellDescDB[57145] = { n="Formula: Enchant Bracer - Greater Deflection", r="", d="Teaches you how to permanently enchant a pair of bracers to increase defense skill by 5.", t="", pt="" }
+ConsoleMode_SpellDescDB[57145] = { n="Formula: Enchant Bracer - Greater Deflection", r="", d="Teaches you how to permanently enchant a pair of bracers to increase defense skill by 5.", t="", pt="Ensina a encantar permanentemente um par de braçadeiras para aumentar a perícia de defesa em 5." }
 ConsoleMode_SpellDescDB[57146] = { n="Enchant Bracer - Vampirism", r="", d="Permanently enchant a pair of bracers to increase vampirism by 1%.", t="", pt="Encanta permanentemente um par de braçadeiras para aumentar o vampirismo em 1%." }
-ConsoleMode_SpellDescDB[57147] = { n="Formula: Enchant Bracer - Vampirism", r="", d="Teaches you how to permanently enchant a pair of bracers to increase vampirism by 1%.", t="", pt="" }
+ConsoleMode_SpellDescDB[57147] = { n="Formula: Enchant Bracer - Vampirism", r="", d="Teaches you how to permanently enchant a pair of bracers to increase vampirism by 1%.", t="", pt="Ensina a encantar permanentemente um par de braçadeiras para aumentar o vampirismo em 1%." }
 ConsoleMode_SpellDescDB[57148] = { n="Enchant Boots - Vampirism", r="", d="Permanently enchant a pair of boots to increase vampirism by 1%.", t="", pt="Encanta permanentemente um par de botas para aumentar o vampirismo em 1%." }
-ConsoleMode_SpellDescDB[57149] = { n="Formula: Enchant Boots - Vampirism", r="", d="Teaches you how to permanently enchant a pair of boots to increase vampirism by 1%.", t="", pt="" }
+ConsoleMode_SpellDescDB[57149] = { n="Formula: Enchant Boots - Vampirism", r="", d="Teaches you how to permanently enchant a pair of boots to increase vampirism by 1%.", t="", pt="Ensina a encantar permanentemente um par de botas para aumentar o vampirismo em 1%." }
 ConsoleMode_SpellDescDB[57150] = { n="Greater Deflection", r="", d="Increase defense skill by $s1%,", t="", pt="Defesa +$s1%." }
 ConsoleMode_SpellDescDB[57151] = { n="Invocation of Shattering", r="", d="Permanently adds 40 armor penetration to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.", t="", pt="Adiciona permanentemente 40 de penetração de armadura a um item de pernas ou cabeça. Não se acumula com outros encantamentos para o compartimento de equipamento selecionado." }
 ConsoleMode_SpellDescDB[57152] = { n="Invocation of Greater Protection", r="", d="Permanently adds 2% dodge chance to a leg or head slot item. Does not stack with other enchantments for the selected equipment slot.", t="", pt="Adiciona permanentemente 2% de chance de esquiva a um item de pernas ou cabeça. Não se acumula com outros encantamentos para o compartimento de equipamento selecionado." }
@@ -26068,25 +26068,25 @@ ConsoleMode_SpellDescDB[57158] = { n="Casting Regen 5%", r="", d="Allows $s1% of
 ConsoleMode_SpellDescDB[57159] = { n="Casting Regen 10%", r="", d="Allows $s1% of your Mana regeneration to continue while casting.", t="", pt="Permite que $s1% da sua regeneração de mana continue ativa durante o lançamento de feitiços." }
 ConsoleMode_SpellDescDB[57160] = { n="Casting Regen 12%", r="", d="Allows $s1% of your Mana regeneration to continue while casting.", t="", pt="Permite que $s1% da sua regeneração de mana continue ativa durante o lançamento de feitiços." }
 ConsoleMode_SpellDescDB[57161] = { n="Casting Regen 15%", r="", d="Allows $s1% of your Mana regeneration to continue while casting.", t="", pt="Permite que $s1% da sua regeneração de mana continue ativa durante o lançamento de feitiços." }
-ConsoleMode_SpellDescDB[57162] = { n="Plans: Copper Belt Buckle", r="", d="Teaches you how to create Copper Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57162] = { n="Plans: Copper Belt Buckle", r="", d="Teaches you how to create Copper Buckle.", t="", pt="Ensina a criar a Fivela de Cobre." }
 ConsoleMode_SpellDescDB[57163] = { n="Copper Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57164] = { n="Copper Belt Buckle", r="", d="Attaches a buckle to your belt that increase your stamina by 1.", t="", pt="Prende uma fivela ao seu cinto que aumenta seu Vigor em 1." }
-ConsoleMode_SpellDescDB[57165] = { n="Plans: Bronze Belt Buckle", r="", d="Teaches you how to create Bronze Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57165] = { n="Plans: Bronze Belt Buckle", r="", d="Teaches you how to create Bronze Buckle.", t="", pt="Ensina a criar a Fivela de Bronze." }
 ConsoleMode_SpellDescDB[57166] = { n="Bronze Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57167] = { n="Bronze Belt Buckle", r="", d="Attaches a buckle to your belt that increase your stamina by 2.", t="", pt="Prende uma fivela ao seu cinto que aumenta seu Vigor em 2." }
-ConsoleMode_SpellDescDB[57168] = { n="Plans: Iron Belt Buckle", r="", d="Teaches you how to create Iron Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57168] = { n="Plans: Iron Belt Buckle", r="", d="Teaches you how to create Iron Buckle.", t="", pt="Ensina a criar a Fivela de Ferro." }
 ConsoleMode_SpellDescDB[57169] = { n="Iron Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57170] = { n="Iron Belt Buckle", r="", d="Attaches a buckle to your belt that increases your armor penetration by 25.", t="", pt="Prende uma fivela ao seu cinto que aumenta sua penetração de armadura em 25." }
-ConsoleMode_SpellDescDB[57171] = { n="Plans: Mithril Belt Buckle", r="", d="Teaches you how to create Mithril Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57171] = { n="Plans: Mithril Belt Buckle", r="", d="Teaches you how to create Mithril Buckle.", t="", pt="Ensina a criar a Fivela de Mithril." }
 ConsoleMode_SpellDescDB[57172] = { n="Mithril Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57173] = { n="Mithril Belt Buckle", r="", d="Attaches a buckle to your belt that increases your Agility by 6.", t="", pt="Prende uma fivela ao seu cinto que aumenta sua Agilidade em 6." }
-ConsoleMode_SpellDescDB[57174] = { n="Plans: Thorium Belt Buckle", r="", d="Teaches you how to create Thorium Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57174] = { n="Plans: Thorium Belt Buckle", r="", d="Teaches you how to create Thorium Buckle.", t="", pt="Ensina a criar a Fivela de Tório." }
 ConsoleMode_SpellDescDB[57175] = { n="Thorium Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57176] = { n="Thorium Belt Buckle", r="", d="Attaches a buckle to your belt that increase your magical resistances by 4.", t="", pt="Prende uma fivela ao seu cinto que aumenta suas resistências mágicas em 4." }
-ConsoleMode_SpellDescDB[57177] = { n="Plans: Arcanite Belt Buckle", r="", d="Teaches you how to create Arcanite Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57177] = { n="Plans: Arcanite Belt Buckle", r="", d="Teaches you how to create Arcanite Buckle.", t="", pt="Ensina a criar a Fivela de Arcanita." }
 ConsoleMode_SpellDescDB[57178] = { n="Arcanite Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57179] = { n="Arcanite Belt Buckle", r="", d="Attaches a buckle to your belt that increase your defense skill by 5.", t="", pt="Prende uma fivela ao seu cinto que aumenta sua perícia de defesa em 5." }
-ConsoleMode_SpellDescDB[57180] = { n="Plans: Dreamsteel Belt Buckle", r="", d="Teaches you how to create Dreamsteel Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57180] = { n="Plans: Dreamsteel Belt Buckle", r="", d="Teaches you how to create Dreamsteel Buckle.", t="", pt="Ensina a criar a Fivela de Aço do Sonho." }
 ConsoleMode_SpellDescDB[57181] = { n="Dreamsteel Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57182] = { n="Dreamsteel Belt Buckle", r="", d="Attaches a buckle to your belt that increases your intellect by 10.", t="", pt="Prende uma fivela ao seu cinto que aumenta seu Intelecto em 10." }
 ConsoleMode_SpellDescDB[57183] = { n="+4 Stamina, +20 Armor", r="", d="", t="", pt="" }
@@ -26094,14 +26094,14 @@ ConsoleMode_SpellDescDB[57184] = { n="+5 Strength, +10 Nature Resist", r="", d="
 ConsoleMode_SpellDescDB[57185] = { n="Sigil of Resilience", r="", d="Permanently reduces your chance to be critically hit by melee and ranged attacks by $45530s1% to a shoulder slot item.", t="", pt="Reduz permanentemente em $s1% sua chance de receber acertos críticos de ataques corpo a corpo e à distância em um item de ombros." }
 ConsoleMode_SpellDescDB[57186] = { n="Bloody Belt Buckle", r="", d="Attaches a buckle to your belt that reduces damage taken from critical hits and damage over time effects by $45530s1%.", t="", pt="Prende uma fivela ao seu cinto que reduz o dano recebido de acertos críticos e efeitos de dano ao longo do tempo em $s1%." }
 ConsoleMode_SpellDescDB[57187] = { n="Towerforge Crown", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57188] = { n="Plans: Towerforge Crown", r="", d="Teaches you how to make a Towerforge Crown.", t="", pt="" }
+ConsoleMode_SpellDescDB[57188] = { n="Plans: Towerforge Crown", r="", d="Teaches you how to make a Towerforge Crown.", t="", pt="Ensina a criar uma Coroa Torreforjada." }
 ConsoleMode_SpellDescDB[57189] = { n="Towerforge Breastplate", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57190] = { n="Plans: Towerforge Breastplate", r="", d="Teaches you how to make a Towerforge Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[57190] = { n="Plans: Towerforge Breastplate", r="", d="Teaches you how to make a Towerforge Breastplate.", t="", pt="Ensina a criar um Peitoral Torreforjado." }
 ConsoleMode_SpellDescDB[57191] = { n="Towerforge Pauldrons", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57192] = { n="Plans: Towerforge Pauldrons", r="", d="Teaches you how to make Towerforge Pauldrons.", t="", pt="" }
+ConsoleMode_SpellDescDB[57192] = { n="Plans: Towerforge Pauldrons", r="", d="Teaches you how to make Towerforge Pauldrons.", t="", pt="Ensina a criar as Omoplatas Torreforjadas." }
 ConsoleMode_SpellDescDB[57193] = { n="Towerforge Demolisher", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57194] = { n="Plans: Towerforge Demolisher", r="", d="Teaches you how to make a Towerforge Demolisher.", t="", pt="" }
-ConsoleMode_SpellDescDB[57195] = { n="Plans: Bloody Belt Buckle", r="", d="Teaches you how to make a Bloody Belt Buckle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57194] = { n="Plans: Towerforge Demolisher", r="", d="Teaches you how to make a Towerforge Demolisher.", t="", pt="Ensina a criar um Demolidor Torreforjado." }
+ConsoleMode_SpellDescDB[57195] = { n="Plans: Bloody Belt Buckle", r="", d="Teaches you how to make a Bloody Belt Buckle.", t="", pt="Ensina a criar uma Fivela de Cinto Ensanguentada." }
 ConsoleMode_SpellDescDB[57196] = { n="Bloody Belt Buckle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57197] = { n="Shadow Sight", r="", d="", t="Stealth Detection.\r\nInvisibility Detection.\r\nIncreases damage taken by 5%.", pt="" }
 ConsoleMode_SpellDescDB[57200] = { n="Azure Frog", r="", d="A mystical amphibian known for its soothing croaks, said to bring tranquility to those who listen.", t="", pt="Um anfíbio místico conhecido por seus coaxares tranquilizantes, que traz tranquilidade àqueles que o escutam." }
@@ -26114,7 +26114,7 @@ ConsoleMode_SpellDescDB[57206] = { n="Pink Frog", r="", d="Delicate and enchanti
 ConsoleMode_SpellDescDB[57207] = { n="Golden Frog", r="", d="Legend has it that this shimmering amphibian is a harbinger of wealth and abundance.", t="", pt="Diz a lenda que este anfíbio reluzente é um arauto de riqueza e abundância." }
 ConsoleMode_SpellDescDB[57208] = { n="Pond Frog", r="", d="A common sight in tranquil ponds and marshes, this unassuming frog is a reminder of the simple joys found in nature's embrace.", t="", pt="Visão comum em lagos tranquilos e pântanos, este sapo modesto é um lembrete das alegrias simples encontradas no abraço da natureza." }
 ConsoleMode_SpellDescDB[57518] = { n="Eternal Dreamstone Shard", r="", d="The combining of dream fragments can only be done at a moonwell, and only ocassionally will the waters permit themselves to be used in such a way.", t="", pt="A combinação de fragmentos de sonho só pode ser feita em um poço lunar, e só de vez em quando as águas permitem ser usadas dessa forma." }
-ConsoleMode_SpellDescDB[57519] = { n="Formula: Eternal Dreamstone Shard", r="", d="Teaches you how to create an Eternal Dreamstone Shard", t="", pt="" }
+ConsoleMode_SpellDescDB[57519] = { n="Formula: Eternal Dreamstone Shard", r="", d="Teaches you how to create an Eternal Dreamstone Shard", t="", pt="Ensina a criar um Fragmento de Pedra do Sonho Eterno." }
 ConsoleMode_SpellDescDB[57530] = { n="Add Recording to Collection", r="Collection", d="Adds a record to the player's record collection.", t="", pt="Coleção de disco." }
 ConsoleMode_SpellDescDB[57531] = { n="Jukebox: Winds of Kamio", r="", d="Feel the rhythm of the Winds of Kamio.", t="", pt="Sente o ritmo de Kamio." }
 ConsoleMode_SpellDescDB[57532] = { n="Jukebox: Emerald Dream", r="", d="Feel the rhythm of the Emerald Dream.", t="", pt="Sente o ritmo do Sonho." }
@@ -26136,9 +26136,9 @@ ConsoleMode_SpellDescDB[57550] = { n="Artisan Gemologist", r="", d="", t="", pt=
 ConsoleMode_SpellDescDB[57551] = { n="Gemology", r="Artisan", d="Enables a jewelcrafter to prospect gems not accessible to the typical artisan jeweler.", t="", pt="Permite que um joalheiro prospecte gemas não acessíveis ao joalheiro artesão comum." }
 ConsoleMode_SpellDescDB[57552] = { n="Artisan Goldsmith", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57553] = { n="Goldsmith", r="Artisan", d="Enables a goldsmith to craft jewerly not accessible to the typical artisan jeweler.", t="", pt="Permite que um ourives crie joias não acessíveis ao joalheiro artesão comum." }
-ConsoleMode_SpellDescDB[57554] = { n="Recipe: Transmute Elemental Earth", r="", d="Teaches you how to transmute a Core of Earth into three Elemental Earth.", t="", pt="" }
+ConsoleMode_SpellDescDB[57554] = { n="Recipe: Transmute Elemental Earth", r="", d="Teaches you how to transmute a Core of Earth into three Elemental Earth.", t="", pt="Ensina a transmutar um Núcleo de Terra em três Terras Elementais." }
 ConsoleMode_SpellDescDB[57555] = { n="Transmute: Elemental Earth", r="", d="Transmutes a Heart of Fire into three Elemental Earth.", t="", pt="Transmuta um Coração de Fogo em três Terras Elementais." }
-ConsoleMode_SpellDescDB[57556] = { n="Recipe: Transmute Elemental Water", r="", d="Teaches you how to transmute a Globe of Water into three Elemental Water.", t="", pt="" }
+ConsoleMode_SpellDescDB[57556] = { n="Recipe: Transmute Elemental Water", r="", d="Teaches you how to transmute a Globe of Water into three Elemental Water.", t="", pt="Ensina a transmutar um Globo de Água em três Águas Elementais." }
 ConsoleMode_SpellDescDB[57557] = { n="Transmute: Elemental Water", r="", d="Transmutes a Globe of Water into three Elemental Water.", t="", pt="Transmuta um Globo de Água em três Águas Elementais." }
 ConsoleMode_SpellDescDB[57560] = { n="Polymorph: Rodent", r="Rank 1", d="Teaches Polymorph: Rodent.", t="", pt="Ensina Metamorfose: Roedor." }
 ConsoleMode_SpellDescDB[57561] = { n="Polymorph: Rodent", r="", d="Transforms the enemy into a rodent, forcing it to wander around for up to $d.  While wandering, the roodent cannot attack or cast spells but will regenerate very quickly.  Any damage will transform the target back into its normal form.  Only one target can be polymorphed at a time.  Only works on Beasts, Humanoids and Critters.", t="Cannot attack or cast spells.  Increased regeneration.", pt="Transforma o inimigo em um roedor, forçando-o a vagar por até $d s. Enquanto estiver vagando, o roedor não pode atacar nem lançar feitiços, mas se regenerará muito rapidamente. Qualquer dano transformará o alvo de volta à sua forma normal. Apenas um alvo pode ser transformado por vez. Funciona apenas em Feras, Humanoides e Bichos." }
@@ -26151,39 +26151,39 @@ ConsoleMode_SpellDescDB[57577] = { n="Thalassian Emberfox", r="", d="A fiery and
 ConsoleMode_SpellDescDB[57578] = { n="Crimson Spectral Tiger", r="", d="Historians claim that these incorporeal beasts were created when Draenor exploded, unleashing energies that warped the world's flora and fauna.", t="Increases speed based on your Riding skill.", pt="Historiadores afirmam que essas feras incorpóreas foram criadas quando Draenor explodiu, liberando energias que deformaram a flora e a fauna do mundo." }
 ConsoleMode_SpellDescDB[57580] = { n="Pet Overflow", r="", d="Unlocks the 4th pet stable slot, providing access to another loyal companion.", t="", pt="Desbloqueia o 4º compartimento do estábulo de ajudantes, concedendo acesso a mais um companheiro leal." }
 ConsoleMode_SpellDescDB[57581] = { n="Pet Overflow", r="Glyph", d="Unlocks the 4th pet stable slot, providing access to another loyal companion.", t="", pt="Desbloqueia o 4º compartimento do estábulo de ajudantes, concedendo acesso a mais um companheiro leal." }
-ConsoleMode_SpellDescDB[57600] = { n="Cosmic Headdress", r="", d="Teaches you how to sew a Cosmic Headdress.", t="", pt="" }
+ConsoleMode_SpellDescDB[57600] = { n="Cosmic Headdress", r="", d="Teaches you how to sew a Cosmic Headdress.", t="", pt="Ensina a costurar um Cocar Cósmico." }
 ConsoleMode_SpellDescDB[57601] = { n="Cosmic Headdress", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57602] = { n="Cosmic Mantle", r="", d="Teaches you how to sew a Cosmic Mantle.", t="", pt="" }
+ConsoleMode_SpellDescDB[57602] = { n="Cosmic Mantle", r="", d="Teaches you how to sew a Cosmic Mantle.", t="", pt="Ensina a costurar um Manto Cósmico." }
 ConsoleMode_SpellDescDB[57603] = { n="Cosmic Mantle", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57604] = { n="Cosmic Vest", r="", d="Teaches you how to craft a Cosmic Vest.", t="", pt="" }
+ConsoleMode_SpellDescDB[57604] = { n="Cosmic Vest", r="", d="Teaches you how to craft a Cosmic Vest.", t="", pt="Ensina a criar um Colete Cósmico." }
 ConsoleMode_SpellDescDB[57605] = { n="Cosmic Vest", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57606] = { n="Cosmic Leggings", r="", d="Teaches you how to sew a Cosmic Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[57606] = { n="Cosmic Leggings", r="", d="Teaches you how to sew a Cosmic Leggings.", t="", pt="Ensina a costurar as Perneiras Cósmicas." }
 ConsoleMode_SpellDescDB[57607] = { n="Cosmic Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57608] = { n="Ethereal Helmet", r="", d="Teaches you how to craft a Ethereal Helmet.", t="", pt="" }
+ConsoleMode_SpellDescDB[57608] = { n="Ethereal Helmet", r="", d="Teaches you how to craft a Ethereal Helmet.", t="", pt="Ensina a criar um Elmo Etéreo." }
 ConsoleMode_SpellDescDB[57609] = { n="Ethereal Helmet", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57610] = { n="Ethereal Shoulder Pads", r="", d="Teaches you how to craft a Ethereal Shoulder Pads.", t="", pt="" }
+ConsoleMode_SpellDescDB[57610] = { n="Ethereal Shoulder Pads", r="", d="Teaches you how to craft a Ethereal Shoulder Pads.", t="", pt="Ensina a criar as Ombreiras Etéreas." }
 ConsoleMode_SpellDescDB[57611] = { n="Ethereal Shoulder Pads", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57612] = { n="Ethereal Tunic", r="", d="Teaches you how to craft a Ethereal Tunic.", t="", pt="" }
+ConsoleMode_SpellDescDB[57612] = { n="Ethereal Tunic", r="", d="Teaches you how to craft a Ethereal Tunic.", t="", pt="Ensina a criar uma Túnica Etérea." }
 ConsoleMode_SpellDescDB[57613] = { n="Ethereal Tunic", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57614] = { n="Ethereal Leggings", r="", d="Teaches you how to craft a Ethereal Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[57614] = { n="Ethereal Leggings", r="", d="Teaches you how to craft a Ethereal Leggings.", t="", pt="Ensina a criar as Calças Etéreas." }
 ConsoleMode_SpellDescDB[57615] = { n="Ethereal Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57616] = { n="Otherworldly Coif", r="", d="Teaches you how to craft a Otherworldly Coif.", t="", pt="" }
+ConsoleMode_SpellDescDB[57616] = { n="Otherworldly Coif", r="", d="Teaches you how to craft a Otherworldly Coif.", t="", pt="Ensina a criar um Capucho de Outro Mundo." }
 ConsoleMode_SpellDescDB[57617] = { n="Otherworldly Coif", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57618] = { n="Otherworldly Spaulders", r="", d="Teaches you how to craft a Otherworldly Spaulders.", t="", pt="" }
+ConsoleMode_SpellDescDB[57618] = { n="Otherworldly Spaulders", r="", d="Teaches you how to craft a Otherworldly Spaulders.", t="", pt="Ensina a criar as Ombreiras de Outro Mundo." }
 ConsoleMode_SpellDescDB[57619] = { n="Otherworldly Spaulders", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57620] = { n="Otherworldly Breastplate", r="", d="Teaches you how to craft a Otherworldly Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[57620] = { n="Otherworldly Breastplate", r="", d="Teaches you how to craft a Otherworldly Breastplate.", t="", pt="Ensina a criar um Peitoral de Outro Mundo." }
 ConsoleMode_SpellDescDB[57621] = { n="Otherworldly Breastplate", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57622] = { n="Otherworldly Leggings", r="", d="Teaches you how to craft a Otherworldly Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[57622] = { n="Otherworldly Leggings", r="", d="Teaches you how to craft a Otherworldly Leggings.", t="", pt="Ensina a criar as Calças de Outro Mundo." }
 ConsoleMode_SpellDescDB[57623] = { n="Otherworldly Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57624] = { n="Reflective Helmet", r="", d="Teaches you how to craft a Reflective Helmet.", t="", pt="" }
+ConsoleMode_SpellDescDB[57624] = { n="Reflective Helmet", r="", d="Teaches you how to craft a Reflective Helmet.", t="", pt="Ensina a criar um Capacete Reflexivo." }
 ConsoleMode_SpellDescDB[57625] = { n="Reflective Helmet", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57626] = { n="Reflective Pauldrons", r="", d="Teaches you how to craft a Reflective Pauldrons.", t="", pt="" }
+ConsoleMode_SpellDescDB[57626] = { n="Reflective Pauldrons", r="", d="Teaches you how to craft a Reflective Pauldrons.", t="", pt="Ensina a criar as Ombreiras Reflexivas." }
 ConsoleMode_SpellDescDB[57627] = { n="Reflective Pauldrons", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57628] = { n="Reflective Breastplate", r="", d="Teaches you how to craft a Reflective Breastplate.", t="", pt="" }
+ConsoleMode_SpellDescDB[57628] = { n="Reflective Breastplate", r="", d="Teaches you how to craft a Reflective Breastplate.", t="", pt="Ensina a criar um Peitoral Reflexivo." }
 ConsoleMode_SpellDescDB[57629] = { n="Reflective Breastplate", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57630] = { n="Reflective Leggings", r="", d="Teaches you how to craft a Reflective Leggings.", t="", pt="" }
+ConsoleMode_SpellDescDB[57630] = { n="Reflective Leggings", r="", d="Teaches you how to craft a Reflective Leggings.", t="", pt="Ensina a criar as Calças Reflexivas." }
 ConsoleMode_SpellDescDB[57631] = { n="Reflective Leggings", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[57632] = { n="Ley-Kissed Drape", r="", d="Teaches you how to sew a Ley-Kissed Drape.", t="", pt="" }
+ConsoleMode_SpellDescDB[57632] = { n="Ley-Kissed Drape", r="", d="Teaches you how to sew a Ley-Kissed Drape.", t="", pt="Ensina a costurar um Manto Tocado pelo Fluxo Meridiano." }
 ConsoleMode_SpellDescDB[57633] = { n="Ley-Kissed Drape", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57635] = { n="Ley Enchanted Scales", r="", d="Decrease all forms of damage taken by an ally by $s1%", t="All damage taken is reduced by $s1%", pt="Aliado -$s1% tudo." }
 ConsoleMode_SpellDescDB[57636] = { n="Vampiric Leech", r="", d="Deals $s1 Shadow damage over $t1 while healing caster for same amount", t="Inflicting $o1 over $d", pt="$s1 de Sombra em $t1 s e cura igual." }

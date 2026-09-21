@@ -93,4 +93,6 @@ S03 | 50 | OK
 S04 | 33 | OK (SMS other zerado: 183/183)
 # FASE 8.C — TAIL NPC (2.087 templates: 1.731 novos em T01-T35 + 356 revisão em T36-T43):
 T01 | 50 (43u) | OK
+T02 | 50 | OK
+
 

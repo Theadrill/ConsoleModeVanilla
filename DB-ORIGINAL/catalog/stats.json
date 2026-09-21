@@ -72,5 +72,39 @@
       "nrec": 16332,
       "with_desc": 0
     }
+  },
+  "vanilla": {
+    "areas": {
+      "files": 2,
+      "nrec_total": 1027
+    },
+    "misc": {
+      "files": 2,
+      "nrec_total": 18
+    },
+    "npcs": {
+      "files": 2,
+      "nrec_total": 8828
+    },
+    "items": {
+      "files": 2,
+      "nrec_total": 23906
+    },
+    "quests": {
+      "files": 1,
+      "nrec_total": 4
+    },
+    "skills": {
+      "files": 2,
+      "nrec_total": 5444
+    },
+    "spells": {
+      "files": 2,
+      "nrec_total": 17117
+    },
+    "talents": {
+      "files": 2,
+      "nrec_total": 456
+    }
   }
 }

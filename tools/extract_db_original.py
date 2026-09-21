@@ -23,6 +23,22 @@ TEMP = pathlib.Path(r"C:\Users\rodri\AppData\Local\Temp\opencode")
 CAPY_DATA = pathlib.Path(r"C:\Users\rodri\OneDrive\wow\turtle wow\Data")
 OCTO_DATA = pathlib.Path(r"C:\Users\rodri\OneDrive\wow\octowow\Data")
 
+# Base vanilla (jogo original sem patches) — dbc.MPQ, base.MPQ, backup.MPQ etc.
+VANILLA_ORDER = [
+    "dbc.MPQ",
+    "base.MPQ",
+    "backup.MPQ",
+    "misc.MPQ",
+    "interface.MPQ",
+    "terrain.MPQ",
+    "texture.MPQ",
+    "wmo.MPQ",
+    "model.MPQ",
+    "sound.MPQ",
+    "speech.MPQ",
+    "fonts.MPQ",
+]
+
 # Patch order cliente 1.12: patch.MPQ base, depois patch-2..9, patch-A, Patch-B..Y
 PATCH_ORDER = [
     "patch.MPQ",
@@ -109,6 +125,15 @@ def hash_head(path, n=1048576):
                 h.update(chunk)
     return h.hexdigest()[:16]
 
+def list_vanilla(base):
+    out = []
+    for name in VANILLA_ORDER:
+        for cand in [base / name, base / name.lower(), base / name.upper()]:
+            if cand.exists():
+                out.append(cand)
+                break
+    return out
+
 def main():
     capy_only = "--capy-only" in sys.argv
     octo_only = "--octo-only" in sys.argv
@@ -140,11 +165,42 @@ def main():
     print(f"Capy patches: {[p.name for p in capy_patches]}")
     print(f"Octo patches: {[p.name for p in octo_patches]}")
 
-    manifest = {"capy": [], "octo": [], "snapshot": None}
-    dbc_index = {"capy": {}, "octo": {}, "snapshot": {}}
-    stats = {"capy": {}, "octo": {}, "snapshot": {}}
+    manifest = {"capy": [], "octo": [], "snapshot": None, "vanilla": []}
+    dbc_index = {"capy": {}, "octo": {}, "snapshot": {}, "vanilla": {}}
+    stats = {"capy": {}, "octo": {}, "snapshot": {}, "vanilla": {}}
 
-    # Snapshot vanilla
+    # Base vanilla (jogo original sem patches) — dbc.MPQ, base.MPQ etc. (mesmo em Capy e Octo)
+    vanilla_mpqs = list_vanilla(CAPY_DATA) if not octo_only else []
+    if not vanilla_mpqs and not capy_only:
+        vanilla_mpqs = list_vanilla(OCTO_DATA)
+    for mpq in vanilla_mpqs:
+        h = hash_head(mpq)
+        manifest["vanilla"].append({"file": str(mpq), "name": mpq.name, "size": mpq.stat().st_size, "hash": h})
+        patch_tag = mpq.stem.lower()  # dbc, base, backup etc.
+        raw_patch_dir = RAW_DIR / "vanilla" / patch_tag
+        raw_patch_dir.mkdir(parents=True, exist_ok=True)
+        extracted_patch_dir = EXTRACTED_DIR / "vanilla" / patch_tag
+        extracted_patch_dir.mkdir(parents=True, exist_ok=True)
+        for dbc_internal in mpyq_list_candidates(mpq):
+            safe = dbc_internal.replace("\\", "_").replace("/", "_")
+            raw_out = raw_patch_dir / safe
+            ok, n = extract_one(mpq, dbc_internal, raw_out)
+            if ok:
+                try:
+                    data = raw_out.read_bytes()
+                    magic, nrec, nf, rs, ss = struct.unpack("<4sIIII", data[:20])
+                    key = dbc_internal
+                    if key not in dbc_index["vanilla"]:
+                        dbc_index["vanilla"][key] = []
+                    dbc_index["vanilla"][key].append({"patch": patch_tag, "mpq": str(mpq), "raw": str(raw_out), "size": n, "nrec": nrec, "nf": nf, "rs": rs})
+                    tipo = DBC_MAP.get(dbc_internal, (dbc_internal, dbc_internal, None))[0]
+                    stats["vanilla"].setdefault(tipo, {"files": 0, "nrec_total": 0})
+                    stats["vanilla"][tipo]["files"] += 1
+                    stats["vanilla"][tipo]["nrec_total"] += nrec
+                except Exception as e:
+                    print(f"parse fail {dbc_internal} in {mpq.name}: {e}")
+
+    # Snapshot vanilla (dump já extraído no Temp, redundante com dbc.MPQ acima)
     if SNAPSHOT_DBC.exists():
         manifest["snapshot"] = {"file": str(SNAPSHOT_DBC), "size": SNAPSHOT_DBC.stat().st_size, "hash": hash_head(SNAPSHOT_DBC)}
         # index snapshot: só Spell

@@ -205,5 +205,13 @@
     "file": "C:\\Users\\rodri\\AppData\\Local\\Temp\\opencode\\Spell.dbc",
     "size": 11165710,
     "hash": "d9c4d38f68be0a80"
-  }
+  },
+  "vanilla": [
+    {
+      "file": "C:\\Users\\rodri\\OneDrive\\wow\\turtle wow\\Data\\dbc.MPQ",
+      "name": "dbc.MPQ",
+      "size": 4211367,
+      "hash": "d972d52f88a02610"
+    }
+  ]
 }

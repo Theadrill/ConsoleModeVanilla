@@ -1762,5 +1762,52 @@
       "rs": 648,
       "path": "C:\\Users\\rodri\\AppData\\Local\\Temp\\opencode\\Spell.dbc"
     }
+  },
+  "vanilla": {
+    "DBFilesClient_AreaTable.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_ChrClasses.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_ChrRaces.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_CreatureDisplayInfo.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_CreatureModelData.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_ItemDisplayInfo.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_ItemSet.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_Map.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_QuestInfo.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_SkillLine.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_SkillLineAbility.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_Spell.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_SpellIcon.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_Talent.dbc": {
+      "nrec": 0
+    },
+    "DBFilesClient_TalentTab.dbc": {
+      "nrec": 0
+    }
   }
 }

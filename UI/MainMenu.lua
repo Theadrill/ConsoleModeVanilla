@@ -7755,6 +7755,10 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapCanvas.npcPins = {}
     mapCanvas.npcPinCount = 0
 
+    -- 5.3. Pool de Pins de Quests Completas ("?" amarelo, por cima dos serviços)
+    mapCanvas.questPins = {}
+    mapCanvas.questPinCount = 0
+
     -- Interações de Zoom por Roda do Mouse e Pan por Clique e Arraste (Estilo Carbonite)
     mapScrollFrame:SetScript("OnMouseWheel", function()
         if arg1 > 0 then
@@ -10884,6 +10888,11 @@ function MainMenu:UpdatePfQuestPins(mapCanvas)
         for i = 1, table.getn(mapCanvas.pfPins) do
             if mapCanvas.pfPins[i] then mapCanvas.pfPins[i]:Hide() end
         end
+        if mapCanvas.questPins then
+            for i = 1, table.getn(mapCanvas.questPins) do
+                if mapCanvas.questPins[i] then mapCanvas.questPins[i]:Hide() end
+            end
+        end
         return
     end
     local scale = mapCanvas.currentScale or 0.5
@@ -10950,6 +10959,9 @@ function MainMenu:UpdatePfQuestPins(mapCanvas)
     end
     if self.UpdateNPCServicePins then
         self:UpdateNPCServicePins(mapCanvas)
+    end
+    if self.UpdateQuestGiverPins then
+        self:UpdateQuestGiverPins(mapCanvas)
     end
 end
 
@@ -11477,6 +11489,179 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                 end
             end
         end
+    end
+end
+
+-- ============================================================================
+-- PINS DE QUESTS COMPLETAS ("?" AMARELO) — POR CIMA DOS SERVIÇOS
+-- Resolve questID em cascata: SuperWoW (GetQuestIDForLogIndex) > pfDatabase
+-- (GetQuestIDs) > match por título (ConsoleMode_QuestDB_ByTitle). Base 1.12
+-- pura; SuperWoW é só atalho de ID (progressive enhancement, sem dependência).
+-- Turn-in NPC + coords vêm de pfDB/pfDatabase (pfQuest). Sem pfQuest, esconde.
+-- ============================================================================
+function MainMenu:UpdateQuestGiverPins(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer then return end
+    if not mapCanvas.questPins then mapCanvas.questPins = {} end
+    local function HideAllQuestPins()
+        for i = 1, table.getn(mapCanvas.questPins) do
+            if mapCanvas.questPins[i] then mapCanvas.questPins[i]:Hide() end
+        end
+    end
+    -- Visão de continente: sem pins (mesma regra dos serviços)
+    if (self.mapViewMode or "ZONE") == "CONTINENT" then
+        HideAllQuestPins()
+        return
+    end
+    local currentZoneID = nil
+    if self.GetPfQuestCurrentZoneID then currentZoneID = self:GetPfQuestCurrentZoneID() end
+    -- Fallback compacto por arquivo do mapa visualizado (cobre mapas remotos)
+    if not currentZoneID and mapCanvas.currentMapFile and pfDB and pfDB.zones then
+        local mf = mapCanvas.currentMapFile
+        local normMF = string.lower(string.gsub(mf, " ", ""))
+        for _, tbl in pairs(pfDB.zones) do
+            if type(tbl) == "table" then
+                for zid, zname in pairs(tbl) do
+                    if type(zid) == "number" and type(zname) == "string" then
+                        if string.lower(string.gsub(zname, " ", "")) == normMF then
+                            currentZoneID = zid
+                            break
+                        end
+                    end
+                end
+                if currentZoneID then break end
+            end
+        end
+    end
+    if not currentZoneID then
+        HideAllQuestPins()
+        return
+    end
+    if not pfDB or not pfDB.units or not pfDB.units.data then
+        HideAllQuestPins()
+        return
+    end
+
+    local altMap = CM_ClassTrainers_AltZoneMap or {}
+    local function ZoneMatch(cid)
+        if not cid then return false end
+        if cid == currentZoneID then return true end
+        if altMap[cid] and altMap[cid] == currentZoneID then return true end
+        if altMap[currentZoneID] and altMap[currentZoneID] == cid then return true end
+        return false
+    end
+    -- Normaliza formatos variados de lista de NPCs (número, {id=}, listas aninhadas)
+    local function CollectNPCIDs(v, out)
+        if type(v) == "number" then
+            table.insert(out, v)
+        elseif type(v) == "table" then
+            if type(v.id) == "number" then
+                table.insert(out, v.id)
+            else
+                for _, e in pairs(v) do CollectNPCIDs(e, out) end
+            end
+        end
+    end
+    local function GetEndNPCIDs(qid)
+        local out = {}
+        if pfDatabase and type(pfDatabase.GetQuestEnd) == "function" then
+            local ok, res = pcall(pfDatabase.GetQuestEnd, pfDatabase, qid)
+            if ok and res then CollectNPCIDs(res, out) end
+        end
+        if table.getn(out) == 0 and pfDB.quests and pfDB.quests.data then
+            local qd = pfDB.quests.data[qid]
+            if qd and type(qd) == "table" then
+                local e = qd["end"] or qd[2] or qd["e"]
+                if e then CollectNPCIDs(e, out) end
+            end
+        end
+        return out
+    end
+
+    local markers = {}
+    local numEntries = (GetNumQuestLogEntries and GetNumQuestLogEntries()) or 0
+    for i = 1, numEntries do
+        local title, _, _, isHeader, _, isComplete = GetQuestLogTitle(i)
+        if title and not isHeader and isComplete and isComplete > 0 then
+            -- Cascata de ID: SuperWoW > pfDatabase > título
+            local qid = nil
+            local swFn = getglobal("GetQuestIDForLogIndex")
+            if type(swFn) == "function" then
+                local v = swFn(i)
+                if type(v) == "number" then qid = v end
+            end
+            if not qid and pfDatabase and type(pfDatabase.GetQuestIDs) == "function" then
+                local qids = pfDatabase:GetQuestIDs(i)
+                if qids and type(qids) == "table" and type(qids[1]) == "number" then qid = qids[1] end
+            end
+            if not qid and ConsoleMode_QuestDB_ByTitle then
+                local byTitle = ConsoleMode_QuestDB_ByTitle[title]
+                if type(byTitle) == "number" then qid = byTitle end
+            end
+            if qid then
+                local npcIDs = GetEndNPCIDs(qid)
+                for n = 1, table.getn(npcIDs) do
+                    local npcID = npcIDs[n]
+                    local uData = pfDB.units.data[npcID]
+                    if uData and uData.coords then
+                        local npcName = (pfDB.units.ptBR and pfDB.units.ptBR[npcID])
+                            or (pfDB.units.enUS and pfDB.units.enUS[npcID])
+                            or "NPC"
+                        for _, coord in ipairs(uData.coords) do
+                            if coord and ZoneMatch(coord[3]) then
+                                table.insert(markers, { x = coord[1], y = coord[2], qtitle = title, npc = npcName })
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local container = mapCanvas.tilesContainer
+    local effW = (container.GetWidth and container:GetWidth()) or 500
+    local effH = (container.GetHeight and container:GetHeight()) or 340
+    if not effW or effW <= 0 then effW = 500 end
+    if not effH or effH <= 0 then effH = 340 end
+    local maxPins = 40
+    local pinIdx = 1
+    for m = 1, table.getn(markers) do
+        if pinIdx > maxPins then break end
+        local mk = markers[m]
+        local pin = mapCanvas.questPins[pinIdx]
+        if not pin then
+            pin = CreateFrame("Button", "ConsoleModeMM_QuestPin" .. pinIdx, container)
+            pin:SetWidth(18)
+            pin:SetHeight(18)
+            pin:SetFrameLevel(container:GetFrameLevel() + 11)
+            local fs = pin:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            MainMenu:ApplyFont(fs, CFG.Fonts.titleFontFile, 18, "OUTLINE")
+            fs:SetText("?")
+            fs:SetTextColor(1, 0.82, 0, 1)
+            fs:SetPoint("CENTER", pin, "CENTER", 0, 0)
+            pin.label = fs
+            pin:SetScript("OnEnter", function()
+                if this.pinData and GameTooltip then
+                    GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
+                    GameTooltip:AddLine(this.pinData.qtitle or "Missão", 1, 0.85, 0.2)
+                    GameTooltip:AddLine("Quest completa - entregar: " .. (this.pinData.npc or "NPC"), 0.2, 1, 0.2)
+                    GameTooltip:Show()
+                end
+            end)
+            pin:SetScript("OnLeave", function()
+                if GameTooltip then GameTooltip:Hide() end
+            end)
+            mapCanvas.questPins[pinIdx] = pin
+        end
+        pin.pinData = { qtitle = mk.qtitle, npc = mk.npc }
+        local px = (mk.x / 100) * effW
+        local py = (mk.y / 100) * effH
+        pin:ClearAllPoints()
+        pin:SetPoint("CENTER", container, "TOPLEFT", px, -py)
+        pin:Show()
+        pinIdx = pinIdx + 1
+    end
+    for i = pinIdx, maxPins do
+        if mapCanvas.questPins[i] then mapCanvas.questPins[i]:Hide() end
     end
 end
 

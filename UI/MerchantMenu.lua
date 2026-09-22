@@ -393,6 +393,35 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
     }
 end
 
+function MerchantMenu:ParseTooltipStats()
+    local statsLines = {}
+    local desc = ""
+    local numLines = scanTip:NumLines() or 0
+    for l = 2, numLines do
+        local leftTextObj = _G["ConsoleMode_MerchantScanTipTextLeft" .. l]
+        local rightTextObj = _G["ConsoleMode_MerchantScanTipTextRight" .. l]
+        local leftText = (leftTextObj and leftTextObj:GetText()) or ""
+        local rightText = (rightTextObj and rightTextObj:GetText()) or ""
+        if leftText ~= "" then
+            if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
+                -- já capturado via scanTip.money
+            elseif string.find(leftText, "Uso:", 1, 1) or string.find(leftText, "Use:", 1, 1) or string.find(leftText, "Equipar:", 1, 1) then
+                desc = leftText
+                if rightText ~= "" then desc = desc .. " " .. rightText end
+            elseif string.find(rightText, "Uso:", 1, 1) or string.find(rightText, "Use:", 1, 1) then
+                desc = rightText
+            elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
+                local lineStr = leftText
+                if rightText ~= "" then
+                    lineStr = lineStr .. "  " .. rightText
+                end
+                table.insert(statsLines, "|cffffffff" .. lineStr .. "|r")
+            end
+        end
+    end
+    return statsLines, desc
+end
+
 -- Le a linha de Uso/Efeito das linhas ATUAIS do scanTip (sem popular).
 -- Retorna "" quando nao ha linha de Uso:. Lua 5.0.
 function MerchantMenu:GetUseLineFromScanTip()
@@ -536,6 +565,22 @@ function MerchantMenu:ParseVendorItem(mercIndex)
         cat = "CONSUMABLE"
     end
 
+    -- Tooltip scan para stats (bags, armas, etc.) — vendor items nunca tiveram isso
+    scanTip.money = 0
+    scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+    scanTip:ClearLines()
+    if link then
+        local _, _, raw = string.find(link, "(item:%d+:%d+:%d+:%d+)")
+        local okLink = false
+        if raw then okLink = pcall(function() scanTip:SetHyperlink(raw) end) end
+        if not okLink then pcall(function() scanTip:SetHyperlink(link) end) end
+    end
+    if (scanTip:NumLines() or 0) < 2 and scanTip.SetMerchantItem then
+        scanTip:ClearLines()
+        pcall(function() scanTip:SetMerchantItem(mercIndex) end)
+    end
+    local vendorStats, vendorDesc = self:ParseTooltipStats()
+
     return {
         index = mercIndex,
         name = itemName,
@@ -553,8 +598,8 @@ function MerchantMenu:ParseVendorItem(mercIndex)
         equipLoc = itemEquipLoc,
         category = cat,
         isBuyback = false,
-        statsLines = {},
-        desc = "",
+        statsLines = vendorStats,
+        desc = vendorDesc,
         sellPrice = 0,
     }
 end
@@ -588,6 +633,20 @@ function MerchantMenu:ParseBuybackItem(bbIndex)
             itemEquipLoc = eqL or ""
         end
     end
+    scanTip.money = 0
+    scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+    scanTip:ClearLines()
+    if link then
+        local _, _, raw = string.find(link, "(item:%d+:%d+:%d+:%d+)")
+        local okLink = false
+        if raw then okLink = pcall(function() scanTip:SetHyperlink(raw) end) end
+        if not okLink then pcall(function() scanTip:SetHyperlink(link) end) end
+    end
+    if (scanTip:NumLines() or 0) < 2 and scanTip.SetBuybackItem then
+        scanTip:ClearLines()
+        pcall(function() scanTip:SetBuybackItem(bbIndex) end)
+    end
+    local bbStats, bbDesc = self:ParseTooltipStats()
     return {
         index = nil,
         buybackIndex = bbIndex,
@@ -605,8 +664,8 @@ function MerchantMenu:ParseBuybackItem(bbIndex)
         equipLoc = itemEquipLoc,
         category = "BUYBACK",
         isBuyback = true,
-        statsLines = {},
-        desc = "",
+        statsLines = bbStats,
+        desc = bbDesc,
         sellPrice = 0,
     }
 end

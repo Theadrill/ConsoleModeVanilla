@@ -8052,7 +8052,8 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     mc2.hoveredNpcPinIdx = this.pinIdx
                     targetPin:SetWidth(27)
                     targetPin:SetHeight(27)
-                    targetPin:SetFrameLevel(90)
+                    local hovBase = (mc2.tilesContainer and mc2.tilesContainer:GetFrameLevel()) or 90
+                    targetPin:SetFrameLevel(hovBase + MainMenu.PinLevels.SERVICE_HOVER)
                     if targetPin.border then targetPin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
                 end
             end
@@ -8079,7 +8080,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     if mc2.hoveredNpcPinIdx == this.pinIdx then mc2.hoveredNpcPinIdx = nil end
                     targetPin:SetWidth(9)
                     targetPin:SetHeight(9)
-                    local bl = targetPin.baseLevel or (mc2.tilesContainer and mc2.tilesContainer:GetFrameLevel() + 10) or 10
+                    local bl = targetPin.baseLevel or ((mc2.tilesContainer and mc2.tilesContainer:GetFrameLevel()) or 0) + MainMenu.PinLevels.SERVICE
                     targetPin:SetFrameLevel(bl)
                     if targetPin.border then targetPin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9) end
                 else
@@ -10228,8 +10229,11 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
     for s = slotIdx, 4 do
         if rewardSlots[s] then rewardSlots[s]:Hide() end
     end
+    -- Não fixa pfMap.highlight aqui: highlight persistente faz o animador do
+    -- pfQuest esmaecer (0.3) todos os pins das outras quests a cada frame,
+    -- e eles "somem" sob os serviços. O destaque da selecionada já é feito
+    -- via selTitle (18x18 + alfa 1) no UpdatePfQuestPins.
     if pfMap and questTitle then
-        pfMap.highlight = questTitle
         pfMap.queue_update = GetTime()
     end
     if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
@@ -11058,10 +11062,6 @@ function MainMenu:UpdatePfQuestPins(mapCanvas)
                     if pfMap.UpdateNode then
                         pfMap:UpdateNode(pin, node, colorMode)
                     end
-                    -- DEPOIS do UpdateNode: pfQuest seta level absoluto (112+layer)
-                    -- quando a layer muda, então reforçamos o nosso a cada update.
-                    -- Pins de quest (!/?) sempre acima dos serviços (+10).
-                    pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 20)
                     local _, _, xStr, yStr = string.find(coords, "(.*)|(.*)")
                     local x = tonumber(xStr) or 0
                     local y = tonumber(yStr) or 0
@@ -11082,7 +11082,9 @@ function MainMenu:UpdatePfQuestPins(mapCanvas)
                             pin:SetHeight(18)
                             pin:SetAlpha(1)
                         else
-                            if pfMap.highlight and pin.node and not pin.node[pfMap.highlight] then
+                            -- Giver icons (!/?, têm textura) nunca esmaecem: a 0.3
+                            -- somem sob os serviços e parecem "enterrados".
+                            if pfMap.highlight and pin.node and not pin.node[pfMap.highlight] and not pin.texture then
                                 pin:SetAlpha(tonumber(pfQuest_config and pfQuest_config["nodefade"] or 0.3) or 0.3)
                             else
                                 pin:SetAlpha(pin.defalpha or 1)
@@ -11528,21 +11530,17 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             pin.icon:SetTexture("Interface\\Icons\\Ability_Mount_Wyvern_01")
         end
 
-        -- Garante tamanho base reduzido (9x9) ou mantem highlight 3x se houver hover ativo
+        -- Garante tamanho base reduzido (9x9) ou mantem highlight 3x se houver hover ativo.
+        -- Níveis via ApplyMapPinLevels (fonte única); aqui só tamanho/borda.
         pin.baseSize = 9
-        -- Serviços abaixo dos pins de quest (pf +20, nosso ? +21); recalcula
-        -- sempre para corrigir pins criados em sessões com o nível antigo (+10)
-        pin.baseLevel = mapCanvas.tilesContainer:GetFrameLevel() + 6
         local isHovered = (mapCanvas.hoveredNpcPin and mapCanvas.hoveredNpcPin == pin) or (mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx == pinIdx)
         if isHovered then
             pin:SetWidth(27)
             pin:SetHeight(27)
-            pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 22)
             if pin.border then pin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
         else
             pin:SetWidth(9)
             pin:SetHeight(9)
-            pin:SetFrameLevel(pin.baseLevel)
             if pin.border then pin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9) end
         end
 
@@ -11634,6 +11632,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             end
         end
     end
+    if self.ApplyMapPinLevels then self:ApplyMapPinLevels(mapCanvas) end
 end
 
 -- ============================================================================
@@ -11846,7 +11845,7 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
             mapCanvas.questPins[pinIdx] = pin
         end
         pin.pinData = { qtitle = mk.qtitle, npc = mk.npc }
-        pin:SetFrameLevel(container:GetFrameLevel() + 21)
+        -- Nível via ApplyMapPinLevels (fonte única) no fim desta função.
         -- Prefere a textura do pfQuest; sem ela, mostra o "?" de texto.
         -- Reaplica se o path descoberto mudou (ex: achou o amarelo depois).
         if questIconPath and (pin.iconPath ~= questIconPath or not pin.icon:GetTexture()) then
@@ -11869,6 +11868,52 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
     end
     for i = pinIdx, maxPins do
         if mapCanvas.questPins[i] then mapCanvas.questPins[i]:Hide() end
+    end
+    if self.ApplyMapPinLevels then self:ApplyMapPinLevels(mapCanvas) end
+end
+
+-- ============================================================================
+-- NÍVEIS DOS PINS DO MAPA — FONTE ÚNICA (todos relativos ao tilesContainer)
+-- party +4 / player +5 / zona +7 (criação) < serviços +6 < pf !/? +20 <
+-- nosso ? +21. Hover de serviço vai ao topo (+22). Não usar números
+-- mágicos espalhados: todo SetFrameLevel de pin passa por aqui.
+-- ============================================================================
+MainMenu.PinLevels = {
+    SERVICE = 6,
+    PFQUEST = 20,
+    TURNIN = 21,
+    SERVICE_HOVER = 22,
+}
+
+-- Reforça os níveis de TODOS os pools (última palavra; corrige qualquer
+-- sobrescrita externa, ex: pfQuest UpdateNode, hover da lista de NPCs).
+function MainMenu:ApplyMapPinLevels(mapCanvas)
+    if not mapCanvas or not mapCanvas.tilesContainer then return end
+    local PL = MainMenu.PinLevels
+    local base = mapCanvas.tilesContainer:GetFrameLevel()
+    if mapCanvas.npcPins then
+        for i = 1, table.getn(mapCanvas.npcPins) do
+            local pin = mapCanvas.npcPins[i]
+            if pin then
+                local isHovered = (mapCanvas.hoveredNpcPin and mapCanvas.hoveredNpcPin == pin)
+                    or (mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx == i)
+                pin.baseLevel = base + PL.SERVICE
+                if isHovered then pin:SetFrameLevel(base + PL.SERVICE_HOVER)
+                else pin:SetFrameLevel(pin.baseLevel) end
+            end
+        end
+    end
+    if mapCanvas.pfPins then
+        for i = 1, table.getn(mapCanvas.pfPins) do
+            local pin = mapCanvas.pfPins[i]
+            if pin then pin:SetFrameLevel(base + PL.PFQUEST) end
+        end
+    end
+    if mapCanvas.questPins then
+        for i = 1, table.getn(mapCanvas.questPins) do
+            local pin = mapCanvas.questPins[i]
+            if pin then pin:SetFrameLevel(base + PL.TURNIN) end
+        end
     end
 end
 
@@ -16098,5 +16143,58 @@ SlashCmdList["CMANIM"] = function(msg)
             -- DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Anim Test]|r Sequenciador resetado para ID 0. Navegue pelos slots do Grimório para avançar +1 a cada slot.") -- NOLOG 2026-09-14
         end
         MainMenu:TriggerSpellPose(0)
+    end
+end
+
+-- Diagnóstico dos pins do mapa: níveis por pool (dev; use ao ver pin enterrado)
+SLASH_CMMAPINS1 = "/cmmapins"
+SlashCmdList["CMMAPINS"] = function()
+    if not DEFAULT_CHAT_FRAME then return end
+    local mm = MainMenu
+    if not mm or not mm.tabContainer or not mm.tabContainer.pages then return end
+    local pq = mm.tabContainer.pages["QUESTS"]
+    local canvas = pq and pq.mapPanel and pq.mapPanel.canvas or nil
+    if not canvas or not canvas.tilesContainer then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[MapPins]|r canvas indisponível (abra o mapa).")
+        return
+    end
+    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[MapPins]|r tiles=" .. canvas.tilesContainer:GetFrameLevel())
+    local pools = { { "npc", canvas.npcPins }, { "pf", canvas.pfPins }, { "quest", canvas.questPins } }
+    for _, p in ipairs(pools) do
+        local name, arr = p[1], p[2]
+        local n = (arr and table.getn(arr)) or 0
+        local shown, minL, maxL = 0, nil, nil
+        if arr then
+            for i = 1, n do
+                local pin = arr[i]
+                if pin and pin:IsVisible() then
+                    shown = shown + 1
+                    local lv = pin:GetFrameLevel()
+                    if not minL or lv < minL then minL = lv end
+                    if not maxL or lv > maxL then maxL = lv end
+                end
+            end
+        end
+        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffe09a15[MapPins]|r %s: total=%d visiveis=%d lvl=[%s-%s]",
+            name, n, shown, tostring(minL), tostring(maxL)))
+    end
+    -- Caça frames estranhos: botões visíveis no tilesContainer fora dos pools
+    local kids = { canvas.tilesContainer:GetChildren() }
+    local strange = 0
+    for _, ch in ipairs(kids) do
+        if ch and ch.IsObjectType and ch:IsObjectType("Button") and ch.IsVisible and ch:IsVisible() then
+            local nm = (ch.GetName and ch:GetName()) or "?"
+            if not string.find(nm, "^ConsoleMode") then
+                strange = strange + 1
+                if strange <= 10 then
+                    DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffff6666[MapPins]|r estranho: %s lvl=%d", tostring(nm), ch:GetFrameLevel()))
+                end
+            end
+        end
+    end
+    if strange == 0 then
+        DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[MapPins]|r nenhum frame estranho visível")
+    else
+        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffff6666[MapPins]|r total estranhos: %d", strange))
     end
 end

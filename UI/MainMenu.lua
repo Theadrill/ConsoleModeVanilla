@@ -7771,6 +7771,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     mapScrollFrame:SetScript("OnMouseDown", function()
         if arg1 == "LeftButton" or arg1 == "RightButton" then
             if MainMenu then MainMenu.mapFollow = false end
+            if MainMenu then MainMenu.questFocus = nil end
             mapCanvas.isDragging = true
             local curX, curY = GetCursorPosition()
             mapCanvas.dragStartX = curX
@@ -9000,6 +9001,7 @@ end
 
 function MainMenu:SwitchMapToZone(zoneName)
     self.mapFollow = false
+    self.questFocus = nil
     self:HideZonePin()
     if not zoneName or zoneName == "" then return false end
     for cont = 1, 4 do
@@ -9474,7 +9476,67 @@ function MainMenu:FocusMapOnQuest(questLogIndex)
         end
         self:SwitchMapToZone(zoneName)
         self:UpdateBackButton()
+        self:CenterMapOnQuest(questLogIndex)
     end
+end
+
+-- Centraliza o mapa no centroide dos objetivos da quest (pfMap) ou, para
+-- quests completas sem nodes, no marcador "?" de turn-in. Sem dados, mantém
+-- o centro da zona (comportamento anterior). 1.12 puro, sem SuperWoW.
+function MainMenu:CenterMapOnQuest(questLogIndex)
+    self.questFocus = nil
+    if not questLogIndex or questLogIndex <= 0 then return end
+    if not GetQuestLogTitle then return end
+    local title, _, _, isHeader = GetQuestLogTitle(questLogIndex)
+    if not title or isHeader then return end
+    if not self.tabContainer or not self.tabContainer.pages then return end
+    local pageQuests = self.tabContainer.pages["QUESTS"]
+    if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.canvas then return end
+    local mapCanvas = pageQuests.mapPanel.canvas
+    -- Garante layout + pins atualizados na zona atual antes de medir
+    self:UpdateMapLayout(mapCanvas)
+    if self.UpdatePfQuestPins then self:UpdatePfQuestPins(mapCanvas) end
+    if self.UpdateQuestGiverPins then self:UpdateQuestGiverPins(mapCanvas) end
+    -- Resolve mapID igual ao UpdatePfQuestPins
+    local mapID = nil
+    if pfMap and pfMap.GetMapID then
+        local file = mapCanvas.currentMapFile or self:GetCurrentMapFileName()
+        if pfMap.GetMapIDByName then
+            mapID = pfMap:GetMapIDByName(file)
+        end
+        if not mapID then
+            local cid = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+            local mid = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+            mapID = pfMap:GetMapID(cid, mid)
+        end
+    end
+    local sx, sy, n = 0, 0, 0
+    if mapID and pfMap and pfMap.nodes then
+        for addon, _ in pairs(pfMap.nodes) do
+            local zm = pfMap.nodes[addon][mapID]
+            if zm then
+                for coords, node in pairs(zm) do
+                    if node and node[title] then
+                        local _, _, xStr, yStr = string.find(coords, "(.*)|(.*)")
+                        local x, y = tonumber(xStr), tonumber(yStr)
+                        if x and y then sx, sy, n = sx + x, sy + y, n + 1 end
+                    end
+                end
+            end
+        end
+    end
+    -- Fallback: marcador "?" de turn-in (quests completas sem nodes no pfMap)
+    if n == 0 and mapCanvas.lastQuestMarkers then
+        for i = 1, table.getn(mapCanvas.lastQuestMarkers) do
+            local mk = mapCanvas.lastQuestMarkers[i]
+            if mk and mk.qtitle == title and mk.x and mk.y then
+                sx, sy, n = sx + mk.x, sy + mk.y, n + 1
+            end
+        end
+    end
+    if n == 0 then return end
+    self.questFocus = { x = sx / n, y = sy / n }
+    self:UpdateMapLayout(mapCanvas)
 end
 
 function MainMenu:ToggleQuestWatch(questLogIndex)
@@ -10262,6 +10324,15 @@ function MainMenu:UpdateMapLayout(mapCanvas)
     else
         mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, mapCanvas.panX or 0))
         mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, mapCanvas.panY or 0))
+    end
+
+    -- Foco de quest: centraliza no centroide do objetivo (0-100) em vez do centro.
+    -- Reaplicado a cada layout para sobreviver a refresh/zoom (limpo ao arrastar).
+    if self.questFocus and self.mapShowingQuestZone and self.questFocus.x and self.questFocus.y then
+        local fx = (self.questFocus.x / 100) * finalW
+        local fy = (self.questFocus.y / 100) * finalH
+        mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, (finalW / 2) - fx))
+        mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, fy - (finalH / 2)))
     end
 
     container:ClearAllPoints()
@@ -11506,6 +11577,7 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
         for i = 1, table.getn(mapCanvas.questPins) do
             if mapCanvas.questPins[i] then mapCanvas.questPins[i]:Hide() end
         end
+        mapCanvas.lastQuestMarkers = {}
     end
     -- Visão de continente: sem pins (mesma regra dos serviços)
     if (self.mapViewMode or "ZONE") == "CONTINENT" then
@@ -11622,6 +11694,7 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
     local effH = (container.GetHeight and container:GetHeight()) or 340
     if not effW or effW <= 0 then effW = 500 end
     if not effH or effH <= 0 then effH = 340 end
+    mapCanvas.lastQuestMarkers = markers
     local maxPins = 40
     local pinIdx = 1
     for m = 1, table.getn(markers) do
@@ -11819,6 +11892,7 @@ end
 
 function MainMenu:MapPan(dx, dy)
     self.mapFollow = false
+    self.questFocus = nil
     if not self.tabContainer or not self.tabContainer.pages then return end
     local pageQuests = self.tabContainer.pages["QUESTS"]
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.canvas then return end

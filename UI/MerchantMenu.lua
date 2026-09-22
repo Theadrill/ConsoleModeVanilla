@@ -291,8 +291,7 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
 
     -- Preço de venda via Tooltip Scanner
     local sellPrice = 0
-    scanTip.money = 0
-    scanTip:ClearLines()
+    self:ResetScanTip()
     pcall(function() scanTip:SetBagItem(bagID, slotID) end)
     -- Fallback (mesmo padrão do MainMenu e do ParseSimpleStats): se o SetBagItem
     -- não rendeu linhas (erro silenciado pelo pcall ou item fora de contexto),
@@ -420,6 +419,17 @@ function MerchantMenu:ParseTooltipStats()
         end
     end
     return statsLines, desc
+end
+
+function MerchantMenu:ResetScanTip()
+    scanTip:ClearLines()
+    for _i = 1, 40 do
+        local _lt = _G["ConsoleMode_MerchantScanTipTextLeft" .. _i]
+        local _rt = _G["ConsoleMode_MerchantScanTipTextRight" .. _i]
+        if _lt then _lt:SetText("") end
+        if _rt then _rt:SetText("") end
+    end
+    scanTip.money = 0
 end
 
 -- Le a linha de Uso/Efeito das linhas ATUAIS do scanTip (sem popular).
@@ -566,9 +576,8 @@ function MerchantMenu:ParseVendorItem(mercIndex)
     end
 
     -- Tooltip scan para stats (bags, armas, etc.) — vendor items nunca tiveram isso
-    scanTip.money = 0
     scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
-    scanTip:ClearLines()
+    self:ResetScanTip()
     if link then
         local _, _, raw = string.find(link, "(item:%d+:%d+:%d+:%d+)")
         local okLink = false
@@ -633,9 +642,8 @@ function MerchantMenu:ParseBuybackItem(bbIndex)
             itemEquipLoc = eqL or ""
         end
     end
-    scanTip.money = 0
     scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
-    scanTip:ClearLines()
+    self:ResetScanTip()
     if link then
         local _, _, raw = string.find(link, "(item:%d+:%d+:%d+:%d+)")
         local okLink = false

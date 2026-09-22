@@ -154,6 +154,13 @@ CM:SetScript("OnEvent", function()
         if ConsoleModeDB.showRightActionBars == nil then
             ConsoleModeDB.showRightActionBars = true
         end
+        if ConsoleModeDB.enableAUXSupport == nil then
+            ConsoleModeDB.enableAUXSupport = true
+        end
+        -- Sincroniza a config do cursor com ConsoleModeDB
+        if CM.cursor and CM.cursor.config then
+            CM.cursor.config.enableAUX = (ConsoleModeDB.enableAUXSupport ~= false)
+        end
         DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r " .. CM:T("MSG_VARIABLES_LOADED"))
         
         -- ✅ CRÍTICO: Verificar se módulos foram carregados

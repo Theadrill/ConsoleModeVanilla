@@ -103,6 +103,9 @@ Hooks.frames = {
     { frame = "TaxiFrame",           name = "Rotas de Voo" },
     { frame = "ClassTrainerFrame",   name = "Treinador" },
     { frame = "AuctionFrame",        name = "Casa de Leiloes" },
+    -- AUX addon: frame substituto da Casa de Leiloes (oculta AuctionFrame Blizzard)
+    -- Registrado aqui para late-hook via TryHookPendingFrames. Gated por Cursor:IsAUXSupported().
+    { frame = "aux_frame",           name = "AUX Casa de Leiloes" },
     
     -- Correio e Loot
     -- { frame = "MailFrame",           name = "Correio" }, -- Gerenciado exclusivamente pelo ConsoleMode_MailScreen
@@ -217,7 +220,17 @@ function Hooks:OnFrameShow(frame)
         -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM OnFrameShow]|r Frame " .. name .. " ja esta em activeFrames, ignorando") -- NOLOG 2026-09-14
         return 
     end
-    
+
+    -- ✅ GATE: Se o frame é aux_frame e o suporte ao AUX está desativado no cursor,
+    -- não ativa navegação alguma. Permite desativar integralmente a navegação
+    -- do cursor sobre a UI do AUX (útil quando substituímos pela nossa própria
+    -- janela de casa de leilões).
+    if frame and frame.GetName and (frame:GetName() == "aux_frame") then
+        if Cursor.IsAUXSupported and not Cursor:IsAUXSupported() then
+            return
+        end
+    end
+
     Cursor.state.activeFrames[frame] = true
     -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM OnFrameShow]|r Frame " .. name .. " adicionado a activeFrames") -- NOLOG 2026-09-14
 
@@ -553,7 +566,8 @@ function Hooks:Initialize()
                         -- 3. Detecta frames que abriram sem disparar OnShow padrao
                         local problematicFrames = { 
                             "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
-                            "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame"
+                             "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame",
+                             "aux_frame"
                         }
                         for _, frameName in ipairs(problematicFrames) do
                             local frame = getglobal(frameName)

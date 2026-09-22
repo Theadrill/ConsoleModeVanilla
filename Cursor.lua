@@ -12,6 +12,21 @@ local CM = ConsoleMode
 CM.cursor = CM.cursor or {}
 local Cursor = CM.cursor
 
+-- Configuração de compatibilidade de addons.
+-- enableAUX: quando false, desativa COMPLETAMENTE a navegação do cursor
+-- sobre a UI do addon AUX (leilão). Útil se futuramente implementarmos
+-- nossa própria janela de auction house.
+Cursor.config = {
+    enableAUX = true,
+}
+function Cursor:IsAUXSupported()
+    local ok, result = pcall(function()
+        return Cursor.config and Cursor.config.enableAUX ~= false
+    end)
+    if ok then return result end
+    return true
+end
+
 -- Gate defensivo: true SOMENTE quando o MainMenuNav estiver ativo (MainMenu
 -- visivel, sem Merchant/Mail/modal). Quando ativo, o Nav gerencia a propria
 -- navegacao via D-pad e o cursor virtual deve ficar escondido: nenhum
@@ -304,6 +319,9 @@ function Cursor:MoveTo(button)
     self:UpdatePosition(button)
     
     local onEnter = button.GetScript and button:GetScript("OnEnter")
+    self:UpdatePosition(button)
+    
+    local onEnter = button.GetScript and button:GetScript("OnEnter")
     if onEnter then
         pcall(function()
             this = button
@@ -371,9 +389,13 @@ function Cursor:IsMacroFrame(frame)
     return false
 end
 
-function Cursor:Enable()
+function Cursor:Enable(frame)
     if self:IsAnyMacroOpen() then
         self:Disable()
+        return
+    end
+    -- Gate de suporte ao AUX: se desativado, não habilita navegação sobre aux_frame
+    if frame and frame.GetName and frame:GetName() == "aux_frame" and not self:IsAUXSupported() then
         return
     end
     self.state.enabled = true
@@ -409,12 +431,32 @@ function Cursor:IsInteractive(frame)
             dd = dd + 1
         end
     end
-    
+
+    -- ✅ Compatibilidade AUX: identifica rows (interativos) dentro de aux_frame:
+    --  - item_listing (aba POST): row Frame tem .item_record + .item (e OnMouseUp)
+    --  - auction_listing (aba Search/My Auct/My Bids): row Button tem .rt + .record/.expandKey
+    -- Estes rows NÃO são Buttons padrão ou têm OnMouseUp (não OnClick), então
+    -- precisam de tratamento especial para serem considerados interativos.
+    if self:IsAUXSupported() then
+        local auxFrame = getglobal("aux_frame")
+        if auxFrame and auxFrame:IsVisible() then
+            -- item_listing row (Frame com item_record + item)
+            if frame.item_record and frame.item then
+                return true
+            end
+            -- auction_listing row (Button com .rt e .record ou .expandKey)
+            local rt = frame.rt
+            if rt and rt.columns and (frame.record or frame.expandKey ~= nil) then
+                return true
+            end
+        end
+    end
+
     local fname = frame:GetName() or ""
     if fname == "WorldMapButton" or fname == "WorldMapFrame" then
         return false
     end
-    
+
     local ftype = frame:GetObjectType()
     
     if ftype == "Button" then
@@ -499,6 +541,29 @@ function Cursor:ShouldIgnore(frame)
         end
         p = p:GetParent()
         depth = depth + 1
+    end
+
+    -- ✅ Compatibilidade AUX: dentro de uma row do AUX, existem sub-buttons
+    -- (iconBtn na coluna 1 da auction_listing, ou item.button do item_listing)
+    -- que NÃO devem receber o foco do cursor. O clique deve ir para a row pai.
+    -- Detecta duas estruturas:
+    --  1. auction_listing: parent imediato (cell) tem .row apontando pra row Button
+    --  2. item_listing: parent imediato (row Frame) tem .item_record + .item
+    if self:IsAUXSupported() then
+        local auxFrame = getglobal("aux_frame")
+        if auxFrame and auxFrame:IsVisible() then
+            local pp = frame.GetParent and frame:GetParent()
+            if pp then
+                -- Caso 1: iconBtn dentro de cell com .row
+                if pp.row and pp.row ~= frame and pp.row.GetScript then
+                    return true
+                end
+                -- Caso 2: CheckButton item.button dentro de uma row Frame de item_listing
+                if pp.item_record and pp.item and pp.item.button == frame then
+                    return true
+                end
+            end
+        end
     end
 
     local name = frame:GetName()
@@ -628,6 +693,54 @@ function Cursor:FindFirstVisibleButton(frame)
         if ConsoleModeMM_BagSlot1 and ConsoleModeMM_BagSlot1:IsVisible() then
             return ConsoleModeMM_BagSlot1
         end
+    end
+
+    -- Para AUX addon (aux_frame): o frame é um container plain; as rows são
+    -- buttons dentro de aux_frame.content. O AUX usa FauxScrollFrame para as
+    -- linhas de resultado. Prefere a primeira row visível (button com .rt,
+    -- indicando auction_listing), evitando pular no header. Se não achar,
+    -- recursão generica no content (o ShouldIgnore agora filtra iconBtn).
+    if fname == "aux_frame" then
+        if not self:IsAUXSupported() then
+            return nil
+        end
+        -- Percorre children de content buscando a primeira row visível.
+        -- Uma row do AUX é um Button sem nome com atributo .rt (auction_listing).
+        local content = frame and frame.content
+        if content and content.GetChildren then
+            local children = {content:GetChildren()}
+            -- Primeiro passo: procura por listing frames (intermediate) recursivamente
+            -- para encontrar o auction_listing.contentFrame onde as rows vivem.
+            local function searchRows(listingFrame)
+                if not listingFrame or not listingFrame.GetChildren then return nil end
+                local ch = {listingFrame:GetChildren()}
+                for _, c in ipairs(ch) do
+                    if c and c:IsVisible() then
+                        -- row do auction_listing (Button com .rt + .record ou .expandKey)
+                        local hasRt = c.rt and c.rt.columns
+                        local hasRecord = c.record or (c.expandKey ~= nil)
+                        if hasRt and hasRecord then
+                            return c
+                        end
+                        -- row do item_listing (Frame com .item_record + .item)
+                        if c.item_record and c.item then
+                            return c
+                        end
+                        -- recursão em filhos
+                        local found = searchRows(c)
+                        if found then return found end
+                    end
+                end
+                return nil
+            end
+            for _, child in ipairs(children) do
+                if child and child:IsVisible() then
+                    local row = searchRows(child)
+                    if row then return row end
+                end
+            end
+        end
+        -- Fallback: recursão generica (já filtra iconBtn via ShouldIgnore)
     end
 
     -- Para Menu de Contexto da Bolsa: primeiro botão habilitado visível
@@ -1600,6 +1713,62 @@ function Cursor:Click(mouseButton)
     
     local bname = button:GetName() or ""
     
+    -- ✅ Compatibilidade AUX: o cursor pousa diretamente na row (interativa).
+    --  - auction_listing row (Button): row:Click() dispara OnClick → seleciona + handlers.
+    --  - item_listing row (Frame): row tem OnMouseUp → chamar manualmente.
+    if self:IsAUXSupported() then
+        local auxFrame = getglobal("aux_frame")
+        if auxFrame and auxFrame:IsVisible() then
+            -- item_listing row (Frame com .item_record + .item, OnMouseUp)
+            if button.item_record and button.item then
+                local onMouseUp = button.GetScript and button:GetScript("OnMouseUp")
+                if onMouseUp then
+                    pcall(function()
+                        this = button
+                        arg1 = mouseButton
+                        onMouseUp()
+                    end)
+                end
+                self:UpdateState()
+                local resyncFrame = CreateFrame("Frame")
+                resyncFrame:SetScript("OnUpdate", function()
+                    this.elapsed = (this.elapsed or 0) + arg1
+                    if this.elapsed > 0.05 then
+                        this:SetScript("OnUpdate", nil)
+                        Cursor:Resync()
+                    end
+                end)
+                return
+            end
+            -- auction_listing row (Button com .rt + .record/.expandKey)
+            local rt = button.rt
+            if rt and rt.columns and (button.record or button.expandKey ~= nil) then
+                if button.Click then
+                    button:Click(mouseButton)
+                else
+                    local onClick = button.GetScript and (button:GetScript("OnClick") or button:GetScript("OnMouseDown"))
+                    if onClick then
+                        pcall(function()
+                            this = button
+                            arg1 = mouseButton
+                            onClick()
+                        end)
+                    end
+                end
+                self:UpdateState()
+                local resyncFrame = CreateFrame("Frame")
+                resyncFrame:SetScript("OnUpdate", function()
+                    this.elapsed = (this.elapsed or 0) + arg1
+                    if this.elapsed > 0.05 then
+                        this:SetScript("OnUpdate", nil)
+                        Cursor:Resync()
+                    end
+                end)
+                return
+            end
+        end
+    end
+    
     -- EditBox: foca para escrita
     if button:IsObjectType("EditBox") then
         button:SetFocus()
@@ -1868,6 +2037,56 @@ function Cursor:CycleTabs(direction)
         if ConsoleMode.mainMenu and ConsoleMode.mainMenu.CycleTabs then
             local cycled = ConsoleMode.mainMenu:CycleTabs(dir)
             if cycled then return true end
+        end
+    end
+
+    -- 0.2. Se o AUX addon estiver aberto (aux_frame visível) e suporte ativado
+    if self:IsAUXSupported() then
+        local auxFrame = getglobal("aux_frame")
+        if auxFrame and auxFrame:IsVisible() then
+            local aux = getglobal("aux")
+            if aux and type(aux.get_tab) == "function" and type(aux.set_tab) == "function" then
+                local currentTab = aux.get_tab()
+                local currentId = nil
+                if currentTab then
+                    for i, t in ipairs(aux.tab_info or {}) do
+                        if t == currentTab then currentId = i break end
+                    end
+                end
+                if not currentId then currentId = 1 end
+                local total = 0
+                if aux.tab_info then total = table.getn(aux.tab_info) end
+                if total == 0 then total = 4 end
+                local nextId = currentId + dir
+                if nextId > total then nextId = 1 end
+                if nextId < 1 then nextId = total end
+                local ok, err = pcall(function() aux.set_tab(nextId) end)
+                if not ok and type(aux.set_tab) == "cfunction" then
+                    -- alguns builds do AUX não expõem tab_info; fallback hardcode 1-4
+                    local fallbackId = nextId
+                    if fallbackId < 1 then fallbackId = 1 end
+                    if fallbackId > 4 then fallbackId = 4 end
+                    pcall(function() aux.set_tab(fallbackId) end)
+                end
+                PlaySound("igCharacterInfoTab")
+                -- Re-snap do cursor para a primeira interação visível da nova aba
+                local content = auxFrame.content
+                if content and content.GetChildren then
+                    local children = {content:GetChildren()}
+                    for _, child in ipairs(children) do
+                        if child and child:IsVisible() then
+                            local firstBtn = self:FindFirstVisibleButton(child)
+                            if firstBtn then
+                                self:MoveTo(firstBtn)
+                                self:UpdateState()
+                                return true
+                            end
+                        end
+                    end
+                end
+                self:Resync()
+                return true
+            end
         end
     end
 

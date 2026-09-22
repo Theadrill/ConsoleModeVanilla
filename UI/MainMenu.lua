@@ -12059,6 +12059,27 @@ function MainMenu:ScanGameMenuButtons()
         return false
     end)
 
+    -- FIX (ordem fixa): "Desconectar" (Logout) e "Sair do Jogo" (Quit) aparecem
+    -- SEMPRE no COMEÇO da lista de opções do Main Menu (Configuracoes -> Sistema),
+    -- independentemente da posicao nativa em que o GameMenuFrame os contem.
+    -- Preserva a ordem relativa entre si (top-to-bottom original); o resto
+    -- segue em sua ordem nativa de leitura.
+    local front, rest = {}, {}
+    for i = 1, table.getn(buttons) do
+        local b = buttons[i]
+        if b and (b.name == "GameMenuButtonLogout" or b.name == "GameMenuButtonQuit") then
+            table.insert(front, b)
+        else
+            table.insert(rest, b)
+        end
+    end
+    if table.getn(front) > 0 then
+        for i = 1, table.getn(rest) do
+            table.insert(front, rest[i])
+        end
+        buttons = front
+    end
+
     return buttons
 end
 

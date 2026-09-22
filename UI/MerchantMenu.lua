@@ -336,7 +336,9 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
         local rightText = (rightTextObj and rightTextObj:GetText()) or ""
 
         if leftText ~= "" then
-            if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
+            if itemSubType and itemSubType ~= "" and leftText == itemSubType then
+                -- skip weapon sub-type line (Thrown/Arremesso) — already shown in typeText
+            elseif string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
                 -- já capturado via scanTip.money
             elseif string.find(leftText, "Uso:", 1, 1) or string.find(leftText, "Use:", 1, 1) or string.find(leftText, "Equipar:", 1, 1) then
                 desc = leftText
@@ -392,7 +394,7 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
     }
 end
 
-function MerchantMenu:ParseTooltipStats()
+function MerchantMenu:ParseTooltipStats(skipText)
     local statsLines = {}
     local desc = ""
     local numLines = scanTip:NumLines() or 0
@@ -402,7 +404,9 @@ function MerchantMenu:ParseTooltipStats()
         local leftText = (leftTextObj and leftTextObj:GetText()) or ""
         local rightText = (rightTextObj and rightTextObj:GetText()) or ""
         if leftText ~= "" then
-            if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
+            if skipText and skipText ~= "" and leftText == skipText then
+                -- skip weapon sub-type line (Thrown/Arremesso) — already shown in typeText
+            elseif string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
                 -- já capturado via scanTip.money
             elseif string.find(leftText, "Uso:", 1, 1) or string.find(leftText, "Use:", 1, 1) or string.find(leftText, "Equipar:", 1, 1) then
                 desc = leftText
@@ -588,7 +592,7 @@ function MerchantMenu:ParseVendorItem(mercIndex)
         scanTip:ClearLines()
         pcall(function() scanTip:SetMerchantItem(mercIndex) end)
     end
-    local vendorStats, vendorDesc = self:ParseTooltipStats()
+    local vendorStats, vendorDesc = self:ParseTooltipStats(itemSubType)
 
     return {
         index = mercIndex,
@@ -654,7 +658,7 @@ function MerchantMenu:ParseBuybackItem(bbIndex)
         scanTip:ClearLines()
         pcall(function() scanTip:SetBuybackItem(bbIndex) end)
     end
-    local bbStats, bbDesc = self:ParseTooltipStats()
+    local bbStats, bbDesc = self:ParseTooltipStats(itemSubType)
     return {
         index = nil,
         buybackIndex = bbIndex,

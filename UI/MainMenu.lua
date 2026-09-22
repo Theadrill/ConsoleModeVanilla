@@ -7772,6 +7772,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
         if arg1 == "LeftButton" or arg1 == "RightButton" then
             if MainMenu then MainMenu.mapFollow = false end
             if MainMenu then MainMenu.questFocus = nil end
+            mapCanvas.panAnim = nil
             mapCanvas.isDragging = true
             local curX, curY = GetCursorPosition()
             mapCanvas.dragStartX = curX
@@ -7887,6 +7888,28 @@ function MainMenu:SetupQuestsPage(pageQuests)
                         end
                     end
                 end
+            end
+            -- Animação de foco de quest (ease-out ~0.5s, interrompível por drag/stick)
+            if this.panAnim and not this.isDragging
+                and (MainMenu.stickPanX or 0) == 0 and (MainMenu.stickPanY or 0) == 0 then
+                local anim = this.panAnim
+                anim.t = (anim.t or 0) + (arg1 or 0.033)
+                local k = anim.t / (anim.dur or 0.5)
+                if k >= 1 then
+                    this.panX, this.panY = anim.toX, anim.toY
+                    this.panAnim = nil
+                else
+                    local e = 1 - ((1 - k) * (1 - k))
+                    this.panX = anim.fromX + ((anim.toX - anim.fromX) * e)
+                    this.panY = anim.fromY + ((anim.toY - anim.fromY) * e)
+                end
+                local cont = this.tilesContainer
+                if cont then
+                    cont:ClearAllPoints()
+                    cont:SetPoint("CENTER", this, "CENTER", this.panX, this.panY)
+                end
+            elseif this.panAnim then
+                this.panAnim = nil
             end
             if MainMenu and not MainMenu.mapShowingQuestZone and MainMenu.mapViewMode ~= "CONTINENT" then
                 local curZone = (GetZoneText and GetZoneText()) or ""
@@ -9474,16 +9497,49 @@ function MainMenu:FocusMapOnQuest(questLogIndex)
         else
             self.mapShowingQuestZone = false
         end
+        -- Guarda posição/arquivo p/ animar só quando já está no mesmo mapa
+        local canvas = nil
+        if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"]
+            and self.tabContainer.pages["QUESTS"].mapPanel then
+            canvas = self.tabContainer.pages["QUESTS"].mapPanel.canvas
+        end
+        local prevFile = (canvas and canvas.currentMapFile) or nil
+        local prevPanX = (canvas and canvas.panX) or 0
+        local prevPanY = (canvas and canvas.panY) or 0
         self:SwitchMapToZone(zoneName)
         self:UpdateBackButton()
-        self:CenterMapOnQuest(questLogIndex)
+        local sameZone = false
+        if canvas and prevFile and canvas.currentMapFile == prevFile then
+            sameZone = true
+            -- SwitchMapToZone zerou o pan; restaura p/ animar da posição do usuário
+            canvas.panX, canvas.panY = prevPanX, prevPanY
+        end
+        self:CenterMapOnQuest(questLogIndex, sameZone)
     end
+end
+
+-- Converte questFocus (0-100) em pan alvo com o clamp de bordas do layout.
+function MainMenu:GetQuestFocusPan(mapCanvas)
+    if not self.questFocus or not self.questFocus.x or not self.questFocus.y then return nil, nil end
+    if not mapCanvas then return nil, nil end
+    local canvasW = mapCanvas:GetWidth() or 500
+    local canvasH = mapCanvas:GetHeight() or 340
+    local s = mapCanvas.currentScale or (math.min(canvasW / 1002, canvasH / 668))
+    local finalW = math.floor(1002 * s)
+    local finalH = math.floor(668 * s)
+    local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
+    local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
+    local fx = (self.questFocus.x / 100) * finalW
+    local fy = (self.questFocus.y / 100) * finalH
+    return math.max(-maxPanX, math.min(maxPanX, (finalW / 2) - fx)),
+           math.max(-maxPanY, math.min(maxPanY, fy - (finalH / 2)))
 end
 
 -- Centraliza o mapa no centroide dos objetivos da quest (pfMap) ou, para
 -- quests completas sem nodes, no marcador "?" de turn-in. Sem dados, mantém
 -- o centro da zona (comportamento anterior). 1.12 puro, sem SuperWoW.
-function MainMenu:CenterMapOnQuest(questLogIndex)
+-- animate=true (mesmo mapa): desliza com ease-out ~0.5s; senão, snap direto.
+function MainMenu:CenterMapOnQuest(questLogIndex, animate)
     self.questFocus = nil
     if not questLogIndex or questLogIndex <= 0 then return end
     if not GetQuestLogTitle then return end
@@ -9536,6 +9592,19 @@ function MainMenu:CenterMapOnQuest(questLogIndex)
     end
     if n == 0 then return end
     self.questFocus = { x = sx / n, y = sy / n }
+    if animate then
+        local tX, tY = self:GetQuestFocusPan(mapCanvas)
+        if tX and tY then
+            local cX, cY = mapCanvas.panX or 0, mapCanvas.panY or 0
+            if math.abs(tX - cX) > 0.5 or math.abs(tY - cY) > 0.5 then
+                -- Desliza do pan atual até o alvo; OnUpdate dirige (ease-out).
+                -- Container já está ancorado no pan atual; não chamar layout (snaparia).
+                mapCanvas.panAnim = { fromX = cX, fromY = cY, toX = tX, toY = tY, t = 0, dur = 0.5 }
+                return
+            end
+        end
+    end
+    mapCanvas.panAnim = nil
     self:UpdateMapLayout(mapCanvas)
 end
 
@@ -10328,11 +10397,10 @@ function MainMenu:UpdateMapLayout(mapCanvas)
 
     -- Foco de quest: centraliza no centroide do objetivo (0-100) em vez do centro.
     -- Reaplicado a cada layout para sobreviver a refresh/zoom (limpo ao arrastar).
-    if self.questFocus and self.mapShowingQuestZone and self.questFocus.x and self.questFocus.y then
-        local fx = (self.questFocus.x / 100) * finalW
-        local fy = (self.questFocus.y / 100) * finalH
-        mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, (finalW / 2) - fx))
-        mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, fy - (finalH / 2)))
+    -- Pausado durante panAnim (a animação dirige o pan até o alvo).
+    if self.questFocus and self.mapShowingQuestZone and not mapCanvas.panAnim then
+        local tX, tY = self:GetQuestFocusPan(mapCanvas)
+        if tX and tY then mapCanvas.panX, mapCanvas.panY = tX, tY end
     end
 
     container:ClearAllPoints()
@@ -11898,6 +11966,7 @@ function MainMenu:MapPan(dx, dy)
     if not pageQuests or not pageQuests.mapPanel or not pageQuests.mapPanel.canvas then return end
 
     local mapCanvas = pageQuests.mapPanel.canvas
+    if mapCanvas then mapCanvas.panAnim = nil end
     local canvasW = mapCanvas:GetWidth() or 500
     local canvasH = mapCanvas:GetHeight() or 340
     local container = mapCanvas.tilesContainer

@@ -11052,13 +11052,16 @@ function MainMenu:UpdatePfQuestPins(mapCanvas)
                 if not pin and pfMap.BuildNode then
                     pin = pfMap:BuildNode("ConsoleModePfPin" .. pinIdx, mapCanvas.tilesContainer)
                     pin:SetParent(mapCanvas.tilesContainer)
-                    pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 6)
                     mapCanvas.pfPins[pinIdx] = pin
                 end
                 if pin then
                     if pfMap.UpdateNode then
                         pfMap:UpdateNode(pin, node, colorMode)
                     end
+                    -- DEPOIS do UpdateNode: pfQuest seta level absoluto (112+layer)
+                    -- quando a layer muda, então reforçamos o nosso a cada update.
+                    -- Pins de quest (!/?) sempre acima dos serviços (+10).
+                    pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 20)
                     local _, _, xStr, yStr = string.find(coords, "(.*)|(.*)")
                     local x = tonumber(xStr) or 0
                     local y = tonumber(yStr) or 0
@@ -11483,7 +11486,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             pin:SetWidth(9)
             pin:SetHeight(9)
             pin.baseSize = 9
-            pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 10)
+            pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 6)
             pin.baseLevel = pin:GetFrameLevel()
 
             local icon = pin:CreateTexture(nil, "ARTWORK")
@@ -11527,12 +11530,14 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
 
         -- Garante tamanho base reduzido (9x9) ou mantem highlight 3x se houver hover ativo
         pin.baseSize = 9
-        if not pin.baseLevel then pin.baseLevel = pin:GetFrameLevel() end
+        -- Serviços abaixo dos pins de quest (pf +20, nosso ? +21); recalcula
+        -- sempre para corrigir pins criados em sessões com o nível antigo (+10)
+        pin.baseLevel = mapCanvas.tilesContainer:GetFrameLevel() + 6
         local isHovered = (mapCanvas.hoveredNpcPin and mapCanvas.hoveredNpcPin == pin) or (mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx == pinIdx)
         if isHovered then
             pin:SetWidth(27)
             pin:SetHeight(27)
-            pin:SetFrameLevel(90)
+            pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 22)
             if pin.border then pin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
         else
             pin:SetWidth(9)
@@ -11763,6 +11768,49 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
     if not effW or effW <= 0 then effW = 500 end
     if not effH or effH <= 0 then effH = 340 end
     mapCanvas.lastQuestMarkers = markers
+    -- Ícone "?" idêntico ao do pfQuest: a textura de quest COMPLETA é a
+    -- "complete_c" (database.lua do pfQuest seleciona complete_c quando a
+    -- quest está completa). Descobre o path em runtime em TODOS os mapas e
+    -- guarda em cache. Fallbacks: complete > img\complete > "?" de texto.
+    local function FindCompleteTex(wantCluster)
+        if not (pfMap and pfMap.nodes) then return nil end
+        for addon, _ in pairs(pfMap.nodes) do
+            local maps = pfMap.nodes[addon]
+            if maps and type(maps) == "table" then
+                for mid, zm in pairs(maps) do
+                    if zm and type(zm) == "table" then
+                        for coords, node in pairs(zm) do
+                            if node and type(node) == "table" then
+                                for _, tab in pairs(node) do
+                                    if type(tab) == "table" and type(tab.texture) == "string" then
+                                        if string.find(tab.texture, "complete") then
+                                            local isC = (string.find(tab.texture, "_c") ~= nil)
+                                            if isC == wantCluster then
+                                                return tab.texture
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        return nil
+    end
+    if not MainMenu._yellowQTex then
+        -- Re-tenta no máximo a cada 5s até achar (pfQuest pode carregar depois)
+        local now = (GetTime and GetTime()) or 0
+        if not MainMenu._yellowQScanT or (now - MainMenu._yellowQScanT) > 5 then
+            MainMenu._yellowQScanT = now
+            MainMenu._yellowQTex = FindCompleteTex(true) or FindCompleteTex(false)
+        end
+    end
+    local questIconPath = MainMenu._yellowQTex
+    if not questIconPath and pfQuestConfig and pfQuestConfig.path and pfQuestConfig.path ~= "" then
+        questIconPath = pfQuestConfig.path .. "\\img\\complete"
+    end
     local maxPins = 40
     local pinIdx = 1
     for m = 1, table.getn(markers) do
@@ -11773,7 +11821,11 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
             pin = CreateFrame("Button", "ConsoleModeMM_QuestPin" .. pinIdx, container)
             pin:SetWidth(18)
             pin:SetHeight(18)
-            pin:SetFrameLevel(container:GetFrameLevel() + 11)
+            pin:SetFrameLevel(container:GetFrameLevel() + 21)
+            -- Ícone "?" idêntico ao do pfQuest (textura); fallback: texto amarelo
+            local icon = pin:CreateTexture(nil, "OVERLAY")
+            icon:SetAllPoints(pin)
+            pin.icon = icon
             local fs = pin:CreateFontString(nil, "OVERLAY", "GameFontNormal")
             MainMenu:ApplyFont(fs, CFG.Fonts.titleFontFile, 18, "OUTLINE")
             fs:SetText("?")
@@ -11794,6 +11846,20 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
             mapCanvas.questPins[pinIdx] = pin
         end
         pin.pinData = { qtitle = mk.qtitle, npc = mk.npc }
+        pin:SetFrameLevel(container:GetFrameLevel() + 21)
+        -- Prefere a textura do pfQuest; sem ela, mostra o "?" de texto.
+        -- Reaplica se o path descoberto mudou (ex: achou o amarelo depois).
+        if questIconPath and (pin.iconPath ~= questIconPath or not pin.icon:GetTexture()) then
+            pin.icon:SetTexture(questIconPath)
+            pin.iconPath = questIconPath
+        end
+        if pin.icon and pin.icon:GetTexture() then
+            pin.icon:Show()
+            if pin.label then pin.label:Hide() end
+        else
+            if pin.icon then pin.icon:Hide() end
+            if pin.label then pin.label:Show() end
+        end
         local px = (mk.x / 100) * effW
         local py = (mk.y / 100) * effH
         pin:ClearAllPoints()

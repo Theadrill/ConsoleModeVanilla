@@ -207,6 +207,32 @@ function MailScreen:FormatMoneyText(totalCopper)
     return text
 end
 
+-- Ouro do jogador na barra de status ativa:
+--  INBOX  -> esquerda (lista, com paginacao) + gold direita.
+--  COMPOSE -> direita (inventario, com contagem de itens) + gold direita.
+-- "Mesma logica, container diferente" (ver plano §3.1): o gold sempre fica a
+-- direita do texto de status da barra ativa, atualizado via PLAYER_MONEY /
+-- MAIL_INBOX_UPDATE / MAIL_SEND_SUCCESS / troca de tela.
+function MailScreen:UpdateStatusBarGold()
+    if not (self.frame and self.frame.leftCol and self.frame.rightCol) then
+        return
+    end
+    local leftCol, rightCol = self.frame.leftCol, self.frame.rightCol
+    local money = 0
+    if GetMoney then
+        local ok, v = pcall(GetMoney)
+        if ok and tonumber(v) then money = tonumber(v) or 0 end
+    end
+    local text = format(CM:T("MAIL_STATUS_GOLD_FMT"), self:FormatMoneyText(money))
+    if self.currentScreen == "COMPOSE" then
+        if rightCol.goldText then rightCol.goldText:SetText(text) end
+        if leftCol.goldText  then leftCol.goldText:SetText("") end
+    else
+        if leftCol.goldText  then leftCol.goldText:SetText(text) end
+        if rightCol.goldText then rightCol.goldText:SetText("") end
+    end
+end
+
 -- ----------------------------------------------------------------------------
 -- 2b. SUPRESSAO SEGURA DO MAILFRAME NATIVO (Passo 3 — molde MerchantMenu)
 -- NUNCA Hide() o nativo: mataria a sessao MAIL_SHOW -> MAIL_CLOSED.
@@ -1009,9 +1035,17 @@ function MailScreen:CreateUI()
         col.statusBar = statusBar
 
         local pageIndicator = statusBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        pageIndicator:SetPoint("CENTER", statusBar, "CENTER", 0, 0)
+        pageIndicator:SetPoint("LEFT", statusBar, "LEFT", 0, 0)
         MailScreen:ApplyFont(pageIndicator, FONTS.medium, 14)
         col.pageIndicator = pageIndicator
+
+        -- Ouro do jogador: exibicao dinamica (PLAYER_MONEY / MAIL_INBOX_UPDATE /
+        -- MAIL_SEND_SUCCESS) na mesma barra de status, alinhado a direita.
+        local goldText = statusBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        goldText:SetPoint("RIGHT", statusBar, "RIGHT", 0, 0)
+        goldText:SetJustifyH("RIGHT")
+        MailScreen:ApplyFont(goldText, FONTS.medium, 14)
+        col.goldText = goldText
 
         -- Area interna de Lista
         local listArea = CreateFrame("Frame", nil, col)
@@ -1829,6 +1863,7 @@ function MailScreen:ShowInboxScreen()
     self:UpdateInboxFilterBar()
     self:UpdateColumnVisuals()
     self:RefreshInboxList()
+    self:UpdateStatusBarGold()
     -- Re-tenta o layout dinamico nos proximos frames (tamanhos so existem
     -- apos renderizar).
     self._needLayoutRetry = 0
@@ -1892,6 +1927,7 @@ function MailScreen:ShowComposeScreen()
     self:UpdateFooterVisibility()
     self:UpdateComposePostage()
     self:ScanComposeBags()
+    self:UpdateStatusBarGold()
     self:RefreshComposeVisuals()
     self:UpdateSendProgress()
     self:UpdateColumnVisuals()
@@ -5480,6 +5516,10 @@ function MailScreen:OnInboxUpdate()
         self:UpdateInboxFilterBar()
         self:RefreshInboxList()
     end
+    -- M3: barra de status (paginacao + gold) acompanha a leitura/retirada.
+    if self.isOpen then
+        self:UpdateStatusBarGold()
+    end
     -- M3: fila Retirar-Tudo avanca UMA carta por MAIL_INBOX_UPDATE.
     self:AdvanceTakeAll()
 end
@@ -5493,6 +5533,10 @@ function MailScreen:OnMailSendSuccess()
     self:AdvanceTakeAll()
     -- M4.2: fila de envio avanca UMA carta por MAIL_SEND_SUCCESS.
     self:AdvanceSendQueue()
+    -- DINHEIRO: o envio debita postagem; refresh silencioso da barra de status.
+    if self.isOpen then
+        self:UpdateStatusBarGold()
+    end
 end
 
 function MailScreen:OnBagUpdate()
@@ -5506,6 +5550,11 @@ end
 
 function MailScreen:OnMoneyUpdate()
     if not self.initialized then return end
+    -- DINHEIRO: mantem o gold da barra de status atualizado em silencio
+    -- (PLAYER_MONEY dispara ao retirar dinheiro do correio / ao enviar).
+    if self.isOpen then
+        self:UpdateStatusBarGold()
+    end
     -- M4.1: mantem o custo de postagem do ENVIAR atualizado em silencio.
     if self.isOpen and self.currentScreen == "COMPOSE" then
         self:UpdateComposePostage()

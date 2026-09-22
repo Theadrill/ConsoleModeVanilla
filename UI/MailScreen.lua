@@ -1225,7 +1225,7 @@ function MailScreen:BuildMailBadges(item)
         table.insert(parts, CM:T("MAIL_BADGE_ATTACH"))
     end
     if tonumber(item.money) and tonumber(item.money) > 0 then
-        table.insert(parts, CM:T("MAIL_BADGE_MONEY"))
+        table.insert(parts, self:FormatMoneyText(tonumber(item.money)))
     end
     if tonumber(item.cod) and tonumber(item.cod) > 0 then
         table.insert(parts, CM:T("MAIL_BADGE_COD"))
@@ -1546,7 +1546,7 @@ function MailScreen:ShowMailDetail(item)
 
     if card.useText then
         if tonumber(item.daysLeft) then
-            card.useText:SetText(format(CM:T("MAIL_EXPIRE_FMT"), tonumber(item.daysLeft)))
+            card.useText:SetText(format(CM:T("MAIL_EXPIRE_FMT"), math.floor(tonumber(item.daysLeft))))
             card.useText:Show()
         else
             card.useText:SetText("")
@@ -1647,7 +1647,7 @@ function MailScreen:RefreshInboxList()
             row.subjectText:SetText("|cffaaaaaa" .. self:TruncateText(subject, 30) .. "|r")
 
             if tonumber(item.daysLeft) then
-                row.daysText:SetText(format(CM:T("MAIL_DAYS_FMT"), tonumber(item.daysLeft)))
+                row.daysText:SetText(format(CM:T("MAIL_DAYS_FMT"), math.floor(tonumber(item.daysLeft))))
             else
                 row.daysText:SetText(CM:T("MAIL_DAYS_NONE"))
             end

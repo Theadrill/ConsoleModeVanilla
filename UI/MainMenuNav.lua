@@ -5332,7 +5332,16 @@ function Nav:OnSecondary()
         end
         return false
     end
-    -- MMNav_Log("|cffe09a15[MMNav]|r X (fase2 BAGS: sem acao)") -- NOLOG 2026-09-14
+    if curTabSec == "BAGS" then
+        -- X no BAGS: Organizar bolsa (delegado ao sortBtn se SortBags estiver disponivel)
+        local pb = Nav_GetPageBags()
+        if pb and pb.sortBtn and type(SortBags) == "function" then
+            pcall(function() pb.sortBtn:Click() end)
+            return true
+        end
+        return false
+    end
+    -- MMNav_Log("|cffe09a15[MMNav]|r X (fase2: sem acao)") -- NOLOG 2026-09-14
     return false
 end
 

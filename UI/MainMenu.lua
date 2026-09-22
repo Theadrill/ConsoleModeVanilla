@@ -4682,7 +4682,16 @@ function MainMenu:SetupBagsPage(pageBags)
     sortTxt:SetPoint("CENTER", sortBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(sortTxt, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
     sortTxt:SetText("|cffe09a15Organizar|r")
-    sortBtn:SetWidth(math.floor(sortTxt:GetStringWidth() or 70) + 20)
+
+    -- Ícone do botão X (Xbox) indicando o atalho de organização
+    local xTexCoord = sortBtn:CreateTexture(nil, "ARTWORK")
+    xTexCoord:SetWidth(16)
+    xTexCoord:SetHeight(16)
+    xTexCoord:SetTexture(CFG.Icons.X or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\X.tga")
+    xTexCoord:SetPoint("LEFT", sortBtn, "LEFT", 4, 0)
+    sortBtn.xIcon = xTexCoord
+
+    sortBtn:SetWidth(math.floor(sortTxt:GetStringWidth() or 70) + 20 + 20)
     sortBtn.title = sortTxt
 
     sortBtn:SetScript("OnEnter", function()

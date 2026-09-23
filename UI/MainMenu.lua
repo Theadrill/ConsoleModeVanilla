@@ -12845,6 +12845,12 @@ function MainMenu:UpdateAddonConfigSubPage()
                 return format(CM:T("SYS_CFG_OCTO_FMT"), CM:T(stateKey)) .. " " .. CM:T(statusKey)
             end,
             dkey = "SYS_CFG_OCTO_DESC",
+            -- Feature estacionada: veredito DBC 23/09/2026 (overlay vazio).
+            -- A linha se esconde sozinha enquanto nao houver traducao Octo e
+            -- reaparece automaticamente quando o DB ganhar conteudo.
+            hiddenIf = function()
+                return type(ConsoleMode_SpellDescDB_Octo_ByKey) ~= "table" or not next(ConsoleMode_SpellDescDB_Octo_ByKey)
+            end,
             disabledIf = function()
                 return CM:GetActiveLangId() ~= "ptBR"
             end,
@@ -12899,10 +12905,22 @@ function MainMenu:UpdateAddonConfigSubPage()
 
     local bColor = CFG.System.badgeColor or "|cffe09a15"
     local tColor = CFG.System.itemTextColor or "|cffffffff"
-    local numOptions = table.getn(options)
+    -- Linhas com hiddenIf() verdadeiro nem sao criadas (sem buraco no layout).
+    local visibleOpts = {}
+    do
+        local numOptions = table.getn(options)
+        for oi = 1, numOptions do
+            local o = options[oi]
+            local hide = type(o.hiddenIf) == "function" and o.hiddenIf()
+            if not hide then
+                table.insert(visibleOpts, o)
+            end
+        end
+    end
+    local numOptions = table.getn(visibleOpts)
 
     for i = 1, numOptions do
-        local opt = options[i]
+        local opt = visibleOpts[i]
         local row = CreateFrame("Button", "ConsoleModeMM_AddonCfgBtn_" .. i, listContainer)
         row:SetHeight(rowHeight)
         row:SetPoint("LEFT", listContainer, "LEFT", 0, 0)

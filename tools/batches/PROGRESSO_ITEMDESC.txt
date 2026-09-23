@@ -20,3 +20,5 @@ I16 | 50 | OK
 I17 | 50 | OK
 I18 | 50 | OK
 I19 | 50 | OK
+I20 | 50 | OK (fix: terceiro/quarto -> 3º/4º)
+I21 | 50 | OK

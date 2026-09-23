@@ -38,7 +38,7 @@ def validate_dict(pairs):
             frag = en.strip()
             if len(frag.split()) <= 3 and (
                     re.fullmatch(r"[.\-]+", frag) or re.fullmatch(
-                    r"[.\-]?[A-ZÀ-Ý][\w'’\-.]*(\s+[A-ZÀ-Ý][\w'’\-.]*)*[.\-]?", frag)):
+                    r"[.\-]?[A-ZÀ-Ý][\w'’\-.]*(\s+[A-ZÀ-Ý][\w'’\-.]*)*[.\-!?]*", frag)):
                 warns.append(f"NOME-PROPRIO mantido: {tag}")
                 continue
             errors.append(f"IGUAL: {tag}")

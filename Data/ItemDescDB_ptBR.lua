@@ -25,6 +25,7 @@ ConsoleMode_ItemDescDB[68] = { s = { { t = "use", s = 8299 } }, f = "" }
 ConsoleMode_ItemDescDB[69] = { s = { { t = "use", s = 42 } }, f = "" }
 ConsoleMode_ItemDescDB[70] = { s = { { t = "use", s = 62 } }, f = "" }
 ConsoleMode_ItemDescDB[71] = { s = { { t = "use", s = 63 } }, f = "" }
+ConsoleMode_ItemDescDB[73] = { s = {  }, f = "Apanhe o vento, siga o sol." }
 ConsoleMode_ItemDescDB[74] = { s = { { t = "use", s = 64 } }, f = "" }
 ConsoleMode_ItemDescDB[75] = { s = { { t = "use", s = 80 } }, f = "" }
 ConsoleMode_ItemDescDB[76] = { s = { { t = "use", s = 86 } }, f = "" }
@@ -60,6 +61,7 @@ ConsoleMode_ItemDescDB[733] = { s = { { t = "use", s = 435 } }, f = "" }
 ConsoleMode_ItemDescDB[734] = { s = {  }, f = "\"Neste disco de ferro estão gravadas as palavras: \"\"Soldado Malakai Stone\"\"\"" }
 ConsoleMode_ItemDescDB[737] = { s = { { t = "use", s = 3591 } }, f = "" }
 ConsoleMode_ItemDescDB[744] = { s = { { t = "use", s = 12257 } }, f = "" }
+ConsoleMode_ItemDescDB[749] = { s = {  }, f = "Ouro polido e âmbar — como se o próprio sol tivesse deixado um último beijo no tecido." }
 ConsoleMode_ItemDescDB[754] = { s = { { t = "chance", s = 13519 } }, f = "" }
 ConsoleMode_ItemDescDB[761] = { s = { { t = "use", s = 433 } }, f = "" }
 ConsoleMode_ItemDescDB[784] = { s = { { t = "use", s = 46003 } }, f = "" }
@@ -152,7 +154,7 @@ ConsoleMode_ItemDescDB[1123] = { s = { { t = "use", s = 472 } }, f = "" }
 ConsoleMode_ItemDescDB[1124] = { s = { { t = "use", s = 471 } }, f = "" }
 ConsoleMode_ItemDescDB[1127] = { s = { { t = "use", s = 2120 } }, f = "" }
 ConsoleMode_ItemDescDB[1131] = { s = { { t = "equip", s = 7617 } }, f = "" }
-ConsoleMode_ItemDescDB[1132] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[1132] = { s = { { t = "use", s = 46499 } }, f = "Consegue uivar alto o bastante para ser ouvido a quilômetros de distância." }
 ConsoleMode_ItemDescDB[1133] = { s = { { t = "use", s = 581 } }, f = "" }
 ConsoleMode_ItemDescDB[1134] = { s = { { t = "use", s = 46499 } }, f = "Um companheiro feroz e leal da natureza selvagem." }
 ConsoleMode_ItemDescDB[1136] = { s = { { t = "use", s = 735 } }, f = "" }
@@ -351,8 +353,10 @@ ConsoleMode_ItemDescDB[2684] = { s = { { t = "use", s = 5005 } }, f = "" }
 ConsoleMode_ItemDescDB[2685] = { s = { { t = "use", s = 435 } }, f = "" }
 ConsoleMode_ItemDescDB[2686] = { s = { { t = "use", s = 11007 } }, f = "" }
 ConsoleMode_ItemDescDB[2687] = { s = { { t = "use", s = 5005 } }, f = "" }
+ConsoleMode_ItemDescDB[2714] = { s = {  }, f = "Brilhante o suficiente para não se perder na floresta." }
 ConsoleMode_ItemDescDB[2721] = { s = { { t = "equip", s = 9318 } }, f = "" }
 ConsoleMode_ItemDescDB[2723] = { s = { { t = "use", s = 11007 } }, f = "" }
+ConsoleMode_ItemDescDB[2755] = { s = {  }, f = "Por Hemet Nesingwary" }
 ConsoleMode_ItemDescDB[2801] = { s = { { t = "equip", s = 7597 }, { t = "equip", s = 15464 } }, f = "" }
 ConsoleMode_ItemDescDB[2802] = { s = { { t = "use", s = 13744 } }, f = "" }
 ConsoleMode_ItemDescDB[2803] = { s = { { t = "use", s = 905 } }, f = "" }
@@ -472,6 +476,7 @@ ConsoleMode_ItemDescDB[3727] = { s = { { t = "use", s = 5006 } }, f = "" }
 ConsoleMode_ItemDescDB[3728] = { s = { { t = "use", s = 5007 } }, f = "" }
 ConsoleMode_ItemDescDB[3729] = { s = { { t = "use", s = 5007 } }, f = "" }
 ConsoleMode_ItemDescDB[3745] = { s = { { t = "use", s = 3407 } }, f = "" }
+ConsoleMode_ItemDescDB[3762] = { s = {  }, f = "Bolsos maiores para aventuras maiores!" }
 ConsoleMode_ItemDescDB[3770] = { s = { { t = "use", s = 435 } }, f = "" }
 ConsoleMode_ItemDescDB[3771] = { s = { { t = "use", s = 1127 } }, f = "" }
 ConsoleMode_ItemDescDB[3772] = { s = { { t = "use", s = 1133 } }, f = "" }
@@ -808,10 +813,10 @@ ConsoleMode_ItemDescDB[5660] = { s = { { t = "use", s = 864 } }, f = "" }
 ConsoleMode_ItemDescDB[5661] = { s = { { t = "use", s = 3093 } }, f = "" }
 ConsoleMode_ItemDescDB[5662] = { s = { { t = "use", s = 3094 } }, f = "" }
 ConsoleMode_ItemDescDB[5663] = { s = { { t = "use", s = 46499 } }, f = "Quase não resta nenhum em toda Azeroth; somente os mais experientes terão visto um." }
-ConsoleMode_ItemDescDB[5665] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[5665] = { s = { { t = "use", s = 46499 } }, f = "Consegue uivar alto o bastante para ser ouvido a quilômetros de distância." }
 ConsoleMode_ItemDescDB[5666] = { s = { { t = "use", s = 3695 } }, f = "" }
 ConsoleMode_ItemDescDB[5667] = { s = { { t = "use", s = 3713 } }, f = "" }
-ConsoleMode_ItemDescDB[5668] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[5668] = { s = { { t = "use", s = 46499 } }, f = "Consegue uivar alto o bastante para ser ouvido a quilômetros de distância." }
 ConsoleMode_ItemDescDB[5670] = { s = { { t = "use", s = 626 } }, f = "" }
 ConsoleMode_ItemDescDB[5671] = { s = { { t = "use", s = 626 } }, f = "" }
 ConsoleMode_ItemDescDB[5672] = { s = { { t = "use", s = 3690 } }, f = "" }
@@ -954,6 +959,7 @@ ConsoleMode_ItemDescDB[6733] = { s = { { t = "equip", s = 9141 } }, f = "" }
 ConsoleMode_ItemDescDB[6738] = { s = { { t = "chance", s = 16403 } }, f = "" }
 ConsoleMode_ItemDescDB[6757] = { s = { { t = "equip", s = 9396 } }, f = "" }
 ConsoleMode_ItemDescDB[6783] = { s = { { t = "use", s = 8517 } }, f = "" }
+ConsoleMode_ItemDescDB[6785] = { s = {  }, f = "Pelas mãos de Khadgar" }
 ConsoleMode_ItemDescDB[6807] = { s = { { t = "use", s = 1127 } }, f = "" }
 ConsoleMode_ItemDescDB[6811] = { s = { { t = "use", s = 8532 } }, f = "" }
 ConsoleMode_ItemDescDB[6831] = { s = { { t = "chance", s = 13440 } }, f = "" }
@@ -1003,6 +1009,7 @@ ConsoleMode_ItemDescDB[7228] = { s = { { t = "use", s = 9177 } }, f = "" }
 ConsoleMode_ItemDescDB[7247] = { s = { { t = "use", s = 9082 } }, f = "" }
 ConsoleMode_ItemDescDB[7269] = { s = { { t = "use", s = 9052 } }, f = "" }
 ConsoleMode_ItemDescDB[7273] = { s = { { t = "use", s = 9055 } }, f = "" }
+ConsoleMode_ItemDescDB[7274] = { s = {  }, f = "Por Magus Tirth" }
 ConsoleMode_ItemDescDB[7278] = { s = { { t = "equip", s = 29418 } }, f = "" }
 ConsoleMode_ItemDescDB[7279] = { s = { { t = "equip", s = 14824 } }, f = "" }
 ConsoleMode_ItemDescDB[7284] = { s = { { t = "equip", s = 9233 } }, f = "" }
@@ -1124,7 +1131,7 @@ ConsoleMode_ItemDescDB[8367] = { s = { { t = "use", s = 10618 } }, f = "" }
 ConsoleMode_ItemDescDB[8410] = { s = { { t = "use", s = 10667 } }, f = "" }
 ConsoleMode_ItemDescDB[8411] = { s = { { t = "use", s = 10668 } }, f = "Suco de Pulmão 100% de Primeira Qualidade - Recém-espremido" }
 ConsoleMode_ItemDescDB[8412] = { s = { { t = "use", s = 10669 } }, f = "" }
-ConsoleMode_ItemDescDB[8423] = { s = { { t = "use", s = 10692 } }, f = "" }
+ConsoleMode_ItemDescDB[8423] = { s = { { t = "use", s = 10692 } }, f = "Melhor servido gelado." }
 ConsoleMode_ItemDescDB[8424] = { s = { { t = "use", s = 10693 } }, f = "" }
 ConsoleMode_ItemDescDB[8432] = { s = { { t = "use", s = 10723 } }, f = "" }
 ConsoleMode_ItemDescDB[8485] = { s = { { t = "use", s = 46498 } }, f = "" }
@@ -1154,11 +1161,11 @@ ConsoleMode_ItemDescDB[8563] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[8583] = { s = { { t = "use", s = 8980 } }, f = "" }
 ConsoleMode_ItemDescDB[8584] = { s = { { t = "use", s = 11758 } }, f = "" }
 ConsoleMode_ItemDescDB[8586] = { s = { { t = "use", s = 16084 } }, f = "" }
-ConsoleMode_ItemDescDB[8588] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[8588] = { s = { { t = "use", s = 46499 } }, f = "Criado da linhagem mais feroz que existe e com garantia de não morder (muito)." }
 ConsoleMode_ItemDescDB[8589] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[8590] = { s = { { t = "use", s = 10798 } }, f = "" }
-ConsoleMode_ItemDescDB[8591] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[8592] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[8591] = { s = { { t = "use", s = 46499 } }, f = "Criado da linhagem mais feroz que existe e com garantia de não morder (muito)." }
+ConsoleMode_ItemDescDB[8592] = { s = { { t = "use", s = 46499 } }, f = "Criado da linhagem mais feroz que existe e com garantia de não morder (muito)." }
 ConsoleMode_ItemDescDB[8595] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[8627] = { s = { { t = "use", s = 10787 } }, f = "" }
 ConsoleMode_ItemDescDB[8628] = { s = { { t = "use", s = 10792 } }, f = "" }
@@ -1169,6 +1176,7 @@ ConsoleMode_ItemDescDB[8632] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[8633] = { s = { { t = "use", s = 10788 } }, f = "" }
 ConsoleMode_ItemDescDB[8635] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[8683] = { s = { { t = "use", s = 7737 } }, f = "Um pedaço de fruta fresca que é bom de comer... e que aparentemente também é bom para disfarces!" }
+ConsoleMode_ItemDescDB[8686] = { s = {  }, f = "Traz o Selo de Galvan, o Ancestral" }
 ConsoleMode_ItemDescDB[8688] = { s = { { t = "use", s = 133 } }, f = "" }
 ConsoleMode_ItemDescDB[8703] = { s = { { t = "use", s = 11209 } }, f = "" }
 ConsoleMode_ItemDescDB[8743] = { s = { { t = "use", s = 5285 } }, f = "" }
@@ -1540,6 +1548,7 @@ ConsoleMode_ItemDescDB[9260] = { s = { { t = "use", s = 11009 } }, f = "" }
 ConsoleMode_ItemDescDB[9263] = { s = { { t = "use", s = 11537 } }, f = "" }
 ConsoleMode_ItemDescDB[9264] = { s = { { t = "use", s = 11474 } }, f = "" }
 ConsoleMode_ItemDescDB[9283] = { s = { { t = "use", s = 11513 } }, f = "" }
+ConsoleMode_ItemDescDB[9308] = { s = {  }, f = "A sujeira incrustada oculta a verdadeira identidade deste objeto." }
 ConsoleMode_ItemDescDB[9312] = { s = { { t = "use", s = 11540 } }, f = "" }
 ConsoleMode_ItemDescDB[9313] = { s = { { t = "use", s = 11541 } }, f = "" }
 ConsoleMode_ItemDescDB[9314] = { s = { { t = "use", s = 11542 } }, f = "" }
@@ -1689,6 +1698,7 @@ ConsoleMode_ItemDescDB[10546] = { s = { { t = "use", s = 12459 } }, f = "" }
 ConsoleMode_ItemDescDB[10548] = { s = { { t = "use", s = 12460 } }, f = "" }
 ConsoleMode_ItemDescDB[10562] = { s = { { t = "use", s = 12543 } }, f = "" }
 ConsoleMode_ItemDescDB[10567] = { s = { { t = "equip", s = 29634 } }, f = "" }
+ConsoleMode_ItemDescDB[10569] = { s = {  }, f = "Traz a marca de Kalaran, o Enganador" }
 ConsoleMode_ItemDescDB[10570] = { s = { { t = "equip", s = 15808 } }, f = "" }
 ConsoleMode_ItemDescDB[10572] = { s = { { t = "equip", s = 7703 } }, f = "" }
 ConsoleMode_ItemDescDB[10575] = { s = {  }, f = "Um pedaço opaco e cinzento de pele de dragão negro" }
@@ -1701,6 +1711,7 @@ ConsoleMode_ItemDescDB[10588] = { s = { { t = "use", s = 22641 } }, f = "" }
 ConsoleMode_ItemDescDB[10592] = { s = { { t = "use", s = 12608 } }, f = "" }
 ConsoleMode_ItemDescDB[10594] = { s = {  }, f = "\"Tabela de espólio inválida, trava quando você modifica Diversos\"" }
 ConsoleMode_ItemDescDB[10595] = { s = {  }, f = "\"Tabela de espólio inválida, trava quando você modifica Diversos\"" }
+ConsoleMode_ItemDescDB[10610] = { s = {  }, f = "Sangue da Rainha do Mar" }
 ConsoleMode_ItemDescDB[10622] = { s = { { t = "use", s = 12684 } }, f = "" }
 ConsoleMode_ItemDescDB[10623] = { s = { { t = "chance", s = 13439 } }, f = "" }
 ConsoleMode_ItemDescDB[10624] = { s = { { t = "equip", s = 9142 } }, f = "" }
@@ -1720,7 +1731,7 @@ ConsoleMode_ItemDescDB[10689] = { s = { { t = "use", s = 12806 } }, f = "" }
 ConsoleMode_ItemDescDB[10690] = { s = { { t = "use", s = 12808 } }, f = "" }
 ConsoleMode_ItemDescDB[10696] = { s = { { t = "equip", s = 18079 }, { t = "use", s = 12938 } }, f = "" }
 ConsoleMode_ItemDescDB[10697] = { s = { { t = "equip", s = 18079 }, { t = "use", s = 12938 } }, f = "" }
-ConsoleMode_ItemDescDB[10698] = { s = { { t = "equip", s = 18087 }, { t = "use", s = 12938 } }, f = "" }
+ConsoleMode_ItemDescDB[10698] = { s = { { t = "equip", s = 18087 }, { t = "use", s = 12938 } }, f = "Gravado na haste: Rakh'likh" }
 ConsoleMode_ItemDescDB[10699] = { s = { { t = "use", s = 12699 } }, f = "" }
 ConsoleMode_ItemDescDB[10716] = { s = { { t = "use", s = 13006 } }, f = "" }
 ConsoleMode_ItemDescDB[10719] = { s = { { t = "use", s = 4074 } }, f = "" }
@@ -1811,6 +1822,7 @@ ConsoleMode_ItemDescDB[11320] = { s = { { t = "use", s = 14806 } }, f = "" }
 ConsoleMode_ItemDescDB[11325] = { s = { { t = "use", s = 14814 } }, f = "" }
 ConsoleMode_ItemDescDB[11362] = { s = { { t = "equip", s = 29418 } }, f = "" }
 ConsoleMode_ItemDescDB[11363] = { s = { { t = "equip", s = 14824 } }, f = "" }
+ConsoleMode_ItemDescDB[11368] = { s = {  }, f = "Traz o Selo de Ventobravo" }
 ConsoleMode_ItemDescDB[11412] = { s = { { t = "use", s = 14929 } }, f = "" }
 ConsoleMode_ItemDescDB[11415] = { s = { { t = "use", s = 1131 } }, f = "" }
 ConsoleMode_ItemDescDB[11444] = { s = { { t = "use", s = 1131 } }, f = "" }
@@ -2009,6 +2021,7 @@ ConsoleMode_ItemDescDB[12547] = { s = { { t = "equip", s = 9408 } }, f = "" }
 ConsoleMode_ItemDescDB[12548] = { s = { { t = "equip", s = 7597 } }, f = "" }
 ConsoleMode_ItemDescDB[12550] = { s = { { t = "equip", s = 7517 } }, f = "" }
 ConsoleMode_ItemDescDB[12554] = { s = { { t = "equip", s = 9318 } }, f = "" }
+ConsoleMode_ItemDescDB[12563] = { s = {  }, f = "Traz o selo da K.E.F." }
 ConsoleMode_ItemDescDB[12565] = { s = { { t = "use", s = 15647 } }, f = "" }
 ConsoleMode_ItemDescDB[12566] = { s = { { t = "use", s = 15649 } }, f = "" }
 ConsoleMode_ItemDescDB[12582] = { s = { { t = "chance", s = 16528 } }, f = "" }
@@ -2164,6 +2177,7 @@ ConsoleMode_ItemDescDB[13168] = { s = { { t = "equip", s = 9346 } }, f = "" }
 ConsoleMode_ItemDescDB[13169] = { s = { { t = "equip", s = 14254 } }, f = "" }
 ConsoleMode_ItemDescDB[13170] = { s = { { t = "equip", s = 18052 } }, f = "" }
 ConsoleMode_ItemDescDB[13171] = { s = { { t = "use", s = 17283 } }, f = "" }
+ConsoleMode_ItemDescDB[13172] = { s = {  }, f = "Traz a marca de Fras Siabi." }
 ConsoleMode_ItemDescDB[13177] = { s = { { t = "equip", s = 13669 } }, f = "" }
 ConsoleMode_ItemDescDB[13178] = { s = { { t = "equip", s = 21363 }, { t = "equip", s = 9316 } }, f = "" }
 ConsoleMode_ItemDescDB[13179] = { s = { { t = "equip", s = 21361 } }, f = "" }
@@ -2194,7 +2208,7 @@ ConsoleMode_ItemDescDB[13253] = { s = { { t = "equip", s = 18049 } }, f = "" }
 ConsoleMode_ItemDescDB[13255] = { s = { { t = "equip", s = 17818 }, { t = "equip", s = 15464 }, { t = "equip", s = 27743 }, { t = "equip", s = 27744 } }, f = "" }
 ConsoleMode_ItemDescDB[13256] = { s = { { t = "use", s = 17368 } }, f = "" }
 ConsoleMode_ItemDescDB[13260] = { s = { { t = "equip", s = 13669 } }, f = "" }
-ConsoleMode_ItemDescDB[13262] = { s = { { t = "chance", s = 18112 } }, f = "" }
+ConsoleMode_ItemDescDB[13262] = { s = { { t = "chance", s = 18112 } }, f = "Lâmina do Alto-senhor Escarlate" }
 ConsoleMode_ItemDescDB[13285] = { s = { { t = "chance", s = 17407 } }, f = "" }
 ConsoleMode_ItemDescDB[13286] = { s = { { t = "chance", s = 17315 } }, f = "" }
 ConsoleMode_ItemDescDB[13289] = { s = { { t = "use", s = 17368 } }, f = "" }
@@ -2264,6 +2278,9 @@ ConsoleMode_ItemDescDB[13444] = { s = { { t = "use", s = 17531 } }, f = "" }
 ConsoleMode_ItemDescDB[13445] = { s = { { t = "use", s = 11348 } }, f = "" }
 ConsoleMode_ItemDescDB[13446] = { s = { { t = "use", s = 17534 } }, f = "" }
 ConsoleMode_ItemDescDB[13447] = { s = { { t = "use", s = 17535 } }, f = "" }
+ConsoleMode_ItemDescDB[13448] = { s = {  }, f = "Carrega o Selo de Barov." }
+ConsoleMode_ItemDescDB[13450] = { s = {  }, f = "Carrega o Selo de Barov." }
+ConsoleMode_ItemDescDB[13451] = { s = {  }, f = "Carrega o Selo de Barov." }
 ConsoleMode_ItemDescDB[13452] = { s = { { t = "use", s = 17538 } }, f = "" }
 ConsoleMode_ItemDescDB[13453] = { s = { { t = "use", s = 17537 } }, f = "" }
 ConsoleMode_ItemDescDB[13454] = { s = { { t = "use", s = 17539 } }, f = "" }
@@ -2275,6 +2292,7 @@ ConsoleMode_ItemDescDB[13459] = { s = { { t = "use", s = 17548 } }, f = "" }
 ConsoleMode_ItemDescDB[13460] = { s = { { t = "use", s = 17545 } }, f = "" }
 ConsoleMode_ItemDescDB[13461] = { s = { { t = "use", s = 17549 } }, f = "" }
 ConsoleMode_ItemDescDB[13462] = { s = { { t = "use", s = 17550 } }, f = "" }
+ConsoleMode_ItemDescDB[13471] = { s = {  }, f = "Carrega o Selo de Barov." }
 ConsoleMode_ItemDescDB[13498] = { s = { { t = "equip", s = 13387 } }, f = "" }
 ConsoleMode_ItemDescDB[13503] = { s = { { t = "equip", s = 17619 }, { t = "equip", s = 21604 } }, f = "" }
 ConsoleMode_ItemDescDB[13505] = { s = { { t = "equip", s = 17625 } }, f = "" }
@@ -2318,6 +2336,7 @@ ConsoleMode_ItemDescDB[13760] = { s = { { t = "use", s = 1127 } }, f = "" }
 ConsoleMode_ItemDescDB[13810] = { s = { { t = "use", s = 18124 } }, f = "" }
 ConsoleMode_ItemDescDB[13813] = { s = { { t = "use", s = 18140 } }, f = "" }
 ConsoleMode_ItemDescDB[13851] = { s = { { t = "use", s = 5007 } }, f = "" }
+ConsoleMode_ItemDescDB[13852] = { s = {  }, f = "Traz a marca do Grande Cruzado." }
 ConsoleMode_ItemDescDB[13856] = { s = { { t = "equip", s = 9415 } }, f = "" }
 ConsoleMode_ItemDescDB[13857] = { s = { { t = "equip", s = 9318 } }, f = "" }
 ConsoleMode_ItemDescDB[13858] = { s = { { t = "equip", s = 9342 } }, f = "" }
@@ -2510,6 +2529,7 @@ ConsoleMode_ItemDescDB[15860] = { s = { { t = "equip", s = 7597 } }, f = "" }
 ConsoleMode_ItemDescDB[15862] = { s = { { t = "equip", s = 9331 } }, f = "" }
 ConsoleMode_ItemDescDB[15866] = { s = { { t = "use", s = 19634 } }, f = "" }
 ConsoleMode_ItemDescDB[15867] = { s = { { t = "use", s = 19638 } }, f = "" }
+ConsoleMode_ItemDescDB[15868] = { s = {  }, f = "Traz o Selo da Cruzada Escarlate" }
 ConsoleMode_ItemDescDB[15869] = { s = { { t = "use", s = 19646 } }, f = "" }
 ConsoleMode_ItemDescDB[15870] = { s = { { t = "use", s = 19649 } }, f = "" }
 ConsoleMode_ItemDescDB[15871] = { s = { { t = "use", s = 19651 } }, f = "" }
@@ -3196,8 +3216,8 @@ ConsoleMode_ItemDescDB[18242] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[18243] = { s = { { t = "use", s = 46499 } }, f = "Uma montaria formidável, que instila medo no coração dos inimigos." }
 ConsoleMode_ItemDescDB[18244] = { s = { { t = "use", s = 46499 } }, f = "Uma montaria robusta e resistente, criada para a batalha nas montanhas." }
 ConsoleMode_ItemDescDB[18245] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[18246] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[18247] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[18246] = { s = { { t = "use", s = 46499 } }, f = "Criado da mesma linhagem brutal de raptores que gerou Ohgan e trouxe a vitória para o Império Gurubashi." }
+ConsoleMode_ItemDescDB[18247] = { s = { { t = "use", s = 46499 } }, f = "Criados por seu temperamento agressivo e imprevisível pelos mestres de estábulo Kor'kron, o chamado estridente dos Kodos de Guerra Negros indica que logo haverá derramamento de sangue." }
 ConsoleMode_ItemDescDB[18248] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[18251] = { s = { { t = "use", s = 22725 } }, f = "" }
 ConsoleMode_ItemDescDB[18252] = { s = { { t = "use", s = 22728 } }, f = "" }
@@ -3324,15 +3344,15 @@ ConsoleMode_ItemDescDB[18451] = { s = { { t = "equip", s = 9335 } }, f = "" }
 ConsoleMode_ItemDescDB[18458] = { s = { { t = "equip", s = 9417 } }, f = "" }
 ConsoleMode_ItemDescDB[18459] = { s = { { t = "equip", s = 9316 } }, f = "" }
 ConsoleMode_ItemDescDB[18463] = { s = { { t = "equip", s = 9329 } }, f = "" }
-ConsoleMode_ItemDescDB[18465] = { s = { { t = "equip", s = 15465 } }, f = "" }
-ConsoleMode_ItemDescDB[18466] = { s = { { t = "equip", s = 13387 }, { t = "equip", s = 9336 } }, f = "" }
-ConsoleMode_ItemDescDB[18467] = { s = { { t = "equip", s = 14047 } }, f = "" }
-ConsoleMode_ItemDescDB[18468] = { s = { { t = "equip", s = 14047 } }, f = "" }
-ConsoleMode_ItemDescDB[18469] = { s = { { t = "equip", s = 9346 }, { t = "equip", s = 7681 }, { t = "equip", s = 21619 } }, f = "" }
-ConsoleMode_ItemDescDB[18470] = { s = { { t = "equip", s = 14047 }, { t = "equip", s = 9408 } }, f = "" }
-ConsoleMode_ItemDescDB[18471] = { s = { { t = "equip", s = 14047 }, { t = "equip", s = 9408 } }, f = "" }
-ConsoleMode_ItemDescDB[18472] = { s = { { t = "equip", s = 13387 }, { t = "equip", s = 9346 }, { t = "equip", s = 7681 } }, f = "" }
-ConsoleMode_ItemDescDB[18473] = { s = { { t = "equip", s = 15808 }, { t = "equip", s = 21429 } }, f = "" }
+ConsoleMode_ItemDescDB[18465] = { s = { { t = "equip", s = 15465 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18466] = { s = { { t = "equip", s = 13387 }, { t = "equip", s = 9336 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18467] = { s = { { t = "equip", s = 14047 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18468] = { s = { { t = "equip", s = 14047 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18469] = { s = { { t = "equip", s = 9346 }, { t = "equip", s = 7681 }, { t = "equip", s = 21619 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18470] = { s = { { t = "equip", s = 14047 }, { t = "equip", s = 9408 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18471] = { s = { { t = "equip", s = 14047 }, { t = "equip", s = 9408 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18472] = { s = { { t = "equip", s = 13387 }, { t = "equip", s = 9346 }, { t = "equip", s = 7681 } }, f = "Abençoado pelos Anciões Shen'dralar." }
+ConsoleMode_ItemDescDB[18473] = { s = { { t = "equip", s = 15808 }, { t = "equip", s = 21429 } }, f = "Abençoado pelos Anciões Shen'dralar." }
 ConsoleMode_ItemDescDB[18475] = { s = { { t = "equip", s = 9345 } }, f = "" }
 ConsoleMode_ItemDescDB[18477] = { s = { { t = "equip", s = 21629 } }, f = "" }
 ConsoleMode_ItemDescDB[18479] = { s = { { t = "equip", s = 18049 } }, f = "" }
@@ -3396,6 +3416,7 @@ ConsoleMode_ItemDescDB[18583] = { s = { { t = "use", s = 22990 } }, f = "" }
 ConsoleMode_ItemDescDB[18587] = { s = { { t = "use", s = 22999 } }, f = "" }
 ConsoleMode_ItemDescDB[18588] = { s = { { t = "use", s = 23000 } }, f = "" }
 ConsoleMode_ItemDescDB[18592] = { s = { { t = "use", s = 23007 } }, f = "" }
+ConsoleMode_ItemDescDB[18593] = { s = {  }, f = "Amarrado com Fiação de Ferro Negro" }
 ConsoleMode_ItemDescDB[18594] = { s = { { t = "use", s = 23008 } }, f = "" }
 ConsoleMode_ItemDescDB[18597] = { s = { { t = "use", s = 23012 } }, f = "" }
 ConsoleMode_ItemDescDB[18598] = { s = { { t = "use", s = 23013 } }, f = "" }
@@ -3409,6 +3430,7 @@ ConsoleMode_ItemDescDB[18608] = { s = { { t = "use", s = 23041 }, { t = "equip",
 ConsoleMode_ItemDescDB[18609] = { s = { { t = "use", s = 23042 }, { t = "equip", s = 21364 }, { t = "equip", s = 23265 } }, f = "" }
 ConsoleMode_ItemDescDB[18626] = { s = { { t = "use", s = 23054 } }, f = "" }
 ConsoleMode_ItemDescDB[18627] = { s = { { t = "use", s = 23058 } }, f = "" }
+ConsoleMode_ItemDescDB[18628] = { s = {  }, f = "Amarrado com Fiação de Ferro Negro" }
 ConsoleMode_ItemDescDB[18629] = { s = { { t = "use", s = 23061 } }, f = "" }
 ConsoleMode_ItemDescDB[18630] = { s = { { t = "use", s = 23062 } }, f = "" }
 ConsoleMode_ItemDescDB[18632] = { s = { { t = "use", s = 1127 } }, f = "" }
@@ -4085,7 +4107,7 @@ ConsoleMode_ItemDescDB[19896] = { s = { { t = "equip", s = 7597 } }, f = "" }
 ConsoleMode_ItemDescDB[19897] = { s = { { t = "equip", s = 14798 } }, f = "" }
 ConsoleMode_ItemDescDB[19898] = { s = { { t = "equip", s = 7597 }, { t = "equip", s = 9331 } }, f = "" }
 ConsoleMode_ItemDescDB[19899] = { s = { { t = "equip", s = 18030 } }, f = "" }
-ConsoleMode_ItemDescDB[19900] = { s = { { t = "equip", s = 15810 }, { t = "equip", s = 7597 } }, f = "" }
+ConsoleMode_ItemDescDB[19900] = { s = { { t = "equip", s = 15810 }, { t = "equip", s = 7597 } }, f = "Traz a marca de Jin." }
 ConsoleMode_ItemDescDB[19901] = { s = { { t = "chance", s = 24251 }, { t = "equip", s = 9141 }, { t = "equip", s = 24591 } }, f = "" }
 ConsoleMode_ItemDescDB[19902] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[19903] = { s = { { t = "equip", s = 24595 }, { t = "equip", s = 18379 } }, f = "" }
@@ -4213,9 +4235,9 @@ ConsoleMode_ItemDescDB[20075] = { s = { { t = "use", s = 24419 } }, f = "" }
 ConsoleMode_ItemDescDB[20076] = { s = { { t = "use", s = 24421 } }, f = "" }
 ConsoleMode_ItemDescDB[20077] = { s = { { t = "use", s = 24422 } }, f = "" }
 ConsoleMode_ItemDescDB[20078] = { s = { { t = "use", s = 24420 } }, f = "" }
-ConsoleMode_ItemDescDB[20079] = { s = { { t = "use", s = 24382 } }, f = "" }
-ConsoleMode_ItemDescDB[20080] = { s = { { t = "use", s = 24417 } }, f = "" }
-ConsoleMode_ItemDescDB[20081] = { s = { { t = "use", s = 24383 } }, f = "" }
+ConsoleMode_ItemDescDB[20079] = { s = { { t = "use", s = 24382 } }, f = "Abençoado com o mojo de Zanza!" }
+ConsoleMode_ItemDescDB[20080] = { s = { { t = "use", s = 24417 } }, f = "Abençoado com o mojo de Zanza!" }
+ConsoleMode_ItemDescDB[20081] = { s = { { t = "use", s = 24383 } }, f = "Abençoado com o mojo de Zanza!" }
 ConsoleMode_ItemDescDB[20082] = { s = { { t = "equip", s = 9412 } }, f = "" }
 ConsoleMode_ItemDescDB[20083] = { s = { { t = "equip", s = 7597 }, { t = "equip", s = 21363 } }, f = "" }
 ConsoleMode_ItemDescDB[20084] = { s = { { t = "use", s = 8312 } }, f = "" }
@@ -4422,7 +4444,7 @@ ConsoleMode_ItemDescDB[20397] = { s = { { t = "use", s = 24717 } }, f = "" }
 ConsoleMode_ItemDescDB[20398] = { s = { { t = "use", s = 24718 } }, f = "" }
 ConsoleMode_ItemDescDB[20399] = { s = { { t = "use", s = 24719 } }, f = "" }
 ConsoleMode_ItemDescDB[20402] = { s = {  }, f = "Como Agente de Nozdormu, somente você pode retirar os Fragmentos de Carapaça Silitídea dos cadáveres dos silitídeos. Mantenha seu distintivo na mochila o tempo todo." }
-ConsoleMode_ItemDescDB[20403] = { s = { { t = "use", s = 24726 } }, f = "" }
+ConsoleMode_ItemDescDB[20403] = { s = { { t = "use", s = 24726 } }, f = "Traz o Selo da Revoada Bronze" }
 ConsoleMode_ItemDescDB[20409] = { s = { { t = "use", s = 24737 } }, f = "" }
 ConsoleMode_ItemDescDB[20410] = { s = { { t = "use", s = 24733 } }, f = "" }
 ConsoleMode_ItemDescDB[20411] = { s = { { t = "use", s = 24724 } }, f = "" }
@@ -4615,7 +4637,7 @@ ConsoleMode_ItemDescDB[20756] = { s = { { t = "use", s = 25137 } }, f = "" }
 ConsoleMode_ItemDescDB[20757] = { s = { { t = "use", s = 25138 } }, f = "" }
 ConsoleMode_ItemDescDB[20758] = { s = { { t = "use", s = 25132 } }, f = "" }
 ConsoleMode_ItemDescDB[20761] = { s = { { t = "use", s = 25147 } }, f = "" }
-ConsoleMode_ItemDescDB[20769] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[20769] = { s = { { t = "use", s = 46498 } }, f = "Nascido das profundezas do lodo, este companheiro viscoso prospera na imundície e na decomposição, deixando um rastro de repulsa por onde passa." }
 ConsoleMode_ItemDescDB[20834] = { s = { { t = "use", s = 25247 } }, f = "" }
 ConsoleMode_ItemDescDB[20844] = { s = { { t = "use", s = 25351 } }, f = "" }
 ConsoleMode_ItemDescDB[20880] = { s = {  }, f = "Uma poderosa ficha criada a partir da divina combinação do mal puro da necrópole com dinheiro." }
@@ -4699,6 +4721,7 @@ ConsoleMode_ItemDescDB[21215] = { s = { { t = "use", s = 25990 } }, f = "" }
 ConsoleMode_ItemDescDB[21217] = { s = { { t = "use", s = 25691 } }, f = "" }
 ConsoleMode_ItemDescDB[21218] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[21219] = { s = { { t = "use", s = 25955 } }, f = "" }
+ConsoleMode_ItemDescDB[21232] = { s = {  }, f = "Armamentos Cerimoniais dos Senhores Qiraji. Usados pela infantaria Qiraji." }
 ConsoleMode_ItemDescDB[21235] = { s = { { t = "use", s = 24005 } }, f = "" }
 ConsoleMode_ItemDescDB[21236] = { s = { { t = "use", s = 24005 } }, f = "" }
 ConsoleMode_ItemDescDB[21238] = { s = { { t = "use", s = 24005 } }, f = "" }
@@ -5413,6 +5436,33 @@ ConsoleMode_ItemDescDB[22586] = { s = { { t = "use", s = 26020 } }, f = "" }
 ConsoleMode_ItemDescDB[22587] = { s = { { t = "use", s = 26019 } }, f = "" }
 ConsoleMode_ItemDescDB[22588] = { s = { { t = "use", s = 6476 } }, f = "" }
 ConsoleMode_ItemDescDB[22589] = { s = { { t = "equip", s = 23729 }, { t = "equip", s = 28141 }, { t = "equip", s = 28142 }, { t = "use", s = 28148 } }, f = "" }
+ConsoleMode_ItemDescDB[22600] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22601] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22602] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22603] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22604] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22605] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22606] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22607] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22608] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22609] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22610] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22611] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22612] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22613] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22614] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22615] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22616] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22617] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22618] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22619] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22620] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22621] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22622] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22623] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22624] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22625] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
+ConsoleMode_ItemDescDB[22626] = { s = {  }, f = "Traz o selo da Aurora Argêntea." }
 ConsoleMode_ItemDescDB[22630] = { s = { { t = "equip", s = 18382 }, { t = "equip", s = 28141 }, { t = "equip", s = 28143 }, { t = "use", s = 28148 } }, f = "" }
 ConsoleMode_ItemDescDB[22631] = { s = { { t = "equip", s = 28144 }, { t = "equip", s = 28155 }, { t = "use", s = 28148 } }, f = "" }
 ConsoleMode_ItemDescDB[22632] = { s = { { t = "equip", s = 28145 }, { t = "equip", s = 28152 }, { t = "equip", s = 28154 }, { t = "use", s = 28148 } }, f = "" }
@@ -5449,7 +5499,7 @@ ConsoleMode_ItemDescDB[22687] = { s = { { t = "use", s = 28215 } }, f = "" }
 ConsoleMode_ItemDescDB[22688] = { s = { { t = "equip", s = 14254 } }, f = "" }
 ConsoleMode_ItemDescDB[22689] = { s = { { t = "equip", s = 18031 } }, f = "" }
 ConsoleMode_ItemDescDB[22690] = { s = { { t = "equip", s = 7597 } }, f = "" }
-ConsoleMode_ItemDescDB[22691] = { s = { { t = "equip", s = 28282 }, { t = "equip", s = 7598 }, { t = "equip", s = 15464 }, { t = "chance", s = 29155 } }, f = "" }
+ConsoleMode_ItemDescDB[22691] = { s = { { t = "equip", s = 28282 }, { t = "equip", s = 7598 }, { t = "equip", s = 15464 }, { t = "chance", s = 29155 } }, f = "Lâmina do Alto-senhor Escarlate" }
 ConsoleMode_ItemDescDB[22692] = { s = { { t = "use", s = 28228 } }, f = "" }
 ConsoleMode_ItemDescDB[22694] = { s = { { t = "use", s = 28229 } }, f = "" }
 ConsoleMode_ItemDescDB[22695] = { s = { { t = "use", s = 28230 } }, f = "" }
@@ -5802,22 +5852,24 @@ ConsoleMode_ItemDescDB[23684] = { s = { { t = "use", s = 30020 } }, f = "" }
 ConsoleMode_ItemDescDB[23689] = { s = { { t = "use", s = 30046 } }, f = "" }
 ConsoleMode_ItemDescDB[23690] = { s = { { t = "use", s = 30048 } }, f = "" }
 ConsoleMode_ItemDescDB[23696] = { s = { { t = "use", s = 30297 } }, f = "" }
+ConsoleMode_ItemDescDB[23705] = { s = {  }, f = "Arda com intensidade, use com orgulho." }
+ConsoleMode_ItemDescDB[23710] = { s = {  }, f = "Caos e cor em exibição." }
 ConsoleMode_ItemDescDB[23712] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[23713] = { s = { { t = "use", s = 46498 } }, f = "Após uma incursão de harpias em Feralas, vários ninhos de hipogrifos foram atacados. Centenas de filhotes ficaram órfãos e foram confiados aos cuidados dos druidas na Ilha de Sardor." }
 ConsoleMode_ItemDescDB[23714] = { s = { { t = "use", s = 46096 } }, f = "" }
 ConsoleMode_ItemDescDB[23715] = { s = { { t = "use", s = 30164 } }, f = "\"Suco de Pulmão 100% de Primeira Qualidade - Recém-espremido\"" }
 ConsoleMode_ItemDescDB[23716] = { s = { { t = "use", s = 46096 } }, f = "" }
 ConsoleMode_ItemDescDB[23718] = { s = { { t = "use", s = 30173 } }, f = "" }
-ConsoleMode_ItemDescDB[23719] = { s = { { t = "use", s = 30175 } }, f = "" }
+ConsoleMode_ItemDescDB[23719] = { s = { { t = "use", s = 30175 } }, f = "Melhor servido gelado." }
 ConsoleMode_ItemDescDB[23720] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[23721] = { s = { { t = "use", s = 30177 } }, f = "" }
 ConsoleMode_ItemDescDB[23722] = { s = { { t = "use", s = 30178 } }, f = "" }
 ConsoleMode_ItemDescDB[23725] = { s = { { t = "use", s = 30183 } }, f = "" }
 ConsoleMode_ItemDescDB[23727] = { s = { { t = "use", s = 30187 } }, f = "" }
 ConsoleMode_ItemDescDB[23728] = { s = { { t = "use", s = 30190 } }, f = "" }
-ConsoleMode_ItemDescDB[23794] = { s = { { t = "use", s = 30331 } }, f = "" }
-ConsoleMode_ItemDescDB[23795] = { s = { { t = "use", s = 30336 } }, f = "" }
-ConsoleMode_ItemDescDB[23796] = { s = { { t = "use", s = 30338 } }, f = "" }
+ConsoleMode_ItemDescDB[23794] = { s = { { t = "use", s = 30331 } }, f = "Abençoado com o mojo de Zanza!" }
+ConsoleMode_ItemDescDB[23795] = { s = { { t = "use", s = 30336 } }, f = "Abençoado com o mojo de Zanza!" }
+ConsoleMode_ItemDescDB[23796] = { s = { { t = "use", s = 30338 } }, f = "Abençoado com o mojo de Zanza!" }
 ConsoleMode_ItemDescDB[23800] = { s = { { t = "use", s = 46499 } }, f = "Um predador raro das profundezas das Cavernas Ululantes." }
 ConsoleMode_ItemDescDB[23801] = { s = { { t = "use", s = 46499 } }, f = "Uma fera sombria oculta nas selvas de Un'Goro." }
 ConsoleMode_ItemDescDB[23802] = { s = { { t = "use", s = 46499 } }, f = "Um raptor impressionante criado por habilidosos domadores da selva." }
@@ -5830,7 +5882,7 @@ ConsoleMode_ItemDescDB[24282] = { s = {  }, f = "Todas as páginas estão em bra
 ConsoleMode_ItemDescDB[24358] = { s = { { t = "equip", s = 31750 } }, f = "" }
 ConsoleMode_ItemDescDB[29478] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[29940] = { s = {  }, f = "Um anel para os audaciosos, os ousados e os ocasionalmente desempregados." }
-ConsoleMode_ItemDescDB[30000] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[30000] = { s = { { t = "use", s = 46499 } }, f = "Campeão da Justa do Vento Norte." }
 ConsoleMode_ItemDescDB[30001] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[30002] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[30003] = { s = { { t = "use", s = 46499 } }, f = "" }
@@ -5838,7 +5890,7 @@ ConsoleMode_ItemDescDB[30004] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[30005] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[30006] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[30007] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[30008] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[30008] = { s = { { t = "use", s = 46499 } }, f = "Carrega a bagagem emocional e você." }
 ConsoleMode_ItemDescDB[30009] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[30010] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[30011] = { s = { { t = "use", s = 46499 } }, f = "" }
@@ -5870,7 +5922,7 @@ ConsoleMode_ItemDescDB[36017] = { s = { { t = "equip", s = 9416 } }, f = "" }
 ConsoleMode_ItemDescDB[36019] = { s = { { t = "equip", s = 9138 } }, f = "" }
 ConsoleMode_ItemDescDB[36500] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[36501] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[36502] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[36502] = { s = { { t = "use", s = 46498 } }, f = "Contemple a Serpente do Vento Sombrio que cruza os céus com uma presença elegante, mas misteriosa." }
 ConsoleMode_ItemDescDB[36503] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[36504] = { s = { { t = "use", s = 46498 } }, f = "Adornado com uma pelagem de escamas azuis brilhantes, desliza pelo ar com uma elegância serena, deixando um rastro de calma por onde passa." }
 ConsoleMode_ItemDescDB[36505] = { s = { { t = "use", s = 46498 } }, f = "Um companheiro cheio de energia, seu pelo flamejante captura a essência da aventura juvenil nas selvas de Azeroth." }
@@ -5973,7 +6025,7 @@ ConsoleMode_ItemDescDB[36607] = { s = { { t = "use", s = 46499 } }, f = "Uma mon
 ConsoleMode_ItemDescDB[36608] = { s = { { t = "use", s = 46499 } }, f = "Um tigre majestoso infundido com a energia dos céus." }
 ConsoleMode_ItemDescDB[36609] = { s = { { t = "use", s = 46499 } }, f = "Uma montaria abelha, valorizada por sua natureza doce e seu coração leal." }
 ConsoleMode_ItemDescDB[36610] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[36611] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[36611] = { s = { { t = "use", s = 46499 } }, f = "As penas negras destes Falcostruzes lamentam os caídos de Quel'Thalas." }
 ConsoleMode_ItemDescDB[36612] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[36613] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[36614] = { s = { { t = "use", s = 46499 } }, f = "" }
@@ -5987,20 +6039,20 @@ ConsoleMode_ItemDescDB[36621] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[36622] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[36623] = { s = { { t = "use", s = 46499 } }, f = "Visão comum sobre as terras draênicas, esta arraia etérea é uma voadora majestosa." }
 ConsoleMode_ItemDescDB[36665] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[36666] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[36666] = { s = { { t = "use", s = 46499 } }, f = "Nascida da peste e das sombras, esta aranha monstruosa avança apressada desde Naxxramas, sua forma retorcida um testemunho dos horrores do Flagelo." }
 ConsoleMode_ItemDescDB[36667] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[37000] = { s = { { t = "use", s = 46498 } }, f = "Um ágil rastejador da floresta, que tece pequenas teias entre as folhas para capturar o orvalho da manhã." }
 ConsoleMode_ItemDescDB[37001] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[37002] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[37003] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[37002] = { s = { { t = "use", s = 46498 } }, f = "Nascido da chama e da pedra, suas patas brilhantes iluminam as cavernas mais escuras com um calor suave." }
+ConsoleMode_ItemDescDB[37003] = { s = { { t = "use", s = 46498 } }, f = "Brilhante e veloz, ela cruza os bosques ensolarados, tecendo teias finas como seda." }
 ConsoleMode_ItemDescDB[37004] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[37005] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[37006] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[37007] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[37008] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[37009] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[37010] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[37011] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[37010] = { s = { { t = "use", s = 46498 } }, f = "Abençoada pela própria Shadra, esta ninhada é conhecida por sua peçonha especialmente potente." }
+ConsoleMode_ItemDescDB[37011] = { s = { { t = "use", s = 46498 } }, f = "A Mãe da Ninhada Araxxna deu à luz muitos horrores de oito patas - e esta fofura de oito patas." }
 ConsoleMode_ItemDescDB[37012] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[37013] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[37014] = { s = { { t = "use", s = 46498 } }, f = "" }
@@ -6077,6 +6129,7 @@ ConsoleMode_ItemDescDB[41673] = { s = { { t = "use", s = 5007 } }, f = "" }
 ConsoleMode_ItemDescDB[41674] = { s = { { t = "use", s = 5007 } }, f = "" }
 ConsoleMode_ItemDescDB[41685] = { s = { { t = "use", s = 45746 } }, f = "" }
 ConsoleMode_ItemDescDB[41692] = { s = { { t = "use", s = 58047 } }, f = "" }
+ConsoleMode_ItemDescDB[41698] = { s = {  }, f = "Mercadoria novinha em folha decorada com o lindo rosto do Zappo." }
 ConsoleMode_ItemDescDB[41702] = { s = { { t = "equip", s = 18384 } }, f = "" }
 ConsoleMode_ItemDescDB[41703] = { s = { { t = "equip", s = 25067 } }, f = "" }
 ConsoleMode_ItemDescDB[41717] = { s = { { t = "equip", s = 20732 } }, f = "" }
@@ -6100,8 +6153,10 @@ ConsoleMode_ItemDescDB[41846] = { s = { { t = "equip", s = 7522 } }, f = "" }
 ConsoleMode_ItemDescDB[41847] = { s = { { t = "equip", s = 9413 } }, f = "Um símbolo de autoridade e domínio." }
 ConsoleMode_ItemDescDB[41848] = { s = { { t = "equip", s = 19786 }, { t = "equip", s = 9141 } }, f = "" }
 ConsoleMode_ItemDescDB[41855] = { s = { { t = "equip", s = 7677 } }, f = "" }
+ConsoleMode_ItemDescDB[41857] = { s = {  }, f = "Traz o brasão do Kelpie." }
 ConsoleMode_ItemDescDB[41876] = { s = { { t = "use", s = 58049 } }, f = "" }
 ConsoleMode_ItemDescDB[41882] = { s = {  }, f = "Uma estrela-do-mar está grudada na parte de baixo dele. Misterioso." }
+ConsoleMode_ItemDescDB[41892] = { s = {  }, f = "É melhor não abrir isso." }
 ConsoleMode_ItemDescDB[41893] = { s = {  }, f = "...Ele mesmo as esvaziou?" }
 ConsoleMode_ItemDescDB[41905] = { s = { { t = "use", s = 58048 } }, f = "" }
 ConsoleMode_ItemDescDB[41909] = { s = { { t = "use", s = 52713 } }, f = "" }
@@ -6118,6 +6173,7 @@ ConsoleMode_ItemDescDB[41933] = { s = { { t = "use", s = 1131 } }, f = "" }
 ConsoleMode_ItemDescDB[41934] = { s = { { t = "use", s = 1131 } }, f = "" }
 ConsoleMode_ItemDescDB[41935] = { s = { { t = "use", s = 52730 } }, f = "" }
 ConsoleMode_ItemDescDB[41936] = { s = { { t = "use", s = 12438 } }, f = "" }
+ConsoleMode_ItemDescDB[41937] = { s = {  }, f = "Traz o brasão do Kelpie." }
 ConsoleMode_ItemDescDB[41944] = { s = { { t = "use", s = 438 } }, f = "" }
 ConsoleMode_ItemDescDB[41946] = { s = { { t = "equip", s = 45068 } }, f = "" }
 ConsoleMode_ItemDescDB[41947] = { s = { { t = "equip", s = 45068 } }, f = "" }
@@ -6592,10 +6648,10 @@ ConsoleMode_ItemDescDB[49000] = { s = { { t = "use", s = 50070 } }, f = "" }
 ConsoleMode_ItemDescDB[49992] = { s = { { t = "use", s = 30239 } }, f = "" }
 ConsoleMode_ItemDescDB[49995] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[50005] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[50007] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[50007] = { s = { { t = "use", s = 46498 } }, f = "Carrega todos os seus pertences deste mundo, na ida e na volta." }
 ConsoleMode_ItemDescDB[50009] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[50011] = { s = { { t = "use", s = 46096 } }, f = "" }
-ConsoleMode_ItemDescDB[50013] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[50013] = { s = { { t = "use", s = 46498 } }, f = "Golems de ossos são constructs mortos-vivos mortais feitos inteiramente de ossos e alimentados pelo icor da Morte." }
 ConsoleMode_ItemDescDB[50014] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[50017] = { s = { { t = "use", s = 46003 } }, f = "" }
 ConsoleMode_ItemDescDB[50019] = { s = { { t = "use", s = 46498 } }, f = "" }
@@ -6603,6 +6659,7 @@ ConsoleMode_ItemDescDB[50020] = { s = { { t = "use", s = 8213 } }, f = "Tenha cu
 ConsoleMode_ItemDescDB[50021] = { s = { { t = "use", s = 16589 } }, f = "" }
 ConsoleMode_ItemDescDB[50024] = { s = { { t = "equip", s = 7597 } }, f = "" }
 ConsoleMode_ItemDescDB[50025] = { s = { { t = "equip", s = 13384 } }, f = "" }
+ConsoleMode_ItemDescDB[50038] = { s = {  }, f = "Ousado, para magos com estilo." }
 ConsoleMode_ItemDescDB[50046] = { s = {  }, f = "Um vestido esvoaçante tecido em sedas cor de chama, usado com orgulho durante os ritos do Solstício." }
 ConsoleMode_ItemDescDB[50047] = { s = {  }, f = "." }
 ConsoleMode_ItemDescDB[50050] = { s = {  }, f = "Uma lembrancinha de Speedy para mantê-lo firme em sua jornada." }
@@ -6610,8 +6667,8 @@ ConsoleMode_ItemDescDB[50056] = { s = { { t = "use", s = 46035 } }, f = "" }
 ConsoleMode_ItemDescDB[50058] = { s = { { t = "use", s = 46498 } }, f = "Um companheiro de viagem tranquilo." }
 ConsoleMode_ItemDescDB[50066] = { s = { { t = "use", s = 46499 } }, f = "\"Uma maravilha mecânica, construída para suportar as batalhas mais duras.\"" }
 ConsoleMode_ItemDescDB[50067] = { s = { { t = "use", s = 46498 } }, f = "Uma serpente rara e cobiçada, frequentemente associada ao Festival da Lua." }
-ConsoleMode_ItemDescDB[50068] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[50069] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[50068] = { s = { { t = "use", s = 46498 } }, f = "Trazidos para o Porto de Águas Faiscantes a bordo de navios mercantes, estes répteis de vida curta são considerados pragas pelos moradores do porto." }
+ConsoleMode_ItemDescDB[50069] = { s = { { t = "use", s = 46498 } }, f = "Assassinos corajosos às vezes capturam estes bichinhos para usar seu veneno altamente tóxico para envenenar armas." }
 ConsoleMode_ItemDescDB[50070] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[50071] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[50072] = { s = { { t = "use", s = 46499 } }, f = "" }
@@ -6634,25 +6691,25 @@ ConsoleMode_ItemDescDB[50105] = { s = { { t = "use", s = 56053 } }, f = "" }
 ConsoleMode_ItemDescDB[50106] = { s = { { t = "use", s = 56053 } }, f = "" }
 ConsoleMode_ItemDescDB[50107] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50108] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50109] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50109] = { s = { { t = "use", s = 46029 } }, f = "Canalize o seu druida interior... oooh, hora de tirar um cochilo..." }
 ConsoleMode_ItemDescDB[50110] = { s = { { t = "use", s = 46029 } }, f = "Azul-água como as águas do Poço Lunar, calmante, mas ocultando segredos." }
 ConsoleMode_ItemDescDB[50111] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50112] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50112] = { s = { { t = "use", s = 46029 } }, f = "Azul como os céus sobre Vale Gris, repleto de mistério e sabedoria ancestral." }
 ConsoleMode_ItemDescDB[50113] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50114] = { s = { { t = "use", s = 46029 } }, f = "Um roxo vibrante, fresco como uma flor!" }
 ConsoleMode_ItemDescDB[50115] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50116] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50117] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50118] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50118] = { s = { { t = "use", s = 46029 } }, f = "Vermelho vivo de chama. Hum, apimentado!”" }
 ConsoleMode_ItemDescDB[50119] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50120] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50121] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50121] = { s = { { t = "use", s = 46029 } }, f = "Amarelo vibrante de sol. Você ainda se lembra de como é a luz do sol, não é?" }
 ConsoleMode_ItemDescDB[50122] = { s = { { t = "use", s = 46029 } }, f = "Loiro acinzentado. Como a colheita de Cerro Oeste, sem a dor nas costas." }
 ConsoleMode_ItemDescDB[50123] = { s = { { t = "use", s = 46029 } }, f = "Um cinza de aço, como o cavaleiro que viu batalhas demais e banhos de menos." }
 ConsoleMode_ItemDescDB[50124] = { s = { { t = "use", s = 46029 } }, f = "Um prateado distinto que só melhora com a idade." }
-ConsoleMode_ItemDescDB[50125] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50126] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50127] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50125] = { s = { { t = "use", s = 46029 } }, f = "Negro como a sua última explosão “controlada”." }
+ConsoleMode_ItemDescDB[50126] = { s = { { t = "use", s = 46029 } }, f = "Marrom, como a consequência dos seus acidentes causados pela cerveja." }
+ConsoleMode_ItemDescDB[50127] = { s = { { t = "use", s = 46029 } }, f = "Loiro, brilhante e um pouco brilhante demais." }
 ConsoleMode_ItemDescDB[50128] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50129] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50130] = { s = { { t = "use", s = 46029 } }, f = "" }
@@ -6669,7 +6726,7 @@ ConsoleMode_ItemDescDB[50140] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50141] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50142] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50143] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50144] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50144] = { s = { { t = "use", s = 46029 } }, f = "Vermelho-sangue. Pronto para a batalha. Ou apenas furioso… de todo modo, você será um berserk convincente." }
 ConsoleMode_ItemDescDB[50145] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50146] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50147] = { s = { { t = "use", s = 46029 } }, f = "" }
@@ -6678,8 +6735,8 @@ ConsoleMode_ItemDescDB[50149] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50150] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50151] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50152] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50153] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50154] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50153] = { s = { { t = "use", s = 46029 } }, f = "Preto-azulado, como o seu rosto depois de mais uma briga na taverna." }
+ConsoleMode_ItemDescDB[50154] = { s = { { t = "use", s = 46029 } }, f = "Marrom, robusto, como as árvores da Ravina Brado Guerreiro. Forte, como nós. Talvez mais forte." }
 ConsoleMode_ItemDescDB[50155] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50156] = { s = { { t = "use", s = 46029 } }, f = "Um roxo quente e profundo como os estandartes dos trolls. Bonito, mas pronto para a batalha." }
 ConsoleMode_ItemDescDB[50157] = { s = { { t = "use", s = 46029 } }, f = "" }
@@ -6688,14 +6745,14 @@ ConsoleMode_ItemDescDB[50159] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50160] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50161] = { s = { { t = "use", s = 46029 } }, f = "Um verde fantasmagórico e opaco como o brilho da sua alma… ou da falta dela." }
 ConsoleMode_ItemDescDB[50162] = { s = { { t = "use", s = 46029 } }, f = "Um vermelho-violeta mortuário — como o beijo de uma rosa sobre um túmulo." }
-ConsoleMode_ItemDescDB[50163] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50164] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50165] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50166] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50163] = { s = { { t = "use", s = 46029 } }, f = "Marrom como a Peste que nos levou a todos. Abrace-a, como abraçamos a morte." }
+ConsoleMode_ItemDescDB[50164] = { s = { { t = "use", s = 46029 } }, f = "Loiro, se é que se pode chamar assim. Escuro. Macabro, como o nosso cabelo... e as nossas vidas." }
+ConsoleMode_ItemDescDB[50165] = { s = { { t = "use", s = 46029 } }, f = "Loiro, mas mais... acinzentado. Como a sua pele depois de tempo demais no túmulo." }
+ConsoleMode_ItemDescDB[50166] = { s = { { t = "use", s = 46029 } }, f = "Azul como o seu sangue. Frio. Morto. Um tom perfeito para os Renegados." }
 ConsoleMode_ItemDescDB[50167] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50168] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50169] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[50170] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[50170] = { s = { { t = "use", s = 46029 } }, f = "Negro como os nossos corações. Apodrecido como o mundo que herdamos." }
 ConsoleMode_ItemDescDB[50171] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[50186] = { s = { { t = "chance", s = 46318 } }, f = "" }
 ConsoleMode_ItemDescDB[50187] = { s = { { t = "chance", s = 8277 } }, f = "" }
@@ -6722,6 +6779,7 @@ ConsoleMode_ItemDescDB[50224] = { s = { { t = "use", s = 56053 } }, f = "" }
 ConsoleMode_ItemDescDB[50225] = { s = { { t = "use", s = 56053 } }, f = "" }
 ConsoleMode_ItemDescDB[50231] = { s = {  }, f = "Uma corda forte de couro trançado." }
 ConsoleMode_ItemDescDB[50233] = { s = {  }, f = "Um bastão simples feito de madeira." }
+ConsoleMode_ItemDescDB[50235] = { s = {  }, f = "Barcos para Leigos, segunda edição." }
 ConsoleMode_ItemDescDB[50237] = { s = { { t = "use", s = 45988 } }, f = "" }
 ConsoleMode_ItemDescDB[50243] = { s = { { t = "use", s = 5 } }, f = "" }
 ConsoleMode_ItemDescDB[50244] = { s = { { t = "equip", s = 45866 } }, f = "" }
@@ -6843,11 +6901,12 @@ ConsoleMode_ItemDescDB[51300] = { s = { { t = "equip", s = 9406 } }, f = "" }
 ConsoleMode_ItemDescDB[51301] = { s = { { t = "equip", s = 9331 } }, f = "" }
 ConsoleMode_ItemDescDB[51312] = { s = { { t = "use", s = 46012 } }, f = "" }
 ConsoleMode_ItemDescDB[51313] = { s = { { t = "use", s = 46012 } }, f = "" }
+ConsoleMode_ItemDescDB[51332] = { s = {  }, f = "Brilhante o suficiente para não se perder na floresta." }
 ConsoleMode_ItemDescDB[51356] = { s = { { t = "use", s = 58052 } }, f = "" }
 ConsoleMode_ItemDescDB[51360] = { s = { { t = "use", s = 53010 } }, f = "" }
 ConsoleMode_ItemDescDB[51361] = { s = { { t = "use", s = 53013 } }, f = "" }
 ConsoleMode_ItemDescDB[51362] = { s = { { t = "use", s = 53016 } }, f = "" }
-ConsoleMode_ItemDescDB[51421] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[51421] = { s = { { t = "use", s = 46498 } }, f = "Carrega todos os seus pertences deste mundo, na ida e na volta." }
 ConsoleMode_ItemDescDB[51425] = { s = { { t = "use", s = 48304 } }, f = "" }
 ConsoleMode_ItemDescDB[51431] = { s = { { t = "use", s = 53019 } }, f = "" }
 ConsoleMode_ItemDescDB[51432] = { s = { { t = "use", s = 53022 } }, f = "" }
@@ -6855,9 +6914,13 @@ ConsoleMode_ItemDescDB[51433] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[51600] = { s = {  }, f = "Um feitiço antigo ainda emana runas arcanas e o encantamento está desgastado demais para ser lido corretamente." }
 ConsoleMode_ItemDescDB[51603] = { s = {  }, f = "Já tenho um reino em vista, uma terra para governar. O que mais pedir? Talvez um bolinho gelado..." }
 ConsoleMode_ItemDescDB[51604] = { s = {  }, f = "Não deixe de trazer os seus amigos." }
+ConsoleMode_ItemDescDB[51613] = { s = {  }, f = "Bum. Agora bum? Eu desejo um bum. Vá, bum! Esta moeda deve estar quebrada, será que ela vai explodir." }
+ConsoleMode_ItemDescDB[51629] = { s = {  }, f = "Pelo poder do Lich… opa, da Luz, queime!" }
+ConsoleMode_ItemDescDB[51633] = { s = {  }, f = "Podemos priorizar a cura do Chomper?" }
 ConsoleMode_ItemDescDB[51660] = { s = {  }, f = "\"Ainda procurando uma namorada gótica gata.\"" }
 ConsoleMode_ItemDescDB[51700] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[51705] = { s = { { t = "use", s = 46062 } }, f = "" }
+ConsoleMode_ItemDescDB[51706] = { s = {  }, f = "Pode ser plantada em uma Jardineira de Madeira Simples. Requer água e fertilizante." }
 ConsoleMode_ItemDescDB[51710] = { s = { { t = "use", s = 5006 } }, f = "" }
 ConsoleMode_ItemDescDB[51711] = { s = { { t = "use", s = 18230 } }, f = "" }
 ConsoleMode_ItemDescDB[51712] = { s = { { t = "use", s = 10256 } }, f = "" }
@@ -6941,6 +7004,7 @@ ConsoleMode_ItemDescDB[51834] = { s = {  }, f = "Uma relíquia do mosteiro." }
 ConsoleMode_ItemDescDB[51835] = { s = { { t = "use", s = 26389 } }, f = "" }
 ConsoleMode_ItemDescDB[51836] = { s = { { t = "use", s = 46003 } }, f = "" }
 ConsoleMode_ItemDescDB[51837] = { s = { { t = "equip", s = 47311 } }, f = "" }
+ConsoleMode_ItemDescDB[51841] = { s = {  }, f = "Boa sorte na sua nova aventura!" }
 ConsoleMode_ItemDescDB[51842] = { s = { { t = "equip", s = 9397 } }, f = "" }
 ConsoleMode_ItemDescDB[51848] = { s = {  }, f = "Uma relíquia dos tempos do uso imprudente da magia." }
 ConsoleMode_ItemDescDB[51849] = { s = { { t = "chance", s = 14119 } }, f = "" }
@@ -6975,7 +7039,7 @@ ConsoleMode_ItemDescDB[54000] = { s = { { t = "use", s = 46498 } }, f = "Um anf�
 ConsoleMode_ItemDescDB[54001] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[54002] = { s = { { t = "use", s = 46498 } }, f = "Um anfíbio robusto com um coaxar potente, frequentemente encontrado perto de massas d'água, reverenciado por alguns como um símbolo de força e resiliência." }
 ConsoleMode_ItemDescDB[54003] = { s = { { t = "use", s = 46498 } }, f = "Um sapo peculiar que parece desafiar as leis do tempo e do espaço, saltando sem esforço entre dimensões." }
-ConsoleMode_ItemDescDB[54004] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[54004] = { s = { { t = "use", s = 46498 } }, f = "Cuidado com os tons vibrantes deste anfíbio mortal, pois a sua pele secreta uma toxina potente capaz de incapacitar até mesmo os inimigos mais poderosos." }
 ConsoleMode_ItemDescDB[54005] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[54006] = { s = { { t = "use", s = 46498 } }, f = "\"Delicada e encantadora, esta rara espécie de sapo cativa com sua vibrante tonalidade rosada, que dizem trazer boa sorte e prosperidade ao seu dono.\"" }
 ConsoleMode_ItemDescDB[54007] = { s = { { t = "use", s = 46498 } }, f = "" }
@@ -7685,9 +7749,10 @@ ConsoleMode_ItemDescDB[60388] = { s = { { t = "equip", s = 15464 } }, f = "" }
 ConsoleMode_ItemDescDB[60389] = { s = { { t = "equip", s = 18384 } }, f = "" }
 ConsoleMode_ItemDescDB[60390] = { s = { { t = "equip", s = 7597 }, { t = "equip", s = 13665 } }, f = "" }
 ConsoleMode_ItemDescDB[60392] = { s = { { t = "equip", s = 45420 } }, f = "" }
-ConsoleMode_ItemDescDB[60393] = { s = { { t = "equip", s = 9398 } }, f = "" }
+ConsoleMode_ItemDescDB[60393] = { s = { { t = "equip", s = 9398 } }, f = "Pertenceu à donzela da Luz." }
 ConsoleMode_ItemDescDB[60394] = { s = { { t = "equip", s = 9345 } }, f = "" }
 ConsoleMode_ItemDescDB[60395] = { s = { { t = "equip", s = 7518 } }, f = "" }
+ConsoleMode_ItemDescDB[60397] = { s = {  }, f = "Quebrada, mas ainda afiada." }
 ConsoleMode_ItemDescDB[60400] = { s = { { t = "equip", s = 13679 } }, f = "" }
 ConsoleMode_ItemDescDB[60405] = { s = { { t = "equip", s = 13679 } }, f = "" }
 ConsoleMode_ItemDescDB[60406] = { s = { { t = "equip", s = 9344 }, { t = "equip", s = 7680 } }, f = "" }
@@ -7891,7 +7956,7 @@ ConsoleMode_ItemDescDB[60837] = { s = { { t = "equip", s = 7694 } }, f = "" }
 ConsoleMode_ItemDescDB[60844] = { s = { { t = "equip", s = 13669 } }, f = "" }
 ConsoleMode_ItemDescDB[60847] = { s = { { t = "equip", s = 23727 } }, f = "" }
 ConsoleMode_ItemDescDB[60853] = { s = { { t = "equip", s = 23217 } }, f = "" }
-ConsoleMode_ItemDescDB[60854] = { s = { { t = "use", s = 9163 } }, f = "" }
+ConsoleMode_ItemDescDB[60854] = { s = { { t = "use", s = 9163 } }, f = "Sangue do meu sangue." }
 ConsoleMode_ItemDescDB[60855] = { s = { { t = "equip", s = 21625 }, { t = "equip", s = 21598 } }, f = "" }
 ConsoleMode_ItemDescDB[60859] = { s = { { t = "equip", s = 18384 } }, f = "" }
 ConsoleMode_ItemDescDB[60860] = { s = { { t = "equip", s = 24090 } }, f = "" }
@@ -7977,7 +8042,7 @@ ConsoleMode_ItemDescDB[61025] = { s = { { t = "equip", s = 9294 } }, f = "" }
 ConsoleMode_ItemDescDB[61027] = { s = { { t = "equip", s = 9346 }, { t = "equip", s = 21361 } }, f = "" }
 ConsoleMode_ItemDescDB[61028] = { s = { { t = "equip", s = 9417 }, { t = "equip", s = 25975 } }, f = "" }
 ConsoleMode_ItemDescDB[61029] = { s = { { t = "equip", s = 14027 } }, f = "" }
-ConsoleMode_ItemDescDB[61030] = { s = { { t = "chance", s = 11879 } }, f = "" }
+ConsoleMode_ItemDescDB[61030] = { s = { { t = "chance", s = 11879 } }, f = "Apanha peixes e inimigos igualmente." }
 ConsoleMode_ItemDescDB[61031] = { s = { { t = "equip", s = 23727 }, { t = "equip", s = 13881 } }, f = "" }
 ConsoleMode_ItemDescDB[61032] = { s = { { t = "equip", s = 9346 } }, f = "" }
 ConsoleMode_ItemDescDB[61033] = { s = { { t = "equip", s = 18014 }, { t = "equip", s = 21598 } }, f = "" }
@@ -8012,7 +8077,7 @@ ConsoleMode_ItemDescDB[61068] = { s = { { t = "use", s = 13441 }, { t = "equip",
 ConsoleMode_ItemDescDB[61076] = { s = { { t = "equip", s = 18384 }, { t = "equip", s = 9394 } }, f = "" }
 ConsoleMode_ItemDescDB[61077] = { s = { { t = "equip", s = 9314 }, { t = "equip", s = 21627 } }, f = "" }
 ConsoleMode_ItemDescDB[61080] = { s = { { t = "equip", s = 21596 }, { t = "equip", s = 13669 } }, f = "" }
-ConsoleMode_ItemDescDB[61081] = { s = { { t = "use", s = 45739 } }, f = "" }
+ConsoleMode_ItemDescDB[61081] = { s = { { t = "use", s = 45739 } }, f = "Abençoado por Cenarius, este presente contempla a pura ferocidade da própria natureza." }
 ConsoleMode_ItemDescDB[61082] = { s = { { t = "use", s = 28766 } }, f = "Uma lembrança do Yeti da Neve." }
 ConsoleMode_ItemDescDB[61086] = { s = { { t = "equip", s = 18384 } }, f = "" }
 ConsoleMode_ItemDescDB[61087] = { s = { { t = "equip", s = 48030 }, { t = "equip", s = 13679 } }, f = "" }
@@ -8195,7 +8260,7 @@ ConsoleMode_ItemDescDB[61385] = { s = { { t = "equip", s = 45420 } }, f = "" }
 ConsoleMode_ItemDescDB[61392] = { s = {  }, f = "Um projeto altamente intrincado e excessivamente complexo." }
 ConsoleMode_ItemDescDB[61393] = { s = { { t = "use", s = 27538 } }, f = "" }
 ConsoleMode_ItemDescDB[61396] = { s = { { t = "equip", s = 7676 } }, f = "" }
-ConsoleMode_ItemDescDB[61406] = { s = { { t = "equip", s = 48033 }, { t = "equip", s = 9331 }, { t = "use", s = 45449 } }, f = "" }
+ConsoleMode_ItemDescDB[61406] = { s = { { t = "equip", s = 48033 }, { t = "equip", s = 9331 }, { t = "use", s = 45449 } }, f = "Pela presa e pela garra, você renasce." }
 ConsoleMode_ItemDescDB[61410] = { s = { { t = "equip", s = 9357 } }, f = "" }
 ConsoleMode_ItemDescDB[61411] = { s = { { t = "equip", s = 8815 } }, f = "" }
 ConsoleMode_ItemDescDB[61423] = { s = { { t = "use", s = 45489 } }, f = "" }
@@ -8252,7 +8317,7 @@ ConsoleMode_ItemDescDB[61523] = { s = { { t = "equip", s = 15464 }, { t = "equip
 ConsoleMode_ItemDescDB[61524] = { s = { { t = "equip", s = 17991 }, { t = "equip", s = 17826 }, { t = "equip", s = 23727 }, { t = "equip", s = 18384 } }, f = "" }
 ConsoleMode_ItemDescDB[61525] = { s = { { t = "equip", s = 15464 }, { t = "equip", s = 48030 } }, f = "" }
 ConsoleMode_ItemDescDB[61526] = { s = { { t = "equip", s = 18369 }, { t = "equip", s = 13674 }, { t = "equip", s = 22912 } }, f = "" }
-ConsoleMode_ItemDescDB[61527] = { s = { { t = "equip", s = 25067 }, { t = "equip", s = 45859 } }, f = "" }
+ConsoleMode_ItemDescDB[61527] = { s = { { t = "equip", s = 25067 }, { t = "equip", s = 45859 } }, f = "Transbordando energias vitais." }
 ConsoleMode_ItemDescDB[61528] = { s = { { t = "equip", s = 13679 }, { t = "equip", s = 45420 } }, f = "" }
 ConsoleMode_ItemDescDB[61529] = { s = { { t = "equip", s = 9330 } }, f = "" }
 ConsoleMode_ItemDescDB[61531] = { s = { { t = "equip", s = 9318 }, { t = "equip", s = 21363 } }, f = "" }
@@ -8330,6 +8395,7 @@ ConsoleMode_ItemDescDB[61671] = { s = { { t = "equip", s = 9329 } }, f = "" }
 ConsoleMode_ItemDescDB[61672] = { s = { { t = "equip", s = 25109 } }, f = "" }
 ConsoleMode_ItemDescDB[61675] = { s = { { t = "use", s = 19398 } }, f = "" }
 ConsoleMode_ItemDescDB[61676] = { s = { { t = "use", s = 45630 } }, f = "" }
+ConsoleMode_ItemDescDB[61686] = { s = {  }, f = "Sem conserto." }
 ConsoleMode_ItemDescDB[61687] = { s = { { t = "equip", s = 7706 } }, f = "" }
 ConsoleMode_ItemDescDB[61688] = { s = { { t = "chance", s = 18078 } }, f = "" }
 ConsoleMode_ItemDescDB[61692] = { s = {  }, f = "Um golpe vindo de cima inutilizou o elmo." }
@@ -8402,7 +8468,7 @@ ConsoleMode_ItemDescDB[65003] = { s = { { t = "equip", s = 18056 }, { t = "equip
 ConsoleMode_ItemDescDB[65004] = { s = { { t = "equip", s = 48003 } }, f = "" }
 ConsoleMode_ItemDescDB[65005] = { s = { { t = "chance", s = 48008 } }, f = "" }
 ConsoleMode_ItemDescDB[65006] = { s = { { t = "equip", s = 17991 }, { t = "equip", s = 18384 }, { t = "equip", s = 48009 } }, f = "" }
-ConsoleMode_ItemDescDB[65008] = { s = { { t = "chance", s = 48004 } }, f = "" }
+ConsoleMode_ItemDescDB[65008] = { s = { { t = "chance", s = 48004 } }, f = "Entre o despertar e o sonho." }
 ConsoleMode_ItemDescDB[65009] = { s = { { t = "equip", s = 13669 } }, f = "" }
 ConsoleMode_ItemDescDB[65013] = { s = { { t = "chance", s = 48005 } }, f = "" }
 ConsoleMode_ItemDescDB[65014] = { s = { { t = "equip", s = 13665 }, { t = "equip", s = 48007 } }, f = "" }
@@ -8433,13 +8499,14 @@ ConsoleMode_ItemDescDB[65102] = { s = { { t = "equip", s = 18378 }, { t = "equip
 ConsoleMode_ItemDescDB[65103] = { s = { { t = "equip", s = 18030 }, { t = "equip", s = 57158 } }, f = "" }
 ConsoleMode_ItemDescDB[65105] = { s = { { t = "equip", s = 13670 }, { t = "equip", s = 13674 }, { t = "equip", s = 23516 } }, f = "" }
 ConsoleMode_ItemDescDB[67000] = { s = { { t = "use", s = 46498 } }, f = "Uma criatura tímida, a raposa rosa só revelará a sua presença àqueles de quem se tornou amiga." }
+ConsoleMode_ItemDescDB[67005] = { s = {  }, f = "Comemore o 5º ano do Turtle WoW conosco! Obrigado por fazer parte da nossa incrível comunidade e por jogar em nosso servidor!" }
 ConsoleMode_ItemDescDB[69000] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[69001] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[69002] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[69003] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[69004] = { s = { { t = "use", s = 46498 } }, f = "" }
 ConsoleMode_ItemDescDB[69006] = { s = { { t = "use", s = 46498 } }, f = "" }
-ConsoleMode_ItemDescDB[69170] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[69170] = { s = { { t = "use", s = 46499 } }, f = "Acredita-se que descendam do lendário Agamaggan, estes javalis agora são companheiros e montarias estimados da tribo Navalha." }
 ConsoleMode_ItemDescDB[69171] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[69172] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[69173] = { s = { { t = "use", s = 46499 } }, f = "" }
@@ -8456,6 +8523,8 @@ ConsoleMode_ItemDescDB[70034] = { s = { { t = "equip", s = 9137 } }, f = "" }
 ConsoleMode_ItemDescDB[70043] = { s = { { t = "use", s = 46096 } }, f = "" }
 ConsoleMode_ItemDescDB[70047] = { s = { { t = "equip", s = 7363 } }, f = "" }
 ConsoleMode_ItemDescDB[70048] = { s = { { t = "equip", s = 7679 } }, f = "" }
+ConsoleMode_ItemDescDB[70052] = { s = {  }, f = "É melhor ajudá-lo a encontrá-lo, rapaz." }
+ConsoleMode_ItemDescDB[70054] = { s = {  }, f = "Grande o bastante para caber o coração de um dragão." }
 ConsoleMode_ItemDescDB[70056] = { s = {  }, f = "Uma relíquia de proporções régias." }
 ConsoleMode_ItemDescDB[70057] = { s = { { t = "equip", s = 18030 }, { t = "equip", s = 21361 } }, f = "" }
 ConsoleMode_ItemDescDB[70059] = { s = { { t = "equip", s = 14097 } }, f = "" }
@@ -8649,6 +8718,8 @@ ConsoleMode_ItemDescDB[80180] = { s = {  }, f = "Abandone toda a esperança..." 
 ConsoleMode_ItemDescDB[80216] = { s = { { t = "use", s = 58054 } }, f = "" }
 ConsoleMode_ItemDescDB[80250] = { s = { { t = "use", s = 430 } }, f = "" }
 ConsoleMode_ItemDescDB[80251] = { s = { { t = "use", s = 433 } }, f = "" }
+ConsoleMode_ItemDescDB[80308] = { s = {  }, f = "Carregando o espírito da Mãe Terra." }
+ConsoleMode_ItemDescDB[80309] = { s = {  }, f = "Trazendo a marca daqueles que forjam o próprio destino." }
 ConsoleMode_ItemDescDB[80312] = { s = {  }, f = "Um símbolo rústico da determinação dos Martelo Feroz." }
 ConsoleMode_ItemDescDB[80314] = { s = {  }, f = "Um brasão do terror, empunhado por aqueles que espalham a praga do Flagelo." }
 ConsoleMode_ItemDescDB[80410] = { s = { { t = "use", s = 45022 } }, f = "" }
@@ -8757,21 +8828,21 @@ ConsoleMode_ItemDescDB[80651] = { s = { { t = "use", s = 46029 } }, f = "Um loir
 ConsoleMode_ItemDescDB[80652] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[80653] = { s = { { t = "use", s = 46029 } }, f = "Um marrom-avermelhado intenso, como a calma de uma noite de outono." }
 ConsoleMode_ItemDescDB[80654] = { s = { { t = "use", s = 46029 } }, f = "" }
-ConsoleMode_ItemDescDB[80655] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[80655] = { s = { { t = "use", s = 46029 } }, f = "Loiro, tão claro que poderia cegar alguém se você virasse a cabeça." }
 ConsoleMode_ItemDescDB[80656] = { s = { { t = "use", s = 46029 } }, f = "Um vermelho-alaranjado flamejante, porque algumas promessas — como a sua Nascente do Sol — são quentes demais para encarar." }
 ConsoleMode_ItemDescDB[80657] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[80658] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[80659] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[80660] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[80661] = { s = { { t = "use", s = 46029 } }, f = "Vermelho tão profundo quanto o seu rosto quando você tenta fazer uma proeza – e falha. Bum bum, ops! A tintura de cabelo masculina de goblin é um adorável castanho-cobre-claro que não explodiu!" }
-ConsoleMode_ItemDescDB[80662] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[80662] = { s = { { t = "use", s = 46029 } }, f = "Vermelho vivo, como o seu balanço financeiro após um pequeno erro de cálculo. Não se preocupe, os goblins machos ficam no marrom!" }
 ConsoleMode_ItemDescDB[80663] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[80664] = { s = { { t = "use", s = 46029 } }, f = "" }
 ConsoleMode_ItemDescDB[80665] = { s = { { t = "use", s = 46029 } }, f = "Azul-celeste, porque a sua cabeça deveria ter um ego do tamanho do céu." }
 ConsoleMode_ItemDescDB[80671] = { s = { { t = "chance", s = 17511 } }, f = "" }
 ConsoleMode_ItemDescDB[80673] = { s = { { t = "equip", s = 17988 } }, f = "" }
 ConsoleMode_ItemDescDB[80674] = { s = { { t = "equip", s = 48033 }, { t = "equip", s = 15464 } }, f = "" }
-ConsoleMode_ItemDescDB[80692] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[80692] = { s = { { t = "use", s = 46499 } }, f = "Mas a regra mais importante, a regra que você jamais pode esquecer, não importa o quanto ele chore, não importa o quanto ele implore, jamais o alimente depois da meia-noite." }
 ConsoleMode_ItemDescDB[80694] = { s = { { t = "use", s = 46003 } }, f = "" }
 ConsoleMode_ItemDescDB[80704] = { s = { { t = "equip", s = 7711 } }, f = "" }
 ConsoleMode_ItemDescDB[80705] = { s = { { t = "equip", s = 9140 } }, f = "" }
@@ -8908,7 +8979,7 @@ ConsoleMode_ItemDescDB[81083] = { s = {  }, f = "Um vazio sombrio atrai o olhar.
 ConsoleMode_ItemDescDB[81084] = { s = {  }, f = "Poder arcano tecido em tecido." }
 ConsoleMode_ItemDescDB[81091] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81100] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[81101] = { s = { { t = "use", s = 46029 } }, f = "" }
+ConsoleMode_ItemDescDB[81101] = { s = { { t = "use", s = 46029 } }, f = "O cabelo preto costumava ser incomum entre os elfos noturnos, pelo menos antes da invenção desta tintura." }
 ConsoleMode_ItemDescDB[81102] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81116] = { s = { { t = "use", s = 46096 } }, f = "" }
 ConsoleMode_ItemDescDB[81119] = { s = {  }, f = "Uma passagem só de ida para a Planície Cintilante." }
@@ -8943,6 +9014,8 @@ ConsoleMode_ItemDescDB[81194] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81195] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81196] = { s = { { t = "use", s = 12775 } }, f = "" }
 ConsoleMode_ItemDescDB[81198] = { s = { { t = "use", s = 46499 } }, f = "Um membro alfa da manada, este kodo é um exemplo clássico das criaturas poderosas que troam por Mulgore." }
+ConsoleMode_ItemDescDB[81199] = { s = {  }, f = "Esculpido pelos nossos antepassados." }
+ConsoleMode_ItemDescDB[81204] = { s = {  }, f = "Trazendo a marca de Illidan, este tabardo carrega tanto poder quanto ameaça." }
 ConsoleMode_ItemDescDB[81206] = { s = { { t = "use", s = 56053 } }, f = "" }
 ConsoleMode_ItemDescDB[81207] = { s = { { t = "use", s = 46498 } }, f = "Um mago de Dalaran sempre parece tão sério, até suas mensagens serem entregues por estes familiares emotivos." }
 ConsoleMode_ItemDescDB[81208] = { s = { { t = "use", s = 56053 } }, f = "" }
@@ -8959,7 +9032,7 @@ ConsoleMode_ItemDescDB[81230] = { s = { { t = "use", s = 56053 } }, f = "" }
 ConsoleMode_ItemDescDB[81231] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81232] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81233] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[81234] = { s = { { t = "use", s = 46499 } }, f = "" }
+ConsoleMode_ItemDescDB[81234] = { s = { { t = "use", s = 46499 } }, f = "Os cervejeiros aposentaram esta montaria do serviço ativo de propaganda após reclamações de que as feras eram \"temperamentais demais\" para serem controladas nas grandes cidades." }
 ConsoleMode_ItemDescDB[81235] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81236] = { s = { { t = "use", s = 46499 } }, f = "Um veterano de algumas das batalhas mais árduas travadas pela Aliança." }
 ConsoleMode_ItemDescDB[81237] = { s = { { t = "use", s = 46499 } }, f = "" }
@@ -8973,7 +9046,7 @@ ConsoleMode_ItemDescDB[81244] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81245] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81246] = { s = { { t = "use", s = 46499 } }, f = "" }
 ConsoleMode_ItemDescDB[81247] = { s = { { t = "use", s = 46499 } }, f = "" }
-ConsoleMode_ItemDescDB[81248] = { s = { { t = "use", s = 46498 } }, f = "" }
+ConsoleMode_ItemDescDB[81248] = { s = { { t = "use", s = 46498 } }, f = "Grande e seguro para se ter ao lado caso queira descobrir o mundo sob o mar." }
 ConsoleMode_ItemDescDB[81250] = { s = { { t = "use", s = 46499 } }, f = "Uma temível máquina de guerra, construída para suportar as mais duras batalhas." }
 ConsoleMode_ItemDescDB[81251] = { s = { { t = "use", s = 46499 } }, f = "Uma temível máquina de guerra, construída para suportar as mais duras batalhas." }
 ConsoleMode_ItemDescDB[81252] = { s = { { t = "use", s = 46499 } }, f = "Uma temível máquina de guerra, construída para suportar as mais duras batalhas." }
@@ -9021,7 +9094,7 @@ ConsoleMode_ItemDescDB[81351] = { s = { { t = "use", s = 21952 } }, f = "" }
 ConsoleMode_ItemDescDB[81352] = { s = { { t = "equip", s = 7597 } }, f = "" }
 ConsoleMode_ItemDescDB[81353] = { s = { { t = "equip", s = 7597 } }, f = "" }
 ConsoleMode_ItemDescDB[81354] = { s = { { t = "equip", s = 9393 } }, f = "" }
-ConsoleMode_ItemDescDB[81355] = { s = { { t = "equip", s = 15464 }, { t = "equip", s = 21513 } }, f = "" }
+ConsoleMode_ItemDescDB[81355] = { s = { { t = "equip", s = 15464 }, { t = "equip", s = 21513 } }, f = "Abençoado pela luz para banir os mortos-vivos" }
 ConsoleMode_ItemDescDB[81356] = { s = { { t = "equip", s = 17823 } }, f = "" }
 ConsoleMode_ItemDescDB[81357] = { s = { { t = "use", s = 11009 } }, f = "Sempre contém uma quantidade saudável de cerveja!" }
 ConsoleMode_ItemDescDB[81360] = { s = { { t = "equip", s = 18384 }, { t = "equip", s = 7597 } }, f = "" }
@@ -9068,7 +9141,7 @@ ConsoleMode_ItemDescDB[83008] = { s = { { t = "use", s = 11009 } }, f = "" }
 ConsoleMode_ItemDescDB[83060] = { s = { { t = "chance", s = 56 } }, f = "" }
 ConsoleMode_ItemDescDB[83061] = { s = { { t = "chance", s = 13533 } }, f = "Um presente da Anciã." }
 ConsoleMode_ItemDescDB[83062] = { s = { { t = "chance", s = 21961 } }, f = "Adornado com inscrições ancestrais." }
-ConsoleMode_ItemDescDB[83063] = { s = { { t = "equip", s = 21625 } }, f = "" }
+ConsoleMode_ItemDescDB[83063] = { s = { { t = "equip", s = 21625 } }, f = "Esculpido com orgulho e honra." }
 ConsoleMode_ItemDescDB[83068] = { s = { { t = "equip", s = 21601 } }, f = "" }
 ConsoleMode_ItemDescDB[83072] = { s = { { t = "equip", s = 9415 } }, f = "" }
 ConsoleMode_ItemDescDB[83073] = { s = { { t = "equip", s = 18378 } }, f = "" }
@@ -9255,7 +9328,7 @@ ConsoleMode_ItemDescDB[83549] = { s = { { t = "use", s = 47245 } }, f = "" }
 ConsoleMode_ItemDescDB[83550] = { s = { { t = "use", s = 56530 } }, f = "" }
 ConsoleMode_ItemDescDB[83551] = { s = { { t = "use", s = 56531 } }, f = "" }
 ConsoleMode_ItemDescDB[83552] = { s = { { t = "use", s = 56533 } }, f = "" }
-ConsoleMode_ItemDescDB[83553] = { s = { { t = "use", s = 56532 } }, f = "" }
+ConsoleMode_ItemDescDB[83553] = { s = { { t = "use", s = 56532 } }, f = "Por alguma força desconhecida, é como se os ventos fossem sólidos o bastante para serem agarrados." }
 ConsoleMode_ItemDescDB[83554] = { s = { { t = "use", s = 56530 } }, f = "" }
 ConsoleMode_ItemDescDB[83555] = { s = { { t = "use", s = 56531 } }, f = "" }
 ConsoleMode_ItemDescDB[83556] = { s = { { t = "use", s = 56532 } }, f = "" }
@@ -9323,6 +9396,8 @@ ConsoleMode_ItemDescDB[91775] = { s = { { t = "use", s = 44022 } }, f = "" }
 ConsoleMode_ItemDescDB[91777] = { s = { { t = "equip", s = 13669 } }, f = "" }
 ConsoleMode_ItemDescDB[91781] = { s = {  }, f = "\"Durante a primeira semana do lançamento do servidor de Turtle WoW na China, gostaríamos de dar a cada um de vocês um pequeno presente de boas-vindas para agradecer pelo seu apoio!\"" }
 ConsoleMode_ItemDescDB[91785] = { s = {  }, f = "\"Durante a primeira semana do lançamento do servidor de Turtle WoW na China, gostaríamos de dar a cada um de vocês um pequeno presente de boas-vindas para agradecer pelo seu apoio!\"" }
+ConsoleMode_ItemDescDB[91790] = { s = {  }, f = "Comemore o Ano do Dragão com um presente especial para os jogadores do Turtle WoW. Que possamos criar memórias duradouras e alcançar o sucesso no jogo. Voe como um dragão e aproveite a felicidade!" }
+ConsoleMode_ItemDescDB[91791] = { s = {  }, f = "Comemore o Ano do Dragão com um presente especial para os jogadores do Turtle WoW. Que possamos criar memórias duradouras e alcançar o sucesso no jogo. Voe como um dragão e aproveite a felicidade!" }
 ConsoleMode_ItemDescDB[91792] = { s = { { t = "use", s = 46003 } }, f = "" }
 ConsoleMode_ItemDescDB[91793] = { s = {  }, f = "Um envelope meticulosamente confeccionado em um maravilhoso tom escuro de carmesim com gravações douradas do que parece ser um dragão..." }
 ConsoleMode_ItemDescDB[91796] = { s = { { t = "use", s = 57554 } }, f = "" }

@@ -26,3 +26,5 @@ I22 | 50 | OK
 I23 | 50 | OK
 I24 | 50 | OK
 I25 | 50 | OK
+I26 | 50 | OK
+I27 | 50 | OK (fix: Jardinagem Nobre -> Jardinova)

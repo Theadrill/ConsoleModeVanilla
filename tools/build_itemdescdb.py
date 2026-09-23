@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Fase 8.B: gera Data/ItemDescDB_ptBR.lua a partir do spellmap + PT autoral.
+Entradas: tools/itemdesc_spellmap.json {id:[{trig,spell}]} (8.B-0, Tortoise)
+          tools/item_pt_authoral.json {id:{use,equip,flavor}} (8.B-2, opcional)
+Saida: Data/ItemDescDB_ptBR.lua:
+  ConsoleMode_ItemDescDB[id] = { s={ {t="use",s=SPELLID}, ... }, f="flavor PT" }
+Somente links cuja magia tem PT no spell_pt_authoral entram em `s`
+(magia sem PT = fallback ItemStat, sem linha morta no DB).
+Uso: py tools/build_itemdescdb.py
+"""
+import json
+import pathlib
+import re
+
+THIS_DIR = pathlib.Path(__file__).resolve().parent
+ADDON_DIR = THIS_DIR.parent
+OUTPUT = ADDON_DIR / "Data" / "ItemDescDB_ptBR.lua"
+
+
+def escape_lua_string(s):
+    s = s.replace("\\", "\\\\")
+    s = s.replace('"', '\\"')
+    s = s.replace("\r", "\\r")
+    s = s.replace("\n", "\\n")
+    return s
+
+
+def norm(s):
+    return re.sub(r"\s+", " ", s or "").strip().lower()
+
+
+def main():
+    smap = json.loads((THIS_DIR / "itemdesc_spellmap.json").read_text(encoding="utf-8"))
+    auth_path = THIS_DIR / "spell_pt_authoral.json"
+    authn = set()
+    if auth_path.exists():
+        authn = set(norm(k) for k, v in
+                    json.loads(auth_path.read_text(encoding="utf-8")).items() if v)
+    # EN das magias p/ conferir PT: via Temp spell_en (fora do git) ou tortoise; fallback: mantem link
+    flavor_auth = {}
+    fa_path = THIS_DIR / "item_pt_authoral.json"
+    if fa_path.exists():
+        flavor_auth = json.loads(fa_path.read_text(encoding="utf-8"))
+
+    # spellID -> tem PT? Usa spell_pt_authoral via ByKey? Barato: carrega d->pt do authoral
+    # e o EN de cada spell via Temp/spell_en.json quando disponivel.
+    spell_en = {}
+    se_path = pathlib.Path(r"C:\Users\rodri\AppData\Local\Temp\opencode\spell_en.json")
+    if se_path.exists():
+        spell_en = json.loads(se_path.read_text(encoding="utf-8"))
+
+    n_items, n_links, n_skip = 0, 0, 0
+    with open(OUTPUT, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write("-- AUTO-GERADO por tools/build_itemdescdb.py. NAO EDITAR MANUALMENTE.\n")
+        fh.write("-- Links item->magia via Tortoise SQLite (§8.7); flavor via item_pt_authoral.json.\n")
+        fh.write("ConsoleMode_ItemDescDB = {}\n")
+        for iid in sorted((int(k) for k in smap), key=int):
+            links = []
+            for lk in smap[str(iid)]:
+                sid = lk.get("spell")
+                if not sid:
+                    continue
+                d = (spell_en.get(str(sid)) or {}).get("d", "")
+                if d and norm(d) in authn:
+                    links.append((lk.get("trig", "use"), sid))
+                elif not d:
+                    links.append((lk.get("trig", "use"), sid))
+                else:
+                    n_skip += 1
+            fa = flavor_auth.get(str(iid)) or flavor_auth.get(iid) or {}
+            fpt = ""
+            if isinstance(fa, dict):
+                fpt = fa.get("flavor", "")
+            elif isinstance(fa, str):
+                fpt = fa
+            if not links and not fpt:
+                continue
+            parts = []
+            for trig, sid in links:
+                parts.append('{ t = "%s", s = %d }' % (trig, sid))
+                n_links += 1
+            fh.write("ConsoleMode_ItemDescDB[%d] = { s = { %s }, f = \"%s\" }\n"
+                     % (iid, ", ".join(parts), escape_lua_string(fpt)))
+            n_items += 1
+    print("itens=%d links=%d (magia-sem-PT pulados=%d) -> %s (%d bytes)"
+          % (n_items, n_links, n_skip, OUTPUT, OUTPUT.stat().st_size))
+
+
+if __name__ == "__main__":
+    main()

@@ -3069,7 +3069,14 @@ function MainMenu:CreateDetailCard(parent, config)
                     skip = true
                 end
                 if not skip then
-                    local locLine = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(sLine) or sLine
+                    -- 8.B-1: linha de Uso/Equipar via magia linkada vence o ItemStat generico.
+                    local locLine = nil
+                    if ConsoleMode and ConsoleMode.GamePT_ItemDesc then
+                        locLine = ConsoleMode:GamePT_ItemDesc(itemData.rawLink or itemData.link, sLine)
+                    end
+                    if not locLine then
+                        locLine = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(sLine) or sLine
+                    end
                     if string.find(locLine, "Uso:") or string.find(locLine, "Use:") or string.find(locLine, "Equipar:") or string.find(locLine, "Equip:") then
                         table.insert(rightLines, locLine)
                     else

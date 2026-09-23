@@ -463,6 +463,57 @@ function CM:GamePT_SpellTool(line)
     return line
 end
 
+-- FASE 8 / 8.B-1: injeta os numeros reais do tooltip nos $ do PT autoral.
+-- Recebe a entrada do SpellDescDB ({d=EN, pt=PT}) e o texto vivo normalizado.
+-- Devolve o corpo PT ou nil (chamador cai no fallback). Anti-"$ cru" incluso.
+-- Extraido do passo 4b do GamePT_SpellDesc sem mudar comportamento.
+function CM:GamePT_ApplySpellPT(entry, liveNorm)
+    if not entry or not entry.pt or entry.pt == "" then
+        return nil
+    end
+    if not liveNorm or liveNorm == "" then
+        return nil
+    end
+    local args = nil
+    if entry.d and entry.d ~= "" then
+        args = self:GamePT_MatchTemplateValues(entry.d, liveNorm)
+    end
+    if not args then
+        args = self:GamePT_ExtractSemanticValues(liveNorm, nil)
+    end
+    local ai = 0
+    local nArgs = table.getn(args)
+    local nPh = 0
+    local tmpPt = string.gsub(entry.pt, "%$[a-z]%d*", function(ph)
+        nPh = nPh + 1
+        return ""
+    end)
+    string.gsub(tmpPt, "%$[a-z]", function(ph)
+        nPh = nPh + 1
+        return ""
+    end)
+    if nArgs < nPh then
+        return nil
+    end
+    local ptTpl = string.gsub(entry.pt, "%$[a-z]%d*", function(ph)
+        ai = ai + 1
+        if ai <= nArgs then
+            return args[ai]
+        else
+            return ph
+        end
+    end)
+    ptTpl = string.gsub(ptTpl, "%$[a-z]", function(ph)
+        ai = ai + 1
+        if ai <= nArgs then
+            return args[ai]
+        else
+            return ph
+        end
+    end)
+    return ptTpl
+end
+
 -- Traducao de descricoes completas de feiticos/magias (Spellbook / Grimorio)
 function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
     if not rawDesc or rawDesc == "" then
@@ -730,50 +781,8 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
     -- Se o casamento falhar, cai no modo posicional legado.
     -- Octo vence o Capy quando tem PT (0b acima); sem Octo, effEntry = Capy.
     local effEntry = octoEntry or descDBEntry
-    if not translatedBody and effEntry and effEntry.pt and effEntry.pt ~= "" then
-        local args = nil
-        if effEntry.d and effEntry.d ~= "" then
-            args = self:GamePT_MatchTemplateValues(effEntry.d, normDesc)
-        end
-        if not args then
-            args = self:GamePT_ExtractSemanticValues(normDesc, nil)
-        end
-        local ai = 0
-        local nArgs = table.getn(args)
-        -- FASE 8 anti-"$ cru": conta os $ do PT; se os numeros extraidos nao
-        -- preenchem todos (template errado p/ o tooltip, ex. homonimo "Attack"
-        -- do pet aplicado no Ataque basico), nao renderiza PT parcial com $
-        -- cru: mantem translatedBody nil p/ cair no EN integro abaixo.
-        local nPh = 0
-        local tmpPt = string.gsub(effEntry.pt, "%$[a-z]%d*", function(ph)
-            nPh = nPh + 1
-            return ""
-        end)
-        string.gsub(tmpPt, "%$[a-z]", function(ph)
-            nPh = nPh + 1
-            return ""
-        end)
-        if nArgs < nPh then
-            translatedBody = nil
-        else
-        local ptTpl = string.gsub(effEntry.pt, "%$[a-z]%d*", function(ph)
-            ai = ai + 1
-            if ai <= nArgs then
-                return args[ai]
-            else
-                return ph
-            end
-        end)
-        ptTpl = string.gsub(ptTpl, "%$[a-z]", function(ph)
-            ai = ai + 1
-            if ai <= nArgs then
-                return args[ai]
-            else
-                return ph
-            end
-        end)
-        translatedBody = ptTpl
-        end
+    if not translatedBody then
+        translatedBody = self:GamePT_ApplySpellPT(effEntry, normDesc)
     end
 
     -- 5. FASE 8: sem PT em nenhum nivel, o EN sai INTEGRO (textToTranslate).
@@ -1719,6 +1728,88 @@ function CM:GamePT_ItemStat(statLine)
     s = string.gsub(s, "(%d+)%s+to%s+(%d+)", "%1 a %2")
 
     return s
+end
+
+-- FASE 8.B-1: traduz linhas de Uso/Equipar/Chance de itens via magias linkadas.
+-- O cliente compoe "Uso: <descricao da magia>": com o spellID (Tortoise
+-- spellid_N/spelltrigger_N) resolvemos o PT autoral do SpellDescDB e injetamos
+-- os numeros vivos via GamePT_ApplySpellPT. Sufixo de recarga "(...Cooldown)"
+-- e preservado via GamePT_ItemStat. Devolve a linha PT ou nil (fallback ItemStat).
+function CM:GamePT_ItemDesc(itemLinkOrID, liveLine)
+    if not liveLine or liveLine == "" then
+        return nil
+    end
+    local activeId = self:GetActiveLangId()
+    if activeId == "enUS" then
+        return nil
+    end
+    if not ConsoleMode_ItemDescDB then
+        return nil
+    end
+    local itemID = nil
+    if type(itemLinkOrID) == "number" then
+        itemID = itemLinkOrID
+    elseif type(itemLinkOrID) == "string" and itemLinkOrID ~= "" then
+        local _, _, idStr = string.find(itemLinkOrID, "item:(%d+)")
+        if idStr then
+            itemID = tonumber(idStr)
+        end
+    end
+    if not itemID then
+        return nil
+    end
+    local entry = ConsoleMode_ItemDescDB[itemID]
+    if not entry or not entry.s then
+        return nil
+    end
+    local trig, prefix = nil, nil
+    if string.find(liveLine, "^Use:%s*") or string.find(liveLine, "^Uso:%s*") then
+        trig, prefix = "use", "Uso: "
+    elseif string.find(liveLine, "^Equip:%s*") or string.find(liveLine, "^Equipar:%s*") then
+        trig, prefix = "equip", "Equipar: "
+    elseif string.find(liveLine, "^Chance on hit:%s*") or string.find(liveLine, "^Chance ao acertar:%s*") then
+        trig, prefix = "chance", "Chance ao acertar: "
+    end
+    if not trig then
+        return nil
+    end
+    local _, _, body = string.find(liveLine, "^[^:]+:%s*(.+)")
+    if not body or body == "" then
+        return nil
+    end
+    -- Separa sufixo de recarga "(30 sec Cooldown)" / "(CD: ...)" p/ nao perder:
+    -- ele vem do item, nao da magia, e e retraduzido pelo ItemStat.
+    local main, cdSuffix = body, ""
+    local cs, ce, cap = string.find(body, "(%b())%s*$")
+    if cap then
+        local lowCap = string.lower(cap)
+        if string.find(lowCap, "cooldown") or string.find(cap, "CD:") then
+            main = string.gsub(string.sub(body, 1, cs - 1), "%s+$", "")
+            cdSuffix = " " .. self:GamePT_ItemStat(cap)
+        end
+    end
+    local normMain = string.gsub(main, "[ \t]+", " ")
+    normMain = string.gsub(normMain, "^[ \t]+", "")
+    normMain = string.gsub(normMain, "[ \t]+$", "")
+    if normMain == "" then
+        return nil
+    end
+    local n = table.getn(entry.s)
+    local i = 1
+    while i <= n do
+        local link = entry.s[i]
+        if link and link.t == trig and link.s then
+            local sd = ConsoleMode_SpellDescDB and ConsoleMode_SpellDescDB[link.s]
+            if sd and sd.pt and sd.pt ~= "" and sd.d and sd.d ~= "" then
+                local ptBody = self:GamePT_ApplySpellPT(sd, normMain)
+                if ptBody and ptBody ~= "" then
+                    return prefix .. ptBody .. cdSuffix
+                end
+            end
+        end
+        i = i + 1
+    end
+    return nil
 end
 
 -- Lista idiomas do registro no chat. Usado por /cm lang sem arg.

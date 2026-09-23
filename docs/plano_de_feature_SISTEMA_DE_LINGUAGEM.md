@@ -475,6 +475,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - **8.B-2 — Lotes humanos**: ~2.107 textos em lotes de 50 (`input_itemdesc_*.json` → `output_itemdesc_*.json` → `apply` → `build_itemdescdb.py` → `Data/ItemDescDB_ptBR.lua` no formato `[id]={ use=, equip=, flavor= }`).
 - **8.B-3 — Runtime**: `GamePT_ItemDesc(itemID)` no topo do caminho Uso/Equipar/desc do `card:ShowItem` (`UI/MainMenu.lua:3072/3092`), antes do `ItemStat`; fallback intacto.
 - **Parada crítica:** `/reload` na bolsa (poção/consumível com `Uso:` de magia + item de missão com flavor) antes de cada leva de lotes.
+- **STATUS 24/09/2026: 8.B-0/8.B-1/8.B-2 CONCLUÍDOS, PENDING VALIDAÇÃO EM JOGO** (push feito p/ validar em outro device; sem novas fases até o OK).
 
 ---
 

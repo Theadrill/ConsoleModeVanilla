@@ -41,3 +41,4 @@ I37 | 50 | OK
 I38 | 50 | OK
 I39 | 50 | OK
 I40 | 25 | OK (FASE 8.B-2 COMPLETA: 1.975/1.975 unicos, flavorPT=2.340 itens)
+# STATUS: PENDING VALIDACAO EM JOGO (/reload: item de missao com lore, pocao com Uso:, trinket com recarga). Push feito p/ validar em outro device. Sem novas fases ate o OK.

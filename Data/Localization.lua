@@ -168,14 +168,34 @@ end
 -- O overlay Octo e camada de traducao PT: fora do ptBR ele nunca ativa.
 ---------------------------------------------------------------------------
 function CM:IsOctoRealm()
-    if type(GetRealmName) ~= "function" then
+    local function hasOcto(s)
+        if not s or s == "" then
+            return false
+        end
+        return string.find(string.lower(s), "octo", 1, 1) ~= nil
+    end
+    -- 1. Nome do reino (API).
+    if type(GetRealmName) == "function" then
+        local rn = GetRealmName()
+        if hasOcto(rn) then
+            return true
+        end
+    end
+    if type(GetCVar) ~= "function" then
         return false
     end
-    local rn = GetRealmName()
-    if not rn or rn == "" then
-        return false
+    -- 2. Nome do reino (CVar) — pode diferir da API em alguns clientes.
+    local ok, cvRealm = pcall(GetCVar, "realmName")
+    if ok and hasOcto(cvRealm) then
+        return true
     end
-    return string.find(string.lower(rn), "octo", 1, 1) ~= nil
+    -- 3. Endereco do realmlist — o realm pode ter nome neutro ("Fun Server")
+    -- mas o logon do Octo carrega "octo" no endereco.
+    local okList, cvList = pcall(GetCVar, "realmList")
+    if okList and hasOcto(cvList) then
+        return true
+    end
+    return false
 end
 
 function CM:GetOctoMode()
@@ -243,7 +263,14 @@ function CM:HandleOctoCommand(arg)
         if type(GetRealmName) == "function" and GetRealmName() then
             rn = GetRealmName()
         end
-        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r " .. format(self:T("OCTO_STATUS_FMT"), self:T("SYS_CFG_OCTO_" .. string.upper(self:GetOctoMode())), rn))
+        local rl = ""
+        if type(GetCVar) == "function" then
+            local okList, cvList = pcall(GetCVar, "realmList")
+            if okList and cvList then
+                rl = cvList
+            end
+        end
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r " .. format(self:T("OCTO_STATUS_FMT"), self:T("SYS_CFG_OCTO_" .. string.upper(self:GetOctoMode())), rn, rl))
         return
     end
     if not mode then

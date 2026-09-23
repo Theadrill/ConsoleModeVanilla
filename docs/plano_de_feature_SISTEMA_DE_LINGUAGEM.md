@@ -477,6 +477,30 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - **Parada crítica:** `/reload` na bolsa (poção/consumível com `Uso:` de magia + item de missão com flavor) antes de cada leva de lotes.
 - **STATUS 24/09/2026: 8.B-0/8.B-1/8.B-2 CONCLUÍDOS, PENDING VALIDAÇÃO EM JOGO** (push feito p/ validar em outro device; sem novas fases até o OK).
 
+#### 8.8 Registro de execução 8.B (para a próxima IA sem contexto desta sessão)
+> Leia isto antes de tocar em qualquer coisa da 8.B. Números finais: `item_pt_authoral.json` = 1.975 textos únicos; `ItemDescDB_ptBR.lua` = 10.303 itens (11.728 links magia + flavor em 2.340 itens); 40 lotes I01–I40 traduzidos por subagentes (máx 2 em paralelo, cota) e validados por script.
+
+**Arquivos e papéis:**
+- `tools/extract_itemdesc.py` — 8.B-0. Lê `Temp/opencode/tortoise.sqlite` (re-download §8.7) + IDs do `Data/ItemDB_ptBR.lua`; gera `tools/itemdesc_flavor.json` (2.340 `{id:{name,flavor}}`) + `tools/itemdesc_spellmap.json` (9.983 `{id:[{trig,spell}]}`, `trig` ∈ use/equip/chance/other).
+- `tools/make_itemdesc_batches.py` — dedupe por texto normalizado → `tools/batches/input_itemdesc_01..40.json` (`[{en,ids,name}]`, 50/lote, I40=25).
+- `tools/validate_itemflavor.py` — regras: PT não-vazio; PT≠EN; contagem de `$` igual; **multiset de números igual** (ordinais preservam dígito: `3rd`→`3º`); colisão de norma com PTs distintos = erro; exceções (só aviso): fragmento nome-próprio ≤3 palavras capitalizadas (`-Feralas`, `.`), onomatopeia sem vogais (murlocês), `Volume I/II/III`, `Arrrrrgh!`.
+- `tools/apply_itemdesc_batch.py` — valida, dá merge em `tools/item_pt_authoral.json` (`{EN-exato: PT}`; conflito de norma entre lotes = aborta) e roda o build.
+- `tools/build_itemdescdb.py` — gera `Data/ItemDescDB_ptBR.lua` (`ConsoleMode_ItemDescDB[id] = { s={ {t="use",s=SPELLID},... }, f="flavor PT" }`); links entram **só se a magia tem PT** no `spell_pt_authoral` (824 pulados → fallback `ItemStat`); flavor via norma do `itemdesc_flavor.json`. Precisa de `Temp/opencode/spell_en.json` (se perdido: `py tools/recover_spell_en.py`).
+- **Runtime** (`Data/Localization.lua`): `CM:GamePT_ApplySpellPT(entry, liveNorm)` (extraído do passo 4b do `GamePT_SpellDesc` sem mudar comportamento — 4b virou chamada); `CM:GamePT_ItemDesc(linkOuID, linhaViva)` (detecta trigger, separa sufixo `(…Cooldown)` e o traduz via `ItemStat`, injeta números vivos; devolve PT ou `nil`); hook no `card:ShowItem` (`UI/MainMenu.lua`, antes do `GamePT_ItemStat`). `.toc`: `Data\ItemDescDB_ptBR.lua` após `ItemDB_ptBR.lua`.
+- **Ledger:** `tools/batches/PROGRESSO_ITEMDESC.txt`.
+
+**Glossário canônico fixado (manter em correções futuras):** Twisting Nether=Espiral Etérea, Stormwind=Ventobravo, Ironforge=Altaforja, Thunder Bluff=Penhasco do Trovão, Undercity=Cidade Baixa, Silvermoon=Luaprata, Winterspring=Hibérnia (=QuestDB), Noblegarden=Jardinova, Wind Rider (montaria)=Mantícora, Cairne/Aldeia=Casco Sangrento (=QuestDB).
+
+**Como corrigir pós-validação:** (a) flavor errado → editar o PT em `tools/item_pt_authoral.json` (chave = EN exato) + `py tools/build_itemdescdb.py` + `luac -p Data/ItemDescDB_ptBR.lua` + commit; (b) `Uso:` de magia errado → o defeito está no PT da **magia**: corrigir em `tools/spell_pt_authoral.json` + rebuild **dos dois** DBs (spell e item); (c) item novo/vazio → adicionar lote `input_itemdesc_41.json` no mesmo molde e seguir o loop (agente traduz → `validate_itemflavor` → `apply_itemdesc_batch` → `luac` → ledger → commit, sem push sem ordem).
+**Triagem pendente (não é defeito):** 1.223 magias linkadas sem PT (maioria padrão genérico já coberto), 13 IDs só-Capy (gravador-validador futuro), `page_text` fora de escopo.
+
+#### 8.9 Frente OctoWoW — registro (para a próxima IA)
+> Infra 100% entregue e pushada; toggle **escondido** do menu por decisão do usuário (veredito DBC: nada a traduzir). Não reativar sem ordem.
+- **Núcleo** (`Data/Localization.lua`): `CM:IsOctoRealm()` (3 fontes: `GetRealmName()` + CVars `realmName`/`realmList`, substring `octo` — real `play.octowow.st` casa via realmlist); `CM:GetOctoMode/CycleOctoMode/HandleOctoCommand` (`ConsoleModeDB.octoCompat` = auto/on/off, `/cm octo [auto|on|off]`, `/reload` após troca); `CM:IsOctoActive()` (toggle vence; auto exige ptBR + reino); aviso de auto-detect uma vez/sessão em `ResolveLocale`; gating no `GamePT_SpellDesc` passo 0b (`ConsoleMode_SpellDescDB_Octo_*`, fonte `DB-PT-OCTO` no `spelldbg`, nil-safe sem o arquivo).
+- **Menu** (`UI/MainMenu.lua`, sub-aba `ADDON_CFG`): linha 3-estados `[ AUTOMÁTICO|ATIVADO|DESATIVADO ]` + status efetivo `[ ATIVO ]` verde/`[ INATIVO ]` cinza; `disabledIf` (cinza + msg `OCTO_EN_ONLY` quando idioma ≠ ptBR — avaliar no populate basta, idioma exige `/reload`); **`hiddenIf` (a linha se esconde sozinha enquanto `SpellDescDB_Octo_ByKey` vazio e reaparece quando houver tradução — é assim que está hoje)**; linhas ocultas nem são criadas (sem buraco no layout). Chaves `SYS_CFG_OCTO_*`/`OCTO_*` em `Data/Locales/{ptBR,enUS}/UI.lua` (paridade `check_locales.py` OK).
+- **Dados:** `Data/SpellDescDB_ptBR_octo.lua` (esqueleto válido, no `.toc` após o Capy) + `tools/mpq_orphans_octo.json` (veredito + md5s) + `tools/recover_spell_en.py` (recupera `spell_en.json` do `.lua` se o Temp for limpo).
+- **Fumo testado:** `Temp/opencode/octo_smoke.lua` e `itemdesc_smoke.lua` (harness fora do git; shims `table.getn`/`format` p/ lua moderno).
+
 ---
 
 ### 🟢 FASE FINAL: Inclusão de mais linguagens (template + idioma de prova)

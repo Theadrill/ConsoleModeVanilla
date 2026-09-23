@@ -1,4 +1,6 @@
 # PROGRESSO — Tradução humana 8.B-2 (flavor/lore de itens, ~1.975 únicos)
 # Lotes de 50. Commits locais por lote. Zero push sem ordem explícita.
 # I01 = input_itemdesc_01.json -> output_itemdesc_01.json
+I01 | 50 | OK
+I02 | 50 | OK
 I03 | 50 | OK

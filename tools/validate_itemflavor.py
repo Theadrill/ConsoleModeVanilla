@@ -33,6 +33,14 @@ def validate_dict(pairs):
             errors.append(f"VAZIO: {tag}")
             continue
         if pt == en:
+            # Excecao: fragmento de nome proprio (assinatura "-Feralas", ".")
+            # ate 3 palavras, todas capitalizadas/pontuacao -> so avisa.
+            frag = en.strip()
+            if len(frag.split()) <= 3 and (
+                    re.fullmatch(r"[.\-]+", frag) or re.fullmatch(
+                    r"[.\-]?[A-ZÀ-Ý][\w'’\-.]*(\s+[A-ZÀ-Ý][\w'’\-.]*)*[.\-]?", frag)):
+                warns.append(f"NOME-PROPRIO mantido: {tag}")
+                continue
             errors.append(f"IGUAL: {tag}")
             continue
         if dollars(en) != dollars(pt):

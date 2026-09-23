@@ -45,10 +45,12 @@ def main():
         if isinstance(raw, dict):
             flavor_auth = {norm(k): v for k, v in raw.items() if v}
 
-    # spellID -> tem PT? Usa spell_pt_authoral via ByKey? Barato: carrega d->pt do authoral
-    # e o EN de cada spell via Temp/spell_en.json quando disponivel.
+    # spellID -> tem PT? Barato: carrega d->pt do authoral
+    # e o EN de cada spell via repo (fallback Temp) quando disponivel.
     spell_en = {}
-    se_path = pathlib.Path(r"C:\Users\rodri\AppData\Local\Temp\opencode\spell_en.json")
+    se_repo = THIS_DIR / "spell_en.json"
+    se_temp = pathlib.Path(r"C:\Users\rodri\AppData\Local\Temp\opencode\spell_en.json")
+    se_path = se_repo if se_repo.exists() else se_temp
     if se_path.exists():
         spell_en = json.loads(se_path.read_text(encoding="utf-8"))
 

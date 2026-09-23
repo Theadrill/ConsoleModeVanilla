@@ -14,7 +14,7 @@ import sys
 THIS_DIR = pathlib.Path(__file__).resolve().parent
 ADDON_DIR = THIS_DIR.parent
 LUA = ADDON_DIR / "Data" / "SpellDescDB_ptBR.lua"
-DEFAULT_DEST = pathlib.Path(r"C:\Users\rodri\AppData\Local\Temp\opencode\spell_en.json")
+DEFAULT_DEST = ADDON_DIR / "tools" / "spell_en.json"
 
 PAT = re.compile(
     r'ConsoleMode_SpellDescDB\[(\d+)\] = \{ n="(.*)", r="(.*)", d="(.*)", t="(.*)", pt="(.*)" \}')

@@ -76,8 +76,11 @@ def score(entry):
 
 
 def main():
-    src = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else pathlib.Path(
+    default_repo = THIS_DIR / "spell_en.json"
+    default_temp = pathlib.Path(
         r"C:\Users\rodri\AppData\Local\Temp\opencode\spell_en.json")
+    fallback = str(default_repo if default_repo.exists() else default_temp)
+    src = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else pathlib.Path(fallback)
     spells = json.loads(src.read_text(encoding="utf-8"))
     ids = sorted((int(k) for k in spells), key=int)
     with_desc = sum(1 for k in ids if spells[str(k)]["d"])

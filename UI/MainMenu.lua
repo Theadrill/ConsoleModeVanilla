@@ -12838,11 +12838,11 @@ function MainMenu:UpdateAddonConfigSubPage()
                 elseif mode == "off" then
                     stateKey = "SYS_CFG_OCTO_OFF"
                 end
-                local label = format(CM:T("SYS_CFG_OCTO_FMT"), CM:T(stateKey))
-                if CM and CM.IsOctoActive and CM:IsOctoActive() and mode == "auto" then
-                    label = label .. " " .. CM:T("SYS_CFG_OCTO_ACTIVE")
+                local statusKey = "SYS_CFG_OCTO_STATUS_OFF"
+                if CM and CM.IsOctoActive and CM:IsOctoActive() then
+                    statusKey = "SYS_CFG_OCTO_STATUS_ON"
                 end
-                return label
+                return format(CM:T("SYS_CFG_OCTO_FMT"), CM:T(stateKey)) .. " " .. CM:T(statusKey)
             end,
             dkey = "SYS_CFG_OCTO_DESC",
             disabledIf = function()

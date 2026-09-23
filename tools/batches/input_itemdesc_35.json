@@ -1,0 +1,354 @@
+[
+ {
+  "en": "This device helps identify corrupted elements of nature.",
+  "ids": [
+   11511
+  ],
+  "name": "Cenarion Beacon"
+ },
+ {
+  "en": "This doesn't seem to be magical at all... The amulet is scratched and broken.",
+  "ids": [
+   50016
+  ],
+  "name": "Broken Meeting Stone"
+ },
+ {
+  "en": "This dragon heralds the victorious outcomes of its owner's battles.",
+  "ids": [
+   36520
+  ],
+  "name": "Heavenly War Dragon"
+ },
+ {
+  "en": "This druidic brew is used to cleanse corrupted plants.",
+  "ids": [
+   11516
+  ],
+  "name": "Cenarion Plant Salve"
+ },
+ {
+  "en": "This dusty letter from long ago was never sent.",
+  "ids": [
+   889
+  ],
+  "name": "A Dusty Unsent Letter"
+ },
+ {
+  "en": "This emerald-hued beast is both majestic and dangerous.",
+  "ids": [
+   36570
+  ],
+  "name": "Emerald War Scorpion"
+ },
+ {
+  "en": "This enchanted Stein never seems to run out of Chen's surprise brew!",
+  "ids": [
+   60925
+  ],
+  "name": "Stormstout Surprise Stein"
+ },
+ {
+  "en": "This ethereal creature is believed to possess the ability to enter the dreams of sleeping adventurers, offering them guidance and wisdom.",
+  "ids": [
+   54001
+  ],
+  "name": "Dream Frog"
+ },
+ {
+  "en": "This feisty anthropod is not letting go of its home invader — which is you.",
+  "ids": [
+   161
+  ],
+  "name": "Angered Crustacean"
+ },
+ {
+  "en": "This fierce tiger is shrouded in dark energy, making it a fearsome sight on the battlefield. Those who ride it are said to embody the power of the shadows.",
+  "ids": [
+   83151
+  ],
+  "name": "Black Spectral Tiger"
+ },
+ {
+  "en": "This fierce wolf represents the indomitable spirit of the Horde.",
+  "ids": [
+   36563
+  ],
+  "name": "Victorious Horde Wolf"
+ },
+ {
+  "en": "This foreboding creature stalks the night skies of the Eastern Plaguelands, feeding on carrion.",
+  "ids": [
+   51858
+  ],
+  "name": "Tirisfal Bat"
+ },
+ {
+  "en": "This gauntlet looks as though it once was imbued with potent magic.",
+  "ids": [
+   18336
+  ],
+  "name": "Gauntlet of Gordok Might"
+ },
+ {
+  "en": "This giant koi glides through water and land with unmatched grace.",
+  "ids": [
+   36574
+  ],
+  "name": "Golden Koi"
+ },
+ {
+  "en": "This gift will require 150 lockpicking to open.",
+  "ids": [
+   5049
+  ],
+  "name": "Self-locking Ironpaper"
+ },
+ {
+  "en": "This glyph prevents you from ever receiving rested experience but your weapon skill gain will be doubled.",
+  "ids": [
+   50520
+  ],
+  "name": "Glyph of Exhaustion"
+ },
+ {
+  "en": "This glyph prevents you from gambling.",
+  "ids": [
+   50745
+  ],
+  "name": "Glyph of Self-Restraint"
+ },
+ {
+  "en": "This hardy Wind Rider, with its warm tones, blends with the golden plains of Outland.",
+  "ids": [
+   36620
+  ],
+  "name": "Tawny Wind Rider"
+ },
+ {
+  "en": "This hat doesn't just say you're a wizzard, it screams it—usually when you're trying to sneak away. Warning: may attract unwanted heroic quests.",
+  "ids": [
+   7,
+   8
+  ],
+  "name": "The Greatest Wizzard Hat"
+ },
+ {
+  "en": "This hearty mount's ferocious appetite earned it the nickname \"Dragon Belly\" in the night elf language.",
+  "ids": [
+   8631,
+   8632
+  ],
+  "name": "Striped Frostsaber"
+ },
+ {
+  "en": "This historic piece of gnomish engineering was forced into retirement due to its extremely \"touchy\" gyroscometer.",
+  "ids": [
+   13327
+  ],
+  "name": "Icy Blue Mechanostrider Mod A"
+ },
+ {
+  "en": "This insignia marks the bearer as a fully fledged member of the Scarlet Crusade.",
+  "ids": [
+   53005
+  ],
+  "name": "Scarlet Crusade Insignia"
+ },
+ {
+  "en": "This is one big pillow.",
+  "ids": [
+   18950
+  ],
+  "name": "Chambermaid Pillaclencher's Pillow"
+ },
+ {
+  "en": "This is the head of the leader of the Shadow Council in Felwood.",
+  "ids": [
+   13207
+  ],
+  "name": "Shadow Lord Fel'dan's Head"
+ },
+ {
+  "en": "This is used as a catalyst in transforming the toxins of the Scourge's cauldrons.",
+  "ids": [
+   13320
+  ],
+  "name": "Arcane Quickener"
+ },
+ {
+  "en": "This item has seen much use.",
+  "ids": [
+   18227
+  ],
+  "name": "Nubless Pacifier"
+ },
+ {
+  "en": "This key is missing its head.",
+  "ids": [
+   14645
+  ],
+  "name": "Unfinished Skeleton Key"
+ },
+ {
+  "en": "This large book seems incredibly aged.",
+  "ids": [
+   81338
+  ],
+  "name": "Water-Weaving and Command"
+ },
+ {
+  "en": "This large crate is sealed tight, but it reeks of dead things.",
+  "ids": [
+   1349
+  ],
+  "name": "Abercrombie's Crate"
+ },
+ {
+  "en": "This letter is encrypted and indecipherable.",
+  "ids": [
+   3521
+  ],
+  "name": "Cleverly Encrypted Letter"
+ },
+ {
+  "en": "This letter is sealed",
+  "ids": [
+   6926
+  ],
+  "name": "Furen's Notes"
+ },
+ {
+  "en": "This little friend snuck into your boot to join you on your travels.",
+  "ids": [
+   50079
+  ],
+  "name": "Island Frog"
+ },
+ {
+  "en": "This little spiderling wishes to weave its own web across the forests of Balor one day.",
+  "ids": [
+   37005
+  ],
+  "name": "Mistbark Hatchling"
+ },
+ {
+  "en": "This lively and affectionate cub boasts unique stripes, a miniature symbol of the wild beauty found in Stangletorn Vale.",
+  "ids": [
+   36513
+  ],
+  "name": "Stangletorn Tiger Cub"
+ },
+ {
+  "en": "This magical gem seems to slowly exude a corossive poison that no armor of man nor monster can endure.",
+  "ids": [
+   61517
+  ],
+  "name": "Chimaera's Eye"
+ },
+ {
+  "en": "This magical sword was instrumental in defeating the great dragon Althazz.",
+  "ids": [
+   41581
+  ],
+  "name": "The Bane of Althazz"
+ },
+ {
+  "en": "This majestic murloc commands attention with its purple hue.",
+  "ids": [
+   36590
+  ],
+  "name": "Purple Gargantuan Murloc"
+ },
+ {
+  "en": "This marshland frog's green hue blends perfectly with swamp environments.",
+  "ids": [
+   36566
+  ],
+  "name": "Green Marshjumper"
+ },
+ {
+  "en": "This massive murloc prowls with an ominous presence.",
+  "ids": [
+   36587
+  ],
+  "name": "Black Gargantuan Murloc"
+ },
+ {
+  "en": "This mechanical horse is powered by arcane energy.",
+  "ids": [
+   20739
+  ],
+  "name": "Mechanical Horse"
+ },
+ {
+  "en": "This mechanical toy knight will serve you with loyalty, my liege.",
+  "ids": [
+   30284
+  ],
+  "name": "Toy Knight"
+ },
+ {
+  "en": "This mechaspider specializes in drilling, clamping, and shooting at the same time. A typical gnome invention.",
+  "ids": [
+   81194
+  ],
+  "name": "Green Scrapforged Mechaspider"
+ },
+ {
+  "en": "This mount bears the strength of the fallen kingdom of Lordaeron.",
+  "ids": [
+   36602
+  ],
+  "name": "Hand of Menethil"
+ },
+ {
+  "en": "This mysterious faerie dragon is thought to be extinct, but has been recently sighted in the thicket of Ashenvale.",
+  "ids": [
+   36533
+  ],
+  "name": "Swift Feylord"
+ },
+ {
+  "en": "This night elvic antiquity has been frozen solid by the Frostmaul giants. Handle with care.",
+  "ids": [
+   22227
+  ],
+  "name": "Starbreeze Village Relic"
+ },
+ {
+  "en": "This noble gryphon is as staunch a battle companion as any a member of the Alliance could ask for.",
+  "ids": [
+   81186
+  ],
+  "name": "Armored Wildhammer Gryphon"
+ },
+ {
+  "en": "This object feels wrong to the touch, as if an evil within is trying to escape.",
+  "ids": [
+   22047
+  ],
+  "name": "Top Piece of Lord Valthalak's Amulet"
+ },
+ {
+  "en": "This object has been attuned to work against a specific being.",
+  "ids": [
+   12650
+  ],
+  "name": "Attuned Dampener"
+ },
+ {
+  "en": "This one is missing...",
+  "ids": [
+   21830
+  ],
+  "name": "Empty Wrapper"
+ },
+ {
+  "en": "This one's far too hot to touch... better wrap it in something nonflammable!",
+  "ids": [
+   21988
+  ],
+  "name": "Ember of Emberseer"
+ }
+]

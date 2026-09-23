@@ -1,0 +1,359 @@
+[
+ {
+  "en": "The dynamite for Non-Engineers that rarely* blows up in your hand with over twice the blasting power of standard EZ-Thro.",
+  "ids": [
+   18588
+  ],
+  "name": "Ez-Thro Dynamite II"
+ },
+ {
+  "en": "The elusive Elekks are rumored to inhabit the easternmost shores of Kalimdor.",
+  "ids": [
+   36617,
+   36618
+  ],
+  "name": "Grey Riding Elekk"
+ },
+ {
+  "en": "The evil trapped within this fragment seems to be growing stronger...",
+  "ids": [
+   21984
+  ],
+  "name": "Left Piece of Lord Valthalak's Amulet"
+ },
+ {
+  "en": "The eyes grow brightly on this skull.",
+  "ids": [
+   5372
+  ],
+  "name": "Deprecated Glowing Shrunken Skull"
+ },
+ {
+  "en": "The eyes have a faint glint, you feel like you're being watched.",
+  "ids": [
+   60419
+  ],
+  "name": "Necrolyte's Visage"
+ },
+ {
+  "en": "The famous steed of Arthas Menethil, who serves its master in life and in death. Riding him is truly a feat of strength.",
+  "ids": [
+   92051
+  ],
+  "name": "Invincible"
+ },
+ {
+  "en": "The fierce emblem of the Darkspear.",
+  "ids": [
+   80304
+  ],
+  "name": "Darkspear Tribe Tabard"
+ },
+ {
+  "en": "The fiery essence of Bael'Gar wrapped tightly inside black dragonflight molt.",
+  "ids": [
+   11230
+  ],
+  "name": "Encased Fiery Essence"
+ },
+ {
+  "en": "The flame burns eternally",
+  "ids": [
+   10509
+  ],
+  "name": "Heart of Flame"
+ },
+ {
+  "en": "The flame flickers constantly.",
+  "ids": [
+   83550
+  ],
+  "name": "Primordial Flame"
+ },
+ {
+  "en": "The flame never falters",
+  "ids": [
+   10515
+  ],
+  "name": "Torch of Retribution"
+ },
+ {
+  "en": "The flesh from different dragon flights has been sewn together to make this belt.",
+  "ids": [
+   19396
+  ],
+  "name": "Taut Dragonhide Belt"
+ },
+ {
+  "en": "The fluffiest little cloud in Azeroth.",
+  "ids": [
+   81239
+  ],
+  "name": "Happy Dalaran Cloud"
+ },
+ {
+  "en": "The fragments of the once powerful gem seem to be attracted to eachother.",
+  "ids": [
+   55275
+  ],
+  "name": "Slivers of Nullification"
+ },
+ {
+  "en": "The fury of the tauren people.",
+  "ids": [
+   83060
+  ],
+  "name": "Carved Ragetotem"
+ },
+ {
+  "en": "The glowing emerald just needs to be pulled out...",
+  "ids": [
+   8049
+  ],
+  "name": "Gnarlpine Necklace"
+ },
+ {
+  "en": "The hands of this watch are frozen at 3:00.",
+  "ids": [
+   12638
+  ],
+  "name": "Andorhal Watch"
+ },
+ {
+  "en": "The head and base are missing.",
+  "ids": [
+   22727
+  ],
+  "name": "Frame of Atiesh"
+ },
+ {
+  "en": "The head of Nefarian: Brood of Deathwing.",
+  "ids": [
+   19002,
+   19003
+  ],
+  "name": "Head of Nefarian (Horde)"
+ },
+ {
+  "en": "The head of the Black Dragonflight's Brood Mother",
+  "ids": [
+   18422,
+   18423
+  ],
+  "name": "Head of Onyxia (Horde)"
+ },
+ {
+  "en": "The head of the bandit lord Storn",
+  "ids": [
+   60197
+  ],
+  "name": "Storn's Head"
+ },
+ {
+  "en": "The heiress of Alterac is known for her fierce temperament.Add this when implementing: Equip: Your healing spells have a chance to imbue your target with a fiery temper, increasing their attack and casting speed by 5% for 10 seconds.",
+  "ids": [
+   55032
+  ],
+  "name": "Royal Robes of the Alteraci Princess"
+ },
+ {
+  "en": "The hides of several different dragon flights appear to be stitched together, comprising the top of the shoulders.",
+  "ids": [
+   19389
+  ],
+  "name": "Taut Dragonhide Shoulderpads"
+ },
+ {
+  "en": "The ice chunk seems to get colder as it gets closer to heat.",
+  "ids": [
+   83552
+  ],
+  "name": "Unmelting Ice"
+ },
+ {
+  "en": "The images of the reign of cows can be seen within. It burns deep within your mind, the power is almost overwhelming.",
+  "ids": [
+   60491
+  ],
+  "name": "The Moo Stone"
+ },
+ {
+  "en": "The indelible mark of the Argent Dawn is pressed clearly into the wax of the seal.",
+  "ids": [
+   22723
+  ],
+  "name": "A Letter from the Keeper of the Rolls"
+ },
+ {
+  "en": "The infamous Darkmist netting is strong enough to web even an ogre. This one, however, can at most catch a rat.",
+  "ids": [
+   37013
+  ],
+  "name": "Darkmist Hatchling"
+ },
+ {
+  "en": "The ingenuity of Gnomeregan's finest inventors is reflected in this tabard.",
+  "ids": [
+   80306
+  ],
+  "name": "Gnomeregan Tabard"
+ },
+ {
+  "en": "The initials A.L. are etched on the hilt.",
+  "ids": [
+   19364
+  ],
+  "name": "Ashkandi, Greatsword of the Brotherhood"
+ },
+ {
+  "en": "The initials G.G. are etched on the stock.",
+  "ids": [
+   61248
+  ],
+  "name": "Beasthunter's Blunderbuss"
+ },
+ {
+  "en": "The initials L.B. are engraved on the hilt.",
+  "ids": [
+   41132
+  ],
+  "name": "Tarnished Mace"
+ },
+ {
+  "en": "The initials L.P. are etched on the hilt.",
+  "ids": [
+   61577
+  ],
+  "name": "Lieutenant's Sword"
+ },
+ {
+  "en": "The initials S.Y. are scribbled on the handle.",
+  "ids": [
+   70035
+  ],
+  "name": "Rusty Shovel"
+ },
+ {
+  "en": "The initials T.S. are etched on a chain link.",
+  "ids": [
+   81263
+  ],
+  "name": "Lost Dark Iron Chain"
+ },
+ {
+  "en": "The inscription reads: Fer really long castin'.",
+  "ids": [
+   19947
+  ],
+  "name": "Nat Pagle's Broken Reel"
+ },
+ {
+  "en": "The inscription reads: Fishin's fer sissies -Nat Pagle",
+  "ids": [
+   19944
+  ],
+  "name": "Nat Pagle's Fish Terminator"
+ },
+ {
+  "en": "The journal is waterlogged, but in otherwise good condition.",
+  "ids": [
+   5505
+  ],
+  "name": "Teronis' Journal"
+ },
+ {
+  "en": "The jungle trolls have long coveted panther fangs, using them for rituals or as ingredients in mojos.",
+  "ids": [
+   12303
+  ],
+  "name": "Black Zulian Panther"
+ },
+ {
+  "en": "The jungle trolls train these birds to mimic calls for help in order to lure unsuspecting travelers into traps.",
+  "ids": [
+   8494
+  ],
+  "name": "Hyacinth Macaw"
+ },
+ {
+  "en": "The keenest of edges, meant to indiscriminately cleave through any foe, living or dead.",
+  "ids": [
+   22228
+  ],
+  "name": "Brilliant Sword of Zealotry"
+ },
+ {
+  "en": "The key looks tiny enough to fit a small lock.",
+  "ids": [
+   13140
+  ],
+  "name": "Blood Red Key"
+ },
+ {
+  "en": "The knowledge of ten thousand years courses through this staff.",
+  "ids": [
+   55060
+  ],
+  "name": "Grandstaff of the Shen'dralar Elder"
+ },
+ {
+  "en": "The kodo is the backbone of our people. Wherever the Horde goes - in trade, settlement, or war - there you will find the mighty kodo.",
+  "ids": [
+   15277,
+   15290,
+   15293
+  ],
+  "name": "Gray Kodo"
+ },
+ {
+  "en": "The lack of sight heightens other senses.",
+  "ids": [
+   60436
+  ],
+  "name": "Sightless Leather Hood"
+ },
+ {
+  "en": "The lack of spots or stripes marks this beast as a descendant of the most ancient frostsaber line.",
+  "ids": [
+   8635,
+   12302,
+   81232
+  ],
+  "name": "Ancient Nightsaber"
+ },
+ {
+  "en": "The last person who tried to housebreak this cat quickly learned that a soiled rug is better than a shredded everything-else.",
+  "ids": [
+   8487
+  ],
+  "name": "Orange Tabby"
+ },
+ {
+  "en": "The legacy of Stromgarde lives on.",
+  "ids": [
+   50086
+  ],
+  "name": "Stromgarde Tabard"
+ },
+ {
+  "en": "The legendary ale frog was believed to be extinct until the strange brews at the Darkmoon Faire brought them out of hiding.",
+  "ids": [
+   19450
+  ],
+  "name": "A Jubling's Tiny Home"
+ },
+ {
+  "en": "The legendary blade of Ignaeus Trollbane.",
+  "ids": [
+   4468
+  ],
+  "name": "Sheathed Trol'kalar"
+ },
+ {
+  "en": "The lion of Stormwind inspires courage in all who see it",
+  "ids": [
+   80320
+  ],
+  "name": "Stormwind Tabard"
+ }
+]

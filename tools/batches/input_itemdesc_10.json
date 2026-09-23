@@ -1,0 +1,394 @@
+[
+ {
+  "en": "Bearing the mark of Illidan, this tabard carries both power and menace.",
+  "ids": [
+   81204
+  ],
+  "name": "Illidari Tabard"
+ },
+ {
+  "en": "Bearing the mark of those shaping their own fate.",
+  "ids": [
+   80309
+  ],
+  "name": "Undercity Tabard"
+ },
+ {
+  "en": "Bears the Seal of Galvan the Ancient",
+  "ids": [
+   8686
+  ],
+  "name": "Mithril Pendant"
+ },
+ {
+  "en": "Bears the Seal of Stormwind",
+  "ids": [
+   11368
+  ],
+  "name": "Bolvar's Decree"
+ },
+ {
+  "en": "Bears the Seal of the Bronze Flight",
+  "ids": [
+   20403
+  ],
+  "name": "Proxy of Nozdormu"
+ },
+ {
+  "en": "Bears the Seal of the Scarlet Crusade",
+  "ids": [
+   15868
+  ],
+  "name": "The Grand Crusader's Command"
+ },
+ {
+  "en": "Bears the crest of the Kelpie.",
+  "ids": [
+   41857,
+   41937
+  ],
+  "name": "Balor Sigil Ring"
+ },
+ {
+  "en": "Bears the mark of Fras Siabi.",
+  "ids": [
+   13172
+  ],
+  "name": "Siabi's Premium Tobacco"
+ },
+ {
+  "en": "Bears the mark of Jin.",
+  "ids": [
+   19900
+  ],
+  "name": "Zulian Stone Axe"
+ },
+ {
+  "en": "Bears the mark of Kalaran the Deceiver",
+  "ids": [
+   10569
+  ],
+  "name": "Hoard of the Black Dragonflight"
+ },
+ {
+  "en": "Bears the mark of the Grand Crusader.",
+  "ids": [
+   13852
+  ],
+  "name": "The Grand Crusader's Command"
+ },
+ {
+  "en": "Bears the seal of the Argent Dawn.",
+  "ids": [
+   22600,
+   22601,
+   22602,
+   22603,
+   22604,
+   22605,
+   22606,
+   22607,
+   22608,
+   22609,
+   22610,
+   22611,
+   22612,
+   22613,
+   22614,
+   22615,
+   22616,
+   22617,
+   22618,
+   22619,
+   22620,
+   22621,
+   22622,
+   22623,
+   22624,
+   22625,
+   22626
+  ],
+  "name": "Craftsman's Writ - Dense Weightstone"
+ },
+ {
+  "en": "Bears the seal of the K.E.F.",
+  "ids": [
+   12563
+  ],
+  "name": "Warlord Goretooth's Command"
+ },
+ {
+  "en": "Behold the Dark Wind Serpent that navigates the skies with an elegant yet mysterious presence.",
+  "ids": [
+   36502
+  ],
+  "name": "Dark Wind Serpent"
+ },
+ {
+  "en": "Believed to descend from the legendary Agamaggan, these boars are now esteemed companions and mounts of the Razorfen tribe.",
+  "ids": [
+   69170
+  ],
+  "name": "Ivory Boar"
+ },
+ {
+  "en": "Belonged to the maiden of the Light.",
+  "ids": [
+   60393
+  ],
+  "name": "Shield of Mathela"
+ },
+ {
+  "en": "Best Served Chilled",
+  "ids": [
+   8423,
+   23719
+  ],
+  "name": "Cerebral Cortex Compound"
+ },
+ {
+  "en": "Best of luck on your new adventure!",
+  "ids": [
+   51841
+  ],
+  "name": "Rabbit's Foot"
+ },
+ {
+  "en": "Better help him find it, lad.",
+  "ids": [
+   70052
+  ],
+  "name": "Skorgrim's Lost Belt"
+ },
+ {
+  "en": "Better not open that.",
+  "ids": [
+   41892
+  ],
+  "name": "Can of Worms"
+ },
+ {
+  "en": "Between waking and dreaming.",
+  "ids": [
+   65008
+  ],
+  "name": "Dream's Herald"
+ },
+ {
+  "en": "Beware the vibrant hues of this deadly amphibian, as its skin secretes a potent toxin capable of incapacitating even the mightiest of foes.",
+  "ids": [
+   54004
+  ],
+  "name": "Poison Frog"
+ },
+ {
+  "en": "Beyond repair.",
+  "ids": [
+   61686
+  ],
+  "name": "Broken Protector"
+ },
+ {
+  "en": "Big and safe to have at your side if you want to discover the world underneath the sea.",
+  "ids": [
+   81248
+  ],
+  "name": "Finn the Shark"
+ },
+ {
+  "en": "Big enough to fit a dragon heart.",
+  "ids": [
+   70054
+  ],
+  "name": "Wyrmheart Boots"
+ },
+ {
+  "en": "Bigger pockets for bigger adventures!",
+  "ids": [
+   3762
+  ],
+  "name": "Adventurer's Satchel"
+ },
+ {
+  "en": "Black as our hearts. Rotten as the world we've inherited.",
+  "ids": [
+   50170
+  ],
+  "name": "Shroud Black"
+ },
+ {
+  "en": "Black as your last “controlled” explosion.",
+  "ids": [
+   50125
+  ],
+  "name": "Explodo Black"
+ },
+ {
+  "en": "Black feathers of these Hawkstriders mourn the fallen of Quel'Thalas.",
+  "ids": [
+   36611
+  ],
+  "name": "Black Thalassian Hawkstrider"
+ },
+ {
+  "en": "Black hair used to be uncommon among the Night Elves, atleast before the invention of this dye.",
+  "ids": [
+   81101
+  ],
+  "name": "Dreamless Sleep"
+ },
+ {
+  "en": "Black-blue, like your face after another brawl at the tavern.",
+  "ids": [
+   50153
+  ],
+  "name": "Brawler's Blue"
+ },
+ {
+  "en": "Blade of the Scarlet Highlord",
+  "ids": [
+   13262,
+   22691
+  ],
+  "name": "Ashbringer"
+ },
+ {
+  "en": "Blessed by Cenarius, this gift beholds the sheer ferocity of nature itself.",
+  "ids": [
+   61081
+  ],
+  "name": "Gift of Ferocity"
+ },
+ {
+  "en": "Blessed by Shadra herself, this brood is known for their especially potent venom.",
+  "ids": [
+   37010
+  ],
+  "name": "Razzashi Hatchling"
+ },
+ {
+  "en": "Blessed by the Shen'dralar Ancients.",
+  "ids": [
+   18465,
+   18466,
+   18467,
+   18468,
+   18469,
+   18470,
+   18471,
+   18472,
+   18473
+  ],
+  "name": "Royal Seal of Eldre'Thalas"
+ },
+ {
+  "en": "Blessed by the light to vanquish undeath",
+  "ids": [
+   81355
+  ],
+  "name": "Fallen Crusader Legguards"
+ },
+ {
+  "en": "Blessed with the mojo of Zanza!",
+  "ids": [
+   20079,
+   20080,
+   20081,
+   23794,
+   23795,
+   23796
+  ],
+  "name": "Spirit of Zanza"
+ },
+ {
+  "en": "Blonde, but more... ashen. Like your skin after too long in the grave.",
+  "ids": [
+   50165
+  ],
+  "name": "Ashes to Ashes"
+ },
+ {
+  "en": "Blonde, if you can call it that. Dark. Ghastly, like our hair... and our lives.",
+  "ids": [
+   50164
+  ],
+  "name": "Maggotetic Attraction"
+ },
+ {
+  "en": "Blonde, shiny, and a little bit too bright.",
+  "ids": [
+   50127
+  ],
+  "name": "Gizmo Gold"
+ },
+ {
+  "en": "Blonde, so bright it could blind someone if you turned your head.",
+  "ids": [
+   80655
+  ],
+  "name": "Too Bright Blonde"
+ },
+ {
+  "en": "Blood of my blood.",
+  "ids": [
+   60854
+  ],
+  "name": "Blood of the First Khan"
+ },
+ {
+  "en": "Blood of the Sea Queen",
+  "ids": [
+   10610
+  ],
+  "name": "Hetaera's Blood"
+ },
+ {
+  "en": "Blood red. Battle-ready. Or just angry… either way, you'll make a convincing berserker.",
+  "ids": [
+   50144
+  ],
+  "name": "Bloodstained Red"
+ },
+ {
+  "en": "Blue as the skies above Ashenvale, filled with both mystery and ancient wisdom.",
+  "ids": [
+   50112
+  ],
+  "name": "Deep Azure"
+ },
+ {
+  "en": "Blue like your blood. Cold. Dead. A perfect shade for the Forsaken.",
+  "ids": [
+   50166
+  ],
+  "name": "Banshee Blue"
+ },
+ {
+  "en": "Boats for Dummies, second edition.",
+  "ids": [
+   50235
+  ],
+  "name": "Torn Outline: Fishing Boat"
+ },
+ {
+  "en": "Bold, for mages with flair.",
+  "ids": [
+   50038
+  ],
+  "name": "Red Mageweave Tabard"
+ },
+ {
+  "en": "Bone golems are deadly undead constructs made entirely of bones and fueled by ichor of Undeath.",
+  "ids": [
+   50013
+  ],
+  "name": "Bone Golem"
+ },
+ {
+  "en": "Boom. Now boom? I wish for a boom. Boom go! This coin must be broken, I wonder if it'll explode.",
+  "ids": [
+   51613
+  ],
+  "name": "Kryll's Copper Coin"
+ }
+]

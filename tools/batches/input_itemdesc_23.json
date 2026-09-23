@@ -1,0 +1,354 @@
+[
+ {
+  "en": "Needs spell: Equip: Your attacks have a chance to inflict 60-75 Frost damage to your target. Actuall quote: <Like the frozen grasp of death, this dagger will be your victim's last sensation.>",
+  "ids": [
+   55075
+  ],
+  "name": "The Frigid Whisper"
+ },
+ {
+  "en": "Needs spell: Teaches you how to craft Mantle of Falling Knives.",
+  "ids": [
+   55069
+  ],
+  "name": "Pattern: Mantle of Falling Knives"
+ },
+ {
+  "en": "Needs spell: Use: Lose yourself in the book and enter an enlightened state, regenerating 2100 Mana and Health over 12 seconds. You must continue reading to uphold your focus. Actuall quote: <The long, drawn out sentences make you sleepy.>",
+  "ids": [
+   55073
+  ],
+  "name": "Myrokos' Philosophical Dissertation"
+ },
+ {
+  "en": "Needs spell: Use: Teaches you how to create The Frigid Whisper.",
+  "ids": [
+   55074
+  ],
+  "name": "Plans: The Frigid Whisper"
+ },
+ {
+  "en": "Needs spell: Use: Teaches you how to summon this companion. Actual quote: <The agents of Ravenholdt use these ravens for surveillance, communication and conversation in solemn moments.>",
+  "ids": [
+   55071
+  ],
+  "name": "Ravenholdt Raven"
+ },
+ {
+  "en": "Needs spell: Use: Zap your target with radioactive energy, turning it into a Leper Gnome and reducing its damage dealt by 15 and its movement speed by 20% for 12 seconds. (5 min cd) actual quote :<Still very much a prototype. Don't show it to other gnomes",
+  "ids": [
+   55068
+  ],
+  "name": "Zan's Leperification Blaster"
+ },
+ {
+  "en": "Never eat beef with a tauren.",
+  "ids": [
+   19229
+  ],
+  "name": "Sayge's Fortune #1"
+ },
+ {
+  "en": "Never miss a chest in the dark!",
+  "ids": [
+   50049
+  ],
+  "name": "Treasure Seeking Torch"
+ },
+ {
+  "en": "Never punt a gnome without due cause.",
+  "ids": [
+   19253
+  ],
+  "name": "Sayge's Fortune #17"
+ },
+ {
+  "en": "New & Improved!",
+  "ids": [
+   9328
+  ],
+  "name": "Super Snapper FX"
+ },
+ {
+  "en": "Night elf children are given an owl feather on their first birthday as a token of good luck.",
+  "ids": [
+   8500
+  ],
+  "name": "Great Horned Owl"
+ },
+ {
+  "en": "Night elves once believed that seeing this light colored saber breed in the wild was an ill omen.",
+  "ids": [
+   18768,
+   81227
+  ],
+  "name": "Armored Dawnsaber"
+ },
+ {
+  "en": "Night elves raise frostsaber cubs from infancy, forging lifelong bonds of trust between rider and beast.",
+  "ids": [
+   18766
+  ],
+  "name": "Armored Frostsaber"
+ },
+ {
+  "en": "No matter how heavy the contents, this bag's shape and weight never seem to change.",
+  "ids": [
+   50004
+  ],
+  "name": "Portable Pocket Dimension"
+ },
+ {
+  "en": "No stranger to chewing through heavy armor.",
+  "ids": [
+   61263
+  ],
+  "name": "Tooth of the Packlord"
+ },
+ {
+  "en": "Not all unicorns serve the light.",
+  "ids": [
+   29478
+  ],
+  "name": "Black Unicorn"
+ },
+ {
+  "en": "Not edible",
+  "ids": [
+   22322
+  ],
+  "name": "The Jaw Breaker"
+ },
+ {
+  "en": "Not even death can break us apart.",
+  "ids": [
+   81024,
+   81025
+  ],
+  "name": "Dawnbreaker's Wedding Ring"
+ },
+ {
+  "en": "Not even the nobles were spared.",
+  "ids": [
+   61682
+  ],
+  "name": "Broken Walking Cane"
+ },
+ {
+  "en": "Not just a crown — it's a symbol of glorious insanity. Given to the first Level One Lunatic to rack up 10 000 Honor Kills!",
+  "ids": [
+   111
+  ],
+  "name": "The Lunatic King's Crown"
+ },
+ {
+  "en": "Not only is it quick, it's loud too!",
+  "ids": [
+   69001
+  ],
+  "name": "Tiny Warp Stalker"
+ },
+ {
+  "en": "Not quite as good as the 2 Ring",
+  "ids": [
+   8350
+  ],
+  "name": "The 1 Ring"
+ },
+ {
+  "en": "Not quite blonde, not quite brown. Maybe a few drinks would help you decide...",
+  "ids": [
+   50140
+  ],
+  "name": "Ironbark Shine"
+ },
+ {
+  "en": "Not quite to most tastes.",
+  "ids": [
+   61155
+  ],
+  "name": "Primitive Bead Necklace"
+ },
+ {
+  "en": "Not to worry; the combat mechanisms and homing logic have been disabled on this unit, I think. (Oglethorpe Obnoticus)",
+  "ids": [
+   10398
+  ],
+  "name": "Mechanical Chicken"
+ },
+ {
+  "en": "Notable for its wide eyes and sassy slide.",
+  "ids": [
+   69003
+  ],
+  "name": "Flipper"
+ },
+ {
+  "en": "Nothing can clean the radiation.",
+  "ids": [
+   80737
+  ],
+  "name": "Irradiated Ring"
+ },
+ {
+  "en": "Nothing says \"I hold a grudge\" like riding her child into battle.",
+  "ids": [
+   30017
+  ],
+  "name": "Onyxian Drake"
+ },
+ {
+  "en": "Nothing says sorry like Piffeny.",
+  "ids": [
+   7342
+  ],
+  "name": "Silver Piffeny Band"
+ },
+ {
+  "en": "Now even less absorbant!",
+  "ids": [
+   9648
+  ],
+  "name": "Chainlink Towel"
+ },
+ {
+  "en": "Now the entire raid can use my hole!",
+  "ids": [
+   51605
+  ],
+  "name": "Vaedath's Silver Coin"
+ },
+ {
+  "en": "Now the sun is in the sky, and for no reason why, the sad cloud is crying itself away.",
+  "ids": [
+   81240
+  ],
+  "name": "Dalaran Rain Cloud"
+ },
+ {
+  "en": "Numerous hexes are stitched onto this ragged doll.",
+  "ids": [
+   1350
+  ],
+  "name": "Deprecated Hex Doll"
+ },
+ {
+  "en": "Oats and grains specially mixed with the Argent Dawn's enriched manna biscuits.",
+  "ids": [
+   18775
+  ],
+  "name": "Manna-Enriched Horse Feed"
+ },
+ {
+  "en": "October 4, 2021 —  Kel'Thuzad has been defeated for the first time!",
+  "ids": [
+   51899
+  ],
+  "name": "Frostweave Shirt of Frozen Souls"
+ },
+ {
+  "en": "Oil leaks have not been kind to these trousers.",
+  "ids": [
+   55380
+  ],
+  "name": "Craftsman's Pants"
+ },
+ {
+  "en": "Old Alterac saying: 'A cat has nine lives, but needs only one.'",
+  "ids": [
+   8491
+  ],
+  "name": "Black Tabby"
+ },
+ {
+  "en": "On eqip: Has a chance on harmful spells direct hits to increase spell damage by 60 for 8 seconds (2 min cd, 10% on direct damage)",
+  "ids": [
+   55227
+  ],
+  "name": "Inferno Emberstone Ring"
+ },
+ {
+  "en": "On equip: Chance on successful spellcasts to restore 50 mana to the caster. (60% chance, 20 second cooldown).",
+  "ids": [
+   55234
+  ],
+  "name": "Astral Moonstone Band"
+ },
+ {
+  "en": "On equip: Heals for 12-18 damage when you get a critical hit.",
+  "ids": [
+   55189
+  ],
+  "name": "Blood Crown"
+ },
+ {
+  "en": "On equip: Upon reciving critical hit grants you a shield absorbing 400 damage. 100% proc chance 2 min cd",
+  "ids": [
+   55190
+  ],
+  "name": "Radiant Crown of the Elders"
+ },
+ {
+  "en": "On equip: Your auto attack have 4% chance to ignite the air around you dealing 120 damage in 5 yard radius.",
+  "ids": [
+   55237
+  ],
+  "name": "Crystal Clear Moon Loop"
+ },
+ {
+  "en": "On equip: Your auto attacks have 2% chance to cauterize your target dealing 300 fire damage.",
+  "ids": [
+   55230
+  ],
+  "name": "Firestorm Lava Loop"
+ },
+ {
+  "en": "On the inside collar it reads, \"Inspected by Earl Z. Moade.\"",
+  "ids": [
+   18231
+  ],
+  "name": "Sleeveless T-Shirt"
+ },
+ {
+  "en": "Once a common creature in Thalassian forests, now a dying breed.",
+  "ids": [
+   36613
+  ],
+  "name": "Green Thalassian Hawkstrider"
+ },
+ {
+  "en": "Once a creature of starlight, now touched by shadow. The Twilight Unicorn walks a forgotten path.",
+  "ids": [
+   50407
+  ],
+  "name": "Twilight Unicorn"
+ },
+ {
+  "en": "Once a plate helmet, warped by the timeways into a thin cloth that preserves its properties.",
+  "ids": [
+   61701
+  ],
+  "name": "Wraps of the Transmogrified"
+ },
+ {
+  "en": "Once a symbol of unyielding zeal, now shattered, but still bearing the mark of the Scarlet Crusade's fanatical devotion.",
+  "ids": [
+   50440
+  ],
+  "name": "Cracked Scarlet Crusade Insignia"
+ },
+ {
+  "en": "Once bred and raised by the green dragon Itharius, this unique breed of dragon has settled in the jungles of Feralas.",
+  "ids": [
+   8498
+  ],
+  "name": "Emerald Whelpling"
+ },
+ {
+  "en": "Once prized by dragonhawk breeders in Silvermoon. Stands out at night to predators, making it necessary to gain awareness at an early age.",
+  "ids": [
+   80000
+  ],
+  "name": "Golden Dragonhawk Hatchling"
+ }
+]

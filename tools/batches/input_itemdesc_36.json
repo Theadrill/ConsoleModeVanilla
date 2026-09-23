@@ -1,0 +1,404 @@
+[
+ {
+  "en": "This paper is covered in glowing runes.",
+  "ids": [
+   5455
+  ],
+  "name": "Divined Scroll"
+ },
+ {
+  "en": "This pendant glows with magic.",
+  "ids": [
+   1962
+  ],
+  "name": "Glowing Shadowhide Pendant"
+ },
+ {
+  "en": "This piece of the broken relic still holds immense power.",
+  "ids": [
+   41895
+  ],
+  "name": "Shard of the Demon Soul"
+ },
+ {
+  "en": "This pint-sized panda cub is highly sought after by adventurers around Azeroth - despite its narcoleptic nature.",
+  "ids": [
+   13583
+  ],
+  "name": "Panda Collar"
+ },
+ {
+  "en": "This playful pup with a warm, orange coat is always ready for adventure, bringing a touch of cheer to your journey.",
+  "ids": [
+   61819
+  ],
+  "name": "Pumpkin"
+ },
+ {
+  "en": "This poor turtle got a bit corrupted, but his heart is still lovely.",
+  "ids": [
+   50202
+  ],
+  "name": "Egg of Turtlhu"
+ },
+ {
+  "en": "This potion has no effect until we put languages in.",
+  "ids": [
+   2460
+  ],
+  "name": "Elixir of Tongues (NYI)"
+ },
+ {
+  "en": "This rabbit sparkles with celestial energy, hopping gracefully across the land.",
+  "ids": [
+   36606
+  ],
+  "name": "Celestial Rabbit"
+ },
+ {
+  "en": "This rare deformity is a new phenomenon.",
+  "ids": [
+   11903
+  ],
+  "name": "Corrupted Kitten"
+ },
+ {
+  "en": "This realistic toad companion is magically enchanted, hopping alongside you as you explore the realms of Azeroth.",
+  "ids": [
+   15996
+  ],
+  "name": "Lifelike Mechanical Toad"
+ },
+ {
+  "en": "This robe is emblazoned with runes you've never seen before. The way it is woven seems as if it were from another world.",
+  "ids": [
+   51792
+  ],
+  "name": "Otherworldly Robe"
+ },
+ {
+  "en": "This sand covers some corrupted creatures that have been involved in time travels, it could be purified again if you are able to find someone inside the Caverns of Time...",
+  "ids": [
+   50203
+  ],
+  "name": "Corrupted Sand"
+ },
+ {
+  "en": "This section of the amulet vibrates with a palpable fervor to be rejoined with its sibling pieces.",
+  "ids": [
+   22046
+  ],
+  "name": "Right Piece of Lord Valthalak's Amulet"
+ },
+ {
+  "en": "This shy recluse spins intricate webs among fallen timber, blending with the forest floor.",
+  "ids": [
+   37004
+  ],
+  "name": "Timberweb Hatchling"
+ },
+ {
+  "en": "This silver necklace has been worn by the elements. Under the grime, glittering sapphires adorn undulating tendrils that resemble the rays of the sun branching from the golden disk at its center.",
+  "ids": [
+   60517
+  ],
+  "name": "Tarnished Necklace"
+ },
+ {
+  "en": "This small rune marks the bearer as a lieutenant in the Burning Blade.",
+  "ids": [
+   14544
+  ],
+  "name": "Lieutenant's Insignia"
+ },
+ {
+  "en": "This smooth stone flake makes you surprisingly melancholic. What a scam!",
+  "ids": [
+   41881
+  ],
+  "name": "Shale-a"
+ },
+ {
+  "en": "This soot-covered note contains some cryptic text.",
+  "ids": [
+   1381
+  ],
+  "name": "A Mysterious Message"
+ },
+ {
+  "en": "This still-smoldering chunk of Lord Incendius will make for an excellent coal.",
+  "ids": [
+   21987
+  ],
+  "name": "Incendicite of Incendius"
+ },
+ {
+  "en": "This strange dust should allow Metzen to be freed when sprinkled on him.",
+  "ids": [
+   21211
+  ],
+  "name": "Pouch of Reindeer Dust"
+ },
+ {
+  "en": "This tabard proudly carries the Ravenshire crest, steeped in history and tradition.",
+  "ids": [
+   61369
+  ],
+  "name": "Ravenshire Tabard"
+ },
+ {
+  "en": "This tabard, dyed in the Scarlet Crusade's colors, reflects their unwavering devotion to the Light.",
+  "ids": [
+   23192
+  ],
+  "name": "Tabard of the Scarlet Crusade"
+ },
+ {
+  "en": "This token will alter your character's skin, while leaving the haircut, hair color, and facial features unchanged.",
+  "ids": [
+   50105,
+   50106,
+   50204,
+   50205,
+   50206,
+   50207,
+   50208,
+   50209,
+   50210,
+   50211,
+   50212,
+   50220,
+   50221,
+   50223,
+   50224,
+   50225,
+   50250,
+   50251,
+   50252,
+   50290,
+   50291,
+   50292,
+   51010,
+   51011,
+   51920,
+   51921,
+   61104,
+   61105,
+   61106,
+   61110,
+   61111,
+   61112,
+   81206,
+   81208,
+   81209,
+   81210,
+   81228,
+   81229,
+   81230,
+   81255,
+   81256,
+   83090,
+   83091,
+   83092,
+   83099,
+   83100
+  ],
+  "name": "Mark of the Scarlet Crusade"
+ },
+ {
+  "en": "This tome appears freshly inked.",
+  "ids": [
+   20415
+  ],
+  "name": "The War of the Shifting Sands"
+ },
+ {
+  "en": "This torn piece of parchment contains scribbled writing.",
+  "ids": [
+   1358,
+   1361,
+   1362
+  ],
+  "name": "A Clue to Sander's Treasure"
+ },
+ {
+  "en": "This truesilver-wrought item is a furbolg symbol of peace.  A sealed message is attached to it.",
+  "ids": [
+   21155
+  ],
+  "name": "Timbermaw Offering of Peace"
+ },
+ {
+  "en": "This unique species of faerie dragon is not usually found on Azeroth.",
+  "ids": [
+   81151
+  ],
+  "name": "Spectral Faeling"
+ },
+ {
+  "en": "This ursine mount's swiftness is enhanced by its heavy armor.",
+  "ids": [
+   81153,
+   81154,
+   81155,
+   81158
+  ],
+  "name": "Armored Purple Bear"
+ },
+ {
+  "en": "This venomous Nerubian mount hunts with relentless precision.",
+  "ids": [
+   36553
+  ],
+  "name": "Green Nerubian Bloodfeaster"
+ },
+ {
+  "en": "This visceral chunk of the Duke burns on, fueled by his hatred for you.",
+  "ids": [
+   21989
+  ],
+  "name": "Cinder of Cynders"
+ },
+ {
+  "en": "This will be a Cooking Tradeskill recipe",
+  "ids": [
+   1323,
+   1492,
+   1599
+  ],
+  "name": "Deprecated [PH] Recipe: Broiled Sunfish"
+ },
+ {
+  "en": "Those jolly hippogryphs can only be found in the Winter Veil Vale.",
+  "ids": [
+   36665
+  ],
+  "name": "Winter Veil Hippogryph"
+ },
+ {
+  "en": "Those royal Hawkstriders bear the colors of the Sunstrider dynasty.",
+  "ids": [
+   36610
+  ],
+  "name": "Red Thalassian Hawkstrider"
+ },
+ {
+  "en": "Those that blinded are those that truly see.",
+  "ids": [
+   84005
+  ],
+  "name": "Blindfold of the Scarlet Marksman"
+ },
+ {
+  "en": "Those with simple tastes are always satisfied with the best.",
+  "ids": [
+   19246
+  ],
+  "name": "Sayge's Fortune #11"
+ },
+ {
+  "en": "Though battered and scarred the totem still brims with energy",
+  "ids": [
+   60104
+  ],
+  "name": "Wolf Totem"
+ },
+ {
+  "en": "Three empty sockets cover the face.",
+  "ids": [
+   12219
+  ],
+  "name": "Unadorned Seal of Ascension"
+ },
+ {
+  "en": "Through thick blood a few words still remain legible.",
+  "ids": [
+   939
+  ],
+  "name": "A Bloodstained Journal Page"
+ },
+ {
+  "en": "Throw a frog into your unsuspecting friend's face.",
+  "ids": [
+   7013
+  ],
+  "name": "Croak Cannon"
+ },
+ {
+  "en": "Tied with a bow.",
+  "ids": [
+   9329
+  ],
+  "name": "A Short Note"
+ },
+ {
+  "en": "Tightly sealed information for the High Explorer.",
+  "ids": [
+   60101
+  ],
+  "name": "Sealed Scroll"
+ },
+ {
+  "en": "Time is nothing; timing is everything.",
+  "ids": [
+   19451
+  ],
+  "name": "Sayge's Fortune #26"
+ },
+ {
+  "en": "Time works differently in Azeroth. It might be a good idea to check the time.",
+  "ids": [
+   80175
+  ],
+  "name": "Tome of Disguise: Chromie"
+ },
+ {
+  "en": "To My Honorable King",
+  "ids": [
+   4514
+  ],
+  "name": "Sara Balloo's Plea"
+ },
+ {
+  "en": "To be opened by Lord Varimathras.",
+  "ids": [
+   3701
+  ],
+  "name": "Darthalia's Sealed Commendation"
+ },
+ {
+  "en": "To become sightless, is to see the demonic.",
+  "ids": [
+   83265
+  ],
+  "name": "Demon Hunter's Blindfold"
+ },
+ {
+  "en": "To boldly go where the sun don't shine!",
+  "ids": [
+   81205
+  ],
+  "name": "Tabard of Discovery"
+ },
+ {
+  "en": "To my dearest Christoph",
+  "ids": [
+   41687
+  ],
+  "name": "Broken Locket"
+ },
+ {
+  "en": "To new friend! Tharg love you.",
+  "ids": [
+   60587
+  ],
+  "name": "Tharg's Rock of Friendship"
+ },
+ {
+  "en": "To our brethren in the great halls.",
+  "ids": [
+   55038
+  ],
+  "name": "Fallen Heroes' Hymnal"
+ }
+]

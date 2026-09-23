@@ -1,0 +1,360 @@
+[
+ {
+  "en": "Shiny copper, like the wires you “borrowed” from that gnome's contraption. Male goblin hair dye comes pre-blackened with soot!",
+  "ids": [
+   80660
+  ],
+  "name": "Short-Circuit Copper"
+ },
+ {
+  "en": "Shiny enough to blind your enemies.",
+  "ids": [
+   30023
+  ],
+  "name": "Golden Riding Scorpid"
+ },
+ {
+  "en": "Shiny enough to make trolls and spirits fight over it. Curses are not refundable.",
+  "ids": [
+   50146
+  ],
+  "name": "Voodoo Gold"
+ },
+ {
+  "en": "Shrouded in darkness, this Nerubian mount strikes fear into enemies.",
+  "ids": [
+   36555
+  ],
+  "name": "Black Nerubian Bloodfeaster"
+ },
+ {
+  "en": "Shu'halo warriors nickname this gun \"Greenboy\" for the way the sun reflects off it.",
+  "ids": [
+   51862
+  ],
+  "name": "Brave's Rifle"
+ },
+ {
+  "en": "Sickening, bloody, foulness.",
+  "ids": [
+   12630
+  ],
+  "name": "Head of Rend Blackhand"
+ },
+ {
+  "en": "Signed by the Honorable Magistrate Solomon.",
+  "ids": [
+   1078
+  ],
+  "name": "Deprecated Writ of Lakeshire"
+ },
+ {
+  "en": "Signed by yours truly. Shows Zappo's signature smile.",
+  "ids": [
+   41696
+  ],
+  "name": "Signed Zappo Zapblast Autograph"
+ },
+ {
+  "en": "Signifies your allegiance to the Syndicate.",
+  "ids": [
+   51837
+  ],
+  "name": "Syndicate Amulet"
+ },
+ {
+  "en": "Silent and watchful, this spiderling moves carefully through the thorns, ever curious.",
+  "ids": [
+   37001
+  ],
+  "name": "Wildthorn Hatchling"
+ },
+ {
+  "en": "Simple, but brutally effective.",
+  "ids": [
+   61154
+  ],
+  "name": "Savage Spear"
+ },
+ {
+  "en": "Sleeping is this cat's second favorite activity. The first is yawning.",
+  "ids": [
+   8488
+  ],
+  "name": "Silver Tabby"
+ },
+ {
+  "en": "Slip it on, and you'll feel smarter instantly.",
+  "ids": [
+   29941
+  ],
+  "name": "Band of Sudden Wisdom"
+ },
+ {
+  "en": "Slow and steady might not always win you the race but it'll get you there... eventually.",
+  "ids": [
+   23720
+  ],
+  "name": "Swift Riding Turtle"
+ },
+ {
+  "en": "Slow and steady wins the race — here's a gift to prove it.",
+  "ids": [
+   50052
+  ],
+  "name": "Speedy's Steady Supply"
+ },
+ {
+  "en": "Slow and steady wins the race.",
+  "ids": [
+   23002
+  ],
+  "name": "Speedy"
+ },
+ {
+  "en": "Slow and steady.",
+  "ids": [
+   19160
+  ],
+  "name": "Turtle WoW Tabard"
+ },
+ {
+  "en": "Small fragment of a God's soul.",
+  "ids": [
+   83006
+  ],
+  "name": "Well Essence"
+ },
+ {
+  "en": "Small, crude, and smeared with oil, most definitely of goblin make.",
+  "ids": [
+   81291
+  ],
+  "name": "Razlik's Tools"
+ },
+ {
+  "en": "Smells crabby.",
+  "ids": [
+   81015
+  ],
+  "name": "Cook's Apron"
+ },
+ {
+  "en": "Smells horrible.",
+  "ids": [
+   50232
+  ],
+  "name": "Cheap Goblin's Oil"
+ },
+ {
+  "en": "Smells like dried blood.",
+  "ids": [
+   61684
+  ],
+  "name": "Tuft of Worgen Hair"
+ },
+ {
+  "en": "Smoky, sparky, and loud.",
+  "ids": [
+   81192
+  ],
+  "name": "Black Scrapforged Mechaspider"
+ },
+ {
+  "en": "So sweet and juicy!",
+  "ids": [
+   51712,
+   51718
+  ],
+  "name": "Juicy Watermelon"
+ },
+ {
+  "en": "Soaked in the blood of those devoted to this zealous crusade.",
+  "ids": [
+   84006
+  ],
+  "name": "Banner of the Scarlet Crusade"
+ },
+ {
+  "en": "Soft Like Pudding",
+  "ids": [
+   9529
+  ],
+  "name": "Internal Warrior Equipment Kit L25"
+ },
+ {
+  "en": "Soft as a bunny's tail, this pink shirt is perfect for celebrating Noblegarden in style.",
+  "ids": [
+   92013
+  ],
+  "name": "Pink Spring Shirt"
+ },
+ {
+  "en": "Soft to the touch.",
+  "ids": [
+   51330
+  ],
+  "name": "Delicious Pumpkin Pie"
+ },
+ {
+  "en": "Solid gold. Shocking!",
+  "ids": [
+   51856
+  ],
+  "name": "Gold Ring"
+ },
+ {
+  "en": "Solidarity for the workers of Durotar.",
+  "ids": [
+   81089
+  ],
+  "name": "Durotar Labor Union Tabard"
+ },
+ {
+  "en": "Some days, I think the murlocs don't appreciate everything I do for them.",
+  "ids": [
+   51608
+  ],
+  "name": "King Mrgl-Mrgl's Coin"
+ },
+ {
+  "en": "Some historians claim that this breed's misty grey coat is the result of ancient Highborne experiments conducted on nightsabers.",
+  "ids": [
+   18767
+  ],
+  "name": "Armored Mistsaber"
+ },
+ {
+  "en": "Some horses merely adopt the dark. This horse was born in it.",
+  "ids": [
+   81235,
+   81244,
+   81245,
+   81246,
+   81247
+  ],
+  "name": "Vermilion Deathcharger"
+ },
+ {
+  "en": "Some may question your right to destroy ten billion people. Those who understand realise that you have no right to let them live.",
+  "ids": [
+   10
+  ],
+  "name": "Gamemaster's Broom of Doom"
+ },
+ {
+  "en": "Some otherworldly essence lingers around the flame, bending it in mysterious ways.",
+  "ids": [
+   83554
+  ],
+  "name": "Abyssal Flame"
+ },
+ {
+  "en": "Some say this clever bird can be taught to speak--but it's smart enough to keep its beak shut.",
+  "ids": [
+   8496
+  ],
+  "name": "Cockatiel"
+ },
+ {
+  "en": "Some secrets are best left unknown.",
+  "ids": [
+   19989
+  ],
+  "name": "Tome of Devouring Shadows"
+ },
+ {
+  "en": "Somehow still in working condition.",
+  "ids": [
+   61683
+  ],
+  "name": "Battered Arbalest"
+ },
+ {
+  "en": "Someone in Booty Bay might be interested.",
+  "ids": [
+   19803,
+   19805,
+   19806
+  ],
+  "name": "Brownell's Blue Striped Racer"
+ },
+ {
+  "en": "Someone is speaking well of you.",
+  "ids": [
+   19240
+  ],
+  "name": "Sayge's Fortune #5"
+ },
+ {
+  "en": "Someone really loves to fish.",
+  "ids": [
+   18365
+  ],
+  "name": "A Thoroughly Read Copy of \"Nat Pagle's Extreme' Anglin.\""
+ },
+ {
+  "en": "Something seems to shake from within",
+  "ids": [
+   12467
+  ],
+  "name": "Alien Egg"
+ },
+ {
+  "en": "Spark resistant and built to last!",
+  "ids": [
+   81311
+  ],
+  "name": "Technician's Servoshield"
+ },
+ {
+  "en": "Specially handcrafted planter with fertile and watered soil.",
+  "ids": [
+   51705
+  ],
+  "name": "Simple Wooden Planter"
+ },
+ {
+  "en": "Speed, cunning, and ferocity are the things trolls and raptors admire about each other.",
+  "ids": [
+   81182
+  ],
+  "name": "Armored Darkspear Raptor"
+ },
+ {
+  "en": "Spiced, as all good things should be.",
+  "ids": [
+   60444
+  ],
+  "name": "Sack of Flour"
+ },
+ {
+  "en": "Squishy, Smelly, Slimy",
+  "ids": [
+   11080
+  ],
+  "name": "Gor'tesh's Lopped Off Head"
+ },
+ {
+  "en": "Stained with the blood of innocents.",
+  "ids": [
+   81122
+  ],
+  "name": "Bloodfallen Cloak"
+ },
+ {
+  "en": "Stained with the sticky alcohol of parties past. Another year, and another time to celebrate!",
+  "ids": [
+   41469,
+   41500
+  ],
+  "name": "Ale-Stained Anniversary Shirt"
+ },
+ {
+  "en": "Stamped with the name: Muren Macfeere",
+  "ids": [
+   5896
+  ],
+  "name": "Theramore Guard Medallion UNUSED"
+ }
+]

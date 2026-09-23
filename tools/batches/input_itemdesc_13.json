@@ -1,0 +1,363 @@
+[
+ {
+  "en": "Crackling with lightning.",
+  "ids": [
+   55041
+  ],
+  "name": "Wildhammer Stormcaller"
+ },
+ {
+  "en": "Crafted by goblin tinkers, this explosive little companion loves to leave a trail of mayhem in its wake.",
+  "ids": [
+   11825
+  ],
+  "name": "Tiny Walking Bombling"
+ },
+ {
+  "en": "Crafted to destroy demonic corruption",
+  "ids": [
+   83269
+  ],
+  "name": "Terrorblade Glaive"
+ },
+ {
+  "en": "Create a new character of the same race with your desired look, then use the command .copy name to duplicate its appearance onto this character.",
+  "ids": [
+   80699
+  ],
+  "name": "Appearance Change Token"
+ },
+ {
+  "en": "Created by a high elf apprentice, this broom would be extremely useful if anyone could figure out how to make it stop.",
+  "ids": [
+   80007
+  ],
+  "name": "Enchanted Broom"
+ },
+ {
+  "en": "Created with the purpose of dispensing justice",
+  "ids": [
+   83263
+  ],
+  "name": "Cuffs of the Justicar"
+ },
+ {
+  "en": "Crimson dedication on display, stained with the sweat and blood of dedication.",
+  "ids": [
+   7725
+  ],
+  "name": "Tabard of the Scarlet Crusade"
+ },
+ {
+  "en": "Crimson markings that channel the spirit of the serpent, a symbol of agility and ferocity.",
+  "ids": [
+   93088
+  ],
+  "name": "Red Serpent Warbrands"
+ },
+ {
+  "en": "Crimson with a fiery purpose.",
+  "ids": [
+   50092
+  ],
+  "name": "Tabard of the Crimson Legion"
+ },
+ {
+  "en": "Crimson, for those who still think their bloodline is as noble as it once was.",
+  "ids": [
+   80652
+  ],
+  "name": "Fading Glory Red"
+ },
+ {
+  "en": "Crisp, delicious and hopefully worm-free",
+  "ids": [
+   20516
+  ],
+  "name": "Bobbing Apple"
+ },
+ {
+  "en": "Crudely crafted, mostly from dark iron, these bracers exhibit trace amounts of a shiny metal.",
+  "ids": [
+   22138
+  ],
+  "name": "Blackrock Bracer"
+ },
+ {
+  "en": "Crusted blood adorns the metal button.",
+  "ids": [
+   41894
+  ],
+  "name": "Button from a Noble's Overcoat"
+ },
+ {
+  "en": "DANGER! DO NOT INGEST!",
+  "ids": [
+   9365
+  ],
+  "name": "High Potency Radioactive Fallout"
+ },
+ {
+  "en": "Dance before the sacred pyres!",
+  "ids": [
+   72
+  ],
+  "name": "Flame Keeper's Shirt"
+ },
+ {
+  "en": "Dance like no one's watching.",
+  "ids": [
+   51021
+  ],
+  "name": "Speedy's Jukebox"
+ },
+ {
+  "en": "Dark and mysterious, with the scent of forbidden desire.",
+  "ids": [
+   50091
+  ],
+  "name": "Black Mageweave Tabard"
+ },
+ {
+  "en": "Dark and mysterious.",
+  "ids": [
+   30020
+  ],
+  "name": "Black Riding Scorpid"
+ },
+ {
+  "en": "Dark as Blackrock, tougher than your cousin's skull. Wear it, or shut up.",
+  "ids": [
+   50158
+  ],
+  "name": "Blackrock Black"
+ },
+ {
+  "en": "Dark as a night shift guard's mood after 12 hours of standing still.",
+  "ids": [
+   50115
+  ],
+  "name": "Darkshire Black"
+ },
+ {
+  "en": "Dark as the ocean's depths. Don't ask what's down there.",
+  "ids": [
+   50150
+  ],
+  "name": "Deep Sea Dark Blue"
+ },
+ {
+  "en": "Dark as the smoke over Blackstone Island.",
+  "ids": [
+   80664
+  ],
+  "name": "Charcoal Profit"
+ },
+ {
+  "en": "Dark green. The latest hit among the Apothecary.",
+  "ids": [
+   50167
+  ],
+  "name": "Putrefaction"
+ },
+ {
+  "en": "Dark rituals are trapped in dark gems.",
+  "ids": [
+   20534
+  ],
+  "name": "Abyss Shard"
+ },
+ {
+  "en": "Dark rituals locked inside shadowy books.",
+  "ids": [
+   83572
+  ],
+  "name": "Grimoire of Demon Gate"
+ },
+ {
+  "en": "Dark runes skitter across the surface.",
+  "ids": [
+   11732,
+   11733,
+   11734,
+   11736,
+   11737,
+   18332,
+   18333,
+   18334
+  ],
+  "name": "Libram of Rumination"
+ },
+ {
+  "en": "Darkest midnight blue, like the endless nights spent fixing your arcane mess.",
+  "ids": [
+   80658
+  ],
+  "name": "Midnight Mist"
+ },
+ {
+  "en": "Darkness envelops the blade.",
+  "ids": [
+   51832
+  ],
+  "name": "Nathrezim Wedge"
+ },
+ {
+  "en": "Darkshire Moonshine III",
+  "ids": [
+   80727
+  ],
+  "name": "Broken Bottle"
+ },
+ {
+  "en": "Data card only",
+  "ids": [
+   9316
+  ],
+  "name": "Prismatic Punch Card"
+ },
+ {
+  "en": "Deadly as ever.",
+  "ids": [
+   61688
+  ],
+  "name": "Worgen Claw"
+ },
+ {
+  "en": "Death or Serious Injury may result from use of this device.",
+  "ids": [
+   10645
+  ],
+  "name": "Gnomish Death Ray"
+ },
+ {
+  "en": "December 1, 2021 — I scared C'thun into a heart attack and all I got was this lousy shirt!",
+  "ids": [
+   51898
+  ],
+  "name": "Fearless Traveler's Shirt"
+ },
+ {
+  "en": "Deep Ash Grey like the weathered hides of dwarven warriors who've seen too many wars.",
+  "ids": [
+   50142
+  ],
+  "name": "Ironhide Grey"
+ },
+ {
+  "en": "Deep auburn-red or regular brown depending on the lighting and gender.",
+  "ids": [
+   50116
+  ],
+  "name": "Chestnut"
+ },
+ {
+  "en": "Deep black, like the tunnels you'll be digging 'til the end of time.",
+  "ids": [
+   50129
+  ],
+  "name": "Diggy Diggy Coal"
+ },
+ {
+  "en": "Deep burnished red-gold. Better than being sober, isn't it?",
+  "ids": [
+   50119
+  ],
+  "name": "Cuergo's Copper"
+ },
+ {
+  "en": "Deep cool violet like your soul after signing that contract. Evil never looked so good.",
+  "ids": [
+   50157
+  ],
+  "name": "Warlock's Violet"
+ },
+ {
+  "en": "Deep dark blue, perfect for the land of eternal starlight.",
+  "ids": [
+   50113
+  ],
+  "name": "Sapphire Shade"
+ },
+ {
+  "en": "Deep raspberry red-violet, like the robes of those creepy cultists chanting about the end of the world. Again.",
+  "ids": [
+   50155
+  ],
+  "name": "Twilight Whispers"
+ },
+ {
+  "en": "Deep within, you sense an untameable hunger to inflict destruction.",
+  "ids": [
+   81060
+  ],
+  "name": "Tempered Runeblade"
+ },
+ {
+  "en": "Deflated.",
+  "ids": [
+   51637
+  ],
+  "name": "Inflatable Thunderfury, Blessed Blade of the Windseeker"
+ },
+ {
+  "en": "Delicious and completely absent of  psychedelic properties.",
+  "ids": [
+   51716,
+   51717,
+   51720
+  ],
+  "name": "Magic Mushroom Spores"
+ },
+ {
+  "en": "Deliver to: Smokywood Pastures Retail",
+  "ids": [
+   17662
+  ],
+  "name": "Stolen Treats"
+ },
+ {
+  "en": "Depicts a miner pointing at you, urging you to join the union.",
+  "ids": [
+   60703
+  ],
+  "name": "Torn Union Flyer"
+ },
+ {
+  "en": "Derek keeps all his Radish Pals here",
+  "ids": [
+   13330
+  ],
+  "name": "Dereks Radish Bag"
+ },
+ {
+  "en": "Desert-approved and sand-colored.",
+  "ids": [
+   30019
+  ],
+  "name": "Beige Riding Scorpid"
+ },
+ {
+  "en": "Despite their docile nature, talbuks have been known to gore seasoned warriors to death when threatened.",
+  "ids": [
+   80481,
+   80482,
+   80483
+  ],
+  "name": "Black Armored Talbuk"
+ },
+ {
+  "en": "Diabolical runes adorn the blade.",
+  "ids": [
+   20035
+  ],
+  "name": "Glacial Spike"
+ },
+ {
+  "en": "Dirty, but still sealed.",
+  "ids": [
+   81414
+  ],
+  "name": "Martin's Unsent Letter"
+ }
+]

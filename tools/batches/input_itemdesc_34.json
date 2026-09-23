@@ -1,0 +1,376 @@
+[
+ {
+  "en": "There is nothing you can do for this one.",
+  "ids": [
+   41868
+  ],
+  "name": "Cold Ravasaur Egg"
+ },
+ {
+  "en": "There's a note attached to this crate.",
+  "ids": [
+   1284
+  ],
+  "name": "Crate of Horseshoes"
+ },
+ {
+  "en": "There's something very special about this egg...",
+  "ids": [
+   8643
+  ],
+  "name": "Extraordinary Egg"
+ },
+ {
+  "en": "These adorable critters love snuggling with their owners after a long day of brutal, bloody battle.",
+  "ids": [
+   11474
+  ],
+  "name": "Sprite Darter Hatchling"
+ },
+ {
+  "en": "These are received from true friends...",
+  "ids": [
+   22260
+  ],
+  "name": "Friendship Bracelet"
+ },
+ {
+  "en": "These arthropods line many Azerothian shores and seek to fulfill their one true desire: to pinch.",
+  "ids": [
+   81159
+  ],
+  "name": "Tiny Shore Crab"
+ },
+ {
+  "en": "These ashen remains of an exiled soul pulse faintly with the echo of a once-promising life.",
+  "ids": [
+   22229
+  ],
+  "name": "Soul Ashes of the Banished"
+ },
+ {
+  "en": "These birds often prey on turtles by dropping them from great heights to break open their shell.",
+  "ids": [
+   80878
+  ],
+  "name": "Amani Eagle"
+ },
+ {
+  "en": "These documents are sealed by a magical force.",
+  "ids": [
+   6065
+  ],
+  "name": "Khadgar's Essays on Dimensional Convergence"
+ },
+ {
+  "en": "These dwell among the blackest souls...",
+  "ids": [
+   80183
+  ],
+  "name": "Chausses of the Damned"
+ },
+ {
+  "en": "These fearsome mounts have a habit of suddenly breaking out into dance amid battle, much to the annoyance of their riders.",
+  "ids": [
+   81102
+  ],
+  "name": "Darkmoon Dancing Bear"
+ },
+ {
+  "en": "These flying creatures do not leave feathers out in the wild. If a feather happens to ever detach from their body, the feather glows brilliantly for a moment and then vanishes from sight.",
+  "ids": [
+   69006
+  ],
+  "name": "Glitterwing"
+ },
+ {
+  "en": "These magnificent birds got their blue mantle thanks to the arcane magics of Quel'Thalas.",
+  "ids": [
+   36612
+  ],
+  "name": "Azure Thalassian Hawkstrider"
+ },
+ {
+  "en": "These may be gathered for the Timbermaw furbolgs to earn their trust.",
+  "ids": [
+   21377,
+   21383
+  ],
+  "name": "Deadwood Headdress Feather"
+ },
+ {
+  "en": "These necklaces are highly sought after since the destruction of the elven homeland.",
+  "ids": [
+   81500
+  ],
+  "name": "Pendant of the Sunwell"
+ },
+ {
+  "en": "These off-season allies work tirelessly to prepare for the Feast of Winter Veil, and would appreciate not being disturbed the rest of the year.",
+  "ids": [
+   21301
+  ],
+  "name": "Green Helper Box"
+ },
+ {
+  "en": "These pages bear no meaning to you and while there's a text, it looks indecipherable.",
+  "ids": [
+   59997
+  ],
+  "name": "Dwarven Writings"
+ },
+ {
+  "en": "These playful feline cubs practice their hunting skills by stalking each other through the Barrens.",
+  "ids": [
+   36515
+  ],
+  "name": "Cheetah Cub"
+ },
+ {
+  "en": "These spiders are immensily cunning yet loyal to their brood. Handle with care and no pest will ever disturb your sound sleep.",
+  "ids": [
+   12529
+  ],
+  "name": "Smolderweb Hatchling"
+ },
+ {
+  "en": "These things really make you swim fast!",
+  "ids": [
+   65029
+  ],
+  "name": "Torn Outline: Murloc Flippers"
+ },
+ {
+  "en": "These unassuming little berries pack a lot of power!",
+  "ids": [
+   51711,
+   51714
+  ],
+  "name": "Sour Mountain Berry"
+ },
+ {
+  "en": "These were common garments for the students of Dalaran.",
+  "ids": [
+   55024
+  ],
+  "name": "Arnella's Silken Trousers"
+ },
+ {
+  "en": "These words are unintelligible",
+  "ids": [
+   20404
+  ],
+  "name": "Encrypted Twilight Text"
+ },
+ {
+  "en": "They crackle in mana",
+  "ids": [
+   81356
+  ],
+  "name": "Shackles of Arcana"
+ },
+ {
+  "en": "They love lions in Stormwind, and the gryphon is half lion. Of course they might not like which half.",
+  "ids": [
+   2,
+   3
+  ],
+  "name": "Ebon Gryphon"
+ },
+ {
+  "en": "They may laugh at your pink hair, but you'll know you will steal the spotlight with this at the next inventor's fair.",
+  "ids": [
+   50133
+  ],
+  "name": "Circuit Shock Pink"
+ },
+ {
+  "en": "They may not look like much, but their bite leaves a nasty mark. Luckily their poison is still weak.",
+  "ids": [
+   37007
+  ],
+  "name": "Black Widow Hatchling"
+ },
+ {
+  "en": "They shimmer in arcane energy",
+  "ids": [
+   81354
+  ],
+  "name": "Mantle of Arcane Art"
+ },
+ {
+  "en": "They smell diabolical.",
+  "ids": [
+   41443
+  ],
+  "name": "Foul Eggs"
+ },
+ {
+  "en": "This Elemental has been formed personally by Duke Hydraxis as thanks for your help in fighting the Sulfuran Firelords.",
+  "ids": [
+   81254
+  ],
+  "name": "Water Waveling"
+ },
+ {
+  "en": "This Kodo with a Ceremonial Attire is usually reserved for Clan Chieftains, but after the Tauren joined the Horde, they have been made available to Champions of Thunderbluff.",
+  "ids": [
+   81237
+  ],
+  "name": "Chieftain's Kodo"
+ },
+ {
+  "en": "This aging scroll is written in the indecipherable language of the Kirin Tor.",
+  "ids": [
+   3155
+  ],
+  "name": "Remedy of Arugal"
+ },
+ {
+  "en": "This ancient ring was worn by the arcane-addicted Highborne elves.",
+  "ids": [
+   61064
+  ],
+  "name": "Eldreth Band"
+ },
+ {
+  "en": "This ancient serpent carries the whispers of C'Thun's power.",
+  "ids": [
+   36598
+  ],
+  "name": "Serpent of C'Thun"
+ },
+ {
+  "en": "This antenna won't twitch forever",
+  "ids": [
+   7119
+  ],
+  "name": "Twitching Antenna"
+ },
+ {
+  "en": "This barrel contains Dran's packaged ripple and his extra bottles.",
+  "ids": [
+   8685
+  ],
+  "name": "Dran's Ripple Delivery"
+ },
+ {
+  "en": "This black wedding dress looks gorgeous!",
+  "ids": [
+   51246
+  ],
+  "name": "Sarah Sadwhistle's Garments"
+ },
+ {
+  "en": "This blade is dimensional. It appears to be fading from this plane of existence.",
+  "ids": [
+   22736
+  ],
+  "name": "Andonisus, Reaper of Souls"
+ },
+ {
+  "en": "This book emits a faint glow.",
+  "ids": [
+   15847
+  ],
+  "name": "Quel'Thalas Registry"
+ },
+ {
+  "en": "This book is missing every page but the last.",
+  "ids": [
+   18229
+  ],
+  "name": "Nat Pagle's Guide to Extreme Anglin'"
+ },
+ {
+  "en": "This book is written in a language you cannot understand.",
+  "ids": [
+   15790
+  ],
+  "name": "Studies in Spirit Speaking"
+ },
+ {
+  "en": "This book seems well used.",
+  "ids": [
+   50257
+  ],
+  "name": "Eel Fishing Guide"
+ },
+ {
+  "en": "This bow has no real variance.",
+  "ids": [
+   20368
+  ],
+  "name": "Bland Bow of Steadiness"
+ },
+ {
+  "en": "This broken armor can be further broken down into Chain, Leather and Plate Wartorn scraps.",
+  "ids": [
+   22350,
+   22359,
+   22360,
+   22361,
+   22362,
+   22363,
+   22364,
+   22365
+  ],
+  "name": "Desecrated Tunic"
+ },
+ {
+  "en": "This broken armor can be further broken down into Cloth Wartorn scraps.",
+  "ids": [
+   22351,
+   22366,
+   22367,
+   22368,
+   22369,
+   22370,
+   22371,
+   22372
+  ],
+  "name": "Desecrated Robe"
+ },
+ {
+  "en": "This broken armor can be further broken down into Leather and Plate Wartorn scraps.",
+  "ids": [
+   22349,
+   22352,
+   22353,
+   22354,
+   22355,
+   22356,
+   22357,
+   22358
+  ],
+  "name": "Desecrated Breastplate"
+ },
+ {
+  "en": "This crab's orange shell stands out in any environment.",
+  "ids": [
+   36582
+  ],
+  "name": "Orange Snapback Scuttler"
+ },
+ {
+  "en": "This crystalline blade pulsates with energy, you've never seen anything like it before.",
+  "ids": [
+   51793
+  ],
+  "name": "Otherworldly Blade"
+ },
+ {
+  "en": "This cub shares many traits with its relatives, but it's in a league of its own with its singing ability.",
+  "ids": [
+   22781
+  ],
+  "name": "Poley"
+ },
+ {
+  "en": "This dark-feathered bird of prey is often seen as a harbinger of doom amongst the druids of Teldrassil.",
+  "ids": [
+   8501
+  ],
+  "name": "Hawk Owl"
+ }
+]

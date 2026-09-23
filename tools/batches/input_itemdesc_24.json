@@ -1,0 +1,365 @@
+[
+ {
+  "en": "Once thought to be nearly extinct, this wolf can still occasionally be seen in the company of a few Horde veterans.",
+  "ids": [
+   1041
+  ],
+  "name": "Ancient Black Wolf"
+ },
+ {
+  "en": "Once wielded by a hero of the Second War.",
+  "ids": [
+   60392
+  ],
+  "name": "Sword of Laneron"
+ },
+ {
+  "en": "Once worn by Grol the Destroyer.",
+  "ids": [
+   10753
+  ],
+  "name": "Amulet of Grol"
+ },
+ {
+  "en": "Once worn to usher in the Awakening.",
+  "ids": [
+   61214
+  ],
+  "name": "Mantle of the Wakener"
+ },
+ {
+  "en": "One Shot, One Fill",
+  "ids": [
+   9283
+  ],
+  "name": "Empty Leaden Collection Phial"
+ },
+ {
+  "en": "One bite of the vicious turtles can tear the arm off an ogre with ease.",
+  "ids": [
+   36521
+  ],
+  "name": "Swift War Turtle"
+ },
+ {
+  "en": "One day, I hope to spread the path of the Light to the common people and teach them the value of the Three Virtues.",
+  "ids": [
+   51622
+  ],
+  "name": "Alonsus Faol's Copper Coin"
+ },
+ {
+  "en": "One learns most when teaching others.",
+  "ids": [
+   19250
+  ],
+  "name": "Sayge's Fortune #15"
+ },
+ {
+  "en": "One moment, I was reading this ancient scroll... the next? Flies. So many flies.",
+  "ids": [
+   37014
+  ],
+  "name": "Magus Alfred Wartbeard"
+ },
+ {
+  "en": "One must wait so the rest may sleep.",
+  "ids": [
+   65105
+  ],
+  "name": "Scale of the Wakener"
+ },
+ {
+  "en": "One of Medivh's many experiments.",
+  "ids": [
+   51784
+  ],
+  "name": "Belt of Archaic Power"
+ },
+ {
+  "en": "One of the few rare hatchlings of Maexxna, this little one feasts on corpses just like its mother.",
+  "ids": [
+   37012
+  ],
+  "name": "Maexxna's Hatchling"
+ },
+ {
+  "en": "One of the lesser Paragons of Power from the Gurubashi Empire.",
+  "ids": [
+   19698,
+   19699,
+   19700,
+   19701,
+   19702,
+   19703,
+   19704,
+   19705,
+   19706
+  ],
+  "name": "Zulian Coin"
+ },
+ {
+  "en": "One puff is enough to knock the user unconcious.",
+  "ids": [
+   61754
+  ],
+  "name": "Deepwood Pipe"
+ },
+ {
+  "en": "Only 40th level or higher players will be able to open this gift.",
+  "ids": [
+   5047
+  ],
+  "name": "Skull Wrapping Paper"
+ },
+ {
+  "en": "Only Gnomish Technology could invent a device that affects the entire world!",
+  "ids": [
+   18660
+  ],
+  "name": "World Enlarger"
+ },
+ {
+  "en": "Only ONE May Rise... (and consequently, only ONE may loot this head)",
+  "ids": [
+   20383
+  ],
+  "name": "Head of the Broodlord Lashlayer"
+ },
+ {
+  "en": "Only a madman would scratch with this.",
+  "ids": [
+   50243
+  ],
+  "name": "Pompa's Scratching Stick"
+ },
+ {
+  "en": "Only her belief in my skills allowed it, not any Halduron or Renthar with that whimsical Lor'themar. Only her.",
+  "ids": [
+   51602
+  ],
+  "name": "Nathanos Marris' Coin"
+ },
+ {
+  "en": "Only the bottom half of this journal page remains.",
+  "ids": [
+   916
+  ],
+  "name": "A Torn Journal Page"
+ },
+ {
+  "en": "Only the mightiest boars earn the honor of being adorned with armor.",
+  "ids": [
+   69172
+  ],
+  "name": "Armored Brown Boar"
+ },
+ {
+  "en": "Only the most talented engineers have the courage and the mental stamina to create a flying machine that boasts stability and safety. Turbo-charging one is just crazy!",
+  "ids": [
+   81238
+  ],
+  "name": "Turbo-Charged Flying Machine"
+ },
+ {
+  "en": "Open for a prize!",
+  "ids": [
+   5857,
+   5858,
+   51004,
+   51005
+  ],
+  "name": "Gnome Prize Box"
+ },
+ {
+  "en": "Open me!",
+  "ids": [
+   92090,
+   92110,
+   93093
+  ],
+  "name": "Dream Treasure"
+ },
+ {
+  "en": "Open your bag quickly as it will fade on logout.",
+  "ids": [
+   20393
+  ],
+  "name": "Treat Bag"
+ },
+ {
+  "en": "Opens Dark Cleric Salem's Chest",
+  "ids": [
+   17242
+  ],
+  "name": "Key to Salem's Chest"
+ },
+ {
+  "en": "Opens difficulty 100 locks.",
+  "ids": [
+   2792
+  ],
+  "name": "Deprecated Worn Bronze Lockpick"
+ },
+ {
+  "en": "Opens difficulty 25 locks.",
+  "ids": [
+   2789
+  ],
+  "name": "Deprecated Bent Copper Lockpick"
+ },
+ {
+  "en": "Opens difficulty 50 locks.",
+  "ids": [
+   2790
+  ],
+  "name": "Deprecated Straight Copper Lockpick"
+ },
+ {
+  "en": "Opens difficulty 75 locks.",
+  "ids": [
+   2791
+  ],
+  "name": "Deprecated Fine Copper Lockpick"
+ },
+ {
+  "en": "Opens the stolen chest from the Cathedral of Light",
+  "ids": [
+   17262
+  ],
+  "name": "James' Key"
+ },
+ {
+  "en": "Orb glows in your hands, shimmering with yellow colors",
+  "ids": [
+   41452
+  ],
+  "name": "Orb of Whisperwind Grove"
+ },
+ {
+  "en": "Orcish writings cover the blade: a language long forgotten, known only to the Blademasters of old.",
+  "ids": [
+   60398
+  ],
+  "name": "Broken Blademaster's Edge"
+ },
+ {
+  "en": "Order of the Silver Hand",
+  "ids": [
+   14625
+  ],
+  "name": "Symbol of Lost Honor"
+ },
+ {
+  "en": "Originally designed to store chocolates.",
+  "ids": [
+   51257
+  ],
+  "name": "Lovely Heart-Shaped Box"
+ },
+ {
+  "en": "Ouch",
+  "ids": [
+   21488
+  ],
+  "name": "Fetish of Chitinous Spikes"
+ },
+ {
+  "en": "Our fate cannot be taken from us...",
+  "ids": [
+   80181
+  ],
+  "name": "Bulwark of the Damned"
+ },
+ {
+  "en": "Packed with Ghostly Substance.",
+  "ids": [
+   60462
+  ],
+  "name": "Ariden's Crate"
+ },
+ {
+  "en": "Pale creamy copper, the color of regret after you gambled with magic one too many times.",
+  "ids": [
+   80659
+  ],
+  "name": "Regretful Rouge"
+ },
+ {
+  "en": "Pale silvery blue, like the sparks from your latest “innovative” idea.",
+  "ids": [
+   50131
+  ],
+  "name": "Zapforge Blue"
+ },
+ {
+  "en": "Pale, dusty, like the last remnants of Draenor. It's all we got left, so wear it proudly.",
+  "ids": [
+   50160
+  ],
+  "name": "Ashes of Draenor"
+ },
+ {
+  "en": "Party means presents! Also party means a lot of joy. What joy is there with no schnapps?",
+  "ids": [
+   51020
+  ],
+  "name": "Strawberry Schnapps"
+ },
+ {
+  "en": "Passed down generation to generation within the Greymane family.",
+  "ids": [
+   61328
+  ],
+  "name": "Wolfblood"
+ },
+ {
+  "en": "Past the point of cleansing, a small glimpse is enough to induce nightmares.",
+  "ids": [
+   61209
+  ],
+  "name": "Shard of Nightmare"
+ },
+ {
+  "en": "Patience is a virtue, and Speedy's rewards are proof.",
+  "ids": [
+   50054
+  ],
+  "name": "Speedy's Patience Package"
+ },
+ {
+  "en": "Pebbles may be small in stature, but her smooth skin makes her pretty popular!",
+  "ids": [
+   41879
+  ],
+  "name": "Pebbles"
+ },
+ {
+  "en": "Penus.",
+  "ids": [
+   51627
+  ],
+  "name": "Er's Coin"
+ },
+ {
+  "en": "Perfect for slipping out of a dull party or simply avoiding the consequences of your last brilliant idea.",
+  "ids": [
+   212
+  ],
+  "name": "Assassin's Guild Shroud"
+ },
+ {
+  "en": "Perfectly balanced to combat corruption.",
+  "ids": [
+   60536
+  ],
+  "name": "Darkwind Glaive"
+ },
+ {
+  "en": "Perking at the slightest sound.",
+  "ids": [
+   60853
+  ],
+  "name": "Dyad of Twitching Elven Ears"
+ }
+]

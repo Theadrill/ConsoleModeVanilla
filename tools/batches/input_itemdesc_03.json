@@ -1,0 +1,357 @@
+[
+ {
+  "en": "A drake touched by Nordrassil’s magic.",
+  "ids": [
+   48640
+  ],
+  "name": "Nordrassil Drake"
+ },
+ {
+  "en": "A dull and gray patch of black dragon skin",
+  "ids": [
+   10575,
+   11228,
+   11231
+  ],
+  "name": "Black Dragonflight Molt"
+ },
+ {
+  "en": "A dull ghostly green like the glow of your soul… or lack of it.",
+  "ids": [
+   50161
+  ],
+  "name": "Grave Moss"
+ },
+ {
+  "en": "A dusty book, scrawled in a cryptic language. You can feel your mind pulse the longer you gaze.",
+  "ids": [
+   81307
+  ],
+  "name": "Cursed Tome"
+ },
+ {
+  "en": "A dusty old box filled with various magical goods and texts.",
+  "ids": [
+   60191
+  ],
+  "name": "Melenas' Belongings"
+ },
+ {
+  "en": "A favorite among Stormwind's guards thanks to its patience and stamina.",
+  "ids": [
+   5656
+  ],
+  "name": "Brown Horse"
+ },
+ {
+  "en": "A favorite of children across Azeroth, this tough little toy can withstand even the most aggressive imagination.",
+  "ids": [
+   50200,
+   51002
+  ],
+  "name": "Darkmoon Tonk"
+ },
+ {
+  "en": "A fearsome black-furred riding hound.",
+  "ids": [
+   48636
+  ],
+  "name": "Dark Riding Hound"
+ },
+ {
+  "en": "A fearsome raptor reanimated by dark magic.",
+  "ids": [
+   48648
+  ],
+  "name": "Skeletal Raptor"
+ },
+ {
+  "en": "A fearsome shark from Nazjatar waters.",
+  "ids": [
+   48627
+  ],
+  "name": "Nazjatar Shark"
+ },
+ {
+  "en": "A fearsome war machine, built to withstand the harshest of battles.",
+  "ids": [
+   81250,
+   81251,
+   81252
+  ],
+  "name": "Reinforced Black Pounder"
+ },
+ {
+  "en": "A feeling of dread lingers upon this letter.",
+  "ids": [
+   61457
+  ],
+  "name": "A Mysterious Missive"
+ },
+ {
+  "en": "A festive lavender shirt, perfect for Noblegarden egg hunting. Let the bunnies lead your way!",
+  "ids": [
+   92011
+  ],
+  "name": "Lavender Spring Shirt"
+ },
+ {
+  "en": "A festive rocket for grand celebrations.",
+  "ids": [
+   48629
+  ],
+  "name": "Festival Rocket"
+ },
+ {
+  "en": "A few pages are missing, surely they can't be that important.",
+  "ids": [
+   55387
+  ],
+  "name": "Introduction to the Dark Arts"
+ },
+ {
+  "en": "A few words are still legible...",
+  "ids": [
+   22765
+  ],
+  "name": "Mildewed Letter"
+ },
+ {
+  "en": "A fierce and loyal companion of the wilderness.",
+  "ids": [
+   1134
+  ],
+  "name": "Gray Wolf"
+ },
+ {
+  "en": "A fierce and loyal mount, favored by daring riders.",
+  "ids": [
+   23803
+  ],
+  "name": "Red Feral Raptor"
+ },
+ {
+  "en": "A fierce drake, tamed from the black dragonflight's brood.",
+  "ids": [
+   36551
+  ],
+  "name": "Black Drake"
+ },
+ {
+  "en": "A fierce, armored scorpion used by those who crave power.",
+  "ids": [
+   36568
+  ],
+  "name": "Black War Scorpion"
+ },
+ {
+  "en": "A fiery and elusive companion, radiates with the arcane grace and power drawn from the ancient magic of the Thalassian Elves.",
+  "ids": [
+   92054
+  ],
+  "name": "Thalassian Emberfox"
+ },
+ {
+  "en": "A fiery inferno on wheels, consuming all in its path with relentless fury.",
+  "ids": [
+   81253
+  ],
+  "name": "Reinforced Red Pounder"
+ },
+ {
+  "en": "A fiery red-orange, because some promises — like your Sunwell — are just too hot to handle.",
+  "ids": [
+   80656
+  ],
+  "name": "Burnt Promise Red"
+ },
+ {
+  "en": "A fiery rune is etched on the tooth.",
+  "ids": [
+   80824
+  ],
+  "name": "Narillasanz's Tooth"
+ },
+ {
+  "en": "A fiery steed from the Twisting Nether.",
+  "ids": [
+   48647
+  ],
+  "name": "Infernal Steed"
+ },
+ {
+  "en": "A fine box of gear.",
+  "ids": [
+   20367
+  ],
+  "name": "Hunting Gear"
+ },
+ {
+  "en": "A finely crafted shirt, imbued with the essence of renewal and ancient wisdom.",
+  "ids": [
+   93090
+  ],
+  "name": "Wood Snake's Year Shirt"
+ },
+ {
+  "en": "A finely tuned chopper built by Gnomeregan's finest engineers.",
+  "ids": [
+   48649
+  ],
+  "name": "Gnomeregan Chopper"
+ },
+ {
+  "en": "A flowing dress woven in flame-hued silks, worn proudly during the Midsummer rites.",
+  "ids": [
+   50046
+  ],
+  "name": "Dress of the Fire Festival"
+ },
+ {
+  "en": "A fluffy ball of chaos and claws, the Black Bear Cub is here to eat your snacks, steal your heart, and maybe, eventually, be useful in battle.",
+  "ids": [
+   51944
+  ],
+  "name": "Black Bear Cub"
+ },
+ {
+  "en": "A foreign horn, from another world",
+  "ids": [
+   60128
+  ],
+  "name": "Horn of Garek'sa"
+ },
+ {
+  "en": "A formidable mount, instilling fear in the hearts of enemies.",
+  "ids": [
+   18243
+  ],
+  "name": "Black Battlestrider"
+ },
+ {
+  "en": "A fox-like creature with frost-kissed fur.",
+  "ids": [
+   48602
+  ],
+  "name": "Frosty Vulpen"
+ },
+ {
+  "en": "A fresh piece of fruit that's good to eat... and is apparently good for disguises also!",
+  "ids": [
+   8683
+  ],
+  "name": "Clara's Fresh Apple"
+ },
+ {
+  "en": "A friend in need is a friend without beads.",
+  "ids": [
+   19990
+  ],
+  "name": "Blessed Prayer Beads"
+ },
+ {
+  "en": "A friendly farm sheep that wandered away from its flock, it now follows you faithfully, providing a comforting presence in the midst of your adventures.",
+  "ids": [
+   51220
+  ],
+  "name": "Lost Farm Sheep"
+ },
+ {
+  "en": "A gentle, sun-loving feline companion from warm climates.",
+  "ids": [
+   36556
+  ],
+  "name": "Sunwarmed Furline"
+ },
+ {
+  "en": "A gesture of good faith from a snowman. Maybe you're not on Greatfather Winter's naughty list after all!",
+  "ids": [
+   84039
+  ],
+  "name": "Tinsel's Carrot"
+ },
+ {
+  "en": "A giant green murloc, surprisingly loyal to its rider.",
+  "ids": [
+   36586
+  ],
+  "name": "Green Gargantuan Murloc"
+ },
+ {
+  "en": "A gift from Zo’hijk.",
+  "ids": [
+   65020
+  ],
+  "name": "Amani Whistle"
+ },
+ {
+  "en": "A gift from the Elder Crone.",
+  "ids": [
+   83061
+  ],
+  "name": "Carved Grimtotem"
+ },
+ {
+  "en": "A gift from the Wildhammer dwarves to the heroes of the Alliance, these hatchlings are descendants of the same gryphons ridden by Falstad and his entourage into Grim Batol.",
+  "ids": [
+   81243
+  ],
+  "name": "Beaky"
+ },
+ {
+  "en": "A gift received during Turtle WoW's Open House event in 2020.",
+  "ids": [
+   51890
+  ],
+  "name": "Adventurer's Shirt"
+ },
+ {
+  "en": "A gift received during Turtle WoW's Open House event in 2021. The tag reads “Made in Mudsprocket”.",
+  "ids": [
+   51894
+  ],
+  "name": "Free T-Shirt"
+ },
+ {
+  "en": "A glowing gem filled with the soul of Yenniku.",
+  "ids": [
+   3913
+  ],
+  "name": "Filled Soul Gem"
+ },
+ {
+  "en": "A gnarled, living branch that crackles with energy.",
+  "ids": [
+   58089
+  ],
+  "name": "Thornlash Branch"
+ },
+ {
+  "en": "A graceful black-feathered crane, symbolizing balance and serenity.",
+  "ids": [
+   36591
+  ],
+  "name": "Black Crane"
+ },
+ {
+  "en": "A great deal of power radiates from the amulet...",
+  "ids": [
+   17758
+  ],
+  "name": "Amulet of Union"
+ },
+ {
+  "en": "A green liquid is slowly oozing out of the crack.",
+  "ids": [
+   60705
+  ],
+  "name": "Cracked Power Core"
+ },
+ {
+  "en": "A hardhead in life and thick skull in death.",
+  "ids": [
+   60416
+  ],
+  "name": "Skull of Grarr"
+ }
+]

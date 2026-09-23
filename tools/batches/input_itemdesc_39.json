@@ -1,0 +1,353 @@
+[
+ {
+  "en": "Will always have a level 25 or higher Uncommon or better item.",
+  "ids": [
+   8503
+  ],
+  "name": "Heavy Bronze Lotterybox"
+ },
+ {
+  "en": "Will always have a level 30 or higher Uncommon or better item.",
+  "ids": [
+   8504
+  ],
+  "name": "Iron Lotterybox"
+ },
+ {
+  "en": "Will always have a level 35 or higher Uncommon or better item.",
+  "ids": [
+   8505
+  ],
+  "name": "Heavy Iron Lotterybox"
+ },
+ {
+  "en": "Will always have a level 40 or higher Uncommon or better item.",
+  "ids": [
+   8506
+  ],
+  "name": "Mithril Lotterybox"
+ },
+ {
+  "en": "Will always have a level 45 or higher Uncommon or better item.",
+  "ids": [
+   8507
+  ],
+  "name": "Heavy Mithril Lotterybox"
+ },
+ {
+  "en": "Will you marry me?",
+  "ids": [
+   7340
+  ],
+  "name": "Flawless Diamond Solitaire"
+ },
+ {
+  "en": "Winterspring's furbolg prize the brilliant white feathers of these majestic creatures for ritual purposes.",
+  "ids": [
+   50082
+  ],
+  "name": "Snowy Owl"
+ },
+ {
+  "en": "Wisps are ancient spirits of nature that inhabit the forestlands of Kalimdor. Legends say that Wisps are actually the disembodied spirits of the Night Elves themselves, but these rumors have yet to be proven.",
+  "ids": [
+   41
+  ],
+  "name": "Forest Wisp"
+ },
+ {
+  "en": "With a bushy tail that rivals the fluffiest of pillows, this squirrel is the epitome of woodland charm, spreading happiness wherever it goes.",
+  "ids": [
+   36516
+  ],
+  "name": "Chestnut"
+ },
+ {
+  "en": "With a shell like burning embers, this scorpion strikes with fiery vengeance.",
+  "ids": [
+   36569
+  ],
+  "name": "Ember War Scorpion"
+ },
+ {
+  "en": "With its noble black and white coat, this corgi exudes both grace and bravery, a perfect ally for any adventurer.",
+  "ids": [
+   61820
+  ],
+  "name": "Biscuit"
+ },
+ {
+  "en": "With its pristine white feathers, this crane is a vision of purity.",
+  "ids": [
+   36592
+  ],
+  "name": "Ivory Crane"
+ },
+ {
+  "en": "With its soft, tawny fur and playful antics, this adorable cub is a heartwarming companion for your journey through Azeroth.",
+  "ids": [
+   36510
+  ],
+  "name": "Tawny"
+ },
+ {
+  "en": "With their mischievous nature and cute antics, these baby monkeys are the perfect companions to brighten up your adventures in Azeroth.",
+  "ids": [
+   80004
+  ],
+  "name": "Cheeky Monkey"
+ },
+ {
+  "en": "With this on your back, you're basically a turtle.",
+  "ids": [
+   10683
+  ],
+  "name": "Adventurer's Knapsack"
+ },
+ {
+  "en": "Withstood the test of time.",
+  "ids": [
+   41395
+  ],
+  "name": "Immaculate Diamond Necklace"
+ },
+ {
+  "en": "Woe to those who oppose.",
+  "ids": [
+   20082
+  ],
+  "name": "Woestave"
+ },
+ {
+  "en": "Worgs are the favored companions of orcs and are fiercely loyal on the battlefield.",
+  "ids": [
+   12264
+  ],
+  "name": "Worg Pup"
+ },
+ {
+  "en": "Worn and scarred from ages of battle.",
+  "ids": [
+   81365
+  ],
+  "name": "Kargron's Leggings"
+ },
+ {
+  "en": "Worn by those who built Stormwind, and later vowed to unmake it.",
+  "ids": [
+   29980
+  ],
+  "name": "Broken Stonemason's Guild Signet"
+ },
+ {
+  "en": "Worn by those who have sworn an oath to protect the weak and uphold justice",
+  "ids": [
+   93099
+  ],
+  "name": "Tabard of Defender"
+ },
+ {
+  "en": "Worn by those who tend the coals and keep the flame through twilight hours.",
+  "ids": [
+   751
+  ],
+  "name": "Shirt of the Midsummer Twilight"
+ },
+ {
+  "en": "Would rather not spend any more time inside a wrapped holiday gift box.",
+  "ids": [
+   21308
+  ],
+  "name": "Jingling Bell"
+ },
+ {
+  "en": "Wrapped with care and love.",
+  "ids": [
+   60443
+  ],
+  "name": "Perfectly Wrapped Gift"
+ },
+ {
+  "en": "Wrapped with surprising care.",
+  "ids": [
+   51009
+  ],
+  "name": "Daisy's Gift Box"
+ },
+ {
+  "en": "Written by Magistrate Solomon, this report details the events unfolding in Redridge.",
+  "ids": [
+   1293
+  ],
+  "name": "The State of Lakeshire"
+ },
+ {
+  "en": "Written in a language you cannot decipher.",
+  "ids": [
+   7737
+  ],
+  "name": "Sethir's Journal"
+ },
+ {
+  "en": "Wushoolay's Unkempt Mane.",
+  "ids": [
+   19941
+  ],
+  "name": "Wushoolay's Mane"
+ },
+ {
+  "en": "Xan'tish fearlessly tracks, captures, and trains these noble snakes so they will aid their comrades in battle.",
+  "ids": [
+   10360
+  ],
+  "name": "Black Kingsnake"
+ },
+ {
+  "en": "You are restricted to only equip items of a poor and common quality.",
+  "ids": [
+   51029
+  ],
+  "name": "Glyph of the Vagrant"
+ },
+ {
+  "en": "You better believe he knows what time it is.",
+  "ids": [
+   70016
+  ],
+  "name": "Infinite Whelpling"
+ },
+ {
+  "en": "You can faintly read “For Annabelle” on one of the pieces.",
+  "ids": [
+   41767
+  ],
+  "name": "Etched Porcellain Doll"
+ },
+ {
+  "en": "You can feel the tendrils boring into the back of your head.",
+  "ids": [
+   41077
+  ],
+  "name": "Yshgo'lar, Cowl of Fanatical Devotion"
+ },
+ {
+  "en": "You can hear crackling thunder within.",
+  "ids": [
+   51755
+  ],
+  "name": "Rune of the Wildhammer Clan"
+ },
+ {
+  "en": "You can no longer disable PvP mode but experience gain from all sources is increased. Effect persists after reaching level 60.",
+  "ids": [
+   80060
+  ],
+  "name": "Glyph of War"
+ },
+ {
+  "en": "You can see movement when you peer into the Eye.",
+  "ids": [
+   18646
+  ],
+  "name": "The Eye of Divinity"
+ },
+ {
+  "en": "You can't make out a single word.",
+  "ids": [
+   41754
+  ],
+  "name": "Stormreaver Scroll"
+ },
+ {
+  "en": "You can't make out what the runes mean.",
+  "ids": [
+   83235
+  ],
+  "name": "Ancient Locking Mechanism"
+ },
+ {
+  "en": "You cannot make heads or tails of this text, but you have the sense that it is important.",
+  "ids": [
+   60989
+  ],
+  "name": "A Strange Parchment"
+ },
+ {
+  "en": "You do not understand the writing in the journal.",
+  "ids": [
+   7886
+  ],
+  "name": "Untranslated Journal"
+ },
+ {
+  "en": "You doubt that these will be worth anything.",
+  "ids": [
+   41059
+  ],
+  "name": "Counterfeit Shellcoin"
+ },
+ {
+  "en": "You have a good eye for spotting hypocrisy.",
+  "ids": [
+   19249
+  ],
+  "name": "Sayge's Fortune #14"
+ },
+ {
+  "en": "You know opening this would be a terrible idea.",
+  "ids": [
+   14395
+  ],
+  "name": "Spells of Shadow"
+ },
+ {
+  "en": "You leave your adversaries speechless.",
+  "ids": [
+   19248
+  ],
+  "name": "Sayge's Fortune #13"
+ },
+ {
+  "en": "You lose 5% of your experience on death and you get half experience from creature kills.",
+  "ids": [
+   51230
+  ],
+  "name": "Glyph of the Turtle"
+ },
+ {
+  "en": "You must be the guild master of your guild to use this item. Use the command .guildname \"New Name\" to alter your guild name.",
+  "ids": [
+   80499
+  ],
+  "name": "Guild Name Change Token"
+ },
+ {
+  "en": "You only understand the magic part, you will need help to understand the rest of the things...",
+  "ids": [
+   4158,
+   8881
+  ],
+  "name": "Tome of Khadgar's Unlocking III"
+ },
+ {
+  "en": "You probably shouldn't... but you're going to.",
+  "ids": [
+   68
+  ],
+  "name": "The Great Goo'dini Elixir"
+ },
+ {
+  "en": "You think that you can make out some numbers. This appears to be a repair bill.",
+  "ids": [
+   18234
+  ],
+  "name": "Document from Boomstick Imports"
+ },
+ {
+  "en": "You will be fortunate in everything you put your hands to.",
+  "ids": [
+   19239
+  ],
+  "name": "Sayge's Fortune #4"
+ }
+]

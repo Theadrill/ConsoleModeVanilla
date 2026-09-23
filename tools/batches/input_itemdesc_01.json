@@ -1,0 +1,355 @@
+[
+ {
+  "en": "\"100% Grade A Lung Juice - Freshly Squeezed\"",
+  "ids": [
+   23715
+  ],
+  "name": "Permanent Lung Juice Cocktail"
+ },
+ {
+  "en": "\"A mechanical marvel, built to withstand the toughest of battles.\"",
+  "ids": [
+   50066
+  ],
+  "name": "Steel Mechanostrider"
+ },
+ {
+  "en": "\"A powerful, beautiful being.\"",
+  "ids": [
+   80425
+  ],
+  "name": "White Stag"
+ },
+ {
+  "en": "\"A ritual candle from the depths of Jaedenar, new home of the Shadow Council.\"",
+  "ids": [
+   12924
+  ],
+  "name": "Ritual Candle"
+ },
+ {
+  "en": "\"A sleek and stylish machine, perfect for those with a taste for the extraordinary.\"",
+  "ids": [
+   13323
+  ],
+  "name": "Purple Mechanostrider"
+ },
+ {
+  "en": "\"Always changing colors, never the same.\"",
+  "ids": [
+   80805
+  ],
+  "name": "Prismatic Crystal"
+ },
+ {
+  "en": "\"An old, worthless tome.\"",
+  "ids": [
+   15696
+  ],
+  "name": "Ruined Tome"
+ },
+ {
+  "en": "\"Delicate and enchanting, this rare frog species captivates with its vibrant pink hue, believed to bring good fortune and prosperity to its owner.\"",
+  "ids": [
+   54006
+  ],
+  "name": "Pink Frog"
+ },
+ {
+  "en": "\"During the first week of the Turtle WoW server launch in China, we would like to give each of you a small welcome gift to thank you for your support!\"",
+  "ids": [
+   91781,
+   91785
+  ],
+  "name": "Carefully Wrapped Gift"
+ },
+ {
+  "en": "\"For paps.\" is etched on the gryphon figure.",
+  "ids": [
+   41011
+  ],
+  "name": "Wooden Gryphon Carving"
+ },
+ {
+  "en": "\"Hello, friend! Brightwing likes it when you visit!\"",
+  "ids": [
+   50077
+  ],
+  "name": "Brightwing"
+ },
+ {
+  "en": "\"Invalid loot table, crashes when you modify Miscellaneous\"",
+  "ids": [
+   7868,
+   10594,
+   10595
+  ],
+  "name": "Thieven' Kit"
+ },
+ {
+  "en": "\"Many owls nest high in the stone structures of Darnassus, hunting any pests that enter the night elves' city.\"",
+  "ids": [
+   50080
+  ],
+  "name": "Eagle Owl"
+ },
+ {
+  "en": "\"Not much remains, but perhaps it could be repaired.\"",
+  "ids": [
+   81143
+  ],
+  "name": "Plates of Uldum"
+ },
+ {
+  "en": "\"Smells awfully foul.\"",
+  "ids": [
+   60598
+  ],
+  "name": "Jarl's Package"
+ },
+ {
+  "en": "\"Still looking for a hot goth girlfriend.\"",
+  "ids": [
+   51660
+  ],
+  "name": "Gheor's Silver Coin"
+ },
+ {
+  "en": "\"The Grim Totem Kodo is a massive, hulking beast, feared by many for its sheer size and strength. Those who ride it are said to have the power of the earth at their command.\"",
+  "ids": [
+   83159
+  ],
+  "name": "Grim Totem Kodo"
+ },
+ {
+  "en": "\"This sleek and agile raptor is adapted to the harsh, icy environments of the north. Its sharp claws and teeth make it a formidable mount in battle.\"",
+  "ids": [
+   83153
+  ],
+  "name": "Ice Raptor"
+ },
+ {
+  "en": "\"Upon this iron disk are stamped the words: \"\"Footman Malakai Stone\"\"\"",
+  "ids": [
+   734
+  ],
+  "name": "Deprecated Malakai's Medallion"
+ },
+ {
+  "en": "\"While active, your Ghost Form will take the appearance of a Spectral Wolf.\"",
+  "ids": [
+   51831
+  ],
+  "name": "Glyph of the Spectral Wolf"
+ },
+ {
+  "en": "\"Your official \"\"I went to the Darkhollow Mine and all I got was this lousy shirt\"\" T-shirt\"",
+  "ids": [
+   958
+  ],
+  "name": "Deprecated Area Trigger Flag - Darkhollow Mine"
+ },
+ {
+  "en": "\"Your official \"\"I went to the Fargodeep Mine and all I got was this lousy shirt\"\" T-shirt\"",
+  "ids": [
+   960
+  ],
+  "name": "Deprecated Area Trigger Flag - Fargodeep"
+ },
+ {
+  "en": "\"Your official \"\"I went to the Jasperlode Mine and all I got was this lousy shirt\"\" T-shirt\"",
+  "ids": [
+   956
+  ],
+  "name": "Deprecated Area Trigger Flag - Jasperlode mine"
+ },
+ {
+  "en": "'Thin' is a relative term....",
+  "ids": [
+   5082
+  ],
+  "name": "Thin Kodo Leather"
+ },
+ {
+  "en": "-Ashenvale",
+  "ids": [
+   21147
+  ],
+  "name": "Fragment of the Nightmare's Corruption"
+ },
+ {
+  "en": "-By Drek'Thar",
+  "ids": [
+   18363
+  ],
+  "name": "Frost Shock and You"
+ },
+ {
+  "en": "-By Shadow Priest Allister",
+  "ids": [
+   18362
+  ],
+  "name": "Holy Bologna: What the Light Won't Tell You"
+ },
+ {
+  "en": "-By Uther",
+  "ids": [
+   18359
+  ],
+  "name": "The Light and How to Swing It"
+ },
+ {
+  "en": "-Duskwood",
+  "ids": [
+   21149
+  ],
+  "name": "Fragment of the Nightmare's Corruption"
+ },
+ {
+  "en": "-Feralas",
+  "ids": [
+   21148
+  ],
+  "name": "Fragment of the Nightmare's Corruption"
+ },
+ {
+  "en": "-General Angerforge",
+  "ids": [
+   11464
+  ],
+  "name": "Marshal Windsor's Lost Information"
+ },
+ {
+  "en": "-Golem Lord Argelmach",
+  "ids": [
+   11465
+  ],
+  "name": "Marshal Windsor's Lost Information"
+ },
+ {
+  "en": "-Hinterlands",
+  "ids": [
+   21146
+  ],
+  "name": "Fragment of the Nightmare's Corruption"
+ },
+ {
+  "en": ".",
+  "ids": [
+   50047
+  ],
+  "name": "Sandals of Summer"
+ },
+ {
+  "en": "...Did he empty them himself?",
+  "ids": [
+   41893
+  ],
+  "name": "Snail Shells"
+ },
+ {
+  "en": "100% Grade A Lung Juice - Freshly Squeezed",
+  "ids": [
+   8411
+  ],
+  "name": "Lung Juice Cocktail"
+ },
+ {
+  "en": "101 Ways to Raise a Skeleton.",
+  "ids": [
+   81257
+  ],
+  "name": "Basic Guide on Necromancy"
+ },
+ {
+  "en": "<A feline silhouette can be felt on the surface.>",
+  "ids": [
+   55065
+  ],
+  "name": "Smudge’s Necklace of Good Fortune"
+ },
+ {
+  "en": "<One of Simone's less lethal hobbies.>",
+  "ids": [
+   55063
+  ],
+  "name": "Floral Loop"
+ },
+ {
+  "en": "<Rumored to be an imitation of Lord Jorach's wedding gift to his late wife.>",
+  "ids": [
+   55077
+  ],
+  "name": "Carnelia's Sunset"
+ },
+ {
+  "en": "<Truly a jack-of-all-trades.>",
+  "ids": [
+   55064
+  ],
+  "name": "Ol’ Biggin’s Substitute Broom"
+ },
+ {
+  "en": "A Gift from the Ancients.",
+  "ids": [
+   18707
+  ],
+  "name": "Ancient Rune Etched Stave"
+ },
+ {
+  "en": "A Tale of a Female Troll and Her Tiger",
+  "ids": [
+   18361
+  ],
+  "name": "The Greatest Race of Hunters"
+ },
+ {
+  "en": "A bag filled with various carved rocks containing unknown symbols.",
+  "ids": [
+   60263
+  ],
+  "name": "Furbolg Clue #3"
+ },
+ {
+  "en": "A bag of 5 gold.  For those who like telling children there's no Great Father Winter...",
+  "ids": [
+   23022
+  ],
+  "name": "Curmudgeon's Payoff"
+ },
+ {
+  "en": "A banner of Hearthglen, worn by the faithful who defend its holy grounds.",
+  "ids": [
+   50093
+  ],
+  "name": "Tabard of Hearthglen"
+ },
+ {
+  "en": "A bear as fierce as a winter storm.",
+  "ids": [
+   48635
+  ],
+  "name": "Snowstorm"
+ },
+ {
+  "en": "A bee mount, prized for its sweet nature and loyal heart.",
+  "ids": [
+   36609
+  ],
+  "name": "Honeyback Harvester"
+ },
+ {
+  "en": "A being from the Twisting Nether, filled with unbridled hatred.",
+  "ids": [
+   36545
+  ],
+  "name": "Infernal Fire"
+ },
+ {
+  "en": "A big quiver",
+  "ids": [
+   2003
+  ],
+  "name": "Deprecated Big Quiver"
+ }
+]

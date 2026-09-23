@@ -134,6 +134,17 @@ function CM:ResolveLocale()
         end
         langId = CM_DEFAULT_LANG
     end
+    -- OctoWoW: avisa uma vez por sessao quando a camada ativa via auto-detect.
+    -- ResolveLocale roda no load (DEFAULT_CHAT_FRAME pode nao existir ainda)
+    -- e de novo em VARIABLES_LOADED via Core.lua, onde o aviso de fato sai.
+    if not self._octoNotified and DEFAULT_CHAT_FRAME and self:GetOctoMode() == "auto" and self:IsOctoRealm() and self:GetActiveLangId() == CM_DEFAULT_LANG then
+        self._octoNotified = true
+        local rn = ""
+        if type(GetRealmName) == "function" and GetRealmName() then
+            rn = GetRealmName()
+        end
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r " .. format(self:T("OCTO_AUTO_MSG"), rn))
+    end
     return langId
 end
 
@@ -147,6 +158,105 @@ function CM:GetLangFlag(id)
         return entry.flag
     end
     return CM_FALLBACK_TEX2
+end
+
+---------------------------------------------------------------------------
+-- OctoWoW: deteccao por substring do reino + toggle de 3 estados.
+-- O Octo troca o nome do reino com frequencia, por isso o match e por
+-- substring ("octo" em qualquer parte, case-insensitive), nunca exato.
+-- ConsoleModeDB.octoCompat: "auto" (default, segue o reino), "on", "off".
+-- O overlay Octo e camada de traducao PT: fora do ptBR ele nunca ativa.
+---------------------------------------------------------------------------
+function CM:IsOctoRealm()
+    if type(GetRealmName) ~= "function" then
+        return false
+    end
+    local rn = GetRealmName()
+    if not rn or rn == "" then
+        return false
+    end
+    return string.find(string.lower(rn), "octo", 1, 1) ~= nil
+end
+
+function CM:GetOctoMode()
+    if ConsoleModeDB and ConsoleModeDB.octoCompat then
+        local m = ConsoleModeDB.octoCompat
+        if m == "on" or m == "off" or m == "auto" then
+            return m
+        end
+        if m == true then
+            return "on"
+        end
+        if m == false then
+            return "off"
+        end
+    end
+    return "auto"
+end
+
+function CM:IsOctoActive()
+    local mode = self:GetOctoMode()
+    if mode == "on" then
+        return true
+    end
+    if mode == "off" then
+        return false
+    end
+    if self:GetActiveLangId() ~= CM_DEFAULT_LANG then
+        return false
+    end
+    return self:IsOctoRealm()
+end
+
+function CM:CycleOctoMode()
+    local cur = self:GetOctoMode()
+    local nxt = "on"
+    if cur == "auto" then
+        nxt = "on"
+    elseif cur == "on" then
+        nxt = "off"
+    else
+        nxt = "auto"
+    end
+    if not ConsoleModeDB then
+        ConsoleModeDB = {}
+    end
+    ConsoleModeDB.octoCompat = nxt
+    return nxt
+end
+
+-- Trata /cm octo [auto|on|off]. Sem arg mostra o estado atual.
+function CM:HandleOctoCommand(arg)
+    local want = arg or ""
+    want = string.lower(want)
+    want = string.gsub(want, "^%s+", "")
+    want = string.gsub(want, "%s+$", "")
+    local mode = nil
+    if want == "auto" or want == "automatico" then
+        mode = "auto"
+    elseif want == "on" or want == "ligado" or want == "ativado" or want == "1" then
+        mode = "on"
+    elseif want == "off" or want == "desligado" or want == "desativado" or want == "0" then
+        mode = "off"
+    elseif want == "" then
+        local rn = ""
+        if type(GetRealmName) == "function" and GetRealmName() then
+            rn = GetRealmName()
+        end
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r " .. format(self:T("OCTO_STATUS_FMT"), self:T("SYS_CFG_OCTO_" .. string.upper(self:GetOctoMode())), rn))
+        return
+    end
+    if not mode then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode]|r " .. self:T("OCTO_USAGE"))
+        return
+    end
+    if not ConsoleModeDB then
+        ConsoleModeDB = {}
+    end
+    ConsoleModeDB.octoCompat = mode
+    self:ResolveLocale()
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. format(self:T("OCTO_CHANGED_FMT"), self:T("SYS_CFG_OCTO_" .. string.upper(mode))))
+    ReloadUI()
 end
 
 ---------------------------------------------------------------------------
@@ -411,6 +521,34 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         end
     end
 
+    -- 0b. OCTO WoW (overlay nao-destrutivo): quando ativo (toggle/auto-detect),
+    -- resolve a entrada Octo ANTES do Capy. Tabelas ausentes = sem efeito,
+    -- o fluxo cai no Capy/EN exatamente como antes. Nunca nil, nunca erro.
+    local octoEntry = nil
+    if self:IsOctoActive() and ConsoleMode_SpellDescDB_Octo_ByKey and ConsoleMode_SpellDescDB_Octo and spellName then
+        local ork = ""
+        if rankStr and rankStr ~= "" then
+            local _, _, orn = string.find(rankStr, "(%d+)")
+            if orn then
+                ork = "grau" .. orn
+            elseif string.find(string.lower(rankStr), "pass") then
+                ork = "passiva"
+            end
+        end
+        local odid = ConsoleMode_SpellDescDB_Octo_ByKey[string.lower(spellName) .. "|" .. ork]
+        if not odid and ork ~= "" then
+            odid = ConsoleMode_SpellDescDB_Octo_ByKey[string.lower(spellName) .. "|"]
+        end
+        if odid then
+            octoEntry = ConsoleMode_SpellDescDB_Octo[odid]
+        end
+        if octoEntry and octoEntry.pt and octoEntry.pt ~= "" then
+            CM._lastSpellDbg = CM._lastSpellDbg or {}
+            CM._lastSpellDbg.src = "DB-PT-OCTO"
+            CM._lastSpellDbg.id = odid
+        end
+    end
+
     -- 0. Inicializa mapa reverso e aliases de nomes de feiticos em PT se necessario
     if not db._reverseMap and db.spells then
         db._reverseMap = {}
@@ -563,10 +701,12 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
     -- o numero entre dois literais pertence ao $ do meio (ex.: o "30%" fixo
     -- de Chain Lightning nunca e confundido com o $x1 de alvos).
     -- Se o casamento falhar, cai no modo posicional legado.
-    if not translatedBody and descDBEntry and descDBEntry.pt and descDBEntry.pt ~= "" then
+    -- Octo vence o Capy quando tem PT (0b acima); sem Octo, effEntry = Capy.
+    local effEntry = octoEntry or descDBEntry
+    if not translatedBody and effEntry and effEntry.pt and effEntry.pt ~= "" then
         local args = nil
-        if descDBEntry.d and descDBEntry.d ~= "" then
-            args = self:GamePT_MatchTemplateValues(descDBEntry.d, normDesc)
+        if effEntry.d and effEntry.d ~= "" then
+            args = self:GamePT_MatchTemplateValues(effEntry.d, normDesc)
         end
         if not args then
             args = self:GamePT_ExtractSemanticValues(normDesc, nil)
@@ -578,7 +718,7 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         -- do pet aplicado no Ataque basico), nao renderiza PT parcial com $
         -- cru: mantem translatedBody nil p/ cair no EN integro abaixo.
         local nPh = 0
-        local tmpPt = string.gsub(descDBEntry.pt, "%$[a-z]%d*", function(ph)
+        local tmpPt = string.gsub(effEntry.pt, "%$[a-z]%d*", function(ph)
             nPh = nPh + 1
             return ""
         end)
@@ -589,7 +729,7 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         if nArgs < nPh then
             translatedBody = nil
         else
-        local ptTpl = string.gsub(descDBEntry.pt, "%$[a-z]%d*", function(ph)
+        local ptTpl = string.gsub(effEntry.pt, "%$[a-z]%d*", function(ph)
             ai = ai + 1
             if ai <= nArgs then
                 return args[ai]

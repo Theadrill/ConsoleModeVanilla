@@ -35,7 +35,13 @@ def validate_dict(pairs):
         if pt == en:
             # Excecao: fragmento de nome proprio (assinatura "-Feralas", ".")
             # ate 3 palavras, todas capitalizadas/pontuacao -> so avisa.
+            # Excecao: onomatopeia/gibberish (murloc "Mrr glrrrgl") -> so avisa.
             frag = en.strip()
+            toks = re.findall(r"[A-Za-zÀ-Ýà-ý]+", frag)
+            if toks and len(frag.split()) <= 6 and all(
+                    not re.search(r"[aeiouAEIOUáéíóúàâêôãõ]", t) for t in toks):
+                warns.append(f"ONOMATOPEIA mantida: {tag}")
+                continue
             if len(frag.split()) <= 3 and (
                     re.fullmatch(r"[.\-]+", frag) or re.fullmatch(
                     r"[.\-]?[A-ZÀ-Ý][\w'’\-.]*(\s+[A-ZÀ-Ý][\w'’\-.]*)*[.\-!?]*", frag)):

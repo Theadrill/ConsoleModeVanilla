@@ -40,3 +40,4 @@ I36 | 50 | OK
 I37 | 50 | OK
 I38 | 50 | OK
 I39 | 50 | OK
+I40 | 25 | OK (FASE 8.B-2 COMPLETA: 1.975/1.975 unicos, flavorPT=2.340 itens)

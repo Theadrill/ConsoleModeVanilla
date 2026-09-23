@@ -41,7 +41,9 @@ def main():
     flavor_auth = {}
     fa_path = THIS_DIR / "item_pt_authoral.json"
     if fa_path.exists():
-        flavor_auth = json.loads(fa_path.read_text(encoding="utf-8"))
+        raw = json.loads(fa_path.read_text(encoding="utf-8"))
+        if isinstance(raw, dict):
+            flavor_auth = {norm(k): v for k, v in raw.items() if v}
 
     # spellID -> tem PT? Usa spell_pt_authoral via ByKey? Barato: carrega d->pt do authoral
     # e o EN de cada spell via Temp/spell_en.json quando disponivel.
@@ -50,14 +52,20 @@ def main():
     if se_path.exists():
         spell_en = json.loads(se_path.read_text(encoding="utf-8"))
 
-    n_items, n_links, n_skip = 0, 0, 0
+    n_items, n_links, n_skip, n_flav = 0, 0, 0, 0
+    # flavor EN por id (p/ casar com o authoral por norma)
+    flav_en = {}
+    fl_path = THIS_DIR / "itemdesc_flavor.json"
+    if fl_path.exists():
+        for k, v in json.loads(fl_path.read_text(encoding="utf-8")).items():
+            flav_en[int(k)] = v.get("flavor", "")
     with open(OUTPUT, "w", encoding="utf-8", newline="\n") as fh:
         fh.write("-- AUTO-GERADO por tools/build_itemdescdb.py. NAO EDITAR MANUALMENTE.\n")
         fh.write("-- Links item->magia via Tortoise SQLite (§8.7); flavor via item_pt_authoral.json.\n")
         fh.write("ConsoleMode_ItemDescDB = {}\n")
-        for iid in sorted((int(k) for k in smap), key=int):
+        for iid in sorted(set(int(k) for k in smap) | set(flav_en), key=int):
             links = []
-            for lk in smap[str(iid)]:
+            for lk in smap.get(str(iid), []):
                 sid = lk.get("spell")
                 if not sid:
                     continue
@@ -68,12 +76,9 @@ def main():
                     links.append((lk.get("trig", "use"), sid))
                 else:
                     n_skip += 1
-            fa = flavor_auth.get(str(iid)) or flavor_auth.get(iid) or {}
-            fpt = ""
-            if isinstance(fa, dict):
-                fpt = fa.get("flavor", "")
-            elif isinstance(fa, str):
-                fpt = fa
+            fpt = flavor_auth.get(norm(flav_en.get(iid, "")), "")
+            if fpt:
+                n_flav += 1
             if not links and not fpt:
                 continue
             parts = []
@@ -83,8 +88,8 @@ def main():
             fh.write("ConsoleMode_ItemDescDB[%d] = { s = { %s }, f = \"%s\" }\n"
                      % (iid, ", ".join(parts), escape_lua_string(fpt)))
             n_items += 1
-    print("itens=%d links=%d (magia-sem-PT pulados=%d) -> %s (%d bytes)"
-          % (n_items, n_links, n_skip, OUTPUT, OUTPUT.stat().st_size))
+    print("itens=%d links=%d flavorPT=%d (magia-sem-PT pulados=%d) -> %s (%d bytes)"
+          % (n_items, n_links, n_flav, n_skip, OUTPUT, OUTPUT.stat().st_size))
 
 
 if __name__ == "__main__":

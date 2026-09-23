@@ -30,3 +30,5 @@ I26 | 50 | OK
 I27 | 50 | OK (fix: Jardinagem Nobre -> Jardinova)
 I28 | 50 | OK
 I29 | 50 | OK
+I30 | 50 | OK
+I31 | 50 | OK

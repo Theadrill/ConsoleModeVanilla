@@ -14,3 +14,5 @@ I10 | 50 | OK
 I11 | 50 | OK
 I12 | 50 | OK
 I13 | 50 | OK
+I14 | 50 | OK (fix: nivel 1 -> nivel um)
+I15 | 50 | OK

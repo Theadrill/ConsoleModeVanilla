@@ -38,3 +38,5 @@ I34 | 50 | OK
 I35 | 50 | OK (+fix Mantavento -> Mantícora no I15)
 I36 | 50 | OK
 I37 | 50 | OK
+I38 | 50 | OK
+I39 | 50 | OK

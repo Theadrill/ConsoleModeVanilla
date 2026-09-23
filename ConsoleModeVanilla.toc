@@ -38,6 +38,7 @@ Data\ClassTrainers.lua
 Data\QuestDB_ptBR.lua
 Data\ItemDB_ptBR.lua
 Data\SpellDescDB_ptBR.lua
+Data\SpellDescDB_ptBR_octo.lua
 Data\SpellDescriptions_ptBR.lua
 Data\TalentDescriptions_ptBR.lua
 UI\MainMenu.xml

@@ -56,6 +56,13 @@ Extração `DBFilesClient\Spell.dbc` de cada `patch*.MPQ` (ordem cliente `patch.
 
 **Implicação para o plano de linguagem:** o addon mantém o Capycraft como `SpellDescDB_ptBR.lua` (já fundido `snapshot→patch-9`, `11.612 CUSTOM + 3.925 MODIFICADOS`, `ORFAOS 2.584` → `player 497` / `cauda 2.087`). Octo entra como **investigação separada** — um `mpq_orphans_octo.json` / `SpellDescDB_ptBR_octo.lua` gerado a partir do `Octo_Spell_patch-5.dbc` divergente, sem alterar nenhum PT do Capy. O `GamePT_SpellDesc` tenta `Octo DB → Capy DB → EN` nessa ordem.
 
+### 0.3 Veredito da extração real do cliente Octo (23/09/2026 — refuta a hipótese dos 102)
+Extração MPQ por MPQ (`mpyq`, cliente `C:\Users\rodri\OneDrive\wow\octowow\Data`, artefatos fora do git em `Temp/opencode/octodbc`, veredito em `tools/mpq_orphans_octo.json`):
+- Tamanhos batem byte a byte com §0.1 (`patch-5` 28.015.080 `nrec28018`, `patch-9` 27.938.523 `nrec27916`).
+- **Nenhum famoso do patch-5 existe no patch-9** (`57847`, `62300–62302`, `62310`, `30997`, `6559` ausentes) — o override whole-file do `patch-9` os apaga no cliente live.
+- `patch-9` Octo == `patch-9` Capy (`nrec27916` igual + MPQs `patch-8/9` byte-idênticos); os 781 descs do `patch-9` sem PT têm todos ID no Capy `snapshot+patch-7` (cauda compartilhada, 0 com rank).
+- **Conclusão:** overlay derivado de DBC = **vazio** (`Data/SpellDescDB_ptBR_octo.lua` esqueleto válido, já no `.toc`). Diferenças Octo que importam são server-side e serão descobertas via `ConsoleModeDB.spellMissing` jogando no Octo com a camada ATIVA (toggle `ADDON_CFG` 3-estados + `/cm octo`, detecção em 3 fontes: `GetRealmName` + CVars `realmName`/`realmList`, greyed-out em enUS).
+
 ---
 
 ## 1. Visão Geral da Feature (nova arquitetura decidida)

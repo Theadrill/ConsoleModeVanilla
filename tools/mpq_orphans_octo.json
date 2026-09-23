@@ -1,0 +1,60 @@
+{
+  "arcabouco": "tools/diff_octo.py + tools/octo_queue.py (fora do git, Temp/opencode); DBCs extraidos em Temp/opencode/octodbc",
+  "capy_base": "snapshot+patch-7 (26320 ids, spell_en.json recuperado do SpellDescDB_ptBR.lua)",
+  "conclusao": "overlay DBC-derived = VAZIO. Diferencas Octo que importam sao server-side e serao descobertas via ConsoleModeDB.spellMissing jogando no Octo com a camada ATIVA.",
+  "extracao": "23/09/2026, mpyq listfile=False, cliente C:/Users/rodri/OneDrive/wow/octowow/Data",
+  "famosos_patch5_mortos_no_patch9": [
+    30997,
+    57847,
+    62300,
+    62301,
+    62302,
+    62310,
+    6559
+  ],
+  "hipotese_refutada": "Secao 0.2 previa 102 spells Octo sobreviventes no patch-9 a partir do Octo_Spell_patch-5 (28018). Extracao real: nenhum dos famosos existe no patch-9.",
+  "only_octo_vs_snap7": {
+    "com_desc": 1193,
+    "ids": 1742,
+    "nota": "quase tudo patch-8/9 compartilhado (MPQs byte-identicos); resto tail"
+  },
+  "patch9": {
+    "ids": 27916,
+    "md5": "b27f874cb0419091d00746c835bd6576",
+    "nrec_capy_010": 27916,
+    "sem_PT_no_authoral": 781,
+    "size": 27938523,
+    "todos_com_id_no_capy_snap7": true
+  },
+  "patch9_igual_capy": "tamanhos MPQ identicos ao byte (patch-8 484649075, patch-9 506642995) + nrec 27916 igual; whole-file override => cliente live usa patch-9",
+  "spelldbc_por_mpq": {
+    "patch-3.mpq": {
+      "md5": "c1b041de04ce1396bbb39e65eb35f9cf",
+      "size": 17162199
+    },
+    "patch-5.mpq": {
+      "md5": "c6a1b5908dd5463d814b7b8b5b45b62e",
+      "size": 28015080
+    },
+    "patch-6.mpq": {
+      "md5": "4899af5ff936f12639fa9e4a1c1106e6",
+      "size": 19178540
+    },
+    "patch-7.mpq": {
+      "md5": "0d8010ac822f45bf6a55e4298141a412",
+      "size": 22945363
+    },
+    "patch-8.mpq": {
+      "md5": "f7f2e0c55a8639dceef40f14c2c88420",
+      "size": 24902850
+    },
+    "patch-9.mpq": {
+      "md5": "b27f874cb0419091d00746c835bd6576",
+      "size": 27938523
+    },
+    "patch.MPQ": {
+      "md5": "57df05eef1e05682b23e0e5f712b2bd4",
+      "size": 16300699
+    }
+  }
+}

@@ -12772,7 +12772,11 @@ function MainMenu:UpdateAddonConfigSubPage()
             for _, row in ipairs(subPage.rows) do
                 if row.optData and type(row.optData.title) == "function" and row.title then
                     local tStr = row.optData.title()
-                    row.title:SetText(string.format("%s%s|r", CFG.System.itemTextColor or "|cffffffff", tStr))
+                    local tCol = CFG.System.itemTextColor or "|cffffffff"
+                    if row.isDisabled then
+                        tCol = "|cff666666"
+                    end
+                    row.title:SetText(string.format("%s%s|r", tCol, tStr))
                 end
             end
         end
@@ -12819,6 +12823,43 @@ function MainMenu:UpdateAddonConfigSubPage()
                         local tColor = CFG.System.itemTextColor or "|cffffffff"
                         rowBtn.title:SetText(string.format("%s%s|r", tColor, format(CM:T("SYS_CFG_BARS_FMT"), (newVal and CM:T("SYS_CFG_VISIBLE") or CM:T("SYS_CFG_HIDDEN")))))
                     end
+                end
+            end,
+        },
+        {
+            title = function()
+                local mode = "auto"
+                if CM and CM.GetOctoMode then
+                    mode = CM:GetOctoMode()
+                end
+                local stateKey = "SYS_CFG_OCTO_AUTO"
+                if mode == "on" then
+                    stateKey = "SYS_CFG_OCTO_ON"
+                elseif mode == "off" then
+                    stateKey = "SYS_CFG_OCTO_OFF"
+                end
+                local label = format(CM:T("SYS_CFG_OCTO_FMT"), CM:T(stateKey))
+                if CM and CM.IsOctoActive and CM:IsOctoActive() and mode == "auto" then
+                    label = label .. " " .. CM:T("SYS_CFG_OCTO_ACTIVE")
+                end
+                return label
+            end,
+            dkey = "SYS_CFG_OCTO_DESC",
+            disabledIf = function()
+                return CM:GetActiveLangId() ~= "ptBR"
+            end,
+            disabledMsgKey = "OCTO_EN_ONLY",
+            onClick = function(rowBtn)
+                if not CM or not CM.CycleOctoMode then
+                    return
+                end
+                local nxt = CM:CycleOctoMode()
+                if rowBtn and rowBtn.title and not rowBtn.isDisabled then
+                    local tColor = CFG.System.itemTextColor or "|cffffffff"
+                    rowBtn.title:SetText(string.format("%s%s|r", tColor, rowBtn.optData.title()))
+                end
+                if DEFAULT_CHAT_FRAME then
+                    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. format(CM:T("OCTO_CHANGED_FMT"), CM:T("SYS_CFG_OCTO_" .. string.upper(nxt))))
                 end
             end,
         },
@@ -12889,8 +12930,14 @@ function MainMenu:UpdateAddonConfigSubPage()
         local title = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         title:SetPoint("TOPLEFT", row, "TOPLEFT", 12, -6)
         MainMenu:ApplyFont(title, CFG.Fonts.bodyFontFile, 14)
+        local isDisabled = type(opt.disabledIf) == "function" and opt.disabledIf()
+        row.isDisabled = isDisabled
         local tStr = (type(opt.title) == "function") and opt.title() or CM:T(opt.tkey)
-        title:SetText(string.format("%s%s|r", tColor, tStr))
+        local tCol = tColor
+        if isDisabled then
+            tCol = "|cff666666"
+        end
+        title:SetText(string.format("%s%s|r", tCol, tStr))
         row.title = title
 
         local desc = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -12900,6 +12947,7 @@ function MainMenu:UpdateAddonConfigSubPage()
         row.desc = desc
 
         row:SetScript("OnEnter", function()
+            if this.isDisabled then return end
             this.bg:SetVertexColor(1.0, 0.85, 0.2, 0.18)
             if this.highlightBar then this.highlightBar:Show() end
         end)
@@ -12912,6 +12960,13 @@ function MainMenu:UpdateAddonConfigSubPage()
         row.optData = opt
         row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
         row:SetScript("OnClick", function()
+            if this.isDisabled then
+                PlaySound("igMainMenuOptionCheckBoxOff")
+                if this.optData and this.optData.disabledMsgKey and DEFAULT_CHAT_FRAME then
+                    DEFAULT_CHAT_FRAME:AddMessage("|cffff6666[ConsoleMode]|r " .. CM:T(this.optData.disabledMsgKey))
+                end
+                return
+            end
             PlaySound("igMainMenuOptionCheckBoxOn")
             if this.optData and this.optData.onClick then
                 this.optData.onClick(this)

@@ -296,6 +296,11 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
             DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_LANG_NOLOADER"))
         end
 
+    elseif cmd == "octo" or cmd == "octowow" then
+        if CM.HandleOctoCommand then
+            CM:HandleOctoCommand(rest)
+        end
+
     elseif cmd == "rightbars" or cmd == "barras" or cmd == "barradireita" then
         CM:ToggleRightActionBars()
 

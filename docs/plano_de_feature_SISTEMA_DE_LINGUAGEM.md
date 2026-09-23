@@ -375,7 +375,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 | # | Dado | Fonte da verdade EN | PT existente | Formato |
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | Nome de item (24.542) | `pfQuest/db/enUS/items.lua` (17.712) + `pfQuest-turtle/db/enUS/items-turtle.lua` (8.294) | `pfQuest/db/ptBR/items.lua` + `pfQuest-turtle/db/ptBR/items-turtle.lua` | `[id]="Nome"` — **PRONTO** (`Data/ItemDB_ptBR.lua`, `tools/build_itemdb.py`) |
-| 2 | Descrição/USO de item (tooltip completo) | `kofoednielsen/twow-items` (pipeline `ItemTooltipLogger`: varre IDs 0–120000 e grava tooltip EN completo por item, incl. linhas `Use:` de quest) — alternativa: `item_template` do core VMaNGOS | A traduzir (autoral, com placeholders de número preservados) | `[id]={ use="...", equip="..." }` — **A FAZER** (`Data/ItemDescDB_ptBR.lua`, `tools/build_itemdescdb.py`) |
+| 2 | Descrição/USO de item (tooltip completo) | Tortoise DB Turtle 1.12 (`tortoise.sqlite`, método §8.7 — substitui `ItemTooltipLogger`/`item_template`, que não têm a frase pronta do cliente) | Autoral em `tools/item_pt_authoral.json`, só textos únicos (~2.107; 92% spell-linked sai de graça via `SpellDescDB`) | `[id]={ use="...", equip="...", flavor="..." }` — **EM ANDAMENTO** (`Data/ItemDescDB_ptBR.lua`, `tools/build_itemdescdb.py`) |
 | 3 | Nome de spell | `Spells.lua` atual (852) + DBC Turtle (26.321 via patch local) | `Spells.lua` PT atual | `[lower(en)]="PT"` + SpellDescDB |
 | 4 | Descrição de spell (template canônico) | `Spell.dbc` extraído **do próprio client** via `mpyq` (`tools/parse_spell_dbc.py` dual-layout 162/173; merge snapshot+patch-7, patch vence) | Autoral em `tools/spell_pt_authoral.json` com reestruturação humana em lote por classe/jogador | **EM ANDAMENTO** (`Data/SpellDescDB_ptBR.lua`, 26.321 spells, templates de jogadores em revisão) |
 
@@ -457,6 +457,24 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
    - Commitar local: `git commit -m "feat(fase8): T43 (6 Templates) - revisao final tail NPC Blizzlike"`
 3. Com `T43` pronto, a **Fase 8.C estará 100% CONCLUÍDA**.
 4. **NÃO FAZER PUSH sem autorização explícita do usuário.**
+
+#### 8.7 FASE 8.B — Método Tortoise-sqlite (23/09/2026, substitui `ItemTooltipLogger`)
+> Por que não `ItemTooltipLogger`/`item_template`: o tooltip é **composto pelo cliente** na hora (`Uso: <descrição da magia>` + flavor); nenhuma fonte offline tinha a frase pronta, e os arquivos do servidor Capy são privados. O gravador in-game virou validador, não fonte primária.
+
+**Fonte:** Tortoise DB, dataset `Turtle WoW (1.12)` core `turtle`, build `5daabbece39d` (16/09/2026). `tortoise.sqlite` (94 MB, 26.544 itens + 27.917 magias) via `https://cdn.jsdelivr.net/gh/Xian55/tortoise-db-viewer@cdn-v<versao>/data/tortoise.sqlite.br` (Brotli; versão atual em `.../data/version.json`). Fora do git (artefato local em `Temp/opencode`, mesmo padrão do `spell_en.json`). Colunas que importam: `items.description` (flavor/missão), `items.spellid_1..5` + `spelltrigger_1..5` (`0`=Uso, `1`=Equipar, `2`=Chance ao acertar), `items.custom`, `spells.description`; `page_text` (livros, 1.767) fica **fora** (outra UI).
+
+**Números que definem o desenho (overlap 24.529/24.542 IDs Capy = 99,95%):**
+- **92% grátis:** 13.882 de 15.105 efeitos linkados a magias **já têm PT no `SpellDescDB`** — o runtime reconhece "corpo == magia X" e aplica a tradução existente, sem lote humano.
+- **~2.107 textos únicos** de flavor/missão (1.975 em IDs Capy, dedupe por texto normalizado) → lotes humanos `item_pt_authoral.json` no molde 8.A (chave = texto EN exato).
+- **1.223 magias linkadas sem PT** → triagem (maioria padrão genérico já coberto: comida, receita, isca); resíduo vira fila.
+- 13 IDs só-Capy → gravador-validador. Divergências Capy×Turtle → `spellMissing`-style (EN limpo, nunca branco).
+
+**Pipeline:**
+- **8.B-0 — Extração** (`tools/extract_itemdesc.py`): do SQLite → `tools/itemdesc_work.json` (só IDs Capy: `{id: {name, flavor, spells:[{trig, spell}]}}`).
+- **8.B-1 — Mapeamento gratuito**: índice `corpo-EN → spellID` + `GamePT_ItemDesc` consultando o `SpellDescDB` (sem duplicar PT; `validate_spell_vars` continua valendo). Resultado visível no primeiro `/reload`.
+- **8.B-2 — Lotes humanos**: ~2.107 textos em lotes de 50 (`input_itemdesc_*.json` → `output_itemdesc_*.json` → `apply` → `build_itemdescdb.py` → `Data/ItemDescDB_ptBR.lua` no formato `[id]={ use=, equip=, flavor= }`).
+- **8.B-3 — Runtime**: `GamePT_ItemDesc(itemID)` no topo do caminho Uso/Equipar/desc do `card:ShowItem` (`UI/MainMenu.lua:3072/3092`), antes do `ItemStat`; fallback intacto.
+- **Parada crítica:** `/reload` na bolsa (poção/consumível com `Uso:` de magia + item de missão com flavor) antes de cada leva de lotes.
 
 ---
 

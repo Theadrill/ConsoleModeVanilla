@@ -1,0 +1,802 @@
+[
+ {
+  "id": 14880,
+  "en": "Monster - Axe, Wide Blade Silver",
+  "pt": "Monster - Axe, Wide Blade Silver",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 14881,
+  "en": "Monster - Glaive - 3 Blade Black",
+  "pt": "Monster - Glaive - 3 Blade Black",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 14882,
+  "en": "Monster - Glaive - 2 Blade Silver",
+  "pt": "Monster - Glaive - 2 Blade Silver",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 14893,
+  "en": "Monster - Axe, Horde C01 Gold",
+  "pt": "Monster - Axe, Horde C01 Gold",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 15045,
+  "en": "Green Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Verde",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15047,
+  "en": "Red Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Vermelha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15048,
+  "en": "Blue Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Azul",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15050,
+  "en": "Black Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Negra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15052,
+  "en": "Black Dragonscale Leggings",
+  "pt": "Perneiras de Escama de Dragão Negra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15239,
+  "en": "Felstone Reaver",
+  "pt": "Reaver Felstone",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 15262,
+  "en": "Greater Maul",
+  "pt": "Maul Maior",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 15418,
+  "en": "Shimmering Platinum Warhammer",
+  "pt": "Martelo de Guerra de Platina Cintilante",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15506,
+  "en": "Grunt's Anklewraps",
+  "pt": "Ataduras de Tornozelo de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 15507,
+  "en": "Grunt's Bracers",
+  "pt": "Braçadeiras de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 15508,
+  "en": "Grunt's Cape",
+  "pt": "Capa de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 15509,
+  "en": "Grunt's Handwraps",
+  "pt": "Bandagens de Mão de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 15510,
+  "en": "Grunt's Belt",
+  "pt": "Cinto de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 15511,
+  "en": "Grunt's Legguards",
+  "pt": "Guarda-pernas de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 15514,
+  "en": "Grunt's Chestpiece",
+  "pt": "Peitoral de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 15618,
+  "en": "Bonelink Wall Shield",
+  "pt": "Escudo de Parede Elo de Ossos",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15866,
+  "en": "Veildust Medicine Bag",
+  "pt": "Bolsa de Medicina de Pó do Véu",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 15924,
+  "en": "Soft-shelled Clam Meat",
+  "pt": "Carne de Molusco de Casca Macia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16041,
+  "en": "Schematic: Thorium Grenade",
+  "pt": "Esquema: Granade de Thorium",
+  "sinais": [
+   "tok-remnant:thorium=>Tório"
+  ]
+ },
+ {
+  "id": 16042,
+  "en": "Schematic: Thorium Widget",
+  "pt": "Esquema: Widget de Thorium",
+  "sinais": [
+   "tok-remnant:thorium=>Tório"
+  ]
+ },
+ {
+  "id": 16043,
+  "en": "Schematic: Thorium Rifle",
+  "pt": "Esquema: Rifle de Thorium",
+  "sinais": [
+   "tok-remnant:thorium=>Tório"
+  ]
+ },
+ {
+  "id": 16047,
+  "en": "Schematic: Thorium Tube",
+  "pt": "Esquema: Tubo de Thorium",
+  "sinais": [
+   "tok-remnant:thorium=>Tório"
+  ]
+ },
+ {
+  "id": 16051,
+  "en": "Schematic: Thorium Shells",
+  "pt": "Esquema: Munições de Thorium",
+  "sinais": [
+   "tok-remnant:thorium=>Tório"
+  ]
+ },
+ {
+  "id": 16302,
+  "en": "Grimoire of Firebolt (Rank 2)",
+  "pt": "Grimório de Raio de Fogo (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16316,
+  "en": "Grimoire of Firebolt (Rank 3)",
+  "pt": "Grimório de Raio de Fogo (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16317,
+  "en": "Grimoire of Firebolt (Rank 4)",
+  "pt": "Grimório de Raio de Fogo (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16318,
+  "en": "Grimoire of Firebolt (Rank 5)",
+  "pt": "Grimório de Raio de Fogo (Rank 5)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16319,
+  "en": "Grimoire of Firebolt (Rank 6)",
+  "pt": "Grimório de Raio de Fogo (Rank 6)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16320,
+  "en": "Grimoire of Firebolt (Rank 7)",
+  "pt": "Grimório de Raio de Fogo (Rank 7)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16321,
+  "en": "Grimoire of Blood Pact (Rank 1)",
+  "pt": "Grimório do Pacto de Sangue (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16322,
+  "en": "Grimoire of Blood Pact (Rank 2)",
+  "pt": "Grimório do Pacto de Sangue (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16323,
+  "en": "Grimoire of Blood Pact (Rank 3)",
+  "pt": "Grimório do Pacto de Sangue (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16324,
+  "en": "Grimoire of Blood Pact (Rank 4)",
+  "pt": "Grimório do Pacto de Sangue (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16325,
+  "en": "Grimoire of Blood Pact (Rank 5)",
+  "pt": "Grimório do Pacto de Sangue (Rank 5)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16326,
+  "en": "Grimoire of Fire Shield (Rank 1)",
+  "pt": "Grimório de Escudo de Fogo (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16327,
+  "en": "Grimoire of Fire Shield (Rank 2)",
+  "pt": "Grimório de Escudo de Fogo (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16328,
+  "en": "Grimoire of Fire Shield (Rank 3)",
+  "pt": "Grimório de Escudo de Fogo (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16329,
+  "en": "Grimoire of Fire Shield (Rank 4)",
+  "pt": "Grimório de Escudo de Fogo (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16330,
+  "en": "Grimoire of Fire Shield (Rank 5)",
+  "pt": "Grimório de Escudo de Fogo (Rank 5)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16345,
+  "en": "High Warlord's Blade",
+  "pt": "Lâmina do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16346,
+  "en": "Grimoire of Torment (Rank 2)",
+  "pt": "Grimório de Tormento (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16347,
+  "en": "Grimoire of Torment (Rank 3)",
+  "pt": "Grimório de Tormento (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16348,
+  "en": "Grimoire of Torment (Rank 4)",
+  "pt": "Grimório de Tormento (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16349,
+  "en": "Grimoire of Torment (Rank 5)",
+  "pt": "Grimório de Tormento (Rank 5)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16350,
+  "en": "Grimoire of Torment (Rank 6)",
+  "pt": "Grimório de Tormento (Rank 6)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16351,
+  "en": "Grimoire of Sacrifice (Rank 1)",
+  "pt": "Grimório de Sacrifício (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16352,
+  "en": "Grimoire of Sacrifice (Rank 2)",
+  "pt": "Grimório de Sacrifício (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16353,
+  "en": "Grimoire of Sacrifice (Rank 3)",
+  "pt": "Grimório de Sacrifício (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16354,
+  "en": "Grimoire of Sacrifice (Rank 4)",
+  "pt": "Grimório de Sacrifício (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16355,
+  "en": "Grimoire of Sacrifice (Rank 5)",
+  "pt": "Grimório de Sacrifício (Rank 5)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16356,
+  "en": "Grimoire of Sacrifice (Rank 6)",
+  "pt": "Grimório de Sacrifício (Rank 6)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16357,
+  "en": "Grimoire of Consume Shadows (Rank 1)",
+  "pt": "Grimório de Consumir Sombras (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16358,
+  "en": "Grimoire of Consume Shadows (Rank 2)",
+  "pt": "Grimório de Consumir Sombras (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16359,
+  "en": "Grimoire of Consume Shadows (Rank 3)",
+  "pt": "Grimório de Consumir Sombras (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16360,
+  "en": "Grimoire of Consume Shadows (Rank 4)",
+  "pt": "Grimório de Consumir Sombras (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16361,
+  "en": "Grimoire of Consume Shadows (Rank 5)",
+  "pt": "Grimório de Consumir Sombras (Rank 5)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16362,
+  "en": "Grimoire of Consume Shadows (Rank 6)",
+  "pt": "Grimório de Consumir Sombras (Rank 6)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16363,
+  "en": "Grimoire of Suffering (Rank 1)",
+  "pt": "Grimório de Sofrimento (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16364,
+  "en": "Grimoire of Suffering (Rank 2)",
+  "pt": "Grimório de Sofrimento (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16365,
+  "en": "Grimoire of Suffering (Rank 3)",
+  "pt": "Grimório de Sofrimento (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16366,
+  "en": "Grimoire of Suffering (Rank 4)",
+  "pt": "Grimório de Sofrimento (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16367,
+  "en": "Knight-Captain's Silk Sash",
+  "pt": "Faixa de Seda do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16369,
+  "en": "Knight-Lieutenant's Silk Boots",
+  "pt": "Botas de Seda do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16370,
+  "en": "Knight-Captain's Silk Cuffs",
+  "pt": "Punhos de Seda do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16375,
+  "en": "Grimoire of Soothing Kiss (Rank 1)",
+  "pt": "Grimório de Beijo Reconfortante (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16376,
+  "en": "Grimoire of Soothing Kiss (Rank 2)",
+  "pt": "Grimório de Beijo Reconfortante (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16377,
+  "en": "Grimoire of Soothing Kiss (Rank 3)",
+  "pt": "Grimório de Beijo Reconfortante (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16378,
+  "en": "Grimoire of Soothing Kiss (Rank 4)",
+  "pt": "Grimório de Beijo Reconfortante (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16381,
+  "en": "Grimoire of Devour Magic (Rank 2)",
+  "pt": "Grimório de Devorar Magia (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16382,
+  "en": "Grimoire of Devour Magic (Rank 3)",
+  "pt": "Grimório de Devorar Magia (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16383,
+  "en": "Grimoire of Devour Magic (Rank 4)",
+  "pt": "Grimório de Devorar Magia (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16384,
+  "en": "Grimoire of Tainted Blood (Rank 1)",
+  "pt": "Grimório de Sangue Contaminado (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16385,
+  "en": "Grimoire of Tainted Blood (Rank 2)",
+  "pt": "Grimório de Sangue Contaminado (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16386,
+  "en": "Grimoire of Tainted Blood (Rank 3)",
+  "pt": "Grimório de Sangue Contaminado (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16387,
+  "en": "Grimoire of Tainted Blood (Rank 4)",
+  "pt": "Grimório de Sangue Contaminado (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16388,
+  "en": "Grimoire of Spell Lock (Rank 1)",
+  "pt": "Grimório de Bloqueio de Magia (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16389,
+  "en": "Grimoire of Spell Lock (Rank 2)",
+  "pt": "Grimório de Bloqueio de Magia (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 16391,
+  "en": "Knight-Lieutenant's Silk Gloves",
+  "pt": "Luvas de Seda do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16392,
+  "en": "Knight-Lieutenant's Leather Boots",
+  "pt": "Botas de Couro do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16394,
+  "en": "Knight-Captain's Leather Bracers",
+  "pt": "Braçadeiras de Couro do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16396,
+  "en": "Knight-Lieutenant's Leather Gauntlets",
+  "pt": "Manoplas de Couro do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16398,
+  "en": "Knight-Captain's Leather Belt",
+  "pt": "Cinto de Couro do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16404,
+  "en": "Knight-Captain's Plate Wristguards",
+  "pt": "Braçadeiras de Placa do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16406,
+  "en": "Knight-Lieutenant's Plate Gauntlets",
+  "pt": "Manoplas de Placa do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16413,
+  "en": "Knight-Captain's Silk Raiment",
+  "pt": "Traje de Seda do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16414,
+  "en": "Knight-Captain's Silk Leggings",
+  "pt": "Perneiras de Seda do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16417,
+  "en": "Knight-Captain's Leather Armor",
+  "pt": "Armadura de Couro do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16430,
+  "en": "Knight-Captain's Plate Chestguard",
+  "pt": "Peitoral de Placa do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16431,
+  "en": "Knight-Captain's Plate Leggings",
+  "pt": "Perneiras de Placa do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16503,
+  "en": "Champion's Dragonhide Helm",
+  "pt": "Capacete de Couro de Dragão do Campeão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 16550,
+  "en": "Warlord's Dragonhide Helmet",
+  "pt": "Elmo de Couro de Dragão do Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->9"
+  ]
+ },
+ {
+  "id": 16561,
+  "en": "Warlord's Leather Helm",
+  "pt": "Elmo de Couro do Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 16563,
+  "en": "Warlord's Leather Breastplate",
+  "pt": "Peitoral de Couro do Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 16565,
+  "en": "Warlord's Chain Chestpiece",
+  "pt": "Peitoral de Corrente do Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 16566,
+  "en": "Warlord's Chain Helmet",
+  "pt": "Elmo de Corrente do Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 16577,
+  "en": "Warlord's Mail Armor",
+  "pt": "Armadura de Malha do Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ }
+]

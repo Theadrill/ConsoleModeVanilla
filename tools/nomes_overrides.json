@@ -9706,5 +9706,61 @@
  "13361": {
   "pt": "Abutre Forjado de Crânio",
   "motivo": "reaver->Abutre (oficial); PT mantinha 'Reaver' sem traduzir."
+ },
+ "15239": {
+  "pt": "Abutre de Felstone",
+  "motivo": "Reaver deve ser traduzido para Abutre conforme regra 2 (Reaver→Abutre); ajustada ordem das palavras para padrão PT (sujeito + de + nome próprio)."
+ },
+ "15262": {
+  "pt": "Malho Maior",
+  "motivo": "Maul deve ser traduzido para Malho conforme regra 2 (Maul→Malho); 'Maior' já está corretamente posicionado após o sustantivo em PT."
+ },
+ "15506": {
+  "pt": "Ataduras de Tornozelo do Bruto",
+  "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3 (Grunt→Bruto); ajustado artigo definido 'do Bruto' para substantivo comum em PT."
+ },
+ "15507": {
+  "pt": "Braçadeiras do Bruto",
+  "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+ },
+ "15508": {
+  "pt": "Capa do Bruto",
+  "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+ },
+ "15509": {
+  "pt": "Bandagens de Mão do Bruto",
+  "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+ },
+ "15510": {
+  "pt": "Cinto do Bruto",
+  "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+ },
+ "15511": {
+  "pt": "Guarda-pernas do Bruto",
+  "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+ },
+ "15514": {
+  "pt": "Peitoral do Bruto",
+  "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+ },
+ "16041": {
+  "pt": "Esquema: Granada de Tório",
+  "motivo": "Thorium deve ser traduzido para Tório conforme regra 2; 'Granade' corrigido para 'Granada' (forma correta em PT)."
+ },
+ "16042": {
+  "pt": "Esquema: Widget de Tório",
+  "motivo": "Thorium deve ser traduzido para Tório conforme regra 2; 'Widget' mantido como termo técnico."
+ },
+ "16043": {
+  "pt": "Esquema: Rifle de Tório",
+  "motivo": "Thorium deve ser traduzido para Tório conforme regra 2."
+ },
+ "16047": {
+  "pt": "Esquema: Tubo de Tório",
+  "motivo": "Thorium deve ser traduzido para Tório conforme regra 2."
+ },
+ "16051": {
+  "pt": "Esquema: Munições de Tório",
+  "motivo": "Thorium deve ser traduzido para Tório conforme regra 2."
  }
 }

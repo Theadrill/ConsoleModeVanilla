@@ -1,0 +1,702 @@
+[
+  {
+    "id": 14880,
+    "en": "Monster - Axe, Wide Blade Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Wide Blade Silver",
+    "motivo": "Item GM (Monster -); manter pt atual conforme regra 5."
+  },
+  {
+    "id": 14881,
+    "en": "Monster - Glaive - 3 Blade Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Glaive - 3 Blade Black",
+    "motivo": "Item GM (Monster -); manter pt atual conforme regra 5."
+  },
+  {
+    "id": 14882,
+    "en": "Monster - Glaive - 2 Blade Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Glaive - 2 Blade Silver",
+    "motivo": "Item GM (Monster -); manter pt atual conforme regra 5."
+  },
+  {
+    "id": 14893,
+    "en": "Monster - Axe, Horde C01 Gold",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Horde C01 Gold",
+    "motivo": "Item GM (Monster -); manter pt atual conforme regra 5."
+  },
+  {
+    "id": 15045,
+    "en": "Green Dragonscale Breastplate",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Escama de Dragão Verde",
+    "motivo": "Tradução PT Blizzlike correta; expansão de wordcount (3->6) natural em PT devido a artigos."
+  },
+  {
+    "id": 15047,
+    "en": "Red Dragonscale Breastplate",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Escama de Dragão Vermelha",
+    "motivo": "Tradução PT correta; acordo de gênero 'Vermelha' adequado a 'Escama' (feminino)."
+  },
+  {
+    "id": 15048,
+    "en": "Blue Dragonscale Breastplate",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Escama de Dragão Azul",
+    "motivo": "Tradução PT correta; 'Azul' invariável em gênero."
+  },
+  {
+    "id": 15050,
+    "en": "Black Dragonscale Breastplate",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Escama de Dragão Negra",
+    "motivo": "Tradução PT correta; acordo de gênero 'Negra' adequado a 'Escama' (feminino)."
+  },
+  {
+    "id": 15052,
+    "en": "Black Dragonscale Leggings",
+    "veredito": "manter",
+    "pt_final": "Perneiras de Escama de Dragão Negra",
+    "motivo": "Tradução PT correta; acordo de gênero 'Negra' adequado a 'Escama' (feminino)."
+  },
+  {
+    "id": 15239,
+    "en": "Felstone Reaver",
+    "veredito": "corrigir",
+    "pt_final": "Abutre de Felstone",
+    "motivo": "Reaver deve ser traduzido para Abutre conforme regra 2 (Reaver→Abutre); ajustada ordem das palavras para padrão PT (sujeito + de + nome próprio)."
+  },
+  {
+    "id": 15262,
+    "en": "Greater Maul",
+    "veredito": "corrigir",
+    "pt_final": "Malho Maior",
+    "motivo": "Maul deve ser traduzido para Malho conforme regra 2 (Maul→Malho); 'Maior' já está corretamente posicionado após o sustantivo em PT."
+  },
+  {
+    "id": 15418,
+    "en": "Shimmering Platinum Warhammer",
+    "veredito": "manter",
+    "pt_final": "Martelo de Guerra de Platina Cintilante",
+    "motivo": "Tradução PT Blizzlike correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 15506,
+    "en": "Grunt's Anklewraps",
+    "veredito": "corrigir",
+    "pt_final": "Ataduras de Tornozelo do Bruto",
+    "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3 (Grunt→Bruto); ajustado artigo definido 'do Bruto' para substantivo comum em PT."
+  },
+  {
+    "id": 15507,
+    "en": "Grunt's Bracers",
+    "veredito": "corrigir",
+    "pt_final": "Braçadeiras do Bruto",
+    "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+  },
+  {
+    "id": 15508,
+    "en": "Grunt's Cape",
+    "veredito": "corrigir",
+    "pt_final": "Capa do Bruto",
+    "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+  },
+  {
+    "id": 15509,
+    "en": "Grunt's Handwraps",
+    "veredito": "corrigir",
+    "pt_final": "Bandagens de Mão do Bruto",
+    "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+  },
+  {
+    "id": 15510,
+    "en": "Grunt's Belt",
+    "veredito": "corrigir",
+    "pt_final": "Cinto do Bruto",
+    "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+  },
+  {
+    "id": 15511,
+    "en": "Grunt's Legguards",
+    "veredito": "corrigir",
+    "pt_final": "Guarda-pernas do Bruto",
+    "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+  },
+  {
+    "id": 15514,
+    "en": "Grunt's Chestpiece",
+    "veredito": "corrigir",
+    "pt_final": "Peitoral do Bruto",
+    "motivo": "Grunt deve ser traduzido para Bruto conforme regra 3; ajustado artigo definido 'do Bruto'."
+  },
+  {
+    "id": 15618,
+    "en": "Bonelink Wall Shield",
+    "veredito": "manter",
+    "pt_final": "Escudo de Parede Elo de Ossos",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 15866,
+    "en": "Veildust Medicine Bag",
+    "veredito": "manter",
+    "pt_final": "Bolsa de Medicina de Pó do Véu",
+    "motivo": "Tradução PT Blizzlike correta; expansão de wordcount (3->7) natural em PT."
+  },
+  {
+    "id": 15924,
+    "en": "Soft-shelled Clam Meat",
+    "veredito": "manter",
+    "pt_final": "Carne de Molusco de Casca Macia",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16041,
+    "en": "Schematic: Thorium Grenade",
+    "veredito": "corrigir",
+    "pt_final": "Esquema: Granada de Tório",
+    "motivo": "Thorium deve ser traduzido para Tório conforme regra 2; 'Granade' corrigido para 'Granada' (forma correta em PT)."
+  },
+  {
+    "id": 16042,
+    "en": "Schematic: Thorium Widget",
+    "veredito": "corrigir",
+    "pt_final": "Esquema: Widget de Tório",
+    "motivo": "Thorium deve ser traduzido para Tório conforme regra 2; 'Widget' mantido como termo técnico."
+  },
+  {
+    "id": 16043,
+    "en": "Schematic: Thorium Rifle",
+    "veredito": "corrigir",
+    "pt_final": "Esquema: Rifle de Tório",
+    "motivo": "Thorium deve ser traduzido para Tório conforme regra 2."
+  },
+  {
+    "id": 16047,
+    "en": "Schematic: Thorium Tube",
+    "veredito": "corrigir",
+    "pt_final": "Esquema: Tubo de Tório",
+    "motivo": "Thorium deve ser traduzido para Tório conforme regra 2."
+  },
+  {
+    "id": 16051,
+    "en": "Schematic: Thorium Shells",
+    "veredito": "corrigir",
+    "pt_final": "Esquema: Munições de Tório",
+    "motivo": "Thorium deve ser traduzido para Tório conforme regra 2."
+  },
+  {
+    "id": 16302,
+    "en": "Grimoire of Firebolt (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Raio de Fogo (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6; tradução PT correta (Grimoire->Grimório, Firebolt->Raio de Fogo)."
+  },
+  {
+    "id": 16316,
+    "en": "Grimoire of Firebolt (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Raio de Fogo (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16317,
+    "en": "Grimoire of Firebolt (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Raio de Fogo (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16318,
+    "en": "Grimoire of Firebolt (Rank 5)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Raio de Fogo (Rank 5)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16319,
+    "en": "Grimoire of Firebolt (Rank 6)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Raio de Fogo (Rank 6)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16320,
+    "en": "Grimoire of Firebolt (Rank 7)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Raio de Fogo (Rank 7)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16321,
+    "en": "Grimoire of Blood Pact (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório do Pacto de Sangue (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6; tradução PT correta."
+  },
+  {
+    "id": 16322,
+    "en": "Grimoire of Blood Pact (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório do Pacto de Sangue (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16323,
+    "en": "Grimoire of Blood Pact (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório do Pacto de Sangue (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16324,
+    "en": "Grimoire of Blood Pact (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório do Pacto de Sangue (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16325,
+    "en": "Grimoire of Blood Pact (Rank 5)",
+    "veredito": "manter",
+    "pt_final": "Grimório do Pacto de Sangue (Rank 5)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16326,
+    "en": "Grimoire of Fire Shield (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Escudo de Fogo (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16327,
+    "en": "Grimoire of Fire Shield (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Escudo de Fogo (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16328,
+    "en": "Grimoire of Fire Shield (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Escudo de Fogo (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16329,
+    "en": "Grimoire of Fire Shield (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Escudo de Fogo (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16330,
+    "en": "Grimoire of Fire Shield (Rank 5)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Escudo de Fogo (Rank 5)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16345,
+    "en": "High Warlord's Blade",
+    "veredito": "manter",
+    "pt_final": "Lâmina do Alto Senhor da Guerra",
+    "motivo": "Tradução PT correta; Blade já traduzido para Lâmina conforme regra 2; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16346,
+    "en": "Grimoire of Torment (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Tormento (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16347,
+    "en": "Grimoire of Torment (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Tormento (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16348,
+    "en": "Grimoire of Torment (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Tormento (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16349,
+    "en": "Grimoire of Torment (Rank 5)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Tormento (Rank 5)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16350,
+    "en": "Grimoire of Torment (Rank 6)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Tormento (Rank 6)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16351,
+    "en": "Grimoire of Sacrifice (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sacrifício (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16352,
+    "en": "Grimoire of Sacrifice (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sacrifício (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16353,
+    "en": "Grimoire of Sacrifice (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sacrifício (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16354,
+    "en": "Grimoire of Sacrifice (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sacrifício (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16355,
+    "en": "Grimoire of Sacrifice (Rank 5)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sacrifício (Rank 5)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16356,
+    "en": "Grimoire of Sacrifice (Rank 6)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sacrifício (Rank 6)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16357,
+    "en": "Grimoire of Consume Shadows (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Consumir Sombras (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16358,
+    "en": "Grimoire of Consume Shadows (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Consumir Sombras (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16359,
+    "en": "Grimoire of Consume Shadows (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Consumir Sombras (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16360,
+    "en": "Grimoire of Consume Shadows (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Consumir Sombras (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16361,
+    "en": "Grimoire of Consume Shadows (Rank 5)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Consumir Sombras (Rank 5)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16362,
+    "en": "Grimoire of Consume Shadows (Rank 6)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Consumir Sombras (Rank 6)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16363,
+    "en": "Grimoire of Suffering (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sofrimento (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16364,
+    "en": "Grimoire of Suffering (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sofrimento (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16365,
+    "en": "Grimoire of Suffering (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sofrimento (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16366,
+    "en": "Grimoire of Suffering (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sofrimento (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16367,
+    "en": "Knight-Captain's Silk Sash",
+    "veredito": "manter",
+    "pt_final": "Faixa de Seda do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16369,
+    "en": "Knight-Lieutenant's Silk Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Seda do Tenente Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16370,
+    "en": "Knight-Captain's Silk Cuffs",
+    "veredito": "manter",
+    "pt_final": "Punhos de Seda do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16375,
+    "en": "Grimoire of Soothing Kiss (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Beijo Reconfortante (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16376,
+    "en": "Grimoire of Soothing Kiss (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Beijo Reconfortante (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16377,
+    "en": "Grimoire of Soothing Kiss (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Beijo Reconfortante (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16378,
+    "en": "Grimoire of Soothing Kiss (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Beijo Reconfortante (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16381,
+    "en": "Grimoire of Devour Magic (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Devorar Magia (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16382,
+    "en": "Grimoire of Devour Magic (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Devorar Magia (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16383,
+    "en": "Grimoire of Devour Magic (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Devorar Magia (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16384,
+    "en": "Grimoire of Tainted Blood (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sangue Contaminado (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16385,
+    "en": "Grimoire of Tainted Blood (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sangue Contaminado (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16386,
+    "en": "Grimoire of Tainted Blood (Rank 3)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sangue Contaminado (Rank 3)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16387,
+    "en": "Grimoire of Tainted Blood (Rank 4)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Sangue Contaminado (Rank 4)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16388,
+    "en": "Grimoire of Spell Lock (Rank 1)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Bloqueio de Magia (Rank 1)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16389,
+    "en": "Grimoire of Spell Lock (Rank 2)",
+    "veredito": "manter",
+    "pt_final": "Grimório de Bloqueio de Magia (Rank 2)",
+    "motivo": "Rank mantido conforme regra 6."
+  },
+  {
+    "id": 16391,
+    "en": "Knight-Lieutenant's Silk Gloves",
+    "veredito": "manter",
+    "pt_final": "Luvas de Seda do Tenente Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16392,
+    "en": "Knight-Lieutenant's Leather Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Couro do Tenente Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16394,
+    "en": "Knight-Captain's Leather Bracers",
+    "veredito": "manter",
+    "pt_final": "Braçadeiras de Couro do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16396,
+    "en": "Knight-Lieutenant's Leather Gauntlets",
+    "veredito": "manter",
+    "pt_final": "Manoplas de Couro do Tenente Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16398,
+    "en": "Knight-Captain's Leather Belt",
+    "veredito": "manter",
+    "pt_final": "Cinto de Couro do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16404,
+    "en": "Knight-Captain's Plate Wristguards",
+    "veredito": "manter",
+    "pt_final": "Braçadeiras de Placa do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16406,
+    "en": "Knight-Lieutenant's Plate Gauntlets",
+    "veredito": "manter",
+    "pt_final": "Manoplas de Placa do Tenente Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16413,
+    "en": "Knight-Captain's Silk Raiment",
+    "veredito": "manter",
+    "pt_final": "Traje de Seda do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16414,
+    "en": "Knight-Captain's Silk Leggings",
+    "veredito": "manter",
+    "pt_final": "Perneiras de Seda do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16417,
+    "en": "Knight-Captain's Leather Armor",
+    "veredito": "manter",
+    "pt_final": "Armadura de Couro do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16430,
+    "en": "Knight-Captain's Plate Chestguard",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Placa do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16431,
+    "en": "Knight-Captain's Plate Leggings",
+    "veredito": "manter",
+    "pt_final": "Perneiras de Placa do Capitão Cavaleiro",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->6) natural em PT."
+  },
+  {
+    "id": 16503,
+    "en": "Champion's Dragonhide Helm",
+    "veredito": "manter",
+    "pt_final": "Capacete de Couro de Dragão do Campeão",
+    "motivo": "Tradução PT Blizzlike correta; expansão de wordcount (3->7) natural em PT."
+  },
+  {
+    "id": 16550,
+    "en": "Warlord's Dragonhide Helmet",
+    "veredito": "manter",
+    "pt_final": "Elmo de Couro de Dragão do Senhor da Guerra",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->9) natural em PT."
+  },
+  {
+    "id": 16561,
+    "en": "Warlord's Leather Helm",
+    "veredito": "manter",
+    "pt_final": "Elmo de Couro do Senhor da Guerra",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->7) natural em PT."
+  },
+  {
+    "id": 16563,
+    "en": "Warlord's Leather Breastplate",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Couro do Senhor da Guerra",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->7) natural em PT."
+  },
+  {
+    "id": 16565,
+    "en": "Warlord's Chain Chestpiece",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Corrente do Senhor da Guerra",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->7) natural em PT."
+  },
+  {
+    "id": 16566,
+    "en": "Warlord's Chain Helmet",
+    "veredito": "manter",
+    "pt_final": "Elmo de Corrente do Senhor da Guerra",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->7) natural em PT."
+  },
+  {
+    "id": 16577,
+    "en": "Warlord's Mail Armor",
+    "veredito": "manter",
+    "pt_final": "Armadura de Malha do Senhor da Guerra",
+    "motivo": "Tradução PT correta; expansão de wordcount (3->7) natural em PT."
+  }
+]

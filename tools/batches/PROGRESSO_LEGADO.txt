@@ -13,3 +13,4 @@ L12 | 50 (50r/0m) | OK
 L13 | 50 (50r/0m) | OK
 L14 | 50 (50r/0m) | OK
 L15 | 50 (49r/1m) | OK
+L16 | 33 (32r/1m) | OK (FASE L COMPLETA: 783/783)

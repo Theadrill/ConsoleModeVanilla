@@ -53,3 +53,5 @@ R6-06 | 100 (2c/98m) | OK
 R6-07 | 100 (11c/89m) | OK
 R6-08 | 76 (19c/57m) | OK
 AMOSTRA-06 | 300 (2c/298m, escape 0.7%) | OK (2 falsos-negativos: Tabuleta->Tablete, Spaulders->Ombreiras)
+---
+R6 TOTAL | 776 (66c/710m) | FASE N ENCERRADA (escape AMOSTRA-06 = 0.7% < 1%)

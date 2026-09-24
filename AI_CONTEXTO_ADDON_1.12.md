@@ -99,11 +99,11 @@ Outro.lua
 5. SavedVariables: declarar no `.toc`, debugar em `WTF/Account/THEADRILL/.../SavedVariables.lua`.
 6. Não re-listar `Interface/AddOns` do zero — usar lista da seção 2 a menos que o usuário peça.
 
-## 7. Próximo ajuste (preencher a cada tarefa)
+## 7. Sessão de trabalho (definida no prompt, nunca neste arquivo)
 
 * **Addon alvo:** `ConsoleModeVanilla` (WoW 1.12.1 / Turtle WoW)
 * **Modo:** [x] 1.12 puro / [ ] pode usar SuperWoW
-* **Objetivo:** Fase 8.A — Retradução Humanizada e Contextual Blizzlike do Spellbook do Jogador (9 classes, raciais, pets, perícias, profissões), eliminando abreviações telegráficas e restaurando fórmulas fiéis de variáveis ($s1, $d, $a1).
+* **Objetivo / plano ativo:** **sempre informado pelo usuário no prompt de cada sessão.** Este arquivo NÃO define plano, fase ou objetivo — nunca assumir um por conta própria.
 
 ---
 > [!CAUTION]
@@ -117,13 +117,14 @@ Outro.lua
 ## CONVERSA INICIAL PARA NÃO PRECISAR FICAR DIGITANDO TUDO DE NOVO
 
 > Cole este bloco no início de qualquer nova conversa para restaurar o contexto completo sem precisar redescobrir nada.
+> O plano/documento da sessão é sempre apontado no prompt — nunca está fixo aqui.
 
 **Prompt de abertura:**
-> "Estamos trabalhando no addon de WoW. Leia `AI_CONTEXTO_ADDON_1.12.md` para entender o addon e fixar as regras na memória. Depois leia `docs/plano_de_feature_TELA_DE_CONFIGURACOES.md` para ter o contexto arquitetural completo da tela de Configurações (`SYSTEM`) e `docs/plano_de_refatoração_missoes_mapas.md` para verificar o histórico consolidado de Missões/Mapas. Apresente o que entendeu e aguarde."
+> "Estamos trabalhando no addon de WoW. Leia `AI_CONTEXTO_ADDON_1.12.md` para entender o addon e fixar as regras na memória. Depois leia o plano/documento indicado neste prompt para ter o contexto da frente de trabalho atual. Apresente o que entendeu e aguarde."
 
 ---
 
-### O que a IA deve entender ao ler os docs acima
+### O que a IA deve entender ao ler este arquivo (+ o plano apontado no prompt)
 
 #### O Addon
 **ConsoleModeVanilla** — interface de console/gamepad para WoW 1.12.1 (Turtle WoW). Lua 5.0 estrito, identidade visual do Main Menu Vanilla, sem API Retail.
@@ -138,8 +139,7 @@ Tela de correio completa (`UI/MailScreen.lua`) com inbox + painel de detalhe, te
 - **Fase 4 (Seleção de Zonas/Instâncias):** Suporte completo à sub-zona `QZONAS` com níveis `(min-max)` e instâncias contextuais.
 - **Fase 5 (Mecânicas de Mapa & Regressão):** L-Stick pan livre contínuo, zoom via gatilhos `[LT]/[RT]`, sublinhado dourado estável, auto-foco preservado e inter-abas 100% sincronizado.
 
-#### Nova Frente de Trabalho: Tela de Configurações & Sistema (`SYSTEM`)
-Documento: `docs/plano_de_feature_TELA_DE_CONFIGURACOES.md`.
+#### Tela de Configurações & Sistema (`SYSTEM`) — histórico
 - **Sub-Aba 1: MENU DO JOGO (`GAME_MENU`):** Opções clássicas do cliente WoW (Vídeo, Áudio, Interface, Macros, Atalhos, Ajuda, Logout, Sair) + botões de Addons de terceiros com ícones temáticos, DetailCard descritivo e disparo seguro de janelas Blizzard.
 - **Sub-Aba 2: CONFIGURAÇÕES DO ADDON (`ADDON_CFG`):** Central de ajustes do ConsoleMode com widgets interativos D-Pad: Toggles com `[A]`, Sliders com `[LEFT/RIGHT]`, Botões de Ação, e Mapeador de Binds integrado (`SYS_BINDS`).
 - **Roteador D-Pad (`MainMenuNav.lua`):** Zonas `SYS_SUBTABS`, `SYS_GAMEMENU`, `SYS_ADDONCFG`, `SYS_BINDS`, alternância rápida via `[LT]/[RT]`.

@@ -3096,7 +3096,16 @@ function MainMenu:CreateDetailCard(parent, config)
         if itemData.desc and itemData.desc ~= "" then
             local dl = string.lower(itemData.desc)
             if not (string.find(dl, "soulbound") or string.find(dl, "unique") or string.find(dl, "durability") or string.find(dl, "durabilidade")) then
-                local locDesc = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(itemData.desc) or itemData.desc
+                -- 8.B-fix: linha de Uso/Equipar (desviada p/ desc no scan) passa
+                -- pela magia linkada antes do ItemStat generico (mesmo padrao
+                -- do loop de statsLines acima). Sem isso, todo "Uso:" caia em EN.
+                local locDesc = nil
+                if ConsoleMode and ConsoleMode.GamePT_ItemDesc then
+                    locDesc = ConsoleMode:GamePT_ItemDesc(itemData.rawLink or itemData.link, itemData.desc)
+                end
+                if not locDesc then
+                    locDesc = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(itemData.desc) or itemData.desc
+                end
                 table.insert(rightLines, "|cff00ff00" .. locDesc .. "|r")
             end
         end

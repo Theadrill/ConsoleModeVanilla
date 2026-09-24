@@ -1,0 +1,803 @@
+[
+ {
+  "id": 13319,
+  "en": "Monster - Shield, Horde B03",
+  "pt": "Monster - Shield, Horde B03",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 13336,
+  "en": "Monster - Staff, Feathered Black",
+  "pt": "Monster - Staff, Feathered Black",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13337,
+  "en": "Monster - Staff, Feathered Gold",
+  "pt": "Monster - Staff, Feathered Gold",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13338,
+  "en": "Monster - Staff, Feathered Invert",
+  "pt": "Monster - Staff, Feathered Invert",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13339,
+  "en": "Monster - Staff, Feathered Silver",
+  "pt": "Monster - Staff, Feathered Silver",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13341,
+  "en": "Monster - Item, Vial Yellow Offhand",
+  "pt": "Monster - Item, Vial Yellow Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13351,
+  "en": "Crimson Hammersmith's Apron",
+  "pt": "Avental do Ferreiro de Martelos Carmesim",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13361,
+  "en": "Skullforge Reaver",
+  "pt": "Reaver Forjado de Crânio",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 13388,
+  "en": "The Postmaster's Tunic",
+  "pt": "A Túnica do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13389,
+  "en": "The Postmaster's Trousers",
+  "pt": "As Calças do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13390,
+  "en": "The Postmaster's Band",
+  "pt": "A Aliança do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13392,
+  "en": "The Postmaster's Seal",
+  "pt": "O Selo do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13406,
+  "en": "Monster - Item, Mutton Offhand",
+  "pt": "Monster - Item, Mutton Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13407,
+  "en": "Monster - Item, Mutton with Bite Offhand",
+  "pt": "Monster - Item, Mutton with Bite Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13504,
+  "en": "Monster - Sword, Doomguard",
+  "pt": "Monster - Sword, Doomguard",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 13604,
+  "en": "Monster - Item, Bucket - Wood Offhand",
+  "pt": "Monster - Item, Bucket - Wood Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13605,
+  "en": "Monster - Item, Bucket - Metal Dirty Offhand",
+  "pt": "Monster - Item, Bucket - Metal Dirty Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13606,
+  "en": "Monster - Item, Bucket - Metal Offhand",
+  "pt": "Monster - Item, Bucket - Metal Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13611,
+  "en": "Monster - Hot Iron Poker Offhand",
+  "pt": "Monster - Hot Iron Poker Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13622,
+  "en": "Monster - Staff, D01 Circling Black Skull",
+  "pt": "Monster - Staff, D01 Circling Black Skull",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13623,
+  "en": "Monster - Sword2H, Horde Skull Blue Flame",
+  "pt": "Monster - Sword2H, Horde Skull Blue Flame",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 13625,
+  "en": "Monster - Axe, Horde B03 Copper",
+  "pt": "Monster - Axe, Horde B03 Copper",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 13627,
+  "en": "Monster - Sword, Horde Jagged Blue",
+  "pt": "Monster - Sword, Horde Jagged Blue",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 13628,
+  "en": "Monster - Shield, Horde B04",
+  "pt": "Monster - Shield, Horde B04",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 13629,
+  "en": "Monster - Shield, Horde C02",
+  "pt": "Monster - Shield, Horde C02",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 13630,
+  "en": "Monster - Shield, Horde C03",
+  "pt": "Monster - Shield, Horde C03",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 13698,
+  "en": "Monster - Staff, Ornate Warlock Staff Black Glow Low",
+  "pt": "Monster - Staff, Ornate Warlock Staff Black Glow Low",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13705,
+  "en": "Monster - Staff, Yellow Jeweled with Low Purple Glow",
+  "pt": "Monster - Staff, Yellow Jeweled with Low Purple Glow",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13706,
+  "en": "Monster - Axe, 2H Horde Black Tombstone",
+  "pt": "Monster - Axe, 2H Horde Black Tombstone",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 13707,
+  "en": "Monster - Sword, Horde Sword B04 Black",
+  "pt": "Monster - Sword, Horde Sword B04 Black",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 13708,
+  "en": "Monster - Sword2H, Horde Massive Blue",
+  "pt": "Monster - Sword2H, Horde Massive Blue",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 13709,
+  "en": "Monster - Staff Green Sphere Glowing",
+  "pt": "Monster - Staff Green Sphere Glowing",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13718,
+  "en": "Monster - Sword, Horde Jagged Red",
+  "pt": "Monster - Sword, Horde Jagged Red",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 13719,
+  "en": "Monster - Sword, Horde Jagged Red w/ Low Yellow Glow",
+  "pt": "Monster - Sword, Horde Jagged Red w/ Low Yellow Glow",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 13720,
+  "en": "Monster - Staff, Feathered Invert - Glow Black High",
+  "pt": "Monster - Staff, Feathered Invert - Glow Black High",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13721,
+  "en": "Monster - Staff, Wooden Handle Spiral Head White",
+  "pt": "Monster - Staff, Wooden Handle Spiral Head White",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13722,
+  "en": "Monster - Staff, Demon Skull Staff Low Purple Flame",
+  "pt": "Monster - Staff, Demon Skull Staff Low Purple Flame",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13723,
+  "en": "Monster - Staff, Wood w/ Spiral Head White Low Purple Glow",
+  "pt": "Monster - Staff, Wood w/ Spiral Head White Low Purple Glow",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13750,
+  "en": "Monster - Staff, Jeweled Blue Staff",
+  "pt": "Monster - Staff, Jeweled Blue Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13751,
+  "en": "Monster - Staff, Jeweled Yellow Staff",
+  "pt": "Monster - Staff, Jeweled Yellow Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13753,
+  "en": "Monster - Staff, Jeweled Green Staff",
+  "pt": "Monster - Staff, Jeweled Green Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 13814,
+  "en": "Monster - Shield, Stromgarde B03",
+  "pt": "Monster - Shield, Stromgarde B03",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 13854,
+  "en": "Monster - Item, Tankard Dirty Offhand",
+  "pt": "Monster - Item, Tankard Dirty Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13855,
+  "en": "Monster - Item, Tankard Metal Offhand",
+  "pt": "Monster - Item, Tankard Metal Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13859,
+  "en": "Monster - Item, Tankard Wooden Offhand",
+  "pt": "Monster - Item, Tankard Wooden Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13862,
+  "en": "Monster - Item, Tankard Gold Offhand",
+  "pt": "Monster - Item, Tankard Gold Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 13876,
+  "en": "40 Pound Grouper",
+  "pt": "Garoupa de 18 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13877,
+  "en": "47 Pound Grouper",
+  "pt": "Garoupa de 21 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13878,
+  "en": "53 Pound Grouper",
+  "pt": "Garoupa de 24 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13879,
+  "en": "59 Pound Grouper",
+  "pt": "Garoupa de 27 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13880,
+  "en": "68 Pound Grouper",
+  "pt": "Garoupa de 31 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13882,
+  "en": "42 Pound Redgill",
+  "pt": "Guelruba de 19 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13883,
+  "en": "45 Pound Redgill",
+  "pt": "Guelruba de 20 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13884,
+  "en": "49 Pound Redgill",
+  "pt": "Guelruba de 22 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13885,
+  "en": "34 Pound Redgill",
+  "pt": "Guelruba de 15 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13886,
+  "en": "37 Pound Redgill",
+  "pt": "Guelruba de 17 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13887,
+  "en": "52 Pound Redgill",
+  "pt": "Guelruba de 24 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13901,
+  "en": "15 Pound Salmon",
+  "pt": "Salmão de 7 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13902,
+  "en": "18 Pound Salmon",
+  "pt": "Salmão de 8 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13903,
+  "en": "22 Pound Salmon",
+  "pt": "Salmão de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13904,
+  "en": "25 Pound Salmon",
+  "pt": "Salmão de 11 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13905,
+  "en": "29 Pound Salmon",
+  "pt": "Salmão de 13 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13906,
+  "en": "32 Pound Salmon",
+  "pt": "Salmão de 15 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13907,
+  "en": "7 Pound Lobster",
+  "pt": "Lagosta de 3 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13908,
+  "en": "9 Pound Lobster",
+  "pt": "Lagosta de 4 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13909,
+  "en": "12 Pound Lobster",
+  "pt": "Lagosta de 5 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13910,
+  "en": "15 Pound Lobster",
+  "pt": "Lagosta de 7 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13911,
+  "en": "19 Pound Lobster",
+  "pt": "Lagosta de 9 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13912,
+  "en": "21 Pound Lobster",
+  "pt": "Lagosta de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13913,
+  "en": "22 Pound Lobster",
+  "pt": "Lagosta de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13915,
+  "en": "85 Pound Mightfish",
+  "pt": "Parrudo de 39 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13917,
+  "en": "103 Pound Mightfish",
+  "pt": "Parrudo de 47 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13922,
+  "en": "Monster - Shield, B01 WoodSteelCap",
+  "pt": "Monster - Shield, B01 WoodSteelCap",
+  "sinais": [
+   "maiuscula-meio",
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 13923,
+  "en": "Monster - Gun, Tauren Blade Silver",
+  "pt": "Monster - Gun, Tauren Blade Silver",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 13924,
+  "en": "Monster - Gun, Tauren Scope Blade Feathered Silver Deluxe",
+  "pt": "Monster - Gun, Tauren Scope Blade Feathered Silver Deluxe",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 13925,
+  "en": "Monster - Mace2H, Maul B02 Silver",
+  "pt": "Monster - Mace2H, Maul B02 Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 14092,
+  "en": "Monster - Staff, Holy Staff Archbishop Benedictus",
+  "pt": "Monster - Staff, Holy Staff Archbishop Benedictus",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14118,
+  "en": "Monster - Bow, C02/B02 Black",
+  "pt": "Monster - Bow, C02/B02 Black",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 14524,
+  "en": "Monster - Sword, Katana 2H Gold",
+  "pt": "Monster - Sword, Katana 2H Gold",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 14527,
+  "en": "Monster - Mace2H, Horde Hammer A03 Dark",
+  "pt": "Monster - Mace2H, Horde Hammer A03 Dark",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 14618,
+  "en": "Monster - Staff, Jeweled Red Staff Low Red Flame",
+  "pt": "Monster - Staff, Jeweled Red Staff Low Red Flame",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14642,
+  "en": "Monster - Gun, Tauren Feathers Silver",
+  "pt": "Monster - Gun, Tauren Feathers Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 14651,
+  "en": "Deathknell Gift Voucher",
+  "pt": "Cupom de Presente de Vila Plangente",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 14706,
+  "en": "Monster - Staff, 3 Piece Taped Staff Purple",
+  "pt": "Monster - Staff, 3 Piece Taped Staff Purple",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14707,
+  "en": "Monster - Staff, 3 Piece Taped Staff Blue",
+  "pt": "Monster - Staff, 3 Piece Taped Staff Blue",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14818,
+  "en": "Monster - Mace2H, Horde Spiked Maul",
+  "pt": "Monster - Mace2H, Horde Spiked Maul",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 14820,
+  "en": "Monster - Mace2H, Horde Skull Maul",
+  "pt": "Monster - Mace2H, Horde Skull Maul",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 14822,
+  "en": "Monster - Mace2H, Horde Metal Spiked Maul",
+  "pt": "Monster - Mace2H, Horde Metal Spiked Maul",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 14823,
+  "en": "Monster - Mace2H, Horde Red Spiked Badass",
+  "pt": "Monster - Mace2H, Horde Red Spiked Badass",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 14824,
+  "en": "Monster - Mace2H, Horde Black Spiked Badass",
+  "pt": "Monster - Mace2H, Horde Black Spiked Badass",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 14836,
+  "en": "Monster - Staff, Ornate Jeweled Staff - Purple",
+  "pt": "Monster - Staff, Ornate Jeweled Staff - Purple",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14837,
+  "en": "Monster - Staff, Ornate Jeweled Staff - Purple Low Purple Glow",
+  "pt": "Monster - Staff, Ornate Jeweled Staff - Purple Low Purple Glow",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14845,
+  "en": "Monster - Staff, Wooden Handle Rounded Head Low Yellow Glow",
+  "pt": "Monster - Staff, Wooden Handle Rounded Head Low Yellow Glow",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14870,
+  "en": "Monster - Axe, 2H Horde Massive Spiked",
+  "pt": "Monster - Axe, 2H Horde Massive Spiked",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 14871,
+  "en": "Monster - Sword, Horde C02 Purple",
+  "pt": "Monster - Sword, Horde C02 Purple",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 14873,
+  "en": "Monster - Staff, Ornate Jeweled Staff - Blue",
+  "pt": "Monster - Staff, Ornate Jeweled Staff - Blue",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 14874,
+  "en": "Monster - Axe, Horde C02 Black",
+  "pt": "Monster - Axe, Horde C02 Black",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 14875,
+  "en": "Monster - Axe, Horde Double Blade A02",
+  "pt": "Monster - Axe, Horde Double Blade A02",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 14876,
+  "en": "Monster - Axe, Horde Crystal Blade A03",
+  "pt": "Monster - Axe, Horde Crystal Blade A03",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 14877,
+  "en": "Monster - Axe, Horde Spiked A04",
+  "pt": "Monster - Axe, Horde Spiked A04",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ }
+]

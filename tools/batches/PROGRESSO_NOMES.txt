@@ -47,3 +47,4 @@ AMOSTRA-05 | 300 (168c/132m, escape 56.0%) | OK (3 arbitragens tech-lead: Tablet
 R6-01 | 100 (10c/90m) | OK
 R6-02 | 100 (9c/91m) | OK
 R6-03 | 100 (0c/100m) | OK
+R6-04 | 100 (1c/99m) | OK

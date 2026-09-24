@@ -1,0 +1,803 @@
+[
+ {
+  "id": 16578,
+  "en": "Warlord's Mail Helm",
+  "pt": "Elmo de Malha do Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 16582,
+  "en": "Monster - Wand, Horde Green Feathered",
+  "pt": "Monster - Wand, Horde Green Feathered",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 17059,
+  "en": "Plans: Dark Iron Reaver",
+  "pt": "Planos: Reaver de Ferro Negro",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 17119,
+  "en": "Deeprun Rat Kabob",
+  "pt": "Kebab de Rato do Trilho Profundo",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 17123,
+  "en": "Monster - Sword, Horde Troll",
+  "pt": "Monster - Sword, Horde Troll",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 17282,
+  "en": "Monster - Dagger, Exotic B01 Green",
+  "pt": "Monster - Dagger, Exotic B01 Green",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 17283,
+  "en": "Monster - Dagger, Exotic B01 Red",
+  "pt": "Monster - Dagger, Exotic B01 Red",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 17383,
+  "en": "Monster - Axe, 2H Horde Black War Axe",
+  "pt": "Monster - Axe, 2H Horde Black War Axe",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 17462,
+  "en": "Monster - Axe, Horde B02 Silver",
+  "pt": "Monster - Axe, Horde B02 Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 17463,
+  "en": "Monster - Axe, 2H Horde Blue War Axe",
+  "pt": "Monster - Axe, 2H Horde Blue War Axe",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 17482,
+  "en": "Monster - Shield, B01 WoodCopperCap",
+  "pt": "Monster - Shield, B01 WoodCopperCap",
+  "sinais": [
+   "maiuscula-meio",
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 17602,
+  "en": "Field Marshal's Headdress",
+  "pt": "Adereço de Cabeça do Marechal de Campo",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 17690,
+  "en": "Frostwolf Insignia Rank 1",
+  "pt": "Insígnia Frostwolf Rank 1",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 17716,
+  "en": "SnowMaster 9000",
+  "pt": "SnowMaster 9000",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 17728,
+  "en": "Albino Crocscale Boots",
+  "pt": "Botas de Escamas de Crocodilo Albino",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 17905,
+  "en": "Frostwolf Insignia Rank 2",
+  "pt": "Insígnia Frostwolf Rank 2",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 17906,
+  "en": "Frostwolf Insignia Rank 3",
+  "pt": "Insígnia Frostwolf Rank 3",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 17907,
+  "en": "Frostwolf Insignia Rank 4",
+  "pt": "Insígnia Frostwolf Rank 4",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 17908,
+  "en": "Frostwolf Insignia Rank 5",
+  "pt": "Insígnia Frostwolf Rank 5",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 17909,
+  "en": "Frostwolf Insignia Rank 6",
+  "pt": "Insígnia Frostwolf Rank 6",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 17942,
+  "en": "Monster - Mace2H, War Maul",
+  "pt": "Monster - Mace2H, War Maul",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 18002,
+  "en": "Monster - Axe, 2H Horde Massive Spiked Blue",
+  "pt": "Monster - Axe, 2H Horde Massive Spiked Blue",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 18062,
+  "en": "Monster - Mace2H, Horde Hammer A03/C01Black",
+  "pt": "Monster - Mace2H, Horde Hammer A03/C01Black",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 18122,
+  "en": "Monster - Staff, Ornate Jeweled Staff - Blue High Blue Glow",
+  "pt": "Monster - Staff, Ornate Jeweled Staff - Blue High Blue Glow",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 18123,
+  "en": "Monster - Staff, Feathered Silver Glow",
+  "pt": "Monster - Staff, Feathered Silver Glow",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 18166,
+  "en": "Monster - Shield, Royal Dreadguard",
+  "pt": "Monster - Shield, Royal Dreadguard",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 18167,
+  "en": "Monster - Sword, Machete C01",
+  "pt": "Monster - Sword, Machete C01",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 18282,
+  "en": "Core Marksman Rifle",
+  "pt": "Rifle de Atirador de Elite do Núcleo",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 18293,
+  "en": "Monster - Glaive - 2 Blade B03 Green",
+  "pt": "Monster - Glaive - 2 Blade B03 Green",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 18358,
+  "en": "The Arcanist's Cookbook",
+  "pt": "O Livro de Receitas do Arcanista",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 18419,
+  "en": "Monster - Axe, 2H Horde Red War Axe",
+  "pt": "Monster - Axe, 2H Horde Red War Axe",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 18596,
+  "en": "Monster - Axe, Horde B01 Green",
+  "pt": "Monster - Axe, Horde B01 Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 18644,
+  "en": "Monster - Staff, Ornate Jeweled Staff - Red Low Red Flame",
+  "pt": "Monster - Staff, Ornate Jeweled Staff - Red Low Red Flame",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 18744,
+  "en": "Plaguebat Fur Gloves",
+  "pt": "Luvas de Pele de Morcego da Peste",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 18775,
+  "en": "Manna-Enriched Horse Feed",
+  "pt": "Ração de Cavalo Enriquecida com Manna",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 18826,
+  "en": "High Warlord's Shield Wall",
+  "pt": "Muralha do Escudo do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 18831,
+  "en": "High Warlord's Battle Axe",
+  "pt": "Machado de Batalha do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 18835,
+  "en": "High Warlord's Recurve",
+  "pt": "Arco Recurvo do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 18837,
+  "en": "High Warlord's Crossbow",
+  "pt": "Besta do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 18840,
+  "en": "High Warlord's Razor",
+  "pt": "Navalha do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 18866,
+  "en": "High Warlord's Bludgeon",
+  "pt": "Clava do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 18868,
+  "en": "High Warlord's Pulverizer",
+  "pt": "Pulverizador do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 18871,
+  "en": "High Warlord's Pig Sticker",
+  "pt": "Estaca de Porco do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 18874,
+  "en": "High Warlord's War Staff",
+  "pt": "Cajado de Guerra do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 18877,
+  "en": "High Warlord's Greatsword",
+  "pt": "Espada Grande do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 18983,
+  "en": "Monster - Sword, Longsword Exotic Black - Low Red Flame",
+  "pt": "Monster - Sword, Longsword Exotic Black - Low Red Flame",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 18985,
+  "en": "Monster - Sword, Long Silver - Green Pommel - High Black Glow",
+  "pt": "Monster - Sword, Long Silver - Green Pommel - High Black Glow",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 19014,
+  "en": "Monster - Item, 2H Horde Wood Axe",
+  "pt": "Monster - Item, 2H Horde Wood Axe",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 19041,
+  "en": "Pratt's Handcrafted Tunic",
+  "pt": "Túnica Feita à Mão de Pratt",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19160,
+  "en": "Turtle WoW Tabard",
+  "pt": "Tabardo de Turtle WoW",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 19214,
+  "en": "Monster - Staff, Wooden Handle Spiral Head Dark",
+  "pt": "Monster - Staff, Wooden Handle Spiral Head Dark",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 19292,
+  "en": "Last Month's Mutton",
+  "pt": "Carne de Ovelha do Último Mês",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19293,
+  "en": "Last Year's Mutton",
+  "pt": "Carne de Ovelha do Ano Passado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19348,
+  "en": "Red Dragonscale Protector",
+  "pt": "Protetor de Escama de Dragão Vermelho",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19366,
+  "en": "Master Dragonslayer's Orb",
+  "pt": "Orbe do Mestre Matador de Dragões",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19368,
+  "en": "Dragonbreath Hand Cannon",
+  "pt": "Canhão de Mão Sopro de Dragão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19383,
+  "en": "Master Dragonslayer's Medallion",
+  "pt": "Medalhão do Mestre Matador de Dragões",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19384,
+  "en": "Master Dragonslayer's Ring",
+  "pt": "Anel do Mestre Matador de Dragões",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19389,
+  "en": "Taut Dragonhide Shoulderpads",
+  "pt": "Ombreiras de Couro de Dragão Tenso",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19390,
+  "en": "Taut Dragonhide Gloves",
+  "pt": "Luvas de Couro de Dragão Tenso",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19396,
+  "en": "Taut Dragonhide Belt",
+  "pt": "Cinto de Couro de Dragão Tenso",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19485,
+  "en": "Monster - Item, Fish - Blue Offhand",
+  "pt": "Monster - Item, Fish - Blue Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 19486,
+  "en": "Monster - Item, Fish - Green Offhand",
+  "pt": "Monster - Item, Fish - Green Offhand",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 19487,
+  "en": "Monster - Item, Fish - Orange Offhand",
+  "pt": "Monster - Item, Fish - Orange Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 19488,
+  "en": "Monster - Item, Fish - Purple Offhand",
+  "pt": "Monster - Item, Fish - Purple Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 19623,
+  "en": "Monster - Mace2H, Horde B01/B01 Orange",
+  "pt": "Monster - Mace2H, Horde B01/B01 Orange",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 19642,
+  "en": "iCoke Prize Voucher",
+  "pt": "Voucher de Prêmio iCoke",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 19762,
+  "en": "Monster - Axe, Horde C04 Purple",
+  "pt": "Monster - Axe, Horde C04 Purple",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 19763,
+  "en": "Monster - Shield, Round A01/Buckler Damaged A02Black",
+  "pt": "Monster - Shield, Round A01/Buckler Damaged A02Black",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 19825,
+  "en": "Zandalar Freethinker's Breastplate",
+  "pt": "Peitoral de Pensador Livre de Zandalar",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19826,
+  "en": "Zandalar Freethinker's Belt",
+  "pt": "Cinto de Pensador Livre de Zandalar",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19827,
+  "en": "Zandalar Freethinker's Armguards",
+  "pt": "Braçadeiras de Pensador Livre de Zandalar",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19907,
+  "en": "Zulian Tigerhide Cloak",
+  "pt": "Capa de Pele de Tigre Zuliana",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 19916,
+  "en": "Monster - Mace, Standard Serpent Green",
+  "pt": "Monster - Mace, Standard Serpent Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 19917,
+  "en": "Monster - Wand, Horde A01 Green",
+  "pt": "Monster - Wand, Horde A01 Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 19924,
+  "en": "Monster - Dagger, Fang Hook Curve Dark",
+  "pt": "Monster - Dagger, Fang Hook Curve Dark",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 19980,
+  "en": "Monster - Dagger, Ornate Spikey Base Red",
+  "pt": "Monster - Dagger, Ornate Spikey Base Red",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 19981,
+  "en": "Monster - Sword2H, Claymore B01/Broadsword A03 Black Sharpened",
+  "pt": "Monster - Sword2H, Claymore B01/Broadsword A03 Black Sharpened",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 19983,
+  "en": "Monster - Wand, Horde Demon Skull Red",
+  "pt": "Monster - Wand, Horde Demon Skull Red",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 19987,
+  "en": "Monster - Dagger, Vulture Black",
+  "pt": "Monster - Dagger, Vulture Black",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 19988,
+  "en": "Monster - Mace2H, Horde C01 Steel (Green)",
+  "pt": "Monster - Mace2H, Horde C01 Steel (Green)",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 20011,
+  "en": "Recipe: Mageblood Potion",
+  "pt": "Receita: Poção de Sangue de Mago",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 20017,
+  "en": "Perfect Courser Antler",
+  "pt": "Chifre de Courser Perfeito",
+  "sinais": [
+   "tok-remnant:courser=>Ginete"
+  ]
+ },
+ {
+  "id": 20086,
+  "en": "Dusksteel Throwing Knife",
+  "pt": "Faca de Arremesso de Aço do Crepúsculo",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20167,
+  "en": "Defiler's Lizardhide Boots",
+  "pt": "Botas de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20168,
+  "en": "Defiler's Lizardhide Boots",
+  "pt": "Botas de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20169,
+  "en": "Defiler's Lizardhide Boots",
+  "pt": "Botas de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20170,
+  "en": "Defiler's Lizardhide Boots",
+  "pt": "Botas de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20171,
+  "en": "Defiler's Lizardhide Girdle",
+  "pt": "Cinturão de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20172,
+  "en": "Defiler's Lizardhide Girdle",
+  "pt": "Cinturão de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20173,
+  "en": "Defiler's Lizardhide Girdle",
+  "pt": "Cinturão de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20174,
+  "en": "Defiler's Lizardhide Girdle",
+  "pt": "Cinturão de Couro de Lagarto do Profanador",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 20295,
+  "en": "Blue Dragonscale Leggings",
+  "pt": "Perneiras de Escama de Dragão Azul",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 20296,
+  "en": "Green Dragonscale Gauntlets",
+  "pt": "Luvas de Escama de Dragão Verde",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 20417,
+  "en": "Monster - Glaive - 2 Blade Silver (offhand)",
+  "pt": "Monster - Glaive - 2 Blade Silver (offhand)",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 20468,
+  "en": "Monster - Item, Orb - A01 Green",
+  "pt": "Monster - Item, Orb - A01 Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 20579,
+  "en": "Green Dragonskin Cloak",
+  "pt": "Capa de Pele de Dragão Verde",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 20643,
+  "en": "Undercity Reservist's Cap",
+  "pt": "Capacete do Reservista de Cidade Baixa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 20666,
+  "en": "Hardened Steel Warhammer",
+  "pt": "Martelo de Guerra de Aço Endurecido",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 20718,
+  "en": "Monster - Staff, Jeweled Yellow Staff w/Low Purple Glow",
+  "pt": "Monster - Staff, Jeweled Yellow Staff w/Low Purple Glow",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ }
+]

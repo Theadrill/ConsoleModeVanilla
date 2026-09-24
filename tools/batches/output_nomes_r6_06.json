@@ -1,0 +1,702 @@
+[
+  {
+    "id": 16578,
+    "en": "Warlord's Mail Helm",
+    "veredito": "manter",
+    "pt_final": "Elmo de Malha do Senhor da Guerra",
+    "motivo": "pt correto e completo, sem tokens proibidos"
+  },
+  {
+    "id": 16582,
+    "en": "Monster - Wand, Horde Green Feathered",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Horde Green Feathered",
+    "motivo": "Item GM (Monster - ...), manter pt original"
+  },
+  {
+    "id": 17059,
+    "en": "Plans: Dark Iron Reaver",
+    "veredito": "corrigir",
+    "pt_final": "Planos: Abutre de Ferro Negro",
+    "motivo": "Reaver deve ser traduzido para Abutre conforme regra obrigatória"
+  },
+  {
+    "id": 17119,
+    "en": "Deeprun Rat Kabob",
+    "veredito": "manter",
+    "pt_final": "Kebab de Rato do Trilho Profundo",
+    "motivo": "pt correto, sem tokens proibidos ou obrigatórios pendentes"
+  },
+  {
+    "id": 17123,
+    "en": "Monster - Sword, Horde Troll",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Horde Troll",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 17282,
+    "en": "Monster - Dagger, Exotic B01 Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Exotic B01 Green",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 17283,
+    "en": "Monster - Dagger, Exotic B01 Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Exotic B01 Red",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 17383,
+    "en": "Monster - Axe, 2H Horde Black War Axe",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, 2H Horde Black War Axe",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 17462,
+    "en": "Monster - Axe, Horde B02 Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Horde B02 Silver",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 17463,
+    "en": "Monster - Axe, 2H Horde Blue War Axe",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, 2H Horde Blue War Axe",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 17482,
+    "en": "Monster - Shield, B01 WoodCopperCap",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, B01 WoodCopperCap",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 17602,
+    "en": "Field Marshal's Headdress",
+    "veredito": "manter",
+    "pt_final": "Adereço de Cabeça do Marechal de Campo",
+    "motivo": "pt correto, Marshal->Marechal aplicado"
+  },
+  {
+    "id": 17690,
+    "en": "Frostwolf Insignia Rank 1",
+    "veredito": "manter",
+    "pt_final": "Insígnia Frostwolf Rank 1",
+    "motivo": "Frostwolf é do glossário (manter), Rank mantido conforme regra 6"
+  },
+  {
+    "id": 17716,
+    "en": "SnowMaster 9000",
+    "veredito": "manter",
+    "pt_final": "SnowMaster 9000",
+    "motivo": "SnowMaster é nome próprio, pt está correto"
+  },
+  {
+    "id": 17728,
+    "en": "Albino Crocscale Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Escamas de Crocodilo Albino",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 17905,
+    "en": "Frostwolf Insignia Rank 2",
+    "veredito": "manter",
+    "pt_final": "Insígnia Frostwolf Rank 2",
+    "motivo": "Frostwolf é do glossário (manter), Rank mantido conforme regra 6"
+  },
+  {
+    "id": 17906,
+    "en": "Frostwolf Insignia Rank 3",
+    "veredito": "manter",
+    "pt_final": "Insígnia Frostwolf Rank 3",
+    "motivo": "Frostwolf é do glossário (manter), Rank mantido conforme regra 6"
+  },
+  {
+    "id": 17907,
+    "en": "Frostwolf Insignia Rank 4",
+    "veredito": "manter",
+    "pt_final": "Insígnia Frostwolf Rank 4",
+    "motivo": "Frostwolf é do glossário (manter), Rank mantido conforme regra 6"
+  },
+  {
+    "id": 17908,
+    "en": "Frostwolf Insignia Rank 5",
+    "veredito": "manter",
+    "pt_final": "Insígnia Frostwolf Rank 5",
+    "motivo": "Frostwolf é do glossário (manter), Rank mantido conforme regra 6"
+  },
+  {
+    "id": 17909,
+    "en": "Frostwolf Insignia Rank 6",
+    "veredito": "manter",
+    "pt_final": "Insígnia Frostwolf Rank 6",
+    "motivo": "Frostwolf é do glossário (manter), Rank mantido conforme regra 6"
+  },
+  {
+    "id": 17942,
+    "en": "Monster - Mace2H, War Maul",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace2H, War Maul",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18002,
+    "en": "Monster - Axe, 2H Horde Massive Spiked Blue",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, 2H Horde Massive Spiked Blue",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18062,
+    "en": "Monster - Mace2H, Horde Hammer A03/C01Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace2H, Horde Hammer A03/C01Black",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18122,
+    "en": "Monster - Staff, Ornate Jeweled Staff - Blue High Blue Glow",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Ornate Jeweled Staff - Blue High Blue Glow",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18123,
+    "en": "Monster - Staff, Feathered Silver Glow",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Feathered Silver Glow",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18166,
+    "en": "Monster - Shield, Royal Dreadguard",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Royal Dreadguard",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18167,
+    "en": "Monster - Sword, Machete C01",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Machete C01",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18282,
+    "en": "Core Marksman Rifle",
+    "veredito": "manter",
+    "pt_final": "Rifle de Atirador de Elite do Núcleo",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18293,
+    "en": "Monster - Glaive - 2 Blade B03 Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Glaive - 2 Blade B03 Green",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18358,
+    "en": "The Arcanist's Cookbook",
+    "veredito": "manter",
+    "pt_final": "O Livro de Receitas do Arcanista",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18419,
+    "en": "Monster - Axe, 2H Horde Red War Axe",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, 2H Horde Red War Axe",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18596,
+    "en": "Monster - Axe, Horde B01 Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Horde B01 Green",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18644,
+    "en": "Monster - Staff, Ornate Jeweled Staff - Red Low Red Flame",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Ornate Jeweled Staff - Red Low Red Flame",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18744,
+    "en": "Plaguebat Fur Gloves",
+    "veredito": "manter",
+    "pt_final": "Luvas de Pele de Morcego da Peste",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18775,
+    "en": "Manna-Enriched Horse Feed",
+    "veredito": "manter",
+    "pt_final": "Ração de Cavalo Enriquecida com Manna",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18826,
+    "en": "High Warlord's Shield Wall",
+    "veredito": "manter",
+    "pt_final": "Muralha do Escudo do Alto Senhor da Guerra",
+    "motivo": "pt correto, Shield->Escudo aplicado"
+  },
+  {
+    "id": 18831,
+    "en": "High Warlord's Battle Axe",
+    "veredito": "manter",
+    "pt_final": "Machado de Batalha do Alto Senhor da Guerra",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18835,
+    "en": "High Warlord's Recurve",
+    "veredito": "manter",
+    "pt_final": "Arco Recurvo do Alto Senhor da Guerra",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18837,
+    "en": "High Warlord's Crossbow",
+    "veredito": "manter",
+    "pt_final": "Besta do Alto Senhor da Guerra",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18840,
+    "en": "High Warlord's Razor",
+    "veredito": "manter",
+    "pt_final": "Navalha do Alto Senhor da Guerra",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18866,
+    "en": "High Warlord's Bludgeon",
+    "veredito": "manter",
+    "pt_final": "Clava do Alto Senhor da Guerra",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18868,
+    "en": "High Warlord's Pulverizer",
+    "veredito": "manter",
+    "pt_final": "Pulverizador do Alto Senhor da Guerra",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18871,
+    "en": "High Warlord's Pig Sticker",
+    "veredito": "manter",
+    "pt_final": "Estaca de Porco do Alto Senhor da Guerra",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 18874,
+    "en": "High Warlord's War Staff",
+    "veredito": "manter",
+    "pt_final": "Cajado de Guerra do Alto Senhor da Guerra",
+    "motivo": "pt correto, Staff->Cajado aplicado"
+  },
+  {
+    "id": 18877,
+    "en": "High Warlord's Greatsword",
+    "veredito": "manter",
+    "pt_final": "Espada Grande do Alto Senhor da Guerra",
+    "motivo": "pt correto, Sword->Espada aplicado"
+  },
+  {
+    "id": 18983,
+    "en": "Monster - Sword, Longsword Exotic Black - Low Red Flame",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Longsword Exotic Black - Low Red Flame",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 18985,
+    "en": "Monster - Sword, Long Silver - Green Pommel - High Black Glow",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Long Silver - Green Pommel - High Black Glow",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19014,
+    "en": "Monster - Item, 2H Horde Wood Axe",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, 2H Horde Wood Axe",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19041,
+    "en": "Pratt's Handcrafted Tunic",
+    "veredito": "manter",
+    "pt_final": "Túnica Feita à Mão de Pratt",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19160,
+    "en": "Turtle WoW Tabard",
+    "veredito": "manter",
+    "pt_final": "Tabardo de Turtle WoW",
+    "motivo": "pt correto, Turtle WoW é nome próprio"
+  },
+  {
+    "id": 19214,
+    "en": "Monster - Staff, Wooden Handle Spiral Head Dark",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Wooden Handle Spiral Head Dark",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19292,
+    "en": "Last Month's Mutton",
+    "veredito": "manter",
+    "pt_final": "Carne de Ovelha do Último Mês",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19293,
+    "en": "Last Year's Mutton",
+    "veredito": "manter",
+    "pt_final": "Carne de Ovelha do Ano Passado",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19348,
+    "en": "Red Dragonscale Protector",
+    "veredito": "manter",
+    "pt_final": "Protetor de Escama de Dragão Vermelho",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19366,
+    "en": "Master Dragonslayer's Orb",
+    "veredito": "manter",
+    "pt_final": "Orbe do Mestre Matador de Dragões",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19368,
+    "en": "Dragonbreath Hand Cannon",
+    "veredito": "manter",
+    "pt_final": "Canhão de Mão Sopro de Dragão",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19383,
+    "en": "Master Dragonslayer's Medallion",
+    "veredito": "manter",
+    "pt_final": "Medalhão do Mestre Matador de Dragões",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19384,
+    "en": "Master Dragonslayer's Ring",
+    "veredito": "manter",
+    "pt_final": "Anel do Mestre Matador de Dragões",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19389,
+    "en": "Taut Dragonhide Shoulderpads",
+    "veredito": "manter",
+    "pt_final": "Ombreiras de Couro de Dragão Tenso",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19390,
+    "en": "Taut Dragonhide Gloves",
+    "veredito": "manter",
+    "pt_final": "Luvas de Couro de Dragão Tenso",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19396,
+    "en": "Taut Dragonhide Belt",
+    "veredito": "manter",
+    "pt_final": "Cinto de Couro de Dragão Tenso",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19485,
+    "en": "Monster - Item, Fish - Blue Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Fish - Blue Offhand",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19486,
+    "en": "Monster - Item, Fish - Green Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Fish - Green Offhand",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19487,
+    "en": "Monster - Item, Fish - Orange Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Fish - Orange Offhand",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19488,
+    "en": "Monster - Item, Fish - Purple Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Fish - Purple Offhand",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19623,
+    "en": "Monster - Mace2H, Horde B01/B01 Orange",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace2H, Horde B01/B01 Orange",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19642,
+    "en": "iCoke Prize Voucher",
+    "veredito": "manter",
+    "pt_final": "Voucher de Prêmio iCoke",
+    "motivo": "pt correto, iCoke é nome próprio"
+  },
+  {
+    "id": 19762,
+    "en": "Monster - Axe, Horde C04 Purple",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Horde C04 Purple",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19763,
+    "en": "Monster - Shield, Round A01/Buckler Damaged A02Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Round A01/Buckler Damaged A02Black",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19825,
+    "en": "Zandalar Freethinker's Breastplate",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Pensador Livre de Zandalar",
+    "motivo": "pt correto, Zandalar é do glossário (manter)"
+  },
+  {
+    "id": 19826,
+    "en": "Zandalar Freethinker's Belt",
+    "veredito": "manter",
+    "pt_final": "Cinto de Pensador Livre de Zandalar",
+    "motivo": "pt correto, Zandalar é do glossário (manter)"
+  },
+  {
+    "id": 19827,
+    "en": "Zandalar Freethinker's Armguards",
+    "veredito": "manter",
+    "pt_final": "Braçadeiras de Pensador Livre de Zandalar",
+    "motivo": "pt correto, Zandalar é do glossário (manter)"
+  },
+  {
+    "id": 19907,
+    "en": "Zulian Tigerhide Cloak",
+    "veredito": "manter",
+    "pt_final": "Capa de Pele de Tigre Zuliana",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 19916,
+    "en": "Monster - Mace, Standard Serpent Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace, Standard Serpent Green",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19917,
+    "en": "Monster - Wand, Horde A01 Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Horde A01 Green",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19924,
+    "en": "Monster - Dagger, Fang Hook Curve Dark",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Fang Hook Curve Dark",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19980,
+    "en": "Monster - Dagger, Ornate Spikey Base Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Ornate Spikey Base Red",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19981,
+    "en": "Monster - Sword2H, Claymore B01/Broadsword A03 Black Sharpened",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Claymore B01/Broadsword A03 Black Sharpened",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19983,
+    "en": "Monster - Wand, Horde Demon Skull Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Horde Demon Skull Red",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19987,
+    "en": "Monster - Dagger, Vulture Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Vulture Black",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 19988,
+    "en": "Monster - Mace2H, Horde C01 Steel (Green)",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace2H, Horde C01 Steel (Green)",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 20011,
+    "en": "Recipe: Mageblood Potion",
+    "veredito": "manter",
+    "pt_final": "Receita: Poção de Sangue de Mago",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20017,
+    "en": "Perfect Courser Antler",
+    "veredito": "corrigir",
+    "pt_final": "Chifre de Ginete Perfeito",
+    "motivo": "Courser deve ser traduzido para Ginete conforme AMOSTRA-05"
+  },
+  {
+    "id": 20086,
+    "en": "Dusksteel Throwing Knife",
+    "veredito": "manter",
+    "pt_final": "Faca de Arremesso de Aço do Crepúsculo",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20167,
+    "en": "Defiler's Lizardhide Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Couro de Lagarto do Profanador",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20168,
+    "en": "Defiler's Lizardhide Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Couro de Lagarto do Profanador",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20169,
+    "en": "Defiler's Lizardhide Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Couro de Lagarto do Profanador",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20170,
+    "en": "Defiler's Lizardhide Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Couro de Lagarto do Profanador",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20171,
+    "en": "Defiler's Lizardhide Girdle",
+    "veredito": "manter",
+    "pt_final": "Cinturão de Couro de Lagarto do Profanador",
+    "motivo": "pt correto, Girdle->Cinturão aplicado"
+  },
+  {
+    "id": 20172,
+    "en": "Defiler's Lizardhide Girdle",
+    "veredito": "manter",
+    "pt_final": "Cinturão de Couro de Lagarto do Profanador",
+    "motivo": "pt correto, Girdle->Cinturão aplicado"
+  },
+  {
+    "id": 20173,
+    "en": "Defiler's Lizardhide Girdle",
+    "veredito": "manter",
+    "pt_final": "Cinturão de Couro de Lagarto do Profanador",
+    "motivo": "pt correto, Girdle->Cinturão aplicado"
+  },
+  {
+    "id": 20174,
+    "en": "Defiler's Lizardhide Girdle",
+    "veredito": "manter",
+    "pt_final": "Cinturão de Couro de Lagarto do Profanador",
+    "motivo": "pt correto, Girdle->Cinturão aplicado"
+  },
+  {
+    "id": 20295,
+    "en": "Blue Dragonscale Leggings",
+    "veredito": "manter",
+    "pt_final": "Perneiras de Escama de Dragão Azul",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20296,
+    "en": "Green Dragonscale Gauntlets",
+    "veredito": "manter",
+    "pt_final": "Luvas de Escama de Dragão Verde",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20417,
+    "en": "Monster - Glaive - 2 Blade Silver (offhand)",
+    "veredito": "manter",
+    "pt_final": "Monster - Glaive - 2 Blade Silver (offhand)",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 20468,
+    "en": "Monster - Item, Orb - A01 Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Orb - A01 Green",
+    "motivo": "Item GM (Monster - ...)"
+  },
+  {
+    "id": 20579,
+    "en": "Green Dragonskin Cloak",
+    "veredito": "manter",
+    "pt_final": "Capa de Pele de Dragão Verde",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20643,
+    "en": "Undercity Reservist's Cap",
+    "veredito": "manter",
+    "pt_final": "Capacete do Reservista de Cidade Baixa",
+    "motivo": "pt correto, Cidade Baixa é do glossário (manter)"
+  },
+  {
+    "id": 20666,
+    "en": "Hardened Steel Warhammer",
+    "veredito": "manter",
+    "pt_final": "Martelo de Guerra de Aço Endurecido",
+    "motivo": "pt correto"
+  },
+  {
+    "id": 20718,
+    "en": "Monster - Staff, Jeweled Yellow Staff w/Low Purple Glow",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Jeweled Yellow Staff w/Low Purple Glow",
+    "motivo": "Item GM (Monster - ...)"
+  }
+]

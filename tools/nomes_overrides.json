@@ -9762,5 +9762,13 @@
  "16051": {
   "pt": "Esquema: Munições de Tório",
   "motivo": "Thorium deve ser traduzido para Tório conforme regra 2."
+ },
+ "17059": {
+  "pt": "Planos: Abutre de Ferro Negro",
+  "motivo": "Reaver deve ser traduzido para Abutre conforme regra obrigatória"
+ },
+ "20017": {
+  "pt": "Chifre de Ginete Perfeito",
+  "motivo": "Courser deve ser traduzido para Ginete conforme AMOSTRA-05"
  }
 }

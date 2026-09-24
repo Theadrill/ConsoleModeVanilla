@@ -510,6 +510,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 > - **REGRA DE QUOTA:** varredura/detecção com N agentes em paralelo; **tradução com MÁX 2 agentes por vez**. Glossário canônico do §8.8 vale aqui.
 > - **Superfícies já triadas e limpas:** `item_pt_authoral.json` (1.975; só 1 falso positivo no word-ratio) — sem lotes, só QA por amostragem. **Pendente pós-spells:** typos em `ItemDB_ptBR.lua` (24.542 nomes; "Glugelo", "Batida no Chão × Trovoada" conhecidos) e polish das strings de UI/addon.
 > - **Retomada:** próximo lote = 1 + última linha do `PROGRESSO_LEGADO.txt`. Sem push sem ordem.
+> - **STATUS 24/09: FASE L COMPLETA — 783/783 em 16 lotes (L01–L16), `validate_pair` + `luac -p` OK em todos, commits locais por lote.** Re-detecção pós-fase: só 4 resíduos, todos keeps corretos (1 com `NOTE:` interno do DBC corretamente ignorado + 3 idiomáticos `Boa sorte!/Brinde supremo!/Boas Festas!`). Fila/inputs originais restaurados no git (re-detecção não commitada).
 
 ---
 

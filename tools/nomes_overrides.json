@@ -9898,5 +9898,13 @@
  "4123": {
   "pt": "Ombreiras de Metal de Gelo",
   "motivo": "Spaulders(EN) substituido por Ombreiras (oficial); Pauldrons->Ombreiras. Frota->Gelo OK."
+ },
+ "9242": {
+  "pt": "Tablete Antigo",
+  "motivo": "Tablet->Tablete (oficial); genero: Antiga->Antigo (tablete=masc)."
+ },
+ "14920": {
+  "pt": "Diadema de Harmonia de Jade",
+  "motivo": "circlet->Diadema (oficial)."
  }
 }

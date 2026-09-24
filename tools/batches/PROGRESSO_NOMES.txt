@@ -55,3 +55,8 @@ R6-08 | 76 (19c/57m) | OK
 AMOSTRA-06 | 300 (2c/298m, escape 0.7%) | OK (2 falsos-negativos: Tabuleta->Tablete, Spaulders->Ombreiras)
 ---
 R6 TOTAL | 776 (66c/710m) | FASE N ENCERRADA (escape AMOSTRA-06 = 0.7% < 1%)
+AMOSTRA-06b | 300 (0c/300m, escape 0.0%) | OK
+AMOSTRA-06c | 300 (1c/299m, escape 0.3%) | OK (Tabuleta->Tablete, genero Antiga->Antigo)
+AMOSTRA-06d | 300 (0c/300m, escape 0.0%) | OK
+AMOSTRA-06e | 300 (1c/299m, escape 0.3%) | OK (Circlet->Diadema)
+VALIDACAO CRUZADA 5x AMOSTRA-06 | 1500 (4c/1496m, escape 0.27% < 1%) | FASE N CONFIRMADA ENCERRADA

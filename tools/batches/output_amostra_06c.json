@@ -1,0 +1,2102 @@
+[
+ {
+  "id": 2787,
+  "en": "Trogg Dagger",
+  "veredito": "manter",
+  "pt_final": "Adaga de Trogg",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41046,
+  "en": "Pincer Mitts",
+  "veredito": "manter",
+  "pt_final": "Luva de Pincer",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20606,
+  "en": "Amber Voodoo Feather",
+  "veredito": "manter",
+  "pt_final": "Pena de Vodu Âmbar",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 36583,
+  "en": "Reanimated Amani Raptor",
+  "veredito": "manter",
+  "pt_final": "Raptor Amani Reanimado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61283,
+  "en": "Darkgrasp Gloves",
+  "veredito": "manter",
+  "pt_final": "Luvas do Punho Sombrio",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19600,
+  "en": "Pebble of Kajaro",
+  "veredito": "manter",
+  "pt_final": "Pedrinha de Kajaro",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16681,
+  "en": "Beaststalker's Bindings",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras do Espreitador de Feras",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12544,
+  "en": "Thrall's Resolve",
+  "veredito": "manter",
+  "pt_final": "Resolução de Thrall",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19502,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22350,
+  "en": "Desecrated Tunic",
+  "veredito": "manter",
+  "pt_final": "Túnica Profanada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9517,
+  "en": "Celestial Stave",
+  "veredito": "manter",
+  "pt_final": "Cajado Celestial",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14681,
+  "en": "Indomitable Boots",
+  "veredito": "manter",
+  "pt_final": "Botas Indomáveis",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 47277,
+  "en": "Felheart Mantle",
+  "veredito": "manter",
+  "pt_final": "Manto Vilcórdio",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12633,
+  "en": "Whitesoul Helm",
+  "veredito": "manter",
+  "pt_final": "Elmo de Almas Brancas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 92090,
+  "en": "Dream Treasure",
+  "veredito": "manter",
+  "pt_final": "Tesouro do Sonho",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8959,
+  "en": "Raw Spinefin Halibut",
+  "veredito": "manter",
+  "pt_final": "Halibute Spinefin Cru",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41832,
+  "en": "Flameweave Sash",
+  "veredito": "manter",
+  "pt_final": "Cinturão de Escamas de Chama",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 892,
+  "en": "Gnoll Casting Gloves",
+  "veredito": "manter",
+  "pt_final": "Luvas de Feitiçaria de Gnoll",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6278,
+  "en": "Musty Scroll",
+  "veredito": "manter",
+  "pt_final": "Pergaminho Amarelado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6236,
+  "en": "Monster - Item, Flower - Rose (White)",
+  "veredito": "manter",
+  "pt_final": "Monster - Item, Flower - Rose (White)",
+  "motivo": "Item GM/Monster/internal; manter."
+ },
+ {
+  "id": 9242,
+  "en": "Ancient Tablet",
+  "veredito": "corrigir",
+  "pt_final": "Tablete Antigo",
+  "motivo": "Tablet->Tablete (oficial); genero: Antiga->Antigo (tablete=masc)."
+ },
+ {
+  "id": 7996,
+  "en": "Worn Fishing Hat",
+  "veredito": "manter",
+  "pt_final": "Chapéu de Pesca Usado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 10106,
+  "en": "Wanderer's Boots",
+  "veredito": "manter",
+  "pt_final": "Botas do Andarilho",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16576,
+  "en": "General's Mail Bracers",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras de Malha do General",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5880,
+  "en": "Crate With Holes",
+  "veredito": "manter",
+  "pt_final": "Caixa com Buracos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5362,
+  "en": "Chew Toy",
+  "veredito": "manter",
+  "pt_final": "Brinquedo de Morder",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61412,
+  "en": "Greathorn Beak",
+  "veredito": "manter",
+  "pt_final": "Bico de Grande Chifre",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16897,
+  "en": "Stormrage Chestguard",
+  "veredito": "manter",
+  "pt_final": "Peitoral Tempesfúria",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 21133,
+  "en": "Followup Tactical Assignment",
+  "veredito": "manter",
+  "pt_final": "Tarefa Tática de Seguimento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1372,
+  "en": "Ragged Cloak",
+  "veredito": "manter",
+  "pt_final": "Capa Rasgada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6258,
+  "en": "Ironfur Liver",
+  "veredito": "manter",
+  "pt_final": "Fígado de Ironfur",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18796,
+  "en": "Armored Brown Wolf",
+  "veredito": "manter",
+  "pt_final": "Lobo Marrom Blindado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55338,
+  "en": "Venomspire Diadem",
+  "veredito": "manter",
+  "pt_final": "Diadema da Espiral Venenosa",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 80865,
+  "en": "Healing Balm",
+  "veredito": "manter",
+  "pt_final": "Unguento de Cura",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4208,
+  "en": "Grimoire of Mind Bomb",
+  "veredito": "manter",
+  "pt_final": "Grimório de Bomba Mental",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 17714,
+  "en": "Bracers of the Stone Princess",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras da Princesa de Pedra",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 10224,
+  "en": "Nightshade Cloak",
+  "veredito": "manter",
+  "pt_final": "Capa de Nightshade",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 51769,
+  "en": "Crown of the Dark Reaver",
+  "veredito": "manter",
+  "pt_final": "Coroa do Ceifador Sombrio",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16956,
+  "en": "Judgement Gloves",
+  "veredito": "manter",
+  "pt_final": "Manoplas de Julgamento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55124,
+  "en": "Pure Jewel of Draenor",
+  "veredito": "manter",
+  "pt_final": "Joia Pura de Draenor",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61619,
+  "en": "Worgen Cleaver",
+  "veredito": "manter",
+  "pt_final": "Cortador de Worgen",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3127,
+  "en": "Tablet of Shock III",
+  "veredito": "manter",
+  "pt_final": "Tablete do Choque III",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 21495,
+  "en": "Legplates of the Qiraji Command",
+  "veredito": "manter",
+  "pt_final": "Placas de Perna do Comando Qiraji",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19562,
+  "en": "Outrunner's Bow",
+  "veredito": "manter",
+  "pt_final": "Arco do Corredor",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18741,
+  "en": "Morlune's Bracer",
+  "veredito": "manter",
+  "pt_final": "Braçadeira de Morlune",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9809,
+  "en": "Superior Tunic",
+  "veredito": "manter",
+  "pt_final": "Túnica Superior",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3492,
+  "en": "Mighty Iron Hammer",
+  "veredito": "manter",
+  "pt_final": "Martelo de Ferro Poderoso",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6395,
+  "en": "Silver-thread Amice",
+  "veredito": "manter",
+  "pt_final": "Amice de Fio de Prata",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6788,
+  "en": "Magram Hunter's Belt",
+  "veredito": "manter",
+  "pt_final": "Cinto do Caçador de Magram",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15616,
+  "en": "Bonelink Legplates",
+  "veredito": "manter",
+  "pt_final": "Placas de Perna Elo de Ossos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 51828,
+  "en": "Hawkwind Rifle",
+  "veredito": "manter",
+  "pt_final": "Rifle de Hawkwind",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 69111,
+  "en": "Bloodied Bandages",
+  "veredito": "manter",
+  "pt_final": "Bandagens Ensanguentadas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61045,
+  "en": "Nexus Shoulderpads",
+  "veredito": "manter",
+  "pt_final": "Ombreiras de Nexus",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13196,
+  "en": "Gahrron's Withering Cauldron Key",
+  "veredito": "manter",
+  "pt_final": "Chave do Caldeirão Definhante de Gahrron",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 47046,
+  "en": "Redemption Handguards",
+  "veredito": "manter",
+  "pt_final": "Protetores de Mãos de Redenção",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 871,
+  "en": "Flurry Axe",
+  "veredito": "manter",
+  "pt_final": "Machado da Tempestade",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41920,
+  "en": "Crate of Balor Moonshine",
+  "veredito": "manter",
+  "pt_final": "Caixa de Moonshine de Balor",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8207,
+  "en": "Tough Scorpid Shoulders",
+  "veredito": "manter",
+  "pt_final": "Ombreiras de Escorpião Resistente",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9281,
+  "en": "Red Punch Card",
+  "veredito": "manter",
+  "pt_final": "Cartão de Perfurar Vermelho",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 23258,
+  "en": "Champion's Leather Shoulders",
+  "veredito": "manter",
+  "pt_final": "Ombreiras de Couro do Campeão",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9581,
+  "en": "Verdant Note",
+  "veredito": "manter",
+  "pt_final": "Nota Verdejante",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19900,
+  "en": "Zulian Stone Axe",
+  "veredito": "manter",
+  "pt_final": "Machado de Pedra Zuliana",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 80111,
+  "en": "Ash-Covered Tunic",
+  "veredito": "manter",
+  "pt_final": "Túnica Coberta de Cinzas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55161,
+  "en": "Encrusted Copper Bangle",
+  "veredito": "manter",
+  "pt_final": "Pulseira de Cobre Encrustada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4915,
+  "en": "Soft Wool Boots",
+  "veredito": "manter",
+  "pt_final": "Botas de Lã Macia",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5565,
+  "en": "Infernal Stone",
+  "veredito": "manter",
+  "pt_final": "Pedra Infernal",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60503,
+  "en": "Leggings of Alacrity",
+  "veredito": "manter",
+  "pt_final": "Perneiras de Alacridade",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61811,
+  "en": "Leather Letter",
+  "veredito": "manter",
+  "pt_final": "Carta de Couro",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13020,
+  "en": "Skystriker Bow",
+  "veredito": "manter",
+  "pt_final": "Arco do Atirador dos Céus",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5862,
+  "en": "Seaforium Booster",
+  "veredito": "manter",
+  "pt_final": "Impulsionador de Seaforium",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61620,
+  "en": "Glaymore Family Breastplate",
+  "veredito": "manter",
+  "pt_final": "Peitoral da Família Glaymore",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 81181,
+  "en": "Crab Shell",
+  "veredito": "manter",
+  "pt_final": "Carapaça de Caranguejo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9457,
+  "en": "Royal Diplomatic Scepter",
+  "veredito": "manter",
+  "pt_final": "Cetro Diplomático Real",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2874,
+  "en": "An Unsent Letter",
+  "veredito": "manter",
+  "pt_final": "Uma Carta Não Enviada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4838,
+  "en": "Orb of Power",
+  "veredito": "manter",
+  "pt_final": "Orbe de Poder",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22512,
+  "en": "Robe of Faith",
+  "veredito": "manter",
+  "pt_final": "Robe da Fé",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 21414,
+  "en": "Band of Vaulted Secrets",
+  "veredito": "manter",
+  "pt_final": "Elo dos Segredos Ocultos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9325,
+  "en": "A Small Stave",
+  "veredito": "manter",
+  "pt_final": "Bastão Pequeno",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3739,
+  "en": "Skull Ring",
+  "veredito": "manter",
+  "pt_final": "Anel do Crânio",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 21431,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5653,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14430,
+  "en": "Windchaser Cloak",
+  "veredito": "manter",
+  "pt_final": "Capa do Caçador do Vento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5938,
+  "en": "Pristine Crawler Leg",
+  "veredito": "manter",
+  "pt_final": "Perna de Crawler Pristina",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4737,
+  "en": "Imperial Leather Spaulders",
+  "veredito": "manter",
+  "pt_final": "Ombreiras de Couro Imperial",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4084,
+  "en": "Blackforge Leggings",
+  "veredito": "manter",
+  "pt_final": "Perneiras de Forja Negra",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14533,
+  "en": "Monster - Mace, Hammer Blue Mighty",
+  "veredito": "manter",
+  "pt_final": "Monster - Mace, Hammer Blue Mighty",
+  "motivo": "Item GM/Monster/internal; manter."
+ },
+ {
+  "id": 6299,
+  "en": "Sickly Looking Fish",
+  "veredito": "manter",
+  "pt_final": "Peixe com Aparência Doente",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 11135,
+  "en": "Greater Mystic Essence",
+  "veredito": "manter",
+  "pt_final": "Essência Mística Maior",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12218,
+  "en": "Monster Omelet",
+  "veredito": "manter",
+  "pt_final": "Omelete Monstruoso",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14274,
+  "en": "Gaea's Leggings",
+  "veredito": "manter",
+  "pt_final": "Calças de Gaea",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16525,
+  "en": "Legionnaire's Chain Breastplate",
+  "veredito": "manter",
+  "pt_final": "Peitoral de Cadeia do Legionário",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60429,
+  "en": "Arcanite Shackles",
+  "veredito": "manter",
+  "pt_final": "Algemas de Arcanita",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55333,
+  "en": "Shadowmoon Orb",
+  "veredito": "manter",
+  "pt_final": "Orbe Shadowmoon",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22330,
+  "en": "Shroud of Arcane Mastery",
+  "veredito": "manter",
+  "pt_final": "Capa de Maestria Arcana",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1302,
+  "en": "Black Whelp Gloves",
+  "veredito": "manter",
+  "pt_final": "Luvas de Dragonete Negro",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3817,
+  "en": "Reinforced Buckler",
+  "veredito": "manter",
+  "pt_final": "Escudo Reforçado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6306,
+  "en": "Damp Diary Page (Day 512)",
+  "veredito": "manter",
+  "pt_final": "Página Úmida de Diário (Dia 512)",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14278,
+  "en": "Opulent Mantle",
+  "veredito": "manter",
+  "pt_final": "Manto Opulento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60527,
+  "en": "Coldheart Icicle",
+  "veredito": "manter",
+  "pt_final": "Estalactite de Coração Congelado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12904,
+  "en": "Shawn's Super Special Swami Hat",
+  "veredito": "manter",
+  "pt_final": "Chapéu Super Especial Swami de Shawn",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55349,
+  "en": "Nethraka, Wing of Oblivion",
+  "veredito": "manter",
+  "pt_final": "Nethraka, Asa do Oblívio",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6892,
+  "en": "Recipe: Smoked Bear Meat",
+  "veredito": "manter",
+  "pt_final": "Receita: Carne de Urso Defumada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61722,
+  "en": "Duskpelt Fur",
+  "veredito": "manter",
+  "pt_final": "Pele de Lince do Crepúsculo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13211,
+  "en": "Slashclaw Bracers",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras de Garra de Corte",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22603,
+  "en": "Craftsman's Writ - Huge Thorium Battleaxe",
+  "veredito": "manter",
+  "pt_final": "Escritura do Artesão - Machado de Batalha Gigante de Tório",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 54006,
+  "en": "Pink Frog",
+  "veredito": "manter",
+  "pt_final": "Frog Rosa",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3578,
+  "en": "Harvester's Pants",
+  "veredito": "manter",
+  "pt_final": "Calças do Colhedor",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16748,
+  "en": "Padded Lining",
+  "veredito": "manter",
+  "pt_final": "Forro Almofadado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2970,
+  "en": "Spellbinder Pants",
+  "veredito": "manter",
+  "pt_final": "Calças do Feiticeiro",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2635,
+  "en": "Loose Chain Belt",
+  "veredito": "manter",
+  "pt_final": "Cinto de Cadeia Solta",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20035,
+  "en": "Glacial Spike",
+  "veredito": "manter",
+  "pt_final": "Espinho Glacial",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22368,
+  "en": "Desecrated Shoulderpads",
+  "veredito": "manter",
+  "pt_final": "Ombreiras Profanadas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22361,
+  "en": "Desecrated Spaulders",
+  "veredito": "manter",
+  "pt_final": "Espaldares Profanados",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14186,
+  "en": "Raincaller Mantle",
+  "veredito": "manter",
+  "pt_final": "Manto de Invocador de Chuva",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 40061,
+  "en": "Rethress Tide Crest",
+  "veredito": "manter",
+  "pt_final": "Cresta da Maré de Rethress",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55334,
+  "en": "Fangclaw Relic",
+  "veredito": "manter",
+  "pt_final": "Relíquia da Garra de Presa",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16864,
+  "en": "Belt of Might",
+  "veredito": "manter",
+  "pt_final": "Cinto do Poder",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 80778,
+  "en": "Tome of Feral Rage",
+  "veredito": "manter",
+  "pt_final": "Tomo de Fúria Selvagem",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9323,
+  "en": "Gadrin's Parchment",
+  "veredito": "manter",
+  "pt_final": "Pergaminho de Gadrin",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19288,
+  "en": "Darkmoon Card: Blue Dragon",
+  "veredito": "manter",
+  "pt_final": "Carta do Darkmoon: Dragão Azul",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8763,
+  "en": "Book of Moonfire V",
+  "veredito": "manter",
+  "pt_final": "Livro de Fogo Lunar V",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19714,
+  "en": "Silver Hakkari Bijou",
+  "veredito": "manter",
+  "pt_final": "Bijou Hakkari Prateada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 21576,
+  "en": "Red Rocket Cluster",
+  "veredito": "manter",
+  "pt_final": "Conjunto de Foguetes Vermelhos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 58212,
+  "en": "Treads of Scalding Rage",
+  "veredito": "manter",
+  "pt_final": "Passos da Fúria Escaldante",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16716,
+  "en": "Wildheart Belt",
+  "veredito": "manter",
+  "pt_final": "Cinto de Coração Selvagem",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4137,
+  "en": "Darkspear Shoes",
+  "veredito": "manter",
+  "pt_final": "Sapatos de Lança Negra",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9485,
+  "en": "Vibroblade",
+  "veredito": "manter",
+  "pt_final": "Veneno da Aranha Noturna Cruel",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4857,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 10450,
+  "en": "Undamaged Hippogryph Feather",
+  "veredito": "manter",
+  "pt_final": "Pena de Hipogrifo Não Danificada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5603,
+  "en": "Wizbang's Gunnysack",
+  "veredito": "manter",
+  "pt_final": "Saco de Gunnysack de Wizbang",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 21156,
+  "en": "Scarab Bag",
+  "veredito": "manter",
+  "pt_final": "Bolsa de Escaravelho",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6443,
+  "en": "Deviate Hide",
+  "veredito": "manter",
+  "pt_final": "Pele Desviante",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41091,
+  "en": "Apparel of the Bells",
+  "veredito": "manter",
+  "pt_final": "Vestuário dos Sinos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18163,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9133,
+  "en": "Tablet of Chain Heal II",
+  "veredito": "manter",
+  "pt_final": "Tablete de Cura em Cadeia II",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1264,
+  "en": "Headbasher",
+  "veredito": "manter",
+  "pt_final": "Cabeça de Bash",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3620,
+  "en": "Lillith's Remains",
+  "veredito": "manter",
+  "pt_final": "Restos de Lillith",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61588,
+  "en": "Arugal Family Sigil",
+  "veredito": "manter",
+  "pt_final": "Insígnia da Família Arugal",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1975,
+  "en": "Pysan's Old Greatsword",
+  "veredito": "manter",
+  "pt_final": "Grande Espada Antiga de Pysan",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61002,
+  "en": "Robe of the Custodian",
+  "veredito": "manter",
+  "pt_final": "Robe do Custódio",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 51757,
+  "en": "Woven Ivy Cloak",
+  "veredito": "manter",
+  "pt_final": "Capa de Heras Trançada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22973,
+  "en": "A Crumpled Missive",
+  "veredito": "manter",
+  "pt_final": "Mensagem Amassada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 23221,
+  "en": "Misplaced Servo Arm",
+  "veredito": "manter",
+  "pt_final": "Braço de Servo Mal Posicionado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14654,
+  "en": "Scorpashi Wristbands",
+  "veredito": "manter",
+  "pt_final": "Pulseiras Scorpashi",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18497,
+  "en": "Sublime Wristguards",
+  "veredito": "manter",
+  "pt_final": "Guardiões de Pulso Sublimes",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15136,
+  "en": "Cutthroat's Belt",
+  "veredito": "manter",
+  "pt_final": "Cinto do Degolador",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6741,
+  "en": "Orcish War Sword",
+  "veredito": "manter",
+  "pt_final": "Espada de Guerra Orc",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2134,
+  "en": "Hand Axe",
+  "veredito": "manter",
+  "pt_final": "Machado de Mão",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8859,
+  "en": "Tome of Fire Blast VI",
+  "veredito": "manter",
+  "pt_final": "Tomo de Explosão de Fogo VI",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4503,
+  "en": "Witherbark Tusk",
+  "veredito": "manter",
+  "pt_final": "Presas de Witherbark",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16505,
+  "en": "Legionnaire's Leather Hauberk",
+  "veredito": "manter",
+  "pt_final": "Hauberk de Couro do Legionário",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12823,
+  "en": "Plans: Huge Thorium Battleaxe",
+  "veredito": "manter",
+  "pt_final": "Planos: Machado de Batalha de Tório Gigante",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61083,
+  "en": "Blood Elf Badge",
+  "veredito": "manter",
+  "pt_final": "Insígnia dos Elfos Sangrentos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61706,
+  "en": "Corrupt Dream Shard",
+  "veredito": "manter",
+  "pt_final": "Fragmento de Sonho Corrompido",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16840,
+  "en": "Earthfury Bracers",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras da Fúria da Terra",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1836,
+  "en": "Dirty Leather Bracers",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras de Couro Sujas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 7249,
+  "en": "Charged Rift Gem",
+  "veredito": "manter",
+  "pt_final": "Gema de Fenda Carregada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15461,
+  "en": "Lightheel Boots",
+  "veredito": "manter",
+  "pt_final": "Botas Lightheel",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60723,
+  "en": "Stronghold Documents",
+  "veredito": "manter",
+  "pt_final": "Documentos da Fortaleza",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 80003,
+  "en": "Black-Footed Fox",
+  "veredito": "manter",
+  "pt_final": "Raposa de Pés Negros",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 10150,
+  "en": "Mighty Helmet",
+  "veredito": "manter",
+  "pt_final": "Elmo Poderoso",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8994,
+  "en": "Codex of Shadow Word: Pain VI",
+  "veredito": "manter",
+  "pt_final": "Códice de Palavra Sombria: Dor VI",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 69171,
+  "en": "Plagued Boar",
+  "veredito": "manter",
+  "pt_final": "Javali Infectado pela Peste",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41975,
+  "en": "Brangar's Folly",
+  "veredito": "manter",
+  "pt_final": "Loucura de Brangar",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2507,
+  "en": "Laminated Recurve Bow",
+  "veredito": "manter",
+  "pt_final": "Arco Recurvado Laminado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19522,
+  "en": "Lorekeeper's Ring",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras de Guardião do Conhecimento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 56021,
+  "en": "Plans: Small Pearl Ring",
+  "veredito": "manter",
+  "pt_final": "Planos: Anel de Pérola Pequena",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1974,
+  "en": "Mindthrust Bracers",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras Mindthrust",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8488,
+  "en": "Silver Tabby",
+  "veredito": "manter",
+  "pt_final": "Gato Prateado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 17743,
+  "en": "Resurgence Rod",
+  "veredito": "manter",
+  "pt_final": "Cajado de Renascimento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60585,
+  "en": "Crocolisk Tear Grog",
+  "veredito": "manter",
+  "pt_final": "Grog de Lágrima de Crocolisco",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15387,
+  "en": "Jadefire Bracelets",
+  "veredito": "manter",
+  "pt_final": "Bastão de Jadefinger",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6894,
+  "en": "Whirlwind Heart",
+  "veredito": "manter",
+  "pt_final": "Coração do Furacão",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18438,
+  "en": "Sergeant's Mark",
+  "veredito": "manter",
+  "pt_final": "Marca do Sargento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55176,
+  "en": "Earthrock Loop",
+  "veredito": "manter",
+  "pt_final": "Anel de Rocha da Terra",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19005,
+  "en": "Minor Healthstone",
+  "veredito": "manter",
+  "pt_final": "Pedra de Cura Menor",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 80186,
+  "en": "Epaulets of the Damned",
+  "veredito": "manter",
+  "pt_final": "Epaulets dos Condenados",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5018,
+  "en": "Wood Pulp",
+  "veredito": "manter",
+  "pt_final": "Polpa de Madeira",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16140,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55561,
+  "en": "Unused AQ40 Mail Gloves Test",
+  "veredito": "manter",
+  "pt_final": "Luvas de Malha de AQ40 Não Utilizadas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16659,
+  "en": "Deftkin Belt",
+  "veredito": "manter",
+  "pt_final": "Cinto de Agilidade",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15825,
+  "en": "Traphook Jerkin",
+  "veredito": "manter",
+  "pt_final": "Jaqueta de Gancho de Armadilha",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2088,
+  "en": "Long Crawler Limb",
+  "veredito": "manter",
+  "pt_final": "Extremidade Longa de Crawler",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1818,
+  "en": "Standard Claymore",
+  "veredito": "manter",
+  "pt_final": "Claymore Padrão",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8496,
+  "en": "Cockatiel",
+  "veredito": "manter",
+  "pt_final": "Cacatua",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18589,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15619,
+  "en": "Gryphon Mail Belt",
+  "veredito": "manter",
+  "pt_final": "Cinto de Malha do Grifo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5433,
+  "en": "Rag Doll",
+  "veredito": "manter",
+  "pt_final": "Boneca de Pano",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9157,
+  "en": "Tablet of Chain Heal III",
+  "veredito": "manter",
+  "pt_final": "Tablete de Cura em Cadeia III",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16832,
+  "en": "Bloodfang Spaulders",
+  "veredito": "manter",
+  "pt_final": "Espaldares Dentessangue",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3446,
+  "en": "Darkwood Staff",
+  "veredito": "manter",
+  "pt_final": "Cajado de Madeira Sombria",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19114,
+  "en": "Highland Bow",
+  "veredito": "manter",
+  "pt_final": "Arco Highlander",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15314,
+  "en": "Bundle of Relics",
+  "veredito": "manter",
+  "pt_final": "Feixe de Relíquias",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6607,
+  "en": "Dervish Leggings",
+  "veredito": "manter",
+  "pt_final": "Calças do Dervixe",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 7126,
+  "en": "Smoky Iron Ingot",
+  "veredito": "manter",
+  "pt_final": "Lingote de Ferro Defumado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 93090,
+  "en": "Wood Snake's Year Shirt",
+  "veredito": "manter",
+  "pt_final": "Camisa do Ano da Cobra de Madeira",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1760,
+  "en": "Reinforced Chain Shoulderpads",
+  "veredito": "manter",
+  "pt_final": "Ombreiras de Cadeia Reforçadas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 58242,
+  "en": "Sulfuron Aegis",
+  "veredito": "manter",
+  "pt_final": "Égide de Sulfuron",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4392,
+  "en": "Advanced Target Dummy",
+  "veredito": "manter",
+  "pt_final": "Boneco-Alvo Avançado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9463,
+  "en": "Gordunni Cobalt",
+  "veredito": "manter",
+  "pt_final": "Cobalto Gordunni",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 17109,
+  "en": "Choker of Enlightenment",
+  "veredito": "manter",
+  "pt_final": "Colar do Esclarecimento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 16157,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 47043,
+  "en": "Redemption Shoulderguards",
+  "veredito": "manter",
+  "pt_final": "Protetores de Ombro da Redenção",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12757,
+  "en": "Breastplate of Bloodthirst",
+  "veredito": "manter",
+  "pt_final": "Peitoral da Sede de Sangue",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 7680,
+  "en": "Jadespine Basilisk Scale",
+  "veredito": "manter",
+  "pt_final": "Orbe de Jademoon",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20637,
+  "en": "Acid Inscribed Pauldrons",
+  "veredito": "manter",
+  "pt_final": "Espaldares Inscritos com Ácido",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20614,
+  "en": "Bloodvenom Essence",
+  "veredito": "manter",
+  "pt_final": "Essência Veneno-sangrento",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4504,
+  "en": "Dwarven Guard Cloak",
+  "veredito": "manter",
+  "pt_final": "Capa do Guarda Anão",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 23057,
+  "en": "Gem of Trapped Innocents",
+  "veredito": "manter",
+  "pt_final": "Gema dos Inocentes Presos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3296,
+  "en": "Deadman Dagger",
+  "veredito": "manter",
+  "pt_final": "Adaga do Morto",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1041,
+  "en": "Ancient Black Wolf",
+  "veredito": "manter",
+  "pt_final": "Lobo Negro Antigo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20212,
+  "en": "Defiler's Plate Spaulders",
+  "veredito": "manter",
+  "pt_final": "Espaldares de Placas do Profanador",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 81020,
+  "en": "Orb of Mending Mists",
+  "veredito": "manter",
+  "pt_final": "Orbe de Névoas Restauradoras",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 56074,
+  "en": "Graceful Agate Gemstone",
+  "veredito": "manter",
+  "pt_final": "Capa Graciosa",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15171,
+  "en": "Potent Boots",
+  "veredito": "manter",
+  "pt_final": "Botas Potentes",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60741,
+  "en": "Magical Grains",
+  "veredito": "manter",
+  "pt_final": "Grãos Mágicos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22763,
+  "en": "Ironvine Gloves",
+  "veredito": "manter",
+  "pt_final": "Luvas de Ironvine",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 7391,
+  "en": "Swift Boots",
+  "veredito": "manter",
+  "pt_final": "Botas Velozes",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4102,
+  "en": "Torn Note",
+  "veredito": "manter",
+  "pt_final": "Nota Rasgada",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 51266,
+  "en": "Glyph of the Ice Bear",
+  "veredito": "manter",
+  "pt_final": "Glifo do Urso de Gelo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5857,
+  "en": "Gnome Prize Box",
+  "veredito": "manter",
+  "pt_final": "Caixa de Prêmios de Gnomo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13183,
+  "en": "Venomspitter",
+  "veredito": "manter",
+  "pt_final": "Escarrador Venenoso",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12256,
+  "en": "Cindercloth Leggings",
+  "veredito": "manter",
+  "pt_final": "Perneiras de Tecido de Cinzas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15344,
+  "en": "Pathfinder Pants",
+  "veredito": "manter",
+  "pt_final": "Calças do Caminhante",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14950,
+  "en": "Bloodforged Belt",
+  "veredito": "manter",
+  "pt_final": "Cinto Forjado em Sangue",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13003,
+  "en": "Lord Alexander's Battle Axe",
+  "veredito": "manter",
+  "pt_final": "Machado de Batalha de Lorde Alexander",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9199,
+  "en": "Grimoire of Curse of Recklessness",
+  "veredito": "manter",
+  "pt_final": "Grimório de Maldição de Imprudência",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20064,
+  "en": "Arathi Basin Iron Ration",
+  "veredito": "manter",
+  "pt_final": "Ração de Ferro da Bacia Arathi",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 51024,
+  "en": "Cursed Idol",
+  "veredito": "manter",
+  "pt_final": "Ídolo Amaldiçoado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 55546,
+  "en": "Plans: Otherworldly Leggings",
+  "veredito": "manter",
+  "pt_final": "Planos: Calças do Outro Mundo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41682,
+  "en": "Violet Key",
+  "veredito": "manter",
+  "pt_final": "Chave Violeta",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2962,
+  "en": "Burnt Leather Breeches",
+  "veredito": "manter",
+  "pt_final": "Calças de Couro Queimado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41890,
+  "en": "Gnoll Paw for Good Luck",
+  "veredito": "manter",
+  "pt_final": "Pata de Gnoll para Boa Sorte",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6256,
+  "en": "Fishing Pole",
+  "veredito": "manter",
+  "pt_final": "Vara de Pesca",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2945,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18773,
+  "en": "Armored White Mechanostrider",
+  "veredito": "manter",
+  "pt_final": "Mecanostruz Blindado Branco",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6297,
+  "en": "Old Skull",
+  "veredito": "manter",
+  "pt_final": "Crânio Antigo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 17897,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 80660,
+  "en": "Short-Circuit Copper",
+  "veredito": "manter",
+  "pt_final": "Tinta de Cabelo Goblina: Cobre",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4999,
+  "en": "Azora's Will",
+  "veredito": "manter",
+  "pt_final": "Vontade de Azora",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15932,
+  "en": "Disciple's Stein",
+  "veredito": "manter",
+  "pt_final": "Caneca do Discípulo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15440,
+  "en": "Supreme Leggings",
+  "veredito": "manter",
+  "pt_final": "Calças Supremas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14935,
+  "en": "Heroic Skullcap",
+  "veredito": "manter",
+  "pt_final": "Capacete Heróico",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 56042,
+  "en": "Gem Encrusted Choker",
+  "veredito": "manter",
+  "pt_final": "Colar Encrustado com Gemas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8807,
+  "en": "Tome of Amplify Magic",
+  "veredito": "manter",
+  "pt_final": "Tomo de Amplificar Magia",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6605,
+  "en": "Dervish Gloves",
+  "veredito": "manter",
+  "pt_final": "Luvas do Dervixe",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61286,
+  "en": "Bloodfang Effigy",
+  "veredito": "manter",
+  "pt_final": "Efígie Dentessangue",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20420,
+  "en": "Crest of Beckoning: Water",
+  "veredito": "manter",
+  "pt_final": "Crista de Evocação: Água",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 120,
+  "en": "Thug Pants",
+  "veredito": "manter",
+  "pt_final": "Calças de Bandido",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 9948,
+  "en": "Chieftain's Boots",
+  "veredito": "manter",
+  "pt_final": "Botas do Chefe",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41974,
+  "en": "Brangar's Journal",
+  "veredito": "manter",
+  "pt_final": "Diário de Brangar",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 47210,
+  "en": "Handguards of Transcendence",
+  "veredito": "manter",
+  "pt_final": "Manoplas da Transcendência",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 23087,
+  "en": "Breastplate of Undead Slaying",
+  "veredito": "manter",
+  "pt_final": "Peitoral da Matança de Mortos-Vivos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 7813,
+  "en": "Shard of Water",
+  "veredito": "manter",
+  "pt_final": "Fragmento da Água",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22617,
+  "en": "Craftsman's Writ - Major Mana Potion",
+  "veredito": "manter",
+  "pt_final": "Escritura do Artesão - Poção Maior de Mana",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20257,
+  "en": "Seafury Gauntlets",
+  "veredito": "manter",
+  "pt_final": "Manoplas da Fúria Marinha",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 50109,
+  "en": "Emerald Dream",
+  "veredito": "manter",
+  "pt_final": "Tintura de Cabelo de Elfo Noturno: Verde Escuro",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 37,
+  "en": "Worn Axe",
+  "veredito": "manter",
+  "pt_final": "Machado Usado",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14171,
+  "en": "Buccaneer's Pants",
+  "veredito": "manter",
+  "pt_final": "Calças do Bucaneiro",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61441,
+  "en": "Ursa Battlehammer",
+  "veredito": "manter",
+  "pt_final": "Martelo de Batalha Ursa",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15947,
+  "en": "Sanguine Star",
+  "veredito": "manter",
+  "pt_final": "Estrela Sanguínea",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18337,
+  "en": "Orphic Bracers",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras Órficas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12767,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 15682,
+  "en": "Triumphant Gauntlets",
+  "veredito": "manter",
+  "pt_final": "Manoplas Triunfantes",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 5623,
+  "en": "Amethyst Phial",
+  "veredito": "manter",
+  "pt_final": "Frasco de Ametista",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2757,
+  "en": "Green Hills of Stranglethorn - Chapter II",
+  "veredito": "manter",
+  "pt_final": "Colinas Verdes de Stranglethorn - Capítulo II",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60195,
+  "en": "Intact Power Core",
+  "veredito": "manter",
+  "pt_final": "Núcleo de Energia Intacto",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 10588,
+  "en": "Goblin Rocket Helmet",
+  "veredito": "manter",
+  "pt_final": "Capacete de Foguete Goblino",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 14552,
+  "en": "Stockade Pauldrons",
+  "veredito": "manter",
+  "pt_final": "Ombreiras do Cárcere",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 3268,
+  "en": "Forsaken Dagger",
+  "veredito": "manter",
+  "pt_final": "Adaga dos Renegados",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61043,
+  "en": "Eye of the Abyss",
+  "veredito": "manter",
+  "pt_final": "Olho do Abismo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 8524,
+  "en": "Model 4711-FTZ Power Source",
+  "veredito": "manter",
+  "pt_final": "Fonte de Energia Modelo 4711-FTZ",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 22751,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19517,
+  "en": "Protector's Band",
+  "veredito": "manter",
+  "pt_final": "Anel do Protetor",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1483,
+  "en": "Face Smasher",
+  "veredito": "manter",
+  "pt_final": "Esmagador de Rostos",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 60986,
+  "en": "Carus' Gift",
+  "veredito": "manter",
+  "pt_final": "Presente de Carus",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6420,
+  "en": "Glyphed Boots",
+  "veredito": "manter",
+  "pt_final": "Botas com Glifo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 50029,
+  "en": "Black Mageweave Blindfold",
+  "veredito": "manter",
+  "pt_final": "Visão Amaldiçoada de Sargeras",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 36511,
+  "en": "Nightsaber Cub",
+  "veredito": "manter",
+  "pt_final": "Filhote de Tigre Nocturno",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 50235,
+  "en": "Outline: Fishing Boat",
+  "veredito": "manter",
+  "pt_final": "Esboço: Barco de Pesca",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 2101,
+  "en": "Light Quiver",
+  "veredito": "manter",
+  "pt_final": "Aljava Leve",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 20897,
+  "en": "Lookout's Shirt",
+  "veredito": "manter",
+  "pt_final": "Camisa de Vigia",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61404,
+  "en": "Corrosion Resistant Ring",
+  "veredito": "manter",
+  "pt_final": "Anel Resistente à Corrosão",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13530,
+  "en": "Fangdrip Runners",
+  "veredito": "manter",
+  "pt_final": "Botas de Faca de Presa",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 12689,
+  "en": "Plans: Radiant Breastplate",
+  "veredito": "manter",
+  "pt_final": "Planos: Peitoral Radiante",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13501,
+  "en": "Recipe: Major Mana Potion",
+  "veredito": "manter",
+  "pt_final": "Receita: Poção Elevada de Mana",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 19204,
+  "en": "Plans: Heavy Timbermaw Boots",
+  "veredito": "manter",
+  "pt_final": "Planos: Botas de Timbermaw Pesadas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 50096,
+  "en": "Scholomance Academy Vest",
+  "veredito": "manter",
+  "pt_final": "Colete da Academia de Scholomance",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 18545,
+  "en": "Leggings of Arcane Supremacy",
+  "veredito": "manter",
+  "pt_final": "Perneiras de Supremacia Arcana",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 1081,
+  "en": "Crisp Spider Meat",
+  "veredito": "manter",
+  "pt_final": "Carne Crocante de Aranha",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 13178,
+  "en": "Rosewine Circle",
+  "veredito": "manter",
+  "pt_final": "Círculo de Rosewine",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 50169,
+  "en": "Livor mortis",
+  "veredito": "manter",
+  "pt_final": "Tintura de Cabelo de Morto-Vivo: Azul Claro",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 4043,
+  "en": "Aurora Bracers",
+  "veredito": "manter",
+  "pt_final": "Braçadeiras Aurora",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 41671,
+  "en": "Amberale",
+  "veredito": "manter",
+  "pt_final": "Cerveja Âmbar",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 21662,
+  "en": "_",
+  "veredito": "manter",
+  "pt_final": "_",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 6888,
+  "en": "Herb Baked Egg",
+  "veredito": "manter",
+  "pt_final": "Saco de Ervas",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 11736,
+  "en": "Libram of Resilience",
+  "veredito": "manter",
+  "pt_final": "Libram de Resistência",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 10819,
+  "en": "Wildkin Feather",
+  "veredito": "manter",
+  "pt_final": "Pena de Wildkin",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 47116,
+  "en": "Vestments of the Guardian",
+  "veredito": "manter",
+  "pt_final": "Vestes do Oráculo",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ },
+ {
+  "id": 61480,
+  "en": "Nighthowl Shackle",
+  "veredito": "manter",
+  "pt_final": "Grilhão de Nighthowl",
+  "motivo": "Traducao PT Blizzlike/canon; manter."
+ }
+]

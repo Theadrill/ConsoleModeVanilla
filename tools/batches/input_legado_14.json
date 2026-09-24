@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Smites an enemy for $s1 Holy damage.",
+    "curr_pt": "Castiga $s1 Sagrado.",
+    "scope": "tail"
+  },
+  {
+    "en": "Spell Damage received is reduced by $s1%.",
+    "curr_pt": "Magia recebida -$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Spell visual for Zaetar's Spirit spawning event.",
+    "curr_pt": "Visual do Zaetar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Spits out poison at target which causes $o1 damage over $d",
+    "curr_pt": "Cospe: $s1 em $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Spits poison at an enemy, inflicting Nature damage.",
+    "curr_pt": "Cospe Natureza no inimigo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Stabs a devilsaur, inflicting a large dose of poison.",
+    "curr_pt": "Espeta dinossauro com veneno.",
+    "scope": "tail"
+  },
+  {
+    "en": "Steals life from a target after delivering a fatal blow.",
+    "curr_pt": "Rouba vida no abate.",
+    "scope": "tail"
+  },
+  {
+    "en": "Stuns the target until the effect is dispelled.",
+    "curr_pt": "Atordoa até dispensar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon Momo from anywhere in the world to your location.",
+    "curr_pt": "Invoca Momo do mundo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon a Void Zone that deals shadow damage to enemies that stand within it",
+    "curr_pt": "Invoca Zona de Sombra nos pisantes.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon a second Terrordale Spirit 55% of the time.",
+    "curr_pt": "2º espírito 55%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon a second initial temporal parasite 67% of the time.",
+    "curr_pt": "Invoca 2º parasita 67%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon a third Terrordale Spirit 35% of the time.",
+    "curr_pt": "3º espírito 35%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon a third initial temporal parasite 34% of the time.",
+    "curr_pt": "Invoca 3º parasita 34%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon and control your steam tonk.",
+    "curr_pt": "Controla o tonk.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon the spirit of Lord Valthalak.",
+    "curr_pt": "Invoca o Valthalak.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon the spirit of Mor Grayhoof.",
+    "curr_pt": "Invoca o Mor.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summon the spirits of the dead at haunted locations.",
+    "curr_pt": "Invoca morto assombrado.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons $s1 $lFen Dweller:Fen Dwellers; to accompany the caster until dismissed.",
+    "curr_pt": "Invoca $s1 Pantaneiros até dispensar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons $s1 of Eliza's Guards to aid her in battle for $d.",
+    "curr_pt": "Invoca $s1 Guardas por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons 3 Galak Packhound to protect you.",
+    "curr_pt": "Invoca 3 cães.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons Ar'lia of the Moro'gai.",
+    "curr_pt": "Invoca Ar'lia.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons Bloodpetal Mini Me!",
+    "curr_pt": "Invoca Miniatura!",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons Bloodshot to accompany the caster until dismissed.",
+    "curr_pt": "Invoca Sanguessuga até dispensar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons Theradrim Shardlings every 2 seconds and stuns enemies in an area for $d.",
+    "curr_pt": "Invoca Fragmentos e atordoa por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons a Crumbling Exile at the targeted location.",
+    "curr_pt": "Invoca Exilado no local.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons a Ghost Saber to fight for you for $d.",
+    "curr_pt": "Invoca Sabre por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons a Vanquished Tentacle to your aid for $d.",
+    "curr_pt": "Tentáculo por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons a cannon that will fire at enemies in front of it that are attacking you.",
+    "curr_pt": "Invoca canhão que atira em quem te ataca.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons a random affinity.",
+    "curr_pt": "Afinidade aleatória.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons a warhorse, which serves as a mount. Speed is increased by $s2%.",
+    "curr_pt": "Invoca cavalo de guerra. +$s1% velocidade.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons an Doomguard to accompany the caster until dismissed.",
+    "curr_pt": "Invoca Guarda até dispensar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons an Explosive Sheep which will charge at a nearby enemy and explode for $4050s1 damage. Lasts for 3 min or until it explodes.",
+    "curr_pt": "Ovelha que investe e explode por $s1. 3 min ou até explodir.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons an Incubus under the command of the Warlock.",
+    "curr_pt": "Invoca Íncubo do Bruxo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable Dragonhawk. Speed is increased based on your Riding skill.",
+    "curr_pt": "Invoca/dispensa falcão montaria. Pela equitação.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable Raptor. Speed is increased based on your Riding skill.",
+    "curr_pt": "Invoca/dispensa raptor montaria. Pela equitação.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable Sabre Cat.",
+    "curr_pt": "Invoca/dispensa sabre montaria.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable Skeletal Steed. Speed is increased based on your Riding skill.",
+    "curr_pt": "Invoca/dispensa corcel esqueleto. Pela equitação.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable Wyvern. Speed is increased based on your Riding skill.",
+    "curr_pt": "Invoca/dispensa wyvern montaria. Pela equitação.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable black ram.",
+    "curr_pt": "Invoca/dispensa carneiro preto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable blue ram.",
+    "curr_pt": "Invoca/dispensa carneiro azul.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable frost ram. Speed is increased based on your Riding skill.",
+    "curr_pt": "Carneiro de gelo montaria. Pela equitação.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable mechanical tallstrider.",
+    "curr_pt": "Invoca/dispensa mecanostruz.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable reindeer.",
+    "curr_pt": "Invoca/dispensa rena montaria.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable skeletal horse.",
+    "curr_pt": "Invoca/dispensa cavalo esqueleto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable white stallion.",
+    "curr_pt": "Invoca/dispensa garanhão branco.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons and dismisses a rideable winter wolf.",
+    "curr_pt": "Invoca/dispensa lobo do inverno.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons one of Slim's Friends to aid him when he enters combat.",
+    "curr_pt": "Invoca amigo do Magro em combate.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons the infernal spirit of Shahram.",
+    "curr_pt": "Invoca Shahram.",
+    "scope": "tail"
+  },
+  {
+    "en": "Summons tiny spiders every time you move, which attack your enemies.",
+    "curr_pt": "Aranha ao andar, ataca inimigo.",
+    "scope": "tail"
+  }
+]

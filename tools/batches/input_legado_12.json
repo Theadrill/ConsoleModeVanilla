@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Reduces the casting speed of nearby enemies by $s1% for $d.",
+    "curr_pt": "Lançamento -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of Exorcism by $/1000;s1 seconds.",
+    "curr_pt": "Exorcismo -$s1 s recarga.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of Rebirth by $/60000;s1 minutes.",
+    "curr_pt": "Renascer -$s1 min.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of Reincarnation by $/60000;s1 minutes.",
+    "curr_pt": "Renascer -$s1 min.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of Swiftmend by $/1000;s1 seconds.",
+    "curr_pt": "Recuperação -$s1 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of the next Holy Shock by $s1%.",
+    "curr_pt": "Choque -$s1% recarga.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of your Dark Harvest by $/1000;s1 sec.",
+    "curr_pt": "Colheita -$s1 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of your Fade ability by $/1000;s1 sec.",
+    "curr_pt": "Esvaecer recarrega $s1 s antes.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of your Gouge ability by $/1000;s1 sec.",
+    "curr_pt": "Goiva -$s1 s recarga.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cooldown of your Tranquility and Hurricane spells by $s1%.",
+    "curr_pt": "Tranquilidade e Furacão -$s1% recarga.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cost of Consecration by $s1%.",
+    "curr_pt": "Consagrar -$s1% custo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cost of your instant cast spells by $s1%.",
+    "curr_pt": "Instantânea -$s1% custo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the damage dealt by an enemy by $s1% for $d.",
+    "curr_pt": "Dano -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the effectiveness of any healing by $s1% for $d.",
+    "curr_pt": "Cura -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the energy cost of Claw and Rake by $s1.",
+    "curr_pt": "Garra e Ancinha -$s1 energia.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the energy cost of Tiger's Fury by $s1.",
+    "curr_pt": "Fúria -$s1 energia.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the global cooldown of your next Holy Shock.",
+    "curr_pt": "Próximo Choque sem global.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the magical damage taken by the caster by $s1% for $d.",
+    "curr_pt": "Mágico recebido -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of Moonfire by $s1%.",
+    "curr_pt": "Fogofátuo -$s1% mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your Arcane Shot by $s1.",
+    "curr_pt": "Tiro Arcano -$s1 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your Chain Heal spell by $s1%.",
+    "curr_pt": "Cura Encadeada -$s1% mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your Cleanse spell by $s1.",
+    "curr_pt": "Limpar -$s1 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your Holy Light spell by $s1%.",
+    "curr_pt": "Luz -$s1% mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your Mind Blast by $s1% for $d.",
+    "curr_pt": "Estouro -$s1% mana por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your Seal spells by $s1.",
+    "curr_pt": "Selo -$s1 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your nature spells by $s.",
+    "curr_pt": "Natureza -$s1 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your next Wrath by 50%.",
+    "curr_pt": "Ira -50% mana na próxima.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your spells by $s1%.",
+    "curr_pt": "Magia -$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the mana cost of your totem spells by $s1%.",
+    "curr_pt": "Totem -$s1% mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the rage cost of Maul and Swipe by 3.",
+    "curr_pt": "Pata e Golpe -3 fúria.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the rage cost of Sunder Armor, Whirlwind and Heroic Strike by $s1.",
+    "curr_pt": "Sunder/Redemoinho/Golpe -$s1 fúria.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the resist chance of Enslave Demon by $s1%.",
+    "curr_pt": "Escravizar -$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the stats of an enemy by $s1%.",
+    "curr_pt": "Inimigo -$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the stats of nearby enemies by $s1.",
+    "curr_pt": "Tudo -$s1 próximos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the threat from your Backstab, Sinister Strike, Hemorrhage, and Eviscerate abilities.",
+    "curr_pt": "Apunhalar/Golpe/Hemorragia/Eviscerar -ameaça.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the threat from your healing spells.",
+    "curr_pt": "Cura -ameaça.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the threat generated by your spells by $s1% for $d.",
+    "curr_pt": "Magia -$s1% ameaça por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the threat you generate by $s1% for $d.",
+    "curr_pt": "Ameaça -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the time between periodic ticks and duration of Rake and Rip by $s1%.",
+    "curr_pt": "Ancinha/Rasgar -$s1% tick e duração.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reflect fire and arcane spells back at the caster",
+    "curr_pt": "Reflete Fogo e Arcano.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reflect shadow and frost spells back at their caster",
+    "curr_pt": "Reflete Sombra e Gelo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Removes one Fear, Polymorph, or Sleep effect.",
+    "curr_pt": "Tira 1 Medo/Polimorfia/Sono.",
+    "scope": "tail"
+  },
+  {
+    "en": "Removes one Stun, Slowing, or Immobilizing effect.",
+    "curr_pt": "Tira 1 Atordoar/Lentidão/Imobilizar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Renders the caster invisible.",
+    "curr_pt": "Invisível.",
+    "scope": "tail"
+  },
+  {
+    "en": "Restores $/5;s1 mana every sec.",
+    "curr_pt": "$s1 mana/s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Restores $s1 health. Can only be used at 10% health.",
+    "curr_pt": "$s1 com 10% de vida.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reveal temporal parasites near grain silos in Andorhal.",
+    "curr_pt": "Revela parasita no celeiro.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reveal the spirits that haunt the ruins of Terrordale.",
+    "curr_pt": "Revela espírito de Terrordale.",
+    "scope": "tail"
+  },
+  {
+    "en": "Revived from death, this raptor’s fury knows no bounds.",
+    "curr_pt": "Raptor reanimado e furioso.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to combine 10 Dwarven Homebrews into a Case of Homebrew.",
+    "curr_pt": "Botão direito: 10 cervejas vira Caixa.",
+    "scope": "tail"
+  }
+]

@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Plants the beacon in the Western Crater. Protect it from harm!",
+    "curr_pt": "Finca na Cratera Oeste. Protege!",
+    "scope": "tail"
+  },
+  {
+    "en": "Pour on Vylestem Vines to purge them of corruption.",
+    "curr_pt": "Despeja na vinha.",
+    "scope": "tail"
+  },
+  {
+    "en": "Prized by Orgrimmar guards for their keen sense of smell.",
+    "curr_pt": "Faro apurado da guarda.",
+    "scope": "tail"
+  },
+  {
+    "en": "Protects the caster from all attacks and spells.",
+    "curr_pt": "Imune a tudo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Punctures target's armor lowering it by $s1.",
+    "curr_pt": "Armadura -$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Purifies the friendly target, removing $m1 disease $leffect:effects; and $m2 poison $leffect:effects;.",
+    "curr_pt": "Purifica: -$s1 doença e -$s2 veneno do aliado.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a Bat costume on targeted party member.",
+    "curr_pt": "Morcego no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a Skeleton costume on targeted party member.",
+    "curr_pt": "Esqueleto no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a Wisp costume on targeted party member.",
+    "curr_pt": "Fogo-fátuo no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a ghost costume on targeted party member.",
+    "curr_pt": "Fantasma no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a leper gnome costume on targeted party member.",
+    "curr_pt": "Gnomo no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a ninja costume on targeted party member.",
+    "curr_pt": "Ninja no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a pirate costume on targeted party member.",
+    "curr_pt": "Pirata no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts a random costume on targeted party member.",
+    "curr_pt": "Aleatório no colega.",
+    "scope": "tail"
+  },
+  {
+    "en": "Puts an enemy to sleep for up to $d.",
+    "curr_pt": "Dorme até $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Raise a toast to your friend!",
+    "curr_pt": "Brinde ao amigo!",
+    "scope": "tail"
+  },
+  {
+    "en": "Raise two skeletons from a fallen squire.",
+    "curr_pt": "Levanta 2 esqueletos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Raised in the Alterac Mountains by the Frostwolf Clan.",
+    "curr_pt": "Criado pelo Clã Lobo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Recover Highborne Relic Fragments.",
+    "curr_pt": "Recupera relíquia.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduce the Mana costs of your Balance spells by $s1%.",
+    "curr_pt": "Equilíbrio -$s1% mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces a target's chance to block by $s1% for $d.",
+    "curr_pt": "Bloqueio -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces all attributes of nearby enemies by $s1 for $d.",
+    "curr_pt": "Tudo -$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces all attributes of nearby enemies by $s1% for $d.",
+    "curr_pt": "Tudo -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces all of an enemy's attributes by $s1 for $d.",
+    "curr_pt": "Tudo -$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's Nature resistance by $s1 for $d.",
+    "curr_pt": "Natureza -$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's Shadow resistance by $s1 for $d.",
+    "curr_pt": "Sombra -$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's Strength by $s1 and Agility by $s2 for $d.",
+    "curr_pt": "For -$s1 e Agi -$s2 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's Strength by $s1, Agility by $s2, and Stamina by $s3 for $d.",
+    "curr_pt": "For -$s1, Agi -$s2, Vig -$s3 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's armor by $s1% and attack speed by $s2% for $d.",
+    "curr_pt": "Armadura -$s1% e velocidade -$s2% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's armor by $s2 and inflicts $s1 Nature damage every $t1 sec. for $d.",
+    "curr_pt": "Armadura -$s1 e $s2 de Natureza a cada $t1 s por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's chance to dodge by $s1% for $d.",
+    "curr_pt": "Esquiva -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces an enemy's movement speed by $s1% for $d.",
+    "curr_pt": "Velocidade -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces attack and casting speeds by $s1% and movement by $s3%. Stacks $u times.",
+    "curr_pt": "Velocidade -$s1% e movimento -$s2%. Até $u1x.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces casting speed for nearby enemies by $s1% for $d.",
+    "curr_pt": "Lançamento -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces cooldown on your Lay on Hands by $/60000;s1 min.",
+    "curr_pt": "Julgamento da Luz +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces master's resistance and defense by 20.",
+    "curr_pt": "Mestre -20 resist/defesa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces strength by $m1 and agility by $m2 for $d",
+    "curr_pt": "For -$s1 e Agi -$s2 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces target's Strength by $s1 for $d.",
+    "curr_pt": "For -$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces targets armor by $s1 for $d.",
+    "curr_pt": "Armadura -$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the Energy cost of Rake, Shred, and Claw by $s1.",
+    "curr_pt": "Ancinha/Dilacerar/Garra -$s1 energia.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the Mana cost of your shapeshifting spells by $s1.",
+    "curr_pt": "Forma -$s1 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the Rage cost of your Demoralizing Roar by $/10;s1.",
+    "curr_pt": "Rugido -$s1 fúria.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the Rage cost of your Savage Bite by $/10;s1.",
+    "curr_pt": "Mordida -$s1 fúria.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the Spirit of an enemy by $s1% for $d.",
+    "curr_pt": "Esp -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the Stamina of an enemy by $s1% for $d.",
+    "curr_pt": "Vig -$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the Stamina of nearby enemies by $s1 for $d.",
+    "curr_pt": "Vig -$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the armor by $s1 attack power by $s2 and shadow resistance by $s3 of nearby enemies for $d.",
+    "curr_pt": "Armadura -$s1, poder -$s2, Sombra -$s3 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cast time of Starfire by $/1000;S1 sec.",
+    "curr_pt": "Starfire -$s1 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the cast time of your next Starfire by $b1 sec.",
+    "curr_pt": "Próximo Starfire -$s1 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Reduces the casting cost of all your Seals by $s1.",
+    "curr_pt": "Selo -$s1 custo.",
+    "scope": "tail"
+  }
+]

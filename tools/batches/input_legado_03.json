@@ -1,0 +1,252 @@
+[
+  {
+    "en": "A majestic sea wyrm, its scales shimmer like the ocean.",
+    "curr_pt": "Verme do mar brilhante.",
+    "scope": "tail"
+  },
+  {
+    "en": "A majestic tiger infused with the energy of the heavens.",
+    "curr_pt": "Tigre dos céus.",
+    "scope": "tail"
+  },
+  {
+    "en": "A majestic wyvern with shimmering golden fur and wings.",
+    "curr_pt": "Wyvern dourado majestoso.",
+    "scope": "tail"
+  },
+  {
+    "en": "A mechanical marvel, built to withstand the toughest of battles.",
+    "curr_pt": "Maravilha mecânica de guerra.",
+    "scope": "tail"
+  },
+  {
+    "en": "A mischievous rodent mount, always ready for an adventure.",
+    "curr_pt": "Rato aventureiro e travesso.",
+    "scope": "tail"
+  },
+  {
+    "en": "A mystical fox, adorned with the power of the stars.",
+    "curr_pt": "Raposa das estrelas.",
+    "scope": "tail"
+  },
+  {
+    "en": "A powerful lion outfitted for war, roaring into battle.",
+    "curr_pt": "Leão de guerra rugindo.",
+    "scope": "tail"
+  },
+  {
+    "en": "A proud warhorse, symbolizing the triumphs of the Alliance.",
+    "curr_pt": "Corcel do triunfo.",
+    "scope": "tail"
+  },
+  {
+    "en": "A rare and beautiful crane with a soft pink plumage.",
+    "curr_pt": "Grou rosa e raro.",
+    "scope": "tail"
+  },
+  {
+    "en": "A rare and elegant bird, known for its striking ivory plumage.",
+    "curr_pt": "Ave rara e elegante, marfim.",
+    "scope": "tail"
+  },
+  {
+    "en": "A rare breed, known for its stark white exoskeleton.",
+    "curr_pt": "Raça branca e rara.",
+    "scope": "tail"
+  },
+  {
+    "en": "A rare predator from the depths of Wailing Caverns.",
+    "curr_pt": "Predador raro das Cavernas.",
+    "scope": "tail"
+  },
+  {
+    "en": "A rare, blue-scaled giant murloc, ready for any adventure.",
+    "curr_pt": "Murloc azul e raro.",
+    "scope": "tail"
+  },
+  {
+    "en": "A regal yak, treasured for its strength and golden coat.",
+    "curr_pt": "Yak dourado e forte.",
+    "scope": "tail"
+  },
+  {
+    "en": "A sacred serpent, blessed by the goddess Ula-Tek.",
+    "curr_pt": "Serpente sagrada de Ula-Tek.",
+    "scope": "tail"
+  },
+  {
+    "en": "A shadowy beast hidden in the wilds of Un’Goro.",
+    "curr_pt": "Fera sombria de Un'Goro.",
+    "scope": "tail"
+  },
+  {
+    "en": "A sleek and deadly predator, ready to pounce on its foes.",
+    "curr_pt": "Predador veloz e mortal.",
+    "scope": "tail"
+  },
+  {
+    "en": "A strong alcoholic beverage.",
+    "curr_pt": "Bebida forte.",
+    "scope": "tail"
+  },
+  {
+    "en": "A swift crab with a sturdy blue shell.",
+    "curr_pt": "Caranguejo azul veloz.",
+    "scope": "tail"
+  },
+  {
+    "en": "A terrifying mount, shrouded in darkness and decay.",
+    "curr_pt": "Treva e ruína.",
+    "scope": "tail"
+  },
+  {
+    "en": "A tiny but wise mount, perfect for those who seek knowledge.",
+    "curr_pt": "Ratinho sábio e miúdo.",
+    "scope": "tail"
+  },
+  {
+    "en": "A typical alcoholic beverage.",
+    "curr_pt": "Bebida normal.",
+    "scope": "tail"
+  },
+  {
+    "en": "A veteran of some of the toughest battles fought by the Alliance.",
+    "curr_pt": "Veterano das piores batalhas da Aliança.",
+    "scope": "tail"
+  },
+  {
+    "en": "A vibrant and playful bird, spreading joy wherever it goes.",
+    "curr_pt": "Alegre e brincalhona.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds $s1 damage and hits one additional target",
+    "curr_pt": "+$s1 e +1 alvo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds 10 fire damage to your weapon attack.",
+    "curr_pt": "Arma +10 fogo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds 12 fire damage to your weapon attack.",
+    "curr_pt": "Arma +12 fogo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds 4 fire damage to your weapon attack.",
+    "curr_pt": "Arma +4 fogo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds 6 fire damage to your weapon attack.",
+    "curr_pt": "Arma +6 fogo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds 8 fire damage to your weapon attack.",
+    "curr_pt": "Arma +8 fogo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a chance to disease a target on a successful attack.",
+    "curr_pt": "Chance de doença ao atacar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a chance to do extra damage and slow attack rate of a target on a successful hit.",
+    "curr_pt": "Chance de dano extra e lentidão ao acertar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a chance to poison a target on a successful hit.",
+    "curr_pt": "Chance de envenenar ao acertar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a chance to render a target unable to attack on a hit.",
+    "curr_pt": "Chance de travar ataque ao acertar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a companion to the player's companion collection.",
+    "curr_pt": "Coleção de companheiro.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a mount to the player's mount collection.",
+    "curr_pt": "Coleção de montaria.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a record to the player's record collection.",
+    "curr_pt": "Coleção de disco.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds a toy to the player's toy collection.",
+    "curr_pt": "Coleção de brinquedo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Adds an illusion to the player's illusion collection.",
+    "curr_pt": "Coleção de ilusão.",
+    "scope": "tail"
+  },
+  {
+    "en": "Agility increased by $s1%.",
+    "curr_pt": "Agi +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the caster to play the animation for stealth without the invis.",
+    "curr_pt": "Só a animação furtiva, sem invis.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to pilot a Mechanostrider.",
+    "curr_pt": "Pilota mecanostruz.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to ride a horse.",
+    "curr_pt": "Monta cavalo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to ride a kodo.",
+    "curr_pt": "Monta kodo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to ride a ram.",
+    "curr_pt": "Monta carneiro.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to ride a raptor.",
+    "curr_pt": "Monta raptor.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to ride a skeletal horse.",
+    "curr_pt": "Monta cavalo esqueleto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to ride a tiger.",
+    "curr_pt": "Monta tigre.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows the player to ride a wolf.",
+    "curr_pt": "Monta lobo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows wielder to see ghosts of the recently deceased.",
+    "curr_pt": "Vê fantasma recente.",
+    "scope": "tail"
+  }
+]

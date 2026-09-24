@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Inflicts Nature damage to an enemy, and has a chance of irradiating it.",
+    "curr_pt": "Natureza com chance de irradiar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Inflicts Physical damage to an enemy.",
+    "curr_pt": "Físico no inimigo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Inflicts Physical damage to nearby enemies.",
+    "curr_pt": "Pisoteia próximos: Físico.",
+    "scope": "tail"
+  },
+  {
+    "en": "Inflicts damage, knocks the target back, and clears their threat.",
+    "curr_pt": "Dano, arremessa e limpa ameaça.",
+    "scope": "tail"
+  },
+  {
+    "en": "Inflicts normal damage plus $s1 to an enemy, knocking it back and stunning it for $d.",
+    "curr_pt": "Normal +$s1, arremessa e atordoa por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Injures caster of spell by $s1.",
+    "curr_pt": "Fere-se em $s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Instills awe and wonder amongst worshippers of Ragnaros.",
+    "curr_pt": "Temor aos fiéis.",
+    "scope": "tail"
+  },
+  {
+    "en": "Intelligence increased by $s1%.",
+    "curr_pt": "Int +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "It always wakes up dancing. What a happy little tree!",
+    "curr_pt": "Árvore dançante feliz.",
+    "scope": "tail"
+  },
+  {
+    "en": "It's about to hatch! What could be inside?",
+    "curr_pt": "Ovo prestes a abrir!",
+    "scope": "tail"
+  },
+  {
+    "en": "Its vibrant orange scales make this murloc a standout.",
+    "curr_pt": "Murloc laranja vibrante.",
+    "scope": "tail"
+  },
+  {
+    "en": "Join together the Lower, Middle and Upper Map Fragments.",
+    "curr_pt": "Junta os 3 mapas.",
+    "scope": "tail"
+  },
+  {
+    "en": "Kills all nearby Dupe Bugs and heals the caster.",
+    "curr_pt": "Mata Bugs e cura.",
+    "scope": "tail"
+  },
+  {
+    "en": "Knocks an enemy back, forcing it to dismount.",
+    "curr_pt": "Derruba e desmonta.",
+    "scope": "tail"
+  },
+  {
+    "en": "Knocks an enemy back.",
+    "curr_pt": "Arremessa inimigo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Knocks target back a short distance.",
+    "curr_pt": "Arremessa curto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Legends speak of kobolds riding these spiders into battle.",
+    "curr_pt": "Kobold monta aranha.",
+    "scope": "tail"
+  },
+  {
+    "en": "Lost time is never found again.",
+    "curr_pt": "Tempo nunca volta.",
+    "scope": "tail"
+  },
+  {
+    "en": "Lowers all stats by $s2 and deals $s1 Nature damage every $t1 sec to all enemies within an $a1 yard radius of the caster for $d.",
+    "curr_pt": "Tudo -$s1 e $s2 de Natureza a cada $t1 s a $a1 m por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Lulls an enemy into a deep sleep for $d., rendering it unable to act, but also making it invulnerable.",
+    "curr_pt": "Sono profundo: sem agir mas invulnerável por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Mana cost of Fire and Shadow spells reduced by $s1%.",
+    "curr_pt": "Fogo e Sombra -$s1% mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "May fortune be with you!",
+    "curr_pt": "Boa sorte!",
+    "scope": "tail"
+  },
+  {
+    "en": "Mind control the target for $d, increasing their damage dealt by $s3%, their attack speed by $s1% and their casting speed by $s1%",
+    "curr_pt": "Controla por $d s: +$s1% dano, +$s2% velocidade e +$s2% lançamento.",
+    "scope": "tail"
+  },
+  {
+    "en": "NPCs will not speak to you for the duration of the spell.",
+    "curr_pt": "NPC não fala com você.",
+    "scope": "tail"
+  },
+  {
+    "en": "Nature Resistance increased by $s1.",
+    "curr_pt": "Natureza +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Nearby Gahz'ridian appears on the minimap.",
+    "curr_pt": "Gahz'ridian no minimapa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Night elves once believed that seeing this light colored saber breed in the wild was an ill omen.",
+    "curr_pt": "Elfos viam sabre claro na selva como mau agouro.",
+    "scope": "tail"
+  },
+  {
+    "en": "Not only is it quick, it's loud too!",
+    "curr_pt": "Warp rápido e barulhento!",
+    "scope": "tail"
+  },
+  {
+    "en": "Notable for its wide eyes and sassy slide.",
+    "curr_pt": "Olho arregalado e deslize.",
+    "scope": "tail"
+  },
+  {
+    "en": "Offer a tribute at Grom Hellscream's monument in Ashenvale.",
+    "curr_pt": "Homenagem no monumento.",
+    "scope": "tail"
+  },
+  {
+    "en": "One bite of the vicious turtles can tear the arm off an ogre with ease.",
+    "curr_pt": "Tartaruga que arranca braço de ogre.",
+    "scope": "tail"
+  },
+  {
+    "en": "Opens a Black Vault Relic Coffer Door.",
+    "curr_pt": "Abre Relicário.",
+    "scope": "tail"
+  },
+  {
+    "en": "Opens a Scarab Coffer.",
+    "curr_pt": "Abre Cofre.",
+    "scope": "tail"
+  },
+  {
+    "en": "Overall Stamina increased by $s1%.",
+    "curr_pt": "Vig +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Panics nearby enemies, causing them to flee in fear for $d.",
+    "curr_pt": "Pânico foge por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Perfect for fishing... and getting a sore ass from sitting too long.",
+    "curr_pt": "Trono de pescador.... e bunda doída.",
+    "scope": "tail"
+  },
+  {
+    "en": "Permanently enchant a 2H weapon to give $27836s1 Agility.",
+    "curr_pt": "Arma 2M: +$s1 Agi.",
+    "scope": "tail"
+  },
+  {
+    "en": "Permanently enchant a cloak to give a 1% chance to dodge.",
+    "curr_pt": "Manto: 1% esquiva.",
+    "scope": "tail"
+  },
+  {
+    "en": "Pick a piece of candy from the bag.",
+    "curr_pt": "Pega um doce.",
+    "scope": "tail"
+  },
+  {
+    "en": "Place at the Stone of Shy-Rotam.",
+    "curr_pt": "Põe na Pedra.",
+    "scope": "tail"
+  },
+  {
+    "en": "Place between the Dead Goliaths in the Valley of Bones.",
+    "curr_pt": "Põe entre os Golias.",
+    "scope": "tail"
+  },
+  {
+    "en": "Place in the Darrowshire Town Square.",
+    "curr_pt": "Põe na praça.",
+    "scope": "tail"
+  },
+  {
+    "en": "Place near the Venture Co. Airport",
+    "curr_pt": "Põe no Aeroporto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Place upon the Flame of Uzel.",
+    "curr_pt": "Põe na Chama.",
+    "scope": "tail"
+  },
+  {
+    "en": "Place upon the Flat Un'Goro Rock.",
+    "curr_pt": "Põe na Pedra.",
+    "scope": "tail"
+  },
+  {
+    "en": "Place upon the skull stone near the Mausoleum in Brill.",
+    "curr_pt": "Põe na caveira do Mausoléu.",
+    "scope": "tail"
+  },
+  {
+    "en": "Places a festive Winter Veil tree in front of the user.",
+    "curr_pt": "Arvorezinha do Veil.",
+    "scope": "tail"
+  },
+  {
+    "en": "Places all five of the Khans' gems in the Amulet of Spirits.",
+    "curr_pt": "Junta as 5 gemas no Amuleto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Places the Bag of Gold at the designated Drop-Off Point.",
+    "curr_pt": "Põe o ouro no ponto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Plant these seeds in the Stagnant Oasis fissure.",
+    "curr_pt": "Planta no Óasis.",
+    "scope": "tail"
+  }
+]

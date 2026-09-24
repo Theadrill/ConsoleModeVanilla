@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Increases your chance to parry with a Two-Handed mace by 1%.",
+    "curr_pt": "Aparar maça 2M +1%.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Bows by 3.",
+    "curr_pt": "Arcos +3.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Bows by 4.",
+    "curr_pt": "Arcos +4.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Daggers by 3.",
+    "curr_pt": "Adagas +3.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with One-Handed Swords by 3.",
+    "curr_pt": "Espadas 1M +3.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Staves by 1.",
+    "curr_pt": "Cajados +1.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Staves by 4.",
+    "curr_pt": "Cajados +4.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Axes by 4.",
+    "curr_pt": "Machados 2M +4.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Axes by 5.",
+    "curr_pt": "Machados 2M +5.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your damage with Two-Handed Swords by 4.",
+    "curr_pt": "Espadas 2M +4.",
+    "scope": "other"
+  },
+  {
+    "en": "Increases your maximum Energy by $s1.",
+    "curr_pt": "Energia máx +$s1.",
+    "scope": "other"
+  },
+  {
+    "en": "Inflicts $s2 damage to nearby enemies and slows their movement speed by $s2%.",
+    "curr_pt": "$s1 nos próximos e -$s1% velocidade.",
+    "scope": "other"
+  },
+  {
+    "en": "Inflicts $s2 damage to nearby enemies.",
+    "curr_pt": "$s1 nos próximos.",
+    "scope": "other"
+  },
+  {
+    "en": "Learn how to disguise yourself as a Dalaran Wizard.",
+    "curr_pt": "Disfarce de Mago.",
+    "scope": "other"
+  },
+  {
+    "en": "Learn how to disguise yourself as a Dark Iron Dwarf.",
+    "curr_pt": "Disfarce de Anão.",
+    "scope": "other"
+  },
+  {
+    "en": "Learn how to disguise yourself as a Defias Footpad.",
+    "curr_pt": "Disfarce de Défias.",
+    "scope": "other"
+  },
+  {
+    "en": "Learn how to disguise yourself as a South Seas pirate.",
+    "curr_pt": "Disfarce de Pirata.",
+    "scope": "other"
+  },
+  {
+    "en": "Learn how to disguise yourself as a Stonesplinter Trogg.",
+    "curr_pt": "Disfarce de Trogg.",
+    "scope": "other"
+  },
+  {
+    "en": "Learn how to disguise yourself as a Syndicate Highwayman.",
+    "curr_pt": "Disfarce de Sindicato.",
+    "scope": "other"
+  },
+  {
+    "en": "Protects the caster with a holy shield.",
+    "curr_pt": "Escudo sagrado.",
+    "scope": "other"
+  },
+  {
+    "en": "Reduces mana cost of all spells by 100 for $d.",
+    "curr_pt": "Magia -100 por $d s.",
+    "scope": "other"
+  },
+  {
+    "en": "Reduces target's attack power by $s1 for $d.",
+    "curr_pt": "Poder -$s1 por $d s.",
+    "scope": "other"
+  },
+  {
+    "en": "Slows the enemy's movement by $s2% and their attack speed by $s1% for $d.",
+    "curr_pt": "Aumenta seu dano com Adagas em $s1.",
+    "scope": "other"
+  },
+  {
+    "en": "Slows the target's movement by $s1% for $d.",
+    "curr_pt": "Atordoa: -$s1% velocidade por $d s.",
+    "scope": "other"
+  },
+  {
+    "en": "Summons a Hammer of Expertise.",
+    "curr_pt": "Invoca Martelo.",
+    "scope": "other"
+  },
+  {
+    "en": "The Symbol of Life will bring the person attuned to it back to life.",
+    "curr_pt": "Símbolo que revive o sintonizado.",
+    "scope": "other"
+  },
+  {
+    "en": "Throws a weapon at an enemy, inflicting $s1 damage.",
+    "curr_pt": "Arremessa: $s1 no inimigo.",
+    "scope": "other"
+  },
+  {
+    "en": "When activated, your next Nature spell becomes an instant cast spell.",
+    "curr_pt": "Próxima Natureza vira instantânea.",
+    "scope": "other"
+  },
+  {
+    "en": "$h% chance to parry the next attack after a block.",
+    "curr_pt": "$h% de aparar após bloquear.",
+    "scope": "tail"
+  },
+  {
+    "en": "$s1% increase to the total damage absorbed by Mana Shield.",
+    "curr_pt": "Escudo de Mana +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "$s1% increased damage on your Immolate spell.",
+    "curr_pt": "Imolar +$s1% dano.",
+    "scope": "tail"
+  },
+  {
+    "en": "$s1% increased damage to your Eviscerate ability.",
+    "curr_pt": "Eviscerar +$s1% dano.",
+    "scope": "tail"
+  },
+  {
+    "en": "+$s1 to Strength of Earth and Grace of Air totem effect.",
+    "curr_pt": "Terra e Ar +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "+$s1% chance to resist Fear spells and effects.",
+    "curr_pt": "+$s1% vs Medo.",
+    "scope": "tail"
+  },
+  {
+    "en": "+5 to All Weapons",
+    "curr_pt": "+5 tudo.",
+    "scope": "tail"
+  },
+  {
+    "en": "-$/1000;S1 sec to the casting time of your Flash Heal spell.",
+    "curr_pt": "Clarão -$s1 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "-$/10;s1 rage cost to Intercept and Intervene.",
+    "curr_pt": "Interceptar/Intervir -$s1 fúria.",
+    "scope": "tail"
+  },
+  {
+    "en": "-$s1 energy cost for your Slice and Dice ability.",
+    "curr_pt": "Fatiar -$s1 energia.",
+    "scope": "tail"
+  },
+  {
+    "en": "20% chance to regain 100 mana when you cast a Judgement.",
+    "curr_pt": "Julgamento: 20% de +100 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "A bee mount, prized for its sweet nature and loyal heart.",
+    "curr_pt": "Abelha doce e leal.",
+    "scope": "tail"
+  },
+  {
+    "en": "A bounty of $s1 gold has been put on your head.",
+    "curr_pt": "Recompensa de $s1 de ouro.",
+    "scope": "tail"
+  },
+  {
+    "en": "A fairly weak alcoholic beverage.",
+    "curr_pt": "Bebida fraca.",
+    "scope": "tail"
+  },
+  {
+    "en": "A festive mount, celebrating the joyous spirit of Brewfest.",
+    "curr_pt": "Kodo festivo da Cerva.",
+    "scope": "tail"
+  },
+  {
+    "en": "A fierce and loyal mount, favored by daring riders.",
+    "curr_pt": "Montaria fiel e feroz.",
+    "scope": "tail"
+  },
+  {
+    "en": "A fierce, armored scorpion used by those who crave power.",
+    "curr_pt": "Escorpião faminto de poder.",
+    "scope": "tail"
+  },
+  {
+    "en": "A gentle, sun-loving feline companion from warm climates.",
+    "curr_pt": "Felino dourado e manso.",
+    "scope": "tail"
+  },
+  {
+    "en": "A giant green murloc, surprisingly loyal to its rider.",
+    "curr_pt": "Murloc gigante e leal.",
+    "scope": "tail"
+  },
+  {
+    "en": "A loyal companion, offering comfort and courage in battle.",
+    "curr_pt": "Companheiro leal e corajoso.",
+    "scope": "tail"
+  },
+  {
+    "en": "A lucky mount, rumored to bring good fortune to its rider.",
+    "curr_pt": "Porco da sorte.",
+    "scope": "tail"
+  },
+  {
+    "en": "A majestic phoenix, its flames illuminate the path ahead.",
+    "curr_pt": "Fênix que ilumina.",
+    "scope": "tail"
+  }
+]

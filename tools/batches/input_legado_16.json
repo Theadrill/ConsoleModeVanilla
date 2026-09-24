@@ -1,0 +1,167 @@
+[
+  {
+    "en": "Use within the Sanctum of the Fallen God.",
+    "curr_pt": "Use no Sacrário.",
+    "scope": "tail"
+  },
+  {
+    "en": "Used on plagued water elementals in Eastern Plaguelands.",
+    "curr_pt": "Use em elemental pestilento.",
+    "scope": "tail"
+  },
+  {
+    "en": "Used to capture a rabid thistle bear.",
+    "curr_pt": "Captura urso doente.",
+    "scope": "tail"
+  },
+  {
+    "en": "Used to signal a unit to adopt the female Valentine gossip.",
+    "curr_pt": "Sinal de fofoca feminina.",
+    "scope": "tail"
+  },
+  {
+    "en": "Used to signal a unit to adopt the male Valentine gossip.",
+    "curr_pt": "Sinal de fofoca masculina.",
+    "scope": "tail"
+  },
+  {
+    "en": "Uses a Holy elixir to heal the caster.",
+    "curr_pt": "Elixir Sagrado cura você.",
+    "scope": "tail"
+  },
+  {
+    "en": "Visual effect for Jordan Stillwell forging Verigan's Fist.",
+    "curr_pt": "Efeito do Jordan forjando.",
+    "scope": "tail"
+  },
+  {
+    "en": "Visual effect for gems exploding in Azsahra event.",
+    "curr_pt": "Efeito de gema explodindo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Wakes up a targeted sleeping peon.",
+    "curr_pt": "Acorda o peão.",
+    "scope": "tail"
+  },
+  {
+    "en": "What a happy little tree!",
+    "curr_pt": "Arvorezinha feliz!",
+    "scope": "tail"
+  },
+  {
+    "en": "When applied to a melee weapon it gives a 10% chance of casting Frostbolt at the opponent when it hits. Lasts 30 minutes.",
+    "curr_pt": "Arma corpo a corpo: 10% de Setavolt ao acertar. 30 min.",
+    "scope": "tail"
+  },
+  {
+    "en": "When fallen heroes are raised into undeath, so too are their horses.",
+    "curr_pt": "Herói vira morto-vivo, cavalo junto.",
+    "scope": "tail"
+  },
+  {
+    "en": "When struck in combat has a 10% chance of inflicting $s1 Frost damage to the attacker.",
+    "curr_pt": "Acerto: 10% de $s1 de Gelo no atacante.",
+    "scope": "tail"
+  },
+  {
+    "en": "When struck in combat has a 2% chance of gaining 300 mana.",
+    "curr_pt": "Acerto: 2% de +300 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "While active, target's hit points increase by 20%.",
+    "curr_pt": "Ativo: vida +20%.",
+    "scope": "tail"
+  },
+  {
+    "en": "While equipped, the wearer suffers less damage from falls.",
+    "curr_pt": "Menos dano de queda.",
+    "scope": "tail"
+  },
+  {
+    "en": "Whirlwind now hits $s1 additional targets.",
+    "curr_pt": "Redemoinho +$s1 alvos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Who knew he was so into books?",
+    "curr_pt": "Ratinho de livro?",
+    "scope": "tail"
+  },
+  {
+    "en": "Who would leave such a cute shark behind?",
+    "curr_pt": "Tubarão fofo abandonado?",
+    "scope": "tail"
+  },
+  {
+    "en": "Wish a friend some Season's Greetings!",
+    "curr_pt": "Boas Festas!",
+    "scope": "tail"
+  },
+  {
+    "en": "You better believe he knows what time it is.",
+    "curr_pt": "Sabe que horas são.",
+    "scope": "tail"
+  },
+  {
+    "en": "You can only use poor and common quality equipment. Enchanting items is not allowed.",
+    "curr_pt": "Só equipamento branco e verde. Sem encantar.",
+    "scope": "tail"
+  },
+  {
+    "en": "You have a $s1% chance to reflect harmful spells.",
+    "curr_pt": "Refletir $s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your Backstab, Sinister Strike, and Hemorrhage critical hits cause you to regain $28813s1 energy.",
+    "curr_pt": "Crítico Golpe/Apunhalar/Hemorragia: +$s1 energia.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your Blizzard spell has a 30% chance to be uninterruptible.",
+    "curr_pt": "Nevasca 30% ininterrupta.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your Mana Tide Totem last $/1000;S1 sec longer.",
+    "curr_pt": "Maré +$s1 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your Rip has a 20% chance per combo point to make your next Shred refund $52343s1 energy.",
+    "curr_pt": "Rasgar: 20% por combo de Dilacerar +$s1 energia.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your Shadow spells generate $s1% less threat.",
+    "curr_pt": "Sombra -$s1% ameaça.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your direct healing spells have a 5% chance to grant 20% cast speed for 15 sec.",
+    "curr_pt": "Cura direta: 5% de +20% lançamento 15 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your magical heals can trigger a bonus healing effect.",
+    "curr_pt": "Cura com bônus extra.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your normal melee and ranged attacks have a 4% chance of restoring 200 mana.",
+    "curr_pt": "Corpo a corpo/distância: 4% de +200 mana.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your rogue and druid opening moves deal 5% more damage.",
+    "curr_pt": "Abertura Ladino/Druida +5%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Your spirits are lifted.",
+    "curr_pt": "Ânimo leve.",
+    "scope": "tail"
+  }
+]

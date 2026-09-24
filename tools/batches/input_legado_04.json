@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Allows you to look far into the distance.",
+    "curr_pt": "Olha longe.",
+    "scope": "tail"
+  },
+  {
+    "en": "Allows you to wear Plate Mail armor.",
+    "curr_pt": "Veste Placa.",
+    "scope": "tail"
+  },
+  {
+    "en": "An agile frog known for its brilliant blue skin.",
+    "curr_pt": "Sapo azul brilhante.",
+    "scope": "tail"
+  },
+  {
+    "en": "An airship built for speed and high-altitude adventure.",
+    "curr_pt": "Dirigível veloz das alturas.",
+    "scope": "tail"
+  },
+  {
+    "en": "An ancient tree guardian, offering protection and wisdom.",
+    "curr_pt": "Guardião sábio e antigo.",
+    "scope": "tail"
+  },
+  {
+    "en": "An easy-going traveling companion.",
+    "curr_pt": "Porquinho tranquilo.",
+    "scope": "tail"
+  },
+  {
+    "en": "An ethereal creature carrying the power of Zalmos within.",
+    "curr_pt": "Essência etérea de Zalmos.",
+    "scope": "tail"
+  },
+  {
+    "en": "An extremely potent alcoholic beverage.",
+    "curr_pt": "Bebida potentíssima.",
+    "scope": "tail"
+  },
+  {
+    "en": "An undead mount, raised to serve the Lich King’s will.",
+    "curr_pt": "Montaria do Lich Rei.",
+    "scope": "tail"
+  },
+  {
+    "en": "Apply to the Preserved Threshadon Carcass.",
+    "curr_pt": "Passa na Carcaça.",
+    "scope": "tail"
+  },
+  {
+    "en": "Arcane Resistance increased by $s1.",
+    "curr_pt": "Arcano +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attach the pieces into a whole.",
+    "curr_pt": "Monta a boneca.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attach to the Shaft of Tsol.",
+    "curr_pt": "Prende na Haste.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attaches a chain to your weapon, making it impossible to disarm.",
+    "curr_pt": "Corrente: impossível desarmar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attack Power power increased by $s1.",
+    "curr_pt": "Poder +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attack power increased by $s1.",
+    "curr_pt": "Poder +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attack speed increased by $s1%.",
+    "curr_pt": "Velocidade +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attacks nearby enemies in a flurry of axes that lasts $d.",
+    "curr_pt": "Machados $d s nos próximos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attempt to pursuade the target.",
+    "curr_pt": "Tenta persuadir.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attempts to decapitate the target, causing $s1 damage.",
+    "curr_pt": "Decapita: $s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Attempts to dispel a harmful curse, disease, magic effect, or poison effect from nearby allies.",
+    "curr_pt": "Dissipa maldição, doença, magia ou veneno próximos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Become Immune to Sleep, Polymorphs, and Charms for 30 seconds,",
+    "curr_pt": "Imune a Sono/Polimorfia/Encanto 30 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Bites an enemy, inflicting Physical damage.",
+    "curr_pt": "Morde: Físico.",
+    "scope": "tail"
+  },
+  {
+    "en": "Blast a Necropolis Crystal!",
+    "curr_pt": "Destrói cristal!",
+    "scope": "tail"
+  },
+  {
+    "en": "Blasts open nearly any locked door.",
+    "curr_pt": "Abre quase tudo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Blasts the enemy with poison for $s1 Nature damage.",
+    "curr_pt": "Cospe $s1 de Natureza.",
+    "scope": "tail"
+  },
+  {
+    "en": "Blow on the whistle to let Fizzule know you're an ally.",
+    "curr_pt": "Assobia que é aliado.",
+    "scope": "tail"
+  },
+  {
+    "en": "Boiling hot magma courses through this mount.",
+    "curr_pt": "Magma borbulhante.",
+    "scope": "tail"
+  },
+  {
+    "en": "Breathes fire for 5 seconds, damaging enemies in front of you for 22 Fire damage. A true afterburner.",
+    "curr_pt": "Sopra fogo 5 s: 22 nos da frente. Pós-combustão.",
+    "scope": "tail"
+  },
+  {
+    "en": "Brings a dead player back to life with $s1% of their health and mana. Cannot be used when in combat.",
+    "curr_pt": "Ressuscita com $s1% de vida e mana. Fora de combate.",
+    "scope": "tail"
+  },
+  {
+    "en": "Calls forth 3 servants of the House Barov that will fight, cook, and clean for you.",
+    "curr_pt": "Três servos que lutam, cozinham e limpam.",
+    "scope": "tail"
+  },
+  {
+    "en": "Captures the spirit of a Felhound to be used in the creation of a warlockian orb.",
+    "curr_pt": "Captura espírito de Felhound pro orbe.",
+    "scope": "tail"
+  },
+  {
+    "en": "Captures the spirit of an Infernal to be used in the creation of a warlockian orb.",
+    "curr_pt": "Captura espírito de Infernal pro orbe.",
+    "scope": "tail"
+  },
+  {
+    "en": "Captures the spirit of the nearest Burning Blade member. If target dies while being drained, the caster gains 1 Infused Burning Gem.",
+    "curr_pt": "Captura espírito Lâmina Ardente. Se morrer drenado, +1 Gema.",
+    "scope": "tail"
+  },
+  {
+    "en": "Cast an AOE spell",
+    "curr_pt": "Lança área.",
+    "scope": "tail"
+  },
+  {
+    "en": "Causes $s1 Physical damage to all targets within $a1 yards.",
+    "curr_pt": "$s1 Físico a $a1 m.",
+    "scope": "tail"
+  },
+  {
+    "en": "Causes $s1 damage to nearby enemies.",
+    "curr_pt": "$s1 nos próximos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Causes Arko'narin to become an elite mob.",
+    "curr_pt": "Arko'narin vira elite.",
+    "scope": "tail"
+  },
+  {
+    "en": "Causes a corpse to explode, inflicting $s1 Shadow damage on enemies near the corpse.",
+    "curr_pt": "Cadáver explode: $s1 de Sombra nos próximos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Causes nearby players to dance.",
+    "curr_pt": "Dança!",
+    "scope": "tail"
+  },
+  {
+    "en": "Causing $s1 Physical damage to attackers when hit.",
+    "curr_pt": "$s1 em quem bater.",
+    "scope": "tail"
+  },
+  {
+    "en": "Chance for a critical hit with a spell increased by $s1%.",
+    "curr_pt": "Crítico +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Chance on Hit: Immobilizes the target and lowers their armor by 100 for 10 sec.",
+    "curr_pt": "Beijo: imobiliza e -100 armadura 10 s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Chance to Eye Peck, which lowers a target's chance to hit.",
+    "curr_pt": "Bicada que -acerto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Changes the caster's image into a that of a ghoul.",
+    "curr_pt": "Vira carniçal.",
+    "scope": "tail"
+  },
+  {
+    "en": "Changes to Cannon Master Willey's Christmas outfit.",
+    "curr_pt": "Roupa do Willey.",
+    "scope": "tail"
+  },
+  {
+    "en": "Changes to Emperor Dagran Thaurissan's Christmas outfit.",
+    "curr_pt": "Roupa do Imperador.",
+    "scope": "tail"
+  },
+  {
+    "en": "Changes to Goraluk Anvilcrack's Christmas outfit.",
+    "curr_pt": "Roupa do Goraluk.",
+    "scope": "tail"
+  },
+  {
+    "en": "Changes to Prince Tortheldrin's Christmas outfit.",
+    "curr_pt": "Roupa do Tortheldrin.",
+    "scope": "tail"
+  },
+  {
+    "en": "Changes to War Master Voone's Christmas outfit.",
+    "curr_pt": "Roupa do Voone.",
+    "scope": "tail"
+  }
+]

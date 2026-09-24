@@ -437,6 +437,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 **Onde parou:**
 - **Último lote concluído:** `T41` (Commit `e8b8a0b`).
+- **NOTA 24/09: T42 (`abb1f70`) e T43 (`bbd7334`) JÁ FORAM CONCLUÍDOS E COMMITADOS APÓS este checkpoint — Fase 8.C está 100% (43/43). Não reprocessar.**
 - **Próximo lote a processar:** **Lote T42** (`tools/batches/input_tail_npc_42.json`).
 - **Lotes pendentes da Fase 8.C:** Apenas **T42** (50 templates) e **T43** (6 templates) = **2 lotes / 56 templates restantes** para zerar completamente a Fase 8.C!
 
@@ -500,6 +501,15 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - **Menu** (`UI/MainMenu.lua`, sub-aba `ADDON_CFG`): linha 3-estados `[ AUTOMÁTICO|ATIVADO|DESATIVADO ]` + status efetivo `[ ATIVO ]` verde/`[ INATIVO ]` cinza; `disabledIf` (cinza + msg `OCTO_EN_ONLY` quando idioma ≠ ptBR — avaliar no populate basta, idioma exige `/reload`); **`hiddenIf` (a linha se esconde sozinha enquanto `SpellDescDB_Octo_ByKey` vazio e reaparece quando houver tradução — é assim que está hoje)**; linhas ocultas nem são criadas (sem buraco no layout). Chaves `SYS_CFG_OCTO_*`/`OCTO_*` em `Data/Locales/{ptBR,enUS}/UI.lua` (paridade `check_locales.py` OK).
 - **Dados:** `Data/SpellDescDB_ptBR_octo.lua` (esqueleto válido, no `.toc` após o Capy) + `tools/mpq_orphans_octo.json` (veredito + md5s) + `tools/recover_spell_en.py` (recupera `spell_en.json` do `.lua` se o Temp for limpo).
 - **Fumo testado:** `Temp/opencode/octo_smoke.lua` e `itemdesc_smoke.lua` (harness fora do git; shims `table.getn`/`format` p/ lua moderno).
+
+#### 8.10 Hotfix 8.B-1 + FASE L — caçada aos legados telegráficos (24/09/2026)
+> Bug achado validando a 8.B no jogo (item 5059 "Garra de Escavação" com `Uso:` em EN): o scan desvia TODA linha `Uso:/Use:/Equipar:` para `itemData.desc` (`MainMenu.lua:630-631` e `4144-4145`, `MerchantMenu.lua:343-347` e `411-415`), mas o hook `GamePT_ItemDesc` só existia no loop de `statsLines`. Todo item de Uso caía no `ItemStat`/cru. **Conserto na lógica (zero hardcode):** `ShowItem` bloco `desc` tenta `GamePT_ItemDesc` antes do `ItemStat`; `MerchantMenu.useText` idem antes do cru. Commit `ac1771d` (pushado). REGRA DO USUÁRIO: nunca consertar o item, sempre a lógica.
+
+> **FASE L (Legados telegráficos → humanlike/Blizzlike):** auditor `audit_effective_sms.py` tem ponto cego (só regex + razão de chars; ex. `Digs up silithid eggs.`→`Desenterra ovo.` passava). Novo detector `tools/make_legado_batches.py` (word-ratio ≤50% + `SMS_EXTRA`) gerou `tools/legado_queue.json` = **783 candidatos** (`other` 78 + `tail` 705; zero `ranked`/`orphan` — núcleo humano segurou) em 16 lotes `input_legado_01..16.json` (50/lote).
+> - **Loop por lote:** tradutor `input_legado_NN` → `output_legado_NN` (`[{en,pt}]`, olho humano item a item, reescreve SMS / mantém bons) → `validate_pair` (`validate_spell_vars.py`) → `py tools/apply_batch.py` (valida + rebuild SpellDescDB) → `luac -p Data/SpellDescDB_ptBR.lua` → ledger `tools/batches/PROGRESSO_LEGADO.txt` → commit local por lote.
+> - **REGRA DE QUOTA:** varredura/detecção com N agentes em paralelo; **tradução com MÁX 2 agentes por vez**. Glossário canônico do §8.8 vale aqui.
+> - **Superfícies já triadas e limpas:** `item_pt_authoral.json` (1.975; só 1 falso positivo no word-ratio) — sem lotes, só QA por amostragem. **Pendente pós-spells:** typos em `ItemDB_ptBR.lua` (24.542 nomes; "Glugelo", "Batida no Chão × Trovoada" conhecidos) e polish das strings de UI/addon.
+> - **Retomada:** próximo lote = 1 + última linha do `PROGRESSO_LEGADO.txt`. Sem push sem ordem.
 
 ---
 

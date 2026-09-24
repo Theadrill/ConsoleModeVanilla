@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Changes to Warchief Rend Blackhand's Christmas outfit.",
+    "curr_pt": "Roupa do Rend.",
+    "scope": "tail"
+  },
+  {
+    "en": "Charge an enemy at less than 20% health, doing massive damage.",
+    "curr_pt": "Investida <20%: dano massivo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Charge is now usable in combat.",
+    "curr_pt": "Investida em combate.",
+    "scope": "tail"
+  },
+  {
+    "en": "Charges an enemy, knocking it back and inflicting normal damage plus $s3.",
+    "curr_pt": "Investida: derruba e normal +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Charges at an enemy, knocking it back.",
+    "curr_pt": "Investida que arremessa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Clean up a stink bomb found in Southshore.",
+    "curr_pt": "Limpa bomba fedorenta.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 40 Splinters of Atiesh to form the Frame of Atiesh.",
+    "curr_pt": "Junta 40 lascas na Moldura.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Bluffwatcher's Cards into a Satchel of Cards.",
+    "curr_pt": "5 cartas vira Bolsa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Dwarven Homebrews into a Case of Homebrew.",
+    "curr_pt": "5 cervejas vira Caixa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Freshly Baked Pies into a Box of Fresh Pies.",
+    "curr_pt": "5 tortas vira Caixa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Freshly Picked Flowers into a Basket of Flowers.",
+    "curr_pt": "5 flores vira Cesta.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Grunt's Cards into a Package of Cards.",
+    "curr_pt": "5 cartas vira Pacote.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Guardian's Moldy Cards into a Sheaf of Cards.",
+    "curr_pt": "5 cartas vira Maço.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Handmade Woodcrafts into a Box of Woodcrafts.",
+    "curr_pt": "5 artesanatos vira Caixa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Ironforge Guard's Cards into a Parcel of Cards.",
+    "curr_pt": "5 cartas vira Pacote.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Romantic Poems into a Book of Romantic Poetry.",
+    "curr_pt": "5 poemas vira Livro.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Sentinel's Cards into a Stack of Cards.",
+    "curr_pt": "5 cartas vira Pilha.",
+    "scope": "tail"
+  },
+  {
+    "en": "Combines 5 Stormwind Guard's Cards into a Bundle of Cards.",
+    "curr_pt": "5 cartas vira Maço.",
+    "scope": "tail"
+  },
+  {
+    "en": "Come to the aid of city you've sworn to protect.",
+    "curr_pt": "Socorre a cidade jurada.",
+    "scope": "tail"
+  },
+  {
+    "en": "Complete the aquatic time trial at the Shrine of Remulos.",
+    "curr_pt": "Prova aquática no Santuário.",
+    "scope": "tail"
+  },
+  {
+    "en": "Controls Emberstrife's mind when his will falters.",
+    "curr_pt": "Controla Brasadominus fraco.",
+    "scope": "tail"
+  },
+  {
+    "en": "Create's the Pariah's insturctions when gossip is clicked.",
+    "curr_pt": "Cria instrução ao fofocar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Creates a Charged Scale of Onyxia.",
+    "curr_pt": "Cria Escama Carregada.",
+    "scope": "tail"
+  },
+  {
+    "en": "Creates a Soul Shard.",
+    "curr_pt": "Cria Fragmento.",
+    "scope": "tail"
+  },
+  {
+    "en": "Creates a bowl of scrying that will contact Talvash.",
+    "curr_pt": "Tigela que chama Talvash.",
+    "scope": "tail"
+  },
+  {
+    "en": "Creates a bowl of scrying.",
+    "curr_pt": "Cria tigela.",
+    "scope": "tail"
+  },
+  {
+    "en": "Creates a token from a destroyed crystal.",
+    "curr_pt": "Ficha do cristal.",
+    "scope": "tail"
+  },
+  {
+    "en": "Critical strike damage increased by $s1%.",
+    "curr_pt": "Crítico +$s1% dano.",
+    "scope": "tail"
+  },
+  {
+    "en": "Cure a sickly animal afflicted by the taint of poisoning.",
+    "curr_pt": "Cura bicho doente.",
+    "scope": "tail"
+  },
+  {
+    "en": "Cure for the Touch of Zanzil",
+    "curr_pt": "Cura do Toque.",
+    "scope": "tail"
+  },
+  {
+    "en": "Cure for the Touch of Zanzil.",
+    "curr_pt": "Cura do Toque.",
+    "scope": "tail"
+  },
+  {
+    "en": "Cures the user of Brood Affliction: Bronze.",
+    "curr_pt": "Cura Aflição: Bronze.",
+    "scope": "tail"
+  },
+  {
+    "en": "Curses a target by lowering damage done by $m1 for $d",
+    "curr_pt": "Amaldiçoa -$s1 de dano por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Curses an enemy for $d., causing it to be periodically haunted by malevolent ghosts.",
+    "curr_pt": "Amaldiçoa por $d s com fantasma periódico.",
+    "scope": "tail"
+  },
+  {
+    "en": "Curses the target for $d, reducing all resistances by $s1, stamina by $s2, and healing received by $s3%.",
+    "curr_pt": "Maldição $d s: -tudo $s1, -Vig $s2, -cura $s3%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Damage dealt by Thorns increased by $s1 and duration increased by $s2%.",
+    "curr_pt": "Espinheiros +$s1 e +$s2% duração.",
+    "scope": "tail"
+  },
+  {
+    "en": "Damage dealt is decreased by $s1%.",
+    "curr_pt": "Dano -$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Damage dealt versus Giants increased by $s1%.",
+    "curr_pt": "Gigantes +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Damage dealt versus Mechanicals increased by $s1%.",
+    "curr_pt": "Mecânicos +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Damages all nearby enemies for $s1 physical damage",
+    "curr_pt": "$s1 físico próximos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 Arcane damage.",
+    "curr_pt": "$s1 Arcano.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 damage to enemies within 30 yards.",
+    "curr_pt": "$s1 a 30 m.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 damage to nearby enemies.",
+    "curr_pt": "$s1 próximos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 fire damage every second.",
+    "curr_pt": "$s1 de Fogo/s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 nature damage to all targets within 5 yards",
+    "curr_pt": "$s1 a 5 m.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 shadow damage to all targets within 10 yards",
+    "curr_pt": "$s1 Sombra a 10 m.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 shadow damage to all targets within 10 yards.",
+    "curr_pt": "$s1 Sombra a 10 m.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals $s1 shadow damage to all targets within 30 yards",
+    "curr_pt": "$s1 Sombra a 30 m.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals damage and drains $s1 mana every second if you are not worthy.",
+    "curr_pt": "Drena $s1 de mana/s se indigno.",
+    "scope": "tail"
+  },
+  {
+    "en": "Deals damage and freezes the target.",
+    "curr_pt": "Dano e congela.",
+    "scope": "tail"
+  }
+]

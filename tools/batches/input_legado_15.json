@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Take a reading of the temperature at a hot spot.",
+    "curr_pt": "Mede a temperatura.",
+    "scope": "tail"
+  },
+  {
+    "en": "Target gets a trick or a treat.",
+    "curr_pt": "Doces ou travessuras.",
+    "scope": "tail"
+  },
+  {
+    "en": "Target takes $58026s1 damage on next spell cast.",
+    "curr_pt": "Próxima magia leva $s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Teleport player to the lair of the Twin Emperors.",
+    "curr_pt": "Teleporta pros Imperadores.",
+    "scope": "tail"
+  },
+  {
+    "en": "Teleports Arugal to his lair.",
+    "curr_pt": "Teleporta Arugal.",
+    "scope": "tail"
+  },
+  {
+    "en": "Teleports the caster from within Greater Moonlight.",
+    "curr_pt": "Teleporta do Luar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Teleports the caster to Sparkwater Port.",
+    "curr_pt": "Teleporta pro Porto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Tells a funny joke",
+    "curr_pt": "Conta piada.",
+    "scope": "tail"
+  },
+  {
+    "en": "The Felguard hurls his axe, stunning the target for $d.",
+    "curr_pt": "Machado: atordoa por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "The Kodo casts on self after being hit by 'kodo Item'",
+    "curr_pt": "Kodo pós-item.",
+    "scope": "tail"
+  },
+  {
+    "en": "The Mithril Dragonling comes to life and defends you for $d.",
+    "curr_pt": "Dragonete defende por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "The caster becomes untrackable.",
+    "curr_pt": "Intrastreável.",
+    "scope": "tail"
+  },
+  {
+    "en": "The caster takes $s1 Shadow damage.",
+    "curr_pt": "$s1 de Sombra.",
+    "scope": "tail"
+  },
+  {
+    "en": "The check engine light is always on, it's when it goes off that you should be worried.",
+    "curr_pt": "Luz de injeção acesa, preocupa quando apaga.",
+    "scope": "tail"
+  },
+  {
+    "en": "The spawn of the mighty Cla'ckora!",
+    "curr_pt": "Cria da Cla'ckora!",
+    "scope": "tail"
+  },
+  {
+    "en": "The subject dies with a frost impact on their person.",
+    "curr_pt": "Morre com gelo no corpo.",
+    "scope": "tail"
+  },
+  {
+    "en": "The ultimate party favor!",
+    "curr_pt": "Brinde supremo!",
+    "scope": "tail"
+  },
+  {
+    "en": "This crab’s orange shell stands out in any environment.",
+    "curr_pt": "Caranguejo laranja chamativo.",
+    "scope": "tail"
+  },
+  {
+    "en": "This dig rat is still struggling, why don't you let it go?",
+    "curr_pt": "Rato ainda se mexe, solta ele?",
+    "scope": "tail"
+  },
+  {
+    "en": "This emerald-hued beast is both majestic and dangerous.",
+    "curr_pt": "Besta esmeralda majestosa.",
+    "scope": "tail"
+  },
+  {
+    "en": "This is used to remove the Debuff Kodo Lure from the player",
+    "curr_pt": "Tira o lure do jogador.",
+    "scope": "tail"
+  },
+  {
+    "en": "This majestic murloc commands attention with its purple hue.",
+    "curr_pt": "Murloc roxo majestoso.",
+    "scope": "tail"
+  },
+  {
+    "en": "This massive murloc prowls with an ominous presence.",
+    "curr_pt": "Murloc enorme e sinistro.",
+    "scope": "tail"
+  },
+  {
+    "en": "This mechanical horse is powered by arcane energy.",
+    "curr_pt": "Cavalo arcano.",
+    "scope": "tail"
+  },
+  {
+    "en": "This poor turtle got a bit corrupted, but his heart is still lovely.",
+    "curr_pt": "Tartaruga corrupta de bom coração.",
+    "scope": "tail"
+  },
+  {
+    "en": "This skill allows the Rogue to apply disguises.",
+    "curr_pt": "Vira disfarce de Ladino.",
+    "scope": "tail"
+  },
+  {
+    "en": "Throw a pointy spike.",
+    "curr_pt": "Joga espinho.",
+    "scope": "tail"
+  },
+  {
+    "en": "Throw me at a party member!",
+    "curr_pt": "Joga no colega!",
+    "scope": "tail"
+  },
+  {
+    "en": "Throw near a patron of the Grim Guzzler",
+    "curr_pt": "Joga perto do Birita.",
+    "scope": "tail"
+  },
+  {
+    "en": "Toss the Incendia Powder into the sacred fire of life.",
+    "curr_pt": "Joga o pó no fogo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Transforms into Lok'delar, Stave of the Ancient Keepers.",
+    "curr_pt": "Vira Lok'delar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Transforms target party memeber into a dancer!",
+    "curr_pt": "Vira dançarino!",
+    "scope": "tail"
+  },
+  {
+    "en": "Transforms the druid into a flying form, increasing movement speed.",
+    "curr_pt": "Vira coruja voadora: +velocidade.",
+    "scope": "tail"
+  },
+  {
+    "en": "Transforms the target into a Leper Gnome, reducing its melee and spell damage by $s3 and its movement rate by $s2% for $d.",
+    "curr_pt": "Vira Gnomo Leproso: -$s1 dano e -$s2% velocidade por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Transforms your mount into something more festive.",
+    "curr_pt": "Montaria festiva.",
+    "scope": "tail"
+  },
+  {
+    "en": "Turn on the radio! There's only one volume setting: ELEVEN!",
+    "curr_pt": "Rádio no 11!",
+    "scope": "tail"
+  },
+  {
+    "en": "Turns the caster invisible until the effect is cancelled.",
+    "curr_pt": "Invisível até cancelar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Unique and intelligent piece of genius engineering!",
+    "curr_pt": "Engenharia genial!",
+    "scope": "tail"
+  },
+  {
+    "en": "Unpack the MOLL-E so it can send and receive mail for 5 min.",
+    "curr_pt": "MOLL-E manda e recebe 5 min.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use at the base of the Xavian waterfall.",
+    "curr_pt": "Enche na Xavian.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use in Razorfen Kraul near buried tubers to summon a Snufflenose Gopher.",
+    "curr_pt": "Use no Rasgafenda perto de tubérculo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use in the Tomb of the Seven in Blackrock Depths.",
+    "curr_pt": "Use na Tumba dos Sete.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use on a Frozen Rune to melt it free.",
+    "curr_pt": "Derrete a runa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use on the Dark Coffer in the Black Vault.",
+    "curr_pt": "Use no Cofre Negro.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use on the Secure Safe in the Lower Vault",
+    "curr_pt": "Use no Cofre Seguro.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use on the remains of Bael'Gar to capture his fiery essence.",
+    "curr_pt": "Essência do Bael'Gar nos restos.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use to disguise yourself as a member of the Scarlet Crusade.",
+    "curr_pt": "Disfarce de Cruzado.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use to disguise yourself as a member of the Winterax tribe.",
+    "curr_pt": "Disfarce Winterax.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use to fill the Egg of Hakkar.",
+    "curr_pt": "Enche o Ovo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Use to free Spectral and Ghostly Citizens.",
+    "curr_pt": "Liberta fantasma.",
+    "scope": "tail"
+  }
+]

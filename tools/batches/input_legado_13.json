@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Right Click to summon and dismiss Kruxis.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss Kwee Q. Peddlefeet.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss Sammy!",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss Tinyfin!",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your Baxxil.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your Chromatic Whelp.",
+    "curr_pt": "Invoca/dispensa cromático.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your Dryad Fawn.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your Fox Kit.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your Murki.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your black Whelpling.",
+    "curr_pt": "Filhote negro dragão.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your companion.",
+    "curr_pt": "Companheiro genérico.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your hyena pup.",
+    "curr_pt": "Invoca/dispensa hiena.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your kodo calfling.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your krampus.",
+    "curr_pt": "Botão direito invoca/dispensa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your lazy peon.",
+    "curr_pt": "Peão preguiçoso.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your miniature earth elemental.",
+    "curr_pt": "Invoca/dispensa elemental mini.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your personal Barber.",
+    "curr_pt": "Barbeiro particular.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your personal Surgeon.",
+    "curr_pt": "Cirurgião particular.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your unholy toy weapon.",
+    "curr_pt": "Botão direito invoca/dispensa a arma.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right Click to summon and dismiss your warturtle.",
+    "curr_pt": "Invoca/dispensa tartaruga.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right click to recite the words on the scroll.",
+    "curr_pt": "Lê o pergaminho.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right click to test its sturdiness.",
+    "curr_pt": "Botão direito testa.",
+    "scope": "tail"
+  },
+  {
+    "en": "Right-click to dig for Gordunni Cobalt.",
+    "curr_pt": "Cava Cobalto.",
+    "scope": "tail"
+  },
+  {
+    "en": "Sacrifices all fragments to reform Rupturan The Broken.",
+    "curr_pt": "Fragmento vira Rupturan.",
+    "scope": "tail"
+  },
+  {
+    "en": "Seal a Felvine Shard inside the Reliquary of Purity.",
+    "curr_pt": "Sela fragmento no Relicário.",
+    "scope": "tail"
+  },
+  {
+    "en": "Shadow Resistance increased by $s1.",
+    "curr_pt": "Sombra +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Shifts the imp out of phase with the world, making it unattackable unless it attacks.",
+    "curr_pt": "Diabrete fora de fase: inalvejável sem atacar.",
+    "scope": "tail"
+  },
+  {
+    "en": "Shoots a bolt of flame at an enemy, inflicting Fire damage.",
+    "curr_pt": "Seta flamejante no inimigo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Shoots a normal ranged shot at the target.",
+    "curr_pt": "Tiro normal à distância.",
+    "scope": "tail"
+  },
+  {
+    "en": "Shower a nearby target with a cascade of rose petals!",
+    "curr_pt": "Chuva de pétala!",
+    "scope": "tail"
+  },
+  {
+    "en": "Shows the location of all nearby dragonkin on the minimap for $d.",
+    "curr_pt": "Dracônicos no minimapa por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Shows the location of all nearby humanoids in Winterax Hold for $d.",
+    "curr_pt": "Humanoides de Winterax por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Shows the location of all nearby humanoids on the minimap for $d.",
+    "curr_pt": "Humanoides no minimapa por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Silences the target, drains its mana and deals damage.",
+    "curr_pt": "Silencia, drena e fere.",
+    "scope": "tail"
+  },
+  {
+    "en": "Sit down and enjoy the song.",
+    "curr_pt": "Senta e ouve.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Bow Weapons increased by $s1.",
+    "curr_pt": "Arco +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Bows increased by $s1.",
+    "curr_pt": "Arco +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Bows, Crossbows and Guns increased by $s1.",
+    "curr_pt": "Arco/Besta/Arma +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Crossbows increased by $s1.",
+    "curr_pt": "Besta +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Daggers increased by $s1.",
+    "curr_pt": "Adaga +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Daggers, Staves and Polearms increased by $s1.",
+    "curr_pt": "Adaga/Cajado/Haste +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Fist Weapons increased by $s1.",
+    "curr_pt": "Punho +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with One-Handed Axes, Swords and Maces increased by $s1.",
+    "curr_pt": "Machado/Espada/Maça 1M +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Polearms increased by $s1.",
+    "curr_pt": "Haste +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Staves increased by $s1.",
+    "curr_pt": "Cajado +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Throwing Weapons increased by $s1.",
+    "curr_pt": "Arremesso +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Skill with Thrown increased by $s1.",
+    "curr_pt": "Arremesso +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Slow and steady wins the race.",
+    "curr_pt": "Devagar se ganha.",
+    "scope": "tail"
+  },
+  {
+    "en": "Slows attacks by $s1%.",
+    "curr_pt": "Ataques -$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Smashes the ground, inflicting $s1 damage to nearby enemies.",
+    "curr_pt": "Esmaga: $s1 nos próximos.",
+    "scope": "tail"
+  }
+]

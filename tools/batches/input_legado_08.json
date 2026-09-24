@@ -1,0 +1,252 @@
+[
+  {
+    "en": "Increase the damage of a blunt weapon by 8 for 30 minutes.",
+    "curr_pt": "Arma bruta +8 por 30 min.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increase the range of your Lightning Bolt spell by $s1 yds.",
+    "curr_pt": "Raio +$s1 m.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increased Fist Weapons +$s1.",
+    "curr_pt": "Punho +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increased Fist Weapons +5.",
+    "curr_pt": "Punho +5.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increased Polearms +5.",
+    "curr_pt": "Haste +5.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increased the damage of your next Earth Shock by $s1%.",
+    "curr_pt": "Próximo Terreno +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increased the damage of your next Flame Shock by $s1%.",
+    "curr_pt": "Próximo Flamejante +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increased the damage of your next Frost Shock by $s1%.",
+    "curr_pt": "Próximo Gélido +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases Agility by $s1.",
+    "curr_pt": "Agi +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases Alchemy skill by 10.",
+    "curr_pt": "Alquimia +10.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases Spirit by $s1.",
+    "curr_pt": "Esp +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases Stamina by $s1 and gets you pretty drunk.",
+    "curr_pt": "Vig +$s1 e bêbado.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases Strength by $s1.",
+    "curr_pt": "For +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases all damage done by $s1%.",
+    "curr_pt": "Dano +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases all nearby party member's Spirit by $s1.",
+    "curr_pt": "Esp do grupo +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases all nearby party member's Strength by $s1.",
+    "curr_pt": "For do grupo +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases all nearby party member's armor by $s1.",
+    "curr_pt": "Armadura do grupo +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases arcane damage done by nearby units by $s1%.",
+    "curr_pt": "Arcano +$s1% próximo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases critical strike chance and damage of Rake, Claw and Shred by $s1.",
+    "curr_pt": "Ancinha/Garra/Dilacerar +$s1% crítico/dano.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage dealt by critical hits by $s1%.",
+    "curr_pt": "Crítico +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage done by $s1% and total health by $s2%.",
+    "curr_pt": "Dano +$s1% e vida +$s2%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage done by Shadow spells and effects by up to $s1 and converts physical damage into Shadow damage.NOTE: 2nd Effect uses aura name 4 for Dummy application. Misc Value should determine the class of damage the physical is converted to (ex: 32 = Shadow).",
+    "curr_pt": "Aumenta o dano causado por feitiços e efeitos de Sombra em até $s1 e converte dano físico em dano de Sombra.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage done by your Crusader Strike by $s1%.",
+    "curr_pt": "Cruzado +$s1% dano.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage done by your Holy Strike by $s1%.",
+    "curr_pt": "Golpe +$s1% dano.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage done by your Mana Burn by $s1%.",
+    "curr_pt": "Queimar +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage done from spells by up to $s1 for $d.",
+    "curr_pt": "Magia +$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases damage taken from Arcane Claws by $s1% for $d.",
+    "curr_pt": "Garra +$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases fire damage done by nearby units by $s1%.",
+    "curr_pt": "Fogo +$s1% próximo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases frost damage done by nearby units by $s1%.",
+    "curr_pt": "Gelo +$s1% próximo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases healing done by Flash of Light by $s1.",
+    "curr_pt": "Clarão +$s1 cura.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases healing done by Lesser Healing Wave by $s1.",
+    "curr_pt": "Onda Menor +$s1 cura.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases healing done by Rejuvenation by up to $s1.",
+    "curr_pt": "Rejuvenescer +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases healing received by up to $s1.",
+    "curr_pt": "Cura recebida +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases health by $s1.",
+    "curr_pt": "Vida +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases movement speed by $s1%.",
+    "curr_pt": "Corrida +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases nature damage done by nearby units by $s1%.",
+    "curr_pt": "Natureza +$s1% próximo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases nature spell damage by up to $s1 for $d.",
+    "curr_pt": "Natureza +$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases physical damage done by nearby units by $s1%.",
+    "curr_pt": "Físico +$s1% próximo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases resistance to all schools of magic by $s1.",
+    "curr_pt": "Toda resistência +$s1.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases run speed by $s1%.",
+    "curr_pt": "Corre +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases scale by $s1%.",
+    "curr_pt": "Tamanho +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases shadow damage done by nearby units by $s1%.",
+    "curr_pt": "Sombra +$s1% próximo.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases spell frost damage by up to $s1 for $d.",
+    "curr_pt": "Gelo +$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases spell haste by $s1%.",
+    "curr_pt": "Pressa +$s1%.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases spell shadow damage by up to $s1 for $d.",
+    "curr_pt": "Sombra +$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases the Fire, Frost, and Arcane damage that nearby enemies take by $s1% for $d.",
+    "curr_pt": "Fogo/Gelo/Arcano recebido +$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases the Frost damage taken by an enemy by $s1 for $d.",
+    "curr_pt": "Gelo recebido +$s1 por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases the Holy damage bonus of your Judgement of the Crusader by $s1.",
+    "curr_pt": "Julgamento do Cruzado +$s1 Sagrado.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases the Physical damage taken by an enemy by $s1% for $d.",
+    "curr_pt": "Físico recebido +$s1% por $d s.",
+    "scope": "tail"
+  },
+  {
+    "en": "Increases the amount healed by your Holy Shock by $s1.",
+    "curr_pt": "Choque +$s1 cura.",
+    "scope": "tail"
+  }
+]

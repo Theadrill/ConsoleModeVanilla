@@ -3212,7 +3212,7 @@ ConsoleMode_SpellDescDB[4237] = { n="Indomitable Spirit", r="Rank 8", d="Increas
 ConsoleMode_SpellDescDB[4238] = { n="Roar of Fortitude", r="", d="Increases max hitpoints of allies in your party by $m1 for $d", t="", pt="Vida máx do grupo +$s1 por $d s." }
 ConsoleMode_SpellDescDB[4239] = { n="Activating Defenses", r="", d="Activates Trelane's tower defenses.", t="", pt="Ativa as defesas da torre." }
 ConsoleMode_SpellDescDB[4240] = { n="Vital Wound", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[4241] = { n="Vital Wound", r="", d="Adds a chance to do extra damage and slow attack rate of a target on a successful hit.", t="", pt="Chance de dano extra e lentidão ao acertar." }
+ConsoleMode_SpellDescDB[4241] = { n="Vital Wound", r="", d="Adds a chance to do extra damage and slow attack rate of a target on a successful hit.", t="", pt="Adiciona uma chance de causar dano extra e reduzir a velocidade de ataque do alvo em um golpe bem-sucedido." }
 ConsoleMode_SpellDescDB[4242] = { n="Pester", r="", d="Decreases damage done while granting a chance to silence on hit.", t="", pt="Menos dano e chance de silenciar ao acertar." }
 ConsoleMode_SpellDescDB[4243] = { n="Pester Effect", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[4244] = { n="Open Wound Effect", r="", d="", t="", pt="" }
@@ -3252,7 +3252,7 @@ ConsoleMode_SpellDescDB[4277] = { n="Mental Acuity", r="Rank 7", d="Increase you
 ConsoleMode_SpellDescDB[4278] = { n="Mental Acuity", r="Rank 8", d="Increase your Mana by 80.", t="", pt="Aumenta sua mana em 80." }
 ConsoleMode_SpellDescDB[4279] = { n="Consume Flesh", r="", d="Adds a chance to drain life from a target during combat.", t="", pt="Chance de drenar vida em combate." }
 ConsoleMode_SpellDescDB[4280] = { n="Consume Flesh", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[4281] = { n="Quickness", r="", d="Adds $s1 damage and hits one additional target", t="", pt="+$s1 e +1 alvo." }
+ConsoleMode_SpellDescDB[4281] = { n="Quickness", r="", d="Adds $s1 damage and hits one additional target", t="", pt="Adiciona $s1 de dano e atinge um alvo adicional." }
 ConsoleMode_SpellDescDB[4282] = { n="Stomp", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[4283] = { n="Stomp", r="", d="Adds a chance to do extra damage to next attack and slow the target's movement on a successful hit.", t="", pt="Adiciona chance de causar dano extra no próximo ataque e reduzir a velocidade de movimento do alvo caso o golpe acerte." }
 ConsoleMode_SpellDescDB[4284] = { n="Tendon Slice", r="", d="Adds a chance to slow a targets movement as well as do extra damage over time on a successful hit.", t="", pt="Adiciona chance de reduzir a velocidade de movimento do alvo e de causar dano extra ao longo do tempo caso o golpe acerte." }
@@ -3286,7 +3286,7 @@ ConsoleMode_SpellDescDB[4311] = { n="Axe Finesse", r="Rank 2", d="Increases your
 ConsoleMode_SpellDescDB[4312] = { n="Strider Presence", r="", d="Increases health regeneration by $m1 and mana regeneration by $m2 of all allies in the party.", t="", pt="Aumenta a regeneração de vida em $s1 e a regeneração de mana em $s2 de todos os aliados do grupo." }
 ConsoleMode_SpellDescDB[4313] = { n="Axe Finesse", r="Rank 3", d="Increases your chance of parrying with One-Handed Axes by 1%.", t="", pt="Aumenta em 1% a chance de aparar ataques com machados de uma mão." }
 ConsoleMode_SpellDescDB[4314] = { n="Call of Duty", r="", d="Increases your physical damage by $s1.", t="", pt="Dano físico +$s1." }
-ConsoleMode_SpellDescDB[4315] = { n="Rabid Maw", r="", d="Adds a chance to disease a target on a successful attack.", t="", pt="Chance de doença ao atacar." }
+ConsoleMode_SpellDescDB[4315] = { n="Rabid Maw", r="", d="Adds a chance to disease a target on a successful attack.", t="", pt="Adiciona uma chance de infectar o alvo com doença em um ataque bem-sucedido." }
 ConsoleMode_SpellDescDB[4316] = { n="Rabid Maw", r="", d="Reduces strength by $m1 and agility by $m2 for $d", t="", pt="For -$s1 e Agi -$s2 por $d s." }
 ConsoleMode_SpellDescDB[4317] = { n="Eye Peck", r="", d="Chance to Eye Peck, which lowers a target's chance to hit.", t="", pt="Bicada que -acerto." }
 ConsoleMode_SpellDescDB[4318] = { n="Guile of the Raptor", r="", d="Increases your Agility by $s1 for $d.", t="Increased Agility.", pt="Agi +$s1 por $d s." }
@@ -4264,7 +4264,7 @@ ConsoleMode_SpellDescDB[5373] = { n="Judgement of Light Intermediate", r="", d="
 ConsoleMode_SpellDescDB[5374] = { n="DONOTREUSE", r="Rank 4", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[5375] = { n="Spell - Reuse 5375", r="Rank 5", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[5376] = { n="Hand Snap", r="", d="Disarms a target as well as dealing $o1 damage over $d.", t="", pt="Desarma e $s1 em $d s." }
-ConsoleMode_SpellDescDB[5377] = { n="Hand Snap", r="", d="Adds a chance to render a target unable to attack on a hit.", t="", pt="Chance de travar ataque ao acertar." }
+ConsoleMode_SpellDescDB[5377] = { n="Hand Snap", r="", d="Adds a chance to render a target unable to attack on a hit.", t="", pt="Adiciona uma chance de impedir que o alvo ataque em um golpe bem-sucedido." }
 ConsoleMode_SpellDescDB[5378] = { n="Thick Skin", r="Turtle - Rank 1", d="Teaches your tamed turtle the Thick Skin ability. Thick Skin gives your turtle a chance to increase it's armor value when hit.\nRequires: \nPet Level 13+", t="", pt="Ensina Pele Espessa à sua tartaruga domesticada. Pele Espessa concede à sua tartaruga uma chance de aumentar o valor da armadura dela quando atingida.\nRequer: \nAjudante de nível 13 ou superior" }
 ConsoleMode_SpellDescDB[5380] = { n="Thick Skin", r="Turtle - Rank 2", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[5381] = { n="Thick Skin", r="Turtle - Rank 3", d="", t="", pt="" }
@@ -5470,16 +5470,16 @@ ConsoleMode_SpellDescDB[6739] = { n="Dominance Aura", r="Rank 3", d="Increases a
 ConsoleMode_SpellDescDB[6740] = { n="Dominance Aura", r="Rank 3", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[6741] = { n="Identify Brood", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[6742] = { n="Bloodlust", r="", d="Increases an ally's attack speed by $s1% for $d.", t="Attack speed increased by $s1%.", pt="Aumenta a velocidade de ataque de um aliado em $s1% por $d s." }
-ConsoleMode_SpellDescDB[6743] = { n="Horse Riding", r="", d="Allows the player to ride a horse.", t="", pt="Monta cavalo." }
-ConsoleMode_SpellDescDB[6744] = { n="Ram Riding", r="", d="Allows the player to ride a ram.", t="", pt="Monta carneiro." }
-ConsoleMode_SpellDescDB[6745] = { n="Tiger Riding", r="", d="Allows the player to ride a tiger.", t="", pt="Monta tigre." }
-ConsoleMode_SpellDescDB[6746] = { n="Wolf Riding", r="", d="Allows the player to ride a wolf.", t="", pt="Monta lobo." }
+ConsoleMode_SpellDescDB[6743] = { n="Horse Riding", r="", d="Allows the player to ride a horse.", t="", pt="Permite ao jogador montar um cavalo." }
+ConsoleMode_SpellDescDB[6744] = { n="Ram Riding", r="", d="Allows the player to ride a ram.", t="", pt="Permite ao jogador montar um carneiro." }
+ConsoleMode_SpellDescDB[6745] = { n="Tiger Riding", r="", d="Allows the player to ride a tiger.", t="", pt="Permite ao jogador montar um tigre." }
+ConsoleMode_SpellDescDB[6746] = { n="Wolf Riding", r="", d="Allows the player to ride a wolf.", t="", pt="Permite ao jogador montar um lobo." }
 ConsoleMode_SpellDescDB[6747] = { n="Test Combo", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[6748] = { n="Test Finishing", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[6749] = { n="Wide Swipe", r="", d="", t="Stunned.", pt="" }
 ConsoleMode_SpellDescDB[6750] = { n="Wide Swipe Passive", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[6751] = { n="Weak Poison", r="", d="Inflicts $s1 Nature damage to an enemy every $t1 sec. for $d.", t="$s1 Nature damage inflicted every $t1 sec.", pt="Causa $s1 de dano de Natureza ao inimigo a cada $t1 s por $d s." }
-ConsoleMode_SpellDescDB[6752] = { n="Weak Poison Proc", r="", d="Adds a chance to poison a target on a successful hit.", t="", pt="Chance de envenenar ao acertar." }
+ConsoleMode_SpellDescDB[6752] = { n="Weak Poison Proc", r="", d="Adds a chance to poison a target on a successful hit.", t="", pt="Adiciona uma chance de envenenar o alvo em um golpe bem-sucedido." }
 ConsoleMode_SpellDescDB[6753] = { n="Backhand", r="", d="You're fresh!", t="", pt="Tá novo!" }
 ConsoleMode_SpellDescDB[6754] = { n="Slap!", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[6755] = { n="Tell Joke", r="", d="Tells a funny joke", t="", pt="Conta piada." }
@@ -5680,7 +5680,7 @@ ConsoleMode_SpellDescDB[7099] = { n="Curse of Mending", r="", d="", t="", pt="" 
 ConsoleMode_SpellDescDB[7101] = { n="Flame Blast", r="Rank 3", d="Inflicts $s1 Fire damage to an enemy.", t="", pt="Causa $s1 de dano de Fogo ao inimigo." }
 ConsoleMode_SpellDescDB[7102] = { n="Contagion of Rot", r="", d="Increases the time betwen an enemy's attacks by $s1% and its casting by $s2%, as well as adding $h% chance to spread the contagion to an ally when hit. Lasts $d.", t="Time between attacks increased by $s1%.\nCasting speed reduced by $s2%.\n$h% chance to spread contagion to allies when hit.", pt="Aumenta o intervalo entre os ataques de um inimigo em $s1% e o tempo de lançamento em $s2%, além de conceder $h% de chance de espalhar o contágio para um aliado quando atingido. Dura $d s." }
 ConsoleMode_SpellDescDB[7103] = { n="Contagion of Rot", r="", d="", t="Time between attacks increased by $s1%.\nCasting speed reduced by $s2%.\n$h% chance to spread contagion to allies when hit.", pt="" }
-ConsoleMode_SpellDescDB[7104] = { n="Sneak", r="", d="Allows the caster to play the animation for stealth without the invis.", t="", pt="Só a animação furtiva, sem invis." }
+ConsoleMode_SpellDescDB[7104] = { n="Sneak", r="", d="Allows the caster to play the animation for stealth without the invis.", t="", pt="Permite ao lançador reproduzir a animação de furtividade sem ficar invisível." }
 ConsoleMode_SpellDescDB[7105] = { n="Fake Shot", r="Rank 1", d="Fire at the target with a ranged weapon.", t="", pt="Dispara contra o alvo com uma arma de longo alcance." }
 ConsoleMode_SpellDescDB[7106] = { n="Dark Restore", r="", d="Heals the caster's pet for $s1.", t="", pt="Cura $s1 no pet." }
 ConsoleMode_SpellDescDB[7107] = { n="Summon Wolfguard Worg", r="", d="Summons $s1 $lWolfguard Worg:Wolfguard Worgs; to accompany the caster until dismissed.", t="", pt="Invoca $s1 Worgs da Guarda do Lobo para acompanhar o lançador até ser dispensado." }
@@ -6168,11 +6168,11 @@ ConsoleMode_SpellDescDB[7717] = { n="Fire Strike", r="", d="Does $s1 additional 
 ConsoleMode_SpellDescDB[7718] = { n="Fire Strike", r="", d="Does $s1 additional Fire damage to the target.", t="", pt="Causa $s1 de dano de Fogo adicional no alvo." }
 ConsoleMode_SpellDescDB[7719] = { n="Fire Strike", r="", d="Does $s1 additional Fire damage to the target.", t="", pt="Causa $s1 de dano de Fogo adicional no alvo." }
 ConsoleMode_SpellDescDB[7720] = { n="Ritual of Summoning Effect", r="", d="Triggered by ritual of summoning to summon a player\n", t="", pt="Acionado pelo Ritual de Evocação para evocar um jogador." }
-ConsoleMode_SpellDescDB[7721] = { n="Add Fire Dam - Weap 04", r="", d="Adds 4 fire damage to your weapon attack.", t="", pt="Arma +4 fogo." }
-ConsoleMode_SpellDescDB[7722] = { n="Add Fire Dam - Weap 06", r="", d="Adds 6 fire damage to your weapon attack.", t="", pt="Arma +6 fogo." }
-ConsoleMode_SpellDescDB[7723] = { n="Add Fire Dam - Weap 08", r="", d="Adds 8 fire damage to your weapon attack.", t="", pt="Arma +8 fogo." }
-ConsoleMode_SpellDescDB[7724] = { n="Add Fire Dam - Weap 10", r="", d="Adds 10 fire damage to your weapon attack.", t="", pt="Arma +10 fogo." }
-ConsoleMode_SpellDescDB[7725] = { n="Add Fire Dam - Weap 12", r="", d="Adds 12 fire damage to your weapon attack.", t="", pt="Arma +12 fogo." }
+ConsoleMode_SpellDescDB[7721] = { n="Add Fire Dam - Weap 04", r="", d="Adds 4 fire damage to your weapon attack.", t="", pt="Adiciona 4 de dano de Fogo ao ataque com sua arma." }
+ConsoleMode_SpellDescDB[7722] = { n="Add Fire Dam - Weap 06", r="", d="Adds 6 fire damage to your weapon attack.", t="", pt="Adiciona 6 de dano de Fogo ao ataque com sua arma." }
+ConsoleMode_SpellDescDB[7723] = { n="Add Fire Dam - Weap 08", r="", d="Adds 8 fire damage to your weapon attack.", t="", pt="Adiciona 8 de dano de Fogo ao ataque com sua arma." }
+ConsoleMode_SpellDescDB[7724] = { n="Add Fire Dam - Weap 10", r="", d="Adds 10 fire damage to your weapon attack.", t="", pt="Adiciona 10 de dano de Fogo ao ataque com sua arma." }
+ConsoleMode_SpellDescDB[7725] = { n="Add Fire Dam - Weap 12", r="", d="Adds 12 fire damage to your weapon attack.", t="", pt="Adiciona 12 de dano de Fogo ao ataque com sua arma." }
 ConsoleMode_SpellDescDB[7726] = { n="Add Fire Dam - Weap 14", r="", d="Adds 14 fire damage to your melee attacks.", t="", pt="Arma +14 corpo a corpo." }
 ConsoleMode_SpellDescDB[7728] = { n="Summon Voidwalker", r="Rank 1", d="Call forth a voidwalker using the summoning circle.", t="", pt="Evoca um Emissário do Caos utilizando o círculo de invocação." }
 ConsoleMode_SpellDescDB[7729] = { n="Summon Succubus", r="Rank 1", d="Call forth a succubus using the summoning circle.", t="", pt="Evoca uma Súcubo utilizando o círculo de evocação." }
@@ -6775,7 +6775,7 @@ ConsoleMode_SpellDescDB[8392] = { n="Hyper Coward", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[8393] = { n="Barbs", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[8394] = { n="Striped Frostsaber", r="", d="This hearty mount's ferocious appetite earned it the nickname \"Dragon Belly\" in the Night Elf language.", t="Increases speed based on your Riding skill.", pt="O apetite feroz desta montaria robusta lhe rendeu o apelido de \"Barriga de Dragão\" na língua dos elfos noturnos." }
 ConsoleMode_SpellDescDB[8395] = { n="Emerald Raptor", r="", d="Bred from the fiercest stock anywhere and guaranteed not to bite (much).", t="Increases speed based on your Riding skill.", pt="Criado a partir das linhagens mais ferozes de qualquer lugar e garantido para não morder (muito)." }
-ConsoleMode_SpellDescDB[8396] = { n="Ivory Tallstrider", r="", d="A rare and elegant bird, known for its striking ivory plumage.", t="Increases speed based on your Riding skill.", pt="Ave rara e elegante, marfim." }
+ConsoleMode_SpellDescDB[8396] = { n="Ivory Tallstrider", r="", d="A rare and elegant bird, known for its striking ivory plumage.", t="Increases speed based on your Riding skill.", pt="Uma ave rara e elegante, conhecida por sua marcante plumagem marfim." }
 ConsoleMode_SpellDescDB[8397] = { n="Uther's Light", r="Rank 1", d="Has a 2% chance when struck in combat of protecting you with a holy shield.", t="", pt="Tem 2% de chance, ao ser atingido em combate, de proteger você com um Escudo Sagrado." }
 ConsoleMode_SpellDescDB[8398] = { n="Frostbolt Volley", r="", d="Inflicts $s2 Frost damage to nearby enemies, reducing their movement speed by $s1% for $d.", t="Movement speed reduced by $s1%.", pt="Causa $s1 de dano de Gelo nos próximos e -$s2% de velocidade por $d s." }
 ConsoleMode_SpellDescDB[8399] = { n="Sleep", r="", d="Puts nearby enemies to sleep for up to $d. Any damage caused will awaken them.", t="Asleep.", pt="Faz os inimigos próximos dormirem por até $d s. Qualquer dano os desperta." }
@@ -8426,7 +8426,7 @@ ConsoleMode_SpellDescDB[10798] = { n="Obsidian Raptor", r="", d="Longtime allies
 ConsoleMode_SpellDescDB[10799] = { n="Violet Raptor", r="", d="Longtime allies of the trolls, these jungle hunters form a special bond with their masters. They become steed, guardian, and friend.", t="Increases speed based on your Riding skill.", pt="Aliados dos trolls há tempos, estes caçadores da selva criam um laço especial com seus mestres, tornando-se montaria, guardião e amigo." }
 ConsoleMode_SpellDescDB[10800] = { n="Brown Tallstrider", r="", d="A tall and curious bird, blending perfectly with its natural surroundings.", t="Increases speed based on your Riding skill.", pt="Uma ave alta e curiosa que se camufla perfeitamente em seu habitat natural." }
 ConsoleMode_SpellDescDB[10801] = { n="Gray Tallstrider", r="", d="A stoic and observant creature, adapting to any environment it encounters.", t="Increases speed based on your Riding skill.", pt="Uma criatura estoica e observadora, capaz de se adaptar a qualquer ambiente que encontra." }
-ConsoleMode_SpellDescDB[10802] = { n="Pink Tallstrider", r="", d="A vibrant and playful bird, spreading joy wherever it goes.", t="Increases speed based on your Riding skill.", pt="Alegre e brincalhona." }
+ConsoleMode_SpellDescDB[10802] = { n="Pink Tallstrider", r="", d="A vibrant and playful bird, spreading joy wherever it goes.", t="Increases speed based on your Riding skill.", pt="Uma ave vibrante e brincalhona, que espalha alegria por onde passa." }
 ConsoleMode_SpellDescDB[10803] = { n="Purple Tallstrider", r="", d="Accidentally released by the Darkmoon Faire — makes for a surprisingly sturdy steed.", t="Increases speed based on your Riding skill.", pt="Solta acidentalmente pela Feira de Negraluna — serve como uma montaria surpreendentemente robusta." }
 ConsoleMode_SpellDescDB[10804] = { n="Turquoise Tallstrider", r="", d="A rare and exotic bird, with feathers as bright as the tropical seas.", t="Increases speed based on your Riding skill.", pt="Uma ave rara e exótica, com penas tão brilhantes quanto os mares tropicais." }
 ConsoleMode_SpellDescDB[10805] = { n="Shackle Shatter", r="", d="", t="", pt="" }
@@ -8465,7 +8465,7 @@ ConsoleMode_SpellDescDB[10858] = { n="Summon Dupe Bug", r="", d="Summons $s1 $lD
 ConsoleMode_SpellDescDB[10859] = { n="Create Divino-matic Rod", r="", d="Creates Divino-matic Rod.", t="", pt="Cria Vara." }
 ConsoleMode_SpellDescDB[10860] = { n="Patch", r="", d="Kills all nearby Dupe Bugs and heals the caster.", t="", pt="Mata Bugs e cura." }
 ConsoleMode_SpellDescDB[10861] = { n="Raptor Riding", r="Passive", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[10863] = { n="Raptor Riding", r="", d="Allows the player to ride a raptor.", t="", pt="Monta raptor." }
+ConsoleMode_SpellDescDB[10863] = { n="Raptor Riding", r="", d="Allows the player to ride a raptor.", t="", pt="Permite ao jogador montar um raptor." }
 ConsoleMode_SpellDescDB[10864] = { n="Razelikh's Tear I", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10865] = { n="Call of Ilifar", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10866] = { n="Razelikh's Tear II", r="", d="", t="", pt="" }
@@ -8509,7 +8509,7 @@ ConsoleMode_SpellDescDB[10904] = { n="Power Word: Shield", r="Rank 9", d="", t="
 ConsoleMode_SpellDescDB[10905] = { n="Power Word: Shield", r="Rank 10", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10906] = { n="Undead Horsemanship", r="Passive", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10907] = { n="Mechanostrider Piloting", r="Passive", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[10908] = { n="Mechanostrider Piloting", r="", d="Allows the player to pilot a Mechanostrider.", t="", pt="Pilota mecanostruz." }
+ConsoleMode_SpellDescDB[10908] = { n="Mechanostrider Piloting", r="", d="Allows the player to pilot a Mechanostrider.", t="", pt="Permite ao jogador pilotar um Mecanostruz." }
 ConsoleMode_SpellDescDB[10909] = { n="Mind Vision", r="Rank 2", d="Allows the caster to see through the target's eyes for $d.  Will not work if the target is in another instance or on another continent.", t="Sight granted through target's eyes.", pt="Permite que o lançador enxergue pelos olhos do alvo por $d s. Não funciona se o alvo estiver em outra instância ou em outro continente." }
 ConsoleMode_SpellDescDB[10910] = { n="Mind Vision", r="Rank 2", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10911] = { n="Mind Control", r="Rank 2", d="Controls a humanoid mind up to level $s1, but increases the time between attacks by $s3%.  Lasts up to $d.", t="Charmed.  Time between attacks increased by $s3%.", pt="Controla a mente de um humanoide de até nível $s1, mas aumenta o intervalo entre os ataques em $s3%. Dura até $d s." }
@@ -8522,7 +8522,7 @@ ConsoleMode_SpellDescDB[10917] = { n="Flash Heal", r="Rank 7", d="Heals a friend
 ConsoleMode_SpellDescDB[10918] = { n="Flash Heal", r="Rank 5", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10919] = { n="Flash Heal", r="Rank 6", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10920] = { n="Flash Heal", r="Rank 7", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[10921] = { n="Skeletal Horse Riding", r="", d="Allows the player to ride a skeletal horse.", t="", pt="Monta cavalo esqueleto." }
+ConsoleMode_SpellDescDB[10921] = { n="Skeletal Horse Riding", r="", d="Allows the player to ride a skeletal horse.", t="", pt="Permite ao jogador montar um cavalo esquelético." }
 ConsoleMode_SpellDescDB[10927] = { n="Renew", r="Rank 7", d="Heals the target of $o1 damage over $d.", t="Healing $s1 damage every $t1 seconds.", pt="Cura $s1 de vida do alvo ao longo de $d s." }
 ConsoleMode_SpellDescDB[10928] = { n="Renew", r="Rank 8", d="Heals the target of $o1 damage over $d.", t="Healing $s1 damage every $t1 seconds.", pt="Cura $s1 de vida do alvo ao longo de $d s." }
 ConsoleMode_SpellDescDB[10929] = { n="Renew", r="Rank 9", d="Heals the target of $o1 damage over $d.", t="Healing $s1 damage every $t1 seconds.", pt="Cura $s1 de vida do alvo ao longo de $d s." }
@@ -8568,12 +8568,12 @@ ConsoleMode_SpellDescDB[10968] = { n="Demoralizing Roar", r="", d="Reduces the m
 ConsoleMode_SpellDescDB[10969] = { n="Blue Mechanostrider", r="", d="The terradynamic exo-plotters are conjoined by hydraulic imaging to the equilibrium enhancers...", t="Increases speed based on your Riding skill.", pt="Aumenta o bônus de velocidade do Aspecto do Guepardo e da Alcateia em $s1%." }
 ConsoleMode_SpellDescDB[10987] = { n="Geyser", r="", d="Knocks nearby enemies back and reduces their movement speed by $s1% for $d.", t="Movement speed reduced by $s1%.", pt="Arremessa e -$s1% velocidade por $d s." }
 ConsoleMode_SpellDescDB[11007] = { n="Weak Alcohol", r="", d="A fairly weak alcoholic beverage.", t="Buzzed.", pt="Uma bebida alcoólica razoavelmente fraca." }
-ConsoleMode_SpellDescDB[11008] = { n="Standard Alcohol", r="", d="A typical alcoholic beverage.", t="Tipsy.", pt="Bebida normal." }
-ConsoleMode_SpellDescDB[11009] = { n="Strong Alcohol", r="", d="A strong alcoholic beverage.", t="Drunk.", pt="Bebida forte." }
+ConsoleMode_SpellDescDB[11008] = { n="Standard Alcohol", r="", d="A typical alcoholic beverage.", t="Tipsy.", pt="Uma bebida alcoólica comum." }
+ConsoleMode_SpellDescDB[11009] = { n="Strong Alcohol", r="", d="A strong alcoholic beverage.", t="Drunk.", pt="Uma bebida alcoólica forte." }
 ConsoleMode_SpellDescDB[11010] = { n="Hover", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[11011] = { n="Stone Watcher of Norgannon Passive", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[11012] = { n="Stone Watcher of Norgannon Spawn", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[11013] = { n="Sneak", r="", d="Allows the caster to play the animation for stealth without the invis.", t="", pt="Só a animação furtiva, sem invis." }
+ConsoleMode_SpellDescDB[11013] = { n="Sneak", r="", d="Allows the caster to play the animation for stealth without the invis.", t="", pt="Permite ao lançador reproduzir a animação de furtividade sem ficar invisível." }
 ConsoleMode_SpellDescDB[11014] = { n="Flow of the Northspring", r="", d="Heals an ally for $s1 damage every $t1 sec. for $d.", t="$s1 damage healed every $t1 sec.", pt="Cura um aliado em $s1 de vida a cada $t1 s por $d s." }
 ConsoleMode_SpellDescDB[11015] = { n="Blood Leech", r="", d="Drains $s1 health from nearby enemies, healing the caster for up to twice the amount stolen.", t="", pt="Drena $s1 de vida dos inimigos próximos, curando o lançador em até o dobro do valor roubado." }
 ConsoleMode_SpellDescDB[11016] = { n="Soul Bite", r="", d="Drains $s1 health and $s2 mana from an enemy, transferring them to the caster.", t="", pt="Drena $s1 de vida e $s2 de mana de um inimigo, transferindo-os para o lançador." }
@@ -11864,7 +11864,7 @@ ConsoleMode_SpellDescDB[15777] = { n="Increased Dagger", r="", d="Increased Dagg
 ConsoleMode_SpellDescDB[15778] = { n="Increased Dagger", r="", d="Increased Daggers +$s1.", t="", pt="Adagas +$s1." }
 ConsoleMode_SpellDescDB[15779] = { n="White Mechanostrider", r="", d="Forced to recall the model after numerous complaints of an \"uncontrollable throttle\", Gnomish engineers now refer to a proto-type blunder as a \"model B\".", t="Increases speed based on your Riding skill.", pt="Forçado a recolher o modelo após inúmeras reclamações de um \"acelerador incontrolável\", os engenheiros gnômicos agora se referem ao equívoco do protótipo como \"modelo B\"." }
 ConsoleMode_SpellDescDB[15780] = { n="Green Mechanostrider", r="", d="Summons and dismisses a rideable mechanical tallstrider.", t="Increases speed based on your Riding skill.", pt="Invoca/dispensa mecanostruz." }
-ConsoleMode_SpellDescDB[15781] = { n="Steel Mechanostrider", r="", d="A mechanical marvel, built to withstand the toughest of battles.", t="Increases speed based on your Riding skill.", pt="Maravilha mecânica de guerra." }
+ConsoleMode_SpellDescDB[15781] = { n="Steel Mechanostrider", r="", d="A mechanical marvel, built to withstand the toughest of battles.", t="Increases speed based on your Riding skill.", pt="Uma maravilha mecânica, construída para suportar as batalhas mais duras." }
 ConsoleMode_SpellDescDB[15782] = { n="Frostsaber Cub Death", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[15783] = { n="Blizzard", r="", d="Calls down a blizzard that lasts $d., inflicting $s1 Frost damage every $t1 sec. to all enemies in a selected area.", t="", pt="Invoca uma nevasca que dura $d s, causando $s1 de dano de Gelo a cada $t1 s a todos os inimigos na área selecionada." }
 ConsoleMode_SpellDescDB[15784] = { n="Frost Armor", r="", d="Encases an ally in a layer of frost that lasts $d. The thick ice increases armor by $s1, slows melee attackers' movement to $6136s2%, and increases the time between their attacks by $6136s1%.", t="Armor increased by $s1.\nSlowing melee attackers' movement and attacks.", pt="Envolve um aliado em uma camada de gelo que dura $d s. O gelo espesso aumenta a armadura em $s1, reduz a velocidade de movimento dos atacantes corpo a corpo para $s2% e aumenta o intervalo entre os ataques deles em $s3%." }
@@ -14561,7 +14561,7 @@ ConsoleMode_SpellDescDB[18992] = { n="Teal Kodo", r="", d="The kodo is the backb
 ConsoleMode_SpellDescDB[18993] = { n="Ranshalla's Altar Trap", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18994] = { n="Ranshalla - Bind Wildkin", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18995] = { n="Kodo Riding", r="Passive", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[18996] = { n="Kodo Riding", r="", d="Allows the player to ride a kodo.", t="", pt="Monta kodo." }
+ConsoleMode_SpellDescDB[18996] = { n="Kodo Riding", r="", d="Allows the player to ride a kodo.", t="", pt="Permite ao jogador montar um kodo." }
 ConsoleMode_SpellDescDB[18997] = { n="Tirion Message to Isillien 002", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[19007] = { n="Tamed Pet Passive (DND)", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[19027] = { n="Teleport: Moonglade", r="", d="", t="", pt="" }
@@ -17253,7 +17253,7 @@ ConsoleMode_SpellDescDB[22719] = { n="Black Battlestrider", r="", d="A formidabl
 ConsoleMode_SpellDescDB[22720] = { n="Black War Ram", r="", d="A sturdy and resilient mount, bred for battle in the mountains.", t="Increases speed based on your Riding skill.", pt="Uma montaria robusta e resiliente, criada para a batalha nas montanhas." }
 ConsoleMode_SpellDescDB[22721] = { n="Black War Raptor", r="", d="Bred from the same vicious line of raptors which sired Ohgan and brought victory to the Gurubashi Empire.", t="Increases speed based on your Riding skill.", pt="Criado da mesma linhagem feroz de raptores que gerou Ohgan e trouxe vitória ao Império Gurubashi." }
 ConsoleMode_SpellDescDB[22722] = { n="Red Skeletal Warhorse", r="", d="When fallen heroes are raised into undeath, so too are their horses.", t="Increases speed based on your Riding skill.", pt="Herói vira morto-vivo, cavalo junto." }
-ConsoleMode_SpellDescDB[22723] = { n="Black War Tiger", r="", d="A sleek and deadly predator, ready to pounce on its foes.", t="Increases speed based on your Riding skill.", pt="Predador veloz e mortal." }
+ConsoleMode_SpellDescDB[22723] = { n="Black War Tiger", r="", d="A sleek and deadly predator, ready to pounce on its foes.", t="Increases speed based on your Riding skill.", pt="Um predador ágil e mortal, pronto para saltar sobre seus inimigos." }
 ConsoleMode_SpellDescDB[22724] = { n="Black War Wolf", r="", d="Prized by Orgrimmar guards for their keen sense of smell.", t="Increases speed based on your Riding skill.", pt="Faro apurado da guarda." }
 ConsoleMode_SpellDescDB[22725] = { n="Defense +5", r="", d="Permanently increase the defense value of an item worn on the chest, legs, hands or feet by 5. Only usable on items level 45 and above.", t="", pt="Aumenta permanentemente o valor de defesa de um item equipado no peito, pernas, mãos ou pés em 5. Só pode ser usado em itens de nível 45 ou superior." }
 ConsoleMode_SpellDescDB[22727] = { n="Core Armor Kit", r="", d="", t="", pt="" }
@@ -20818,7 +20818,7 @@ ConsoleMode_SpellDescDB[27611] = { n="Eviscerate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[27613] = { n="Kick", r="", d="Kicks an enemy for $s1 damage, interrupting the spell being cast for $d.", t="", pt="Chuta um inimigo, causando $s1 de dano e interrompendo o feitiço que estiver sendo lançado por $d s." }
 ConsoleMode_SpellDescDB[27614] = { n="Dungeon Set 2.0 Ghosts", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[27615] = { n="Kidney Shot", r="Rank 2", d="Finishing move that stuns the target. ", t="Stunned.", pt="Golpe finalizador que atordoa o alvo." }
-ConsoleMode_SpellDescDB[27616] = { n="Extra-Dimensional Ghost Revealer", r="", d="Allows wielder to see ghosts of the recently deceased.", t="Allows wielder to see ghosts of the recently deceased.", pt="Vê fantasma recente." }
+ConsoleMode_SpellDescDB[27616] = { n="Extra-Dimensional Ghost Revealer", r="", d="Allows wielder to see ghosts of the recently deceased.", t="Allows wielder to see ghosts of the recently deceased.", pt="Permite ao portador ver os fantasmas dos que morreram recentemente." }
 ConsoleMode_SpellDescDB[27617] = { n="Vanish", r="Rank 2", d="Allows the rogue to vanish from sight, entering an improved stealth mode for $11329d.  Also breaks movement impairing effects.  More effective than Vanish (Rank 1).", t="Improved stealth.", pt="Permite que o ladino desapareça de vista, entrando em um modo de furtividade aprimorado por $d s. Também remove efeitos que dificultam o movimento. Mais eficaz que Sumiço (Grau 1)." }
 ConsoleMode_SpellDescDB[27618] = { n="Blizzard", r="Rank 6", d="Ice shards pelt the target area doing $o1 Frost damage over $d.", t="$s1 Frost damage every $t1 $lsecond:seconds;.", pt="Estilhaços de gelo atingem a área-alvo, causando $s1 de dano de Gelo ao longo de $d s." }
 ConsoleMode_SpellDescDB[27619] = { n="Ice Block", r="", d="You become encased in a block of ice, protecting you from all physical attacks and spells for $d, but during that time you cannot attack, move or cast spells.", t="Immune to all attacks and spells.  Cannot attack, move or use spells.", pt="Você fica envolto em um bloco de gelo, protegido contra todos os ataques físicos e feitiços por $d s, mas durante esse tempo não pode atacar, se mover ou lançar feitiços." }
@@ -22508,15 +22508,15 @@ ConsoleMode_SpellDescDB[36650] = { n="Spotted Qiraji Battle Tank", r="", d="A sw
 ConsoleMode_SpellDescDB[36651] = { n="Black Drake", r="", d="A fierce drake, tamed from the black dragonflight’s brood.", t="Increases speed based on your Riding skill.", pt="Draco feroz da revoada negra." }
 ConsoleMode_SpellDescDB[36652] = { n="Red Nerubian Bloodfeaster", r="", d="A bloodthirsty Nerubian beast, its crimson shell glistening in the sun.", t="Increases speed based on your Riding skill.", pt="Uma fera nerubiana sanguinária, cuja carapaça carmesim brilha ao sol." }
 ConsoleMode_SpellDescDB[36653] = { n="Green Nerubian Bloodfeaster", r="", d="This venomous Nerubian mount hunts with relentless precision.", t="Increases speed based on your Riding skill.", pt="Esta montaria nerubiana venenosa caça com precisão implacável." }
-ConsoleMode_SpellDescDB[36654] = { n="White Nerubian Bloodfeaster", r="", d="A rare breed, known for its stark white exoskeleton.", t="Increases speed based on your Riding skill.", pt="Raça branca e rara." }
+ConsoleMode_SpellDescDB[36654] = { n="White Nerubian Bloodfeaster", r="", d="A rare breed, known for its stark white exoskeleton.", t="Increases speed based on your Riding skill.", pt="Uma raça rara, conhecida por seu exoesqueleto totalmente branco." }
 ConsoleMode_SpellDescDB[36655] = { n="Black Nerubian Bloodfeaster", r="", d="Shrouded in darkness, this Nerubian mount strikes fear into enemies.", t="Increases speed based on your Riding skill.", pt="Envolta em trevas, esta montaria nerubiana infunde medo nos inimigos." }
 ConsoleMode_SpellDescDB[36656] = { n="Sunwarmed Furline", r="", d="A gentle, sun-loving feline companion from warm climates.", t="Increases speed based on your Riding skill.", pt="Um companheiro felino dócil, que adora o sol, oriundo de climas quentes." }
 ConsoleMode_SpellDescDB[36657] = { n="Arcane Furline", r="", d="Infused with arcane magic, its fur glows with mystical energy.", t="Increases speed based on your Riding skill.", pt="Infundida com magia Arcana, sua pelagem brilha com energia mística." }
 ConsoleMode_SpellDescDB[36658] = { n="Titanic Wombat", r="", d="A massive, sturdy mount capable of carrying its rider through any terrain.", t="Increases speed based on your Riding skill.", pt="Uma montaria imponente e robusta, capaz de carregar seu cavaleiro por qualquer terreno." }
 ConsoleMode_SpellDescDB[36659] = { n="Void-Infused Felbeast", r="", d="Corrupted by the void, this felbeast is a terror on the battlefield.", t="Increases speed based on your Riding skill.", pt="Corrompida pelo Vazio, esta fera vil é um terror no campo de batalha." }
 ConsoleMode_SpellDescDB[36660] = { n="Anu'relos, Flame's Guidance", r="", d="A majestic phoenix, its flames illuminate the path ahead.", t="Increases speed based on your Riding skill.", pt="Uma fênix majestosa, cujas chamas iluminam o caminho à frente." }
-ConsoleMode_SpellDescDB[36661] = { n="Armored War Lion", r="", d="A powerful lion outfitted for war, roaring into battle.", t="Increases speed based on your Riding skill.", pt="Leão de guerra rugindo." }
-ConsoleMode_SpellDescDB[36662] = { n="Victorious Alliance Steed", r="", d="A proud warhorse, symbolizing the triumphs of the Alliance.", t="Increases speed based on your Riding skill.", pt="Corcel do triunfo." }
+ConsoleMode_SpellDescDB[36661] = { n="Armored War Lion", r="", d="A powerful lion outfitted for war, roaring into battle.", t="Increases speed based on your Riding skill.", pt="Um poderoso leão trajando armadura de guerra, rugindo para a batalha." }
+ConsoleMode_SpellDescDB[36662] = { n="Victorious Alliance Steed", r="", d="A proud warhorse, symbolizing the triumphs of the Alliance.", t="Increases speed based on your Riding skill.", pt="Um altivo cavalo de guerra, símbolo dos triunfos da Aliança." }
 ConsoleMode_SpellDescDB[36663] = { n="Victorious Horde Wolf", r="", d="This fierce wolf represents the indomitable spirit of the Horde.", t="Increases speed based on your Riding skill.", pt="Este lobo feroz representa o espírito indomável da Horda." }
 ConsoleMode_SpellDescDB[36664] = { n="Grey Marshjumper", r="", d="A nimble frog from the marshlands, perfect for traversing wetlands.", t="Increases speed based on your Riding skill.", pt="Um sapo ágil dos pântanos, perfeito para atravessar áreas alagadas." }
 ConsoleMode_SpellDescDB[36665] = { n="Blue Marshjumper", r="", d="An agile frog known for its brilliant blue skin.", t="Increases speed based on your Riding skill.", pt="Sapo azul brilhante." }
@@ -22526,43 +22526,43 @@ ConsoleMode_SpellDescDB[36668] = { n="Black War Scorpion", r="", d="A fierce, ar
 ConsoleMode_SpellDescDB[36669] = { n="Ember War Scorpion", r="", d="With a shell like burning embers, this scorpion strikes with fiery vengeance.", t="Increases speed based on your Riding skill.", pt="Com uma carapaça como brasas ardentes, este escorpião ataca com vingança flamejante." }
 ConsoleMode_SpellDescDB[36670] = { n="Emerald War Scorpion", r="", d="This emerald-hued beast is both majestic and dangerous.", t="Increases speed based on your Riding skill.", pt="Besta esmeralda majestosa." }
 ConsoleMode_SpellDescDB[36671] = { n="Treebeard the Ancient", r="", d="An ancient tree guardian, offering protection and wisdom.", t="Increases speed based on your Riding skill.", pt="Guardião sábio e antigo." }
-ConsoleMode_SpellDescDB[36672] = { n="Squeakers", r="", d="A mischievous rodent mount, always ready for an adventure.", t="Increases speed based on your Riding skill.", pt="Rato aventureiro e travesso." }
-ConsoleMode_SpellDescDB[36673] = { n="Aquamarine Greatwyrm", r="", d="A majestic sea wyrm, its scales shimmer like the ocean.", t="Increases speed based on your Riding skill.", pt="Verme do mar brilhante." }
+ConsoleMode_SpellDescDB[36672] = { n="Squeakers", r="", d="A mischievous rodent mount, always ready for an adventure.", t="Increases speed based on your Riding skill.", pt="Uma travessa montaria roedora, sempre pronta para uma aventura." }
+ConsoleMode_SpellDescDB[36673] = { n="Aquamarine Greatwyrm", r="", d="A majestic sea wyrm, its scales shimmer like the ocean.", t="Increases speed based on your Riding skill.", pt="Uma majestosa serpente marinha, cujas escamas cintilam como o oceano." }
 ConsoleMode_SpellDescDB[36674] = { n="Golden Koi", r="", d="This giant koi glides through water and land with unmatched grace.", t="Increases speed based on your Riding skill.", pt="Esta carpa gigante desliza pela água e pela terra com graça incomparável." }
 ConsoleMode_SpellDescDB[36675] = { n="Enraged Bloodbeast", r="", d="Fueled by fury, this beast charges into battle with a vengeance.", t="Increases speed based on your Riding skill.", pt="Alimentada pela fúria, esta fera avança para a batalha com sede de vingança." }
 ConsoleMode_SpellDescDB[36676] = { n="Mossy Bloodbeast", r="", d="Covered in moss, this creature blends perfectly with forest terrain.", t="Increases speed based on your Riding skill.", pt="Coberta de musgo, esta criatura se camufla perfeitamente em terrenos florestais." }
 ConsoleMode_SpellDescDB[36677] = { n="D.L.U. Rocket", r="", d="A steam-powered rocket designed for the thrill-seeker.", t="Increases speed based on your Riding skill.", pt="Um foguete movido a vapor projetado para quem busca fortes emoções." }
-ConsoleMode_SpellDescDB[36678] = { n="Golden Yak", r="", d="A regal yak, treasured for its strength and golden coat.", t="Increases speed based on your Riding skill.", pt="Yak dourado e forte." }
+ConsoleMode_SpellDescDB[36678] = { n="Golden Yak", r="", d="A regal yak, treasured for its strength and golden coat.", t="Increases speed based on your Riding skill.", pt="Um iaque majestoso, valorizado por sua força e pelagem dourada." }
 ConsoleMode_SpellDescDB[36679] = { n="Nert’s Steampounder", r="", d="A steam-powered contraption built for both speed and strength.", t="Increases speed based on your Riding skill.", pt="Uma engenhoca movida a vapor construída tanto para velocidade quanto para força." }
 ConsoleMode_SpellDescDB[36680] = { n="Sewer Rat", r="", d="A scrappy rodent mount, perfect for navigating city underbellies.", t="Increases speed based on your Riding skill.", pt="Uma montaria roedora obstinada, perfeita para percorrer os subterrâneos da cidade." }
-ConsoleMode_SpellDescDB[36681] = { n="Blue Snapback Scuttler", r="", d="A swift crab with a sturdy blue shell.", t="Increases speed based on your Riding skill.", pt="Caranguejo azul veloz." }
+ConsoleMode_SpellDescDB[36681] = { n="Blue Snapback Scuttler", r="", d="A swift crab with a sturdy blue shell.", t="Increases speed based on your Riding skill.", pt="Um veloz caranguejo de resistente carapaça azul." }
 ConsoleMode_SpellDescDB[36682] = { n="Orange Snapback Scuttler", r="", d="This crab’s orange shell stands out in any environment.", t="Increases speed based on your Riding skill.", pt="Caranguejo laranja chamativo." }
 ConsoleMode_SpellDescDB[36683] = { n="Reanimated Amani Raptor", r="", d="Revived from death, this raptor’s fury knows no bounds.", t="Increases speed based on your Riding skill.", pt="Raptor reanimado e furioso." }
 ConsoleMode_SpellDescDB[36684] = { n="Gilded Zandalari Raptor", r="", d="Adorned with gold, this raptor is a treasure of the Zandalari.", t="Increases speed based on your Riding skill.", pt="Adornado com ouro, este raptor é um tesouro dos Zandalari." }
 ConsoleMode_SpellDescDB[36685] = { n="Pig of Fortune", r="", d="A lucky mount, rumored to bring good fortune to its rider.", t="Increases speed based on your Riding skill.", pt="Uma montaria da sorte, que segundo rumores traz boa fortuna ao seu cavaleiro." }
 ConsoleMode_SpellDescDB[36686] = { n="Green Gargantuan Murloc", r="", d="A giant green murloc, surprisingly loyal to its rider.", t="Increases speed based on your Riding skill.", pt="Um murloc verde gigante, surpreendentemente leal ao seu cavaleiro." }
 ConsoleMode_SpellDescDB[36687] = { n="Black Gargantuan Murloc", r="", d="This massive murloc prowls with an ominous presence.", t="Increases speed based on your Riding skill.", pt="Murloc enorme e sinistro." }
-ConsoleMode_SpellDescDB[36688] = { n="Blue Gargantuan Murloc", r="", d="A rare, blue-scaled giant murloc, ready for any adventure.", t="Increases speed based on your Riding skill.", pt="Murloc azul e raro." }
+ConsoleMode_SpellDescDB[36688] = { n="Blue Gargantuan Murloc", r="", d="A rare, blue-scaled giant murloc, ready for any adventure.", t="Increases speed based on your Riding skill.", pt="Um raro murloc gigante de escamas azuis, pronto para qualquer aventura." }
 ConsoleMode_SpellDescDB[36689] = { n="Orange Gargantuan Murloc", r="", d="Its vibrant orange scales make this murloc a standout.", t="Increases speed based on your Riding skill.", pt="Murloc laranja vibrante." }
 ConsoleMode_SpellDescDB[36690] = { n="Purple Gargantuan Murloc", r="", d="This majestic murloc commands attention with its purple hue.", t="Increases speed based on your Riding skill.", pt="Murloc roxo majestoso." }
 ConsoleMode_SpellDescDB[36691] = { n="Black Crane", r="", d="A graceful black-feathered crane, symbolizing balance and serenity.", t="Increases speed based on your Riding skill.", pt="Um grou gracioso de penas negras, símbolo de equilíbrio e serenidade." }
 ConsoleMode_SpellDescDB[36692] = { n="Ivory Crane", r="", d="With its pristine white feathers, this crane is a vision of purity.", t="Increases speed based on your Riding skill.", pt="Com suas penas brancas imaculadas, este grou é uma visão de pureza." }
-ConsoleMode_SpellDescDB[36693] = { n="Pink Crane", r="", d="A rare and beautiful crane with a soft pink plumage.", t="Increases speed based on your Riding skill.", pt="Grou rosa e raro." }
+ConsoleMode_SpellDescDB[36693] = { n="Pink Crane", r="", d="A rare and beautiful crane with a soft pink plumage.", t="Increases speed based on your Riding skill.", pt="Um raro e belo grou de suave plumagem rosada." }
 ConsoleMode_SpellDescDB[36694] = { n="D.L.U. Zeppelin", r="", d="An airship built for speed and high-altitude adventure.", t="Increases speed based on your Riding skill.", pt="Dirigível veloz das alturas." }
-ConsoleMode_SpellDescDB[36695] = { n="Golden Foxwyvern", r="", d="A majestic wyvern with shimmering golden fur and wings.", t="Increases speed based on your Riding skill.", pt="Wyvern dourado majestoso." }
+ConsoleMode_SpellDescDB[36695] = { n="Golden Foxwyvern", r="", d="A majestic wyvern with shimmering golden fur and wings.", t="Increases speed based on your Riding skill.", pt="Uma majestosa Mantícora de pelo e asas douradas e cintilantes." }
 ConsoleMode_SpellDescDB[36696] = { n="Essence of Zalmos", r="", d="An ethereal creature carrying the power of Zalmos within.", t="Increases speed based on your Riding skill.", pt="Essência etérea de Zalmos." }
-ConsoleMode_SpellDescDB[36697] = { n="Serpent of Ula-Tek", r="", d="A sacred serpent, blessed by the goddess Ula-Tek.", t="Increases speed based on your Riding skill.", pt="Serpente sagrada de Ula-Tek." }
+ConsoleMode_SpellDescDB[36697] = { n="Serpent of Ula-Tek", r="", d="A sacred serpent, blessed by the goddess Ula-Tek.", t="Increases speed based on your Riding skill.", pt="Uma serpente sagrada, abençoada pela deusa Ula-Tek." }
 ConsoleMode_SpellDescDB[36698] = { n="Serpent of C'Thun", r="", d="This ancient serpent carries the whispers of C'Thun’s power.", t="Increases speed based on your Riding skill.", pt="Serpente do sussurro de C'Thun." }
 ConsoleMode_SpellDescDB[36699] = { n="Serpent of Yogg-Saron", r="", d="A terrifying serpent touched by Yogg-Saron’s dark influence.", t="Increases speed based on your Riding skill.", pt="Serpente do terror de Yogg." }
 ConsoleMode_SpellDescDB[36700] = { n="Serpent of the Unknown Gods", r="", d="Mysterious and powerful, this serpent’s origins remain a mystery.", t="Increases speed based on your Riding skill.", pt="Misteriosa e poderosa, as origens desta serpente permanecem um mistério." }
 ConsoleMode_SpellDescDB[36701] = { n="Hand of Icecrown", r="", d="An undead mount, raised to serve the Lich King’s will.", t="Increases speed based on your Riding skill.", pt="Montaria do Lich Rei." }
 ConsoleMode_SpellDescDB[36702] = { n="Hand of Menethil", r="", d="This mount bears the strength of the fallen kingdom of Lordaeron.", t="Increases speed based on your Riding skill.", pt="Esta montaria carrega a força do reino caído de Lordaeron." }
-ConsoleMode_SpellDescDB[36703] = { n="Hand of Death", r="", d="A terrifying mount, shrouded in darkness and decay.", t="Increases speed based on your Riding skill.", pt="Treva e ruína." }
+ConsoleMode_SpellDescDB[36703] = { n="Hand of Death", r="", d="A terrifying mount, shrouded in darkness and decay.", t="Increases speed based on your Riding skill.", pt="Uma montaria aterrorizante, envolta em trevas e decomposição." }
 ConsoleMode_SpellDescDB[36704] = { n="Shu-Zen, Faithful Companion", r="", d="A loyal companion, offering comfort and courage in battle.", t="Increases speed based on your Riding skill.", pt="Um companheiro leal que oferece conforto e coragem em batalha." }
-ConsoleMode_SpellDescDB[36705] = { n="Celestial Fox", r="", d="A mystical fox, adorned with the power of the stars.", t="Increases speed based on your Riding skill.", pt="Raposa das estrelas." }
+ConsoleMode_SpellDescDB[36705] = { n="Celestial Fox", r="", d="A mystical fox, adorned with the power of the stars.", t="Increases speed based on your Riding skill.", pt="Uma raposa mística, adornada com o poder das estrelas." }
 ConsoleMode_SpellDescDB[36706] = { n="Celestial Rabbit", r="", d="This rabbit sparkles with celestial energy, hopping gracefully across the land.", t="Increases speed based on your Riding skill.", pt="Este coelho brilha com energia celestial, saltando graciosamente pela terra." }
-ConsoleMode_SpellDescDB[36707] = { n="Loremaster’s Mouse", r="", d="A tiny but wise mount, perfect for those who seek knowledge.", t="Increases speed based on your Riding skill.", pt="Ratinho sábio e miúdo." }
-ConsoleMode_SpellDescDB[36708] = { n="Celestial Tiger", r="", d="A majestic tiger infused with the energy of the heavens.", t="Increases speed based on your Riding skill.", pt="Tigre dos céus." }
+ConsoleMode_SpellDescDB[36707] = { n="Loremaster’s Mouse", r="", d="A tiny but wise mount, perfect for those who seek knowledge.", t="Increases speed based on your Riding skill.", pt="Uma montaria miúda, mas sábia, perfeita para quem busca conhecimento." }
+ConsoleMode_SpellDescDB[36708] = { n="Celestial Tiger", r="", d="A majestic tiger infused with the energy of the heavens.", t="Increases speed based on your Riding skill.", pt="Um majestoso tigre imbuído da energia dos céus." }
 ConsoleMode_SpellDescDB[36709] = { n="Honeyback Harvester", r="", d="A bee mount, prized for its sweet nature and loyal heart.", t="Increases speed based on your Riding skill.", pt="Uma montaria abelha, valorizada por sua natureza doce e seu coração leal." }
 ConsoleMode_SpellDescDB[36710] = { n="Red Thalassian Hawkstrider", r="", d="Those royal Hawkstriders bear the colors of the Sunstrider dynasty.", t="Increases speed based on your Riding skill.", pt="Estes falcostruzes reais exibem as cores da dinastia Andassol." }
 ConsoleMode_SpellDescDB[36711] = { n="Black Thalassian Hawkstrider", r="", d="Black feathers of these Hawkstriders mourn the fallen of Quel'Thalas.", t="Increases speed based on your Riding skill.", pt="As penas negras destes falcostruzes lamentam os caídos de Quel'Thalas." }
@@ -23151,7 +23151,7 @@ ConsoleMode_SpellDescDB[45036] = { n="Swift Darnassian Nightsaber", r="", d="Whe
 ConsoleMode_SpellDescDB[45037] = { n="Swift Horde Worg", r="", d="If asked to fetch, will most likely bring you back the head of a small mammal or humanoid.", t="Increases speed based on your Riding skill.", pt="Se pedir para buscar, muito provavelmente trará de volta a cabeça de um pequeno mamífero ou humanoide." }
 ConsoleMode_SpellDescDB[45038] = { n="Swift Gray Worg", r="", d="The wolves of the Horde are befriended, not domesticated.", t="Increases speed based on your Riding skill.", pt="Lobos da Horda são amigos, não bichos." }
 ConsoleMode_SpellDescDB[45039] = { n="Swift Alliance Steed", r="", d="Armored to withstand collisions in battle.", t="Increases speed based on your Riding skill.", pt="Corcel blindado de batalha." }
-ConsoleMode_SpellDescDB[45040] = { n="Swift Gray Steed", r="", d="A veteran of some of the toughest battles fought by the Alliance.", t="Increases speed based on your Riding skill.", pt="Veterano das piores batalhas da Aliança." }
+ConsoleMode_SpellDescDB[45040] = { n="Swift Gray Steed", r="", d="A veteran of some of the toughest battles fought by the Alliance.", t="Increases speed based on your Riding skill.", pt="Um veterano de algumas das batalhas mais duras já travadas pela Aliança." }
 ConsoleMode_SpellDescDB[45041] = { n="Swift Blue Riding Raptor", r="", d="Speed, cunning, and ferocity are the things trolls and raptors admire about each other.", t="Increases speed based on your Riding skill.", pt="Velocidade, astúcia e ferocidade são as qualidades que trolls e raptores admiram uns nos outros." }
 ConsoleMode_SpellDescDB[45042] = { n="Swift Crimson Skeletal Steed", r="", d="Some horses merely adopt the dark. This horse was born in it.", t="Increases speed based on your Riding skill.", pt="Cavalo bom não se apega à treva: nasceu nela." }
 ConsoleMode_SpellDescDB[45043] = { n="Swift Forsaken Skeletal Steed", r="", d="Summons and dismisses a rideable Skeletal Steed. Speed is increased based on your Riding skill.", t="Increases speed based on your Riding skill.", pt="Invoca/dispensa corcel esqueleto. Pela equitação." }
@@ -23627,7 +23627,7 @@ ConsoleMode_SpellDescDB[45996] = { n="Black Boar", r="", d="Summon the Black Boa
 ConsoleMode_SpellDescDB[46000] = { n="Improved Mending Light Heal", r="", d="Healing of your Holy Strike is increased by $s1% and it affects up to two additional targets.", t="", pt="A cura do seu Golpe Sagrado é aumentada em $s1% e ele afeta até dois alvos adicionais." }
 ConsoleMode_SpellDescDB[46001] = { n="MOLL-E Terminal", r="Toy", d="Unpack the MOLL-E so it can send and receive mail for 5 min.", t="", pt="MOLL-E manda e recebe 5 min." }
 ConsoleMode_SpellDescDB[46002] = { n="Goblin Brainwashing Device", r="Toy", d="Unpack the Goblin Brainwashing Device so that it can reset specialization points. It only has enough power to last for 5 min.", t="", pt="Desembale o Dispositivo de Lavagem Cerebral Goblínico para que ele possa reiniciar os pontos de especialização. Ele só tem energia suficiente para durar por 5 min." }
-ConsoleMode_SpellDescDB[46003] = { n="Add Illusion to Collection", r="Collection", d="Adds an illusion to the player's illusion collection.", t="", pt="Coleção de ilusão." }
+ConsoleMode_SpellDescDB[46003] = { n="Add Illusion to Collection", r="Collection", d="Adds an illusion to the player's illusion collection.", t="", pt="Adiciona uma ilusão à coleção de ilusões do jogador." }
 ConsoleMode_SpellDescDB[46004] = { n="[Deprecated] Illusion: Furbolg", r="", d="Alters your appearance into that of a Furbolg. Active until cancelled.", t="", pt="Altera sua aparência para a de um Pelurso. Ativo até ser cancelado." }
 ConsoleMode_SpellDescDB[46005] = { n="[Deprecated] Illusion: Worgen", r="", d="Alters your appearance into that of a Worgen. Active until cancelled.", t="", pt="Altera sua aparência para a de um Worgen. Ativo até ser cancelado." }
 ConsoleMode_SpellDescDB[46006] = { n="[Deprecated] Illusion: Banshee", r="", d="Alters your appearance into that of a Banshee. Active until cancelled.", t="", pt="Altera sua aparência para a de uma Banshee. Permanece ativo até ser cancelado." }
@@ -23715,7 +23715,7 @@ ConsoleMode_SpellDescDB[46092] = { n="Tame Ivory Hawkstrider", r="", d="Begins t
 ConsoleMode_SpellDescDB[46093] = { n="Tame Ivory Hawkstrider", r="", d="", t="Tamed.", pt="" }
 ConsoleMode_SpellDescDB[46094] = { n="Tame Lavender Mana Wyrm", r="", d="Begins taming a Lavender Mana Wyrm to be your companion for 10 minutes. If you lose the beast's attention for any reason, the taming process will fail.", t="Taming Lavender Mana Wyrm.", pt="Começa a domesticar uma Serpe de Mana Lavanda para ser seu ajudante por 10 minutos. Se você perder a atenção da fera por qualquer motivo, o processo de domesticação falhará." }
 ConsoleMode_SpellDescDB[46095] = { n="Tame Lavender Mana Wyrm", r="", d="", t="Tamed.", pt="" }
-ConsoleMode_SpellDescDB[46096] = { n="Add Toy to Collection", r="Collection", d="Adds a toy to the player's toy collection.", t="", pt="Coleção de brinquedo." }
+ConsoleMode_SpellDescDB[46096] = { n="Add Toy to Collection", r="Collection", d="Adds a toy to the player's toy collection.", t="", pt="Adiciona um brinquedo à coleção de brinquedos do jogador." }
 ConsoleMode_SpellDescDB[46200] = { n="Dummy Spell", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[46201] = { n="Illidari Dragonhawk", r="", d="Summons and dismisses a rideable Dragonhawk. Speed is increased based on your Riding skill.", t="Increases speed based on your Riding skill.", pt="Invoca/dispensa falcão montaria. Pela equitação." }
 ConsoleMode_SpellDescDB[46202] = { n="Armored Frostmane Riding Bear", r="", d="This ursine mount's swiftness is enhanced by its heavy armor.", t="Increases speed based on your Riding skill.", pt="Montaria ursina veloz de armadura pesada." }
@@ -23903,8 +23903,8 @@ ConsoleMode_SpellDescDB[46494] = { n="Spectral Faeling", r="", d="This unique sp
 ConsoleMode_SpellDescDB[46495] = { n="Tiny Pterrodax", r="", d="In older age, these little terrors eat everything they want to and are prey to almost no other species.", t="", pt="Quando mais velhos, esses pequenos terrores comem tudo o que querem e quase nenhuma outra espécie os caça." }
 ConsoleMode_SpellDescDB[46496] = { n="Pinchy", r="", d="These arthropods line many Azerothian shores and seek to fulfill their one true desire: to pinch.", t="", pt="Esses artrópodes habitam muitos litorais de Azeroth e buscam realizar seu único e verdadeiro desejo: beliscar." }
 ConsoleMode_SpellDescDB[46497] = { n="Sunscale Hatchling", r="", d="The bright scales of this rare wind serpent soak up the sunlight to keep it warm, even in shade.", t="", pt="As escamas brilhantes desta rara serpente do vento absorvem a luz do sol para mantê-la aquecida, mesmo à sombra." }
-ConsoleMode_SpellDescDB[46498] = { n="Add Companion to Collection", r="Collection", d="Adds a companion to the player's companion collection.", t="", pt="Coleção de companheiro." }
-ConsoleMode_SpellDescDB[46499] = { n="Add Mount to Collection", r="Collection", d="Adds a mount to the player's mount collection.", t="", pt="Coleção de montaria." }
+ConsoleMode_SpellDescDB[46498] = { n="Add Companion to Collection", r="Collection", d="Adds a companion to the player's companion collection.", t="", pt="Adiciona um companheiro à coleção de companheiros do jogador." }
+ConsoleMode_SpellDescDB[46499] = { n="Add Mount to Collection", r="Collection", d="Adds a mount to the player's mount collection.", t="", pt="Adiciona uma montaria à coleção de montarias do jogador." }
 ConsoleMode_SpellDescDB[46500] = { n="Scale of the Blue Drake", r="", d="Your Frostbolts do $s1 extra damage.", t="", pt="Suas Setavolts +$s1 de dano." }
 ConsoleMode_SpellDescDB[46501] = { n="Armored Violet War Raptor", r="", d="Longtime allies of the trolls, these jungle hunters form a special bond with their masters. They become steed, guardian, and friend.", t="Increases speed based on your Riding skill.", pt="Aliados dos trolls há tempos, estes caçadores da selva criam um laço especial com seus mestres, tornando-se montaria, guardião e amigo." }
 ConsoleMode_SpellDescDB[46502] = { n="Red War Raptor", r="", d="Longtime allies of the trolls, these jungle hunters form a special bond with their masters. They become steed, guardian, and friend.", t="Increases speed based on your Riding skill.", pt="Aliados dos trolls há tempos, estes caçadores da selva criam um laço especial com seus mestres, tornando-se montaria, guardião e amigo." }
@@ -25612,7 +25612,7 @@ ConsoleMode_SpellDescDB[52519] = { n="Efficient Poisons", r="Rank 2", d="Reduces
 ConsoleMode_SpellDescDB[52520] = { n="Efficient Poisons", r="Rank 3", d="Reduces the chance your poisons will be resisted by $s1% and gives your poison applications a $s2% chance to not consume a charge.", t="", pt="Reduz a chance de seus venenos serem resistidos em $s1% e concede às aplicações dos seus venenos $s2% de chance de não consumir uma carga." }
 ConsoleMode_SpellDescDB[52521] = { n="Quickness (Attack Speed)", r="Racial Passive", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[52522] = { n="Vengeance", r="Racial Passive", d="All damage caused against Humanoid and Undead targets is increased by $s1%.  Does not affect player targets.", t="", pt="Todo o dano causado contra alvos Humanoides e Mortos-vivos é aumentado em $s1%. Não afeta alvos jogadores." }
-ConsoleMode_SpellDescDB[52523] = { n="Swiftness of the Rangers", r="Racial Passive", d="Agility increased by $s1%.", t="", pt="Agi +$s1%." }
+ConsoleMode_SpellDescDB[52523] = { n="Swiftness of the Rangers", r="Racial Passive", d="Agility increased by $s1%.", t="", pt="Agilidade aumentada em $s1%." }
 ConsoleMode_SpellDescDB[52524] = { n="Quel'dorei Meditation", r="Racial", d="Generates $/10;o1 rage over $d.\nThe warrior is considered in combat for the duration.", t="Generating $/10;s1 rage per second.", pt="Gera $s1 de raiva ao longo de $d s. O guerreiro é considerado em combate durante toda a duração." }
 ConsoleMode_SpellDescDB[52525] = { n="Quel'dorei Meditation", r="Racial", d="Generates $o1 energy over $d.", t="Generating $s1 energy per second.", pt="Gera $s1 energia em $d s." }
 ConsoleMode_SpellDescDB[52526] = { n="Vigor", r="", d="", t="", pt="" }
@@ -26115,7 +26115,7 @@ ConsoleMode_SpellDescDB[57207] = { n="Golden Frog", r="", d="Legend has it that 
 ConsoleMode_SpellDescDB[57208] = { n="Pond Frog", r="", d="A common sight in tranquil ponds and marshes, this unassuming frog is a reminder of the simple joys found in nature's embrace.", t="", pt="Visão comum em lagos tranquilos e pântanos, este sapo modesto é um lembrete das alegrias simples encontradas no abraço da natureza." }
 ConsoleMode_SpellDescDB[57518] = { n="Eternal Dreamstone Shard", r="", d="The combining of dream fragments can only be done at a moonwell, and only ocassionally will the waters permit themselves to be used in such a way.", t="", pt="A combinação de fragmentos de sonho só pode ser feita em um poço lunar, e só de vez em quando as águas permitem ser usadas dessa forma." }
 ConsoleMode_SpellDescDB[57519] = { n="Formula: Eternal Dreamstone Shard", r="", d="Teaches you how to create an Eternal Dreamstone Shard", t="", pt="Ensina a criar um Fragmento de Pedra do Sonho Eterno." }
-ConsoleMode_SpellDescDB[57530] = { n="Add Recording to Collection", r="Collection", d="Adds a record to the player's record collection.", t="", pt="Coleção de disco." }
+ConsoleMode_SpellDescDB[57530] = { n="Add Recording to Collection", r="Collection", d="Adds a record to the player's record collection.", t="", pt="Adiciona um disco à coleção de discos do jogador." }
 ConsoleMode_SpellDescDB[57531] = { n="Jukebox: Winds of Kamio", r="", d="Feel the rhythm of the Winds of Kamio.", t="", pt="Sente o ritmo de Kamio." }
 ConsoleMode_SpellDescDB[57532] = { n="Jukebox: Emerald Dream", r="", d="Feel the rhythm of the Emerald Dream.", t="", pt="Sente o ritmo do Sonho." }
 ConsoleMode_SpellDescDB[57533] = { n="Jukebox: Bells of the Dawn", r="", d="Feel the rhythm of the Bells of the Dawn.", t="", pt="Sente o ritmo dos Sinos." }
@@ -26317,8 +26317,8 @@ ConsoleMode_SpellDescDB[58033] = { n="Improved Pummel", r="", d="Triggered by Im
 ConsoleMode_SpellDescDB[58035] = { n="Ride of the Wild", r="Antler Taxi", d="Let a party member hop on your back while in Swift Travel Form, letting you explore the great outdoors together!", t="Friends ride TOGETHER!", pt="Permita que um membro do grupo suba em suas costas enquanto estiver na Forma de Viagem Veloz, permitindo que vocês explorem a natureza juntos!" }
 ConsoleMode_SpellDescDB[58036] = { n="Ride of the Wild", r="", d="Teaches Ride of the Wild. Friends ride TOGETHER!", t="", pt="Ensina Cavalgada Selvagem. Amigos cavalgam JUNTOS!" }
 ConsoleMode_SpellDescDB[58037] = { n="Ride of the Wild (Speed)", r="", d="Increases movement speed by $s1%.", t="Movement speed increased by $s1%.", pt="Corrida +$s1%." }
-ConsoleMode_SpellDescDB[58038] = { n="Violet Feral Raptor", r="", d="A rare predator from the depths of Wailing Caverns.", t="Increases speed based on your Riding skill.", pt="Predador raro das Cavernas." }
-ConsoleMode_SpellDescDB[58039] = { n="Obsidian Feral Raptor", r="", d="A shadowy beast hidden in the wilds of Un’Goro.", t="Increases speed based on your Riding skill.", pt="Fera sombria de Un'Goro." }
+ConsoleMode_SpellDescDB[58038] = { n="Violet Feral Raptor", r="", d="A rare predator from the depths of Wailing Caverns.", t="Increases speed based on your Riding skill.", pt="Um raro predador das profundezas das Cavernas Ululantes." }
+ConsoleMode_SpellDescDB[58039] = { n="Obsidian Feral Raptor", r="", d="A shadowy beast hidden in the wilds of Un’Goro.", t="Increases speed based on your Riding skill.", pt="Uma fera sombria oculta nas selvas de Un'Goro." }
 ConsoleMode_SpellDescDB[58040] = { n="Blue Feral Raptor", r="", d="A striking raptor bred by skilled jungle tamers.", t="Increases speed based on your Riding skill.", pt="Raptor de domador da selva." }
 ConsoleMode_SpellDescDB[58041] = { n="Red Feral Raptor", r="", d="A fierce and loyal mount, favored by daring riders.", t="Increases speed based on your Riding skill.", pt="Uma montaria feroz e leal, preferida por cavaleiros ousados." }
 ConsoleMode_SpellDescDB[58042] = { n="Corrupted Feral Raptor", r="", d="A raptor touched by dark forces, its eyes gleam with unnatural power.", t="Increases speed based on your Riding skill.", pt="Um raptor tocado por forças sombrias, seus olhos brilham com poder antinatural." }

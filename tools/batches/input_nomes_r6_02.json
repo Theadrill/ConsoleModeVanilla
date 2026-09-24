@@ -1,0 +1,804 @@
+[
+ {
+  "id": 5597,
+  "en": "Monster - Glaive - 2 Blade Red",
+  "pt": "Monster - Glaive - 2 Blade Red",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 5598,
+  "en": "Monster - Glaive - 3 Blade",
+  "pt": "Monster - Glaive - 3 Blade",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 5599,
+  "en": "Monster - Glaive - 4 Blade",
+  "pt": "Monster - Glaive - 4 Blade",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 5752,
+  "en": "Wyvern Tailspike",
+  "pt": "Espinho de Cauda de Wyvern",
+  "sinais": [
+   "tok-remnant:wyvern=>Mantícora"
+  ]
+ },
+ {
+  "id": 5884,
+  "en": "Unpopped Darkmist Eye",
+  "pt": "Olho de Névoa Negra Não Estourado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5957,
+  "en": "Handstitched Leather Vest",
+  "pt": "Colete de Couro Costurado à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6204,
+  "en": "Tribal Worg Helm",
+  "pt": "Elmo de Worg Tribal",
+  "sinais": [
+   "tok-remnant:worg=>Worg"
+  ]
+ },
+ {
+  "id": 6224,
+  "en": "Monster - Sword2H, Black Metal Hilt",
+  "pt": "Monster - Sword2H, Black Metal Hilt",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 6227,
+  "en": "Monster - Item, Fish - Green",
+  "pt": "Monster - Item, Fish - Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 6231,
+  "en": "Monster - Wand, Jeweled - Green",
+  "pt": "Monster - Wand, Jeweled - Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 6232,
+  "en": "Monster - Item, Flowers  - Boquet Roses",
+  "pt": "Monster - Item, Flowers  - Boquet Roses",
+  "sinais": [
+   "espaco-duplo"
+  ]
+ },
+ {
+  "id": 6233,
+  "en": "Monster - Item, Flowers  - Boquet Wildflowers",
+  "pt": "Monster - Item, Flowers  - Boquet Wildflowers",
+  "sinais": [
+   "espaco-duplo"
+  ]
+ },
+ {
+  "id": 6235,
+  "en": "Monster - Item, Flower - Rose (Black)",
+  "pt": "Monster - Item, Flower - Rose (Black)",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 6237,
+  "en": "Monster - Item, Flowers  - Boquet Roses (Black)",
+  "pt": "Monster - Item, Flowers  - Boquet Roses (Black)",
+  "sinais": [
+   "espaco-duplo",
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 6254,
+  "en": "Monster - Shield, Ironforge",
+  "pt": "Monster - Shield, Ironforge",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 6292,
+  "en": "10 Pound Mud Snapper",
+  "pt": "Pargo Barrento de 4 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6294,
+  "en": "12 Pound Mud Snapper",
+  "pt": "Pargo Barrento de 5 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6295,
+  "en": "15 Pound Mud Snapper",
+  "pt": "Pargo Barrento de 7 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6309,
+  "en": "17 Pound Catfish",
+  "pt": "Bagre de 8 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6310,
+  "en": "19 Pound Catfish",
+  "pt": "Bagre de 9 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6311,
+  "en": "22 Pound Catfish",
+  "pt": "Bagre de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6322,
+  "en": "Monster - Staff, Arugal",
+  "pt": "Monster - Staff, Arugal",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 6334,
+  "en": "Monster - Mace, Green",
+  "pt": "Monster - Mace, Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 6363,
+  "en": "26 Pound Catfish",
+  "pt": "Bagre de 12 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6364,
+  "en": "32 Pound Catfish",
+  "pt": "Bagre de 15 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6366,
+  "en": "Darkwood Fishing Pole",
+  "pt": "Vara de Pesca de Madeira Sombria",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6434,
+  "en": "Monster - Shield, Stromgarde",
+  "pt": "Monster - Shield, Stromgarde",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 6449,
+  "en": "Glowing Lizardscale Cloak",
+  "pt": "Capa de Escama de Lagarto Brilhante",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6525,
+  "en": "Grunt's Harness",
+  "pt": "Arnês de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 6544,
+  "en": "Voidwalker Summoning Scroll",
+  "pt": "Pergaminho de Invocação de Emissário do Caos",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 6648,
+  "en": "Stoneskin Totem Scroll",
+  "pt": "Pergaminho do Totem Pele de Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6692,
+  "en": "Pronged Reaver",
+  "pt": "Reaver de Dente Entalhado",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 6726,
+  "en": "Razzeric's Customized Seatbelt",
+  "pt": "Cinto de Segurança Personalizado de Razzeric",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 7134,
+  "en": "Sturdy Dragonmaw Shinbone",
+  "pt": "Osso de Dragonmaw Sólido",
+  "sinais": [
+   "tok-remnant:dragonmaw=>Presa do Dragão"
+  ]
+ },
+ {
+  "id": 7187,
+  "en": "VanCleef's Boots",
+  "pt": "Botas de VanCleef",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 7276,
+  "en": "Handstitched Leather Cloak",
+  "pt": "Capa de Couro Costurada à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 7277,
+  "en": "Handstitched Leather Bracers",
+  "pt": "Braçadeiras de Couro Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 7445,
+  "en": "Sentinel Shoulders",
+  "pt": "Ombreiras Sentinel",
+  "sinais": [
+   "tok-remnant:sentinel=>Sentinela"
+  ]
+ },
+ {
+  "id": 7761,
+  "en": "Steelclaw Reaver",
+  "pt": "Reaver de Garra de Aço",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 7826,
+  "en": "Monster - Staff, Special NPC (Whitemane)",
+  "pt": "Monster - Staff, Special NPC (Whitemane)",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 8483,
+  "en": "Wastewander Water Pouch",
+  "pt": "Bolsa de Água do Vagante do Deserto",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 8503,
+  "en": "Heavy Bronze Lotterybox",
+  "pt": "Caixa de Sorteio de Bronze Pesado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 8505,
+  "en": "Heavy Iron Lotterybox",
+  "pt": "Caixa de Sorteio de Ferro Pesado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 8507,
+  "en": "Heavy Mithril Lotterybox",
+  "pt": "Caixa de Sorteio de Mithril Pesado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9066,
+  "en": "Tablet of Frost Resistance Totem",
+  "pt": "Tablete do Totem de Resistência ao Gelo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9075,
+  "en": "Tablet of Fire Resistance Totem",
+  "pt": "Tablete do Totem de Resistência ao Fogo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9127,
+  "en": "Tablet of Fire Resistance Totem II",
+  "pt": "Tablete do Totem de Resistência ao Fogo II",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9158,
+  "en": "Tablet of Frost Resistance Totem III",
+  "pt": "Tablete do Totem de Resistência ao Gelo III",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9170,
+  "en": "Tablet of Fire Resistance Totem III",
+  "pt": "Tablete do Totem de Resistência ao Fogo III",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9185,
+  "en": "Tablet of Frost Resistance Totem II",
+  "pt": "Tablete do Totem de Resistência ao Gelo II",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9314,
+  "en": "Red Streaks Firework",
+  "pt": "Fogo de Artifício com Faixas Vermelhas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9316,
+  "en": "Prismatic Punch Card",
+  "pt": "Cartão de Punch Prismático",
+  "sinais": [
+   "tok-remnant:punch=>?"
+  ]
+ },
+ {
+  "id": 9575,
+  "en": "Glyphic Tablet",
+  "pt": "Tablet Gráfico",
+  "sinais": [
+   "tok-remnant:tablet=>Tablete"
+  ]
+ },
+ {
+  "id": 9627,
+  "en": "Explorer's League Lodestar",
+  "pt": "Estrela Guia da Liga dos Exploradores",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9630,
+  "en": "Pratt's Handcrafted Boots",
+  "pt": "Botas Feitas à Mão de Pratt",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9631,
+  "en": "Pratt's Handcrafted Gloves",
+  "pt": "Luvas Feitas à Mão de Pratt",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9651,
+  "en": "Gryphon Rider's Stormhammer",
+  "pt": "Martelo de Tempestade do Cavaleiro do Grifo",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 10276,
+  "en": "Emerald Sabatons",
+  "pt": "Sabatons de Esmeralda",
+  "sinais": [
+   "tok-remnant:sabatons=>?"
+  ]
+ },
+ {
+  "id": 10406,
+  "en": "Scaled Leather Headband",
+  "pt": "Faixa de Cabeça de Couro Escamado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10423,
+  "en": "Silvered Bronze Leggings",
+  "pt": "Calças de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10510,
+  "en": "Mithril Heavy-bore Rifle",
+  "pt": "Rifle de Alta Potência de Mithril",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10512,
+  "en": "Hi-Impact Mithril Slugs",
+  "pt": "Balas de Mithril de Alto Impacto",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10611,
+  "en": "Monster - Axe, Horde Badass 01",
+  "pt": "Monster - Axe, Horde Badass 01",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 10612,
+  "en": "Monster - Axe, Horde Badass 02 ",
+  "pt": "Monster - Axe, Horde Badass 02 ",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 10613,
+  "en": "Monster - Sword, Katana",
+  "pt": "Monster - Sword, Katana",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 10614,
+  "en": "Monster - Sword, Horde Sword Black",
+  "pt": "Monster - Sword, Horde Sword Black",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 10615,
+  "en": "Monster - Sword, Horde Sword Red",
+  "pt": "Monster - Sword, Horde Sword Red",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 10616,
+  "en": "Monster - Dagger, Curvey Silver",
+  "pt": "Monster - Dagger, Curvey Silver",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 10617,
+  "en": "Monster - Dagger, Curved Bone Bloody",
+  "pt": "Monster - Dagger, Curved Bone Bloody",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 10618,
+  "en": "Monster - Dagger, Tanto Blade",
+  "pt": "Monster - Dagger, Tanto Blade",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 10619,
+  "en": "Monster - Dagger, Badass Red",
+  "pt": "Monster - Dagger, Badass Red",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 10685,
+  "en": "Monster - Mace2H, Kazon's Maul",
+  "pt": "Monster - Mace2H, Kazon\\\\'s Maul",
+  "sinais": [
+   "barra-invertida",
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 10756,
+  "en": "Monster - Mace2H, Smite's Mighty Hammer",
+  "pt": "Monster - Mace2H, Smite\\\\'s Mighty Hammer",
+  "sinais": [
+   "barra-invertida"
+  ]
+ },
+ {
+  "id": 10825,
+  "en": "Monster - Sword, Red Long",
+  "pt": "Monster - Sword, Red Long",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 10858,
+  "en": "Plans: Solid Iron Maul",
+  "pt": "Planos: Maul de Ferro Sólido",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 10878,
+  "en": "Monster - Sword, Horde Jagged Green",
+  "pt": "Monster - Sword, Horde Jagged Green",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 10898,
+  "en": "Monster - Sword, Horde Sword Centurion",
+  "pt": "Monster - Sword, Horde Sword Centurion",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 11019,
+  "en": "Monster - Sword, Horde Jagged Bloody",
+  "pt": "Monster - Sword, Horde Jagged Bloody",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 11025,
+  "en": "Monster - Sword, Katana 2H",
+  "pt": "Monster - Sword, Katana 2H",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 11041,
+  "en": "Monster - Shield, Kite Metal Gold",
+  "pt": "Monster - Shield, Kite Metal Gold",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 11042,
+  "en": "Monster - Sword, Horde Jagged w/ Bolts",
+  "pt": "Monster - Sword, Horde Jagged w/ Bolts",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 11087,
+  "en": "Monster - Sword2H, Ragglesnout X'Caliboar",
+  "pt": "Monster - Sword2H, Ragglesnout X\\\\'Caliboar",
+  "sinais": [
+   "barra-invertida"
+  ]
+ },
+ {
+  "id": 11224,
+  "en": "Formula: Enchant Shield - Frost Resistance",
+  "pt": "Fórmula: Encantamento de Escudo - Resistência ao Gelo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 11321,
+  "en": "Monster - Sword2H, Horde Massive",
+  "pt": "Monster - Sword2H, Horde Massive",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 11322,
+  "en": "Monster - Sword2H, Horde Broad",
+  "pt": "Monster - Sword2H, Horde Broad",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 11323,
+  "en": "Monster - Sword2H, Horde Jagged",
+  "pt": "Monster - Sword2H, Horde Jagged",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 11343,
+  "en": "Monster - Staff, Jeweled Red Staff",
+  "pt": "Monster - Staff, Jeweled Red Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 11365,
+  "en": "Monster - Staff, Badass Red Staff",
+  "pt": "Monster - Staff, Badass Red Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 11383,
+  "en": "Monster - Mace, Green Scepter",
+  "pt": "Monster - Mace, Green Scepter",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 11424,
+  "en": "Monster - Staff, Wooden Handle Spiral Head",
+  "pt": "Monster - Staff, Wooden Handle Spiral Head",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 11446,
+  "en": "A Crumpled Up Note",
+  "pt": "Nota Amassada",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 11505,
+  "en": "Monster - Claw - Bear Offhand",
+  "pt": "Monster - Claw - Bear Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 11506,
+  "en": "Monster - Claw Offhand",
+  "pt": "Monster - Claw Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 11542,
+  "en": "Monster - Staff, Red Feathered",
+  "pt": "Monster - Staff, Red Feathered",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 11585,
+  "en": "Monster - Shield, Engineer A01",
+  "pt": "Monster - Shield, Engineer A01",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 11586,
+  "en": "Monster - Shield, Engineer B01",
+  "pt": "Monster - Shield, Engineer B01",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 11587,
+  "en": "Monster - Shield, Engineer C01",
+  "pt": "Monster - Shield, Engineer C01",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 11588,
+  "en": "Monster - Staff, Jeweled D01 Green",
+  "pt": "Monster - Staff, Jeweled D01 Green",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 11589,
+  "en": "Monster - Shield, Orange Skull",
+  "pt": "Monster - Shield, Orange Skull",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 11830,
+  "en": "Webbed Diemetradon Scale",
+  "pt": "Escama de Diemetradon Coberta de Teia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ }
+]

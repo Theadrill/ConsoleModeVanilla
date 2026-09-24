@@ -9666,5 +9666,41 @@
  "5585": {
   "pt": "Olho de Ginete",
   "motivo": "courser→Ginete."
+ },
+ "5752": {
+  "pt": "Espinho de Cauda de Mantícora",
+  "motivo": "wyvern→Mantícora (glossary; blizzlike)."
+ },
+ "6525": {
+  "pt": "Arnês do Bruto",
+  "motivo": "grunt→Bruto (oficial; Grunt = do Bruto)."
+ },
+ "6692": {
+  "pt": "Abutre de Dente Entalhado",
+  "motivo": "reaver→Abutre (oficial)."
+ },
+ "7134": {
+  "pt": "Osso Sólido da Presa do Dragão",
+  "motivo": "dragonmaw→Presa do Dragão (oficial+QuestDB)."
+ },
+ "7445": {
+  "pt": "Ombreiras Sentinela",
+  "motivo": "sentinel→Sentinela (padrão obrigatório); Shoulders=Ombreiras já correto."
+ },
+ "7761": {
+  "pt": "Abutre de Garra de Aço",
+  "motivo": "reaver→Abutre (oficial; Steelclaw=Garra de Aço já correto)."
+ },
+ "9316": {
+  "pt": "Cartão Perfurado Prismático",
+  "motivo": "punch→Perfurado; 'Punch Card' = 'Cartão Perfurado' oficial Blizzard."
+ },
+ "9575": {
+  "pt": "Tablete Gráfico",
+  "motivo": "tablet→Tablete (padrão obrigatório; vence Tabuleta)."
+ },
+ "10858": {
+  "pt": "Planos: Malho de Ferro Sólido",
+  "motivo": "Plans:→Planos: e maul→Malho (oficial; NÃO Martelo)."
  }
 }

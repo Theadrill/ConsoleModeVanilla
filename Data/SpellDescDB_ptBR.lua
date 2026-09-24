@@ -3288,7 +3288,7 @@ ConsoleMode_SpellDescDB[4313] = { n="Axe Finesse", r="Rank 3", d="Increases your
 ConsoleMode_SpellDescDB[4314] = { n="Call of Duty", r="", d="Increases your physical damage by $s1.", t="", pt="Dano físico +$s1." }
 ConsoleMode_SpellDescDB[4315] = { n="Rabid Maw", r="", d="Adds a chance to disease a target on a successful attack.", t="", pt="Adiciona uma chance de infectar o alvo com doença em um ataque bem-sucedido." }
 ConsoleMode_SpellDescDB[4316] = { n="Rabid Maw", r="", d="Reduces strength by $m1 and agility by $m2 for $d", t="", pt="For -$s1 e Agi -$s2 por $d s." }
-ConsoleMode_SpellDescDB[4317] = { n="Eye Peck", r="", d="Chance to Eye Peck, which lowers a target's chance to hit.", t="", pt="Bicada que -acerto." }
+ConsoleMode_SpellDescDB[4317] = { n="Eye Peck", r="", d="Chance to Eye Peck, which lowers a target's chance to hit.", t="", pt="Chance de Bicada no Olho, que reduz a chance de acerto do alvo." }
 ConsoleMode_SpellDescDB[4318] = { n="Guile of the Raptor", r="", d="Increases your Agility by $s1 for $d.", t="Increased Agility.", pt="Agi +$s1 por $d s." }
 ConsoleMode_SpellDescDB[4319] = { n="Enchant Azure Agate", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[4320] = { n="Trelane's Freezing Touch", r="", d="Silences, inflicts $s2 Frost damage every $t2 sec., and reduces an enemy's attack speed by $s3% for $d.", t="Silenced.\n$s2 Frost damage inflicted every $t2 sec.\nAttack speed reduced by $s3%.", pt="Silencia, $s1 de Gelo a cada $t1 s e -$s2% velocidade por $d s." }
@@ -4058,7 +4058,7 @@ ConsoleMode_SpellDescDB[5138] = { n="Drain Mana", r="Rank 1", d="Transfers $*5;s
 ConsoleMode_SpellDescDB[5139] = { n="Drain Mana", r="Rank 1", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[5140] = { n="Detonate", r="", d="Perfect for destroying flying machines.", t="", pt="Boa contra máquina voadora." }
 ConsoleMode_SpellDescDB[5141] = { n="Eject Sneed", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[5142] = { n="Trogg Form", r="", d="Changes the caster's image into a that of a ghoul.", t="", pt="Vira carniçal." }
+ConsoleMode_SpellDescDB[5142] = { n="Trogg Form", r="", d="Changes the caster's image into a that of a ghoul.", t="", pt="Transforma a aparência do lançador na de um carniçal." }
 ConsoleMode_SpellDescDB[5143] = { n="Arcane Missiles", r="Rank 1", d="Launches Arcane Missiles at the enemy, causing $7268s1 Arcane damage every $7268d for $d.", t="", pt="Lança Mísseis Arcanos contra o inimigo, causando $s1 de dano Arcano a cada $d s durante $d s." }
 ConsoleMode_SpellDescDB[5144] = { n="Arcane Missiles", r="Rank 2", d="Launches Arcane Missiles at the enemy, causing $7269s1 Arcane damage every $7269d for $d.", t="", pt="Lança Mísseis Arcanos contra o inimigo, causando $s1 de dano Arcano a cada $d s durante $d s." }
 ConsoleMode_SpellDescDB[5145] = { n="Arcane Missiles", r="Rank 3", d="Launches Arcane Missiles at the enemy, causing $7270s1 Arcane damage every $7270d for $d.", t="", pt="Lança Mísseis Arcanos contra o inimigo, causando $s1 de dano Arcano a cada $d s durante $d s." }
@@ -5754,7 +5754,7 @@ ConsoleMode_SpellDescDB[7216] = { n="Iron Shield Spike", r="", d="Attaches an Ir
 ConsoleMode_SpellDescDB[7217] = { n="Weapon Counterweight", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7218] = { n="Weapon Counterweight", r="", d="Attaches a counterweight to a two-handed sword, mace, axe or polearm making it 3% faster.", t="", pt="Prende um contrapeso a uma espada, maça, machado ou arma de haste de duas mãos, tornando-a 3% mais rápida." }
 ConsoleMode_SpellDescDB[7219] = { n="Immune to Disarm", r="", d="Immune to Disarm.", t="", pt="Imune a Desarmar." }
-ConsoleMode_SpellDescDB[7220] = { n="Weapon Chain", r="", d="Attaches a chain to your weapon, making it impossible to disarm.", t="", pt="Corrente: impossível desarmar." }
+ConsoleMode_SpellDescDB[7220] = { n="Weapon Chain", r="", d="Attaches a chain to your weapon, making it impossible to disarm.", t="", pt="Prende uma corrente à sua arma, tornando impossível desarmá-lo." }
 ConsoleMode_SpellDescDB[7221] = { n="Iron Shield Spike", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7222] = { n="Iron Counterweight", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7223] = { n="Golden Scale Bracers", r="", d="", t="", pt="" }
@@ -6347,7 +6347,7 @@ ConsoleMode_SpellDescDB[7910] = { n="Summon Tamed Raptor", r="", d="", t="", pt=
 ConsoleMode_SpellDescDB[7911] = { n="Summon Tamed Scorpid", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7912] = { n="Summon Tamed Spider", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7913] = { n="Summon Tamed Tallstrider", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[7914] = { n="Capture Spirit", r="", d="Captures the spirit of the nearest Burning Blade member. If target dies while being drained, the caster gains 1 Infused Burning Gem.", t="Spirit capture.", pt="Captura espírito Lâmina Ardente. Se morrer drenado, +1 Gema." }
+ConsoleMode_SpellDescDB[7914] = { n="Capture Spirit", r="", d="Captures the spirit of the nearest Burning Blade member. If target dies while being drained, the caster gains 1 Infused Burning Gem.", t="Spirit capture.", pt="Captura o espírito do membro da Lâmina Ardente mais próximo. Se o alvo morrer enquanto estiver sendo drenado, o lançador recebe 1 Gema Ardente Infusa." }
 ConsoleMode_SpellDescDB[7915] = { n="Summon Tamed Turtle", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7916] = { n="Summon Tamed Zhevra", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[7918] = { n="Shoot Gun", r="", d="", t="", pt="" }
@@ -7315,7 +7315,7 @@ ConsoleMode_SpellDescDB[9161] = { n="Damage Shield Frost", r="", d="When struck 
 ConsoleMode_SpellDescDB[9162] = { n="Frost Shield", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[9163] = { n="Heal Self", r="", d="Heal yourself for $s1.", t="", pt="Cura $s1 em você." }
 ConsoleMode_SpellDescDB[9172] = { n="Lift Seal", r="", d="Place upon the skull stone near the Mausoleum in Brill.", t="", pt="Põe na caveira do Mausoléu." }
-ConsoleMode_SpellDescDB[9173] = { n="Anubisath Guardian AOE", r="", d="Cast an AOE spell", t="", pt="Lança área." }
+ConsoleMode_SpellDescDB[9173] = { n="Anubisath Guardian AOE", r="", d="Cast an AOE spell", t="", pt="Lança uma magia de área." }
 ConsoleMode_SpellDescDB[9174] = { n="Rage", r="", d="Increase Rage by 30.", t="", pt="Fúria +30." }
 ConsoleMode_SpellDescDB[9175] = { n="Running Speed", r="", d="Increases run speed by $s1% for $d.", t="Increases run speed by $s1%.", pt="Corre +$s1% por $d s." }
 ConsoleMode_SpellDescDB[9176] = { n="Holy Sunder", r="", d="Decrease the armor of target by $s1 for $d.", t="Decreased armor.", pt="Armadura -$s1 por $d s." }
@@ -7546,7 +7546,7 @@ ConsoleMode_SpellDescDB[9590] = { n="Stealth 1", r="", d="Increases your Stealth
 ConsoleMode_SpellDescDB[9591] = { n="Acid Spit", r="", d="Inflicts Nature damage to an enemy.", t="", pt="Causa dano de Natureza a um inimigo." }
 ConsoleMode_SpellDescDB[9592] = { n="Fade", r="Rank 4", d="Fade out, discouraging enemies from attacking you for $d.  More effective than Fade (rank 3).", t="Reduced threat level.", pt="Desvanece, desencorajando os inimigos de atacarem você por $d s. Mais eficaz que Desvanecer (Grau 3)." }
 ConsoleMode_SpellDescDB[9593] = { n="Fade", r="Rank 4", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[9594] = { n="Attach Medallion to Shaft", r="", d="Attach to the Shaft of Tsol.", t="", pt="Prende na Haste." }
+ConsoleMode_SpellDescDB[9594] = { n="Attach Medallion to Shaft", r="", d="Attach to the Shaft of Tsol.", t="", pt="Prenda na Haste de Tsol." }
 ConsoleMode_SpellDescDB[9595] = { n="Attach Shaft to Medallion", r="", d="Attach to the Gni'kiv Medallion.", t="", pt="Prende no Medalhão." }
 ConsoleMode_SpellDescDB[9596] = { n="Schematic: Gnomish Cloaking Device", r="", d="Teaches you how to make a Gnomish Cloaking Device.", t="", pt="" }
 ConsoleMode_SpellDescDB[9612] = { n="Ink Spray", r="", d="Reduces an enemy's chance to hit by $s1% for $d.", t="Chance to hit reduced by $s1%.", pt="Reduz a chance de acertar do inimigo em $s1% por $d s." }
@@ -7868,7 +7868,7 @@ ConsoleMode_SpellDescDB[10113] = { n="Flare", r="", d="Shoots a flare into the a
 ConsoleMode_SpellDescDB[10132] = { n="Sand Storms", r="", d="Summons $s1 $lSand Storm:Sand Storms; to aid the caster in battle for $d.", t="", pt="Evoca $s1 Tempestades de Areia para auxiliar o lançador em combate por $d s." }
 ConsoleMode_SpellDescDB[10134] = { n="Sand Storm", r="", d="", t="Confused.", pt="" }
 ConsoleMode_SpellDescDB[10136] = { n="Magenta Cap Sickness", r="", d="", t="All stats are decreased by $s1.", pt="" }
-ConsoleMode_SpellDescDB[10137] = { n="Fizzule's Folly", r="", d="Blow on the whistle to let Fizzule know you're an ally.", t="", pt="Assobia que é aliado." }
+ConsoleMode_SpellDescDB[10137] = { n="Fizzule's Folly", r="", d="Blow on the whistle to let Fizzule know you're an ally.", t="", pt="Sopre o apito para avisar a Fizzule que você é um aliado." }
 ConsoleMode_SpellDescDB[10138] = { n="Conjure Water", r="Rank 5", d="Conjures $s1 $lbottle:bottles; of mineral water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Conjura $s1 frascos de água mineral, fornecendo ao mago e a seus aliados algo para beber.\n\nItens conjurados desaparecem se você permanecer desconectado por mais de 15 minutos." }
 ConsoleMode_SpellDescDB[10139] = { n="Conjure Water", r="Rank 6", d="Conjures $s1 $lbottle:bottles; of sparkling water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Conjura $s1 frascos de água gaseificada, fornecendo ao mago e a seus aliados algo para beber.\n\nItens conjurados desaparecem se você permanecer desconectado por mais de 15 minutos." }
 ConsoleMode_SpellDescDB[10140] = { n="Conjure Water", r="Rank 7", d="Conjures $s1 $lbottle:bottles; of crystal water, providing the mage and $ghis:her; allies with something to drink.\n\nConjured items disappear if logged out for more than 15 minutes.", t="", pt="Conjura $s1 frascos de água cristalina, fornecendo ao mago e a seus aliados algo para beber.\n\nItens conjurados desaparecem se você permanecer desconectado por mais de 15 minutos." }
@@ -8435,7 +8435,7 @@ ConsoleMode_SpellDescDB[10828] = { n="Soul Explosion", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10829] = { n="Mechano-Frostwalker Revert", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10830] = { n="Mechano-Frostwalker Revert Passive", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10831] = { n="Reflection Field", r="", d="Reflects $s1% of harmful spells from the caster and nearby allies for $d.", t="$s1% chance to reflect spells.", pt="Reflete $s1% das magias por $d s." }
-ConsoleMode_SpellDescDB[10832] = { n="Mass Nullify", r="", d="Attempts to dispel a harmful curse, disease, magic effect, or poison effect from nearby allies.", t="", pt="Dissipa maldição, doença, magia ou veneno próximos." }
+ConsoleMode_SpellDescDB[10832] = { n="Mass Nullify", r="", d="Attempts to dispel a harmful curse, disease, magic effect, or poison effect from nearby allies.", t="", pt="Tenta dissipar uma maldição, doença, efeito mágico ou efeito de veneno nocivo de aliados próximos." }
 ConsoleMode_SpellDescDB[10833] = { n="Arcane Blast", r="", d="Blasts an enemy with Arcane magic, inflicting normal damage plus $s2 and knocking the enemy back.", t="", pt="Detona o inimigo com magia Arcana, causando dano normal mais $s1 e arremessando-o." }
 ConsoleMode_SpellDescDB[10834] = { n="Shackle Shatter", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10835] = { n="Shackle Shatter", r="", d="", t="", pt="" }
@@ -8453,7 +8453,7 @@ ConsoleMode_SpellDescDB[10846] = { n="First Aid", r="Artisan", d="Allows a physi
 ConsoleMode_SpellDescDB[10847] = { n="Artisan First Aid", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10848] = { n="Shroud of Death", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[10849] = { n="Form of the Moonstalker (no invis)", r="", d="Transform into a Moonstalker and become invisible for $d.", t="", pt="Vira Lunapresa invisível por $d s." }
-ConsoleMode_SpellDescDB[10850] = { n="Powerful Smelling Salts", r="", d="Brings a dead player back to life with $s1% of their health and mana.  Cannot be used when in combat.", t="", pt="Ressuscita com $s1% de vida e mana. Fora de combate." }
+ConsoleMode_SpellDescDB[10850] = { n="Powerful Smelling Salts", r="", d="Brings a dead player back to life with $s1% of their health and mana.  Cannot be used when in combat.", t="", pt="Traz um jogador morto de volta à vida com $s1% da vida e da mana. Não pode ser usado em combate." }
 ConsoleMode_SpellDescDB[10851] = { n="Grab Weapon", r="", d="Grabs an enemy's weapon, disarming the enemy for $d.", t="Not wielding a weapon.", pt="Arranca a arma por $d s." }
 ConsoleMode_SpellDescDB[10852] = { n="Battle Net", r="", d="Immobilizes nearby enemies for $d.", t="Waiting for players...\nImmobilized.", pt="Aumenta a lentidão da sua Maldição de Exaustão em $s1%." }
 ConsoleMode_SpellDescDB[10853] = { n="Spirit of Kirith", r="", d="", t="", pt="" }
@@ -8964,7 +8964,7 @@ ConsoleMode_SpellDescDB[11609] = { n="Cleave", r="Rank 4", d="A sweeping attack 
 ConsoleMode_SpellDescDB[11610] = { n="Gammerita Turtle Camera", r="", d="Target and click to take a snapshot.", t="", pt="Foto: mira e clica." }
 ConsoleMode_SpellDescDB[11611] = { n="Alchemy", r="Artisan", d="Allows an alchemist to brew astounding potions up to a maximum potential skill of 300.", t="", pt="Permite que um alquimista prepare poções extraordinárias até uma perícia potencial máxima de 300." }
 ConsoleMode_SpellDescDB[11612] = { n="Artisan Alchemist", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[11629] = { n="Potent Alcohol", r="", d="An extremely potent alcoholic beverage.", t="Sloshed.", pt="Bebida potentíssima." }
+ConsoleMode_SpellDescDB[11629] = { n="Potent Alcohol", r="", d="An extremely potent alcoholic beverage.", t="Sloshed.", pt="Uma bebida alcoólica extremamente forte." }
 ConsoleMode_SpellDescDB[11630] = { n="Resurrection Sickness II", r="", d="", t="Decreases all attributes by $s1%.", pt="" }
 ConsoleMode_SpellDescDB[11631] = { n="Resurrection Sickness III", r="", d="", t="Decreases all attributes by $s1%.", pt="" }
 ConsoleMode_SpellDescDB[11632] = { n="Summon Orgrimmar Grunt", r="", d="", t="", pt="" }
@@ -9846,7 +9846,7 @@ ConsoleMode_SpellDescDB[12879] = { n="Improved Demoralizing Shout", r="Rank 5", 
 ConsoleMode_SpellDescDB[12880] = { n="Enrage", r="Rank 1", d="", t="Melee damage increased by $s1%.", pt="" }
 ConsoleMode_SpellDescDB[12881] = { n="Poison State", r="", d="Makes the caster appear poisoned until canceled.", t="", pt="Parece envenenado até cancelar." }
 ConsoleMode_SpellDescDB[12882] = { n="Wing Flap", r="", d="Strikes enemies in a cone in front of the caster, knocking them back.", t="", pt="Golpeia em cone à frente, arremessando os inimigos." }
-ConsoleMode_SpellDescDB[12883] = { n="Longsight", r="", d="Allows you to look far into the distance.", t="Increased vision range until you move.", pt="Olha longe." }
+ConsoleMode_SpellDescDB[12883] = { n="Longsight", r="", d="Allows you to look far into the distance.", t="Increased vision range until you move.", pt="Permite olhar para muito longe, até o horizonte." }
 ConsoleMode_SpellDescDB[12884] = { n="Acid Breath", r="", d="Inflicts $s2 Nature damage and an additional $s1 damage every $t1 sec. to enemies in a cone in front of the caster. Lasts $d.", t="$s1 Nature damage inflicted every $t1 sec.", pt="Causa $s1 de dano de Natureza e mais $s2 a cada $t1 s em cone à frente por $d s." }
 ConsoleMode_SpellDescDB[12885] = { n="Teleport to Razelikh", r="", d="Sends player to Razelikh's plateau.", t="", pt="Envia o jogador ao platô de Razelikh." }
 ConsoleMode_SpellDescDB[12886] = { n="Improved Challenging Shout", r="Rank 2", d="Reduces the cooldown of your Challenging Shout ability by $/60000;s1 mins.", t="", pt="Reduz o tempo de recarga da sua habilidade Brado Desafiador em $s1 min." }
@@ -11436,7 +11436,7 @@ ConsoleMode_SpellDescDB[15115] = { n="Windwall Totem", r="Rank 2", d="", t="", p
 ConsoleMode_SpellDescDB[15116] = { n="Windwall Totem", r="Rank 3", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[15117] = { n="Chain Lightning", r="", d="Strikes an enemy with a lightning bolt that arcs to another nearby enemy. The spell affects up to $x1 targets, causing Nature damage to each.", t="", pt="Atinge o inimigo com um raio que salta para outros inimigos próximos, afetando até $x1 alvos e causando dano de Natureza a cada um." }
 ConsoleMode_SpellDescDB[15118] = { n="Place Threshadon Carcass", r="", d="Place upon the Flat Un'Goro Rock.", t="", pt="Põe na Pedra." }
-ConsoleMode_SpellDescDB[15119] = { n="Apply Seduction Gland", r="", d="Apply to the Preserved Threshadon Carcass.", t="", pt="Passa na Carcaça." }
+ConsoleMode_SpellDescDB[15119] = { n="Apply Seduction Gland", r="", d="Apply to the Preserved Threshadon Carcass.", t="", pt="Aplique na Carcaça Preservada de Debulhador." }
 ConsoleMode_SpellDescDB[15120] = { n="Cenarion Beacon", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[15122] = { n="Counterspell", r="", d="Counters an enemy's spell, preventing the enemy from casting that spell again for $d. Generates a high amount of threat.", t="", pt="Contrapõe o feitiço de um inimigo, impedindo-o de lançar esse feitiço novamente por $d s. Gera uma grande quantidade de ameaça." }
 ConsoleMode_SpellDescDB[15123] = { n="Resist Fire", r="", d="Increases an ally's Fire resistance by $s1 for $d.", t="Fire resistance increased by $s1.", pt="Aliado +$s1 vs Fogo por $d s." }
@@ -12332,7 +12332,7 @@ ConsoleMode_SpellDescDB[16316] = { n="Rockbiter Weapon", r="Rank 7", d="Imbue th
 ConsoleMode_SpellDescDB[16317] = { n="Rockbiter Weapon", r="Rank 6", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[16318] = { n="Rockbiter Weapon", r="Rank 7", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[16319] = { n="Touch of Vaelastrasz", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[16320] = { n="Plate Mail", r="", d="Allows you to wear Plate Mail armor.", t="", pt="Veste Placa." }
+ConsoleMode_SpellDescDB[16320] = { n="Plate Mail", r="", d="Allows you to wear Plate Mail armor.", t="", pt="Permite vestir armaduras de Malha de Placas." }
 ConsoleMode_SpellDescDB[16321] = { n="Juju Escape", r="", d="Increases your chance to dodge by $s1% for $d.", t="Increases dodge chance by $s1%.", pt="Esquiva +$s1% por $d s." }
 ConsoleMode_SpellDescDB[16322] = { n="Juju Flurry", r="", d="Increases the target's attack speed by $s1% for $d.", t="Increases the target's attack speed by $s1%.", pt="Velocidade +$s1% por $d s." }
 ConsoleMode_SpellDescDB[16323] = { n="Juju Power", r="", d="Increases the target's Strength by $s1 for $d.", t="Strength increased by $s1.", pt="Aumenta a Força do alvo em $s1 por $d s." }
@@ -12572,8 +12572,8 @@ ConsoleMode_SpellDescDB[16621] = { n="Self Protection", r="", d="", t="Physical 
 ConsoleMode_SpellDescDB[16622] = { n="Enhance Blunt Weapon V", r="", d="Increase the damage of a blunt weapon by 8 for 30 minutes.", t="", pt="Arma bruta +8 por 30 min." }
 ConsoleMode_SpellDescDB[16623] = { n="Thorium Shield Spike", r="", d="Attaches a Thorium Spike to your shield that deals damage every time you block with it.", t="", pt="Prende um Espeto de Tório ao seu escudo, causando dano sempre que você bloqueia com ele." }
 ConsoleMode_SpellDescDB[16624] = { n="Thorium Shield Spike", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[16627] = { n="Capture Felhound Spirit", r="", d="Captures the spirit of a Felhound to be used in the creation of a warlockian orb.", t="", pt="Captura espírito de Felhound pro orbe." }
-ConsoleMode_SpellDescDB[16628] = { n="Capture Infernal Spirit", r="", d="Captures the spirit of an Infernal to be used in the creation of a warlockian orb.", t="", pt="Captura espírito de Infernal pro orbe." }
+ConsoleMode_SpellDescDB[16627] = { n="Capture Felhound Spirit", r="", d="Captures the spirit of a Felhound to be used in the creation of a warlockian orb.", t="", pt="Captura o espírito de um Cão Vil para ser usado na criação de um orbe de bruxo." }
+ConsoleMode_SpellDescDB[16628] = { n="Capture Infernal Spirit", r="", d="Captures the spirit of an Infernal to be used in the creation of a warlockian orb.", t="", pt="Captura o espírito de um Infernal para ser usado na criação de um orbe de bruxo." }
 ConsoleMode_SpellDescDB[16629] = { n="Attuned Dampener", r="", d="Inflict $s2 arcane damage on the attuned target, and lower the damage it deals by $s1%.", t="Damage dealt by Araj the Summoner is reduced by $s1%.", pt="Inflige $s2 de dano Arcano ao alvo sintonizado e reduz o dano que ele causa em $s1%." }
 ConsoleMode_SpellDescDB[16630] = { n="Quest - Temporal Parasite Summon #2", r="", d="Summon a second initial temporal parasite 67% of the time.", t="", pt="Invoca 2º parasita 67%." }
 ConsoleMode_SpellDescDB[16631] = { n="Quest - Temporal Parasite Summon #3", r="", d="Summon a third initial temporal parasite 34% of the time.", t="", pt="Invoca 3º parasita 34%." }
@@ -13047,7 +13047,7 @@ ConsoleMode_SpellDescDB[17124] = { n="Improved Tranquility", r="Rank 2", d="Incr
 ConsoleMode_SpellDescDB[17130] = { n="Reincarnation", r="", d="When activated, allows the caster to return to life at $s1% health and mana.  This ability may only be used when the caster is dead.", t="", pt="Quando ativada, permite que o lançador volte à vida com $s1% de vida e mana. Esta habilidade só pode ser usada quando o lançador estiver morto." }
 ConsoleMode_SpellDescDB[17131] = { n="Hover", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17132] = { n="Pamela's Doll Trap", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[17133] = { n="Create Pamela's Doll", r="", d="Attach the pieces into a whole.", t="", pt="Monta a boneca." }
+ConsoleMode_SpellDescDB[17133] = { n="Create Pamela's Doll", r="", d="Attach the pieces into a whole.", t="", pt="Junte as peças para formar um todo." }
 ConsoleMode_SpellDescDB[17134] = { n="Musty Tome Trap", r="", d="", t="Movement speed reduced by $s1%.\nIncreases time between attacks by $s2%.", pt="" }
 ConsoleMode_SpellDescDB[17135] = { n="Chromatic Defiance", r="", d="Reduces physical and magical damage by 15%.", t="Chromatic Defiance", pt="Físico e mágico -15%." }
 ConsoleMode_SpellDescDB[17136] = { n="Onyxia Trans", r="", d="", t="", pt="" }
@@ -13231,7 +13231,7 @@ ConsoleMode_SpellDescDB[17328] = { n="Aura of Penitence", r="", d="Grants the we
 ConsoleMode_SpellDescDB[17329] = { n="Nature's Grasp", r="Rank 6", d="While active, any time an enemy strikes the caster they have a $h% chance to become afflicted by Entangling Roots (Rank 6).  Only useable outdoors.  $n charge.  Lasts $d.", t="Melee damage you take has a chance to entangle the enemy.", pt="Enquanto estiver ativo, sempre que um inimigo golpear o lançador, ele tem $h% de chance de ser afligido por Raízes Enredantes (Grau 6). Só pode ser usado em áreas externas. $n carga. Dura $d s." }
 ConsoleMode_SpellDescDB[17330] = { n="Poison", r="", d="Poisons target for $s1 Nature damage every $t1 sec for $d.", t="$s1 Nature damage inflicted every $t1 sec.", pt="Envenena o alvo, causando $s1 de dano de Natureza a cada $t1 s por $d s." }
 ConsoleMode_SpellDescDB[17331] = { n="Fang of the Crystal Spider", r="", d="Slows target enemy's casting speed and increases the time between melee and ranged attacks by $s1% for $d.", t="Decreased attack speed and casting speed.", pt="Lançamento e corpo a corpo +$s1% intervalo por $d s." }
-ConsoleMode_SpellDescDB[17332] = { n="Spider's Kiss", r="", d="Chance on Hit: Immobilizes the target and lowers their armor by 100 for 10 sec.", t="", pt="Beijo: imobiliza e -100 armadura 10 s." }
+ConsoleMode_SpellDescDB[17332] = { n="Spider's Kiss", r="", d="Chance on Hit: Immobilizes the target and lowers their armor by 100 for 10 sec.", t="", pt="Chance ao acertar: imobiliza o alvo e reduz a armadura dele em 100 por 10 s." }
 ConsoleMode_SpellDescDB[17333] = { n="Spider's Kiss", r="Rank 1", d="", t="Root and armor reduction.", pt="" }
 ConsoleMode_SpellDescDB[17334] = { n="Portal Effect: Stormwind", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17347] = { n="[Deprecated] Hemorrhage", r="Rank 2", d="An instant strike that damages the opponent and causes the target to hemorrhage, increasing any Physical damage dealt to the target by up to $s3.  Lasts $n charges or $d.  Awards $s2 combo $lpoint:points;.", t="Increases damage taken by $s3.", pt="Um ataque instantâneo que causa dano ao oponente e provoca uma hemorragia no alvo, aumentando qualquer dano Físico causado a ele em até $s3. Dura $n cargas ou $d s. Concede $s2 pontos de combo." }
@@ -13451,7 +13451,7 @@ ConsoleMode_SpellDescDB[17611] = { n="Portal Effect: Undercity", r="", d="", t="
 ConsoleMode_SpellDescDB[17612] = { n="Nature's Grasp", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[17613] = { n="Dark Mending", r="", d="Heals an ally with dark magic.", t="", pt="Cura sombria no aliado." }
 ConsoleMode_SpellDescDB[17615] = { n="Mana Burn", r="", d="Hits an enemy with an anti-mana bolt. For each point of mana consumed by the bolt, the target takes $e1 damage.", t="", pt="Atinge o inimigo com uma descarga antimana. Para cada ponto de mana consumido pela descarga, o alvo sofre $s1 de dano." }
-ConsoleMode_SpellDescDB[17616] = { n="Corpse Explosion", r="", d="Causes a corpse to explode, inflicting $s1 Shadow damage on enemies near the corpse.", t="", pt="Cadáver explode: $s1 de Sombra nos próximos." }
+ConsoleMode_SpellDescDB[17616] = { n="Corpse Explosion", r="", d="Causes a corpse to explode, inflicting $s1 Shadow damage on enemies near the corpse.", t="", pt="Faz um cadáver explodir, causando $s1 de dano de Sombra a inimigos próximos ao cadáver." }
 ConsoleMode_SpellDescDB[17617] = { n="Increased Armor 400", r="", d="+$s1 Armor.", t="", pt="+$s1 de Armadura." }
 ConsoleMode_SpellDescDB[17618] = { n="Summon Risen Lackey", r="", d="Summons $s1 $lRisen Lackey:Risen Lackeys; to aid the caster in battle for $d.", t="", pt="Evoca $s1 Lacaios Reerguidos para auxiliar o lançador em combate por $d s." }
 ConsoleMode_SpellDescDB[17619] = { n="Alchemists Stone", r="", d="Increases the effects that healing and mana potions have on the wearer by 33%.", t="", pt="Aumenta em 33% os efeitos que poções de cura e de mana têm sobre quem as utiliza." }
@@ -13923,7 +13923,7 @@ ConsoleMode_SpellDescDB[18159] = { n="Curse of the Fallen Magram", r="", d="Incr
 ConsoleMode_SpellDescDB[18160] = { n="Soul Fire", r="Rank 2", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18161] = { n="Death Coil", r="Rank 2", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18162] = { n="Death Coil", r="Rank 3", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[18163] = { n="Strength of Arko'narin", r="", d="Causes Arko'narin to become an elite mob.", t="With the power of Lightforge on her side, Arko will fight out of Jaedenar!", pt="Arko'narin vira elite." }
+ConsoleMode_SpellDescDB[18163] = { n="Strength of Arko'narin", r="", d="Causes Arko'narin to become an elite mob.", t="With the power of Lightforge on her side, Arko will fight out of Jaedenar!", pt="Faz com que Arko'narin se torne um inimigo de elite." }
 ConsoleMode_SpellDescDB[18164] = { n="Shadow Bolt", r="", d="Hurls a bolt of dark magic at an enemy, inflicting Shadow damage.", t="", pt="Dispara uma seta de magia sombria contra um inimigo, causando dano de Sombra." }
 ConsoleMode_SpellDescDB[18165] = { n="Holy Fire", r="", d="Consumes an enemy in flames, burning it and inflicting additional Fire damage every $t2 sec. over $d.", t="Fire damage inflicted every $t2 sec.", pt="Consome o inimigo em chamas, queimando-o e causando dano de Fogo adicional a cada $t2 s ao longo de $d s." }
 ConsoleMode_SpellDescDB[18166] = { n="Summon Magram Ravager", r="", d="", t="", pt="" }
@@ -14037,8 +14037,8 @@ ConsoleMode_SpellDescDB[18282] = { n="Dummy Spell", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18287] = { n="Protection of Caer Darrow", r="", d="Grants the wearer and their group 20 Frost Resistance.", t="Protection of Caer Darrow", pt="Grupo +20 vs Gelo." }
 ConsoleMode_SpellDescDB[18288] = { n="[Deprecated] Amplify Curse", r="", d="Increases the effect of your next Curse of Weakness or Curse of Agony by $s1%, or your next Curse of Exhaustion by $s2%.  Lasts $d.", t="Increases effect for your next Curse of Weakness or Curse of Agony by $s1%, or your next Curse of Exhaustion by $s2%.", pt="Aumenta o efeito da sua próxima Maldição da Fraqueza ou Maldição da Agonia em $s1% ou da sua próxima Maldição da Exaustão em $s2%. Dura $d s." }
 ConsoleMode_SpellDescDB[18289] = { n="Creeping Mold", r="", d="Diseases target enemy for $s1 Nature damage every $t1 sec for $d.", t="$s1 Nature damage inflicted every $t1 sec.", pt="Adoece: $s1 de Natureza a cada $t1 s por $d s." }
-ConsoleMode_SpellDescDB[18307] = { n="Death by Peasant", r="", d="Calls forth 3 servants of the House Barov that will fight, cook, and clean for you.", t="", pt="Três servos que lutam, cozinham e limpam." }
-ConsoleMode_SpellDescDB[18308] = { n="Death by Peasant", r="", d="Calls forth 3 servants of the House Barov that will fight, cook, and clean for you.", t="", pt="Três servos que lutam, cozinham e limpam." }
+ConsoleMode_SpellDescDB[18307] = { n="Death by Peasant", r="", d="Calls forth 3 servants of the House Barov that will fight, cook, and clean for you.", t="", pt="Convoca 3 serviçais da Casa Barov que lutarão, cozinharão e limparão para você." }
+ConsoleMode_SpellDescDB[18308] = { n="Death by Peasant", r="", d="Calls forth 3 servants of the House Barov that will fight, cook, and clean for you.", t="", pt="Convoca 3 serviçais da Casa Barov que lutarão, cozinharão e limparão para você." }
 ConsoleMode_SpellDescDB[18309] = { n="Bear Form", r="Shapeshift", d="Shapeshifts into a bear, increasing armor and hit points, as well as allowing the use of various bear abilities. Lasts until cancelled.", t="Shapeshifted into bear.\nArmor and hit points increased.", pt="Assume a Forma de Urso, aumentando a armadura e os pontos de vida, além de permitir o uso de várias habilidades de urso. Dura até ser cancelada." }
 ConsoleMode_SpellDescDB[18310] = { n="[Deprecated] Improved Curse of Exhaustion", r="Rank 1", d="Increases the speed reduction of your Curse of Exhaustion by $s1%.", t="", pt="Aumenta a redução de velocidade causada pela sua Maldição de Exaustão em $s1%." }
 ConsoleMode_SpellDescDB[18311] = { n="[Deprecated] Improved Curse of Exhaustion", r="Rank 2", d="Increases the speed reduction of your Curse of Exhaustion by $s1%.", t="", pt="Aumenta a redução de velocidade causada pela sua Maldição de Exaustão em $s1%." }
@@ -14096,7 +14096,7 @@ ConsoleMode_SpellDescDB[18396] = { n="Dismounting Blast", r="", d="Knocks an ene
 ConsoleMode_SpellDescDB[18397] = { n="Filling", r="", d="Fill with water from the Auberdine moonwell.", t="", pt="Enche no poço de Auberdine." }
 ConsoleMode_SpellDescDB[18398] = { n="Frost Blast", r="", d="Blasts a target for $s1 Frost damage.", t="", pt="Detona o alvo com $s1 de dano de Gelo." }
 ConsoleMode_SpellDescDB[18399] = { n="Flamestrike", r="", d="Calls down a pillar of flame, burning all enemies in a selected area and inflicting additional damage every $t2 sec. for $d.", t="Fire damage inflicted every $t2 sec.", pt="Invoca uma coluna de chamas, queimando todos os inimigos na área selecionada e causando dano adicional a cada $t2 s por $d s." }
-ConsoleMode_SpellDescDB[18400] = { n="Piccolo of the Flaming Fire", r="", d="Causes nearby players to dance.", t="Dancing to the music.", pt="Dança!" }
+ConsoleMode_SpellDescDB[18400] = { n="Piccolo of the Flaming Fire", r="", d="Causes nearby players to dance.", t="Dancing to the music.", pt="Faz com que jogadores próximos dancem." }
 ConsoleMode_SpellDescDB[18401] = { n="Bolt of Runecloth", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18402] = { n="Runecloth Belt", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[18403] = { n="Frostweave Tunic", r="", d="", t="", pt="" }
@@ -14211,7 +14211,7 @@ ConsoleMode_SpellDescDB[18519] = { n="Pattern: Mooncloth Vest", r="", d="Teaches
 ConsoleMode_SpellDescDB[18520] = { n="Charisma", r="", d="Charisma tooltip.", t="Charisma tooltip.", pt="Dica de Carisma." }
 ConsoleMode_SpellDescDB[18521] = { n="Pattern: Mooncloth Shoulders", r="", d="Teaches you how to sew Mooncloth Shoulders.", t="", pt="" }
 ConsoleMode_SpellDescDB[18522] = { n="Pattern: Runecloth Shoulders", r="", d="Teaches you how to sew Runecloth Shoulders.", t="", pt="" }
-ConsoleMode_SpellDescDB[18523] = { n="Persuasion", r="", d="Attempt to pursuade the target.", t="Pursuaded.", pt="Tenta persuadir." }
+ConsoleMode_SpellDescDB[18523] = { n="Persuasion", r="", d="Attempt to pursuade the target.", t="Pursuaded.", pt="Tenta persuadir o alvo." }
 ConsoleMode_SpellDescDB[18524] = { n="Pattern: Wizardweave Turban", r="", d="Teaches you how to sew a Wizardweave Turban.", t="", pt="" }
 ConsoleMode_SpellDescDB[18525] = { n="Pattern: Felcloth Robe", r="", d="Teaches you how to sew a Felcloth Robe.", t="", pt="" }
 ConsoleMode_SpellDescDB[18526] = { n="Pattern: Mooncloth Circlet", r="", d="Teaches you how to sew a Mooncloth Circlet.", t="", pt="" }
@@ -14815,7 +14815,7 @@ ConsoleMode_SpellDescDB[19315] = { n="Devouring Plague", r="Rank 4", d="", t="",
 ConsoleMode_SpellDescDB[19316] = { n="Devouring Plague", r="Rank 5", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[19317] = { n="Devouring Plague", r="Rank 6", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[19318] = { n="Touch of Weakness", r="Rank 1", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[19319] = { n="Vicious Bite", r="", d="Bites an enemy, inflicting Physical damage.", t="", pt="Morde: Físico." }
+ConsoleMode_SpellDescDB[19319] = { n="Vicious Bite", r="", d="Bites an enemy, inflicting Physical damage.", t="", pt="Morde um inimigo, causando dano físico." }
 ConsoleMode_SpellDescDB[19320] = { n="Touch of Weakness", r="Rank 2", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[19321] = { n="Touch of Weakness", r="Rank 3", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[19322] = { n="Touch of Weakness", r="Rank 4", d="", t="", pt="" }
@@ -15971,7 +15971,7 @@ ConsoleMode_SpellDescDB[20587] = { n="Ragged John's Neverending Cup", r="", d="I
 ConsoleMode_SpellDescDB[20589] = { n="Escape Artist", r="Racial", d="Escape the effects of any immobilization or movement speed reduction effect.", t="", pt="Liberta o lançador de quaisquer efeitos de imobilização ou de redução de velocidade de movimento." }
 ConsoleMode_SpellDescDB[20590] = { n="Ragged John's Neverending Cup", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[20591] = { n="Expansive Mind", r="Racial Passive", d="Intelligence increased by $s1%.", t="", pt="Int +$s1%." }
-ConsoleMode_SpellDescDB[20592] = { n="Arcane Resistance", r="Racial Passive", d="Arcane Resistance increased by $s1.", t="", pt="Arcano +$s1." }
+ConsoleMode_SpellDescDB[20592] = { n="Arcane Resistance", r="Racial Passive", d="Arcane Resistance increased by $s1.", t="", pt="Resistência a Arcano aumentada em $s1." }
 ConsoleMode_SpellDescDB[20593] = { n="Engineering Specialization", r="Racial Passive", d="Engineering skill increased by $s1.", t="", pt="Perícia em Engenharia aumentada em $s1." }
 ConsoleMode_SpellDescDB[20594] = { n="Stoneform", r="Racial", d="While active, grants immunity to Bleed, Poison, and Disease effects.  In addition, reduces physical damage taken by $s1%.  Lasts $d.", t="Immune to Bleed, Poison, and Disease.  Physical damage taken reduced by $s1%.", pt="Enquanto ativa, concede imunidade a efeitos de Sangramento, Veneno e Doença. Além disso, reduz o dano físico sofrido em $s1%. Dura $d s." }
 ConsoleMode_SpellDescDB[20595] = { n="Gun Specialization", r="Racial Passive", d="Skill with Guns increased by $s1.", t="", pt="Armas de Fogo +$s1." }
@@ -16932,7 +16932,7 @@ ConsoleMode_SpellDescDB[21963] = { n="Force of Nature", r="", d="Summons $s1 $lF
 ConsoleMode_SpellDescDB[21964] = { n="Force of Nature", r="", d="Summons $s1 $lForce of Nature:Forces of Nature; to aid the caster in battle for $d.", t="", pt="Invoca $s1 Forças da Natureza para lutar ao seu lado por $d s." }
 ConsoleMode_SpellDescDB[21965] = { n="Manifestation Ends", r="", d="Visiual effect when the centaur Kahns change back to spirit form.", t="", pt="Efeito visual quando os Khans centauros retornam à forma espiritual." }
 ConsoleMode_SpellDescDB[21966] = { n="Dragonstalker B", r="", d="Attack Power against Dragons increased by $s1.", t="", pt="Poder de Ataque contra Dragões aumentado em $s1." }
-ConsoleMode_SpellDescDB[21967] = { n="Dragonstalker A", r="", d="Attack Power power increased by $s1.", t="", pt="Poder +$s1." }
+ConsoleMode_SpellDescDB[21967] = { n="Dragonstalker A", r="", d="Attack Power power increased by $s1.", t="", pt="Poder de ataque aumentado em $s1." }
 ConsoleMode_SpellDescDB[21968] = { n="Corrupt Forces of Nature", r="", d="Summons $s1 $lForce of Nature:Forces of Nature; to aid the caster in battle for $d.", t="", pt="Invoca $s1 Forças da Natureza para lutar ao seu lado por $d s." }
 ConsoleMode_SpellDescDB[21969] = { n="Mark of the Chosen", r="Rank 1", d="Has a 2% chance when struck in combat of increasing all stats by 25 for $21970d1.", t="", pt="Quando atingido em combate, tem 2% de chance de aumentar todos os atributos em 25 por $d s." }
 ConsoleMode_SpellDescDB[21970] = { n="Mark of the Chosen Effect", r="Rank 1", d="Increases all stats by $s1 for $d.", t="All stats increased by $s1.", pt="Aumenta todos os atributos em $s1 por $d s." }
@@ -17333,9 +17333,9 @@ ConsoleMode_SpellDescDB[22813] = { n="Gordok Ogre Suit", r="", d="", t="", pt=""
 ConsoleMode_SpellDescDB[22814] = { n="Gordok Ogre Suit", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22815] = { n="Gordok Ogre Suit", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[22816] = { n="Gordok Ogre Suit", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[22817] = { n="Fengus' Ferocity", r="", d="Attack power increased by $s1.", t="Attack power increased by $s1.", pt="Poder +$s1." }
+ConsoleMode_SpellDescDB[22817] = { n="Fengus' Ferocity", r="", d="Attack power increased by $s1.", t="Attack power increased by $s1.", pt="Poder de ataque aumentado em $s1." }
 ConsoleMode_SpellDescDB[22818] = { n="Mol'dar's Moxie", r="", d="Overall Stamina increased by $s1%.", t="Overall Stamina increased by $s1%.", pt="Vig +$s1%." }
-ConsoleMode_SpellDescDB[22820] = { n="Slip'kik's Savvy", r="", d="Chance for a critical hit with a spell increased by $s1%.", t="Chance for a critical hit with a spell increased by $s1%.", pt="Crítico +$s1%." }
+ConsoleMode_SpellDescDB[22820] = { n="Slip'kik's Savvy", r="", d="Chance for a critical hit with a spell increased by $s1%.", t="Chance for a critical hit with a spell increased by $s1%.", pt="Chance de acerto crítico com magia aumentada em $s1%." }
 ConsoleMode_SpellDescDB[22821] = { n="Warpwood Spores", r="", d="", t="Causes $s1 every $t1\nReduced movement speed.", pt="" }
 ConsoleMode_SpellDescDB[22822] = { n="Starshards", r="", d="Rains starshards down on the enemy target's head, causing $o1 Arcane damage over $d.", t="$s1 Arcane damage every $t1 seconds.", pt="Despeja estilhaços estelares sobre a cabeça do alvo inimigo, causando $s1 de dano Arcano ao longo de $d s." }
 ConsoleMode_SpellDescDB[22823] = { n="Starshards", r="", d="Rains starshards down on the enemy target's head, causing $o1 Arcane damage over $d.", t="$s1 Arcane damage every $t1 seconds.", pt="Despeja estilhaços estelares sobre a cabeça do alvo inimigo, causando $s1 de dano Arcano ao longo de $d s." }
@@ -17511,7 +17511,7 @@ ConsoleMode_SpellDescDB[23004] = { n="Summon Alarm-o-Bot", r="", d="Summons an A
 ConsoleMode_SpellDescDB[23005] = { n="Battle Standard", r="", d="Place a Battle Standard that increases the maximum health of all friendly units' that stay within $23006a1 yards of the Battle Standard by $23006s1%.  Lasts $d.", t="", pt="Coloca um Estandarte de Batalha que aumenta a vida máxima de todas as unidades aliadas que permanecerem a até $a1 metros do Estandarte de Batalha em $s1%. Dura $d s." }
 ConsoleMode_SpellDescDB[23006] = { n="Battle Standard", r="", d="", t="Increases maximum health by $s1%.", pt="" }
 ConsoleMode_SpellDescDB[23007] = { n="Plans: Sulfuron Hammer", r="", d="Teaches you how to make a Sulfuron Hammer.", t="", pt="Ensina a fazer Martelo de Sulfuron." }
-ConsoleMode_SpellDescDB[23008] = { n="Powerful Seaforium Charge", r="", d="Blasts open nearly any locked door.", t="", pt="Abre quase tudo." }
+ConsoleMode_SpellDescDB[23008] = { n="Powerful Seaforium Charge", r="", d="Blasts open nearly any locked door.", t="", pt="Arromba quase qualquer porta trancada." }
 ConsoleMode_SpellDescDB[23009] = { n="Tendrils of Air", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23010] = { n="Tendrils of Air", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[23011] = { n="Tears of the Wind Seeker", r="", d="", t="", pt="" }
@@ -18378,7 +18378,7 @@ ConsoleMode_SpellDescDB[24014] = { n="Create Zul'Gurub Talisman PRT R3 DND", r="
 ConsoleMode_SpellDescDB[24015] = { n="Create Zul'Gurub Talisman PRT R4 DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24016] = { n="Exploit Weakness", r="", d="Inflicts normal damage plus $s1 on an enemy, but only if attacking from behind.", t="", pt="Acalma o alvo, reduzindo em $s1% toda a ameaça da Súcubo e do Bruxo." }
 ConsoleMode_SpellDescDB[24017] = { n="Create Arathi Resource Crate", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24018] = { n="Axe Flurry", r="", d="Attacks nearby enemies in a flurry of axes that lasts $d.", t="Attacking all nearby enemies.", pt="Machados $d s nos próximos." }
+ConsoleMode_SpellDescDB[24018] = { n="Axe Flurry", r="", d="Attacks nearby enemies in a flurry of axes that lasts $d.", t="Attacking all nearby enemies.", pt="Ataca inimigos próximos com uma saraivada de machados que dura $d." }
 ConsoleMode_SpellDescDB[24019] = { n="Axe Flurry", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[24020] = { n="Axe Flurry", r="", d="", t="Stunned.", pt="" }
 ConsoleMode_SpellDescDB[24021] = { n="Anti-Magic Shield", r="", d="Creates an anti-magic shell around the caster, giving it magic immunity for $d.", t="Immune to magic.", pt="Domina o inimigo na hora com dano corpo a corpo mais $s1, só após esquiva do alvo, sem bloqueio, esquiva ou aparo." }
@@ -18579,7 +18579,7 @@ ConsoleMode_SpellDescDB[24237] = { n="Graveyard Teleport", r="", d="", t="", pt=
 ConsoleMode_SpellDescDB[24238] = { n="Test Rip", r="Rank 6", d="Finishing move that causes damage over time.  Damage increases per combo point:\n   1 point  : 228 damage over $d.\n   2 points: 354 damage over $d.\n   3 points: 480 damage over $d.\n   4 points: 606 damage over $d.\n   5 points: 732 damage over $d.", t="Bleed damage every $t1 seconds.", pt="Golpe finalizador que causa dano ao longo do tempo. O dano aumenta por ponto de combo:\n   1 ponto  : 228 de dano ao longo de $d s.\n   2 pontos: 354 de dano ao longo de $d s.\n   3 pontos: 480 de dano ao longo de $d s.\n   4 pontos: 606 de dano ao longo de $d s.\n   5 pontos: 732 de dano ao longo de $d s." }
 ConsoleMode_SpellDescDB[24239] = { n="Hammer of Wrath", r="Rank 3", d="Hurls a hammer that strikes an enemy for $s1 Holy damage.  Only usable on enemies that have 20% or less health.", t="", pt="Arremessa um martelo que atinge um inimigo, causando $s1 de dano Sagrado. Só pode ser usado contra inimigos que estejam com 20% ou menos de vida." }
 ConsoleMode_SpellDescDB[24240] = { n="Spawn - Red Lightning", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24241] = { n="Decapitate", r="", d="Attempts to decapitate the target, causing $s1 damage.", t="", pt="Decapita: $s1." }
+ConsoleMode_SpellDescDB[24241] = { n="Decapitate", r="", d="Attempts to decapitate the target, causing $s1 damage.", t="", pt="Tenta decapitar o alvo, causando $s1 de dano." }
 ConsoleMode_SpellDescDB[24242] = { n="Swift Razzashi Raptor", r="", d="The only known Razzashi Raptors were said to have been in the custody of Bloodlord Mandokir in Zul'Gurub. This species of raptor has not been seen in many years.", t="Increases speed based on your Riding skill.", pt="Dizia-se que os únicos Raptores Razzashi conhecidos estavam sob custódia do Senhor Sangrento Mandokir em Zul'Gurub. Esta espécie de raptor não é vista há muitos anos." }
 ConsoleMode_SpellDescDB[24243] = { n="Increase Spell Dam 840", r="", d="Increases damage and healing done by magical spells and effects by up to $s1.", t="", pt="Aumenta o dano e a cura de magias e efeitos mágicos em até $s1." }
 ConsoleMode_SpellDescDB[24244] = { n="Grow", r="", d="", t="All grown up.", pt="" }
@@ -18592,7 +18592,7 @@ ConsoleMode_SpellDescDB[24250] = { n="Summon Zulian Stalker", r="", d="", t="", 
 ConsoleMode_SpellDescDB[24251] = { n="Zulian Slice", r="", d="Slices the enemy for $s1 Nature damage.", t="", pt="Corta $s1 de Natureza." }
 ConsoleMode_SpellDescDB[24252] = { n="Zulian Tiger", r="", d="A rare and coveted prize, earned only by the most skilled and daring adventurers.", t="Increases speed based on your Riding skill.", pt="Um prêmio raro e cobiçado, conquistado apenas pelos aventureiros mais habilidosos e ousados." }
 ConsoleMode_SpellDescDB[24253] = { n="Graveyard Teleport Test", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[24254] = { n="Serpent's Hiss", r="", d="Blasts the enemy with poison for $s1 Nature damage.", t="", pt="Cospe $s1 de Natureza." }
+ConsoleMode_SpellDescDB[24254] = { n="Serpent's Hiss", r="", d="Blasts the enemy with poison for $s1 Nature damage.", t="", pt="Atinge o inimigo com veneno, causando $s1 de dano de Natureza." }
 ConsoleMode_SpellDescDB[24255] = { n="Primal Blessing", r="", d="Infuses the caster with a blessing from the Primal Gods. Ranged and melee attack power increased by $s1 for $d.", t="Melee attack power increased by $s1.\nRanged attack power increased by $s2.", pt="Infunde o lançador com uma bênção dos Deuses Primordiais. Poder de ataque à distância e corpo a corpo aumentado em $s1 por $d s." }
 ConsoleMode_SpellDescDB[24256] = { n="Primal Blessing Trigger DND", r="", d="Grants a small chance when ranged or melee damage is dealt to infuse the wielder with a blessing from the Primal Gods. Ranged and melee attack power increased by 300 for 12 seconds.", t="", pt="Concede uma pequena chance ao causar dano à distância ou corpo a corpo de infundir o portador com uma bênção dos Deuses Primordiais. Poder de ataque à distância e corpo a corpo aumentado em 300 por 12 s." }
 ConsoleMode_SpellDescDB[24257] = { n="Jeklik's Crushing Blow", r="", d="Wounds the target for $s1 damage.", t="", pt="Fere o alvo em $s1 de dano." }
@@ -19485,7 +19485,7 @@ ConsoleMode_SpellDescDB[25200] = { n="Shoot Silithus Rifleman Long Range", r="",
 ConsoleMode_SpellDescDB[25201] = { n="Anachronos Quest Credit DND", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[25205] = { n="Feline Swiftness Passive 2b", r="", d="Increases your movement speed by $s1% while outdoors in Cat Form and increases your chance to dodge while in Cat Form by $24864s1%.", t="", pt="Aumenta sua velocidade de movimento em $s1% ao ar livre na Forma de Felino e aumenta sua chance de esquivar enquanto estiver em Forma de Felino em $s1%." }
 ConsoleMode_SpellDescDB[25228] = { n="Soul Link", r="", d="", t="$s2% of the damage taken by the master is split with the demon. All damage is increased by $s1%.", pt="" }
-ConsoleMode_SpellDescDB[25247] = { n="Longsight", r="", d="Allows you to look far into the distance.", t="Increased vision range until you move.", pt="Olha longe." }
+ConsoleMode_SpellDescDB[25247] = { n="Longsight", r="", d="Allows you to look far into the distance.", t="Increased vision range until you move.", pt="Permite olhar para muito longe, até o horizonte." }
 ConsoleMode_SpellDescDB[25260] = { n="Wings of Despair", r="", d="The unnatural movement of the abomination's wings fill you with fear.", t="Fleeing in fear.", pt="O movimento não natural das asas da abominação enche você de medo." }
 ConsoleMode_SpellDescDB[25262] = { n="Abomination Spit", r="", d="Shoots poison at an enemy, inflicting Nature damage, then additional damage every $t2 sec. for $d.", t="Nature damage inflicted every $t2 sec.", pt="Cospe veneno no inimigo, causando dano de Natureza e mais dano a cada $t1 s por $d s." }
 ConsoleMode_SpellDescDB[25263] = { n="Holy Light", r="", d="Calls upon Holy magic to heal an ally.", t="", pt="Invoca a magia Sagrada para curar um aliado." }
@@ -20116,13 +20116,13 @@ ConsoleMode_SpellDescDB[26205] = { n="Teleport Giant Hook Tentacle Trigger", r="
 ConsoleMode_SpellDescDB[26206] = { n="Create Mistletoe", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26207] = { n="Create Fresh Holly", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26208] = { n="Resist Silence", r="", d="Increases your resistance to silence effects by $s1%.", t="", pt="Aumenta sua resistência a silêncio em $s1%." }
-ConsoleMode_SpellDescDB[26209] = { n="Christmas Cannon Master Willey", r="", d="Changes to Cannon Master Willey's Christmas outfit.", t="Happy Holidays!", pt="Roupa do Willey." }
-ConsoleMode_SpellDescDB[26210] = { n="Christmas Prince Tortheldrin", r="", d="Changes to Prince Tortheldrin's Christmas outfit.", t="Happy Holidays!", pt="Roupa do Tortheldrin." }
+ConsoleMode_SpellDescDB[26209] = { n="Christmas Cannon Master Willey", r="", d="Changes to Cannon Master Willey's Christmas outfit.", t="Happy Holidays!", pt="Muda para a roupa de Natal do Mestre de Canhão Willey." }
+ConsoleMode_SpellDescDB[26210] = { n="Christmas Prince Tortheldrin", r="", d="Changes to Prince Tortheldrin's Christmas outfit.", t="Happy Holidays!", pt="Muda para a roupa de Natal do Príncipe Tortheldrin." }
 ConsoleMode_SpellDescDB[26211] = { n="Hamstring", r="", d="Inflicts weapon damage plus $s1 to an enemy, reducing its movement speed by $s2% for $d.", t="Movement speed reduced by $s2%.", pt="Causa o dano da arma mais $s1 ao inimigo, reduzindo a velocidade de movimento dele em $s2% por $d s." }
-ConsoleMode_SpellDescDB[26212] = { n="Christmas Emperor Dagran Thaurissan", r="", d="Changes to Emperor Dagran Thaurissan's Christmas outfit.", t="Happy Holidays!", pt="Roupa do Imperador." }
+ConsoleMode_SpellDescDB[26212] = { n="Christmas Emperor Dagran Thaurissan", r="", d="Changes to Emperor Dagran Thaurissan's Christmas outfit.", t="Happy Holidays!", pt="Muda para a roupa de Natal do Imperador Dagran Thaurissan." }
 ConsoleMode_SpellDescDB[26213] = { n="Summon Giant Hook Tentacles", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26214] = { n="Christmas Warchief Rend Blackhand", r="", d="Changes to Warchief Rend Blackhand's Christmas outfit.", t="Happy Holidays!", pt="Roupa do Rend." }
-ConsoleMode_SpellDescDB[26215] = { n="Christmas War Master Voone", r="", d="Changes to War Master Voone's Christmas outfit.", t="Happy Holidays!", pt="Roupa do Voone." }
+ConsoleMode_SpellDescDB[26215] = { n="Christmas War Master Voone", r="", d="Changes to War Master Voone's Christmas outfit.", t="Happy Holidays!", pt="Muda para a roupa de Natal do Mestre de Guerra Voone." }
 ConsoleMode_SpellDescDB[26216] = { n="Summon Giant Hook Tentacles", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26217] = { n="Summon Giant Hook Tentacles", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26218] = { n="Mistletoe", r="", d="", t="You've kissed someone under a sprig of mistletoe!", pt="" }
@@ -20137,7 +20137,7 @@ ConsoleMode_SpellDescDB[26227] = { n="Increase Spell Dam 68", r="", d="Increases
 ConsoleMode_SpellDescDB[26228] = { n="Increase Healing 121", r="", d="Increases healing done by spells and effects by up to $s1.", t="", pt="Aumenta a cura de magias e efeitos em até $s1." }
 ConsoleMode_SpellDescDB[26229] = { n="Summon Player", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26230] = { n="Exit Stomach", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[26231] = { n="Christmas Goraluk Anvilcrack", r="", d="Changes to Goraluk Anvilcrack's Christmas outfit.", t="Happy Holidays!", pt="Roupa do Goraluk." }
+ConsoleMode_SpellDescDB[26231] = { n="Christmas Goraluk Anvilcrack", r="", d="Changes to Goraluk Anvilcrack's Christmas outfit.", t="Happy Holidays!", pt="Muda para a roupa de Natal de Goraluk Rachabigorna." }
 ConsoleMode_SpellDescDB[26232] = { n="Transform C'Thun -> Phase 2", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26233] = { n="Wyvern Sting", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[26234] = { n="Submerge Visual", r="", d="", t="", pt="" }
@@ -21041,7 +21041,7 @@ ConsoleMode_SpellDescDB[27845] = { n="Prayer of Spirit", r="Rank 1", d="", t="",
 ConsoleMode_SpellDescDB[27846] = { n="Faster Healing Touch Cast", r="", d="Reduces the casting time of your Healing Touch spell by 0.15 sec.", t="", pt="Reduz o tempo de lançamento do seu feitiço Toque de Cura em 0,15 s." }
 ConsoleMode_SpellDescDB[27847] = { n="Cleanse Cost Reduced", r="", d="Reduces the mana cost of your Cleanse spell by $s1.", t="", pt="Limpar -$s1 mana." }
 ConsoleMode_SpellDescDB[27848] = { n="Seal Cost Reduced", r="", d="Reduces the mana cost of your Seal spells by $s1.", t="", pt="Selo -$s1 mana." }
-ConsoleMode_SpellDescDB[27849] = { n="[PH] Cystal Bazooka", r="", d="Blast a Necropolis Crystal!", t="", pt="Destrói cristal!" }
+ConsoleMode_SpellDescDB[27849] = { n="[PH] Cystal Bazooka", r="", d="Blast a Necropolis Crystal!", t="", pt="Detone um Cristal da Necrópole!" }
 ConsoleMode_SpellDescDB[27850] = { n="Devotion Armor Increased", r="", d="Your Devotion Aura reduces physical damage taken by $45073s1%.", t="", pt="Sua Aura de Devoção reduz o dano físico recebido em $s1%." }
 ConsoleMode_SpellDescDB[27851] = { n="Reduced Claw and Rake Cost", r="", d="Reduces the energy cost of Claw and Rake by $s1.", t="", pt="Garra e Ancinha -$s1 energia." }
 ConsoleMode_SpellDescDB[27852] = { n="[PH] Kill Summoner Buff", r="", d="", t="Don't hit this guy!", pt="" }
@@ -22452,7 +22452,7 @@ ConsoleMode_SpellDescDB[32008] = { n="Swift Azure Serpent", r="", d="It is said 
 ConsoleMode_SpellDescDB[32009] = { n="Swift Jade Serpent", r="", d="It is said whenever you see these serpents on the horizon, you will be blessed with good fortune.", t="Increases speed based on your Riding skill.", pt="Dizem que ver essas serpentes no horizonte traz boa sorte." }
 ConsoleMode_SpellDescDB[32010] = { n="Swift White Serpent", r="", d="It is said whenever you see these serpents on the horizon, you will be blessed with good fortune.", t="Increases speed based on your Riding skill.", pt="Dizem que ver essas serpentes no horizonte traz boa sorte." }
 ConsoleMode_SpellDescDB[32011] = { n="Swift Golden Serpent", r="", d="It is said whenever you see these serpents on the horizon, you will be blessed with good fortune.", t="Increases speed based on your Riding skill.", pt="Dizem que ver essas serpentes no horizonte traz boa sorte." }
-ConsoleMode_SpellDescDB[32012] = { n="Flames of the Firelands", r="", d="Boiling hot magma courses through this mount.", t="Increases speed based on your Riding skill.", pt="Magma borbulhante." }
+ConsoleMode_SpellDescDB[32012] = { n="Flames of the Firelands", r="", d="Boiling hot magma courses through this mount.", t="Increases speed based on your Riding skill.", pt="Magma fervente corre pelo corpo desta montaria." }
 ConsoleMode_SpellDescDB[32013] = { n="Swift Feylord", r="", d="This mysterious faerie dragon is thought to be extinct, but has been recently sighted in the thicket of Ashenvale.", t="Increases speed based on your Riding skill.", pt="Acredita-se que este misterioso dragão feérico esteja extinto, mas ele foi avistado recentemente na mata do Vale Gris." }
 ConsoleMode_SpellDescDB[32014] = { n="White Living Statue", r="", d="Known for their stalwart bodies, these statues protect their owner from bad energies.", t="Increases speed based on your Riding skill.", pt="Corpos firmes que protegem o dono de má energia." }
 ConsoleMode_SpellDescDB[32015] = { n="Jade Living Statue", r="", d="Known for their stalwart bodies, these statues protect their owner from bad energies.", t="Increases speed based on your Riding skill.", pt="Corpos firmes que protegem o dono de má energia." }
@@ -22519,13 +22519,13 @@ ConsoleMode_SpellDescDB[36661] = { n="Armored War Lion", r="", d="A powerful lio
 ConsoleMode_SpellDescDB[36662] = { n="Victorious Alliance Steed", r="", d="A proud warhorse, symbolizing the triumphs of the Alliance.", t="Increases speed based on your Riding skill.", pt="Um altivo cavalo de guerra, símbolo dos triunfos da Aliança." }
 ConsoleMode_SpellDescDB[36663] = { n="Victorious Horde Wolf", r="", d="This fierce wolf represents the indomitable spirit of the Horde.", t="Increases speed based on your Riding skill.", pt="Este lobo feroz representa o espírito indomável da Horda." }
 ConsoleMode_SpellDescDB[36664] = { n="Grey Marshjumper", r="", d="A nimble frog from the marshlands, perfect for traversing wetlands.", t="Increases speed based on your Riding skill.", pt="Um sapo ágil dos pântanos, perfeito para atravessar áreas alagadas." }
-ConsoleMode_SpellDescDB[36665] = { n="Blue Marshjumper", r="", d="An agile frog known for its brilliant blue skin.", t="Increases speed based on your Riding skill.", pt="Sapo azul brilhante." }
+ConsoleMode_SpellDescDB[36665] = { n="Blue Marshjumper", r="", d="An agile frog known for its brilliant blue skin.", t="Increases speed based on your Riding skill.", pt="Um sapo ágil conhecido por sua pele de um azul brilhante." }
 ConsoleMode_SpellDescDB[36666] = { n="Green Marshjumper", r="", d="This marshland frog’s green hue blends perfectly with swamp environments.", t="Increases speed based on your Riding skill.", pt="O tom verde deste sapo dos pântanos se mistura perfeitamente aos ambientes pantanosos." }
 ConsoleMode_SpellDescDB[36667] = { n="Swamper", r="", d="An adaptable amphibian, born for life in the murky waters of swamps.", t="Increases speed based on your Riding skill.", pt="Um anfíbio adaptável, nascido para a vida nas águas turvas dos pântanos." }
 ConsoleMode_SpellDescDB[36668] = { n="Black War Scorpion", r="", d="A fierce, armored scorpion used by those who crave power.", t="Increases speed based on your Riding skill.", pt="Um escorpião feroz e blindado, usado por aqueles que anseiam por poder." }
 ConsoleMode_SpellDescDB[36669] = { n="Ember War Scorpion", r="", d="With a shell like burning embers, this scorpion strikes with fiery vengeance.", t="Increases speed based on your Riding skill.", pt="Com uma carapaça como brasas ardentes, este escorpião ataca com vingança flamejante." }
 ConsoleMode_SpellDescDB[36670] = { n="Emerald War Scorpion", r="", d="This emerald-hued beast is both majestic and dangerous.", t="Increases speed based on your Riding skill.", pt="Besta esmeralda majestosa." }
-ConsoleMode_SpellDescDB[36671] = { n="Treebeard the Ancient", r="", d="An ancient tree guardian, offering protection and wisdom.", t="Increases speed based on your Riding skill.", pt="Guardião sábio e antigo." }
+ConsoleMode_SpellDescDB[36671] = { n="Treebeard the Ancient", r="", d="An ancient tree guardian, offering protection and wisdom.", t="Increases speed based on your Riding skill.", pt="Um antigo guardião das árvores, que oferece proteção e sabedoria." }
 ConsoleMode_SpellDescDB[36672] = { n="Squeakers", r="", d="A mischievous rodent mount, always ready for an adventure.", t="Increases speed based on your Riding skill.", pt="Uma travessa montaria roedora, sempre pronta para uma aventura." }
 ConsoleMode_SpellDescDB[36673] = { n="Aquamarine Greatwyrm", r="", d="A majestic sea wyrm, its scales shimmer like the ocean.", t="Increases speed based on your Riding skill.", pt="Uma majestosa serpente marinha, cujas escamas cintilam como o oceano." }
 ConsoleMode_SpellDescDB[36674] = { n="Golden Koi", r="", d="This giant koi glides through water and land with unmatched grace.", t="Increases speed based on your Riding skill.", pt="Esta carpa gigante desliza pela água e pela terra com graça incomparável." }
@@ -22548,14 +22548,14 @@ ConsoleMode_SpellDescDB[36690] = { n="Purple Gargantuan Murloc", r="", d="This m
 ConsoleMode_SpellDescDB[36691] = { n="Black Crane", r="", d="A graceful black-feathered crane, symbolizing balance and serenity.", t="Increases speed based on your Riding skill.", pt="Um grou gracioso de penas negras, símbolo de equilíbrio e serenidade." }
 ConsoleMode_SpellDescDB[36692] = { n="Ivory Crane", r="", d="With its pristine white feathers, this crane is a vision of purity.", t="Increases speed based on your Riding skill.", pt="Com suas penas brancas imaculadas, este grou é uma visão de pureza." }
 ConsoleMode_SpellDescDB[36693] = { n="Pink Crane", r="", d="A rare and beautiful crane with a soft pink plumage.", t="Increases speed based on your Riding skill.", pt="Um raro e belo grou de suave plumagem rosada." }
-ConsoleMode_SpellDescDB[36694] = { n="D.L.U. Zeppelin", r="", d="An airship built for speed and high-altitude adventure.", t="Increases speed based on your Riding skill.", pt="Dirigível veloz das alturas." }
+ConsoleMode_SpellDescDB[36694] = { n="D.L.U. Zeppelin", r="", d="An airship built for speed and high-altitude adventure.", t="Increases speed based on your Riding skill.", pt="Um dirigível construído para velocidade e aventuras nas grandes alturas." }
 ConsoleMode_SpellDescDB[36695] = { n="Golden Foxwyvern", r="", d="A majestic wyvern with shimmering golden fur and wings.", t="Increases speed based on your Riding skill.", pt="Uma majestosa Mantícora de pelo e asas douradas e cintilantes." }
-ConsoleMode_SpellDescDB[36696] = { n="Essence of Zalmos", r="", d="An ethereal creature carrying the power of Zalmos within.", t="Increases speed based on your Riding skill.", pt="Essência etérea de Zalmos." }
+ConsoleMode_SpellDescDB[36696] = { n="Essence of Zalmos", r="", d="An ethereal creature carrying the power of Zalmos within.", t="Increases speed based on your Riding skill.", pt="Uma criatura etérea que carrega o poder de Zalmos em seu interior." }
 ConsoleMode_SpellDescDB[36697] = { n="Serpent of Ula-Tek", r="", d="A sacred serpent, blessed by the goddess Ula-Tek.", t="Increases speed based on your Riding skill.", pt="Uma serpente sagrada, abençoada pela deusa Ula-Tek." }
 ConsoleMode_SpellDescDB[36698] = { n="Serpent of C'Thun", r="", d="This ancient serpent carries the whispers of C'Thun’s power.", t="Increases speed based on your Riding skill.", pt="Serpente do sussurro de C'Thun." }
 ConsoleMode_SpellDescDB[36699] = { n="Serpent of Yogg-Saron", r="", d="A terrifying serpent touched by Yogg-Saron’s dark influence.", t="Increases speed based on your Riding skill.", pt="Serpente do terror de Yogg." }
 ConsoleMode_SpellDescDB[36700] = { n="Serpent of the Unknown Gods", r="", d="Mysterious and powerful, this serpent’s origins remain a mystery.", t="Increases speed based on your Riding skill.", pt="Misteriosa e poderosa, as origens desta serpente permanecem um mistério." }
-ConsoleMode_SpellDescDB[36701] = { n="Hand of Icecrown", r="", d="An undead mount, raised to serve the Lich King’s will.", t="Increases speed based on your Riding skill.", pt="Montaria do Lich Rei." }
+ConsoleMode_SpellDescDB[36701] = { n="Hand of Icecrown", r="", d="An undead mount, raised to serve the Lich King’s will.", t="Increases speed based on your Riding skill.", pt="Uma montaria morta-viva, reerguida para servir à vontade do Lich Rei." }
 ConsoleMode_SpellDescDB[36702] = { n="Hand of Menethil", r="", d="This mount bears the strength of the fallen kingdom of Lordaeron.", t="Increases speed based on your Riding skill.", pt="Esta montaria carrega a força do reino caído de Lordaeron." }
 ConsoleMode_SpellDescDB[36703] = { n="Hand of Death", r="", d="A terrifying mount, shrouded in darkness and decay.", t="Increases speed based on your Riding skill.", pt="Uma montaria aterrorizante, envolta em trevas e decomposição." }
 ConsoleMode_SpellDescDB[36704] = { n="Shu-Zen, Faithful Companion", r="", d="A loyal companion, offering comfort and courage in battle.", t="Increases speed based on your Riding skill.", pt="Um companheiro leal que oferece conforto e coragem em batalha." }
@@ -22851,7 +22851,7 @@ ConsoleMode_SpellDescDB[41361] = { n="Reduced Ability Costs", r="", d="Reduces t
 ConsoleMode_SpellDescDB[41362] = { n="Bulwark of the Brotherhood", r="", d="Reduces the damage taken from melee attacks, ranged attacks and spells by $s1% for $d.", t="Damage reduced by $s1%.", pt="Reduz o dano sofrido de ataques corpo a corpo, ataques de longo alcance e feitiços em $s1% por $d s." }
 ConsoleMode_SpellDescDB[41363] = { n="Warrior T3.5 5P Passive", r="", d="Shield Wall, Recklessness and Retaliation inspire your group, granting unique benefits during their duration depending on the ability used.", t="", pt="Muralha de Escudos, Temeridade e Retaliação inspiram seu grupo, concedendo benefícios únicos durante sua duração dependendo da habilidade usada." }
 ConsoleMode_SpellDescDB[41364] = { n="Justice of the Brotherhood", r="", d="Critical strike damage increased by $s1%.", t="Critical strike damage increased by $s1%.", pt="Crítico +$s1% dano." }
-ConsoleMode_SpellDescDB[41365] = { n="Persistence of the Brotherhood", r="", d="Attack speed increased by $s1%.", t="Attack speed increased by $s1%.", pt="Velocidade +$s1%." }
+ConsoleMode_SpellDescDB[41365] = { n="Persistence of the Brotherhood", r="", d="Attack speed increased by $s1%.", t="Attack speed increased by $s1%.", pt="Velocidade de ataque aumentada em $s1%." }
 ConsoleMode_SpellDescDB[41540] = { n="Dazzling Aquamarine Loop", r="", d="Teaches you how to craft a Dazzling Aquamarine Loop.", t="", pt="Ensina a criar um Elo de Água-marinha Deslumbrante." }
 ConsoleMode_SpellDescDB[41541] = { n="Dazzling Aquamarine Loop", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[41545] = { n="Alluring Citrine Choker", r="", d="Teaches you how to craft a Alluring Citrine Choker.", t="", pt="Ensina a criar uma Gargantilha Cativante de Citrino." }
@@ -23171,7 +23171,7 @@ ConsoleMode_SpellDescDB[45056] = { n="Unstable Mining Dynamite", r="", d="Light 
 ConsoleMode_SpellDescDB[45057] = { n="Unstable Mining Dynamite", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45058] = { n="Schematic: Unstable Mining Dynamite", r="", d="Teaches you how to make Unstable Mining Dynamite.", t="", pt="Ensina a fazer Dinamite de Mineração Instável." }
 ConsoleMode_SpellDescDB[45059] = { n="Volatile Concoction", r="", d="", t="", pt="" }
-ConsoleMode_SpellDescDB[45060] = { n="Volatile Concoction", r="", d="Breathes fire for 5 seconds, damaging enemies in front of you for 22 Fire damage. A true afterburner.", t="Damages enemies in front of you.", pt="Sopra fogo 5 s: 22 nos da frente. Pós-combustão." }
+ConsoleMode_SpellDescDB[45060] = { n="Volatile Concoction", r="", d="Breathes fire for 5 seconds, damaging enemies in front of you for 22 Fire damage. A true afterburner.", t="Damages enemies in front of you.", pt="Expele fogo por 5 segundos, causando 22 de dano de Fogo a inimigos à sua frente. Uma verdadeira pós-combustão." }
 ConsoleMode_SpellDescDB[45061] = { n="Volatile Concoction", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[45062] = { n="Recipe: Volatile Concoction", r="", d="Teaches you how to make an Volatile Concoction.", t="", pt="Ensina a criar uma Mistura Volátil." }
 ConsoleMode_SpellDescDB[45063] = { n="Blast Shield", r="", d="", t="", pt="" }
@@ -23382,7 +23382,7 @@ ConsoleMode_SpellDescDB[45589] = { n="Die by the Sword", r="", d="Increases your
 ConsoleMode_SpellDescDB[45590] = { n="Avatar", r="", d="Increases the Physical damage dealt by the caster by $s1% and enhances its armor by $s2% for $d.", t="Physical damage dealt is increased by $s1%.\nArmor increased by $s2%.", pt="Aumenta o dano Físico causado pelo lançador em $s1% e aprimora sua armadura em $s2% por $d s." }
 ConsoleMode_SpellDescDB[45591] = { n="Dagger Mastery", r="Passive", d="Increases the normalized weapon speed to calculate damage of Daggers to 2.3 seconds.", t="", pt="Aumenta a velocidade normalizada da arma para cálculo de dano de Adagas para 2,3 segundos." }
 ConsoleMode_SpellDescDB[45592] = { n="Pulverize", r="Rank 1", d="Causes your melee attacks to have a 35% chance to deal $45593s1 damage to nearby enemies for 30 seconds.", t="Chance to deal physical damage in an area around melee attack targets.", pt="Faz com que seus ataques corpo a corpo tenham 35% de chance de causar $s1 de dano aos inimigos próximos por 30 s." }
-ConsoleMode_SpellDescDB[45593] = { n="Pulverize", r="", d="Causes $s1 damage to nearby enemies.", t="", pt="$s1 nos próximos." }
+ConsoleMode_SpellDescDB[45593] = { n="Pulverize", r="", d="Causes $s1 damage to nearby enemies.", t="", pt="Causa $s1 de dano a inimigos próximos." }
 ConsoleMode_SpellDescDB[45594] = { n="Rallying Cry", r="", d="A rallying cry that removes all Stun and Fear effects from party members within $a1 yards.", t="", pt="Um brado de conclamação que remove todos os efeitos de Atordoamento e Medo de membros do grupo a até $a1 metros." }
 ConsoleMode_SpellDescDB[45595] = { n="Intervene", r="Rank 1", d="Run at high speed towards a party member, intercepting the next melee or ranged attack made against them.", t="The next melee or ranged attack made against you will be made against the intervening warrior instead.", pt="Corre em alta velocidade em direção a um membro do grupo, interceptando o próximo ataque corpo a corpo ou de longo alcance desferido contra ele." }
 ConsoleMode_SpellDescDB[45596] = { n="Spellsteal", r="", d="Steals a beneficial magic effect from the target. This effect lasts a maximum of 2 min.", t="", pt="Rouba um efeito mágico benéfico do alvo. Este efeito dura no máximo 2 min." }
@@ -23869,7 +23869,7 @@ ConsoleMode_SpellDescDB[46460] = { n="Mechanical Auctioneer", r="", d="Right cli
 ConsoleMode_SpellDescDB[46461] = { n="Bone Golem", r="", d="Bone golems are deadly undead constructs made entirely of bones and fueled by ichor of Undeath.", t="", pt="Golems de ossos são construções mortas-vivas letais feitas inteiramente de ossos e alimentadas pelo icor da Morte-viva." }
 ConsoleMode_SpellDescDB[46462] = { n="Blitzen", r="", d="Happy Winter Veil!", t="", pt="Feliz Veil do Inverno!" }
 ConsoleMode_SpellDescDB[46463] = { n="Moonkin Hatchling", r="", d="Moonkins are blessed by Elune and spread nature's grace wherever they travel. The festive fowls are always in the mood for a dance.", t="", pt="Luniscantes são abençoados por Eluna e espalham a graça da natureza por onde viajam. Essas aves festivas estão sempre com vontade de dançar." }
-ConsoleMode_SpellDescDB[46464] = { n="Black Piglet", r="", d="An easy-going traveling companion.", t="", pt="Porquinho tranquilo." }
+ConsoleMode_SpellDescDB[46464] = { n="Black Piglet", r="", d="An easy-going traveling companion.", t="", pt="Um companheiro de viagem tranquilo e descontraído." }
 ConsoleMode_SpellDescDB[46465] = { n="Kirin Tor Familiar", r="", d="Who knew he was so into books?", t="", pt="Ratinho de livro?" }
 ConsoleMode_SpellDescDB[46466] = { n="Frostwolf Ghostpup", r="", d="The little wolf told to stay. Watching, waiting, for vacant prey. Too proud to leave, she slipped away. Unburdened now, forever free to play.", t="", pt="Disseram à pequena loba para ficar. Observando, esperando por uma presa desatenta. Orgulhosa demais para partir, ela acabou escapando. Agora livre de fardos, para sempre livre para brincar." }
 ConsoleMode_SpellDescDB[46467] = { n="Darkmoon Steam Tonk", r="", d="A favorite of children across Azeroth, this tough little toy can withstand even the most aggressive imagination.", t="", pt="O favorito das crianças por toda Azeroth, este brinquedinho resistente pode suportar até mesmo a imaginação mais selvagem." }
@@ -24663,7 +24663,7 @@ ConsoleMode_SpellDescDB[51207] = { n="Leader of the Tribe", r="", d="Increases t
 ConsoleMode_SpellDescDB[51208] = { n="Summon Rift-Lost Draenei", r="", d="Summons a Rift-Lost Draenei that will protect you for $d.", t="", pt="Draenei que protege por $d s." }
 ConsoleMode_SpellDescDB[51209] = { n="Opening the Rift", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[51210] = { n="Pawn’s Advance", r="", d="Increases Pawn's damage by $52666s1% for every alive Pawn within a $a1 yard radius.", t="", pt="Aumenta o dano do Peão em $s1% para cada Peão vivo a até $a1 metros." }
-ConsoleMode_SpellDescDB[51211] = { n="En Passant", r="", d="Causes $s1 Physical damage to all targets within $a1 yards.", t="", pt="$s1 Físico a $a1 m." }
+ConsoleMode_SpellDescDB[51211] = { n="En Passant", r="", d="Causes $s1 Physical damage to all targets within $a1 yards.", t="", pt="Causa $s1 de dano físico a todos os alvos a até $a1 metros." }
 ConsoleMode_SpellDescDB[51212] = { n="Shadow Bolt", r="", d="Hurls a bolt of dark magic at an enemy, inflicting Shadow damage.", t="", pt="Dispara uma seta de magia sombria contra um inimigo, causando dano de Sombra." }
 ConsoleMode_SpellDescDB[51213] = { n="Empowered Shadow Bolt", r="", d="Hurls a bolt of dark magic at an enemy, inflicting Shadow damage.", t="", pt="Dispara uma seta de magia sombria contra um inimigo, causando dano de Sombra." }
 ConsoleMode_SpellDescDB[51214] = { n="Heal", r="", d="Heals a friendly target to full health.", t="", pt="Cura um alvo aliado, restaurando toda a vida dele." }
@@ -24737,7 +24737,7 @@ ConsoleMode_SpellDescDB[51281] = { n="Frostfire Passive", r="", d="Your landing 
 ConsoleMode_SpellDescDB[51282] = { n="Scythe of Elune Bonuses", r="", d="Improves your chance to hit and get a critical strike with spells by $s1%. Increases damage done by magical spells and effects by up to $s3.", t="", pt="Melhora em $s1% sua chance de acertar e obter acerto crítico com feitiços. Aumenta o dano causado por feitiços e efeitos mágicos em até $s3." }
 ConsoleMode_SpellDescDB[51283] = { n="Rupture", r="", d="Inflicts $s1 Physical damage, and reduces chance to hit by $s2% for $d.", t="Chance to hit reduced by $s2%.", pt="Inflige $s1 de dano Físico e reduz a chance de acertar em $s2% por $d s." }
 ConsoleMode_SpellDescDB[51284] = { n="Shifting Rock", r="", d="Increases your Armor by $s1 for $d.", t="Armor increased by $s1.", pt="Aumenta sua armadura em $s1 por $d s." }
-ConsoleMode_SpellDescDB[51285] = { n="Splintered Exile", r="", d="Causing $s1 Physical damage to attackers when hit.", t="Causes $s1 Physical damage to attackers.", pt="$s1 em quem bater." }
+ConsoleMode_SpellDescDB[51285] = { n="Splintered Exile", r="", d="Causing $s1 Physical damage to attackers when hit.", t="Causes $s1 Physical damage to attackers.", pt="Causa $s1 de dano físico a atacantes quando atingido." }
 ConsoleMode_SpellDescDB[51286] = { n="Molten Surge", r="", d="Charges an enemy, inflicting $s2 Fire damage and stuns the opponent for $d.", t="", pt="Investida: $s1 de Fogo e atordoa por $d s." }
 ConsoleMode_SpellDescDB[51287] = { n="Earthstomp", r="", d="Damages all nearby enemies for $s1 physical damage", t="", pt="$s1 físico próximos." }
 ConsoleMode_SpellDescDB[51288] = { n="Crushed Armor", r="", d="Reduces an enemy's armor by $s1% for $d.", t="Armor reduced by $s1%.", pt="Reduz a armadura do inimigo em $s1% por $d s." }
@@ -26036,7 +26036,7 @@ ConsoleMode_SpellDescDB[57125] = { n="Dreamhide", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57126] = { n="Formula: Enchant Boots - Superior Stamina", r="", d="Teaches you how to permanently enchant a pair of boots to increase stamina by 15.", t="", pt="Ensina a encantar permanentemente um par de botas para aumentar o Vigor em 15." }
 ConsoleMode_SpellDescDB[57127] = { n="Enchant Boots - Superior Stamina", r="", d="Permanently enchant boots to give +15 Stamina.", t="", pt="Encanta permanentemente botas para conceder +15 de Vigor." }
 ConsoleMode_SpellDescDB[57128] = { n="Recipe: Lucidity Potion", r="", d="Teaches you how to brew a lucidity potion.", t="", pt="Ensina a preparar uma Poção de Lucidez." }
-ConsoleMode_SpellDescDB[57129] = { n="Lucidity Potion", r="", d="Become Immune to Sleep, Polymorphs, and Charms for 30 seconds,", t="", pt="Imune a Sono/Polimorfia/Encanto 30 s." }
+ConsoleMode_SpellDescDB[57129] = { n="Lucidity Potion", r="", d="Become Immune to Sleep, Polymorphs, and Charms for 30 seconds,", t="", pt="Torna-se imune a Sono, Polimorfia e Encantos por 30 segundos." }
 ConsoleMode_SpellDescDB[57130] = { n="Recipe: Dreamshard Elixir", r="", d="Teaches you how to make a Dreamshard Elixir.", t="", pt="Ensina a criar um Elixir de Fragmento de Sonho." }
 ConsoleMode_SpellDescDB[57131] = { n="Dreamshard Elixir", r="", d="", t="", pt="" }
 ConsoleMode_SpellDescDB[57132] = { n="Haste 10", r="", d="Increases your attack and casting speed by $s1%.", t="", pt="Aumenta sua velocidade de ataque e de lançamento em $s1%." }

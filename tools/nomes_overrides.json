@@ -9890,5 +9890,13 @@
  "83236": {
   "pt": "Alforge Vínculado ao Vazio com Mercadorias",
   "motivo": "sem-til?: 'Vinculado' deve ser 'Vínculado' (com til conforme norma culta)."
+ },
+ "9562": {
+  "pt": "Tablete Gravado com Runas",
+  "motivo": "Tabuleta->Tablete (oficial Blizzard, R2); concordancia genero (tablete=masc -> Gravado)."
+ },
+ "4123": {
+  "pt": "Ombreiras de Metal de Gelo",
+  "motivo": "Spaulders(EN) substituido por Ombreiras (oficial); Pauldrons->Ombreiras. Frota->Gelo OK."
  }
 }

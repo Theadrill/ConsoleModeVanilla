@@ -68,6 +68,11 @@ function KBList:GetDisplayForButton(page, btnKey)
     -- Pega qual acao esta vinculada a esta tecla fisica
     local boundAction = GetBindingAction(physKey)
 
+    -- Caso especial: CM_INTERACT (ALT-SPACE) — Interagir via Interact.dll
+    if boundAction == "CM_INTERACT" then
+        return nil, CM:T("BIND_INTERACT"), "Interface\\Icons\\Ability_Tracking"
+    end
+
     -- Se o modo de navegacao estiver ativo, as teclas da pagina 1 foram sobrescritas
     -- com CM_CURSOR_*. Usamos o snapshot KB.savedNavBindings guardado antes do nav mode.
     if boundAction and string.find(boundAction, "^CM_") then

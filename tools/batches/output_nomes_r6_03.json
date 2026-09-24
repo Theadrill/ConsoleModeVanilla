@@ -1,0 +1,702 @@
+[
+  {
+    "id": 11831,
+    "en": "Webbed Pterrordax Scale",
+    "veredito": "manter",
+    "pt_final": "Escama de Pterrordax Coberta de Teia",
+    "motivo": "PT Blizzlike; Pterrordax mantido como nome de criatura."
+  },
+  {
+    "id": 11845,
+    "en": "Handmade Leather Bag",
+    "veredito": "manter",
+    "pt_final": "Bolsa de Couro Feita à Mão",
+    "motivo": "PT Blizzlike, segue padrão de costura/couro (analogia rule 8)."
+  },
+  {
+    "id": 11850,
+    "en": "Short Duskbat Cape",
+    "veredito": "manter",
+    "pt_final": "Capa Curta de Morcego do Crepúsculo",
+    "motivo": "PT Blizzlike; Duskbat traduzido descritivamente, sem til faltando."
+  },
+  {
+    "id": 11883,
+    "en": "A Dingy Fanny Pack",
+    "veredito": "manter",
+    "pt_final": "Pochete Suja",
+    "motivo": "PT conciso e correto (4->2); 'A' definido artigo removido no PT."
+  },
+  {
+    "id": 12142,
+    "en": "Monster - Sword, Thick/Fat Blade",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Thick/Fat Blade",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12163,
+    "en": "Plans: Moonsteel Broadsword",
+    "veredito": "manter",
+    "pt_final": "Planos: Espada Larga de Aço Lunar",
+    "motivo": "Plans:->Planos: conforme padrão (rule 2); PT Blizzlike."
+  },
+  {
+    "id": 12182,
+    "en": "Monster - Staff of Jordan",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff of Jordan",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12263,
+    "en": "Caged Worg Pup",
+    "veredito": "manter",
+    "pt_final": "Filhote de Worg Enjaulado",
+    "motivo": "Worg mantido (glosário rule 4); PT Blizzlike."
+  },
+  {
+    "id": 12264,
+    "en": "Worg Pup",
+    "veredito": "manter",
+    "pt_final": "Filhote de Worg",
+    "motivo": "Worg mantido (glosário rule 4); PT Blizzlike."
+  },
+  {
+    "id": 12290,
+    "en": "Monster - Axe, Horde Badass Copper 01",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Horde Badass Copper 01",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12294,
+    "en": "Monster - Axe, 2H Horde Green War Axe",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, 2H Horde Green War Axe",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12297,
+    "en": "Monster - Sword, Horde Jagged Brown",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Horde Jagged Brown",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12298,
+    "en": "Monster - Dagger, Dark Pronged",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Dark Pronged",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12304,
+    "en": "Monster - Sword, Horde Broad Pointed",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Horde Broad Pointed",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12322,
+    "en": "Monster - Staff, Green Feathered",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Green Feathered",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12328,
+    "en": "Monster - Staff, 3 Piece Taped Staff Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, 3 Piece Taped Staff Green",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12329,
+    "en": "Monster - Staff, Crooked Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Crooked Green",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12331,
+    "en": "Monster - Sword2H, Horde Massive Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Horde Massive Green",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12332,
+    "en": "Monster - Dagger, Green Pronged",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Green Pronged",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12403,
+    "en": "Monster - Polearm, Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Polearm, Black",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12421,
+    "en": "Monster - Staff, White Jeweled",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, White Jeweled",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12452,
+    "en": "Monster - Shield, Horde A02 Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Horde A02 Silver",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12453,
+    "en": "Monster - Shield, Horde A03 Triangle",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Horde A03 Triangle",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12454,
+    "en": "Monster - Shield, Horde B01 Brown",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Horde B01 Brown",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12456,
+    "en": "Monster - Shield, Horde B02 Brown",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Horde B02 Brown",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12461,
+    "en": "Monster - Axe, 2H Horde Brown Tombstone",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, 2H Horde Brown Tombstone",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12482,
+    "en": "Monster - Glaive - Demonhunter Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Glaive - Demonhunter Black",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12502,
+    "en": "Monster - Glaive - Demonhunter Black Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Glaive - Demonhunter Black Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12523,
+    "en": "Monster - Gun, Silver Musket",
+    "veredito": "manter",
+    "pt_final": "Monster - Gun, Silver Musket",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12563,
+    "en": "Warlord Goretooth's Command",
+    "veredito": "manter",
+    "pt_final": "Comando de Goretooth, o Senhor da Guerra",
+    "motivo": "PT Blizzlike; Warlord->Senhor da Guerra conforme padrão consolidado (ItemDB_ptBR linha 9471, 15238). Goretooth mantido (nome proprio)."
+  },
+  {
+    "id": 12591,
+    "en": "Monster - Staff, Holy Staff",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Holy Staff",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12593,
+    "en": "Monster - Sword, Horde Sword Bronze",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Horde Sword Bronze",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12629,
+    "en": "Monster - Axe, Horde Hatchet 01",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Horde Hatchet 01",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12733,
+    "en": "Sacred Frostsaber Meat",
+    "veredito": "manter",
+    "pt_final": "Carne Sagrada de Sabre de Neve",
+    "motivo": "PT Blizzlike; Frostsaber->Sabre de Neve conforme padrão."
+  },
+  {
+    "id": 12743,
+    "en": "Monster - Item, Book - Brown Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - Brown Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12745,
+    "en": "Monster - Item, Bag - Brown Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - Brown Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12747,
+    "en": "Monster - Item, Orb - Lava Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Orb - Lava Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12749,
+    "en": "Monster - Item, Scepter - Gold Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Scepter - Gold Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12750,
+    "en": "Monster - Item, Book - Black Skull Glowing",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - Black Skull Glowing",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12754,
+    "en": "Monster - Axe, 2H War Green - Mulgore Protector",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, 2H War Green - Mulgore Protector",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12771,
+    "en": "Empty Firewater Flask",
+    "veredito": "manter",
+    "pt_final": "Frasco de Água de Fogo Vazio",
+    "motivo": "PT Blizzlike e conciso; sem til faltando."
+  },
+  {
+    "id": 12786,
+    "en": "Monster - Mace, Horde Skull Club",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace, Horde Skull Club",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12787,
+    "en": "Monster - Mace, Horde Bone Claw Hammer",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace, Horde Bone Claw Hammer",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12788,
+    "en": "Monster - Mace, Horde Bone Spike Hammer",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace, Horde Bone Spike Hammer",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12850,
+    "en": "Monster - Item, Bag - Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - Black",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12851,
+    "en": "Monster - Item, Bag - Black Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - Black Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12853,
+    "en": "Monster - Item, Bag - Gray Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - Gray Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12854,
+    "en": "Monster - Item, Bag - Green",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - Green",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12855,
+    "en": "Monster - Item, Bag - Green Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - Green Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12857,
+    "en": "Monster - Item, Bag - Red Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - Red Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12859,
+    "en": "Monster - Item, Bag - White Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Bag - White Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12861,
+    "en": "Monster - Item, Book - Black Skull Glowing Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - Black Skull Glowing Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12863,
+    "en": "Monster - Item, Book - Black Simple Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - Black Simple Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12864,
+    "en": "Monster - Item, Book - B01 Black Glowing",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - B01 Black Glowing",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12865,
+    "en": "Monster - Item, Book - B01 Black Glowing Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - B01 Black Glowing Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12866,
+    "en": "Monster - Item, Book - B02 Black Glowing",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - B02 Black Glowing",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12867,
+    "en": "Monster - Item, Book - B02 Black Glowing Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - B02 Black Glowing Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12869,
+    "en": "Monster - Item, Book - B02 Blue Glowing Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Book - B02 Blue Glowing Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12870,
+    "en": "Monster - Item, Potion Red Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Potion Red Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12882,
+    "en": "Monster - Sword2H, Horde Curved Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Horde Curved Silver",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12883,
+    "en": "Monster - Mace, Thaurissan Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace, Thaurissan Silver",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12889,
+    "en": "Monster - Sword2H, Horde Curved Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Horde Curved Black",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12890,
+    "en": "Monster - Sword, Militia Long Sword",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Militia Long Sword",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12892,
+    "en": "Monster - Sword1H, Dark Short Sword",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword1H, Dark Short Sword",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12893,
+    "en": "Monster - Shield, Black Skull",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Black Skull",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12902,
+    "en": "Monster - Sword2H, Luminous Evil Blade",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Luminous Evil Blade",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12931,
+    "en": "Monster - Shield, Scarlet Crusade A01/A02 Model",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Scarlet Crusade A01/A02 Model",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12933,
+    "en": "Monster - Shield, Scarlet Crusade B03",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Scarlet Crusade B03",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12934,
+    "en": "Monster - Mace, Maul B03 Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace, Maul B03 Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12937,
+    "en": "Monster - Staff, Basic Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Basic Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12941,
+    "en": "Monster - Wand, Jeweled - B02 Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Jeweled - B02 Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12943,
+    "en": "Monster - Staff, 3 Piece Taped Staff Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, 3 Piece Taped Staff Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12944,
+    "en": "Monster - Sword, Golden Long",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Golden Long",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12959,
+    "en": "Monster - Staff, Demon Skull Staff",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Demon Skull Staff",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12980,
+    "en": "Monster - Shield, Wall Metal Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Wall Metal Silver",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12981,
+    "en": "Monster - Shield, Wall Metal Gold",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Wall Metal Gold",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12991,
+    "en": "Monster - Dagger, Curvey Green Blade",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Curvey Green Blade",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12993,
+    "en": "Monster - Sword, Green Gold Scimitar",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Green Gold Scimitar",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12995,
+    "en": "Monster - Shield, Wall Metal Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Wall Metal Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13022,
+    "en": "Gryphonwing Long Bow",
+    "veredito": "manter",
+    "pt_final": "Arco Longo das Asas de Grifo",
+    "motivo": "PT Blizzlike; Gryphon->Grifo."
+  },
+  {
+    "id": 13050,
+    "en": "Monster - Staff, Ornate Jeweled Staff - Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Ornate Jeweled Staff - Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13061,
+    "en": "Monster - Staff, Green Crystal Sphere",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Green Crystal Sphere",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13069,
+    "en": "Monster - Staff, D01 Flaming Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, D01 Flaming Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13078,
+    "en": "Monster - Staff, Pointed Red Crystal",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Pointed Red Crystal",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 12348,
+    "en": "Monster - Axe, Horde Badass Copper 01 (Special1H)",
+    "veredito": "manter",
+    "pt_final": "Monster - Axe, Horde Badass Copper 01 (Special1H)",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13160,
+    "en": "Monster - Sword2H, Claymore Silver",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Claymore Silver",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13165,
+    "en": "Monster - Sword, Long Silver - Green Pommel",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Long Silver - Green Pommel",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13174,
+    "en": "Plagued Flesh Sample",
+    "veredito": "manter",
+    "pt_final": "Amostra de Carne Infectada pela Peste",
+    "motivo": "PT Blizzlike e correto."
+  },
+  {
+    "id": 13219,
+    "en": "Monster - Item, Holy Symbol Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Holy Symbol Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13221,
+    "en": "Monster - Item, Staff Glowing Jeweled B01 Red Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Item, Staff Glowing Jeweled B01 Red Offhand",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13222,
+    "en": "Monster - Sword, Flaming Crimson Battlemage Longsword",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, Flaming Crimson Battlemage Longsword",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13290,
+    "en": "Monster - Wand, Horde Purple Orb",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Horde Purple Orb",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13291,
+    "en": "Monster - Wand, Horde Red Feathered",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Horde Red Feathered",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13292,
+    "en": "Monster - Wand, Horde Demon Skull",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Horde Demon Skull",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13293,
+    "en": "Monster - Wand, Horde Dark Skull",
+    "veredito": "manter",
+    "pt_final": "Monster - Wand, Horde Dark Skull",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13302,
+    "en": "Market Row Postbox Key",
+    "veredito": "manter",
+    "pt_final": "Chave da Caixa de Correio da Rua do Mercado",
+    "motivo": "PT Blizzlike; Postbox->Caixa de Correio."
+  },
+  {
+    "id": 13303,
+    "en": "Crusaders' Square Postbox Key",
+    "veredito": "manter",
+    "pt_final": "Chave da Caixa de Correio da Praça dos Cruzados",
+    "motivo": "PT Blizzlike; Crusaders' Square->Praça dos Cruzados."
+  },
+  {
+    "id": 13304,
+    "en": "Festival Lane Postbox Key",
+    "veredito": "manter",
+    "pt_final": "Chave da Caixa de Correio da Rua do Festival",
+    "motivo": "PT Blizzlike; Festival Lane->Rua do Festival."
+  },
+  {
+    "id": 13316,
+    "en": "Monster - Sword2H, Claymore Silver Yellow Glow",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Claymore Silver Yellow Glow",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  },
+  {
+    "id": 13318,
+    "en": "Monster - Shield, Horde A01 Red",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Horde A01 Red",
+    "motivo": "Item GM/interno (Monster -): manter EN/pt atual (rule 5)."
+  }
+]

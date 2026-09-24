@@ -45,3 +45,5 @@ R5-09 | 100 (52c/48m) | OK
 R5-10 | 83 (39c/44m) | OK (RODADA 5 JULGADA: 983/983)
 AMOSTRA-05 | 300 (168c/132m, escape 56.0%) | OK (3 arbitragens tech-lead: Tablete, Esquema:, Anel de Sinete)
 R6-01 | 100 (10c/90m) | OK
+R6-02 | 100 (9c/91m) | OK
+R6-03 | 100 (0c/100m) | OK

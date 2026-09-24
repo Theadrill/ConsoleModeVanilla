@@ -368,49 +368,122 @@ function PF:Initialize()
         end
     end)
 
-    -- Clique esquerdo simples (sem Shift) = se targetar
+    local function ResetPlayerFramePosition()
+        if CM.ui and CM.ui.ResetPosition then
+            CM.ui:ResetPosition("PlayerFrame")
+        else
+            f:ClearAllPoints()
+            f:SetPoint(
+                CFG.Anchor.point, UIParent, CFG.Anchor.relPoint,
+                CFG.Anchor.defaultX, CFG.Anchor.defaultY
+            )
+            if ConsoleModeDB and ConsoleModeDB.positions then
+                ConsoleModeDB.positions["PlayerFrame"] = nil
+            end
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("HUD_PLAYERFRAME_RESET"))
+        end
+    end
+
+    local function OpenPlayerDropDownMenu(anchorName)
+        if PlayerFrameDropDown then
+            PlayerFrameDropDown.point = "BOTTOMLEFT"
+            PlayerFrameDropDown.relativePoint = "TOPLEFT"
+            ToggleDropDownMenu(1, nil, PlayerFrameDropDown, anchorName, 0, 0)
+        elseif FriendsDropDown then
+            FriendsDropDown.displayMode = "MENU"
+            FriendsDropDown.initialize = function()
+                UnitPopup_ShowMenu(getglobal(UIDROPDOWNMENU_OPEN_MENU), "SELF", "player")
+            end
+            ToggleDropDownMenu(1, nil, FriendsDropDown, anchorName, 0, 0)
+        end
+    end
+
+    f:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+
+    -- Clique no frame:
+    --   - Botão esquerdo: seleciona o próprio jogador como alvo
+    --   - Botão direito: abre o menu de contexto oficial do jogador (PlayerFrameDropDown)
     f:SetScript("OnClick", function()
         if arg1 == "LeftButton" and not IsShiftKeyDown() then
             TargetUnit("player")
+        elseif arg1 == "RightButton" and not IsShiftKeyDown() then
+            local anchor = (f.portraitBtn and f.portraitBtn:GetName()) or f:GetName()
+            OpenPlayerDropDownMenu(anchor)
         end
     end)
 
     -- Shift + botão direito = resetar para posição padrão
     f:SetScript("OnMouseUp", function()
         if arg1 == "RightButton" and IsShiftKeyDown() then
-            if CM.ui and CM.ui.ResetPosition then
-                CM.ui:ResetPosition("PlayerFrame")
-            else
-                f:ClearAllPoints()
-                f:SetPoint(
-                    CFG.Anchor.point, UIParent, CFG.Anchor.relPoint,
-                    CFG.Anchor.defaultX, CFG.Anchor.defaultY
-                )
-                if ConsoleModeDB and ConsoleModeDB.positions then
-                    ConsoleModeDB.positions["PlayerFrame"] = nil
-                end
-                DEFAULT_CHAT_FRAME:AddMessage(CM:T("HUD_PLAYERFRAME_RESET"))
-            end
+            ResetPlayerFramePosition()
         end
     end)
 
     -- -----------------------------------------------------------------------
-    -- PORTRAIT
+    -- PORTRAIT (Botão interativo com texturas de rosto e moldura de classe)
+    -- Cobre toda a área visual do portrait (CFG.Portrait.size = 58px).
     -- Ancorado no LEFT do frame raiz, centralizado verticalmente.
+    -- Interações:
+    --   - Botão esquerdo: seleciona o próprio jogador como alvo (TargetUnit("player"))
+    --   - Botão direito: abre o menu de contexto oficial (PlayerFrameDropDown)
+    --   - Shift + Arrastar (esq.): move a HUD inteira
+    --   - Shift + Botão direito: reseta a posição da HUD para o centro/padrão
     -- -----------------------------------------------------------------------
-    local portrait = f:CreateTexture("ConsoleModePlayerPortrait", "ARTWORK")
-    portrait:SetWidth(CFG.Portrait.size)
-    portrait:SetHeight(CFG.Portrait.size)
-    portrait:SetPoint("LEFT", f, "LEFT", 0, 0)
+    local portraitBtn = CreateFrame("Button", "ConsoleModePlayerPortraitButton", f)
+    portraitBtn:SetWidth(CFG.Portrait.size)
+    portraitBtn:SetHeight(CFG.Portrait.size)
+    portraitBtn:SetPoint("LEFT", f, "LEFT", 0, 0)
+    portraitBtn:SetFrameLevel(f:GetFrameLevel())
+    portraitBtn:EnableMouse(true)
+    portraitBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    portraitBtn:RegisterForDrag("LeftButton")
+    f.portraitBtn = portraitBtn
+
+    portraitBtn:SetScript("OnDragStart", function()
+        if IsShiftKeyDown() then
+            f:StartMoving()
+            f.isMoving = true
+        end
+    end)
+
+    portraitBtn:SetScript("OnDragStop", function()
+        if f.isMoving then
+            f:StopMovingOrSizing()
+            f.isMoving = false
+            if not ConsoleModeDB then ConsoleModeDB = {} end
+            if not ConsoleModeDB.positions then ConsoleModeDB.positions = {} end
+            local point, _, relPoint, x, y = f:GetPoint()
+            ConsoleModeDB.positions["PlayerFrame"] = {
+                point = point, relPoint = relPoint, x = x, y = y
+            }
+        end
+    end)
+
+    portraitBtn:SetScript("OnClick", function()
+        if arg1 == "LeftButton" and not IsShiftKeyDown() then
+            TargetUnit("player")
+        elseif arg1 == "RightButton" and not IsShiftKeyDown() then
+            OpenPlayerDropDownMenu(portraitBtn:GetName())
+        end
+    end)
+
+    portraitBtn:SetScript("OnMouseUp", function()
+        if arg1 == "RightButton" and IsShiftKeyDown() then
+            ResetPlayerFramePosition()
+        end
+    end)
+
+    local portrait = portraitBtn:CreateTexture("ConsoleModePlayerPortrait", "ARTWORK")
+    portrait:SetAllPoints(portraitBtn)
     portrait:SetTexCoord(0.12, 0.88, 0.12, 0.88)
     f.portrait = portrait
 
     -- Moldura da classe sobreposta ao portrait (Media/Portraits/CLASSE.tga)
     -- A textura real é definida em PF:Update() após detectar a classe.
-    local portraitFrame = f:CreateTexture("ConsoleModePlayerPortraitFrame", "OVERLAY")
+    local portraitFrame = portraitBtn:CreateTexture("ConsoleModePlayerPortraitFrame", "OVERLAY")
     portraitFrame:SetWidth(CFG.Portrait.frameWidth)
     portraitFrame:SetHeight(CFG.Portrait.frameHeight)
-    portraitFrame:SetPoint("LEFT", f, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
+    portraitFrame:SetPoint("LEFT", portraitBtn, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
     if not CFG.Portrait.frameShow then
         portraitFrame:Hide()
     end
@@ -419,12 +492,13 @@ function PF:Initialize()
     -- -----------------------------------------------------------------------
     -- CREST DA CLASSE
     -- Ancorada abaixo do portrait, centralizada no eixo X dele.
+    -- FrameLevel maior que portraitBtn para a crest e o nome ficarem por cima.
     -- -----------------------------------------------------------------------
     local crestFrame = CreateFrame("Frame", "ConsoleModePlayerCrestFrame", f)
     crestFrame:SetWidth(CFG.Crest.width)
     crestFrame:SetHeight(CFG.Crest.height)
     crestFrame:SetPoint("TOP", portrait, "BOTTOM", 0, CFG.Crest.offsetY)
-    crestFrame:SetFrameLevel(f:GetFrameLevel() + 1)
+    crestFrame:SetFrameLevel(f:GetFrameLevel() + 2)
 
     local crestTex = crestFrame:CreateTexture(nil, "ARTWORK")
     crestTex:SetAllPoints(crestFrame)
@@ -1433,7 +1507,8 @@ function PF:Update()
         self.frame.portraitFrame:SetWidth(CFG.Portrait.frameWidth)
         self.frame.portraitFrame:SetHeight(CFG.Portrait.frameHeight)
         self.frame.portraitFrame:ClearAllPoints()
-        self.frame.portraitFrame:SetPoint("LEFT", self.frame, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
+        local pAnchor = self.frame.portraitBtn or self.frame
+        self.frame.portraitFrame:SetPoint("LEFT", pAnchor, "LEFT", CFG.Portrait.frameOffsetX, CFG.Portrait.frameOffsetY)
         self.frame.portraitFrame:SetTexture(
             "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Portraits\\" .. playerClass .. ".tga"
         )

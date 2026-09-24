@@ -1,0 +1,614 @@
+[
+ {
+  "id": 55037,
+  "en": "Gryphon Tamer Longstaff",
+  "pt": "Cajado Longo do Treinador de Grifos",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55056,
+  "en": "Spellwoven Nobility Drape",
+  "pt": "Manto de Nobreza do Tecelão de Feitiços",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 55058,
+  "en": "Rune-Inscribed Plate Leggings",
+  "pt": "Calças de Placa Gravadas com Runas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55076,
+  "en": "Design: Carnelia's Sunset",
+  "pt": "Desenho: Pôr do Sol de Carnelia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55164,
+  "en": "Minor Trollblood Ring",
+  "pt": "Anel de Sangue de Troll Menor",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55165,
+  "en": "Small Pearlstone Staff",
+  "pt": "Cajado de Pedra de Pérola Pequeno",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55227,
+  "en": "Inferno Emberstone Ring",
+  "pt": "Anel de Pedra do Fogo Infernal",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55558,
+  "en": "Unused AQ40 Mail Shoulders Test",
+  "pt": "Omoplatas de Malha de AQ40 Não Utilizadas",
+  "sinais": [
+   "omoplata?"
+  ]
+ },
+ {
+  "id": 55566,
+  "en": "Unused AQ40 Leather Shoulders Test",
+  "pt": "Omoplatas de Couro de AQ40 Não Utilizadas",
+  "sinais": [
+   "omoplata?"
+  ]
+ },
+ {
+  "id": 55574,
+  "en": "Unused AQ40 Cloth Shoulders Test",
+  "pt": "Omoplatas de Tecido de AQ40 Não Utilizadas",
+  "sinais": [
+   "omoplata?"
+  ]
+ },
+ {
+  "id": 56079,
+  "en": "Unrefined Lifeblood Gem",
+  "pt": "Gema de Sangue Vital Não Refinada",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 58100,
+  "en": "Drakebone War Core",
+  "pt": "Núcleo de Guerra de Osso de Draco",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 58160,
+  "en": "Firebound Skull",
+  "pt": "Crânio Ligado ao Fogo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 58237,
+  "en": "Emberwoven Binding Garments",
+  "pt": "Vestes de Ligação Tecidas em Brasas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60255,
+  "en": "McGillicuddy's Head",
+  "pt": "Cabeça de McGillicuddy",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 60397,
+  "en": "Broken Blademaster's Sword",
+  "pt": "Espada Quebrada do Mestre das Lâminas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60398,
+  "en": "Broken Blademaster's Edge",
+  "pt": "Lâmina Quebrada do Mestre das Lâminas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60521,
+  "en": "Warlord Kolkanis' Head",
+  "pt": "Cabeça de Kolkanis, o Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60579,
+  "en": "Bronze Dragonscale Breastplate",
+  "pt": "Peitoral de Escamas de Dragão de Bronze",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60580,
+  "en": "Bronze Dragonscale Leggings",
+  "pt": "Calças de Escamas de Dragão de Bronze",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60581,
+  "en": "Bronze Dragonscale Gloves",
+  "pt": "Luvas de Escamas de Dragão de Bronze",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60605,
+  "en": "Bryan's Fireheated Shield",
+  "pt": "Escudo de Bryan Aquecido pelo Fogo",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60717,
+  "en": "Worg Rider Sash",
+  "pt": "Faixa do Cavaleiro de Worg",
+  "sinais": [
+   "tok-remnant:worg=>Worg"
+  ]
+ },
+ {
+  "id": 60720,
+  "en": "Worg Trap",
+  "pt": "Armadilha de Worg",
+  "sinais": [
+   "tok-remnant:worg=>Worg"
+  ]
+ },
+ {
+  "id": 60721,
+  "en": "Deathlash Venom Gland",
+  "pt": "Glândula de Veneno de Chicote da Morte",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60722,
+  "en": "Venomtip Venom Gland",
+  "pt": "Glândula de Veneno da Ponta Venenosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60731,
+  "en": "Captured Blackrock Worg",
+  "pt": "Worg do Rocha Negra Capturado",
+  "sinais": [
+   "tok-remnant:worg=>Worg"
+  ]
+ },
+ {
+  "id": 60770,
+  "en": "Wyvern Roost Hatchling",
+  "pt": "Filhote de Ninho de Wyvern",
+  "sinais": [
+   "tok-remnant:wyvern=>Mantícora"
+  ]
+ },
+ {
+  "id": 61189,
+  "en": "Plans: Dawnstone Hammer",
+  "pt": "Planos: Martelo da Pedra do Amanhecer",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61222,
+  "en": "Recipe: Dreamshard Elixir",
+  "pt": "Receita: Elixir de Fragmento dos Sonhos",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61535,
+  "en": "Outlaw's Pirate Hat",
+  "pt": "Chapéu de Pirata do Fora da Lei",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 61627,
+  "en": "Ebonmere Reaver",
+  "pt": "Reaver de Ebonmere",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 61732,
+  "en": "Eternal Dreamstone Shard",
+  "pt": "Fragmento de Pedra do Sonho Eterno",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61751,
+  "en": "Monster - Item, Sword - Kheyna",
+  "pt": "Monster - Item, Sword - Kheyna",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 61752,
+  "en": "Monster - Item, Sword - Kheyna",
+  "pt": "Monster - Item, Sword - Kheyna",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 61785,
+  "en": "Dreamsteel Belt Buckle",
+  "pt": "Fivela de Cinto de Aço do Sonho",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 70022,
+  "en": "Ashenvale Bear Pelt",
+  "pt": "Pele de Urso do Vale Gris",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70106,
+  "en": "Plans: Voidheart Charm",
+  "pt": "Planos: Amuleto do Coração das Sombras",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70108,
+  "en": "Plans: Shimmering Moonstone Tablet",
+  "pt": "Planos: Tablet de Moonstone Brilhante",
+  "sinais": [
+   "tok-remnant:tablet=>Tablete"
+  ]
+ },
+ {
+  "id": 70186,
+  "en": "Plans: Blackrock Ironclamps",
+  "pt": "Planos: Braçadeiras de Ferro de Blackrock",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70189,
+  "en": "Plans: Fangclaw Relic",
+  "pt": "Planos: Relíquia de Garras de Fangclaw",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80480,
+  "en": "Spirit Worg",
+  "pt": "Worg Espiritual",
+  "sinais": [
+   "tok-remnant:worg=>Worg"
+  ]
+ },
+ {
+  "id": 80631,
+  "en": "Revantusk Watcher's Maul",
+  "pt": "Maul do Vigia Revantusk",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 80651,
+  "en": "Crystal Veil Platinum",
+  "pt": "Tinta para Cabelo de Elfo Alto: Loiro Cinza",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80652,
+  "en": "Fading Glory Red",
+  "pt": "Tinta para Cabelo de Elfo Alto: Rubi Intenso",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80655,
+  "en": "Too Bright Blonde",
+  "pt": "Tinta para Cabelo de Elfo Alto: Loiro Areia",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80656,
+  "en": "Burnt Promise Red",
+  "pt": "Tinta para Cabelo de Elfo Alto: Vermelho Coral",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80657,
+  "en": "Last Hope Honey",
+  "pt": "Tinta para Cabelo de Elfo Alto: Loiro Mel",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80735,
+  "en": "Warded Boarleather Belt",
+  "pt": "Cinto de Couro de Javali Protegido",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 81008,
+  "en": "Codex: Sun's Embrace (Rank 1)",
+  "pt": "Códice: Abraço do Sol (Rank 1)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 81009,
+  "en": "Codex: Sun's Embrace (Rank 2)",
+  "pt": "Códice: Abraço do Sol (Rank 2)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 81010,
+  "en": "Codex: Sun's Embrace (Rank 3)",
+  "pt": "Códice: Abraço do Sol (Rank 3)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 81011,
+  "en": "Codex: Sun's Embrace (Rank 4)",
+  "pt": "Códice: Abraço do Sol (Rank 4)",
+  "sinais": [
+   "rank-em-item?"
+  ]
+ },
+ {
+  "id": 81024,
+  "en": "Dawnbreaker's Wedding Ring",
+  "pt": "Anel de Casamento do Portador da Aurora",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 81051,
+  "en": "Epaulets of the Dark Reaver",
+  "pt": "Epaulets do Reaver Sombrio",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 81056,
+  "en": "Greaves of the Dark Reaver",
+  "pt": "Grevas do Reaver Sombrio",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 81225,
+  "en": "Armored Stormwind Warhorse",
+  "pt": "Cavalo de Guerra de Ventobravo Blindado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 81234,
+  "en": "Brewfest Ram",
+  "pt": "Carneiro da CervaFest",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 83007,
+  "en": "Monster - Item, Frostmourne",
+  "pt": "Item, Frostmourne",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 83026,
+  "en": "Mellow Woolen Dress",
+  "pt": "Máscara de Kazgrim Teste de 0",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83028,
+  "en": "Shadow Lace Blouse",
+  "pt": "Máscara de Kazgrim Teste de 2",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83029,
+  "en": "Pink Lace Skirt",
+  "pt": "Máscara de Kazgrim Teste de 3",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83030,
+  "en": "Pink Lace Camisole",
+  "pt": "Máscara de Kazgrim Teste de 4",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83041,
+  "en": "Shadow Lace Skirt",
+  "pt": "Cinto Orc Kazgrim Teste 1",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 83045,
+  "en": "Icy Lace Camisole",
+  "pt": "Peitoral de Defias de Kazgrim Teste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83047,
+  "en": "Shadow Lace Bodice",
+  "pt": "Calças de Defias de Kazgrim Teste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83048,
+  "en": "White Lace Skirt",
+  "pt": "Luvas de Defias de Kazgrim Teste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83150,
+  "en": "Big Turtle WoW Bear",
+  "pt": "Grande Urso Turtle WoW",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 83222,
+  "en": "Groveweald Elder Cuffs",
+  "pt": "Braceletes do Ancião do Bosque Silvestre",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83236,
+  "en": "Void-Linked Satchel of Goods",
+  "pt": "Alforge Vinculado ao Vazio com Mercadorias",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 83256,
+  "en": "Explorer's League Wristprotectors",
+  "pt": "Protetores de Pulso da Liga dos Exploradores",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 83502,
+  "en": "Plans: Rune-Etched Legplates",
+  "pt": "Planos: Placas de Perna de Runas Gravadas",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 83507,
+  "en": "Plans: Bloodstone Warblade",
+  "pt": "Planos: Lâmina de Guerra da Pedra de Sangue",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 84040,
+  "en": "Le Fishe Au Chocolat",
+  "pt": "Peixe ao Chocolate",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 93088,
+  "en": "Red Serpent Warbrands",
+  "pt": "Marcas de Guerra da Serpente Vermelha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 93100,
+  "en": "Tabard of the Sunsworn",
+  "pt": "Tabardo dos Juramentados ao Sol",
+  "sinais": [
+   "sem-til?"
+  ]
+ }
+]

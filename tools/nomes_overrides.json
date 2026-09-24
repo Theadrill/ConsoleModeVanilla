@@ -9814,5 +9814,81 @@
  "51892": {
   "pt": "O Abutre",
   "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+ },
+ "55165": {
+  "pt": "Cajado de Pedra de Pérola Pequeno",
+  "motivo": "Pequenos deve ser Pequeno (singular concordando com Cajado)."
+ },
+ "55558": {
+  "pt": "Ombreiras de Malha de AQ40 Não Utilizadas",
+  "motivo": "Shoulders (slot de armadura) deve ser Ombreiras, não Omoplatas (anatômico)."
+ },
+ "55566": {
+  "pt": "Ombreiras de Couro de AQ40 Não Utilizadas",
+  "motivo": "Shoulders (slot de armadura) deve ser Ombreiras, não Omoplatas."
+ },
+ "55574": {
+  "pt": "Ombreiras de Tecido de AQ40 Não Utilizadas",
+  "motivo": "Shoulders (slot de armadura) deve ser Ombreiras, não Omoplatas."
+ },
+ "60770": {
+  "pt": "Filhote de Ninho de Mantícora",
+  "motivo": "Wyvern→Mantícora conforme regra 2 (tok-remnant:wyvern=>Mantícora)."
+ },
+ "61627": {
+  "pt": "Abutre de Ebonmere",
+  "motivo": "Reaver→Abutre conforme regra 2 (tok-remnant:reaver=>Abutre)."
+ },
+ "70108": {
+  "pt": "Planos: Tablete de Moonstone Brilhante",
+  "motivo": "Plans:→Planos:, Tablet→Tablete conforme regra 2 (tok-remnant:tablet=>Tablete)."
+ },
+ "80631": {
+  "pt": "Malho do Vigia Revantusk",
+  "motivo": "Maul→Malho conforme regra 2 (tok-remnant:maul=>Malho)."
+ },
+ "81051": {
+  "pt": "Epaulets do Abutre Sombrio",
+  "motivo": "Reaver→Abutre conforme regra 2 (tok-remnant:reaver=>Abutre)."
+ },
+ "81056": {
+  "pt": "Grevas do Abutre Sombrio",
+  "motivo": "Reaver→Abutre conforme regra 2 (tok-remnant:reaver=>Abutre)."
+ },
+ "83026": {
+  "pt": "Vestido de Lã Macio",
+  "motivo": "PT atual 'Máscara de Kazgrim Teste de 0' é placeholder de teste, não corresponde ao EN."
+ },
+ "83028": {
+  "pt": "Blusa de Encaixe Sombrio",
+  "motivo": "PT atual 'Máscara de Kazgrim Teste de 2' é placeholder de teste, não corresponde ao EN."
+ },
+ "83029": {
+  "pt": "Saia de Encaixe Rosa",
+  "motivo": "PT atual 'Máscara de Kazgrim Teste de 3' é placeholder de teste, não corresponde ao EN."
+ },
+ "83030": {
+  "pt": "Camisola de Encaixe Rosa",
+  "motivo": "PT atual 'Máscara de Kazgrim Teste de 4' é placeholder de teste, não corresponde ao EN."
+ },
+ "83041": {
+  "pt": "Saia de Encaixe Sombrio",
+  "motivo": "PT atual 'Cinto Orc Kazgrim Teste 1' é placeholder de teste, não corresponde ao EN."
+ },
+ "83045": {
+  "pt": "Camisola de Encaixe Gélido",
+  "motivo": "PT atual 'Peitoral de Defias de Kazgrim Teste' é placeholder de teste, não corresponde ao EN."
+ },
+ "83047": {
+  "pt": "Busto de Encaixe Sombrio",
+  "motivo": "PT atual 'Calças de Defias de Kazgrim Teste' é placeholder de teste, não corresponde ao EN."
+ },
+ "83048": {
+  "pt": "Saia de Encaixe Branco",
+  "motivo": "PT atual 'Luvas de Defias de Kazgrim Teste' é placeholder de teste, não corresponde ao EN."
+ },
+ "83236": {
+  "pt": "Alforge Vínculado ao Vazio com Mercadorias",
+  "motivo": "sem-til?: 'Vinculado' deve ser 'Vínculado' (com til conforme norma culta)."
  }
 }

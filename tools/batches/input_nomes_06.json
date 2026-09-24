@@ -1,0 +1,805 @@
+[
+ {
+  "id": 41725,
+  "en": "Dragonmaw Battle Bow",
+  "pt": "Arco de Batalha Presa do Dragão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41771,
+  "en": "Mistbark Venom Sac",
+  "pt": "Saco de Veneno de Casca de Névoa",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 41825,
+  "en": "Stone Golem Runestone",
+  "pt": "Pedra Rúnica do Golem de Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41908,
+  "en": "Heat-resistant Trigger",
+  "pt": "Gatilho Resistente ao Calor",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 41936,
+  "en": "Nuddok's Freefall Parachute",
+  "pt": "Paraquedas de Queda Livre de Nuddok",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41965,
+  "en": "Dragonmaw Supply Crate",
+  "pt": "Caixa de Suprimentos dos Presa de Dragão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 41967,
+  "en": "Magistrate's Brim Hat",
+  "pt": "Chapéu de Aba Larga do Magistrado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41972,
+  "en": "Stonehide Boar Flank",
+  "pt": "Lombo de Javali de Couro Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 50044,
+  "en": "Gold Mageweave Tabard",
+  "pt": "Tabardo de Tecido de Magia Dourado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 50105,
+  "en": "Mark of the Scarlet Crusade",
+  "pt": "Humano: Whitemane",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 50129,
+  "en": "Diggy Diggy Coal",
+  "pt": "Tinta de Cabelo Gnômica: Roxo Sonhador",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 50133,
+  "en": "Circuit Shock Pink",
+  "pt": "Tinta de Cabelo Gnômica: Rosa Brilhante",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 50147,
+  "en": "Jungle Grass Green",
+  "pt": "Tintura de Cabelo de Troll: Verde Grama",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50148,
+  "en": "Aquatic Mint Blue",
+  "pt": "Tintura de Cabelo de Troll: Azul Menta",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50149,
+  "en": "Wavecrest Light Blue",
+  "pt": "Tintura de Cabelo de Troll: Azul Claro",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50151,
+  "en": "Ashen Mist Grey",
+  "pt": "Tintura de Cabelo de Troll: Cinza de Cinzas",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 50152,
+  "en": "Frostbite Snow White",
+  "pt": "Tintura de Cabelo de Troll: Branco Neve",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50160,
+  "en": "Ashes of Draenor",
+  "pt": "Tintura de Cabelo Orc: Cinza Claro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 50163,
+  "en": "Plagueland Mud Brown",
+  "pt": "Tintura de Cabelo de Morto-Vivo: Marrom Lama",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50165,
+  "en": "Ashes to Ashes",
+  "pt": "Tintura de Cabelo de Morto-Vivo: Loiro Cinza",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50205,
+  "en": "Mark of the Dark Iron Clan",
+  "pt": "Anão: Ferro Negro",
+  "sinais": [
+   "wordcount:6->3"
+  ]
+ },
+ {
+  "id": 50206,
+  "en": "Mark of the Earthen Dwarves",
+  "pt": "Anão: Terrano",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 50208,
+  "en": "Mark of the Burning Blade",
+  "pt": "Orc: Caos",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 50209,
+  "en": "Mark of the Mag'har Heritage",
+  "pt": "Orc: Mag\\\\'har",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 50212,
+  "en": "Mark of Radioactive Fallout",
+  "pt": "Gnomo: Leproso",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 50221,
+  "en": "Mark of the Blackrock Clan II",
+  "pt": "Orc: Blackrock III",
+  "sinais": [
+   "wordcount:6->3",
+   "romano:['II']->['III']"
+  ]
+ },
+ {
+  "id": 50223,
+  "en": "Mark of the Dreadskull Clan I",
+  "pt": "Orc: Crâniossombrio II",
+  "sinais": [
+   "wordcount:6->3",
+   "romano:['I']->['II']"
+  ]
+ },
+ {
+  "id": 50224,
+  "en": "Mark of the Dreadskull Clan II",
+  "pt": "Orc: Crâniossombrio III",
+  "sinais": [
+   "wordcount:6->3",
+   "romano:['II']->['III']"
+  ]
+ },
+ {
+  "id": 50291,
+  "en": "Mark of Fel Power",
+  "pt": "Humano: Fel",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 50292,
+  "en": "Mark of the Arcane Binder",
+  "pt": "Humano: Arcano",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 51010,
+  "en": "Mark of the Dark Trolls",
+  "pt": "Troll: Escuro",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 51011,
+  "en": "Mark of the Frozen Trolls",
+  "pt": "Troll: Gelo",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 51043,
+  "en": "Void-Linked Satchel",
+  "pt": "Alforge Vinculado ao Vazio",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 51240,
+  "en": "Master Dragonslayer's Shirt",
+  "pt": "Camisa do Mestre Matador de Dragões",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 51619,
+  "en": "Uther Lightbringer's Gold Coin",
+  "pt": "Moeda de Ouro de Uther, o Arauto da Luz",
+  "sinais": [
+   "wordcount:4->9"
+  ]
+ },
+ {
+  "id": 51776,
+  "en": "Plagued Mind Leggings",
+  "pt": "Leggings da Mente Infectada pela Peste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 51902,
+  "en": "Chillin' Like a Lich Club T-Shirt",
+  "pt": "Camiseta \\",
+  "sinais": [
+   "wordcount:6->2"
+  ]
+ },
+ {
+  "id": 55004,
+  "en": "Shattered Burning Blade Medallion",
+  "pt": "Ombros de Teste 1",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 55037,
+  "en": "Gryphon Tamer Longstaff",
+  "pt": "Cajado Longo do Treinador de Grifos",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55056,
+  "en": "Spellwoven Nobility Drape",
+  "pt": "Manto de Nobreza do Tecelão de Feitiços",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 55058,
+  "en": "Rune-Inscribed Plate Leggings",
+  "pt": "Calças de Placa Gravadas com Runas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55076,
+  "en": "Design: Carnelia's Sunset",
+  "pt": "Desenho: Pôr do Sol de Carnelia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55078,
+  "en": "Ley-attuned Choker",
+  "pt": "Gargantilha Sintonizada ao Meridiano",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 55079,
+  "en": "Ravenkeeper's Frenzied Embrace",
+  "pt": "Abraço Frenético do Guardião de Ravenkeeper",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55081,
+  "en": "Manadrenched Feather Slippers",
+  "pt": "Botas de Pena Encharcada de Mana",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55164,
+  "en": "Minor Trollblood Ring",
+  "pt": "Anel de Sangue de Troll Menor",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55165,
+  "en": "Small Pearlstone Staff",
+  "pt": "Cajado de Pedra de Pérola Pequeno",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55227,
+  "en": "Inferno Emberstone Ring",
+  "pt": "Anel de Pedra do Fogo Infernal",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 55342,
+  "en": "Cherry Spring Vest",
+  "pt": "Camisa de Primavera 1",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 55343,
+  "en": "Lilac Spring Vest",
+  "pt": "Camisa de Primavera 2",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 55344,
+  "en": "Willow Spring Vest",
+  "pt": "Camisa de Primavera 3",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 55345,
+  "en": "Sage Spring Vest",
+  "pt": "Camisa de Primavera 4",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 56034,
+  "en": "Shimmering Moonstone Tablet",
+  "pt": "Tablet de Pedra da Lua Cintilante",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 56079,
+  "en": "Unrefined Lifeblood Gem",
+  "pt": "Gema de Sangue Vital Não Refinada",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 58100,
+  "en": "Drakebone War Core",
+  "pt": "Núcleo de Guerra de Osso de Draco",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 58105,
+  "en": "Bindings of the Forebearer",
+  "pt": "Esquemas Quebrados",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 58160,
+  "en": "Firebound Skull",
+  "pt": "Crânio Ligado ao Fogo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 58237,
+  "en": "Emberwoven Binding Garments",
+  "pt": "Vestes de Ligação Tecidas em Brasas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60162,
+  "en": "Turbo-Charged Wobblefree Fizz-disk",
+  "pt": "Disco de Fizz Turbo-Cargado e Sem Balanço",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60217,
+  "en": "Southsea Reserve Recipe",
+  "pt": "Receita da Reserva da Costa Sul",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60255,
+  "en": "McGillicuddy's Head",
+  "pt": "Cabeça de McGillicuddy",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 60397,
+  "en": "Broken Blademaster's Sword",
+  "pt": "Espada Quebrada do Mestre das Lâminas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60398,
+  "en": "Broken Blademaster's Edge",
+  "pt": "Lâmina Quebrada do Mestre das Lâminas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60477,
+  "en": "Bloodsail Supply Crate",
+  "pt": "Caixote de Suprimentos dos Vela Sangrenta",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60512,
+  "en": "Highborne Golden Statue",
+  "pt": "Estátua de Ouro do Alto Nobre",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60521,
+  "en": "Warlord Kolkanis' Head",
+  "pt": "Cabeça de Kolkanis, o Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60579,
+  "en": "Bronze Dragonscale Breastplate",
+  "pt": "Peitoral de Escamas de Dragão de Bronze",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60580,
+  "en": "Bronze Dragonscale Leggings",
+  "pt": "Calças de Escamas de Dragão de Bronze",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60581,
+  "en": "Bronze Dragonscale Gloves",
+  "pt": "Luvas de Escamas de Dragão de Bronze",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60586,
+  "en": "\"Big Sack of Big Lizard Meat\"",
+  "pt": "\\",
+  "sinais": [
+   "wordcount:6->1"
+  ]
+ },
+ {
+  "id": 60605,
+  "en": "Bryan's Fireheated Shield",
+  "pt": "Escudo de Bryan Aquecido pelo Fogo",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60611,
+  "en": "Dark Iron Wardguard",
+  "pt": "Guardião de Escudo de Ferro Sombrio",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60624,
+  "en": "Goldplated Royal Crossbow",
+  "pt": "Cruzado Real Dourado Revestido de Ouro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60721,
+  "en": "Deathlash Venom Gland",
+  "pt": "Glândula de Veneno de Chicote da Morte",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 60722,
+  "en": "Venomtip Venom Gland",
+  "pt": "Glândula de Veneno da Ponta Venenosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 60886,
+  "en": "Jewel of Draconic Guile",
+  "pt": "Corrente Jet",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 60913,
+  "en": "Vial of Sunscale Blood",
+  "pt": "Vibronava",
+  "sinais": [
+   "wordcount:4->1"
+  ]
+ },
+ {
+  "id": 61189,
+  "en": "Plans: Dawnstone Hammer",
+  "pt": "Planos: Martelo da Pedra do Amanhecer",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61222,
+  "en": "Recipe: Dreamshard Elixir",
+  "pt": "Receita: Elixir de Fragmento dos Sonhos",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61422,
+  "en": "Pure Bloodvial Pendant",
+  "pt": "Pingente de Vial de Sangue Puro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61432,
+  "en": "Pattern: Dreamthread Mantle",
+  "pt": "Modelo: Manto de Fio de Sonho",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61433,
+  "en": "Pattern: Dreamthread Kilt",
+  "pt": "Modelo: Kilt de Fio de Sonho",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61434,
+  "en": "Pattern: Dreamthread Bracers",
+  "pt": "Modelo: Braçadeiras de Fio de Sonho",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61435,
+  "en": "Pattern: Dreamthread Gloves",
+  "pt": "Modelo: Luvas de Fio de Sonho",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61440,
+  "en": "Barkskin Elder Cuffs",
+  "pt": "Algemas de Pele de Árvore do Ancião",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 61535,
+  "en": "Outlaw's Pirate Hat",
+  "pt": "Chapéu de Pirata do Fora da Lei",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 61636,
+  "en": "Barkskin Spirit Bead",
+  "pt": "Contas Espirituais de Pele de Árvore",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61732,
+  "en": "Eternal Dreamstone Shard",
+  "pt": "Fragmento de Pedra do Sonho Eterno",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 61772,
+  "en": "Vorgendor: Myths from the Blood Dimension",
+  "pt": "\\",
+  "sinais": [
+   "wordcount:6->1"
+  ]
+ },
+ {
+  "id": 61785,
+  "en": "Dreamsteel Belt Buckle",
+  "pt": "Fivela de Cinto de Aço do Sonho",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 65000,
+  "en": "Red Dragonscale Leggings",
+  "pt": "Calças de Escama de Dragão Vermelha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 65001,
+  "en": "Red Dragonscale Shoulders",
+  "pt": "Ombreiras de Escama de Dragão Vermelha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 65002,
+  "en": "Red Dragonscale Boots",
+  "pt": "Botas de Escama de Dragão Vermelha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 65015,
+  "en": "Blue Dragonscale Boots",
+  "pt": "Botas de Escama de Dragão Azul",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 69118,
+  "en": "Gilnean Archmage Robe",
+  "pt": "Robe de Arquiteto Arcano de Gilnean",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70022,
+  "en": "Ashenvale Bear Pelt",
+  "pt": "Pele de Urso do Vale Gris",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70106,
+  "en": "Plans: Voidheart Charm",
+  "pt": "Planos: Amuleto do Coração das Sombras",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70115,
+  "en": "Plans: Goldcrest Amulet",
+  "pt": "Planos: Amuleto de Pica de Ourocrest",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70126,
+  "en": "Plans: Cinderfall Band",
+  "pt": "Planos: Anel de Queda de Cinder",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70186,
+  "en": "Plans: Blackrock Ironclamps",
+  "pt": "Planos: Braçadeiras de Ferro de Blackrock",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ }
+]

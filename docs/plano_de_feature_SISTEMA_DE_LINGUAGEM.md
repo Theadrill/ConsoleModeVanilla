@@ -512,6 +512,14 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 > - **Retomada:** próximo lote = 1 + última linha do `PROGRESSO_LEGADO.txt`. Sem push sem ordem.
 > - **STATUS 24/09: FASE L COMPLETA — 783/783 em 16 lotes (L01–L16), `validate_pair` + `luac -p` OK em todos, commits locais por lote.** Re-detecção pós-fase: só 4 resíduos, todos keeps corretos (1 com `NOTE:` interno do DBC corretamente ignorado + 3 idiomáticos `Boa sorte!/Brinde supremo!/Boas Festas!`). Fila/inputs originais restaurados no git (re-detecção não commitada).
 
+#### 8.11 FASE N — Nomes de itens humanlike/Blizzlike (loop com prova estatística)
+> QA em 3 camadas (padrão loc-QA bigtech). REGRA DO USUÁRIO: script nunca julga; agentes fazem o pesado (sem economizar — humanlike/Blizzlike, nada resumido); tech-lead orquestra e valida cada lote antes do apply.
+> - **Camada 0 (detector, `tools/make_nomes_batches.py`):** EN pfQuest/pfQuest-turtle × PT `ItemDB_ptBR.lua` + sinais mecânicos (wordcount, romano, número, sem-til, conhecidos). Checkpoint 0: **650 suspeitos/24.542 (2,6%) em 7 lotes `input_nomes_01..07` (100/lote)** + `nomes_queue.json`.
+> - **Camada 1 (julgamento humano):** `input_nomes_NN` → `output_nomes_NN` (`[{id, veredito: manter|corrigir, pt_final, motivo}]`, PT expandido Blizzlike, glossário §8.8) → validação tech-lead → `py tools/apply_nomes.py` (só `corrigir`; registra `tools/nomes_overrides.json` p/ sobreviver a rebuilds do `build_itemdb.py`) → `luac -p Data/ItemDB_ptBR.lua` → ledger `PROGRESSO_NOMES.txt` → commit por lote. **MÁX 2 agentes por vez.**
+> - **Camada 2 (amostragem, `tools/make_amostra_nomes.py`):** 300 ids aleatórios do "limpo" (seed fixa, `input_amostra_RR`) julgados igual; escape = corrigir/300; meta 0/300 (<1% a 95%).
+> - **LOOP:** escape > 1% → defeitos viram suspeitos + detector ganha sinal novo (só cresce, nunca afrouxa) → re-roda → julga → amostra NOVA e independente (sem overfitting) → até escape ≤ 1%.
+> - **Retomada:** `PROGRESSO_NOMES.txt` (lotes) + última amostra julgada (rodada).
+
 ---
 
 ### 🟢 FASE FINAL: Inclusão de mais linguagens (template + idioma de prova)

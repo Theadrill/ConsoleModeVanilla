@@ -1,0 +1,1502 @@
+[
+ {
+  "id": 2905,
+  "en": "Goat Fur Cloak",
+  "pt": "Cloak de Pele de Cabra"
+ },
+ {
+  "id": 8286,
+  "en": "Arcane Cloak",
+  "pt": "Capa Arcana"
+ },
+ {
+  "id": 4003,
+  "en": "Overlinked Chain Cloak",
+  "pt": "Capa de Corrente Sobreligada"
+ },
+ {
+  "id": 41649,
+  "en": "Fur Ankle Cuffs",
+  "pt": "Pulseiras de Tornozelo de Pelúcia"
+ },
+ {
+  "id": 16169,
+  "en": "Wild Ricecake",
+  "pt": "Biscoito de Arroz Selvagem"
+ },
+ {
+  "id": 6451,
+  "en": "Heavy Silk Bandage",
+  "pt": "Bandagem de Seda Pesada"
+ },
+ {
+  "id": 17854,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 83450,
+  "en": "Soul of the Spider",
+  "pt": "Alma da Aranha"
+ },
+ {
+  "id": 16061,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 41941,
+  "en": "Balorian Treasure",
+  "pt": "Tesouro de Balor"
+ },
+ {
+  "id": 60689,
+  "en": "Lordaeron Needles",
+  "pt": "Agulhas de Lordaeron"
+ },
+ {
+  "id": 17383,
+  "en": "Monster - Axe, 2H Horde Black War Axe",
+  "pt": "Monster - Axe, 2H Horde Black War Axe"
+ },
+ {
+  "id": 47202,
+  "en": "Handguards of Prophecy",
+  "pt": "Manoplas da Profecia"
+ },
+ {
+  "id": 8320,
+  "en": "Alabaster Shield",
+  "pt": "Escudo de Alabastro"
+ },
+ {
+  "id": 55118,
+  "en": "Kum'isha's Tattered Drape",
+  "pt": "Capa Rasgada de Kum\\\\'isha"
+ },
+ {
+  "id": 2612,
+  "en": "Plain Robe",
+  "pt": "Robe Simples"
+ },
+ {
+  "id": 1800,
+  "en": "Rawhide Pants",
+  "pt": "Calças de Pele Crua"
+ },
+ {
+  "id": 81142,
+  "en": "Qiraji Ceremonial Shirt",
+  "pt": "Camisa Cerimonial Qiraji"
+ },
+ {
+  "id": 21589,
+  "en": "Large Blue Rocket",
+  "pt": "Foguete Azul Grande"
+ },
+ {
+  "id": 81416,
+  "en": "Valiant Medallion",
+  "pt": "Medalhão Valente"
+ },
+ {
+  "id": 80741,
+  "en": "Torturer's Girdle",
+  "pt": "Cinto do Torturador"
+ },
+ {
+  "id": 60917,
+  "en": "Ring of Durotar",
+  "pt": "Anel de Durotar"
+ },
+ {
+  "id": 55319,
+  "en": "Ocean's Wrath",
+  "pt": "Ira do Oceano"
+ },
+ {
+  "id": 7750,
+  "en": "Mantle of Woe",
+  "pt": "Manto da Tristeza"
+ },
+ {
+  "id": 22057,
+  "en": "Brazier of Invocation",
+  "pt": "Braseiro da Invocação"
+ },
+ {
+  "id": 55249,
+  "en": "Crystal Quartz",
+  "pt": "Quartzo de Cristal"
+ },
+ {
+  "id": 5968,
+  "en": "Rugged Boots",
+  "pt": "Botas Rugosas"
+ },
+ {
+  "id": 1269,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 41928,
+  "en": "Harelyss' Soul",
+  "pt": "Alma de Harelyss"
+ },
+ {
+  "id": 4329,
+  "en": "Star Belt",
+  "pt": "Cinto Estelar"
+ },
+ {
+  "id": 60259,
+  "en": "Uncracked Turtle Shell",
+  "pt": "Casco de Tartaruga Não Rachado"
+ },
+ {
+  "id": 17852,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 70053,
+  "en": "Rotworm Legplates",
+  "pt": "Placas de Legging de Rotworm"
+ },
+ {
+  "id": 5285,
+  "en": "Monster - Dagger, Curvey Blue Hilt",
+  "pt": "Monster - Dagger, Curvey Blue Hilt"
+ },
+ {
+  "id": 4282,
+  "en": "Codex of Dispel Magic II",
+  "pt": "Códice de Dissipar Magia II"
+ },
+ {
+  "id": 10706,
+  "en": "Nightscale Girdle",
+  "pt": "Cinto de Escamas Noturnas"
+ },
+ {
+  "id": 19208,
+  "en": "Plans: Black Amnesty",
+  "pt": "Planos: Anistia Negra"
+ },
+ {
+  "id": 51023,
+  "en": "Vilebranch Grips",
+  "pt": "Chifre de Almíscarvil"
+ },
+ {
+  "id": 3468,
+  "en": "Renferrel's Findings",
+  "pt": "Descobertas de Renferrel"
+ },
+ {
+  "id": 41199,
+  "en": "Sunstrider Family Signet",
+  "pt": "Anel de Família Strider Solar"
+ },
+ {
+  "id": 41678,
+  "en": "Perfumed Letter #1",
+  "pt": "Carta Perfumada #1"
+ },
+ {
+  "id": 16871,
+  "en": "The Skull of Chronalis",
+  "pt": "O Crânio de Chronalis"
+ },
+ {
+  "id": 3938,
+  "en": "Crochet Bracers",
+  "pt": "Braceletes de Crochê"
+ },
+ {
+  "id": 13405,
+  "en": "Wailing Nightbane Pauldrons",
+  "pt": "Dragonas da Noite Lamentadora"
+ },
+ {
+  "id": 15134,
+  "en": "Cutthroat's Hat",
+  "pt": "Chapéu do Degolador"
+ },
+ {
+  "id": 6650,
+  "en": "Healing Stream Totem Scroll",
+  "pt": "Pergaminho de Totem de Cura Fluente"
+ },
+ {
+  "id": 17302,
+  "en": "Blue Ribboned Holiday Gift",
+  "pt": "Presente de Feriado com Fita Azul"
+ },
+ {
+  "id": 2020,
+  "en": "Hollowfang Blade",
+  "pt": "Lâmina Hollowfang"
+ },
+ {
+  "id": 6038,
+  "en": "Giant Clam Scorcho",
+  "pt": "Molusco Scorcho Gigante"
+ },
+ {
+  "id": 4120,
+  "en": "Robe of Crystal Waters",
+  "pt": "Robe das Águas Cristalinas"
+ },
+ {
+  "id": 9011,
+  "en": "Codex of Shadow Word: Pain VII",
+  "pt": "Códice de Palavra Sombria: Dor VII"
+ },
+ {
+  "id": 538,
+  "en": "Rose Spring Blouse",
+  "pt": "Blusa Primaveril de Rosa"
+ },
+ {
+  "id": 19147,
+  "en": "Ring of Spell Power",
+  "pt": "Anel de Poder Mágico"
+ },
+ {
+  "id": 48623,
+  "en": "Crimson Slug",
+  "pt": "Crimson Slug"
+ },
+ {
+  "id": 14687,
+  "en": "Indomitable Leggings",
+  "pt": "Calças Indomáveis"
+ },
+ {
+  "id": 8427,
+  "en": "Mutilated Rat Carcass",
+  "pt": "Carcaça de Rato Mutilada"
+ },
+ {
+  "id": 5562,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 41054,
+  "en": "Bruiser's Chainmail",
+  "pt": "Cota de Malha do Espancador"
+ },
+ {
+  "id": 19565,
+  "en": "Outrunner's Bow",
+  "pt": "Arco do Corredor"
+ },
+ {
+  "id": 9262,
+  "en": "Black Vitriol",
+  "pt": "Vitriolo Negro"
+ },
+ {
+  "id": 47270,
+  "en": "Helmet of the Brotherhood",
+  "pt": "Capacete da Irmandade"
+ },
+ {
+  "id": 2138,
+  "en": "Sharpened Letter Opener",
+  "pt": "Abertura de Carta Afiada"
+ },
+ {
+  "id": 2921,
+  "en": "Blessed Relic",
+  "pt": "Relíquia Abençoada"
+ },
+ {
+  "id": 15891,
+  "en": "Hulking Shield",
+  "pt": "Escudo Hulking"
+ },
+ {
+  "id": 19184,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 7469,
+  "en": "Regal Leggings",
+  "pt": "Calças Regal"
+ },
+ {
+  "id": 4803,
+  "en": "Prairie Alpha Tooth",
+  "pt": "Dente de Alpha da Pradaria"
+ },
+ {
+  "id": 70112,
+  "en": "Plans: Medallion of Flame",
+  "pt": "Planos: Medalhão de Chama"
+ },
+ {
+  "id": 15278,
+  "en": "Solstice Staff",
+  "pt": "Cajado de Solstício"
+ },
+ {
+  "id": 23547,
+  "en": "Resilience of the Scourge",
+  "pt": "Resiliência da Praga"
+ },
+ {
+  "id": 9240,
+  "en": "Mallet of Zul'Farrak",
+  "pt": "Martelo de Zul\\\\'Farrak"
+ },
+ {
+  "id": 2237,
+  "en": "Patched Pants",
+  "pt": "Calças Remendadas"
+ },
+ {
+  "id": 55370,
+  "en": "Totem of Static Charge",
+  "pt": "Totem de Carga Estática"
+ },
+ {
+  "id": 3936,
+  "en": "Crochet Belt",
+  "pt": "Cinto de Crochê"
+ },
+ {
+  "id": 9899,
+  "en": "Jazeraint Shield",
+  "pt": "Perneiras de Jazeraint"
+ },
+ {
+  "id": 22759,
+  "en": "Bramblewood Helm",
+  "pt": "Elmo de Madeira Espinhosa"
+ },
+ {
+  "id": 50514,
+  "en": "Necromancer's Cuirass",
+  "pt": "Cuirass de Necromante"
+ },
+ {
+  "id": 15498,
+  "en": "Outrunner's Slippers",
+  "pt": "Sapatilhas do Corredor"
+ },
+ {
+  "id": 20556,
+  "en": "Wildstaff",
+  "pt": "Cajado Selvagem"
+ },
+ {
+  "id": 1379,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 92080,
+  "en": "Molten Corehound",
+  "pt": "Cão do Núcleo Fundido"
+ },
+ {
+  "id": 61457,
+  "en": "A Mysterious Missive",
+  "pt": "A Missiva Misteriosa"
+ },
+ {
+  "id": 19946,
+  "en": "Tigule's Harpoon",
+  "pt": "Harpoon de Tigule"
+ },
+ {
+  "id": 2778,
+  "en": "Cheap Blunderbuss",
+  "pt": "Espingarda Barata"
+ },
+ {
+  "id": 60405,
+  "en": "Mantle of Dag'grak",
+  "pt": "Manto de Dag\\\\'grak"
+ },
+ {
+  "id": 5248,
+  "en": "Flash Wand",
+  "pt": "Varinha Flash"
+ },
+ {
+  "id": 5879,
+  "en": "Twilight Pendant",
+  "pt": "Pingente do Crepúsculo"
+ },
+ {
+  "id": 5011,
+  "en": "Welken Ring",
+  "pt": "Anel de Welken"
+ },
+ {
+  "id": 83289,
+  "en": "Augerer's Gloves",
+  "pt": "Luvas do Vidente"
+ },
+ {
+  "id": 20746,
+  "en": "Lesser Wizard Oil",
+  "pt": "Óleo Menor de Feiticeiro"
+ },
+ {
+  "id": 60728,
+  "en": "Boots of the Hermit Magi",
+  "pt": "Botas do Mago Ermitão"
+ },
+ {
+  "id": 11412,
+  "en": "Nagmara's Vial",
+  "pt": "Vial de Nagmara"
+ },
+ {
+  "id": 11078,
+  "en": "Relic Coffer Key",
+  "pt": "Chave do Cofre de Relíquias"
+ },
+ {
+  "id": 4170,
+  "en": "Tablet of Astral Recall",
+  "pt": "Tablete do Retorno Astral"
+ },
+ {
+  "id": 1770,
+  "en": "Canvas Vest",
+  "pt": "Colete de Lona"
+ },
+ {
+  "id": 9508,
+  "en": "Mechbuilder's Overalls",
+  "pt": "Macacão do Construtor Mecânico"
+ },
+ {
+  "id": 4833,
+  "en": "Glorious Shoulders",
+  "pt": "Ombros Gloriosos"
+ },
+ {
+  "id": 21319,
+  "en": "Gloves of the Pathfinder",
+  "pt": "Luvas do Caminhante"
+ },
+ {
+  "id": 8502,
+  "en": "Bronze Lotterybox",
+  "pt": "Caixa de Loteria de Bronze"
+ },
+ {
+  "id": 41702,
+  "en": "Dress of Lunar Blessing",
+  "pt": "Vestido da Bênção Lunar"
+ },
+ {
+  "id": 22815,
+  "en": "Severance",
+  "pt": "Severança"
+ },
+ {
+  "id": 15944,
+  "en": "Ancestral Orb",
+  "pt": "Orbe Ancestral"
+ },
+ {
+  "id": 4558,
+  "en": "Empty Barrel",
+  "pt": "Barril Vazio"
+ },
+ {
+  "id": 3226,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 55232,
+  "en": "Moonlit Band",
+  "pt": "Anel Luminoso"
+ },
+ {
+  "id": 14374,
+  "en": "Sanguine Sandals",
+  "pt": "Sandálias Sanguíneas"
+ },
+ {
+  "id": 23698,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 13746,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 20752,
+  "en": "Formula: Minor Mana Oil",
+  "pt": "Fórmula: Óleo de Mana Menor"
+ },
+ {
+  "id": 1712,
+  "en": "Scroll of Spirit II",
+  "pt": "Pergaminho de Espírito II"
+ },
+ {
+  "id": 20450,
+  "en": "Scepter of Beckoning: Water",
+  "pt": "Cetro da Invocação: Água"
+ },
+ {
+  "id": 10632,
+  "en": "Slimescale Bracers",
+  "pt": "Braçadeiras Escama de Lodo"
+ },
+ {
+  "id": 14440,
+  "en": "Venomshroud Cape",
+  "pt": "Capa do Véu de Veneno"
+ },
+ {
+  "id": 21463,
+  "en": "Ossirian's Binding",
+  "pt": "Ligadura de Ossirian"
+ },
+ {
+  "id": 16828,
+  "en": "Cenarion Belt",
+  "pt": "Cinto de Cenarion"
+ },
+ {
+  "id": 13185,
+  "en": "Sunderseer Mantle",
+  "pt": "Manto do Divisor"
+ },
+ {
+  "id": 22072,
+  "en": "Deathmist Leggings",
+  "pt": "Perneiras de Brumamorte"
+ },
+ {
+  "id": 41142,
+  "en": "Beating Makrura Heart",
+  "pt": "Coração Batente de Makrura"
+ },
+ {
+  "id": 14537,
+  "en": "Corpselight Greaves",
+  "pt": "Grevas Luz do Cadáver"
+ },
+ {
+  "id": 81005,
+  "en": "Spiked Defias Spaulders",
+  "pt": "Ombreiras Defias com Espinhos"
+ },
+ {
+  "id": 9252,
+  "en": "Lower Map Fragment",
+  "pt": "Fragmento Inferior do Mapa"
+ },
+ {
+  "id": 4259,
+  "en": "Green Leather Bracers",
+  "pt": "Braçadeiras de Couro Verde"
+ },
+ {
+  "id": 13511,
+  "en": "Flask of Distilled Wisdom",
+  "pt": "Frasco de Sabedoria Destilada"
+ },
+ {
+  "id": 5171,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 22101,
+  "en": "Pauldrons of The Five Thunders",
+  "pt": "Espaldares dos Cinco Trovões"
+ },
+ {
+  "id": 7534,
+  "en": "Cabalist Bracers",
+  "pt": "Braçadeiras do Cabalista"
+ },
+ {
+  "id": 3397,
+  "en": "Young Crocolisk Skin",
+  "pt": "Pele de Crocolisco Jovem"
+ },
+ {
+  "id": 9146,
+  "en": "Tablet of Searing Totem V",
+  "pt": "Tablete do Totem Ardente V"
+ },
+ {
+  "id": 10698,
+  "en": "Enchanted Azsharite Felbane Staff",
+  "pt": "Cajado Azsharite Felbane Encantado"
+ },
+ {
+  "id": 41688,
+  "en": "Inconspicuous Documents",
+  "pt": "Documentos Imperceptíveis"
+ },
+ {
+  "id": 13323,
+  "en": "Purple Mechanostrider",
+  "pt": "Mecanostrider Roxo"
+ },
+ {
+  "id": 3049,
+  "en": "Lambent Scale Breastplate",
+  "pt": "Peitoral de Escama Lambente"
+ },
+ {
+  "id": 4677,
+  "en": "Veteran Cloak",
+  "pt": "Perneiras de Veterano"
+ },
+ {
+  "id": 4783,
+  "en": "Totem of Hawkwind",
+  "pt": "Totem de Hawkwind"
+ },
+ {
+  "id": 4139,
+  "en": "Junglewalker Sandals",
+  "pt": "Sandálias Junglewalker"
+ },
+ {
+  "id": 3794,
+  "en": "Interlaced Bracers",
+  "pt": "Braçadeiras Trançadas"
+ },
+ {
+  "id": 83530,
+  "en": "Turban of Veiled Mists",
+  "pt": "Turbante das Névoas Veladas"
+ },
+ {
+  "id": 10443,
+  "en": "Singed Letter",
+  "pt": "Carta Queimada"
+ },
+ {
+  "id": 61276,
+  "en": "Hyperchromatic Deflector",
+  "pt": "Defletor Hipercrômatico"
+ },
+ {
+  "id": 3100,
+  "en": "Tome of Blizzard II",
+  "pt": "Tomo de Tempestade de Neve II"
+ },
+ {
+  "id": 8490,
+  "en": "Siamese",
+  "pt": "Siamês"
+ },
+ {
+  "id": 22442,
+  "en": "Cryptstalker Girdle",
+  "pt": "Cinturão do Criptalante"
+ },
+ {
+  "id": 20467,
+  "en": "Torn Recipe Page",
+  "pt": "Página de Receita Rasgada"
+ },
+ {
+  "id": 17721,
+  "en": "Gloves of the Greatfather",
+  "pt": "Luvas do Grande Pai"
+ },
+ {
+  "id": 23803,
+  "en": "Red Feral Raptor",
+  "pt": "Raptor Feral Vermelho"
+ },
+ {
+  "id": 47325,
+  "en": "Trickster Pauldrons",
+  "pt": "Omoplatas do Trapaceiro"
+ },
+ {
+  "id": 5044,
+  "en": "Blue Ribboned Gift",
+  "pt": "Presente com Fita Azul"
+ },
+ {
+  "id": 20254,
+  "en": "Pattern: Warbear Woolies",
+  "pt": "Padrão: Calças de Urso Guerreiro"
+ },
+ {
+  "id": 2948,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 8965,
+  "en": "Codex of Fade II",
+  "pt": "Códice de Sumir II"
+ },
+ {
+  "id": 23700,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 22009,
+  "en": "Darkmantle Tunic",
+  "pt": "Túnica do Manto Sombrio"
+ },
+ {
+  "id": 2011,
+  "en": "Twisted Sabre",
+  "pt": "Sabre Retorcido"
+ },
+ {
+  "id": 61110,
+  "en": "Mark of Enchantress",
+  "pt": "Marca da Encantadora"
+ },
+ {
+  "id": 3110,
+  "en": "Tunnel Rat Ear",
+  "pt": "Orelha de Rato de Túnel"
+ },
+ {
+  "id": 3073,
+  "en": "Smoldering Pants",
+  "pt": "Calças Fumegantes"
+ },
+ {
+  "id": 19963,
+  "en": "Pitchfork of Madness",
+  "pt": "Forquilha da Loucura"
+ },
+ {
+  "id": 10157,
+  "en": "Mercurial Breastplate",
+  "pt": "Peitoral Mercurial"
+ },
+ {
+  "id": 8645,
+  "en": "Ordinary Egg",
+  "pt": "Ovo Comum"
+ },
+ {
+  "id": 83092,
+  "en": "Mark of Nature I",
+  "pt": "Elfo Noturno: Naturalista I"
+ },
+ {
+  "id": 60665,
+  "en": "Deepblaze Signet",
+  "pt": "Sinete de Chama Profunda"
+ },
+ {
+  "id": 60940,
+  "en": "Disturbed Elemental Cuff",
+  "pt": "Manilhas do Elemental Perturbado"
+ },
+ {
+  "id": 19541,
+  "en": "Sentinel's Medallion",
+  "pt": "Medalhão Sentinel"
+ },
+ {
+  "id": 6042,
+  "en": "Iron Shield Spike",
+  "pt": "Espinho de Escudo de Ferro"
+ },
+ {
+  "id": 5644,
+  "en": "Tome of Conjure Water",
+  "pt": "Tomo de Conjurar Água"
+ },
+ {
+  "id": 51410,
+  "en": "Raid Management: Purple Rune",
+  "pt": "Gestão de Raide: Runas Roxas"
+ },
+ {
+  "id": 3051,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 14513,
+  "en": "Pattern: Robe of the Archmage",
+  "pt": "Padrão: Robe do Arcanista"
+ },
+ {
+  "id": 12284,
+  "en": "Draco-Incarcinatrix 900",
+  "pt": "Draco-Incarcinatrix 900"
+ },
+ {
+  "id": 55535,
+  "en": "Pattern: Cosmic Headdress",
+  "pt": "Modelo: Tiara Cósmica"
+ },
+ {
+  "id": 13135,
+  "en": "Lordly Armguards",
+  "pt": "Arco-ruim de Lordaeron"
+ },
+ {
+  "id": 19810,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 60153,
+  "en": "Gigno's Overalls",
+  "pt": "Macacão de Gigno"
+ },
+ {
+  "id": 3493,
+  "en": "Raptor's End",
+  "pt": "Fim do Raptor"
+ },
+ {
+  "id": 21280,
+  "en": "Tome of Arcane Missiles VIII",
+  "pt": "Tomo de Mísseis Arcanos VIII"
+ },
+ {
+  "id": 4875,
+  "en": "Slimy Bone",
+  "pt": "Osso Lameado"
+ },
+ {
+  "id": 10829,
+  "en": "Dragon's Eye",
+  "pt": "Olho do Dragão"
+ },
+ {
+  "id": 12691,
+  "en": "Plans: Wildthorn Mail",
+  "pt": "Planos: Mailha Espinhosa"
+ },
+ {
+  "id": 18255,
+  "en": "Runn Tum Tuber",
+  "pt": "Tubérculo de Runn Tum"
+ },
+ {
+  "id": 83430,
+  "en": "Bloody Gladiator's Gloves",
+  "pt": "Luvas do Gladiador Ensanguentado"
+ },
+ {
+  "id": 20446,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 1766,
+  "en": "Canvas Cloak",
+  "pt": "Capa de Lona"
+ },
+ {
+  "id": 6735,
+  "en": "Plans: Ironforge Breastplate",
+  "pt": "Planos: Peitoral de Ferroforja"
+ },
+ {
+  "id": 19268,
+  "en": "Ace of Elementals",
+  "pt": "Ás de Elementais"
+ },
+ {
+  "id": 5148,
+  "en": "Book of Thorns II",
+  "pt": "Livro de Espinhos II"
+ },
+ {
+  "id": 20664,
+  "en": "Abyssal Cloth Sash",
+  "pt": "Faixa de Tecido Abissal"
+ },
+ {
+  "id": 23090,
+  "en": "Bracers of Undead Slaying",
+  "pt": "Braçadeiras da Matança de Mortos-Vivos"
+ },
+ {
+  "id": 11703,
+  "en": "Stonewall Girdle",
+  "pt": "Cinto da Muralha de Pedra"
+ },
+ {
+  "id": 70158,
+  "en": "Plans: Glowing Ruby Gemstone",
+  "pt": "Planos: Pedra Rubi Brilhante"
+ },
+ {
+  "id": 9080,
+  "en": "Tablet of Nature Resistance Totem",
+  "pt": "Tablete do Totem de Resistência à Natureza"
+ },
+ {
+  "id": 4207,
+  "en": "Grimoire of Curse of Archimonde",
+  "pt": "Grimório de Maldição de Archimonde"
+ },
+ {
+  "id": 60547,
+  "en": "Band of Calamity",
+  "pt": "Elo da Calamidade"
+ },
+ {
+  "id": 22612,
+  "en": "Craftsman's Writ - Runecloth Robe",
+  "pt": "Escritura do Artesão - Túnica de Runatrama"
+ },
+ {
+  "id": 51768,
+  "en": "Bow of Quel'Danil",
+  "pt": "Arco de Quel\\\\'Danil"
+ },
+ {
+  "id": 15736,
+  "en": "Smokey's Special Compound",
+  "pt": "Composto Especial de Smokey"
+ },
+ {
+  "id": 83432,
+  "en": "Bloody Gladiator's Boots",
+  "pt": "Botas do Gladiador Ensanguentado"
+ },
+ {
+  "id": 41420,
+  "en": "Shadowfang Blood",
+  "pt": "Sangue de Shadowfang"
+ },
+ {
+  "id": 23259,
+  "en": "Champion's Mail Headguard",
+  "pt": "Capacete de Malha do Campeão"
+ },
+ {
+  "id": 21229,
+  "en": "Qiraji Lord's Insignia",
+  "pt": "Insígnia do Senhor Qiraji"
+ },
+ {
+  "id": 20535,
+  "en": "Scroll: Create Signet of Beckoning",
+  "pt": "Pergaminho: Criar Anel do Chamado"
+ },
+ {
+  "id": 6683,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 22509,
+  "en": "Plagueheart Gloves",
+  "pt": "Luvas Plagueheart"
+ },
+ {
+  "id": 6361,
+  "en": "Raw Rainbow Fin Albacore",
+  "pt": "Albacora com Barbatana Arco-íris Crua"
+ },
+ {
+  "id": 8116,
+  "en": "Heraldic Belt",
+  "pt": "Botas Heráldicas"
+ },
+ {
+  "id": 41176,
+  "en": "Plain Letter",
+  "pt": "Carta Simples"
+ },
+ {
+  "id": 6130,
+  "en": "Trapper's Shirt",
+  "pt": "Camisa do Caçador"
+ },
+ {
+  "id": 12248,
+  "en": "Daring Dirk",
+  "pt": "Adaga Ousada"
+ },
+ {
+  "id": 1173,
+  "en": "Weather-worn Boots",
+  "pt": "Botas Deformadas pelo Tempo"
+ },
+ {
+  "id": 11413,
+  "en": "Nagmara's Filled Vial",
+  "pt": "Vial Cheio de Nagmara"
+ },
+ {
+  "id": 16814,
+  "en": "Pants of Prophecy",
+  "pt": "Calças da Profecia"
+ },
+ {
+  "id": 81221,
+  "en": "Chieftain's Ceremonial Belt",
+  "pt": "Cinturão Cerimonial do Chefe"
+ },
+ {
+  "id": 74,
+  "en": "Pattern: Dragonmaw Gloves",
+  "pt": "Molde: Luvas Presa do Dragão"
+ },
+ {
+  "id": 4916,
+  "en": "Soft Wool Vest",
+  "pt": "Colete de Lã Macia"
+ },
+ {
+  "id": 55335,
+  "en": "Netherbane Rod",
+  "pt": "Cajado de Netherbane"
+ },
+ {
+  "id": 61741,
+  "en": "Chunk of Wolf Meat",
+  "pt": "Pedaço de Carne de Lobo"
+ },
+ {
+  "id": 41241,
+  "en": "Formal Light Blue Waistcoat",
+  "pt": "Colete Azul Claro Formal"
+ },
+ {
+  "id": 19969,
+  "en": "Nat Pagle's Extreme Anglin' Boots",
+  "pt": "Botas Extreme Anglin\\\\' de Nat Pagle"
+ },
+ {
+  "id": 13256,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 51851,
+  "en": "Verdant Boots",
+  "pt": "Botas Verdejantes"
+ },
+ {
+  "id": 10678,
+  "en": "Magatha's Note",
+  "pt": "Nota de Magatha"
+ },
+ {
+  "id": 15930,
+  "en": "Imperial Red Scepter",
+  "pt": "Cetro Vermelho Imperial"
+ },
+ {
+  "id": 3642,
+  "en": "Ancestral Bracers",
+  "pt": "Braçadeiras Ancestrais"
+ },
+ {
+  "id": 41846,
+  "en": "Cindermaw Leggings",
+  "pt": "Perneiras de Bocarvoraz"
+ },
+ {
+  "id": 784,
+  "en": "Tome of Disguise: Keeper of the Grove",
+  "pt": "Tomo de Disfarce: Guarda-florestal"
+ },
+ {
+  "id": 13675,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 22151,
+  "en": "Anthion's Holy Water",
+  "pt": "Água Sagrada de Anthion"
+ },
+ {
+  "id": 81252,
+  "en": "Reinforced Green Pounder",
+  "pt": "Martelo Verde Reforçado"
+ },
+ {
+  "id": 19725,
+  "en": "Arathi Resource Crate",
+  "pt": "Caixote de Recursos de Arathi"
+ },
+ {
+  "id": 7512,
+  "en": "Nether-lace Robe",
+  "pt": "Robe de Renda do Nether"
+ },
+ {
+  "id": 17196,
+  "en": "Holiday Spirits",
+  "pt": "Espíritos de Feriado"
+ },
+ {
+  "id": 12637,
+  "en": "Backusarian Gauntlets",
+  "pt": "Manoplas Backorianas"
+ },
+ {
+  "id": 51218,
+  "en": "Delicious Elwynn Truffle",
+  "pt": "Trufa de Elwynn Deliciosa"
+ },
+ {
+  "id": 6789,
+  "en": "Ceremonial Centaur Blanket",
+  "pt": "Cobertor Cerimonial de Centauro"
+ },
+ {
+  "id": 9309,
+  "en": "Robo-mechanical Guts",
+  "pt": "Entranhas Mecânicas de Robô"
+ },
+ {
+  "id": 1213,
+  "en": "Gnoll Kindred Bracers",
+  "pt": "Braçadeiras de Consanguinidade de Gnoll"
+ },
+ {
+  "id": 30000,
+  "en": "Black Tournament Charger",
+  "pt": "Corcel Negro do Torneio"
+ },
+ {
+  "id": 11649,
+  "en": "Lesser Arcanum of Voracity",
+  "pt": "Arcanum Menor de Voracidade"
+ },
+ {
+  "id": 83575,
+  "en": "Codex of Smite IX",
+  "pt": "Códice de Golpe IX"
+ },
+ {
+  "id": 16912,
+  "en": "Netherwind Boots",
+  "pt": "Botas de Netherwind"
+ },
+ {
+  "id": 15273,
+  "en": "Death Striker",
+  "pt": "Golpe Mortal"
+ },
+ {
+  "id": 20489,
+  "en": "Crown of the Council",
+  "pt": "Coroa do Conselho"
+ },
+ {
+  "id": 5101,
+  "en": "Ishamuhale's Fang",
+  "pt": "Braçadeiras de Ironwrought"
+ },
+ {
+  "id": 56093,
+  "en": "Stormcloud Signet",
+  "pt": "Anel da Nuvem Tempestuosa"
+ },
+ {
+  "id": 2517,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 56080,
+  "en": "Silken Cloth",
+  "pt": "Tecido Sedoso"
+ },
+ {
+  "id": 18625,
+  "en": "Kroshius' Infernal Core",
+  "pt": "Núcleo Infernal de Kroshius"
+ },
+ {
+  "id": 8703,
+  "en": "Signet of Expertise",
+  "pt": "Anel de Expertise"
+ },
+ {
+  "id": 18686,
+  "en": "Bone Golem Shoulders",
+  "pt": "Espaldares de Golem de Osso"
+ },
+ {
+  "id": 8824,
+  "en": "Tome of Fireball VI",
+  "pt": "Tomo de Bola de Fogo VI"
+ },
+ {
+  "id": 15497,
+  "en": "Outrunner's Cord",
+  "pt": "Cordão do Corredor"
+ },
+ {
+  "id": 20089,
+  "en": "Highlander's Chain Girdle",
+  "pt": "Cinto de Corrente do Highlander"
+ },
+ {
+  "id": 4952,
+  "en": "Stormstout",
+  "pt": "Cerveja Surpresa de Stout"
+ },
+ {
+  "id": 58046,
+  "en": "Shield of Galoraz",
+  "pt": "Baluarte de Galoraz"
+ },
+ {
+  "id": 61092,
+  "en": "The Golden Tel Co. Coin",
+  "pt": "A Moeda Dourada Tel Co."
+ },
+ {
+  "id": 10251,
+  "en": "Master's Gloves",
+  "pt": "Luvas do Mestre"
+ },
+ {
+  "id": 17734,
+  "en": "Helm of the Mountain",
+  "pt": "Elmo da Montanha"
+ },
+ {
+  "id": 22493,
+  "en": "Dreamwalker Handguards",
+  "pt": "Protetores de Mão do Andarilho do Sonho"
+ },
+ {
+  "id": 80314,
+  "en": "Tabard of the Scourge",
+  "pt": "Tabardo da Praga dos Mortos-Vivos"
+ },
+ {
+  "id": 48618,
+  "en": "Fiery Skitterer",
+  "pt": "Fiery Skitterer"
+ },
+ {
+  "id": 19597,
+  "en": "Dryad's Wrist Bindings",
+  "pt": "Ataduras de Pulso de Dryad"
+ },
+ {
+  "id": 3059,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 236,
+  "en": "Cured Leather Armor",
+  "pt": "Armadura de Couro Curado"
+ },
+ {
+  "id": 19803,
+  "en": "Brownell's Blue Striped Racer",
+  "pt": "Racer Listrado Azul de Brownell"
+ },
+ {
+  "id": 58153,
+  "en": "Shattered Soul Ring",
+  "pt": "Anel da Alma Partida"
+ },
+ {
+  "id": 4351,
+  "en": "Pattern: Shadow Hood",
+  "pt": "Padrão: Capô das Sombras"
+ },
+ {
+  "id": 20604,
+  "en": "Stink Bomb Cleaner",
+  "pt": "Removedor de Bombas Fedorentas"
+ },
+ {
+  "id": 4074,
+  "en": "Mail Combat Armor",
+  "pt": "Armadura de Combate de Mail"
+ },
+ {
+  "id": 55520,
+  "en": "Cosmic Vest",
+  "pt": "Colete Cósmico"
+ },
+ {
+  "id": 7347,
+  "en": "Bingles' Cog Inverter",
+  "pt": "Inversor de Engrenagens de Bingles"
+ },
+ {
+  "id": 2461,
+  "en": "_",
+  "pt": "_"
+ },
+ {
+  "id": 4449,
+  "en": "Naraxis' Fang",
+  "pt": "Presa de Naraxis"
+ },
+ {
+  "id": 15295,
+  "en": "Quillfire Bow",
+  "pt": "Arco Quilfire"
+ },
+ {
+  "id": 2622,
+  "en": "Nimar's Tribal Headdress",
+  "pt": "Cocuruto Tribal de Nimar"
+ },
+ {
+  "id": 22895,
+  "en": "Conjured Cinnamon Roll",
+  "pt": "Rolo de Canela Conjurado"
+ },
+ {
+  "id": 83454,
+  "en": "Deathrune Leggings",
+  "pt": "Perneiras de Runa da Morte"
+ },
+ {
+  "id": 7548,
+  "en": "Onyx Choker",
+  "pt": "Choker Onyx"
+ },
+ {
+  "id": 15082,
+  "en": "Heavy Scorpid Belt",
+  "pt": "Cinto de Escorpidão Pesado"
+ },
+ {
+  "id": 55569,
+  "en": "Unused AQ40 Leather Belt Test",
+  "pt": "Cinto de Couro de AQ40 Não Utilizado"
+ },
+ {
+  "id": 3269,
+  "en": "Forsaken Maul",
+  "pt": "Martelo dos Renegados"
+ },
+ {
+  "id": 41629,
+  "en": "Hood of the Long Night",
+  "pt": "Capô da Longa Noite"
+ },
+ {
+  "id": 13145,
+  "en": "Enormous Ogre Belt",
+  "pt": "Cinto de Ogro Enorme"
+ },
+ {
+  "id": 51022,
+  "en": "Carefully Written Birthday Card",
+  "pt": "Cartão de Aniversário Cuidadosamente Escrito"
+ },
+ {
+  "id": 4052,
+  "en": "Insignia Cap",
+  "pt": "Cap de Insígnias"
+ },
+ {
+  "id": 1930,
+  "en": "Stonemason Cloak",
+  "pt": "Capa de Pedreiro"
+ },
+ {
+  "id": 58299,
+  "en": "Invoker's Hollow Mantle",
+  "pt": "Manto Oco do Invocador"
+ },
+ {
+  "id": 5466,
+  "en": "Scorpid Stinger",
+  "pt": "Aguilhão de Escorpídeo"
+ },
+ {
+  "id": 7459,
+  "en": "Knight's Pauldrons",
+  "pt": "Ombreiras de Cavaleiro"
+ },
+ {
+  "id": 4080,
+  "en": "Blackforge Cowl",
+  "pt": "Capuz de Forja Negra"
+ },
+ {
+  "id": 21303,
+  "en": "Handbook of Feint V",
+  "pt": "Manual de Finta V"
+ },
+ {
+  "id": 15086,
+  "en": "Wicked Leather Headband",
+  "pt": "Faixa de Couro Perigosa"
+ },
+ {
+  "id": 6782,
+  "en": "Marshal Haggard's Badge",
+  "pt": "Distintivo do Marshal Haggard"
+ },
+ {
+  "id": 14332,
+  "en": "Eternal Crown",
+  "pt": "Coroa Eterna"
+ },
+ {
+  "id": 13019,
+  "en": "Harpyclaw Short Bow",
+  "pt": "Arco Curto Garras de Harpia"
+ },
+ {
+  "id": 54010,
+  "en": "Dissolvent Poison II",
+  "pt": "Veneno Dissolvente II"
+ },
+ {
+  "id": 21206,
+  "en": "Signet Ring of the Bronze Dragonflight",
+  "pt": "Anel de Sinal da Dragonflight Bronze"
+ },
+ {
+  "id": 61604,
+  "en": "Greyshire Pauldrons",
+  "pt": "Omoplatas de Greyshire"
+ },
+ {
+  "id": 30002,
+  "en": "Albino Riding Crocolisk",
+  "pt": "Crocolisco Albinho de Montaria"
+ },
+ {
+  "id": 12826,
+  "en": "Plans: Rune Edge",
+  "pt": "Planos: Lâmina Rúnica"
+ },
+ {
+  "id": 41922,
+  "en": "Bilgerat Weapon",
+  "pt": "Arma Bilgerat"
+ },
+ {
+  "id": 17692,
+  "en": "Horn Ring",
+  "pt": "Anel de Chifre"
+ }
+]

@@ -1,0 +1,407 @@
+[
+ {
+  "id": 70189,
+  "en": "Plans: Fangclaw Relic",
+  "pt": "Planos: Relíquia de Garras de Fangclaw",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70192,
+  "en": "Plans: Mistwood Tiara",
+  "pt": "Planos: Tiara de Madeiras de Névoa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 70213,
+  "en": "Plans: Blazefury Circlet",
+  "pt": "Planos: Circlet de Fúria das Chamas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80443,
+  "en": "Armored Brewfest Ram",
+  "pt": "Carneiro da CervaFest Blindado",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 80455,
+  "en": "Brewfest Kodo",
+  "pt": "Kodo da CervaFest Blindado",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 80526,
+  "en": "Quel'dorei Ranger's Legguards",
+  "pt": "Guardas de Perna do Ranger Quel\\\\'dorei",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80531,
+  "en": "Quel'dorei Guardian's Warhammer",
+  "pt": "Martelo de Guerra do Guardião Quel\\\\'dorei",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80533,
+  "en": "Quel'dorei Guardian's Handaxe",
+  "pt": "Machado de Mão do Guardião Quel\\\\'dorei",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80544,
+  "en": "Quel'dorei Magister's Spellflinger",
+  "pt": "Lanterna de Feitiçaria do Magister Quel\\\\'dorei",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80637,
+  "en": "Revantusk Watcher's Warblade",
+  "pt": "Espada de Guerra do Vigia Revantusk",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80644,
+  "en": "Revantusk Mystic's Mojobender",
+  "pt": "Bender de Mojo do Místico Revantusk",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 80651,
+  "en": "Crystal Veil Platinum",
+  "pt": "Tinta para Cabelo de Elfo Alto: Loiro Cinza",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80652,
+  "en": "Fading Glory Red",
+  "pt": "Tinta para Cabelo de Elfo Alto: Rubi Intenso",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80655,
+  "en": "Too Bright Blonde",
+  "pt": "Tinta para Cabelo de Elfo Alto: Loiro Areia",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80656,
+  "en": "Burnt Promise Red",
+  "pt": "Tinta para Cabelo de Elfo Alto: Vermelho Coral",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80657,
+  "en": "Last Hope Honey",
+  "pt": "Tinta para Cabelo de Elfo Alto: Loiro Mel",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 80735,
+  "en": "Warded Boarleather Belt",
+  "pt": "Cinto de Couro de Javali Protegido",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 81004,
+  "en": "Sandswept Obsidian Dagger",
+  "pt": "Adaga de Obsidiana Levadas pela Areia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 81024,
+  "en": "Dawnbreaker's Wedding Ring",
+  "pt": "Anel de Casamento do Portador da Aurora",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 81186,
+  "en": "Armored Wildhammer Gryphon",
+  "pt": "Grifo Blindado do Pico da Águia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 81210,
+  "en": "Mark of Death I",
+  "pt": "Humano: Cavaleiro da Morte",
+  "sinais": [
+   "romano:['I']->[]"
+  ]
+ },
+ {
+  "id": 81216,
+  "en": "Fur-Lined Orcish Helm",
+  "pt": "Elmo Orc de Forro de Pelúcia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 81225,
+  "en": "Armored Stormwind Warhorse",
+  "pt": "Cavalo de Guerra de Ventobravo Blindado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 81229,
+  "en": "Mark of Death II",
+  "pt": "Anão: Cavaleiro da Morte",
+  "sinais": [
+   "romano:['II']->[]"
+  ]
+ },
+ {
+  "id": 81234,
+  "en": "Brewfest Ram",
+  "pt": "Carneiro da CervaFest",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 81255,
+  "en": "Mark of the Dreadskull Clan III",
+  "pt": "Orc: Crâniossombrio",
+  "sinais": [
+   "wordcount:6->2",
+   "romano:['III']->[]"
+  ]
+ },
+ {
+  "id": 81288,
+  "en": "Mechanist's Bonechopper Replica",
+  "pt": "Rélica do Cortador de Ossos do Mecânico",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 81302,
+  "en": "Third War Footmans Insignia",
+  "pt": "Insígnia do Pé do Combatente da Terceira Guerra",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 83007,
+  "en": "Monster - Item, Frostmourne",
+  "pt": "Item, Frostmourne",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 83026,
+  "en": "Mellow Woolen Dress",
+  "pt": "Máscara de Kazgrim Teste de 0",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83028,
+  "en": "Shadow Lace Blouse",
+  "pt": "Máscara de Kazgrim Teste de 2",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83029,
+  "en": "Pink Lace Skirt",
+  "pt": "Máscara de Kazgrim Teste de 3",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83030,
+  "en": "Pink Lace Camisole",
+  "pt": "Máscara de Kazgrim Teste de 4",
+  "sinais": [
+   "wordcount:3->6",
+   "numero"
+  ]
+ },
+ {
+  "id": 83041,
+  "en": "Shadow Lace Skirt",
+  "pt": "Cinto Orc Kazgrim Teste 1",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 83045,
+  "en": "Icy Lace Camisole",
+  "pt": "Peitoral de Defias de Kazgrim Teste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83047,
+  "en": "Shadow Lace Bodice",
+  "pt": "Calças de Defias de Kazgrim Teste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83048,
+  "en": "White Lace Skirt",
+  "pt": "Luvas de Defias de Kazgrim Teste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83150,
+  "en": "Big Turtle WoW Bear",
+  "pt": "Grande Urso Turtle WoW",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 83222,
+  "en": "Groveweald Elder Cuffs",
+  "pt": "Braceletes do Ancião do Bosque Silvestre",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83236,
+  "en": "Void-Linked Satchel of Goods",
+  "pt": "Alforge Vinculado ao Vazio com Mercadorias",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 83256,
+  "en": "Explorer's League Wristprotectors",
+  "pt": "Protetores de Pulso da Liga dos Exploradores",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 83265,
+  "en": "Demon Hunter's Blindfold",
+  "pt": "Venda do Caçador de Demônios (repetido no original)",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 83481,
+  "en": "Failsafe Activation Key",
+  "pt": "Chave de Ativação de Falha de Segurança",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 83502,
+  "en": "Plans: Rune-Etched Legplates",
+  "pt": "Planos: Placas de Perna de Runas Gravadas",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 83507,
+  "en": "Plans: Bloodstone Warblade",
+  "pt": "Planos: Lâmina de Guerra da Pedra de Sangue",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 83534,
+  "en": "Pattern: Dragonscale Leggings",
+  "pt": "Modelo: Calças de Escama de Dragão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 83535,
+  "en": "Plans: Bloodletter Razor",
+  "pt": "Planos: Navalha de Cortes de Sangue",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 84040,
+  "en": "Le Fishe Au Chocolat",
+  "pt": "Peixe ao Chocolate",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 93088,
+  "en": "Red Serpent Warbrands",
+  "pt": "Marcas de Guerra da Serpente Vermelha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 93100,
+  "en": "Tabard of the Sunsworn",
+  "pt": "Tabardo dos Juramentados ao Sol",
+  "sinais": [
+   "sem-til?"
+  ]
+ }
+]

@@ -1,0 +1,802 @@
+[
+ {
+  "id": 10650,
+  "en": "Plague-Infested Quilboar Mane",
+  "pt": "Mane do Quilboar Infectado pela Peste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 11086,
+  "en": "Jang'thraze the Protector",
+  "pt": "Jambiya",
+  "sinais": [
+   "wordcount:3->1"
+  ]
+ },
+ {
+  "id": 11224,
+  "en": "Formula: Enchant Shield - Frost Resistance",
+  "pt": "Fórmula: Encantamento de Escudo - Resistência ao Gelo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 11446,
+  "en": "A Crumpled Up Note",
+  "pt": "Nota Amassada",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 11830,
+  "en": "Webbed Diemetradon Scale",
+  "pt": "Escama de Diemetradon Coberta de Teia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 11831,
+  "en": "Webbed Pterrordax Scale",
+  "pt": "Escama de Pterrordax Coberta de Teia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 11845,
+  "en": "Handmade Leather Bag",
+  "pt": "Bolsa de Couro Feita à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 11850,
+  "en": "Short Duskbat Cape",
+  "pt": "Capa Curta de Morcego do Crepúsculo",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 11883,
+  "en": "A Dingy Fanny Pack",
+  "pt": "Pochete Suja",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 12163,
+  "en": "Plans: Moonsteel Broadsword",
+  "pt": "Planos: Espada Larga de Aço Lunar",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12185,
+  "en": "Bloodsail Admiral's Hat",
+  "pt": "Chapéu do Almirante dos Vela Sangrenta",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12356,
+  "en": "Highperch Wyvern Egg",
+  "pt": "Ovo de Wyvern do Alto Perto",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12443,
+  "en": "Knucklebone Pouch (DND)",
+  "pt": "Bolsa de Ossos de Knucklebone (DND)",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12563,
+  "en": "Warlord Goretooth's Command",
+  "pt": "Comando de Goretooth, o Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 12733,
+  "en": "Sacred Frostsaber Meat",
+  "pt": "Carne Sagrada de Sabre de Neve",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12771,
+  "en": "Empty Firewater Flask",
+  "pt": "Frasco de Água de Fogo Vazio",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12773,
+  "en": "Ornate Thorium Handaxe",
+  "pt": "Machado de Mão de Torium Ornado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12775,
+  "en": "Huge Thorium Battleaxe",
+  "pt": "Machado de Batalha Gigante de Torium",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12837,
+  "en": "Plans: Masterwork Stormhammer",
+  "pt": "Planos: Martelo Tempestuoso de Obras Mestres",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12900,
+  "en": "Annals of Darrowshire",
+  "pt": "Os Anais da Vila das Flechas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 12907,
+  "en": "Corrupt Moonwell Water",
+  "pt": "Água do Poço da Lua Corrompida",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13006,
+  "en": "Mass of McGowan",
+  "pt": "Massa de McGowan",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 13017,
+  "en": "Hellslayer Battle Axe",
+  "pt": "Machado de Batalha Slayer do Inferno",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13022,
+  "en": "Gryphonwing Long Bow",
+  "pt": "Arco Longo das Asas de Grifo",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13174,
+  "en": "Plagued Flesh Sample",
+  "pt": "Amostra de Carne Infectada pela Peste",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13247,
+  "en": "Quartermaster Zigris' Footlocker",
+  "pt": "Baú de Quartel do Sargento Zigris",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13302,
+  "en": "Market Row Postbox Key",
+  "pt": "Chave da Caixa de Correio da Rua do Mercado",
+  "sinais": [
+   "wordcount:4->9"
+  ]
+ },
+ {
+  "id": 13303,
+  "en": "Crusaders' Square Postbox Key",
+  "pt": "Chave da Caixa de Correio da Praça dos Cruzados",
+  "sinais": [
+   "wordcount:4->9"
+  ]
+ },
+ {
+  "id": 13304,
+  "en": "Festival Lane Postbox Key",
+  "pt": "Chave da Caixa de Correio da Rua do Festival",
+  "sinais": [
+   "wordcount:4->9"
+  ]
+ },
+ {
+  "id": 13306,
+  "en": "King's Square Postbox Key",
+  "pt": "Chave da Caixa Postal da Praça do Rei",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 13307,
+  "en": "Fras Siabi's Postbox Key",
+  "pt": "Chave da Caixa de Correios de Fras Siabi",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 13351,
+  "en": "Crimson Hammersmith's Apron",
+  "pt": "Avental do Ferreiro de Martelos Carmesim",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13388,
+  "en": "The Postmaster's Tunic",
+  "pt": "A Túnica do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13389,
+  "en": "The Postmaster's Trousers",
+  "pt": "As Calças do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13390,
+  "en": "The Postmaster's Band",
+  "pt": "A Aliança do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13391,
+  "en": "The Postmaster's Treads",
+  "pt": "Os Passos do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13392,
+  "en": "The Postmaster's Seal",
+  "pt": "O Selo do Chefe de Correios",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13395,
+  "en": "Skul's Fingerbone Claws",
+  "pt": "Garras de Ossos de Dedo de Skul",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 13397,
+  "en": "Stoneskin Gargoyle Cape",
+  "pt": "Capa do Gárgula Pele de Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13455,
+  "en": "Greater Stoneshield Potion",
+  "pt": "Poção de Escudo de Pedra Maior",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 13498,
+  "en": "Handcrafted Mastersmith Leggings",
+  "pt": "Calças de Mestre Artesão Feitas à Mão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 13502,
+  "en": "Handcrafted Mastersmith Girdle",
+  "pt": "Cinto de Mestre Artesão Feito à Mão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 13507,
+  "en": "Cliffwatcher Longhorn Report",
+  "pt": "Relatório do Chifre Longo Vigia de Penhasco",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 13876,
+  "en": "40 Pound Grouper",
+  "pt": "Garoupa de 18 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13877,
+  "en": "47 Pound Grouper",
+  "pt": "Garoupa de 21 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13878,
+  "en": "53 Pound Grouper",
+  "pt": "Garoupa de 24 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13879,
+  "en": "59 Pound Grouper",
+  "pt": "Garoupa de 27 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13880,
+  "en": "68 Pound Grouper",
+  "pt": "Garoupa de 31 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13882,
+  "en": "42 Pound Redgill",
+  "pt": "Guelruba de 19 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13883,
+  "en": "45 Pound Redgill",
+  "pt": "Guelruba de 20 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13884,
+  "en": "49 Pound Redgill",
+  "pt": "Guelruba de 22 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13885,
+  "en": "34 Pound Redgill",
+  "pt": "Guelruba de 15 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13886,
+  "en": "37 Pound Redgill",
+  "pt": "Guelruba de 17 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13887,
+  "en": "52 Pound Redgill",
+  "pt": "Guelruba de 24 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13901,
+  "en": "15 Pound Salmon",
+  "pt": "Salmão de 7 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13902,
+  "en": "18 Pound Salmon",
+  "pt": "Salmão de 8 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13903,
+  "en": "22 Pound Salmon",
+  "pt": "Salmão de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13904,
+  "en": "25 Pound Salmon",
+  "pt": "Salmão de 11 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13905,
+  "en": "29 Pound Salmon",
+  "pt": "Salmão de 13 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13906,
+  "en": "32 Pound Salmon",
+  "pt": "Salmão de 15 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13907,
+  "en": "7 Pound Lobster",
+  "pt": "Lagosta de 3 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13908,
+  "en": "9 Pound Lobster",
+  "pt": "Lagosta de 4 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13909,
+  "en": "12 Pound Lobster",
+  "pt": "Lagosta de 5 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13910,
+  "en": "15 Pound Lobster",
+  "pt": "Lagosta de 7 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13911,
+  "en": "19 Pound Lobster",
+  "pt": "Lagosta de 9 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13912,
+  "en": "21 Pound Lobster",
+  "pt": "Lagosta de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13913,
+  "en": "22 Pound Lobster",
+  "pt": "Lagosta de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13915,
+  "en": "85 Pound Mightfish",
+  "pt": "Parrudo de 39 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13916,
+  "en": "92 Pound Mightfish",
+  "pt": "Parrudo de 41 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13917,
+  "en": "103 Pound Mightfish",
+  "pt": "Parrudo de 47 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 13922,
+  "en": "Monster - Shield, B01 WoodSteelCap",
+  "pt": "Monster - Shield, B01 WoodSteelCap",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 14339,
+  "en": "Moonwell Water Tube",
+  "pt": "Tubo de Água da Fonte da Lua",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 14445,
+  "en": "Venomshroud Silk Robes",
+  "pt": "Túnica de Seda do Véu de Veneno",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 14482,
+  "en": "Pattern: Cindercloth Cloak",
+  "pt": "Modelo: Manto de Pó de Cindercloth",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 14651,
+  "en": "Deathknell Gift Voucher",
+  "pt": "Cupom de Presente de Vila Plangente",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 14817,
+  "en": "Warstrike Shoulder Pads",
+  "pt": "Almofadas de Ombro de Golpe de Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 15045,
+  "en": "Green Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Verde",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15046,
+  "en": "Green Dragonscale Leggings",
+  "pt": "Calças de Escama de Dragão Verde",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15047,
+  "en": "Red Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Vermelha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15048,
+  "en": "Blue Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Azul",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15049,
+  "en": "Blue Dragonscale Shoulders",
+  "pt": "Espaldares de Escama de Dragão Azul",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15050,
+  "en": "Black Dragonscale Breastplate",
+  "pt": "Peitoral de Escama de Dragão Negra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15051,
+  "en": "Black Dragonscale Shoulders",
+  "pt": "Espaldares de Escama de Dragão Negra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15052,
+  "en": "Black Dragonscale Leggings",
+  "pt": "Perneiras de Escama de Dragão Negra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15277,
+  "en": "Gray Kodo",
+  "pt": "Botas de Couro Cinza D02",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 15418,
+  "en": "Shimmering Platinum Warhammer",
+  "pt": "Martelo de Guerra de Platina Cintilante",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15618,
+  "en": "Bonelink Wall Shield",
+  "pt": "Escudo de Parede Elo de Ossos",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 15866,
+  "en": "Veildust Medicine Bag",
+  "pt": "Bolsa de Medicina de Pó do Véu",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 15924,
+  "en": "Soft-shelled Clam Meat",
+  "pt": "Carne de Molusco de Casca Macia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16345,
+  "en": "High Warlord's Blade",
+  "pt": "Lâmina do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16367,
+  "en": "Knight-Captain's Silk Sash",
+  "pt": "Faixa de Seda do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16369,
+  "en": "Knight-Lieutenant's Silk Boots",
+  "pt": "Botas de Seda do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16370,
+  "en": "Knight-Captain's Silk Cuffs",
+  "pt": "Punhos de Seda do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16391,
+  "en": "Knight-Lieutenant's Silk Gloves",
+  "pt": "Luvas de Seda do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16392,
+  "en": "Knight-Lieutenant's Leather Boots",
+  "pt": "Botas de Couro do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16393,
+  "en": "Knight-Lieutenant's Dragonhide Footwraps",
+  "pt": "Botas de Dragonhide do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16394,
+  "en": "Knight-Captain's Leather Bracers",
+  "pt": "Braçadeiras de Couro do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16395,
+  "en": "Knight-Captain's Dragonhide Armsplints",
+  "pt": "Braçadeiras de Dragonhide do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16396,
+  "en": "Knight-Lieutenant's Leather Gauntlets",
+  "pt": "Manoplas de Couro do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 16397,
+  "en": "Knight-Lieutenant's Dragonhide Gloves",
+  "pt": "Luvas de Dragonhide do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ }
+]

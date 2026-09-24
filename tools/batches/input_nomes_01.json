@@ -1,0 +1,805 @@
+[
+ {
+  "id": 67,
+  "en": "Dragonscale Belt Buckle",
+  "pt": "Fivela de Cinto de Escamas de Dragão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 88,
+  "en": "Plans: Dragonscale Belt Buckle",
+  "pt": "Receita: Fivela de Cinto de Escama de Dragão",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 745,
+  "en": "Marshal McBride's Documents",
+  "pt": "Documentos do Marshal McBride",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 826,
+  "en": "Brutish Riverpaw Axe",
+  "pt": "Machado do Pata de Rio Rústico",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 932,
+  "en": "Fel Steed Saddlebags",
+  "pt": "Saco de Selim do Cavalo Fel",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 1726,
+  "en": "Poison-tipped Bone Spear",
+  "pt": "Lança de Ossos com Ponta Envenenada",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 1812,
+  "en": "Short-handled Battle Axe",
+  "pt": "Machado de Batalha de Cabo Curto",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 1955,
+  "en": "Dragonmaw Chain Boots",
+  "pt": "Botas de Corrente da Boca do Dragão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 2302,
+  "en": "Handstitched Leather Boots",
+  "pt": "Botas de Couro Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 2303,
+  "en": "Handstitched Leather Pants",
+  "pt": "Calças de Couro Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 2667,
+  "en": "MacGrann's Dried Meats",
+  "pt": "Carnes Secas de MacGrann",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 2833,
+  "en": "The Lich's Spellbook",
+  "pt": "O Livro de Feitiços do Lich",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 2869,
+  "en": "Silvered Bronze Breastplate",
+  "pt": "Peitoral de Bronze Revestido de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3024,
+  "en": "BKP 2700 \"Enforcer\"",
+  "pt": "\\",
+  "sinais": [
+   "wordcount:3->1",
+   "numero"
+  ]
+ },
+ {
+  "id": 3025,
+  "en": "BKP 42 \"Ultra\"",
+  "pt": "\\",
+  "sinais": [
+   "wordcount:3->1",
+   "numero"
+  ]
+ },
+ {
+  "id": 3037,
+  "en": "Whipwood Recurve Bow",
+  "pt": "Arco Recurvo de Madeira de Chicote",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3048,
+  "en": "Lambent Scale Legguards",
+  "pt": "Protetores de Perna de Escama Lambente",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3273,
+  "en": "Rugged Mail Vest",
+  "pt": "Colete de Cota de Malha Rugosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3325,
+  "en": "Vile Fin Battle Axe",
+  "pt": "Protetor Vis",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 3327,
+  "en": "Vile Fin Oracle Staff",
+  "pt": "Ferroada Vil",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 3337,
+  "en": "Dragonmaw War Banner",
+  "pt": "Estandarte de Guerra da Boca do Dragão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 3412,
+  "en": "Webwood Spider Silk",
+  "pt": "Seda de Aranha de Madeira Teia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3458,
+  "en": "Rugged Mail Gloves",
+  "pt": "Luvas de Cota de Malha Rugosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3474,
+  "en": "Gemmed Copper Gauntlets",
+  "pt": "Manoplas de Cobre Encrustadas com Gemas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3481,
+  "en": "Silvered Bronze Shoulders",
+  "pt": "Ombreiras de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3482,
+  "en": "Silvered Bronze Boots",
+  "pt": "Botas de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3483,
+  "en": "Silvered Bronze Gauntlets",
+  "pt": "Manoplas de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3538,
+  "en": "Gray Leather D02 Breastplate",
+  "pt": "Carneiro Cinza",
+  "sinais": [
+   "wordcount:4->2",
+   "numero"
+  ]
+ },
+ {
+  "id": 3637,
+  "en": "Head of VanCleef",
+  "pt": "Cabeça de VanCleef",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 3866,
+  "en": "Plans: Jade Serpentblade",
+  "pt": "Planos: Lâmina de Serpente de Jade",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4077,
+  "en": "Mail Combat Headguard",
+  "pt": "Protetor de Cabeça de Combate de Mail",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 4186,
+  "en": "Tablet of Fire Resistance",
+  "pt": "Tablete de Resistência ao Fogo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 4237,
+  "en": "Handstitched Leather Belt",
+  "pt": "Cinto de Couro Costurado à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4262,
+  "en": "Gem-studded Leather Belt",
+  "pt": "Cinto de Couro Com Pedras Preciosas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4309,
+  "en": "Handstitched Linen Britches",
+  "pt": "Calças de Linho Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4312,
+  "en": "Soft-soled Linen Boots",
+  "pt": "Botas de Linho de Sola Macia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4314,
+  "en": "Double-stitched Woolen Shoulders",
+  "pt": "Ombreiras de Lã de Costura Dupla",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4441,
+  "en": "MacKreel's Moonshine",
+  "pt": "Cachaça de MacKreel",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 4543,
+  "en": "White Drakeskin Cap",
+  "pt": "Capacete de Pele de Dragão Branco",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4553,
+  "en": "Jagged Piece of Stone",
+  "pt": "Adaga Dentada",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 4623,
+  "en": "Lesser Stoneshield Potion",
+  "pt": "Poção Menor de Escudo de Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4747,
+  "en": "Stormbull Well Water",
+  "pt": "Água do Poço do Touro Tempestuoso",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4886,
+  "en": "Venomtail Poison Sac",
+  "pt": "Saco de Veneno de Cauda Venenosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4914,
+  "en": "Battleworn Leather Gloves",
+  "pt": "Luvas de Couro Desgastadas pela Batalha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4917,
+  "en": "Battleworn Chain Leggings",
+  "pt": "Calças de Corrente Desgastadas pela Batalha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4930,
+  "en": "Handmade Leather Bag",
+  "pt": "Bolsa de Couro Feita à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5166,
+  "en": "Webwood Venom Sac",
+  "pt": "Saco de Veneno de Madeira Teia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5331,
+  "en": "OLDBlackfathom MAGIC Relic",
+  "pt": "Relíquia de Magia Antiga do Blackfathom",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5415,
+  "en": "Thunderhorn Cleansing Totem",
+  "pt": "Totem de Purificação do Chifre do Trovão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 5740,
+  "en": "Red Fireworks Rocket",
+  "pt": "Foguete de Fogo de Artifício Vermelho",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5808,
+  "en": "Pridewing Venom Sac",
+  "pt": "Saco de Veneno da Asa Orgulhosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5809,
+  "en": "Highperch Venom Sac",
+  "pt": "Saco de Veneno do Alto Perto",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5884,
+  "en": "Unpopped Darkmist Eye",
+  "pt": "Olho de Névoa Negra Não Estourado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5957,
+  "en": "Handstitched Leather Vest",
+  "pt": "Colete de Couro Costurado à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6048,
+  "en": "Shadow Protection Potion",
+  "pt": "Poção de Proteção Contra as Sombras",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6232,
+  "en": "Monster - Item, Flowers  - Boquet Roses",
+  "pt": "Monster - Item, Flowers  - Boquet Roses",
+  "sinais": [
+   "espaco-duplo"
+  ]
+ },
+ {
+  "id": 6233,
+  "en": "Monster - Item, Flowers  - Boquet Wildflowers",
+  "pt": "Monster - Item, Flowers  - Boquet Wildflowers",
+  "sinais": [
+   "espaco-duplo"
+  ]
+ },
+ {
+  "id": 6237,
+  "en": "Monster - Item, Flowers  - Boquet Roses (Black)",
+  "pt": "Monster - Item, Flowers  - Boquet Roses (Black)",
+  "sinais": [
+   "espaco-duplo"
+  ]
+ },
+ {
+  "id": 6292,
+  "en": "10 Pound Mud Snapper",
+  "pt": "Pargo Barrento de 4 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6294,
+  "en": "12 Pound Mud Snapper",
+  "pt": "Pargo Barrento de 5 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6295,
+  "en": "15 Pound Mud Snapper",
+  "pt": "Pargo Barrento de 7 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6301,
+  "en": "Old Teamster's Skull",
+  "pt": "Crânio do Antigo Mestre de Equipe",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6309,
+  "en": "17 Pound Catfish",
+  "pt": "Bagre de 8 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6310,
+  "en": "19 Pound Catfish",
+  "pt": "Bagre de 9 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6311,
+  "en": "22 Pound Catfish",
+  "pt": "Bagre de 10 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6363,
+  "en": "26 Pound Catfish",
+  "pt": "Bagre de 12 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6364,
+  "en": "32 Pound Catfish",
+  "pt": "Bagre de 15 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 6366,
+  "en": "Darkwood Fishing Pole",
+  "pt": "Vara de Pesca de Madeira Sombria",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6449,
+  "en": "Glowing Lizardscale Cloak",
+  "pt": "Capa de Escama de Lagarto Brilhante",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6544,
+  "en": "Voidwalker Summoning Scroll",
+  "pt": "Pergaminho de Invocação de Emissário do Caos",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 6648,
+  "en": "Stoneskin Totem Scroll",
+  "pt": "Pergaminho do Totem Pele de Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6726,
+  "en": "Razzeric's Customized Seatbelt",
+  "pt": "Cinto de Segurança Personalizado de Razzeric",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 6996,
+  "en": "Jordan's Weapon Notes",
+  "pt": "Remessa de Minério Refinado de Jordan",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 7187,
+  "en": "VanCleef's Boots",
+  "pt": "Botas de VanCleef",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 7276,
+  "en": "Handstitched Leather Cloak",
+  "pt": "Capa de Couro Costurada à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 7277,
+  "en": "Handstitched Leather Bracers",
+  "pt": "Braçadeiras de Couro Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 7810,
+  "en": "Vial of Purest Water",
+  "pt": "Pluma Vibrante",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 8483,
+  "en": "Wastewander Water Pouch",
+  "pt": "Bolsa de Água do Vagante do Deserto",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 8503,
+  "en": "Heavy Bronze Lotterybox",
+  "pt": "Caixa de Sorteio de Bronze Pesado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 8505,
+  "en": "Heavy Iron Lotterybox",
+  "pt": "Caixa de Sorteio de Ferro Pesado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 8507,
+  "en": "Heavy Mithril Lotterybox",
+  "pt": "Caixa de Sorteio de Mithril Pesado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 8684,
+  "en": "Hinterlands Honey Ripple",
+  "pt": "Ripple de Mel das Terras de Hinterlands",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 9066,
+  "en": "Tablet of Frost Resistance Totem",
+  "pt": "Tablete do Totem de Resistência ao Gelo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9075,
+  "en": "Tablet of Fire Resistance Totem",
+  "pt": "Tablete do Totem de Resistência ao Fogo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9127,
+  "en": "Tablet of Fire Resistance Totem II",
+  "pt": "Tablete do Totem de Resistência ao Fogo II",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9158,
+  "en": "Tablet of Frost Resistance Totem III",
+  "pt": "Tablete do Totem de Resistência ao Gelo III",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9170,
+  "en": "Tablet of Fire Resistance Totem III",
+  "pt": "Tablete do Totem de Resistência ao Fogo III",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9185,
+  "en": "Tablet of Frost Resistance Totem II",
+  "pt": "Tablete do Totem de Resistência ao Gelo II",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 9314,
+  "en": "Red Streaks Firework",
+  "pt": "Fogo de Artifício com Faixas Vermelhas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9336,
+  "en": "Gold-capped Troll Tusk",
+  "pt": "Presas de Troll com Ouro na Ponta",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 9375,
+  "en": "Expert Goldminer's Helmet",
+  "pt": "Capacete do Garimpeiro de Ouro de Especialista",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 9627,
+  "en": "Explorer's League Lodestar",
+  "pt": "Estrela Guia da Liga dos Exploradores",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9630,
+  "en": "Pratt's Handcrafted Boots",
+  "pt": "Botas Feitas à Mão de Pratt",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9631,
+  "en": "Pratt's Handcrafted Gloves",
+  "pt": "Luvas Feitas à Mão de Pratt",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 9651,
+  "en": "Gryphon Rider's Stormhammer",
+  "pt": "Martelo de Tempestade do Cavaleiro do Grifo",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 10406,
+  "en": "Scaled Leather Headband",
+  "pt": "Faixa de Cabeça de Couro Escamado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10423,
+  "en": "Silvered Bronze Leggings",
+  "pt": "Calças de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10510,
+  "en": "Mithril Heavy-bore Rifle",
+  "pt": "Rifle de Alta Potência de Mithril",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10512,
+  "en": "Hi-Impact Mithril Slugs",
+  "pt": "Balas de Mithril de Alto Impacto",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 10608,
+  "en": "Schematic: Sniper Scope",
+  "pt": "Esquema: Escopo de Atirador de Elite",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ }
+]

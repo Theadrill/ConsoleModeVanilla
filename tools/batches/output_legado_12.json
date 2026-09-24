@@ -1,0 +1,202 @@
+[
+  {
+    "en": "Reduces the casting speed of nearby enemies by $s1% for $d.",
+    "pt": "Reduz a velocidade de lançamento dos inimigos próximos em $s1% por $d."
+  },
+  {
+    "en": "Reduces the cooldown of Exorcism by $/1000;s1 seconds.",
+    "pt": "Reduz o tempo de recarga de Exorcismo em $s1 segundos."
+  },
+  {
+    "en": "Reduces the cooldown of Rebirth by $/60000;s1 minutes.",
+    "pt": "Reduz o tempo de recarga de Renascer em $s1 minutos."
+  },
+  {
+    "en": "Reduces the cooldown of Reincarnation by $/60000;s1 minutes.",
+    "pt": "Reduz o tempo de recarga de Reencarnação em $s1 minutos."
+  },
+  {
+    "en": "Reduces the cooldown of Swiftmend by $/1000;s1 seconds.",
+    "pt": "Reduz o tempo de recarga de Recuperação em $s1 segundos."
+  },
+  {
+    "en": "Reduces the cooldown of the next Holy Shock by $s1%.",
+    "pt": "Reduz o tempo de recarga do seu próximo Choque Sagrado em $s1%."
+  },
+  {
+    "en": "Reduces the cooldown of your Dark Harvest by $/1000;s1 sec.",
+    "pt": "Reduz o tempo de recarga da sua Colheita Sombria em $s1 segundos."
+  },
+  {
+    "en": "Reduces the cooldown of your Fade ability by $/1000;s1 sec.",
+    "pt": "Reduz o tempo de recarga da sua habilidade Esvaecer em $s1 segundos."
+  },
+  {
+    "en": "Reduces the cooldown of your Gouge ability by $/1000;s1 sec.",
+    "pt": "Reduz o tempo de recarga da sua habilidade Goiva em $s1 segundos."
+  },
+  {
+    "en": "Reduces the cooldown of your Tranquility and Hurricane spells by $s1%.",
+    "pt": "Reduz o tempo de recarga das suas magias Tranquilidade e Furacão em $s1%."
+  },
+  {
+    "en": "Reduces the cost of Consecration by $s1%.",
+    "pt": "Reduz o custo de Consagração em $s1%."
+  },
+  {
+    "en": "Reduces the cost of your instant cast spells by $s1%.",
+    "pt": "Reduz o custo das suas magias de lançamento instantâneo em $s1%."
+  },
+  {
+    "en": "Reduces the damage dealt by an enemy by $s1% for $d.",
+    "pt": "Reduz o dano causado por um inimigo em $s1% por $d."
+  },
+  {
+    "en": "Reduces the effectiveness of any healing by $s1% for $d.",
+    "pt": "Reduz a eficácia de qualquer cura em $s1% por $d."
+  },
+  {
+    "en": "Reduces the energy cost of Claw and Rake by $s1.",
+    "pt": "Reduz o custo de energia de Garra e Ancinha em $s1."
+  },
+  {
+    "en": "Reduces the energy cost of Tiger's Fury by $s1.",
+    "pt": "Reduz o custo de energia da Fúria do Tigre em $s1."
+  },
+  {
+    "en": "Reduces the global cooldown of your next Holy Shock.",
+    "pt": "Reduz o tempo de recarga global do seu próximo Choque Sagrado."
+  },
+  {
+    "en": "Reduces the magical damage taken by the caster by $s1% for $d.",
+    "pt": "Reduz o dano mágico recebido pelo lançador em $s1% por $d."
+  },
+  {
+    "en": "Reduces the mana cost of Moonfire by $s1%.",
+    "pt": "Reduz o custo de mana de Fogofátuo em $s1%."
+  },
+  {
+    "en": "Reduces the mana cost of your Arcane Shot by $s1.",
+    "pt": "Reduz o custo de mana do seu Tiro Arcano em $s1."
+  },
+  {
+    "en": "Reduces the mana cost of your Chain Heal spell by $s1%.",
+    "pt": "Reduz o custo de mana da sua magia Cura Encadeada em $s1%."
+  },
+  {
+    "en": "Reduces the mana cost of your Cleanse spell by $s1.",
+    "pt": "Reduz o custo de mana da sua magia Purificar em $s1."
+  },
+  {
+    "en": "Reduces the mana cost of your Holy Light spell by $s1%.",
+    "pt": "Reduz o custo de mana da sua magia Luz Sagrada em $s1%."
+  },
+  {
+    "en": "Reduces the mana cost of your Mind Blast by $s1% for $d.",
+    "pt": "Reduz o custo de mana do seu Estouro Mental em $s1% por $d."
+  },
+  {
+    "en": "Reduces the mana cost of your Seal spells by $s1.",
+    "pt": "Reduz o custo de mana das suas magias de Selo em $s1."
+  },
+  {
+    "en": "Reduces the mana cost of your nature spells by $s.",
+    "pt": "Reduz o custo de mana das suas magias de Natureza em $s1."
+  },
+  {
+    "en": "Reduces the mana cost of your next Wrath by 50%.",
+    "pt": "Reduz o custo de mana da sua próxima Ira em 50%."
+  },
+  {
+    "en": "Reduces the mana cost of your spells by $s1%.",
+    "pt": "Reduz o custo de mana das suas magias em $s1%."
+  },
+  {
+    "en": "Reduces the mana cost of your totem spells by $s1%.",
+    "pt": "Reduz o custo de mana das suas magias de totem em $s1%."
+  },
+  {
+    "en": "Reduces the rage cost of Maul and Swipe by 3.",
+    "pt": "Reduz o custo de fúria de Patada e Golpe em 3."
+  },
+  {
+    "en": "Reduces the rage cost of Sunder Armor, Whirlwind and Heroic Strike by $s1.",
+    "pt": "Reduz o custo de fúria de Romper Armadura, Redemoinho e Golpe Heroico em $s1."
+  },
+  {
+    "en": "Reduces the resist chance of Enslave Demon by $s1%.",
+    "pt": "Reduz a chance de resistência de Escravizar Demônio em $s1%."
+  },
+  {
+    "en": "Reduces the stats of an enemy by $s1%.",
+    "pt": "Reduz os atributos de um inimigo em $s1%."
+  },
+  {
+    "en": "Reduces the stats of nearby enemies by $s1.",
+    "pt": "Reduz os atributos dos inimigos próximos em $s1."
+  },
+  {
+    "en": "Reduces the threat from your Backstab, Sinister Strike, Hemorrhage, and Eviscerate abilities.",
+    "pt": "Reduz a ameaça gerada pelas suas habilidades Apunhalar Pelas Costas, Golpe Sinistro, Hemorragia e Eviscerar."
+  },
+  {
+    "en": "Reduces the threat from your healing spells.",
+    "pt": "Reduz a ameaça gerada pelas suas magias de cura."
+  },
+  {
+    "en": "Reduces the threat generated by your spells by $s1% for $d.",
+    "pt": "Reduz a ameaça gerada pelas suas magias em $s1% por $d."
+  },
+  {
+    "en": "Reduces the threat you generate by $s1% for $d.",
+    "pt": "Reduz a ameaça que você gera em $s1% por $d."
+  },
+  {
+    "en": "Reduces the time between periodic ticks and duration of Rake and Rip by $s1%.",
+    "pt": "Reduz o intervalo entre os pulsos periódicos e a duração de Ancinha e Estraçalhar em $s1%."
+  },
+  {
+    "en": "Reflect fire and arcane spells back at the caster",
+    "pt": "Reflete magias de Fogo e Arcano de volta ao lançador."
+  },
+  {
+    "en": "Reflect shadow and frost spells back at their caster",
+    "pt": "Reflete magias de Sombra e Gelo de volta ao lançador."
+  },
+  {
+    "en": "Removes one Fear, Polymorph, or Sleep effect.",
+    "pt": "Remove um efeito de Medo, Polimorfia ou Sono."
+  },
+  {
+    "en": "Removes one Stun, Slowing, or Immobilizing effect.",
+    "pt": "Remove um efeito de Atordoamento, Lentidão ou Imobilização."
+  },
+  {
+    "en": "Renders the caster invisible.",
+    "pt": "Torna o lançador invisível."
+  },
+  {
+    "en": "Restores $/5;s1 mana every sec.",
+    "pt": "Restaura $s1 de mana a cada segundo."
+  },
+  {
+    "en": "Restores $s1 health. Can only be used at 10% health.",
+    "pt": "Restaura $s1 de pontos de vida. Só pode ser usado com 10% de vida."
+  },
+  {
+    "en": "Reveal temporal parasites near grain silos in Andorhal.",
+    "pt": "Revela parasitas temporais próximos aos silos de grãos em Andorhal."
+  },
+  {
+    "en": "Reveal the spirits that haunt the ruins of Terrordale.",
+    "pt": "Revela os espíritos que assombram as ruínas de Terrordale."
+  },
+  {
+    "en": "Revived from death, this raptor’s fury knows no bounds.",
+    "pt": "Trazido de volta da morte, a fúria deste raptor não conhece limites."
+  },
+  {
+    "en": "Right Click to combine 10 Dwarven Homebrews into a Case of Homebrew.",
+    "pt": "Clique com o botão direito para combinar 10 Cervejas Caseiras Anãs em uma Caixa de Cerveja Caseira."
+  }
+]

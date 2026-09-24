@@ -27,8 +27,16 @@ def unescape_lua(s):
 def main():
     rodada = int(sys.argv[1]) if len(sys.argv) > 1 else 1
     n = int(sys.argv[2]) if len(sys.argv) > 2 else 300
-    queue = json.loads((ADDON_DIR / "tools" / "nomes_queue.json").read_text(encoding="utf-8"))
+    # Lê a fila da rodada atual (nomes_queue.json = R1; nomes_queue_rX.json = R2+)
+    qpath = ("nomes_queue_r%d.json" % rodada) if rodada >= 2 else "nomes_queue.json"
+    queue = json.loads((ADDON_DIR / "tools" / qpath).read_text(encoding="utf-8"))
     sus = set(q["id"] for q in queue)
+    # Exclui também itens já corrigidos (overrides) para não re-amostrar
+    try:
+        over = json.loads((ADDON_DIR / "tools" / "nomes_overrides.json").read_text(encoding="utf-8"))
+        sus |= set(int(k) for k in over.keys())
+    except OSError:
+        pass
     pt = {}
     src = (ADDON_DIR / "Data" / "ItemDB_ptBR.lua").read_text(encoding="utf-8")
     for m in re.finditer(r"\[(\d+)\]\s*=\s*\"([^\"]*)\"", src):

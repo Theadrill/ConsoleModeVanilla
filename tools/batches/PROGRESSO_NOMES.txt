@@ -1,0 +1,47 @@
+﻿N01 | 100 (15c/85m) | OK (2 GM-test rejeitados: aspa crua)
+N02 | 100 (26c/74m) | OK
+N03 | 100 (77c/23m) | OK
+N04 | 100 (26c/74m) | OK
+N05 | 100 (39c/61m) | OK
+N06 | 100 (45c/55m) | OK (tool: regex p/ aspas escapadas + 3 linhas reparadas)
+N07 | 50 (20c/30m) | OK (SUSPEITOS 650/650 JULGADOS)
+AMOSTRA-01 | 300 (103c/197m, escape 34.3%) | OK (5 arbitragens: 1 Cenariano rej., 4 Pattern quarentena)
+MIGRACAO Pattern->Molde (371 itens, decisão usuário) | detector: trava pattern!=molde
+R2-01 | 100 (62c/38m) | OK
+R2-02 | 100 (59c/41m) | OK (6 Tablete rej.)
+R2-03 | 100 (78c/22m) | OK
+R2-04 | 100 (49c/51m) | OK
+R2-05 | 100 (50c/50m) | OK
+R2-06 | 100 (55c/45m) | OK
+R2-07 | 100 (36c/64m) | OK
+R2-08 | 100 (62c/38m) | OK
+R2-09 | 100 (82c/18m) | OK
+R2-10 | 65 (38c/27m) | OK (RODADA 2 JULGADA: 965/965)
+AMOSTRA-02 | 300 (82c/218m, escape 27.3%) | OK (4 arbitragens: Dracox2, Frostwolf/Rank mantidos)
+R3-01 | 100 (26c/74m) | OK
+R3-02 | 100 (37c/63m) | OK (Mageweave=Magitrama oficial, Thorium=Tório)
+R3-03 | 100 (16c/84m) | OK
+R3-04 | 100 (33c/67m) | OK
+R3-05 | 100 (25c/75m) | OK
+R3-06 | 98 (24c/74m) | OK (RODADA 3 JULGADA: 598/598)
+AMOSTRA-03 | 300 (107c/193m, escape 35.7%) | OK
+R4-01 | 100 (34c/66m) | OK (Warchief=Chefe de Guerra oficial)
+R4-02 | 100 (34c/66m) | OK
+R4-03 | 100 (40c/60m) | OK
+R4-04 | 100 (30c/70m) | OK
+R4-05 | 100 (52c/48m) | OK
+R4-06 | 100 (34c/66m) | OK
+R4-07 | 66 (19c/47m) | OK (RODADA 4 JULGADA: 666/666)
+AMOSTRA-04 | 300 (99c/201m, escape 33.0%) | OK
+R5-01 | 100 (8c/92m) | OK
+R5-02 | 100 (22c/78m) | OK
+R5-03 | 100 (10c/90m) | OK
+R5-04 | 100 (5c/95m) | OK
+R5-05 | 100 (17c/83m) | OK
+R5-06 | 100 (40c/60m) | OK
+R5-07 | 100 (46c/54m) | OK
+R5-08 | 100 (27c/73m) | OK
+R5-09 | 100 (52c/48m) | OK
+R5-10 | 83 (39c/44m) | OK (RODADA 5 JULGADA: 983/983)
+AMOSTRA-05 | 300 (168c/132m, escape 56.0%) | OK (3 arbitragens tech-lead: Tablete, Esquema:, Anel de Sinete)
+R6-01 | 100 (10c/90m) | OK

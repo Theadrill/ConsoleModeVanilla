@@ -1,0 +1,802 @@
+[
+ {
+  "id": 65,
+  "en": "Dragonmaw Armor Kit",
+  "pt": "Kit de Armadura Dragonmaw",
+  "sinais": [
+   "tok-remnant:dragonmaw=>Presa do Dragão"
+  ]
+ },
+ {
+  "id": 67,
+  "en": "Dragonscale Belt Buckle",
+  "pt": "Fivela de Cinto de Escamas de Dragão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 143,
+  "en": "Monster - Shield, Stormwind Guard",
+  "pt": "Monster - Shield, Stormwind Guard",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 1318,
+  "en": "Night Reaver",
+  "pt": "Reaver Noturno",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 1715,
+  "en": "Polished Jazeraint Armor",
+  "pt": "Armadura Jazeraint Polida",
+  "sinais": [
+   "jazeraint?"
+  ]
+ },
+ {
+  "id": 1726,
+  "en": "Poison-tipped Bone Spear",
+  "pt": "Lança de Ossos com Ponta Envenenada",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 1812,
+  "en": "Short-handled Battle Axe",
+  "pt": "Machado de Batalha de Cabo Curto",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 1820,
+  "en": "Wooden Maul",
+  "pt": "Maul de Madeira",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 1826,
+  "en": "Rock Maul",
+  "pt": "Maul de Rocha",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 1895,
+  "en": "Monster - Sword, Short Rusty",
+  "pt": "Monster - Sword, Short Rusty",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 1896,
+  "en": "Monster - Sword, Short Basic",
+  "pt": "Monster - Sword, Short Basic",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 1897,
+  "en": "Monster - Sword, Scimitar Basic",
+  "pt": "Monster - Sword, Scimitar Basic",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 1899,
+  "en": "Monster - Sword, Long Basic",
+  "pt": "Monster - Sword, Long Basic",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 1900,
+  "en": "Monster - Thieves Blade",
+  "pt": "Monster - Thieves Blade",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 1907,
+  "en": "Monster - Staff, Basic",
+  "pt": "Monster - Staff, Basic",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 1908,
+  "en": "Monster - Staff, Crooked",
+  "pt": "Monster - Staff, Crooked",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 1957,
+  "en": "Monster - Shield, Small Wooden",
+  "pt": "Monster - Shield, Small Wooden",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 1961,
+  "en": "Monster - Shield, Buckler Wooden",
+  "pt": "Monster - Shield, Buckler Wooden",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 1984,
+  "en": "Monster - Shield, Kite Metal",
+  "pt": "Monster - Shield, Kite Metal",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 1985,
+  "en": "Monster - Shield, Large Wooden",
+  "pt": "Monster - Shield, Large Wooden",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 1994,
+  "en": "Ebonclaw Reaver",
+  "pt": "Reaver de Garra Ebano",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 2051,
+  "en": "Monster - Shield, Small Wooden Damaged",
+  "pt": "Monster - Shield, Small Wooden Damaged",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 2052,
+  "en": "Monster - Shield, Small Metal Damaged",
+  "pt": "Monster - Shield, Small Metal Damaged",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 2053,
+  "en": "Monster - Shield, Buckler Metal Damaged",
+  "pt": "Monster - Shield, Buckler Metal Damaged",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 2058,
+  "en": "Kazon's Maul",
+  "pt": "Maul de Kazon",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 2081,
+  "en": "Monster - Torch, Offhand",
+  "pt": "Monster - Torch, Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 2147,
+  "en": "Monster - Sword, Falchion",
+  "pt": "Monster - Sword, Falchion",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 2176,
+  "en": "Monster - Staff, Ornate Priest Staff",
+  "pt": "Monster - Staff, Ornate Priest Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 2177,
+  "en": "Monster - Staff, Ornate Mage Staff",
+  "pt": "Monster - Staff, Ornate Mage Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 2178,
+  "en": "Monster - Sword, Long Ornate",
+  "pt": "Monster - Sword, Long Ornate",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 2179,
+  "en": "Monster - Sword, Scimitar Badass",
+  "pt": "Monster - Sword, Scimitar Badass",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 2180,
+  "en": "Monster - Sword, Short Ornate",
+  "pt": "Monster - Sword, Short Ornate",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 2184,
+  "en": "Monster - Dagger Basic",
+  "pt": "Monster - Dagger Basic",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 2200,
+  "en": "Monster - Item, Potion Green",
+  "pt": "Monster - Item, Potion Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 2201,
+  "en": "Monster - Item, Vial Black",
+  "pt": "Monster - Item, Vial Black",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 2302,
+  "en": "Handstitched Leather Boots",
+  "pt": "Botas de Couro Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 2303,
+  "en": "Handstitched Leather Pants",
+  "pt": "Calças de Couro Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 2559,
+  "en": "Monster - Staff, Ornate Warlock Staff",
+  "pt": "Monster - Staff, Ornate Warlock Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 2667,
+  "en": "MacGrann's Dried Meats",
+  "pt": "Carnes Secas de MacGrann",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 2711,
+  "en": "Monster - Dagger Badass",
+  "pt": "Monster - Dagger Badass",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 2716,
+  "en": "Monster - Item, Bottle - Green",
+  "pt": "Monster - Item, Bottle - Green",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 2717,
+  "en": "Monster - Item, Bottle - Black",
+  "pt": "Monster - Item, Bottle - Black",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 2833,
+  "en": "The Lich's Spellbook",
+  "pt": "O Livro de Feitiços do Lich",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 2869,
+  "en": "Silvered Bronze Breastplate",
+  "pt": "Peitoral de Bronze Revestido de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3044,
+  "en": "OLDMonster - Mace, Standard Basic Offhand",
+  "pt": "OLDMonster - Mace, Standard Basic Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 3048,
+  "en": "Lambent Scale Legguards",
+  "pt": "Protetores de Perna de Escama Lambente",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3164,
+  "en": "Discolored Worg Heart",
+  "pt": "Coração de Worg Descolorido",
+  "sinais": [
+   "tok-remnant:worg=>Worg"
+  ]
+ },
+ {
+  "id": 3243,
+  "en": "OLDMonster - Legs, Plate Silver",
+  "pt": "OLDMonster - Legs, Plate Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 3244,
+  "en": "OLDMonster - Feet, Plate Silver",
+  "pt": "OLDMonster - Feet, Plate Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 3245,
+  "en": "OLDMonster - Hands, Plate Silver",
+  "pt": "OLDMonster - Hands, Plate Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 3246,
+  "en": "OLDMonster - Shoulder, Plate Silver",
+  "pt": "OLDMonster - Shoulder, Plate Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 3247,
+  "en": "OLDMonster - Waist, Plate Silver",
+  "pt": "OLDMonster - Waist, Plate Silver",
+  "sinais": [
+   "tok-remnant:silver=>Prata"
+  ]
+ },
+ {
+  "id": 3273,
+  "en": "Rugged Mail Vest",
+  "pt": "Colete de Cota de Malha Rugosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3364,
+  "en": "Monster - Sword, Rapier",
+  "pt": "Monster - Sword, Rapier",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 3432,
+  "en": "Monster - Glaive - 1 Blade Basic",
+  "pt": "Monster - Glaive - 1 Blade Basic",
+  "sinais": [
+   "tok-remnant:blade=>Lâmina"
+  ]
+ },
+ {
+  "id": 3458,
+  "en": "Rugged Mail Gloves",
+  "pt": "Luvas de Cota de Malha Rugosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3474,
+  "en": "Gemmed Copper Gauntlets",
+  "pt": "Manoplas de Cobre Encrustadas com Gemas",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3481,
+  "en": "Silvered Bronze Shoulders",
+  "pt": "Ombreiras de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3482,
+  "en": "Silvered Bronze Boots",
+  "pt": "Botas de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3483,
+  "en": "Silvered Bronze Gauntlets",
+  "pt": "Manoplas de Bronze Revestidas de Prata",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 3637,
+  "en": "Head of VanCleef",
+  "pt": "Cabeça de VanCleef",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 3694,
+  "en": "Monster - Item, Vial Black Offhand",
+  "pt": "Monster - Item, Vial Black Offhand",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 3695,
+  "en": "Monster - Item, Vial Purple Offhand",
+  "pt": "Monster - Item, Vial Purple Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 3697,
+  "en": "Monster - Item, Potion Blue Offhand",
+  "pt": "Monster - Item, Potion Blue Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 3698,
+  "en": "Monster - Item, Potion Green Offhand",
+  "pt": "Monster - Item, Potion Green Offhand",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 3756,
+  "en": "Monster - Item, Bottle - Black Offhand",
+  "pt": "Monster - Item, Bottle - Black Offhand",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 3757,
+  "en": "Monster - Item, Bottle - Green Offhand",
+  "pt": "Monster - Item, Bottle - Green Offhand",
+  "sinais": [
+   "tok-remnant:green=>Verde"
+  ]
+ },
+ {
+  "id": 3851,
+  "en": "Solid Iron Maul",
+  "pt": "Maul de Ferro Sólido",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 4186,
+  "en": "Tablet of Fire Resistance",
+  "pt": "Tablete de Resistência ao Fogo",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 4237,
+  "en": "Handstitched Leather Belt",
+  "pt": "Cinto de Couro Costurado à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4309,
+  "en": "Handstitched Linen Britches",
+  "pt": "Calças de Linho Costuradas à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4312,
+  "en": "Soft-soled Linen Boots",
+  "pt": "Botas de Linho de Sola Macia",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4314,
+  "en": "Double-stitched Woolen Shoulders",
+  "pt": "Ombreiras de Lã de Costura Dupla",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4441,
+  "en": "MacKreel's Moonshine",
+  "pt": "Cachaça de MacKreel",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 4568,
+  "en": "Grunt Axe",
+  "pt": "Machado de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 4623,
+  "en": "Lesser Stoneshield Potion",
+  "pt": "Poção Menor de Escudo de Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4747,
+  "en": "Stormbull Well Water",
+  "pt": "Água do Poço do Touro Tempestuoso",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4886,
+  "en": "Venomtail Poison Sac",
+  "pt": "Saco de Veneno de Cauda Venenosa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4914,
+  "en": "Battleworn Leather Gloves",
+  "pt": "Luvas de Couro Desgastadas pela Batalha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4917,
+  "en": "Battleworn Chain Leggings",
+  "pt": "Calças de Corrente Desgastadas pela Batalha",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 4930,
+  "en": "Handmade Leather Bag",
+  "pt": "Bolsa de Couro Feita à Mão",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5196,
+  "en": "Smite's Reaver",
+  "pt": "Reaver de Smite",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 5258,
+  "en": "Monster - Bow, Black",
+  "pt": "Monster - Bow, Black",
+  "sinais": [
+   "tok-remnant:black=>Preto"
+  ]
+ },
+ {
+  "id": 5276,
+  "en": "Monster - Staff, 3 Piece Taped Staff",
+  "pt": "Monster - Staff, 3 Piece Taped Staff",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 5277,
+  "en": "Monster - Staff, Metal /w Spike Crystal",
+  "pt": "Monster - Staff, Metal /w Spike Crystal",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 5278,
+  "en": "Monster - Dagger, Bowie Knife",
+  "pt": "Monster - Dagger, Bowie Knife",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 5280,
+  "en": "Monster - Dagger, Gold Blade",
+  "pt": "Monster - Dagger, Gold Blade",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 5281,
+  "en": "Monster - Dagger, Broad/Flat Blade",
+  "pt": "Monster - Dagger, Broad/Flat Blade",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 5282,
+  "en": "Monster - Dagger, Fang Hook Curve",
+  "pt": "Monster - Dagger, Fang Hook Curve",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 5283,
+  "en": "Monster - Dagger, Ornate Spikey Base",
+  "pt": "Monster - Dagger, Ornate Spikey Base",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 5284,
+  "en": "Monster - Dagger, Jeweled Hilt",
+  "pt": "Monster - Dagger, Jeweled Hilt",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 5285,
+  "en": "Monster - Dagger, Curvey Blue Hilt",
+  "pt": "Monster - Dagger, Curvey Blue Hilt",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 5291,
+  "en": "Monster - Mace, Jeweled Club",
+  "pt": "Monster - Mace, Jeweled Club",
+  "sinais": [
+   "tok-remnant:jeweled=>?"
+  ]
+ },
+ {
+  "id": 5301,
+  "en": "Monster - Mace2H, Huge Wooden Maul",
+  "pt": "Monster - Mace2H, Huge Wooden Maul",
+  "sinais": [
+   "tok-remnant:maul=>Malho"
+  ]
+ },
+ {
+  "id": 5303,
+  "en": "Monster - Staff, Wooden Handle Rounded Head",
+  "pt": "Monster - Staff, Wooden Handle Rounded Head",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 5304,
+  "en": "Monster - Staff, Large Metal Shaft",
+  "pt": "Monster - Staff, Large Metal Shaft",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 5305,
+  "en": "Monster - Sword, Broadsword Silver Hilt",
+  "pt": "Monster - Sword, Broadsword Silver Hilt",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 5331,
+  "en": "OLDBlackfathom MAGIC Relic",
+  "pt": "Relíquia de Magia Antiga do Blackfathom",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 5415,
+  "en": "Thunderhorn Cleansing Totem",
+  "pt": "Totem de Purificação do Chifre do Trovão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 5585,
+  "en": "Courser Eye",
+  "pt": "Olho de Courser",
+  "sinais": [
+   "tok-remnant:courser=>Ginete"
+  ]
+ }
+]

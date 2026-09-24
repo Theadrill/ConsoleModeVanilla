@@ -1,0 +1,702 @@
+[
+  {
+    "id": 20719,
+    "en": "Monster - Staff, Jeweled D01/B02 Yellow w/Low Red Flame",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Jeweled D01/B02 Yellow w/Low Red Flame",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21028,
+    "en": "500 Pound Chicken",
+    "veredito": "manter",
+    "pt_final": "Frango de 227 Quilos",
+    "motivo": "Sinal 'numero': conversão de libras para kg (500 lb ≈ 227 kg) é válida. Sem caracteres proibidos."
+  },
+  {
+    "id": 21122,
+    "en": "Monster - Dagger, Korean A01 Black",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Korean A01 Black",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21342,
+    "en": "Core Felcloth Bag",
+    "veredito": "manter",
+    "pt_final": "Bolsa de Tecido Vil do Núcleo",
+    "motivo": "Felcloth→Tecido Vil (Regra 2) aplicado corretamente. 'Core'→'Núcleo'. Sinal wordcount:3->6 é naturais em PT."
+  },
+  {
+    "id": 21549,
+    "en": "Monster - Shield, Shieldguard",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Shieldguard",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21551,
+    "en": "Monster - Dagger, Alliance PvP",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Alliance PvP",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21553,
+    "en": "Monster - Sword2H, Alliance PvP",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Alliance PvP",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21554,
+    "en": "Monster - Gun, PvP Horde",
+    "veredito": "manter",
+    "pt_final": "Monster - Gun, PvP Horde",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21555,
+    "en": "Monster - Mace2H, Alliance PvP",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace2H, Alliance PvP",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21572,
+    "en": "Monster - Shield, Alliance PVP",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Alliance PVP",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21573,
+    "en": "Monster - Sword, 1H Alliance PvP",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, 1H Alliance PvP",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21580,
+    "en": "Monster - 2H Axe, Horde PvP",
+    "veredito": "manter",
+    "pt_final": "Monster - 2H Axe, Horde PvP",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 21640,
+    "en": "Lunar Festival Fireworks Pack",
+    "veredito": "manter",
+    "pt_final": "Pacote de Fogos de Artifício do Festival Lunar",
+    "motivo": "Tradução correta: Festival Lunar, Fogos de Artifício, Pacote. Sinal wordcount:4->8 é natural em PT."
+  },
+  {
+    "id": 21647,
+    "en": "Fetish of the Sand Reaver",
+    "veredito": "corrigir",
+    "pt_final": "Fetiche do Abutre de Areia",
+    "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+  },
+  {
+    "id": 21738,
+    "en": "Schematic: Firework Launcher",
+    "veredito": "manter",
+    "pt_final": "Esquema: Lançador de Fogos de Artifício",
+    "motivo": "Schematic→Esquema, Firework Launcher→Lançador de Fogos de Artifício. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 22134,
+    "en": "Undercity Gift Collection",
+    "veredito": "manter",
+    "pt_final": "Coleção de Presentes de Cidade Baixa",
+    "motivo": "Undercity→Cidade Baixa (glosário: MANTER). Gift Collection→Coleção de Presentes. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 22142,
+    "en": "Grunt's Card",
+    "veredito": "corrigir",
+    "pt_final": "Carta do Bruto",
+    "motivo": "AMOSTRA-05: Grunt→Bruto (manter como nome próprio). O pt atual mantém 'Grunt' sem traduzir. Corrigir e usar posse 'do Bruto'."
+  },
+  {
+    "id": 22211,
+    "en": "Monster - Knuckle, B01 Red Offhand",
+    "veredito": "manter",
+    "pt_final": "Monster - Knuckle, B01 Red Offhand",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual. Offhand não se aplica (item GM)."
+  },
+  {
+    "id": 22215,
+    "en": "Monster - Dagger, Bonescraper",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Bonescraper",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 22300,
+    "en": "Undercity Pledge Collection",
+    "veredito": "manter",
+    "pt_final": "Coleção de Promessas de Cidade Baixa",
+    "motivo": "Undercity→Cidade Baixa (glosário: MANTER). Pledge Collection→Coleção de Promessas. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 22341,
+    "en": "Monster - Mace, Horde A04 Pale - Bone Wrench",
+    "veredito": "manter",
+    "pt_final": "Monster - Mace, Horde A04 Pale - Bone Wrench",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 22391,
+    "en": "Monster - Staff, Lord Valthalak",
+    "veredito": "manter",
+    "pt_final": "Monster - Staff, Lord Valthalak",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 22596,
+    "en": "Monster - Sword2H, Horde A02",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword2H, Horde A02",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 22738,
+    "en": "Monster - Sword, 1H Uber Demon Blade",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword, 1H Uber Demon Blade",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 22822,
+    "en": "iCoke Prize Voucher",
+    "veredito": "manter",
+    "pt_final": "Voucher de Prêmio iCoke",
+    "motivo": "iCoke é marca/nome próprio (manter). Prize Voucher→Voucher de Prêmio. Sinal maiuscula-meio: 'iCoke' mantido em ambas."
+  },
+  {
+    "id": 22852,
+    "en": "Blood Guard's Dragonhide Treads",
+    "veredito": "manter",
+    "pt_final": "Calçados de Couro de Dragão do Guarda Sangrento",
+    "motivo": "Blood Guard→Guarda Sangrento, Dragonhide→Couro de Dragão, Treads→Calçados. Sinal wordcount:4->8 é natural em PT."
+  },
+  {
+    "id": 22875,
+    "en": "Legionnaire's Chain Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Cadeia do Legionário",
+    "motivo": "Legionnaire→Legionário, Chain→Cadeia, Legguards→Guardas de Perna. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 22880,
+    "en": "Legionnaire's Leather Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Couro do Legionário",
+    "motivo": "Legionnaire→Legionário, Leather→Couro, Legguards→Guardas de Perna. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 22882,
+    "en": "Legionnaire's Satin Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Cetim do Legionário",
+    "motivo": "Legionnaire→Legionário, Satin→Cetim, Legguards→Guardas de Perna. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 22883,
+    "en": "Legionnaire's Silk Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Seda do Legionário",
+    "motivo": "Legionnaire→Legionário, Silk→Seda, Legguards→Guardas de Perna. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 22887,
+    "en": "Legionnaire's Mail Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Malha do Legionário",
+    "motivo": "Legionnaire→Legionário, Mail→Malha, Legguards→Guardas de Perna. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 23227,
+    "en": "iCoke Gift Box Voucher",
+    "veredito": "manter",
+    "pt_final": "Voucher de Caixa de Presente iCoke",
+    "motivo": "iCoke é marca/nome próprio (manter). Gift Box Voucher→Voucher de Caixa de Presente. Sinal maiuscula-meio: 'iCoke' mantido."
+  },
+  {
+    "id": 23253,
+    "en": "Champion's Dragonhide Headguard",
+    "veredito": "manter",
+    "pt_final": "Elmo de Couro de Dragão do Campeão",
+    "motivo": "Champion→Campeão, Dragonhide→Couro de Dragão, Headguard→Elmo. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 23254,
+    "en": "Champion's Dragonhide Shoulders",
+    "veredito": "manter",
+    "pt_final": "Ombreiras de Couro de Dragão do Campeão",
+    "motivo": "Champion→Campeão, Dragonhide→Couro de Dragão, Shoulders→Ombreiras (consistente com Spaulders→Ombreiras). Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 23278,
+    "en": "Knight-Lieutenant's Chain Greaves",
+    "veredito": "manter",
+    "pt_final": "Grevas de Cadeia do Tenente Cavaleiro",
+    "motivo": "Knight-Lieutenant→Tenente Cavaleiro, Chain→Cadeia, Greaves→Grevas. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 23284,
+    "en": "Knight-Lieutenant's Leather Grips",
+    "veredito": "manter",
+    "pt_final": "Manoplas de Couro do Tenente Cavaleiro",
+    "motivo": "Knight-Lieutenant→Tenente Cavaleiro, Leather→Couro, Grips→Manoplas. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 23287,
+    "en": "Knight-Lieutenant's Plate Greaves",
+    "veredito": "manter",
+    "pt_final": "Grevas de Placa do Tenente Cavaleiro",
+    "motivo": "Knight-Lieutenant→Tenente Cavaleiro, Plate→Placa, Greaves→Grevas. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 23290,
+    "en": "Knight-Lieutenant's Silk Handwraps",
+    "veredito": "manter",
+    "pt_final": "Manoplas de Seda do Tenente Cavaleiro",
+    "motivo": "Knight-Lieutenant→Tenente Cavaleiro, Silk→Seda, Handwraps→Manoplas. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 23293,
+    "en": "Knight-Captain's Chain Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Cadeia do Capitão Cavaleiro",
+    "motivo": "Knight-Captain→Capitão Cavaleiro, Chain→Cadeia, Legguards→Guardas de Perna. Sinal wordcount:3->8 é natural em PT."
+  },
+  {
+    "id": 23298,
+    "en": "Knight-Captain's Leather Chestpiece",
+    "veredito": "manter",
+    "pt_final": "Peitoral de Couro do Capitão Cavaleiro",
+    "motivo": "Knight-Captain→Capitão Cavaleiro, Leather→Couro, Chestpiece→Peitoral. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 23299,
+    "en": "Knight-Captain's Leather Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Couro do Capitão Cavaleiro",
+    "motivo": "Knight-Captain→Capitão Cavaleiro, Leather→Couro, Legguards→Guardas de Perna. Sinal wordcount:3->8 é natural em PT."
+  },
+  {
+    "id": 23301,
+    "en": "Knight-Captain's Plate Leggings",
+    "veredito": "manter",
+    "pt_final": "Perneiras de Placa do Capitão Cavaleiro",
+    "motivo": "Knight-Captain→Capitão Cavaleiro, Plate→Placa, Leggings→Perneiras. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 23304,
+    "en": "Knight-Captain's Silk Legguards",
+    "veredito": "manter",
+    "pt_final": "Guardas de Perna de Seda do Capitão Cavaleiro",
+    "motivo": "Knight-Captain→Capitão Cavaleiro, Silk→Seda, Legguards→Guardas de Perna. Sinal wordcount:3->8 é natural em PT."
+  },
+  {
+    "id": 23356,
+    "en": "Monster - Shield, Skullflame",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Skullflame",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 23369,
+    "en": "Monster - Dagger, Claw of Chromaggus",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger, Claw of Chromaggus",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 23465,
+    "en": "High Warlord's Destroyer",
+    "veredito": "manter",
+    "pt_final": "Destruidor do Alto Senhor da Guerra",
+    "motivo": "High Warlord→Alto Senhor da Guerra (Warlord≠Warchief, mantendo convenção estabelecida). Destroyer→Destruidor. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 23466,
+    "en": "High Warlord's Spellblade",
+    "veredito": "manter",
+    "pt_final": "Espada de Feitiçaria do Alto Senhor da Guerra",
+    "motivo": "High Warlord→Alto Senhor da Guerra, Spellblade→Espada de Feitiçaria (Blade→Lâmina não aplica-se a compostos). Sinal wordcount:3->8 é natural em PT."
+  },
+  {
+    "id": 23467,
+    "en": "High Warlord's Quickblade",
+    "veredito": "manter",
+    "pt_final": "Lâmina Rápida do Alto Senhor da Guerra",
+    "motivo": "High Warlord→Alto Senhor da Guerra, Quickblade→Lâmina Rápida (Blade→Lâmina aplicado em 'Quickblade'). Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 23578,
+    "en": "Diet McWeaksauce",
+    "veredito": "corrigir",
+    "pt_final": "Dieta McWeaksauce",
+    "motivo": "AMOSTRA-05: 'Ember' e nomes de marca são proper nouns (manter). 'McWeaksauce' é paródia de marca (Mc) e deve ser mantido como nome próprio. O pt traduziu 'McWeaksauce' para 'McFraca', criando inconsistência com item 23579 que mantém 'McWeaksauce'."
+  },
+  {
+    "id": 23579,
+    "en": "The McWeaksauce Classic",
+    "veredito": "manter",
+    "pt_final": "O McWeaksauce Clássico",
+    "motivo": "McWeaksauce é nome próprio/marca paródia (manter). Classic→Clássico. Sinal maiuscula-meio: 'McWeaksauce' mantido consistentemente."
+  },
+  {
+    "id": 24222,
+    "en": "The Shadowfoot Stabber",
+    "veredito": "corrigir",
+    "pt_final": "A Adaga Shadowfoot",
+    "motivo": "AMOSTRA-05: nomes como Courser, Crag, Bark etc. são proper nouns (manter). 'Shadowfoot' é sobrenome próprio em WoW (goblin surname), deve ser mantido. O pt traduziu para 'Pé da Sombra'. 'Stabber'→Adaga (Regra: Blade/Dagger token)."
+  },
+  {
+    "id": 24418,
+    "en": "Monster - Dagger Badass Naxx",
+    "veredito": "manter",
+    "pt_final": "Monster - Dagger Badass Naxx",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 25818,
+    "en": "Monster - Shield, Legion",
+    "veredito": "manter",
+    "pt_final": "Monster - Shield, Legion",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 36012,
+    "en": "kazgrim test totem c",
+    "veredito": "manter",
+    "pt_final": "Totem C Kazgrim Teste",
+    "motivo": "Item de teste (EN contém 'test'). Regra 5: manter pt_final = pt atual. Sinal romano:['C'] - 'C' como numeral romano está em pt atual."
+  },
+  {
+    "id": 36013,
+    "en": "kazgrim test totem d",
+    "veredito": "manter",
+    "pt_final": "Totem D Kazgrim Teste",
+    "motivo": "Item de teste (EN contém 'test'). Regra 5: manter pt_final = pt atual. Sinal romano:['D'] - 'D' como numeral romano está em pt atual."
+  },
+  {
+    "id": 36656,
+    "en": "Fashion Week Giftbox",
+    "veredito": "manter",
+    "pt_final": "Caixa de Presentes da Semana da Moda",
+    "motivo": "Fashion Week→Semana da Moda, Giftbox→Caixa de Presentes. Sinal wordcount:3->7 é natural em PT. Duplicado (mesmo item que 36657-36662)."
+  },
+  {
+    "id": 36657,
+    "en": "Fashion Week Giftbox",
+    "veredito": "manter",
+    "pt_final": "Caixa de Presentes da Semana da Moda",
+    "motivo": "Fashion Week→Semana da Moda, Giftbox→Caixa de Presentes. Sinal wordcount:3->7 é natural em PT. Item duplicado de 36656."
+  },
+  {
+    "id": 36658,
+    "en": "Fashion Week Giftbox",
+    "veredito": "manter",
+    "pt_final": "Caixa de Presentes da Semana da Moda",
+    "motivo": "Fashion Week→Semana da Moda, Giftbox→Caixa de Presentes. Sinal wordcount:3->7 é natural em PT. Item duplicado de 36656."
+  },
+  {
+    "id": 36659,
+    "en": "Fashion Week Giftbox",
+    "veredito": "manter",
+    "pt_final": "Caixa de Presentes da Semana da Moda",
+    "motivo": "Fashion Week→Semana da Moda, Giftbox→Caixa de Presentes. Sinal wordcount:3->7 é natural em PT. Item duplicado de 36656."
+  },
+  {
+    "id": 36660,
+    "en": "Fashion Week Giftbox",
+    "veredito": "manter",
+    "pt_final": "Caixa de Presentes da Semana da Moda",
+    "motivo": "Fashion Week→Semana da Moda, Giftbox→Caixa de Presentes. Sinal wordcount:3->7 é natural em PT. Item duplicado de 36656."
+  },
+  {
+    "id": 36661,
+    "en": "Fashion Week Giftbox",
+    "veredito": "manter",
+    "pt_final": "Caixa de Presentes da Semana da Moda",
+    "motivo": "Fashion Week→Semana da Moda, Giftbox→Caixa de Presentes. Sinal wordcount:3->7 é natural em PT. Item duplicado de 36656."
+  },
+  {
+    "id": 36662,
+    "en": "Fashion Week Giftbox",
+    "veredito": "manter",
+    "pt_final": "Caixa de Presentes da Semana da Moda",
+    "motivo": "Fashion Week→Semana da Moda, Giftbox→Caixa de Presentes. Sinal wordcount:3->7 é natural em PT. Item duplicado de 36656."
+  },
+  {
+    "id": 41027,
+    "en": "Hangmans Plunder's Logbook",
+    "veredito": "manter",
+    "pt_final": "Livro de Registros do Saque do Carrasco",
+    "motivo": "Hangman's→do Carrasco, Plunder→Saque, Logbook→Livro de Registros. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 41038,
+    "en": "Venture Co. Logbook",
+    "veredito": "corrigir",
+    "pt_final": "Diário de Bordo da Venture Co.",
+    "motivo": "AMOSTRA-05: nomes de marca/proper nouns devem ser mantidos. 'Venture Co.' é nome próprio de empresa (goblin company). O pt traduziu para 'Empreendimentos S.A.' e tem erro gramatical ('da Empreendimentos'). Corrigir mantendo 'Venture Co.'."
+  },
+  {
+    "id": 41259,
+    "en": "Brown-Topped Riding Boots",
+    "veredito": "manter",
+    "pt_final": "Botas de Montaria de Topo Marrom",
+    "motivo": "Brown-Topped→Topo Marrom, Riding→Montaria, Boots→Botas. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41321,
+    "en": "Rough Thorium Ring",
+    "veredito": "corrigir",
+    "pt_final": "Anel de Tório Bruto",
+    "motivo": "Regra 2: Thorium→Tório. O pt atual mantém 'Thorium' sem traduzir. Corrigir para 'Tório'."
+  },
+  {
+    "id": 41323,
+    "en": "Emberstone Studded Ring",
+    "veredito": "corrigir",
+    "pt_final": "Anel de Emberstone com Rebites",
+    "motivo": "AMOSTRA-05: 'Ember'→manter (proper noun). 'Emberstone' é composto contendo 'Ember', deve ser mantido como nome próprio. O pt traduziu para 'Pedra de Brasa'. Corrigir mantendo 'Emberstone'."
+  },
+  {
+    "id": 41324,
+    "en": "Mithril Blackstone Necklace",
+    "veredito": "manter",
+    "pt_final": "Colar de Pedra Negra de Mithril",
+    "motivo": "Mithril mantido (proper noun/fantasia), Blackstone→Pedra Negra (convenção de tradução). Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41369,
+    "en": "Zalashji's Gemstone Oil",
+    "veredito": "manter",
+    "pt_final": "Óleo de Pedra Preciosa de Zalashji",
+    "motivo": "Zalashji mantido (proper noun/glosário). Gemstone→Pedra Preciosa. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41469,
+    "en": "Ale-Stained Anniversary Shirt",
+    "veredito": "manter",
+    "pt_final": "Camisa de Aniversário Manchada de Cerveja",
+    "motivo": "Ale-Stained→Manchada de Cerveja, Anniversary→Aniversário, Shirt→Camisa. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41496,
+    "en": "Mid-Autumn Festival Hanfu",
+    "veredito": "manter",
+    "pt_final": "Hanfu do Festival de Meio Outono",
+    "motivo": "Mid-Autumn Festival→Festival de Meio Outono, Hanfu mantido (proper noun). Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41500,
+    "en": "Ale-Stained Anniversary Shirt",
+    "veredito": "manter",
+    "pt_final": "Camisa de Aniversário Manchada de Cerveja",
+    "motivo": "Ale-Stained→Manchada de Cerveja, Anniversary→Aniversário, Shirt→Camisa. Sinal wordcount:3->6 é natural em PT. Item duplicado de 41469."
+  },
+  {
+    "id": 41508,
+    "en": "Thirty-Two Fouette Pointe Shoes",
+    "veredito": "manter",
+    "pt_final": "Sapatos de Fouette Pointe de Trinta e Dois",
+    "motivo": "Thirty-Two→Trinta e Dois (numero), Fouette Pointe mantido (proper noun/termos franceses), Shoes→Sapatos. Sinal wordcount:4->8 é natural em PT."
+  },
+  {
+    "id": 41692,
+    "en": "Blackrock Coffer Key",
+    "veredito": "manter",
+    "pt_final": "Chave do Cofre da Rocha Negra",
+    "motivo": "Blackrock→Rocha Negra (convenção de tradução de nome próprio), Coffer→Cofre, Key→Chave. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41771,
+    "en": "Mistbark Venom Sac",
+    "veredito": "manter",
+    "pt_final": "Saco de Veneno de Casca de Névoa",
+    "motivo": "Mistbark→Casca de Névoa (Mist→Névoa, Bark→Casca), Venom→Veneno, Sac→Saco. Sinal wordcount:3->7 é natural em PT. Sem-til?: sem tildes necessários."
+  },
+  {
+    "id": 41825,
+    "en": "Stone Golem Runestone",
+    "veredito": "manter",
+    "pt_final": "Pedra Rúnica do Golem de Pedra",
+    "motivo": "Stone→Pedra, Golem mantido (proper noun/critura), Runestone→Pedra Rúnica. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41908,
+    "en": "Heat-resistant Trigger",
+    "veredito": "manter",
+    "pt_final": "Gatilho Resistente ao Calor",
+    "motivo": "Heat-resistant→Resistente ao Calor, Trigger→Gatilho. Sinal sem-til?: sem tildes necessários em 'Resistente', 'Calor', 'Gatilho'."
+  },
+  {
+    "id": 41936,
+    "en": "Nuddok's Freefall Parachute",
+    "veredito": "manter",
+    "pt_final": "Paraquedas de Queda Livre de Nuddok",
+    "motivo": "Nuddok mantido (proper noun), Freefall→Queda Livre, Parachute→Paraquedas. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41967,
+    "en": "Magistrate's Brim Hat",
+    "veredito": "manter",
+    "pt_final": "Chapéu de Aba Larga do Magistrado",
+    "motivo": "Magistrate→Magistrado, Brim→Aba Larga, Hat→Chapéu. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 41984,
+    "en": "Monster - Sword1H, Doomguard Sword",
+    "veredito": "manter",
+    "pt_final": "Monster - Sword1H, Doomguard Sword",
+    "motivo": "Item GM (EN começa com 'Monster -'). Regra 5: manter pt_final = pt atual."
+  },
+  {
+    "id": 50133,
+    "en": "Circuit Shock Pink",
+    "veredito": "manter",
+    "pt_final": "Tinta de Cabelo Gnômica: Rosa Brilhante",
+    "motivo": "Tradução do nome de cor criativo. 'Rosa Brilhante' captura essência de 'Circuit Shock Pink'. Formato consistente com outros itens de tinta. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 50147,
+    "en": "Jungle Grass Green",
+    "veredito": "manter",
+    "pt_final": "Tinta de Cabelo de Troll: Verde Grama",
+    "motivo": "Jungle Grass Green→Verde Grama (color name adaptado). Formato: 'Tinta de Cabelo de Troll:' (prefixo de raça). Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 50148,
+    "en": "Aquatic Mint Blue",
+    "veredito": "manter",
+    "pt_final": "Tinta de Cabelo de Troll: Azul Menta",
+    "motivo": "Aquatic Mint Blue→Azul Menta (color name adaptado). Formato: 'Tinta de Cabelo de Troll:'. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 50149,
+    "en": "Wavecrest Light Blue",
+    "veredito": "manter",
+    "pt_final": "Tinta de Cabelo de Troll: Azul Claro",
+    "motivo": "Wavecrest Light Blue→Azul Claro (color name adaptado, 'Wavecrest' perdido mas é nome de cor). Formato: 'Tinta de Cabelo de Troll:'. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 50152,
+    "en": "Frostbite Snow White",
+    "veredito": "manter",
+    "pt_final": "Tinta de Cabelo de Troll: Branco Neve",
+    "motivo": "Frostbite Snow White→Branco Neve (color name adaptado). Formato: 'Tinta de Cabelo de Troll:'. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 50160,
+    "en": "Ashes of Draenor",
+    "veredito": "manter",
+    "pt_final": "Tintura de Cabelo Orc: Cinza Claro",
+    "motivo": "Ashes of Draenor→Cinza Claro (color name adaptado, 'Draenor' perdido mas é nome de cor). Formato: 'Tintura de Cabelo Orc:'. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 50163,
+    "en": "Plagueland Mud Brown",
+    "veredito": "manter",
+    "pt_final": "Tinta de Cabelo de Morto-Vivo: Marrom Lama",
+    "motivo": "Plagueland Mud Brown→Marrom Lama (color name adaptado, 'Plagueland' substituído por raça 'Morto-Vivo'). Formato: 'Tinta de Cabelo de Morto-Vivo:'. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 50165,
+    "en": "Ashes to Ashes",
+    "veredito": "manter",
+    "pt_final": "Tintura de Cabelo de Morto-Vivo: Loiro Cinza",
+    "motivo": "Ashes to Ashes→Loiro Cinza (color name adaptado). Formato: 'Tintura de Cabelo de Morto-Vivo:'. Sinal wordcount:3->7 é natural em PT."
+  },
+  {
+    "id": 50205,
+    "en": "Mark of the Dark Iron Clan",
+    "veredito": "manter",
+    "pt_final": "Anão: Ferro Negro",
+    "motivo": "Formato intencional de personalização ('Race: Trait'). Dark Iron→Ferro Negro. Sinal wordcount:6->3 reflete formato de customização. Sem caracteres proibidos."
+  },
+  {
+    "id": 50206,
+    "en": "Mark of the Earthen Dwarves",
+    "veredito": "manter",
+    "pt_final": "Anão: Terrano",
+    "motivo": "Formato intencional de personalização ('Race: Trait'). Earthen→Terrano. Sinal wordcount:5->2 reflete formato de customização."
+  },
+  {
+    "id": 50212,
+    "en": "Mark of Radioactive Fallout",
+    "veredito": "manter",
+    "pt_final": "Gnomo: Leproso",
+    "motivo": "Formato intencional de personalização ('Race: Trait'). Fallout→Leproso (adaptação criativa). Sinal wordcount:4->2 reflete formato de customização."
+  },
+  {
+    "id": 50292,
+    "en": "Mark of the Arcane Binder",
+    "veredito": "manter",
+    "pt_final": "Humano: Arcano",
+    "motivo": "Formato intencional de personalização ('Race: Trait'). Arcane→Arcano. Sinal wordcount:5->2 reflete formato de customização."
+  },
+  {
+    "id": 51010,
+    "en": "Mark of the Dark Trolls",
+    "veredito": "manter",
+    "pt_final": "Troll: Escuro",
+    "motivo": "Formato intencional de personalização ('Race: Trait'). Dark→Escuro. Sinal wordcount:5->2 reflete formato de customização."
+  },
+  {
+    "id": 51011,
+    "en": "Mark of the Frozen Trolls",
+    "veredito": "manter",
+    "pt_final": "Troll: Gelo",
+    "motivo": "Formato intencional de personalização ('Race: Trait'). Frozen→Gelo. Sinal wordcount:5->2 reflete formato de customização."
+  },
+  {
+    "id": 51043,
+    "en": "Void-Linked Satchel",
+    "veredito": "manter",
+    "pt_final": "Alforge Vinculado ao Vazio",
+    "motivo": "Void→Vazio, Linked→Vinculado, Satchel→Alforge (termo estabelecido em pt-BR). Sinal sem-til?: sem tildes necessários. Sem caracteres proibidos."
+  },
+  {
+    "id": 51240,
+    "en": "Master Dragonslayer's Shirt",
+    "veredito": "manter",
+    "pt_final": "Camisa do Mestre Matador de Dragões",
+    "motivo": "Master→Mestre, Dragonslayer→Matador de Dragões (Dragon→Dragão), Shirt→Camisa. Sinal wordcount:3->6 é natural em PT."
+  },
+  {
+    "id": 51770,
+    "en": "Shoulderguards of the Dark Reaver",
+    "veredito": "corrigir",
+    "pt_final": "Guarda-ombros do Abutre Sombrio",
+    "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+  },
+  {
+    "id": 51775,
+    "en": "Legguards of the Dark Reaver",
+    "veredito": "corrigir",
+    "pt_final": "Guardas de Perna do Abutre Sombrio",
+    "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+  },
+  {
+    "id": 51880,
+    "en": "Grunt's Belt",
+    "veredito": "corrigir",
+    "pt_final": "Cinto do Bruto",
+    "motivo": "AMOSTRA-05: Grunt→Bruto (proper noun). O pt mantém 'Grunt' sem traduzir. Além disar, '(duplicado)' é anotação, não parte do nome. Corrigir removendo anotação e traduzindo Grunt→Bruto."
+  },
+  {
+    "id": 51892,
+    "en": "The Reaver",
+    "veredito": "corrigir",
+    "pt_final": "O Abutre",
+    "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+  }
+]

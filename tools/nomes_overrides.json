@@ -9770,5 +9770,49 @@
  "20017": {
   "pt": "Chifre de Ginete Perfeito",
   "motivo": "Courser deve ser traduzido para Ginete conforme AMOSTRA-05"
+ },
+ "21647": {
+  "pt": "Fetiche do Abutre de Areia",
+  "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+ },
+ "22142": {
+  "pt": "Carta do Bruto",
+  "motivo": "AMOSTRA-05: Grunt→Bruto (manter como nome próprio). O pt atual mantém 'Grunt' sem traduzir. Corrigir e usar posse 'do Bruto'."
+ },
+ "23578": {
+  "pt": "Dieta McWeaksauce",
+  "motivo": "AMOSTRA-05: 'Ember' e nomes de marca são proper nouns (manter). 'McWeaksauce' é paródia de marca (Mc) e deve ser mantido como nome próprio. O pt traduziu 'McWeaksauce' para 'McFraca', criando inconsistência com item 23579 que mantém 'McWeaksauce'."
+ },
+ "24222": {
+  "pt": "A Adaga Shadowfoot",
+  "motivo": "AMOSTRA-05: nomes como Courser, Crag, Bark etc. são proper nouns (manter). 'Shadowfoot' é sobrenome próprio em WoW (goblin surname), deve ser mantido. O pt traduziu para 'Pé da Sombra'. 'Stabber'→Adaga (Regra: Blade/Dagger token)."
+ },
+ "41038": {
+  "pt": "Diário de Bordo da Venture Co.",
+  "motivo": "AMOSTRA-05: nomes de marca/proper nouns devem ser mantidos. 'Venture Co.' é nome próprio de empresa (goblin company). O pt traduziu para 'Empreendimentos S.A.' e tem erro gramatical ('da Empreendimentos'). Corrigir mantendo 'Venture Co.'."
+ },
+ "41321": {
+  "pt": "Anel de Tório Bruto",
+  "motivo": "Regra 2: Thorium→Tório. O pt atual mantém 'Thorium' sem traduzir. Corrigir para 'Tório'."
+ },
+ "41323": {
+  "pt": "Anel de Emberstone com Rebites",
+  "motivo": "AMOSTRA-05: 'Ember'→manter (proper noun). 'Emberstone' é composto contendo 'Ember', deve ser mantido como nome próprio. O pt traduziu para 'Pedra de Brasa'. Corrigir mantendo 'Emberstone'."
+ },
+ "51770": {
+  "pt": "Guarda-ombros do Abutre Sombrio",
+  "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+ },
+ "51775": {
+  "pt": "Guardas de Perna do Abutre Sombrio",
+  "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
+ },
+ "51880": {
+  "pt": "Cinto do Bruto",
+  "motivo": "AMOSTRA-05: Grunt→Bruto (proper noun). O pt mantém 'Grunt' sem traduzir. Além disar, '(duplicado)' é anotação, não parte do nome. Corrigir removendo anotação e traduzindo Grunt→Bruto."
+ },
+ "51892": {
+  "pt": "O Abutre",
+  "motivo": "Regra 2: Reaver→Abutre. O pt atual mantém 'Reaver' sem traduzir. Corrigir para 'Abutre'."
  }
 }

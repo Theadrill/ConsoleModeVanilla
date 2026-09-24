@@ -1,0 +1,806 @@
+[
+ {
+  "id": 20719,
+  "en": "Monster - Staff, Jeweled D01/B02 Yellow w/Low Red Flame",
+  "pt": "Monster - Staff, Jeweled D01/B02 Yellow w/Low Red Flame",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 21028,
+  "en": "500 Pound Chicken",
+  "pt": "Frango de 227 Quilos",
+  "sinais": [
+   "numero"
+  ]
+ },
+ {
+  "id": 21122,
+  "en": "Monster - Dagger, Korean A01 Black",
+  "pt": "Monster - Dagger, Korean A01 Black",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 21342,
+  "en": "Core Felcloth Bag",
+  "pt": "Bolsa de Tecido Vil do Núcleo",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 21549,
+  "en": "Monster - Shield, Shieldguard",
+  "pt": "Monster - Shield, Shieldguard",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 21551,
+  "en": "Monster - Dagger, Alliance PvP",
+  "pt": "Monster - Dagger, Alliance PvP",
+  "sinais": [
+   "maiuscula-meio",
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 21553,
+  "en": "Monster - Sword2H, Alliance PvP",
+  "pt": "Monster - Sword2H, Alliance PvP",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 21554,
+  "en": "Monster - Gun, PvP Horde",
+  "pt": "Monster - Gun, PvP Horde",
+  "sinais": [
+   "maiuscula-meio",
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 21555,
+  "en": "Monster - Mace2H, Alliance PvP",
+  "pt": "Monster - Mace2H, Alliance PvP",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 21572,
+  "en": "Monster - Shield, Alliance PVP",
+  "pt": "Monster - Shield, Alliance PVP",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 21573,
+  "en": "Monster - Sword, 1H Alliance PvP",
+  "pt": "Monster - Sword, 1H Alliance PvP",
+  "sinais": [
+   "maiuscula-meio",
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 21580,
+  "en": "Monster - 2H Axe, Horde PvP",
+  "pt": "Monster - 2H Axe, Horde PvP",
+  "sinais": [
+   "maiuscula-meio",
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 21640,
+  "en": "Lunar Festival Fireworks Pack",
+  "pt": "Pacote de Fogos de Artifício do Festival Lunar",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 21647,
+  "en": "Fetish of the Sand Reaver",
+  "pt": "Fetiche do Reaver de Areia",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 21738,
+  "en": "Schematic: Firework Launcher",
+  "pt": "Esquema: Lançador de Fogos de Artifício",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 22134,
+  "en": "Undercity Gift Collection",
+  "pt": "Coleção de Presentes de Cidade Baixa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 22142,
+  "en": "Grunt's Card",
+  "pt": "Carta de Grunt",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 22211,
+  "en": "Monster - Knuckle, B01 Red Offhand",
+  "pt": "Monster - Knuckle, B01 Red Offhand",
+  "sinais": [
+   "tok-remnant:offhand=>?"
+  ]
+ },
+ {
+  "id": 22215,
+  "en": "Monster - Dagger, Bonescraper",
+  "pt": "Monster - Dagger, Bonescraper",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 22300,
+  "en": "Undercity Pledge Collection",
+  "pt": "Coleção de Promessas de Cidade Baixa",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 22341,
+  "en": "Monster - Mace, Horde A04 Pale - Bone Wrench",
+  "pt": "Monster - Mace, Horde A04 Pale - Bone Wrench",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 22391,
+  "en": "Monster - Staff, Lord Valthalak",
+  "pt": "Monster - Staff, Lord Valthalak",
+  "sinais": [
+   "tok-remnant:staff=>Cajado"
+  ]
+ },
+ {
+  "id": 22596,
+  "en": "Monster - Sword2H, Horde A02",
+  "pt": "Monster - Sword2H, Horde A02",
+  "sinais": [
+   "tok-remnant:horde=>Horda"
+  ]
+ },
+ {
+  "id": 22738,
+  "en": "Monster - Sword, 1H Uber Demon Blade",
+  "pt": "Monster - Sword, 1H Uber Demon Blade",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 22822,
+  "en": "iCoke Prize Voucher",
+  "pt": "Voucher de Prêmio iCoke",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 22852,
+  "en": "Blood Guard's Dragonhide Treads",
+  "pt": "Calçados de Couro de Dragão do Guarda Sangrento",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 22875,
+  "en": "Legionnaire's Chain Legguards",
+  "pt": "Guardas de Perna de Cadeia do Legionário",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 22880,
+  "en": "Legionnaire's Leather Legguards",
+  "pt": "Guardas de Perna de Couro do Legionário",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 22882,
+  "en": "Legionnaire's Satin Legguards",
+  "pt": "Guardas de Perna de Cetim do Legionário",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 22883,
+  "en": "Legionnaire's Silk Legguards",
+  "pt": "Guardas de Perna de Seda do Legionário",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 22887,
+  "en": "Legionnaire's Mail Legguards",
+  "pt": "Guardas de Perna de Malha do Legionário",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 23227,
+  "en": "iCoke Gift Box Voucher",
+  "pt": "Voucher de Caixa de Presente iCoke",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 23253,
+  "en": "Champion's Dragonhide Headguard",
+  "pt": "Elmo de Couro de Dragão do Campeão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 23254,
+  "en": "Champion's Dragonhide Shoulders",
+  "pt": "Ombreiras de Couro de Dragão do Campeão",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 23278,
+  "en": "Knight-Lieutenant's Chain Greaves",
+  "pt": "Grevas de Cadeia do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 23284,
+  "en": "Knight-Lieutenant's Leather Grips",
+  "pt": "Manoplas de Couro do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 23287,
+  "en": "Knight-Lieutenant's Plate Greaves",
+  "pt": "Grevas de Placa do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 23290,
+  "en": "Knight-Lieutenant's Silk Handwraps",
+  "pt": "Manoplas de Seda do Tenente Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 23293,
+  "en": "Knight-Captain's Chain Legguards",
+  "pt": "Guardas de Perna de Cadeia do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 23298,
+  "en": "Knight-Captain's Leather Chestpiece",
+  "pt": "Peitoral de Couro do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 23299,
+  "en": "Knight-Captain's Leather Legguards",
+  "pt": "Guardas de Perna de Couro do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 23301,
+  "en": "Knight-Captain's Plate Leggings",
+  "pt": "Perneiras de Placa do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 23304,
+  "en": "Knight-Captain's Silk Legguards",
+  "pt": "Guardas de Perna de Seda do Capitão Cavaleiro",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 23356,
+  "en": "Monster - Shield, Skullflame",
+  "pt": "Monster - Shield, Skullflame",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 23369,
+  "en": "Monster - Dagger, Claw of Chromaggus",
+  "pt": "Monster - Dagger, Claw of Chromaggus",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 23465,
+  "en": "High Warlord's Destroyer",
+  "pt": "Destruidor do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 23466,
+  "en": "High Warlord's Spellblade",
+  "pt": "Espada de Feitiçaria do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->8"
+  ]
+ },
+ {
+  "id": 23467,
+  "en": "High Warlord's Quickblade",
+  "pt": "Lâmina Rápida do Alto Senhor da Guerra",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 23578,
+  "en": "Diet McWeaksauce",
+  "pt": "Dieta McFraca",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 23579,
+  "en": "The McWeaksauce Classic",
+  "pt": "O McWeaksauce Clássico",
+  "sinais": [
+   "maiuscula-meio"
+  ]
+ },
+ {
+  "id": 24222,
+  "en": "The Shadowfoot Stabber",
+  "pt": "A Adaga do Pé da Sombra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 24418,
+  "en": "Monster - Dagger Badass Naxx",
+  "pt": "Monster - Dagger Badass Naxx",
+  "sinais": [
+   "tok-remnant:dagger=>Adaga"
+  ]
+ },
+ {
+  "id": 25818,
+  "en": "Monster - Shield, Legion",
+  "pt": "Monster - Shield, Legion",
+  "sinais": [
+   "tok-remnant:shield=>Escudo"
+  ]
+ },
+ {
+  "id": 36012,
+  "en": "kazgrim test totem c",
+  "pt": "Totem C Kazgrim Teste",
+  "sinais": [
+   "romano:[]->['C']"
+  ]
+ },
+ {
+  "id": 36013,
+  "en": "kazgrim test totem d",
+  "pt": "Totem D Kazgrim Teste",
+  "sinais": [
+   "romano:[]->['D']"
+  ]
+ },
+ {
+  "id": 36656,
+  "en": "Fashion Week Giftbox",
+  "pt": "Caixa de Presentes da Semana da Moda",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 36657,
+  "en": "Fashion Week Giftbox",
+  "pt": "Caixa de Presentes da Semana da Moda",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 36658,
+  "en": "Fashion Week Giftbox",
+  "pt": "Caixa de Presentes da Semana da Moda",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 36659,
+  "en": "Fashion Week Giftbox",
+  "pt": "Caixa de Presentes da Semana da Moda",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 36660,
+  "en": "Fashion Week Giftbox",
+  "pt": "Caixa de Presentes da Semana da Moda",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 36661,
+  "en": "Fashion Week Giftbox",
+  "pt": "Caixa de Presentes da Semana da Moda",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 36662,
+  "en": "Fashion Week Giftbox",
+  "pt": "Caixa de Presentes da Semana da Moda",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 41027,
+  "en": "Hangmans Plunder's Logbook",
+  "pt": "Livro de Registros do Saque do Carrasco",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 41038,
+  "en": "Venture Co. Logbook",
+  "pt": "Diário de Bordo da Empreendimentos S.A.",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41259,
+  "en": "Brown-Topped Riding Boots",
+  "pt": "Botas de Montaria de Topo Marrom",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41321,
+  "en": "Rough Thorium Ring",
+  "pt": "Anel de Thorium Bruto",
+  "sinais": [
+   "tok-remnant:thorium=>Tório"
+  ]
+ },
+ {
+  "id": 41323,
+  "en": "Emberstone Studded Ring",
+  "pt": "Anel de Pedra de Brasa com Rebites",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 41324,
+  "en": "Mithril Blackstone Necklace",
+  "pt": "Colar de Pedra Negra de Mithril",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41369,
+  "en": "Zalashji's Gemstone Oil",
+  "pt": "Óleo de Pedra Preciosa de Zalashji",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41469,
+  "en": "Ale-Stained Anniversary Shirt",
+  "pt": "Camisa de Aniversário Manchada de Cerveja",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41496,
+  "en": "Mid-Autumn Festival Hanfu",
+  "pt": "Hanfu do Festival de Meio Outono",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41500,
+  "en": "Ale-Stained Anniversary Shirt",
+  "pt": "Camisa de Aniversário Manchada de Cerveja",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41508,
+  "en": "Thirty-Two Fouette Pointe Shoes",
+  "pt": "Sapatos de Fouette Pointe de Trinta e Dois",
+  "sinais": [
+   "wordcount:4->8"
+  ]
+ },
+ {
+  "id": 41692,
+  "en": "Blackrock Coffer Key",
+  "pt": "Chave do Cofre da Rocha Negra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41771,
+  "en": "Mistbark Venom Sac",
+  "pt": "Saco de Veneno de Casca de Névoa",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 41825,
+  "en": "Stone Golem Runestone",
+  "pt": "Pedra Rúnica do Golem de Pedra",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41908,
+  "en": "Heat-resistant Trigger",
+  "pt": "Gatilho Resistente ao Calor",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 41936,
+  "en": "Nuddok's Freefall Parachute",
+  "pt": "Paraquedas de Queda Livre de Nuddok",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41967,
+  "en": "Magistrate's Brim Hat",
+  "pt": "Chapéu de Aba Larga do Magistrado",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 41984,
+  "en": "Monster - Sword1H, Doomguard Sword",
+  "pt": "Monster - Sword1H, Doomguard Sword",
+  "sinais": [
+   "tok-remnant:sword=>Espada"
+  ]
+ },
+ {
+  "id": 50133,
+  "en": "Circuit Shock Pink",
+  "pt": "Tinta de Cabelo Gnômica: Rosa Brilhante",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 50147,
+  "en": "Jungle Grass Green",
+  "pt": "Tintura de Cabelo de Troll: Verde Grama",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50148,
+  "en": "Aquatic Mint Blue",
+  "pt": "Tintura de Cabelo de Troll: Azul Menta",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50149,
+  "en": "Wavecrest Light Blue",
+  "pt": "Tintura de Cabelo de Troll: Azul Claro",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50152,
+  "en": "Frostbite Snow White",
+  "pt": "Tintura de Cabelo de Troll: Branco Neve",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50160,
+  "en": "Ashes of Draenor",
+  "pt": "Tintura de Cabelo Orc: Cinza Claro",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 50163,
+  "en": "Plagueland Mud Brown",
+  "pt": "Tintura de Cabelo de Morto-Vivo: Marrom Lama",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50165,
+  "en": "Ashes to Ashes",
+  "pt": "Tintura de Cabelo de Morto-Vivo: Loiro Cinza",
+  "sinais": [
+   "wordcount:3->7"
+  ]
+ },
+ {
+  "id": 50205,
+  "en": "Mark of the Dark Iron Clan",
+  "pt": "Anão: Ferro Negro",
+  "sinais": [
+   "wordcount:6->3"
+  ]
+ },
+ {
+  "id": 50206,
+  "en": "Mark of the Earthen Dwarves",
+  "pt": "Anão: Terrano",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 50212,
+  "en": "Mark of Radioactive Fallout",
+  "pt": "Gnomo: Leproso",
+  "sinais": [
+   "wordcount:4->2"
+  ]
+ },
+ {
+  "id": 50292,
+  "en": "Mark of the Arcane Binder",
+  "pt": "Humano: Arcano",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 51010,
+  "en": "Mark of the Dark Trolls",
+  "pt": "Troll: Escuro",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 51011,
+  "en": "Mark of the Frozen Trolls",
+  "pt": "Troll: Gelo",
+  "sinais": [
+   "wordcount:5->2"
+  ]
+ },
+ {
+  "id": 51043,
+  "en": "Void-Linked Satchel",
+  "pt": "Alforge Vinculado ao Vazio",
+  "sinais": [
+   "sem-til?"
+  ]
+ },
+ {
+  "id": 51240,
+  "en": "Master Dragonslayer's Shirt",
+  "pt": "Camisa do Mestre Matador de Dragões",
+  "sinais": [
+   "wordcount:3->6"
+  ]
+ },
+ {
+  "id": 51770,
+  "en": "Shoulderguards of the Dark Reaver",
+  "pt": "Guarda-ombros do Reaver Sombrio",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 51775,
+  "en": "Legguards of the Dark Reaver",
+  "pt": "Guardas de Perna do Reaver Sombrio",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ },
+ {
+  "id": 51880,
+  "en": "Grunt's Belt",
+  "pt": "Cinto de Grunt (duplicado)",
+  "sinais": [
+   "tok-remnant:grunt=>Bruto"
+  ]
+ },
+ {
+  "id": 51892,
+  "en": "The Reaver",
+  "pt": "O Reaver",
+  "sinais": [
+   "tok-remnant:reaver=>Abutre"
+  ]
+ }
+]

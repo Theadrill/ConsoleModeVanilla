@@ -653,6 +653,7 @@ CM_Langs["ptBR"].strings = {
     BIND_DESC = "Escolha a pagina e selecione um botao para vincular:",
     BIND_LOADING = "Carregando...",
     BIND_JUMP = "Pulo / Jump",
+    BIND_INTERACT = "Interagir (Interact.dll)",
     BIND_NO_KEY = "|cff888888(sem tecla)|r",
     BIND_EMPTY = "|cff888888(vazio)|r",
     BIND_ACTION_SLOT_FMT = "Acao (Slot %s)",

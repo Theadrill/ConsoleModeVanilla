@@ -660,6 +660,7 @@ CM_Langs["enUS"].strings = {
     BIND_DESC = "Choose the page and select a button to bind:",
     BIND_LOADING = "Loading...",
     BIND_JUMP = "Jump",
+    BIND_INTERACT = "Interact (Interact.dll)",
     BIND_NO_KEY = "|cff888888(no key)|r",
     BIND_EMPTY = "|cff888888(empty)|r",
     BIND_ACTION_SLOT_FMT = "Action (Slot %s)",

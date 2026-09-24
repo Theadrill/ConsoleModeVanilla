@@ -152,6 +152,7 @@ local fixedDefaults = {
     CM_UI_BAGS      = "SHIFT-F11",    -- L2 + Start (B)
     CM_UI_TALENTS   = "ALT-M",        -- R2 + Select (N)
     CM_UI_SPELLBOOK = "ALT-F11",      -- R2 + Start (P)
+    CM_INTERACT     = "ALT-SPACE",    -- R2 + A: Interact (default, sempre ativo)
 }
 
 -- ============================================================
@@ -230,10 +231,11 @@ function KB:Initialize()
     -- Reload da interface no teclado: Ctrl+Shift+R
     SetBinding("CTRL-SHIFT-R", "CM_RELOAD_UI")
     
-    -- Roteamento Automático de Interação com a DLL Interact.dll (R2 + A = ALT-SPACE)
+    -- Roteamento Automático de Interação via DLL Interact.dll (R2 + A = ALT-SPACE)
+    -- O binding ALT-SPACE = CM_INTERACT agora é padrão via fixedDefaults (sempre aplicado).
+    -- Este bloco mantém apenas o log de detecção da DLL.
     if type(InteractNearest) == "function" then
-        SetBinding("ALT-SPACE", "CM_INTERACT")
-        CM.logger:Log("Interact.dll detectada! R2 + A configurado automaticamente para Interagir.")
+        CM.logger:Log("Interact.dll detectada! R2 + A = Interagir (via CM_INTERACT).")
         DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_INTERACT"))
     end
 
@@ -505,11 +507,20 @@ function KB:ApplyDefaults()
             for btn, bindAction in pairs(defaultPageActions[page]) do
                 local key = defaults[page][btn]
                 if key then
-                    -- So sobrescreve se o binding estiver vazio
+                    -- Sobrescreve se o binding estiver vazio OU se for um padrão Vanilla
+                    -- (BONUSACTIONBUTTON*/ACTIONBUTTON* em páginas modificadas) que
+                    -- conflita com os slots de ação do ConsoleMode.
+                    -- Ex: R1+X = CTRL-1 não pode ficar preso no BONUSACTIONBUTTON1
+                    -- (Vanilla default) nem em ACTIONBUTTON1 (corrompido), pois
+                    -- mapeia ao mesmo slot que o X sem modificador em setups sem
+                    -- action bar addon.
                     local current = GetBindingAction(key)
                     if not current or current == "" then
                         SetBinding(key, bindAction)
                         CM.logger:Log("Default: " .. key .. " -> " .. bindAction)
+                    elseif page ~= 1 and (string.find(current, "^BONUSACTIONBUTTON") or string.find(current, "^ACTIONBUTTON")) then
+                        SetBinding(key, bindAction)
+                        CM.logger:Log("Default (override conflict): " .. key .. " (" .. current .. ") -> " .. bindAction)
                     end
                 end
             end

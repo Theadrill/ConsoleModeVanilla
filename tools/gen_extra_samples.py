@@ -36,8 +36,8 @@ en = load_en()
 pt = load_pt()
 print("EN:", len(en), "PT:", len(pt))
 
-# Load R6 suspects
-queue = json.loads(io.open(ADDON_DIR / "tools/nomes_queue_r6.json", encoding="utf-8").read())
+# Load R8 suspects
+queue = json.loads(io.open(ADDON_DIR / "tools/nomes_queue_r8.json", encoding="utf-8").read())
 sus = set(q["id"] for q in queue)
 
 # Exclude overrides (already corrected)
@@ -50,11 +50,11 @@ print("Clean disponiveis:", len(clean))
 
 # Generate 4 samples with different seeds
 suffixes = ["b", "c", "d", "e"]
-seeds = [7006, 8006, 9006, 10006]
+seeds = [7008, 8008, 9008, 10008]
 for suffix, seed in zip(suffixes, seeds):
     rnd = random.Random(seed)
     amostra = rnd.sample(clean, min(300, len(clean)))
     out = [{"id": i, "en": en.get(i, ""), "pt": pt[i]} for i in amostra]
-    p = ADDON_DIR / "tools/batches" / ("input_amostra_06%s.json" % suffix)
+    p = ADDON_DIR / "tools/batches" / ("input_amostra_08%s.json" % suffix)
     p.write_text(json.dumps(out, indent=1, ensure_ascii=False), encoding="utf-8")
     print("Gerado: %s (300 itens, seed=%d)" % (p.name, seed))

@@ -9906,5 +9906,865 @@
  "14920": {
   "pt": "Diadema de Harmonia de Jade",
   "motivo": "circlet->Diadema (oficial)."
+ },
+ "8122": {
+  "pt": "Viseira Heráldica",
+  "motivo": "PT contem 'Leggings' (EN) nao presente no EN; tipo real EN 'Headpiece' -> 'Viseira'."
+ },
+ "8272": {
+  "pt": "Ombereiras Ebano",
+  "motivo": "PT contem 'Pauldrons' (EN) nao presente no EN; tipo real EN 'Shoulderpads' -> 'Ombereiras'."
+ },
+ "8305": {
+  "pt": "Manoplas do Herói",
+  "motivo": "PT contem 'Leggings' (EN) nao presente no EN; tipo real EN 'Gauntlets' -> 'Manoplas'. Exemplo da regra R7."
+ },
+ "9561": {
+  "pt": "Tablete Consagrado",
+  "motivo": "PT contem 'Tabuleta', deve ser 'Tablete' (oficial); ajustado genero do adjetivo para masculino."
+ },
+ "9965": {
+  "pt": "Ombereiras do Warmonger",
+  "motivo": "PT contem 'Spaulders' (EN) nao presente no EN; tipo real EN 'Pauldrons' -> 'Ombereiras'."
+ },
+ "10276": {
+  "pt": "Savorões de Esmeralda",
+  "motivo": "PT contem 'Sabatons' (EN); deveria ser 'Savorões' segundo type chart."
+ },
+ "12358": {
+  "pt": "Tablete de Pedra Sombria",
+  "motivo": "Tabuleta deve ser Tablete (EN tem Tablet)"
+ },
+ "14921": {
+  "pt": "Ombreiras de Jade",
+  "motivo": "circlet ingles residual fora do EN; Epaulets->Ombreiras"
+ },
+ "15827": {
+  "pt": "Peitoral de Escama de Jade",
+  "motivo": "sabatons ingles residual fora do EN; traducao equivocada"
+ },
+ "16953": {
+  "pt": "Ombreiras de Julgamento",
+  "motivo": "sabatons ingles residual fora do EN; Spaulders->Ombreiras"
+ },
+ "21345": {
+  "pt": "Ombreiras Enigma",
+  "motivo": "Palavra 'Pauldrons' em inglês residual no PT; 'Shoulderpads' deve ser traduzido para 'Ombreiras'"
+ },
+ "22496": {
+  "pt": "Túnica de Fogo de Gelo",
+  "motivo": "Palavra 'Spaulders' em inglês residual no PT; 'Robe' foi traduzido incorretamente como 'Spaulders', deve ser 'Túnica'"
+ },
+ "22500": {
+  "pt": "Sandálias de Fogo de Gelo",
+  "motivo": "Palavra 'Spaulders' em inglês residual no PT; 'Sandals' foi traduzido incorretamente como 'Spaulders', deve ser 'Sandálias'"
+ },
+ "22505": {
+  "pt": "Perneiras Plagueheart",
+  "motivo": "Palavra 'Leggings' em inglês residual no PT; 'Pants' deve ser traduzido para 'Perneiras'"
+ },
+ "41757": {
+  "pt": "Tablete Esculpida Com Runas",
+  "motivo": "Palavra 'tabuleta' deve ser 'tablete' (correspondente a EN 'Tablet')"
+ },
+ "41837": {
+  "pt": "Tablete Rubramarca",
+  "motivo": "Palavra 'tabuleta' deve ser 'tablete' (correspondente a EN 'Tablet')"
+ },
+ "41858": {
+  "pt": "Insígnia de Saqueador de Tormenta",
+  "motivo": "Palavra inglesa 'reaver' no PT deve ser traduzida para 'Saqueador'"
+ },
+ "47101": {
+  "pt": "Ombreiras de Link de Gelo",
+  "motivo": "Palavra inglesa 'spaulders' no PT deve ser traduzida para 'Ombreiras'"
+ },
+ "60494": {
+  "pt": "Garra do Saqueador Sombrio",
+  "motivo": "Palavra inglesa 'reaver' no PT deve ser traduzida para 'Saqueador'"
+ },
+ "60849": {
+  "pt": "Tablete de Witherbark",
+  "motivo": "Palavra 'tabuleta' deve ser 'tablete' (correspondente a EN 'Tablet')"
+ },
+ "61071": {
+  "pt": "Tablete Troll Antiga",
+  "motivo": "Palavra 'tabuleta' deve ser 'tablete' (correspondente a EN 'Tablet')"
+ },
+ "70627": {
+  "pt": "Omburaias Enigma",
+  "motivo": "Palavra em inglês 'pauldrons' no PT → traduzido para 'Omburaias'"
+ },
+ "80185": {
+  "pt": "Garras dos Condenados",
+  "motivo": "Palavra em inglês 'reaver' no PT e tradução inadequada de 'Damned' → corrigido para 'Condenados'"
+ },
+ "80841": {
+  "pt": "Omburais Congeladas",
+  "motivo": "Palavra em inglês 'spaulders' no PT → traduzido para 'Omburais'"
+ },
+ "81234": {
+  "pt": "Carneiro da Brewfest",
+  "motivo": "Nome próprio 'CervaFest' com maiúscula no meio → mantido nome original 'Brewfest'"
+ },
+ "81300": {
+  "pt": "Tablete Troll Antiga",
+  "motivo": "Tabuleta → tablete (conforme regra tabuleta->tablete)"
+ },
+ "81358": {
+  "pt": "Tablete Thalassiana Antiga",
+  "motivo": "Tabuleta → tablete (conforme regra tabuleta->tablete)"
+ },
+ "2613": {
+  "pt": "Túnicas de Costura Dupla",
+  "motivo": "residual EN"
+ },
+ "3228": {
+  "pt": "Algemas Arranquadas",
+  "motivo": "crosstalk"
+ },
+ "5188": {
+  "pt": "Vasilha Preenchida",
+  "motivo": "residual EN"
+ },
+ "6398": {
+  "pt": "Cinto Emblemlhado",
+  "motivo": "type-mismatch"
+ },
+ "7098": {
+  "pt": "Presa Fragmentada",
+  "motivo": "typo"
+ },
+ "15057": {
+  "pt": "Calças Tempestárias",
+  "motivo": "typo"
+ },
+ "15429": {
+  "pt": "Luvas Sem Par",
+  "motivo": "crosstalk"
+ },
+ "18830": {
+  "pt": "Sunderer do Grande Marechal",
+  "motivo": "crosstalk"
+ },
+ "20612": {
+  "pt": "Scourgestone Inerte",
+  "motivo": "crosstalk"
+ },
+ "21320": {
+  "pt": "Colete do Guardião da Cova",
+  "motivo": "crosstalk"
+ },
+ "21351": {
+  "pt": "Vestes do Oráculo",
+  "motivo": "crosstalk"
+ },
+ "41047": {
+  "pt": "Broquel de Berinjela",
+  "motivo": "crosstalk"
+ },
+ "41466": {
+  "pt": "Grog de Goldthorn",
+  "motivo": "crosstalk"
+ },
+ "55099": {
+  "pt": "Caneleiras de Leysteel",
+  "motivo": "crosstalk"
+ },
+ "60758": {
+  "pt": "Restos Mortais de Troll Antigo",
+  "motivo": "typo"
+ },
+ "80430": {
+  "pt": "Tigre Espectral Azul",
+  "motivo": "crosstalk"
+ },
+ "1167": {
+  "pt": "Broquel Pequeno",
+  "motivo": "residual:targe->Broquel"
+ },
+ "1171": {
+  "pt": "Túnica Bem Costurado",
+  "motivo": "residual:robe->Túnica"
+ },
+ "1380": {
+  "pt": "Túnica Desfiado",
+  "motivo": "residual:robe->Túnica"
+ },
+ "1561": {
+  "pt": "Túnica do Colhedor",
+  "motivo": "residual:robe->Túnica"
+ },
+ "1716": {
+  "pt": "Túnica dos Magos",
+  "motivo": "residual:robe->Túnica"
+ },
+ "1997": {
+  "pt": "Túnica de Feltro Prensado",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2110": {
+  "pt": "Túnica de Magesmith Leve",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2114": {
+  "pt": "Túnica Neve",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2221": {
+  "pt": "Escudo de Broquel",
+  "motivo": "residual:targe->Broquel"
+ },
+ "2231": {
+  "pt": "Túnica Infernal",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2292": {
+  "pt": "Túnicas de Necrologia",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "2442": {
+  "pt": "Broquel Reforçada",
+  "motivo": "residual:targe->Broquel"
+ },
+ "2585": {
+  "pt": "Túnica de Lã Cinza",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2586": {
+  "pt": "Túnica do Mestre de Jogo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2612": {
+  "pt": "Túnica Simples",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2614": {
+  "pt": "Túnica de Aprendizagem",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2615": {
+  "pt": "Túnica Cromático",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2616": {
+  "pt": "Túnica de Seda Cintilante",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2618": {
+  "pt": "Túnica de Vestido Prateado",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2957": {
+  "pt": "Túnica de Aprendiz",
+  "motivo": "residual:robe->Túnica"
+ },
+ "2981": {
+  "pt": "Túnica do Vidente",
+  "motivo": "residual:robe->Túnica"
+ },
+ "3019": {
+  "pt": "Túnica do Nobre",
+  "motivo": "residual:robe->Túnica"
+ },
+ "3069": {
+  "pt": "Túnica Brilhante",
+  "motivo": "residual:robe->Túnica"
+ },
+ "3072": {
+  "pt": "Túnica Fumegante",
+  "motivo": "residual:robe->Túnica"
+ },
+ "3161": {
+  "pt": "Túnica do Guardião",
+  "motivo": "residual:robe->Túnica"
+ },
+ "3216": {
+  "pt": "Túnica de Inverno Quente",
+  "motivo": "residual:robe->Túnica"
+ },
+ "3328": {
+  "pt": "Túnica de Teia de Aranha",
+  "motivo": "residual:robe->Túnica"
+ },
+ "3461": {
+  "pt": "Túnica do Adjudicador",
+  "motivo": "residual:robe->Túnica"
+ },
+ "4035": {
+  "pt": "Túnica de Fio de Prata",
+  "motivo": "residual:robe->Túnica"
+ },
+ "4038": {
+  "pt": "Túnica do Céu Noturno",
+  "motivo": "residual:robe->Túnica"
+ },
+ "4120": {
+  "pt": "Túnica das Águas Cristalinas",
+  "motivo": "residual:robe->Túnica"
+ },
+ "4782": {
+  "pt": "Túnica de Solstício",
+  "motivo": "residual:robe->Túnica"
+ },
+ "4989": {
+  "pt": "Túnica de Dragão Mago",
+  "motivo": "residual:robe->Túnica"
+ },
+ "5117": {
+  "pt": "Túnica do Vigário",
+  "motivo": "residual:robe->Túnica"
+ },
+ "5766": {
+  "pt": "Túnica Menor de Feiticeiro",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6098": {
+  "pt": "Túnica de Neophyte",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6119": {
+  "pt": "Túnica de Neophyte",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6123": {
+  "pt": "Túnica de Novato",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6139": {
+  "pt": "Túnica de Novato",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6144": {
+  "pt": "Túnica de Neophyte",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6238": {
+  "pt": "Túnica de Linho Marrom",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6241": {
+  "pt": "Túnica de Linho Branco",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6243": {
+  "pt": "Túnica de Lã Verde",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6264": {
+  "pt": "Túnica de Grande Adepto",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6427": {
+  "pt": "Túnica Mistscape",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6465": {
+  "pt": "Túnica da Mocassins",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6503": {
+  "pt": "Túnica de Arlequim",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6528": {
+  "pt": "Túnica do Feiticeiro",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6538": {
+  "pt": "Túnica de Salgueiro",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6569": {
+  "pt": "Túnica Cintilante",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6610": {
+  "pt": "Túnica do Sábio",
+  "motivo": "residual:robe->Túnica"
+ },
+ "6900": {
+  "pt": "Túnica de Sangue Dourado Encantado",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7054": {
+  "pt": "Túnica do Poder",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7334": {
+  "pt": "Túnica Eflorescente",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7369": {
+  "pt": "Túnica do Ancião",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7430": {
+  "pt": "Túnica do Crepúsculo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7468": {
+  "pt": "Túnica Regal",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7509": {
+  "pt": "Túnica de Manaweave",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7510": {
+  "pt": "Túnicas Menores de Fogo Mágico",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "7518": {
+  "pt": "Túnica de Gossamer",
+  "motivo": "residual:robe->Túnica"
+ },
+ "7711": {
+  "pt": "Túnica de Doan",
+  "motivo": "residual:robe->Túnica"
+ },
+ "8113": {
+  "pt": "Túnica Hibernal",
+  "motivo": "residual:robe->Túnica"
+ },
+ "8252": {
+  "pt": "Túnica Vermelho Imperial",
+  "motivo": "residual:robe->Túnica"
+ },
+ "9618": {
+  "pt": "Recipiente de Muisek de Wildkin",
+  "motivo": "residual:vessel->Recipiente"
+ },
+ "9748": {
+  "pt": "Túnica Simples",
+  "motivo": "residual:robe->Túnica"
+ },
+ "9773": {
+  "pt": "Túnica de Tecelagem Verde",
+  "motivo": "residual:robe->Túnica"
+ },
+ "9791": {
+  "pt": "Túnica de Ivycloth",
+  "motivo": "residual:robe->Túnica"
+ },
+ "9826": {
+  "pt": "Túnica Durável",
+  "motivo": "residual:robe->Túnica"
+ },
+ "9884": {
+  "pt": "Túnica de Feiticeiro",
+  "motivo": "residual:robe->Túnica"
+ },
+ "10004": {
+  "pt": "Túnica de Tecelagem Sombria",
+  "motivo": "residual:robe->Túnica"
+ },
+ "10042": {
+  "pt": "Túnica de Tecido de Cinzas",
+  "motivo": "residual:robe->Túnica"
+ },
+ "10065": {
+  "pt": "Túnica de Tecelagem do Crepúsculo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "10143": {
+  "pt": "Túnica do Alto Conselheiro",
+  "motivo": "residual:robe->Túnica"
+ },
+ "10178": {
+  "pt": "Túnica Místico",
+  "motivo": "residual:robe->Túnica"
+ },
+ "10254": {
+  "pt": "Túnica do Mestre",
+  "motivo": "residual:robe->Túnica"
+ },
+ "11747": {
+  "pt": "Túnica Flamestrider",
+  "motivo": "residual:robe->Túnica"
+ },
+ "13064": {
+  "pt": "Túnica de Jaina Proudmoore",
+  "motivo": "residual:robe->Túnica"
+ },
+ "13858": {
+  "pt": "Túnica de Tecido Rúnico",
+  "motivo": "residual:robe->Túnica"
+ },
+ "13868": {
+  "pt": "Túnica de Tecido de Gelo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14100": {
+  "pt": "Túnica de Tecido Brilhante",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14109": {
+  "pt": "Túnica Nativo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14128": {
+  "pt": "Túnica de Wizardweave",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14136": {
+  "pt": "Túnica da Noite Invernal",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14150": {
+  "pt": "Túnica de Evocação",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14152": {
+  "pt": "Túnica do Arcanjo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14153": {
+  "pt": "Túnica do Vazio",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14184": {
+  "pt": "Túnicas do Observador",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "14204": {
+  "pt": "Túnica de Thistlefur",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14340": {
+  "pt": "Túnica Congelante do Lich",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14371": {
+  "pt": "Túnica Místico",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14380": {
+  "pt": "Túnica Sanguíneo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14405": {
+  "pt": "Túnica Resiliente",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14413": {
+  "pt": "Túnica de Tecido de Pedra",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14453": {
+  "pt": "Túnica do Alto Nobre",
+  "motivo": "residual:robe->Túnica"
+ },
+ "14626": {
+  "pt": "Túnica de Necropile",
+  "motivo": "residual:robe->Túnica"
+ },
+ "16036": {
+  "pt": "Túnica de Tecido da Horda PVP",
+  "motivo": "residual:robe->Túnica"
+ },
+ "16491": {
+  "pt": "Túnicas de Seda do Legionário",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "16605": {
+  "pt": "Túnica do Frei da Luz",
+  "motivo": "residual:robe->Túnica"
+ },
+ "16606": {
+  "pt": "Túnicas de Juju da Maldição",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "16688": {
+  "pt": "Túnicas do Magister",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "16690": {
+  "pt": "Túnica do Devoto",
+  "motivo": "residual:robe->Túnica"
+ },
+ "16700": {
+  "pt": "Túnica de Névoa Temível",
+  "motivo": "residual:robe->Túnica"
+ },
+ "16809": {
+  "pt": "Túnica Vilcórdio",
+  "motivo": "residual:robe->Túnica"
+ },
+ "16931": {
+  "pt": "Túnicas de Nemesis",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "17043": {
+  "pt": "Túnica de Zelote",
+  "motivo": "residual:robe->Túnica"
+ },
+ "17186": {
+  "pt": "Broquel Pequeno",
+  "motivo": "residual:targe->Broquel"
+ },
+ "17192": {
+  "pt": "Broquel Reforçada",
+  "motivo": "residual:targe->Broquel"
+ },
+ "17581": {
+  "pt": "Túnica de Dreadweave do Marechal de Campo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "18385": {
+  "pt": "Túnica da Noite Eterna",
+  "motivo": "residual:robe->Túnica"
+ },
+ "18450": {
+  "pt": "Túnica de Combustão",
+  "motivo": "residual:robe->Túnica"
+ },
+ "18486": {
+  "pt": "Túnica de Tecido Lunar",
+  "motivo": "residual:robe->Túnica"
+ },
+ "18532": {
+  "pt": "Túnica Mindsurge",
+  "motivo": "residual:robe->Túnica"
+ },
+ "19129": {
+  "pt": "Túnica Everglowing",
+  "motivo": "residual:robe->Túnica"
+ },
+ "19145": {
+  "pt": "Túnica do Poder Volátil",
+  "motivo": "residual:robe->Túnica"
+ },
+ "19156": {
+  "pt": "Túnica Flarecore",
+  "motivo": "residual:robe->Túnica"
+ },
+ "20032": {
+  "pt": "Túnica de Ritual Fluido",
+  "motivo": "residual:robe->Túnica"
+ },
+ "20033": {
+  "pt": "Túnica de Demoniaco de Zandalar",
+  "motivo": "residual:robe->Túnica"
+ },
+ "20034": {
+  "pt": "Túnica de Ilusionista de Zandalar",
+  "motivo": "residual:robe->Túnica"
+ },
+ "20407": {
+  "pt": "Túnica de Cultista do Crepúsculo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "20891": {
+  "pt": "Túnica de Neophyte",
+  "motivo": "residual:robe->Túnica"
+ },
+ "21040": {
+  "pt": "Túnica de Narain",
+  "motivo": "residual:robe->Túnica"
+ },
+ "21334": {
+  "pt": "Túnicas do Chamador da Perdição",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "22069": {
+  "pt": "Túnica de Feiticeiro",
+  "motivo": "residual:robe->Túnica"
+ },
+ "22083": {
+  "pt": "Túnica do Virtuoso",
+  "motivo": "residual:robe->Túnica"
+ },
+ "22301": {
+  "pt": "Túnica de Ironweave",
+  "motivo": "residual:robe->Túnica"
+ },
+ "22351": {
+  "pt": "Túnica Profanado",
+  "motivo": "residual:robe->Túnica"
+ },
+ "22512": {
+  "pt": "Túnica da Fé",
+  "motivo": "residual:robe->Túnica"
+ },
+ "23085": {
+  "pt": "Túnica de Purificação dos Mortos-vivos",
+  "motivo": "residual:robe->Túnica"
+ },
+ "41017": {
+  "pt": "Túnica Coberto de Poeira",
+  "motivo": "residual:robe->Túnica"
+ },
+ "41034": {
+  "pt": "Broquel de Rakklan",
+  "motivo": "residual:targe->Broquel"
+ },
+ "41056": {
+  "pt": "Túnica do Obediente",
+  "motivo": "residual:robe->Túnica"
+ },
+ "41186": {
+  "pt": "Túnica Reefscale",
+  "motivo": "residual:robe->Túnica"
+ },
+ "41552": {
+  "pt": "Túnica Verde da Perspicácia",
+  "motivo": "residual:robe->Túnica"
+ },
+ "41553": {
+  "pt": "Túnicas Roxos da Perspicácia",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "41554": {
+  "pt": "Túnicas Vermelhos da Percepção",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "41651": {
+  "pt": "Túnica do Espírito Festivo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "47299": {
+  "pt": "Túnica Plagueheart",
+  "motivo": "residual:robe->Túnica"
+ },
+ "47314": {
+  "pt": "Túnicas Nathrezim",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "50103": {
+  "pt": "Túnica da Academia de Scholomance",
+  "motivo": "residual:robe->Túnica"
+ },
+ "51736": {
+  "pt": "Túnica Infectado pela Peste",
+  "motivo": "residual:robe->Túnica"
+ },
+ "60230": {
+  "pt": "Recipiente Escuro de Hazzuri",
+  "motivo": "residual:vessel->Recipiente"
+ },
+ "60425": {
+  "pt": "Túnica do Guardião das Sombras",
+  "motivo": "residual:robe->Túnica"
+ },
+ "61002": {
+  "pt": "Túnica do Custódio",
+  "motivo": "residual:robe->Túnica"
+ },
+ "61061": {
+  "pt": "Túnica Regenerativo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "61206": {
+  "pt": "Túnica dos Caminhos do Sonho",
+  "motivo": "residual:robe->Túnica"
+ },
+ "61319": {
+  "pt": "Túnicas Regais do Regente",
+  "motivo": "residual:robe->Túnicas"
+ },
+ "61326": {
+  "pt": "Túnica do Embaixador da Luz",
+  "motivo": "residual:robe->Túnica"
+ },
+ "61396": {
+  "pt": "Túnica da Humildade",
+  "motivo": "residual:robe->Túnica"
+ },
+ "61503": {
+  "pt": "Túnica de Rezengal",
+  "motivo": "residual:robe->Túnica"
+ },
+ "65003": {
+  "pt": "Túnica do Sacrifício",
+  "motivo": "residual:robe->Túnica"
+ },
+ "69120": {
+  "pt": "Túnica do Arcanista de Tirisfal",
+  "motivo": "residual:robe->Túnica"
+ },
+ "69121": {
+  "pt": "Túnica do Arque-mago Escarlate",
+  "motivo": "residual:robe->Túnica"
+ },
+ "69124": {
+  "pt": "Túnica de Arqui-mago de Lordaeron",
+  "motivo": "residual:robe->Túnica"
+ },
+ "69125": {
+  "pt": "Túnica do Arquimago de Theramore",
+  "motivo": "residual:robe->Túnica"
+ },
+ "69126": {
+  "pt": "Túnica do Arquimago de Theramore",
+  "motivo": "residual:robe->Túnica"
+ },
+ "70642": {
+  "pt": "Túnica de Fogo de Gelo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "80109": {
+  "pt": "Túnica Salpicado de Óleo",
+  "motivo": "residual:robe->Túnica"
+ },
+ "80612": {
+  "pt": "Túnica do Místico Revantusk",
+  "motivo": "residual:robe->Túnica"
+ },
+ "80791": {
+  "pt": "Túnica da Divindade",
+  "motivo": "residual:robe->Túnica"
+ },
+ "80816": {
+  "pt": "Túnica da Lâmina Ardente",
+  "motivo": "residual:robe->Túnica"
+ },
+ "83207": {
+  "pt": "Túnica Feymist",
+  "motivo": "residual:robe->Túnica"
+ },
+ "83227": {
+  "pt": "Túnica do Curador da Clareira",
+  "motivo": "residual:robe->Túnica"
+ },
+ "83294": {
+  "pt": "Túnica de Pillager",
+  "motivo": "residual:robe->Túnica"
+ },
+ "8304": {
+  "pt": "Capa do Herói",
+  "motivo": "type-mismatch: Hero's Cape (cape) != Manoplas (luvas)"
+ },
+ "5220": {
+  "pt": "Presa de Gnarlpine",
+  "motivo": "traducao literal: Presente != Fang(presa)"
+ },
+ "51642": {
+  "pt": "Moeda de Prata de Herczeg",
+  "motivo": "crosstalk: PT refere Manto do Ermitão"
+ },
+ "15204": {
+  "pt": "Varinha Moonstone",
+  "motivo": "tipo errado: Wand != Cajado"
+ },
+ "6410": {
+  "pt": "Braçadeiras da Insígnia",
+  "motivo": "plural: Insígnias->Insígnia"
+ },
+ "936": {
+  "pt": "Malho da Meia-Noite",
+  "motivo": "residual EN: Mace"
+ },
+ "80661": {
+  "pt": "Explódium Rubi",
+  "motivo": "crosstalk: PT refere Tinta de Cabelo"
+ },
+ "50146": {
+  "pt": "Ouro do Vudú",
+  "motivo": "crosstalk: PT refere Tinta de Cabelo"
+ },
+ "83078": {
+  "pt": "Cocar de Visões do Vidente",
+  "motivo": "type-mismatch: Headdress!=Capacete"
  }
 }

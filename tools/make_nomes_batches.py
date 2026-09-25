@@ -170,10 +170,33 @@ def sinais(i, en, pt):
                    "thorium": "Tório", "rod": "Vara", "primal": "Primevo",
                    "reaver": "Abutre", "maul": "Malho", "tablet": "Tablete",
                    "felcloth": "Tecido Vil", "mauler": "Malho", "girdle": "Cinturão",
-                   "warchief": "Chefe de Guerra", "dragonmaw": "Presa do Dragão"}
+                   "warchief": "Chefe de Guerra", "dragonmaw": "Presa do Dragão",
+                   "robe": "Túnica", "pauldrons": "Ombreiras", "bracers": "Braçadeiras",
+                   "gauntlets": "Luvas de Batalha", "leggings": "Perneiras",
+                   "breastplate": "Armadura", "greaves": "Coberturas",
+                   "handwraps": "Faixas de Mão", "trinket": "Trinket", "ranged": "Arma de Distância",
+                   "polearm": "Arma de Haste", "libram": "Tratado", "mace": "Malho",
+                   "gavel": "Mazo", "orb": "Orbe", "gem": "Gema", "crown": "Coroa",
+                   "helmet": "Capacete", "helmet": "Capacete", "greaves": "Coberturas",
+                   "gauntlets": "Luvas de Batalha", "head": "Capacete", "waist": "Cinto",
+                   "shoulder": "Ombreiras", "chest": "Peito", "legs": "Pernas",
+                   "feet": "Pés", "weapon": "Arma", "armor": "Armadura", "mail": "Malha",
+                   "plate": "Placa", "cloth": "Tecido", "leather": "Couro"}
     for w, hint in REMNANT_FIX.items():
         if re.search(r"\b%s\b" % w, enlow) and re.search(r"\b%s\b" % w, low):
             s.append("tok-remnant:%s=>%s" % (w, hint or "?"))
+            break
+    # RODADA 8 (classes da AMOSTRA-07 + validações 07b-e): type-mismatch.
+    # PT contém uma palavra de tipo de item cujo equivalente EN nao esta
+    # presente no EN desse item -> forte sinal de crosstalk/erro categorico.
+    PT2EN_TYPE = {"luvas": "glove", "botas": "boot", "capa": "cape",
+                  "escudo": "shield", "coroa": "crown", "cinto": "belt",
+                  "amuleto": "amulet", "anel": "ring", "perneira": "leg",
+                  "calça": "pants", "túnica": "robe", "armadura": "chest",
+                  "sandália": "sandal"}
+    for pt_word, en_type in PT2EN_TYPE.items():
+        if re.search(r"\b%s\b" % pt_word, low) and not re.search(r"\b%s" % en_type, enlow):
+            s.append("type-mismatch:%s!=%s" % (pt_word, en_type))
             break
     return s
 

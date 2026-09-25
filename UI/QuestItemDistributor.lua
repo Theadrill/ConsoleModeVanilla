@@ -70,7 +70,7 @@ QID.unplaceableItemIDs = {}
 
 -- Helper de log: imprime no chat com prefixo colorido
 local function QLog(msg)
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[QID]|r " .. tostring(msg))
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ccff[QID]|r " .. tostring(msg)) -- NOLOG
 end
 
 -- Helper de debug: silenciado para evitar flood no chat durante o polling periodico de itens

@@ -16,7 +16,8 @@ CM.logger = {}
 local Logger = CM.logger
 
 -- Ativado por padrão (modo desenvolvimento)
-Logger.enabled = true
+-- Logger.enabled = true -- NOLOG
+Logger.enabled = false
 
 -- Prefixo visual no chat
 local PREFIX       = "|cffaaaaaa[|r|cff00ccffCM Debug|r|cffaaaaaa]|r "
@@ -39,7 +40,7 @@ function Logger:Log(msg, category)
         prefix = PREFIX_MODE
     end
 
-    DEFAULT_CHAT_FRAME:AddMessage(prefix .. tostring(msg))
+    -- DEFAULT_CHAT_FRAME:AddMessage(prefix .. tostring(msg)) -- NOLOG
 end
 
 -- Atalhos por categoria
@@ -49,7 +50,7 @@ function Logger:LogMode(msg)   Logger:Log(msg, "mode")   end
 
 -- Log sempre visível no chat (independente do toggle, para debug crítico)
 function Logger:Alert(msg)
-    DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM Alert]|r " .. tostring(msg))
+    -- DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM Alert]|r " .. tostring(msg)) -- NOLOG
 end
 
 -- ============================================================
@@ -123,11 +124,11 @@ keyLogger:SetScript("OnUpdate", function()
         end
 
         if mods ~= "" then
-            Logger:LogInput(
-                "Modificador: |cffffd100" .. mods .. "|r" ..
-                " | Página: |cff00ccff" .. pageName .. "|r" ..
-                " | Modo: " .. modeStr
-            )
+            -- Logger:LogInput(
+            --     "Modificador: |cffffd100" .. mods .. "|r" ..
+            --     " | Página: |cff00ccff" .. pageName .. "|r" ..
+            --     " | Modo: " .. modeStr
+            -- ) -- NOLOG
         end
     end
 end)

@@ -443,7 +443,7 @@ end
 function Hooks:Initialize()
     if self.initialized then return end
 
-    DEFAULT_CHAT_FRAME:AddMessage(ConsoleMode:T("MSG_HOOKS_START"))
+    -- DEFAULT_CHAT_FRAME:AddMessage(ConsoleMode:T("MSG_HOOKS_START")) -- NOLOG
 
     -- Hook inicial de todos os frames que já existem
     local count = 0
@@ -700,7 +700,7 @@ function Hooks:Initialize()
     end
 
     self.initialized = true
-    DEFAULT_CHAT_FRAME:AddMessage(format(ConsoleMode:T("MSG_HOOKS_DONE_FMT"), count))
+    -- DEFAULT_CHAT_FRAME:AddMessage(format(ConsoleMode:T("MSG_HOOKS_DONE_FMT"), count)) -- NOLOG
 end
 
 function Hooks:InjectGameMenuButton()

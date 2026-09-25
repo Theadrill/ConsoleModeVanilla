@@ -288,8 +288,8 @@ function KB:Initialize()
     -- O binding ALT-SPACE = CM_INTERACT agora é padrão via fixedDefaults (sempre aplicado).
     -- Este bloco mantém apenas o log de detecção da DLL.
     if type(InteractNearest) == "function" then
-        CM.logger:Log("Interact.dll detectada! R2 + A = Interagir (via CM_INTERACT).")
-        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_INTERACT"))
+        -- CM.logger:Log("Interact.dll detectada! R2 + A = Interagir (via CM_INTERACT).") -- NOLOG
+        -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_INTERACT")) -- NOLOG
     end
 
     -- Aplica todos os bindings das 5 paginas automaticamente no login
@@ -299,7 +299,7 @@ function KB:Initialize()
     -- Sanitização e cura automática de bindings corrompidos (ex: D-Pad preso em CM_CURSOR ou CM_ACTION, ou A/D presos em CM_MODEL_)
     KB:SanitizeBindings()
     
-    CM.logger:Log("Atalhos de Interface e Smart TAB inicializados.")
+    -- CM.logger:Log("Atalhos de Interface e Smart TAB inicializados.") -- NOLOG
 end
 
 -- ============================================================
@@ -328,7 +328,7 @@ function KB:SanitizeBindings()
         if not currentAction or currentAction == "" or string.find(currentAction, "^CM_CURSOR_") or string.find(currentAction, "^CM_ACTION_") then
             SetBinding(key, expectedAction)
             repaired = true
-            CM.logger:Log("SanitizeBindings: reparou tecla " .. key .. " -> " .. expectedAction)
+            -- CM.logger:Log("SanitizeBindings: reparou tecla " .. key .. " -> " .. expectedAction) -- NOLOG
         end
     end
 
@@ -348,7 +348,7 @@ function KB:SanitizeBindings()
                        or string.find(currentAction, "^BONUSACTIONBUTTON") then
                         SetBinding(key, expectedAction)
                         repaired = true
-                        CM.logger:Log("SanitizeBindings: reparou tecla p" .. page .. " " .. key .. " -> " .. expectedAction)
+                        -- CM.logger:Log("SanitizeBindings: reparou tecla p" .. page .. " " .. key .. " -> " .. expectedAction) -- NOLOG
                     end
                 end
             end
@@ -367,7 +367,7 @@ function KB:SanitizeBindings()
         if not currentAction or currentAction == "" or string.find(currentAction, "^CM_MODEL_") or string.find(currentAction, "^CM_MAP_") or currentAction == "TURNLEFT" or currentAction == "TURNRIGHT" then
             SetBinding(key, expectedAction)
             repaired = true
-            CM.logger:Log("SanitizeBindings: reparou movimento " .. key .. " -> " .. expectedAction)
+            -- CM.logger:Log("SanitizeBindings: reparou movimento " .. key .. " -> " .. expectedAction) -- NOLOG
         end
     end
 
@@ -404,7 +404,7 @@ function KB:SanitizeBindings()
         local set = GetCurrentBindingSet()
         if not set or set == 0 then set = 1 end
         pcall(function() SaveBindings(set) end)
-        CM.logger:Log("SanitizeBindings: bindings de combate e movimento restaurados e gravados com sucesso.")
+        -- CM.logger:Log("SanitizeBindings: bindings de combate e movimento restaurados e gravados com sucesso.") -- NOLOG
     end
 end
 
@@ -540,10 +540,10 @@ function KB:ApplyDefaults()
                     local current = GetBindingAction(key)
                     if not current or current == "" then
                         SetBinding(key, bindAction)
-                        CM.logger:Log("Default: " .. key .. " -> " .. bindAction)
+                        -- CM.logger:Log("Default: " .. key .. " -> " .. bindAction) -- NOLOG
                     elseif page ~= 1 and (string.find(current, "^BONUSACTIONBUTTON") or string.find(current, "^ACTIONBUTTON") or string.find(current, "^SELFACTIONBUTTON") or string.find(current, "^ACTIONPAGE") or current == "TOGGLEWORLDSTATESCORES") then
                         SetBinding(key, bindAction)
-                        CM.logger:Log("Default (override conflict): " .. key .. " (" .. current .. ") -> " .. bindAction)
+                        -- CM.logger:Log("Default (override conflict): " .. key .. " (" .. current .. ") -> " .. bindAction) -- NOLOG
                     end
                 end
             end
@@ -553,13 +553,13 @@ function KB:ApplyDefaults()
     -- Botões fixos (sempre aplicados — sao exclusivos do addon)
     for bindName, key in pairs(fixedDefaults) do
         SetBinding(key, bindName)
-        CM.logger:Log("Fixed: " .. key .. " -> " .. bindName)
+        -- CM.logger:Log("Fixed: " .. key .. " -> " .. bindName) -- NOLOG
     end
 
     local set = GetCurrentBindingSet()
     if not set or set == 0 then set = 1 end
     pcall(function() SaveBindings(set) end)
-    CM.logger:Log("Defaults aplicados e salvos.")
+    -- CM.logger:Log("Defaults aplicados e salvos.") -- NOLOG
 end
 
 -- ============================================================
@@ -595,7 +595,7 @@ function KB:BackupProfile()
     backup.timestamp = date("%d/%m/%Y %H:%M")
     ConsoleModeDB.backup[UnitName("player")] = backup
 
-    CM.logger:Log("Backup criado para " .. UnitName("player") .. " em " .. backup.timestamp)
+    -- CM.logger:Log("Backup criado para " .. UnitName("player") .. " em " .. backup.timestamp) -- NOLOG
     DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_BACKUP_SAVED"))
 end
 
@@ -633,7 +633,7 @@ function KB:RestoreProfile()
 
     SaveBindings(GetCurrentBindingSet())
 
-    CM.logger:Log("Perfil de teclado restaurado para " .. playerName)
+    -- CM.logger:Log("Perfil de teclado restaurado para " .. playerName) -- NOLOG
     DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_PROFILE_RESTORED"))
 end
 
@@ -647,9 +647,9 @@ function KB:ToggleMouseMode()
     else
         KB.mouseModeActive = not KB.mouseModeActive
         if KB.mouseModeActive then
-            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_ON"))
+            -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_ON")) -- NOLOG
         else
-            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_OFF"))
+            -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_OFF")) -- NOLOG
         end
     end
 end
@@ -659,12 +659,12 @@ end
 -- ============================================================
 function KB:OnChatActivated()
     KB.chatActive = true
-    CM.logger:Log("Chat ABERTO - Atalhos do controle desativados")
+    -- CM.logger:Log("Chat ABERTO - Atalhos do controle desativados") -- NOLOG
 end
 
 function KB:OnChatDeactivated()
     KB.chatActive = false
-    CM.logger:Log("Chat FECHADO - Atalhos do controle reativados")
+    -- CM.logger:Log("Chat FECHADO - Atalhos do controle reativados") -- NOLOG
 end
 
 -- ============================================================
@@ -731,8 +731,8 @@ function KB:EnterNavigationMode()
     -- Aplica bindings de navegação no D-Pad e botões A, B, X, Y
     KB:ReapplyNavigationBindings()
 
-    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_NAV_ON"))
-    CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, Y = Usar Item, B = Cancelar")
+    -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_NAV_ON")) -- NOLOG
+    -- CM.logger:Log("Modo NAVEGAÇÃO ativado - D-Pad = cursor UI, A = Confirmar, Y = Usar Item, B = Cancelar") -- NOLOG
 end
 
 function KB:ReapplyNavigationBindings()
@@ -870,8 +870,8 @@ function KB:ExitNavigationMode(force)
         CM.ui.actionHUD:Update()
     end
 
-    DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_NAV_OFF"))
-    CM.logger:Log("Modo HOTKEY restaurado - D-Pad = ações de combate")
+    -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_NAV_OFF")) -- NOLOG
+    -- CM.logger:Log("Modo HOTKEY restaurado - D-Pad = ações de combate") -- NOLOG
 end
 
 -- ============================================================
@@ -879,7 +879,7 @@ end
 -- ============================================================
 function CM_Action(button, page)
     if CM.keybindings.chatActive then return end
-    CM.logger:Log("Acao: Pagina " .. page .. " | Botao " .. button)
+    -- CM.logger:Log("Acao: Pagina " .. page .. " | Botao " .. button) -- NOLOG
 
     -- Botao A na pagina 1 (Base/Sem modificador) = Pulo padrao do WoW
     if page == 1 and button == "A" then
@@ -922,7 +922,7 @@ end
 
 function CM_Fixed(button)
     if CM.keybindings.chatActive and button ~= "L1" then return end
-    CM.logger:Log("Fixo: " .. button)
+    -- CM.logger:Log("Fixo: " .. button) -- NOLOG
     
     if button == "START" then
         -- VK-2: Start com o teclado aberto confirma (entrega o buffer)
@@ -1030,16 +1030,16 @@ end
 function CM_ToggleMouseMode()
     if IsMouselooking() then
         CM_MouseLookStop()
-        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_FREE_ON"))
+        -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_FREE_ON")) -- NOLOG
     else
         CM_MouseLookStart()
-        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_FREE_OFF"))
+        -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_FREE_OFF")) -- NOLOG
     end
 end
 
 function CM_MouseRight()
     CM_MouseLookStop()
-    CM.logger:Log("R3: Clique Direito do Mouse (Mouselook Destravado)")
+    -- CM.logger:Log("R3: Clique Direito do Mouse (Mouselook Destravado)") -- NOLOG
 end
 
 -- ============================================================
@@ -1098,7 +1098,7 @@ end
 
 function CM_ToggleUI(uiType)
     if CM.keybindings.chatActive then return end
-    CM.logger:Log("UI Toggle: " .. tostring(uiType))
+    -- CM.logger:Log("UI Toggle: " .. tostring(uiType)) -- NOLOG
     
     if uiType == "Character" then
         ToggleCharacter("PaperDollFrame")
@@ -1217,7 +1217,7 @@ function CM_CursorMove(direction, keystate)
         end
     else
         -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Key]|r D-Pad: " .. tostring(direction)) -- NOLOG 2026-09-14
-        CM.logger:Log("Cursor: Mover " .. tostring(direction))
+        -- CM.logger:Log("Cursor: Mover " .. tostring(direction)) -- NOLOG
         if CM.cursor.StartRepeat then
             CM.cursor:StartRepeat(direction)
         else
@@ -1346,7 +1346,7 @@ function CM_CursorConfirm()
         local ctxMenu = CM.ui and CM.ui.contextMenu
         if ctxMenu and ctxMenu.frame and ctxMenu.frame:IsVisible() then
             if CM.cursor and CM.cursor.state and CM.cursor.state.currentButton and CM.cursor.state.currentButton:IsVisible() then
-                CM.logger:Log("ContextMenu: Confirmar (A)")
+                -- CM.logger:Log("ContextMenu: Confirmar (A)") -- NOLOG
                 local btn = CM.cursor.state.currentButton
                 if btn.Click then
                     btn:Click("LeftButton")
@@ -1361,7 +1361,7 @@ function CM_CursorConfirm()
     end
     
     -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao A (Confirmar/Clicar)") -- NOLOG 2026-09-14
-    CM.logger:Log("Cursor: Confirmar (A)")
+    -- CM.logger:Log("Cursor: Confirmar (A)") -- NOLOG
     CM.cursor:Click("LeftButton")
 end
 
@@ -1447,7 +1447,7 @@ function CM_CursorUse()
         return
     end
     -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[CM Key]|r Botao Y (Usar Item / Botao Direito)") -- NOLOG 2026-09-14
-    CM.logger:Log("Cursor: Usar Item / Botao Direito (Y)")
+    -- CM.logger:Log("Cursor: Usar Item / Botao Direito (Y)") -- NOLOG
     CM.cursor:Click("RightButton")
 end
 
@@ -1883,6 +1883,6 @@ end
 -- ============================================================
 function CM_OpenRingMenu()
     if CM.keybindings.chatActive then return end
-    CM.logger:Log("Menu Ring: Abrir (L2+R2+A) — Em desenvolvimento!")
+    -- CM.logger:Log("Menu Ring: Abrir (L2+R2+A) — Em desenvolvimento!") -- NOLOG
     DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_RING_SOON"))
 end

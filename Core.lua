@@ -161,12 +161,12 @@ CM:SetScript("OnEvent", function()
         if CM.cursor and CM.cursor.config then
             CM.cursor.config.enableAUX = (ConsoleModeDB.enableAUXSupport ~= false)
         end
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r " .. CM:T("MSG_VARIABLES_LOADED"))
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cffff6600[CM]|r " .. CM:T("MSG_VARIABLES_LOADED")) -- NOLOG
         
         -- ✅ CRÍTICO: Verificar se módulos foram carregados
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Core]|r " .. CM:T("MSG_CHECKING_MODULES"))
-        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_CHECK_CURSOR_FMT"), (CM.cursor and "|cff00ff00OK|r" or "|cffff4444NIL|r")))
-        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_CHECK_HOOKS_FMT"), (CM.hooks and "|cff00ff00OK|r" or "|cffff4444NIL|r")))
+        -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM Core]|r " .. CM:T("MSG_CHECKING_MODULES")) -- NOLOG
+        -- DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_CHECK_CURSOR_FMT"), (CM.cursor and "|cff00ff00OK|r" or "|cffff4444NIL|r"))) -- NOLOG
+        -- DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("MSG_CHECK_HOOKS_FMT"), (CM.hooks and "|cff00ff00OK|r" or "|cffff4444NIL|r"))) -- NOLOG
         
         if not CM.cursor then
             DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_ERR_CURSOR"))

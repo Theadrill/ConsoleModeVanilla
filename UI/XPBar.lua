@@ -4,7 +4,7 @@
     
     Recursos:
     - Badge de Level integrado na lateral esquerda
-    - Barra de preenchimento solida (Roxo padrao / Azul Rested)
+    - Barra de preenchimento solida (Roxo padrao / Roxo escuro Rested)
     - Fundo escuro e solido
     - Texto de progresso (XP Atual / XP Maximo)
     - Movivel segurando Shift + Clique Esquerdo (posicao salva no ConsoleModeDB)
@@ -70,13 +70,26 @@ function XPBar:Initialize()
     barBg:SetBackdropColor(0.12, 0.12, 0.12, 0.95)
     barBg:SetBackdropBorderColor(0.3, 0.3, 0.3, 0.9)
     
-    -- Barra de Status (Preenchimento)
+    -- Barra de Status Rested (Fica por tras da barra principal)
+    local restedBar = CreateFrame("StatusBar", "ConsoleModeXPBarRestedStatus", barBg)
+    restedBar:SetPoint("TOPLEFT", barBg, "TOPLEFT", 2, -2)
+    restedBar:SetPoint("BOTTOMRIGHT", barBg, "BOTTOMRIGHT", -2, 2)
+    restedBar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+    restedBar:SetStatusBarColor(0.30, 0.10, 0.48, 1.0) -- Roxo escuro para o Rested
+    restedBar:SetMinMaxValues(0, 1)
+    restedBar:SetValue(0)
+    restedBar:SetFrameLevel(barBg:GetFrameLevel() + 1)
+    f.restedBar = restedBar
+    
+    -- Barra de Status Principal (Preenchimento do XP Atual)
     local bar = CreateFrame("StatusBar", "ConsoleModeXPBarStatus", barBg)
     bar:SetPoint("TOPLEFT", barBg, "TOPLEFT", 2, -2)
     bar:SetPoint("BOTTOMRIGHT", barBg, "BOTTOMRIGHT", -2, 2)
     bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+    bar:SetStatusBarColor(0.58, 0.2, 0.9, 1.0) -- Roxo padrao constante
     bar:SetMinMaxValues(0, 1)
     bar:SetValue(0)
+    bar:SetFrameLevel(restedBar:GetFrameLevel() + 1)
     f.bar = bar
     
     -- Texto de XP (Atual / Max)
@@ -172,19 +185,29 @@ function XPBar:Update()
     if playerLevel >= 60 or maxXP == 0 then
         self.frame.bar:SetMinMaxValues(0, 1)
         self.frame.bar:SetValue(1)
-        self.frame.bar:SetStatusBarColor(0.58, 0.2, 0.9, 1.0) -- Roxo
+        self.frame.bar:SetStatusBarColor(0.58, 0.2, 0.9, 1.0)
+        if self.frame.restedBar then
+            self.frame.restedBar:SetValue(0)
+            self.frame.restedBar:Hide()
+        end
         self.frame.text:SetText(CM:T("HUD_XP_MAX"))
         return
     end
     
     self.frame.bar:SetMinMaxValues(0, maxXP)
     self.frame.bar:SetValue(curXP)
+    self.frame.bar:SetStatusBarColor(0.58, 0.2, 0.9, 1.0) -- Roxo padrao sempre
     
-    -- Cor: Azul se estiver com bonus de descanso (Rested), Roxo se for XP normal
-    if restXP and restXP > 0 then
-        self.frame.bar:SetStatusBarColor(0.25, 0.45, 0.95, 1.0) -- Azul Rested
-    else
-        self.frame.bar:SetStatusBarColor(0.58, 0.2, 0.9, 1.0)  -- Roxo Padrao
+    -- Barra de XP Rested: cresce alem da barra de XP atual em roxo mais escuro
+    if self.frame.restedBar then
+        if restXP and restXP > 0 then
+            self.frame.restedBar:SetMinMaxValues(0, maxXP)
+            self.frame.restedBar:SetValue(math.min(curXP + restXP, maxXP))
+            self.frame.restedBar:Show()
+        else
+            self.frame.restedBar:SetValue(0)
+            self.frame.restedBar:Hide()
+        end
     end
     
     -- Formata texto do progresso (ex: "6346 / 13700 (46%)")

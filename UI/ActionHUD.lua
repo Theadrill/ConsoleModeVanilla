@@ -73,7 +73,7 @@ function HUD:GetSlotForButton(page, btnKey)
 
     -- Fallback resiliente: se a tecla estiver sem ação ou com binding de cursor/CM/SELFACTION,
     -- usa o slot canônico correspondente para nunca ocultar os botões do D-Pad/ações.
-    if not boundAction or boundAction == "" or string.find(boundAction, "^CM_") or string.find(boundAction, "^SELFACTIONBUTTON") then
+    if not boundAction or boundAction == "" or string.find(boundAction, "^CM_") or string.find(boundAction, "^SELFACTIONBUTTON") or string.find(boundAction, "^ACTIONPAGE") or boundAction == "TOGGLEWORLDSTATESCORES" then
         local SBP = CM.config and CM.config.spellbookPicker
         if SBP and SBP.CANONICAL_SLOTS and SBP.CANONICAL_SLOTS[page] and SBP.CANONICAL_SLOTS[page][btnKey] then
             boundAction = SBP.CANONICAL_SLOTS[page][btnKey].action

@@ -342,7 +342,10 @@ function KB:SanitizeBindings()
                     if not currentAction or currentAction == "" 
                        or string.find(currentAction, "^CM_CURSOR_") 
                        or string.find(currentAction, "^CM_ACTION_") 
-                       or string.find(currentAction, "^SELFACTIONBUTTON") then
+                       or string.find(currentAction, "^SELFACTIONBUTTON")
+                       or string.find(currentAction, "^ACTIONPAGE")
+                       or currentAction == "TOGGLEWORLDSTATESCORES"
+                       or string.find(currentAction, "^BONUSACTIONBUTTON") then
                         SetBinding(key, expectedAction)
                         repaired = true
                         CM.logger:Log("SanitizeBindings: reparou tecla p" .. page .. " " .. key .. " -> " .. expectedAction)
@@ -538,7 +541,7 @@ function KB:ApplyDefaults()
                     if not current or current == "" then
                         SetBinding(key, bindAction)
                         CM.logger:Log("Default: " .. key .. " -> " .. bindAction)
-                    elseif page ~= 1 and (string.find(current, "^BONUSACTIONBUTTON") or string.find(current, "^ACTIONBUTTON") or string.find(current, "^SELFACTIONBUTTON")) then
+                    elseif page ~= 1 and (string.find(current, "^BONUSACTIONBUTTON") or string.find(current, "^ACTIONBUTTON") or string.find(current, "^SELFACTIONBUTTON") or string.find(current, "^ACTIONPAGE") or current == "TOGGLEWORLDSTATESCORES") then
                         SetBinding(key, bindAction)
                         CM.logger:Log("Default (override conflict): " .. key .. " (" .. current .. ") -> " .. bindAction)
                     end

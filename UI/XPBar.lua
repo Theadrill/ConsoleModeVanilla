@@ -210,7 +210,12 @@ function XPBar:Update()
         end
     end
     
-    -- Formata texto do progresso (ex: "6346 / 13700 (46%)")
+    -- Formata texto do progresso (ex: "6346 / 13700 (46%)" ou com descanso: "6346 / 13700 (46%) (+25% rest.)")
     local pct = maxXP > 0 and math.floor((curXP / maxXP) * 100) or 0
-    self.frame.text:SetText(curXP .. " / " .. maxXP .. " (" .. pct .. "%)")
+    local xpText = curXP .. " / " .. maxXP .. " (" .. pct .. "%)"
+    if restXP and restXP > 0 then
+        local restPct = maxXP > 0 and math.floor((restXP / maxXP) * 100) or 0
+        xpText = xpText .. " (+" .. restPct .. "% rest.)"
+    end
+    self.frame.text:SetText(xpText)
 end

@@ -3428,6 +3428,7 @@ function Nav_OnSpellsDirection(direction)
         end
         if f.zone == "SPTABS" then
             f.zone = "SPGRID"
+            f.spellSlot = 1
             Nav_EnsureFocus()
             return true
         end
@@ -3522,6 +3523,7 @@ function Nav_OnSpellsDirection(direction)
             if f.spellTab > ntL then f.spellTab = ntL end
             f.spellTab = f.spellTab - 1
             if f.spellTab < 1 then f.spellTab = ntL end
+            f.spellSlot = 1
             local MMSL = Nav_GetMM()
             if MMSL and type(MMSL.SelectSpellTab) == "function" then
                 local idxSL = f.spellTab
@@ -3633,6 +3635,7 @@ function Nav_OnSpellsDirection(direction)
             if f.spellTab > ntR then f.spellTab = ntR end
             f.spellTab = f.spellTab + 1
             if f.spellTab > ntR then f.spellTab = 1 end
+            f.spellSlot = 1
             local MMSR = Nav_GetMM()
             if MMSR and type(MMSR.SelectSpellTab) == "function" then
                 local idxSR = f.spellTab
@@ -4722,6 +4725,17 @@ function Nav:OnConfirm()
         if fs.zone == "BUFFS" then
             return true
         end
+        if fs.zone == "SPTABS" then
+            local tabs = Nav_GetSpellTabs()
+            local idx = fs.spellTab or 1
+            local b = tabs and tabs[idx]
+            if b then pcall(function() b:Click() end) end
+            fs.zone = "SPGRID"
+            fs.spellSlot = 1
+            Nav_EnsureFocus()
+            Nav_ApplyFocus()
+            return true
+        end
         if fs.zone == "SPCAT" then
             local MM = Nav_GetMM()
             if MM then
@@ -5446,6 +5460,56 @@ function Nav:OnNextSubTab()
             end
         end
     end
+    -- RT em SPELLS: cicla categoria (screen 1) ou aba de magia (screen 2)
+    if Nav_GetCurrentTab() == "SPELLS" then
+        local MM = Nav_GetMM()
+        if MM and MM.tabContainer and MM.tabContainer.pages then
+            local pageSpells = MM.tabContainer.pages["SPELLS"]
+            if pageSpells and pageSpells:IsVisible() then
+                local numTabs = GetNumSpellTabs() or 1
+                local activeScreen = pageSpells.activeScreen or 1
+                if activeScreen == 1 then
+                    local curIdx = pageSpells.focusedCatIdx or (Nav.focus and Nav.focus.spellCat) or 1
+                    local nextIdx = curIdx + 1
+                    if nextIdx > numTabs then nextIdx = 1 end
+                    if Nav.focus then
+                        Nav.focus.spellCat = nextIdx
+                        Nav.focus.zone = "SPCAT"
+                    end
+                    if type(MM.FocusSpellCategoryButton) == "function" then
+                        pcall(function() MM:FocusSpellCategoryButton(nextIdx) end)
+                    end
+                    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageSpells.catButtons and pageSpells.catButtons[nextIdx] then
+                        ConsoleMode.cursor:MoveTo(pageSpells.catButtons[nextIdx])
+                        ConsoleMode.cursor:UpdateState()
+                    end
+                else
+                    local curIdx = pageSpells.currentTabIdx or (Nav.focus and Nav.focus.spellTab) or 1
+                    local nextIdx = curIdx + 1
+                    if nextIdx > numTabs then nextIdx = 1 end
+                    if Nav.focus then
+                        Nav.focus.spellTab = nextIdx
+                        Nav.focus.spellSlot = 1
+                        if Nav.focus.zone ~= "SPTABS" then
+                            Nav.focus.zone = "SPGRID"
+                        end
+                    end
+                    if type(MM.SelectSpellTab) == "function" then
+                        pcall(function() MM:SelectSpellTab(nextIdx) end)
+                    end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                local CFG = ConsoleMode and ConsoleMode.cfg
+                if CFG and CFG.Audio and CFG.Audio.soundItemSelect then
+                    PlaySound(CFG.Audio.soundItemSelect)
+                else
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+                end
+                return true
+            end
+        end
+    end
     -- RT em TALENTS: cicla especialização ou árvore e fecha modal se aberto
     if Nav_GetCurrentTab() == "TALENTS" then
         local MM = Nav_GetMM()
@@ -5574,6 +5638,56 @@ function Nav:OnPrevSubTab()
                 end
                 Nav_EnsureFocus()
                 Nav_ApplyFocus()
+                return true
+            end
+        end
+    end
+    -- LT em SPELLS: cicla categoria (screen 1) ou aba de magia (screen 2) (reverso)
+    if Nav_GetCurrentTab() == "SPELLS" then
+        local MM = Nav_GetMM()
+        if MM and MM.tabContainer and MM.tabContainer.pages then
+            local pageSpells = MM.tabContainer.pages["SPELLS"]
+            if pageSpells and pageSpells:IsVisible() then
+                local numTabs = GetNumSpellTabs() or 1
+                local activeScreen = pageSpells.activeScreen or 1
+                if activeScreen == 1 then
+                    local curIdx = pageSpells.focusedCatIdx or (Nav.focus and Nav.focus.spellCat) or 1
+                    local prevIdx = curIdx - 1
+                    if prevIdx < 1 then prevIdx = numTabs end
+                    if Nav.focus then
+                        Nav.focus.spellCat = prevIdx
+                        Nav.focus.zone = "SPCAT"
+                    end
+                    if type(MM.FocusSpellCategoryButton) == "function" then
+                        pcall(function() MM:FocusSpellCategoryButton(prevIdx) end)
+                    end
+                    if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo and pageSpells.catButtons and pageSpells.catButtons[prevIdx] then
+                        ConsoleMode.cursor:MoveTo(pageSpells.catButtons[prevIdx])
+                        ConsoleMode.cursor:UpdateState()
+                    end
+                else
+                    local curIdx = pageSpells.currentTabIdx or (Nav.focus and Nav.focus.spellTab) or 1
+                    local prevIdx = curIdx - 1
+                    if prevIdx < 1 then prevIdx = numTabs end
+                    if Nav.focus then
+                        Nav.focus.spellTab = prevIdx
+                        Nav.focus.spellSlot = 1
+                        if Nav.focus.zone ~= "SPTABS" then
+                            Nav.focus.zone = "SPGRID"
+                        end
+                    end
+                    if type(MM.SelectSpellTab) == "function" then
+                        pcall(function() MM:SelectSpellTab(prevIdx) end)
+                    end
+                end
+                Nav_EnsureFocus()
+                Nav_ApplyFocus()
+                local CFG = ConsoleMode and ConsoleMode.cfg
+                if CFG and CFG.Audio and CFG.Audio.soundItemSelect then
+                    PlaySound(CFG.Audio.soundItemSelect)
+                else
+                    PlaySound("igMainMenuOptionCheckBoxOn")
+                end
                 return true
             end
         end

@@ -5712,6 +5712,13 @@ function MainMenu:ShowSpellGridScreen(tabIdx)
     pageSpells.currentTabIdx = tabIdx
     pageSpells.activeScreen = 2
 
+    local navObj = getglobal("ConsoleMode_MainMenuNav")
+    if navObj and navObj.focus then
+        navObj.focus.spellTab = tabIdx
+        navObj.focus.spellSlot = 1
+        navObj.focus.zone = "SPGRID"
+    end
+
     if pageSpells.catScreen then
         pageSpells.catScreen:Hide()
     end
@@ -5728,6 +5735,10 @@ function MainMenu:ShowSpellGridScreen(tabIdx)
             ConsoleMode.cursor:MoveTo(pageSpells.grid.slots[1])
             ConsoleMode.cursor:UpdateState()
         end
+    end
+    if navObj and navObj.IsActive and navObj:IsActive() then
+        if navObj.EnsureFocus then navObj:EnsureFocus() end
+        if navObj.ApplyFocus then navObj:ApplyFocus() end
     end
 end
 
@@ -5913,14 +5924,20 @@ function MainMenu:UpdateSpellsPage(keepPage)
             end
         end
         local desiredSel = 1
-        if type(keepSel) == "number" and keepSel >= 1 and keepSel <= displaySlots then
+        if keepPage and type(keepSel) == "number" and keepSel >= 1 and keepSel <= displaySlots then
             desiredSel = keepSel
         end
-        if navActive and type(navSpellSlot) == "number" then
+        if keepPage and navActive and type(navSpellSlot) == "number" then
             local clamped = navSpellSlot
             if clamped < 1 then clamped = 1 end
             if clamped > displaySlots then clamped = displaySlots end
             desiredSel = clamped
+        end
+        if not keepPage then
+            local okG, navObj = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+            if okG and navObj and navObj.focus then
+                navObj.focus.spellSlot = 1
+            end
         end
         grid:SelectSlot(desiredSel, true)
         if not navActive then
@@ -5978,6 +5995,16 @@ function MainMenu:SelectSpellTab(tabIdx)
     if not pageSpells then return end
     pageSpells.currentTabIdx = tabIdx
     pageSpells.currentPage = 1
+
+    local navObj = getglobal("ConsoleMode_MainMenuNav")
+    if navObj and navObj.focus then
+        navObj.focus.spellTab = tabIdx
+        navObj.focus.spellSlot = 1
+        if navObj.focus.zone ~= "SPTABS" then
+            navObj.focus.zone = "SPGRID"
+        end
+    end
+
     if pageSpells.activeScreen == 2 then
         self:UpdateSpellsPage(false)
         if pageSpells.grid and pageSpells.grid.slots and pageSpells.grid.slots[1] and pageSpells.grid.slots[1]:IsVisible() then
@@ -5990,6 +6017,12 @@ function MainMenu:SelectSpellTab(tabIdx)
     else
         self:ShowSpellGridScreen(tabIdx)
     end
+
+    if navObj and navObj.IsActive and navObj:IsActive() then
+        if navObj.EnsureFocus then navObj:EnsureFocus() end
+        if navObj.ApplyFocus then navObj:ApplyFocus() end
+    end
+
     if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
 end
 
@@ -5998,7 +6031,22 @@ function MainMenu:NextSpellPage()
     local pageSpells = self.tabContainer.pages["SPELLS"]
     if not pageSpells then return end
     pageSpells.currentPage = (pageSpells.currentPage or 1) + 1
+    local navObj = getglobal("ConsoleMode_MainMenuNav")
+    if navObj and navObj.focus then
+        navObj.focus.spellSlot = 1
+    end
     self:UpdateSpellsPage(true)
+    if pageSpells.grid and pageSpells.grid.slots and pageSpells.grid.slots[1] and pageSpells.grid.slots[1]:IsVisible() then
+        pageSpells.grid:SelectSlot(1, true)
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo then
+            ConsoleMode.cursor:MoveTo(pageSpells.grid.slots[1])
+            ConsoleMode.cursor:UpdateState()
+        end
+    end
+    if navObj and navObj.IsActive and navObj:IsActive() then
+        if navObj.EnsureFocus then navObj:EnsureFocus() end
+        if navObj.ApplyFocus then navObj:ApplyFocus() end
+    end
     if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
 end
 
@@ -6007,7 +6055,22 @@ function MainMenu:PrevSpellPage()
     local pageSpells = self.tabContainer.pages["SPELLS"]
     if not pageSpells then return end
     pageSpells.currentPage = (pageSpells.currentPage or 1) - 1
+    local navObj = getglobal("ConsoleMode_MainMenuNav")
+    if navObj and navObj.focus then
+        navObj.focus.spellSlot = 1
+    end
     self:UpdateSpellsPage(true)
+    if pageSpells.grid and pageSpells.grid.slots and pageSpells.grid.slots[1] and pageSpells.grid.slots[1]:IsVisible() then
+        pageSpells.grid:SelectSlot(1, true)
+        if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.MoveTo then
+            ConsoleMode.cursor:MoveTo(pageSpells.grid.slots[1])
+            ConsoleMode.cursor:UpdateState()
+        end
+    end
+    if navObj and navObj.IsActive and navObj:IsActive() then
+        if navObj.EnsureFocus then navObj:EnsureFocus() end
+        if navObj.ApplyFocus then navObj:ApplyFocus() end
+    end
     if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
 end
 
@@ -15238,12 +15301,31 @@ function MainMenu:CycleCategories(direction)
                 ConsoleMode.cursor:MoveTo(pageSpells.catButtons[nextIdx])
                 ConsoleMode.cursor:UpdateState()
             end
+            local navObj = getglobal("ConsoleMode_MainMenuNav")
+            if navObj and navObj.focus then
+                navObj.focus.spellCat = nextIdx
+                navObj.focus.zone = "SPCAT"
+                if navObj.EnsureFocus then navObj:EnsureFocus() end
+                if navObj.ApplyFocus then navObj:ApplyFocus() end
+            end
         else
             local curIdx = pageSpells.currentTabIdx or 1
             local nextIdx = curIdx + direction
             if nextIdx > numTabs then nextIdx = 1 end
             if nextIdx < 1 then nextIdx = numTabs end
+            local navObj = getglobal("ConsoleMode_MainMenuNav")
+            if navObj and navObj.focus then
+                navObj.focus.spellTab = nextIdx
+                navObj.focus.spellSlot = 1
+                if navObj.focus.zone ~= "SPTABS" then
+                    navObj.focus.zone = "SPGRID"
+                end
+            end
             self:SelectSpellTab(nextIdx)
+            if navObj and navObj.IsActive and navObj:IsActive() then
+                if navObj.EnsureFocus then navObj:EnsureFocus() end
+                if navObj.ApplyFocus then navObj:ApplyFocus() end
+            end
         end
 
         if CFG.Audio.soundItemSelect then
@@ -15271,6 +15353,14 @@ function MainMenu:CycleCategories(direction)
             if navObj and navObj.IsActive and navObj:IsActive() and navObj.focus then
                 navObj.focus.talentSpec = nextIdx
                 navObj.focus.zone = "TALENTS2"
+                local fv = nil
+                if navObj.GetTalentFirstVisible then
+                    fv = navObj:GetTalentFirstVisible()
+                end
+                if not fv and pageTalents.focusedTalentSlot then
+                    fv = pageTalents.focusedTalentSlot
+                end
+                if fv then navObj.focus.talentSlot = fv end
                 if navObj.EnsureFocus then navObj:EnsureFocus() end
                 if navObj.ApplyFocus then navObj:ApplyFocus() end
             end

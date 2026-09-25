@@ -54,6 +54,9 @@ PATTERN_REPL = [
     (re.compile(r"(?i)\brobe\b"), "robe", "Túnica"),
     (re.compile(r"(?i)\bvessel\b"), "vessel", "Recipiente"),
     (re.compile(r"(?i)\btarge\b"), "targe", "Broquel"),
+    (re.compile(r"(?i)\bmace\b"), "mace", "Malho"),
+    (re.compile(r"(?i)\bgavel\b"), "gavel", "Mazo"),
+    (re.compile(r"(?i)\borb\b"), "orb", "Orbe"),
 ]
 
 def main():

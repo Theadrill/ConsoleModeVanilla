@@ -6,7 +6,10 @@ Re-verifica falsos negativos: (1) palavras EN no PT; (2) Tabuleta->Tablete;
 import json, io, pathlib, re
 
 ADDON_DIR = pathlib.Path(__file__).resolve().parent.parent
-BATCHES = ["amostra_10"]
+BATCHES = [
+    "amostra_06", "amostra_07", "amostra_08", "amostra_08b",
+    "amostra_09", "amostra_10", "amostra_11",
+]
 
 EN_WORDS_IN_PT = [
     "spaulders", "blunderbuss", "girdle", "shrouds", "shroud",

@@ -9893,11 +9893,11 @@
  },
  "9562": {
   "pt": "Tablete Gravado com Runas",
-  "motivo": "Tabuleta->Tablete (oficial Blizzard, R2); concordancia genero (tablete=masc -> Gravado)."
+  "motivo": "Tabuleta->Tablete residual"
  },
  "4123": {
   "pt": "Ombreiras de Metal de Gelo",
-  "motivo": "Spaulders(EN) substituido por Ombreiras (oficial); Pauldrons->Ombreiras. Frota->Gelo OK."
+  "motivo": "Spaulders->Ombreiras residual"
  },
  "9242": {
   "pt": "Tablete Antigo",
@@ -10766,5 +10766,233 @@
  "83078": {
   "pt": "Cocar de Visões do Vidente",
   "motivo": "type-mismatch: Headdress!=Capacete"
+ },
+ "6196": {
+  "pt": "Cassetete de Noboru",
+  "motivo": "crosstalk: Truncheon recebeu PT de Noboru's Cudgel"
+ },
+ "80821": {
+  "pt": "Hatetalon",
+  "motivo": "crosstalk: recebeu Garra Hatefury do id 6246"
+ },
+ "61486": {
+  "pt": "Cinto Violeta",
+  "motivo": "crosstalk: recebeu Tragan Violeta do id 8526"
+ },
+ "13137": {
+  "pt": "Ironweaver",
+  "motivo": "crosstalk: recebeu Cinto de Ironweave do id 22306"
+ },
+ "41269": {
+  "pt": "Camisa Social Preta de Manga Arregaçada",
+  "motivo": "crosstalk: recebeu Camisa Darcy do id 41273"
+ },
+ "766": {
+  "pt": "Malho com Flanges",
+  "motivo": "residual:mace->Malho"
+ },
+ "865": {
+  "pt": "Malho de Chumbo",
+  "motivo": "residual:mace->Malho"
+ },
+ "920": {
+  "pt": "Malho Espinhento Perigoso",
+  "motivo": "residual:mace->Malho"
+ },
+ "925": {
+  "pt": "Malho",
+  "motivo": "residual:mace->Malho"
+ },
+ "1382": {
+  "pt": "Malho de Rocha",
+  "motivo": "residual:mace->Malho"
+ },
+ "1901": {
+  "pt": "Monster - Malho, Basic Stone Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "1902": {
+  "pt": "Monster - Malho, Basic Wooden Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "1903": {
+  "pt": "Monster - Malho, Basic Metal Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "2182": {
+  "pt": "Monster - Malho, Ornate Metal Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "2267": {
+  "pt": "Malho Estilhaça-pedras",
+  "motivo": "residual:mace->Malho"
+ },
+ "2558": {
+  "pt": "Monster - Malho, Good Wooden Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "2695": {
+  "pt": "Monster - Malho, Spiked Club",
+  "motivo": "residual:mace->Malho"
+ },
+ "2809": {
+  "pt": "Monster - Malho, Spiked Basic",
+  "motivo": "residual:mace->Malho"
+ },
+ "2810": {
+  "pt": "Monster - Malho, Standard Serpent",
+  "motivo": "residual:mace->Malho"
+ },
+ "2813": {
+  "pt": "Monster - Malho, Standard Basic",
+  "motivo": "residual:mace->Malho"
+ },
+ "3044": {
+  "pt": "OLDMonster - Malho, Standard Basic Offhand",
+  "motivo": "residual:mace->Malho"
+ },
+ "3361": {
+  "pt": "Monster - Malho, Spiked Heavy",
+  "motivo": "residual:mace->Malho"
+ },
+ "4778": {
+  "pt": "Malho Espinhento Pesado",
+  "motivo": "residual:mace->Malho"
+ },
+ "4948": {
+  "pt": "Malho Picante",
+  "motivo": "residual:mace->Malho"
+ },
+ "5291": {
+  "pt": "Monster - Malho, Jeweled Club",
+  "motivo": "residual:mace->Malho"
+ },
+ "6334": {
+  "pt": "Monster - Malho, Green",
+  "motivo": "residual:mace->Malho"
+ },
+ "6618": {
+  "pt": "Monster - Orbe",
+  "motivo": "residual:orb->Orbe"
+ },
+ "9659": {
+  "pt": "Monster - Malho, Tauren Spiked",
+  "motivo": "residual:mace->Malho"
+ },
+ "10591": {
+  "pt": "Monster - Malho, Stormhammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "11264": {
+  "pt": "Monster - Malho, Baron Silverlaine",
+  "motivo": "residual:mace->Malho"
+ },
+ "11369": {
+  "pt": "Monster - Malho, Thaurissan Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "11383": {
+  "pt": "Monster - Malho, Green Scepter",
+  "motivo": "residual:mace->Malho"
+ },
+ "12746": {
+  "pt": "Monster - Item, Orbe - Lava",
+  "motivo": "residual:orb->Orbe"
+ },
+ "12747": {
+  "pt": "Monster - Item, Orbe - Lava Offhand",
+  "motivo": "residual:orb->Orbe"
+ },
+ "12786": {
+  "pt": "Monster - Malho, Horde Skull Club",
+  "motivo": "residual:mace->Malho"
+ },
+ "12787": {
+  "pt": "Monster - Malho, Horde Bone Claw Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "12788": {
+  "pt": "Monster - Malho, Horde Bone Spike Hammer",
+  "motivo": "residual:mace->Malho"
+ },
+ "12883": {
+  "pt": "Monster - Malho, Thaurissan Silver",
+  "motivo": "residual:mace->Malho"
+ },
+ "12934": {
+  "pt": "Monster - Malho, Maul B03 Red",
+  "motivo": "residual:mace->Malho"
+ },
+ "13290": {
+  "pt": "Monster - Wand, Horde Purple Orbe",
+  "motivo": "residual:orb->Orbe"
+ },
+ "13312": {
+  "pt": "Monster - Malho, Hammer Gold Orange",
+  "motivo": "residual:mace->Malho"
+ },
+ "13894": {
+  "pt": "Monster - Malho, Standard B01 White",
+  "motivo": "residual:mace->Malho"
+ },
+ "14533": {
+  "pt": "Monster - Malho, Hammer Blue Mighty",
+  "motivo": "residual:mace->Malho"
+ },
+ "17040": {
+  "pt": "Monster - Malho, Frying Pan",
+  "motivo": "residual:mace->Malho"
+ },
+ "18481": {
+  "pt": "Malho de Quebra-Crânio",
+  "motivo": "residual:mace->Malho"
+ },
+ "19053": {
+  "pt": "Monster - Item, Orbe - A01 Blue",
+  "motivo": "residual:orb->Orbe"
+ },
+ "19404": {
+  "pt": "Monster - Malho, The Hand of Nefarius",
+  "motivo": "residual:mace->Malho"
+ },
+ "19916": {
+  "pt": "Monster - Malho, Standard Serpent Green",
+  "motivo": "residual:mace->Malho"
+ },
+ "20468": {
+  "pt": "Monster - Item, Orbe - A01 Green",
+  "motivo": "residual:orb->Orbe"
+ },
+ "20738": {
+  "pt": "Monster - Malho, Scepter of the Shifting Sands",
+  "motivo": "residual:mace->Malho"
+ },
+ "22213": {
+  "pt": "Monster - Malho, Hand of Edward the Odd",
+  "motivo": "residual:mace->Malho"
+ },
+ "22341": {
+  "pt": "Monster - Malho, Horde A04 Pale - Bone Wrench",
+  "motivo": "residual:mace->Malho"
+ },
+ "36019": {
+  "pt": "Malho de Guerra do Abrigo",
+  "motivo": "residual:mace->Malho"
+ },
+ "41852": {
+  "pt": "Monster - Malho, Red Jenny",
+  "motivo": "residual:mace->Malho"
+ },
+ "58245": {
+  "pt": "Monster - Dummy One-Handed Malho",
+  "motivo": "residual:mace->Malho"
+ },
+ "61349": {
+  "pt": "Malho de Batalha Anão",
+  "motivo": "residual:mace->Malho"
+ },
+ "80630": {
+  "pt": "Malho do Vigia Revantusk",
+  "motivo": "residual:mace->Malho"
  }
 }

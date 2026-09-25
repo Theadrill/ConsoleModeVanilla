@@ -403,10 +403,23 @@ function CM:GamePT_SpellAttr(attrText)
     s = string.gsub(s, "^Unlimited%s*range", "Alcance ilimitado")
 
     -- Tempo de Recarga / Cooldown
-    s = string.gsub(s, "([%d%.]+)%s*sec%s*cooldown", "Recarga: %1 s")
-    s = string.gsub(s, "([%d%.]+)%s*min%s*cooldown", "Recarga: %1 min")
-    s = string.gsub(s, "([%d%.]+)%s*hr%s*cooldown", "Recarga: %1 h")
-    s = string.gsub(s, "([%d%.]+)%s*hour%s*cooldown", "Recarga: %1 h")
+    s = string.gsub(s, "([%d%.]+)%s*[Ss][Ee][Cc]%s*[Cc][Oo][Oo][Ll][Dd][Oo][Ww][Nn]", "Recarga: %1 s")
+    s = string.gsub(s, "([%d%.]+)%s*[Mm][Ii][Nn]%s*[Cc][Oo][Oo][Ll][Dd][Oo][Ww][Nn]", "Recarga: %1 min")
+    s = string.gsub(s, "([%d%.]+)%s*[Hh][Rr]%s*[Cc][Oo][Oo][Ll][Dd][Oo][Ww][Nn]", "Recarga: %1 h")
+    s = string.gsub(s, "([%d%.]+)%s*[Hh][Oo][Uu][Rr]%s*[Cc][Oo][Oo][Ll][Dd][Oo][Ww][Nn]", "Recarga: %1 h")
+    s = string.gsub(s, "([%d%.]+)%s*[Hh][Oo][Uu][Rr][Ss]%s*[Cc][Oo][Oo][Ll][Dd][Oo][Ww][Nn]", "Recarga: %1 h")
+    s = string.gsub(s, "([%d%.]+)%s*[Dd][Aa][Yy][Ss]?%s*[Cc][Oo][Oo][Ll][Dd][Oo][Ww][Nn]", "Recarga: %1 d")
+
+    s = string.gsub(s, "([%d%.]+)%s*[Ss]%s*de%s*recarga", "Recarga: %1 s")
+    s = string.gsub(s, "([%d%.]+)%s*[Ss][Ee][Gg]%s*de%s*recarga", "Recarga: %1 s")
+    s = string.gsub(s, "([%d%.]+)%s*[Ss][Ee][Gg][Uu][Nn][Dd][Oo][Ss]%s*de%s*recarga", "Recarga: %1 s")
+    s = string.gsub(s, "([%d%.]+)%s*[Mm][Ii][Nn]%.?%s*de%s*recarga", "Recarga: %1 min")
+    s = string.gsub(s, "([%d%.]+)%s*[Mm][Ii][Nn][Uu][Tt][Oo][Ss]%s*de%s*recarga", "Recarga: %1 min")
+    s = string.gsub(s, "([%d%.]+)%s*[Hh]%s*de%s*recarga", "Recarga: %1 h")
+    s = string.gsub(s, "([%d%.]+)%s*[Hh][Oo][Rr][Aa][Ss]%s*de%s*recarga", "Recarga: %1 h")
+    s = string.gsub(s, "([%d%.]+)%s*[Dd]%s*de%s*recarga", "Recarga: %1 d")
+    s = string.gsub(s, "([%d%.]+)%s*[Dd][Ii][Aa][Ss]%s*de%s*recarga", "Recarga: %1 d")
+    s = string.gsub(s, "^[Tt][Ee][Mm][Pp][Oo]%s*de%s*recarga:%s*", "Recarga: ")
 
     return s
 end

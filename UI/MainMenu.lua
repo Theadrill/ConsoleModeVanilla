@@ -1404,12 +1404,12 @@ function MainMenu:UpdateEquipmentColumn()
                 end
 
                 itemName = itemName or slotLabel
-
+                local locItemName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(itemName, itemLink) or itemName
                 -- 1. Exibe o nome do slot em cima (menor)
                 btn.slotText:SetText(CFG.Equipment.slotColor .. slotLabel .. "|r")
 
                 -- 2. Exibe o nome do item embaixo sempre em branco
-                btn.nameText:SetText("|cffffffff" .. itemName .. "|r")
+                btn.nameText:SetText("|cffffffff" .. locItemName .. "|r")
 
                 -- 3. A cor de raridade é expressa exclusivamente através da borda do ícone
                 local r, g, b = 0.8, 0.8, 0.8
@@ -3017,6 +3017,8 @@ function MainMenu:CreateDetailCard(parent, config)
             self:Clear(CM:T("DETAIL_NO_SELECTION"))
             return
         end
+        if self.topCenterText then self.topCenterText:SetText(""); self.topCenterText:Hide() end
+        if self.topRightText then self.topRightText:SetText(""); self.topRightText:Hide() end
 
         self.icon:SetTexture(itemData.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
         self.icon:Show()
@@ -3191,6 +3193,8 @@ function MainMenu:CreateDetailCard(parent, config)
             self:Clear(CM:T("DETAIL_NO_SPELL"))
             return
         end
+        if self.topCenterText then self.topCenterText:SetText(""); self.topCenterText:Hide() end
+        if self.topRightText then self.topRightText:SetText(""); self.topRightText:Hide() end
 
         local cardW = (self:GetWidth() and self:GetWidth() > 0) and self:GetWidth() or 580
 
@@ -3369,7 +3373,13 @@ function MainMenu:CreateDetailCard(parent, config)
     end
 
     function card:ShowEquipSlot(slotID, slotData)
-        if not slotID then return end
+        if not slotID then
+            if self.topCenterText then self.topCenterText:SetText(""); self.topCenterText:Hide() end
+            if self.topRightText then self.topRightText:SetText(""); self.topRightText:Hide() end
+            return
+        end
+        if self.topCenterText then self.topCenterText:SetText(""); self.topCenterText:Hide() end
+        if self.topRightText then self.topRightText:SetText(""); self.topRightText:Hide() end
         local itemLink = GetInventoryItemLink("player", slotID)
         local itemTexture = GetInventoryItemTexture("player", slotID)
         local _, emptyTex = GetInventorySlotInfo(slotData and slotData.name or "")
@@ -3532,6 +3542,8 @@ function MainMenu:CreateDetailCard(parent, config)
 
     function card:ShowBuffRow(buffRow)
         if not buffRow then return end
+        if self.topCenterText then self.topCenterText:SetText(""); self.topCenterText:Hide() end
+        if self.topRightText then self.topRightText:SetText(""); self.topRightText:Hide() end
         if buffRow.isWeaponEnchant then
             self.icon:SetTexture(buffRow.enchantIcon or "Interface\\Icons\\INV_Sword_04")
             self.icon:Show()
@@ -4260,6 +4272,18 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
     local rankStr = rank or ""
 
     scanTip:ClearLines()
+    for i = 1, 40 do
+        local r = _G["ConsoleModeMMScanTooltipTextRight" .. i]
+        if r then
+            r:SetText("")
+            r:Hide()
+        end
+        local l = _G["ConsoleModeMMScanTooltipTextLeft" .. i]
+        if l then
+            l:SetText("")
+            l:Hide()
+        end
+    end
     scanTip:SetSpell(spellIndex, bookType)
 
     local cost = ""
@@ -4268,59 +4292,55 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
     local cooldown = ""
     local descLines = {}
 
-    local numLines = scanTip:NumLines()
+    local numLines = scanTip:NumLines() or 0
 
-    -- Anti-contaminacao: o scanTip e compartilhado entre slots. Se a 1a linha
-    -- do tooltip nao for a magia pedida, o scan pegou sobra do slot anterior
-    -- (ex.: Attack herdando 30m do Shoot, Command herdando 2min do Blood Fury).
-    -- Nesse caso descarta alcance/recarga/custo para nao exibir dado do vizinho.
     local titleObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
     local titleLine = (titleObj and titleObj:GetText()) or ""
-    local staleScan = false
-    if titleLine == "" or titleLine ~= name then
-        staleScan = true
+    if titleLine == "" then
+        return nil
     end
 
     for l = 2, numLines do
         local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
         local rightObj = _G["ConsoleModeMMScanTooltipTextRight" .. l]
-        local left = (leftObj and leftObj:GetText()) or ""
-        local right = (rightObj and rightObj:GetText()) or ""
+        local left = (leftObj and leftObj:IsShown() and leftObj:GetText()) or ""
+        local right = (rightObj and rightObj:IsShown() and rightObj:GetText()) or ""
 
         -- Checa Right primeiro (geralmente alcance ou recarga)
-        -- Right de cooldown exige numero (evita capturar linha descritiva com a palavra solta).
         if right ~= "" then
-            if string.find(right, "yd range") or string.find(right, "m de alcance") or string.find(right, "Melee Range") or string.find(right, "Corpo a corpo") or string.find(right, "Unlimited range") then
+            local lowerRight = string.lower(right)
+            if range == "" and (string.find(lowerRight, "range") or string.find(lowerRight, "alcance") or string.find(lowerRight, "melee") or string.find(lowerRight, "corpo a corpo") or string.find(lowerRight, "unlimited")) then
                 range = right
-            elseif string.find(right, "%d+%s*sec%s*cooldown") or string.find(right, "%d+%s*min%s*cooldown") or string.find(right, "%d+%s*hr%s*cooldown")
-                or string.find(right, "%d+%s*s%s*de recarga") or string.find(right, "%d+%s*min%s*de recarga") or string.find(right, "%d+%s*h%s*de recarga")
-                or string.find(right, "%d+.*cooldown") or string.find(right, "%d+.*recarga") then
+            elseif cooldown == "" and (string.find(lowerRight, "cooldown") or string.find(lowerRight, "recarga")) and string.find(lowerRight, "%d") then
                 cooldown = right
             end
         end
 
         -- Checa Left (recurso, tempo de lancamento ou linha de descricao)
         if left ~= "" then
+            local lowerLeft = string.lower(left)
             local isCost = false
-            if string.find(left, "^%d+.*Mana") or string.find(left, "^%d+.*Rage") or string.find(left, "^%d+.*Energy") or string.find(left, "^%d+.*Health")
-               or string.find(left, "^%d+.*Fúria") or string.find(left, "^%d+.*Energia") or string.find(left, "^%d+.*Vida") then
+            if cost == "" and (string.find(lowerLeft, "mana") or string.find(lowerLeft, "rage") or string.find(lowerLeft, "energy") or string.find(lowerLeft, "health")
+               or string.find(lowerLeft, "fúria") or string.find(lowerLeft, "furia") or string.find(lowerLeft, "energia") or string.find(lowerLeft, "vida")) and string.find(lowerLeft, "%d") then
                 isCost = true
             end
 
             local isCast = false
-            if left == "Instant" or left == "Instant cast" or left == "Instantâneo" or left == "Channeled" or left == "Channelled" or left == "Canalizada" then
-                isCast = true
-            elseif string.find(left, "^[%d%.]+%s*sec%s*cast") or string.find(left, "^[%d%.]+%s*min%s*cast") or string.find(left, "^[%d%.]+%s*s%s*de lançamento") or string.find(left, "^[%d%.]+%s*min%s*de lançamento") then
-                isCast = true
+            if castTime == "" then
+                if lowerLeft == "instant" or lowerLeft == "instant cast" or lowerLeft == "instantâneo" or lowerLeft == "instantaneo"
+                   or lowerLeft == "channeled" or lowerLeft == "channelled" or lowerLeft == "canalizada"
+                   or string.find(lowerLeft, "cast") or string.find(lowerLeft, "lançamento") or string.find(lowerLeft, "lancamento") then
+                    isCast = true
+                end
             end
 
             local isRange = false
-            if string.find(left, "yd range") or string.find(left, "m de alcance") or string.find(left, "Melee Range") or string.find(left, "Corpo a corpo") then
+            if range == "" and (string.find(lowerLeft, "range") or string.find(lowerLeft, "alcance") or string.find(lowerLeft, "melee") or string.find(lowerLeft, "corpo a corpo")) then
                 isRange = true
             end
 
             local isCooldown = false
-            if string.find(left, "%d+%s*sec%s*cooldown") or string.find(left, "%d+%s*min%s*cooldown") or string.find(left, "%d+%s*s%s*de recarga") or string.find(left, "%d+%s*min%s*de recarga") then
+            if cooldown == "" and (string.find(lowerLeft, "cooldown") or string.find(lowerLeft, "recarga")) and string.find(lowerLeft, "%d") and string.len(left) < 50 then
                 isCooldown = true
             end
 
@@ -4332,7 +4352,7 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
                 range = left
             elseif isCooldown and cooldown == "" then
                 cooldown = left
-            elseif not string.find(left, "Rank") and not string.find(left, "Grau") then
+            elseif not string.find(lowerLeft, "rank") and not string.find(lowerLeft, "grau") then
                 table.insert(descLines, left)
             end
         end
@@ -4410,19 +4430,7 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
         cooldown = ""
     end
 
-    -- Scan stale (titulo do tooltip != magia pedida): descarta os atributos
-    -- para nao exibir dado do vizinho (ex.: Attack com 30m do Shoot).
-    if staleScan then
-        cost = ""
-        range = ""
-        castTime = ""
-        cooldown = ""
-    end
-
-    -- Ataque basico (toggle melee) nunca tem recarga. Se ainda sobrou
-    -- algum cooldown (ex.: GCD residual "1 s" do tooltip ou staleScan nao pego
-    -- por colisao de nome), descarta. Faz ANTES da validacao por API para nao
-    -- depender do estado de cooldown no DataCache do char.
+    -- Ataque basico (toggle melee) nunca tem recarga.
     if lowerName == "attack" or lowerName == "ataque" then
         cooldown = ""
         if range ~= "" then
@@ -4434,13 +4442,20 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
         end
     end
 
-    -- Validacao por API real (1.12): GetSpellCooldown e a fonte da verdade.
-    -- Se a magia nao tem cooldown no DBC, qualquer linha capturada e
-    -- contaminacao do scanTip compartilhado. Pula Attack ja limpo acima.
-    if cooldown ~= "" and GetSpellCooldown and not (lowerName == "attack" or lowerName == "ataque") then
-        local ok, s, d = pcall(GetSpellCooldown, spellIndex, bookType)
-        if ok and s ~= nil and d ~= nil and tonumber(d) == 0 then
-            cooldown = ""
+    -- NOTA: GetSpellCooldown retorna estado dinamico (0,0 quando pronta), nao duracao base do DBC.
+    -- Complementa apenas durante CD ativo; nunca apaga valor escaneado.
+    if cooldown == "" and GetSpellCooldown then
+        local okCD, sCD, dCD = pcall(GetSpellCooldown, spellIndex, bookType)
+        if okCD and sCD ~= nil and dCD ~= nil then
+            local durCD = tonumber(dCD)
+            if durCD and durCD > 1.5 then
+                if durCD >= 60 then
+                    local minsCD = math.floor(durCD / 60)
+                    cooldown = minsCD .. " min cooldown"
+                else
+                    cooldown = math.floor(durCD) .. " sec cooldown"
+                end
+            end
         end
     end
 
@@ -5216,8 +5231,16 @@ function MainMenu:SetupSpellsPage(pageSpells)
     -- Callbacks do Grid de Magias
     grid.onSlotFocused = function(slotIndex, spellData)
         if spellData and spellData.name then
-            detailCard:ShowSpell(spellData)
-            MainMenu:TriggerSpellPose(spellData.pose)
+            local fresh = spellData
+            if spellData.spellIndex and MainMenu.ParseSpellData then
+                local okF, resF = pcall(MainMenu.ParseSpellData, MainMenu, spellData.spellIndex, spellData.bookType or "spell")
+                if okF and resF and resF.name then
+                    resF.tabName = spellData.tabName
+                    fresh = resF
+                end
+            end
+            detailCard:ShowSpell(fresh)
+            MainMenu:TriggerSpellPose(fresh.pose)
         else
             detailCard:Clear(CM:T("DETAIL_EMPTY_SPELLS_SHORT"))
             MainMenu:TriggerSpellPose(0)
@@ -13918,6 +13941,29 @@ function MainMenu:FocusBindsSlot(card)
             detailCard.typeText:SetText(string.format("|cff888888Slot Vazio — Nenhuma ação atribuída (Tecla: %s)|r", card.physName or "?"))
             detailCard.descColLeft:SetText("|cffaaaaaaPressione [A] para mapear uma habilidade, item de bolsa ou macro a este botão.|r")
             detailCard.descColRight:SetText("|cff666666Slot livre para personalização.|r")
+        end
+
+        if detailCard and card.actionSlot and detailCard.topRightText then
+            local okAC, sAC, dAC = pcall(GetActionCooldown, card.actionSlot)
+            local durAC = nil
+            if okAC and dAC ~= nil then durAC = tonumber(dAC) end
+            if durAC and durAC > 1.5 then
+                local cdStrAC
+                if durAC >= 60 then
+                    cdStrAC = math.floor(durAC / 60) .. " min cooldown"
+                else
+                    cdStrAC = math.floor(durAC) .. " sec cooldown"
+                end
+                local cdLocAC = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(cdStrAC) or cdStrAC
+                detailCard.topRightText:SetText("|cffff5555" .. cdLocAC .. "|r")
+                detailCard.topRightText:Show()
+            else
+                detailCard.topRightText:SetText("")
+                detailCard.topRightText:Hide()
+            end
+        elseif detailCard.topRightText then
+            detailCard.topRightText:SetText("")
+            detailCard.topRightText:Hide()
         end
 
         if detailCard.slotsFreeText then

@@ -155,6 +155,59 @@ local fixedDefaults = {
     CM_INTERACT     = "ALT-SPACE",    -- R2 + A: Interact (default, sempre ativo)
 }
 
+local defaultPageActions = {
+    [1] = {
+        A      = "JUMP",
+        X      = "ACTIONBUTTON1",
+        Y      = "ACTIONBUTTON2",
+        B      = "ACTIONBUTTON3",
+        DUP    = "ACTIONBUTTON7",
+        DDOWN  = "ACTIONBUTTON8",
+        DLEFT  = "ACTIONBUTTON9",
+        DRIGHT = "ACTIONBUTTON10",
+    },
+    [2] = {
+        X      = "MULTIACTIONBAR1BUTTON1",
+        Y      = "MULTIACTIONBAR1BUTTON2",
+        B      = "MULTIACTIONBAR1BUTTON3",
+        A      = "MULTIACTIONBAR1BUTTON4",
+        DUP    = "MULTIACTIONBAR1BUTTON5",
+        DDOWN  = "MULTIACTIONBAR1BUTTON6",
+        DLEFT  = "MULTIACTIONBAR1BUTTON7",
+        DRIGHT = "MULTIACTIONBAR1BUTTON8",
+    },
+    [3] = {
+        X      = "MULTIACTIONBAR2BUTTON1",
+        Y      = "MULTIACTIONBAR2BUTTON2",
+        B      = "MULTIACTIONBAR2BUTTON3",
+        A      = "MULTIACTIONBAR2BUTTON4",
+        DUP    = "MULTIACTIONBAR2BUTTON5",
+        DDOWN  = "MULTIACTIONBAR2BUTTON6",
+        DLEFT  = "MULTIACTIONBAR2BUTTON7",
+        DRIGHT = "MULTIACTIONBAR2BUTTON8",
+    },
+    [4] = {
+        X      = "MULTIACTIONBAR3BUTTON1",
+        Y      = "MULTIACTIONBAR3BUTTON2",
+        B      = "MULTIACTIONBAR3BUTTON3",
+        A      = "MULTIACTIONBAR3BUTTON4",
+        DUP    = "MULTIACTIONBAR3BUTTON5",
+        DDOWN  = "MULTIACTIONBAR3BUTTON6",
+        DLEFT  = "MULTIACTIONBAR3BUTTON7",
+        DRIGHT = "MULTIACTIONBAR3BUTTON8",
+    },
+    [5] = {
+        X      = "MULTIACTIONBAR4BUTTON1",
+        Y      = "MULTIACTIONBAR4BUTTON2",
+        B      = "MULTIACTIONBAR4BUTTON3",
+        A      = "MULTIACTIONBAR4BUTTON4",
+        DUP    = "MULTIACTIONBAR4BUTTON5",
+        DDOWN  = "MULTIACTIONBAR4BUTTON6",
+        DLEFT  = "MULTIACTIONBAR4BUTTON7",
+        DRIGHT = "MULTIACTIONBAR4BUTTON8",
+    },
+}
+
 -- ============================================================
 -- Módulo de Keybindings
 -- ============================================================
@@ -276,6 +329,26 @@ function KB:SanitizeBindings()
             SetBinding(key, expectedAction)
             repaired = true
             CM.logger:Log("SanitizeBindings: reparou tecla " .. key .. " -> " .. expectedAction)
+        end
+    end
+
+    -- Sanitização de páginas 2 a 5: cura bindings vazios, corrompidos ou presos em SELFACTIONBUTTON
+    for page = 2, 5 do
+        if defaults[page] and defaultPageActions[page] then
+            for btnKey, expectedAction in pairs(defaultPageActions[page]) do
+                local key = defaults[page][btnKey]
+                if key and key ~= "ALT-7" and key ~= "ALT-SPACE" then
+                    local currentAction = GetBindingAction(key)
+                    if not currentAction or currentAction == "" 
+                       or string.find(currentAction, "^CM_CURSOR_") 
+                       or string.find(currentAction, "^CM_ACTION_") 
+                       or string.find(currentAction, "^SELFACTIONBUTTON") then
+                        SetBinding(key, expectedAction)
+                        repaired = true
+                        CM.logger:Log("SanitizeBindings: reparou tecla p" .. page .. " " .. key .. " -> " .. expectedAction)
+                    end
+                end
+            end
         end
     end
 
@@ -448,59 +521,6 @@ function KB:SwallowAltEdge()
     wasAltDown = true
 end
 
-local defaultPageActions = {
-    [1] = {
-        A      = "JUMP",
-        X      = "ACTIONBUTTON1",
-        Y      = "ACTIONBUTTON2",
-        B      = "ACTIONBUTTON3",
-        DUP    = "ACTIONBUTTON7",
-        DDOWN  = "ACTIONBUTTON8",
-        DLEFT  = "ACTIONBUTTON9",
-        DRIGHT = "ACTIONBUTTON10",
-    },
-    [2] = {
-        X      = "MULTIACTIONBAR1BUTTON1",
-        Y      = "MULTIACTIONBAR1BUTTON2",
-        B      = "MULTIACTIONBAR1BUTTON3",
-        A      = "MULTIACTIONBAR1BUTTON4",
-        DUP    = "MULTIACTIONBAR1BUTTON5",
-        DDOWN  = "MULTIACTIONBAR1BUTTON6",
-        DLEFT  = "MULTIACTIONBAR1BUTTON7",
-        DRIGHT = "MULTIACTIONBAR1BUTTON8",
-    },
-    [3] = {
-        X      = "MULTIACTIONBAR2BUTTON1",
-        Y      = "MULTIACTIONBAR2BUTTON2",
-        B      = "MULTIACTIONBAR2BUTTON3",
-        A      = "MULTIACTIONBAR2BUTTON4",
-        DUP    = "MULTIACTIONBAR2BUTTON5",
-        DDOWN  = "MULTIACTIONBAR2BUTTON6",
-        DLEFT  = "MULTIACTIONBAR2BUTTON7",
-        DRIGHT = "MULTIACTIONBAR2BUTTON8",
-    },
-    [4] = {
-        X      = "MULTIACTIONBAR3BUTTON1",
-        Y      = "MULTIACTIONBAR3BUTTON2",
-        B      = "MULTIACTIONBAR3BUTTON3",
-        A      = "MULTIACTIONBAR3BUTTON4",
-        DUP    = "MULTIACTIONBAR3BUTTON5",
-        DDOWN  = "MULTIACTIONBAR3BUTTON6",
-        DLEFT  = "MULTIACTIONBAR3BUTTON7",
-        DRIGHT = "MULTIACTIONBAR3BUTTON8",
-    },
-    [5] = {
-        X      = "MULTIACTIONBAR4BUTTON1",
-        Y      = "MULTIACTIONBAR4BUTTON2",
-        B      = "MULTIACTIONBAR4BUTTON3",
-        A      = "MULTIACTIONBAR4BUTTON4",
-        DUP    = "MULTIACTIONBAR4BUTTON5",
-        DDOWN  = "MULTIACTIONBAR4BUTTON6",
-        DLEFT  = "MULTIACTIONBAR4BUTTON7",
-        DRIGHT = "MULTIACTIONBAR4BUTTON8",
-    },
-}
-
 function KB:ApplyDefaults()
     for page = 1, 5 do
         if defaultPageActions[page] and defaults[page] then
@@ -518,7 +538,7 @@ function KB:ApplyDefaults()
                     if not current or current == "" then
                         SetBinding(key, bindAction)
                         CM.logger:Log("Default: " .. key .. " -> " .. bindAction)
-                    elseif page ~= 1 and (string.find(current, "^BONUSACTIONBUTTON") or string.find(current, "^ACTIONBUTTON")) then
+                    elseif page ~= 1 and (string.find(current, "^BONUSACTIONBUTTON") or string.find(current, "^ACTIONBUTTON") or string.find(current, "^SELFACTIONBUTTON")) then
                         SetBinding(key, bindAction)
                         CM.logger:Log("Default (override conflict): " .. key .. " (" .. current .. ") -> " .. bindAction)
                     end

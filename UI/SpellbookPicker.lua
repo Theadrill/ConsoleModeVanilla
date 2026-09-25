@@ -83,15 +83,58 @@ function SBP:FindNextEmptySlot()
     return nil, nil
 end
 
-local PAGE1_CANONICAL_SLOTS = {
-    X      = { slot = 1,  action = "ACTIONBUTTON1" },
-    Y      = { slot = 2,  action = "ACTIONBUTTON2" },
-    B      = { slot = 3,  action = "ACTIONBUTTON3" },
-    DUP    = { slot = 7,  action = "ACTIONBUTTON7" },
-    DDOWN  = { slot = 8,  action = "ACTIONBUTTON8" },
-    DLEFT  = { slot = 9,  action = "ACTIONBUTTON9" },
-    DRIGHT = { slot = 10, action = "ACTIONBUTTON10" },
+local CANONICAL_SLOTS = {
+    [1] = {
+        X      = { slot = 1,  action = "ACTIONBUTTON1" },
+        Y      = { slot = 2,  action = "ACTIONBUTTON2" },
+        B      = { slot = 3,  action = "ACTIONBUTTON3" },
+        DUP    = { slot = 7,  action = "ACTIONBUTTON7" },
+        DDOWN  = { slot = 8,  action = "ACTIONBUTTON8" },
+        DLEFT  = { slot = 9,  action = "ACTIONBUTTON9" },
+        DRIGHT = { slot = 10, action = "ACTIONBUTTON10" },
+    },
+    [2] = {
+        X      = { slot = 61, action = "MULTIACTIONBAR1BUTTON1" },
+        Y      = { slot = 62, action = "MULTIACTIONBAR1BUTTON2" },
+        B      = { slot = 63, action = "MULTIACTIONBAR1BUTTON3" },
+        A      = { slot = 64, action = "MULTIACTIONBAR1BUTTON4" },
+        DUP    = { slot = 65, action = "MULTIACTIONBAR1BUTTON5" },
+        DDOWN  = { slot = 66, action = "MULTIACTIONBAR1BUTTON6" },
+        DLEFT  = { slot = 67, action = "MULTIACTIONBAR1BUTTON7" },
+        DRIGHT = { slot = 68, action = "MULTIACTIONBAR1BUTTON8" },
+    },
+    [3] = {
+        X      = { slot = 49, action = "MULTIACTIONBAR2BUTTON1" },
+        Y      = { slot = 50, action = "MULTIACTIONBAR2BUTTON2" },
+        B      = { slot = 51, action = "MULTIACTIONBAR2BUTTON3" },
+        A      = { slot = 52, action = "MULTIACTIONBAR2BUTTON4" },
+        DUP    = { slot = 53, action = "MULTIACTIONBAR2BUTTON5" },
+        DDOWN  = { slot = 54, action = "MULTIACTIONBAR2BUTTON6" },
+        DLEFT  = { slot = 55, action = "MULTIACTIONBAR2BUTTON7" },
+        DRIGHT = { slot = 56, action = "MULTIACTIONBAR2BUTTON8" },
+    },
+    [4] = {
+        X      = { slot = 25, action = "MULTIACTIONBAR3BUTTON1" },
+        Y      = { slot = 26, action = "MULTIACTIONBAR3BUTTON2" },
+        B      = { slot = 27, action = "MULTIACTIONBAR3BUTTON3" },
+        A      = { slot = 28, action = "MULTIACTIONBAR3BUTTON4" },
+        DUP    = { slot = 29, action = "MULTIACTIONBAR3BUTTON5" },
+        DDOWN  = { slot = 30, action = "MULTIACTIONBAR3BUTTON6" },
+        DLEFT  = { slot = 31, action = "MULTIACTIONBAR3BUTTON7" },
+        DRIGHT = { slot = 32, action = "MULTIACTIONBAR3BUTTON8" },
+    },
+    [5] = {
+        X      = { slot = 37, action = "MULTIACTIONBAR4BUTTON1" },
+        Y      = { slot = 38, action = "MULTIACTIONBAR4BUTTON2" },
+        B      = { slot = 39, action = "MULTIACTIONBAR4BUTTON3" },
+        A      = { slot = 40, action = "MULTIACTIONBAR4BUTTON4" },
+        DUP    = { slot = 41, action = "MULTIACTIONBAR4BUTTON5" },
+        DDOWN  = { slot = 42, action = "MULTIACTIONBAR4BUTTON6" },
+        DLEFT  = { slot = 43, action = "MULTIACTIONBAR4BUTTON7" },
+        DRIGHT = { slot = 44, action = "MULTIACTIONBAR4BUTTON8" },
+    },
 }
+SBP.CANONICAL_SLOTS = CANONICAL_SLOTS
 
 -- Resolve slot alvo para (page, btnKey).
 -- Retorna (slot, bindingAction).
@@ -110,9 +153,9 @@ function SBP:ResolveTargetSlot(page, btnKey)
     local slot, bindingAction = self:ParseBindingAction(boundAction)
     if slot then return slot, bindingAction end
 
-    -- Se for página 1, garante o slot canônico do layout padrão (evita alocar slot aleatório)
-    if page == 1 and PAGE1_CANONICAL_SLOTS[btnKey] then
-        local canonical = PAGE1_CANONICAL_SLOTS[btnKey]
+    -- Usa o slot canônico correspondente à página e botão (garante integridade do layout do controle)
+    if page and CANONICAL_SLOTS[page] and CANONICAL_SLOTS[page][btnKey] then
+        local canonical = CANONICAL_SLOTS[page][btnKey]
         return canonical.slot, canonical.action
     end
 

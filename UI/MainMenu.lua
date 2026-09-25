@@ -14162,8 +14162,10 @@ function MainMenu:ClearBinding(page, btnKey)
     if physKey then
         local KB = ConsoleMode and ConsoleMode.keybindings
         local newAction = nil
-        if page == 1 then
-            -- Na Página 1, restaura a bind para a ação canônica do slot (que agora está vazio)
+        local SBP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.spellbookPicker
+        if SBP and SBP.CANONICAL_SLOTS and SBP.CANONICAL_SLOTS[page] and SBP.CANONICAL_SLOTS[page][btnKey] then
+            newAction = SBP.CANONICAL_SLOTS[page][btnKey].action
+        elseif page == 1 then
             if btnKey == "X" then newAction = "ACTIONBUTTON1"
             elseif btnKey == "Y" then newAction = "ACTIONBUTTON2"
             elseif btnKey == "B" then newAction = "ACTIONBUTTON3"

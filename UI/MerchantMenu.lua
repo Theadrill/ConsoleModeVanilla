@@ -1082,7 +1082,6 @@ function MerchantMenu:CreateFooterHints(parent)
     container:SetPoint("CENTER", parent, "BOTTOM", 0, 18)
     parent.footerContainer = container
 
-    local totalWidth = 0
     local widgets = {}
 
     local numHints = table.getn(hints)
@@ -1113,6 +1112,7 @@ function MerchantMenu:CreateFooterHints(parent)
         end
 
         currentX = currentX + 5
+        local iconsWidth = currentX
 
         local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
@@ -1123,8 +1123,9 @@ function MerchantMenu:CreateFooterHints(parent)
         local textW = math.floor(label:GetStringWidth() or 40)
         currentX = currentX + textW
 
+        local sep = nil
         if i < numHints then
-            local sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
             sep:SetPoint("LEFT", groupFrame, "LEFT", currentX + 10, 0)
             self:ApplyFont(sep, FONTS.medium, 14)
             sep:SetText("|cff666666•|r")
@@ -1132,23 +1133,80 @@ function MerchantMenu:CreateFooterHints(parent)
         end
 
         groupFrame:SetWidth(currentX)
+        groupFrame.label = label
+        groupFrame.sep = sep
+        groupFrame.iconsWidth = iconsWidth
+        groupFrame.key = hint.key
+
         table.insert(widgets, groupFrame)
-        totalWidth = totalWidth + currentX
 
         if hint.key == "REPAIR" then
             self.footerRepairWidget = groupFrame
         end
     end
 
-    local startX = -math.floor(totalWidth / 2)
-    local curX = startX
-    local numWidgets = table.getn(widgets)
-    for w = 1, numWidgets do
-        local widget = widgets[w]
-        widget:SetPoint("LEFT", container, "CENTER", curX, 0)
-        curX = curX + widget:GetWidth()
+    self.footerWidgets = widgets
+    self:UpdateFooterHints()
+end
+
+function MerchantMenu:UpdateFooterHints()
+    if not self.frame or not self.footerWidgets then return end
+
+    if CanMerchantRepair then
+        self.canRepair = CanMerchantRepair() and true or false
     end
-    container:SetWidth(totalWidth)
+
+    local numWidgets = table.getn(self.footerWidgets)
+    local visibleWidgets = {}
+
+    for i = 1, numWidgets do
+        local widget = self.footerWidgets[i]
+        if widget.key == "REPAIR" then
+            local repairText = self.canRepair and CM:T("MERCH_HINT_REPAIR") or CM:T("MERCH_HINT_SELL_JUNK")
+            widget.label:SetText(repairText)
+            widget:Show()
+        end
+
+        if widget:IsShown() then
+            table.insert(visibleWidgets, widget)
+        end
+    end
+
+    local numVisible = table.getn(visibleWidgets)
+    local totalWidth = 0
+
+    for i = 1, numVisible do
+        local widget = visibleWidgets[i]
+        local textW = math.floor(widget.label:GetStringWidth() or 40)
+        local curX = widget.iconsWidth + textW
+
+        if widget.sep then
+            if i == numVisible then
+                widget.sep:Hide()
+            else
+                widget.sep:ClearAllPoints()
+                widget.sep:SetPoint("LEFT", widget, "LEFT", curX + 10, 0)
+                widget.sep:Show()
+                curX = curX + 10 + 14
+            end
+        end
+
+        widget:SetWidth(curX)
+        totalWidth = totalWidth + curX
+    end
+
+    local container = self.frame.footerContainer
+    if container then
+        local startX = -math.floor(totalWidth / 2)
+        local curX = startX
+        for i = 1, numVisible do
+            local widget = visibleWidgets[i]
+            widget:ClearAllPoints()
+            widget:SetPoint("LEFT", container, "CENTER", curX, 0)
+            curX = curX + widget:GetWidth()
+        end
+        container:SetWidth(totalWidth)
+    end
 end
 
 function MerchantMenu:CreateBagRows(parent)
@@ -1710,6 +1768,7 @@ function MerchantMenu:UpdateLayout()
         self.frame.footerContainer:ClearAllPoints()
         self.frame.footerContainer:SetPoint("CENTER", self.frame, "BOTTOM", 0, 18)
     end
+    self:UpdateFooterHints()
 end
 
 function MerchantMenu:RefreshHeader()
@@ -1725,13 +1784,7 @@ function MerchantMenu:RefreshHeader()
         self.frame.header.playerMoneyText:SetText(self:FormatMoneyText(playerMoney))
     end
 
-    if self.footerRepairWidget then
-        if self.canRepair then
-            self.footerRepairWidget:Show()
-        else
-            self.footerRepairWidget:Hide()
-        end
-    end
+    self:UpdateFooterHints()
 end
 
 function MerchantMenu:UpdateColumnVisuals()

@@ -3275,6 +3275,10 @@ function MainMenu:CreateDetailCard(parent, config)
 
             self.topRightText:SetText(table.concat(rightLines, "\n"))
             rightW = math.max(90, math.ceil(maxR + 12))
+            -- Trava defensiva: coluna de alcance/recarga nunca excede 160px
+            if rightW > 160 then
+                rightW = 160
+            end
 
             self.topRightText:ClearAllPoints()
             self.topRightText:SetPoint("TOPRIGHT", self, "TOPRIGHT", -10, -8)
@@ -3307,6 +3311,10 @@ function MainMenu:CreateDetailCard(parent, config)
             if maxCenterW < 130 then maxCenterW = 130 end
             if centerW > maxCenterW then
                 centerW = maxCenterW
+            end
+            -- Trava defensiva: coluna central de custo/lancamento nunca excede 180px
+            if centerW > 180 then
+                centerW = 180
             end
 
             self.topCenterText:ClearAllPoints()
@@ -4265,6 +4273,78 @@ function MainMenu:ScanInventory(categoryFilter)
     }
 end
 
+-- ============================================================================
+-- HELPERS DE PARSER DO GRIMÓRIO (SPELLBOOK) - PADRÕES ESTRITOS (WoW 1.12 / Lua 5.0)
+-- Evita falsos positivos onde palavras de lore/descrição (ex: "caster", "melee",
+-- "ranged", "energy", "cooldown") eram sequestradas como atributos de cabeçalho.
+-- ============================================================================
+
+local function IsSpellCostLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if string.find(s, "^%d+%%?%s*mana") or string.find(s, "^%d+%%?%s*de%s*mana") or string.find(s, "^%d+%%?%s*of%s*base%s*mana")
+       or string.find(s, "^%d+%%?%s*rage") or string.find(s, "^%d+%%?%s*f[uú]ria") or string.find(s, "^%d+%%?%s*de%s*f[uú]ria")
+       or string.find(s, "^%d+%%?%s*energy") or string.find(s, "^%d+%%?%s*energia") or string.find(s, "^%d+%%?%s*de%s*energia")
+       or string.find(s, "^%d+%%?%s*health") or string.find(s, "^%d+%%?%s*vida") or string.find(s, "^%d+%%?%s*de%s*vida") then
+        return true
+    end
+    return false
+end
+
+local function IsSpellCastLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if s == "instant" or s == "instant cast" or s == "instantaneo" or string.find(s, "^instant.*neo$")
+       or s == "channeled" or s == "channelled" or string.find(s, "^canalizada?$") or string.find(s, "^canalizado$")
+       or s == "next melee" or string.find(s, "^pr[oó]ximo%s*ataque") then
+        return true
+    end
+    if string.find(s, "^[%d%.]+%s*sec%s*cast$") or string.find(s, "^[%d%.]+%s*min%s*cast$")
+       or string.find(s, "^[%d%.]+%s*s%s*de%s*lan.*amento$") or string.find(s, "^[%d%.]+%s*seg%s*de%s*lan.*amento$")
+       or string.find(s, "^[%d%.]+%s*min%s*de%s*lan.*amento$") then
+        return true
+    end
+    return false
+end
+
+local function IsSpellRangeLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if s == "melee range" or s == "corpo a corpo" or s == "unlimited range" or s == "alcance ilimitado" then
+        return true
+    end
+    if string.find(s, "^[%d%-]+%s*yd%s*range$") or string.find(s, "^[%d%-]+%s*yd$")
+       or string.find(s, "^[%d%-]+%s*m%s*de%s*alcance$") or string.find(s, "^[%d%-]+%s*jardas?%s*de%s*alcance$")
+       or string.find(s, "^alcance%s*de%s*[%d%-]+") or string.find(s, "^alcance:%s*[%d%-]+") then
+        return true
+    end
+    return false
+end
+
+local function IsSpellCooldownLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if string.find(s, "^[%d%.]+%s*sec%s*cooldown$") or string.find(s, "^[%d%.]+%s*min%s*cooldown$")
+       or string.find(s, "^[%d%.]+%s*hr%s*cooldown$") or string.find(s, "^[%d%.]+%s*day%s*cooldown$")
+       or string.find(s, "^[%d%.]+%s*s%s*de%s*recarga$") or string.find(s, "^[%d%.]+%s*seg%s*de%s*recarga$")
+       or string.find(s, "^[%d%.]+%s*min%s*de%s*recarga$") or string.find(s, "^[%d%.]+%s*h%s*de%s*recarga$")
+       or string.find(s, "^tempo%s*de%s*recarga:") or string.find(s, "^cooldown%s*remaining:") or string.find(s, "^recarga:") then
+        return true
+    end
+    return false
+end
+
+local function IsSpellReqLine(str)
+    if not str then return false end
+    local s = string.lower(str)
+    if string.find(s, "^requires%s+") or string.find(s, "^requer%s+")
+       or string.find(s, "^tools?:%s*") or string.find(s, "^ferramentas?:%s*")
+       or string.find(s, "^reagents?:%s*") or string.find(s, "^reagentes?:%s*") then
+        return true
+    end
+    return false
+end
+
 function MainMenu:ParseSpellData(spellIndex, bookType)
     bookType = bookType or "spell"
     local name, rank = GetSpellName(spellIndex, bookType)
@@ -4273,6 +4353,7 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
     local icon = GetSpellTexture(spellIndex, bookType) or "Interface\\Icons\\INV_Misc_QuestionMark"
     local rankStr = rank or ""
 
+    scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
     scanTip:ClearLines()
     for i = 1, 40 do
         local r = _G["ConsoleModeMMScanTooltipTextRight" .. i]
@@ -4295,70 +4376,53 @@ function MainMenu:ParseSpellData(spellIndex, bookType)
     local descLines = {}
 
     local numLines = scanTip:NumLines() or 0
-
-    local titleObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
-    local titleLine = (titleObj and titleObj:GetText()) or ""
-    if titleLine == "" then
-        return nil
-    end
+    local inDescription = false
 
     for l = 2, numLines do
         local leftObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
         local rightObj = _G["ConsoleModeMMScanTooltipTextRight" .. l]
-        local left = (leftObj and leftObj:IsShown() and leftObj:GetText()) or ""
-        local right = (rightObj and rightObj:IsShown() and rightObj:GetText()) or ""
+        local left = (leftObj and leftObj:GetText()) or ""
+        local right = (rightObj and rightObj:GetText()) or ""
 
-        -- Checa Right primeiro (geralmente alcance ou recarga)
-        if right ~= "" then
-            local lowerRight = string.lower(right)
-            if range == "" and (string.find(lowerRight, "range") or string.find(lowerRight, "alcance") or string.find(lowerRight, "melee") or string.find(lowerRight, "corpo a corpo") or string.find(lowerRight, "unlimited")) then
+        -- Checa Right primeiro (geralmente alcance ou recarga no cabecalho)
+        if right ~= "" and not inDescription then
+            if range == "" and IsSpellRangeLine(right) then
                 range = right
-            elseif cooldown == "" and (string.find(lowerRight, "cooldown") or string.find(lowerRight, "recarga")) and string.find(lowerRight, "%d") then
+            elseif cooldown == "" and IsSpellCooldownLine(right) then
                 cooldown = right
             end
         end
 
-        -- Checa Left (recurso, tempo de lancamento ou linha de descricao)
+        -- Checa Left (recurso, tempo de lancamento, alcance, recarga, requisitos ou descricao)
         if left ~= "" then
             local lowerLeft = string.lower(left)
-            local isCost = false
-            if cost == "" and (string.find(lowerLeft, "mana") or string.find(lowerLeft, "rage") or string.find(lowerLeft, "energy") or string.find(lowerLeft, "health")
-               or string.find(lowerLeft, "fúria") or string.find(lowerLeft, "furia") or string.find(lowerLeft, "energia") or string.find(lowerLeft, "vida")) and string.find(lowerLeft, "%d") then
-                isCost = true
-            end
+            local isRank = string.find(lowerLeft, "^rank%s*%d+") or string.find(lowerLeft, "^grau%s*%d+")
 
-            local isCast = false
-            if castTime == "" then
-                if lowerLeft == "instant" or lowerLeft == "instant cast" or lowerLeft == "instantâneo" or lowerLeft == "instantaneo"
-                   or lowerLeft == "channeled" or lowerLeft == "channelled" or lowerLeft == "canalizada"
-                   or string.find(lowerLeft, "cast") or string.find(lowerLeft, "lançamento") or string.find(lowerLeft, "lancamento") then
-                    isCast = true
+            if not isRank then
+                if inDescription then
+                    -- Uma vez que a descricao comecou, todas as linhas subsequentes sao corpo
+                    table.insert(descLines, left)
+                elseif IsSpellReqLine(left) then
+                    -- Requisitos de arma/ferramenta/reagente vao para o corpo sem bloquear outros campos
+                    table.insert(descLines, left)
+                elseif cost == "" and IsSpellCostLine(left) then
+                    cost = left
+                elseif castTime == "" and IsSpellCastLine(left) then
+                    castTime = left
+                elseif range == "" and IsSpellRangeLine(left) then
+                    range = left
+                elseif cooldown == "" and IsSpellCooldownLine(left) then
+                    cooldown = left
+                else
+                    -- Linha nao casou com cabecalho operacional -> inicio do corpo da descricao
+                    inDescription = true
+                    table.insert(descLines, left)
                 end
-            end
-
-            local isRange = false
-            if range == "" and (string.find(lowerLeft, "range") or string.find(lowerLeft, "alcance") or string.find(lowerLeft, "melee") or string.find(lowerLeft, "corpo a corpo")) then
-                isRange = true
-            end
-
-            local isCooldown = false
-            if cooldown == "" and (string.find(lowerLeft, "cooldown") or string.find(lowerLeft, "recarga")) and string.find(lowerLeft, "%d") and string.len(left) < 50 then
-                isCooldown = true
-            end
-
-            if isCost then
-                cost = left
-            elseif isCast then
-                castTime = left
-            elseif isRange and range == "" then
-                range = left
-            elseif isCooldown and cooldown == "" then
-                cooldown = left
-            elseif not string.find(lowerLeft, "rank") and not string.find(lowerLeft, "grau") then
-                table.insert(descLines, left)
             end
         end
     end
+
+    scanTip:ClearLines()
 
     -- Classificação de Poses de Conjuração / Animação 3D (FASE 7)
     local lowerName = string.lower(name)

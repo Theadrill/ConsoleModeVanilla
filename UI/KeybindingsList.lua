@@ -73,6 +73,11 @@ function KBList:GetDisplayForButton(page, btnKey)
         return nil, CM:T("BIND_INTERACT"), "Interface\\Icons\\Ability_Tracking"
     end
 
+    -- Caso especial: CM_TARGET_FRIENDLY (ALT-SHIFT-7) — Alvo Amigo (Party / Mundo)
+    if boundAction == "CM_TARGET_FRIENDLY" then
+        return nil, (CM.T and CM:T("BIND_TARGET_FRIENDLY")) or "Alvo Amigo (Party / Mundo)", "Interface\\Icons\\Spell_Holy_PrayerOfHealing02"
+    end
+
     -- Se o modo de navegacao estiver ativo, as teclas da pagina 1 foram sobrescritas
     -- com CM_CURSOR_*. Usamos o snapshot KB.savedNavBindings guardado antes do nav mode.
     if boundAction and string.find(boundAction, "^CM_") then

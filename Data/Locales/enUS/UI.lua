@@ -662,6 +662,7 @@ CM_Langs["enUS"].strings = {
     BIND_LOADING = "Loading...",
     BIND_JUMP = "Jump",
     BIND_INTERACT = "Interact (Interact.dll)",
+    BIND_TARGET_FRIENDLY = "Target Friendly (Party / World)",
     BIND_NO_KEY = "|cff888888(no key)|r",
     BIND_EMPTY = "|cff888888(empty)|r",
     BIND_ACTION_SLOT_FMT = "Action (Slot %s)",

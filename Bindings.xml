@@ -66,6 +66,7 @@
     <!-- Botões Fixos e Atalhos de Interface                          -->
     <!-- ============================================================ -->
     <Binding name="CM_SMART_TAB" header="CONSOLEMODEFIXED">CM_SmartTab()</Binding>      <!-- TAB / L1: Target em combate / Aba anterior em menus -->
+    <Binding name="CM_TARGET_FRIENDLY">CM_TargetFriendly()</Binding>                     <!-- L2 + R2 + D-Pad Up: Target Amigo (Party / Mundo) -->
     <Binding name="CM_FIXED_SELECT">CM_Fixed("SELECT")</Binding>                         <!-- Mapa (base) -->
     <Binding name="CM_FIXED_START">CM_Fixed("START")</Binding>                           <!-- Menu (base) -->
     <Binding name="CM_TOGGLE_MOUSEMODE">CM_ToggleMouseMode()</Binding>                   <!-- L3 -->

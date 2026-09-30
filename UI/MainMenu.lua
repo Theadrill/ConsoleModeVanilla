@@ -13246,6 +13246,7 @@ local BINDS_PAGE_INFO = {
     [2] = { name = "2: L2",    prefix = "L2 + ",     desc = "Página de Combate L2 (Shift)" },
     [3] = { name = "3: R1",    prefix = "R1 + ",     desc = "Página de Combate R1 (Ctrl)" },
     [4] = { name = "4: R2",    prefix = "R2 + ",     desc = "Página de Combate R2 (Alt)" },
+    [5] = { name = "5: L2+R2", prefix = "L2+R2 + ",  desc = "Página de Combate L2+R2 (Shift+Alt)" },
 }
 
 local BINDS_KEY_DEFAULTS = {
@@ -14227,7 +14228,13 @@ function MainMenu:ClearBinding(page, btnKey)
         local KB = ConsoleMode and ConsoleMode.keybindings
         local newAction = nil
         local SBP = ConsoleMode and ConsoleMode.config and ConsoleMode.config.spellbookPicker
-        if SBP and SBP.CANONICAL_SLOTS and SBP.CANONICAL_SLOTS[page] and SBP.CANONICAL_SLOTS[page][btnKey] then
+        if page == 5 and btnKey == "DUP" then
+            newAction = "CM_TARGET_FRIENDLY"
+        elseif page == 4 and btnKey == "DUP" then
+            newAction = "TOGGLEAUTORUN"
+        elseif page == 4 and btnKey == "A" then
+            newAction = "CM_INTERACT"
+        elseif SBP and SBP.CANONICAL_SLOTS and SBP.CANONICAL_SLOTS[page] and SBP.CANONICAL_SLOTS[page][btnKey] then
             newAction = SBP.CANONICAL_SLOTS[page][btnKey].action
         elseif page == 1 then
             if btnKey == "X" then newAction = "ACTIONBUTTON1"

@@ -60,6 +60,14 @@ function HUD:GetSlotForButton(page, btnKey)
         end
     end
 
+    -- L2 + R2 + DPad Up (ALT-SHIFT-7) = Alvo Amigo (Party / Mundo)
+    if page == 5 and btnKey == "DUP" then
+        local physKey = KEY_MAPPINGS[page] and KEY_MAPPINGS[page][btnKey]
+        if physKey and GetBindingAction(physKey) == "CM_TARGET_FRIENDLY" then
+            return nil, "Interface\\Icons\\Spell_Holy_PrayerOfHealing02", "CM_TARGET_FRIENDLY"
+        end
+    end
+
     local physKey = KEY_MAPPINGS[page] and KEY_MAPPINGS[page][btnKey]
     if not physKey then return nil, nil, nil end
 
@@ -73,7 +81,7 @@ function HUD:GetSlotForButton(page, btnKey)
 
     -- Fallback resiliente: se a tecla estiver sem ação ou com binding de cursor/CM/SELFACTION,
     -- usa o slot canônico correspondente para nunca ocultar os botões do D-Pad/ações.
-    if not boundAction or boundAction == "" or string.find(boundAction, "^CM_") or string.find(boundAction, "^SELFACTIONBUTTON") or string.find(boundAction, "^ACTIONPAGE") or boundAction == "TOGGLEWORLDSTATESCORES" then
+    if not boundAction or boundAction == "" or (string.find(boundAction, "^CM_") and boundAction ~= "CM_TARGET_FRIENDLY") or string.find(boundAction, "^SELFACTIONBUTTON") or string.find(boundAction, "^ACTIONPAGE") or boundAction == "TOGGLEWORLDSTATESCORES" then
         local SBP = CM.config and CM.config.spellbookPicker
         if SBP and SBP.CANONICAL_SLOTS and SBP.CANONICAL_SLOTS[page] and SBP.CANONICAL_SLOTS[page][btnKey] then
             boundAction = SBP.CANONICAL_SLOTS[page][btnKey].action
@@ -90,6 +98,10 @@ function HUD:GetSlotForButton(page, btnKey)
     end
 
     if not boundAction or boundAction == "" then return nil, nil, nil end
+
+    if boundAction == "CM_TARGET_FRIENDLY" then
+        return nil, "Interface\\Icons\\Spell_Holy_PrayerOfHealing02", boundAction
+    end
 
     local slot = nil
     local _, _, n

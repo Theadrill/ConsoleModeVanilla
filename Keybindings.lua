@@ -55,6 +55,7 @@ end
 -- Menu Ring
 _G["BINDING_HEADER_CONSOLEMODERING"]    = "ConsoleMode - Menu Ring"
 _G["BINDING_NAME_CM_RING_MENU"]         = "L2+R2+A (Abrir Menu Ring)"
+_G["BINDING_NAME_CM_TARGET_FRIENDLY"]   = "L2+R2+D-Pad Cima (Selecionar Amigo)"
 
 -- Nomes dos botões fixos
 _G["BINDING_NAME_CM_FIXED_L1"]          = "L1 (Selecionar Alvo)"
@@ -146,13 +147,14 @@ local defaults = {
 -- L2 = SHIFT | R2 = ALT | R1 = CTRL
 -- SELECT = M | START = F11 (com ESCAPE mantido no teclado como padrão)
 local fixedDefaults = {
-    CM_FIXED_SELECT = "M",
-    CM_FIXED_START  = "F11",
-    CM_UI_CHARACTER = "SHIFT-M",      -- L2 + Select (C)
-    CM_UI_BAGS      = "SHIFT-F11",    -- L2 + Start (B)
-    CM_UI_TALENTS   = "ALT-M",        -- R2 + Select (N)
-    CM_UI_SPELLBOOK = "ALT-F11",      -- R2 + Start (P)
-    CM_INTERACT     = "ALT-SPACE",    -- R2 + A: Interact (default, sempre ativo)
+    CM_FIXED_SELECT    = "M",
+    CM_FIXED_START     = "F11",
+    CM_UI_CHARACTER    = "SHIFT-M",      -- L2 + Select (C)
+    CM_UI_BAGS         = "SHIFT-F11",    -- L2 + Start (B)
+    CM_UI_TALENTS      = "ALT-M",        -- R2 + Select (N)
+    CM_UI_SPELLBOOK    = "ALT-F11",      -- R2 + Start (P)
+    CM_INTERACT        = "ALT-SPACE",    -- R2 + A: Interact (default, sempre ativo)
+    CM_TARGET_FRIENDLY = "ALT-SHIFT-7",  -- L2 + R2 + D-Pad Up: Target Amigo (Party / Mundo)
 }
 
 local defaultPageActions = {
@@ -201,7 +203,7 @@ local defaultPageActions = {
         Y      = "MULTIACTIONBAR4BUTTON2",
         B      = "MULTIACTIONBAR4BUTTON3",
         A      = "MULTIACTIONBAR4BUTTON4",
-        DUP    = "MULTIACTIONBAR4BUTTON5",
+        DUP    = "CM_TARGET_FRIENDLY",
         DDOWN  = "MULTIACTIONBAR4BUTTON6",
         DLEFT  = "MULTIACTIONBAR4BUTTON7",
         DRIGHT = "MULTIACTIONBAR4BUTTON8",
@@ -281,6 +283,8 @@ function KB:Initialize()
     -- BINDS_KEY_DEFAULTS nao foram alteradas (sao espelhos usados pelo hub).
     -- R2 + DPad Up (Steam emite ALT-7) = autorun, igual a tecla "="
     SetBinding("ALT-7", "TOGGLEAUTORUN")
+    -- L2 + R2 + DPad Up (Steam emite ALT-SHIFT-7) = Alvo Amigo (Party / Mundo)
+    SetBinding("ALT-SHIFT-7", "CM_TARGET_FRIENDLY")
     -- Reload da interface no teclado: Ctrl+Shift+R
     SetBinding("CTRL-SHIFT-R", "CM_RELOAD_UI")
     
@@ -1886,3 +1890,58 @@ function CM_OpenRingMenu()
     -- CM.logger:Log("Menu Ring: Abrir (L2+R2+A) — Em desenvolvimento!") -- NOLOG
     DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_RING_SOON"))
 end
+
+-- ============================================================
+-- Alvo Amigo Inteligente (L2 + R2 + D-Pad Up: ALT-SHIFT-7)
+-- Prioriza membros vivos e visíveis da Party/Raid; se solo ou
+-- se ninguém estiver disponível, seleciona amigo no mundo.
+-- ============================================================
+local cmFriendlyTargetIndex = 0
+
+function CM_TargetFriendly()
+    if CM.keybindings and CM.keybindings.chatActive then return end
+
+    local numRaid = GetNumRaidMembers()
+    local numParty = GetNumPartyMembers()
+
+    if numRaid and numRaid > 0 then
+        if UnitExists("target") then
+            for i = 1, numRaid do
+                if UnitIsUnit("target", "raid" .. i) then
+                    cmFriendlyTargetIndex = i
+                    break
+                end
+            end
+        end
+        for attempt = 1, numRaid do
+            cmFriendlyTargetIndex = cmFriendlyTargetIndex + 1
+            if cmFriendlyTargetIndex > numRaid then cmFriendlyTargetIndex = 1 end
+            local unit = "raid" .. cmFriendlyTargetIndex
+            if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitIsVisible(unit) and not UnitIsUnit(unit, "player") then
+                TargetUnit(unit)
+                return
+            end
+        end
+    elseif numParty and numParty > 0 then
+        if UnitExists("target") then
+            for i = 1, numParty do
+                if UnitIsUnit("target", "party" .. i) then
+                    cmFriendlyTargetIndex = i
+                    break
+                end
+            end
+        end
+        for attempt = 1, numParty do
+            cmFriendlyTargetIndex = cmFriendlyTargetIndex + 1
+            if cmFriendlyTargetIndex > numParty then cmFriendlyTargetIndex = 1 end
+            local unit = "party" .. cmFriendlyTargetIndex
+            if UnitExists(unit) and not UnitIsDeadOrGhost(unit) and UnitIsVisible(unit) then
+                TargetUnit(unit)
+                return
+            end
+        end
+    end
+
+    TargetNearestFriend()
+end
+

@@ -14343,9 +14343,27 @@ function MainMenu:SetPickerMode(mode)
     if not pageSystem or not pageSystem.pickerScreen then return end
     local pickerScreen = pageSystem.pickerScreen
 
-    pickerScreen.currentMode = mode or "SPELLBOOK"
-    pickerScreen.currentSubTab = 1
-    pickerScreen.gridPage = 1
+    local newMode = mode or "SPELLBOOK"
+    local modeChanged = (pickerScreen.currentMode ~= newMode)
+    pickerScreen.currentMode = newMode
+
+    if modeChanged then
+        pickerScreen.currentSubTab = 1
+        pickerScreen.gridPage = 1
+        local okNav, nav = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+        if okNav and nav and nav.focus then
+            nav.focus.pickerSubIdx = 1
+        end
+    else
+        -- Preserva a sub-aba memorizada (ex: spec do grimório selecionada anteriormente)
+        local okNav, nav = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+        if okNav and nav and nav.focus and nav.focus.pickerSubIdx and nav.focus.pickerSubIdx >= 1 then
+            pickerScreen.currentSubTab = nav.focus.pickerSubIdx
+        else
+            pickerScreen.currentSubTab = pickerScreen.currentSubTab or 1
+        end
+        pickerScreen.gridPage = pickerScreen.gridPage or 1
+    end
 
     -- Atualiza botões da linha de modos
     if pickerScreen.modeButtons then
@@ -14365,9 +14383,10 @@ function MainMenu:SetPickerMode(mode)
     self:UpdatePickerSubTabs()
     self:RefreshPickerGrid()
 
-    -- Snap automático do cursor para a primeira sub-aba do modo selecionado
+    -- Snap automático do cursor para a sub-aba ativa do modo selecionado
     if ConsoleMode and ConsoleMode.cursor and ConsoleMode.cursor.state and ConsoleMode.cursor.state.enabled then
-        local target = (pickerScreen.subTabButtons and pickerScreen.subTabButtons[1])
+        local activeSub = pickerScreen.currentSubTab or 1
+        local target = (pickerScreen.subTabButtons and pickerScreen.subTabButtons[activeSub])
             or (pickerScreen.gridButtons and pickerScreen.gridButtons[1])
         if target and target:IsVisible() then
             ConsoleMode.cursor:MoveTo(target)
@@ -14466,6 +14485,10 @@ function MainMenu:UpdatePickerSubTabs()
             btn:SetScript("OnClick", function()
                 pickerScreen.currentSubTab = this.tabIdx
                 pickerScreen.gridPage = 1
+                local okNav, nav = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+                if okNav and nav and nav.focus then
+                    nav.focus.pickerSubIdx = this.tabIdx
+                end
                 MainMenu:HighlightPickerSubTab(this.tabIdx)
                 MainMenu:RefreshPickerGrid()
                 if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
@@ -14499,6 +14522,10 @@ function MainMenu:UpdatePickerSubTabs()
 
     if not pickerScreen.currentSubTab or pickerScreen.currentSubTab > numTabs then
         pickerScreen.currentSubTab = 1
+    end
+    local okNavClamp, navClamp = pcall(function() return getglobal("ConsoleMode_MainMenuNav") end)
+    if okNavClamp and navClamp and navClamp.focus then
+        navClamp.focus.pickerSubIdx = pickerScreen.currentSubTab
     end
     self:HighlightPickerSubTab(pickerScreen.currentSubTab)
 end
@@ -14874,7 +14901,8 @@ function MainMenu:ShowPickerScreen()
 
     if ConsoleMode and ConsoleMode.cursor then
         local pScreen = pageSystem.pickerScreen
-        local target = (pScreen and pScreen.subTabButtons and pScreen.subTabButtons[1])
+        local activeSub = (pScreen and pScreen.currentSubTab) or 1
+        local target = (pScreen and pScreen.subTabButtons and pScreen.subTabButtons[activeSub])
             or (pScreen and pScreen.modeButtons and pScreen.modeButtons[1])
             or (pScreen and pScreen.gridButtons and pScreen.gridButtons[1])
         if target and target:IsVisible() then

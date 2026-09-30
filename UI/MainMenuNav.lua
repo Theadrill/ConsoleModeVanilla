@@ -1479,11 +1479,16 @@ local function Nav_PaintPicker()
             for i = 1, ns do
                 local btn = stbs[i]
                 if btn then
+                    local isSubActive = (pickerScreen.currentSubTab ~= nil and i == pickerScreen.currentSubTab)
                     local isFocus = (inPicker and sec == "SUB" and i == subIdx)
                     if isFocus then
                         if btn.title then pcall(function() btn.title:SetTextColor(1.0, 0.85, 0.2) end) end
                         pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
                         pcall(function() btn:SetBackdropColor(0.25, 0.18, 0.05, 0.70) end)
+                    elseif isSubActive then
+                        if btn.title then pcall(function() btn.title:SetTextColor(0.88, 0.60, 0.08) end) end
+                        pcall(function() btn:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.95) end)
+                        pcall(function() btn:SetBackdropColor(0.22, 0.16, 0.05, 0.65) end)
                     else
                         if btn.title then pcall(function() btn.title:SetTextColor(0.65, 0.65, 0.65) end) end
                         pcall(function() btn:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.40) end)
@@ -2633,6 +2638,25 @@ function Nav_OnSysPickerDirection(direction)
         end
         if direction == "DOWN" then
             f.pickerSection = "SUB"
+            if scr then
+                local stbs = scr.subTabButtons
+                local n = 0
+                if stbs then n = table.getn(stbs) end
+                if not f.pickerSubIdx or f.pickerSubIdx < 1 then
+                    f.pickerSubIdx = scr.currentSubTab or 1
+                end
+                if n >= 1 and f.pickerSubIdx > n then f.pickerSubIdx = n end
+                if scr.currentSubTab ~= f.pickerSubIdx then
+                    scr.currentSubTab = f.pickerSubIdx
+                    local MM = Nav_GetMM()
+                    if MM and type(MM.HighlightPickerSubTab) == "function" then
+                        pcall(function() MM:HighlightPickerSubTab(f.pickerSubIdx) end)
+                    end
+                    if MM and type(MM.RefreshPickerGrid) == "function" then
+                        pcall(function() MM:RefreshPickerGrid() end)
+                    end
+                end
+            end
             Nav_EnsureFocus()
             return true
         end
@@ -2657,6 +2681,9 @@ function Nav_OnSysPickerDirection(direction)
             f.pickerSubIdx = j - 1
             scr.currentSubTab = f.pickerSubIdx
             local MM = Nav_GetMM()
+            if MM and type(MM.HighlightPickerSubTab) == "function" then
+                pcall(function() MM:HighlightPickerSubTab(f.pickerSubIdx) end)
+            end
             if MM and type(MM.RefreshPickerGrid) == "function" then
                 pcall(function() MM:RefreshPickerGrid() end)
             end
@@ -2677,6 +2704,9 @@ function Nav_OnSysPickerDirection(direction)
             f.pickerSubIdx = j + 1
             scr.currentSubTab = f.pickerSubIdx
             local MM2 = Nav_GetMM()
+            if MM2 and type(MM2.HighlightPickerSubTab) == "function" then
+                pcall(function() MM2:HighlightPickerSubTab(f.pickerSubIdx) end)
+            end
             if MM2 and type(MM2.RefreshPickerGrid) == "function" then
                 pcall(function() MM2:RefreshPickerGrid() end)
             end
@@ -4469,7 +4499,11 @@ function Nav:OnConfirm()
                             fs.zone = "SYS_PICKER"
                             fs.pickerSection = "MODE"
                             if not fs.pickerMode or fs.pickerMode < 1 then fs.pickerMode = 1 end
-                            if not fs.pickerSubIdx or fs.pickerSubIdx < 1 then fs.pickerSubIdx = 1 end
+                            if ps2.pickerScreen and ps2.pickerScreen.currentSubTab and ps2.pickerScreen.currentSubTab >= 1 then
+                                fs.pickerSubIdx = ps2.pickerScreen.currentSubTab
+                            elseif not fs.pickerSubIdx or fs.pickerSubIdx < 1 then
+                                fs.pickerSubIdx = 1
+                            end
                             if not fs.pickerGridIdx or fs.pickerGridIdx < 1 then fs.pickerGridIdx = 1 end
                             if not fs.pickerPageBtn or fs.pickerPageBtn < 1 then fs.pickerPageBtn = 1 end
                             fs.returnZone = "SYS_BINDS"
@@ -4488,6 +4522,7 @@ function Nav:OnConfirm()
             local scrc = psc and psc.pickerScreen
             local MMc = Nav_GetMM()
             if sec == "MODE" then
+                local prevMode = scrc and scrc.currentMode
                 if scrc and scrc.modeButtons and MMc and type(MMc.SetPickerMode) == "function" then
                     local pm = fs.pickerMode or 1
                     if pm < 1 then pm = 1 end
@@ -4497,7 +4532,11 @@ function Nav:OnConfirm()
                     local mid = mb and mb.modeId
                     if mid then pcall(function() MMc:SetPickerMode(mid) end) end
                 end
-                fs.pickerSubIdx = 1
+                if scrc and scrc.currentMode == prevMode and scrc.currentSubTab and scrc.currentSubTab >= 1 then
+                    fs.pickerSubIdx = scrc.currentSubTab
+                else
+                    fs.pickerSubIdx = 1
+                end
                 fs.pickerSection = "SUB"
                 Nav_EnsureFocus()
                 Nav_ApplyFocus()

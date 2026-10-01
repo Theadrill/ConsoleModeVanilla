@@ -8444,7 +8444,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     zoneListFrame.buttons = {}
     local zlBtnH = 28
     local zlGap = 3
-    for _zi = 1, 32 do
+    for _zi = 1, 64 do
         local _zb = CreateFrame("Button", "ConsoleMode_ZoneListButton".._zi, zlContent)
         _zb:SetHeight(zlBtnH)
         _zb:SetPoint("TOPLEFT", zlContent, "TOPLEFT", 2, -(_zi - 1) * (zlBtnH + zlGap) - 2)
@@ -9457,7 +9457,7 @@ function MainMenu:BuildInstancesListForZone(zoneName)
     local frame = pageQuests.mapPanel.zoneListFrame
     local content = frame.scrollChild
     if not content then return end
-    for i = 1, 32 do getglobal("ConsoleMode_ZoneListButton"..i):Hide() end
+    for i = 1, 64 do getglobal("ConsoleMode_ZoneListButton"..i):Hide() end
     local instData = ConsoleMode and ConsoleMode.Instances
     local list = {}
     if instData and instData.GetForZone then
@@ -9492,7 +9492,7 @@ function MainMenu:BuildInstancesListForZone(zoneName)
     local shown = 0
     for idx = 1, count do
         local name = list[idx]
-        if name and name ~= "" and shown < 32 then
+        if name and name ~= "" and shown < 64 then
             shown = shown + 1
             local btn = getglobal("ConsoleMode_ZoneListButton"..shown)
             btn.isInstance = true
@@ -9531,7 +9531,7 @@ function MainMenu:BuildInstancesList(cont)
     local frame = pageQuests.mapPanel.zoneListFrame
     local content = frame.scrollChild
     if not content then return end
-    for i = 1, 32 do getglobal("ConsoleMode_ZoneListButton"..i):Hide() end
+    for i = 1, 64 do getglobal("ConsoleMode_ZoneListButton"..i):Hide() end
     local instData = ConsoleMode and ConsoleMode.Instances
     local list = {}
     if instData and instData.GetForContinent then
@@ -9550,7 +9550,7 @@ function MainMenu:BuildInstancesList(cont)
     local shown = 0
     for idx = 1, count do
         local name = list[idx]
-        if name and name ~= "" and shown < 32 then
+        if name and name ~= "" and shown < 64 then
             shown = shown + 1
             local btn = getglobal("ConsoleMode_ZoneListButton"..shown)
             btn.isInstance = true
@@ -9585,7 +9585,7 @@ function MainMenu:BuildContinentZoneList(cont)
     local frame = pageQuests.mapPanel.zoneListFrame
     local content = frame.scrollChild
     if not content then return end
-    for i = 1, 32 do getglobal("ConsoleMode_ZoneListButton"..i):Hide() end
+    for i = 1, 64 do getglobal("ConsoleMode_ZoneListButton"..i):Hide() end
     local instData = ConsoleMode and ConsoleMode.Instances
     local zones = {GetMapZones(cont)}
     local filtered = {}
@@ -9608,7 +9608,7 @@ function MainMenu:BuildContinentZoneList(cont)
     local shown = 0
     for idx = 1, count do
         local name = filtered[idx]
-        if name and name ~= "" and shown < 32 then
+        if name and name ~= "" and shown < 64 then
             shown = shown + 1
             local btn = getglobal("ConsoleMode_ZoneListButton"..shown)
             btn.isInstance = false

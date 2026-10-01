@@ -1632,6 +1632,27 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     return container
 end
 
+-- Retorna o valor efetivo real do atributo no WoW 1.12 (2º valor de retorno do UnitStat).
+-- Fallback para o 1º valor (base) se o 2º for nil.
+local function GetPlayerEffectiveStat(statIndex)
+    if type(UnitStat) ~= "function" then return 0 end
+    local base, effective = UnitStat("player", statIndex)
+    return effective or base or 0
+end
+
+-- Atualiza as 6 linhas de atributos primários/armadura com seus valores efetivos vivos limpos.
+function MainMenu:RefreshBaseStatLines()
+    if not self.statsAndBuffs or not self.statsAndBuffs.statLines then return end
+    local lines = self.statsAndBuffs.statLines
+    lines["Força"]:SetText("|cffffffffForça:|r " .. GetPlayerEffectiveStat(1))
+    lines["Agilidade"]:SetText("|cffffffffAgilidade:|r " .. GetPlayerEffectiveStat(2))
+    lines["Vigor"]:SetText("|cffffffffVigor:|r " .. GetPlayerEffectiveStat(3))
+    lines["Intelecto"]:SetText("|cffffffffIntelecto:|r " .. GetPlayerEffectiveStat(4))
+    lines["Espírito"]:SetText("|cffffffffEspírito:|r " .. GetPlayerEffectiveStat(5))
+    local _, armorEff = UnitArmor("player")
+    lines["Armadura"]:SetText("|cffffffffArmadura:|r " .. (armorEff or 0))
+end
+
 function MainMenu:UpdateStatsAndBuffs()
     if not self.statsAndBuffs then return end
 
@@ -1649,14 +1670,7 @@ function MainMenu:UpdateStatsAndBuffs()
         local powerColor = (pType == 1 and "|cffff3333") or (pType == 3 and "|cffffff00") or "|cff00ccff"
         lines["Recurso"]:SetText("|cffffffff" .. powerName .. ":|r " .. powerColor .. mana .. "|r / " .. maxMana)
 
-        lines["Força"]:SetText("|cffffffffForça:|r " .. (UnitStat("player", 1) or 0))
-        lines["Agilidade"]:SetText("|cffffffffAgilidade:|r " .. (UnitStat("player", 2) or 0))
-        lines["Vigor"]:SetText("|cffffffffVigor:|r " .. (UnitStat("player", 3) or 0))
-        lines["Intelecto"]:SetText("|cffffffffIntelecto:|r " .. (UnitStat("player", 4) or 0))
-        lines["Espírito"]:SetText("|cffffffffEspírito:|r " .. (UnitStat("player", 5) or 0))
-
-        local baseArmor, armorEff = UnitArmor("player")
-        lines["Armadura"]:SetText("|cffffffffArmadura:|r " .. (armorEff or 0))
+        self:RefreshBaseStatLines()
 
         -- FASE 14 (Passo 3): se comparacao ativa, reaplica os diffs por cima
         -- para que o refresh periodico nao apague o verde/vermelho.
@@ -1885,179 +1899,246 @@ function MainMenu:GetCompareSlotForEquipLoc(equipLoc)
     return GetInventorySlotInfo(slotName)
 end
 
--- Parsing de stats via scanTip. Aceita link completo ("|c..|H(item:..)|h..")
--- ou rawLink ("item:1234:..."); bagID/slotID sao fallback para
--- scanTip:SetBagItem caso o hyperlink falhe (item fora do cache).
+-- Tooltip exclusivo do sistema de comparacao (blindado contra crosstalk de buffs/spells/armas)
+local compareScanTip = CreateFrame("GameTooltip", "ConsoleModeMMCompareScanTooltip", nil, "GameTooltipTemplate")
+if compareScanTip then
+    compareScanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+end
+
+local function Compare_ResetScanTip()
+    if not compareScanTip then return end
+    pcall(function() compareScanTip:SetOwner(WorldFrame, "ANCHOR_NONE") end)
+    pcall(function() compareScanTip:ClearLines() end)
+    for l = 1, 30 do
+        local lObj = getglobal("ConsoleModeMMCompareScanTooltipTextLeft" .. l)
+        if lObj and lObj.SetText then lObj:SetText("") end
+        local rObj = getglobal("ConsoleModeMMCompareScanTooltipTextRight" .. l)
+        if rObj and rObj.SetText then rObj:SetText("") end
+    end
+end
+
+-- Varre uma linha de texto do tooltip e extrai atributos numericos (bilingue PT-BR / EN)
+local function Compare_ScanTextLine(text, stats)
+    if not text or text == "" then return end
+    -- Linhas a ignorar: preco, durabilidade, vinculo, requisitos,
+    -- classes, procs ("Chance ao acertar" nao e stat comparavel), uso e sets.
+    if string.find(text, "Preço de Venda") or string.find(text, "Sell Price")
+        or string.find(text, "Durabilidade") or string.find(text, "Durability")
+        or string.find(text, "Vinculado") or string.find(text, "Soulbound")
+        or string.find(text, "Único") or string.find(text, "Unique")
+        or string.find(text, "Requer") or string.find(text, "Requires")
+        or string.find(text, "Classes:") or string.find(text, "Classe:")
+        or string.find(text, "Chance ao acertar") or string.find(text, "Chance on hit")
+        or string.find(text, "^Uso:") or string.find(text, "^Use:")
+        or string.find(text, "^Set:") or string.find(text, "^Conjunto:") then
+        return
+    end
+
+    local lower = string.lower(text)
+    local _, _, v = nil, nil, nil
+
+    -- DPS: "(12,5 dano por segundo)" / "(12.5 damage per second)"
+    _, _, v = string.find(text, "([%d%,%.]+)%s+dano por segundo")
+    if not v then _, _, v = string.find(lower, "([%d%,%.]+)%s+damage per second") end
+    if v then
+        stats.dps = stats.dps + Compare_NormNum(v)
+        return
+    end
+
+    -- Dano min-max: "44 - 115 Dano" / "44 - 115 Damage"
+    local _, _, mn, mx = string.find(text, "(%d+)%s*%-%s*(%d+)%s+[Dd]ano")
+    if not mn then _, _, mn, mx = string.find(lower, "(%d+)%s*%-%s*(%d+)%s+damage") end
+    if mn and mx then
+        stats.minDmg = stats.minDmg + (tonumber(mn) or 0)
+        stats.maxDmg = stats.maxDmg + (tonumber(mx) or 0)
+        return
+    end
+
+    -- Velocidade: "Velocidade 1.90" / "Speed 1.90"
+    _, _, v = string.find(text, "[Vv]elocidade%s+([%d%,%.]+)")
+    if not v then _, _, v = string.find(lower, "speed%s+([%d%,%.]+)") end
+    if v then
+        stats.speed = stats.speed + Compare_NormNum(v)
+        return
+    end
+
+    -- Força (+X de Força / +X Força / +X Strength)
+    _, _, v = string.find(text, "^%+(%d+)%s+de%s+For")
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+For") end
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Strength") end
+    if v then stats.str = stats.str + (tonumber(v) or 0); return end
+
+    -- Agilidade (+X de Agilidade / +X Agilidade / +X Agility)
+    _, _, v = string.find(text, "^%+(%d+)%s+de%s+Agilidade")
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Agilidade") end
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Agility") end
+    if v then stats.agi = stats.agi + (tonumber(v) or 0); return end
+
+    -- Vigor (+X de Vigor / +X Vigor / +X Stamina)
+    _, _, v = string.find(text, "^%+(%d+)%s+de%s+Vigor")
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Vigor") end
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Stamina") end
+    if v then stats.sta = stats.sta + (tonumber(v) or 0); return end
+
+    -- Intelecto (+X de Intelecto / +X Intelecto / +X Intellect)
+    _, _, v = string.find(text, "^%+(%d+)%s+de%s+Intelecto")
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Intelecto") end
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Intellect") end
+    if v then stats.int = stats.int + (tonumber(v) or 0); return end
+
+    -- Espírito (+X de Espírito / +X Espírito / +X Spirit)
+    _, _, v = string.find(text, "^%+(%d+)%s+de%s+Esp")
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Esp") end
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Spirit") end
+    if v then stats.spi = stats.spi + (tonumber(v) or 0); return end
+
+    -- Armadura ("215 Armadura" / "215 de Armadura" / "+15 Armadura" / "215 Armor")
+    _, _, v = string.find(text, "^%+(%d+)%s+de%s+Armadura")
+    if not v then _, _, v = string.find(text, "^(%d+)%s+de%s+Armadura") end
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Armadura") end
+    if not v then _, _, v = string.find(text, "^(%d+)%s+Armadura") end
+    if not v then _, _, v = string.find(text, "^%+(%d+)%s+Armor") end
+    if not v then _, _, v = string.find(text, "^(%d+)%s+Armor") end
+    if v then stats.armor = stats.armor + (tonumber(v) or 0); return end
+
+    -- Vida/Mana: "+100 Vida" / "+100 de Vida" / "+100 Health" / "+80 Mana"
+    _, _, v = string.find(text, "%+(%d+)%s+de%s+Vida")
+    if not v then _, _, v = string.find(text, "%+(%d+)%s+Vida") end
+    if not v then _, _, v = string.find(text, "%+(%d+)%s+[Hh]ealth") end
+    if v then stats.hp = stats.hp + (tonumber(v) or 0); return end
+
+    _, _, v = string.find(text, "%+(%d+)%s+de%s+Mana")
+    if not v then _, _, v = string.find(text, "%+(%d+)%s+Mana") end
+    if v then stats.mana = stats.mana + (tonumber(v) or 0); return end
+
+    -- Poder de Ataque
+    _, _, v = string.find(text, "%+(%d+)%s+de%s+Poder de Ataque")
+    if not v then _, _, v = string.find(text, "%+(%d+)%s+Poder de Ataque") end
+    if not v then _, _, v = string.find(lower, "%+(%d+)%s+attack power") end
+    if v then stats.ap = stats.ap + (tonumber(v) or 0); return end
+
+    -- Acerto
+    _, _, v = string.find(text, "(%d+)%%%s*.*[Aa]cert")
+    if not v then _, _, v = string.find(lower, "(%d+)%%%s*.*hit") end
+    if v then stats.hit = stats.hit + (tonumber(v) or 0); return end
+
+    -- Critico
+    _, _, v = string.find(text, "(%d+)%%%s*.*[Cc]r")
+    if not v then _, _, v = string.find(lower, "(%d+)%%%s*.*crit") end
+    if v then stats.crit = stats.crit + (tonumber(v) or 0); return end
+
+    -- Esquiva
+    _, _, v = string.find(text, "(%d+)%%%s*.*[Ee]squiva")
+    if not v then _, _, v = string.find(lower, "(%d+)%%%s*.*dodge") end
+    if v then stats.dodge = stats.dodge + (tonumber(v) or 0); return end
+
+    -- Bloqueio
+    if string.find(text, "Bloqueio") or string.find(lower, "block") then
+        _, _, v = string.find(text, "(%d+)%%")
+        if not v then _, _, v = string.find(text, "%+(%d+)") end
+        if v then stats.block = stats.block + (tonumber(v) or 0); return end
+    end
+
+    -- Cura
+    _, _, v = string.find(text, "%+(%d+)%s+de%s+Cura")
+    if not v then _, _, v = string.find(text, "%+(%d+)%s+Cura") end
+    if not v then _, _, v = string.find(lower, "%+(%d+).*healing") end
+    if v then stats.healing = stats.healing + (tonumber(v) or 0); return end
+
+    -- Dano Magico
+    _, _, v = string.find(text, "%+(%d+)%s+de%s+Dano")
+    if not v then _, _, v = string.find(text, "%+(%d+)%s+Dano") end
+    if not v then _, _, v = string.find(lower, "%+(%d+).*spell damage") end
+    if not v then _, _, v = string.find(lower, "%+(%d+).*damage and healing") end
+    if v then stats.spellDmg = stats.spellDmg + (tonumber(v) or 0); return end
+end
+
+-- Parsing de stats via compareScanTip dedicado.
+-- Hierarquia nativa infalivel:
+--   1) invSlotID: usa SetInventoryItem("player", invSlotID) (item equipado)
+--   2) bagID, slotID: usa SetBagItem(bagID, slotID) (item na bolsa)
+--   3) itemLink/rawLink: usa SetHyperlink (fallback itens avulsos)
 -- Retorna tabela completa zerada (nunca nil); grava no cache antes de sair.
-function MainMenu:ParseItemStats(itemLink, bagID, slotID)
-    if not itemLink or itemLink == "" then
+function MainMenu:ParseItemStats(itemLink, bagID, slotID, invSlotID)
+    local cacheKey = nil
+    if invSlotID then
+        cacheKey = "inv:" .. invSlotID .. ":" .. (itemLink or "")
+    elseif bagID and slotID then
+        cacheKey = "bag:" .. bagID .. ":" .. slotID .. ":" .. (itemLink or "")
+    elseif itemLink and itemLink ~= "" then
+        cacheKey = "link:" .. itemLink
+    end
+
+    if not cacheKey then
         return Compare_NewZeroStats()
     end
-    if self.statCompareCache[itemLink] then
-        return self.statCompareCache[itemLink]
+    if self.statCompareCache[cacheKey] then
+        return self.statCompareCache[cacheKey]
     end
 
     local stats = Compare_NewZeroStats()
 
-    if not scanTip then
-        self.statCompareCache[itemLink] = stats
+    if not compareScanTip then
+        self.statCompareCache[cacheKey] = stats
         return stats
     end
 
-    -- Resolve o rawLink ("item:id:ench:gem:suffix") a partir do link.
-    local rawLink = nil
-    if string.find(itemLink, "^item:") then
-        rawLink = itemLink
-    else
-        local _, _, extracted = string.find(itemLink, "(item:[^|%s>]+)")
-        if extracted then rawLink = extracted end
-    end
+    Compare_ResetScanTip()
+    local loaded = false
 
-    scanTip:ClearLines()
-    local ok = false
-    if rawLink then
-        ok = pcall(function() scanTip:SetHyperlink(rawLink) end)
-    end
-    if not ok then
-        ok = pcall(function() scanTip:SetHyperlink(itemLink) end)
-    end
-    if not ok and bagID and slotID then
-        ok = pcall(function() scanTip:SetBagItem(bagID, slotID) end)
-    end
-    if not ok then
-        self.statCompareCache[itemLink] = stats
-        return stats
-    end
-
-    local numLines = scanTip:NumLines() or 0
-    for l = 2, numLines do
-        local lineObj = _G["ConsoleModeMMScanTooltipTextLeft" .. l]
-        local text = (lineObj and lineObj:GetText()) or ""
-        if text ~= "" then
-            -- Linhas a ignorar: preco, durabilidade, vinculo, requisitos,
-            -- classes, procs ("Chance ao acertar" nao e stat comparavel)
-            -- e texto de Uso (stats de Equip: entram no diff).
-            if string.find(text, "Preço de Venda") or string.find(text, "Sell Price")
-                or string.find(text, "Durabilidade") or string.find(text, "Durability")
-                or string.find(text, "Vinculado") or string.find(text, "Soulbound")
-                or string.find(text, "Único") or string.find(text, "Unique")
-                or string.find(text, "Requer") or string.find(text, "Requires")
-                or string.find(text, "Classes:") or string.find(text, "Classe:")
-                or string.find(text, "Chance ao acertar") or string.find(text, "Chance on hit")
-                or string.find(text, "^Uso:") or string.find(text, "^Use:") then
-                -- ignora a linha
-            else
-                local lower = string.lower(text)
-                local _, _, v = nil, nil, nil
-
-                -- DPS: "(12,5 dano por segundo)" / "(12.5 damage per second)"
-                _, _, v = string.find(text, "([%d%,%.]+)%s+dano por segundo")
-                if not v then _, _, v = string.find(lower, "([%d%,%.]+)%s+damage per second") end
-                if v then
-                    stats.dps = stats.dps + Compare_NormNum(v)
-                else
-                    -- Dano min-max: "44 - 115 Dano" / "44 - 115 Damage"
-                    local _, _, mn, mx = string.find(text, "(%d+)%s*%-%s*(%d+)%s+[Dd]ano")
-                    if not mn then _, _, mn, mx = string.find(lower, "(%d+)%s*%-%s*(%d+)%s+damage") end
-                    if mn and mx then
-                        stats.minDmg = stats.minDmg + (tonumber(mn) or 0)
-                        stats.maxDmg = stats.maxDmg + (tonumber(mx) or 0)
-                    else
-                        -- Velocidade: "Velocidade 1.90" / "Speed 1.90"
-                        _, _, v = string.find(text, "[Vv]elocidade%s+([%d%,%.]+)")
-                        if not v then _, _, v = string.find(lower, "speed%s+([%d%,%.]+)") end
-                        if v then
-                            stats.speed = stats.speed + Compare_NormNum(v)
-                        else
-                            -- Atributos primarios PT-BR + EN
-                            _, _, v = string.find(text, "^%+(%d+)%s+For") -- Força (prefixo evita problema de acento)
-                            if v then stats.str = stats.str + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Strength") end
-                            if v then stats.str = stats.str + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Agilidade") end
-                            if v then stats.agi = stats.agi + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Agility") end
-                            if v then stats.agi = stats.agi + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Vigor") end
-                            if v then stats.sta = stats.sta + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Stamina") end
-                            if v then stats.sta = stats.sta + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Intelecto") end
-                            if v then stats.int = stats.int + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Intellect") end
-                            if v then stats.int = stats.int + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Esp") end -- Espírito (prefixo)
-                            if v then stats.spi = stats.spi + (tonumber(v) or 0) end
-                            if not v then _, _, v = string.find(text, "^%+(%d+)%s+Spirit") end
-                            if v then stats.spi = stats.spi + (tonumber(v) or 0) end
-                            if not v then
-                                -- Armadura: "215 Armadura" / "215 Armor" (sem "+")
-                                _, _, v = string.find(text, "^(%d+)%s+Armadura")
-                                if not v then _, _, v = string.find(text, "^(%d+)%s+Armor") end
-                                if v then stats.armor = stats.armor + (tonumber(v) or 0) end
-                            end
-                            if not v then
-                                -- Vida/Mana: "+100 Vida" / "+100 Health" / "+80 Mana"
-                                _, _, v = string.find(text, "%+(%d+)%s+Vida")
-                                if v then stats.hp = stats.hp + (tonumber(v) or 0) end
-                                if not v then _, _, v = string.find(text, "%+(%d+)%s+[Hh]ealth") end
-                                if v then stats.hp = stats.hp + (tonumber(v) or 0) end
-                                if not v then _, _, v = string.find(text, "%+(%d+)%s+[Mm]ana") end
-                                if v then stats.mana = stats.mana + (tonumber(v) or 0) end
-                            end
-                            if not v then
-                                -- Poder de Ataque: "+24 Poder de Ataque" / "+24 Attack Power"
-                                _, _, v = string.find(text, "%+(%d+)%s+Poder de Ataque")
-                                if not v then _, _, v = string.find(lower, "%+(%d+)%s+attack power") end
-                                if v then stats.ap = stats.ap + (tonumber(v) or 0) end
-                            end
-                            if not v then
-                                -- Acerto: "+1% Chance de Acertar" / "+1% Hit"
-                                _, _, v = string.find(text, "(%d+)%%.*Acert")
-                                if not v then _, _, v = string.find(lower, "(%d+)%%.*hit") end
-                                if v then stats.hit = stats.hit + (tonumber(v) or 0) end
-                            end
-                            if not v then
-                                -- Critico: "+1% Crít." / "+1% Crit"
-                                _, _, v = string.find(text, "(%d+)%%.*Cr")
-                                if not v then _, _, v = string.find(lower, "(%d+)%%.*crit") end
-                                if v then stats.crit = stats.crit + (tonumber(v) or 0) end
-                            end
-                            if not v then
-                                -- Esquiva: "+1% Esquiva" / "+1% Dodge"
-                                _, _, v = string.find(text, "(%d+)%%.*Esquiva")
-                                if not v then _, _, v = string.find(lower, "(%d+)%%.*dodge") end
-                                if v then stats.dodge = stats.dodge + (tonumber(v) or 0) end
-                            end
-                            if not v then
-                                -- Bloqueio: "+2% Bloqueio" ou "+15 Bloqueio" (valor) / Block
-                                if string.find(text, "Bloqueio") or string.find(lower, "block") then
-                                    _, _, v = string.find(text, "(%d+)%%")
-                                    if not v then _, _, v = string.find(text, "%+(%d+)") end
-                                    if v then stats.block = stats.block + (tonumber(v) or 0) end
-                                end
-                            end
-                            if not v then
-                                -- Cura ANTES de dano (EN "+Healing" nao contem "damage", mas PT
-                                -- "+X Cura" e distinto de "+X Dano Magico")
-                                _, _, v = string.find(text, "%+(%d+)%s+Cura")
-                                if not v then _, _, v = string.find(lower, "%+(%d+).*healing") end
-                                if v then stats.healing = stats.healing + (tonumber(v) or 0) end
-                            end
-                            if not v then
-                                -- Dano magico: "+9 Dano" (PT) / "+9 Spell Damage" (EN)
-                                _, _, v = string.find(text, "%+(%d+)%s+Dano")
-                                if not v then _, _, v = string.find(lower, "%+(%d+).*damage") end
-                                if v then stats.spellDmg = stats.spellDmg + (tonumber(v) or 0) end
-                            end
-                        end
-                    end
-                end
-            end
+    -- 1. Item Equipado no Jogador (100% confiavel, inclui encantos e sufixos reais)
+    if invSlotID and compareScanTip.SetInventoryItem then
+        local ok = pcall(function() compareScanTip:SetInventoryItem("player", invSlotID) end)
+        if ok and (compareScanTip:NumLines() or 0) > 0 then
+            loaded = true
         end
     end
 
-    self.statCompareCache[itemLink] = stats
+    -- 2. Item na Bolsa (100% confiavel, inclui sufixos aleatorios verdes)
+    if not loaded and bagID and slotID and compareScanTip.SetBagItem then
+        local ok = pcall(function() compareScanTip:SetBagItem(bagID, slotID) end)
+        if ok and (compareScanTip:NumLines() or 0) > 0 then
+            loaded = true
+        end
+    end
+
+    -- 3. Fallback Hyperlink
+    if not loaded and itemLink and itemLink ~= "" then
+        local rawLink = nil
+        if string.find(itemLink, "^item:") then
+            rawLink = itemLink
+        else
+            local _, _, extracted = string.find(itemLink, "(item:[^|%s>]+)")
+            if extracted then rawLink = extracted end
+        end
+        if rawLink then
+            pcall(function() compareScanTip:SetHyperlink(rawLink) end)
+        end
+        if (compareScanTip:NumLines() or 0) == 0 then
+            pcall(function() compareScanTip:SetHyperlink(itemLink) end)
+        end
+        if (compareScanTip:NumLines() or 0) > 0 then
+            loaded = true
+        end
+    end
+
+    if not loaded then
+        self.statCompareCache[cacheKey] = stats
+        return stats
+    end
+
+    local numLines = compareScanTip:NumLines() or 0
+    for l = 2, numLines do
+        local lObj = getglobal("ConsoleModeMMCompareScanTooltipTextLeft" .. l)
+        local lTxt = (lObj and lObj:GetText()) or ""
+        Compare_ScanTextLine(lTxt, stats)
+
+        local rObj = getglobal("ConsoleModeMMCompareScanTooltipTextRight" .. l)
+        local rTxt = (rObj and rObj:GetText()) or ""
+        Compare_ScanTextLine(rTxt, stats)
+    end
+
+    self.statCompareCache[cacheKey] = stats
     return stats
 end
 
@@ -2148,15 +2229,75 @@ function MainMenu:GetCompareTarget(itemData)
         vsName = self:GetCompareEquippedName(soloLink), vsSlotID = slots }
 end
 
+-- Multiplicadores raciais passivos em status primarios / vitais (Vanilla 1.12):
+-- Humano: +5% Espirito ("O Espirito Humano")
+-- Gnomo:  +5% Intelecto ("Mente Expansiva")
+-- Tauren: +5% Vida total ("Robustez")
+local function Compare_GetRacialStatMultiplier(statKey)
+    local raceLoc, raceFile = nil, nil
+    if type(UnitRace) == "function" then
+        local a, b = UnitRace("player")
+        raceLoc = a
+        raceFile = b or a
+    end
+
+    local rf = string.lower(raceFile or "")
+    local rl = string.lower(raceLoc or "")
+
+    if statKey == "spi" then
+        if string.find(rf, "human") or string.find(rl, "human") then
+            return 1.05, 5
+        end
+    elseif statKey == "int" then
+        if string.find(rf, "gnom") or string.find(rl, "gnom") then
+            return 1.05, 4
+        end
+    elseif statKey == "hp" then
+        if string.find(rf, "tauren") or string.find(rl, "tauren") then
+            return 1.05, nil
+        end
+    end
+
+    return 1.0, nil
+end
+
 -- Monta { [statKey] = new-old } so com chaves diferentes (helper local
 -- compartilhado pelos ramos single e dual do ComputeCompareDiff).
+-- Aplica multiplicadores raciais passivos projetando o ganho/perda efetivo real.
 local function Compare_BuildDiffs(newStats, oldStats)
     local diffs = {}
     for _, key in ipairs(COMPARE_STAT_KEYS) do
         local nv = (newStats and newStats[key]) or 0
         local ov = (oldStats and oldStats[key]) or 0
         if nv ~= ov then
-            diffs[key] = nv - ov
+            local rawDiff = nv - ov
+            local mult, statIdx = Compare_GetRacialStatMultiplier(key)
+            if mult and mult > 1.0 then
+                local currentEff = 0
+                if statIdx then
+                    currentEff = GetPlayerEffectiveStat(statIdx)
+                elseif key == "hp" and type(UnitHealthMax) == "function" then
+                    currentEff = UnitHealthMax("player") or 0
+                end
+
+                if currentEff > 0 then
+                    -- B e a base inteira unbuffed antes do multiplicador: B = ceil(currentEff / mult)
+                    -- Nova base projetada: B_new = B + rawDiff
+                    -- Novo valor efetivo na engine do WoW: E_new = floor(B_new * mult)
+                    local baseVal = math.ceil(currentEff / mult)
+                    local newBase = baseVal + rawDiff
+                    local newEff = math.floor(newBase * mult)
+                    diffs[key] = newEff - currentEff
+                else
+                    if rawDiff > 0 then
+                        diffs[key] = math.floor(rawDiff * mult + 0.5)
+                    else
+                        diffs[key] = -math.floor(math.abs(rawDiff) * mult + 0.5)
+                    end
+                end
+            else
+                diffs[key] = rawDiff
+            end
         end
     end
     return diffs
@@ -2176,15 +2317,15 @@ function MainMenu:ComputeCompareDiff(itemData)
     if not target then return nil end
 
     local newLink = itemData.link or itemData.rawLink
-    local newStats = self:ParseItemStats(newLink, itemData.bagID, itemData.slotID)
+    local newStats = self:ParseItemStats(newLink, itemData.bagID, itemData.slotID, nil)
 
     -- Ramo dual: um diff por slot equipado.
     if target.isDual and target.slots then
         local dualDiffs = {}
         for _, s in ipairs(target.slots) do
             local oldStats = nil
-            if s.equippedLink then
-                oldStats = self:ParseItemStats(s.equippedLink)
+            if s.equippedLink and s.slotID then
+                oldStats = self:ParseItemStats(s.equippedLink, nil, nil, s.slotID)
             else
                 oldStats = Compare_NewZeroStats() -- slot vazio
             end
@@ -2201,8 +2342,8 @@ function MainMenu:ComputeCompareDiff(itemData)
     local equippedLink = target[2]
 
     local oldStats = nil
-    if equippedLink then
-        oldStats = self:ParseItemStats(equippedLink)
+    if equippedLink and slotID then
+        oldStats = self:ParseItemStats(equippedLink, nil, nil, slotID)
     else
         oldStats = Compare_NewZeroStats() -- slot vazio: tudo e ganho
     end
@@ -2270,29 +2411,16 @@ function MainMenu:ApplyCompareDiffs()
     if not self.statsAndBuffs or not self.statsAndBuffs.statLines then return end
     local lines = self.statsAndBuffs.statLines
 
-    local _, armorEff = UnitArmor("player")
-    local baseVals = {
-        str   = UnitStat("player", 1) or 0,
-        agi   = UnitStat("player", 2) or 0,
-        sta   = UnitStat("player", 3) or 0,
-        int   = UnitStat("player", 4) or 0,
-        spi   = UnitStat("player", 5) or 0,
-        armor = armorEff or 0,
-    }
-    local baseLabels = {
-        str = "Força", agi = "Agilidade", sta = "Vigor",
-        int = "Intelecto", spi = "Espírito", armor = "Armadura",
-    }
+    self:RefreshBaseStatLines()
 
     for diffKey, lineKey in pairs(COMPARE_DIFF_TO_LINE) do
         local d = st.diffs[diffKey]
         if d and d ~= 0 then
             local line = lines[lineKey]
             if line then
-                local label = baseLabels[diffKey] or lineKey
-                local base = baseVals[diffKey] or 0
+                local currentText = line:GetText() or ""
                 pcall(function()
-                    line:SetText("|cffffffff" .. label .. ":|r " .. base .. Compare_FormatDiffSuffix(d))
+                    line:SetText(currentText .. Compare_FormatDiffSuffix(d))
                 end)
             end
         end
@@ -2302,12 +2430,6 @@ end
 -- Ativa a comparacao visual para o itemData sob foco. diffResult opcional
 -- (se nil, calcula via ComputeCompareDiff). Item nao-comparavel -> Hide.
 function MainMenu:ShowCompare(itemData, diffResult)
-    -- CORRECAO transicoes (Bugs 1 e 2): sempre limpa a comparacao anterior
-    -- ANTES de aplicar a nova. HideCompare restaura as 6 linhas ao branco
-    -- original, entao: (a) focar nao-equipavel nunca mantem diff antigo;
-    -- (b) A->B nunca mistura sufixos (ApplyCompareDiffs so reescreve as
-    -- linhas do diff novo; sem este reset, linhas do A sumiriam do B e o
-    -- sufixo velho ficava preso na tela).
     self:HideCompare()
     if not itemData then
         return nil
@@ -2318,21 +2440,6 @@ function MainMenu:ShowCompare(itemData, diffResult)
     end
 
     local st = self.compareState
-    -- Apos o Hide acima as linhas estao limpas, entao o snapshot e sempre
-    -- do texto base (mantido o guard por seguranca).
-    if not st.active then
-        st.baseTexts = {}
-        if self.statsAndBuffs and self.statsAndBuffs.statLines then
-            for _, lineKey in ipairs(COMPARE_MAIN_LINE_KEYS) do
-                local line = self.statsAndBuffs.statLines[lineKey]
-                if line and line.GetText then
-                    local ok, txt = pcall(function() return line:GetText() end)
-                    if ok and txt then st.baseTexts[lineKey] = txt end
-                end
-            end
-        end
-    end
-
     st.active = true
     st.hoveredLink = itemData.link or itemData.rawLink
     st.targetSlot = cmp.slotID
@@ -2342,9 +2449,7 @@ function MainMenu:ShowCompare(itemData, diffResult)
     return cmp
 end
 
--- Desativa a comparacao e restaura os textos originais (idempotente).
--- PASSO 6: guards em cada acesso (seguro chamar N vezes, com ou sem menu
--- construido); sempre termina com active=false e secao escondida.
+-- Desativa a comparacao e restaura os textos originais limpos (idempotente).
 function MainMenu:HideCompare()
     local st = self.compareState
     if not st or not st.active then return end
@@ -2352,15 +2457,7 @@ function MainMenu:HideCompare()
     st.hoveredLink = nil
     st.targetSlot = nil
     st.diffs = nil
-    if self.statsAndBuffs and self.statsAndBuffs.statLines and st.baseTexts then
-        for lineKey, txt in pairs(st.baseTexts) do
-            local line = self.statsAndBuffs.statLines[lineKey]
-            if line and txt then
-                pcall(function() line:SetText(txt) end)
-            end
-        end
-    end
-    st.baseTexts = {}
+    self:RefreshBaseStatLines()
     if self.HideCompareSection then
         pcall(function() self:HideCompareSection() end)
     end
@@ -4879,6 +4976,7 @@ function MainMenu:SetupBagsPage(pageBags)
             end
 
             UseContainerItem(itemData.bagID, itemData.slotID)
+            MainMenu:ClearStatCompareCache()
             PlaySound("igMainMenuOptionCheckBoxOn")
 
             if isHearthstone and MainMenu.frame then
@@ -16434,8 +16532,10 @@ initFrame:SetScript("OnEvent", function()
     elseif MainMenu.frame and MainMenu.frame:IsVisible() then
         if event == "UNIT_INVENTORY_CHANGED" or event == "UNIT_MODEL_CHANGED" then
             if arg1 == "player" then
+                MainMenu:ClearStatCompareCache()
                 MainMenu:UpdatePlayerModel()
                 MainMenu:UpdateEquipmentColumn()
+                MainMenu:UpdateStatsAndBuffs()
             end
         elseif event == "PLAYER_AURAS_CHANGED" or event == "UNIT_HEALTH" or event == "UNIT_MANA" or event == "UNIT_RAGE" or event == "UNIT_ENERGY" then
             MainMenu:UpdateStatsAndBuffs()
@@ -16444,6 +16544,7 @@ initFrame:SetScript("OnEvent", function()
                 MainMenu:UpdateBagsPage(true)
             end
         elseif event == "BAG_UPDATE" or event == "ITEM_LOCK_CHANGED" then
+            MainMenu:ClearStatCompareCache()
             if MainMenu.tabContainer and MainMenu.tabContainer.currentTab == "BAGS" then
                 MainMenu:UpdateBagsPage(true)
             end

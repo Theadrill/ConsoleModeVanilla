@@ -1205,6 +1205,22 @@ function CM_CursorMove(direction, keystate)
         return
     end
 
+    -- EnhanceModal: consome o D-Pad com exclusividade (impede vazamento para a bag de fundo)
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        if keystate == "up" then
+            if ConsoleMode_EnhanceModal.StopRepeat then
+                ConsoleMode_EnhanceModal:StopRepeat(direction)
+            end
+        else
+            if ConsoleMode_EnhanceModal.StartRepeat then
+                ConsoleMode_EnhanceModal:StartRepeat(direction)
+            elseif ConsoleMode_EnhanceModal.OnDirection then
+                ConsoleMode_EnhanceModal:OnDirection(direction)
+            end
+        end
+        return
+    end
+
     -- FASE 1 MainMenuNav: D-pad consumido via repeat; botoeira cai no fluxo antigo.
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         -- FASE 1: só D-pad é consumido; botoeira retorna false e cai no fluxo antigo
@@ -1271,6 +1287,14 @@ function CM_CursorConfirm()
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
         if ConsoleMode_MailScreen.OnConfirm then
             ConsoleMode_MailScreen:OnConfirm()
+        end
+        return
+    end
+
+    -- EnhanceModal: consome o Botão A (Fase 4: Aplica consumível no alvo selecionado)
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        if ConsoleMode_EnhanceModal.OnConfirm then
+            ConsoleMode_EnhanceModal:OnConfirm()
         end
         return
     end
@@ -1428,6 +1452,11 @@ function CM_CursorUse()
         return
     end
 
+    -- EnhanceModal: consome o Botão Y (sem ação no modal)
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        return
+    end
+
     -- FASE 2 MainMenuNav: consome se OnUse retornar true (BAGS).
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnUse then
@@ -1516,6 +1545,11 @@ function CM_CursorSecondary(keystate)
         return
     end
 
+    -- EnhanceModal: consome o Botão X (sem ação secundária no modal)
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        return
+    end
+
     -- FASE 2 MainMenuNav: consome se OnSecondary retornar true.
     if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
         if ConsoleMode_MainMenuNav.OnSecondary then
@@ -1570,6 +1604,12 @@ function CM_CursorCancel()
         if vk.Close then
             vk:Close()
         end
+        return
+    end
+
+    -- EnhanceModal: Botão B fecha o modal de aprimoramento com prioridade
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        ConsoleMode_EnhanceModal:Close()
         return
     end
 

@@ -139,48 +139,81 @@ local KNOWN_ENHANCE_ITEMS = {
 -- Configuração de alvos equipados por categoria
 local CATEGORY_CONFIG = {
     WEAPON_SHARP = {
+        labelKey    = "ENHANCE_CAT_SHARP",
         label       = "Armas Cortantes",
         targetSlots = { 16, 17 }, -- Mão Principal, Mão Secundária
+        slotKeys    = { [16] = "ENHANCE_SLOT_MAINHAND", [17] = "ENHANCE_SLOT_OFFHAND" },
         slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" },
         validEquipTypes = { "INVTYPE_WEAPON", "INVTYPE_2HWEAPON", "INVTYPE_WEAPONMAINHAND", "INVTYPE_WEAPONOFFHAND" },
     },
     WEAPON_BLUNT = {
+        labelKey    = "ENHANCE_CAT_BLUNT",
         label       = "Armas de Impacto",
         targetSlots = { 16, 17 },
+        slotKeys    = { [16] = "ENHANCE_SLOT_MAINHAND", [17] = "ENHANCE_SLOT_OFFHAND" },
         slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" },
         validEquipTypes = { "INVTYPE_WEAPON", "INVTYPE_2HWEAPON", "INVTYPE_WEAPONMAINHAND", "INVTYPE_WEAPONOFFHAND" },
     },
     WEAPON_OIL = {
+        labelKey    = "ENHANCE_CAT_OIL",
         label       = "Armas",
         targetSlots = { 16, 17 },
+        slotKeys    = { [16] = "ENHANCE_SLOT_MAINHAND", [17] = "ENHANCE_SLOT_OFFHAND" },
         slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" },
         validEquipTypes = { "INVTYPE_WEAPON", "INVTYPE_2HWEAPON", "INVTYPE_WEAPONMAINHAND", "INVTYPE_WEAPONOFFHAND" },
     },
     WEAPON_POISON = {
+        labelKey    = "ENHANCE_CAT_POISON",
         label       = "Armas",
         targetSlots = { 16, 17 },
+        slotKeys    = { [16] = "ENHANCE_SLOT_MAINHAND", [17] = "ENHANCE_SLOT_OFFHAND" },
         slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" },
         validEquipTypes = { "INVTYPE_WEAPON", "INVTYPE_2HWEAPON", "INVTYPE_WEAPONMAINHAND", "INVTYPE_WEAPONOFFHAND" },
     },
     ARMOR_KIT = {
+        labelKey    = "ENHANCE_CAT_ARMOR",
         label       = "Armaduras",
         targetSlots = { 5, 7, 10, 8 }, -- Peito, Pernas, Mãos, Pés
+        slotKeys    = { [5] = "ENHANCE_SLOT_CHEST", [7] = "ENHANCE_SLOT_LEGS", [10] = "ENHANCE_SLOT_HANDS", [8] = "ENHANCE_SLOT_FEET" },
         slotNames   = { [5] = "Peitoral", [7] = "Pernas", [10] = "Luvas", [8] = "Botas" },
         validEquipTypes = { "INVTYPE_CHEST", "INVTYPE_ROBE", "INVTYPE_LEGS", "INVTYPE_HANDS", "INVTYPE_FEET" },
     },
     SCOPE = {
+        labelKey    = "ENHANCE_CAT_SCOPE",
         label       = "Arma de Longo Alcance",
         targetSlots = { 18 }, -- Ranged
+        slotKeys    = { [18] = "ENHANCE_SLOT_RANGED" },
         slotNames   = { [18] = "Longo Alcance" },
         validEquipTypes = { "INVTYPE_RANGED", "INVTYPE_RANGEDRIGHT" },
     },
     SHIELD_SPIKE = {
+        labelKey    = "ENHANCE_CAT_SHIELD",
         label       = "Escudo",
         targetSlots = { 17 }, -- OffHand
+        slotKeys    = { [17] = "ENHANCE_SLOT_OFFHAND" },
         slotNames   = { [17] = "Mão Secundária" },
         validEquipTypes = { "INVTYPE_SHIELD" },
     },
 }
+
+function EnhanceModal:GetCategoryLabel(category)
+    local cfg = CATEGORY_CONFIG[category]
+    if cfg and cfg.labelKey and CM.T then
+        return CM:T(cfg.labelKey)
+    end
+    return (cfg and cfg.label) or category or ""
+end
+
+function EnhanceModal:GetSlotName(category, slotID)
+    local cfg = CATEGORY_CONFIG[category]
+    if cfg and cfg.slotKeys and cfg.slotKeys[slotID] and CM.T then
+        return CM:T(cfg.slotKeys[slotID])
+    end
+    if cfg and cfg.slotNames and cfg.slotNames[slotID] then
+        return cfg.slotNames[slotID]
+    end
+    return ""
+end
 
 -- ----------------------------------------------------------------------------
 -- 3. TOOLTIP SCANNER PARA CLASSIFICAÇÃO HEURÍSTICA (Fallback Universal)
@@ -476,23 +509,28 @@ function EnhanceModal:ClassifyItem(bagID, slotID, itemLink, givenName)
         texture = GetContainerItemInfo(bagID, slotID)
     end
 
+    local rawName = name
     local localizedName = name
     if CM and CM.GameLOC_Item then
-        local tr = CM:GameLOC_Item(name, itemID or rawLink)
+        local tr = CM:GameLOC_Item(rawName, itemID or rawLink)
         if tr and tr ~= "" then
             localizedName = tr
         end
     end
 
+    local defaultTitle = (CM.T and CM:T("ENHANCE_MODAL_TITLE")) or "Aprimoramento"
     return {
         category        = category,
+        rawName         = rawName,
+        categoryKey     = cfg.labelKey,
         categoryLabel   = cfg.label or category,
         targetSlots     = cfg.targetSlots or { 16, 17 },
+        slotKeys        = cfg.slotKeys or {},
         slotNames       = cfg.slotNames or {},
         validEquipTypes = cfg.validEquipTypes or {},
         itemID          = itemID,
         itemLink        = rawLink,
-        itemName        = localizedName or name or "Aprimoramento",
+        itemName        = localizedName or rawName or defaultTitle,
         itemQuality     = quality or 1,
         itemTexture     = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
         bagID           = bagID,
@@ -519,6 +557,7 @@ function EnhanceModal:CreateTabIndicator(parent)
         label:SetPoint("CENTER", g, "CENTER", 0, 0)
         EnhanceModal:ApplyFont(label, FONTS.titleBold, 17)
         label:SetText("|cffffffff" .. text .. "|r")
+        g.label = label
 
         local lb = g:CreateTexture(nil, "OVERLAY")
         lb:SetWidth(24)
@@ -535,8 +574,10 @@ function EnhanceModal:CreateTabIndicator(parent)
         return g
     end
 
-    bar.groupEquip = BuildTabGroup("EQUIPADOS")
-    bar.groupBags  = BuildTabGroup("NA MOCHILA")
+    local tabEquipText = (CM.T and CM:T("ENHANCE_TAB_EQUIP")) or "EQUIPADOS"
+    local tabBagsText  = (CM.T and CM:T("ENHANCE_TAB_BAGS")) or "NA MOCHILA"
+    bar.groupEquip = BuildTabGroup(tabEquipText)
+    bar.groupBags  = BuildTabGroup(tabBagsText)
     bar.groupBags:Hide()
 
     self.tabIndicator = bar
@@ -546,6 +587,16 @@ end
 function EnhanceModal:UpdateTabIndicator()
     local bar = self.tabIndicator
     if not bar then return end
+
+    if bar.groupEquip and bar.groupEquip.label then
+        local tabEquipText = (CM.T and CM:T("ENHANCE_TAB_EQUIP")) or "EQUIPADOS"
+        bar.groupEquip.label:SetText("|cffffffff" .. tabEquipText .. "|r")
+    end
+    if bar.groupBags and bar.groupBags.label then
+        local tabBagsText = (CM.T and CM:T("ENHANCE_TAB_BAGS")) or "NA MOCHILA"
+        bar.groupBags.label:SetText("|cffffffff" .. tabBagsText .. "|r")
+    end
+
     if self.currentTab == "BAGS" then
         if bar.groupEquip then bar.groupEquip:Hide() end
         if bar.groupBags then bar.groupBags:Show() end
@@ -611,8 +662,10 @@ function EnhanceModal:CreateUI()
     local closeTxt = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     closeTxt:SetPoint("LEFT", closeIcon, "RIGHT", 4, 0)
     self:ApplyFont(closeTxt, FONTS.titleBold, 14)
-    closeTxt:SetText("Sair")
+    closeTxt:SetText((CM.T and CM:T("ENHANCE_CLOSE")) or "Sair")
     closeTxt:SetTextColor(0.90, 0.85, 0.75, 1.0)
+    closeBtn.text = closeTxt
+    frame.closeBtn = closeBtn
 
     closeBtn:SetScript("OnClick", function()
         EnhanceModal:Close()
@@ -646,13 +699,13 @@ function EnhanceModal:CreateUI()
     local titleText = itemHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     titleText:SetPoint("TOPLEFT", iconFrame, "TOPRIGHT", 10, -2)
     self:ApplyFont(titleText, FONTS.titleBold, 17)
-    titleText:SetText("Aprimoramento")
+    titleText:SetText((CM.T and CM:T("ENHANCE_MODAL_TITLE")) or "APRIMORAMENTO")
     itemHeader.titleText = titleText
 
     local subText = itemHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     subText:SetPoint("TOPLEFT", titleText, "BOTTOMLEFT", 0, -2)
     self:ApplyFont(subText, FONTS.medium, 13)
-    subText:SetText("Selecione onde deseja aplicar")
+    subText:SetText((CM.T and CM:T("ENHANCE_MODAL_SUBTITLE")) or "Selecione onde deseja aplicar")
     subText:SetTextColor(0.70, 0.70, 0.70, 0.90)
     itemHeader.subText = subText
 
@@ -688,26 +741,36 @@ function EnhanceModal:CreateUI()
     placeholder:SetPoint("CENTER", content, "CENTER", 0, 0)
     self:ApplyFont(placeholder, FONTS.bodyBold, 15)
     placeholder:SetTextColor(0.75, 0.75, 0.75, 0.90)
-    placeholder:SetText("Aba Equipados ativa\n(Aguardando Fase 3 para listar itens)")
+    placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_EQUIP")) or "Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)")
     content.placeholder = placeholder
 
     -- Footer com prompts em texturas oficiais
-    local footerHints = {
-        { icons = { "A" },        label = "Aplicar" },
-        { icons = { "B" },        label = "Cancelar" },
-        { icons = { "LB", "RB" }, label = "Alternar Aba" },
-    }
-    frame.footer = self:BuildIconHints(frame, "ConsoleMode_EnhanceFooter", footerHints, 18)
+    self:UpdateFooter()
 
     self.frame = frame
+end
+
+function EnhanceModal:UpdateFooter()
+    if not self.frame then return end
+    if self.frame.footer then
+        self.frame.footer:Hide()
+        self.frame.footer = nil
+    end
+
+    local footerHints = {
+        { icons = { "A" },        label = (CM.T and CM:T("ENHANCE_HINT_APPLY")) or "Aplicar" },
+        { icons = { "B" },        label = (CM.T and CM:T("ENHANCE_HINT_CANCEL")) or "Cancelar" },
+        { icons = { "LB", "RB" }, label = (CM.T and CM:T("ENHANCE_HINT_CYCLE_TABS")) or "Alternar Aba" },
+    }
+    self.frame.footer = self:BuildIconHints(self.frame, "ConsoleMode_EnhanceFooter", footerHints, 18)
 end
 
 function EnhanceModal:UpdateContentPlaceholder()
     if not self.frame or not self.frame.content or not self.frame.content.placeholder then return end
     if self.currentTab == "BAGS" then
-        self.frame.content.placeholder:SetText("Aba Na Mochila ativa\n(Aguardando Fase 5 para listar itens da bolsa)")
+        self.frame.content.placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_BAGS")) or "Aba Na Mochila ativa\n(Aguardando Fase 5 para listar itens da bolsa)")
     else
-        self.frame.content.placeholder:SetText("Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)")
+        self.frame.content.placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_EQUIP")) or "Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)")
     end
 end
 
@@ -724,16 +787,34 @@ function EnhanceModal:Open(itemData, enhanceInfo)
 
     -- Atualiza cabeçalho com informações do consumível
     if self.activeContext and self.frame.itemHeader then
+        local displayName = self.activeContext.itemName
+        if CM and CM.GameLOC_Item then
+            local tr = CM:GameLOC_Item(self.activeContext.rawName or self.activeContext.itemName, self.activeContext.itemID or self.activeContext.itemLink)
+            if tr and tr ~= "" then
+                displayName = tr
+            end
+        end
+
         local qCol = QUALITY_COLORS[self.activeContext.itemQuality or 1] or QUALITY_COLORS[1]
-        self.frame.itemHeader.titleText:SetText((qCol.hex or "|cffffffff") .. (self.activeContext.itemName or "Aprimoramento") .. "|r")
-        self.frame.itemHeader.subText:SetText("Alvo: " .. (self.activeContext.categoryLabel or "Equipamento"))
+        local title = displayName or (CM.T and CM:T("ENHANCE_MODAL_TITLE")) or "APRIMORAMENTO"
+        self.frame.itemHeader.titleText:SetText((qCol.hex or "|cffffffff") .. title .. "|r")
+
+        local catLabel = self:GetCategoryLabel(self.activeContext.category)
+        local targetPrefix = (CM.T and CM:T("ENHANCE_TARGET_PREFIX")) or "Alvo: "
+        self.frame.itemHeader.subText:SetText(targetPrefix .. catLabel)
+
         if self.activeContext.itemTexture then
             self.frame.itemHeader.iconTex:SetTexture(self.activeContext.itemTexture)
         end
     end
 
+    if self.frame.closeBtn and self.frame.closeBtn.text then
+        self.frame.closeBtn.text:SetText((CM.T and CM:T("ENHANCE_CLOSE")) or "Sair")
+    end
+
     self:UpdateTabIndicator()
     self:UpdateContentPlaceholder()
+    self:UpdateFooter()
 
     if self.dimmer then self.dimmer:Show() end
     self.frame:Show()
@@ -803,16 +884,11 @@ end
 -- ----------------------------------------------------------------------------
 local eventFrame = CreateFrame("Frame", "ConsoleMode_EnhanceEventFrame")
 eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
-eventFrame:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")
 
 eventFrame:SetScript("OnEvent", function()
     if not EnhanceModal.isOpen then return end
 
     if event == "PLAYER_REGEN_DISABLED" then
         EnhanceModal:Close()
-    elseif event == "CURRENT_SPELL_CAST_CHANGED" then
-        if not (SpellIsTargeting and SpellIsTargeting()) then
-            EnhanceModal:Close()
-        end
     end
 end)

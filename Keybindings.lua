@@ -941,6 +941,23 @@ function CM_Fixed(button)
             return
         end
 
+        -- Se houver mira ativa (cursor com glow / SpellIsTargeting), cancela a mira imediatamente
+        if SpellIsTargeting and SpellIsTargeting() then
+            SpellStopTargeting()
+            if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+                pcall(function() ConsoleMode_EnhanceModal:Close() end)
+            end
+            return
+        end
+
+        -- Se houver diálogo modal nativo (StaticPopup, ex: confirmar substituir encantamento)
+        if StaticPopup_EscapePressed and StaticPopup_EscapePressed() then
+            if SpellIsTargeting and SpellIsTargeting() then
+                SpellStopTargeting()
+            end
+            return
+        end
+
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
             local mm2 = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
             if mm2 and mm2.IsQuestDetailVisible and mm2:IsQuestDetailVisible() then mm2:HideQuestDetail(); return end
@@ -1700,6 +1717,20 @@ function CM_CursorCancel()
     if CursorHasItem() or CursorHasSpell() then
         ClearCursor()
         -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Item no cursor limpo)") -- NOLOG 2026-09-14
+        return
+    end
+
+    -- Se houver mira ativa (cursor com glow / SpellIsTargeting), cancela a mira
+    if SpellIsTargeting and SpellIsTargeting() then
+        SpellStopTargeting()
+        return
+    end
+
+    -- Se houver diálogo modal nativo (StaticPopup), fecha via Escape
+    if StaticPopup_EscapePressed and StaticPopup_EscapePressed() then
+        if SpellIsTargeting and SpellIsTargeting() then
+            SpellStopTargeting()
+        end
         return
     end
     

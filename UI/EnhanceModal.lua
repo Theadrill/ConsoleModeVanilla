@@ -1448,3 +1448,24 @@ eventFrame:SetScript("OnEvent", function()
         EnhanceModal:Close()
     end
 end)
+
+-- Hook defensivo: o diálogo nativo REPLACE_ENCHANT da Blizzard não tem OnCancel padrão,
+-- deixando o cursor preso em modo de mira (glow) se o jogador clicar em 'Não'.
+if StaticPopupDialogs and StaticPopupDialogs["REPLACE_ENCHANT"] then
+    local origCancel = StaticPopupDialogs["REPLACE_ENCHANT"].OnCancel
+    StaticPopupDialogs["REPLACE_ENCHANT"].OnCancel = function()
+        if origCancel then origCancel() end
+        if SpellIsTargeting and SpellIsTargeting() then
+            SpellStopTargeting()
+        end
+    end
+end
+if StaticPopupDialogs and StaticPopupDialogs["REPLACE_TRADESKILL_ENCHANT"] then
+    local origCancel = StaticPopupDialogs["REPLACE_TRADESKILL_ENCHANT"].OnCancel
+    StaticPopupDialogs["REPLACE_TRADESKILL_ENCHANT"].OnCancel = function()
+        if origCancel then origCancel() end
+        if SpellIsTargeting and SpellIsTargeting() then
+            SpellStopTargeting()
+        end
+    end
+end

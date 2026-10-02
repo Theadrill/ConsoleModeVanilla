@@ -786,14 +786,16 @@ function EnhanceModal:IsItemCompatible(itemInfo, category)
     local cfg = CATEGORY_CONFIG[category]
     if not cfg then return false end
 
-    local slot = itemInfo.slotID
+    local isBag = (itemInfo.bagID ~= nil)
+    local slot = not isBag and itemInfo.slotID or nil
     local st = string.lower(itemInfo.subType or "")
     local nm = string.lower(itemInfo.rawName or "")
     local eq = itemInfo.equipLoc or ""
+    local it = string.lower(itemInfo.itemType or "")
 
-    -- 1. KITS DE ARMADURA: qualquer peça equipada nos slots 5 (Peito), 7 (Pernas), 10 (Mãos), 8 (Pés)
+    -- 1. KITS DE ARMADURA: qualquer peça equipada nos slots 5 (Peito), 7 (Pernas), 10 (Mãos), 8 (Pés) ou equivalente na bolsa
     if category == "ARMOR_KIT" then
-        if slot == 5 or slot == 7 or slot == 10 or slot == 8 then
+        if slot and (slot == 5 or slot == 7 or slot == 10 or slot == 8) then
             return true
         end
         if eq == "INVTYPE_CHEST" or eq == "INVTYPE_ROBE" or eq == "INVTYPE_LEGS" or eq == "INVTYPE_HANDS" or eq == "INVTYPE_FEET" then
@@ -804,7 +806,7 @@ function EnhanceModal:IsItemCompatible(itemInfo, category)
 
     -- 2. MIRA DE ENGENHARIA: slot 18 (Ranged), exceto varinhas e relíquias
     if category == "SCOPE" then
-        if slot == 18 then
+        if (slot and slot == 18) or (eq == "INVTYPE_RANGED" or eq == "INVTYPE_RANGEDRIGHT") then
             if string.find(st, "wand") or string.find(st, "varinha") or string.find(nm, "wand") or string.find(nm, "varinha") then
                 return false
             end
@@ -816,9 +818,9 @@ function EnhanceModal:IsItemCompatible(itemInfo, category)
         return false
     end
 
-    -- 3. ESPIGÃO DE ESCUDO: slot 17 se for escudo
+    -- 3. ESPIGÃO DE ESCUDO: slot 17 se for escudo, ou escudo na bolsa
     if category == "SHIELD_SPIKE" then
-        if slot == 17 then
+        if (slot and slot == 17) or eq == "INVTYPE_SHIELD" or string.find(st, "shield") or string.find(st, "escudo") then
             if eq == "INVTYPE_SHIELD" or string.find(st, "shield") or string.find(st, "escudo") or string.find(nm, "shield") or string.find(nm, "escudo") then
                 return true
             end
@@ -826,8 +828,21 @@ function EnhanceModal:IsItemCompatible(itemInfo, category)
         return false
     end
 
-    -- Armas Melee (Slots 16 e 17)
-    if slot ~= 16 and slot ~= 17 then
+    -- Armas Melee (Slots 16 e 17 no corpo, ou tipos válidos de armas na bolsa)
+    local isMelee = false
+    if slot then
+        if slot == 16 or slot == 17 then
+            isMelee = true
+        end
+    else
+        if eq == "INVTYPE_WEAPON" or eq == "INVTYPE_2HWEAPON" or eq == "INVTYPE_WEAPONMAINHAND" or eq == "INVTYPE_WEAPONOFFHAND" then
+            isMelee = true
+        elseif (string.find(it, "weapon") or string.find(it, "arma")) and (eq ~= "INVTYPE_RANGED" and eq ~= "INVTYPE_RANGEDRIGHT" and eq ~= "INVTYPE_THROWN" and eq ~= "INVTYPE_RELIC") then
+            isMelee = true
+        end
+    end
+
+    if not isMelee then
         return false
     end
 
@@ -894,6 +909,153 @@ function EnhanceModal:ScanEquippedItems()
         if itemInfo and self:IsItemCompatible(itemInfo, category) then
             itemInfo.slotName = self:GetSlotName(category, slotID)
             table.insert(results, itemInfo)
+        end
+    end
+
+    return results
+end
+
+function EnhanceModal:GetBagItemInfo(bagID, slotID)
+    local link = GetContainerItemLink(bagID, slotID)
+    local texture, itemCount, locked, quality, readable = GetContainerItemInfo(bagID, slotID)
+    if not link and not texture then
+        return nil
+    end
+
+    local rawLink = nil
+    local nameFromLink = nil
+    local colorHex = nil
+    local itemID = nil
+
+    if link then
+        local _, _, cHex, rLink, nLink = string.find(link, "|c(%x+)|H(item:[^|]+)|h%[(.-)%]|h|r")
+        if rLink then
+            rawLink = rLink
+            nameFromLink = nLink
+            colorHex = cHex
+        else
+            local _, _, idStr = string.find(link, "item:(%d+)")
+            if idStr then
+                itemID = tonumber(idStr)
+                rawLink = "item:" .. idStr .. ":0:0:0"
+            end
+        end
+        if not itemID and rawLink then
+            local _, _, idStr = string.find(rawLink, "item:(%d+)")
+            if idStr then
+                itemID = tonumber(idStr)
+            end
+        end
+    end
+
+    local name, itemQuality, itemType, subType, equipLoc
+    local queryTarget = rawLink or itemID or nameFromLink or link
+    if queryTarget then
+        local itemName, _, rarity, _, iType, sType, _, eqLoc = GetItemInfo(queryTarget)
+        name = itemName or nameFromLink
+        itemQuality = rarity or quality
+        itemType = iType
+        subType = sType
+        equipLoc = eqLoc
+    end
+
+    -- Fallback via Tooltip Scanner
+    if not name or not subType or subType == "" then
+        local scanTip = self:GetScanTooltip()
+        if scanTip then
+            scanTip:ClearLines()
+            scanTip:SetBagItem(bagID, slotID)
+            local line1 = getglobal("ConsoleModeEnhanceScanTipTextLeft1")
+            if line1 and line1:GetText() and (not name or name == "") then
+                name = line1:GetText()
+            end
+            local numLines = scanTip:NumLines() or 0
+            local maxL = numLines
+            if maxL > 5 then maxL = 5 end
+            for l = 2, maxL do
+                local rObj = getglobal("ConsoleModeEnhanceScanTipTextRight" .. l)
+                if rObj and rObj:GetText() then
+                    local rt = rObj:GetText()
+                    if string.find(rt, "Shield") or string.find(rt, "Escudo") then
+                        equipLoc = "INVTYPE_SHIELD"
+                    end
+                end
+            end
+        end
+    end
+
+    if not itemQuality and colorHex then
+        if colorHex == "ff9d9d9d" then itemQuality = 0
+        elseif colorHex == "ffffffff" then itemQuality = 1
+        elseif colorHex == "ff1eff00" then itemQuality = 2
+        elseif colorHex == "ff0070dd" then itemQuality = 3
+        elseif colorHex == "ffa335ee" then itemQuality = 4
+        elseif colorHex == "ffff8000" then itemQuality = 5
+        end
+    end
+
+    local localizedName = name
+    if CM and CM.GameLOC_Item and (name or itemID or rawLink) then
+        local tr = CM:GameLOC_Item(name, itemID or rawLink)
+        if tr and tr ~= "" then
+            localizedName = tr
+        end
+    end
+
+    local enchantText = self:ScanItemEnhancement(nil, bagID, slotID)
+
+    return {
+        bagID         = bagID,
+        slotID        = slotID,
+        link          = link or rawLink,
+        rawLink       = rawLink,
+        itemID        = itemID,
+        texture       = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
+        rawName       = name,
+        name          = localizedName or name or "Item",
+        quality       = itemQuality or quality or 1,
+        itemType      = itemType or "",
+        subType       = subType or "",
+        equipLoc      = equipLoc or "",
+        enchantText   = enchantText,
+    }
+end
+
+function EnhanceModal:GetBagSlotName(itemInfo)
+    if not itemInfo then return "MOCHILA" end
+    local eq = itemInfo.equipLoc
+    if eq and eq ~= "" then
+        local glob = getglobal(eq)
+        if glob and type(glob) == "string" and glob ~= "" then
+            return glob
+        end
+    end
+    if itemInfo.subType and itemInfo.subType ~= "" then
+        return itemInfo.subType
+    end
+    return "MOCHILA"
+end
+
+function EnhanceModal:ScanBagItems()
+    local results = {}
+    if not self.activeContext then return results end
+    local category = self.activeContext.category
+    local skipBag = self.activeContext.bagID
+    local skipSlot = self.activeContext.slotID
+
+    for bagID = 0, 4 do
+        local numSlots = GetContainerNumSlots(bagID) or 0
+        for slotID = 1, numSlots do
+            if not (skipBag and skipSlot and bagID == skipBag and slotID == skipSlot) then
+                local link = GetContainerItemLink(bagID, slotID)
+                if link then
+                    local itemInfo = self:GetBagItemInfo(bagID, slotID)
+                    if itemInfo and self:IsItemCompatible(itemInfo, category) then
+                        itemInfo.slotName = self:GetBagSlotName(itemInfo)
+                        table.insert(results, itemInfo)
+                    end
+                end
+            end
         end
     end
 
@@ -1106,8 +1268,26 @@ function EnhanceModal:CreateUI()
     placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_EQUIP")) or "Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)")
     content.placeholder = placeholder
 
-    -- Linhas de equipamentos equipados (Fase 3)
+    -- Indicador de página / rolagem
+    local pageIndicator = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    pageIndicator:SetPoint("BOTTOM", content, "BOTTOM", 0, 4)
+    self:ApplyFont(pageIndicator, FONTS.bodyBold, 13)
+    pageIndicator:SetTextColor(0.85, 0.75, 0.45, 0.90)
+    pageIndicator:Hide()
+    self.pageIndicator = pageIndicator
+
+    -- Linhas de equipamentos equipados (Fase 3 e Fase 5)
     self:CreateEquipRows(content)
+
+    -- Suporte a rolagem por roda do mouse
+    frame:EnableMouseWheel(true)
+    frame:SetScript("OnMouseWheel", function()
+        if arg1 > 0 then
+            EnhanceModal:OnDirection("UP")
+        else
+            EnhanceModal:OnDirection("DOWN")
+        end
+    end)
 
     -- Footer com prompts em texturas oficiais
     self:UpdateFooter()
@@ -1232,11 +1412,31 @@ function EnhanceModal:CreateEquipRows(parent)
         -- Suporte a mouse/híbrido
         local rowIdx = i
         row:SetScript("OnEnter", function()
-            EnhanceModal:SetSelectedIndex(rowIdx)
+            if EnhanceModal.currentTab == "EQUIP" then
+                EnhanceModal:SetSelectedIndex(rowIdx)
+            elseif EnhanceModal.currentTab == "BAGS" then
+                local offset = EnhanceModal.bagScrollOffset or 0
+                local targetIdx = offset + rowIdx
+                local count = table.getn(EnhanceModal.bagItems or {})
+                if targetIdx <= count then
+                    EnhanceModal.bagSelectedIndex = targetIdx
+                    EnhanceModal:RenderBagTab()
+                end
+            end
         end)
         row:SetScript("OnClick", function()
-            EnhanceModal:SetSelectedIndex(rowIdx)
-            EnhanceModal:OnConfirm()
+            if EnhanceModal.currentTab == "EQUIP" then
+                EnhanceModal:SetSelectedIndex(rowIdx)
+                EnhanceModal:OnConfirm()
+            elseif EnhanceModal.currentTab == "BAGS" then
+                local offset = EnhanceModal.bagScrollOffset or 0
+                local targetIdx = offset + rowIdx
+                local count = table.getn(EnhanceModal.bagItems or {})
+                if targetIdx <= count then
+                    EnhanceModal.bagSelectedIndex = targetIdx
+                    EnhanceModal:OnConfirm()
+                end
+            end
         end)
 
         row:Hide()
@@ -1305,6 +1505,122 @@ function EnhanceModal:RenderEquippedTab()
             row:Hide()
         end
     end
+
+    if self.pageIndicator then
+        self.pageIndicator:Hide()
+    end
+end
+
+function EnhanceModal:ScrollToBagIndex(index)
+    local count = table.getn(self.bagItems or {})
+    if count == 0 then return end
+
+    local offset = self.bagScrollOffset or 0
+    if index > offset + 4 then
+        offset = index - 4
+    elseif index <= offset then
+        offset = index - 1
+    end
+    if offset < 0 then offset = 0 end
+    if offset > math.max(0, count - 4) then offset = math.max(0, count - 4) end
+
+    self.bagScrollOffset = offset
+    self:RenderBagTab()
+end
+
+function EnhanceModal:RenderBagTab()
+    if not self.frame or not self.frame.content then return end
+    local content = self.frame.content
+
+    local count = table.getn(self.bagItems or {})
+    if count == 0 then
+        if content.placeholder then
+            content.placeholder:SetText((CM.T and CM:T("ENHANCE_NO_BAG_FOUND")) or "Nenhum item compatível encontrado na mochila.")
+            content.placeholder:Show()
+        end
+        for i = 1, 4 do
+            if self.equipRows and self.equipRows[i] then self.equipRows[i]:Hide() end
+        end
+        if self.pageIndicator then self.pageIndicator:Hide() end
+        self.bagSelectedIndex = 0
+        return
+    end
+
+    if content.placeholder then
+        content.placeholder:Hide()
+    end
+
+    local offset = self.bagScrollOffset or 0
+    local selIdx = self.bagSelectedIndex or 1
+
+    for i = 1, 4 do
+        local row = self.equipRows and self.equipRows[i]
+        local itemIdx = offset + i
+        local itemInfo = self.bagItems[itemIdx]
+        if row and itemInfo then
+            row.itemInfo = itemInfo
+            row.bagItemIdx = itemIdx
+            row.icon:SetTexture(itemInfo.texture)
+
+            local qCol = QUALITY_COLORS[itemInfo.quality or 1] or QUALITY_COLORS[1]
+            row.iconBorder:SetBackdropBorderColor(qCol.r, qCol.g, qCol.b, 0.90)
+
+            local locSubType = itemInfo.subType
+            if CM and CM.GameLOC_ItemSubType and locSubType and locSubType ~= "" then
+                locSubType = CM:GameLOC_ItemSubType(locSubType)
+            end
+            local subTypePart = ""
+            if locSubType and locSubType ~= "" then
+                subTypePart = "  |cff888888(" .. locSubType .. ")|r"
+            end
+
+            row.slotText:SetText("|cffffd100" .. string.upper(itemInfo.slotName or "") .. "|r" .. subTypePart)
+            row.nameText:SetText((qCol.hex or "|cffffffff") .. (itemInfo.name or "Item") .. "|r")
+
+            if row.enchantText then
+                if itemInfo.enchantText and itemInfo.enchantText ~= "" then
+                    row.enchantText:SetText("|cff00ff00" .. itemInfo.enchantText .. "|r")
+                else
+                    local noEnc = (CM.T and CM:T("ENHANCE_NO_CURRENT_ENCHANT")) or "Nenhum aprimoramento ativo"
+                    row.enchantText:SetText("|cff666666" .. noEnc .. "|r")
+                end
+            end
+
+            if row.applyPrompt and row.applyPrompt.text then
+                row.applyPrompt.text:SetText((CM.T and CM:T("ENHANCE_HINT_APPLY")) or "Aplicar")
+            end
+
+            local isSelected = (itemIdx == selIdx)
+            if isSelected then
+                row:SetBackdropColor(0.22, 0.17, 0.10, 0.90)
+                row:SetBackdropBorderColor(0.90, 0.75, 0.28, 0.95)
+                if row.highlight then row.highlight:Show() end
+                if row.cursor then row.cursor:Show() end
+                if row.applyPrompt then row.applyPrompt:Show() end
+            else
+                row:SetBackdropColor(0.08, 0.07, 0.05, 0.60)
+                row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                if row.highlight then row.highlight:Hide() end
+                if row.cursor then row.cursor:Hide() end
+                if row.applyPrompt then row.applyPrompt:Hide() end
+            end
+
+            row:Show()
+        elseif row then
+            row:Hide()
+        end
+    end
+
+    if self.pageIndicator then
+        if count > 4 then
+            local arrowUp = (offset > 0) and "|cffffd100▲|r " or "|cff555555▲|r "
+            local arrowDown = (offset + 4 < count) and " |cffffd100▼|r" or " |cff555555▼|r"
+            self.pageIndicator:SetText(arrowUp .. selIdx .. " / " .. count .. arrowDown)
+            self.pageIndicator:Show()
+        else
+            self.pageIndicator:Hide()
+        end
+    end
 end
 
 function EnhanceModal:SetSelectedIndex(index)
@@ -1343,6 +1659,10 @@ function EnhanceModal:GetSelectedTarget()
         if self.equippedItems and self.selectedIndex and self.selectedIndex > 0 then
             return self.equippedItems[self.selectedIndex]
         end
+    elseif self.currentTab == "BAGS" then
+        if self.bagItems and self.bagSelectedIndex and self.bagSelectedIndex > 0 then
+            return self.bagItems[self.bagSelectedIndex]
+        end
     end
     return nil
 end
@@ -1364,6 +1684,24 @@ function EnhanceModal:OnDirection(direction)
 
         if newIndex ~= self.selectedIndex then
             self:SetSelectedIndex(newIndex)
+            PlaySound("igMainMenuOptionCheckBoxOn")
+        end
+    elseif self.currentTab == "BAGS" then
+        local count = table.getn(self.bagItems or {})
+        if count <= 1 then return end
+
+        local newIndex = self.bagSelectedIndex or 1
+        if direction == "UP" then
+            newIndex = newIndex - 1
+            if newIndex < 1 then newIndex = count end
+        elseif direction == "DOWN" then
+            newIndex = newIndex + 1
+            if newIndex > count then newIndex = 1 end
+        end
+
+        if newIndex ~= self.bagSelectedIndex then
+            self.bagSelectedIndex = newIndex
+            self:ScrollToBagIndex(newIndex)
             PlaySound("igMainMenuOptionCheckBoxOn")
         end
     end
@@ -1432,6 +1770,23 @@ function EnhanceModal:OnConfirm()
             PlaySound("igMainMenuOptionCheckBoxOn")
             self:Close(true)
         end
+    elseif self.currentTab == "BAGS" then
+        if target.bagID and target.slotID then
+            -- Se por algum motivo o cursor não estiver no modo de mira da magia,
+            -- reaciona o consumível da bolsa para engajar SpellIsTargeting
+            if SpellIsTargeting and not SpellIsTargeting() then
+                if self.activeContext and self.activeContext.bagID and self.activeContext.slotID then
+                    UseContainerItem(self.activeContext.bagID, self.activeContext.slotID)
+                end
+            end
+
+            -- Aplica a magia de aprimoramento no item da bolsa alvo
+            if SpellIsTargeting and SpellIsTargeting() then
+                PickupContainerItem(target.bagID, target.slotID)
+            end
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            self:Close(true)
+        end
     end
 end
 
@@ -1451,13 +1806,17 @@ function EnhanceModal:UpdateFooter()
 end
 
 function EnhanceModal:UpdateContentPlaceholder()
-    if not self.frame or not self.frame.content or not self.frame.content.placeholder then return end
+    if not self.frame or not self.frame.content then return end
     if self.currentTab == "BAGS" then
-        for i = 1, 4 do
-            if self.equipRows and self.equipRows[i] then self.equipRows[i]:Hide() end
+        if not self.bagItemsCache then
+            self.bagItemsCache = self:ScanBagItems()
         end
-        self.frame.content.placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_BAGS")) or "Aba Na Mochila ativa\n(Aguardando Fase 5 para listar itens da bolsa)")
-        self.frame.content.placeholder:Show()
+        self.bagItems = self.bagItemsCache
+        if not self.bagSelectedIndex or self.bagSelectedIndex < 1 then
+            self.bagSelectedIndex = 1
+        end
+        self.bagScrollOffset = self.bagScrollOffset or 0
+        self:RenderBagTab()
     else
         self:RenderEquippedTab()
         self:SetSelectedIndex(self.selectedIndex or 1)
@@ -1474,6 +1833,10 @@ function EnhanceModal:Open(itemData, enhanceInfo)
     self.activeContext = enhanceInfo or self.activeContext
     self.isOpen = true
     self.currentTab = "EQUIP"
+    self.bagItemsCache = nil
+    self.bagItems = nil
+    self.bagSelectedIndex = 1
+    self.bagScrollOffset = 0
 
     -- Atualiza cabeçalho com informações do consumível
     if self.activeContext and self.frame.itemHeader then
@@ -1531,6 +1894,10 @@ function EnhanceModal:Close(isConfirmed)
     if self.dimmer then self.dimmer:Hide() end
 
     self.activeContext = nil
+    self.bagItemsCache = nil
+    self.bagItems = nil
+    self.bagSelectedIndex = 1
+    self.bagScrollOffset = 0
     PlaySound("igMainMenuClose")
 end
 

@@ -951,11 +951,22 @@ function CM_Fixed(button)
         end
 
         -- Se houver diálogo modal nativo (StaticPopup, ex: confirmar substituir encantamento)
-        if StaticPopup_EscapePressed and StaticPopup_EscapePressed() then
-            if SpellIsTargeting and SpellIsTargeting() then
-                SpellStopTargeting()
+        for i = 1, 4 do
+            local sp = getglobal("StaticPopup" .. i)
+            if sp and sp:IsVisible() then
+                local btn2 = getglobal("StaticPopup" .. i .. "Button2")
+                if btn2 and btn2:IsVisible() and btn2.Click then
+                    btn2:Click()
+                elseif StaticPopup_EscapePressed then
+                    StaticPopup_EscapePressed()
+                else
+                    sp:Hide()
+                end
+                if SpellIsTargeting and SpellIsTargeting() then
+                    SpellStopTargeting()
+                end
+                return
             end
-            return
         end
 
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
@@ -1606,6 +1617,27 @@ end
 function CM_CursorCancel()
     if CM.keybindings.chatActive then return end
 
+    -- 0. Diálogos Modais Nativos (StaticPopup): Prioridade MÁXIMA no botão B
+    -- Se houver diálogo de confirmação aberto na tela (ex: Substituir Encantamento, Excluir Item, Abandonar Missão),
+    -- o botão B deve fechar o diálogo primeiro antes de interferir em qualquer janela de fundo!
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then
+            local btn2 = getglobal("StaticPopup" .. i .. "Button2")
+            if btn2 and btn2:IsVisible() and btn2.Click then
+                btn2:Click()
+            elseif StaticPopup_EscapePressed then
+                StaticPopup_EscapePressed()
+            else
+                sp:Hide()
+            end
+            if SpellIsTargeting and SpellIsTargeting() then
+                SpellStopTargeting()
+            end
+            return
+        end
+    end
+
     -- Modal de Inspecao de Talentos: B fecha com prioridade maxima
     local mmT = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
     if mmT and mmT.IsTalentInspectModalOpen and mmT:IsTalentInspectModalOpen() then
@@ -1723,14 +1755,6 @@ function CM_CursorCancel()
     -- Se houver mira ativa (cursor com glow / SpellIsTargeting), cancela a mira
     if SpellIsTargeting and SpellIsTargeting() then
         SpellStopTargeting()
-        return
-    end
-
-    -- Se houver diálogo modal nativo (StaticPopup), fecha via Escape
-    if StaticPopup_EscapePressed and StaticPopup_EscapePressed() then
-        if SpellIsTargeting and SpellIsTargeting() then
-            SpellStopTargeting()
-        end
         return
     end
     

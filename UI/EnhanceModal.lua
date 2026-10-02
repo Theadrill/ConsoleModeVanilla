@@ -1946,11 +1946,14 @@ end
 -- ----------------------------------------------------------------------------
 local eventFrame = CreateFrame("Frame", "ConsoleMode_EnhanceEventFrame")
 eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+eventFrame:RegisterEvent("PLAYER_DEAD")
+eventFrame:RegisterEvent("PLAYER_LEAVING_WORLD")
+eventFrame:RegisterEvent("PLAYER_CONTROL_LOST")
 
 eventFrame:SetScript("OnEvent", function()
     if not EnhanceModal.isOpen then return end
 
-    if event == "PLAYER_REGEN_DISABLED" then
+    if event == "PLAYER_REGEN_DISABLED" or event == "PLAYER_DEAD" or event == "PLAYER_LEAVING_WORLD" or event == "PLAYER_CONTROL_LOST" then
         EnhanceModal:Close()
     end
 end)

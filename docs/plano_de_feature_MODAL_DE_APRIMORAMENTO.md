@@ -72,65 +72,37 @@ O visual do modal deve seguir **rigorosamente a mesma linguagem visual concisa d
 
 Para garantir qualidade de nível industrial e validação contínua em cada passo, o desenvolvimento é fatiado em etapas atômicas e testáveis:
 
-### Fase 1: Motor de Detecção & Classificação de Consumíveis (Core Interceptor)
+### Fase 1: Motor de Detecção & Classificação de Consumíveis (Core Interceptor) [CONCLUÍDO]
 * **Objetivo:** Identificar com precisão quando o jogador aciona um item de aprimoramento com mira.
-* **Tarefas:**
-  * Monitorar a ativação de `SpellIsTargeting()` originada por `UseContainerItem` no inventário.
-  * Identificar o consumível ativo (nome, textura, categoria e regras de compatibilidade) através de leitura estruturada de tooltip/link.
-  * Guardar o contexto ativo em `EnhanceModal.activeEnhanceContext`.
-* **Critério de Teste:** Ao apertar `A` em uma Pedra de Afiar na bolsa, o addon detecta o item e registra no log interno a categoria correta (`WEAPON_SHARP`) sem interromper a engine do jogo.
+* **Status:** Entregue e validado.
 
-### Fase 2: Estrutura Visual do Modal & Ciclo de Vida (View Shell)
+### Fase 2: Estrutura Visual do Modal & Ciclo de Vida (View Shell) [CONCLUÍDO]
 * **Objetivo:** Construir o shell visual do modal com a identidade idêntica ao `MailScreen.lua`.
-* **Tarefas:**
-  * Criar o frame principal com dimmer escuro e 9-slice `Carved_9Slides.tga`.
-  * Criar o cabeçalho com o ícone e nome do item sendo aplicado.
-  * Criar o indicador de abas com as texturas dos botões `[LB] EQUIPADOS [RB]` e `[LB] NA MOCHILA [RB]`.
-  * Implementar a alternância visual das abas através dos bumpers `LB` e `RB`.
-  * Implementar o footer com prompts em texturas (`A Aplicar`, `B Cancelar`, `LB/RB Alternar`).
-  * Conectar o botão `B` e tecla `ESC` para executar `SpellStopTargeting()` e fechar o modal.
-* **Critério de Teste:** Usar a pedra de afiar abre o modal centralizado na tela com estilo idêntico ao Mail. Pressionar `LB` e `RB` alterna visualmente as abas vazias. Pressionar `B` cancela a mira e fecha a janela.
+* **Status:** Entregue e validado.
 
-### Fase 3: Aba "Equipados" - Carregamento Instantâneo & Navegação D-Pad
+### Fase 3: Aba "Equipados" - Carregamento Instantâneo & Navegação D-Pad [CONCLUÍDO]
 * **Objetivo:** Popular os slots equipados elegíveis e habilitar navegação de gamepad fluida.
-* **Tarefas:**
-  * Ler apenas os slots do corpo correspondentes à categoria do item ativo (ex: Slots 16 e 17 para armas).
-  * Renderizar as linhas com:
-    * Ícone do item equipado + borda de slot.
-    * Nome do item com cor de raridade (`QUALITY_COLORS`).
-    * Identificador do slot (ex: "Mão Principal", "Mão Secundária").
-  * Implementar sistema de foco e navegação com D-Pad (`UP` / `DOWN`).
-  * Foco inicial automático na primeira opção válida (Slot 16).
-* **Critério de Teste:** Abrir o modal com a pedra de afiar exibe as armas equipadas com nomes coloridos e ícones. O D-Pad sobe e desce o cursor com destaque dourado sem atraso.
+* **Status:** Entregue e validado.
 
-### Fase 4: Execução na Arma Equipada & Feedback de Ação
+### Fase 4: Execução na Arma Equipada & Feedback de Ação [CONCLUÍDO]
 * **Objetivo:** Concluir a ação de aprimoramento no equipamento ativo.
-* **Tarefas:**
-  * No botão `A`, disparar `PickupInventoryItem(slotID)`.
-  * Tocar som tátil de confirmação (`PlaySound("igMainMenuOptionCheckBoxOn")`).
-  * Fechar o modal imediatamente e resetar o estado.
-  * Habilitar suporte a clique direto de mouse na linha do modal para usuários híbridos.
-* **Critério de Teste:** Selecionar a Mão Principal e apertar `A` afia a arma equipada! O buff temporário surge no tooltip da arma, o som toca e a janela se fecha.
+* **Status:** Entregue e validado.
 
-### Fase 5: Aba "Na Mochila" - Varredura Sob Demanda (Lazy Scan) & Lista
+### Fase 5: Aba "Na Mochila" - Varredura Sob Demanda (Lazy Scan) & Lista [CONCLUÍDO]
 * **Objetivo:** Escanear a mochila apenas sob demanda e listar itens compatíveis.
-* **Tarefas:**
-  * Implementar trigger de scan exclusivo no evento de alternância para a aba `[RB] Na Mochila`.
-  * Varrer as bolsas filtrando apenas itens cujo tipo corresponda à categoria necessária (evitando custo em itens irrelevantes).
-  * Renderizar a lista de itens da mochila com paginação/scroll caso ultrapasse a altura visível.
-  * Exibir estado vazio estilizado ("Nenhum item compatível na mochila") se não houver itens válidos.
-  * Armazenar em cache a lista escaneada durante a sessão aberta do modal.
-* **Critério de Teste:** Ter armas sobressalentes na bolsa. Ao abrir o modal, a aba Equipados abre a 60 FPS; ao pressionar `RB`, a aba da mochila exibe as armas guardadas com seus nomes e ícones.
+* **Status:** Entregue e validado.
 
-### Fase 6: Execução em Itens da Mochila & Tratamento de Resiliência
+### Fase 6: Execução em Itens da Mochila & Tratamento de Resiliência [CONCLUÍDO]
 * **Objetivo:** Concluir a aplicação em itens guardados e blindar o sistema contra erros.
-* **Tarefas:**
-  * No botão `A` na aba da mochila, disparar `PickupContainerItem(bagID, slotID)`.
-  * Fechar automaticamente o modal se o jogador entrar em combate (`PLAYER_REGEN_DISABLED`) ou fechar o menu principal.
-  * Cancelar adequadamente o feitiço se o item consumível for consumido por outra ação ou se o cursor perder a mira (`CURRENT_SPELL_CAST_CHANGED`).
-* **Critério de Teste:** Afiar uma arma guardada na bolsa funciona perfeitamente. Abrir o modal e iniciar combate fecha a janela sem prender a mira.
+* **Tarefas Concluídas:**
+  * No botão `A` na aba da mochila, dispara `PickupContainerItem(bagID, slotID)`.
+  * Fecha automaticamente o modal se o jogador entrar em combate (`PLAYER_REGEN_DISABLED`), morrer (`PLAYER_DEAD`), perder controle (`PLAYER_CONTROL_LOST`) ou deixar o mundo (`PLAYER_LEAVING_WORLD`).
+  * Fecha automaticamente com o fechamento do MainMenu (`OnHide`).
+  * Cancelamento defensivo no diálogo nativo `REPLACE_ENCHANT` e `REPLACE_TRADESKILL_ENCHANT`, evitando que o cursor fique travado em modo mira caso o jogador cancele a substituição.
+  * Prioridade máxima no botão `B` para fechar o diálogo de confirmação (`StaticPopup`) antes de qualquer outra janela de fundo.
+* **Status:** Entregue e validado.
 
 ---
 
-## 6. Próximos Passos
-Após aprovação deste documento, o desenvolvimento seguirá estritamente a sequência das Fases 1 a 6, com validação de build (`luac`) e teste funcional ao término de cada etapa.
+## 6. Status do Projeto
+Todas as 6 fases foram concluídas com sucesso e integradas à branch `main`.

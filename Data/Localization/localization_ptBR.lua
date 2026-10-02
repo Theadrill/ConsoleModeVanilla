@@ -806,7 +806,7 @@ CM_Langs["ptBR"].strings = {
     MSG_RING_SOON = "|cff00ccff[ConsoleMode]|r Menu Ring |cffffcc00em breve!|r",
 }
 
--- Seção GamePT: conteúdo de jogo traduzido (Fase 7)
+-- Seção GameLOC: conteúdo de jogo traduzido (Fase 7)
 CM_Langs["ptBR"].game = {
     skills = {
         -- Armas

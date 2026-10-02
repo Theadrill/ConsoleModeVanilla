@@ -287,12 +287,12 @@ function CM:HandleOctoCommand(arg)
 end
 
 ---------------------------------------------------------------------------
--- Acessores GamePT (Fase 7 - Localizacao de Conteudo de Jogo)
+-- Acessores GameLOC (Fase 7 - Localizacao de Conteudo de Jogo)
 ---------------------------------------------------------------------------
 
 -- Traducao de perícias/profissoes (skills).
 -- Lookup insensivel a maiusculas/minusculas com fallback ptBR -> original.
-function CM:GamePT_Skill(skillName)
+function CM:GameLOC_Skill(skillName)
     if not skillName or skillName == "" then
         return ""
     end
@@ -321,7 +321,7 @@ function CM:GamePT_Skill(skillName)
 end
 
 -- Regra de formato pura para rank/grau.
-function CM:GamePT_Rank(rankStr)
+function CM:GameLOC_Rank(rankStr)
     if not rankStr or rankStr == "" then
         return ""
     end
@@ -341,7 +341,7 @@ end
 
 -- Traducao de magias/habilidades (spells).
 -- Lookup insensivel a maiusculas/minusculas com fallback ptBR -> original.
-function CM:GamePT_Spell(spellName, rankStr)
+function CM:GameLOC_Spell(spellName, rankStr)
     if not spellName or spellName == "" then
         return ""
     end
@@ -370,7 +370,7 @@ function CM:GamePT_Spell(spellName, rankStr)
 end
 
 -- Traducao e normalizacao de atributos operacionais de feiticos (custo, tempo, alcance, recarga).
-function CM:GamePT_SpellAttr(attrText)
+function CM:GameLOC_SpellAttr(attrText)
     if not attrText or attrText == "" then
         return ""
     end
@@ -425,7 +425,7 @@ function CM:GamePT_SpellAttr(attrText)
 end
 
 -- Traduz linhas de requisitos de ferramentas ou reagentes de feiticos (Tools: ... / Reagents: ...)
-function CM:GamePT_SpellTool(line)
+function CM:GameLOC_SpellTool(line)
     if not line or line == "" then
         return line
     end
@@ -443,8 +443,8 @@ function CM:GamePT_SpellTool(line)
         local transItem = nil
         if db and db.tools and db.tools[key] then
             transItem = db.tools[key]
-        elseif self.GamePT_Item then
-            transItem = self:GamePT_Item(toolItem)
+        elseif self.GameLOC_Item then
+            transItem = self:GameLOC_Item(toolItem)
         end
         transItem = transItem or toolItem
         return "|cffffd100Ferramentas:|r " .. transItem
@@ -462,8 +462,8 @@ function CM:GamePT_SpellTool(line)
         local transItem = nil
         if db and db.reagents and db.reagents[key] then
             transItem = db.reagents[key]
-        elseif self.GamePT_Item then
-            transItem = self:GamePT_Item(itemPart)
+        elseif self.GameLOC_Item then
+            transItem = self:GameLOC_Item(itemPart)
         end
         transItem = transItem or itemPart
         if qtyPart and qtyPart ~= "" then
@@ -479,8 +479,8 @@ end
 -- FASE 8 / 8.B-1: injeta os numeros reais do tooltip nos $ do PT autoral.
 -- Recebe a entrada do SpellDescDB ({d=EN, pt=PT}) e o texto vivo normalizado.
 -- Devolve o corpo PT ou nil (chamador cai no fallback). Anti-"$ cru" incluso.
--- Extraido do passo 4b do GamePT_SpellDesc sem mudar comportamento.
-function CM:GamePT_ApplySpellPT(entry, liveNorm)
+-- Extraido do passo 4b do GameLOC_SpellDesc sem mudar comportamento.
+function CM:GameLOC_ApplySpell(entry, liveNorm)
     if not entry or not entry.pt or entry.pt == "" then
         return nil
     end
@@ -489,10 +489,10 @@ function CM:GamePT_ApplySpellPT(entry, liveNorm)
     end
     local args = nil
     if entry.d and entry.d ~= "" then
-        args = self:GamePT_MatchTemplateValues(entry.d, liveNorm)
+        args = self:GameLOC_MatchTemplateValues(entry.d, liveNorm)
     end
     if not args then
-        args = self:GamePT_ExtractSemanticValues(liveNorm, nil)
+        args = self:GameLOC_ExtractSemanticValues(liveNorm, nil)
     end
     local ai = 0
     local nArgs = table.getn(args)
@@ -528,7 +528,7 @@ function CM:GamePT_ApplySpellPT(entry, liveNorm)
 end
 
 -- Traducao de descricoes completas de feiticos/magias (Spellbook / Grimorio)
-function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
+function CM:GameLOC_SpellDesc(spellName, rankStr, rawDesc)
     if not rawDesc or rawDesc == "" then
         return ""
     end
@@ -671,7 +671,7 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
         trimmed = string.gsub(trimmed, "%s+$", "")
         if string.find(trimmed, "^Tools%s*:") or string.find(trimmed, "^Ferramentas%s*:") or
            string.find(trimmed, "^Reagents%s*:") or string.find(trimmed, "^Reagentes%s*:") then
-            table.insert(headerLines, self:GamePT_SpellTool(trimmed))
+            table.insert(headerLines, self:GameLOC_SpellTool(trimmed))
         elseif string.find(trimmed, "^Requires%s+") or string.find(trimmed, "^Requer%s+") then
             local req = string.gsub(trimmed, "^Requires%s+", "")
             local locReq = req
@@ -795,7 +795,7 @@ function CM:GamePT_SpellDesc(spellName, rankStr, rawDesc)
     -- Octo vence o Capy quando tem PT (0b acima); sem Octo, effEntry = Capy.
     local effEntry = octoEntry or descDBEntry
     if not translatedBody then
-        translatedBody = self:GamePT_ApplySpellPT(effEntry, normDesc)
+        translatedBody = self:GameLOC_ApplySpell(effEntry, normDesc)
     end
 
     -- 5. FASE 8: sem PT em nenhum nivel, o EN sai INTEGRO (textToTranslate).
@@ -813,7 +813,7 @@ end
 -- Traducao de talentos por coordenada ou coordKey.
 -- Aceita (classFile, tab, tier, col, origName) OU (coordKey, origName).
 -- Retorna name, desc se tabela, string se string, ou origName.
-function CM:GamePT_Talent(a1, a2, a3, a4, a5)
+function CM:GameLOC_Talent(a1, a2, a3, a4, a5)
     local coordKey, origName
     if a5 ~= nil then
         coordKey = string.format("%s|%d|%d|%d", tostring(a1 or ""), tonumber(a2) or 0, tonumber(a3) or 0, tonumber(a4) or 0)
@@ -871,7 +871,7 @@ end
 
 -- Helper central: detecta linhas de cabecalho do tooltip de talento (custo, cast, range, rank, requires).
 -- Usado tanto no motor de traducao quanto na agregacao da UI para evitar hijack de headers.
-function CM:GamePT_IsTalentHeaderLine(rawLine)
+function CM:GameLOC_IsTalentHeaderLine(rawLine)
     if not rawLine or rawLine == "" then return false end
     -- Rank / Next rank / Requires sao sempre cabecalho
     if string.find(rawLine, "^Rank ") then return true end
@@ -900,7 +900,7 @@ end
 -- Helper central: extracao semantica de valores numericos em tooltips de talentos.
 -- Reconhece ranges nativos ("X to Y") e faz folding inteligente ("X a Y") quando o
 -- template em portugues usa um unico %s, ou preserva min e max caso o template use "%s a %s".
-function CM:GamePT_ExtractSemanticValues(rawLine, tEntry)
+function CM:GameLOC_ExtractSemanticValues(rawLine, tEntry)
     if not rawLine or rawLine == "" then return {} end
     local args = {}
     local hasDualRange = false
@@ -944,7 +944,7 @@ end
 -- FASE 8: extracao dirigida pelo template EN (com $): cada valor e o numero
 -- entre dois literais ("30%" fixo nunca cai num slot $). Retorna nil se algum
 -- literal nao casar (chama quem chama a usar o modo posicional).
-function CM:GamePT_MatchTemplateValues(enTemplate, renderedText)
+function CM:GameLOC_MatchTemplateValues(enTemplate, renderedText)
     if not enTemplate or enTemplate == "" or not renderedText or renderedText == "" then
         return nil
     end
@@ -1022,7 +1022,7 @@ function CM:GamePT_MatchTemplateValues(enTemplate, renderedText)
 end
 
 -- Traduz uma linha individual do tooltip de talento usando o motor de templates
-function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLine, currentRank)
+function CM:GameLOC_TalentLine(classFile, tabIndex, tier, col, talentName, rawLine, currentRank)
     if not rawLine or rawLine == "" then
         return ""
     end
@@ -1096,7 +1096,7 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
 
     -- 0c. Guard de cabecalho: delega ao helper central para evitar duplicacao
     -- e garantir consistencia com a agregacao da UI.
-    local isHeader = self:GamePT_IsTalentHeaderLine(rawLine)
+    local isHeader = self:GameLOC_IsTalentHeaderLine(rawLine)
 
     -- 1. Motor Centrado no Talento (Mapeamento Direto por Nome do Talento)
     -- So aplica em linhas de descricao real; headers nunca entram aqui.
@@ -1118,7 +1118,7 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
                     return tEntry
                 end
 
-                local args = self:GamePT_ExtractSemanticValues(rawLine, tEntry)
+                local args = self:GameLOC_ExtractSemanticValues(rawLine, tEntry)
                 if table.getn(args) == phCount then
                     local unpackFn = unpack or table.unpack
                     local callNums = {}
@@ -1142,7 +1142,7 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
             exc = db.exceptions[coordKey]
         end
         if exc then
-            if not self:GamePT_IsTalentHeaderLine(rawLine) then
+            if not self:GameLOC_IsTalentHeaderLine(rawLine) then
                 if type(exc) == "table" then
                     local r = (currentRank and currentRank > 0) and currentRank or 1
                     return exc[r] or exc[1] or rawLine
@@ -1252,7 +1252,7 @@ function CM:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, rawLin
 end
 
 -- Traduz uma descricao completa de talento (multi-linhas)
-function CM:GamePT_TalentDesc(classFile, tabIndex, tier, col, currentRank, maxRank, talentName, rawDesc)
+function CM:GameLOC_TalentDesc(classFile, tabIndex, tier, col, currentRank, maxRank, talentName, rawDesc)
     if not rawDesc or rawDesc == "" then
         return ""
     end
@@ -1283,7 +1283,7 @@ function CM:GamePT_TalentDesc(classFile, tabIndex, tier, col, currentRank, maxRa
     local gfind = string.gfind or string.gmatch
     local out = ""
     for line in gfind(rawDesc, "([^\r\n]+)") do
-        local trans = self:GamePT_TalentLine(classFile, tabIndex, tier, col, talentName, line, currentRank)
+        local trans = self:GameLOC_TalentLine(classFile, tabIndex, tier, col, talentName, line, currentRank)
         if out == "" then
             out = trans
         else
@@ -1295,7 +1295,7 @@ end
 
 -- Traducao de buffs/debuffs.
 -- Lookup insensivel a maiusculas/minusculas com fallback ptBR -> original.
-function CM:GamePT_Buff(buffName)
+function CM:GameLOC_Buff(buffName)
     if not buffName or buffName == "" then
         return ""
     end
@@ -1321,8 +1321,8 @@ function CM:GamePT_Buff(buffName)
         end
     end
     -- Fallback inteligente: auras e efeitos de feitiços compartilham o mesmo nome da magia
-    if self.GamePT_Spell then
-        local sp = self:GamePT_Spell(buffName)
+    if self.GameLOC_Spell then
+        local sp = self:GameLOC_Spell(buffName)
         if sp and sp ~= buffName then
             return sp
         end
@@ -1383,7 +1383,7 @@ local CM_QUEST_ITEM_PREFIXES = {
 -- Tradução do nome do item. Fonte da verdade por ID (ItemDB offline pfQuest+Turtle).
 -- Aceita (name) ou (name, linkOrID). Link "item:1234:..." ou ID numerico tem prioridade;
 -- fallback por nome via ByName, depois game.items legado, depois heuristicas.
-function CM:GamePT_Item(itemName, itemLinkOrID)
+function CM:GameLOC_Item(itemName, itemLinkOrID)
     if (not itemName or itemName == "") and (not itemLinkOrID or itemLinkOrID == "") then
         return ""
     end
@@ -1455,7 +1455,7 @@ function CM:GamePT_Item(itemName, itemLinkOrID)
     -- Decomposição de itens mágicos verdes com sufixo (ex: "Linen Belt of the Boar")
     local _, _, baseName, sfx = string.find(itemName, "^(.+)%s+(of%s+.+)$")
     if baseName and sfx and CM_ITEM_SUFFIXES and CM_ITEM_SUFFIXES[sfx] then
-        local locBase = self:GamePT_Item(baseName)
+        local locBase = self:GameLOC_Item(baseName)
         local locSfx = CM_ITEM_SUFFIXES[sfx]
         if locBase and locBase ~= baseName then
             return locBase .. " " .. locSfx
@@ -1515,7 +1515,7 @@ local CM_EQUIPLOC_MAP = {
     ["INVTYPE_AMMO"] = "Munição", ["Ammo"] = "Munição", ["ammo"] = "Munição",
 }
 
-function CM:GamePT_EquipLoc(equipLoc)
+function CM:GameLOC_EquipLoc(equipLoc)
     if not equipLoc or equipLoc == "" then return "" end
     local activeId = self:GetActiveLangId()
     if activeId == "enUS" then return equipLoc end
@@ -1579,7 +1579,7 @@ local CM_SUBTYPE_MAP = {
     ["Junk"] = "Lixo", ["junk"] = "Lixo",
 }
 
-function CM:GamePT_ItemSubType(subType)
+function CM:GameLOC_ItemSubType(subType)
     if not subType or subType == "" then return "" end
     local activeId = self:GetActiveLangId()
     if activeId == "enUS" then return subType end
@@ -1587,7 +1587,7 @@ function CM:GamePT_ItemSubType(subType)
 end
 
 -- Tradução procedural de linhas de atributos, efeitos e requisitos de itens
-function CM:GamePT_ItemStat(statLine)
+function CM:GameLOC_ItemStat(statLine)
     if not statLine or statLine == "" then return "" end
     local activeId = self:GetActiveLangId()
     if activeId == "enUS" then return statLine end
@@ -1632,7 +1632,7 @@ function CM:GamePT_ItemStat(statLine)
     s = string.gsub(s, "Durability%s+(%d+)%s*/%s*(%d+)", "Durabilidade %1 / %2")
     s = string.gsub(s, "Requires Level%s+(%d+)", "Requer Nível %1")
     s = string.gsub(s, "Requires%s+([%a%s]+)%s*%((%d+)%)", function(prof, lvl)
-        local locProf = CM and CM.GamePT_Skill and CM:GamePT_Skill(prof) or prof
+        local locProf = CM and CM.GameLOC_Skill and CM:GameLOC_Skill(prof) or prof
         return string.format("Requer %s (%s)", locProf, lvl)
     end)
     s = string.gsub(s, "Classes:%s*(.+)", function(clsList)
@@ -1746,9 +1746,9 @@ end
 -- FASE 8.B-1: traduz linhas de Uso/Equipar/Chance de itens via magias linkadas.
 -- O cliente compoe "Uso: <descricao da magia>": com o spellID (Tortoise
 -- spellid_N/spelltrigger_N) resolvemos o PT autoral do SpellDescDB e injetamos
--- os numeros vivos via GamePT_ApplySpellPT. Sufixo de recarga "(...Cooldown)"
--- e preservado via GamePT_ItemStat. Devolve a linha PT ou nil (fallback ItemStat).
-function CM:GamePT_ItemDesc(itemLinkOrID, liveLine)
+-- os numeros vivos via GameLOC_ApplySpell. Sufixo de recarga "(...Cooldown)"
+-- e preservado via GameLOC_ItemStat. Devolve a linha PT ou nil (fallback ItemStat).
+function CM:GameLOC_ItemDesc(itemLinkOrID, liveLine)
     if not liveLine or liveLine == "" then
         return nil
     end
@@ -1798,7 +1798,7 @@ function CM:GamePT_ItemDesc(itemLinkOrID, liveLine)
         local lowCap = string.lower(cap)
         if string.find(lowCap, "cooldown") or string.find(cap, "CD:") then
             main = string.gsub(string.sub(body, 1, cs - 1), "%s+$", "")
-            cdSuffix = " " .. self:GamePT_ItemStat(cap)
+            cdSuffix = " " .. self:GameLOC_ItemStat(cap)
         end
     end
     local normMain = string.gsub(main, "[ \t]+", " ")
@@ -1814,7 +1814,7 @@ function CM:GamePT_ItemDesc(itemLinkOrID, liveLine)
         if link and link.t == trig and link.s then
             local sd = ConsoleMode_SpellDescDB and ConsoleMode_SpellDescDB[link.s]
             if sd and sd.pt and sd.pt ~= "" and sd.d and sd.d ~= "" then
-                local ptBody = self:GamePT_ApplySpellPT(sd, normMain)
+                local ptBody = self:GameLOC_ApplySpell(sd, normMain)
                 if ptBody and ptBody ~= "" then
                     return prefix .. ptBody .. cdSuffix
                 end
@@ -1909,3 +1909,28 @@ CM_RegisterLang("enUS", "English (US)", "Data\\Locales\\enUS\\UI.lua", "Interfac
 
 -- Resolve cedo com default. VARIABLES_LOADED resolve de novo com SavedVariables.
 CM:ResolveLocale()
+
+---------------------------------------------------------------------------
+-- Aliases legados GamePT_ (retrocompatibilidade, zero regressao).
+-- A API canonica e GameLOC_. Estes aliases garantem que qualquer chamada
+-- antiga (addon externo ou linha obscura) continue funcionando.
+---------------------------------------------------------------------------
+CM.GamePT_Skill = CM.GameLOC_Skill
+CM.GamePT_Rank = CM.GameLOC_Rank
+CM.GamePT_Spell = CM.GameLOC_Spell
+CM.GamePT_SpellAttr = CM.GameLOC_SpellAttr
+CM.GamePT_SpellTool = CM.GameLOC_SpellTool
+CM.GamePT_ApplySpellPT = CM.GameLOC_ApplySpell
+CM.GamePT_SpellDesc = CM.GameLOC_SpellDesc
+CM.GamePT_Talent = CM.GameLOC_Talent
+CM.GamePT_IsTalentHeaderLine = CM.GameLOC_IsTalentHeaderLine
+CM.GamePT_ExtractSemanticValues = CM.GameLOC_ExtractSemanticValues
+CM.GamePT_MatchTemplateValues = CM.GameLOC_MatchTemplateValues
+CM.GamePT_TalentLine = CM.GameLOC_TalentLine
+CM.GamePT_TalentDesc = CM.GameLOC_TalentDesc
+CM.GamePT_Buff = CM.GameLOC_Buff
+CM.GamePT_Item = CM.GameLOC_Item
+CM.GamePT_EquipLoc = CM.GameLOC_EquipLoc
+CM.GamePT_ItemSubType = CM.GameLOC_ItemSubType
+CM.GamePT_ItemStat = CM.GameLOC_ItemStat
+CM.GamePT_ItemDesc = CM.GameLOC_ItemDesc

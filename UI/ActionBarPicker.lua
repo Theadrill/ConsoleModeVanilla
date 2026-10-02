@@ -544,8 +544,8 @@ function Picker:RefreshSpellGrid()
         if spell then
             btn.spell = spell
             btn.icon:SetTexture(spell.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
-            local locName = (ConsoleMode and ConsoleMode.GamePT_Spell) and ConsoleMode:GamePT_Spell(spell.name, spell.rank) or spell.name
-            local locRank = (ConsoleMode and ConsoleMode.GamePT_Rank) and ConsoleMode:GamePT_Rank(spell.rank) or (spell.rank or "")
+            local locName = (ConsoleMode and ConsoleMode.GameLOC_Spell) and ConsoleMode:GameLOC_Spell(spell.name, spell.rank) or spell.name
+            local locRank = (ConsoleMode and ConsoleMode.GameLOC_Rank) and ConsoleMode:GameLOC_Rank(spell.rank) or (spell.rank or "")
             btn.label:SetText(WrapName(locName))
             btn.rankLabel:SetText(locRank ~= "" and locRank or "")
             btn:SetBackdropColor(0.1, 0.1, 0.1, 0.9)

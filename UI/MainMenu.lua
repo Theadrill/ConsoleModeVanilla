@@ -553,8 +553,8 @@ function MainMenu:GetBuffName(buffIndexID)
     scanTip:SetPlayerBuff(buffIndexID)
     local textObj = _G["ConsoleModeMMScanTooltipTextLeft1"]
     local text = (textObj and textObj:GetText()) or CM:T("DETAIL_EFFECT_DEFAULT")
-    if ConsoleMode and ConsoleMode.GamePT_Buff then
-        text = ConsoleMode:GamePT_Buff(text)
+    if ConsoleMode and ConsoleMode.GameLOC_Buff then
+        text = ConsoleMode:GameLOC_Buff(text)
     end
     return text
 end
@@ -1405,7 +1405,7 @@ function MainMenu:UpdateEquipmentColumn()
                 end
 
                 itemName = itemName or slotLabel
-                local locItemName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(itemName, itemLink) or itemName
+                local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(itemName, itemLink) or itemName
                 -- 1. Exibe o nome do slot em cima (menor)
                 btn.slotText:SetText(CFG.Equipment.slotColor .. slotLabel .. "|r")
 
@@ -3123,7 +3123,7 @@ function MainMenu:CreateDetailCard(parent, config)
         self.icon:SetTexture(itemData.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
         self.icon:Show()
 
-        local locItemName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(itemData.name, itemData.rawLink or itemData.link) or itemData.name
+        local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(itemData.name, itemData.rawLink or itemData.link) or itemData.name
         local r, g, b = 0.8, 0.8, 0.8
         if itemData.quality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[itemData.quality] then
             local qCol = ITEM_QUALITY_COLORS[itemData.quality]
@@ -3138,12 +3138,12 @@ function MainMenu:CreateDetailCard(parent, config)
         -- Subtitulo rico + filtragem + colapso inteligente (ShowItem)
         local locName = nil
         if itemData.equipLoc and itemData.equipLoc ~= "" then
-            locName = (ConsoleMode and ConsoleMode.GamePT_EquipLoc) and ConsoleMode:GamePT_EquipLoc(itemData.equipLoc) or getglobal(itemData.equipLoc)
+            locName = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(itemData.equipLoc) or getglobal(itemData.equipLoc)
             if not locName or string.find(locName, "^INVTYPE_") then
-                locName = (ConsoleMode and ConsoleMode.GamePT_EquipLoc) and ConsoleMode:GamePT_EquipLoc(itemData.equipLoc) or nil
+                locName = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(itemData.equipLoc) or nil
             end
         end
-        local stName = (ConsoleMode and ConsoleMode.GamePT_ItemSubType) and ConsoleMode:GamePT_ItemSubType(itemData.subType) or itemData.subType
+        local stName = (ConsoleMode and ConsoleMode.GameLOC_ItemSubType) and ConsoleMode:GameLOC_ItemSubType(itemData.subType) or itemData.subType
         local rLevel = tonumber(itemData.reqLevel) or 0
         local leftLines = {}
         local rightLines = {}
@@ -3173,11 +3173,11 @@ function MainMenu:CreateDetailCard(parent, config)
                 if not skip then
                     -- 8.B-1: linha de Uso/Equipar via magia linkada vence o ItemStat generico.
                     local locLine = nil
-                    if ConsoleMode and ConsoleMode.GamePT_ItemDesc then
-                        locLine = ConsoleMode:GamePT_ItemDesc(itemData.rawLink or itemData.link, sLine)
+                    if ConsoleMode and ConsoleMode.GameLOC_ItemDesc then
+                        locLine = ConsoleMode:GameLOC_ItemDesc(itemData.rawLink or itemData.link, sLine)
                     end
                     if not locLine then
-                        locLine = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(sLine) or sLine
+                        locLine = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(sLine) or sLine
                     end
                     if string.find(locLine, "Uso:") or string.find(locLine, "Use:") or string.find(locLine, "Equipar:") or string.find(locLine, "Equip:") then
                         table.insert(rightLines, locLine)
@@ -3202,11 +3202,11 @@ function MainMenu:CreateDetailCard(parent, config)
                 -- pela magia linkada antes do ItemStat generico (mesmo padrao
                 -- do loop de statsLines acima). Sem isso, todo "Uso:" caia em EN.
                 local locDesc = nil
-                if ConsoleMode and ConsoleMode.GamePT_ItemDesc then
-                    locDesc = ConsoleMode:GamePT_ItemDesc(itemData.rawLink or itemData.link, itemData.desc)
+                if ConsoleMode and ConsoleMode.GameLOC_ItemDesc then
+                    locDesc = ConsoleMode:GameLOC_ItemDesc(itemData.rawLink or itemData.link, itemData.desc)
                 end
                 if not locDesc then
-                    locDesc = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(itemData.desc) or itemData.desc
+                    locDesc = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(itemData.desc) or itemData.desc
                 end
                 table.insert(rightLines, "|cff00ff00" .. locDesc .. "|r")
             end
@@ -3305,8 +3305,8 @@ function MainMenu:CreateDetailCard(parent, config)
         self.iconBorder:SetBackdropBorderColor(0.88, 0.60, 0.08, 0.95)
 
         -- 2. Traducao do Nome e Grau (Rank)
-        local locName = (ConsoleMode and ConsoleMode.GamePT_Spell) and ConsoleMode:GamePT_Spell(spellData.name, spellData.rank) or spellData.name
-        local locRank = (ConsoleMode and ConsoleMode.GamePT_Rank) and ConsoleMode:GamePT_Rank(spellData.rank) or spellData.rank
+        local locName = (ConsoleMode and ConsoleMode.GameLOC_Spell) and ConsoleMode:GameLOC_Spell(spellData.name, spellData.rank) or spellData.name
+        local locRank = (ConsoleMode and ConsoleMode.GameLOC_Rank) and ConsoleMode:GameLOC_Rank(spellData.rank) or spellData.rank
 
         self.titleText:SetText("|cffffd200" .. locName .. "|r")
         MainMenu:ApplyFont(self.titleText, CFG.Fonts.titleFontFile, CFG.Fonts.detailTitleSize or 16)
@@ -3332,11 +3332,11 @@ function MainMenu:CreateDetailCard(parent, config)
         -- Coluna Central: Custo de Recurso (L1) e Tempo de Lancamento (L2)
         local centerLines = {}
         if spellData.cost and spellData.cost ~= "" then
-            local c = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.cost) or spellData.cost
+            local c = (ConsoleMode and ConsoleMode.GameLOC_SpellAttr) and ConsoleMode:GameLOC_SpellAttr(spellData.cost) or spellData.cost
             table.insert(centerLines, "|cff3399ff" .. c .. "|r")
         end
         if spellData.castTime and spellData.castTime ~= "" then
-            local ct = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.castTime) or spellData.castTime
+            local ct = (ConsoleMode and ConsoleMode.GameLOC_SpellAttr) and ConsoleMode:GameLOC_SpellAttr(spellData.castTime) or spellData.castTime
             table.insert(centerLines, "|cffaaaaaa" .. ct .. "|r")
         end
 
@@ -3344,11 +3344,11 @@ function MainMenu:CreateDetailCard(parent, config)
         -- Passiva nunca exibe recarga de header (o proc/ICD segue no corpo).
         local rightLines = {}
         if spellData.range and spellData.range ~= "" then
-            local rg = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.range) or spellData.range
+            local rg = (ConsoleMode and ConsoleMode.GameLOC_SpellAttr) and ConsoleMode:GameLOC_SpellAttr(spellData.range) or spellData.range
             table.insert(rightLines, "|cffaaaaaa" .. rg .. "|r")
         end
         if not spellData.isPassive and spellData.cooldown and spellData.cooldown ~= "" then
-            local cd = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(spellData.cooldown) or spellData.cooldown
+            local cd = (ConsoleMode and ConsoleMode.GameLOC_SpellAttr) and ConsoleMode:GameLOC_SpellAttr(spellData.cooldown) or spellData.cooldown
             table.insert(rightLines, "|cffff5555" .. cd .. "|r")
         end
 
@@ -3445,8 +3445,8 @@ function MainMenu:CreateDetailCard(parent, config)
 
         -- 5. Corpo da Descricao: Coluna Unica Full-Width
         local descBody = spellData.desc or ""
-        if descBody ~= "" and ConsoleMode and ConsoleMode.GamePT_SpellDesc then
-            descBody = ConsoleMode:GamePT_SpellDesc(spellData.name, spellData.rank, descBody)
+        if descBody ~= "" and ConsoleMode and ConsoleMode.GameLOC_SpellDesc then
+            descBody = ConsoleMode:GameLOC_SpellDesc(spellData.name, spellData.rank, descBody)
         end
         if descBody == "" then
             descBody = CM:T("DETAIL_NO_DESC")
@@ -3473,7 +3473,7 @@ function MainMenu:CreateDetailCard(parent, config)
         -- 6. Rodape e Atualizacoes Finais
         if self.sellWidget then self.sellWidget:Hide() end
         if self.slotsFreeText then
-            local locTab = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(spellData.tabName) or (spellData.tabName or "Geral")
+            local locTab = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(spellData.tabName) or (spellData.tabName or "Geral")
             self.slotsFreeText:SetText("|cffe09a15Grimório:|r |cffffffff" .. locTab .. "|r")
         end
         self:UpdateMoney()
@@ -3527,7 +3527,7 @@ function MainMenu:CreateDetailCard(parent, config)
 
         local quality = (scanned and scanned.quality) or 1
         local qCol = (ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]) or { r=1, g=1, b=1, hex="|cffffffff" }
-        local locEqName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(scanned and scanned.name, itemLink) or ((scanned and scanned.name) or "Item")
+        local locEqName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(scanned and scanned.name, itemLink) or ((scanned and scanned.name) or "Item")
         self.titleText:SetText(qCol.hex .. locEqName .. "|r")
         self.iconBorder:SetBackdropBorderColor(qCol.r, qCol.g, qCol.b, 0.95)
         self.iconBorder:Show()
@@ -3569,13 +3569,13 @@ function MainMenu:CreateDetailCard(parent, config)
         local subParts = {}
         if slotData and slotData.label then table.insert(subParts, slotData.label) end
         if scanned and scanned.subType and scanned.subType ~= "" then
-            local st = (ConsoleMode and ConsoleMode.GamePT_ItemSubType) and ConsoleMode:GamePT_ItemSubType(scanned.subType) or scanned.subType
+            local st = (ConsoleMode and ConsoleMode.GameLOC_ItemSubType) and ConsoleMode:GameLOC_ItemSubType(scanned.subType) or scanned.subType
             local isDup = false
             if slotData and slotData.label and (string.lower(st) == string.lower(slotData.label)) then isDup = true end
             if not isDup then table.insert(subParts, st) end
         end
         if durText then
-            local locDur = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(durText) or durText
+            local locDur = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(durText) or durText
             table.insert(subParts, locDur)
         end
         if isSoulbound then table.insert(subParts, "|cffffd100Vinculado|r") end
@@ -3603,7 +3603,7 @@ function MainMenu:CreateDetailCard(parent, config)
             if ignoredSlots[lower] or string.find(lower, "requires level") or string.find(lower, "requer nível") or string.find(lower, "req. nv") then
                 -- ignora linha duplicada
             else
-                local locTxt = (ConsoleMode and ConsoleMode.GamePT_ItemStat) and ConsoleMode:GamePT_ItemStat(txt) or txt
+                local locTxt = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(txt) or txt
                 if string.find(locTxt, "Uso:") or string.find(locTxt, "Use:") or string.find(locTxt, "Equipar:") or string.find(locTxt, "Equip:") then
                     table.insert(rightLines, "|cff00ff00" .. locTxt .. "|r")
                 else
@@ -5736,7 +5736,7 @@ function MainMenu:UpdateSpellCategories()
 
             btn.catIndex = i
             btn.tabData = tabData
-            local locCatName = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(tabData.name) or (tabData.name or ("Aba " .. i))
+            local locCatName = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(tabData.name) or (tabData.name or ("Aba " .. i))
             btn.catName:SetText(locCatName)
             btn.spellsCount:SetText(string.format("|cffe09a15%d magias|r", tabData.numSpells or 0))
             if tabData.icon and tabData.icon ~= "" then
@@ -5785,7 +5785,7 @@ function MainMenu:FocusSpellCategoryButton(idx)
 
     local name, icon, offset, numSpells = GetSpellTabInfo(idx)
     name = name or ("Categoria " .. idx)
-    local locTabName = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(name) or name
+    local locTabName = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(name) or name
     icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark"
     numSpells = numSpells or 0
 
@@ -5966,7 +5966,7 @@ function MainMenu:UpdateSpellsPage(keepPage)
             MainMenu:ApplyFont(btn.title, CFG.Fonts.subTabFontFile or CFG.Fonts.headerFontFile, CFG.Fonts.subTabSize or 15)
         end
 
-        local locTabTitle = (ConsoleMode and ConsoleMode.GamePT_Skill) and ConsoleMode:GamePT_Skill(tabData.name) or tabData.name
+        local locTabTitle = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(tabData.name) or tabData.name
         btn.title:SetText(locTabTitle)
         local txtW = math.floor(btn.title:GetStringWidth() or 60)
         if txtW < 40 then txtW = 40 end
@@ -6815,9 +6815,9 @@ function MainMenu:FocusTalentSlot(slot)
         card.icon:Show()
 
         local _, classFile = UnitClass("player")
-        local tName = CM:GamePT_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
+        local tName = CM:GameLOC_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
         card.titleText:SetText(string.format("|cffe09a15%s|r", tName or data.name))
-        local rankStr = CM:GamePT_Rank(string.format("Rank %d", data.currentRank or 0))
+        local rankStr = CM:GameLOC_Rank(string.format("Rank %d", data.currentRank or 0))
         local tierLabel = (activeLang and activeLang == "enUS") and "Tier" or "Camada"
         card.typeText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
 
@@ -6858,8 +6858,8 @@ function MainMenu:FocusTalentSlot(slot)
                 local t = lineData.text
                 local isRed = lineData.isRed
                 local isHead = false
-                if CM.GamePT_IsTalentHeaderLine then
-                    isHead = CM:GamePT_IsTalentHeaderLine(t)
+                if CM.GameLOC_IsTalentHeaderLine then
+                    isHead = CM:GameLOC_IsTalentHeaderLine(t)
                 else
                     isHead = (string.find(t, "^Rank ") or string.find(t, "^Next rank") or string.find(t, "^Requires ")) and true or false
                 end
@@ -6884,7 +6884,7 @@ function MainMenu:FocusTalentSlot(slot)
             for i = 1, table.getn(segments) do
                 local seg = segments[i]
                 local rawText = seg.text
-                local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawText, data.currentRank)
+                local tTrans = CM:GameLOC_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawText, data.currentRank)
 
                 if string.find(rawText, "^Rank ") or string.find(rawText, "^Grau ") then
                     rankHeader = tTrans
@@ -6906,14 +6906,14 @@ function MainMenu:FocusTalentSlot(slot)
             end
             GameTooltip:Hide()
         elseif data.desc and data.desc ~= "" then
-            local tDesc = CM:GamePT_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, data.desc)
+            local tDesc = CM:GameLOC_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, data.desc)
             table.insert(descCurParts, tDesc)
         end
 
         local curDesc = table.concat(descCurParts, "\n")
         if not curDesc or curDesc == "" then
             if data.desc and data.desc ~= "" then
-                curDesc = CM:GamePT_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, data.desc)
+                curDesc = CM:GameLOC_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, data.desc)
             else
                 curDesc = "|cff888888Sem descrição disponível.|r"
             end
@@ -7315,13 +7315,13 @@ function MainMenu:ShowTalentInspectModal(slot)
     modal.slot = slot
 
     local _, classFile = UnitClass("player")
-    local tName = CM:GamePT_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
+    local tName = CM:GameLOC_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
 
     modal.icon:SetTexture(data.icon)
     modal.titleText:SetText(string.format("|cffe09a15%s|r", tName or data.name))
     modal.subTitleText:SetText(string.format("|cff888888%s|r", data.name))
 
-    local rankStr = CM:GamePT_Rank(string.format("Rank %d", data.currentRank or 0))
+    local rankStr = CM:GameLOC_Rank(string.format("Rank %d", data.currentRank or 0))
     local tierLabel = (activeLang and activeLang == "enUS") and "Tier" or "Camada"
     modal.badgesText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
 
@@ -7355,8 +7355,8 @@ function MainMenu:ShowTalentInspectModal(slot)
             local rt = lineData.text
             local isRed = lineData.isRed
             local isHead = false
-            if CM.GamePT_IsTalentHeaderLine then
-                isHead = CM:GamePT_IsTalentHeaderLine(rt)
+            if CM.GameLOC_IsTalentHeaderLine then
+                isHead = CM:GameLOC_IsTalentHeaderLine(rt)
             else
                 isHead = (string.find(rt, "^Rank ") or string.find(rt, "^Next rank") or string.find(rt, "^Requires ")) and true or false
             end
@@ -7374,7 +7374,7 @@ function MainMenu:ShowTalentInspectModal(slot)
         for i = 1, table.getn(segments) do
             local seg = segments[i]
             local rawT = seg.text
-            local tTrans = CM:GamePT_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawT, data.currentRank)
+            local tTrans = CM:GameLOC_TalentLine(classFile, data.tabIndex, data.tier, data.column, data.name, rawT, data.currentRank)
             if seg.kind == "header" then
                 if string.find(rawT, "^Rank ") or string.find(rawT, "^Next rank") then
                     origFull = origFull .. (origFull ~= "" and "\n" or "") .. "|cffbbbbbb" .. rawT .. "|r\n"
@@ -14189,7 +14189,7 @@ function MainMenu:FocusBindsSlot(card)
                 else
                     cdStrAC = math.floor(durAC) .. " sec cooldown"
                 end
-                local cdLocAC = (ConsoleMode and ConsoleMode.GamePT_SpellAttr) and ConsoleMode:GamePT_SpellAttr(cdStrAC) or cdStrAC
+                local cdLocAC = (ConsoleMode and ConsoleMode.GameLOC_SpellAttr) and ConsoleMode:GameLOC_SpellAttr(cdStrAC) or cdStrAC
                 detailCard.topRightText:SetText("|cffff5555" .. cdLocAC .. "|r")
                 detailCard.topRightText:Show()
             else
@@ -14803,14 +14803,14 @@ function MainMenu:RefreshPickerGrid()
 
             local displayName = item.name or ""
             if mode == "SPELLBOOK" then
-                displayName = (ConsoleMode and ConsoleMode.GamePT_Spell) and ConsoleMode:GamePT_Spell(item.name, item.rank) or displayName
+                displayName = (ConsoleMode and ConsoleMode.GameLOC_Spell) and ConsoleMode:GameLOC_Spell(item.name, item.rank) or displayName
             elseif mode == "BAG" then
-                displayName = (ConsoleMode and ConsoleMode.GamePT_Item) and ConsoleMode:GamePT_Item(item.name, item.rawLink or item.link) or displayName
+                displayName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.rawLink or item.link) or displayName
             end
             btn.label:SetText(MM_WrapName(displayName))
             
             if mode == "SPELLBOOK" then
-                local displayRank = (ConsoleMode and ConsoleMode.GamePT_Rank) and ConsoleMode:GamePT_Rank(item.rank) or (item.rank or "")
+                local displayRank = (ConsoleMode and ConsoleMode.GameLOC_Rank) and ConsoleMode:GameLOC_Rank(item.rank) or (item.rank or "")
                 btn.rankLabel:SetText(displayRank)
             elseif mode == "BAG" then
                 if item.count and item.count > 1 then

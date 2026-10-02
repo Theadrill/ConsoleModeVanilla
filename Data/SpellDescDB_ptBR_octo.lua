@@ -8,6 +8,6 @@
 -- do patch-9 e sao invisiveis no cliente live. Logo: overlay DBC = vazio.
 -- Conteudo futuro: customs server-side descobertos via ConsoleModeDB.spellMissing
 -- jogando no Octo com a camada ATIVA (toggle em ADDON_CFG ou /cm octo).
--- Consultada por CM:GamePT_SpellDesc SOMENTE quando CM:IsOctoActive().
+-- Consultada por CM:GameLOC_SpellDesc SOMENTE quando CM:IsOctoActive().
 ConsoleMode_SpellDescDB_Octo = {}
 ConsoleMode_SpellDescDB_Octo_ByKey = {}

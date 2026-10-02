@@ -54,7 +54,7 @@ Extração `DBFilesClient\Spell.dbc` de cada `patch*.MPQ` (ordem cliente `patch.
 - `62310` `Cone of Shame` — `Hey, at least it isn't a ban!`
 - Além de `30997 Tenacity of War`, `30005+` série custom, e backports `2 Illusion: Forest Dryad (Toy)`, `6 Pet Command: Take Position` que no Capy só aparecem em `patch-9`.
 
-**Implicação para o plano de linguagem:** o addon mantém o Capycraft como `SpellDescDB_ptBR.lua` (já fundido `snapshot→patch-9`, `11.612 CUSTOM + 3.925 MODIFICADOS`, `ORFAOS 2.584` → `player 497` / `cauda 2.087`). Octo entra como **investigação separada** — um `mpq_orphans_octo.json` / `SpellDescDB_ptBR_octo.lua` gerado a partir do `Octo_Spell_patch-5.dbc` divergente, sem alterar nenhum PT do Capy. O `GamePT_SpellDesc` tenta `Octo DB → Capy DB → EN` nessa ordem.
+**Implicação para o plano de linguagem:** o addon mantém o Capycraft como `SpellDescDB_ptBR.lua` (já fundido `snapshot→patch-9`, `11.612 CUSTOM + 3.925 MODIFICADOS`, `ORFAOS 2.584` → `player 497` / `cauda 2.087`). Octo entra como **investigação separada** — um `mpq_orphans_octo.json` / `SpellDescDB_ptBR_octo.lua` gerado a partir do `Octo_Spell_patch-5.dbc` divergente, sem alterar nenhum PT do Capy. O `GameLOC_SpellDesc` tenta `Octo DB → Capy DB → EN` nessa ordem.
 
 ### 0.3 Veredito da extração real do cliente Octo (23/09/2026 — refuta a hipótese dos 102)
 Extração MPQ por MPQ (`mpyq`, cliente `C:\Users\rodri\OneDrive\wow\octowow\Data`, artefatos fora do git em `Temp/opencode/octodbc`, veredito em `tools/mpq_orphans_octo.json`):
@@ -279,7 +279,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 ---
 
-### 🟢 FASE 7: Tradução Integral do Conteúdo do Jogo (GamePT Master Architecture)
+### 🟢 FASE 7: Tradução Integral do Conteúdo do Jogo (GameLOC Master Architecture)
 > **Objetivo observável:** Tradução completa e contextual em Português Brasileiro (ptBR) de todo o conteúdo exibido pelo ConsoleModeVanilla: Perícias/Idiomas, Talentos (nomes e descrições completas com ranks), Magias/Habilidades (Spellbook e pickers da barra de ação), Auras/Buffs e Termos de Itens/Tooltips.
 >
 > **Diretriz de Qualidade Inegociável:** Tradução contextual fluente com padrão de RPG brasileiro oficial (vocabulário Blizzard pt-BR), sem traduções mecânicas/robóticas.
@@ -294,7 +294,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 ---
 
 #### Status Atual de Execução da Fase 7
-- [x] **Etapa 0 (Acessores Core & Validador):** Implementados em `Data/Localization.lua` (`GamePT_Skill`, `GamePT_Rank`, `GamePT_Spell`, `GamePT_Talent`, `GamePT_Buff`) e suporte no `tools/check_locales.py`. (Commit `8561471`).
+- [x] **Etapa 0 (Acessores Core & Validador):** Implementados em `Data/Localization.lua` (`GameLOC_Skill`, `GameLOC_Rank`, `GameLOC_Spell`, `GameLOC_Talent`, `GameLOC_Buff`) e suporte no `tools/check_locales.py`. (Commit `8561471`).
 - [x] **Bloco 1 (Perícias & Idiomas):** 102 entradas em `Data/Localization/localization_ptBR.lua` integradas visualmente em `UI/CharacterScreen.lua`. Testado no jogo, commitado e enviado ao repo remoto (`8561471`).
 - [x] **Bloco 2 (Nomes de Talentos):** 1.280 entradas (432 coordenadas canônicas das 9 classes + 848 nomes nominais) em `localization_ptBR.lua` com fallback resiliente em `Data/Localization.lua` e renderização no `card.titleText` de `UI/MainMenu.lua`. Concluído e validado.
 
@@ -322,24 +322,24 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 ---
 
 #### Status Atual de Execução da Fase 7
-- [x] **Etapa 0 (Acessores Core & Validador):** Implementados em `Data/Localization.lua` (`GamePT_Skill`, `GamePT_Rank`, `GamePT_Spell`, `GamePT_Talent`, `GamePT_Buff`) e suporte no `tools/check_locales.py`. (Commit `8561471`).
+- [x] **Etapa 0 (Acessores Core & Validador):** Implementados em `Data/Localization.lua` (`GameLOC_Skill`, `GameLOC_Rank`, `GameLOC_Spell`, `GameLOC_Talent`, `GameLOC_Buff`) e suporte no `tools/check_locales.py`. (Commit `8561471`).
 - [x] **Bloco 1 (Perícias & Idiomas):** 102 entradas em `Data/Localization/localization_ptBR.lua` integradas visualmente em `UI/CharacterScreen.lua`. Testado no jogo, commitado e enviado ao repo remoto (`8561471`).
 - [x] **Bloco 2 (Nomes de Talentos):** 1.280 entradas (432 coordenadas canônicas das 9 classes + 848 nomes nominais) em `localization_ptBR.lua` com fallback resiliente em `Data/Localization.lua` e renderização no `card.titleText` de `UI/MainMenu.lua`. Concluído e validado.
 - [x] **Fase 7.1 (Módulo 1 — Descrições Dinâmicas & Catálogo Base de Talentos):** Criação de `Data/TalentDescriptions_ptBR.lua` com catálogo base dos 460 talentos do cliente, agregação de linhas de quebra física de tooltips e modal de inspeção/comparação com [A]. Concluído (Commits `4a0d743` e `0ff81a0`).
-- [x] **Fase 7.2 (Motor Semântico de Ranges & Coloração Fiel de Requisitos):** Implementação de `GamePT_ExtractNumbersWithRanges`, paridade estrita de placeholders, captura de cor nativa de requisitos via `GetTextColor()` e sincronização com Turtle WoW. Concluído e testado no jogo (Commit `f9f6f4d`).
-- [x] **Fase 7.3B (Grimório — Motor de Descrições Dinâmicas de Feitiços):** Criação de `Data/SpellDescriptions_ptBR.lua` e `CM:GamePT_SpellDesc` para traduzir o texto descritivo do efeito de feitiços de classe, raciais e gerais, preservando números reais de dano, cura e duração capturados do tooltip. Integrado em `card:ShowSpell` de `UI/MainMenu.lua`.
-- [x] **Fase 7.4 (Motor de Auras & Efeitos - Buffs / Debuffs):** 156 auras e efeitos em `CM_Langs["ptBR"].game.buffs` com fallback inteligente para `GamePT_Spell`. Integrado no PlayerFrame e MainMenu.
+- [x] **Fase 7.2 (Motor Semântico de Ranges & Coloração Fiel de Requisitos):** Implementação de `GameLOC_ExtractNumbersWithRanges`, paridade estrita de placeholders, captura de cor nativa de requisitos via `GetTextColor()` e sincronização com Turtle WoW. Concluído e testado no jogo (Commit `f9f6f4d`).
+- [x] **Fase 7.3B (Grimório — Motor de Descrições Dinâmicas de Feitiços):** Criação de `Data/SpellDescriptions_ptBR.lua` e `CM:GameLOC_SpellDesc` para traduzir o texto descritivo do efeito de feitiços de classe, raciais e gerais, preservando números reais de dano, cura e duração capturados do tooltip. Integrado em `card:ShowSpell` de `UI/MainMenu.lua`.
+- [x] **Fase 7.4 (Motor de Auras & Efeitos - Buffs / Debuffs):** 156 auras e efeitos em `CM_Langs["ptBR"].game.buffs` com fallback inteligente para `GameLOC_Spell`. Integrado no PlayerFrame e MainMenu.
 - [x] **Fase 7.5 (Bolsas & Equipamentos — TUDO NA BAG):** Tradução total no `card:ShowItem`:
-  1. `GamePT_Item`: Catálogo com 176 itens clássicos em `CM_Langs["ptBR"].game.items`.
-  2. `GamePT_EquipLoc`: Mapeamento de 28 slots de equipamento Blizzard (INVTYPE_* e texto).
-  3. `GamePT_ItemSubType`: Mapeamento de todos os tipos e subtipos de armas, armaduras, consumíveis e bolsas.
-  4. `GamePT_ItemStat`: Motor regex dinâmico para linhas de dano, velocidade, armadura, bloqueio, atributos (+X Força, +Y Vigor...), resistências, durabilidade, requisitos de nível/classe/raça/profissão, vínculos ("Vinculado" / "Único") e efeitos de Uso/Equipar. Zero inglês remanescente na bolsa.
+  1. `GameLOC_Item`: Catálogo com 176 itens clássicos em `CM_Langs["ptBR"].game.items`.
+  2. `GameLOC_EquipLoc`: Mapeamento de 28 slots de equipamento Blizzard (INVTYPE_* e texto).
+  3. `GameLOC_ItemSubType`: Mapeamento de todos os tipos e subtipos de armas, armaduras, consumíveis e bolsas.
+  4. `GameLOC_ItemStat`: Motor regex dinâmico para linhas de dano, velocidade, armadura, bloqueio, atributos (+X Força, +Y Vigor...), resistências, durabilidade, requisitos de nível/classe/raça/profissão, vínculos ("Vinculado" / "Único") e efeitos de Uso/Equipar. Zero inglês remanescente na bolsa.
 
 ---
 
 ### 🟢 Status da Cobertura de 100% do MainMenu (REVISADO — auditoria pós-Turtle):
 - [x] **Aba 1 (Bolsas / Bags — NOMES):** Nomes de itens por ID via `Data/ItemDB_ptBR.lua` (24.542 itens, `tools/build_itemdb.py`, Turtle vence vanilla). Slots, subtipos, preço de venda, footer OK.
-- [ ] **Aba 1 (Bolsas / Bags — DESCRIÇÕES/USO):** `GamePT_ItemStat` cobre só padrões genéricos (poção/comida/stats). Textos de USO de itens de missão (frases únicas de lore) permanecem em inglês. Requer Fase 8 (ItemDescDB).
+- [ ] **Aba 1 (Bolsas / Bags — DESCRIÇÕES/USO):** `GameLOC_ItemStat` cobre só padrões genéricos (poção/comida/stats). Textos de USO de itens de missão (frases únicas de lore) permanecem em inglês. Requer Fase 8 (ItemDescDB).
 - [x] **Aba 2 (Feitiços / Spells — NOMES/ranks/atributos):** Nomes, graus, escolas, custo/tempo/alcance/recarga OK.
 - [ ] **Aba 2 (Feitiços / Spells — DESCRIÇÕES):** `SpellDescriptions_ptBR.lua` cobre subset via regex exato do inglês; resto cai em `TranslateUniversal` parcial. Requer Fase 8 (SpellDescDB).
 - [x] **Aba 3 (Talentos / Talents):** Títulos, ranks, requisitos de pontos por árvore, textos descritivos dinâmicos com preservação de ranges.
@@ -387,9 +387,9 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - [ ] Rebuild de `Data/SpellDescDB_ptBR.lua` e conferência via `/reload` e `/cm spelldbg`.
 
 #### 8.2 Runtime (Lua 5.0, 1.12 puro)
-- [x] `GamePT_SpellDesc` passo `descDBEntry` (`ByKey["nome|grau"]` + alias `"nome|"` p/ tooltip sem rank) com PT autoral e injeção ordenada de números nos `$`; templates legados mantidos; **fallback Universal removido do corpo — EN íntegro**; sem entrada no DBC, nome+texto vão p/ `ConsoleModeDB.spellMissing` (cap 60) — `/cm spellmissing`, diagnóstico `/cm spelldbg`.
+- [x] `GameLOC_SpellDesc` passo `descDBEntry` (`ByKey["nome|grau"]` + alias `"nome|"` p/ tooltip sem rank) com PT autoral e injeção ordenada de números nos `$`; templates legados mantidos; **fallback Universal removido do corpo — EN íntegro**; sem entrada no DBC, nome+texto vão p/ `ConsoleModeDB.spellMissing` (cap 60) — `/cm spellmissing`, diagnóstico `/cm spelldbg`.
 - [x] `.toc`: `SpellDescDB` + `SpellDescriptions` + `TalentDescriptions`.
-- [ ] `GamePT_ItemDesc(itemID)` + `card:ShowItem` p/ linhas `Uso/Equipar` quando o DB existir.
+- [ ] `GameLOC_ItemDesc(itemID)` + `card:ShowItem` p/ linhas `Uso/Equipar` quando o DB existir.
 
 #### 8.3 Validação e Parada Crítica
 - [ ] `luac -p` em todos os arquivos tocados.
@@ -472,9 +472,9 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 **Pipeline:**
 - **8.B-0 — Extração** (`tools/extract_itemdesc.py`): do SQLite → `tools/itemdesc_work.json` (só IDs Capy: `{id: {name, flavor, spells:[{trig, spell}]}}`).
-- **8.B-1 — Mapeamento gratuito**: índice `corpo-EN → spellID` + `GamePT_ItemDesc` consultando o `SpellDescDB` (sem duplicar PT; `validate_spell_vars` continua valendo). Resultado visível no primeiro `/reload`.
+- **8.B-1 — Mapeamento gratuito**: índice `corpo-EN → spellID` + `GameLOC_ItemDesc` consultando o `SpellDescDB` (sem duplicar PT; `validate_spell_vars` continua valendo). Resultado visível no primeiro `/reload`.
 - **8.B-2 — Lotes humanos**: ~2.107 textos em lotes de 50 (`input_itemdesc_*.json` → `output_itemdesc_*.json` → `apply` → `build_itemdescdb.py` → `Data/ItemDescDB_ptBR.lua` no formato `[id]={ use=, equip=, flavor= }`).
-- **8.B-3 — Runtime**: `GamePT_ItemDesc(itemID)` no topo do caminho Uso/Equipar/desc do `card:ShowItem` (`UI/MainMenu.lua:3072/3092`), antes do `ItemStat`; fallback intacto.
+- **8.B-3 — Runtime**: `GameLOC_ItemDesc(itemID)` no topo do caminho Uso/Equipar/desc do `card:ShowItem` (`UI/MainMenu.lua:3072/3092`), antes do `ItemStat`; fallback intacto.
 - **Parada crítica:** `/reload` na bolsa (poção/consumível com `Uso:` de magia + item de missão com flavor) antes de cada leva de lotes.
 - **STATUS 24/09/2026: 8.B-0/8.B-1/8.B-2 CONCLUÍDOS, PENDING VALIDAÇÃO EM JOGO** (push feito p/ validar em outro device; sem novas fases até o OK).
 
@@ -487,7 +487,7 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 - `tools/validate_itemflavor.py` — regras: PT não-vazio; PT≠EN; contagem de `$` igual; **multiset de números igual** (ordinais preservam dígito: `3rd`→`3º`); colisão de norma com PTs distintos = erro; exceções (só aviso): fragmento nome-próprio ≤3 palavras capitalizadas (`-Feralas`, `.`), onomatopeia sem vogais (murlocês), `Volume I/II/III`, `Arrrrrgh!`.
 - `tools/apply_itemdesc_batch.py` — valida, dá merge em `tools/item_pt_authoral.json` (`{EN-exato: PT}`; conflito de norma entre lotes = aborta) e roda o build.
 - `tools/build_itemdescdb.py` — gera `Data/ItemDescDB_ptBR.lua` (`ConsoleMode_ItemDescDB[id] = { s={ {t="use",s=SPELLID},... }, f="flavor PT" }`); links entram **só se a magia tem PT** no `spell_pt_authoral` (824 pulados → fallback `ItemStat`); flavor via norma do `itemdesc_flavor.json`. Precisa de `Temp/opencode/spell_en.json` (se perdido: `py tools/recover_spell_en.py`).
-- **Runtime** (`Data/Localization.lua`): `CM:GamePT_ApplySpellPT(entry, liveNorm)` (extraído do passo 4b do `GamePT_SpellDesc` sem mudar comportamento — 4b virou chamada); `CM:GamePT_ItemDesc(linkOuID, linhaViva)` (detecta trigger, separa sufixo `(…Cooldown)` e o traduz via `ItemStat`, injeta números vivos; devolve PT ou `nil`); hook no `card:ShowItem` (`UI/MainMenu.lua`, antes do `GamePT_ItemStat`). `.toc`: `Data\ItemDescDB_ptBR.lua` após `ItemDB_ptBR.lua`.
+- **Runtime** (`Data/Localization.lua`): `CM:GameLOC_ApplySpellPT(entry, liveNorm)` (extraído do passo 4b do `GameLOC_SpellDesc` sem mudar comportamento — 4b virou chamada); `CM:GameLOC_ItemDesc(linkOuID, linhaViva)` (detecta trigger, separa sufixo `(…Cooldown)` e o traduz via `ItemStat`, injeta números vivos; devolve PT ou `nil`); hook no `card:ShowItem` (`UI/MainMenu.lua`, antes do `GameLOC_ItemStat`). `.toc`: `Data\ItemDescDB_ptBR.lua` após `ItemDB_ptBR.lua`.
 - **Ledger:** `tools/batches/PROGRESSO_ITEMDESC.txt`.
 
 **Glossário canônico fixado (manter em correções futuras):** Twisting Nether=Espiral Etérea, Stormwind=Ventobravo, Ironforge=Altaforja, Thunder Bluff=Penhasco do Trovão, Undercity=Cidade Baixa, Silvermoon=Luaprata, Winterspring=Hibérnia (=QuestDB), Noblegarden=Jardinova, Wind Rider (montaria)=Mantícora, Cairne/Aldeia=Casco Sangrento (=QuestDB).
@@ -497,13 +497,13 @@ Cada fase gera um entregável **100% testável no jogo via `/reload`**. A IA **N
 
 #### 8.9 Frente OctoWoW — registro (para a próxima IA)
 > Infra 100% entregue e pushada; toggle **escondido** do menu por decisão do usuário (veredito DBC: nada a traduzir). Não reativar sem ordem.
-- **Núcleo** (`Data/Localization.lua`): `CM:IsOctoRealm()` (3 fontes: `GetRealmName()` + CVars `realmName`/`realmList`, substring `octo` — real `play.octowow.st` casa via realmlist); `CM:GetOctoMode/CycleOctoMode/HandleOctoCommand` (`ConsoleModeDB.octoCompat` = auto/on/off, `/cm octo [auto|on|off]`, `/reload` após troca); `CM:IsOctoActive()` (toggle vence; auto exige ptBR + reino); aviso de auto-detect uma vez/sessão em `ResolveLocale`; gating no `GamePT_SpellDesc` passo 0b (`ConsoleMode_SpellDescDB_Octo_*`, fonte `DB-PT-OCTO` no `spelldbg`, nil-safe sem o arquivo).
+- **Núcleo** (`Data/Localization.lua`): `CM:IsOctoRealm()` (3 fontes: `GetRealmName()` + CVars `realmName`/`realmList`, substring `octo` — real `play.octowow.st` casa via realmlist); `CM:GetOctoMode/CycleOctoMode/HandleOctoCommand` (`ConsoleModeDB.octoCompat` = auto/on/off, `/cm octo [auto|on|off]`, `/reload` após troca); `CM:IsOctoActive()` (toggle vence; auto exige ptBR + reino); aviso de auto-detect uma vez/sessão em `ResolveLocale`; gating no `GameLOC_SpellDesc` passo 0b (`ConsoleMode_SpellDescDB_Octo_*`, fonte `DB-PT-OCTO` no `spelldbg`, nil-safe sem o arquivo).
 - **Menu** (`UI/MainMenu.lua`, sub-aba `ADDON_CFG`): linha 3-estados `[ AUTOMÁTICO|ATIVADO|DESATIVADO ]` + status efetivo `[ ATIVO ]` verde/`[ INATIVO ]` cinza; `disabledIf` (cinza + msg `OCTO_EN_ONLY` quando idioma ≠ ptBR — avaliar no populate basta, idioma exige `/reload`); **`hiddenIf` (a linha se esconde sozinha enquanto `SpellDescDB_Octo_ByKey` vazio e reaparece quando houver tradução — é assim que está hoje)**; linhas ocultas nem são criadas (sem buraco no layout). Chaves `SYS_CFG_OCTO_*`/`OCTO_*` em `Data/Locales/{ptBR,enUS}/UI.lua` (paridade `check_locales.py` OK).
 - **Dados:** `Data/SpellDescDB_ptBR_octo.lua` (esqueleto válido, no `.toc` após o Capy) + `tools/mpq_orphans_octo.json` (veredito + md5s) + `tools/recover_spell_en.py` (recupera `spell_en.json` do `.lua` se o Temp for limpo).
 - **Fumo testado:** `Temp/opencode/octo_smoke.lua` e `itemdesc_smoke.lua` (harness fora do git; shims `table.getn`/`format` p/ lua moderno).
 
 #### 8.10 Hotfix 8.B-1 + FASE L — caçada aos legados telegráficos (24/09/2026)
-> Bug achado validando a 8.B no jogo (item 5059 "Garra de Escavação" com `Uso:` em EN): o scan desvia TODA linha `Uso:/Use:/Equipar:` para `itemData.desc` (`MainMenu.lua:630-631` e `4144-4145`, `MerchantMenu.lua:343-347` e `411-415`), mas o hook `GamePT_ItemDesc` só existia no loop de `statsLines`. Todo item de Uso caía no `ItemStat`/cru. **Conserto na lógica (zero hardcode):** `ShowItem` bloco `desc` tenta `GamePT_ItemDesc` antes do `ItemStat`; `MerchantMenu.useText` idem antes do cru. Commit `ac1771d` (pushado). REGRA DO USUÁRIO: nunca consertar o item, sempre a lógica.
+> Bug achado validando a 8.B no jogo (item 5059 "Garra de Escavação" com `Uso:` em EN): o scan desvia TODA linha `Uso:/Use:/Equipar:` para `itemData.desc` (`MainMenu.lua:630-631` e `4144-4145`, `MerchantMenu.lua:343-347` e `411-415`), mas o hook `GameLOC_ItemDesc` só existia no loop de `statsLines`. Todo item de Uso caía no `ItemStat`/cru. **Conserto na lógica (zero hardcode):** `ShowItem` bloco `desc` tenta `GameLOC_ItemDesc` antes do `ItemStat`; `MerchantMenu.useText` idem antes do cru. Commit `ac1771d` (pushado). REGRA DO USUÁRIO: nunca consertar o item, sempre a lógica.
 
 > **FASE L (Legados telegráficos → humanlike/Blizzlike):** auditor `audit_effective_sms.py` tem ponto cego (só regex + razão de chars; ex. `Digs up silithid eggs.`→`Desenterra ovo.` passava). Novo detector `tools/make_legado_batches.py` (word-ratio ≤50% + `SMS_EXTRA`) gerou `tools/legado_queue.json` = **783 candidatos** (`other` 78 + `tail` 705; zero `ranked`/`orphan` — núcleo humano segurou) em 16 lotes `input_legado_01..16.json` (50/lote).
 > - **Loop por lote:** tradutor `input_legado_NN` → `output_legado_NN` (`[{en,pt}]`, olho humano item a item, reescreve SMS / mantém bons) → `validate_pair` (`validate_spell_vars.py`) → `py tools/apply_batch.py` (valida + rebuild SpellDescDB) → `luac -p Data/SpellDescDB_ptBR.lua` → ledger `tools/batches/PROGRESSO_LEGADO.txt` → commit local por lote.
@@ -565,7 +565,7 @@ Interface/AddOns/ConsoleModeVanilla/
 │   │   ├── localization_xxYY.lua   <-- (só no teste de prova da Fase FINAL, removível)
 │   │   ├── flag_xxYY.tga           <-- (só no teste de prova da Fase FINAL, removível)
 │   │   └── ...                     <-- futuros: localization_esES.lua + flag_esES.tga, etc.
-│   ├── GamePT.lua                  <-- REMOVIDO do desenho (Fase 7 usa seção game={} dentro
+│   ├── GameLOC.lua                  <-- REMOVIDO do desenho (Fase 7 usa seção game={} dentro
 │   │                               de cada localization_<id>.lua: UM arquivo por idioma, sem exceção)
 │   └── QuestDB_ptBR.lua            <-- intocado (conteúdo de jogo, fora de escopo)
 ├── UI/

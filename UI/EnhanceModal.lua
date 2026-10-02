@@ -477,8 +477,8 @@ function EnhanceModal:ClassifyItem(bagID, slotID, itemLink, givenName)
     end
 
     local localizedName = name
-    if CM and CM.GamePT_Item then
-        local tr = CM:GamePT_Item(name, itemID or rawLink)
+    if CM and CM.GameLOC_Item then
+        local tr = CM:GameLOC_Item(name, itemID or rawLink)
         if tr and tr ~= "" then
             localizedName = tr
         end

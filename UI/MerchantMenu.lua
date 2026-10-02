@@ -2225,11 +2225,11 @@ function MerchantMenu:ShowItemDetail(item)
     end
     if card.useText then
         if item.desc and item.desc ~= "" then
-            -- 8.B-fix: linha de Uso passa pela magia linkada (GamePT_ItemDesc)
+            -- 8.B-fix: linha de Uso passa pela magia linkada (GameLOC_ItemDesc)
             -- antes de exibir; fallback mantido como antes (desc cru).
             local useLine = nil
-            if ConsoleMode and ConsoleMode.GamePT_ItemDesc then
-                useLine = ConsoleMode:GamePT_ItemDesc(item.link, item.desc)
+            if ConsoleMode and ConsoleMode.GameLOC_ItemDesc then
+                useLine = ConsoleMode:GameLOC_ItemDesc(item.link, item.desc)
             end
             card.useText:SetText("|cff00ff00" .. (useLine or item.desc) .. "|r")
             card.useText:Show()

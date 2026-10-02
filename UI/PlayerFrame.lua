@@ -812,7 +812,7 @@ function PF:Initialize()
                     local titleObj = getglobal("GameTooltipTextLeft1")
                     if titleObj and titleObj:GetText() then
                         local rawName = titleObj:GetText()
-                        local trans = (ConsoleMode and ConsoleMode.GamePT_Buff) and ConsoleMode:GamePT_Buff(rawName) or rawName
+                        local trans = (ConsoleMode and ConsoleMode.GameLOC_Buff) and ConsoleMode:GameLOC_Buff(rawName) or rawName
                         if trans and trans ~= rawName then
                             titleObj:SetText(trans)
                         end
@@ -874,7 +874,7 @@ function PF:Initialize()
                 local titleObj = getglobal("GameTooltipTextLeft1")
                 if titleObj and titleObj:GetText() then
                     local rawName = titleObj:GetText()
-                    local trans = (ConsoleMode and ConsoleMode.GamePT_Buff) and ConsoleMode:GamePT_Buff(rawName) or rawName
+                    local trans = (ConsoleMode and ConsoleMode.GameLOC_Buff) and ConsoleMode:GameLOC_Buff(rawName) or rawName
                     if trans and trans ~= rawName then
                         titleObj:SetText(trans)
                     end

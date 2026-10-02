@@ -473,6 +473,7 @@ CM_Langs["ptBR"].strings = {
     ENHANCE_EMPTY_EQUIP = "Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)",
     ENHANCE_EMPTY_BAGS = "Aba Na Mochila ativa\n(Aguardando Fase 5 para listar itens da bolsa)",
     ENHANCE_NO_EQUIP_FOUND = "Nenhum equipamento compatível equipado.\nPressione [RB] para verificar itens na mochila.",
+    ENHANCE_NO_CURRENT_ENCHANT = "Nenhum aprimoramento ativo",
     MAIL_TITLE = "|cffe09a15CORREIO|r",
     MAIL_CLOSE = "Sair",
     MAIL_COL_INBOX = "CAIXA DE ENTRADA",

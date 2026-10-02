@@ -480,6 +480,7 @@ CM_Langs["enUS"].strings = {
     ENHANCE_EMPTY_EQUIP = "Equipped tab active\n(Awaiting Phase 3 to list equipped items)",
     ENHANCE_EMPTY_BAGS = "Bags tab active\n(Awaiting Phase 5 to list bag items)",
     ENHANCE_NO_EQUIP_FOUND = "No compatible equipment equipped.\nPress [RB] to check items in bags.",
+    ENHANCE_NO_CURRENT_ENCHANT = "No active enhancement",
     MAIL_TITLE = "|cffe09a15MAIL|r",
     MAIL_CLOSE = "Exit",
     MAIL_COL_INBOX = "INBOX",

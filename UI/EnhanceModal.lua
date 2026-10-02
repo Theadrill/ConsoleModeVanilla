@@ -551,6 +551,125 @@ end
 -- ----------------------------------------------------------------------------
 -- 6b. VARREDURA DE ITENS EQUIPADOS E COMPATIBILIDADE (Fase 3)
 -- ----------------------------------------------------------------------------
+function EnhanceModal:ScanItemEnhancement(slotID, bagID, itemSlotID)
+    if not scanTip then return nil end
+
+    scanTip:ClearLines()
+    if slotID then
+        scanTip:SetInventoryItem("player", slotID)
+    elseif bagID and itemSlotID then
+        scanTip:SetBagItem(bagID, itemSlotID)
+    else
+        return nil
+    end
+
+    local numLines = scanTip:NumLines() or 0
+    if numLines <= 1 then
+        -- Fallback nativo para armas equipadas se a tooltip estiver vazia
+        if slotID and (slotID == 16 or slotID == 17) and GetWeaponEnchantInfo then
+            local hasMH, mhExp, _, hasOH, ohExp, _ = GetWeaponEnchantInfo()
+            if (slotID == 16 and hasMH) or (slotID == 17 and hasOH) then
+                if MainMenu and MainMenu.GetWeaponEnchantDetails then
+                    local wName = MainMenu:GetWeaponEnchantDetails(slotID)
+                    if wName and wName ~= "" then
+                        local exp = (slotID == 16 and mhExp) or ohExp or 0
+                        local mins = math.floor(exp / 60000)
+                        if mins > 0 then
+                            return wName .. " (" .. mins .. " min)"
+                        else
+                            return wName
+                        end
+                    end
+                end
+            end
+        end
+        return nil
+    end
+
+    local tempEnhance = nil
+    local permEnchant = nil
+
+    for l = 2, numLines do
+        local leftObj = getglobal("ConsoleModeEnhanceScanTipTextLeft" .. l)
+        if leftObj then
+            local text = leftObj:GetText()
+            if text and text ~= "" then
+                local r, g, b = leftObj:GetTextColor()
+                local isGreen = (g and g > 0.70 and r and r < 0.35 and b and b < 0.35)
+                local hasDuration = string.find(text, "%(%d+%s*min%)")
+                    or string.find(text, "%(%d+%s*sec%)")
+                    or string.find(text, "%(%d+%s*seg%)")
+                    or string.find(text, "%(%d+%s*hr%)")
+                    or string.find(text, "%(%d+%s*cargas?%)")
+                    or string.find(text, "%(%d+%s*charges?%)")
+
+                if isGreen or hasDuration then
+                    local lower = string.lower(text)
+                    local isIgnored = string.find(lower, "^equip")
+                        or string.find(lower, "^equipar")
+                        or string.find(lower, "^chance")
+                        or string.find(lower, "^use")
+                        or string.find(lower, "^usar")
+                        or string.find(lower, "^set")
+                        or string.find(lower, "^conjunto")
+                        or string.find(lower, "feitiço:")
+                        or string.find(lower, "spell:")
+                        or string.find(lower, "^classes")
+                        or string.find(lower, "^requer")
+                        or string.find(lower, "^requires")
+                        or string.find(lower, "^durab")
+                        or string.find(lower, "^<")
+
+                    if not isIgnored then
+                        -- Se tem formato ou palavra-chave de aprimoramento temporário
+                        if hasDuration or string.find(lower, "afiado") or string.find(lower, "sharpened")
+                            or string.find(lower, "peso") or string.find(lower, "weightstone")
+                            or string.find(lower, "óleo") or string.find(lower, "oil")
+                            or string.find(lower, "veneno") or string.find(lower, "poison") then
+                            if not tempEnhance then
+                                tempEnhance = text
+                            end
+                        else
+                            if not permEnchant then
+                                permEnchant = text
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- Se não encontrou temporário nas linhas, mas GetWeaponEnchantInfo confirma para armas
+    if not tempEnhance and slotID and (slotID == 16 or slotID == 17) and GetWeaponEnchantInfo then
+        local hasMH, mhExp, _, hasOH, ohExp, _ = GetWeaponEnchantInfo()
+        if (slotID == 16 and hasMH) or (slotID == 17 and hasOH) then
+            if MainMenu and MainMenu.GetWeaponEnchantDetails then
+                local wName = MainMenu:GetWeaponEnchantDetails(slotID)
+                if wName and wName ~= "" then
+                    local exp = (slotID == 16 and mhExp) or ohExp or 0
+                    local mins = math.floor(exp / 60000)
+                    if mins > 0 then
+                        tempEnhance = wName .. " (" .. mins .. " min)"
+                    else
+                        tempEnhance = wName
+                    end
+                end
+            end
+        end
+    end
+
+    if tempEnhance and permEnchant and tempEnhance ~= permEnchant then
+        if string.len(tempEnhance .. " • " .. permEnchant) <= 38 then
+            return tempEnhance .. " • " .. permEnchant
+        else
+            return tempEnhance
+        end
+    end
+
+    return tempEnhance or permEnchant
+end
+
 function EnhanceModal:GetEquippedSlotInfo(slotID)
     local link = GetInventoryItemLink("player", slotID)
     local texture = GetInventoryItemTexture("player", slotID)
@@ -644,6 +763,8 @@ function EnhanceModal:GetEquippedSlotInfo(slotID)
         end
     end
 
+    local enchantText = self:ScanItemEnhancement(slotID)
+
     return {
         slotID        = slotID,
         link          = link or rawLink,
@@ -656,6 +777,7 @@ function EnhanceModal:GetEquippedSlotInfo(slotID)
         itemType      = itemType or "",
         subType       = subType or "",
         equipLoc      = equipLoc or "",
+        enchantText   = enchantText,
     }
 end
 
@@ -852,10 +974,10 @@ function EnhanceModal:CreateUI()
     -- Dimmer de fundo
     self:CreateDimmer()
 
-    -- Frame Principal (500x380)
+    -- Frame Principal (500x485)
     local frame = CreateFrame("Frame", "ConsoleMode_EnhanceModalFrame", UIParent)
     frame:SetWidth(500)
-    frame:SetHeight(380)
+    frame:SetHeight(485)
     frame:SetPoint("CENTER", UIParent, "CENTER", 0, 30)
     frame:SetFrameStrata("DIALOG")
     frame:SetFrameLevel(30)
@@ -1000,8 +1122,8 @@ function EnhanceModal:CreateEquipRows(parent)
     if self.equipRows and table.getn(self.equipRows) > 0 then return end
     self.equipRows = {}
 
-    local rowH = 46
-    local rowGap = 4
+    local rowH = 68
+    local rowGap = 6
 
     for i = 1, 4 do
         local row = CreateFrame("Button", "ConsoleMode_EnhanceRow" .. i, parent)
@@ -1042,11 +1164,11 @@ function EnhanceModal:CreateEquipRows(parent)
         cur:Hide()
         row.cursor = cur
 
-        -- Ícone do item (34x34)
+        -- Ícone do item (42x42)
         local icon = row:CreateTexture(nil, "ARTWORK")
-        icon:SetWidth(34)
-        icon:SetHeight(34)
-        icon:SetPoint("LEFT", row, "LEFT", 20, 0)
+        icon:SetWidth(42)
+        icon:SetHeight(42)
+        icon:SetPoint("LEFT", row, "LEFT", 14, 0)
         row.icon = icon
 
         -- Borda do ícone com cor de qualidade
@@ -1064,7 +1186,7 @@ function EnhanceModal:CreateEquipRows(parent)
         local prompt = CreateFrame("Frame", nil, row)
         prompt:SetHeight(24)
         prompt:SetWidth(80)
-        prompt:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        prompt:SetPoint("RIGHT", row, "RIGHT", -10, 0)
         prompt:Hide()
 
         local pIcon = prompt:CreateTexture(nil, "OVERLAY")
@@ -1083,21 +1205,29 @@ function EnhanceModal:CreateEquipRows(parent)
 
         row.applyPrompt = prompt
 
-        -- Linha Superior: Slot e SubTipo
+        -- Linha 1: Slot e SubTipo
         local slotText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        slotText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 10, -2)
+        slotText:SetPoint("TOPLEFT", row, "TOPLEFT", 68, -8)
         slotText:SetPoint("RIGHT", prompt, "LEFT", -6, 0)
         slotText:SetJustifyH("LEFT")
-        self:ApplyFont(slotText, FONTS.titleBold, 13)
+        self:ApplyFont(slotText, FONTS.titleBold, 12)
         row.slotText = slotText
 
-        -- Linha Inferior: Nome do item colorido
+        -- Linha 2: Nome do item colorido
         local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        nameText:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 10, 2)
+        nameText:SetPoint("TOPLEFT", row, "TOPLEFT", 68, -25)
         nameText:SetPoint("RIGHT", prompt, "LEFT", -6, 0)
         nameText:SetJustifyH("LEFT")
         self:ApplyFont(nameText, FONTS.titleBold, 15)
         row.nameText = nameText
+
+        -- Linha 3: Status de Aprimoramento / Encantamento ativo
+        local enchantText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        enchantText:SetPoint("TOPLEFT", row, "TOPLEFT", 68, -45)
+        enchantText:SetPoint("RIGHT", prompt, "LEFT", -6, 0)
+        enchantText:SetJustifyH("LEFT")
+        self:ApplyFont(enchantText, FONTS.bodyBold, 12)
+        row.enchantText = enchantText
 
         -- Suporte a mouse/híbrido
         local rowIdx = i
@@ -1156,6 +1286,15 @@ function EnhanceModal:RenderEquippedTab()
 
             row.slotText:SetText("|cffffd100" .. string.upper(itemInfo.slotName or "") .. "|r" .. subTypePart)
             row.nameText:SetText((qCol.hex or "|cffffffff") .. (itemInfo.name or "Item") .. "|r")
+
+            if row.enchantText then
+                if itemInfo.enchantText and itemInfo.enchantText ~= "" then
+                    row.enchantText:SetText("|cff00ff00" .. itemInfo.enchantText .. "|r")
+                else
+                    local noEnc = (CM.T and CM:T("ENHANCE_NO_CURRENT_ENCHANT")) or "Nenhum aprimoramento ativo"
+                    row.enchantText:SetText("|cff666666" .. noEnc .. "|r")
+                end
+            end
 
             if row.applyPrompt and row.applyPrompt.text then
                 row.applyPrompt.text:SetText((CM.T and CM:T("ENHANCE_HINT_APPLY")) or "Aplicar")

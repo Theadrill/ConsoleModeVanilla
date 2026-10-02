@@ -11575,48 +11575,16 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
         return
     end
 
-    local currentZoneID = (self.GetPfQuestCurrentZoneID and self:GetPfQuestCurrentZoneID()) or nil
     local playerFaction = UnitFactionGroup("player") or "Horde"
     local playerFacCode = (playerFaction == "Alliance" and "A") or "H"
 
-    -- Fallback: resolve zoneID via arquivo do mapa visualizado (cidades e mapas remotos)
-    -- GetPfQuestCurrentZoneID usa GetCurrentMapContinent/Zone (player), mas ao navegar no mapa o viewedFile é diferente
-    if not currentZoneID and mapCanvas and pfDB and pfDB.zones then
-        local viewedFile = (mapCanvas.currentMapFile and mapCanvas.currentMapFile ~= "" and mapCanvas.currentMapFile) or (self.GetCurrentMapFileName and self:GetCurrentMapFileName()) or (GetMapInfo and GetMapInfo()) or ""
-        local normViewed = viewedFile and string.lower(string.gsub(viewedFile, " ", "")) or ""
-        if normViewed ~= "" then
-            for _, tbl in pairs(pfDB.zones) do
-                if type(tbl) == "table" then
-                    for zid, zname in pairs(tbl) do
-                        if type(zname) == "string" and type(zid) == "number" then
-                            local normZ = string.lower(string.gsub(zname, " ", ""))
-                            if normZ == normViewed or string.lower(zname) == string.lower(viewedFile) then
-                                currentZoneID = zid
-                                break
-                            end
-                        end
-                    end
-                    if currentZoneID then break end
-                end
-            end
-        end
-        -- Último fallback: tenta via GetZoneText da zona visualizada se ainda nil (ex: ao abrir mapa sem mover)
-        if not currentZoneID then
-            local viewedZoneText = (mapCanvas.currentMapFile and string.gsub(mapCanvas.currentMapFile, "(%l)(%u)", "%1 %2")) or ""
-            -- tenta resolver via CM manual table
-            if viewedFile ~= "" and CM_ClassTrainersManualByZoneName and CM_ClassTrainersManualByZoneName[viewedFile] then
-                local sample = CM_ClassTrainersManualByZoneName[viewedFile][1]
-                if sample and sample.zoneID then currentZoneID = sample.zoneID end
-            end
-        end
-    end
-
-    if not currentZoneID and not ConsoleMode_CityServices and not CM_ClassTrainers then
-        for _, pin in ipairs(mapCanvas.npcPins) do pin:Hide() end
-        mapCanvas.hoveredNpcPin = nil
-        mapCanvas.hoveredNpcPinIdx = nil
-        return
-    end
+    local viewedFile = (mapCanvas and mapCanvas.currentMapFile and mapCanvas.currentMapFile ~= "" and mapCanvas.currentMapFile)
+                    or (self.GetCurrentMapFileName and self:GetCurrentMapFileName())
+                    or (GetMapInfo and GetMapInfo())
+                    or ""
+    local viewedZoneText = (GetZoneText and GetZoneText())
+                        or (GetRealZoneText and GetRealZoneText())
+                        or ""
 
     local containerForPins = mapCanvas.tilesContainer
     local effW = (containerForPins.GetWidth and containerForPins:GetWidth()) or (1002 * (mapCanvas.currentScale or 0.5))
@@ -11626,24 +11594,20 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
 
     local visiblePins = {}
 
-    -- 1. BASE AUTÔNOMA: ConsoleMode_CityServices (Prioridade Máxima nas Capitais e Cidades)
+    -- 1. BASE AUTÔNOMA: ConsoleMode_CityServices (Capitais)
     local cityKey = nil
     if ConsoleMode_CityServices then
-        local s = string.lower((viewedFile or "") .. " " .. (viewedZoneText or ""))
-        if string.find(s, "stormwind") or string.find(s, "ventobravo") then cityKey = "Stormwind"
+        local s = string.lower(viewedFile .. " " .. viewedZoneText)
+        if string.find(s, "ironforge") or string.find(s, "altaforja") then cityKey = "Ironforge"
+        elseif string.find(s, "stormwind") or string.find(s, "ventobravo") then cityKey = "Stormwind"
         elseif string.find(s, "ogrimmar") or string.find(s, "orgrimmar") then cityKey = "Orgrimmar"
-        elseif string.find(s, "ironforge") or string.find(s, "altaforja") then cityKey = "Ironforge"
         elseif string.find(s, "undercity") or string.find(s, "cidade baixa") then cityKey = "Undercity"
         elseif string.find(s, "darnassus") then cityKey = "Darnassus"
         elseif string.find(s, "thunder") or string.find(s, "penhasco") then cityKey = "Thunder Bluff"
-        elseif string.find(s, "booty") or string.find(s, "butim") then cityKey = "Booty Bay"
-        elseif string.find(s, "gadget") or string.find(s, "geringont") then cityKey = "Gadgetzan"
-        elseif string.find(s, "ratchet") or string.find(s, "catraca") then cityKey = "Ratchet"
-        elseif string.find(s, "everlook") or string.find(s, "visteterna") then cityKey = "Everlook"
         end
     end
 
-    if cityKey and ConsoleMode_CityServices[cityKey] then
+    if cityKey and ConsoleMode_CityServices and ConsoleMode_CityServices[cityKey] then
         local cityData = ConsoleMode_CityServices[cityKey]
         for npcID, sData in pairs(cityData) do
             local catKey = sData.cat or "OTHER"
@@ -11674,165 +11638,43 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             end
             return (a.name or "") < (b.name or "")
         end)
-    else
-        -- 2. Fallback para áreas externas fora de capitais: pfDB (se ativo) + CM_ClassTrainers
-        local viewedZoneNameForOthers = (GetZoneText and GetZoneText()) or (GetRealZoneText and GetRealZoneText()) or ""
-        if mapCanvas and mapCanvas.currentMapFile and mapCanvas.currentMapFile ~= "" then
-            if currentZoneID and pfDB and pfDB.zones then
-                for _, tbl in pairs(pfDB.zones) do
-                    if type(tbl) == "table" and tbl[currentZoneID] and type(tbl[currentZoneID]) == "string" then
-                        viewedZoneNameForOthers = tbl[currentZoneID]
-                        break
+    elseif CM_ClassTrainers then
+        -- 2. Fora das capitais: instrutores de classe pelo mapa se disponível
+        local normZone = string.lower(string.gsub(viewedZoneText, " ", ""))
+        local normFile = string.lower(string.gsub(viewedFile, " ", ""))
+        for className, list in pairs(CM_ClassTrainers) do
+            for _, t in ipairs(list) do
+                if t and t.zone and t.x and t.y then
+                    local normT = string.lower(string.gsub(t.zone, " ", ""))
+                    local match = false
+                    if (normT == normZone and normZone ~= "") or (normT == normFile and normFile ~= "") or (string.lower(t.zone) == string.lower(viewedZoneText) and viewedZoneText ~= "") then
+                        match = true
                     end
-                end
-            end
-            if viewedZoneNameForOthers == "" or viewedZoneNameForOthers == (GetZoneText and GetZoneText() or "") then
-                local mf = mapCanvas.currentMapFile
-                for _, tbl in pairs(pfDB.zones) do
-                    if type(tbl) == "table" then
-                        for zid, zname in pairs(tbl) do
-                            if type(zname) == "string" and type(zid) == "number" and string.lower(string.gsub(zname, " ", "")) == string.lower(string.gsub(mf, " ", "")) then
-                                viewedZoneNameForOthers = zname
+                    if match then
+                        local exists = false
+                        for _, vp in ipairs(visiblePins) do
+                            if vp.name == t.name and math.abs((vp.x or 0) - t.x) < 0.1 and math.abs((vp.y or 0) - t.y) < 0.1 then
+                                exists = true
                                 break
                             end
                         end
-                        if viewedZoneNameForOthers ~= "" and viewedZoneNameForOthers ~= (GetZoneText and GetZoneText() or "") then break end
-                    end
-                end
-                if viewedZoneNameForOthers == "" then viewedZoneNameForOthers = mf end
-            end
-        end
-        local normViewedZoneForOthers = viewedZoneNameForOthers and string.lower(string.gsub(viewedZoneNameForOthers, " ", "")) or ""
-        local viewedFileNormForOthers = (mapCanvas.currentMapFile and string.lower(string.gsub(mapCanvas.currentMapFile, " ", "")) or (self.GetCurrentMapFileName and string.lower(string.gsub(self:GetCurrentMapFileName() or "", " ", "")) or ""))
-        local altMapForOthers = CM_ClassTrainers_AltZoneMap or {}
-        local function IsCoordInViewedZone(cid)
-            if not cid then return false end
-            if currentZoneID and (cid == currentZoneID or (altMapForOthers[cid] and altMapForOthers[cid] == currentZoneID) or (altMapForOthers[currentZoneID] and altMapForOthers[currentZoneID] == cid)) then return true end
-            if pfDB and pfDB.zones then
-                local cname = nil
-                for _, tbl in pairs(pfDB.zones) do
-                    if type(tbl) == "table" and tbl[cid] and type(tbl[cid]) == "string" then cname = tbl[cid] break end
-                end
-                if cname then
-                    local normC = string.lower(string.gsub(cname, " ", ""))
-                    if normC == normViewedZoneForOthers and normViewedZoneForOthers ~= "" then return true end
-                    if normC == viewedFileNormForOthers and viewedFileNormForOthers ~= "" then return true end
-                    if string.lower(cname) == string.lower(viewedZoneNameForOthers) and viewedZoneNameForOthers ~= "" then return true end
-                end
-            end
-            return false
-        end
-
-        if pfDB and pfDB.units and pfDB.units.data and pfDB.meta then
-            local function ProcessCategory(catList, catType)
-                if not catList then return end
-                for npcID, fac in pairs(catList) do
-                    if fac == "AH" or fac == playerFacCode or fac == 0 or fac == "0" then
-                        local uData = pfDB.units.data[npcID]
-                        if uData and uData.coords then
-                            for _, coord in ipairs(uData.coords) do
-                                if IsCoordInViewedZone(coord[3]) then
-                                    local x, y = coord[1], coord[2]
-                                    local rawName = (pfDB.units.ptBR and pfDB.units.ptBR[npcID]) or
-                                                    (pfDB.units.enUS and pfDB.units.enUS[npcID]) or
-                                                    (pfDB.units[GetLocale()] and pfDB.units[GetLocale()][npcID]) or
-                                                    "NPC"
-                                    local npcName = (ConsoleMode and ConsoleMode.GetNPCDisplayName and ConsoleMode:GetNPCDisplayName(npcID, rawName)) or rawName
-                                    local npcRole = (ConsoleMode and ConsoleMode.GetNPCRole and ConsoleMode:GetNPCRole(npcID, NPC_SERVICE_NAMES[catType])) or NPC_SERVICE_NAMES[catType] or "Serviço"
-
-                                    table.insert(visiblePins, {
-                                        id = npcID,
-                                        name = npcName,
-                                        x = x,
-                                        y = y,
-                                        cat = catType,
-                                        icon = NPC_SERVICE_ICONS[catType] or "Interface\\Icons\\INV_Misc_QuestionMark",
-                                        role = npcRole,
-                                        prio = 4,
-                                    })
-                                end
-                            end
+                        if not exists then
+                            local classIcon = (CM_ClassTrainerIcons and CM_ClassTrainerIcons[className]) or NPC_SERVICE_ICONS["trainer"] or "Interface\\Icons\\INV_Misc_Book_09"
+                            local facLabel = (t.fac == "A" and "Aliança") or (t.fac == "H" and "Horda") or "Neutro"
+                            table.insert(visiblePins, {
+                                id = 90000 + table.getn(visiblePins),
+                                name = t.name,
+                                x = t.x,
+                                y = t.y,
+                                cat = "trainer",
+                                class = className,
+                                icon = classIcon,
+                                role = (NPC_SERVICE_NAMES["trainer"] or "Treinador") .. " (" .. className .. ") - " .. facLabel,
+                                prio = 2,
+                            })
                         end
                     end
                 end
-            end
-
-            ProcessCategory(pfDB.meta["innkeeper"], "innkeeper")
-            ProcessCategory(pfDB.meta["banker"], "banker")
-            ProcessCategory(pfDB.meta["auctioneer"], "auctioneer")
-            ProcessCategory(pfDB.meta["flight"], "flight")
-            ProcessCategory(pfDB.meta["repair"], "repair")
-            -- Trainer: pfDB.meta["trainer"] não existe no pfQuest Vanilla/Turtle; fallback por scan de nomes
-            if not pfDB.meta["trainer"] or not next(pfDB.meta["trainer"]) then
-                if not pfDB._trainerCache then
-                    pfDB._trainerCache = {}
-                    local scanSources = { pfDB.units and pfDB.units.enUS, pfDB.units and pfDB.units["enUS"], pfDB.units and pfDB.units.ptBR, pfDB.units and pfDB.units.loc }
-                    for _, src in ipairs(scanSources) do
-                        if src then
-                            for nid, nname in pairs(src) do
-                                if nname and (string.find(string.lower(nname), "trainer") or string.find(nname, "Treinador") or string.find(nname, "Instrutor") or string.find(nname, "Mestre")) then
-                                    pfDB._trainerCache[nid] = "AH"
-                                end
-                            end
-                        end
-                    end
-                end
-                ProcessCategory(pfDB._trainerCache, "trainer")
-            else
-                ProcessCategory(pfDB.meta["trainer"], "trainer")
-            end
-
-            if pfDB.professions then
-                for profName, profList in pairs(pfDB.professions) do
-                    ProcessCategory(profList, "profession")
-                end
-            end
-        end
-
-        -- Solução GENERALISTA: injeta trainers de qualquer zona cujo nome normalizado coincida com a zona atual
-        if CM_ClassTrainers then
-            local normZone = normViewedZoneForOthers
-            local normFile = viewedFileNormForOthers
-            for className, list in pairs(CM_ClassTrainers) do
-                for _, t in ipairs(list) do
-                    if t and t.zone and t.x and t.y then
-                        local normT = string.lower(string.gsub(t.zone, " ", ""))
-                        local match = false
-                        if normT == normZone and normZone ~= "" then match = true
-                        elseif normT == normFile and normFile ~= "" then match = true
-                        elseif t.zone == viewedZoneNameForOthers and viewedZoneNameForOthers ~= "" then match = true
-                        elseif string.lower(t.zone) == string.lower(viewedZoneNameForOthers) and viewedZoneNameForOthers ~= "" then match = true
-                        elseif currentZoneID and t.zoneID and (t.zoneID == currentZoneID or (CM_ClassTrainers_AltZoneMap and CM_ClassTrainers_AltZoneMap[t.zoneID] == currentZoneID) or (CM_ClassTrainers_AltZoneMap and CM_ClassTrainers_AltZoneMap[currentZoneID] == t.zoneID)) then match = true
-                        end
-                        if match then
-                            local exists=false
-                            for _, vp in ipairs(visiblePins) do
-                                if vp.name==t.name and math.abs((vp.x or 0)-t.x)<0.1 and math.abs((vp.y or 0)-t.y)<0.1 then exists=true break end
-                            end
-                            if not exists then
-                                local classIcon = (CM_ClassTrainerIcons and CM_ClassTrainerIcons[className]) or NPC_SERVICE_ICONS["trainer"] or "Interface\\Icons\\INV_Misc_Book_09"
-                                local facLabel = t.fac
-                                if facLabel == "A" then facLabel = "Aliança"
-                                elseif facLabel == "H" then facLabel = "Horda"
-                                else facLabel = "Neutro" end
-                                table.insert(visiblePins, { id=90000+table.getn(visiblePins), name=t.name, x=t.x, y=t.y, cat="trainer", class=className, icon=classIcon, role=NPC_SERVICE_NAMES["trainer"].." ("..className..") - "..facLabel, prio = 2 })
-                            end
-                        end
-                    end
-                end
-            end
-        elseif currentZoneID == 14 then
-            -- Fallback legado Durotar se CM_ClassTrainers não carregado
-            local customTrainers = {
-                { id=3157, name="Shikrik",   x=42.8, y=68.6, cat="trainer", icon=NPC_SERVICE_ICONS["trainer"], role=NPC_SERVICE_NAMES["trainer"], prio = 2 },
-                { id=3154, name="Jen'shan",  x=42.3, y=54.8, cat="trainer", icon=NPC_SERVICE_ICONS["trainer"], role=NPC_SERVICE_NAMES["trainer"], prio = 2 },
-                { id=3171, name="Thotar",    x=51.9, y=43.8, cat="trainer", icon=NPC_SERVICE_ICONS["trainer"], role=NPC_SERVICE_NAMES["trainer"], prio = 2 },
-                { id=3173, name="Swart",     x=51.1, y=44.3, cat="trainer", icon=NPC_SERVICE_ICONS["trainer"], role=NPC_SERVICE_NAMES["trainer"], prio = 2 },
-            }
-            for _, ct in ipairs(customTrainers) do
-                local exists=false
-                for _, vp in ipairs(visiblePins) do if vp.id==ct.id then exists=true; break end end
-                if not exists then table.insert(visiblePins, ct) end
             end
         end
     end

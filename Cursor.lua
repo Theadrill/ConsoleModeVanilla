@@ -33,6 +33,10 @@ end
 -- Show/MoveTo/Resync/UpdateState pode reacende-lo. Fora do MainMenu retorna
 -- false e o comportamento do cursor fica identico ao atual.
 local function MainMenuNavActive()
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then return false end
+    end
     if type(getglobal) ~= "function" then return false end
     local nav = nil
     local okG = pcall(function() nav = getglobal("ConsoleMode_MainMenuNav") end)
@@ -588,6 +592,26 @@ function Cursor:FindFirstVisibleButton(frame)
     
     local fname = frame:GetName() or ""
     
+    -- Para Diálogos Modais (StaticPopup1..4): preferir Botão 1 (Sim/OK/Aceitar), EditBox, ou Botão 2 (Não/Cancelar)
+    if string.find(fname, "^StaticPopup%d+$") then
+        local b1 = getglobal(fname .. "Button1")
+        if b1 and b1:IsVisible() and (not b1.IsEnabled or b1:IsEnabled() == 1 or b1:IsEnabled() == true) then
+            return b1
+        end
+        local eb = getglobal(fname .. "EditBox")
+        if eb and eb:IsVisible() then
+            return eb
+        end
+        local b2 = getglobal(fname .. "Button2")
+        if b2 and b2:IsVisible() and (not b2.IsEnabled or b2:IsEnabled() == 1 or b2:IsEnabled() == true) then
+            return b2
+        end
+        local b3 = getglobal(fname .. "Button3")
+        if b3 and b3:IsVisible() and (not b3.IsEnabled or b3:IsEnabled() == 1 or b3:IsEnabled() == true) then
+            return b3
+        end
+    end
+
     -- Para Main Menu (Console Hub): preferir primeiro slot da aba ativa (Bolsas, Magias, Configurações, etc.)
     if fname == "ConsoleModeMainMenuFrame" then
         local mm = CM.mainMenu
@@ -804,6 +828,24 @@ function Cursor:CollectButtons(frame, result)
     
     local fname = frame:GetName() or ""
     
+    -- Para Diálogos Modais Blizzard (StaticPopup1..4):
+    -- Coleta estritamente os botões de ação e campos visíveis para navegação limpa via D-Pad
+    if string.find(fname, "^StaticPopup%d+$") then
+        local b1 = getglobal(fname .. "Button1")
+        local b2 = getglobal(fname .. "Button2")
+        local b3 = getglobal(fname .. "Button3")
+        local editBox = getglobal(fname .. "EditBox")
+        local wideEditBox = getglobal(fname .. "WideEditBox")
+        local itemFrame = getglobal(fname .. "ItemFrame")
+        if editBox and editBox:IsVisible() then table.insert(result, editBox) end
+        if wideEditBox and wideEditBox:IsVisible() then table.insert(result, wideEditBox) end
+        if itemFrame and itemFrame:IsVisible() then table.insert(result, itemFrame) end
+        if b1 and b1:IsVisible() then table.insert(result, b1) end
+        if b2 and b2:IsVisible() then table.insert(result, b2) end
+        if b3 and b3:IsVisible() then table.insert(result, b3) end
+        return result
+    end
+
     -- Para SUCC_bag / SUCC_bagBank (Turtle-Dragonflight): coletar slots e botoes especiais
     if fname == "SUCC_bag" or fname == "SUCC_bagBank" then
         local size = frame.size or 140

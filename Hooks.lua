@@ -17,6 +17,10 @@ local Hooks = ConsoleMode.hooks
 -- ConsoleModeMainMenuFrame nao faz Enable/MoveTo inicial. Fora do MainMenu
 -- retorna false e o comportamento fica identico ao atual.
 local function MainMenuNavActive()
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then return false end
+    end
     if type(getglobal) ~= "function" then return false end
     local nav = nil
     local okG = pcall(function() nav = getglobal("ConsoleMode_MainMenuNav") end)
@@ -291,6 +295,8 @@ function Hooks:OnFrameShow(frame)
                 end
             end
         end)
+    elseif string.find(name, "^StaticPopup%d+$") then
+        Hooks:InitCursorOnFrame(frame)
     else
         -- Para frames normais, inicializa com delay pequeno (50ms)
         -- DEFAULT_CHAT_FRAME:AddMessage("|cff00ffff[CM OnFrameShow]|r Criando delay de 50ms antes de InitCursorOnFrame...") -- NOLOG 2026-09-14
@@ -357,6 +363,20 @@ end
 function Hooks:OnFrameHide(frame)
     if not frame then return end
     
+    local fName = (frame.GetName and frame:GetName()) or ""
+    if string.find(fName, "^StaticPopup%d+$") then
+        local Cursor = ConsoleMode.cursor
+        if Cursor and Cursor.state and Cursor.state.currentButton then
+            local curParent = Cursor.state.currentButton.GetParent and Cursor.state.currentButton:GetParent()
+            if curParent == frame or Cursor.state.currentButton == frame then
+                Cursor:Hide()
+                Cursor.state.currentButton = nil
+            end
+        end
+        Hooks:ProcessFrameHide(frame)
+        return
+    end
+
     -- Debounce: espera 100ms para confirmar que realmente fechou
     local debounce = CreateFrame("Frame")
     debounce:SetScript("OnUpdate", function()
@@ -567,7 +587,8 @@ function Hooks:Initialize()
                         local problematicFrames = { 
                             "TalentFrame", "WorldMapFrame", "SUCC_bag", "SUCC_bagBank", "pfBag", "pfBank", "BagshuiBagsFrame", "Bagnon",
                              "OptionsFrame", "AdvancedSettingsGUI", "TDF_AdvancedSettingsGUI", "myAddOnsFrame", "MAOptions", "KeyBindingFrame", "HelpFrame", "InspectFrame", "DressUpFrame", "ConsoleModeSettingsFrame",
-                             "aux_frame"
+                             "aux_frame",
+                             "StaticPopup1", "StaticPopup2", "StaticPopup3", "StaticPopup4"
                         }
                         for _, frameName in ipairs(problematicFrames) do
                             local frame = getglobal(frameName)

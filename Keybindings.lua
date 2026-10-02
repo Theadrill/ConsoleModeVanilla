@@ -941,15 +941,6 @@ function CM_Fixed(button)
             return
         end
 
-        -- Se houver mira ativa (cursor com glow / SpellIsTargeting), cancela a mira imediatamente
-        if SpellIsTargeting and SpellIsTargeting() then
-            SpellStopTargeting()
-            if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
-                pcall(function() ConsoleMode_EnhanceModal:Close() end)
-            end
-            return
-        end
-
         -- Se houver diálogo modal nativo (StaticPopup, ex: confirmar substituir encantamento)
         for i = 1, 4 do
             local sp = getglobal("StaticPopup" .. i)
@@ -967,6 +958,15 @@ function CM_Fixed(button)
                 end
                 return
             end
+        end
+
+        -- Se houver mira ativa (cursor com glow / SpellIsTargeting), cancela a mira imediatamente
+        if SpellIsTargeting and SpellIsTargeting() then
+            SpellStopTargeting()
+            if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+                pcall(function() ConsoleMode_EnhanceModal:Close() end)
+            end
+            return
         end
 
         if ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible() then
@@ -1233,6 +1233,34 @@ function CM_CursorMove(direction, keystate)
         return
     end
 
+    -- 0. Diálogos Modais Nativos (StaticPopup): Prioridade MÁXIMA no D-Pad
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then
+            if CM.cursor then
+                local curBtn = CM.cursor.state.currentButton
+                local curName = curBtn and curBtn:GetName() or ""
+                if not CM.cursor.state.enabled or not curBtn or not string.find(curName, "^StaticPopup" .. i) then
+                    local firstBtn = CM.cursor:FindFirstVisibleButton(sp)
+                    if firstBtn then
+                        CM.cursor:Enable()
+                        CM.cursor:MoveTo(firstBtn)
+                    end
+                end
+                if keystate == "up" then
+                    if CM.cursor.StopRepeat then CM.cursor:StopRepeat(direction) end
+                else
+                    if CM.cursor.StartRepeat then
+                        CM.cursor:StartRepeat(direction)
+                    else
+                        CM.cursor:MoveDirection(direction)
+                    end
+                end
+            end
+            return
+        end
+    end
+
     -- EnhanceModal: consome o D-Pad com exclusividade (impede vazamento para a bag de fundo)
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
         if keystate == "up" then
@@ -1282,6 +1310,32 @@ end
 
 function CM_CursorConfirm()
     if CM.keybindings.chatActive then return end
+
+    -- 0. Diálogos Modais Nativos (StaticPopup): Prioridade MÁXIMA no botão A
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then
+            if CM.cursor and CM.cursor.state and CM.cursor.state.currentButton and CM.cursor.state.currentButton:IsVisible() then
+                local btn = CM.cursor.state.currentButton
+                local btnName = btn:GetName() or ""
+                if string.find(btnName, "^StaticPopup" .. i) then
+                    if btn.Click then
+                        btn:Click("LeftButton")
+                    elseif btn:GetScript("OnClick") then
+                        pcall(btn:GetScript("OnClick"))
+                    end
+                    return
+                end
+            end
+            -- Fallback: aciona o botão 1 (Aceitar/Sim/OK)
+            local btn1 = getglobal("StaticPopup" .. i .. "Button1")
+            if btn1 and btn1:IsVisible() and btn1.Click then
+                btn1:Click()
+                return
+            end
+            return
+        end
+    end
 
     -- VK-2: A ativa a tecla em foco (OK em foco = confirma de verdade)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
@@ -1430,6 +1484,12 @@ end
 function CM_CursorUse()
     if CM.keybindings.chatActive then return end
 
+    -- Diálogos Modais Nativos (StaticPopup): sem ação no Y para isolar o diálogo
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then return end
+    end
+
     -- VK: Y cicla maiusculas (shift abc/ABC)
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.IsOpen and vk:IsOpen() then
@@ -1520,6 +1580,12 @@ end
 
 function CM_CursorSecondary(keystate)
     if CM.keybindings.chatActive then return end
+
+    -- Diálogos Modais Nativos (StaticPopup): sem ação no X para isolar o diálogo
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if sp and sp:IsVisible() then return end
+    end
 
     -- VK: X apaga com hold-to-repeat (down inicia, up para).
     -- NOTA: o repeat no soltar exige runOnUp="true" + keystate no

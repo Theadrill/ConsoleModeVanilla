@@ -124,10 +124,18 @@ local function MMNav_HideCursor()
     end
 end
 
+local function IsStaticPopupOpen()
+    for i = 1, 4 do
+        local sp = getglobal("StaticPopup" .. i)
+        if SafeIsVisible(sp) then return true end
+    end
+    return false
+end
+
 -- ----------------------------------------------------------------------------
 -- FASE 1: gate de atividade.
 -- true SOMENTE se MainMenu visivel E Merchant/Mail fechados E nenhum modal
--- (VK/Qty/ContextMenu/questDetailOverlay) aberto.
+-- (VK/Qty/ContextMenu/questDetailOverlay/StaticPopup) aberto.
 -- ----------------------------------------------------------------------------
 function Nav:IsActive()
     local mmFrame = getglobal("ConsoleModeMainMenuFrame")
@@ -139,6 +147,7 @@ function Nav:IsActive()
     if IsVKOpen() then return false end
     if IsQtyOpen() then return false end
     if IsContextMenuOpen() then return false end
+    if IsStaticPopupOpen() then return false end
     return true
 end
 

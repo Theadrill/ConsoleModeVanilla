@@ -1336,11 +1336,12 @@ function MainMenu:CreateEquipmentColumn(leftPanel)
         btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
         btn:SetScript("OnClick", function()
-            if arg1 == "RightButton" or (arg1 == "LeftButton" and not CursorHasItem() and not CursorHasSpell()) then
+            local isTargeting = (SpellIsTargeting and SpellIsTargeting())
+            if arg1 == "RightButton" or (arg1 == "LeftButton" and not CursorHasItem() and not CursorHasSpell() and not isTargeting) then
                 if this.invSlotID and CM.ui and CM.ui.contextMenu and CM.ui.contextMenu.OpenForEquipItem then
                     CM.ui.contextMenu:OpenForEquipItem(this.invSlotID, this)
                 end
-            elseif arg1 == "LeftButton" and (CursorHasItem() or CursorHasSpell()) then
+            elseif arg1 == "LeftButton" and (CursorHasItem() or CursorHasSpell() or isTargeting) then
                 if this.invSlotID then
                     PickupInventoryItem(this.invSlotID)
                 end
@@ -4973,6 +4974,12 @@ function MainMenu:SetupBagsPage(pageBags)
                 if hsID and tonumber(hsID) == 6948 then
                     isHearthstone = true
                 end
+            end
+
+            -- Detecta consumíveis de aprimoramento de alvo (EnhanceModal)
+            local enhanceInfo = CM.enhanceModal and CM.enhanceModal:ClassifyItem(itemData.bagID, itemData.slotID, itemData.link or itemData.rawLink)
+            if enhanceInfo then
+                CM.enhanceModal:OnItemUsed(itemData, enhanceInfo)
             end
 
             UseContainerItem(itemData.bagID, itemData.slotID)

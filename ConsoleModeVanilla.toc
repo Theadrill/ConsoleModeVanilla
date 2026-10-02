@@ -51,4 +51,5 @@ UI\VirtualKeyboard.lua
 UI\BagSplit.lua
 UI\QuantityPicker.lua
 UI\MailScreen.lua
+UI\EnhanceModal.lua
 Hooks.lua

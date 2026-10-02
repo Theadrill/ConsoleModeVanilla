@@ -4977,7 +4977,7 @@ function MainMenu:SetupBagsPage(pageBags)
             end
 
             -- Detecta consumíveis de aprimoramento de alvo (EnhanceModal)
-            local enhanceInfo = CM.enhanceModal and CM.enhanceModal:ClassifyItem(itemData.bagID, itemData.slotID, itemData.link or itemData.rawLink)
+            local enhanceInfo = CM.enhanceModal and CM.enhanceModal:ClassifyItem(itemData.bagID, itemData.slotID, itemData.link or itemData.rawLink, itemData.name)
             if enhanceInfo then
                 CM.enhanceModal:OnItemUsed(itemData, enhanceInfo)
             end

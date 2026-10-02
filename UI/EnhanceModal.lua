@@ -380,7 +380,7 @@ end
 -- ----------------------------------------------------------------------------
 -- 6. MOTOR DE CLASSIFICAÇÃO (Fase 1: Core Interceptor)
 -- ----------------------------------------------------------------------------
-function EnhanceModal:ClassifyItem(bagID, slotID, itemLink)
+function EnhanceModal:ClassifyItem(bagID, slotID, itemLink, givenName)
     local rawLink = itemLink or (bagID and slotID and GetContainerItemLink(bagID, slotID))
     if not rawLink then return nil end
 
@@ -461,8 +461,27 @@ function EnhanceModal:ClassifyItem(bagID, slotID, itemLink)
 
     local cfg = CATEGORY_CONFIG[category] or {}
     local name, _, quality, _, _, _, _, _, texture = GetItemInfo(rawLink)
+    if not name or name == "" then
+        name = givenName
+    end
+    if not name and bagID and slotID then
+        scanTip:ClearLines()
+        scanTip:SetBagItem(bagID, slotID)
+        local line1 = getglobal("ConsoleModeEnhanceScanTipTextLeft1")
+        if line1 and line1:GetText() then
+            name = line1:GetText()
+        end
+    end
     if not texture and bagID and slotID then
         texture = GetContainerItemInfo(bagID, slotID)
+    end
+
+    local localizedName = name
+    if CM and CM.GamePT_Item then
+        local tr = CM:GamePT_Item(name, itemID or rawLink)
+        if tr and tr ~= "" then
+            localizedName = tr
+        end
     end
 
     return {
@@ -473,7 +492,7 @@ function EnhanceModal:ClassifyItem(bagID, slotID, itemLink)
         validEquipTypes = cfg.validEquipTypes or {},
         itemID          = itemID,
         itemLink        = rawLink,
-        itemName        = name or "Item de Aprimoramento",
+        itemName        = localizedName or name or "Aprimoramento",
         itemQuality     = quality or 1,
         itemTexture     = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
         bagID           = bagID,

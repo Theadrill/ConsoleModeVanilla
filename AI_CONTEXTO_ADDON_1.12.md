@@ -101,13 +101,22 @@ Outro.lua
 5. SavedVariables: declarar no `.toc`, debugar em `WTF/Account/THEADRILL/.../SavedVariables.lua`.
 6. Não re-listar `Interface/AddOns` do zero — usar lista da seção 2 a menos que o usuário peça.
 
-## 7. Sessão de trabalho (definida no prompt, nunca neste arquivo)
+## 8. Integração com CapycraftDB (Banco de Dados Offline & ETL)
 
-* **Addon alvo:** `ConsoleModeVanilla` (WoW 1.12.1 / Turtle WoW)
-* **Modo:** [x] 1.12 puro / [ ] pode usar SuperWoW
-* **Objetivo / plano ativo:** **sempre informado pelo usuário no prompt de cada sessão.** Este arquivo NÃO define plano, fase ou objetivo — nunca assumir um por conta própria.
+* **Repositório Irmão:** [CapycraftDB](https://github.com/Theadrill/CapycraftDB) (geralmente localizado na pasta irmã `../CapycraftDB`, ex.: `C:\PROJETOS\CapycraftDB`).
+* **Papel do CapycraftDB:** É o Data Lake e compilador ETL offline (em Python) que extrai dados oficiais do Turtle WoW 1.18.1 (`db.capycraft.org`) e compila para arquivos Lua 5.0 leves e otimizados para o `ConsoleModeVanilla`.
+* **Arquivos Entregues ao Addon (em `ConsoleModeVanilla/Data/`):**
+  * `Data/CityServicesDB.lua`: Tabela `ConsoleMode_CityServices` com todos os serviços e NPCs legítimos das capitais (Ironforge, Stormwind, Orgrimmar, Undercity), com coordenadas exatas (0-100) do mapa da cidade e categorias (`BANK`, `AUCTION`, `FLIGHT`, `INN`, `PROF_*`, `TRAINER_*`).
+  * `Data/NPCs/`: `NPC_Core.lua` (API rápida `ConsoleMode:GetNPCData(id)`), `NPC_Data_Kalimdor.lua`, `NPC_Data_EasternKingdoms.lua`, `NPC_Data_CustomTurtle.lua`.
+  * `Data/Locales/ptBR/NPC.lua`: Dicionário oficial Blizzlike pt-BR por ID de NPC consumido por `ConsoleMode:GetNPCDisplayName(id, enUS)` e `ConsoleMode:GetNPCRole(id, enUS)`.
+* **Consumo na UI (`UI/MainMenu.lua`):**
+  * Na função `MainMenu:UpdateNPCServicePins(mapCanvas)`: **Zero dependência de `pfDB`/`pfQuest` nas capitais**. O mapa detecta a cidade via `cityKey` e plota até 200 pins de serviços e até 160 botões interativos na lista lateral (`npcListPanel`) com scroll dinâmico, highlight 3x ao hover e centralização de câmera ao clique.
+* **Fluxo de Atualização entre Máquinas:**
+  * O cache bruto com 84.152 arquivos JSON do CapycraftDB está salvo no GitHub Release `v1.0-cache` do repositório `CapycraftDB`.
+  * Ao clonar em uma máquina nova: basta rodar `python tools/download_cache.py` dentro da pasta `CapycraftDB` para restaurar todo o data lake offline, e `python tools/export_to_addon.py` caso queira recompilar e injetar novas versões no `ConsoleModeVanilla`.
 
 ---
+
 > [!CAUTION]
 > ## REGRAS FINAIS — RECONFIRMAR NO FIM
 > 1. **NÃO FAZER PUSH ENQUANTO O USUÁRIO NÃO PEDIR.** Quando pedir, fazer push **UMA VEZ SÓ** e aguardar o próximo pedido explícito para fazer push de novo.

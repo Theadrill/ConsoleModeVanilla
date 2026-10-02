@@ -5405,7 +5405,7 @@ end
 
 function Nav:OnNextTab()
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
-        ConsoleMode_EnhanceModal:SetTab("BAGS")
+        ConsoleMode_EnhanceModal:CycleTabs(1)
         return true
     end
     if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end
@@ -5418,7 +5418,7 @@ end
 
 function Nav:OnPrevTab()
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
-        ConsoleMode_EnhanceModal:SetTab("EQUIP")
+        ConsoleMode_EnhanceModal:CycleTabs(-1)
         return true
     end
     if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end

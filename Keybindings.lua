@@ -451,7 +451,7 @@ modFrame:SetScript("OnUpdate", function()
         -- 1. R1 (CTRL) = Próxima Aba Principal / Alternar Colunas
         if ctrlNow and not wasCtrlDown then
             if isEnhance then
-                ConsoleMode_EnhanceModal:SetTab("BAGS")
+                ConsoleMode_EnhanceModal:CycleTabs(1)
             elseif isMerchant then
                 ConsoleMode_MerchantMenu:ToggleColumn(1)
             elseif isMail and ConsoleMode_MailScreen.ShowComposeScreen then
@@ -1694,9 +1694,9 @@ function CM_NavNextTab()
         ConsoleMode_MerchantMenu:ToggleColumn(1)
         return
     end
-    -- EnhanceModal: RB vai para a aba NA MOCHILA
+    -- EnhanceModal: RB alterna abas
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
-        ConsoleMode_EnhanceModal:SetTab("BAGS")
+        ConsoleMode_EnhanceModal:CycleTabs(1)
         return
     end
     -- M4.1 Mail: RB/R1 vai p/ a tela COMPOR (LB volta p/ INBOX).
@@ -1735,9 +1735,9 @@ function CM_NavPrevTab()
         ConsoleMode_MerchantMenu:ToggleColumn(-1)
         return
     end
-    -- EnhanceModal: LB volta para a aba EQUIPADOS
+    -- EnhanceModal: LB alterna abas
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
-        ConsoleMode_EnhanceModal:SetTab("EQUIP")
+        ConsoleMode_EnhanceModal:CycleTabs(-1)
         return
     end
     -- M4.1 Mail: LB/L1 volta p/ a tela INBOX (RB vai p/ COMPOR).

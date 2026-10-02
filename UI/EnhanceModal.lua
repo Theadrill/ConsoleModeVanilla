@@ -749,12 +749,25 @@ function EnhanceModal:SetTab(tabKey)
     PlaySound("igCharacterInfoTab")
 end
 
-function EnhanceModal:ToggleTab()
-    if self.currentTab == "EQUIP" then
-        self:SetTab("BAGS")
+function EnhanceModal:CycleTabs(dir)
+    dir = dir or 1
+    if dir > 0 then
+        if self.currentTab == "EQUIP" then
+            self:SetTab("BAGS")
+        else
+            self:SetTab("EQUIP")
+        end
     else
-        self:SetTab("EQUIP")
+        if self.currentTab == "BAGS" then
+            self:SetTab("EQUIP")
+        else
+            self:SetTab("BAGS")
+        end
     end
+end
+
+function EnhanceModal:ToggleTab()
+    self:CycleTabs(1)
 end
 
 -- ----------------------------------------------------------------------------

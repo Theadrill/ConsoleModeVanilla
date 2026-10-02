@@ -837,6 +837,12 @@ function Hooks:CloseTopFrame()
         return true
     end
 
+    -- Modal de Aprimoramento (EnhanceModal)
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        ConsoleMode_EnhanceModal:Close()
+        return true
+    end
+
     -- M3 Mail: pilha de B (modal -> detalhe -> janela), com guards nil.
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
         if ConsoleMode_MailScreen.IsConfirmOpen and ConsoleMode_MailScreen:IsConfirmOpen() then

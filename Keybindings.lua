@@ -444,12 +444,15 @@ modFrame:SetScript("OnUpdate", function()
         local isQuestsTab = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and (mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS")
         local isMerchant = ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen
         local isMail = ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen
+        local isEnhance = ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen
         local pageSystem = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and mm and mm.tabContainer and mm.tabContainer.pages and mm.tabContainer.pages["SYSTEM"]
         local isSysSubActive = pageSystem and pageSystem:IsVisible() and (pageSystem.activeSubScreen == "BINDS" or pageSystem.activeSubScreen == "PICKER")
 
         -- 1. R1 (CTRL) = Próxima Aba Principal / Alternar Colunas
         if ctrlNow and not wasCtrlDown then
-            if isMerchant then
+            if isEnhance then
+                ConsoleMode_EnhanceModal:SetTab("BAGS")
+            elseif isMerchant then
                 ConsoleMode_MerchantMenu:ToggleColumn(1)
             elseif isMail and ConsoleMode_MailScreen.ShowComposeScreen then
                 -- M4.1: RB/R1 vai p/ a tela COMPOR (substitui ToggleColumn).
@@ -1691,6 +1694,11 @@ function CM_NavNextTab()
         ConsoleMode_MerchantMenu:ToggleColumn(1)
         return
     end
+    -- EnhanceModal: RB vai para a aba NA MOCHILA
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        ConsoleMode_EnhanceModal:SetTab("BAGS")
+        return
+    end
     -- M4.1 Mail: RB/R1 vai p/ a tela COMPOR (LB volta p/ INBOX).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
         if ConsoleMode_MailScreen.ShowComposeScreen then
@@ -1725,6 +1733,11 @@ function CM_NavPrevTab()
     end
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:ToggleColumn(-1)
+        return
+    end
+    -- EnhanceModal: LB volta para a aba EQUIPADOS
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        ConsoleMode_EnhanceModal:SetTab("EQUIP")
         return
     end
     -- M4.1 Mail: LB/L1 volta p/ a tela INBOX (RB vai p/ COMPOR).
@@ -1846,6 +1859,11 @@ function CM_SmartTab()
     if (CM.keybindings and CM.keybindings.navigationMode) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) then
         if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
             ConsoleMode_MerchantMenu:ToggleColumn(-1)
+            return
+        end
+        -- EnhanceModal: L1/SmartTab alterna abas
+        if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+            ConsoleMode_EnhanceModal:ToggleTab()
             return
         end
         -- M4.1 Mail: L1 volta p/ a tela INBOX (troca de telas, sem ToggleColumn).

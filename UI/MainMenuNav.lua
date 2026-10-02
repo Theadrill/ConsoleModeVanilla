@@ -4947,6 +4947,11 @@ function Nav:OnConfirm()
 end
 
 function Nav:OnCancel()
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        ConsoleMode_EnhanceModal:Close()
+        return true
+    end
+
     local MM = Nav_GetMM()
     if MM and MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
         if type(MM.HideTalentInspectModal) == "function" then
@@ -5399,6 +5404,10 @@ function Nav:OnSecondary()
 end
 
 function Nav:OnNextTab()
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        ConsoleMode_EnhanceModal:SetTab("BAGS")
+        return true
+    end
     if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end
     local ps = Nav_GetBindsState()
     local sub = ps and ps.activeSubScreen
@@ -5408,6 +5417,10 @@ function Nav:OnNextTab()
 end
 
 function Nav:OnPrevTab()
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        ConsoleMode_EnhanceModal:SetTab("EQUIP")
+        return true
+    end
     if Nav.focus and (Nav.focus.zone == "SYS_BINDS" or Nav.focus.zone == "SYS_PICKER") then return true end
     local ps = Nav_GetBindsState()
     local sub = ps and ps.activeSubScreen

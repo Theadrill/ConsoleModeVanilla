@@ -41,6 +41,24 @@ local QUALITY_COLORS = {
     [5] = { r = 1.00, g = 0.50, b = 0.00, hex = "|cffff8000" }, -- Lendário
 }
 
+local NINESLICE = {
+    texture    = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Carved_9Slides.tga",
+    cornerSize = 48,
+    drawLayer  = "BACKGROUND",
+    uv = {
+        col = {
+            { 0.0000, 0.2500 },
+            { 0.2500, 0.5000 },
+            { 0.5000, 0.7500 },
+        },
+        row = {
+            { 0.0000, 0.2500 },
+            { 0.2500, 0.5000 },
+            { 0.5000, 0.7500 },
+        }
+    }
+}
+
 -- ----------------------------------------------------------------------------
 -- 2. TABELA DE IDs E REGRAS DE CLASSIFICAÇÃO (Vanilla 1.12.1 + Turtle WoW)
 -- ----------------------------------------------------------------------------
@@ -176,9 +194,191 @@ scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
 EnhanceModal.isOpen        = false
 EnhanceModal.activeContext = nil
 EnhanceModal.currentTab    = "EQUIP" -- "EQUIP" ou "BAGS"
+EnhanceModal.frame         = nil
+EnhanceModal.dimmer        = nil
 
 -- ----------------------------------------------------------------------------
--- 5. MOTOR DE CLASSIFICAÇÃO (Fase 1: Core Interceptor)
+-- 5. HELPERS DE UI E 9-SLICE (Padrão idêntico ao MailScreen.lua)
+-- ----------------------------------------------------------------------------
+function EnhanceModal:ApplyFont(fontString, fontPath, size, outline, shadowOffset, shadowColor)
+    if not fontString then return end
+    fontPath = fontPath or FONTS.bodyBold
+    size = size or 12
+    outline = outline or ""
+
+    local ok = fontString:SetFont(fontPath, size, outline)
+    if not ok then
+        fontString:SetFont(FONTS.fallback, size, outline)
+    end
+
+    local so = shadowOffset or { 1, -1 }
+    local sc = shadowColor or { 0, 0, 0, 0.90 }
+    fontString:SetShadowOffset(so[1], so[2])
+    fontString:SetShadowColor(sc[1], sc[2], sc[3], sc[4])
+end
+
+function EnhanceModal:Create9Slice(parent, texturePath, cornerSize, uvMap, drawLayer)
+    if not parent or not texturePath then return nil end
+
+    cornerSize = cornerSize or NINESLICE.cornerSize
+    uvMap = uvMap or NINESLICE.uv
+    drawLayer = drawLayer or NINESLICE.drawLayer
+
+    local slices = {}
+
+    local function makeSlice(name, u1, u2, v1, v2)
+        local tex = parent:CreateTexture(nil, drawLayer)
+        tex:SetTexture(texturePath)
+        tex:SetTexCoord(u1, u2, v1, v2)
+        return tex
+    end
+
+    local c = uvMap.col
+    local r = uvMap.row
+
+    -- Cantos
+    slices.topLeft = makeSlice("TopLeft", c[1][1], c[1][2], r[1][1], r[1][2])
+    slices.topLeft:SetWidth(cornerSize)
+    slices.topLeft:SetHeight(cornerSize)
+    slices.topLeft:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
+
+    slices.topRight = makeSlice("TopRight", c[3][1], c[3][2], r[1][1], r[1][2])
+    slices.topRight:SetWidth(cornerSize)
+    slices.topRight:SetHeight(cornerSize)
+    slices.topRight:SetPoint("TOPRIGHT", parent, "TOPRIGHT", 0, 0)
+
+    slices.bottomLeft = makeSlice("BottomLeft", c[1][1], c[1][2], r[3][1], r[3][2])
+    slices.bottomLeft:SetWidth(cornerSize)
+    slices.bottomLeft:SetHeight(cornerSize)
+    slices.bottomLeft:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 0, 0)
+
+    slices.bottomRight = makeSlice("BottomRight", c[3][1], c[3][2], r[3][1], r[3][2])
+    slices.bottomRight:SetWidth(cornerSize)
+    slices.bottomRight:SetHeight(cornerSize)
+    slices.bottomRight:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", 0, 0)
+
+    -- Bordas Horizontais
+    slices.top = makeSlice("Top", c[2][1], c[2][2], r[1][1], r[1][2])
+    slices.top:SetHeight(cornerSize)
+    slices.top:SetPoint("TOPLEFT", slices.topLeft, "TOPRIGHT", 0, 0)
+    slices.top:SetPoint("TOPRIGHT", slices.topRight, "TOPLEFT", 0, 0)
+
+    slices.bottom = makeSlice("Bottom", c[2][1], c[2][2], r[3][1], r[3][2])
+    slices.bottom:SetHeight(cornerSize)
+    slices.bottom:SetPoint("BOTTOMLEFT", slices.bottomLeft, "BOTTOMRIGHT", 0, 0)
+    slices.bottom:SetPoint("BOTTOMRIGHT", slices.bottomRight, "BOTTOMLEFT", 0, 0)
+
+    -- Bordas Verticais
+    slices.left = makeSlice("Left", c[1][1], c[1][2], r[2][1], r[2][2])
+    slices.left:SetWidth(cornerSize)
+    slices.left:SetPoint("TOPLEFT", slices.topLeft, "BOTTOMLEFT", 0, 0)
+    slices.left:SetPoint("BOTTOMLEFT", slices.bottomLeft, "TOPLEFT", 0, 0)
+
+    slices.right = makeSlice("Right", c[3][1], c[3][2], r[2][1], r[2][2])
+    slices.right:SetWidth(cornerSize)
+    slices.right:SetPoint("TOPRIGHT", slices.topRight, "BOTTOMRIGHT", 0, 0)
+    slices.right:SetPoint("BOTTOMRIGHT", slices.bottomRight, "TOPRIGHT", 0, 0)
+
+    -- Centro
+    slices.center = makeSlice("Center", c[2][1], c[2][2], r[2][1], r[2][2])
+    slices.center:SetPoint("TOPLEFT", slices.topLeft, "BOTTOMRIGHT", 0, 0)
+    slices.center:SetPoint("BOTTOMRIGHT", slices.bottomRight, "TOPLEFT", 0, 0)
+
+    return slices
+end
+
+function EnhanceModal:CreateDimmer()
+    if self.dimmer then return end
+
+    local dimmer = CreateFrame("Frame", "ConsoleMode_EnhanceDimmer", UIParent)
+    dimmer:SetAllPoints(UIParent)
+    dimmer:SetFrameStrata("DIALOG")
+    dimmer:SetFrameLevel(25)
+    dimmer:EnableMouse(true)
+    dimmer:Hide()
+
+    local dimTex = dimmer:CreateTexture(nil, "BACKGROUND")
+    dimTex:SetAllPoints(dimmer)
+    dimTex:SetTexture(0.0, 0.0, 0.0, 0.65)
+    dimmer.texture = dimTex
+
+    dimmer:SetScript("OnMouseDown", function()
+        EnhanceModal:Close()
+    end)
+
+    self.dimmer = dimmer
+end
+
+function EnhanceModal:BuildIconHints(parent, frameName, hints, bottomOffset)
+    bottomOffset = tonumber(bottomOffset) or 20
+    local container = CreateFrame("Frame", frameName, parent)
+    container:SetHeight(32)
+    container:SetPoint("CENTER", parent, "BOTTOM", 0, bottomOffset)
+
+    local totalWidth = 0
+    local widgets = {}
+
+    local numHints = table.getn(hints)
+    for i = 1, numHints do
+        local hint = hints[i]
+        local groupFrame = CreateFrame("Frame", nil, container)
+        groupFrame:SetHeight(32)
+
+        local currentX = 0
+        local numIcons = table.getn(hint.icons)
+        for k = 1, numIcons do
+            local iconKey = hint.icons[k]
+            local texPath = ICONS[iconKey]
+            if texPath then
+                local iconTex = groupFrame:CreateTexture(nil, "OVERLAY")
+                local curW = 28
+                local curH = 28
+                iconTex:SetWidth(curW)
+                iconTex:SetHeight(curH)
+                iconTex:SetTexture(texPath)
+                iconTex:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
+                currentX = currentX + curW + 2
+            end
+        end
+
+        currentX = currentX + 4
+
+        local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
+        self:ApplyFont(label, FONTS.bodyBold, 15)
+        label:SetText(hint.label)
+        label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+
+        local textW = math.floor(label:GetStringWidth() or 40)
+        currentX = currentX + textW
+
+        if i < numHints then
+            local sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            sep:SetPoint("LEFT", groupFrame, "LEFT", currentX + 4, 0)
+            self:ApplyFont(sep, FONTS.medium, 13)
+            sep:SetText("|cff666666•|r")
+            currentX = currentX + 4 + 12
+        end
+
+        groupFrame:SetWidth(currentX)
+        table.insert(widgets, groupFrame)
+        totalWidth = totalWidth + currentX
+    end
+
+    local startX = -math.floor(totalWidth / 2)
+    local curX = startX
+    local numWidgets = table.getn(widgets)
+    for w = 1, numWidgets do
+        local widget = widgets[w]
+        widget:SetPoint("LEFT", container, "CENTER", curX, 0)
+        curX = curX + widget:GetWidth()
+    end
+    container:SetWidth(totalWidth)
+    return container
+end
+
+-- ----------------------------------------------------------------------------
+-- 6. MOTOR DE CLASSIFICAÇÃO (Fase 1: Core Interceptor)
 -- ----------------------------------------------------------------------------
 function EnhanceModal:ClassifyItem(bagID, slotID, itemLink)
     local rawLink = itemLink or (bagID and slotID and GetContainerItemLink(bagID, slotID))
@@ -282,23 +482,286 @@ function EnhanceModal:ClassifyItem(bagID, slotID, itemLink)
 end
 
 -- ----------------------------------------------------------------------------
--- 6. HOOK / INTERCEPTADOR DE USO (Fase 1: Interceptor & Log de Diagnóstico)
+-- 7. CONSTRUÇÃO DA INTERFACE (Fase 2: View Shell & Ciclo de Vida)
+-- ----------------------------------------------------------------------------
+function EnhanceModal:CreateTabIndicator(parent)
+    local bar = CreateFrame("Frame", "ConsoleMode_EnhanceTabIndicator", parent)
+    bar:SetHeight(24)
+    bar:SetWidth(360)
+    bar:SetPoint("TOP", parent, "TOP", 0, -82)
+
+    local function BuildTabGroup(text)
+        local g = CreateFrame("Frame", nil, bar)
+        g:SetHeight(24)
+        g:SetWidth(360)
+        g:SetPoint("CENTER", bar, "CENTER", 0, 0)
+
+        local label = g:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        label:SetPoint("CENTER", g, "CENTER", 0, 0)
+        EnhanceModal:ApplyFont(label, FONTS.titleBold, 17)
+        label:SetText("|cffffffff" .. text .. "|r")
+
+        local lb = g:CreateTexture(nil, "OVERLAY")
+        lb:SetWidth(24)
+        lb:SetHeight(24)
+        lb:SetPoint("RIGHT", label, "LEFT", -6, 0)
+        lb:SetTexture(ICONS.LB)
+
+        local rb = g:CreateTexture(nil, "OVERLAY")
+        rb:SetWidth(24)
+        rb:SetHeight(24)
+        rb:SetPoint("LEFT", label, "RIGHT", 6, 0)
+        rb:SetTexture(ICONS.RB)
+
+        return g
+    end
+
+    bar.groupEquip = BuildTabGroup("EQUIPADOS")
+    bar.groupBags  = BuildTabGroup("NA MOCHILA")
+    bar.groupBags:Hide()
+
+    self.tabIndicator = bar
+    return bar
+end
+
+function EnhanceModal:UpdateTabIndicator()
+    local bar = self.tabIndicator
+    if not bar then return end
+    if self.currentTab == "BAGS" then
+        if bar.groupEquip then bar.groupEquip:Hide() end
+        if bar.groupBags then bar.groupBags:Show() end
+    else
+        if bar.groupBags then bar.groupBags:Hide() end
+        if bar.groupEquip then bar.groupEquip:Show() end
+    end
+end
+
+function EnhanceModal:CreateUI()
+    if self.frame then return end
+
+    -- Dimmer de fundo
+    self:CreateDimmer()
+
+    -- Frame Principal (500x380)
+    local frame = CreateFrame("Frame", "ConsoleMode_EnhanceModalFrame", UIParent)
+    frame:SetWidth(500)
+    frame:SetHeight(380)
+    frame:SetPoint("CENTER", UIParent, "CENTER", 0, 30)
+    frame:SetFrameStrata("DIALOG")
+    frame:SetFrameLevel(30)
+    frame:EnableMouse(true)
+    frame:Hide()
+
+    -- 9-Slice esculpido idêntico ao MailScreen
+    self.slices = self:Create9Slice(
+        frame,
+        NINESLICE.texture,
+        NINESLICE.cornerSize,
+        NINESLICE.uv,
+        NINESLICE.drawLayer
+    )
+
+    table.insert(UISpecialFrames, "ConsoleMode_EnhanceModalFrame")
+
+    frame:SetScript("OnHide", function()
+        if EnhanceModal.isOpen then
+            EnhanceModal:Close()
+        end
+    end)
+
+    -- Botão Sair no cabeçalho
+    local closeBtn = CreateFrame("Button", "ConsoleMode_EnhanceCloseBtn", frame)
+    closeBtn:SetWidth(84)
+    closeBtn:SetHeight(26)
+    closeBtn:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -24, -18)
+    closeBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    closeBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    closeBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local closeIcon = closeBtn:CreateTexture(nil, "OVERLAY")
+    closeIcon:SetWidth(22)
+    closeIcon:SetHeight(22)
+    closeIcon:SetPoint("LEFT", closeBtn, "LEFT", 5, 0)
+    closeIcon:SetTexture(ICONS.B)
+
+    local closeTxt = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    closeTxt:SetPoint("LEFT", closeIcon, "RIGHT", 4, 0)
+    self:ApplyFont(closeTxt, FONTS.titleBold, 14)
+    closeTxt:SetText("Sair")
+    closeTxt:SetTextColor(0.90, 0.85, 0.75, 1.0)
+
+    closeBtn:SetScript("OnClick", function()
+        EnhanceModal:Close()
+    end)
+
+    -- Cabeçalho do Item Sendo Aplicado
+    local itemHeader = CreateFrame("Frame", nil, frame)
+    itemHeader:SetHeight(44)
+    itemHeader:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -20)
+    itemHeader:SetPoint("TOPRIGHT", closeBtn, "TOPLEFT", -10, 0)
+
+    -- Ícone do item com borda
+    local iconFrame = CreateFrame("Frame", nil, itemHeader)
+    iconFrame:SetWidth(36)
+    iconFrame:SetHeight(36)
+    iconFrame:SetPoint("LEFT", itemHeader, "LEFT", 0, 0)
+    iconFrame:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    iconFrame:SetBackdropBorderColor(0.70, 0.60, 0.45, 0.90)
+
+    local iconTex = iconFrame:CreateTexture(nil, "ARTWORK")
+    iconTex:SetPoint("TOPLEFT", iconFrame, "TOPLEFT", 3, -3)
+    iconTex:SetPoint("BOTTOMRIGHT", iconFrame, "BOTTOMRIGHT", -3, 3)
+    iconTex:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+    itemHeader.iconTex = iconTex
+
+    -- Nome e Subtítulo
+    local titleText = itemHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    titleText:SetPoint("TOPLEFT", iconFrame, "TOPRIGHT", 10, -2)
+    self:ApplyFont(titleText, FONTS.titleBold, 17)
+    titleText:SetText("Aprimoramento")
+    itemHeader.titleText = titleText
+
+    local subText = itemHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    subText:SetPoint("TOPLEFT", titleText, "BOTTOMLEFT", 0, -2)
+    self:ApplyFont(subText, FONTS.medium, 13)
+    subText:SetText("Selecione onde deseja aplicar")
+    subText:SetTextColor(0.70, 0.70, 0.70, 0.90)
+    itemHeader.subText = subText
+
+    frame.itemHeader = itemHeader
+
+    -- Indicador de Abas Centralizado: [LB] EQUIPADOS [RB]
+    self:CreateTabIndicator(frame)
+
+    -- Divisor sutil
+    local divider = frame:CreateTexture(nil, "ARTWORK")
+    divider:SetHeight(1)
+    divider:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -112)
+    divider:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -28, -112)
+    divider:SetTexture(0.35, 0.28, 0.20, 0.60)
+    frame.divider = divider
+
+    -- Área de Conteúdo Central (Onde entrarão as listas nas Fases 3 e 5)
+    local content = CreateFrame("Frame", "ConsoleMode_EnhanceContent", frame)
+    content:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -120)
+    content:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -28, 54)
+    content:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    content:SetBackdropColor(0.04, 0.04, 0.04, 0.65)
+    content:SetBackdropBorderColor(0.40, 0.32, 0.22, 0.70)
+    frame.content = content
+
+    -- Placeholder temporário da Fase 2
+    local placeholder = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    placeholder:SetPoint("CENTER", content, "CENTER", 0, 0)
+    self:ApplyFont(placeholder, FONTS.bodyBold, 15)
+    placeholder:SetTextColor(0.75, 0.75, 0.75, 0.90)
+    placeholder:SetText("Aba Equipados ativa\n(Aguardando Fase 3 para listar itens)")
+    content.placeholder = placeholder
+
+    -- Footer com prompts em texturas oficiais
+    local footerHints = {
+        { icons = { "A" },        label = "Aplicar" },
+        { icons = { "B" },        label = "Cancelar" },
+        { icons = { "LB", "RB" }, label = "Alternar Aba" },
+    }
+    frame.footer = self:BuildIconHints(frame, "ConsoleMode_EnhanceFooter", footerHints, 18)
+
+    self.frame = frame
+end
+
+function EnhanceModal:UpdateContentPlaceholder()
+    if not self.frame or not self.frame.content or not self.frame.content.placeholder then return end
+    if self.currentTab == "BAGS" then
+        self.frame.content.placeholder:SetText("Aba Na Mochila ativa\n(Aguardando Fase 5 para listar itens da bolsa)")
+    else
+        self.frame.content.placeholder:SetText("Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)")
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 8. CICLO DE VIDA (Open / Close / SetTab / ToggleTab)
+-- ----------------------------------------------------------------------------
+function EnhanceModal:Open(itemData, enhanceInfo)
+    self:CreateUI()
+    if not self.frame then return end
+
+    self.activeContext = enhanceInfo or self.activeContext
+    self.isOpen = true
+    self.currentTab = "EQUIP"
+
+    -- Atualiza cabeçalho com informações do consumível
+    if self.activeContext and self.frame.itemHeader then
+        local qCol = QUALITY_COLORS[self.activeContext.itemQuality or 1] or QUALITY_COLORS[1]
+        self.frame.itemHeader.titleText:SetText((qCol.hex or "|cffffffff") .. (self.activeContext.itemName or "Aprimoramento") .. "|r")
+        self.frame.itemHeader.subText:SetText("Alvo: " .. (self.activeContext.categoryLabel or "Equipamento"))
+        if self.activeContext.itemTexture then
+            self.frame.itemHeader.iconTex:SetTexture(self.activeContext.itemTexture)
+        end
+    end
+
+    self:UpdateTabIndicator()
+    self:UpdateContentPlaceholder()
+
+    if self.dimmer then self.dimmer:Show() end
+    self.frame:Show()
+
+    PlaySound("igMainMenuOpen")
+end
+
+function EnhanceModal:Close()
+    if not self.isOpen and not (self.frame and self.frame:IsVisible()) then return end
+
+    self.isOpen = false
+
+    -- Cancela o modo de mira da engine do WoW se ainda estiver ativo
+    if SpellIsTargeting and SpellIsTargeting() then
+        SpellStopTargeting()
+    end
+
+    if self.frame then self.frame:Hide() end
+    if self.dimmer then self.dimmer:Hide() end
+
+    self.activeContext = nil
+    PlaySound("igMainMenuClose")
+end
+
+function EnhanceModal:SetTab(tabKey)
+    if tabKey ~= "EQUIP" and tabKey ~= "BAGS" then return end
+    if self.currentTab == tabKey then return end
+
+    self.currentTab = tabKey
+    self:UpdateTabIndicator()
+    self:UpdateContentPlaceholder()
+    PlaySound("igCharacterInfoTab")
+end
+
+function EnhanceModal:ToggleTab()
+    if self.currentTab == "EQUIP" then
+        self:SetTab("BAGS")
+    else
+        self:SetTab("EQUIP")
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 9. HOOK / INTERCEPTADOR DE USO (Chamado ao usar o consumível nas bolsas)
 -- ----------------------------------------------------------------------------
 function EnhanceModal:OnItemUsed(itemData, enhanceInfo)
     if not enhanceInfo then return end
 
-    self.activeContext = enhanceInfo
-    self.currentTab = "EQUIP"
-
-    local logMsg = string.format("|cff00ff00[EnhanceModal]|r Aprimoramento detectado: %s (Categoria: %s, Alvos: %s)",
-        enhanceInfo.itemName or "Desconhecido",
-        enhanceInfo.category or "N/A",
-        enhanceInfo.categoryLabel or "N/A"
-    )
-
-    if CM.Logger and CM.Logger.Log then
-        CM.Logger:Log(logMsg)
-    else
-        DEFAULT_CHAT_FRAME:AddMessage(logMsg)
-    end
+    self:Open(itemData, enhanceInfo)
 end

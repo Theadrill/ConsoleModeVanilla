@@ -2026,7 +2026,17 @@ end
 function Cursor:CycleTabs(direction)
     local dir = direction or 1
     
-    -- 0. Se a janela de Mercador do ConsoleMode estiver aberta
+    -- 0. Se o Modal de Aprimoramento estiver aberto
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        if dir > 0 then
+            ConsoleMode_EnhanceModal:SetTab("BAGS")
+        else
+            ConsoleMode_EnhanceModal:SetTab("EQUIP")
+        end
+        return true
+    end
+
+    -- 0.1. Se a janela de Mercador do ConsoleMode estiver aberta
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
         ConsoleMode_MerchantMenu:ToggleColumn(dir)
         return true

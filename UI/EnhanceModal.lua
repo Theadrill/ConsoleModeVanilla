@@ -229,6 +229,16 @@ EnhanceModal.activeContext = nil
 EnhanceModal.currentTab    = "EQUIP" -- "EQUIP" ou "BAGS"
 EnhanceModal.frame         = nil
 EnhanceModal.dimmer        = nil
+EnhanceModal.equippedItems = {}
+EnhanceModal.selectedIndex = 1
+EnhanceModal.equipRows     = {}
+EnhanceModal.repeatState   = {
+    direction    = nil,
+    timer        = 0,
+    initialDelay = 0.35,
+    interval     = 0.12,
+}
+EnhanceModal.repeatTicker  = nil
 
 -- ----------------------------------------------------------------------------
 -- 5. HELPERS DE UI E 9-SLICE (Padrão idêntico ao MailScreen.lua)
@@ -539,6 +549,236 @@ function EnhanceModal:ClassifyItem(bagID, slotID, itemLink, givenName)
 end
 
 -- ----------------------------------------------------------------------------
+-- 6b. VARREDURA DE ITENS EQUIPADOS E COMPATIBILIDADE (Fase 3)
+-- ----------------------------------------------------------------------------
+function EnhanceModal:GetEquippedSlotInfo(slotID)
+    local link = GetInventoryItemLink("player", slotID)
+    local texture = GetInventoryItemTexture("player", slotID)
+    if not link and not texture then
+        return nil
+    end
+
+    local rawLink = nil
+    local nameFromLink = nil
+    local colorHex = nil
+    local itemID = nil
+
+    if link then
+        local _, _, cHex, rLink, nLink = string.find(link, "|c(%x+)|H(item:[^|]+)|h%[(.-)%]|h|r")
+        if rLink then
+            rawLink = rLink
+            nameFromLink = nLink
+            colorHex = cHex
+        else
+            local _, _, idStr = string.find(link, "item:(%d+)")
+            if idStr then
+                itemID = tonumber(idStr)
+                rawLink = "item:" .. idStr .. ":0:0:0"
+            end
+        end
+        if not itemID and rawLink then
+            local _, _, idStr = string.find(rawLink, "item:(%d+)")
+            if idStr then
+                itemID = tonumber(idStr)
+            end
+        end
+    end
+
+    local name, itemQuality, itemType, subType, equipLoc
+    local queryTarget = rawLink or itemID or nameFromLink or link
+    if queryTarget then
+        local itemName, _, rarity, _, iType, sType, _, eqLoc = GetItemInfo(queryTarget)
+        name = itemName or nameFromLink
+        itemQuality = rarity
+        itemType = iType
+        subType = sType
+        equipLoc = eqLoc
+    end
+
+    -- Fallback via Tooltip Scanner
+    if (not name or not subType or subType == "") and slotID then
+        scanTip:ClearLines()
+        scanTip:SetInventoryItem("player", slotID)
+        local line1 = getglobal("ConsoleModeEnhanceScanTipTextLeft1")
+        if line1 and line1:GetText() and (not name or name == "") then
+            name = line1:GetText()
+        end
+        -- Inspeciona linhas 2 a 4 para subtipo e equipLoc se faltar
+        local numLines = scanTip:NumLines() or 0
+        local maxL = numLines
+        if maxL > 5 then maxL = 5 end
+        for l = 2, maxL do
+            local rObj = getglobal("ConsoleModeEnhanceScanTipTextRight" .. l)
+            local lObj = getglobal("ConsoleModeEnhanceScanTipTextLeft" .. l)
+            if rObj and rObj:GetText() and (not subType or subType == "") then
+                local rt = rObj:GetText()
+                if rt ~= "" and not string.find(rt, "%d") then
+                    subType = rt
+                end
+            end
+            if lObj and lObj:GetText() and (not equipLoc or equipLoc == "") then
+                local lt = lObj:GetText()
+                if string.find(lt, "Shield") or string.find(lt, "Escudo") then
+                    equipLoc = "INVTYPE_SHIELD"
+                end
+            end
+        end
+    end
+
+    -- Se itemQuality ainda for nil, tenta inferir pela cor hexadecimal do link
+    if not itemQuality and colorHex then
+        if colorHex == "ff9d9d9d" then itemQuality = 0
+        elseif colorHex == "ffffffff" then itemQuality = 1
+        elseif colorHex == "ff1eff00" then itemQuality = 2
+        elseif colorHex == "ff0070dd" then itemQuality = 3
+        elseif colorHex == "ffa335ee" then itemQuality = 4
+        elseif colorHex == "ffff8000" then itemQuality = 5
+        end
+    end
+
+    local localizedName = name
+    if CM and CM.GameLOC_Item and (name or itemID or rawLink) then
+        local tr = CM:GameLOC_Item(name, itemID or rawLink)
+        if tr and tr ~= "" then
+            localizedName = tr
+        end
+    end
+
+    return {
+        slotID        = slotID,
+        link          = link or rawLink,
+        rawLink       = rawLink,
+        itemID        = itemID,
+        texture       = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
+        rawName       = name,
+        name          = localizedName or name or "Item",
+        quality       = itemQuality or 1,
+        itemType      = itemType or "",
+        subType       = subType or "",
+        equipLoc      = equipLoc or "",
+    }
+end
+
+function EnhanceModal:IsItemCompatible(itemInfo, category)
+    if not itemInfo or not category then return false end
+    local cfg = CATEGORY_CONFIG[category]
+    if not cfg then return false end
+
+    local slot = itemInfo.slotID
+    local st = string.lower(itemInfo.subType or "")
+    local nm = string.lower(itemInfo.rawName or "")
+    local eq = itemInfo.equipLoc or ""
+
+    -- 1. KITS DE ARMADURA: qualquer peça equipada nos slots 5 (Peito), 7 (Pernas), 10 (Mãos), 8 (Pés)
+    if category == "ARMOR_KIT" then
+        if slot == 5 or slot == 7 or slot == 10 or slot == 8 then
+            return true
+        end
+        if eq == "INVTYPE_CHEST" or eq == "INVTYPE_ROBE" or eq == "INVTYPE_LEGS" or eq == "INVTYPE_HANDS" or eq == "INVTYPE_FEET" then
+            return true
+        end
+        return false
+    end
+
+    -- 2. MIRA DE ENGENHARIA: slot 18 (Ranged), exceto varinhas e relíquias
+    if category == "SCOPE" then
+        if slot == 18 then
+            if string.find(st, "wand") or string.find(st, "varinha") or string.find(nm, "wand") or string.find(nm, "varinha") then
+                return false
+            end
+            if string.find(st, "thrown") or string.find(st, "arremesso") or string.find(st, "relic") or string.find(st, "relíquia") then
+                return false
+            end
+            return true
+        end
+        return false
+    end
+
+    -- 3. ESPIGÃO DE ESCUDO: slot 17 se for escudo
+    if category == "SHIELD_SPIKE" then
+        if slot == 17 then
+            if eq == "INVTYPE_SHIELD" or string.find(st, "shield") or string.find(st, "escudo") or string.find(nm, "shield") or string.find(nm, "escudo") then
+                return true
+            end
+        end
+        return false
+    end
+
+    -- Armas Melee (Slots 16 e 17)
+    if slot ~= 16 and slot ~= 17 then
+        return false
+    end
+
+    -- Se for escudo ou item de mão secundária segurável (livro/frasco), não é arma melee
+    if eq == "INVTYPE_SHIELD" or eq == "INVTYPE_HOLDABLE" then
+        return false
+    end
+    if string.find(st, "shield") or string.find(st, "escudo") or string.find(nm, "shield") or string.find(nm, "escudo") then
+        return false
+    end
+
+    -- 4. WEAPON_SHARP: armas cortantes (espadas, machados, adagas, armas de haste)
+    if category == "WEAPON_SHARP" then
+        if string.find(st, "mace") or string.find(st, "maça") or string.find(st, "maca") or
+           string.find(st, "staff") or string.find(st, "stave") or string.find(st, "cajado") or
+           string.find(st, "wand") or string.find(st, "varinha") or string.find(st, "bow") or
+           string.find(st, "gun") or string.find(st, "crossbow") or string.find(st, "fist") or
+           string.find(st, "punho") or
+           string.find(nm, "mace") or string.find(nm, "maça") or string.find(nm, "mallet") or
+           string.find(nm, "hammer") or string.find(nm, "martelo") or string.find(nm, "staff") or
+           string.find(nm, "cajado") then
+            return false
+        end
+        return true
+    end
+
+    -- 5. WEAPON_BLUNT: armas de impacto (maças, cajados)
+    if category == "WEAPON_BLUNT" then
+        if string.find(st, "sword") or string.find(st, "espada") or
+           string.find(st, "axe") or string.find(st, "machado") or
+           string.find(st, "dagger") or string.find(st, "adaga") or
+           string.find(st, "polearm") or string.find(st, "haste") or
+           string.find(st, "wand") or string.find(st, "varinha") or
+           string.find(st, "bow") or string.find(st, "gun") or string.find(st, "crossbow") or
+           string.find(nm, "sword") or string.find(nm, "espada") or
+           string.find(nm, "axe") or string.find(nm, "machado") or
+           string.find(nm, "dagger") or string.find(nm, "adaga") or
+           string.find(nm, "blade") or string.find(nm, "lâmina") or string.find(nm, "lamina") then
+            return false
+        end
+        return true
+    end
+
+    -- 6. WEAPON_OIL e WEAPON_POISON: qualquer arma corpo a corpo em 16 ou 17
+    if category == "WEAPON_OIL" or category == "WEAPON_POISON" then
+        return true
+    end
+
+    return true
+end
+
+function EnhanceModal:ScanEquippedItems()
+    local results = {}
+    if not self.activeContext then return results end
+
+    local category = self.activeContext.category
+    local cfg = CATEGORY_CONFIG[category]
+    if not cfg or not cfg.targetSlots then return results end
+
+    local numSlots = table.getn(cfg.targetSlots)
+    for i = 1, numSlots do
+        local slotID = cfg.targetSlots[i]
+        local itemInfo = self:GetEquippedSlotInfo(slotID)
+        if itemInfo and self:IsItemCompatible(itemInfo, category) then
+            itemInfo.slotName = self:GetSlotName(category, slotID)
+            table.insert(results, itemInfo)
+        end
+    end
+
+    return results
+end
+
+-- ----------------------------------------------------------------------------
 -- 7. CONSTRUÇÃO DA INTERFACE (Fase 2: View Shell & Ciclo de Vida)
 -- ----------------------------------------------------------------------------
 function EnhanceModal:CreateTabIndicator(parent)
@@ -744,10 +984,316 @@ function EnhanceModal:CreateUI()
     placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_EQUIP")) or "Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)")
     content.placeholder = placeholder
 
+    -- Linhas de equipamentos equipados (Fase 3)
+    self:CreateEquipRows(content)
+
     -- Footer com prompts em texturas oficiais
     self:UpdateFooter()
 
     self.frame = frame
+end
+
+-- ----------------------------------------------------------------------------
+-- 7b. LINHAS DE EQUIPAMENTO E NAVEGAÇÃO ESPACIAL (Fase 3)
+-- ----------------------------------------------------------------------------
+function EnhanceModal:CreateEquipRows(parent)
+    if self.equipRows and table.getn(self.equipRows) > 0 then return end
+    self.equipRows = {}
+
+    local rowH = 46
+    local rowGap = 4
+
+    for i = 1, 4 do
+        local row = CreateFrame("Button", "ConsoleMode_EnhanceRow" .. i, parent)
+        row:SetHeight(rowH)
+        if i == 1 then
+            row:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -4)
+            row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -4)
+        else
+            row:SetPoint("TOPLEFT", self.equipRows[i - 1], "BOTTOMLEFT", 0, -rowGap)
+            row:SetPoint("TOPRIGHT", self.equipRows[i - 1], "BOTTOMRIGHT", 0, -rowGap)
+        end
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        row:SetBackdropColor(0.08, 0.07, 0.05, 0.60)
+        row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+
+        -- Highlight de seleção
+        local hl = row:CreateTexture(nil, "BACKGROUND")
+        hl:SetTexture("Interface\\Buttons\\UI-Listbox-Highlight")
+        hl:SetBlendMode("ADD")
+        hl:SetAlpha(0.35)
+        hl:SetAllPoints(row)
+        hl:Hide()
+        row.highlight = hl
+
+        -- Bullet dourado de foco
+        local cur = row:CreateTexture(nil, "OVERLAY")
+        cur:SetWidth(12)
+        cur:SetHeight(12)
+        cur:SetPoint("LEFT", row, "LEFT", 4, 0)
+        cur:SetTexture("Interface\\QuestFrame\\UI-Quest-BulletPoint")
+        cur:SetVertexColor(1.0, 0.85, 0.20)
+        cur:Hide()
+        row.cursor = cur
+
+        -- Ícone do item (34x34)
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(34)
+        icon:SetHeight(34)
+        icon:SetPoint("LEFT", row, "LEFT", 20, 0)
+        row.icon = icon
+
+        -- Borda do ícone com cor de qualidade
+        local iconBorder = CreateFrame("Frame", nil, row)
+        iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+        iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+        iconBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        row.iconBorder = iconBorder
+
+        -- Prompt lateral de ação: [A] Aplicar
+        local prompt = CreateFrame("Frame", nil, row)
+        prompt:SetHeight(24)
+        prompt:SetWidth(80)
+        prompt:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        prompt:Hide()
+
+        local pIcon = prompt:CreateTexture(nil, "OVERLAY")
+        pIcon:SetWidth(20)
+        pIcon:SetHeight(20)
+        pIcon:SetPoint("LEFT", prompt, "LEFT", 0, 0)
+        pIcon:SetTexture(ICONS.A)
+        prompt.icon = pIcon
+
+        local pTxt = prompt:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        pTxt:SetPoint("LEFT", pIcon, "RIGHT", 4, 0)
+        self:ApplyFont(pTxt, FONTS.titleBold, 13)
+        pTxt:SetText((CM.T and CM:T("ENHANCE_HINT_APPLY")) or "Aplicar")
+        pTxt:SetTextColor(0.90, 0.85, 0.70, 1.0)
+        prompt.text = pTxt
+
+        row.applyPrompt = prompt
+
+        -- Linha Superior: Slot e SubTipo
+        local slotText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        slotText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 10, -2)
+        slotText:SetPoint("RIGHT", prompt, "LEFT", -6, 0)
+        slotText:SetJustifyH("LEFT")
+        self:ApplyFont(slotText, FONTS.titleBold, 13)
+        row.slotText = slotText
+
+        -- Linha Inferior: Nome do item colorido
+        local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        nameText:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 10, 2)
+        nameText:SetPoint("RIGHT", prompt, "LEFT", -6, 0)
+        nameText:SetJustifyH("LEFT")
+        self:ApplyFont(nameText, FONTS.titleBold, 15)
+        row.nameText = nameText
+
+        -- Suporte a mouse/híbrido
+        local rowIdx = i
+        row:SetScript("OnEnter", function()
+            EnhanceModal:SetSelectedIndex(rowIdx)
+        end)
+        row:SetScript("OnClick", function()
+            EnhanceModal:SetSelectedIndex(rowIdx)
+            EnhanceModal:OnConfirm()
+        end)
+
+        row:Hide()
+        table.insert(self.equipRows, row)
+    end
+end
+
+function EnhanceModal:RenderEquippedTab()
+    if not self.frame or not self.frame.content then return end
+    local content = self.frame.content
+
+    local count = table.getn(self.equippedItems or {})
+    if count == 0 then
+        if content.placeholder then
+            content.placeholder:SetText((CM.T and CM:T("ENHANCE_NO_EQUIP_FOUND")) or "Nenhum equipamento compatível equipado.\nPressione [RB] para verificar itens na mochila.")
+            content.placeholder:Show()
+        end
+        for i = 1, 4 do
+            if self.equipRows and self.equipRows[i] then self.equipRows[i]:Hide() end
+        end
+        self.selectedIndex = 0
+        return
+    end
+
+    if content.placeholder then
+        content.placeholder:Hide()
+    end
+
+    for i = 1, 4 do
+        local row = self.equipRows and self.equipRows[i]
+        local itemInfo = self.equippedItems[i]
+        if row and itemInfo then
+            row.itemInfo = itemInfo
+            row.icon:SetTexture(itemInfo.texture)
+
+            local qCol = QUALITY_COLORS[itemInfo.quality or 1] or QUALITY_COLORS[1]
+            row.iconBorder:SetBackdropBorderColor(qCol.r, qCol.g, qCol.b, 0.90)
+
+            local locSubType = itemInfo.subType
+            if CM and CM.GameLOC_ItemSubType and locSubType and locSubType ~= "" then
+                locSubType = CM:GameLOC_ItemSubType(locSubType)
+            end
+            local subTypePart = ""
+            if locSubType and locSubType ~= "" then
+                subTypePart = "  |cff888888(" .. locSubType .. ")|r"
+            end
+
+            row.slotText:SetText("|cffffd100" .. string.upper(itemInfo.slotName or "") .. "|r" .. subTypePart)
+            row.nameText:SetText((qCol.hex or "|cffffffff") .. (itemInfo.name or "Item") .. "|r")
+
+            if row.applyPrompt and row.applyPrompt.text then
+                row.applyPrompt.text:SetText((CM.T and CM:T("ENHANCE_HINT_APPLY")) or "Aplicar")
+            end
+
+            row:Show()
+        elseif row then
+            row:Hide()
+        end
+    end
+end
+
+function EnhanceModal:SetSelectedIndex(index)
+    local count = table.getn(self.equippedItems or {})
+    if count == 0 then
+        self.selectedIndex = 0
+        return
+    end
+
+    if index < 1 then index = 1 end
+    if index > count then index = count end
+    self.selectedIndex = index
+
+    for i = 1, 4 do
+        local row = self.equipRows and self.equipRows[i]
+        if row and row:IsShown() then
+            if i == index then
+                row:SetBackdropColor(0.22, 0.17, 0.10, 0.90)
+                row:SetBackdropBorderColor(0.90, 0.75, 0.28, 0.95)
+                if row.highlight then row.highlight:Show() end
+                if row.cursor then row.cursor:Show() end
+                if row.applyPrompt then row.applyPrompt:Show() end
+            else
+                row:SetBackdropColor(0.08, 0.07, 0.05, 0.60)
+                row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                if row.highlight then row.highlight:Hide() end
+                if row.cursor then row.cursor:Hide() end
+                if row.applyPrompt then row.applyPrompt:Hide() end
+            end
+        end
+    end
+end
+
+function EnhanceModal:GetSelectedTarget()
+    if self.currentTab == "EQUIP" then
+        if self.equippedItems and self.selectedIndex and self.selectedIndex > 0 then
+            return self.equippedItems[self.selectedIndex]
+        end
+    end
+    return nil
+end
+
+function EnhanceModal:OnDirection(direction)
+    if not self.isOpen then return end
+    if self.currentTab == "EQUIP" then
+        local count = table.getn(self.equippedItems or {})
+        if count <= 1 then return end
+
+        local newIndex = self.selectedIndex or 1
+        if direction == "UP" then
+            newIndex = newIndex - 1
+            if newIndex < 1 then newIndex = count end
+        elseif direction == "DOWN" then
+            newIndex = newIndex + 1
+            if newIndex > count then newIndex = 1 end
+        end
+
+        if newIndex ~= self.selectedIndex then
+            self:SetSelectedIndex(newIndex)
+            PlaySound("igMainMenuOptionCheckBoxOn")
+        end
+    end
+end
+
+function EnhanceModal:EnsureRepeatTicker()
+    if self.repeatTicker then return end
+    local ticker = CreateFrame("Frame", "ConsoleMode_EnhanceRepeatTicker", UIParent)
+    ticker:SetScript("OnUpdate", function()
+        EnhanceModal:OnRepeatUpdate(arg1)
+    end)
+    self.repeatTicker = ticker
+end
+
+function EnhanceModal:OnRepeatUpdate(dt)
+    if not self.isOpen or not self.repeatState or not self.repeatState.direction then
+        return
+    end
+
+    dt = dt or 0
+    self.repeatState.timer = self.repeatState.timer - dt
+    if self.repeatState.timer <= 0 then
+        self.repeatState.timer = self.repeatState.interval
+        self:OnDirection(self.repeatState.direction)
+    end
+end
+
+function EnhanceModal:StartRepeat(direction)
+    if not self.isOpen then return end
+    if direction == "UP" or direction == "DOWN" then
+        self:OnDirection(direction)
+        self.repeatState.direction = direction
+        self.repeatState.timer = self.repeatState.initialDelay
+        self:EnsureRepeatTicker()
+    else
+        self.repeatState.direction = nil
+    end
+end
+
+function EnhanceModal:StopRepeat(direction)
+    if not self.repeatState then return end
+    if not direction or self.repeatState.direction == direction then
+        self.repeatState.direction = nil
+    end
+end
+
+function EnhanceModal:OnConfirm()
+    if not self.isOpen then return end
+    local target = self:GetSelectedTarget()
+    if not target then return end
+
+    if self.currentTab == "EQUIP" then
+        if target.slotID then
+            -- Se por algum motivo o cursor não estiver no modo de mira da magia,
+            -- reaciona o consumível da bolsa para engajar SpellIsTargeting
+            if SpellIsTargeting and not SpellIsTargeting() then
+                if self.activeContext and self.activeContext.bagID and self.activeContext.slotID then
+                    UseContainerItem(self.activeContext.bagID, self.activeContext.slotID)
+                end
+            end
+
+            -- Aplica a magia de aprimoramento no slot equipado
+            if SpellIsTargeting and SpellIsTargeting() then
+                PickupInventoryItem(target.slotID)
+            end
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            self:Close(true)
+        end
+    end
 end
 
 function EnhanceModal:UpdateFooter()
@@ -768,9 +1314,14 @@ end
 function EnhanceModal:UpdateContentPlaceholder()
     if not self.frame or not self.frame.content or not self.frame.content.placeholder then return end
     if self.currentTab == "BAGS" then
+        for i = 1, 4 do
+            if self.equipRows and self.equipRows[i] then self.equipRows[i]:Hide() end
+        end
         self.frame.content.placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_BAGS")) or "Aba Na Mochila ativa\n(Aguardando Fase 5 para listar itens da bolsa)")
+        self.frame.content.placeholder:Show()
     else
-        self.frame.content.placeholder:SetText((CM.T and CM:T("ENHANCE_EMPTY_EQUIP")) or "Aba Equipados ativa\n(Aguardando Fase 3 para listar itens equipados)")
+        self:RenderEquippedTab()
+        self:SetSelectedIndex(self.selectedIndex or 1)
     end
 end
 
@@ -812,8 +1363,10 @@ function EnhanceModal:Open(itemData, enhanceInfo)
         self.frame.closeBtn.text:SetText((CM.T and CM:T("ENHANCE_CLOSE")) or "Sair")
     end
 
+    self.equippedItems = self:ScanEquippedItems()
     self:UpdateTabIndicator()
     self:UpdateContentPlaceholder()
+    self:SetSelectedIndex(1)
     self:UpdateFooter()
 
     if self.dimmer then self.dimmer:Show() end
@@ -822,13 +1375,16 @@ function EnhanceModal:Open(itemData, enhanceInfo)
     PlaySound("igMainMenuOpen")
 end
 
-function EnhanceModal:Close()
+function EnhanceModal:Close(isConfirmed)
     if not self.isOpen and not (self.frame and self.frame:IsVisible()) then return end
 
     self.isOpen = false
+    if self.repeatState then
+        self.repeatState.direction = nil
+    end
 
-    -- Cancela o modo de mira da engine do WoW se ainda estiver ativo
-    if SpellIsTargeting and SpellIsTargeting() then
+    -- Cancela o modo de mira da engine do WoW se o usuário cancelou/saiu sem confirmar
+    if not isConfirmed and SpellIsTargeting and SpellIsTargeting() then
         SpellStopTargeting()
     end
 

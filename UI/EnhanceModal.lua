@@ -797,3 +797,22 @@ function EnhanceModal:OnItemUsed(itemData, enhanceInfo)
 
     self:Open(itemData, enhanceInfo)
 end
+
+-- ----------------------------------------------------------------------------
+-- 10. MONITORAMENTO DE EVENTOS DE JOGO (Resiliência & Segurança)
+-- ----------------------------------------------------------------------------
+local eventFrame = CreateFrame("Frame", "ConsoleMode_EnhanceEventFrame")
+eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+eventFrame:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")
+
+eventFrame:SetScript("OnEvent", function()
+    if not EnhanceModal.isOpen then return end
+
+    if event == "PLAYER_REGEN_DISABLED" then
+        EnhanceModal:Close()
+    elseif event == "CURRENT_SPELL_CAST_CHANGED" then
+        if not (SpellIsTargeting and SpellIsTargeting()) then
+            EnhanceModal:Close()
+        end
+    end
+end)

@@ -16345,6 +16345,17 @@ function MainMenu:CreateUI()
     end)
 
     frame:SetScript("OnHide", function()
+        -- Fecha modais e popups subordinados ao fechar o MainMenu
+        if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+            pcall(function() ConsoleMode_EnhanceModal:Close() end)
+        end
+        if ConsoleMode_QuantityPicker and ConsoleMode_QuantityPicker.isOpen then
+            pcall(function() ConsoleMode_QuantityPicker:Close() end)
+        end
+        if ConsoleMode_BagSplit and ConsoleMode_BagSplit.isOpen then
+            pcall(function() ConsoleMode_BagSplit:Close() end)
+        end
+
         if MainMenu.HideTalentInspectModal then
             pcall(function() MainMenu:HideTalentInspectModal() end)
         end
@@ -16443,6 +16454,16 @@ function MainMenu:Show(initialTab)
 end
 
 function MainMenu:Hide()
+    if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+        pcall(function() ConsoleMode_EnhanceModal:Close() end)
+    end
+    if ConsoleMode_QuantityPicker and ConsoleMode_QuantityPicker.isOpen then
+        pcall(function() ConsoleMode_QuantityPicker:Close() end)
+    end
+    if ConsoleMode_BagSplit and ConsoleMode_BagSplit.isOpen then
+        pcall(function() ConsoleMode_BagSplit:Close() end)
+    end
+
     if self.HideTalentInspectModal then
         pcall(function() self:HideTalentInspectModal() end)
     end

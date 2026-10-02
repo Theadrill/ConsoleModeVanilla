@@ -945,6 +945,9 @@ function CM_Fixed(button)
             local mm2 = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
             if mm2 and mm2.IsQuestDetailVisible and mm2:IsQuestDetailVisible() then mm2:HideQuestDetail(); return end
             if mm2 and mm2.HandleMapBack and mm2:HandleMapBack() then return end
+            if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
+                pcall(function() ConsoleMode_EnhanceModal:Close() end)
+            end
             if ConsoleMode.mainMenu and ConsoleMode.mainMenu.Hide then
                 ConsoleMode.mainMenu:Hide()
             else

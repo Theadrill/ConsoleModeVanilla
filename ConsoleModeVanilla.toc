@@ -17,6 +17,7 @@ Data\Locales\ptBR\Grammar.lua
 Data\Locales\ptBR\Items.lua
 Data\Locales\ptBR\Spells.lua
 Data\Locales\ptBR\Talents.lua
+Data\Locales\ptBR\NPC.lua
 UI\ConfigFrame.lua
 UI\KeybindingsList.lua
 UI\SpellbookPicker.lua
@@ -31,6 +32,11 @@ UI\PlayerFrame.lua
 UI\TargetFrame.lua
 Data\SellValues.lua
 Data\MapOverlayData.lua
+Data\CityServicesDB.lua
+Data\NPCs\NPC_Core.lua
+Data\NPCs\NPC_Data_Kalimdor.lua
+Data\NPCs\NPC_Data_EasternKingdoms.lua
+Data\NPCs\NPC_Data_CustomTurtle.lua
 Data\Instances.lua
 Data\ZoneLevels.lua
 Data\ZonePositions.lua

@@ -29,8 +29,10 @@
   UnitXP_SP3.dll
   WoWTranslate.dll
   Interact.dll
+  VanillaHelpers.dll
+  ClassicAPI.dll
   ```
-  Isso significa: API estendida além do 1.12 puro. Sempre considerar SuperWoW + UnitXP.
+  Isso significa: API estendida além do 1.12 puro. Sempre considerar SuperWoW + UnitXP + VanillaHelpers + ClassicAPI.
 
 ## 2. Estrutura de pastas relevante
 

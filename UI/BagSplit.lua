@@ -72,29 +72,29 @@ function BagSplit:Start(bag, slot, qty, cbs)
     end
     qty = tonumber(qty) or 0
     if bag == nil or slot == nil or qty < 1 then
-        return false, "slot ou quantidade invalidos"
+        return false, CM:T("BAGSPLIT_ERR_SLOT_QTY")
     end
     if SplitContainerItem == nil or PickupContainerItem == nil then
-        return false, "API de bolsas ausente"
+        return false, CM:T("MAIL_ERR_NO_BAG_API")
     end
     if self:CursorHoldsItem() then
-        return false, "cursor ocupado"
+        return false, CM:T("MAIL_ERR_CURSOR_BUSY")
     end
     local mx = self:ReadBagCount(bag, slot)
     if mx == nil or mx < 1 then
-        return false, "slot vazio ou ilegivel"
+        return false, CM:T("BAGSPLIT_ERR_EMPTY")
     end
     if qty >= mx then
-        return false, "quantidade e a pilha cheia"
+        return false, CM:T("BAGSPLIT_ERR_FULL")
     end
     local eb, es = self:FindEmptyBagSlot()
     if eb == nil then
-        return false, "sem espaco na bolsa p/ dividir"
+        return false, CM:T("BAGSPLIT_ERR_NOSPACE")
     end
     cbs = cbs or {}
     pcall(SplitContainerItem, bag, slot, qty)
     if not self:CursorHoldsItem() then
-        return false, "item nao saiu da bolsa"
+        return false, CM:T("BAGSPLIT_ERR_NOLIFT")
     end
     local t0 = nil
     if GetTime then
@@ -145,7 +145,7 @@ function BagSplit:OnUpdate()
     end
     if op.t0 and type(op.t0) == "number" and (now - op.t0) > 10 then
         self:RecoverCursor(op)
-        self:FailOp("divisao expirou (10s)")
+        self:FailOp(CM:T("BAGSPLIT_ERR_EXPIRED"))
         return
     end
     if type(op.at) == "number" and now < op.at then return end
@@ -156,7 +156,7 @@ function BagSplit:OnUpdate()
             pcall(PickupContainerItem, op.eb, op.es)
             if self:CursorHoldsItem() then
                 self:RecoverCursor(op)
-                self:FailOp("deposito falhou (recoloque o cursor)")
+                self:FailOp(CM:T("BAGSPLIT_ERR_DEPOSIT"))
                 return
             end
             op.phase = "verify2"

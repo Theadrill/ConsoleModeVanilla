@@ -2,18 +2,12 @@
 
 Objetivo: zero itens DISPLAY/TABLE/OTHER. PARSER = nao tocar.
 
-Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
+Resumo: DISPLAY=36, TABLE=346, OTHER=132, PARSER=194
 
 | arquivo:linha | funcao | hint | literal | codigo |
 |---|---|---|---|---|
 | Core.lua:292 | CM:ToggleRightActionBars | OTHER | idioma | if cmd == "lang" or cmd == "idioma" or cmd == "language" then |
-| Core.lua:357 | CM:ToggleRightActionBars | DISPLAY | \|cffff8888[spelldbg]\|r abra uma magia no card primeiro | DEFAULT_CHAT_FRAME:AddMessage("\|cffff8888[spelldbg]\|r abra uma magia no card primeiro") |
-| Core.lua:373 | CM:ToggleRightActionBars | DISPLAY |  magia(s) sem entrada no DBC: | DEFAULT_CHAT_FRAME:AddMessage("\|cff00ff00[spellmissing]\|r " .. n .. " magia(s) sem entrada no DBC:") |
 | Core.lua:403 | CM:ToggleRightActionBars | OTHER | mouse | elseif cmd == "mouse" then |
-| Cursor_OLD.lua:11 | - | DISPLAY | \|cffff4444[CM Cursor.lua]\|r ERRO: ConsoleMode nao existe! | DEFAULT_CHAT_FRAME:AddMessage("\|cffff4444[CM Cursor.lua]\|r ERRO: ConsoleMode nao existe!") |
-| Cursor_OLD.lua:20 | - | DISPLAY | \|cff00ff00[CM Cursor.lua]\|r Namespace criado com sucesso! | DEFAULT_CHAT_FRAME:AddMessage("\|cff00ff00[CM Cursor.lua]\|r Namespace criado com sucesso!") |
-| Cursor_OLD.lua:306 | Cursor:UpdateState | DISPLAY | \|cff00ff00[CM Cursor.lua]\|r ✓ Modulo Cursor carregado completamente! | DEFAULT_CHAT_FRAME:AddMessage("\|cff00ff00[CM Cursor.lua]\|r ✓ Modulo Cursor carregado completamente!") |
-| Cursor_OLD.lua:310 | Cursor:UpdateState | DISPLAY | \|cff00ff00[CM Cursor.lua]\|r ✓ Modulo Cursor carregado completamente! | DEFAULT_CHAT_FRAME:AddMessage("\|cff00ff00[CM Cursor.lua]\|r ✓ Modulo Cursor carregado completamente!") |
 | Hooks.lua:43 | MainMenuNavActive | TABLE | ConsoleMode Configuracoes | { frame = "ConsoleModeSettingsFrame",    name = "ConsoleMode Configuracoes" }, |
 | Hooks.lua:44 | MainMenuNavActive | TABLE | Opcoes do Jogo | { frame = "OptionsFrame",                name = "Opcoes do Jogo" }, |
 | Hooks.lua:45 | MainMenuNavActive | TABLE | Opcoes de Video | { frame = "VideoOptionsFrame",           name = "Opcoes de Video" }, |
@@ -45,33 +39,20 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | Hooks.lua:98 | MainMenuNavActive | TABLE | Bagshui Bolsa | { frame = "BagshuiBagsFrame",    name = "Bagshui Bolsa" }, |
 | Hooks.lua:100 | MainMenuNavActive | TABLE | Bagnon Bolsa | { frame = "Bagnon",              name = "Bagnon Bolsa" }, |
 | Hooks.lua:105 | MainMenuNavActive | TABLE | Profissao | { frame = "TradeSkillFrame",     name = "Profissao" }, |
-| Keybindings.lua:44 | - | OTHER | ConsoleMode - Botões Fixos | _G["BINDING_HEADER_CONSOLEMODEFIXED"]  = "ConsoleMode - Botões Fixos" |
-| Keybindings.lua:45 | - | OTHER | ConsoleMode - Navegação de Cursor | _G["BINDING_HEADER_CONSOLEMODECURSOR"] = "ConsoleMode - Navegação de Cursor" |
-| Keybindings.lua:58 | - | OTHER | L2+R2+D-Pad Cima (Selecionar Amigo) | _G["BINDING_NAME_CM_TARGET_FRIENDLY"]   = "L2+R2+D-Pad Cima (Selecionar Amigo)" |
-| Keybindings.lua:62 | - | OTHER | Select (Mapa) | _G["BINDING_NAME_CM_FIXED_SELECT"]      = "Select (Mapa)" |
-| Keybindings.lua:64 | - | OTHER | L3 (Toggle Mouse Mode) | _G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)" |
-| Keybindings.lua:65 | - | OTHER | R3 (Clique Direito) | _G["BINDING_NAME_CM_MOUSERIGHT"]        = "R3 (Clique Direito)" |
-| Keybindings.lua:69 | - | OTHER | ConsoleMode - Atalhos de Interface | _G["BINDING_HEADER_CONSOLEMODEUI"]      = "ConsoleMode - Atalhos de Interface" |
-| Keybindings.lua:70 | - | OTHER | L2 + Select (Personagem - C) | _G["BINDING_NAME_CM_UI_CHARACTER"]      = "L2 + Select (Personagem - C)" |
-| Keybindings.lua:71 | - | OTHER | L2 + Start (Bolsas - B) | _G["BINDING_NAME_CM_UI_BAGS"]           = "L2 + Start (Bolsas - B)" |
-| Keybindings.lua:72 | - | OTHER | R2 + Select (Talentos - N) | _G["BINDING_NAME_CM_UI_TALENTS"]        = "R2 + Select (Talentos - N)" |
-| Keybindings.lua:73 | - | OTHER | R2 + Start (Livro de Magias - P) | _G["BINDING_NAME_CM_UI_SPELLBOOK"]      = "R2 + Start (Livro de Magias - P)" |
-| Keybindings.lua:80 | - | OTHER | Cursor: Confirmar (A) | _G["BINDING_NAME_CM_CURSOR_CONFIRM"] = "Cursor: Confirmar (A)" |
-| Keybindings.lua:81 | - | OTHER | Cursor: Cancelar (B) | _G["BINDING_NAME_CM_CURSOR_CANCEL"]  = "Cursor: Cancelar (B)" |
-| Logger.lua:74 | Logger:PrintStatus | DISPLAY |   Versão:      \|cffffd100 | DEFAULT_CHAT_FRAME:AddMessage("  Versão:      \|cffffd100" .. CM.version .. "\|r") |
-| Logger.lua:76 | Logger:PrintStatus | DISPLAY |   Mouse Mode:   | DEFAULT_CHAT_FRAME:AddMessage("  Mouse Mode:  " .. (KB and KB.mouseModeActive and "\|cff00ff00ATIVO\|r" or "\|cffff4444INATIVO\|r")) |
-| Logger.lua:77 | Logger:PrintStatus | DISPLAY |   Navegação:    | DEFAULT_CHAT_FRAME:AddMessage("  Navegação:   " .. (KB and KB.navigationMode and "\|cff00ff00ATIVO (UI aberta)\|r" or "\|cffaaaaaa inativo\|r")) |
-| Logger.lua:78 | Logger:PrintStatus | DISPLAY | \|cffffcc00SIM (atalhos desativados)\|r \| \|cffaaaaaa Não\|r | DEFAULT_CHAT_FRAME:AddMessage("  Chat Aberto: " .. (KB and KB.chatActive and "\|cffffcc00SIM (atalhos desativados)\|r" or "\|cffaaaaaa Não\|r")) |
-| Logger.lua:79 | Logger:PrintStatus | DISPLAY |   Personagem:  \|cff00ccff | DEFAULT_CHAT_FRAME:AddMessage("  Personagem:  \|cff00ccff" .. (UnitName("player") or "?") .. "\|r") |
-| Logger.lua:120 | Logger:PrintStatus | OTHER | \|cff00ccffNavegação\|r | if KB.navigationMode then modeStr = "\|cff00ccffNavegação\|r" |
+| Keybindings.lua:42 | - | TABLE | ConsoleMode - Botões Fixos | ["BINDING_HEADER_CONSOLEMODEFIXED"]  = { key = "BIND_HEAD_FIXED",    pt = "ConsoleMode - Botões Fixos" }, |
+| Keybindings.lua:43 | - | TABLE | ConsoleMode - Navegação de Cursor | ["BINDING_HEADER_CONSOLEMODECURSOR"] = { key = "BIND_HEAD_CURSOR",   pt = "ConsoleMode - Navegação de Cursor" }, |
+| Keybindings.lua:45 | - | TABLE | L2+R2+D-Pad Cima (Selecionar Amigo) | ["BINDING_NAME_CM_TARGET_FRIENDLY"]  = { key = "BIND_TARGET_FRIENDLY", pt = "L2+R2+D-Pad Cima (Selecionar Amigo)" }, |
+| Keybindings.lua:47 | - | TABLE | Select (Mapa) | ["BINDING_NAME_CM_FIXED_SELECT"]     = { key = "BIND_FIXED_SELECT",  pt = "Select (Mapa)" }, |
+| Keybindings.lua:49 | - | TABLE | R3 (Clique Direito) | ["BINDING_NAME_CM_MOUSERIGHT"]       = { key = "BIND_MOUSERIGHT",    pt = "R3 (Clique Direito)" }, |
+| Keybindings.lua:51 | - | TABLE | ConsoleMode - Atalhos de Interface | ["BINDING_HEADER_CONSOLEMODEUI"]     = { key = "BIND_HEAD_UI",       pt = "ConsoleMode - Atalhos de Interface" }, |
+| Keybindings.lua:52 | - | TABLE | L2 + Select (Personagem - C) | ["BINDING_NAME_CM_UI_CHARACTER"]     = { key = "BIND_UI_CHARACTER",  pt = "L2 + Select (Personagem - C)" }, |
+| Keybindings.lua:53 | - | TABLE | L2 + Start (Bolsas - B) | ["BINDING_NAME_CM_UI_BAGS"]          = { key = "BIND_UI_BAGS",       pt = "L2 + Start (Bolsas - B)" }, |
+| Keybindings.lua:54 | - | TABLE | R2 + Select (Talentos - N) | ["BINDING_NAME_CM_UI_TALENTS"]       = { key = "BIND_UI_TALENTS",    pt = "R2 + Select (Talentos - N)" }, |
+| Keybindings.lua:55 | - | TABLE | R2 + Start (Livro de Magias - P) | ["BINDING_NAME_CM_UI_SPELLBOOK"]     = { key = "BIND_UI_SPELLBOOK",  pt = "R2 + Start (Livro de Magias - P)" }, |
+| Keybindings.lua:60 | - | TABLE | Cursor: Confirmar (A) | ["BINDING_NAME_CM_CURSOR_CONFIRM"]   = { key = "BIND_CURSOR_CONFIRM", pt = "Cursor: Confirmar (A)" }, |
+| Keybindings.lua:61 | - | TABLE | Cursor: Cancelar (B) | ["BINDING_NAME_CM_CURSOR_CANCEL"]    = { key = "BIND_CURSOR_CANCEL", pt = "Cursor: Cancelar (B)" }, |
+| Keybindings.lua:82 | RefreshBindingNames | OTHER | L3 (Toggle Mouse Mode) | _G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)" |
 | Logger.lua:121 | Logger:PrintStatus | OTHER | \|cff88ff88Mouse\|r | elseif KB.mouseModeActive then modeStr = "\|cff88ff88Mouse\|r" |
-| Data\DataLoader.lua:65 | CM:LoadDataLake | DISPLAY | \|cffff0000[ConsoleMode]\|r Erro ao carregar Data Lake:  | DEFAULT_CHAT_FRAME:AddMessage("\|cffff0000[ConsoleMode]\|r Erro ao carregar Data Lake: " .. (reason or "unknown")) |
-| Data\DataLoader.lua:173 | CM:SetupDataLakeTriggers | DISPLAY | \|cffff0000[ConsoleMode]\|r Falha ao carregar:  | DEFAULT_CHAT_FRAME:AddMessage("\|cffff0000[ConsoleMode]\|r Falha ao carregar: " .. reason) |
-| Data\DataLoader.lua:177 | CM:SetupDataLakeTriggers | DISPLAY |   Disponivel:  | DEFAULT_CHAT_FRAME:AddMessage("  Disponivel: " .. tostring(CM.DataLake.available)) |
-| Data\DataLoader.lua:201 | CM:SetupDataLakeTriggers | DISPLAY | 1. Data addon disponivel:  | DEFAULT_CHAT_FRAME:AddMessage("1. Data addon disponivel: " .. tostring(loadable ~= nil)) |
-| Data\DataLoader.lua:207 | CM:SetupDataLakeTriggers | DISPLAY | 3. Carregando Data Lake... | DEFAULT_CHAT_FRAME:AddMessage("3. Carregando Data Lake...") |
-| Data\DataLoader.lua:218 | CM:SetupDataLakeTriggers | DISPLAY |   /cmdatalake load   - Forca carregamento | DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake load   - Forca carregamento") |
-| Data\DataLoader.lua:221 | CM:SetupDataLakeTriggers | DISPLAY |   (atalho: /cmloc) | DEFAULT_CHAT_FRAME:AddMessage("  (atalho: /cmloc)") |
 | Data\Localization.lua:406 | CM:GameLOC_SpellAttr | OTHER | Instantâneo | s = "Instantâneo" |
 | Data\Localization.lua:699 | CM:GameLOC_SpellDesc | DISPLAY | \|cffffd100Requer  | table.insert(headerLines, "\|cffffd100Requer " .. locReq .. "\|r") |
 | Data\Localization.lua:1060 | CM:GameLOC_TalentLine | OTHER | Próximo grau: | if rawLine == "Next rank:" or rawLine == "Next rank" then return "Próximo grau:" end |
@@ -205,36 +186,38 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | Data\Locales\enUS\UI.lua:1017 | - | TABLE | \|cffaaaaaaConsole Mode — Spells, Bags, Macros and Bars\|r | PICKER_TYPE = "\|cffaaaaaaConsole Mode — Spells, Bags, Macros and Bars\|r", |
 | Data\Locales\enUS\UI.lua:1027 | - | TABLE | \|cffaaaaaaPhysical Key: \|cffffffff%s\|r  •  \|cffaaaaaaAction Bar: \|cffffffffSlot %d\|r | BINDS_DETAIL_KEY_BAR_SLOT_FMT = "\|cffaaaaaaPhysical Key: \|cffffffff%s\|r  •  \|cffaaaaaaAction Bar: \|cffffffffSlot %d\|r", |
 | Data\Locales\enUS\UI.lua:1033 | - | TABLE | \|cff888888Empty Slot — No action assigned (Key: %s)\|r | BINDS_DETAIL_EMPTY_SLOT_FMT = "\|cff888888Empty Slot — No action assigned (Key: %s)\|r", |
-| Data\Locales\enUS\UI.lua:1061 | - | TABLE | \|cffaaaaaaSpellbook  •  \|cffffffff%s\|r | PICKER_DETAIL_SPELLBOOK_FMT = "\|cffaaaaaaSpellbook  •  \|cffffffff%s\|r", |
-| Data\Locales\enUS\UI.lua:1064 | - | TABLE |   •  Quantity: x | PICKER_DETAIL_QTY = "  •  Quantity: x", |
-| Data\Locales\enUS\UI.lua:1070 | - | TABLE | \|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r | PICKER_DETAIL_BAR_SLOT_FMT = "\|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r", |
-| Data\Locales\enUS\UI.lua:1074 | - | TABLE | Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes. | SPEC_WARRIOR_1_DESC = "Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes.", |
-| Data\Locales\enUS\UI.lua:1076 | - | TABLE | Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury. | SPEC_WARRIOR_2_DESC = "Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury.", |
-| Data\Locales\enUS\UI.lua:1078 | - | TABLE | Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control. | SPEC_WARRIOR_3_DESC = "Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control.", |
-| Data\Locales\enUS\UI.lua:1080 | - | TABLE | Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies. | SPEC_PALADIN_1_DESC = "Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies.", |
-| Data\Locales\enUS\UI.lua:1082 | - | TABLE | Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense. | SPEC_PALADIN_2_DESC = "Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense.", |
-| Data\Locales\enUS\UI.lua:1084 | - | TABLE | Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes. | SPEC_PALADIN_3_DESC = "Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes.", |
-| Data\Locales\enUS\UI.lua:1086 | - | TABLE | Master of wildlife — primal bond with tamed beasts, amplifying your pet's power. | SPEC_HUNTER_1_DESC = "Master of wildlife — primal bond with tamed beasts, amplifying your pet's power.", |
-| Data\Locales\enUS\UI.lua:1088 | - | TABLE | Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms. | SPEC_HUNTER_2_DESC = "Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms.", |
-| Data\Locales\enUS\UI.lua:1090 | - | TABLE | Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons. | SPEC_HUNTER_3_DESC = "Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons.", |
-| Data\Locales\enUS\UI.lua:1092 | - | TABLE | Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim. | SPEC_ROGUE_1_DESC = "Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim.", |
-| Data\Locales\enUS\UI.lua:1094 | - | TABLE | Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration. | SPEC_ROGUE_2_DESC = "Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration.", |
-| Data\Locales\enUS\UI.lua:1096 | - | TABLE | Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning. | SPEC_ROGUE_3_DESC = "Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning.", |
-| Data\Locales\enUS\UI.lua:1098 | - | TABLE | Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude. | SPEC_PRIEST_1_DESC = "Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude.", |
-| Data\Locales\enUS\UI.lua:1100 | - | TABLE | Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death. | SPEC_PRIEST_2_DESC = "Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death.", |
-| Data\Locales\enUS\UI.lua:1102 | - | TABLE | Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror. | SPEC_PRIEST_3_DESC = "Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror.", |
-| Data\Locales\enUS\UI.lua:1104 | - | TABLE | Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage. | SPEC_SHAMAN_1_DESC = "Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage.", |
-| Data\Locales\enUS\UI.lua:1106 | - | TABLE | Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes. | SPEC_SHAMAN_2_DESC = "Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes.", |
-| Data\Locales\enUS\UI.lua:1108 | - | TABLE | Healer of sacred and ancestral waters — deep chain healing, purification and group sustain. | SPEC_SHAMAN_3_DESC = "Healer of sacred and ancestral waters — deep chain healing, purification and group sustain.", |
-| Data\Locales\enUS\UI.lua:1110 | - | TABLE | Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage. | SPEC_MAGE_1_DESC = "Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage.", |
-| Data\Locales\enUS\UI.lua:1112 | - | TABLE | Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks. | SPEC_MAGE_2_DESC = "Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks.", |
-| Data\Locales\enUS\UI.lua:1114 | - | TABLE | Commander of eternal ice — freezing barriers, field slows and absolute survival. | SPEC_MAGE_3_DESC = "Commander of eternal ice — freezing barriers, field slows and absolute survival.", |
-| Data\Locales\enUS\UI.lua:1116 | - | TABLE | Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality. | SPEC_WARLOCK_1_DESC = "Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality.", |
-| Data\Locales\enUS\UI.lua:1118 | - | TABLE | Commander of the Legion — summoning and empowering demonic servants to crush your opponents. | SPEC_WARLOCK_2_DESC = "Commander of the Legion — summoning and empowering demonic servants to crush your opponents.", |
-| Data\Locales\enUS\UI.lua:1120 | - | TABLE | Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation. | SPEC_WARLOCK_3_DESC = "Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation.", |
-| Data\Locales\enUS\UI.lua:1122 | - | TABLE | Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form. | SPEC_DRUID_1_DESC = "Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form.", |
-| Data\Locales\enUS\UI.lua:1124 | - | TABLE | Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks. | SPEC_DRUID_2_DESC = "Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks.", |
-| Data\Locales\enUS\UI.lua:1126 | - | TABLE | Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings. | SPEC_DRUID_3_DESC = "Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings.", |
+| Data\Locales\enUS\UI.lua:1039 | - | TABLE | \|cffaaaaaaConsole Mode — Controller Shortcuts (Pages 1 to 4)\|r | BINDS_MAPPER_SUBTITLE = "\|cffaaaaaaConsole Mode — Controller Shortcuts (Pages 1 to 4)\|r", |
+| Data\Locales\enUS\UI.lua:1066 | - | TABLE | \|cffaaaaaaSpellbook  •  \|cffffffff%s\|r | PICKER_DETAIL_SPELLBOOK_FMT = "\|cffaaaaaaSpellbook  •  \|cffffffff%s\|r", |
+| Data\Locales\enUS\UI.lua:1069 | - | TABLE |   •  Quantity: x | PICKER_DETAIL_QTY = "  •  Quantity: x", |
+| Data\Locales\enUS\UI.lua:1075 | - | TABLE | \|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r | PICKER_DETAIL_BAR_SLOT_FMT = "\|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r", |
+| Data\Locales\enUS\UI.lua:1079 | - | TABLE | Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes. | SPEC_WARRIOR_1_DESC = "Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes.", |
+| Data\Locales\enUS\UI.lua:1081 | - | TABLE | Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury. | SPEC_WARRIOR_2_DESC = "Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury.", |
+| Data\Locales\enUS\UI.lua:1083 | - | TABLE | Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control. | SPEC_WARRIOR_3_DESC = "Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control.", |
+| Data\Locales\enUS\UI.lua:1085 | - | TABLE | Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies. | SPEC_PALADIN_1_DESC = "Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies.", |
+| Data\Locales\enUS\UI.lua:1087 | - | TABLE | Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense. | SPEC_PALADIN_2_DESC = "Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense.", |
+| Data\Locales\enUS\UI.lua:1089 | - | TABLE | Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes. | SPEC_PALADIN_3_DESC = "Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes.", |
+| Data\Locales\enUS\UI.lua:1091 | - | TABLE | Master of wildlife — primal bond with tamed beasts, amplifying your pet's power. | SPEC_HUNTER_1_DESC = "Master of wildlife — primal bond with tamed beasts, amplifying your pet's power.", |
+| Data\Locales\enUS\UI.lua:1093 | - | TABLE | Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms. | SPEC_HUNTER_2_DESC = "Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms.", |
+| Data\Locales\enUS\UI.lua:1095 | - | TABLE | Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons. | SPEC_HUNTER_3_DESC = "Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons.", |
+| Data\Locales\enUS\UI.lua:1097 | - | TABLE | Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim. | SPEC_ROGUE_1_DESC = "Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim.", |
+| Data\Locales\enUS\UI.lua:1099 | - | TABLE | Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration. | SPEC_ROGUE_2_DESC = "Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration.", |
+| Data\Locales\enUS\UI.lua:1101 | - | TABLE | Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning. | SPEC_ROGUE_3_DESC = "Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning.", |
+| Data\Locales\enUS\UI.lua:1103 | - | TABLE | Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude. | SPEC_PRIEST_1_DESC = "Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude.", |
+| Data\Locales\enUS\UI.lua:1105 | - | TABLE | Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death. | SPEC_PRIEST_2_DESC = "Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death.", |
+| Data\Locales\enUS\UI.lua:1107 | - | TABLE | Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror. | SPEC_PRIEST_3_DESC = "Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror.", |
+| Data\Locales\enUS\UI.lua:1109 | - | TABLE | Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage. | SPEC_SHAMAN_1_DESC = "Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage.", |
+| Data\Locales\enUS\UI.lua:1111 | - | TABLE | Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes. | SPEC_SHAMAN_2_DESC = "Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes.", |
+| Data\Locales\enUS\UI.lua:1113 | - | TABLE | Healer of sacred and ancestral waters — deep chain healing, purification and group sustain. | SPEC_SHAMAN_3_DESC = "Healer of sacred and ancestral waters — deep chain healing, purification and group sustain.", |
+| Data\Locales\enUS\UI.lua:1115 | - | TABLE | Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage. | SPEC_MAGE_1_DESC = "Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage.", |
+| Data\Locales\enUS\UI.lua:1117 | - | TABLE | Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks. | SPEC_MAGE_2_DESC = "Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks.", |
+| Data\Locales\enUS\UI.lua:1119 | - | TABLE | Commander of eternal ice — freezing barriers, field slows and absolute survival. | SPEC_MAGE_3_DESC = "Commander of eternal ice — freezing barriers, field slows and absolute survival.", |
+| Data\Locales\enUS\UI.lua:1121 | - | TABLE | Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality. | SPEC_WARLOCK_1_DESC = "Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality.", |
+| Data\Locales\enUS\UI.lua:1123 | - | TABLE | Commander of the Legion — summoning and empowering demonic servants to crush your opponents. | SPEC_WARLOCK_2_DESC = "Commander of the Legion — summoning and empowering demonic servants to crush your opponents.", |
+| Data\Locales\enUS\UI.lua:1125 | - | TABLE | Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation. | SPEC_WARLOCK_3_DESC = "Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation.", |
+| Data\Locales\enUS\UI.lua:1127 | - | TABLE | Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form. | SPEC_DRUID_1_DESC = "Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form.", |
+| Data\Locales\enUS\UI.lua:1129 | - | TABLE | Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks. | SPEC_DRUID_2_DESC = "Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks.", |
+| Data\Locales\enUS\UI.lua:1131 | - | TABLE | Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings. | SPEC_DRUID_3_DESC = "Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings.", |
+| Data\Locales\enUS\UI.lua:1223 | - | TABLE |   Mouse Mode:  %s | LOG_MOUSE_MODE_FMT = "  Mouse Mode:  %s", |
 | Data\NPCs\NPC_Data_CustomTurtle.lua:478 | - | TABLE | Mana Remnant | [11483] = { "Mana Remnant", "", 0.0, 0.0 }, |
 | Data\NPCs\NPC_Data_CustomTurtle.lua:560 | - | TABLE | Corrupted Bronze Whelp | [14025] = { "Corrupted Bronze Whelp", "", 0.0, 0.0 }, |
 | Data\NPCs\NPC_Data_CustomTurtle.lua:620 | - | TABLE | Bronze Riding Crab | [33006] = { "Bronze Riding Crab", "", 58.75, 41.04 }, |
@@ -251,10 +234,6 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | Data\NPCs\NPC_Data_Kalimdor.lua:3527 | - | TABLE | Lord Ta’jax | [63149] = { "Lord Ta’jax", "", 90.79, 20.14 }, |
 | Data\NPCs\NPC_Data_Kalimdor.lua:3538 | - | TABLE | Keeper N’las | [63183] = { "Keeper N’las", "", 93.08, 36.43 }, |
 | Data\NPCs\NPC_Data_Kalimdor.lua:3561 | - | TABLE | Bronze Drake | [80156] = { "Bronze Drake", "", 63.58, 57.74 }, |
-| docs\TEST_LOADONDEMAND.lua:20 | - | DISPLAY | 2. Data addon disponivel:  | DEFAULT_CHAT_FRAME:AddMessage("2. Data addon disponivel: " .. tostring(dataAvailable)) |
-| docs\TEST_LOADONDEMAND.lua:28 | - | DISPLAY | 4. SpellDescDB disponivel:  | DEFAULT_CHAT_FRAME:AddMessage("4. SpellDescDB disponivel: " .. tostring(spellDBExists)) |
-| docs\TEST_LOADONDEMAND.lua:36 | - | DISPLAY | 5. ERRO: ConsoleMode.LoadDataLake nao existe! | DEFAULT_CHAT_FRAME:AddMessage("5. ERRO: ConsoleMode.LoadDataLake nao existe!") |
-| docs\TEST_LOADONDEMAND.lua:45 | - | DISPLAY | 7. SpellDescDB agora disponivel:  | DEFAULT_CHAT_FRAME:AddMessage("7. SpellDescDB agora disponivel: " .. tostring(spellDBExists)) |
 | UI\BagPicker.lua:30 | - | TABLE | consumÃ­vel | ["consumÃ­vel"]      = true, |
 | UI\BagPicker.lua:31 | - | TABLE | consumÃ­veis | ["consumÃ­veis"]     = true, |
 | UI\BagPicker.lua:33 | - | TABLE | missÃ£o | ["missÃ£o"]          = true, |
@@ -266,11 +245,6 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | UI\BagPicker.lua:151 | BP:IsUsableItem | OTHER | consumÃ­vel \| consumÃ­veis | if typeLower == "consumable" or typeLower == "consumables" or typeLower == "consumÃ­vel" or typeLower == "consumÃ­veis" then |
 | UI\BagPicker.lua:158 | BP:IsUsableItem | OTHER | lixo | if subLower == "junk" or subLower == "lixo" or subLower == "other" or subLower == "outro" or subLower == "outros" then |
 | UI\BagPicker.lua:174 | BP:IsUsableItem | OTHER | missÃ£o | if typeLower == "quest" or typeLower == "missÃ£o" or typeLower == "key" or typeLower == "chave" then |
-| UI\BagSplit.lua:78 | BagSplit:Start | OTHER | API de bolsas ausente | return false, "API de bolsas ausente" |
-| UI\BagSplit.lua:85 | BagSplit:Start | OTHER | slot vazio ou ilegivel | return false, "slot vazio ou ilegivel" |
-| UI\BagSplit.lua:92 | BagSplit:Start | OTHER | sem espaco na bolsa p/ dividir | return false, "sem espaco na bolsa p/ dividir" |
-| UI\BagSplit.lua:97 | BagSplit:Start | OTHER | item nao saiu da bolsa | return false, "item nao saiu da bolsa" |
-| UI\BagSplit.lua:159 | BagSplit:OnUpdate | OTHER | deposito falhou (recoloque o cursor) | self:FailOp("deposito falhou (recoloque o cursor)") |
 | UI\CharacterScreen.lua:386 | CS_Fmt1 | OTHER | — | if type(v) ~= "number" then return "—" end |
 | UI\CharacterScreen.lua:392 | CS_Fmt2 | OTHER | — | if type(v) ~= "number" then return "—" end |
 | UI\CharacterScreen.lua:398 | CS_DPS | OTHER | — | if type(minD) ~= "number" or type(maxD) ~= "number" then return "—" end |
@@ -295,7 +269,6 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | UI\CharacterScreen.lua:846 | CS_ScanAuraLines | OTHER | Allows (%d+)%% of mana regeneration while casting | v = CS_MatchNum(text, "Allows (%d+)%% of mana regeneration while casting") |
 | UI\CharacterScreen.lua:848 | CS_ScanAuraLines | OTHER | (%d+)%% Mana regeneration may continue while casting | v = CS_MatchNum(text, "(%d+)%% Mana regeneration may continue while casting") |
 | UI\CharacterScreen.lua:2311 | CharacterScreen:CreateUI | OTHER | Profissoes | if self.cardProf then self.cardProf.detailKey = "Profissoes" end |
-| UI\ContextMenu.lua:733 | Menu:OpenForQuest | OTHER | Missao | local displayName = questTitle or "Missao" |
 | UI\EnhanceModal.lua:146 | - | TABLE | Mão Principal \| Mão Secundária | slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" }, |
 | UI\EnhanceModal.lua:154 | - | TABLE | Mão Principal \| Mão Secundária | slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" }, |
 | UI\EnhanceModal.lua:162 | - | TABLE | Mão Principal \| Mão Secundária | slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" }, |
@@ -318,48 +291,15 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | UI\KeybindingsList.lua:33 | - | TABLE | Pagina 3 (R1 / Ctrl) | [3] = { label = "Pagina 3 (R1 / Ctrl)",  tkey = "BIND_PAGE_3" }, |
 | UI\KeybindingsList.lua:34 | - | TABLE | Pagina 4 (R2 / Alt) | [4] = { label = "Pagina 4 (R2 / Alt)",   tkey = "BIND_PAGE_4" }, |
 | UI\KeybindingsList.lua:78 | KBList:GetDisplayForButton | OTHER | Alvo Amigo (Party / Mundo) | return nil, (CM.T and CM:T("BIND_TARGET_FRIENDLY")) or "Alvo Amigo (Party / Mundo)", "Interface\\Icons\\Spell_Holy_PrayerOfHealing02" |
-| UI\MailScreen.lua:412 | MailScreen:ScanInbox | OTHER | [MailScreen] Inbox vazia. | CM.logger:Log("[MailScreen] Inbox vazia.") |
-| UI\MailScreen.lua:444 | MailScreen:ScanInbox | DISPLAY |  cartas (filtro:  | CM.logger:Log("[MailScreen] Inbox: " .. table.getn(raw) .. " cartas (filtro: " .. self:GetInboxFilterName() .. ").") |
 | UI\MailScreen.lua:638 | MailScreen:BuildFooterHintsSet | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
 | UI\MailScreen.lua:718 | MailScreen:BuildIconHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
 | UI\MailScreen.lua:1686 | MailScreen:RefreshInboxList | OTHER | ▲  | local arrowUp = (self.inboxScrollOffset > 0) and "▲ " or "" |
 | UI\MailScreen.lua:1687 | MailScreen:RefreshInboxList | OTHER |  ▼ | local arrowDown = ((self.inboxScrollOffset + visible) < numItems) and " ▼" or "" |
 | UI\MailScreen.lua:1962 | MailScreen:ClearComposeFocus | TABLE | ASSUNTO | { key = "composeSubject", label = "ASSUNTO",  tkey = "MAIL_FIELD_SUBJECT", h = 44,  kind = "edit",   max = 64 }, |
 | UI\MailScreen.lua:1963 | MailScreen:ClearComposeFocus | TABLE | MENSAGEM | { key = "composeBody",    label = "MENSAGEM", tkey = "MAIL_FIELD_BODY",    h = 122, kind = "editml", max = 2000 }, |
-| UI\MailScreen.lua:3023 | MailScreen:OnVKConfirm | OTHER | [MailScreen] Campo atualizado via teclado virtual. | CM.logger:Log("[MailScreen] Campo atualizado via teclado virtual.") |
-| UI\MailScreen.lua:3101 | MailScreen:AttachSelectedItem | OTHER | [MailScreen] Item ja esta na carta. | CM.logger:Log("[MailScreen] Item ja esta na carta.") |
-| UI\MailScreen.lua:3110 | MailScreen:AttachSelectedItem | DISPLAY | [MailScreen] Item nao pode ir pelo correio ( | CM.logger:Log("[MailScreen] Item nao pode ir pelo correio (" .. tostring(bindType or "?") .. ").") |
-| UI\MailScreen.lua:3146 | MailScreen:DetachItemAtInvIndex | OTHER | [MailScreen] Nenhum item na carta para tirar. | CM.logger:Log("[MailScreen] Nenhum item na carta para tirar.") |
-| UI\MailScreen.lua:3176 | MailScreen:DetachItemAtInvIndex | DISPLAY | [MailScreen] Devolvido a bolsa:  | CM.logger:Log("[MailScreen] Devolvido a bolsa: " .. tostring(nm) .. " x" .. dq .. " (qty descartada; re-anexar volta a pilha cheia).") |
-| UI\MailScreen.lua:3352 | MailScreen:OpenQtyModalForInvIndex | OTHER | [MailScreen] Seletor de quantidade indisponivel. | CM.logger:Log("[MailScreen] Seletor de quantidade indisponivel.") |
-| UI\MailScreen.lua:3560 | MailScreen:FinishSplitAttach | DISPLAY |  (bolsa  | CM.logger:Log("[MailScreen] Dividido: '" .. tostring(nm) .. "' x" .. qty .. " (bolsa " .. eb .. " slot " .. es .. ") e anexado.") |
-| UI\MailScreen.lua:4212 | MailScreen:AbortSendQueue | DISPLAY | [MailScreen] Envio abortado:  | CM.logger:Log("[MailScreen] Envio abortado: " .. tostring(reason or "?") .. ".") |
-| UI\MailScreen.lua:4236 | MailScreen:TrySendMail | OTHER | [MailScreen] Aguarde a retirada terminar para enviar. | CM.logger:Log("[MailScreen] Aguarde a retirada terminar para enviar.") |
-| UI\MailScreen.lua:4242 | MailScreen:TrySendMail | OTHER | [MailScreen] Aguarde a divisao terminar para enviar. | CM.logger:Log("[MailScreen] Aguarde a divisao terminar para enviar.") |
-| UI\MailScreen.lua:4248 | MailScreen:TrySendMail | OTHER | [MailScreen] Envio indisponivel (API SendMail ausente). | CM.logger:Log("[MailScreen] Envio indisponivel (API SendMail ausente).") |
-| UI\MailScreen.lua:4256 | MailScreen:TrySendMail | OTHER | [MailScreen] Informe o destinatario (campo Para). | CM.logger:Log("[MailScreen] Informe o destinatario (campo Para).") |
-| UI\MailScreen.lua:4269 | MailScreen:TrySendMail | OTHER | [MailScreen] Aviso: Postal ativo junto pode conflitar no envio (desative p/ testar). | CM.logger:Log("[MailScreen] Aviso: Postal ativo junto pode conflitar no envio (desative p/ testar).") |
-| UI\MailScreen.lua:4304 | MailScreen:TrySendMail | OTHER | [MailScreen] Nada a enviar (carta vazia). | CM.logger:Log("[MailScreen] Nada a enviar (carta vazia).") |
-| UI\MailScreen.lua:4338 | MailScreen:TrySendMail | DISPLAY | ' sumiu da bolsa; envio cancelado. | CM.logger:Log("[MailScreen] Item '" .. tostring(e.name or "Item") .. "' sumiu da bolsa; envio cancelado.") |
-| UI\MailScreen.lua:4349 | MailScreen:TrySendMail | DISPLAY | [MailScreen] Parcial indisponivel ' \| ): divida a pilha na bolsa antes (1.12/Postal: so pilha cheia). Envio cancelado. | CM.logger:Log("[MailScreen] Parcial indisponivel '" .. tostring(e.name or "Item") .. "' (x" .. need .. " de x" .. rc .. "): divida a pilha na bolsa antes (1.12/Postal: so pilha cheia). Envio cancelado.") |
-| UI\MailScreen.lua:4370 | MailScreen:TrySendMail | DISPLAY | [MailScreen] Fila carta  | CM.logger:Log("[MailScreen] Fila carta " .. li .. "/" .. nl .. ": '" .. tostring(le.name or "Item") .. "' x" .. tostring(tonumber(le.qty) or 1) .. ".") |
-| UI\MailScreen.lua:4372 | MailScreen:TrySendMail | DISPLAY | [MailScreen] Fila carta  | CM.logger:Log("[MailScreen] Fila carta " .. li .. "/" .. nl .. ": so dinheiro.") |
-| UI\MailScreen.lua:4422 | MailScreen:ProcessSendStep | DISPLAY | [MailScreen] Carta  \| : bolsa  | CM.logger:Log("[MailScreen] Carta " .. (tonumber(pos) or 1) .. ": bolsa " .. tostring(b) .. " slot " .. tostring(s) .. " (x" .. tostring(cnt) .. ", envia x" .. tostring(need) .. ").") |
-| UI\MailScreen.lua:4461 | MailScreen:ProcessSendStep | DISPLAY | [MailScreen] Carta  | CM.logger:Log("[MailScreen] Carta " .. (tonumber(pos) or 1) .. " enviada, aguardando servidor...") |
-| UI\MailScreen.lua:4510 | MailScreen:StopSendQueue | OTHER | [MailScreen] Envio concluido. | CM.logger:Log("[MailScreen] Envio concluido.") |
-| UI\MailScreen.lua:4583 | MailScreen:FinishSendQueue | OTHER | [MailScreen] Carta enviada. | CM.logger:Log("[MailScreen] Carta enviada.") |
 | UI\MailScreen.lua:4619 | MailScreen:ClearComposeAfterSend | TABLE | RETIRAR \| RETIRAR | { key = "RETIRAR",  label = "RETIRAR",  tkey = "MAIL_BTN_TAKE",   icon = "Interface\\MoneyFrame\\UI-GoldIcon", action = "take" }, |
 | UI\MailScreen.lua:4620 | MailScreen:ClearComposeAfterSend | TABLE | DEVOLVER \| DEVOLVER | { key = "DEVOLVER", label = "DEVOLVER", tkey = "MAIL_BTN_RETURN", icon = "Interface\\Icons\\INV_Misc_Note_01", action = "return" }, |
 | UI\MailScreen.lua:4621 | MailScreen:ClearComposeAfterSend | TABLE | APAGAR \| APAGAR | { key = "APAGAR",   label = "APAGAR",   tkey = "MAIL_BTN_DELETE", icon = nil, action = "delete" }, |
-| UI\MailScreen.lua:4811 | MailScreen:ReturnSelectedMail | DISPLAY | [MailScreen] Carta devolvida a  | CM.logger:Log("[MailScreen] Carta devolvida a " .. tostring(item.sender or "?") .. ".") |
-| UI\MailScreen.lua:4838 | MailScreen:DeleteIndex | OTHER | [MailScreen] Carta apagada. | CM.logger:Log("[MailScreen] Carta apagada.") |
-| UI\MailScreen.lua:4982 | MailScreen:OpenDeleteConfirm | OTHER | [MailScreen] Confirmar APAGAR: carta com valores nao retirados. | CM.logger:Log("[MailScreen] Confirmar APAGAR: carta com valores nao retirados.") |
-| UI\MailScreen.lua:5031 | MailScreen:TakeAllInbox | OTHER | [MailScreen] Aguarde o envio terminar para retirar tudo. | CM.logger:Log("[MailScreen] Aguarde o envio terminar para retirar tudo.") |
-| UI\MailScreen.lua:5037 | MailScreen:TakeAllInbox | OTHER | [MailScreen] Aguarde a divisao terminar para retirar tudo. | CM.logger:Log("[MailScreen] Aguarde a divisao terminar para retirar tudo.") |
-| UI\MailScreen.lua:5056 | MailScreen:TakeAllInbox | OTHER | [MailScreen] Nada a retirar: nenhuma carta com dinheiro ou anexo. | CM.logger:Log("[MailScreen] Nada a retirar: nenhuma carta com dinheiro ou anexo.") |
-| UI\MailScreen.lua:5067 | MailScreen:TakeAllInbox | DISPLAY |  carta(s)... | CM.logger:Log("[MailScreen] Retirando tudo: " .. st.total .. " carta(s)...") |
-| UI\MailScreen.lua:5132 | MailScreen:AdvanceTakeAll | DISPLAY | [MailScreen] Carta  \|  ignorada (bolsa cheia ou COD?). | CM.logger:Log("[MailScreen] Carta " .. pos .. " ignorada (bolsa cheia ou COD?).") |
-| UI\MailScreen.lua:5165 | MailScreen:FinishTakeAllRound | DISPLAY |  carta(s) (bolsa cheia ou COD?). | CM.logger:Log("[MailScreen] Restam " .. left .. " carta(s) (bolsa cheia ou COD?).") |
 | UI\MainMenu.lua:216 | CMSafeSetMap | TABLE | CABEÇA | { name = "HeadSlot",          label = "CABEÇA",   lkey = "SLOT_HEAD" }, |
 | UI\MainMenu.lua:224 | CMSafeSetMap | TABLE | PERNAS | { name = "LegsSlot",          label = "PERNAS",   lkey = "SLOT_LEGS" }, |
 | UI\MainMenu.lua:230 | CMSafeSetMap | TABLE | MÃO DIR. | { name = "MainHandSlot",      label = "MÃO DIR.", lkey = "SLOT_MAINHAND" }, |
@@ -442,9 +382,6 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | UI\MainMenu.lua:6844 | MainMenu:FocusTalentSlot | DISPLAY | \|cffaaaaaa%s %d  •  %s/%d\|r | card.typeText:SetText(string.format("\|cffaaaaaa%s %d  •  %s/%d\|r", tierLabel, data.tier, rankStr, data.maxRank)) |
 | UI\MainMenu.lua:7294 | MainMenu:CreateTalentInspectModal | DISPLAY | Fechar | cText:SetText(CM:T("BTN_CLOSE") or "Fechar") |
 | UI\MainMenu.lua:7348 | MainMenu:ShowTalentInspectModal | DISPLAY | \|cffaaaaaa%s %d  •  %s/%d\|r | modal.badgesText:SetText(string.format("\|cffaaaaaa%s %d  •  %s/%d\|r", tierLabel, data.tier, rankStr, data.maxRank)) |
-| UI\MainMenu.lua:8558 | b:UpdateNavVisual | DISPLAY | \|cffe09a15REGIOES\|r | zlTitle:SetText("\|cffe09a15REGIOES\|r") |
-| UI\MainMenu.lua:9670 | MainMenu:BuildInstancesList | DISPLAY | \|cffe09a15INSTANCIAS\|r | if frame.title then frame.title:SetText("\|cffe09a15INSTANCIAS\|r") end |
-| UI\MainMenu.lua:9960 | MainMenu:AbandonSelectedQuest | OTHER | _MISSÃO_ | local questName = (GetAbandonQuestName and GetAbandonQuestName()) or title or "_MISSÃO_" |
 | UI\MainMenu.lua:10443 | MainMenu:SelectQuest | OTHER | \|cff00ff00✔ \|r | local bullet = isDone and "\|cff00ff00✔ \|r" or "\|cffffcc00- \|r" |
 | UI\MainMenu.lua:11425 | MainMenu:UpdatePfQuestPins | TABLE | Armeiro / Reparo | ["repair"]      = "Armeiro / Reparo", |
 | UI\MainMenu.lua:11426 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Classe | ["trainer"]     = "Instrutor de Classe", |
@@ -476,11 +413,6 @@ Resumo: DISPLAY=80, TABLE=332, OTHER=170, PARSER=194
 | UI\MainMenu.lua:13376 | MainMenu:UpdateSystemPage | TABLE | Botão X | { key = "X", glyph = "[X]", label = "Botão X", lkey = "BINDS_BTN_X_LABEL", icon = CFG.Icons.X }, |
 | UI\MainMenu.lua:13377 | MainMenu:UpdateSystemPage | TABLE | Botão B | { key = "B", glyph = "[B]", label = "Botão B", lkey = "BINDS_BTN_B_LABEL", icon = CFG.Icons.B }, |
 | UI\MainMenu.lua:13378 | MainMenu:UpdateSystemPage | TABLE | Botão A | { key = "A", glyph = "[A]", label = "Botão A", lkey = "BINDS_BTN_A_LABEL", icon = CFG.Icons.A }, |
-| UI\MainMenu.lua:13690 | MainMenu:SetupKeybindingsPage | DISPLAY | \|cffe09a15[A]\|r Mapear   \|   \|cffe09a15[X]\|r Limpar   \|   \|cffe09a15[LT]/[RT]\|r Páginas   \|   \|cffe09a15[B]\|r Voltar | detailCard.slotsFreeText:SetText("\|cffe09a15[A]\|r Mapear   \|   \|cffe09a15[X]\|r Limpar   \|   \|cffe09a15[LT]/[RT]\|r Páginas   \|   \|cffe09a15[B]\|r Voltar") |
-| UI\MainMenu.lua:13694 | MainMenu:SetupKeybindingsPage | DISPLAY | \|cffe09a15Mapeador de Atalhos / Binds\|r | detailCard.titleText:SetText("\|cffe09a15Mapeador de Atalhos / Binds\|r") |
-| UI\MainMenu.lua:13695 | MainMenu:SetupKeybindingsPage | DISPLAY | \|cffaaaaaaModo Console — Atalhos do Controle (Páginas 1 a 4)\|r | detailCard.typeText:SetText("\|cffaaaaaaModo Console — Atalhos do Controle (Páginas 1 a 4)\|r") |
-| UI\MainMenu.lua:13696 | MainMenu:SetupKeybindingsPage | DISPLAY | \|cffccccccNavegue pelos botões do controle para vincular habilidades, itens do inventário ou macros.\|r | detailCard.descColLeft:SetText("\|cffccccccNavegue pelos botões do controle para vincular habilidades, itens do inventário ou macros.\|r") |
-| UI\MainMenu.lua:13697 | MainMenu:SetupKeybindingsPage | DISPLAY | \|cff888888Pressione [B] no controle ou clique no botão acima para voltar.\|r | detailCard.descColRight:SetText("\|cff888888Pressione [B] no controle ou clique no botão acima para voltar.\|r") |
 | UI\MainMenu.lua:15695 | MainMenu:CreateFooterHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
 | UI\MainMenuNav.lua:1765 | Nav_EnsureFocus | OTHER | ZONAS | if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" |
 | UI\MainMenuNav.lua:1768 | Nav_EnsureFocus | OTHER | ZONAS | if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRI |

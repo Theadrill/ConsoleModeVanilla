@@ -409,7 +409,7 @@ function MailScreen:ScanInbox()
         self.filteredInbox = {}
         self.inboxScanned = true
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Inbox vazia.")
+            CM.logger:Log(CM:T("MAIL_LOG_INBOX_EMPTY"))
         end
         return
     end
@@ -441,7 +441,7 @@ function MailScreen:ScanInbox()
     self.inboxScanned = true
     self:FilterInbox()
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Inbox: " .. table.getn(raw) .. " cartas (filtro: " .. self:GetInboxFilterName() .. ").")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_INBOX_FMT"), table.getn(raw), self:GetInboxFilterName()))
     end
 end
 
@@ -3020,7 +3020,7 @@ function MailScreen:OnVKConfirm(fieldIndex, text)
     end
     self:RefreshComposeVisuals()
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Campo atualizado via teclado virtual.")
+        CM.logger:Log(CM:T("MAIL_LOG_VK_CONFIRM"))
     end
 end
 
@@ -3092,13 +3092,13 @@ function MailScreen:AttachSelectedItem()
     local it = self:GetInvItemAt(self.invIndex)
     if not it then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Nenhum item selecionado para anexar.")
+            CM.logger:Log(CM:T("MAIL_LOG_NO_ITEM"))
         end
         return
     end
     if self:IsItemAttached(it.bag, it.slot) then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Item ja esta na carta.")
+            CM.logger:Log(CM:T("MAIL_LOG_ALREADY"))
         end
         return
     end
@@ -3107,7 +3107,7 @@ function MailScreen:AttachSelectedItem()
     local okMail, bindType = self:ItemIsMailable(it.bag, it.slot)
     if not okMail then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Item nao pode ir pelo correio (" .. tostring(bindType or "?") .. ").")
+            CM.logger:Log(string.format(CM:T("MAIL_LOG_NOT_MAILABLE_FMT"), tostring(bindType or "?")))
         end
         if PlaySound then PlaySound("igQuestFailed") end
         return
@@ -3133,7 +3133,7 @@ function MailScreen:AttachSelectedItem()
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Anexado: " .. tostring(it.name or "Item") .. " x" .. qty .. ".")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_ATTACHED_FMT"), tostring(it.name or "Item"), qty))
     end
 end
 
@@ -3143,7 +3143,7 @@ function MailScreen:DetachItemAtInvIndex()
     local list = self.composeItems or {}
     if table.getn(list) == 0 then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Nenhum item na carta para tirar.")
+            CM.logger:Log(CM:T("MAIL_LOG_NO_ITEM_REMOVE"))
         end
         return
     end
@@ -3173,7 +3173,7 @@ function MailScreen:DetachItemAtInvIndex()
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Devolvido a bolsa: " .. tostring(nm) .. " x" .. dq .. " (qty descartada; re-anexar volta a pilha cheia).")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_RETURNED_FMT"), tostring(nm), dq))
     end
 end
 
@@ -3332,7 +3332,7 @@ function MailScreen:OpenQtyModalForInvIndex()
     local it = self:GetInvItemAt(self.invIndex)
     if not it then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Sem item para definir quantidade.")
+            CM.logger:Log(CM:T("MAIL_LOG_NO_QTY"))
         end
         return
     end
@@ -3349,7 +3349,7 @@ function MailScreen:OpenQtyModalForInvIndex()
     local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
     if not qp or not qp.Open then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Seletor de quantidade indisponivel.")
+            CM.logger:Log(CM:T("MAIL_LOG_QTY_UNAVAILABLE"))
         end
         return
     end
@@ -3439,7 +3439,7 @@ function MailScreen:OnQtyPicked(qty, ctx)
         })
         if okS then
             if CM.logger and CM.logger.Log then
-                CM.logger:Log("[MailScreen] Dividindo x" .. qty .. " de x" .. mx .. "... aguarde.")
+                CM.logger:Log(string.format(CM:T("MAIL_LOG_SPLITTING_FMT"), qty, mx))
             end
         else
             self:FailSplit(string.format(CM:T("MAIL_SPLIT_FAILED_FMT"), tostring(why)))
@@ -3490,7 +3490,7 @@ function MailScreen:OnQtyPicked(qty, ctx)
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Quantidade: " .. tostring(nm) .. " x" .. qty .. ".")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_QTY_FMT"), tostring(nm), qty))
     end
 end
 
@@ -3557,7 +3557,7 @@ function MailScreen:FinishSplitAttach(eb, es, qty, ctx)
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Dividido: '" .. tostring(nm) .. "' x" .. qty .. " (bolsa " .. eb .. " slot " .. es .. ") e anexado.")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_SPLIT_DONE_FMT"), tostring(nm), qty, eb, es))
     end
 end
 
@@ -3930,7 +3930,7 @@ function MailScreen:MoneyModalConfirm()
     local balance = self:GetPlayerCopper()
     if total > balance then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Dinheiro acima do saldo (" .. self:FormatMoneyText(balance) .. ").")
+            CM.logger:Log(string.format(CM:T("MAIL_LOG_MONEY_ABOVE"), self:FormatMoneyText(balance)))
         end
         if PlaySound then PlaySound("igQuestFailed") end
         return
@@ -3945,7 +3945,7 @@ function MailScreen:MoneyModalConfirm()
     self:RefreshComposeVisuals()
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Dinheiro anexado: " .. self:FormatMoneyText(total) .. ".")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_MONEY_ATTACHED"), self:FormatMoneyText(total)))
     end
 end
 
@@ -4209,7 +4209,7 @@ function MailScreen:AbortSendQueue(reason)
     self:StopSendQueue(false)
     self:RestoreInboxTab()
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Envio abortado: " .. tostring(reason or "?") .. ".")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_ABORTED_FMT"), tostring(reason or "?")))
     end
     if PlaySound then PlaySound("igQuestFailed") end
 end
@@ -4233,19 +4233,19 @@ function MailScreen:TrySendMail()
     if st.running then return end
     if self.takeAllQueue and self.takeAllQueue.running then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Aguarde a retirada terminar para enviar.")
+            CM.logger:Log(CM:T("MAIL_LOG_WAIT_TAKE"))
         end
         return
     end
     if CM.BagSplit and CM.BagSplit:IsBusy() then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Aguarde a divisao terminar para enviar.")
+            CM.logger:Log(CM:T("MAIL_LOG_WAIT_SPLIT"))
         end
         return
     end
     if not SendMail then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Envio indisponivel (API SendMail ausente).")
+            CM.logger:Log(CM:T("MAIL_LOG_NO_SENDMAIL"))
         end
         return
     end
@@ -4253,7 +4253,7 @@ function MailScreen:TrySendMail()
     local to = self:TrimText(self.composeTo or "")
     if to == "" then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Informe o destinatario (campo Para).")
+            CM.logger:Log(CM:T("MAIL_LOG_NO_RECIPIENT"))
         end
         if PlaySound then PlaySound("igQuestFailed") end
         return
@@ -4266,7 +4266,7 @@ function MailScreen:TrySendMail()
     if (Postal ~= nil or getglobal("PostalFrame") ~= nil) and not st.warnedPostal then
         st.warnedPostal = true
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Aviso: Postal ativo junto pode conflitar no envio (desative p/ testar).")
+            CM.logger:Log(CM:T("MAIL_LOG_POSTAL_WARN"))
         end
     end
     local subject = tostring(self.composeSubject or "")
@@ -4301,7 +4301,7 @@ function MailScreen:TrySendMail()
     end
     if numItems == 0 and money == 0 and self:TrimText(subject) == "" and self:TrimText(body) == "" then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Nada a enviar (carta vazia).")
+            CM.logger:Log(CM:T("MAIL_LOG_NOTHING_SEND"))
         end
         if PlaySound then PlaySound("igQuestFailed") end
         return
@@ -4313,7 +4313,7 @@ function MailScreen:TrySendMail()
     local needed = total * postage + money
     if balance < needed then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Saldo insuficiente: precisa de " .. self:FormatMoneyText(needed) .. " (" .. total .. "x postagem + dinheiro).")
+            CM.logger:Log(string.format(CM:T("MAIL_LOG_LOW_FUNDS_FMT"), self:FormatMoneyText(needed), total))
         end
         if PlaySound then PlaySound("igQuestFailed") end
         return
@@ -4335,7 +4335,7 @@ function MailScreen:TrySendMail()
             local rb, rs, rc = self:ResolveLetterSlot(probe)
             if rb == nil then
                 if CM.logger and CM.logger.Log then
-                    CM.logger:Log("[MailScreen] Item '" .. tostring(e.name or "Item") .. "' sumiu da bolsa; envio cancelado.")
+                    CM.logger:Log(string.format(CM:T("MAIL_LOG_ITEM_GONE_FMT"), tostring(e.name or "Item")))
                 end
                 if PlaySound then PlaySound("igQuestFailed") end
                 return
@@ -4346,7 +4346,7 @@ function MailScreen:TrySendMail()
             -- divida a pilha na bolsa antes (Shift+clique padrao).
             if need < rc then
                 if CM.logger and CM.logger.Log then
-                    CM.logger:Log("[MailScreen] Parcial indisponivel '" .. tostring(e.name or "Item") .. "' (x" .. need .. " de x" .. rc .. "): divida a pilha na bolsa antes (1.12/Postal: so pilha cheia). Envio cancelado.")
+                    CM.logger:Log(string.format(CM:T("MAIL_LOG_PARTIAL_FMT"), tostring(e.name or "Item"), need, rc))
                 end
                 if PlaySound then PlaySound("igQuestFailed") end
                 return
@@ -4367,9 +4367,9 @@ function MailScreen:TrySendMail()
         for li = 1, nl do
             local le = letters[li]
             if le.bag ~= nil then
-                CM.logger:Log("[MailScreen] Fila carta " .. li .. "/" .. nl .. ": '" .. tostring(le.name or "Item") .. "' x" .. tostring(tonumber(le.qty) or 1) .. ".")
+                CM.logger:Log(string.format(CM:T("MAIL_LOG_QUEUE_FMT"), li, nl, tostring(le.name or "Item"), tostring(tonumber(le.qty) or 1)))
             else
-                CM.logger:Log("[MailScreen] Fila carta " .. li .. "/" .. nl .. ": so dinheiro.")
+                CM.logger:Log(string.format(CM:T("MAIL_LOG_QUEUE_MONEY_FMT"), li, nl))
             end
         end
     end
@@ -4382,7 +4382,7 @@ function MailScreen:TrySendMail()
     st.subject = subject
     st.body = body
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Enviando 1 de " .. st.total .. "...")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_SENDING_FMT"), st.total))
     end
     self:ProcessSendStep()
 end
@@ -4419,7 +4419,7 @@ function MailScreen:ProcessSendStep()
         letter.bag = b
         letter.slot = s
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Carta " .. (tonumber(pos) or 1) .. ": bolsa " .. tostring(b) .. " slot " .. tostring(s) .. " (x" .. tostring(cnt) .. ", envia x" .. tostring(need) .. ").")
+            CM.logger:Log(string.format(CM:T("MAIL_LOG_LETTER_FMT"), (tonumber(pos) or 1), tostring(b), tostring(s), tostring(cnt), tostring(need)))
         end
         local okAttach, why = self:AttachBagItem(b, s, need, cnt)
         if not okAttach then
@@ -4430,7 +4430,7 @@ function MailScreen:ProcessSendStep()
             local sc = self:GetSendSlotCount()
             local extra = ""
             if sc ~= nil then extra = " x" .. sc end
-            CM.logger:Log("[MailScreen] Anexado no slot: '" .. tostring(self:GetSendSlotItemName() or "?") .. "'" .. extra .. ".")
+            CM.logger:Log(string.format(CM:T("MAIL_LOG_ATTACHED_SLOT_FMT"), tostring(self:GetSendSlotItemName() or "?"), extra))
         end
     end
     -- 2. Dinheiro (so na 1a carta; zera nas demais).
@@ -4458,7 +4458,7 @@ function MailScreen:ProcessSendStep()
     -- fechar/abrir o mail).
     st.lastSendTime = GetTime and GetTime() or nil
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Carta " .. (tonumber(pos) or 1) .. " enviada, aguardando servidor...")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_LETTER_SENT_FMT"), (tonumber(pos) or 1)))
     end
 end
 
@@ -4481,7 +4481,7 @@ function MailScreen:AdvanceSendQueue()
         return
     end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Enviando " .. st.pos .. " de " .. st.total .. "...")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_SENDING_FMT2"), st.pos, st.total))
     end
     if GetTime then
         local ok, now = pcall(GetTime)
@@ -4507,7 +4507,7 @@ function MailScreen:StopSendQueue(announce)
     self:UpdateSendProgress()
     if announce and was then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Envio concluido.")
+            CM.logger:Log(CM:T("MAIL_LOG_SEND_DONE"))
         end
     end
 end
@@ -4580,7 +4580,7 @@ function MailScreen:FinishSendQueue()
     self:RestoreInboxTab()
     self:ClearComposeAfterSend()
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Carta enviada.")
+        CM.logger:Log(CM:T("MAIL_LOG_LETTER_DONE"))
     end
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
 end
@@ -4785,7 +4785,7 @@ function MailScreen:TakeFromIndex(inboxIndex, tag)
     local what = table.concat(parts, " + ")
     if what == "" then what = CM:T("MAIL_LOG_NOTHING") end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] " .. tostring(tag or "Retirado") .. " de " .. tostring(sender) .. ": " .. what .. ".")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_TAKEN_FMT"), tostring(tag or CM:T("MAIL_LOG_TAKEN")), tostring(sender), what))
     end
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
 end
@@ -4808,7 +4808,7 @@ function MailScreen:ReturnSelectedMail()
         pcall(ReturnInboxItem, item.index)
     end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Carta devolvida a " .. tostring(item.sender or "?") .. ".")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_RETURNED_TO"), tostring(item.sender or "?")))
     end
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     self:RequestInboxRefresh()
@@ -4835,7 +4835,7 @@ function MailScreen:DeleteIndex(inboxIndex)
         pcall(DeleteInboxItem, inboxIndex)
     end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Carta apagada.")
+        CM.logger:Log(CM:T("MAIL_LOG_DELETED"))
     end
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     self:RequestInboxRefresh()
@@ -4979,7 +4979,7 @@ function MailScreen:OpenDeleteConfirm(inboxIndex)
     self.deleteConfirm.pendingIndex = inboxIndex
     m:Show()
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Confirmar APAGAR: carta com valores nao retirados.")
+        CM.logger:Log(CM:T("MAIL_LOG_CONFIRM_DELETE"))
     end
     if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
 end
@@ -5028,13 +5028,13 @@ function MailScreen:TakeAllInbox()
     -- inbox, nao compete com fila de envio rodando.
     if self.sendQueue and self.sendQueue.running then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Aguarde o envio terminar para retirar tudo.")
+            CM.logger:Log(CM:T("MAIL_LOG_WAIT_SEND_TAKEALL"))
         end
         return
     end
     if CM.BagSplit and CM.BagSplit:IsBusy() then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Aguarde a divisao terminar para retirar tudo.")
+            CM.logger:Log(CM:T("MAIL_LOG_WAIT_SPLIT_TAKEALL"))
         end
         return
     end
@@ -5053,7 +5053,7 @@ function MailScreen:TakeAllInbox()
     end
     if table.getn(q) == 0 then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Nada a retirar: nenhuma carta com dinheiro ou anexo.")
+            CM.logger:Log(CM:T("MAIL_LOG_NOTHING_TAKE"))
         end
         return
     end
@@ -5064,7 +5064,7 @@ function MailScreen:TakeAllInbox()
     st.round = 1
     st.total = table.getn(q)
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Retirando tudo: " .. st.total .. " carta(s)...")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_TAKEALL_FMT"), st.total))
     end
     self:ProcessTakeAllStep()
 end
@@ -5098,7 +5098,7 @@ function MailScreen:ProcessTakeAllStep()
     end
     local idx = st.queue[pos]
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Retirando " .. pos .. " de " .. total .. "...")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_TAKING_FMT"), pos, total))
     end
     self:TakeFromIndex(idx, "Retirado")
     self:RequestInboxRefresh()
@@ -5129,7 +5129,7 @@ function MailScreen:AdvanceTakeAll()
             return
         end
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Carta " .. pos .. " ignorada (bolsa cheia ou COD?).")
+            CM.logger:Log(string.format(CM:T("MAIL_LOG_SKIPPED"), pos))
         end
         if PlaySound then PlaySound("igQuestFailed") end
     end
@@ -5162,7 +5162,7 @@ function MailScreen:FinishTakeAllRound()
     if round >= 3 then
         self:StopTakeAll(false)
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Restam " .. left .. " carta(s) (bolsa cheia ou COD?).")
+            CM.logger:Log(string.format(CM:T("MAIL_LOG_LEFT"), left))
         end
         if PlaySound then PlaySound("igQuestFailed") end
         return
@@ -5173,7 +5173,7 @@ function MailScreen:FinishTakeAllRound()
     st.attempts = 0
     st.total = left
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Nova varredura (rodada " .. st.round .. "): " .. left .. " restante(s)...")
+        CM.logger:Log(string.format(CM:T("MAIL_LOG_RESCAN_FMT"), st.round, left))
     end
     self:ProcessTakeAllStep()
 end
@@ -5190,7 +5190,7 @@ function MailScreen:StopTakeAll(announce)
     st.round = 1
     if announce and was then
         if CM.logger and CM.logger.Log then
-            CM.logger:Log("[MailScreen] Retirada concluida.")
+            CM.logger:Log(CM:T("MAIL_LOG_TAKE_DONE"))
         end
         if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
     end
@@ -5423,7 +5423,7 @@ function MailScreen:Open()
     end
 
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Janela aberta.")
+        CM.logger:Log(CM:T("MAIL_LOG_OPEN"))
     end
 end
 
@@ -5459,7 +5459,7 @@ function MailScreen:Close()
     end
 
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Janela fechada.")
+        CM.logger:Log(CM:T("MAIL_LOG_CLOSE"))
     end
     -- ANTI-BLOQUEIO: nunca encerrar a sessao do NPC pelo addon (sem CloseMail).
 end
@@ -5473,7 +5473,7 @@ function MailScreen:OnMailShow()
     -- M3: sessao nova, fila antiga nenhuma (defensivo; MAIL_CLOSED ja limpa).
     self:StopTakeAll(false)
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Mailbox aberta.")
+        CM.logger:Log(CM:T("MAIL_LOG_MBOX_OPEN"))
     end
     -- Passo 3: suprime o MailFrame nativo (visual, off-screen, sem Hide).
     self:SuppressDefaultFrame()
@@ -5494,7 +5494,7 @@ function MailScreen:OnMailClosed()
     -- Divisao em andamento: pilhas ja estao seguras nas bolsas; so cancela.
     if CM.BagSplit then CM.BagSplit:Cancel() end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Mailbox fechada.")
+        CM.logger:Log(CM:T("MAIL_LOG_MBOX_CLOSED"))
     end
     -- M1: fecha SO a UI propria (sem re-encerrar sessao: sem CloseMail).
     self:Close()
@@ -5505,7 +5505,7 @@ end
 function MailScreen:OnInboxUpdate()
     if not self.initialized then return end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] MAIL_INBOX_UPDATE recebido.")
+        CM.logger:Log(CM:T("MAIL_LOG_INBOX_UPDATE"))
     end
     -- Passo 4: rescan de leitura (molde MerchantMenu:OnMerchantUpdate);
     -- ScanInbox tem guarda isOpen interna (anti-bloqueio).
@@ -5527,7 +5527,7 @@ end
 function MailScreen:OnMailSendSuccess()
     if not self.initialized then return end
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] MAIL_SEND_SUCCESS recebido.")
+        CM.logger:Log(CM:T("MAIL_LOG_SEND_SUCCESS"))
     end
     -- M3: contrato de fila serializada (envios sao M4; so avanca a fila).
     self:AdvanceTakeAll()
@@ -5628,7 +5628,7 @@ function MailScreen:Initialize()
     end
 
     if CM.logger and CM.logger.Log then
-        CM.logger:Log("[MailScreen] Modulo inicializado (M3: janela + leitura + acoes do inbox).")
+        CM.logger:Log(CM:T("MAIL_LOG_INIT"))
     end
 end
 

@@ -354,7 +354,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
     elseif cmd == "spelldbg" then
         local d = CM._lastSpellDbg
         if not d or not d.name then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff8888[spelldbg]|r abra uma magia no card primeiro")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_DBG_SPELL_OPEN_FIRST"))
         else
             DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[spelldbg]|r name=" .. tostring(d.name) .. " rank=" .. tostring(d.rank))
             DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[spelldbg]|r key=" .. tostring(d.key) .. " id=" .. tostring(d.id) .. " src=" .. tostring(d.src))
@@ -370,7 +370,7 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
     elseif cmd == "spellmissing" then
         local q = ConsoleModeDB and ConsoleModeDB.spellMissing
         local n = (q and table.getn(q)) or 0
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[spellmissing]|r " .. n .. " magia(s) sem entrada no DBC:")
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("MSG_DBG_SPELLMISSING_FMT"), n))
         if q then
             local i = 1
             while i <= n do

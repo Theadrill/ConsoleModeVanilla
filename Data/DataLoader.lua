@@ -46,7 +46,7 @@ function CM:LoadDataLake(requestedBy)
     
     -- Prevenir loops infinitos
     if self.DataLake.loadAttempts > 3 then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[ConsoleMode]|r DataLake: muitas tentativas de carregamento, abortando")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_TOO_MANY_ATTEMPTS"))
         return false, "too_many_attempts"
     end
     
@@ -58,11 +58,11 @@ function CM:LoadDataLake(requestedBy)
         self.DataLake.requestedBy = requestedBy
         
         -- Mensagem de sucesso no chat
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Data Lake carregado (13.59 MB) - via " .. (requestedBy or "manual"))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_LOADED_FMT"), (requestedBy or "manual")))
         return true, "loaded"
     else
         -- Mensagem de erro
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[ConsoleMode]|r Erro ao carregar Data Lake: " .. (reason or "unknown"))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_LOAD_ERR_FMT"), (reason or "unknown")))
         return false, reason
     end
 end
@@ -168,57 +168,57 @@ SlashCmdList["CMDATALAKE"] = function(msg)
     if msg == "load" then
         local success, reason = CM:LoadDataLake("SlashCommand")
         if success then
-            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Data Lake carregado: " .. reason)
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_LOADED_REASON_FMT"), reason))
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[ConsoleMode]|r Falha ao carregar: " .. reason)
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_FAIL_FMT"), reason))
         end
     elseif msg == "status" then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Data Lake Status:")
-        DEFAULT_CHAT_FRAME:AddMessage("  Disponivel: " .. tostring(CM.DataLake.available))
-        DEFAULT_CHAT_FRAME:AddMessage("  Carregado: " .. tostring(CM.DataLake.loaded))
-        DEFAULT_CHAT_FRAME:AddMessage("  Requisitado por: " .. (CM.DataLake.requestedBy or "n/a"))
-        DEFAULT_CHAT_FRAME:AddMessage("  Tentativas: " .. CM.DataLake.loadAttempts)
-        
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_STATUS_TITLE"))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_AVAIL_FMT"), tostring(CM.DataLake.available)))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_LOADED_FLAG_FMT"), tostring(CM.DataLake.loaded)))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_REQUESTED_FMT"), (CM.DataLake.requestedBy or "n/a")))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_ATTEMPTS_FMT"), CM.DataLake.loadAttempts))
+
         -- Informações adicionais de debug
         local dataAddonLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
-        DEFAULT_CHAT_FRAME:AddMessage("  Addon carregado (IsAddOnLoaded): " .. tostring(dataAddonLoaded))
-        
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_ADDON_LOADED_FMT"), tostring(dataAddonLoaded)))
+
         local spellDBExists = (ConsoleMode_SpellDescDB ~= nil)
-        DEFAULT_CHAT_FRAME:AddMessage("  SpellDescDB existe: " .. tostring(spellDBExists))
-        
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_SPELLDB_FMT"), tostring(spellDBExists)))
+
         if spellDBExists then
             local count = 0
             for k, v in pairs(ConsoleMode_SpellDescDB) do
                 count = count + 1
                 if count > 1000 then break end
             end
-            DEFAULT_CHAT_FRAME:AddMessage("  Spells carregados: " .. count .. "+")
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_SPELLS_FMT"), count))
         end
     elseif msg == "test" then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Executando teste LoadOnDemand...")
-        
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_TEST_RUNNING"))
+
         local name, title, notes, loadable, reason = GetAddOnInfo("ConsoleModeVanilla-Data")
-        DEFAULT_CHAT_FRAME:AddMessage("1. Data addon disponivel: " .. tostring(loadable ~= nil))
-        
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_AVAIL_FMT"), tostring(loadable ~= nil)))
+
         local dataLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
-        DEFAULT_CHAT_FRAME:AddMessage("2. Data addon ja carregado: " .. tostring(dataLoaded))
-        
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_LOADED_FMT"), tostring(dataLoaded)))
+
         if not dataLoaded then
-            DEFAULT_CHAT_FRAME:AddMessage("3. Carregando Data Lake...")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_TEST_LOADING"))
             local success, reason = CM:LoadDataLake("TestCommand")
-            DEFAULT_CHAT_FRAME:AddMessage("   Resultado: " .. tostring(success) .. " (" .. reason .. ")")
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_RESULT_FMT"), tostring(success), tostring(reason)))
         end
-        
+
         dataLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
-        DEFAULT_CHAT_FRAME:AddMessage("4. Data addon agora carregado: " .. tostring(dataLoaded))
-        
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Teste concluido!")
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_LOADED2_FMT"), tostring(dataLoaded)))
+
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_TEST_DONE"))
     else
-        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Data Lake Commands:")
-        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake load   - Forca carregamento")
-        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake status - Mostra status detalhado")
-        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake test   - Executa teste completo")
-        DEFAULT_CHAT_FRAME:AddMessage("  (atalho: /cmloc)")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_HELP_TITLE"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_HELP_LOAD"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_HELP_STATUS"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_HELP_TEST"))
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_HELP_ALIAS"))
     end
 end
 

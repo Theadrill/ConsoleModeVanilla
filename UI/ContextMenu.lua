@@ -730,7 +730,7 @@ function Menu:OpenForQuest(questLogIndex, questTitle, anchorFrame)
     self.currentInvSlot = nil
     self.returnButton = anchorFrame
 
-    local displayName = questTitle or "Missao"
+    local displayName = questTitle or CM:T("QUEST_FALLBACK_TITLE")
     if string.len(displayName) > 18 then
         displayName = string.sub(displayName, 1, 16) .. ".."
     end

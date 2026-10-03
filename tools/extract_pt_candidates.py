@@ -25,8 +25,8 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKIP_DIRS = {".git", ".claude", "Media_BACKUP", "__pycache__", "node_modules"}
-SKIP_FILES = set()
+SKIP_DIRS = {".git", ".claude", "Media_BACKUP", "__pycache__", "node_modules", "docs"}
+SKIP_FILES = {"Cursor_OLD.lua"}  # morto: fora do .toc, substituido por Cursor.lua
 
 # Palavras PT sem acento (minúsculas) que indicam texto traduzível.
 # Evitar falsos positivos de código: lista conservadora, agente filtra o resto.

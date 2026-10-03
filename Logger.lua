@@ -71,12 +71,12 @@ end
 function Logger:PrintStatus()
     local KB = CM.keybindings
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00====== ConsoleMode Status ======|r")
-    DEFAULT_CHAT_FRAME:AddMessage("  Versão:      |cffffd100" .. CM.version .. "|r")
-    DEFAULT_CHAT_FRAME:AddMessage("  Debug Log:   " .. (Logger.enabled and "|cff00ff00ATIVO|r" or "|cffff4444INATIVO|r"))
-    DEFAULT_CHAT_FRAME:AddMessage("  Mouse Mode:  " .. (KB and KB.mouseModeActive and "|cff00ff00ATIVO|r" or "|cffff4444INATIVO|r"))
-    DEFAULT_CHAT_FRAME:AddMessage("  Navegação:   " .. (KB and KB.navigationMode and "|cff00ff00ATIVO (UI aberta)|r" or "|cffaaaaaa inativo|r"))
-    DEFAULT_CHAT_FRAME:AddMessage("  Chat Aberto: " .. (KB and KB.chatActive and "|cffffcc00SIM (atalhos desativados)|r" or "|cffaaaaaa Não|r"))
-    DEFAULT_CHAT_FRAME:AddMessage("  Personagem:  |cff00ccff" .. (UnitName("player") or "?") .. "|r")
+    DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("LOG_STATUS_VERSION_FMT"), CM.version))
+    DEFAULT_CHAT_FRAME:AddMessage("  Debug Log:   " .. (Logger.enabled and CM:T("LOG_STATE_ACTIVE") or CM:T("LOG_STATE_INACTIVE")))
+    DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("LOG_MOUSE_MODE_FMT"), (KB and KB.mouseModeActive and CM:T("LOG_STATE_ACTIVE") or CM:T("LOG_STATE_INACTIVE"))))
+    DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("LOG_STATUS_NAV_FMT"), (KB and KB.navigationMode and CM:T("LOG_NAV_ACTIVE") or CM:T("LOG_NAV_INACTIVE"))))
+    DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("LOG_STATUS_CHAT_FMT"), (KB and KB.chatActive and CM:T("LOG_CHAT_YES") or CM:T("LOG_CHAT_NO"))))
+    DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("LOG_STATUS_CHAR_FMT"), (UnitName("player") or "?")))
     DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00================================|r")
 end
 
@@ -117,7 +117,7 @@ keyLogger:SetScript("OnUpdate", function()
         local KB = CM.keybindings
         local modeStr = "Hotkey"
         if KB then
-            if KB.navigationMode then modeStr = "|cff00ccffNavegação|r"
+            if KB.navigationMode then modeStr = "|cff00ccff" .. CM:T("LOG_MODE_NAV") .. "|r"
             elseif KB.mouseModeActive then modeStr = "|cff88ff88Mouse|r"
             elseif KB.chatActive then modeStr = "|cffffcc00Chat|r"
             end

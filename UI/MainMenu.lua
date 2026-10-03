@@ -8555,7 +8555,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     zlTitle:SetPoint("TOPRIGHT", zoneListFrame, "TOPRIGHT", -8, -8)
     zlTitle:SetJustifyH("LEFT")
     MainMenu:ApplyFont(zlTitle, CFG.Fonts.titleFontFile, 13)
-    zlTitle:SetText("|cffe09a15REGIOES|r")
+    zlTitle:SetText(CM:T("MAP_ZONE_LIST_TITLE_REGIONS"))
     zoneListFrame.title = zlTitle
     local zlScroll = CreateFrame("ScrollFrame", "ConsoleModeMM_ZoneListScroll", zoneListFrame)
     zlScroll:SetPoint("TOPLEFT", zoneListFrame, "TOPLEFT", 4, -24)
@@ -9667,7 +9667,7 @@ function MainMenu:BuildInstancesList(cont)
     local count = table.getn(list)
     if count == 0 then
         frame:Show()
-        if frame.title then frame.title:SetText("|cffe09a15INSTANCIAS|r") end
+        if frame.title then frame.title:SetText(CM:T("MAP_ZONE_LIST_TITLE_INSTANCES")) end
         content:SetHeight(30)
         if frame.scrollFrame then frame.scrollFrame:SetVerticalScroll(0); frame.scrollFrame:UpdateScrollChildRect() end
         return
@@ -9957,7 +9957,7 @@ function MainMenu:AbandonSelectedQuest(questLogIndex)
         SetAbandonQuest()
     end
 
-    local questName = (GetAbandonQuestName and GetAbandonQuestName()) or title or "_MISSÃO_"
+    local questName = (GetAbandonQuestName and GetAbandonQuestName()) or title or CM:T("QUEST_UNKNOWN_FALLBACK")
     local items = (GetAbandonQuestItems and GetAbandonQuestItems()) or nil
 
     if items then
@@ -13687,14 +13687,14 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local detailCard = self:CreateDetailCard(bindsScreen)
     bindsScreen.detailCard = detailCard
     if detailCard.slotsFreeText then
-        detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Mapear   |   |cffe09a15[X]|r Limpar   |   |cffe09a15[LT]/[RT]|r Páginas   |   |cffe09a15[B]|r Voltar")
+        detailCard.slotsFreeText:SetText(CM:T("BINDS_FOOTER_HINTS"))
     end
     if detailCard.sellWidget then detailCard.sellWidget:Hide() end
     if detailCard.moneyWidget then detailCard.moneyWidget:Hide() end
-    detailCard.titleText:SetText("|cffe09a15Mapeador de Atalhos / Binds|r")
-    detailCard.typeText:SetText("|cffaaaaaaModo Console — Atalhos do Controle (Páginas 1 a 4)|r")
-    detailCard.descColLeft:SetText("|cffccccccNavegue pelos botões do controle para vincular habilidades, itens do inventário ou macros.|r")
-    detailCard.descColRight:SetText("|cff888888Pressione [B] no controle ou clique no botão acima para voltar.|r")
+    detailCard.titleText:SetText(CM:T("BINDS_MAPPER_TITLE"))
+    detailCard.typeText:SetText(CM:T("BINDS_MAPPER_SUBTITLE"))
+    detailCard.descColLeft:SetText(CM:T("BINDS_MAPPER_DESC_LEFT"))
+    detailCard.descColRight:SetText(CM:T("BINDS_MAPPER_DESC_RIGHT"))
     detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
     detailCard.icon:Show()
 
@@ -15733,6 +15733,12 @@ function MainMenu:RefreshStaticTexts()
             end
         end
     end
+    -- 3b. Nomes de binds do painel Blizzard (pos-load)
+    pcall(function()
+        if ConsoleMode and ConsoleMode.keybindings and ConsoleMode.keybindings.RefreshBindingNames then
+            ConsoleMode.keybindings:RefreshBindingNames()
+        end
+    end)
     -- 3. Cabecalhos do painel esquerdo (stats/buffs/compare)
     if self.statsAndBuffs then
         if self.statsAndBuffs.statsHeader then

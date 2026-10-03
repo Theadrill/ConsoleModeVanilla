@@ -35,50 +35,72 @@ local pageLabels = {
     [5] = "L2+R2 + ",
 }
 
--- Registra os headers das páginas
-_G["BINDING_HEADER_CONSOLEMODEBASE"]   = "ConsoleMode - Base (Sem Modificador)"
-_G["BINDING_HEADER_CONSOLEMMODEL2"]    = "ConsoleMode - L2 (Shift)"
-_G["BINDING_HEADER_CONSOLEMODER1"]     = "ConsoleMode - R1 (Ctrl)"
-_G["BINDING_HEADER_CONSOLEMODER2"]     = "ConsoleMode - R2 (Alt)"
-_G["BINDING_HEADER_CONSOLEMODEL2R2"]   = "ConsoleMode - L2+R2 (Shift+Alt)"
-_G["BINDING_HEADER_CONSOLEMODEFIXED"]  = "ConsoleMode - Botões Fixos"
-_G["BINDING_HEADER_CONSOLEMODECURSOR"] = "ConsoleMode - Navegação de Cursor"
+-- FASE 3 (linguagem): nomes via CM:T com fallback PT; reaplicado pos-load
+-- por RefreshBindingNames (Binds sao lidos pelo painel Blizzard sob demanda).
+local BIND_TKEYS = {
+    ["BINDING_HEADER_CONSOLEMODEBASE"]   = { key = "BIND_HEAD_BASE",     pt = "ConsoleMode - Base (Sem Modificador)" },
+    ["BINDING_HEADER_CONSOLEMODEFIXED"]  = { key = "BIND_HEAD_FIXED",    pt = "ConsoleMode - Botões Fixos" },
+    ["BINDING_HEADER_CONSOLEMODECURSOR"] = { key = "BIND_HEAD_CURSOR",   pt = "ConsoleMode - Navegação de Cursor" },
+    ["BINDING_NAME_CM_RING_MENU"]        = { key = "BIND_RING_OPEN",     pt = "L2+R2+A (Abrir Menu Ring)" },
+    ["BINDING_NAME_CM_TARGET_FRIENDLY"]  = { key = "BIND_TARGET_FRIENDLY", pt = "L2+R2+D-Pad Cima (Selecionar Amigo)" },
+    ["BINDING_NAME_CM_FIXED_L1"]         = { key = "BIND_FIXED_L1",      pt = "L1 (Selecionar Alvo)" },
+    ["BINDING_NAME_CM_FIXED_SELECT"]     = { key = "BIND_FIXED_SELECT",  pt = "Select (Mapa)" },
+    ["BINDING_NAME_CM_FIXED_START"]      = { key = "BIND_FIXED_START",   pt = "Start (Menu do Jogo)" },
+    ["BINDING_NAME_CM_MOUSERIGHT"]       = { key = "BIND_MOUSERIGHT",    pt = "R3 (Clique Direito)" },
+    ["BINDING_NAME_CM_RELOAD_UI"]        = { key = "BIND_RELOAD_UI",      pt = "Recarregar Interface" },
+    ["BINDING_HEADER_CONSOLEMODEUI"]     = { key = "BIND_HEAD_UI",       pt = "ConsoleMode - Atalhos de Interface" },
+    ["BINDING_NAME_CM_UI_CHARACTER"]     = { key = "BIND_UI_CHARACTER",  pt = "L2 + Select (Personagem - C)" },
+    ["BINDING_NAME_CM_UI_BAGS"]          = { key = "BIND_UI_BAGS",       pt = "L2 + Start (Bolsas - B)" },
+    ["BINDING_NAME_CM_UI_TALENTS"]       = { key = "BIND_UI_TALENTS",    pt = "R2 + Select (Talentos - N)" },
+    ["BINDING_NAME_CM_UI_SPELLBOOK"]     = { key = "BIND_UI_SPELLBOOK",  pt = "R2 + Start (Livro de Magias - P)" },
+    ["BINDING_NAME_CM_CURSOR_UP"]        = { key = "BIND_CURSOR_UP",     pt = "Cursor: Cima" },
+    ["BINDING_NAME_CM_CURSOR_DOWN"]      = { key = "BIND_CURSOR_DOWN",   pt = "Cursor: Baixo" },
+    ["BINDING_NAME_CM_CURSOR_LEFT"]      = { key = "BIND_CURSOR_LEFT",   pt = "Cursor: Esquerda" },
+    ["BINDING_NAME_CM_CURSOR_RIGHT"]     = { key = "BIND_CURSOR_RIGHT",  pt = "Cursor: Direita" },
+    ["BINDING_NAME_CM_CURSOR_CONFIRM"]   = { key = "BIND_CURSOR_CONFIRM", pt = "Cursor: Confirmar (A)" },
+    ["BINDING_NAME_CM_CURSOR_CANCEL"]    = { key = "BIND_CURSOR_CANCEL", pt = "Cursor: Cancelar (B)" },
+}
 
--- Registra nomes legíveis para todos os 40 slots de ação
-for page = 1, 5 do
-    for _, btn in ipairs({"A","X","Y","B","DUP","DDOWN","DLEFT","DRIGHT"}) do
-        local key = "BINDING_NAME_CM_ACTION_" .. btn .. "_" .. page
-        _G[key] = pageLabels[page] .. buttonLabels[btn]
+local function ApplyBindingName(gkey, tkey, fallback)
+    local v = nil
+    if CM and CM.T then
+        v = CM:T(tkey)
+    end
+    if v == nil or v == "" or v == tkey then
+        v = fallback
+    end
+    _G[gkey] = v
+end
+
+local function RefreshBindingNames()
+    -- Headers neutros (sem PT): atribui direto, sem chave.
+    _G["BINDING_HEADER_CONSOLEMMODEL2"]    = "ConsoleMode - L2 (Shift)"
+    _G["BINDING_HEADER_CONSOLEMODER1"]     = "ConsoleMode - R1 (Ctrl)"
+    _G["BINDING_HEADER_CONSOLEMODER2"]     = "ConsoleMode - R2 (Alt)"
+    _G["BINDING_HEADER_CONSOLEMODEL2R2"]   = "ConsoleMode - L2+R2 (Shift+Alt)"
+    _G["BINDING_HEADER_CONSOLEMODERING"]    = "ConsoleMode - Menu Ring"
+    _G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)"
+    for gkey, def in pairs(BIND_TKEYS) do
+        ApplyBindingName(gkey, def.key, def.pt)
+    end
+    -- Nomes legíveis dos 40 slots: prefixo da página + botão (D-Pad via chaves).
+    local btnTKeys = { DUP = "BINDS_DPAD_UP", DDOWN = "BINDS_DPAD_DOWN", DLEFT = "BINDS_DPAD_LEFT", DRIGHT = "BINDS_DPAD_RIGHT" }
+    for page = 1, 5 do
+        for _, btn in ipairs({"A","X","Y","B","DUP","DDOWN","DLEFT","DRIGHT"}) do
+            local key = "BINDING_NAME_CM_ACTION_" .. btn .. "_" .. page
+            local blabel = buttonLabels[btn]
+            if btnTKeys[btn] and CM and CM.T then
+                local lv = CM:T(btnTKeys[btn])
+                if lv and lv ~= "" and lv ~= btnTKeys[btn] then
+                    blabel = lv
+                end
+            end
+            _G[key] = pageLabels[page] .. blabel
+        end
     end
 end
 
--- Menu Ring
-_G["BINDING_HEADER_CONSOLEMODERING"]    = "ConsoleMode - Menu Ring"
-_G["BINDING_NAME_CM_RING_MENU"]         = "L2+R2+A (Abrir Menu Ring)"
-_G["BINDING_NAME_CM_TARGET_FRIENDLY"]   = "L2+R2+D-Pad Cima (Selecionar Amigo)"
-
--- Nomes dos botões fixos
-_G["BINDING_NAME_CM_FIXED_L1"]          = "L1 (Selecionar Alvo)"
-_G["BINDING_NAME_CM_FIXED_SELECT"]      = "Select (Mapa)"
-_G["BINDING_NAME_CM_FIXED_START"]       = "Start (Menu do Jogo)"
-_G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)"
-_G["BINDING_NAME_CM_MOUSERIGHT"]        = "R3 (Clique Direito)"
-_G["BINDING_NAME_CM_RELOAD_UI"]         = "Recarregar Interface"
-
--- Atalhos de Interface
-_G["BINDING_HEADER_CONSOLEMODEUI"]      = "ConsoleMode - Atalhos de Interface"
-_G["BINDING_NAME_CM_UI_CHARACTER"]      = "L2 + Select (Personagem - C)"
-_G["BINDING_NAME_CM_UI_BAGS"]           = "L2 + Start (Bolsas - B)"
-_G["BINDING_NAME_CM_UI_TALENTS"]        = "R2 + Select (Talentos - N)"
-_G["BINDING_NAME_CM_UI_SPELLBOOK"]      = "R2 + Start (Livro de Magias - P)"
-
--- Nomes dos bindings de cursor
-_G["BINDING_NAME_CM_CURSOR_UP"]      = "Cursor: Cima"
-_G["BINDING_NAME_CM_CURSOR_DOWN"]    = "Cursor: Baixo"
-_G["BINDING_NAME_CM_CURSOR_LEFT"]    = "Cursor: Esquerda"
-_G["BINDING_NAME_CM_CURSOR_RIGHT"]   = "Cursor: Direita"
-_G["BINDING_NAME_CM_CURSOR_CONFIRM"] = "Cursor: Confirmar (A)"
-_G["BINDING_NAME_CM_CURSOR_CANCEL"]  = "Cursor: Cancelar (B)"
+RefreshBindingNames()
 
 -- ============================================================
 -- Defaults de Teclado por Botão e Página
@@ -215,6 +237,13 @@ local defaultPageActions = {
 -- ============================================================
 CM.keybindings = {}
 local KB = CM.keybindings
+
+-- Reaplica nomes de binds pos-load (Localization carrega sob demanda).
+function KB:RefreshBindingNames()
+    if RefreshBindingNames then
+        RefreshBindingNames()
+    end
+end
 
 KB.mouseModeActive  = false
 KB.chatActive       = false

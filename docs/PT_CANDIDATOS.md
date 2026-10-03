@@ -2,7 +2,7 @@
 
 Objetivo: zero itens DISPLAY/TABLE/OTHER. PARSER = nao tocar.
 
-Resumo: DISPLAY=36, TABLE=298, OTHER=131, PARSER=194
+Resumo: DISPLAY=31, TABLE=241, OTHER=127, PARSER=134
 
 | arquivo:linha | funcao | hint | literal | codigo |
 |---|---|---|---|---|
@@ -22,73 +22,7 @@ Resumo: DISPLAY=36, TABLE=298, OTHER=131, PARSER=194
 | Keybindings.lua:61 | - | TABLE | Cursor: Confirmar (A) | ["BINDING_NAME_CM_CURSOR_CONFIRM"]   = { key = "BIND_CURSOR_CONFIRM", pt = "Cursor: Confirmar (A)" }, |
 | Keybindings.lua:62 | - | TABLE | Cursor: Cancelar (B) | ["BINDING_NAME_CM_CURSOR_CANCEL"]    = { key = "BIND_CURSOR_CANCEL", pt = "Cursor: Cancelar (B)" }, |
 | Logger.lua:121 | Logger:PrintStatus | OTHER | \|cff88ff88Mouse\|r | elseif KB.mouseModeActive then modeStr = "\|cff88ff88Mouse\|r" |
-| Data\Localization.lua:415 | CM:GameLOC_SpellAttr | OTHER | Instantâneo | s = "Instantâneo" |
-| Data\Localization.lua:708 | CM:GameLOC_SpellDesc | DISPLAY | \|cffffd100Requer  | table.insert(headerLines, "\|cffffd100Requer " .. locReq .. "\|r") |
-| Data\Localization.lua:1069 | CM:GameLOC_TalentLine | OTHER | Próximo grau: | if rawLine == "Next rank:" or rawLine == "Next rank" then return "Próximo grau:" end |
-| Data\Localization.lua:1073 | CM:GameLOC_TalentLine | DISPLAY | Requer %s ponto(s) em Talentos de %s | return string.format("Requer %s ponto(s) em Talentos de %s", pts, specPT) |
-| Data\Localization.lua:1117 | CM:GameLOC_TalentLine | DISPLAY | Requer %s ponto(s) em %s | return string.format("Requer %s ponto(s) em %s", pts, ptWho) |
-| Data\Localization.lua:1364 | CM:GameLOC_Buff | TABLE | da Águia \| da Águia | ["of the Eagle"] = "da Águia", ["of the eagle"] = "da Águia", |
-| Data\Localization.lua:1369 | CM:GameLOC_Buff | TABLE | do Falcão \| do Falcão | ["of the Falcon"] = "do Falcão", ["of the falcon"] = "do Falcão", |
-| Data\Localization.lua:1373 | CM:GameLOC_Buff | TABLE | da Força \| da Força | ["of Strength"] = "da Força", ["of strength"] = "da Força", |
-| Data\Localization.lua:1374 | CM:GameLOC_Buff | TABLE | da Agilidade \| da Agilidade | ["of Agility"] = "da Agilidade", ["of agility"] = "da Agilidade", |
-| Data\Localization.lua:1375 | CM:GameLOC_Buff | TABLE | do Vigor \| do Vigor | ["of Stamina"] = "do Vigor", ["of stamina"] = "do Vigor", |
-| Data\Localization.lua:1376 | CM:GameLOC_Buff | TABLE | do Intelecto \| do Intelecto | ["of Intellect"] = "do Intelecto", ["of intellect"] = "do Intelecto", |
-| Data\Localization.lua:1377 | CM:GameLOC_Buff | TABLE | do Espírito \| do Espírito | ["of Spirit"] = "do Espírito", ["of spirit"] = "do Espírito", |
-| Data\Localization.lua:1379 | CM:GameLOC_Buff | TABLE | da Defesa \| da Defesa | ["of Defense"] = "da Defesa", ["of defense"] = "da Defesa", |
-| Data\Localization.lua:1380 | CM:GameLOC_Buff | TABLE | do Bloqueio \| do Bloqueio | ["of Blocking"] = "do Bloqueio", ["of blocking"] = "do Bloqueio", |
-| Data\Localization.lua:1381 | CM:GameLOC_Buff | TABLE | da Cura \| da Cura | ["of Healing"] = "da Cura", ["of healing"] = "da Cura", |
-| Data\Localization.lua:1382 | CM:GameLOC_Buff | TABLE | da Fúria do Fogo | ["of Fire Wrath"] = "da Fúria do Fogo", |
-| Data\Localization.lua:1383 | CM:GameLOC_Buff | TABLE | da Fúria do Gelo | ["of Frost Wrath"] = "da Fúria do Gelo", |
-| Data\Localization.lua:1384 | CM:GameLOC_Buff | TABLE | da Fúria da Natureza | ["of Nature's Wrath"] = "da Fúria da Natureza", |
-| Data\Localization.lua:1385 | CM:GameLOC_Buff | TABLE | da Fúria da Sombra | ["of Shadow Wrath"] = "da Fúria da Sombra", |
-| Data\Localization.lua:1386 | CM:GameLOC_Buff | TABLE | da Fúria Arcana | ["of Arcane Wrath"] = "da Fúria Arcana", |
-| Data\Localization.lua:1390 | CM:GameLOC_Buff | TABLE | Cabeça \| Coração | ["Horn"] = "Chifre", ["Head"] = "Cabeça", ["Claw"] = "Garra", ["Heart"] = "Coração", |
-| Data\Localization.lua:1394 | CM:GameLOC_Buff | TABLE | Carta | ["Teeth"] = "Dentes", ["Feather"] = "Pena", ["Feathers"] = "Penas", ["Letter"] = "Carta", |
-| Data\Localization.lua:1396 | CM:GameLOC_Buff | TABLE | Lágrimas \| Mão \| Essência \| Símbolo | ["Tears"] = "Lágrimas", ["Hand"] = "Mão", ["Essence"] = "Essência", ["Symbol"] = "Símbolo", |
-| Data\Localization.lua:1397 | CM:GameLOC_Buff | TABLE | Brasão \| Troféu | ["Badge"] = "Distintivo", ["Crest"] = "Brasão", ["Trophy"] = "Troféu", ["Mark"] = "Marca", |
-| Data\Localization.lua:1398 | CM:GameLOC_Buff | TABLE | Crânio | ["Tome"] = "Tomo", ["Scroll"] = "Pergaminho", ["Book"] = "Livro", ["Skull"] = "Crânio", |
-| Data\Localization.lua:1399 | CM:GameLOC_Buff | TABLE | Fêmur | ["Bone"] = "Osso", ["Bones"] = "Ossos", ["Rib"] = "Costela", ["Femur"] = "Fêmur", |
-| Data\Localization.lua:1402 | CM:GameLOC_Buff | TABLE | Ídolo | ["Ring"] = "Anel", ["Amulet"] = "Amuleto", ["Pendant"] = "Pingente", ["Idol"] = "Ídolo", |
-| Data\Localization.lua:1403 | CM:GameLOC_Buff | TABLE | Lâmina | ["Staff"] = "Cajado", ["Blade"] = "Lâmina", ["Sword"] = "Espada", ["Dagger"] = "Adaga", |
-| Data\Localization.lua:1405 | CM:GameLOC_Buff | TABLE | Medalhão \| Relíquia | ["Crown"] = "Coroa", ["Medallion"] = "Medalhão", ["Relic"] = "Relíquia", |
-| Data\Localization.lua:1515 | CM:GameLOC_Item | TABLE | Cabeça \| Cabeça \| Cabeça | ["INVTYPE_HEAD"] = "Cabeça", ["Head"] = "Cabeça", ["head"] = "Cabeça", |
-| Data\Localization.lua:1516 | CM:GameLOC_Item | TABLE | Pescoço \| Pescoço \| Pescoço | ["INVTYPE_NECK"] = "Pescoço", ["Neck"] = "Pescoço", ["neck"] = "Pescoço", |
-| Data\Localization.lua:1522 | CM:GameLOC_Item | TABLE | Pernas \| Pernas \| Pernas | ["INVTYPE_LEGS"] = "Pernas", ["Legs"] = "Pernas", ["legs"] = "Pernas", |
-| Data\Localization.lua:1523 | CM:GameLOC_Item | TABLE | Pés \| Pés \| Pés | ["INVTYPE_FEET"] = "Pés", ["Feet"] = "Pés", ["feet"] = "Pés", |
-| Data\Localization.lua:1525 | CM:GameLOC_Item | TABLE | Mãos \| Mãos \| Mãos | ["INVTYPE_HAND"] = "Mãos", ["Hands"] = "Mãos", ["hands"] = "Mãos", |
-| Data\Localization.lua:1529 | CM:GameLOC_Item | TABLE | Uma Mão \| Uma Mão \| Uma Mão | ["INVTYPE_WEAPON"] = "Uma Mão", ["One-Hand"] = "Uma Mão", ["one-hand"] = "Uma Mão", |
-| Data\Localization.lua:1531 | CM:GameLOC_Item | TABLE | Duas Mãos \| Duas Mãos \| Duas Mãos | ["INVTYPE_2HWEAPON"] = "Duas Mãos", ["Two-Hand"] = "Duas Mãos", ["two-hand"] = "Duas Mãos", |
-| Data\Localization.lua:1532 | CM:GameLOC_Item | TABLE | Mão Principal \| Mão Principal \| Mão Principal | ["INVTYPE_WEAPONMAINHAND"] = "Mão Principal", ["Main Hand"] = "Mão Principal", ["main hand"] = "Mão Principal", |
-| Data\Localization.lua:1533 | CM:GameLOC_Item | TABLE | Mão Secundária \| Mão Secundária \| Mão Secundária | ["INVTYPE_WEAPONOFFHAND"] = "Mão Secundária", ["Off Hand"] = "Mão Secundária", ["off hand"] = "Mão Secundária", |
-| Data\Localization.lua:1534 | CM:GameLOC_Item | TABLE | Empunhado na Mão Secundária \| Empunhado na Mão Secundária \| Empunhado na Mão Secundária | ["INVTYPE_HOLDABLE"] = "Empunhado na Mão Secundária", ["Held in Off-hand"] = "Empunhado na Mão Secundária", ["Held In Off-hand"] = "Empunhado na Mão Secundária", |
-| Data\Localization.lua:1538 | CM:GameLOC_Item | TABLE | Relíquia \| Relíquia \| Relíquia | ["INVTYPE_RELIC"] = "Relíquia", ["Relic"] = "Relíquia", ["relic"] = "Relíquia", |
-| Data\Localization.lua:1540 | CM:GameLOC_Item | TABLE | Bolsa \| Bolsa \| Bolsa | ["INVTYPE_BAG"] = "Bolsa", ["Bag"] = "Bolsa", ["bag"] = "Bolsa", |
-| Data\Localization.lua:1541 | CM:GameLOC_Item | TABLE | Munição \| Munição \| Munição | ["INVTYPE_AMMO"] = "Munição", ["Ammo"] = "Munição", ["ammo"] = "Munição", |
-| Data\Localization.lua:1561 | CM:GameLOC_EquipLoc | TABLE | Ídolo | ["Libram"] = "Livro Sagrado", ["Idol"] = "Ídolo", ["Totem"] = "Totem", |
-| Data\Localization.lua:1563 | CM:GameLOC_EquipLoc | TABLE | Espadas de Uma Mão \| Espadas de Uma Mão | ["One-Handed Swords"] = "Espadas de Uma Mão", ["one-handed swords"] = "Espadas de Uma Mão", |
-| Data\Localization.lua:1564 | CM:GameLOC_EquipLoc | TABLE | Espadas de Duas Mãos \| Espadas de Duas Mãos | ["Two-Handed Swords"] = "Espadas de Duas Mãos", ["two-handed swords"] = "Espadas de Duas Mãos", |
-| Data\Localization.lua:1565 | CM:GameLOC_EquipLoc | TABLE | Machados de Uma Mão \| Machados de Uma Mão | ["One-Handed Axes"] = "Machados de Uma Mão", ["one-handed axes"] = "Machados de Uma Mão", |
-| Data\Localization.lua:1566 | CM:GameLOC_EquipLoc | TABLE | Machados de Duas Mãos \| Machados de Duas Mãos | ["Two-Handed Axes"] = "Machados de Duas Mãos", ["two-handed axes"] = "Machados de Duas Mãos", |
-| Data\Localization.lua:1567 | CM:GameLOC_EquipLoc | TABLE | Maças de Uma Mão \| Maças de Uma Mão | ["One-Handed Maces"] = "Maças de Uma Mão", ["one-handed maces"] = "Maças de Uma Mão", |
-| Data\Localization.lua:1568 | CM:GameLOC_EquipLoc | TABLE | Maças de Duas Mãos \| Maças de Duas Mãos | ["Two-Handed Maces"] = "Maças de Duas Mãos", ["two-handed maces"] = "Maças de Duas Mãos", |
-| Data\Localization.lua:1581 | CM:GameLOC_EquipLoc | TABLE | Consumível \| Consumível | ["Consumable"] = "Consumível", ["consumable"] = "Consumível", |
-| Data\Localization.lua:1582 | CM:GameLOC_EquipLoc | TABLE | Poção \| Poção | ["Potion"] = "Poção", ["potion"] = "Poção", |
-| Data\Localization.lua:1590 | CM:GameLOC_EquipLoc | TABLE | Bolsa \| Bolsa | ["Bag"] = "Bolsa", ["bag"] = "Bolsa", |
-| Data\Localization.lua:1591 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Almas \| Bolsa de Almas | ["Soul Bag"] = "Bolsa de Almas", ["soul bag"] = "Bolsa de Almas", |
-| Data\Localization.lua:1592 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Ervas \| Bolsa de Ervas | ["Herb Bag"] = "Bolsa de Ervas", ["herb bag"] = "Bolsa de Ervas", |
-| Data\Localization.lua:1593 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Encantamento \| Bolsa de Encantamento | ["Enchanting Bag"] = "Bolsa de Encantamento", ["enchanting bag"] = "Bolsa de Encantamento", |
-| Data\Localization.lua:1594 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Engenharia \| Bolsa de Engenharia | ["Engineering Bag"] = "Bolsa de Engenharia", ["engineering bag"] = "Bolsa de Engenharia", |
-| Data\Localization.lua:1595 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Mineração \| Bolsa de Mineração | ["Mining Bag"] = "Bolsa de Mineração", ["mining bag"] = "Bolsa de Mineração", |
-| Data\Localization.lua:1597 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Munição \| Bolsa de Munição | ["Ammo Pouch"] = "Bolsa de Munição", ["ammo pouch"] = "Bolsa de Munição", |
-| Data\Localization.lua:1599 | CM:GameLOC_EquipLoc | TABLE | Itens de Comércio \| Itens de Comércio | ["Trade Goods"] = "Itens de Comércio", ["trade goods"] = "Itens de Comércio", |
-| Data\Localization.lua:1600 | CM:GameLOC_EquipLoc | TABLE | Peças \| Peças | ["Parts"] = "Peças", ["parts"] = "Peças", |
-| Data\Localization.lua:1604 | CM:GameLOC_EquipLoc | TABLE | Missão \| Missão | ["Quest"] = "Missão", ["quest"] = "Missão", |
-| Data\Localization.lua:1606 | CM:GameLOC_EquipLoc | TABLE | Lixo \| Lixo | ["Junk"] = "Lixo", ["junk"] = "Lixo", |
-| Data\Localization.lua:1627 | CM:GameLOC_ItemStat | OTHER | Item de Missão | if s == "Quest Item" then return "Item de Missão" end |
-| Data\Localization.lua:1628 | CM:GameLOC_ItemStat | OTHER | Missão | if s == "Quest" then return "Missão" end |
-| Data\Localization.lua:1665 | CM:GameLOC_ItemStat | DISPLAY | Requer %s (%s) | return string.format("Requer %s (%s)", locProf, lvl) |
-| Data\Localization.lua:1690 | CM:GameLOC_ItemStat | DISPLAY | Raças:  | return "Raças: " .. r |
-| Data\Localization.lua:1937 | CM:HandleLangCommand | OTHER | Português (Brasil) | CM_RegisterLang("ptBR", "Português (Brasil)", "Data\\Locales\\ptBR\\UI.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Locales\\ptBR\\flag_ptBR.tga") |
+| Data\Localization.lua:541 | CM:HandleLangCommand | OTHER | Português (Brasil) | CM_RegisterLang("ptBR", "Português (Brasil)", "Data\\Locales\\ptBR\\UI.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Locales\\ptBR\\flag_ptBR.tga") |
 | Data\Locales\enUS\UI.lua:39 | - | TABLE | Language / Idioma | LANG_TITLE = "Language / Idioma", |
 | Data\Locales\enUS\UI.lua:78 | - | TABLE | Current Health/Mana/Rage/Energy.nMana Regen = base(Spi) + MP5x0.4; in combat only % casting. | CHAR_DETAIL_RES_BODY = "Current Health/Mana/Rage/Energy.\nMana Regen = base(Spi) + MP5x0.4; in combat only % casting.", |
 | Data\Locales\enUS\UI.lua:120 | - | TABLE | Mana | CHAR_POWER_MANA = "Mana", |

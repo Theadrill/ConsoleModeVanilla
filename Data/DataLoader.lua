@@ -218,8 +218,13 @@ SlashCmdList["CMDATALAKE"] = function(msg)
         DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake load   - Forca carregamento")
         DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake status - Mostra status detalhado")
         DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake test   - Executa teste completo")
+        DEFAULT_CHAT_FRAME:AddMessage("  (atalho: /cmloc)")
     end
 end
+
+-- Atalho /cmloc (mesmo handler do /cmdatalake, Fase 4 usa /cmloc)
+SLASH_CMLOC1 = "/cmloc"
+SlashCmdList["CMLOC"] = SlashCmdList["CMDATALAKE"]
 
 -- ============================================================================
 -- Inicialização

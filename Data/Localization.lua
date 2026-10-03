@@ -468,6 +468,13 @@ function CM:GameLOC_ItemDesc(itemLinkOrID, liveLine)
     return nil
 end
 
+-- EN stub: Core returns zoneName; PT override lives in sibling.
+function CM:GameLOC_Zone(zoneName)
+    if not self:IsGameLOCActive() then return zoneName end
+    if self:GetActiveLangId() == "enUS" then return zoneName end
+    return zoneName
+end
+
 -- Lista idiomas do registro no chat. Usado por /cm lang sem arg.
 function CM:ShowLangList()
     local activeId = self:GetActiveLangId()

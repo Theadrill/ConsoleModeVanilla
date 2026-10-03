@@ -8613,15 +8613,17 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     GameTooltip:SetOwner(this, "ANCHOR_LEFT", -8, 0)
                     local instData = ConsoleMode and ConsoleMode.Instances
                     local d = instData and instData.details and instData.details[this.zoneName]
+                    local locInst = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(this.zoneName)) or this.zoneName
                     if d then
-                        GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
-                        GameTooltip:AddLine(string.format(CM:T("MAP_INSTANCE_TOOLTIP_ZONE_FMT"), (d.zone or "?"), (d.levels or "?"), (d.players or "?")), 0.8, 0.8, 0.8)
+                        local locZone = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(d.zone)) or d.zone or "?"
+                        GameTooltip:AddLine(locInst, 1, 0.85, 0.2)
+                        GameTooltip:AddLine(string.format(CM:T("MAP_INSTANCE_TOOLTIP_ZONE_FMT"), locZone, (d.levels or "?"), (d.players or "?")), 0.8, 0.8, 0.8)
                         GameTooltip:AddLine(d.type or "", 0.6, 0.6, 0.6)
                         if not MainMenu:FindZoneLocation(this.zoneName) then
                             GameTooltip:AddLine(CM:T("MAP_INSTANCE_TOOLTIP_INTERIOR_ONLY"), 0.9, 0.7, 0.2)
                         end
                     else
-                        GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
+                        GameTooltip:AddLine(locInst, 1, 0.85, 0.2)
                     end
                     GameTooltip:Show()
                 end
@@ -8971,14 +8973,16 @@ function MainMenu:UpdateQuestsPage()
         local titleText = "Azeroth"
         local titleZoneRef = nil
         if self.mapDungeonPreview and self.mapDungeonPreviewParent then
-            titleText = self.mapDungeonPreview .. string.format(CM:T("MAP_TITLE_ENTRANCE_SUFFIX_FMT"), self.mapDungeonPreviewParent)
+            local locPrev = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(self.mapDungeonPreview)) or self.mapDungeonPreview
+            local locParent = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(self.mapDungeonPreviewParent)) or self.mapDungeonPreviewParent
+            titleText = locPrev .. string.format(CM:T("MAP_TITLE_ENTRANCE_SUFFIX_FMT"), locParent)
             titleZoneRef = self.mapDungeonPreview
         elseif self.mapViewMode == "CONTINENT" and self.mapContinentView then
             if self.mapContinentView == 1 then titleText = CM:T("MAP_TITLE_KALIMDOR_CONTINENT")
             elseif self.mapContinentView == 2 then titleText = CM:T("MAP_TITLE_EASTERN_KINGDOMS_CONTINENT")
             else titleText = CM:T("MAP_TITLE_CONTINENT_GENERIC") end
         elseif self.mapShowingQuestZone and self.mapZoneName then
-            titleText = self.mapZoneName
+            titleText = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(self.mapZoneName)) or self.mapZoneName
             titleZoneRef = self.mapZoneName
         else
             local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
@@ -8992,7 +8996,7 @@ function MainMenu:UpdateQuestsPage()
             else
                 local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
                 if zoneName == "" then zoneName = "Azeroth" end
-                titleText = zoneName
+                titleText = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(zoneName)) or zoneName
                 titleZoneRef = zoneName
             end
         end
@@ -9606,14 +9610,15 @@ function MainMenu:BuildInstancesListForZone(zoneName)
         end
     end
     local count = table.getn(list)
+    local locZoneTitle = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(zoneName)) or zoneName or "?"
     if count == 0 then
-        if frame.title then frame.title:SetText(string.format(CM:T("MAP_INSTANCES_TITLE_ZONE_FMT"), (zoneName or "?"))) end
+        if frame.title then frame.title:SetText(string.format(CM:T("MAP_INSTANCES_TITLE_ZONE_FMT"), locZoneTitle)) end
         content:SetHeight(40)
         if frame.scrollFrame then frame.scrollFrame:SetVerticalScroll(0); frame.scrollFrame:UpdateScrollChildRect() end
         frame:Show()
         return
     end
-    if frame.title then frame.title:SetText(string.format(CM:T("MAP_INSTANCES_TITLE_ZONE_FMT"), zoneName)) end
+    if frame.title then frame.title:SetText(string.format(CM:T("MAP_INSTANCES_TITLE_ZONE_FMT"), locZoneTitle)) end
     local btnH = 28
     local gap = 3
     local shown = 0
@@ -9630,7 +9635,8 @@ function MainMenu:BuildInstancesListForZone(zoneName)
             local det = instData and instData.details and instData.details[name]
             if det and det.zone and det.zone ~= zoneName then btn.parentZone = det.zone end
             local lvl2 = det and det.levels and " |cffaaaaaa(" .. det.levels .. ")|r" or ""
-            btn.label:SetText(name .. lvl2)
+            local locName = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(name)) or name
+            btn.label:SetText(locName .. lvl2)
             btn:Show()
         end
     end
@@ -9691,7 +9697,8 @@ function MainMenu:BuildInstancesList(cont)
                 btn.parentZone = nil
             end
             local lvl2 = det and det.levels and " |cffaaaaaa(" .. det.levels .. ")|r" or ""
-            btn.label:SetText(name .. lvl2)
+            local locName = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(name)) or name
+            btn.label:SetText(locName .. lvl2)
             btn:Show()
         end
     end
@@ -9746,7 +9753,8 @@ function MainMenu:BuildContinentZoneList(cont)
             local zl = ConsoleMode and ConsoleMode.ZoneLevels and ConsoleMode.ZoneLevels[name]
             local lvlTxt = ""
             if zl and zl[1] and zl[2] then lvlTxt = " |cffaaaaaa(" .. zl[1] .. "-" .. zl[2] .. ")|r" end
-            btn.label:SetText(name .. lvlTxt)
+            local locName = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(name)) or name
+            btn.label:SetText(locName .. lvlTxt)
             btn:Show()
         end
     end
@@ -10746,7 +10754,8 @@ function MainMenu:ShowZonePinForZone(zoneName, cont)
     if not mapCanvas or not mapCanvas.zonePin then return end
     mapCanvas.zonePinZone = zoneName
     if mapCanvas.zonePin.label then
-        mapCanvas.zonePin.label:SetText("|cffffd200" .. zoneName .. "|r")
+        local locPin = (CM and CM.GameLOC_Zone and CM:GameLOC_Zone(zoneName)) or zoneName
+        mapCanvas.zonePin.label:SetText("|cffffd200" .. locPin .. "|r")
         mapCanvas.zonePin.label:Show()
     end
     mapCanvas.zonePin:Show()

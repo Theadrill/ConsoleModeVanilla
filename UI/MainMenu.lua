@@ -16230,6 +16230,11 @@ function MainMenu:CreateUI()
 
     -- 10. Eventos OnShow / OnHide integrados aos Hooks do ConsoleMode
     frame:SetScript("OnShow", function()
+        -- Carregar Data Lake sob demanda (spells, quests, items)
+        if ConsoleMode and ConsoleMode.LoadDataLake then
+            ConsoleMode:LoadDataLake("MainMenu")
+        end
+        
         MainMenu:ApplyModelRotationBindings()
 
         MainMenu:UpdateLayout()

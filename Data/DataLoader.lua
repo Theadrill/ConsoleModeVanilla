@@ -23,12 +23,6 @@ function CM:CheckDataLakeAvailable()
     local name, title, notes, loadable, reason = GetAddOnInfo("ConsoleModeVanilla-Data")
     self.DataLake.available = (loadable ~= nil)
     
-    if self.DataLake.available then
-        CM:Log("DataLake addon detectado (disponível para carregamento)", "INFO")
-    else
-        CM:Log("DataLake addon não instalado - usando fallback", "WARN")
-    end
-    
     return self.DataLake.available
 end
 
@@ -52,7 +46,7 @@ function CM:LoadDataLake(requestedBy)
     
     -- Prevenir loops infinitos
     if self.DataLake.loadAttempts > 3 then
-        CM:Log("DataLake: muitas tentativas de carregamento, abortando", "ERROR")
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[ConsoleMode]|r DataLake: muitas tentativas de carregamento, abortando")
         return false, "too_many_attempts"
     end
     
@@ -65,14 +59,10 @@ function CM:LoadDataLake(requestedBy)
         
         -- Mensagem de sucesso no chat
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Data Lake carregado (13.59 MB) - via " .. (requestedBy or "manual"))
-        
-        CM:Log("DataLake carregado com sucesso via " .. (requestedBy or "manual"), "INFO")
         return true, "loaded"
     else
         -- Mensagem de erro
         DEFAULT_CHAT_FRAME:AddMessage("|cffff0000[ConsoleMode]|r Erro ao carregar Data Lake: " .. (reason or "unknown"))
-        
-        CM:Log("DataLake falhou ao carregar: " .. (reason or "unknown"), "ERROR")
         return false, reason
     end
 end
@@ -167,8 +157,6 @@ function CM:SetupDataLakeTriggers()
     
     -- Trigger 3: Ao abrir Main Menu do addon (força load)
     -- (já será hookado no MainMenu.lua via CM:LoadDataLake("MainMenu"))
-    
-    CM:Log("DataLake triggers configurados (SpellBook, QuestLog)", "INFO")
 end
 
 -- ============================================================================

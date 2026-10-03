@@ -988,6 +988,7 @@ CM_Langs["enUS"].strings = {
     COMPARE_HP_LABEL = " Health",
     COMPARE_MANA_LABEL = " Mana",
     MAP_COORDS_OUT_OF_ZONE = "out of zone",
+    MAP_NPC_COORDS_FMT = "Coordinates: %.1f, %.1f",
     COMPARE_ABBR_STR = "Str",
     COMPARE_ABBR_AGI = "Agi",
     COMPARE_ABBR_STA = "Sta",

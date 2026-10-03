@@ -8352,10 +8352,14 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     if targetPin.border then targetPin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
                 end
             end
-            if this.tooltipName and GameTooltip then
+            if (this.tooltipRole or this.tooltipName) and GameTooltip then
                 GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
-                GameTooltip:AddLine(this.tooltipName, 1, 0.85, 0.2)
-                GameTooltip:AddLine(this.tooltipRole or "", 1, 1, 1)
+                if this.tooltipRole and this.tooltipRole ~= "" then
+                    GameTooltip:AddLine(this.tooltipRole, 1, 0.85, 0.2)
+                    GameTooltip:AddLine(this.tooltipName or "NPC", 1, 1, 1)
+                else
+                    GameTooltip:AddLine(this.tooltipName or "NPC", 1, 0.85, 0.2)
+                end
                 GameTooltip:Show()
             end
         end)
@@ -11427,38 +11431,38 @@ local NPC_SERVICE_ICONS = {
 }
 
 local CM_SERVICE_CAT_INFO = {
-    ["INN"]                 = { cat = "innkeeper",  role = "Estalajadeiro",          rkey = "NPC_ROLE_INNKEEPER",          icon = "Interface\\Icons\\INV_Drink_05", prio = 1 },
-    ["BANK"]                = { cat = "banker",     role = "Banqueiro",              rkey = "NPC_ROLE_BANKER",             icon = "Interface\\Icons\\INV_Box_01", prio = 1 },
-    ["AUCTIONEER"]          = { cat = "auctioneer", role = "Leiloeiro",              rkey = "NPC_ROLE_AUCTIONEER",          icon = "Interface\\Icons\\INV_Misc_Coin_01", prio = 1 },
-    ["FLIGHT"]              = { cat = "flight",     role = "Mestre de Voo",          rkey = "NPC_ROLE_FLIGHT",             icon = "Interface\\Icons\\Ability_Mount_Gryphon_01", prio = 1 },
-    ["BATTLEMASTER"]        = { cat = "battle",     role = "Mestre de Batalha",      rkey = "NPC_ROLE_BATTLEMASTER",       icon = "Interface\\Icons\\INV_BannerPVP_02", prio = 2 },
-    ["LEADER"]              = { cat = "leader",     role = "Líder",                  rkey = "NPC_ROLE_LEADER",             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01", prio = 2 },
-    ["STABLE"]              = { cat = "stable",     role = "Mestre do Estábulo",     rkey = "NPC_ROLE_STABLE",             icon = "Interface\\Icons\\Ability_Hunter_Pet_Boar", prio = 3 },
-    ["OTHER"]               = { cat = "repair",     role = "Comerciante / Reparo",   rkey = "NPC_ROLE_VENDOR_REPAIR",      icon = "Interface\\Icons\\INV_Hammer_20", prio = 5 },
+    ["INN"]                 = { cat = "innkeeper",  role = "Innkeeper",              rkey = "NPC_ROLE_INNKEEPER",          icon = "Interface\\Icons\\INV_Drink_05", prio = 1 },
+    ["BANK"]                = { cat = "banker",     role = "Banker",                 rkey = "NPC_ROLE_BANKER",             icon = "Interface\\Icons\\INV_Box_01", prio = 1 },
+    ["AUCTIONEER"]          = { cat = "auctioneer", role = "Auctioneer",             rkey = "NPC_ROLE_AUCTIONEER",          icon = "Interface\\Icons\\INV_Misc_Coin_01", prio = 1 },
+    ["FLIGHT"]              = { cat = "flight",     role = "Flight Master",          rkey = "NPC_ROLE_FLIGHT",             icon = "Interface\\Icons\\Ability_Mount_Gryphon_01", prio = 1 },
+    ["BATTLEMASTER"]        = { cat = "battle",     role = "Battlemaster",           rkey = "NPC_ROLE_BATTLEMASTER",       icon = "Interface\\Icons\\INV_BannerPVP_02", prio = 2 },
+    ["LEADER"]              = { cat = "leader",     role = "Leader",                 rkey = "NPC_ROLE_LEADER",             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01", prio = 2 },
+    ["STABLE"]              = { cat = "stable",     role = "Stable Master",          rkey = "NPC_ROLE_STABLE",             icon = "Interface\\Icons\\Ability_Hunter_Pet_Boar", prio = 3 },
+    ["OTHER"]               = { cat = "repair",     role = "Vendor / Repair",        rkey = "NPC_ROLE_VENDOR_REPAIR",      icon = "Interface\\Icons\\INV_Hammer_20", prio = 5 },
 
-    ["TRAINER_WARRIOR"]     = { cat = "trainer",    role = "Instrutor de Guerreiros", rkey = "NPC_ROLE_TRAINER_WARRIOR",   icon = "Interface\\Icons\\ClassIcon_Warrior", prio = 2 },
-    ["TRAINER_PALADIN"]     = { cat = "trainer",    role = "Instrutor de Paladinos",  rkey = "NPC_ROLE_TRAINER_PALADIN",   icon = "Interface\\Icons\\ClassIcon_Paladin", prio = 2 },
-    ["TRAINER_HUNTER"]      = { cat = "trainer",    role = "Instrutor de Caçadores",  rkey = "NPC_ROLE_TRAINER_HUNTER",    icon = "Interface\\Icons\\ClassIcon_Hunter", prio = 2 },
-    ["TRAINER_ROGUE"]       = { cat = "trainer",    role = "Instrutor de Ladinos",    rkey = "NPC_ROLE_TRAINER_ROGUE",     icon = "Interface\\Icons\\ClassIcon_Rogue", prio = 2 },
-    ["TRAINER_PRIEST"]      = { cat = "trainer",    role = "Instrutor de Sacerdotes", rkey = "NPC_ROLE_TRAINER_PRIEST",    icon = "Interface\\Icons\\ClassIcon_Priest", prio = 2 },
-    ["TRAINER_SHAMAN"]      = { cat = "trainer",    role = "Instrutor de Xamãs",      rkey = "NPC_ROLE_TRAINER_SHAMAN",    icon = "Interface\\Icons\\ClassIcon_Shaman", prio = 2 },
-    ["TRAINER_MAGE"]        = { cat = "trainer",    role = "Instrutor de Magos",      rkey = "NPC_ROLE_TRAINER_MAGE",      icon = "Interface\\Icons\\ClassIcon_Mage", prio = 2 },
-    ["TRAINER_WARLOCK"]     = { cat = "trainer",    role = "Instrutor de Bruxos",     rkey = "NPC_ROLE_TRAINER_WARLOCK",   icon = "Interface\\Icons\\ClassIcon_Warlock", prio = 2 },
-    ["TRAINER_DRUID"]       = { cat = "trainer",    role = "Instrutor de Druidas",    rkey = "NPC_ROLE_TRAINER_DRUID",     icon = "Interface\\Icons\\ClassIcon_Druid", prio = 2 },
+    ["TRAINER_WARRIOR"]     = { cat = "trainer",    role = "Warrior Trainer",        rkey = "NPC_ROLE_TRAINER_WARRIOR",   icon = "Interface\\Icons\\ClassIcon_Warrior", prio = 2 },
+    ["TRAINER_PALADIN"]     = { cat = "trainer",    role = "Paladin Trainer",        rkey = "NPC_ROLE_TRAINER_PALADIN",   icon = "Interface\\Icons\\ClassIcon_Paladin", prio = 2 },
+    ["TRAINER_HUNTER"]      = { cat = "trainer",    role = "Hunter Trainer",         rkey = "NPC_ROLE_TRAINER_HUNTER",    icon = "Interface\\Icons\\ClassIcon_Hunter", prio = 2 },
+    ["TRAINER_ROGUE"]       = { cat = "trainer",    role = "Rogue Trainer",          rkey = "NPC_ROLE_TRAINER_ROGUE",     icon = "Interface\\Icons\\ClassIcon_Rogue", prio = 2 },
+    ["TRAINER_PRIEST"]      = { cat = "trainer",    role = "Priest Trainer",         rkey = "NPC_ROLE_TRAINER_PRIEST",    icon = "Interface\\Icons\\ClassIcon_Priest", prio = 2 },
+    ["TRAINER_SHAMAN"]      = { cat = "trainer",    role = "Shaman Trainer",         rkey = "NPC_ROLE_TRAINER_SHAMAN",    icon = "Interface\\Icons\\ClassIcon_Shaman", prio = 2 },
+    ["TRAINER_MAGE"]        = { cat = "trainer",    role = "Mage Trainer",           rkey = "NPC_ROLE_TRAINER_MAGE",      icon = "Interface\\Icons\\ClassIcon_Mage", prio = 2 },
+    ["TRAINER_WARLOCK"]     = { cat = "trainer",    role = "Warlock Trainer",        rkey = "NPC_ROLE_TRAINER_WARLOCK",   icon = "Interface\\Icons\\ClassIcon_Warlock", prio = 2 },
+    ["TRAINER_DRUID"]       = { cat = "trainer",    role = "Druid Trainer",          rkey = "NPC_ROLE_TRAINER_DRUID",     icon = "Interface\\Icons\\ClassIcon_Druid", prio = 2 },
 
-    ["PROF_ALCHEMY"]        = { cat = "profession", role = "Instrutor de Alquimia",      rkey = "NPC_ROLE_PROF_ALCHEMY",        icon = "Interface\\Icons\\Trade_Alchemy", prio = 3 },
-    ["PROF_BLACKSMITHING"]  = { cat = "profession", role = "Instrutor de Ferraria",      rkey = "NPC_ROLE_PROF_BLACKSMITHING",  icon = "Interface\\Icons\\Trade_BlackSmithing", prio = 3 },
-    ["PROF_COOKING"]        = { cat = "profession", role = "Instrutor de Culinária",     rkey = "NPC_ROLE_PROF_COOKING",        icon = "Interface\\Icons\\INV_Misc_Food_15", prio = 3 },
-    ["PROF_ENCHANTING"]     = { cat = "profession", role = "Instrutor de Encantamento",  rkey = "NPC_ROLE_PROF_ENCHANTING",     icon = "Interface\\Icons\\Trade_Engraving", prio = 3 },
-    ["PROF_ENGINEERING"]    = { cat = "profession", role = "Instrutor de Engenharia",    rkey = "NPC_ROLE_PROF_ENGINEERING",    icon = "Interface\\Icons\\Trade_Engineering", prio = 3 },
-    ["PROF_FIRST_AID"]      = { cat = "profession", role = "Instrutor de Primeiros Soc.",rkey = "NPC_ROLE_PROF_FIRST_AID",      icon = "Interface\\Icons\\Spell_Holy_SealOfSacrifice", prio = 3 },
-    ["PROF_FISHING"]        = { cat = "profession", role = "Instrutor de Pesca",        rkey = "NPC_ROLE_PROF_FISHING",        icon = "Interface\\Icons\\Trade_Fishing", prio = 3 },
-    ["PROF_HERBALISM"]      = { cat = "profession", role = "Instrutor de Herborismo",   rkey = "NPC_ROLE_PROF_HERBALISM",      icon = "Interface\\Icons\\Trade_Herbalism", prio = 3 },
-    ["PROF_LEATHERWORKING"] = { cat = "profession", role = "Instrutor de Couraria",     rkey = "NPC_ROLE_PROF_LEATHERWORKING", icon = "Interface\\Icons\\Trade_LeatherWorking", prio = 3 },
-    ["PROF_MINING"]         = { cat = "profession", role = "Instrutor de Mineração",     rkey = "NPC_ROLE_PROF_MINING",         icon = "Interface\\Icons\\Trade_Mining", prio = 3 },
-    ["PROF_SKINNING"]       = { cat = "profession", role = "Instrutor de Esfolamento",   rkey = "NPC_ROLE_PROF_SKINNING",       icon = "Interface\\Icons\\INV_Misc_Pelt_Wolf_01", prio = 3 },
-    ["PROF_SURVIVAL"]       = { cat = "profession", role = "Instrutor de Sobrevivência",rkey = "NPC_ROLE_PROF_SURVIVAL",       icon = "Interface\\Icons\\Spell_Fire_Fire", prio = 3 },
-    ["PROF_TAILORING"]      = { cat = "profession", role = "Instrutor de Alfaiataria",   rkey = "NPC_ROLE_PROF_TAILORING",      icon = "Interface\\Icons\\Trade_Tailoring", prio = 3 },
+    ["PROF_ALCHEMY"]        = { cat = "profession", role = "Alchemy Trainer",        rkey = "NPC_ROLE_PROF_ALCHEMY",        icon = "Interface\\Icons\\Trade_Alchemy", prio = 3 },
+    ["PROF_BLACKSMITHING"]  = { cat = "profession", role = "Blacksmithing Trainer",  rkey = "NPC_ROLE_PROF_BLACKSMITHING",  icon = "Interface\\Icons\\Trade_BlackSmithing", prio = 3 },
+    ["PROF_COOKING"]        = { cat = "profession", role = "Cooking Trainer",        rkey = "NPC_ROLE_PROF_COOKING",        icon = "Interface\\Icons\\INV_Misc_Food_15", prio = 3 },
+    ["PROF_ENCHANTING"]     = { cat = "profession", role = "Enchanting Trainer",     rkey = "NPC_ROLE_PROF_ENCHANTING",     icon = "Interface\\Icons\\Trade_Engraving", prio = 3 },
+    ["PROF_ENGINEERING"]    = { cat = "profession", role = "Engineering Trainer",   rkey = "NPC_ROLE_PROF_ENGINEERING",    icon = "Interface\\Icons\\Trade_Engineering", prio = 3 },
+    ["PROF_FIRST_AID"]      = { cat = "profession", role = "First Aid Trainer",     rkey = "NPC_ROLE_PROF_FIRST_AID",      icon = "Interface\\Icons\\Spell_Holy_SealOfSacrifice", prio = 3 },
+    ["PROF_FISHING"]        = { cat = "profession", role = "Fishing Trainer",       rkey = "NPC_ROLE_PROF_FISHING",        icon = "Interface\\Icons\\Trade_Fishing", prio = 3 },
+    ["PROF_HERBALISM"]      = { cat = "profession", role = "Herbalism Trainer",     rkey = "NPC_ROLE_PROF_HERBALISM",      icon = "Interface\\Icons\\Trade_Herbalism", prio = 3 },
+    ["PROF_LEATHERWORKING"] = { cat = "profession", role = "Leatherworking Trainer",rkey = "NPC_ROLE_PROF_LEATHERWORKING", icon = "Interface\\Icons\\Trade_LeatherWorking", prio = 3 },
+    ["PROF_MINING"]         = { cat = "profession", role = "Mining Trainer",        rkey = "NPC_ROLE_PROF_MINING",         icon = "Interface\\Icons\\Trade_Mining", prio = 3 },
+    ["PROF_SKINNING"]       = { cat = "profession", role = "Skinning Trainer",      rkey = "NPC_ROLE_PROF_SKINNING",       icon = "Interface\\Icons\\INV_Misc_Pelt_Wolf_01", prio = 3 },
+    ["PROF_SURVIVAL"]       = { cat = "profession", role = "Survival Trainer",      rkey = "NPC_ROLE_PROF_SURVIVAL",       icon = "Interface\\Icons\\Spell_Fire_Fire", prio = 3 },
+    ["PROF_TAILORING"]      = { cat = "profession", role = "Tailoring Trainer",     rkey = "NPC_ROLE_PROF_TAILORING",      icon = "Interface\\Icons\\Trade_Tailoring", prio = 3 },
 }
 
 
@@ -11656,6 +11660,11 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             if (a.prio or 5) ~= (b.prio or 5) then
                 return (a.prio or 5) < (b.prio or 5)
             end
+            local rA = (a.rkey and CM:T(a.rkey)) or a.role or ""
+            local rB = (b.rkey and CM:T(b.rkey)) or b.role or ""
+            if rA ~= rB then
+                return rA < rB
+            end
             return (a.name or "") < (b.name or "")
         end)
     elseif CM_ClassTrainers then
@@ -11734,9 +11743,16 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             pin:SetScript("OnEnter", function()
                 if this.pinData and GameTooltip then
                     GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
-                    GameTooltip:AddLine(this.pinData.name, 1, 0.85, 0.2)
-                    GameTooltip:AddLine((this.pinData.rkey and CM:T(this.pinData.rkey)) or this.pinData.role, 1, 1, 1)
-                    GameTooltip:AddLine(string.format("|cff888888Coordenadas: %.1f, %.1f|r", this.pinData.x, this.pinData.y))
+                    local r = (this.pinData.rkey and CM:T(this.pinData.rkey)) or this.pinData.role or ""
+                    if r ~= "" then
+                        GameTooltip:AddLine(r, 1, 0.85, 0.2)
+                        GameTooltip:AddLine(this.pinData.name or "NPC", 1, 1, 1)
+                    else
+                        GameTooltip:AddLine(this.pinData.name or "NPC", 1, 0.85, 0.2)
+                    end
+                    local coordFmt = CM:T("MAP_NPC_COORDS_FMT")
+                    if not coordFmt or coordFmt == "MAP_NPC_COORDS_FMT" then coordFmt = "Coordinates: %.1f, %.1f" end
+                    GameTooltip:AddLine(string.format("|cff888888" .. coordFmt .. "|r", this.pinData.x, this.pinData.y))
                     GameTooltip:Show()
                 end
             end)
@@ -11841,7 +11857,13 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                             if data.cat == "flight" and playerFacCode == "H" then
                                 btn.icon:SetTexture("Interface\\Icons\\Ability_Mount_Wyvern_01")
                             end
-                            btn.label:SetText("|cffffffff" .. (data.name or "NPC") .. "|r  |cff888888" .. ((data.rkey and CM:T(data.rkey)) or data.role or "") .. "|r")
+                            local rText = (data.rkey and CM:T(data.rkey)) or data.role or ""
+                            local nText = data.name or "NPC"
+                            if rText ~= "" then
+                                btn.label:SetText("|cffffd200" .. rText .. "|r  |cffaaaaaa(" .. nText .. ")|r")
+                            else
+                                btn.label:SetText("|cffffffff" .. nText .. "|r")
+                            end
                             btn.pinIdx = idx
                             btn.npcListIdx = shown
                             btn.zoneIdx = shown

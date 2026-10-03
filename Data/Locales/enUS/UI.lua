@@ -846,6 +846,16 @@ CM_Langs["enUS"].strings = {
     MSG_MOUSE_FREE_OFF = "|cff00ccff[ConsoleMode]|r Mouse Mode: |cffff4444DISABLED|r (Camera on Stick)",
     MSG_NO_REPAIR = "|cffe09a15[ConsoleMode]|r This vendor offers no repair services.",
     MSG_RING_SOON = "|cff00ccff[ConsoleMode]|r Ring Menu |cffffcc00coming soon!|r",
+    STAT_STRENGTH = "Strength",
+    STAT_AGILITY = "Agility",
+    STAT_STAMINA = "Stamina",
+    STAT_INTELLECT = "Intellect",
+    STAT_SPIRIT = "Spirit",
+    STAT_ARMOR = "Armor",
+    POWER_MANA = "Mana",
+    POWER_RAGE = "Rage",
+    POWER_FOCUS = "Focus",
+    POWER_ENERGY = "Energy",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

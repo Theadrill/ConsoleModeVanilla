@@ -116,6 +116,16 @@ function CM:T(key)
             end
         end
     end
+    -- Ultimo recurso: enUS (Core carrega sem Localization; default pode faltar)
+    if langId ~= "enUS" and CM_DEFAULT_LANG ~= "enUS" then
+        local en = CM_Langs["enUS"]
+        if en and en.strings then
+            local e = en.strings[key]
+            if e and e ~= "" then
+                return e
+            end
+        end
+    end
     return key
 end
 
@@ -130,7 +140,13 @@ function CM:ResolveLocale()
         if base and base.strings then
             ConsoleMode.L = base.strings
         else
-            ConsoleMode.L = {}
+            -- Ultimo recurso: enUS (Core carrega sem Localization; default pode faltar)
+            local en = CM_Langs["enUS"]
+            if en and en.strings then
+                ConsoleMode.L = en.strings
+            else
+                ConsoleMode.L = {}
+            end
         end
         langId = CM_DEFAULT_LANG
     end

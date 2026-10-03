@@ -1646,13 +1646,13 @@ end
 function MainMenu:RefreshBaseStatLines()
     if not self.statsAndBuffs or not self.statsAndBuffs.statLines then return end
     local lines = self.statsAndBuffs.statLines
-    lines["Força"]:SetText("|cffffffffForça:|r " .. GetPlayerEffectiveStat(1))
-    lines["Agilidade"]:SetText("|cffffffffAgilidade:|r " .. GetPlayerEffectiveStat(2))
-    lines["Vigor"]:SetText("|cffffffffVigor:|r " .. GetPlayerEffectiveStat(3))
-    lines["Intelecto"]:SetText("|cffffffffIntelecto:|r " .. GetPlayerEffectiveStat(4))
-    lines["Espírito"]:SetText("|cffffffffEspírito:|r " .. GetPlayerEffectiveStat(5))
+    lines["Força"]:SetText("|cffffffff" .. CM:T("STAT_STRENGTH") .. ":|r " .. GetPlayerEffectiveStat(1))
+    lines["Agilidade"]:SetText("|cffffffff" .. CM:T("STAT_AGILITY") .. ":|r " .. GetPlayerEffectiveStat(2))
+    lines["Vigor"]:SetText("|cffffffff" .. CM:T("STAT_STAMINA") .. ":|r " .. GetPlayerEffectiveStat(3))
+    lines["Intelecto"]:SetText("|cffffffff" .. CM:T("STAT_INTELLECT") .. ":|r " .. GetPlayerEffectiveStat(4))
+    lines["Espírito"]:SetText("|cffffffff" .. CM:T("STAT_SPIRIT") .. ":|r " .. GetPlayerEffectiveStat(5))
     local _, armorEff = UnitArmor("player")
-    lines["Armadura"]:SetText("|cffffffffArmadura:|r " .. (armorEff or 0))
+    lines["Armadura"]:SetText("|cffffffff" .. CM:T("STAT_ARMOR") .. ":|r " .. (armorEff or 0))
 end
 
 function MainMenu:UpdateStatsAndBuffs()
@@ -1668,7 +1668,7 @@ function MainMenu:UpdateStatsAndBuffs()
         local pType = UnitPowerType("player") -- 0 = Mana, 1 = Rage, 2 = Focus, 3 = Energy
         local mana = UnitMana("player") or 0
         local maxMana = UnitManaMax("player") or 1
-        local powerName = (pType == 1 and "Rage") or (pType == 3 and "Energia") or "Mana"
+        local powerName = (pType == 1 and CM:T("POWER_RAGE")) or (pType == 2 and CM:T("POWER_FOCUS")) or (pType == 3 and CM:T("POWER_ENERGY")) or CM:T("POWER_MANA")
         local powerColor = (pType == 1 and "|cffff3333") or (pType == 3 and "|cffffff00") or "|cff00ccff"
         lines["Recurso"]:SetText("|cffffffff" .. powerName .. ":|r " .. powerColor .. mana .. "|r / " .. maxMana)
 

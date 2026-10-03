@@ -8348,8 +8348,11 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     targetPin:SetWidth(27)
                     targetPin:SetHeight(27)
                     local hovBase = (mc2.tilesContainer and mc2.tilesContainer:GetFrameLevel()) or 90
-                    targetPin:SetFrameLevel(hovBase + MainMenu.PinLevels.SERVICE_HOVER)
-                    if targetPin.border then targetPin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
+                    targetPin:SetFrameLevel(hovBase + (MainMenu.PinLevels and MainMenu.PinLevels.SERVICE_HOVER or 22))
+                    if targetPin.border then
+                        targetPin.border:Show()
+                        targetPin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                    end
                 end
             end
             if (this.tooltipRole or this.tooltipName) and GameTooltip then
@@ -8364,60 +8367,37 @@ function MainMenu:SetupQuestsPage(pageQuests)
             end
         end)
         _nb:SetScript("OnLeave", function()
-            if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
-            if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
-            if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
             local mp2 = nil
             if MainMenu and MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"] then
                 mp2 = MainMenu.tabContainer.pages["QUESTS"].mapPanel
             end
             local mc2 = mp2 and mp2.canvas
+            local isSel = (this.pinData and mc2 and mc2.selectedNpcId and this.pinData.id == mc2.selectedNpcId and this.pinData.x == mc2.selectedNpcX and this.pinData.y == mc2.selectedNpcY)
+            if isSel then
+                if this.borderTex then this.borderTex:SetVertexColor(1.0, 0.85, 0.2, 1.0) end
+                if this.bg then this.bg:SetVertexColor(0.28, 0.22, 0.12, 1.0) end
+            else
+                if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+                if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+            end
+            if this.label then this.label:SetTextColor(0.96, 0.88, 0.68, 1.0) end
             if this.pinIdx and mc2 and mc2.npcPins then
                 local targetPin = mc2.npcPins[this.pinIdx]
                 if targetPin then
                     if mc2.hoveredNpcPin == targetPin then mc2.hoveredNpcPin = nil end
                     if mc2.hoveredNpcPinIdx == this.pinIdx then mc2.hoveredNpcPinIdx = nil end
-                    targetPin:SetWidth(9)
-                    targetPin:SetHeight(9)
-                    local bl = targetPin.baseLevel or ((mc2.tilesContainer and mc2.tilesContainer:GetFrameLevel()) or 0) + MainMenu.PinLevels.SERVICE
-                    targetPin:SetFrameLevel(bl)
-                    if targetPin.border then targetPin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9) end
-                else
-                    if mc2 then mc2.hoveredNpcPinIdx = nil end
                 end
             else
                 if mc2 then mc2.hoveredNpcPin = nil; mc2.hoveredNpcPinIdx = nil end
             end
+            if mc2 and MainMenu and MainMenu.UpdateNPCPinSizes then
+                MainMenu:UpdateNPCPinSizes(mc2)
+            end
             if GameTooltip then GameTooltip:Hide() end
         end)
         _nb:SetScript("OnClick", function()
-            if this.pinData then
-                local mp2 = nil
-                if MainMenu and MainMenu.tabContainer and MainMenu.tabContainer.pages and MainMenu.tabContainer.pages["QUESTS"] then
-                    mp2 = MainMenu.tabContainer.pages["QUESTS"].mapPanel
-                end
-                local mc2 = mp2 and mp2.canvas
-                if mc2 then
-                    if MainMenu then MainMenu.mapFollow = false end
-                    local px = (this.pinData.x / 100)
-                    local py = (this.pinData.y / 100)
-                    local canvasW = mc2:GetWidth() or 500
-                    local canvasH = mc2:GetHeight() or 340
-                    local c = mc2.tilesContainer
-                    local scale = mc2.currentScale or 0.5
-                    local finalW = 1002 * scale
-                    local finalH = 668 * scale
-                    local targetPanX = (0.5 - px) * finalW
-                    local targetPanY = (py - 0.5) * finalH
-                    local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
-                    local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
-                    mc2.panX = math.max(-maxPanX, math.min(maxPanX, targetPanX))
-                    mc2.panY = math.max(-maxPanY, math.min(maxPanY, targetPanY))
-                    if c then
-                        c:ClearAllPoints()
-                        c:SetPoint("CENTER", mc2, "CENTER", mc2.panX, mc2.panY)
-                    end
-                end
+            if this.pinData and MainMenu and MainMenu.SelectNPC then
+                MainMenu:SelectNPC(this.pinData, nil)
             end
         end)
         _nb:SetScript("OnMouseWheel", function()
@@ -9256,6 +9236,7 @@ function MainMenu:ClearDungeonPreview()
 end
 
 function MainMenu:SwitchMapToDungeon(instanceName)
+    if self.ClearSelectedNPC then self:ClearSelectedNPC() end
     if not instanceName or instanceName == "" then return false end
     local c, idx = self:FindZoneLocation(instanceName)
     if c and idx then
@@ -9327,6 +9308,7 @@ function MainMenu:SwitchMapToDungeon(instanceName)
 end
 
 function MainMenu:SwitchMapToZone(zoneName)
+    if self.ClearSelectedNPC then self:ClearSelectedNPC() end
     self.mapFollow = false
     self.questFocus = nil
     self:HideZonePin()
@@ -9401,6 +9383,7 @@ function MainMenu:GetCurrentMapFileName()
 end
 
 function MainMenu:ResetMapToPlayer()
+    if self.ClearSelectedNPC then self:ClearSelectedNPC() end
     self:HideZonePin()
     if SetMapToCurrentZone then CMSafeSetMap(SetMapToCurrentZone) end
     self.mapShowingQuestZone = false
@@ -9422,6 +9405,7 @@ function MainMenu:NavToCurrent()
 end
 
 function MainMenu:NavToContinent(cont)
+    if self.ClearSelectedNPC then self:ClearSelectedNPC() end
     if not cont or (cont ~= 1 and cont ~= 2) then return end
     self.mapFollow = false
     if SetMapZoom then CMSafeSetMap(SetMapZoom, cont, 0) end
@@ -11756,8 +11740,20 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                     GameTooltip:Show()
                 end
             end)
+            pin:SetScript("OnClick", function()
+                if this.pinData and MainMenu and MainMenu.SelectNPC then
+                    MainMenu:SelectNPC(this.pinData, this)
+                end
+            end)
             pin:SetScript("OnLeave", function()
                 if GameTooltip then GameTooltip:Hide() end
+                if mapCanvas and mapCanvas.hoveredNpcPin == this then
+                    mapCanvas.hoveredNpcPin = nil
+                    mapCanvas.hoveredNpcPinIdx = nil
+                end
+                if MainMenu and MainMenu.UpdateNPCPinSizes and mapCanvas then
+                    MainMenu:UpdateNPCPinSizes(mapCanvas)
+                end
             end)
 
             mapCanvas.npcPins[pinIdx] = pin
@@ -11770,18 +11766,45 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             pin.icon:SetTexture("Interface\\Icons\\Ability_Mount_Wyvern_01")
         end
 
-        -- Garante tamanho base reduzido (9x9) ou mantem highlight 3x se houver hover ativo.
-        -- Níveis via ApplyMapPinLevels (fonte única); aqui só tamanho/borda.
-        pin.baseSize = 9
+        pin.baseSize = 10
+        local hasSelection = (mapCanvas.selectedNpcId ~= nil)
+        local isSelected = hasSelection and (pinData.id == mapCanvas.selectedNpcId and pinData.x == mapCanvas.selectedNpcX and pinData.y == mapCanvas.selectedNpcY)
+        pin.isSelected = isSelected
+
+        local targetSize = 10
+        if hasSelection then
+            if isSelected then
+                targetSize = 15 -- 50% maior que o normal (10 * 1.5)
+            else
+                targetSize = 5  -- 50% menor que o normal (10 * 0.5)
+            end
+        else
+            targetSize = 10     -- tamanho base normal
+        end
+
         local isHovered = (mapCanvas.hoveredNpcPin and mapCanvas.hoveredNpcPin == pin) or (mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx == pinIdx)
         if isHovered then
             pin:SetWidth(27)
             pin:SetHeight(27)
-            if pin.border then pin.border:SetBackdropBorderColor(1, 1, 0.2, 1) end
+            if pin.border then
+                pin.border:Show()
+                pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+            end
         else
-            pin:SetWidth(9)
-            pin:SetHeight(9)
-            if pin.border then pin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9) end
+            pin:SetWidth(targetSize)
+            pin:SetHeight(targetSize)
+            if pin.border then
+                if hasSelection and not isSelected then
+                    pin.border:Hide()
+                else
+                    pin.border:Show()
+                    if isSelected then
+                        pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                    else
+                        pin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9)
+                    end
+                end
+            end
         end
 
         local px = (pinData.x / 100) * effW
@@ -11828,6 +11851,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             if not npcListPanel:IsVisible() then npcListPanel:Show() end
         else
             npcListPanel._lastSig = curSig
+            if self.ClearSelectedNPC then self:ClearSelectedNPC() end
             for i = 1, 160 do
                 local b = getglobal("ConsoleMode_NPCListButton"..i)
                 if b then b:Hide() end
@@ -11874,6 +11898,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                         end
                     end
                 end
+                if self.UpdateNPCListHighlights then self:UpdateNPCListHighlights() end
                 local totalH = shown * (btnH + gap) + 4
                 content:SetHeight(totalH)
                 if scrollFrame then
@@ -12164,6 +12189,143 @@ function MainMenu:ApplyMapPinLevels(mapCanvas)
         for i = 1, table.getn(mapCanvas.questPins) do
             local pin = mapCanvas.questPins[i]
             if pin then pin:SetFrameLevel(base + PL.TURNIN) end
+        end
+    end
+end
+
+function MainMenu:UpdateNPCPinSizes(mapCanvas)
+    if not mapCanvas or not mapCanvas.npcPins then return end
+    local base = (mapCanvas.tilesContainer and mapCanvas.tilesContainer:GetFrameLevel()) or 90
+    local PL = MainMenu.PinLevels or { SERVICE = 6, SERVICE_HOVER = 22 }
+    local hasSelection = (mapCanvas.selectedNpcId ~= nil)
+
+    for i = 1, table.getn(mapCanvas.npcPins) do
+        local pin = mapCanvas.npcPins[i]
+        if pin and pin:IsShown() and pin.pinData then
+            local isSelected = hasSelection and (pin.pinData.id == mapCanvas.selectedNpcId and pin.pinData.x == mapCanvas.selectedNpcX and pin.pinData.y == mapCanvas.selectedNpcY)
+            pin.isSelected = isSelected
+
+            local isHovered = (mapCanvas.hoveredNpcPin and mapCanvas.hoveredNpcPin == pin)
+                or (mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx == i)
+
+            if isHovered then
+                pin:SetWidth(27)
+                pin:SetHeight(27)
+                pin:SetFrameLevel(base + PL.SERVICE_HOVER)
+                if pin.border then
+                    pin.border:Show()
+                    pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                end
+            elseif hasSelection then
+                if isSelected then
+                    pin:SetWidth(15) -- 50% maior que normal
+                    pin:SetHeight(15)
+                    pin:SetFrameLevel(base + PL.SERVICE_HOVER)
+                    if pin.border then
+                        pin.border:Show()
+                        pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                    end
+                else
+                    pin:SetWidth(5)  -- 50% menor que normal
+                    pin:SetHeight(5)
+                    pin:SetFrameLevel(base + PL.SERVICE)
+                    if pin.border then
+                        pin.border:Hide()
+                    end
+                end
+            else
+                pin:SetWidth(10)     -- tamanho normal
+                pin:SetHeight(10)
+                pin:SetFrameLevel(base + PL.SERVICE)
+                if pin.border then
+                    pin.border:Show()
+                    pin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9)
+                end
+            end
+        end
+    end
+end
+
+function MainMenu:SelectNPC(pinData, sourcePin)
+    local pageQuests = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"]
+    local mapCanvas = pageQuests and pageQuests.mapPanel and pageQuests.mapPanel.canvas
+    if not mapCanvas or not pinData then return end
+
+    if MainMenu then MainMenu.mapFollow = false end
+    local px = (pinData.x / 100)
+    local py = (pinData.y / 100)
+    local canvasW = mapCanvas:GetWidth() or 500
+    local canvasH = mapCanvas:GetHeight() or 340
+    local c = mapCanvas.tilesContainer
+    local scale = mapCanvas.currentScale or 0.5
+    local finalW = 1002 * scale
+    local finalH = 668 * scale
+    local targetPanX = (0.5 - px) * finalW
+    local targetPanY = (py - 0.5) * finalH
+    local maxPanX = math.max(0, (finalW - canvasW) / 2 + (canvasW * 0.45))
+    local maxPanY = math.max(0, (finalH - canvasH) / 2 + (canvasH * 0.45))
+    mapCanvas.panX = math.max(-maxPanX, math.min(maxPanX, targetPanX))
+    mapCanvas.panY = math.max(-maxPanY, math.min(maxPanY, targetPanY))
+    if c then
+        c:ClearAllPoints()
+        c:SetPoint("CENTER", mapCanvas, "CENTER", mapCanvas.panX, mapCanvas.panY)
+    end
+
+    mapCanvas.selectedNpcData = pinData
+    mapCanvas.selectedNpcId = pinData.id
+    mapCanvas.selectedNpcName = pinData.name
+    mapCanvas.selectedNpcX = pinData.x
+    mapCanvas.selectedNpcY = pinData.y
+    self.selectedNpcId = pinData.id
+    self.selectedNpcName = pinData.name
+    self.selectedNpcX = pinData.x
+    self.selectedNpcY = pinData.y
+
+    self:UpdateNPCPinSizes(mapCanvas)
+    self:UpdateNPCListHighlights()
+end
+
+function MainMenu:ClearSelectedNPC()
+    local pageQuests = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"]
+    local mapCanvas = pageQuests and pageQuests.mapPanel and pageQuests.mapPanel.canvas
+    if mapCanvas then
+        mapCanvas.selectedNpcPin = nil
+        mapCanvas.selectedNpcData = nil
+        mapCanvas.selectedNpcId = nil
+        mapCanvas.selectedNpcName = nil
+        mapCanvas.selectedNpcX = nil
+        mapCanvas.selectedNpcY = nil
+    end
+    self.selectedNpcId = nil
+    self.selectedNpcName = nil
+    self.selectedNpcX = nil
+    self.selectedNpcY = nil
+    if mapCanvas then
+        self:UpdateNPCPinSizes(mapCanvas)
+    end
+    self:UpdateNPCListHighlights()
+end
+
+function MainMenu:UpdateNPCListHighlights()
+    local pageQuests = self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"]
+    local npcListPanel = pageQuests and pageQuests.mapPanel and pageQuests.mapPanel.npcListPanel
+    if not npcListPanel or not npcListPanel.buttons then return end
+
+    local selId = self.selectedNpcId
+    local selX = self.selectedNpcX
+    local selY = self.selectedNpcY
+
+    for i = 1, 160 do
+        local btn = npcListPanel.buttons[i] or getglobal("ConsoleMode_NPCListButton"..i)
+        if btn and btn:IsShown() then
+            local isSel = (selId and btn.pinData and btn.pinData.id == selId and btn.pinData.x == selX and btn.pinData.y == selY)
+            if isSel then
+                if btn.borderTex then btn.borderTex:SetVertexColor(1.0, 0.85, 0.2, 1.0) end
+                if btn.bg then btn.bg:SetVertexColor(0.28, 0.22, 0.12, 1.0) end
+            else
+                if btn.borderTex then btn.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
+                if btn.bg then btn.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
+            end
         end
     end
 end
@@ -16485,6 +16647,7 @@ end
 -- ============================================================================
 
 function MainMenu:Show(initialTab)
+    if self.ClearSelectedNPC then self:ClearSelectedNPC() end
     -- Nunca sobrepor a janela de venda: fecha o mercador antes de exibir o menu.
     -- Cobre todas as vias de abertura (START, ToggleGameMenu, SELECT).
     if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
@@ -16509,6 +16672,7 @@ function MainMenu:Show(initialTab)
 end
 
 function MainMenu:Hide()
+    if self.ClearSelectedNPC then self:ClearSelectedNPC() end
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
         pcall(function() ConsoleMode_EnhanceModal:Close() end)
     end

@@ -1454,6 +1454,7 @@ function MainMenu:CreateStatsAndBuffsColumn(leftPanel)
     statsHeader:SetPoint("TOPLEFT", container, "TOPLEFT", 0, 0)
     MainMenu:ApplyFont(statsHeader, CFG.Fonts.headerFontFile, CFG.Fonts.headerSize)
     statsHeader:SetText(CM:T("DETAIL_STATUS_HEADER"))
+    container.statsHeader = statsHeader
 
     local statLines = {}
     local statKeys = { "HP", "Recurso", "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura" }
@@ -15602,6 +15603,7 @@ function MainMenu:CreateFooterHints(footer)
 
     local totalWidth = 0
     local widgets = {}
+    footer.hintLabels = {}
 
     for i, hint in ipairs(hints) do
         local groupFrame = CreateFrame("Frame", nil, container)
@@ -15636,6 +15638,8 @@ function MainMenu:CreateFooterHints(footer)
         label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
         MainMenu:ApplyFont(label, CFG.Fonts.bodyFontFile, CFG.Fonts.footerSize or 12)
         label:SetText(CM:T(hint.lkey))
+        label.lkey = hint.lkey
+        table.insert(footer.hintLabels, label)
         label:SetTextColor(0.85, 0.85, 0.85, 0.95)
 
         local textW = math.floor(label:GetStringWidth() or 40)
@@ -15662,6 +15666,42 @@ function MainMenu:CreateFooterHints(footer)
     end
 
     footer.hintContainer = container
+end
+
+-- Reaplica textos estaticos via CM:T() DEPOIS do Localization carregar.
+-- Abas/rodape/cabecalhos sao criados uma vez no login (pool fixo); se o
+-- Localization ainda nao carregou na criacao, o texto assa com a chave crua.
+-- Chamar no OnShow apos LoadDataLake. So SetText, sem CreateFrame (GC-safe).
+function MainMenu:RefreshStaticTexts()
+    if not CM or not CM.T then return end
+    -- 1. Botoes de aba (titulo guarda tkey em tabBtn.tabData)
+    if self.tabContainer and self.tabContainer.tabBar and self.tabContainer.tabBar.buttons then
+        for _, tabBtn in ipairs(self.tabContainer.tabBar.buttons) do
+            if tabBtn.title and tabBtn.tabData and tabBtn.tabData.tkey then
+                tabBtn.title:SetText(CM:T(tabBtn.tabData.tkey))
+            end
+        end
+    end
+    -- 2. Rodape (labels guardados com lkey na criacao)
+    if self.frame and self.frame.footer and self.frame.footer.hintLabels then
+        for _, label in ipairs(self.frame.footer.hintLabels) do
+            if label.lkey then
+                label:SetText(CM:T(label.lkey))
+            end
+        end
+    end
+    -- 3. Cabecalhos do painel esquerdo (stats/buffs/compare)
+    if self.statsAndBuffs then
+        if self.statsAndBuffs.statsHeader then
+            self.statsAndBuffs.statsHeader:SetText(CM:T("DETAIL_STATUS_HEADER"))
+        end
+        if self.statsAndBuffs.buffHeader then
+            self.statsAndBuffs.buffHeader:SetText(CM:T("DETAIL_BUFFS_HEADER"))
+        end
+        if self.statsAndBuffs.compareSection and self.statsAndBuffs.compareSection.header then
+            self.statsAndBuffs.compareSection.header:SetText(CM:T("DETAIL_COMPARE_HEADER"))
+        end
+    end
 end
 
 -- Funções globais de rotação de modelo para os bindings nativos
@@ -16234,7 +16274,10 @@ function MainMenu:CreateUI()
         if ConsoleMode and ConsoleMode.LoadDataLake then
             ConsoleMode:LoadDataLake("MainMenu")
         end
-        
+
+        -- Reaplica textos estaticos (podem ter assado crus antes do Localization)
+        pcall(function() MainMenu:RefreshStaticTexts() end)
+
         MainMenu:ApplyModelRotationBindings()
 
         MainMenu:UpdateLayout()

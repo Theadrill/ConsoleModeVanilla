@@ -186,14 +186,50 @@ SlashCmdList["CMDATALAKE"] = function(msg)
         end
     elseif msg == "status" then
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Data Lake Status:")
-        DEFAULT_CHAT_FRAME:AddMessage("  Disponível: " .. tostring(CM.DataLake.available))
+        DEFAULT_CHAT_FRAME:AddMessage("  Disponivel: " .. tostring(CM.DataLake.available))
         DEFAULT_CHAT_FRAME:AddMessage("  Carregado: " .. tostring(CM.DataLake.loaded))
         DEFAULT_CHAT_FRAME:AddMessage("  Requisitado por: " .. (CM.DataLake.requestedBy or "n/a"))
         DEFAULT_CHAT_FRAME:AddMessage("  Tentativas: " .. CM.DataLake.loadAttempts)
+        
+        -- Informações adicionais de debug
+        local dataAddonLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
+        DEFAULT_CHAT_FRAME:AddMessage("  Addon carregado (IsAddOnLoaded): " .. tostring(dataAddonLoaded))
+        
+        local spellDBExists = (ConsoleMode_SpellDescDB ~= nil)
+        DEFAULT_CHAT_FRAME:AddMessage("  SpellDescDB existe: " .. tostring(spellDBExists))
+        
+        if spellDBExists then
+            local count = 0
+            for k, v in pairs(ConsoleMode_SpellDescDB) do
+                count = count + 1
+                if count > 1000 then break end
+            end
+            DEFAULT_CHAT_FRAME:AddMessage("  Spells carregados: " .. count .. "+")
+        end
+    elseif msg == "test" then
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Executando teste LoadOnDemand...")
+        
+        local name, title, notes, loadable, reason = GetAddOnInfo("ConsoleModeVanilla-Data")
+        DEFAULT_CHAT_FRAME:AddMessage("1. Data addon disponivel: " .. tostring(loadable ~= nil))
+        
+        local dataLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
+        DEFAULT_CHAT_FRAME:AddMessage("2. Data addon ja carregado: " .. tostring(dataLoaded))
+        
+        if not dataLoaded then
+            DEFAULT_CHAT_FRAME:AddMessage("3. Carregando Data Lake...")
+            local success, reason = CM:LoadDataLake("TestCommand")
+            DEFAULT_CHAT_FRAME:AddMessage("   Resultado: " .. tostring(success) .. " (" .. reason .. ")")
+        end
+        
+        dataLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
+        DEFAULT_CHAT_FRAME:AddMessage("4. Data addon agora carregado: " .. tostring(dataLoaded))
+        
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Teste concluido!")
     else
         DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r Data Lake Commands:")
-        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake load   - Força carregamento")
-        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake status - Mostra status")
+        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake load   - Forca carregamento")
+        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake status - Mostra status detalhado")
+        DEFAULT_CHAT_FRAME:AddMessage("  /cmdatalake test   - Executa teste completo")
     end
 end
 

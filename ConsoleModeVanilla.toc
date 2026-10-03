@@ -13,12 +13,6 @@ Cursor.lua
 Data\Localization.lua
 Data\DataLoader.lua
 Data\Locales\enUS\UI.lua
-Data\Locales\ptBR\UI.lua
-Data\Locales\ptBR\Grammar.lua
-Data\Locales\ptBR\Items.lua
-Data\Locales\ptBR\Spells.lua
-Data\Locales\ptBR\Talents.lua
-Data\Locales\ptBR\NPC.lua
 UI\ConfigFrame.lua
 UI\KeybindingsList.lua
 UI\SpellbookPicker.lua

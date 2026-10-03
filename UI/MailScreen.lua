@@ -2002,7 +2002,14 @@ function MailScreen:CreateComposeUI()
         local cap = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         cap:SetPoint("TOPLEFT", row, "TOPLEFT", 8, -4)
         self:ApplyFont(cap, FONTS.titleBold, 14)
-        cap:SetText((def.tkey and CM:T(def.tkey)) or ("|cffffffff" .. def.label .. "|r"))
+        local capText = ("|cffffffff" .. def.label .. "|r")
+        if def.tkey and CM.T then
+            local v = CM:T(def.tkey)
+            if v ~= def.tkey then
+                capText = v
+            end
+        end
+        cap:SetText(capText)
         row.caption = cap
 
         row.fieldIndex = i
@@ -4658,7 +4665,14 @@ function MailScreen:CreateMailActionBar(parent, anchorTop)
         local bTxt = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         bTxt:SetPoint("LEFT", bIcon, "RIGHT", 5, 0)
         MailScreen:ApplyFont(bTxt, FONTS.titleBold, 14)
-        bTxt:SetText((def.tkey and CM:T(def.tkey)) or def.label)
+        local bText = def.label
+        if def.tkey and CM.T then
+            local v = CM:T(def.tkey)
+            if v ~= def.tkey then
+                bText = v
+            end
+        end
+        bTxt:SetText(bText)
 
         b.actionIndex = i
         b.actionKey = def.action

@@ -38,86 +38,86 @@ Hooks.eventFrame = nil
 -- Lista completa de frames para hookar
 Hooks.frames = {
     -- Menu e Sistema
-    { frame = "ConsoleModeMainMenuFrame",    name = "Menu Principal (Console Hub)" },
-    { frame = "GameMenuFrame",               name = "Menu Principal" },
-    { frame = "ConsoleModeSettingsFrame",    name = "ConsoleMode Configuracoes" },
-    { frame = "OptionsFrame",                name = "Opcoes do Jogo" },
-    { frame = "VideoOptionsFrame",           name = "Opcoes de Video" },
-    { frame = "SoundOptionsFrame",           name = "Opcoes de Audio" },
-    { frame = "UIOptionsFrame",              name = "Opcoes de Interface" },
-    { frame = "KeyBindingFrame",             name = "Atalhos" },
-    { frame = "HelpFrame",                   name = "Ajuda" },
-    { frame = "CinematicFrame",              name = "Cinematics" },
-    
+    { frame = "ConsoleModeMainMenuFrame" },
+    { frame = "GameMenuFrame" },
+    { frame = "ConsoleModeSettingsFrame" },
+    { frame = "OptionsFrame" },
+    { frame = "VideoOptionsFrame" },
+    { frame = "SoundOptionsFrame" },
+    { frame = "UIOptionsFrame" },
+    { frame = "KeyBindingFrame" },
+    { frame = "HelpFrame" },
+    { frame = "CinematicFrame" },
+
     -- Configurações de Addons e Turtle WoW
-    { frame = "AdvancedSettingsGUI",         name = "Turtle Configuracoes Avancadas" },
-    { frame = "TDF_AdvancedSettingsGUI",     name = "Turtle-Dragonflight Configuracoes" },
-    { frame = "myAddOnsFrame",               name = "myAddOns" },
-    { frame = "MAOptions",                   name = "MoveAnything" },
-    
+    { frame = "AdvancedSettingsGUI" },
+    { frame = "TDF_AdvancedSettingsGUI" },
+    { frame = "myAddOnsFrame" },
+    { frame = "MAOptions" },
+
     -- Personagem e Social
-    { frame = "CharacterFrame",              name = "Personagem" },
-    { frame = "SpellBookFrame",              name = "Livro de Feiticos" },
-    { frame = "TalentFrame",                 name = "Talentos" },
-    { frame = "FriendsFrame",                name = "Amigos" },
-    { frame = "DressUpFrame",                name = "Provador" },
-    { frame = "InspectFrame",                name = "Inspecionar" },
-    { frame = "ReadyCheckFrame",             name = "Ready Check" },
-    
+    { frame = "CharacterFrame" },
+    { frame = "SpellBookFrame" },
+    { frame = "TalentFrame" },
+    { frame = "FriendsFrame" },
+    { frame = "DressUpFrame" },
+    { frame = "InspectFrame" },
+    { frame = "ReadyCheckFrame" },
+
     -- Missões
-    { frame = "QuestLogFrame",       name = "Diario de Missoes" },
-    { frame = "QuestFrame",          name = "Missao" },
-    { frame = "GossipFrame",         name = "Dialogo NPC" },
-    
+    { frame = "QuestLogFrame" },
+    { frame = "QuestFrame" },
+    { frame = "GossipFrame" },
+
     -- Popups e Diálogos
-    { frame = "ConsoleModeContextMenu", name = "Menu de Contexto Bolsa" },
-    { frame = "StaticPopup1",        name = "Dialogo 1" },
-    { frame = "StaticPopup2",        name = "Dialogo 2" },
-    { frame = "StaticPopup3",        name = "Dialogo 3" },
-    { frame = "StaticPopup4",        name = "Dialogo 4" },
-    
+    { frame = "ConsoleModeContextMenu" },
+    { frame = "StaticPopup1" },
+    { frame = "StaticPopup2" },
+    { frame = "StaticPopup3" },
+    { frame = "StaticPopup4" },
+
     -- Inventário Padrão Blizzard
-    { frame = "ContainerFrame1",     name = "Bolsa 1" },
-    { frame = "ContainerFrame2",     name = "Bolsa 2" },
-    { frame = "ContainerFrame3",     name = "Bolsa 3" },
-    { frame = "ContainerFrame4",     name = "Bolsa 4" },
-    { frame = "ContainerFrame5",     name = "Bolsa 5" },
-    { frame = "ContainerFrame6",     name = "Bolsa Banco 1" },
-    { frame = "ContainerFrame7",     name = "Bolsa Banco 2" },
-    { frame = "ContainerFrame8",     name = "Bolsa Banco 3" },
-    { frame = "ContainerFrame9",     name = "Bolsa Banco 4" },
-    { frame = "ContainerFrame10",    name = "Bolsa Banco 5" },
-    { frame = "ContainerFrame11",    name = "Bolsa Banco 6" },
-    { frame = "ContainerFrame12",    name = "Bolsa Banco 7" },
-    
+    { frame = "ContainerFrame1" },
+    { frame = "ContainerFrame2" },
+    { frame = "ContainerFrame3" },
+    { frame = "ContainerFrame4" },
+    { frame = "ContainerFrame5" },
+    { frame = "ContainerFrame6" },
+    { frame = "ContainerFrame7" },
+    { frame = "ContainerFrame8" },
+    { frame = "ContainerFrame9" },
+    { frame = "ContainerFrame10" },
+    { frame = "ContainerFrame11" },
+    { frame = "ContainerFrame12" },
+
     -- Addons de Bolsas Populares
-    { frame = "SUCC_bag",            name = "Turtle-Dragonflight Bolsa" },
-    { frame = "SUCC_bagBank",        name = "Turtle-Dragonflight Banco" },
-    { frame = "pfBag",               name = "pfUI Bolsa" },
-    { frame = "pfBank",              name = "pfUI Banco" },
-    { frame = "BagshuiBagsFrame",    name = "Bagshui Bolsa" },
-    { frame = "BagshuiBankFrame",    name = "Bagshui Banco" },
-    { frame = "Bagnon",              name = "Bagnon Bolsa" },
-    { frame = "BagnonBank",          name = "Bagnon Banco" },
-    
+    { frame = "SUCC_bag" },
+    { frame = "SUCC_bagBank" },
+    { frame = "pfBag" },
+    { frame = "pfBank" },
+    { frame = "BagshuiBagsFrame" },
+    { frame = "BagshuiBankFrame" },
+    { frame = "Bagnon" },
+    { frame = "BagnonBank" },
+
     -- NPCs e Interações (Load-on-Demand)
     -- { frame = "MerchantFrame",       name = "Vendedor" }, -- Gerenciado exclusivamente pelo ConsoleMode_MerchantMenu
-    { frame = "TradeSkillFrame",     name = "Profissao" },
-    { frame = "BankFrame",           name = "Banco" },
-    { frame = "TaxiFrame",           name = "Rotas de Voo" },
-    { frame = "ClassTrainerFrame",   name = "Treinador" },
-    { frame = "AuctionFrame",        name = "Casa de Leiloes" },
+    { frame = "TradeSkillFrame" },
+    { frame = "BankFrame" },
+    { frame = "TaxiFrame" },
+    { frame = "ClassTrainerFrame" },
+    { frame = "AuctionFrame" },
     -- AUX addon: frame substituto da Casa de Leiloes (oculta AuctionFrame Blizzard)
     -- Registrado aqui para late-hook via TryHookPendingFrames. Gated por Cursor:IsAUXSupported().
-    { frame = "aux_frame",           name = "AUX Casa de Leiloes" },
-    
+    { frame = "aux_frame" },
+
     -- Correio e Loot
     -- { frame = "MailFrame",           name = "Correio" }, -- Gerenciado exclusivamente pelo ConsoleMode_MailScreen
     -- { frame = "OpenMailFrame",       name = "Carta Aberta" }, -- Gerenciado exclusivamente pelo ConsoleMode_MailScreen
-    { frame = "LootFrame",           name = "Loot" },
-    
+    { frame = "LootFrame" },
+
     -- Comércio
-    { frame = "TradeFrame",          name = "Troca" },
+    { frame = "TradeFrame" },
 }
 
 -- ============================================================================
@@ -152,7 +152,7 @@ function Hooks:IsMacroFrame(frame)
     return false
 end
 
-function Hooks:HookFrame(frame, name)
+function Hooks:HookFrame(frame)
     if not frame then return false end
     if frame.cmHooked then return false end
     if self:IsMacroFrame(frame) then return false end
@@ -425,7 +425,7 @@ function Hooks:TryHookPendingFrames()
     for _, frameInfo in ipairs(self.frames) do
         local frame = getglobal(frameInfo.frame)
         if frame and not frame.cmHooked then
-            if self:HookFrame(frame, frameInfo.name) then
+            if self:HookFrame(frame) then
                 -- DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[CM]|r Late hook: " .. frameInfo.frame) -- NOLOG 2026-09-14
                 
                 -- Se o frame já está visível, inicializa o cursor
@@ -451,7 +451,7 @@ function Hooks:TryHookPendingFrames()
     for i = 1, 10 do
         local frame = getglobal("DropDownList" .. i)
         if frame and not frame.cmHooked then
-            self:HookFrame(frame, "DropDown " .. i)
+            self:HookFrame(frame)
         end
     end
 end
@@ -470,7 +470,7 @@ function Hooks:Initialize()
     for _, info in ipairs(self.frames) do
         local frame = getglobal(info.frame)
         if frame then
-            if self:HookFrame(frame, info.name) then
+            if self:HookFrame(frame) then
                 count = count + 1
             end
         end
@@ -480,7 +480,7 @@ function Hooks:Initialize()
     for i = 1, 10 do
         local frame = getglobal("DropDownList" .. i)
         if frame then
-            if self:HookFrame(frame, "DropDown " .. i) then
+            if self:HookFrame(frame) then
                 count = count + 1
             end
         end

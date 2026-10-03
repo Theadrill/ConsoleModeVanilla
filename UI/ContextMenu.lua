@@ -62,10 +62,10 @@ function Menu:Initialize()
     f.menuView = menuView
 
     local btnDefs = {
-        { id = 1, label = "Usar / Equipar",     tkey = "CTX_USE_EQUIP", color = { r=0.2, g=0.9, b=0.3 }, action = "USE" },
-        { id = 2, label = "Dividir (Split)",    tkey = "CTX_SPLIT",     color = { r=0.3, g=0.7, b=1.0 }, action = "SPLIT" },
-        { id = 3, label = "Re-Stack (Agrupar)", tkey = "CTX_RESTACK",   color = { r=1.0, g=0.85, b=0.2 }, action = "RESTACK" },
-        { id = 4, label = "Excluir / Destruir", tkey = "CTX_DROP",      color = { r=0.95, g=0.3, b=0.3 }, action = "DROP" },
+        { id = 1, tkey = "CTX_USE_EQUIP", color = { r=0.2, g=0.9, b=0.3 }, action = "USE" },
+        { id = 2, tkey = "CTX_SPLIT",     color = { r=0.3, g=0.7, b=1.0 }, action = "SPLIT" },
+        { id = 3, tkey = "CTX_RESTACK",   color = { r=1.0, g=0.85, b=0.2 }, action = "RESTACK" },
+        { id = 4, tkey = "CTX_DROP",      color = { r=0.95, g=0.3, b=0.3 }, action = "DROP" },
     }
 
     self.buttons = {}
@@ -128,7 +128,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
     count = count or 1
 
     local itemLink = GetContainerItemLink(bagID, slotID)
-    local itemName = "Item"
+    local itemName = CM:T("CTX_ITEM_FALLBACK")
     local itemID = nil
     local maxStack = 1
 
@@ -140,7 +140,7 @@ function Menu:OpenForBagItem(bagID, slotID, anchorFrame)
             if n then itemName = n end
             if mStack then maxStack = tonumber(mStack) or 1 end
         end
-        if itemName == "Item" then
+        if itemName == CM:T("CTX_ITEM_FALLBACK") then
             local _, _, extractedName = string.find(itemLink, "%[(.-)%]")
             if extractedName then itemName = extractedName end
         end
@@ -279,7 +279,7 @@ function Menu:OpenForEquipItem(invSlotID, anchorFrame)
         return false
     end
 
-    local itemName = "Item"
+    local itemName = CM:T("CTX_ITEM_FALLBACK")
     local itemID = nil
     if itemLink then
         local _, _, extractedID = string.find(itemLink, "item:(%d+)")
@@ -288,7 +288,7 @@ function Menu:OpenForEquipItem(invSlotID, anchorFrame)
             local n = GetItemInfo(itemID)
             if n then itemName = n end
         end
-        if itemName == "Item" then
+        if itemName == CM:T("CTX_ITEM_FALLBACK") then
             local _, _, extractedName = string.find(itemLink, "%[(.-)%]")
             if extractedName then itemName = extractedName end
         end
@@ -360,7 +360,7 @@ function Menu:OpenForBuff(buffIndex, buffName, anchorFrame)
 
     self:Initialize()
 
-    local displayName = buffName or "Buff"
+    local displayName = buffName or CM:T("CTX_BUFF_FALLBACK")
     if string.len(displayName) > 18 then
         displayName = string.sub(displayName, 1, 16) .. ".."
     end
@@ -540,7 +540,7 @@ function Menu:ExecuteAction(action)
         -- Mesma janela de quantidade do mail (UI/QuantityPicker.lua): divide
         -- via BagSplit e deposita num slot vazio sozinho.
         local anchor = self.returnButton
-        local nm = self.itemName or "Item"
+        local nm = self.itemName or CM:T("CTX_ITEM_FALLBACK")
         self:Close()
         local _, liveCount = GetContainerItemInfo(bagID, slotID)
         liveCount = tonumber(liveCount) or 1
@@ -659,7 +659,7 @@ restackTicker:SetScript("OnUpdate", function()
         -- Todas as pilhas parciais foram unificadas!
         this:Hide()
         PlaySound("igMainMenuOptionCheckBoxOn")
-        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("CTX_MSG_RESTACED_FMT"), (this.itemName or "Item")))
+        DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("CTX_MSG_RESTACED_FMT"), (this.itemName or CM:T("CTX_ITEM_FALLBACK"))))
         return
     end
 
@@ -705,7 +705,7 @@ function Menu:RestackItem(bagID, slotID)
     restackTicker.targetID = itemID
     restackTicker.matchPattern = "item:" .. extractedID .. ":"
     restackTicker.maxStack = maxStack
-    restackTicker.itemName = itemName or "Item"
+    restackTicker.itemName = itemName or CM:T("CTX_ITEM_FALLBACK")
     restackTicker.timer = 0
     restackTicker.stepDelay = 0.05
     restackTicker.maxSteps = 30

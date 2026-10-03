@@ -47,6 +47,7 @@ local BIND_TKEYS = {
     ["BINDING_NAME_CM_FIXED_SELECT"]     = { key = "BIND_FIXED_SELECT",  pt = "Select (Mapa)" },
     ["BINDING_NAME_CM_FIXED_START"]      = { key = "BIND_FIXED_START",   pt = "Start (Menu do Jogo)" },
     ["BINDING_NAME_CM_MOUSERIGHT"]       = { key = "BIND_MOUSERIGHT",    pt = "R3 (Clique Direito)" },
+    ["BINDING_NAME_CM_TOGGLE_MOUSEMODE"] = { key = "BIND_TOGGLE_MOUSEMODE", pt = "L3 (Toggle Mouse Mode)" },
     ["BINDING_NAME_CM_RELOAD_UI"]        = { key = "BIND_RELOAD_UI",      pt = "Recarregar Interface" },
     ["BINDING_HEADER_CONSOLEMODEUI"]     = { key = "BIND_HEAD_UI",       pt = "ConsoleMode - Atalhos de Interface" },
     ["BINDING_NAME_CM_UI_CHARACTER"]     = { key = "BIND_UI_CHARACTER",  pt = "L2 + Select (Personagem - C)" },
@@ -59,6 +60,11 @@ local BIND_TKEYS = {
     ["BINDING_NAME_CM_CURSOR_RIGHT"]     = { key = "BIND_CURSOR_RIGHT",  pt = "Cursor: Direita" },
     ["BINDING_NAME_CM_CURSOR_CONFIRM"]   = { key = "BIND_CURSOR_CONFIRM", pt = "Cursor: Confirmar (A)" },
     ["BINDING_NAME_CM_CURSOR_CANCEL"]    = { key = "BIND_CURSOR_CANCEL", pt = "Cursor: Cancelar (B)" },
+    ["BINDING_HEADER_CONSOLEMMODEL2"]    = { key = "BIND_HEAD_L2",       pt = "ConsoleMode - L2 (Shift)" },
+    ["BINDING_HEADER_CONSOLEMODER1"]     = { key = "BIND_HEAD_R1",       pt = "ConsoleMode - R1 (Ctrl)" },
+    ["BINDING_HEADER_CONSOLEMODER2"]     = { key = "BIND_HEAD_R2",       pt = "ConsoleMode - R2 (Alt)" },
+    ["BINDING_HEADER_CONSOLEMODEL2R2"]   = { key = "BIND_HEAD_L2R2",     pt = "ConsoleMode - L2+R2 (Shift+Alt)" },
+    ["BINDING_HEADER_CONSOLEMODERING"]   = { key = "BIND_HEAD_RING",     pt = "ConsoleMode - Menu Ring" },
 }
 
 local function ApplyBindingName(gkey, tkey, fallback)
@@ -73,13 +79,6 @@ local function ApplyBindingName(gkey, tkey, fallback)
 end
 
 local function RefreshBindingNames()
-    -- Headers neutros (sem PT): atribui direto, sem chave.
-    _G["BINDING_HEADER_CONSOLEMMODEL2"]    = "ConsoleMode - L2 (Shift)"
-    _G["BINDING_HEADER_CONSOLEMODER1"]     = "ConsoleMode - R1 (Ctrl)"
-    _G["BINDING_HEADER_CONSOLEMODER2"]     = "ConsoleMode - R2 (Alt)"
-    _G["BINDING_HEADER_CONSOLEMODEL2R2"]   = "ConsoleMode - L2+R2 (Shift+Alt)"
-    _G["BINDING_HEADER_CONSOLEMODERING"]    = "ConsoleMode - Menu Ring"
-    _G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)"
     for gkey, def in pairs(BIND_TKEYS) do
         ApplyBindingName(gkey, def.key, def.pt)
     end

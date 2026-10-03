@@ -88,6 +88,15 @@ function CM:GetActiveLangId()
     return CM_DEFAULT_LANG
 end
 
+-- Gate central das traducoes procedurais de jogo (GameLOC_).
+-- Sem o irmao LoadOnDemand carregado nao ha DB; traduzir mesmo assim
+-- (via MAPs/gsub do Core) mistura PT no cliente EN. Fechado = EN prevalece.
+function CM:IsGameLOCActive()
+    if self:GetActiveLangId() == "enUS" then return false end
+    if IsAddOnLoaded and IsAddOnLoaded("ConsoleModeVanilla-Data") then return true end
+    return false
+end
+
 -- Acesso a string com fallback ativo, ptBR, chave crua. Nunca nil.
 function CM:T(key)
     if not key or key == "" then
@@ -1400,6 +1409,7 @@ local CM_QUEST_ITEM_PREFIXES = {
 -- Aceita (name) ou (name, linkOrID). Link "item:1234:..." ou ID numerico tem prioridade;
 -- fallback por nome via ByName, depois game.items legado, depois heuristicas.
 function CM:GameLOC_Item(itemName, itemLinkOrID)
+    if not CM:IsGameLOCActive() then return itemName or "" end
     if (not itemName or itemName == "") and (not itemLinkOrID or itemLinkOrID == "") then
         return ""
     end
@@ -1532,6 +1542,7 @@ local CM_EQUIPLOC_MAP = {
 }
 
 function CM:GameLOC_EquipLoc(equipLoc)
+    if not CM:IsGameLOCActive() then return equipLoc or "" end
     if not equipLoc or equipLoc == "" then return "" end
     local activeId = self:GetActiveLangId()
     if activeId == "enUS" then return equipLoc end
@@ -1596,6 +1607,7 @@ local CM_SUBTYPE_MAP = {
 }
 
 function CM:GameLOC_ItemSubType(subType)
+    if not CM:IsGameLOCActive() then return subType or "" end
     if not subType or subType == "" then return "" end
     local activeId = self:GetActiveLangId()
     if activeId == "enUS" then return subType end
@@ -1604,6 +1616,7 @@ end
 
 -- Tradução procedural de linhas de atributos, efeitos e requisitos de itens
 function CM:GameLOC_ItemStat(statLine)
+    if not CM:IsGameLOCActive() then return statLine or "" end
     if not statLine or statLine == "" then return "" end
     local activeId = self:GetActiveLangId()
     if activeId == "enUS" then return statLine end
@@ -1765,6 +1778,7 @@ end
 -- os numeros vivos via GameLOC_ApplySpell. Sufixo de recarga "(...Cooldown)"
 -- e preservado via GameLOC_ItemStat. Devolve a linha PT ou nil (fallback ItemStat).
 function CM:GameLOC_ItemDesc(itemLinkOrID, liveLine)
+    if not CM:IsGameLOCActive() then return nil end
     if not liveLine or liveLine == "" then
         return nil
     end

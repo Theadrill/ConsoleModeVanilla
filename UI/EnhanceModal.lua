@@ -199,7 +199,10 @@ local CATEGORY_CONFIG = {
 function EnhanceModal:GetCategoryLabel(category)
     local cfg = CATEGORY_CONFIG[category]
     if cfg and cfg.labelKey and CM.T then
-        return CM:T(cfg.labelKey)
+        local v = CM:T(cfg.labelKey)
+        if v ~= cfg.labelKey then
+            return v
+        end
     end
     return (cfg and cfg.label) or category or ""
 end
@@ -207,7 +210,11 @@ end
 function EnhanceModal:GetSlotName(category, slotID)
     local cfg = CATEGORY_CONFIG[category]
     if cfg and cfg.slotKeys and cfg.slotKeys[slotID] and CM.T then
-        return CM:T(cfg.slotKeys[slotID])
+        local k = cfg.slotKeys[slotID]
+        local v = CM:T(k)
+        if v ~= k then
+            return v
+        end
     end
     if cfg and cfg.slotNames and cfg.slotNames[slotID] then
         return cfg.slotNames[slotID]

@@ -852,7 +852,13 @@ function MerchantMenu:UpdateBagsSubTabBar()
     local num = table.getn(SUBTABS_BAGS)
     for idx = 1, num do
         local tab = SUBTABS_BAGS[idx]
-        local tabName = (tab.tkey and CM:T(tab.tkey)) or tab.name
+        local tabName = tab.name
+        if tab.tkey and CM.T then
+            local v = CM:T(tab.tkey)
+            if v ~= tab.tkey then
+                tabName = v
+            end
+        end
         if idx == self.bagSubTabIdx then
             table.insert(parts, "|cffe09a15[ " .. tabName .. " ]|r")
         else
@@ -871,7 +877,13 @@ function MerchantMenu:UpdateVendorSubTabBar()
     local num = table.getn(SUBTABS_VENDOR)
     for idx = 1, num do
         local tab = SUBTABS_VENDOR[idx]
-        local tabName = (tab.tkey and CM:T(tab.tkey)) or tab.name
+        local tabName = tab.name
+        if tab.tkey and CM.T then
+            local v = CM:T(tab.tkey)
+            if v ~= tab.tkey then
+                tabName = v
+            end
+        end
         if idx == self.vendorSubTabIdx then
             table.insert(parts, "|cffe09a15[ " .. tabName .. " ]|r")
         else

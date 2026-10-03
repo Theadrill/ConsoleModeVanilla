@@ -2,125 +2,93 @@
 
 Objetivo: zero itens DISPLAY/TABLE/OTHER. PARSER = nao tocar.
 
-Resumo: DISPLAY=36, TABLE=346, OTHER=132, PARSER=194
+Resumo: DISPLAY=36, TABLE=298, OTHER=131, PARSER=194
 
 | arquivo:linha | funcao | hint | literal | codigo |
 |---|---|---|---|---|
 | Core.lua:292 | CM:ToggleRightActionBars | OTHER | idioma | if cmd == "lang" or cmd == "idioma" or cmd == "language" then |
 | Core.lua:403 | CM:ToggleRightActionBars | OTHER | mouse | elseif cmd == "mouse" then |
-| Hooks.lua:43 | MainMenuNavActive | TABLE | ConsoleMode Configuracoes | { frame = "ConsoleModeSettingsFrame",    name = "ConsoleMode Configuracoes" }, |
-| Hooks.lua:44 | MainMenuNavActive | TABLE | Opcoes do Jogo | { frame = "OptionsFrame",                name = "Opcoes do Jogo" }, |
-| Hooks.lua:45 | MainMenuNavActive | TABLE | Opcoes de Video | { frame = "VideoOptionsFrame",           name = "Opcoes de Video" }, |
-| Hooks.lua:46 | MainMenuNavActive | TABLE | Opcoes de Audio | { frame = "SoundOptionsFrame",           name = "Opcoes de Audio" }, |
-| Hooks.lua:47 | MainMenuNavActive | TABLE | Opcoes de Interface | { frame = "UIOptionsFrame",              name = "Opcoes de Interface" }, |
-| Hooks.lua:48 | MainMenuNavActive | TABLE | Atalhos | { frame = "KeyBindingFrame",             name = "Atalhos" }, |
-| Hooks.lua:53 | MainMenuNavActive | TABLE | Turtle Configuracoes Avancadas | { frame = "AdvancedSettingsGUI",         name = "Turtle Configuracoes Avancadas" }, |
-| Hooks.lua:54 | MainMenuNavActive | TABLE | Turtle-Dragonflight Configuracoes | { frame = "TDF_AdvancedSettingsGUI",     name = "Turtle-Dragonflight Configuracoes" }, |
-| Hooks.lua:59 | MainMenuNavActive | TABLE | Personagem | { frame = "CharacterFrame",              name = "Personagem" }, |
-| Hooks.lua:60 | MainMenuNavActive | TABLE | Livro de Feiticos | { frame = "SpellBookFrame",              name = "Livro de Feiticos" }, |
-| Hooks.lua:61 | MainMenuNavActive | TABLE | Talentos | { frame = "TalentFrame",                 name = "Talentos" }, |
-| Hooks.lua:68 | MainMenuNavActive | TABLE | Diario de Missoes | { frame = "QuestLogFrame",       name = "Diario de Missoes" }, |
-| Hooks.lua:69 | MainMenuNavActive | TABLE | Missao | { frame = "QuestFrame",          name = "Missao" }, |
-| Hooks.lua:73 | MainMenuNavActive | TABLE | Menu de Contexto Bolsa | { frame = "ConsoleModeContextMenu", name = "Menu de Contexto Bolsa" }, |
-| Hooks.lua:80 | MainMenuNavActive | TABLE | Bolsa 1 | { frame = "ContainerFrame1",     name = "Bolsa 1" }, |
-| Hooks.lua:81 | MainMenuNavActive | TABLE | Bolsa 2 | { frame = "ContainerFrame2",     name = "Bolsa 2" }, |
-| Hooks.lua:82 | MainMenuNavActive | TABLE | Bolsa 3 | { frame = "ContainerFrame3",     name = "Bolsa 3" }, |
-| Hooks.lua:83 | MainMenuNavActive | TABLE | Bolsa 4 | { frame = "ContainerFrame4",     name = "Bolsa 4" }, |
-| Hooks.lua:84 | MainMenuNavActive | TABLE | Bolsa 5 | { frame = "ContainerFrame5",     name = "Bolsa 5" }, |
-| Hooks.lua:85 | MainMenuNavActive | TABLE | Bolsa Banco 1 | { frame = "ContainerFrame6",     name = "Bolsa Banco 1" }, |
-| Hooks.lua:86 | MainMenuNavActive | TABLE | Bolsa Banco 2 | { frame = "ContainerFrame7",     name = "Bolsa Banco 2" }, |
-| Hooks.lua:87 | MainMenuNavActive | TABLE | Bolsa Banco 3 | { frame = "ContainerFrame8",     name = "Bolsa Banco 3" }, |
-| Hooks.lua:88 | MainMenuNavActive | TABLE | Bolsa Banco 4 | { frame = "ContainerFrame9",     name = "Bolsa Banco 4" }, |
-| Hooks.lua:89 | MainMenuNavActive | TABLE | Bolsa Banco 5 | { frame = "ContainerFrame10",    name = "Bolsa Banco 5" }, |
-| Hooks.lua:90 | MainMenuNavActive | TABLE | Bolsa Banco 6 | { frame = "ContainerFrame11",    name = "Bolsa Banco 6" }, |
-| Hooks.lua:91 | MainMenuNavActive | TABLE | Bolsa Banco 7 | { frame = "ContainerFrame12",    name = "Bolsa Banco 7" }, |
-| Hooks.lua:94 | MainMenuNavActive | TABLE | Turtle-Dragonflight Bolsa | { frame = "SUCC_bag",            name = "Turtle-Dragonflight Bolsa" }, |
-| Hooks.lua:96 | MainMenuNavActive | TABLE | pfUI Bolsa | { frame = "pfBag",               name = "pfUI Bolsa" }, |
-| Hooks.lua:98 | MainMenuNavActive | TABLE | Bagshui Bolsa | { frame = "BagshuiBagsFrame",    name = "Bagshui Bolsa" }, |
-| Hooks.lua:100 | MainMenuNavActive | TABLE | Bagnon Bolsa | { frame = "Bagnon",              name = "Bagnon Bolsa" }, |
-| Hooks.lua:105 | MainMenuNavActive | TABLE | Profissao | { frame = "TradeSkillFrame",     name = "Profissao" }, |
 | Keybindings.lua:42 | - | TABLE | ConsoleMode - Botões Fixos | ["BINDING_HEADER_CONSOLEMODEFIXED"]  = { key = "BIND_HEAD_FIXED",    pt = "ConsoleMode - Botões Fixos" }, |
 | Keybindings.lua:43 | - | TABLE | ConsoleMode - Navegação de Cursor | ["BINDING_HEADER_CONSOLEMODECURSOR"] = { key = "BIND_HEAD_CURSOR",   pt = "ConsoleMode - Navegação de Cursor" }, |
 | Keybindings.lua:45 | - | TABLE | L2+R2+D-Pad Cima (Selecionar Amigo) | ["BINDING_NAME_CM_TARGET_FRIENDLY"]  = { key = "BIND_TARGET_FRIENDLY", pt = "L2+R2+D-Pad Cima (Selecionar Amigo)" }, |
 | Keybindings.lua:47 | - | TABLE | Select (Mapa) | ["BINDING_NAME_CM_FIXED_SELECT"]     = { key = "BIND_FIXED_SELECT",  pt = "Select (Mapa)" }, |
 | Keybindings.lua:49 | - | TABLE | R3 (Clique Direito) | ["BINDING_NAME_CM_MOUSERIGHT"]       = { key = "BIND_MOUSERIGHT",    pt = "R3 (Clique Direito)" }, |
-| Keybindings.lua:51 | - | TABLE | ConsoleMode - Atalhos de Interface | ["BINDING_HEADER_CONSOLEMODEUI"]     = { key = "BIND_HEAD_UI",       pt = "ConsoleMode - Atalhos de Interface" }, |
-| Keybindings.lua:52 | - | TABLE | L2 + Select (Personagem - C) | ["BINDING_NAME_CM_UI_CHARACTER"]     = { key = "BIND_UI_CHARACTER",  pt = "L2 + Select (Personagem - C)" }, |
-| Keybindings.lua:53 | - | TABLE | L2 + Start (Bolsas - B) | ["BINDING_NAME_CM_UI_BAGS"]          = { key = "BIND_UI_BAGS",       pt = "L2 + Start (Bolsas - B)" }, |
-| Keybindings.lua:54 | - | TABLE | R2 + Select (Talentos - N) | ["BINDING_NAME_CM_UI_TALENTS"]       = { key = "BIND_UI_TALENTS",    pt = "R2 + Select (Talentos - N)" }, |
-| Keybindings.lua:55 | - | TABLE | R2 + Start (Livro de Magias - P) | ["BINDING_NAME_CM_UI_SPELLBOOK"]     = { key = "BIND_UI_SPELLBOOK",  pt = "R2 + Start (Livro de Magias - P)" }, |
-| Keybindings.lua:60 | - | TABLE | Cursor: Confirmar (A) | ["BINDING_NAME_CM_CURSOR_CONFIRM"]   = { key = "BIND_CURSOR_CONFIRM", pt = "Cursor: Confirmar (A)" }, |
-| Keybindings.lua:61 | - | TABLE | Cursor: Cancelar (B) | ["BINDING_NAME_CM_CURSOR_CANCEL"]    = { key = "BIND_CURSOR_CANCEL", pt = "Cursor: Cancelar (B)" }, |
-| Keybindings.lua:82 | RefreshBindingNames | OTHER | L3 (Toggle Mouse Mode) | _G["BINDING_NAME_CM_TOGGLE_MOUSEMODE"]  = "L3 (Toggle Mouse Mode)" |
+| Keybindings.lua:50 | - | TABLE | L3 (Toggle Mouse Mode) | ["BINDING_NAME_CM_TOGGLE_MOUSEMODE"] = { key = "BIND_TOGGLE_MOUSEMODE", pt = "L3 (Toggle Mouse Mode)" }, |
+| Keybindings.lua:52 | - | TABLE | ConsoleMode - Atalhos de Interface | ["BINDING_HEADER_CONSOLEMODEUI"]     = { key = "BIND_HEAD_UI",       pt = "ConsoleMode - Atalhos de Interface" }, |
+| Keybindings.lua:53 | - | TABLE | L2 + Select (Personagem - C) | ["BINDING_NAME_CM_UI_CHARACTER"]     = { key = "BIND_UI_CHARACTER",  pt = "L2 + Select (Personagem - C)" }, |
+| Keybindings.lua:54 | - | TABLE | L2 + Start (Bolsas - B) | ["BINDING_NAME_CM_UI_BAGS"]          = { key = "BIND_UI_BAGS",       pt = "L2 + Start (Bolsas - B)" }, |
+| Keybindings.lua:55 | - | TABLE | R2 + Select (Talentos - N) | ["BINDING_NAME_CM_UI_TALENTS"]       = { key = "BIND_UI_TALENTS",    pt = "R2 + Select (Talentos - N)" }, |
+| Keybindings.lua:56 | - | TABLE | R2 + Start (Livro de Magias - P) | ["BINDING_NAME_CM_UI_SPELLBOOK"]     = { key = "BIND_UI_SPELLBOOK",  pt = "R2 + Start (Livro de Magias - P)" }, |
+| Keybindings.lua:61 | - | TABLE | Cursor: Confirmar (A) | ["BINDING_NAME_CM_CURSOR_CONFIRM"]   = { key = "BIND_CURSOR_CONFIRM", pt = "Cursor: Confirmar (A)" }, |
+| Keybindings.lua:62 | - | TABLE | Cursor: Cancelar (B) | ["BINDING_NAME_CM_CURSOR_CANCEL"]    = { key = "BIND_CURSOR_CANCEL", pt = "Cursor: Cancelar (B)" }, |
 | Logger.lua:121 | Logger:PrintStatus | OTHER | \|cff88ff88Mouse\|r | elseif KB.mouseModeActive then modeStr = "\|cff88ff88Mouse\|r" |
-| Data\Localization.lua:406 | CM:GameLOC_SpellAttr | OTHER | Instantâneo | s = "Instantâneo" |
-| Data\Localization.lua:699 | CM:GameLOC_SpellDesc | DISPLAY | \|cffffd100Requer  | table.insert(headerLines, "\|cffffd100Requer " .. locReq .. "\|r") |
-| Data\Localization.lua:1060 | CM:GameLOC_TalentLine | OTHER | Próximo grau: | if rawLine == "Next rank:" or rawLine == "Next rank" then return "Próximo grau:" end |
-| Data\Localization.lua:1064 | CM:GameLOC_TalentLine | DISPLAY | Requer %s ponto(s) em Talentos de %s | return string.format("Requer %s ponto(s) em Talentos de %s", pts, specPT) |
-| Data\Localization.lua:1108 | CM:GameLOC_TalentLine | DISPLAY | Requer %s ponto(s) em %s | return string.format("Requer %s ponto(s) em %s", pts, ptWho) |
-| Data\Localization.lua:1355 | CM:GameLOC_Buff | TABLE | da Águia \| da Águia | ["of the Eagle"] = "da Águia", ["of the eagle"] = "da Águia", |
-| Data\Localization.lua:1360 | CM:GameLOC_Buff | TABLE | do Falcão \| do Falcão | ["of the Falcon"] = "do Falcão", ["of the falcon"] = "do Falcão", |
-| Data\Localization.lua:1364 | CM:GameLOC_Buff | TABLE | da Força \| da Força | ["of Strength"] = "da Força", ["of strength"] = "da Força", |
-| Data\Localization.lua:1365 | CM:GameLOC_Buff | TABLE | da Agilidade \| da Agilidade | ["of Agility"] = "da Agilidade", ["of agility"] = "da Agilidade", |
-| Data\Localization.lua:1366 | CM:GameLOC_Buff | TABLE | do Vigor \| do Vigor | ["of Stamina"] = "do Vigor", ["of stamina"] = "do Vigor", |
-| Data\Localization.lua:1367 | CM:GameLOC_Buff | TABLE | do Intelecto \| do Intelecto | ["of Intellect"] = "do Intelecto", ["of intellect"] = "do Intelecto", |
-| Data\Localization.lua:1368 | CM:GameLOC_Buff | TABLE | do Espírito \| do Espírito | ["of Spirit"] = "do Espírito", ["of spirit"] = "do Espírito", |
-| Data\Localization.lua:1370 | CM:GameLOC_Buff | TABLE | da Defesa \| da Defesa | ["of Defense"] = "da Defesa", ["of defense"] = "da Defesa", |
-| Data\Localization.lua:1371 | CM:GameLOC_Buff | TABLE | do Bloqueio \| do Bloqueio | ["of Blocking"] = "do Bloqueio", ["of blocking"] = "do Bloqueio", |
-| Data\Localization.lua:1372 | CM:GameLOC_Buff | TABLE | da Cura \| da Cura | ["of Healing"] = "da Cura", ["of healing"] = "da Cura", |
-| Data\Localization.lua:1373 | CM:GameLOC_Buff | TABLE | da Fúria do Fogo | ["of Fire Wrath"] = "da Fúria do Fogo", |
-| Data\Localization.lua:1374 | CM:GameLOC_Buff | TABLE | da Fúria do Gelo | ["of Frost Wrath"] = "da Fúria do Gelo", |
-| Data\Localization.lua:1375 | CM:GameLOC_Buff | TABLE | da Fúria da Natureza | ["of Nature's Wrath"] = "da Fúria da Natureza", |
-| Data\Localization.lua:1376 | CM:GameLOC_Buff | TABLE | da Fúria da Sombra | ["of Shadow Wrath"] = "da Fúria da Sombra", |
-| Data\Localization.lua:1377 | CM:GameLOC_Buff | TABLE | da Fúria Arcana | ["of Arcane Wrath"] = "da Fúria Arcana", |
-| Data\Localization.lua:1381 | CM:GameLOC_Buff | TABLE | Cabeça \| Coração | ["Horn"] = "Chifre", ["Head"] = "Cabeça", ["Claw"] = "Garra", ["Heart"] = "Coração", |
-| Data\Localization.lua:1385 | CM:GameLOC_Buff | TABLE | Carta | ["Teeth"] = "Dentes", ["Feather"] = "Pena", ["Feathers"] = "Penas", ["Letter"] = "Carta", |
-| Data\Localization.lua:1387 | CM:GameLOC_Buff | TABLE | Lágrimas \| Mão \| Essência \| Símbolo | ["Tears"] = "Lágrimas", ["Hand"] = "Mão", ["Essence"] = "Essência", ["Symbol"] = "Símbolo", |
-| Data\Localization.lua:1388 | CM:GameLOC_Buff | TABLE | Brasão \| Troféu | ["Badge"] = "Distintivo", ["Crest"] = "Brasão", ["Trophy"] = "Troféu", ["Mark"] = "Marca", |
-| Data\Localization.lua:1389 | CM:GameLOC_Buff | TABLE | Crânio | ["Tome"] = "Tomo", ["Scroll"] = "Pergaminho", ["Book"] = "Livro", ["Skull"] = "Crânio", |
-| Data\Localization.lua:1390 | CM:GameLOC_Buff | TABLE | Fêmur | ["Bone"] = "Osso", ["Bones"] = "Ossos", ["Rib"] = "Costela", ["Femur"] = "Fêmur", |
-| Data\Localization.lua:1393 | CM:GameLOC_Buff | TABLE | Ídolo | ["Ring"] = "Anel", ["Amulet"] = "Amuleto", ["Pendant"] = "Pingente", ["Idol"] = "Ídolo", |
-| Data\Localization.lua:1394 | CM:GameLOC_Buff | TABLE | Lâmina | ["Staff"] = "Cajado", ["Blade"] = "Lâmina", ["Sword"] = "Espada", ["Dagger"] = "Adaga", |
-| Data\Localization.lua:1396 | CM:GameLOC_Buff | TABLE | Medalhão \| Relíquia | ["Crown"] = "Coroa", ["Medallion"] = "Medalhão", ["Relic"] = "Relíquia", |
-| Data\Localization.lua:1505 | CM:GameLOC_Item | TABLE | Cabeça \| Cabeça \| Cabeça | ["INVTYPE_HEAD"] = "Cabeça", ["Head"] = "Cabeça", ["head"] = "Cabeça", |
-| Data\Localization.lua:1506 | CM:GameLOC_Item | TABLE | Pescoço \| Pescoço \| Pescoço | ["INVTYPE_NECK"] = "Pescoço", ["Neck"] = "Pescoço", ["neck"] = "Pescoço", |
-| Data\Localization.lua:1512 | CM:GameLOC_Item | TABLE | Pernas \| Pernas \| Pernas | ["INVTYPE_LEGS"] = "Pernas", ["Legs"] = "Pernas", ["legs"] = "Pernas", |
-| Data\Localization.lua:1513 | CM:GameLOC_Item | TABLE | Pés \| Pés \| Pés | ["INVTYPE_FEET"] = "Pés", ["Feet"] = "Pés", ["feet"] = "Pés", |
-| Data\Localization.lua:1515 | CM:GameLOC_Item | TABLE | Mãos \| Mãos \| Mãos | ["INVTYPE_HAND"] = "Mãos", ["Hands"] = "Mãos", ["hands"] = "Mãos", |
-| Data\Localization.lua:1519 | CM:GameLOC_Item | TABLE | Uma Mão \| Uma Mão \| Uma Mão | ["INVTYPE_WEAPON"] = "Uma Mão", ["One-Hand"] = "Uma Mão", ["one-hand"] = "Uma Mão", |
-| Data\Localization.lua:1521 | CM:GameLOC_Item | TABLE | Duas Mãos \| Duas Mãos \| Duas Mãos | ["INVTYPE_2HWEAPON"] = "Duas Mãos", ["Two-Hand"] = "Duas Mãos", ["two-hand"] = "Duas Mãos", |
-| Data\Localization.lua:1522 | CM:GameLOC_Item | TABLE | Mão Principal \| Mão Principal \| Mão Principal | ["INVTYPE_WEAPONMAINHAND"] = "Mão Principal", ["Main Hand"] = "Mão Principal", ["main hand"] = "Mão Principal", |
-| Data\Localization.lua:1523 | CM:GameLOC_Item | TABLE | Mão Secundária \| Mão Secundária \| Mão Secundária | ["INVTYPE_WEAPONOFFHAND"] = "Mão Secundária", ["Off Hand"] = "Mão Secundária", ["off hand"] = "Mão Secundária", |
-| Data\Localization.lua:1524 | CM:GameLOC_Item | TABLE | Empunhado na Mão Secundária \| Empunhado na Mão Secundária \| Empunhado na Mão Secundária | ["INVTYPE_HOLDABLE"] = "Empunhado na Mão Secundária", ["Held in Off-hand"] = "Empunhado na Mão Secundária", ["Held In Off-hand"] = "Empunhado na Mão Secundária", |
-| Data\Localization.lua:1528 | CM:GameLOC_Item | TABLE | Relíquia \| Relíquia \| Relíquia | ["INVTYPE_RELIC"] = "Relíquia", ["Relic"] = "Relíquia", ["relic"] = "Relíquia", |
-| Data\Localization.lua:1530 | CM:GameLOC_Item | TABLE | Bolsa \| Bolsa \| Bolsa | ["INVTYPE_BAG"] = "Bolsa", ["Bag"] = "Bolsa", ["bag"] = "Bolsa", |
-| Data\Localization.lua:1531 | CM:GameLOC_Item | TABLE | Munição \| Munição \| Munição | ["INVTYPE_AMMO"] = "Munição", ["Ammo"] = "Munição", ["ammo"] = "Munição", |
-| Data\Localization.lua:1550 | CM:GameLOC_EquipLoc | TABLE | Ídolo | ["Libram"] = "Livro Sagrado", ["Idol"] = "Ídolo", ["Totem"] = "Totem", |
-| Data\Localization.lua:1552 | CM:GameLOC_EquipLoc | TABLE | Espadas de Uma Mão \| Espadas de Uma Mão | ["One-Handed Swords"] = "Espadas de Uma Mão", ["one-handed swords"] = "Espadas de Uma Mão", |
-| Data\Localization.lua:1553 | CM:GameLOC_EquipLoc | TABLE | Espadas de Duas Mãos \| Espadas de Duas Mãos | ["Two-Handed Swords"] = "Espadas de Duas Mãos", ["two-handed swords"] = "Espadas de Duas Mãos", |
-| Data\Localization.lua:1554 | CM:GameLOC_EquipLoc | TABLE | Machados de Uma Mão \| Machados de Uma Mão | ["One-Handed Axes"] = "Machados de Uma Mão", ["one-handed axes"] = "Machados de Uma Mão", |
-| Data\Localization.lua:1555 | CM:GameLOC_EquipLoc | TABLE | Machados de Duas Mãos \| Machados de Duas Mãos | ["Two-Handed Axes"] = "Machados de Duas Mãos", ["two-handed axes"] = "Machados de Duas Mãos", |
-| Data\Localization.lua:1556 | CM:GameLOC_EquipLoc | TABLE | Maças de Uma Mão \| Maças de Uma Mão | ["One-Handed Maces"] = "Maças de Uma Mão", ["one-handed maces"] = "Maças de Uma Mão", |
-| Data\Localization.lua:1557 | CM:GameLOC_EquipLoc | TABLE | Maças de Duas Mãos \| Maças de Duas Mãos | ["Two-Handed Maces"] = "Maças de Duas Mãos", ["two-handed maces"] = "Maças de Duas Mãos", |
-| Data\Localization.lua:1570 | CM:GameLOC_EquipLoc | TABLE | Consumível \| Consumível | ["Consumable"] = "Consumível", ["consumable"] = "Consumível", |
-| Data\Localization.lua:1571 | CM:GameLOC_EquipLoc | TABLE | Poção \| Poção | ["Potion"] = "Poção", ["potion"] = "Poção", |
-| Data\Localization.lua:1579 | CM:GameLOC_EquipLoc | TABLE | Bolsa \| Bolsa | ["Bag"] = "Bolsa", ["bag"] = "Bolsa", |
-| Data\Localization.lua:1580 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Almas \| Bolsa de Almas | ["Soul Bag"] = "Bolsa de Almas", ["soul bag"] = "Bolsa de Almas", |
-| Data\Localization.lua:1581 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Ervas \| Bolsa de Ervas | ["Herb Bag"] = "Bolsa de Ervas", ["herb bag"] = "Bolsa de Ervas", |
-| Data\Localization.lua:1582 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Encantamento \| Bolsa de Encantamento | ["Enchanting Bag"] = "Bolsa de Encantamento", ["enchanting bag"] = "Bolsa de Encantamento", |
-| Data\Localization.lua:1583 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Engenharia \| Bolsa de Engenharia | ["Engineering Bag"] = "Bolsa de Engenharia", ["engineering bag"] = "Bolsa de Engenharia", |
-| Data\Localization.lua:1584 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Mineração \| Bolsa de Mineração | ["Mining Bag"] = "Bolsa de Mineração", ["mining bag"] = "Bolsa de Mineração", |
-| Data\Localization.lua:1586 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Munição \| Bolsa de Munição | ["Ammo Pouch"] = "Bolsa de Munição", ["ammo pouch"] = "Bolsa de Munição", |
-| Data\Localization.lua:1588 | CM:GameLOC_EquipLoc | TABLE | Itens de Comércio \| Itens de Comércio | ["Trade Goods"] = "Itens de Comércio", ["trade goods"] = "Itens de Comércio", |
-| Data\Localization.lua:1589 | CM:GameLOC_EquipLoc | TABLE | Peças \| Peças | ["Parts"] = "Peças", ["parts"] = "Peças", |
-| Data\Localization.lua:1593 | CM:GameLOC_EquipLoc | TABLE | Missão \| Missão | ["Quest"] = "Missão", ["quest"] = "Missão", |
-| Data\Localization.lua:1595 | CM:GameLOC_EquipLoc | TABLE | Lixo \| Lixo | ["Junk"] = "Lixo", ["junk"] = "Lixo", |
-| Data\Localization.lua:1614 | CM:GameLOC_ItemStat | OTHER | Item de Missão | if s == "Quest Item" then return "Item de Missão" end |
-| Data\Localization.lua:1615 | CM:GameLOC_ItemStat | OTHER | Missão | if s == "Quest" then return "Missão" end |
-| Data\Localization.lua:1652 | CM:GameLOC_ItemStat | DISPLAY | Requer %s (%s) | return string.format("Requer %s (%s)", locProf, lvl) |
-| Data\Localization.lua:1677 | CM:GameLOC_ItemStat | DISPLAY | Raças:  | return "Raças: " .. r |
-| Data\Localization.lua:1923 | CM:HandleLangCommand | OTHER | Português (Brasil) | CM_RegisterLang("ptBR", "Português (Brasil)", "Data\\Locales\\ptBR\\UI.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Locales\\ptBR\\flag_ptBR.tga") |
-| Data\MapOverlayData.lua:0 | - | OTHER | READ-FAIL: 'utf-8' codec can't decode byte 0xe7 in position 114: invalid continuation byte |  |
+| Data\Localization.lua:415 | CM:GameLOC_SpellAttr | OTHER | Instantâneo | s = "Instantâneo" |
+| Data\Localization.lua:708 | CM:GameLOC_SpellDesc | DISPLAY | \|cffffd100Requer  | table.insert(headerLines, "\|cffffd100Requer " .. locReq .. "\|r") |
+| Data\Localization.lua:1069 | CM:GameLOC_TalentLine | OTHER | Próximo grau: | if rawLine == "Next rank:" or rawLine == "Next rank" then return "Próximo grau:" end |
+| Data\Localization.lua:1073 | CM:GameLOC_TalentLine | DISPLAY | Requer %s ponto(s) em Talentos de %s | return string.format("Requer %s ponto(s) em Talentos de %s", pts, specPT) |
+| Data\Localization.lua:1117 | CM:GameLOC_TalentLine | DISPLAY | Requer %s ponto(s) em %s | return string.format("Requer %s ponto(s) em %s", pts, ptWho) |
+| Data\Localization.lua:1364 | CM:GameLOC_Buff | TABLE | da Águia \| da Águia | ["of the Eagle"] = "da Águia", ["of the eagle"] = "da Águia", |
+| Data\Localization.lua:1369 | CM:GameLOC_Buff | TABLE | do Falcão \| do Falcão | ["of the Falcon"] = "do Falcão", ["of the falcon"] = "do Falcão", |
+| Data\Localization.lua:1373 | CM:GameLOC_Buff | TABLE | da Força \| da Força | ["of Strength"] = "da Força", ["of strength"] = "da Força", |
+| Data\Localization.lua:1374 | CM:GameLOC_Buff | TABLE | da Agilidade \| da Agilidade | ["of Agility"] = "da Agilidade", ["of agility"] = "da Agilidade", |
+| Data\Localization.lua:1375 | CM:GameLOC_Buff | TABLE | do Vigor \| do Vigor | ["of Stamina"] = "do Vigor", ["of stamina"] = "do Vigor", |
+| Data\Localization.lua:1376 | CM:GameLOC_Buff | TABLE | do Intelecto \| do Intelecto | ["of Intellect"] = "do Intelecto", ["of intellect"] = "do Intelecto", |
+| Data\Localization.lua:1377 | CM:GameLOC_Buff | TABLE | do Espírito \| do Espírito | ["of Spirit"] = "do Espírito", ["of spirit"] = "do Espírito", |
+| Data\Localization.lua:1379 | CM:GameLOC_Buff | TABLE | da Defesa \| da Defesa | ["of Defense"] = "da Defesa", ["of defense"] = "da Defesa", |
+| Data\Localization.lua:1380 | CM:GameLOC_Buff | TABLE | do Bloqueio \| do Bloqueio | ["of Blocking"] = "do Bloqueio", ["of blocking"] = "do Bloqueio", |
+| Data\Localization.lua:1381 | CM:GameLOC_Buff | TABLE | da Cura \| da Cura | ["of Healing"] = "da Cura", ["of healing"] = "da Cura", |
+| Data\Localization.lua:1382 | CM:GameLOC_Buff | TABLE | da Fúria do Fogo | ["of Fire Wrath"] = "da Fúria do Fogo", |
+| Data\Localization.lua:1383 | CM:GameLOC_Buff | TABLE | da Fúria do Gelo | ["of Frost Wrath"] = "da Fúria do Gelo", |
+| Data\Localization.lua:1384 | CM:GameLOC_Buff | TABLE | da Fúria da Natureza | ["of Nature's Wrath"] = "da Fúria da Natureza", |
+| Data\Localization.lua:1385 | CM:GameLOC_Buff | TABLE | da Fúria da Sombra | ["of Shadow Wrath"] = "da Fúria da Sombra", |
+| Data\Localization.lua:1386 | CM:GameLOC_Buff | TABLE | da Fúria Arcana | ["of Arcane Wrath"] = "da Fúria Arcana", |
+| Data\Localization.lua:1390 | CM:GameLOC_Buff | TABLE | Cabeça \| Coração | ["Horn"] = "Chifre", ["Head"] = "Cabeça", ["Claw"] = "Garra", ["Heart"] = "Coração", |
+| Data\Localization.lua:1394 | CM:GameLOC_Buff | TABLE | Carta | ["Teeth"] = "Dentes", ["Feather"] = "Pena", ["Feathers"] = "Penas", ["Letter"] = "Carta", |
+| Data\Localization.lua:1396 | CM:GameLOC_Buff | TABLE | Lágrimas \| Mão \| Essência \| Símbolo | ["Tears"] = "Lágrimas", ["Hand"] = "Mão", ["Essence"] = "Essência", ["Symbol"] = "Símbolo", |
+| Data\Localization.lua:1397 | CM:GameLOC_Buff | TABLE | Brasão \| Troféu | ["Badge"] = "Distintivo", ["Crest"] = "Brasão", ["Trophy"] = "Troféu", ["Mark"] = "Marca", |
+| Data\Localization.lua:1398 | CM:GameLOC_Buff | TABLE | Crânio | ["Tome"] = "Tomo", ["Scroll"] = "Pergaminho", ["Book"] = "Livro", ["Skull"] = "Crânio", |
+| Data\Localization.lua:1399 | CM:GameLOC_Buff | TABLE | Fêmur | ["Bone"] = "Osso", ["Bones"] = "Ossos", ["Rib"] = "Costela", ["Femur"] = "Fêmur", |
+| Data\Localization.lua:1402 | CM:GameLOC_Buff | TABLE | Ídolo | ["Ring"] = "Anel", ["Amulet"] = "Amuleto", ["Pendant"] = "Pingente", ["Idol"] = "Ídolo", |
+| Data\Localization.lua:1403 | CM:GameLOC_Buff | TABLE | Lâmina | ["Staff"] = "Cajado", ["Blade"] = "Lâmina", ["Sword"] = "Espada", ["Dagger"] = "Adaga", |
+| Data\Localization.lua:1405 | CM:GameLOC_Buff | TABLE | Medalhão \| Relíquia | ["Crown"] = "Coroa", ["Medallion"] = "Medalhão", ["Relic"] = "Relíquia", |
+| Data\Localization.lua:1515 | CM:GameLOC_Item | TABLE | Cabeça \| Cabeça \| Cabeça | ["INVTYPE_HEAD"] = "Cabeça", ["Head"] = "Cabeça", ["head"] = "Cabeça", |
+| Data\Localization.lua:1516 | CM:GameLOC_Item | TABLE | Pescoço \| Pescoço \| Pescoço | ["INVTYPE_NECK"] = "Pescoço", ["Neck"] = "Pescoço", ["neck"] = "Pescoço", |
+| Data\Localization.lua:1522 | CM:GameLOC_Item | TABLE | Pernas \| Pernas \| Pernas | ["INVTYPE_LEGS"] = "Pernas", ["Legs"] = "Pernas", ["legs"] = "Pernas", |
+| Data\Localization.lua:1523 | CM:GameLOC_Item | TABLE | Pés \| Pés \| Pés | ["INVTYPE_FEET"] = "Pés", ["Feet"] = "Pés", ["feet"] = "Pés", |
+| Data\Localization.lua:1525 | CM:GameLOC_Item | TABLE | Mãos \| Mãos \| Mãos | ["INVTYPE_HAND"] = "Mãos", ["Hands"] = "Mãos", ["hands"] = "Mãos", |
+| Data\Localization.lua:1529 | CM:GameLOC_Item | TABLE | Uma Mão \| Uma Mão \| Uma Mão | ["INVTYPE_WEAPON"] = "Uma Mão", ["One-Hand"] = "Uma Mão", ["one-hand"] = "Uma Mão", |
+| Data\Localization.lua:1531 | CM:GameLOC_Item | TABLE | Duas Mãos \| Duas Mãos \| Duas Mãos | ["INVTYPE_2HWEAPON"] = "Duas Mãos", ["Two-Hand"] = "Duas Mãos", ["two-hand"] = "Duas Mãos", |
+| Data\Localization.lua:1532 | CM:GameLOC_Item | TABLE | Mão Principal \| Mão Principal \| Mão Principal | ["INVTYPE_WEAPONMAINHAND"] = "Mão Principal", ["Main Hand"] = "Mão Principal", ["main hand"] = "Mão Principal", |
+| Data\Localization.lua:1533 | CM:GameLOC_Item | TABLE | Mão Secundária \| Mão Secundária \| Mão Secundária | ["INVTYPE_WEAPONOFFHAND"] = "Mão Secundária", ["Off Hand"] = "Mão Secundária", ["off hand"] = "Mão Secundária", |
+| Data\Localization.lua:1534 | CM:GameLOC_Item | TABLE | Empunhado na Mão Secundária \| Empunhado na Mão Secundária \| Empunhado na Mão Secundária | ["INVTYPE_HOLDABLE"] = "Empunhado na Mão Secundária", ["Held in Off-hand"] = "Empunhado na Mão Secundária", ["Held In Off-hand"] = "Empunhado na Mão Secundária", |
+| Data\Localization.lua:1538 | CM:GameLOC_Item | TABLE | Relíquia \| Relíquia \| Relíquia | ["INVTYPE_RELIC"] = "Relíquia", ["Relic"] = "Relíquia", ["relic"] = "Relíquia", |
+| Data\Localization.lua:1540 | CM:GameLOC_Item | TABLE | Bolsa \| Bolsa \| Bolsa | ["INVTYPE_BAG"] = "Bolsa", ["Bag"] = "Bolsa", ["bag"] = "Bolsa", |
+| Data\Localization.lua:1541 | CM:GameLOC_Item | TABLE | Munição \| Munição \| Munição | ["INVTYPE_AMMO"] = "Munição", ["Ammo"] = "Munição", ["ammo"] = "Munição", |
+| Data\Localization.lua:1561 | CM:GameLOC_EquipLoc | TABLE | Ídolo | ["Libram"] = "Livro Sagrado", ["Idol"] = "Ídolo", ["Totem"] = "Totem", |
+| Data\Localization.lua:1563 | CM:GameLOC_EquipLoc | TABLE | Espadas de Uma Mão \| Espadas de Uma Mão | ["One-Handed Swords"] = "Espadas de Uma Mão", ["one-handed swords"] = "Espadas de Uma Mão", |
+| Data\Localization.lua:1564 | CM:GameLOC_EquipLoc | TABLE | Espadas de Duas Mãos \| Espadas de Duas Mãos | ["Two-Handed Swords"] = "Espadas de Duas Mãos", ["two-handed swords"] = "Espadas de Duas Mãos", |
+| Data\Localization.lua:1565 | CM:GameLOC_EquipLoc | TABLE | Machados de Uma Mão \| Machados de Uma Mão | ["One-Handed Axes"] = "Machados de Uma Mão", ["one-handed axes"] = "Machados de Uma Mão", |
+| Data\Localization.lua:1566 | CM:GameLOC_EquipLoc | TABLE | Machados de Duas Mãos \| Machados de Duas Mãos | ["Two-Handed Axes"] = "Machados de Duas Mãos", ["two-handed axes"] = "Machados de Duas Mãos", |
+| Data\Localization.lua:1567 | CM:GameLOC_EquipLoc | TABLE | Maças de Uma Mão \| Maças de Uma Mão | ["One-Handed Maces"] = "Maças de Uma Mão", ["one-handed maces"] = "Maças de Uma Mão", |
+| Data\Localization.lua:1568 | CM:GameLOC_EquipLoc | TABLE | Maças de Duas Mãos \| Maças de Duas Mãos | ["Two-Handed Maces"] = "Maças de Duas Mãos", ["two-handed maces"] = "Maças de Duas Mãos", |
+| Data\Localization.lua:1581 | CM:GameLOC_EquipLoc | TABLE | Consumível \| Consumível | ["Consumable"] = "Consumível", ["consumable"] = "Consumível", |
+| Data\Localization.lua:1582 | CM:GameLOC_EquipLoc | TABLE | Poção \| Poção | ["Potion"] = "Poção", ["potion"] = "Poção", |
+| Data\Localization.lua:1590 | CM:GameLOC_EquipLoc | TABLE | Bolsa \| Bolsa | ["Bag"] = "Bolsa", ["bag"] = "Bolsa", |
+| Data\Localization.lua:1591 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Almas \| Bolsa de Almas | ["Soul Bag"] = "Bolsa de Almas", ["soul bag"] = "Bolsa de Almas", |
+| Data\Localization.lua:1592 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Ervas \| Bolsa de Ervas | ["Herb Bag"] = "Bolsa de Ervas", ["herb bag"] = "Bolsa de Ervas", |
+| Data\Localization.lua:1593 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Encantamento \| Bolsa de Encantamento | ["Enchanting Bag"] = "Bolsa de Encantamento", ["enchanting bag"] = "Bolsa de Encantamento", |
+| Data\Localization.lua:1594 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Engenharia \| Bolsa de Engenharia | ["Engineering Bag"] = "Bolsa de Engenharia", ["engineering bag"] = "Bolsa de Engenharia", |
+| Data\Localization.lua:1595 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Mineração \| Bolsa de Mineração | ["Mining Bag"] = "Bolsa de Mineração", ["mining bag"] = "Bolsa de Mineração", |
+| Data\Localization.lua:1597 | CM:GameLOC_EquipLoc | TABLE | Bolsa de Munição \| Bolsa de Munição | ["Ammo Pouch"] = "Bolsa de Munição", ["ammo pouch"] = "Bolsa de Munição", |
+| Data\Localization.lua:1599 | CM:GameLOC_EquipLoc | TABLE | Itens de Comércio \| Itens de Comércio | ["Trade Goods"] = "Itens de Comércio", ["trade goods"] = "Itens de Comércio", |
+| Data\Localization.lua:1600 | CM:GameLOC_EquipLoc | TABLE | Peças \| Peças | ["Parts"] = "Peças", ["parts"] = "Peças", |
+| Data\Localization.lua:1604 | CM:GameLOC_EquipLoc | TABLE | Missão \| Missão | ["Quest"] = "Missão", ["quest"] = "Missão", |
+| Data\Localization.lua:1606 | CM:GameLOC_EquipLoc | TABLE | Lixo \| Lixo | ["Junk"] = "Lixo", ["junk"] = "Lixo", |
+| Data\Localization.lua:1627 | CM:GameLOC_ItemStat | OTHER | Item de Missão | if s == "Quest Item" then return "Item de Missão" end |
+| Data\Localization.lua:1628 | CM:GameLOC_ItemStat | OTHER | Missão | if s == "Quest" then return "Missão" end |
+| Data\Localization.lua:1665 | CM:GameLOC_ItemStat | DISPLAY | Requer %s (%s) | return string.format("Requer %s (%s)", locProf, lvl) |
+| Data\Localization.lua:1690 | CM:GameLOC_ItemStat | DISPLAY | Raças:  | return "Raças: " .. r |
+| Data\Localization.lua:1937 | CM:HandleLangCommand | OTHER | Português (Brasil) | CM_RegisterLang("ptBR", "Português (Brasil)", "Data\\Locales\\ptBR\\UI.lua", "Interface\\AddOns\\ConsoleModeVanilla\\Data\\Locales\\ptBR\\flag_ptBR.tga") |
 | Data\Locales\enUS\UI.lua:39 | - | TABLE | Language / Idioma | LANG_TITLE = "Language / Idioma", |
 | Data\Locales\enUS\UI.lua:78 | - | TABLE | Current Health/Mana/Rage/Energy.nMana Regen = base(Spi) + MP5x0.4; in combat only % casting. | CHAR_DETAIL_RES_BODY = "Current Health/Mana/Rage/Energy.\nMana Regen = base(Spi) + MP5x0.4; in combat only % casting.", |
 | Data\Locales\enUS\UI.lua:120 | - | TABLE | Mana | CHAR_POWER_MANA = "Mana", |
@@ -153,71 +121,72 @@ Resumo: DISPLAY=36, TABLE=346, OTHER=132, PARSER=194
 | Data\Locales\enUS\UI.lua:430 | - | TABLE | \|cffaaaaaa%s  •  Beneficial Effect\|r | DETAIL_BUFF_TYPE_FMT = "\|cffaaaaaa%s  •  Beneficial Effect\|r", |
 | Data\Locales\enUS\UI.lua:541 | - | TABLE | \|cffffffff• %s\|r \|cffaaaaaax%s\|r | MAIL_COMPOSE_ITEM_FMT = "\|cffffffff• %s\|r \|cffaaaaaax%s\|r", |
 | Data\Locales\enUS\UI.lua:542 | - | TABLE | \|cffffffff• %s\|r \|cffaaaaaax%s\|r  \|cff888888(+%s)\|r | MAIL_COMPOSE_ITEM_MORE_FMT = "\|cffffffff• %s\|r \|cffaaaaaax%s\|r  \|cff888888(+%s)\|r", |
-| Data\Locales\enUS\UI.lua:781 | - | TABLE | \|cffff4444[CM Core]\|r ❌ ERROR: Cursor module did not load! Aborting init. | MSG_ERR_CURSOR = "\|cffff4444[CM Core]\|r ❌ ERROR: Cursor module did not load! Aborting init.", |
-| Data\Locales\enUS\UI.lua:782 | - | TABLE | \|cffff4444[CM Core]\|r ❌ ERROR: Hooks module did not load! Aborting init. | MSG_ERR_HOOKS = "\|cffff4444[CM Core]\|r ❌ ERROR: Hooks module did not load! Aborting init.", |
-| Data\Locales\enUS\UI.lua:818 | - | TABLE | \|cffff4444[CM]\|r No frame under the mouse | MSG_FRAME_NONE = "\|cffff4444[CM]\|r No frame under the mouse", |
-| Data\Locales\enUS\UI.lua:824 | - | TABLE |   \|cffffcc00/cm keyboard\|r   - Restore the keyboard/mouse profile | MSG_HELP_KEYBOARD = "  \|cffffcc00/cm keyboard\|r   - Restore the keyboard/mouse profile", |
-| Data\Locales\enUS\UI.lua:825 | - | TABLE |   \|cffffcc00/cm mouse\|r      - Toggle Mouse Mode (Free Cursor) | MSG_HELP_MOUSE = "  \|cffffcc00/cm mouse\|r      - Toggle Mouse Mode (Free Cursor)", |
-| Data\Locales\enUS\UI.lua:829 | - | TABLE |   \|cffffcc00/cm frame\|r      - Identify the frame under the mouse | MSG_HELP_FRAME = "  \|cffffcc00/cm frame\|r      - Identify the frame under the mouse", |
-| Data\Locales\enUS\UI.lua:842 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode \|cff00ff00ENABLED\|r | MSG_MOUSE_ON = "\|cff00ccff[ConsoleMode]\|r Mouse Mode \|cff00ff00ENABLED\|r", |
-| Data\Locales\enUS\UI.lua:843 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode \|cffff4444DISABLED\|r | MSG_MOUSE_OFF = "\|cff00ccff[ConsoleMode]\|r Mouse Mode \|cffff4444DISABLED\|r", |
-| Data\Locales\enUS\UI.lua:846 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cff00ff00ENABLED\|r (Free Cursor) | MSG_MOUSE_FREE_ON = "\|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cff00ff00ENABLED\|r (Free Cursor)", |
-| Data\Locales\enUS\UI.lua:847 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cffff4444DISABLED\|r (Camera on Stick) | MSG_MOUSE_FREE_OFF = "\|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cffff4444DISABLED\|r (Camera on Stick)", |
-| Data\Locales\enUS\UI.lua:856 | - | TABLE | Mana | POWER_MANA = "Mana", |
-| Data\Locales\enUS\UI.lua:863 | - | TABLE | \|cffaaaaaaTree %d of 3 — ConsoleMode Vanilla\|r | TALENT_TREE_COUNT_FMT = "\|cffaaaaaaTree %d of 3 — ConsoleMode Vanilla\|r", |
-| Data\Locales\enUS\UI.lua:866 | - | TABLE | \|cffaaaaaaConsole Mode — Talents 1.12\|r | TALENT_MODE_LABEL = "\|cffaaaaaaConsole Mode — Talents 1.12\|r", |
-| Data\Locales\enUS\UI.lua:876 | - | TABLE | \|cff888888[D-Pad] Navigate  •  [A] Learn Talent  •  [B] Back\|r | TALENT_TREE_FOOTER_HINT = "\|cff888888[D-Pad] Navigate  •  [A] Learn Talent  •  [B] Back\|r", |
-| Data\Locales\enUS\UI.lua:880 | - | TABLE | \|cffe09a15[ConsoleMode]\|r SortBag addon not found — ORGANIZE unavailable. | BAGS_SORT_MISSING_MSG = "\|cffe09a15[ConsoleMode]\|r SortBag addon not found — ORGANIZE unavailable.", |
-| Data\Locales\enUS\UI.lua:881 | - | TABLE | \|cffaaaaaaConsole Mode — Spellbook 1.12\|r | SPELLS_MODE_LABEL = "\|cffaaaaaaConsole Mode — Spellbook 1.12\|r", |
-| Data\Locales\enUS\UI.lua:886 | - | TABLE | \|cff888888[D-Pad] Navigate  •  [A] Cast Spell  •  [B] Back\|r | SPELLS_FOOTER_HINT = "\|cff888888[D-Pad] Navigate  •  [A] Cast Spell  •  [B] Back\|r", |
-| Data\Locales\enUS\UI.lua:902 | - | TABLE | \|cffaaaaaaCompanion / Pet — ConsoleMode Vanilla\|r | SPELL_TYPE_PET = "\|cffaaaaaaCompanion / Pet — ConsoleMode Vanilla\|r", |
-| Data\Locales\enUS\UI.lua:903 | - | TABLE | \|cffaaaaaaGeneral Skills — ConsoleMode Vanilla\|r | SPELL_TYPE_GENERAL = "\|cffaaaaaaGeneral Skills — ConsoleMode Vanilla\|r", |
-| Data\Locales\enUS\UI.lua:904 | - | TABLE | \|cffaaaaaaSpecialization %d of 3 — ConsoleMode Vanilla\|r | SPELL_TYPE_SPEC_FMT = "\|cffaaaaaaSpecialization %d of 3 — ConsoleMode Vanilla\|r", |
-| Data\Locales\enUS\UI.lua:905 | - | TABLE | \|cffaaaaaaCategory %d of %d — ConsoleMode Vanilla\|r | SPELL_TYPE_CATEGORY_COUNT_FMT = "\|cffaaaaaaCategory %d of %d — ConsoleMode Vanilla\|r", |
-| Data\Locales\enUS\UI.lua:931 | - | TABLE | \|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Move Free Map\|r | MAP_FOOTER_HINT = "\|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Move Free Map\|r", |
-| Data\Locales\enUS\UI.lua:945 | - | TABLE | \|cff888888(A) Read Mission  •  (X) Track  •  (Y) Abandon\|r | QUEST_DETAIL_FOOTER_HINTS = "\|cff888888(A) Read Mission  •  (X) Track  •  (Y) Abandon\|r", |
-| Data\Locales\enUS\UI.lua:949 | - | TABLE | \|cffe09a15[D-Pad] Navigate  •  [A] Enter  •  [B] Back\|r | MAP_HINT_NAVIGATE_ENTER_BACK = "\|cffe09a15[D-Pad] Navigate  •  [A] Enter  •  [B] Back\|r", |
-| Data\Locales\enUS\UI.lua:950 | - | TABLE | \|cffe09a15[D-Pad] Select  •  [A] Open  •  [B] Back\|r | MAP_HINT_SELECT_OPEN_BACK = "\|cffe09a15[D-Pad] Select  •  [A] Open  •  [B] Back\|r", |
-| Data\Locales\enUS\UI.lua:971 | - | TABLE | Interior map only inside the instance — shows entrance zone | MAP_INSTANCE_TOOLTIP_INTERIOR_ONLY = "Interior map only inside the instance — shows entrance zone", |
-| Data\Locales\enUS\UI.lua:974 | - | TABLE | \|cff888888— interior only inside the instance\|r | MAP_DUNGEON_INTERIOR_ONLY = "\|cff888888— interior only inside the instance\|r", |
-| Data\Locales\enUS\UI.lua:987 | - | TABLE |  Mana | COMPARE_MANA_LABEL = " Mana", |
-| Data\Locales\enUS\UI.lua:996 | - | TABLE | Mana | COMPARE_ABBR_MANA = "Mana", |
-| Data\Locales\enUS\UI.lua:1009 | - | TABLE | \|cffffffff↳ Slot %d:\|r | COMPARE_SLOT_FMT = "\|cffffffff↳ Slot %d:\|r", |
-| Data\Locales\enUS\UI.lua:1017 | - | TABLE | \|cffaaaaaaConsole Mode — Spells, Bags, Macros and Bars\|r | PICKER_TYPE = "\|cffaaaaaaConsole Mode — Spells, Bags, Macros and Bars\|r", |
-| Data\Locales\enUS\UI.lua:1027 | - | TABLE | \|cffaaaaaaPhysical Key: \|cffffffff%s\|r  •  \|cffaaaaaaAction Bar: \|cffffffffSlot %d\|r | BINDS_DETAIL_KEY_BAR_SLOT_FMT = "\|cffaaaaaaPhysical Key: \|cffffffff%s\|r  •  \|cffaaaaaaAction Bar: \|cffffffffSlot %d\|r", |
-| Data\Locales\enUS\UI.lua:1033 | - | TABLE | \|cff888888Empty Slot — No action assigned (Key: %s)\|r | BINDS_DETAIL_EMPTY_SLOT_FMT = "\|cff888888Empty Slot — No action assigned (Key: %s)\|r", |
-| Data\Locales\enUS\UI.lua:1039 | - | TABLE | \|cffaaaaaaConsole Mode — Controller Shortcuts (Pages 1 to 4)\|r | BINDS_MAPPER_SUBTITLE = "\|cffaaaaaaConsole Mode — Controller Shortcuts (Pages 1 to 4)\|r", |
-| Data\Locales\enUS\UI.lua:1066 | - | TABLE | \|cffaaaaaaSpellbook  •  \|cffffffff%s\|r | PICKER_DETAIL_SPELLBOOK_FMT = "\|cffaaaaaaSpellbook  •  \|cffffffff%s\|r", |
-| Data\Locales\enUS\UI.lua:1069 | - | TABLE |   •  Quantity: x | PICKER_DETAIL_QTY = "  •  Quantity: x", |
-| Data\Locales\enUS\UI.lua:1075 | - | TABLE | \|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r | PICKER_DETAIL_BAR_SLOT_FMT = "\|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r", |
-| Data\Locales\enUS\UI.lua:1079 | - | TABLE | Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes. | SPEC_WARRIOR_1_DESC = "Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes.", |
-| Data\Locales\enUS\UI.lua:1081 | - | TABLE | Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury. | SPEC_WARRIOR_2_DESC = "Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury.", |
-| Data\Locales\enUS\UI.lua:1083 | - | TABLE | Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control. | SPEC_WARRIOR_3_DESC = "Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control.", |
-| Data\Locales\enUS\UI.lua:1085 | - | TABLE | Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies. | SPEC_PALADIN_1_DESC = "Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies.", |
-| Data\Locales\enUS\UI.lua:1087 | - | TABLE | Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense. | SPEC_PALADIN_2_DESC = "Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense.", |
-| Data\Locales\enUS\UI.lua:1089 | - | TABLE | Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes. | SPEC_PALADIN_3_DESC = "Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes.", |
-| Data\Locales\enUS\UI.lua:1091 | - | TABLE | Master of wildlife — primal bond with tamed beasts, amplifying your pet's power. | SPEC_HUNTER_1_DESC = "Master of wildlife — primal bond with tamed beasts, amplifying your pet's power.", |
-| Data\Locales\enUS\UI.lua:1093 | - | TABLE | Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms. | SPEC_HUNTER_2_DESC = "Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms.", |
-| Data\Locales\enUS\UI.lua:1095 | - | TABLE | Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons. | SPEC_HUNTER_3_DESC = "Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons.", |
-| Data\Locales\enUS\UI.lua:1097 | - | TABLE | Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim. | SPEC_ROGUE_1_DESC = "Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim.", |
-| Data\Locales\enUS\UI.lua:1099 | - | TABLE | Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration. | SPEC_ROGUE_2_DESC = "Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration.", |
-| Data\Locales\enUS\UI.lua:1101 | - | TABLE | Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning. | SPEC_ROGUE_3_DESC = "Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning.", |
-| Data\Locales\enUS\UI.lua:1103 | - | TABLE | Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude. | SPEC_PRIEST_1_DESC = "Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude.", |
-| Data\Locales\enUS\UI.lua:1105 | - | TABLE | Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death. | SPEC_PRIEST_2_DESC = "Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death.", |
-| Data\Locales\enUS\UI.lua:1107 | - | TABLE | Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror. | SPEC_PRIEST_3_DESC = "Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror.", |
-| Data\Locales\enUS\UI.lua:1109 | - | TABLE | Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage. | SPEC_SHAMAN_1_DESC = "Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage.", |
-| Data\Locales\enUS\UI.lua:1111 | - | TABLE | Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes. | SPEC_SHAMAN_2_DESC = "Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes.", |
-| Data\Locales\enUS\UI.lua:1113 | - | TABLE | Healer of sacred and ancestral waters — deep chain healing, purification and group sustain. | SPEC_SHAMAN_3_DESC = "Healer of sacred and ancestral waters — deep chain healing, purification and group sustain.", |
-| Data\Locales\enUS\UI.lua:1115 | - | TABLE | Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage. | SPEC_MAGE_1_DESC = "Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage.", |
-| Data\Locales\enUS\UI.lua:1117 | - | TABLE | Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks. | SPEC_MAGE_2_DESC = "Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks.", |
-| Data\Locales\enUS\UI.lua:1119 | - | TABLE | Commander of eternal ice — freezing barriers, field slows and absolute survival. | SPEC_MAGE_3_DESC = "Commander of eternal ice — freezing barriers, field slows and absolute survival.", |
-| Data\Locales\enUS\UI.lua:1121 | - | TABLE | Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality. | SPEC_WARLOCK_1_DESC = "Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality.", |
-| Data\Locales\enUS\UI.lua:1123 | - | TABLE | Commander of the Legion — summoning and empowering demonic servants to crush your opponents. | SPEC_WARLOCK_2_DESC = "Commander of the Legion — summoning and empowering demonic servants to crush your opponents.", |
-| Data\Locales\enUS\UI.lua:1125 | - | TABLE | Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation. | SPEC_WARLOCK_3_DESC = "Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation.", |
-| Data\Locales\enUS\UI.lua:1127 | - | TABLE | Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form. | SPEC_DRUID_1_DESC = "Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form.", |
-| Data\Locales\enUS\UI.lua:1129 | - | TABLE | Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks. | SPEC_DRUID_2_DESC = "Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks.", |
-| Data\Locales\enUS\UI.lua:1131 | - | TABLE | Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings. | SPEC_DRUID_3_DESC = "Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings.", |
-| Data\Locales\enUS\UI.lua:1223 | - | TABLE |   Mouse Mode:  %s | LOG_MOUSE_MODE_FMT = "  Mouse Mode:  %s", |
+| Data\Locales\enUS\UI.lua:783 | - | TABLE | \|cffff4444[CM Core]\|r ❌ ERROR: Cursor module did not load! Aborting init. | MSG_ERR_CURSOR = "\|cffff4444[CM Core]\|r ❌ ERROR: Cursor module did not load! Aborting init.", |
+| Data\Locales\enUS\UI.lua:784 | - | TABLE | \|cffff4444[CM Core]\|r ❌ ERROR: Hooks module did not load! Aborting init. | MSG_ERR_HOOKS = "\|cffff4444[CM Core]\|r ❌ ERROR: Hooks module did not load! Aborting init.", |
+| Data\Locales\enUS\UI.lua:820 | - | TABLE | \|cffff4444[CM]\|r No frame under the mouse | MSG_FRAME_NONE = "\|cffff4444[CM]\|r No frame under the mouse", |
+| Data\Locales\enUS\UI.lua:826 | - | TABLE |   \|cffffcc00/cm keyboard\|r   - Restore the keyboard/mouse profile | MSG_HELP_KEYBOARD = "  \|cffffcc00/cm keyboard\|r   - Restore the keyboard/mouse profile", |
+| Data\Locales\enUS\UI.lua:827 | - | TABLE |   \|cffffcc00/cm mouse\|r      - Toggle Mouse Mode (Free Cursor) | MSG_HELP_MOUSE = "  \|cffffcc00/cm mouse\|r      - Toggle Mouse Mode (Free Cursor)", |
+| Data\Locales\enUS\UI.lua:831 | - | TABLE |   \|cffffcc00/cm frame\|r      - Identify the frame under the mouse | MSG_HELP_FRAME = "  \|cffffcc00/cm frame\|r      - Identify the frame under the mouse", |
+| Data\Locales\enUS\UI.lua:844 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode \|cff00ff00ENABLED\|r | MSG_MOUSE_ON = "\|cff00ccff[ConsoleMode]\|r Mouse Mode \|cff00ff00ENABLED\|r", |
+| Data\Locales\enUS\UI.lua:845 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode \|cffff4444DISABLED\|r | MSG_MOUSE_OFF = "\|cff00ccff[ConsoleMode]\|r Mouse Mode \|cffff4444DISABLED\|r", |
+| Data\Locales\enUS\UI.lua:848 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cff00ff00ENABLED\|r (Free Cursor) | MSG_MOUSE_FREE_ON = "\|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cff00ff00ENABLED\|r (Free Cursor)", |
+| Data\Locales\enUS\UI.lua:849 | - | TABLE | \|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cffff4444DISABLED\|r (Camera on Stick) | MSG_MOUSE_FREE_OFF = "\|cff00ccff[ConsoleMode]\|r Mouse Mode: \|cffff4444DISABLED\|r (Camera on Stick)", |
+| Data\Locales\enUS\UI.lua:858 | - | TABLE | Mana | POWER_MANA = "Mana", |
+| Data\Locales\enUS\UI.lua:865 | - | TABLE | \|cffaaaaaaTree %d of 3 — ConsoleMode Vanilla\|r | TALENT_TREE_COUNT_FMT = "\|cffaaaaaaTree %d of 3 — ConsoleMode Vanilla\|r", |
+| Data\Locales\enUS\UI.lua:868 | - | TABLE | \|cffaaaaaaConsole Mode — Talents 1.12\|r | TALENT_MODE_LABEL = "\|cffaaaaaaConsole Mode — Talents 1.12\|r", |
+| Data\Locales\enUS\UI.lua:878 | - | TABLE | \|cff888888[D-Pad] Navigate  •  [A] Learn Talent  •  [B] Back\|r | TALENT_TREE_FOOTER_HINT = "\|cff888888[D-Pad] Navigate  •  [A] Learn Talent  •  [B] Back\|r", |
+| Data\Locales\enUS\UI.lua:882 | - | TABLE | \|cffe09a15[ConsoleMode]\|r SortBag addon not found — ORGANIZE unavailable. | BAGS_SORT_MISSING_MSG = "\|cffe09a15[ConsoleMode]\|r SortBag addon not found — ORGANIZE unavailable.", |
+| Data\Locales\enUS\UI.lua:883 | - | TABLE | \|cffaaaaaaConsole Mode — Spellbook 1.12\|r | SPELLS_MODE_LABEL = "\|cffaaaaaaConsole Mode — Spellbook 1.12\|r", |
+| Data\Locales\enUS\UI.lua:888 | - | TABLE | \|cff888888[D-Pad] Navigate  •  [A] Cast Spell  •  [B] Back\|r | SPELLS_FOOTER_HINT = "\|cff888888[D-Pad] Navigate  •  [A] Cast Spell  •  [B] Back\|r", |
+| Data\Locales\enUS\UI.lua:904 | - | TABLE | \|cffaaaaaaCompanion / Pet — ConsoleMode Vanilla\|r | SPELL_TYPE_PET = "\|cffaaaaaaCompanion / Pet — ConsoleMode Vanilla\|r", |
+| Data\Locales\enUS\UI.lua:905 | - | TABLE | \|cffaaaaaaGeneral Skills — ConsoleMode Vanilla\|r | SPELL_TYPE_GENERAL = "\|cffaaaaaaGeneral Skills — ConsoleMode Vanilla\|r", |
+| Data\Locales\enUS\UI.lua:906 | - | TABLE | \|cffaaaaaaSpecialization %d of 3 — ConsoleMode Vanilla\|r | SPELL_TYPE_SPEC_FMT = "\|cffaaaaaaSpecialization %d of 3 — ConsoleMode Vanilla\|r", |
+| Data\Locales\enUS\UI.lua:907 | - | TABLE | \|cffaaaaaaCategory %d of %d — ConsoleMode Vanilla\|r | SPELL_TYPE_CATEGORY_COUNT_FMT = "\|cffaaaaaaCategory %d of %d — ConsoleMode Vanilla\|r", |
+| Data\Locales\enUS\UI.lua:933 | - | TABLE | \|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Move Free Map\|r | MAP_FOOTER_HINT = "\|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Move Free Map\|r", |
+| Data\Locales\enUS\UI.lua:947 | - | TABLE | \|cff888888(A) Read Mission  •  (X) Track  •  (Y) Abandon\|r | QUEST_DETAIL_FOOTER_HINTS = "\|cff888888(A) Read Mission  •  (X) Track  •  (Y) Abandon\|r", |
+| Data\Locales\enUS\UI.lua:951 | - | TABLE | \|cffe09a15[D-Pad] Navigate  •  [A] Enter  •  [B] Back\|r | MAP_HINT_NAVIGATE_ENTER_BACK = "\|cffe09a15[D-Pad] Navigate  •  [A] Enter  •  [B] Back\|r", |
+| Data\Locales\enUS\UI.lua:952 | - | TABLE | \|cffe09a15[D-Pad] Select  •  [A] Open  •  [B] Back\|r | MAP_HINT_SELECT_OPEN_BACK = "\|cffe09a15[D-Pad] Select  •  [A] Open  •  [B] Back\|r", |
+| Data\Locales\enUS\UI.lua:973 | - | TABLE | Interior map only inside the instance — shows entrance zone | MAP_INSTANCE_TOOLTIP_INTERIOR_ONLY = "Interior map only inside the instance — shows entrance zone", |
+| Data\Locales\enUS\UI.lua:976 | - | TABLE | \|cff888888— interior only inside the instance\|r | MAP_DUNGEON_INTERIOR_ONLY = "\|cff888888— interior only inside the instance\|r", |
+| Data\Locales\enUS\UI.lua:989 | - | TABLE |  Mana | COMPARE_MANA_LABEL = " Mana", |
+| Data\Locales\enUS\UI.lua:998 | - | TABLE | Mana | COMPARE_ABBR_MANA = "Mana", |
+| Data\Locales\enUS\UI.lua:1011 | - | TABLE | \|cffffffff↳ Slot %d:\|r | COMPARE_SLOT_FMT = "\|cffffffff↳ Slot %d:\|r", |
+| Data\Locales\enUS\UI.lua:1024 | - | TABLE | \|cffaaaaaaConsole Mode — Spells, Bags, Macros and Bars\|r | PICKER_TYPE = "\|cffaaaaaaConsole Mode — Spells, Bags, Macros and Bars\|r", |
+| Data\Locales\enUS\UI.lua:1034 | - | TABLE | \|cffaaaaaaPhysical Key: \|cffffffff%s\|r  •  \|cffaaaaaaAction Bar: \|cffffffffSlot %d\|r | BINDS_DETAIL_KEY_BAR_SLOT_FMT = "\|cffaaaaaaPhysical Key: \|cffffffff%s\|r  •  \|cffaaaaaaAction Bar: \|cffffffffSlot %d\|r", |
+| Data\Locales\enUS\UI.lua:1040 | - | TABLE | \|cff888888Empty Slot — No action assigned (Key: %s)\|r | BINDS_DETAIL_EMPTY_SLOT_FMT = "\|cff888888Empty Slot — No action assigned (Key: %s)\|r", |
+| Data\Locales\enUS\UI.lua:1046 | - | TABLE | \|cffaaaaaaConsole Mode — Controller Shortcuts (Pages 1 to 4)\|r | BINDS_MAPPER_SUBTITLE = "\|cffaaaaaaConsole Mode — Controller Shortcuts (Pages 1 to 4)\|r", |
+| Data\Locales\enUS\UI.lua:1073 | - | TABLE | \|cffaaaaaaSpellbook  •  \|cffffffff%s\|r | PICKER_DETAIL_SPELLBOOK_FMT = "\|cffaaaaaaSpellbook  •  \|cffffffff%s\|r", |
+| Data\Locales\enUS\UI.lua:1076 | - | TABLE |   •  Quantity: x | PICKER_DETAIL_QTY = "  •  Quantity: x", |
+| Data\Locales\enUS\UI.lua:1082 | - | TABLE | \|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r | PICKER_DETAIL_BAR_SLOT_FMT = "\|cffaaaaaa%s  •  Slot %d (Real Slot: %d)\|r", |
+| Data\Locales\enUS\UI.lua:1086 | - | TABLE | Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes. | SPEC_WARRIOR_1_DESC = "Master of tactical melee combat — heavy two-handed weapons, bleed control and overwhelming strikes.", |
+| Data\Locales\enUS\UI.lua:1088 | - | TABLE | Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury. | SPEC_WARRIOR_2_DESC = "Wild berserker warrior — devastating damage, continuous strike haste and uncontrollable fury.", |
+| Data\Locales\enUS\UI.lua:1090 | - | TABLE | Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control. | SPEC_WARRIOR_3_DESC = "Unshakable bastion with shield and heavy armor — supreme damage mitigation and absolute threat control.", |
+| Data\Locales\enUS\UI.lua:1092 | - | TABLE | Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies. | SPEC_PALADIN_1_DESC = "Invoker of Divine Light — purifying heals, protective blessings and unshakable vital support to allies.", |
+| Data\Locales\enUS\UI.lua:1094 | - | TABLE | Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense. | SPEC_PALADIN_2_DESC = "Sacred guardian of faith — resistance auras, efficient blocks and unshakable shield defense.", |
+| Data\Locales\enUS\UI.lua:1096 | - | TABLE | Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes. | SPEC_PALADIN_3_DESC = "Zealous crusader of justice — divine punishment with two-handed weapons, righteous seals and holy strikes.", |
+| Data\Locales\enUS\UI.lua:1098 | - | TABLE | Master of wildlife — primal bond with tamed beasts, amplifying your pet's power. | SPEC_HUNTER_1_DESC = "Master of wildlife — primal bond with tamed beasts, amplifying your pet's power.", |
+| Data\Locales\enUS\UI.lua:1100 | - | TABLE | Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms. | SPEC_HUNTER_2_DESC = "Lethal elite sharpshooter — surgical long-range shots with bows, crossbows and firearms.", |
+| Data\Locales\enUS\UI.lua:1102 | - | TABLE | Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons. | SPEC_HUNTER_3_DESC = "Wilderness survival expert — treacherous traps, tactical mobility and deadly poisons.", |
+| Data\Locales\enUS\UI.lua:1104 | - | TABLE | Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim. | SPEC_ROGUE_1_DESC = "Master of lethal poisons and surgical strikes — concentrated stealth attacks that quickly drain the victim.", |
+| Data\Locales\enUS\UI.lua:1106 | - | TABLE | Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration. | SPEC_ROGUE_2_DESC = "Fearless agile fencer — direct combat with swords, maces and daggers with great energy regeneration.", |
+| Data\Locales\enUS\UI.lua:1108 | - | TABLE | Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning. | SPEC_ROGUE_3_DESC = "Master of shadows and deception — ghostly mobility, surprise attacks and stealthy repositioning.", |
+| Data\Locales\enUS\UI.lua:1110 | - | TABLE | Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude. | SPEC_PRIEST_1_DESC = "Mental fortress and spiritual discipline — absorption shields, preventive protection and inner fortitude.", |
+| Data\Locales\enUS\UI.lua:1112 | - | TABLE | Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death. | SPEC_PRIEST_2_DESC = "Pure channeler of Divine Light — deep heals, vital renews and miracles that save the group from death.", |
+| Data\Locales\enUS\UI.lua:1114 | - | TABLE | Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror. | SPEC_PRIEST_3_DESC = "Manipulator of Void and madness — continuous mind damage spells, soul corruption and psychological terror.", |
+| Data\Locales\enUS\UI.lua:1116 | - | TABLE | Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage. | SPEC_SHAMAN_1_DESC = "Invoker of nature's fury — devastating lightning, earth and fire spells with high ranged impact damage.", |
+| Data\Locales\enUS\UI.lua:1118 | - | TABLE | Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes. | SPEC_SHAMAN_2_DESC = "Totemic melee fighter — weapons imbued by the spirits of the elements with furious strikes.", |
+| Data\Locales\enUS\UI.lua:1120 | - | TABLE | Healer of sacred and ancestral waters — deep chain healing, purification and group sustain. | SPEC_SHAMAN_3_DESC = "Healer of sacred and ancestral waters — deep chain healing, purification and group sustain.", |
+| Data\Locales\enUS\UI.lua:1122 | - | TABLE | Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage. | SPEC_MAGE_1_DESC = "Master of the pure energies of the Cosmos — mana flow manipulation, temporal acceleration and raw arcane damage.", |
+| Data\Locales\enUS\UI.lua:1124 | - | TABLE | Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks. | SPEC_MAGE_2_DESC = "Devastating incendiary mage — continuous burns, incandescent explosions and high critical peaks.", |
+| Data\Locales\enUS\UI.lua:1126 | - | TABLE | Commander of eternal ice — freezing barriers, field slows and absolute survival. | SPEC_MAGE_3_DESC = "Commander of eternal ice — freezing barriers, field slows and absolute survival.", |
+| Data\Locales\enUS\UI.lua:1128 | - | TABLE | Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality. | SPEC_WARLOCK_1_DESC = "Master of curses and slow agony — corrosive damage-over-time spells that drain the target's vitality.", |
+| Data\Locales\enUS\UI.lua:1130 | - | TABLE | Commander of the Legion — summoning and empowering demonic servants to crush your opponents. | SPEC_WARLOCK_2_DESC = "Commander of the Legion — summoning and empowering demonic servants to crush your opponents.", |
+| Data\Locales\enUS\UI.lua:1132 | - | TABLE | Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation. | SPEC_WARLOCK_3_DESC = "Conjurer of chaotic fel fire — explosive immediate-impact spells and incandescent annihilation.", |
+| Data\Locales\enUS\UI.lua:1134 | - | TABLE | Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form. | SPEC_DRUID_1_DESC = "Channeler of astral forces and nature — solar and lunar spells with the ancestral Moonkin Form.", |
+| Data\Locales\enUS\UI.lua:1136 | - | TABLE | Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks. | SPEC_DRUID_2_DESC = "Shapeshifting predator — ferocious combat as Bear for tenacious defense or Cat for stealthy attacks.", |
+| Data\Locales\enUS\UI.lua:1138 | - | TABLE | Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings. | SPEC_DRUID_3_DESC = "Guardian of healing and life — continuous health regeneration through over-time spells and Dream blessings.", |
+| Data\Locales\enUS\UI.lua:1215 | - | TABLE | L3 (Toggle Mouse Mode) | BIND_TOGGLE_MOUSEMODE = "L3 (Toggle Mouse Mode)", |
+| Data\Locales\enUS\UI.lua:1236 | - | TABLE |   Mouse Mode:  %s | LOG_MOUSE_MODE_FMT = "  Mouse Mode:  %s", |
 | Data\NPCs\NPC_Data_CustomTurtle.lua:478 | - | TABLE | Mana Remnant | [11483] = { "Mana Remnant", "", 0.0, 0.0 }, |
 | Data\NPCs\NPC_Data_CustomTurtle.lua:560 | - | TABLE | Corrupted Bronze Whelp | [14025] = { "Corrupted Bronze Whelp", "", 0.0, 0.0 }, |
 | Data\NPCs\NPC_Data_CustomTurtle.lua:620 | - | TABLE | Bronze Riding Crab | [33006] = { "Bronze Riding Crab", "", 58.75, 41.04 }, |
@@ -275,17 +244,17 @@ Resumo: DISPLAY=36, TABLE=346, OTHER=132, PARSER=194
 | UI\EnhanceModal.lua:170 | - | TABLE | Mão Principal \| Mão Secundária | slotNames   = { [16] = "Mão Principal", [17] = "Mão Secundária" }, |
 | UI\EnhanceModal.lua:178 | - | TABLE | Pernas | slotNames   = { [5] = "Peitoral", [7] = "Pernas", [10] = "Luvas", [8] = "Botas" }, |
 | UI\EnhanceModal.lua:194 | - | TABLE | Mão Secundária | slotNames   = { [17] = "Mão Secundária" }, |
-| UI\EnhanceModal.lua:402 | EnhanceModal:BuildIconHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
-| UI\EnhanceModal.lua:663 | EnhanceModal:ScanItemEnhancement | DISPLAY |  •  | if string.len(tempEnhance .. " • " .. permEnchant) <= 38 then |
-| UI\EnhanceModal.lua:664 | EnhanceModal:ScanItemEnhancement | DISPLAY |  •  | return tempEnhance .. " • " .. permEnchant |
-| UI\EnhanceModal.lua:1189 | EnhanceModal:CreateUI | DISPLAY | Sair | closeTxt:SetText((CM.T and CM:T("ENHANCE_CLOSE")) or "Sair") |
-| UI\EnhanceModal.lua:1232 | EnhanceModal:CreateUI | DISPLAY | Selecione onde deseja aplicar | subText:SetText((CM.T and CM:T("ENHANCE_MODAL_SUBTITLE")) or "Selecione onde deseja aplicar") |
-| UI\EnhanceModal.lua:1454 | EnhanceModal:RenderEquippedTab | DISPLAY | Nenhum equipamento compatível equipado.nPressione [RB] para verificar itens na mochila. | content.placeholder:SetText((CM.T and CM:T("ENHANCE_NO_EQUIP_FOUND")) or "Nenhum equipamento compatível equipado.\nPressione [RB] para verificar itens na mochila.") |
-| UI\EnhanceModal.lua:1538 | EnhanceModal:RenderBagTab | DISPLAY | Nenhum item compatível encontrado na mochila. | content.placeholder:SetText((CM.T and CM:T("ENHANCE_NO_BAG_FOUND")) or "Nenhum item compatível encontrado na mochila.") |
-| UI\EnhanceModal.lua:1616 | EnhanceModal:RenderBagTab | OTHER | \|cffffd100▲\|r  \| \|cff555555▲\|r  | local arrowUp = (offset > 0) and "\|cffffd100▲\|r " or "\|cff555555▲\|r " |
-| UI\EnhanceModal.lua:1617 | EnhanceModal:RenderBagTab | OTHER |  \|cffffd100▼\|r \|  \|cff555555▼\|r | local arrowDown = (offset + 4 < count) and " \|cffffd100▼\|r" or " \|cff555555▼\|r" |
-| UI\EnhanceModal.lua:1802 | EnhanceModal:UpdateFooter | TABLE | Cancelar | { icons = { "B" },        label = (CM.T and CM:T("ENHANCE_HINT_CANCEL")) or "Cancelar" }, |
-| UI\EnhanceModal.lua:1865 | EnhanceModal:Open | DISPLAY | Sair | self.frame.closeBtn.text:SetText((CM.T and CM:T("ENHANCE_CLOSE")) or "Sair") |
+| UI\EnhanceModal.lua:409 | EnhanceModal:BuildIconHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
+| UI\EnhanceModal.lua:670 | EnhanceModal:ScanItemEnhancement | DISPLAY |  •  | if string.len(tempEnhance .. " • " .. permEnchant) <= 38 then |
+| UI\EnhanceModal.lua:671 | EnhanceModal:ScanItemEnhancement | DISPLAY |  •  | return tempEnhance .. " • " .. permEnchant |
+| UI\EnhanceModal.lua:1196 | EnhanceModal:CreateUI | DISPLAY | Sair | closeTxt:SetText((CM.T and CM:T("ENHANCE_CLOSE")) or "Sair") |
+| UI\EnhanceModal.lua:1239 | EnhanceModal:CreateUI | DISPLAY | Selecione onde deseja aplicar | subText:SetText((CM.T and CM:T("ENHANCE_MODAL_SUBTITLE")) or "Selecione onde deseja aplicar") |
+| UI\EnhanceModal.lua:1461 | EnhanceModal:RenderEquippedTab | DISPLAY | Nenhum equipamento compatível equipado.nPressione [RB] para verificar itens na mochila. | content.placeholder:SetText((CM.T and CM:T("ENHANCE_NO_EQUIP_FOUND")) or "Nenhum equipamento compatível equipado.\nPressione [RB] para verificar itens na mochila.") |
+| UI\EnhanceModal.lua:1545 | EnhanceModal:RenderBagTab | DISPLAY | Nenhum item compatível encontrado na mochila. | content.placeholder:SetText((CM.T and CM:T("ENHANCE_NO_BAG_FOUND")) or "Nenhum item compatível encontrado na mochila.") |
+| UI\EnhanceModal.lua:1623 | EnhanceModal:RenderBagTab | OTHER | \|cffffd100▲\|r  \| \|cff555555▲\|r  | local arrowUp = (offset > 0) and "\|cffffd100▲\|r " or "\|cff555555▲\|r " |
+| UI\EnhanceModal.lua:1624 | EnhanceModal:RenderBagTab | OTHER |  \|cffffd100▼\|r \|  \|cff555555▼\|r | local arrowDown = (offset + 4 < count) and " \|cffffd100▼\|r" or " \|cff555555▼\|r" |
+| UI\EnhanceModal.lua:1809 | EnhanceModal:UpdateFooter | TABLE | Cancelar | { icons = { "B" },        label = (CM.T and CM:T("ENHANCE_HINT_CANCEL")) or "Cancelar" }, |
+| UI\EnhanceModal.lua:1872 | EnhanceModal:Open | DISPLAY | Sair | self.frame.closeBtn.text:SetText((CM.T and CM:T("ENHANCE_CLOSE")) or "Sair") |
 | UI\KeybindingsList.lua:31 | - | TABLE | Pagina 1 (Base) | [1] = { label = "Pagina 1 (Base)",      tkey = "BIND_PAGE_1" }, |
 | UI\KeybindingsList.lua:32 | - | TABLE | Pagina 2 (L2 / Shift) | [2] = { label = "Pagina 2 (L2 / Shift)", tkey = "BIND_PAGE_2" }, |
 | UI\KeybindingsList.lua:33 | - | TABLE | Pagina 3 (R1 / Ctrl) | [3] = { label = "Pagina 3 (R1 / Ctrl)",  tkey = "BIND_PAGE_3" }, |
@@ -297,123 +266,104 @@ Resumo: DISPLAY=36, TABLE=346, OTHER=132, PARSER=194
 | UI\MailScreen.lua:1687 | MailScreen:RefreshInboxList | OTHER |  ▼ | local arrowDown = ((self.inboxScrollOffset + visible) < numItems) and " ▼" or "" |
 | UI\MailScreen.lua:1962 | MailScreen:ClearComposeFocus | TABLE | ASSUNTO | { key = "composeSubject", label = "ASSUNTO",  tkey = "MAIL_FIELD_SUBJECT", h = 44,  kind = "edit",   max = 64 }, |
 | UI\MailScreen.lua:1963 | MailScreen:ClearComposeFocus | TABLE | MENSAGEM | { key = "composeBody",    label = "MENSAGEM", tkey = "MAIL_FIELD_BODY",    h = 122, kind = "editml", max = 2000 }, |
-| UI\MailScreen.lua:4619 | MailScreen:ClearComposeAfterSend | TABLE | RETIRAR \| RETIRAR | { key = "RETIRAR",  label = "RETIRAR",  tkey = "MAIL_BTN_TAKE",   icon = "Interface\\MoneyFrame\\UI-GoldIcon", action = "take" }, |
-| UI\MailScreen.lua:4620 | MailScreen:ClearComposeAfterSend | TABLE | DEVOLVER \| DEVOLVER | { key = "DEVOLVER", label = "DEVOLVER", tkey = "MAIL_BTN_RETURN", icon = "Interface\\Icons\\INV_Misc_Note_01", action = "return" }, |
-| UI\MailScreen.lua:4621 | MailScreen:ClearComposeAfterSend | TABLE | APAGAR \| APAGAR | { key = "APAGAR",   label = "APAGAR",   tkey = "MAIL_BTN_DELETE", icon = nil, action = "delete" }, |
+| UI\MailScreen.lua:4626 | MailScreen:ClearComposeAfterSend | TABLE | RETIRAR \| RETIRAR | { key = "RETIRAR",  label = "RETIRAR",  tkey = "MAIL_BTN_TAKE",   icon = "Interface\\MoneyFrame\\UI-GoldIcon", action = "take" }, |
+| UI\MailScreen.lua:4627 | MailScreen:ClearComposeAfterSend | TABLE | DEVOLVER \| DEVOLVER | { key = "DEVOLVER", label = "DEVOLVER", tkey = "MAIL_BTN_RETURN", icon = "Interface\\Icons\\INV_Misc_Note_01", action = "return" }, |
+| UI\MailScreen.lua:4628 | MailScreen:ClearComposeAfterSend | TABLE | APAGAR \| APAGAR | { key = "APAGAR",   label = "APAGAR",   tkey = "MAIL_BTN_DELETE", icon = nil, action = "delete" }, |
 | UI\MainMenu.lua:216 | CMSafeSetMap | TABLE | CABEÇA | { name = "HeadSlot",          label = "CABEÇA",   lkey = "SLOT_HEAD" }, |
 | UI\MainMenu.lua:224 | CMSafeSetMap | TABLE | PERNAS | { name = "LegsSlot",          label = "PERNAS",   lkey = "SLOT_LEGS" }, |
 | UI\MainMenu.lua:230 | CMSafeSetMap | TABLE | MÃO DIR. | { name = "MainHandSlot",      label = "MÃO DIR.", lkey = "SLOT_MAINHAND" }, |
 | UI\MainMenu.lua:231 | CMSafeSetMap | TABLE | MÃO ESQ. | { name = "SecondaryHandSlot", label = "MÃO ESQ.", lkey = "SLOT_OFFHAND" }, |
-| UI\MainMenu.lua:360 | CMSafeSetMap | TABLE | Armeiro / Reparo | ["repair"]      = "Armeiro / Reparo", |
-| UI\MainMenu.lua:361 | CMSafeSetMap | TABLE | Instrutor de Classe | ["trainer"]     = "Instrutor de Classe", |
-| UI\MainMenu.lua:362 | CMSafeSetMap | TABLE | Instrutor de Profissão | ["profession"]  = "Instrutor de Profissão", |
-| UI\MainMenu.lua:411 | CMSafeSetMap | TABLE | Mestre do combate corpo-a-corpo tático — foco em armas pesadas de duas mãos, controle de sangramento e golpes avassaladores. | [1] = { name = "Armas", nkey = "SPEC_WARRIOR_1_NAME", desc = "Mestre do combate corpo-a-corpo tático — foco em armas pesadas de duas mãos, controle de sangramento e golpes avassaladores.", dkey = "SPEC_WARRIOR_1_DESC" }, |
-| UI\MainMenu.lua:412 | CMSafeSetMap | TABLE | Fúria \| Guerreiro berserker selvagem — foco em dano devastador, aceleração contínua de golpes e fúria incontrolável. | [2] = { name = "Fúria", nkey = "SPEC_WARRIOR_2_NAME", desc = "Guerreiro berserker selvagem — foco em dano devastador, aceleração contínua de golpes e fúria incontrolável.", dkey = "SPEC_WARRIOR_2_DESC" }, |
-| UI\MainMenu.lua:413 | CMSafeSetMap | TABLE | Proteção \| Bastião inabalável com escudo e armadura pesada — mitigação suprema de dano e controle absoluto de ameaça. | [3] = { name = "Proteção", nkey = "SPEC_WARRIOR_3_NAME", desc = "Bastião inabalável com escudo e armadura pesada — mitigação suprema de dano e controle absoluto de ameaça.", dkey = "SPEC_WARRIOR_3_DESC" }, |
-| UI\MainMenu.lua:416 | CMSafeSetMap | TABLE | Invocador da Luz Divina — curas purificadoras, bênçãos de proteção e suporte vital inabalável aos aliados. | [1] = { name = "Sagrado", nkey = "SPEC_PALADIN_1_NAME", desc = "Invocador da Luz Divina — curas purificadoras, bênçãos de proteção e suporte vital inabalável aos aliados.", dkey = "SPEC_PALADIN_1_DESC" }, |
-| UI\MainMenu.lua:417 | CMSafeSetMap | TABLE | Proteção \| Guardião sagrado da fé — auras de resistência, bloqueios eficientes e defesa inabalável com escudo. | [2] = { name = "Proteção", nkey = "SPEC_PALADIN_2_NAME", desc = "Guardião sagrado da fé — auras de resistência, bloqueios eficientes e defesa inabalável com escudo.", dkey = "SPEC_PALADIN_2_DESC" }, |
-| UI\MainMenu.lua:418 | CMSafeSetMap | TABLE | Retribuição \| Cruzado zeloso da justiça — punição divina com armas de duas mãos, selos justiceiros e golpes sagrados. | [3] = { name = "Retribuição", nkey = "SPEC_PALADIN_3_NAME", desc = "Cruzado zeloso da justiça — punição divina com armas de duas mãos, selos justiceiros e golpes sagrados.", dkey = "SPEC_PALADIN_3_DESC" }, |
-| UI\MainMenu.lua:421 | CMSafeSetMap | TABLE | Domínio das Feras \| Mestre da vida selvagem — ligação primordial com feras domesticadas, amplificando o poder do ajudante. | [1] = { name = "Domínio das Feras", nkey = "SPEC_HUNTER_1_NAME", desc = "Mestre da vida selvagem — ligação primordial com feras domesticadas, amplificando o poder do ajudante.", dkey = "SPEC_HUNTER_1_DESC" }, |
-| UI\MainMenu.lua:422 | CMSafeSetMap | TABLE | Precisão \| Atirador de elite letal — disparos cirúrgicos de longo alcance com arcos, bestas e armas de fogo. | [2] = { name = "Precisão", nkey = "SPEC_HUNTER_2_NAME", desc = "Atirador de elite letal — disparos cirúrgicos de longo alcance com arcos, bestas e armas de fogo.", dkey = "SPEC_HUNTER_2_DESC" }, |
-| UI\MainMenu.lua:423 | CMSafeSetMap | TABLE | Sobrevivência \| Especialista em sobrevivência no ermo — armadilhas traiçoeiras, mobilidade tática e venenos mortais. | [3] = { name = "Sobrevivência", nkey = "SPEC_HUNTER_3_NAME", desc = "Especialista em sobrevivência no ermo — armadilhas traiçoeiras, mobilidade tática e venenos mortais.", dkey = "SPEC_HUNTER_3_DESC" }, |
-| UI\MainMenu.lua:426 | CMSafeSetMap | TABLE | Mestre em venenos letais e golpes cirúrgicos — ataques furtivos concentrados que drenam rapidamente a vítima. | [1] = { name = "Assassinato", nkey = "SPEC_ROGUE_1_NAME", desc = "Mestre em venenos letais e golpes cirúrgicos — ataques furtivos concentrados que drenam rapidamente a vítima.", dkey = "SPEC_ROGUE_1_DESC" }, |
-| UI\MainMenu.lua:427 | CMSafeSetMap | TABLE | Espadachim destemido e ágil — combate direto com espadas, maças e adagas com grande regeneração de energia. | [2] = { name = "Combate", nkey = "SPEC_ROGUE_2_NAME", desc = "Espadachim destemido e ágil — combate direto com espadas, maças e adagas com grande regeneração de energia.", dkey = "SPEC_ROGUE_2_DESC" }, |
-| UI\MainMenu.lua:428 | CMSafeSetMap | TABLE | Subterfúgio \| Mestre das sombras e do engano — mobilidade fantasmagórica, ataques surpresa e reposicionamento furtivo. | [3] = { name = "Subterfúgio", nkey = "SPEC_ROGUE_3_NAME", desc = "Mestre das sombras e do engano — mobilidade fantasmagórica, ataques surpresa e reposicionamento furtivo.", dkey = "SPEC_ROGUE_3_DESC" }, |
-| UI\MainMenu.lua:431 | CMSafeSetMap | TABLE | Fortaleza mental e disciplina espiritual — escudos de absorção, proteção preventiva e fortalecimento interior. | [1] = { name = "Disciplina", nkey = "SPEC_PRIEST_1_NAME", desc = "Fortaleza mental e disciplina espiritual — escudos de absorção, proteção preventiva e fortalecimento interior.", dkey = "SPEC_PRIEST_1_DESC" }, |
-| UI\MainMenu.lua:432 | CMSafeSetMap | TABLE | Canalizador puro da Luz Divina — curas profundas, renovações vitais e milagres que salvam o grupo da morte. | [2] = { name = "Sagrado", nkey = "SPEC_PRIEST_2_NAME", desc = "Canalizador puro da Luz Divina — curas profundas, renovações vitais e milagres que salvam o grupo da morte.", dkey = "SPEC_PRIEST_2_DESC" }, |
-| UI\MainMenu.lua:433 | CMSafeSetMap | TABLE | Manipulador do Vazio e da loucura — feitiços de dano mental contínuo, corrupção da alma e terror psicológico. | [3] = { name = "Sombra", nkey = "SPEC_PRIEST_3_NAME", desc = "Manipulador do Vazio e da loucura — feitiços de dano mental contínuo, corrupção da alma e terror psicológico.", dkey = "SPEC_PRIEST_3_DESC" }, |
-| UI\MainMenu.lua:436 | CMSafeSetMap | TABLE | Invocador da fúria da natureza — magias devastadoras de raio, terra e fogo com alto dano de impacto à distância. | [1] = { name = "Elemental", nkey = "SPEC_SHAMAN_1_NAME", desc = "Invocador da fúria da natureza — magias devastadoras de raio, terra e fogo com alto dano de impacto à distância.", dkey = "SPEC_SHAMAN_1_DESC" }, |
-| UI\MainMenu.lua:437 | CMSafeSetMap | TABLE | Aperfeiçoamento \| Combatente corpo-a-corpo totemico — armas imbuídas pelos espíritos dos elementos com golpes furiosos. | [2] = { name = "Aperfeiçoamento", nkey = "SPEC_SHAMAN_2_NAME", desc = "Combatente corpo-a-corpo totemico — armas imbuídas pelos espíritos dos elementos com golpes furiosos.", dkey = "SPEC_SHAMAN_2_DESC" }, |
-| UI\MainMenu.lua:438 | CMSafeSetMap | TABLE | Restauração \| Curador das águas sagradas e ancestrais — cura em cadeia profunda, purificação e sustentação de grupo. | [3] = { name = "Restauração", nkey = "SPEC_SHAMAN_3_NAME", desc = "Curador das águas sagradas e ancestrais — cura em cadeia profunda, purificação e sustentação de grupo.", dkey = "SPEC_SHAMAN_3_DESC" }, |
-| UI\MainMenu.lua:441 | CMSafeSetMap | TABLE | Mestre das energias puras do Cosmos — manipulação do fluxo de mana, aceleração temporal e dano arcano bruto. | [1] = { name = "Arcano", nkey = "SPEC_MAGE_1_NAME", desc = "Mestre das energias puras do Cosmos — manipulação do fluxo de mana, aceleração temporal e dano arcano bruto.", dkey = "SPEC_MAGE_1_DESC" }, |
-| UI\MainMenu.lua:442 | CMSafeSetMap | TABLE | Mago incendiário devastador — queimaduras contínuas, explosões incandescentes e altos picos de acerto crítico. | [2] = { name = "Fogo", nkey = "SPEC_MAGE_2_NAME", desc = "Mago incendiário devastador — queimaduras contínuas, explosões incandescentes e altos picos de acerto crítico.", dkey = "SPEC_MAGE_2_DESC" }, |
-| UI\MainMenu.lua:443 | CMSafeSetMap | TABLE | Gélido \| Comandante do gelo eterno — barreiras congelantes, desacelerações de campo e sobrevivência absoluta. | [3] = { name = "Gélido", nkey = "SPEC_MAGE_3_NAME", desc = "Comandante do gelo eterno — barreiras congelantes, desacelerações de campo e sobrevivência absoluta.", dkey = "SPEC_MAGE_3_DESC" }, |
-| UI\MainMenu.lua:446 | CMSafeSetMap | TABLE | Aflição \| Mestre das maldições e agonia lenta — feitiços de dano periódico corrosivo que drenam a vitalidade do alvo. | [1] = { name = "Aflição", nkey = "SPEC_WARLOCK_1_NAME", desc = "Mestre das maldições e agonia lenta — feitiços de dano periódico corrosivo que drenam a vitalidade do alvo.", dkey = "SPEC_WARLOCK_1_DESC" }, |
-| UI\MainMenu.lua:447 | CMSafeSetMap | TABLE | Comandante da Legião — invocação e fortalecimento de servos demoníacos para esmagar seus oponentes. | [2] = { name = "Demonologia", nkey = "SPEC_WARLOCK_2_NAME", desc = "Comandante da Legião — invocação e fortalecimento de servos demoníacos para esmagar seus oponentes.", dkey = "SPEC_WARLOCK_2_DESC" }, |
-| UI\MainMenu.lua:448 | CMSafeSetMap | TABLE | Destruição \| Conjurador do fogo caótico vil — feitiços explosivos de impacto imediato e aniquilação incandescente. | [3] = { name = "Destruição", nkey = "SPEC_WARLOCK_3_NAME", desc = "Conjurador do fogo caótico vil — feitiços explosivos de impacto imediato e aniquilação incandescente.", dkey = "SPEC_WARLOCK_3_DESC" }, |
-| UI\MainMenu.lua:451 | CMSafeSetMap | TABLE | Equilíbrio \| Canalizador das forças astrais e da natureza — feitiços solares e lunares com a Forma de Luniscélio ancestral. | [1] = { name = "Equilíbrio", nkey = "SPEC_DRUID_1_NAME", desc = "Canalizador das forças astrais e da natureza — feitiços solares e lunares com a Forma de Luniscélio ancestral.", dkey = "SPEC_DRUID_1_DESC" }, |
-| UI\MainMenu.lua:452 | CMSafeSetMap | TABLE | Predador mutamorfo — combate feroz como Urso para defesa tenaz ou Felino para ataques furtivos. | [2] = { name = "Feral", nkey = "SPEC_DRUID_2_NAME", desc = "Predador mutamorfo — combate feroz como Urso para defesa tenaz ou Felino para ataques furtivos.", dkey = "SPEC_DRUID_2_DESC" }, |
-| UI\MainMenu.lua:453 | CMSafeSetMap | TABLE | Restauração \| Guardião da cura e da vida — regeneração contínua de saúde por feitiços sobre o tempo e bênçãos do Sonho. | [3] = { name = "Restauração", nkey = "SPEC_DRUID_3_NAME", desc = "Guardião da cura e da vida — regeneração contínua de saúde por feitiços sobre o tempo e bênçãos do Sonho.", dkey = "SPEC_DRUID_3_DESC" }, |
-| UI\MainMenu.lua:1461 | MainMenu:CreateStatsAndBuffsColumn | OTHER | Força \| Agilidade \| Vigor \| Intelecto \| Espírito \| Armadura | local statKeys = { "HP", "Recurso", "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura" } |
-| UI\MainMenu.lua:1650 | MainMenu:RefreshBaseStatLines | DISPLAY | Força | lines["Força"]:SetText("\|cffffffff" .. CM:T("STAT_STRENGTH") .. ":\|r " .. GetPlayerEffectiveStat(1)) |
-| UI\MainMenu.lua:1651 | MainMenu:RefreshBaseStatLines | DISPLAY | Agilidade | lines["Agilidade"]:SetText("\|cffffffff" .. CM:T("STAT_AGILITY") .. ":\|r " .. GetPlayerEffectiveStat(2)) |
-| UI\MainMenu.lua:1652 | MainMenu:RefreshBaseStatLines | DISPLAY | Vigor | lines["Vigor"]:SetText("\|cffffffff" .. CM:T("STAT_STAMINA") .. ":\|r " .. GetPlayerEffectiveStat(3)) |
-| UI\MainMenu.lua:1653 | MainMenu:RefreshBaseStatLines | DISPLAY | Intelecto | lines["Intelecto"]:SetText("\|cffffffff" .. CM:T("STAT_INTELLECT") .. ":\|r " .. GetPlayerEffectiveStat(4)) |
-| UI\MainMenu.lua:1654 | MainMenu:RefreshBaseStatLines | DISPLAY | Espírito | lines["Espírito"]:SetText("\|cffffffff" .. CM:T("STAT_SPIRIT") .. ":\|r " .. GetPlayerEffectiveStat(5)) |
-| UI\MainMenu.lua:1656 | MainMenu:RefreshBaseStatLines | DISPLAY | Armadura | lines["Armadura"]:SetText("\|cffffffff" .. CM:T("STAT_ARMOR") .. ":\|r " .. (armorEff or 0)) |
-| UI\MainMenu.lua:2160 | MainMenu:ClearStatCompareCache | OTHER | mana | "hp", "mana", |
-| UI\MainMenu.lua:2168 | MainMenu:ClearStatCompareCache | TABLE | Força \| Agilidade \| Vigor | str = "Força", agi = "Agilidade", sta = "Vigor", |
-| UI\MainMenu.lua:2169 | MainMenu:ClearStatCompareCache | TABLE | Intelecto \| Espírito \| Armadura | int = "Intelecto", spi = "Espírito", armor = "Armadura", |
-| UI\MainMenu.lua:2170 | MainMenu:ClearStatCompareCache | TABLE | Vida \| Mana | hp = "Vida", mana = "Mana", |
-| UI\MainMenu.lua:2171 | MainMenu:ClearStatCompareCache | TABLE | P. Ataque \| Acerto% \| Crít% | ap = "P. Ataque", hit = "Acerto%", crit = "Crít%", |
-| UI\MainMenu.lua:2172 | MainMenu:ClearStatCompareCache | TABLE | Esquiva% \| Bloqueio | dodge = "Esquiva%", block = "Bloqueio", |
-| UI\MainMenu.lua:2173 | MainMenu:ClearStatCompareCache | TABLE | Dano Mág. \| Cura | spellDmg = "Dano Mág.", healing = "Cura", |
-| UI\MainMenu.lua:2388 | MainMenu:FormatCompareDiffDebug | TABLE | Força \| Agilidade \| Vigor | str = "Força", agi = "Agilidade", sta = "Vigor", |
-| UI\MainMenu.lua:2389 | MainMenu:FormatCompareDiffDebug | TABLE | Intelecto \| Espírito \| Armadura | int = "Intelecto", spi = "Espírito", armor = "Armadura", |
-| UI\MainMenu.lua:2394 | MainMenu:FormatCompareDiffDebug | OTHER | Força \| Agilidade \| Vigor \| Intelecto \| Espírito \| Armadura | "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura", |
-| UI\MainMenu.lua:2480 | MainMenu:HideCompare | OTHER | mana | "armor", "spellDmg", "healing", "hp", "mana", |
-| UI\MainMenu.lua:2595 | Compare_FormatSecondary | OTHER | mana | elseif key == "mana" then |
-| UI\MainMenu.lua:2619 | Compare_FormatSecondary | OTHER | mana | "hp", "mana", "ap", "hit", "crit", "dodge", "block", |
-| UI\MainMenu.lua:3264 | card:ShowItem | DISPLAY |   •   | self.typeText:SetText("\|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "\|r") |
-| UI\MainMenu.lua:3590 | card:ShowEquipSlot | DISPLAY |   •   | self.typeText:SetText("\|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "\|r") |
-| UI\MainMenu.lua:3600 | card:ShowEquipSlot | TABLE | cabeça \| pescoço | ["cabeça"]=true, ["pescoço"]=true, ["ombros"]=true, ["camisa"]=true, ["peitoral"]=true, |
-| UI\MainMenu.lua:3601 | card:ShowEquipSlot | TABLE | pernas \| pés \| mãos | ["cintura"]=true, ["pernas"]=true, ["pés"]=true, ["punhos"]=true, ["mãos"]=true, |
-| UI\MainMenu.lua:3602 | card:ShowEquipSlot | TABLE | mão principal \| mão secundária | ["dedo"]=true, ["berloque"]=true, ["costas"]=true, ["mão principal"]=true, ["mão secundária"]=true |
-| UI\MainMenu.lua:4287 | IsRedObj | OTHER | Armadura | if itemType == "Armadura" or itemType == "Armor" or itemType == "Arma" or itemType == "Weapon" then |
-| UI\MainMenu.lua:4289 | IsRedObj | OTHER | Consumível | elseif itemType == "Consumível" or itemType == "Consumable" then |
-| UI\MainMenu.lua:4415 | IsSpellRangeLine | OTHER | corpo a corpo | if s == "melee range" or s == "corpo a corpo" or s == "unlimited range" or s == "alcance ilimitado" then |
-| UI\MainMenu.lua:4602 | MainMenu:ParseSpellData | OTHER | ataque | if lowerName == "attack" or lowerName == "ataque" then |
-| UI\MainMenu.lua:4974 | MainMenu:SetupBagsPage | OTHER | Pedra de Regressão | if itemName == "Hearthstone" or itemName == "Pedra de Regresso" or itemName == "Pedra de Regressão" then |
-| UI\MainMenu.lua:5502 | MainMenu:GetSpellTabTypeInfo | TABLE | furia \| fúria | [2] = { "fury", "furia", "fúria" }, |
-| UI\MainMenu.lua:5503 | MainMenu:GetSpellTabTypeInfo | TABLE | proteção | [3] = { "protection", "protecao", "proteção" }, |
-| UI\MainMenu.lua:5507 | MainMenu:GetSpellTabTypeInfo | TABLE | proteção | [2] = { "protection", "protecao", "proteção" }, |
-| UI\MainMenu.lua:5508 | MainMenu:GetSpellTabTypeInfo | TABLE | retribuição | [3] = { "retribution", "retribuicao", "retribuição" }, |
-| UI\MainMenu.lua:5511 | MainMenu:GetSpellTabTypeInfo | TABLE | domínio | [1] = { "beast", "feras", "dominio", "domínio" }, |
-| UI\MainMenu.lua:5512 | MainMenu:GetSpellTabTypeInfo | TABLE | precisão | [2] = { "marksman", "precisao", "precisão" }, |
-| UI\MainMenu.lua:5513 | MainMenu:GetSpellTabTypeInfo | TABLE | sobrevivência | [3] = { "survival", "sobrevivencia", "sobrevivência" }, |
-| UI\MainMenu.lua:5518 | MainMenu:GetSpellTabTypeInfo | TABLE | subterfúgio | [3] = { "subtlety", "subterfugio", "subterfúgio" }, |
-| UI\MainMenu.lua:5527 | MainMenu:GetSpellTabTypeInfo | TABLE | aperfeiçoamento | [2] = { "enhancement", "aperfeicoamento", "aperfeiçoamento" }, |
-| UI\MainMenu.lua:5528 | MainMenu:GetSpellTabTypeInfo | TABLE | restauração | [3] = { "restoration", "restauracao", "restauração" }, |
-| UI\MainMenu.lua:5533 | MainMenu:GetSpellTabTypeInfo | TABLE | gélido | [3] = { "frost", "gelido", "gélido" }, |
-| UI\MainMenu.lua:5536 | MainMenu:GetSpellTabTypeInfo | TABLE | aflição | [1] = { "affliction", "aflicao", "aflição" }, |
-| UI\MainMenu.lua:5538 | MainMenu:GetSpellTabTypeInfo | TABLE | destruição | [3] = { "destruction", "destruicao", "destruição" }, |
-| UI\MainMenu.lua:5541 | MainMenu:GetSpellTabTypeInfo | TABLE | equilíbrio | [1] = { "balance", "equilibrio", "equilíbrio" }, |
-| UI\MainMenu.lua:5543 | MainMenu:GetSpellTabTypeInfo | TABLE | restauração | [3] = { "restoration", "restauracao", "restauração" }, |
+| UI\MainMenu.lua:401 | CMSafeSetMap | TABLE | Mestre do combate corpo-a-corpo tático — foco em armas pesadas de duas mãos, controle de sangramento e golpes avassaladores. | [1] = { name = "Armas", nkey = "SPEC_WARRIOR_1_NAME", desc = "Mestre do combate corpo-a-corpo tático — foco em armas pesadas de duas mãos, controle de sangramento e golpes avassaladores.", dkey = "SPEC_WARRIOR_1_DESC" }, |
+| UI\MainMenu.lua:402 | CMSafeSetMap | TABLE | Fúria \| Guerreiro berserker selvagem — foco em dano devastador, aceleração contínua de golpes e fúria incontrolável. | [2] = { name = "Fúria", nkey = "SPEC_WARRIOR_2_NAME", desc = "Guerreiro berserker selvagem — foco em dano devastador, aceleração contínua de golpes e fúria incontrolável.", dkey = "SPEC_WARRIOR_2_DESC" }, |
+| UI\MainMenu.lua:403 | CMSafeSetMap | TABLE | Proteção \| Bastião inabalável com escudo e armadura pesada — mitigação suprema de dano e controle absoluto de ameaça. | [3] = { name = "Proteção", nkey = "SPEC_WARRIOR_3_NAME", desc = "Bastião inabalável com escudo e armadura pesada — mitigação suprema de dano e controle absoluto de ameaça.", dkey = "SPEC_WARRIOR_3_DESC" }, |
+| UI\MainMenu.lua:406 | CMSafeSetMap | TABLE | Invocador da Luz Divina — curas purificadoras, bênçãos de proteção e suporte vital inabalável aos aliados. | [1] = { name = "Sagrado", nkey = "SPEC_PALADIN_1_NAME", desc = "Invocador da Luz Divina — curas purificadoras, bênçãos de proteção e suporte vital inabalável aos aliados.", dkey = "SPEC_PALADIN_1_DESC" }, |
+| UI\MainMenu.lua:407 | CMSafeSetMap | TABLE | Proteção \| Guardião sagrado da fé — auras de resistência, bloqueios eficientes e defesa inabalável com escudo. | [2] = { name = "Proteção", nkey = "SPEC_PALADIN_2_NAME", desc = "Guardião sagrado da fé — auras de resistência, bloqueios eficientes e defesa inabalável com escudo.", dkey = "SPEC_PALADIN_2_DESC" }, |
+| UI\MainMenu.lua:408 | CMSafeSetMap | TABLE | Retribuição \| Cruzado zeloso da justiça — punição divina com armas de duas mãos, selos justiceiros e golpes sagrados. | [3] = { name = "Retribuição", nkey = "SPEC_PALADIN_3_NAME", desc = "Cruzado zeloso da justiça — punição divina com armas de duas mãos, selos justiceiros e golpes sagrados.", dkey = "SPEC_PALADIN_3_DESC" }, |
+| UI\MainMenu.lua:411 | CMSafeSetMap | TABLE | Domínio das Feras \| Mestre da vida selvagem — ligação primordial com feras domesticadas, amplificando o poder do ajudante. | [1] = { name = "Domínio das Feras", nkey = "SPEC_HUNTER_1_NAME", desc = "Mestre da vida selvagem — ligação primordial com feras domesticadas, amplificando o poder do ajudante.", dkey = "SPEC_HUNTER_1_DESC" }, |
+| UI\MainMenu.lua:412 | CMSafeSetMap | TABLE | Precisão \| Atirador de elite letal — disparos cirúrgicos de longo alcance com arcos, bestas e armas de fogo. | [2] = { name = "Precisão", nkey = "SPEC_HUNTER_2_NAME", desc = "Atirador de elite letal — disparos cirúrgicos de longo alcance com arcos, bestas e armas de fogo.", dkey = "SPEC_HUNTER_2_DESC" }, |
+| UI\MainMenu.lua:413 | CMSafeSetMap | TABLE | Sobrevivência \| Especialista em sobrevivência no ermo — armadilhas traiçoeiras, mobilidade tática e venenos mortais. | [3] = { name = "Sobrevivência", nkey = "SPEC_HUNTER_3_NAME", desc = "Especialista em sobrevivência no ermo — armadilhas traiçoeiras, mobilidade tática e venenos mortais.", dkey = "SPEC_HUNTER_3_DESC" }, |
+| UI\MainMenu.lua:416 | CMSafeSetMap | TABLE | Mestre em venenos letais e golpes cirúrgicos — ataques furtivos concentrados que drenam rapidamente a vítima. | [1] = { name = "Assassinato", nkey = "SPEC_ROGUE_1_NAME", desc = "Mestre em venenos letais e golpes cirúrgicos — ataques furtivos concentrados que drenam rapidamente a vítima.", dkey = "SPEC_ROGUE_1_DESC" }, |
+| UI\MainMenu.lua:417 | CMSafeSetMap | TABLE | Espadachim destemido e ágil — combate direto com espadas, maças e adagas com grande regeneração de energia. | [2] = { name = "Combate", nkey = "SPEC_ROGUE_2_NAME", desc = "Espadachim destemido e ágil — combate direto com espadas, maças e adagas com grande regeneração de energia.", dkey = "SPEC_ROGUE_2_DESC" }, |
+| UI\MainMenu.lua:418 | CMSafeSetMap | TABLE | Subterfúgio \| Mestre das sombras e do engano — mobilidade fantasmagórica, ataques surpresa e reposicionamento furtivo. | [3] = { name = "Subterfúgio", nkey = "SPEC_ROGUE_3_NAME", desc = "Mestre das sombras e do engano — mobilidade fantasmagórica, ataques surpresa e reposicionamento furtivo.", dkey = "SPEC_ROGUE_3_DESC" }, |
+| UI\MainMenu.lua:421 | CMSafeSetMap | TABLE | Fortaleza mental e disciplina espiritual — escudos de absorção, proteção preventiva e fortalecimento interior. | [1] = { name = "Disciplina", nkey = "SPEC_PRIEST_1_NAME", desc = "Fortaleza mental e disciplina espiritual — escudos de absorção, proteção preventiva e fortalecimento interior.", dkey = "SPEC_PRIEST_1_DESC" }, |
+| UI\MainMenu.lua:422 | CMSafeSetMap | TABLE | Canalizador puro da Luz Divina — curas profundas, renovações vitais e milagres que salvam o grupo da morte. | [2] = { name = "Sagrado", nkey = "SPEC_PRIEST_2_NAME", desc = "Canalizador puro da Luz Divina — curas profundas, renovações vitais e milagres que salvam o grupo da morte.", dkey = "SPEC_PRIEST_2_DESC" }, |
+| UI\MainMenu.lua:423 | CMSafeSetMap | TABLE | Manipulador do Vazio e da loucura — feitiços de dano mental contínuo, corrupção da alma e terror psicológico. | [3] = { name = "Sombra", nkey = "SPEC_PRIEST_3_NAME", desc = "Manipulador do Vazio e da loucura — feitiços de dano mental contínuo, corrupção da alma e terror psicológico.", dkey = "SPEC_PRIEST_3_DESC" }, |
+| UI\MainMenu.lua:426 | CMSafeSetMap | TABLE | Invocador da fúria da natureza — magias devastadoras de raio, terra e fogo com alto dano de impacto à distância. | [1] = { name = "Elemental", nkey = "SPEC_SHAMAN_1_NAME", desc = "Invocador da fúria da natureza — magias devastadoras de raio, terra e fogo com alto dano de impacto à distância.", dkey = "SPEC_SHAMAN_1_DESC" }, |
+| UI\MainMenu.lua:427 | CMSafeSetMap | TABLE | Aperfeiçoamento \| Combatente corpo-a-corpo totemico — armas imbuídas pelos espíritos dos elementos com golpes furiosos. | [2] = { name = "Aperfeiçoamento", nkey = "SPEC_SHAMAN_2_NAME", desc = "Combatente corpo-a-corpo totemico — armas imbuídas pelos espíritos dos elementos com golpes furiosos.", dkey = "SPEC_SHAMAN_2_DESC" }, |
+| UI\MainMenu.lua:428 | CMSafeSetMap | TABLE | Restauração \| Curador das águas sagradas e ancestrais — cura em cadeia profunda, purificação e sustentação de grupo. | [3] = { name = "Restauração", nkey = "SPEC_SHAMAN_3_NAME", desc = "Curador das águas sagradas e ancestrais — cura em cadeia profunda, purificação e sustentação de grupo.", dkey = "SPEC_SHAMAN_3_DESC" }, |
+| UI\MainMenu.lua:431 | CMSafeSetMap | TABLE | Mestre das energias puras do Cosmos — manipulação do fluxo de mana, aceleração temporal e dano arcano bruto. | [1] = { name = "Arcano", nkey = "SPEC_MAGE_1_NAME", desc = "Mestre das energias puras do Cosmos — manipulação do fluxo de mana, aceleração temporal e dano arcano bruto.", dkey = "SPEC_MAGE_1_DESC" }, |
+| UI\MainMenu.lua:432 | CMSafeSetMap | TABLE | Mago incendiário devastador — queimaduras contínuas, explosões incandescentes e altos picos de acerto crítico. | [2] = { name = "Fogo", nkey = "SPEC_MAGE_2_NAME", desc = "Mago incendiário devastador — queimaduras contínuas, explosões incandescentes e altos picos de acerto crítico.", dkey = "SPEC_MAGE_2_DESC" }, |
+| UI\MainMenu.lua:433 | CMSafeSetMap | TABLE | Gélido \| Comandante do gelo eterno — barreiras congelantes, desacelerações de campo e sobrevivência absoluta. | [3] = { name = "Gélido", nkey = "SPEC_MAGE_3_NAME", desc = "Comandante do gelo eterno — barreiras congelantes, desacelerações de campo e sobrevivência absoluta.", dkey = "SPEC_MAGE_3_DESC" }, |
+| UI\MainMenu.lua:436 | CMSafeSetMap | TABLE | Aflição \| Mestre das maldições e agonia lenta — feitiços de dano periódico corrosivo que drenam a vitalidade do alvo. | [1] = { name = "Aflição", nkey = "SPEC_WARLOCK_1_NAME", desc = "Mestre das maldições e agonia lenta — feitiços de dano periódico corrosivo que drenam a vitalidade do alvo.", dkey = "SPEC_WARLOCK_1_DESC" }, |
+| UI\MainMenu.lua:437 | CMSafeSetMap | TABLE | Comandante da Legião — invocação e fortalecimento de servos demoníacos para esmagar seus oponentes. | [2] = { name = "Demonologia", nkey = "SPEC_WARLOCK_2_NAME", desc = "Comandante da Legião — invocação e fortalecimento de servos demoníacos para esmagar seus oponentes.", dkey = "SPEC_WARLOCK_2_DESC" }, |
+| UI\MainMenu.lua:438 | CMSafeSetMap | TABLE | Destruição \| Conjurador do fogo caótico vil — feitiços explosivos de impacto imediato e aniquilação incandescente. | [3] = { name = "Destruição", nkey = "SPEC_WARLOCK_3_NAME", desc = "Conjurador do fogo caótico vil — feitiços explosivos de impacto imediato e aniquilação incandescente.", dkey = "SPEC_WARLOCK_3_DESC" }, |
+| UI\MainMenu.lua:441 | CMSafeSetMap | TABLE | Equilíbrio \| Canalizador das forças astrais e da natureza — feitiços solares e lunares com a Forma de Luniscélio ancestral. | [1] = { name = "Equilíbrio", nkey = "SPEC_DRUID_1_NAME", desc = "Canalizador das forças astrais e da natureza — feitiços solares e lunares com a Forma de Luniscélio ancestral.", dkey = "SPEC_DRUID_1_DESC" }, |
+| UI\MainMenu.lua:442 | CMSafeSetMap | TABLE | Predador mutamorfo — combate feroz como Urso para defesa tenaz ou Felino para ataques furtivos. | [2] = { name = "Feral", nkey = "SPEC_DRUID_2_NAME", desc = "Predador mutamorfo — combate feroz como Urso para defesa tenaz ou Felino para ataques furtivos.", dkey = "SPEC_DRUID_2_DESC" }, |
+| UI\MainMenu.lua:443 | CMSafeSetMap | TABLE | Restauração \| Guardião da cura e da vida — regeneração contínua de saúde por feitiços sobre o tempo e bênçãos do Sonho. | [3] = { name = "Restauração", nkey = "SPEC_DRUID_3_NAME", desc = "Guardião da cura e da vida — regeneração contínua de saúde por feitiços sobre o tempo e bênçãos do Sonho.", dkey = "SPEC_DRUID_3_DESC" }, |
+| UI\MainMenu.lua:1452 | MainMenu:CreateStatsAndBuffsColumn | OTHER | Força \| Agilidade \| Vigor \| Intelecto \| Espírito \| Armadura | local statKeys = { "HP", "Recurso", "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura" } |
+| UI\MainMenu.lua:1641 | MainMenu:RefreshBaseStatLines | DISPLAY | Força | lines["Força"]:SetText("\|cffffffff" .. CM:T("STAT_STRENGTH") .. ":\|r " .. GetPlayerEffectiveStat(1)) |
+| UI\MainMenu.lua:1642 | MainMenu:RefreshBaseStatLines | DISPLAY | Agilidade | lines["Agilidade"]:SetText("\|cffffffff" .. CM:T("STAT_AGILITY") .. ":\|r " .. GetPlayerEffectiveStat(2)) |
+| UI\MainMenu.lua:1643 | MainMenu:RefreshBaseStatLines | DISPLAY | Vigor | lines["Vigor"]:SetText("\|cffffffff" .. CM:T("STAT_STAMINA") .. ":\|r " .. GetPlayerEffectiveStat(3)) |
+| UI\MainMenu.lua:1644 | MainMenu:RefreshBaseStatLines | DISPLAY | Intelecto | lines["Intelecto"]:SetText("\|cffffffff" .. CM:T("STAT_INTELLECT") .. ":\|r " .. GetPlayerEffectiveStat(4)) |
+| UI\MainMenu.lua:1645 | MainMenu:RefreshBaseStatLines | DISPLAY | Espírito | lines["Espírito"]:SetText("\|cffffffff" .. CM:T("STAT_SPIRIT") .. ":\|r " .. GetPlayerEffectiveStat(5)) |
+| UI\MainMenu.lua:1647 | MainMenu:RefreshBaseStatLines | DISPLAY | Armadura | lines["Armadura"]:SetText("\|cffffffff" .. CM:T("STAT_ARMOR") .. ":\|r " .. (armorEff or 0)) |
+| UI\MainMenu.lua:2151 | MainMenu:ClearStatCompareCache | OTHER | mana | "hp", "mana", |
+| UI\MainMenu.lua:2382 | MainMenu:FormatCompareDiffDebug | TABLE | Força \| Agilidade \| Vigor | str = "Força", agi = "Agilidade", sta = "Vigor", |
+| UI\MainMenu.lua:2383 | MainMenu:FormatCompareDiffDebug | TABLE | Intelecto \| Espírito \| Armadura | int = "Intelecto", spi = "Espírito", armor = "Armadura", |
+| UI\MainMenu.lua:2388 | MainMenu:FormatCompareDiffDebug | OTHER | Força \| Agilidade \| Vigor \| Intelecto \| Espírito \| Armadura | "Força", "Agilidade", "Vigor", "Intelecto", "Espírito", "Armadura", |
+| UI\MainMenu.lua:2474 | MainMenu:HideCompare | OTHER | mana | "armor", "spellDmg", "healing", "hp", "mana", |
+| UI\MainMenu.lua:2589 | Compare_FormatSecondary | OTHER | mana | elseif key == "mana" then |
+| UI\MainMenu.lua:2613 | Compare_FormatSecondary | OTHER | mana | "hp", "mana", "ap", "hit", "crit", "dodge", "block", |
+| UI\MainMenu.lua:3258 | card:ShowItem | DISPLAY |   •   | self.typeText:SetText("\|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "\|r") |
+| UI\MainMenu.lua:3587 | card:ShowEquipSlot | DISPLAY |   •   | self.typeText:SetText("\|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "\|r") |
+| UI\MainMenu.lua:3597 | card:ShowEquipSlot | TABLE | cabeça \| pescoço | ["cabeça"]=true, ["pescoço"]=true, ["ombros"]=true, ["camisa"]=true, ["peitoral"]=true, |
+| UI\MainMenu.lua:3598 | card:ShowEquipSlot | TABLE | pernas \| pés \| mãos | ["cintura"]=true, ["pernas"]=true, ["pés"]=true, ["punhos"]=true, ["mãos"]=true, |
+| UI\MainMenu.lua:3599 | card:ShowEquipSlot | TABLE | mão principal \| mão secundária | ["dedo"]=true, ["berloque"]=true, ["costas"]=true, ["mão principal"]=true, ["mão secundária"]=true |
+| UI\MainMenu.lua:4284 | IsRedObj | OTHER | Armadura | if itemType == "Armadura" or itemType == "Armor" or itemType == "Arma" or itemType == "Weapon" then |
+| UI\MainMenu.lua:4286 | IsRedObj | OTHER | Consumível | elseif itemType == "Consumível" or itemType == "Consumable" then |
+| UI\MainMenu.lua:4412 | IsSpellRangeLine | OTHER | corpo a corpo | if s == "melee range" or s == "corpo a corpo" or s == "unlimited range" or s == "alcance ilimitado" then |
+| UI\MainMenu.lua:4599 | MainMenu:ParseSpellData | OTHER | ataque | if lowerName == "attack" or lowerName == "ataque" then |
+| UI\MainMenu.lua:4971 | MainMenu:SetupBagsPage | OTHER | Pedra de Regressão | if itemName == "Hearthstone" or itemName == "Pedra de Regresso" or itemName == "Pedra de Regressão" then |
+| UI\MainMenu.lua:5499 | MainMenu:GetSpellTabTypeInfo | TABLE | furia \| fúria | [2] = { "fury", "furia", "fúria" }, |
+| UI\MainMenu.lua:5500 | MainMenu:GetSpellTabTypeInfo | TABLE | proteção | [3] = { "protection", "protecao", "proteção" }, |
+| UI\MainMenu.lua:5504 | MainMenu:GetSpellTabTypeInfo | TABLE | proteção | [2] = { "protection", "protecao", "proteção" }, |
+| UI\MainMenu.lua:5505 | MainMenu:GetSpellTabTypeInfo | TABLE | retribuição | [3] = { "retribution", "retribuicao", "retribuição" }, |
+| UI\MainMenu.lua:5508 | MainMenu:GetSpellTabTypeInfo | TABLE | domínio | [1] = { "beast", "feras", "dominio", "domínio" }, |
+| UI\MainMenu.lua:5509 | MainMenu:GetSpellTabTypeInfo | TABLE | precisão | [2] = { "marksman", "precisao", "precisão" }, |
+| UI\MainMenu.lua:5510 | MainMenu:GetSpellTabTypeInfo | TABLE | sobrevivência | [3] = { "survival", "sobrevivencia", "sobrevivência" }, |
+| UI\MainMenu.lua:5515 | MainMenu:GetSpellTabTypeInfo | TABLE | subterfúgio | [3] = { "subtlety", "subterfugio", "subterfúgio" }, |
+| UI\MainMenu.lua:5524 | MainMenu:GetSpellTabTypeInfo | TABLE | aperfeiçoamento | [2] = { "enhancement", "aperfeicoamento", "aperfeiçoamento" }, |
+| UI\MainMenu.lua:5525 | MainMenu:GetSpellTabTypeInfo | TABLE | restauração | [3] = { "restoration", "restauracao", "restauração" }, |
+| UI\MainMenu.lua:5530 | MainMenu:GetSpellTabTypeInfo | TABLE | gélido | [3] = { "frost", "gelido", "gélido" }, |
+| UI\MainMenu.lua:5533 | MainMenu:GetSpellTabTypeInfo | TABLE | aflição | [1] = { "affliction", "aflicao", "aflição" }, |
+| UI\MainMenu.lua:5535 | MainMenu:GetSpellTabTypeInfo | TABLE | destruição | [3] = { "destruction", "destruicao", "destruição" }, |
+| UI\MainMenu.lua:5538 | MainMenu:GetSpellTabTypeInfo | TABLE | equilíbrio | [1] = { "balance", "equilibrio", "equilíbrio" }, |
+| UI\MainMenu.lua:5540 | MainMenu:GetSpellTabTypeInfo | TABLE | restauração | [3] = { "restoration", "restauracao", "restauração" }, |
 | UI\MainMenu.lua:6844 | MainMenu:FocusTalentSlot | DISPLAY | \|cffaaaaaa%s %d  •  %s/%d\|r | card.typeText:SetText(string.format("\|cffaaaaaa%s %d  •  %s/%d\|r", tierLabel, data.tier, rankStr, data.maxRank)) |
 | UI\MainMenu.lua:7294 | MainMenu:CreateTalentInspectModal | DISPLAY | Fechar | cText:SetText(CM:T("BTN_CLOSE") or "Fechar") |
 | UI\MainMenu.lua:7348 | MainMenu:ShowTalentInspectModal | DISPLAY | \|cffaaaaaa%s %d  •  %s/%d\|r | modal.badgesText:SetText(string.format("\|cffaaaaaa%s %d  •  %s/%d\|r", tierLabel, data.tier, rankStr, data.maxRank)) |
 | UI\MainMenu.lua:10443 | MainMenu:SelectQuest | OTHER | \|cff00ff00✔ \|r | local bullet = isDone and "\|cff00ff00✔ \|r" or "\|cffffcc00- \|r" |
-| UI\MainMenu.lua:11425 | MainMenu:UpdatePfQuestPins | TABLE | Armeiro / Reparo | ["repair"]      = "Armeiro / Reparo", |
-| UI\MainMenu.lua:11426 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Classe | ["trainer"]     = "Instrutor de Classe", |
-| UI\MainMenu.lua:11427 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Profissão | ["profession"]  = "Instrutor de Profissão", |
-| UI\MainMenu.lua:11428 | MainMenu:UpdatePfQuestPins | TABLE | Mestre do Estábulo | ["stable"]      = "Mestre do Estábulo", |
-| UI\MainMenu.lua:11430 | MainMenu:UpdatePfQuestPins | TABLE | Líder | ["leader"]      = "Líder", |
-| UI\MainMenu.lua:11439 | MainMenu:UpdatePfQuestPins | TABLE | Líder | ["LEADER"]              = { cat = "leader",     role = "Líder",                  rkey = "NPC_ROLE_LEADER",             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01", prio = 2 }, |
-| UI\MainMenu.lua:11440 | MainMenu:UpdatePfQuestPins | TABLE | Mestre do Estábulo | ["STABLE"]              = { cat = "stable",     role = "Mestre do Estábulo",     rkey = "NPC_ROLE_STABLE",             icon = "Interface\\Icons\\Ability_Hunter_Pet_Boar", prio = 3 }, |
-| UI\MainMenu.lua:11441 | MainMenu:UpdatePfQuestPins | TABLE | Comerciante / Reparo | ["OTHER"]               = { cat = "repair",     role = "Comerciante / Reparo",   rkey = "NPC_ROLE_VENDOR_REPAIR",      icon = "Interface\\Icons\\INV_Hammer_20", prio = 5 }, |
-| UI\MainMenu.lua:11445 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Caçadores | ["TRAINER_HUNTER"]      = { cat = "trainer",    role = "Instrutor de Caçadores",  rkey = "NPC_ROLE_TRAINER_HUNTER",    icon = "Interface\\Icons\\ClassIcon_Hunter", prio = 2 }, |
-| UI\MainMenu.lua:11448 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Xamãs | ["TRAINER_SHAMAN"]      = { cat = "trainer",    role = "Instrutor de Xamãs",      rkey = "NPC_ROLE_TRAINER_SHAMAN",    icon = "Interface\\Icons\\ClassIcon_Shaman", prio = 2 }, |
-| UI\MainMenu.lua:11455 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Culinária | ["PROF_COOKING"]        = { cat = "profession", role = "Instrutor de Culinária",     rkey = "NPC_ROLE_PROF_COOKING",        icon = "Interface\\Icons\\INV_Misc_Food_15", prio = 3 }, |
-| UI\MainMenu.lua:11462 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Mineração | ["PROF_MINING"]         = { cat = "profession", role = "Instrutor de Mineração",     rkey = "NPC_ROLE_PROF_MINING",         icon = "Interface\\Icons\\Trade_Mining", prio = 3 }, |
-| UI\MainMenu.lua:11464 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Sobrevivência | ["PROF_SURVIVAL"]       = { cat = "profession", role = "Instrutor de Sobrevivência",rkey = "NPC_ROLE_PROF_SURVIVAL",       icon = "Interface\\Icons\\Spell_Fire_Fire", prio = 3 }, |
-| UI\MainMenu.lua:13308 | MainMenu:UpdateSystemPage | TABLE | Ações Principais (Sem Modificador) | [1] = { name = "1: Base",  prefix = "Base: ",    desc = "Ações Principais (Sem Modificador)" }, |
-| UI\MainMenu.lua:13309 | MainMenu:UpdateSystemPage | TABLE | Página de Combate L2 (Shift) | [2] = { name = "2: L2",    prefix = "L2 + ",     desc = "Página de Combate L2 (Shift)" }, |
-| UI\MainMenu.lua:13310 | MainMenu:UpdateSystemPage | TABLE | Página de Combate R1 (Ctrl) | [3] = { name = "3: R1",    prefix = "R1 + ",     desc = "Página de Combate R1 (Ctrl)" }, |
-| UI\MainMenu.lua:13311 | MainMenu:UpdateSystemPage | TABLE | Página de Combate R2 (Alt) | [4] = { name = "4: R2",    prefix = "R2 + ",     desc = "Página de Combate R2 (Alt)" }, |
-| UI\MainMenu.lua:13312 | MainMenu:UpdateSystemPage | TABLE | Página de Combate L2+R2 (Shift+Alt) | [5] = { name = "5: L2+R2", prefix = "L2+R2 + ",  desc = "Página de Combate L2+R2 (Shift+Alt)" }, |
-| UI\MainMenu.lua:13324 | MainMenu:UpdateSystemPage | TABLE | Espaço (Pulo) | ["SPACE"]           = "Espaço (Pulo)", |
-| UI\MainMenu.lua:13325 | MainMenu:UpdateSystemPage | TABLE | Shift + Espaço | ["SHIFT-SPACE"]     = "Shift + Espaço", |
-| UI\MainMenu.lua:13326 | MainMenu:UpdateSystemPage | TABLE | Ctrl + Espaço | ["CTRL-SPACE"]      = "Ctrl + Espaço", |
-| UI\MainMenu.lua:13327 | MainMenu:UpdateSystemPage | TABLE | Alt + Espaço | ["ALT-SPACE"]       = "Alt + Espaço", |
-| UI\MainMenu.lua:13328 | MainMenu:UpdateSystemPage | TABLE | Shift + Alt + Espaço | ["ALT-SHIFT-SPACE"] = "Shift + Alt + Espaço", |
-| UI\MainMenu.lua:13329 | MainMenu:UpdateSystemPage | TABLE | Tecla 1 \| Tecla 2 \| Tecla 3 | ["1"] = "Tecla 1", ["2"] = "Tecla 2", ["3"] = "Tecla 3", |
-| UI\MainMenu.lua:13330 | MainMenu:UpdateSystemPage | TABLE | Tecla 7 \| Tecla 8 \| Tecla 9 \| Tecla 0 | ["7"] = "Tecla 7", ["8"] = "Tecla 8", ["9"] = "Tecla 9", ["0"] = "Tecla 0", |
-| UI\MainMenu.lua:13372 | MainMenu:UpdateSystemPage | TABLE | BOTÕES FACIAIS (ABXY) | title = "BOTÕES FACIAIS (ABXY)", |
-| UI\MainMenu.lua:13375 | MainMenu:UpdateSystemPage | TABLE | Botão Y | { key = "Y", glyph = "[Y]", label = "Botão Y", lkey = "BINDS_BTN_Y_LABEL", icon = CFG.Icons.Y }, |
-| UI\MainMenu.lua:13376 | MainMenu:UpdateSystemPage | TABLE | Botão X | { key = "X", glyph = "[X]", label = "Botão X", lkey = "BINDS_BTN_X_LABEL", icon = CFG.Icons.X }, |
-| UI\MainMenu.lua:13377 | MainMenu:UpdateSystemPage | TABLE | Botão B | { key = "B", glyph = "[B]", label = "Botão B", lkey = "BINDS_BTN_B_LABEL", icon = CFG.Icons.B }, |
-| UI\MainMenu.lua:13378 | MainMenu:UpdateSystemPage | TABLE | Botão A | { key = "A", glyph = "[A]", label = "Botão A", lkey = "BINDS_BTN_A_LABEL", icon = CFG.Icons.A }, |
-| UI\MainMenu.lua:15695 | MainMenu:CreateFooterHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
+| UI\MainMenu.lua:11426 | MainMenu:UpdatePfQuestPins | TABLE | Líder | ["LEADER"]              = { cat = "leader",     role = "Líder",                  rkey = "NPC_ROLE_LEADER",             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01", prio = 2 }, |
+| UI\MainMenu.lua:11427 | MainMenu:UpdatePfQuestPins | TABLE | Mestre do Estábulo | ["STABLE"]              = { cat = "stable",     role = "Mestre do Estábulo",     rkey = "NPC_ROLE_STABLE",             icon = "Interface\\Icons\\Ability_Hunter_Pet_Boar", prio = 3 }, |
+| UI\MainMenu.lua:11428 | MainMenu:UpdatePfQuestPins | TABLE | Comerciante / Reparo | ["OTHER"]               = { cat = "repair",     role = "Comerciante / Reparo",   rkey = "NPC_ROLE_VENDOR_REPAIR",      icon = "Interface\\Icons\\INV_Hammer_20", prio = 5 }, |
+| UI\MainMenu.lua:11432 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Caçadores | ["TRAINER_HUNTER"]      = { cat = "trainer",    role = "Instrutor de Caçadores",  rkey = "NPC_ROLE_TRAINER_HUNTER",    icon = "Interface\\Icons\\ClassIcon_Hunter", prio = 2 }, |
+| UI\MainMenu.lua:11435 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Xamãs | ["TRAINER_SHAMAN"]      = { cat = "trainer",    role = "Instrutor de Xamãs",      rkey = "NPC_ROLE_TRAINER_SHAMAN",    icon = "Interface\\Icons\\ClassIcon_Shaman", prio = 2 }, |
+| UI\MainMenu.lua:11442 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Culinária | ["PROF_COOKING"]        = { cat = "profession", role = "Instrutor de Culinária",     rkey = "NPC_ROLE_PROF_COOKING",        icon = "Interface\\Icons\\INV_Misc_Food_15", prio = 3 }, |
+| UI\MainMenu.lua:11449 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Mineração | ["PROF_MINING"]         = { cat = "profession", role = "Instrutor de Mineração",     rkey = "NPC_ROLE_PROF_MINING",         icon = "Interface\\Icons\\Trade_Mining", prio = 3 }, |
+| UI\MainMenu.lua:11451 | MainMenu:UpdatePfQuestPins | TABLE | Instrutor de Sobrevivência | ["PROF_SURVIVAL"]       = { cat = "profession", role = "Instrutor de Sobrevivência",rkey = "NPC_ROLE_PROF_SURVIVAL",       icon = "Interface\\Icons\\Spell_Fire_Fire", prio = 3 }, |
+| UI\MainMenu.lua:13313 | MainMenu:UpdateSystemPage | TABLE | Espaço (Pulo) | ["SPACE"]           = "Espaço (Pulo)", |
+| UI\MainMenu.lua:13314 | MainMenu:UpdateSystemPage | TABLE | Shift + Espaço | ["SHIFT-SPACE"]     = "Shift + Espaço", |
+| UI\MainMenu.lua:13315 | MainMenu:UpdateSystemPage | TABLE | Ctrl + Espaço | ["CTRL-SPACE"]      = "Ctrl + Espaço", |
+| UI\MainMenu.lua:13316 | MainMenu:UpdateSystemPage | TABLE | Alt + Espaço | ["ALT-SPACE"]       = "Alt + Espaço", |
+| UI\MainMenu.lua:13317 | MainMenu:UpdateSystemPage | TABLE | Shift + Alt + Espaço | ["ALT-SHIFT-SPACE"] = "Shift + Alt + Espaço", |
+| UI\MainMenu.lua:13318 | MainMenu:UpdateSystemPage | TABLE | Tecla 1 \| Tecla 2 \| Tecla 3 | ["1"] = "Tecla 1", ["2"] = "Tecla 2", ["3"] = "Tecla 3", |
+| UI\MainMenu.lua:13319 | MainMenu:UpdateSystemPage | TABLE | Tecla 7 \| Tecla 8 \| Tecla 9 \| Tecla 0 | ["7"] = "Tecla 7", ["8"] = "Tecla 8", ["9"] = "Tecla 9", ["0"] = "Tecla 0", |
+| UI\MainMenu.lua:13361 | MainMenu:UpdateSystemPage | TABLE | BOTÕES FACIAIS (ABXY) | title = "BOTÕES FACIAIS (ABXY)", |
+| UI\MainMenu.lua:13364 | MainMenu:UpdateSystemPage | TABLE | Botão Y | { key = "Y", glyph = "[Y]", label = "Botão Y", lkey = "BINDS_BTN_Y_LABEL", icon = CFG.Icons.Y }, |
+| UI\MainMenu.lua:13365 | MainMenu:UpdateSystemPage | TABLE | Botão X | { key = "X", glyph = "[X]", label = "Botão X", lkey = "BINDS_BTN_X_LABEL", icon = CFG.Icons.X }, |
+| UI\MainMenu.lua:13366 | MainMenu:UpdateSystemPage | TABLE | Botão B | { key = "B", glyph = "[B]", label = "Botão B", lkey = "BINDS_BTN_B_LABEL", icon = CFG.Icons.B }, |
+| UI\MainMenu.lua:13367 | MainMenu:UpdateSystemPage | TABLE | Botão A | { key = "A", glyph = "[A]", label = "Botão A", lkey = "BINDS_BTN_A_LABEL", icon = CFG.Icons.A }, |
+| UI\MainMenu.lua:15686 | MainMenu:CreateFooterHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
 | UI\MainMenuNav.lua:1765 | Nav_EnsureFocus | OTHER | ZONAS | if f.zone ~= "TABBAR" and f.zone ~= "EQUIP" and f.zone ~= "CATS" and f.zone ~= "GRID" and f.zone ~= "BUFFS" and f.zone ~= "PAGENAV" and f.zone ~= "SORT" and f.zone ~= "SPCAT" and f.zone ~= "SPGRID" and f.zone ~= "SPTABS" |
 | UI\MainMenuNav.lua:1768 | Nav_EnsureFocus | OTHER | ZONAS | if f.returnZone ~= "EQUIP" and f.returnZone ~= "CATS" and f.returnZone ~= "GRID" and f.returnZone ~= "BUFFS" and f.returnZone ~= "PAGENAV" and f.returnZone ~= "SORT" and f.returnZone ~= "SPCAT" and f.returnZone ~= "SPGRI |
 | UI\MainMenuNav.lua:1777 | Nav_EnsureFocus | OTHER | ZONAS | if f.zone == "CATS" or f.zone == "GRID" or f.zone == "PAGENAV" or f.zone == "SORT" or f.zone == "EQUIP" or f.zone == "TALENTS1" or f.zone == "TALENTS2" or f.zone == "QMISSOES" or f.zone == "QDETALHE" or f.zone == "ZONAS" |
@@ -435,12 +385,12 @@ Resumo: DISPLAY=36, TABLE=346, OTHER=132, PARSER=194
 | UI\MerchantMenu.lua:371 | MerchantMenu:ParseBagItem | OTHER | Consumível | elseif itemType == "Consumível" or itemType == "Consumable" or itemType == "Potion" or itemType == "Food & Drink" then |
 | UI\MerchantMenu.lua:576 | MerchantMenu:ParseVendorItem | OTHER | Armadura | if (itemEquipLoc and itemEquipLoc ~= "") or itemType == "Armor" or itemType == "Armadura" or itemType == "Weapon" or itemType == "Arma" then |
 | UI\MerchantMenu.lua:578 | MerchantMenu:ParseVendorItem | OTHER | Consumível | elseif itemType == "Consumable" or itemType == "Consumível" or itemType == "Potion" or itemType == "Food & Drink" then |
-| UI\MerchantMenu.lua:1131 | MerchantMenu:CreateFooterHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
-| UI\MerchantMenu.lua:1895 | MerchantMenu:UpdateBagRows | OTHER | ▲  | local arrowUp = (self.bagScrollOffset > 0) and "▲ " or "" |
-| UI\MerchantMenu.lua:1896 | MerchantMenu:UpdateBagRows | OTHER |  ▼ | local arrowDown = ((self.bagScrollOffset + 7) < numItems) and " ▼" or "" |
-| UI\MerchantMenu.lua:1972 | MerchantMenu:UpdateVendorRows | OTHER | ▲  | local arrowUp = (self.vendorScrollOffset > 0) and "▲ " or "" |
-| UI\MerchantMenu.lua:1973 | MerchantMenu:UpdateVendorRows | OTHER |  ▼ | local arrowDown = ((self.vendorScrollOffset + 7) < numItems) and " ▼" or "" |
-| UI\MerchantMenu.lua:2214 | MerchantMenu:ShowItemDetail | DISPLAY |   •   | local subStr = table.concat(typeParts, "  •  ") |
+| UI\MerchantMenu.lua:1143 | MerchantMenu:CreateFooterHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
+| UI\MerchantMenu.lua:1907 | MerchantMenu:UpdateBagRows | OTHER | ▲  | local arrowUp = (self.bagScrollOffset > 0) and "▲ " or "" |
+| UI\MerchantMenu.lua:1908 | MerchantMenu:UpdateBagRows | OTHER |  ▼ | local arrowDown = ((self.bagScrollOffset + 7) < numItems) and " ▼" or "" |
+| UI\MerchantMenu.lua:1984 | MerchantMenu:UpdateVendorRows | OTHER | ▲  | local arrowUp = (self.vendorScrollOffset > 0) and "▲ " or "" |
+| UI\MerchantMenu.lua:1985 | MerchantMenu:UpdateVendorRows | OTHER |  ▼ | local arrowDown = ((self.vendorScrollOffset + 7) < numItems) and " ▼" or "" |
+| UI\MerchantMenu.lua:2226 | MerchantMenu:ShowItemDetail | DISPLAY |   •   | local subStr = table.concat(typeParts, "  •  ") |
 | UI\QuantityPicker.lua:209 | BuildHints | DISPLAY | \|cff666666•\|r | sep:SetText("\|cff666666•\|r") |
 | UI\QuestItemDistributor.lua:134 | NormalizeText | OTHER | carta \| cartas | "carta", "cartas", |
 | UI\QuestItemDistributor.lua:137 | NormalizeText | OTHER | письмо \| письма \| письмецо \| Письмо \| ПИСЬМО | "письмо", "письма", "письмецо", "Письмо", "ПИСЬМО", |

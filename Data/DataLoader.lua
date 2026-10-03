@@ -20,10 +20,27 @@ CM.DataLake = CM.DataLake or {
 -- ============================================================================
 
 function CM:CheckDataLakeAvailable()
-    local name, title, notes, loadable, reason = GetAddOnInfo("ConsoleModeVanilla-Data")
-    self.DataLake.available = (loadable ~= nil)
-    
-    return self.DataLake.available
+    -- NOTA 1.12: GetAddOnInfo devolve (name, title, notes, enabled, loadable, reason, security).
+    -- "available" preserva a semantica anterior (4o retorno nao-nil); "reason"
+    -- e so diagnostico para o /cmloc status e nao muda nenhum fluxo de load.
+    local name, title, notes, enabled, loadable, reason = GetAddOnInfo("ConsoleModeVanilla-Data")
+    self.DataLake.available = (enabled ~= nil)
+
+    local status = "unknown"
+    if name == nil then
+        status = "missing"
+    elseif reason == "DISABLED" then
+        status = "disabled"
+    elseif loadable ~= nil then
+        status = "loadable"
+    elseif reason ~= nil and reason ~= "" then
+        status = string.lower(reason)
+    elseif enabled == nil then
+        status = "disabled"
+    end
+    self.DataLake.reason = status
+
+    return self.DataLake.available, status
 end
 
 -- ============================================================================
@@ -39,8 +56,11 @@ function CM:LoadDataLake(requestedBy)
     -- Incrementar tentativas
     self.DataLake.loadAttempts = self.DataLake.loadAttempts + 1
     
-    -- Verificar se está instalado
+    -- Verificar se está instalado (reason distingue desabilitado de ausente; sem load em ambos)
     if not self:CheckDataLakeAvailable() then
+        if self.DataLake.reason == "disabled" then
+            return false, "disabled"
+        end
         return false, "not_installed"
     end
     
@@ -175,6 +195,7 @@ SlashCmdList["CMDATALAKE"] = function(msg)
     elseif msg == "status" then
         DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_STATUS_TITLE"))
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_AVAIL_FMT"), tostring(CM.DataLake.available)))
+        DEFAULT_CHAT_FRAME:AddMessage("  DataLake reason: " .. tostring(CM.DataLake.reason or "n/a"))
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_LOADED_FLAG_FMT"), tostring(CM.DataLake.loaded)))
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_REQUESTED_FMT"), (CM.DataLake.requestedBy or "n/a")))
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_ATTEMPTS_FMT"), CM.DataLake.loadAttempts))

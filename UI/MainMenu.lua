@@ -352,16 +352,6 @@ local NPC_SERVICE_ICONS = {
     ["profession"]  = "Interface\\Icons\\Trade_Engineering",
 }
 
-local NPC_SERVICE_NAMES = {
-    ["innkeeper"]   = "Estalajadeiro",
-    ["banker"]      = "Banqueiro",
-    ["auctioneer"]  = "Leiloeiro",
-    ["flight"]      = "Mestre de Voo",
-    ["repair"]      = "Armeiro / Reparo",
-    ["trainer"]     = "Instrutor de Classe",
-    ["profession"]  = "Instrutor de Profissão",
-}
-
 -- ----------------------------------------------------------------------------
 -- 6.5. SUB-ABAS DE SISTEMA E CONFIGURAÇÕES (FASE 8)
 -- ----------------------------------------------------------------------------
@@ -1374,7 +1364,8 @@ function MainMenu:UpdateEquipmentColumn()
         -- FASE 3 (linguagem): rotulo via CM:T(lkey) em runtime; label cru mantido de fallback.
         local slotLabel = btn.slotData.label
         if btn.slotData.lkey then
-            slotLabel = CM:T(btn.slotData.lkey)
+            local _sl = CM:T(btn.slotData.lkey)
+            if _sl and _sl ~= btn.slotData.lkey then slotLabel = _sl end
         end
         local slotID, emptyTex = GetInventorySlotInfo(slotName)
 
@@ -2163,15 +2154,16 @@ local COMPARE_STAT_KEYS = {
     "dps", "minDmg", "maxDmg", "speed",
 }
 
--- Rotulos curtos PT-BR para o log de debug no chat (Passo 2).
+-- Rotulos curtos para o log de debug no chat (Passo 2): chave interna -> chave de pack.
+-- Resolvidos via CM:T() no display (FormatCompareDiffDebug, runtime). Sem CM:T() no file-level.
 local COMPARE_DEBUG_LABELS = {
-    str = "Força", agi = "Agilidade", sta = "Vigor",
-    int = "Intelecto", spi = "Espírito", armor = "Armadura",
-    hp = "Vida", mana = "Mana",
-    ap = "P. Ataque", hit = "Acerto%", crit = "Crít%",
-    dodge = "Esquiva%", block = "Bloqueio",
-    spellDmg = "Dano Mág.", healing = "Cura",
-    dps = "DPS", minDmg = "DanoMin", maxDmg = "DanoMax", speed = "Veloc.",
+    str = "STAT_STRENGTH", agi = "STAT_AGILITY", sta = "STAT_STAMINA",
+    int = "STAT_INTELLECT", spi = "STAT_SPIRIT", armor = "STAT_ARMOR",
+    hp = "COMPARE_HP_LABEL", mana = "COMPARE_MANA_LABEL",
+    ap = "COMPARE_AP_LABEL", hit = "COMPARE_DEBUG_HIT_LABEL", crit = "COMPARE_CRIT_LABEL",
+    dodge = "COMPARE_DODGE_LABEL", block = "COMPARE_BLOCK_LABEL",
+    spellDmg = "COMPARE_SPELLDMG_LABEL", healing = "COMPARE_HEALING_LABEL",
+    dps = "COMPARE_DEBUG_DPS", minDmg = "COMPARE_DEBUG_MINDMG", maxDmg = "COMPARE_DEBUG_MAXDMG", speed = "COMPARE_DEBUG_SPEED",
 }
 
 -- Resolve o nome do item equipado para o indicador "vs." (Passo 7).
@@ -2365,7 +2357,9 @@ function MainMenu:FormatCompareDiffDebug(diffs)
     for _, key in ipairs(COMPARE_STAT_KEYS) do
         local v = diffs[key]
         if v and v ~= 0 then
-            local label = COMPARE_DEBUG_LABELS[key] or key
+            local packKey = COMPARE_DEBUG_LABELS[key] or key
+            local label = CM:T(packKey)
+            label = string.gsub(label, "^%s+", "")
             local numStr = nil
             if key == "dps" or key == "speed" then
                 numStr = string.format("%+.1f", v)
@@ -3571,11 +3565,14 @@ function MainMenu:CreateDetailCard(parent, config)
 
         -- Subtitulo rico no topo:
         local subParts = {}
-        if slotData and slotData.label then table.insert(subParts, slotData.label) end
+        local _slotLk = slotData and slotData.lkey
+        local _slotLt = _slotLk and CM:T(_slotLk)
+        local _slotLbl = ((_slotLt and _slotLt ~= _slotLk) and _slotLt) or (slotData and slotData.label)
+        if _slotLbl then table.insert(subParts, _slotLbl) end
         if scanned and scanned.subType and scanned.subType ~= "" then
             local st = (ConsoleMode and ConsoleMode.GameLOC_ItemSubType) and ConsoleMode:GameLOC_ItemSubType(scanned.subType) or scanned.subType
             local isDup = false
-            if slotData and slotData.label and (string.lower(st) == string.lower(slotData.label)) then isDup = true end
+            if _slotLbl and (string.lower(st) == string.lower(_slotLbl)) then isDup = true end
             if not isDup then table.insert(subParts, st) end
         end
         if durText then
@@ -5564,8 +5561,11 @@ function MainMenu:GetSpellTabTypeInfo(tabIndex, tabName)
         info.typeLabel = CM:T("SPELL_TAB_TYPE_SPEC")
         info.specIndex = matchedSpec
         local specDef = CFG.Talents and CFG.Talents.Specs and CFG.Talents.Specs[engClass] and CFG.Talents.Specs[engClass][matchedSpec]
-        if specDef and specDef.desc then
-            info.desc = specDef.desc
+        local _sdlk = specDef and specDef.dkey
+        local _sdloc = _sdlk and CM:T(_sdlk)
+        local _sdesc = ((_sdloc and _sdloc ~= _sdlk) and _sdloc) or (specDef and specDef.desc)
+        if _sdesc then
+            info.desc = _sdesc
         else
             info.desc = string.format(CM:T("SPELL_TAB_DESC_SPEC_FMT"), tabName or "", locClass or "")
         end
@@ -11417,19 +11417,6 @@ local NPC_SERVICE_ICONS = {
     ["leader"]      = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
 }
 
-local NPC_SERVICE_NAMES = {
-    ["innkeeper"]   = "Estalajadeiro",
-    ["banker"]      = "Banqueiro",
-    ["auctioneer"]  = "Leiloeiro",
-    ["flight"]      = "Mestre de Voo",
-    ["repair"]      = "Armeiro / Reparo",
-    ["trainer"]     = "Instrutor de Classe",
-    ["profession"]  = "Instrutor de Profissão",
-    ["stable"]      = "Mestre do Estábulo",
-    ["battle"]      = "Mestre de Batalha",
-    ["leader"]      = "Líder",
-}
-
 local CM_SERVICE_CAT_INFO = {
     ["INN"]                 = { cat = "innkeeper",  role = "Estalajadeiro",          rkey = "NPC_ROLE_INNKEEPER",          icon = "Interface\\Icons\\INV_Drink_05", prio = 1 },
     ["BANK"]                = { cat = "banker",     role = "Banqueiro",              rkey = "NPC_ROLE_BANKER",             icon = "Interface\\Icons\\INV_Box_01", prio = 1 },
@@ -11635,7 +11622,8 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             local catKey = sData.cat or "OTHER"
             local info = CM_SERVICE_CAT_INFO[catKey] or CM_SERVICE_CAT_INFO["OTHER"]
             local npcName = (ConsoleMode and ConsoleMode.GetNPCDisplayName and ConsoleMode:GetNPCDisplayName(npcID, sData.name)) or sData.name or "NPC"
-            local npcRole = (ConsoleMode and ConsoleMode.GetNPCRole and ConsoleMode:GetNPCRole(npcID, sData.role)) or sData.role or (info.rkey and CM:T(info.rkey)) or info.role
+            local _rk = info.rkey and CM:T(info.rkey)
+            local npcRole = (((_rk and _rk ~= info.rkey) and _rk) or (ConsoleMode and ConsoleMode.GetNPCRole and ConsoleMode:GetNPCRole(npcID, sData.role)) or sData.role or info.role)
 
             local icon = info.icon
             if info.cat == "flight" and playerFacCode == "H" then
@@ -11650,6 +11638,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                 cat = info.cat,
                 icon = icon,
                 role = npcRole,
+                rkey = info.rkey,
                 prio = info.prio or 5,
             })
         end
@@ -11737,7 +11726,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                 if this.pinData and GameTooltip then
                     GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
                     GameTooltip:AddLine(this.pinData.name, 1, 0.85, 0.2)
-                    GameTooltip:AddLine(this.pinData.role, 1, 1, 1)
+                    GameTooltip:AddLine((this.pinData.rkey and CM:T(this.pinData.rkey)) or this.pinData.role, 1, 1, 1)
                     GameTooltip:AddLine(string.format("|cff888888Coordenadas: %.1f, %.1f|r", this.pinData.x, this.pinData.y))
                     GameTooltip:Show()
                 end
@@ -11843,13 +11832,13 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                             if data.cat == "flight" and playerFacCode == "H" then
                                 btn.icon:SetTexture("Interface\\Icons\\Ability_Mount_Wyvern_01")
                             end
-                            btn.label:SetText("|cffffffff" .. (data.name or "NPC") .. "|r  |cff888888" .. (data.role or "") .. "|r")
+                            btn.label:SetText("|cffffffff" .. (data.name or "NPC") .. "|r  |cff888888" .. ((data.rkey and CM:T(data.rkey)) or data.role or "") .. "|r")
                             btn.pinIdx = idx
                             btn.npcListIdx = shown
                             btn.zoneIdx = shown
                             btn.pinData = data
                             btn.tooltipName = data.name
-                            btn.tooltipRole = data.role
+                            btn.tooltipRole = (data.rkey and CM:T(data.rkey)) or data.role
                             btn:Show()
                         end
                     end
@@ -13305,11 +13294,11 @@ end
 -- ============================================================================
 
 local BINDS_PAGE_INFO = {
-    [1] = { name = "1: Base",  prefix = "Base: ",    desc = "Ações Principais (Sem Modificador)" },
-    [2] = { name = "2: L2",    prefix = "L2 + ",     desc = "Página de Combate L2 (Shift)" },
-    [3] = { name = "3: R1",    prefix = "R1 + ",     desc = "Página de Combate R1 (Ctrl)" },
-    [4] = { name = "4: R2",    prefix = "R2 + ",     desc = "Página de Combate R2 (Alt)" },
-    [5] = { name = "5: L2+R2", prefix = "L2+R2 + ",  desc = "Página de Combate L2+R2 (Shift+Alt)" },
+    [1] = { name = "1: Base",  prefix = "Base: " },
+    [2] = { name = "2: L2",    prefix = "L2 + " },
+    [3] = { name = "3: R1",    prefix = "R1 + " },
+    [4] = { name = "4: R2",    prefix = "R2 + " },
+    [5] = { name = "5: L2+R2", prefix = "L2+R2 + " },
 }
 
 local BINDS_KEY_DEFAULTS = {
@@ -13388,15 +13377,17 @@ function MainMenu:GetBindButtonData(page, btnKey)
     end
 
     local physKey = BINDS_KEY_DEFAULTS[page] and BINDS_KEY_DEFAULTS[page][btnKey]
-    local physName = (physKey and BINDS_PHYS_TKEYS[physKey] and CM:T(BINDS_PHYS_TKEYS[physKey])) or (physKey and BINDS_PHYS_NAMES[physKey]) or physKey or "?"
+    local _pkey = physKey and BINDS_PHYS_TKEYS[physKey]
+    local _pt = _pkey and CM:T(_pkey)
+    local physName = (((_pt and _pt ~= _pkey) and _pt) or (physKey and BINDS_PHYS_NAMES[physKey]) or physKey or "?")
 
     local pInfo = BINDS_PAGE_INFO[page] or { prefix = "" }
     local comboLabel = pInfo.prefix .. btnKey
-    if btnKey == "DUP" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_UP")
-    elseif btnKey == "DDOWN" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_DOWN")
-    elseif btnKey == "DLEFT" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_LEFT_SHORT")
-    elseif btnKey == "DRIGHT" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_RIGHT_SHORT")
-    elseif btnKey == "A" and page == 1 then comboLabel = CM:T("BINDS_A_JUMP")
+    if btnKey == "DUP" then local _t = CM:T("BINDS_DPAD_UP"); comboLabel = pInfo.prefix .. (((_t ~= "BINDS_DPAD_UP") and _t) or "D-Pad Up")
+    elseif btnKey == "DDOWN" then local _t = CM:T("BINDS_DPAD_DOWN"); comboLabel = pInfo.prefix .. (((_t ~= "BINDS_DPAD_DOWN") and _t) or "D-Pad Down")
+    elseif btnKey == "DLEFT" then local _t = CM:T("BINDS_DPAD_LEFT_SHORT"); comboLabel = pInfo.prefix .. (((_t ~= "BINDS_DPAD_LEFT_SHORT") and _t) or "D-Pad Left")
+    elseif btnKey == "DRIGHT" then local _t = CM:T("BINDS_DPAD_RIGHT_SHORT"); comboLabel = pInfo.prefix .. (((_t ~= "BINDS_DPAD_RIGHT_SHORT") and _t) or "D-Pad Right")
+    elseif btnKey == "A" and page == 1 then local _t = CM:T("BINDS_A_JUMP"); comboLabel = (((_t ~= "BINDS_A_JUMP") and _t) or "A (Jump)")
     end
 
     return slot, name, tex, physKey, physName, comboLabel

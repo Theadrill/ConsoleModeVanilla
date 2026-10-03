@@ -405,51 +405,52 @@ CFG.Talents = {
     },
 
     -- Descrições temáticas das especializações por classe (Vanilla 1.12)
+    -- FASE 3 (linguagem): nkey/dkey resolvem via CM:T em runtime; name/desc = fallback.
     Specs = {
         ["WARRIOR"] = {
-            [1] = { name = "Armas", desc = "Mestre do combate corpo-a-corpo tático — foco em armas pesadas de duas mãos, controle de sangramento e golpes avassaladores." },
-            [2] = { name = "Fúria", desc = "Guerreiro berserker selvagem — foco em dano devastador, aceleração contínua de golpes e fúria incontrolável." },
-            [3] = { name = "Proteção", desc = "Bastião inabalável com escudo e armadura pesada — mitigação suprema de dano e controle absoluto de ameaça." },
+            [1] = { name = "Armas", nkey = "SPEC_WARRIOR_1_NAME", desc = "Mestre do combate corpo-a-corpo tático — foco em armas pesadas de duas mãos, controle de sangramento e golpes avassaladores.", dkey = "SPEC_WARRIOR_1_DESC" },
+            [2] = { name = "Fúria", nkey = "SPEC_WARRIOR_2_NAME", desc = "Guerreiro berserker selvagem — foco em dano devastador, aceleração contínua de golpes e fúria incontrolável.", dkey = "SPEC_WARRIOR_2_DESC" },
+            [3] = { name = "Proteção", nkey = "SPEC_WARRIOR_3_NAME", desc = "Bastião inabalável com escudo e armadura pesada — mitigação suprema de dano e controle absoluto de ameaça.", dkey = "SPEC_WARRIOR_3_DESC" },
         },
         ["PALADIN"] = {
-            [1] = { name = "Sagrado", desc = "Invocador da Luz Divina — curas purificadoras, bênçãos de proteção e suporte vital inabalável aos aliados." },
-            [2] = { name = "Proteção", desc = "Guardião sagrado da fé — auras de resistência, bloqueios eficientes e defesa inabalável com escudo." },
-            [3] = { name = "Retribuição", desc = "Cruzado zeloso da justiça — punição divina com armas de duas mãos, selos justiceiros e golpes sagrados." },
+            [1] = { name = "Sagrado", nkey = "SPEC_PALADIN_1_NAME", desc = "Invocador da Luz Divina — curas purificadoras, bênçãos de proteção e suporte vital inabalável aos aliados.", dkey = "SPEC_PALADIN_1_DESC" },
+            [2] = { name = "Proteção", nkey = "SPEC_PALADIN_2_NAME", desc = "Guardião sagrado da fé — auras de resistência, bloqueios eficientes e defesa inabalável com escudo.", dkey = "SPEC_PALADIN_2_DESC" },
+            [3] = { name = "Retribuição", nkey = "SPEC_PALADIN_3_NAME", desc = "Cruzado zeloso da justiça — punição divina com armas de duas mãos, selos justiceiros e golpes sagrados.", dkey = "SPEC_PALADIN_3_DESC" },
         },
         ["HUNTER"] = {
-            [1] = { name = "Domínio das Feras", desc = "Mestre da vida selvagem — ligação primordial com feras domesticadas, amplificando o poder do ajudante." },
-            [2] = { name = "Precisão", desc = "Atirador de elite letal — disparos cirúrgicos de longo alcance com arcos, bestas e armas de fogo." },
-            [3] = { name = "Sobrevivência", desc = "Especialista em sobrevivência no ermo — armadilhas traiçoeiras, mobilidade tática e venenos mortais." },
+            [1] = { name = "Domínio das Feras", nkey = "SPEC_HUNTER_1_NAME", desc = "Mestre da vida selvagem — ligação primordial com feras domesticadas, amplificando o poder do ajudante.", dkey = "SPEC_HUNTER_1_DESC" },
+            [2] = { name = "Precisão", nkey = "SPEC_HUNTER_2_NAME", desc = "Atirador de elite letal — disparos cirúrgicos de longo alcance com arcos, bestas e armas de fogo.", dkey = "SPEC_HUNTER_2_DESC" },
+            [3] = { name = "Sobrevivência", nkey = "SPEC_HUNTER_3_NAME", desc = "Especialista em sobrevivência no ermo — armadilhas traiçoeiras, mobilidade tática e venenos mortais.", dkey = "SPEC_HUNTER_3_DESC" },
         },
         ["ROGUE"] = {
-            [1] = { name = "Assassinato", desc = "Mestre em venenos letais e golpes cirúrgicos — ataques furtivos concentrados que drenam rapidamente a vítima." },
-            [2] = { name = "Combate", desc = "Espadachim destemido e ágil — combate direto com espadas, maças e adagas com grande regeneração de energia." },
-            [3] = { name = "Subterfúgio", desc = "Mestre das sombras e do engano — mobilidade fantasmagórica, ataques surpresa e reposicionamento furtivo." },
+            [1] = { name = "Assassinato", nkey = "SPEC_ROGUE_1_NAME", desc = "Mestre em venenos letais e golpes cirúrgicos — ataques furtivos concentrados que drenam rapidamente a vítima.", dkey = "SPEC_ROGUE_1_DESC" },
+            [2] = { name = "Combate", nkey = "SPEC_ROGUE_2_NAME", desc = "Espadachim destemido e ágil — combate direto com espadas, maças e adagas com grande regeneração de energia.", dkey = "SPEC_ROGUE_2_DESC" },
+            [3] = { name = "Subterfúgio", nkey = "SPEC_ROGUE_3_NAME", desc = "Mestre das sombras e do engano — mobilidade fantasmagórica, ataques surpresa e reposicionamento furtivo.", dkey = "SPEC_ROGUE_3_DESC" },
         },
         ["PRIEST"] = {
-            [1] = { name = "Disciplina", desc = "Fortaleza mental e disciplina espiritual — escudos de absorção, proteção preventiva e fortalecimento interior." },
-            [2] = { name = "Sagrado", desc = "Canalizador puro da Luz Divina — curas profundas, renovações vitais e milagres que salvam o grupo da morte." },
-            [3] = { name = "Sombra", desc = "Manipulador do Vazio e da loucura — feitiços de dano mental contínuo, corrupção da alma e terror psicológico." },
+            [1] = { name = "Disciplina", nkey = "SPEC_PRIEST_1_NAME", desc = "Fortaleza mental e disciplina espiritual — escudos de absorção, proteção preventiva e fortalecimento interior.", dkey = "SPEC_PRIEST_1_DESC" },
+            [2] = { name = "Sagrado", nkey = "SPEC_PRIEST_2_NAME", desc = "Canalizador puro da Luz Divina — curas profundas, renovações vitais e milagres que salvam o grupo da morte.", dkey = "SPEC_PRIEST_2_DESC" },
+            [3] = { name = "Sombra", nkey = "SPEC_PRIEST_3_NAME", desc = "Manipulador do Vazio e da loucura — feitiços de dano mental contínuo, corrupção da alma e terror psicológico.", dkey = "SPEC_PRIEST_3_DESC" },
         },
         ["SHAMAN"] = {
-            [1] = { name = "Elemental", desc = "Invocador da fúria da natureza — magias devastadoras de raio, terra e fogo com alto dano de impacto à distância." },
-            [2] = { name = "Aperfeiçoamento", desc = "Combatente corpo-a-corpo totemico — armas imbuídas pelos espíritos dos elementos com golpes furiosos." },
-            [3] = { name = "Restauração", desc = "Curador das águas sagradas e ancestrais — cura em cadeia profunda, purificação e sustentação de grupo." },
+            [1] = { name = "Elemental", nkey = "SPEC_SHAMAN_1_NAME", desc = "Invocador da fúria da natureza — magias devastadoras de raio, terra e fogo com alto dano de impacto à distância.", dkey = "SPEC_SHAMAN_1_DESC" },
+            [2] = { name = "Aperfeiçoamento", nkey = "SPEC_SHAMAN_2_NAME", desc = "Combatente corpo-a-corpo totemico — armas imbuídas pelos espíritos dos elementos com golpes furiosos.", dkey = "SPEC_SHAMAN_2_DESC" },
+            [3] = { name = "Restauração", nkey = "SPEC_SHAMAN_3_NAME", desc = "Curador das águas sagradas e ancestrais — cura em cadeia profunda, purificação e sustentação de grupo.", dkey = "SPEC_SHAMAN_3_DESC" },
         },
         ["MAGE"] = {
-            [1] = { name = "Arcano", desc = "Mestre das energias puras do Cosmos — manipulação do fluxo de mana, aceleração temporal e dano arcano bruto." },
-            [2] = { name = "Fogo", desc = "Mago incendiário devastador — queimaduras contínuas, explosões incandescentes e altos picos de acerto crítico." },
-            [3] = { name = "Gélido", desc = "Comandante do gelo eterno — barreiras congelantes, desacelerações de campo e sobrevivência absoluta." },
+            [1] = { name = "Arcano", nkey = "SPEC_MAGE_1_NAME", desc = "Mestre das energias puras do Cosmos — manipulação do fluxo de mana, aceleração temporal e dano arcano bruto.", dkey = "SPEC_MAGE_1_DESC" },
+            [2] = { name = "Fogo", nkey = "SPEC_MAGE_2_NAME", desc = "Mago incendiário devastador — queimaduras contínuas, explosões incandescentes e altos picos de acerto crítico.", dkey = "SPEC_MAGE_2_DESC" },
+            [3] = { name = "Gélido", nkey = "SPEC_MAGE_3_NAME", desc = "Comandante do gelo eterno — barreiras congelantes, desacelerações de campo e sobrevivência absoluta.", dkey = "SPEC_MAGE_3_DESC" },
         },
         ["WARLOCK"] = {
-            [1] = { name = "Aflição", desc = "Mestre das maldições e agonia lenta — feitiços de dano periódico corrosivo que drenam a vitalidade do alvo." },
-            [2] = { name = "Demonologia", desc = "Comandante da Legião — invocação e fortalecimento de servos demoníacos para esmagar seus oponentes." },
-            [3] = { name = "Destruição", desc = "Conjurador do fogo caótico vil — feitiços explosivos de impacto imediato e aniquilação incandescente." },
+            [1] = { name = "Aflição", nkey = "SPEC_WARLOCK_1_NAME", desc = "Mestre das maldições e agonia lenta — feitiços de dano periódico corrosivo que drenam a vitalidade do alvo.", dkey = "SPEC_WARLOCK_1_DESC" },
+            [2] = { name = "Demonologia", nkey = "SPEC_WARLOCK_2_NAME", desc = "Comandante da Legião — invocação e fortalecimento de servos demoníacos para esmagar seus oponentes.", dkey = "SPEC_WARLOCK_2_DESC" },
+            [3] = { name = "Destruição", nkey = "SPEC_WARLOCK_3_NAME", desc = "Conjurador do fogo caótico vil — feitiços explosivos de impacto imediato e aniquilação incandescente.", dkey = "SPEC_WARLOCK_3_DESC" },
         },
         ["DRUID"] = {
-            [1] = { name = "Equilíbrio", desc = "Canalizador das forças astrais e da natureza — feitiços solares e lunares com a Forma de Luniscélio ancestral." },
-            [2] = { name = "Feral", desc = "Predador mutamorfo — combate feroz como Urso para defesa tenaz ou Felino para ataques furtivos." },
-            [3] = { name = "Restauração", desc = "Guardião da cura e da vida — regeneração contínua de saúde por feitiços sobre o tempo e bênçãos do Sonho." },
+            [1] = { name = "Equilíbrio", nkey = "SPEC_DRUID_1_NAME", desc = "Canalizador das forças astrais e da natureza — feitiços solares e lunares com a Forma de Luniscélio ancestral.", dkey = "SPEC_DRUID_1_DESC" },
+            [2] = { name = "Feral", nkey = "SPEC_DRUID_2_NAME", desc = "Predador mutamorfo — combate feroz como Urso para defesa tenaz ou Felino para ataques furtivos.", dkey = "SPEC_DRUID_2_DESC" },
+            [3] = { name = "Restauração", nkey = "SPEC_DRUID_3_NAME", desc = "Guardião da cura e da vida — regeneração contínua de saúde por feitiços sobre o tempo e bênçãos do Sonho.", dkey = "SPEC_DRUID_3_DESC" },
         },
     }
 }
@@ -1126,7 +1127,7 @@ function MainMenu:CreatePlayerModel(leftPanel)
         local nameText = infoBox:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
         nameText:SetPoint("TOP", infoBox, "TOP", 0, 0)
         MainMenu:ApplyFont(nameText, CFG.Fonts.titleFontFile, CFG.Fonts.playerNameSize)
-        nameText:SetText(UnitName("player") or "Jogador")
+        nameText:SetText(UnitName("player") or CM:T("PLAYER_NAME_FALLBACK"))
 
         local subText = infoBox:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
         subText:SetPoint("TOP", nameText, "BOTTOM", 0, -2)
@@ -1164,7 +1165,7 @@ function MainMenu:UpdatePlayerModel()
     self.playerModel.isWearingTryOn = false
 
     if self.playerModel.nameText then
-        local pName = UnitName("player") or "Jogador"
+        local pName = UnitName("player") or CM:T("PLAYER_NAME_FALLBACK")
         self.playerModel.nameText:SetText("|cffe09a15" .. pName .. "|r")
     end
 
@@ -1175,9 +1176,9 @@ function MainMenu:UpdatePlayerModel()
         local level = UnitLevel("player") or 1
 
         if guildName then
-            self.playerModel.subText:SetText("|cffd48c08<" .. guildName .. ">|r  |cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
+            self.playerModel.subText:SetText("|cffd48c08<" .. guildName .. ">|r  |cffffffff" .. CM:T("LEVEL_ABBR") .. level .. " " .. race .. " " .. class .. "|r")
         else
-            self.playerModel.subText:SetText("|cffffffffNv " .. level .. " " .. race .. " " .. class .. "|r")
+            self.playerModel.subText:SetText("|cffffffff" .. CM:T("LEVEL_ABBR") .. level .. " " .. race .. " " .. class .. "|r")
         end
     end
 end
@@ -2359,7 +2360,7 @@ end
 -- Formata diffs para o log de debug no chat (ex: "Força +12, Vigor -5").
 -- Temporario do Passo 2; a UI do Passo 3+ usa formato proprio.
 function MainMenu:FormatCompareDiffDebug(diffs)
-    if not diffs then return "(sem diff)" end
+    if not diffs then return CM:T("COMPARE_DEBUG_NODIFF") end
     local parts = {}
     for _, key in ipairs(COMPARE_STAT_KEYS) do
         local v = diffs[key]
@@ -2374,7 +2375,7 @@ function MainMenu:FormatCompareDiffDebug(diffs)
             table.insert(parts, label .. " " .. numStr)
         end
     end
-    if table.getn(parts) == 0 then return "(stats iguais)" end
+    if table.getn(parts) == 0 then return CM:T("COMPARE_DEBUG_EQUAL") end
     return table.concat(parts, ", ")
 end
 
@@ -2529,26 +2530,26 @@ local function Compare_FormatSecondary(key, diffs, newStats, oldStats)
         local d = diffs.dps
         if not d or d == 0 then return nil end
         green = d > 0
-        text = "DPS: " .. Compare_FormatDec(newStats.dps, 1)
+        text = CM:T("COMPARE_DPS_LABEL") .. Compare_FormatDec(newStats.dps, 1)
             .. " (" .. Compare_SignedDec(d, 1) .. ")"
     elseif key == "damage" then
         local dm = diffs.minDmg or 0
         local dx = diffs.maxDmg or 0
         if dm == 0 and dx == 0 then return nil end
         green = (dm + dx) > 0
-        text = "Dano: " .. (newStats.minDmg or 0) .. "-" .. (newStats.maxDmg or 0)
+        text = CM:T("COMPARE_DAMAGE_LABEL") .. (newStats.minDmg or 0) .. "-" .. (newStats.maxDmg or 0)
             .. " (" .. Compare_SignedInt(dm) .. Compare_SignedInt(dx) .. ")"
     elseif key == "speed" then
         local d = diffs.speed
         if not d or d == 0 then return nil end
         green = d > 0
-        text = "Velocidade: " .. Compare_FormatDec(newStats.speed, 2)
+        text = CM:T("COMPARE_SPEED_LABEL") .. Compare_FormatDec(newStats.speed, 2)
             .. " (" .. Compare_SignedDec(d, 2) .. ")"
     elseif key == "ap" then
         local d = diffs.ap
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. " Poder de Ataque"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_AP_LABEL")
     elseif key == "hit" then
         local d = diffs.hit
         if not d or d == 0 then return nil end
@@ -2558,44 +2559,44 @@ local function Compare_FormatSecondary(key, diffs, newStats, oldStats)
         local d = diffs.crit
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. "% Crítico"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_CRIT_LABEL")
     elseif key == "dodge" then
         local d = diffs.dodge
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. "% Esquiva"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_DODGE_LABEL")
     elseif key == "block" then
         -- NOTA: o parser unifica "% Bloqueio" e "+N Bloqueio" (valor), entao
         -- a linha sai sem "%" para nao afirmar a unidade errada.
         local d = diffs.block
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. " Bloqueio"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_BLOCK_LABEL")
     elseif key == "armor" then
         local d = diffs.armor
         if not d or d == 0 then return nil end
         green = d > 0
-        text = "Armadura: " .. Compare_SignedInt(d)
+        text = CM:T("COMPARE_ARMOR_LABEL") .. Compare_SignedInt(d)
     elseif key == "spellDmg" then
         local d = diffs.spellDmg
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. " Dano Mágico"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_SPELLDMG_LABEL")
     elseif key == "healing" then
         local d = diffs.healing
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. " Cura"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_HEALING_LABEL")
     elseif key == "hp" then
         local d = diffs.hp
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. " Vida"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_HP_LABEL")
     elseif key == "mana" then
         local d = diffs.mana
         if not d or d == 0 then return nil end
         green = d > 0
-        text = Compare_SignedInt(d) .. " Mana"
+        text = Compare_SignedInt(d) .. CM:T("COMPARE_MANA_LABEL")
     else
         return nil
     end
@@ -2619,11 +2620,13 @@ local COMPARE_COMPACT_ORDER = {
     "spellDmg", "healing", "dps", "damage", "speed",
 }
 
-local COMPARE_COMPACT_ABBR = {
-    str = "For", agi = "Agi", sta = "Vigor", int = "Int", spi = "Esp",
-    armor = "Armadura", hp = "Vida", mana = "Mana",
-    ap = "AP", hit = "Hit%", crit = "Crit%", dodge = "Esquiva", block = "Bloq",
-    spellDmg = "Dano Mág", healing = "Cura", dps = "DPS", speed = "Vel",
+local COMPARE_COMPACT_ABBR_KEY = {
+    str = "COMPARE_ABBR_STR", agi = "COMPARE_ABBR_AGI", sta = "COMPARE_ABBR_STA",
+    int = "COMPARE_ABBR_INT", spi = "COMPARE_ABBR_SPI",
+    armor = "COMPARE_ABBR_ARMOR", hp = "COMPARE_ABBR_HP", mana = "COMPARE_ABBR_MANA",
+    ap = "COMPARE_ABBR_AP", hit = "COMPARE_ABBR_HIT", crit = "COMPARE_ABBR_CRIT",
+    dodge = "COMPARE_ABBR_DODGE", block = "COMPARE_ABBR_BLOCK",
+    spellDmg = "COMPARE_ABBR_SPELLDMG", healing = "COMPARE_ABBR_HEALING",
 }
 
 -- Monta o corpo compacto ("+1 Int, -6 AP" com cores inline) ou nil se vazio.
@@ -2636,28 +2639,28 @@ local function Compare_FormatCompactDiffs(diffs)
             local dm = diffs.minDmg or 0
             local dx = diffs.maxDmg or 0
             if dm ~= 0 or dx ~= 0 then
-                local s = Compare_SignedInt(dm) .. Compare_SignedInt(dx) .. " Dano"
+                local s = Compare_SignedInt(dm) .. Compare_SignedInt(dx) .. CM:T("COMPARE_ABBR_DAMAGE")
                 if (dm + dx) > 0 then seg = "|cff33ff33" .. s .. "|r"
                 else seg = "|cffff4444" .. s .. "|r" end
             end
         elseif key == "dps" then
             local d = diffs.dps
             if d and d ~= 0 then
-                local s = Compare_SignedDec(d, 1) .. " DPS"
+                local s = Compare_SignedDec(d, 1) .. CM:T("COMPARE_ABBR_DPS")
                 if d > 0 then seg = "|cff33ff33" .. s .. "|r"
                 else seg = "|cffff4444" .. s .. "|r" end
             end
         elseif key == "speed" then
             local d = diffs.speed
             if d and d ~= 0 then
-                local s = Compare_SignedDec(d, 2) .. " Vel"
+                local s = Compare_SignedDec(d, 2) .. CM:T("COMPARE_ABBR_SPEED")
                 if d > 0 then seg = "|cff33ff33" .. s .. "|r"
                 else seg = "|cffff4444" .. s .. "|r" end
             end
         else
             local d = diffs[key]
             if d and d ~= 0 then
-                local s = Compare_SignedInt(d) .. " " .. (COMPARE_COMPACT_ABBR[key] or key)
+                local s = Compare_SignedInt(d) .. " " .. CM:T(COMPARE_COMPACT_ABBR_KEY[key] or key)
                 if d > 0 then seg = "|cff33ff33" .. s .. "|r"
                 else seg = "|cffff4444" .. s .. "|r" end
             end
@@ -2701,14 +2704,14 @@ function MainMenu:ShowCompareSection(diffResult)
             if labelLine and bodyLine then
                 local body = nil
                 if not entry.equippedLink then
-                    body = "|cff888888(slot vazio)|r"
+                    body = CM:T("COMPARE_SLOT_EMPTY")
                 else
                     -- Wrap nativo da engine (largura fixa no pool): passa o
                     -- texto direto, sem quebra manual.
                     body = Compare_FormatCompactDiffs(entry.diffs)
-                        or "|cff888888(stats iguais)|r"
+                        or CM:T("COMPARE_EQUAL")
                 end
-                labelLine:SetText("|cffffffff↳ Slot " .. idx .. ":|r")
+                labelLine:SetText(string.format(CM:T("COMPARE_SLOT_FMT"), idx))
                 labelLine:Show()
                 bodyLine:SetText("  " .. body)
                 bodyLine:Show()
@@ -2737,7 +2740,7 @@ function MainMenu:ShowCompareSection(diffResult)
         if shown == 0 then
             shown = 1
             if sec.lines[1] then
-                sec.lines[1]:SetText("|cff888888(stats iguais)|r")
+                sec.lines[1]:SetText(CM:T("COMPARE_EQUAL"))
                 sec.lines[1]:Show()
                 lastLine = sec.lines[1]
             end
@@ -3231,10 +3234,10 @@ function MainMenu:CreateDetailCard(parent, config)
             end
         end
         if durCur and durMax then
-            table.insert(subParts, "Dur. " .. durCur .. "/" .. durMax)
+            table.insert(subParts, CM:T("ITEM_DURABILITY_PREFIX") .. durCur .. "/" .. durMax)
         end
-        if isSoulbound then table.insert(subParts, "|cffffd100Vinculado|r") end
-        if isUnique then table.insert(subParts, "|cffffd100Único|r") end
+        if isSoulbound then table.insert(subParts, CM:T("ITEM_SOULBOUND_TAG")) end
+        if isUnique then table.insert(subParts, CM:T("ITEM_UNIQUE_TAG")) end
         -- FASE 4 (tag da bag): item de bag especial ganha tag colorida no subtipo.
         -- Bag normal (nil/"NORMAL") não mostra nada: card pixel-idêntico.
         if itemData.bagKind and itemData.bagKind ~= "NORMAL" then
@@ -3253,9 +3256,9 @@ function MainMenu:CreateDetailCard(parent, config)
             -- FASE 14b: requisito nao atendido -> nivel em vermelho.
             local pLevel = UnitLevel("player") or 0
             if itemData.reqLevelRed or rLevel > pLevel then
-                table.insert(subParts, "|cffff2020Req. Nv " .. rLevel .. "|r")
+                table.insert(subParts, string.format(CM:T("ITEM_REQLVL_RED_FMT"), rLevel))
             else
-                table.insert(subParts, "Req. Nv " .. rLevel)
+                table.insert(subParts, string.format(CM:T("ITEM_REQLVL_FMT"), rLevel))
             end
         end
         self.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
@@ -3474,8 +3477,8 @@ function MainMenu:CreateDetailCard(parent, config)
         -- 6. Rodape e Atualizacoes Finais
         if self.sellWidget then self.sellWidget:Hide() end
         if self.slotsFreeText then
-            local locTab = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(spellData.tabName) or (spellData.tabName or "Geral")
-            self.slotsFreeText:SetText("|cffe09a15Grimório:|r |cffffffff" .. locTab .. "|r")
+            local locTab = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(spellData.tabName) or (spellData.tabName or CM:T("SPELL_TAB_GENERAL_FALLBACK"))
+            self.slotsFreeText:SetText(string.format(CM:T("DETAIL_SPELLBOOK_LABEL_FMT"), locTab))
         end
         self:UpdateMoney()
         self:Show()
@@ -3579,10 +3582,10 @@ function MainMenu:CreateDetailCard(parent, config)
             local locDur = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(durText) or durText
             table.insert(subParts, locDur)
         end
-        if isSoulbound then table.insert(subParts, "|cffffd100Vinculado|r") end
-        if isUnique then table.insert(subParts, "|cffffd100Único|r") end
+        if isSoulbound then table.insert(subParts, CM:T("ITEM_SOULBOUND_TAG")) end
+        if isUnique then table.insert(subParts, CM:T("ITEM_UNIQUE_TAG")) end
         if scanned and scanned.reqLevel and tonumber(scanned.reqLevel) > 1 then
-            table.insert(subParts, "Req. Nv " .. scanned.reqLevel)
+            table.insert(subParts, string.format(CM:T("ITEM_REQLVL_FMT"), scanned.reqLevel))
         end
         self.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
 
@@ -4820,7 +4823,7 @@ function MainMenu:SetupBagsPage(pageBags)
     local pageText = pageNav:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     pageText:SetPoint("CENTER", pageNav, "CENTER", 0, 0)
     MainMenu:ApplyFont(pageText, CFG.Fonts.subFontFile, 13)
-    pageText:SetText("|cffaaaaaaPág.|r |cffffffff1 / 1|r")
+    pageText:SetText(CM:T("PAGINATION_LABEL_INIT"))
     pageBags.pageText = pageText
 
     local nextPageBtn = CreateFrame("Button", nil, pageNav)
@@ -4877,7 +4880,7 @@ function MainMenu:SetupBagsPage(pageBags)
     local sortTxt = sortBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     sortTxt:SetPoint("CENTER", sortBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(sortTxt, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
-    sortTxt:SetText("|cffe09a15Organizar|r")
+    sortTxt:SetText(CM:T("BAGS_SORT_BUTTON"))
 
     -- Ícone do botão X (Xbox) indicando o atalho de organização
     local xTexCoord = sortBtn:CreateTexture(nil, "ARTWORK")
@@ -4905,7 +4908,7 @@ function MainMenu:SetupBagsPage(pageBags)
             if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
         else
             if DEFAULT_CHAT_FRAME then
-                DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Addon SortBag não encontrado — ORGANIZAR indisponível.")
+                DEFAULT_CHAT_FRAME:AddMessage(CM:T("BAGS_SORT_MISSING_MSG"))
             end
         end
     end)
@@ -5055,7 +5058,7 @@ function MainMenu:UpdateBagsPage(keepPage)
     -- Atualiza texto e controles de página acima do DetailCard
     if pageBags.pageText and pageBags.pageNav then
         if totalPages > 1 then
-            pageBags.pageText:SetText(string.format("|cffaaaaaaPág.|r |cffffffff%d / %d|r", curPage, totalPages))
+            pageBags.pageText:SetText(string.format(CM:T("PAGINATION_LABEL_FMT"), curPage, totalPages))
             pageBags.pageNav:Show()
         else
             pageBags.pageNav:Hide()
@@ -5231,7 +5234,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
     local detailCard = self:CreateDetailCard(pageSpells)
     pageSpells.detailCard = detailCard
     if detailCard.slotsFreeText then
-        detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Grimório 1.12|r")
+        detailCard.slotsFreeText:SetText(CM:T("SPELLS_MODE_LABEL"))
     end
     if detailCard.sellWidget then
         detailCard.sellWidget:Hide()
@@ -5253,7 +5256,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
     local headerTitle = topHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", topHeader, "LEFT", 4, 0)
     MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15)
-    headerTitle:SetText("|cffe09a15GRIMÓRIO & HABILIDADES|r")
+    headerTitle:SetText(CM:T("SPELLS_HEADER_TITLE"))
     catScreen.headerTitle = headerTitle
 
     local totalSpellsText = topHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -5272,13 +5275,13 @@ function MainMenu:SetupSpellsPage(pageSpells)
     local promptTitle = catScreen:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     promptTitle:SetPoint("TOP", topHeader, "BOTTOM", 0, -14)
     MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 17)
-    promptTitle:SetText("|cffe09a15Escolha uma Especialização ou Categoria|r")
+    promptTitle:SetText(CM:T("SPELLS_PROMPT_TITLE"))
     catScreen.promptTitle = promptTitle
 
     local promptSub = catScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     promptSub:SetPoint("TOP", promptTitle, "BOTTOM", 0, -4)
     MainMenu:ApplyFont(promptSub, CFG.Fonts.subFontFile, 12)
-    promptSub:SetText("|cffaaaaaaNavegue com [D-Pad] ou [LT]/[RT] e selecione uma categoria do grimório|r")
+    promptSub:SetText(CM:T("SPELLS_PROMPT_SUB"))
     catScreen.promptSub = promptSub
 
     -- 2.3. Container dos Cards de Categoria
@@ -5327,7 +5330,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
     local backTxt = backBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     backTxt:SetPoint("CENTER", backBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(backTxt, CFG.Fonts.headerFontFile, 13)
-    backTxt:SetText("|cffe09a15[B] Voltar|r")
+    backTxt:SetText(CM:T("SPELLS_BACK_BUTTON"))
     backBtn:SetScript("OnClick", function()
         MainMenu:HandleSpellsBack()
     end)
@@ -5336,7 +5339,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
     local gridFooterHint = gridScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     gridFooterHint:SetPoint("LEFT", backBtn, "RIGHT", 14, 0)
     MainMenu:ApplyFont(gridFooterHint, CFG.Fonts.subFontFile, 11)
-    gridFooterHint:SetText("|cff888888[D-Pad] Navegar  •  [A] Lançar Magia  •  [B] Voltar|r")
+    gridFooterHint:SetText(CM:T("SPELLS_FOOTER_HINT"))
     gridScreen.footerHint = gridFooterHint
 
     -- 3.3. Navegação de Páginas do Grimório
@@ -5366,7 +5369,7 @@ function MainMenu:SetupSpellsPage(pageSpells)
     local pageText = pageNav:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     pageText:SetPoint("CENTER", pageNav, "CENTER", 0, 0)
     MainMenu:ApplyFont(pageText, CFG.Fonts.subFontFile, 13)
-    pageText:SetText("|cffaaaaaaPág.|r |cffffffff1 / 1|r")
+    pageText:SetText(CM:T("PAGINATION_LABEL_INIT"))
     pageSpells.pageText = pageText
 
     local nextPageBtn = CreateFrame("Button", nil, pageNav)
@@ -5436,7 +5439,7 @@ end
 function MainMenu:GetSpellTabTypeInfo(tabIndex, tabName)
     local info = {
         tabType = "OTHER",
-        typeLabel = "|cffaaaaaa[ Magias ]|r",
+        typeLabel = CM:T("SPELL_TAB_TYPE_SPELLS"),
         specIndex = nil,
         desc = "",
     }
@@ -5447,8 +5450,8 @@ function MainMenu:GetSpellTabTypeInfo(tabIndex, tabName)
     -- 1. Aba Geral
     if tabIndex == 1 or string.find(nameLower, "general") or string.find(nameLower, "geral") then
         info.tabType = "GENERAL"
-        info.typeLabel = "|cffaaaaaa[ Geral ]|r"
-        info.desc = "Habilidades gerais do personagem, ataques com armas, raciais e receitas de profissões aprendidas."
+        info.typeLabel = CM:T("SPELL_TAB_TYPE_GENERAL")
+        info.desc = CM:T("SPELL_TAB_DESC_GENERAL")
         return info
     end
 
@@ -5464,13 +5467,13 @@ function MainMenu:GetSpellTabTypeInfo(tabIndex, tabName)
 
     if isPet then
         info.tabType = "PET"
-        info.typeLabel = "|cffaaaaaa[ Ajudante ]|r"
+        info.typeLabel = CM:T("SPELL_TAB_TYPE_COMPANION")
         if string.find(nameLower, "companion") or string.find(nameLower, "mascote") then
-            info.desc = "Mascotes e companheiros pacíficos que acompanham o personagem em suas jornadas."
+            info.desc = CM:T("SPELL_TAB_DESC_COMPANION")
         elseif string.find(nameLower, "mount") or string.find(nameLower, "montaria") then
-            info.desc = "Montarias do personagem para locomoção e viagens rápidas pelo mundo."
+            info.desc = CM:T("SPELL_TAB_DESC_MOUNT")
         else
-            info.desc = "Habilidades, comandos e magias específicas do seu ajudante ou lacaio de combate."
+            info.desc = CM:T("SPELL_TAB_DESC_PET")
         end
         return info
     end
@@ -5558,21 +5561,21 @@ function MainMenu:GetSpellTabTypeInfo(tabIndex, tabName)
 
     if matchedSpec then
         info.tabType = "SPEC"
-        info.typeLabel = "|cffaaaaaa[ Especialização ]|r"
+        info.typeLabel = CM:T("SPELL_TAB_TYPE_SPEC")
         info.specIndex = matchedSpec
         local specDef = CFG.Talents and CFG.Talents.Specs and CFG.Talents.Specs[engClass] and CFG.Talents.Specs[engClass][matchedSpec]
         if specDef and specDef.desc then
             info.desc = specDef.desc
         else
-            info.desc = string.format("Grimório e habilidades de especialização %s para a classe %s.", tabName or "", locClass or "")
+            info.desc = string.format(CM:T("SPELL_TAB_DESC_SPEC_FMT"), tabName or "", locClass or "")
         end
         return info
     end
 
     -- 4. Fallback genérico para abas adicionais
     info.tabType = "OTHER"
-    info.typeLabel = "|cffaaaaaa[ Magias ]|r"
-    info.desc = string.format("Grimório e habilidades da categoria %s para a classe %s.", tabName or ("Aba " .. tabIndex), locClass or "")
+    info.typeLabel = CM:T("SPELL_TAB_TYPE_SPELLS")
+    info.desc = string.format(CM:T("SPELL_TAB_DESC_OTHER_FMT"), tabName or (CM:T("SPELL_TAB_FALLBACK") .. tabIndex), locClass or "")
     return info
 end
 
@@ -5591,7 +5594,7 @@ function MainMenu:UpdateSpellCategories()
         totalSpells = totalSpells + (tabData.numSpells or 0)
     end
     if pageSpells.totalSpellsText then
-        pageSpells.totalSpellsText:SetText(string.format("|cffaaaaaaTotal de Magias: |cffffffff%d|r", totalSpells))
+        pageSpells.totalSpellsText:SetText(string.format(CM:T("SPELLS_TOTAL_FMT"), totalSpells))
     end
 
     local catContainer = pageSpells.catScreen.catContainer
@@ -5737,9 +5740,9 @@ function MainMenu:UpdateSpellCategories()
 
             btn.catIndex = i
             btn.tabData = tabData
-            local locCatName = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(tabData.name) or (tabData.name or ("Aba " .. i))
+            local locCatName = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(tabData.name) or (tabData.name or (CM:T("SPELL_TAB_FALLBACK") .. i))
             btn.catName:SetText(locCatName)
-            btn.spellsCount:SetText(string.format("|cffe09a15%d magias|r", tabData.numSpells or 0))
+            btn.spellsCount:SetText(string.format(CM:T("SPELL_COUNT_FMT"), tabData.numSpells or 0))
             if tabData.icon and tabData.icon ~= "" then
                 btn.catIcon:SetTexture(tabData.icon)
             else
@@ -5785,7 +5788,7 @@ function MainMenu:FocusSpellCategoryButton(idx)
     end
 
     local name, icon, offset, numSpells = GetSpellTabInfo(idx)
-    name = name or ("Categoria " .. idx)
+    name = name or (CM:T("SPELL_CATEGORY_FALLBACK") .. idx)
     local locTabName = (ConsoleMode and ConsoleMode.GameLOC_Skill) and ConsoleMode:GameLOC_Skill(name) or name
     icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark"
     numSpells = numSpells or 0
@@ -5806,7 +5809,7 @@ function MainMenu:FocusSpellCategoryButton(idx)
         pageSpells.detailCard.titleText:ClearAllPoints()
         pageSpells.detailCard.titleText:SetPoint("TOPLEFT", pageSpells.detailCard.icon, "TOPRIGHT", 10, 0)
         pageSpells.detailCard.titleText:SetPoint("RIGHT", pageSpells.detailCard, "RIGHT", -10, 0)
-        pageSpells.detailCard.titleText:SetText(string.format("|cffe09a15Categoria: %s|r", locTabName))
+        pageSpells.detailCard.titleText:SetText(string.format(CM:T("SPELL_DETAIL_CATEGORY_TITLE_FMT"), locTabName))
 
         pageSpells.detailCard.typeText:ClearAllPoints()
         pageSpells.detailCard.typeText:SetPoint("TOPLEFT", pageSpells.detailCard.titleText, "BOTTOMLEFT", 0, -2)
@@ -5814,13 +5817,13 @@ function MainMenu:FocusSpellCategoryButton(idx)
         pageSpells.detailCard.typeText:Show()
 
         if tabTypeInfo.tabType == "PET" then
-            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaAjudante / Mascote — ConsoleMode Vanilla|r"))
+            pageSpells.detailCard.typeText:SetText(string.format(CM:T("SPELL_TYPE_PET")))
         elseif tabTypeInfo.tabType == "GENERAL" then
-            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaHabilidades Gerais — ConsoleMode Vanilla|r"))
+            pageSpells.detailCard.typeText:SetText(string.format(CM:T("SPELL_TYPE_GENERAL")))
         elseif tabTypeInfo.tabType == "SPEC" and tabTypeInfo.specIndex then
-            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaEspecialização %d de 3 — ConsoleMode Vanilla|r", tabTypeInfo.specIndex))
+            pageSpells.detailCard.typeText:SetText(string.format(CM:T("SPELL_TYPE_SPEC_FMT"), tabTypeInfo.specIndex))
         else
-            pageSpells.detailCard.typeText:SetText(string.format("|cffaaaaaaCategoria %d de %d — ConsoleMode Vanilla|r", idx, numTabs))
+            pageSpells.detailCard.typeText:SetText(string.format(CM:T("SPELL_TYPE_CATEGORY_COUNT_FMT"), idx, numTabs))
         end
 
         pageSpells.detailCard.descColLeft:ClearAllPoints()
@@ -5830,10 +5833,10 @@ function MainMenu:FocusSpellCategoryButton(idx)
         pageSpells.detailCard.descColLeft:SetText(desc)
         pageSpells.detailCard.descColLeft:Show()
 
-        pageSpells.detailCard.descColRight:SetText(string.format("|cffaaaaaaMagias aprendidas: |cffffffff%d magias|r\n\n|cffe09a15Pressione [A] para abrir grimório|r", numSpells))
+        pageSpells.detailCard.descColRight:SetText(string.format(CM:T("SPELL_DETAIL_HINT_FMT"), numSpells))
         pageSpells.detailCard.descColRight:Show()
         if pageSpells.detailCard.slotsFreeText then
-            pageSpells.detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Grimório 1.12|r")
+            pageSpells.detailCard.slotsFreeText:SetText(CM:T("SPELLS_MODE_LABEL"))
         end
         if pageSpells.detailCard.sellWidget then
             pageSpells.detailCard.sellWidget:Hide()
@@ -6025,7 +6028,7 @@ function MainMenu:UpdateSpellsPage(keepPage)
     pageSpells.currentPage = curPage
 
     if pageSpells.pageText then
-        pageSpells.pageText:SetText(string.format("|cffaaaaaaPág.|r |cffffffff%d / %d|r", curPage, totalPages))
+        pageSpells.pageText:SetText(string.format(CM:T("PAGINATION_LABEL_FMT"), curPage, totalPages))
     end
     if pageSpells.pageNav then
         if totalPages > 1 then
@@ -6263,17 +6266,35 @@ function MainMenu:GetTalentSpecData(tabIndex)
     local defaultSpec = classSpecs and classSpecs[tabIndex]
 
     local activeLang = CM and CM.GetActiveLangId and CM:GetActiveLangId()
-    if activeLang and activeLang ~= "enUS" and defaultSpec and defaultSpec.name then
+    -- FASE 3 (linguagem): nome via nkey (runtime, respeita fallback enUS);
+    -- literal da tabela e nome do cliente como fallbacks.
+    if defaultSpec and defaultSpec.nkey then
+        local nloc = CM:T(defaultSpec.nkey)
+        if nloc and nloc ~= "" and nloc ~= defaultSpec.nkey then
+            name = nloc
+        elseif (not name or name == "") and defaultSpec.name then
+            name = defaultSpec.name
+        end
+    elseif activeLang and activeLang ~= "enUS" and defaultSpec and defaultSpec.name then
         name = defaultSpec.name
     elseif not name or name == "" then
-        name = (defaultSpec and defaultSpec.name) or ("Especialização " .. tabIndex)
+        name = (defaultSpec and defaultSpec.name) or (CM:T("TALENT_SPEC_FALLBACK_NAME") .. tabIndex)
     end
     if not icon or icon == "" then
         icon = "Interface\\Icons\\Spell_Nature_Lightning"
     end
     pointsSpent = pointsSpent or 0
 
-    local desc = (defaultSpec and defaultSpec.desc) or ("Especialização " .. tabIndex .. " da classe " .. (locClass or "") .. ". Distribua seus talentos nesta árvore para desbloquear habilidades exclusivas.")
+    local desc = nil
+    if defaultSpec and defaultSpec.dkey then
+        local dloc = CM:T(defaultSpec.dkey)
+        if dloc and dloc ~= "" and dloc ~= defaultSpec.dkey then
+            desc = dloc
+        end
+    end
+    if not desc or desc == "" then
+        desc = (defaultSpec and defaultSpec.desc) or (string.format(CM:T("TALENT_SPEC_FALLBACK_DESC_FMT"), tabIndex, (locClass or "")))
+    end
 
     return {
         index = tabIndex,
@@ -6320,8 +6341,8 @@ function MainMenu:FocusTalentSpecButton(idx)
     if pageTalents.detailCard then
         pageTalents.detailCard.icon:SetTexture(specData.icon)
         pageTalents.detailCard.icon:Show()
-        pageTalents.detailCard.titleText:SetText(string.format("|cffe09a15Especialização: %s|r", specData.name))
-        pageTalents.detailCard.typeText:SetText(string.format("|cffaaaaaaÁrvore %d de 3 — ConsoleMode Vanilla|r", idx))
+        pageTalents.detailCard.titleText:SetText(string.format(CM:T("TALENT_SPEC_TITLE_FMT"), specData.name))
+        pageTalents.detailCard.typeText:SetText(string.format(CM:T("TALENT_TREE_COUNT_FMT"), idx))
         local card = pageTalents.detailCard
         if card.topCenterText then card.topCenterText:Hide() end
         if card.topRightText then card.topRightText:Hide() end
@@ -6334,7 +6355,7 @@ function MainMenu:FocusTalentSpecButton(idx)
         card.descColLeft:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 10, 26)
         card.descColLeft:SetWidth(colW)
         card.descColLeft:SetText(specData.desc)
-        card.descColRight:SetText(string.format("|cffaaaaaaPontos investidos: |cffffffff%d pts|r\n|cffaaaaaaPontos livres: |cffffffff%d|r\n|cffe09a15Pressione [A] para abrir árvore|r", specData.pointsSpent, unspent))
+        card.descColRight:SetText(string.format(CM:T("TALENT_SPEC_POINTS_FMT"), specData.pointsSpent, unspent))
         card.descColRight:Show()
     end
 end
@@ -6352,7 +6373,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", headerBar, "LEFT", 4, 0)
     MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15)
-    headerTitle:SetText("|cffe09a15ESPECIALIZAÇÕES & TALENTOS|r")
+    headerTitle:SetText(CM:T("TALENT_HEADER_TITLE"))
     pageTalents.headerTitle = headerTitle
 
     local talentPointsText = headerBar:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -6371,7 +6392,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local detailCard = self:CreateDetailCard(pageTalents)
     pageTalents.detailCard = detailCard
     if detailCard.slotsFreeText then
-        detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Talentos 1.12|r")
+        detailCard.slotsFreeText:SetText(CM:T("TALENT_MODE_LABEL"))
     end
     if detailCard.sellWidget then
         detailCard.sellWidget:Hide()
@@ -6387,13 +6408,13 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local promptTitle = specScreen:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     promptTitle:SetPoint("TOP", specScreen, "TOP", 0, -18)
     MainMenu:ApplyFont(promptTitle, CFG.Fonts.titleFontFile, 17)
-    promptTitle:SetText("|cffe09a15Escolha uma Especialização|r")
+    promptTitle:SetText(CM:T("TALENT_CHOOSE_SPEC_TITLE"))
     specScreen.promptTitle = promptTitle
 
     local promptSub = specScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     promptSub:SetPoint("TOP", promptTitle, "BOTTOM", 0, -4)
     MainMenu:ApplyFont(promptSub, CFG.Fonts.subFontFile, 12)
-    promptSub:SetText("|cffaaaaaaNavegue com [D-Pad] ou [LT]/[RT] e selecione uma das 3 árvores de talentos|r")
+    promptSub:SetText(CM:T("TALENT_CHOOSE_SPEC_SUB"))
     specScreen.promptSub = promptSub
 
     -- Container horizontal centralizado para os 3 botões
@@ -6494,7 +6515,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
         local placeholderText = imgPlaceholder:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
         placeholderText:SetPoint("BOTTOM", imgPlaceholder, "BOTTOM", 0, 6)
         MainMenu:ApplyFont(placeholderText, CFG.Fonts.subFontFile, 10)
-        placeholderText:SetText("|cffaaaaaa[ Especialização ]|r")
+        placeholderText:SetText(CM:T("TALENT_CARD_PLACEHOLDER"))
         btn.placeholderText = placeholderText
 
         -- Nome da Especialização
@@ -6503,14 +6524,14 @@ function MainMenu:SetupTalentsPage(pageTalents)
         specName:SetPoint("LEFT", btn, "LEFT", 4, 0)
         specName:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
         MainMenu:ApplyFont(specName, CFG.Fonts.titleFontFile, 15)
-        specName:SetText("Especialização " .. i)
+        specName:SetText(string.format(CM:T("TALENT_CARD_NAME_FMT"), i))
         btn.specName = specName
 
         -- Pontos investidos
         local pointsText = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         pointsText:SetPoint("TOP", specName, "BOTTOM", 0, -3)
         MainMenu:ApplyFont(pointsText, CFG.Fonts.bodyFontFile, 12)
-        pointsText:SetText("|cffe09a150 pts investidos|r")
+        pointsText:SetText(CM:T("TALENT_CARD_POINTS_DEFAULT"))
         btn.pointsText = pointsText
 
         -- Eventos de mouse e foco
@@ -6561,14 +6582,14 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local treeTitle = treeHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     treeTitle:SetPoint("LEFT", treeSpecIcon, "RIGHT", 8, 0)
     MainMenu:ApplyFont(treeTitle, CFG.Fonts.titleFontFile, 17)
-    treeTitle:SetText("|cffe09a15Especialização|r")
+    treeTitle:SetText(CM:T("TALENT_TREE_HEADER_DEFAULT"))
     treeHeader.title = treeTitle
 
     -- Pontos investidos na árvore
     local treePoints = treeHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     treePoints:SetPoint("LEFT", treeTitle, "RIGHT", 12, -1)
     MainMenu:ApplyFont(treePoints, CFG.Fonts.bodyFontFile, 12)
-    treePoints:SetText("|cffaaaaaa(0 pts)|r")
+    treePoints:SetText(CM:T("TALENT_TREE_POINTS_DEFAULT"))
     treeHeader.points = treePoints
 
     -- Ícone / Tag RT
@@ -6582,7 +6603,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local treeSubText = treeHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     treeSubText:SetPoint("RIGHT", rtTag, "LEFT", -6, 0)
     MainMenu:ApplyFont(treeSubText, CFG.Fonts.subFontFile, 11)
-    treeSubText:SetText("|cff888888Trocar Especialização|r")
+    treeSubText:SetText(CM:T("TALENT_TREE_SWITCH_HINT"))
     treeHeader.subText = treeSubText
 
     -- Linha divisória fina abaixo do sub-cabeçalho
@@ -6760,7 +6781,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local backBtnText = backBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     backBtnText:SetPoint("CENTER", backBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(backBtnText, CFG.Fonts.bodyFontFile, 12)
-    backBtnText:SetText("|cffe09a15[B]|r |cffffffffVoltar|r")
+    backBtnText:SetText(CM:T("TALENT_TREE_BACK_BTN"))
     backBtn.label = backBtnText
 
     backBtn:SetScript("OnClick", function()
@@ -6778,7 +6799,7 @@ function MainMenu:SetupTalentsPage(pageTalents)
     local treeFooterHint = treeScreen:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     treeFooterHint:SetPoint("LEFT", backBtn, "RIGHT", 14, 0)
     MainMenu:ApplyFont(treeFooterHint, CFG.Fonts.subFontFile, 11)
-    treeFooterHint:SetText("|cff888888[D-Pad] Navegar  •  [A] Aprender Talento  •  [B] Voltar|r")
+    treeFooterHint:SetText(CM:T("TALENT_TREE_FOOTER_HINT"))
     treeScreen.footerHint = treeFooterHint
 
     pageTalents.activeScreen = 1
@@ -6819,7 +6840,7 @@ function MainMenu:FocusTalentSlot(slot)
         local tName = CM:GameLOC_Talent(classFile, data.tabIndex, data.tier, data.column, data.name)
         card.titleText:SetText(string.format("|cffe09a15%s|r", tName or data.name))
         local rankStr = CM:GameLOC_Rank(string.format("Rank %d", data.currentRank or 0))
-        local tierLabel = (activeLang and activeLang == "enUS") and "Tier" or "Camada"
+        local tierLabel = CM:T("TALENT_TIER_LABEL")
         card.typeText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
 
         -- 1. Extração e Tradução Estruturada em Duas Colunas
@@ -6916,7 +6937,7 @@ function MainMenu:FocusTalentSlot(slot)
             if data.desc and data.desc ~= "" then
                 curDesc = CM:GameLOC_TalentDesc(classFile, data.tabIndex, data.tier, data.column, data.currentRank, data.maxRank, data.name, data.desc)
             else
-                curDesc = "|cff888888Sem descrição disponível.|r"
+                curDesc = CM:T("TALENT_NO_DESC")
             end
         end
 
@@ -6926,7 +6947,7 @@ function MainMenu:FocusTalentSlot(slot)
         local statusText = ""
         local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
         if data.currentRank < data.maxRank and data.meetsPrereq and unspent >= 1 then
-            statusText = "|cffe09a15Pressione [A] para gastar 1 ponto|r"
+            statusText = CM:T("TALENT_SPEND_HINT")
         end
 
         -- 3. Configuração dos Blocos Superiores (Linha 1)
@@ -7028,12 +7049,12 @@ function MainMenu:FocusTalentSlot(slot)
 
         if inNextRank and nextDesc ~= "" then
             -- Cenário A: Talento parcialmente aprendido (ex: 1/5 a 4/5) exibindo Atual e Próximo
-            table.insert(bodyParts, string.format("|cffe09a15Grau Atual (%d/%d):|r %s", data.currentRank or 0, data.maxRank or 1, curDesc))
-            table.insert(bodyParts, string.format("|cffe09a15Próximo Grau (%d/%d):|r %s", (data.currentRank or 0) + 1, data.maxRank or 1, nextDesc))
+            table.insert(bodyParts, string.format(CM:T("TALENT_CURRENT_RANK_FMT"), data.currentRank or 0, data.maxRank or 1, curDesc))
+            table.insert(bodyParts, string.format(CM:T("TALENT_NEXT_RANK_FMT"), (data.currentRank or 0) + 1, data.maxRank or 1, nextDesc))
         else
             -- Cenário B: Não aprendido (Grau 0), Grau Máximo ou Talento de Rank Único
             local isMax = (data.currentRank == data.maxRank)
-            local effLabel = isMax and "Efeito do Talento:" or ((data.maxRank and data.maxRank > 1) and "Efeito do Grau 1:" or "Efeito do Talento:")
+            local effLabel = isMax and CM:T("TALENT_EFFECT_LABEL") or ((data.maxRank and data.maxRank > 1) and CM:T("TALENT_EFFECT_RANK1_LABEL") or CM:T("TALENT_EFFECT_LABEL"))
             table.insert(bodyParts, string.format("|cffe09a15%s|r %s", effLabel, curDesc))
         end
 
@@ -7179,7 +7200,7 @@ function MainMenu:CreateTalentInspectModal()
     -- Section 1: Tradução
     local sec1Header = child:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     sec1Header:SetPoint("TOPLEFT", child, "TOPLEFT", 0, 0)
-    sec1Header:SetText("|cffe09a15TRADUÇÃO (PORTUGUÊS)|r")
+    sec1Header:SetText(CM:T("TALENT_MODAL_TRANSLATION_HEADER"))
     MainMenu:ApplyFont(sec1Header, CFG.Fonts.subFontFile, 11)
 
     local transText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
@@ -7200,7 +7221,7 @@ function MainMenu:CreateTalentInspectModal()
 
     local sec2Header = child:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     sec2Header:SetPoint("TOPLEFT", midDiv, "BOTTOMLEFT", 0, -10)
-    sec2Header:SetText("|cff888888DESCRIÇÃO ORIGINAL (CLIENT EN)|r")
+    sec2Header:SetText(CM:T("TALENT_MODAL_ORIGINAL_HEADER"))
     MainMenu:ApplyFont(sec2Header, CFG.Fonts.subFontFile, 11)
     dimmer.sec2Header = sec2Header
 
@@ -7323,7 +7344,7 @@ function MainMenu:ShowTalentInspectModal(slot)
     modal.subTitleText:SetText(string.format("|cff888888%s|r", data.name))
 
     local rankStr = CM:GameLOC_Rank(string.format("Rank %d", data.currentRank or 0))
-    local tierLabel = (activeLang and activeLang == "enUS") and "Tier" or "Camada"
+    local tierLabel = CM:T("TALENT_TIER_LABEL")
     modal.badgesText:SetText(string.format("|cffaaaaaa%s %d  •  %s/%d|r", tierLabel, data.tier, rankStr, data.maxRank))
 
     local origFull = ""
@@ -7407,25 +7428,25 @@ function MainMenu:ShowTalentInspectModal(slot)
         GameTooltip:Hide()
     end
 
-    modal.transText:SetText(transFull ~= "" and transFull or "|cff888888Sem descrição disponível.|r")
-    modal.origText:SetText(origFull ~= "" and origFull or "|cff888888No description available.|r")
+    modal.transText:SetText(transFull ~= "" and transFull or CM:T("TALENT_NO_DESC"))
+    modal.origText:SetText(origFull ~= "" and origFull or CM:T("TALENT_NO_DESC"))
 
     local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
     local lBtn = modal.learnBtn
     if data.currentRank >= data.maxRank then
-        lBtn.text:SetText("|cff55ff55Grau Máximo Aprendido|r")
+        lBtn.text:SetText(CM:T("TALENT_MAX_RANK_LEARNED"))
         lBtn.icon:Hide()
         lBtn:Disable()
     elseif not data.meetsPrereq then
-        lBtn.text:SetText("|cffff4444Requisitos não atendidos|r")
+        lBtn.text:SetText(CM:T("TALENT_REQ_NOT_MET"))
         lBtn.icon:Hide()
         lBtn:Disable()
     elseif unspent < 1 then
-        lBtn.text:SetText("|cffffaa00Sem pontos disponíveis|r")
+        lBtn.text:SetText(CM:T("TALENT_NO_POINTS"))
         lBtn.icon:Hide()
         lBtn:Disable()
     else
-        lBtn.text:SetText("|cffffd200Aprender Talento (+1 ponto)|r")
+        lBtn.text:SetText(CM:T("TALENT_LEARN_BTN"))
         local lIconPath = (CFG and CFG.Icons and CFG.Icons["A"]) or "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\A.tga"
         lBtn.icon:SetTexture(lIconPath)
         lBtn.icon:Show()
@@ -7455,7 +7476,7 @@ function MainMenu:SpendTalentPoint(tabIndex, talentIndex)
     -- 1. Validação de pontos disponíveis do jogador
     local unspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
     if unspent < 1 then
-        UIErrorsFrame:AddMessage("Você não tem pontos de talento disponíveis.", 1.0, 0.2, 0.2, 1.0, UIERRORS_HOLD_TIME)
+        UIErrorsFrame:AddMessage(CM:T("ERR_NO_TALENT_POINTS"), 1.0, 0.2, 0.2, 1.0, UIERRORS_HOLD_TIME)
         PlaySound("igMainMenuOptionCheckBoxOff")
         return
     end
@@ -7466,14 +7487,14 @@ function MainMenu:SpendTalentPoint(tabIndex, talentIndex)
 
     -- 3. Validação de rank máximo
     if currentRank >= maxRank then
-        UIErrorsFrame:AddMessage(string.format("%s já está no rank máximo (%d/%d).", name, maxRank, maxRank), 1.0, 0.8, 0.2, 1.0, UIERRORS_HOLD_TIME)
+        UIErrorsFrame:AddMessage(string.format(CM:T("ERR_TALENT_MAX_RANK_FMT"), name, maxRank, maxRank), 1.0, 0.8, 0.2, 1.0, UIERRORS_HOLD_TIME)
         PlaySound("igMainMenuOptionCheckBoxOff")
         return
     end
 
     -- 4. Validação de pré-requisitos
     if not meetsPrereq then
-        UIErrorsFrame:AddMessage(string.format("Você não cumpre os pré-requisitos para aprender %s.", name), 1.0, 0.2, 0.2, 1.0, UIERRORS_HOLD_TIME)
+        UIErrorsFrame:AddMessage(string.format(CM:T("ERR_TALENT_PREREQ_FMT"), name), 1.0, 0.2, 0.2, 1.0, UIERRORS_HOLD_TIME)
         PlaySound("igMainMenuOptionCheckBoxOff")
         return
     end
@@ -7538,11 +7559,11 @@ function MainMenu:UpdateTalentTreeGrid(specIdx)
 
     -- Sincroniza indicador de pontos na spec e pontos livres no topo
     if treeScreen.header and treeScreen.header.points then
-        treeScreen.header.points:SetText(string.format("|cffaaaaaa(%d pts investidos)|r", specPointsSpent))
+        treeScreen.header.points:SetText(string.format(CM:T("TALENT_TREE_SPENT_PTS_FMT"), specPointsSpent))
     end
     local curUnspent = (UnitCharacterPoints and UnitCharacterPoints("player")) or 0
     if pageTalents.talentPointsText then
-        pageTalents.talentPointsText:SetText(string.format("|cffaaaaaaPontos disponíveis: |cffffffff%d|r", curUnspent))
+        pageTalents.talentPointsText:SetText(string.format(CM:T("TALENT_AVAILABLE_POINTS_FMT"), curUnspent))
     end
 
     for tIdx = 1, numTalents do
@@ -7761,7 +7782,7 @@ function MainMenu:UpdateTalentsPage(keepPage)
         unspent = UnitCharacterPoints("player") or 0
     end
     if pageTalents.talentPointsText then
-        pageTalents.talentPointsText:SetText(string.format("|cffaaaaaaPontos disponíveis: |cffffffff%d|r", unspent))
+        pageTalents.talentPointsText:SetText(string.format(CM:T("TALENT_AVAILABLE_POINTS_FMT"), unspent))
     end
 
     if pageTalents.specButtons then
@@ -7775,9 +7796,9 @@ function MainMenu:UpdateTalentsPage(keepPage)
                 end
                 if btn.pointsText then
                     if specData.pointsSpent > 0 then
-                        btn.pointsText:SetText(string.format("|cffe09a15%d pts investidos|r", specData.pointsSpent))
+                        btn.pointsText:SetText(string.format(CM:T("TALENT_CARD_SPENT_PTS_FMT"), specData.pointsSpent))
                     else
-                        btn.pointsText:SetText("|cff7777770 pts investidos|r")
+                        btn.pointsText:SetText(CM:T("TALENT_CARD_ZERO_PTS"))
                     end
                 end
                 if btn.specIcon then
@@ -7801,7 +7822,7 @@ function MainMenu:UpdateTalentsPage(keepPage)
     end
 
     if pageTalents.detailCard and pageTalents.detailCard.slotsFreeText then
-        pageTalents.detailCard.slotsFreeText:SetText("|cffaaaaaaModo Console — Talentos 1.12|r")
+        pageTalents.detailCard.slotsFreeText:SetText(CM:T("TALENT_MODE_LABEL"))
     end
 
     if pageTalents.activeScreen == 2 then
@@ -7829,13 +7850,13 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", headerBar, "LEFT", 4, 0)
     MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 15)
-    headerTitle:SetText("|cffe09a15DIÁRIO DE MISSÕES & MAPA MUNDI|r")
+    headerTitle:SetText(CM:T("QUEST_HEADER_TITLE"))
     pageQuests.headerTitle = headerTitle
 
     local questCountText = headerBar:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     questCountText:SetPoint("RIGHT", headerBar, "RIGHT", -4, 0)
     MainMenu:ApplyFont(questCountText, CFG.Fonts.subFontFile, 12)
-    questCountText:SetText("|cffaaaaaaMissões: |cffffffff0 / 20|r")
+    questCountText:SetText(string.format(CM:T("QUEST_COUNT_FMT"), 0))
     pageQuests.questCountText = questCountText
 
     local headerDivider = headerBar:CreateTexture(nil, "ARTWORK")
@@ -7912,7 +7933,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local mapZoneTitle = mapHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     mapZoneTitle:SetPoint("LEFT", mapHeader, "LEFT", 4, 0)
     MainMenu:ApplyFont(mapZoneTitle, CFG.Fonts.titleFontFile, 14)
-    mapZoneTitle:SetText("|cffffffffZona Atual|r")
+    mapZoneTitle:SetText(CM:T("MAP_CURRENT_ZONE"))
     mapPanel.zoneTitle = mapZoneTitle
 
     local mapCoordsText = mapHeader:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
@@ -8213,7 +8234,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local mapPlaceholder = mapCanvas:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     mapPlaceholder:SetPoint("CENTER", mapCanvas, "CENTER", 0, 10)
     MainMenu:ApplyFont(mapPlaceholder, CFG.Fonts.titleFontFile, 15)
-    mapPlaceholder:SetText("|cffe09a15[ MAPA MUNDI & REGIÃO ]|r\n\n|cffaaaaaaCarregando texturas da zona...|r")
+    mapPlaceholder:SetText(CM:T("MAP_LOADING_PLACEHOLDER"))
     mapPlaceholder:Hide()
     mapPanel.placeholder = mapPlaceholder
 
@@ -8226,7 +8247,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local mapHintText = mapFooter:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     mapHintText:SetPoint("CENTER", mapFooter, "CENTER", 0, 0)
     MainMenu:ApplyFont(mapHintText, CFG.Fonts.subFontFile, 11)
-    mapHintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
+    mapHintText:SetText(CM:T("MAP_FOOTER_HINT"))
     mapPanel.hintText = mapHintText
 
     -- ================================================================
@@ -8255,7 +8276,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     nlTitle:SetPoint("TOPRIGHT", npcListPanel, "TOPRIGHT", -8, -8)
     nlTitle:SetJustifyH("LEFT")
     MainMenu:ApplyFont(nlTitle, CFG.Fonts.titleFontFile, 13)
-    nlTitle:SetText("|cffe09a15SERVIÇOS & NPCs|r")
+    nlTitle:SetText(CM:T("MAP_NPC_LIST_TITLE"))
     npcListPanel.title = nlTitle
     local scrollFrame = CreateFrame("ScrollFrame", "ConsoleModeMM_MapNPCScrollFrame", npcListPanel)
     scrollFrame:SetPoint("TOPLEFT", npcListPanel, "TOPLEFT", 4, -24)
@@ -8474,7 +8495,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
         return b
     end
 
-    local navBtnAtual = CreateMapNavButton("ConsoleModeMM_MapNavAtual", "|cffe09a15ATUAL|r", "TOPRIGHT", "TOPRIGHT", -10, -40)
+    local navBtnAtual = CreateMapNavButton("ConsoleModeMM_MapNavAtual", CM:T("MAP_NAV_CURRENT"), "TOPRIGHT", "TOPRIGHT", -10, -40)
     navBtnAtual:SetScript("OnClick", function()
         MainMenu:NavToCurrent()
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
@@ -8492,13 +8513,13 @@ function MainMenu:SetupQuestsPage(pageQuests)
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
-    local navBtnInst = CreateMapNavButton("ConsoleModeMM_MapNavInst", "|cffe09a15INSTANCIAS|r", "TOPRIGHT", "TOPRIGHT", -10, -112)
+    local navBtnInst = CreateMapNavButton("ConsoleModeMM_MapNavInst", CM:T("MAP_NAV_INSTANCES"), "TOPRIGHT", "TOPRIGHT", -10, -112)
     navBtnInst:SetScript("OnClick", function()
         MainMenu:ShowInstancesForCurrentView()
         if MainMenu.UpdateQuestsPage then MainMenu:UpdateQuestsPage() end
     end)
 
-    local navBtnVoltar = CreateMapNavButton("ConsoleModeMM_MapBackButton", "|cffe09a15VOLTAR|r", "TOPRIGHT", "TOPRIGHT", -10, -136)
+    local navBtnVoltar = CreateMapNavButton("ConsoleModeMM_MapBackButton", CM:T("MAP_NAV_BACK"), "TOPRIGHT", "TOPRIGHT", -10, -136)
     navBtnVoltar:SetScript("OnClick", function()
         if this.isDisabled then return end
         MainMenu:ResetMapToPlayer()
@@ -8594,10 +8615,10 @@ function MainMenu:SetupQuestsPage(pageQuests)
                     local d = instData and instData.details and instData.details[this.zoneName]
                     if d then
                         GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
-                        GameTooltip:AddLine("Zona: " .. (d.zone or "?") .. " | Nvl: " .. (d.levels or "?") .. " | " .. (d.players or "?") .. " jogadores", 0.8, 0.8, 0.8)
+                        GameTooltip:AddLine(string.format(CM:T("MAP_INSTANCE_TOOLTIP_ZONE_FMT"), (d.zone or "?"), (d.levels or "?"), (d.players or "?")), 0.8, 0.8, 0.8)
                         GameTooltip:AddLine(d.type or "", 0.6, 0.6, 0.6)
                         if not MainMenu:FindZoneLocation(this.zoneName) then
-                            GameTooltip:AddLine("Mapa interior só dentro da instância — mostra zona de entrada", 0.9, 0.7, 0.2)
+                            GameTooltip:AddLine(CM:T("MAP_INSTANCE_TOOLTIP_INTERIOR_ONLY"), 0.9, 0.7, 0.2)
                         end
                     else
                         GameTooltip:AddLine(this.zoneName, 1, 0.85, 0.2)
@@ -8685,7 +8706,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     detailTitle:SetPoint("RIGHT", detailCard, "RIGHT", -10, 0)
     detailTitle:SetJustifyH("LEFT")
     MainMenu:ApplyFont(detailTitle, CFG.Fonts.titleFontFile, 14)
-    detailTitle:SetText("|cffe09a15Detalhes da Missão|r")
+    detailTitle:SetText(CM:T("QUEST_DETAIL_CARD_TITLE"))
     detailCard.title = detailTitle
 
     local detailObjectives = detailCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -8693,7 +8714,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     detailObjectives:SetPoint("RIGHT", detailCard, "RIGHT", -10, 0)
     detailObjectives:SetJustifyH("LEFT")
     MainMenu:ApplyFont(detailObjectives, CFG.Fonts.bodyFontFile, 11)
-    detailObjectives:SetText("|cffaaaaaaSelecione uma missão na lista acima.|r")
+    detailObjectives:SetText(CM:T("QUEST_DETAIL_SELECT_PROMPT"))
     detailCard.objectives = detailObjectives
 
     -- Recompensas: Moedas, XP e Itens
@@ -8748,7 +8769,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local detailFooter = detailCard:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     detailFooter:SetPoint("BOTTOMLEFT", detailCard, "BOTTOMLEFT", 10, 5)
     MainMenu:ApplyFont(detailFooter, CFG.Fonts.subFontFile, 10)
-    detailFooter:SetText("|cff888888(A) Ler Missão  •  (X) Rastrear  •  (Y) Abandonar|r")
+    detailFooter:SetText(CM:T("QUEST_DETAIL_FOOTER_HINTS"))
     detailCard.footer = detailFooter
 
     -- Container da Lista de Missões (Parte Superior)
@@ -8774,7 +8795,7 @@ function MainMenu:SetupQuestsPage(pageQuests)
     local emptyText = listContainer:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
     emptyText:SetPoint("CENTER", listContainer, "CENTER", 0, 0)
     MainMenu:ApplyFont(emptyText, CFG.Fonts.titleFontFile, 14)
-    emptyText:SetText("|cffaaaaaaNenhuma missão ativa no diário.|r")
+    emptyText:SetText(CM:T("QUEST_LIST_EMPTY"))
     emptyText:Hide()
     questPanel.emptyText = emptyText
 
@@ -8933,7 +8954,7 @@ function MainMenu:UpdateQuestsPage()
     end
 
     if pageQuests.questCountText then
-        pageQuests.questCountText:SetText(string.format("|cffaaaaaaMissões: |cffffffff%d / 20|r", numQuests))
+        pageQuests.questCountText:SetText(string.format(CM:T("QUEST_COUNT_FMT"), numQuests))
     end
 
     -- Renderiza e atualiza os 12 tiles dinâmicos, overlays e pin do jogador (Etapas 9.2, 9.3, 9.4)
@@ -8950,12 +8971,12 @@ function MainMenu:UpdateQuestsPage()
         local titleText = "Azeroth"
         local titleZoneRef = nil
         if self.mapDungeonPreview and self.mapDungeonPreviewParent then
-            titleText = self.mapDungeonPreview .. " |cff888888(entrada: " .. self.mapDungeonPreviewParent .. ")|r"
+            titleText = self.mapDungeonPreview .. string.format(CM:T("MAP_TITLE_ENTRANCE_SUFFIX_FMT"), self.mapDungeonPreviewParent)
             titleZoneRef = self.mapDungeonPreview
         elseif self.mapViewMode == "CONTINENT" and self.mapContinentView then
-            if self.mapContinentView == 1 then titleText = "Kalimdor (Continente)"
-            elseif self.mapContinentView == 2 then titleText = "Reinos do Leste (Continente)"
-            else titleText = "Continente" end
+            if self.mapContinentView == 1 then titleText = CM:T("MAP_TITLE_KALIMDOR_CONTINENT")
+            elseif self.mapContinentView == 2 then titleText = CM:T("MAP_TITLE_EASTERN_KINGDOMS_CONTINENT")
+            else titleText = CM:T("MAP_TITLE_CONTINENT_GENERIC") end
         elseif self.mapShowingQuestZone and self.mapZoneName then
             titleText = self.mapZoneName
             titleZoneRef = self.mapZoneName
@@ -8963,11 +8984,11 @@ function MainMenu:UpdateQuestsPage()
             local currentZone = (GetCurrentMapZone and GetCurrentMapZone()) or 0
             local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
             if currentCont == 0 then
-                titleText = "Azeroth (Mundo)"
+                titleText = CM:T("MAP_TITLE_AZEROTH_WORLD")
             elseif currentZone == 0 then
-                if currentCont == 1 then titleText = "Kalimdor (Continente)"
-                elseif currentCont == 2 then titleText = "Reinos do Leste (Continente)"
-                else titleText = "Continente" end
+                if currentCont == 1 then titleText = CM:T("MAP_TITLE_KALIMDOR_CONTINENT")
+                elseif currentCont == 2 then titleText = CM:T("MAP_TITLE_EASTERN_KINGDOMS_CONTINENT")
+                else titleText = CM:T("MAP_TITLE_CONTINENT_GENERIC") end
             else
                 local zoneName = (GetZoneText and GetZoneText()) or (GetSubZoneText and GetSubZoneText()) or "Azeroth"
                 if zoneName == "" then zoneName = "Azeroth" end
@@ -9086,9 +9107,9 @@ function MainMenu:UpdateQuestsPage()
 
                 -- Status de Conclusão / Progresso
                 if itemData.isComplete and itemData.isComplete > 0 then
-                    btn.statusText:SetText("|cff00ff00(Completa)|r")
+                    btn.statusText:SetText(CM:T("QUEST_STATUS_COMPLETE"))
                 elseif itemData.isComplete and itemData.isComplete < 0 then
-                    btn.statusText:SetText("|cffff2020(Falhou)|r")
+                    btn.statusText:SetText(CM:T("QUEST_STATUS_FAILED"))
                 else
                     local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(itemData.index)) or 0
                     local doneCount = 0
@@ -9497,16 +9518,16 @@ function MainMenu:UpdateNavButtonHighlight()
                 mp.zoneListFrame.scrollFrame:UpdateScrollChildRect()
             end
             if self.zoneListMode == "INSTANCES" then
-                if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText("|cffe09a15INSTANCIAS|r") end
+                if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText(CM:T("MAP_ZONE_LIST_TITLE_INSTANCES")) end
             else
-                if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText("|cffe09a15REGIOES|r") end
+                if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText(CM:T("MAP_ZONE_LIST_TITLE_REGIONS")) end
             end
         elseif self.zoneListMode == "INSTANCES" then
             mp.zoneListFrame:Show()
             if mp.zoneListFrame.scrollFrame and mp.zoneListFrame.scrollFrame.UpdateScrollChildRect then
                 mp.zoneListFrame.scrollFrame:UpdateScrollChildRect()
             end
-            if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText("|cffe09a15INSTANCIAS|r") end
+            if mp.zoneListFrame.title then mp.zoneListFrame.title:SetText(CM:T("MAP_ZONE_LIST_TITLE_INSTANCES")) end
         else
             mp.zoneListFrame:Hide()
         end
@@ -9515,11 +9536,11 @@ function MainMenu:UpdateNavButtonHighlight()
         local nav = ConsoleModeMM_Nav or (ConsoleMode and ConsoleMode.MainMenuNav)
         local curZone = nav and nav.focus and nav.focus.zone
         if curZone == "QZONAS" or (self.mapViewMode or "ZONE") == "CONTINENT" or self.zoneListMode == "INSTANCES" then
-            mp.hintText:SetText("|cffe09a15[D-Pad] Navegar  •  [A] Entrar  •  [B] Voltar|r")
+            mp.hintText:SetText(CM:T("MAP_HINT_NAVIGATE_ENTER_BACK"))
         elseif curZone == "QNAV" then
-            mp.hintText:SetText("|cffe09a15[D-Pad] Selecionar  •  [A] Abrir  •  [B] Voltar|r")
+            mp.hintText:SetText(CM:T("MAP_HINT_SELECT_OPEN_BACK"))
         else
-            mp.hintText:SetText("|cff888888[LT] Zoom Out  •  [RT] Zoom In  •  [L-Stick / Drag] Mover Mapa Livre|r")
+            mp.hintText:SetText(CM:T("MAP_FOOTER_HINT"))
         end
     end
 end
@@ -9586,13 +9607,13 @@ function MainMenu:BuildInstancesListForZone(zoneName)
     end
     local count = table.getn(list)
     if count == 0 then
-        if frame.title then frame.title:SetText("|cffe09a15INSTANCIAS - " .. (zoneName or "?") .. "|r") end
+        if frame.title then frame.title:SetText(string.format(CM:T("MAP_INSTANCES_TITLE_ZONE_FMT"), (zoneName or "?"))) end
         content:SetHeight(40)
         if frame.scrollFrame then frame.scrollFrame:SetVerticalScroll(0); frame.scrollFrame:UpdateScrollChildRect() end
         frame:Show()
         return
     end
-    if frame.title then frame.title:SetText("|cffe09a15INSTANCIAS - " .. zoneName .. "|r") end
+    if frame.title then frame.title:SetText(string.format(CM:T("MAP_INSTANCES_TITLE_ZONE_FMT"), zoneName)) end
     local btnH = 28
     local gap = 3
     local shown = 0
@@ -9896,13 +9917,13 @@ function MainMenu:ToggleQuestWatch(questLogIndex)
             RemoveQuestWatch(questLogIndex)
         end
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Missões]|r Rastreamento removido: |cffffffff" .. (title or "?") .. "|r")
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("QUEST_TRACK_REMOVED_FMT"), (title or "?")))
         end
     else
         local numWatches = (GetNumQuestWatches and GetNumQuestWatches()) or 0
         if numWatches >= 5 then
             if DEFAULT_CHAT_FRAME then
-                DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[Missões]|r Limite de 5 missões rastreadas atingido.")
+                DEFAULT_CHAT_FRAME:AddMessage(CM:T("QUEST_TRACK_LIMIT_REACHED"))
             end
             return
         end
@@ -9910,7 +9931,7 @@ function MainMenu:ToggleQuestWatch(questLogIndex)
             AddQuestWatch(questLogIndex)
         end
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Missões]|r Rastreamento ativado: |cffffffff" .. (title or "?") .. "|r")
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("QUEST_TRACK_ENABLED_FMT"), (title or "?")))
         end
     end
 
@@ -9958,7 +9979,7 @@ function MainMenu:ShareSelectedQuest()
     local numParty = (GetNumPartyMembers and GetNumPartyMembers()) or 0
     if numParty <= 0 then
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[Missões]|r É necessário estar em um grupo para compartilhar missões.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("QUEST_SHARE_NEED_GROUP"))
         end
         return
     end
@@ -9970,7 +9991,7 @@ function MainMenu:ShareSelectedQuest()
     local canShare = (GetQuestLogPushable and GetQuestLogPushable()) or false
     if not canShare then
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[Missões]|r Esta missão não pode ser compartilhada.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("QUEST_SHARE_NOT_SHARABLE"))
         end
         return
     end
@@ -9980,7 +10001,7 @@ function MainMenu:ShareSelectedQuest()
     end
 
     if DEFAULT_CHAT_FRAME then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[Missões]|r Missão compartilhada: |cffffffff" .. (title or "?") .. "|r")
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("QUEST_SHARE_SHARED_FMT"), (title or "?")))
     end
 end
 
@@ -10113,7 +10134,7 @@ function MainMenu:CreateQuestDetailOverlay()
     objTitle:SetWidth(528)
     objTitle:SetJustifyH("LEFT")
     objTitle:SetTextColor(1, 0.82, 0)
-    objTitle:SetText("Objetivos:")
+    objTitle:SetText(CM:T("QUEST_READING_OBJECTIVES_TITLE"))
     MainMenu:ApplyFont(objTitle, CFG.Fonts.titleFontFile, 14)
     f.objTitle = objTitle
     local objText = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -10217,7 +10238,7 @@ function MainMenu:CreateQuestDetailOverlay()
     local clabel = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     clabel:SetPoint("LEFT", icon, "RIGHT", 6, 0)
     MainMenu:ApplyFont(clabel, CFG.Fonts.subFontFile, 10)
-    clabel:SetText("SAIR")
+    clabel:SetText(CM:T("QUEST_READING_CLOSE"))
     clabel:SetTextColor(0.96, 0.88, 0.68, 1.0)
     closeBtn.label = clabel
     closeBtn:SetScript("OnEnter", function()
@@ -10251,7 +10272,7 @@ function MainMenu:ShowQuestDetail(questLogIndex)
     if not r and GetQuestLevelColor then r, g, b = GetQuestLevelColor(lvl or 1) end
     local lvlStr = ""
     if lvl and lvl > 0 then lvlStr = string.format("|cff%02x%02x%02x[%d]|r ", r*255, g*255, b*255, lvl) end
-    f.titleText:SetText(lvlStr .. "|cffffffff" .. (qTr.title or qTitle or title or "Missao") .. "|r")
+    f.titleText:SetText(lvlStr .. "|cffffffff" .. (qTr.title or qTitle or title or CM:T("QUEST_FALLBACK_TITLE")) .. "|r")
     if f.subTitleText then
         if qTr.title and qTr.title ~= "" and qTr.title ~= qTitle and qTitle and qTitle ~= "" then
             f.subTitleText:SetText("|cff888888" .. qTitle .. "|r")
@@ -10263,10 +10284,10 @@ function MainMenu:ShowQuestDetail(questLogIndex)
     end
     local fullDesc = (qTr.desc and qTr.desc ~= "") and qTr.desc or qDesc
     if not fullDesc or fullDesc == "" then
-        fullDesc = "|cff888888Sem descricao.|r"
+        fullDesc = CM:T("QUEST_READING_NO_DESCRIPTION")
     else
         fullDesc = string.gsub(fullDesc, "%$[Bb]", "\n\n")
-        local pName = UnitName("player") or "Heroi"
+        local pName = UnitName("player") or CM:T("QUEST_FALLBACK_PLAYER_NAME")
         fullDesc = string.gsub(fullDesc, "%$[Nn]", pName)
         local pClass = UnitClass("player") or ""
         fullDesc = string.gsub(fullDesc, "%$[Cc]", pClass)
@@ -10278,7 +10299,7 @@ function MainMenu:ShowQuestDetail(questLogIndex)
     local fullObj = (qTr.obj and qTr.obj ~= "") and qTr.obj or qObjectives
     if fullObj and fullObj ~= "" then
         fullObj = string.gsub(fullObj, "%$[Bb]", "\n")
-        fullObj = string.gsub(fullObj, "%$[Nn]", UnitName("player") or "Heroi")
+        fullObj = string.gsub(fullObj, "%$[Nn]", UnitName("player") or CM:T("QUEST_FALLBACK_PLAYER_NAME"))
         fullObj = string.gsub(fullObj, "%$[Cc]", UnitClass("player") or "")
         fullObj = string.gsub(fullObj, "%$[Rr]", UnitRace("player") or "")
     else
@@ -10293,10 +10314,10 @@ function MainMenu:ShowQuestDetail(questLogIndex)
         for i = 1, numObj do
             local t, _, done = GetQuestLogLeaderBoard(i, questLogIndex)
             if t and t ~= "" then
-                t = string.gsub(t, " slain:", " abatido(s):")
-                t = string.gsub(t, " slain", " abatido(s)")
-                t = string.gsub(t, " killed:", " morto(s):")
-                t = string.gsub(t, " killed", " morto(s)")
+                t = string.gsub(t, " slain:", CM:T("QUEST_OBJ_SLAIN_COLON"))
+                t = string.gsub(t, " slain", CM:T("QUEST_OBJ_SLAIN"))
+                t = string.gsub(t, " killed:", CM:T("QUEST_OBJ_KILLED_COLON"))
+                t = string.gsub(t, " killed", CM:T("QUEST_OBJ_KILLED"))
                 local bullet = done and "|cff00ff00[x] |r" or "|cffffcc00[ ] |r"
                 local col = done and "|cff88cc88" or "|cffffffff"
                 lbStr = lbStr .. bullet .. col .. t .. "|r\n"
@@ -10311,7 +10332,7 @@ function MainMenu:ShowQuestDetail(questLogIndex)
         end
     end
     if objStr == "" then
-        objStr = "|cff888888Sem objetivos.|r"
+        objStr = CM:T("QUEST_READING_NO_OBJECTIVES")
     end
     f.objText:SetText(objStr)
     local money = (GetQuestLogRewardMoney and GetQuestLogRewardMoney()) or 0
@@ -10320,7 +10341,7 @@ function MainMenu:ShowQuestDetail(questLogIndex)
         local gold = math.floor(money / 10000)
         local silver = math.floor(math.mod(money, 10000) / 100)
         local copper = math.mod(money, 100)
-        rewStr = "|cffaaaaaaRecompensa:|r "
+        rewStr = CM:T("QUEST_READING_REWARD_LABEL")
         if gold > 0 then rewStr = rewStr .. string.format("|cffffd700%dg |r", gold) end
         if silver > 0 or gold > 0 then rewStr = rewStr .. string.format("|cffc7c7cf%ds |r", silver) end
         rewStr = rewStr .. string.format("|cffeda55f%dc|r", copper)
@@ -10407,7 +10428,7 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
     local qTr = MainMenu:GetQuestTranslation(questLogIndex, questTitle, questDescription, questObjectives)
     local r, g, b = GetQuestLevelColor(level)
     local levelStr = (level and level > 0) and string.format("|cff%02x%02x%02x[%d]|r ", r*255, g*255, b*255, level) or ""
-    detailCard.title:SetText(levelStr .. "|cffffffff" .. (qTr.title or questTitle or "Missão") .. "|r")
+    detailCard.title:SetText(levelStr .. "|cffffffff" .. (qTr.title or questTitle or CM:T("QUEST_FALLBACK_TITLE")) .. "|r")
 
     -- Formata lista de objetivos - lista limpa (texto longo fica na tela de Detalhes)
     local numObj = (GetNumQuestLeaderBoards and GetNumQuestLeaderBoards(questLogIndex)) or 0
@@ -10415,10 +10436,10 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
     for j = 1, numObj do
         local text, itemType, isDone = GetQuestLogLeaderBoard(j, questLogIndex)
         if text and text ~= "" then
-            text = string.gsub(text, " slain:", " abatido(s):")
-            text = string.gsub(text, " slain", " abatido(s)")
-            text = string.gsub(text, " killed:", " morto(s):")
-            text = string.gsub(text, " killed", " morto(s)")
+            text = string.gsub(text, " slain:", CM:T("QUEST_OBJ_SLAIN_COLON"))
+            text = string.gsub(text, " slain", CM:T("QUEST_OBJ_SLAIN"))
+            text = string.gsub(text, " killed:", CM:T("QUEST_OBJ_KILLED_COLON"))
+            text = string.gsub(text, " killed", CM:T("QUEST_OBJ_KILLED"))
             local bullet = isDone and "|cff00ff00✔ |r" or "|cffffcc00- |r"
             local col = isDone and "|cff88cc88" or "|cffffffff"
             objStr = objStr .. bullet .. col .. text .. "|r\n"
@@ -10441,7 +10462,7 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
         elseif questDescription and questDescription ~= "" then
             detailCard.objectives:SetText("|cffaaaaaa" .. questDescription .. "|r")
         else
-            detailCard.objectives:SetText("|cff888888Sem objetivos específicos.|r")
+            detailCard.objectives:SetText(CM:T("QUEST_DETAIL_NO_OBJECTIVES"))
         end
     end
 
@@ -10451,7 +10472,7 @@ function MainMenu:SelectQuest(questLogIndex, suppressMapSwitch)
         local gold = math.floor(money / 10000)
         local silver = math.floor(math.mod(money, 10000) / 100)
         local copper = math.mod(money, 100)
-        local moneyStr = "|cffaaaaaaRecompensa: |r"
+        local moneyStr = CM:T("QUEST_DETAIL_REWARD_LABEL")
         if gold > 0 then moneyStr = moneyStr .. string.format("|cffffd700%dg |r", gold) end
         if silver > 0 or gold > 0 then moneyStr = moneyStr .. string.format("|cffc7c7cf%ds |r", silver) end
         moneyStr = moneyStr .. string.format("|cffeda55f%dc|r", copper)
@@ -11039,12 +11060,12 @@ function MainMenu:UpdateDungeonPreviewOverlay(mapCanvas)
         local lv = det and det.levels or "?"
         local tp = det and det.type or "Dungeon"
         local parentTxt = self.mapDungeonPreviewParent or (det and det.zone) or "?"
-        f.text:SetText("|cffe09a15" .. self.mapDungeonPreview .. "|r |cffaaaaaa(" .. tp .. " " .. lv .. ")|r  |cffffcc00Entrada em: " .. parentTxt .. "|r  |cff888888— interior só dentro da instância|r")
+        f.text:SetText("|cffe09a15" .. self.mapDungeonPreview .. "|r |cffaaaaaa(" .. tp .. " " .. lv .. ")|r  " .. string.format(CM:T("MAP_DUNGEON_ENTRANCE_FMT"), parentTxt) .. "  " .. CM:T("MAP_DUNGEON_INTERIOR_ONLY"))
         f.banner:Show(); f.bBorder:Show(); f.text:Show()
         f.bg:SetVertexColor(0, 0, 0, 0.0)
         f:Show()
         f.pin:Show()
-        f.pinLabel:SetText("|cffffd200Entrada|r")
+        f.pinLabel:SetText(CM:T("MAP_DUNGEON_ENTRANCE_PIN"))
         f.pinLabel:Show()
         if f.pin then
             f.pin:ClearAllPoints()
@@ -11224,7 +11245,7 @@ function MainMenu:RefreshCoordsHeader(mapCanvas)
     if mapCanvas.playerCX and mapCanvas.playerCY and (mapCanvas.playerCX > 0 or mapCanvas.playerCY > 0) then
         ptxt = string.format("%.1f, %.1f", mapCanvas.playerCX * 100, mapCanvas.playerCY * 100)
     elseif mapCanvas.playerOutside then
-        ptxt = "fora da zona"
+        ptxt = CM:T("MAP_COORDS_OUT_OF_ZONE")
     end
     local ctxt = "--, --"
     if mapCanvas.cursorCX and mapCanvas.cursorCY then
@@ -11410,38 +11431,38 @@ local NPC_SERVICE_NAMES = {
 }
 
 local CM_SERVICE_CAT_INFO = {
-    ["INN"]                 = { cat = "innkeeper",  role = "Estalajadeiro",          icon = "Interface\\Icons\\INV_Drink_05", prio = 1 },
-    ["BANK"]                = { cat = "banker",     role = "Banqueiro",              icon = "Interface\\Icons\\INV_Box_01", prio = 1 },
-    ["AUCTIONEER"]          = { cat = "auctioneer", role = "Leiloeiro",              icon = "Interface\\Icons\\INV_Misc_Coin_01", prio = 1 },
-    ["FLIGHT"]              = { cat = "flight",     role = "Mestre de Voo",          icon = "Interface\\Icons\\Ability_Mount_Gryphon_01", prio = 1 },
-    ["BATTLEMASTER"]        = { cat = "battle",     role = "Mestre de Batalha",      icon = "Interface\\Icons\\INV_BannerPVP_02", prio = 2 },
-    ["LEADER"]              = { cat = "leader",     role = "Líder",                  icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01", prio = 2 },
-    ["STABLE"]              = { cat = "stable",     role = "Mestre do Estábulo",     icon = "Interface\\Icons\\Ability_Hunter_Pet_Boar", prio = 3 },
-    ["OTHER"]               = { cat = "repair",     role = "Comerciante / Reparo",   icon = "Interface\\Icons\\INV_Hammer_20", prio = 5 },
+    ["INN"]                 = { cat = "innkeeper",  role = "Estalajadeiro",          rkey = "NPC_ROLE_INNKEEPER",          icon = "Interface\\Icons\\INV_Drink_05", prio = 1 },
+    ["BANK"]                = { cat = "banker",     role = "Banqueiro",              rkey = "NPC_ROLE_BANKER",             icon = "Interface\\Icons\\INV_Box_01", prio = 1 },
+    ["AUCTIONEER"]          = { cat = "auctioneer", role = "Leiloeiro",              rkey = "NPC_ROLE_AUCTIONEER",          icon = "Interface\\Icons\\INV_Misc_Coin_01", prio = 1 },
+    ["FLIGHT"]              = { cat = "flight",     role = "Mestre de Voo",          rkey = "NPC_ROLE_FLIGHT",             icon = "Interface\\Icons\\Ability_Mount_Gryphon_01", prio = 1 },
+    ["BATTLEMASTER"]        = { cat = "battle",     role = "Mestre de Batalha",      rkey = "NPC_ROLE_BATTLEMASTER",       icon = "Interface\\Icons\\INV_BannerPVP_02", prio = 2 },
+    ["LEADER"]              = { cat = "leader",     role = "Líder",                  rkey = "NPC_ROLE_LEADER",             icon = "Interface\\Icons\\INV_Misc_Head_Dragon_01", prio = 2 },
+    ["STABLE"]              = { cat = "stable",     role = "Mestre do Estábulo",     rkey = "NPC_ROLE_STABLE",             icon = "Interface\\Icons\\Ability_Hunter_Pet_Boar", prio = 3 },
+    ["OTHER"]               = { cat = "repair",     role = "Comerciante / Reparo",   rkey = "NPC_ROLE_VENDOR_REPAIR",      icon = "Interface\\Icons\\INV_Hammer_20", prio = 5 },
 
-    ["TRAINER_WARRIOR"]     = { cat = "trainer",    role = "Instrutor de Guerreiros", icon = "Interface\\Icons\\ClassIcon_Warrior", prio = 2 },
-    ["TRAINER_PALADIN"]     = { cat = "trainer",    role = "Instrutor de Paladinos",  icon = "Interface\\Icons\\ClassIcon_Paladin", prio = 2 },
-    ["TRAINER_HUNTER"]      = { cat = "trainer",    role = "Instrutor de Caçadores",  icon = "Interface\\Icons\\ClassIcon_Hunter", prio = 2 },
-    ["TRAINER_ROGUE"]       = { cat = "trainer",    role = "Instrutor de Ladinos",    icon = "Interface\\Icons\\ClassIcon_Rogue", prio = 2 },
-    ["TRAINER_PRIEST"]      = { cat = "trainer",    role = "Instrutor de Sacerdotes", icon = "Interface\\Icons\\ClassIcon_Priest", prio = 2 },
-    ["TRAINER_SHAMAN"]      = { cat = "trainer",    role = "Instrutor de Xamãs",      icon = "Interface\\Icons\\ClassIcon_Shaman", prio = 2 },
-    ["TRAINER_MAGE"]        = { cat = "trainer",    role = "Instrutor de Magos",      icon = "Interface\\Icons\\ClassIcon_Mage", prio = 2 },
-    ["TRAINER_WARLOCK"]     = { cat = "trainer",    role = "Instrutor de Bruxos",     icon = "Interface\\Icons\\ClassIcon_Warlock", prio = 2 },
-    ["TRAINER_DRUID"]       = { cat = "trainer",    role = "Instrutor de Druidas",    icon = "Interface\\Icons\\ClassIcon_Druid", prio = 2 },
+    ["TRAINER_WARRIOR"]     = { cat = "trainer",    role = "Instrutor de Guerreiros", rkey = "NPC_ROLE_TRAINER_WARRIOR",   icon = "Interface\\Icons\\ClassIcon_Warrior", prio = 2 },
+    ["TRAINER_PALADIN"]     = { cat = "trainer",    role = "Instrutor de Paladinos",  rkey = "NPC_ROLE_TRAINER_PALADIN",   icon = "Interface\\Icons\\ClassIcon_Paladin", prio = 2 },
+    ["TRAINER_HUNTER"]      = { cat = "trainer",    role = "Instrutor de Caçadores",  rkey = "NPC_ROLE_TRAINER_HUNTER",    icon = "Interface\\Icons\\ClassIcon_Hunter", prio = 2 },
+    ["TRAINER_ROGUE"]       = { cat = "trainer",    role = "Instrutor de Ladinos",    rkey = "NPC_ROLE_TRAINER_ROGUE",     icon = "Interface\\Icons\\ClassIcon_Rogue", prio = 2 },
+    ["TRAINER_PRIEST"]      = { cat = "trainer",    role = "Instrutor de Sacerdotes", rkey = "NPC_ROLE_TRAINER_PRIEST",    icon = "Interface\\Icons\\ClassIcon_Priest", prio = 2 },
+    ["TRAINER_SHAMAN"]      = { cat = "trainer",    role = "Instrutor de Xamãs",      rkey = "NPC_ROLE_TRAINER_SHAMAN",    icon = "Interface\\Icons\\ClassIcon_Shaman", prio = 2 },
+    ["TRAINER_MAGE"]        = { cat = "trainer",    role = "Instrutor de Magos",      rkey = "NPC_ROLE_TRAINER_MAGE",      icon = "Interface\\Icons\\ClassIcon_Mage", prio = 2 },
+    ["TRAINER_WARLOCK"]     = { cat = "trainer",    role = "Instrutor de Bruxos",     rkey = "NPC_ROLE_TRAINER_WARLOCK",   icon = "Interface\\Icons\\ClassIcon_Warlock", prio = 2 },
+    ["TRAINER_DRUID"]       = { cat = "trainer",    role = "Instrutor de Druidas",    rkey = "NPC_ROLE_TRAINER_DRUID",     icon = "Interface\\Icons\\ClassIcon_Druid", prio = 2 },
 
-    ["PROF_ALCHEMY"]        = { cat = "profession", role = "Instrutor de Alquimia",      icon = "Interface\\Icons\\Trade_Alchemy", prio = 3 },
-    ["PROF_BLACKSMITHING"]  = { cat = "profession", role = "Instrutor de Ferraria",      icon = "Interface\\Icons\\Trade_BlackSmithing", prio = 3 },
-    ["PROF_COOKING"]        = { cat = "profession", role = "Instrutor de Culinária",     icon = "Interface\\Icons\\INV_Misc_Food_15", prio = 3 },
-    ["PROF_ENCHANTING"]     = { cat = "profession", role = "Instrutor de Encantamento",  icon = "Interface\\Icons\\Trade_Engraving", prio = 3 },
-    ["PROF_ENGINEERING"]    = { cat = "profession", role = "Instrutor de Engenharia",   icon = "Interface\\Icons\\Trade_Engineering", prio = 3 },
-    ["PROF_FIRST_AID"]      = { cat = "profession", role = "Instrutor de Primeiros Soc.",icon = "Interface\\Icons\\Spell_Holy_SealOfSacrifice", prio = 3 },
-    ["PROF_FISHING"]        = { cat = "profession", role = "Instrutor de Pesca",        icon = "Interface\\Icons\\Trade_Fishing", prio = 3 },
-    ["PROF_HERBALISM"]      = { cat = "profession", role = "Instrutor de Herborismo",   icon = "Interface\\Icons\\Trade_Herbalism", prio = 3 },
-    ["PROF_LEATHERWORKING"] = { cat = "profession", role = "Instrutor de Couraria",     icon = "Interface\\Icons\\Trade_LeatherWorking", prio = 3 },
-    ["PROF_MINING"]         = { cat = "profession", role = "Instrutor de Mineração",     icon = "Interface\\Icons\\Trade_Mining", prio = 3 },
-    ["PROF_SKINNING"]       = { cat = "profession", role = "Instrutor de Esfolamento",   icon = "Interface\\Icons\\INV_Misc_Pelt_Wolf_01", prio = 3 },
-    ["PROF_SURVIVAL"]       = { cat = "profession", role = "Instrutor de Sobrevivência",icon = "Interface\\Icons\\Spell_Fire_Fire", prio = 3 },
-    ["PROF_TAILORING"]      = { cat = "profession", role = "Instrutor de Alfaiataria",   icon = "Interface\\Icons\\Trade_Tailoring", prio = 3 },
+    ["PROF_ALCHEMY"]        = { cat = "profession", role = "Instrutor de Alquimia",      rkey = "NPC_ROLE_PROF_ALCHEMY",        icon = "Interface\\Icons\\Trade_Alchemy", prio = 3 },
+    ["PROF_BLACKSMITHING"]  = { cat = "profession", role = "Instrutor de Ferraria",      rkey = "NPC_ROLE_PROF_BLACKSMITHING",  icon = "Interface\\Icons\\Trade_BlackSmithing", prio = 3 },
+    ["PROF_COOKING"]        = { cat = "profession", role = "Instrutor de Culinária",     rkey = "NPC_ROLE_PROF_COOKING",        icon = "Interface\\Icons\\INV_Misc_Food_15", prio = 3 },
+    ["PROF_ENCHANTING"]     = { cat = "profession", role = "Instrutor de Encantamento",  rkey = "NPC_ROLE_PROF_ENCHANTING",     icon = "Interface\\Icons\\Trade_Engraving", prio = 3 },
+    ["PROF_ENGINEERING"]    = { cat = "profession", role = "Instrutor de Engenharia",    rkey = "NPC_ROLE_PROF_ENGINEERING",    icon = "Interface\\Icons\\Trade_Engineering", prio = 3 },
+    ["PROF_FIRST_AID"]      = { cat = "profession", role = "Instrutor de Primeiros Soc.",rkey = "NPC_ROLE_PROF_FIRST_AID",      icon = "Interface\\Icons\\Spell_Holy_SealOfSacrifice", prio = 3 },
+    ["PROF_FISHING"]        = { cat = "profession", role = "Instrutor de Pesca",        rkey = "NPC_ROLE_PROF_FISHING",        icon = "Interface\\Icons\\Trade_Fishing", prio = 3 },
+    ["PROF_HERBALISM"]      = { cat = "profession", role = "Instrutor de Herborismo",   rkey = "NPC_ROLE_PROF_HERBALISM",      icon = "Interface\\Icons\\Trade_Herbalism", prio = 3 },
+    ["PROF_LEATHERWORKING"] = { cat = "profession", role = "Instrutor de Couraria",     rkey = "NPC_ROLE_PROF_LEATHERWORKING", icon = "Interface\\Icons\\Trade_LeatherWorking", prio = 3 },
+    ["PROF_MINING"]         = { cat = "profession", role = "Instrutor de Mineração",     rkey = "NPC_ROLE_PROF_MINING",         icon = "Interface\\Icons\\Trade_Mining", prio = 3 },
+    ["PROF_SKINNING"]       = { cat = "profession", role = "Instrutor de Esfolamento",   rkey = "NPC_ROLE_PROF_SKINNING",       icon = "Interface\\Icons\\INV_Misc_Pelt_Wolf_01", prio = 3 },
+    ["PROF_SURVIVAL"]       = { cat = "profession", role = "Instrutor de Sobrevivência",rkey = "NPC_ROLE_PROF_SURVIVAL",       icon = "Interface\\Icons\\Spell_Fire_Fire", prio = 3 },
+    ["PROF_TAILORING"]      = { cat = "profession", role = "Instrutor de Alfaiataria",   rkey = "NPC_ROLE_PROF_TAILORING",      icon = "Interface\\Icons\\Trade_Tailoring", prio = 3 },
 }
 
 
@@ -11543,7 +11564,7 @@ function MainMenu:GetClassTrainersForZone(zoneID, playerFaction)
                                 cat = "trainer",
                                 class = className,
                                 icon = classIcon,
-                                role = NPC_SERVICE_NAMES["trainer"] .. " (" .. className .. ")",
+                                role = string.format(CM:T("NPC_SERVICE_TRAINER_ROLE_FMT"), className),
                             })
                         end
                     end
@@ -11614,7 +11635,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             local catKey = sData.cat or "OTHER"
             local info = CM_SERVICE_CAT_INFO[catKey] or CM_SERVICE_CAT_INFO["OTHER"]
             local npcName = (ConsoleMode and ConsoleMode.GetNPCDisplayName and ConsoleMode:GetNPCDisplayName(npcID, sData.name)) or sData.name or "NPC"
-            local npcRole = (ConsoleMode and ConsoleMode.GetNPCRole and ConsoleMode:GetNPCRole(npcID, sData.role)) or sData.role or info.role
+            local npcRole = (ConsoleMode and ConsoleMode.GetNPCRole and ConsoleMode:GetNPCRole(npcID, sData.role)) or sData.role or (info.rkey and CM:T(info.rkey)) or info.role
 
             local icon = info.icon
             if info.cat == "flight" and playerFacCode == "H" then
@@ -11661,7 +11682,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                         end
                         if not exists then
                             local classIcon = (CM_ClassTrainerIcons and CM_ClassTrainerIcons[className]) or NPC_SERVICE_ICONS["trainer"] or "Interface\\Icons\\INV_Misc_Book_09"
-                            local facLabel = (t.fac == "A" and "Aliança") or (t.fac == "H" and "Horda") or "Neutro"
+                            local facLabel = (t.fac == "A" and CM:T("FACTION_ALLIANCE")) or (t.fac == "H" and CM:T("FACTION_HORDE")) or CM:T("FACTION_NEUTRAL")
                             table.insert(visiblePins, {
                                 id = 90000 + table.getn(visiblePins),
                                 name = t.name,
@@ -11670,7 +11691,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
                                 cat = "trainer",
                                 class = className,
                                 icon = classIcon,
-                                role = (NPC_SERVICE_NAMES["trainer"] or "Treinador") .. " (" .. className .. ") - " .. facLabel,
+                                role = string.format(CM:T("NPC_SERVICE_TRAINER_ROLE_FMT"), className) .. " - " .. facLabel,
                                 prio = 2,
                             })
                         end
@@ -12044,8 +12065,8 @@ function MainMenu:UpdateQuestGiverPins(mapCanvas)
             pin:SetScript("OnEnter", function()
                 if this.pinData and GameTooltip then
                     GameTooltip:SetOwner(this, "ANCHOR_RIGHT", 0, 0)
-                    GameTooltip:AddLine(this.pinData.qtitle or "Missão", 1, 0.85, 0.2)
-                    GameTooltip:AddLine("Quest completa - entregar: " .. (this.pinData.npc or "NPC"), 0.2, 1, 0.2)
+                    GameTooltip:AddLine(this.pinData.qtitle or CM:T("QUEST_FALLBACK_TITLE"), 1, 0.85, 0.2)
+                    GameTooltip:AddLine(string.format(CM:T("QUEST_TURNIN_FMT"), (this.pinData.npc or "NPC")), 0.2, 1, 0.2)
                     GameTooltip:Show()
                 end
             end)
@@ -13095,7 +13116,7 @@ function MainMenu:UpdateAddonConfigSubPage()
                     end
                 end
                 if DEFAULT_CHAT_FRAME then
-                    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Posições dos elementos de interface restauradas com sucesso!")
+                    DEFAULT_CHAT_FRAME:AddMessage(CM:T("SYS_CFG_RESET_SUCCESS"))
                 end
             end,
         },
@@ -13317,23 +13338,44 @@ local BINDS_PHYS_NAMES = {
     ["ALT-SHIFT-7"] = "Shift+Alt+7", ["ALT-SHIFT-8"] = "Shift+Alt+8", ["ALT-SHIFT-9"] = "Shift+Alt+9", ["ALT-SHIFT-0"] = "Shift+Alt+0",
 }
 
+-- FASE 3 (linguagem): nomes fisicos via CM:T em runtime; tabela acima = fallback.
+local BINDS_PHYS_TKEYS = {
+    ["SPACE"] = "KEY_SPACE_JUMP",
+    ["SHIFT-SPACE"] = "KEY_SHIFT_SPACE",
+    ["CTRL-SPACE"] = "KEY_CTRL_SPACE",
+    ["ALT-SPACE"] = "KEY_ALT_SPACE",
+    ["ALT-SHIFT-SPACE"] = "KEY_SHIFT_ALT_SPACE",
+    ["1"] = "KEY_1", ["2"] = "KEY_2", ["3"] = "KEY_3",
+    ["7"] = "KEY_7", ["8"] = "KEY_8", ["9"] = "KEY_9", ["0"] = "KEY_0",
+    ["SHIFT-1"] = "KEY_SHIFT_1", ["SHIFT-2"] = "KEY_SHIFT_2", ["SHIFT-3"] = "KEY_SHIFT_3",
+    ["SHIFT-7"] = "KEY_SHIFT_7", ["SHIFT-8"] = "KEY_SHIFT_8", ["SHIFT-9"] = "KEY_SHIFT_9", ["SHIFT-0"] = "KEY_SHIFT_0",
+    ["CTRL-1"] = "KEY_CTRL_1", ["CTRL-2"] = "KEY_CTRL_2", ["CTRL-3"] = "KEY_CTRL_3",
+    ["CTRL-7"] = "KEY_CTRL_7", ["CTRL-8"] = "KEY_CTRL_8", ["CTRL-9"] = "KEY_CTRL_9", ["CTRL-0"] = "KEY_CTRL_0",
+    ["ALT-1"] = "KEY_ALT_1", ["ALT-2"] = "KEY_ALT_2", ["ALT-3"] = "KEY_ALT_3",
+    ["ALT-7"] = "KEY_ALT_7", ["ALT-8"] = "KEY_ALT_8", ["ALT-9"] = "KEY_ALT_9", ["ALT-0"] = "KEY_ALT_0",
+    ["ALT-SHIFT-1"] = "KEY_ALTSHIFT_1", ["ALT-SHIFT-2"] = "KEY_ALTSHIFT_2", ["ALT-SHIFT-3"] = "KEY_ALTSHIFT_3",
+    ["ALT-SHIFT-7"] = "KEY_ALTSHIFT_7", ["ALT-SHIFT-8"] = "KEY_ALTSHIFT_8", ["ALT-SHIFT-9"] = "KEY_ALTSHIFT_9", ["ALT-SHIFT-0"] = "KEY_ALTSHIFT_0",
+}
+
 local BINDS_CLUSTER_DEFS = {
     left = {
         title = "DIRECIONAL (D-PAD)",
+        tkey = "BINDS_DPAD_TITLE",
         buttons = {
-            { key = "DUP",    glyph = "[^]", label = "D-Pad Cima",     icon = CFG.Icons.DUP },
-            { key = "DDOWN",  glyph = "[v]", label = "D-Pad Baixo",    icon = CFG.Icons.DDOWN },
-            { key = "DLEFT",  glyph = "[<]", label = "D-Pad Esquerda", icon = CFG.Icons.DLEFT },
-            { key = "DRIGHT", glyph = "[>]", label = "D-Pad Direita",  icon = CFG.Icons.DRIGHT },
+            { key = "DUP",    glyph = "[^]", label = "D-Pad Cima",     lkey = "BINDS_DPAD_UP",    icon = CFG.Icons.DUP },
+            { key = "DDOWN",  glyph = "[v]", label = "D-Pad Baixo",    lkey = "BINDS_DPAD_DOWN",  icon = CFG.Icons.DDOWN },
+            { key = "DLEFT",  glyph = "[<]", label = "D-Pad Esquerda", lkey = "BINDS_DPAD_LEFT",  icon = CFG.Icons.DLEFT },
+            { key = "DRIGHT", glyph = "[>]", label = "D-Pad Direita",  lkey = "BINDS_DPAD_RIGHT", icon = CFG.Icons.DRIGHT },
         }
     },
     right = {
         title = "BOTÕES FACIAIS (ABXY)",
+        tkey = "BINDS_FACE_TITLE",
         buttons = {
-            { key = "Y", glyph = "[Y]", label = "Botão Y", icon = CFG.Icons.Y },
-            { key = "X", glyph = "[X]", label = "Botão X", icon = CFG.Icons.X },
-            { key = "B", glyph = "[B]", label = "Botão B", icon = CFG.Icons.B },
-            { key = "A", glyph = "[A]", label = "Botão A", icon = CFG.Icons.A },
+            { key = "Y", glyph = "[Y]", label = "Botão Y", lkey = "BINDS_BTN_Y_LABEL", icon = CFG.Icons.Y },
+            { key = "X", glyph = "[X]", label = "Botão X", lkey = "BINDS_BTN_X_LABEL", icon = CFG.Icons.X },
+            { key = "B", glyph = "[B]", label = "Botão B", lkey = "BINDS_BTN_B_LABEL", icon = CFG.Icons.B },
+            { key = "A", glyph = "[A]", label = "Botão A", lkey = "BINDS_BTN_A_LABEL", icon = CFG.Icons.A },
         }
     }
 }
@@ -13346,15 +13388,15 @@ function MainMenu:GetBindButtonData(page, btnKey)
     end
 
     local physKey = BINDS_KEY_DEFAULTS[page] and BINDS_KEY_DEFAULTS[page][btnKey]
-    local physName = (physKey and BINDS_PHYS_NAMES[physKey]) or physKey or "?"
+    local physName = (physKey and BINDS_PHYS_TKEYS[physKey] and CM:T(BINDS_PHYS_TKEYS[physKey])) or (physKey and BINDS_PHYS_NAMES[physKey]) or physKey or "?"
 
     local pInfo = BINDS_PAGE_INFO[page] or { prefix = "" }
     local comboLabel = pInfo.prefix .. btnKey
-    if btnKey == "DUP" then comboLabel = pInfo.prefix .. "D-Pad Cima"
-    elseif btnKey == "DDOWN" then comboLabel = pInfo.prefix .. "D-Pad Baixo"
-    elseif btnKey == "DLEFT" then comboLabel = pInfo.prefix .. "D-Pad Esq."
-    elseif btnKey == "DRIGHT" then comboLabel = pInfo.prefix .. "D-Pad Dir."
-    elseif btnKey == "A" and page == 1 then comboLabel = "A (Pulo)"
+    if btnKey == "DUP" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_UP")
+    elseif btnKey == "DDOWN" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_DOWN")
+    elseif btnKey == "DLEFT" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_LEFT_SHORT")
+    elseif btnKey == "DRIGHT" then comboLabel = pInfo.prefix .. CM:T("BINDS_DPAD_RIGHT_SHORT")
+    elseif btnKey == "A" and page == 1 then comboLabel = CM:T("BINDS_A_JUMP")
     end
 
     return slot, name, tex, physKey, physName, comboLabel
@@ -13417,7 +13459,7 @@ function MainMenu:CreateBindCard(parent, btnDef)
     local badge = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     badge:SetPoint("LEFT", glyphIcon, "RIGHT", 4, 0)
     MainMenu:ApplyFont(badge, CFG.Fonts.bodyFontFile, 12, "")
-    badge:SetText(btnDef.label)
+    badge:SetText((btnDef.lkey and CM:T(btnDef.lkey)) or btnDef.label)
     badge:SetTextColor(CFG.Tabs.activeColor.r, CFG.Tabs.activeColor.g, CFG.Tabs.activeColor.b)
     card.badge = badge
 
@@ -13427,8 +13469,8 @@ function MainMenu:CreateBindCard(parent, btnDef)
     nameText:SetPoint("RIGHT", card, "RIGHT", -6, 0)
     nameText:SetJustifyH("LEFT")
     MainMenu:ApplyFont(nameText, CFG.Fonts.subFontFile, 11, "")
-    nameText:SetText("|cff888888(Vazio)|r")
-    card.nameText = nameText
+        nameText:SetText(CM:T("BINDS_CARD_EMPTY"))
+        card.nameText = nameText
 
     card.btnKey = btnDef.key
     card.btnDef = btnDef
@@ -13532,7 +13574,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local headerTitle = headerBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     headerTitle:SetPoint("LEFT", headerBar, "LEFT", 12, 0)
     MainMenu:ApplyFont(headerTitle, CFG.Fonts.titleFontFile, 16, "")
-    headerTitle:SetText("|cffe09a15[ MAPEADOR DE ATALHOS / BINDS ]|r")
+    headerTitle:SetText(CM:T("BINDS_HEADER"))
     headerBar.title = headerTitle
 
     -- Botão Voltar [B] no cabeçalho
@@ -13552,7 +13594,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local backTxt = backBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     backTxt:SetPoint("CENTER", backBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(backTxt, CFG.Fonts.bodyFontFile, 12, "")
-    backTxt:SetText("|cffe09a15[B]|r Voltar")
+    backTxt:SetText(CM:T("BINDS_BACK_BTN"))
     backBtn.text = backTxt
 
     backBtn:SetScript("OnEnter", function()
@@ -13682,7 +13724,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local lTitle = leftCluster:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     lTitle:SetPoint("TOPLEFT", leftCluster, "TOPLEFT", 4, 0)
     MainMenu:ApplyFont(lTitle, CFG.Fonts.titleFontFile, 13, "")
-    lTitle:SetText("|cffe09a15DIRECIONAL (D-PAD)|r")
+    lTitle:SetText(CM:T("BINDS_DPAD_TITLE"))
     leftCluster.title = lTitle
 
     local leftCards = {}
@@ -13705,7 +13747,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local rTitle = rightCluster:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     rTitle:SetPoint("TOPLEFT", rightCluster, "TOPLEFT", 4, 0)
     MainMenu:ApplyFont(rTitle, CFG.Fonts.titleFontFile, 13, "")
-    rTitle:SetText("|cffe09a15BOTÕES FACIAIS (ABXY)|r")
+    rTitle:SetText(CM:T("BINDS_FACE_TITLE"))
     rightCluster.title = rTitle
 
     local rightCards = {}
@@ -13739,7 +13781,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local pTitle = pickerHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     pTitle:SetPoint("LEFT", pickerHeader, "LEFT", 12, 0)
     MainMenu:ApplyFont(pTitle, CFG.Fonts.titleFontFile, 16, "")
-    pTitle:SetText("|cffe09a15[ SELETOR DE CONTEÚDO ]|r")
+    pTitle:SetText(CM:T("PICKER_HEADER"))
     pickerHeader.title = pTitle
 
     local pBackBtn = CreateFrame("Button", "ConsoleModeMM_PickerBackBtn", pickerHeader)
@@ -13758,7 +13800,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local pBackTxt = pBackBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     pBackTxt:SetPoint("CENTER", pBackBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(pBackTxt, CFG.Fonts.bodyFontFile, 12, "")
-    pBackTxt:SetText("|cffe09a15[B]|r Voltar")
+    pBackTxt:SetText(CM:T("BINDS_BACK_BTN"))
     pBackBtn.text = pBackTxt
 
     pBackBtn:SetScript("OnEnter", function()
@@ -13786,14 +13828,14 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local pDetailCard = self:CreateDetailCard(pickerScreen)
     pickerScreen.detailCard = pDetailCard
     if pDetailCard.slotsFreeText then
-        pDetailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar ao Mapeador")
+        pDetailCard.slotsFreeText:SetText(CM:T("PICKER_BACK_TO_MAPPER"))
     end
     if pDetailCard.sellWidget then pDetailCard.sellWidget:Hide() end
     if pDetailCard.moneyWidget then pDetailCard.moneyWidget:Hide() end
-    pDetailCard.titleText:SetText("|cffe09a15Seletor de Conteúdo|r")
-    pDetailCard.typeText:SetText("|cffaaaaaaModo Console — Feitiços, Bolsas, Macros e Barras|r")
-    pDetailCard.descColLeft:SetText("|cffccccccSelecione uma habilidade ou item para vincular ao botão escolhido.|r")
-    pDetailCard.descColRight:SetText("|cff888888Pressione [B] para cancelar o mapeamento.|r")
+    pDetailCard.titleText:SetText(CM:T("PICKER_TITLE"))
+    pDetailCard.typeText:SetText(CM:T("PICKER_TYPE"))
+    pDetailCard.descColLeft:SetText(CM:T("PICKER_DESC_LEFT"))
+    pDetailCard.descColRight:SetText(CM:T("PICKER_DESC_RIGHT"))
     pDetailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
     pDetailCard.icon:Show()
 
@@ -13819,10 +13861,10 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     pickerScreen.modeBar = modeBar
 
     local PICKER_MODES = {
-        { id = "SPELLBOOK", name = "Grimório" },
-        { id = "BAG",       name = "Bolsas" },
-        { id = "MACROS",    name = "Macros" },
-        { id = "BARS",      name = "Barras" },
+        { id = "SPELLBOOK", name = CM:T("PICKER_MODE_SPELLBOOK") },
+        { id = "BAG",       name = CM:T("PICKER_MODE_BAGS") },
+        { id = "MACROS",    name = CM:T("PICKER_MODE_MACROS") },
+        { id = "BARS",      name = CM:T("PICKER_MODE_BARS") },
     }
 
     local modeButtons = {}
@@ -14005,7 +14047,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local prevTxt = prevBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     prevTxt:SetPoint("CENTER", prevBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(prevTxt, CFG.Fonts.bodyFontFile, 11, "")
-    prevTxt:SetText("< Anterior")
+    prevTxt:SetText(CM:T("PICKER_BTN_PREV"))
     prevBtn.text = prevTxt
 
     prevBtn:SetScript("OnEnter", function()
@@ -14026,7 +14068,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local pageLabel = pageBar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     pageLabel:SetPoint("CENTER", pageBar, "CENTER", 0, 0)
     MainMenu:ApplyFont(pageLabel, CFG.Fonts.bodyFontFile, 12, "")
-    pageLabel:SetText("Página 1 de 1")
+    pageLabel:SetText(string.format(CM:T("PICKER_PAGE_FMT"), 1, 1))
     pageBar.pageLabel = pageLabel
 
     local nextBtn = CreateFrame("Button", "ConsoleModeMM_PickerNextBtn", pageBar)
@@ -14045,7 +14087,7 @@ function MainMenu:SetupKeybindingsPage(pageSystem)
     local nextTxt = nextBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     nextTxt:SetPoint("CENTER", nextBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(nextTxt, CFG.Fonts.bodyFontFile, 11, "")
-    nextTxt:SetText("Próxima >")
+    nextTxt:SetText(CM:T("PICKER_BTN_NEXT"))
     nextBtn.text = nextTxt
 
     nextBtn:SetScript("OnEnter", function()
@@ -14098,21 +14140,21 @@ function MainMenu:FocusBindsSlot(card)
         detailCard.icon:SetTexture(card.actionTexture or "Interface\\Icons\\INV_Misc_QuestionMark")
 
         if card.page == 1 and card.btnKey == "A" then
-            detailCard.typeText:SetText("|cffffff00Ação Nativa do Jogo (Fixo)|r")
-            detailCard.descColLeft:SetText("|cffccccccNa Página 1 (Base), o botão A é reservado para Pular / Interagir no mundo.|r")
-            detailCard.descColRight:SetText("|cff888888Não pode ser reatribuído na Página 1.|r")
+            detailCard.typeText:SetText(CM:T("BINDS_DETAIL_NATIVE_ACTION"))
+            detailCard.descColLeft:SetText(CM:T("BINDS_DETAIL_PAGE1_RESERVED"))
+            detailCard.descColRight:SetText(CM:T("BINDS_DETAIL_PAGE1_LOCKED"))
         elseif card.actionSlot then
-            detailCard.typeText:SetText(string.format("|cffaaaaaaTecla Física: |cffffffff%s|r  •  |cffaaaaaaBarra de Ação: |cffffffffSlot %d|r", card.physName or "?", card.actionSlot))
-            detailCard.descColLeft:SetText(string.format("|cffffffff%s|r\n|cffaaaaaaPressione [A] para alterar este atalho.|r", card.actionName or "Habilidade Vinculada"))
-            detailCard.descColRight:SetText("|cff888888Pressione [X] no controle para limpar slot.|r")
-        elseif card.actionName and card.actionName ~= "" and card.actionName ~= "|cff888888(vazio)|r" then
-            detailCard.typeText:SetText(string.format("|cffaaaaaaTecla Física: |cffffffff%s|r", card.physName or "?"))
-            detailCard.descColLeft:SetText(string.format("|cffffffff%s|r\n|cffaaaaaaPressione [A] para alterar este atalho.|r", card.actionName))
-            detailCard.descColRight:SetText("|cff888888Pressione [X] no controle para limpar slot.|r")
+            detailCard.typeText:SetText(string.format(CM:T("BINDS_DETAIL_KEY_BAR_SLOT_FMT"), card.physName or "?", card.actionSlot))
+            detailCard.descColLeft:SetText(string.format(CM:T("BINDS_DETAIL_PRESS_A_TO_CHANGE_FMT"), card.actionName or CM:T("BINDS_ACTION_FALLBACK_NAME")))
+            detailCard.descColRight:SetText(CM:T("BINDS_DETAIL_PRESS_X_TO_CLEAR"))
+        elseif card.actionName and card.actionName ~= "" and card.actionName ~= CM:T("BINDS_EMPTY_SENTINEL") then
+            detailCard.typeText:SetText(string.format(CM:T("BINDS_DETAIL_PHYS_KEY_FMT"), card.physName or "?"))
+            detailCard.descColLeft:SetText(string.format(CM:T("BINDS_DETAIL_PRESS_A_TO_CHANGE_FMT"), card.actionName))
+            detailCard.descColRight:SetText(CM:T("BINDS_DETAIL_PRESS_X_TO_CLEAR"))
         else
-            detailCard.typeText:SetText(string.format("|cff888888Slot Vazio — Nenhuma ação atribuída (Tecla: %s)|r", card.physName or "?"))
-            detailCard.descColLeft:SetText("|cffaaaaaaPressione [A] para mapear uma habilidade, item de bolsa ou macro a este botão.|r")
-            detailCard.descColRight:SetText("|cff666666Slot livre para personalização.|r")
+            detailCard.typeText:SetText(string.format(CM:T("BINDS_DETAIL_EMPTY_SLOT_FMT"), card.physName or "?"))
+            detailCard.descColLeft:SetText(CM:T("BINDS_DETAIL_PRESS_A_TO_MAP"))
+            detailCard.descColRight:SetText(CM:T("BINDS_DETAIL_FREE_SLOT"))
         end
 
         if detailCard and card.actionSlot and detailCard.topRightText then
@@ -14139,7 +14181,7 @@ function MainMenu:FocusBindsSlot(card)
         end
 
         if detailCard.slotsFreeText then
-            detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Mapear   |   |cffe09a15[X]|r Limpar   |   |cffe09a15[LT]/[RT]|r Páginas   |   |cffe09a15[B]|r Voltar")
+            detailCard.slotsFreeText:SetText(CM:T("BINDS_FOOTER_HINTS"))
         end
     end
 end
@@ -14193,8 +14235,8 @@ function MainMenu:UpdateBindsPage()
                 card.iconBorder:SetBackdropBorderColor(0.4, 0.35, 0.25, 0.4)
             end
 
-            if not name or name == "" or name == "|cff888888(vazio)|r" then
-                card.nameText:SetText("|cff888888(Vazio)|r")
+            if not name or name == "" or name == CM:T("BINDS_EMPTY_SENTINEL") then
+                card.nameText:SetText(CM:T("BINDS_CARD_EMPTY"))
             else
                 card.nameText:SetText(string.format("|cffffffff%s|r", name))
             end
@@ -14225,7 +14267,7 @@ function MainMenu:OpenPickerForSlot(card)
     if not card then return end
     if card.page == 1 and card.btnKey == "A" then
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[ConsoleMode]|r O botão A na Página 1 é reservado para Pulo / Interagir.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("BINDS_MSG_PAGE1_RESERVED_A"))
         end
         PlaySound("igQuestFailed")
         return
@@ -14235,7 +14277,7 @@ function MainMenu:OpenPickerForSlot(card)
     if pageSystem and pageSystem.pickerScreen then
         pageSystem.targetBindCard = card
         if pageSystem.pickerScreen.headerBar and pageSystem.pickerScreen.headerBar.title then
-            pageSystem.pickerScreen.headerBar.title:SetText(string.format("|cffe09a15[ MAPEANDO: %s ]|r", card.comboLabel or card.btnKey))
+            pageSystem.pickerScreen.headerBar.title:SetText(string.format(CM:T("PICKER_HEADER_MAPPING_FMT"), card.comboLabel or card.btnKey))
         end
         self:ShowPickerScreen()
     end
@@ -14246,7 +14288,7 @@ function MainMenu:ClearBinding(page, btnKey)
 
     if page == 1 and btnKey == "A" then
         if DEFAULT_CHAT_FRAME then
-            DEFAULT_CHAT_FRAME:AddMessage("|cffffcc00[ConsoleMode]|r O botão A na Página 1 é reservado para Pulo / Interagir.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("BINDS_MSG_PAGE1_RESERVED_A"))
         end
         PlaySound("igQuestFailed")
         return false
@@ -14310,7 +14352,7 @@ function MainMenu:ClearBinding(page, btnKey)
     local pInfo = BINDS_PAGE_INFO[page] or { prefix = "" }
     local comboName = pInfo.prefix .. btnKey
     if DEFAULT_CHAT_FRAME then
-        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffe09a15[ConsoleMode]|r Atalho |cffffffff%s|r limpo com sucesso da barra de ações.", comboName))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("BINDS_MSG_CLEARED_FMT"), comboName))
     end
 
     self:UpdateBindsPage()
@@ -14464,23 +14506,23 @@ function MainMenu:UpdatePickerSubTabs()
         end
     elseif mode == "BAG" then
         subTabsData = {
-            { id = 1, name = "Todos Usáveis" },
-            { id = 2, name = "Consumíveis" },
-            { id = 3, name = "Equipáveis" },
-            { id = 4, name = "Diversos" },
+            { id = 1, name = CM:T("PICKER_SUBTAB_BAG_ALL") },
+            { id = 2, name = CM:T("PICKER_SUBTAB_BAG_CONSUMABLES") },
+            { id = 3, name = CM:T("PICKER_SUBTAB_BAG_EQUIPPABLE") },
+            { id = 4, name = CM:T("PICKER_SUBTAB_BAG_MISC") },
         }
     elseif mode == "MACROS" then
         subTabsData = {
-            { id = 1, name = "Gerais (Conta)" },
-            { id = 2, name = "Personagem" },
+            { id = 1, name = CM:T("PICKER_SUBTAB_MACRO_ACCOUNT") },
+            { id = 2, name = CM:T("PICKER_SUBTAB_MACRO_CHARACTER") },
         }
     elseif mode == "BARS" then
         subTabsData = {
-            { id = 1, name = "Principal" },
-            { id = 2, name = "Inf. Esq." },
-            { id = 3, name = "Inf. Dir." },
-            { id = 4, name = "Lat. Dir. 1" },
-            { id = 5, name = "Lat. Dir. 2" },
+            { id = 1, name = CM:T("PICKER_SUBTAB_BAR_MAIN") },
+            { id = 2, name = CM:T("PICKER_SUBTAB_BAR_BOTTOM_LEFT") },
+            { id = 3, name = CM:T("PICKER_SUBTAB_BAR_BOTTOM_RIGHT") },
+            { id = 4, name = CM:T("PICKER_SUBTAB_BAR_RIGHT_1") },
+            { id = 5, name = CM:T("PICKER_SUBTAB_BAR_RIGHT_2") },
         }
     end
 
@@ -14618,11 +14660,11 @@ local function MM_WrapName(s)
 end
 
 local PICKER_BAR_DEFINITIONS = {
-    [1] = { name = "Principal",    startSlot = 1,  bindingPrefix = "ACTIONBUTTON",         count = 12 },
-    [2] = { name = "Inf. Esq.",    startSlot = 61, bindingPrefix = "MULTIACTIONBAR1BUTTON", count = 12 },
-    [3] = { name = "Inf. Dir.",    startSlot = 49, bindingPrefix = "MULTIACTIONBAR2BUTTON", count = 12 },
-    [4] = { name = "Lat. Dir. 1",  startSlot = 25, bindingPrefix = "MULTIACTIONBAR3BUTTON", count = 12 },
-    [5] = { name = "Lat. Dir. 2",  startSlot = 37, bindingPrefix = "MULTIACTIONBAR4BUTTON", count = 12 },
+    [1] = { name = "Principal",    tkey = "PICKER_BAR_NAME_MAIN",         startSlot = 1,  bindingPrefix = "ACTIONBUTTON",         count = 12 },
+    [2] = { name = "Inf. Esq.",    tkey = "PICKER_BAR_NAME_BOTTOM_LEFT",  startSlot = 61, bindingPrefix = "MULTIACTIONBAR1BUTTON", count = 12 },
+    [3] = { name = "Inf. Dir.",    tkey = "PICKER_BAR_NAME_BOTTOM_RIGHT", startSlot = 49, bindingPrefix = "MULTIACTIONBAR2BUTTON", count = 12 },
+    [4] = { name = "Lat. Dir. 1",  tkey = "PICKER_BAR_NAME_RIGHT_1",      startSlot = 25, bindingPrefix = "MULTIACTIONBAR3BUTTON", count = 12 },
+    [5] = { name = "Lat. Dir. 2",  tkey = "PICKER_BAR_NAME_RIGHT_2",      startSlot = 37, bindingPrefix = "MULTIACTIONBAR4BUTTON", count = 12 },
 }
 
 function MainMenu:RefreshPickerGrid()
@@ -14694,7 +14736,7 @@ function MainMenu:RefreshPickerGrid()
                 local tex = GetActionTexture(slot)
                 local name = GetActionText(slot)
                 if not name or name == "" then
-                    if HasAction(slot) then name = "Ação " .. i else name = "(Vazio)" end
+                    if HasAction(slot) then name = CM:T("PICKER_BAR_FALLBACK_ACTION") .. i else name = CM:T("PICKER_BAR_FALLBACK_EMPTY") end
                 end
                 table.insert(itemsCache, {
                     isBarSlot = true,
@@ -14723,7 +14765,7 @@ function MainMenu:RefreshPickerGrid()
             pickerScreen.pageBar:Hide()
         else
             pickerScreen.pageBar:Show()
-            pickerScreen.pageBar.pageLabel:SetText(string.format("Página %d de %d", pickerScreen.gridPage, totalPages))
+            pickerScreen.pageBar.pageLabel:SetText(string.format(CM:T("PICKER_PAGE_FMT"), pickerScreen.gridPage, totalPages))
         end
     end
 
@@ -14795,13 +14837,13 @@ function MainMenu:RefreshPickerGrid()
         end
         local detailCard = pickerScreen.detailCard
         if detailCard then
-            detailCard.titleText:SetText("|cff888888Nenhum item disponível|r")
+            detailCard.titleText:SetText(CM:T("PICKER_EMPTY_TITLE"))
             detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-            detailCard.typeText:SetText("|cff666666Nenhuma ação encontrada nesta aba.|r")
-            detailCard.descColLeft:SetText("|cff666666Não há itens ou macros criados para esta categoria.|r")
-            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador.|r")
+            detailCard.typeText:SetText(CM:T("PICKER_EMPTY_TYPE"))
+            detailCard.descColLeft:SetText(CM:T("PICKER_EMPTY_DESC_LEFT"))
+            detailCard.descColRight:SetText(CM:T("PICKER_EMPTY_DESC_RIGHT"))
             if detailCard.slotsFreeText then
-                detailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar ao Mapeador")
+                detailCard.slotsFreeText:SetText(CM:T("PICKER_DETAIL_FOOTER_BACK"))
             end
         end
     end
@@ -14837,37 +14879,38 @@ function MainMenu:FocusPickerSlot(slotBtn)
 
         local mode = pickerScreen.currentMode
         if mode == "SPELLBOOK" then
-            detailCard.typeText:SetText(string.format("|cffaaaaaaLivro de Magias  •  |cffffffff%s|r", item.rank or "Rank 1"))
-            detailCard.descColLeft:SetText("|cffccccccPressione [A] para vincular esta habilidade ao botão selecionado.|r")
-            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+            detailCard.typeText:SetText(string.format(CM:T("PICKER_DETAIL_SPELLBOOK_FMT"), item.rank or "Rank 1"))
+            detailCard.descColLeft:SetText(CM:T("PICKER_DETAIL_SPELL_A"))
+            detailCard.descColRight:SetText(CM:T("PICKER_DETAIL_BACK_WITHOUT_CHANGE"))
         elseif mode == "BAG" then
-            local countStr = (item.count and item.count > 1) and ("  •  Quantidade: x" .. item.count) or ""
-            detailCard.typeText:SetText(string.format("|cffaaaaaaItem do Inventário (Bolsas)%s|r", countStr))
-            detailCard.descColLeft:SetText("|cffccccccPressione [A] para vincular o uso deste item ao botão selecionado.|r")
-            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+            local countStr = (item.count and item.count > 1) and (CM:T("PICKER_DETAIL_QTY") .. item.count) or ""
+            detailCard.typeText:SetText(string.format(CM:T("PICKER_DETAIL_BAG_ITEM_FMT"), countStr))
+            detailCard.descColLeft:SetText(CM:T("PICKER_DETAIL_BAG_A"))
+            detailCard.descColRight:SetText(CM:T("PICKER_DETAIL_BACK_WITHOUT_CHANGE"))
         elseif mode == "MACROS" then
-            detailCard.typeText:SetText("|cffaaaaaaMacro Personalizada|r")
+            detailCard.typeText:SetText(CM:T("PICKER_DETAIL_MACRO"))
             local bodyText = item.body or ""
             if string.len(bodyText) > 100 then bodyText = string.sub(bodyText, 1, 97) .. "..." end
-            detailCard.descColLeft:SetText(string.format("|cffffffff%s|r", bodyText ~= "" and bodyText or "Sem comando definido"))
-            detailCard.descColRight:SetText("|cff888888Pressione [A] para vincular esta macro ao botão selecionado.|r")
+            detailCard.descColLeft:SetText(string.format("|cffffffff%s|r", bodyText ~= "" and bodyText or CM:T("PICKER_DETAIL_MACRO_NO_COMMAND")))
+            detailCard.descColRight:SetText(CM:T("PICKER_DETAIL_MACRO_A"))
         elseif mode == "BARS" then
-            detailCard.typeText:SetText(string.format("|cffaaaaaa%s  •  Slot %d (Slot Real: %d)|r", item.barDef and item.barDef.name or "Barra", item.slotNum or 1, item.slot or 1))
-            detailCard.descColLeft:SetText("|cffccccccPressione [A] para vincular diretamente o acionamento deste slot da barra.|r")
-            detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+            local barName = (item.barDef and item.barDef.tkey and CM:T(item.barDef.tkey)) or (item.barDef and item.barDef.name) or "Barra"
+            detailCard.typeText:SetText(string.format(CM:T("PICKER_DETAIL_BAR_SLOT_FMT"), barName, item.slotNum or 1, item.slot or 1))
+            detailCard.descColLeft:SetText(CM:T("PICKER_DETAIL_BAR_A"))
+            detailCard.descColRight:SetText(CM:T("PICKER_DETAIL_BACK_WITHOUT_CHANGE"))
         end
 
         if detailCard.slotsFreeText then
-            detailCard.slotsFreeText:SetText("|cffe09a15[A]|r Selecionar / Vincular   |   |cffe09a15[B]|r Voltar ao Mapeador")
+            detailCard.slotsFreeText:SetText(CM:T("PICKER_DETAIL_FOOTER_SELECT"))
         end
     elseif detailCard then
-        detailCard.titleText:SetText("|cff888888(Slot Vazio)|r")
+        detailCard.titleText:SetText(CM:T("PICKER_DETAIL_EMPTY_SLOT"))
         detailCard.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
-        detailCard.typeText:SetText("|cff666666Nenhuma ação neste slot|r")
-        detailCard.descColLeft:SetText("|cff666666Este slot não contém habilidade, item ou macro atribuída.|r")
-        detailCard.descColRight:SetText("|cff888888Pressione [B] para voltar ao mapeador sem alterar.|r")
+        detailCard.typeText:SetText(CM:T("PICKER_DETAIL_NO_ACTION"))
+        detailCard.descColLeft:SetText(CM:T("PICKER_DETAIL_NO_ACTION_DESC"))
+        detailCard.descColRight:SetText(CM:T("PICKER_DETAIL_BACK_WITHOUT_CHANGE"))
         if detailCard.slotsFreeText then
-            detailCard.slotsFreeText:SetText("|cffe09a15[B]|r Voltar ao Mapeador")
+            detailCard.slotsFreeText:SetText(CM:T("PICKER_DETAIL_FOOTER_BACK"))
         end
     end
 end
@@ -14916,7 +14959,7 @@ function MainMenu:OnPickerSlotClick(slotBtn)
             end
 
             if DEFAULT_CHAT_FRAME then
-                DEFAULT_CHAT_FRAME:AddMessage(string.format("|cff00ff00[ConsoleMode]|r |cffffcc00%s|r vinculado a |cff88ccff%s|r (%s)!", comboLabel, item.name or ("Slot " .. item.slotNum), barDef.name))
+                DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("PICKER_MSG_BOUND_TO_FMT"), comboLabel, item.name or string.format(CM:T("PICKER_BAR_SLOT_FALLBACK_FMT"), item.slotNum), (barDef.tkey and CM:T(barDef.tkey)) or barDef.name))
             end
 
             local ActionHUD = (ConsoleMode and ConsoleMode.ui and ConsoleMode.ui.actionHUD) or (ConsoleMode and ConsoleMode.actionHUD)
@@ -15331,13 +15374,13 @@ function MainMenu:SelectTab(tabID, playSoundEffect)
         if csMod and type(csMod.AttachTo) == "function" then
             local okA, errA = pcall(function() csMod:AttachTo(csPage) end)
             if not okA and DEFAULT_CHAT_FRAME and type(DEFAULT_CHAT_FRAME.AddMessage) == "function" then
-                DEFAULT_CHAT_FRAME:AddMessage("|cffff4040[ConsoleMode/Character]|r AttachTo falhou: " .. tostring(errA))
+                DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("CHARACTER_MSG_ATTACH_FAILED_FMT"), tostring(errA)))
             end
         end
         if csMod and type(csMod.Show) == "function" then
             local okS, errS = pcall(function() csMod:Show() end)
             if not okS and DEFAULT_CHAT_FRAME and type(DEFAULT_CHAT_FRAME.AddMessage) == "function" then
-                DEFAULT_CHAT_FRAME:AddMessage("|cffff4040[ConsoleMode/Character]|r Show falhou: " .. tostring(errS))
+                DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("CHARACTER_MSG_SHOW_FAILED_FMT"), tostring(errS)))
             end
         end
         -- Re-afirma a page DEPOIS do AttachTo/Show (nada sobrescreve o Show do loop).
@@ -16596,7 +16639,7 @@ SlashCmdList["CMMAPINS"] = function()
     local pq = mm.tabContainer.pages["QUESTS"]
     local canvas = pq and pq.mapPanel and pq.mapPanel.canvas or nil
     if not canvas or not canvas.tilesContainer then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[MapPins]|r canvas indisponível (abra o mapa).")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MAPPINS_MSG_NO_CANVAS"))
         return
     end
     DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[MapPins]|r tiles=" .. canvas.tilesContainer:GetFrameLevel())
@@ -16616,7 +16659,7 @@ SlashCmdList["CMMAPINS"] = function()
                 end
             end
         end
-        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffe09a15[MapPins]|r %s: total=%d visiveis=%d lvl=[%s-%s]",
+            DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("MAPPINS_MSG_POOL_STATUS_FMT"),
             name, n, shown, tostring(minL), tostring(maxL)))
     end
     -- Caça frames estranhos: botões visíveis no tilesContainer fora dos pools
@@ -16628,14 +16671,14 @@ SlashCmdList["CMMAPINS"] = function()
             if not string.find(nm, "^ConsoleMode") then
                 strange = strange + 1
                 if strange <= 10 then
-                    DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffff6666[MapPins]|r estranho: %s lvl=%d", tostring(nm), ch:GetFrameLevel()))
+                    DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("MAPPINS_MSG_STRANGE_FMT"), tostring(nm), ch:GetFrameLevel()))
                 end
             end
         end
     end
     if strange == 0 then
-        DEFAULT_CHAT_FRAME:AddMessage("|cff88ff88[MapPins]|r nenhum frame estranho visível")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("MAPPINS_MSG_NO_STRANGE"))
     else
-        DEFAULT_CHAT_FRAME:AddMessage(string.format("|cffff6666[MapPins]|r total estranhos: %d", strange))
+        DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("MAPPINS_MSG_TOTAL_STRANGE_FMT"), strange))
     end
 end

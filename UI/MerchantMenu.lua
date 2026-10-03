@@ -254,7 +254,7 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
     itemCount = itemCount or 1
     local rawLink = GetContainerItemLink(bagID, slotID)
 
-    local itemName = "Item Desconhecido"
+    local itemName = CM:T("MERCH_UNKNOWN_ITEM")
     local itemQuality = quality or 1
     local itemReqLevel = 0
     local itemType = ""
@@ -356,7 +356,7 @@ function MerchantMenu:ParseBagItem(bagID, slotID)
     end
 
     -- Se GetItemInfo não retornou nome, recupera a linha 1 do Tooltip
-    if itemName == "Item Desconhecido" or itemName == "" then
+    if itemName == CM:T("MERCH_UNKNOWN_ITEM") or itemName == "" then
         local left1 = _G["ConsoleMode_MerchantScanTipTextLeft1"]
         local text1 = left1 and left1:GetText()
         if text1 and text1 ~= "" then
@@ -1971,7 +1971,7 @@ function MerchantMenu:UpdateVendorRows()
     if totalPages < 1 then totalPages = 1 end
     local arrowUp = (self.vendorScrollOffset > 0) and "▲ " or ""
     local arrowDown = ((self.vendorScrollOffset + 7) < numItems) and " ▼" or ""
-    leftCol.pageIndicator:SetText(string.format("%s|cffaaaaaaItem %d de %d|r  |cff888888(Pág. %d/%d)|r%s", arrowUp, self.selectedVendorIndex, numItems, curPage, totalPages, arrowDown))
+    leftCol.pageIndicator:SetText(string.format(CM:T("MERCH_PAGE_FMT"), arrowUp, self.selectedVendorIndex, numItems, curPage, totalPages, arrowDown))
     if self.activeColumn == "VENDOR" then
         self:ShowItemDetail(selectedItem)
     end
@@ -2075,25 +2075,25 @@ function MerchantMenu:FormatCompareDiffs(item)
                 if ok2 and t2 then txt = t2 end
             end
             if txt == "" then
-                if up > 0 and down == 0 then txt = "|cff1eff00[Melhoria]|r" end
-                if down > 0 and up == 0 then txt = "|cffff2020[Pior]|r" end
+                if up > 0 and down == 0 then txt = CM:T("MERCH_COMPARE_UPGRADE") end
+                if down > 0 and up == 0 then txt = CM:T("MERCH_COMPARE_DOWNGRADE") end
             end
             local vs = ""
-            if cmp.vsName and cmp.vsName ~= "" then vs = "  |cff888888(vs. " .. cmp.vsName .. ")|r" end
+            if cmp.vsName and cmp.vsName ~= "" then vs = string.format(CM:T("MERCH_COMPARE_VS_FMT"), cmp.vsName) end
             local verdict = nil
             if up > 0 and down == 0 then verdict = true end
             if down > 0 and up == 0 then verdict = false end
-            return "|cffaaaaaaComparar:|r " .. txt .. vs, verdict
+            return CM:T("MERCH_COMPARE_LABEL") .. txt .. vs, verdict
         end
     end
     local eqLink = self:ResolveEquippedLink(item)
     if not eqLink then
-        return "|cff1eff00[Melhoria]|r |cffaaaaaa(slot vazio)|r", true
+        return CM:T("MERCH_COMPARE_EMPTY_SLOT"), true
     end
     local newS = self:ParseSimpleStats(item.link)
     local oldS = self:ParseSimpleStats(eqLink)
     local keys = { "str", "agi", "sta", "int", "spi" }
-    local labels = { "For", "Agi", "Vig", "Int", "Esp" }
+    local labels = { CM:T("MERCH_STAT_STR_SHORT"), CM:T("MERCH_STAT_AGI_SHORT"), CM:T("MERCH_STAT_STA_SHORT"), CM:T("MERCH_STAT_INT_SHORT"), CM:T("MERCH_STAT_SPI_SHORT") }
     local parts = {}
     local up, down = 0, 0
     local numKeys = table.getn(keys)
@@ -2111,11 +2111,11 @@ function MerchantMenu:FormatCompareDiffs(item)
         end
     end
     if table.getn(parts) == 0 then return "", nil end
-    local eqName = GetItemInfo(eqLink) or "equipado"
+    local eqName = GetItemInfo(eqLink) or CM:T("MERCH_COMPARE_EQUIPPED_FALLBACK")
     local verdict = nil
     if up > 0 and down == 0 then verdict = true end
     if down > 0 and up == 0 then verdict = false end
-    return "|cffaaaaaaComparar:|r " .. table.concat(parts, " ") .. "  |cff888888(vs. " .. eqName .. ")|r", verdict
+    return CM:T("MERCH_COMPARE_LABEL") .. table.concat(parts, " ") .. string.format(CM:T("MERCH_COMPARE_VS_FMT"), eqName), verdict
 end
 
 function MerchantMenu:ApplyCompareToCard(item)
@@ -2531,7 +2531,7 @@ function MerchantMenu:SellItem(bagID, slotID, item)
     if item and (not item.sellPrice or item.sellPrice <= 0) then
         DEFAULT_CHAT_FRAME:AddMessage(CM:T("MERCH_MSG_NOSELL"))
         if UIErrorsFrame and UIERRORS_HOLD_TIME then
-            UIErrorsFrame:AddMessage("O mercador não deseja esse item.", 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
+            UIErrorsFrame:AddMessage(CM:T("MERCH_ERR_NOSELL"), 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
         end
         PlaySound("igQuestFailed")
         return

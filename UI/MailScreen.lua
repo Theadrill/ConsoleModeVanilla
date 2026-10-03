@@ -2957,19 +2957,19 @@ function MailScreen:OpenVKForField(fieldIndex)
     local eb = self:GetComposeEditBox(fieldIndex)
     local vk = CM and CM.VirtualKeyboard
     if vk and vk.Open then
-        local title = "Texto"
+        local title = CM:T("MAIL_VK_TITLE")
         local initial = ""
         local maxL = 64
         local multi = false
         local acList = nil
         if fieldIndex == 1 then
-            title = "Destinatário"
+            title = CM:T("MAIL_VK_TO")
             initial = self.composeTo or ""
             maxL = 64
             multi = false
             acList = self:BuildAutoCompleteList()
         elseif fieldIndex == 2 then
-            title = "Assunto"
+            title = CM:T("MAIL_VK_SUBJECT")
             maxL = 64
             multi = false
             initial = self.composeSubject or ""
@@ -2977,7 +2977,7 @@ function MailScreen:OpenVKForField(fieldIndex)
                 initial = self:GetFirstAttachName() or ""
             end
         else
-            title = "Mensagem"
+            title = CM:T("MAIL_VK_BODY")
             initial = self.composeBody or ""
             maxL = 2000
             multi = true
@@ -3425,7 +3425,7 @@ function MailScreen:OnQtyPicked(qty, ctx)
         -- a pilha nova integral. Assincrono com verificacao; fim via callbacks.
         local bs = CM.BagSplit or ConsoleMode_BagSplit
         if not bs or not bs.Start then
-            self:FailSplit("Divisor indisponivel.")
+            self:FailSplit(CM:T("MAIL_SPLIT_UNAVAILABLE"))
             return
         end
         local okS, why = bs:Start(bag, slot, qty, {
@@ -3434,7 +3434,7 @@ function MailScreen:OnQtyPicked(qty, ctx)
                 MailScreen:FinishSplitAttach(nb, ns, q, ctx)
             end,
             onFail = function(reason, ctx)
-                MailScreen:FailSplit("Divisao falhou (" .. tostring(reason) .. "). Nada anexado; confira a bolsa.")
+                MailScreen:FailSplit(string.format(CM:T("MAIL_SPLIT_FAILED_CHECK_FMT"), tostring(reason)))
             end,
         })
         if okS then
@@ -3442,7 +3442,7 @@ function MailScreen:OnQtyPicked(qty, ctx)
                 CM.logger:Log("[MailScreen] Dividindo x" .. qty .. " de x" .. mx .. "... aguarde.")
             end
         else
-            self:FailSplit("Divisao falhou (" .. tostring(why) .. "). Nada anexado.")
+            self:FailSplit(string.format(CM:T("MAIL_SPLIT_FAILED_FMT"), tostring(why)))
         end
         return
     end
@@ -3512,7 +3512,7 @@ function MailScreen:FinishSplitAttach(eb, es, qty, ctx)
     ctx = ctx or {}
     local nm = ctx.nm or "Item"
     if self.sendQueue and self.sendQueue.running then
-        self:FailSplit("Envio comecou no meio da divisao: pilha dividida na bolsa, anexe manualmente.")
+        self:FailSplit(CM:T("MAIL_SPLIT_SEND_RACE"))
         return
     end
     self:ScanComposeBags()
@@ -4038,7 +4038,7 @@ end
 -- Varre o tooltip numa GameTooltip oculta propria (nunca a GameTooltip do
 -- mouse). Retorna true ou false + etiqueta do vinculo. Lua 5.0: getglobal.
 function MailScreen:ItemIsMailable(bag, slot)
-    if bag == nil or slot == nil then return false, "slot invalido" end
+    if bag == nil or slot == nil then return false, CM:T("MAIL_ERR_SLOT_INVALID") end
     if not SetBagItem and not GameTooltip then return true, "" end
     local tip = self.scanTooltip
     if not tip then
@@ -4135,31 +4135,31 @@ end
 -- ignorado (comprovado: "envia x10" anexou x20 e o destino recebeu 20).
 -- Parcial e barrada antes (TrySendMail + QtyModalConfirm). Nunca ClearCursor.
 function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
-    if not self.isOpen then return false, "correio fechado" end
-    if bag == nil or slot == nil then return false, "slot invalido" end
+    if not self.isOpen then return false, CM:T("MAIL_ERR_CLOSED") end
+    if bag == nil or slot == nil then return false, CM:T("MAIL_ERR_SLOT_INVALID") end
     qty = tonumber(qty) or 1
     if qty < 1 then qty = 1 end
     stackCount = tonumber(stackCount) or qty
     if stackCount < 1 then stackCount = qty end
     if qty > stackCount then qty = stackCount end
     if PickupContainerItem == nil then
-        return false, "API de bolsas ausente"
+        return false, CM:T("MAIL_ERR_NO_BAG_API")
     end
     if ClickSendMailItemButton == nil then
-        return false, "API de anexo ausente"
+        return false, CM:T("MAIL_ERR_NO_ATTACH_API")
     end
     -- Cursor precisa estar livre (algo ja no cursor invalida o click de
     -- anexo no 1.12): aborta SEM ClearCursor, que deletaria o item do
     -- jogador. O dono do cursor recoloca manualmente.
     if self:CursorHoldsItem() then
-        return false, "cursor ocupado"
+        return false, CM:T("MAIL_ERR_CURSOR_BUSY")
     end
     -- Pre-check molde Postal (ItemIsMailable): vinculado/quest/conjurado nao
     -- passa nem com a aba certa; barra aqui com mensagem clara em vez do
     -- generico "click nao fixou".
     local okMail, bindType = self:ItemIsMailable(bag, slot)
     if not okMail then
-        return false, "item nao-enviavel (" .. tostring(bindType or "?") .. ")"
+        return false, string.format(CM:T("MAIL_ERR_NOT_MAILABLE_FMT"), tostring(bindType or "?"))
     end
     -- Limpa anexo residual da carta anterior (multi-item: apos cada SendMail
     -- o slot deveria esvaziar sozinho, mas lag/erro pode reter; sem isso o
@@ -4169,27 +4169,27 @@ function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     if self:GetSendSlotItemName() ~= nil then
         pcall(ClickSendMailItemButton)
         if self:CursorHoldsItem() then
-            return false, "slot de envio ocupado (recoloque o item)"
+            return false, CM:T("MAIL_ERR_SENDSLOT_BUSY_REPLACE")
         end
         if self:GetSendSlotItemName() ~= nil then
-            return false, "slot de envio ocupado (carta anterior?)"
+            return false, CM:T("MAIL_ERR_SENDSLOT_BUSY_PREV")
         end
     end
     -- Pickup integral da pilha (Postal: sem fracionamento; Split e ignorado
     -- neste cliente e anexava a pilha cheia).
     pcall(PickupContainerItem, bag, slot)
     if not self:CursorHoldsItem() then
-        return false, "item nao saiu da bolsa (travado?)"
+        return false, CM:T("MAIL_ERR_PICKUP_FAIL")
     end
     pcall(ClickSendMailItemButton)
     local attached = self:GetSendSlotItemName()
     if attached == nil then
         -- Click falhou: NAO da ClearCursor (deletaria o item); o item fica
         -- no cursor p/ o jogador recolocar, e a fila aborta sem SendMail.
-        return false, "click nao fixou (aba de envio?)"
+        return false, CM:T("MAIL_ERR_CLICK_FAIL")
     end
     if self:CursorHoldsItem() then
-        return false, "sobra no cursor apos click"
+        return false, CM:T("MAIL_ERR_CURSOR_LEFTOVER")
     end
     -- BUG qty parcial: o Split pode ter posto a pilha cheia no cursor (foi
     -- parar 20 no destino com "envia x10" no log). So envia se a quantidade
@@ -4198,7 +4198,7 @@ function MailScreen:AttachBagItem(bag, slot, qty, stackCount)
     local gotCount = self:GetSendSlotCount()
     if gotCount ~= nil and need > 0 and gotCount ~= need then
         pcall(ClickSendMailItemButton)
-        return false, "anexado x" .. gotCount .. ", esperado x" .. need .. " (recoloque o item)"
+        return false, string.format(CM:T("MAIL_ERR_QTY_MISMATCH_FMT"), gotCount, need)
     end
     return true, ""
 end
@@ -4407,7 +4407,7 @@ function MailScreen:ProcessSendStep()
     if letter.bag ~= nil and letter.slot ~= nil then
         local b, s, cnt = self:ResolveLetterSlot(letter)
         if b == nil then
-            self:AbortSendQueue("item '" .. tostring(letter.name or "Item") .. "' sumiu da bolsa")
+            self:AbortSendQueue(string.format(CM:T("MAIL_ERR_ITEM_GONE_FMT"), tostring(letter.name or "Item")))
             return
         end
         local need = tonumber(letter.qty) or 1
@@ -4423,7 +4423,7 @@ function MailScreen:ProcessSendStep()
         end
         local okAttach, why = self:AttachBagItem(b, s, need, cnt)
         if not okAttach then
-            self:AbortSendQueue("cannot attach item '" .. tostring(letter.name or "Item") .. "' (" .. tostring(why) .. ")")
+            self:AbortSendQueue(string.format(CM:T("MAIL_ERR_CANNOT_ATTACH_FMT"), tostring(letter.name or "Item"), tostring(why)))
             return
         end
         if CM.logger and CM.logger.Log then
@@ -4449,7 +4449,7 @@ function MailScreen:ProcessSendStep()
         if ok then okSend = true end
     end
     if not okSend then
-        self:AbortSendQueue("falha ao enviar (SendMail)")
+        self:AbortSendQueue(CM:T("MAIL_ERR_SEND_FAIL"))
         return
     end
     -- Watchdog: marca a hora do envio; se o servidor nao responder com
@@ -4532,7 +4532,7 @@ function MailScreen:OnSendWatchdog()
     end
     if not st.lastSendTime or type(st.lastSendTime) ~= "number" then return end
     if (now - st.lastSendTime) > 15 then
-        self:AbortSendQueue("sem resposta do servidor (MAIL_SEND_SUCCESS) apos 15s")
+        self:AbortSendQueue(CM:T("MAIL_ERR_SEND_TIMEOUT"))
     end
 end
 
@@ -4781,9 +4781,9 @@ function MailScreen:TakeFromIndex(inboxIndex, tag)
     end
     local parts = {}
     if tookMoney then table.insert(parts, self:FormatMoneyText(money)) end
-    if tookItem then table.insert(parts, "anexo") end
+    if tookItem then table.insert(parts, CM:T("MAIL_LOG_ATTACH")) end
     local what = table.concat(parts, " + ")
-    if what == "" then what = "nada a retirar" end
+    if what == "" then what = CM:T("MAIL_LOG_NOTHING") end
     if CM.logger and CM.logger.Log then
         CM.logger:Log("[MailScreen] " .. tostring(tag or "Retirado") .. " de " .. tostring(sender) .. ": " .. what .. ".")
     end
@@ -4795,7 +4795,7 @@ function MailScreen:TakeSelectedMail()
     if self:IsConfirmOpen() then return end
     local item = self:GetSelectedMail()
     if not item then return end
-    self:TakeFromIndex(item.index, "Retirado")
+    self:TakeFromIndex(item.index, CM:T("MAIL_LOG_TAKEN"))
     self:RequestInboxRefresh()
 end
 

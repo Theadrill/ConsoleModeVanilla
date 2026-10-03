@@ -33,6 +33,7 @@
   ClassicAPI.dll
   ```
   Isso significa: API estendida além do 1.12 puro. Sempre considerar SuperWoW + UnitXP + VanillaHelpers + ClassicAPI.
+* **WoWTranslate.dll — ESCOPO LIMITADO (regra):** traduz **APENAS mensagens do CHAT** quando jogando no servidor chinês (Capycraft). **NÃO traduz NADA do cliente** (nomes de itens/magias/talentos/NPCs/zonas, tooltips, UI). **NÃO DEPENDER DE WOWTRANSLATE para nada** — todo texto exibido pelo addon deve vir do nosso sistema de localização (`CM:T()` + packs) ou da API do jogo em inglês.
 
 ## 2. Estrutura de pastas relevante
 
@@ -165,6 +166,7 @@ Tela de correio completa (`UI/MailScreen.lua`) com inbox + painel de detalhe, te
 7. Identidade visual Vanilla intocável.
 8. Mecânicas do mapa intocáveis — L-Stick pan, LT/RT zoom, auto-scroll cancela ao mover analógico.
 9. Parada obrigatória ao fim de cada fase para `/reload` e validação no jogo antes de commit.
+10. **NÃO DEPENDER DE WOWTRANSLATE para nada** — ele só traduz o chat no servidor chinês; o cliente é 100% inglês. Todo PT visível sem o Localization instalado é bug nosso (string hardcoded ou tabela sem chave).
 
 #### Modo de operação
 A IA atua como **tech leader**: não coda diretamente, **orquestra agentes** (senior programmers). Ao fim de cada fase, valida o trabalho dos agentes e passa ao usuário o que é esperado acontecer no jogo para ele validar. Sem commit, sem push antes da aprovação.

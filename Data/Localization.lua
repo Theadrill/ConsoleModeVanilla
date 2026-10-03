@@ -93,7 +93,16 @@ end
 -- (via MAPs/gsub do Core) mistura PT no cliente EN. Fechado = EN prevalece.
 function CM:IsGameLOCActive()
     if self:GetActiveLangId() == "enUS" then return false end
-    if IsAddOnLoaded and IsAddOnLoaded("ConsoleModeVanilla-Data") then return true end
+    if self.DataLake and self.DataLake.loaded then return true end
+    if self.GetLocalizationAddonName and IsAddOnLoaded then
+        local addon = self:GetLocalizationAddonName()
+        if IsAddOnLoaded(addon) then return true end
+    end
+    if IsAddOnLoaded then
+        if IsAddOnLoaded("ConsoleModeVanilla-Localization-ptBR") then return true end
+        if IsAddOnLoaded("ConsoleModeVanilla-Localization") then return true end
+        if IsAddOnLoaded("ConsoleModeVanilla-Data") then return true end
+    end
     return false
 end
 

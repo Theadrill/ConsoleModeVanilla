@@ -97,17 +97,22 @@ Macros `/run` que chamam funções do painel **Extended Lua** do SuperMacro (`/r
 
 ---
 
-## 🌐 Sistema de Tradução de Quests (ptBR)
+## 🌐 Sistema de Localização & Banco de Dados (LoadOnDemand)
 
-O ConsoleModeVanilla inclui um sistema integrado de tradução de quests para Português (Brasil), garantindo que títulos, descrições e objetivos de missões sejam exibidos no idioma do jogador direto no HUD e nos menus do ConsoleMode — sem addons externos obrigatórios.
+O **ConsoleModeVanilla (Core)** opera em inglês limpo e de alta performance. Para suporte completo a Português (Brasil) ou outros idiomas, o projeto adota uma arquitetura modular via addons dedicados de localização carregados sob demanda (**LoadOnDemand**):
 
-1. **Base de dados ptBR embutida (`Data/QuestDB_ptBR.lua`) com 6.685 quests traduzidas para Português (Brasil).** Tabela estática `ConsoleMode_QuestDB[id] = { T, D, O }` carregada no startup, cobrindo todo o conteúdo Vanilla 1.12 + Turtle WoW disponível em ptBR.
+1. **Pacote Oficial pt-BR ([ConsoleModeVanilla-Localization-ptBR](https://github.com/Theadrill/ConsoleModeVanilla-Localization-ptBR)):**
+   - **1.324 chaves de interface** sincronizadas e traduzidas.
+   - **Engine procedural e regras gramaticais** (`GameLOC.lua` + `Grammar.lua`) com overrides contextuais.
+   - **Bancos de dados completos (Turtle WoW 1.18.1):** 26.320 feitiços (`SpellDescDB.lua`), 6.685 missões (`QuestDB.lua`) e 24.542 itens catalogados (`ItemDB.lua` / `ItemDescDB.lua`).
 
-2. **Origem dos dados: extraídos e unificados diretamente das bases abertas de tradução do pfQuest (Vanilla 1.12) e pfQuest-turtle (quests exclusivas do Turtle WoW).** Fontes: `pfQuest/db/ptBR/quests.lua` (`pfDB['quests']['ptBR']`) e `pfQuest-turtle/db/ptBR/quests-turtle.lua` (`pfDB['quests']['ptBR-turtle']`), mantendo fidelidade às traduções da comunidade Shagu/pfQuest.
+2. **Arquitetura Agnóstica & Extensível:**
+   - O Core detecta dinamicamente pacotes instalados (`ConsoleModeVanilla-Localization-<LANG>`).
+   - Todos os arquivos internos do pacote de localização possuem nomes neutros/agnósticos (`GameLOC.lua`, `flag.tga`, `UI.lua`), facilitando a criação de novas traduções (ex.: Russo, Espanhol) apenas clonando o repositório e editando o arquivo central `Data/language.lua`.
 
-3. **Mecanismo de compilação: gerado via script `tools/build_questdb.py`, mesclando as duas bases e aplicando prioridade das quests customizadas do Turtle WoW sobre o Vanilla em caso de colisão de IDs.** Placeholders `"_"` são ignorados, conflitos são resolvidos com sobrescrita Turtle → Vanilla, saída determinística ordenada por ID com header `AUTO-GERADO. NAO EDITAR MANUALMENTE.` — re-gerável a qualquer momento para atualizar as traduções.
-
-4. **Autonomia e Performance: o ConsoleModeVanilla funciona de forma 100% autônoma sem depender obrigatoriamente do pfQuest instalado.** Porém, se o jogador tiver o pfQuest ativo, o addon prioriza a leitura dinâmica em memória (`pfDB`) e descarrega a base local para economizar memória RAM do cliente 1.12 — ideal para o footprint limitado do WoW Vanilla.
+3. **Performance (Zero Lag no Login):**
+   - O Core carrega em menos de **0.5s** consumindo apenas **~8 MB** de RAM.
+   - O pacote de dados e tradução só é ativado na memória quando o jogador abre o menu principal, grimório ou livro de missões.
 
 ---
 
@@ -327,17 +332,22 @@ Macros `/run` that call functions from SuperMacro's **Extended Lua** panel (`/ru
 
 ---
 
-## 🌐 Quest Translation System (ptBR)
+## 🌐 Localization & Database System (LoadOnDemand)
 
-ConsoleModeVanilla includes an integrated quest translation system to Brazilian Portuguese, ensuring quest titles, descriptions and objectives are displayed in the player's language right on the HUD and in the ConsoleMode menus — without requiring external addons.
+**ConsoleModeVanilla (Core)** operates in clean, high-performance English. For full Brazilian Portuguese (or other languages), the project adopts a modular architecture via dedicated localization addons loaded on demand (**LoadOnDemand**):
 
-1. **Embedded ptBR database (`Data/QuestDB_ptBR.lua`) with 6,685 quests translated to Brazilian Portuguese.** Static table `ConsoleMode_QuestDB[id] = { T, D, O }` loaded at startup, covering all the Vanilla 1.12 + Turtle WoW content available in ptBR.
+1. **Official pt-BR Pack ([ConsoleModeVanilla-Localization-ptBR](https://github.com/Theadrill/ConsoleModeVanilla-Localization-ptBR)):**
+   - **1,324 UI keys** synchronized and translated.
+   - **Procedural translation engine and grammar rules** (`GameLOC.lua` + `Grammar.lua`) with contextual overrides.
+   - **Complete offline databases (Turtle WoW 1.18.1):** 26,320 spells (`SpellDescDB.lua`), 6,685 quests (`QuestDB.lua`), and 24,542 cataloged items (`ItemDB.lua` / `ItemDescDB.lua`).
 
-2. **Data source: extracted and unified directly from pfQuest's open translation bases (Vanilla 1.12) and pfQuest-turtle (Turtle WoW exclusive quests).** Sources: `pfQuest/db/ptBR/quests.lua` (`pfDB['quests']['ptBR']`) and `pfQuest-turtle/db/ptBR/quests-turtle.lua` (`pfDB['quests']['ptBR-turtle']`), keeping fidelity to the Shagu/pfQuest community translations.
+2. **Agnostic & Extensible Architecture:**
+   - The Core dynamically detects installed localization packs (`ConsoleModeVanilla-Localization-<LANG>`).
+   - All internal files in the localization pack use neutral/agnostic names (`GameLOC.lua`, `flag.tga`, `UI.lua`), making it straightforward to create new translations (e.g., Russian, Spanish) simply by cloning the repository and editing `Data/language.lua`.
 
-3. **Build mechanism: generated via the `tools/build_questdb.py` script, merging both bases and applying priority of Turtle WoW custom quests over Vanilla on ID collision.** `"_"` placeholders are ignored, conflicts are resolved with Turtle → Vanilla overwrite, deterministic output sorted by ID with the `AUTO-GENERATED. DO NOT EDIT MANUALLY.` header — re-generable at any time to update translations.
-
-4. **Autonomy and Performance: ConsoleModeVanilla works 100% autonomously without necessarily depending on pfQuest being installed.** However, if the player has pfQuest active, the addon prioritizes in-memory dynamic reading (`pfDB`) and unloads the local base to save RAM on the 1.12 client — ideal for the limited footprint of WoW Vanilla.
+3. **Performance (Zero Login Lag):**
+   - The Core loads in under **0.5s** using only **~8 MB** of RAM.
+   - Heavy data and translation packs are only loaded into memory when the player opens menus, spellbooks, or quest logs.
 
 ---
 
@@ -530,17 +540,22 @@ When any game window (quests, NPC, bags, menus, settings, etc.) is open, the con
 
 ---
 
-## 🌐 任务翻译系统（ptBR）
+## 🌐 本地化与数据库系统（按需加载 LoadOnDemand）
 
-ConsoleModeVanilla 内置集成的任务翻译系统（翻译为巴西葡语），确保任务标题、描述与目标直接以玩家语言显示在 HUD 和 ConsoleMode 菜单中——无需额外插件。
+**ConsoleModeVanilla (Core)** 采用纯英文高效率核心运行。为完整支持巴西葡萄牙语（或其他语言），项目采用专用的按需加载独立本地化插件架构（**LoadOnDemand**）：
 
-1. **内置 ptBR 数据库（`Data/QuestDB_ptBR.lua`），包含 6,685 条已翻译为巴西葡语的任务。** 静态表 `ConsoleMode_QuestDB[id] = { T, D, O }` 在启动时加载，覆盖 Vanilla 1.12 + Turtle WoW 所有可用的 ptBR 内容。
+1. **官方巴西葡萄牙语包（[ConsoleModeVanilla-Localization-ptBR](https://github.com/Theadrill/ConsoleModeVanilla-Localization-ptBR)）：**
+   - **1,324 个已翻译并同步的界面词条**。
+   - **程序化翻译引擎与语法规则**（`GameLOC.lua` + `Grammar.lua`）及上下文词条覆盖。
+   - **完整离线数据库（Turtle WoW 1.18.1）：** 26,320 个技能（`SpellDescDB.lua`）、6,685 个任务（`QuestDB.lua`）及 24,542 个物品（`ItemDB.lua` / `ItemDescDB.lua`）。
 
-2. **数据来源：直接从 pfQuest（Vanilla 1.12）和 pfQuest-turtle（Turtle WoW 独占任务）的开放翻译库中提取并统一。** 来源：`pfQuest/db/ptBR/quests.lua`（`pfDB['quests']['ptBR']`）和 `pfQuest-turtle/db/ptBR/quests-turtle.lua`（`pfDB['quests']['ptBR-turtle']`），忠实于 Shagu/pfQuest 社区的翻译。
+2. **语言中立与可扩展架构：**
+   - 核心动态检测已安装的本地化语言包（`ConsoleModeVanilla-Localization-<LANG>`）。
+   - 本地化包内部所有数据文件均采用语言中立文件名（`GameLOC.lua`、`flag.tga`、`UI.lua`），创建新语言包（例如俄语、西班牙语）仅需克隆仓库并编辑 `Data/language.lua`。
 
-3. **编译机制：通过 `tools/build_questdb.py` 脚本生成，合并两个数据库，并在 ID 冲突时以 Turtle WoW 自定义任务优先。** `"_"` 占位符会被忽略，冲突通过 Turtle → Vanilla 覆盖解决，输出按 ID 确定性排序，并带有 `AUTO-GENERATED. DO NOT EDIT MANUALLY.`（自动生成，请勿手动编辑）标头——可随时重新生成以更新翻译。
-
-4. **自主性与性能：ConsoleModeVanilla 100% 独立运行，不强制要求安装 pfQuest。** 但如果玩家已开启 pfQuest，插件会优先进行内存动态读取（`pfDB`）并卸载本地数据库，以节省 1.12 客户端的内存（RAM）——非常适合内存占用有限的 WoW Vanilla。
+3. **卓越性能（登录零卡顿）：**
+   - 核心在 **0.5 秒**内极速载入，仅占用约 **8 MB** 内存。
+   - 庞大的数据与翻译文件仅在玩家打开主菜单、技能书或任务日志时才载入内存。
 
 ---
 

@@ -19,11 +19,35 @@ CM.DataLake = CM.DataLake or {
 -- Verificação de Disponibilidade
 -- ============================================================================
 
+function CM:GetLocalizationAddonName()
+    if self.DataLake and self.DataLake.addonName then
+        return self.DataLake.addonName
+    end
+    local lang = (self.GetActiveLangId and self:GetActiveLangId()) or "ptBR"
+    local candidates = {
+        "ConsoleModeVanilla-Localization-" .. lang,
+        "ConsoleModeVanilla-Localization-ptBR",
+        "ConsoleModeVanilla-Localization",
+        "ConsoleModeVanilla-Data"
+    }
+    for i = 1, table.getn(candidates) do
+        local addon = candidates[i]
+        local name = GetAddOnInfo(addon)
+        if name ~= nil then
+            self.DataLake.addonName = addon
+            return addon
+        end
+    end
+    self.DataLake.addonName = "ConsoleModeVanilla-Localization-ptBR"
+    return self.DataLake.addonName
+end
+
 function CM:CheckDataLakeAvailable()
     -- NOTA 1.12: GetAddOnInfo devolve (name, title, notes, enabled, loadable, reason, security).
     -- "available" preserva a semantica anterior (4o retorno nao-nil); "reason"
     -- e so diagnostico para o /cmloc status e nao muda nenhum fluxo de load.
-    local name, title, notes, enabled, loadable, reason = GetAddOnInfo("ConsoleModeVanilla-Data")
+    local addonName = self:GetLocalizationAddonName()
+    local name, title, notes, enabled, loadable, reason = GetAddOnInfo(addonName)
     self.DataLake.available = (enabled ~= nil)
 
     local status = "unknown"
@@ -71,7 +95,8 @@ function CM:LoadDataLake(requestedBy)
     end
     
     -- Tentar carregar
-    local loaded, reason = LoadAddOn("ConsoleModeVanilla-Data")
+    local addonName = self:GetLocalizationAddonName()
+    local loaded, reason = LoadAddOn(addonName)
     
     if loaded then
         self.DataLake.loaded = true
@@ -201,7 +226,8 @@ SlashCmdList["CMDATALAKE"] = function(msg)
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_ATTEMPTS_FMT"), CM.DataLake.loadAttempts))
 
         -- Informações adicionais de debug
-        local dataAddonLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
+        local addonName = CM:GetLocalizationAddonName()
+        local dataAddonLoaded = IsAddOnLoaded(addonName)
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_ADDON_LOADED_FMT"), tostring(dataAddonLoaded)))
 
         local spellDBExists = (ConsoleMode_SpellDescDB ~= nil)
@@ -218,10 +244,11 @@ SlashCmdList["CMDATALAKE"] = function(msg)
     elseif msg == "test" then
         DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_TEST_RUNNING"))
 
-        local name, title, notes, loadable, reason = GetAddOnInfo("ConsoleModeVanilla-Data")
+        local addonName = CM:GetLocalizationAddonName()
+        local name, title, notes, loadable, reason = GetAddOnInfo(addonName)
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_AVAIL_FMT"), tostring(loadable ~= nil)))
 
-        local dataLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
+        local dataLoaded = IsAddOnLoaded(addonName)
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_LOADED_FMT"), tostring(dataLoaded)))
 
         if not dataLoaded then
@@ -230,7 +257,7 @@ SlashCmdList["CMDATALAKE"] = function(msg)
             DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_RESULT_FMT"), tostring(success), tostring(reason)))
         end
 
-        dataLoaded = IsAddOnLoaded("ConsoleModeVanilla-Data")
+        dataLoaded = IsAddOnLoaded(addonName)
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_TEST_LOADED2_FMT"), tostring(dataLoaded)))
 
         DEFAULT_CHAT_FRAME:AddMessage(CM:T("DATALAKE_TEST_DONE"))

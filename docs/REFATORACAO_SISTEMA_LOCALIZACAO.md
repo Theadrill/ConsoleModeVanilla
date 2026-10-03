@@ -86,21 +86,22 @@ ConsoleModeVanilla-Localization (LoadOnDemand) — TODAS AS TRADUÇÕES
 
 **Princípio:** Core funciona 100% em inglês sem nenhum addon de localização instalado.
 
-### Regra 2: Nome Genérico do Addon de Localização
+### Regra 2: Repositório e Pasta do Addon por Idioma (`ConsoleModeVanilla-Localization-<LANG>`)
 
-**PROIBIDO:** `ConsoleModeVanilla-Localization-ptBR` (idioma hardcoded no nome)
+**PADRÃO:** `ConsoleModeVanilla-Localization-ptBR` (ou `ConsoleModeVanilla-Localization-ruRU`, `ConsoleModeVanilla-Localization-esES`)
 
-**OBRIGATÓRIO:** `ConsoleModeVanilla-Localization` (genérico)
+**Motivo:** 
+- No GitHub, cada comunidade mantém seu repositório dedicado.
+- No WoW 1.12 (`Interface/AddOns/`), impede colisão de pastas e permite coexistência de múltiplos pacotes instalados.
+- O Core detecta dinamicamente via `CM:GetLocalizationAddonName()` procurando primeiro `ConsoleModeVanilla-Localization-<activeLang>`.
 
-**Motivo:** Tradutor não precisa renomear pasta ou criar novo addon. Apenas edita `language.lua`.
+### Regra 3: Arquivos Internos 100% Agnósticos (SEM Sufixos de Idioma)
 
-### Regra 3: Arquivos SEM Sufixo de Idioma
+**PROIBIDO dentro de `Data/`:** `GameLOC_ptBR.lua`, `flag_ptBR.tga`, `SpellDescDB_ptBR.lua`, `QuestDB_ptBR.lua`
 
-**PROIBIDO:** `SpellDescDB_ptBR.lua`, `QuestDB_ptBR.lua`
+**OBRIGATÓRIO dentro de `Data/`:** `GameLOC.lua`, `flag.tga`, `SpellDescDB.lua`, `QuestDB.lua`, `UI.lua`, `Grammar.lua`
 
-**OBRIGATÓRIO:** `SpellDescDB.lua`, `QuestDB.lua`
-
-**Motivo:** Tradutor não precisa renomear arquivos. O idioma é definido em `language.lua`.
+**Motivo:** O tradutor de um novo idioma apenas clona o repositório como `ConsoleModeVanilla-Localization-<novoIdioma>`, edita `Data/language.lua` e traduz os arquivos existentes. **Nenhum arquivo interno é renomeado e o `.toc` nunca precisa ser alterado.**
 
 ### Regra 4: Zero PT Hardcoded no Core
 
@@ -229,7 +230,7 @@ Passo 5: Distribuir
 
 ---
 
-### 🔄 Fase 1: Reestruturar Repositório Data → Localization
+### ✅ Fase 1: Reestruturar Repositório Data → Localization (Concluída)
 
 **Objetivo:** Renomear e reorganizar o repositório atual para a nova estrutura.
 
@@ -291,7 +292,7 @@ Passo 5: Distribuir
 
 ---
 
-### 🔄 Fase 2: Mover Locales do Core para Localization Addon
+### ✅ Fase 2: Mover Locales do Core para Localization Addon (Concluída)
 
 **Objetivo:** Transferir arquivos de tradução do Core para o addon de localização.
 
@@ -355,7 +356,7 @@ Passo 5: Distribuir
 
 ---
 
-### 🔄 Fase 3: Extrair PT Hardcoded do Core
+### ✅ Fase 3: Extrair PT Hardcoded do Core (Concluída)
 
 **Objetivo:** Remover todas as strings em português do código do Core, substituindo por `CM:T()`.
 
@@ -529,7 +530,7 @@ Data\Grammar.lua
 
 ---
 
-### 🔄 Fase 4: Atualizar DataLoader para Detecção Genérica
+### ✅ Fase 4: Atualizar DataLoader para Detecção Genérica (Concluída)
 
 **Objetivo:** DataLoader deve detectar qualquer localization addon, não apenas ptBR.
 
@@ -641,7 +642,7 @@ end
 
 ---
 
-### 🔄 Fase 5: Atualizar Geradores Python (CapycraftDB)
+### ✅ Fase 5: Atualizar Geradores Python (CapycraftDB) (Concluída)
 
 **Objetivo:** Scripts Python devem gerar arquivos para o Localization addon (sem sufixos).
 
@@ -706,7 +707,7 @@ python tools/export_to_addon.py
 
 ---
 
-### 🔄 Fase 6: Documentação para Tradutores
+### ✅ Fase 6: Documentação para Tradutores (Concluída)
 
 **Objetivo:** Criar documentação clara para quem quiser traduzir.
 
@@ -861,64 +862,64 @@ A: You can use it as a starting point, but please review and correct for grammar
 
 ---
 
-### 🔄 Fase 7: Testes Finais e Validação
+### ✅ Fase 7: Testes Finais e Validação (Concluída e Homologada)
 
 **Objetivo:** Garantir que tudo funciona perfeitamente antes de release.
 
 **Checklist de Testes:**
 
 **7.1. Teste sem Localization addon (fallback EN):**
-- [ ] Core carrega sem erros
-- [ ] Interface aparece em inglês
-- [ ] Comandos funcionam
-- [ ] Mapa/NPCs funcionam (dados hot path)
-- [ ] Nenhuma mensagem de erro de localização
+- [x] Core carrega sem erros
+- [x] Interface aparece em inglês
+- [x] Comandos funcionam
+- [x] Mapa/NPCs funcionam (dados hot path)
+- [x] Nenhuma mensagem de erro de localização
 
 **7.2. Teste com Localization addon (ptBR):**
-- [ ] Login rápido (<1s)
-- [ ] Ao abrir Main Menu, aparece mensagem: "Localization loaded: ptBR (~14.6 MB)"
-- [ ] Interface aparece em português
-- [ ] Descrições de feitiços em PT (SpellDescDB)
-- [ ] Textos de missões em PT (QuestDB)
-- [ ] Nomes de itens em PT (ItemDB)
-- [ ] NPCs com nomes PT
+- [x] Login rápido (<1s)
+- [x] Ao abrir Main Menu, aparece mensagem: "Localization loaded: ptBR (~14.6 MB)"
+- [x] Interface aparece em português
+- [x] Descrições de feitiços em PT (SpellDescDB)
+- [x] Textos de missões em PT (QuestDB)
+- [x] Nomes de itens em PT (ItemDB)
+- [x] NPCs com nomes PT
 
 **7.3. Teste comando `/cmloc`:**
-- [ ] `/cmloc status` mostra: Available: true, Loaded: true, Language: ptBR
-- [ ] `/cmloc load` (se já carregado): "already_loaded"
+- [x] `/cmloc status` mostra: Available: true, Loaded: true, Language: ptBR
+- [x] `/cmloc load` (se já carregado): "already_loaded"
 
 **7.4. Teste fallback gracioso:**
-- [ ] Desinstalar Localization addon
-- [ ] `/reload` no jogo
-- [ ] Core funciona em inglês sem erros
-- [ ] `/cmloc status` mostra: Available: false, Loaded: false
+- [x] Desinstalar Localization addon
+- [x] `/reload` no jogo
+- [x] Core funciona em inglês sem erros
+- [x] `/cmloc status` mostra: Available: false, Loaded: false
 
 **7.5. Teste de tradução simulada (RUS):**
-- [ ] Copiar Localization addon
-- [ ] Editar `language.lua` → `CM_LANG = "RUS"`
-- [ ] Editar alguns valores em `UI.lua` para Russo (simulado)
-- [ ] Instalar e testar
-- [ ] Verificar que mensagem mostra "Localization loaded: RUS"
-- [ ] Verificar que strings alteradas aparecem em Russo
+- [x] Copiar Localization addon
+- [x] Editar `language.lua` → `CM_LANG = "RUS"`
+- [x] Editar alguns valores em `UI.lua` para Russo (simulado)
+- [x] Instalar e testar
+- [x] Verificar que mensagem mostra "Localization loaded: RUS"
+- [x] Verificar que strings alteradas aparecem em Russo
 
 **7.6. Teste de performance:**
-- [ ] Medir tempo de login (deve ser <1s)
-- [ ] Medir memória RAM do Core no login (deve ser ~9-10 MB)
-- [ ] Medir memória RAM após carregar Localization (~24 MB total)
-- [ ] Verificar que não há lag ao abrir Main Menu
+- [x] Medir tempo de login (deve ser <1s)
+- [x] Medir memória RAM do Core no login (deve ser ~9-10 MB)
+- [x] Medir memória RAM após carregar Localization (~24 MB total)
+- [x] Verificar que não há lag ao abrir Main Menu
 
 **7.7. Teste de regeneração (CapycraftDB):**
-- [ ] Rodar `python tools/export_to_addon.py`
-- [ ] Verificar que arquivos são gerados corretamente
-- [ ] Verificar que nomes não têm sufixo `_ptBR`
-- [ ] `luac -p` em todos os arquivos gerados
-- [ ] Verificar que variáveis globais não têm sufixo
+- [x] Rodar `python tools/export_to_addon.py`
+- [x] Verificar que arquivos são gerados corretamente
+- [x] Verificar que nomes não têm sufixo `_ptBR`
+- [x] `luac -p` em todos os arquivos gerados
+- [x] Verificar que variáveis globais não têm sufixo
 
 **7.8. Validação Lua 5.0:**
-- [ ] `luac -p` em TODOS os .lua do Core
-- [ ] `luac -p` em TODOS os .lua do Localization
-- [ ] Verificar que não há `#t`, `continue`, `goto`, `table.unpack`
-- [ ] Verificar que não há `require()` ou `loadstring()`
+- [x] `luac -p` em TODOS os .lua do Core
+- [x] `luac -p` em TODOS os .lua do Localization
+- [x] Verificar que não há `#t`, `continue`, `goto`, `table.unpack`
+- [x] Verificar que não há `require()` ou `loadstring()`
 
 **Resultado esperado:** Todos os testes passam. Sistema 100% funcional.
 
@@ -974,31 +975,33 @@ Se algo der errado durante a refatoração:
 
 ## Cronograma Estimado
 
-| Fase | Tempo Estimado | Complexidade |
-|------|----------------|--------------|
-| Fase 0: Preparação | 30 min | Baixa |
-| Fase 1: Reestruturar Repo | 45 min | Média |
-| Fase 2: Mover Locales | 30 min | Baixa |
-| Fase 3: Extrair PT Hardcoded | 2-3 horas | Alta |
-| Fase 4: Atualizar DataLoader | 30 min | Média |
-| Fase 5: Atualizar Geradores Python | 45 min | Média |
-| Fase 6: Documentação | 45 min | Baixa |
-| Fase 7: Testes Finais | 1-2 horas | Média |
-| **TOTAL** | **6-8 horas** | |
+| Fase | Tempo Estimado | Complexidade | Status |
+|------|----------------|--------------|--------|
+| Fase 0: Preparação | 30 min | Baixa | ✅ Concluído |
+| Fase 1: Reestruturar Repo | 45 min | Média | ✅ Concluído |
+| Fase 2: Mover Locales | 30 min | Baixa | ✅ Concluído |
+| Fase 3: Extrair PT Hardcoded | 2-3 horas | Alta | ✅ Concluído |
+| Fase 4: Atualizar DataLoader | 30 min | Média | ✅ Concluído |
+| Fase 5: Atualizar Geradores Python | 45 min | Média | ✅ Concluído |
+| Fase 6: Documentação | 45 min | Baixa | ✅ Concluído |
+| Fase 7: Testes Finais | 1-2 horas | Média | ✅ Concluído |
+| **TOTAL** | **6-8 horas** | | **100% Homologado** |
 
 ---
 
-## Aprovação para Execução
+## Status da Execução
 
-**Status:** Aguardando aprovação do Product Owner
+**Status:** ✅ 100% CONCLUÍDO E HOMOLOGADO
+- **Core (`ConsoleModeVanilla`):** Commit `7f6b3d8` (Core 100% EN limpo, stubs do engine em `Data/Localization.lua`, 1324 chaves sincronizadas em `Data/Locales/enUS/UI.lua`, zero PT em código executável).
+- **Irmão ([ConsoleModeVanilla-Localization-ptBR](https://github.com/Theadrill/ConsoleModeVanilla-Localization-ptBR)):** Estrutura 100% agnóstica (`GameLOC.lua` + `flag.tga`), packs completos, 1324 chaves PT, overrides validados em jogo: Cabeça, Ajudantes, Vincula-se, Grau X, de Fera.
 
-**Última atualização:** 2026-10-03 01:58 UTC
+**Última atualização:** 2026-10-03 04:30 BRT
 
 ---
 
 ## Notas Finais
 
-Este plano representa uma **refatoração major** do sistema de localização. O objetivo é:
+Este plano representa uma **refatoração major** do sistema de localização. Os objetivos foram plenamente atingidos:
 
 1. ✅ **Simplificar a vida do tradutor** (1 addon, sem sufixos, sem renomear)
 2. ✅ **Limpar o Core** (100% inglês, zero PT hardcoded)
@@ -1009,4 +1012,4 @@ Este plano representa uma **refatoração major** do sistema de localização. O
 
 **Trade-off aceitável:** Não dá pra ter múltiplos idiomas no mesmo addon (limitação WoW 1.12). Solução: tradutor renomeia pasta se quiser coexistir com outro idioma.
 
-**Próximos passos:** Após aprovação, executar Fase 1.
+**Próximos passos:** Sistema de localização concluído e homologado. Pronto para desenvolvimento de novas features.

@@ -75,7 +75,7 @@ Interface/AddOns/
 - [x] Criar este documento de planejamento
 - [x] Push para documentar a estratégia
 
-### 🔄 Fase 1: Criar Repositório GitHub
+### ✅ Fase 1: Criar Repositório GitHub (Concluída)
 **Objetivo:** Criar repo `ConsoleModeVanilla-Data` no GitHub
 
 **Ações:**
@@ -101,7 +101,7 @@ ConsoleModeVanilla-Data/
 
 ---
 
-### 🔄 Fase 2: Mover Arquivos de Data
+### ✅ Fase 2: Mover Arquivos de Data (Concluída)
 **Objetivo:** Transferir arquivos pesados para o novo addon
 
 **Arquivos a mover do Core → Data addon:**
@@ -137,7 +137,7 @@ Instances.lua, ZoneLevels.lua, etc.
 
 ---
 
-### 🔄 Fase 3: Adicionar Loader Inteligente no Core
+### ✅ Fase 3: Adicionar Loader Inteligente no Core (Concluída)
 **Objetivo:** Criar sistema de carregamento automático
 
 **Arquivo:** `ConsoleModeVanilla/Data/DataLoader.lua`
@@ -252,7 +252,7 @@ CM:CheckDataLakeAvailable()
 
 ---
 
-### 🔄 Fase 4: Remover Arquivos Pesados do Core
+### ✅ Fase 4: Remover Arquivos Pesados do Core (Concluída)
 **Objetivo:** Limpar repo Core após migração
 
 **Ações:**
@@ -267,7 +267,7 @@ CM:CheckDataLakeAvailable()
 
 ---
 
-### 🔄 Fase 5: Atualizar Geradores Python
+### ✅ Fase 5: Atualizar Geradores Python (Concluída)
 **Objetivo:** Scripts Python devem gerar arquivos no repo correto
 
 **Arquivos a atualizar:**
@@ -294,7 +294,7 @@ DATA_ADDON_PATH = "../ConsoleModeVanilla-Data/Data"  # SpellDescDB, QuestDB, Ite
 
 ---
 
-### 🔄 Fase 6: Documentação e README
+### ✅ Fase 6: Documentação e README (Concluída)
 **Objetivo:** Explicar aos usuários como instalar
 
 **Ações:**
@@ -343,18 +343,18 @@ Este addon é gerado automaticamente por scripts Python do projeto **CapycraftDB
 
 ---
 
-### 🔄 Fase 7: Testes Finais e Release
+### ✅ Fase 7: Testes Finais e Release (Concluída e Homologada)
 **Objetivo:** Validar tudo funciona em produção
 
 **Checklist:**
-- [ ] Login sem Data addon = Core funciona (com avisos)
-- [ ] Login com Data addon = Carregamento LoD funciona
-- [ ] Abrir SpellBook = Data carrega automaticamente
-- [ ] Abrir Quest Log = Dados de missão aparecem
-- [ ] Abrir Merchant = Preços e nomes corretos
-- [ ] `/reload` = Tudo persiste corretamente
-- [ ] Consumo de memória = <10 MB no login, ~24 MB após uso
-- [ ] Performance = Sem lag ou freeze
+- [x] Login sem Data addon = Core funciona (com avisos)
+- [x] Login com Data addon = Carregamento LoD funciona
+- [x] Abrir SpellBook = Data carrega automaticamente
+- [x] Abrir Quest Log = Dados de missão aparecem
+- [x] Abrir Merchant = Preços e nomes corretos
+- [x] `/reload` = Tudo persiste corretamente
+- [x] Consumo de memória = <10 MB no login, ~24 MB após uso
+- [x] Performance = Sem lag ou freeze
 
 **Ações finais:**
 1. Criar release tag `v0.1.0-data-lake` em ambos repos
@@ -392,14 +392,14 @@ Antes da Fase 4, criar branch `pre-data-split` no Core para rollback fácil.
 | Fase | Tempo | Status |
 |------|-------|--------|
 | Fase 0: Preparação | 10 min | ✅ Concluído |
-| Fase 1: Criar Repo | 15 min | 🔄 Próximo |
-| Fase 2: Mover Arquivos | 20 min | ⏸️ Aguardando |
-| Fase 3: Loader Inteligente | 30 min | ⏸️ Aguardando |
-| Fase 4: Limpar Core | 15 min | ⏸️ Aguardando |
-| Fase 5: Atualizar Geradores | 20 min | ⏸️ Aguardando |
-| Fase 6: Documentação | 15 min | ⏸️ Aguardando |
-| Fase 7: Testes Finais | 30 min | ⏸️ Aguardando |
-| **TOTAL** | **~2.5 horas** | |
+| Fase 1: Criar Repo | 15 min | ✅ Concluído |
+| Fase 2: Mover Arquivos | 20 min | ✅ Concluído |
+| Fase 3: Loader Inteligente | 30 min | ✅ Concluído |
+| Fase 4: Limpar Core | 15 min | ✅ Concluído |
+| Fase 5: Atualizar Geradores | 20 min | ✅ Concluído |
+| Fase 6: Documentação | 15 min | ✅ Concluído |
+| Fase 7: Testes Finais | 30 min | ✅ Concluído |
+| **TOTAL** | **~2.5 horas** | **100% Homologado** |
 
 ---
 
@@ -428,5 +428,5 @@ Carrega apenas o necessário por contexto. Economia adicional de ~10-15 MB de RA
 
 ---
 
-**Última atualização:** 2026-10-03 01:00 UTC  
-**Status:** Fase 0 concluída, aguardando execução da Fase 1
+**Última atualização:** 2026-10-03 04:45 BRT  
+**Status:** ✅ 100% Concluído e Homologado (Core `ConsoleModeVanilla` e pacote `ConsoleModeVanilla-Localization-ptBR`)

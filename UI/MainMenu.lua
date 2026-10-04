@@ -9318,15 +9318,33 @@ function MainMenu:SwitchMapToZone(zoneName)
         local numZones = table.getn(zones)
         for zoneIdx = 1, numZones do
             local name = zones[zoneIdx]
+            local match = false
             if name == zoneName then
+                match = true
+            elseif string.lower(name) == string.lower(zoneName) then
+                match = true
+            else
+                local nClean = string.lower(string.gsub(name, "^[Tt]he ", ""))
+                local zClean = string.lower(string.gsub(zoneName, "^[Tt]he ", ""))
+                if nClean == zClean or string.find(nClean, zClean) or string.find(zClean, nClean) then
+                    match = true
+                elseif CM and CM.GameLOC_Zone then
+                    local locName = CM:GameLOC_Zone(name)
+                    local locZone = CM:GameLOC_Zone(zoneName)
+                    if locName == zoneName or locZone == name or locName == locZone then
+                        match = true
+                    end
+                end
+            end
+            if match then
                 CMSafeSetMap(SetMapZoom, cont, zoneIdx)
-                local fileName = (GetMapInfo and GetMapInfo()) or zoneName
+                local fileName = (GetMapInfo and GetMapInfo()) or name
                 self.mapViewMode = "ZONE"
                 self.mapContinentView = nil
                 self.zoneListMode = nil
                 self.mapContinent = cont
                 self.mapZoneIdx = zoneIdx
-                self.mapZoneName = zoneName
+                self.mapZoneName = name
                 self.mapFileName = fileName
                 self.mapShowingQuestZone = true
                 self:ClearDungeonPreview()
@@ -9394,6 +9412,9 @@ function MainMenu:ResetMapToPlayer()
     self.mapZoneIdx = nil
     self.mapZoneName = nil
     self.mapFileName = nil
+    if self.tabContainer and self.tabContainer.pages and self.tabContainer.pages["QUESTS"] and self.tabContainer.pages["QUESTS"].mapPanel and self.tabContainer.pages["QUESTS"].mapPanel.canvas then
+        self.tabContainer.pages["QUESTS"].mapPanel.canvas.currentMapFile = nil
+    end
     self:ClearDungeonPreview()
     self:UpdateBackButton()
     self:UpdateNavButtonHighlight()
@@ -11584,12 +11605,25 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
     local playerFaction = UnitFactionGroup("player") or "Horde"
     local playerFacCode = (playerFaction == "Alliance" and "A") or "H"
 
+    local currentCont = (GetCurrentMapContinent and GetCurrentMapContinent()) or 0
+    local currentZoneIdx = (GetCurrentMapZone and GetCurrentMapZone()) or 0
+    local mapZoneFromAPI = nil
+    if currentCont > 0 and currentZoneIdx > 0 and GetMapZones then
+        local zList = { GetMapZones(currentCont) }
+        mapZoneFromAPI = zList[currentZoneIdx]
+    end
+
     local viewedFile = (mapCanvas and mapCanvas.currentMapFile and mapCanvas.currentMapFile ~= "" and mapCanvas.currentMapFile)
+                    or (self.mapFileName and self.mapFileName ~= "" and self.mapFileName)
                     or (self.GetCurrentMapFileName and self:GetCurrentMapFileName())
                     or (GetMapInfo and GetMapInfo())
                     or ""
-    local viewedZoneText = (GetZoneText and GetZoneText())
-                        or (GetRealZoneText and GetRealZoneText())
+
+    local viewedZoneText = (self.mapShowingQuestZone and self.mapZoneName and self.mapZoneName ~= "" and self.mapZoneName)
+                        or (self.mapZoneName and self.mapZoneName ~= "" and self.mapZoneName)
+                        or (mapZoneFromAPI and mapZoneFromAPI ~= "" and mapZoneFromAPI)
+                        or (GetMapInfo and GetMapInfo())
+                        or (GetZoneText and GetZoneText())
                         or ""
 
     local containerForPins = mapCanvas.tilesContainer
@@ -11890,7 +11924,7 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             local v = visiblePins[s]
             table.insert(sigParts, (v.id or 0) .. ":" .. (v.x or 0) .. "," .. (v.y or 0) .. ":" .. (v.cat or ""))
         end
-        local curSig = (cityKey or currentZoneID or 0) .. "|" .. (playerFacCode or "") .. "|" .. table.getn(sigParts) .. "|" .. table.concat(sigParts, ";")
+        local curSig = (cityKey or viewedFile or viewedZoneText or 0) .. "|" .. (playerFacCode or "") .. "|" .. table.getn(sigParts) .. "|" .. table.concat(sigParts, ";")
         if npcListPanel._lastSig == curSig and totalPins > 0 then
             if not npcListPanel:IsVisible() then npcListPanel:Show() end
         else

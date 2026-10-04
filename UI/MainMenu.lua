@@ -8374,8 +8374,8 @@ function MainMenu:SetupQuestsPage(pageQuests)
             local mc2 = mp2 and mp2.canvas
             local isSel = (this.pinData and mc2 and mc2.selectedNpcId and this.pinData.id == mc2.selectedNpcId and this.pinData.x == mc2.selectedNpcX and this.pinData.y == mc2.selectedNpcY)
             if isSel then
-                if this.borderTex then this.borderTex:SetVertexColor(1.0, 0.85, 0.2, 1.0) end
-                if this.bg then this.bg:SetVertexColor(0.28, 0.22, 0.12, 1.0) end
+                if this.borderTex then this.borderTex:SetVertexColor(0.0, 0.95, 1.0, 1.0) end
+                if this.bg then this.bg:SetVertexColor(0.08, 0.18, 0.24, 0.95) end
             else
                 if this.borderTex then this.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
                 if this.bg then this.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end
@@ -11708,6 +11708,16 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             pin:SetFrameLevel(mapCanvas.tilesContainer:GetFrameLevel() + 6)
             pin.baseLevel = pin:GetFrameLevel()
 
+            local glow = pin:CreateTexture(nil, "BACKGROUND")
+            glow:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+            glow:SetBlendMode("ADD")
+            glow:SetPoint("CENTER", pin, "CENTER", 0, 0)
+            glow:SetWidth(32)
+            glow:SetHeight(32)
+            glow:SetVertexColor(0.0, 0.95, 1.0, 0.95)
+            glow:Hide()
+            pin.glow = glow
+
             local icon = pin:CreateTexture(nil, "ARTWORK")
             icon:SetAllPoints(pin)
             icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
@@ -11782,24 +11792,58 @@ function MainMenu:UpdateNPCServicePins(mapCanvas)
             targetSize = 10     -- tamanho base normal
         end
 
+        if not pin.glow then
+            local glow = pin:CreateTexture(nil, "BACKGROUND")
+            glow:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+            glow:SetBlendMode("ADD")
+            glow:SetPoint("CENTER", pin, "CENTER", 0, 0)
+            glow:SetVertexColor(0.0, 0.95, 1.0, 0.95)
+            glow:Hide()
+            pin.glow = glow
+        end
+
         local isHovered = (mapCanvas.hoveredNpcPin and mapCanvas.hoveredNpcPin == pin) or (mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx == pinIdx)
         if isHovered then
             pin:SetWidth(27)
             pin:SetHeight(27)
+            if pin.glow then
+                if isSelected then
+                    pin.glow:SetWidth(44)
+                    pin.glow:SetHeight(44)
+                    pin.glow:SetVertexColor(0.0, 0.95, 1.0, 0.95)
+                    pin.glow:Show()
+                else
+                    pin.glow:Hide()
+                end
+            end
             if pin.border then
                 pin.border:Show()
-                pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                if isSelected then
+                    pin.border:SetBackdropBorderColor(0.0, 0.95, 1.0, 1.0)
+                else
+                    pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                end
             end
         else
             pin:SetWidth(targetSize)
             pin:SetHeight(targetSize)
+            if pin.glow then
+                if isSelected then
+                    pin.glow:SetWidth(32)
+                    pin.glow:SetHeight(32)
+                    pin.glow:SetVertexColor(0.0, 0.95, 1.0, 0.95)
+                    pin.glow:Show()
+                else
+                    pin.glow:Hide()
+                end
+            end
             if pin.border then
                 if hasSelection and not isSelected then
                     pin.border:Hide()
                 else
                     pin.border:Show()
                     if isSelected then
-                        pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                        pin.border:SetBackdropBorderColor(0.0, 0.95, 1.0, 1.0)
                     else
                         pin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9)
                     end
@@ -12205,6 +12249,16 @@ function MainMenu:UpdateNPCPinSizes(mapCanvas)
             local isSelected = hasSelection and (pin.pinData.id == mapCanvas.selectedNpcId and pin.pinData.x == mapCanvas.selectedNpcX and pin.pinData.y == mapCanvas.selectedNpcY)
             pin.isSelected = isSelected
 
+            if not pin.glow then
+                local glow = pin:CreateTexture(nil, "BACKGROUND")
+                glow:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+                glow:SetBlendMode("ADD")
+                glow:SetPoint("CENTER", pin, "CENTER", 0, 0)
+                glow:SetVertexColor(0.0, 0.95, 1.0, 0.95)
+                glow:Hide()
+                pin.glow = glow
+            end
+
             local isHovered = (mapCanvas.hoveredNpcPin and mapCanvas.hoveredNpcPin == pin)
                 or (mapCanvas.hoveredNpcPinIdx and mapCanvas.hoveredNpcPinIdx == i)
 
@@ -12212,23 +12266,46 @@ function MainMenu:UpdateNPCPinSizes(mapCanvas)
                 pin:SetWidth(27)
                 pin:SetHeight(27)
                 pin:SetFrameLevel(base + PL.SERVICE_HOVER)
+                if pin.glow then
+                    if isSelected then
+                        pin.glow:SetWidth(44)
+                        pin.glow:SetHeight(44)
+                        pin.glow:SetVertexColor(0.0, 0.95, 1.0, 0.95)
+                        pin.glow:Show()
+                    else
+                        pin.glow:Hide()
+                    end
+                end
                 if pin.border then
                     pin.border:Show()
-                    pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                    if isSelected then
+                        pin.border:SetBackdropBorderColor(0.0, 0.95, 1.0, 1.0)
+                    else
+                        pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                    end
                 end
             elseif hasSelection then
                 if isSelected then
                     pin:SetWidth(15) -- 50% maior que normal
                     pin:SetHeight(15)
                     pin:SetFrameLevel(base + PL.SERVICE_HOVER)
+                    if pin.glow then
+                        pin.glow:SetWidth(32)
+                        pin.glow:SetHeight(32)
+                        pin.glow:SetVertexColor(0.0, 0.95, 1.0, 0.95)
+                        pin.glow:Show()
+                    end
                     if pin.border then
                         pin.border:Show()
-                        pin.border:SetBackdropBorderColor(1, 1, 0.2, 1)
+                        pin.border:SetBackdropBorderColor(0.0, 0.95, 1.0, 1.0)
                     end
                 else
                     pin:SetWidth(5)  -- 50% menor que normal
                     pin:SetHeight(5)
                     pin:SetFrameLevel(base + PL.SERVICE)
+                    if pin.glow then
+                        pin.glow:Hide()
+                    end
                     if pin.border then
                         pin.border:Hide()
                     end
@@ -12237,6 +12314,9 @@ function MainMenu:UpdateNPCPinSizes(mapCanvas)
                 pin:SetWidth(10)     -- tamanho normal
                 pin:SetHeight(10)
                 pin:SetFrameLevel(base + PL.SERVICE)
+                if pin.glow then
+                    pin.glow:Hide()
+                end
                 if pin.border then
                     pin.border:Show()
                     pin.border:SetBackdropBorderColor(1.0, 0.85, 0.2, 0.9)
@@ -12320,8 +12400,8 @@ function MainMenu:UpdateNPCListHighlights()
         if btn and btn:IsShown() then
             local isSel = (selId and btn.pinData and btn.pinData.id == selId and btn.pinData.x == selX and btn.pinData.y == selY)
             if isSel then
-                if btn.borderTex then btn.borderTex:SetVertexColor(1.0, 0.85, 0.2, 1.0) end
-                if btn.bg then btn.bg:SetVertexColor(0.28, 0.22, 0.12, 1.0) end
+                if btn.borderTex then btn.borderTex:SetVertexColor(0.0, 0.95, 1.0, 1.0) end
+                if btn.bg then btn.bg:SetVertexColor(0.08, 0.18, 0.24, 0.95) end
             else
                 if btn.borderTex then btn.borderTex:SetVertexColor(0.45, 0.38, 0.22, 0.5) end
                 if btn.bg then btn.bg:SetVertexColor(0.14, 0.12, 0.09, 0.9) end

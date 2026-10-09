@@ -230,17 +230,17 @@ Cada fase foi desenhada para ser **100% testável no jogo imediatamente após a 
 ### 🟢 FASE 3: Catálogo Estruturado, Seções com Collapse e Barra de Pesquisa
 > **Objetivo de Teste:** O catálogo da esquerda exibe as três seções bem estruturadas (Disponíveis no topo, Futuras por Tree no meio, e Já Aprendidas recolhidas na base). O jogador pode navegar com o D-Pad/mouse, expandir a seção Já Aprendidas com `[A]`/clique, e usar a barra de pesquisa para filtrar em tempo real com auto-expansão.
 
-- [ ] Implementar scanner do catálogo do treinador via `GetNumTrainerServices()` e `GetTrainerServiceInfo(index)`.
-- [ ] Agrupar itens em 3 listas lógicas:
+- [x] Implementar scanner do catálogo do treinador via `GetNumTrainerServices()` e `GetTrainerServiceInfo(index)`.
+- [x] Agrupar itens em 3 listas lógicas:
   - 1. **Disponíveis:** `category == "available"`.
   - 2. **Futuras:** `category == "unavailable"` agrupadas pelas escolas/trees de classe.
   - 3. **Já Aprendidas:** `category == "used"` agrupadas pelas escolas/trees.
-- [ ] Construir as linhas visuais (ícone 32x32, nome da magia, rank, nível requerido e custo).
-- [ ] Implementar comportamento de cabeçalho colapsável na seção **Já Aprendidas** (fechada por padrão, alterna com `[A]` ou clique do mouse).
-- [ ] Criar a Barra de Pesquisa (`EditBox` no topo da lista) com suporte a teclado físico, clique de mouse e atalho `[LS]` para acionar o `VirtualKeyboard`.
-- [ ] Conectar filtro de texto em tempo real: ao digitar qualquer termo, a seção "Já Aprendidas" auto-expande caso contenha resultados correspondentes.
-- [ ] Implementar navegação vertical por D-Pad com sistema de hold-to-repeat suave e scroll contínuo com a roda do mouse.
-- [ ] Validar sintaxe com `luac -p`.
+- [x] Construir as linhas visuais (ícone 32x32, nome da magia, rank, nível requerido e custo).
+- [x] Implementar comportamento de seções e árvores colapsáveis (recolhidas por padrão, alternam com `[A]` ou clique do mouse).
+- [x] Criar a Barra de Pesquisa com foco bidirecional via D-Pad (UP do topo), clique de mouse, atalho `[LS]` e ativação do `VirtualKeyboard` desacoplado (`ConsoleMode.VirtualKeyboard`) ao apertar `[A]` ou clicar na barra.
+- [x] Conectar filtro de texto em tempo real: ao digitar qualquer termo, as seções e árvores auto-expandem caso contenham resultados correspondentes.
+- [x] Implementar navegação vertical por D-Pad com sistema de hold-to-repeat suave e scroll contínuo com a roda do mouse.
+- [x] Validar sintaxe com `luac -p`.
 - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 3):** O jogador navega por todas as seções do catálogo, expande a seção de já aprendidas e testa a busca em tempo real.
 
 ---
@@ -248,16 +248,16 @@ Cada fase foi desenhada para ser **100% testável no jogo imediatamente após a 
 ### 🟢 FASE 4: Painel de Detalhes e Comparativo de Ranks (Grimório vs Treinador)
 > **Objetivo de Teste:** Ao navegar pelas habilidades no catálogo, a coluna da direita exibe os detalhes completos da habilidade focada. Se o jogador já possui um grau anterior no Grimório, mostra o comparativo lado a lado destacando em verde os aumentos de dano/cura. Se for uma magia inédita, exibe a badge dourada "NOVA HABILIDADE".
 
-- [ ] Implementar varredura do Grimório do jogador (`GetSpellName(i, BOOKTYPE_SPELL)`) para indexar os ranks atuais que o personagem já conhece.
-- [ ] Montar o cabeçalho do painel direito: ícone ampliado, nome da habilidade, especialização, custo e nível requerido.
-- [ ] Construir o bloco de comparação:
+- [x] Implementar varredura do Grimório do jogador (`GetSpellName(i, BOOKTYPE_SPELL)`) para indexar os ranks atuais que o personagem já conhece.
+- [x] Montar o cabeçalho do painel direito: ícone ampliado, nome da habilidade, especialização, custo e nível requerido.
+- [x] Construir o bloco de comparação:
   - **Card do Grau Atual:** Descrição, custo de recurso e valores do rank existente no Grimório.
   - **Seta de Evolução (`▼ EVOLUÇÃO`)**.
   - **Card do Novo Grau:** Descrição e novos valores oferecidos pelo treinador.
   - **Diferenças em Destaque:** Exibir em verde (`|cff1eff00`) acréscimos numéricos (ex: `▲ +26 Dano Adicional`).
-- [ ] Construir o modo **Nova Habilidade**: quando a magia não possui rank anterior, renderizar o badge `★ NOVA HABILIDADE DE CLASSE ★` com ficha técnica completa.
-- [ ] Suporte a Profissões: quando `GetTrainerType() == "tradeskill"`, renderizar lista de reagentes/materiais necessários e o item criado pela receita.
-- [ ] Validar sintaxe com `luac -p`.
+- [x] Construir o modo **Nova Habilidade**: quando a magia não possui rank anterior, renderizar o badge `★ NOVA HABILIDADE DE CLASSE ★` com ficha técnica completa.
+- [x] Suporte a Profissões: quando `GetTrainerType() == "tradeskill"`, renderizar lista de reagentes/materiais necessários e o item criado pela receita.
+- [x] Validar sintaxe com `luac -p`.
 - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 4):** O jogador foca em magias de upgrade e magias novas, checando se a comparação de evolução reflete os valores reais do jogo.
 
 ---

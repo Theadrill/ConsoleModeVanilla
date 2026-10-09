@@ -80,6 +80,7 @@ TrainerMenu.futureServices    = {}
 TrainerMenu.usedServices      = {}
 TrainerMenu.treesOrder        = {}
 TrainerMenu.flattenedList     = {}
+TrainerMenu.spellbookCache    = {}
 
 -- Navegação e exibição do catálogo
 TrainerMenu.selectedIndex     = 1
@@ -109,6 +110,10 @@ TrainerMenu.searchContainer  = nil
 TrainerMenu.searchEditBox    = nil
 TrainerMenu.searchPlaceholder= nil
 TrainerMenu.searchClearBtn   = nil
+
+-- Hidden tooltip para scanning preciso de feitiços do treinador e grimório (WoW 1.12)
+local trainerScanTip = CreateFrame("GameTooltip", "ConsoleMode_TrainerScanTip", UIParent, "GameTooltipTemplate")
+trainerScanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
 
 -- ----------------------------------------------------------------------------
 -- 3. HELPERS TIPOGRÁFICOS E FORMATAÇÃO DE MOEDAS
@@ -330,7 +335,9 @@ function TrainerMenu:UpdateFooterHints()
 
     -- Adapta dinamicamente a legenda do Botão A conforme foco
     if self.footerWidgets[1] and self.footerWidgets[1].label then
-        if isUsedHeader then
+        if self.isSearchSelected then
+            self.footerWidgets[1].label:SetText("Abrir Teclado")
+        elseif isUsedHeader then
             if self.isUsedCollapsed then
                 self.footerWidgets[1].label:SetText("Expandir Seção")
             else
@@ -393,8 +400,10 @@ end
 -- ----------------------------------------------------------------------------
 -- 5b. BARRA DE PESQUISA (EditBox + Atalho VirtualKeyboard [LS] + Limpar [X])
 -- ----------------------------------------------------------------------------
+-- 5b. BARRA DE BUSCA EM TEMPO REAL & ATALHO DO VIRTUALKEYBOARD (FASE 3)
+-- ----------------------------------------------------------------------------
 function TrainerMenu:CreateSearchBar(parent)
-    local searchBar = CreateFrame("Frame", "ConsoleMode_TrainerSearchBar", parent)
+    local searchBar = CreateFrame("Button", "ConsoleMode_TrainerSearchBar", parent)
     searchBar:SetHeight(30)
     searchBar:SetPoint("TOPLEFT", parent, "TOPLEFT", 8, -42)
     searchBar:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -8, -42)
@@ -406,6 +415,23 @@ function TrainerMenu:CreateSearchBar(parent)
     })
     searchBar:SetBackdropColor(0.06, 0.04, 0.03, 0.90)
     searchBar:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.70)
+
+    -- Highlight de fundo quando selecionada pelo controle
+    local hl = searchBar:CreateTexture(nil, "BACKGROUND")
+    hl:SetTexture("Interface\\Buttons\\UI-Listbox-Highlight")
+    hl:SetBlendMode("ADD")
+    hl:SetAlpha(0.25)
+    hl:SetAllPoints(searchBar)
+    hl:Hide()
+    searchBar.highlight = hl
+
+    -- Clique na barra de pesquisa abre o VirtualKeyboard
+    searchBar:EnableMouse(true)
+    searchBar:RegisterForClicks("LeftButtonUp")
+    searchBar:SetScript("OnClick", function()
+        TrainerMenu:SelectSearchBar()
+        TrainerMenu:OpenSearchVK()
+    end)
 
     -- Botão/Ícone [LS] no controle para abrir o VirtualKeyboard
     local lsBtn = CreateFrame("Button", nil, searchBar)
@@ -419,6 +445,7 @@ function TrainerMenu:CreateSearchBar(parent)
     lsBtn.icon = lsIcon
 
     lsBtn:SetScript("OnClick", function()
+        TrainerMenu:SelectSearchBar()
         TrainerMenu:OpenSearchVK()
     end)
 
@@ -455,6 +482,11 @@ function TrainerMenu:CreateSearchBar(parent)
     eb:EnableMouse(true)
     eb:SetMaxLetters(32)
     eb:SetTextInsets(2, 2, 0, 0)
+
+    eb:SetScript("OnMouseDown", function()
+        TrainerMenu:SelectSearchBar()
+        TrainerMenu:OpenSearchVK()
+    end)
 
     eb:SetScript("OnTextChanged", function()
         local text = this:GetText() or ""
@@ -628,7 +660,165 @@ function TrainerMenu:RestoreRowBorder(row)
 end
 
 -- ----------------------------------------------------------------------------
--- 5d. CRIAÇÃO GERAL DA UI
+-- 5d. PAINEL DE DETALHES & EVOLUÇÃO (FASE 4)
+-- ----------------------------------------------------------------------------
+function TrainerMenu:CreateDetailPanel(parent)
+    local card = CreateFrame("Frame", "ConsoleMode_TrainerDetailPanel", parent)
+    card:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -42)
+    card:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -10, 10)
+    card:Hide()
+
+    -- 1. Cabeçalho da Habilidade: Ícone 48x48 + Título + Especialização + Requisitos
+    local icon = card:CreateTexture(nil, "ARTWORK")
+    icon:SetWidth(48)
+    icon:SetHeight(48)
+    icon:SetPoint("TOPLEFT", card, "TOPLEFT", 4, -4)
+    card.icon = icon
+
+    local iconBorder = CreateFrame("Frame", nil, card)
+    iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 2)
+    iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2, -2)
+    iconBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 10,
+        insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    iconBorder:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.80)
+    card.iconBorder = iconBorder
+
+    -- Nome da Habilidade
+    local titleText = card:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    titleText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 12, -2)
+    titleText:SetPoint("RIGHT", card, "RIGHT", -4, 0)
+    titleText:SetJustifyH("LEFT")
+    self:ApplyFont(titleText, FONTS.titleBold, 18)
+    card.titleText = titleText
+
+    -- Subtítulo: Especialização • Nível • Custo
+    local subText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    subText:SetPoint("TOPLEFT", titleText, "BOTTOMLEFT", 0, -4)
+    subText:SetPoint("RIGHT", card, "RIGHT", -4, 0)
+    subText:SetJustifyH("LEFT")
+    self:ApplyFont(subText, FONTS.medium, 13)
+    card.subText = subText
+
+    -- Badge de Status (ex: [NOVA HABILIDADE] / [UPGRADE DE GRAU] / [JÁ CONHECIDO])
+    local badgeText = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    badgeText:SetPoint("TOPLEFT", subText, "BOTTOMLEFT", 0, -5)
+    badgeText:SetPoint("RIGHT", card, "RIGHT", -4, 0)
+    badgeText:SetJustifyH("LEFT")
+    self:ApplyFont(badgeText, FONTS.bodyBold, 13)
+    card.badgeText = badgeText
+
+    -- Divisória abaixo do cabeçalho
+    local hDiv = card:CreateTexture(nil, "ARTWORK")
+    hDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border")
+    hDiv:SetHeight(2)
+    hDiv:SetPoint("TOPLEFT", icon, "BOTTOMLEFT", 0, -12)
+    hDiv:SetPoint("RIGHT", card, "RIGHT", 0, 0)
+    hDiv:SetVertexColor(0.5, 0.4, 0.28, 0.4)
+    card.hDiv = hDiv
+
+    -- 2. Card do Grau Atual no Grimório (se upgrade)
+    local oldCard = CreateFrame("Frame", nil, card)
+    oldCard:SetPoint("TOPLEFT", hDiv, "BOTTOMLEFT", 0, -8)
+    oldCard:SetPoint("TOPRIGHT", hDiv, "BOTTOMRIGHT", 0, -8)
+    oldCard:SetHeight(78)
+    oldCard:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    oldCard:SetBackdropColor(0.06, 0.05, 0.04, 0.60)
+    oldCard:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+    card.oldCard = oldCard
+
+    local oldHeader = oldCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    oldHeader:SetPoint("TOPLEFT", oldCard, "TOPLEFT", 8, -6)
+    self:ApplyFont(oldHeader, FONTS.bodyBold, 13)
+    oldHeader:SetText("|cffaaaaaa[ATUALMENTE NO GRIMÓRIO]|r")
+    oldCard.header = oldHeader
+
+    local oldDesc = oldCard:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    oldDesc:SetPoint("TOPLEFT", oldHeader, "BOTTOMLEFT", 0, -4)
+    oldDesc:SetPoint("BOTTOMRIGHT", oldCard, "BOTTOMRIGHT", -8, 6)
+    oldDesc:SetJustifyH("LEFT")
+    oldDesc:SetJustifyV("TOP")
+    self:ApplyFont(oldDesc, FONTS.medium, 13)
+    oldCard.desc = oldDesc
+
+    -- Seta de Evolução
+    local arrowText = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    arrowText:SetPoint("TOP", oldCard, "BOTTOM", 0, -4)
+    self:ApplyFont(arrowText, FONTS.titleBold, 13)
+    arrowText:SetText("|cffe09a15▼ EVOLUÇÃO PARA O PRÓXIMO GRAU|r")
+    card.arrowText = arrowText
+
+    -- 3. Card do Novo Grau (Oferecido pelo Treinador)
+    local newCard = CreateFrame("Frame", nil, card)
+    newCard:SetPoint("TOPLEFT", oldCard, "BOTTOMLEFT", 0, -26)
+    newCard:SetPoint("TOPRIGHT", oldCard, "BOTTOMRIGHT", 0, -26)
+    newCard:SetHeight(86)
+    newCard:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    newCard:SetBackdropColor(0.08, 0.07, 0.05, 0.75)
+    newCard:SetBackdropBorderColor(0.55, 0.42, 0.22, 0.70)
+    card.newCard = newCard
+
+    local newHeader = newCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    newHeader:SetPoint("TOPLEFT", newCard, "TOPLEFT", 8, -6)
+    self:ApplyFont(newHeader, FONTS.bodyBold, 13)
+    newHeader:SetText("|cffe09a15[OFERECIDO PELO TREINADOR]|r")
+    newCard.header = newHeader
+
+    local newDesc = newCard:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    newDesc:SetPoint("TOPLEFT", newHeader, "BOTTOMLEFT", 0, -4)
+    newDesc:SetPoint("BOTTOMRIGHT", newCard, "BOTTOMRIGHT", -8, 6)
+    newDesc:SetJustifyH("LEFT")
+    newDesc:SetJustifyV("TOP")
+    self:ApplyFont(newDesc, FONTS.medium, 13)
+    newCard.desc = newDesc
+
+    -- 4. Bloco Comparativo de Mudanças / Destaques
+    local diffCard = CreateFrame("Frame", nil, card)
+    diffCard:SetPoint("TOPLEFT", newCard, "BOTTOMLEFT", 0, -8)
+    diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
+    diffCard:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    diffCard:SetBackdropColor(0.05, 0.04, 0.03, 0.60)
+    diffCard:SetBackdropBorderColor(0.30, 0.25, 0.18, 0.40)
+    card.diffCard = diffCard
+
+    local diffHeader = diffCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    diffHeader:SetPoint("TOPLEFT", diffCard, "TOPLEFT", 8, -6)
+    self:ApplyFont(diffHeader, FONTS.bodyBold, 13)
+    diffHeader:SetText("|cffedd28cRESUMO & REQUISITOS:|r")
+    diffCard.header = diffHeader
+
+    local diffText = diffCard:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    diffText:SetPoint("TOPLEFT", diffHeader, "BOTTOMLEFT", 0, -4)
+    diffText:SetPoint("BOTTOMRIGHT", diffCard, "BOTTOMRIGHT", -8, 6)
+    diffText:SetJustifyH("LEFT")
+    diffText:SetJustifyV("TOP")
+    self:ApplyFont(diffText, FONTS.medium, 13)
+    diffCard.text = diffText
+
+    parent.detailCard = card
+    self.detailCard = card
+    return card
+end
+
+-- ----------------------------------------------------------------------------
+-- 5e. CRIAÇÃO GERAL DA UI
 -- ----------------------------------------------------------------------------
 function TrainerMenu:CreateUI()
     if self.frame then return end
@@ -814,7 +1004,11 @@ function TrainerMenu:CreateUI()
     rightCol:SetPoint("TOPRIGHT", contentArea, "TOPRIGHT", 0, 0)
     rightCol:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
     rightCol:SetPoint("LEFT", divider, "RIGHT", 6, 0)
-    rightCol.placeholder:SetText("|cffe09a15Selecione uma habilidade à esquerda para inspecionar.|r\n|cffaaaaaa(Fase 4: Comparativo Grimório vs Treinador)|r")
+    rightCol.placeholder:SetText("|cffe09a15Selecione uma habilidade à esquerda para inspecionar.|r\n|cffaaaaaaUse o D-Pad ou clique do mouse para ver detalhes completos.|r")
+
+    -- Cria o painel estruturado de detalhes
+    self:CreateDetailPanel(rightCol)
+
     frame.rightCol = rightCol
 end
 
@@ -896,7 +1090,82 @@ function TrainerMenu:RefreshHeader()
 end
 
 -- ----------------------------------------------------------------------------
--- 6. SCANNER DO TREINADOR, AGRUPAMENTO & LISTA UNIFICADA (FASE 3)
+-- 6. SCANNER DO GRIMÓRIO DO JOGADOR (FASE 4: COMPARATIVO)
+-- ----------------------------------------------------------------------------
+function TrainerMenu:ScanSpellbook()
+    local cache = {}
+    if not GetSpellName then
+        self.spellbookCache = cache
+        return cache
+    end
+
+    local numTabs = 1
+    if GetNumSpellTabs then
+        numTabs = GetNumSpellTabs() or 1
+    end
+
+    for t = 1, numTabs do
+        local tabName, _, offset, numSpells = nil, nil, 0, 0
+        if GetSpellTabInfo then
+            tabName, _, offset, numSpells = GetSpellTabInfo(t)
+        end
+        offset = offset or 0
+        numSpells = numSpells or 0
+
+        for s = (offset + 1), (offset + numSpells) do
+            local spellName, spellRank = GetSpellName(s, BOOKTYPE_SPELL)
+            if spellName and spellName ~= "" then
+                -- Lê a descrição do feitiço no grimório via scanner tooltip
+                local spellDesc = ""
+                if trainerScanTip and trainerScanTip.SetSpell then
+                    trainerScanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+                    trainerScanTip:ClearLines()
+                    pcall(function() trainerScanTip:SetSpell(s, BOOKTYPE_SPELL) end)
+                    local nl = trainerScanTip:NumLines() or 0
+                    local lines = {}
+                    for l = 2, nl do
+                        local txtObj = getglobal("ConsoleMode_TrainerScanTipTextLeft" .. l)
+                        local rightObj = getglobal("ConsoleMode_TrainerScanTipTextRight" .. l)
+                        local leftTxt = (txtObj and txtObj:GetText()) or ""
+                        local rightTxt = (rightObj and rightObj:GetText()) or ""
+                        if leftTxt ~= "" then
+                            if rightTxt ~= "" then
+                                table.insert(lines, leftTxt .. "  (" .. rightTxt .. ")")
+                            else
+                                table.insert(lines, leftTxt)
+                            end
+                        end
+                    end
+                    spellDesc = table.concat(lines, "\n")
+                end
+
+                local rankNum = 0
+                if spellRank and spellRank ~= "" then
+                    local _, _, r = string.find(spellRank, "(%d+)")
+                    if r then rankNum = tonumber(r) or 0 end
+                end
+
+                local existing = cache[spellName]
+                if not existing or rankNum >= existing.rankNum then
+                    cache[spellName] = {
+                        name     = spellName,
+                        rankText = spellRank or "",
+                        rankNum  = rankNum,
+                        tabName  = tabName or "",
+                        desc     = spellDesc,
+                        spellId  = s,
+                    }
+                end
+            end
+        end
+    end
+
+    self.spellbookCache = cache
+    return cache
+end
+
+-- ----------------------------------------------------------------------------
+-- 6b. SCANNER DO TREINADOR, AGRUPAMENTO & LISTA UNIFICADA (FASE 3 & 4)
 -- ----------------------------------------------------------------------------
 function TrainerMenu:ScanTrainerServices()
     if self.isScanning then return end
@@ -973,6 +1242,7 @@ function TrainerMenu:ScanTrainerServices()
     self.rawServices = rawServices
     self.treesOrder = treesOrder
 
+    self:ScanSpellbook()
     self:CategorizeServices()
     self:BuildFlattenedList()
     self:EnsureValidSelection()
@@ -1355,7 +1625,7 @@ function TrainerMenu:UpdateCatalogRows()
                     end
 
                     -- Estado Selecionado
-                    local isSel = (flatIdx == self.selectedIndex)
+                    local isSel = (not self.isSearchSelected) and (flatIdx == self.selectedIndex)
                     if isSel then
                         row.cursor:Show()
                         row.highlight:Show()
@@ -1379,7 +1649,7 @@ function TrainerMenu:UpdateCatalogRows()
                     self:ApplyFont(row.headerText, FONTS.titleBold, 15)
                     row.headerText:SetText("|cffe09a15" .. entry.text .. "|r")
 
-                    local isSel = (flatIdx == self.selectedIndex)
+                    local isSel = (not self.isSearchSelected) and (flatIdx == self.selectedIndex)
                     if isSel then
                         row.cursor:Show()
                         row.highlight:Show()
@@ -1403,7 +1673,7 @@ function TrainerMenu:UpdateCatalogRows()
                     self:ApplyFont(row.headerText, FONTS.titleBold, 14)
                     row.headerText:SetText("|cffedd28c" .. entry.text .. "|r")
 
-                    local isSel = (flatIdx == self.selectedIndex)
+                    local isSel = (not self.isSearchSelected) and (flatIdx == self.selectedIndex)
                     if isSel then
                         row.cursor:Show()
                         row.highlight:Show()
@@ -1443,17 +1713,456 @@ function TrainerMenu:UpdateCatalogRows()
     end
 end
 
-function TrainerMenu:UpdateRightColPlaceholder()
-    if not self.frame or not self.frame.rightCol or not self.frame.rightCol.placeholder then return end
+-- ----------------------------------------------------------------------------
+-- 7b. PROCESSAMENTO DE TOOLTIP, COMPARATIVO DE GRAU & DETALHES (FASE 4)
+-- ----------------------------------------------------------------------------
+function TrainerMenu:GetTrainerServiceTooltipData(serviceIndex)
+    local data = {
+        name     = "",
+        stats    = {},
+        desc     = "",
+        reqs     = {},
+        reagents = {},
+    }
+
+    if not serviceIndex or not trainerScanTip or not trainerScanTip.SetTrainerService then
+        return data
+    end
+
+    trainerScanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+    trainerScanTip:ClearLines()
+    local ok = pcall(function() trainerScanTip:SetTrainerService(serviceIndex) end)
+    if not ok then return data end
+
+    local nl = trainerScanTip:NumLines() or 0
+    if nl == 0 then return data end
+
+    local left1 = getglobal("ConsoleMode_TrainerScanTipTextLeft1")
+    if left1 then data.name = left1:GetText() or "" end
+
+    local inReagents = false
+    local descLines = {}
+
+    for l = 2, nl do
+        local leftObj = getglobal("ConsoleMode_TrainerScanTipTextLeft" .. l)
+        local rightObj = getglobal("ConsoleMode_TrainerScanTipTextRight" .. l)
+        local leftTxt = (leftObj and leftObj:GetText()) or ""
+        local rightTxt = (rightObj and rightObj:GetText()) or ""
+
+        if leftTxt ~= "" then
+            local r, g, b = 1, 1, 1
+            if leftObj then r, g, b = leftObj:GetTextColor() end
+            local isRed = (r and r > 0.8 and g and g < 0.35 and b and b < 0.35)
+
+            if string.find(leftTxt, "Reagent") or string.find(leftTxt, "Reagente") then
+                inReagents = true
+            elseif inReagents then
+                if string.find(leftTxt, "^Requer") or string.find(leftTxt, "^Requires") then
+                    inReagents = false
+                    table.insert(data.reqs, { text = leftTxt, isRed = isRed })
+                else
+                    table.insert(data.reagents, leftTxt)
+                end
+            elseif string.find(leftTxt, "^Requer") or string.find(leftTxt, "^Requires") then
+                table.insert(data.reqs, { text = leftTxt, isRed = isRed })
+            elseif string.find(leftTxt, "Mana") or string.find(leftTxt, "Raiva") or string.find(leftTxt, "Energia")
+                or string.find(leftTxt, "Rage") or string.find(leftTxt, "Energy")
+                or string.find(leftTxt, "alcance") or string.find(leftTxt, "range")
+                or string.find(leftTxt, "lançamento") or string.find(leftTxt, "cast")
+                or string.find(leftTxt, "Instant") or string.find(leftTxt, "recarga")
+                or string.find(leftTxt, "cooldown") then
+                local statLine = leftTxt
+                if rightTxt ~= "" then
+                    statLine = statLine .. "  (" .. rightTxt .. ")"
+                end
+                table.insert(data.stats, statLine)
+            else
+                table.insert(descLines, leftTxt)
+            end
+        end
+    end
+
+    data.desc = table.concat(descLines, "\n")
+    return data
+end
+
+function TrainerMenu:ComputeDiffLines(oldDesc, newDesc)
+    local diffs = {}
+    if not oldDesc or not newDesc or oldDesc == "" or newDesc == "" then
+        return diffs
+    end
+
+    local function ExtractNumbers(str)
+        local nums = {}
+        local pos = 1
+        while true do
+            local s, e, nStr = string.find(str, "(%d+)", pos)
+            if not s then break end
+            table.insert(nums, tonumber(nStr))
+            pos = e + 1
+        end
+        return nums
+    end
+
+    local oldNums = ExtractNumbers(oldDesc)
+    local newNums = ExtractNumbers(newDesc)
+
+    local count = math.min(table.getn(oldNums), table.getn(newNums))
+    for i = 1, count do
+        local oldV = oldNums[i]
+        local newV = newNums[i]
+        if newV > oldV then
+            local diff = newV - oldV
+            local context = "no Efeito da Habilidade"
+            local lowerNew = string.lower(newDesc)
+            if string.find(lowerNew, "dano") or string.find(lowerNew, "damage") then
+                context = "de Dano Adicional"
+            elseif string.find(lowerNew, "cura") or string.find(lowerNew, "heal") then
+                context = "de Cura Adicional"
+            elseif string.find(lowerNew, "armadura") or string.find(lowerNew, "armor") then
+                context = "de Armadura"
+            elseif string.find(lowerNew, "vida") or string.find(lowerNew, "health") then
+                context = "de Vida Adicional"
+            elseif string.find(lowerNew, "mana") then
+                context = "de Restauração de Mana"
+            end
+            table.insert(diffs, "|cff1eff00▲ +" .. diff .. " " .. context .. " (" .. oldV .. " ➔ " .. newV .. ")|r")
+        end
+    end
+
+    return diffs
+end
+
+function TrainerMenu:ShowServiceDetail(item)
+    if not self.frame or not self.detailCard or not item then return end
+    local card = self.detailCard
+
+    -- 1. Ícone da Habilidade
+    card.icon:SetTexture(item.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+    if item.category == "available" then
+        card.icon:SetVertexColor(1.0, 1.0, 1.0)
+        card.iconBorder:SetBackdropBorderColor(1.0, 0.82, 0.20, 0.85)
+    elseif item.category == "unavailable" then
+        card.icon:SetVertexColor(0.70, 0.70, 0.70)
+        card.iconBorder:SetBackdropBorderColor(0.60, 0.25, 0.25, 0.70)
+    else -- used
+        card.icon:SetVertexColor(0.50, 0.50, 0.50)
+        card.iconBorder:SetBackdropBorderColor(0.40, 0.40, 0.40, 0.60)
+    end
+
+    -- 2. Título (Nome e Grau se houver)
+    local displayName = item.name or "Habilidade"
+    if item.subText and item.subText ~= "" then
+        displayName = displayName .. " (" .. item.subText .. ")"
+    end
+    card.titleText:SetText(displayName)
+
+    -- 3. Subtítulo (Especialização • Nível • Custo)
+    local subParts = {}
+    if item.tree and item.tree ~= "" then
+        table.insert(subParts, item.tree)
+    end
+    if item.levelReq and item.levelReq > 0 then
+        local pLvl = UnitLevel("player") or 1
+        local col = (pLvl >= item.levelReq) and "|cffffffff" or "|cffff2020"
+        table.insert(subParts, col .. "Requer Nv. " .. item.levelReq .. "|r")
+    end
+    if item.category == "used" then
+        table.insert(subParts, "|cff888888Já Aprendido|r")
+    else
+        table.insert(subParts, "Custo: " .. self:FormatMoneyText(item.cost or 0))
+    end
+    card.subText:SetText(table.concat(subParts, "  •  "))
+
+    -- 4. Tooltip Scan dos dados do treinador
+    local tipData = self:GetTrainerServiceTooltipData(item.index)
+    local fullNewDesc = ""
+    if table.getn(tipData.stats) > 0 then
+        fullNewDesc = "|cff88ccff" .. table.concat(tipData.stats, "   •   ") .. "|r\n\n"
+    end
+    if tipData.desc ~= "" then
+        fullNewDesc = fullNewDesc .. tipData.desc
+    elseif item.desc and item.desc ~= "" then
+        fullNewDesc = fullNewDesc .. item.desc
+    else
+        fullNewDesc = fullNewDesc .. "Nenhuma descrição fornecida pelo treinador."
+    end
+
+    -- 5. Checa Grimório do jogador
+    local known = self.spellbookCache and self.spellbookCache[item.name]
+    local newRankNum = 0
+    if item.subText and item.subText ~= "" then
+        local _, _, r = string.find(item.subText, "(%d+)")
+        if r then newRankNum = tonumber(r) or 0 end
+    end
+    local knownRankNum = (known and known.rankNum) or 0
+
+    local isUsed = (item.category == "used") or (known ~= nil and knownRankNum >= newRankNum and newRankNum > 0 and item.category ~= "available")
+    local isUpgrade = false
+
+    if not isUsed and known ~= nil then
+        if newRankNum > knownRankNum or (newRankNum == 0 and knownRankNum == 0) then
+            isUpgrade = true
+        end
+    end
+
+    local playerMoney = GetMoney() or 0
+    local cost = item.cost or 0
+    local pLvl = UnitLevel("player") or 1
+
+    if isUsed then
+        -- MODO 1: JÁ APRENDIDA
+        card.badgeText:SetText("|cff888888✓ HABILIDADE JÁ CONHECIDA NO GRIMÓRIO|r")
+
+        card.oldCard:Hide()
+        card.arrowText:Hide()
+
+        card.newCard:ClearAllPoints()
+        card.newCard:SetPoint("TOPLEFT", card.hDiv, "BOTTOMLEFT", 0, -6)
+        card.newCard:SetPoint("TOPRIGHT", card.hDiv, "BOTTOMRIGHT", 0, -6)
+        card.newCard:SetHeight(108)
+        card.newCard:Show()
+
+        card.newCard.header:SetText("|cff888888[GRAU CONHECIDO: " .. (item.subText ~= "" and item.subText or "Aprendido") .. "]|r")
+        card.newCard.desc:SetText(fullNewDesc)
+
+        card.diffCard:ClearAllPoints()
+        card.diffCard:SetPoint("TOPLEFT", card.newCard, "BOTTOMLEFT", 0, -8)
+        card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
+        card.diffCard:Show()
+
+        card.diffCard.header:SetText("|cffaaaaaaSTATUS NO GRIMÓRIO:|r")
+        local statusLines = {
+            "|cff888888Esta habilidade já foi aprendida e está pronta para uso no seu Grimório.|r",
+            "",
+            "• Especialização: |cffffffff" .. (item.tree or "Geral") .. "|r",
+            "• Grau no Grimório: |cffffffff" .. ((known and known.rankText ~= "") and known.rankText or (item.subText ~= "" and item.subText or "Máximo Aprendido")) .. "|r",
+            "• Atalho: Pressione '|cffe09a15P|r' fora deste menu para abrir seu grimório.",
+        }
+        card.diffCard.text:SetText(table.concat(statusLines, "\n"))
+
+    elseif isUpgrade then
+        -- MODO 2: UPGRADE / EVOLUÇÃO DE GRAU
+        local oldRankLabel = (known and known.rankText ~= "") and known.rankText or "Grau Atual"
+        local newRankLabel = (item.subText ~= "") and item.subText or "Novo Grau"
+        card.badgeText:SetText("|cffe09a15▲ EVOLUÇÃO DISPONÍVEL (" .. oldRankLabel .. " ➔ " .. newRankLabel .. ")|r")
+
+        card.oldCard:ClearAllPoints()
+        card.oldCard:SetPoint("TOPLEFT", card.hDiv, "BOTTOMLEFT", 0, -6)
+        card.oldCard:SetPoint("TOPRIGHT", card.hDiv, "BOTTOMRIGHT", 0, -6)
+        card.oldCard:SetHeight(76)
+        card.oldCard:Show()
+
+        card.oldCard.header:SetText("|cffaaaaaa[ATUALMENTE NO GRIMÓRIO: " .. oldRankLabel .. "]|r")
+        card.oldCard.desc:SetText(known and known.desc ~= "" and known.desc or "Descrição não disponível no grimório.")
+
+        card.arrowText:ClearAllPoints()
+        card.arrowText:SetPoint("TOP", card.oldCard, "BOTTOM", 0, -4)
+        card.arrowText:Show()
+
+        card.newCard:ClearAllPoints()
+        card.newCard:SetPoint("TOPLEFT", card.oldCard, "BOTTOMLEFT", 0, -26)
+        card.newCard:SetPoint("TOPRIGHT", card.oldCard, "BOTTOMRIGHT", 0, -26)
+        card.newCard:SetHeight(84)
+        card.newCard:Show()
+
+        card.newCard.header:SetText("|cffe09a15[NOVO GRAU: " .. newRankLabel .. "]|r")
+        card.newCard.desc:SetText(fullNewDesc)
+
+        card.diffCard:ClearAllPoints()
+        card.diffCard:SetPoint("TOPLEFT", card.newCard, "BOTTOMLEFT", 0, -8)
+        card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
+        card.diffCard:Show()
+
+        card.diffCard.header:SetText("|cff1eff00MUDANÇAS & DESTAQUES:|r")
+
+        local diffLines = self:ComputeDiffLines(known and known.desc, fullNewDesc)
+        local summary = {}
+
+        if table.getn(diffLines) > 0 then
+            for d = 1, table.getn(diffLines) do
+                table.insert(summary, diffLines[d])
+            end
+        else
+            table.insert(summary, "|cffe09a15• Aumenta a eficácia e o poder geral da habilidade.|r")
+        end
+
+        table.insert(summary, "")
+        table.insert(summary, "|cffedd28cRESUMO FINANCEIRO & REQUISITOS:|r")
+        if cost > 0 then
+            table.insert(summary, "• Custo do Treinamento: " .. self:FormatMoneyText(cost))
+            if playerMoney >= cost then
+                table.insert(summary, "• Saldo Restante: |cff1eff00" .. self:FormatMoneyText(playerMoney - cost) .. "|r")
+            else
+                table.insert(summary, "• |cffff2020Saldo Insuficiente! Faltam " .. self:FormatMoneyText(cost - playerMoney) .. "|r")
+            end
+        else
+            table.insert(summary, "• Custo do Treinamento: |cff1eff00Grátis|r")
+        end
+
+        if item.levelReq and item.levelReq > 0 then
+            if pLvl >= item.levelReq then
+                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cff1eff00Atendido|r)")
+            else
+                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cffff2020Faltam " .. (item.levelReq - pLvl) .. " níveis|r)")
+            end
+        end
+
+        if table.getn(tipData.reqs) > 0 then
+            for r = 1, table.getn(tipData.reqs) do
+                local req = tipData.reqs[r]
+                if not string.find(req.text, "Nível") and not string.find(req.text, "Level") then
+                    local c = req.isRed and "|cffff2020" or "|cffaaaaaa"
+                    table.insert(summary, "• " .. c .. req.text .. "|r")
+                end
+            end
+        end
+
+        card.diffCard.text:SetText(table.concat(summary, "\n"))
+
+    else
+        -- MODO 3: NOVA HABILIDADE / RECEITA
+        local badge = (self.trainerType == "tradeskill") and "|cff1eff00★ NOVA RECEITA DE PROFISSÃO ★|r" or "|cff1eff00★ NOVA HABILIDADE DE CLASSE ★|r"
+        card.badgeText:SetText(badge)
+
+        card.oldCard:Hide()
+        card.arrowText:Hide()
+
+        card.newCard:ClearAllPoints()
+        card.newCard:SetPoint("TOPLEFT", card.hDiv, "BOTTOMLEFT", 0, -6)
+        card.newCard:SetPoint("TOPRIGHT", card.hDiv, "BOTTOMRIGHT", 0, -6)
+        card.newCard:SetHeight(108)
+        card.newCard:Show()
+
+        card.newCard.header:SetText("|cffe09a15[OFERECIDO PELO TREINADOR]|r")
+        card.newCard.desc:SetText(fullNewDesc)
+
+        card.diffCard:ClearAllPoints()
+        card.diffCard:SetPoint("TOPLEFT", card.newCard, "BOTTOMLEFT", 0, -8)
+        card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
+        card.diffCard:Show()
+
+        card.diffCard.header:SetText("|cffedd28cDETALHES & REQUISITOS:|r")
+
+        local summary = {}
+        if self.trainerType == "tradeskill" and table.getn(tipData.reagents) > 0 then
+            table.insert(summary, "|cffedd28cReagentes de Criação:|r")
+            for rg = 1, table.getn(tipData.reagents) do
+                table.insert(summary, "  • |cffffffff" .. tipData.reagents[rg] .. "|r")
+            end
+            table.insert(summary, "")
+        end
+
+        if cost > 0 then
+            table.insert(summary, "• Custo do Treinamento: " .. self:FormatMoneyText(cost))
+            if playerMoney >= cost then
+                table.insert(summary, "• Saldo Restante: |cff1eff00" .. self:FormatMoneyText(playerMoney - cost) .. "|r")
+            else
+                table.insert(summary, "• |cffff2020Saldo Insuficiente! Faltam " .. self:FormatMoneyText(cost - playerMoney) .. "|r")
+            end
+        else
+            table.insert(summary, "• Custo do Treinamento: |cff1eff00Grátis|r")
+        end
+
+        if item.levelReq and item.levelReq > 0 then
+            if pLvl >= item.levelReq then
+                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cff1eff00Atendido|r)")
+            else
+                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cffff2020Faltam " .. (item.levelReq - pLvl) .. " níveis|r)")
+            end
+        end
+
+        if table.getn(tipData.reqs) > 0 then
+            for r = 1, table.getn(tipData.reqs) do
+                local req = tipData.reqs[r]
+                if not string.find(req.text, "Nível") and not string.find(req.text, "Level") then
+                    local c = req.isRed and "|cffff2020" or "|cffaaaaaa"
+                    table.insert(summary, "• " .. c .. req.text .. "|r")
+                end
+            end
+        end
+
+        if table.getn(summary) == 0 then
+            table.insert(summary, "• Nenhum requisito especial para aprender.")
+        end
+
+        card.diffCard.text:SetText(table.concat(summary, "\n"))
+    end
+end
+
+function TrainerMenu:SelectSearchBar()
+    self.isSearchSelected = true
+    if self.searchContainer then
+        self.searchContainer:SetBackdropBorderColor(1.0, 0.82, 0.20, 1.0)
+        if self.searchContainer.highlight then
+            self.searchContainer.highlight:Show()
+        end
+    end
+    self:UpdateCatalogRows()
+    self:UpdateRightColPlaceholder()
+    self:UpdateFooterHints()
+end
+
+function TrainerMenu:DeselectSearchBar()
+    if not self.isSearchSelected then return end
+    self.isSearchSelected = false
+    if self.searchContainer then
+        self.searchContainer:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.70)
+        if self.searchContainer.highlight then
+            self.searchContainer.highlight:Hide()
+        end
+    end
+    self:UpdateCatalogRows()
+    self:UpdateRightColPlaceholder()
+    self:UpdateFooterHints()
+end
+
+function TrainerMenu:UpdateRightCol()
+    if not self.frame or not self.frame.rightCol then return end
+
+    if self.isSearchSelected then
+        if self.detailCard then
+            self.detailCard:Hide()
+        end
+        if self.frame.rightCol.placeholder then
+            self.frame.rightCol.placeholder:Show()
+            self.frame.rightCol.placeholder:SetText("|cffe09a15BARRA DE BUSCA SELECIONADA|r\n\n|cffccccccFiltre habilidades por nome, grau ou especialização.|r\n|cffaaaaaaPressione [A] ou clique para abrir o Teclado Virtual.|r")
+        end
+        return
+    end
 
     local entry = self.flattenedList and self.flattenedList[self.selectedIndex]
     if entry and entry.type == "SERVICE_ITEM" and entry.item then
-        local it = entry.item
-        local rankStr = (it.subText and it.subText ~= "") and (" (" .. it.subText .. ")") or ""
-        self.frame.rightCol.placeholder:SetText("|cffe09a15" .. it.name .. rankStr .. "|r\n\n|cffccccccEspecialização: " .. (it.tree or "Geral") .. "|r\n|cffaaaaaaCusto: " .. self:FormatMoneyText(it.cost or 0) .. "  •  Requer: Nv. " .. (it.levelReq or 1) .. "|r\n\n|cff888888(Fase 4: Comparativo Grimório vs Treinador)|r")
+        if self.frame.rightCol.placeholder then
+            self.frame.rightCol.placeholder:Hide()
+        end
+        if self.detailCard then
+            self.detailCard:Show()
+            self:ShowServiceDetail(entry.item)
+        end
     else
-        self.frame.rightCol.placeholder:SetText("|cffe09a15Selecione uma habilidade à esquerda para inspecionar.|r\n|cffaaaaaa(Fase 4: Comparativo Grimório vs Treinador)|r")
+        if self.detailCard then
+            self.detailCard:Hide()
+        end
+        if self.frame.rightCol.placeholder then
+            self.frame.rightCol.placeholder:Show()
+            if entry and entry.type == "SECTION_HEADER" then
+                local act = entry.isCollapsed and "Expandir" or "Recolher"
+                self.frame.rightCol.placeholder:SetText("|cffe09a15" .. entry.text .. "|r\n\n|cffccccccSeção do catálogo de treinamento.|r\n|cffaaaaaaPressione [A] ou clique para " .. act .. " esta seção.|r")
+            elseif entry and entry.type == "TREE_HEADER" then
+                local act = entry.isCollapsed and "Expandir" or "Recolher"
+                self.frame.rightCol.placeholder:SetText("|cffedd28cÁrvore: " .. (entry.tree or "") .. "|r\n\n|cffccccccEspecialização de classe com " .. (entry.count or 0) .. " habilidades.|r\n|cffaaaaaaPressione [A] ou clique para " .. act .. " esta árvore.|r")
+            elseif entry and entry.type == "EMPTY_NOTICE" then
+                self.frame.rightCol.placeholder:SetText("|cffaaaaaa" .. entry.text .. "|r")
+            else
+                self.frame.rightCol.placeholder:SetText("|cffe09a15Selecione uma habilidade à esquerda para inspecionar.|r\n|cffaaaaaaUse o D-Pad ou clique do mouse para ver detalhes completos.|r")
+            end
+        end
     end
+end
+
+function TrainerMenu:UpdateRightColPlaceholder()
+    self:UpdateRightCol()
 end
 
 -- ----------------------------------------------------------------------------
@@ -1494,12 +2203,39 @@ end
 function TrainerMenu:MoveSelection(delta)
     local flat = self.flattenedList or {}
     local total = table.getn(flat)
-    if total == 0 then return end
+
+    if self.isSearchSelected then
+        if delta > 0 then
+            -- D-Pad DOWN: Sai da barra de busca e entra na lista de habilidades
+            self:DeselectSearchBar()
+            self:EnsureValidSelection()
+            self:ScrollToSelection()
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            return
+        end
+        return
+    end
+
+    if total == 0 then
+        if delta < 0 then
+            PlaySound("igMainMenuOptionCheckBoxOn")
+            self:SelectSearchBar()
+        end
+        return
+    end
 
     local cur = self.selectedIndex or 1
     local step = (delta > 0) and 1 or -1
     local nextIdx = cur + step
 
+    -- Se o jogador está no topo da lista e aperta D-Pad UP: foca a barra de pesquisa!
+    if delta < 0 and nextIdx < 1 then
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        self:SelectSearchBar()
+        return
+    end
+
+    local found = false
     while nextIdx >= 1 and nextIdx <= total do
         if self:IsEntrySelectable(flat[nextIdx]) then
             self.selectedIndex = nextIdx
@@ -1508,9 +2244,17 @@ function TrainerMenu:MoveSelection(delta)
             self:UpdateCatalogRows()
             self:UpdateRightColPlaceholder()
             self:UpdateFooterHints()
+            found = true
             return
         end
         nextIdx = nextIdx + step
+    end
+
+    -- Se subiu por cima de itens não selecionáveis e passou do topo:
+    if not found and delta < 0 and nextIdx < 1 then
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        self:SelectSearchBar()
+        return
     end
 end
 
@@ -1543,6 +2287,7 @@ function TrainerMenu:SelectIndex(flatIndex)
     local entry = self.flattenedList and self.flattenedList[flatIndex]
     if not entry or not self:IsEntrySelectable(entry) then return end
 
+    self:DeselectSearchBar()
     self.selectedIndex = flatIndex
     PlaySound("igMainMenuOptionCheckBoxOn")
     self:ScrollToSelection()
@@ -1553,6 +2298,7 @@ end
 
 function TrainerMenu:OnRowClick(flatIndex)
     if not flatIndex then return end
+    self:DeselectSearchBar()
     local entry = self.flattenedList and self.flattenedList[flatIndex]
     if not entry then return end
 
@@ -1664,6 +2410,12 @@ end
 -- Botão A no controle: Alterna Seção Já Aprendidas / Futuras, Alterna Árvores ou Seleciona Habilidade
 function TrainerMenu:OnConfirm()
     if not self.isOpen then return end
+    if self.isSearchSelected then
+        PlaySound("igMainMenuOptionCheckBoxOn")
+        self:OpenSearchVK()
+        return
+    end
+
     local entry = self.flattenedList and self.flattenedList[self.selectedIndex]
     if not entry then return end
 
@@ -1759,13 +2511,14 @@ function TrainerMenu:OpenSearchVK()
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.Open then
         vk:Open({
-            title       = "Buscar Habilidade",
-            initialText = self.searchText or "",
-            maxLetters  = 24,
-            onConfirm   = function(text)
+            title         = "Buscar Habilidade",
+            initialText   = self.searchText or "",
+            maxLetters    = 24,
+            targetEditBox = self.searchEditBox,
+            onConfirm     = function(text)
                 TrainerMenu:SetSearchFilter(text)
             end,
-            onCancel    = function() end,
+            onCancel      = function() end,
         })
     end
 end
@@ -1784,6 +2537,15 @@ function TrainerMenu:Open()
     self.collapsedTrees    = {}
     self.selectedIndex     = 1
     self.scrollOffset      = 0
+    self.isSearchSelected  = false
+
+    if self.searchContainer then
+        self.searchContainer:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.70)
+        if self.searchContainer.highlight then
+            self.searchContainer.highlight:Hide()
+        end
+    end
+
     if self.searchEditBox then
         self.searchEditBox:SetText("")
     end
@@ -1821,11 +2583,12 @@ end
 function TrainerMenu:Close()
     if not self.isOpen then return end
 
-    self.isOpen      = false
-    self.trainerName = nil
-    self.trainerType = nil
-    self.numServices = 0
-    self.isScanning  = false
+    self.isOpen           = false
+    self.trainerName      = nil
+    self.trainerType      = nil
+    self.numServices      = 0
+    self.isScanning       = false
+    self.isSearchSelected = false
     self.filtersConfigured = false
     self.isConfiguringFilters = false
 

@@ -790,8 +790,8 @@ function QID:Initialize()
         end
     end)
 
-    f:SetScript("OnUpdate", function(elapsed)
-        local dt = elapsed or arg1 or 0
+    f:SetScript("OnUpdate", function(a1, a2)
+        local dt = (type(a2) == "number" and a2) or (type(a1) == "number" and a1) or (type(arg1) == "number" and arg1) or 0
 
         -- 1. Scan por evento com debounce
         if QID.scanDelay > 0 then

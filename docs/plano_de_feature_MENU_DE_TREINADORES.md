@@ -265,17 +265,17 @@ Cada fase foi desenhada para ser **100% testável no jogo imediatamente após a 
 ### 🟢 FASE 5: Sistema de Seleção Múltipla & Modal de Carrinho de Compras
 > **Objetivo de Teste:** O jogador seleciona múltiplas habilidades com `[A]` (ou clica nelas), vê o total acumulado no cabeçalho, pode marcar todas com `[Y]`, e abre o modal do Carrinho de Treinamento com `[RT]`. No modal, inspeciona as magias com o tooltip nativo da Blizzard, desmarca itens com `[X]` e visualiza o resumo financeiro exato.
 
-- [ ] Implementar estado de seleção múltipla (`selectedCart = {}`) no catálogo:
+- [x] Implementar estado de seleção múltipla (`selectedCart = {}`) no catálogo:
   - Apertar `[A]` ou clicar em uma habilidade disponível alterna o checkbox visual `[✓]`.
   - Atalho `[Y]`: marca todas as disponíveis ou desmarca todas.
   - Atualizar o contador no cabeçalho e na legenda: `[RT] Revisar Carrinho (X) [Yg Zs]`.
-- [ ] Construir o Modal do Carrinho de Treinamento centralizado:
+- [x] Construir o Modal do Carrinho de Treinamento centralizado:
   - Lista scrollável das habilidades marcadas com custo individual.
   - Painel de Resumo Financeiro: Custo Total, Saldo Atual e Saldo Restante após a compra.
   - Botão `[X]` para remover itens do carrinho diretamente no modal.
   - Ancorar o `GameTooltip` oficial do WoW ao lado do modal ao navegar pela lista com o D-Pad/mouse.
-- [ ] Vincular botões do modal: `[A]` para Confirmar Compra e `[B]` para Cancelar e retornar ao catálogo.
-- [ ] Validar sintaxe com `luac -p`.
+- [x] Vincular botões do modal: `[A]` para Confirmar Compra e `[B]` para Cancelar e retornar ao catálogo.
+- [x] Validar sintaxe com `luac -p`.
 - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 5):** O jogador monta carrinhos de compras variados, abre o modal, inspeciona tooltips e ajusta a seleção com segurança.
 
 ---
@@ -283,14 +283,14 @@ Cada fase foi desenhada para ser **100% testável no jogo imediatamente após a 
 ### 🟢 FASE 6: Fila Serializada de Compra em Batch, Sons e Homologação
 > **Objetivo de Teste:** Ao confirmar a compra no modal do carrinho, o addon executa a compra de todas as habilidades selecionadas em sequência sem falhas, toca efeitos sonoros do jogo, atualiza o saldo e o Grimório instantaneamente e emite relatório limpo no chat.
 
-- [ ] Implementar fila de compra sequencial com ticker (`OnUpdate` a cada 0.15s, molde idêntico ao `AutoSell` do `MerchantMenu`):
+- [x] Implementar fila de compra sequencial com ticker (`OnUpdate` a cada 0.15s, molde idêntico ao `AutoSell` do `MerchantMenu`):
   - Verifica saldo antes de cada compra.
   - Chama `BuyTrainerService(index)` para cada item selecionado.
   - Avança na fila com segurança sem sobrecarregar a comunicação com o servidor do WoW 1.12.
-- [ ] Tratar evento `TRAINER_UPDATE` para atualizar o catálogo dinamicamente (as habilidades compradas saem de Disponíveis e passam para Já Aprendidas).
-- [ ] Adicionar efeitos sonoros oficiais da Blizzard (`PlaySound("SPELLBOOKSPELLCLICK")` e som de moedas ao concluir).
-- [ ] Testar em Treinadores de Classe de diversas cidades e em Treinadores de Profissão (Ferraria, Alquimia, Primeiros Socorros).
-- [ ] Validação final de regressão e checagem de sintaxe estrita com `luac -p`.
+- [x] Tratar evento `TRAINER_UPDATE` para atualizar o catálogo dinamicamente (as habilidades compradas saem de Disponíveis e passam para Já Aprendidas).
+- [x] Adicionar efeitos sonoros oficiais da Blizzard (`PlaySound("SPELLBOOKSPELLCLICK")` e som de moedas ao concluir).
+- [x] Testar em Treinadores de Classe de diversas cidades e em Treinadores de Profissão (Ferraria, Alquimia, Primeiros Socorros).
+- [x] Validação final de regressão e checagem de sintaxe estrita com `luac -p`.
 - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 6):** Homologação completa no cliente de jogo com gravação/testes reais.
 
 ---

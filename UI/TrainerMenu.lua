@@ -102,6 +102,16 @@ TrainerMenu.repeatState = {
 TrainerMenu.repeatFrame  = nil
 TrainerMenu.safetyFrame  = nil
 
+-- Carrinho de Treinamento e Compra em Lote (Fase 5 & 6)
+TrainerMenu.cartItems         = {}
+TrainerMenu.cartKeys          = {}
+TrainerMenu.cartSelectedIndex = 1
+TrainerMenu.cartScrollOffset  = 0
+TrainerMenu.cartModalFrame    = nil
+TrainerMenu.cartRows          = {}
+TrainerMenu.purchaseState     = nil
+TrainerMenu.purchaseFrame     = nil
+
 -- Elementos de Interface
 TrainerMenu.dimmer           = nil
 TrainerMenu.frame            = nil
@@ -317,6 +327,19 @@ function TrainerMenu:CreateFooterHints(parent)
         groupFrame.label = label
         groupFrame.sep = sep
         groupFrame.iconsWidth = iconsWidth
+        groupFrame.hintIndex = i
+
+        groupFrame:EnableMouse(true)
+        groupFrame:SetScript("OnMouseDown", function()
+            local idx = this.hintIndex
+            if idx == 1 then TrainerMenu:OnConfirm()
+            elseif idx == 2 then TrainerMenu:OnTriggerAction()
+            elseif idx == 3 then TrainerMenu:OnContextAction()
+            elseif idx == 5 then TrainerMenu:SelectSearchBar(); TrainerMenu:OpenSearchVK()
+            elseif idx == 6 then TrainerMenu:OnSecondaryAction()
+            elseif idx == 7 then TrainerMenu:OnCancel()
+            end
+        end)
 
         table.insert(widgets, groupFrame)
     end
@@ -358,6 +381,17 @@ function TrainerMenu:UpdateFooterHints()
         else
             self.footerWidgets[1].label:SetText("Marcar / Expandir")
         end
+    end
+
+    -- Adapta legenda do Botão RT (Carrinho) e Y (Marcar Todas)
+    local cartCount = (self.GetCartCount and self:GetCartCount()) or 0
+    if self.footerWidgets[2] and self.footerWidgets[2].label then
+        self.footerWidgets[2].label:SetText("Revisar Carrinho (" .. cartCount .. ")")
+    end
+    if self.footerWidgets[3] and self.footerWidgets[3].label then
+        local numAvail = table.getn(self.availableServices or {})
+        local allSelected = (numAvail > 0 and cartCount >= numAvail)
+        self.footerWidgets[3].label:SetText(allSelected and "Desmarcar Todas" or "Marcar Todas")
     end
 
     local numWidgets = table.getn(self.footerWidgets)
@@ -878,6 +912,19 @@ function TrainerMenu:CreateUI()
     playerMoneyText:SetText("0g 0s 0c")
     header.playerMoneyText = playerMoneyText
 
+    -- Resumo do Carrinho no Cabeçalho (Botão Clicável)
+    local cartSummaryBtn = CreateFrame("Button", "ConsoleMode_TrainerHeaderCartBtn", header)
+    cartSummaryBtn:SetHeight(24)
+    cartSummaryBtn:SetPoint("RIGHT", playerMoneyText, "LEFT", -20, 0)
+    local cartSummaryText = cartSummaryBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    cartSummaryText:SetPoint("RIGHT", cartSummaryBtn, "RIGHT", 0, 0)
+    self:ApplyFont(cartSummaryText, FONTS.titleBold, 16)
+    cartSummaryText:SetText("")
+    header.cartSummaryText = cartSummaryText
+    cartSummaryBtn:SetScript("OnClick", function()
+        TrainerMenu:OnTriggerAction()
+    end)
+
     -- Botão Fechar estilizado
     local closeBtn = CreateFrame("Button", "ConsoleMode_TrainerCloseBtn", header)
     closeBtn:SetWidth(96)
@@ -1085,6 +1132,17 @@ function TrainerMenu:RefreshHeader()
             self.frame.leftCol.availCountText:SetText("|cff1eff00(" .. numAvail .. " Disponíveis)|r")
         else
             self.frame.leftCol.availCountText:SetText("|cffaaaaaa(0 Disponíveis)|r")
+        end
+    end
+
+    -- Resumo do Carrinho de Compras
+    if self.frame.header and self.frame.header.cartSummaryText then
+        local count = (self.GetCartCount and self:GetCartCount()) or 0
+        if count > 0 then
+            local totalCost = (self.GetCartTotalCost and self:GetCartTotalCost()) or 0
+            self.frame.header.cartSummaryText:SetText("|cffe09a15Carrinho: " .. count .. " (" .. self:FormatMoneyText(totalCost) .. ")|r")
+        else
+            self.frame.header.cartSummaryText:SetText("")
         end
     end
 end
@@ -1584,8 +1642,14 @@ function TrainerMenu:UpdateCatalogRows()
                         displayName = displayName .. " (" .. it.subText .. ")"
                     end
 
+                    local inCart = (it.category == "available") and self.IsItemInCart and self:IsItemInCart(it)
+                    local checkMark = ""
                     if it.category == "available" then
-                        row.nameText:SetText("|cffffffff" .. displayName .. "|r")
+                        checkMark = inCart and "|cff1eff00[✓] |r" or "|cff555555[ ] |r"
+                    end
+
+                    if it.category == "available" then
+                        row.nameText:SetText(checkMark .. "|cffffffff" .. displayName .. "|r")
                         row.icon:SetVertexColor(1.0, 1.0, 1.0)
                     elseif it.category == "unavailable" then
                         row.nameText:SetText("|cffc0c0c0" .. displayName .. "|r")
@@ -1634,8 +1698,13 @@ function TrainerMenu:UpdateCatalogRows()
                     else
                         row.cursor:Hide()
                         row.highlight:Hide()
-                        row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
-                        row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                        if inCart then
+                            row:SetBackdropColor(0.10, 0.14, 0.08, 0.65)
+                            row:SetBackdropBorderColor(0.25, 0.75, 0.35, 0.75)
+                        else
+                            row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+                            row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                        end
                     end
 
                 elseif entry.type == "SECTION_HEADER" then
@@ -2312,7 +2381,21 @@ function TrainerMenu:OnRowClick(flatIndex)
         self.selectedIndex = flatIndex
         self:ToggleTree(entry.id)
     elseif entry.type == "SERVICE_ITEM" then
+        local now = GetTime()
+        local isDbl = (this and this.lastClickTime and (now - this.lastClickTime) < 0.35)
+        if this then this.lastClickTime = now end
+
         self:SelectIndex(flatIndex)
+        if entry.item and entry.item.category == "available" then
+            if isDbl then
+                if not self:IsItemInCart(entry.item) then
+                    self:ToggleCartItem(entry.item)
+                end
+                self:OpenCartModal()
+            else
+                self:ToggleCartItem(entry.item)
+            end
+        end
     end
 end
 
@@ -2358,6 +2441,15 @@ end
 -- Roteamento de Direcionais com Hold-to-Repeat contínuo
 function TrainerMenu:OnDirection(direction)
     if not self.isOpen then return end
+    if self:IsCartModalOpen() then
+        if direction == "UP" then
+            self:MoveCartSelection(-1)
+        elseif direction == "DOWN" then
+            self:MoveCartSelection(1)
+        end
+        return
+    end
+
     if direction == "UP" then
         self:MoveSelection(-1)
     elseif direction == "DOWN" then
@@ -2407,9 +2499,14 @@ function TrainerMenu:EnsureRepeatTicker()
     self.repeatFrame = f
 end
 
--- Botão A no controle: Alterna Seção Já Aprendidas / Futuras, Alterna Árvores ou Seleciona Habilidade
+-- Botão A no controle: Confirma no Modal, Abre VK na Busca, Alterna Seções/Árvores ou Marca Habilidade
 function TrainerMenu:OnConfirm()
     if not self.isOpen then return end
+    if self:IsCartModalOpen() then
+        self:ConfirmCartPurchase()
+        return
+    end
+
     if self.isSearchSelected then
         PlaySound("igMainMenuOptionCheckBoxOn")
         self:OpenSearchVK()
@@ -2426,23 +2523,43 @@ function TrainerMenu:OnConfirm()
     elseif entry.type == "TREE_HEADER" then
         self:ToggleTree(entry.id)
     elseif entry.type == "SERVICE_ITEM" then
-        PlaySound("igMainMenuOptionCheckBoxOn")
-        -- Na Fase 5: alternará checkbox de carrinho [✓]
+        if entry.item and entry.item.category == "available" then
+            self:ToggleCartItem(entry.item)
+        else
+            PlaySound("igMainMenuOptionCheckBoxOn")
+        end
     end
 end
 
--- Botão X no controle: Limpa a busca
+-- Botão X no controle: Limpa a busca ou Remove item do Carrinho
 function TrainerMenu:OnSecondaryAction()
     if not self.isOpen then return end
+    if self:IsCartModalOpen() then
+        self:RemoveCurrentCartItem()
+        return
+    end
+
     if self.searchText and self.searchText ~= "" then
         self:ClearSearch()
         PlaySound("igMainMenuOptionCheckBoxOff")
     end
 end
 
--- Botão Y no controle: (Preparado para Fase 5 - Marcar Todas)
+-- Botão Y no controle: Alterna seleção de todas as disponíveis
 function TrainerMenu:OnContextAction()
     if not self.isOpen then return end
+    if self:IsCartModalOpen() then return end
+    self:SelectAllAvailable()
+end
+
+-- Botão RT no controle: Alterna Modal do Carrinho de Compras
+function TrainerMenu:OnTriggerAction()
+    if not self.isOpen then return end
+    if self:IsCartModalOpen() then
+        self:CloseCartModal()
+    else
+        self:OpenCartModal()
+    end
 end
 
 -- ----------------------------------------------------------------------------
@@ -2524,12 +2641,849 @@ function TrainerMenu:OpenSearchVK()
 end
 
 -- ----------------------------------------------------------------------------
+-- 9b. SISTEMA DE SELEÇÃO MÚLTIPLA & CARRINHO DE COMPRAS (FASE 5)
+-- ----------------------------------------------------------------------------
+function TrainerMenu:GetItemCartKey(item)
+    if not item then return "" end
+    return tostring(item.name or "") .. "__" .. tostring(item.subText or "")
+end
+
+function TrainerMenu:IsItemInCart(item)
+    if not item then return false end
+    local key = self:GetItemCartKey(item)
+    return (self.cartKeys and self.cartKeys[key] == true)
+end
+
+function TrainerMenu:GetCartCount()
+    return table.getn(self.cartItems or {})
+end
+
+function TrainerMenu:GetCartTotalCost()
+    local total = 0
+    local items = self.cartItems or {}
+    local n = table.getn(items)
+    for i = 1, n do
+        local it = items[i]
+        if it and it.cost then
+            total = total + it.cost
+        end
+    end
+    return total
+end
+
+function TrainerMenu:ToggleCartItem(item)
+    if not item or item.category ~= "available" then return end
+    local key = self:GetItemCartKey(item)
+
+    if self.cartKeys[key] then
+        self.cartKeys[key] = nil
+        local newItems = {}
+        local n = table.getn(self.cartItems)
+        for i = 1, n do
+            local it = self.cartItems[i]
+            if self:GetItemCartKey(it) ~= key then
+                table.insert(newItems, it)
+            end
+        end
+        self.cartItems = newItems
+        PlaySound("igMainMenuOptionCheckBoxOff")
+    else
+        self.cartKeys[key] = true
+        table.insert(self.cartItems, item)
+        PlaySound("igMainMenuOptionCheckBoxOn")
+    end
+
+    self:UpdateCartVisuals()
+end
+
+function TrainerMenu:SelectAllAvailable()
+    local avail = self.availableServices or {}
+    local numAvail = table.getn(avail)
+    if numAvail == 0 then return end
+
+    local currentCount = self:GetCartCount()
+    if currentCount >= numAvail then
+        -- Desmarca todas
+        self:ClearCart()
+        PlaySound("igMainMenuOptionCheckBoxOff")
+    else
+        -- Marca todas as disponíveis
+        for i = 1, numAvail do
+            local it = avail[i]
+            local key = self:GetItemCartKey(it)
+            if not self.cartKeys[key] then
+                self.cartKeys[key] = true
+                table.insert(self.cartItems, it)
+            end
+        end
+        PlaySound("igMainMenuOptionCheckBoxOn")
+    end
+
+    self:UpdateCartVisuals()
+end
+
+function TrainerMenu:ClearCart()
+    self.cartItems = {}
+    self.cartKeys  = {}
+    self:UpdateCartVisuals()
+end
+
+function TrainerMenu:UpdateCartVisuals()
+    self:RefreshHeader()
+    self:UpdateCatalogRows()
+    self:UpdateFooterHints()
+    if self:IsCartModalOpen() then
+        self:UpdateCartModalVisuals()
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 9c. MODAL DO CARRINHO DE TREINAMENTO (FASE 5)
+-- ----------------------------------------------------------------------------
+function TrainerMenu:CreateCartModalUI()
+    if self.cartModalFrame then return self.cartModalFrame end
+
+    local modal = CreateFrame("Frame", "ConsoleMode_TrainerCartModal", UIParent)
+    modal:SetWidth(560)
+    modal:SetHeight(470)
+    modal:SetPoint("CENTER", UIParent, "CENTER", 0, 20)
+    modal:SetFrameStrata("FULLSCREEN_DIALOG")
+    modal:SetFrameLevel(60)
+    modal:EnableMouse(true)
+    modal:SetMovable(false)
+
+    modal:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 16, edgeSize = 16,
+        insets   = { left = 4, right = 4, top = 4, bottom = 4 },
+    })
+    modal:SetBackdropColor(0.06, 0.05, 0.04, 0.96)
+    modal:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+    modal:Hide()
+
+    -- Cabeçalho do Modal
+    local title = modal:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOP", modal, "TOP", 0, -16)
+    self:ApplyFont(title, FONTS.titleBold, 20)
+    title:SetText("CARRINHO DE TREINAMENTO")
+    title:SetTextColor(1.00, 0.82, 0.20, 1.0)
+    modal.title = title
+
+    local subTitle = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    subTitle:SetPoint("TOP", title, "BOTTOM", 0, -3)
+    self:ApplyFont(subTitle, FONTS.medium, 14)
+    subTitle:SetText("(0 Habilidades Selecionadas)")
+    subTitle:SetTextColor(0.80, 0.80, 0.80, 1.0)
+    modal.subTitle = subTitle
+
+    -- Botão Fechar no canto superior direito
+    local closeBtn = CreateFrame("Button", "ConsoleMode_TrainerCartCloseBtn", modal)
+    closeBtn:SetWidth(28)
+    closeBtn:SetHeight(28)
+    closeBtn:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -10, -10)
+    closeBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    closeBtn:SetBackdropColor(0.12, 0.08, 0.06, 0.90)
+    closeBtn:SetBackdropBorderColor(0.60, 0.45, 0.25, 0.80)
+
+    local closeText = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    closeText:SetPoint("CENTER", closeBtn, "CENTER", 0, 0)
+    self:ApplyFont(closeText, FONTS.titleBold, 15)
+    closeText:SetText("|cffff4040X|r")
+    closeBtn.text = closeText
+
+    closeBtn:SetScript("OnClick", function()
+        TrainerMenu:CloseCartModal()
+    end)
+    closeBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.3, 0.3, 1.0)
+    end)
+    closeBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.45, 0.25, 0.80)
+    end)
+
+    -- Linha separadora do cabeçalho
+    local sepTop = modal:CreateTexture(nil, "ARTWORK")
+    sepTop:SetHeight(1)
+    sepTop:SetPoint("TOPLEFT", modal, "TOPLEFT", 16, -58)
+    sepTop:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -16, -58)
+    sepTop:SetTexture(1.0, 0.82, 0.20, 0.40)
+
+    -- Cabeçalhos das Colunas da Lista
+    local colHab = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colHab:SetPoint("TOPLEFT", modal, "TOPLEFT", 22, -64)
+    self:ApplyFont(colHab, FONTS.medium, 13)
+    colHab:SetText("HABILIDADE SELECIONADA")
+    colHab:SetTextColor(0.65, 0.65, 0.65, 1.0)
+
+    local colCusto = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colCusto:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -22, -64)
+    self:ApplyFont(colCusto, FONTS.medium, 13)
+    colCusto:SetText("CUSTO")
+    colCusto:SetTextColor(0.65, 0.65, 0.65, 1.0)
+
+    -- Área da Lista de Itens (5 linhas visíveis de 40px)
+    local listContainer = CreateFrame("Frame", nil, modal)
+    listContainer:SetPoint("TOPLEFT", modal, "TOPLEFT", 16, -82)
+    listContainer:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -16, -82)
+    listContainer:SetHeight(215)
+    modal.listContainer = listContainer
+
+    local rows = {}
+    for i = 1, 5 do
+        local row = CreateFrame("Button", "ConsoleMode_TrainerCartRow" .. i, listContainer)
+        row:SetHeight(40)
+        if i == 1 then
+            row:SetPoint("TOPLEFT", listContainer, "TOPLEFT", 0, 0)
+            row:SetPoint("TOPRIGHT", listContainer, "TOPRIGHT", 0, 0)
+        else
+            row:SetPoint("TOPLEFT", rows[i - 1], "BOTTOMLEFT", 0, -3)
+            row:SetPoint("TOPRIGHT", rows[i - 1], "BOTTOMRIGHT", 0, -3)
+        end
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+        row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+        row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+
+        local hl = row:CreateTexture(nil, "BACKGROUND")
+        hl:SetTexture("Interface\\Buttons\\UI-Listbox-Highlight")
+        hl:SetBlendMode("ADD")
+        hl:SetAlpha(0.25)
+        hl:SetAllPoints(row)
+        hl:Hide()
+        row.highlight = hl
+
+        local cur = row:CreateTexture(nil, "OVERLAY")
+        cur:SetWidth(12)
+        cur:SetHeight(12)
+        cur:SetPoint("LEFT", row, "LEFT", 4, 0)
+        cur:SetTexture("Interface\\QuestFrame\\UI-Quest-BulletPoint")
+        cur:SetVertexColor(1.0, 0.85, 0.20)
+        cur:Hide()
+        row.cursor = cur
+
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(30)
+        icon:SetHeight(30)
+        icon:SetPoint("LEFT", row, "LEFT", 20, 0)
+        row.icon = icon
+
+        local iconBorder = CreateFrame("Frame", nil, row)
+        iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+        iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+        iconBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        row.iconBorder = iconBorder
+
+        local priceText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        priceText:SetPoint("RIGHT", row, "RIGHT", -36, 0)
+        priceText:SetJustifyH("RIGHT")
+        self:ApplyFont(priceText, FONTS.titleBold, 15)
+        row.priceText = priceText
+
+        -- Botão [X] para remover individualmente na linha
+        local removeBtn = CreateFrame("Button", nil, row)
+        removeBtn:SetWidth(24)
+        removeBtn:SetHeight(24)
+        removeBtn:SetPoint("RIGHT", row, "RIGHT", -6, 0)
+        local removeLabel = removeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        removeLabel:SetPoint("CENTER", removeBtn, "CENTER", 0, 0)
+        self:ApplyFont(removeLabel, FONTS.titleBold, 14)
+        removeLabel:SetText("|cffff4040✕|r")
+        removeBtn.label = removeLabel
+        removeBtn:SetScript("OnClick", function()
+            local p = this:GetParent()
+            if p and p.cartItemIndex then
+                local it = TrainerMenu.cartItems and TrainerMenu.cartItems[p.cartItemIndex]
+                if it then
+                    TrainerMenu:ToggleCartItem(it)
+                    if TrainerMenu.cartSelectedIndex > TrainerMenu:GetCartCount() then
+                        TrainerMenu.cartSelectedIndex = math.max(1, TrainerMenu:GetCartCount())
+                    end
+                    TrainerMenu:UpdateCartModalVisuals()
+                end
+            end
+        end)
+        row.removeBtn = removeBtn
+
+        local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        nameText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 8, -2)
+        nameText:SetPoint("RIGHT", priceText, "LEFT", -8, 0)
+        nameText:SetJustifyH("LEFT")
+        self:ApplyFont(nameText, FONTS.bodyBold, 15)
+        row.nameText = nameText
+
+        local subText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        subText:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 8, 2)
+        subText:SetPoint("RIGHT", priceText, "LEFT", -8, 0)
+        subText:SetJustifyH("LEFT")
+        self:ApplyFont(subText, FONTS.medium, 13)
+        row.subText = subText
+
+        row.rowIndex = i
+        row:RegisterForClicks("LeftButtonUp")
+        row:SetScript("OnClick", function()
+            if this.cartItemIndex then
+                TrainerMenu.cartSelectedIndex = this.cartItemIndex
+                TrainerMenu:UpdateCartModalVisuals()
+            end
+        end)
+
+        row:SetScript("OnEnter", function()
+            if this.cartItemIndex then
+                local it = TrainerMenu.cartItems and TrainerMenu.cartItems[this.cartItemIndex]
+                if it then
+                    GameTooltip:SetOwner(modal, "ANCHOR_NONE")
+                    GameTooltip:SetPoint("TOPLEFT", modal, "TOPRIGHT", 10, 0)
+                    local ok = false
+                    if it.index and GameTooltip.SetTrainerService then
+                        ok = pcall(function() GameTooltip:SetTrainerService(it.index) end)
+                    end
+                    if not ok then
+                        GameTooltip:ClearLines()
+                        GameTooltip:AddLine(it.name or "Habilidade", 1, 1, 1)
+                        if it.subText and it.subText ~= "" then
+                            GameTooltip:AddLine(it.subText, 0.8, 0.8, 0.8)
+                        end
+                        if it.desc and it.desc ~= "" then
+                            GameTooltip:AddLine(it.desc, 1, 0.82, 0, 1)
+                        end
+                    end
+                    GameTooltip:Show()
+                end
+            end
+        end)
+
+        row:SetScript("OnLeave", function()
+            GameTooltip:Hide()
+        end)
+
+        table.insert(rows, row)
+    end
+    modal.rows = rows
+
+    -- Mensagem de carrinho vazio
+    local emptyText = listContainer:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+    emptyText:SetPoint("CENTER", listContainer, "CENTER", 0, 0)
+    self:ApplyFont(emptyText, FONTS.bodyBold, 16)
+    emptyText:SetText("Nenhuma habilidade no carrinho de compras.")
+    emptyText:Hide()
+    modal.emptyText = emptyText
+
+    -- Indicador de Scroll
+    local scrollNotice = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    scrollNotice:SetPoint("TOP", listContainer, "BOTTOM", 0, -3)
+    self:ApplyFont(scrollNotice, FONTS.medium, 12)
+    scrollNotice:SetText("")
+    modal.scrollNotice = scrollNotice
+
+    -- Card de Resumo Financeiro
+    local summaryCard = CreateFrame("Frame", nil, modal)
+    summaryCard:SetPoint("BOTTOM", modal, "BOTTOM", 0, 60)
+    summaryCard:SetWidth(528)
+    summaryCard:SetHeight(84)
+    summaryCard:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    summaryCard:SetBackdropColor(0.08, 0.06, 0.04, 0.85)
+    summaryCard:SetBackdropBorderColor(0.40, 0.32, 0.22, 0.70)
+    modal.summaryCard = summaryCard
+
+    -- Linha 1: Custo Total
+    local lblCost = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    lblCost:SetPoint("TOPLEFT", summaryCard, "TOPLEFT", 14, -10)
+    self:ApplyFont(lblCost, FONTS.bodyBold, 14)
+    lblCost:SetText("• Custo Total das Selecionadas:")
+    lblCost:SetTextColor(0.85, 0.85, 0.85, 1.0)
+
+    local valCost = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    valCost:SetPoint("TOPRIGHT", summaryCard, "TOPRIGHT", -14, -10)
+    self:ApplyFont(valCost, FONTS.titleBold, 15)
+    valCost:SetText("0c")
+    modal.valCost = valCost
+
+    -- Linha 2: Saldo Atual
+    local lblMoney = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    lblMoney:SetPoint("TOPLEFT", summaryCard, "TOPLEFT", 14, -32)
+    self:ApplyFont(lblMoney, FONTS.bodyBold, 14)
+    lblMoney:SetText("• Seu Saldo Atual:")
+    lblMoney:SetTextColor(0.85, 0.85, 0.85, 1.0)
+
+    local valMoney = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    valMoney:SetPoint("TOPRIGHT", summaryCard, "TOPRIGHT", -14, -32)
+    self:ApplyFont(valMoney, FONTS.titleBold, 15)
+    valMoney:SetText("0c")
+    modal.valMoney = valMoney
+
+    -- Linha 3: Saldo Restante
+    local lblRemaining = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    lblRemaining:SetPoint("TOPLEFT", summaryCard, "TOPLEFT", 14, -54)
+    self:ApplyFont(lblRemaining, FONTS.bodyBold, 14)
+    lblRemaining:SetText("• Saldo Restante após Treinamento:")
+    lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    modal.lblRemaining = lblRemaining
+
+    local valRemaining = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    valRemaining:SetPoint("TOPRIGHT", summaryCard, "TOPRIGHT", -14, -54)
+    self:ApplyFont(valRemaining, FONTS.titleBold, 15)
+    valRemaining:SetText("0c")
+    modal.valRemaining = valRemaining
+
+    -- Botões de Ação na Base
+    local confirmBtn = CreateFrame("Button", "ConsoleMode_TrainerCartConfirmBtn", modal)
+    confirmBtn:SetWidth(220)
+    confirmBtn:SetHeight(32)
+    confirmBtn:SetPoint("BOTTOMLEFT", modal, "BOTTOMLEFT", 16, 14)
+    confirmBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    confirmBtn:SetBackdropColor(0.12, 0.16, 0.08, 0.90)
+    confirmBtn:SetBackdropBorderColor(0.30, 0.80, 0.30, 0.90)
+
+    local confirmText = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    confirmText:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
+    self:ApplyFont(confirmText, FONTS.titleBold, 15)
+    confirmText:SetText("[A] Confirmar Treinamento")
+    confirmText:SetTextColor(0.40, 1.0, 0.40, 1.0)
+    confirmBtn.text = confirmText
+
+    confirmBtn:SetScript("OnClick", function()
+        TrainerMenu:ConfirmCartPurchase()
+    end)
+    modal.confirmBtn = confirmBtn
+
+    local cancelBtn = CreateFrame("Button", "ConsoleMode_TrainerCartCancelBtn", modal)
+    cancelBtn:SetWidth(120)
+    cancelBtn:SetHeight(32)
+    cancelBtn:SetPoint("LEFT", confirmBtn, "RIGHT", 12, 0)
+    cancelBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    cancelBtn:SetBackdropColor(0.10, 0.08, 0.06, 0.90)
+    cancelBtn:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.80)
+
+    local cancelText = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    cancelText:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
+    self:ApplyFont(cancelText, FONTS.titleBold, 15)
+    cancelText:SetText("[B] Voltar")
+    cancelText:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    cancelBtn.text = cancelText
+
+    cancelBtn:SetScript("OnClick", function()
+        TrainerMenu:CloseCartModal()
+    end)
+    modal.cancelBtn = cancelBtn
+
+    -- Dica contextual à direita dos botões
+    local hintsText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    hintsText:SetPoint("RIGHT", modal, "RIGHT", -20, 0)
+    hintsText:SetPoint("CENTER", modal, "BOTTOM", 140, 30)
+    self:ApplyFont(hintsText, FONTS.medium, 13)
+    hintsText:SetText("|cffaaaaaa[D-Pad] Navegar  •  [X] Remover|r")
+    modal.hintsText = hintsText
+
+    -- Suporte a roda do mouse para scroll na lista
+    modal:EnableMouseWheel(true)
+    modal:SetScript("OnMouseWheel", function()
+        local delta = arg1
+        if delta > 0 then
+            TrainerMenu:MoveCartSelection(-1)
+        else
+            TrainerMenu:MoveCartSelection(1)
+        end
+    end)
+
+    self.cartModalFrame = modal
+    return modal
+end
+
+function TrainerMenu:OpenCartModal()
+    if not self.isOpen then return end
+    if self:GetCartCount() == 0 then
+        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Seu carrinho de treinamento está vazio. Selecione habilidades com [A] ou marque todas com [Y].")
+        PlaySound("igQuestFailed")
+        return
+    end
+
+    self:CreateCartModalUI()
+    self.cartSelectedIndex = 1
+    self.cartScrollOffset = 0
+    self.cartModalFrame:Show()
+    self:UpdateCartModalVisuals()
+    PlaySound("igMainMenuOpen")
+end
+
+function TrainerMenu:CloseCartModal()
+    if self.cartModalFrame and self.cartModalFrame:IsVisible() then
+        self.cartModalFrame:Hide()
+        if GameTooltip:IsOwned(self.cartModalFrame) then
+            GameTooltip:Hide()
+        end
+        PlaySound("igMainMenuClose")
+    end
+end
+
+function TrainerMenu:IsCartModalOpen()
+    return (self.cartModalFrame and self.cartModalFrame:IsVisible())
+end
+
+function TrainerMenu:MoveCartSelection(delta)
+    if not self:IsCartModalOpen() then return end
+    local count = self:GetCartCount()
+    if count == 0 then return end
+
+    local newIdx = (self.cartSelectedIndex or 1) + delta
+    if newIdx < 1 then newIdx = 1 end
+    if newIdx > count then newIdx = count end
+
+    self.cartSelectedIndex = newIdx
+    PlaySound("igMainMenuOptionCheckBoxOn")
+    self:UpdateCartModalVisuals()
+end
+
+function TrainerMenu:RemoveCurrentCartItem()
+    if not self:IsCartModalOpen() then return end
+    local count = self:GetCartCount()
+    if count == 0 then return end
+
+    local it = self.cartItems[self.cartSelectedIndex]
+    if it then
+        self:ToggleCartItem(it)
+    end
+
+    local newCount = self:GetCartCount()
+    if self.cartSelectedIndex > newCount then
+        self.cartSelectedIndex = math.max(1, newCount)
+    end
+    if self.cartScrollOffset > math.max(0, newCount - 5) then
+        self.cartScrollOffset = math.max(0, newCount - 5)
+    end
+
+    self:UpdateCartModalVisuals()
+end
+
+function TrainerMenu:UpdateCartModalVisuals()
+    local m = self.cartModalFrame
+    if not m or not m:IsVisible() then return end
+
+    local count = self:GetCartCount()
+    m.subTitle:SetText("(" .. count .. (count == 1 and " Habilidade Selecionada)" or " Habilidades Selecionadas)"))
+
+    if count == 0 then
+        m.emptyText:Show()
+        for r = 1, 5 do
+            m.rows[r]:Hide()
+        end
+        m.scrollNotice:Hide()
+    else
+        m.emptyText:Hide()
+        local maxVisible = 5
+        if self.cartSelectedIndex > count then
+            self.cartSelectedIndex = count
+        end
+        if self.cartSelectedIndex < 1 then
+            self.cartSelectedIndex = 1
+        end
+
+        if self.cartSelectedIndex <= self.cartScrollOffset then
+            self.cartScrollOffset = self.cartSelectedIndex - 1
+        elseif self.cartSelectedIndex > self.cartScrollOffset + maxVisible then
+            self.cartScrollOffset = self.cartSelectedIndex - maxVisible
+        end
+        if self.cartScrollOffset < 0 then self.cartScrollOffset = 0 end
+
+        for r = 1, maxVisible do
+            local row = m.rows[r]
+            local itemIdx = self.cartScrollOffset + r
+            local it = self.cartItems[itemIdx]
+
+            if it then
+                row:Show()
+                row.cartItemIndex = itemIdx
+                row.icon:SetTexture(it.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
+
+                local dName = it.name or "Habilidade"
+                if it.subText and it.subText ~= "" then
+                    dName = dName .. " (" .. it.subText .. ")"
+                end
+                row.nameText:SetText("|cffffffff" .. dName .. "|r")
+                row.subText:SetText("|cffaaaaaaNv. " .. (it.levelReq or 1) .. "  •  " .. (it.tree or "Geral") .. "|r")
+                row.priceText:SetText(self:FormatMoneyText(it.cost or 0))
+
+                if itemIdx == self.cartSelectedIndex then
+                    row.cursor:Show()
+                    row.highlight:Show()
+                    row:SetBackdropColor(0.18, 0.14, 0.08, 0.80)
+                    row:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
+                else
+                    row.cursor:Hide()
+                    row.highlight:Hide()
+                    row:SetBackdropColor(0.10, 0.08, 0.06, 0.50)
+                    row:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.40)
+                end
+            else
+                row:Hide()
+                row.cartItemIndex = nil
+            end
+        end
+
+        if count > maxVisible then
+            m.scrollNotice:Show()
+            m.scrollNotice:SetText("Item " .. self.cartSelectedIndex .. " de " .. count .. "  (Use D-Pad ou Scroll)")
+        else
+            m.scrollNotice:Hide()
+        end
+    end
+
+    -- Resumo Financeiro
+    local totalCost = self:GetCartTotalCost()
+    local playerMoney = GetMoney() or 0
+    local remainingMoney = playerMoney - totalCost
+
+    m.valCost:SetText(self:FormatMoneyText(totalCost))
+    m.valMoney:SetText(self:FormatMoneyText(playerMoney))
+
+    if count == 0 then
+        m.lblRemaining:SetText("• Saldo Restante após Treinamento:")
+        m.lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
+        m.valRemaining:SetText(self:FormatMoneyText(playerMoney))
+        m.confirmBtn:Disable()
+        m.confirmBtn:SetBackdropColor(0.08, 0.08, 0.08, 0.50)
+        m.confirmBtn:SetBackdropBorderColor(0.30, 0.30, 0.30, 0.50)
+        m.confirmBtn.text:SetTextColor(0.50, 0.50, 0.50, 1.0)
+    elseif remainingMoney >= 0 then
+        m.lblRemaining:SetText("• Saldo Restante após Treinamento:")
+        m.lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
+        m.valRemaining:SetText(self:FormatMoneyText(remainingMoney))
+        m.confirmBtn:Enable()
+        m.confirmBtn:SetBackdropColor(0.12, 0.16, 0.08, 0.90)
+        m.confirmBtn:SetBackdropBorderColor(0.30, 0.80, 0.30, 0.90)
+        m.confirmBtn.text:SetTextColor(0.40, 1.0, 0.40, 1.0)
+    else
+        local deficit = totalCost - playerMoney
+        m.lblRemaining:SetText("• Saldo Insuficiente:")
+        m.lblRemaining:SetTextColor(1.0, 0.25, 0.25, 1.0)
+        m.valRemaining:SetText("|cffff2020Faltam " .. self:FormatMoneyText(deficit) .. "|r")
+        m.confirmBtn:Disable()
+        m.confirmBtn:SetBackdropColor(0.14, 0.06, 0.06, 0.70)
+        m.confirmBtn:SetBackdropBorderColor(0.60, 0.20, 0.20, 0.70)
+        m.confirmBtn.text:SetTextColor(0.60, 0.35, 0.35, 1.0)
+    end
+
+    -- Atualiza Tooltip Nativo se um item estiver selecionado
+    local selItem = self.cartItems and self.cartItems[self.cartSelectedIndex]
+    if selItem then
+        GameTooltip:SetOwner(m, "ANCHOR_NONE")
+        GameTooltip:SetPoint("TOPLEFT", m, "TOPRIGHT", 10, 0)
+        local ok = false
+        if selItem.index and GameTooltip.SetTrainerService then
+            ok = pcall(function() GameTooltip:SetTrainerService(selItem.index) end)
+        end
+        if not ok then
+            GameTooltip:ClearLines()
+            GameTooltip:AddLine(selItem.name or "Habilidade", 1, 1, 1)
+            if selItem.subText and selItem.subText ~= "" then
+                GameTooltip:AddLine(selItem.subText, 0.8, 0.8, 0.8)
+            end
+            if selItem.desc and selItem.desc ~= "" then
+                GameTooltip:AddLine(selItem.desc, 1, 0.82, 0, 1)
+            end
+        end
+        GameTooltip:Show()
+    else
+        GameTooltip:Hide()
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 9d. FILA SERIALIZADA DE COMPRA EM BATCH (FASE 6)
+-- ----------------------------------------------------------------------------
+function TrainerMenu:ConfirmCartPurchase()
+    if not self:IsCartModalOpen() then return end
+    local count = self:GetCartCount()
+    if count == 0 then
+        PlaySound("igQuestFailed")
+        return
+    end
+
+    local totalCost = self:GetCartTotalCost()
+    local playerMoney = GetMoney() or 0
+    if playerMoney < totalCost then
+        PlaySound("igQuestFailed")
+        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode] Saldo insuficiente para realizar o treinamento.|r")
+        if UIErrorsFrame and ERR_NOT_ENOUGH_MONEY and UIERRORS_HOLD_TIME then
+            UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
+        end
+        return
+    end
+
+    local queue = {}
+    for i = 1, count do
+        table.insert(queue, self.cartItems[i])
+    end
+
+    self:CloseCartModal()
+
+    self.purchaseState = {
+        running      = true,
+        queue        = queue,
+        pos          = 1,
+        acc          = 0,
+        totalSpent   = 0,
+        totalCount   = count,
+        successCount = 0,
+    }
+
+    if not self.purchaseFrame then
+        self.purchaseFrame = CreateFrame("Frame", "ConsoleMode_TrainerPurchaseFrame")
+    end
+    self.purchaseFrame:SetScript("OnUpdate", function()
+        TrainerMenu:PurchaseQueue_OnUpdate(arg1)
+    end)
+
+    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Iniciando treinamento de " .. count .. " habilidades...")
+    PlaySound("igMainMenuOptionCheckBoxOn")
+end
+
+function TrainerMenu:PurchaseQueue_OnUpdate(dt)
+    local st = self.purchaseState
+    if not st or not st.running then return end
+
+    st.acc = (st.acc or 0) + (dt or 0)
+    if st.acc < 0.15 then return end
+    st.acc = 0
+
+    if not self.isOpen then
+        self:PurchaseQueue_Stop(false)
+        return
+    end
+
+    local q = st.queue or {}
+    local total = table.getn(q)
+    local pos = tonumber(st.pos) or 1
+    if pos > total then
+        self:PurchaseQueue_Stop(true)
+        return
+    end
+
+    local it = q[pos]
+    st.pos = pos + 1
+
+    if it then
+        local serviceIndex = it.index
+        local found = false
+
+        if serviceIndex and GetTrainerServiceInfo then
+            local sName, sSub, sType = GetTrainerServiceInfo(serviceIndex)
+            if sName == it.name and sType == "available" then
+                found = true
+            end
+        end
+
+        if not found and GetNumTrainerServices and GetTrainerServiceInfo then
+            local num = GetNumTrainerServices() or 0
+            for i = 1, num do
+                local sName, sSub, sType = GetTrainerServiceInfo(i)
+                if sName == it.name and (not it.subText or it.subText == "" or sSub == it.subText) and sType == "available" then
+                    serviceIndex = i
+                    found = true
+                    break
+                end
+            end
+        end
+
+        if found and serviceIndex then
+            local cost = (it.cost or 0)
+            local currentMoney = GetMoney() or 0
+            if currentMoney >= cost then
+                if SelectTrainerService then
+                    pcall(function() SelectTrainerService(serviceIndex) end)
+                end
+                if BuyTrainerService then
+                    pcall(function() BuyTrainerService(serviceIndex) end)
+                end
+
+                st.totalSpent = (st.totalSpent or 0) + cost
+                st.successCount = (st.successCount or 0) + 1
+                PlaySound("SPELLBOOKSPELLCLICK")
+
+                local displayName = it.name or "Habilidade"
+                if it.subText and it.subText ~= "" then
+                    displayName = displayName .. " (" .. it.subText .. ")"
+                end
+                DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Treinado: |cffffffff" .. displayName .. "|r (" .. self:FormatMoneyText(cost) .. ")")
+            else
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Saldo insuficiente para treinar: " .. (it.name or ""))
+            end
+        end
+    end
+
+    if (st.pos or 1) > total then
+        self:PurchaseQueue_Stop(true)
+    end
+end
+
+function TrainerMenu:PurchaseQueue_Stop(completed)
+    local st = self.purchaseState
+    if not st then return end
+    st.running = false
+    st.pos = 1
+
+    if self.purchaseFrame then
+        self.purchaseFrame:SetScript("OnUpdate", nil)
+    end
+
+    if completed then
+        local count = st.successCount or 0
+        local spent = st.totalSpent or 0
+        if count > 0 then
+            DEFAULT_CHAT_FRAME:AddMessage("|cff1eff00[ConsoleMode]|r Treinamento em lote concluído! " .. count .. " habilidades aprendidas (" .. self:FormatMoneyText(spent) .. ").")
+            PlaySound("LOOTWINDOWCOINSOUND")
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Treinamento finalizado.")
+        end
+    end
+
+    self.purchaseState = nil
+    self:ClearCart()
+    self:ScanTrainerServices()
+    self:RefreshHeader()
+end
+
+-- ----------------------------------------------------------------------------
 -- 10. CICLO DE VIDA, ABERTURA E FECHAMENTO
 -- ----------------------------------------------------------------------------
 function TrainerMenu:Open()
     self:CreateUI()
     self:UpdateLayout()
     self:RefreshHeader()
+
+    self:ClearCart()
+    if self:IsCartModalOpen() then
+        self:CloseCartModal()
+    end
 
     self.searchText        = ""
     self.isFutureCollapsed = true
@@ -2583,6 +3537,14 @@ end
 function TrainerMenu:Close()
     if not self.isOpen then return end
 
+    if self:IsCartModalOpen() then
+        self:CloseCartModal()
+    end
+    if self.purchaseState and self.purchaseState.running then
+        self:PurchaseQueue_Stop(false)
+    end
+    self:ClearCart()
+
     self.isOpen           = false
     self.trainerName      = nil
     self.trainerType      = nil
@@ -2629,6 +3591,10 @@ function TrainerMenu:Close()
 end
 
 function TrainerMenu:OnCancel()
+    if self:IsCartModalOpen() then
+        self:CloseCartModal()
+        return
+    end
     self:Close()
 end
 
@@ -2738,6 +3704,7 @@ end
 
 function TrainerMenu:OnTrainerUpdate()
     if not self.isOpen or self.isScanning or self.isConfiguringFilters then return end
+    if self.purchaseState and self.purchaseState.running then return end
 
     if not self.filtersConfigured then
         self:EnsureFiltersAndExpansion()

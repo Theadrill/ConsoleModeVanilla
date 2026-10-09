@@ -2026,6 +2026,12 @@ function CM_NavNextSubTab()
         ConsoleMode_MerchantMenu:CycleSubTab(1)
         return
     end
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.OnTriggerAction then
+            ConsoleMode_TrainerMenu:OnTriggerAction()
+            return
+        end
+    end
     -- M4.1 Mail: inbox = cicla o filtro; compor = salto de metade (LT/RT).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
         if ConsoleMode_MailScreen.currentScreen == "COMPOSE" and ConsoleMode_MailScreen.ComposeHalfJump then

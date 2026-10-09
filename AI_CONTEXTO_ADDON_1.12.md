@@ -4,6 +4,7 @@
 > 2. **WoW VERSÃO 1.12.1 (Interface 11200) / Lua 5.0** — todo código deve ser compatível com isso. Nada de sintaxe Retail / Lua 5.1+.
 > 3. **AVISO DE SEGURANÇA DO WOW:** NÃO usar / NÃO sugerir comandos, funções ou truques que possam ser flagados pelo anti-cheat / Warden (automação de input, unlock, bots, desabilitar proteção, chamar função protegida que só é permitida pela UI do WoW em combate, `CastSpellByName` automatizado, etc.). Função protegida / restrita à UI do WoW deve permanecer via UI — NÃO bypasse, NÃO desbloqueie.
 > 4. **IDENTIDADE VISUAL:** Sempre manter a identidade visual do addon seguindo o MAIN MENU do WoW 1.12 — mesmo fundo, cores, fontes, layout, bordas, texturas, botões e estilo Vanilla. Nada de visual Retail / moderno / custom fora do padrão. Reutilizar templates e assets do MAIN MENU sempre que possível.
+> 5. **TOOLCHAIN LUA 5.0 (checagem imediata após ler este arquivo):** verificar na máquina atual se o validador é o Lua 5.0 de verdade (`C:\Tools\lua50\luac50.exe -v` deve responder `Lua 5.0.3`). Se `luac -v` responder 5.1/5.2/5.3/5.4, NÃO validar nada com ele (ele aceita `#t`, `//`, `goto`, bitwise — tudo que quebra no 1.12). Baixar o repo privado [lua-5.0](https://github.com/Theadrill/lua-5.0) (release `v5.0.3-win64-tcc`), extrair `lua50.exe`/`luac50.exe` para `C:\Tools\lua50`, remover o Lua posterior do PATH e registrar `LUAC`/`LUAC50` apontando para `C:\Tools\lua50\luac50.exe`. Se não conseguir verificar sozinho, PERGUNTAR ao usuário antes de seguir.
 
 # Contexto para IA — Addon WoW 1.12 / Lua 5.0 (Turtle WoW)
 
@@ -81,6 +82,12 @@ Outro.lua
 * USAR: `table.getn(t)`, `table.foreach`, `getglobal("Nome"..i)`, `this`, `event`, `arg1...`, `string.gfind`, `gsub`, `strfind(s, "item:(%d+)")`.
 * Globals do WoW 1.12: `DEFAULT_CHAT_FRAME`, `UIParent`, `SlashCmdList["NOME"]`, `SLASH_NOME1 = "/cmd"`, `CreateFrame("Frame",...)`, `getglobal`, `UnitName("player")`, etc.
 * `this` e `event` são implícitos em scripts XML (`OnEvent`, `OnLoad`).
+
+## 4b. Toolchain Lua 5.0 — validador verdadeiro (OBRIGATÓRIO antes de validar qualquer `.lua`)
+
+* O `luac` que vem no PATH (Lua 5.4.x) **NÃO serve**: ele passa silencioso em `#t`, `//`, `goto`, `& | ~ >> <<` — tudo que quebra no cliente 1.12. Prova real: `luac 5.4 -p` aprova `local n = #t`; o 5.0 rejeita com `unexpected symbol near '#'`.
+* Validador oficial: `C:\Tools\lua50\luac50.exe -p <arquivo>` (Lua 5.0.3, exit 0 = OK). Variáveis de ambiente `LUAC`/`LUAC50` apontam para ele.
+* Se a máquina atual NÃO tem `C:\Tools\lua50\luac50.exe`: baixar o repo privado [Theadrill/lua-5.0](https://github.com/Theadrill/lua-5.0) (release `v5.0.3-win64-tcc` → `lua-5.0.3-win64-tcc.zip`), extrair para `C:\Tools\lua50`, remover o Lua posterior do PATH e registrar `LUAC`/`LUAC50`. Rebuild reproduzível: `tools\build-win-tcc.ps1` dentro do repo. Se não der para resolver sozinho, PERGUNTAR ao usuário qual `luac` usar — nunca validar com 5.1+ em silêncio.
 
 ## 5. API estendida Turtle / SuperWoW (quando permitido)
 
@@ -160,7 +167,7 @@ Tela de correio completa (`UI/MailScreen.lua`) com inbox + painel de detalhe, te
 1. **PUSH SOMENTE quando o usuário pedir, uma vez só. É a regra mais importante.**
 2. Lua 5.0 estrito — proibido `#t`, `continue`, `goto`, `table.unpack`, `gmatch`, bitwise.
 3. API WoW 1.12 puro — nada de `C_`, `Mixin`, `BackdropTemplate`.
-4. `luac -p` em todo arquivo alterado — zero erros antes de qualquer teste.
+4. `luac50 -p` (`C:\Tools\lua50\luac50.exe`, Lua 5.0.3 real — NUNCA o 5.4 do PATH) em todo arquivo alterado — zero erros antes de qualquer teste.
 5. Zero taint — nenhuma função protegida chamada de dentro de stack de input do gamepad.
 6. Pool fixo — frames criados uma vez no `CreateUI`, nunca destruídos.
 7. Identidade visual Vanilla intocável.

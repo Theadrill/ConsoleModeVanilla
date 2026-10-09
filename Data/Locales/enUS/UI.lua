@@ -1451,7 +1451,7 @@ CM_Langs["enUS"].strings = {
     TRAINER_AVAIL_COUNT_FMT = "|cff1eff00(%d Available)|r",
     TRAINER_AVAIL_COUNT_ZERO = "|cffaaaaaa(0 Available)|r",
     TRAINER_CART_SUMMARY_FMT = "|cffe09a15Cart: %d (%s)|r",
-    TRAINER_BUTTON_CLOSE = "|cffffffff[B] Close|r",
+    TRAINER_BUTTON_CLOSE = "Close",
     TRAINER_TREE_GENERAL = "General",
     TRAINER_SECTION_AVAILABLE_FMT = "▼ AVAILABLE TO LEARN (%d)",
     TRAINER_EMPTY_AVAILABLE_SEARCH = "No available skill matches the search.",
@@ -1532,9 +1532,10 @@ CM_Langs["enUS"].strings = {
     TRAINER_CART_TOTAL_LABEL = "• Total Cost of Selected:",
     TRAINER_CART_BALANCE_LABEL = "• Your Current Balance:",
     TRAINER_CART_REMAINING_LABEL = "• Remaining Balance after Training:",
-    TRAINER_CART_CONFIRM = "[A] Confirm Training",
-    TRAINER_CART_BACK = "[B] Back",
-    TRAINER_CART_HINTS = "|cffaaaaaa[D-Pad] Navigate  •  [X] Remove|r",
+    TRAINER_CART_CONFIRM = "Confirm Training",
+    TRAINER_CART_BACK = "Back",
+    TRAINER_CART_HINT_REMOVE = "Remove",
+    TRAINER_CART_HINTS = "Navigate  •  Remove",
     TRAINER_CART_ROW_SUB_FMT = "|cffaaaaaaLv. %d  •  %s|r",
     TRAINER_CART_SCROLL_FMT = "Item %d of %d  (Use D-Pad or Scroll)",
     TRAINER_CART_INSUFFICIENT_LABEL = "• Insufficient Funds:",
@@ -1546,6 +1547,8 @@ CM_Langs["enUS"].strings = {
     TRAINER_CART_TRAIN_FAILED_FMT = "|cffff2020[ConsoleMode]|r Insufficient funds to train: %s",
     TRAINER_CART_BATCH_DONE_FMT = "|cff1eff00[ConsoleMode]|r Batch training complete! %d skills learned (%s).",
     TRAINER_CART_BATCH_EMPTY = "|cffe09a15[ConsoleMode]|r Training finished.",
+    TRAINER_BTN_OPEN_CART_FMT = "Cart (%d)",
+    TRAINER_BTN_OPEN_CART_EMPTY = "Cart",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

@@ -102,6 +102,11 @@ function CM:LoadDataLake(requestedBy)
         self.DataLake.loaded = true
         self.DataLake.requestedBy = requestedBy
         
+        -- Atualiza o locale do addon para vincular as tabelas do pacote de idiomas
+        if self.ResolveLocale then
+            self:ResolveLocale()
+        end
+
         -- Mensagem de sucesso no chat
         DEFAULT_CHAT_FRAME:AddMessage(string.format(CM:T("DATALAKE_LOADED_FMT"), (requestedBy or "manual")))
         return true, "loaded"

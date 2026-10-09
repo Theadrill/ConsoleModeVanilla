@@ -471,6 +471,7 @@ modFrame:SetScript("OnUpdate", function()
         local mm = (ConsoleMode and ConsoleMode.mainMenu) or _G["ConsoleModeMainMenu"]
         local isQuestsTab = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and (mm and mm.tabContainer and mm.tabContainer.currentTab == "QUESTS")
         local isMerchant = ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen
+        local isTrainer = ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen
         local isMail = ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen
         local isEnhance = ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen
         local pageSystem = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and mm and mm.tabContainer and mm.tabContainer.pages and mm.tabContainer.pages["SYSTEM"]
@@ -512,9 +513,11 @@ modFrame:SetScript("OnUpdate", function()
             end
         end
 
-        -- 3. R2 (ALT / RT) = Zoom In no mapa ou Próxima Sub-Aba
+        -- 3. R2 (ALT / RT) = Zoom In no mapa ou Próxima Sub-Aba / Carrinho no Treinador
         if altNow and not wasAltDown then
-            if isMerchant then
+            if isTrainer and ConsoleMode_TrainerMenu.OnTriggerAction then
+                ConsoleMode_TrainerMenu:OnTriggerAction()
+            elseif isMerchant then
                 ConsoleMode_MerchantMenu:CycleSubTab(1)
             elseif isMail and ConsoleMode_MailScreen.CycleInboxFilter then
                 -- M4.1: inbox = proximo filtro; compor = proxima metade.
@@ -677,6 +680,9 @@ end
 -- ============================================================
 function KB:ToggleMouseMode()
     if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.SelectSearchBar then
+            ConsoleMode_TrainerMenu:SelectSearchBar()
+        end
         if ConsoleMode_TrainerMenu.OpenSearchVK then
             ConsoleMode_TrainerMenu:OpenSearchVK()
         end
@@ -1104,6 +1110,16 @@ function CM_MouseLookStop()
 end
 
 function CM_ToggleMouseMode()
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.SelectSearchBar then
+            ConsoleMode_TrainerMenu:SelectSearchBar()
+        end
+        if ConsoleMode_TrainerMenu.OpenSearchVK then
+            ConsoleMode_TrainerMenu:OpenSearchVK()
+        end
+        return
+    end
+
     if IsMouselooking() then
         CM_MouseLookStop()
         -- DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_MOUSE_FREE_ON")) -- NOLOG

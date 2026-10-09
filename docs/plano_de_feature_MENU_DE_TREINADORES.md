@@ -295,7 +295,18 @@ Cada fase foi desenhada para ser **100% testável no jogo imediatamente após a 
 
 ---
 
-## 5. Estrutura de Arquivos
+## 5. Backlog Futuro / TODO: Comparativo Inteligente de Atributos & Diferenças
+> **Motivação:** A extração ingênua de números dos tooltips comparava posições numéricas brutas e rotulava aumentos de mana, duração e stacks como "Dano Adicional" (gerando falsos positivos e linhas excessivas em feitiços complexos como *Flame Shock*).
+
+- [ ] **Parser Semântico de Tooltips:**
+  - Extrair o bloco de custo de recurso da magia (Mana/Fúria/Energia) de forma dedicada e comparar: `[Custo: 55 Mana ➔ 88 Mana]`.
+  - Analisar frases de dano/cura com regex contextual (ex: `%d+ a %d+ de dano`, `%d+ de dano ao longo de %d+ s`).
+  - Separar Dano Direto de Dano Periódico (DoT) e de Duração de Efeito.
+  - Exibir no máximo 2 ou 3 linhas concisas com os deltas reais sem poluição visual.
+
+---
+
+## 6. Estrutura de Arquivos
 
 ```
 Interface/AddOns/ConsoleModeVanilla/

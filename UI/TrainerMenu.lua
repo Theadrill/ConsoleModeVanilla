@@ -145,6 +145,22 @@ function TrainerMenu:ApplyFont(fontString, fontPath, size, outline, shadowOffset
     fontString:SetShadowColor(sc[1], sc[2], sc[3], sc[4])
 end
 
+function TrainerMenu:GetLocalizedSpellName(spellName, rankStr)
+    if not spellName or spellName == "" then return "" end
+    if CM and CM.GameLOC_Spell then
+        return CM:GameLOC_Spell(spellName, rankStr)
+    end
+    return spellName
+end
+
+function TrainerMenu:GetLocalizedRank(rankStr)
+    if not rankStr or rankStr == "" then return "" end
+    if CM and CM.GameLOC_Rank then
+        return CM:GameLOC_Rank(rankStr)
+    end
+    return rankStr
+end
+
 function TrainerMenu:FormatMoneyText(totalCopper)
     totalCopper = totalCopper or 0
     if totalCopper < 0 then totalCopper = 0 end
@@ -912,22 +928,46 @@ function TrainerMenu:CreateUI()
     playerMoneyText:SetText(self:FormatMoneyText(0))
     header.playerMoneyText = playerMoneyText
 
-    -- Resumo do Carrinho no Cabeçalho (Botão Clicável)
+    -- Botão Abrir Carrinho / Comprar no Cabeçalho (100% Interativo via Mouse)
     local cartSummaryBtn = CreateFrame("Button", "ConsoleMode_TrainerHeaderCartBtn", header)
-    cartSummaryBtn:SetHeight(24)
-    cartSummaryBtn:SetPoint("RIGHT", playerMoneyText, "LEFT", -20, 0)
+    cartSummaryBtn:SetHeight(28)
+    cartSummaryBtn:SetWidth(150)
+    cartSummaryBtn:SetPoint("RIGHT", playerMoneyText, "LEFT", -16, 0)
+    cartSummaryBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    cartSummaryBtn:SetBackdropColor(0.12, 0.16, 0.08, 0.85)
+    cartSummaryBtn:SetBackdropBorderColor(0.30, 0.70, 0.30, 0.80)
+
     local cartSummaryText = cartSummaryBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    cartSummaryText:SetPoint("RIGHT", cartSummaryBtn, "RIGHT", 0, 0)
-    self:ApplyFont(cartSummaryText, FONTS.titleBold, 16)
-    cartSummaryText:SetText("")
+    cartSummaryText:SetPoint("CENTER", cartSummaryBtn, "CENTER", 0, 0)
+    self:ApplyFont(cartSummaryText, FONTS.titleBold, 14)
+    cartSummaryText:SetText(CM:T("TRAINER_BTN_OPEN_CART_EMPTY") or "🛒 Carrinho")
+    cartSummaryText:SetTextColor(0.40, 1.0, 0.40, 1.0)
+    header.cartSummaryBtn = cartSummaryBtn
     header.cartSummaryText = cartSummaryText
+
     cartSummaryBtn:SetScript("OnClick", function()
         TrainerMenu:OnTriggerAction()
     end)
+    cartSummaryBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.82, 0.0, 1.0)
+    end)
+    cartSummaryBtn:SetScript("OnLeave", function()
+        local count = (TrainerMenu.GetCartCount and TrainerMenu:GetCartCount()) or 0
+        if count > 0 then
+            this:SetBackdropBorderColor(0.30, 0.85, 0.30, 0.90)
+        else
+            this:SetBackdropBorderColor(0.40, 0.35, 0.25, 0.60)
+        end
+    end)
 
-    -- Botão Fechar estilizado
+    -- Botão Fechar estilizado (Textura do Botão B + Texto)
     local closeBtn = CreateFrame("Button", "ConsoleMode_TrainerCloseBtn", header)
-    closeBtn:SetWidth(96)
+    closeBtn:SetWidth(92)
     closeBtn:SetHeight(28)
     closeBtn:SetPoint("RIGHT", header, "RIGHT", 0, 0)
     closeBtn:SetBackdrop({
@@ -939,10 +979,18 @@ function TrainerMenu:CreateUI()
     closeBtn:SetBackdropColor(0.12, 0.08, 0.05, 0.90)
     closeBtn:SetBackdropBorderColor(0.60, 0.48, 0.25, 0.80)
 
+    local closeIcon = closeBtn:CreateTexture(nil, "OVERLAY")
+    closeIcon:SetWidth(20)
+    closeIcon:SetHeight(20)
+    closeIcon:SetTexture(ICONS.B)
+    closeIcon:SetPoint("LEFT", closeBtn, "LEFT", 8, 0)
+    closeBtn.icon = closeIcon
+
     local closeText = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    closeText:SetPoint("CENTER", closeBtn, "CENTER", 0, 0)
+    closeText:SetPoint("LEFT", closeIcon, "RIGHT", 4, 0)
     self:ApplyFont(closeText, FONTS.bodyBold, 15)
     closeText:SetText(CM:T("TRAINER_BUTTON_CLOSE"))
+    closeBtn.text = closeText
 
     closeBtn:SetScript("OnClick", function()
         TrainerMenu:Close()
@@ -1135,15 +1183,42 @@ function TrainerMenu:RefreshHeader()
         end
     end
 
-    -- Resumo do Carrinho de Compras
-    if self.frame.header and self.frame.header.cartSummaryText then
+    -- Resumo do Carrinho de Compras (Botão do Carrinho no Cabeçalho)
+    if self.frame.header and self.frame.header.cartSummaryText and self.frame.header.cartSummaryBtn then
         local count = (self.GetCartCount and self:GetCartCount()) or 0
+        local btn = self.frame.header.cartSummaryBtn
+        local txt = self.frame.header.cartSummaryText
         if count > 0 then
             local totalCost = (self.GetCartTotalCost and self:GetCartTotalCost()) or 0
-            self.frame.header.cartSummaryText:SetText(format(CM:T("TRAINER_CART_SUMMARY_FMT"), count, self:FormatMoneyText(totalCost)))
+            txt:SetText(format(CM:T("TRAINER_CART_SUMMARY_FMT"), count, self:FormatMoneyText(totalCost)))
+            local strW = math.floor(txt:GetStringWidth() or 100)
+            btn:SetWidth(math.max(160, strW + 24))
+            btn:SetBackdropColor(0.12, 0.18, 0.08, 0.90)
+            btn:SetBackdropBorderColor(0.30, 0.85, 0.30, 0.90)
         else
-            self.frame.header.cartSummaryText:SetText("")
+            txt:SetText(CM:T("TRAINER_BTN_OPEN_CART_EMPTY") or "🛒 Carrinho")
+            local strW = math.floor(txt:GetStringWidth() or 80)
+            btn:SetWidth(math.max(110, strW + 24))
+            btn:SetBackdropColor(0.10, 0.08, 0.06, 0.80)
+            btn:SetBackdropBorderColor(0.40, 0.35, 0.25, 0.60)
         end
+    end
+
+    -- Atualiza textos traduzidos de colunas e placeholders
+    if self.frame.leftCol and self.frame.leftCol.title then
+        self.frame.leftCol.title:SetText(CM:T("TRAINER_COLUMN_CATALOG"))
+    end
+    if self.frame.rightCol and self.frame.rightCol.title then
+        self.frame.rightCol.title:SetText(CM:T("TRAINER_COLUMN_DETAILS"))
+    end
+    if self.frame.rightCol and self.frame.rightCol.placeholder then
+        self.frame.rightCol.placeholder:SetText(CM:T("TRAINER_PLACEHOLDER_SELECT_SKILL"))
+    end
+    if self.searchPlaceholder and (not self.searchEditBox or self.searchEditBox:GetText() == "") then
+        self.searchPlaceholder:SetText(CM:T("TRAINER_SEARCH_PLACEHOLDER"))
+    end
+    if self.frame.header and self.frame.header.closeBtn and self.frame.header.closeBtn.text then
+        self.frame.header.closeBtn.text:SetText(CM:T("TRAINER_BUTTON_CLOSE"))
     end
 end
 
@@ -1637,9 +1712,11 @@ function TrainerMenu:UpdateCatalogRows()
 
                     row.icon:SetTexture(it.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
 
-                    local displayName = it.name
-                    if it.subText and it.subText ~= "" then
-                        displayName = format(CM:T("TRAINER_NAME_RANK_FMT"), displayName, it.subText)
+                    local locName = self:GetLocalizedSpellName(it.name, it.subText)
+                    local locRank = (it.subText and it.subText ~= "") and self:GetLocalizedRank(it.subText) or ""
+                    local displayName = locName
+                    if locRank ~= "" then
+                        displayName = format(CM:T("TRAINER_NAME_RANK_FMT"), displayName, locRank)
                     end
 
                     local inCart = (it.category == "available") and self.IsItemInCart and self:IsItemInCart(it)
@@ -1834,19 +1911,43 @@ function TrainerMenu:GetTrainerServiceTooltipData(serviceIndex)
                 end
             elseif string.find(leftTxt, "^Requer") or string.find(leftTxt, "^Requires") then
                 table.insert(data.reqs, { text = leftTxt, isRed = isRed })
-            elseif string.find(leftTxt, "Mana") or string.find(leftTxt, "Raiva") or string.find(leftTxt, "Energia")
-                or string.find(leftTxt, "Rage") or string.find(leftTxt, "Energy")
-                or string.find(leftTxt, "alcance") or string.find(leftTxt, "range")
-                or string.find(leftTxt, "lançamento") or string.find(leftTxt, "cast")
-                or string.find(leftTxt, "Instant") or string.find(leftTxt, "recarga")
-                or string.find(leftTxt, "cooldown") then
-                local statLine = leftTxt
-                if rightTxt ~= "" then
-                    statLine = statLine .. "  (" .. rightTxt .. ")"
+            elseif string.find(leftTxt, "^Tools:") or string.find(leftTxt, "^Ferramentas:") then
+                -- Linha de ferramentas (ex: "Tools: Earth Totem")
+                local toolLine = leftTxt
+                if CM and CM.GameLOC_SpellTool then
+                    toolLine = CM:GameLOC_SpellTool(toolLine)
                 end
-                table.insert(data.stats, statLine)
+                table.insert(data.reqs, { text = toolLine, isRed = false })
             else
-                table.insert(descLines, leftTxt)
+                -- Linha de atributos técnicos (Mana, Fúria, Energia, Alcance, Tempo de Lançamento, Recarga)
+                local isStatLine = false
+                local lowerLeft = string.lower(leftTxt)
+                if string.find(lowerLeft, "mana") or string.find(lowerLeft, "rage") or string.find(lowerLeft, "energy")
+                    or string.find(lowerLeft, "raiva") or string.find(lowerLeft, "energia")
+                    or string.find(lowerLeft, "cast") or string.find(lowerLeft, "instant") or string.find(lowerLeft, "channel")
+                    or string.find(lowerLeft, "lançamento") or string.find(lowerLeft, "instantâneo") or string.find(lowerLeft, "canaliz")
+                    or string.find(lowerLeft, "range") or string.find(lowerLeft, "alcance") or string.find(lowerLeft, "melee")
+                    or string.find(lowerLeft, "cooldown") or string.find(lowerLeft, "recarga") then
+                    isStatLine = true
+                end
+
+                if isStatLine then
+                    local leftStat = leftTxt
+                    local rightStat = rightTxt
+                    if CM and CM.GameLOC_SpellAttr then
+                        leftStat = CM:GameLOC_SpellAttr(leftStat)
+                        if rightStat ~= "" then
+                            rightStat = CM:GameLOC_SpellAttr(rightStat)
+                        end
+                    end
+                    local statCombined = leftStat
+                    if rightStat ~= "" then
+                        statCombined = statCombined .. " (" .. rightStat .. ")"
+                    end
+                    table.insert(data.stats, statCombined)
+                else
+                    table.insert(descLines, leftTxt)
+                end
             end
         end
     end
@@ -1920,9 +2021,11 @@ function TrainerMenu:ShowServiceDetail(item)
     end
 
     -- 2. Título (Nome e Grau se houver)
-    local displayName = item.name or CM:T("TRAINER_SKILL_FALLBACK")
-    if item.subText and item.subText ~= "" then
-        displayName = format(CM:T("TRAINER_NAME_RANK_FMT"), displayName, item.subText)
+    local locName = self:GetLocalizedSpellName(item.name, item.subText)
+    local locRank = (item.subText and item.subText ~= "") and self:GetLocalizedRank(item.subText) or ""
+    local displayName = locName ~= "" and locName or CM:T("TRAINER_SKILL_FALLBACK")
+    if locRank ~= "" then
+        displayName = format(CM:T("TRAINER_NAME_RANK_FMT"), displayName, locRank)
     end
     card.titleText:SetText(displayName)
 
@@ -1949,10 +2052,19 @@ function TrainerMenu:ShowServiceDetail(item)
     if table.getn(tipData.stats) > 0 then
         fullNewDesc = "|cff88ccff" .. table.concat(tipData.stats, "   •   ") .. "|r\n\n"
     end
+
+    local rawDescText = ""
     if tipData.desc ~= "" then
-        fullNewDesc = fullNewDesc .. tipData.desc
+        rawDescText = tipData.desc
     elseif item.desc and item.desc ~= "" then
-        fullNewDesc = fullNewDesc .. item.desc
+        rawDescText = item.desc
+    end
+
+    if rawDescText ~= "" then
+        if CM and CM.GameLOC_SpellDesc then
+            rawDescText = CM:GameLOC_SpellDesc(item.name, item.subText, rawDescText)
+        end
+        fullNewDesc = fullNewDesc .. rawDescText
     else
         fullNewDesc = fullNewDesc .. CM:T("TRAINER_NO_TRAINER_DESC")
     end
@@ -1989,7 +2101,7 @@ function TrainerMenu:ShowServiceDetail(item)
         card.newCard:ClearAllPoints()
         card.newCard:SetPoint("TOPLEFT", card.hDiv, "BOTTOMLEFT", 0, -6)
         card.newCard:SetPoint("TOPRIGHT", card.hDiv, "BOTTOMRIGHT", 0, -6)
-        card.newCard:SetHeight(108)
+        card.newCard:SetHeight(230)
         card.newCard:Show()
 
         card.newCard.header:SetText(format(CM:T("TRAINER_KNOWN_RANK_FMT"), (item.subText ~= "" and item.subText or CM:T("TRAINER_KNOWN_RANK_FALLBACK"))))
@@ -2012,27 +2124,33 @@ function TrainerMenu:ShowServiceDetail(item)
 
     elseif isUpgrade then
         -- MODO 2: UPGRADE / EVOLUÇÃO DE GRAU
-        local oldRankLabel = (known and known.rankText ~= "") and known.rankText or CM:T("TRAINER_CURRENT_RANK_FALLBACK")
-        local newRankLabel = (item.subText ~= "") and item.subText or CM:T("TRAINER_NEW_RANK_FALLBACK")
+        local rawOldRank = (known and known.rankText ~= "") and known.rankText or ""
+        local rawNewRank = (item.subText ~= "") and item.subText or ""
+        local oldRankLabel = rawOldRank ~= "" and self:GetLocalizedRank(rawOldRank) or CM:T("TRAINER_CURRENT_RANK_FALLBACK")
+        local newRankLabel = rawNewRank ~= "" and self:GetLocalizedRank(rawNewRank) or CM:T("TRAINER_NEW_RANK_FALLBACK")
         card.badgeText:SetText(format(CM:T("TRAINER_BADGE_EVOLUTION_FMT"), oldRankLabel, newRankLabel))
 
         card.oldCard:ClearAllPoints()
         card.oldCard:SetPoint("TOPLEFT", card.hDiv, "BOTTOMLEFT", 0, -6)
         card.oldCard:SetPoint("TOPRIGHT", card.hDiv, "BOTTOMRIGHT", 0, -6)
-        card.oldCard:SetHeight(76)
+        card.oldCard:SetHeight(122)
         card.oldCard:Show()
 
         card.oldCard.header:SetText(format(CM:T("TRAINER_CURRENT_IN_SPELLBOOK_FMT"), oldRankLabel))
-        card.oldCard.desc:SetText(known and known.desc ~= "" and known.desc or CM:T("TRAINER_NO_SPELLBOOK_DESC"))
+        local knownDesc = (known and known.desc ~= "") and known.desc or CM:T("TRAINER_NO_SPELLBOOK_DESC")
+        if known and known.desc ~= "" and CM and CM.GameLOC_SpellDesc then
+            knownDesc = CM:GameLOC_SpellDesc(item.name, rawOldRank, knownDesc)
+        end
+        card.oldCard.desc:SetText(knownDesc)
 
         card.arrowText:ClearAllPoints()
-        card.arrowText:SetPoint("TOP", card.oldCard, "BOTTOM", 0, -4)
+        card.arrowText:SetPoint("TOP", card.oldCard, "BOTTOM", 0, -3)
         card.arrowText:Show()
 
         card.newCard:ClearAllPoints()
-        card.newCard:SetPoint("TOPLEFT", card.oldCard, "BOTTOMLEFT", 0, -26)
-        card.newCard:SetPoint("TOPRIGHT", card.oldCard, "BOTTOMRIGHT", 0, -26)
-        card.newCard:SetHeight(84)
+        card.newCard:SetPoint("TOPLEFT", card.oldCard, "BOTTOMLEFT", 0, -22)
+        card.newCard:SetPoint("TOPRIGHT", card.oldCard, "BOTTOMRIGHT", 0, -22)
+        card.newCard:SetHeight(132)
         card.newCard:Show()
 
         card.newCard.header:SetText(format(CM:T("TRAINER_NEW_RANK_FMT"), newRankLabel))
@@ -2043,21 +2161,9 @@ function TrainerMenu:ShowServiceDetail(item)
         card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
         card.diffCard:Show()
 
-        card.diffCard.header:SetText(CM:T("TRAINER_CHANGES_HIGHLIGHTS"))
+        card.diffCard.header:SetText(CM:T("TRAINER_FINANCIAL_SUMMARY"))
 
-        local diffLines = self:ComputeDiffLines(known and known.desc, fullNewDesc)
         local summary = {}
-
-        if table.getn(diffLines) > 0 then
-            for d = 1, table.getn(diffLines) do
-                table.insert(summary, diffLines[d])
-            end
-        else
-            table.insert(summary, CM:T("TRAINER_UPGRADE_GENERIC"))
-        end
-
-        table.insert(summary, "")
-        table.insert(summary, CM:T("TRAINER_FINANCIAL_SUMMARY"))
         if cost > 0 then
             table.insert(summary, format(CM:T("TRAINER_TRAINING_COST_FMT"), self:FormatMoneyText(cost)))
             if playerMoney >= cost then
@@ -2100,7 +2206,7 @@ function TrainerMenu:ShowServiceDetail(item)
         card.newCard:ClearAllPoints()
         card.newCard:SetPoint("TOPLEFT", card.hDiv, "BOTTOMLEFT", 0, -6)
         card.newCard:SetPoint("TOPRIGHT", card.hDiv, "BOTTOMRIGHT", 0, -6)
-        card.newCard:SetHeight(108)
+        card.newCard:SetHeight(230)
         card.newCard:Show()
 
         card.newCard.header:SetText(CM:T("TRAINER_DETAIL_OFFERED_BY_TRAINER"))
@@ -2743,28 +2849,52 @@ end
 function TrainerMenu:CreateCartModalUI()
     if self.cartModalFrame then return self.cartModalFrame end
 
+    -- Dimmer de foco para o modal do carrinho
+    if not self.cartDimmer then
+        local dimmer = CreateFrame("Frame", "ConsoleMode_TrainerCartDimmer", UIParent)
+        dimmer:SetAllPoints(UIParent)
+        dimmer:SetFrameStrata("FULLSCREEN_DIALOG")
+        dimmer:SetFrameLevel(58)
+        dimmer:EnableMouse(true)
+        local dt = dimmer:CreateTexture(nil, "BACKGROUND")
+        dt:SetAllPoints(dimmer)
+        dt:SetTexture(0.0, 0.0, 0.0, 0.65)
+        dimmer.texture = dt
+        dimmer:Hide()
+        dimmer:SetScript("OnMouseDown", function()
+            TrainerMenu:CloseCartModal()
+        end)
+        self.cartDimmer = dimmer
+    end
+
     local modal = CreateFrame("Frame", "ConsoleMode_TrainerCartModal", UIParent)
     modal:SetWidth(560)
-    modal:SetHeight(470)
+    modal:SetHeight(480)
     modal:SetPoint("CENTER", UIParent, "CENTER", 0, 20)
     modal:SetFrameStrata("FULLSCREEN_DIALOG")
     modal:SetFrameLevel(60)
     modal:EnableMouse(true)
     modal:SetMovable(false)
-
-    modal:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 16, edgeSize = 16,
-        insets   = { left = 4, right = 4, top = 4, bottom = 4 },
-    })
-    modal:SetBackdropColor(0.06, 0.05, 0.04, 0.96)
-    modal:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
     modal:Hide()
+
+    -- Fundo 100% opaco para vedar a tela de trás
+    local solidBg = modal:CreateTexture(nil, "BACKGROUND")
+    solidBg:SetAllPoints(modal)
+    solidBg:SetTexture(0.06, 0.05, 0.04, 1.0)
+    modal.solidBg = solidBg
+
+    -- 9-Slice esculpido oficial (mesma textura Carved_9Slides da janela principal)
+    self.cartModalSlices = self:Create9Slice(
+        modal,
+        NINESLICE.texture,
+        40,
+        NINESLICE.uv,
+        "BORDER"
+    )
 
     -- Cabeçalho do Modal
     local title = modal:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    title:SetPoint("TOP", modal, "TOP", 0, -16)
+    title:SetPoint("TOP", modal, "TOP", 0, -18)
     self:ApplyFont(title, FONTS.titleBold, 20)
     title:SetText(CM:T("TRAINER_CART_TITLE"))
     title:SetTextColor(1.00, 0.82, 0.20, 1.0)
@@ -3045,64 +3175,170 @@ function TrainerMenu:CreateCartModalUI()
     valRemaining:SetText("0c")
     modal.valRemaining = valRemaining
 
-    -- Botões de Ação na Base
-    local confirmBtn = CreateFrame("Button", "ConsoleMode_TrainerCartConfirmBtn", modal)
-    confirmBtn:SetWidth(220)
-    confirmBtn:SetHeight(32)
-    confirmBtn:SetPoint("BOTTOMLEFT", modal, "BOTTOMLEFT", 16, 14)
-    confirmBtn:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    confirmBtn:SetBackdropColor(0.12, 0.16, 0.08, 0.90)
-    confirmBtn:SetBackdropBorderColor(0.30, 0.80, 0.30, 0.90)
+    -- Barra de Legendas no Rodapé do Modal (Textura do Botão + Texto, idêntico ao FooterHints)
+    local footer = CreateFrame("Frame", "ConsoleMode_TrainerCartFooter", modal)
+    footer:SetHeight(32)
+    footer:SetPoint("CENTER", modal, "BOTTOM", 0, 20)
+    modal.footer = footer
 
-    local confirmText = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    confirmText:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
-    self:ApplyFont(confirmText, FONTS.titleBold, 15)
-    confirmText:SetText(CM:T("TRAINER_CART_CONFIRM"))
-    confirmText:SetTextColor(0.40, 1.0, 0.40, 1.0)
-    confirmBtn.text = confirmText
+    -- 1. [A] Confirmar Treinamento
+    local groupA = CreateFrame("Frame", "ConsoleMode_TrainerCartHintA", footer)
+    groupA:SetHeight(32)
+    local iconA = groupA:CreateTexture(nil, "OVERLAY")
+    iconA:SetWidth(26)
+    iconA:SetHeight(26)
+    iconA:SetTexture(ICONS.A)
+    iconA:SetPoint("LEFT", groupA, "LEFT", 0, 0)
+    groupA.icon = iconA
 
-    confirmBtn:SetScript("OnClick", function()
-        TrainerMenu:ConfirmCartPurchase()
+    local labelA = groupA:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    labelA:SetPoint("LEFT", iconA, "RIGHT", 4, 0)
+    self:ApplyFont(labelA, FONTS.bodyBold, 15)
+    labelA:SetText(CM:T("TRAINER_CART_CONFIRM"))
+    labelA:SetTextColor(0.40, 1.0, 0.40, 1.0)
+    groupA.label = labelA
+
+    local wA = math.floor(labelA:GetStringWidth() or 80)
+    groupA:SetWidth(26 + 4 + wA)
+    groupA.isEnabled = true
+
+    groupA:EnableMouse(true)
+    groupA:SetScript("OnEnter", function()
+        if groupA.isEnabled then
+            groupA.label:SetTextColor(0.60, 1.0, 0.60, 1.0)
+        end
     end)
-    modal.confirmBtn = confirmBtn
+    groupA:SetScript("OnLeave", function()
+        if groupA.isEnabled then
+            groupA.label:SetTextColor(0.40, 1.0, 0.40, 1.0)
+        else
+            groupA.label:SetTextColor(0.50, 0.50, 0.50, 0.70)
+        end
+    end)
+    groupA:SetScript("OnMouseDown", function()
+        if groupA.isEnabled then
+            TrainerMenu:ConfirmCartPurchase()
+        end
+    end)
+    modal.groupA = groupA
+    modal.confirmBtn = groupA
 
-    local cancelBtn = CreateFrame("Button", "ConsoleMode_TrainerCartCancelBtn", modal)
-    cancelBtn:SetWidth(120)
-    cancelBtn:SetHeight(32)
-    cancelBtn:SetPoint("LEFT", confirmBtn, "RIGHT", 12, 0)
-    cancelBtn:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    cancelBtn:SetBackdropColor(0.10, 0.08, 0.06, 0.90)
-    cancelBtn:SetBackdropBorderColor(0.50, 0.40, 0.25, 0.80)
+    -- Separador 1
+    local sep1 = footer:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    self:ApplyFont(sep1, FONTS.medium, 14)
+    sep1:SetText("|cff666666•|r")
+    modal.sep1 = sep1
 
-    local cancelText = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    cancelText:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
-    self:ApplyFont(cancelText, FONTS.titleBold, 15)
-    cancelText:SetText(CM:T("TRAINER_CART_BACK"))
-    cancelText:SetTextColor(0.85, 0.85, 0.85, 1.0)
-    cancelBtn.text = cancelText
+    -- 2. [B] Voltar
+    local groupB = CreateFrame("Frame", "ConsoleMode_TrainerCartHintB", footer)
+    groupB:SetHeight(32)
+    local iconB = groupB:CreateTexture(nil, "OVERLAY")
+    iconB:SetWidth(26)
+    iconB:SetHeight(26)
+    iconB:SetTexture(ICONS.B)
+    iconB:SetPoint("LEFT", groupB, "LEFT", 0, 0)
+    groupB.icon = iconB
 
-    cancelBtn:SetScript("OnClick", function()
+    local labelB = groupB:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    labelB:SetPoint("LEFT", iconB, "RIGHT", 4, 0)
+    self:ApplyFont(labelB, FONTS.bodyBold, 15)
+    labelB:SetText(CM:T("TRAINER_CART_BACK"))
+    labelB:SetTextColor(0.85, 0.85, 0.85, 0.95)
+    groupB.label = labelB
+
+    local wB = math.floor(labelB:GetStringWidth() or 40)
+    groupB:SetWidth(26 + 4 + wB)
+
+    groupB:EnableMouse(true)
+    groupB:SetScript("OnEnter", function()
+        groupB.label:SetTextColor(1.0, 0.82, 0.20, 1.0)
+    end)
+    groupB:SetScript("OnLeave", function()
+        groupB.label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+    end)
+    groupB:SetScript("OnMouseDown", function()
         TrainerMenu:CloseCartModal()
     end)
-    modal.cancelBtn = cancelBtn
+    modal.groupB = groupB
+    modal.cancelBtn = groupB
 
-    -- Dica contextual à direita dos botões
-    local hintsText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    hintsText:SetPoint("RIGHT", modal, "RIGHT", -20, 0)
-    hintsText:SetPoint("CENTER", modal, "BOTTOM", 140, 30)
-    self:ApplyFont(hintsText, FONTS.medium, 13)
-    hintsText:SetText(CM:T("TRAINER_CART_HINTS"))
-    modal.hintsText = hintsText
+    -- Separador 2
+    local sep2 = footer:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    self:ApplyFont(sep2, FONTS.medium, 14)
+    sep2:SetText("|cff666666•|r")
+    modal.sep2 = sep2
+
+    -- 3. [D-Pad] Navegar
+    local groupNav = CreateFrame("Frame", "ConsoleMode_TrainerCartHintNav", footer)
+    groupNav:SetHeight(32)
+    local iconNav = groupNav:CreateTexture(nil, "OVERLAY")
+    iconNav:SetWidth(22)
+    iconNav:SetHeight(22)
+    iconNav:SetTexture(ICONS.DALL)
+    iconNav:SetPoint("LEFT", groupNav, "LEFT", 0, 0)
+    groupNav.icon = iconNav
+
+    local labelNav = groupNav:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    labelNav:SetPoint("LEFT", iconNav, "RIGHT", 4, 0)
+    self:ApplyFont(labelNav, FONTS.bodyBold, 15)
+    labelNav:SetText(CM:T("TRAINER_HINT_NAVIGATE"))
+    labelNav:SetTextColor(0.85, 0.85, 0.85, 0.95)
+    groupNav.label = labelNav
+
+    local wNav = math.floor(labelNav:GetStringWidth() or 50)
+    groupNav:SetWidth(22 + 4 + wNav)
+    modal.groupNav = groupNav
+
+    -- Separador 3
+    local sep3 = footer:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    self:ApplyFont(sep3, FONTS.medium, 14)
+    sep3:SetText("|cff666666•|r")
+    modal.sep3 = sep3
+
+    -- 4. [X] Remover
+    local groupX = CreateFrame("Frame", "ConsoleMode_TrainerCartHintX", footer)
+    groupX:SetHeight(32)
+    local iconX = groupX:CreateTexture(nil, "OVERLAY")
+    iconX:SetWidth(26)
+    iconX:SetHeight(26)
+    iconX:SetTexture(ICONS.X)
+    iconX:SetPoint("LEFT", groupX, "LEFT", 0, 0)
+    groupX.icon = iconX
+
+    local labelX = groupX:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    labelX:SetPoint("LEFT", iconX, "RIGHT", 4, 0)
+    self:ApplyFont(labelX, FONTS.bodyBold, 15)
+    labelX:SetText(CM:T("TRAINER_CART_HINT_REMOVE"))
+    labelX:SetTextColor(0.85, 0.85, 0.85, 0.95)
+    groupX.label = labelX
+
+    local wX = math.floor(labelX:GetStringWidth() or 50)
+    groupX:SetWidth(26 + 4 + wX)
+
+    groupX:EnableMouse(true)
+    groupX:SetScript("OnEnter", function()
+        groupX.label:SetTextColor(1.0, 0.40, 0.40, 1.0)
+    end)
+    groupX:SetScript("OnLeave", function()
+        groupX.label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+    end)
+    groupX:SetScript("OnMouseDown", function()
+        TrainerMenu:RemoveCurrentCartItem()
+    end)
+    modal.groupX = groupX
+
+    -- Posicionamento linear e centralizado de todas as legendas dentro de footer
+    local pad = 8
+    local totalW = groupA:GetWidth() + pad + 10 + pad + groupB:GetWidth() + pad + 10 + pad + groupNav:GetWidth() + pad + 10 + pad + groupX:GetWidth()
+    footer:SetWidth(totalW)
+
+    groupA:SetPoint("LEFT", footer, "LEFT", 0, 0)
+    sep1:SetPoint("LEFT", groupA, "RIGHT", pad, 0)
+    groupB:SetPoint("LEFT", sep1, "RIGHT", pad, 0)
+    sep2:SetPoint("LEFT", groupB, "RIGHT", pad, 0)
+    groupNav:SetPoint("LEFT", sep2, "RIGHT", pad, 0)
+    sep3:SetPoint("LEFT", groupNav, "RIGHT", pad, 0)
+    groupX:SetPoint("LEFT", sep3, "RIGHT", pad, 0)
 
     -- Suporte a roda do mouse para scroll na lista
     modal:EnableMouseWheel(true)
@@ -3130,12 +3366,18 @@ function TrainerMenu:OpenCartModal()
     self:CreateCartModalUI()
     self.cartSelectedIndex = 1
     self.cartScrollOffset = 0
+    if self.cartDimmer then
+        self.cartDimmer:Show()
+    end
     self.cartModalFrame:Show()
     self:UpdateCartModalVisuals()
     PlaySound("igMainMenuOpen")
 end
 
 function TrainerMenu:CloseCartModal()
+    if self.cartDimmer then
+        self.cartDimmer:Hide()
+    end
     if self.cartModalFrame and self.cartModalFrame:IsVisible() then
         self.cartModalFrame:Hide()
         if GameTooltip:IsOwned(self.cartModalFrame) then
@@ -3269,27 +3511,30 @@ function TrainerMenu:UpdateCartModalVisuals()
         m.lblRemaining:SetText(CM:T("TRAINER_CART_REMAINING_LABEL"))
         m.lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
         m.valRemaining:SetText(self:FormatMoneyText(playerMoney))
-        m.confirmBtn:Disable()
-        m.confirmBtn:SetBackdropColor(0.08, 0.08, 0.08, 0.50)
-        m.confirmBtn:SetBackdropBorderColor(0.30, 0.30, 0.30, 0.50)
-        m.confirmBtn.text:SetTextColor(0.50, 0.50, 0.50, 1.0)
+        if m.groupA then
+            m.groupA.isEnabled = false
+            m.groupA.icon:SetAlpha(0.35)
+            m.groupA.label:SetTextColor(0.50, 0.50, 0.50, 0.70)
+        end
     elseif remainingMoney >= 0 then
         m.lblRemaining:SetText(CM:T("TRAINER_CART_REMAINING_LABEL"))
         m.lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
         m.valRemaining:SetText(self:FormatMoneyText(remainingMoney))
-        m.confirmBtn:Enable()
-        m.confirmBtn:SetBackdropColor(0.12, 0.16, 0.08, 0.90)
-        m.confirmBtn:SetBackdropBorderColor(0.30, 0.80, 0.30, 0.90)
-        m.confirmBtn.text:SetTextColor(0.40, 1.0, 0.40, 1.0)
+        if m.groupA then
+            m.groupA.isEnabled = true
+            m.groupA.icon:SetAlpha(1.0)
+            m.groupA.label:SetTextColor(0.40, 1.0, 0.40, 1.0)
+        end
     else
         local deficit = totalCost - playerMoney
         m.lblRemaining:SetText(CM:T("TRAINER_CART_INSUFFICIENT_LABEL"))
         m.lblRemaining:SetTextColor(1.0, 0.25, 0.25, 1.0)
         m.valRemaining:SetText(format(CM:T("TRAINER_CART_MISSING_FMT"), self:FormatMoneyText(deficit)))
-        m.confirmBtn:Disable()
-        m.confirmBtn:SetBackdropColor(0.14, 0.06, 0.06, 0.70)
-        m.confirmBtn:SetBackdropBorderColor(0.60, 0.20, 0.20, 0.70)
-        m.confirmBtn.text:SetTextColor(0.60, 0.35, 0.35, 1.0)
+        if m.groupA then
+            m.groupA.isEnabled = false
+            m.groupA.icon:SetAlpha(0.35)
+            m.groupA.label:SetTextColor(0.60, 0.35, 0.35, 0.70)
+        end
     end
 
     -- Atualiza Tooltip Nativo se um item estiver selecionado
@@ -3476,6 +3721,11 @@ end
 -- 10. CICLO DE VIDA, ABERTURA E FECHAMENTO
 -- ----------------------------------------------------------------------------
 function TrainerMenu:Open()
+    -- Garante que o Data Lake de Localização esteja carregado antes de renderizar qualquer texto
+    if ConsoleMode and ConsoleMode.LoadDataLake then
+        ConsoleMode:LoadDataLake("TrainerMenu")
+    end
+
     self:CreateUI()
     self:UpdateLayout()
     self:RefreshHeader()

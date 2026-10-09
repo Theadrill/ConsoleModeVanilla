@@ -46,4 +46,5 @@ UI\BagSplit.lua
 UI\QuantityPicker.lua
 UI\MailScreen.lua
 UI\EnhanceModal.lua
+UI\TrainerMenu.lua
 Hooks.lua

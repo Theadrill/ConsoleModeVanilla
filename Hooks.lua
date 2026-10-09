@@ -105,7 +105,7 @@ Hooks.frames = {
     { frame = "TradeSkillFrame" },
     { frame = "BankFrame" },
     { frame = "TaxiFrame" },
-    { frame = "ClassTrainerFrame" },
+    -- { frame = "ClassTrainerFrame",   name = "Treinador" }, -- Gerenciado exclusivamente pelo ConsoleMode_TrainerMenu
     { frame = "AuctionFrame" },
     -- AUX addon: frame substituto da Casa de Leiloes (oculta AuctionFrame Blizzard)
     -- Registrado aqui para late-hook via TryHookPendingFrames. Gated por Cursor:IsAUXSupported().
@@ -861,6 +861,21 @@ function Hooks:CloseTopFrame()
     -- Modal de Aprimoramento (EnhanceModal)
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
         ConsoleMode_EnhanceModal:Close()
+        return true
+    end
+
+    -- Menu de Treinador ConsoleMode
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        ConsoleMode_TrainerMenu:Close()
+        return true
+    end
+    local tFrame = getglobal("ConsoleMode_TrainerFrame")
+    if tFrame and tFrame:IsVisible() then
+        if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.Close then
+            ConsoleMode_TrainerMenu:Close()
+        else
+            tFrame:Hide()
+        end
         return true
     end
 

@@ -453,7 +453,7 @@ modFrame:SetScript("OnUpdate", function()
     local shiftNow = IsShiftKeyDown()
     local altNow = IsAltKeyDown()
 
-    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) or (ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen)
+    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) or (ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen) or (ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen)
 
     -- VK-3: com o teclado aberto o R1/L2/R2 nao ciclam abas por tras.
     local vkOpen = false
@@ -845,6 +845,10 @@ function KB:ExitNavigationMode(force)
     -- Não sai do modo de navegação se o Menu do Mercador ou Menu Principal estiverem abertos, a menos que seja forçado
     if not force then
         if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
+            return
+        end
+        -- Menu de Treinador: mantem o modo navegacao
+        if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
             return
         end
         -- M1 Mail: janela do correio mantem o modo navegacao (B fecha via CM_CursorCancel).
@@ -1764,6 +1768,16 @@ function CM_CursorCancel()
         end
         ConsoleMode_MerchantMenu:Close()
         -- DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[CM Key]|r Botao B (Mercador fechado)") -- NOLOG 2026-09-14
+        return
+    end
+
+    -- Prioridade de Treinador ConsoleMode ([B] fecha modal do carrinho primeiro, depois janela)
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.OnCancel then
+            ConsoleMode_TrainerMenu:OnCancel()
+        else
+            ConsoleMode_TrainerMenu:Close()
+        end
         return
     end
 

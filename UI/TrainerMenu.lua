@@ -85,7 +85,9 @@ TrainerMenu.flattenedList     = {}
 TrainerMenu.selectedIndex     = 1
 TrainerMenu.scrollOffset      = 0
 TrainerMenu.visibleRowCount   = 8
+TrainerMenu.isFutureCollapsed = true
 TrainerMenu.isUsedCollapsed   = true
+TrainerMenu.collapsedTrees    = {}
 TrainerMenu.searchText        = ""
 TrainerMenu.catalogRows       = {}
 
@@ -322,7 +324,9 @@ function TrainerMenu:UpdateFooterHints()
     if not self.frame or not self.footerWidgets then return end
 
     local selEntry = self.flattenedList and self.flattenedList[self.selectedIndex]
-    local isUsedHeader = (selEntry and selEntry.id == "SECTION_USED")
+    local isUsedHeader   = (selEntry and selEntry.id == "SECTION_USED")
+    local isFutureHeader = (selEntry and selEntry.id == "SECTION_FUTURE")
+    local isTreeHeader   = (selEntry and selEntry.type == "TREE_HEADER")
 
     -- Adapta dinamicamente a legenda do Botão A conforme foco
     if self.footerWidgets[1] and self.footerWidgets[1].label then
@@ -331,6 +335,18 @@ function TrainerMenu:UpdateFooterHints()
                 self.footerWidgets[1].label:SetText("Expandir Seção")
             else
                 self.footerWidgets[1].label:SetText("Recolher Seção")
+            end
+        elseif isFutureHeader then
+            if self.isFutureCollapsed then
+                self.footerWidgets[1].label:SetText("Expandir Seção")
+            else
+                self.footerWidgets[1].label:SetText("Recolher Seção")
+            end
+        elseif isTreeHeader then
+            if selEntry.isCollapsed then
+                self.footerWidgets[1].label:SetText("Expandir Árvore")
+            else
+                self.footerWidgets[1].label:SetText("Recolher Árvore")
             end
         else
             self.footerWidgets[1].label:SetText("Marcar / Expandir")
@@ -600,7 +616,7 @@ function TrainerMenu:RestoreRowBorder(row)
         if entry.type == "SECTION_HEADER" then
             row:SetBackdropBorderColor(0.55, 0.42, 0.22, 0.60)
         elseif entry.type == "TREE_HEADER" then
-            row:SetBackdropBorderColor(0.28, 0.22, 0.15, 0.20)
+            row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.50)
         elseif entry.type == "EMPTY_NOTICE" then
             row:SetBackdropBorderColor(0.20, 0.18, 0.15, 0.15)
         else
@@ -1053,7 +1069,7 @@ function TrainerMenu:BuildFlattenedList()
         })
     end
 
-    -- 2. Seção: HABILIDADES FUTURAS (POR TREE)
+    -- 2. Seção: HABILIDADES FUTURAS (Colapsável por padrão, auto-expande na busca)
     local futureFiltered = {}
     local numFuture = table.getn(self.futureServices or {})
     for i = 1, numFuture do
@@ -1063,66 +1079,92 @@ function TrainerMenu:BuildFlattenedList()
         end
     end
 
+    local isFutureCol = self.isFutureCollapsed
+    local futureLabel = ""
+    if isFutureCol then
+        futureLabel = "▶ HABILIDADES FUTURAS (" .. table.getn(futureFiltered) .. ")  |cffaaaaaa[A / Clique] Expandir|r"
+    else
+        futureLabel = "▼ HABILIDADES FUTURAS (" .. table.getn(futureFiltered) .. ")  |cffaaaaaa[A / Clique] Recolher|r"
+    end
+
     table.insert(flat, {
         type = "SECTION_HEADER",
         id = "SECTION_FUTURE",
-        text = "▼ HABILIDADES FUTURAS (" .. table.getn(futureFiltered) .. ")",
+        text = futureLabel,
         count = table.getn(futureFiltered),
-        isInteractive = false,
+        isInteractive = true,
+        isCollapsed = isFutureCol,
     })
 
-    local numFutureF = table.getn(futureFiltered)
-    if numFutureF > 0 then
-        local futureByTree = {}
-        local order = {}
-        local seen = {}
+    if not isFutureCol then
+        local numFutureF = table.getn(futureFiltered)
+        if numFutureF > 0 then
+            local futureByTree = {}
+            local order = {}
+            local seen = {}
 
-        local numKnownTrees = table.getn(self.treesOrder or {})
-        for t = 1, numKnownTrees do
-            local trName = self.treesOrder[t]
-            if not seen[trName] then
-                seen[trName] = true
-                table.insert(order, trName)
+            local numKnownTrees = table.getn(self.treesOrder or {})
+            for t = 1, numKnownTrees do
+                local trName = self.treesOrder[t]
+                if not seen[trName] then
+                    seen[trName] = true
+                    table.insert(order, trName)
+                end
             end
-        end
 
-        for i = 1, numFutureF do
-            local it = futureFiltered[i]
-            local tr = it.tree or "Geral"
-            if not seen[tr] then
-                seen[tr] = true
-                table.insert(order, tr)
+            for i = 1, numFutureF do
+                local it = futureFiltered[i]
+                local tr = it.tree or "Geral"
+                if not seen[tr] then
+                    seen[tr] = true
+                    table.insert(order, tr)
+                end
+                futureByTree[tr] = futureByTree[tr] or {}
+                table.insert(futureByTree[tr], it)
             end
-            futureByTree[tr] = futureByTree[tr] or {}
-            table.insert(futureByTree[tr], it)
-        end
 
-        local numOrder = table.getn(order)
-        for t = 1, numOrder do
-            local trName = order[t]
-            local itemsInTree = futureByTree[trName]
-            if itemsInTree and table.getn(itemsInTree) > 0 then
-                if numOrder > 1 or trName ~= "Geral" then
+            local numOrder = table.getn(order)
+            for t = 1, numOrder do
+                local trName = order[t]
+                local itemsInTree = futureByTree[trName]
+                if itemsInTree and table.getn(itemsInTree) > 0 then
+                    local treeKey = "FUTURE_" .. trName
+                    local isTreeCollapsed = true
+                    if self.collapsedTrees and self.collapsedTrees[treeKey] ~= nil then
+                        isTreeCollapsed = self.collapsedTrees[treeKey]
+                    end
+                    local nTree = table.getn(itemsInTree)
+
+                    local treeIcon = isTreeCollapsed and "▶ " or "▼ "
+                    local treeHint = isTreeCollapsed and "  |cffaaaaaa[A] Expandir|r" or "  |cffaaaaaa[A] Recolher|r"
+
                     table.insert(flat, {
                         type = "TREE_HEADER",
-                        text = "◆ Árvore: " .. trName,
+                        id   = treeKey,
                         tree = trName,
+                        section = "FUTURE",
+                        text = treeIcon .. "Árvore: " .. trName .. " (" .. nTree .. ")" .. treeHint,
+                        count = nTree,
+                        isInteractive = true,
+                        isCollapsed = isTreeCollapsed,
                     })
-                end
-                local nTree = table.getn(itemsInTree)
-                for k = 1, nTree do
-                    table.insert(flat, {
-                        type = "SERVICE_ITEM",
-                        item = itemsInTree[k],
-                    })
+
+                    if not isTreeCollapsed then
+                        for k = 1, nTree do
+                            table.insert(flat, {
+                                type = "SERVICE_ITEM",
+                                item = itemsInTree[k],
+                            })
+                        end
+                    end
                 end
             end
+        else
+            table.insert(flat, {
+                type = "EMPTY_NOTICE",
+                text = (searchLower and "Nenhuma futura encontrada com o termo." or "Nenhuma habilidade futura."),
+            })
         end
-    else
-        table.insert(flat, {
-            type = "EMPTY_NOTICE",
-            text = (searchLower and "Nenhuma futura encontrada com o termo." or "Nenhuma habilidade futura."),
-        })
     end
 
     -- 3. Seção: JÁ APRENDIDAS (Colapsável por padrão, auto-expande na busca)
@@ -1184,19 +1226,34 @@ function TrainerMenu:BuildFlattenedList()
                 local trName = order[t]
                 local itemsInTree = usedByTree[trName]
                 if itemsInTree and table.getn(itemsInTree) > 0 then
-                    if numOrder > 1 or trName ~= "Geral" then
-                        table.insert(flat, {
-                            type = "TREE_HEADER",
-                            text = "◆ Árvore: " .. trName,
-                            tree = trName,
-                        })
+                    local treeKey = "USED_" .. trName
+                    local isTreeCollapsed = true
+                    if self.collapsedTrees and self.collapsedTrees[treeKey] ~= nil then
+                        isTreeCollapsed = self.collapsedTrees[treeKey]
                     end
                     local nTree = table.getn(itemsInTree)
-                    for k = 1, nTree do
-                        table.insert(flat, {
-                            type = "SERVICE_ITEM",
-                            item = itemsInTree[k],
-                        })
+
+                    local treeIcon = isTreeCollapsed and "▶ " or "▼ "
+                    local treeHint = isTreeCollapsed and "  |cffaaaaaa[A] Expandir|r" or "  |cffaaaaaa[A] Recolher|r"
+
+                    table.insert(flat, {
+                        type = "TREE_HEADER",
+                        id   = treeKey,
+                        tree = trName,
+                        section = "USED",
+                        text = treeIcon .. "Árvore: " .. trName .. " (" .. nTree .. ")" .. treeHint,
+                        count = nTree,
+                        isInteractive = true,
+                        isCollapsed = isTreeCollapsed,
+                    })
+
+                    if not isTreeCollapsed then
+                        for k = 1, nTree do
+                            table.insert(flat, {
+                                type = "SERVICE_ITEM",
+                                item = itemsInTree[k],
+                            })
+                        end
                     end
                 end
             end
@@ -1341,15 +1398,23 @@ function TrainerMenu:UpdateCatalogRows()
                     row.nameText:Hide()
                     row.subText:Hide()
                     row.priceText:Hide()
-                    row.cursor:Hide()
-                    row.highlight:Hide()
 
                     row.headerText:Show()
                     self:ApplyFont(row.headerText, FONTS.titleBold, 14)
                     row.headerText:SetText("|cffedd28c" .. entry.text .. "|r")
 
-                    row:SetBackdropColor(0.06, 0.05, 0.04, 0.35)
-                    row:SetBackdropBorderColor(0.28, 0.22, 0.15, 0.20)
+                    local isSel = (flatIdx == self.selectedIndex)
+                    if isSel then
+                        row.cursor:Show()
+                        row.highlight:Show()
+                        row:SetBackdropColor(0.20, 0.15, 0.08, 0.85)
+                        row:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
+                    else
+                        row.cursor:Hide()
+                        row.highlight:Hide()
+                        row:SetBackdropColor(0.12, 0.09, 0.06, 0.55)
+                        row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.50)
+                    end
 
                 elseif entry.type == "EMPTY_NOTICE" then
                     row.icon:Hide()
@@ -1398,6 +1463,8 @@ function TrainerMenu:IsEntrySelectable(entry)
     if not entry then return false end
     if entry.type == "SERVICE_ITEM" then return true end
     if entry.id == "SECTION_USED" then return true end
+    if entry.id == "SECTION_FUTURE" then return true end
+    if entry.type == "TREE_HEADER" then return true end
     return false
 end
 
@@ -1492,6 +1559,12 @@ function TrainerMenu:OnRowClick(flatIndex)
     if entry.id == "SECTION_USED" then
         self.selectedIndex = flatIndex
         self:ToggleUsedSection()
+    elseif entry.id == "SECTION_FUTURE" then
+        self.selectedIndex = flatIndex
+        self:ToggleFutureSection()
+    elseif entry.type == "TREE_HEADER" then
+        self.selectedIndex = flatIndex
+        self:ToggleTree(entry.id)
     elseif entry.type == "SERVICE_ITEM" then
         self:SelectIndex(flatIndex)
     end
@@ -1499,6 +1572,34 @@ end
 
 function TrainerMenu:ToggleUsedSection()
     self.isUsedCollapsed = not self.isUsedCollapsed
+    PlaySound("igMainMenuOptionCheckBoxOn")
+    self:BuildFlattenedList()
+    self:EnsureValidSelection()
+    self:ScrollToSelection()
+    self:UpdateCatalogRows()
+    self:UpdateRightColPlaceholder()
+    self:UpdateFooterHints()
+end
+
+function TrainerMenu:ToggleFutureSection()
+    self.isFutureCollapsed = not self.isFutureCollapsed
+    PlaySound("igMainMenuOptionCheckBoxOn")
+    self:BuildFlattenedList()
+    self:EnsureValidSelection()
+    self:ScrollToSelection()
+    self:UpdateCatalogRows()
+    self:UpdateRightColPlaceholder()
+    self:UpdateFooterHints()
+end
+
+function TrainerMenu:ToggleTree(treeKey)
+    if not treeKey then return end
+    self.collapsedTrees = self.collapsedTrees or {}
+    local curState = true
+    if self.collapsedTrees[treeKey] ~= nil then
+        curState = self.collapsedTrees[treeKey]
+    end
+    self.collapsedTrees[treeKey] = not curState
     PlaySound("igMainMenuOptionCheckBoxOn")
     self:BuildFlattenedList()
     self:EnsureValidSelection()
@@ -1560,7 +1661,7 @@ function TrainerMenu:EnsureRepeatTicker()
     self.repeatFrame = f
 end
 
--- Botão A no controle: Alterna Seção Já Aprendidas ou Seleciona Habilidade
+-- Botão A no controle: Alterna Seção Já Aprendidas / Futuras, Alterna Árvores ou Seleciona Habilidade
 function TrainerMenu:OnConfirm()
     if not self.isOpen then return end
     local entry = self.flattenedList and self.flattenedList[self.selectedIndex]
@@ -1568,6 +1669,10 @@ function TrainerMenu:OnConfirm()
 
     if entry.id == "SECTION_USED" then
         self:ToggleUsedSection()
+    elseif entry.id == "SECTION_FUTURE" then
+        self:ToggleFutureSection()
+    elseif entry.type == "TREE_HEADER" then
+        self:ToggleTree(entry.id)
     elseif entry.type == "SERVICE_ITEM" then
         PlaySound("igMainMenuOptionCheckBoxOn")
         -- Na Fase 5: alternará checkbox de carrinho [✓]
@@ -1615,12 +1720,23 @@ function TrainerMenu:SetSearchFilter(text)
         end
     end
 
-    -- Ao digitar qualquer termo na busca, auto-expande a seção Já Aprendidas
+    -- Ao digitar qualquer termo na busca, auto-expande as seções e árvores
     local trimmed = string.gsub(text, "^%s*(.-)%s*$", "%1")
     if trimmed ~= "" then
-        self.isUsedCollapsed = false
+        self.isFutureCollapsed = false
+        self.isUsedCollapsed   = false
+        self.collapsedTrees    = {}
+        -- Marca árvores como expandidas na busca
+        local numKnown = table.getn(self.treesOrder or {})
+        for t = 1, numKnown do
+            local tr = self.treesOrder[t]
+            self.collapsedTrees["FUTURE_" .. tr] = false
+            self.collapsedTrees["USED_" .. tr]   = false
+        end
     else
-        self.isUsedCollapsed = true
+        self.isFutureCollapsed = true
+        self.isUsedCollapsed   = true
+        self.collapsedTrees    = {}
     end
 
     self:BuildFlattenedList()
@@ -1662,10 +1778,12 @@ function TrainerMenu:Open()
     self:UpdateLayout()
     self:RefreshHeader()
 
-    self.searchText      = ""
-    self.isUsedCollapsed = true
-    self.selectedIndex   = 1
-    self.scrollOffset    = 0
+    self.searchText        = ""
+    self.isFutureCollapsed = true
+    self.isUsedCollapsed   = true
+    self.collapsedTrees    = {}
+    self.selectedIndex     = 1
+    self.scrollOffset      = 0
     if self.searchEditBox then
         self.searchEditBox:SetText("")
     end
@@ -1717,6 +1835,9 @@ function TrainerMenu:Close()
     self.usedServices      = {}
     self.treesOrder        = {}
     self.flattenedList     = {}
+    self.isFutureCollapsed = true
+    self.isUsedCollapsed   = true
+    self.collapsedTrees    = {}
     self.searchText        = ""
     self.repeatState.direction = nil
     self.repeatState.timer     = 0

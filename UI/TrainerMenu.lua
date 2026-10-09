@@ -260,13 +260,13 @@ end
 
 function TrainerMenu:CreateFooterHints(parent)
     local hints = {
-        { icons = { "A" },    label = "Marcar / Expandir" },
-        { icons = { "RT" },   label = "Revisar Carrinho (0)" },
-        { icons = { "Y" },    label = "Marcar Todas" },
-        { icons = { "DALL" }, label = "Navegar" },
-        { icons = { "L3" },   label = "Focar Busca" },
-        { icons = { "X" },    label = "Limpar Busca" },
-        { icons = { "B" },    label = "Fechar" },
+        { icons = { "A" },    label = CM:T("TRAINER_HINT_MARK_EXPAND") },
+        { icons = { "RT" },   label = format(CM:T("TRAINER_HINT_REVIEW_CART_FMT"), 0) },
+        { icons = { "Y" },    label = CM:T("TRAINER_HINT_MARK_ALL") },
+        { icons = { "DALL" }, label = CM:T("TRAINER_HINT_NAVIGATE") },
+        { icons = { "L3" },   label = CM:T("TRAINER_HINT_FOCUS_SEARCH") },
+        { icons = { "X" },    label = CM:T("TRAINER_HINT_CLEAR_SEARCH") },
+        { icons = { "B" },    label = CM:T("TRAINER_HINT_CLOSE") },
     }
 
     local container = CreateFrame("Frame", "ConsoleMode_TrainerFooterContainer", parent)
@@ -359,39 +359,39 @@ function TrainerMenu:UpdateFooterHints()
     -- Adapta dinamicamente a legenda do Botão A conforme foco
     if self.footerWidgets[1] and self.footerWidgets[1].label then
         if self.isSearchSelected then
-            self.footerWidgets[1].label:SetText("Abrir Teclado")
+            self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_OPEN_KEYBOARD"))
         elseif isUsedHeader then
             if self.isUsedCollapsed then
-                self.footerWidgets[1].label:SetText("Expandir Seção")
+                self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_EXPAND_SECTION"))
             else
-                self.footerWidgets[1].label:SetText("Recolher Seção")
+                self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_COLLAPSE_SECTION"))
             end
         elseif isFutureHeader then
             if self.isFutureCollapsed then
-                self.footerWidgets[1].label:SetText("Expandir Seção")
+                self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_EXPAND_SECTION"))
             else
-                self.footerWidgets[1].label:SetText("Recolher Seção")
+                self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_COLLAPSE_SECTION"))
             end
         elseif isTreeHeader then
             if selEntry.isCollapsed then
-                self.footerWidgets[1].label:SetText("Expandir Árvore")
+                self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_EXPAND_TREE"))
             else
-                self.footerWidgets[1].label:SetText("Recolher Árvore")
+                self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_COLLAPSE_TREE"))
             end
         else
-            self.footerWidgets[1].label:SetText("Marcar / Expandir")
+            self.footerWidgets[1].label:SetText(CM:T("TRAINER_HINT_MARK_EXPAND"))
         end
     end
 
     -- Adapta legenda do Botão RT (Carrinho) e Y (Marcar Todas)
     local cartCount = (self.GetCartCount and self:GetCartCount()) or 0
     if self.footerWidgets[2] and self.footerWidgets[2].label then
-        self.footerWidgets[2].label:SetText("Revisar Carrinho (" .. cartCount .. ")")
+        self.footerWidgets[2].label:SetText(format(CM:T("TRAINER_HINT_REVIEW_CART_FMT"), cartCount))
     end
     if self.footerWidgets[3] and self.footerWidgets[3].label then
         local numAvail = table.getn(self.availableServices or {})
         local allSelected = (numAvail > 0 and cartCount >= numAvail)
-        self.footerWidgets[3].label:SetText(allSelected and "Desmarcar Todas" or "Marcar Todas")
+        self.footerWidgets[3].label:SetText(allSelected and CM:T("TRAINER_HINT_UNMARK_ALL") or CM:T("TRAINER_HINT_MARK_ALL"))
     end
 
     local numWidgets = table.getn(self.footerWidgets)
@@ -492,7 +492,7 @@ function TrainerMenu:CreateSearchBar(parent)
     local clearText = clearBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     clearText:SetPoint("CENTER", clearBtn, "CENTER", 0, 0)
     self:ApplyFont(clearText, FONTS.bodyBold, 15)
-    clearText:SetText("|cffaaaaaa[X]|r")
+    clearText:SetText(CM:T("TRAINER_SEARCH_CLEAR_BUTTON"))
 
     clearBtn:SetScript("OnClick", function()
         TrainerMenu:ClearSearch()
@@ -503,7 +503,7 @@ function TrainerMenu:CreateSearchBar(parent)
     local placeholder = searchBar:CreateFontString(nil, "ARTWORK", "GameFontDisable")
     placeholder:SetPoint("LEFT", lsBtn, "RIGHT", 6, 0)
     self:ApplyFont(placeholder, FONTS.medium, 14)
-    placeholder:SetText("|cff777777🔍 Buscar habilidade...|r")
+    placeholder:SetText(CM:T("TRAINER_SEARCH_PLACEHOLDER"))
 
     -- EditBox nativo com suporte a digitação física e clique de mouse
     local eb = CreateFrame("EditBox", "ConsoleMode_TrainerSearchEB", searchBar)
@@ -771,7 +771,7 @@ function TrainerMenu:CreateDetailPanel(parent)
     local oldHeader = oldCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     oldHeader:SetPoint("TOPLEFT", oldCard, "TOPLEFT", 8, -6)
     self:ApplyFont(oldHeader, FONTS.bodyBold, 13)
-    oldHeader:SetText("|cffaaaaaa[ATUALMENTE NO GRIMÓRIO]|r")
+    oldHeader:SetText(CM:T("TRAINER_DETAIL_CURRENT_IN_SPELLBOOK"))
     oldCard.header = oldHeader
 
     local oldDesc = oldCard:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
@@ -786,7 +786,7 @@ function TrainerMenu:CreateDetailPanel(parent)
     local arrowText = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     arrowText:SetPoint("TOP", oldCard, "BOTTOM", 0, -4)
     self:ApplyFont(arrowText, FONTS.titleBold, 13)
-    arrowText:SetText("|cffe09a15▼ EVOLUÇÃO PARA O PRÓXIMO GRAU|r")
+    arrowText:SetText(CM:T("TRAINER_DETAIL_EVOLUTION_TO_NEXT_RANK"))
     card.arrowText = arrowText
 
     -- 3. Card do Novo Grau (Oferecido pelo Treinador)
@@ -807,7 +807,7 @@ function TrainerMenu:CreateDetailPanel(parent)
     local newHeader = newCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     newHeader:SetPoint("TOPLEFT", newCard, "TOPLEFT", 8, -6)
     self:ApplyFont(newHeader, FONTS.bodyBold, 13)
-    newHeader:SetText("|cffe09a15[OFERECIDO PELO TREINADOR]|r")
+    newHeader:SetText(CM:T("TRAINER_DETAIL_OFFERED_BY_TRAINER"))
     newCard.header = newHeader
 
     local newDesc = newCard:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
@@ -835,7 +835,7 @@ function TrainerMenu:CreateDetailPanel(parent)
     local diffHeader = diffCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     diffHeader:SetPoint("TOPLEFT", diffCard, "TOPLEFT", 8, -6)
     self:ApplyFont(diffHeader, FONTS.bodyBold, 13)
-    diffHeader:SetText("|cffedd28cRESUMO & REQUISITOS:|r")
+    diffHeader:SetText(CM:T("TRAINER_DETAIL_SUMMARY_REQUIREMENTS"))
     diffCard.header = diffHeader
 
     local diffText = diffCard:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
@@ -888,7 +888,7 @@ function TrainerMenu:CreateUI()
     local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     titleText:SetPoint("TOP", frame, "TOP", 0, -18)
     self:ApplyFont(titleText, FONTS.titleBold, 22)
-    titleText:SetText("TREINAMENTO DE CLASSE")
+    titleText:SetText(CM:T("TRAINER_TITLE_CLASS"))
     frame.titleText = titleText
 
     -- Barra de Cabeçalho (Nome do NPC, Saldo de Moedas e Botão Fechar)
@@ -902,14 +902,14 @@ function TrainerMenu:CreateUI()
     local npcNameText = header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     npcNameText:SetPoint("LEFT", header, "LEFT", 0, 0)
     self:ApplyFont(npcNameText, FONTS.titleBold, 18)
-    npcNameText:SetText("Treinador: |cffe09a15Desconhecido|r")
+    npcNameText:SetText(format(CM:T("TRAINER_HEADER_NPC_FMT"), CM:T("TRAINER_UNKNOWN_NAME")))
     header.npcNameText = npcNameText
 
     -- Saldo de Moedas
     local playerMoneyText = header:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     playerMoneyText:SetPoint("RIGHT", header, "RIGHT", -110, 0)
     self:ApplyFont(playerMoneyText, FONTS.titleBold, 18)
-    playerMoneyText:SetText("0g 0s 0c")
+    playerMoneyText:SetText(self:FormatMoneyText(0))
     header.playerMoneyText = playerMoneyText
 
     -- Resumo do Carrinho no Cabeçalho (Botão Clicável)
@@ -942,7 +942,7 @@ function TrainerMenu:CreateUI()
     local closeText = closeBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     closeText:SetPoint("CENTER", closeBtn, "CENTER", 0, 0)
     self:ApplyFont(closeText, FONTS.bodyBold, 15)
-    closeText:SetText("|cffffffff[B] Fechar|r")
+    closeText:SetText(CM:T("TRAINER_BUTTON_CLOSE"))
 
     closeBtn:SetScript("OnClick", function()
         TrainerMenu:Close()
@@ -1020,7 +1020,7 @@ function TrainerMenu:CreateUI()
     end
 
     -- Coluna Esquerda: Catálogo de Habilidades
-    local leftCol = CreateColumnPanel("ConsoleMode_TrainerColLeft", "CATÁLOGO DE HABILIDADES", ICONS.LB)
+    local leftCol = CreateColumnPanel("ConsoleMode_TrainerColLeft", CM:T("TRAINER_COLUMN_CATALOG"), ICONS.LB)
     leftCol:SetPoint("TOPLEFT", contentArea, "TOPLEFT", 0, 0)
     leftCol:SetPoint("BOTTOMLEFT", contentArea, "BOTTOMLEFT", 0, 0)
     leftCol:SetPoint("RIGHT", divider, "LEFT", -6, 0)
@@ -1047,11 +1047,11 @@ function TrainerMenu:CreateUI()
     self:CreateCatalogRows(listArea)
 
     -- Coluna Direita: Detalhes & Comparativo
-    local rightCol = CreateColumnPanel("ConsoleMode_TrainerColRight", "DETALHES & EVOLUÇÃO DA HABILIDADE", ICONS.RB)
+    local rightCol = CreateColumnPanel("ConsoleMode_TrainerColRight", CM:T("TRAINER_COLUMN_DETAILS"), ICONS.RB)
     rightCol:SetPoint("TOPRIGHT", contentArea, "TOPRIGHT", 0, 0)
     rightCol:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
     rightCol:SetPoint("LEFT", divider, "RIGHT", 6, 0)
-    rightCol.placeholder:SetText("|cffe09a15Selecione uma habilidade à esquerda para inspecionar.|r\n|cffaaaaaaUse o D-Pad ou clique do mouse para ver detalhes completos.|r")
+    rightCol.placeholder:SetText(CM:T("TRAINER_PLACEHOLDER_SELECT_SKILL"))
 
     -- Cria o painel estruturado de detalhes
     self:CreateDetailPanel(rightCol)
@@ -1105,18 +1105,18 @@ function TrainerMenu:RefreshHeader()
     if not self.frame then return end
 
     -- Título dinâmico
-    local titleStr = "TREINAMENTO DE CLASSE"
+    local titleStr = CM:T("TRAINER_TITLE_CLASS")
     if self.trainerType == "tradeskill" then
-        titleStr = "TREINAMENTO DE PROFISSÃO"
+        titleStr = CM:T("TRAINER_TITLE_TRADESKILL")
     end
     if self.frame.titleText then
         self.frame.titleText:SetText(titleStr)
     end
 
     -- Nome do NPC em Dourado
-    local npcName = self.trainerName or UnitName("npc") or "Treinador"
+    local npcName = self.trainerName or UnitName("npc") or CM:T("TRAINER_UNKNOWN_NAME")
     if self.frame.header and self.frame.header.npcNameText then
-        self.frame.header.npcNameText:SetText("Treinador: |cffe09a15" .. npcName .. "|r")
+        self.frame.header.npcNameText:SetText(format(CM:T("TRAINER_HEADER_NPC_FMT"), npcName))
     end
 
     -- Saldo do jogador
@@ -1129,9 +1129,9 @@ function TrainerMenu:RefreshHeader()
     local numAvail = table.getn(self.availableServices or {})
     if self.frame.leftCol and self.frame.leftCol.availCountText then
         if numAvail > 0 then
-            self.frame.leftCol.availCountText:SetText("|cff1eff00(" .. numAvail .. " Disponíveis)|r")
+            self.frame.leftCol.availCountText:SetText(format(CM:T("TRAINER_AVAIL_COUNT_FMT"), numAvail))
         else
-            self.frame.leftCol.availCountText:SetText("|cffaaaaaa(0 Disponíveis)|r")
+            self.frame.leftCol.availCountText:SetText(CM:T("TRAINER_AVAIL_COUNT_ZERO"))
         end
     end
 
@@ -1140,7 +1140,7 @@ function TrainerMenu:RefreshHeader()
         local count = (self.GetCartCount and self:GetCartCount()) or 0
         if count > 0 then
             local totalCost = (self.GetCartTotalCost and self:GetCartTotalCost()) or 0
-            self.frame.header.cartSummaryText:SetText("|cffe09a15Carrinho: " .. count .. " (" .. self:FormatMoneyText(totalCost) .. ")|r")
+            self.frame.header.cartSummaryText:SetText(format(CM:T("TRAINER_CART_SUMMARY_FMT"), count, self:FormatMoneyText(totalCost)))
         else
             self.frame.header.cartSummaryText:SetText("")
         end
@@ -1236,7 +1236,7 @@ function TrainerMenu:ScanTrainerServices()
     self.numServices = numServices
 
     local rawServices = {}
-    local currentTree = "Geral"
+    local currentTree = CM:T("TRAINER_TREE_GENERAL")
     local treesOrder = {}
     local seenTrees = {}
 
@@ -1377,7 +1377,7 @@ function TrainerMenu:BuildFlattenedList()
     table.insert(flat, {
         type = "SECTION_HEADER",
         id = "SECTION_AVAIL",
-        text = "▼ DISPONÍVEIS PARA APRENDER (" .. table.getn(availFiltered) .. ")",
+        text = format(CM:T("TRAINER_SECTION_AVAILABLE_FMT"), table.getn(availFiltered)),
         count = table.getn(availFiltered),
         isInteractive = false,
     })
@@ -1393,7 +1393,7 @@ function TrainerMenu:BuildFlattenedList()
     else
         table.insert(flat, {
             type = "EMPTY_NOTICE",
-            text = (searchLower and "Nenhuma disponível encontrada com o termo." or "Nenhuma habilidade disponível no momento."),
+            text = (searchLower and CM:T("TRAINER_EMPTY_AVAILABLE_SEARCH") or CM:T("TRAINER_EMPTY_AVAILABLE")),
         })
     end
 
@@ -1410,9 +1410,9 @@ function TrainerMenu:BuildFlattenedList()
     local isFutureCol = self.isFutureCollapsed
     local futureLabel = ""
     if isFutureCol then
-        futureLabel = "▶ HABILIDADES FUTURAS (" .. table.getn(futureFiltered) .. ")  |cffaaaaaa[A / Clique] Expandir|r"
+        futureLabel = format(CM:T("TRAINER_SECTION_FUTURE_COLLAPSED_FMT"), table.getn(futureFiltered))
     else
-        futureLabel = "▼ HABILIDADES FUTURAS (" .. table.getn(futureFiltered) .. ")  |cffaaaaaa[A / Clique] Recolher|r"
+        futureLabel = format(CM:T("TRAINER_SECTION_FUTURE_EXPANDED_FMT"), table.getn(futureFiltered))
     end
 
     table.insert(flat, {
@@ -1442,7 +1442,7 @@ function TrainerMenu:BuildFlattenedList()
 
             for i = 1, numFutureF do
                 local it = futureFiltered[i]
-                local tr = it.tree or "Geral"
+                local tr = it.tree or CM:T("TRAINER_TREE_GENERAL")
                 if not seen[tr] then
                     seen[tr] = true
                     table.insert(order, tr)
@@ -1464,14 +1464,14 @@ function TrainerMenu:BuildFlattenedList()
                     local nTree = table.getn(itemsInTree)
 
                     local treeIcon = isTreeCollapsed and "▶ " or "▼ "
-                    local treeHint = isTreeCollapsed and "  |cffaaaaaa[A] Expandir|r" or "  |cffaaaaaa[A] Recolher|r"
+                    local treeHint = isTreeCollapsed and CM:T("TRAINER_TREE_HINT_EXPAND") or CM:T("TRAINER_TREE_HINT_COLLAPSE")
 
                     table.insert(flat, {
                         type = "TREE_HEADER",
                         id   = treeKey,
                         tree = trName,
                         section = "FUTURE",
-                        text = treeIcon .. "Árvore: " .. trName .. " (" .. nTree .. ")" .. treeHint,
+                        text = format(CM:T("TRAINER_TREE_HEADER_FMT"), treeIcon, trName, nTree, treeHint),
                         count = nTree,
                         isInteractive = true,
                         isCollapsed = isTreeCollapsed,
@@ -1490,7 +1490,7 @@ function TrainerMenu:BuildFlattenedList()
         else
             table.insert(flat, {
                 type = "EMPTY_NOTICE",
-                text = (searchLower and "Nenhuma futura encontrada com o termo." or "Nenhuma habilidade futura."),
+                text = (searchLower and CM:T("TRAINER_EMPTY_FUTURE_SEARCH") or CM:T("TRAINER_EMPTY_FUTURE")),
             })
         end
     end
@@ -1508,9 +1508,9 @@ function TrainerMenu:BuildFlattenedList()
     local isCollapsed = self.isUsedCollapsed
     local usedLabel = ""
     if isCollapsed then
-        usedLabel = "▶ JÁ APRENDIDAS (" .. table.getn(usedFiltered) .. ")  |cffaaaaaa[A / Clique] Expandir|r"
+        usedLabel = format(CM:T("TRAINER_SECTION_USED_COLLAPSED_FMT"), table.getn(usedFiltered))
     else
-        usedLabel = "▼ JÁ APRENDIDAS (" .. table.getn(usedFiltered) .. ")  |cffaaaaaa[A / Clique] Recolher|r"
+        usedLabel = format(CM:T("TRAINER_SECTION_USED_EXPANDED_FMT"), table.getn(usedFiltered))
     end
 
     table.insert(flat, {
@@ -1540,7 +1540,7 @@ function TrainerMenu:BuildFlattenedList()
 
             for i = 1, numUsedF do
                 local it = usedFiltered[i]
-                local tr = it.tree or "Geral"
+                local tr = it.tree or CM:T("TRAINER_TREE_GENERAL")
                 if not seen[tr] then
                     seen[tr] = true
                     table.insert(order, tr)
@@ -1562,14 +1562,14 @@ function TrainerMenu:BuildFlattenedList()
                     local nTree = table.getn(itemsInTree)
 
                     local treeIcon = isTreeCollapsed and "▶ " or "▼ "
-                    local treeHint = isTreeCollapsed and "  |cffaaaaaa[A] Expandir|r" or "  |cffaaaaaa[A] Recolher|r"
+                    local treeHint = isTreeCollapsed and CM:T("TRAINER_TREE_HINT_EXPAND") or CM:T("TRAINER_TREE_HINT_COLLAPSE")
 
                     table.insert(flat, {
                         type = "TREE_HEADER",
                         id   = treeKey,
                         tree = trName,
                         section = "USED",
-                        text = treeIcon .. "Árvore: " .. trName .. " (" .. nTree .. ")" .. treeHint,
+                        text = format(CM:T("TRAINER_TREE_HEADER_FMT"), treeIcon, trName, nTree, treeHint),
                         count = nTree,
                         isInteractive = true,
                         isCollapsed = isTreeCollapsed,
@@ -1588,7 +1588,7 @@ function TrainerMenu:BuildFlattenedList()
         else
             table.insert(flat, {
                 type = "EMPTY_NOTICE",
-                text = (searchLower and "Nenhuma aprendida encontrada com o termo." or "Nenhuma habilidade aprendida."),
+                text = (searchLower and CM:T("TRAINER_EMPTY_USED_SEARCH") or CM:T("TRAINER_EMPTY_USED")),
             })
         end
     end
@@ -1639,7 +1639,7 @@ function TrainerMenu:UpdateCatalogRows()
 
                     local displayName = it.name
                     if it.subText and it.subText ~= "" then
-                        displayName = displayName .. " (" .. it.subText .. ")"
+                        displayName = format(CM:T("TRAINER_NAME_RANK_FMT"), displayName, it.subText)
                     end
 
                     local inCart = (it.category == "available") and self.IsItemInCart and self:IsItemInCart(it)
@@ -1665,11 +1665,11 @@ function TrainerMenu:UpdateCatalogRows()
                     if it.category == "unavailable" then
                         local lvlColor = (it.levelReq and it.levelReq > pLvl) and "|cffff2020" or "|cffffffff"
                         if it.levelReq and it.levelReq > 0 then
-                            table.insert(subParts, lvlColor .. "Requer Nv. " .. it.levelReq .. "|r")
+                            table.insert(subParts, lvlColor .. format(CM:T("TRAINER_REQ_LEVEL_FMT"), it.levelReq) .. "|r")
                         end
                     else
                         if it.levelReq and it.levelReq > 0 then
-                            table.insert(subParts, "Nv. " .. it.levelReq)
+                            table.insert(subParts, format(CM:T("TRAINER_LEVEL_FMT"), it.levelReq))
                         end
                     end
                     if it.tree and it.tree ~= "" then
@@ -1679,12 +1679,12 @@ function TrainerMenu:UpdateCatalogRows()
 
                     -- Preço ou status
                     if it.category == "used" then
-                        row.priceText:SetText("|cff888888Já Aprendido|r")
+                        row.priceText:SetText(CM:T("TRAINER_ALREADY_LEARNED"))
                     else
                         if it.cost and it.cost > 0 then
                             row.priceText:SetText(self:FormatMoneyText(it.cost))
                         else
-                            row.priceText:SetText("|cff1eff00Grátis|r")
+                            row.priceText:SetText(CM:T("TRAINER_FREE"))
                         end
                     end
 
@@ -1882,20 +1882,20 @@ function TrainerMenu:ComputeDiffLines(oldDesc, newDesc)
         local newV = newNums[i]
         if newV > oldV then
             local diff = newV - oldV
-            local context = "no Efeito da Habilidade"
+            local context = CM:T("TRAINER_DIFF_DEFAULT_CONTEXT")
             local lowerNew = string.lower(newDesc)
             if string.find(lowerNew, "dano") or string.find(lowerNew, "damage") then
-                context = "de Dano Adicional"
+                context = CM:T("TRAINER_DIFF_DAMAGE")
             elseif string.find(lowerNew, "cura") or string.find(lowerNew, "heal") then
-                context = "de Cura Adicional"
+                context = CM:T("TRAINER_DIFF_HEAL")
             elseif string.find(lowerNew, "armadura") or string.find(lowerNew, "armor") then
-                context = "de Armadura"
+                context = CM:T("TRAINER_DIFF_ARMOR")
             elseif string.find(lowerNew, "vida") or string.find(lowerNew, "health") then
-                context = "de Vida Adicional"
+                context = CM:T("TRAINER_DIFF_HEALTH")
             elseif string.find(lowerNew, "mana") then
-                context = "de Restauração de Mana"
+                context = CM:T("TRAINER_DIFF_MANA")
             end
-            table.insert(diffs, "|cff1eff00▲ +" .. diff .. " " .. context .. " (" .. oldV .. " ➔ " .. newV .. ")|r")
+            table.insert(diffs, format(CM:T("TRAINER_DIFF_LINE_FMT"), diff, context, oldV, newV))
         end
     end
 
@@ -1920,9 +1920,9 @@ function TrainerMenu:ShowServiceDetail(item)
     end
 
     -- 2. Título (Nome e Grau se houver)
-    local displayName = item.name or "Habilidade"
+    local displayName = item.name or CM:T("TRAINER_SKILL_FALLBACK")
     if item.subText and item.subText ~= "" then
-        displayName = displayName .. " (" .. item.subText .. ")"
+        displayName = format(CM:T("TRAINER_NAME_RANK_FMT"), displayName, item.subText)
     end
     card.titleText:SetText(displayName)
 
@@ -1934,12 +1934,12 @@ function TrainerMenu:ShowServiceDetail(item)
     if item.levelReq and item.levelReq > 0 then
         local pLvl = UnitLevel("player") or 1
         local col = (pLvl >= item.levelReq) and "|cffffffff" or "|cffff2020"
-        table.insert(subParts, col .. "Requer Nv. " .. item.levelReq .. "|r")
+        table.insert(subParts, col .. format(CM:T("TRAINER_REQ_LEVEL_FMT"), item.levelReq) .. "|r")
     end
     if item.category == "used" then
-        table.insert(subParts, "|cff888888Já Aprendido|r")
+        table.insert(subParts, CM:T("TRAINER_ALREADY_LEARNED"))
     else
-        table.insert(subParts, "Custo: " .. self:FormatMoneyText(item.cost or 0))
+        table.insert(subParts, format(CM:T("TRAINER_COST_LABEL_FMT"), self:FormatMoneyText(item.cost or 0)))
     end
     card.subText:SetText(table.concat(subParts, "  •  "))
 
@@ -1954,7 +1954,7 @@ function TrainerMenu:ShowServiceDetail(item)
     elseif item.desc and item.desc ~= "" then
         fullNewDesc = fullNewDesc .. item.desc
     else
-        fullNewDesc = fullNewDesc .. "Nenhuma descrição fornecida pelo treinador."
+        fullNewDesc = fullNewDesc .. CM:T("TRAINER_NO_TRAINER_DESC")
     end
 
     -- 5. Checa Grimório do jogador
@@ -1981,7 +1981,7 @@ function TrainerMenu:ShowServiceDetail(item)
 
     if isUsed then
         -- MODO 1: JÁ APRENDIDA
-        card.badgeText:SetText("|cff888888✓ HABILIDADE JÁ CONHECIDA NO GRIMÓRIO|r")
+        card.badgeText:SetText(CM:T("TRAINER_BADGE_ALREADY_KNOWN"))
 
         card.oldCard:Hide()
         card.arrowText:Hide()
@@ -1992,7 +1992,7 @@ function TrainerMenu:ShowServiceDetail(item)
         card.newCard:SetHeight(108)
         card.newCard:Show()
 
-        card.newCard.header:SetText("|cff888888[GRAU CONHECIDO: " .. (item.subText ~= "" and item.subText or "Aprendido") .. "]|r")
+        card.newCard.header:SetText(format(CM:T("TRAINER_KNOWN_RANK_FMT"), (item.subText ~= "" and item.subText or CM:T("TRAINER_KNOWN_RANK_FALLBACK"))))
         card.newCard.desc:SetText(fullNewDesc)
 
         card.diffCard:ClearAllPoints()
@@ -2000,21 +2000,21 @@ function TrainerMenu:ShowServiceDetail(item)
         card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
         card.diffCard:Show()
 
-        card.diffCard.header:SetText("|cffaaaaaaSTATUS NO GRIMÓRIO:|r")
+        card.diffCard.header:SetText(CM:T("TRAINER_STATUS_IN_SPELLBOOK"))
         local statusLines = {
-            "|cff888888Esta habilidade já foi aprendida e está pronta para uso no seu Grimório.|r",
+            CM:T("TRAINER_ALREADY_LEARNED_DESC"),
             "",
-            "• Especialização: |cffffffff" .. (item.tree or "Geral") .. "|r",
-            "• Grau no Grimório: |cffffffff" .. ((known and known.rankText ~= "") and known.rankText or (item.subText ~= "" and item.subText or "Máximo Aprendido")) .. "|r",
-            "• Atalho: Pressione '|cffe09a15P|r' fora deste menu para abrir seu grimório.",
+            format(CM:T("TRAINER_SPECIALIZATION_FMT"), (item.tree or CM:T("TRAINER_TREE_GENERAL"))),
+            format(CM:T("TRAINER_SPELLBOOK_RANK_FMT"), ((known and known.rankText ~= "") and known.rankText or (item.subText ~= "" and item.subText or CM:T("TRAINER_MAX_RANK_LEARNED")))),
+            format(CM:T("TRAINER_SHORTCUT_OPEN_SPELLBOOK_FMT"), "P"),
         }
         card.diffCard.text:SetText(table.concat(statusLines, "\n"))
 
     elseif isUpgrade then
         -- MODO 2: UPGRADE / EVOLUÇÃO DE GRAU
-        local oldRankLabel = (known and known.rankText ~= "") and known.rankText or "Grau Atual"
-        local newRankLabel = (item.subText ~= "") and item.subText or "Novo Grau"
-        card.badgeText:SetText("|cffe09a15▲ EVOLUÇÃO DISPONÍVEL (" .. oldRankLabel .. " ➔ " .. newRankLabel .. ")|r")
+        local oldRankLabel = (known and known.rankText ~= "") and known.rankText or CM:T("TRAINER_CURRENT_RANK_FALLBACK")
+        local newRankLabel = (item.subText ~= "") and item.subText or CM:T("TRAINER_NEW_RANK_FALLBACK")
+        card.badgeText:SetText(format(CM:T("TRAINER_BADGE_EVOLUTION_FMT"), oldRankLabel, newRankLabel))
 
         card.oldCard:ClearAllPoints()
         card.oldCard:SetPoint("TOPLEFT", card.hDiv, "BOTTOMLEFT", 0, -6)
@@ -2022,8 +2022,8 @@ function TrainerMenu:ShowServiceDetail(item)
         card.oldCard:SetHeight(76)
         card.oldCard:Show()
 
-        card.oldCard.header:SetText("|cffaaaaaa[ATUALMENTE NO GRIMÓRIO: " .. oldRankLabel .. "]|r")
-        card.oldCard.desc:SetText(known and known.desc ~= "" and known.desc or "Descrição não disponível no grimório.")
+        card.oldCard.header:SetText(format(CM:T("TRAINER_CURRENT_IN_SPELLBOOK_FMT"), oldRankLabel))
+        card.oldCard.desc:SetText(known and known.desc ~= "" and known.desc or CM:T("TRAINER_NO_SPELLBOOK_DESC"))
 
         card.arrowText:ClearAllPoints()
         card.arrowText:SetPoint("TOP", card.oldCard, "BOTTOM", 0, -4)
@@ -2035,7 +2035,7 @@ function TrainerMenu:ShowServiceDetail(item)
         card.newCard:SetHeight(84)
         card.newCard:Show()
 
-        card.newCard.header:SetText("|cffe09a15[NOVO GRAU: " .. newRankLabel .. "]|r")
+        card.newCard.header:SetText(format(CM:T("TRAINER_NEW_RANK_FMT"), newRankLabel))
         card.newCard.desc:SetText(fullNewDesc)
 
         card.diffCard:ClearAllPoints()
@@ -2043,7 +2043,7 @@ function TrainerMenu:ShowServiceDetail(item)
         card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
         card.diffCard:Show()
 
-        card.diffCard.header:SetText("|cff1eff00MUDANÇAS & DESTAQUES:|r")
+        card.diffCard.header:SetText(CM:T("TRAINER_CHANGES_HIGHLIGHTS"))
 
         local diffLines = self:ComputeDiffLines(known and known.desc, fullNewDesc)
         local summary = {}
@@ -2053,27 +2053,27 @@ function TrainerMenu:ShowServiceDetail(item)
                 table.insert(summary, diffLines[d])
             end
         else
-            table.insert(summary, "|cffe09a15• Aumenta a eficácia e o poder geral da habilidade.|r")
+            table.insert(summary, CM:T("TRAINER_UPGRADE_GENERIC"))
         end
 
         table.insert(summary, "")
-        table.insert(summary, "|cffedd28cRESUMO FINANCEIRO & REQUISITOS:|r")
+        table.insert(summary, CM:T("TRAINER_FINANCIAL_SUMMARY"))
         if cost > 0 then
-            table.insert(summary, "• Custo do Treinamento: " .. self:FormatMoneyText(cost))
+            table.insert(summary, format(CM:T("TRAINER_TRAINING_COST_FMT"), self:FormatMoneyText(cost)))
             if playerMoney >= cost then
-                table.insert(summary, "• Saldo Restante: |cff1eff00" .. self:FormatMoneyText(playerMoney - cost) .. "|r")
+                table.insert(summary, format(CM:T("TRAINER_REMAINING_BALANCE_FMT"), self:FormatMoneyText(playerMoney - cost)))
             else
-                table.insert(summary, "• |cffff2020Saldo Insuficiente! Faltam " .. self:FormatMoneyText(cost - playerMoney) .. "|r")
+                table.insert(summary, format(CM:T("TRAINER_INSUFFICIENT_FUNDS_FMT"), self:FormatMoneyText(cost - playerMoney)))
             end
         else
-            table.insert(summary, "• Custo do Treinamento: |cff1eff00Grátis|r")
+            table.insert(summary, CM:T("TRAINER_TRAINING_COST_FREE"))
         end
 
         if item.levelReq and item.levelReq > 0 then
             if pLvl >= item.levelReq then
-                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cff1eff00Atendido|r)")
+                table.insert(summary, format(CM:T("TRAINER_LEVEL_REQ_MET_FMT"), item.levelReq))
             else
-                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cffff2020Faltam " .. (item.levelReq - pLvl) .. " níveis|r)")
+                table.insert(summary, format(CM:T("TRAINER_LEVEL_REQ_MISSING_FMT"), item.levelReq, (item.levelReq - pLvl)))
             end
         end
 
@@ -2091,7 +2091,7 @@ function TrainerMenu:ShowServiceDetail(item)
 
     else
         -- MODO 3: NOVA HABILIDADE / RECEITA
-        local badge = (self.trainerType == "tradeskill") and "|cff1eff00★ NOVA RECEITA DE PROFISSÃO ★|r" or "|cff1eff00★ NOVA HABILIDADE DE CLASSE ★|r"
+        local badge = (self.trainerType == "tradeskill") and CM:T("TRAINER_BADGE_NEW_RECIPE") or CM:T("TRAINER_BADGE_NEW_CLASS_SKILL")
         card.badgeText:SetText(badge)
 
         card.oldCard:Hide()
@@ -2103,7 +2103,7 @@ function TrainerMenu:ShowServiceDetail(item)
         card.newCard:SetHeight(108)
         card.newCard:Show()
 
-        card.newCard.header:SetText("|cffe09a15[OFERECIDO PELO TREINADOR]|r")
+        card.newCard.header:SetText(CM:T("TRAINER_DETAIL_OFFERED_BY_TRAINER"))
         card.newCard.desc:SetText(fullNewDesc)
 
         card.diffCard:ClearAllPoints()
@@ -2111,11 +2111,11 @@ function TrainerMenu:ShowServiceDetail(item)
         card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
         card.diffCard:Show()
 
-        card.diffCard.header:SetText("|cffedd28cDETALHES & REQUISITOS:|r")
+        card.diffCard.header:SetText(CM:T("TRAINER_DETAILS_REQUIREMENTS"))
 
         local summary = {}
         if self.trainerType == "tradeskill" and table.getn(tipData.reagents) > 0 then
-            table.insert(summary, "|cffedd28cReagentes de Criação:|r")
+            table.insert(summary, CM:T("TRAINER_CRAFT_REAGENTS"))
             for rg = 1, table.getn(tipData.reagents) do
                 table.insert(summary, "  • |cffffffff" .. tipData.reagents[rg] .. "|r")
             end
@@ -2123,21 +2123,21 @@ function TrainerMenu:ShowServiceDetail(item)
         end
 
         if cost > 0 then
-            table.insert(summary, "• Custo do Treinamento: " .. self:FormatMoneyText(cost))
+            table.insert(summary, format(CM:T("TRAINER_TRAINING_COST_FMT"), self:FormatMoneyText(cost)))
             if playerMoney >= cost then
-                table.insert(summary, "• Saldo Restante: |cff1eff00" .. self:FormatMoneyText(playerMoney - cost) .. "|r")
+                table.insert(summary, format(CM:T("TRAINER_REMAINING_BALANCE_FMT"), self:FormatMoneyText(playerMoney - cost)))
             else
-                table.insert(summary, "• |cffff2020Saldo Insuficiente! Faltam " .. self:FormatMoneyText(cost - playerMoney) .. "|r")
+                table.insert(summary, format(CM:T("TRAINER_INSUFFICIENT_FUNDS_FMT"), self:FormatMoneyText(cost - playerMoney)))
             end
         else
-            table.insert(summary, "• Custo do Treinamento: |cff1eff00Grátis|r")
+            table.insert(summary, CM:T("TRAINER_TRAINING_COST_FREE"))
         end
 
         if item.levelReq and item.levelReq > 0 then
             if pLvl >= item.levelReq then
-                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cff1eff00Atendido|r)")
+                table.insert(summary, format(CM:T("TRAINER_LEVEL_REQ_MET_FMT"), item.levelReq))
             else
-                table.insert(summary, "• Nível Requerido: " .. item.levelReq .. " (|cffff2020Faltam " .. (item.levelReq - pLvl) .. " níveis|r)")
+                table.insert(summary, format(CM:T("TRAINER_LEVEL_REQ_MISSING_FMT"), item.levelReq, (item.levelReq - pLvl)))
             end
         end
 
@@ -2152,7 +2152,7 @@ function TrainerMenu:ShowServiceDetail(item)
         end
 
         if table.getn(summary) == 0 then
-            table.insert(summary, "• Nenhum requisito especial para aprender.")
+            table.insert(summary, CM:T("TRAINER_NO_SPECIAL_REQ"))
         end
 
         card.diffCard.text:SetText(table.concat(summary, "\n"))
@@ -2195,7 +2195,7 @@ function TrainerMenu:UpdateRightCol()
         end
         if self.frame.rightCol.placeholder then
             self.frame.rightCol.placeholder:Show()
-            self.frame.rightCol.placeholder:SetText("|cffe09a15BARRA DE BUSCA SELECIONADA|r\n\n|cffccccccFiltre habilidades por nome, grau ou especialização.|r\n|cffaaaaaaPressione [A] ou clique para abrir o Teclado Virtual.|r")
+            self.frame.rightCol.placeholder:SetText(CM:T("TRAINER_SEARCH_SELECTED") .. "\n\n" .. CM:T("TRAINER_FILTER_HINT") .. "\n\n" .. CM:T("TRAINER_PRESS_A_KEYBOARD"))
         end
         return
     end
@@ -2216,15 +2216,15 @@ function TrainerMenu:UpdateRightCol()
         if self.frame.rightCol.placeholder then
             self.frame.rightCol.placeholder:Show()
             if entry and entry.type == "SECTION_HEADER" then
-                local act = entry.isCollapsed and "Expandir" or "Recolher"
-                self.frame.rightCol.placeholder:SetText("|cffe09a15" .. entry.text .. "|r\n\n|cffccccccSeção do catálogo de treinamento.|r\n|cffaaaaaaPressione [A] ou clique para " .. act .. " esta seção.|r")
+                local act = entry.isCollapsed and CM:T("TRAINER_EXPAND") or CM:T("TRAINER_COLLAPSE")
+                self.frame.rightCol.placeholder:SetText("|cffe09a15" .. entry.text .. "|r\n\n" .. CM:T("TRAINER_SECTION_DESC") .. "\n" .. format(CM:T("TRAINER_PRESS_A_TOGGLE_SECTION_FMT"), act))
             elseif entry and entry.type == "TREE_HEADER" then
-                local act = entry.isCollapsed and "Expandir" or "Recolher"
-                self.frame.rightCol.placeholder:SetText("|cffedd28cÁrvore: " .. (entry.tree or "") .. "|r\n\n|cffccccccEspecialização de classe com " .. (entry.count or 0) .. " habilidades.|r\n|cffaaaaaaPressione [A] ou clique para " .. act .. " esta árvore.|r")
+                local act = entry.isCollapsed and CM:T("TRAINER_EXPAND") or CM:T("TRAINER_COLLAPSE")
+                self.frame.rightCol.placeholder:SetText(format(CM:T("TRAINER_TREE_LABEL_FMT"), (entry.tree or "")) .. "\n" .. format(CM:T("TRAINER_TREE_SPECIALIZATION_FMT"), (entry.count or 0)) .. "\n" .. format(CM:T("TRAINER_PRESS_A_TOGGLE_TREE_FMT"), act))
             elseif entry and entry.type == "EMPTY_NOTICE" then
                 self.frame.rightCol.placeholder:SetText("|cffaaaaaa" .. entry.text .. "|r")
             else
-                self.frame.rightCol.placeholder:SetText("|cffe09a15Selecione uma habilidade à esquerda para inspecionar.|r\n|cffaaaaaaUse o D-Pad ou clique do mouse para ver detalhes completos.|r")
+                self.frame.rightCol.placeholder:SetText(CM:T("TRAINER_PLACEHOLDER_SELECT_SKILL"))
             end
         end
     end
@@ -2628,7 +2628,7 @@ function TrainerMenu:OpenSearchVK()
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.Open then
         vk:Open({
-            title         = "Buscar Habilidade",
+            title         = CM:T("TRAINER_SEARCH_TITLE"),
             initialText   = self.searchText or "",
             maxLetters    = 24,
             targetEditBox = self.searchEditBox,
@@ -2766,14 +2766,14 @@ function TrainerMenu:CreateCartModalUI()
     local title = modal:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     title:SetPoint("TOP", modal, "TOP", 0, -16)
     self:ApplyFont(title, FONTS.titleBold, 20)
-    title:SetText("CARRINHO DE TREINAMENTO")
+    title:SetText(CM:T("TRAINER_CART_TITLE"))
     title:SetTextColor(1.00, 0.82, 0.20, 1.0)
     modal.title = title
 
     local subTitle = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     subTitle:SetPoint("TOP", title, "BOTTOM", 0, -3)
     self:ApplyFont(subTitle, FONTS.medium, 14)
-    subTitle:SetText("(0 Habilidades Selecionadas)")
+    subTitle:SetText(CM:T("TRAINER_CART_SUBTITLE_ZERO"))
     subTitle:SetTextColor(0.80, 0.80, 0.80, 1.0)
     modal.subTitle = subTitle
 
@@ -2818,13 +2818,13 @@ function TrainerMenu:CreateCartModalUI()
     local colHab = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colHab:SetPoint("TOPLEFT", modal, "TOPLEFT", 22, -64)
     self:ApplyFont(colHab, FONTS.medium, 13)
-    colHab:SetText("HABILIDADE SELECIONADA")
+    colHab:SetText(CM:T("TRAINER_CART_COL_SKILL"))
     colHab:SetTextColor(0.65, 0.65, 0.65, 1.0)
 
     local colCusto = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colCusto:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -22, -64)
     self:ApplyFont(colCusto, FONTS.medium, 13)
-    colCusto:SetText("CUSTO")
+    colCusto:SetText(CM:T("TRAINER_CART_COL_COST"))
     colCusto:SetTextColor(0.65, 0.65, 0.65, 1.0)
 
     -- Área da Lista de Itens (5 linhas visíveis de 40px)
@@ -2954,7 +2954,7 @@ function TrainerMenu:CreateCartModalUI()
                     end
                     if not ok then
                         GameTooltip:ClearLines()
-                        GameTooltip:AddLine(it.name or "Habilidade", 1, 1, 1)
+                        GameTooltip:AddLine(it.name or CM:T("TRAINER_SKILL_FALLBACK"), 1, 1, 1)
                         if it.subText and it.subText ~= "" then
                             GameTooltip:AddLine(it.subText, 0.8, 0.8, 0.8)
                         end
@@ -2979,7 +2979,7 @@ function TrainerMenu:CreateCartModalUI()
     local emptyText = listContainer:CreateFontString(nil, "OVERLAY", "GameFontDisable")
     emptyText:SetPoint("CENTER", listContainer, "CENTER", 0, 0)
     self:ApplyFont(emptyText, FONTS.bodyBold, 16)
-    emptyText:SetText("Nenhuma habilidade no carrinho de compras.")
+    emptyText:SetText(CM:T("TRAINER_CART_EMPTY"))
     emptyText:Hide()
     modal.emptyText = emptyText
 
@@ -3009,7 +3009,7 @@ function TrainerMenu:CreateCartModalUI()
     local lblCost = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     lblCost:SetPoint("TOPLEFT", summaryCard, "TOPLEFT", 14, -10)
     self:ApplyFont(lblCost, FONTS.bodyBold, 14)
-    lblCost:SetText("• Custo Total das Selecionadas:")
+    lblCost:SetText(CM:T("TRAINER_CART_TOTAL_LABEL"))
     lblCost:SetTextColor(0.85, 0.85, 0.85, 1.0)
 
     local valCost = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -3022,7 +3022,7 @@ function TrainerMenu:CreateCartModalUI()
     local lblMoney = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     lblMoney:SetPoint("TOPLEFT", summaryCard, "TOPLEFT", 14, -32)
     self:ApplyFont(lblMoney, FONTS.bodyBold, 14)
-    lblMoney:SetText("• Seu Saldo Atual:")
+    lblMoney:SetText(CM:T("TRAINER_CART_BALANCE_LABEL"))
     lblMoney:SetTextColor(0.85, 0.85, 0.85, 1.0)
 
     local valMoney = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -3035,7 +3035,7 @@ function TrainerMenu:CreateCartModalUI()
     local lblRemaining = summaryCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     lblRemaining:SetPoint("TOPLEFT", summaryCard, "TOPLEFT", 14, -54)
     self:ApplyFont(lblRemaining, FONTS.bodyBold, 14)
-    lblRemaining:SetText("• Saldo Restante após Treinamento:")
+    lblRemaining:SetText(CM:T("TRAINER_CART_REMAINING_LABEL"))
     lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
     modal.lblRemaining = lblRemaining
 
@@ -3062,7 +3062,7 @@ function TrainerMenu:CreateCartModalUI()
     local confirmText = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     confirmText:SetPoint("CENTER", confirmBtn, "CENTER", 0, 0)
     self:ApplyFont(confirmText, FONTS.titleBold, 15)
-    confirmText:SetText("[A] Confirmar Treinamento")
+    confirmText:SetText(CM:T("TRAINER_CART_CONFIRM"))
     confirmText:SetTextColor(0.40, 1.0, 0.40, 1.0)
     confirmBtn.text = confirmText
 
@@ -3087,7 +3087,7 @@ function TrainerMenu:CreateCartModalUI()
     local cancelText = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     cancelText:SetPoint("CENTER", cancelBtn, "CENTER", 0, 0)
     self:ApplyFont(cancelText, FONTS.titleBold, 15)
-    cancelText:SetText("[B] Voltar")
+    cancelText:SetText(CM:T("TRAINER_CART_BACK"))
     cancelText:SetTextColor(0.85, 0.85, 0.85, 1.0)
     cancelBtn.text = cancelText
 
@@ -3101,7 +3101,7 @@ function TrainerMenu:CreateCartModalUI()
     hintsText:SetPoint("RIGHT", modal, "RIGHT", -20, 0)
     hintsText:SetPoint("CENTER", modal, "BOTTOM", 140, 30)
     self:ApplyFont(hintsText, FONTS.medium, 13)
-    hintsText:SetText("|cffaaaaaa[D-Pad] Navegar  •  [X] Remover|r")
+    hintsText:SetText(CM:T("TRAINER_CART_HINTS"))
     modal.hintsText = hintsText
 
     -- Suporte a roda do mouse para scroll na lista
@@ -3122,7 +3122,7 @@ end
 function TrainerMenu:OpenCartModal()
     if not self.isOpen then return end
     if self:GetCartCount() == 0 then
-        DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Seu carrinho de treinamento está vazio. Selecione habilidades com [A] ou marque todas com [Y].")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("TRAINER_CART_EMPTY_CHAT"))
         PlaySound("igQuestFailed")
         return
     end
@@ -3189,7 +3189,7 @@ function TrainerMenu:UpdateCartModalVisuals()
     if not m or not m:IsVisible() then return end
 
     local count = self:GetCartCount()
-    m.subTitle:SetText("(" .. count .. (count == 1 and " Habilidade Selecionada)" or " Habilidades Selecionadas)"))
+    m.subTitle:SetText(format(count == 1 and CM:T("TRAINER_CART_SUBTITLE_SINGULAR_FMT") or CM:T("TRAINER_CART_SUBTITLE_PLURAL_FMT"), count))
 
     if count == 0 then
         m.emptyText:Show()
@@ -3224,12 +3224,12 @@ function TrainerMenu:UpdateCartModalVisuals()
                 row.cartItemIndex = itemIdx
                 row.icon:SetTexture(it.icon or "Interface\\Icons\\INV_Misc_QuestionMark")
 
-                local dName = it.name or "Habilidade"
+                local dName = it.name or CM:T("TRAINER_SKILL_FALLBACK")
                 if it.subText and it.subText ~= "" then
-                    dName = dName .. " (" .. it.subText .. ")"
+                    dName = format(CM:T("TRAINER_NAME_RANK_FMT"), dName, it.subText)
                 end
                 row.nameText:SetText("|cffffffff" .. dName .. "|r")
-                row.subText:SetText("|cffaaaaaaNv. " .. (it.levelReq or 1) .. "  •  " .. (it.tree or "Geral") .. "|r")
+                row.subText:SetText(format(CM:T("TRAINER_CART_ROW_SUB_FMT"), (it.levelReq or 1), (it.tree or CM:T("TRAINER_TREE_GENERAL"))))
                 row.priceText:SetText(self:FormatMoneyText(it.cost or 0))
 
                 if itemIdx == self.cartSelectedIndex then
@@ -3251,7 +3251,7 @@ function TrainerMenu:UpdateCartModalVisuals()
 
         if count > maxVisible then
             m.scrollNotice:Show()
-            m.scrollNotice:SetText("Item " .. self.cartSelectedIndex .. " de " .. count .. "  (Use D-Pad ou Scroll)")
+            m.scrollNotice:SetText(format(CM:T("TRAINER_CART_SCROLL_FMT"), self.cartSelectedIndex, count))
         else
             m.scrollNotice:Hide()
         end
@@ -3266,7 +3266,7 @@ function TrainerMenu:UpdateCartModalVisuals()
     m.valMoney:SetText(self:FormatMoneyText(playerMoney))
 
     if count == 0 then
-        m.lblRemaining:SetText("• Saldo Restante após Treinamento:")
+        m.lblRemaining:SetText(CM:T("TRAINER_CART_REMAINING_LABEL"))
         m.lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
         m.valRemaining:SetText(self:FormatMoneyText(playerMoney))
         m.confirmBtn:Disable()
@@ -3274,7 +3274,7 @@ function TrainerMenu:UpdateCartModalVisuals()
         m.confirmBtn:SetBackdropBorderColor(0.30, 0.30, 0.30, 0.50)
         m.confirmBtn.text:SetTextColor(0.50, 0.50, 0.50, 1.0)
     elseif remainingMoney >= 0 then
-        m.lblRemaining:SetText("• Saldo Restante após Treinamento:")
+        m.lblRemaining:SetText(CM:T("TRAINER_CART_REMAINING_LABEL"))
         m.lblRemaining:SetTextColor(0.85, 0.85, 0.85, 1.0)
         m.valRemaining:SetText(self:FormatMoneyText(remainingMoney))
         m.confirmBtn:Enable()
@@ -3283,9 +3283,9 @@ function TrainerMenu:UpdateCartModalVisuals()
         m.confirmBtn.text:SetTextColor(0.40, 1.0, 0.40, 1.0)
     else
         local deficit = totalCost - playerMoney
-        m.lblRemaining:SetText("• Saldo Insuficiente:")
+        m.lblRemaining:SetText(CM:T("TRAINER_CART_INSUFFICIENT_LABEL"))
         m.lblRemaining:SetTextColor(1.0, 0.25, 0.25, 1.0)
-        m.valRemaining:SetText("|cffff2020Faltam " .. self:FormatMoneyText(deficit) .. "|r")
+        m.valRemaining:SetText(format(CM:T("TRAINER_CART_MISSING_FMT"), self:FormatMoneyText(deficit)))
         m.confirmBtn:Disable()
         m.confirmBtn:SetBackdropColor(0.14, 0.06, 0.06, 0.70)
         m.confirmBtn:SetBackdropBorderColor(0.60, 0.20, 0.20, 0.70)
@@ -3303,7 +3303,7 @@ function TrainerMenu:UpdateCartModalVisuals()
         end
         if not ok then
             GameTooltip:ClearLines()
-            GameTooltip:AddLine(selItem.name or "Habilidade", 1, 1, 1)
+            GameTooltip:AddLine(selItem.name or CM:T("TRAINER_SKILL_FALLBACK"), 1, 1, 1)
             if selItem.subText and selItem.subText ~= "" then
                 GameTooltip:AddLine(selItem.subText, 0.8, 0.8, 0.8)
             end
@@ -3332,7 +3332,7 @@ function TrainerMenu:ConfirmCartPurchase()
     local playerMoney = GetMoney() or 0
     if playerMoney < totalCost then
         PlaySound("igQuestFailed")
-        DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode] Saldo insuficiente para realizar o treinamento.|r")
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("TRAINER_CART_INSUFFICIENT_CHAT"))
         if UIErrorsFrame and ERR_NOT_ENOUGH_MONEY and UIERRORS_HOLD_TIME then
             UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0, UIERRORS_HOLD_TIME)
         end
@@ -3363,7 +3363,7 @@ function TrainerMenu:ConfirmCartPurchase()
         TrainerMenu:PurchaseQueue_OnUpdate(arg1)
     end)
 
-    DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Iniciando treinamento de " .. count .. " habilidades...")
+    DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("TRAINER_CART_START_FMT"), count))
     PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
@@ -3429,13 +3429,13 @@ function TrainerMenu:PurchaseQueue_OnUpdate(dt)
                 st.successCount = (st.successCount or 0) + 1
                 PlaySound("SPELLBOOKSPELLCLICK")
 
-                local displayName = it.name or "Habilidade"
+                local displayName = it.name or CM:T("TRAINER_SKILL_FALLBACK")
                 if it.subText and it.subText ~= "" then
-                    displayName = displayName .. " (" .. it.subText .. ")"
+                    displayName = format(CM:T("TRAINER_NAME_RANK_FMT"), displayName, it.subText)
                 end
-                DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Treinado: |cffffffff" .. displayName .. "|r (" .. self:FormatMoneyText(cost) .. ")")
+                DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("TRAINER_CART_TRAINED_FMT"), displayName, self:FormatMoneyText(cost)))
             else
-                DEFAULT_CHAT_FRAME:AddMessage("|cffff2020[ConsoleMode]|r Saldo insuficiente para treinar: " .. (it.name or ""))
+                DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("TRAINER_CART_TRAIN_FAILED_FMT"), (it.name or "")))
             end
         end
     end
@@ -3459,10 +3459,10 @@ function TrainerMenu:PurchaseQueue_Stop(completed)
         local count = st.successCount or 0
         local spent = st.totalSpent or 0
         if count > 0 then
-            DEFAULT_CHAT_FRAME:AddMessage("|cff1eff00[ConsoleMode]|r Treinamento em lote concluído! " .. count .. " habilidades aprendidas (" .. self:FormatMoneyText(spent) .. ").")
+            DEFAULT_CHAT_FRAME:AddMessage(format(CM:T("TRAINER_CART_BATCH_DONE_FMT"), count, self:FormatMoneyText(spent)))
             PlaySound("LOOTWINDOWCOINSOUND")
         else
-            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r Treinamento finalizado.")
+            DEFAULT_CHAT_FRAME:AddMessage(CM:T("TRAINER_CART_BATCH_EMPTY"))
         end
     end
 
@@ -3662,7 +3662,7 @@ function TrainerMenu:OnTrainerShow()
     -- 2. Lê os metadados oficiais da interação
     local npcName = UnitName("npc")
     if not npcName or npcName == "" then
-        npcName = "Treinador"
+        npcName = CM:T("TRAINER_UNKNOWN_NAME")
     end
 
     local trainerType = "class"

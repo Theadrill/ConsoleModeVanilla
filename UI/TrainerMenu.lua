@@ -1222,6 +1222,66 @@ function TrainerMenu:RefreshHeader()
     end
 end
 
+-- ============================================================================
+-- HELPERS DE PARSER DE TOOLTIP DE HABILIDADES (PADRÕES ESTRITOS - MAINMENU SPELLBOOK)
+-- Evita que palavras da descrição (ex: "caster", "melee", "energy", "range",
+-- "cooldown", "instant", "mana") sejam interpretadas como atributos operacionais.
+-- ============================================================================
+local function IsSpellCostLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if string.find(s, "^%d+%%?%s*mana") or string.find(s, "^%d+%%?%s*de%s*mana") or string.find(s, "^%d+%%?%s*of%s*base%s*mana")
+       or string.find(s, "^%d+%%?%s*rage") or string.find(s, "^%d+%%?%s*f[uú]ria") or string.find(s, "^%d+%%?%s*de%s*f[uú]ria") or string.find(s, "^%d+%%?%s*raiva") or string.find(s, "^%d+%%?%s*de%s*raiva")
+       or string.find(s, "^%d+%%?%s*energy") or string.find(s, "^%d+%%?%s*energia") or string.find(s, "^%d+%%?%s*de%s*energia")
+       or string.find(s, "^%d+%%?%s*health") or string.find(s, "^%d+%%?%s*vida") or string.find(s, "^%d+%%?%s*de%s*vida") then
+        return true
+    end
+    return false
+end
+
+local function IsSpellCastLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if s == "instant" or s == "instant cast" or s == "instantaneo" or string.find(s, "^instant.*neo$")
+       or s == "channeled" or s == "channelled" or string.find(s, "^canalizada?$") or string.find(s, "^canalizado$")
+       or s == "next melee" or string.find(s, "^pr[oó]ximo%s*ataque") then
+        return true
+    end
+    if string.find(s, "^[%d%.]+%s*sec%s*cast$") or string.find(s, "^[%d%.]+%s*min%s*cast$")
+       or string.find(s, "^[%d%.]+%s*s%s*de%s*lan.*amento$") or string.find(s, "^[%d%.]+%s*seg%s*de%s*lan.*amento$")
+       or string.find(s, "^[%d%.]+%s*min%s*de%s*lan.*amento$") or string.find(s, "^lan.*amento%s*de%s*[%d%.]+") then
+        return true
+    end
+    return false
+end
+
+local function IsSpellRangeLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if s == "melee range" or s == "corpo a corpo" or s == "unlimited range" or s == "alcance ilimitado" or string.find(s, "^combate%s*corpo%s*a%s*corpo") then
+        return true
+    end
+    if string.find(s, "^[%d%-]+%s*yd%s*range$") or string.find(s, "^[%d%-]+%s*yd$")
+       or string.find(s, "^[%d%-]+%s*m%s*de%s*alcance$") or string.find(s, "^[%d%-]+%s*jardas?%s*de%s*alcance$")
+       or string.find(s, "^alcance%s*de%s*[%d%-]+") or string.find(s, "^alcance:%s*[%d%-]+") then
+        return true
+    end
+    return false
+end
+
+local function IsSpellCooldownLine(str)
+    if not str or string.len(str) > 35 then return false end
+    local s = string.lower(str)
+    if string.find(s, "^[%d%.]+%s*sec%s*cooldown$") or string.find(s, "^[%d%.]+%s*min%s*cooldown$")
+       or string.find(s, "^[%d%.]+%s*hr%s*cooldown$") or string.find(s, "^[%d%.]+%s*day%s*cooldown$")
+       or string.find(s, "^[%d%.]+%s*s%s*de%s*recarga$") or string.find(s, "^[%d%.]+%s*seg%s*de%s*recarga$")
+       or string.find(s, "^[%d%.]+%s*min%s*de%s*recarga$") or string.find(s, "^[%d%.]+%s*h%s*de%s*recarga$")
+       or string.find(s, "^tempo%s*de%s*recarga:") or string.find(s, "^cooldown%s*remaining:") or string.find(s, "^recarga:") or string.find(s, "^recarga%s*de%s*") then
+        return true
+    end
+    return false
+end
+
 -- ----------------------------------------------------------------------------
 -- 6. SCANNER DO GRIMÓRIO DO JOGADOR (FASE 4: COMPARATIVO)
 -- ----------------------------------------------------------------------------
@@ -1255,17 +1315,23 @@ function TrainerMenu:ScanSpellbook()
                     trainerScanTip:ClearLines()
                     pcall(function() trainerScanTip:SetSpell(s, BOOKTYPE_SPELL) end)
                     local nl = trainerScanTip:NumLines() or 0
+                    local inDesc = false
                     local lines = {}
                     for l = 2, nl do
                         local txtObj = getglobal("ConsoleMode_TrainerScanTipTextLeft" .. l)
-                        local rightObj = getglobal("ConsoleMode_TrainerScanTipTextRight" .. l)
                         local leftTxt = (txtObj and txtObj:GetText()) or ""
-                        local rightTxt = (rightObj and rightObj:GetText()) or ""
                         if leftTxt ~= "" then
-                            if rightTxt ~= "" then
-                                table.insert(lines, leftTxt .. "  (" .. rightTxt .. ")")
-                            else
-                                table.insert(lines, leftTxt)
+                            local lowerL = string.lower(leftTxt)
+                            local isRank = string.find(lowerL, "^rank%s*%d+") or string.find(lowerL, "^grau%s*%d+")
+                            if not isRank then
+                                if inDesc then
+                                    table.insert(lines, leftTxt)
+                                elseif IsSpellCostLine(leftTxt) or IsSpellCastLine(leftTxt) or IsSpellRangeLine(leftTxt) or IsSpellCooldownLine(leftTxt) then
+                                    -- ignora atributos operacionais de cabeçalho
+                                else
+                                    inDesc = true
+                                    table.insert(lines, leftTxt)
+                                end
                             end
                         end
                     end
@@ -1886,8 +1952,13 @@ function TrainerMenu:GetTrainerServiceTooltipData(serviceIndex)
     local left1 = getglobal("ConsoleMode_TrainerScanTipTextLeft1")
     if left1 then data.name = left1:GetText() or "" end
 
-    local inReagents = false
+    local cost = ""
+    local range = ""
+    local castTime = ""
+    local cooldown = ""
     local descLines = {}
+    local inDescription = false
+    local inReagents = false
 
     for l = 2, nl do
         local leftObj = getglobal("ConsoleMode_TrainerScanTipTextLeft" .. l)
@@ -1895,60 +1966,94 @@ function TrainerMenu:GetTrainerServiceTooltipData(serviceIndex)
         local leftTxt = (leftObj and leftObj:GetText()) or ""
         local rightTxt = (rightObj and rightObj:GetText()) or ""
 
+        local r, g, b = 1, 1, 1
+        if leftObj then r, g, b = leftObj:GetTextColor() end
+        local isRed = (r and r > 0.8 and g and g < 0.35 and b and b < 0.35)
+
+        -- Checa Right primeiro (geralmente alcance ou recarga no cabeçalho operacional)
+        if rightTxt ~= "" and not inDescription then
+            if range == "" and IsSpellRangeLine(rightTxt) then
+                range = rightTxt
+            elseif cooldown == "" and IsSpellCooldownLine(rightTxt) then
+                cooldown = rightTxt
+            end
+        end
+
         if leftTxt ~= "" then
-            local r, g, b = 1, 1, 1
-            if leftObj then r, g, b = leftObj:GetTextColor() end
-            local isRed = (r and r > 0.8 and g and g < 0.35 and b and b < 0.35)
+            local lowerLeft = string.lower(leftTxt)
+            local isRank = string.find(lowerLeft, "^rank%s*%d+") or string.find(lowerLeft, "^grau%s*%d+")
 
-            if string.find(leftTxt, "Reagent") or string.find(leftTxt, "Reagente") then
-                inReagents = true
-            elseif inReagents then
-                if string.find(leftTxt, "^Requer") or string.find(leftTxt, "^Requires") then
-                    inReagents = false
+            if not isRank then
+                if string.find(lowerLeft, "^reagents?:%s*") or string.find(lowerLeft, "^reagentes?:%s*") then
+                    inReagents = true
+                    inDescription = true
+                elseif inReagents then
+                    if string.find(lowerLeft, "^requires%s+") or string.find(lowerLeft, "^requer%s+") then
+                        inReagents = false
+                        table.insert(data.reqs, { text = leftTxt, isRed = isRed })
+                    else
+                        table.insert(data.reagents, leftTxt)
+                    end
+                elseif string.find(lowerLeft, "^requires%s+") or string.find(lowerLeft, "^requer%s+") then
+                    inDescription = true
                     table.insert(data.reqs, { text = leftTxt, isRed = isRed })
-                else
-                    table.insert(data.reagents, leftTxt)
-                end
-            elseif string.find(leftTxt, "^Requer") or string.find(leftTxt, "^Requires") then
-                table.insert(data.reqs, { text = leftTxt, isRed = isRed })
-            elseif string.find(leftTxt, "^Tools:") or string.find(leftTxt, "^Ferramentas:") then
-                -- Linha de ferramentas (ex: "Tools: Earth Totem")
-                local toolLine = leftTxt
-                if CM and CM.GameLOC_SpellTool then
-                    toolLine = CM:GameLOC_SpellTool(toolLine)
-                end
-                table.insert(data.reqs, { text = toolLine, isRed = false })
-            else
-                -- Linha de atributos técnicos (Mana, Fúria, Energia, Alcance, Tempo de Lançamento, Recarga)
-                local isStatLine = false
-                local lowerLeft = string.lower(leftTxt)
-                if string.find(lowerLeft, "mana") or string.find(lowerLeft, "rage") or string.find(lowerLeft, "energy")
-                    or string.find(lowerLeft, "raiva") or string.find(lowerLeft, "energia")
-                    or string.find(lowerLeft, "cast") or string.find(lowerLeft, "instant") or string.find(lowerLeft, "channel")
-                    or string.find(lowerLeft, "lançamento") or string.find(lowerLeft, "instantâneo") or string.find(lowerLeft, "canaliz")
-                    or string.find(lowerLeft, "range") or string.find(lowerLeft, "alcance") or string.find(lowerLeft, "melee")
-                    or string.find(lowerLeft, "cooldown") or string.find(lowerLeft, "recarga") then
-                    isStatLine = true
-                end
-
-                if isStatLine then
-                    local leftStat = leftTxt
-                    local rightStat = rightTxt
-                    if CM and CM.GameLOC_SpellAttr then
-                        leftStat = CM:GameLOC_SpellAttr(leftStat)
-                        if rightStat ~= "" then
-                            rightStat = CM:GameLOC_SpellAttr(rightStat)
-                        end
+                elseif string.find(lowerLeft, "^tools?:%s*") or string.find(lowerLeft, "^ferramentas?:%s*") then
+                    inDescription = true
+                    local toolLine = leftTxt
+                    if CM and CM.GameLOC_SpellTool then
+                        toolLine = CM:GameLOC_SpellTool(toolLine)
                     end
-                    local statCombined = leftStat
-                    if rightStat ~= "" then
-                        statCombined = statCombined .. " (" .. rightStat .. ")"
-                    end
-                    table.insert(data.stats, statCombined)
+                    table.insert(data.reqs, { text = toolLine, isRed = false })
+                elseif inDescription then
+                    -- Uma vez que a descrição começou, toda linha restante é corpo de descrição
+                    table.insert(descLines, leftTxt)
+                elseif cost == "" and IsSpellCostLine(leftTxt) then
+                    cost = leftTxt
+                elseif castTime == "" and IsSpellCastLine(leftTxt) then
+                    castTime = leftTxt
+                elseif range == "" and IsSpellRangeLine(leftTxt) then
+                    range = leftTxt
+                elseif cooldown == "" and IsSpellCooldownLine(leftTxt) then
+                    cooldown = leftTxt
                 else
+                    -- Linha não casou com atributo operacional de cabeçalho -> início do corpo da descrição!
+                    inDescription = true
                     table.insert(descLines, leftTxt)
                 end
             end
+        end
+    end
+
+    -- Monta os atributos operacionais formatados e localizados
+    if cost ~= "" or range ~= "" then
+        local costPart = cost
+        local rangePart = range
+        if CM and CM.GameLOC_SpellAttr then
+            if costPart ~= "" then costPart = CM:GameLOC_SpellAttr(costPart) end
+            if rangePart ~= "" then rangePart = CM:GameLOC_SpellAttr(rangePart) end
+        end
+        if costPart ~= "" and rangePart ~= "" then
+            table.insert(data.stats, costPart .. " (" .. rangePart .. ")")
+        elseif costPart ~= "" then
+            table.insert(data.stats, costPart)
+        elseif rangePart ~= "" then
+            table.insert(data.stats, rangePart)
+        end
+    end
+
+    if castTime ~= "" or cooldown ~= "" then
+        local castPart = castTime
+        local cdPart = cooldown
+        if CM and CM.GameLOC_SpellAttr then
+            if castPart ~= "" then castPart = CM:GameLOC_SpellAttr(castPart) end
+            if cdPart ~= "" then cdPart = CM:GameLOC_SpellAttr(cdPart) end
+        end
+        if castPart ~= "" and cdPart ~= "" then
+            table.insert(data.stats, castPart .. " (" .. cdPart .. ")")
+        elseif castPart ~= "" then
+            table.insert(data.stats, castPart)
+        elseif cdPart ~= "" then
+            table.insert(data.stats, cdPart)
         end
     end
 

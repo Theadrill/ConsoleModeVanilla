@@ -676,6 +676,12 @@ end
 -- Toggle Mouse Mode (L3)
 -- ============================================================
 function KB:ToggleMouseMode()
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.OpenSearchVK then
+            ConsoleMode_TrainerMenu:OpenSearchVK()
+        end
+        return
+    end
     if CM.camera and CM.camera.ToggleMouseMode then
         CM.camera:ToggleMouseMode()
         KB.mouseModeActive = CM.camera.disabledByMouseMode
@@ -1248,6 +1254,22 @@ function CM_CursorMove(direction, keystate)
         return
     end
 
+    -- TrainerMenu: D-Pad navega pelo catálogo com hold-to-repeat
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if keystate == "up" then
+            if ConsoleMode_TrainerMenu.StopRepeat then
+                ConsoleMode_TrainerMenu:StopRepeat(direction)
+            end
+        else
+            if ConsoleMode_TrainerMenu.StartRepeat then
+                ConsoleMode_TrainerMenu:StartRepeat(direction)
+            else
+                ConsoleMode_TrainerMenu:OnDirection(direction)
+            end
+        end
+        return
+    end
+
     -- M2 Mail: roteia o D-Pad para a navegacao do inbox (hold-to-repeat em
     -- UP/DOWN via StartRepeat/StopRepeat, molde do mercador acima).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
@@ -1393,6 +1415,14 @@ function CM_CursorConfirm()
                 ConsoleMode_MerchantMenu:BuySelectedItem()
             end
             return
+        end
+        return
+    end
+
+    -- TrainerMenu: A confirma selecao / expande / marca
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.OnConfirm then
+            ConsoleMode_TrainerMenu:OnConfirm()
         end
         return
     end
@@ -1549,6 +1579,14 @@ function CM_CursorUse()
         return
     end
 
+    -- TrainerMenu: Y marca todas / desmarca todas
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.OnContextAction then
+            ConsoleMode_TrainerMenu:OnContextAction()
+        end
+        return
+    end
+
     -- M3 Mail: Y retira tudo do inbox em fila serializada (so com mailbox
     -- aberta, sem modal de confirmacao nem VK abertos).
     -- M4.1: no compor, Y so faz log (quantidade chega na M4.2).
@@ -1667,6 +1705,14 @@ function CM_CursorSecondary(keystate)
             if ConsoleMode_MailScreen.OnComposeSecondary then
                 ConsoleMode_MailScreen:OnComposeSecondary()
             end
+        end
+        return
+    end
+
+    -- TrainerMenu: X limpa busca / desmarca
+    if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+        if ConsoleMode_TrainerMenu.OnSecondaryAction then
+            ConsoleMode_TrainerMenu:OnSecondaryAction()
         end
         return
     end

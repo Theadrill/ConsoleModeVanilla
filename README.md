@@ -225,6 +225,8 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 - [x] Suporte completo às combinações de modificadores (L2, R1, R2, L2+R2)
 - [x] Menu Principal de Console integrado (Bolsas, Livro de Magias, Sistema, Provador 3D)
 - [x] Tela de Correio (caixa de entrada + compor/enviar com anexos, fila multi-item)
+- [x] Menu de Treinadores de Classe & Profissões (Catálogo Split-View, busca em tempo real, carrinho de compras e compra em lote)
+- [ ] Comparativo Inteligente de Atributos & Diferenças no Menu de Treinadores (parser semântico de deltas numéricos de dano/cura/recurso)
 - [ ] Correio com COD (pagamento contra entrega no envio e na retirada)
 - [ ] Diário de Missões & Mapa Mundi integrados (Estilo Retail Console)
 - [ ] Painel Quest Tracker no HUD (Rastreamento de missões na tela)

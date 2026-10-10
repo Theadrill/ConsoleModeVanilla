@@ -1,5 +1,7 @@
 # Plano de Feature: MENU DE TREINADORES DE CLASSE & PROFISSÕES (ConsoleMode)
 
+> **STATUS DA FEATURE: 🟢 100% COMPLETO & HOMOLOGADO (Fases 1 a 6)**
+
 > [!CAUTION]
 > ## REGRAS MANDATÓRIAS DE DESENVOLVIMENTO (LEITURA OBRIGATÓRIA)
 > 1. **NÃO FAZER PUSH ENQUANTO O USUÁRIO NÃO PEDIR.** Quando pedir, fazer push **UMA VEZ SÓ** e aguardar o próximo pedido explícito para fazer push de novo. Nunca fazer push automático ou por conta própria.
@@ -199,14 +201,14 @@ Cada fase foi desenhada para ser **100% testável no jogo imediatamente após a 
 ### 🟢 FASE 1: Detecção e Interceptação Segura do Treinador
 > **Objetivo de Teste:** O jogador clica em qualquer Treinador de Classe ou Profissão no jogo e vê que o addon interceptou a ação com sucesso, suprimiu com segurança o `ClassTrainerFrame` nativo da Blizzard e imprimiu a mensagem de diagnóstico limpa no chat com o nome do NPC e o tipo de treinador (`class` ou `tradeskill`).
 
-- [ ] Criar arquivo modular e isolado `UI/TrainerMenu.lua`.
-- [ ] Registrar `UI/TrainerMenu.lua` no `ConsoleModeVanilla.toc`.
-- [ ] Criar frame de eventos ouvindo `TRAINER_SHOW`, `TRAINER_UPDATE`, `TRAINER_CLOSED` e `PLAYER_MONEY`.
-- [ ] Suprimir o frame nativo `ClassTrainerFrame` com segurança (`SetAlpha(0)`, `EnableMouse(false)`, mover off-screen sem causar *taint*).
-- [ ] Ler metadados da interação: nome do NPC (`UnitName("npc")`), tipo de treinador (`GetTrainerType()`) e total de serviços (`GetNumTrainerServices()`).
-- [ ] Exibir mensagem de confirmação no chat: `[ConsoleMode] Treinador detectado: <Nome> (Tipo: <Classe/Profissão>, <X> serviços)`.
-- [ ] Garantir fechamento seguro via `TRAINER_CLOSED` ou ao afastar-se do NPC.
-- [ ] Validar sintaxe com `luac -p`.
+- [x] Criar arquivo modular e isolado `UI/TrainerMenu.lua`.
+- [x] Registrar `UI/TrainerMenu.lua` no `ConsoleModeVanilla.toc`.
+- [x] Criar frame de eventos ouvindo `TRAINER_SHOW`, `TRAINER_UPDATE`, `TRAINER_CLOSED` e `PLAYER_MONEY`.
+- [x] Suprimir o frame nativo `ClassTrainerFrame` com segurança (`SetAlpha(0)`, `EnableMouse(false)`, mover off-screen sem causar *taint*).
+- [x] Ler metadados da interação: nome do NPC (`UnitName("npc")`), tipo de treinador (`GetTrainerType()`) e total de serviços (`GetNumTrainerServices()`).
+- [x] Exibir mensagem de confirmação no chat: `[ConsoleMode] Treinador detectado: <Nome> (Tipo: <Classe/Profissão>, <X> serviços)`.
+- [x] Garantir fechamento seguro via `TRAINER_CLOSED` ou ao afastar-se do NPC.
+- [x] Validar sintaxe com `luac -p`.
 - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 1):** O jogador recarrega a UI (`/reload`), interage com um treinador de classe e valida se a janela velha da Blizzard sumiu e o log limpo apareceu no chat.
 
 ---
@@ -214,15 +216,15 @@ Cada fase foi desenhada para ser **100% testável no jogo imediatamente após a 
 ### 🟢 FASE 2: Esqueleto Visual Responsivo e Idêntico ao MerchantMenu (Canvas Split-View)
 > **Objetivo de Teste:** Ao interagir com o treinador, abre o esqueleto visual completo da nova interface com a mesma moldura 9-slice esculpida, dimmer translúcido, dimensões proporcionais exatas do MerchantMenu, cabeçalho e rodapé com os glifos oficiais do controle.
 
-- [ ] Construir a janela principal responsiva (`w = screenW * 0.94`, `h = screenH * 0.85`, limites 840x520 a 1440x920).
-- [ ] Aplicar moldura 9-slice esculpida (`Carved_9Slides.tga`) e dimmer de imersão de fundo.
-- [ ] Construir o Cabeçalho: Título dinâmico (`TREINAMENTO DE CLASSE` ou `TREINAMENTO DE PROFISSÃO`), nome do NPC em dourado (`|cffe09a15`), saldo de moedas do jogador e botão Fechar estilizado no canto superior direito.
-- [ ] Estruturar as duas colunas:
+- [x] Construir a janela principal responsiva (`w = screenW * 0.94`, `h = screenH * 0.85`, limites 840x520 a 1440x920).
+- [x] Aplicar moldura 9-slice esculpida (`Carved_9Slides.tga`) e dimmer de imersão de fundo.
+- [x] Construir o Cabeçalho: Título dinâmico (`TREINAMENTO DE CLASSE` ou `TREINAMENTO DE PROFISSÃO`), nome do NPC em dourado (`|cffe09a15`), saldo de moedas do jogador e botão Fechar estilizado no canto superior direito.
+- [x] Estruturar as duas colunas:
   - Coluna Esquerda: painel do catálogo com moldura interna e placeholder.
   - Coluna Direita: painel de detalhes/comparativo com moldura interna e placeholder.
-- [ ] Montar a barra de rodapé com as texturas gráficas reais dos botões de controle (`A.tga`, `B.tga`, `X.tga`, `Y.tga`, `RT.tga`, `LS.tga`).
-- [ ] Vincular botão `[B]` / tecla `ESC` / clique no botão Fechar para chamar `CloseTrainer()`.
-- [ ] Validar sintaxe com `luac -p`.
+- [x] Montar a barra de rodapé com as texturas gráficas reais dos botões de controle (`A.tga`, `B.tga`, `X.tga`, `Y.tga`, `RT.tga`, `LS.tga`).
+- [x] Vincular botão `[B]` / tecla `ESC` / clique no botão Fechar para chamar `CloseTrainer()`.
+- [x] Validar sintaxe com `luac -p`.
 - **🛑 PARADA CRÍTICA DE VALIDAÇÃO (FASE 2):** O jogador interage com o treinador e visualiza o canvas visual do ConsoleMode na tela com fechamento limpo.
 
 ---

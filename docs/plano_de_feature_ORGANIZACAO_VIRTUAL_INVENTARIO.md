@@ -1,6 +1,6 @@
 # Plano de Feature: Organização Virtual do Inventário (Virtual Bag Sorter)
 
-> **Status:** Proposto / Planejado  
+> **Status:** 100% Concluído e Homologado no Jogo  
 > **Versão Alvo:** WoW 1.12.1 (Interface 11200) / Lua 5.0 (Turtle WoW)  
 > **Data:** 13/10/2026  
 > **Arquivo do Módulo:** `UI/InventorySorter.lua`  

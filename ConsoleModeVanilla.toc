@@ -36,6 +36,7 @@ Data\Instances.lua
 Data\ZoneLevels.lua
 Data\ZonePositions.lua
 Data\ClassTrainers.lua
+UI\InventorySorter.lua
 UI\MainMenu.xml
 UI\MainMenu.lua
 UI\MainMenuNav.lua

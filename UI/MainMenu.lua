@@ -4096,9 +4096,8 @@ function MainMenu:ResolveBagKind(bagID, bagType, bagName)
         if string.find(ln, "engineer", 1, true) then return "ENGINEER" end
         if string.find(ln, "mining", 1, true) then return "MINING" end
         if string.find(ln, "leather", 1, true) then return "LEATHER" end
-        if string.find(ln, "quiver", 1, true) then return "QUIVER" end
-        if string.find(ln, "ammo", 1, true) then return "AMMO" end
-        if string.find(ln, "pouch", 1, true) then return "AMMO" end
+        if string.find(ln, "quiver", 1, true) or string.find(ln, "aljava", 1, true) then return "QUIVER" end
+        if string.find(ln, "ammo", 1, true) or string.find(ln, "munição", 1, true) or string.find(ln, "municao", 1, true) then return "AMMO" end
         if string.find(ln, "gem", 1, true) then return "GEM" end
         if string.find(ln, "meat", 1, true) then return "MEAT" end
         if string.find(ln, "fish", 1, true) then return "FISH" end
@@ -5007,6 +5006,11 @@ function MainMenu:UpdateBagsPage(keepPage)
     local curCat = pageBags.currentCategory or "ALL"
     local scanResult = self:ScanInventory(curCat)
     local items = scanResult.items
+
+    -- ORDENAÇÃO VIRTUAL DE INVENTÁRIO (Lua 5.0 / Presentation Layer)
+    if ConsoleMode and ConsoleMode.SortInventoryItems then
+        items = ConsoleMode:SortInventoryItems(items, curCat)
+    end
 
     -- FASES 1-2 (diagnóstico via chat, sem mudança visual).
     self:LogBagKinds()

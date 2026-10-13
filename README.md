@@ -224,6 +224,8 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 - [x] Seletor visual de Action Bars integrado com Tooltip Scanner de magias reais
 - [x] Suporte completo às combinações de modificadores (L2, R1, R2, L2+R2)
 - [x] Menu Principal de Console integrado (Bolsas, Livro de Magias, Sistema, Provador 3D)
+- [x] Organização Virtual Automática de Bolsas (ordenador instantâneo em memória em Lua 5.0 sem movimentação mecânica)
+- [ ] Painel de Configurações do Virtual Sort (substituir o botão 'Organizar' das bolsas por um atalho/botão que abre as opções e prioridades da ordenação virtual)
 - [x] Tela de Correio (caixa de entrada + compor/enviar com anexos, fila multi-item)
 - [x] Menu de Treinadores de Classe & Profissões (Catálogo Split-View, busca em tempo real, carrinho de compras e compra em lote)
 - [ ] Comparativo Inteligente de Atributos & Diferenças no Menu de Treinadores (parser semântico de deltas numéricos de dano/cura/recurso)

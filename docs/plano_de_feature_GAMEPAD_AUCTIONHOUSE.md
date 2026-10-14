@@ -92,7 +92,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 3: Barra de Pesquisa por Nome na Tela de Filtros (Virtual Keyboard) e Histórico
+### FASE 3: Barra de Pesquisa por Nome na Tela de Filtros (Virtual Keyboard) e Histórico [CONCLUÍDO]
 * **Objetivo:** Adicionar campo de busca textual na tela de Filtros com teclado virtual e suporte na query da Blizzard.
 * **Tarefas:**
   * Linha de busca textual na tela `SEARCH FILTERS` (`Nome do Item: [ Digite para buscar... ]`).
@@ -104,7 +104,28 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 4: Atalho Fast-Track (Y) na Navegação de Categorias e Subcategorias
+### FASE 4: Modal de Ordenação (Classificar Por) na Tela de Resultados com Tecla (Y)
+* **Objetivo:** Permitir ao jogador reordenar a lista de resultados (`ITEMS_LIST`) dinamicamente através de um modal gamepad aberto pela tecla `(Y)`.
+* **Tarefas:**
+  * Modal sólido em 9-Slice `Carved_9Slides.tga` centralizado (`ConsoleMode_AuctionSortModal`).
+  * Opções de ordenação:
+    1. Preço Unitário: Menor ao Maior (padrão)
+    2. Preço Unitário: Maior ao Menor
+    3. Nome: A a Z
+    4. Nome: Z a A
+    5. Nível Requerido: Menor ao Maior
+    6. Nível Requerido: Maior ao Menor
+    7. Raridade: Maior à Menor
+    8. Raridade: Menor à Maior
+  * Navegação D-Pad Cima/Baixo entre as opções com destaque visual.
+  * Confirmação com `(A)`: reordena `self.groupedItems`, reseta seleção e scroll para o topo, re-renderiza a lista e fecha o modal.
+  * Cancelamento com `(B)` ou `(Y)`: fecha o modal sem alterar.
+  * Atualização dos footer hints da lista: `(A) Ver Leilões | (Y) Classificar | (B) Nova Busca`.
+* **Teste no Jogo:** Fazer uma busca ampla (ex: Cloth), ver a lista de resultados, apertar `(Y)`, escolher "Preço Unitário: Maior ao Menor" e confirmar com `(A)`. A lista deve atualizar instantaneamente com os itens mais caros no topo.
+
+---
+
+### FASE 5: Atalho Fast-Track (Y) na Navegação de Categorias e Subcategorias
 * **Objetivo:** Permitir ao jogador pular direto para a tela de filtros a partir de qualquer nível da árvore de categorias.
 * **Tarefas:**
   * Atalho `(Y)` em `CATEGORIES`: seleciona a categoria principal e abre `SEARCH FILTERS` diretamente (com `subclassIndex = nil` e `invTypeIndex = nil`).
@@ -115,7 +136,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 5: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX
+### FASE 6: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX
 * **Objetivo:** Interface de venda dividida com comparação em tempo real.
 * **Tarefas:**
   * Coluna esquerda do inventário filtrada (somente itens leiloáveis).
@@ -131,7 +152,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 6: Aba Meus Leilões e Histórico de Vendas
+### FASE 7: Aba Meus Leilões e Histórico de Vendas
 * **Objetivo:** Gerenciar leilões ativos e histórico persistente.
 * **Tarefas:**
   * Lista de leilões ativos do jogador (`GetNumAuctionItems("owner")`).
@@ -141,7 +162,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 7: Polimento Visual, Limpeza e Homologação
+### FASE 8: Polimento Visual, Limpeza e Homologação
 * **Objetivo:** Limpeza de comandos de depuração da fase de pesquisa e validação geral.
 * **Tarefas:**
   * Remover ou desativar os comandos dev `/cm ahdump` e `/cm ahprobe`.

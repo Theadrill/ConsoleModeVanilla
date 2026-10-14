@@ -4,6 +4,7 @@
 -- Compatível com WoW Vanilla 1.12.1 / Lua 5.0 (Turtle WoW)
 -- FASE 0: Fundação, Moldura 9-Slice, Abas e Hook de Abertura
 -- FASE 1: Aba Comprar — Categorias, Navegação D-Pad, Filtros Salvos e Scan
+-- FASE 2: Lista de Itens Agrupados, Detalhe do Leilão e Compra Fiel
 -- ============================================================================
 
 local CM = ConsoleMode or {}
@@ -83,6 +84,13 @@ local QUALITY_KEYS = {
 }
 
 local QUALITY_ORDER = { -1, 0, 1, 2, 3, 4, 5 }
+
+local TIME_LEFT_KEYS = {
+    [1] = "AH_TIME_SHORT",
+    [2] = "AH_TIME_MEDIUM",
+    [3] = "AH_TIME_LONG",
+    [4] = "AH_TIME_VERY_LONG",
+}
 
 local TABS = {
     { key = "BUY",   labelKey = "AH_TAB_BUY" },
@@ -258,7 +266,7 @@ AuctionScreen.eventFrame          = nil
 AuctionScreen.footerWidgets       = nil
 
 -- Estados da Aba Comprar (Buy Tab)
-AuctionScreen.buyStep             = "CATEGORIES" -- "CATEGORIES", "SUBCATEGORIES", "SLOTS", "FILTERS", "SCANNING", "RESULTS_SUMMARY"
+AuctionScreen.buyStep             = "CATEGORIES" -- "CATEGORIES", "SUBCATEGORIES", "SLOTS", "FILTERS", "SCANNING", "ITEMS_LIST", "ITEM_DETAIL", "NO_RESULTS"
 AuctionScreen.selectedCategory    = nil
 AuctionScreen.selectedSubcategory = nil
 AuctionScreen.selectedSlot        = nil
@@ -276,6 +284,17 @@ AuctionScreen.activeFilters       = {
 AuctionScreen.scanResults         = {}
 AuctionScreen.scanTotal           = 0
 
+-- FASE 2: Estados de Itens Agrupados, Detalhes e Compra
+AuctionScreen.groupedItems          = {}
+AuctionScreen.selectedItemIndex     = 1
+AuctionScreen.itemListScrollOffset  = 0
+AuctionScreen.selectedGroupedItem   = nil
+AuctionScreen.selectedAuctionIndex  = 1
+AuctionScreen.itemDetailScrollOffset= 0
+AuctionScreen.isConfirmModalOpen    = false
+AuctionScreen.targetAuction         = nil
+AuctionScreen.isBuyoutAction        = true
+
 -- Hold-to-repeat
 AuctionScreen.repeatDir           = nil
 AuctionScreen.repeatElapsed       = 0
@@ -283,7 +302,7 @@ AuctionScreen.repeatDelay         = 0.35
 AuctionScreen.repeatRate          = 0.08
 
 -- ----------------------------------------------------------------------------
--- 4. HELPERS DE TIPOGRAFIA E 9-SLICE
+-- 4. HELPERS DE FORMATAÇÃO, TIPOGRAFIA E 9-SLICE
 -- ----------------------------------------------------------------------------
 function AuctionScreen:ApplyFont(fontString, fontPath, size, outline, shadowOffset, shadowColor)
     if not fontString then return end
@@ -357,7 +376,7 @@ function AuctionScreen:Create9Slice(parent, texturePath, cornerSize, uvMap, draw
     slices.bottom = makeSlice("Bottom", c[2][1], c[2][2], r[3][1], r[3][2])
     slices.bottom:SetHeight(cornerSize)
     slices.bottom:SetPoint("BOTTOMLEFT", slices.bottomLeft, "BOTTOMRIGHT", 0, 0)
-    slices.bottom:SetPoint("BOTTOMRIGHT", slices.bottomRight, "BOTTOMLEFT", 0, 0)
+    slices.bottom:SetPoint("BOTTOMRIGHT", slices.bottomRight, "TOPLEFT", 0, 0)
 
     -- 3. Bordas Verticais
     slices.left = makeSlice("Left", c[1][1], c[1][2], r[2][1], r[2][2])
@@ -376,6 +395,45 @@ function AuctionScreen:Create9Slice(parent, texturePath, cornerSize, uvMap, draw
     slices.center:SetPoint("BOTTOMRIGHT", slices.bottomRight, "TOPLEFT", 0, 0)
 
     return slices
+end
+
+function AuctionScreen:FormatMoney(totalCopper)
+    totalCopper = totalCopper or 0
+    if totalCopper < 0 then totalCopper = 0 end
+
+    local gold   = math.floor(totalCopper / 10000)
+    local silver = math.floor(math.mod(totalCopper, 10000) / 100)
+    local copper = math.floor(math.mod(totalCopper, 100))
+
+    local text = ""
+    if gold > 0 then
+        text = text .. gold .. "|TInterface\\MoneyFrame\\UI-GoldIcon:14:14:2:0|t "
+    end
+    if silver > 0 or gold > 0 then
+        text = text .. silver .. "|TInterface\\MoneyFrame\\UI-SilverIcon:14:14:2:0|t "
+    end
+    text = text .. copper .. "|TInterface\\MoneyFrame\\UI-CopperIcon:14:14:2:0|t"
+    return text
+end
+
+function AuctionScreen:GetItemVendorPrice(itemLink)
+    if not itemLink then return 0 end
+    local _, _, idStr = string.find(itemLink, "item:(%d+)")
+    local itemID = tonumber(idStr)
+    if not itemID then return 0 end
+
+    if ConsoleMode_SellValues and ConsoleMode_SellValues[itemID] then
+        return ConsoleMode_SellValues[itemID]
+    elseif ShaguTweaks and ShaguTweaks.SellValueDB and ShaguTweaks.SellValueDB[itemID] then
+        return ShaguTweaks.SellValueDB[itemID]
+    elseif ShaguValueDB and ShaguValueDB[itemID] then
+        return ShaguValueDB[itemID]
+    elseif GetSellValue then
+        return GetSellValue(itemLink) or 0
+    elseif GetItemSellValue then
+        return GetItemSellValue(itemLink) or 0
+    end
+    return 0
 end
 
 -- ----------------------------------------------------------------------------
@@ -486,7 +544,6 @@ function AuctionScreen:UpdateFooterHints()
     if not self.frame or not self.frame.footerContainer then return end
     local container = self.frame.footerContainer
 
-    -- Destrói widgets antigos
     if self.footerWidgets then
         for i = 1, table.getn(self.footerWidgets) do
             self.footerWidgets[i]:Hide()
@@ -494,7 +551,10 @@ function AuctionScreen:UpdateFooterHints()
     end
 
     local hints = {}
-    if self.currentTab == "BUY" then
+    if self.isConfirmModalOpen then
+        table.insert(hints, { icons = { "A" }, label = CM:T("AH_HINT_CONFIRM") })
+        table.insert(hints, { icons = { "B" }, label = CM:T("AH_BTN_CANCEL") })
+    elseif self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
             table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
@@ -513,7 +573,17 @@ function AuctionScreen:UpdateFooterHints()
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
         elseif self.buyStep == "SCANNING" then
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_SCAN_ABORT") })
-        elseif self.buyStep == "RESULTS_SUMMARY" then
+        elseif self.buyStep == "ITEMS_LIST" then
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
+            table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
+            table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
+        elseif self.buyStep == "ITEM_DETAIL" then
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_BTN_BUYOUT") })
+            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_BTN_BID") })
+            table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
+        elseif self.buyStep == "NO_RESULTS" or self.buyStep == "RESULTS_SUMMARY" then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
         end
@@ -589,7 +659,7 @@ function AuctionScreen:UpdateFooterHints()
 end
 
 -- ----------------------------------------------------------------------------
--- 6. ÁREA DE CONTEÚDO (BREADCRUMB, GRID, FILTROS, SCANNING)
+-- 6. ÁREA DE CONTEÚDO (BREADCRUMB, GRID, FILTROS, SCANNING, LISTA, DETALHE)
 -- ----------------------------------------------------------------------------
 function AuctionScreen:CreateContentArea(parent)
     local contentArea = CreateFrame("Frame", "ConsoleMode_AuctionContentArea", parent)
@@ -633,13 +703,32 @@ function AuctionScreen:CreateContentArea(parent)
     self.scanContainer = scanContainer
     self:CreateScanControls(scanContainer)
 
-    -- 5. Container de Resumo dos Resultados (Fase 1 finish state)
+    -- 5. Container de Resumo / Sem Resultados
     local summaryContainer = CreateFrame("Frame", "ConsoleMode_AuctionSummaryContainer", contentArea)
     summaryContainer:SetPoint("TOPLEFT", breadcrumb, "BOTTOMLEFT", 0, -12)
     summaryContainer:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
     summaryContainer:Hide()
     self.summaryContainer = summaryContainer
     self:CreateSummaryControls(summaryContainer)
+
+    -- 6. Container da Lista de Itens Agrupados (FASE 2)
+    local itemListContainer = CreateFrame("Frame", "ConsoleMode_AuctionItemListContainer", contentArea)
+    itemListContainer:SetPoint("TOPLEFT", breadcrumb, "BOTTOMLEFT", 0, -8)
+    itemListContainer:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
+    itemListContainer:Hide()
+    self.itemListContainer = itemListContainer
+    self:CreateItemListControls(itemListContainer)
+
+    -- 7. Container de Detalhes do Item Selecionado (FASE 2)
+    local itemDetailContainer = CreateFrame("Frame", "ConsoleMode_AuctionItemDetailContainer", contentArea)
+    itemDetailContainer:SetPoint("TOPLEFT", breadcrumb, "BOTTOMLEFT", 0, -8)
+    itemDetailContainer:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
+    itemDetailContainer:Hide()
+    self.itemDetailContainer = itemDetailContainer
+    self:CreateItemDetailControls(itemDetailContainer)
+
+    -- 8. Modal de Confirmação de Compra (FASE 2)
+    self:CreateConfirmModal(parent)
 end
 
 function AuctionScreen:UpdateBreadcrumb()
@@ -667,6 +756,13 @@ function AuctionScreen:UpdateBreadcrumb()
         trail = trail .. sep .. CM:T("AH_FILTER_TITLE")
     elseif self.buyStep == "SCANNING" then
         trail = trail .. sep .. CM:T("AH_SEARCHING")
+    elseif self.buyStep == "ITEMS_LIST" then
+        trail = trail .. sep .. "Resultados"
+    elseif self.buyStep == "ITEM_DETAIL" then
+        trail = trail .. sep .. "Resultados"
+        if self.selectedGroupedItem and self.selectedGroupedItem.name then
+            trail = trail .. sep .. self.selectedGroupedItem.name
+        end
     end
 
     self.breadcrumb.text:SetText(trail)
@@ -734,7 +830,6 @@ function AuctionScreen:PopulateGrid(items, columns)
     local btnW = math.floor((containerW - ((self.gridColumns - 1) * gapX)) / self.gridColumns)
     local btnH = 46
 
-    -- Esconde botões extras
     for i = 1, table.getn(self.gridButtons) do
         self.gridButtons[i]:Hide()
     end
@@ -945,7 +1040,6 @@ function AuctionScreen:UpdateFilterStyles()
         local isFocused = (i == self.filterRowIndex)
 
         if i == 5 then
-            -- Botão Iniciar Busca
             if isFocused then
                 row:SetBackdropColor(0.35, 0.25, 0.10, 0.98)
                 row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
@@ -971,7 +1065,6 @@ end
 
 function AuctionScreen:AdjustFilterValue(delta)
     if self.filterRowIndex == 1 then
-        -- Ciclar Qualidade
         local currentIdx = 1
         local numQ = table.getn(QUALITY_ORDER)
         for i = 1, numQ do
@@ -985,7 +1078,6 @@ function AuctionScreen:AdjustFilterValue(delta)
         if nextIdx > numQ then nextIdx = 1 end
         self.activeFilters.quality = QUALITY_ORDER[nextIdx]
     elseif self.filterRowIndex == 2 then
-        -- Min Level (0 a 60)
         local val = self.activeFilters.minLevel + delta
         if val < 0 then val = 0 end
         if val > 60 then val = 60 end
@@ -994,7 +1086,6 @@ function AuctionScreen:AdjustFilterValue(delta)
         end
         self.activeFilters.minLevel = val
     elseif self.filterRowIndex == 3 then
-        -- Max Level (0 a 60)
         local val = self.activeFilters.maxLevel + delta
         if val < 0 then val = 0 end
         if val > 60 then val = 60 end
@@ -1003,7 +1094,6 @@ function AuctionScreen:AdjustFilterValue(delta)
         end
         self.activeFilters.maxLevel = val
     elseif self.filterRowIndex == 4 then
-        -- Usable Only (0 ou 1)
         if self.activeFilters.isUsable == 1 then
             self.activeFilters.isUsable = 0
         else
@@ -1039,7 +1129,6 @@ function AuctionScreen:CreateScanControls(parent)
     countText:SetTextColor(0.80, 0.80, 0.80, 0.90)
     parent.countText = countText
 
-    -- Barra de Progresso Visual
     local barBg = CreateFrame("Frame", "ConsoleMode_AuctionProgressBarBg", parent)
     barBg:SetWidth(420)
     barBg:SetHeight(22)
@@ -1080,7 +1169,7 @@ function AuctionScreen:UpdateScanProgress(currentPage, totalPages, batchCount, t
 end
 
 -- ----------------------------------------------------------------------------
--- 10. TELA DE RESUMO DE RESULTADOS (Fase 1 Finish State)
+-- 10. TELA DE RESUMO / SEM RESULTADOS
 -- ----------------------------------------------------------------------------
 function AuctionScreen:CreateSummaryControls(parent)
     local title = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
@@ -1096,7 +1185,6 @@ function AuctionScreen:CreateSummaryControls(parent)
     summaryText:SetText("")
     parent.summaryText = summaryText
 
-    -- Botões de ação pós-busca
     local btnContainer = CreateFrame("Frame", nil, parent)
     btnContainer:SetHeight(48)
     btnContainer:SetWidth(440)
@@ -1175,7 +1263,751 @@ function AuctionScreen:UpdateSummaryStyles()
 end
 
 -- ----------------------------------------------------------------------------
--- 11. CONTROLE DE PASSOS (FLOW DA ABA COMPRAR)
+-- 11. FASE 2: LISTA DE ITENS AGRUPADOS (ITEMS_LIST)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:CreateItemListControls(parent)
+    local headerFrame = CreateFrame("Frame", nil, parent)
+    headerFrame:SetHeight(24)
+    headerFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 12, 0)
+    headerFrame:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -12, 0)
+
+    local colItem = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
+    self:ApplyFont(colItem, FONTS.titleBold, 15)
+    colItem:SetText(CM:T("AH_COL_ITEM"))
+    colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colLevel = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colLevel:SetPoint("LEFT", headerFrame, "LEFT", 380, 0)
+    self:ApplyFont(colLevel, FONTS.titleBold, 15)
+    colLevel:SetText(CM:T("AH_COL_LEVEL"))
+    colLevel:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colAuctions = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colAuctions:SetPoint("LEFT", headerFrame, "LEFT", 460, 0)
+    self:ApplyFont(colAuctions, FONTS.titleBold, 15)
+    colAuctions:SetText("QTD LEILÕES")
+    colAuctions:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colPrice = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colPrice:SetPoint("RIGHT", headerFrame, "RIGHT", -120, 0)
+    self:ApplyFont(colPrice, FONTS.titleBold, 15)
+    colPrice:SetText("A PARTIR DE")
+    colPrice:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colVendor = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -16, 0)
+    self:ApplyFont(colVendor, FONTS.titleBold, 15)
+    colVendor:SetText("% VENDOR")
+    colVendor:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    -- Pool de 7 linhas visíveis
+    local rows = {}
+    local startY = -28
+    local rowH = 46
+    local rowGap = 6
+
+    for i = 1, 7 do
+        local row = CreateFrame("Button", "ConsoleMode_AuctionItemRow" .. i, parent)
+        row:SetHeight(rowH)
+        row:SetPoint("TOPLEFT", parent, "TOPLEFT", 12, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -12, startY - ((i - 1) * (rowH + rowGap)))
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 10, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+
+        -- Ícone
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(34)
+        icon:SetHeight(34)
+        icon:SetPoint("LEFT", row, "LEFT", 6, 0)
+        row.icon = icon
+
+        -- Nome do Item
+        local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        nameText:SetPoint("LEFT", icon, "RIGHT", 10, 0)
+        nameText:SetWidth(320)
+        nameText:SetJustifyH("LEFT")
+        self:ApplyFont(nameText, FONTS.titleBold, 17)
+        row.nameText = nameText
+
+        -- Nível
+        local lvlText = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        lvlText:SetPoint("LEFT", row, "LEFT", 380, 0)
+        self:ApplyFont(lvlText, FONTS.bodyBold, 16)
+        lvlText:SetTextColor(0.90, 0.90, 0.90, 1.0)
+        row.lvlText = lvlText
+
+        -- Quantidade de Leilões
+        local countText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        countText:SetPoint("LEFT", row, "LEFT", 460, 0)
+        self:ApplyFont(countText, FONTS.medium, 16)
+        countText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+        row.countText = countText
+
+        -- Preço Mínimo
+        local priceText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        priceText:SetPoint("RIGHT", row, "RIGHT", -120, 0)
+        self:ApplyFont(priceText, FONTS.bodyBold, 16)
+        row.priceText = priceText
+
+        -- % Vendor
+        local vendorText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        vendorText:SetPoint("RIGHT", row, "RIGHT", -16, 0)
+        self:ApplyFont(vendorText, FONTS.titleBold, 15)
+        row.vendorText = vendorText
+
+        row.rowIdx = i
+        row:SetScript("OnClick", function()
+            local itemIndex = AuctionScreen.itemListScrollOffset + this.rowIdx
+            AuctionScreen.selectedItemIndex = itemIndex
+            AuctionScreen:UpdateItemList()
+            AuctionScreen:OnConfirm()
+        end)
+
+        table.insert(rows, row)
+    end
+
+    -- Indicador de Posição (Ex: "Item 1 de 24")
+    local posIndicator = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    posIndicator:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -16, -26)
+    self:ApplyFont(posIndicator, FONTS.medium, 15)
+    posIndicator:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    parent.posIndicator = posIndicator
+
+    self.itemListRows = rows
+end
+
+function AuctionScreen:GroupScanResults()
+    local grouped = {}
+    local groupsByKey = {}
+    local results = self.scanResults or {}
+    local numResults = table.getn(results)
+
+    for i = 1, numResults do
+        local r = results[i]
+        local key = r.name or "Unknown"
+        if r.link then
+            local _, _, id = string.find(r.link, "item:(%d+)")
+            if id then key = id end
+        end
+
+        if not groupsByKey[key] then
+            local vendorPrice = self:GetItemVendorPrice(r.link)
+            local group = {
+                key         = key,
+                name        = r.name or "Unknown",
+                texture     = r.texture or "Interface\\Icons\\INV_Misc_QuestionMark",
+                quality     = r.quality or 0,
+                level       = r.level or 0,
+                link        = r.link,
+                vendorPrice = vendorPrice,
+                minBuyout   = r.buyoutPrice or 0,
+                minBid      = r.minBid or r.bidAmount or 0,
+                totalUnits  = r.count or 1,
+                numAuctions = 1,
+                auctions    = { r }
+            }
+            groupsByKey[key] = group
+            table.insert(grouped, group)
+        else
+            local group = groupsByKey[key]
+            table.insert(group.auctions, r)
+            group.numAuctions = group.numAuctions + 1
+            group.totalUnits = group.totalUnits + (r.count or 1)
+
+            if r.buyoutPrice and r.buyoutPrice > 0 then
+                if group.minBuyout == 0 or r.buyoutPrice < group.minBuyout then
+                    group.minBuyout = r.buyoutPrice
+                end
+            end
+            if r.minBid and r.minBid > 0 then
+                if group.minBid == 0 or r.minBid < group.minBid then
+                    group.minBid = r.minBid
+                end
+            end
+        end
+    end
+
+    -- Ordena leilões dentro de cada grupo por menor preço de buyout
+    for i = 1, table.getn(grouped) do
+        local g = grouped[i]
+        table.sort(g.auctions, function(a, b)
+            local priceA = (a.buyoutPrice and a.buyoutPrice > 0) and a.buyoutPrice or 99999999
+            local priceB = (b.buyoutPrice and b.buyoutPrice > 0) and b.buyoutPrice or 99999999
+            return priceA < priceB
+        end)
+    end
+
+    -- Ordena os itens agrupados alfabeticamente
+    table.sort(grouped, function(a, b)
+        return (a.name or "") < (b.name or "")
+    end)
+
+    self.groupedItems = grouped
+    self.selectedItemIndex = 1
+    self.itemListScrollOffset = 0
+end
+
+function AuctionScreen:UpdateItemList()
+    if not self.itemListRows then return end
+
+    local totalItems = table.getn(self.groupedItems)
+    local offset = self.itemListScrollOffset or 0
+
+    for i = 1, 7 do
+        local row = self.itemListRows[i]
+        local itemIdx = offset + i
+
+        if itemIdx <= totalItems then
+            local item = self.groupedItems[itemIdx]
+            local isFocused = (itemIdx == self.selectedItemIndex)
+
+            row.icon:SetTexture(item.texture)
+            local qColor = QUALITY_COLORS[item.quality] or { 1, 1, 1 }
+            row.nameText:SetText(item.name)
+            row.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+            local lvlStr = (item.level and item.level > 0) and tostring(item.level) or "-"
+            row.lvlText:SetText(lvlStr)
+
+            local countStr = string.format(CM:T("AH_COUNT_AUCTIONS_FMT") or "(%d leilões)", item.numAuctions)
+            row.countText:SetText(countStr)
+
+            local priceVal = (item.minBuyout and item.minBuyout > 0) and item.minBuyout or item.minBid
+            row.priceText:SetText(self:FormatMoney(priceVal))
+
+            if item.vendorPrice and item.vendorPrice > 0 and priceVal and priceVal > 0 then
+                local pct = math.floor((priceVal / item.vendorPrice) * 100)
+                row.vendorText:SetText(pct .. "%")
+                if pct <= 100 then
+                    row.vendorText:SetTextColor(0.12, 1.0, 0.0, 1.0)
+                else
+                    row.vendorText:SetTextColor(1.0, 0.82, 0.20, 1.0)
+                end
+            else
+                row.vendorText:SetText("-")
+                row.vendorText:SetTextColor(0.60, 0.60, 0.60, 0.8)
+            end
+
+            if isFocused then
+                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+            else
+                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+            end
+
+            row:Show()
+        else
+            row:Hide()
+        end
+    end
+
+    if self.itemListContainer and self.itemListContainer.posIndicator then
+        if totalItems > 0 then
+            self.itemListContainer.posIndicator:SetText(string.format("Item %d de %d", self.selectedItemIndex, totalItems))
+        else
+            self.itemListContainer.posIndicator:SetText("")
+        end
+    end
+end
+
+function AuctionScreen:ScrollItemList(delta)
+    local total = table.getn(self.groupedItems)
+    if total <= 0 then return end
+
+    local newIdx = self.selectedItemIndex + delta
+    if newIdx < 1 then newIdx = 1 end
+    if newIdx > total then newIdx = total end
+
+    self.selectedItemIndex = newIdx
+
+    if self.selectedItemIndex <= self.itemListScrollOffset then
+        self.itemListScrollOffset = self.selectedItemIndex - 1
+    elseif self.selectedItemIndex > self.itemListScrollOffset + 7 then
+        self.itemListScrollOffset = self.selectedItemIndex - 7
+    end
+
+    self:UpdateItemList()
+end
+
+-- ----------------------------------------------------------------------------
+-- 12. FASE 2: TELA DE DETALHES DO ITEM (ITEM_DETAIL)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:CreateItemDetailControls(parent)
+    -- Top Card do Item Selecionado
+    local topCard = CreateFrame("Frame", nil, parent)
+    topCard:SetHeight(52)
+    topCard:SetPoint("TOPLEFT", parent, "TOPLEFT", 12, 0)
+    topCard:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -12, 0)
+    topCard:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 10, edgeSize = 10,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    topCard:SetBackdropColor(0.12, 0.09, 0.06, 0.90)
+    topCard:SetBackdropBorderColor(0.60, 0.48, 0.30, 0.85)
+
+    local icon = topCard:CreateTexture(nil, "ARTWORK")
+    icon:SetWidth(40)
+    icon:SetHeight(40)
+    icon:SetPoint("LEFT", topCard, "LEFT", 8, 0)
+    topCard.icon = icon
+
+    local nameText = topCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    nameText:SetPoint("LEFT", icon, "RIGHT", 12, 4)
+    self:ApplyFont(nameText, FONTS.titleBold, 20)
+    topCard.nameText = nameText
+
+    local subText = topCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    subText:SetPoint("LEFT", icon, "RIGHT", 12, -14)
+    self:ApplyFont(subText, FONTS.bodyBold, 15)
+    subText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    topCard.subText = subText
+
+    parent.topCard = topCard
+
+    -- Cabeçalho da Tabela de Leilões
+    local tableHeader = CreateFrame("Frame", nil, parent)
+    tableHeader:SetHeight(22)
+    tableHeader:SetPoint("TOPLEFT", topCard, "BOTTOMLEFT", 0, -8)
+    tableHeader:SetPoint("TOPRIGHT", topCard, "BOTTOMRIGHT", 0, -8)
+
+    local colSeller = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colSeller:SetPoint("LEFT", tableHeader, "LEFT", 16, 0)
+    self:ApplyFont(colSeller, FONTS.titleBold, 15)
+    colSeller:SetText(CM:T("AH_COL_SELLER"))
+    colSeller:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colStack = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colStack:SetPoint("LEFT", tableHeader, "LEFT", 220, 0)
+    self:ApplyFont(colStack, FONTS.titleBold, 15)
+    colStack:SetText("STACK")
+    colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colTime = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colTime:SetPoint("LEFT", tableHeader, "LEFT", 340, 0)
+    self:ApplyFont(colTime, FONTS.titleBold, 15)
+    colTime:SetText(CM:T("AH_COL_TIME_LEFT"))
+    colTime:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colBid = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colBid:SetPoint("RIGHT", tableHeader, "RIGHT", -180, 0)
+    self:ApplyFont(colBid, FONTS.titleBold, 15)
+    colBid:SetText(CM:T("AH_COL_BID"))
+    colBid:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colBuyout = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colBuyout:SetPoint("RIGHT", tableHeader, "RIGHT", -16, 0)
+    self:ApplyFont(colBuyout, FONTS.titleBold, 15)
+    colBuyout:SetText(CM:T("AH_COL_BUYOUT"))
+    colBuyout:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    -- Pool de 6 linhas de leilão individual
+    local rows = {}
+    local startY = -86
+    local rowH = 46
+    local rowGap = 6
+
+    for i = 1, 6 do
+        local row = CreateFrame("Button", "ConsoleMode_AuctionDetailRow" .. i, parent)
+        row:SetHeight(rowH)
+        row:SetPoint("TOPLEFT", parent, "TOPLEFT", 12, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -12, startY - ((i - 1) * (rowH + rowGap)))
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 10, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+
+        local sellerText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        sellerText:SetPoint("LEFT", row, "LEFT", 16, 0)
+        self:ApplyFont(sellerText, FONTS.titleBold, 16)
+        row.sellerText = sellerText
+
+        local stackText = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        stackText:SetPoint("LEFT", row, "LEFT", 220, 0)
+        self:ApplyFont(stackText, FONTS.titleBold, 17)
+        stackText:SetTextColor(1.0, 0.90, 0.40, 1.0)
+        row.stackText = stackText
+
+        local timeText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        timeText:SetPoint("LEFT", row, "LEFT", 340, 0)
+        self:ApplyFont(timeText, FONTS.medium, 15)
+        timeText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+        row.timeText = timeText
+
+        local bidText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        bidText:SetPoint("RIGHT", row, "RIGHT", -180, 0)
+        self:ApplyFont(bidText, FONTS.bodyBold, 16)
+        row.bidText = bidText
+
+        local buyoutText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        buyoutText:SetPoint("RIGHT", row, "RIGHT", -16, 0)
+        self:ApplyFont(buyoutText, FONTS.titleBold, 17)
+        row.buyoutText = buyoutText
+
+        row.rowIdx = i
+        row:SetScript("OnClick", function()
+            local auctionIdx = AuctionScreen.itemDetailScrollOffset + this.rowIdx
+            AuctionScreen.selectedAuctionIndex = auctionIdx
+            AuctionScreen:UpdateItemDetail()
+            AuctionScreen:OnConfirm()
+        end)
+
+        table.insert(rows, row)
+    end
+
+    local posIndicator = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    posIndicator:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -16, -26)
+    self:ApplyFont(posIndicator, FONTS.medium, 15)
+    posIndicator:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    parent.posIndicator = posIndicator
+
+    self.itemDetailRows = rows
+end
+
+function AuctionScreen:UpdateItemDetail()
+    if not self.itemDetailRows or not self.selectedGroupedItem then return end
+
+    local item = self.selectedGroupedItem
+    local topCard = self.itemDetailContainer.topCard
+    if topCard then
+        topCard.icon:SetTexture(item.texture)
+        local qColor = QUALITY_COLORS[item.quality] or { 1, 1, 1 }
+        topCard.nameText:SetText(item.name)
+        topCard.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+        local subInfo = string.format("Nível: %s  •  Total de Leilões: %d", (item.level and item.level > 0) and tostring(item.level) or "-", item.numAuctions or 1)
+        if item.vendorPrice and item.vendorPrice > 0 then
+            subInfo = subInfo .. "  •  Vendor: " .. self:FormatMoney(item.vendorPrice)
+        end
+        topCard.subText:SetText(subInfo)
+    end
+
+    local auctions = item.auctions or {}
+    local totalAuctions = table.getn(auctions)
+    local offset = self.itemDetailScrollOffset or 0
+
+    for i = 1, 6 do
+        local row = self.itemDetailRows[i]
+        local auctionIdx = offset + i
+
+        if auctionIdx <= totalAuctions then
+            local a = auctions[auctionIdx]
+            local isFocused = (auctionIdx == self.selectedAuctionIndex)
+
+            row.sellerText:SetText(a.owner or "Desconhecido")
+            row.stackText:SetText("x" .. (a.count or 1))
+
+            local timeKey = TIME_LEFT_KEYS[a.timeLeft] or "AH_TIME_SHORT"
+            row.timeText:SetText(CM:T(timeKey) or "")
+
+            local bidVal = (a.bidAmount and a.bidAmount > 0) and a.bidAmount or (a.minBid or 0)
+            row.bidText:SetText(self:FormatMoney(bidVal))
+
+            if a.buyoutPrice and a.buyoutPrice > 0 then
+                row.buyoutText:SetText(self:FormatMoney(a.buyoutPrice))
+                row.buyoutText:SetTextColor(1.0, 0.90, 0.40, 1.0)
+            else
+                row.buyoutText:SetText("--")
+                row.buyoutText:SetTextColor(0.50, 0.50, 0.50, 1.0)
+            end
+
+            if isFocused then
+                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+            else
+                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+            end
+
+            row:Show()
+        else
+            row:Hide()
+        end
+    end
+
+    if self.itemDetailContainer and self.itemDetailContainer.posIndicator then
+        if totalAuctions > 0 then
+            self.itemDetailContainer.posIndicator:SetText(string.format("Leilão %d de %d", self.selectedAuctionIndex, totalAuctions))
+        else
+            self.itemDetailContainer.posIndicator:SetText("")
+        end
+    end
+end
+
+function AuctionScreen:ScrollItemDetail(delta)
+    if not self.selectedGroupedItem then return end
+    local total = table.getn(self.selectedGroupedItem.auctions or {})
+    if total <= 0 then return end
+
+    local newIdx = self.selectedAuctionIndex + delta
+    if newIdx < 1 then newIdx = 1 end
+    if newIdx > total then newIdx = total end
+
+    self.selectedAuctionIndex = newIdx
+
+    if self.selectedAuctionIndex <= self.itemDetailScrollOffset then
+        self.itemDetailScrollOffset = self.selectedAuctionIndex - 1
+    elseif self.selectedAuctionIndex > self.itemDetailScrollOffset + 6 then
+        self.itemDetailScrollOffset = self.selectedAuctionIndex - 6
+    end
+
+    self:UpdateItemDetail()
+end
+
+-- ----------------------------------------------------------------------------
+-- 13. FASE 2: MODAL DE CONFIRMAÇÃO DE COMPRA (9-SLICE)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:CreateConfirmModal(parent)
+    local modalDimmer = CreateFrame("Frame", "ConsoleMode_AuctionModalDimmer", parent)
+    modalDimmer:SetFrameStrata("DIALOG")
+    modalDimmer:SetFrameLevel(45)
+    modalDimmer:SetAllPoints(UIParent)
+    modalDimmer:EnableMouse(true)
+    modalDimmer:Hide()
+
+    local bg = modalDimmer:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(modalDimmer)
+    bg:SetTexture(0, 0, 0, 0.70)
+    modalDimmer.bg = bg
+
+    local modal = CreateFrame("Frame", "ConsoleMode_AuctionConfirmModal", modalDimmer)
+    modal:SetWidth(480)
+    modal:SetHeight(280)
+    modal:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    modal:SetFrameStrata("DIALOG")
+    modal:SetFrameLevel(50)
+    modal:EnableMouse(true)
+
+    self:Create9Slice(modal, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
+
+    local title = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    title:SetPoint("TOP", modal, "TOP", 0, -20)
+    self:ApplyFont(title, FONTS.titleBold, 22)
+    title:SetTextColor(1.0, 0.85, 0.25, 1.0)
+    modal.title = title
+
+    local itemIcon = modal:CreateTexture(nil, "ARTWORK")
+    itemIcon:SetWidth(38)
+    itemIcon:SetHeight(38)
+    itemIcon:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, -60)
+    modal.itemIcon = itemIcon
+
+    local itemName = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    itemName:SetPoint("LEFT", itemIcon, "RIGHT", 12, 0)
+    itemName:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
+    itemName:SetJustifyH("LEFT")
+    self:ApplyFont(itemName, FONTS.titleBold, 18)
+    modal.itemName = itemName
+
+    local promptText = modal:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    promptText:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -14)
+    promptText:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
+    promptText:SetJustifyH("LEFT")
+    self:ApplyFont(promptText, FONTS.bodyBold, 16)
+    modal.promptText = promptText
+
+    local moneyRow = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    moneyRow:SetPoint("TOPLEFT", promptText, "BOTTOMLEFT", 0, -10)
+    self:ApplyFont(moneyRow, FONTS.medium, 15)
+    moneyRow:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    modal.moneyRow = moneyRow
+
+    local warningText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    warningText:SetPoint("TOPLEFT", moneyRow, "BOTTOMLEFT", 0, -8)
+    self:ApplyFont(warningText, FONTS.titleBold, 15)
+    warningText:SetTextColor(1.0, 0.20, 0.20, 1.0)
+    warningText:SetText("")
+    modal.warningText = warningText
+
+    -- Botões Confirmar / Cancelar
+    local btnContainer = CreateFrame("Frame", nil, modal)
+    btnContainer:SetHeight(40)
+    btnContainer:SetPoint("BOTTOMLEFT", modal, "BOTTOMLEFT", 24, 20)
+    btnContainer:SetPoint("BOTTOMRIGHT", modal, "BOTTOMRIGHT", -24, 20)
+
+    local btnConfirm = CreateFrame("Button", "ConsoleMode_AuctionModalConfirmBtn", btnContainer)
+    btnConfirm:SetWidth(190)
+    btnConfirm:SetHeight(38)
+    btnConfirm:SetPoint("LEFT", btnContainer, "LEFT", 10, 0)
+    btnConfirm:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    btnConfirm:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+    btnConfirm:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+
+    local lConf = btnConfirm:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lConf:SetPoint("CENTER", btnConfirm, "CENTER", 0, 0)
+    self:ApplyFont(lConf, FONTS.titleBold, 16)
+    lConf:SetText(CM:T("AH_HINT_CONFIRM"))
+    btnConfirm.label = lConf
+    btnConfirm:SetScript("OnClick", function()
+        AuctionScreen:ExecutePurchase()
+    end)
+    modal.btnConfirm = btnConfirm
+
+    local btnCancel = CreateFrame("Button", "ConsoleMode_AuctionModalCancelBtn", btnContainer)
+    btnCancel:SetWidth(190)
+    btnCancel:SetHeight(38)
+    btnCancel:SetPoint("RIGHT", btnContainer, "RIGHT", -10, 0)
+    btnCancel:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    btnCancel:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+    btnCancel:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+
+    local lCanc = btnCancel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lCanc:SetPoint("CENTER", btnCancel, "CENTER", 0, 0)
+    self:ApplyFont(lCanc, FONTS.titleBold, 16)
+    lCanc:SetText(CM:T("AH_BTN_CANCEL"))
+    btnCancel.label = lCanc
+    btnCancel:SetScript("OnClick", function()
+        AuctionScreen:CloseConfirmModal()
+    end)
+    modal.btnCancel = btnCancel
+
+    self.modalDimmer = modalDimmer
+    self.confirmModal = modal
+end
+
+function AuctionScreen:OpenConfirmModal(auction, isBuyout)
+    if not auction or not self.confirmModal then return end
+
+    self.targetAuction = auction
+    self.isBuyoutAction = isBuyout
+    self.isConfirmModalOpen = true
+
+    local m = self.confirmModal
+    local price = isBuyout and (auction.buyoutPrice or 0) or (auction.minBid or auction.bidAmount or 0)
+    local myMoney = GetMoney() or 0
+
+    if isBuyout then
+        m.title:SetText(CM:T("AH_BUYOUT_CONFIRM_TITLE"))
+        local msg = string.format("Comprar por %s?", self:FormatMoney(price))
+        m.promptText:SetText(msg)
+    else
+        m.title:SetText(CM:T("AH_BID_CONFIRM_TITLE"))
+        local msg = string.format("Dar lance de %s?", self:FormatMoney(price))
+        m.promptText:SetText(msg)
+    end
+
+    m.itemIcon:SetTexture(auction.texture)
+    local qColor = QUALITY_COLORS[auction.quality] or { 1, 1, 1 }
+    m.itemName:SetText(auction.name .. " (x" .. (auction.count or 1) .. ")")
+    m.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+    if myMoney < price then
+        m.moneyRow:SetText("Seu Dinheiro: " .. self:FormatMoney(myMoney))
+        m.warningText:SetText(CM:T("AH_MSG_CANNOT_AFFORD"))
+        m.btnConfirm:Disable()
+        m.btnConfirm:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
+        m.btnConfirm:SetBackdropBorderColor(0.3, 0.3, 0.3, 0.5)
+        m.btnConfirm.label:SetTextColor(0.5, 0.5, 0.5, 1.0)
+    else
+        local remaining = myMoney - price
+        m.moneyRow:SetText("Seu Dinheiro: " .. self:FormatMoney(myMoney) .. "   Restante: " .. self:FormatMoney(remaining))
+        m.warningText:SetText("")
+        m.btnConfirm:Enable()
+        m.btnConfirm:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+        m.btnConfirm:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        m.btnConfirm.label:SetTextColor(1.0, 0.90, 0.40, 1.0)
+    end
+
+    self.modalDimmer:Show()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:CloseConfirmModal()
+    if not self.isConfirmModalOpen then return end
+
+    self.isConfirmModalOpen = false
+    self.targetAuction = nil
+    if self.modalDimmer then
+        self.modalDimmer:Hide()
+    end
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:ExecutePurchase()
+    local auction = self.targetAuction
+    if not auction then return end
+
+    local isBuyout = self.isBuyoutAction
+    local price = isBuyout and (auction.buyoutPrice or 0) or (auction.minBid or auction.bidAmount or 0)
+    local myMoney = GetMoney() or 0
+
+    if myMoney < price then
+        DEFAULT_CHAT_FRAME:AddMessage(CM:T("AH_MSG_CANNOT_AFFORD"))
+        return
+    end
+
+    PlaceAuctionBid("list", auction.index, price)
+
+    if isBuyout then
+        local msg = string.format(CM:T("AH_MSG_BUYOUT_SUCCESS_FMT"), auction.name or "")
+        DEFAULT_CHAT_FRAME:AddMessage(msg)
+    else
+        local msg = string.format(CM:T("AH_MSG_BID_SUCCESS_FMT"), auction.name or "")
+        DEFAULT_CHAT_FRAME:AddMessage(msg)
+    end
+
+    self:CloseConfirmModal()
+
+    -- Remove o leilão comprado da lista em memória do item selecionado
+    if self.selectedGroupedItem and self.selectedGroupedItem.auctions then
+        local remaining = {}
+        for i = 1, table.getn(self.selectedGroupedItem.auctions) do
+            local a = self.selectedGroupedItem.auctions[i]
+            if a ~= auction then
+                table.insert(remaining, a)
+            end
+        end
+        self.selectedGroupedItem.auctions = remaining
+        self.selectedGroupedItem.numAuctions = table.getn(remaining)
+
+        if table.getn(remaining) == 0 then
+            local newGrouped = {}
+            for i = 1, table.getn(self.groupedItems) do
+                if self.groupedItems[i] ~= self.selectedGroupedItem then
+                    table.insert(newGrouped, self.groupedItems[i])
+                end
+            end
+            self.groupedItems = newGrouped
+            if table.getn(newGrouped) == 0 then
+                self:SetBuyStep("NO_RESULTS")
+            else
+                if self.selectedItemIndex > table.getn(newGrouped) then
+                    self.selectedItemIndex = table.getn(newGrouped)
+                end
+                self:SetBuyStep("ITEMS_LIST")
+            end
+        else
+            if self.selectedAuctionIndex > table.getn(remaining) then
+                self.selectedAuctionIndex = table.getn(remaining)
+            end
+            self:UpdateItemDetail()
+        end
+    end
+end
+
+-- ----------------------------------------------------------------------------
+-- 14. CONTROLE DE PASSOS (FLOW DA ABA COMPRAR)
 -- ----------------------------------------------------------------------------
 function AuctionScreen:SetBuyStep(step)
     self.buyStep = step
@@ -1184,6 +2016,9 @@ function AuctionScreen:SetBuyStep(step)
     self.filterContainer:Hide()
     self.scanContainer:Hide()
     self.summaryContainer:Hide()
+    self.itemListContainer:Hide()
+    self.itemDetailContainer:Hide()
+    self:CloseConfirmModal()
 
     if step == "CATEGORIES" then
         self.selectedCategory = nil
@@ -1226,16 +2061,39 @@ function AuctionScreen:SetBuyStep(step)
             self.scanContainer.progressBar.fill:SetWidth(10)
         end
         self.scanContainer:Show()
+    elseif step == "NO_RESULTS" then
+        self.summaryContainer.summaryText:SetText(CM:T("AH_NO_RESULTS"))
+        self.summaryBtnIndex = 2
+        self:UpdateSummaryStyles()
+        self.summaryContainer:Show()
     elseif step == "RESULTS_SUMMARY" then
         local foundFmt = CM:T("AH_SCAN_FOUND_FMT") or "%d auctions found."
         self.summaryContainer.summaryText:SetText(string.format(foundFmt, self.scanTotal or 0))
         self.summaryBtnIndex = 1
         self:UpdateSummaryStyles()
         self.summaryContainer:Show()
+    elseif step == "ITEMS_LIST" then
+        self:UpdateItemList()
+        self.itemListContainer:Show()
+    elseif step == "ITEM_DETAIL" then
+        self:UpdateItemDetail()
+        self.itemDetailContainer:Show()
     end
 
     self:UpdateBreadcrumb()
     self:UpdateFooterHints()
+end
+
+function AuctionScreen:ProcessSearchResults(results, totalCount)
+    self.scanResults = results or {}
+    self.scanTotal = totalCount or 0
+
+    if self.scanTotal == 0 or table.getn(self.scanResults) == 0 then
+        self:SetBuyStep("NO_RESULTS")
+    else
+        self:GroupScanResults()
+        self:SetBuyStep("ITEMS_LIST")
+    end
 end
 
 function AuctionScreen:ExecuteSearch()
@@ -1278,12 +2136,10 @@ function AuctionScreen:ExecuteSearch()
                 AuctionScreen:UpdateScanProgress(currentPage, totalPages, batchCount, totalCount)
             end,
             function(results, totalCount, wasAborted)
-                AuctionScreen.scanResults = results
-                AuctionScreen.scanTotal = totalCount
                 if wasAborted then
                     AuctionScreen:SetBuyStep("FILTERS")
                 else
-                    AuctionScreen:SetBuyStep("RESULTS_SUMMARY")
+                    AuctionScreen:ProcessSearchResults(results, totalCount)
                 end
             end,
             function(err)
@@ -1295,7 +2151,7 @@ function AuctionScreen:ExecuteSearch()
 end
 
 -- ----------------------------------------------------------------------------
--- 12. CRIAÇÃO DA INTERFACE PRINCIPAL
+-- 15. CRIAÇÃO DA INTERFACE PRINCIPAL
 -- ----------------------------------------------------------------------------
 function AuctionScreen:CreateUI()
     if self.frame then return end
@@ -1326,17 +2182,14 @@ function AuctionScreen:CreateUI()
 
     self.frame = frame
 
-    -- Título Superior Central
     local titleText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     titleText:SetPoint("TOP", frame, "TOP", 0, -18)
     self:ApplyFont(titleText, FONTS.titleBold, 26)
     titleText:SetText(CM:T("AH_TITLE"))
     frame.titleText = titleText
 
-    -- Indicador de Abas (Comprar, Vender, Meus Leilões)
     self:CreateTabIndicator(frame)
 
-    -- Barra de Cabeçalho (Subtítulo / NPC e Botão Sair)
     local header = CreateFrame("Frame", "ConsoleMode_AuctionHeader", frame)
     header:SetHeight(32)
     header:SetPoint("TOPLEFT", frame, "TOPLEFT", 28, -16)
@@ -1349,7 +2202,6 @@ function AuctionScreen:CreateUI()
     npcText:SetText(string.format(CM:T("AH_HEADER_AUCTIONEER_FMT"), UnitName("npc") or CM:T("AH_UNKNOWN_AUCTIONEER")))
     frame.npcText = npcText
 
-    -- Botão Sair (Canto Superior Direito)
     local closeBtn = CreateFrame("Button", "ConsoleMode_AuctionCloseBtn", header)
     closeBtn:SetWidth(96)
     closeBtn:SetHeight(28)
@@ -1387,10 +2239,8 @@ function AuctionScreen:CreateUI()
     end)
     header.closeBtn = closeBtn
 
-    -- Conteúdo Central Dinâmico
     self:CreateContentArea(frame)
 
-    -- Footer Hints
     local footerContainer = CreateFrame("Frame", "ConsoleMode_AuctionFooterContainer", frame)
     footerContainer:SetHeight(34)
     footerContainer:SetPoint("CENTER", frame, "BOTTOM", 0, 28)
@@ -1425,7 +2275,7 @@ function AuctionScreen:UpdateLayout()
 end
 
 -- ----------------------------------------------------------------------------
--- 13. NAVEGAÇÃO ENTRE ABAS
+-- 16. NAVEGAÇÃO ENTRE ABAS
 -- ----------------------------------------------------------------------------
 function AuctionScreen:SetTab(tabKey)
     if self.currentTab == tabKey then return end
@@ -1435,11 +2285,13 @@ function AuctionScreen:SetTab(tabKey)
     if tabKey == "BUY" then
         self:SetBuyStep("CATEGORIES")
     else
-        -- Abas SELL e OWNER serão implementadas nas fases seguintes
         self.gridContainer:Hide()
         self.filterContainer:Hide()
         self.scanContainer:Hide()
         self.summaryContainer:Hide()
+        self.itemListContainer:Hide()
+        self.itemDetailContainer:Hide()
+        self:CloseConfirmModal()
         if self.breadcrumb and self.breadcrumb.text then
             local tabLabel = (tabKey == "SELL") and CM:T("AH_TAB_SELL") or CM:T("AH_TAB_MY_AUCTIONS")
             self.breadcrumb.text:SetText(tabLabel)
@@ -1449,6 +2301,8 @@ function AuctionScreen:SetTab(tabKey)
 end
 
 function AuctionScreen:SwitchTab(delta)
+    if self.isConfirmModalOpen then return end
+
     local currentIdx = 1
     local numTabs = table.getn(TABS)
     for i = 1, numTabs do
@@ -1469,10 +2323,14 @@ function AuctionScreen:SwitchTab(delta)
 end
 
 -- ----------------------------------------------------------------------------
--- 14. MAPEAMENTO DE BOTÕES DO CONTROLE (A, B, X, Y, D-PAD)
+-- 17. MAPEAMENTO DE BOTÕES DO CONTROLE (A, B, X, Y, D-PAD)
 -- ----------------------------------------------------------------------------
 function AuctionScreen:OnDirection(direction)
     if not self.isOpen then return end
+
+    if self.isConfirmModalOpen then
+        return
+    end
 
     if self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" or self.buyStep == "SUBCATEGORIES" or self.buyStep == "SLOTS" then
@@ -1516,7 +2374,19 @@ function AuctionScreen:OnDirection(direction)
             elseif direction == "RIGHT" then
                 self:AdjustFilterValue(1)
             end
-        elseif self.buyStep == "RESULTS_SUMMARY" then
+        elseif self.buyStep == "ITEMS_LIST" then
+            if direction == "UP" then
+                self:ScrollItemList(-1)
+            elseif direction == "DOWN" then
+                self:ScrollItemList(1)
+            end
+        elseif self.buyStep == "ITEM_DETAIL" then
+            if direction == "UP" then
+                self:ScrollItemDetail(-1)
+            elseif direction == "DOWN" then
+                self:ScrollItemDetail(1)
+            end
+        elseif self.buyStep == "NO_RESULTS" or self.buyStep == "RESULTS_SUMMARY" then
             if direction == "LEFT" or direction == "UP" then
                 self.summaryBtnIndex = 1
                 self:UpdateSummaryStyles()
@@ -1530,6 +2400,11 @@ end
 
 function AuctionScreen:OnConfirm()
     if not self.isOpen then return end
+
+    if self.isConfirmModalOpen then
+        self:ExecutePurchase()
+        return
+    end
 
     if self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" then
@@ -1571,7 +2446,26 @@ function AuctionScreen:OnConfirm()
             else
                 self:AdjustFilterValue(1)
             end
-        elseif self.buyStep == "RESULTS_SUMMARY" then
+        elseif self.buyStep == "ITEMS_LIST" then
+            local item = self.groupedItems[self.selectedItemIndex]
+            if item then
+                self.selectedGroupedItem = item
+                self.selectedAuctionIndex = 1
+                self.itemDetailScrollOffset = 0
+                self:SetBuyStep("ITEM_DETAIL")
+            end
+        elseif self.buyStep == "ITEM_DETAIL" then
+            if self.selectedGroupedItem and self.selectedGroupedItem.auctions then
+                local auction = self.selectedGroupedItem.auctions[self.selectedAuctionIndex]
+                if auction then
+                    if auction.buyoutPrice and auction.buyoutPrice > 0 then
+                        self:OpenConfirmModal(auction, true)
+                    else
+                        self:OpenConfirmModal(auction, false)
+                    end
+                end
+            end
+        elseif self.buyStep == "NO_RESULTS" or self.buyStep == "RESULTS_SUMMARY" then
             if self.summaryBtnIndex == 1 then
                 self:ExecuteSearch()
             else
@@ -1584,19 +2478,35 @@ end
 function AuctionScreen:OnSecondaryAction()
     if not self.isOpen then return end
 
+    if self.isConfirmModalOpen then return end
+
     if self.currentTab == "BUY" and self.buyStep == "FILTERS" then
-        -- Botão X: Limpar Filtros
         self:ResetCategoryFilters()
     end
 end
 
 function AuctionScreen:OnContextAction()
     if not self.isOpen then return end
-    -- Botão Y (Reservado para Teclado Virtual na Fase 3)
+
+    if self.isConfirmModalOpen then return end
+
+    if self.currentTab == "BUY" and self.buyStep == "ITEM_DETAIL" then
+        if self.selectedGroupedItem and self.selectedGroupedItem.auctions then
+            local auction = self.selectedGroupedItem.auctions[self.selectedAuctionIndex]
+            if auction then
+                self:OpenConfirmModal(auction, false)
+            end
+        end
+    end
 end
 
 function AuctionScreen:OnCancel()
     if not self.isOpen then return end
+
+    if self.isConfirmModalOpen then
+        self:CloseConfirmModal()
+        return
+    end
 
     if self.currentTab == "BUY" then
         if self.buyStep == "SCANNING" then
@@ -1604,7 +2514,13 @@ function AuctionScreen:OnCancel()
             if scan then scan:AbortQuery() end
             self:SetBuyStep("FILTERS")
             return
-        elseif self.buyStep == "RESULTS_SUMMARY" then
+        elseif self.buyStep == "ITEM_DETAIL" then
+            self:SetBuyStep("ITEMS_LIST")
+            return
+        elseif self.buyStep == "ITEMS_LIST" then
+            self:SetBuyStep("FILTERS")
+            return
+        elseif self.buyStep == "NO_RESULTS" or self.buyStep == "RESULTS_SUMMARY" then
             self:SetBuyStep("FILTERS")
             return
         elseif self.buyStep == "FILTERS" then
@@ -1642,7 +2558,7 @@ function AuctionScreen:OnCancel()
 end
 
 -- ----------------------------------------------------------------------------
--- 15. REPEAT DE D-PAD (HOLD-TO-REPEAT)
+-- 18. REPEAT DE D-PAD (HOLD-TO-REPEAT)
 -- ----------------------------------------------------------------------------
 function AuctionScreen:StartRepeat(direction)
     self:OnDirection(direction)
@@ -1658,7 +2574,7 @@ function AuctionScreen:StopRepeat(direction)
 end
 
 -- ----------------------------------------------------------------------------
--- 16. ABERTURA E FECHAMENTO
+-- 19. ABERTURA E FECHAMENTO
 -- ----------------------------------------------------------------------------
 function AuctionScreen:Open()
     if not self.initialized then
@@ -1706,6 +2622,8 @@ end
 function AuctionScreen:Close(fromServer)
     if not self.isOpen then return end
 
+    self:CloseConfirmModal()
+
     local scan = CM.auctionScan or ConsoleMode_AuctionScan
     if scan and scan.isScanning then
         scan:AbortQuery()
@@ -1732,7 +2650,7 @@ function AuctionScreen:Close(fromServer)
 end
 
 -- ----------------------------------------------------------------------------
--- 17. GANCHOS DE EVENTO (AUCTION_HOUSE_SHOW / AUCTION_HOUSE_CLOSED)
+-- 20. GANCHOS DE EVENTO (AUCTION_HOUSE_SHOW / AUCTION_HOUSE_CLOSED)
 -- ----------------------------------------------------------------------------
 function AuctionScreen:InitEvents()
     if self.eventFrame then return end

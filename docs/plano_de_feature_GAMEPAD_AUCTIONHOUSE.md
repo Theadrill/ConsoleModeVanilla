@@ -104,20 +104,12 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 4: Modal de Ordenação (Classificar Por) na Tela de Resultados com Tecla (Y)
+### FASE 4: Modal de Ordenação (Classificar Por) na Tela de Resultados com Tecla (Y) [CONCLUÍDO]
 * **Objetivo:** Permitir ao jogador reordenar a lista de resultados (`ITEMS_LIST`) dinamicamente através de um modal gamepad aberto pela tecla `(Y)`.
 * **Tarefas:**
   * Modal sólido em 9-Slice `Carved_9Slides.tga` centralizado (`ConsoleMode_AuctionSortModal`).
-  * Opções de ordenação:
-    1. Preço Unitário: Menor ao Maior (padrão)
-    2. Preço Unitário: Maior ao Menor
-    3. Nome: A a Z
-    4. Nome: Z a A
-    5. Nível Requerido: Menor ao Maior
-    6. Nível Requerido: Maior ao Menor
-    7. Raridade: Maior à Menor
-    8. Raridade: Menor à Maior
-  * Navegação D-Pad Cima/Baixo entre as opções com destaque visual.
+  * 9 opções completas de ordenação (Preço Unitário asc/desc, Buyout asc, Nome asc/desc, Nível asc/desc, Raridade desc/asc).
+  * Navegação D-Pad Cima/Baixo entre as opções com destaque visual e tag `(Ativo)`.
   * Confirmação com `(A)`: reordena `self.groupedItems`, reseta seleção e scroll para o topo, re-renderiza a lista e fecha o modal.
   * Cancelamento com `(B)` ou `(Y)`: fecha o modal sem alterar.
   * Atualização dos footer hints da lista: `(A) Ver Leilões | (Y) Classificar | (B) Nova Busca`.
@@ -125,7 +117,27 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 5: Atalho Fast-Track (Y) na Navegação de Categorias e Subcategorias
+### FASE 5: Split View na Tela de Resultados (Master-Detail) com Card de Tooltip Padronizado (Lógica da Bag no MainMenu) e Resumo Econômico
+* **Objetivo:** Transformar a tela de resultados em layout dividido (duas colunas), exibindo os dados completos e atributos do item selecionado à direita em tempo real conforme navega com o D-Pad, eliminando a necessidade de mouse hover no gamepad.
+* **Tarefas:**
+  * **Coluna Esquerda (~60% de largura):**
+    * Reduzir a largura das linhas da lista para ~560px (Ícone, Nome do Item, Nível, Qtd Leilões, Preço Inicial e % Vendor).
+  * **Coluna Direita (~40% de largura | Card de Informações em 9-Slice `Carved_9Slides.tga`):**
+    * Implementar card de detalhes seguindo rigorosamente a **mesma arquitetura e lógica do tooltip de bolsa do `MainMenu.lua`** (`CreateDetailCard` / `ShowItem`):
+      * Ícone grande com borda colorida por raridade (`iconBorder`).
+      * Título com nome localizado (`ConsoleMode:GameLOC_Item`).
+      * Tipo de item e slot de equipamento (`ConsoleMode:GameLOC_EquipLoc` / `ConsoleMode:GameLOC_ItemSubType`).
+      * Extração de linhas de stats via `GameTooltip` scanner (`statsLines`: Dano, Velocidade, DPS, Atributos +Força/Agilidade/etc., Requisitos, Efeitos de Uso/Equip).
+      * Preservação da compatibilidade com o addon irmão de tradução [`ConsoleModeVanilla-Localization-ptBR`](https://github.com/Theadrill/ConsoleModeVanilla-Localization-ptBR).
+    * **Mini Resumo de Mercado no rodapé do Card:**
+      * Preço no Vendedor (Vendor Sell Price) com widgets de moedas.
+      * Total de leilões e total de unidades disponíveis no mercado.
+      * Percentual comparativo contra o preço de loja (`% Vendor`).
+* **Teste no Jogo:** Ao buscar espadas ou armaduras, navegar pelas linhas com o D-Pad e verificar o card à direita atualizando instantaneamente com todos os atributos, dano, stats traduzidos e preço de venda.
+
+---
+
+### FASE 6: Atalho Fast-Track (Y) na Navegação de Categorias e Subcategorias
 * **Objetivo:** Permitir ao jogador pular direto para a tela de filtros a partir de qualquer nível da árvore de categorias.
 * **Tarefas:**
   * Atalho `(Y)` em `CATEGORIES`: seleciona a categoria principal e abre `SEARCH FILTERS` diretamente (com `subclassIndex = nil` e `invTypeIndex = nil`).
@@ -136,7 +148,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 6: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX
+### FASE 7: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX
 * **Objetivo:** Interface de venda dividida com comparação em tempo real.
 * **Tarefas:**
   * Coluna esquerda do inventário filtrada (somente itens leiloáveis).
@@ -152,7 +164,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 7: Aba Meus Leilões e Histórico de Vendas
+### FASE 8: Aba Meus Leilões e Histórico de Vendas
 * **Objetivo:** Gerenciar leilões ativos e histórico persistente.
 * **Tarefas:**
   * Lista de leilões ativos do jogador (`GetNumAuctionItems("owner")`).
@@ -162,7 +174,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 8: Polimento Visual, Limpeza e Homologação
+### FASE 9: Polimento Visual, Limpeza e Homologação
 * **Objetivo:** Limpeza de comandos de depuração da fase de pesquisa e validação geral.
 * **Tarefas:**
   * Remover ou desativar os comandos dev `/cm ahdump` e `/cm ahprobe`.

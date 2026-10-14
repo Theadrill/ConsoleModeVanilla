@@ -29,6 +29,10 @@ AuctionScan.eventFrame         = nil
 AuctionScan.tickerFrame        = nil
 AuctionScan.waitTimer          = 0
 AuctionScan.timeoutTimer       = 0
+AuctionScan.PAGE_DELAY         = 0.35
+AuctionScan.PAGE_TIMEOUT       = 8.0
+AuctionScan.retries            = 0
+AuctionScan.emptyBatches       = 0
 
 -- ----------------------------------------------------------------------------
 -- 2. VERIFICAÇÃO DE CONSULTA (WoW 1.12 CanSendAuctionQuery)
@@ -54,6 +58,8 @@ function AuctionScan:Reset()
     self.onErrorCallback    = nil
     self.waitTimer          = 0
     self.timeoutTimer       = 0
+    self.retries            = 0
+    self.emptyBatches       = 0
 end
 
 -- ----------------------------------------------------------------------------
@@ -184,8 +190,15 @@ function AuctionScan:OnAuctionListUpdate()
         end)
     end
 
-    -- Se já escaneamos a última página ou não há mais itens no lote
-    if (self.currentPage + 1 >= self.totalPages) or (batchCount == 0) then
+    if batchCount == 0 then
+        self.emptyBatches = (self.emptyBatches or 0) + 1
+    else
+        self.emptyBatches = 0
+    end
+    self.retries = 0
+
+    -- Se já escaneamos a última página ou 2 páginas consecutivas vieram vazias
+    if (self.currentPage + 1 >= self.totalPages) or (self.emptyBatches >= 2) then
         local collected = self.results
         local total = self.totalCount
         local onComplete = self.onCompleteCallback
@@ -194,13 +207,10 @@ function AuctionScan:OnAuctionListUpdate()
             pcall(function() onComplete(collected, total, false) end)
         end
     else
-        -- Prepara próxima página imediatamente
+        -- Prepara próxima página com delay para respeitar o rate-limit do servidor
         self.currentPage = self.currentPage + 1
         self.state = "WAITING_READY"
         self.waitTimer = 0
-        if self:CanQuery() then
-            self:SendPageQuery()
-        end
     end
 end
 
@@ -214,19 +224,27 @@ function AuctionScan:OnUpdate(dt)
 
     if self.state == "WAITING_READY" then
         self.waitTimer = self.waitTimer + dt
-        if self:CanQuery() then
+        if self.waitTimer >= (self.PAGE_DELAY or 0.35) and self:CanQuery() then
             self:SendPageQuery()
         end
     elseif self.state == "WAITING_UPDATE" then
         self.timeoutTimer = self.timeoutTimer + dt
-        -- Timeout de segurança: 5.0 segundos sem resposta da Blizzard (padrão aux-addon)
-        if self.timeoutTimer > 5.0 then
-            local collected = self.results
-            local total = self.totalCount
-            local onComplete = self.onCompleteCallback
-            self:Reset()
-            if onComplete then
-                pcall(function() onComplete(collected, total, false) end)
+        if self.timeoutTimer > (self.PAGE_TIMEOUT or 8.0) then
+            self.retries = (self.retries or 0) + 1
+            if self.retries <= 2 then
+                -- Reenvia a mesma página com novo delay
+                self.state = "WAITING_READY"
+                self.waitTimer = 0
+                self.timeoutTimer = 0
+            else
+                -- Após 2 retentativas, encerra com o que foi coletado até agora
+                local collected = self.results
+                local total = self.totalCount
+                local onComplete = self.onCompleteCallback
+                self:Reset()
+                if onComplete then
+                    pcall(function() onComplete(collected, total, false) end)
+                end
             end
         end
     end

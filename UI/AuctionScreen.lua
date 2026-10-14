@@ -2048,8 +2048,7 @@ function AuctionScreen:UpdateItemCard(item)
         end
     end
 
-    local leftLines = {}
-    local rightLines = {}
+    local cardLines = {}
     local isSoulbound = false
     local isUnique = false
 
@@ -2057,7 +2056,11 @@ function AuctionScreen:UpdateItemCard(item)
         for _, sLine in ipairs(scanData.statsLines) do
             local lower = string.lower(sLine)
             local skip = false
-            if string.find(lower, "head") or string.find(lower, "neck") or string.find(lower, "shoulder") or string.find(lower, "shirt") or string.find(lower, "chest") or string.find(lower, "waist") or string.find(lower, "legs") or string.find(lower, "feet") or string.find(lower, "wrist") or string.find(lower, "hands") or string.find(lower, "finger") or string.find(lower, "trinket") or string.find(lower, "back") or string.find(lower, "main hand") or string.find(lower, "off hand") or string.find(lower, "ranged") or string.find(lower, "tabard") or string.find(lower, "held in off%-hand") or string.find(lower, "cabe") or string.find(lower, "pesco") or string.find(lower, "ombros") or string.find(lower, "camisa") or string.find(lower, "peitoral") or string.find(lower, "cintura") or string.find(lower, "pernas") or string.find(lower, "pés") or string.find(lower, "punhos") or string.find(lower, "mãos") or string.find(lower, "dedo") or string.find(lower, "berloque") or string.find(lower, "costas") then
+            if string.find(lower, "head") or string.find(lower, "neck") or string.find(lower, "shoulder") or string.find(lower, "shirt") or string.find(lower, "chest") or string.find(lower, "waist") or string.find(lower, "legs") or string.find(lower, "feet") or string.find(lower, "wrist") or string.find(lower, "hands") or string.find(lower, "finger") or string.find(lower, "trinket") or string.find(lower, "back") or string.find(lower, "main hand") or string.find(lower, "off hand") or string.find(lower, "ranged") or string.find(lower, "tabard") or string.find(lower, "held in off%-hand") or string.find(lower, "two%-hand") or string.find(lower, "one%-hand") or string.find(lower, "cabe") or string.find(lower, "pesco") or string.find(lower, "ombros") or string.find(lower, "camisa") or string.find(lower, "peitoral") or string.find(lower, "cintura") or string.find(lower, "pernas") or string.find(lower, "pés") or string.find(lower, "punhos") or string.find(lower, "mãos") or string.find(lower, "dedo") or string.find(lower, "berloque") or string.find(lower, "costas") or string.find(lower, "duas mãos") or string.find(lower, "uma mão") or string.find(lower, "mão principal") or string.find(lower, "mão secundária") then
+                skip = true
+            elseif locEquip and locEquip ~= "" and (lower == string.lower(locEquip) or string.find(lower, string.lower(locEquip))) then
+                skip = true
+            elseif stName and stName ~= "" and (lower == string.lower(stName) or string.find(lower, string.lower(stName))) then
                 skip = true
             elseif string.find(lower, "soulbound") or string.find(lower, "ligado") or string.find(lower, "vinculado") or string.find(lower, "binds when") then
                 isSoulbound = true
@@ -2081,23 +2084,13 @@ function AuctionScreen:UpdateItemCard(item)
                 end
 
                 if string.find(locLine, "Uso:") or string.find(locLine, "Use:") or string.find(locLine, "Equipar:") or string.find(locLine, "Equip:") then
-                    table.insert(rightLines, "|cff00ff00" .. locLine .. "|r")
+                    table.insert(cardLines, "|cff00ff00" .. locLine .. "|r")
+                elseif string.find(lower, "classes:") or string.find(lower, "races:") or string.find(lower, "raças:") or string.find(lower, "racas:") then
+                    table.insert(cardLines, "|cffff2020" .. locLine .. "|r")
+                elseif string.find(sLine, "^\"") or string.find(sLine, "^%“") then
+                    table.insert(cardLines, "|cffffd100" .. locLine .. "|r")
                 else
-                    local isLeft = false
-                    if string.find(lower, "dano") or string.find(lower, "damage") or string.find(lower, "velocidade") or string.find(lower, "speed") or string.find(lower, "por segundo") or string.find(lower, "per second") or string.find(lower, "armadura") or string.find(lower, "armor") or string.find(lower, "bloqueio") or string.find(lower, "block") then
-                        isLeft = true
-                    end
-                    if isLeft then
-                        table.insert(leftLines, "|cffffffff" .. locLine .. "|r")
-                    else
-                        if string.find(lower, "classes:") or string.find(lower, "races:") or string.find(lower, "raças:") or string.find(lower, "racas:") then
-                            table.insert(rightLines, "|cffff2020" .. locLine .. "|r")
-                        elseif string.find(sLine, "^\"") or string.find(sLine, "^%“") then
-                            table.insert(rightLines, "|cffffd100" .. locLine .. "|r")
-                        else
-                            table.insert(rightLines, "|cffffffff" .. locLine .. "|r")
-                        end
-                    end
+                    table.insert(cardLines, "|cffffffff" .. locLine .. "|r")
                 end
             end
         end
@@ -2112,7 +2105,7 @@ function AuctionScreen:UpdateItemCard(item)
             if not locDesc then
                 locDesc = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(dLine) or dLine
             end
-            table.insert(rightLines, "|cff00ff00" .. locDesc .. "|r")
+            table.insert(cardLines, "|cff00ff00" .. locDesc .. "|r")
         end
     end
 
@@ -2120,35 +2113,82 @@ function AuctionScreen:UpdateItemCard(item)
     if isUnique then table.insert(subParts, CM:T("ITEM_UNIQUE_TAG") or "|cffffffffÚnico|r") end
     card.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
 
-    -- 5. Renderização das Colunas de Stats
+    -- 5. Renderização em Fluxo Contínuo (Coluna 1 prioritária, Coluna 2 como continuação se transbordar)
     local rawW = card:GetWidth()
     local cardW = (rawW and rawW > 0) and rawW or 420
     if cardW < 240 then cardW = 420 end
-    if table.getn(leftLines) == 0 and table.getn(rightLines) > 0 then
+
+    local rawH = card:GetHeight()
+    local cardH = (rawH and rawH > 0) and rawH or 480
+    if cardH < 260 then cardH = 480 end
+
+    local availH = cardH - 160
+    if availH < 180 then availH = 180 end
+
+    -- Em fonte 13, cada linha ocupa ~17px de altura
+    local maxVisualLines = math.floor(availH / 17)
+    if maxVisualLines < 9 then maxVisualLines = 9 end
+    if maxVisualLines > 16 then maxVisualLines = 16 end
+
+    -- Calcula o peso visual das linhas em largura cheia (~52 caracteres por linha)
+    local totalVisualLines = 0
+    for _, lineText in ipairs(cardLines) do
+        local clean = string.gsub(lineText, "|c%x%x%x%x%x%x%x%x", "")
+        clean = string.gsub(clean, "|r", "")
+        local cLen = string.len(clean)
+        local w = 1
+        if cLen > 52 then
+            w = math.ceil(cLen / 52)
+        end
+        totalVisualLines = totalVisualLines + w
+    end
+
+    if totalVisualLines <= maxVisualLines then
+        -- Todas as linhas cabem na Coluna 1. Usa largura total do card e oculta Coluna 2
         card.descColLeft:SetWidth(math.max(180, cardW - 32))
-        card.descColLeft:SetText(table.concat(rightLines, "\n"))
+        if table.getn(cardLines) > 0 then
+            card.descColLeft:SetText(table.concat(cardLines, "\n"))
+        else
+            card.descColLeft:SetText(CM:T("DETAIL_NO_INFO") or "Sem informações adicionais")
+        end
         card.descColRight:SetText("")
         card.descColRight:Hide()
-    elseif table.getn(leftLines) > 0 and table.getn(rightLines) == 0 then
-        card.descColLeft:SetWidth(math.max(180, cardW - 32))
-        card.descColLeft:SetText(table.concat(leftLines, "\n"))
-        card.descColRight:SetText("")
-        card.descColRight:Hide()
-    elseif table.getn(leftLines) > 0 and table.getn(rightLines) > 0 then
-        local colW = math.floor((cardW - 40) / 2)
-        if colW < 140 then colW = 140 end
-        card.descColLeft:SetWidth(colW)
-        card.descColLeft:SetText(table.concat(leftLines, "\n"))
-        card.descColRight:ClearAllPoints()
-        card.descColRight:SetPoint("TOPLEFT", card.descColLeft, "TOPRIGHT", 12, 0)
-        card.descColRight:SetPoint("BOTTOMRIGHT", card.fDiv, "TOPRIGHT", -2, 8)
-        card.descColRight:SetText(table.concat(rightLines, "\n"))
-        card.descColRight:Show()
     else
-        card.descColLeft:SetWidth(math.max(180, cardW - 32))
-        card.descColLeft:SetText(CM:T("DETAIL_NO_INFO") or "Sem informações adicionais")
-        card.descColRight:SetText("")
-        card.descColRight:Hide()
+        -- Excede a capacidade da primeira coluna: preenche Coluna 1 e continua o excedente na Coluna 2
+        local colW = math.floor((cardW - 46) / 2)
+        if colW < 140 then colW = 140 end
+
+        local col1Lines = {}
+        local col2Lines = {}
+        local col1Visual = 0
+
+        for _, lineText in ipairs(cardLines) do
+            local clean = string.gsub(lineText, "|c%x%x%x%x%x%x%x%x", "")
+            clean = string.gsub(clean, "|r", "")
+            local cLen = string.len(clean)
+            -- Em meia coluna (~200px), linhas com mais de 30 caracteres dobram de altura
+            local w = 1
+            if cLen > 30 then
+                w = math.ceil(cLen / 30)
+            end
+
+            if table.getn(col1Lines) == 0 or (col1Visual + w) <= maxVisualLines then
+                table.insert(col1Lines, lineText)
+                col1Visual = col1Visual + w
+            else
+                table.insert(col2Lines, lineText)
+            end
+        end
+
+        card.descColLeft:SetWidth(colW)
+        card.descColLeft:SetText(table.concat(col1Lines, "\n"))
+
+        card.descColRight:ClearAllPoints()
+        card.descColRight:SetPoint("TOPLEFT", card.descColLeft, "TOPRIGHT", 14, 0)
+        card.descColRight:SetPoint("BOTTOMRIGHT", card.fDiv, "TOPRIGHT", -2, 8)
+        card.descColRight:SetWidth(colW)
+        card.descColRight:SetText(table.concat(col2Lines, "\n"))
+        card.descColRight:Show()
     end
 
     -- 6. Resumo Econômico

@@ -1215,6 +1215,16 @@ function AuctionScreen:SetBuyStep(step)
         self:UpdateFilterStyles()
         self.filterContainer:Show()
     elseif step == "SCANNING" then
+        if self.scanContainer and self.scanContainer.pageText then
+            local progFmt = CM:T("AH_SCAN_PROGRESS_FMT") or "Scanning page %d..."
+            self.scanContainer.pageText:SetText(string.format(progFmt, 1))
+        end
+        if self.scanContainer and self.scanContainer.countText then
+            self.scanContainer.countText:SetText("")
+        end
+        if self.scanContainer and self.scanContainer.progressBar and self.scanContainer.progressBar.fill then
+            self.scanContainer.progressBar.fill:SetWidth(10)
+        end
         self.scanContainer:Show()
     elseif step == "RESULTS_SUMMARY" then
         local foundFmt = CM:T("AH_SCAN_FOUND_FMT") or "%d auctions found."
@@ -1277,6 +1287,7 @@ function AuctionScreen:ExecuteSearch()
                 end
             end,
             function(err)
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode AH]|r Scan error: " .. tostring(err))
                 AuctionScreen:SetBuyStep("FILTERS")
             end
         )
@@ -1658,8 +1669,10 @@ function AuctionScreen:Open()
         pcall(function() CM:LoadDataLake("AuctionScreen") end)
     end
 
-    if AuctionFrame and AuctionFrame:IsVisible() then
-        AuctionFrame:Hide()
+    if AuctionFrame then
+        AuctionFrame:ClearAllPoints()
+        AuctionFrame:SetPoint("BOTTOMLEFT", UIParent, "TOPLEFT", 0, 10000)
+        AuctionFrame:SetAlpha(0)
     end
 
     local cursor = CM.cursor or (ConsoleMode and ConsoleMode.cursor)

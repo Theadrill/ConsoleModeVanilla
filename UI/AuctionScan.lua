@@ -60,9 +60,7 @@ end
 -- 3. INÍCIO E CONTROLE DO SCAN
 -- ----------------------------------------------------------------------------
 function AuctionScan:StartQuery(params, onPageCallback, onCompleteCallback, onErrorCallback)
-    if not (AuctionFrame and AuctionFrame:IsVisible()) then
-        -- Se a janela Blizzard não estiver visível (ou aberta no servidor),
-        -- não é possível enviar queries ao leiloeiro
+    if not (ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen) then
         if onErrorCallback then
             onErrorCallback("AUCTION_HOUSE_CLOSED")
         end
@@ -83,6 +81,10 @@ function AuctionScan:StartQuery(params, onPageCallback, onCompleteCallback, onEr
     self.results = {}
     self.waitTimer = 0
     self.timeoutTimer = 0
+
+    if self:CanQuery() then
+        self:SendPageQuery()
+    end
 
     return true
 end

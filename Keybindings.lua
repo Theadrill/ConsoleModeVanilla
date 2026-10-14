@@ -1293,6 +1293,22 @@ function CM_CursorMove(direction, keystate)
         return
     end
 
+    -- AuctionScreen: D-Pad navega pelas categorias, passos e filtros
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        if keystate == "up" then
+            if ConsoleMode_AuctionScreen.StopRepeat then
+                ConsoleMode_AuctionScreen:StopRepeat(direction)
+            end
+        else
+            if ConsoleMode_AuctionScreen.StartRepeat then
+                ConsoleMode_AuctionScreen:StartRepeat(direction)
+            else
+                ConsoleMode_AuctionScreen:OnDirection(direction)
+            end
+        end
+        return
+    end
+
     -- M2 Mail: roteia o D-Pad para a navegacao do inbox (hold-to-repeat em
     -- UP/DOWN via StartRepeat/StopRepeat, molde do mercador acima).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
@@ -1454,6 +1470,14 @@ function CM_CursorConfirm()
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
         if ConsoleMode_MailScreen.OnConfirm then
             ConsoleMode_MailScreen:OnConfirm()
+        end
+        return
+    end
+
+    -- Prioridade de Leilao ConsoleMode (Botão A)
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        if ConsoleMode_AuctionScreen.OnConfirm then
+            ConsoleMode_AuctionScreen:OnConfirm()
         end
         return
     end
@@ -1633,6 +1657,14 @@ function CM_CursorUse()
         return
     end
 
+    -- Prioridade de Leilao ConsoleMode (Botão Y)
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        if ConsoleMode_AuctionScreen.OnContextAction then
+            ConsoleMode_AuctionScreen:OnContextAction()
+        end
+        return
+    end
+
     -- EnhanceModal: consome o Botão Y (sem ação no modal)
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
         return
@@ -1736,6 +1768,16 @@ function CM_CursorSecondary(keystate)
     if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
         if ConsoleMode_TrainerMenu.OnSecondaryAction then
             ConsoleMode_TrainerMenu:OnSecondaryAction()
+        end
+        return
+    end
+
+    -- Prioridade de Leilao ConsoleMode (Botão X)
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        if keystate ~= "up" then
+            if ConsoleMode_AuctionScreen.OnSecondaryAction then
+                ConsoleMode_AuctionScreen:OnSecondaryAction()
+            end
         end
         return
     end

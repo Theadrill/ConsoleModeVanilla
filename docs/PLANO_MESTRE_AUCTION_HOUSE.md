@@ -1,5 +1,10 @@
 # Plano Mestre: Tela de Leilão (ConsoleModeVanilla - Gamepad UI)
 
+> [!CAUTION]
+> ## LEITURA OBRIGATÓRIA ANTES DE QUALQUER AÇÃO:
+> Leia e siga **À RISCA** o arquivo [`AI_CONTEXTO_ADDON_1.12.md`](../AI_CONTEXTO_ADDON_1.12.md).
+> Todas as regras inegociáveis contidas nele são lei: **Lua 5.0.3 estrito** (validado via `C:\Tools\lua50\luac50.exe`), **zero API Retail**, **zero funções protegidas em stacks de gamepad**, **PUSH SOMENTE QUANDO O USUÁRIO PEDIR EXPLÍCITAMENTE (uma vez só)**, **modais com fundo 9-slice sólido (`Carved_9Slides.tga`)**, e **localização 100% via `CM:T()`**.
+
 > **Ambiente:** World of Warcraft 1.12.1 (Turtle WoW 1.18.1)  
 > **Linguagem:** Lua 5.0.3 estrito (zero sintaxe moderna, validado via `luac50.exe`)  
 > **Identidade Visual:** Clássica Vanilla / ConsoleMode (9-Slice `Carved_9Slides.tga` para janela e modais)  

@@ -656,6 +656,16 @@ function Hooks:Initialize()
     if not Hooks.toggleGameMenuHooked and ToggleGameMenu then
         local orig_ToggleGameMenu = ToggleGameMenu
         ToggleGameMenu = function(clicked)
+            -- 0. Se a tela de Leilão estiver aberta, ESC fecha a tela de Leilão
+            if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+                if ConsoleMode_AuctionScreen.OnCancel then
+                    ConsoleMode_AuctionScreen:OnCancel()
+                elseif ConsoleMode_AuctionScreen.Close then
+                    ConsoleMode_AuctionScreen:Close()
+                end
+                return
+            end
+
             -- 1. Se a tela de Mail estiver aberta, ESC fecha sub-telas ou fecha o Mail por completo
             if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
                 if ConsoleMode_MailScreen.OnCancel then
@@ -898,6 +908,25 @@ function Hooks:CloseTopFrame()
         end
         if not ConsoleMode_MailScreen.isOpen then
             if CloseMail then pcall(CloseMail) end
+        end
+        return true
+    end
+
+    -- Prioridade de Leilao ConsoleMode
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        if ConsoleMode_AuctionScreen.OnCancel then
+            ConsoleMode_AuctionScreen:OnCancel()
+        elseif ConsoleMode_AuctionScreen.Close then
+            ConsoleMode_AuctionScreen:Close()
+        end
+        return true
+    end
+    local aFrame = getglobal("ConsoleMode_AuctionFrame")
+    if aFrame and aFrame:IsVisible() then
+        if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.Close then
+            ConsoleMode_AuctionScreen:Close()
+        else
+            aFrame:Hide()
         end
         return true
     end

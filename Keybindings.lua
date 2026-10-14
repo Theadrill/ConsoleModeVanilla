@@ -453,7 +453,7 @@ modFrame:SetScript("OnUpdate", function()
     local shiftNow = IsShiftKeyDown()
     local altNow = IsAltKeyDown()
 
-    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) or (ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen) or (ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen)
+    local isNav = (KB and KB.navigationMode) or (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) or (ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen) or (ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen) or (ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen)
 
     -- VK-3: com o teclado aberto o R1/L2/R2 nao ciclam abas por tras.
     local vkOpen = false
@@ -861,6 +861,10 @@ function KB:ExitNavigationMode(force)
         end
         -- Menu de Treinador: mantem o modo navegacao
         if ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen then
+            return
+        end
+        -- Tela de Leilao: mantem o modo navegacao
+        if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
             return
         end
         -- M1 Mail: janela do correio mantem o modo navegacao (B fecha via CM_CursorCancel).
@@ -1843,6 +1847,16 @@ function CM_CursorCancel()
         return
     end
 
+    -- Prioridade de Leilao ConsoleMode ([B] fecha a janela de leilao)
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        if ConsoleMode_AuctionScreen.OnCancel then
+            ConsoleMode_AuctionScreen:OnCancel()
+        else
+            ConsoleMode_AuctionScreen:Close()
+        end
+        return
+    end
+
     -- M3 Mail: pilha de B (modal -> detalhe -> janela) via MailScreen:OnCancel.
     -- M4.1: no compor sem modal/detalhe, OnCancel fecha o MAIL (sem voltar).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
@@ -1967,6 +1981,11 @@ function CM_NavNextTab()
         ConsoleMode_EnhanceModal:CycleTabs(1)
         return
     end
+    -- Tela de Leilao: RB cicla abas
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        ConsoleMode_AuctionScreen:SwitchTab(1)
+        return
+    end
     -- M4.1 Mail: RB/R1 vai p/ a tela COMPOR (LB volta p/ INBOX).
     if ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen then
         if ConsoleMode_MailScreen.ShowComposeScreen then
@@ -2006,6 +2025,11 @@ function CM_NavPrevTab()
     -- EnhanceModal: LB alterna abas
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
         ConsoleMode_EnhanceModal:CycleTabs(-1)
+        return
+    end
+    -- Tela de Leilao: LB cicla abas
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        ConsoleMode_AuctionScreen:SwitchTab(-1)
         return
     end
     -- M4.1 Mail: LB/L1 volta p/ a tela INBOX (RB vai p/ COMPOR).

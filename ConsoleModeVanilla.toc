@@ -48,4 +48,6 @@ UI\QuantityPicker.lua
 UI\MailScreen.lua
 UI\EnhanceModal.lua
 UI\TrainerMenu.lua
+UI\AuctionScan.lua
+UI\AuctionScreen.lua
 Hooks.lua

@@ -276,6 +276,7 @@ AuctionScreen.gridItems           = {}
 AuctionScreen.filterRowIndex      = 1
 AuctionScreen.summaryBtnIndex     = 1
 AuctionScreen.activeFilters       = {
+    name     = "",
     quality  = -1,
     minLevel = 0,
     maxLevel = 0,
@@ -728,9 +729,15 @@ function AuctionScreen:UpdateFooterHints()
             table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
         elseif self.buyStep == "FILTERS" then
-            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_CONFIRM") })
-            table.insert(hints, { icons = { "DLEFT", "DRIGHT" }, label = CM:T("AH_HINT_ADJUST") })
-            table.insert(hints, { icons = { "X" },        label = CM:T("AH_HINT_CLEAR_FILTER") })
+            if self.filterRowIndex == 1 then
+                table.insert(hints, { icons = { "A", "Y" }, label = CM:T("AH_HINT_TYPE_NAME") })
+                table.insert(hints, { icons = { "X" },      label = CM:T("AH_HINT_CLEAR_NAME") })
+            elseif self.filterRowIndex == 6 then
+                table.insert(hints, { icons = { "A" },      label = CM:T("AH_HINT_SEARCH") })
+            else
+                table.insert(hints, { icons = { "DLEFT", "DRIGHT" }, label = CM:T("AH_HINT_ADJUST") })
+                table.insert(hints, { icons = { "X" },      label = CM:T("AH_HINT_CLEAR_FILTER") })
+            end
             table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
         elseif self.buyStep == "SCANNING" then
@@ -1041,22 +1048,75 @@ function AuctionScreen:UpdateGridStyles()
 end
 
 -- ----------------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
+-- 7b. INTEGRAÇÃO COM TECLADO VIRTUAL E HISTÓRICO RECENTE (FASE 3)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:IsVKOpen()
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.IsOpen then
+        local ok, open = pcall(function() return vk:IsOpen() end)
+        if ok and open then return true end
+    end
+    return false
+end
+
+function AuctionScreen:OpenFilterSearchVK()
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if vk and vk.Open then
+        vk:Open({
+            title         = CM:T("AH_VK_SEARCH_TITLE") or "Buscar Item no Leilão",
+            initialText   = self.activeFilters.name or "",
+            maxLetters    = 32,
+            onConfirm     = function(text)
+                AuctionScreen.activeFilters.name = text or ""
+                AuctionScreen:SaveCategoryFilters()
+                AuctionScreen:UpdateFilterStyles()
+                if text and text ~= "" then
+                    AuctionScreen:AddRecentSearch(text)
+                end
+            end,
+            onCancel      = function() end,
+        })
+    end
+end
+
+function AuctionScreen:AddRecentSearch(searchTerm)
+    if not searchTerm or searchTerm == "" then return end
+    ConsoleModeDB = ConsoleModeDB or {}
+    ConsoleModeDB.ahRecentSearches = ConsoleModeDB.ahRecentSearches or {}
+
+    local list = ConsoleModeDB.ahRecentSearches
+    local filtered = {}
+    local numList = table.getn(list)
+    for i = 1, numList do
+        if string.lower(list[i]) ~= string.lower(searchTerm) then
+            table.insert(filtered, list[i])
+        end
+    end
+    table.insert(filtered, 1, searchTerm)
+    while table.getn(filtered) > 10 do
+        table.remove(filtered)
+    end
+    ConsoleModeDB.ahRecentSearches = filtered
+end
+
 -- 8. TELA DE FILTROS SALVOS INTELIGENTES
 -- ----------------------------------------------------------------------------
 function AuctionScreen:CreateFilterControls(parent)
     local rows = {}
     local rowLabels = {
+        CM:T("AH_FILTER_ITEM_NAME"),
         CM:T("AH_FILTER_QUALITY"),
         CM:T("AH_FILTER_MIN_LEVEL"),
         CM:T("AH_FILTER_MAX_LEVEL"),
         CM:T("AH_FILTER_USABLE"),
     }
 
-    local startY = -10
-    local rowH = 46
-    local rowGap = 10
+    local startY = -6
+    local rowH = 44
+    local rowGap = 8
 
-    for i = 1, 4 do
+    for i = 1, 5 do
         local row = CreateFrame("Button", "ConsoleMode_AuctionFilterRow" .. i, parent)
         row:SetHeight(rowH)
         row:SetPoint("TOPLEFT", parent, "TOPLEFT", 60, startY - ((i - 1) * (rowH + rowGap)))
@@ -1084,16 +1144,19 @@ function AuctionScreen:CreateFilterControls(parent)
         row:SetScript("OnClick", function()
             AuctionScreen.filterRowIndex = this.rowIndex
             AuctionScreen:UpdateFilterStyles()
+            if this.rowIndex == 1 then
+                AuctionScreen:OpenFilterSearchVK()
+            end
         end)
 
         table.insert(rows, row)
     end
 
-    -- Botão INICIAR BUSCA (Row 5)
+    -- Botão INICIAR BUSCA (Row 6)
     local searchBtn = CreateFrame("Button", "ConsoleMode_AuctionFilterSearchBtn", parent)
-    searchBtn:SetHeight(52)
-    searchBtn:SetPoint("TOPLEFT", parent, "TOPLEFT", 60, startY - (4 * (rowH + rowGap)) - 14)
-    searchBtn:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -60, startY - (4 * (rowH + rowGap)) - 14)
+    searchBtn:SetHeight(50)
+    searchBtn:SetPoint("TOPLEFT", parent, "TOPLEFT", 60, startY - (5 * (rowH + rowGap)) - 10)
+    searchBtn:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -60, startY - (5 * (rowH + rowGap)) - 10)
 
     searchBtn:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -1108,9 +1171,9 @@ function AuctionScreen:CreateFilterControls(parent)
     sLabel:SetText(CM:T("AH_FILTER_BTN_SEARCH"))
     searchBtn.label = sLabel
 
-    searchBtn.rowIndex = 5
+    searchBtn.rowIndex = 6
     searchBtn:SetScript("OnClick", function()
-        AuctionScreen.filterRowIndex = 5
+        AuctionScreen.filterRowIndex = 6
         AuctionScreen:UpdateFilterStyles()
         AuctionScreen:ExecuteSearch()
     end)
@@ -1133,11 +1196,13 @@ function AuctionScreen:LoadCategoryFilters()
 
     local saved = ConsoleModeDB.ahFilters[catKey]
     if saved then
+        self.activeFilters.name     = saved.name or ""
         self.activeFilters.quality  = saved.quality or -1
         self.activeFilters.minLevel = saved.minLevel or 0
         self.activeFilters.maxLevel = saved.maxLevel or 0
         self.activeFilters.isUsable = saved.isUsable or 0
     else
+        self.activeFilters.name     = ""
         self.activeFilters.quality  = -1
         self.activeFilters.minLevel = 0
         self.activeFilters.maxLevel = 0
@@ -1151,6 +1216,7 @@ function AuctionScreen:SaveCategoryFilters()
     ConsoleModeDB.ahFilters = ConsoleModeDB.ahFilters or {}
 
     ConsoleModeDB.ahFilters[catKey] = {
+        name     = self.activeFilters.name or "",
         quality  = self.activeFilters.quality,
         minLevel = self.activeFilters.minLevel,
         maxLevel = self.activeFilters.maxLevel,
@@ -1159,10 +1225,12 @@ function AuctionScreen:SaveCategoryFilters()
 end
 
 function AuctionScreen:ResetCategoryFilters()
+    self.activeFilters.name     = ""
     self.activeFilters.quality  = -1
     self.activeFilters.minLevel = 0
     self.activeFilters.maxLevel = 0
     self.activeFilters.isUsable = 0
+
     self:SaveCategoryFilters()
     self:UpdateFilterStyles()
 end
@@ -1170,63 +1238,96 @@ end
 function AuctionScreen:UpdateFilterStyles()
     if not self.filterRows then return end
 
-    -- 1. Qualidade
-    local qKey = QUALITY_KEYS[self.activeFilters.quality] or "AH_QUALITY_ALL"
-    local qName = CM:T(qKey) or "All"
-    local qColor = QUALITY_COLORS[self.activeFilters.quality] or { 1, 1, 1 }
-    self.filterRows[1].val:SetText("< " .. qName .. " >")
-    self.filterRows[1].val:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+    local qName = QUALITY_NAMES[self.activeFilters.quality] or CM:T("AH_QUALITY_ALL")
+    local minLvlStr = (self.activeFilters.minLevel > 0) and tostring(self.activeFilters.minLevel) or CM:T("AH_LEVEL_ANY")
+    local maxLvlStr = (self.activeFilters.maxLevel > 0) and tostring(self.activeFilters.maxLevel) or CM:T("AH_LEVEL_ANY")
+    local usableStr = (self.activeFilters.isUsable == 1) and CM:T("AH_FILTER_YES") or CM:T("AH_FILTER_NO")
 
-    -- 2. Min Level
-    local minStr = (self.activeFilters.minLevel == 0) and CM:T("AH_LEVEL_ANY") or tostring(self.activeFilters.minLevel)
-    self.filterRows[2].val:SetText("< " .. minStr .. " >")
-    self.filterRows[2].val:SetTextColor(1.0, 0.85, 0.30, 1.0)
-
-    -- 3. Max Level
-    local maxStr = (self.activeFilters.maxLevel == 0) and CM:T("AH_LEVEL_ANY") or tostring(self.activeFilters.maxLevel)
-    self.filterRows[3].val:SetText("< " .. maxStr .. " >")
-    self.filterRows[3].val:SetTextColor(1.0, 0.85, 0.30, 1.0)
-
-    -- 4. Usable Only
-    local useStr = (self.activeFilters.isUsable == 1) and CM:T("AH_FILTER_YES") or CM:T("AH_FILTER_NO")
-    self.filterRows[4].val:SetText("< " .. useStr .. " >")
-    if self.activeFilters.isUsable == 1 then
-        self.filterRows[4].val:SetTextColor(0.12, 1.0, 0.0, 1.0)
-    else
-        self.filterRows[4].val:SetTextColor(0.70, 0.70, 0.70, 1.0)
+    -- Row 1: Termo de Busca / Nome do Item
+    local nameVal = (self.activeFilters.name and self.activeFilters.name ~= "") and ('"' .. self.activeFilters.name .. '"') or CM:T("AH_FILTER_ENTER_NAME")
+    local row1 = self.filterRows[1]
+    if row1 then
+        row1.val:SetText(nameVal)
+        if self.activeFilters.name and self.activeFilters.name ~= "" then
+            row1.val:SetTextColor(1.0, 0.90, 0.35, 1.0)
+        else
+            row1.val:SetTextColor(0.60, 0.60, 0.60, 0.80)
+        end
     end
 
-    -- Destaque da linha focada
-    for i = 1, 5 do
-        local row = self.filterRows[i]
-        local isFocused = (i == self.filterRowIndex)
-
-        if i == 5 then
-            if isFocused then
-                row:SetBackdropColor(0.35, 0.25, 0.10, 0.98)
-                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-                row.label:SetTextColor(1.0, 0.95, 0.50, 1.0)
-            else
-                row:SetBackdropColor(0.14, 0.10, 0.06, 0.85)
-                row:SetBackdropBorderColor(0.50, 0.40, 0.22, 0.75)
-                row.label:SetTextColor(0.85, 0.75, 0.55, 0.90)
-            end
+    -- Row 2: Qualidade / Raridade
+    local row2 = self.filterRows[2]
+    if row2 then
+        row2.val:SetText("< " .. qName .. " >")
+        local qColor = QUALITY_COLORS[self.activeFilters.quality]
+        if qColor then
+            row2.val:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
         else
-            if isFocused then
-                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-                row.lbl:SetTextColor(1.0, 0.90, 0.40, 1.0)
+            row2.val:SetTextColor(0.90, 0.90, 0.90, 1.0)
+        end
+    end
+
+    -- Row 3: Nível Mín
+    local row3 = self.filterRows[3]
+    if row3 then
+        row3.val:SetText("< " .. minLvlStr .. " >")
+        row3.val:SetTextColor(0.90, 0.90, 0.90, 1.0)
+    end
+
+    -- Row 4: Nível Máx
+    local row4 = self.filterRows[4]
+    if row4 then
+        row4.val:SetText("< " .. maxLvlStr .. " >")
+        row4.val:SetTextColor(0.90, 0.90, 0.90, 1.0)
+    end
+
+    -- Row 5: Usável
+    local row5 = self.filterRows[5]
+    if row5 then
+        row5.val:SetText("< " .. usableStr .. " >")
+        if self.activeFilters.isUsable == 1 then
+            row5.val:SetTextColor(0.12, 1.0, 0.0, 1.0)
+        else
+            row5.val:SetTextColor(0.90, 0.90, 0.90, 1.0)
+        end
+    end
+
+    -- Focus Highlights para todas as 6 linhas
+    for i = 1, 6 do
+        local row = self.filterRows[i]
+        if row then
+            local isFocused = (i == self.filterRowIndex)
+            if i == 6 then
+                if isFocused then
+                    row:SetBackdropColor(0.35, 0.28, 0.12, 0.95)
+                    row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                    row.label:SetTextColor(1.0, 0.95, 0.50, 1.0)
+                else
+                    row:SetBackdropColor(0.16, 0.12, 0.08, 0.85)
+                    row:SetBackdropBorderColor(0.60, 0.48, 0.30, 0.70)
+                    row.label:SetTextColor(0.85, 0.78, 0.60, 0.90)
+                end
             else
-                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
-                row.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90)
+                if isFocused then
+                    row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+                    row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                    row.lbl:SetTextColor(1.0, 0.92, 0.45, 1.0)
+                else
+                    row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+                    row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                    row.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90)
+                end
             end
         end
     end
+
+    self:UpdateFooterHints()
 end
 
 function AuctionScreen:AdjustFilterValue(delta)
     if self.filterRowIndex == 1 then
+        self:OpenFilterSearchVK()
+    elseif self.filterRowIndex == 2 then
         local currentIdx = 1
         local numQ = table.getn(QUALITY_ORDER)
         for i = 1, numQ do
@@ -1239,7 +1340,7 @@ function AuctionScreen:AdjustFilterValue(delta)
         if nextIdx < 1 then nextIdx = numQ end
         if nextIdx > numQ then nextIdx = 1 end
         self.activeFilters.quality = QUALITY_ORDER[nextIdx]
-    elseif self.filterRowIndex == 2 then
+    elseif self.filterRowIndex == 3 then
         local val = self.activeFilters.minLevel + delta
         if val < 0 then val = 0 end
         if val > 60 then val = 60 end
@@ -1247,7 +1348,7 @@ function AuctionScreen:AdjustFilterValue(delta)
             val = self.activeFilters.maxLevel
         end
         self.activeFilters.minLevel = val
-    elseif self.filterRowIndex == 3 then
+    elseif self.filterRowIndex == 4 then
         local val = self.activeFilters.maxLevel + delta
         if val < 0 then val = 0 end
         if val > 60 then val = 60 end
@@ -1255,7 +1356,7 @@ function AuctionScreen:AdjustFilterValue(delta)
             val = self.activeFilters.minLevel
         end
         self.activeFilters.maxLevel = val
-    elseif self.filterRowIndex == 4 then
+    elseif self.filterRowIndex == 5 then
         if self.activeFilters.isUsable == 1 then
             self.activeFilters.isUsable = 0
         else
@@ -1266,6 +1367,7 @@ function AuctionScreen:AdjustFilterValue(delta)
     self:SaveCategoryFilters()
     self:UpdateFilterStyles()
 end
+
 
 -- ----------------------------------------------------------------------------
 -- 9. TELA DE PROGRESSO DO SCAN
@@ -2319,8 +2421,13 @@ function AuctionScreen:ExecuteSearch()
         end
     end
 
+    local searchName = self.activeFilters.name or ""
+    if searchName ~= "" then
+        self:AddRecentSearch(searchName)
+    end
+
     local queryParams = {
-        name          = "",
+        name          = searchName,
         minLevel      = self.activeFilters.minLevel or 0,
         maxLevel      = self.activeFilters.maxLevel or 0,
         invTypeIndex  = slotIdx or 0,
@@ -2503,6 +2610,7 @@ function AuctionScreen:SetTab(tabKey)
 end
 
 function AuctionScreen:SwitchTab(delta)
+    if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
 
     local currentIdx = 1
@@ -2529,10 +2637,8 @@ end
 -- ----------------------------------------------------------------------------
 function AuctionScreen:OnDirection(direction)
     if not self.isOpen then return end
-
-    if self.isConfirmModalOpen then
-        return
-    end
+    if self:IsVKOpen() then return end
+    if self.isConfirmModalOpen then return end
 
     if self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" or self.buyStep == "SUBCATEGORIES" or self.buyStep == "SLOTS" then
@@ -2565,11 +2671,11 @@ function AuctionScreen:OnDirection(direction)
         elseif self.buyStep == "FILTERS" then
             if direction == "UP" then
                 self.filterRowIndex = self.filterRowIndex - 1
-                if self.filterRowIndex < 1 then self.filterRowIndex = 5 end
+                if self.filterRowIndex < 1 then self.filterRowIndex = 6 end
                 self:UpdateFilterStyles()
             elseif direction == "DOWN" then
                 self.filterRowIndex = self.filterRowIndex + 1
-                if self.filterRowIndex > 5 then self.filterRowIndex = 1 end
+                if self.filterRowIndex > 6 then self.filterRowIndex = 1 end
                 self:UpdateFilterStyles()
             elseif direction == "LEFT" then
                 self:AdjustFilterValue(-1)
@@ -2602,6 +2708,7 @@ end
 
 function AuctionScreen:OnConfirm()
     if not self.isOpen then return end
+    if self:IsVKOpen() then return end
 
     if self.isConfirmModalOpen then
         self:ExecutePurchase()
@@ -2641,10 +2748,10 @@ function AuctionScreen:OnConfirm()
             self.filterRowIndex = 1
             self:SetBuyStep("FILTERS")
         elseif self.buyStep == "FILTERS" then
-            if self.filterRowIndex == 5 then
+            if self.filterRowIndex == 1 then
+                self:OpenFilterSearchVK()
+            elseif self.filterRowIndex == 6 then
                 self:ExecuteSearch()
-            elseif self.filterRowIndex == 4 then
-                self:AdjustFilterValue(1)
             else
                 self:AdjustFilterValue(1)
             end
@@ -2679,24 +2786,34 @@ end
 
 function AuctionScreen:OnSecondaryAction()
     if not self.isOpen then return end
-
+    if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
 
     if self.currentTab == "BUY" and self.buyStep == "FILTERS" then
-        self:ResetCategoryFilters()
+        if self.filterRowIndex == 1 then
+            self.activeFilters.name = ""
+            self:SaveCategoryFilters()
+            self:UpdateFilterStyles()
+        else
+            self:ResetCategoryFilters()
+        end
     end
 end
 
 function AuctionScreen:OnContextAction()
     if not self.isOpen then return end
-
+    if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
 
-    if self.currentTab == "BUY" and self.buyStep == "ITEM_DETAIL" then
-        if self.selectedGroupedItem and self.selectedGroupedItem.auctions then
-            local auction = self.selectedGroupedItem.auctions[self.selectedAuctionIndex]
-            if auction then
-                self:OpenConfirmModal(auction, false)
+    if self.currentTab == "BUY" then
+        if self.buyStep == "FILTERS" then
+            self:OpenFilterSearchVK()
+        elseif self.buyStep == "ITEM_DETAIL" then
+            if self.selectedGroupedItem and self.selectedGroupedItem.auctions then
+                local auction = self.selectedGroupedItem.auctions[self.selectedAuctionIndex]
+                if auction then
+                    self:OpenConfirmModal(auction, false)
+                end
             end
         end
     end
@@ -2704,6 +2821,7 @@ end
 
 function AuctionScreen:OnCancel()
     if not self.isOpen then return end
+    if self:IsVKOpen() then return end
 
     if self.isConfirmModalOpen then
         self:CloseConfirmModal()

@@ -1701,6 +1701,12 @@ CM_Langs["enUS"].strings = {
     AH_COL_VENDOR_PCT = "% VENDOR",
     AH_COL_AUCTIONS_QTY = "TOTAL AUCTIONS",
     AH_VENDOR_PRICE_LABEL = "Vendor:",
+    AH_FILTER_ITEM_NAME = "Item Name",
+    AH_FILTER_ENTER_NAME = "< Enter name to filter... >",
+    AH_VK_SEARCH_TITLE = "Search Auction House",
+    AH_HINT_TYPE_NAME = "Enter Name",
+    AH_HINT_CLEAR_NAME = "Clear Name",
+    AH_HINT_SEARCH = "Search",
     AH_RECENT_SEARCHES = "Recent Searches",
     AH_FAVORITES = "Favorites",
 }

@@ -407,13 +407,175 @@ function AuctionScreen:FormatMoney(totalCopper)
 
     local text = ""
     if gold > 0 then
-        text = text .. gold .. "|TInterface\\MoneyFrame\\UI-GoldIcon:14:14:2:0|t "
+        text = text .. "|cffffd700" .. gold .. "g|r "
     end
     if silver > 0 or gold > 0 then
-        text = text .. silver .. "|TInterface\\MoneyFrame\\UI-SilverIcon:14:14:2:0|t "
+        text = text .. "|cffc7c7cf" .. silver .. "s|r "
     end
-    text = text .. copper .. "|TInterface\\MoneyFrame\\UI-CopperIcon:14:14:2:0|t"
+    text = text .. "|cffeda55f" .. copper .. "c|r"
     return text
+end
+
+function AuctionScreen:CreateMoneyDisplay(parent, height, iconSize, align)
+    height = height or 22
+    iconSize = iconSize or 14
+    align = align or "RIGHT"
+
+    local f = CreateFrame("Frame", nil, parent)
+    f:SetHeight(height)
+    f:SetWidth(180)
+    f.align = align
+    f.iconSize = iconSize
+
+    -- Copper
+    local copperIcon = f:CreateTexture(nil, "ARTWORK")
+    copperIcon:SetWidth(iconSize)
+    copperIcon:SetHeight(iconSize)
+    copperIcon:SetTexture(ICONS.COPPER)
+    f.copperIcon = copperIcon
+
+    local copperText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    self:ApplyFont(copperText, FONTS.bodyBold, 15)
+    f.copperText = copperText
+
+    -- Silver
+    local silverIcon = f:CreateTexture(nil, "ARTWORK")
+    silverIcon:SetWidth(iconSize)
+    silverIcon:SetHeight(iconSize)
+    silverIcon:SetTexture(ICONS.SILVER)
+    f.silverIcon = silverIcon
+
+    local silverText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    self:ApplyFont(silverText, FONTS.bodyBold, 15)
+    f.silverText = silverText
+
+    -- Gold
+    local goldIcon = f:CreateTexture(nil, "ARTWORK")
+    goldIcon:SetWidth(iconSize)
+    goldIcon:SetHeight(iconSize)
+    goldIcon:SetTexture(ICONS.GOLD)
+    f.goldIcon = goldIcon
+
+    local goldText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    self:ApplyFont(goldText, FONTS.bodyBold, 15)
+    f.goldText = goldText
+
+    -- None/Empty label (ex: "-" quando não há buyout)
+    local noneText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    self:ApplyFont(noneText, FONTS.bodyBold, 15)
+    noneText:SetText("-")
+    noneText:SetTextColor(0.60, 0.60, 0.60, 0.80)
+    noneText:Hide()
+    f.noneText = noneText
+
+    return f
+end
+
+function AuctionScreen:SetMoneyDisplay(f, totalCopper)
+    if not f then return end
+
+    if not totalCopper or totalCopper <= 0 then
+        f.goldIcon:Hide()
+        f.goldText:Hide()
+        f.silverIcon:Hide()
+        f.silverText:Hide()
+        f.copperIcon:Hide()
+        f.copperText:Hide()
+        f.noneText:ClearAllPoints()
+        if f.align == "LEFT" then
+            f.noneText:SetPoint("LEFT", f, "LEFT", 0, 0)
+        else
+            f.noneText:SetPoint("RIGHT", f, "RIGHT", 0, 0)
+        end
+        f.noneText:Show()
+        return
+    end
+
+    f.noneText:Hide()
+
+    local gold   = math.floor(totalCopper / 10000)
+    local silver = math.floor(math.mod(totalCopper, 10000) / 100)
+    local copper = math.floor(math.mod(totalCopper, 100))
+
+    local showGold   = (gold > 0)
+    local showSilver = (gold > 0 or silver > 0)
+    local showCopper = true
+
+    f.copperText:SetText(tostring(copper))
+    f.copperText:Show()
+    f.copperIcon:Show()
+
+    if showSilver then
+        f.silverText:SetText(tostring(silver))
+        f.silverText:Show()
+        f.silverIcon:Show()
+    else
+        f.silverText:Hide()
+        f.silverIcon:Hide()
+    end
+
+    if showGold then
+        f.goldText:SetText(tostring(gold))
+        f.goldText:Show()
+        f.goldIcon:Show()
+    else
+        f.goldText:Hide()
+        f.goldIcon:Hide()
+    end
+
+    if f.align == "LEFT" then
+        local prev = nil
+        if showGold then
+            f.goldText:ClearAllPoints()
+            f.goldText:SetPoint("LEFT", f, "LEFT", 0, 0)
+            f.goldIcon:ClearAllPoints()
+            f.goldIcon:SetPoint("LEFT", f.goldText, "RIGHT", 2, 0)
+            prev = f.goldIcon
+        end
+
+        if showSilver then
+            f.silverText:ClearAllPoints()
+            if prev then
+                f.silverText:SetPoint("LEFT", prev, "RIGHT", 6, 0)
+            else
+                f.silverText:SetPoint("LEFT", f, "LEFT", 0, 0)
+            end
+            f.silverIcon:ClearAllPoints()
+            f.silverIcon:SetPoint("LEFT", f.silverText, "RIGHT", 2, 0)
+            prev = f.silverIcon
+        end
+
+        f.copperText:ClearAllPoints()
+        if prev then
+            f.copperText:SetPoint("LEFT", prev, "RIGHT", 6, 0)
+        else
+            f.copperText:SetPoint("LEFT", f, "LEFT", 0, 0)
+        end
+        f.copperIcon:ClearAllPoints()
+        f.copperIcon:SetPoint("LEFT", f.copperText, "RIGHT", 2, 0)
+    else
+        -- ALIGN RIGHT (Tabelas)
+        f.copperIcon:ClearAllPoints()
+        f.copperIcon:SetPoint("RIGHT", f, "RIGHT", 0, 0)
+        f.copperText:ClearAllPoints()
+        f.copperText:SetPoint("RIGHT", f.copperIcon, "LEFT", -2, 0)
+
+        local prev = f.copperText
+        if showSilver then
+            f.silverIcon:ClearAllPoints()
+            f.silverIcon:SetPoint("RIGHT", prev, "LEFT", -6, 0)
+            f.silverText:ClearAllPoints()
+            f.silverText:SetPoint("RIGHT", f.silverIcon, "LEFT", -2, 0)
+            prev = f.silverText
+        end
+
+        if showGold then
+            f.goldIcon:ClearAllPoints()
+            f.goldIcon:SetPoint("RIGHT", prev, "LEFT", -6, 0)
+            f.goldText:ClearAllPoints()
+            f.goldText:SetPoint("RIGHT", f.goldIcon, "LEFT", -2, 0)
+        end
+    end
 end
 
 function AuctionScreen:GetItemVendorPrice(itemLink)
@@ -1286,19 +1448,19 @@ function AuctionScreen:CreateItemListControls(parent)
     local colAuctions = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colAuctions:SetPoint("LEFT", headerFrame, "LEFT", 460, 0)
     self:ApplyFont(colAuctions, FONTS.titleBold, 15)
-    colAuctions:SetText("QTD LEILÕES")
+    colAuctions:SetText(CM:T("AH_COL_AUCTIONS_QTY") or "QTD LEILÕES")
     colAuctions:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colPrice = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colPrice:SetPoint("RIGHT", headerFrame, "RIGHT", -120, 0)
     self:ApplyFont(colPrice, FONTS.titleBold, 15)
-    colPrice:SetText("A PARTIR DE")
+    colPrice:SetText(CM:T("AH_COL_STARTING_FROM") or "A PARTIR DE")
     colPrice:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colVendor = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -16, 0)
     self:ApplyFont(colVendor, FONTS.titleBold, 15)
-    colVendor:SetText("% VENDOR")
+    colVendor:SetText(CM:T("AH_COL_VENDOR_PCT") or "% VENDOR")
     colVendor:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     -- Pool de 7 linhas visíveis
@@ -1349,11 +1511,10 @@ function AuctionScreen:CreateItemListControls(parent)
         countText:SetTextColor(0.80, 0.80, 0.80, 0.90)
         row.countText = countText
 
-        -- Preço Mínimo
-        local priceText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        priceText:SetPoint("RIGHT", row, "RIGHT", -120, 0)
-        self:ApplyFont(priceText, FONTS.bodyBold, 16)
-        row.priceText = priceText
+        -- Preço Mínimo (com ícones de moedas)
+        local priceDisplay = self:CreateMoneyDisplay(row, 24, 14, "RIGHT")
+        priceDisplay:SetPoint("RIGHT", row, "RIGHT", -120, 0)
+        row.priceDisplay = priceDisplay
 
         -- % Vendor
         local vendorText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -1479,7 +1640,7 @@ function AuctionScreen:UpdateItemList()
             row.countText:SetText(countStr)
 
             local priceVal = (item.minBuyout and item.minBuyout > 0) and item.minBuyout or item.minBid
-            row.priceText:SetText(self:FormatMoney(priceVal))
+            self:SetMoneyDisplay(row.priceDisplay, priceVal)
 
             if item.vendorPrice and item.vendorPrice > 0 and priceVal and priceVal > 0 then
                 local pct = math.floor((priceVal / item.vendorPrice) * 100)
@@ -1571,6 +1732,17 @@ function AuctionScreen:CreateItemDetailControls(parent)
     subText:SetTextColor(0.80, 0.80, 0.80, 0.90)
     topCard.subText = subText
 
+    local vendorLabel = topCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    self:ApplyFont(vendorLabel, FONTS.bodyBold, 15)
+    vendorLabel:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    vendorLabel:SetText("  •  " .. (CM:T("AH_VENDOR_PRICE_LABEL") or "Vendor:") .. " ")
+    vendorLabel:Hide()
+    topCard.vendorLabel = vendorLabel
+
+    local vendorDisplay = self:CreateMoneyDisplay(topCard, 18, 13, "LEFT")
+    vendorDisplay:Hide()
+    topCard.vendorDisplay = vendorDisplay
+
     parent.topCard = topCard
 
     -- Cabeçalho da Tabela de Leilões
@@ -1588,7 +1760,7 @@ function AuctionScreen:CreateItemDetailControls(parent)
     local colStack = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colStack:SetPoint("LEFT", tableHeader, "LEFT", 220, 0)
     self:ApplyFont(colStack, FONTS.titleBold, 15)
-    colStack:SetText("STACK")
+    colStack:SetText(CM:T("AH_COL_STACK") or "STACK")
     colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colTime = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -1645,15 +1817,13 @@ function AuctionScreen:CreateItemDetailControls(parent)
         timeText:SetTextColor(0.80, 0.80, 0.80, 0.90)
         row.timeText = timeText
 
-        local bidText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        bidText:SetPoint("RIGHT", row, "RIGHT", -180, 0)
-        self:ApplyFont(bidText, FONTS.bodyBold, 16)
-        row.bidText = bidText
+        local bidDisplay = self:CreateMoneyDisplay(row, 24, 14, "RIGHT")
+        bidDisplay:SetPoint("RIGHT", row, "RIGHT", -180, 0)
+        row.bidDisplay = bidDisplay
 
-        local buyoutText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        buyoutText:SetPoint("RIGHT", row, "RIGHT", -16, 0)
-        self:ApplyFont(buyoutText, FONTS.titleBold, 17)
-        row.buyoutText = buyoutText
+        local buyoutDisplay = self:CreateMoneyDisplay(row, 24, 14, "RIGHT")
+        buyoutDisplay:SetPoint("RIGHT", row, "RIGHT", -16, 0)
+        row.buyoutDisplay = buyoutDisplay
 
         row.rowIdx = i
         row:SetScript("OnClick", function()
@@ -1687,10 +1857,21 @@ function AuctionScreen:UpdateItemDetail()
         topCard.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
         local subInfo = string.format("Nível: %s  •  Total de Leilões: %d", (item.level and item.level > 0) and tostring(item.level) or "-", item.numAuctions or 1)
-        if item.vendorPrice and item.vendorPrice > 0 then
-            subInfo = subInfo .. "  •  Vendor: " .. self:FormatMoney(item.vendorPrice)
-        end
         topCard.subText:SetText(subInfo)
+
+        if item.vendorPrice and item.vendorPrice > 0 then
+            topCard.vendorLabel:ClearAllPoints()
+            topCard.vendorLabel:SetPoint("LEFT", topCard.subText, "RIGHT", 4, 0)
+            topCard.vendorLabel:Show()
+
+            topCard.vendorDisplay:ClearAllPoints()
+            topCard.vendorDisplay:SetPoint("LEFT", topCard.vendorLabel, "RIGHT", 2, 0)
+            self:SetMoneyDisplay(topCard.vendorDisplay, item.vendorPrice)
+            topCard.vendorDisplay:Show()
+        else
+            topCard.vendorLabel:Hide()
+            topCard.vendorDisplay:Hide()
+        end
     end
 
     local auctions = item.auctions or {}
@@ -1712,15 +1893,9 @@ function AuctionScreen:UpdateItemDetail()
             row.timeText:SetText(CM:T(timeKey) or "")
 
             local bidVal = (a.bidAmount and a.bidAmount > 0) and a.bidAmount or (a.minBid or 0)
-            row.bidText:SetText(self:FormatMoney(bidVal))
+            self:SetMoneyDisplay(row.bidDisplay, bidVal)
 
-            if a.buyoutPrice and a.buyoutPrice > 0 then
-                row.buyoutText:SetText(self:FormatMoney(a.buyoutPrice))
-                row.buyoutText:SetTextColor(1.0, 0.90, 0.40, 1.0)
-            else
-                row.buyoutText:SetText("--")
-                row.buyoutText:SetTextColor(0.50, 0.50, 0.50, 1.0)
-            end
+            self:SetMoneyDisplay(row.buyoutDisplay, a.buyoutPrice)
 
             if isFocused then
                 row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
@@ -1810,21 +1985,44 @@ function AuctionScreen:CreateConfirmModal(parent)
     self:ApplyFont(itemName, FONTS.titleBold, 18)
     modal.itemName = itemName
 
-    local promptText = modal:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    promptText:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -14)
-    promptText:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
-    promptText:SetJustifyH("LEFT")
-    self:ApplyFont(promptText, FONTS.bodyBold, 16)
-    modal.promptText = promptText
+    -- Linha 1: Preço da Transação
+    local priceLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    priceLabel:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -16)
+    self:ApplyFont(priceLabel, FONTS.bodyBold, 16)
+    priceLabel:SetTextColor(0.95, 0.82, 0.35, 1.0)
+    modal.priceLabel = priceLabel
 
-    local moneyRow = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    moneyRow:SetPoint("TOPLEFT", promptText, "BOTTOMLEFT", 0, -10)
-    self:ApplyFont(moneyRow, FONTS.medium, 15)
-    moneyRow:SetTextColor(0.85, 0.85, 0.85, 1.0)
-    modal.moneyRow = moneyRow
+    local priceDisplay = self:CreateMoneyDisplay(modal, 20, 15, "LEFT")
+    priceDisplay:SetPoint("LEFT", priceLabel, "RIGHT", 8, 0)
+    modal.priceDisplay = priceDisplay
 
+    -- Linha 2: Seu Dinheiro
+    local myMoneyLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    myMoneyLabel:SetPoint("TOPLEFT", priceLabel, "BOTTOMLEFT", 0, -10)
+    self:ApplyFont(myMoneyLabel, FONTS.medium, 15)
+    myMoneyLabel:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    myMoneyLabel:SetText(CM:T("AH_MODAL_YOUR_MONEY") or "Seu Dinheiro:")
+    modal.myMoneyLabel = myMoneyLabel
+
+    local myMoneyDisplay = self:CreateMoneyDisplay(modal, 20, 14, "LEFT")
+    myMoneyDisplay:SetPoint("LEFT", myMoneyLabel, "RIGHT", 8, 0)
+    modal.myMoneyDisplay = myMoneyDisplay
+
+    -- Linha 3: Saldo Restante
+    local remainingLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    remainingLabel:SetPoint("TOPLEFT", myMoneyLabel, "BOTTOMLEFT", 0, -10)
+    self:ApplyFont(remainingLabel, FONTS.medium, 15)
+    remainingLabel:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    remainingLabel:SetText(CM:T("AH_MODAL_REMAINING") or "Saldo Restante:")
+    modal.remainingLabel = remainingLabel
+
+    local remainingDisplay = self:CreateMoneyDisplay(modal, 20, 14, "LEFT")
+    remainingDisplay:SetPoint("LEFT", remainingLabel, "RIGHT", 8, 0)
+    modal.remainingDisplay = remainingDisplay
+
+    -- Linha 4: Aviso de Fundos Insuficientes
     local warningText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    warningText:SetPoint("TOPLEFT", moneyRow, "BOTTOMLEFT", 0, -8)
+    warningText:SetPoint("TOPLEFT", remainingLabel, "BOTTOMLEFT", 0, -8)
     self:ApplyFont(warningText, FONTS.titleBold, 15)
     warningText:SetTextColor(1.0, 0.20, 0.20, 1.0)
     warningText:SetText("")
@@ -1899,13 +2097,14 @@ function AuctionScreen:OpenConfirmModal(auction, isBuyout)
 
     if isBuyout then
         m.title:SetText(CM:T("AH_BUYOUT_CONFIRM_TITLE"))
-        local msg = string.format("Comprar por %s?", self:FormatMoney(price))
-        m.promptText:SetText(msg)
+        m.priceLabel:SetText(CM:T("AH_MODAL_BUYOUT_LABEL") or "Preço de Compra:")
     else
         m.title:SetText(CM:T("AH_BID_CONFIRM_TITLE"))
-        local msg = string.format("Dar lance de %s?", self:FormatMoney(price))
-        m.promptText:SetText(msg)
+        m.priceLabel:SetText(CM:T("AH_MODAL_BID_LABEL") or "Valor do Lance:")
     end
+
+    self:SetMoneyDisplay(m.priceDisplay, price)
+    self:SetMoneyDisplay(m.myMoneyDisplay, myMoney)
 
     m.itemIcon:SetTexture(auction.texture)
     local qColor = QUALITY_COLORS[auction.quality] or { 1, 1, 1 }
@@ -1913,7 +2112,8 @@ function AuctionScreen:OpenConfirmModal(auction, isBuyout)
     m.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
     if myMoney < price then
-        m.moneyRow:SetText("Seu Dinheiro: " .. self:FormatMoney(myMoney))
+        m.remainingLabel:Hide()
+        m.remainingDisplay:Hide()
         m.warningText:SetText(CM:T("AH_MSG_CANNOT_AFFORD"))
         m.btnConfirm:Disable()
         m.btnConfirm:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
@@ -1921,7 +2121,9 @@ function AuctionScreen:OpenConfirmModal(auction, isBuyout)
         m.btnConfirm.label:SetTextColor(0.5, 0.5, 0.5, 1.0)
     else
         local remaining = myMoney - price
-        m.moneyRow:SetText("Seu Dinheiro: " .. self:FormatMoney(myMoney) .. "   Restante: " .. self:FormatMoney(remaining))
+        m.remainingLabel:Show()
+        m.remainingDisplay:Show()
+        self:SetMoneyDisplay(m.remainingDisplay, remaining)
         m.warningText:SetText("")
         m.btnConfirm:Enable()
         m.btnConfirm:SetBackdropColor(0.24, 0.18, 0.10, 0.95)

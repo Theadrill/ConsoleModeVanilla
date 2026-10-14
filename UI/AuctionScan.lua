@@ -194,10 +194,13 @@ function AuctionScan:OnAuctionListUpdate()
             pcall(function() onComplete(collected, total, false) end)
         end
     else
-        -- Prepara próxima página
+        -- Prepara próxima página imediatamente
         self.currentPage = self.currentPage + 1
         self.state = "WAITING_READY"
         self.waitTimer = 0
+        if self:CanQuery() then
+            self:SendPageQuery()
+        end
     end
 end
 
@@ -207,7 +210,7 @@ end
 function AuctionScan:OnUpdate(dt)
     if not self.isScanning then return end
 
-    dt = dt or 0.1
+    dt = dt or arg1 or 0.1
 
     if self.state == "WAITING_READY" then
         self.waitTimer = self.waitTimer + dt
@@ -216,8 +219,8 @@ function AuctionScan:OnUpdate(dt)
         end
     elseif self.state == "WAITING_UPDATE" then
         self.timeoutTimer = self.timeoutTimer + dt
-        -- Timeout de segurança: 10 segundos sem resposta da Blizzard
-        if self.timeoutTimer > 10.0 then
+        -- Timeout de segurança: 5.0 segundos sem resposta da Blizzard (padrão aux-addon)
+        if self.timeoutTimer > 5.0 then
             local collected = self.results
             local total = self.totalCount
             local onComplete = self.onCompleteCallback

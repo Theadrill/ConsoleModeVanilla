@@ -117,7 +117,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 5: Split View na Tela de Resultados (Master-Detail) com Card de Tooltip Padronizado (Lógica da Bag no MainMenu) e Resumo Econômico
+### FASE 5: Split View na Tela de Resultados (Master-Detail) com Card de Tooltip Padronizado (Lógica da Bag no MainMenu) e Resumo Econômico [CONCLUÍDO]
 * **Objetivo:** Transformar a tela de resultados em layout dividido (duas colunas), exibindo os dados completos e atributos do item selecionado à direita em tempo real conforme navega com o D-Pad, eliminando a necessidade de mouse hover no gamepad.
 * **Tarefas:**
   * **Coluna Esquerda (~60% de largura):**
@@ -137,7 +137,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 6: Atalho Fast-Track (Y) na Navegação de Categorias e Subcategorias
+### FASE 6: Atalho Fast-Track (Y) na Navegação de Categorias e Subcategorias [CONCLUÍDO]
 * **Objetivo:** Permitir ao jogador pular direto para a tela de filtros a partir de qualquer nível da árvore de categorias.
 * **Tarefas:**
   * Atalho `(Y)` em `CATEGORIES`: seleciona a categoria principal e abre `SEARCH FILTERS` diretamente (com `subclassIndex = nil` e `invTypeIndex = nil`).

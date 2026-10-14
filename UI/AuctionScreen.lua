@@ -320,8 +320,84 @@ AuctionScreen.repeatDelay         = 0.35
 AuctionScreen.repeatRate          = 0.08
 
 -- ----------------------------------------------------------------------------
--- 4. HELPERS DE FORMATAÇÃO, TIPOGRAFIA E 9-SLICE
+-- 4. HELPERS DE FORMATAÇÃO, TIPOGRAFIA, TOOLTIP SCANNER E 9-SLICE
 -- ----------------------------------------------------------------------------
+local scanTip = CreateFrame("GameTooltip", "ConsoleMode_AuctionScanTip", UIParent, "GameTooltipTemplate")
+scanTip:SetOwner(UIParent, "ANCHOR_NONE")
+
+function AuctionScreen:ResetScanTip()
+    if not scanTip then return end
+    scanTip:ClearLines()
+    for i = 1, 40 do
+        local l = _G["ConsoleMode_AuctionScanTipTextLeft" .. i]
+        local r = _G["ConsoleMode_AuctionScanTipTextRight" .. i]
+        if l then l:SetText("") end
+        if r then r:SetText("") end
+    end
+end
+
+function AuctionScreen:ScanItemTooltip(itemLink)
+    if not itemLink or itemLink == "" then return nil end
+    local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:[^|]+)|h%[(.-)%]|h|r")
+    if not rawLink then
+        rawLink = itemLink
+    end
+
+    self:ResetScanTip()
+    local ok = pcall(function() scanTip:SetHyperlink(rawLink) end)
+    if not ok then
+        pcall(function() scanTip:SetHyperlink(itemLink) end)
+    end
+
+    local statsLines = {}
+    local descLines = {}
+    local numLines = scanTip:NumLines() or 0
+
+    for l = 2, numLines do
+        local leftObj = _G["ConsoleMode_AuctionScanTipTextLeft" .. l]
+        local rightObj = _G["ConsoleMode_AuctionScanTipTextRight" .. l]
+        local leftText = (leftObj and leftObj:GetText()) or ""
+        local rightText = (rightObj and rightObj:GetText()) or ""
+
+        if leftText ~= "" then
+            if string.find(leftText, "Preço de Venda:") or string.find(leftText, "Sell Price:") then
+                -- skip vendor sell line (captured separately in economic summary)
+            elseif string.find(leftText, "Uso:", 1, 1) or string.find(leftText, "Use:", 1, 1)
+                or string.find(leftText, "Equipar:", 1, 1) or string.find(leftText, "Equip:", 1, 1)
+                or string.find(leftText, "Chance ao acertar:", 1, 1) or string.find(leftText, "Chance on hit:", 1, 1) then
+                local fullEffect = leftText
+                if rightText ~= "" then
+                    local rLow = string.lower(rightText)
+                    if string.find(rLow, "cooldown") or string.find(rLow, "recarga") then
+                        if not string.find(rightText, "^%(") then
+                            fullEffect = fullEffect .. " (" .. rightText .. ")"
+                        else
+                            fullEffect = fullEffect .. " " .. rightText
+                        end
+                    else
+                        fullEffect = fullEffect .. "  " .. rightText
+                    end
+                end
+                table.insert(descLines, fullEffect)
+            elseif string.find(rightText, "Uso:", 1, 1) or string.find(rightText, "Use:", 1, 1)
+                or string.find(rightText, "Equipar:", 1, 1) or string.find(rightText, "Equip:", 1, 1) then
+                table.insert(descLines, rightText)
+            elseif not string.find(leftText, "Venda:") and not string.find(leftText, "Sell:") then
+                local lineStr = leftText
+                if rightText ~= "" then
+                    lineStr = lineStr .. "  " .. rightText
+                end
+                table.insert(statsLines, lineStr)
+            end
+        end
+    end
+
+    return {
+        statsLines = statsLines,
+        descLines  = descLines,
+    }
+end
+
 function AuctionScreen:ApplyFont(fontString, fontPath, size, outline, shadowOffset, shadowColor)
     if not fontString then return end
     fontPath = fontPath or FONTS.bodyBold
@@ -523,11 +599,13 @@ function AuctionScreen:SetMoneyDisplay(f, totalCopper)
     local showCopper = true
 
     f.copperText:SetText(tostring(copper))
+    f.copperText:SetTextColor(0.93, 0.65, 0.37, 1.0)
     f.copperText:Show()
     f.copperIcon:Show()
 
     if showSilver then
         f.silverText:SetText(tostring(silver))
+        f.silverText:SetTextColor(0.78, 0.78, 0.81, 1.0)
         f.silverText:Show()
         f.silverIcon:Show()
     else
@@ -537,6 +615,7 @@ function AuctionScreen:SetMoneyDisplay(f, totalCopper)
 
     if showGold then
         f.goldText:SetText(tostring(gold))
+        f.goldText:SetTextColor(1.0, 0.84, 0.0, 1.0)
         f.goldText:Show()
         f.goldIcon:Show()
     else
@@ -735,7 +814,8 @@ function AuctionScreen:UpdateFooterHints()
 
     local hints = {}
     if self.isConfirmModalOpen then
-        table.insert(hints, { icons = { "A" }, label = CM:T("AH_HINT_CONFIRM") })
+        local actionLabel = self.isBuyoutAction and (CM:T("AH_BTN_BUYOUT") or "Comprar") or (CM:T("AH_BTN_BID") or "Dar Lance")
+        table.insert(hints, { icons = { "A" }, label = actionLabel })
         table.insert(hints, { icons = { "B" }, label = CM:T("AH_BTN_CANCEL") })
     elseif self.isSortModalOpen then
         table.insert(hints, { icons = { "A" }, label = CM:T("AH_HINT_SELECT") })
@@ -744,10 +824,17 @@ function AuctionScreen:UpdateFooterHints()
     elseif self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
+            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_HINT_FILTER_CATEGORY") })
             table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
             table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_CLOSE") })
-        elseif self.buyStep == "SUBCATEGORIES" or self.buyStep == "SLOTS" then
+        elseif self.buyStep == "SUBCATEGORIES" then
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
+            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_HINT_FILTER_SUBCATEGORY") })
+            table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
+            table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
+        elseif self.buyStep == "SLOTS" then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
             table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
             table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
@@ -954,11 +1041,12 @@ function AuctionScreen:UpdateBreadcrumb()
     elseif self.buyStep == "SCANNING" then
         trail = trail .. sep .. CM:T("AH_SEARCHING")
     elseif self.buyStep == "ITEMS_LIST" then
-        trail = trail .. sep .. "Resultados"
+        trail = trail .. sep .. (CM:T("AH_BREADCRUMB_RESULTS") or "Results")
     elseif self.buyStep == "ITEM_DETAIL" then
-        trail = trail .. sep .. "Resultados"
+        trail = trail .. sep .. (CM:T("AH_BREADCRUMB_RESULTS") or "Results")
         if self.selectedGroupedItem and self.selectedGroupedItem.name then
-            trail = trail .. sep .. self.selectedGroupedItem.name
+            local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(self.selectedGroupedItem.name, self.selectedGroupedItem.link) or self.selectedGroupedItem.name
+            trail = trail .. sep .. locName
         end
     end
 
@@ -1556,42 +1644,51 @@ function AuctionScreen:UpdateSummaryStyles()
 end
 
 -- ----------------------------------------------------------------------------
--- 11. FASE 2: LISTA DE ITENS AGRUPADOS (ITEMS_LIST)
+-- 11. FASE 2 & FASE 5: LISTA DE ITENS AGRUPADOS E SPLIT VIEW COM DETAIL CARD
 -- ----------------------------------------------------------------------------
 function AuctionScreen:CreateItemListControls(parent)
-    local headerFrame = CreateFrame("Frame", nil, parent)
+    -- 1. Painel Esquerdo (Lista de Itens Agrupados)
+    local listLeftPane = CreateFrame("Frame", "ConsoleMode_AuctionItemListLeft", parent)
+    listLeftPane:SetWidth(540)
+    listLeftPane:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, 0)
+    listLeftPane:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 4, 0)
+    parent.listLeftPane = listLeftPane
+
+    local headerFrame = CreateFrame("Frame", nil, listLeftPane)
     headerFrame:SetHeight(24)
-    headerFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 12, 0)
-    headerFrame:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -12, 0)
+    headerFrame:SetPoint("TOPLEFT", listLeftPane, "TOPLEFT", 6, 0)
+    headerFrame:SetPoint("TOPRIGHT", listLeftPane, "TOPRIGHT", -6, 0)
 
     local colItem = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
-    self:ApplyFont(colItem, FONTS.titleBold, 15)
+    self:ApplyFont(colItem, FONTS.titleBold, 14)
     colItem:SetText(CM:T("AH_COL_ITEM"))
     colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colLevel = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colLevel:SetPoint("LEFT", headerFrame, "LEFT", 380, 0)
-    self:ApplyFont(colLevel, FONTS.titleBold, 15)
+    colLevel:SetPoint("LEFT", headerFrame, "LEFT", 236, 0)
+    colLevel:SetWidth(30)
+    colLevel:SetJustifyH("CENTER")
+    self:ApplyFont(colLevel, FONTS.titleBold, 14)
     colLevel:SetText(CM:T("AH_COL_LEVEL"))
     colLevel:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colAuctions = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colAuctions:SetPoint("LEFT", headerFrame, "LEFT", 460, 0)
-    self:ApplyFont(colAuctions, FONTS.titleBold, 15)
-    colAuctions:SetText(CM:T("AH_COL_AUCTIONS_QTY") or "QTD LEILÕES")
+    colAuctions:SetPoint("LEFT", headerFrame, "LEFT", 272, 0)
+    self:ApplyFont(colAuctions, FONTS.titleBold, 14)
+    colAuctions:SetText(CM:T("AH_COL_AUCTIONS_QTY") or "LEILÕES")
     colAuctions:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colPrice = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colPrice:SetPoint("RIGHT", headerFrame, "RIGHT", -120, 0)
-    self:ApplyFont(colPrice, FONTS.titleBold, 15)
+    colPrice:SetPoint("RIGHT", headerFrame, "RIGHT", -56, 0)
+    self:ApplyFont(colPrice, FONTS.titleBold, 14)
     colPrice:SetText(CM:T("AH_COL_STARTING_FROM") or "A PARTIR DE")
     colPrice:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colVendor = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -16, 0)
-    self:ApplyFont(colVendor, FONTS.titleBold, 15)
-    colVendor:SetText(CM:T("AH_COL_VENDOR_PCT") or "% VENDOR")
+    colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -8, 0)
+    self:ApplyFont(colVendor, FONTS.titleBold, 14)
+    colVendor:SetText(CM:T("AH_COL_VENDOR_PCT") or "% LOJA")
     colVendor:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     -- Pool de 7 linhas visíveis
@@ -1601,10 +1698,10 @@ function AuctionScreen:CreateItemListControls(parent)
     local rowGap = 6
 
     for i = 1, 7 do
-        local row = CreateFrame("Button", "ConsoleMode_AuctionItemRow" .. i, parent)
+        local row = CreateFrame("Button", "ConsoleMode_AuctionItemRow" .. i, listLeftPane)
         row:SetHeight(rowH)
-        row:SetPoint("TOPLEFT", parent, "TOPLEFT", 12, startY - ((i - 1) * (rowH + rowGap)))
-        row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -12, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPLEFT", listLeftPane, "TOPLEFT", 6, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", listLeftPane, "TOPRIGHT", -6, startY - ((i - 1) * (rowH + rowGap)))
 
         row:SetBackdrop({
             bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -1622,35 +1719,41 @@ function AuctionScreen:CreateItemListControls(parent)
 
         -- Nome do Item
         local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        nameText:SetPoint("LEFT", icon, "RIGHT", 10, 0)
-        nameText:SetWidth(320)
+        nameText:SetPoint("LEFT", icon, "RIGHT", 8, 0)
+        nameText:SetWidth(180)
         nameText:SetJustifyH("LEFT")
-        self:ApplyFont(nameText, FONTS.titleBold, 17)
+        self:ApplyFont(nameText, FONTS.titleBold, 16)
         row.nameText = nameText
 
         -- Nível
         local lvlText = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        lvlText:SetPoint("LEFT", row, "LEFT", 380, 0)
-        self:ApplyFont(lvlText, FONTS.bodyBold, 16)
+        lvlText:SetPoint("LEFT", row, "LEFT", 236, 0)
+        lvlText:SetWidth(30)
+        lvlText:SetJustifyH("CENTER")
+        self:ApplyFont(lvlText, FONTS.bodyBold, 15)
         lvlText:SetTextColor(0.90, 0.90, 0.90, 1.0)
         row.lvlText = lvlText
 
         -- Quantidade de Leilões
         local countText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        countText:SetPoint("LEFT", row, "LEFT", 460, 0)
-        self:ApplyFont(countText, FONTS.medium, 16)
+        countText:SetPoint("LEFT", row, "LEFT", 272, 0)
+        countText:SetWidth(75)
+        countText:SetJustifyH("LEFT")
+        self:ApplyFont(countText, FONTS.medium, 14)
         countText:SetTextColor(0.80, 0.80, 0.80, 0.90)
         row.countText = countText
 
         -- Preço Mínimo (com ícones de moedas)
-        local priceDisplay = self:CreateMoneyDisplay(row, 24, 14, "RIGHT")
-        priceDisplay:SetPoint("RIGHT", row, "RIGHT", -120, 0)
+        local priceDisplay = self:CreateMoneyDisplay(row, 24, 13, "RIGHT")
+        priceDisplay:SetPoint("RIGHT", row, "RIGHT", -56, 0)
         row.priceDisplay = priceDisplay
 
         -- % Vendor
         local vendorText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        vendorText:SetPoint("RIGHT", row, "RIGHT", -16, 0)
-        self:ApplyFont(vendorText, FONTS.titleBold, 15)
+        vendorText:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        vendorText:SetWidth(44)
+        vendorText:SetJustifyH("RIGHT")
+        self:ApplyFont(vendorText, FONTS.titleBold, 14)
         row.vendorText = vendorText
 
         row.rowIdx = i
@@ -1665,13 +1768,349 @@ function AuctionScreen:CreateItemListControls(parent)
     end
 
     -- Indicador de Posição (Ex: "Item 1 de 24")
-    local posIndicator = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    posIndicator:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -16, -26)
+    local posIndicator = listLeftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    posIndicator:SetPoint("BOTTOMLEFT", listLeftPane, "BOTTOMLEFT", 10, -26)
     self:ApplyFont(posIndicator, FONTS.medium, 15)
     posIndicator:SetTextColor(0.65, 0.65, 0.65, 1.0)
     parent.posIndicator = posIndicator
 
     self.itemListRows = rows
+
+    -- 2. Painel Direito (Card de Detalhes do Item - Split View FASE 5)
+    self:CreateDetailCard(parent, listLeftPane)
+end
+
+function AuctionScreen:CreateDetailCard(parent, listLeftPane)
+    local card = CreateFrame("Frame", "ConsoleMode_AuctionDetailCard", parent)
+    card:SetPoint("TOPLEFT", listLeftPane, "TOPRIGHT", 14, 0)
+    card:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -6, 0)
+
+    -- Background esculpido 9-slice sólido
+    card.slices = self:Create9Slice(
+        card,
+        NINESLICE.texture,
+        NINESLICE.cornerSize,
+        NINESLICE.uv,
+        NINESLICE.drawLayer
+    )
+
+    -- 1. Ícone Superior Grande
+    local icon = card:CreateTexture(nil, "ARTWORK")
+    icon:SetWidth(44)
+    icon:SetHeight(44)
+    icon:SetPoint("TOPLEFT", card, "TOPLEFT", 16, -16)
+    icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+    card.icon = icon
+
+    local iconBorder = CreateFrame("Frame", nil, card)
+    iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -2, 2)
+    iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 2, -2)
+    iconBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 8,
+        insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    iconBorder:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.8)
+    card.iconBorder = iconBorder
+
+    -- 2. Título (Nome do Item)
+    local titleText = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    titleText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 12, 0)
+    titleText:SetPoint("RIGHT", card, "RIGHT", -16, 0)
+    titleText:SetJustifyH("LEFT")
+    self:ApplyFont(titleText, FONTS.titleBold, 19)
+    titleText:SetText(CM:T("AH_CARD_NO_SELECTION"))
+    card.titleText = titleText
+
+    -- 3. Subtítulo (Tipo / Subtipo / Slot / Req Level / Soulbound / Unique)
+    local typeText = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    typeText:SetPoint("TOPLEFT", titleText, "BOTTOMLEFT", 0, -4)
+    typeText:SetPoint("RIGHT", card, "RIGHT", -16, 0)
+    typeText:SetJustifyH("LEFT")
+    self:ApplyFont(typeText, FONTS.medium, 14)
+    typeText:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    card.typeText = typeText
+
+    -- 4. Divisória Horizontal Superior
+    local hDiv = card:CreateTexture(nil, "ARTWORK")
+    hDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    hDiv:SetHeight(1)
+    hDiv:SetPoint("TOPLEFT", card, "TOPLEFT", 14, -68)
+    hDiv:SetPoint("TOPRIGHT", card, "TOPRIGHT", -14, -68)
+    hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.35)
+    card.hDiv = hDiv
+
+    -- 5. Divisória Horizontal Inferior (Separando Stats do Resumo Econômico)
+    local fDiv = card:CreateTexture(nil, "ARTWORK")
+    fDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    fDiv:SetHeight(1)
+    fDiv:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 14, 76)
+    fDiv:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -14, 76)
+    fDiv:SetVertexColor(0.5, 0.4, 0.3, 0.45)
+    card.fDiv = fDiv
+
+    -- 6. Colunas de Stats e Descrição (Corpo central)
+    local descColLeft = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    descColLeft:SetPoint("TOPLEFT", hDiv, "BOTTOMLEFT", 2, -8)
+    descColLeft:SetPoint("BOTTOMLEFT", fDiv, "TOPLEFT", 2, 8)
+    descColLeft:SetWidth(180)
+    descColLeft:SetJustifyH("LEFT")
+    descColLeft:SetJustifyV("TOP")
+    self:ApplyFont(descColLeft, FONTS.bodyBold, 13)
+    card.descColLeft = descColLeft
+
+    local descColRight = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    descColRight:SetPoint("TOPLEFT", descColLeft, "TOPRIGHT", 12, 0)
+    descColRight:SetPoint("BOTTOMRIGHT", fDiv, "TOPRIGHT", -2, 8)
+    descColRight:SetJustifyH("LEFT")
+    descColRight:SetJustifyV("TOP")
+    self:ApplyFont(descColRight, FONTS.bodyBold, 13)
+    card.descColRight = descColRight
+
+    -- 7. Rodapé do Card: Resumo Econômico / Mercado
+    local marketHeader = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    marketHeader:SetPoint("TOPLEFT", fDiv, "BOTTOMLEFT", 2, -6)
+    self:ApplyFont(marketHeader, FONTS.titleBold, 13)
+    marketHeader:SetText(CM:T("AH_CARD_MARKET_SUMMARY"))
+    marketHeader:SetTextColor(0.92, 0.82, 0.45, 1.0)
+    card.marketHeader = marketHeader
+
+    local marketAuctions = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    marketAuctions:SetPoint("TOPLEFT", marketHeader, "BOTTOMLEFT", 0, -3)
+    self:ApplyFont(marketAuctions, FONTS.bodyBold, 13)
+    marketAuctions:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    card.marketAuctions = marketAuctions
+
+    local vendorLabel = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    vendorLabel:SetPoint("TOPLEFT", marketAuctions, "BOTTOMLEFT", 0, -4)
+    self:ApplyFont(vendorLabel, FONTS.bodyBold, 13)
+    vendorLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
+    vendorLabel:SetText(CM:T("AH_CARD_VENDOR_LABEL"))
+    card.vendorLabel = vendorLabel
+
+    local vendorDisplay = self:CreateMoneyDisplay(card, 18, 13, "LEFT")
+    vendorDisplay:SetPoint("LEFT", vendorLabel, "RIGHT", 6, 0)
+    card.vendorDisplay = vendorDisplay
+
+    local vendorPct = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    vendorPct:SetPoint("LEFT", vendorDisplay, "RIGHT", 10, 0)
+    self:ApplyFont(vendorPct, FONTS.titleBold, 13)
+    card.vendorPct = vendorPct
+
+    self.detailCard = card
+end
+
+function AuctionScreen:UpdateItemCard(item)
+    local card = self.detailCard
+    if not card then return end
+
+    if not item or not item.link then
+        card.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+        card.iconBorder:SetBackdropBorderColor(0.5, 0.5, 0.5, 0.6)
+        card.titleText:SetText(CM:T("AH_CARD_NO_SELECTION"))
+        card.titleText:SetTextColor(0.6, 0.6, 0.6, 1.0)
+        card.typeText:SetText("")
+        card.descColLeft:SetText("")
+        card.descColRight:SetText("")
+        card.descColRight:Hide()
+        card.hDiv:Hide()
+        card.fDiv:Hide()
+        card.marketHeader:Hide()
+        card.marketAuctions:Hide()
+        card.vendorLabel:Hide()
+        card.vendorDisplay:Hide()
+        card.vendorPct:Hide()
+        return
+    end
+
+    card.hDiv:Show()
+    card.fDiv:Show()
+    card.marketHeader:Show()
+    card.marketAuctions:Show()
+
+    -- 1. Ícone e Borda por Raridade
+    card.icon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+    local qColor = QUALITY_COLORS[item.quality] or { 0.8, 0.8, 0.8 }
+    card.iconBorder:SetBackdropBorderColor(qColor[1], qColor[2], qColor[3], 0.95)
+
+    -- 2. Título Traduzido
+    local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+    card.titleText:SetText(locItemName)
+    card.titleText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+    -- 3. Informações de GetItemInfo (Subtipo, Slot, Req Level)
+    local _, _, _, reqL, itemType, itemSubType, _, itemEquipLoc = GetItemInfo(item.link)
+    local locEquip = nil
+    if itemEquipLoc and itemEquipLoc ~= "" then
+        locEquip = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(itemEquipLoc) or getglobal(itemEquipLoc)
+        if not locEquip or string.find(locEquip, "^INVTYPE_") then
+            locEquip = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(itemEquipLoc) or nil
+        end
+    end
+    local stName = (ConsoleMode and ConsoleMode.GameLOC_ItemSubType) and ConsoleMode:GameLOC_ItemSubType(itemSubType) or itemSubType
+
+    local subParts = {}
+    if locEquip and locEquip ~= "" then
+        table.insert(subParts, locEquip)
+    end
+    if stName and stName ~= "" then
+        local isDup = false
+        if locEquip then
+            local lLoc = string.lower(locEquip)
+            local lSt = string.lower(stName)
+            if lLoc == lSt or lSt == lLoc .. "s" or lLoc == lSt .. "s" then isDup = true end
+        end
+        if not isDup then
+            table.insert(subParts, stName)
+        end
+    end
+
+    local rLevel = tonumber(reqL) or tonumber(item.level) or 0
+    if rLevel > 1 then
+        local pLevel = UnitLevel("player") or 0
+        if rLevel > pLevel then
+            table.insert(subParts, string.format(CM:T("ITEM_REQLVL_RED_FMT") or "|cffff2020Requer Nível %d|r", rLevel))
+        else
+            table.insert(subParts, string.format(CM:T("ITEM_REQLVL_FMT") or "Requer Nível %d", rLevel))
+        end
+    end
+
+    -- 4. Tooltip Scanner: Stats e Efeitos
+    local scanData = self:ScanItemTooltip(item.link)
+    local leftLines = {}
+    local rightLines = {}
+    local isSoulbound = false
+    local isUnique = false
+
+    if scanData and scanData.statsLines then
+        for _, sLine in ipairs(scanData.statsLines) do
+            local lower = string.lower(sLine)
+            local skip = false
+            if string.find(lower, "head") or string.find(lower, "neck") or string.find(lower, "shoulder") or string.find(lower, "shirt") or string.find(lower, "chest") or string.find(lower, "waist") or string.find(lower, "legs") or string.find(lower, "feet") or string.find(lower, "wrist") or string.find(lower, "hands") or string.find(lower, "finger") or string.find(lower, "trinket") or string.find(lower, "back") or string.find(lower, "main hand") or string.find(lower, "off hand") or string.find(lower, "ranged") or string.find(lower, "tabard") or string.find(lower, "held in off%-hand") or string.find(lower, "cabe") or string.find(lower, "pesco") or string.find(lower, "ombros") or string.find(lower, "camisa") or string.find(lower, "peitoral") or string.find(lower, "cintura") or string.find(lower, "pernas") or string.find(lower, "pés") or string.find(lower, "punhos") or string.find(lower, "mãos") or string.find(lower, "dedo") or string.find(lower, "berloque") or string.find(lower, "costas") then
+                skip = true
+            elseif string.find(lower, "soulbound") or string.find(lower, "ligado") or string.find(lower, "vinculado") or string.find(lower, "binds when") then
+                isSoulbound = true
+                skip = true
+            elseif string.find(lower, "unique") or string.find(lower, "único") or string.find(lower, "unico") then
+                isUnique = true
+                skip = true
+            elseif string.find(lower, "requires level") or string.find(lower, "requer n") or string.find(lower, "req%. nv") then
+                skip = true
+            elseif string.find(lower, "durability") or string.find(lower, "durabilidade") then
+                skip = true
+            end
+
+            if not skip then
+                local locLine = nil
+                if ConsoleMode and ConsoleMode.GameLOC_ItemDesc then
+                    locLine = ConsoleMode:GameLOC_ItemDesc(item.link, sLine)
+                end
+                if not locLine then
+                    locLine = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(sLine) or sLine
+                end
+
+                if string.find(locLine, "Uso:") or string.find(locLine, "Use:") or string.find(locLine, "Equipar:") or string.find(locLine, "Equip:") then
+                    table.insert(rightLines, "|cff00ff00" .. locLine .. "|r")
+                else
+                    local isLeft = false
+                    if string.find(lower, "dano") or string.find(lower, "damage") or string.find(lower, "velocidade") or string.find(lower, "speed") or string.find(lower, "por segundo") or string.find(lower, "per second") or string.find(lower, "armadura") or string.find(lower, "armor") or string.find(lower, "bloqueio") or string.find(lower, "block") then
+                        isLeft = true
+                    end
+                    if isLeft then
+                        table.insert(leftLines, "|cffffffff" .. locLine .. "|r")
+                    else
+                        if string.find(lower, "classes:") or string.find(lower, "races:") then
+                            table.insert(rightLines, "|cffff2020" .. locLine .. "|r")
+                        elseif string.find(sLine, "^\"") or string.find(sLine, "^%“") then
+                            table.insert(rightLines, "|cffffd100" .. locLine .. "|r")
+                        else
+                            table.insert(rightLines, "|cffffffff" .. locLine .. "|r")
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    if scanData and scanData.descLines then
+        for _, dLine in ipairs(scanData.descLines) do
+            local locDesc = nil
+            if ConsoleMode and ConsoleMode.GameLOC_ItemDesc then
+                locDesc = ConsoleMode:GameLOC_ItemDesc(item.link, dLine)
+            end
+            if not locDesc then
+                locDesc = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(dLine) or dLine
+            end
+            table.insert(rightLines, "|cff00ff00" .. locDesc .. "|r")
+        end
+    end
+
+    if isSoulbound then table.insert(subParts, CM:T("ITEM_SOULBOUND_TAG") or "|cff00ccffVinculado|r") end
+    if isUnique then table.insert(subParts, CM:T("ITEM_UNIQUE_TAG") or "|cffffffffÚnico|r") end
+    card.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
+
+    -- 5. Renderização das Colunas de Stats
+    local rawW = card:GetWidth()
+    local cardW = (rawW and rawW > 0) and rawW or 420
+    if cardW < 240 then cardW = 420 end
+    if table.getn(leftLines) == 0 and table.getn(rightLines) > 0 then
+        card.descColLeft:SetWidth(math.max(180, cardW - 32))
+        card.descColLeft:SetText(table.concat(rightLines, "\n"))
+        card.descColRight:SetText("")
+        card.descColRight:Hide()
+    elseif table.getn(leftLines) > 0 and table.getn(rightLines) == 0 then
+        card.descColLeft:SetWidth(math.max(180, cardW - 32))
+        card.descColLeft:SetText(table.concat(leftLines, "\n"))
+        card.descColRight:SetText("")
+        card.descColRight:Hide()
+    elseif table.getn(leftLines) > 0 and table.getn(rightLines) > 0 then
+        local colW = math.floor((cardW - 40) / 2)
+        if colW < 140 then colW = 140 end
+        card.descColLeft:SetWidth(colW)
+        card.descColLeft:SetText(table.concat(leftLines, "\n"))
+        card.descColRight:ClearAllPoints()
+        card.descColRight:SetPoint("TOPLEFT", card.descColLeft, "TOPRIGHT", 12, 0)
+        card.descColRight:SetPoint("BOTTOMRIGHT", card.fDiv, "TOPRIGHT", -2, 8)
+        card.descColRight:SetText(table.concat(rightLines, "\n"))
+        card.descColRight:Show()
+    else
+        card.descColLeft:SetWidth(math.max(180, cardW - 32))
+        card.descColLeft:SetText(CM:T("DETAIL_NO_INFO") or "Sem informações adicionais")
+        card.descColRight:SetText("")
+        card.descColRight:Hide()
+    end
+
+    -- 6. Resumo Econômico
+    local numAuctions = item.numAuctions or 1
+    local totalUnits = item.totalUnits or 1
+    local totalFmt = CM:T("AH_CARD_TOTAL_AUCTIONS_FMT") or "%d leilões (%d unidades)"
+    card.marketAuctions:SetText(string.format(totalFmt, numAuctions, totalUnits))
+
+    local vPrice = item.vendorPrice or 0
+    if vPrice > 0 then
+        card.vendorLabel:Show()
+        self:SetMoneyDisplay(card.vendorDisplay, vPrice)
+        card.vendorDisplay:Show()
+
+        local priceVal = (item.minBuyout and item.minBuyout > 0) and item.minBuyout or item.minBid
+        if priceVal and priceVal > 0 then
+            local pct = math.floor((priceVal / vPrice) * 100)
+            local pctFmt = CM:T("AH_CARD_VENDOR_COMPARE_FMT") or "%d%% de loja"
+            card.vendorPct:SetText(string.format(pctFmt, pct))
+            if pct <= 100 then
+                card.vendorPct:SetTextColor(0.12, 1.0, 0.0, 1.0)
+            else
+                card.vendorPct:SetTextColor(1.0, 0.82, 0.20, 1.0)
+            end
+            card.vendorPct:Show()
+        else
+            card.vendorPct:Hide()
+        end
+    else
+        card.vendorLabel:Hide()
+        card.vendorDisplay:Hide()
+        card.vendorPct:Hide()
+    end
 end
 
 function AuctionScreen:GroupScanResults()
@@ -1755,7 +2194,8 @@ function AuctionScreen:UpdateItemList()
 
             row.icon:SetTexture(item.texture)
             local qColor = QUALITY_COLORS[item.quality] or { 1, 1, 1 }
-            row.nameText:SetText(item.name)
+            local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+            row.nameText:SetText(locItemName)
             row.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
             local lvlStr = (item.level and item.level > 0) and tostring(item.level) or "-"
@@ -1801,6 +2241,10 @@ function AuctionScreen:UpdateItemList()
             self.itemListContainer.posIndicator:SetText("")
         end
     end
+
+    -- Atualiza Card de Detalhes da Split View (FASE 5)
+    local selectedItem = self.groupedItems[self.selectedItemIndex]
+    self:UpdateItemCard(selectedItem)
 end
 
 function AuctionScreen:ScrollItemList(delta)
@@ -1977,8 +2421,8 @@ function AuctionScreen:UpdateItemDetail()
     local topCard = self.itemDetailContainer.topCard
     if topCard then
         topCard.icon:SetTexture(item.texture)
-        local qColor = QUALITY_COLORS[item.quality] or { 1, 1, 1 }
-        topCard.nameText:SetText(item.name)
+        local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+        topCard.nameText:SetText(locItemName)
         topCard.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
         local subInfo = string.format("Nível: %s  •  Total de Leilões: %d", (item.level and item.level > 0) and tostring(item.level) or "-", item.numAuctions or 1)
@@ -2223,9 +2667,11 @@ function AuctionScreen:OpenConfirmModal(auction, isBuyout)
     if isBuyout then
         m.title:SetText(CM:T("AH_BUYOUT_CONFIRM_TITLE"))
         m.priceLabel:SetText(CM:T("AH_MODAL_BUYOUT_LABEL") or "Preço de Compra:")
+        m.btnConfirm.label:SetText(CM:T("AH_BTN_BUYOUT") or "Comprar")
     else
         m.title:SetText(CM:T("AH_BID_CONFIRM_TITLE"))
         m.priceLabel:SetText(CM:T("AH_MODAL_BID_LABEL") or "Valor do Lance:")
+        m.btnConfirm.label:SetText(CM:T("AH_BTN_BID") or "Dar Lance")
     end
 
     self:SetMoneyDisplay(m.priceDisplay, price)
@@ -3081,7 +3527,24 @@ function AuctionScreen:OnContextAction()
     end
 
     if self.currentTab == "BUY" then
-        if self.buyStep == "FILTERS" then
+        if self.buyStep == "CATEGORIES" then
+            local cat = self.gridItems and self.gridItems[self.gridIndex]
+            if cat then
+                self.selectedCategory = cat
+                self.selectedSubcategory = nil
+                self.selectedSlot = nil
+                self.filterRowIndex = 1
+                self:SetBuyStep("FILTERS")
+            end
+        elseif self.buyStep == "SUBCATEGORIES" then
+            local sub = self.gridItems and self.gridItems[self.gridIndex]
+            if sub then
+                self.selectedSubcategory = sub
+                self.selectedSlot = nil
+                self.filterRowIndex = 1
+                self:SetBuyStep("FILTERS")
+            end
+        elseif self.buyStep == "FILTERS" then
             self:OpenFilterSearchVK()
         elseif self.buyStep == "ITEMS_LIST" then
             self:OpenSortModal()

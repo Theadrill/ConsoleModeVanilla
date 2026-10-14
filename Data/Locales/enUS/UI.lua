@@ -1722,6 +1722,14 @@ CM_Langs["enUS"].strings = {
     AH_SORT_QUALITY_DESC = "Rarity (Highest First)",
     AH_SORT_QUALITY_ASC = "Rarity (Lowest First)",
     AH_HINT_SORT = "Sort",
+    AH_HINT_FILTER_CATEGORY = "Filter Category",
+    AH_HINT_FILTER_SUBCATEGORY = "Filter Subcategory",
+    AH_CARD_VENDOR_LABEL = "Vendor:",
+    AH_CARD_TOTAL_AUCTIONS_FMT = "%d auctions (%d units)",
+    AH_CARD_VENDOR_COMPARE_FMT = "%d%% of vendor",
+    AH_CARD_MARKET_SUMMARY = "MARKET SUMMARY",
+    AH_CARD_NO_SELECTION = "Select an item to view details",
+    AH_BREADCRUMB_RESULTS = "Results",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

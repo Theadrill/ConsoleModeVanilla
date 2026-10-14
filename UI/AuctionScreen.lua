@@ -40,9 +40,9 @@ local ICONS = {
     DLEFT  = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DLEFT.tga",
     DRIGHT = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DRIGHT.tga",
     DALL   = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\navigate_all_directions.tga",
-    GOLD   = "Interface\\MoneyFrame\\UI-GoldIcon",
-    SILVER = "Interface\\MoneyFrame\\UI-SilverIcon",
-    COPPER = "Interface\\MoneyFrame\\UI-CopperIcon",
+    GOLD   = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_gold.tga",
+    SILVER = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_silver.tga",
+    COPPER = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_copper.tga",
 }
 
 local NINESLICE = {
@@ -442,11 +442,14 @@ function AuctionScreen:CreateMoneyDisplay(parent, height, iconSize, align)
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
     f:SetWidth(180)
+    if parent and parent.GetFrameLevel then
+        f:SetFrameLevel(parent:GetFrameLevel() + 5)
+    end
     f.align = align
     f.iconSize = iconSize
 
     -- Copper
-    local copperIcon = f:CreateTexture(nil, "ARTWORK")
+    local copperIcon = f:CreateTexture(nil, "OVERLAY")
     copperIcon:SetWidth(iconSize)
     copperIcon:SetHeight(iconSize)
     copperIcon:SetTexture(ICONS.COPPER)
@@ -457,7 +460,7 @@ function AuctionScreen:CreateMoneyDisplay(parent, height, iconSize, align)
     f.copperText = copperText
 
     -- Silver
-    local silverIcon = f:CreateTexture(nil, "ARTWORK")
+    local silverIcon = f:CreateTexture(nil, "OVERLAY")
     silverIcon:SetWidth(iconSize)
     silverIcon:SetHeight(iconSize)
     silverIcon:SetTexture(ICONS.SILVER)
@@ -468,7 +471,7 @@ function AuctionScreen:CreateMoneyDisplay(parent, height, iconSize, align)
     f.silverText = silverText
 
     -- Gold
-    local goldIcon = f:CreateTexture(nil, "ARTWORK")
+    local goldIcon = f:CreateTexture(nil, "OVERLAY")
     goldIcon:SetWidth(iconSize)
     goldIcon:SetHeight(iconSize)
     goldIcon:SetTexture(ICONS.GOLD)

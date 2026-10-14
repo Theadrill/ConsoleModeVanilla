@@ -474,6 +474,7 @@ modFrame:SetScript("OnUpdate", function()
         local isTrainer = ConsoleMode_TrainerMenu and ConsoleMode_TrainerMenu.isOpen
         local isMail = ConsoleMode_MailScreen and ConsoleMode_MailScreen.isOpen
         local isEnhance = ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen
+        local isAuction = ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen
         local pageSystem = (ConsoleModeMainMenuFrame and ConsoleModeMainMenuFrame:IsVisible()) and mm and mm.tabContainer and mm.tabContainer.pages and mm.tabContainer.pages["SYSTEM"]
         local isSysSubActive = pageSystem and pageSystem:IsVisible() and (pageSystem.activeSubScreen == "BINDS" or pageSystem.activeSubScreen == "PICKER")
 
@@ -481,6 +482,8 @@ modFrame:SetScript("OnUpdate", function()
         if ctrlNow and not wasCtrlDown then
             if isEnhance then
                 ConsoleMode_EnhanceModal:CycleTabs(1)
+            elseif isAuction then
+                ConsoleMode_AuctionScreen:SwitchTab(1)
             elseif isMerchant then
                 ConsoleMode_MerchantMenu:ToggleColumn(1)
             elseif isMail and ConsoleMode_MailScreen.ShowComposeScreen then
@@ -2154,7 +2157,11 @@ function CM_SmartTab()
     end
     
     -- 1. Se estiver no modo de navegação com janelas abertas: Aba Anterior (L1)
-    if (CM.keybindings and CM.keybindings.navigationMode) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) then
+    if (CM.keybindings and CM.keybindings.navigationMode) or (ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen) or (ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen) then
+        if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+            ConsoleMode_AuctionScreen:SwitchTab(-1)
+            return
+        end
         if ConsoleMode_MerchantMenu and ConsoleMode_MerchantMenu.isOpen then
             ConsoleMode_MerchantMenu:ToggleColumn(-1)
             return

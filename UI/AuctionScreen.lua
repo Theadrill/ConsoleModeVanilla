@@ -284,7 +284,7 @@ end
 function AuctionScreen:CreateFooterHints(parent)
     local container = CreateFrame("Frame", "ConsoleMode_AuctionFooterContainer", parent)
     container:SetHeight(34)
-    container:SetPoint("CENTER", parent, "BOTTOM", 0, 24)
+    container:SetPoint("CENTER", parent, "BOTTOM", 0, 28)
     parent.footerContainer = container
 
     local hints = {
@@ -484,7 +484,7 @@ function AuctionScreen:UpdateLayout()
 
     if self.frame.footerContainer then
         self.frame.footerContainer:ClearAllPoints()
-        self.frame.footerContainer:SetPoint("CENTER", self.frame, "BOTTOM", 0, 24)
+        self.frame.footerContainer:SetPoint("CENTER", self.frame, "BOTTOM", 0, 28)
     end
 end
 
@@ -535,6 +535,17 @@ function AuctionScreen:Open()
         AuctionFrame:Hide()
     end
 
+    -- Bloqueia e esconde cursor legado para garantir navegação puramente programática
+    local cursor = CM.cursor or (ConsoleMode and ConsoleMode.cursor)
+    if cursor then
+        if cursor.Hide then cursor:Hide() end
+        if cursor.Disable then cursor:Disable() end
+    end
+
+    if CM.keybindings and CM.keybindings.EnterNavigationMode then
+        CM.keybindings:EnterNavigationMode()
+    end
+
     if self.frame.npcText then
         self.frame.npcText:SetText(string.format(CM:T("AH_HEADER_AUCTIONEER_FMT"), UnitName("npc") or CM:T("AH_UNKNOWN_AUCTIONEER")))
     end
@@ -562,6 +573,10 @@ function AuctionScreen:Close(fromServer)
     end
 
     self.isOpen = false
+
+    if CM.keybindings and CM.keybindings.ExitNavigationMode then
+        CM.keybindings:ExitNavigationMode()
+    end
 
     if not fromServer then
         if CloseAuctionHouse then

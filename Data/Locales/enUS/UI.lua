@@ -1557,6 +1557,7 @@ CM_Langs["enUS"].strings = {
     AH_HEADER_AUCTIONEER_FMT = "Auctioneer: |cffe09a15%s|r",
     AH_UNKNOWN_AUCTIONEER = "Auctioneer",
     AH_BUTTON_CLOSE = "Close",
+    AH_HINT_CLOSE = "Close",
     AH_HINT_NAVIGATE = "Navigate",
     AH_HINT_SELECT = "Select",
     AH_HINT_CONFIRM = "Confirm",

@@ -106,7 +106,7 @@ Hooks.frames = {
     { frame = "BankFrame" },
     { frame = "TaxiFrame" },
     -- { frame = "ClassTrainerFrame",   name = "Treinador" }, -- Gerenciado exclusivamente pelo ConsoleMode_TrainerMenu
-    { frame = "AuctionFrame" },
+    -- { frame = "AuctionFrame",        name = "Leilao" },    -- Gerenciado exclusivamente pelo ConsoleMode_AuctionScreen
     -- AUX addon: frame substituto da Casa de Leiloes (oculta AuctionFrame Blizzard)
     -- Registrado aqui para late-hook via TryHookPendingFrames. Gated por Cursor:IsAUXSupported().
     { frame = "aux_frame" },
@@ -330,6 +330,10 @@ function Hooks:InitCursorOnFrame(frame)
     -- (cobre o delay de 50ms do OnShow e re-inits via ProcessFrameHide/eventos).
     local initName = (frame.GetName and frame:GetName()) or "?"
     if initName == "ConsoleModeMainMenuFrame" and MainMenuNavActive() then
+        if Cursor.Hide then Cursor:Hide() end
+        return
+    end
+    if initName == "ConsoleMode_AuctionFrame" or (ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen) then
         if Cursor.Hide then Cursor:Hide() end
         return
     end

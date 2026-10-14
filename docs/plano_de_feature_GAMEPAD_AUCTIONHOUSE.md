@@ -92,17 +92,30 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 3: Busca por Texto via Teclado Virtual e Histórico
-* **Objetivo:** Integrar o teclado virtual existente e gerenciar recentes/favoritos.
+### FASE 3: Barra de Pesquisa por Nome na Tela de Filtros (Virtual Keyboard) e Histórico
+* **Objetivo:** Adicionar campo de busca textual na tela de Filtros com teclado virtual e suporte na query da Blizzard.
 * **Tarefas:**
-  * Botão `(Y)` abre o `VirtualKeyboard.lua` com campo de busca.
+  * Linha de busca textual na tela `SEARCH FILTERS` (`Nome do Item: [ Digite para buscar... ]`).
+  * Foco na linha e pressão de `(A)` ou `(Y)` abre o `VirtualKeyboard.lua`.
+  * Botão `(X)` limpa o termo digitado rapidamente.
+  * Integração com `QueryAuctionItems(name, ...)` enviando o nome digitado em conjunto com a categoria/subcategoria selecionada.
   * Gravação de buscas recentes (últimas 10) e favoritos (`R3` para favoritar).
-  * Atalho na tela inicial para repetir buscas recentes com 1 toque.
-* **Teste no Jogo:** Apertar `(Y)`, digitar um termo no teclado virtual, buscar e verificar se aparece na lista de recentes.
+* **Teste no Jogo:** Entrar em Armaduras > Tecido > Filtros, selecionar o campo de busca, digitar um nome no teclado virtual e disparar a busca. Conferir se a Blizzard retorna apenas itens da categoria com esse nome.
 
 ---
 
-### FASE 4: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX
+### FASE 4: Atalho Fast-Track (Y) na Navegação de Categorias e Subcategorias
+* **Objetivo:** Permitir ao jogador pular direto para a tela de filtros a partir de qualquer nível da árvore de categorias.
+* **Tarefas:**
+  * Atalho `(Y)` em `CATEGORIES`: seleciona a categoria principal e abre `SEARCH FILTERS` diretamente (com `subclassIndex = nil` e `invTypeIndex = nil`).
+  * Atalho `(Y)` em `SUBCATEGORIES`: seleciona a subcategoria e abre `SEARCH FILTERS` diretamente (com `invTypeIndex = nil`).
+  * Atualização dinâmica da legenda inferior: `(A) Selecionar | (Y) Filtrar Categoria | (B) Voltar`.
+  * Breadcrumb dinâmico refletindo o salto (ex: `BUY > Armaduras > FILTROS DE BUSCA`).
+* **Teste no Jogo:** Posicionar o cursor em "Armas" na tela inicial e apertar `(Y)`. A tela de filtros deve abrir imediatamente. Disparar a busca e verificar se lista todas as armas.
+
+---
+
+### FASE 5: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX
 * **Objetivo:** Interface de venda dividida com comparação em tempo real.
 * **Tarefas:**
   * Coluna esquerda do inventário filtrada (somente itens leiloáveis).
@@ -118,7 +131,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 5: Aba Meus Leilões e Histórico de Vendas
+### FASE 6: Aba Meus Leilões e Histórico de Vendas
 * **Objetivo:** Gerenciar leilões ativos e histórico persistente.
 * **Tarefas:**
   * Lista de leilões ativos do jogador (`GetNumAuctionItems("owner")`).
@@ -128,10 +141,11 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 6: Polimento Visual, Limpeza e Homologação
+### FASE 7: Polimento Visual, Limpeza e Homologação
 * **Objetivo:** Limpeza de comandos de depuração da fase de pesquisa e validação geral.
 * **Tarefas:**
   * Remover ou desativar os comandos dev `/cm ahdump` e `/cm ahprobe`.
   * Verificação completa de vazamentos de memória (pool fixo de frames).
   * Validação com `luac50.exe -p` em 100% dos arquivos novos e alterados.
 * **Teste no Jogo:** Validação completa de ponta a ponta com gamepad.
+

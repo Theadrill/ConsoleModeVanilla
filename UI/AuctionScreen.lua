@@ -98,6 +98,18 @@ local TABS = {
     { key = "OWNER", labelKey = "AH_TAB_MY_AUCTIONS" }
 }
 
+local SORT_OPTIONS = {
+    { key = "PRICE_UNIT_ASC",  labelKey = "AH_SORT_PRICE_UNIT_ASC" },
+    { key = "PRICE_UNIT_DESC", labelKey = "AH_SORT_PRICE_UNIT_DESC" },
+    { key = "BUYOUT_ASC",      labelKey = "AH_SORT_BUYOUT_ASC" },
+    { key = "NAME_ASC",        labelKey = "AH_SORT_NAME_ASC" },
+    { key = "NAME_DESC",       labelKey = "AH_SORT_NAME_DESC" },
+    { key = "LEVEL_ASC",       labelKey = "AH_SORT_LEVEL_ASC" },
+    { key = "LEVEL_DESC",      labelKey = "AH_SORT_LEVEL_DESC" },
+    { key = "QUALITY_DESC",    labelKey = "AH_SORT_QUALITY_DESC" },
+    { key = "QUALITY_ASC",     labelKey = "AH_SORT_QUALITY_ASC" },
+}
+
 -- ----------------------------------------------------------------------------
 -- 2. MATRIZ DE CATEGORIAS E SLOTS (TURTLE WOW 1.18.1 / VANILLA 1.12.1)
 -- ----------------------------------------------------------------------------
@@ -295,6 +307,11 @@ AuctionScreen.itemDetailScrollOffset= 0
 AuctionScreen.isConfirmModalOpen    = false
 AuctionScreen.targetAuction         = nil
 AuctionScreen.isBuyoutAction        = true
+
+-- FASE 4: Estados de Ordenação / Classificar Por
+AuctionScreen.isSortModalOpen       = false
+AuctionScreen.selectedSortIndex     = 1
+AuctionScreen.currentSortType       = "PRICE_UNIT_ASC"
 
 -- Hold-to-repeat
 AuctionScreen.repeatDir           = nil
@@ -717,6 +734,10 @@ function AuctionScreen:UpdateFooterHints()
     if self.isConfirmModalOpen then
         table.insert(hints, { icons = { "A" }, label = CM:T("AH_HINT_CONFIRM") })
         table.insert(hints, { icons = { "B" }, label = CM:T("AH_BTN_CANCEL") })
+    elseif self.isSortModalOpen then
+        table.insert(hints, { icons = { "A" }, label = CM:T("AH_HINT_SELECT") })
+        table.insert(hints, { icons = { "DUP", "DDOWN" }, label = CM:T("AH_HINT_NAVIGATE") })
+        table.insert(hints, { icons = { "B" }, label = CM:T("AH_BTN_CANCEL") })
     elseif self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
@@ -744,6 +765,7 @@ function AuctionScreen:UpdateFooterHints()
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_SCAN_ABORT") })
         elseif self.buyStep == "ITEMS_LIST" then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
+            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_HINT_SORT") })
             table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
             table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
@@ -898,6 +920,9 @@ function AuctionScreen:CreateContentArea(parent)
 
     -- 8. Modal de Confirmação de Compra (FASE 2)
     self:CreateConfirmModal(parent)
+
+    -- 9. Modal de Ordenação / Classificar Por (FASE 4)
+    self:CreateSortModal(parent)
 end
 
 function AuctionScreen:UpdateBreadcrumb()
@@ -1707,14 +1732,8 @@ function AuctionScreen:GroupScanResults()
         end)
     end
 
-    -- Ordena os itens agrupados alfabeticamente
-    table.sort(grouped, function(a, b)
-        return (a.name or "") < (b.name or "")
-    end)
-
     self.groupedItems = grouped
-    self.selectedItemIndex = 1
-    self.itemListScrollOffset = 0
+    self:ApplySort(self.currentSortType or "PRICE_UNIT_ASC")
 end
 
 function AuctionScreen:UpdateItemList()
@@ -2249,6 +2268,227 @@ function AuctionScreen:CloseConfirmModal()
     self:UpdateFooterHints()
 end
 
+-- ----------------------------------------------------------------------------
+-- 13.5. FASE 4: MODAL DE ORDENAÇÃO / CLASSIFICAR POR (SORT MODAL)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:CreateSortModal(parent)
+    local sortDimmer = CreateFrame("Frame", "ConsoleMode_AuctionSortModalDimmer", self.frame)
+    sortDimmer:SetAllPoints(self.frame)
+    sortDimmer:SetFrameStrata("DIALOG")
+    sortDimmer:SetFrameLevel(45)
+    sortDimmer:EnableMouse(true)
+    sortDimmer:Hide()
+
+    local bg = sortDimmer:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(sortDimmer)
+    bg:SetTexture(0, 0, 0, 0.70)
+    sortDimmer.bg = bg
+
+    local modal = CreateFrame("Frame", "ConsoleMode_AuctionSortModal", sortDimmer)
+    modal:SetWidth(460)
+    modal:SetHeight(420)
+    modal:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    modal:SetFrameStrata("DIALOG")
+    modal:SetFrameLevel(50)
+    modal:EnableMouse(true)
+
+    self:Create9Slice(modal, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
+
+    local title = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    title:SetPoint("TOP", modal, "TOP", 0, -20)
+    self:ApplyFont(title, FONTS.titleBold, 22)
+    title:SetTextColor(1.0, 0.85, 0.25, 1.0)
+    title:SetText(CM:T("AH_SORT_TITLE"))
+    modal.title = title
+
+    local sub = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sub:SetPoint("TOP", title, "BOTTOM", 0, -6)
+    self:ApplyFont(sub, FONTS.medium, 14)
+    sub:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    sub:SetText(CM:T("AH_SORT_HINT"))
+    modal.sub = sub
+
+    local optRows = {}
+    local startY = -68
+    local rowH = 32
+    local rowGap = 4
+    local numOpts = table.getn(SORT_OPTIONS)
+
+    for i = 1, numOpts do
+        local opt = SORT_OPTIONS[i]
+        local row = CreateFrame("Button", "ConsoleMode_AuctionSortRow" .. i, modal)
+        row:SetHeight(rowH)
+        row:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -28, startY - ((i - 1) * (rowH + rowGap)))
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+
+        local lbl = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        lbl:SetPoint("LEFT", row, "LEFT", 12, 0)
+        self:ApplyFont(lbl, FONTS.medium, 15)
+        lbl:SetText(CM:T(opt.labelKey))
+        row.lbl = lbl
+
+        local activeTag = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        activeTag:SetPoint("RIGHT", row, "RIGHT", -12, 0)
+        self:ApplyFont(activeTag, FONTS.titleBold, 13)
+        activeTag:SetTextColor(0.12, 1.0, 0.0, 1.0)
+        activeTag:SetText(CM:T("AH_SORT_ACTIVE"))
+        activeTag:Hide()
+        row.activeTag = activeTag
+
+        row.optKey = opt.key
+        local idx = i
+        row:SetScript("OnClick", function()
+            AuctionScreen.selectedSortIndex = idx
+            local o = SORT_OPTIONS[idx]
+            if o then
+                AuctionScreen:ApplySort(o.key)
+            end
+            AuctionScreen:CloseSortModal()
+        end)
+
+        table.insert(optRows, row)
+    end
+
+    modal.rows = optRows
+    self.sortModalDimmer = sortDimmer
+    self.sortModal = modal
+end
+
+function AuctionScreen:UpdateSortModalStyles()
+    if not self.sortModal or not self.sortModal.rows then return end
+
+    local numOpts = table.getn(SORT_OPTIONS)
+    for i = 1, numOpts do
+        local row = self.sortModal.rows[i]
+        local opt = SORT_OPTIONS[i]
+        if row and opt then
+            local isFocused = (i == self.selectedSortIndex)
+            local isActive = (opt.key == self.currentSortType)
+
+            if isActive then
+                row.activeTag:Show()
+            else
+                row.activeTag:Hide()
+            end
+
+            if isFocused then
+                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                row.lbl:SetTextColor(1.0, 0.92, 0.45, 1.0)
+            else
+                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                if isActive then
+                    row.lbl:SetTextColor(0.95, 0.85, 0.40, 0.90)
+                else
+                    row.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90)
+                end
+            end
+        end
+    end
+end
+
+function AuctionScreen:OpenSortModal()
+    if not self.sortModal then return end
+
+    self.selectedSortIndex = 1
+    local numOpts = table.getn(SORT_OPTIONS)
+    for i = 1, numOpts do
+        if SORT_OPTIONS[i].key == self.currentSortType then
+            self.selectedSortIndex = i
+            break
+        end
+    end
+
+    self.isSortModalOpen = true
+    self:UpdateSortModalStyles()
+    self.sortModalDimmer:Show()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:CloseSortModal()
+    if not self.isSortModalOpen then return end
+
+    self.isSortModalOpen = false
+    if self.sortModalDimmer then
+        self.sortModalDimmer:Hide()
+    end
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:ApplySort(sortType)
+    self.currentSortType = sortType or "PRICE_UNIT_ASC"
+    if not self.groupedItems or table.getn(self.groupedItems) == 0 then return end
+
+    local currentType = self.currentSortType
+    table.sort(self.groupedItems, function(a, b)
+        if currentType == "PRICE_UNIT_ASC" then
+            local pA = (a.minBuyout and a.minBuyout > 0) and a.minBuyout or (a.minBid or 99999999)
+            local pB = (b.minBuyout and b.minBuyout > 0) and b.minBuyout or (b.minBid or 99999999)
+            if pA ~= pB then return pA < pB end
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        elseif currentType == "PRICE_UNIT_DESC" then
+            local pA = (a.minBuyout and a.minBuyout > 0) and a.minBuyout or (a.minBid or 0)
+            local pB = (b.minBuyout and b.minBuyout > 0) and b.minBuyout or (b.minBid or 0)
+            if pA ~= pB then return pA > pB end
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        elseif currentType == "BUYOUT_ASC" then
+            local pA = (a.minBuyout and a.minBuyout > 0) and a.minBuyout or 99999999
+            local pB = (b.minBuyout and b.minBuyout > 0) and b.minBuyout or 99999999
+            if pA ~= pB then return pA < pB end
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        elseif currentType == "NAME_ASC" then
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        elseif currentType == "NAME_DESC" then
+            if a.name ~= b.name then return (a.name or "") > (b.name or "") end
+            return false
+        elseif currentType == "LEVEL_ASC" then
+            local lA = a.level or 0
+            local lB = b.level or 0
+            if lA ~= lB then return lA < lB end
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        elseif currentType == "LEVEL_DESC" then
+            local lA = a.level or 0
+            local lB = b.level or 0
+            if lA ~= lB then return lA > lB end
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        elseif currentType == "QUALITY_DESC" then
+            local qA = a.quality or 0
+            local qB = b.quality or 0
+            if qA ~= qB then return qA > qB end
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        elseif currentType == "QUALITY_ASC" then
+            local qA = a.quality or 0
+            local qB = b.quality or 0
+            if qA ~= qB then return qA < qB end
+            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            return false
+        end
+        if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+        return false
+    end)
+
+    self.selectedItemIndex = 1
+    self.itemListScrollOffset = 0
+    if self.buyStep == "ITEMS_LIST" then
+        self:UpdateItemList()
+    end
+end
+
 function AuctionScreen:ExecutePurchase()
     local auction = self.targetAuction
     if not auction then return end
@@ -2324,6 +2564,7 @@ function AuctionScreen:SetBuyStep(step)
     self.itemListContainer:Hide()
     self.itemDetailContainer:Hide()
     self:CloseConfirmModal()
+    self:CloseSortModal()
 
     if step == "CATEGORIES" then
         self.selectedCategory = nil
@@ -2613,6 +2854,7 @@ end
 function AuctionScreen:SwitchTab(delta)
     if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
+    if self.isSortModalOpen then return end
 
     local currentIdx = 1
     local numTabs = table.getn(TABS)
@@ -2640,6 +2882,20 @@ function AuctionScreen:OnDirection(direction)
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
+
+    if self.isSortModalOpen then
+        local numOpts = table.getn(SORT_OPTIONS)
+        if direction == "UP" then
+            self.selectedSortIndex = self.selectedSortIndex - 1
+            if self.selectedSortIndex < 1 then self.selectedSortIndex = numOpts end
+            self:UpdateSortModalStyles()
+        elseif direction == "DOWN" then
+            self.selectedSortIndex = self.selectedSortIndex + 1
+            if self.selectedSortIndex > numOpts then self.selectedSortIndex = 1 end
+            self:UpdateSortModalStyles()
+        end
+        return
+    end
 
     if self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" or self.buyStep == "SUBCATEGORIES" or self.buyStep == "SLOTS" then
@@ -2716,6 +2972,15 @@ function AuctionScreen:OnConfirm()
         return
     end
 
+    if self.isSortModalOpen then
+        local opt = SORT_OPTIONS[self.selectedSortIndex]
+        if opt then
+            self:ApplySort(opt.key)
+        end
+        self:CloseSortModal()
+        return
+    end
+
     if self.currentTab == "BUY" then
         if self.buyStep == "CATEGORIES" then
             local item = self.gridItems[self.gridIndex]
@@ -2789,6 +3054,7 @@ function AuctionScreen:OnSecondaryAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
+    if self.isSortModalOpen then return end
 
     if self.currentTab == "BUY" and self.buyStep == "FILTERS" then
         if self.filterRowIndex == 1 then
@@ -2806,9 +3072,16 @@ function AuctionScreen:OnContextAction()
     if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
 
+    if self.isSortModalOpen then
+        self:CloseSortModal()
+        return
+    end
+
     if self.currentTab == "BUY" then
         if self.buyStep == "FILTERS" then
             self:OpenFilterSearchVK()
+        elseif self.buyStep == "ITEMS_LIST" then
+            self:OpenSortModal()
         elseif self.buyStep == "ITEM_DETAIL" then
             if self.selectedGroupedItem and self.selectedGroupedItem.auctions then
                 local auction = self.selectedGroupedItem.auctions[self.selectedAuctionIndex]
@@ -2826,6 +3099,11 @@ function AuctionScreen:OnCancel()
 
     if self.isConfirmModalOpen then
         self:CloseConfirmModal()
+        return
+    end
+
+    if self.isSortModalOpen then
+        self:CloseSortModal()
         return
     end
 
@@ -2944,6 +3222,7 @@ function AuctionScreen:Close(fromServer)
     if not self.isOpen then return end
 
     self:CloseConfirmModal()
+    self:CloseSortModal()
 
     local scan = CM.auctionScan or ConsoleMode_AuctionScan
     if scan and scan.isScanning then

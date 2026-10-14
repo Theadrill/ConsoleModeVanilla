@@ -1709,6 +1709,19 @@ CM_Langs["enUS"].strings = {
     AH_HINT_SEARCH = "Search",
     AH_RECENT_SEARCHES = "Recent Searches",
     AH_FAVORITES = "Favorites",
+    AH_SORT_TITLE = "SORT RESULTS",
+    AH_SORT_HINT = "Choose sorting criteria",
+    AH_SORT_ACTIVE = "(Active)",
+    AH_SORT_PRICE_UNIT_ASC = "Unit Price (Lowest First)",
+    AH_SORT_PRICE_UNIT_DESC = "Unit Price (Highest First)",
+    AH_SORT_BUYOUT_ASC = "Buyout Price (Lowest First)",
+    AH_SORT_NAME_ASC = "Name (A to Z)",
+    AH_SORT_NAME_DESC = "Name (Z to A)",
+    AH_SORT_LEVEL_ASC = "Level Required (Lowest First)",
+    AH_SORT_LEVEL_DESC = "Level Required (Highest First)",
+    AH_SORT_QUALITY_DESC = "Rarity (Highest First)",
+    AH_SORT_QUALITY_ASC = "Rarity (Lowest First)",
+    AH_HINT_SORT = "Sort",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

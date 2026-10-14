@@ -313,6 +313,29 @@ AuctionScreen.isSortModalOpen       = false
 AuctionScreen.selectedSortIndex     = 1
 AuctionScreen.currentSortType       = "PRICE_UNIT_ASC"
 
+-- FASE 7: Estados da Aba Vender (Inventário, Espelhamento Exato, Quantidade & MAX)
+AuctionScreen.sellStep                 = "INVENTORY" -- "INVENTORY", "LISTING"
+AuctionScreen.sellBagItems             = {}
+AuctionScreen.selectedSellIndex        = 1
+AuctionScreen.selectedSellItem         = nil
+AuctionScreen.sellScrollOffset         = 0
+AuctionScreen.isSellActionModalOpen    = false
+AuctionScreen.sellActionBtnIndex       = 1 -- 1: [VENDER], 2: [PESQUISAR]
+AuctionScreen.sellCompetitors          = {}
+AuctionScreen.selectedCompetitorIndex  = 1
+AuctionScreen.sellListingPane          = "FORM" -- "FORM", "COMPETITORS"
+AuctionScreen.sellFormRow              = 1 -- 1: Bid, 2: Buyout, 3: Duration, 4: StackSize, 5: NumStacks, 6: MaxBtn, 7: PostBtn
+AuctionScreen.sellDurationIdx          = 1 -- 1: 2h, 2: 8h, 3: 24h
+AuctionScreen.sellStackSize            = 1
+AuctionScreen.sellNumStacks            = 1
+AuctionScreen.sellBidPrice             = 0
+AuctionScreen.sellBuyoutPrice          = 0
+AuctionScreen.sellMoneyStepIdx         = 3 -- 1: 1c, 2: 10c, 3: 1s, 4: 10s, 5: 1g, 6: 5g, 7: 10g
+AuctionScreen.isSellPostModalOpen      = false
+AuctionScreen.sellPostBtnIndex         = 1 -- 1: Confirm, 2: Cancel
+AuctionScreen.pendingPostTimer         = nil
+AuctionScreen.pendingRefreshTimer      = nil
+
 -- Hold-to-repeat
 AuctionScreen.repeatDir           = nil
 AuctionScreen.repeatElapsed       = 0
@@ -379,6 +402,14 @@ function AuctionScreen:ScanItemTooltip(itemLink, item)
             scanTip:ClearLines()
             pcall(function() scanTip:SetAuctionItem("list", targetIndex) end)
         end
+    end
+
+    -- Fallback via SetBagItem para itens das bolsas (Aba Vender)
+    if (scanTip:NumLines() or 0) < 2 and item and item.bagSlots and item.bagSlots[1] then
+        local s = item.bagSlots[1]
+        scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+        scanTip:ClearLines()
+        pcall(function() scanTip:SetBagItem(s.bag, s.slot) end)
     end
 
     local l2Obj = getglobal("ConsoleMode_AuctionScanTipTextLeft2")
@@ -907,6 +938,37 @@ function AuctionScreen:UpdateFooterHints()
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
         end
+    elseif self.currentTab == "SELL" then
+        if self.isSellPostModalOpen then
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_CONFIRM") or "Confirmar" })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_BTN_CANCEL") or "Cancelar" })
+        elseif self.isSellActionModalOpen then
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") or "Selecionar" })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_BTN_CANCEL") or "Cancelar" })
+        elseif self.sellStep == "INVENTORY" then
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") or "Opções" })
+            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_SELL_BTN_SEARCH_MARKET") or "Pesquisar" })
+            table.insert(hints, { icons = { "X" },        label = CM:T("AH_HINT_REFRESH") or "Atualizar" })
+            table.insert(hints, { icons = { "DUP", "DDOWN" }, label = CM:T("AH_HINT_NAVIGATE") or "Navegar" })
+            table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") or "Alternar Aba" })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_CLOSE") or "Fechar" })
+        elseif self.sellStep == "LISTING" then
+            if self.sellListingPane == "COMPETITORS" then
+                table.insert(hints, { icons = { "A" },    label = CM:T("AH_HINT_MIRROR_PRICE") or "Espelhar Preço" })
+                table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar ao Formulário" })
+                table.insert(hints, { icons = { "DUP", "DDOWN" }, label = CM:T("AH_HINT_NAVIGATE") or "Navegar" })
+            else
+                table.insert(hints, { icons = { "RT" },   label = CM:T("AH_HINT_POST_RT") or "Postar Leilão" })
+                table.insert(hints, { icons = { "A" },    label = (self.sellFormRow == 6 and (CM:T("AH_SELL_BTN_MAX") or "MAX")) or (self.sellFormRow == 7 and (CM:T("AH_SELL_CONFIRM_POST") or "Postar")) or (CM:T("AH_HINT_SELECT") or "Editar") })
+                if table.getn(self.sellCompetitors or {}) > 0 then
+                    table.insert(hints, { icons = { "X" }, label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
+                else
+                    table.insert(hints, { icons = { "X" }, label = "Passo Preço" })
+                end
+                table.insert(hints, { icons = { "DALL" }, label = CM:T("AH_HINT_ADJUST") or "Ajustar" })
+                table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar" })
+            end
+        end
     else
         table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
         table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
@@ -1052,6 +1114,28 @@ function AuctionScreen:CreateContentArea(parent)
 
     -- 9. Modal de Ordenação / Classificar Por (FASE 4)
     self:CreateSortModal(parent)
+
+    -- 10. Container da Aba Vender (FASE 7)
+    local sellContainer = CreateFrame("Frame", "ConsoleMode_AuctionSellContainer", contentArea)
+    sellContainer:SetPoint("TOPLEFT", breadcrumb, "BOTTOMLEFT", 0, -8)
+    sellContainer:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
+    sellContainer:Hide()
+    self.sellContainer = sellContainer
+    self:CreateSellControls(sellContainer)
+
+    -- 11. Container de Split View de Venda / Listagem (FASE 7)
+    local sellListingContainer = CreateFrame("Frame", "ConsoleMode_AuctionSellListingContainer", contentArea)
+    sellListingContainer:SetPoint("TOPLEFT", breadcrumb, "BOTTOMLEFT", 0, -8)
+    sellListingContainer:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
+    sellListingContainer:Hide()
+    self.sellListingContainer = sellListingContainer
+    self:CreateSellListingControls(sellListingContainer)
+
+    -- 12. Modal de Ação do Item de Venda (FASE 7)
+    self:CreateSellActionModal(parent)
+
+    -- 13. Modal de Confirmação de Postagem de Venda (FASE 7)
+    self:CreateSellPostConfirmModal(parent)
 end
 
 function AuctionScreen:UpdateBreadcrumb()
@@ -1939,8 +2023,8 @@ function AuctionScreen:CreateDetailCard(parent, listLeftPane)
     self.detailCard = card
 end
 
-function AuctionScreen:UpdateItemCard(item)
-    local card = self.detailCard
+function AuctionScreen:UpdateItemCard(item, targetCard)
+    local card = targetCard or self.detailCard
     if not card then return end
 
     if not item or not item.link then
@@ -2192,10 +2276,15 @@ function AuctionScreen:UpdateItemCard(item)
     end
 
     -- 6. Resumo Econômico
-    local numAuctions = item.numAuctions or 1
-    local totalUnits = item.totalUnits or 1
-    local totalFmt = CM:T("AH_CARD_TOTAL_AUCTIONS_FMT") or "%d leilões (%d unidades)"
-    card.marketAuctions:SetText(string.format(totalFmt, numAuctions, totalUnits))
+    if item.totalCount then
+        local totalFmt = CM:T("AH_SELL_TOTAL_ITEMS_FMT") or "Total: %d item(s)"
+        card.marketAuctions:SetText(string.format(totalFmt, item.totalCount))
+    else
+        local numAuctions = item.numAuctions or 1
+        local totalUnits = item.totalUnits or 1
+        local totalFmt = CM:T("AH_CARD_TOTAL_AUCTIONS_FMT") or "%d leilões (%d unidades)"
+        card.marketAuctions:SetText(string.format(totalFmt, numAuctions, totalUnits))
+    end
 
     local vPrice = item.vendorPrice or 0
     if vPrice > 0 then
@@ -3386,6 +3475,1369 @@ function AuctionScreen:UpdateLayout()
 end
 
 -- ----------------------------------------------------------------------------
+-- 15. ABA VENDER (FASE 7: INVENTÁRIO, ESPELHAMENTO, SPLIT VIEW, MAX, POSTAGEM)
+-- ----------------------------------------------------------------------------
+local SELL_MONEY_STEPS = { 1, 10, 100, 1000, 10000, 50000, 100000 }
+local SELL_MONEY_LABELS = { "1c", "10c", "1s", "10s", "1g", "5g", "10g" }
+
+function AuctionScreen:IsItemAuctionable(bag, slot)
+    if not bag or not slot then return false end
+    local texture, count, locked = GetContainerItemInfo(bag, slot)
+    if not texture or (count and count <= 0) then return false end
+    if locked then return false end
+
+    local link = GetContainerItemLink(bag, slot)
+    if not link then return false end
+
+    local itemName, _, itemRarity, itemMinLevel, itemType, itemSubType, itemStackCount = GetItemInfo(link)
+    if itemType == "Quest" or itemType == "Missão" then
+        return false
+    end
+
+    local tip = self.bagScanTooltip
+    if not tip then
+        local ok, t = pcall(CreateFrame, "GameTooltip", "ConsoleModeAuctionScanTooltip", UIParent, "GameTooltipTemplate")
+        if ok and t then
+            self.bagScanTooltip = t
+            tip = t
+        end
+    end
+
+    if tip then
+        pcall(function() tip:SetOwner(UIParent, "ANCHOR_NONE") end)
+        for i = 1, 30 do
+            local line = getglobal(tip:GetName() .. "TextLeft" .. i)
+            if line then pcall(function() line:SetText("") end) end
+        end
+        local okSet = pcall(function() tip:SetBagItem(bag, slot) end)
+        if okSet then
+            local nLines = tip:NumLines() or 0
+            for i = 1, nLines do
+                local line = getglobal(tip:GetName() .. "TextLeft" .. i)
+                if line then
+                    local text = line:GetText()
+                    if text and text ~= "" then
+                        local lText = string.lower(text)
+                        if (ITEM_SOULBOUND and text == ITEM_SOULBOUND)
+                           or (ITEM_BIND_QUEST and text == ITEM_BIND_QUEST)
+                           or (ITEM_CONJURED and text == ITEM_CONJURED)
+                           or (ITEM_BIND_ON_PICKUP and text == ITEM_BIND_ON_PICKUP)
+                           or string.find(lText, "soulbound")
+                           or string.find(lText, "vinculado")
+                           or string.find(lText, "ligado")
+                           or string.find(lText, "conjurado")
+                           or string.find(lText, "conjured")
+                           or string.find(lText, "quest item")
+                           or string.find(lText, "item de miss") then
+                            pcall(function() tip:Hide() end)
+                            return false
+                        end
+                    end
+                end
+            end
+        end
+        pcall(function() tip:Hide() end)
+    end
+
+    return true
+end
+
+function AuctionScreen:GetAuctionableBagItems()
+    local items = {}
+    local itemsByKey = {}
+
+    for bag = 0, 4 do
+        local numSlots = GetContainerNumSlots(bag) or 0
+        for slot = 1, numSlots do
+            if self:IsItemAuctionable(bag, slot) then
+                local texture, count, locked, quality = GetContainerItemInfo(bag, slot)
+                local link = GetContainerItemLink(bag, slot)
+                local itemName, _, itemRarity, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(link)
+
+                local key = itemName or "item"
+                if link then
+                    local _, _, id = string.find(link, "item:(%d+)")
+                    if id then key = id end
+                end
+
+                if not itemsByKey[key] then
+                    local vendorPrice = self:GetItemVendorPrice(link)
+                    local entry = {
+                        key         = key,
+                        name        = itemName or "Unknown",
+                        texture     = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
+                        quality     = itemRarity or quality or 0,
+                        link        = link,
+                        level       = itemMinLevel or 0,
+                        itemType    = itemType or "",
+                        itemSubType = itemSubType or "",
+                        maxStack    = (itemStackCount and itemStackCount > 0) and itemStackCount or 1,
+                        vendorPrice = vendorPrice,
+                        totalCount  = count or 1,
+                        bagSlots    = { { bag = bag, slot = slot, count = count or 1 } }
+                    }
+                    itemsByKey[key] = entry
+                    table.insert(items, entry)
+                else
+                    local entry = itemsByKey[key]
+                    entry.totalCount = entry.totalCount + (count or 1)
+                    table.insert(entry.bagSlots, { bag = bag, slot = slot, count = count or 1 })
+                end
+            end
+        end
+    end
+
+    table.sort(items, function(a, b)
+        local qA = a.quality or 0
+        local qB = b.quality or 0
+        if qA ~= qB then return qA > qB end
+        return (a.name or "") < (b.name or "")
+    end)
+
+    return items
+end
+
+function AuctionScreen:RefreshSellInventory()
+    self.sellBagItems = self:GetAuctionableBagItems()
+    local total = table.getn(self.sellBagItems)
+
+    if self.selectedSellIndex > total then
+        self.selectedSellIndex = math.max(1, total)
+    end
+    if self.selectedSellIndex < 1 and total > 0 then
+        self.selectedSellIndex = 1
+    end
+
+    self.selectedSellItem = (total > 0) and self.sellBagItems[self.selectedSellIndex] or nil
+    self:UpdateSellInventory()
+end
+
+function AuctionScreen:CreateSellControls(parent)
+    local sellLeftPane = CreateFrame("Frame", "ConsoleMode_AuctionSellLeft", parent)
+    sellLeftPane:SetWidth(540)
+    sellLeftPane:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, 0)
+    sellLeftPane:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 4, 0)
+    parent.sellLeftPane = sellLeftPane
+
+    local headerFrame = CreateFrame("Frame", nil, sellLeftPane)
+    headerFrame:SetHeight(24)
+    headerFrame:SetPoint("TOPLEFT", sellLeftPane, "TOPLEFT", 6, 0)
+    headerFrame:SetPoint("TOPRIGHT", sellLeftPane, "TOPRIGHT", -6, 0)
+
+    local colItem = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
+    self:ApplyFont(colItem, FONTS.titleBold, 14)
+    colItem:SetText(CM:T("AH_COL_ITEM") or "ITEM")
+    colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colCount = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colCount:SetPoint("RIGHT", headerFrame, "RIGHT", -120, 0)
+    self:ApplyFont(colCount, FONTS.titleBold, 14)
+    colCount:SetText(CM:T("AH_SELL_STACK_SIZE") or "QTD")
+    colCount:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colVendor = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -12, 0)
+    self:ApplyFont(colVendor, FONTS.titleBold, 14)
+    colVendor:SetText(CM:T("AH_CARD_VENDOR_LABEL") or "LOJA")
+    colVendor:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local rows = {}
+    local startY = -28
+    local rowH = 46
+    local rowGap = 6
+
+    for i = 1, 7 do
+        local row = CreateFrame("Button", "ConsoleMode_AuctionSellRow" .. i, sellLeftPane)
+        row:SetHeight(rowH)
+        row:SetPoint("TOPLEFT", sellLeftPane, "TOPLEFT", 6, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", sellLeftPane, "TOPRIGHT", -6, startY - ((i - 1) * (rowH + rowGap)))
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 10, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(34)
+        icon:SetHeight(34)
+        icon:SetPoint("LEFT", row, "LEFT", 6, 0)
+        row.icon = icon
+
+        local iconBorder = CreateFrame("Frame", nil, row)
+        iconBorder:SetPoint("TOPLEFT", icon, "TOPLEFT", -1, 1)
+        iconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+        iconBorder:SetBackdrop({
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 8,
+            insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+        })
+        iconBorder:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.8)
+        row.iconBorder = iconBorder
+
+        local countBadge = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        countBadge:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", -2, 2)
+        self:ApplyFont(countBadge, FONTS.titleBold, 12)
+        countBadge:SetTextColor(1.0, 1.0, 1.0, 1.0)
+        row.countBadge = countBadge
+
+        local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        nameText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 10, -3)
+        nameText:SetPoint("RIGHT", row, "RIGHT", -180, 0)
+        nameText:SetJustifyH("LEFT")
+        self:ApplyFont(nameText, FONTS.titleBold, 16)
+        row.nameText = nameText
+
+        local subText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        subText:SetPoint("TOPLEFT", nameText, "BOTTOMLEFT", 0, -2)
+        subText:SetPoint("RIGHT", row, "RIGHT", -180, 0)
+        subText:SetJustifyH("LEFT")
+        self:ApplyFont(subText, FONTS.medium, 13)
+        subText:SetTextColor(0.65, 0.65, 0.65, 1.0)
+        row.subText = subText
+
+        local totalCountText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        totalCountText:SetPoint("RIGHT", row, "RIGHT", -110, 0)
+        self:ApplyFont(totalCountText, FONTS.titleBold, 15)
+        totalCountText:SetTextColor(0.95, 0.82, 0.35, 1.0)
+        row.totalCountText = totalCountText
+
+        local vendorDisplay = self:CreateMoneyDisplay(row, 20, 13, "RIGHT")
+        vendorDisplay:SetPoint("RIGHT", row, "RIGHT", -10, 0)
+        row.vendorDisplay = vendorDisplay
+
+        local rIdx = i
+        row:SetScript("OnClick", function()
+            local targetIdx = (AuctionScreen.sellScrollOffset or 0) + rIdx
+            if targetIdx <= table.getn(AuctionScreen.sellBagItems) then
+                AuctionScreen.selectedSellIndex = targetIdx
+                AuctionScreen.selectedSellItem = AuctionScreen.sellBagItems[targetIdx]
+                AuctionScreen:UpdateSellInventory()
+                AuctionScreen:OpenSellActionModal(AuctionScreen.selectedSellItem)
+            end
+        end)
+
+        table.insert(rows, row)
+    end
+    sellLeftPane.rows = rows
+
+    local emptyText = sellLeftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    emptyText:SetPoint("CENTER", sellLeftPane, "CENTER", 0, 0)
+    self:ApplyFont(emptyText, FONTS.titleBold, 16)
+    emptyText:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    emptyText:SetText(CM:T("AH_SELL_NO_ITEMS") or "No auctionable items found in your bags.")
+    emptyText:Hide()
+    sellLeftPane.emptyText = emptyText
+
+    self.sellDetailCard = self:CreateDetailCard(parent, sellLeftPane)
+end
+
+function AuctionScreen:UpdateSellInventory()
+    if not self.sellContainer or not self.sellContainer.sellLeftPane then return end
+    local leftPane = self.sellContainer.sellLeftPane
+    local rows = leftPane.rows
+    local totalItems = table.getn(self.sellBagItems)
+
+    if totalItems == 0 then
+        leftPane.emptyText:Show()
+        for i = 1, 7 do
+            if rows[i] then rows[i]:Hide() end
+        end
+        if self.sellDetailCard then
+            self:UpdateItemCard(nil, self.sellDetailCard)
+        end
+        self:UpdateFooterHints()
+        return
+    end
+
+    leftPane.emptyText:Hide()
+
+    for i = 1, 7 do
+        local row = rows[i]
+        local itemIdx = (self.sellScrollOffset or 0) + i
+        if itemIdx <= totalItems then
+            local item = self.sellBagItems[itemIdx]
+            row.item = item
+
+            local qColor = QUALITY_COLORS[item.quality] or { 0.8, 0.8, 0.8 }
+            row.icon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+            row.iconBorder:SetBackdropBorderColor(qColor[1], qColor[2], qColor[3], 0.90)
+
+            local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+            row.nameText:SetText(locName)
+            row.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+            local subParts = {}
+            if item.itemSubType and item.itemSubType ~= "" then
+                local stName = (ConsoleMode and ConsoleMode.GameLOC_ItemSubType) and ConsoleMode:GameLOC_ItemSubType(item.itemSubType) or item.itemSubType
+                table.insert(subParts, stName)
+            end
+            if item.maxStack and item.maxStack > 1 then
+                table.insert(subParts, "Pilha máx " .. item.maxStack)
+            end
+            row.subText:SetText(table.concat(subParts, " • "))
+
+            row.totalCountText:SetText(tostring(item.totalCount))
+            if item.totalCount > 1 then
+                row.countBadge:SetText(tostring(item.totalCount))
+                row.countBadge:Show()
+            else
+                row.countBadge:Hide()
+            end
+
+            self:SetMoneyDisplay(row.vendorDisplay, item.vendorPrice or 0)
+
+            local isSelected = (itemIdx == self.selectedSellIndex)
+            if isSelected then
+                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+            else
+                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+            end
+
+            row:Show()
+        else
+            row:Hide()
+        end
+    end
+
+    if self.selectedSellItem and self.sellDetailCard then
+        self:UpdateItemCard(self.selectedSellItem, self.sellDetailCard)
+    end
+
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:CreateSellActionModal(parent)
+    local modalDimmer = CreateFrame("Frame", "ConsoleMode_AuctionSellActionDimmer", parent)
+    modalDimmer:SetFrameStrata("DIALOG")
+    modalDimmer:SetFrameLevel(45)
+    modalDimmer:SetAllPoints(UIParent)
+    modalDimmer:EnableMouse(true)
+    modalDimmer:Hide()
+
+    local bg = modalDimmer:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(modalDimmer)
+    bg:SetTexture(0, 0, 0, 0.70)
+    modalDimmer.bg = bg
+
+    local modal = CreateFrame("Frame", "ConsoleMode_AuctionSellActionModal", modalDimmer)
+    modal:SetWidth(440)
+    modal:SetHeight(230)
+    modal:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    modal:SetFrameStrata("DIALOG")
+    modal:SetFrameLevel(50)
+    modal:EnableMouse(true)
+
+    self:Create9Slice(modal, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
+
+    local title = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    title:SetPoint("TOP", modal, "TOP", 0, -20)
+    self:ApplyFont(title, FONTS.titleBold, 22)
+    title:SetTextColor(1.0, 0.85, 0.25, 1.0)
+    title:SetText(CM:T("AH_SELL_MODAL_TITLE") or "Opções do Item")
+    modal.title = title
+
+    local itemIcon = modal:CreateTexture(nil, "ARTWORK")
+    itemIcon:SetWidth(38)
+    itemIcon:SetHeight(38)
+    itemIcon:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, -60)
+    modal.itemIcon = itemIcon
+
+    local itemName = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    itemName:SetPoint("LEFT", itemIcon, "RIGHT", 12, 0)
+    itemName:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
+    itemName:SetJustifyH("LEFT")
+    self:ApplyFont(itemName, FONTS.titleBold, 18)
+    modal.itemName = itemName
+
+    local btnContainer = CreateFrame("Frame", nil, modal)
+    btnContainer:SetHeight(42)
+    btnContainer:SetPoint("BOTTOMLEFT", modal, "BOTTOMLEFT", 24, 24)
+    btnContainer:SetPoint("BOTTOMRIGHT", modal, "BOTTOMRIGHT", -24, 24)
+
+    local btnSell = CreateFrame("Button", "ConsoleMode_AuctionSellModalBtn1", btnContainer)
+    btnSell:SetWidth(186)
+    btnSell:SetHeight(38)
+    btnSell:SetPoint("LEFT", btnContainer, "LEFT", 6, 0)
+    btnSell:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    local lSell = btnSell:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lSell:SetPoint("CENTER", btnSell, "CENTER", 0, 0)
+    self:ApplyFont(lSell, FONTS.titleBold, 16)
+    lSell:SetText(CM:T("AH_SELL_BTN_SELL") or "Vender Item")
+    btnSell.label = lSell
+    btnSell:SetScript("OnClick", function()
+        AuctionScreen:CloseSellActionModal()
+        AuctionScreen:OpenSellListing(AuctionScreen.selectedSellItem)
+    end)
+    modal.btnSell = btnSell
+
+    local btnSearch = CreateFrame("Button", "ConsoleMode_AuctionSellModalBtn2", btnContainer)
+    btnSearch:SetWidth(186)
+    btnSearch:SetHeight(38)
+    btnSearch:SetPoint("RIGHT", btnContainer, "RIGHT", -6, 0)
+    btnSearch:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    local lSearch = btnSearch:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lSearch:SetPoint("CENTER", btnSearch, "CENTER", 0, 0)
+    self:ApplyFont(lSearch, FONTS.titleBold, 16)
+    lSearch:SetText(CM:T("AH_SELL_BTN_SEARCH_MARKET") or "Pesquisar Mercado")
+    btnSearch.label = lSearch
+    btnSearch:SetScript("OnClick", function()
+        local name = AuctionScreen.selectedSellItem and AuctionScreen.selectedSellItem.name or ""
+        AuctionScreen:CloseSellActionModal()
+        AuctionScreen:SetTab("BUY")
+        AuctionScreen.activeFilters.name = name
+        AuctionScreen:ExecuteSearch()
+    end)
+    modal.btnSearch = btnSearch
+
+    self.sellActionModalDimmer = modalDimmer
+    self.sellActionModal = modal
+end
+
+function AuctionScreen:OpenSellActionModal(item)
+    if not item or not self.sellActionModal then return end
+    self.isSellActionModalOpen = true
+    self.sellActionBtnIndex = 1
+
+    local modal = self.sellActionModal
+    local qColor = QUALITY_COLORS[item.quality] or { 0.8, 0.8, 0.8 }
+    modal.itemIcon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+    local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+    modal.itemName:SetText(locName)
+    modal.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+    self:UpdateSellActionModalStyles()
+    self.sellActionModalDimmer:Show()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:CloseSellActionModal()
+    self.isSellActionModalOpen = false
+    if self.sellActionModalDimmer then
+        self.sellActionModalDimmer:Hide()
+    end
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:UpdateSellActionModalStyles()
+    if not self.sellActionModal then return end
+    local modal = self.sellActionModal
+
+    if self.sellActionBtnIndex == 1 then
+        modal.btnSell:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+        modal.btnSell:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        modal.btnSell.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
+
+        modal.btnSearch:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+        modal.btnSearch:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        modal.btnSearch.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    else
+        modal.btnSearch:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+        modal.btnSearch:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        modal.btnSearch.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
+
+        modal.btnSell:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+        modal.btnSell:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        modal.btnSell.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    end
+end
+
+function AuctionScreen:CreateSellListingControls(parent)
+    local listingLeftPane = CreateFrame("Frame", "ConsoleMode_AuctionSellListingLeft", parent)
+    listingLeftPane:SetWidth(540)
+    listingLeftPane:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, 0)
+    listingLeftPane:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 4, 0)
+    parent.listingLeftPane = listingLeftPane
+
+    local compHeader = CreateFrame("Frame", nil, listingLeftPane)
+    compHeader:SetHeight(24)
+    compHeader:SetPoint("TOPLEFT", listingLeftPane, "TOPLEFT", 6, 0)
+    compHeader:SetPoint("TOPRIGHT", listingLeftPane, "TOPRIGHT", -6, 0)
+
+    local cTitle = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    cTitle:SetPoint("LEFT", compHeader, "LEFT", 8, 0)
+    self:ApplyFont(cTitle, FONTS.titleBold, 15)
+    cTitle:SetText(CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes no Mercado")
+    cTitle:SetTextColor(0.95, 0.82, 0.35, 1.0)
+
+    local colStack = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colStack:SetPoint("RIGHT", compHeader, "RIGHT", -210, 0)
+    self:ApplyFont(colStack, FONTS.titleBold, 13)
+    colStack:SetText(CM:T("AH_SELL_STACK_SIZE") or "QTD")
+    colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colUnitBid = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colUnitBid:SetPoint("RIGHT", compHeader, "RIGHT", -120, 0)
+    self:ApplyFont(colUnitBid, FONTS.titleBold, 13)
+    colUnitBid:SetText(CM:T("AH_SELL_BID_PRICE") or "LANCE UNIT.")
+    colUnitBid:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colUnitBuy = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colUnitBuy:SetPoint("RIGHT", compHeader, "RIGHT", -12, 0)
+    self:ApplyFont(colUnitBuy, FONTS.titleBold, 13)
+    colUnitBuy:SetText(CM:T("AH_SELL_BUYOUT_PRICE") or "COMPRA UNIT.")
+    colUnitBuy:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local compRows = {}
+    local startY = -28
+    local rowH = 46
+    local rowGap = 6
+
+    for i = 1, 6 do
+        local row = CreateFrame("Button", "ConsoleMode_AuctionCompRow" .. i, listingLeftPane)
+        row:SetHeight(rowH)
+        row:SetPoint("TOPLEFT", listingLeftPane, "TOPLEFT", 6, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", listingLeftPane, "TOPRIGHT", -6, startY - ((i - 1) * (rowH + rowGap)))
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 10, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+
+        local sellerText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        sellerText:SetPoint("LEFT", row, "LEFT", 10, 0)
+        sellerText:SetPoint("RIGHT", row, "RIGHT", -260, 0)
+        sellerText:SetJustifyH("LEFT")
+        self:ApplyFont(sellerText, FONTS.titleBold, 15)
+        row.sellerText = sellerText
+
+        local stackText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        stackText:SetPoint("RIGHT", row, "RIGHT", -205, 0)
+        self:ApplyFont(stackText, FONTS.titleBold, 15)
+        stackText:SetTextColor(0.95, 0.82, 0.35, 1.0)
+        row.stackText = stackText
+
+        local unitBidDisplay = self:CreateMoneyDisplay(row, 20, 12, "RIGHT")
+        unitBidDisplay:SetPoint("RIGHT", row, "RIGHT", -110, 0)
+        row.unitBidDisplay = unitBidDisplay
+
+        local unitBuyDisplay = self:CreateMoneyDisplay(row, 20, 12, "RIGHT")
+        unitBuyDisplay:SetPoint("RIGHT", row, "RIGHT", -10, 0)
+        row.unitBuyDisplay = unitBuyDisplay
+
+        local rIdx = i
+        row:SetScript("OnClick", function()
+            AuctionScreen.selectedCompetitorIndex = rIdx
+            AuctionScreen:MirrorCompetitorPrice(rIdx)
+            AuctionScreen.sellListingPane = "FORM"
+            AuctionScreen:UpdateSellListingStyles()
+        end)
+
+        table.insert(compRows, row)
+    end
+    listingLeftPane.rows = compRows
+
+    local emptyText = listingLeftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    emptyText:SetPoint("CENTER", listingLeftPane, "CENTER", 0, 20)
+    self:ApplyFont(emptyText, FONTS.titleBold, 16)
+    emptyText:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    emptyText:SetText(CM:T("AH_SELL_NO_COMPETITORS") or "No active auctions found for this item.")
+    emptyText:Hide()
+    listingLeftPane.emptyText = emptyText
+
+    local suggestedTag = listingLeftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    suggestedTag:SetPoint("TOP", emptyText, "BOTTOM", 0, -10)
+    self:ApplyFont(suggestedTag, FONTS.medium, 14)
+    suggestedTag:SetTextColor(0.12, 1.0, 0.0, 1.0)
+    suggestedTag:SetText(CM:T("AH_SELL_SUGGESTED_PRICE") or "Suggested (120% vendor)")
+    suggestedTag:Hide()
+    listingLeftPane.suggestedTag = suggestedTag
+
+    -- 2. Coluna Direita: Formulário de Venda
+    local listingRightPane = CreateFrame("Frame", "ConsoleMode_AuctionSellListingRight", parent)
+    listingRightPane:SetPoint("TOPLEFT", listingLeftPane, "TOPRIGHT", 14, 0)
+    listingRightPane:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -6, 0)
+    parent.listingRightPane = listingRightPane
+
+    self:Create9Slice(listingRightPane, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
+
+    local itemIcon = listingRightPane:CreateTexture(nil, "ARTWORK")
+    itemIcon:SetWidth(44)
+    itemIcon:SetHeight(44)
+    itemIcon:SetPoint("TOPLEFT", listingRightPane, "TOPLEFT", 18, -16)
+    listingRightPane.itemIcon = itemIcon
+
+    local itemIconBorder = CreateFrame("Frame", nil, listingRightPane)
+    itemIconBorder:SetPoint("TOPLEFT", itemIcon, "TOPLEFT", -2, 2)
+    itemIconBorder:SetPoint("BOTTOMRIGHT", itemIcon, "BOTTOMRIGHT", 2, -2)
+    itemIconBorder:SetBackdrop({
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        edgeSize = 8,
+        insets   = { left = 1, right = 1, top = 1, bottom = 1 }
+    })
+    listingRightPane.itemIconBorder = itemIconBorder
+
+    local itemName = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    itemName:SetPoint("TOPLEFT", itemIcon, "TOPRIGHT", 12, 0)
+    itemName:SetPoint("RIGHT", listingRightPane, "RIGHT", -16, 0)
+    itemName:SetJustifyH("LEFT")
+    self:ApplyFont(itemName, FONTS.titleBold, 19)
+    listingRightPane.itemName = itemName
+
+    local itemBagInfo = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    itemBagInfo:SetPoint("TOPLEFT", itemName, "BOTTOMLEFT", 0, -4)
+    itemBagInfo:SetPoint("RIGHT", listingRightPane, "RIGHT", -16, 0)
+    itemBagInfo:SetJustifyH("LEFT")
+    self:ApplyFont(itemBagInfo, FONTS.medium, 14)
+    itemBagInfo:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    listingRightPane.itemBagInfo = itemBagInfo
+
+    local hDiv = listingRightPane:CreateTexture(nil, "ARTWORK")
+    hDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    hDiv:SetHeight(1)
+    hDiv:SetPoint("TOPLEFT", listingRightPane, "TOPLEFT", 14, -68)
+    hDiv:SetPoint("TOPRIGHT", listingRightPane, "TOPRIGHT", -14, -68)
+    hDiv:SetVertexColor(0.5, 0.4, 0.3, 0.35)
+
+    local formRows = {}
+    local fStartY = -76
+    local fRowH = 34
+    local fGap = 4
+
+    for i = 1, 7 do
+        local r = CreateFrame("Button", "ConsoleMode_AuctionSellFormRow" .. i, listingRightPane)
+        r:SetHeight(fRowH)
+        r:SetPoint("TOPLEFT", listingRightPane, "TOPLEFT", 16, fStartY - ((i - 1) * (fRowH + fGap)))
+        r:SetPoint("TOPRIGHT", listingRightPane, "TOPRIGHT", -16, fStartY - ((i - 1) * (fRowH + fGap)))
+        r:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 8,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+
+        local lbl = r:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        lbl:SetPoint("LEFT", r, "LEFT", 12, 0)
+        self:ApplyFont(lbl, FONTS.titleBold, 15)
+        r.lbl = lbl
+
+        local val = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        val:SetPoint("RIGHT", r, "RIGHT", -12, 0)
+        self:ApplyFont(val, FONTS.bodyBold, 15)
+        r.val = val
+
+        if i == 1 or i == 2 then
+            local mDisp = self:CreateMoneyDisplay(r, 20, 14, "RIGHT")
+            mDisp:SetPoint("RIGHT", r, "RIGHT", -10, 0)
+            r.moneyDisplay = mDisp
+        end
+
+        local rowIdx = i
+        r:SetScript("OnClick", function()
+            AuctionScreen.sellListingPane = "FORM"
+            AuctionScreen.sellFormRow = rowIdx
+            if rowIdx == 6 then
+                AuctionScreen:ApplyMaxStacks()
+            elseif rowIdx == 7 then
+                AuctionScreen:OpenSellPostConfirmModal()
+            elseif rowIdx == 1 then
+                AuctionScreen:OpenSellMoneyVK("BID")
+            elseif rowIdx == 2 then
+                AuctionScreen:OpenSellMoneyVK("BUYOUT")
+            end
+            AuctionScreen:UpdateSellListingStyles()
+        end)
+
+        table.insert(formRows, r)
+    end
+    listingRightPane.formRows = formRows
+
+    formRows[1].lbl:SetText(CM:T("AH_SELL_BID_PRICE") or "Lance Inicial")
+    formRows[2].lbl:SetText(CM:T("AH_SELL_BUYOUT_PRICE") or "Compra Imediata")
+    formRows[3].lbl:SetText(CM:T("AH_SELL_DURATION") or "Duração")
+    formRows[4].lbl:SetText(CM:T("AH_SELL_STACK_SIZE") or "Tamanho da Pilha")
+    formRows[5].lbl:SetText(CM:T("AH_SELL_NUM_STACKS") or "Número de Pilhas")
+    formRows[6].lbl:SetText(CM:T("AH_SELL_BTN_MAX") or "MAX")
+    formRows[6].val:SetText("[ Calcular Máximo de Pilhas ]")
+    formRows[7].lbl:SetText(CM:T("AH_SELL_CONFIRM_POST") or "Confirmar e Postar")
+    formRows[7].val:SetText("(Gatilho RT)")
+
+    local sDiv = listingRightPane:CreateTexture(nil, "ARTWORK")
+    sDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    sDiv:SetHeight(1)
+    sDiv:SetPoint("BOTTOMLEFT", listingRightPane, "BOTTOMLEFT", 14, 110)
+    sDiv:SetPoint("BOTTOMRIGHT", listingRightPane, "BOTTOMRIGHT", -14, 110)
+    sDiv:SetVertexColor(0.5, 0.4, 0.3, 0.45)
+
+    local sumHeader = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    sumHeader:SetPoint("TOPLEFT", sDiv, "BOTTOMLEFT", 4, -8)
+    self:ApplyFont(sumHeader, FONTS.titleBold, 15)
+    sumHeader:SetText(CM:T("AH_SELL_SUMMARY_HEADER") or "RESUMO DO LEILÃO")
+    sumHeader:SetTextColor(0.95, 0.82, 0.35, 1.0)
+
+    local sumTotalItems = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sumTotalItems:SetPoint("TOPLEFT", sumHeader, "BOTTOMLEFT", 0, -4)
+    self:ApplyFont(sumTotalItems, FONTS.medium, 14)
+    sumTotalItems:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    listingRightPane.sumTotalItems = sumTotalItems
+
+    local sumBuyoutLabel = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sumBuyoutLabel:SetPoint("TOPLEFT", sumTotalItems, "BOTTOMLEFT", 0, -4)
+    self:ApplyFont(sumBuyoutLabel, FONTS.medium, 14)
+    sumBuyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
+    sumBuyoutLabel:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    listingRightPane.sumBuyoutLabel = sumBuyoutLabel
+
+    local sumBuyoutDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 14, "LEFT")
+    sumBuyoutDisplay:SetPoint("LEFT", sumBuyoutLabel, "RIGHT", 6, 0)
+    listingRightPane.sumBuyoutDisplay = sumBuyoutDisplay
+
+    local sumDepositLabel = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sumDepositLabel:SetPoint("TOPLEFT", sumBuyoutLabel, "BOTTOMLEFT", 0, -4)
+    self:ApplyFont(sumDepositLabel, FONTS.medium, 14)
+    sumDepositLabel:SetText("Taxa Depósito:")
+    sumDepositLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
+    listingRightPane.sumDepositLabel = sumDepositLabel
+
+    local sumDepositDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 13, "LEFT")
+    sumDepositDisplay:SetPoint("LEFT", sumDepositLabel, "RIGHT", 6, 0)
+    listingRightPane.sumDepositDisplay = sumDepositDisplay
+end
+
+function AuctionScreen:OpenSellInventory()
+    self.sellStep = "INVENTORY"
+    self:CloseSellActionModal()
+    self:CloseSellPostConfirmModal()
+
+    if self.sellListingContainer then self.sellListingContainer:Hide() end
+    if self.sellContainer then self.sellContainer:Show() end
+
+    self:RefreshSellInventory()
+
+    if self.breadcrumb and self.breadcrumb.text then
+        local sep = CM:T("AH_BREADCRUMB_SEP") or " > "
+        self.breadcrumb.text:SetText(CM:T("AH_TAB_SELL") .. sep .. (CM:T("AH_SELL_BAG_TITLE") or "Your Inventory"))
+    end
+
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:OpenSellListing(item)
+    if not item then return end
+    self.sellStep = "LISTING"
+    self.selectedSellItem = item
+    self.sellListingPane = "FORM"
+    self.sellFormRow = 1
+    self.sellDurationIdx = 1
+    self.sellStackSize = math.min(item.maxStack or 1, item.totalCount or 1)
+    self.sellNumStacks = 1
+    self.sellMoneyStepIdx = 3
+
+    if self.sellContainer then self.sellContainer:Hide() end
+    if self.sellListingContainer then self.sellListingContainer:Show() end
+
+    self:LoadSellCompetitors(item)
+
+    if table.getn(self.sellCompetitors) > 0 then
+        self.selectedCompetitorIndex = 1
+        self:MirrorCompetitorPrice(1)
+    else
+        local vPrice = item.vendorPrice or 0
+        local suggestedUnit = math.max(1, math.floor(vPrice * 1.2))
+        self.sellBidPrice = math.max(1, math.floor(suggestedUnit * 0.85)) * self.sellStackSize
+        self.sellBuyoutPrice = suggestedUnit * self.sellStackSize
+    end
+
+    if self.breadcrumb and self.breadcrumb.text then
+        local sep = CM:T("AH_BREADCRUMB_SEP") or " > "
+        local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+        self.breadcrumb.text:SetText(CM:T("AH_TAB_SELL") .. sep .. locName)
+    end
+
+    self:UpdateSellListingStyles()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:LoadSellCompetitors(item)
+    self.sellCompetitors = {}
+    if not item then return end
+
+    for _, g in ipairs(self.groupedItems or {}) do
+        if g.name == item.name or g.key == item.key then
+            for _, a in ipairs(g.auctions or {}) do
+                table.insert(self.sellCompetitors, a)
+            end
+            break
+        end
+    end
+
+    if table.getn(self.sellCompetitors) == 0 then
+        for _, r in ipairs(self.scanResults or {}) do
+            if r.name == item.name then
+                table.insert(self.sellCompetitors, r)
+            end
+        end
+    end
+
+    table.sort(self.sellCompetitors, function(a, b)
+        local countA = (a.count and a.count > 0) and a.count or 1
+        local countB = (b.count and b.count > 0) and b.count or 1
+        local unitA = (a.buyoutPrice and a.buyoutPrice > 0) and math.floor(a.buyoutPrice / countA) or 99999999
+        local unitB = (b.buyoutPrice and b.buyoutPrice > 0) and math.floor(b.buyoutPrice / countB) or 99999999
+        return unitA < unitB
+    end)
+
+    self:UpdateSellCompetitorsList()
+end
+
+function AuctionScreen:UpdateSellCompetitorsList()
+    if not self.sellListingContainer or not self.sellListingContainer.listingLeftPane then return end
+    local leftPane = self.sellListingContainer.listingLeftPane
+    local rows = leftPane.rows
+    local numComps = table.getn(self.sellCompetitors)
+
+    if numComps == 0 then
+        leftPane.emptyText:Show()
+        leftPane.suggestedTag:Show()
+        for i = 1, 6 do
+            if rows[i] then rows[i]:Hide() end
+        end
+        return
+    end
+
+    leftPane.emptyText:Hide()
+    leftPane.suggestedTag:Hide()
+
+    for i = 1, 6 do
+        local row = rows[i]
+        if i <= numComps then
+            local comp = self.sellCompetitors[i]
+            local count = (comp.count and comp.count > 0) and comp.count or 1
+            local unitBid = math.floor((comp.minBid or comp.bidAmount or 0) / count)
+            local unitBuyout = math.floor((comp.buyoutPrice or 0) / count)
+
+            local seller = comp.owner or comp.seller or "Leilão"
+            local durKey = TIME_LEFT_KEYS[comp.duration] or "AH_TIME_SHORT"
+            row.sellerText:SetText(seller .. " (" .. (CM:T(durKey) or "") .. ")")
+
+            row.stackText:SetText("x" .. tostring(count))
+            self:SetMoneyDisplay(row.unitBidDisplay, unitBid)
+            self:SetMoneyDisplay(row.unitBuyoutDisplay, unitBuyout)
+
+            local isSelected = (self.sellListingPane == "COMPETITORS" and i == self.selectedCompetitorIndex)
+            if isSelected then
+                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+            else
+                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+            end
+
+            row:Show()
+        else
+            row:Hide()
+        end
+    end
+end
+
+function AuctionScreen:MirrorCompetitorPrice(compIndex)
+    if not self.sellCompetitors or not self.sellCompetitors[compIndex] then return end
+    local comp = self.sellCompetitors[compIndex]
+    local count = (comp.count and comp.count > 0) and comp.count or 1
+    local unitBid = math.floor((comp.minBid or comp.bidAmount or 0) / count)
+    local unitBuyout = math.floor((comp.buyoutPrice or 0) / count)
+
+    self.sellBidPrice = math.max(1, unitBid * self.sellStackSize)
+    self.sellBuyoutPrice = math.max(0, unitBuyout * self.sellStackSize)
+    self:UpdateSellListingStyles()
+end
+
+function AuctionScreen:CycleSellMoneyStep()
+    self.sellMoneyStepIdx = (self.sellMoneyStepIdx or 3) + 1
+    if self.sellMoneyStepIdx > table.getn(SELL_MONEY_STEPS) then
+        self.sellMoneyStepIdx = 1
+    end
+    self:UpdateSellListingStyles()
+end
+
+function AuctionScreen:AdjustSellMoney(moneyType, delta)
+    local step = SELL_MONEY_STEPS[self.sellMoneyStepIdx or 3] or 100
+    if moneyType == "BID" then
+        local val = (self.sellBidPrice or 0) + (delta * step)
+        if val < 1 then val = 1 end
+        self.sellBidPrice = val
+        if self.sellBuyoutPrice > 0 and self.sellBidPrice > self.sellBuyoutPrice then
+            self.sellBuyoutPrice = self.sellBidPrice
+        end
+    else
+        local val = (self.sellBuyoutPrice or 0) + (delta * step)
+        if val < 0 then val = 0 end
+        self.sellBuyoutPrice = val
+        if self.sellBuyoutPrice > 0 and self.sellBuyoutPrice < self.sellBidPrice then
+            self.sellBidPrice = self.sellBuyoutPrice
+        end
+    end
+    self:UpdateSellListingStyles()
+end
+
+function AuctionScreen:OpenSellMoneyVK(moneyType)
+    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
+    if not vk or not vk.Open then return end
+
+    local curVal = (moneyType == "BID") and (self.sellBidPrice or 0) or (self.sellBuyoutPrice or 0)
+    local curGold = math.floor(curVal / 10000)
+
+    vk:Open({
+        title       = (moneyType == "BID") and ((CM:T("AH_SELL_BID_PRICE") or "Lance Inicial") .. " (Gold)") or ((CM:T("AH_SELL_BUYOUT_PRICE") or "Compra Imediata") .. " (Gold)"),
+        initialText = tostring(curGold),
+        maxLetters  = 8,
+        onConfirm   = function(text)
+            local g = tonumber(text) or 0
+            local copper = g * 10000
+            if moneyType == "BID" then
+                if copper < 1 then copper = 1 end
+                AuctionScreen.sellBidPrice = copper
+                if AuctionScreen.sellBuyoutPrice > 0 and AuctionScreen.sellBidPrice > AuctionScreen.sellBuyoutPrice then
+                    AuctionScreen.sellBuyoutPrice = AuctionScreen.sellBidPrice
+                end
+            else
+                AuctionScreen.sellBuyoutPrice = copper
+                if AuctionScreen.sellBuyoutPrice > 0 and AuctionScreen.sellBuyoutPrice < AuctionScreen.sellBidPrice then
+                    AuctionScreen.sellBidPrice = AuctionScreen.sellBuyoutPrice
+                end
+            end
+            AuctionScreen:UpdateSellListingStyles()
+        end,
+        onCancel    = function() end,
+    })
+end
+
+function AuctionScreen:AdjustSellStackSize(delta)
+    local item = self.selectedSellItem
+    if not item then return end
+
+    local maxS = math.min(item.maxStack or 1, item.totalCount or 1)
+    local newS = (self.sellStackSize or 1) + delta
+    if newS < 1 then newS = 1 end
+    if newS > maxS then newS = maxS end
+
+    local prevS = self.sellStackSize or 1
+    self.sellStackSize = newS
+
+    if prevS > 0 then
+        local unitBid = math.floor((self.sellBidPrice or 1) / prevS)
+        local unitBuy = math.floor((self.sellBuyoutPrice or 0) / prevS)
+        self.sellBidPrice = math.max(1, unitBid * newS)
+        self.sellBuyoutPrice = math.max(0, unitBuy * newS)
+    end
+
+    local maxStacks = math.max(1, math.floor((item.totalCount or 1) / newS))
+    if self.sellNumStacks > maxStacks then
+        self.sellNumStacks = maxStacks
+    end
+
+    self:UpdateSellListingStyles()
+end
+
+function AuctionScreen:AdjustSellNumStacks(delta)
+    local item = self.selectedSellItem
+    if not item then return end
+
+    local maxStacks = math.max(1, math.floor((item.totalCount or 1) / (self.sellStackSize or 1)))
+    local newNum = (self.sellNumStacks or 1) + delta
+    if newNum < 1 then newNum = 1 end
+    if newNum > maxStacks then newNum = maxStacks end
+
+    self.sellNumStacks = newNum
+    self:UpdateSellListingStyles()
+end
+
+function AuctionScreen:ApplyMaxStacks()
+    local item = self.selectedSellItem
+    if not item then return end
+
+    local total = item.totalCount or 1
+    local maxStack = item.maxStack or 1
+
+    local prevS = self.sellStackSize or 1
+    self.sellStackSize = math.min(maxStack, total)
+    self.sellNumStacks = math.max(1, math.floor(total / self.sellStackSize))
+
+    if prevS > 0 and self.sellStackSize ~= prevS then
+        local unitBid = math.floor((self.sellBidPrice or 1) / prevS)
+        local unitBuy = math.floor((self.sellBuyoutPrice or 0) / prevS)
+        self.sellBidPrice = math.max(1, unitBid * self.sellStackSize)
+        self.sellBuyoutPrice = math.max(0, unitBuy * self.sellStackSize)
+    end
+
+    self:UpdateSellListingStyles()
+end
+
+function AuctionScreen:CalculateSellDeposit()
+    local item = self.selectedSellItem
+    if not item then return 0 end
+
+    local factor = 0.15
+    if self.sellDurationIdx == 2 then
+        factor = 0.60
+    elseif self.sellDurationIdx == 3 then
+        factor = 1.20
+    end
+
+    local vPrice = item.vendorPrice or 0
+    if vPrice <= 0 then return 0 end
+
+    local unitDeposit = math.max(1, math.floor(vPrice * factor))
+    return unitDeposit * (self.sellStackSize or 1) * (self.sellNumStacks or 1)
+end
+
+function AuctionScreen:UpdateSellListingStyles()
+    if not self.sellListingContainer or not self.sellListingContainer.listingRightPane then return end
+    local rightPane = self.sellListingContainer.listingRightPane
+    local item = self.selectedSellItem
+    if not item then return end
+
+    local qColor = QUALITY_COLORS[item.quality] or { 0.8, 0.8, 0.8 }
+    rightPane.itemIcon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+    rightPane.itemIconBorder:SetBackdropBorderColor(qColor[1], qColor[2], qColor[3], 0.95)
+
+    local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+    rightPane.itemName:SetText(locName)
+    rightPane.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+    local bagInfo = string.format("Disponível na bolsa: %d • Preço Loja: %s", item.totalCount, self:FormatMoney(item.vendorPrice or 0))
+    rightPane.itemBagInfo:SetText(bagInfo)
+
+    local durLabels = {
+        CM:T("AH_SELL_DURATION_2H") or "2 Horas",
+        CM:T("AH_SELL_DURATION_8H") or "8 Horas",
+        CM:T("AH_SELL_DURATION_24H") or "24 Horas"
+    }
+
+    local rows = rightPane.formRows
+    self:SetMoneyDisplay(rows[1].moneyDisplay, self.sellBidPrice or 0)
+    self:SetMoneyDisplay(rows[2].moneyDisplay, self.sellBuyoutPrice or 0)
+    rows[3].val:SetText("< " .. (durLabels[self.sellDurationIdx or 1] or "") .. " >")
+    rows[4].val:SetText("< " .. tostring(self.sellStackSize or 1) .. " >")
+    rows[5].val:SetText("< " .. tostring(self.sellNumStacks or 1) .. " >")
+
+    local stepLabel = SELL_MONEY_LABELS[self.sellMoneyStepIdx or 3] or "1s"
+    for i = 1, 7 do
+        local r = rows[i]
+        local isFocused = (self.sellListingPane == "FORM" and i == self.sellFormRow)
+        if isFocused then
+            r:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+            r:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+            r.lbl:SetTextColor(1.0, 0.92, 0.45, 1.0)
+        else
+            r:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+            r:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+            r.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90)
+        end
+    end
+
+    local totalUnits = (self.sellStackSize or 1) * (self.sellNumStacks or 1)
+    local totalBuyout = (self.sellBuyoutPrice or 0) * (self.sellNumStacks or 1)
+    local deposit = self:CalculateSellDeposit()
+
+    rightPane.sumTotalItems:SetText(string.format("Total: %d item(s) (%d pilha(s) de %d)", totalUnits, self.sellNumStacks or 1, self.sellStackSize or 1))
+    self:SetMoneyDisplay(rightPane.sumBuyoutDisplay, totalBuyout)
+    self:SetMoneyDisplay(rightPane.sumDepositDisplay, deposit)
+
+    self:UpdateSellCompetitorsList()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:CreateSellPostConfirmModal(parent)
+    local modalDimmer = CreateFrame("Frame", "ConsoleMode_AuctionSellPostDimmer", parent)
+    modalDimmer:SetFrameStrata("DIALOG")
+    modalDimmer:SetFrameLevel(45)
+    modalDimmer:SetAllPoints(UIParent)
+    modalDimmer:EnableMouse(true)
+    modalDimmer:Hide()
+
+    local bg = modalDimmer:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(modalDimmer)
+    bg:SetTexture(0, 0, 0, 0.70)
+    modalDimmer.bg = bg
+
+    local modal = CreateFrame("Frame", "ConsoleMode_AuctionSellPostModal", modalDimmer)
+    modal:SetWidth(480)
+    modal:SetHeight(300)
+    modal:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    modal:SetFrameStrata("DIALOG")
+    modal:SetFrameLevel(50)
+    modal:EnableMouse(true)
+
+    self:Create9Slice(modal, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
+
+    local title = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    title:SetPoint("TOP", modal, "TOP", 0, -20)
+    self:ApplyFont(title, FONTS.titleBold, 22)
+    title:SetTextColor(1.0, 0.85, 0.25, 1.0)
+    title:SetText(CM:T("AH_SELL_CONFIRM_TITLE") or "Confirmar Postagem?")
+    modal.title = title
+
+    local itemIcon = modal:CreateTexture(nil, "ARTWORK")
+    itemIcon:SetWidth(38)
+    itemIcon:SetHeight(38)
+    itemIcon:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, -60)
+    modal.itemIcon = itemIcon
+
+    local itemName = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    itemName:SetPoint("LEFT", itemIcon, "RIGHT", 12, 0)
+    itemName:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
+    itemName:SetJustifyH("LEFT")
+    self:ApplyFont(itemName, FONTS.titleBold, 18)
+    modal.itemName = itemName
+
+    local qtyText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    qtyText:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -14)
+    self:ApplyFont(qtyText, FONTS.bodyBold, 15)
+    qtyText:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    modal.qtyText = qtyText
+
+    local buyoutLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    buyoutLabel:SetPoint("TOPLEFT", qtyText, "BOTTOMLEFT", 0, -10)
+    self:ApplyFont(buyoutLabel, FONTS.bodyBold, 15)
+    buyoutLabel:SetTextColor(0.95, 0.82, 0.35, 1.0)
+    buyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
+    modal.buyoutLabel = buyoutLabel
+
+    local buyoutDisplay = self:CreateMoneyDisplay(modal, 20, 14, "LEFT")
+    buyoutDisplay:SetPoint("LEFT", buyoutLabel, "RIGHT", 8, 0)
+    modal.buyoutDisplay = buyoutDisplay
+
+    local depositLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    depositLabel:SetPoint("TOPLEFT", buyoutLabel, "BOTTOMLEFT", 0, -10)
+    self:ApplyFont(depositLabel, FONTS.medium, 14)
+    depositLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
+    depositLabel:SetText("Taxa de Depósito:")
+    modal.depositLabel = depositLabel
+
+    local depositDisplay = self:CreateMoneyDisplay(modal, 20, 13, "LEFT")
+    depositDisplay:SetPoint("LEFT", depositLabel, "RIGHT", 8, 0)
+    modal.depositDisplay = depositDisplay
+
+    local btnContainer = CreateFrame("Frame", nil, modal)
+    btnContainer:SetHeight(40)
+    btnContainer:SetPoint("BOTTOMLEFT", modal, "BOTTOMLEFT", 24, 20)
+    btnContainer:SetPoint("BOTTOMRIGHT", modal, "BOTTOMRIGHT", -24, 20)
+
+    local btnConfirm = CreateFrame("Button", "ConsoleMode_AuctionSellConfirmBtn", btnContainer)
+    btnConfirm:SetWidth(190)
+    btnConfirm:SetHeight(38)
+    btnConfirm:SetPoint("LEFT", btnContainer, "LEFT", 10, 0)
+    btnConfirm:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    local lConf = btnConfirm:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lConf:SetPoint("CENTER", btnConfirm, "CENTER", 0, 0)
+    self:ApplyFont(lConf, FONTS.titleBold, 16)
+    lConf:SetText(CM:T("AH_HINT_CONFIRM") or "Confirmar")
+    btnConfirm.label = lConf
+    btnConfirm:SetScript("OnClick", function()
+        AuctionScreen:ExecutePostAuction()
+    end)
+    modal.btnConfirm = btnConfirm
+
+    local btnCancel = CreateFrame("Button", "ConsoleMode_AuctionSellCancelBtn", btnContainer)
+    btnCancel:SetWidth(190)
+    btnCancel:SetHeight(38)
+    btnCancel:SetPoint("RIGHT", btnContainer, "RIGHT", -10, 0)
+    btnCancel:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    local lCanc = btnCancel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lCanc:SetPoint("CENTER", btnCancel, "CENTER", 0, 0)
+    self:ApplyFont(lCanc, FONTS.titleBold, 16)
+    lCanc:SetText(CM:T("AH_BTN_CANCEL") or "Cancelar")
+    btnCancel.label = lCanc
+    btnCancel:SetScript("OnClick", function()
+        AuctionScreen:CloseSellPostConfirmModal()
+    end)
+    modal.btnCancel = btnCancel
+
+    self.sellPostModalDimmer = modalDimmer
+    self.sellPostModal = modal
+end
+
+function AuctionScreen:OpenSellPostConfirmModal()
+    local item = self.selectedSellItem
+    if not item or not self.sellPostModal then return end
+
+    self.isSellPostModalOpen = true
+    self.sellPostBtnIndex = 1
+
+    local modal = self.sellPostModal
+    local qColor = QUALITY_COLORS[item.quality] or { 0.8, 0.8, 0.8 }
+    modal.itemIcon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+    local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+    modal.itemName:SetText(locName)
+    modal.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+    local totalUnits = (self.sellStackSize or 1) * (self.sellNumStacks or 1)
+    modal.qtyText:SetText(string.format("%d pilha(s) de %d unidade(s) • Total: %d", self.sellNumStacks or 1, self.sellStackSize or 1, totalUnits))
+
+    local totalBuyout = (self.sellBuyoutPrice or 0) * (self.sellNumStacks or 1)
+    self:SetMoneyDisplay(modal.buyoutDisplay, totalBuyout)
+
+    local deposit = self:CalculateSellDeposit()
+    self:SetMoneyDisplay(modal.depositDisplay, deposit)
+
+    self:UpdateSellPostModalStyles()
+    self.sellPostModalDimmer:Show()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:CloseSellPostConfirmModal()
+    self.isSellPostModalOpen = false
+    if self.sellPostModalDimmer then
+        self.sellPostModalDimmer:Hide()
+    end
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:UpdateSellPostModalStyles()
+    if not self.sellPostModal then return end
+    local modal = self.sellPostModal
+
+    if self.sellPostBtnIndex == 1 then
+        modal.btnConfirm:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+        modal.btnConfirm:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        modal.btnConfirm.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
+
+        modal.btnCancel:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+        modal.btnCancel:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        modal.btnCancel.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    else
+        modal.btnCancel:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+        modal.btnCancel:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        modal.btnCancel.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
+
+        modal.btnConfirm:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
+        modal.btnConfirm:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        modal.btnConfirm.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    end
+end
+
+function AuctionScreen:ExecutePostAuction()
+    local item = self.selectedSellItem
+    if not item then return end
+
+    self:CloseSellPostConfirmModal()
+
+    if AuctionFrameTab_OnClick then
+        pcall(AuctionFrameTab_OnClick, 3)
+    end
+
+    local bag, slot = nil, nil
+    local totalNeeded = self.sellStackSize or 1
+
+    for _, s in ipairs(item.bagSlots or {}) do
+        local _, count, locked = GetContainerItemInfo(s.bag, s.slot)
+        if count and count >= totalNeeded and not locked then
+            bag = s.bag
+            slot = s.slot
+            break
+        end
+    end
+
+    if not bag or not slot then
+        for _, s in ipairs(item.bagSlots or {}) do
+            local _, count, locked = GetContainerItemInfo(s.bag, s.slot)
+            if count and count > 0 and not locked then
+                bag = s.bag
+                slot = s.slot
+                break
+            end
+        end
+    end
+
+    if not bag or not slot then
+        UIErrorsFrame:AddMessage(CM:T("AH_SELL_NO_ITEMS") or "Item not found in bags.", 1.0, 0.2, 0.2, 1.0)
+        return
+    end
+
+    if CursorHasItem() then
+        ClearCursor()
+    end
+
+    local _, currentSlotCount = GetContainerItemInfo(bag, slot)
+    if currentSlotCount and currentSlotCount > totalNeeded then
+        SplitContainerItem(bag, slot, totalNeeded)
+    else
+        PickupContainerItem(bag, slot)
+    end
+
+    if ClickAuctionSellItemButton then
+        ClickAuctionSellItemButton()
+    elseif AuctionSellItemButton and AuctionSellItemButton.Click then
+        AuctionSellItemButton:Click()
+    end
+
+    local durMinutes = 120
+    if self.sellDurationIdx == 2 then
+        durMinutes = 480
+    elseif self.sellDurationIdx == 3 then
+        durMinutes = 1440
+    end
+
+    local minBid = self.sellBidPrice or 1
+    local buyout = self.sellBuyoutPrice or 0
+    if minBid < 1 then minBid = 1 end
+
+    local postOk = pcall(function()
+        StartAuction(minBid, buyout, durMinutes)
+    end)
+
+    if CursorHasItem() then
+        ClearCursor()
+    end
+
+    local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+    local msg = string.format(CM:T("AH_SELL_SUCCESS_FMT") or "Auction for %s created successfully!", locName)
+    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. msg)
+    if UIErrorsFrame then
+        UIErrorsFrame:AddMessage(msg, 1.0, 0.85, 0.25, 1.0)
+    end
+    PlaySound("LOOT_COIN")
+
+    if self.sellNumStacks and self.sellNumStacks > 1 then
+        self.sellNumStacks = self.sellNumStacks - 1
+        self.pendingPostTimer = 0.4
+    else
+        self.pendingRefreshTimer = 0.3
+    end
+end
+
+function AuctionScreen:OnTriggerAction()
+    if not self.isOpen then return end
+    if self:IsVKOpen() then return end
+    if self.isConfirmModalOpen or self.isSortModalOpen or self.isSellActionModalOpen then return end
+
+    if self.currentTab == "SELL" and self.sellStep == "LISTING" then
+        if not self.isSellPostModalOpen then
+            self:OpenSellPostConfirmModal()
+        else
+            self:ExecutePostAuction()
+        end
+    end
+end
+
+-- ----------------------------------------------------------------------------
 -- 16. NAVEGAÇÃO ENTRE ABAS
 -- ----------------------------------------------------------------------------
 function AuctionScreen:SetTab(tabKey)
@@ -3393,19 +4845,38 @@ function AuctionScreen:SetTab(tabKey)
     self.currentTab = tabKey
     self:UpdateTabStyles()
 
+    self:CloseConfirmModal()
+    self:CloseSortModal()
+    self:CloseSellActionModal()
+    self:CloseSellPostConfirmModal()
+
     if tabKey == "BUY" then
+        if AuctionFrameTab_OnClick then pcall(AuctionFrameTab_OnClick, 1) end
+        if self.sellContainer then self.sellContainer:Hide() end
+        if self.sellListingContainer then self.sellListingContainer:Hide() end
         self:SetBuyStep("CATEGORIES")
-    else
+    elseif tabKey == "SELL" then
+        if AuctionFrameTab_OnClick then pcall(AuctionFrameTab_OnClick, 3) end
         self.gridContainer:Hide()
         self.filterContainer:Hide()
         self.scanContainer:Hide()
         self.summaryContainer:Hide()
         self.itemListContainer:Hide()
         self.itemDetailContainer:Hide()
-        self:CloseConfirmModal()
+        self:OpenSellInventory()
+    else
+        -- OWNER
+        if AuctionFrameTab_OnClick then pcall(AuctionFrameTab_OnClick, 3) end
+        self.gridContainer:Hide()
+        self.filterContainer:Hide()
+        self.scanContainer:Hide()
+        self.summaryContainer:Hide()
+        self.itemListContainer:Hide()
+        self.itemDetailContainer:Hide()
+        if self.sellContainer then self.sellContainer:Hide() end
+        if self.sellListingContainer then self.sellListingContainer:Hide() end
         if self.breadcrumb and self.breadcrumb.text then
-            local tabLabel = (tabKey == "SELL") and CM:T("AH_TAB_SELL") or CM:T("AH_TAB_MY_AUCTIONS")
-            self.breadcrumb.text:SetText(tabLabel)
+            self.breadcrumb.text:SetText(CM:T("AH_TAB_MY_AUCTIONS") or "My Auctions")
         end
         self:UpdateFooterHints()
     end
@@ -3455,6 +4926,115 @@ function AuctionScreen:OnDirection(direction)
             self:UpdateSortModalStyles()
         end
         return
+    end
+
+    if self.currentTab == "SELL" then
+        if self.isSellPostModalOpen then
+            if direction == "LEFT" or direction == "RIGHT" then
+                self.sellPostBtnIndex = (self.sellPostBtnIndex == 1) and 2 or 1
+                self:UpdateSellPostModalStyles()
+            end
+            return
+        end
+
+        if self.isSellActionModalOpen then
+            if direction == "UP" or direction == "DOWN" or direction == "LEFT" or direction == "RIGHT" then
+                self.sellActionBtnIndex = (self.sellActionBtnIndex == 1) and 2 or 1
+                self:UpdateSellActionModalStyles()
+            end
+            return
+        end
+
+        if self.sellStep == "INVENTORY" then
+            local total = table.getn(self.sellBagItems)
+            if total <= 0 then return end
+
+            if direction == "UP" then
+                if self.selectedSellIndex > 1 then
+                    self.selectedSellIndex = self.selectedSellIndex - 1
+                    if self.selectedSellIndex <= self.sellScrollOffset then
+                        self.sellScrollOffset = self.selectedSellIndex - 1
+                    end
+                    self.selectedSellItem = self.sellBagItems[self.selectedSellIndex]
+                    self:UpdateSellInventory()
+                end
+            elseif direction == "DOWN" then
+                if self.selectedSellIndex < total then
+                    self.selectedSellIndex = self.selectedSellIndex + 1
+                    if self.selectedSellIndex > self.sellScrollOffset + 7 then
+                        self.sellScrollOffset = self.selectedSellIndex - 7
+                    end
+                    self.selectedSellItem = self.sellBagItems[self.selectedSellIndex]
+                    self:UpdateSellInventory()
+                end
+            end
+            return
+        elseif self.sellStep == "LISTING" then
+            if self.sellListingPane == "COMPETITORS" then
+                local numComp = table.getn(self.sellCompetitors or {})
+                if numComp <= 0 then return end
+
+                if direction == "UP" then
+                    if self.selectedCompetitorIndex > 1 then
+                        self.selectedCompetitorIndex = self.selectedCompetitorIndex - 1
+                        self:MirrorCompetitorPrice(self.selectedCompetitorIndex)
+                        self:UpdateSellCompetitorsList()
+                    end
+                elseif direction == "DOWN" then
+                    if self.selectedCompetitorIndex < numComp then
+                        self.selectedCompetitorIndex = self.selectedCompetitorIndex + 1
+                        self:MirrorCompetitorPrice(self.selectedCompetitorIndex)
+                        self:UpdateSellCompetitorsList()
+                    end
+                elseif direction == "RIGHT" then
+                    self.sellListingPane = "FORM"
+                    self:UpdateSellListingStyles()
+                end
+                return
+            else
+                if direction == "UP" then
+                    self.sellFormRow = self.sellFormRow - 1
+                    if self.sellFormRow < 1 then self.sellFormRow = 7 end
+                    self:UpdateSellListingStyles()
+                elseif direction == "DOWN" then
+                    self.sellFormRow = self.sellFormRow + 1
+                    if self.sellFormRow > 7 then self.sellFormRow = 1 end
+                    self:UpdateSellListingStyles()
+                elseif direction == "LEFT" then
+                    if self.sellFormRow == 1 then
+                        self:AdjustSellMoney("BID", -1)
+                    elseif self.sellFormRow == 2 then
+                        self:AdjustSellMoney("BUYOUT", -1)
+                    elseif self.sellFormRow == 3 then
+                        self.sellDurationIdx = (self.sellDurationIdx or 1) - 1
+                        if self.sellDurationIdx < 1 then self.sellDurationIdx = 3 end
+                        self:UpdateSellListingStyles()
+                    elseif self.sellFormRow == 4 then
+                        self:AdjustSellStackSize(-1)
+                    elseif self.sellFormRow == 5 then
+                        self:AdjustSellNumStacks(-1)
+                    elseif table.getn(self.sellCompetitors or {}) > 0 then
+                        self.sellListingPane = "COMPETITORS"
+                        self:UpdateSellListingStyles()
+                    end
+                elseif direction == "RIGHT" then
+                    if self.sellFormRow == 1 then
+                        self:AdjustSellMoney("BID", 1)
+                    elseif self.sellFormRow == 2 then
+                        self:AdjustSellMoney("BUYOUT", 1)
+                    elseif self.sellFormRow == 3 then
+                        self.sellDurationIdx = (self.sellDurationIdx or 1) + 1
+                        if self.sellDurationIdx > 3 then self.sellDurationIdx = 1 end
+                        self:UpdateSellListingStyles()
+                    elseif self.sellFormRow == 4 then
+                        self:AdjustSellStackSize(1)
+                    elseif self.sellFormRow == 5 then
+                        self:AdjustSellNumStacks(1)
+                    end
+                end
+                return
+            end
+        end
     end
 
     if self.currentTab == "BUY" then
@@ -3607,6 +5187,60 @@ function AuctionScreen:OnConfirm()
                 self:SetBuyStep("FILTERS")
             end
         end
+    elseif self.currentTab == "SELL" then
+        if self.isSellPostModalOpen then
+            if self.sellPostBtnIndex == 1 then
+                self:ExecutePostAuction()
+            else
+                self:CloseSellPostConfirmModal()
+            end
+            return
+        end
+
+        if self.isSellActionModalOpen then
+            if self.sellActionBtnIndex == 1 then
+                self:CloseSellActionModal()
+                self:OpenSellListing(self.selectedSellItem)
+            else
+                local name = self.selectedSellItem and self.selectedSellItem.name or ""
+                self:CloseSellActionModal()
+                self:SetTab("BUY")
+                self.activeFilters.name = name
+                self:ExecuteSearch()
+            end
+            return
+        end
+
+        if self.sellStep == "INVENTORY" then
+            local item = self.sellBagItems[self.selectedSellIndex]
+            if item then
+                self.selectedSellItem = item
+                self:OpenSellActionModal(item)
+            end
+            return
+        elseif self.sellStep == "LISTING" then
+            if self.sellListingPane == "COMPETITORS" then
+                self:MirrorCompetitorPrice(self.selectedCompetitorIndex or 1)
+                self.sellListingPane = "FORM"
+                self:UpdateSellListingStyles()
+                return
+            end
+
+            if self.sellFormRow == 1 then
+                self:OpenSellMoneyVK("BID")
+            elseif self.sellFormRow == 2 then
+                self:OpenSellMoneyVK("BUYOUT")
+            elseif self.sellFormRow == 3 then
+                self.sellDurationIdx = (self.sellDurationIdx or 1) + 1
+                if self.sellDurationIdx > 3 then self.sellDurationIdx = 1 end
+                self:UpdateSellListingStyles()
+            elseif self.sellFormRow == 6 then
+                self:ApplyMaxStacks()
+            elseif self.sellFormRow == 7 then
+                self:OpenSellPostConfirmModal()
+            end
+            return
+        end
     end
 end
 
@@ -3623,6 +5257,23 @@ function AuctionScreen:OnSecondaryAction()
             self:UpdateFilterStyles()
         else
             self:ResetCategoryFilters()
+        end
+    elseif self.currentTab == "SELL" then
+        if self.sellStep == "INVENTORY" then
+            self:RefreshSellInventory()
+            return
+        elseif self.sellStep == "LISTING" then
+            if table.getn(self.sellCompetitors or {}) > 0 then
+                if self.sellListingPane == "FORM" then
+                    self.sellListingPane = "COMPETITORS"
+                else
+                    self.sellListingPane = "FORM"
+                end
+                self:UpdateSellListingStyles()
+            else
+                self:CycleSellMoneyStep()
+            end
+            return
         end
     end
 end
@@ -3667,6 +5318,23 @@ function AuctionScreen:OnContextAction()
                 end
             end
         end
+    elseif self.currentTab == "SELL" then
+        if self.sellStep == "INVENTORY" then
+            local item = self.sellBagItems[self.selectedSellIndex]
+            if item then
+                self:SetTab("BUY")
+                self.activeFilters.name = item.name
+                self:ExecuteSearch()
+            end
+            return
+        elseif self.sellStep == "LISTING" then
+            if table.getn(self.sellCompetitors or {}) > 0 then
+                self:MirrorCompetitorPrice(self.selectedCompetitorIndex or 1)
+            else
+                self:CycleSellMoneyStep()
+            end
+            return
+        end
     end
 end
 
@@ -3682,6 +5350,31 @@ function AuctionScreen:OnCancel()
     if self.isSortModalOpen then
         self:CloseSortModal()
         return
+    end
+
+    if self.isSellPostModalOpen then
+        self:CloseSellPostConfirmModal()
+        return
+    end
+
+    if self.isSellActionModalOpen then
+        self:CloseSellActionModal()
+        return
+    end
+
+    if self.currentTab == "SELL" then
+        if self.sellStep == "LISTING" then
+            if self.sellListingPane == "COMPETITORS" then
+                self.sellListingPane = "FORM"
+                self:UpdateSellListingStyles()
+                return
+            end
+            self:OpenSellInventory()
+            return
+        elseif self.sellStep == "INVENTORY" then
+            self:Close()
+            return
+        end
     end
 
     if self.currentTab == "BUY" then
@@ -3800,6 +5493,12 @@ function AuctionScreen:Close(fromServer)
 
     self:CloseConfirmModal()
     self:CloseSortModal()
+    self:CloseSellActionModal()
+    self:CloseSellPostConfirmModal()
+
+    if CursorHasItem() then
+        ClearCursor()
+    end
 
     local scan = CM.auctionScan or ConsoleMode_AuctionScan
     if scan and scan.isScanning then
@@ -3835,12 +5534,17 @@ function AuctionScreen:InitEvents()
     local ef = CreateFrame("Frame", "ConsoleMode_AuctionScreenEventFrame")
     ef:RegisterEvent("AUCTION_HOUSE_SHOW")
     ef:RegisterEvent("AUCTION_HOUSE_CLOSED")
+    ef:RegisterEvent("BAG_UPDATE")
 
     ef:SetScript("OnEvent", function()
         if event == "AUCTION_HOUSE_SHOW" then
             AuctionScreen:Open()
         elseif event == "AUCTION_HOUSE_CLOSED" then
             AuctionScreen:Close(true)
+        elseif event == "BAG_UPDATE" then
+            if AuctionScreen.isOpen and AuctionScreen.currentTab == "SELL" and AuctionScreen.sellStep == "INVENTORY" then
+                AuctionScreen:RefreshSellInventory()
+            end
         end
     end)
 
@@ -3850,6 +5554,25 @@ function AuctionScreen:InitEvents()
             if AuctionScreen.repeatElapsed >= AuctionScreen.repeatDelay then
                 AuctionScreen:OnDirection(AuctionScreen.repeatDir)
                 AuctionScreen.repeatElapsed = AuctionScreen.repeatDelay - AuctionScreen.repeatRate
+            end
+        end
+        if AuctionScreen.pendingPostTimer then
+            AuctionScreen.pendingPostTimer = AuctionScreen.pendingPostTimer - arg1
+            if AuctionScreen.pendingPostTimer <= 0 then
+                AuctionScreen.pendingPostTimer = nil
+                AuctionScreen:ExecutePostAuction()
+            end
+        end
+        if AuctionScreen.pendingRefreshTimer then
+            AuctionScreen.pendingRefreshTimer = AuctionScreen.pendingRefreshTimer - arg1
+            if AuctionScreen.pendingRefreshTimer <= 0 then
+                AuctionScreen.pendingRefreshTimer = nil
+                AuctionScreen:RefreshSellInventory()
+                if AuctionScreen.selectedSellItem and AuctionScreen.selectedSellItem.totalCount > 0 then
+                    AuctionScreen:UpdateSellListingStyles()
+                else
+                    AuctionScreen:OpenSellInventory()
+                end
             end
         end
     end)

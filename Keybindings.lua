@@ -516,9 +516,11 @@ modFrame:SetScript("OnUpdate", function()
             end
         end
 
-        -- 3. R2 (ALT / RT) = Zoom In no mapa ou Próxima Sub-Aba / Carrinho no Treinador
+        -- 3. R2 (ALT / RT) = Zoom In no mapa ou Próxima Sub-Aba / Carrinho no Treinador / Postar no Leilão
         if altNow and not wasAltDown then
-            if isTrainer and ConsoleMode_TrainerMenu.OnTriggerAction then
+            if isAuction and ConsoleMode_AuctionScreen.OnTriggerAction then
+                ConsoleMode_AuctionScreen:OnTriggerAction()
+            elseif isTrainer and ConsoleMode_TrainerMenu.OnTriggerAction then
                 ConsoleMode_TrainerMenu:OnTriggerAction()
             elseif isMerchant then
                 ConsoleMode_MerchantMenu:CycleSubTab(1)
@@ -2104,6 +2106,12 @@ function CM_NavNextSubTab()
     do
         local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
         if vk and vk.IsOpen and vk:IsOpen() then
+            return
+        end
+    end
+    if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.isOpen then
+        if ConsoleMode_AuctionScreen.OnTriggerAction then
+            ConsoleMode_AuctionScreen:OnTriggerAction()
             return
         end
     end

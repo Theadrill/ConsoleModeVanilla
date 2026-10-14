@@ -322,40 +322,77 @@ AuctionScreen.repeatRate          = 0.08
 -- ----------------------------------------------------------------------------
 -- 4. HELPERS DE FORMATAÇÃO, TIPOGRAFIA, TOOLTIP SCANNER E 9-SLICE
 -- ----------------------------------------------------------------------------
-local scanTip = CreateFrame("GameTooltip", "ConsoleMode_AuctionScanTip", UIParent, "GameTooltipTemplate")
-scanTip:SetOwner(UIParent, "ANCHOR_NONE")
+local scanTip = CreateFrame("GameTooltip", "ConsoleMode_AuctionScanTip", nil, "GameTooltipTemplate")
+scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
 
 function AuctionScreen:ResetScanTip()
     if not scanTip then return end
+    scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
     scanTip:ClearLines()
     for i = 1, 40 do
-        local l = _G["ConsoleMode_AuctionScanTipTextLeft" .. i]
-        local r = _G["ConsoleMode_AuctionScanTipTextRight" .. i]
+        local l = getglobal("ConsoleMode_AuctionScanTipTextLeft" .. i)
+        local r = getglobal("ConsoleMode_AuctionScanTipTextRight" .. i)
         if l then l:SetText("") end
         if r then r:SetText("") end
     end
 end
 
-function AuctionScreen:ScanItemTooltip(itemLink)
-    if not itemLink or itemLink == "" then return nil end
-    local _, _, colorHex, rawLink, nameFromLink = string.find(itemLink, "|c(%x+)|H(item:[^|]+)|h%[(.-)%]|h|r")
-    if not rawLink then
-        rawLink = itemLink
+function AuctionScreen:ScanItemTooltip(itemLink, item)
+    if not itemLink and not item then return nil end
+    if not scanTip then
+        scanTip = CreateFrame("GameTooltip", "ConsoleMode_AuctionScanTip", nil, "GameTooltipTemplate")
+    end
+    scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+    self:ResetScanTip()
+
+    local rawLink = nil
+    if itemLink then
+        local _, _, raw = string.find(itemLink, "(item:%d+:%d+:%d+:%d+)")
+        if raw then
+            rawLink = raw
+        else
+            local _, _, id = string.find(itemLink, "item:(%d+)")
+            if id then
+                rawLink = "item:" .. id .. ":0:0:0"
+            end
+        end
     end
 
-    self:ResetScanTip()
-    local ok = pcall(function() scanTip:SetHyperlink(rawLink) end)
-    if not ok then
+    local okLink = false
+    if rawLink then
+        okLink = pcall(function() scanTip:SetHyperlink(rawLink) end)
+    end
+    if (not okLink or (scanTip:NumLines() or 0) < 2) and itemLink then
         pcall(function() scanTip:SetHyperlink(itemLink) end)
     end
+
+    -- Fallback via SetAuctionItem caso o cache de hyperlinks não tenha retornado as linhas
+    if (scanTip:NumLines() or 0) < 2 and item then
+        local targetIndex = nil
+        if item.auctions and item.auctions[1] and item.auctions[1].index then
+            targetIndex = item.auctions[1].index
+        elseif item.index then
+            targetIndex = item.index
+        end
+        if targetIndex then
+            scanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
+            scanTip:ClearLines()
+            pcall(function() scanTip:SetAuctionItem("list", targetIndex) end)
+        end
+    end
+
+    local l2Obj = getglobal("ConsoleMode_AuctionScanTipTextLeft2")
+    local r2Obj = getglobal("ConsoleMode_AuctionScanTipTextRight2")
+    local line2Left = (l2Obj and l2Obj:GetText()) or nil
+    local line2Right = (r2Obj and r2Obj:GetText()) or nil
 
     local statsLines = {}
     local descLines = {}
     local numLines = scanTip:NumLines() or 0
 
     for l = 2, numLines do
-        local leftObj = _G["ConsoleMode_AuctionScanTipTextLeft" .. l]
-        local rightObj = _G["ConsoleMode_AuctionScanTipTextRight" .. l]
+        local leftObj = getglobal("ConsoleMode_AuctionScanTipTextLeft" .. l)
+        local rightObj = getglobal("ConsoleMode_AuctionScanTipTextRight" .. l)
         local leftText = (leftObj and leftObj:GetText()) or ""
         local rightText = (rightObj and rightObj:GetText()) or ""
 
@@ -395,6 +432,8 @@ function AuctionScreen:ScanItemTooltip(itemLink)
     return {
         statsLines = statsLines,
         descLines  = descLines,
+        line2Left  = line2Left,
+        line2Right = line2Right,
     }
 end
 
@@ -1939,7 +1978,22 @@ function AuctionScreen:UpdateItemCard(item)
     card.titleText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
     -- 3. Informações de GetItemInfo (Subtipo, Slot, Req Level)
-    local _, _, _, reqL, itemType, itemSubType, _, itemEquipLoc = GetItemInfo(item.link)
+    local rawLink = nil
+    if item.link then
+        local _, _, raw = string.find(item.link, "(item:%d+:%d+:%d+:%d+)")
+        rawLink = raw
+        if not rawLink then
+            local _, _, id = string.find(item.link, "item:(%d+)")
+            if id then rawLink = "item:" .. id .. ":0:0:0" end
+        end
+    end
+    local _, _, idStr = string.find(item.link or "", "item:(%d+)")
+    local itemID = tonumber(idStr)
+    local _, _, _, reqL, itemType, itemSubType, _, itemEquipLoc = GetItemInfo(rawLink or itemID or item.name)
+
+    -- 4. Tooltip Scanner: Stats e Efeitos (passando item para fallback SetAuctionItem)
+    local scanData = self:ScanItemTooltip(item.link, item)
+
     local locEquip = nil
     if itemEquipLoc and itemEquipLoc ~= "" then
         locEquip = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(itemEquipLoc) or getglobal(itemEquipLoc)
@@ -1947,7 +2001,26 @@ function AuctionScreen:UpdateItemCard(item)
             locEquip = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(itemEquipLoc) or nil
         end
     end
+    -- Fallback se GetItemInfo ainda não tiver retornado equipLoc na primeira consulta
+    if (not locEquip or locEquip == "") and scanData and scanData.line2Left then
+        local l2 = scanData.line2Left
+        local lowerL2 = string.lower(l2)
+        if not string.find(lowerL2, "dano") and not string.find(lowerL2, "damage")
+           and not string.find(lowerL2, "armadura") and not string.find(lowerL2, "armor")
+           and not string.find(lowerL2, "requer") and not string.find(lowerL2, "requires") then
+            locEquip = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(l2) or l2
+        end
+    end
+
     local stName = (ConsoleMode and ConsoleMode.GameLOC_ItemSubType) and ConsoleMode:GameLOC_ItemSubType(itemSubType) or itemSubType
+    -- Fallback se GetItemInfo ainda não tiver retornado subType na primeira consulta
+    if (not stName or stName == "") and scanData and scanData.line2Right then
+        local r2 = scanData.line2Right
+        local lowerR2 = string.lower(r2)
+        if not string.find(lowerR2, "velocidade") and not string.find(lowerR2, "speed") then
+            stName = (ConsoleMode and ConsoleMode.GameLOC_ItemSubType) and ConsoleMode:GameLOC_ItemSubType(r2) or r2
+        end
+    end
 
     local subParts = {}
     if locEquip and locEquip ~= "" then
@@ -1975,8 +2048,6 @@ function AuctionScreen:UpdateItemCard(item)
         end
     end
 
-    -- 4. Tooltip Scanner: Stats e Efeitos
-    local scanData = self:ScanItemTooltip(item.link)
     local leftLines = {}
     local rightLines = {}
     local isSoulbound = false
@@ -2003,7 +2074,7 @@ function AuctionScreen:UpdateItemCard(item)
             if not skip then
                 local locLine = nil
                 if ConsoleMode and ConsoleMode.GameLOC_ItemDesc then
-                    locLine = ConsoleMode:GameLOC_ItemDesc(item.link, sLine)
+                    locLine = ConsoleMode:GameLOC_ItemDesc(rawLink or item.link, sLine)
                 end
                 if not locLine then
                     locLine = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(sLine) or sLine
@@ -2019,7 +2090,7 @@ function AuctionScreen:UpdateItemCard(item)
                     if isLeft then
                         table.insert(leftLines, "|cffffffff" .. locLine .. "|r")
                     else
-                        if string.find(lower, "classes:") or string.find(lower, "races:") then
+                        if string.find(lower, "classes:") or string.find(lower, "races:") or string.find(lower, "raças:") or string.find(lower, "racas:") then
                             table.insert(rightLines, "|cffff2020" .. locLine .. "|r")
                         elseif string.find(sLine, "^\"") or string.find(sLine, "^%“") then
                             table.insert(rightLines, "|cffffd100" .. locLine .. "|r")
@@ -2036,7 +2107,7 @@ function AuctionScreen:UpdateItemCard(item)
         for _, dLine in ipairs(scanData.descLines) do
             local locDesc = nil
             if ConsoleMode and ConsoleMode.GameLOC_ItemDesc then
-                locDesc = ConsoleMode:GameLOC_ItemDesc(item.link, dLine)
+                locDesc = ConsoleMode:GameLOC_ItemDesc(rawLink or item.link, dLine)
             end
             if not locDesc then
                 locDesc = (ConsoleMode and ConsoleMode.GameLOC_ItemStat) and ConsoleMode:GameLOC_ItemStat(dLine) or dLine

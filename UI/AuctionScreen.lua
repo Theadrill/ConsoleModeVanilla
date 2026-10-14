@@ -1238,7 +1238,8 @@ end
 function AuctionScreen:UpdateFilterStyles()
     if not self.filterRows then return end
 
-    local qName = QUALITY_NAMES[self.activeFilters.quality] or CM:T("AH_QUALITY_ALL")
+    local qKey = QUALITY_KEYS[self.activeFilters.quality] or "AH_QUALITY_ALL"
+    local qName = CM:T(qKey) or "All"
     local minLvlStr = (self.activeFilters.minLevel > 0) and tostring(self.activeFilters.minLevel) or CM:T("AH_LEVEL_ANY")
     local maxLvlStr = (self.activeFilters.maxLevel > 0) and tostring(self.activeFilters.maxLevel) or CM:T("AH_LEVEL_ANY")
     local usableStr = (self.activeFilters.isUsable == 1) and CM:T("AH_FILTER_YES") or CM:T("AH_FILTER_NO")

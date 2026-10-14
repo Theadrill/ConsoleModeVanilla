@@ -148,7 +148,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 7: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX
+### FASE 7: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX [PENDENTE DE VALIDAÇÃO]
 * **Objetivo:** Interface de venda dividida com comparação em tempo real.
 * **Tarefas:**
   * Coluna esquerda do inventário filtrada (somente itens leiloáveis).

@@ -5,3 +5,4 @@ __pycache__/
 .claude/
 DB-ORIGINAL
 Media_BACKUP/
+dev_logs/

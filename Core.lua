@@ -277,6 +277,139 @@ function CM:ToggleRightActionBars(forcedState)
     return newVal
 end
 
+-- DEV ONLY: sonda do leilao. Consulta Armadura (subclasses 1..5) x locais (1..14), 1 consulta por vez,
+-- respeitando CanSendAuctionQuery. Grava a matriz em dev_logs\ahprobe.txt (ExportFile).
+function CM:RunAHProbe(arg)
+    local out = DEFAULT_CHAT_FRAME
+    local probe = CM.ahProbe
+    if arg == "stop" then
+        if probe and probe.frame then probe.frame:SetScript("OnUpdate", nil); probe.frame:UnregisterAllEvents() end
+        CM.ahProbe = nil
+        out:AddMessage("[CM ahprobe] stopped.")
+        return
+    end
+    if type(ExportFile) ~= "function" then
+        out:AddMessage("|cffff5555[CM ahprobe]|r ExportFile not available.")
+        return
+    end
+    if not (AuctionFrame and AuctionFrame:IsVisible()) then
+        out:AddMessage("|cffff5555[CM ahprobe]|r Open the Auction House window first.")
+        return
+    end
+    if probe and probe.running then
+        out:AddMessage("[CM ahprobe] already running. Use /cm ahprobe stop")
+        return
+    end
+
+    local classIdx = 2
+    local classes = { GetAuctionItemClasses() }
+    local subs = { GetAuctionItemSubClasses(classIdx) }
+    local queue = {}
+    local s, k
+    local isRetry = (arg == "retry")
+    if isRetry then
+        -- sub: 1=Misc 2=Cloth 3=Leather 4=Mail 5=Plate | slot: 1=Head 2=Neck 3=Shoulder 4=Shirt 5=Chest 6=Waist 7=Legs 8=Feet 9=Wrist 10=Hands 11=Finger 12=Trinket 13=Back 14=OffHand
+        local retryList = {
+            { 1, 5 }, { 1, 7 }, { 1, 14 },
+            { 2, 3 }, { 2, 5 }, { 2, 7 }, { 2, 9 }, { 2, 14 },
+            { 3, 4 }, { 4, 9 }, { 5, 7 },
+        }
+        local i
+        for i = 1, table.getn(retryList) do
+            table.insert(queue, { sub = retryList[i][1], slot = retryList[i][2] })
+        end
+    else
+        for s = 1, 5 do
+            for k = 1, 14 do
+                table.insert(queue, { sub = s, slot = k })
+            end
+        end
+    end
+
+    probe = { queue = queue, idx = 1, waiting = false, t = 0, gap = 0, running = true, rows = {}, last = 0 }
+    probe.fileName = isRetry and "ahprobe_retry" or "ahprobe"
+    probe.timeout = isRetry and 30 or 15
+    probe.minGap = isRetry and 6 or 0
+    probe.progressEvery = isRetry and 0 or 14
+    CM.ahProbe = probe
+    local slotsList = { GetAuctionInvTypes(classIdx, 1) }
+
+    local function slotLabel(k)
+        local g = slotsList[k] and getglobal(slotsList[k])
+        return g or tostring(k)
+    end
+
+    local function flush(final)
+        local lines = {}
+        table.insert(lines, "AUCTION PROBE " .. date("%Y-%m-%d %H:%M:%S") .. (final and " (done)" or " (partial)") .. (isRetry and " [retry]" or ""))
+        table.insert(lines, "class " .. classIdx .. " = " .. tostring(classes[classIdx]))
+        local i
+        for i = 1, table.getn(probe.rows) do
+            local r = probe.rows[i]
+            table.insert(lines, tostring(subs[r.sub]) .. " / " .. slotLabel(r.slot) .. " : " .. r.result)
+        end
+        ExportFile(probe.fileName, table.concat(lines, "\n"))
+    end
+
+    local function advance()
+        probe.waiting = false
+        probe.gap = 0
+        probe.idx = probe.idx + 1
+        if probe.idx > table.getn(probe.queue) then
+            probe.running = false
+            probe.frame:SetScript("OnUpdate", nil)
+            probe.frame:UnregisterAllEvents()
+            flush(true)
+            out:AddMessage("[CM ahprobe] done -> dev_logs\\" .. probe.fileName .. ".txt")
+        elseif probe.progressEvery > 0 and math.mod(probe.idx, probe.progressEvery) == 1 then
+            flush(false)
+            out:AddMessage("[CM ahprobe] " .. (probe.idx - 1) .. "/" .. table.getn(probe.queue))
+        end
+    end
+
+    local f = probe.frame or CreateFrame("Frame")
+    probe.frame = f
+    f:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
+    f:SetScript("OnEvent", function()
+        local p = CM.ahProbe
+        if p and p.running and p.waiting then
+            local batch, total = GetNumAuctionItems("list")
+            local q = p.queue[p.idx]
+            table.insert(p.rows, { sub = q.sub, slot = q.slot, result = "total=" .. tostring(total) .. " batch=" .. tostring(batch) })
+            advance()
+        end
+    end)
+    f:SetScript("OnUpdate", function()
+        local p = CM.ahProbe
+        if not (p and p.running) then return end
+        if not (AuctionFrame and AuctionFrame:IsVisible()) then
+            p.running = false
+            f:SetScript("OnUpdate", nil)
+            f:UnregisterAllEvents()
+            flush(false)
+            out:AddMessage("|cffff5555[CM ahprobe]|r Auction window closed, partial result saved.")
+            return
+        end
+        if not p.waiting then
+            p.gap = (p.gap or 0) + arg1
+            if p.gap >= p.minGap and CanSendAuctionQuery() then
+                local q = p.queue[p.idx]
+                QueryAuctionItems("", 0, 0, q.slot, classIdx, q.sub, 0, 0, -1)
+                p.waiting = true
+                p.t = 0
+            end
+        else
+            p.t = p.t + arg1
+            if p.t > p.timeout then
+                local q = p.queue[p.idx]
+                table.insert(p.rows, { sub = q.sub, slot = q.slot, result = "TIMEOUT" })
+                advance()
+            end
+        end
+    end)
+    out:AddMessage("[CM ahprobe] started: " .. table.getn(queue) .. " queries (~" .. math.floor(table.getn(queue) * 4 / 60 + 0.5) .. " min). /cm ahprobe stop cancels.")
+end
+
 -- Comandos Slash
 SLASH_CONSOLEMODE1 = "/consolemode"
 SLASH_CONSOLEMODE2 = "/cm"
@@ -307,6 +440,65 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
     elseif cmd == "config" or cmd == "settings" or cmd == "binds" then
         if CM.config and CM.config.Toggle then
             CM.config:Toggle()
+        end
+
+    elseif cmd == "ahprobe" then
+        CM:RunAHProbe(string.lower(rest))
+
+    elseif cmd == "ahdump" then
+        -- DEV ONLY: despeja categorias do leilao (Classe > Subclasse > locais) em dev_logs\ahdump.txt via ExportFile.
+        local out = DEFAULT_CHAT_FRAME
+        if type(ExportFile) ~= "function" then
+            out:AddMessage("|cffff5555[CM ahdump]|r ExportFile not available (SuperWoW/nampower not loaded).")
+        elseif not GetAuctionItemClasses then
+            out:AddMessage("|cffff5555[CM ahdump]|r Auction API not available.")
+        else
+            local lines = {}
+            local function slotNames(c, s)
+                local names = {}
+                local slots = { GetAuctionInvTypes(c, s) }
+                local i
+                for i = 1, table.getn(slots) do
+                    local g = getglobal(slots[i])
+                    table.insert(names, (g or tostring(slots[i])) .. "{" .. tostring(slots[i]) .. "}")
+                end
+                return table.concat(names, ", ")
+            end
+            table.insert(lines, "AUCTION CATEGORY DUMP " .. date("%Y-%m-%d %H:%M:%S"))
+            table.insert(lines, "Build: " .. tostring((GetBuildInfo())))
+            local classes = { GetAuctionItemClasses() }
+            local c
+            for c = 1, table.getn(classes) do
+                table.insert(lines, "")
+                table.insert(lines, "[" .. c .. "] " .. tostring(classes[c]))
+                table.insert(lines, "    slots(class-level): " .. slotNames(c, 0))
+                local subs = { GetAuctionItemSubClasses(c) }
+                local s
+                for s = 1, table.getn(subs) do
+                    table.insert(lines, "  [" .. c .. "." .. s .. "] " .. tostring(subs[s]) .. " -> " .. slotNames(c, s))
+                end
+            end
+            table.insert(lines, "")
+            local q
+            for q = 0, 6 do
+                local qn = getglobal("ITEM_QUALITY" .. q .. "_DESC")
+                if qn then table.insert(lines, "quality " .. q .. " = " .. qn) end
+            end
+            ExportFile("ahdump", table.concat(lines, "\n"))
+            out:AddMessage("[CM ahdump] " .. table.getn(lines) .. " lines -> dev_logs\\ahdump.txt")
+        end
+
+    elseif cmd == "filetest" then
+        -- DEV ONLY: valida ExportFile (SuperWoW/nampower). Saida em <cliente>\imports\ (junction -> dev_logs).
+        local out = DEFAULT_CHAT_FRAME
+        if type(ExportFile) ~= "function" then
+            out:AddMessage("|cffff5555[CM filetest]|r ExportFile not available (SuperWoW/nampower not loaded).")
+        else
+            local ok1 = pcall(ExportFile, "filetest", "ok-imports " .. date("%Y-%m-%d %H:%M:%S"))
+            out:AddMessage("[CM filetest] imports\\filetest: " .. (ok1 and "called" or "ERROR"))
+            local ok2 = pcall(ExportFile, "..\\Interface\\AddOns\\ConsoleModeVanilla\\dev_logs\\filetest_rel", "ok-relative")
+            out:AddMessage("[CM filetest] relative path: " .. (ok2 and "called" or "ERROR"))
+            out:AddMessage("[CM filetest] Check dev_logs\\ for filetest*.txt")
         end
 
     elseif cmd == "xp" then

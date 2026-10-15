@@ -85,6 +85,13 @@ local QUALITY_KEYS = {
 
 local QUALITY_ORDER = { -1, 0, 1, 2, 3, 4, 5 }
 
+-- Contraste de foco/seleção (DELTA GRANDE focado vs normal, identidade Vanilla mantida)
+local SEL_BG = { 0.68, 0.50, 0.20, 1.0 }
+local SEL_BORDER = { 1.0, 0.90, 0.35, 1.0 }
+local NORMAL_BG = { 0.05, 0.04, 0.02, 0.85 }
+local NORMAL_BORDER = { 0.35, 0.28, 0.18, 0.60 }
+local SEL_TEXT = { 1.0, 0.92, 0.45 }
+
 local TIME_LEFT_KEYS = {
     [1] = "AH_TIME_SHORT",
     [2] = "AH_TIME_MEDIUM",
@@ -860,12 +867,12 @@ function AuctionScreen:UpdateTabStyles()
         local isActive = (btn.tabKey == self.currentTab)
 
         if isActive then
-            btn:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-            btn:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-            btn.label:SetTextColor(1.0, 0.90, 0.40, 1.0)
+            btn:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+            btn:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+            btn.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
         else
-            btn:SetBackdropColor(0.08, 0.06, 0.04, 0.70)
-            btn:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.60)
+            btn:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+            btn:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
             btn.label:SetTextColor(0.65, 0.65, 0.65, 0.90)
         end
     end
@@ -1269,13 +1276,13 @@ function AuctionScreen:UpdateGridStyles()
         if btn and btn:IsShown() then
             local isFocused = (i == self.gridIndex)
             if isFocused then
-                btn:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-                btn:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-                btn.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
+                btn:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                btn:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                btn.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
                 btn.arrow:SetTextColor(1.0, 0.85, 0.25, 1.0)
             else
-                btn:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                btn:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                btn:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                btn:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
                 btn.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
                 btn.arrow:SetTextColor(0.50, 0.40, 0.25, 0.6)
             end
@@ -1536,22 +1543,22 @@ function AuctionScreen:UpdateFilterStyles()
             local isFocused = (i == self.filterRowIndex)
             if i == 6 then
                 if isFocused then
-                    row:SetBackdropColor(0.35, 0.28, 0.12, 0.95)
-                    row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-                    row.label:SetTextColor(1.0, 0.95, 0.50, 1.0)
+                    row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                    row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                    row.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
                 else
-                    row:SetBackdropColor(0.16, 0.12, 0.08, 0.85)
-                    row:SetBackdropBorderColor(0.60, 0.48, 0.30, 0.70)
+                    row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                    row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
                     row.label:SetTextColor(0.85, 0.78, 0.60, 0.90)
                 end
             else
                 if isFocused then
-                    row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-                    row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-                    row.lbl:SetTextColor(1.0, 0.92, 0.45, 1.0)
+                    row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                    row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                    row.lbl:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
                 else
-                    row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                    row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                    row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                    row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
                     row.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90)
                 end
             end
@@ -1745,20 +1752,20 @@ function AuctionScreen:UpdateSummaryStyles()
     local b2 = self.summaryContainer.btn2
 
     if self.summaryBtnIndex == 1 then
-        b1:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-        b1:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        b1.label:SetTextColor(1.0, 0.90, 0.40, 1.0)
+        b1:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+        b1:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        b1.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
 
-        b2:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-        b2:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        b2:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+        b2:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
         b2.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
     else
-        b2:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-        b2:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        b2.label:SetTextColor(1.0, 0.90, 0.40, 1.0)
+        b2:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+        b2:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        b2.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
 
-        b1:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-        b1:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        b1:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+        b1:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
         b1.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
     end
 end
@@ -2418,11 +2425,12 @@ function AuctionScreen:UpdateItemList()
             end
 
             if isFocused then
-                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                row.nameText:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
             else
-                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
             end
 
             row:Show()
@@ -2664,11 +2672,13 @@ function AuctionScreen:UpdateItemDetail()
             self:SetMoneyDisplay(row.buyoutDisplay, a.buyoutPrice)
 
             if isFocused then
-                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                row.sellerText:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
             else
-                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
+                row.sellerText:SetTextColor(1.0, 1.0, 1.0, 1.0)
             end
 
             row:Show()
@@ -2810,8 +2820,8 @@ function AuctionScreen:CreateConfirmModal(parent)
         tile     = true, tileSize = 8, edgeSize = 8,
         insets   = { left = 2, right = 2, top = 2, bottom = 2 }
     })
-    btnConfirm:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-    btnConfirm:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+    btnConfirm:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+    btnConfirm:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
 
     local lConf = btnConfirm:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     lConf:SetPoint("CENTER", btnConfirm, "CENTER", 0, 0)
@@ -2833,8 +2843,8 @@ function AuctionScreen:CreateConfirmModal(parent)
         tile     = true, tileSize = 8, edgeSize = 8,
         insets   = { left = 2, right = 2, top = 2, bottom = 2 }
     })
-    btnCancel:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-    btnCancel:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+    btnCancel:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+    btnCancel:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
 
     local lCanc = btnCancel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     lCanc:SetPoint("CENTER", btnCancel, "CENTER", 0, 0)
@@ -2894,9 +2904,9 @@ function AuctionScreen:OpenConfirmModal(auction, isBuyout)
         self:SetMoneyDisplay(m.remainingDisplay, remaining)
         m.warningText:SetText("")
         m.btnConfirm:Enable()
-        m.btnConfirm:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-        m.btnConfirm:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        m.btnConfirm.label:SetTextColor(1.0, 0.90, 0.40, 1.0)
+        m.btnConfirm:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+        m.btnConfirm:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        m.btnConfirm.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
     end
 
     self.modalDimmer:Show()
@@ -3025,12 +3035,12 @@ function AuctionScreen:UpdateSortModalStyles()
             end
 
             if isFocused then
-                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-                row.lbl:SetTextColor(1.0, 0.92, 0.45, 1.0)
+                row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                row.lbl:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
             else
-                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
                 if isActive then
                     row.lbl:SetTextColor(0.95, 0.85, 0.40, 0.90)
                 else
@@ -3813,11 +3823,12 @@ function AuctionScreen:UpdateSellInventory()
 
             local isSelected = (itemIdx == self.selectedSellIndex)
             if isSelected then
-                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                row.nameText:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
             else
-                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
             end
 
             row:Show()
@@ -4368,11 +4379,13 @@ function AuctionScreen:UpdateSellCompetitorsList()
 
             local isSelected = (self.sellListingPane == "COMPETITORS" and i == self.selectedCompetitorIndex)
             if isSelected then
-                row:SetBackdropColor(0.45, 0.34, 0.16, 1.0)
-                row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+                row.sellerText:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
             else
-                row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-                row:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+                row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
+                row.sellerText:SetTextColor(1.0, 1.0, 1.0, 1.0)
             end
 
             row:Show()
@@ -4568,12 +4581,12 @@ function AuctionScreen:UpdateSellListingStyles()
         local r = rows[i]
         local isFocused = (self.sellListingPane == "FORM" and i == self.sellFormRow)
         if isFocused then
-            r:SetBackdropColor(0.45, 0.34, 0.16, 1.0)
-            r:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-            r.lbl:SetTextColor(1.0, 0.92, 0.45, 1.0)
+            r:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+            r:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+            r.lbl:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
         else
-            r:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-            r:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+            r:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+            r:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
             r.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90)
         end
     end
@@ -4751,20 +4764,20 @@ function AuctionScreen:UpdateSellPostModalStyles()
     local modal = self.sellPostModal
 
     if self.sellPostBtnIndex == 1 then
-        modal.btnConfirm:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-        modal.btnConfirm:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        modal.btnConfirm.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
+        modal.btnConfirm:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+        modal.btnConfirm:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        modal.btnConfirm.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
 
-        modal.btnCancel:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-        modal.btnCancel:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        modal.btnCancel:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+        modal.btnCancel:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
         modal.btnCancel.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
     else
-        modal.btnCancel:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-        modal.btnCancel:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        modal.btnCancel.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
+        modal.btnCancel:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+        modal.btnCancel:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        modal.btnCancel.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
 
-        modal.btnConfirm:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-        modal.btnConfirm:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
+        modal.btnConfirm:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+        modal.btnConfirm:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
         modal.btnConfirm.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
     end
 end

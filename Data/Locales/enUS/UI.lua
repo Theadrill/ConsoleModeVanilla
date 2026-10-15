@@ -1757,6 +1757,7 @@ CM_Langs["enUS"].strings = {
     AH_SELL_SUCCESS_FMT = "Auction for %s created successfully!",
     AH_HINT_POST_RT = "Post Auction",
     AH_HINT_MIRROR_PRICE = "Mirror Price",
+    AH_SELL_PRICE_STEP = "Price Step",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

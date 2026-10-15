@@ -951,15 +951,20 @@ function AuctionScreen:UpdateFooterHints()
             if self.sellListingPane == "COMPETITORS" then
                 table.insert(hints, { icons = { "A" },    label = CM:T("AH_HINT_MIRROR_PRICE") or "Espelhar Preço" })
                 table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar ao Formulário" })
+                table.insert(hints, { icons = { "LT" },   label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
+                local panelStepLabel = CM:T("AH_SELL_PRICE_STEP")
+                if panelStepLabel == "AH_SELL_PRICE_STEP" then panelStepLabel = "Price Step" end
+                table.insert(hints, { icons = { "X" },    label = panelStepLabel })
                 table.insert(hints, { icons = { "DUP", "DDOWN" }, label = CM:T("AH_HINT_NAVIGATE") or "Navegar" })
             else
                 table.insert(hints, { icons = { "RT" },   label = CM:T("AH_HINT_POST_RT") or "Postar Leilão" })
                 table.insert(hints, { icons = { "A" },    label = (self.sellFormRow == 6 and (CM:T("AH_SELL_BTN_MAX") or "MAX")) or (self.sellFormRow == 7 and (CM:T("AH_SELL_CONFIRM_POST") or "Postar")) or (CM:T("AH_HINT_SELECT") or "Editar") })
                 if table.getn(self.sellCompetitors or {}) > 0 then
-                    table.insert(hints, { icons = { "X" }, label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
-                else
-                    table.insert(hints, { icons = { "X" }, label = "Passo Preço" })
+                    table.insert(hints, { icons = { "LT" }, label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
                 end
+                local formStepLabel = CM:T("AH_SELL_PRICE_STEP")
+                if formStepLabel == "AH_SELL_PRICE_STEP" then formStepLabel = "Price Step" end
+                table.insert(hints, { icons = { "X" }, label = formStepLabel })
                 table.insert(hints, { icons = { "DALL" }, label = CM:T("AH_HINT_ADJUST") or "Ajustar" })
                 table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar" })
             end
@@ -4038,7 +4043,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     formRows[6].lbl:SetText(CM:T("AH_SELL_BTN_MAX") or "MAX")
     formRows[6].val:SetText("[ Calcular Máximo de Pilhas ]")
     formRows[7].lbl:SetText(CM:T("AH_SELL_CONFIRM_POST") or "Confirmar e Postar")
-    formRows[7].val:SetText("(Gatilho RT)")
+    formRows[7].val:SetText(CM:T("AH_HINT_POST_RT") or "Post Auction")
 
     local sDiv = listingRightPane:CreateTexture(nil, "ARTWORK")
     sDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
@@ -4256,6 +4261,10 @@ function AuctionScreen:OpenSellListingWithScan(item)
             if AuctionScreen.sellCompetitors and table.getn(AuctionScreen.sellCompetitors) > 0 then
                 AuctionScreen.selectedCompetitorIndex = 1
                 AuctionScreen:MirrorCompetitorPrice(1)
+                AuctionScreen.sellListingPane = "COMPETITORS"
+                AuctionScreen:UpdateSellCompetitorsList()
+                AuctionScreen:UpdateSellListingStyles()
+                AuctionScreen:UpdateFooterHints()
             end
             AuctionScreen:UpdateSellCompetitorsList()
             AuctionScreen:UpdateSellListingStyles()
@@ -4355,11 +4364,11 @@ function AuctionScreen:UpdateSellCompetitorsList()
 
             row.stackText:SetText("x" .. tostring(count))
             self:SetMoneyDisplay(row.unitBidDisplay, unitBid)
-            self:SetMoneyDisplay(row.unitBuyoutDisplay, unitBuyout)
+            self:SetMoneyDisplay(row.unitBuyDisplay, unitBuyout)
 
             local isSelected = (self.sellListingPane == "COMPETITORS" and i == self.selectedCompetitorIndex)
             if isSelected then
-                row:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+                row:SetBackdropColor(0.45, 0.34, 0.16, 1.0)
                 row:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
             else
                 row:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
@@ -4559,7 +4568,7 @@ function AuctionScreen:UpdateSellListingStyles()
         local r = rows[i]
         local isFocused = (self.sellListingPane == "FORM" and i == self.sellFormRow)
         if isFocused then
-            r:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
+            r:SetBackdropColor(0.45, 0.34, 0.16, 1.0)
             r:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
             r.lbl:SetTextColor(1.0, 0.92, 0.45, 1.0)
         else
@@ -5267,16 +5276,7 @@ function AuctionScreen:OnSecondaryAction()
             self:RefreshSellInventory()
             return
         elseif self.sellStep == "LISTING" then
-            if table.getn(self.sellCompetitors or {}) > 0 then
-                if self.sellListingPane == "FORM" then
-                    self.sellListingPane = "COMPETITORS"
-                else
-                    self.sellListingPane = "FORM"
-                end
-                self:UpdateSellListingStyles()
-            else
-                self:CycleSellMoneyStep()
-            end
+            self:CycleSellMoneyStep()
             return
         end
     end
@@ -5578,6 +5578,43 @@ function AuctionScreen:InitEvents()
     end)
 
     self.eventFrame = ef
+end
+
+-- ----------------------------------------------------------------------------
+-- 21. LT (L2) ALTERNA PAINEL FORM ⇄ COMPETITORS NO LISTING
+-- RT (R2) segue postando via OnTriggerAction (post global no LISTING, nao
+-- so na linha 7) — conflito com a troca de painel, por isso so LT alterna.
+-- Wrapper instalado aqui (single-file): Keybindings.lua carrega antes no
+-- .toc, entao CM_NavPrevSubTab ja existe; guarda global evita wrap duplo.
+-- ----------------------------------------------------------------------------
+function AuctionScreen:ToggleSellListingPane()
+    if not self.isOpen then return false end
+    if self:IsVKOpen() then return false end
+    if CM.keybindings and CM.keybindings.chatActive then return false end
+    if self.isConfirmModalOpen or self.isSortModalOpen then return false end
+    if self.isSellPostModalOpen then return false end
+    if self.currentTab ~= "SELL" or self.sellStep ~= "LISTING" then return false end
+    if table.getn(self.sellCompetitors or {}) <= 0 then return true end
+    if self.sellListingPane == "FORM" then
+        self.sellListingPane = "COMPETITORS"
+    else
+        self.sellListingPane = "FORM"
+    end
+    self:UpdateSellListingStyles()
+    return true
+end
+
+do
+    if ConsoleMode_AuctionScreenLTWrapped ~= true and CM_NavPrevSubTab then
+        local origAuctionPrevSubTab = CM_NavPrevSubTab
+        function CM_NavPrevSubTab()
+            if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen:ToggleSellListingPane() then
+                return
+            end
+            origAuctionPrevSubTab()
+        end
+        ConsoleMode_AuctionScreenLTWrapped = true
+    end
 end
 
 AuctionScreen:InitEvents()

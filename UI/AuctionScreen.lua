@@ -1913,7 +1913,7 @@ function AuctionScreen:CreateItemListControls(parent)
     self.itemListRows = rows
 
     -- 2. Painel Direito (Card de Detalhes do Item - Split View FASE 5)
-    self:CreateDetailCard(parent, listLeftPane)
+    self.detailCard = self:CreateDetailCard(parent, listLeftPane)
 end
 
 function AuctionScreen:CreateDetailCard(parent, listLeftPane)
@@ -2033,7 +2033,7 @@ function AuctionScreen:CreateDetailCard(parent, listLeftPane)
     self:ApplyFont(vendorPct, FONTS.titleBold, 13)
     card.vendorPct = vendorPct
 
-    self.detailCard = card
+    return card
 end
 
 function AuctionScreen:UpdateItemCard(item, targetCard)
@@ -2647,6 +2647,7 @@ function AuctionScreen:UpdateItemDetail()
         topCard.icon:SetTexture(item.texture)
         local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
         topCard.nameText:SetText(locItemName)
+        local qColor = QUALITY_COLORS[item.quality] or { 1, 1, 1 }
         topCard.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
         local subInfo = string.format("Nível: %s  •  Total de Leilões: %d", (item.level and item.level > 0) and tostring(item.level) or "-", item.numAuctions or 1)
@@ -5483,11 +5484,6 @@ function AuctionScreen:OnContextAction()
         end
     elseif self.currentTab == "SELL" then
         if self.sellStep == "INVENTORY" then
-            return
-        elseif self.sellStep == "LISTING" then
-            if table.getn(self.sellCompetitors or {}) > 0 then
-                self:MirrorCompetitorPrice(self.selectedCompetitorIndex or 1)
-            end
             return
         end
     end

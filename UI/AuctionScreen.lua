@@ -855,6 +855,16 @@ function AuctionScreen:CreateTabIndicator(parent)
         btn:SetScript("OnClick", function()
             AuctionScreen:SetTab(this.tabKey)
         end)
+        btn:SetScript("OnEnter", function()
+            if this.tabKey ~= AuctionScreen.currentTab then
+                this.label:SetTextColor(0.95, 0.85, 0.40, 1.0)
+            end
+        end)
+        btn:SetScript("OnLeave", function()
+            if this.tabKey ~= AuctionScreen.currentTab then
+                this.label:SetTextColor(0.52, 0.52, 0.52, 1.0)
+            end
+        end)
 
         table.insert(tabButtons, btn)
     end
@@ -1250,6 +1260,12 @@ function AuctionScreen:GetOrCreateGridButton(index)
         AuctionScreen:UpdateGridStyles()
         AuctionScreen:OnConfirm()
     end)
+    btn:SetScript("OnEnter", function()
+        if AuctionScreen.gridIndex ~= this.btnIndex then
+            AuctionScreen.gridIndex = this.btnIndex
+            AuctionScreen:UpdateGridStyles()
+        end
+    end)
 
     self.gridButtons[index] = btn
     return btn
@@ -1423,6 +1439,12 @@ function AuctionScreen:CreateFilterControls(parent)
                 AuctionScreen:OpenFilterSearchVK()
             end
         end)
+        row:SetScript("OnEnter", function()
+            if AuctionScreen.filterRowIndex ~= this.rowIndex then
+                AuctionScreen.filterRowIndex = this.rowIndex
+                AuctionScreen:UpdateFilterStyles()
+            end
+        end)
 
         table.insert(rows, row)
     end
@@ -1451,6 +1473,12 @@ function AuctionScreen:CreateFilterControls(parent)
         AuctionScreen.filterRowIndex = 6
         AuctionScreen:UpdateFilterStyles()
         AuctionScreen:ExecuteSearch()
+    end)
+    searchBtn:SetScript("OnEnter", function()
+        if AuctionScreen.filterRowIndex ~= 6 then
+            AuctionScreen.filterRowIndex = 6
+            AuctionScreen:UpdateFilterStyles()
+        end
     end)
 
     table.insert(rows, searchBtn)
@@ -1751,6 +1779,12 @@ function AuctionScreen:CreateSummaryControls(parent)
         AuctionScreen:UpdateSummaryStyles()
         AuctionScreen:ExecuteSearch()
     end)
+    btn1:SetScript("OnEnter", function()
+        if AuctionScreen.summaryBtnIndex ~= 1 then
+            AuctionScreen.summaryBtnIndex = 1
+            AuctionScreen:UpdateSummaryStyles()
+        end
+    end)
 
     local btn2 = CreateFrame("Button", "ConsoleMode_AuctionSummaryBtn2", btnContainer)
     btn2:SetWidth(200)
@@ -1772,6 +1806,12 @@ function AuctionScreen:CreateSummaryControls(parent)
         AuctionScreen.summaryBtnIndex = 2
         AuctionScreen:UpdateSummaryStyles()
         AuctionScreen:SetBuyStep("FILTERS")
+    end)
+    btn2:SetScript("OnEnter", function()
+        if AuctionScreen.summaryBtnIndex ~= 2 then
+            AuctionScreen.summaryBtnIndex = 2
+            AuctionScreen:UpdateSummaryStyles()
+        end
     end)
 
     parent.btn1 = btn1
@@ -1925,10 +1965,19 @@ function AuctionScreen:CreateItemListControls(parent)
 
         row.rowIdx = i
         row:SetScript("OnClick", function()
-            local itemIndex = AuctionScreen.itemListScrollOffset + this.rowIdx
+            local itemIndex = (AuctionScreen.itemListScrollOffset or 0) + this.rowIdx
             AuctionScreen.selectedItemIndex = itemIndex
             AuctionScreen:UpdateItemList()
             AuctionScreen:OnConfirm()
+        end)
+        row:SetScript("OnEnter", function()
+            local itemIndex = (AuctionScreen.itemListScrollOffset or 0) + this.rowIdx
+            if itemIndex <= table.getn(AuctionScreen.groupedItems or {}) then
+                if AuctionScreen.selectedItemIndex ~= itemIndex then
+                    AuctionScreen.selectedItemIndex = itemIndex
+                    AuctionScreen:UpdateItemList()
+                end
+            end
         end)
 
         table.insert(rows, row)
@@ -2651,10 +2700,20 @@ function AuctionScreen:CreateItemDetailControls(parent)
 
         row.rowIdx = i
         row:SetScript("OnClick", function()
-            local auctionIdx = AuctionScreen.itemDetailScrollOffset + this.rowIdx
+            local auctionIdx = (AuctionScreen.itemDetailScrollOffset or 0) + this.rowIdx
             AuctionScreen.selectedAuctionIndex = auctionIdx
             AuctionScreen:UpdateItemDetail()
             AuctionScreen:OnConfirm()
+        end)
+        row:SetScript("OnEnter", function()
+            local auctions = AuctionScreen.selectedGroupedItem and AuctionScreen.selectedGroupedItem.auctions or {}
+            local auctionIdx = (AuctionScreen.itemDetailScrollOffset or 0) + this.rowIdx
+            if auctionIdx <= table.getn(auctions) then
+                if AuctionScreen.selectedAuctionIndex ~= auctionIdx then
+                    AuctionScreen.selectedAuctionIndex = auctionIdx
+                    AuctionScreen:UpdateItemDetail()
+                end
+            end
         end)
 
         table.insert(rows, row)
@@ -2882,6 +2941,14 @@ function AuctionScreen:CreateConfirmModal(parent)
     btnConfirm:SetScript("OnClick", function()
         AuctionScreen:ExecutePurchase()
     end)
+    btnConfirm:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    btnConfirm:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        this:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+    end)
     modal.btnConfirm = btnConfirm
 
     local btnCancel = CreateFrame("Button", "ConsoleMode_AuctionModalCancelBtn", btnContainer)
@@ -2904,6 +2971,14 @@ function AuctionScreen:CreateConfirmModal(parent)
     btnCancel.label = lCanc
     btnCancel:SetScript("OnClick", function()
         AuctionScreen:CloseConfirmModal()
+    end)
+    btnCancel:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    btnCancel:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
+        this:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
     end)
     modal.btnCancel = btnCancel
 
@@ -3058,6 +3133,12 @@ function AuctionScreen:CreateSortModal(parent)
                 AuctionScreen:ApplySort(o.key)
             end
             AuctionScreen:CloseSortModal()
+        end)
+        row:SetScript("OnEnter", function()
+            if AuctionScreen.selectedSortIndex ~= idx then
+                AuctionScreen.selectedSortIndex = idx
+                AuctionScreen:UpdateSortModalStyles()
+            end
         end)
 
         table.insert(optRows, row)
@@ -3854,6 +3935,16 @@ function AuctionScreen:CreateSellControls(parent)
                 AuctionScreen:OpenSellListingWithScan(AuctionScreen.selectedSellItem)
             end
         end)
+        row:SetScript("OnEnter", function()
+            local targetIdx = (AuctionScreen.sellScrollOffset or 0) + rIdx
+            if targetIdx <= table.getn(AuctionScreen.sellBagItems or {}) then
+                if AuctionScreen.selectedSellIndex ~= targetIdx then
+                    AuctionScreen.selectedSellIndex = targetIdx
+                    AuctionScreen.selectedSellItem = AuctionScreen.sellBagItems[targetIdx]
+                    AuctionScreen:UpdateSellInventory()
+                end
+            end
+        end)
 
         table.insert(rows, row)
     end
@@ -4062,9 +4153,9 @@ function AuctionScreen:CreateSellListingControls(parent)
         unitBuyDisplay:SetPoint("RIGHT", row, "RIGHT", -16, 0)
         row.unitBuyDisplay = unitBuyDisplay
 
-        local rIdx = i
+        row.rowIdx = i
         row:SetScript("OnClick", function()
-            local absIdx = (AuctionScreen.sellCompetitorScrollOffset or 0) + rIdx
+            local absIdx = (AuctionScreen.sellCompetitorScrollOffset or 0) + this.rowIdx
             local n = table.getn(AuctionScreen.sellCompetitors or {})
             if absIdx < 1 then absIdx = 1 end
             if n > 0 and absIdx > n then absIdx = n end
@@ -4072,6 +4163,17 @@ function AuctionScreen:CreateSellListingControls(parent)
             AuctionScreen:MirrorCompetitorPrice(absIdx)
             AuctionScreen.sellListingPane = "FORM"
             AuctionScreen:UpdateSellListingStyles()
+        end)
+        row:SetScript("OnEnter", function()
+            local absIdx = (AuctionScreen.sellCompetitorScrollOffset or 0) + this.rowIdx
+            local n = table.getn(AuctionScreen.sellCompetitors or {})
+            if absIdx <= n and n > 0 then
+                if AuctionScreen.sellListingPane ~= "COMPETITORS" or AuctionScreen.selectedCompetitorIndex ~= absIdx then
+                    AuctionScreen.sellListingPane = "COMPETITORS"
+                    AuctionScreen.selectedCompetitorIndex = absIdx
+                    AuctionScreen:UpdateSellListingStyles()
+                end
+            end
         end)
 
         table.insert(compRows, row)
@@ -4174,14 +4276,9 @@ function AuctionScreen:CreateSellListingControls(parent)
             r.postTxt = postTxt
 
             r:SetScript("OnEnter", function()
-                this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-                this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
-            end)
-            r:SetScript("OnLeave", function()
-                if AuctionScreen.sellFormRow ~= 7 or AuctionScreen.sellListingPane ~= "FORM" then
-                    this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-                    this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
-                end
+                AuctionScreen.sellListingPane = "FORM"
+                AuctionScreen.sellFormRow = 7
+                AuctionScreen:UpdateSellListingStyles()
             end)
         else
             r:SetHeight(fRowH)
@@ -4212,28 +4309,38 @@ function AuctionScreen:CreateSellListingControls(parent)
         end
 
         local rowIdx = i
+        r.rowIdx = i
         r:SetScript("OnClick", function()
             AuctionScreen.sellListingPane = "FORM"
-            AuctionScreen.sellFormRow = rowIdx
-            if rowIdx == 6 then
+            AuctionScreen.sellFormRow = this.rowIdx
+            if this.rowIdx == 6 then
                 AuctionScreen:ApplyMaxStacks()
-            elseif rowIdx == 7 then
+            elseif this.rowIdx == 7 then
                 AuctionScreen:OpenSellPostConfirmModal()
-            elseif rowIdx == 1 then
+            elseif this.rowIdx == 1 then
                 AuctionScreen:OpenSellMoneyPicker("BID")
-            elseif rowIdx == 2 then
+            elseif this.rowIdx == 2 then
                 AuctionScreen:OpenSellMoneyPicker("BUYOUT")
-            elseif rowIdx == 3 then
+            elseif this.rowIdx == 3 then
                 AuctionScreen.sellDurationIdx = (AuctionScreen.sellDurationIdx or 1) + 1
                 if AuctionScreen.sellDurationIdx > 3 then AuctionScreen.sellDurationIdx = 1 end
                 AuctionScreen:UpdateSellListingStyles()
-            elseif rowIdx == 4 then
+            elseif this.rowIdx == 4 then
                 AuctionScreen:OpenSellStackSizePicker()
-            elseif rowIdx == 5 then
+            elseif this.rowIdx == 5 then
                 AuctionScreen:OpenSellNumStacksPicker()
             end
             AuctionScreen:UpdateSellListingStyles()
         end)
+        if i ~= 7 then
+            r:SetScript("OnEnter", function()
+                if AuctionScreen.sellListingPane ~= "FORM" or AuctionScreen.sellFormRow ~= this.rowIdx then
+                    AuctionScreen.sellListingPane = "FORM"
+                    AuctionScreen.sellFormRow = this.rowIdx
+                    AuctionScreen:UpdateSellListingStyles()
+                end
+            end)
+        end
 
         table.insert(formRows, r)
     end

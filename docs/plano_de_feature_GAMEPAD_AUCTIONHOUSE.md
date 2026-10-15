@@ -167,21 +167,38 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 8: Aba Meus Leilões e Histórico de Vendas
-* **Objetivo:** Gerenciar leilões ativos e histórico persistente.
-* **Tarefas:**
-  * Lista de leilões ativos do jogador (`GetNumAuctionItems("owner")`).
-  * Ação de cancelar leilão com `(A)`.
-  * Histórico de vendas finalizadas com atalho `(Y)` para Repostar direto na tela de venda.
-* **Teste no Jogo:** Cancelar um leilão ativo; verificar se itens vendidos aparecem no histórico.
+### FASE 8: Aba Meus Leilões e Cancelamento de Leilão [CONCLUÍDO]
+* **Objetivo:** Gerenciar leilões ativos do jogador e cancelamento com segurança.
+* **Tarefas Concluídas:**
+  * Lista de leilões ativos do jogador (`GetNumAuctionItems("owner")` com disparo de `GetOwnerAuctionItems()` no `AUCTION_OWNED_LIST_UPDATE`).
+  * Tabela com colunas completas: Ícone, Nome com Raridade, Pilha, Tempo restante, Maior Lance (High Bidder), Lance Atual e Compra Imediata.
+  * Modal 9-Slice de cancelamento com alertas inteligentes (aviso de perda de depósito vs venda imediata ao maior lance).
+  * Feedback sonoro e no chat.
 
 ---
 
-### FASE 9: Polimento Visual, Limpeza e Homologação
+### FASE 9: Cache de Scan (TTL 2min), Botões [RE-SCAN] (Y) e Inversão de Atalhos
+* **Objetivo:** Cache inteligente de leilões por 2 minutos evitando queries repetidas desnecessárias e atalhos rápidos de Re-scan e MAX.
+* **Especificação Detalhada:**
+  * **Cache em Memória (TTL 2 minutos):**
+    * Ao pesquisar um item na aba `SELL` ou `BUY`, guardar os resultados agrupados/concorrentes indexados pela chave do item com timestamp (`GetTime()`).
+    * Ao trocar de item e voltar em menos de 2 minutos, carregar instantaneamente do cache em memória sem disparar query no servidor.
+  * **Botão [RE-SCAN] com Textura (Y) nas Tabelas:**
+    * **Aba SELL (Split View de Venda):** Botão visual `[ RE-SCAN (Y) ]` no topo da coluna esquerda (acima de Market Competitors).
+      * Pressionar `(Y)` enquanto estiver na coluna da esquerda força um novo scan descartando o cache.
+      * Pressionar `(Y)` enquanto estiver na coluna da direita (`FORM`) executa o atalho rápido de preencher quantidade máxima permitida (`MAX`: stack size no teto e number of stacks no teto possível).
+    * **Aba BUY (Lista de Resultados / ITEMS_LIST):** Botão visual `[ RE-SCAN (Y) ]` no topo da lista.
+      * Atalho de ordenação (`Sort / Classificar Por`) migra de `(Y)` para `(X)`, mantendo a consistência do `(Y)` como Re-scan global em ambas as abas.
+      * Atalho `(Y)` executa nova query no servidor com os filtros ativos.
+
+---
+
+### FASE 10: Polimento Visual, Limpeza e Homologação
 * **Objetivo:** Limpeza de comandos de depuração da fase de pesquisa e validação geral.
 * **Tarefas:**
   * Remover ou desativar os comandos dev `/cm ahdump` e `/cm ahprobe`.
   * Verificação completa de vazamentos de memória (pool fixo de frames).
   * Validação com `luac50.exe -p` em 100% dos arquivos novos e alterados.
 * **Teste no Jogo:** Validação completa de ponta a ponta com gamepad.
+
 

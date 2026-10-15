@@ -3663,13 +3663,13 @@ function AuctionScreen:CreateSellControls(parent)
     colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colCount = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colCount:SetPoint("RIGHT", headerFrame, "RIGHT", -120, 0)
+    colCount:SetPoint("RIGHT", headerFrame, "RIGHT", -12, 0)
     self:ApplyFont(colCount, FONTS.titleBold, 14)
     colCount:SetText(CM:T("AH_SELL_STACK_SIZE") or "QTD")
     colCount:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colVendor = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -12, 0)
+    colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -62, 0)
     self:ApplyFont(colVendor, FONTS.titleBold, 14)
     colVendor:SetText(CM:T("AH_CARD_VENDOR_LABEL") or "LOJA")
     colVendor:SetTextColor(0.70, 0.65, 0.55, 1.0)
@@ -3717,27 +3717,29 @@ function AuctionScreen:CreateSellControls(parent)
 
         local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
         nameText:SetPoint("TOPLEFT", icon, "TOPRIGHT", 10, -3)
-        nameText:SetPoint("RIGHT", row, "RIGHT", -180, 0)
+        nameText:SetPoint("RIGHT", row, "RIGHT", -200, 0)
         nameText:SetJustifyH("LEFT")
         self:ApplyFont(nameText, FONTS.titleBold, 16)
         row.nameText = nameText
 
         local subText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         subText:SetPoint("TOPLEFT", nameText, "BOTTOMLEFT", 0, -2)
-        subText:SetPoint("RIGHT", row, "RIGHT", -180, 0)
+        subText:SetPoint("RIGHT", row, "RIGHT", -200, 0)
         subText:SetJustifyH("LEFT")
         self:ApplyFont(subText, FONTS.medium, 13)
         subText:SetTextColor(0.65, 0.65, 0.65, 1.0)
         row.subText = subText
 
         local totalCountText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        totalCountText:SetPoint("RIGHT", row, "RIGHT", -110, 0)
+        totalCountText:SetPoint("RIGHT", row, "RIGHT", -10, 0)
+        totalCountText:SetWidth(44)
+        totalCountText:SetJustifyH("RIGHT")
         self:ApplyFont(totalCountText, FONTS.titleBold, 15)
         totalCountText:SetTextColor(0.95, 0.82, 0.35, 1.0)
         row.totalCountText = totalCountText
 
-        local vendorDisplay = self:CreateMoneyDisplay(row, 20, 13, "RIGHT")
-        vendorDisplay:SetPoint("RIGHT", row, "RIGHT", -10, 0)
+        local vendorDisplay = self:CreateMoneyDisplay(row, 24, 13, "RIGHT")
+        vendorDisplay:SetPoint("RIGHT", row, "RIGHT", -60, 0)
         row.vendorDisplay = vendorDisplay
 
         local rIdx = i
@@ -3863,13 +3865,13 @@ function AuctionScreen:CreateSellListingControls(parent)
     cTitle:SetTextColor(0.95, 0.82, 0.35, 1.0)
 
     local colStack = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colStack:SetPoint("RIGHT", compHeader, "RIGHT", -210, 0)
+    colStack:SetPoint("RIGHT", compHeader, "RIGHT", -312, 0)
     self:ApplyFont(colStack, FONTS.titleBold, 13)
     colStack:SetText(CM:T("AH_SELL_STACK_SIZE") or "QTD")
     colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local colUnitBid = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    colUnitBid:SetPoint("RIGHT", compHeader, "RIGHT", -120, 0)
+    colUnitBid:SetPoint("RIGHT", compHeader, "RIGHT", -172, 0)
     self:ApplyFont(colUnitBid, FONTS.titleBold, 13)
     colUnitBid:SetText(CM:T("AH_SELL_BID_PRICE") or "LANCE UNIT.")
     colUnitBid:SetTextColor(0.70, 0.65, 0.55, 1.0)
@@ -3900,22 +3902,22 @@ function AuctionScreen:CreateSellListingControls(parent)
 
         local sellerText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
         sellerText:SetPoint("LEFT", row, "LEFT", 10, 0)
-        sellerText:SetPoint("RIGHT", row, "RIGHT", -260, 0)
+        sellerText:SetPoint("RIGHT", row, "RIGHT", -340, 0)
         sellerText:SetJustifyH("LEFT")
         self:ApplyFont(sellerText, FONTS.titleBold, 15)
         row.sellerText = sellerText
 
         local stackText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        stackText:SetPoint("RIGHT", row, "RIGHT", -205, 0)
+        stackText:SetPoint("LEFT", row, "LEFT", 200, 0)
         self:ApplyFont(stackText, FONTS.titleBold, 15)
         stackText:SetTextColor(0.95, 0.82, 0.35, 1.0)
         row.stackText = stackText
 
-        local unitBidDisplay = self:CreateMoneyDisplay(row, 20, 12, "RIGHT")
-        unitBidDisplay:SetPoint("RIGHT", row, "RIGHT", -110, 0)
+        local unitBidDisplay = self:CreateMoneyDisplay(row, 24, 14, "RIGHT")
+        unitBidDisplay:SetPoint("RIGHT", row, "RIGHT", -170, 0)
         row.unitBidDisplay = unitBidDisplay
 
-        local unitBuyDisplay = self:CreateMoneyDisplay(row, 20, 12, "RIGHT")
+        local unitBuyDisplay = self:CreateMoneyDisplay(row, 24, 14, "RIGHT")
         unitBuyDisplay:SetPoint("RIGHT", row, "RIGHT", -10, 0)
         row.unitBuyDisplay = unitBuyDisplay
 
@@ -4021,7 +4023,7 @@ function AuctionScreen:CreateSellListingControls(parent)
         r.val = val
 
         if i == 1 or i == 2 then
-            local mDisp = self:CreateMoneyDisplay(r, 20, 14, "RIGHT")
+            local mDisp = self:CreateMoneyDisplay(r, 24, 14, "RIGHT")
             mDisp:SetPoint("RIGHT", r, "RIGHT", -10, 0)
             r.moneyDisplay = mDisp
         end
@@ -4093,7 +4095,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     sumDepositLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
     listingRightPane.sumDepositLabel = sumDepositLabel
 
-    local sumDepositDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 13, "LEFT")
+    local sumDepositDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 14, "LEFT")
     sumDepositDisplay:SetPoint("LEFT", sumDepositLabel, "RIGHT", 6, 0)
     listingRightPane.sumDepositDisplay = sumDepositDisplay
 end
@@ -4670,7 +4672,7 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
     depositLabel:SetText("Taxa de Depósito:")
     modal.depositLabel = depositLabel
 
-    local depositDisplay = self:CreateMoneyDisplay(modal, 20, 13, "LEFT")
+    local depositDisplay = self:CreateMoneyDisplay(modal, 20, 14, "LEFT")
     depositDisplay:SetPoint("LEFT", depositLabel, "RIGHT", 8, 0)
     modal.depositDisplay = depositDisplay
 

@@ -319,8 +319,6 @@ AuctionScreen.sellBagItems             = {}
 AuctionScreen.selectedSellIndex        = 1
 AuctionScreen.selectedSellItem         = nil
 AuctionScreen.sellScrollOffset         = 0
-AuctionScreen.isSellActionModalOpen    = false
-AuctionScreen.sellActionBtnIndex       = 1 -- 1: [VENDER], 2: [PESQUISAR]
 AuctionScreen.sellCompetitors          = {}
 AuctionScreen.selectedCompetitorIndex  = 1
 AuctionScreen.sellListingPane          = "FORM" -- "FORM", "COMPETITORS"
@@ -335,6 +333,7 @@ AuctionScreen.isSellPostModalOpen      = false
 AuctionScreen.sellPostBtnIndex         = 1 -- 1: Confirm, 2: Cancel
 AuctionScreen.pendingPostTimer         = nil
 AuctionScreen.pendingRefreshTimer      = nil
+AuctionScreen.pendingSellScanItem      = nil
 
 -- Hold-to-repeat
 AuctionScreen.repeatDir           = nil
@@ -942,12 +941,8 @@ function AuctionScreen:UpdateFooterHints()
         if self.isSellPostModalOpen then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_CONFIRM") or "Confirmar" })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_BTN_CANCEL") or "Cancelar" })
-        elseif self.isSellActionModalOpen then
-            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") or "Selecionar" })
-            table.insert(hints, { icons = { "B" },        label = CM:T("AH_BTN_CANCEL") or "Cancelar" })
         elseif self.sellStep == "INVENTORY" then
-            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") or "Opções" })
-            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_SELL_BTN_SEARCH_MARKET") or "Pesquisar" })
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
             table.insert(hints, { icons = { "X" },        label = CM:T("AH_HINT_REFRESH") or "Atualizar" })
             table.insert(hints, { icons = { "DUP", "DDOWN" }, label = CM:T("AH_HINT_NAVIGATE") or "Navegar" })
             table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") or "Alternar Aba" })
@@ -1131,10 +1126,7 @@ function AuctionScreen:CreateContentArea(parent)
     self.sellListingContainer = sellListingContainer
     self:CreateSellListingControls(sellListingContainer)
 
-    -- 12. Modal de Ação do Item de Venda (FASE 7)
-    self:CreateSellActionModal(parent)
-
-    -- 13. Modal de Confirmação de Postagem de Venda (FASE 7)
+    -- 12. Modal de Confirmação de Postagem de Venda (FASE 7)
     self:CreateSellPostConfirmModal(parent)
 end
 
@@ -3542,6 +3534,24 @@ function AuctionScreen:IsItemAuctionable(bag, slot)
     return true
 end
 
+function AuctionScreen:GetBagItemRealName(entry)
+    if entry and entry.name and entry.name ~= "" and entry.name ~= "Unknown" then
+        return entry.name
+    end
+    local link = (entry and entry.link) or nil
+    if link then
+        local ok, rName = pcall(GetItemInfo, link)
+        if ok and rName and rName ~= "" and rName ~= "Unknown" then
+            return rName
+        end
+        local _, _, cap = string.find(link, "%[(.-)%]")
+        if cap and cap ~= "" and cap ~= "Unknown" then
+            return cap
+        end
+    end
+    return nil
+end
+
 function AuctionScreen:GetAuctionableBagItems()
     local items = {}
     local itemsByKey = {}
@@ -3562,9 +3572,16 @@ function AuctionScreen:GetAuctionableBagItems()
 
                 if not itemsByKey[key] then
                     local vendorPrice = self:GetItemVendorPrice(link)
+                    local entryName = itemName
+                    if not entryName or entryName == "" then
+                        if link then
+                            local _, _, cap = string.find(link, "%[(.-)%]")
+                            if cap and cap ~= "" then entryName = cap end
+                        end
+                    end
                     local entry = {
                         key         = key,
-                        name        = itemName or "Unknown",
+                        name        = entryName or "Unknown",
                         texture     = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
                         quality     = itemRarity or quality or 0,
                         link        = link,
@@ -3715,7 +3732,7 @@ function AuctionScreen:CreateSellControls(parent)
                 AuctionScreen.selectedSellIndex = targetIdx
                 AuctionScreen.selectedSellItem = AuctionScreen.sellBagItems[targetIdx]
                 AuctionScreen:UpdateSellInventory()
-                AuctionScreen:OpenSellActionModal(AuctionScreen.selectedSellItem)
+                AuctionScreen:OpenSellListingWithScan(AuctionScreen.selectedSellItem)
             end
         end)
 
@@ -3809,151 +3826,6 @@ function AuctionScreen:UpdateSellInventory()
     end
 
     self:UpdateFooterHints()
-end
-
-function AuctionScreen:CreateSellActionModal(parent)
-    local modalDimmer = CreateFrame("Frame", "ConsoleMode_AuctionSellActionDimmer", parent)
-    modalDimmer:SetFrameStrata("DIALOG")
-    modalDimmer:SetFrameLevel(45)
-    modalDimmer:SetAllPoints(UIParent)
-    modalDimmer:EnableMouse(true)
-    modalDimmer:Hide()
-
-    local bg = modalDimmer:CreateTexture(nil, "BACKGROUND")
-    bg:SetAllPoints(modalDimmer)
-    bg:SetTexture(0, 0, 0, 0.70)
-    modalDimmer.bg = bg
-
-    local modal = CreateFrame("Frame", "ConsoleMode_AuctionSellActionModal", modalDimmer)
-    modal:SetWidth(440)
-    modal:SetHeight(230)
-    modal:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-    modal:SetFrameStrata("DIALOG")
-    modal:SetFrameLevel(50)
-    modal:EnableMouse(true)
-
-    self:Create9Slice(modal, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
-
-    local title = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-    title:SetPoint("TOP", modal, "TOP", 0, -20)
-    self:ApplyFont(title, FONTS.titleBold, 22)
-    title:SetTextColor(1.0, 0.85, 0.25, 1.0)
-    title:SetText(CM:T("AH_SELL_MODAL_TITLE") or "Opções do Item")
-    modal.title = title
-
-    local itemIcon = modal:CreateTexture(nil, "ARTWORK")
-    itemIcon:SetWidth(38)
-    itemIcon:SetHeight(38)
-    itemIcon:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, -60)
-    modal.itemIcon = itemIcon
-
-    local itemName = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    itemName:SetPoint("LEFT", itemIcon, "RIGHT", 12, 0)
-    itemName:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
-    itemName:SetJustifyH("LEFT")
-    self:ApplyFont(itemName, FONTS.titleBold, 18)
-    modal.itemName = itemName
-
-    local btnContainer = CreateFrame("Frame", nil, modal)
-    btnContainer:SetHeight(42)
-    btnContainer:SetPoint("BOTTOMLEFT", modal, "BOTTOMLEFT", 24, 24)
-    btnContainer:SetPoint("BOTTOMRIGHT", modal, "BOTTOMRIGHT", -24, 24)
-
-    local btnSell = CreateFrame("Button", "ConsoleMode_AuctionSellModalBtn1", btnContainer)
-    btnSell:SetWidth(186)
-    btnSell:SetHeight(38)
-    btnSell:SetPoint("LEFT", btnContainer, "LEFT", 6, 0)
-    btnSell:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    local lSell = btnSell:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    lSell:SetPoint("CENTER", btnSell, "CENTER", 0, 0)
-    self:ApplyFont(lSell, FONTS.titleBold, 16)
-    lSell:SetText(CM:T("AH_SELL_BTN_SELL") or "Vender Item")
-    btnSell.label = lSell
-    btnSell:SetScript("OnClick", function()
-        AuctionScreen:CloseSellActionModal()
-        AuctionScreen:OpenSellListing(AuctionScreen.selectedSellItem)
-    end)
-    modal.btnSell = btnSell
-
-    local btnSearch = CreateFrame("Button", "ConsoleMode_AuctionSellModalBtn2", btnContainer)
-    btnSearch:SetWidth(186)
-    btnSearch:SetHeight(38)
-    btnSearch:SetPoint("RIGHT", btnContainer, "RIGHT", -6, 0)
-    btnSearch:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    local lSearch = btnSearch:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    lSearch:SetPoint("CENTER", btnSearch, "CENTER", 0, 0)
-    self:ApplyFont(lSearch, FONTS.titleBold, 16)
-    lSearch:SetText(CM:T("AH_SELL_BTN_SEARCH_MARKET") or "Pesquisar Mercado")
-    btnSearch.label = lSearch
-    btnSearch:SetScript("OnClick", function()
-        local name = AuctionScreen.selectedSellItem and AuctionScreen.selectedSellItem.name or ""
-        AuctionScreen:CloseSellActionModal()
-        AuctionScreen:SetTab("BUY")
-        AuctionScreen.activeFilters.name = name
-        AuctionScreen:ExecuteSearch()
-    end)
-    modal.btnSearch = btnSearch
-
-    self.sellActionModalDimmer = modalDimmer
-    self.sellActionModal = modal
-end
-
-function AuctionScreen:OpenSellActionModal(item)
-    if not item or not self.sellActionModal then return end
-    self.isSellActionModalOpen = true
-    self.sellActionBtnIndex = 1
-
-    local modal = self.sellActionModal
-    local qColor = QUALITY_COLORS[item.quality] or { 0.8, 0.8, 0.8 }
-    modal.itemIcon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
-    local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
-    modal.itemName:SetText(locName)
-    modal.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
-
-    self:UpdateSellActionModalStyles()
-    self.sellActionModalDimmer:Show()
-    self:UpdateFooterHints()
-end
-
-function AuctionScreen:CloseSellActionModal()
-    self.isSellActionModalOpen = false
-    if self.sellActionModalDimmer then
-        self.sellActionModalDimmer:Hide()
-    end
-    self:UpdateFooterHints()
-end
-
-function AuctionScreen:UpdateSellActionModalStyles()
-    if not self.sellActionModal then return end
-    local modal = self.sellActionModal
-
-    if self.sellActionBtnIndex == 1 then
-        modal.btnSell:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-        modal.btnSell:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        modal.btnSell.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
-
-        modal.btnSearch:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-        modal.btnSearch:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
-        modal.btnSearch.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
-    else
-        modal.btnSearch:SetBackdropColor(0.24, 0.18, 0.10, 0.95)
-        modal.btnSearch:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        modal.btnSearch.label:SetTextColor(1.0, 0.92, 0.45, 1.0)
-
-        modal.btnSell:SetBackdropColor(0.09, 0.07, 0.05, 0.80)
-        modal.btnSell:SetBackdropBorderColor(0.40, 0.32, 0.20, 0.65)
-        modal.btnSell.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
-    end
 end
 
 function AuctionScreen:CreateSellListingControls(parent)
@@ -4211,8 +4083,13 @@ function AuctionScreen:CreateSellListingControls(parent)
 end
 
 function AuctionScreen:OpenSellInventory()
+    local invScan = CM.auctionScan or ConsoleMode_AuctionScan
+    if invScan and self.pendingSellScanItem and invScan.isScanning then
+        pcall(function() invScan:AbortQuery() end)
+    end
+    self.pendingSellScanItem = nil
+    self.sellScanActive = nil
     self.sellStep = "INVENTORY"
-    self:CloseSellActionModal()
     self:CloseSellPostConfirmModal()
 
     if self.sellListingContainer then self.sellListingContainer:Hide() end
@@ -4230,6 +4107,12 @@ end
 
 function AuctionScreen:OpenSellListing(item)
     if not item then return end
+    local staleScan = CM.auctionScan or ConsoleMode_AuctionScan
+    if staleScan and staleScan.isScanning and self.pendingSellScanItem then
+        self.pendingSellScanItem = nil
+        self.sellScanActive = nil
+        pcall(function() staleScan:AbortQuery() end)
+    end
     self.sellStep = "LISTING"
     self.selectedSellItem = item
     self.sellListingPane = "FORM"
@@ -4264,6 +4147,131 @@ function AuctionScreen:OpenSellListing(item)
     self:UpdateFooterHints()
 end
 
+function AuctionScreen:OpenSellListingWithScan(item)
+    if not item then return end
+    self.pendingSellScanItem = item
+    self:OpenSellListing(item)
+    self.pendingSellScanItem = item
+
+    local scan = CM.auctionScan or ConsoleMode_AuctionScan
+    if not scan or not scan.StartQuery then
+        self.pendingSellScanItem = nil
+        self.sellScanActive = nil
+        return
+    end
+
+    if AuctionFrameTab_OnClick then
+        pcall(AuctionFrameTab_OnClick, 1)
+    end
+
+    if scan.isScanning then
+        pcall(function() scan:AbortQuery() end)
+    end
+    self.pendingSellScanItem = item
+    self.sellScanActive = true
+    local scanName = self:GetBagItemRealName(item)
+    if not scanName or scanName == "" or scanName == "Unknown" then
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode AH]|r Scan: cannot identify item name, using vendor suggestion")
+        end
+        self.pendingSellScanItem = nil
+        self.sellScanActive = nil
+        self:UpdateSellCompetitorsList()
+        return
+    end
+    if DEFAULT_CHAT_FRAME then
+        DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99[ConsoleMode AH]|r Scan: " .. tostring(scanName) .. "...")
+    end
+    self:UpdateSellCompetitorsList()
+
+    local queryParams = {
+        name          = scanName,
+        minLevel      = 0,
+        maxLevel      = 0,
+        invTypeIndex  = 0,
+        classIndex    = 0,
+        subClassIndex = 0,
+        isUsable      = 0,
+        qualityIndex  = -1,
+    }
+
+    scan:StartQuery(
+        queryParams,
+        function() end,
+        function(results, totalCount, wasAborted)
+            if not AuctionScreen.isOpen then
+                AuctionScreen.sellScanActive = nil
+                return
+            end
+            if AuctionScreen.sellStep ~= "LISTING" then
+                AuctionScreen.sellScanActive = nil
+                return
+            end
+            if AuctionScreen.pendingSellScanItem ~= AuctionScreen.selectedSellItem then
+                AuctionScreen.sellScanActive = nil
+                return
+            end
+            if AuctionScreen.pendingSellScanItem ~= item then
+                AuctionScreen.sellScanActive = nil
+                return
+            end
+            AuctionScreen.pendingSellScanItem = nil
+            AuctionScreen.sellScanActive = nil
+            if wasAborted then return end
+            local total = 0
+            if results then total = table.getn(results) end
+            if total == 0 then
+                if DEFAULT_CHAT_FRAME then
+                    DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode AH]|r Scan: no auctions found, using vendor suggestion")
+                end
+                AuctionScreen:UpdateSellCompetitorsList()
+                return
+            end
+            local targetId = nil
+            if item.link then
+                local _, _, foundId = string.find(item.link, "item:(%d+)")
+                if foundId then targetId = foundId end
+            end
+            local matchCount = 0
+            for i = 1, total do
+                local r = results[i]
+                if r then
+                    if r.name == scanName then
+                        matchCount = matchCount + 1
+                    elseif targetId and r.link then
+                        local _, _, rid = string.find(r.link, "item:(%d+)")
+                        if rid and rid == targetId then
+                            matchCount = matchCount + 1
+                        end
+                    end
+                end
+            end
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99[ConsoleMode AH]|r Scan done: " .. tostring(totalCount or total) .. " auctions (" .. tostring(matchCount) .. " match)")
+            end
+            if matchCount == 0 then return end
+            AuctionScreen.scanResults = results
+            AuctionScreen:GroupScanResults()
+            AuctionScreen:LoadSellCompetitors(item)
+            if AuctionScreen.sellCompetitors and table.getn(AuctionScreen.sellCompetitors) > 0 then
+                AuctionScreen.selectedCompetitorIndex = 1
+                AuctionScreen:MirrorCompetitorPrice(1)
+            end
+            AuctionScreen:UpdateSellCompetitorsList()
+            AuctionScreen:UpdateSellListingStyles()
+            AuctionScreen:UpdateFooterHints()
+        end,
+        function(err)
+            AuctionScreen.pendingSellScanItem = nil
+            AuctionScreen.sellScanActive = nil
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff4444[ConsoleMode AH]|r Scan error: " .. tostring(err))
+            end
+            AuctionScreen:UpdateSellCompetitorsList()
+        end
+    )
+end
+
 function AuctionScreen:LoadSellCompetitors(item)
     self.sellCompetitors = {}
     if not item then return end
@@ -4278,9 +4286,19 @@ function AuctionScreen:LoadSellCompetitors(item)
     end
 
     if table.getn(self.sellCompetitors) == 0 then
+        local targetId = nil
+        if item.link then
+            local _, _, foundId = string.find(item.link, "item:(%d+)")
+            if foundId then targetId = foundId end
+        end
         for _, r in ipairs(self.scanResults or {}) do
             if r.name == item.name then
                 table.insert(self.sellCompetitors, r)
+            elseif targetId and r.link then
+                local _, _, rid = string.find(r.link, "item:(%d+)")
+                if rid and rid == targetId then
+                    table.insert(self.sellCompetitors, r)
+                end
             end
         end
     end
@@ -4300,11 +4318,19 @@ function AuctionScreen:UpdateSellCompetitorsList()
     if not self.sellListingContainer or not self.sellListingContainer.listingLeftPane then return end
     local leftPane = self.sellListingContainer.listingLeftPane
     local rows = leftPane.rows
-    local numComps = table.getn(self.sellCompetitors)
+    local numComps = (self.sellCompetitors and table.getn(self.sellCompetitors)) or 0
 
     if numComps == 0 then
-        leftPane.emptyText:Show()
-        leftPane.suggestedTag:Show()
+        if self.sellScanActive then
+            local scanText = CM:T("AH_SCAN_PROGRESS_FMT") or "Scanning page %d..."
+            leftPane.emptyText:SetText(string.format(scanText, 1))
+            leftPane.emptyText:Show()
+            leftPane.suggestedTag:Hide()
+        else
+            leftPane.emptyText:SetText(CM:T("AH_SELL_NO_COMPETITORS") or "No active auctions found for this item.")
+            leftPane.emptyText:Show()
+            leftPane.suggestedTag:Show()
+        end
         for i = 1, 6 do
             if rows[i] then rows[i]:Hide() end
         end
@@ -4323,7 +4349,8 @@ function AuctionScreen:UpdateSellCompetitorsList()
             local unitBuyout = math.floor((comp.buyoutPrice or 0) / count)
 
             local seller = comp.owner or comp.seller or "Leilão"
-            local durKey = TIME_LEFT_KEYS[comp.duration] or "AH_TIME_SHORT"
+            local timeLeftIdx = comp.timeLeft or comp.duration
+            local durKey = (timeLeftIdx and TIME_LEFT_KEYS[timeLeftIdx]) or "AH_TIME_SHORT"
             row.sellerText:SetText(seller .. " (" .. (CM:T(durKey) or "") .. ")")
 
             row.stackText:SetText("x" .. tostring(count))
@@ -4826,7 +4853,7 @@ end
 function AuctionScreen:OnTriggerAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
-    if self.isConfirmModalOpen or self.isSortModalOpen or self.isSellActionModalOpen then return end
+    if self.isConfirmModalOpen or self.isSortModalOpen then return end
 
     if self.currentTab == "SELL" and self.sellStep == "LISTING" then
         if not self.isSellPostModalOpen then
@@ -4847,7 +4874,6 @@ function AuctionScreen:SetTab(tabKey)
 
     self:CloseConfirmModal()
     self:CloseSortModal()
-    self:CloseSellActionModal()
     self:CloseSellPostConfirmModal()
 
     if tabKey == "BUY" then
@@ -4933,14 +4959,6 @@ function AuctionScreen:OnDirection(direction)
             if direction == "LEFT" or direction == "RIGHT" then
                 self.sellPostBtnIndex = (self.sellPostBtnIndex == 1) and 2 or 1
                 self:UpdateSellPostModalStyles()
-            end
-            return
-        end
-
-        if self.isSellActionModalOpen then
-            if direction == "UP" or direction == "DOWN" or direction == "LEFT" or direction == "RIGHT" then
-                self.sellActionBtnIndex = (self.sellActionBtnIndex == 1) and 2 or 1
-                self:UpdateSellActionModalStyles()
             end
             return
         end
@@ -5197,25 +5215,11 @@ function AuctionScreen:OnConfirm()
             return
         end
 
-        if self.isSellActionModalOpen then
-            if self.sellActionBtnIndex == 1 then
-                self:CloseSellActionModal()
-                self:OpenSellListing(self.selectedSellItem)
-            else
-                local name = self.selectedSellItem and self.selectedSellItem.name or ""
-                self:CloseSellActionModal()
-                self:SetTab("BUY")
-                self.activeFilters.name = name
-                self:ExecuteSearch()
-            end
-            return
-        end
-
         if self.sellStep == "INVENTORY" then
             local item = self.sellBagItems[self.selectedSellIndex]
             if item then
                 self.selectedSellItem = item
-                self:OpenSellActionModal(item)
+                self:OpenSellListingWithScan(item)
             end
             return
         elseif self.sellStep == "LISTING" then
@@ -5320,12 +5324,6 @@ function AuctionScreen:OnContextAction()
         end
     elseif self.currentTab == "SELL" then
         if self.sellStep == "INVENTORY" then
-            local item = self.sellBagItems[self.selectedSellIndex]
-            if item then
-                self:SetTab("BUY")
-                self.activeFilters.name = item.name
-                self:ExecuteSearch()
-            end
             return
         elseif self.sellStep == "LISTING" then
             if table.getn(self.sellCompetitors or {}) > 0 then
@@ -5357,11 +5355,6 @@ function AuctionScreen:OnCancel()
         return
     end
 
-    if self.isSellActionModalOpen then
-        self:CloseSellActionModal()
-        return
-    end
-
     if self.currentTab == "SELL" then
         if self.sellStep == "LISTING" then
             if self.sellListingPane == "COMPETITORS" then
@@ -5369,6 +5362,12 @@ function AuctionScreen:OnCancel()
                 self:UpdateSellListingStyles()
                 return
             end
+            local cancelScan = CM.auctionScan or ConsoleMode_AuctionScan
+            if cancelScan and self.pendingSellScanItem and cancelScan.isScanning then
+                pcall(function() cancelScan:AbortQuery() end)
+            end
+            self.pendingSellScanItem = nil
+            self.sellScanActive = nil
             self:OpenSellInventory()
             return
         elseif self.sellStep == "INVENTORY" then
@@ -5493,7 +5492,6 @@ function AuctionScreen:Close(fromServer)
 
     self:CloseConfirmModal()
     self:CloseSortModal()
-    self:CloseSellActionModal()
     self:CloseSellPostConfirmModal()
 
     if CursorHasItem() then
@@ -5504,6 +5502,8 @@ function AuctionScreen:Close(fromServer)
     if scan and scan.isScanning then
         scan:AbortQuery()
     end
+    self.pendingSellScanItem = nil
+    self.sellScanActive = nil
 
     if self.frame then
         self.frame:Hide()

@@ -137,7 +137,7 @@ function BP:IsUsableItem(itemLink, bagID, slotID, readable)
     -- 2. Leitura via GetItemInfo
     -- Assinatura oficial WoW 1.12:
     -- itemName, itemLink, itemQuality, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture
-    local itemName, _, itemQuality, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(itemID or itemLink)
+    local itemName, _, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(itemID or itemLink)
 
     local typeLower = string.lower(itemType or "")
     local subLower  = string.lower(itemSubType or "")

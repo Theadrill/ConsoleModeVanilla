@@ -2085,7 +2085,7 @@ function AuctionScreen:UpdateItemCard(item, targetCard)
     end
     local _, _, idStr = string.find(item.link or "", "item:(%d+)")
     local itemID = tonumber(idStr)
-    local _, _, _, reqL, itemType, itemSubType, _, itemEquipLoc = GetItemInfo(rawLink or itemID or item.name)
+    local _, _, _, itemLevel, reqL, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(rawLink or itemID or item.name)
 
     -- 4. Tooltip Scanner: Stats e Efeitos (passando item para fallback SetAuctionItem)
     local scanData = self:ScanItemTooltip(item.link, item)
@@ -3546,7 +3546,7 @@ function AuctionScreen:IsItemAuctionable(bag, slot)
     local link = GetContainerItemLink(bag, slot)
     if not link then return false end
 
-    local itemName, _, itemRarity, itemMinLevel, itemType, itemSubType, itemStackCount = GetItemInfo(link)
+    local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount = GetItemInfo(link)
     if itemType == "Quest" or itemType == "Missão" then
         return false
     end
@@ -3640,7 +3640,7 @@ function AuctionScreen:GetAuctionableBagItems()
             if self:IsItemAuctionable(bag, slot) then
                 local texture, count, locked, quality = GetContainerItemInfo(bag, slot)
                 local link = GetContainerItemLink(bag, slot)
-                local itemName, _, itemRarity, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(link)
+                local itemName, itemLink, itemRarity, itemLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(link)
 
                 local key = self:GetItemKey(link) or itemName or "item"
 
@@ -3653,16 +3653,20 @@ function AuctionScreen:GetAuctionableBagItems()
                             if cap and cap ~= "" then entryName = cap end
                         end
                     end
+                    local maxS = tonumber(itemStackCount) or 1
+                    if maxS <= 1 and count and count > 1 then
+                        maxS = count
+                    end
                     local entry = {
                         key         = key,
                         name        = entryName or "Unknown",
                         texture     = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
                         quality     = itemRarity or quality or 0,
                         link        = link,
-                        level       = itemMinLevel or 0,
+                        level       = itemLevel or 0,
                         itemType    = itemType or "",
                         itemSubType = itemSubType or "",
-                        maxStack    = (itemStackCount and itemStackCount > 0) and itemStackCount or 1,
+                        maxStack    = maxS,
                         vendorPrice = vendorPrice,
                         totalCount  = count or 1,
                         bagSlots    = { { bag = bag, slot = slot, count = count or 1 } }
@@ -3672,6 +3676,9 @@ function AuctionScreen:GetAuctionableBagItems()
                 else
                     local entry = itemsByKey[key]
                     entry.totalCount = entry.totalCount + (count or 1)
+                    if count and count > (entry.maxStack or 1) then
+                        entry.maxStack = count
+                    end
                     table.insert(entry.bagSlots, { bag = bag, slot = slot, count = count or 1 })
                 end
             end
@@ -4184,6 +4191,14 @@ function AuctionScreen:CreateSellListingControls(parent)
                 AuctionScreen:OpenSellMoneyVK("BID")
             elseif rowIdx == 2 then
                 AuctionScreen:OpenSellMoneyVK("BUYOUT")
+            elseif rowIdx == 3 then
+                AuctionScreen.sellDurationIdx = (AuctionScreen.sellDurationIdx or 1) + 1
+                if AuctionScreen.sellDurationIdx > 3 then AuctionScreen.sellDurationIdx = 1 end
+                AuctionScreen:UpdateSellListingStyles()
+            elseif rowIdx == 4 then
+                AuctionScreen:OpenSellStackSizePicker()
+            elseif rowIdx == 5 then
+                AuctionScreen:OpenSellNumStacksPicker()
             end
             AuctionScreen:UpdateSellListingStyles()
         end)
@@ -4744,19 +4759,37 @@ function AuctionScreen:OpenSellMoneyVK(moneyType)
     })
 end
 
-function AuctionScreen:AdjustSellStackSize(delta)
+function AuctionScreen:IsQtyModalOpen()
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if qp and qp.IsOpen then return qp:IsOpen() end
+    return false
+end
+
+function AuctionScreen:GetMaxUnitsPerStack(item)
+    if not item then return 1 end
+    local total = tonumber(item.totalCount) or 1
+    if total < 1 then total = 1 end
+
+    local maxGame = tonumber(item.maxStack) or 0
+    if maxGame > 1 then
+        return math.min(maxGame, total)
+    end
+    return total
+end
+
+function AuctionScreen:SetSellStackSize(newS)
     local item = self.selectedSellItem
     if not item then return end
 
-    local maxS = math.min(item.maxStack or 1, item.totalCount or 1)
-    local newS = (self.sellStackSize or 1) + delta
+    local maxS = self:GetMaxUnitsPerStack(item)
+    newS = tonumber(newS) or 1
     if newS < 1 then newS = 1 end
     if newS > maxS then newS = maxS end
 
     local prevS = self.sellStackSize or 1
     self.sellStackSize = newS
 
-    if prevS > 0 then
+    if prevS > 0 and prevS ~= newS then
         local unitBid = math.floor((self.sellBidPrice or 1) / prevS)
         local unitBuy = math.floor((self.sellBuyoutPrice or 0) / prevS)
         self.sellBidPrice = math.max(1, unitBid * newS)
@@ -4764,19 +4797,21 @@ function AuctionScreen:AdjustSellStackSize(delta)
     end
 
     local maxStacks = math.max(1, math.floor((item.totalCount or 1) / newS))
-    if self.sellNumStacks > maxStacks then
+    if (self.sellNumStacks or 1) > maxStacks then
         self.sellNumStacks = maxStacks
     end
 
     self:UpdateSellListingStyles()
 end
 
-function AuctionScreen:AdjustSellNumStacks(delta)
+function AuctionScreen:SetSellNumStacks(newNum)
     local item = self.selectedSellItem
     if not item then return end
 
-    local maxStacks = math.max(1, math.floor((item.totalCount or 1) / (self.sellStackSize or 1)))
-    local newNum = (self.sellNumStacks or 1) + delta
+    local u = self.sellStackSize or 1
+    if u < 1 then u = 1 end
+    local maxStacks = math.max(1, math.floor((item.totalCount or 1) / u))
+    newNum = tonumber(newNum) or 1
     if newNum < 1 then newNum = 1 end
     if newNum > maxStacks then newNum = maxStacks end
 
@@ -4784,15 +4819,65 @@ function AuctionScreen:AdjustSellNumStacks(delta)
     self:UpdateSellListingStyles()
 end
 
+function AuctionScreen:OpenSellStackSizePicker()
+    local item = self.selectedSellItem
+    if not item then return end
+    local maxS = self:GetMaxUnitsPerStack(item)
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if not qp or not qp.Open then return end
+    qp:Open({
+        title = CM:T("AH_SELL_STACK_SIZE") or "Tamanho da Pilha",
+        itemName = item.name or "Item",
+        qty = self.sellStackSize or 1,
+        maxQty = maxS,
+        onConfirm = function(newQty)
+            AuctionScreen:SetSellStackSize(newQty)
+        end,
+        onCancel = function() end,
+    })
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+end
+
+function AuctionScreen:OpenSellNumStacksPicker()
+    local item = self.selectedSellItem
+    if not item then return end
+    local u = self.sellStackSize or 1
+    if u < 1 then u = 1 end
+    local maxStacks = math.max(1, math.floor((item.totalCount or 1) / u))
+    local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+    if not qp or not qp.Open then return end
+    qp:Open({
+        title = CM:T("AH_SELL_NUM_STACKS") or "Número de Pilhas",
+        itemName = item.name or "Item",
+        qty = self.sellNumStacks or 1,
+        maxQty = maxStacks,
+        onConfirm = function(newQty)
+            AuctionScreen:SetSellNumStacks(newQty)
+        end,
+        onCancel = function() end,
+    })
+    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+end
+
+function AuctionScreen:AdjustSellStackSize(delta)
+    local newS = (self.sellStackSize or 1) + (delta or 0)
+    self:SetSellStackSize(newS)
+end
+
+function AuctionScreen:AdjustSellNumStacks(delta)
+    local newNum = (self.sellNumStacks or 1) + (delta or 0)
+    self:SetSellNumStacks(newNum)
+end
+
 function AuctionScreen:ApplyMaxStacks()
     local item = self.selectedSellItem
     if not item then return end
 
     local total = item.totalCount or 1
-    local maxStack = item.maxStack or 1
+    local maxS = self:GetMaxUnitsPerStack(item)
 
     local prevS = self.sellStackSize or 1
-    self.sellStackSize = math.min(maxStack, total)
+    self.sellStackSize = maxS
     self.sellNumStacks = math.max(1, math.floor(total / self.sellStackSize))
 
     if prevS > 0 and self.sellStackSize ~= prevS then
@@ -4989,12 +5074,27 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
         insets   = { left = 2, right = 2, top = 2, bottom = 2 }
     })
     local lConf = btnConfirm:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    lConf:SetPoint("CENTER", btnConfirm, "CENTER", 0, 0)
+    lConf:SetPoint("CENTER", btnConfirm, "CENTER", 15, 0)
     self:ApplyFont(lConf, FONTS.titleBold, 16)
     lConf:SetText(CM:T("AH_HINT_CONFIRM") or "Confirmar")
     btnConfirm.label = lConf
+
+    local iconA = btnConfirm:CreateTexture(nil, "OVERLAY")
+    iconA:SetWidth(28)
+    iconA:SetHeight(28)
+    iconA:SetPoint("RIGHT", lConf, "LEFT", -6, 0)
+    iconA:SetTexture(ICONS.A)
+    btnConfirm.icon = iconA
+
     btnConfirm:SetScript("OnClick", function()
         AuctionScreen:ExecutePostAuction()
+    end)
+    btnConfirm:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    btnConfirm:SetScript("OnLeave", function()
+        AuctionScreen:UpdateSellPostModalStyles()
     end)
     modal.btnConfirm = btnConfirm
 
@@ -5009,12 +5109,27 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
         insets   = { left = 2, right = 2, top = 2, bottom = 2 }
     })
     local lCanc = btnCancel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    lCanc:SetPoint("CENTER", btnCancel, "CENTER", 0, 0)
+    lCanc:SetPoint("CENTER", btnCancel, "CENTER", 15, 0)
     self:ApplyFont(lCanc, FONTS.titleBold, 16)
     lCanc:SetText(CM:T("AH_BTN_CANCEL") or "Cancelar")
     btnCancel.label = lCanc
+
+    local iconB = btnCancel:CreateTexture(nil, "OVERLAY")
+    iconB:SetWidth(28)
+    iconB:SetHeight(28)
+    iconB:SetPoint("RIGHT", lCanc, "LEFT", -6, 0)
+    iconB:SetTexture(ICONS.B)
+    btnCancel.icon = iconB
+
     btnCancel:SetScript("OnClick", function()
         AuctionScreen:CloseSellPostConfirmModal()
+    end)
+    btnCancel:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    btnCancel:SetScript("OnLeave", function()
+        AuctionScreen:UpdateSellPostModalStyles()
     end)
     modal.btnCancel = btnCancel
 
@@ -5117,7 +5232,7 @@ function AuctionScreen:IsBagNormalContainer(bag)
     if bag == 0 then return true end
     local bagLink = GetInventoryItemLink("player", ContainerIDToInventoryID(bag))
     if not bagLink then return false end
-    local _, _, _, _, _, bagSubClass = GetItemInfo(bagLink)
+    local _, _, _, _, _, _, bagSubClass = GetItemInfo(bagLink)
     if not bagSubClass then return true end
 
     local normalBagName = nil
@@ -5604,7 +5719,7 @@ end
 function AuctionScreen:OnTriggerAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
-    if self.isConfirmModalOpen or self.isSortModalOpen then return end
+    if self.isConfirmModalOpen or self.isSortModalOpen or self:IsQtyModalOpen() then return end
 
     if self.currentTab == "SELL" and self.sellStep == "LISTING" then
         if not self.isSellPostModalOpen then
@@ -5663,6 +5778,7 @@ function AuctionScreen:SwitchTab(delta)
     if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
     if self.isSortModalOpen then return end
+    if self:IsQtyModalOpen() then return end
 
     local currentIdx = 1
     local numTabs = table.getn(TABS)
@@ -5689,6 +5805,13 @@ end
 function AuctionScreen:OnDirection(direction)
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsQtyModalOpen() then
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.Direction then
+            qp:Direction(direction)
+        end
+        return
+    end
     if self.isConfirmModalOpen then return end
 
     if self.isSortModalOpen then
@@ -5845,6 +5968,13 @@ end
 function AuctionScreen:OnConfirm()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsQtyModalOpen() then
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.Confirm then
+            qp:Confirm()
+        end
+        return
+    end
 
     if self.isConfirmModalOpen then
         self:ExecutePurchase()
@@ -5959,6 +6089,10 @@ function AuctionScreen:OnConfirm()
                 self.sellDurationIdx = (self.sellDurationIdx or 1) + 1
                 if self.sellDurationIdx > 3 then self.sellDurationIdx = 1 end
                 self:UpdateSellListingStyles()
+            elseif self.sellFormRow == 4 then
+                self:OpenSellStackSizePicker()
+            elseif self.sellFormRow == 5 then
+                self:OpenSellNumStacksPicker()
             elseif self.sellFormRow == 6 then
                 self:ApplyMaxStacks()
             elseif self.sellFormRow == 7 then
@@ -5972,6 +6106,7 @@ end
 function AuctionScreen:OnSecondaryAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsQtyModalOpen() then return end
     if self.isConfirmModalOpen then return end
     if self.isSortModalOpen then return end
 
@@ -5994,6 +6129,7 @@ end
 function AuctionScreen:OnContextAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsQtyModalOpen() then return end
     if self.isConfirmModalOpen then return end
 
     if self.isSortModalOpen then
@@ -6041,6 +6177,13 @@ end
 function AuctionScreen:OnCancel()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsQtyModalOpen() then
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.Cancel then
+            qp:Cancel()
+        end
+        return
+    end
 
     if self.isConfirmModalOpen then
         self:CloseConfirmModal()
@@ -6068,6 +6211,12 @@ function AuctionScreen:OnCancel()
                 self.sellListingPane = "FORM"
                 self:UpdateSellListingStyles()
                 return
+            end
+            if self:IsQtyModalOpen() then
+                local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+                if qp and qp.Close then
+                    qp:Close(true)
+                end
             end
             local cancelScan = CM.auctionScan or ConsoleMode_AuctionScan
             if cancelScan and self.pendingSellScanItem and cancelScan.isScanning then
@@ -6196,6 +6345,13 @@ end
 
 function AuctionScreen:Close(fromServer)
     if not self.isOpen then return end
+
+    if self:IsQtyModalOpen() then
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.Close then
+            qp:Close(true)
+        end
+    end
 
     self:CloseConfirmModal()
     self:CloseSortModal()

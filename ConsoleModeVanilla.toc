@@ -45,6 +45,7 @@ UI\MerchantMenu.lua
 UI\VirtualKeyboard.lua
 UI\BagSplit.lua
 UI\QuantityPicker.lua
+UI\MoneyPicker.lua
 UI\MailScreen.lua
 UI\EnhanceModal.lua
 UI\TrainerMenu.lua

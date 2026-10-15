@@ -1243,6 +1243,32 @@ end
 function CM_CursorMove(direction, keystate)
     if CM.keybindings and CM.keybindings.chatActive then return end
 
+    -- MoneyPicker compartilhado: D-Pad navega e gira dígitos
+    do
+        local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+        if mp and mp.IsOpen and mp:IsOpen() then
+            if keystate ~= "up" then
+                if mp.Direction then
+                    mp:Direction(direction)
+                end
+            end
+            return
+        end
+    end
+
+    -- QuantityPicker compartilhado: D-Pad ajusta quantidade
+    do
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.IsOpen and qp:IsOpen() then
+            if keystate ~= "up" then
+                if qp.Direction then
+                    qp:Direction(direction)
+                end
+            end
+            return
+        end
+    end
+
     -- VK-2: teclado virtual captura o D-Pad (sem vazar para a tela de tras).
     -- Hold-to-repeat: key down inicia repeat na direcao, key up para
     -- (molde MerchantMenu/Cursor via VK:StartRepeat/StopRepeat).
@@ -1559,6 +1585,15 @@ function CM_CursorConfirm()
         if _tHandled then return end
     end
 
+    -- Seletor de dinheiro compartilhado: [A] confirma.
+    do
+        local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+        if mp and mp.IsOpen and mp:IsOpen() then
+            mp:Confirm()
+            return
+        end
+    end
+
     -- Seletor de quantidade compartilhado: [A] confirma.
     do
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
@@ -1845,6 +1880,24 @@ function CM_CursorCancel()
             if SpellIsTargeting and SpellIsTargeting() then
                 SpellStopTargeting()
             end
+            return
+        end
+    end
+
+    -- Seletor de dinheiro compartilhado: [B] cancela
+    do
+        local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+        if mp and mp.IsOpen and mp:IsOpen() then
+            mp:Cancel()
+            return
+        end
+    end
+
+    -- Seletor de quantidade compartilhado: [B] cancela
+    do
+        local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
+        if qp and qp.IsOpen and qp:IsOpen() then
+            qp:Cancel()
             return
         end
     end

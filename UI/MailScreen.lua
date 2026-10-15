@@ -3582,224 +3582,9 @@ end
 -- Dimmer escuro proprio do modal de dinheiro (FULLSCREEN_DIALOG/49, logo
 -- abaixo do modal/50): escurece a janela do correio atras sem tocar nos
 -- reels/conteudo. Molde do dimmer principal (CreateDimmer), so UI.
-function MailScreen:CreateMoneyModalDimmer()
-    if self.moneyModalDimmer then return self.moneyModalDimmer end
-    local d = CreateFrame("Frame", "ConsoleMode_MailMoneyDimmer", UIParent)
-    d:SetAllPoints(UIParent)
-    d:SetFrameStrata("FULLSCREEN_DIALOG")
-    d:SetFrameLevel(49)
-    d:EnableMouse(true)
-    d:Hide()
-    local dimTex = d:CreateTexture(nil, "BACKGROUND")
-    dimTex:SetAllPoints(d)
-    dimTex:SetTexture(0.0, 0.0, 0.0, 0.65)
-    d.texture = dimTex
-    self.moneyModalDimmer = d
-    return d
-end
-
-function MailScreen:CreateMoneyModalUI()
-    if self.moneyModalFrame then return self.moneyModalFrame end
-    self:CreateMoneyModalDimmer()
-    local m = CreateFrame("Frame", "ConsoleMode_MailMoneyModal", UIParent)
-    m:SetWidth(480)
-    m:SetHeight(330)
-    m:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
-    m:SetFrameStrata("FULLSCREEN_DIALOG")
-    m:SetFrameLevel(50)
-    m:EnableMouse(true)
-    m:EnableMouseWheel(true)
-    m:SetMovable(false)
-    m:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 16, edgeSize = 12,
-        insets   = { left = 3, right = 3, top = 3, bottom = 3 },
-    })
-    -- Fundo da janela TODA solido (alfa 1.0): sem transparencia residual.
-    m:SetBackdropColor(0.08, 0.06, 0.04, 1.0)
-    m:SetBackdropBorderColor(1.00, 0.82, 0.20, 0.95)
-    m:Hide()
-
-    local title = m:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    title:SetPoint("TOP", m, "TOP", 0, -14)
-    self:ApplyFont(title, FONTS.titleBold, 19)
-    title:SetText(CM:T("MAIL_MONEY_TITLE"))
-    m.title = title
-
-    -- Fileira de 8 reels: passo 50px (44 larg + 6 gap), +10 apos grupos.
-    local row = CreateFrame("Frame", nil, m)
-    row:SetWidth(414)
-    row:SetHeight(56)
-    row:SetPoint("TOP", m, "TOP", 0, -48)
-    m.digitRow = row
-    m.digitBtns = {}
-    m.digitTexts = {}
-
-    local x = 0
-    for i = 1, 8 do
-        if i == 5 or i == 7 then x = x + 10 end
-        local di = i
-        local b = CreateFrame("Button", "ConsoleMode_MailMoneyDigit" .. i, row)
-        b:SetWidth(44)
-        b:SetHeight(56)
-        b:SetPoint("LEFT", row, "LEFT", x, 0)
-        b:SetBackdrop({
-            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            tile     = true, tileSize = 8, edgeSize = 8,
-            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-        })
-        b:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
-        b:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.60)
-        local t = b:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-        t:SetPoint("CENTER", b, "CENTER", 0, 0)
-        MailScreen:ApplyFont(t, FONTS.titleBold, 26)
-        t:SetText("0")
-        b.digitPos = di
-        b:RegisterForClicks("LeftButtonUp")
-        b:SetScript("OnClick", function()
-            MailScreen.moneyModal.digitIndex = this.digitPos
-            MailScreen:UpdateMoneyModalVisuals()
-            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
-        end)
-        m.digitBtns[di] = b
-        m.digitTexts[di] = t
-        x = x + 50
-    end
-
-    -- Rotulos dos grupos (centros relativos ao centro da fileira de 414px:
-    -- ouro 97-207=-110; prata 251-207=44; cobre 355-207=148).
-    local goldL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    goldL:SetPoint("TOP", row, "BOTTOM", -110, -2)
-    self:ApplyFont(goldL, FONTS.titleBold, 13)
-    goldL:SetText(CM:T("MAIL_GOLD"))
-    local silverL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    silverL:SetPoint("TOP", row, "BOTTOM", 44, -2)
-    self:ApplyFont(silverL, FONTS.titleBold, 13)
-    silverL:SetText(CM:T("MAIL_SILVER"))
-    local copperL = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    copperL:SetPoint("TOP", row, "BOTTOM", 148, -2)
-    self:ApplyFont(copperL, FONTS.titleBold, 13)
-    copperL:SetText(CM:T("MAIL_COPPER"))
-
-    local total = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    total:SetPoint("TOP", row, "BOTTOM", 0, -24)
-    total:SetWidth(440)
-    total:SetJustifyH("CENTER")
-    self:ApplyFont(total, FONTS.titleBold, 18)
-    total:SetText("")
-    m.totalText = total
-
-    local balance = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    balance:SetPoint("TOP", total, "BOTTOM", 0, -4)
-    balance:SetWidth(440)
-    balance:SetJustifyH("CENTER")
-    self:ApplyFont(balance, FONTS.bodyBold, 14)
-    balance:SetText("")
-    m.balanceText = balance
-
-    -- Footer de hints com icones (ICONS), nao texto puro (Bug A: antes
-    -- renderizava "[D-Pad Esq/Dir] digito [Up/Down] girar [A] confirmar [B]
-    -- cancelar" como texto; agora usa texturas iguais ao footer do MainMenu).
-    local moneyHints = {
-        { icons = { "DLEFT", "DRIGHT" }, label = CM:T("MAIL_HINT_DIGIT") },
-        { icons = { "DUP", "DDOWN" },    label = CM:T("MAIL_HINT_SPIN") },
-        { icons = { "A" },               label = CM:T("HINT_CONFIRM") },
-        { icons = { "B" },               label = CM:T("HINT_CANCEL") },
-    }
-    m.hints = self:BuildIconHints(m, "ConsoleMode_MailMoneyHints", moneyHints, 52)
-
-    local confirmBtn = CreateFrame("Button", "ConsoleMode_MailMoneyConfirmYes", m)
-    confirmBtn:SetWidth(150)
-    confirmBtn:SetHeight(28)
-    confirmBtn:SetPoint("BOTTOMLEFT", m, "BOTTOM", -160, 10)
-    confirmBtn:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    confirmBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
-    confirmBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-    local confirmIcon = confirmBtn:CreateTexture(nil, "OVERLAY")
-    confirmIcon:SetWidth(22)
-    confirmIcon:SetHeight(22)
-    confirmIcon:SetPoint("LEFT", confirmBtn, "LEFT", 6, 0)
-    confirmIcon:SetTexture(ICONS.A)
-    local confirmTxt = confirmBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    confirmTxt:SetPoint("LEFT", confirmIcon, "RIGHT", 5, 0)
-    MailScreen:ApplyFont(confirmTxt, FONTS.titleBold, 15)
-    confirmTxt:SetText(CM:T("MAIL_CONFIRM"))
-    confirmBtn:SetScript("OnClick", function()
-        MailScreen:MoneyModalConfirm()
-    end)
-    confirmBtn:SetScript("OnEnter", function()
-        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
-    end)
-    confirmBtn:SetScript("OnLeave", function()
-        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
-    end)
-    m.confirmBtn = confirmBtn
-
-    local cancelBtn = CreateFrame("Button", "ConsoleMode_MailMoneyConfirmNo", m)
-    cancelBtn:SetWidth(150)
-    cancelBtn:SetHeight(28)
-    cancelBtn:SetPoint("BOTTOMRIGHT", m, "BOTTOM", 160, 10)
-    cancelBtn:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile     = true, tileSize = 8, edgeSize = 8,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-    })
-    cancelBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
-    cancelBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-    local cancelIcon = cancelBtn:CreateTexture(nil, "OVERLAY")
-    cancelIcon:SetWidth(22)
-    cancelIcon:SetHeight(22)
-    cancelIcon:SetPoint("LEFT", cancelBtn, "LEFT", 6, 0)
-    cancelIcon:SetTexture(ICONS.B)
-    local cancelTxt = cancelBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    cancelTxt:SetPoint("LEFT", cancelIcon, "RIGHT", 5, 0)
-    MailScreen:ApplyFont(cancelTxt, FONTS.titleBold, 15)
-    cancelTxt:SetText(CM:T("BTN_CANCEL"))
-    cancelBtn:SetScript("OnClick", function()
-        MailScreen:CloseMoneyModal()
-    end)
-    cancelBtn:SetScript("OnEnter", function()
-        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
-        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
-    end)
-    cancelBtn:SetScript("OnLeave", function()
-        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
-        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
-    end)
-    m.cancelBtn = cancelBtn
-
-    m:SetScript("OnMouseWheel", function()
-        if arg1 > 0 then
-            MailScreen:MoneyModalSpin(1)
-        else
-            MailScreen:MoneyModalSpin(-1)
-        end
-    end)
-    m:SetScript("OnHide", function()
-        MailScreen.moneyModal.isOpen = false
-        if MailScreen.moneyModalDimmer and MailScreen.moneyModalDimmer:IsVisible() then
-            MailScreen.moneyModalDimmer:Hide()
-        end
-    end)
-    table.insert(UISpecialFrames, "ConsoleMode_MailMoneyModal")
-
-    self.moneyModalFrame = m
-    return m
-end
-
 function MailScreen:IsMoneyModalOpen()
-    if self.moneyModal and self.moneyModal.isOpen then return true end
-    if self.moneyModalFrame and self.moneyModalFrame:IsVisible() then return true end
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if mp and mp.IsOpen then return mp:IsOpen() end
     return false
 end
 
@@ -3811,14 +3596,9 @@ function MailScreen:IsComposeModalOpen()
 end
 
 function MailScreen:MoneyModalCopper()
-    local d = self.moneyModal.digits or {}
-    local function dig(i)
-        return tonumber(d[i]) or 0
-    end
-    local gold = dig(1) * 1000 + dig(2) * 100 + dig(3) * 10 + dig(4)
-    local silver = dig(5) * 10 + dig(6)
-    local copper = dig(7) * 10 + dig(8)
-    return (gold * 100 + silver) * 100 + copper
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if mp and mp.GetCopperFromDigits then return mp:GetCopperFromDigits() end
+    return 0
 end
 
 function MailScreen:GetPlayerCopper()
@@ -3848,145 +3628,60 @@ function MailScreen:OpenMoneyModal()
     self:SyncComposeBuffersFromUI()
     local copper = math.floor(tonumber(self.composeMoney) or 0)
     if copper < 0 then copper = 0 end
-    local gold = math.floor(copper / 10000)
-    local rem = copper - gold * 10000
-    local silver = math.floor(rem / 100)
-    local co = rem - silver * 100
-    if gold > 9999 then gold = 9999 end
-    self.moneyModal.digits = {
-        math.floor(gold / 1000),
-        math.floor(math.mod(gold, 1000) / 100),
-        math.floor(math.mod(gold, 100) / 10),
-        math.mod(gold, 10),
-        math.floor(silver / 10),
-        math.mod(silver, 10),
-        math.floor(co / 10),
-        math.mod(co, 10),
-    }
-    self.moneyModal.digitIndex = 1
-    self.moneyModal.isOpen = true
-    self:CreateMoneyModalUI()
-    self:UpdateMoneyModalVisuals()
-    if self.moneyModalDimmer then
-        self.moneyModalDimmer:Show()
-    end
-    self.moneyModalFrame:Show()
-    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if not mp or not mp.Open then return end
+
+    local balance = self:GetPlayerCopper()
+    local postage = self:GetPostageCopper()
+
+    mp:Open({
+        title = CM:T("MAIL_MONEY_TITLE") or "Anexar Dinheiro",
+        copper = copper,
+        maxCopper = balance,
+        showBalance = true,
+        postageCost = postage,
+        onConfirm = function(total)
+            MailScreen.composeMoney = tostring(total)
+            local eb = MailScreen:GetComposeEditBox(4)
+            if eb then
+                pcall(function() eb:SetText(tostring(total)) end)
+            end
+            MailScreen:AutoFillSubjectForMoney()
+            MailScreen:RefreshComposeVisuals()
+            if CM.logger and CM.logger.Log then
+                CM.logger:Log(string.format(CM:T("MAIL_LOG_MONEY_ATTACHED"), MailScreen:FormatMoneyText(total)))
+            end
+        end,
+        onCancel = function() end,
+    })
 end
 
 function MailScreen:CloseMoneyModal(silent)
-    self.moneyModal.isOpen = false
-    if self.moneyModalDimmer and self.moneyModalDimmer:IsVisible() then
-        self.moneyModalDimmer:Hide()
-    end
-    if self.moneyModalFrame and self.moneyModalFrame:IsVisible() then
-        self.moneyModalFrame:Hide()
-    end
-    if not silent then
-        if PlaySound then PlaySound("igMainMenuClose") end
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if mp and mp.Close then
+        mp:Close(silent)
     end
 end
 
--- Gira o digito ativo com wrap circular 0-9 (§4.1).
 function MailScreen:MoneyModalSpin(delta)
-    if not self:IsMoneyModalOpen() then return end
-    delta = tonumber(delta) or 0
-    local idx = tonumber(self.moneyModal.digitIndex) or 1
-    if idx < 1 then idx = 1 end
-    if idx > 8 then idx = 8 end
-    local d = self.moneyModal.digits or {}
-    local cur = tonumber(d[idx]) or 0
-    cur = math.mod(cur + delta, 10)
-    d[idx] = cur
-    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
-    self:UpdateMoneyModalVisuals()
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if mp and mp.Spin then
+        mp:Spin(delta)
+    end
 end
 
 function MailScreen:MoneyModalDirection(direction)
-    if direction == "LEFT" then
-        local idx = (tonumber(self.moneyModal.digitIndex) or 1) - 1
-        if idx < 1 then idx = 1 end
-        if idx ~= self.moneyModal.digitIndex then
-            self.moneyModal.digitIndex = idx
-            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
-            self:UpdateMoneyModalVisuals()
-        end
-    elseif direction == "RIGHT" then
-        local idx = (tonumber(self.moneyModal.digitIndex) or 1) + 1
-        if idx > 8 then idx = 8 end
-        if idx ~= self.moneyModal.digitIndex then
-            self.moneyModal.digitIndex = idx
-            if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
-            self:UpdateMoneyModalVisuals()
-        end
-    elseif direction == "UP" then
-        self:MoneyModalSpin(1)
-    elseif direction == "DOWN" then
-        self:MoneyModalSpin(-1)
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if mp and mp.Direction then
+        mp:Direction(direction)
     end
 end
 
--- A no modal: valida saldo + taxa e salva o copper total em composeMoney.
 function MailScreen:MoneyModalConfirm()
-    if not self:IsMoneyModalOpen() then return end
-    if not self.isOpen then
-        self:CloseMoneyModal(true)
-        return
-    end
-    local total = self:MoneyModalCopper()
-    local balance = self:GetPlayerCopper()
-    if total > balance then
-        if CM.logger and CM.logger.Log then
-            CM.logger:Log(string.format(CM:T("MAIL_LOG_MONEY_ABOVE"), self:FormatMoneyText(balance)))
-        end
-        if PlaySound then PlaySound("igQuestFailed") end
-        return
-    end
-    self.composeMoney = tostring(total)
-    local eb = self:GetComposeEditBox(4)
-    if eb then
-        pcall(function() eb:SetText(tostring(total)) end)
-    end
-    self:AutoFillSubjectForMoney()
-    self:CloseMoneyModal(true)
-    self:RefreshComposeVisuals()
-    if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
-    if CM.logger and CM.logger.Log then
-        CM.logger:Log(string.format(CM:T("MAIL_LOG_MONEY_ATTACHED"), self:FormatMoneyText(total)))
-    end
-end
-
-function MailScreen:UpdateMoneyModalVisuals()
-    local m = self.moneyModalFrame
-    if not m then return end
-    local d = self.moneyModal.digits or {}
-    local active = tonumber(self.moneyModal.digitIndex) or 1
-    for i = 1, 8 do
-        local b = m.digitBtns and m.digitBtns[i]
-        local t = m.digitTexts and m.digitTexts[i]
-        if b and t then
-            t:SetText(tostring(tonumber(d[i]) or 0))
-            if i == active then
-                b:SetBackdropBorderColor(1.00, 0.82, 0.20, 1.00)
-                b:SetBackdropColor(0.28, 0.20, 0.08, 0.95)
-            else
-                b:SetBackdropBorderColor(0.35, 0.28, 0.20, 0.60)
-                b:SetBackdropColor(0.0, 0.0, 0.0, 0.55)
-            end
-        end
-    end
-    local total = self:MoneyModalCopper()
-    if m.totalText then
-        m.totalText:SetText(format(CM:T("MAIL_TOTAL_FMT"), self:FormatMoneyText(total)))
-    end
-    if m.balanceText then
-        local balance = self:GetPlayerCopper()
-        local postage = self:GetPostageCopper()
-        local line = format(CM:T("MAIL_BALANCE_FMT"), self:FormatMoneyText(balance), self:FormatMoneyText(postage))
-        if total > balance then
-            line = line .. CM:T("MAIL_BALANCE_LOW")
-        end
-        m.balanceText:SetText(line)
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if mp and mp.Confirm then
+        mp:Confirm()
     end
 end
 

@@ -4188,9 +4188,9 @@ function AuctionScreen:CreateSellListingControls(parent)
             elseif rowIdx == 7 then
                 AuctionScreen:OpenSellPostConfirmModal()
             elseif rowIdx == 1 then
-                AuctionScreen:OpenSellMoneyVK("BID")
+                AuctionScreen:OpenSellMoneyPicker("BID")
             elseif rowIdx == 2 then
-                AuctionScreen:OpenSellMoneyVK("BUYOUT")
+                AuctionScreen:OpenSellMoneyPicker("BUYOUT")
             elseif rowIdx == 3 then
                 AuctionScreen.sellDurationIdx = (AuctionScreen.sellDurationIdx or 1) + 1
                 if AuctionScreen.sellDurationIdx > 3 then AuctionScreen.sellDurationIdx = 1 end
@@ -4727,20 +4727,27 @@ function AuctionScreen:AdjustSellMoney(moneyType, delta)
     self:UpdateSellListingStyles()
 end
 
-function AuctionScreen:OpenSellMoneyVK(moneyType)
-    local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
-    if not vk or not vk.Open then return end
+function AuctionScreen:IsMoneyModalOpen()
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if mp and mp.IsOpen then return mp:IsOpen() end
+    return false
+end
+
+function AuctionScreen:OpenSellMoneyPicker(moneyType)
+    local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+    if not mp or not mp.Open then return end
 
     local curVal = (moneyType == "BID") and (self.sellBidPrice or 0) or (self.sellBuyoutPrice or 0)
-    local curGold = math.floor(curVal / 10000)
+    local title = (moneyType == "BID") and (CM:T("AH_SELL_BID_PRICE") or "Lance Inicial") or (CM:T("AH_SELL_BUYOUT_PRICE") or "Compra Imediata")
+    local minC = (moneyType == "BID") and 1 or 0
 
-    vk:Open({
-        title       = (moneyType == "BID") and ((CM:T("AH_SELL_BID_PRICE") or "Lance Inicial") .. " (Gold)") or ((CM:T("AH_SELL_BUYOUT_PRICE") or "Compra Imediata") .. " (Gold)"),
-        initialText = tostring(curGold),
-        maxLetters  = 8,
-        onConfirm   = function(text)
-            local g = tonumber(text) or 0
-            local copper = g * 10000
+    mp:Open({
+        title       = title,
+        copper      = curVal,
+        minCopper   = minC,
+        maxCopper   = nil,
+        showBalance = false,
+        onConfirm   = function(copper)
             if moneyType == "BID" then
                 if copper < 1 then copper = 1 end
                 AuctionScreen.sellBidPrice = copper
@@ -4757,6 +4764,10 @@ function AuctionScreen:OpenSellMoneyVK(moneyType)
         end,
         onCancel    = function() end,
     })
+end
+
+function AuctionScreen:OpenSellMoneyVK(moneyType)
+    self:OpenSellMoneyPicker(moneyType)
 end
 
 function AuctionScreen:IsQtyModalOpen()
@@ -5719,7 +5730,7 @@ end
 function AuctionScreen:OnTriggerAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
-    if self.isConfirmModalOpen or self.isSortModalOpen or self:IsQtyModalOpen() then return end
+    if self.isConfirmModalOpen or self.isSortModalOpen or self:IsQtyModalOpen() or self:IsMoneyModalOpen() then return end
 
     if self.currentTab == "SELL" and self.sellStep == "LISTING" then
         if not self.isSellPostModalOpen then
@@ -5778,7 +5789,7 @@ function AuctionScreen:SwitchTab(delta)
     if self:IsVKOpen() then return end
     if self.isConfirmModalOpen then return end
     if self.isSortModalOpen then return end
-    if self:IsQtyModalOpen() then return end
+    if self:IsQtyModalOpen() or self:IsMoneyModalOpen() then return end
 
     local currentIdx = 1
     local numTabs = table.getn(TABS)
@@ -5805,6 +5816,13 @@ end
 function AuctionScreen:OnDirection(direction)
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsMoneyModalOpen() then
+        local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+        if mp and mp.Direction then
+            mp:Direction(direction)
+        end
+        return
+    end
     if self:IsQtyModalOpen() then
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
         if qp and qp.Direction then
@@ -5968,6 +5986,13 @@ end
 function AuctionScreen:OnConfirm()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsMoneyModalOpen() then
+        local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+        if mp and mp.Confirm then
+            mp:Confirm()
+        end
+        return
+    end
     if self:IsQtyModalOpen() then
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
         if qp and qp.Confirm then
@@ -6106,7 +6131,7 @@ end
 function AuctionScreen:OnSecondaryAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
-    if self:IsQtyModalOpen() then return end
+    if self:IsQtyModalOpen() or self:IsMoneyModalOpen() then return end
     if self.isConfirmModalOpen then return end
     if self.isSortModalOpen then return end
 
@@ -6129,7 +6154,7 @@ end
 function AuctionScreen:OnContextAction()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
-    if self:IsQtyModalOpen() then return end
+    if self:IsQtyModalOpen() or self:IsMoneyModalOpen() then return end
     if self.isConfirmModalOpen then return end
 
     if self.isSortModalOpen then
@@ -6177,6 +6202,13 @@ end
 function AuctionScreen:OnCancel()
     if not self.isOpen then return end
     if self:IsVKOpen() then return end
+    if self:IsMoneyModalOpen() then
+        local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+        if mp and mp.Cancel then
+            mp:Cancel()
+        end
+        return
+    end
     if self:IsQtyModalOpen() then
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
         if qp and qp.Cancel then
@@ -6211,6 +6243,12 @@ function AuctionScreen:OnCancel()
                 self.sellListingPane = "FORM"
                 self:UpdateSellListingStyles()
                 return
+            end
+            if self:IsMoneyModalOpen() then
+                local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+                if mp and mp.Close then
+                    mp:Close(true)
+                end
             end
             if self:IsQtyModalOpen() then
                 local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
@@ -6345,6 +6383,13 @@ end
 
 function AuctionScreen:Close(fromServer)
     if not self.isOpen then return end
+
+    if self:IsMoneyModalOpen() then
+        local mp = CM.MoneyPicker or ConsoleMode_MoneyPicker
+        if mp and mp.Close then
+            mp:Close(true)
+        end
+    end
 
     if self:IsQtyModalOpen() then
         local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker

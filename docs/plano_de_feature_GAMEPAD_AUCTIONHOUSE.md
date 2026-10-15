@@ -148,19 +148,22 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 7: Aba Vender — Inventário, Espelhamento Exato, Quantidade & MAX [PENDENTE DE VALIDAÇÃO]
-* **Objetivo:** Interface de venda dividida com comparação em tempo real.
+### FASE 7: Aba Vender — Inventário, Scan Automático, Espelhamento Exato, Quantidade & MAX [EM IMPLEMENTAÇÃO — FLUXO SEM MODAL]
+* **Objetivo:** Interface de venda dividida com comparação em tempo real e scan automático ao selecionar o item.
+* **Decisão do PO (14/10/2026, vale sobre versões anteriores):** SEM modal `[VENDER] [PESQUISAR]`. Clicou/(A) no item da bag = começa scan automaticamente e vai para a tela de venda com os valores scaneados.
 * **Tarefas:**
   * Coluna esquerda do inventário filtrada (somente itens leiloáveis).
-  * Modal sólido `[VENDER] [PESQUISAR]` ao pressionar `(A)` no item.
+  * SEM modal de ação: `(A)` ou clique no item dispara `AuctionScan:StartQuery` com `name = item.name` e demais filtros zerados (`class/sub/slot = 0`, `quality = -1`, `min/max = 0`, `isUsable = 0`) e abre o LISTING imediatamente em estado "pesquisando".
   * Tela dividida:
-    * Esquerda: Leilões atuais do item.
+    * Esquerda: Leilões atuais do item (preenchidos ao completar o scan via `LoadSellCompetitors` + `MirrorCompetitorPrice(1)`; antes disso exibe estado de pesquisa).
     * Direita: Preço espelhado **exato** do leilão selecionado (sem undercut automático).
-    * Cenário sem leilões: Foco direto na direita com preço sugerido a 120% do vendor (`SellValues.lua`).
+    * Cenário sem leilões/erro/timeout: Foco direto na direita com preço sugerido a 120% do vendor (`SellValues.lua`).
+  * Atalho `(Y)` "Pesquisar Mercado" na INVENTORY removido (pesquisa virou automática); `(X)` segue atualizando o inventário.
   * Seção Quantidade & Stacks com botão interativo `[ MAX ]` que calcula stacks cheios + restante.
   * Linha de **RESUMO** ao vivo.
   * Gatilho `(RT)` abre modal de confirmação de postagem em 9-Slice.
-* **Teste no Jogo:** Colocar um item para vender com múltiplos stacks, testar o botão `MAX`, confirmar e verificar o leilão criado.
+  * Blindagens 1.12: `pcall(AuctionFrameTab_OnClick, 1)` silencioso antes do scan (servidor só responde na aba Browse), debounce/`isScanning` contra duplo `(A)`, `AbortQuery` ao voltar/fechar, validação de `pendingSellScanItem` no `onComplete`.
+* **Teste no Jogo:** Abrir SELL fresco (`/reload` antes), pressionar `(A)` num item sabidamente listado: sem modal, LISTING abre pesquisando e depois lista concorrentes reais. Repetir com item sem oferta: fallback 120% vendor. Testar duplo `(A)` rápido e `B` no meio do scan sem erro Lua.
 
 ---
 

@@ -1557,6 +1557,7 @@ CM_Langs["enUS"].strings = {
     AH_HEADER_AUCTIONEER_FMT = "Auctioneer: |cffe09a15%s|r",
     AH_UNKNOWN_AUCTIONEER = "Auctioneer",
     AH_BUTTON_CLOSE = "Close",
+    AH_BUTTON_BLIZZARD_AH = "Blizzard AH",
     AH_HINT_CLOSE = "Close",
     AH_HINT_NAVIGATE = "Navigate",
     AH_HINT_SELECT = "Select",
@@ -1758,7 +1759,11 @@ CM_Langs["enUS"].strings = {
     AH_HINT_POST_RT = "Post Auction",
     AH_HINT_MIRROR_PRICE = "Mirror Price",
     AH_SELL_PRICE_STEP = "Price Step",
+    AH_SELL_PICKUP_FAILED = "Couldn't pick up item for auction.",
     AH_SELL_SWITCH_COLUMN = "Switch Column",
+    AH_SELL_BAGS_FULL = "Your bags are full. Cannot split item stacks.",
+    AH_SELL_TIMEOUT = "Auction creation timed out.",
+    AH_SELL_MULTI_SUCCESS_FMT = "%d auction(s) for %s created successfully!",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

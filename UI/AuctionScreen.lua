@@ -339,8 +339,7 @@ AuctionScreen.sellBuyoutPrice          = 0
 AuctionScreen.sellMoneyStepIdx         = 3 -- 1: 1c, 2: 10c, 3: 1s, 4: 10s, 5: 1g, 6: 5g, 7: 10g
 AuctionScreen.isSellPostModalOpen      = false
 AuctionScreen.sellPostBtnIndex         = 1 -- 1: Confirm, 2: Cancel
-AuctionScreen.pendingPostTimer         = nil
-AuctionScreen.pendingRefreshTimer      = nil
+AuctionScreen.postSession              = nil
 AuctionScreen.pendingSellScanItem      = nil
 
 -- Hold-to-repeat
@@ -3466,6 +3465,37 @@ function AuctionScreen:CreateUI()
     end)
     header.closeBtn = closeBtn
 
+    local blizzBtn = CreateFrame("Button", "ConsoleMode_AuctionBlizzardBtn", header)
+    blizzBtn:SetWidth(118)
+    blizzBtn:SetHeight(28)
+    blizzBtn:SetPoint("RIGHT", closeBtn, "LEFT", -8, 0)
+    blizzBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    blizzBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    blizzBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local blizzTxt = blizzBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    blizzTxt:SetPoint("CENTER", blizzBtn, "CENTER", 0, 0)
+    self:ApplyFont(blizzTxt, FONTS.titleBold, 16)
+    blizzTxt:SetText(CM:T("AH_BUTTON_BLIZZARD_AH"))
+
+    blizzBtn:SetScript("OnClick", function()
+        AuctionScreen:OpenBlizzardAH()
+    end)
+    blizzBtn:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    blizzBtn:SetScript("OnLeave", function()
+        this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+        this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    end)
+    header.blizzBtn = blizzBtn
+
     self:CreateContentArea(frame)
 
     local footerContainer = CreateFrame("Frame", "ConsoleMode_AuctionFooterContainer", frame)
@@ -3587,6 +3617,19 @@ function AuctionScreen:GetBagItemRealName(entry)
     return nil
 end
 
+function AuctionScreen:GetItemKey(link)
+    if not link then return nil end
+    local _, _, id, ench, suf = string.find(link, "item:(%d+):(%d+):(%d+)")
+    if id then
+        return id .. ":" .. (suf or "0")
+    end
+    local _, _, simpleId = string.find(link, "item:(%d+)")
+    if simpleId then
+        return simpleId .. ":0"
+    end
+    return nil
+end
+
 function AuctionScreen:GetAuctionableBagItems()
     local items = {}
     local itemsByKey = {}
@@ -3599,11 +3642,7 @@ function AuctionScreen:GetAuctionableBagItems()
                 local link = GetContainerItemLink(bag, slot)
                 local itemName, _, itemRarity, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(link)
 
-                local key = itemName or "item"
-                if link then
-                    local _, _, id = string.find(link, "item:(%d+)")
-                    if id then key = id end
-                end
+                local key = self:GetItemKey(link) or itemName or "item"
 
                 if not itemsByKey[key] then
                     local vendorPrice = self:GetItemVendorPrice(link)
@@ -4204,7 +4243,7 @@ function AuctionScreen:OpenSellListing(item)
     self.sellListingPane = "FORM"
     self.sellFormRow = 1
     self.sellDurationIdx = 1
-    self.sellStackSize = math.min(item.maxStack or 1, item.totalCount or 1)
+    self.sellStackSize = 1
     self.sellNumStacks = 1
     self.sellMoneyStepIdx = 3
 
@@ -4433,6 +4472,17 @@ function AuctionScreen:UpdateSellCompetitorsList()
     local leftPane = self.sellListingContainer.listingLeftPane
     local rows = leftPane.rows
     local numComps = (self.sellCompetitors and table.getn(self.sellCompetitors)) or 0
+
+    if self.sellScanActive then
+        if rows then
+            for i = 1, 6 do
+                if rows[i] then rows[i]:Hide() end
+            end
+        end
+        if leftPane.emptyText then leftPane.emptyText:Hide() end
+        if leftPane.suggestedTag then leftPane.suggestedTag:Hide() end
+        return
+    end
 
     if numComps == 0 then
         if self.sellScanActive and leftPane.sellScanPageText and leftPane.sellScanBar then
@@ -4962,59 +5012,150 @@ function AuctionScreen:UpdateSellPostModalStyles()
     end
 end
 
+-- ----------------------------------------------------------------------------
+-- 15b. MOTOR DE POSTAGEM DE LEILÃO (ARQUITETURA AUX-ADDON PARA WOW 1.12)
+-- ----------------------------------------------------------------------------
+-- Baseado no mecanismo de core/stack.lua e core/post.lua do aux-addon:
+-- 1. Nunca posta diretamente de um slot onde count ~= stackSize solicitado.
+-- 2. Se o slot tiver count > stackSize, transfere o excesso para outro slot
+--    (stack parcial com espaço ou slot vazio de bolsa normal).
+-- 3. Se tiver count < stackSize, junta itens de outro slot até completar stackSize.
+-- 4. Aguarda confirmação do container (slots desbloqueados e contagem exata).
+-- 5. Com o slot tendo exatamente stackSize e desbloqueado:
+--    ClearCursor() -> ClickAuctionSellItemButton() -> ClearCursor()
+--    PickupContainerItem(bag, slot) -> ClickAuctionSellItemButton() -> ClearCursor()
+--    StartAuction(bidPrice, buyoutPrice, durMinutes)
+-- 6. Aguarda CHAT_MSG_SYSTEM com ERR_AUCTION_STARTED para confirmar cada leilão.
+-- 7. Se numStacks > 1, avança sequencialmente para o próximo stack até concluir.
+-- ----------------------------------------------------------------------------
+
+function AuctionScreen:IsMatchingSellItem(bag, slot, targetKey)
+    if not targetKey then return false end
+    local link = GetContainerItemLink(bag, slot)
+    if not link then return false end
+    local key = self:GetItemKey(link)
+    if key ~= targetKey then return false end
+    if not self:IsItemAuctionable(bag, slot) then return false end
+    return true
+end
+
+function AuctionScreen:IsBagNormalContainer(bag)
+    if bag == 0 then return true end
+    local bagLink = GetInventoryItemLink("player", ContainerIDToInventoryID(bag))
+    if not bagLink then return false end
+    local _, _, _, _, _, bagSubClass = GetItemInfo(bagLink)
+    if not bagSubClass then return true end
+
+    local normalBagName = nil
+    if GetAuctionItemSubClasses then
+        normalBagName = (GetAuctionItemSubClasses(3))
+    end
+    if normalBagName and bagSubClass == normalBagName then
+        return true
+    end
+
+    local l = string.lower(bagSubClass)
+    if string.find(l, "bag") or string.find(l, "bolsa") then
+        if not string.find(l, "soul") and not string.find(l, "herb") and not string.find(l, "alma") and not string.find(l, "erva") and not string.find(l, "enchant") and not string.find(l, "encant") and not string.find(l, "eng") then
+            return true
+        end
+    end
+    return false
+end
+
+function AuctionScreen:FindEmptyBagSlot()
+    for bag = 0, 4 do
+        if self:IsBagNormalContainer(bag) then
+            local numSlots = GetContainerNumSlots(bag) or 0
+            for slot = 1, numSlots do
+                local texture, count, locked = GetContainerItemInfo(bag, slot)
+                if not texture and not locked then
+                    return bag, slot
+                end
+            end
+        end
+    end
+    return nil, nil
+end
+
+function AuctionScreen:FindPartialItemSlot(targetKey, maxStack, excludeBag, excludeSlot)
+    for bag = 0, 4 do
+        local numSlots = GetContainerNumSlots(bag) or 0
+        for slot = 1, numSlots do
+            if not (bag == excludeBag and slot == excludeSlot) then
+                if self:IsMatchingSellItem(bag, slot, targetKey) then
+                    local _, count, locked = GetContainerItemInfo(bag, slot)
+                    if count and count < maxStack and not locked then
+                        return bag, slot, count
+                    end
+                end
+            end
+        end
+    end
+    return nil, nil, nil
+end
+
+function AuctionScreen:FindExactItemSlot(targetKey, targetSize)
+    for bag = 0, 4 do
+        local numSlots = GetContainerNumSlots(bag) or 0
+        for slot = 1, numSlots do
+            if self:IsMatchingSellItem(bag, slot, targetKey) then
+                local _, count, locked = GetContainerItemInfo(bag, slot)
+                if count and count == targetSize and not locked then
+                    return bag, slot
+                end
+            end
+        end
+    end
+    return nil, nil
+end
+
+function AuctionScreen:FindAnyItemSlot(targetKey)
+    for bag = 0, 4 do
+        local numSlots = GetContainerNumSlots(bag) or 0
+        for slot = 1, numSlots do
+            if self:IsMatchingSellItem(bag, slot, targetKey) then
+                local _, count, locked = GetContainerItemInfo(bag, slot)
+                if count and count > 0 and not locked then
+                    return bag, slot, count
+                end
+            end
+        end
+    end
+    return nil, nil, nil
+end
+
+function AuctionScreen:FindAnotherItemSlot(targetKey, excludeBag, excludeSlot)
+    for bag = 0, 4 do
+        local numSlots = GetContainerNumSlots(bag) or 0
+        for slot = 1, numSlots do
+            if not (bag == excludeBag and slot == excludeSlot) then
+                if self:IsMatchingSellItem(bag, slot, targetKey) then
+                    local _, count, locked = GetContainerItemInfo(bag, slot)
+                    if count and count > 0 and not locked then
+                        return bag, slot, count
+                    end
+                end
+            end
+        end
+    end
+    return nil, nil, nil
+end
+
 function AuctionScreen:ExecutePostAuction()
     local item = self.selectedSellItem
     if not item then return end
 
     self:CloseSellPostConfirmModal()
 
-    if AuctionFrameTab_OnClick then
-        pcall(AuctionFrameTab_OnClick, 3)
-    end
-
-    local bag, slot = nil, nil
-    local totalNeeded = self.sellStackSize or 1
-
-    for _, s in ipairs(item.bagSlots or {}) do
-        local _, count, locked = GetContainerItemInfo(s.bag, s.slot)
-        if count and count >= totalNeeded and not locked then
-            bag = s.bag
-            slot = s.slot
-            break
-        end
-    end
-
-    if not bag or not slot then
-        for _, s in ipairs(item.bagSlots or {}) do
-            local _, count, locked = GetContainerItemInfo(s.bag, s.slot)
-            if count and count > 0 and not locked then
-                bag = s.bag
-                slot = s.slot
-                break
-            end
-        end
-    end
-
-    if not bag or not slot then
-        UIErrorsFrame:AddMessage(CM:T("AH_SELL_NO_ITEMS") or "Item not found in bags.", 1.0, 0.2, 0.2, 1.0)
+    if self.postSession and self.postSession.active then
         return
     end
 
-    if CursorHasItem() then
-        ClearCursor()
-    end
-
-    local _, currentSlotCount = GetContainerItemInfo(bag, slot)
-    if currentSlotCount and currentSlotCount > totalNeeded then
-        SplitContainerItem(bag, slot, totalNeeded)
-    else
-        PickupContainerItem(bag, slot)
-    end
-
-    if ClickAuctionSellItemButton then
-        ClickAuctionSellItemButton()
-    elseif AuctionSellItemButton and AuctionSellItemButton.Click then
-        AuctionSellItemButton:Click()
+    local itemKey = self:GetItemKey(item.link) or item.key
+    if not itemKey then
+        UIErrorsFrame:AddMessage(CM:T("AH_SELL_PICKUP_FAILED") or "Couldn't pick up item for auction.", 1.0, 0.2, 0.2, 1.0)
+        return
     end
 
     local durMinutes = 120
@@ -5028,27 +5169,361 @@ function AuctionScreen:ExecutePostAuction()
     local buyout = self.sellBuyoutPrice or 0
     if minBid < 1 then minBid = 1 end
 
-    local postOk = pcall(function()
-        StartAuction(minBid, buyout, durMinutes)
-    end)
+    local stackSize = self.sellStackSize or 1
+    local numStacks = self.sellNumStacks or 1
 
-    if CursorHasItem() then
+    self.postSession = {
+        active      = true,
+        itemKey     = itemKey,
+        itemName    = item.name,
+        itemLink    = item.link,
+        maxStack    = item.maxStack or 1,
+        stackSize   = stackSize,
+        numStacks   = numStacks,
+        posted      = 0,
+        duration    = durMinutes,
+        bidPrice    = minBid,
+        buyoutPrice = buyout,
+        step        = "STACKING",
+        timer       = 0,
+        waitData    = nil
+    }
+
+    self:ProcessPostStack()
+end
+
+function AuctionScreen:ProcessPostStack()
+    local ps = self.postSession
+    if not ps or not ps.active then return end
+
+    if ps.posted >= ps.numStacks then
+        self:FinishPostSession(true)
+        return
+    end
+
+    -- 1. Procura slot que ja tenha o tamanho exato do stack e esteja destravado
+    local exactBag, exactSlot = self:FindExactItemSlot(ps.itemKey, ps.stackSize)
+    if exactBag and exactSlot then
+        self:DoPostAuction(exactBag, exactSlot)
+        return
+    end
+
+    -- 2. Busca qualquer slot destravado com o item
+    local tBag, tSlot, tCount = self:FindAnyItemSlot(ps.itemKey)
+    if not tBag then
+        -- Checa se ha algum slot travado aguardando liberacao do servidor
+        local hasLocked = false
+        for b = 0, 4 do
+            local numSlots = GetContainerNumSlots(b) or 0
+            for s = 1, numSlots do
+                if self:IsMatchingSellItem(b, s, ps.itemKey) then
+                    local _, _, lk = GetContainerItemInfo(b, s)
+                    if lk then hasLocked = true end
+                end
+            end
+        end
+        if hasLocked then
+            ps.step = "STACKING"
+            ps.timer = 0
+            return
+        end
+
+        if ps.posted > 0 then
+            self:FinishPostSession(true)
+        else
+            self:AbortPostSession("AH_SELL_NO_ITEMS")
+        end
+        return
+    end
+
+    -- 3. Slot tem mais itens que stackSize: divide o excesso
+    if tCount > ps.stackSize then
+        local excess = tCount - ps.stackSize
+        local dBag, dSlot, dCount = self:FindPartialItemSlot(ps.itemKey, ps.maxStack, tBag, tSlot)
+        if not dBag then
+            dBag, dSlot = self:FindEmptyBagSlot()
+            dCount = 0
+        end
+
+        if not dBag then
+            self:AbortPostSession("AH_SELL_BAGS_FULL")
+            return
+        end
+
+        local space = ps.maxStack - dCount
+        local toMove = math.min(space, excess)
+        local expectedDest = dCount + toMove
+
+        if CursorHasItem() then ClearCursor() end
+        SplitContainerItem(tBag, tSlot, toMove)
+        PickupContainerItem(dBag, dSlot)
+        if CursorHasItem() then ClearCursor() end
+
+        ps.step = "WAIT_STACK"
+        ps.timer = 0
+        ps.waitData = {
+            dBag = dBag,
+            dSlot = dSlot,
+            expectedCount = expectedDest,
+            tBag = tBag,
+            tSlot = tSlot
+        }
+        return
+    end
+
+    -- 4. Slot tem menos itens que stackSize: puxa de outro slot
+    if tCount < ps.stackSize then
+        local sBag, sSlot, sCount = self:FindAnotherItemSlot(ps.itemKey, tBag, tSlot)
+        if not sBag then
+            if ps.posted > 0 then
+                self:FinishPostSession(true)
+            else
+                self:AbortPostSession("AH_SELL_NO_ITEMS")
+            end
+            return
+        end
+
+        local needed = ps.stackSize - tCount
+        local toMove = math.min(sCount, needed)
+        local expectedTarget = tCount + toMove
+
+        if CursorHasItem() then ClearCursor() end
+        if sCount <= toMove then
+            PickupContainerItem(sBag, sSlot)
+        else
+            SplitContainerItem(sBag, sSlot, toMove)
+        end
+        PickupContainerItem(tBag, tSlot)
+        if CursorHasItem() then ClearCursor() end
+
+        ps.step = "WAIT_STACK"
+        ps.timer = 0
+        ps.waitData = {
+            dBag = tBag,
+            dSlot = tSlot,
+            expectedCount = expectedTarget,
+            tBag = sBag,
+            tSlot = sSlot
+        }
+        return
+    end
+end
+
+function AuctionScreen:DoPostAuction(tBag, tSlot)
+    local ps = self.postSession
+    if not ps or not ps.active then return end
+
+    local _, count, locked = GetContainerItemInfo(tBag, tSlot)
+    if locked then
+        ps.step = "STACKING"
+        ps.timer = 0
+        return
+    end
+
+    if count ~= ps.stackSize then
+        ps.step = "STACKING"
+        ps.timer = 0
+        self:ProcessPostStack()
+        return
+    end
+
+    if CursorHasItem() then ClearCursor() end
+    ClickAuctionSellItemButton()
+    ClearCursor()
+    PickupContainerItem(tBag, tSlot)
+    ClickAuctionSellItemButton()
+    ClearCursor()
+
+    local sellName, _, sellCount = GetAuctionSellItemInfo()
+    if not sellName or sellCount ~= ps.stackSize then
         ClearCursor()
+        ClickAuctionSellItemButton()
+        ClearCursor()
+        self:AbortPostSession("AH_SELL_PICKUP_FAILED")
+        return
     end
 
-    local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
-    local msg = string.format(CM:T("AH_SELL_SUCCESS_FMT") or "Auction for %s created successfully!", locName)
-    DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. msg)
-    if UIErrorsFrame then
-        UIErrorsFrame:AddMessage(msg, 1.0, 0.85, 0.25, 1.0)
-    end
-    PlaySound("LOOT_COIN")
+    local postOk = pcall(function()
+        StartAuction(ps.bidPrice, ps.buyoutPrice, ps.duration)
+    end)
+    if CursorHasItem() then ClearCursor() end
 
-    if self.sellNumStacks and self.sellNumStacks > 1 then
-        self.sellNumStacks = self.sellNumStacks - 1
-        self.pendingPostTimer = 0.4
+    if not postOk then
+        ClearCursor()
+        ClickAuctionSellItemButton()
+        ClearCursor()
+        self:AbortPostSession("AH_SELL_PICKUP_FAILED")
+        return
+    end
+
+    ps.step = "WAIT_POST"
+    ps.timer = 0
+end
+
+function AuctionScreen:UpdatePostSession(dt)
+    local ps = self.postSession
+    if not ps or not ps.active then return end
+
+    if ps.step == "COOLDOWN" then
+        ps.timer = ps.timer - dt
+        if ps.timer <= 0 then
+            ps.step = "STACKING"
+            self:ProcessPostStack()
+        end
+        return
+    end
+
+    if ps.step == "WAIT_STACK" then
+        ps.timer = ps.timer + dt
+        if ps.timer > 2.5 then
+            if CursorHasItem() then ClearCursor() end
+            ps.waitData = nil
+            ps.step = "STACKING"
+            self:ProcessPostStack()
+            return
+        end
+
+        local wd = ps.waitData
+        if wd then
+            local _, dCount, dLocked = GetContainerItemInfo(wd.dBag, wd.dSlot)
+            local _, _, tLocked = GetContainerItemInfo(wd.tBag, wd.tSlot)
+            if not dLocked and not tLocked and dCount == wd.expectedCount then
+                ps.waitData = nil
+                ps.step = "STACKING"
+                self:ProcessPostStack()
+            end
+        end
+        return
+    end
+
+    if ps.step == "WAIT_POST" then
+        ps.timer = ps.timer + dt
+        if ps.timer > 4.0 then
+            local sellName = GetAuctionSellItemInfo()
+            if not sellName then
+                self:OnAuctionPostSuccess()
+            else
+                ClearCursor()
+                ClickAuctionSellItemButton()
+                ClearCursor()
+                self:AbortPostSession("AH_SELL_TIMEOUT")
+            end
+        end
+        return
+    end
+
+    if ps.step == "STACKING" then
+        self:ProcessPostStack()
+        return
+    end
+end
+
+function AuctionScreen:OnPostSystemMessage(msg)
+    local ps = self.postSession
+    if not ps or not ps.active then return end
+
+    if msg == ERR_AUCTION_STARTED then
+        self:OnAuctionPostSuccess()
+    elseif msg == ERR_NOT_ENOUGH_MONEY or msg == ERR_AUCTION_REPAIR_ITEM or msg == ERR_AUCTION_DATABASE_ERROR then
+        ClearCursor()
+        ClickAuctionSellItemButton()
+        ClearCursor()
+        self:AbortPostSession(nil, msg)
+    end
+end
+
+function AuctionScreen:OnAuctionPostSuccess()
+    local ps = self.postSession
+    if not ps or not ps.active then return end
+    if ps.step ~= "WAIT_POST" then return end
+
+    ps.posted = ps.posted + 1
+    if ps.posted < ps.numStacks then
+        ps.step = "COOLDOWN"
+        ps.timer = 0.15
     else
-        self.pendingRefreshTimer = 0.3
+        self:FinishPostSession(true)
+    end
+end
+
+function AuctionScreen:OnPostBagUpdate(bag)
+    local ps = self.postSession
+    if not ps or not ps.active then return end
+
+    if ps.step == "WAIT_STACK" and ps.waitData then
+        local wd = ps.waitData
+        local _, dCount, dLocked = GetContainerItemInfo(wd.dBag, wd.dSlot)
+        local _, _, tLocked = GetContainerItemInfo(wd.tBag, wd.tSlot)
+        if not dLocked and not tLocked and dCount == wd.expectedCount then
+            ps.waitData = nil
+            ps.step = "STACKING"
+            self:ProcessPostStack()
+        end
+    end
+end
+
+function AuctionScreen:FinishPostSession(success)
+    local ps = self.postSession
+    if not ps then return end
+
+    if CursorHasItem() then ClearCursor() end
+    ClickAuctionSellItemButton()
+    ClearCursor()
+
+    if success and ps.posted > 0 then
+        PlaySound("LOOT_COIN")
+        local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(ps.itemName, ps.itemLink) or ps.itemName
+        local msg
+        if ps.posted == 1 then
+            msg = string.format(CM:T("AH_SELL_SUCCESS_FMT") or "Auction for %s created successfully!", locName)
+        else
+            msg = string.format(CM:T("AH_SELL_MULTI_SUCCESS_FMT") or "%d auction(s) for %s created successfully!", ps.posted, locName)
+        end
+        DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00[ConsoleMode]|r " .. msg)
+        if UIErrorsFrame then
+            UIErrorsFrame:AddMessage(msg, 1.0, 0.85, 0.25, 1.0)
+        end
+    end
+
+    self.postSession = nil
+    self:RefreshSellInventory()
+
+    if self.selectedSellItem and self.selectedSellItem.totalCount and self.selectedSellItem.totalCount > 0 then
+        local total = self.selectedSellItem.totalCount
+        if (self.sellStackSize or 1) > total then
+            self.sellStackSize = math.min(self.selectedSellItem.maxStack or 1, total)
+        end
+        local maxStacks = math.max(1, math.floor(total / (self.sellStackSize or 1)))
+        if (self.sellNumStacks or 1) > maxStacks then
+            self.sellNumStacks = maxStacks
+        end
+        self:UpdateSellListingStyles()
+    else
+        self:OpenSellInventory()
+    end
+end
+
+function AuctionScreen:AbortPostSession(reasonKey, customMsg)
+    local ps = self.postSession
+    if CursorHasItem() then ClearCursor() end
+    ClickAuctionSellItemButton()
+    ClearCursor()
+
+    self.postSession = nil
+
+    local err = customMsg
+    if not err and reasonKey then
+        err = CM:T(reasonKey)
+    end
+    if err and UIErrorsFrame then
+        UIErrorsFrame:AddMessage(err, 1.0, 0.2, 0.2, 1.0)
+    end
+
+    self:RefreshSellInventory()
+    if self.selectedSellItem and self.selectedSellItem.totalCount and self.selectedSellItem.totalCount > 0 then
+        self:UpdateSellListingStyles()
+    else
+        self:OpenSellInventory()
     end
 end
 
@@ -5508,6 +5983,11 @@ function AuctionScreen:OnCancel()
         return
     end
 
+    if self.postSession and self.postSession.active then
+        self:AbortPostSession()
+        return
+    end
+
     if self.currentTab == "SELL" then
         if self.sellStep == "LISTING" then
             if self.sellListingPane == "COMPETITORS" then
@@ -5647,6 +6127,10 @@ function AuctionScreen:Close(fromServer)
     self:CloseSortModal()
     self:CloseSellPostConfirmModal()
 
+    if self.postSession and self.postSession.active then
+        self:AbortPostSession()
+    end
+
     if CursorHasItem() then
         ClearCursor()
     end
@@ -5679,6 +6163,38 @@ function AuctionScreen:Close(fromServer)
     end
 end
 
+function AuctionScreen:OpenBlizzardAH()
+    local scan = CM.auctionScan or ConsoleMode_AuctionScan
+    if scan and scan.isScanning then
+        pcall(function() scan:AbortQuery() end)
+    end
+    self.pendingSellScanItem = nil
+    self.sellScanActive = nil
+
+    if self.postSession and self.postSession.active then
+        self:AbortPostSession()
+    end
+
+    self.isOpen = false
+    if self.frame then
+        self.frame:Hide()
+    end
+    if self.dimmer then
+        self.dimmer:Hide()
+    end
+
+    if CM.keybindings and CM.keybindings.ExitNavigationMode then
+        CM.keybindings:ExitNavigationMode()
+    end
+
+    if AuctionFrame then
+        AuctionFrame:ClearAllPoints()
+        AuctionFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+        AuctionFrame:SetAlpha(1)
+        AuctionFrame:Show()
+    end
+end
+
 -- ----------------------------------------------------------------------------
 -- 20. GANCHOS DE EVENTO (AUCTION_HOUSE_SHOW / AUCTION_HOUSE_CLOSED)
 -- ----------------------------------------------------------------------------
@@ -5689,6 +6205,7 @@ function AuctionScreen:InitEvents()
     ef:RegisterEvent("AUCTION_HOUSE_SHOW")
     ef:RegisterEvent("AUCTION_HOUSE_CLOSED")
     ef:RegisterEvent("BAG_UPDATE")
+    ef:RegisterEvent("CHAT_MSG_SYSTEM")
 
     ef:SetScript("OnEvent", function()
         if event == "AUCTION_HOUSE_SHOW" then
@@ -5696,9 +6213,13 @@ function AuctionScreen:InitEvents()
         elseif event == "AUCTION_HOUSE_CLOSED" then
             AuctionScreen:Close(true)
         elseif event == "BAG_UPDATE" then
-            if AuctionScreen.isOpen and AuctionScreen.currentTab == "SELL" and AuctionScreen.sellStep == "INVENTORY" then
+            if AuctionScreen.postSession and AuctionScreen.postSession.active then
+                AuctionScreen:OnPostBagUpdate(arg1)
+            elseif AuctionScreen.isOpen and AuctionScreen.currentTab == "SELL" and AuctionScreen.sellStep == "INVENTORY" then
                 AuctionScreen:RefreshSellInventory()
             end
+        elseif event == "CHAT_MSG_SYSTEM" then
+            AuctionScreen:OnPostSystemMessage(arg1)
         end
     end)
 
@@ -5710,24 +6231,8 @@ function AuctionScreen:InitEvents()
                 AuctionScreen.repeatElapsed = AuctionScreen.repeatDelay - AuctionScreen.repeatRate
             end
         end
-        if AuctionScreen.pendingPostTimer then
-            AuctionScreen.pendingPostTimer = AuctionScreen.pendingPostTimer - arg1
-            if AuctionScreen.pendingPostTimer <= 0 then
-                AuctionScreen.pendingPostTimer = nil
-                AuctionScreen:ExecutePostAuction()
-            end
-        end
-        if AuctionScreen.pendingRefreshTimer then
-            AuctionScreen.pendingRefreshTimer = AuctionScreen.pendingRefreshTimer - arg1
-            if AuctionScreen.pendingRefreshTimer <= 0 then
-                AuctionScreen.pendingRefreshTimer = nil
-                AuctionScreen:RefreshSellInventory()
-                if AuctionScreen.selectedSellItem and AuctionScreen.selectedSellItem.totalCount > 0 then
-                    AuctionScreen:UpdateSellListingStyles()
-                else
-                    AuctionScreen:OpenSellInventory()
-                end
-            end
+        if AuctionScreen.postSession and AuctionScreen.postSession.active then
+            AuctionScreen:UpdatePostSession(arg1)
         end
     end)
 

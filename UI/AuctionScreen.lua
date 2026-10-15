@@ -328,6 +328,7 @@ AuctionScreen.selectedSellItem         = nil
 AuctionScreen.sellScrollOffset         = 0
 AuctionScreen.sellCompetitors          = {}
 AuctionScreen.selectedCompetitorIndex  = 1
+AuctionScreen.sellCompetitorScrollOffset = 0
 AuctionScreen.sellListingPane          = "FORM" -- "FORM", "COMPETITORS"
 AuctionScreen.sellFormRow              = 1 -- 1: Bid, 2: Buyout, 3: Duration, 4: StackSize, 5: NumStacks, 6: MaxBtn, 7: PostBtn
 AuctionScreen.sellDurationIdx          = 1 -- 1: 2h, 2: 8h, 3: 24h
@@ -966,6 +967,7 @@ function AuctionScreen:UpdateFooterHints()
                 table.insert(hints, { icons = { "A" },    label = CM:T("AH_HINT_MIRROR_PRICE") or "Espelhar Preço" })
                 table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar ao Formulário" })
                 table.insert(hints, { icons = { "LT" },   label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
+                table.insert(hints, { icons = { "DLEFT", "DRIGHT" }, label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
                 local panelStepLabel = CM:T("AH_SELL_PRICE_STEP")
                 if panelStepLabel == "AH_SELL_PRICE_STEP" then panelStepLabel = "Price Step" end
                 table.insert(hints, { icons = { "X" },    label = panelStepLabel })
@@ -975,11 +977,11 @@ function AuctionScreen:UpdateFooterHints()
                 table.insert(hints, { icons = { "A" },    label = (self.sellFormRow == 6 and (CM:T("AH_SELL_BTN_MAX") or "MAX")) or (self.sellFormRow == 7 and (CM:T("AH_SELL_CONFIRM_POST") or "Postar")) or (CM:T("AH_HINT_SELECT") or "Editar") })
                 if table.getn(self.sellCompetitors or {}) > 0 then
                     table.insert(hints, { icons = { "LT" }, label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
+                    table.insert(hints, { icons = { "DLEFT", "DRIGHT" }, label = CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes" })
                 end
                 local formStepLabel = CM:T("AH_SELL_PRICE_STEP")
                 if formStepLabel == "AH_SELL_PRICE_STEP" then formStepLabel = "Price Step" end
                 table.insert(hints, { icons = { "X" }, label = formStepLabel })
-                table.insert(hints, { icons = { "DALL" }, label = CM:T("AH_HINT_ADJUST") or "Ajustar" })
                 table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar" })
             end
         end
@@ -3991,8 +3993,12 @@ function AuctionScreen:CreateSellListingControls(parent)
 
         local rIdx = i
         row:SetScript("OnClick", function()
-            AuctionScreen.selectedCompetitorIndex = rIdx
-            AuctionScreen:MirrorCompetitorPrice(rIdx)
+            local absIdx = (AuctionScreen.sellCompetitorScrollOffset or 0) + rIdx
+            local n = table.getn(AuctionScreen.sellCompetitors or {})
+            if absIdx < 1 then absIdx = 1 end
+            if n > 0 and absIdx > n then absIdx = n end
+            AuctionScreen.selectedCompetitorIndex = absIdx
+            AuctionScreen:MirrorCompetitorPrice(absIdx)
             AuctionScreen.sellListingPane = "FORM"
             AuctionScreen:UpdateSellListingStyles()
         end)
@@ -4217,6 +4223,7 @@ function AuctionScreen:OpenSellListing(item)
 
     if table.getn(self.sellCompetitors) > 0 then
         self.selectedCompetitorIndex = 1
+        self.sellCompetitorScrollOffset = 0
         self:MirrorCompetitorPrice(1)
     else
         local vPrice = item.vendorPrice or 0
@@ -4350,6 +4357,7 @@ function AuctionScreen:OpenSellListingWithScan(item)
             AuctionScreen:LoadSellCompetitors(item)
             if AuctionScreen.sellCompetitors and table.getn(AuctionScreen.sellCompetitors) > 0 then
                 AuctionScreen.selectedCompetitorIndex = 1
+                AuctionScreen.sellCompetitorScrollOffset = 0
                 AuctionScreen:MirrorCompetitorPrice(1)
                 AuctionScreen.sellListingPane = "COMPETITORS"
                 AuctionScreen:UpdateSellCompetitorsList()
@@ -4411,6 +4419,19 @@ function AuctionScreen:LoadSellCompetitors(item)
         return unitA < unitB
     end)
 
+    local nComp = table.getn(self.sellCompetitors)
+    if (self.selectedCompetitorIndex or 1) > nComp then
+        self.selectedCompetitorIndex = math.max(1, nComp)
+    end
+    if (self.selectedCompetitorIndex or 1) < 1 then
+        self.selectedCompetitorIndex = 1
+    end
+    local maxOff = nComp - 6
+    if maxOff < 0 then maxOff = 0 end
+    if (self.sellCompetitorScrollOffset or 0) > maxOff then
+        self.sellCompetitorScrollOffset = maxOff
+    end
+
     self:UpdateSellCompetitorsList()
 end
 
@@ -4446,10 +4467,23 @@ function AuctionScreen:UpdateSellCompetitorsList()
     leftPane.emptyText:Hide()
     leftPane.suggestedTag:Hide()
 
+    local offset = self.sellCompetitorScrollOffset or 0
+    if offset < 0 then
+        offset = 0
+        self.sellCompetitorScrollOffset = 0
+    end
+    local maxOffset = numComps - 6
+    if maxOffset < 0 then maxOffset = 0 end
+    if offset > maxOffset then
+        offset = maxOffset
+        self.sellCompetitorScrollOffset = offset
+    end
+
     for i = 1, 6 do
         local row = rows[i]
-        if i <= numComps then
-            local comp = self.sellCompetitors[i]
+        local compIdx = offset + i
+        if compIdx <= numComps then
+            local comp = self.sellCompetitors[compIdx]
             local count = (comp.count and comp.count > 0) and comp.count or 1
             local unitBid = math.floor((comp.minBid or comp.bidAmount or 0) / count)
             local unitBuyout = math.floor((comp.buyoutPrice or 0) / count)
@@ -4463,7 +4497,7 @@ function AuctionScreen:UpdateSellCompetitorsList()
             self:SetMoneyDisplay(row.unitBidDisplay, unitBid)
             self:SetMoneyDisplay(row.unitBuyDisplay, unitBuyout)
 
-            local isSelected = (self.sellListingPane == "COMPETITORS" and i == self.selectedCompetitorIndex)
+            local isSelected = (self.sellListingPane == "COMPETITORS" and compIdx == self.selectedCompetitorIndex)
             if isSelected then
                 row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
                 row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
@@ -4537,6 +4571,27 @@ function AuctionScreen:MirrorCompetitorPrice(compIndex)
     self.sellBidPrice = math.max(1, unitBid * self.sellStackSize)
     self.sellBuyoutPrice = math.max(0, unitBuyout * self.sellStackSize)
     self:UpdateSellListingStyles()
+end
+
+function AuctionScreen:ScrollSellCompetitors(delta)
+    local total = table.getn(self.sellCompetitors or {})
+    if total <= 0 then return end
+
+    local newIdx = (self.selectedCompetitorIndex or 1) + delta
+    if newIdx < 1 then newIdx = 1 end
+    if newIdx > total then newIdx = total end
+
+    self.selectedCompetitorIndex = newIdx
+
+    local offset = self.sellCompetitorScrollOffset or 0
+    if newIdx <= offset then
+        self.sellCompetitorScrollOffset = newIdx - 1
+    elseif newIdx > offset + 6 then
+        self.sellCompetitorScrollOffset = newIdx - 6
+    end
+
+    self:MirrorCompetitorPrice(newIdx)
+    self:UpdateSellCompetitorsList()
 end
 
 function AuctionScreen:CycleSellMoneyStep()
@@ -5147,18 +5202,11 @@ function AuctionScreen:OnDirection(direction)
                 if numComp <= 0 then return end
 
                 if direction == "UP" then
-                    if self.selectedCompetitorIndex > 1 then
-                        self.selectedCompetitorIndex = self.selectedCompetitorIndex - 1
-                        self:MirrorCompetitorPrice(self.selectedCompetitorIndex)
-                        self:UpdateSellCompetitorsList()
-                    end
+                    self:ScrollSellCompetitors(-1)
                 elseif direction == "DOWN" then
-                    if self.selectedCompetitorIndex < numComp then
-                        self.selectedCompetitorIndex = self.selectedCompetitorIndex + 1
-                        self:MirrorCompetitorPrice(self.selectedCompetitorIndex)
-                        self:UpdateSellCompetitorsList()
-                    end
-                elseif direction == "RIGHT" then
+                    self:ScrollSellCompetitors(1)
+                elseif direction == "LEFT" or direction == "RIGHT" then
+                    -- LEFT/RIGHT no COMPETITORS volta p/ FORM (mesma acao do LT).
                     self.sellListingPane = "FORM"
                     self:UpdateSellListingStyles()
                 end
@@ -5172,36 +5220,13 @@ function AuctionScreen:OnDirection(direction)
                     self.sellFormRow = self.sellFormRow + 1
                     if self.sellFormRow > 7 then self.sellFormRow = 1 end
                     self:UpdateSellListingStyles()
-                elseif direction == "LEFT" then
-                    if self.sellFormRow == 1 then
-                        self:AdjustSellMoney("BID", -1)
-                    elseif self.sellFormRow == 2 then
-                        self:AdjustSellMoney("BUYOUT", -1)
-                    elseif self.sellFormRow == 3 then
-                        self.sellDurationIdx = (self.sellDurationIdx or 1) - 1
-                        if self.sellDurationIdx < 1 then self.sellDurationIdx = 3 end
-                        self:UpdateSellListingStyles()
-                    elseif self.sellFormRow == 4 then
-                        self:AdjustSellStackSize(-1)
-                    elseif self.sellFormRow == 5 then
-                        self:AdjustSellNumStacks(-1)
-                    elseif table.getn(self.sellCompetitors or {}) > 0 then
+                elseif direction == "LEFT" or direction == "RIGHT" then
+                    -- PO: LEFT/RIGHT no FORM apenas troca de coluna FORM -> COMPETITORS
+                    -- (mesma acao do LT / ToggleSellListingPane). Edicao direta de
+                    -- valores via D-pad removida; AdjustSell* ficam orfas p/ os modais.
+                    if table.getn(self.sellCompetitors or {}) > 0 then
                         self.sellListingPane = "COMPETITORS"
                         self:UpdateSellListingStyles()
-                    end
-                elseif direction == "RIGHT" then
-                    if self.sellFormRow == 1 then
-                        self:AdjustSellMoney("BID", 1)
-                    elseif self.sellFormRow == 2 then
-                        self:AdjustSellMoney("BUYOUT", 1)
-                    elseif self.sellFormRow == 3 then
-                        self.sellDurationIdx = (self.sellDurationIdx or 1) + 1
-                        if self.sellDurationIdx > 3 then self.sellDurationIdx = 1 end
-                        self:UpdateSellListingStyles()
-                    elseif self.sellFormRow == 4 then
-                        self:AdjustSellStackSize(1)
-                    elseif self.sellFormRow == 5 then
-                        self:AdjustSellNumStacks(1)
                     end
                 end
                 return

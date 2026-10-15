@@ -1764,6 +1764,7 @@ CM_Langs["enUS"].strings = {
     AH_SELL_BAGS_FULL = "Your bags are full. Cannot split item stacks.",
     AH_SELL_TIMEOUT = "Auction creation timed out.",
     AH_SELL_MULTI_SUCCESS_FMT = "%d auction(s) for %s created successfully!",
+    AH_SELL_UNIT_PRICE = "Unit Price:",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

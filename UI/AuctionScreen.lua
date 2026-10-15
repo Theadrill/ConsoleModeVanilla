@@ -4108,30 +4108,68 @@ function AuctionScreen:CreateSellListingControls(parent)
 
     for i = 1, 7 do
         local r = CreateFrame("Button", "ConsoleMode_AuctionSellFormRow" .. i, listingRightPane)
-        r:SetHeight(fRowH)
-        r:SetPoint("TOPLEFT", listingRightPane, "TOPLEFT", 16, fStartY - ((i - 1) * (fRowH + fGap)))
-        r:SetPoint("TOPRIGHT", listingRightPane, "TOPRIGHT", -16, fStartY - ((i - 1) * (fRowH + fGap)))
-        r:SetBackdrop({
-            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            tile     = true, tileSize = 8, edgeSize = 8,
-            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
-        })
+        if i == 7 then
+            r:SetWidth(106)
+            r:SetHeight(30)
+            r:SetPoint("TOP", listingRightPane, "TOP", 0, fStartY - ((i - 1) * (fRowH + fGap)) - 2)
+            r:SetBackdrop({
+                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile     = true, tileSize = 8, edgeSize = 8,
+                insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+            })
+            r:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+            r:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
 
-        local lbl = r:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        lbl:SetPoint("LEFT", r, "LEFT", 12, 0)
-        self:ApplyFont(lbl, FONTS.titleBold, 15)
-        r.lbl = lbl
+            local postIcon = r:CreateTexture(nil, "OVERLAY")
+            postIcon:SetWidth(24)
+            postIcon:SetHeight(24)
+            postIcon:SetPoint("LEFT", r, "LEFT", 10, 0)
+            postIcon:SetTexture(ICONS.RT)
+            r.postIcon = postIcon
 
-        local val = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        val:SetPoint("RIGHT", r, "RIGHT", -12, 0)
-        self:ApplyFont(val, FONTS.bodyBold, 15)
-        r.val = val
+            local postTxt = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            postTxt:SetPoint("LEFT", postIcon, "RIGHT", 6, 0)
+            self:ApplyFont(postTxt, FONTS.titleBold, 16)
+            postTxt:SetText("POST")
+            r.postTxt = postTxt
 
-        if i == 1 or i == 2 then
-            local mDisp = self:CreateMoneyDisplay(r, 24, 13, "RIGHT", 150)
-            mDisp:SetPoint("RIGHT", r, "RIGHT", -10, 0)
-            r.moneyDisplay = mDisp
+            r:SetScript("OnEnter", function()
+                this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+                this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+            end)
+            r:SetScript("OnLeave", function()
+                if AuctionScreen.sellFormRow ~= 7 or AuctionScreen.sellListingPane ~= "FORM" then
+                    this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+                    this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+                end
+            end)
+        else
+            r:SetHeight(fRowH)
+            r:SetPoint("TOPLEFT", listingRightPane, "TOPLEFT", 16, fStartY - ((i - 1) * (fRowH + fGap)))
+            r:SetPoint("TOPRIGHT", listingRightPane, "TOPRIGHT", -16, fStartY - ((i - 1) * (fRowH + fGap)))
+            r:SetBackdrop({
+                bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile     = true, tileSize = 8, edgeSize = 8,
+                insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+            })
+
+            local lbl = r:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            lbl:SetPoint("LEFT", r, "LEFT", 12, 0)
+            self:ApplyFont(lbl, FONTS.titleBold, 15)
+            r.lbl = lbl
+
+            local val = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+            val:SetPoint("RIGHT", r, "RIGHT", -12, 0)
+            self:ApplyFont(val, FONTS.bodyBold, 15)
+            r.val = val
+
+            if i == 1 or i == 2 then
+                local mDisp = self:CreateMoneyDisplay(r, 24, 13, "RIGHT", 150)
+                mDisp:SetPoint("RIGHT", r, "RIGHT", -10, 0)
+                r.moneyDisplay = mDisp
+            end
         end
 
         local rowIdx = i
@@ -4161,30 +4199,39 @@ function AuctionScreen:CreateSellListingControls(parent)
     formRows[5].lbl:SetText(CM:T("AH_SELL_NUM_STACKS") or "Número de Pilhas")
     formRows[6].lbl:SetText(CM:T("AH_SELL_BTN_MAX") or "MAX")
     formRows[6].val:SetText("[ Calcular Máximo de Pilhas ]")
-    formRows[7].lbl:SetText(CM:T("AH_SELL_CONFIRM_POST") or "Confirmar e Postar")
-    formRows[7].val:SetText(CM:T("AH_HINT_POST_RT") or "Post Auction")
 
     local sDiv = listingRightPane:CreateTexture(nil, "ARTWORK")
     sDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
     sDiv:SetHeight(1)
-    sDiv:SetPoint("BOTTOMLEFT", listingRightPane, "BOTTOMLEFT", 14, 110)
-    sDiv:SetPoint("BOTTOMRIGHT", listingRightPane, "BOTTOMRIGHT", -14, 110)
+    sDiv:SetPoint("BOTTOMLEFT", listingRightPane, "BOTTOMLEFT", 14, 122)
+    sDiv:SetPoint("BOTTOMRIGHT", listingRightPane, "BOTTOMRIGHT", -14, 122)
     sDiv:SetVertexColor(0.5, 0.4, 0.3, 0.45)
 
     local sumHeader = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    sumHeader:SetPoint("TOPLEFT", sDiv, "BOTTOMLEFT", 4, -8)
+    sumHeader:SetPoint("TOPLEFT", sDiv, "BOTTOMLEFT", 4, -6)
     self:ApplyFont(sumHeader, FONTS.titleBold, 15)
     sumHeader:SetText(CM:T("AH_SELL_SUMMARY_HEADER") or "RESUMO DO LEILÃO")
     sumHeader:SetTextColor(0.95, 0.82, 0.35, 1.0)
 
     local sumTotalItems = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    sumTotalItems:SetPoint("TOPLEFT", sumHeader, "BOTTOMLEFT", 0, -4)
+    sumTotalItems:SetPoint("TOPLEFT", sumHeader, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumTotalItems, FONTS.medium, 14)
     sumTotalItems:SetTextColor(0.85, 0.85, 0.85, 1.0)
     listingRightPane.sumTotalItems = sumTotalItems
 
+    local sumUnitPriceLabel = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sumUnitPriceLabel:SetPoint("TOPLEFT", sumTotalItems, "BOTTOMLEFT", 0, -3)
+    self:ApplyFont(sumUnitPriceLabel, FONTS.medium, 14)
+    sumUnitPriceLabel:SetText(CM:T("AH_SELL_UNIT_PRICE") or "Preço por Unidade:")
+    sumUnitPriceLabel:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    listingRightPane.sumUnitPriceLabel = sumUnitPriceLabel
+
+    local sumUnitPriceDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 14, "LEFT")
+    sumUnitPriceDisplay:SetPoint("LEFT", sumUnitPriceLabel, "RIGHT", 6, 0)
+    listingRightPane.sumUnitPriceDisplay = sumUnitPriceDisplay
+
     local sumBuyoutLabel = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    sumBuyoutLabel:SetPoint("TOPLEFT", sumTotalItems, "BOTTOMLEFT", 0, -4)
+    sumBuyoutLabel:SetPoint("TOPLEFT", sumUnitPriceLabel, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumBuyoutLabel, FONTS.medium, 14)
     sumBuyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
     sumBuyoutLabel:SetTextColor(0.85, 0.85, 0.85, 1.0)
@@ -4195,7 +4242,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     listingRightPane.sumBuyoutDisplay = sumBuyoutDisplay
 
     local sumDepositLabel = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    sumDepositLabel:SetPoint("TOPLEFT", sumBuyoutLabel, "BOTTOMLEFT", 0, -4)
+    sumDepositLabel:SetPoint("TOPLEFT", sumBuyoutLabel, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumDepositLabel, FONTS.medium, 14)
     sumDepositLabel:SetText("Taxa Depósito:")
     sumDepositLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
@@ -4813,19 +4860,30 @@ function AuctionScreen:UpdateSellListingStyles()
         if isFocused then
             r:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
             r:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
-            r.lbl:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
+            if r.lbl then r.lbl:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0) end
+            if r.postTxt then r.postTxt:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0) end
         else
-            r:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
-            r:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
-            r.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90)
+            if i == 7 then
+                r:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+                r:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+                if r.postTxt then r.postTxt:SetTextColor(1.0, 1.0, 1.0, 1.0) end
+            else
+                r:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                r:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
+                if r.lbl then r.lbl:SetTextColor(0.80, 0.80, 0.80, 0.90) end
+            end
         end
     end
 
-    local totalUnits = (self.sellStackSize or 1) * (self.sellNumStacks or 1)
-    local totalBuyout = (self.sellBuyoutPrice or 0) * (self.sellNumStacks or 1)
+    local stackS = self.sellStackSize or 1
+    local numS = self.sellNumStacks or 1
+    local totalUnits = stackS * numS
+    local totalBuyout = (self.sellBuyoutPrice or 0) * numS
+    local unitPrice = (stackS > 0) and math.floor((self.sellBuyoutPrice or 0) / stackS) or (self.sellBuyoutPrice or 0)
     local deposit = self:CalculateSellDeposit()
 
-    rightPane.sumTotalItems:SetText(string.format("Total: %d item(s) (%d pilha(s) de %d)", totalUnits, self.sellNumStacks or 1, self.sellStackSize or 1))
+    rightPane.sumTotalItems:SetText(string.format("Total: %d item(s) (%d pilha(s) de %d)", totalUnits, numS, stackS))
+    self:SetMoneyDisplay(rightPane.sumUnitPriceDisplay, unitPrice)
     self:SetMoneyDisplay(rightPane.sumBuyoutDisplay, totalBuyout)
     self:SetMoneyDisplay(rightPane.sumDepositDisplay, deposit)
 
@@ -4848,7 +4906,7 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
 
     local modal = CreateFrame("Frame", "ConsoleMode_AuctionSellPostModal", modalDimmer)
     modal:SetWidth(480)
-    modal:SetHeight(300)
+    modal:SetHeight(320)
     modal:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     modal:SetFrameStrata("DIALOG")
     modal:SetFrameLevel(50)
@@ -4877,13 +4935,24 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
     modal.itemName = itemName
 
     local qtyText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    qtyText:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -14)
+    qtyText:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -12)
     self:ApplyFont(qtyText, FONTS.bodyBold, 15)
     qtyText:SetTextColor(0.85, 0.85, 0.85, 1.0)
     modal.qtyText = qtyText
 
+    local unitPriceLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    unitPriceLabel:SetPoint("TOPLEFT", qtyText, "BOTTOMLEFT", 0, -8)
+    self:ApplyFont(unitPriceLabel, FONTS.bodyBold, 15)
+    unitPriceLabel:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    unitPriceLabel:SetText(CM:T("AH_SELL_UNIT_PRICE") or "Preço por Unidade:")
+    modal.unitPriceLabel = unitPriceLabel
+
+    local unitPriceDisplay = self:CreateMoneyDisplay(modal, 20, 14, "LEFT")
+    unitPriceDisplay:SetPoint("LEFT", unitPriceLabel, "RIGHT", 8, 0)
+    modal.unitPriceDisplay = unitPriceDisplay
+
     local buyoutLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    buyoutLabel:SetPoint("TOPLEFT", qtyText, "BOTTOMLEFT", 0, -10)
+    buyoutLabel:SetPoint("TOPLEFT", unitPriceLabel, "BOTTOMLEFT", 0, -8)
     self:ApplyFont(buyoutLabel, FONTS.bodyBold, 15)
     buyoutLabel:SetTextColor(0.95, 0.82, 0.35, 1.0)
     buyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
@@ -4894,7 +4963,7 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
     modal.buyoutDisplay = buyoutDisplay
 
     local depositLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    depositLabel:SetPoint("TOPLEFT", buyoutLabel, "BOTTOMLEFT", 0, -10)
+    depositLabel:SetPoint("TOPLEFT", buyoutLabel, "BOTTOMLEFT", 0, -8)
     self:ApplyFont(depositLabel, FONTS.medium, 14)
     depositLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
     depositLabel:SetText("Taxa de Depósito:")
@@ -4967,10 +5036,15 @@ function AuctionScreen:OpenSellPostConfirmModal()
     modal.itemName:SetText(locName)
     modal.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
-    local totalUnits = (self.sellStackSize or 1) * (self.sellNumStacks or 1)
-    modal.qtyText:SetText(string.format("%d pilha(s) de %d unidade(s) • Total: %d", self.sellNumStacks or 1, self.sellStackSize or 1, totalUnits))
+    local stackS = self.sellStackSize or 1
+    local numS = self.sellNumStacks or 1
+    local totalUnits = stackS * numS
+    modal.qtyText:SetText(string.format("%d pilha(s) de %d unidade(s) • Total: %d", numS, stackS, totalUnits))
 
-    local totalBuyout = (self.sellBuyoutPrice or 0) * (self.sellNumStacks or 1)
+    local unitPrice = (stackS > 0) and math.floor((self.sellBuyoutPrice or 0) / stackS) or (self.sellBuyoutPrice or 0)
+    self:SetMoneyDisplay(modal.unitPriceDisplay, unitPrice)
+
+    local totalBuyout = (self.sellBuyoutPrice or 0) * numS
     self:SetMoneyDisplay(modal.buyoutDisplay, totalBuyout)
 
     local deposit = self:CalculateSellDeposit()

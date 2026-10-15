@@ -1765,6 +1765,13 @@ CM_Langs["enUS"].strings = {
     AH_SELL_TIMEOUT = "Auction creation timed out.",
     AH_SELL_MULTI_SUCCESS_FMT = "%d auction(s) for %s created successfully!",
     AH_SELL_UNIT_PRICE = "Unit Price:",
+    AH_COL_HIGH_BIDDER = "HIGH BIDDER",
+    AH_NO_BIDS = "No Bids",
+    AH_CANCEL_AUCTION_BTN = "Cancel Auction",
+    AH_CANCEL_FORFEIT_DEPOSIT = "Cancelling this auction will forfeit your deposit fee.",
+    AH_CANCEL_HAS_BIDS_WARNING = "This auction already has bids! Cancelling it will sell the item to the highest bidder at the current bid price.",
+    AH_HINT_CANCEL_AUCTION = "Cancel Auction",
+    AH_HINT_REFRESH = "Refresh",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

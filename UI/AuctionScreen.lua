@@ -2,9 +2,6 @@
 -- ConsoleModeVanilla - UI/AuctionScreen.lua
 -- Tela de Leilão (Auction House) para Console/Gamepad
 -- Compatível com WoW Vanilla 1.12.1 / Lua 5.0 (Turtle WoW)
--- FASE 0: Fundação, Moldura 9-Slice, Abas e Hook de Abertura
--- FASE 1: Aba Comprar — Categorias, Navegação D-Pad, Filtros Salvos e Scan
--- FASE 2: Lista de Itens Agrupados, Detalhe do Leilão e Compra Fiel
 -- ============================================================================
 
 local CM = ConsoleMode or {}
@@ -341,6 +338,14 @@ AuctionScreen.isSellPostModalOpen      = false
 AuctionScreen.sellPostBtnIndex         = 1 -- 1: Confirm, 2: Cancel
 AuctionScreen.postSession              = nil
 AuctionScreen.pendingSellScanItem      = nil
+
+-- FASE 8: Estados da Aba Meus Leilões (Owner Auctions)
+AuctionScreen.ownerAuctions            = {}
+AuctionScreen.selectedOwnerIndex       = 1
+AuctionScreen.ownerScrollOffset        = 0
+AuctionScreen.isOwnerCancelModalOpen   = false
+AuctionScreen.ownerCancelBtnIndex      = 1 -- 1: Confirm, 2: Cancel
+AuctionScreen.targetCancelAuction      = nil
 
 -- Hold-to-repeat
 AuctionScreen.repeatDir           = nil
@@ -976,6 +981,22 @@ function AuctionScreen:UpdateFooterHints()
                 table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar" })
             end
         end
+    elseif self.currentTab == "OWNER" then
+        if self.isOwnerCancelModalOpen then
+            table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_CONFIRM") or "Confirmar" })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_BTN_CANCEL") or "Cancelar" })
+        else
+            local total = table.getn(self.ownerAuctions or {})
+            if total > 0 then
+                table.insert(hints, { icons = { "A" },    label = CM:T("AH_HINT_CANCEL_AUCTION") or "Cancelar Leilão" })
+            end
+            table.insert(hints, { icons = { "X" },        label = CM:T("AH_HINT_REFRESH") or "Atualizar" })
+            if total > 0 then
+                table.insert(hints, { icons = { "DUP", "DDOWN" }, label = CM:T("AH_HINT_NAVIGATE") or "Navegar" })
+            end
+            table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") or "Alternar Aba" })
+            table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_CLOSE") or "Fechar" })
+        end
     else
         table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
         table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
@@ -1140,6 +1161,17 @@ function AuctionScreen:CreateContentArea(parent)
 
     -- 12. Modal de Confirmação de Postagem de Venda (FASE 7)
     self:CreateSellPostConfirmModal(parent)
+
+    -- 13. Container da Aba Meus Leilões (FASE 8)
+    local ownerContainer = CreateFrame("Frame", "ConsoleMode_AuctionOwnerContainer", contentArea)
+    ownerContainer:SetPoint("TOPLEFT", breadcrumb, "BOTTOMLEFT", 0, -8)
+    ownerContainer:SetPoint("BOTTOMRIGHT", contentArea, "BOTTOMRIGHT", 0, 0)
+    ownerContainer:Hide()
+    self.ownerContainer = ownerContainer
+    self:CreateOwnerControls(ownerContainer)
+
+    -- 14. Modal de Confirmação de Cancelamento de Leilão (FASE 8)
+    self:CreateOwnerCancelModal(parent)
 end
 
 function AuctionScreen:UpdateBreadcrumb()
@@ -5742,6 +5774,522 @@ function AuctionScreen:OnTriggerAction()
 end
 
 -- ----------------------------------------------------------------------------
+-- 15c. ABA MEUS LEILÕES (FASE 8: OWNER AUCTIONS & CANCELAMENTO)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:CreateOwnerControls(parent)
+    local headerFrame = CreateFrame("Frame", nil, parent)
+    headerFrame:SetHeight(24)
+    headerFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 6, 0)
+    headerFrame:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -6, 0)
+
+    local colItem = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
+    self:ApplyFont(colItem, FONTS.titleBold, 14)
+    colItem:SetText(CM:T("AH_COL_ITEM") or "ITEM")
+    colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colStack = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colStack:SetPoint("LEFT", headerFrame, "LEFT", 260, 0)
+    colStack:SetWidth(50)
+    colStack:SetJustifyH("CENTER")
+    self:ApplyFont(colStack, FONTS.titleBold, 14)
+    colStack:SetText(CM:T("AH_COL_STACK") or "PILHA")
+    colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colTime = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colTime:SetPoint("LEFT", headerFrame, "LEFT", 325, 0)
+    colTime:SetWidth(80)
+    colTime:SetJustifyH("LEFT")
+    self:ApplyFont(colTime, FONTS.titleBold, 14)
+    colTime:SetText(CM:T("AH_COL_TIME_LEFT") or "DURAÇÃO")
+    colTime:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colBidder = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colBidder:SetPoint("LEFT", headerFrame, "LEFT", 415, 0)
+    colBidder:SetWidth(110)
+    colBidder:SetJustifyH("LEFT")
+    self:ApplyFont(colBidder, FONTS.titleBold, 14)
+    colBidder:SetText(CM:T("AH_COL_HIGH_BIDDER") or "MAIOR LANCE")
+    colBidder:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colBid = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colBid:SetPoint("RIGHT", headerFrame, "RIGHT", -166, 0)
+    colBid:SetWidth(150)
+    colBid:SetJustifyH("CENTER")
+    self:ApplyFont(colBid, FONTS.titleBold, 14)
+    colBid:SetText(CM:T("AH_COL_BID") or "LANCE ATUAL")
+    colBid:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    local colBuyout = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    colBuyout:SetPoint("RIGHT", headerFrame, "RIGHT", -16, 0)
+    colBuyout:SetWidth(150)
+    colBuyout:SetJustifyH("CENTER")
+    self:ApplyFont(colBuyout, FONTS.titleBold, 14)
+    colBuyout:SetText(CM:T("AH_COL_BUYOUT") or "COMPRA IMEDIATA")
+    colBuyout:SetTextColor(0.70, 0.65, 0.55, 1.0)
+
+    -- Pool de 7 linhas visíveis
+    local rows = {}
+    local startY = -28
+    local rowH = 46
+    local rowGap = 6
+
+    for i = 1, 7 do
+        local row = CreateFrame("Button", "ConsoleMode_AuctionOwnerRow" .. i, parent)
+        row:SetHeight(rowH)
+        row:SetPoint("TOPLEFT", parent, "TOPLEFT", 6, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -6, startY - ((i - 1) * (rowH + rowGap)))
+
+        row:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 10, edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+        })
+
+        local icon = row:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(34)
+        icon:SetHeight(34)
+        icon:SetPoint("LEFT", row, "LEFT", 6, 0)
+        row.icon = icon
+
+        local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+        nameText:SetPoint("LEFT", icon, "RIGHT", 8, 0)
+        nameText:SetWidth(200)
+        nameText:SetJustifyH("LEFT")
+        self:ApplyFont(nameText, FONTS.titleBold, 16)
+        row.nameText = nameText
+
+        local stackText = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        stackText:SetPoint("LEFT", row, "LEFT", 260, 0)
+        stackText:SetWidth(50)
+        stackText:SetJustifyH("CENTER")
+        self:ApplyFont(stackText, FONTS.titleBold, 16)
+        stackText:SetTextColor(1.0, 0.90, 0.40, 1.0)
+        row.stackText = stackText
+
+        local timeText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        timeText:SetPoint("LEFT", row, "LEFT", 325, 0)
+        timeText:SetWidth(80)
+        timeText:SetJustifyH("LEFT")
+        self:ApplyFont(timeText, FONTS.medium, 14)
+        timeText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+        row.timeText = timeText
+
+        local bidderText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        bidderText:SetPoint("LEFT", row, "LEFT", 415, 0)
+        bidderText:SetWidth(110)
+        bidderText:SetJustifyH("LEFT")
+        self:ApplyFont(bidderText, FONTS.medium, 14)
+        bidderText:SetTextColor(0.70, 0.85, 0.70, 1.0)
+        row.bidderText = bidderText
+
+        local bidDisplay = self:CreateMoneyDisplay(row, 24, 13, "RIGHT", 150)
+        bidDisplay:SetPoint("RIGHT", row, "RIGHT", -166, 0)
+        row.bidDisplay = bidDisplay
+
+        local buyoutDisplay = self:CreateMoneyDisplay(row, 24, 13, "RIGHT", 150)
+        buyoutDisplay:SetPoint("RIGHT", row, "RIGHT", -16, 0)
+        row.buyoutDisplay = buyoutDisplay
+
+        row.rowIdx = i
+        row:SetScript("OnClick", function()
+            local realIdx = (AuctionScreen.ownerScrollOffset or 0) + this.rowIdx
+            AuctionScreen.selectedOwnerIndex = realIdx
+            AuctionScreen:UpdateOwnerList()
+            AuctionScreen:OpenOwnerCancelModal()
+        end)
+        row:SetScript("OnEnter", function()
+            local realIdx = (AuctionScreen.ownerScrollOffset or 0) + this.rowIdx
+            AuctionScreen.selectedOwnerIndex = realIdx
+            AuctionScreen:UpdateOwnerList()
+        end)
+
+        table.insert(rows, row)
+    end
+    parent.rows = rows
+
+    local emptyText = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    emptyText:SetPoint("CENTER", parent, "CENTER", 0, 10)
+    self:ApplyFont(emptyText, FONTS.titleBold, 20)
+    emptyText:SetTextColor(0.65, 0.60, 0.50, 1.0)
+    emptyText:SetText(CM:T("AH_MY_AUCTIONS_EMPTY") or "Você não possui leilões ativos.")
+    emptyText:Hide()
+    parent.emptyText = emptyText
+
+    local posIndicator = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    posIndicator:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -16, 8)
+    self:ApplyFont(posIndicator, FONTS.medium, 14)
+    posIndicator:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    parent.posIndicator = posIndicator
+
+    self.ownerRows = rows
+end
+
+function AuctionScreen:RefreshOwnerAuctions()
+    if GetOwnerAuctionItems then
+        pcall(GetOwnerAuctionItems)
+    end
+
+    local total = 0
+    if GetNumAuctionItems then
+        local ok, val = pcall(GetNumAuctionItems, "owner")
+        if ok and val then total = tonumber(val) or 0 end
+    end
+
+    local items = {}
+    for i = 1, total do
+        local name, texture, count, quality, canUse, level, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, owner = GetAuctionItemInfo("owner", i)
+        local link = GetAuctionItemLink("owner", i)
+        local timeLeft = GetAuctionItemTimeLeft("owner", i)
+        table.insert(items, {
+            index        = i,
+            name         = name or "Unknown",
+            texture      = texture or "Interface\\Icons\\INV_Misc_QuestionMark",
+            count        = count or 1,
+            quality      = quality or 0,
+            level        = level or 0,
+            minBid       = minBid or 0,
+            buyoutPrice  = buyoutPrice or 0,
+            bidAmount    = bidAmount or 0,
+            highBidder   = highBidder,
+            owner        = owner,
+            link         = link,
+            timeLeft     = timeLeft or 1,
+        })
+    end
+
+    self.ownerAuctions = items
+    local numItems = table.getn(items)
+
+    if self.selectedOwnerIndex > numItems then
+        self.selectedOwnerIndex = math.max(1, numItems)
+    end
+    if self.selectedOwnerIndex < 1 and numItems > 0 then
+        self.selectedOwnerIndex = 1
+    end
+
+    if self.selectedOwnerIndex <= self.ownerScrollOffset then
+        self.ownerScrollOffset = math.max(0, self.selectedOwnerIndex - 1)
+    elseif self.selectedOwnerIndex > self.ownerScrollOffset + 7 then
+        self.ownerScrollOffset = self.selectedOwnerIndex - 7
+    end
+
+    self:UpdateOwnerList()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:UpdateOwnerList()
+    if not self.ownerRows or not self.ownerContainer then return end
+
+    local items = self.ownerAuctions or {}
+    local total = table.getn(items)
+    local offset = self.ownerScrollOffset or 0
+
+    if total == 0 then
+        self.ownerContainer.emptyText:Show()
+        for i = 1, 7 do
+            self.ownerRows[i]:Hide()
+        end
+        if self.ownerContainer.posIndicator then
+            self.ownerContainer.posIndicator:SetText("")
+        end
+        return
+    else
+        self.ownerContainer.emptyText:Hide()
+    end
+
+    for i = 1, 7 do
+        local row = self.ownerRows[i]
+        local idx = offset + i
+
+        if idx <= total then
+            local item = items[idx]
+            local isSel = (idx == self.selectedOwnerIndex)
+
+            row.icon:SetTexture(item.texture)
+
+            local qColor = QUALITY_COLORS[item.quality] or { 1, 1, 1 }
+            local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+            row.nameText:SetText(locName)
+            row.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+            row.stackText:SetText("x" .. tostring(item.count or 1))
+
+            local timeKey = TIME_LEFT_KEYS[item.timeLeft] or "AH_TIME_SHORT"
+            row.timeText:SetText(CM:T(timeKey) or "")
+
+            if item.highBidder and item.highBidder ~= "" then
+                row.bidderText:SetText(item.highBidder)
+                row.bidderText:SetTextColor(0.40, 1.0, 0.40, 1.0)
+            else
+                row.bidderText:SetText(CM:T("AH_NO_BIDS") or "Sem Lances")
+                row.bidderText:SetTextColor(0.60, 0.60, 0.60, 0.85)
+            end
+
+            local bidVal = (item.bidAmount and item.bidAmount > 0) and item.bidAmount or (item.minBid or 0)
+            self:SetMoneyDisplay(row.bidDisplay, bidVal)
+            self:SetMoneyDisplay(row.buyoutDisplay, item.buyoutPrice)
+
+            if isSel then
+                row:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+                row:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+            else
+                row:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+                row:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
+            end
+
+            row:Show()
+        else
+            row:Hide()
+        end
+    end
+
+    if self.ownerContainer.posIndicator then
+        if total > 0 then
+            self.ownerContainer.posIndicator:SetText(string.format("Leilão %d de %d", self.selectedOwnerIndex, total))
+        else
+            self.ownerContainer.posIndicator:SetText("")
+        end
+    end
+end
+
+function AuctionScreen:ScrollOwnerList(delta)
+    local total = table.getn(self.ownerAuctions or {})
+    if total <= 0 then return end
+
+    local newIdx = (self.selectedOwnerIndex or 1) + delta
+    if newIdx < 1 then newIdx = 1 end
+    if newIdx > total then newIdx = total end
+
+    self.selectedOwnerIndex = newIdx
+
+    if self.selectedOwnerIndex <= self.ownerScrollOffset then
+        self.ownerScrollOffset = self.selectedOwnerIndex - 1
+    elseif self.selectedOwnerIndex > self.ownerScrollOffset + 7 then
+        self.ownerScrollOffset = self.selectedOwnerIndex - 7
+    end
+
+    self:UpdateOwnerList()
+end
+
+function AuctionScreen:CreateOwnerCancelModal(parent)
+    local modalDimmer = CreateFrame("Frame", "ConsoleMode_AuctionOwnerCancelDimmer", parent)
+    modalDimmer:SetFrameStrata("DIALOG")
+    modalDimmer:SetFrameLevel(45)
+    modalDimmer:SetAllPoints(UIParent)
+    modalDimmer:EnableMouse(true)
+    modalDimmer:Hide()
+
+    local bg = modalDimmer:CreateTexture(nil, "BACKGROUND")
+    bg:SetAllPoints(modalDimmer)
+    bg:SetTexture(0, 0, 0, 0.70)
+    modalDimmer.bg = bg
+
+    local modal = CreateFrame("Frame", "ConsoleMode_AuctionOwnerCancelModal", modalDimmer)
+    modal:SetWidth(480)
+    modal:SetHeight(280)
+    modal:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    modal:SetFrameStrata("DIALOG")
+    modal:SetFrameLevel(50)
+    modal:EnableMouse(true)
+
+    self:Create9Slice(modal, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
+
+    local title = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+    title:SetPoint("TOP", modal, "TOP", 0, -20)
+    self:ApplyFont(title, FONTS.titleBold, 22)
+    title:SetTextColor(1.0, 0.85, 0.25, 1.0)
+    title:SetText(CM:T("AH_CANCEL_CONFIRM_TITLE") or "CANCELAR LEILÃO")
+    modal.title = title
+
+    local itemIcon = modal:CreateTexture(nil, "ARTWORK")
+    itemIcon:SetWidth(40)
+    itemIcon:SetHeight(40)
+    itemIcon:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, -60)
+    modal.itemIcon = itemIcon
+
+    local itemName = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    itemName:SetPoint("LEFT", itemIcon, "RIGHT", 12, 0)
+    itemName:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
+    itemName:SetJustifyH("LEFT")
+    self:ApplyFont(itemName, FONTS.titleBold, 18)
+    modal.itemName = itemName
+
+    local descText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    descText:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -16)
+    descText:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
+    descText:SetJustifyH("LEFT")
+    self:ApplyFont(descText, FONTS.bodyBold, 15)
+    descText:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    modal.descText = descText
+
+    local warnText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    warnText:SetPoint("TOPLEFT", descText, "BOTTOMLEFT", 0, -12)
+    warnText:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
+    warnText:SetJustifyH("LEFT")
+    self:ApplyFont(warnText, FONTS.medium, 14)
+    warnText:SetTextColor(1.0, 0.40, 0.40, 1.0)
+    modal.warnText = warnText
+
+    local btnContainer = CreateFrame("Frame", nil, modal)
+    btnContainer:SetHeight(40)
+    btnContainer:SetPoint("BOTTOMLEFT", modal, "BOTTOMLEFT", 24, 20)
+    btnContainer:SetPoint("BOTTOMRIGHT", modal, "BOTTOMRIGHT", -24, 20)
+
+    local btnConfirm = CreateFrame("Button", "ConsoleMode_AuctionOwnerCancelConfirmBtn", btnContainer)
+    btnConfirm:SetWidth(190)
+    btnConfirm:SetHeight(38)
+    btnConfirm:SetPoint("LEFT", btnContainer, "LEFT", 10, 0)
+    btnConfirm:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    local lConf = btnConfirm:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lConf:SetPoint("CENTER", btnConfirm, "CENTER", 15, 0)
+    self:ApplyFont(lConf, FONTS.titleBold, 16)
+    lConf:SetText(CM:T("AH_CANCEL_AUCTION_BTN") or "Cancelar Leilão")
+    btnConfirm.label = lConf
+
+    local iconA = btnConfirm:CreateTexture(nil, "OVERLAY")
+    iconA:SetWidth(28)
+    iconA:SetHeight(28)
+    iconA:SetPoint("RIGHT", lConf, "LEFT", -6, 0)
+    iconA:SetTexture(ICONS.A)
+    btnConfirm.icon = iconA
+
+    btnConfirm:SetScript("OnClick", function()
+        AuctionScreen:ExecuteCancelAuction()
+    end)
+    btnConfirm:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    btnConfirm:SetScript("OnLeave", function()
+        AuctionScreen:UpdateOwnerCancelModalStyles()
+    end)
+    modal.btnConfirm = btnConfirm
+
+    local btnCancel = CreateFrame("Button", "ConsoleMode_AuctionOwnerCancelDismissBtn", btnContainer)
+    btnCancel:SetWidth(190)
+    btnCancel:SetHeight(38)
+    btnCancel:SetPoint("RIGHT", btnContainer, "RIGHT", -10, 0)
+    btnCancel:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    local lCanc = btnCancel:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    lCanc:SetPoint("CENTER", btnCancel, "CENTER", 15, 0)
+    self:ApplyFont(lCanc, FONTS.titleBold, 16)
+    lCanc:SetText(CM:T("AH_BTN_CANCEL") or "Voltar")
+    btnCancel.label = lCanc
+
+    local iconB = btnCancel:CreateTexture(nil, "OVERLAY")
+    iconB:SetWidth(28)
+    iconB:SetHeight(28)
+    iconB:SetPoint("RIGHT", lCanc, "LEFT", -6, 0)
+    iconB:SetTexture(ICONS.B)
+    btnCancel.icon = iconB
+
+    btnCancel:SetScript("OnClick", function()
+        AuctionScreen:CloseOwnerCancelModal()
+    end)
+    btnCancel:SetScript("OnEnter", function()
+        this:SetBackdropBorderColor(1.0, 0.85, 0.25, 1.0)
+        this:SetBackdropColor(0.20, 0.15, 0.10, 0.90)
+    end)
+    btnCancel:SetScript("OnLeave", function()
+        AuctionScreen:UpdateOwnerCancelModalStyles()
+    end)
+    modal.btnCancel = btnCancel
+
+    self.ownerCancelModalDimmer = modalDimmer
+    self.ownerCancelModal = modal
+end
+
+function AuctionScreen:OpenOwnerCancelModal()
+    local item = self.ownerAuctions and self.ownerAuctions[self.selectedOwnerIndex]
+    if not item or not self.ownerCancelModal then return end
+
+    self.targetCancelAuction = item
+    self.isOwnerCancelModalOpen = true
+    self.ownerCancelBtnIndex = 1
+
+    local modal = self.ownerCancelModal
+    local qColor = QUALITY_COLORS[item.quality] or { 0.8, 0.8, 0.8 }
+    modal.itemIcon:SetTexture(item.texture or "Interface\\Icons\\INV_Misc_QuestionMark")
+
+    local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+    modal.itemName:SetText(locName .. " (x" .. tostring(item.count or 1) .. ")")
+    modal.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
+
+    local msgFmt = CM:T("AH_CANCEL_CONFIRM_MSG_FMT") or "Tem certeza que deseja cancelar o leilão de %s?"
+    modal.descText:SetText(string.format(msgFmt, locName))
+
+    if item.highBidder and item.highBidder ~= "" then
+        modal.warnText:SetText(CM:T("AH_CANCEL_HAS_BIDS_WARNING") or "Atenção: Este leilão já possui lances! Ao cancelar, você venderá o item ao maior comprador pelo lance atual.")
+    else
+        modal.warnText:SetText(CM:T("AH_CANCEL_FORFEIT_DEPOSIT") or "Ao cancelar este leilão, a taxa de depósito não será reembolsada.")
+    end
+
+    self:UpdateOwnerCancelModalStyles()
+    self.ownerCancelModalDimmer:Show()
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:CloseOwnerCancelModal()
+    self.isOwnerCancelModalOpen = false
+    self.targetCancelAuction = nil
+    if self.ownerCancelModalDimmer then
+        self.ownerCancelModalDimmer:Hide()
+    end
+    self:UpdateFooterHints()
+end
+
+function AuctionScreen:UpdateOwnerCancelModalStyles()
+    if not self.ownerCancelModal then return end
+    local modal = self.ownerCancelModal
+
+    if self.ownerCancelBtnIndex == 1 then
+        modal.btnConfirm:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+        modal.btnConfirm:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        modal.btnConfirm.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
+
+        modal.btnCancel:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+        modal.btnCancel:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
+        modal.btnCancel.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    else
+        modal.btnCancel:SetBackdropColor(SEL_BG[1], SEL_BG[2], SEL_BG[3], SEL_BG[4])
+        modal.btnCancel:SetBackdropBorderColor(SEL_BORDER[1], SEL_BORDER[2], SEL_BORDER[3], SEL_BORDER[4])
+        modal.btnCancel.label:SetTextColor(SEL_TEXT[1], SEL_TEXT[2], SEL_TEXT[3], 1.0)
+
+        modal.btnConfirm:SetBackdropColor(NORMAL_BG[1], NORMAL_BG[2], NORMAL_BG[3], NORMAL_BG[4])
+        modal.btnConfirm:SetBackdropBorderColor(NORMAL_BORDER[1], NORMAL_BORDER[2], NORMAL_BORDER[3], NORMAL_BORDER[4])
+        modal.btnConfirm.label:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    end
+end
+
+function AuctionScreen:ExecuteCancelAuction()
+    local item = self.targetCancelAuction
+    self:CloseOwnerCancelModal()
+    if not item or not item.index then return end
+
+    if CancelAuction then
+        CancelAuction(item.index)
+        local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or item.name
+        local msg = CM:T("AH_MSG_AUCTION_CANCELLED") or "Leilão cancelado."
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffe09a15[ConsoleMode]|r " .. msg .. " (" .. locName .. ")")
+        end
+        if PlaySound then PlaySound("igMainMenuOptionCheckBoxOn") end
+    end
+end
+
+-- ----------------------------------------------------------------------------
 -- 16. NAVEGAÇÃO ENTRE ABAS
 -- ----------------------------------------------------------------------------
 function AuctionScreen:SetTab(tabKey)
@@ -5752,24 +6300,30 @@ function AuctionScreen:SetTab(tabKey)
     self:CloseConfirmModal()
     self:CloseSortModal()
     self:CloseSellPostConfirmModal()
+    self:CloseOwnerCancelModal()
 
     if tabKey == "BUY" then
         if AuctionFrameTab_OnClick then pcall(AuctionFrameTab_OnClick, 1) end
         if self.sellContainer then self.sellContainer:Hide() end
         if self.sellListingContainer then self.sellListingContainer:Hide() end
+        if self.ownerContainer then self.ownerContainer:Hide() end
         self:SetBuyStep("CATEGORIES")
     elseif tabKey == "SELL" then
-        if AuctionFrameTab_OnClick then pcall(AuctionFrameTab_OnClick, 3) end
+        if AuctionFrameTab_OnClick then pcall(AuctionFrameTab_OnClick, 2) end
         self.gridContainer:Hide()
         self.filterContainer:Hide()
         self.scanContainer:Hide()
         self.summaryContainer:Hide()
         self.itemListContainer:Hide()
         self.itemDetailContainer:Hide()
+        if self.ownerContainer then self.ownerContainer:Hide() end
         self:OpenSellInventory()
     else
-        -- OWNER
+        -- OWNER (Aba 3 da Blizzard: Auctions / Meus Leilões)
         if AuctionFrameTab_OnClick then pcall(AuctionFrameTab_OnClick, 3) end
+        if GetOwnerAuctionItems then
+            pcall(GetOwnerAuctionItems)
+        end
         self.gridContainer:Hide()
         self.filterContainer:Hide()
         self.scanContainer:Hide()
@@ -5778,16 +6332,18 @@ function AuctionScreen:SetTab(tabKey)
         self.itemDetailContainer:Hide()
         if self.sellContainer then self.sellContainer:Hide() end
         if self.sellListingContainer then self.sellListingContainer:Hide() end
+        if self.ownerContainer then self.ownerContainer:Show() end
         if self.breadcrumb and self.breadcrumb.text then
             self.breadcrumb.text:SetText(CM:T("AH_TAB_MY_AUCTIONS") or "My Auctions")
         end
+        self:RefreshOwnerAuctions()
         self:UpdateFooterHints()
     end
 end
 
 function AuctionScreen:SwitchTab(delta)
     if self:IsVKOpen() then return end
-    if self.isConfirmModalOpen then return end
+    if self.isConfirmModalOpen or self.isOwnerCancelModalOpen then return end
     if self.isSortModalOpen then return end
     if self:IsQtyModalOpen() or self:IsMoneyModalOpen() then return end
 
@@ -5981,6 +6537,23 @@ function AuctionScreen:OnDirection(direction)
             end
         end
     end
+
+    if self.currentTab == "OWNER" then
+        if self.isOwnerCancelModalOpen then
+            if direction == "LEFT" or direction == "RIGHT" then
+                self.ownerCancelBtnIndex = (self.ownerCancelBtnIndex == 1) and 2 or 1
+                self:UpdateOwnerCancelModalStyles()
+            end
+            return
+        end
+
+        if direction == "UP" then
+            self:ScrollOwnerList(-1)
+        elseif direction == "DOWN" then
+            self:ScrollOwnerList(1)
+        end
+        return
+    end
 end
 
 function AuctionScreen:OnConfirm()
@@ -6125,6 +6698,21 @@ function AuctionScreen:OnConfirm()
             end
             return
         end
+    elseif self.currentTab == "OWNER" then
+        if self.isOwnerCancelModalOpen then
+            if self.ownerCancelBtnIndex == 1 then
+                self:ExecuteCancelAuction()
+            else
+                self:CloseOwnerCancelModal()
+            end
+            return
+        end
+
+        local item = self.ownerAuctions and self.ownerAuctions[self.selectedOwnerIndex]
+        if item then
+            self:OpenOwnerCancelModal()
+        end
+        return
     end
 end
 
@@ -6148,6 +6736,9 @@ function AuctionScreen:OnSecondaryAction()
             self:RefreshSellInventory()
             return
         end
+    elseif self.currentTab == "OWNER" then
+        self:RefreshOwnerAuctions()
+        return
     end
 end
 
@@ -6229,6 +6820,11 @@ function AuctionScreen:OnCancel()
 
     if self.isSellPostModalOpen then
         self:CloseSellPostConfirmModal()
+        return
+    end
+
+    if self.isOwnerCancelModalOpen then
+        self:CloseOwnerCancelModal()
         return
     end
 
@@ -6401,6 +6997,7 @@ function AuctionScreen:Close(fromServer)
     self:CloseConfirmModal()
     self:CloseSortModal()
     self:CloseSellPostConfirmModal()
+    self:CloseOwnerCancelModal()
 
     if self.postSession and self.postSession.active then
         self:AbortPostSession()
@@ -6481,6 +7078,7 @@ function AuctionScreen:InitEvents()
     ef:RegisterEvent("AUCTION_HOUSE_CLOSED")
     ef:RegisterEvent("BAG_UPDATE")
     ef:RegisterEvent("CHAT_MSG_SYSTEM")
+    ef:RegisterEvent("AUCTION_OWNED_LIST_UPDATE")
 
     ef:SetScript("OnEvent", function()
         if event == "AUCTION_HOUSE_SHOW" then
@@ -6492,6 +7090,10 @@ function AuctionScreen:InitEvents()
                 AuctionScreen:OnPostBagUpdate(arg1)
             elseif AuctionScreen.isOpen and AuctionScreen.currentTab == "SELL" and AuctionScreen.sellStep == "INVENTORY" then
                 AuctionScreen:RefreshSellInventory()
+            end
+        elseif event == "AUCTION_OWNED_LIST_UPDATE" then
+            if AuctionScreen.isOpen and AuctionScreen.currentTab == "OWNER" then
+                AuctionScreen:RefreshOwnerAuctions()
             end
         elseif event == "CHAT_MSG_SYSTEM" then
             AuctionScreen:OnPostSystemMessage(arg1)

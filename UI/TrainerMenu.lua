@@ -1785,7 +1785,7 @@ function TrainerMenu:UpdateCatalogRows()
                     local inCart = (it.category == "available") and self.IsItemInCart and self:IsItemInCart(it)
                     local checkMark = ""
                     if it.category == "available" then
-                        checkMark = inCart and "|cff1eff00[✓] |r" or "|cff555555[ ] |r"
+                        checkMark = inCart and "|cff1eff00[x] |r" or "|cff888888[-] |r"
                     end
 
                     if it.category == "available" then

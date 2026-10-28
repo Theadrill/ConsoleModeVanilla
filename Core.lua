@@ -469,6 +469,13 @@ SlashCmdList["CONSOLEMODE"] = function(msg)
             CM.ui:ResetAllPositions()
         end
 
+    elseif cmd == "ahduration" or cmd == "testduration" or cmd == "checkduration" then
+        if ConsoleMode_AuctionScreen and ConsoleMode_AuctionScreen.ProbeServerDurations then
+            ConsoleMode_AuctionScreen:ProbeServerDurations(true)
+        else
+            DEFAULT_CHAT_FRAME:AddMessage("|cffff4040[ConsoleMode]|r AuctionScreen não encontrado.")
+        end
+
     else
         DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_HEAD"))
         DEFAULT_CHAT_FRAME:AddMessage(CM:T("MSG_HELP_MENU"))

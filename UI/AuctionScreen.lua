@@ -329,7 +329,7 @@ AuctionScreen.selectedCompetitorIndex  = 1
 AuctionScreen.sellCompetitorScrollOffset = 0
 AuctionScreen.sellListingPane          = "FORM" -- "FORM", "COMPETITORS"
 AuctionScreen.sellFormRow              = 1 -- 1: Bid, 2: Buyout, 3: Duration, 4: StackSize, 5: NumStacks, 6: MaxBtn, 7: PostBtn
-AuctionScreen.sellDurationIdx          = 1 -- 1: 2h, 2: 8h, 3: 24h
+AuctionScreen.sellDurationIdx          = 3 -- Padrão: maior duração disponível
 AuctionScreen.sellStackSize            = 1
 AuctionScreen.sellNumStacks            = 1
 AuctionScreen.sellBidPrice             = 0
@@ -4389,8 +4389,10 @@ function AuctionScreen:CreateSellListingControls(parent)
             elseif this.rowIdx == 2 then
                 AuctionScreen:OpenSellMoneyPicker("BUYOUT")
             elseif this.rowIdx == 3 then
+                local maxDurs = table.getn(AuctionScreen.serverDurations or {})
+                if maxDurs < 1 then maxDurs = 3 end
                 AuctionScreen.sellDurationIdx = (AuctionScreen.sellDurationIdx or 1) + 1
-                if AuctionScreen.sellDurationIdx > 3 then AuctionScreen.sellDurationIdx = 1 end
+                if AuctionScreen.sellDurationIdx > maxDurs then AuctionScreen.sellDurationIdx = 1 end
                 AuctionScreen:UpdateSellListingStyles()
             elseif this.rowIdx == 4 then
                 AuctionScreen:OpenSellStackSizePicker()
@@ -4510,7 +4512,8 @@ function AuctionScreen:OpenSellListing(item)
     self.selectedSellItem = item
     self.sellListingPane = "FORM"
     self.sellFormRow = 1
-    self.sellDurationIdx = 1
+    local maxDurs = table.getn(self.serverDurations or {})
+    self.sellDurationIdx = (maxDurs > 0) and maxDurs or 3
     self.sellStackSize = 1
     self.sellNumStacks = 1
     self.sellMoneyStepIdx = 3
@@ -5140,11 +5143,26 @@ function AuctionScreen:CalculateSellDeposit()
     local item = self.selectedSellItem
     if not item then return 0 end
 
-    local factor = 0.15
-    if self.sellDurationIdx == 2 then
-        factor = 0.60
+    local durMinutes = 120
+    if self.serverDurations and self.serverDurations[self.sellDurationIdx] then
+        durMinutes = self.serverDurations[self.sellDurationIdx].minutes or 120
+    elseif self.sellDurationIdx == 2 then
+        durMinutes = 480
     elseif self.sellDurationIdx == 3 then
+        durMinutes = 1440
+    end
+
+    local factor = 0.15
+    if durMinutes == 480 then
+        factor = 0.60
+    elseif durMinutes == 1440 then
         factor = 1.20
+    elseif durMinutes == 2880 then
+        factor = 2.40
+    elseif durMinutes > 1440 then
+        factor = 1.20 * (durMinutes / 1440)
+    elseif durMinutes > 120 then
+        factor = 0.15 * (durMinutes / 120)
     end
 
     local vPrice = item.vendorPrice or 0
@@ -5176,11 +5194,17 @@ function AuctionScreen:UpdateSellListingStyles()
         CM:T("AH_SELL_DURATION_8H") or "8 Horas",
         CM:T("AH_SELL_DURATION_24H") or "24 Horas"
     }
+    local durText = ""
+    if self.serverDurations and self.serverDurations[self.sellDurationIdx or 1] then
+        durText = self.serverDurations[self.sellDurationIdx or 1].label or ""
+    else
+        durText = durLabels[self.sellDurationIdx or 1] or ""
+    end
 
     local rows = rightPane.formRows
     self:SetMoneyDisplay(rows[1].moneyDisplay, self.sellBidPrice or 0)
     self:SetMoneyDisplay(rows[2].moneyDisplay, self.sellBuyoutPrice or 0)
-    rows[3].val:SetText(durLabels[self.sellDurationIdx or 1] or "")
+    rows[3].val:SetText(durText)
     rows[4].val:SetText(tostring(self.sellStackSize or 1))
     rows[5].val:SetText(tostring(self.sellNumStacks or 1))
 
@@ -5594,7 +5618,9 @@ function AuctionScreen:ExecutePostAuction()
     end
 
     local durMinutes = 120
-    if self.sellDurationIdx == 2 then
+    if self.serverDurations and self.serverDurations[self.sellDurationIdx] then
+        durMinutes = self.serverDurations[self.sellDurationIdx].minutes or 120
+    elseif self.sellDurationIdx == 2 then
         durMinutes = 480
     elseif self.sellDurationIdx == 3 then
         durMinutes = 1440
@@ -6887,8 +6913,10 @@ function AuctionScreen:OnConfirm()
             elseif self.sellFormRow == 2 then
                 self:OpenSellMoneyVK("BUYOUT")
             elseif self.sellFormRow == 3 then
+                local maxDurs = table.getn(self.serverDurations or {})
+                if maxDurs < 1 then maxDurs = 3 end
                 self.sellDurationIdx = (self.sellDurationIdx or 1) + 1
-                if self.sellDurationIdx > 3 then self.sellDurationIdx = 1 end
+                if self.sellDurationIdx > maxDurs then self.sellDurationIdx = 1 end
                 self:UpdateSellListingStyles()
             elseif self.sellFormRow == 4 then
                 self:OpenSellStackSizePicker()
@@ -7156,6 +7184,209 @@ function AuctionScreen:StopRepeat(direction)
 end
 
 -- ----------------------------------------------------------------------------
+-- 18b. DIAGNÓSTICO E DETECÇÃO DINÂMICA DE DURAÇÃO DO SERVIDOR (Zero Hardcode)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:ProbeServerDurations(manual)
+    -- Garante que o add-on nativo da Blizzard de leilões esteja na memória
+    if not IsAddOnLoaded("Blizzard_AuctionUI") then
+        pcall(LoadAddOn, "Blizzard_AuctionUI")
+    end
+
+    -- Se AuctionFrameAuctions ainda não foi instanciado, inicia retry automático (até 30 frames)
+    if not AuctionFrameAuctions then
+        if not self._probeRetryFrame then
+            self._probeRetryFrame = CreateFrame("Frame")
+        end
+        self._probeRetryCount = 0
+        self._probeRetryManual = manual
+        self._probeRetryFrame:SetScript("OnUpdate", function()
+            AuctionScreen._probeRetryCount = (AuctionScreen._probeRetryCount or 0) + 1
+            if AuctionFrameAuctions then
+                AuctionScreen._probeRetryFrame:SetScript("OnUpdate", nil)
+                AuctionScreen:ProbeServerDurations(AuctionScreen._probeRetryManual)
+            elseif AuctionScreen._probeRetryCount > 30 then
+                AuctionScreen._probeRetryFrame:SetScript("OnUpdate", nil)
+                DEFAULT_CHAT_FRAME:AddMessage("|cffff4040[ConsoleMode AH]|r Não foi possível encontrar AuctionFrameAuctions (Blizzard_AuctionUI não carregou).")
+            end
+        end)
+        return
+    end
+
+    local log = function(msg)
+        if manual or AuctionScreen.debug then
+            DEFAULT_CHAT_FRAME:AddMessage(msg)
+        end
+    end
+
+    log("|cffffd100[ConsoleMode AH]|r ========================================")
+    log("|cffffd100[ConsoleMode AH]|r |cffffffffDIAGNÓSTICO DE DURAÇÃO DE LEILÃO DO SERVIDOR|r")
+    log("|cffffffffStatus da Blizzard_AuctionUI:|r CARREGADA (AuctionFrameAuctions: OK)")
+
+    -- 1. Variáveis Globais de Duração
+    local gOne = tostring(AUCTION_DURATION_ONE)
+    local gTwo = tostring(AUCTION_DURATION_TWO)
+    local gThree = tostring(AUCTION_DURATION_THREE)
+    local gFour = tostring(AUCTION_DURATION_FOUR)
+    log(string.format("|cffffffffGlobais do Cliente:|r 1: %s | 2: %s | 3: %s%s",
+        gOne, gTwo, gThree, (AUCTION_DURATION_FOUR and (" | 4: " .. gFour) or "")))
+
+    -- 2. Varredura de Botões de Rádio em AuctionFrameAuctions
+    local detected = {}
+    local seen = {}
+
+    local function checkButton(btn, expectedIdx)
+        if not btn then return end
+        local name = btn:GetName() or "AnonCheckButton"
+        if seen[name] then return end
+        seen[name] = true
+
+        local id = (btn.GetID and btn:GetID()) or expectedIdx or 0
+        local label = nil
+        if btn.GetText and btn:GetText() and btn:GetText() ~= "" then
+            label = btn:GetText()
+        end
+        if not label and btn:GetName() then
+            local fs = getglobal(btn:GetName() .. "Text")
+            if fs and fs.GetText and fs:GetText() and fs:GetText() ~= "" then
+                label = fs:GetText()
+            end
+        end
+        if not label and btn.GetRegions then
+            local regions = { btn:GetRegions() }
+            for _, r in ipairs(regions) do
+                if r and r.IsObjectType and r:IsObjectType("FontString") and r.GetText and r:GetText() and r:GetText() ~= "" then
+                    label = r:GetText()
+                    break
+                end
+            end
+        end
+
+        table.insert(detected, {
+            btn = btn,
+            name = name,
+            id = id,
+            label = label or "(sem texto)"
+        })
+    end
+
+    -- Checa botões clássicos conhecidos
+    checkButton(AuctionsShortAuctionButton, 1)
+    checkButton(AuctionsMediumAuctionButton, 2)
+    checkButton(AuctionsLongAuctionButton, 3)
+    checkButton(getglobal("AuctionsVeryLongAuctionButton"), 4)
+    checkButton(getglobal("AuctionsExtraLongAuctionButton"), 4)
+
+    -- Escaneia recursivamente todos os CheckButtons filhos de AuctionFrameAuctions
+    if AuctionFrameAuctions.GetChildren then
+        local children = { AuctionFrameAuctions:GetChildren() }
+        for _, child in ipairs(children) do
+            if child and child.IsObjectType and child:IsObjectType("CheckButton") then
+                checkButton(child, nil)
+            end
+        end
+    end
+
+    log(string.format("|cffffffffBotões de Rádio Encontrados no Frame (%d):|r", table.getn(detected)))
+    for i, d in ipairs(detected) do
+        log(string.format("  [%d] |cff88ccff%s|r (id=%s) => Label: |cffffffff'%s'|r", i, d.name, tostring(d.id), d.label))
+    end
+
+    -- 3. Teste de Simulação via AuctionsRadioButton_OnClick (índices 1 a 6)
+    log("|cffffffffTeste AuctionsRadioButton_OnClick(1..6) => AuctionFrameAuctions.duration:|r")
+    local origDuration = AuctionFrameAuctions.duration
+    local clickResults = {}
+    if type(AuctionsRadioButton_OnClick) == "function" then
+        for testIdx = 1, 6 do
+            AuctionFrameAuctions.duration = -1
+            local ok, err = pcall(AuctionsRadioButton_OnClick, testIdx)
+            if ok then
+                local resMin = AuctionFrameAuctions.duration
+                local hours = (resMin and resMin > 0) and (resMin / 60) or 0
+                clickResults[testIdx] = resMin
+                log(string.format("  Índice %d => |cffffffff%d minutos|r (%.1f horas)", testIdx, resMin, hours))
+            else
+                log(string.format("  Índice %d => erro: %s", testIdx, tostring(err)))
+            end
+        end
+    else
+        log("  |cffff4040AuctionsRadioButton_OnClick não é função global.|r")
+    end
+    AuctionFrameAuctions.duration = origDuration
+
+    -- 4. Consolidação das Opções Reais do Servidor
+    local options = {}
+    for i, d in ipairs(detected) do
+        local testIdx = (d.id and d.id > 0) and d.id or i
+        local mins = clickResults[testIdx]
+        if not mins or mins <= 0 then
+            mins = clickResults[i]
+        end
+        if not mins or mins <= 0 then
+            -- Fallback por rótulo textual se a função de clique não definiu
+            if string.find(d.label, "48") then mins = 2880
+            elseif string.find(d.label, "72") then mins = 4320
+            elseif string.find(d.label, "24") then mins = 1440
+            elseif string.find(d.label, "12") then mins = 720
+            elseif string.find(d.label, "8") then mins = 480
+            elseif string.find(d.label, "6") then mins = 360
+            elseif string.find(d.label, "2") then mins = 120
+            else mins = 120 * i end
+        end
+
+        local cleanLabel = d.label
+        if not cleanLabel or cleanLabel == "(sem texto)" then
+            cleanLabel = string.format("%d Horas", math.floor(mins / 60))
+        end
+
+        table.insert(options, {
+            idx = i,
+            btnId = testIdx,
+            label = cleanLabel,
+            minutes = mins
+        })
+    end
+
+    -- Se não encontrou botões mas a função AuctionsRadioButton_OnClick respondeu com valores válidos distintos
+    if table.getn(options) == 0 and type(AuctionsRadioButton_OnClick) == "function" then
+        local lastMin = nil
+        for testIdx = 1, 6 do
+            local mins = clickResults[testIdx]
+            if mins and mins > 0 and mins ~= lastMin then
+                lastMin = mins
+                table.insert(options, {
+                    idx = testIdx,
+                    btnId = testIdx,
+                    label = string.format("%d Horas", math.floor(mins / 60)),
+                    minutes = mins
+                })
+            else
+                break
+            end
+        end
+    end
+
+    self.serverDurations = options
+    local maxOpts = table.getn(options)
+    if maxOpts > 0 then
+        -- Define sempre por padrão a maior duração disponível do servidor
+        if not self.sellDurationIdx or self.sellDurationIdx > maxOpts then
+            self.sellDurationIdx = maxOpts
+        end
+    end
+
+    log(string.format("|cff00ff00Opções Ativadas no ConsoleMode (%d opções):|r", maxOpts))
+    for i, opt in ipairs(options) do
+        log(string.format("  [%d] |cffffffff%s|r => %d min (passado a StartAuction)", i, opt.label, opt.minutes))
+    end
+    log("|cffffd100[ConsoleMode AH]|r ========================================")
+
+    -- Atualiza formulário de venda se a tela estiver aberta
+    if self.isOpen and self.currentTab == "SELL" and self.sellStep == "LISTING" then
+        self:UpdateSellListingStyles()
+    end
+end
+
+-- ----------------------------------------------------------------------------
 -- 19. ABERTURA E FECHAMENTO
 -- ----------------------------------------------------------------------------
 function AuctionScreen:Open()
@@ -7166,6 +7397,9 @@ function AuctionScreen:Open()
     if CM.LoadDataLake then
         pcall(function() CM:LoadDataLake("AuctionScreen") end)
     end
+
+    -- Executa diagnóstico e detecção dinâmica das durações do servidor
+    self:ProbeServerDurations()
 
     if AuctionFrame then
         AuctionFrame:ClearAllPoints()

@@ -1305,26 +1305,62 @@ function TrainerMenu:ScanSpellbook()
         for s = (offset + 1), (offset + numSpells) do
             local spellName, spellRank = GetSpellName(s, BOOKTYPE_SPELL)
             if spellName and spellName ~= "" then
-                -- Lê a descrição do feitiço no grimório via scanner tooltip
+                -- Lê a descrição e os atributos operacionais do feitiço no grimório via scanner tooltip
                 local spellDesc = ""
+                local spellStats = {}
+                local rawCost = ""
                 if trainerScanTip and trainerScanTip.SetSpell then
                     trainerScanTip:SetOwner(WorldFrame, "ANCHOR_NONE")
                     trainerScanTip:ClearLines()
                     pcall(function() trainerScanTip:SetSpell(s, BOOKTYPE_SPELL) end)
                     local nl = trainerScanTip:NumLines() or 0
                     local inDesc = false
+                    local inReagents = false
                     local lines = {}
+                    local cost = ""
+                    local range = ""
+                    local castTime = ""
+                    local cooldown = ""
+
                     for l = 2, nl do
-                        local txtObj = getglobal("ConsoleMode_TrainerScanTipTextLeft" .. l)
-                        local leftTxt = (txtObj and txtObj:GetText()) or ""
+                        local leftObj = getglobal("ConsoleMode_TrainerScanTipTextLeft" .. l)
+                        local rightObj = getglobal("ConsoleMode_TrainerScanTipTextRight" .. l)
+                        local leftTxt = (leftObj and leftObj:GetText()) or ""
+                        local rightTxt = (rightObj and rightObj:GetText()) or ""
+
+                        if rightTxt ~= "" and not inDesc then
+                            if range == "" and IsSpellRangeLine(rightTxt) then
+                                range = rightTxt
+                            elseif cooldown == "" and IsSpellCooldownLine(rightTxt) then
+                                cooldown = rightTxt
+                            end
+                        end
+
                         if leftTxt ~= "" then
                             local lowerL = string.lower(leftTxt)
                             local isRank = string.find(lowerL, "^rank%s*%d+") or string.find(lowerL, "^grau%s*%d+")
                             if not isRank then
-                                if inDesc then
+                                if string.find(lowerL, "^reagents?:%s*") or string.find(lowerL, "^reagentes?:%s*") then
+                                    inReagents = true
+                                    inDesc = true
+                                elseif inReagents then
+                                    if string.find(lowerL, "^requires%s+") or string.find(lowerL, "^requer%s+") then
+                                        inReagents = false
+                                    end
+                                elseif string.find(lowerL, "^requires%s+") or string.find(lowerL, "^requer%s+") then
+                                    inDesc = true
+                                elseif string.find(lowerL, "^tools?:%s*") or string.find(lowerL, "^ferramentas?:%s*") then
+                                    inDesc = true
+                                elseif inDesc then
                                     table.insert(lines, leftTxt)
-                                elseif IsSpellCostLine(leftTxt) or IsSpellCastLine(leftTxt) or IsSpellRangeLine(leftTxt) or IsSpellCooldownLine(leftTxt) then
-                                    -- ignora atributos operacionais de cabeçalho
+                                elseif cost == "" and IsSpellCostLine(leftTxt) then
+                                    cost = leftTxt
+                                elseif castTime == "" and IsSpellCastLine(leftTxt) then
+                                    castTime = leftTxt
+                                elseif range == "" and IsSpellRangeLine(leftTxt) then
+                                    range = leftTxt
+                                elseif cooldown == "" and IsSpellCooldownLine(leftTxt) then
+                                    cooldown = leftTxt
                                 else
                                     inDesc = true
                                     table.insert(lines, leftTxt)
@@ -1332,6 +1368,44 @@ function TrainerMenu:ScanSpellbook()
                             end
                         end
                     end
+
+                    local costLoc = cost
+                    if CM and CM.GameLOC_SpellAttr and costLoc ~= "" then
+                        costLoc = CM:GameLOC_SpellAttr(costLoc)
+                    end
+                    rawCost = costLoc
+
+                    if cost ~= "" or range ~= "" then
+                        local costPart = costLoc
+                        local rangePart = range
+                        if CM and CM.GameLOC_SpellAttr and rangePart ~= "" then
+                            rangePart = CM:GameLOC_SpellAttr(rangePart)
+                        end
+                        if costPart ~= "" and rangePart ~= "" then
+                            table.insert(spellStats, costPart .. " (" .. rangePart .. ")")
+                        elseif costPart ~= "" then
+                            table.insert(spellStats, costPart)
+                        elseif rangePart ~= "" then
+                            table.insert(spellStats, rangePart)
+                        end
+                    end
+
+                    if castTime ~= "" or cooldown ~= "" then
+                        local castPart = castTime
+                        local cdPart = cooldown
+                        if CM and CM.GameLOC_SpellAttr then
+                            if castPart ~= "" then castPart = CM:GameLOC_SpellAttr(castPart) end
+                            if cdPart ~= "" then cdPart = CM:GameLOC_SpellAttr(cdPart) end
+                        end
+                        if castPart ~= "" and cdPart ~= "" then
+                            table.insert(spellStats, castPart .. " (" .. cdPart .. ")")
+                        elseif castPart ~= "" then
+                            table.insert(spellStats, castPart)
+                        elseif cdPart ~= "" then
+                            table.insert(spellStats, cdPart)
+                        end
+                    end
+
                     spellDesc = table.concat(lines, "\n")
                 end
 
@@ -1349,6 +1423,8 @@ function TrainerMenu:ScanSpellbook()
                         rankNum  = rankNum,
                         tabName  = tabName or "",
                         desc     = spellDesc,
+                        stats    = spellStats,
+                        rawCost  = rawCost,
                         spellId  = s,
                     }
                 end
@@ -2022,11 +2098,16 @@ function TrainerMenu:GetTrainerServiceTooltipData(serviceIndex)
     end
 
     -- Monta os atributos operacionais formatados e localizados
+    local costLoc = cost
+    if CM and CM.GameLOC_SpellAttr and costLoc ~= "" then
+        costLoc = CM:GameLOC_SpellAttr(costLoc)
+    end
+    data.rawCost = costLoc
+
     if cost ~= "" or range ~= "" then
-        local costPart = cost
+        local costPart = costLoc
         local rangePart = range
         if CM and CM.GameLOC_SpellAttr then
-            if costPart ~= "" then costPart = CM:GameLOC_SpellAttr(costPart) end
             if rangePart ~= "" then rangePart = CM:GameLOC_SpellAttr(rangePart) end
         end
         if costPart ~= "" and rangePart ~= "" then
@@ -2058,47 +2139,177 @@ function TrainerMenu:GetTrainerServiceTooltipData(serviceIndex)
     return data
 end
 
-function TrainerMenu:ComputeDiffLines(oldDesc, newDesc)
+function TrainerMenu:ComputeDiffLines(oldDesc, newDesc, oldCost, newCost)
     local diffs = {}
-    if not oldDesc or not newDesc or oldDesc == "" or newDesc == "" then
-        return diffs
-    end
+    oldDesc = oldDesc or ""
+    newDesc = newDesc or ""
+    oldCost = oldCost or ""
+    newCost = newCost or ""
 
-    local function ExtractNumbers(str)
-        local nums = {}
-        local pos = 1
-        while true do
-            local s, e, nStr = string.find(str, "(%d+)", pos)
-            if not s then break end
-            table.insert(nums, tonumber(nStr))
-            pos = e + 1
+    local lowerOld = string.lower(oldDesc)
+    local lowerNew = string.lower(newDesc)
+    local matchedStructured = false
+
+    -- 1. Faixa de Dano (ex: "9 a 11 de dano" / "9 to 11 Fire damage")
+    local _, _, oMinD, oMaxD = string.find(lowerOld, "(%d+)%s+a%s+(%d+)%s+de%s+dano")
+    local _, _, nMinD, nMaxD = string.find(lowerNew, "(%d+)%s+a%s+(%d+)%s+de%s+dano")
+    if not oMinD or not nMinD then
+        _, _, oMinD, oMaxD = string.find(lowerOld, "(%d+)%s+to%s+(%d+)%s+[%a%s]*damage")
+        _, _, nMinD, nMaxD = string.find(lowerNew, "(%d+)%s+to%s+(%d+)%s+[%a%s]*damage")
+    end
+    if oMinD and oMaxD and nMinD and nMaxD then
+        local om1, om2 = tonumber(oMinD) or 0, tonumber(oMaxD) or 0
+        local nm1, nm2 = tonumber(nMinD) or 0, tonumber(nMaxD) or 0
+        if nm1 > om1 or nm2 > om2 then
+            matchedStructured = true
+            table.insert(diffs, format(
+                CM:T("TRAINER_DIFF_DAMAGE_RANGE_FMT"),
+                om1, om2, nm1, nm2, math.max(0, nm1 - om1), math.max(0, nm2 - om2)
+            ))
         end
-        return nums
+    else
+        -- 1b. Dano Fixo (ex: "causando 25 de dano" / "25 de dano" / "25 Fire damage")
+        local _, _, oSingleD = string.find(lowerOld, "(%d+)%s+de%s+dano")
+        local _, _, nSingleD = string.find(lowerNew, "(%d+)%s+de%s+dano")
+        if not oSingleD or not nSingleD then
+            _, _, oSingleD = string.find(lowerOld, "(%d+)%s+[%a%s]*damage")
+            _, _, nSingleD = string.find(lowerNew, "(%d+)%s+[%a%s]*damage")
+        end
+        if oSingleD and nSingleD then
+            local od = tonumber(oSingleD) or 0
+            local nd = tonumber(nSingleD) or 0
+            if nd > od then
+                matchedStructured = true
+                table.insert(diffs, format(CM:T("TRAINER_DIFF_DAMAGE_VAL_FMT"), od, nd, nd - od))
+            end
+        end
     end
 
-    local oldNums = ExtractNumbers(oldDesc)
-    local newNums = ExtractNumbers(newDesc)
-
-    local count = math.min(table.getn(oldNums), table.getn(newNums))
-    for i = 1, count do
-        local oldV = oldNums[i]
-        local newV = newNums[i]
-        if newV > oldV then
-            local diff = newV - oldV
-            local context = CM:T("TRAINER_DIFF_DEFAULT_CONTEXT")
-            local lowerNew = string.lower(newDesc)
-            if string.find(lowerNew, "dano") or string.find(lowerNew, "damage") then
-                context = CM:T("TRAINER_DIFF_DAMAGE")
-            elseif string.find(lowerNew, "cura") or string.find(lowerNew, "heal") then
-                context = CM:T("TRAINER_DIFF_HEAL")
-            elseif string.find(lowerNew, "armadura") or string.find(lowerNew, "armor") then
-                context = CM:T("TRAINER_DIFF_ARMOR")
-            elseif string.find(lowerNew, "vida") or string.find(lowerNew, "health") then
-                context = CM:T("TRAINER_DIFF_HEALTH")
-            elseif string.find(lowerNew, "mana") then
-                context = CM:T("TRAINER_DIFF_MANA")
+    -- 2. Faixa de Cura (ex: "cura o alvo em 40 a 50" / "heals a friendly target for 40 to 50")
+    local hasHealContext = (string.find(lowerNew, "cura") or string.find(lowerNew, "heal") or string.find(lowerNew, "restaura")) and not string.find(lowerNew, "dano") and not string.find(lowerNew, "damage")
+    if hasHealContext then
+        local _, _, oMinH, oMaxH = string.find(lowerOld, "(%d+)%s+a%s+(%d+)")
+        local _, _, nMinH, nMaxH = string.find(lowerNew, "(%d+)%s+a%s+(%d+)")
+        if not oMinH or not nMinH then
+            _, _, oMinH, oMaxH = string.find(lowerOld, "(%d+)%s+to%s+(%d+)")
+            _, _, nMinH, nMaxH = string.find(lowerNew, "(%d+)%s+to%s+(%d+)")
+        end
+        if oMinH and oMaxH and nMinH and nMaxH then
+            local oh1, oh2 = tonumber(oMinH) or 0, tonumber(oMaxH) or 0
+            local nh1, nh2 = tonumber(nMinH) or 0, tonumber(nMaxH) or 0
+            if nh1 > oh1 or nh2 > oh2 then
+                matchedStructured = true
+                table.insert(diffs, format(
+                    CM:T("TRAINER_DIFF_HEAL_RANGE_FMT"),
+                    oh1, oh2, nh1, nh2, math.max(0, nh1 - oh1), math.max(0, nh2 - oh2)
+                ))
             end
-            table.insert(diffs, format(CM:T("TRAINER_DIFF_LINE_FMT"), diff, context, oldV, newV))
+        else
+            local _, _, oSingleH = string.find(lowerOld, "em%s+(%d+)")
+            local _, _, nSingleH = string.find(lowerNew, "em%s+(%d+)")
+            if not oSingleH or not nSingleH then
+                _, _, oSingleH = string.find(lowerOld, "for%s+(%d+)")
+                _, _, nSingleH = string.find(lowerNew, "for%s+(%d+)")
+            end
+            if oSingleH and nSingleH then
+                local oh = tonumber(oSingleH) or 0
+                local nh = tonumber(nSingleH) or 0
+                if nh > oh then
+                    matchedStructured = true
+                    table.insert(diffs, format(CM:T("TRAINER_DIFF_HEAL_VAL_FMT"), oh, nh, nh - oh))
+                end
+            end
+        end
+    end
+
+    -- 3. Armadura (ex: "120 de armadura" / "120 armor")
+    local _, _, oArm = string.find(lowerOld, "(%d+)%s+de%s+armadura")
+    local _, _, nArm = string.find(lowerNew, "(%d+)%s+de%s+armadura")
+    if not oArm or not nArm then
+        _, _, oArm = string.find(lowerOld, "(%d+)%s+armor")
+        _, _, nArm = string.find(lowerNew, "(%d+)%s+armor")
+    end
+    if oArm and nArm then
+        local oa = tonumber(oArm) or 0
+        local na = tonumber(nArm) or 0
+        if na > oa then
+            matchedStructured = true
+            table.insert(diffs, format(CM:T("TRAINER_DIFF_ARMOR_VAL_FMT"), oa, na, na - oa))
+        end
+    end
+
+    -- 4. Duração (ex: "por 30 s" / "durante 30 s" / "ao longo de 30 s" / "for 30 sec" / "over 30 sec")
+    local function ExtractDurationSec(str)
+        local _, _, d = string.find(str, "por%s+(%d+)%s*s")
+        if not d then _, _, d = string.find(str, "durante%s+(%d+)%s*s") end
+        if not d then _, _, d = string.find(str, "ao%s+longo%s+de%s+(%d+)%s*s") end
+        if not d then _, _, d = string.find(str, "for%s+(%d+)%s*sec") end
+        if not d then _, _, d = string.find(str, "over%s+(%d+)%s*sec") end
+        return d and tonumber(d) or nil
+    end
+    local oldDur = ExtractDurationSec(lowerOld)
+    local newDur = ExtractDurationSec(lowerNew)
+    if oldDur and newDur and newDur ~= oldDur then
+        matchedStructured = true
+        local sign = (newDur > oldDur) and "+" or ""
+        table.insert(diffs, format(CM:T("TRAINER_DIFF_DURATION_VAL_FMT"), oldDur, newDur, sign, newDur - oldDur))
+    end
+
+    -- 5. Custo de Recurso Operacional (ex: "25 de Mana" -> "45 de Mana")
+    if oldCost ~= "" and newCost ~= "" then
+        local _, _, oCostNum = string.find(oldCost, "(%d+)")
+        local _, _, nCostNum, nCostLabel = string.find(newCost, "(%d+)%s*(.+)")
+        if oCostNum and nCostNum then
+            local oc = tonumber(oCostNum) or 0
+            local nc = tonumber(nCostNum) or 0
+            local resLabel = nCostLabel or "Mana"
+            if nc > oc then
+                matchedStructured = true
+                table.insert(diffs, format(CM:T("TRAINER_DIFF_COST_INC_FMT"), oc, nc, resLabel, nc - oc))
+            elseif nc < oc then
+                matchedStructured = true
+                table.insert(diffs, format(CM:T("TRAINER_DIFF_COST_DEC_FMT"), oc, nc, resLabel, oc - nc))
+            end
+        end
+    end
+
+    -- 6. Fallback Genérico: apenas se nenhum atributo estruturado casou e a quantidade de números é idêntica
+    if not matchedStructured and oldDesc ~= "" and newDesc ~= "" then
+        local function ExtractNumbers(str)
+            local nums = {}
+            local pos = 1
+            while true do
+                local s, e, nStr = string.find(str, "(%d+)", pos)
+                if not s then break end
+                table.insert(nums, tonumber(nStr))
+                pos = e + 1
+            end
+            return nums
+        end
+
+        local oldNums = ExtractNumbers(oldDesc)
+        local newNums = ExtractNumbers(newDesc)
+        if table.getn(oldNums) == table.getn(newNums) then
+            for i = 1, table.getn(oldNums) do
+                local oldV = oldNums[i]
+                local newV = newNums[i]
+                if newV > oldV then
+                    local diff = newV - oldV
+                    local context = CM:T("TRAINER_DIFF_DEFAULT_CONTEXT")
+                    if string.find(lowerNew, "dano") or string.find(lowerNew, "damage") then
+                        context = CM:T("TRAINER_DIFF_DAMAGE")
+                    elseif string.find(lowerNew, "cura") or string.find(lowerNew, "heal") then
+                        context = CM:T("TRAINER_DIFF_HEAL")
+                    elseif string.find(lowerNew, "armadura") or string.find(lowerNew, "armor") then
+                        context = CM:T("TRAINER_DIFF_ARMOR")
+                    elseif string.find(lowerNew, "vida") or string.find(lowerNew, "health") then
+                        context = CM:T("TRAINER_DIFF_HEALTH")
+                    elseif string.find(lowerNew, "mana") then
+                        context = CM:T("TRAINER_DIFF_MANA")
+                    end
+                    table.insert(diffs, format(CM:T("TRAINER_DIFF_LINE_FMT"), diff, context, oldV, newV))
+                end
+            end
         end
     end
 
@@ -2239,11 +2450,16 @@ function TrainerMenu:ShowServiceDetail(item)
         card.oldCard:Show()
 
         card.oldCard.header:SetText(format(CM:T("TRAINER_CURRENT_IN_SPELLBOOK_FMT"), oldRankLabel))
-        local knownDesc = (known and known.desc ~= "") and known.desc or CM:T("TRAINER_NO_SPELLBOOK_DESC")
+        local knownDescBody = (known and known.desc ~= "") and known.desc or CM:T("TRAINER_NO_SPELLBOOK_DESC")
         if known and known.desc ~= "" and CM and CM.GameLOC_SpellDesc then
-            knownDesc = CM:GameLOC_SpellDesc(item.name, rawOldRank, knownDesc)
+            knownDescBody = CM:GameLOC_SpellDesc(item.name, rawOldRank, knownDescBody)
         end
-        card.oldCard.desc:SetText(knownDesc)
+        local fullOldDesc = ""
+        if known and known.stats and table.getn(known.stats) > 0 then
+            fullOldDesc = "|cff88ccff" .. table.concat(known.stats, "   •   ") .. "|r\n\n"
+        end
+        fullOldDesc = fullOldDesc .. knownDescBody
+        card.oldCard.desc:SetText(fullOldDesc)
 
         card.arrowText:ClearAllPoints()
         card.arrowText:SetPoint("TOP", card.oldCard, "BOTTOM", 0, -3)
@@ -2252,7 +2468,7 @@ function TrainerMenu:ShowServiceDetail(item)
         card.newCard:ClearAllPoints()
         card.newCard:SetPoint("TOPLEFT", card.oldCard, "BOTTOMLEFT", 0, -22)
         card.newCard:SetPoint("TOPRIGHT", card.oldCard, "BOTTOMRIGHT", 0, -22)
-        card.newCard:SetHeight(132)
+        card.newCard:SetHeight(124)
         card.newCard:Show()
 
         card.newCard.header:SetText(format(CM:T("TRAINER_NEW_RANK_FMT"), newRankLabel))
@@ -2263,9 +2479,26 @@ function TrainerMenu:ShowServiceDetail(item)
         card.diffCard:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 4)
         card.diffCard:Show()
 
-        card.diffCard.header:SetText(CM:T("TRAINER_FINANCIAL_SUMMARY"))
+        local diffLines = self:ComputeDiffLines(
+            (known and known.desc ~= "") and knownDescBody or "",
+            rawDescText,
+            (known and known.rawCost) or "",
+            tipData.rawCost or ""
+        )
+
+        card.diffCard.header:SetText(CM:T("TRAINER_CHANGES_HIGHLIGHTS"))
 
         local summary = {}
+        if table.getn(diffLines) > 0 then
+            for d = 1, table.getn(diffLines) do
+                table.insert(summary, diffLines[d])
+            end
+        else
+            table.insert(summary, CM:T("TRAINER_UPGRADE_GENERIC"))
+        end
+        table.insert(summary, "")
+        table.insert(summary, CM:T("TRAINER_FINANCIAL_SUMMARY"))
+
         if cost > 0 then
             table.insert(summary, format(CM:T("TRAINER_TRAINING_COST_FMT"), self:FormatMoneyText(cost)))
             if playerMoney >= cost then

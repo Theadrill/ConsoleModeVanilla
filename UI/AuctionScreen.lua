@@ -310,6 +310,10 @@ AuctionScreen.targetAuction         = nil
 AuctionScreen.isBuyoutAction        = true
 
 -- FASE 4: Estados de Ordenação / Classificar Por
+-- FASE 9: Cache de Scan em Memória (TTL 2 minutos)
+AuctionScreen.scanCache                 = {}
+AuctionScreen.CACHE_TTL                 = 120 -- 2 minutos
+
 AuctionScreen.isSortModalOpen       = false
 AuctionScreen.selectedSortIndex     = 1
 AuctionScreen.currentSortType       = "PRICE_UNIT_ASC"
@@ -814,7 +818,8 @@ function AuctionScreen:UpdateFooterHints()
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_SCAN_ABORT") })
         elseif self.buyStep == "ITEMS_LIST" then
             table.insert(hints, { icons = { "A" },        label = CM:T("AH_HINT_SELECT") })
-            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_HINT_SORT") })
+            table.insert(hints, { icons = { "X" },        label = CM:T("AH_HINT_SORT") })
+            table.insert(hints, { icons = { "Y" },        label = CM:T("AH_HINT_RESCAN") or "Re-Scan" })
             table.insert(hints, { icons = { "DALL" },     label = CM:T("AH_HINT_NAVIGATE") })
             table.insert(hints, { icons = { "LB", "RB" }, label = CM:T("AH_HINT_SWITCH_TAB") })
             table.insert(hints, { icons = { "B" },        label = CM:T("AH_HINT_BACK") })
@@ -840,11 +845,13 @@ function AuctionScreen:UpdateFooterHints()
         elseif self.sellStep == "LISTING" then
             if self.sellListingPane == "COMPETITORS" then
                 table.insert(hints, { icons = { "A" },    label = CM:T("AH_HINT_MIRROR_PRICE") or "Espelhar Preço" })
+                table.insert(hints, { icons = { "Y" },    label = CM:T("AH_HINT_RESCAN") or "Re-Scan" })
                 table.insert(hints, { icons = { "B" },    label = CM:T("AH_HINT_BACK") or "Voltar ao Formulário" })
                 table.insert(hints, { icons = { "DLEFT", "DRIGHT" }, label = CM:T("AH_SELL_SWITCH_COLUMN") or "Switch Column" })
                 table.insert(hints, { icons = { "DUP", "DDOWN" }, label = CM:T("AH_HINT_NAVIGATE") or "Navegar" })
             else
                 table.insert(hints, { icons = { "RT" },   label = CM:T("AH_HINT_POST_RT") or "Postar Leilão" })
+                table.insert(hints, { icons = { "Y" },    label = CM:T("AH_SELL_BTN_MAX") or "MAX" })
                 table.insert(hints, { icons = { "A" },    label = (self.sellFormRow == 6 and (CM:T("AH_SELL_BTN_MAX") or "MAX")) or (self.sellFormRow == 7 and (CM:T("AH_SELL_CONFIRM_POST") or "Postar")) or (CM:T("AH_HINT_SELECT") or "Editar") })
                 if table.getn(self.sellCompetitors or {}) > 0 then
                     table.insert(hints, { icons = { "DLEFT", "DRIGHT" }, label = CM:T("AH_SELL_SWITCH_COLUMN") or "Switch Column" })
@@ -1714,10 +1721,91 @@ function AuctionScreen:CreateItemListControls(parent)
     listLeftPane:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", 4, 0)
     parent.listLeftPane = listLeftPane
 
+    local topActionBar = CreateFrame("Frame", nil, listLeftPane)
+    topActionBar:SetHeight(24)
+    topActionBar:SetPoint("TOPLEFT", listLeftPane, "TOPLEFT", 6, 0)
+    topActionBar:SetPoint("TOPRIGHT", listLeftPane, "TOPRIGHT", -6, 0)
+
+    -- Botão Visual [ RE-SCAN (Y) ]
+    local rescanBtn = CreateFrame("Button", "ConsoleMode_AuctionBuyRescanBtn", topActionBar)
+    rescanBtn:SetWidth(106)
+    rescanBtn:SetHeight(24)
+    rescanBtn:SetPoint("RIGHT", topActionBar, "RIGHT", -6, 0)
+    rescanBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    rescanBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    rescanBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local rescanIcon = rescanBtn:CreateTexture(nil, "OVERLAY")
+    rescanIcon:SetWidth(18)
+    rescanIcon:SetHeight(18)
+    rescanIcon:SetPoint("LEFT", rescanBtn, "LEFT", 6, 0)
+    rescanIcon:SetTexture(ICONS.Y)
+    rescanBtn.icon = rescanIcon
+
+    local rescanTxt = rescanBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    rescanTxt:SetPoint("LEFT", rescanIcon, "RIGHT", 4, 0)
+    self:ApplyFont(rescanTxt, FONTS.titleBold, 13)
+    rescanTxt:SetText(CM:T("AH_BTN_RESCAN") or "Re-Scan")
+    rescanTxt:SetTextColor(0.95, 0.82, 0.35, 1.0)
+    rescanBtn.txt = rescanTxt
+
+    rescanBtn:SetScript("OnClick", function()
+        AuctionScreen:ExecuteSearch(true)
+    end)
+    rescanBtn:SetScript("OnEnter", function()
+        rescanBtn:SetBackdropBorderColor(1.0, 0.84, 0.0, 1.0)
+    end)
+    rescanBtn:SetScript("OnLeave", function()
+        rescanBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    end)
+
+    -- Botão Visual [ CLASSIFICAR (X) ]
+    local sortBtn = CreateFrame("Button", "ConsoleMode_AuctionBuySortBtn", topActionBar)
+    sortBtn:SetWidth(110)
+    sortBtn:SetHeight(24)
+    sortBtn:SetPoint("RIGHT", rescanBtn, "LEFT", -6, 0)
+    sortBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    sortBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    sortBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local sortIcon = sortBtn:CreateTexture(nil, "OVERLAY")
+    sortIcon:SetWidth(18)
+    sortIcon:SetHeight(18)
+    sortIcon:SetPoint("LEFT", sortBtn, "LEFT", 6, 0)
+    sortIcon:SetTexture(ICONS.X)
+    sortBtn.icon = sortIcon
+
+    local sortTxt = sortBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    sortTxt:SetPoint("LEFT", sortIcon, "RIGHT", 4, 0)
+    self:ApplyFont(sortTxt, FONTS.titleBold, 13)
+    sortTxt:SetText(CM:T("AH_HINT_SORT") or "Classificar")
+    sortTxt:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    sortBtn.txt = sortTxt
+
+    sortBtn:SetScript("OnClick", function()
+        AuctionScreen:OpenSortModal()
+    end)
+    sortBtn:SetScript("OnEnter", function()
+        sortBtn:SetBackdropBorderColor(1.0, 0.84, 0.0, 1.0)
+    end)
+    sortBtn:SetScript("OnLeave", function()
+        sortBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    end)
+
     local headerFrame = CreateFrame("Frame", nil, listLeftPane)
     headerFrame:SetHeight(24)
-    headerFrame:SetPoint("TOPLEFT", listLeftPane, "TOPLEFT", 6, 0)
-    headerFrame:SetPoint("TOPRIGHT", listLeftPane, "TOPRIGHT", -6, 0)
+    headerFrame:SetPoint("TOPLEFT", listLeftPane, "TOPLEFT", 6, -26)
+    headerFrame:SetPoint("TOPRIGHT", listLeftPane, "TOPRIGHT", -6, -26)
 
     local colItem = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
@@ -1759,7 +1847,7 @@ function AuctionScreen:CreateItemListControls(parent)
 
     -- Pool de 7 linhas visíveis
     local rows = {}
-    local startY = -28
+    local startY = -52
     local rowH = 46
     local rowGap = 6
 
@@ -3291,7 +3379,65 @@ function AuctionScreen:ProcessSearchResults(results, totalCount)
     end
 end
 
-function AuctionScreen:ExecuteSearch()
+-- ----------------------------------------------------------------------------
+-- 14b. CACHE DE SCAN EM MEMÓRIA E RE-SCAN (FASE 9)
+-- ----------------------------------------------------------------------------
+function AuctionScreen:GetCacheEntry(key)
+    if not key or not self.scanCache then return nil end
+    local entry = self.scanCache[key]
+    if not entry then return nil end
+    local now = GetTime()
+    if (now - (entry.timestamp or 0)) <= (self.CACHE_TTL or 120) then
+        return entry
+    end
+    self.scanCache[key] = nil
+    return nil
+end
+
+function AuctionScreen:SetCacheEntry(key, results, totalCount)
+    if not key then return end
+    if not self.scanCache then self.scanCache = {} end
+    self.scanCache[key] = {
+        results    = results,
+        totalCount = totalCount or (results and table.getn(results)) or 0,
+        timestamp  = GetTime(),
+    }
+end
+
+function AuctionScreen:InvalidateCacheEntry(key)
+    if key and self.scanCache and self.scanCache[key] then
+        self.scanCache[key] = nil
+    end
+end
+
+function AuctionScreen:GetBuyCacheKey()
+    local f = self.activeFilters or {}
+    local catKey = (self.selectedCategory and self.selectedCategory.key) or "ALL"
+    local subKey = (self.selectedSubcategory and self.selectedSubcategory.key) or "ALL"
+    local slotKey = (self.selectedSlot and self.selectedSlot.key) or "ALL"
+    return string.format("BUY:%s:%s:%s:%s:%d:%d:%d:%d",
+        catKey, subKey, slotKey,
+        f.name or "",
+        f.minLevel or 0,
+        f.maxLevel or 0,
+        f.quality or -1,
+        f.isUsable or 0
+    )
+end
+
+function AuctionScreen:GetSellCacheKey(item)
+    if not item then return nil end
+    local realName = self:GetBagItemRealName(item) or item.name or ""
+    return "SELL:" .. realName
+end
+
+function AuctionScreen:RescanSellListing()
+    if self.selectedSellItem then
+        self:OpenSellListingWithScan(self.selectedSellItem, true)
+    end
+end
+
+function AuctionScreen:ExecuteSearch(forceRescan)
     self:SetBuyStep("SCANNING")
 
     local classIdx = self.selectedCategory and self.selectedCategory.classIndex or 0
@@ -3328,6 +3474,20 @@ function AuctionScreen:ExecuteSearch()
         qualityIndex  = self.activeFilters.quality or -1,
     }
 
+    local cacheKey = self:GetBuyCacheKey()
+    if not forceRescan then
+        local cached = self:GetCacheEntry(cacheKey)
+        if cached then
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99[ConsoleMode AH]|r " .. string.format(CM:T("AH_CACHE_LOADED_FMT") or "Loaded %s auctions from memory cache (TTL 2m)", tostring(cached.totalCount or (cached.results and table.getn(cached.results)) or 0)))
+            end
+            self:ProcessSearchResults(cached.results, cached.totalCount)
+            return
+        end
+    else
+        self:InvalidateCacheEntry(cacheKey)
+    end
+
     local scan = CM.auctionScan or ConsoleMode_AuctionScan
     if scan then
         scan:StartQuery(
@@ -3339,6 +3499,7 @@ function AuctionScreen:ExecuteSearch()
                 if wasAborted then
                     AuctionScreen:SetBuyStep("FILTERS")
                 else
+                    AuctionScreen:SetCacheEntry(cacheKey, results, totalCount)
                     AuctionScreen:ProcessSearchResults(results, totalCount)
                 end
             end,
@@ -3937,17 +4098,60 @@ function AuctionScreen:CreateSellListingControls(parent)
     sellScanBar:Hide()
     listingLeftPane.sellScanBar = sellScanBar
 
-    local compHeader = CreateFrame("Frame", nil, listingLeftPane)
-    compHeader:SetHeight(24)
-    listingLeftPane.compHeader = compHeader
-    compHeader:SetPoint("TOPLEFT", listingLeftPane, "TOPLEFT", 6, 0)
-    compHeader:SetPoint("TOPRIGHT", listingLeftPane, "TOPRIGHT", -6, 0)
+    local topActionBar = CreateFrame("Frame", nil, listingLeftPane)
+    topActionBar:SetHeight(24)
+    topActionBar:SetPoint("TOPLEFT", listingLeftPane, "TOPLEFT", 6, 0)
+    topActionBar:SetPoint("TOPRIGHT", listingLeftPane, "TOPRIGHT", -6, 0)
 
-    local cTitle = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    cTitle:SetPoint("LEFT", compHeader, "LEFT", 8, 0)
+    local cTitle = topActionBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    cTitle:SetPoint("LEFT", topActionBar, "LEFT", 8, 0)
     self:ApplyFont(cTitle, FONTS.titleBold, 15)
     cTitle:SetText(CM:T("AH_SELL_COMPETITORS_TITLE") or "Concorrentes no Mercado")
     cTitle:SetTextColor(0.95, 0.82, 0.35, 1.0)
+
+    -- Botão Visual [ RE-SCAN (Y) ]
+    local rescanBtn = CreateFrame("Button", "ConsoleMode_AuctionSellRescanBtn", topActionBar)
+    rescanBtn:SetWidth(106)
+    rescanBtn:SetHeight(24)
+    rescanBtn:SetPoint("RIGHT", topActionBar, "RIGHT", -6, 0)
+    rescanBtn:SetBackdrop({
+        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile     = true, tileSize = 8, edgeSize = 8,
+        insets   = { left = 2, right = 2, top = 2, bottom = 2 }
+    })
+    rescanBtn:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
+    rescanBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+
+    local rescanIcon = rescanBtn:CreateTexture(nil, "OVERLAY")
+    rescanIcon:SetWidth(18)
+    rescanIcon:SetHeight(18)
+    rescanIcon:SetPoint("LEFT", rescanBtn, "LEFT", 6, 0)
+    rescanIcon:SetTexture(ICONS.Y)
+    rescanBtn.icon = rescanIcon
+
+    local rescanTxt = rescanBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    rescanTxt:SetPoint("LEFT", rescanIcon, "RIGHT", 4, 0)
+    self:ApplyFont(rescanTxt, FONTS.titleBold, 13)
+    rescanTxt:SetText(CM:T("AH_BTN_RESCAN") or "Re-Scan")
+    rescanTxt:SetTextColor(0.95, 0.82, 0.35, 1.0)
+    rescanBtn.txt = rescanTxt
+
+    rescanBtn:SetScript("OnClick", function()
+        AuctionScreen:RescanSellListing()
+    end)
+    rescanBtn:SetScript("OnEnter", function()
+        rescanBtn:SetBackdropBorderColor(1.0, 0.84, 0.0, 1.0)
+    end)
+    rescanBtn:SetScript("OnLeave", function()
+        rescanBtn:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
+    end)
+
+    local compHeader = CreateFrame("Frame", nil, listingLeftPane)
+    compHeader:SetHeight(24)
+    listingLeftPane.compHeader = compHeader
+    compHeader:SetPoint("TOPLEFT", listingLeftPane, "TOPLEFT", 6, -26)
+    compHeader:SetPoint("TOPRIGHT", listingLeftPane, "TOPRIGHT", -6, -26)
 
     local colStack = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colStack:SetPoint("LEFT", compHeader, "LEFT", 192, 0)
@@ -3974,7 +4178,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     colUnitBuy:SetTextColor(0.70, 0.65, 0.55, 1.0)
 
     local compRows = {}
-    local startY = -28
+    local startY = -52
     local rowH = 46
     local rowGap = 6
 
@@ -4336,11 +4540,39 @@ function AuctionScreen:OpenSellListing(item)
     self:UpdateFooterHints()
 end
 
-function AuctionScreen:OpenSellListingWithScan(item)
+function AuctionScreen:OpenSellListingWithScan(item, forceRescan)
     if not item then return end
     self.pendingSellScanItem = item
     self:OpenSellListing(item)
     self.pendingSellScanItem = item
+
+    local sellCacheKey = self:GetSellCacheKey(item)
+    if not forceRescan then
+        local cached = self:GetCacheEntry(sellCacheKey)
+        if cached then
+            self.pendingSellScanItem = nil
+            self.sellScanActive = nil
+            self:SetSellScanVisible(false)
+            self.scanResults = cached.results
+            self:GroupScanResults()
+            self:LoadSellCompetitors(item)
+            if self.sellCompetitors and table.getn(self.sellCompetitors) > 0 then
+                self.selectedCompetitorIndex = 1
+                self.sellCompetitorScrollOffset = 0
+                self:MirrorCompetitorPrice(1)
+                self.sellListingPane = "COMPETITORS"
+            end
+            self:UpdateSellCompetitorsList()
+            self:UpdateSellListingStyles()
+            self:UpdateFooterHints()
+            if DEFAULT_CHAT_FRAME then
+                DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99[ConsoleMode AH]|r " .. string.format(CM:T("AH_CACHE_LOADED_FMT") or "Loaded %s auctions from memory cache (TTL 2m)", tostring(cached.totalCount or (cached.results and table.getn(cached.results)) or 0)))
+            end
+            return
+        end
+    else
+        self:InvalidateCacheEntry(sellCacheKey)
+    end
 
     local scan = CM.auctionScan or ConsoleMode_AuctionScan
     if not scan or not scan.StartQuery then
@@ -4446,6 +4678,7 @@ function AuctionScreen:OpenSellListingWithScan(item)
                 DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99[ConsoleMode AH]|r Scan done: " .. tostring(totalCount or total) .. " auctions (" .. tostring(matchCount) .. " match)")
             end
             if matchCount == 0 then return end
+            AuctionScreen:SetCacheEntry(sellCacheKey, results, totalCount or total)
             AuctionScreen.scanResults = results
             AuctionScreen:GroupScanResults()
             AuctionScreen:LoadSellCompetitors(item)
@@ -6689,15 +6922,25 @@ function AuctionScreen:OnSecondaryAction()
     if self:IsVKOpen() then return end
     if self:IsQtyModalOpen() or self:IsMoneyModalOpen() then return end
     if self.isConfirmModalOpen then return end
-    if self.isSortModalOpen then return end
 
-    if self.currentTab == "BUY" and self.buyStep == "FILTERS" then
-        if self.filterRowIndex == 1 then
-            self.activeFilters.name = ""
-            self:SaveCategoryFilters()
-            self:UpdateFilterStyles()
-        else
-            self:ResetCategoryFilters()
+    if self.isSortModalOpen then
+        self:CloseSortModal()
+        return
+    end
+
+    if self.currentTab == "BUY" then
+        if self.buyStep == "FILTERS" then
+            if self.filterRowIndex == 1 then
+                self.activeFilters.name = ""
+                self:SaveCategoryFilters()
+                self:UpdateFilterStyles()
+            else
+                self:ResetCategoryFilters()
+            end
+        elseif self.buyStep == "ITEMS_LIST" then
+            -- FASE 9: (X) abre o Modal de Ordenação
+            self:OpenSortModal()
+            return
         end
     elseif self.currentTab == "SELL" then
         if self.sellStep == "INVENTORY" then
@@ -6742,7 +6985,9 @@ function AuctionScreen:OnContextAction()
         elseif self.buyStep == "FILTERS" then
             self:OpenFilterSearchVK()
         elseif self.buyStep == "ITEMS_LIST" then
-            self:OpenSortModal()
+            -- FASE 9: (Y) executa nova query no servidor com os filtros ativos (Re-scan)
+            self:ExecuteSearch(true)
+            return
         elseif self.buyStep == "ITEM_DETAIL" then
             if self.selectedGroupedItem and self.selectedGroupedItem.auctions then
                 local auction = self.selectedGroupedItem.auctions[self.selectedAuctionIndex]
@@ -6754,6 +6999,15 @@ function AuctionScreen:OnContextAction()
     elseif self.currentTab == "SELL" then
         if self.sellStep == "INVENTORY" then
             return
+        elseif self.sellStep == "LISTING" then
+            -- FASE 9: (Y) na esquerda força Re-Scan; (Y) na direita executa MAX!
+            if self.sellListingPane == "COMPETITORS" then
+                self:RescanSellListing()
+                return
+            elseif self.sellListingPane == "FORM" then
+                self:ApplyMaxStacks()
+                return
+            end
         end
     end
 end

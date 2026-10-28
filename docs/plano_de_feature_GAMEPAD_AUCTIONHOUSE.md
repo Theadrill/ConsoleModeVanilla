@@ -177,7 +177,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-### FASE 9: Cache de Scan (TTL 2min), Botões [RE-SCAN] (Y) e Inversão de Atalhos
+### FASE 9: Cache de Scan (TTL 2min), Botões [RE-SCAN] (Y) e Inversão de Atalhos [CONCLUÍDO]
 * **Objetivo:** Cache inteligente de leilões por 2 minutos evitando queries repetidas desnecessárias e atalhos rápidos de Re-scan e MAX.
 * **Especificação Detalhada:**
   * **Cache em Memória (TTL 2 minutos):**

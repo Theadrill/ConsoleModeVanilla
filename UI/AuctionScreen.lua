@@ -911,7 +911,7 @@ function AuctionScreen:UpdateFooterHints()
         label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
         self:ApplyFont(label, FONTS.bodyBold, 16)
         label:SetText(hint.label)
-        label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+        label:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
         local textW = math.floor(label:GetStringWidth() or 40)
         currentX = currentX + textW
@@ -1562,7 +1562,7 @@ function AuctionScreen:CreateScanControls(parent)
     countText:SetPoint("TOP", pageText, "BOTTOM", 0, -8)
     self:ApplyFont(countText, FONTS.medium, 16)
     countText:SetText("")
-    countText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    countText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     parent.countText = countText
 
     local barBg = CreateFrame("Frame", "ConsoleMode_AuctionProgressBarBg", parent)
@@ -1789,7 +1789,7 @@ function AuctionScreen:CreateItemListControls(parent)
     sortTxt:SetPoint("LEFT", sortIcon, "RIGHT", 4, 0)
     self:ApplyFont(sortTxt, FONTS.titleBold, 13)
     sortTxt:SetText(CM:T("AH_HINT_SORT") or "Classificar")
-    sortTxt:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    sortTxt:SetTextColor(1.0, 1.0, 1.0, 1.0)
     sortBtn.txt = sortTxt
 
     sortBtn:SetScript("OnClick", function()
@@ -1811,7 +1811,7 @@ function AuctionScreen:CreateItemListControls(parent)
     colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
     self:ApplyFont(colItem, FONTS.titleBold, 14)
     colItem:SetText(CM:T("AH_COL_ITEM"))
-    colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colItem:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colLevel = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colLevel:SetPoint("LEFT", headerFrame, "LEFT", 188, 0)
@@ -1819,7 +1819,7 @@ function AuctionScreen:CreateItemListControls(parent)
     colLevel:SetJustifyH("CENTER")
     self:ApplyFont(colLevel, FONTS.titleBold, 14)
     colLevel:SetText(CM:T("AH_COL_LEVEL"))
-    colLevel:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colLevel:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colAuctions = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colAuctions:SetPoint("LEFT", headerFrame, "LEFT", 222, 0)
@@ -1827,7 +1827,7 @@ function AuctionScreen:CreateItemListControls(parent)
     colAuctions:SetJustifyH("LEFT")
     self:ApplyFont(colAuctions, FONTS.titleBold, 14)
     colAuctions:SetText(CM:T("AH_COL_AUCTIONS_QTY") or "LEILÕES")
-    colAuctions:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colAuctions:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colPrice = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colPrice:SetPoint("RIGHT", headerFrame, "RIGHT", -68, 0)
@@ -1835,7 +1835,7 @@ function AuctionScreen:CreateItemListControls(parent)
     colPrice:SetJustifyH("CENTER")
     self:ApplyFont(colPrice, FONTS.titleBold, 14)
     colPrice:SetText(CM:T("AH_COL_STARTING_FROM") or "A PARTIR DE")
-    colPrice:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colPrice:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colVendor = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -8, 0)
@@ -1843,7 +1843,7 @@ function AuctionScreen:CreateItemListControls(parent)
     colVendor:SetJustifyH("RIGHT")
     self:ApplyFont(colVendor, FONTS.titleBold, 14)
     colVendor:SetText(CM:T("AH_COL_VENDOR_PCT") or "% LOJA")
-    colVendor:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colVendor:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     -- Pool de 7 linhas visíveis
     local rows = {}
@@ -1894,7 +1894,7 @@ function AuctionScreen:CreateItemListControls(parent)
         countText:SetWidth(92)
         countText:SetJustifyH("LEFT")
         self:ApplyFont(countText, FONTS.medium, 14)
-        countText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+        countText:SetTextColor(1.0, 1.0, 1.0, 1.0)
         row.countText = countText
 
         -- Preço Mínimo (com ícones de moedas)
@@ -1936,7 +1936,7 @@ function AuctionScreen:CreateItemListControls(parent)
     local posIndicator = listLeftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     posIndicator:SetPoint("BOTTOMLEFT", listLeftPane, "BOTTOMLEFT", 10, -26)
     self:ApplyFont(posIndicator, FONTS.medium, 15)
-    posIndicator:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    posIndicator:SetTextColor(1.0, 1.0, 1.0, 1.0)
     parent.posIndicator = posIndicator
 
     self.itemListRows = rows
@@ -1993,7 +1993,7 @@ function AuctionScreen:CreateDetailCard(parent, listLeftPane)
     typeText:SetPoint("RIGHT", card, "RIGHT", -16, 0)
     typeText:SetJustifyH("LEFT")
     self:ApplyFont(typeText, FONTS.medium, 14)
-    typeText:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    typeText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     card.typeText = typeText
 
     -- 4. Divisória Horizontal Superior
@@ -2022,6 +2022,7 @@ function AuctionScreen:CreateDetailCard(parent, listLeftPane)
     descColLeft:SetJustifyH("LEFT")
     descColLeft:SetJustifyV("TOP")
     self:ApplyFont(descColLeft, FONTS.bodyBold, 13)
+    descColLeft:SetTextColor(1.0, 1.0, 1.0, 1.0)
     card.descColLeft = descColLeft
 
     local descColRight = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -2030,6 +2031,7 @@ function AuctionScreen:CreateDetailCard(parent, listLeftPane)
     descColRight:SetJustifyH("LEFT")
     descColRight:SetJustifyV("TOP")
     self:ApplyFont(descColRight, FONTS.bodyBold, 13)
+    descColRight:SetTextColor(1.0, 1.0, 1.0, 1.0)
     card.descColRight = descColRight
 
     -- 7. Rodapé do Card: Resumo Econômico / Mercado
@@ -2043,13 +2045,13 @@ function AuctionScreen:CreateDetailCard(parent, listLeftPane)
     local marketAuctions = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     marketAuctions:SetPoint("TOPLEFT", marketHeader, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(marketAuctions, FONTS.bodyBold, 13)
-    marketAuctions:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    marketAuctions:SetTextColor(1.0, 1.0, 1.0, 1.0)
     card.marketAuctions = marketAuctions
 
     local vendorLabel = card:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     vendorLabel:SetPoint("TOPLEFT", marketAuctions, "BOTTOMLEFT", 0, -4)
     self:ApplyFont(vendorLabel, FONTS.bodyBold, 13)
-    vendorLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
+    vendorLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     vendorLabel:SetText(CM:T("AH_CARD_VENDOR_LABEL"))
     card.vendorLabel = vendorLabel
 
@@ -2237,7 +2239,7 @@ function AuctionScreen:UpdateItemCard(item, targetCard)
 
     if isSoulbound then table.insert(subParts, CM:T("ITEM_SOULBOUND_TAG") or "|cff00ccffVinculado|r") end
     if isUnique then table.insert(subParts, CM:T("ITEM_UNIQUE_TAG") or "|cffffffffÚnico|r") end
-    card.typeText:SetText("|cffaaaaaa" .. table.concat(subParts, "  •  ") .. "|r")
+    card.typeText:SetText("|cffffffff" .. table.concat(subParts, "  •  ") .. "|r")
 
     -- 5. Renderização em Fluxo Contínuo (Coluna 1 prioritária, Coluna 2 como continuação se transbordar)
     local rawW = card:GetWidth()
@@ -2541,12 +2543,12 @@ function AuctionScreen:CreateItemDetailControls(parent)
     local subText = topCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     subText:SetPoint("LEFT", icon, "RIGHT", 12, -14)
     self:ApplyFont(subText, FONTS.bodyBold, 15)
-    subText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    subText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     topCard.subText = subText
 
     local vendorLabel = topCard:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     self:ApplyFont(vendorLabel, FONTS.bodyBold, 15)
-    vendorLabel:SetTextColor(0.80, 0.80, 0.80, 0.90)
+    vendorLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     vendorLabel:SetText("  •  " .. (CM:T("AH_VENDOR_PRICE_LABEL") or "Vendor:") .. " ")
     vendorLabel:Hide()
     topCard.vendorLabel = vendorLabel
@@ -2567,19 +2569,19 @@ function AuctionScreen:CreateItemDetailControls(parent)
     colSeller:SetPoint("LEFT", tableHeader, "LEFT", 16, 0)
     self:ApplyFont(colSeller, FONTS.titleBold, 15)
     colSeller:SetText(CM:T("AH_COL_SELLER"))
-    colSeller:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colSeller:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colStack = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colStack:SetPoint("LEFT", tableHeader, "LEFT", 220, 0)
     self:ApplyFont(colStack, FONTS.titleBold, 15)
     colStack:SetText(CM:T("AH_COL_STACK") or "STACK")
-    colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colStack:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colTime = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colTime:SetPoint("LEFT", tableHeader, "LEFT", 340, 0)
     self:ApplyFont(colTime, FONTS.titleBold, 15)
     colTime:SetText(CM:T("AH_COL_TIME_LEFT"))
-    colTime:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colTime:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colBid = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colBid:SetPoint("RIGHT", tableHeader, "RIGHT", -166, 0)
@@ -2587,7 +2589,7 @@ function AuctionScreen:CreateItemDetailControls(parent)
     colBid:SetJustifyH("CENTER")
     self:ApplyFont(colBid, FONTS.titleBold, 15)
     colBid:SetText(CM:T("AH_COL_BID"))
-    colBid:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colBid:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colBuyout = tableHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colBuyout:SetPoint("RIGHT", tableHeader, "RIGHT", -16, 0)
@@ -2595,7 +2597,7 @@ function AuctionScreen:CreateItemDetailControls(parent)
     colBuyout:SetJustifyH("CENTER")
     self:ApplyFont(colBuyout, FONTS.titleBold, 15)
     colBuyout:SetText(CM:T("AH_COL_BUYOUT"))
-    colBuyout:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colBuyout:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     -- Pool de 6 linhas de leilão individual
     local rows = {}
@@ -2636,7 +2638,7 @@ function AuctionScreen:CreateItemDetailControls(parent)
         timeText:SetWidth(90)
         timeText:SetJustifyH("LEFT")
         self:ApplyFont(timeText, FONTS.medium, 15)
-        timeText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+        timeText:SetTextColor(1.0, 1.0, 1.0, 1.0)
         row.timeText = timeText
 
         local bidDisplay = self:CreateMoneyDisplay(row, 24, 13, "RIGHT", 150)
@@ -2671,7 +2673,7 @@ function AuctionScreen:CreateItemDetailControls(parent)
     local posIndicator = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     posIndicator:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -16, -26)
     self:ApplyFont(posIndicator, FONTS.medium, 15)
-    posIndicator:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    posIndicator:SetTextColor(1.0, 1.0, 1.0, 1.0)
     parent.posIndicator = posIndicator
 
     self.itemDetailRows = rows
@@ -2835,7 +2837,7 @@ function AuctionScreen:CreateConfirmModal(parent)
     local myMoneyLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     myMoneyLabel:SetPoint("TOPLEFT", priceLabel, "BOTTOMLEFT", 0, -10)
     self:ApplyFont(myMoneyLabel, FONTS.medium, 15)
-    myMoneyLabel:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    myMoneyLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     myMoneyLabel:SetText(CM:T("AH_MODAL_YOUR_MONEY") or "Seu Dinheiro:")
     modal.myMoneyLabel = myMoneyLabel
 
@@ -2847,7 +2849,7 @@ function AuctionScreen:CreateConfirmModal(parent)
     local remainingLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     remainingLabel:SetPoint("TOPLEFT", myMoneyLabel, "BOTTOMLEFT", 0, -10)
     self:ApplyFont(remainingLabel, FONTS.medium, 15)
-    remainingLabel:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    remainingLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     remainingLabel:SetText(CM:T("AH_MODAL_REMAINING") or "Saldo Restante:")
     modal.remainingLabel = remainingLabel
 
@@ -3035,7 +3037,7 @@ function AuctionScreen:CreateSortModal(parent)
     local sub = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     sub:SetPoint("TOP", title, "BOTTOM", 0, -6)
     self:ApplyFont(sub, FONTS.medium, 14)
-    sub:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    sub:SetTextColor(1.0, 1.0, 1.0, 1.0)
     sub:SetText(CM:T("AH_SORT_HINT"))
     modal.sub = sub
 
@@ -3861,7 +3863,7 @@ function AuctionScreen:CreateSellControls(parent)
     colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
     self:ApplyFont(colItem, FONTS.titleBold, 14)
     colItem:SetText(CM:T("AH_COL_ITEM") or "ITEM")
-    colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colItem:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colCount = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colCount:SetPoint("RIGHT", headerFrame, "RIGHT", -10, 0)
@@ -3869,7 +3871,7 @@ function AuctionScreen:CreateSellControls(parent)
     colCount:SetJustifyH("CENTER")
     self:ApplyFont(colCount, FONTS.titleBold, 14)
     colCount:SetText(CM:T("AH_SELL_STACK_SIZE") or "QTD")
-    colCount:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colCount:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colVendor = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colVendor:SetPoint("RIGHT", headerFrame, "RIGHT", -64, 0)
@@ -3877,7 +3879,7 @@ function AuctionScreen:CreateSellControls(parent)
     colVendor:SetJustifyH("CENTER")
     self:ApplyFont(colVendor, FONTS.titleBold, 14)
     colVendor:SetText(CM:T("AH_CARD_VENDOR_LABEL") or "LOJA")
-    colVendor:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colVendor:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local rows = {}
     local startY = -28
@@ -3932,7 +3934,7 @@ function AuctionScreen:CreateSellControls(parent)
         subText:SetPoint("RIGHT", row, "RIGHT", -214, 0)
         subText:SetJustifyH("LEFT")
         self:ApplyFont(subText, FONTS.medium, 13)
-        subText:SetTextColor(0.65, 0.65, 0.65, 1.0)
+        subText:SetTextColor(1.0, 1.0, 1.0, 1.0)
         row.subText = subText
 
         local totalCountText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
@@ -3975,7 +3977,7 @@ function AuctionScreen:CreateSellControls(parent)
     local emptyText = sellLeftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     emptyText:SetPoint("CENTER", sellLeftPane, "CENTER", 0, 0)
     self:ApplyFont(emptyText, FONTS.titleBold, 16)
-    emptyText:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    emptyText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     emptyText:SetText(CM:T("AH_SELL_NO_ITEMS") or "No auctionable items found in your bags.")
     emptyText:Hide()
     sellLeftPane.emptyText = emptyText
@@ -4159,7 +4161,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     colStack:SetJustifyH("CENTER")
     self:ApplyFont(colStack, FONTS.titleBold, 13)
     colStack:SetText(CM:T("AH_SELL_STACK_SIZE") or "QTD")
-    colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colStack:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colUnitBid = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colUnitBid:SetPoint("RIGHT", compHeader, "RIGHT", -166, 0)
@@ -4167,7 +4169,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     colUnitBid:SetJustifyH("CENTER")
     self:ApplyFont(colUnitBid, FONTS.titleBold, 13)
     colUnitBid:SetText(CM:T("AH_SELL_BID_PRICE") or "LANCE UNIT.")
-    colUnitBid:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colUnitBid:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colUnitBuy = compHeader:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colUnitBuy:SetPoint("RIGHT", compHeader, "RIGHT", -16, 0)
@@ -4175,7 +4177,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     colUnitBuy:SetJustifyH("CENTER")
     self:ApplyFont(colUnitBuy, FONTS.titleBold, 13)
     colUnitBuy:SetText(CM:T("AH_SELL_BUYOUT_PRICE") or "COMPRA UNIT.")
-    colUnitBuy:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colUnitBuy:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local compRows = {}
     local startY = -52
@@ -4248,7 +4250,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     local emptyText = listingLeftPane:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     emptyText:SetPoint("CENTER", listingLeftPane, "CENTER", 0, 20)
     self:ApplyFont(emptyText, FONTS.titleBold, 16)
-    emptyText:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    emptyText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     emptyText:SetText(CM:T("AH_SELL_NO_COMPETITORS") or "No active auctions found for this item.")
     emptyText:Hide()
     listingLeftPane.emptyText = emptyText
@@ -4297,7 +4299,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     itemBagInfo:SetPoint("RIGHT", listingRightPane, "RIGHT", -16, 0)
     itemBagInfo:SetJustifyH("LEFT")
     self:ApplyFont(itemBagInfo, FONTS.medium, 14)
-    itemBagInfo:SetTextColor(0.75, 0.75, 0.75, 1.0)
+    itemBagInfo:SetTextColor(1.0, 1.0, 1.0, 1.0)
     listingRightPane.itemBagInfo = itemBagInfo
 
     local hDiv = listingRightPane:CreateTexture(nil, "ARTWORK")
@@ -4435,14 +4437,14 @@ function AuctionScreen:CreateSellListingControls(parent)
     local sumTotalItems = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     sumTotalItems:SetPoint("TOPLEFT", sumHeader, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumTotalItems, FONTS.medium, 14)
-    sumTotalItems:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    sumTotalItems:SetTextColor(1.0, 1.0, 1.0, 1.0)
     listingRightPane.sumTotalItems = sumTotalItems
 
     local sumUnitPriceLabel = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     sumUnitPriceLabel:SetPoint("TOPLEFT", sumTotalItems, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumUnitPriceLabel, FONTS.medium, 14)
     sumUnitPriceLabel:SetText(CM:T("AH_SELL_UNIT_PRICE") or "Preço por Unidade:")
-    sumUnitPriceLabel:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    sumUnitPriceLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     listingRightPane.sumUnitPriceLabel = sumUnitPriceLabel
 
     local sumUnitPriceDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 14, "LEFT")
@@ -4453,7 +4455,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     sumBuyoutLabel:SetPoint("TOPLEFT", sumUnitPriceLabel, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumBuyoutLabel, FONTS.medium, 14)
     sumBuyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
-    sumBuyoutLabel:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    sumBuyoutLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     listingRightPane.sumBuyoutLabel = sumBuyoutLabel
 
     local sumBuyoutDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 14, "LEFT")
@@ -4464,7 +4466,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     sumDepositLabel:SetPoint("TOPLEFT", sumBuyoutLabel, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumDepositLabel, FONTS.medium, 14)
     sumDepositLabel:SetText("Taxa Depósito:")
-    sumDepositLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
+    sumDepositLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     listingRightPane.sumDepositLabel = sumDepositLabel
 
     local sumDepositDisplay = self:CreateMoneyDisplay(listingRightPane, 20, 14, "LEFT")
@@ -5266,13 +5268,13 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
     local qtyText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     qtyText:SetPoint("TOPLEFT", itemIcon, "BOTTOMLEFT", 0, -12)
     self:ApplyFont(qtyText, FONTS.bodyBold, 15)
-    qtyText:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    qtyText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     modal.qtyText = qtyText
 
     local unitPriceLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     unitPriceLabel:SetPoint("TOPLEFT", qtyText, "BOTTOMLEFT", 0, -8)
     self:ApplyFont(unitPriceLabel, FONTS.bodyBold, 15)
-    unitPriceLabel:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    unitPriceLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     unitPriceLabel:SetText(CM:T("AH_SELL_UNIT_PRICE") or "Preço por Unidade:")
     modal.unitPriceLabel = unitPriceLabel
 
@@ -5283,7 +5285,7 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
     local buyoutLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     buyoutLabel:SetPoint("TOPLEFT", unitPriceLabel, "BOTTOMLEFT", 0, -8)
     self:ApplyFont(buyoutLabel, FONTS.bodyBold, 15)
-    buyoutLabel:SetTextColor(0.95, 0.82, 0.35, 1.0)
+    buyoutLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     buyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
     modal.buyoutLabel = buyoutLabel
 
@@ -5294,7 +5296,7 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
     local depositLabel = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     depositLabel:SetPoint("TOPLEFT", buyoutLabel, "BOTTOMLEFT", 0, -8)
     self:ApplyFont(depositLabel, FONTS.medium, 14)
-    depositLabel:SetTextColor(0.70, 0.70, 0.70, 1.0)
+    depositLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     depositLabel:SetText("Taxa de Depósito:")
     modal.depositLabel = depositLabel
 
@@ -5987,7 +5989,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     colItem:SetPoint("LEFT", headerFrame, "LEFT", 44, 0)
     self:ApplyFont(colItem, FONTS.titleBold, 14)
     colItem:SetText(CM:T("AH_COL_ITEM") or "ITEM")
-    colItem:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colItem:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colStack = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colStack:SetPoint("LEFT", headerFrame, "LEFT", 260, 0)
@@ -5995,7 +5997,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     colStack:SetJustifyH("CENTER")
     self:ApplyFont(colStack, FONTS.titleBold, 14)
     colStack:SetText(CM:T("AH_COL_STACK") or "PILHA")
-    colStack:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colStack:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colTime = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colTime:SetPoint("LEFT", headerFrame, "LEFT", 325, 0)
@@ -6003,7 +6005,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     colTime:SetJustifyH("LEFT")
     self:ApplyFont(colTime, FONTS.titleBold, 14)
     colTime:SetText(CM:T("AH_COL_TIME_LEFT") or "DURAÇÃO")
-    colTime:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colTime:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colBidder = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colBidder:SetPoint("LEFT", headerFrame, "LEFT", 415, 0)
@@ -6011,7 +6013,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     colBidder:SetJustifyH("LEFT")
     self:ApplyFont(colBidder, FONTS.titleBold, 14)
     colBidder:SetText(CM:T("AH_COL_HIGH_BIDDER") or "MAIOR LANCE")
-    colBidder:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colBidder:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colBid = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colBid:SetPoint("RIGHT", headerFrame, "RIGHT", -166, 0)
@@ -6019,7 +6021,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     colBid:SetJustifyH("CENTER")
     self:ApplyFont(colBid, FONTS.titleBold, 14)
     colBid:SetText(CM:T("AH_COL_BID") or "LANCE ATUAL")
-    colBid:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colBid:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     local colBuyout = headerFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     colBuyout:SetPoint("RIGHT", headerFrame, "RIGHT", -16, 0)
@@ -6027,7 +6029,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     colBuyout:SetJustifyH("CENTER")
     self:ApplyFont(colBuyout, FONTS.titleBold, 14)
     colBuyout:SetText(CM:T("AH_COL_BUYOUT") or "COMPRA IMEDIATA")
-    colBuyout:SetTextColor(0.70, 0.65, 0.55, 1.0)
+    colBuyout:SetTextColor(1.0, 1.0, 1.0, 1.0)
 
     -- Pool de 7 linhas visíveis
     local rows = {}
@@ -6074,7 +6076,7 @@ function AuctionScreen:CreateOwnerControls(parent)
         timeText:SetWidth(80)
         timeText:SetJustifyH("LEFT")
         self:ApplyFont(timeText, FONTS.medium, 14)
-        timeText:SetTextColor(0.80, 0.80, 0.80, 0.90)
+        timeText:SetTextColor(1.0, 1.0, 1.0, 1.0)
         row.timeText = timeText
 
         local bidderText = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -6113,7 +6115,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     local emptyText = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
     emptyText:SetPoint("CENTER", parent, "CENTER", 0, 10)
     self:ApplyFont(emptyText, FONTS.titleBold, 20)
-    emptyText:SetTextColor(0.65, 0.60, 0.50, 1.0)
+    emptyText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     emptyText:SetText(CM:T("AH_MY_AUCTIONS_EMPTY") or "Você não possui leilões ativos.")
     emptyText:Hide()
     parent.emptyText = emptyText
@@ -6121,7 +6123,7 @@ function AuctionScreen:CreateOwnerControls(parent)
     local posIndicator = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     posIndicator:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -16, 8)
     self:ApplyFont(posIndicator, FONTS.medium, 14)
-    posIndicator:SetTextColor(0.65, 0.65, 0.65, 1.0)
+    posIndicator:SetTextColor(1.0, 1.0, 1.0, 1.0)
     parent.posIndicator = posIndicator
 
     self.ownerRows = rows
@@ -6322,7 +6324,7 @@ function AuctionScreen:CreateOwnerCancelModal(parent)
     descText:SetPoint("RIGHT", modal, "RIGHT", -28, 0)
     descText:SetJustifyH("LEFT")
     self:ApplyFont(descText, FONTS.bodyBold, 15)
-    descText:SetTextColor(0.85, 0.85, 0.85, 1.0)
+    descText:SetTextColor(1.0, 1.0, 1.0, 1.0)
     modal.descText = descText
 
     local warnText = modal:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")

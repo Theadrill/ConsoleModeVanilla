@@ -202,3 +202,59 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 * **Teste no Jogo:** Validação completa de ponta a ponta com gamepad.
 
 
+---
+
+## 4. Integração com o Sistema de Linguagem e Localização (pt-BR)
+
+### Diagnóstico Técnico
+1. **Dicionário da Interface (Data/UI.lua do addon irmão):**
+   * As 225 chaves `AH_*` existem exclusivamente em inglês em `ConsoleModeVanilla/Data/Locales/enUS/UI.lua`.
+   * O repositório irmão `ConsoleModeVanilla-Localization-ptBR` ainda não possui nenhuma dessas chaves, forçando o fallback em inglês mesmo com idioma pt-BR ativo.
+2. **Nomes de Itens e Atributos de Tooltip:**
+   * Itens retornados pela Blizzard vêm em inglês nativo. A exibição visual consome `ConsoleMode:GameLOC_Item` e `GameLOC_ItemDesc`, mas a ordenação alfabética (A-Z) precisa respeitar os nomes traduzidos.
+3. **Busca Textual Bilíngue (Virtual Keyboard) vs Servidor em Inglês:**
+   * A API do servidor 1.12 `QueryAuctionItems(name, ...)` compara com nomes em inglês. Digitar `"Barra de Cobre"` no Virtual Keyboard falha se não houver um mapeamento reverso (`ptBR -> enUS`) antes do envio.
+4. **NPCs Leiloeiros:**
+   * Exibição do nome e cargo dos leiloeiros das capitais integrada ao banco de dados CapycraftDB / `NPC.lua`.
+
+---
+
+### Fases Testáveis de Localização:
+
+#### FASE 11: Dicionário Completo de UI da Auction House em pt-BR
+* **Objetivo:** Tradução 100% oficial e sincronização das 225 chaves `AH_*` para o addon irmão `ConsoleModeVanilla-Localization-ptBR`.
+* **Tarefas:**
+  * Tradução das abas (`COMPRAR`, `VENDER`, `MEUS LEILÕES`), botões, legendas, cabeçalhos de tabela.
+  * Tradução de todas as categorias, subcategorias e slots de armas e armaduras.
+  * Tradução dos critérios do modal de ordenação e avisos dos modais de confirmação/cancelamento.
+  * Injeção das chaves em `ConsoleModeVanilla-Localization-ptBR/Data/UI.lua`.
+* **Teste no Jogo:** Abrir o leiloeiro com `/cm lang ptBR`. Verificar que 100% dos textos fixos, menus, categorias e botões aparecem em português.
+
+---
+
+#### FASE 12: Cobertura de GameLOC nos Itens e Ordenação Alfabética Localizada
+* **Objetivo:** Garantir exibição de nomes traduzidos em todas as abas e ordenação alfabética correta em pt-BR.
+* **Tarefas:**
+  * Auditoria de `GameLOC_Item` em todas as views (lista agrupada, detalhes, concorrentes, formulário, resumo de venda e meus leilões).
+  * Atualização da ordenação `NAME_ASC` e `NAME_DESC` em `AuctionScreen:SortGroupedItems` para comparar `locName` quando o idioma ativo for ptBR.
+  * Garantir que o tooltip split-view exiba stats e requisitos traduzidos via `GameLOC_ItemDesc` e `GameLOC_EquipLoc`.
+* **Teste no Jogo:** Visualizar itens no mercado e ordenar de A a Z conferindo a ordem pelo nome em português.
+
+---
+
+#### FASE 13: Busca Textual Bilíngue com Resolução Reversa (ptBR ➔ enUS)
+* **Objetivo:** Permitir ao jogador digitar nomes em português no teclado virtual e encontrar o item no servidor em inglês.
+* **Tarefas:**
+  * Implementar lookup reverso no banco de dados de itens (`ItemDB`): dado um termo digitado em português, identificar o nome original em inglês do item.
+  * Se houver correspondência, enviar o termo em inglês para `QueryAuctionItems`, mantendo o termo digitado pelo jogador no campo visual.
+  * Suporte no Virtual Keyboard para autocomplete a partir do nome em português.
+* **Teste no Jogo:** Digitar "Linho" ou "Cobre" no filtro de busca com Virtual Keyboard. Confirmar que a busca no servidor retorna "Linen Cloth" e "Copper Bar".
+
+---
+
+#### FASE 14: Nome e Cargo do Leiloeiro Localizado e Homologação Final
+* **Objetivo:** Exibir nome e título de NPC autênticos no cabeçalho do leilão.
+* **Tarefas:**
+  * Conectar `UnitName("npc")` com a API `ConsoleMode:GetNPCDisplayName(id, enName)` e `ConsoleMode:GetNPCRole(id, enRole)`.
+  * Validação geral em capitais da Horda e da Aliança.
+* **Teste no Jogo:** Falar com leiloeiros em Ironforge, Stormwind e Orgrimmar e verificar nome e título traduzidos no cabeçalho.

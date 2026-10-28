@@ -1775,6 +1775,16 @@ CM_Langs["enUS"].strings = {
     AH_CANCEL_HAS_BIDS_WARNING = "This auction already has bids! Cancelling it will sell the item to the highest bidder at the current bid price.",
     AH_HINT_CANCEL_AUCTION = "Cancel Auction",
     AH_HINT_REFRESH = "Refresh",
+    AH_POS_ITEM_FMT = "Item %d of %d",
+    AH_POS_AUCTION_FMT = "Auction %d of %d",
+    AH_UNKNOWN_SELLER = "Unknown",
+    AH_SELL_BTN_POST_SHORT = "POST",
+    AH_SELL_CALC_MAX_STACKS = "[ Calculate Max Stacks ]",
+    AH_SELL_DEPOSIT_LABEL = "Deposit Fee:",
+    AH_SELL_BAG_INFO_FMT = "Available in bags: %d • Vendor: %s",
+    AH_SELL_SUMMARY_TOTAL_FMT = "Total: %d item(s) (%d stack(s) of %d)",
+    AH_SELL_MODAL_QTY_FMT = "%d stack(s) of %d unit(s) • Total: %d",
+    AH_DUR_HOURS_FMT = "%d Hours",
 }
 
 -- Guard against inverted .toc order: guarantees enUS in the order.

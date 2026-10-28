@@ -717,6 +717,7 @@ function AuctionScreen:CreateTabIndicator(parent)
         btn.underline = underline
 
         btn.tabKey = tabData.key
+        btn.labelKey = tabData.labelKey
         btn:SetScript("OnClick", function()
             AuctionScreen:SetTab(this.tabKey)
         end)
@@ -743,6 +744,7 @@ function AuctionScreen:CreateTabIndicator(parent)
 
     tabContainer:SetWidth(totalW)
     tabContainer.buttons = tabButtons
+    tabContainer.rbIcon = rbIcon
     self.tabContainer = tabContainer
     self:UpdateTabStyles()
 end
@@ -1219,14 +1221,262 @@ function AuctionScreen:IsVKOpen()
     return false
 end
 
+local PT_SEARCH_KEYWORDS = {
+    ["cobre"] = "Copper",
+    ["linho"] = "Linen",
+    ["la"] = "Wool", ["lã"] = "Wool",
+    ["seda"] = "Silk",
+    ["magitrama"] = "Mageweave",
+    ["runatrama"] = "Runecloth",
+    ["tecido vil"] = "Felcloth",
+    ["couro"] = "Leather",
+    ["ferro"] = "Iron",
+    ["aco"] = "Steel", ["aço"] = "Steel",
+    ["mitril"] = "Mithril",
+    ["torio"] = "Thorium", ["tório"] = "Thorium",
+    ["prata"] = "Silver",
+    ["ouro"] = "Gold",
+    ["bronze"] = "Bronze",
+    ["estanho"] = "Tin",
+    ["arcanita"] = "Arcanite",
+    ["pocao"] = "Potion", ["poção"] = "Potion",
+    ["elixir"] = "Elixir",
+    ["frasco"] = "Flask",
+    ["pergaminho"] = "Scroll",
+    ["bandagem"] = "Bandage",
+    ["bolsa"] = "Bag",
+    ["minerio"] = "Ore", ["minério"] = "Ore",
+    ["barra"] = "Bar",
+    ["tecido"] = "Cloth",
+    ["pedra"] = "Stone",
+    ["essencia"] = "Essence", ["essência"] = "Essence",
+    ["estilhaco"] = "Shard", ["estilhaço"] = "Shard",
+    ["po"] = "Dust", ["pó"] = "Dust",
+    ["formula"] = "Formula", ["fórmula"] = "Formula",
+    ["receita"] = "Recipe",
+    ["instrucoes"] = "Plans", ["instruções"] = "Plans",
+    ["molde"] = "Pattern",
+    ["diagrama"] = "Schematic",
+    ["manual"] = "Manual",
+    ["erva"] = "Herb", ["ervas"] = "Herb",
+    ["peixe"] = "Fish",
+    ["carne"] = "Meat",
+}
+
+function AuctionScreen:StripAccents(str)
+    if not str or str == "" then return "" end
+    local s = string.lower(str)
+    s = string.gsub(s, "á", "a")
+    s = string.gsub(s, "à", "a")
+    s = string.gsub(s, "â", "a")
+    s = string.gsub(s, "ã", "a")
+    s = string.gsub(s, "ä", "a")
+    s = string.gsub(s, "Á", "a")
+    s = string.gsub(s, "À", "a")
+    s = string.gsub(s, "Â", "a")
+    s = string.gsub(s, "Ã", "a")
+    s = string.gsub(s, "é", "e")
+    s = string.gsub(s, "è", "e")
+    s = string.gsub(s, "ê", "e")
+    s = string.gsub(s, "ë", "e")
+    s = string.gsub(s, "É", "e")
+    s = string.gsub(s, "È", "e")
+    s = string.gsub(s, "Ê", "e")
+    s = string.gsub(s, "í", "i")
+    s = string.gsub(s, "ì", "i")
+    s = string.gsub(s, "î", "i")
+    s = string.gsub(s, "ï", "i")
+    s = string.gsub(s, "Í", "i")
+    s = string.gsub(s, "ó", "o")
+    s = string.gsub(s, "ò", "o")
+    s = string.gsub(s, "ô", "o")
+    s = string.gsub(s, "õ", "o")
+    s = string.gsub(s, "ö", "o")
+    s = string.gsub(s, "Ó", "o")
+    s = string.gsub(s, "Ô", "o")
+    s = string.gsub(s, "Õ", "o")
+    s = string.gsub(s, "ú", "u")
+    s = string.gsub(s, "ù", "u")
+    s = string.gsub(s, "û", "u")
+    s = string.gsub(s, "ü", "u")
+    s = string.gsub(s, "Ú", "u")
+    s = string.gsub(s, "ç", "c")
+    s = string.gsub(s, "Ç", "c")
+    return s
+end
+
+function AuctionScreen:EnsureReverseItemIndex()
+    if self._reverseItemCache then return self._reverseItemCache end
+    local cache = {
+        exactPT    = {},
+        exactStrip = {},
+        idToEn     = {},
+    }
+
+    -- 1. Mapa invertido de ID -> Nome EN (via ConsoleMode_ItemDB_ByName)
+    if ConsoleMode_ItemDB_ByName then
+        for enLower, id in pairs(ConsoleMode_ItemDB_ByName) do
+            if type(id) == "number" and type(enLower) == "string" and not cache.idToEn[id] then
+                cache.idToEn[id] = enLower
+            end
+        end
+    end
+
+    -- 2. Itens curados em CM_Langs["ptBR"].game.items
+    local ptEntry = CM_Langs and CM_Langs["ptBR"]
+    if ptEntry and ptEntry.game and ptEntry.game.items then
+        for enKey, ptVal in pairs(ptEntry.game.items) do
+            if type(enKey) == "string" and type(ptVal) == "string" and ptVal ~= "" then
+                local ptLow = string.lower(ptVal)
+                local ptStr = self:StripAccents(ptVal)
+                cache.exactPT[ptLow] = enKey
+                cache.exactStrip[ptStr] = enKey
+            end
+        end
+    end
+
+    -- 3. ItemDB completo (ptBR -> ID -> enLower)
+    if ConsoleMode_ItemDB then
+        for id, ptVal in pairs(ConsoleMode_ItemDB) do
+            if type(ptVal) == "string" and ptVal ~= "" then
+                local enName = cache.idToEn[id]
+                if enName then
+                    local ptLow = string.lower(ptVal)
+                    if not cache.exactPT[ptLow] then
+                        cache.exactPT[ptLow] = enName
+                    end
+                    local ptStr = self:StripAccents(ptVal)
+                    if not cache.exactStrip[ptStr] then
+                        cache.exactStrip[ptStr] = enName
+                    end
+                end
+            end
+        end
+    end
+
+    self._reverseItemCache = cache
+    return cache
+end
+
+function AuctionScreen:ResolveSearchTermToServer(rawTerm)
+    if not rawTerm or rawTerm == "" then return "" end
+    local trimmed = string.gsub(rawTerm, "^%s+", "")
+    trimmed = string.gsub(trimmed, "%s+$", "")
+    if trimmed == "" then return "" end
+
+    if not (CM and CM.IsGameLOCActive and CM:IsGameLOCActive()) then
+        return trimmed
+    end
+
+    local lower = string.lower(trimmed)
+    local stripped = self:StripAccents(trimmed)
+
+    -- Se o jogador digitou um nome exato em ingles que ja existe no banco, preserva
+    if ConsoleMode_ItemDB_ByName and ConsoleMode_ItemDB_ByName[lower] then
+        return trimmed
+    end
+
+    -- 1. Palavra-chave direta de material/categoria (ex: "Cobre" -> "Copper", "Linho" -> "Linen")
+    if PT_SEARCH_KEYWORDS[lower] then
+        return PT_SEARCH_KEYWORDS[lower]
+    end
+    if PT_SEARCH_KEYWORDS[stripped] then
+        return PT_SEARCH_KEYWORDS[stripped]
+    end
+
+    -- 2. Match exato (com ou sem acento) no indice reverso de itens
+    local cache = self:EnsureReverseItemIndex()
+    if cache.exactPT[lower] then
+        return cache.exactPT[lower]
+    end
+    if cache.exactStrip[stripped] then
+        return cache.exactStrip[stripped]
+    end
+
+    -- 3. Match parcial (prefixo ou substring >= 3 chars) primeiro nos itens frequentes, depois no ItemDB
+    if string.len(stripped) >= 3 then
+        local ptEntry = CM_Langs and CM_Langs["ptBR"]
+        if ptEntry and ptEntry.game and ptEntry.game.items then
+            for enKey, ptVal in pairs(ptEntry.game.items) do
+                if type(ptVal) == "string" then
+                    local pStrip = self:StripAccents(ptVal)
+                    if string.find(pStrip, "^" .. stripped) then
+                        return enKey
+                    end
+                end
+            end
+            for enKey, ptVal in pairs(ptEntry.game.items) do
+                if type(ptVal) == "string" then
+                    local pStrip = self:StripAccents(ptVal)
+                    if string.find(pStrip, stripped, 1, true) then
+                        return enKey
+                    end
+                end
+            end
+        end
+
+        for ptStrip, enName in pairs(cache.exactStrip) do
+            if string.find(ptStrip, "^" .. stripped) then
+                return enName
+            end
+        end
+    end
+
+    return trimmed
+end
+
+function AuctionScreen:BuildVKAutoCompleteList()
+    local list = {}
+    local seen = {}
+    local function addSuggestion(s)
+        if not s or s == "" then return end
+        local k = string.lower(s)
+        if not seen[k] then
+            seen[k] = true
+            table.insert(list, s)
+        end
+    end
+
+    -- 1. Buscas recentes do jogador
+    if ConsoleModeDB and ConsoleModeDB.ahRecentSearches then
+        for i = 1, table.getn(ConsoleModeDB.ahRecentSearches) do
+            addSuggestion(ConsoleModeDB.ahRecentSearches[i])
+        end
+    end
+
+    -- 2. Nomes dos itens nas bolsas do jogador (ja traduzidos no idioma ativo)
+    local bagItems = self:GetAuctionableBagItems()
+    for i = 1, table.getn(bagItems) do
+        local it = bagItems[i]
+        local locName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(it.name, it.link) or it.name
+        addSuggestion(locName)
+    end
+
+    -- 3. Itens comuns de comercio no idioma ativo
+    local isPT = (CM and CM.IsGameLOCActive and CM:IsGameLOCActive())
+    local ptEntry = CM_Langs and CM_Langs["ptBR"]
+    if ptEntry and ptEntry.game and ptEntry.game.items then
+        for enKey, ptVal in pairs(ptEntry.game.items) do
+            if isPT then
+                addSuggestion(ptVal)
+            else
+                addSuggestion(enKey)
+            end
+        end
+    end
+
+    return list
+end
+
 function AuctionScreen:OpenFilterSearchVK()
     local vk = ConsoleMode and ConsoleMode.VirtualKeyboard
     if vk and vk.Open then
         vk:Open({
-            title         = CM:T("AH_VK_SEARCH_TITLE") or "Buscar Item no Leilão",
-            initialText   = self.activeFilters.name or "",
-            maxLetters    = 32,
-            onConfirm     = function(text)
+            title            = CM:T("AH_VK_SEARCH_TITLE") or "Buscar Item no Leilão",
+            initialText      = self.activeFilters.name or "",
+            maxLetters       = 32,
+            autoCompleteList = self:BuildVKAutoCompleteList(),
+            onConfirm        = function(text)
                 AuctionScreen.activeFilters.name = text or ""
                 AuctionScreen:SaveCategoryFilters()
                 AuctionScreen:UpdateFilterStyles()
@@ -1234,7 +1484,7 @@ function AuctionScreen:OpenFilterSearchVK()
                     AuctionScreen:AddRecentSearch(text)
                 end
             end,
-            onCancel      = function() end,
+            onCancel         = function() end,
         })
     end
 end
@@ -2067,6 +2317,41 @@ function AuctionScreen:CreateDetailCard(parent, listLeftPane)
     return card
 end
 
+function AuctionScreen:ResolveItemInfo(itemIDorLink)
+    if not itemIDorLink or not GetItemInfo then return nil end
+    local a1, a2, a3, a4, a5, a6, a7, a8, a9, a10 = GetItemInfo(itemIDorLink)
+    if not a1 then return nil end
+    local quality = tonumber(a3) or 1
+    local reqLevel, itemType, subType, stackCount, equipLoc = 0, "", "", 1, ""
+    if type(a5) == "string" then
+        -- Assinatura Vanilla 1.12.1 (9 retornos):
+        -- 1:name, 2:link, 3:rarity, 4:minLevel, 5:itemType, 6:itemSubType, 7:stackCount, 8:equipLoc, 9:texture
+        reqLevel = tonumber(a4) or 0
+        if type(a5) == "string" then itemType = a5 end
+        if type(a6) == "string" then subType = a6 end
+        stackCount = tonumber(a7) or 1
+        if type(a8) == "string" then equipLoc = a8 end
+    else
+        -- Assinatura 10 retornos (custom/TBC):
+        -- 1:name, 2:link, 3:rarity, 4:iLvl, 5:minLevel, 6:itemType, 7:itemSubType, 8:stackCount, 9:equipLoc, 10:texture
+        reqLevel = tonumber(a5) or 0
+        if type(a6) == "string" then itemType = a6 end
+        if type(a7) == "string" then subType = a7 end
+        stackCount = tonumber(a8) or 1
+        if type(a9) == "string" then equipLoc = a9 end
+    end
+    if type(equipLoc) ~= "string" then equipLoc = "" end
+    if string.find(equipLoc, "\\") or string.find(equipLoc, "Interface") or string.find(equipLoc, "INV_") then
+        equipLoc = ""
+    end
+    if string.find(equipLoc, "^INVTYPE_") == nil then
+        equipLoc = ""
+    end
+    if type(itemType) ~= "string" then itemType = "" end
+    if type(subType) ~= "string" or tonumber(subType) ~= nil then subType = "" end
+    return a1, a2, quality, reqLevel, itemType, subType, stackCount, equipLoc
+end
+
 function AuctionScreen:UpdateItemCard(item, targetCard)
     local card = targetCard or self.detailCard
     if not card then return end
@@ -2105,7 +2390,7 @@ function AuctionScreen:UpdateItemCard(item, targetCard)
     card.titleText:SetText(locItemName)
     card.titleText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
-    -- 3. Informações de GetItemInfo (Subtipo, Slot, Req Level)
+    -- 3. Informações de GetItemInfo (Subtipo, Slot, Req Level) normalizadas para Vanilla 1.12.1
     local rawLink = nil
     if item.link then
         local _, _, raw = string.find(item.link, "(item:%d+:%d+:%d+:%d+)")
@@ -2117,7 +2402,7 @@ function AuctionScreen:UpdateItemCard(item, targetCard)
     end
     local _, _, idStr = string.find(item.link or "", "item:(%d+)")
     local itemID = tonumber(idStr)
-    local _, _, _, itemLevel, reqL, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(rawLink or itemID or item.name)
+    local _, _, _, reqL, itemType, itemSubType, itemStackCount, itemEquipLoc = self:ResolveItemInfo(rawLink or itemID or item.name)
 
     -- 4. Tooltip Scanner: Stats e Efeitos (passando item para fallback SetAuctionItem)
     local scanData = self:ScanItemTooltip(item.link, item)
@@ -2481,7 +2766,7 @@ function AuctionScreen:UpdateItemList()
 
     if self.itemListContainer and self.itemListContainer.posIndicator then
         if totalItems > 0 then
-            self.itemListContainer.posIndicator:SetText(string.format("Item %d de %d", self.selectedItemIndex, totalItems))
+            self.itemListContainer.posIndicator:SetText(string.format(CM:T("AH_POS_ITEM_FMT") or "Item %d of %d", self.selectedItemIndex, totalItems))
         else
             self.itemListContainer.posIndicator:SetText("")
         end
@@ -2691,7 +2976,7 @@ function AuctionScreen:UpdateItemDetail()
         local qColor = QUALITY_COLORS[item.quality] or { 1, 1, 1 }
         topCard.nameText:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
-        local subInfo = string.format("Nível: %s  •  Total de Leilões: %d", (item.level and item.level > 0) and tostring(item.level) or "-", item.numAuctions or 1)
+        local subInfo = string.format(CM:T("AH_DETAIL_SUBTITLE_FMT") or "Level: %s  •  Total Auctions: %d", (item.level and item.level > 0) and tostring(item.level) or "-", item.numAuctions or 1)
         topCard.subText:SetText(subInfo)
 
         if item.vendorPrice and item.vendorPrice > 0 then
@@ -2721,7 +3006,7 @@ function AuctionScreen:UpdateItemDetail()
             local a = auctions[auctionIdx]
             local isFocused = (auctionIdx == self.selectedAuctionIndex)
 
-            row.sellerText:SetText(a.owner or "Desconhecido")
+            row.sellerText:SetText(a.owner or (CM:T("AH_UNKNOWN_SELLER") or "Unknown"))
             row.stackText:SetText("x" .. (a.count or 1))
 
             local timeKey = TIME_LEFT_KEYS[a.timeLeft] or "AH_TIME_SHORT"
@@ -2750,7 +3035,7 @@ function AuctionScreen:UpdateItemDetail()
 
     if self.itemDetailContainer and self.itemDetailContainer.posIndicator then
         if totalAuctions > 0 then
-            self.itemDetailContainer.posIndicator:SetText(string.format("Leilão %d de %d", self.selectedAuctionIndex, totalAuctions))
+            self.itemDetailContainer.posIndicator:SetText(string.format(CM:T("AH_POS_AUCTION_FMT") or "Auction %d of %d", self.selectedAuctionIndex, totalAuctions))
         else
             self.itemDetailContainer.posIndicator:SetText("")
         end
@@ -2963,7 +3248,8 @@ function AuctionScreen:OpenConfirmModal(auction, isBuyout)
 
     m.itemIcon:SetTexture(auction.texture)
     local qColor = QUALITY_COLORS[auction.quality] or { 1, 1, 1 }
-    m.itemName:SetText(auction.name .. " (x" .. (auction.count or 1) .. ")")
+    local locAuctionName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(auction.name, auction.link) or (auction.name or "")
+    m.itemName:SetText(locAuctionName .. " (x" .. (auction.count or 1) .. ")")
     m.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
     if myMoney < price then
@@ -3166,58 +3452,66 @@ function AuctionScreen:ApplySort(sortType)
     self.currentSortType = sortType or "PRICE_UNIT_ASC"
     if not self.groupedItems or table.getn(self.groupedItems) == 0 then return end
 
+    local function getLocSortName(entry)
+        if not entry then return "" end
+        local n = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(entry.name, entry.link) or (entry.name or "")
+        return string.lower(n)
+    end
+
     local currentType = self.currentSortType
     table.sort(self.groupedItems, function(a, b)
+        local nA = getLocSortName(a)
+        local nB = getLocSortName(b)
         if currentType == "PRICE_UNIT_ASC" then
             local pA = (a.minBuyout and a.minBuyout > 0) and a.minBuyout or (a.minBid or 99999999)
             local pB = (b.minBuyout and b.minBuyout > 0) and b.minBuyout or (b.minBid or 99999999)
             if pA ~= pB then return pA < pB end
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         elseif currentType == "PRICE_UNIT_DESC" then
             local pA = (a.minBuyout and a.minBuyout > 0) and a.minBuyout or (a.minBid or 0)
             local pB = (b.minBuyout and b.minBuyout > 0) and b.minBuyout or (b.minBid or 0)
             if pA ~= pB then return pA > pB end
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         elseif currentType == "BUYOUT_ASC" then
             local pA = (a.minBuyout and a.minBuyout > 0) and a.minBuyout or 99999999
             local pB = (b.minBuyout and b.minBuyout > 0) and b.minBuyout or 99999999
             if pA ~= pB then return pA < pB end
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         elseif currentType == "NAME_ASC" then
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         elseif currentType == "NAME_DESC" then
-            if a.name ~= b.name then return (a.name or "") > (b.name or "") end
+            if nA ~= nB then return nA > nB end
             return false
         elseif currentType == "LEVEL_ASC" then
             local lA = a.level or 0
             local lB = b.level or 0
             if lA ~= lB then return lA < lB end
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         elseif currentType == "LEVEL_DESC" then
             local lA = a.level or 0
             local lB = b.level or 0
             if lA ~= lB then return lA > lB end
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         elseif currentType == "QUALITY_DESC" then
             local qA = a.quality or 0
             local qB = b.quality or 0
             if qA ~= qB then return qA > qB end
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         elseif currentType == "QUALITY_ASC" then
             local qA = a.quality or 0
             local qB = b.quality or 0
             if qA ~= qB then return qA < qB end
-            if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+            if nA ~= nB then return nA < nB end
             return false
         end
-        if a.name ~= b.name then return (a.name or "") < (b.name or "") end
+        if nA ~= nB then return nA < nB end
         return false
     end)
 
@@ -3243,11 +3537,12 @@ function AuctionScreen:ExecutePurchase()
 
     PlaceAuctionBid("list", auction.index, price)
 
+    local locAuctionName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(auction.name, auction.link) or (auction.name or "")
     if isBuyout then
-        local msg = string.format(CM:T("AH_MSG_BUYOUT_SUCCESS_FMT"), auction.name or "")
+        local msg = string.format(CM:T("AH_MSG_BUYOUT_SUCCESS_FMT"), locAuctionName)
         DEFAULT_CHAT_FRAME:AddMessage(msg)
     else
-        local msg = string.format(CM:T("AH_MSG_BID_SUCCESS_FMT"), auction.name or "")
+        local msg = string.format(CM:T("AH_MSG_BID_SUCCESS_FMT"), locAuctionName)
         DEFAULT_CHAT_FRAME:AddMessage(msg)
     end
 
@@ -3465,8 +3760,10 @@ function AuctionScreen:ExecuteSearch(forceRescan)
         self:AddRecentSearch(searchName)
     end
 
+    local serverQueryName = self:ResolveSearchTermToServer(searchName)
+
     local queryParams = {
-        name          = searchName,
+        name          = serverQueryName,
         minLevel      = self.activeFilters.minLevel or 0,
         maxLevel      = self.activeFilters.maxLevel or 0,
         invTypeIndex  = slotIdx or 0,
@@ -3513,11 +3810,74 @@ function AuctionScreen:ExecuteSearch(forceRescan)
     end
 end
 
+function AuctionScreen:GetLocalizedAuctioneerHeader()
+    local rawName = UnitName("npc")
+    if not rawName or rawName == "" then
+        return string.format(CM:T("AH_HEADER_AUCTIONEER_FMT"), CM:T("AH_UNKNOWN_AUCTIONEER"))
+    end
+
+    local npcID = nil
+    local rawRole = nil
+
+    self._npcNameCache = self._npcNameCache or {}
+    local cached = self._npcNameCache[rawName]
+    if cached then
+        npcID = cached.id
+        rawRole = cached.role
+    else
+        local partitions = {
+            ConsoleMode_NPC_EasternKingdoms,
+            ConsoleMode_NPC_Kalimdor,
+            ConsoleMode_NPC_CustomTurtle,
+        }
+        for p = 1, 3 do
+            local db = partitions[p]
+            if db then
+                for id, entry in pairs(db) do
+                    if type(entry) == "table" and entry[1] == rawName then
+                        npcID = id
+                        rawRole = entry[2] or ""
+                        break
+                    end
+                end
+            end
+            if npcID then break end
+        end
+        self._npcNameCache[rawName] = { id = npcID, role = rawRole or "" }
+    end
+
+    local dispName = rawName
+    local dispRole = rawRole or ""
+    if CM and CM.IsGameLOCActive and CM:IsGameLOCActive() then
+        if ConsoleMode and ConsoleMode.GetNPCDisplayName and npcID then
+            dispName = ConsoleMode:GetNPCDisplayName(npcID, rawName) or rawName
+        end
+        if ConsoleMode and ConsoleMode.GetNPCRole and npcID then
+            dispRole = ConsoleMode:GetNPCRole(npcID, rawRole) or dispRole
+        end
+        if dispName == rawName then
+            dispName = string.gsub(dispName, "^[Aa]uctioneer%s+", "Leiloeiro ")
+        end
+    end
+
+    local cleanPersonName = string.gsub(dispName, "^[Ll]eiloeir[oa]%s+", "")
+    cleanPersonName = string.gsub(cleanPersonName, "^[Aa]uctioneer%s+", "")
+    local headerStr = string.format(CM:T("AH_HEADER_AUCTIONEER_FMT"), cleanPersonName)
+    if dispRole and dispRole ~= "" then
+        headerStr = headerStr .. "  •  " .. dispRole
+    end
+    return headerStr
+end
+
 -- ----------------------------------------------------------------------------
 -- 15. CRIAÇÃO DA INTERFACE PRINCIPAL
 -- ----------------------------------------------------------------------------
 function AuctionScreen:CreateUI()
     if self.frame then return end
+
+    if CM.LoadDataLake then
+        pcall(function() CM:LoadDataLake("AuctionScreen") end)
+    end
 
     self:CreateDimmer()
 
@@ -3562,7 +3922,7 @@ function AuctionScreen:CreateUI()
     local npcText = header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     npcText:SetPoint("LEFT", header, "LEFT", 4, 0)
     self:ApplyFont(npcText, FONTS.titleBold, 17)
-    npcText:SetText(string.format(CM:T("AH_HEADER_AUCTIONEER_FMT"), UnitName("npc") or CM:T("AH_UNKNOWN_AUCTIONEER")))
+    npcText:SetText(self:GetLocalizedAuctioneerHeader())
     frame.npcText = npcText
 
     local closeBtn = CreateFrame("Button", "ConsoleMode_AuctionCloseBtn", header)
@@ -3588,6 +3948,7 @@ function AuctionScreen:CreateUI()
     closeTxt:SetPoint("LEFT", closeIcon, "RIGHT", 6, 0)
     self:ApplyFont(closeTxt, FONTS.titleBold, 16)
     closeTxt:SetText(CM:T("AH_BUTTON_CLOSE"))
+    closeBtn.txt = closeTxt
 
     closeBtn:SetScript("OnClick", function()
         AuctionScreen:Close()
@@ -3619,6 +3980,7 @@ function AuctionScreen:CreateUI()
     blizzTxt:SetPoint("CENTER", blizzBtn, "CENTER", 0, 0)
     self:ApplyFont(blizzTxt, FONTS.titleBold, 16)
     blizzTxt:SetText(CM:T("AH_BUTTON_BLIZZARD_AH"))
+    blizzBtn.txt = blizzTxt
 
     blizzBtn:SetScript("OnClick", function()
         AuctionScreen:OpenBlizzardAH()
@@ -3683,7 +4045,7 @@ function AuctionScreen:IsItemAuctionable(bag, slot)
     local link = GetContainerItemLink(bag, slot)
     if not link then return false end
 
-    local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount = GetItemInfo(link)
+    local itemName, itemLink, itemRarity, itemMinLevel, itemType, itemSubType, itemStackCount = self:ResolveItemInfo(link)
     if itemType == "Quest" or itemType == "Missão" then
         return false
     end
@@ -3777,7 +4139,7 @@ function AuctionScreen:GetAuctionableBagItems()
             if self:IsItemAuctionable(bag, slot) then
                 local texture, count, locked, quality = GetContainerItemInfo(bag, slot)
                 local link = GetContainerItemLink(bag, slot)
-                local itemName, itemLink, itemRarity, itemLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = GetItemInfo(link)
+                local itemName, itemLink, itemRarity, itemLevel, itemType, itemSubType, itemStackCount, itemEquipLoc = self:ResolveItemInfo(link)
 
                 local key = self:GetItemKey(link) or itemName or "item"
 
@@ -3826,7 +4188,9 @@ function AuctionScreen:GetAuctionableBagItems()
         local qA = a.quality or 0
         local qB = b.quality or 0
         if qA ~= qB then return qA > qB end
-        return (a.name or "") < (b.name or "")
+        local nA = string.lower((ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(a.name, a.link) or (a.name or ""))
+        local nB = string.lower((ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(b.name, b.link) or (b.name or ""))
+        return nA < nB
     end)
 
     return items
@@ -4339,7 +4703,7 @@ function AuctionScreen:CreateSellListingControls(parent)
             local postTxt = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
             postTxt:SetPoint("LEFT", postIcon, "RIGHT", 6, 0)
             self:ApplyFont(postTxt, FONTS.titleBold, 16)
-            postTxt:SetText("POST")
+            postTxt:SetText(CM:T("AH_SELL_BTN_POST_SHORT") or "POST")
             r.postTxt = postTxt
 
             r:SetScript("OnEnter", function()
@@ -4421,7 +4785,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     formRows[4].lbl:SetText(CM:T("AH_SELL_STACK_SIZE") or "Tamanho da Pilha")
     formRows[5].lbl:SetText(CM:T("AH_SELL_NUM_STACKS") or "Número de Pilhas")
     formRows[6].lbl:SetText(CM:T("AH_SELL_BTN_MAX") or "MAX")
-    formRows[6].val:SetText("[ Calcular Máximo de Pilhas ]")
+    formRows[6].val:SetText(CM:T("AH_SELL_CALC_MAX_STACKS") or "[ Calculate Max Stacks ]")
 
     local sDiv = listingRightPane:CreateTexture(nil, "ARTWORK")
     sDiv:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
@@ -4467,7 +4831,7 @@ function AuctionScreen:CreateSellListingControls(parent)
     local sumDepositLabel = listingRightPane:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     sumDepositLabel:SetPoint("TOPLEFT", sumBuyoutLabel, "BOTTOMLEFT", 0, -3)
     self:ApplyFont(sumDepositLabel, FONTS.medium, 14)
-    sumDepositLabel:SetText("Taxa Depósito:")
+    sumDepositLabel:SetText(CM:T("AH_SELL_DEPOSIT_LABEL") or "Deposit Fee:")
     sumDepositLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
     listingRightPane.sumDepositLabel = sumDepositLabel
 
@@ -5074,9 +5438,10 @@ function AuctionScreen:OpenSellStackSizePicker()
     local maxS = self:GetMaxUnitsPerStack(item)
     local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
     if not qp or not qp.Open then return end
+    local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or (item.name or "Item")
     qp:Open({
         title = CM:T("AH_SELL_STACK_SIZE") or "Tamanho da Pilha",
-        itemName = item.name or "Item",
+        itemName = locItemName,
         qty = self.sellStackSize or 1,
         maxQty = maxS,
         onConfirm = function(newQty)
@@ -5095,9 +5460,10 @@ function AuctionScreen:OpenSellNumStacksPicker()
     local maxStacks = math.max(1, math.floor((item.totalCount or 1) / u))
     local qp = CM.QuantityPicker or ConsoleMode_QuantityPicker
     if not qp or not qp.Open then return end
+    local locItemName = (ConsoleMode and ConsoleMode.GameLOC_Item) and ConsoleMode:GameLOC_Item(item.name, item.link) or (item.name or "Item")
     qp:Open({
         title = CM:T("AH_SELL_NUM_STACKS") or "Número de Pilhas",
-        itemName = item.name or "Item",
+        itemName = locItemName,
         qty = self.sellNumStacks or 1,
         maxQty = maxStacks,
         onConfirm = function(newQty)
@@ -5186,22 +5552,43 @@ function AuctionScreen:UpdateSellListingStyles()
     rightPane.itemName:SetText(locName)
     rightPane.itemName:SetTextColor(qColor[1], qColor[2], qColor[3], 1.0)
 
-    local bagInfo = string.format("Disponível na bolsa: %d • Preço Loja: %s", item.totalCount, self:FormatMoney(item.vendorPrice or 0))
+    local bagInfoFmt = CM:T("AH_SELL_BAG_INFO_FMT") or "Available in bags: %d • Vendor: %s"
+    local bagInfo = string.format(bagInfoFmt, item.totalCount, self:FormatMoney(item.vendorPrice or 0))
     rightPane.itemBagInfo:SetText(bagInfo)
 
     local durLabels = {
-        CM:T("AH_SELL_DURATION_2H") or "2 Horas",
-        CM:T("AH_SELL_DURATION_8H") or "8 Horas",
-        CM:T("AH_SELL_DURATION_24H") or "24 Horas"
+        CM:T("AH_SELL_DURATION_2H") or "2 Hours",
+        CM:T("AH_SELL_DURATION_8H") or "8 Hours",
+        CM:T("AH_SELL_DURATION_24H") or "24 Hours"
     }
     local durText = ""
     if self.serverDurations and self.serverDurations[self.sellDurationIdx or 1] then
-        durText = self.serverDurations[self.sellDurationIdx or 1].label or ""
+        local rawDurLabel = self.serverDurations[self.sellDurationIdx or 1].label or ""
+        local _, _, nHours = string.find(rawDurLabel, "^(%d+)%s*[Hh]ours?$")
+        if not nHours then
+            _, _, nHours = string.find(rawDurLabel, "^(%d+)%s*[Hh]oras?$")
+        end
+        if nHours then
+            durText = string.format(CM:T("AH_DUR_HOURS_FMT") or "%d Hours", tonumber(nHours))
+        else
+            durText = rawDurLabel
+        end
     else
         durText = durLabels[self.sellDurationIdx or 1] or ""
     end
 
     local rows = rightPane.formRows
+    rows[1].lbl:SetText(CM:T("AH_SELL_BID_PRICE") or "Starting Bid")
+    rows[2].lbl:SetText(CM:T("AH_SELL_BUYOUT_PRICE") or "Buyout Price")
+    rows[3].lbl:SetText(CM:T("AH_SELL_DURATION") or "Duration")
+    rows[4].lbl:SetText(CM:T("AH_SELL_STACK_SIZE") or "Stack Size")
+    rows[5].lbl:SetText(CM:T("AH_SELL_NUM_STACKS") or "Number of Stacks")
+    rows[6].lbl:SetText(CM:T("AH_SELL_BTN_MAX") or "MAX")
+    rows[6].val:SetText(CM:T("AH_SELL_CALC_MAX_STACKS") or "[ Calculate Max Stacks ]")
+    if rows[7] and rows[7].postTxt then
+        rows[7].postTxt:SetText(CM:T("AH_SELL_BTN_POST_SHORT") or "POST")
+    end
+
     self:SetMoneyDisplay(rows[1].moneyDisplay, self.sellBidPrice or 0)
     self:SetMoneyDisplay(rows[2].moneyDisplay, self.sellBuyoutPrice or 0)
     rows[3].val:SetText(durText)
@@ -5237,7 +5624,17 @@ function AuctionScreen:UpdateSellListingStyles()
     local unitPrice = (stackS > 0) and math.floor((self.sellBuyoutPrice or 0) / stackS) or (self.sellBuyoutPrice or 0)
     local deposit = self:CalculateSellDeposit()
 
-    rightPane.sumTotalItems:SetText(string.format("Total: %d item(s) (%d pilha(s) de %d)", totalUnits, numS, stackS))
+    if rightPane.sumUnitPriceLabel then
+        rightPane.sumUnitPriceLabel:SetText(CM:T("AH_SELL_UNIT_PRICE") or "Unit Price:")
+    end
+    if rightPane.sumBuyoutLabel then
+        rightPane.sumBuyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
+    end
+    if rightPane.sumDepositLabel then
+        rightPane.sumDepositLabel:SetText(CM:T("AH_SELL_DEPOSIT_LABEL") or "Deposit Fee:")
+    end
+    local sumTotalFmt = CM:T("AH_SELL_SUMMARY_TOTAL_FMT") or "Total: %d item(s) (%d stack(s) of %d)"
+    rightPane.sumTotalItems:SetText(string.format(sumTotalFmt, totalUnits, numS, stackS))
     self:SetMoneyDisplay(rightPane.sumUnitPriceDisplay, unitPrice)
     self:SetMoneyDisplay(rightPane.sumBuyoutDisplay, totalBuyout)
     self:SetMoneyDisplay(rightPane.sumDepositDisplay, deposit)
@@ -5321,7 +5718,7 @@ function AuctionScreen:CreateSellPostConfirmModal(parent)
     depositLabel:SetPoint("TOPLEFT", buyoutLabel, "BOTTOMLEFT", 0, -8)
     self:ApplyFont(depositLabel, FONTS.medium, 14)
     depositLabel:SetTextColor(1.0, 1.0, 1.0, 1.0)
-    depositLabel:SetText("Taxa de Depósito:")
+    depositLabel:SetText(CM:T("AH_SELL_DEPOSIT_LABEL") or "Deposit Fee:")
     modal.depositLabel = depositLabel
 
     local depositDisplay = self:CreateMoneyDisplay(modal, 20, 14, "LEFT")
@@ -5424,7 +5821,14 @@ function AuctionScreen:OpenSellPostConfirmModal()
     local stackS = self.sellStackSize or 1
     local numS = self.sellNumStacks or 1
     local totalUnits = stackS * numS
-    modal.qtyText:SetText(string.format("%d pilha(s) de %d unidade(s) • Total: %d", numS, stackS, totalUnits))
+    modal.title:SetText(CM:T("AH_SELL_CONFIRM_TITLE") or "Post Auction?")
+    modal.unitPriceLabel:SetText(CM:T("AH_SELL_UNIT_PRICE") or "Unit Price:")
+    modal.buyoutLabel:SetText(CM:T("AH_SELL_ESTIMATED_PROFIT") or "Total Buyout:")
+    modal.depositLabel:SetText(CM:T("AH_SELL_DEPOSIT_LABEL") or "Deposit Fee:")
+    modal.btnConfirm.label:SetText(CM:T("AH_HINT_CONFIRM") or "Confirm")
+    modal.btnCancel.label:SetText(CM:T("AH_BTN_CANCEL") or "Cancel")
+    local qtyFmt = CM:T("AH_SELL_MODAL_QTY_FMT") or "%d stack(s) of %d unit(s) • Total: %d"
+    modal.qtyText:SetText(string.format(qtyFmt, numS, stackS, totalUnits))
 
     local unitPrice = (stackS > 0) and math.floor((self.sellBuyoutPrice or 0) / stackS) or (self.sellBuyoutPrice or 0)
     self:SetMoneyDisplay(modal.unitPriceDisplay, unitPrice)
@@ -5502,8 +5906,8 @@ function AuctionScreen:IsBagNormalContainer(bag)
     if bag == 0 then return true end
     local bagLink = GetInventoryItemLink("player", ContainerIDToInventoryID(bag))
     if not bagLink then return false end
-    local _, _, _, _, _, _, bagSubClass = GetItemInfo(bagLink)
-    if not bagSubClass then return true end
+    local _, _, _, _, _, bagSubClass = self:ResolveItemInfo(bagLink)
+    if not bagSubClass or bagSubClass == "" then return true end
 
     local normalBagName = nil
     if GetAuctionItemSubClasses then
@@ -6276,7 +6680,7 @@ function AuctionScreen:UpdateOwnerList()
 
     if self.ownerContainer.posIndicator then
         if total > 0 then
-            self.ownerContainer.posIndicator:SetText(string.format("Leilão %d de %d", self.selectedOwnerIndex, total))
+            self.ownerContainer.posIndicator:SetText(string.format(CM:T("AH_POS_AUCTION_FMT") or "Auction %d of %d", self.selectedOwnerIndex, total))
         else
             self.ownerContainer.posIndicator:SetText("")
         end
@@ -7389,14 +7793,52 @@ end
 -- ----------------------------------------------------------------------------
 -- 19. ABERTURA E FECHAMENTO
 -- ----------------------------------------------------------------------------
+function AuctionScreen:RefreshStaticLocaleTexts()
+    if not self.frame then return end
+    if self.frame.titleText then
+        self.frame.titleText:SetText(CM:T("AH_TITLE"))
+    end
+    if self.frame.header then
+        if self.frame.header.closeBtn and self.frame.header.closeBtn.txt then
+            self.frame.header.closeBtn.txt:SetText(CM:T("AH_BUTTON_CLOSE"))
+        end
+        if self.frame.header.blizzBtn and self.frame.header.blizzBtn.txt then
+            self.frame.header.blizzBtn.txt:SetText(CM:T("AH_BUTTON_BLIZZARD_AH"))
+        end
+    end
+    if self.tabContainer and self.tabContainer.buttons then
+        local totalW = 30
+        for i = 1, table.getn(self.tabContainer.buttons) do
+            local btn = self.tabContainer.buttons[i]
+            if btn.labelKey then
+                btn.label:SetText(CM:T(btn.labelKey))
+                local textW = math.floor(btn.label:GetStringWidth() or 60)
+                local btnW = textW + 28
+                btn:SetWidth(btnW)
+                btn:ClearAllPoints()
+                btn:SetPoint("LEFT", self.tabContainer, "LEFT", totalW, 0)
+                totalW = totalW + btnW + 6
+            end
+        end
+        if self.tabContainer.rbIcon then
+            self.tabContainer.rbIcon:ClearAllPoints()
+            self.tabContainer.rbIcon:SetPoint("LEFT", self.tabContainer, "LEFT", totalW + 4, 0)
+            totalW = totalW + 30
+        end
+        self.tabContainer:SetWidth(totalW)
+    end
+end
+
 function AuctionScreen:Open()
+    if CM.LoadDataLake then
+        pcall(function() CM:LoadDataLake("AuctionScreen") end)
+    end
+
     if not self.initialized then
         self:CreateUI()
     end
 
-    if CM.LoadDataLake then
-        pcall(function() CM:LoadDataLake("AuctionScreen") end)
-    end
+    self:RefreshStaticLocaleTexts()
 
     -- Executa diagnóstico e detecção dinâmica das durações do servidor
     self:ProbeServerDurations()
@@ -7418,7 +7860,7 @@ function AuctionScreen:Open()
     end
 
     if self.frame.npcText then
-        self.frame.npcText:SetText(string.format(CM:T("AH_HEADER_AUCTIONEER_FMT"), UnitName("npc") or CM:T("AH_UNKNOWN_AUCTIONEER")))
+        self.frame.npcText:SetText(self:GetLocalizedAuctioneerHeader())
     end
 
     self:UpdateLayout()

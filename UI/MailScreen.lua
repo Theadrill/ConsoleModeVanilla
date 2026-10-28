@@ -625,18 +625,43 @@ function MailScreen:BuildFooterHintsSet(frameName, hints)
         local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
         self:ApplyFont(label, FONTS.bodyBold, 18)
-        label:SetText(hint.label)
+        label.tkey = hint.tkey
+        label:SetText((hint.tkey and CM:T(hint.tkey)) or hint.label)
         label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+        groupFrame.hintLabel = label
 
         local textW = math.floor(label:GetStringWidth() or 40)
         currentX = currentX + textW
 
+        local sep = nil
         if i < numHints then
-            local sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+            sep = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
             sep:SetPoint("LEFT", groupFrame, "LEFT", currentX + 10, 0)
             self:ApplyFont(sep, FONTS.medium, 14)
             sep:SetText("|cff666666•|r")
             currentX = currentX + 10 + 14
+        end
+        groupFrame.iconSectionW = currentX - textW - ((i < numHints) and 24 or 0)
+        groupFrame.hasSep = (i < numHints)
+        groupFrame.sepWidget = sep
+
+        if numIcons == 1 and (hint.icons[1] == "LB" or hint.icons[1] == "RB") then
+            groupFrame:EnableMouse(true)
+            groupFrame.hintIcon = hint.icons[1]
+            groupFrame.hintLabel = label
+            groupFrame:SetScript("OnMouseDown", function()
+                MailScreen:ToggleScreenByMouse()
+            end)
+            groupFrame:SetScript("OnEnter", function()
+                if this.hintLabel then
+                    this.hintLabel:SetTextColor(1.0, 0.85, 0.25, 1.0)
+                end
+            end)
+            groupFrame:SetScript("OnLeave", function()
+                if this.hintLabel then
+                    this.hintLabel:SetTextColor(0.85, 0.85, 0.85, 0.95)
+                end
+            end)
         end
 
         groupFrame:SetWidth(currentX)
@@ -652,8 +677,42 @@ function MailScreen:BuildFooterHintsSet(frameName, hints)
         widget:SetPoint("LEFT", container, "CENTER", curX, 0)
         curX = curX + widget:GetWidth()
     end
+    container.widgets = widgets
     container:SetWidth(totalWidth)
     return container
+end
+
+function MailScreen:RefreshFooterHintsSet(container)
+    if not container or not container.widgets then return end
+    local widgets = container.widgets
+    local numWidgets = table.getn(widgets)
+    local totalWidth = 0
+    for i = 1, numWidgets do
+        local g = widgets[i]
+        if g and g.hintLabel then
+            if g.hintLabel.tkey then
+                g.hintLabel:SetText(CM:T(g.hintLabel.tkey))
+            end
+            local textW = math.floor(g.hintLabel:GetStringWidth() or 40)
+            local iconW = g.iconSectionW or 35
+            local curW = iconW + textW
+            if g.hasSep and g.sepWidget then
+                g.sepWidget:ClearAllPoints()
+                g.sepWidget:SetPoint("LEFT", g, "LEFT", curW + 10, 0)
+                curW = curW + 24
+            end
+            g:SetWidth(curW)
+            totalWidth = totalWidth + curW
+        end
+    end
+    local curX = -math.floor(totalWidth / 2)
+    for w = 1, numWidgets do
+        local widget = widgets[w]
+        widget:ClearAllPoints()
+        widget:SetPoint("LEFT", container, "CENTER", curX, 0)
+        curX = curX + widget:GetWidth()
+    end
+    container:SetWidth(totalWidth)
 end
 
 -- Renders a centered row of icon+label hint groups attached to ARBITRARY
@@ -705,8 +764,10 @@ function MailScreen:BuildIconHints(parent, frameName, hints, bottomOffset)
         local label = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         label:SetPoint("LEFT", groupFrame, "LEFT", currentX, 0)
         self:ApplyFont(label, FONTS.bodyBold, 18)
-        label:SetText(hint.label)
+        label.tkey = hint.tkey
+        label:SetText((hint.tkey and CM:T(hint.tkey)) or hint.label)
         label:SetTextColor(0.85, 0.85, 0.85, 0.95)
+        groupFrame.hintLabel = label
 
         local textW = math.floor(label:GetStringWidth() or 40)
         currentX = currentX + textW
@@ -732,6 +793,7 @@ function MailScreen:BuildIconHints(parent, frameName, hints, bottomOffset)
         widget:SetPoint("LEFT", container, "CENTER", curX, 0)
         curX = curX + widget:GetWidth()
     end
+    container.widgets = widgets
     container:SetWidth(totalWidth)
     return container
 end
@@ -740,21 +802,21 @@ end
 -- ShowInboxScreen/ShowComposeScreen alternam a visibilidade.
 function MailScreen:CreateFooterHints(parent)
     local inboxHints = {
-        { icons = { "DALL" },     label = CM:T("HINT_FOOTER_NAVIGATE") },
-        { icons = { "A" },        label = CM:T("MAIL_HINT_DETAIL") },
-        { icons = { "Y" },        label = CM:T("MAIL_HINT_TAKE_ALL") },
-        { icons = { "LT", "RT" }, label = CM:T("HINT_FOOTER_FILTERS") },
-        { icons = { "RB" },       label = CM:T("MAIL_HINT_NEW") },
-        { icons = { "B" },        label = CM:T("MAIL_HINT_BACK") },
+        { icons = { "DALL" },     tkey = "HINT_FOOTER_NAVIGATE", label = CM:T("HINT_FOOTER_NAVIGATE") },
+        { icons = { "A" },        tkey = "MAIL_HINT_DETAIL",     label = CM:T("MAIL_HINT_DETAIL") },
+        { icons = { "Y" },        tkey = "MAIL_HINT_TAKE_ALL",   label = CM:T("MAIL_HINT_TAKE_ALL") },
+        { icons = { "LT", "RT" }, tkey = "HINT_FOOTER_FILTERS",  label = CM:T("HINT_FOOTER_FILTERS") },
+        { icons = { "RB" },       tkey = "MAIL_HINT_NEW",        label = CM:T("MAIL_HINT_NEW") },
+        { icons = { "B" },        tkey = "MAIL_HINT_BACK",       label = CM:T("MAIL_HINT_BACK") },
     }
     local composeHints = {
-        { icons = { "DALL" },     label = CM:T("HINT_FOOTER_NAVIGATE") },
-        { icons = { "A" },        label = CM:T("MAIL_HINT_SELECT") },
-        { icons = { "X" },        label = CM:T("MAIL_HINT_TAKE_ITEM") },
-        { icons = { "Y" },        label = CM:T("MAIL_HINT_QTY") },
-        { icons = { "LT", "RT" }, label = CM:T("MAIL_HINT_HALF") },
-        { icons = { "LB" },       label = CM:T("MAIL_HINT_INBOX") },
-        { icons = { "B" },        label = CM:T("MAIL_HINT_BACK") },
+        { icons = { "DALL" },     tkey = "HINT_FOOTER_NAVIGATE", label = CM:T("HINT_FOOTER_NAVIGATE") },
+        { icons = { "A" },        tkey = "MAIL_HINT_SELECT",     label = CM:T("MAIL_HINT_SELECT") },
+        { icons = { "X" },        tkey = "MAIL_HINT_TAKE_ITEM",  label = CM:T("MAIL_HINT_TAKE_ITEM") },
+        { icons = { "Y" },        tkey = "MAIL_HINT_QTY",        label = CM:T("MAIL_HINT_QTY") },
+        { icons = { "LT", "RT" }, tkey = "MAIL_HINT_HALF",       label = CM:T("MAIL_HINT_HALF") },
+        { icons = { "LB" },       tkey = "MAIL_HINT_INBOX",      label = CM:T("MAIL_HINT_INBOX") },
+        { icons = { "B" },        tkey = "MAIL_HINT_BACK",       label = CM:T("MAIL_HINT_BACK") },
     }
 
     parent.inboxFooter = self:BuildFooterHintsSet("ConsoleMode_MailFooterInbox", inboxHints)
@@ -779,40 +841,111 @@ end
 
 -- M4.1: indicador de aba centralizado sob o titulo CORREIO (§3.1):
 -- "[LB] CAIXA DE ENTRADA [RB]" na inbox / "[LB] NOVA CARTA [RB]" no compor
--- (icones = textura).
+-- (icones = textura, clicaveis com o mouse para ciclar entre as abas).
+function MailScreen:ToggleScreenByMouse()
+    if not self.isOpen then return end
+    if self:IsVKOpen() or self:IsMoneyModalOpen()
+        or self:IsQtyModalOpen() or self:IsConfirmOpen() then
+        return
+    end
+    if self.currentScreen == "COMPOSE" then
+        self:ShowInboxScreen()
+    else
+        self:ShowComposeScreen()
+    end
+end
+
 function MailScreen:CreateTabIndicator(parent)
     if self.tabIndicator then return self.tabIndicator end
     local bar = CreateFrame("Frame", "ConsoleMode_MailTabIndicator", parent)
-    bar:SetHeight(22)
+    bar:SetHeight(28)
     bar:SetWidth(420)
-    bar:SetPoint("TOP", parent, "TOP", 0, -52)
+    bar:SetPoint("TOP", parent, "TOP", 0, -50)
 
-    -- Monta um trio centralizado: [LB] TEXTO [RB] (icones = textura).
+    -- Monta um trio centralizado: [LB] TEXTO [RB] (botoes clicaveis com mouse).
     local function BuildTabGroup(text)
-        local g = CreateFrame("Frame", nil, bar)
-        g:SetHeight(22)
+        local g = CreateFrame("Button", nil, bar)
+        g:SetHeight(28)
         g:SetWidth(420)
         g:SetPoint("CENTER", bar, "CENTER", 0, 0)
+        g:EnableMouse(true)
+        g:RegisterForClicks("LeftButtonUp")
+
         local label = g:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         label:SetPoint("CENTER", g, "CENTER", 0, 0)
         MailScreen:ApplyFont(label, FONTS.titleBold, 18)
-        label:SetText("|cffffffff" .. text .. "|r")
-        local lb = g:CreateTexture(nil, "OVERLAY")
+        label:SetText(text)
+        label:SetTextColor(1.0, 1.0, 1.0, 1.0)
+        g.label = label
+
+        local lbBtn = CreateFrame("Button", nil, g)
+        lbBtn:SetWidth(30)
+        lbBtn:SetHeight(30)
+        lbBtn:SetPoint("RIGHT", label, "LEFT", -6, 0)
+        lbBtn:EnableMouse(true)
+        lbBtn:RegisterForClicks("LeftButtonUp")
+        local lb = lbBtn:CreateTexture(nil, "OVERLAY")
         lb:SetWidth(26)
         lb:SetHeight(26)
-        lb:SetPoint("RIGHT", label, "LEFT", -6, 0)
+        lb:SetPoint("CENTER", lbBtn, "CENTER", 0, 0)
         lb:SetTexture(ICONS.LB)
-        local rb = g:CreateTexture(nil, "OVERLAY")
+        lbBtn.tex = lb
+
+        local rbBtn = CreateFrame("Button", nil, g)
+        rbBtn:SetWidth(30)
+        rbBtn:SetHeight(30)
+        rbBtn:SetPoint("LEFT", label, "RIGHT", 6, 0)
+        rbBtn:EnableMouse(true)
+        rbBtn:RegisterForClicks("LeftButtonUp")
+        local rb = rbBtn:CreateTexture(nil, "OVERLAY")
         rb:SetWidth(26)
         rb:SetHeight(26)
-        rb:SetPoint("LEFT", label, "RIGHT", 6, 0)
+        rb:SetPoint("CENTER", rbBtn, "CENTER", 0, 0)
         rb:SetTexture(ICONS.RB)
+        rbBtn.tex = rb
+
+        local function OnTabClick()
+            MailScreen:ToggleScreenByMouse()
+        end
+        local function OnTabEnter()
+            label:SetTextColor(1.0, 0.85, 0.25, 1.0)
+        end
+        local function OnTabLeave()
+            label:SetTextColor(1.0, 1.0, 1.0, 1.0)
+        end
+
+        g:SetScript("OnClick", OnTabClick)
+        g:SetScript("OnEnter", OnTabEnter)
+        g:SetScript("OnLeave", OnTabLeave)
+
+        lbBtn:SetScript("OnClick", OnTabClick)
+        lbBtn:SetScript("OnEnter", function()
+            OnTabEnter()
+            lb:SetVertexColor(1.0, 0.85, 0.25, 1.0)
+        end)
+        lbBtn:SetScript("OnLeave", function()
+            OnTabLeave()
+            lb:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+        end)
+
+        rbBtn:SetScript("OnClick", OnTabClick)
+        rbBtn:SetScript("OnEnter", function()
+            OnTabEnter()
+            rb:SetVertexColor(1.0, 0.85, 0.25, 1.0)
+        end)
+        rbBtn:SetScript("OnLeave", function()
+            OnTabLeave()
+            rb:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+        end)
+
         return g
     end
 
     -- INBOX: LB CAIXA DE ENTRADA RB. COMPOSE: LB NOVA CARTA RB.
     bar.groupInbox = BuildTabGroup(CM:T("MAIL_COL_INBOX"))
+    bar.groupInbox.tkey = "MAIL_COL_INBOX"
     bar.groupCompose = BuildTabGroup(CM:T("MAIL_COL_NEW"))
+    bar.groupCompose.tkey = "MAIL_COL_NEW"
     bar.groupCompose:Hide()
 
     self.tabIndicator = bar
@@ -822,6 +955,12 @@ end
 function MailScreen:UpdateTabIndicator()
     local bar = self.tabIndicator
     if not bar then return end
+    if bar.groupInbox and bar.groupInbox.label then
+        bar.groupInbox.label:SetText(CM:T("MAIL_COL_INBOX"))
+    end
+    if bar.groupCompose and bar.groupCompose.label then
+        bar.groupCompose.label:SetText(CM:T("MAIL_COL_NEW"))
+    end
     if self.currentScreen == "COMPOSE" then
         if bar.groupInbox then bar.groupInbox:Hide() end
         if bar.groupCompose then bar.groupCompose:Show() end
@@ -903,6 +1042,7 @@ function MailScreen:CreateUI()
     closeTxt:SetPoint("LEFT", closeIcon, "RIGHT", 6, 0)
     self:ApplyFont(closeTxt, FONTS.titleBold, 16)
     closeTxt:SetText(CM:T("MAIL_CLOSE"))
+    closeBtn.label = closeTxt
 
     closeBtn:SetScript("OnClick", function()
         MailScreen:Close()
@@ -961,15 +1101,33 @@ function MailScreen:CreateUI()
         colHeader:SetPoint("TOPRIGHT", col, "TOPRIGHT", -8, -6)
         col.header = colHeader
 
-        local tagIcon = colHeader:CreateTexture(nil, "OVERLAY")
+        local tagBtn = CreateFrame("Button", nil, colHeader)
+        tagBtn:SetWidth(32)
+        tagBtn:SetHeight(32)
+        tagBtn:SetPoint("LEFT", colHeader, "LEFT", 0, 0)
+        tagBtn:EnableMouse(true)
+        tagBtn:RegisterForClicks("LeftButtonUp")
+
+        local tagIcon = tagBtn:CreateTexture(nil, "OVERLAY")
         tagIcon:SetWidth(30)
         tagIcon:SetHeight(30)
-        tagIcon:SetPoint("LEFT", colHeader, "LEFT", 0, 0)
+        tagIcon:SetPoint("CENTER", tagBtn, "CENTER", 0, 0)
         tagIcon:SetTexture(iconTag)
         col.tagIcon = tagIcon
+        col.tagBtn = tagBtn
+
+        tagBtn:SetScript("OnClick", function()
+            MailScreen:ToggleScreenByMouse()
+        end)
+        tagBtn:SetScript("OnEnter", function()
+            tagIcon:SetVertexColor(1.0, 0.85, 0.25, 1.0)
+        end)
+        tagBtn:SetScript("OnLeave", function()
+            tagIcon:SetVertexColor(1.0, 1.0, 1.0, 1.0)
+        end)
 
         local colTitle = colHeader:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        colTitle:SetPoint("LEFT", tagIcon, "RIGHT", 8, 0)
+        colTitle:SetPoint("LEFT", tagBtn, "RIGHT", 8, 0)
         MailScreen:ApplyFont(colTitle, FONTS.titleBold, 18)
         colTitle:SetText(titleTextStr)
         col.title = colTitle
@@ -2011,6 +2169,8 @@ function MailScreen:CreateComposeUI()
         end
         cap:SetText(capText)
         row.caption = cap
+        row.tkey = def.tkey
+        row.defaultLabel = def.label
 
         row.fieldIndex = i
         row.bufferKey = def.key
@@ -4394,6 +4554,9 @@ function MailScreen:CreateMailActionBar(parent, anchorTop)
             end
         end
         bTxt:SetText(bText)
+        b.labelWidget = bTxt
+        b.tkey = def.tkey
+        b.defaultLabel = def.label
 
         b.actionIndex = i
         b.actionKey = def.action
@@ -4655,6 +4818,7 @@ function MailScreen:CreateDeleteConfirmUI()
     confirmBtn:SetScript("OnLeave", function()
         this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
     end)
+    confirmBtn.labelWidget = confirmTxt
     m.confirmBtn = confirmBtn
 
     local cancelBtn = CreateFrame("Button", "ConsoleMode_MailDeleteConfirmNo", m)
@@ -4682,6 +4846,7 @@ function MailScreen:CreateDeleteConfirmUI()
     cancelBtn:SetScript("OnLeave", function()
         this:SetBackdropBorderColor(0.60, 0.48, 0.32, 0.85)
     end)
+    cancelBtn.labelWidget = cancelTxt
     m.cancelBtn = cancelBtn
 
     self.deleteConfirmFrame = m
@@ -5127,9 +5292,78 @@ end
 -- ANTI-BLOQUEIO: so UI (Show/Hide); nenhuma API servidora de mail aqui
 -- (nada de Take/Delete/Return/SendMail/CloseMail; nunca Hide no nativo).
 -- ----------------------------------------------------------------------------
+function MailScreen:RefreshStaticTexts()
+    if not self.frame then return end
+    if self.frame.titleText then
+        self.frame.titleText:SetText(CM:T("MAIL_TITLE"))
+    end
+    if self.frame.header and self.frame.header.closeBtn and self.frame.header.closeBtn.label then
+        self.frame.header.closeBtn.label:SetText(CM:T("MAIL_CLOSE"))
+    end
+    self:UpdateTabIndicator()
+
+    -- Atualiza os dois rodapés (inbox e compose) in-place se o idioma mudou
+    if self.frame.inboxFooter then
+        self:RefreshFooterHintsSet(self.frame.inboxFooter)
+    end
+    if self.frame.composeFooter then
+        self:RefreshFooterHintsSet(self.frame.composeFooter)
+    end
+    self:UpdateFooterVisibility()
+
+    local leftCol = self.frame.leftCol
+    if leftCol and leftCol.composeBox and leftCol.composeBox.rows then
+        local rows = leftCol.composeBox.rows
+        local n = table.getn(rows)
+        for i = 1, n do
+            local r = rows[i]
+            if r and r.caption then
+                local capText = "|cffffffff" .. (r.defaultLabel or "") .. "|r"
+                if r.tkey and CM.T then
+                    local v = CM:T(r.tkey)
+                    if v ~= r.tkey then capText = v end
+                end
+                r.caption:SetText(capText)
+            end
+        end
+    end
+
+    if self.actionBar and self.actionBar.buttons then
+        local btns = self.actionBar.buttons
+        local nb = table.getn(btns)
+        for i = 1, nb do
+            local b = btns[i]
+            if b and b.labelWidget then
+                local bText = b.defaultLabel or ""
+                if b.tkey and CM.T then
+                    local v = CM:T(b.tkey)
+                    if v ~= b.tkey then bText = v end
+                end
+                b.labelWidget:SetText(bText)
+            end
+        end
+    end
+
+    if self.deleteConfirmFrame then
+        local m = self.deleteConfirmFrame
+        if m.title then m.title:SetText(CM:T("MAIL_DELETE_TITLE")) end
+        if m.warnText then m.warnText:SetText(CM:T("MAIL_DELETE_WARN")) end
+        if m.confirmBtn and m.confirmBtn.labelWidget then
+            m.confirmBtn.labelWidget:SetText(CM:T("MAIL_DELETE_YES"))
+        end
+        if m.cancelBtn and m.cancelBtn.labelWidget then
+            m.cancelBtn.labelWidget:SetText(CM:T("BTN_CANCEL"))
+        end
+    end
+end
+
 function MailScreen:Open()
+    if CM and CM.LoadDataLake then
+        pcall(function() CM:LoadDataLake("MailScreen") end)
+    end
     -- Idempotente via self.frame (CreateUI retorna de imediato se ja existe).
     self:CreateUI()
+    self:RefreshStaticTexts()
     self:UpdateLayout()
 
     if self.dimmer then
@@ -5204,6 +5438,9 @@ end
 -- ----------------------------------------------------------------------------
 function MailScreen:OnMailShow()
     if not self.initialized then return end
+    if CM and CM.LoadDataLake then
+        pcall(function() CM:LoadDataLake("MailScreen") end)
+    end
     self.isOpen = true
     -- M3: sessao nova, fila antiga nenhuma (defensivo; MAIL_CLOSED ja limpa).
     self:StopTakeAll(false)

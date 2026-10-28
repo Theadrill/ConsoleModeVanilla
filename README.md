@@ -233,6 +233,7 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 - [ ] Tela de Correio: Suporte completo a mouse para ciclar entre Caixa de Entrada e Enviar Carta clicando nos botões de [LB] e [RB]
 - [x] Casa de Leilão / Auction House Gamepad UI (árvore de categorias, split view, busca textual, ordenação dinâmica, venda automática com cálculo MAX, cancelamento em Meus Leilões, cache de scan 2min e moedas em texto puro colorido)
 - [x] Menu de Treinadores de Classe & Profissões (Catálogo Split-View, busca em tempo real, carrinho de compras e compra em lote)
+- [ ] Menu de Treinadores: Ajuste visual de seleção de skills (trocar [] por [-] para skills não selecionadas e [x] em verde para skills selecionadas no carrinho)
 - [ ] Comparativo Inteligente de Atributos & Diferenças no Menu de Treinadores (parser semântico de deltas numéricos de dano/cura/recurso)
 - [ ] Correio com COD (pagamento contra entrega no envio e na retirada)
 - [ ] Diário de Missões & Mapa Mundi integrados (Estilo Retail Console)

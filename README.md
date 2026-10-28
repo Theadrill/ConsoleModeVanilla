@@ -236,14 +236,13 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 - [ ] Menu de Treinadores: Ajuste visual de seleção de skills (trocar [] por [-] para skills não selecionadas e [x] em verde para skills selecionadas no carrinho)
 - [ ] Comparativo Inteligente de Atributos & Diferenças no Menu de Treinadores (parser semântico de deltas numéricos de dano/cura/recurso)
 - [ ] Correio com COD (pagamento contra entrega no envio e na retirada)
-- [ ] Diário de Missões & Mapa Mundi integrados (Estilo Retail Console)
+- [x] Diário de Missões & Mapa Mundi integrados (Estilo Retail Console)
 - [ ] Painel Quest Tracker no HUD (Rastreamento de missões na tela)
-- [ ] UI visual própria de Action Bars e HUD no estilo ConsolePort
+- [x] UI visual própria de Action Bars e HUD no estilo ConsolePort
 - [ ] Suporte a Ring Menu / Radial Menu (L2 + R2 + A)
-- [ ] Suporte a addons populares (pfUI, SuperMacro, SuperWoW, etc.)
 
 ### 🖥️ App Companion Próprio
-- [ ] **ConsoleModeInput** — aplicativo standalone (sem necessidade de Steam ou apps de terceiros) que captura o controle diretamente via XInput/DirectInput e traduz os botões para o WoW.
+- [x] **ConsoleMode GamepadCompanion** — aplicativo standalone (sem necessidade de Steam ou apps de terceiros) que captura o controle diretamente via XInput/DirectInput e traduz os botões para o WoW.
 
 ### 🎮 Perfis de Controle
 - [ ] Perfil `.vdf` oficial para Steam Input (Steam Deck + PC)

@@ -228,7 +228,7 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 - [x] Organização Virtual Automática de Bolsas (ordenador instantâneo em memória em Lua 5.0 sem movimentação mecânica)
 - [ ] Painel de Configurações do Virtual Sort (substituir o botão 'Organizar' das bolsas por um atalho/botão que abre as opções e prioridades da ordenação virtual)
 - [x] Tela de Correio (caixa de entrada + compor/enviar com anexos, fila multi-item)
-- [ ] Tela de Correio: Classificação de bolsas (reutilizar o mesmo sistema de organização virtual de bolsas do Main Menu para agrupar itens idênticos, como minérios, sem duplicação de código)
+- [x] Tela de Correio: Classificação de bolsas (reutilizar o mesmo sistema de organização virtual de bolsas do Main Menu para agrupar itens idênticos, como minérios, sem duplicação de código)
 - [ ] Tela de Correio: Área de detalhes/tooltip abaixo das bolsas (reaproveitar arquitetura de detail card/tooltips de outras telas)
 - [ ] Tela de Correio: Suporte completo a mouse para ciclar entre Caixa de Entrada e Enviar Carta clicando nos botões de [LB] e [RB]
 - [x] Casa de Leilão / Auction House Gamepad UI (árvore de categorias, split view, busca textual, ordenação dinâmica, venda automática com cálculo MAX, cancelamento em Meus Leilões, cache de scan 2min e moedas em texto puro colorido)

@@ -197,10 +197,14 @@ local function InventorySortComparator(a, b)
         if aSpecial ~= bSpecial then
             return not aSpecial
         end
-        if a.bagID ~= b.bagID then
-            return a.bagID < b.bagID
+        local aBag = a.bagID or a.bag or 0
+        local bBag = b.bagID or b.bag or 0
+        if aBag ~= bBag then
+            return aBag < bBag
         end
-        return a.slotID < b.slotID
+        local aSlot = a.slotID or a.slot or 0
+        local bSlot = b.slotID or b.slot or 0
+        return aSlot < bSlot
     end
 
     -- DAQUI PARA BAIXO: AMBOS SÃO ITENS OCUPADOS (NUNCA VAZIOS)
@@ -267,10 +271,14 @@ local function InventorySortComparator(a, b)
     end
 
     -- Critério final de estabilidade determinística (Bag e Slot original)
-    if a.bagID ~= b.bagID then
-        return a.bagID < b.bagID
+    local aBag = a.bagID or a.bag or 0
+    local bBag = b.bagID or b.bag or 0
+    if aBag ~= bBag then
+        return aBag < bBag
     end
-    return a.slotID < b.slotID
+    local aSlot = a.slotID or a.slot or 0
+    local bSlot = b.slotID or b.slot or 0
+    return aSlot < bSlot
 end
 
 -- ============================================================================

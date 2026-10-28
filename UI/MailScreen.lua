@@ -2386,12 +2386,32 @@ function MailScreen:ScanComposeBags()
     self.invItems = {}
     if not self.isOpen then return end
     if not GetContainerNumSlots then return end
+    local mm = CM and CM.mainMenu
+    if mm then
+        mm.bagInfoCache = {}
+    end
     for bag = 0, 4 do
+        if mm and mm.GetBagInfo then
+            pcall(function() mm:GetBagInfo(bag) end)
+        end
         local okSlots, numSlots = pcall(GetContainerNumSlots, bag)
         numSlots = tonumber(numSlots) or 0
         if okSlots and numSlots > 0 then
             for slot = 1, numSlots do
-                if GetContainerItemLink then
+                local parsed = nil
+                if mm and mm.ParseItemData then
+                    local okP, res = pcall(function() return mm:ParseItemData(bag, slot) end)
+                    if okP and res and not res.isEmpty then
+                        parsed = res
+                    end
+                end
+                if parsed then
+                    parsed.bag = parsed.bagID or bag
+                    parsed.slot = parsed.slotID or slot
+                    parsed.bagID = parsed.bag
+                    parsed.slotID = parsed.slot
+                    table.insert(self.invItems, parsed)
+                elseif GetContainerItemLink then
                     local okLink, link = pcall(GetContainerItemLink, bag, slot)
                     if okLink and link then
                         local tex, count, quality, itemName = nil, 1, 1, nil
@@ -2417,6 +2437,8 @@ function MailScreen:ScanComposeBags()
                         table.insert(self.invItems, {
                             bag = bag,
                             slot = slot,
+                            bagID = bag,
+                            slotID = slot,
                             texture = tex,
                             count = count,
                             quality = quality,
@@ -2426,6 +2448,10 @@ function MailScreen:ScanComposeBags()
                 end
             end
         end
+    end
+
+    if ConsoleMode and ConsoleMode.SortInventoryItems then
+        self.invItems = ConsoleMode:SortInventoryItems(self.invItems, "ALL")
     end
 
     local n = table.getn(self.invItems)

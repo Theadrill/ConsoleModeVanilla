@@ -2007,6 +2007,7 @@ function MailScreen:ShowInboxScreen()
 
     if leftCol.composeBox then leftCol.composeBox:Hide() end
     if rightCol.invGrid then rightCol.invGrid:Hide() end
+    if rightCol.invDetailCard then rightCol.invDetailCard:Hide() end
     if rightCol.detailCard then rightCol.detailCard:Show() end
     if self.actionBar then self.actionBar:Show() end
 
@@ -2055,6 +2056,7 @@ function MailScreen:ShowComposeScreen()
 
     if leftCol.composeBox then leftCol.composeBox:Show() end
     if rightCol.invGrid then rightCol.invGrid:Show() end
+    if rightCol.invDetailCard then rightCol.invDetailCard:Show() end
 
     -- Titulos e barras da tela compor.
     if leftCol.title then leftCol.title:SetText(CM:T("MAIL_COL_NEW")) end
@@ -2326,7 +2328,26 @@ function MailScreen:CreateComposeUI()
     leftCol.composeBox = box
     box:Hide()
 
-    -- Direita: INVENTARIO em grade estilo MainMenu (so VISUAL + navegacao).
+    -- Direita: INVENTARIO em grade estilo MainMenu + DetailCard abaixo das bolsas.
+    local mm = CM and CM.mainMenu
+    if mm and mm.CreateDetailCard then
+        local invDetailCard = mm:CreateDetailCard(rightCol.listArea)
+        if invDetailCard then
+            invDetailCard:ClearAllPoints()
+            invDetailCard:SetPoint("BOTTOMLEFT", rightCol.listArea, "BOTTOMLEFT", 4, 2)
+            invDetailCard:SetPoint("BOTTOMRIGHT", rightCol.listArea, "BOTTOMRIGHT", -4, 2)
+            if invDetailCard.footerBar then
+                invDetailCard.footerBar:Hide()
+            end
+            if invDetailCard.sellWidget then
+                invDetailCard.sellWidget:ClearAllPoints()
+                invDetailCard.sellWidget:SetPoint("BOTTOMLEFT", invDetailCard, "BOTTOMLEFT", 10, 6)
+            end
+            invDetailCard:Hide()
+            rightCol.invDetailCard = invDetailCard
+        end
+    end
+
     local grid = self:CreateInventoryGrid(rightCol.listArea)
     rightCol.invGrid = grid
 end
@@ -2395,7 +2416,13 @@ end
 -- ----------------------------------------------------------------------------
 function MailScreen:CreateInventoryGrid(parent)
     local grid = CreateFrame("Frame", "ConsoleMode_MailInvGrid", parent)
-    grid:SetAllPoints(parent)
+    local rightCol = self.frame and self.frame.rightCol
+    if rightCol and rightCol.invDetailCard then
+        grid:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
+        grid:SetPoint("BOTTOMRIGHT", rightCol.invDetailCard, "TOPRIGHT", 0, 6)
+    else
+        grid:SetAllPoints(parent)
+    end
     grid:EnableMouse(true)
     grid:EnableMouseWheel(true)
     grid.slots = {}
@@ -2533,6 +2560,11 @@ function MailScreen:CreateInvSlot(grid, i)
         end)
         s:SetScript("OnEnter", function()
             this:SetBackdropBorderColor(0.70, 0.60, 0.40, 0.80)
+            local idx = (MailScreen.invScrollOffset or 0) * (MailScreen.invCols or 5) + (this.slotPos or 1)
+            local it = MailScreen:GetInvItemAt(idx)
+            if it then
+                MailScreen:UpdateComposeDetailCard(it)
+            end
         end)
         s:SetScript("OnLeave", function()
             MailScreen:RefreshComposeVisuals()
@@ -2544,6 +2576,8 @@ end
 
 function MailScreen:ScanComposeBags()
     self.invItems = {}
+    self.invTotalSlots = 0
+    self.invFreeSlots = 0
     if not self.isOpen then return end
     if not GetContainerNumSlots then return end
     local mm = CM and CM.mainMenu
@@ -2557,6 +2591,7 @@ function MailScreen:ScanComposeBags()
         local okSlots, numSlots = pcall(GetContainerNumSlots, bag)
         numSlots = tonumber(numSlots) or 0
         if okSlots and numSlots > 0 then
+            self.invTotalSlots = self.invTotalSlots + numSlots
             for slot = 1, numSlots do
                 local parsed = nil
                 if mm and mm.ParseItemData then
@@ -2599,12 +2634,18 @@ function MailScreen:ScanComposeBags()
                             slot = slot,
                             bagID = bag,
                             slotID = slot,
+                            link = link,
+                            rawLink = link,
                             texture = tex,
                             count = count,
                             quality = quality,
                             name = itemName,
                         })
+                    else
+                        self.invFreeSlots = self.invFreeSlots + 1
                     end
+                else
+                    self.invFreeSlots = self.invFreeSlots + 1
                 end
             end
         end
@@ -2737,6 +2778,34 @@ function MailScreen:RefreshInventoryGrid()
         else
             s:Hide()
         end
+    end
+
+    self:UpdateComposeDetailCard()
+end
+
+function MailScreen:UpdateComposeDetailCard(overrideItem)
+    local rightCol = self.frame and self.frame.rightCol
+    local card = rightCol and rightCol.invDetailCard
+    if not card then return end
+
+    if card.slotsFreeText then
+        card.slotsFreeText:SetText(format(CM:T("DETAIL_SPACE_FMT"), tonumber(self.invFreeSlots) or 0, tonumber(self.invTotalSlots) or 0))
+    end
+
+    local item = overrideItem
+    if not item then
+        local n = table.getn(self.invItems or {})
+        if n == 0 then
+            card:Clear(CM:T("MAIL_BAGS_EMPTY"))
+            return
+        end
+        item = self:GetInvItemAt(self.invIndex or 1)
+    end
+
+    if item and card.ShowItem then
+        card:ShowItem(item)
+    else
+        card:Clear(CM:T("DETAIL_NO_SELECTION"))
     end
 end
 
@@ -5353,6 +5422,17 @@ function MailScreen:RefreshStaticTexts()
         end
         if m.cancelBtn and m.cancelBtn.labelWidget then
             m.cancelBtn.labelWidget:SetText(CM:T("BTN_CANCEL"))
+        end
+    end
+
+    local rightCol = self.frame.rightCol
+    if rightCol and rightCol.invDetailCard then
+        local dc = rightCol.invDetailCard
+        if dc.sellWidget and dc.sellWidget.prefixText then
+            dc.sellWidget.prefixText:SetText(CM:T("DETAIL_SELL"))
+        end
+        if dc.moneyWidget and dc.moneyWidget.prefixText then
+            dc.moneyWidget.prefixText:SetText(CM:T("DETAIL_MONEY"))
         end
     end
 end

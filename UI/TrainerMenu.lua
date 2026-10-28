@@ -38,9 +38,6 @@ local ICONS = {
     DLEFT  = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DLEFT.tga",
     DRIGHT = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DRIGHT.tga",
     DALL   = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\navigate_all_directions.tga",
-    GOLD   = "Interface\\MoneyFrame\\UI-GoldIcon",
-    SILVER = "Interface\\MoneyFrame\\UI-SilverIcon",
-    COPPER = "Interface\\MoneyFrame\\UI-CopperIcon",
 }
 
 local NINESLICE = {

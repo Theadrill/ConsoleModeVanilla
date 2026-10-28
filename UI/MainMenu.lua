@@ -2823,6 +2823,24 @@ if not _G["ConsoleModeMM_CompareEvents"] then
     MainMenu.compareEvents = cmpEv
 end
 
+local function FormatMoneyText(amount)
+    amount = tonumber(amount) or 0
+    if amount < 0 then amount = 0 end
+    local gold = math.floor(amount / 10000)
+    local silver = math.floor(math.mod(amount, 10000) / 100)
+    local copper = math.floor(math.mod(amount, 100))
+
+    local text = ""
+    if gold > 0 then
+        text = text .. "|cffffd700" .. gold .. "g|r "
+    end
+    if silver > 0 or gold > 0 then
+        text = text .. "|cffc7c7cf" .. silver .. "s|r "
+    end
+    text = text .. "|cffeda55f" .. copper .. "c|r"
+    return text
+end
+
 function MainMenu:CreateMoneyWidget(parent, prefix, alignRight)
     local frame = CreateFrame("Frame", nil, parent)
     frame:SetHeight(16)
@@ -2830,143 +2848,31 @@ function MainMenu:CreateMoneyWidget(parent, prefix, alignRight)
     frame:SetFrameLevel(parent:GetFrameLevel() + 5)
     frame.alignRight = alignRight
 
-    local copperIcon = frame:CreateTexture(nil, "OVERLAY")
-    copperIcon:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_copper.tga")
-    copperIcon:SetWidth(13)
-    copperIcon:SetHeight(13)
-    frame.copperIcon = copperIcon
-
-    local copperText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    MainMenu:ApplyFont(copperText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
-    frame.copperText = copperText
-
-    local silverIcon = frame:CreateTexture(nil, "OVERLAY")
-    silverIcon:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_silver.tga")
-    silverIcon:SetWidth(13)
-    silverIcon:SetHeight(13)
-    frame.silverIcon = silverIcon
-
-    local silverText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    MainMenu:ApplyFont(silverText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
-    frame.silverText = silverText
-
-    local goldIcon = frame:CreateTexture(nil, "OVERLAY")
-    goldIcon:SetTexture("Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_gold.tga")
-    goldIcon:SetWidth(13)
-    goldIcon:SetHeight(13)
-    frame.goldIcon = goldIcon
-
-    local goldText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-    MainMenu:ApplyFont(goldText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
-    frame.goldText = goldText
-
     local prefixText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     MainMenu:ApplyFont(prefixText, CFG.Fonts.subFontFile, CFG.Fonts.detailTypeSize or 14)
     prefixText:SetText(prefix or CM:T("DETAIL_MONEY"))
     frame.prefixText = prefixText
 
+    local valueText = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    MainMenu:ApplyFont(valueText, CFG.Fonts.bodyFontFile, CFG.Fonts.detailTypeSize or 14)
+    frame.valueText = valueText
+
+    if alignRight then
+        valueText:SetPoint("RIGHT", frame, "RIGHT", 0, 0)
+        valueText:SetJustifyH("RIGHT")
+
+        prefixText:SetPoint("RIGHT", valueText, "LEFT", -6, 0)
+        prefixText:SetJustifyH("RIGHT")
+    else
+        prefixText:SetPoint("LEFT", frame, "LEFT", 0, 0)
+        prefixText:SetJustifyH("LEFT")
+
+        valueText:SetPoint("LEFT", prefixText, "RIGHT", 6, 0)
+        valueText:SetJustifyH("LEFT")
+    end
+
     function frame:SetAmount(amount)
-        amount = tonumber(amount) or 0
-        local gold = math.floor(amount / 10000)
-        local silver = math.floor(math.mod(amount, 10000) / 100)
-        local copper = math.mod(amount, 100)
-
-        if alignRight then
-            copperIcon:ClearAllPoints()
-            copperIcon:SetPoint("RIGHT", frame, "RIGHT", 0, 0)
-            copperIcon:Show()
-
-            copperText:ClearAllPoints()
-            copperText:SetPoint("RIGHT", copperIcon, "LEFT", -2, 0)
-            copperText:SetText(tostring(copper))
-            copperText:Show()
-
-            local leftmost = copperText
-
-            if silver > 0 or gold > 0 then
-                silverIcon:ClearAllPoints()
-                silverIcon:SetPoint("RIGHT", leftmost, "LEFT", -4, 0)
-                silverIcon:Show()
-
-                silverText:ClearAllPoints()
-                silverText:SetPoint("RIGHT", silverIcon, "LEFT", -2, 0)
-                silverText:SetText(tostring(silver))
-                silverText:Show()
-
-                leftmost = silverText
-            else
-                silverIcon:Hide()
-                silverText:Hide()
-            end
-
-            if gold > 0 then
-                goldIcon:ClearAllPoints()
-                goldIcon:SetPoint("RIGHT", leftmost, "LEFT", -4, 0)
-                goldIcon:Show()
-
-                goldText:ClearAllPoints()
-                goldText:SetPoint("RIGHT", goldIcon, "LEFT", -2, 0)
-                goldText:SetText(tostring(gold))
-                goldText:Show()
-
-                leftmost = goldText
-            else
-                goldIcon:Hide()
-                goldText:Hide()
-            end
-
-            prefixText:ClearAllPoints()
-            prefixText:SetPoint("RIGHT", leftmost, "LEFT", -6, 0)
-            prefixText:Show()
-        else
-            prefixText:ClearAllPoints()
-            prefixText:SetPoint("LEFT", frame, "LEFT", 0, 0)
-            prefixText:Show()
-
-            local prev = prefixText
-
-            if gold > 0 then
-                goldText:ClearAllPoints()
-                goldText:SetPoint("LEFT", prev, "RIGHT", 4, 0)
-                goldText:SetText(tostring(gold))
-                goldText:Show()
-
-                goldIcon:ClearAllPoints()
-                goldIcon:SetPoint("LEFT", goldText, "RIGHT", 2, 0)
-                goldIcon:Show()
-
-                prev = goldIcon
-            else
-                goldText:Hide()
-                goldIcon:Hide()
-            end
-
-            if silver > 0 or gold > 0 then
-                silverText:ClearAllPoints()
-                silverText:SetPoint("LEFT", prev, "RIGHT", 4, 0)
-                silverText:SetText(tostring(silver))
-                silverText:Show()
-
-                silverIcon:ClearAllPoints()
-                silverIcon:SetPoint("LEFT", silverText, "RIGHT", 2, 0)
-                silverIcon:Show()
-
-                prev = silverIcon
-            else
-                silverText:Hide()
-                silverIcon:Hide()
-            end
-
-            copperText:ClearAllPoints()
-            copperText:SetPoint("LEFT", prev, "RIGHT", 4, 0)
-            copperText:SetText(tostring(copper))
-            copperText:Show()
-
-            copperIcon:ClearAllPoints()
-            copperIcon:SetPoint("LEFT", copperText, "RIGHT", 2, 0)
-            copperIcon:Show()
-        end
-
+        valueText:SetText(FormatMoneyText(amount))
         frame:Show()
     end
 

@@ -37,9 +37,6 @@ local ICONS = {
     DLEFT  = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DLEFT.tga",
     DRIGHT = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\DRIGHT.tga",
     DALL   = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\Icons\\Xbox\\navigate_all_directions.tga",
-    GOLD   = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_gold.tga",
-    SILVER = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_silver.tga",
-    COPPER = "Interface\\AddOns\\ConsoleModeVanilla\\Media\\coin_copper.tga",
 }
 
 local NINESLICE = {
@@ -591,14 +588,11 @@ function AuctionScreen:FormatMoney(totalCopper)
     return text
 end
 
-function AuctionScreen:CreateMoneyDisplay(parent, height, iconSize, align, width)
+function AuctionScreen:CreateMoneyDisplay(parent, height, fontSize, align, width)
     height = height or 22
-    iconSize = iconSize or 14
+    fontSize = fontSize or 15
     align = align or "RIGHT"
-    -- Largura fixa 180 acomoda ate ~4 digitos de ouro + prata + cobre sem
-    -- estourar o frame; linhas de tabela usam 150 (suficiente p/ 3 moedas
-    -- tipicas) para nao invadir a coluna vizinha. So apresentacao.
-    width = width or 180
+    width = width or 150
 
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
@@ -607,160 +601,27 @@ function AuctionScreen:CreateMoneyDisplay(parent, height, iconSize, align, width
         f:SetFrameLevel(parent:GetFrameLevel() + 5)
     end
     f.align = align
-    f.iconSize = iconSize
 
-    -- Copper
-    local copperIcon = f:CreateTexture(nil, "OVERLAY")
-    copperIcon:SetWidth(iconSize)
-    copperIcon:SetHeight(iconSize)
-    copperIcon:SetTexture(ICONS.COPPER)
-    f.copperIcon = copperIcon
-
-    local copperText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    self:ApplyFont(copperText, FONTS.bodyBold, 15)
-    f.copperText = copperText
-
-    -- Silver
-    local silverIcon = f:CreateTexture(nil, "OVERLAY")
-    silverIcon:SetWidth(iconSize)
-    silverIcon:SetHeight(iconSize)
-    silverIcon:SetTexture(ICONS.SILVER)
-    f.silverIcon = silverIcon
-
-    local silverText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    self:ApplyFont(silverText, FONTS.bodyBold, 15)
-    f.silverText = silverText
-
-    -- Gold
-    local goldIcon = f:CreateTexture(nil, "OVERLAY")
-    goldIcon:SetWidth(iconSize)
-    goldIcon:SetHeight(iconSize)
-    goldIcon:SetTexture(ICONS.GOLD)
-    f.goldIcon = goldIcon
-
-    local goldText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    self:ApplyFont(goldText, FONTS.bodyBold, 15)
-    f.goldText = goldText
-
-    -- None/Empty label (ex: "-" quando não há buyout)
-    local noneText = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-    self:ApplyFont(noneText, FONTS.bodyBold, 15)
-    noneText:SetText("-")
-    noneText:SetTextColor(0.60, 0.60, 0.60, 0.80)
-    noneText:Hide()
-    f.noneText = noneText
+    local text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    text:SetAllPoints(f)
+    text:SetJustifyH(align)
+    text:SetJustifyV("MIDDLE")
+    self:ApplyFont(text, FONTS.bodyBold, fontSize)
+    f.text = text
 
     return f
 end
 
 function AuctionScreen:SetMoneyDisplay(f, totalCopper)
-    if not f then return end
+    if not f or not f.text then return end
 
     if not totalCopper or totalCopper <= 0 then
-        f.goldIcon:Hide()
-        f.goldText:Hide()
-        f.silverIcon:Hide()
-        f.silverText:Hide()
-        f.copperIcon:Hide()
-        f.copperText:Hide()
-        f.noneText:ClearAllPoints()
-        if f.align == "LEFT" then
-            f.noneText:SetPoint("LEFT", f, "LEFT", 0, 0)
-        else
-            f.noneText:SetPoint("RIGHT", f, "RIGHT", 0, 0)
-        end
-        f.noneText:Show()
+        f.text:SetText("-")
+        f.text:SetTextColor(0.60, 0.60, 0.60, 0.80)
         return
     end
 
-    f.noneText:Hide()
-
-    local gold   = math.floor(totalCopper / 10000)
-    local silver = math.floor(math.mod(totalCopper, 10000) / 100)
-    local copper = math.floor(math.mod(totalCopper, 100))
-
-    local showGold   = (gold > 0)
-    local showSilver = (gold > 0 or silver > 0)
-    local showCopper = true
-
-    f.copperText:SetText(tostring(copper))
-    f.copperText:SetTextColor(0.93, 0.65, 0.37, 1.0)
-    f.copperText:Show()
-    f.copperIcon:Show()
-
-    if showSilver then
-        f.silverText:SetText(tostring(silver))
-        f.silverText:SetTextColor(0.78, 0.78, 0.81, 1.0)
-        f.silverText:Show()
-        f.silverIcon:Show()
-    else
-        f.silverText:Hide()
-        f.silverIcon:Hide()
-    end
-
-    if showGold then
-        f.goldText:SetText(tostring(gold))
-        f.goldText:SetTextColor(1.0, 0.84, 0.0, 1.0)
-        f.goldText:Show()
-        f.goldIcon:Show()
-    else
-        f.goldText:Hide()
-        f.goldIcon:Hide()
-    end
-
-    if f.align == "LEFT" then
-        local prev = nil
-        if showGold then
-            f.goldText:ClearAllPoints()
-            f.goldText:SetPoint("LEFT", f, "LEFT", 0, 0)
-            f.goldIcon:ClearAllPoints()
-            f.goldIcon:SetPoint("LEFT", f.goldText, "RIGHT", 2, 0)
-            prev = f.goldIcon
-        end
-
-        if showSilver then
-            f.silverText:ClearAllPoints()
-            if prev then
-                f.silverText:SetPoint("LEFT", prev, "RIGHT", 6, 0)
-            else
-                f.silverText:SetPoint("LEFT", f, "LEFT", 0, 0)
-            end
-            f.silverIcon:ClearAllPoints()
-            f.silverIcon:SetPoint("LEFT", f.silverText, "RIGHT", 2, 0)
-            prev = f.silverIcon
-        end
-
-        f.copperText:ClearAllPoints()
-        if prev then
-            f.copperText:SetPoint("LEFT", prev, "RIGHT", 6, 0)
-        else
-            f.copperText:SetPoint("LEFT", f, "LEFT", 0, 0)
-        end
-        f.copperIcon:ClearAllPoints()
-        f.copperIcon:SetPoint("LEFT", f.copperText, "RIGHT", 2, 0)
-    else
-        -- ALIGN RIGHT (Tabelas)
-        f.copperIcon:ClearAllPoints()
-        f.copperIcon:SetPoint("RIGHT", f, "RIGHT", 0, 0)
-        f.copperText:ClearAllPoints()
-        f.copperText:SetPoint("RIGHT", f.copperIcon, "LEFT", -2, 0)
-
-        local prev = f.copperText
-        if showSilver then
-            f.silverIcon:ClearAllPoints()
-            f.silverIcon:SetPoint("RIGHT", prev, "LEFT", -6, 0)
-            f.silverText:ClearAllPoints()
-            f.silverText:SetPoint("RIGHT", f.silverIcon, "LEFT", -2, 0)
-            prev = f.silverText
-        end
-
-        if showGold then
-            f.goldIcon:ClearAllPoints()
-            f.goldIcon:SetPoint("RIGHT", prev, "LEFT", -6, 0)
-            f.goldText:ClearAllPoints()
-            f.goldText:SetPoint("RIGHT", f.goldIcon, "LEFT", -2, 0)
-        end
-    end
+    f.text:SetText(self:FormatMoney(totalCopper))
 end
 
 function AuctionScreen:GetItemVendorPrice(itemLink)

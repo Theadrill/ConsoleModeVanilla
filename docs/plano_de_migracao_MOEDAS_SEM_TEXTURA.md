@@ -11,7 +11,7 @@
 
 ---
 
-**Status:** Planejado / Pronto para Execução  
+**Status:** Concluído / Pronto para Validação In-Game  
 **Objetivo:** Substituir todas as texturas de moedas (`coin_gold.tga`, `coin_silver.tga`, `coin_copper.tga`) do addon pelo método de **texto puro colorido com sufixos g/s/c** padronizado pelo `TrainerMenu.lua`.  
 **Arquivos de Escopo:** `UI/AuctionScreen.lua`, `UI/MainMenu.lua`, limpeza em `UI/TrainerMenu.lua`, `UI/MerchantMenu.lua`.  
 **Arquivos de Referência (já corretos):** `UI/TrainerMenu.lua`, `UI/MerchantMenu.lua`, `UI/MailScreen.lua`, `UI/MoneyPicker.lua`.

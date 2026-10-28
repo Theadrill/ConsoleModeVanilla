@@ -2420,8 +2420,15 @@ function AuctionScreen:UpdateItemCard(item, targetCard)
         local lowerL2 = string.lower(l2)
         if not string.find(lowerL2, "dano") and not string.find(lowerL2, "damage")
            and not string.find(lowerL2, "armadura") and not string.find(lowerL2, "armor")
-           and not string.find(lowerL2, "requer") and not string.find(lowerL2, "requires") then
-            locEquip = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(l2) or l2
+           and not string.find(lowerL2, "requer") and not string.find(lowerL2, "requires")
+           and not string.find(lowerL2, "binds") and not string.find(lowerL2, "vincula")
+           and not string.find(lowerL2, "soulbound") and not string.find(lowerL2, "unique")
+           and not string.find(lowerL2, "único") and not string.find(lowerL2, "use:")
+           and not string.find(lowerL2, "uso:") and not string.find(lowerL2, "equip:") then
+            local mapped = (ConsoleMode and ConsoleMode.GameLOC_EquipLoc) and ConsoleMode:GameLOC_EquipLoc(l2) or nil
+            if mapped and mapped ~= l2 then
+                locEquip = mapped
+            end
         end
     end
 

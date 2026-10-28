@@ -221,8 +221,8 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ### Fases Testáveis de Localização:
 
-#### FASE 11: Dicionário Completo de UI da Auction House em pt-BR
-* **Objetivo:** Tradução 100% oficial e sincronização das 225 chaves `AH_*` para o addon irmão `ConsoleModeVanilla-Localization-ptBR`.
+#### FASE 11: Dicionário Completo de UI da Auction House em pt-BR [CONCLUÍDO]
+* **Objetivo:** Tradução 100% oficial e sincronização das 235 chaves `AH_*` para o addon irmão `ConsoleModeVanilla-Localization-ptBR`.
 * **Tarefas:**
   * Tradução das abas (`COMPRAR`, `VENDER`, `MEUS LEILÕES`), botões, legendas, cabeçalhos de tabela.
   * Tradução de todas as categorias, subcategorias e slots de armas e armaduras.
@@ -232,17 +232,17 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-#### FASE 12: Cobertura de GameLOC nos Itens e Ordenação Alfabética Localizada
+#### FASE 12: Cobertura de GameLOC nos Itens e Ordenação Alfabética Localizada [CONCLUÍDO]
 * **Objetivo:** Garantir exibição de nomes traduzidos em todas as abas e ordenação alfabética correta em pt-BR.
 * **Tarefas:**
   * Auditoria de `GameLOC_Item` em todas as views (lista agrupada, detalhes, concorrentes, formulário, resumo de venda e meus leilões).
-  * Atualização da ordenação `NAME_ASC` e `NAME_DESC` em `AuctionScreen:SortGroupedItems` para comparar `locName` quando o idioma ativo for ptBR.
-  * Garantir que o tooltip split-view exiba stats e requisitos traduzidos via `GameLOC_ItemDesc` e `GameLOC_EquipLoc`.
+  * Atualização da ordenação `NAME_ASC` e `NAME_DESC` em `AuctionScreen:ApplySort` para comparar `locName` quando o idioma ativo for ptBR.
+  * Garantir que o tooltip split-view exiba stats e requisitos traduzidos via `GameLOC_ItemDesc`, `GameLOC_EquipLoc` e `ResolveItemInfo` (assinatura de 9 retornos do Vanilla 1.12.1).
 * **Teste no Jogo:** Visualizar itens no mercado e ordenar de A a Z conferindo a ordem pelo nome em português.
 
 ---
 
-#### FASE 13: Busca Textual Bilíngue com Resolução Reversa (ptBR ➔ enUS)
+#### FASE 13: Busca Textual Bilíngue com Resolução Reversa (ptBR ➔ enUS) [CONCLUÍDO]
 * **Objetivo:** Permitir ao jogador digitar nomes em português no teclado virtual e encontrar o item no servidor em inglês.
 * **Tarefas:**
   * Implementar lookup reverso no banco de dados de itens (`ItemDB`): dado um termo digitado em português, identificar o nome original em inglês do item.
@@ -252,7 +252,7 @@ Baseada nas sondas empíricas reais (`ahdump.txt` e `ahprobe.txt` + `ahprobe_ret
 
 ---
 
-#### FASE 14: Nome e Cargo do Leiloeiro Localizado e Homologação Final
+#### FASE 14: Nome e Cargo do Leiloeiro Localizado e Homologação Final [CONCLUÍDO]
 * **Objetivo:** Exibir nome e título de NPC autênticos no cabeçalho do leilão.
 * **Tarefas:**
   * Conectar `UnitName("npc")` com a API `ConsoleMode:GetNPCDisplayName(id, enName)` e `ConsoleMode:GetNPCRole(id, enRole)`.

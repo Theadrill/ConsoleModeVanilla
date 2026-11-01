@@ -4782,7 +4782,7 @@ function MainMenu:SetupBagsPage(pageBags)
     local sortTxt = sortBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
     sortTxt:SetPoint("CENTER", sortBtn, "CENTER", 0, 0)
     MainMenu:ApplyFont(sortTxt, CFG.Fonts.bodyFontFile, CFG.Fonts.bagCatSize or 14)
-    sortTxt:SetText(CM:T("BAGS_SORT_BUTTON"))
+    sortTxt:SetText(CM:T("BAGS_SORT_BTN_LABEL"))
 
     -- Ícone do botão X (Xbox) indicando o atalho de organização
     local xTexCoord = sortBtn:CreateTexture(nil, "ARTWORK")
@@ -4804,14 +4804,8 @@ function MainMenu:SetupBagsPage(pageBags)
         this:SetBackdropColor(0.12, 0.09, 0.06, 0.75)
     end)
     sortBtn:SetScript("OnClick", function()
-        if type(SortBags) == "function" then
-            SortBags()
-            MainMenu:UpdateBagsPage(true)
-            if CFG.Audio.soundItemSelect then PlaySound(CFG.Audio.soundItemSelect) end
-        else
-            if DEFAULT_CHAT_FRAME then
-                DEFAULT_CHAT_FRAME:AddMessage(CM:T("BAGS_SORT_MISSING_MSG"))
-            end
+        if ConsoleMode_BagSortModal then
+            ConsoleMode_BagSortModal:Open()
         end
     end)
     sortBtn:Show()
@@ -4912,6 +4906,12 @@ function MainMenu:UpdateBagsPage(keepPage)
     local curCat = pageBags.currentCategory or "ALL"
     local scanResult = self:ScanInventory(curCat)
     local items = scanResult.items
+
+    if pageBags.sortBtn and pageBags.sortBtn.title then
+        pageBags.sortBtn.title:SetText(CM:T("BAGS_SORT_BTN_LABEL"))
+        local w = math.floor(pageBags.sortBtn.title:GetStringWidth() or 70) + 20 + 20
+        pageBags.sortBtn:SetWidth(w)
+    end
 
     -- ORDENAÇÃO VIRTUAL DE INVENTÁRIO (Lua 5.0 / Presentation Layer)
     if ConsoleMode and ConsoleMode.SortInventoryItems then

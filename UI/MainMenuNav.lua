@@ -3291,6 +3291,11 @@ end
 
 -- Roteador OnDirection. FASE 2: BAGS real; FASE 3: SPELLS real; demais, log.
 function Nav:OnDirection(direction)
+    if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
+        ConsoleMode_BagSortModal:OnNavigate(direction)
+        return
+    end
+
     if not self:IsActive() then return end
 
     if IsLangPickerOpen() then
@@ -4401,6 +4406,11 @@ end
 
 -- FASE 2: A/B/Y consomem em BAGS (retornam true); FASE 3: + SPELLS; demais, false.
 function Nav:OnConfirm()
+    if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
+        ConsoleMode_BagSortModal:CycleOption(ConsoleMode_BagSortModal.selectedRow, 1)
+        return true
+    end
+
     local MM = Nav_GetMM()
     if MM and MM.IsTalentInspectModalOpen and MM:IsTalentInspectModalOpen() then
         if type(MM.ConfirmTalentInspectModal) == "function" then
@@ -4927,8 +4937,12 @@ function Nav:OnConfirm()
         return true
     end
     if f.zone == "SORT" then
-        local pbS = Nav_GetPageBags()
-        if pbS and pbS.sortBtn then pcall(function() pbS.sortBtn:Click() end) end
+        if ConsoleMode_BagSortModal then
+            ConsoleMode_BagSortModal:Open()
+        else
+            local pbS = Nav_GetPageBags()
+            if pbS and pbS.sortBtn then pcall(function() pbS.sortBtn:Click() end) end
+        end
         return true
     end
     if f.zone == "GRID" then
@@ -4956,6 +4970,11 @@ function Nav:OnConfirm()
 end
 
 function Nav:OnCancel()
+    if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
+        ConsoleMode_BagSortModal:Close()
+        return true
+    end
+
     if ConsoleMode_EnhanceModal and ConsoleMode_EnhanceModal.isOpen then
         ConsoleMode_EnhanceModal:Close()
         return true
@@ -5357,6 +5376,11 @@ function Nav:OnUse()
 end
 
 function Nav:OnSecondary()
+    if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
+        ConsoleMode_BagSortModal:ResetDefaults()
+        return true
+    end
+
     if not self:IsActive() then return false end
     local curTabSec = Nav_GetCurrentTab()
     if curTabSec == "QUESTS" then
@@ -5400,9 +5424,15 @@ function Nav:OnSecondary()
         return false
     end
     if curTabSec == "BAGS" then
-        -- X no BAGS: Organizar bolsa (delegado ao sortBtn se SortBags estiver disponivel)
+        if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
+            return true
+        end
+        if ConsoleMode_BagSortModal then
+            ConsoleMode_BagSortModal:Open()
+            return true
+        end
         local pb = Nav_GetPageBags()
-        if pb and pb.sortBtn and type(SortBags) == "function" then
+        if pb and pb.sortBtn then
             pcall(function() pb.sortBtn:Click() end)
             return true
         end

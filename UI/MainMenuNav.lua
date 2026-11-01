@@ -4407,7 +4407,7 @@ end
 -- FASE 2: A/B/Y consomem em BAGS (retornam true); FASE 3: + SPELLS; demais, false.
 function Nav:OnConfirm()
     if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
-        ConsoleMode_BagSortModal:CycleOption(ConsoleMode_BagSortModal.selectedRow, 1)
+        ConsoleMode_BagSortModal:Close()
         return true
     end
 
@@ -5271,6 +5271,11 @@ function Nav:OnCancel()
 end
 
 function Nav:OnUse()
+    -- Botao Y: No modal de ordenacao, restaura padroes de fabrica
+    if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
+        ConsoleMode_BagSortModal:ResetDefaults()
+        return true
+    end
     if not self:IsActive() then return false end
     local curTabUs = Nav_GetCurrentTab()
     if curTabUs == "QUESTS" then
@@ -5377,7 +5382,6 @@ end
 
 function Nav:OnSecondary()
     if ConsoleMode_BagSortModal and ConsoleMode_BagSortModal:IsOpen() then
-        ConsoleMode_BagSortModal:ResetDefaults()
         return true
     end
 

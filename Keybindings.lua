@@ -1824,10 +1824,12 @@ function CM_CursorSecondary(keystate)
         return
     end
 
-    -- FASE 2 MainMenuNav: consome se OnSecondary retornar true.
-    if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
-        if ConsoleMode_MainMenuNav.OnSecondary then
-            if ConsoleMode_MainMenuNav:OnSecondary() then return end
+    -- FASE 2 MainMenuNav: consome se OnSecondary retornar true (apenas no press).
+    if keystate ~= "up" then
+        if ConsoleMode_MainMenuNav and ConsoleMode_MainMenuNav.IsActive and ConsoleMode_MainMenuNav:IsActive() then
+            if ConsoleMode_MainMenuNav.OnSecondary then
+                if ConsoleMode_MainMenuNav:OnSecondary() then return end
+            end
         end
     end
 

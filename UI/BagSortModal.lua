@@ -118,11 +118,6 @@ local function Create9Slice(parent, texturePath, cornerSize, uvMap, drawLayer)
     cornerSize = cornerSize or 48
     drawLayer = drawLayer or "BACKGROUND"
     local slices = {}
-    local names = {
-        { "TOPLEFT", "TOP", "TOPRIGHT" },
-        { "LEFT", "CENTER", "RIGHT" },
-        { "BOTTOMLEFT", "BOTTOM", "BOTTOMRIGHT" }
-    }
 
     for r = 1, 3 do
         slices[r] = {}
@@ -190,22 +185,19 @@ function Modal:CreateUI()
     dimTex:SetTexture(0, 0, 0, 0.70)
     dimmer.bg = dimTex
 
-    -- Fechar ao clicar fora
     dimmer:SetScript("OnMouseDown", function()
         Modal:Close()
     end)
 
-    -- 3.2. Janela Central
+    -- 3.2. Janela Central (Dimensões adaptativas para Steam Deck 1280x800)
     local modal = CreateFrame("Frame", "ConsoleMode_BagSortModalFrame", dimmer)
-    modal:SetWidth(460)
-    modal:SetHeight(380)
+    modal:SetWidth(520)
+    modal:SetHeight(410)
     modal:SetPoint("CENTER", UIParent, "CENTER", 0, 10)
     modal:SetFrameStrata("DIALOG")
     modal:SetFrameLevel(50)
     modal:EnableMouse(true)
-    modal:SetScript("OnMouseDown", function()
-        -- Consome clique para nao fechar no dimmer
-    end)
+    modal:SetScript("OnMouseDown", function() end)
 
     Create9Slice(modal, NINESLICE.texture, NINESLICE.cornerSize, NINESLICE.uv, NINESLICE.drawLayer)
 
@@ -226,14 +218,14 @@ function Modal:CreateUI()
 
     local div = modal:CreateTexture(nil, "ARTWORK")
     div:SetHeight(1)
-    div:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, -62)
-    div:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -28, -62)
+    div:SetPoint("TOPLEFT", modal, "TOPLEFT", 26, -60)
+    div:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -26, -60)
     div:SetTexture(0.60, 0.48, 0.32, 0.60)
 
     -- 3.4. Pool Fixo de 5 Linhas de Opções
     local rows = {}
-    local startY = -72
-    local rowH = 34
+    local startY = -70
+    local rowH = 36
     local rowGap = 5
     local numDefs = table.getn(OPTION_DEFS)
 
@@ -241,8 +233,8 @@ function Modal:CreateUI()
         local def = OPTION_DEFS[i]
         local row = CreateFrame("Button", "ConsoleMode_BagSortRow" .. i, modal)
         row:SetHeight(rowH)
-        row:SetPoint("TOPLEFT", modal, "TOPLEFT", 28, startY - ((i - 1) * (rowH + rowGap)))
-        row:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -28, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPLEFT", modal, "TOPLEFT", 26, startY - ((i - 1) * (rowH + rowGap)))
+        row:SetPoint("TOPRIGHT", modal, "TOPRIGHT", -26, startY - ((i - 1) * (rowH + rowGap)))
 
         row:SetBackdrop({
             bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -253,29 +245,29 @@ function Modal:CreateUI()
 
         -- Label do Nome da Opção (à esquerda)
         local lbl = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        lbl:SetPoint("LEFT", row, "LEFT", 12, 0)
-        ApplyFont(lbl, FONTS.titleBold, 14)
+        lbl:SetPoint("LEFT", row, "LEFT", 14, 0)
+        ApplyFont(lbl, FONTS.titleBold, 15)
         lbl:SetText(CM:T(def.labelKey))
         row.lbl = lbl
 
         -- Seta Esquerda < (visível quando focada)
         local arrowL = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        arrowL:SetPoint("RIGHT", row, "RIGHT", -160, 0)
-        ApplyFont(arrowL, FONTS.titleBold, 15)
+        arrowL:SetPoint("RIGHT", row, "RIGHT", -170, 0)
+        ApplyFont(arrowL, FONTS.titleBold, 16)
         arrowL:SetTextColor(1.0, 0.85, 0.25, 0.90)
         arrowL:SetText("<")
         row.arrowL = arrowL
 
         -- Valor Atual (centralizado entre as setas)
         local valTxt = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-        valTxt:SetPoint("CENTER", row, "RIGHT", -90, 0)
+        valTxt:SetPoint("CENTER", row, "RIGHT", -95, 0)
         ApplyFont(valTxt, FONTS.titleBold, 14)
         row.valTxt = valTxt
 
         -- Seta Direita > (visível quando focada)
         local arrowR = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
         arrowR:SetPoint("RIGHT", row, "RIGHT", -18, 0)
-        ApplyFont(arrowR, FONTS.titleBold, 15)
+        ApplyFont(arrowR, FONTS.titleBold, 16)
         arrowR:SetTextColor(1.0, 0.85, 0.25, 0.90)
         arrowR:SetText(">")
         row.arrowR = arrowR
@@ -290,7 +282,16 @@ function Modal:CreateUI()
 
         row:SetScript("OnClick", function()
             Modal.selectedRow = idx
-            Modal:CycleOption(idx, 1)
+            local cx = GetCursorPosition()
+            local s = row:GetEffectiveScale() or 1
+            local left = row:GetLeft() or 0
+            local width = row:GetWidth() or 400
+            local mid = left + (width / 2)
+            if (cx / s) < mid then
+                Modal:CycleOption(idx, -1)
+            else
+                Modal:CycleOption(idx, 1)
+            end
         end)
 
         rows[i] = row
@@ -298,43 +299,72 @@ function Modal:CreateUI()
 
     modal.rows = rows
 
-    -- 3.5. Rodapé com Texturas Reais do Gamepad (100% Ícones TGA)
+    -- 3.5. Rodapé com Texturas Reais do Gamepad (Padrão Oficial do MainMenu)
     local footer = CreateFrame("Frame", "ConsoleMode_BagSortFooter", modal)
-    footer:SetHeight(28)
+    footer:SetHeight(30)
     footer:SetPoint("BOTTOM", modal, "BOTTOM", 0, 16)
-    footer:SetWidth(420)
 
     local hintDefs = {
-        { icons = { ICONS.DUP, ICONS.DDOWN }, tKey = "HINT_NAVIGATE" },
-        { icons = { ICONS.DLEFT, ICONS.DRIGHT, ICONS.A }, tKey = "BAGS_SORT_HINT_CHANGE" },
-        { icons = { ICONS.Y }, tKey = "BAGS_SORT_HINT_RESET" },
-        { icons = { ICONS.B }, tKey = "HINT_CLOSE" },
+        { icons = { ICONS.DUP, ICONS.DDOWN }, tKey = "HINT_NAVIGATE", isDpad = true },
+        { icons = { ICONS.DLEFT, ICONS.DRIGHT }, tKey = "BAGS_SORT_HINT_CHANGE", isDpad = true },
+        { icons = { ICONS.A }, tKey = "HINT_CONFIRM", isAction = true },
+        { icons = { ICONS.Y }, tKey = "BAGS_SORT_HINT_RESET", isAction = true },
+        { icons = { ICONS.B }, tKey = "HINT_CLOSE", isAction = true },
     }
 
-    local currentX = 14
+    local iconGap = 2
+    local labelGap = 5
+    local groupGap = 16
+    local currentX = 0
     local footerHints = {}
+
     for h = 1, table.getn(hintDefs) do
         local hint = hintDefs[h]
+        local groupFrame = CreateFrame("Frame", nil, footer)
+        groupFrame:SetHeight(28)
+        groupFrame:SetPoint("LEFT", footer, "LEFT", currentX, 0)
+
+        local groupX = 0
         for ic = 1, table.getn(hint.icons) do
-            local iconTex = footer:CreateTexture(nil, "OVERLAY")
-            iconTex:SetWidth(18)
-            iconTex:SetHeight(18)
+            local iconTex = groupFrame:CreateTexture(nil, "OVERLAY")
+            local curW = 25
+            local curH = 25
+            if hint.isDpad then
+                curW = 21
+                curH = 21
+            end
+            iconTex:SetWidth(curW)
+            iconTex:SetHeight(curH)
             iconTex:SetTexture(hint.icons[ic])
-            iconTex:SetPoint("LEFT", footer, "LEFT", currentX, 0)
-            currentX = currentX + 19
+            iconTex:SetPoint("LEFT", groupFrame, "LEFT", groupX, 0)
+            groupX = groupX + curW + iconGap
         end
 
-        currentX = currentX + 3
+        local iconsTotalW = groupX - iconGap
+        local textStartX = iconsTotalW + labelGap
 
-        local lbl = footer:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-        lbl:SetPoint("LEFT", footer, "LEFT", currentX, 0)
-        ApplyFont(lbl, FONTS.medium, 12)
-        lbl:SetTextColor(0.85, 0.85, 0.85, 1.0)
+        local lbl = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        lbl:SetPoint("LEFT", groupFrame, "LEFT", textStartX, 0)
+        ApplyFont(lbl, FONTS.medium, 14)
+        lbl:SetTextColor(0.85, 0.85, 0.85, 0.95)
         lbl:SetText(CM:T(hint.tKey))
-        currentX = currentX + (math.floor(lbl:GetStringWidth() or 40)) + 14
 
-        table.insert(footerHints, { lbl = lbl, tKey = hint.tKey })
+        local textW = math.floor(lbl:GetStringWidth() or 40)
+        local totalGroupW = textStartX + textW
+        groupFrame:SetWidth(totalGroupW)
+
+        currentX = currentX + totalGroupW + groupGap
+        table.insert(footerHints, {
+            lbl = lbl,
+            tKey = hint.tKey,
+            group = groupFrame,
+            iconsTotalW = iconsTotalW,
+        })
     end
+
+    local totalFooterWidth = currentX - groupGap
+    footer:SetWidth(totalFooterWidth)
+
     footer.hints = footerHints
     modal.footer = footer
 
@@ -344,7 +374,47 @@ function Modal:CreateUI()
 end
 
 -- ============================================================================
--- 4. ATUALIZAÇÃO VISUAL DAS LINHAS
+-- 4. ATUALIZAÇÃO DINÂMICA DO LAYOUT E LARGURA (RODAPÉ & JANELA)
+-- ============================================================================
+--- Recalcula a largura dos textos do rodapé e ajusta dinamicamente a largura
+-- do modal para acomodar confortavelmente traduções de qualquer idioma/tamanho.
+function Modal:UpdateFooterLayout()
+    if not self.frame or not self.frame.footer or not self.frame.footer.hints then return end
+    local footer = self.frame.footer
+    local groupGap = 16
+    local labelGap = 5
+    local currentX = 0
+    local numHints = table.getn(footer.hints)
+
+    for h = 1, numHints do
+        local item = footer.hints[h]
+        if item.lbl and item.tKey then
+            item.lbl:SetText(CM:T(item.tKey))
+        end
+        local strW = math.ceil(item.lbl:GetStringWidth() or 30)
+        if strW < 20 then strW = 20 end
+        local totalGroupW = item.iconsTotalW + labelGap + strW
+        item.group:SetWidth(totalGroupW)
+        item.group:ClearAllPoints()
+        item.group:SetPoint("LEFT", footer, "LEFT", currentX, 0)
+        currentX = currentX + totalGroupW + groupGap
+    end
+
+    local totalFooterWidth = currentX - groupGap
+    footer:SetWidth(totalFooterWidth)
+
+    -- Largura adaptativa: calcula a largura necessária com margens de 40px em cada lado
+    -- para respeitar o 9-slice esculpido (cornerSize=48) sem sobrepor ou vazar texto.
+    local minWidth = 520
+    local padding = 80
+    local requiredWidth = totalFooterWidth + padding
+    local finalWidth = math.max(minWidth, requiredWidth)
+
+    self.frame:SetWidth(finalWidth)
+end
+
+-- ============================================================================
+-- 5. ATUALIZAÇÃO VISUAL DAS LINHAS
 -- ============================================================================
 function Modal:UpdateRows()
     if not self.frame or not self.rows then return end
@@ -356,14 +426,8 @@ function Modal:UpdateRows()
         self.frame.sub:SetText(CM:T("BAGS_SORT_MODAL_SUB"))
     end
 
-    if self.frame.footer and self.frame.footer.hints then
-        for h = 1, table.getn(self.frame.footer.hints) do
-            local item = self.frame.footer.hints[h]
-            if item.lbl and item.tKey then
-                item.lbl:SetText(CM:T(item.tKey))
-            end
-        end
-    end
+    -- Ajusta o rodapé e a largura do modal dinamicamente
+    self:UpdateFooterLayout()
 
     local cfg = CM:GetVirtualSortConfig()
     local numDefs = table.getn(OPTION_DEFS)
@@ -416,7 +480,7 @@ function Modal:UpdateRows()
 end
 
 -- ============================================================================
--- 5. CICLAGEM E ALTERAÇÃO DE OPÇÕES
+-- 5. CICLAGEM E ALTERAÇÃO DE OPÇÕES (EXCLUSIVAMENTE D-PAD ESQ/DIR OU CLIQUE)
 -- ============================================================================
 function Modal:CycleOption(rowIdx, step)
     if not rowIdx or rowIdx < 1 or rowIdx > table.getn(OPTION_DEFS) then return end
@@ -485,7 +549,7 @@ function Modal:ResetDefaults()
 end
 
 -- ============================================================================
--- 7. NAVEGAÇÃO VIA GAMEPAD / D-PAD
+-- 7. NAVEGAÇÃO VIA GAMEPAD / D-PAD (DIRECIONAL PURO)
 -- ============================================================================
 function Modal:OnNavigate(direction)
     if not self.isOpen then return false end
@@ -533,7 +597,6 @@ function Modal:IsOpen()
 end
 
 function Modal:Open()
-    -- Garante que o pacote de localização esteja carregado se ativo
     if CM and CM.LoadDataLake and CM.DataLake and not CM.DataLake.loaded then
         CM:LoadDataLake("BagSortModal")
     end
@@ -543,8 +606,8 @@ function Modal:Open()
 
     self.selectedRow = 1
     self.isOpen = true
-    self:UpdateRows()
     self.dimmer:Show()
+    self:UpdateRows()
 
     if PlaySound then
         PlaySound("igMainMenuOpen")

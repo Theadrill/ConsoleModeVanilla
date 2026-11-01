@@ -14,14 +14,16 @@ alterar a posição física real dos itens nas bolsas do jogador.
 -- ============================================================================
 
 -- Prioridade por Categoria identificada pelo ConsoleMode (Padrão Balanceado)
+-- Nota: Quando 'questOnTop' está ativado, QUEST ganha prioridade 0 absoluta no comparador.
+-- Quando 'questOnTop' está desativado, QUEST segue sua prioridade natural nesta tabela (após consumíveis/trade).
 CONSOLEMODE_SORT_CATEGORY_PRIORITY = {
-    QUEST       = 1,   -- Itens de Missão
-    EQUIP       = 2,   -- Equipamentos (Armaduras, Armas, Acessórios)
-    POTION      = 3,   -- Poções (Vida, Mana, etc.)
-    FOOD        = 4,   -- Comidas e Bebidas
-    USABLE      = 5,   -- Outros consumíveis / usáveis (Bandagens, Elixires, Scrolls)
-    TRADE       = 6,   -- Reagentes de Profissão / Trade Goods
-    MISC        = 7,   -- Diversos / Utilitários (Hearthstone, Chaves, etc.)
+    EQUIP       = 1,   -- Equipamentos (Armaduras, Armas, Acessórios)
+    POTION      = 2,   -- Poções (Vida, Mana, etc.)
+    FOOD        = 3,   -- Comidas e Bebidas
+    USABLE      = 4,   -- Outros consumíveis / usáveis (Bandagens, Elixires, Scrolls)
+    TRADE       = 5,   -- Reagentes de Profissão / Trade Goods
+    MISC        = 6,   -- Diversos / Utilitários (Hearthstone, Chaves, etc.)
+    QUEST       = 7,   -- Itens de Missão (ordem normal quando não forçado no topo)
     JUNK        = 8,   -- Lixo (Cinzas / Grey)
     EMPTY       = 99,  -- Slots Vazios (SEMPRE POR ÚLTIMO)
 }
@@ -34,9 +36,9 @@ CONSOLEMODE_SORT_PRESETS = {
         POTION = 2,
         FOOD   = 3,
         USABLE = 4,
-        QUEST  = 5,
-        TRADE  = 6,
-        MISC   = 7,
+        TRADE  = 5,
+        MISC   = 6,
+        QUEST  = 7,
         JUNK   = 8,
         EMPTY  = 99,
     },
@@ -45,20 +47,20 @@ CONSOLEMODE_SORT_PRESETS = {
         FOOD   = 2,
         USABLE = 3,
         EQUIP  = 4,
-        QUEST  = 5,
-        TRADE  = 6,
-        MISC   = 7,
+        TRADE  = 5,
+        MISC   = 6,
+        QUEST  = 7,
         JUNK   = 8,
         EMPTY  = 99,
     },
     TRADE = {
         TRADE  = 1,
-        QUEST  = 2,
-        EQUIP  = 3,
-        POTION = 4,
-        FOOD   = 5,
-        USABLE = 6,
-        MISC   = 7,
+        EQUIP  = 2,
+        POTION = 3,
+        FOOD   = 4,
+        USABLE = 5,
+        MISC   = 6,
+        QUEST  = 7,
         JUNK   = 8,
         EMPTY  = 99,
     },

@@ -178,3 +178,33 @@ A execução segue o padrão de liderança técnica: modular, passos testáveis 
   - Marcar o item como concluído:
     `- [x] Painel de Configurações do Virtual Sort (substituir o botão 'Organizar' das bolsas por um atalho/botão que abre as opções e prioridades da ordenação virtual)`
 - **🛑 APROVAÇÃO FINAL:** Entrega formalizada para o PO.
+
+---
+
+## 6. Seção de FIXES & Refinamentos Homologados pelo PO
+
+Demandas identificadas durante o teste prático in-game pelo PO para ajuste antes do encerramento da feature:
+
+- [x] **FIX 1 — Correção de Itens de Missão:** Quando a opção `questOnTop` estiver desativada (`questOnTop == false`), os itens de missão não devem ser forçados na primeira posição; devem respeitar a hierarquia normal de sua categoria ou ficar junto aos itens comuns.
+- [x] **FIX 2 — Acentuação & Caracteres nas Janelas do Addon:** Restaurar a acentuação correta em português (`ç`, `ã`, `õ`, `é`, etc.) nas strings do modal em `ConsoleModeVanilla-Localization-ptBR/Data/UI.lua`, visto que a fonte personalizada do addon (`AlegreyaSans`) possui suporte completo a esses glifos.
+- [x] **FIX 3 & 4 — Reformulação da Navegação & Prevenção de Falso Reset:**
+  - Desvincular o botão `[A]` da ciclagem de opções.
+  - Alternância de opções feita **exclusivamente via D-Pad Esquerda / Direita** (e clique direto nas setas `<` `>`).
+  - Botão `[A]` passa a ter função ergonômica padrão de **Confirmar / Salvar e Fechar o Modal** (`Modal:Close()`), eliminando o problema em que apertar `[A]` para sair alterava a opção de volta aos padrões.
+  - Botão `[B]` para Fechar/Cancelar.
+  - Botão `[Y]` exclusivo para Restaurar Padrões de Fábrica.
+- [x] **FIX 5 — Legibilidade do Rodapé (Handheld / Steam Deck):**
+  - Aumentar os ícones do gamepad no footer de 18px para 25px (padrão oficial do `MainMenu`).
+  - Aumentar a fonte das legendas de 12px para 14px (`AlegreyaSans-Medium`).
+  - Ajustar o espaçamento das legendas.
+- [x] **FIX 6 — Largura Dinâmica e Adaptativa do Modal (Suporte a Idiomas da Comunidade):**
+  - Identificado overflow visual do footer vazando a borda esculpida à direita.
+  - Implementado `Modal:UpdateFooterLayout()` que calcula dinamicamente a largura ocupada por cada legenda via `GetStringWidth()`, permitindo suporte a qualquer idioma customizado sem edição de código fonte.
+  - O modal agora adapta sua largura dinamicamente (`math.max(520, totalFooterWidth + 80)`), garantindo 40px de respiro interno nas margens esculpidas de 9-slice (`cornerSize = 48`) em qualquer resolução ou idioma.
+- [x] **FIX 7 — Eliminação Definitiva do Reset ao Entrar no Modal:**
+  - *Causa Raiz Identificada:* No Vanilla, o atalho `CM_CURSOR_SECONDARY` (botão `[X]`) possui `runOnUp="true"` para suportar o repeat de backspace do Virtual Keyboard. Ao abrir o modal apertando `[X]` nas Bolsas, o evento `down` abria o modal (`IsOpen() = true`), e o subsequente evento `up` (ao soltar o botão `[X]`) caía no manipulador de `Nav:OnSecondary()` onde uma chamada indevida a `ResetDefaults()` era executada imediatamente!
+  - *Correção:*
+    1. Removida a chamada indevida a `ResetDefaults()` de `Nav:OnSecondary()`.
+    2. Adicionado bloqueio `if keystate ~= "up" then` no despacho de `OnSecondary` em `Keybindings.lua` e `Keybindings-STEAMDECK.lua`.
+    3. Restaurar Padrões agora é acionado exclusivamente pelo botão `[Y]` (`Nav:OnUse()`), conforme indicado na legenda do rodapé.
+

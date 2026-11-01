@@ -226,7 +226,7 @@ O que foi feito e o que está planejado para as próximas versões do ConsoleMod
 - [x] Suporte completo às combinações de modificadores (L2, R1, R2, L2+R2)
 - [x] Menu Principal de Console integrado (Bolsas, Livro de Magias, Sistema, Provador 3D)
 - [x] Organização Virtual Automática de Bolsas (ordenador instantâneo em memória em Lua 5.0 sem movimentação mecânica)
-- [ ] Painel de Configurações do Virtual Sort (substituir o botão 'Organizar' das bolsas por um atalho/botão que abre as opções e prioridades da ordenação virtual)
+- [x] Painel de Configurações do Virtual Sort (substituir o botão 'Organizar' das bolsas por um atalho/botão que abre as opções e prioridades da ordenação virtual)
 - [x] Tela de Correio (caixa de entrada + compor/enviar com anexos, fila multi-item)
 - [x] Tela de Correio: Classificação de bolsas (reutilizar o mesmo sistema de organização virtual de bolsas do Main Menu para agrupar itens idênticos, como minérios, sem duplicação de código)
 - [x] Tela de Correio: Área de detalhes/tooltip abaixo das bolsas (reaproveitar arquitetura de detail card/tooltips de outras telas)

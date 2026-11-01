@@ -169,15 +169,15 @@ A execução segue o padrão de liderança técnica: modular, passos testáveis 
 ### 🟢 FASE 5: Homologação no Jogo pelo PO e Atualização do `README.md`
 > **Objetivo Observável:** Teste de ponta a ponta sem regressão nas bolsas, compra/venda em vendedores, envio de correio e manuseio de itens. Fechamento formal do item no roadmap.
 
-- [ ] **Auditoria de Não-Regressão:**
+- [x] **Auditoria de Não-Regressão:**
   - Testar uso de consumíveis com `[A]`.
   - Testar abertura de menu de contexto em itens.
   - Testar comparação de equipamentos no DetailCard.
   - Testar arrastar/mover itens com o mouse.
-- [ ] **Atualização do `README.md`:**
+- [x] **Atualização do `README.md`:**
   - Marcar o item como concluído:
     `- [x] Painel de Configurações do Virtual Sort (substituir o botão 'Organizar' das bolsas por um atalho/botão que abre as opções e prioridades da ordenação virtual)`
-- **🛑 APROVAÇÃO FINAL:** Entrega formalizada para o PO.
+- **🛑 APROVAÇÃO FINAL:** Entrega formalizada e aprovada pelo PO.
 
 ---
 
